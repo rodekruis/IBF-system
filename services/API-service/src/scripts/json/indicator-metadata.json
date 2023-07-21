@@ -77,7 +77,7 @@
     "weightvar": null,
     "order": 1,
     "dynamic": true,
-    "unit": "number of people",
+    "unit": "no. of people",
     "description": {
       "EGY": {
         "heavy-rain": "Number of people exposed is calculated by the population living in the rainfall extent area within the governorates currently triggered. The number of people and the rainfall extent are derived from the below sources.<br /><br />Source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a><br /><br />Source Rainfall Extent: Global Ensemble Forecast System (GEFS) is a global weather forecast model produced by the NOAA's National Centers for Environmental Prediction (NCEP). Dozens of atmospheric forecast variables up to 16 days in the future, including precipitation, are available through this dataset.<br>The Rainfall Extent layer shows areas where forecasted GEFS precipitation occurrence exceeds defined thresholds."
@@ -129,7 +129,7 @@
     "weightvar": null,
     "order": 1,
     "dynamic": true,
-    "unit": "number of people",
+    "unit": "no. of people",
     "description": {
       "PHL": {
         "typhoon": "<p>The number of people affected is calculated based on the predicted number of completely damaged houses, which is derived from the typhoon impact predicting model. To derive a methodology to estimate the number of affected people from a predicted number of completely damaged houses, we performed a log fit between the number of completely damaged houses and the number of affected people for past typhoon events using data derived from DROMIC reports. To estimate potential number of affected population this formula is applied to the predicted number of damaged houses. <p> "
@@ -194,7 +194,7 @@
     "weightvar": null,
     "order": 2,
     "dynamic": false,
-    "unit": "number of people",
+    "unit": "no. of people",
     "description": {
       "EGY": {
         "heavy-rain": "Population data is aggregated per administrative area, from the following original source (Population Data): High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
