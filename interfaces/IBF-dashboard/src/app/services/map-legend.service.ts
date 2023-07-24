@@ -356,7 +356,7 @@ export class MapLegendService {
   private layerTitle(label: string, unit?: string): string {
     return `<ion-row style="margin-top: 8px; margin-bottom: 8px;">
       <ion-label><strong>${label}${
-      unit ? '(' + unit + ')' : ''
+      unit ? ' (' + unit + ')' : ''
     }</strong></ion-label>
     </ion-row>`;
   }
