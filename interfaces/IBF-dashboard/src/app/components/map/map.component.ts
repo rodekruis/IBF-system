@@ -310,14 +310,28 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     const layersToShow = this.layers
       .filter((l) => l.active && l.group !== IbfLayerGroup.adminRegions)
-      .sort((layer1, layer2) => layer1.order - layer2.order);
+      .sort((layer1, layer2) => {
+        if (layer1.order < layer2.order) {
+          return -1;
+        }
+        if (layer1.order > layer2.order) {
+          return 1;
+        }
+
+        return 0;
+      });
 
     this.legendDiv.innerHTML = this.mapLegendService.getLegendTitle();
     for (const layer of layersToShow) {
       let element = ``;
       switch (layer.type) {
         case IbfLayerType.point:
-          element = this.mapLegendService.getPointLegendString(layer);
+          const exposed =
+            layersToShow.indexOf(layer) >
+            layersToShow.indexOf(
+              layersToShow.find((l) => l.name === layer.name),
+            );
+          element = this.mapLegendService.getPointLegendString(layer, exposed);
           break;
         case IbfLayerType.shape:
           element = this.mapLegendService.getShapeLegendString(layer);

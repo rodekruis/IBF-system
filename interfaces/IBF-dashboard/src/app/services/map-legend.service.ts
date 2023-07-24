@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Subscription } from 'rxjs';
 import { Country, DisasterType } from '../models/country.model';
 import { breakKey } from '../models/map.model';
 import { DisasterTypeKey } from '../types/disaster-type-key';
@@ -11,22 +10,24 @@ import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
 import { MapService } from './map.service';
 
+enum SingleRowLegendType {
+  fullSquare = 'full-square',
+  fullSquareGradient = 'full-square-gradient',
+  emptySquare = 'empty-square',
+  line = 'line',
+  pin = 'pin',
+}
 @Injectable({
   providedIn: 'root',
 })
 export class MapLegendService {
-  private legendDivTitle = `<div style='margin-bottom: 8px'><strong>Map Legend</strong></div>`;
+  private legendDivTitle = `<div style='margin-bottom: 16px'><strong>Map Legend</strong></div>`;
 
   public eventState: EventState;
   private country: Country;
   private disasterType: DisasterType;
 
-  private initialEventStateSubscription: Subscription;
-  private manualEventStateSubscription: Subscription;
-  private countrySubscription: Subscription;
-  private disasterTypeSubscription: Subscription;
-
-  layerIconURLPrefix = 'assets/markers/';
+  private layerIconURLPrefix = 'assets/markers/';
   private layerIcon = {
     [IbfLayerName.glofasStations]: 'glofas-station-no-trigger.svg',
     [IbfLayerName.typhoonTrack]: 'typhoon-track.png',
@@ -46,19 +47,19 @@ export class MapLegendService {
     private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
   ) {
-    this.initialEventStateSubscription = this.eventService
+    this.eventService
       .getInitialEventStateSubscription()
       .subscribe(this.onEventStateChange);
 
-    this.manualEventStateSubscription = this.eventService
+    this.eventService
       .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
 
-    this.countrySubscription = this.countryService
+    this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
 
-    this.disasterTypeSubscription = this.disasterTypeService
+    this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
   }
@@ -67,23 +68,25 @@ export class MapLegendService {
     return this.legendDivTitle;
   }
 
-  public getPointLegendString(layer: IbfLayer): string {
-    // hardcoded exception to center vertically typhoon icon
-    const paddingTop =
-      layer.name === IbfLayerName.typhoonTrack ? '; padding-top: 3px' : '';
-
-    return `<ion-row style='padding: 4px '><div style='height: 24px; width: 16px; margin-right: 4px${paddingTop}'><img src='${
-      this.layerIconURLPrefix
-    }${
-      this.layerIcon[layer.name]
-    }' /></div><ion-label style='padding-top: 2px'>${
-      layer.label
-    }</ion-label> </ion-row>`;
+  public getPointLegendString(layer: IbfLayer, exposed: boolean): string {
+    const exposure = exposed ? '-exposed' : '';
+    return this.singleRowLegend(
+      SingleRowLegendType.pin,
+      this.layerIconURLPrefix +
+        this.layerIcon[layer.name].slice(0, -4) +
+        exposure +
+        this.layerIcon[layer.name].slice(-4),
+      layer.label,
+    );
   }
 
   public getShapeLegendString(layer: IbfLayer): string {
     if (layer.name === IbfLayerName.alertThreshold) {
-      return `<ion-row style='padding: 4px'><div style="width: 16px; height: 16px; border:2px solid red; margin-right: 4px"></div><ion-label>${layer.label}</ion-label></ion-row>`;
+      return this.singleRowLegend(
+        SingleRowLegendType.emptySquare,
+        'red',
+        layer.label,
+      );
     }
 
     if (!layer.data) {
@@ -116,36 +119,37 @@ export class MapLegendService {
 
     const getLabel = this.getLabel(grades, layer, labels);
 
-    let element = '<div style="padding: 4px">';
-    element +=
-      `<strong>${layer.label}` +
-      (layer.unit ? ' (' + layer.unit + ')' : '') +
-      '</strong>';
+    let element = '<div>';
+    element += this.layerTitle(layer.label, layer.unit);
 
     const noDataEntryFound = layer.data?.features.find(
       (f) => f.properties?.indicators[layer.name] === null,
     );
     element += `<div style='margin-top: 8px'>`;
     if (noDataEntryFound) {
-      element += `<i style="background:${this.mapService.state.noDataColor}"></i> No data<br>`;
+      element += this.singleRowLegend(
+        SingleRowLegendType.fullSquareGradient,
+        this.mapService.state.noDataColor,
+        'No data',
+      );
     }
 
     for (let i = 0; i < grades.length; i++) {
       if (grades[i] !== null && (i === 0 || grades[i] > grades[i - 1])) {
-        element += `<i style="background:${getColor(
-          grades[i + 1],
-        )}"></i> ${getLabel(i)}`;
+        element += this.singleRowLegend(
+          SingleRowLegendType.fullSquareGradient,
+          getColor(grades[i + 1]),
+          getLabel(i),
+        );
       }
     }
-    element += `</div>`;
-
-    element += '</div>';
+    element += `</div></div>`;
 
     return element;
   }
 
   public getWmsLegendString(layer: IbfLayer): string {
-    let element = '<div style="padding: 4px">';
+    let element = '<div>';
     const typeKey = 'type';
     let legendType = layer.legendColor[this.country.countryCodeISO3][typeKey];
     const valueKey = 'value';
@@ -165,27 +169,49 @@ export class MapLegendService {
 
     switch (legendType) {
       case wmsLegendType.exposureLine:
-        element += `<ion-row><div style="width: 16px; height: 16px; background:${value[0]}; ${lineBorderStyle} margin-right: 4px"></div><ion-label>Exposed ${layer.label}</ion-label></ion-row>`;
-        element += `<ion-row style="margin-top: 4px"><div style="width: 16px; height: 16px; background:${value[1]}; ${lineBorderStyle} margin-right: 4px"></div><ion-label>Non Exposed ${layer.label}</ion-label></ion-row>`;
+        element += this.layerTitle(layer.label);
+        element += this.singleRowLegend(
+          SingleRowLegendType.line,
+          value[0],
+          'Exposed ' + layer.label,
+        );
+        element += this.singleRowLegend(
+          SingleRowLegendType.line,
+          value[1],
+          'Exposed ' + layer.label,
+        );
         break;
       case wmsLegendType.exposureSquare:
-        element += `<ion-row><div style="width: 16px; height: 16px; background:${value[0]}; border: 7px 0 solid #fff; margin-right: 4px"></div><ion-label>Exposed ${layer.label}</ion-label></ion-row>`;
-        element += `<ion-row style="margin-top: 4px"><div style="width: 16px; height: 16px; background:${value[1]}; margin-right: 4px"></div><ion-label>Non Exposed ${layer.label}</ion-label></ion-row>`;
+        element += this.layerTitle(layer.label);
+        element += this.singleRowLegend(
+          SingleRowLegendType.fullSquare,
+          value[0],
+          'Exposed ' + layer.label,
+        );
+        element += this.singleRowLegend(
+          SingleRowLegendType.fullSquare,
+          value[1],
+          'Exposed ' + layer.label,
+        );
         break;
       case wmsLegendType.gradient:
-        element +=
-          `<strong>${layer.label}` +
-          (layer.unit ? ' (' + layer.unit + ')' : '') +
-          '</strong>' +
-          '<ion-row style="margin-top: 2px">';
+        element += this.layerTitle(layer.label, layer.unit);
 
+        element += '<ion-row>';
         for (const color of value) {
-          element += `<div style="width: 16px; height: 16px; background:${color}"></div>`;
+          element += `<div style="width: 14px; height: 14px; background:${color}"></div>`;
         }
         element += '</ion-row>';
+        element += `<ion-row style="margin-top: 4px"><ion-label>Low</ion-label><ion-label style="margin-left: ${
+          value.length === 3 ? '14px' : '70px'
+        };">High</ion-label></ion-row>`;
         break;
       case wmsLegendType.square:
-        element += `<ion-row><div style="width: 16px; height: 16px; background:${value[0]}; margin-right: 4px"></div><ion-label>${layer.label}</ion-label></ion-row>`;
+        element += this.singleRowLegend(
+          SingleRowLegendType.fullSquare,
+          value[0],
+          layer.label,
+        );
         break;
       default:
         break;
@@ -277,4 +303,54 @@ export class MapLegendService {
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
   };
+
+  private singleRowLegend = (
+    type: SingleRowLegendType,
+    identifier: string,
+    label: string,
+  ) => {
+    const rowStyle =
+      type === SingleRowLegendType.fullSquareGradient
+        ? 'style="margin-bottom: 0px; margin-top: 0px; height: 14px;"'
+        : 'style="margin-bottom: 8px; margin-top: 8px;"';
+
+    const identifierHeight = type === SingleRowLegendType.pin ? 18 : 14;
+
+    const pinImg =
+      type === SingleRowLegendType.pin ? `<img src="${identifier}" />` : '';
+
+    let divStyle = `height: ${identifierHeight}px; width: 14px; margin-right: 4px; `;
+    switch (type) {
+      case SingleRowLegendType.fullSquare:
+      case SingleRowLegendType.fullSquareGradient:
+        divStyle += `background: ${identifier}`;
+        break;
+      case SingleRowLegendType.emptySquare:
+        divStyle += `border: 2px solid ${identifier}`;
+        break;
+      case SingleRowLegendType.line:
+        divStyle += `background: ${identifier}; border-color: #fff; border-style: solid; border-width: 6px 0;`;
+        break;
+      default:
+        break;
+    }
+
+    const labelStyle =
+      type === SingleRowLegendType.pin ? 'style="padding-top: 2px"' : '';
+
+    return `
+    <ion-row ${rowStyle}>
+      <div style="${divStyle}">${pinImg}</div>
+      <ion-label ${labelStyle}>${label}</ion-label>
+    </ion-row>
+    `;
+  };
+
+  private layerTitle(label: string, unit?: string): string {
+    return `<ion-row style="margin-top: 8px; margin-bottom: 8px;">
+      <ion-label><strong>${label}${
+      unit ? '(' + unit + ')' : ''
+    }</strong></ion-label>
+    </ion-row>`;
+  }
 }
