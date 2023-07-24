@@ -3,7 +3,12 @@ import { Country, DisasterType } from '../models/country.model';
 import { breakKey } from '../models/map.model';
 import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
-import { IbfLayer, IbfLayerName, wmsLegendType } from '../types/ibf-layer';
+import {
+  IbfLayer,
+  IbfLayerLabel,
+  IbfLayerName,
+  wmsLegendType,
+} from '../types/ibf-layer';
 import { NumberFormat } from '../types/indicator-group';
 import { CountryService } from './country.service';
 import { DisasterTypeService } from './disaster-type.service';
@@ -336,7 +341,9 @@ export class MapLegendService {
     }
 
     const labelStyle =
-      type === SingleRowLegendType.pin ? 'style="padding-top: 2px"' : '';
+      type === SingleRowLegendType.pin && label !== IbfLayerLabel.typhoonTrack
+        ? 'style="padding-top: 2px"'
+        : '';
 
     return `
     <ion-row ${rowStyle}>
