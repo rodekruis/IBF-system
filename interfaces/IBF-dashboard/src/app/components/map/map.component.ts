@@ -64,6 +64,7 @@ import { LeadTime } from 'src/app/types/lead-time';
 import { PlaceCode } from '../../models/place-code.model';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { PointMarkerService } from '../../services/point-marker.service';
+import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { TimelineState } from '../../types/timeline-state';
 import { IbfLayerThreshold } from './../../types/ibf-layer';
 
@@ -310,6 +311,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     const layersToShow = this.layers
       .filter((l) => l.active && l.group !== IbfLayerGroup.adminRegions)
+      .filter(
+        (value, index, self) =>
+          index === self.findIndex((t) => t.name === value.name),
+      ) // deduplicate based on name (for e.g. waterpoints_internal)
       .sort((layer1, layer2) => {
         if (layer1.order < layer2.order) {
           return -1;
@@ -322,30 +327,54 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       });
 
     this.legendDiv.innerHTML = this.mapLegendService.getLegendTitle();
+
     for (const layer of layersToShow) {
-      let element = ``;
+      let elements = [];
       switch (layer.type) {
         case IbfLayerType.point:
-          const exposed =
-            layersToShow.indexOf(layer) >
-            layersToShow.indexOf(
-              layersToShow.find((l) => l.name === layer.name),
+          if (this.isMultiLinePointLayer(layer.name)) {
+            for (const exposed of [false, true]) {
+              const element = this.mapLegendService.getPointLegendString(
+                layer,
+                exposed,
+              );
+              elements.push(element);
+            }
+          } else {
+            const element = this.mapLegendService.getPointLegendString(
+              layer,
+              false,
             );
-          element = this.mapLegendService.getPointLegendString(layer, exposed);
+            elements.push(element);
+          }
           break;
         case IbfLayerType.shape:
-          element = this.mapLegendService.getShapeLegendString(layer);
+          elements.push(this.mapLegendService.getShapeLegendString(layer));
           break;
         case IbfLayerType.wms:
-          element = this.mapLegendService.getWmsLegendString(layer);
+          elements.push(this.mapLegendService.getWmsLegendString(layer));
           break;
         default:
-          element = `<p id='legend-${layer.name}'>${layer.label}</p>`;
+          elements.push(`<p id='legend-${layer.name}'>${layer.label}</p>`);
           break;
       }
 
-      this.legendDiv.innerHTML += element;
+      for (const element of elements) {
+        this.legendDiv.innerHTML += element;
+      }
     }
+  }
+
+  private isMultiLinePointLayer(layerName: IbfLayerName): boolean {
+    return (
+      [
+        IbfLayerName.waterpointsInternal,
+        IbfLayerName.healthSites,
+        IbfLayerName.schools,
+      ].includes(layerName) &&
+      this.disasterType.disasterType === DisasterTypeKey.flashFloods &&
+      this.eventState.event?.activeTrigger
+    );
   }
 
   onMapReady(map: Map) {
