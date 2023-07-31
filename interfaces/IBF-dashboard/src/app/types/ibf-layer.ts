@@ -13,7 +13,7 @@ export class IbfLayerMetadata {
   label: IbfLayerLabel;
   type: IbfLayerType;
   active: string;
-  legendColor: string;
+  legendColor: JSON;
   leadTimeDependent: boolean;
   description: JSON;
 }
@@ -34,10 +34,17 @@ export class IbfLayer {
   wms?: IbfLayerWMS;
   data?: GeoJSON.FeatureCollection;
   leafletLayer?: Layer | LayerGroup | Marker | GeoJSON | MarkerClusterGroup;
-  legendColor?: string;
+  legendColor?: JSON | string;
   group?: IbfLayerGroup;
   dynamic?: boolean;
   isLoading?: boolean;
+}
+
+export enum wmsLegendType {
+  exposureLine = 'exposure-line',
+  exposureSquare = 'exposure-square',
+  gradient = 'gradient',
+  square = 'square',
 }
 
 export enum IbfLayerThreshold {
@@ -148,12 +155,15 @@ export class IbfLayerWMS {
   crs?: CRS;
   transparent: boolean;
   viewparams?: string;
+  leadTimeDependent: boolean;
 }
 
 export enum IbfLayerGroup {
   aggregates = 'aggregates',
   outline = 'outline',
   adminRegions = 'adminRegions',
+  point = 'point',
+  wms = 'wms',
 }
 
 export class ColorBreaks {

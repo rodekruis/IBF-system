@@ -34,9 +34,9 @@ export class LayerMetadataEntity {
   @IsIn(['wms', 'poi', 'shape'])
   public type: string;
 
-  @ApiProperty({ example: '#be9600' })
-  @Column({ nullable: true })
-  public legendColor: string;
+  @ApiProperty()
+  @Column('json', { nullable: true, default: null })
+  public legendColor: JSON;
 
   @ApiProperty({ example: false })
   @Column({ nullable: true })

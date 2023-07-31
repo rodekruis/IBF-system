@@ -41,7 +41,7 @@ export class PointDataController {
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
-  @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
+  @ApiQuery({ name: 'disasterType', required: true, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
@@ -53,7 +53,7 @@ export class PointDataController {
     return await this.pointDataService.getPointDataByCountry(
       params.pointDataCategory,
       params.countryCodeISO3,
-      query.leadTime,
+      query.disasterType,
     );
   }
 

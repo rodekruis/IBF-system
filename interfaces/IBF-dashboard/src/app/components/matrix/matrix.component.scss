@@ -3,7 +3,7 @@
   top: 10px;
   bottom: 0;
   right: 0;
-  width: 25%;
+  width: 28%;
 
   ion-menu {
     --width: 100%;
@@ -11,105 +11,90 @@
 
     ion-content {
       --background: transparent;
+    }
 
-      ion-list {
-        ion-item {
-          --min-height: 32px;
-          --inner-padding-end: 0;
-          --border-color: var(--ion-color-ibf-no-alert-primary);
-
-          cursor: pointer;
-
-          ion-row {
-            height: 100%;
-            width: 100%;
-
-            .layer-control-info-col {
-              display: flex;
-            }
-
-            .point-layer {
-              background-color: var(--ion-color-ibf-no-alert-primary);
-              background-repeat: no-repeat;
-              background-position: center;
-              background-size: contain;
-              padding: 4px;
-              background-origin: content-box;
-            }
-
-            .glofas-layer {
-              background-image: url('../../../assets/markers/trigger-icon.svg');
-            }
-            .typhoon-track-layer {
-              background-image: url('../../../assets/markers/typhoon-track.png');
-            }
-            .red-cross-layer {
-              background-image: url('../../../assets/markers/red-cross-icon.svg');
-            }
-            .dam-layer {
-              background-image: url('../../../assets/markers/dam-icon.svg');
-            }
-            .waterpoint-layer {
-              background-image: url('../../../assets/markers/water-point-icon.svg');
-            }
-            .health-layer {
-              background-image: url('../../../assets/markers/health-center-icon.svg');
-            }
-            .evacuation-center-layer {
-              background-image: url('../../../assets/markers/evacuation-center-icon.svg');
-            }
-            .school-layer {
-              background-image: url('../../../assets/markers/school-icon.svg');
-            }
-            .community-notification-layer {
-              background-image: url('../../../assets/markers/community-notification-icon.svg');
-            }
-            .outline-layer {
-              border: solid;
-              border-color: var(--ion-color-ibf-outline-red) !important;
-              border-width: 3px !important;
-              background: #2c3136 !important;
-            }
-            .aggregate-layer-triggered {
-              background-image: url('../../../assets/icons/Legend_aggregate_layer-triggered.svg') !important;
-              background-size: contain !important;
-            }
-            .aggregate-layer-non-triggered {
-              background-image: url('../../../assets/icons/Legend_aggregate_layer-non-triggered.svg') !important;
-              background-size: contain !important;
-            }
-            .raster-layer-raifall-forecast {
-              background-image: url('../../../assets/icons/Legend_raster_layer_rainfall_forecast.svg') !important;
-              background-size: contain !important;
-            }
-
-            .layer-control-label-col {
-              ion-item {
-                --background: transparent;
-
-                ion-label {
-                  text-transform: capitalize;
-                  line-height: 1.2;
-                  padding: 4px 8px;
-                  font-size: 11px;
-                }
-              }
-            }
-
-            .layer-control-info-icon {
-              border-radius: 5px;
-            }
-          }
-        }
-      }
+    ion-content::part(scroll),
+    ion-content::part(background) {
+      height: max-content;
     }
   }
 
+  ion-menu::part(backdrop) {
+    display: none;
+    background: transparent;
+  }
   ion-menu-toggle {
     cursor: pointer;
 
     ion-toolbar {
       --min-height: 36px;
+    }
+  }
+  ion-row {
+    min-height: 36px;
+    border: 1px solid var(--ion-color-ibf-no-alert-primary);
+    border-top: none;
+  }
+
+  ion-item {
+    width: 100%;
+    --min-height: 36px;
+    --padding-bottom: 0;
+    --padding-top: 0;
+    --padding-start: 4px;
+    --padding-end: 4px;
+    --inner-padding-start: 0;
+    --inner-padding-end: 0;
+
+    ion-spinner {
+      width: 18px;
+      height: 18px;
+    }
+
+    .matrix-toggler {
+      width: 18px;
+      height: 18px;
+      background-color: #fff;
+      border: 2px solid var(--ion-color-ibf-no-alert-primary);
+      cursor: pointer;
+
+      &.matrix-check {
+        border-radius: 2px;
+      }
+
+      &.matrix-radio {
+        border-radius: 50%;
+      }
+
+      .matrix-check-mark {
+        width: 16px;
+        height: 16px;
+        background-color: var(--ion-color-ibf-no-alert-primary);
+        stroke: #fff;
+        stroke-width: 4px;
+      }
+      .matrix-radio-circle {
+        width: 14px;
+        height: 14px;
+        background-color: var(--ion-color-ibf-no-alert-primary);
+        border: 2px solid #fff;
+        border-radius: 50%;
+      }
+    }
+
+    ion-label {
+      width: 80%;
+      font-size: 12px;
+    }
+
+    .info-button {
+      --background-hover: #fff;
+      --ripple-color: #fff;
+    }
+    .info-icon {
+      font-size: 24px;
+
+      cursor: pointer;
     }
   }
 }

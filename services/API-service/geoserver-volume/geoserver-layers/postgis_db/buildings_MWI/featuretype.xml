@@ -30,7 +30,7 @@
     <entry key="JDBC_VIRTUAL_TABLE">
       <virtualTable>
         <name>buildings_MWI</name>
-        <sql>SELECT * FROM &quot;IBF-app&quot;.buildings_exposure_per_lead_time WHERE &quot;leadTime&quot; IS NULL OR &quot;leadTime&quot; = &apos;%leadTime%&apos;
+        <sql>SELECT * FROM &quot;IBF-app&quot;.buildings_exposure_per_lead_time
 </sql>
         <escapeSql>false</escapeSql>
         <geometry>

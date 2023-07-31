@@ -84,6 +84,18 @@ export class MapService {
   private disasterType: DisasterType;
   private placeCode: PlaceCode;
 
+  private aggregatesToExclude = {
+    MWI: {
+      [DisasterTypeKey.flashFloods]: [
+        'nr_affected_roads',
+        'nr_affected_schools',
+        'nr_affected_clinics',
+        'nr_affected_waterpoints',
+        'nr_affected_buildings',
+      ],
+    },
+  };
+
   constructor(
     private countryService: CountryService,
     private adminLevelService: AdminLevelService,
@@ -235,6 +247,7 @@ export class MapService {
       name: IbfLayerName.glofasStations,
       label: IbfLayerLabel.glofasStations,
       type: IbfLayerType.point,
+      group: IbfLayerGroup.point,
       description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(
@@ -273,6 +286,7 @@ export class MapService {
       name: IbfLayerName.typhoonTrack,
       label: IbfLayerLabel.typhoonTrack,
       type: IbfLayerType.point,
+      group: IbfLayerGroup.point,
       description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(
@@ -300,7 +314,7 @@ export class MapService {
           .getPointData(
             this.country.countryCodeISO3,
             layerName,
-            this.timelineState.activeLeadTime,
+            this.disasterType.disasterType,
           )
           .subscribe((pointData) => {
             this.addPointDataLayer(layer, layerName, pointData);
@@ -320,6 +334,7 @@ export class MapService {
       name: layerName,
       label: layer.label,
       type: IbfLayerType.point,
+      group: IbfLayerGroup.point,
       description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(layerName)
@@ -352,6 +367,7 @@ export class MapService {
       name: IbfLayerName.waterpoints,
       label: IbfLayerLabel.waterpoints,
       type: IbfLayerType.point,
+      group: IbfLayerGroup.point,
       description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.includes(
         IbfLayerName.waterpoints,
@@ -399,7 +415,23 @@ export class MapService {
   }
 
   public loadAggregateLayer(indicator: Indicator) {
-    if (this.country) {
+    if (!this.country || !this.disasterType) {
+      return;
+    }
+
+    Object.keys(this.aggregatesToExclude).includes(
+      this.country.countryCodeISO3,
+    );
+
+    if (
+      !this.aggregatesToExclude[this.country.countryCodeISO3] ||
+      !this.aggregatesToExclude[this.country.countryCodeISO3][
+        this.disasterType.disasterType
+      ] ||
+      !this.aggregatesToExclude[this.country.countryCodeISO3][
+        this.disasterType.disasterType
+      ].includes(indicator.name)
+    ) {
       const layerActive = this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(indicator.name)
         : this.getActiveState(indicator);
@@ -475,21 +507,11 @@ export class MapService {
     active: boolean,
     leadTimeDependent?: boolean,
   ) {
-    if (
-      leadTimeDependent &&
-      !this.eventState.event &&
-      this.eventState.events.length
-    ) {
-      // don't show wms-layers in overview-mode of multi-event
-      return;
-    }
-    const leadTime = !leadTimeDependent
-      ? null
-      : this.timelineState.activeLeadTime;
     this.addLayer({
       name: layer.name,
       label: layer.label,
       type: IbfLayerType.wms,
+      group: IbfLayerGroup.wms,
       description: this.getPopoverText(layer),
       active,
       show: true,
@@ -499,9 +521,7 @@ export class MapService {
       order: 10,
       wms: {
         url: environment.geoserverUrl,
-        name: `ibf-system:${layer.name}_${leadTime ? `${leadTime}_` : ''}${
-          this.country.countryCodeISO3
-        }`,
+        leadTimeDependent,
         format: 'image/png',
         version: '1.1.0',
         attribution: '510 Global',
@@ -676,7 +696,7 @@ export class MapService {
         .getPointData(
           this.country.countryCodeISO3,
           layerName,
-          this.timelineState.activeLeadTime,
+          this.disasterType.disasterType,
         )
         .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.adminRegions) {

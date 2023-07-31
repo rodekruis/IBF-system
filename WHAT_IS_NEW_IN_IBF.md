@@ -2,6 +2,10 @@
 
 Find here the latest changes to the IBF-system. See notes at the bottom.
 
+### 31-07-2023 (v0.251.0)
+
+- All IBF: Layer color/icon information moved from layer selection menu to map legend.
+
 ### 03-07-2023 (v0.250.1)
 
 - All IBF: various performance/speed improvements.
