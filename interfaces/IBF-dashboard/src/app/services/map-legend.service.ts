@@ -207,9 +207,9 @@ export class MapLegendService {
           element += `<div style="width: 14px; height: 14px; background:${color}"></div>`;
         }
         element += '</ion-row>';
-        element += `<ion-row style="margin-top: 4px"><ion-label>Low</ion-label><ion-label style="margin-left: ${
-          value.length === 3 ? '14px' : '70px'
-        };">High</ion-label></ion-row>`;
+        element += `<ion-row style="margin-top: 4px"><ion-label>Low</ion-label><ion-label style="margin-left: ${this.getWmsGradientCaptionMargin(
+          value.length,
+        )}px;">High</ion-label></ion-row>`;
         break;
       case wmsLegendType.square:
         element += this.singleRowLegend(
@@ -223,6 +223,12 @@ export class MapLegendService {
     }
     element += '</div>';
     return element;
+  }
+
+  private getWmsGradientCaptionMargin(gradientLength: number): number {
+    return gradientLength <= 4
+      ? (gradientLength - 2) * 14
+      : 7 + (gradientLength - 4) * 14;
   }
 
   private getFeatureColorByColorsAndColorThresholds = (
