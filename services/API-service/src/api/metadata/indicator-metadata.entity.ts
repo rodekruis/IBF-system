@@ -80,6 +80,10 @@ export class IndicatorMetadataEntity {
   @Column({ nullable: true })
   public unit: string;
 
+  @ApiProperty({ example: 'km' })
+  @Column({ nullable: true })
+  public aggregateUnit: string;
+
   @ApiProperty()
   @Column({ default: false })
   public lazyLoad: boolean;

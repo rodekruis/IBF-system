@@ -185,11 +185,11 @@ export class ApiService {
   getPointData(
     countryCodeISO3: string,
     layerName: IbfLayerName,
-    leadTime?: LeadTime,
+    disasterType: DisasterTypeKey,
   ): Observable<GeoJSON.FeatureCollection> {
     let params = new HttpParams();
-    if (leadTime) {
-      params = params.append('leadTime', leadTime);
+    if (disasterType) {
+      params = params.append('disasterType', disasterType);
     }
     return this.get(
       `point-data/${layerName}/${countryCodeISO3}`,

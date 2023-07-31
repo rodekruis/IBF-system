@@ -5,7 +5,36 @@
     "name": "flood_extent",
     "label": "Flood extent",
     "type": "wms",
-    "legendColor": "#d7301f",
+    "legendColor": {
+      "ETH": {
+        "floods": { "type": "square", "value": ["#d7301f"] }
+      },
+      "KEN": {
+        "floods": { "type": "square", "value": ["#d7301f"] }
+      },
+      "MWI": {
+        "floods": { "type": "square", "value": ["#d7301f"] },
+        "flash-floods": {
+          "type": "gradient",
+          "value": ["#ffff00", "#ffa500", "#d7301f"]
+        }
+      },
+      "PHL": {
+        "floods": {
+          "type": "gradient",
+          "value": ["#ffff00", "#ffa500", "#d7301f"]
+        }
+      },
+      "SSD": {
+        "floods": { "type": "square", "value": ["#d7301f"] }
+      },
+      "UGA": {
+        "floods": { "type": "square", "value": ["#d7301f"] }
+      },
+      "ZMB": {
+        "floods": { "type": "square", "value": ["#d7301f"] }
+      }
+    },
     "leadTimeDependent": true,
     "active": "if-trigger",
     "description": {
@@ -38,7 +67,24 @@
     "name": "rainfall_extent",
     "label": "Rainfall extent",
     "type": "wms",
-    "legendColor": "#d7301f",
+    "legendColor": {
+      "EGY": {
+        "type": "square",
+        "value": ["#d7301f"]
+      },
+      "UGA": {
+        "type": "gradient",
+        "value": [
+          "#ffff7f",
+          "#ffe200",
+          "#ffaa00",
+          "#ff8d00",
+          "#ff7100",
+          "#ff3800",
+          "#ff0000"
+        ]
+      }
+    },
     "leadTimeDependent": true,
     "active": "yes",
     "description": {
@@ -56,7 +102,18 @@
     "name": "rainfall_forecast",
     "label": "Rainfall forecast",
     "type": "wms",
-    "legendColor": "#ff8d00",
+    "legendColor": {
+      "type": "gradient",
+      "value": [
+        "#ffff7f",
+        "#ffe200",
+        "#ffaa00",
+        "#ff8d00",
+        "#ff7100",
+        "#ff3800",
+        "#ff0000"
+      ]
+    },
     "leadTimeDependent": true,
     "active": "no",
     "description": {
@@ -74,7 +131,7 @@
     "name": "population",
     "label": "Population",
     "type": "wms",
-    "legendColor": "#737373",
+    "legendColor": { "type": "square", "value": ["#737373"] },
     "leadTimeDependent": false,
     "active": "no",
     "description": {
@@ -118,7 +175,7 @@
     "name": "cropland",
     "label": "Cropland",
     "type": "wms",
-    "legendColor": "#DCF064",
+    "legendColor": { "type": "square", "value": ["#dcf064"] },
     "leadTimeDependent": false,
     "active": "no",
     "description": {
@@ -149,7 +206,7 @@
     "name": "grassland",
     "label": "Grassland",
     "type": "wms",
-    "legendColor": "#737373",
+    "legendColor": { "type": "square", "value": ["#be9600"] },
     "leadTimeDependent": false,
     "active": "no",
     "description": {
@@ -180,7 +237,7 @@
     "name": "riceland",
     "label": "Riceland",
     "type": "wms",
-    "legendColor": "#DCF064",
+    "legendColor": { "PHL": { "type": "square", "value": ["#dcf064"] } },
     "leadTimeDependent": false,
     "active": "no",
     "description": {
@@ -237,14 +294,7 @@
   },
   {
     "countryCodes": "UGA,ZMB,KEN,ETH,ZWE,PHL,MWI,SSD",
-    "disasterTypes": [
-      "floods",
-      "heavy-rain",
-      "dengue",
-      "malaria",
-      "drought",
-      "flash-floods"
-    ],
+    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria", "drought"],
     "name": "red_cross_branches",
     "label": "Red Cross branches",
     "type": "point",
@@ -395,7 +445,12 @@
     "name": "flood_susceptibility",
     "label": "Flood susceptibility",
     "type": "wms",
-    "legendColor": "#3690c0",
+    "legendColor": {
+      "EGY": {
+        "type": "gradient",
+        "value": ["#d0d1e6", "#a6bddb", "#74a9cf", "#3690c0"]
+      }
+    },
     "leadTimeDependent": false,
     "active": "no",
     "description": {
@@ -482,7 +537,13 @@
     "label": "Roads",
     "type": "wms",
     "leadTimeDependent": false,
-    "active": "no"
+    "active": "no",
+    "legendColor": {
+      "MWI": {
+        "type": "exposure-line",
+        "value": ["#E80C0C", "#33A02C"]
+      }
+    }
   },
   {
     "countryCodes": "MWI",
@@ -491,6 +552,12 @@
     "label": "Buildings",
     "type": "wms",
     "leadTimeDependent": false,
-    "active": "no"
+    "active": "no",
+    "legendColor": {
+      "MWI": {
+        "type": "exposure-square",
+        "value": ["#C70000", "#33A02C"]
+      }
+    }
   }
 ]

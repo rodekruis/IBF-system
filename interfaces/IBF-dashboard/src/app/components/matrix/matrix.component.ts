@@ -45,7 +45,11 @@ export class MatrixComponent implements OnDestroy {
     this.layerSubscription.unsubscribe();
   }
 
-  private onLayerChange = (newLayer) => {
+  private onLayerChange = (newLayer: IbfLayer) => {
+    if (newLayer && newLayer.name === 'alert_threshold') {
+      return;
+    }
+
     if (newLayer) {
       const newLayerIndex = this.layers.findIndex(
         (layer) => layer.name === newLayer.name,
@@ -113,5 +117,15 @@ export class MatrixComponent implements OnDestroy {
     return this.layers
       .filter((layer) => layer.order >= 0)
       .sort(this.sortLayers);
+  }
+
+  public isCheckBox(layerGroup: IbfLayerGroup): boolean {
+    return [IbfLayerGroup.point, IbfLayerGroup.wms].includes(layerGroup);
+  }
+
+  public isRadioButton(layerGroup: IbfLayerGroup): boolean {
+    return [IbfLayerGroup.aggregates, IbfLayerGroup.outline].includes(
+      layerGroup,
+    );
   }
 }

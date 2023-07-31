@@ -116,7 +116,9 @@ export class MetadataService {
     });
     layerEntity.label = layer.label;
     layerEntity.type = layer.type;
-    layerEntity.legendColor = layer.legendColor;
+    layerEntity.legendColor = layer.legendColor
+      ? JSON.parse(JSON.stringify(layer.legendColor))
+      : null;
     layerEntity.leadTimeDependent = layer.leadTimeDependent;
     layerEntity.active = layer.active;
     layerEntity.description = JSON.parse(
