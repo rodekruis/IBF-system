@@ -34,7 +34,7 @@ export class MapLegendService {
 
   private layerIconURLPrefix = 'assets/markers/';
   private layerIcon = {
-    [IbfLayerName.glofasStations]: 'glofas-station-no-trigger.svg',
+    [IbfLayerName.glofasStations]: 'glofas-station.svg',
     [IbfLayerName.typhoonTrack]: 'typhoon-track.png',
     [IbfLayerName.redCrossBranches]: 'red-cross-marker.svg',
     [IbfLayerName.damSites]: 'dam-marker.svg',
@@ -82,6 +82,20 @@ export class MapLegendService {
         exposedString +
         this.layerIcon[layer.name].slice(-4),
       `${exposed ? 'Exposed ' : ''}${layer.label}`,
+    );
+  }
+
+  public getGlofasPointLegendString(
+    layer: IbfLayer,
+    glofasState: string,
+  ): string {
+    return this.singleRowLegend(
+      SingleRowLegendType.pin,
+      this.layerIconURLPrefix +
+        this.layerIcon[layer.name].slice(0, -4) +
+        glofasState +
+        this.layerIcon[layer.name].slice(-4),
+      `${layer.label}${glofasState.replace(new RegExp('-', 'g'), ' ')}`,
     );
   }
 

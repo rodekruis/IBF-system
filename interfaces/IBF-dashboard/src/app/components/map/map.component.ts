@@ -340,6 +340,14 @@ export class MapComponent implements AfterViewInit, OnDestroy {
               );
               elements.push(element);
             }
+          } else if (layer.name === IbfLayerName.glofasStations) {
+            for (const glofasState of this.getGlofasStationStates()) {
+              const element = this.mapLegendService.getGlofasPointLegendString(
+                layer,
+                `-${glofasState}-trigger`,
+              );
+              elements.push(element);
+            }
           } else {
             const element = this.mapLegendService.getPointLegendString(
               layer,
@@ -374,6 +382,14 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       ].includes(layerName) &&
       this.disasterType.disasterType === DisasterTypeKey.flashFloods &&
       this.eventState.event?.activeTrigger
+    );
+  }
+
+  private getGlofasStationStates() {
+    return Object.keys(
+      this.country?.countryDisasterSettings.find(
+        (s) => s.disasterType === this.disasterType?.disasterType,
+      )?.eapAlertClasses,
     );
   }
 
