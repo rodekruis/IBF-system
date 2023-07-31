@@ -314,21 +314,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       .filter(
         (value, index, self) =>
           index === self.findIndex((t) => t.name === value.name),
-      ) // deduplicate based on name (for e.g. waterpoints_internal)
-      .sort((layer1, layer2) => {
-        if (layer1.order < layer2.order) {
-          return -1;
-        }
-        if (layer1.order > layer2.order) {
-          return 1;
-        }
-
-        return 0;
-      });
+      ); // deduplicate based on name (for e.g. waterpoints_internal)
 
     this.legendDiv.innerHTML = this.mapLegendService.getLegendTitle();
-
-    for (const layer of layersToShow) {
+    for (const layer of layersToShow.sort(this.sortLayers)) {
       let elements = [];
       switch (layer.type) {
         case IbfLayerType.point:
@@ -868,4 +857,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     this.closestPointToTyphoon = Math.max.apply(null, dates);
   }
+
+  private sortLayers = (a: IbfLayer, b: IbfLayer) =>
+    a.order > b.order ? 1 : a.order === b.order ? 0 : -1;
 }

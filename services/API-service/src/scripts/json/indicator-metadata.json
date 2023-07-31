@@ -20,7 +20,7 @@
     "aggregateIndicator": "",
     "numberFormatAggregate": "decimal0",
     "weightvar": null,
-    "order": -20,
+    "order": -100,
     "dynamic": true,
     "lazyLoad": true,
     "description": {
