@@ -170,7 +170,7 @@ export class EmailService {
         }),
       },
       {
-        replaceKey: '(LEAD-DATE-LIST-LONG)',
+        replaceKey: '(EVENT-LIST-BODY)',
         replaceValue: (
           await this.getLeadTimeList(country, disasterType, events, date)
         )['leadTimeListLong'],
@@ -227,9 +227,8 @@ export class EmailService {
       },
       {
         replaceKey: '(DISASTER-TYPE)',
-        replaceValue: this.notificationContentService.firstCharOfWordsToUpper(
-          (await this.notificationContentService.getDisaster(disasterType))
-            .label,
+        replaceValue: await this.notificationContentService.getDisasterTypeLabel(
+          disasterType,
         ),
       },
       {
@@ -303,9 +302,8 @@ export class EmailService {
       },
       {
         replaceKey: '(DISASTER-TYPE)',
-        replaceValue: this.notificationContentService.firstCharOfWordsToUpper(
-          (await this.notificationContentService.getDisaster(disasterType))
-            .label,
+        replaceValue: await this.notificationContentService.getDisasterTypeLabel(
+          disasterType,
         ),
       },
       {
@@ -348,7 +346,7 @@ export class EmailService {
         './src/api/notification/email/html/header-event-overview.html',
         'utf8',
       )
-      .replace('(LEAD-DATE-LIST-SHORT)', leadTimeListShort);
+      .replace('(EVENT-LIST-HEADER)', leadTimeListShort);
   }
 
   private getVideoPdfLinks(videoLink: string, pdfLink: string) {
@@ -422,26 +420,28 @@ export class EmailService {
           );
           if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
             // We are hack-misusing 'extraInfo' being filled as a proxy for typhoonNoLandfallYet-boolean
-            leadTimeListShort = `${leadTimeListShort}<li>${
+            leadTimeListShort = `${leadTimeListShort}${
               (
                 await this.notificationContentService.getLeadTimeListEvent(
+                  country,
                   event,
                   disasterType,
                   leadTime.leadTimeName as LeadTime,
                   date,
                 )
               ).short
-            }</li>`;
-            leadTimeListLong = `${leadTimeListLong}<li>${
+            }`;
+            leadTimeListLong = `${leadTimeListLong}${
               (
                 await this.notificationContentService.getLeadTimeListEvent(
+                  country,
                   event,
                   disasterType,
                   leadTime.leadTimeName as LeadTime,
                   date,
                 )
               ).long
-            }</li>`;
+            }`;
           }
         }
       }
@@ -583,6 +583,7 @@ export class EmailService {
       <strong>${
         (
           await this.notificationContentService.getLeadTimeListEvent(
+            country,
             event,
             disasterType,
             leadTime.leadTimeName as LeadTime,

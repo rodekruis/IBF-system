@@ -329,6 +329,7 @@ export class WhatsappService {
     let eventList = '';
     for await (const event of activeEvents) {
       const eventString = await this.notificationContentService.getLeadTimeListEvent(
+        country,
         event,
         disasterType,
         event.firstLeadTime,

@@ -219,6 +219,7 @@ export class NotificationContentService {
   }
 
   public async getLeadTimeListEvent(
+    country: CountryEntity,
     event: EventSummaryCountry,
     disasterType: DisasterType,
     leadTime: LeadTime,
@@ -226,9 +227,7 @@ export class NotificationContentService {
   ) {
     const [leadTimeValue, leadTimeUnit] = leadTime.split('-');
     const eventName = await this.getFormattedEventName(event, disasterType);
-    const triggerStatus = event.thresholdReached
-      ? 'Trigger (threshold reached)'
-      : 'Warning (threshold not reached)';
+    const triggerStatus = event.thresholdReached ? 'Trigger' : 'Warning';
     const dateTimePreposition = leadTimeUnit === 'month' ? 'in' : 'on';
     const dateAndTime = this.getFirstLeadTimeDate(
       Number(leadTimeValue),
@@ -249,20 +248,46 @@ export class NotificationContentService {
     const timestamp = disasterSpecificCopy.timestamp
       ? ` | ${disasterSpecificCopy.timestamp}`
       : '';
+
+    const triggeredAreas = await this.eventService.getTriggeredAreas(
+      country.countryCodeISO3,
+      disasterType,
+      country.countryDisasterSettings.find(d => d.disasterType === disasterType)
+        .defaultAdminLevel,
+      event.firstLeadTime,
+      event.eventName,
+    );
     return {
-      short: `${eventName}: ${
+      short: `${triggerStatus}: ${eventName} ${
         disasterSpecificCopy.extraInfo || leadTime === LeadTime.hour0
           ? leadTimeString
-          : `${dateAndTime}${timestamp} (${leadTimeString} from now)`
-      }`,
-      long: `${eventName} <strong>${triggerStatus}</strong>: ${
-        disasterSpecificCopy.eventStatus
-      }${
+          : `${dateAndTime}${timestamp}`
+      }<br />`,
+      long: `<strong>A ${triggerStatus} for ${eventName} was issued</strong>
+      <br /><br /> 
+      Forecasted: ${disasterSpecificCopy.eventStatus}${
         disasterSpecificCopy.extraInfo || leadTime === LeadTime.hour0
           ? ''
-          : ` ${dateTimePreposition} ${dateAndTime}${timestamp} (${leadTimeString} from now)`
-      }. ${disasterSpecificCopy.extraInfo}`,
+          : ` ${dateTimePreposition} ${dateAndTime}${timestamp}`
+      }. ${disasterSpecificCopy.extraInfo}
+      <br /><br /> 
+      There are ${
+        triggeredAreas.length
+      } exposed (ADMIN-AREA-PLURAL). They are listed below in order of (EXPOSURE-UNIT).
+      <br /><br /> 
+      This trigger was issued by the IBF portal on ${this.getFirstLeadTimeDate(
+        0,
+        leadTimeUnit,
+        new Date(event.startDate),
+      )}.
+      <br /><br />`,
     };
+  }
+
+  public async getDisasterTypeLabel(disasterType: DisasterType) {
+    return this.firstCharOfWordsToUpper(
+      (await this.getDisaster(disasterType)).label,
+    );
   }
 
   private async getDisasterSpecificCopy(
