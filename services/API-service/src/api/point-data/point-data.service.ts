@@ -35,7 +35,7 @@ export class PointDataService {
   public async getPointDataByCountry(
     pointDataCategory: PointDataEnum,
     countryCodeISO3: string,
-    leadTime?: LeadTime,
+    disasterType: DisasterType,
   ): Promise<GeoJson> {
     const attributes = [];
     const dto = this.getDtoPerPointDataCategory(pointDataCategory);
@@ -58,8 +58,8 @@ export class PointDataService {
         countryCodeISO3: countryCodeISO3,
       });
 
-    if (leadTime) {
-      const disasterType = DisasterType.FlashFloods; // TO DO: hard-code for now
+    // TO DO: hard-code for now
+    if (disasterType === DisasterType.FlashFloods) {
       const recentDate = await this.helperService.getRecentDate(
         countryCodeISO3,
         disasterType,
@@ -69,10 +69,6 @@ export class PointDataService {
           PointDataDynamicStatusEntity,
           'status',
           'point."pointDataId" = status."referenceId"',
-        )
-        .andWhere(
-          '(status."leadTime" IS NULL OR status."leadTime" = :leadTime)',
-          { leadTime: leadTime },
         )
         .andWhere(
           '(status."timestamp" IS NULL OR status.timestamp >= :cutoffTime)',

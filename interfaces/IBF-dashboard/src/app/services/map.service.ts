@@ -314,7 +314,7 @@ export class MapService {
           .getPointData(
             this.country.countryCodeISO3,
             layerName,
-            this.timelineState.activeLeadTime,
+            this.disasterType.disasterType,
           )
           .subscribe((pointData) => {
             this.addPointDataLayer(layer, layerName, pointData);
@@ -696,7 +696,7 @@ export class MapService {
         .getPointData(
           this.country.countryCodeISO3,
           layerName,
-          this.timelineState.activeLeadTime,
+          this.disasterType.disasterType,
         )
         .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.adminRegions) {
