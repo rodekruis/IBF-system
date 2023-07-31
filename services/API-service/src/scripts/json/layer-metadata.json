@@ -6,13 +6,34 @@
     "label": "Flood extent",
     "type": "wms",
     "legendColor": {
-      "ETH": { "type": "square", "value": ["#d7301f"] },
-      "KEN": { "type": "square", "value": ["#d7301f"] },
-      "MWI": { "type": "gradient", "value": ["#ffff00", "#ffa500", "#d7301f"] },
-      "PHL": { "type": "gradient", "value": ["#ffff00", "#ffa500", "#d7301f"] },
-      "SSD": { "type": "square", "value": ["#d7301f"] },
-      "UGA": { "type": "square", "value": ["#d7301f"] },
-      "ZMB": { "type": "square", "value": ["#d7301f"] }
+      "ETH": {
+        "floods": { "type": "square", "value": ["#d7301f"] }
+      },
+      "KEN": {
+        "floods": { "type": "square", "value": ["#d7301f"] }
+      },
+      "MWI": {
+        "floods": { "type": "square", "value": ["#d7301f"] },
+        "flash-floods": {
+          "type": "gradient",
+          "value": ["#ffff00", "#ffa500", "#d7301f"]
+        }
+      },
+      "PHL": {
+        "floods": {
+          "type": "gradient",
+          "value": ["#ffff00", "#ffa500", "#d7301f"]
+        }
+      },
+      "SSD": {
+        "floods": { "type": "square", "value": ["#d7301f"] }
+      },
+      "UGA": {
+        "floods": { "type": "square", "value": ["#d7301f"] }
+      },
+      "ZMB": {
+        "floods": { "type": "square", "value": ["#d7301f"] }
+      }
     },
     "leadTimeDependent": true,
     "active": "if-trigger",
