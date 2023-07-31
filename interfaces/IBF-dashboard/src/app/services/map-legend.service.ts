@@ -74,14 +74,14 @@ export class MapLegendService {
   }
 
   public getPointLegendString(layer: IbfLayer, exposed: boolean): string {
-    const exposure = exposed ? '-exposed' : '';
+    const exposedString = exposed ? '-exposed' : '';
     return this.singleRowLegend(
       SingleRowLegendType.pin,
       this.layerIconURLPrefix +
         this.layerIcon[layer.name].slice(0, -4) +
-        exposure +
+        exposedString +
         this.layerIcon[layer.name].slice(-4),
-      layer.label,
+      `${exposed ? 'Exposed ' : ''}${layer.label}`,
     );
   }
 
@@ -168,9 +168,6 @@ export class MapLegendService {
       legendType = wmsLegendType.square;
       value = [value[2]];
     }
-
-    const lineBorderStyle =
-      'border-color: #fff; border-style: solid; border-width: 7px 0;';
 
     switch (legendType) {
       case wmsLegendType.exposureLine:
