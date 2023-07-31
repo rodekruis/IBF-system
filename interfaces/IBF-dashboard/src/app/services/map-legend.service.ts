@@ -17,7 +17,7 @@ import { MapService } from './map.service';
 enum SingleRowLegendType {
   fullSquare = 'full-square',
   fullSquareGradient = 'full-square-gradient',
-  emptySquare = 'empty-square',
+  outlineSquare = 'outline-square',
   line = 'line',
   pin = 'pin',
 }
@@ -101,7 +101,7 @@ export class MapLegendService {
   public getShapeLegendString(layer: IbfLayer): string {
     if (layer.name === IbfLayerName.alertThreshold) {
       return this.singleRowLegend(
-        SingleRowLegendType.emptySquare,
+        SingleRowLegendType.outlineSquare,
         'red',
         layer.label,
       );
@@ -190,7 +190,7 @@ export class MapLegendService {
         element += this.singleRowLegend(
           SingleRowLegendType.line,
           value[1],
-          'Exposed ' + layer.label,
+          'Non-exposed ' + layer.label,
         );
         break;
       case wmsLegendType.exposureSquare:
@@ -203,7 +203,7 @@ export class MapLegendService {
         element += this.singleRowLegend(
           SingleRowLegendType.fullSquare,
           value[1],
-          'Exposed ' + layer.label,
+          'Non-exposed ' + layer.label,
         );
         break;
       case wmsLegendType.gradient:
@@ -343,7 +343,7 @@ export class MapLegendService {
       case SingleRowLegendType.fullSquareGradient:
         divStyle += `background: ${identifier}`;
         break;
-      case SingleRowLegendType.emptySquare:
+      case SingleRowLegendType.outlineSquare:
         divStyle += `border: 2px solid ${identifier}`;
         break;
       case SingleRowLegendType.line:

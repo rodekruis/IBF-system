@@ -14,7 +14,7 @@
     "label": "Alert Threshold Reached",
     "icon": "Person2-white.svg",
     "weightedAvg": false,
-    "active": "if-trigger",
+    "active": "yes",
     "colorBreaks": null,
     "numberFormatMap": "decimal0",
     "aggregateIndicator": "",
