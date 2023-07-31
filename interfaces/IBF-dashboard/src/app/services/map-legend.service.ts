@@ -175,9 +175,9 @@ export class MapLegendService {
       ] ||
       layer.legendColor[this.country.countryCodeISO3] ||
       layer.legendColor;
-    let legendType = legendColor[typeKey];
+    const legendType = legendColor[typeKey];
     const valueKey = 'value';
-    let value = legendColor[valueKey];
+    const value = legendColor[valueKey];
 
     switch (legendType) {
       case wmsLegendType.exposureLine:

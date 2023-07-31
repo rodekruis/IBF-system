@@ -318,7 +318,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     this.legendDiv.innerHTML = this.mapLegendService.getLegendTitle();
     for (const layer of layersToShow.sort(this.sortLayers)) {
-      let elements = [];
+      const elements = [];
       switch (layer.type) {
         case IbfLayerType.point:
           if (this.isMultiLinePointLayer(layer.name)) {
