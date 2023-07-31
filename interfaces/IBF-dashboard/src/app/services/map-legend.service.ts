@@ -169,15 +169,15 @@ export class MapLegendService {
   public getWmsLegendString(layer: IbfLayer): string {
     let element = '<div>';
     const typeKey = 'type';
-    let legendType =
-      layer.legendColor[this.country.countryCodeISO3][
+    const legendColor =
+      layer.legendColor[this.country.countryCodeISO3]?.[
         this.disasterType.disasterType
-      ][typeKey];
+      ] ||
+      layer.legendColor[this.country.countryCodeISO3] ||
+      layer.legendColor;
+    let legendType = legendColor[typeKey];
     const valueKey = 'value';
-    let value =
-      layer.legendColor[this.country.countryCodeISO3][
-        this.disasterType.disasterType
-      ][valueKey];
+    let value = legendColor[valueKey];
 
     switch (legendType) {
       case wmsLegendType.exposureLine:

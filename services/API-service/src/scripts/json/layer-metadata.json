@@ -103,30 +103,16 @@
     "label": "Rainfall forecast",
     "type": "wms",
     "legendColor": {
-      "ETH": {
-        "type": "gradient",
-        "value": [
-          "#ffff7f",
-          "#ffe200",
-          "#ffaa00",
-          "#ff8d00",
-          "#ff7100",
-          "#ff3800",
-          "#ff0000"
-        ]
-      },
-      "UGA": {
-        "type": "gradient",
-        "value": [
-          "#ffff7f",
-          "#ffe200",
-          "#ffaa00",
-          "#ff8d00",
-          "#ff7100",
-          "#ff3800",
-          "#ff0000"
-        ]
-      }
+      "type": "gradient",
+      "value": [
+        "#ffff7f",
+        "#ffe200",
+        "#ffaa00",
+        "#ff8d00",
+        "#ff7100",
+        "#ff3800",
+        "#ff0000"
+      ]
     },
     "leadTimeDependent": true,
     "active": "no",
@@ -145,17 +131,7 @@
     "name": "population",
     "label": "Population",
     "type": "wms",
-    "legendColor": {
-      "EGY": { "type": "square", "value": ["#737373"] },
-      "ETH": { "type": "square", "value": ["#737373"] },
-      "KEN": { "type": "square", "value": ["#737373"] },
-      "MWI": { "type": "square", "value": ["#737373"] },
-      "PHL": { "type": "square", "value": ["#737373"] },
-      "SSD": { "type": "square", "value": ["#737373"] },
-      "UGA": { "type": "square", "value": ["#737373"] },
-      "ZMB": { "type": "square", "value": ["#737373"] },
-      "ZWE": { "type": "square", "value": ["#737373"] }
-    },
+    "legendColor": { "type": "square", "value": ["#737373"] },
     "leadTimeDependent": false,
     "active": "no",
     "description": {
@@ -199,13 +175,7 @@
     "name": "cropland",
     "label": "Cropland",
     "type": "wms",
-    "legendColor": {
-      "UGA": { "type": "square", "value": ["#dcf064"] },
-      "ZMB": { "type": "square", "value": ["#dcf064"] },
-      "KEN": { "type": "square", "value": ["#dcf064"] },
-      "ETH": { "type": "square", "value": ["#dcf064"] },
-      "ZWE": { "type": "square", "value": ["#dcf064"] }
-    },
+    "legendColor": { "type": "square", "value": ["#dcf064"] },
     "leadTimeDependent": false,
     "active": "no",
     "description": {
@@ -236,13 +206,7 @@
     "name": "grassland",
     "label": "Grassland",
     "type": "wms",
-    "legendColor": {
-      "ETH": { "type": "square", "value": ["#be9600"] },
-      "KEN": { "type": "square", "value": ["#be9600"] },
-      "UGA": { "type": "square", "value": ["#be9600"] },
-      "ZMB": { "type": "square", "value": ["#be9600"] },
-      "ZWE": { "type": "square", "value": ["#be9600"] }
-    },
+    "legendColor": { "type": "square", "value": ["#be9600"] },
     "leadTimeDependent": false,
     "active": "no",
     "description": {
