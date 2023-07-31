@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Country, DisasterType } from '../models/country.model';
 import { breakKey } from '../models/map.model';
-import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import {
   IbfLayer,
@@ -34,7 +33,7 @@ export class MapLegendService {
 
   private layerIconURLPrefix = 'assets/markers/';
   private layerIcon = {
-    [IbfLayerName.glofasStations]: 'glofas-station-no-trigger.svg',
+    [IbfLayerName.glofasStations]: 'glofas-station.svg',
     [IbfLayerName.typhoonTrack]: 'typhoon-track.png',
     [IbfLayerName.redCrossBranches]: 'red-cross-marker.svg',
     [IbfLayerName.damSites]: 'dam-marker.svg',
@@ -82,6 +81,20 @@ export class MapLegendService {
         exposedString +
         this.layerIcon[layer.name].slice(-4),
       `${exposed ? 'Exposed ' : ''}${layer.label}`,
+    );
+  }
+
+  public getGlofasPointLegendString(
+    layer: IbfLayer,
+    glofasState: string,
+  ): string {
+    return this.singleRowLegend(
+      SingleRowLegendType.pin,
+      this.layerIconURLPrefix +
+        this.layerIcon[layer.name].slice(0, -4) +
+        glofasState +
+        this.layerIcon[layer.name].slice(-4),
+      `${layer.label}${glofasState.replace(new RegExp('-', 'g'), ' ')}`,
     );
   }
 
@@ -156,18 +169,15 @@ export class MapLegendService {
   public getWmsLegendString(layer: IbfLayer): string {
     let element = '<div>';
     const typeKey = 'type';
-    let legendType = layer.legendColor[this.country.countryCodeISO3][typeKey];
+    let legendType =
+      layer.legendColor[this.country.countryCodeISO3][
+        this.disasterType.disasterType
+      ][typeKey];
     const valueKey = 'value';
-    let value = layer.legendColor[this.country.countryCodeISO3][valueKey];
-
-    // hardcoded exception for MWI floods flood_extent
-    if (
-      this.country.countryCodeISO3 === 'MWI' &&
-      this.disasterType.disasterType === DisasterTypeKey.floods
-    ) {
-      legendType = wmsLegendType.square;
-      value = [value[2]];
-    }
+    let value =
+      layer.legendColor[this.country.countryCodeISO3][
+        this.disasterType.disasterType
+      ][valueKey];
 
     switch (legendType) {
       case wmsLegendType.exposureLine:
