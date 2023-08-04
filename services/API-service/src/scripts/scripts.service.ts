@@ -5,6 +5,7 @@ import { GlofasStationService } from '../api/glofas-station/glofas-station.servi
 import {
   MockAll,
   MockDynamic,
+  MockFlashFloodsScenario,
   MockTyphoonScenario,
   TyphoonScenario,
 } from './scripts.controller';
@@ -267,6 +268,12 @@ export class ScriptsService {
     } else {
       throw new HttpException('Not a known scenario', HttpStatus.BAD_REQUEST);
     }
+  }
+
+  public async mockFlashFloodsScenario(
+    mockFlashFloodsScenario: MockFlashFloodsScenario,
+  ) {
+    console.log('mockFlashFloodsScenario: ', mockFlashFloodsScenario);
   }
 
   private async mockExposure(

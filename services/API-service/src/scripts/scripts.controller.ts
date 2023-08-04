@@ -115,6 +115,41 @@ export class MockTyphoonScenario {
   public readonly date: Date;
 }
 
+export enum FlashFloodsScenario {
+  NoEvent = 'noEvent',
+  EventTrigger = 'eventTrigger',
+  EventTriggerOngoing = 'eventTriggerOngoing',
+  EventWarning = 'eventWarning',
+}
+export class MockFlashFloodsScenario {
+  @ApiProperty({ example: 'fill_in_secret' })
+  @IsNotEmpty()
+  @IsString()
+  public readonly secret: string;
+
+  @ApiProperty({ example: 'MWI' })
+  @IsIn(['MWI'])
+  public readonly countryCodeISO3: string;
+
+  @ApiProperty({
+    example: Object.values(FlashFloodsScenario).join(' | '),
+  })
+  @IsEnum(FlashFloodsScenario)
+  public readonly scenario: FlashFloodsScenario;
+
+  @ApiProperty({ example: 1 })
+  @IsOptional()
+  public readonly eventNr: number;
+
+  @ApiProperty({ example: true })
+  @IsNotEmpty()
+  public readonly removeEvents: boolean;
+
+  @ApiProperty({ example: new Date() })
+  @IsOptional()
+  public readonly date: Date;
+}
+
 @Controller('scripts')
 @ApiTags('--- mock/seed data ---')
 @ApiBearerAuth()
@@ -205,6 +240,28 @@ export class ScriptsController {
     }
 
     const result = await this.scriptsService.mockTyphoonScenario(body);
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Upload mock data for specific flash-floods scenario',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Uploaded mock data for flash-floods scenario',
+  })
+  @Post('/mock-flash-floods-scenario')
+  public async mockFlashFloodsScenario(
+    @Body() body: MockFlashFloodsScenario,
+    @Res() res,
+  ): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+
+    const result = await this.scriptsService.mockFlashFloodsScenario(body);
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }
