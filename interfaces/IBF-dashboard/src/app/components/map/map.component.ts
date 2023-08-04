@@ -370,7 +370,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         IbfLayerName.schools,
       ].includes(layerName) &&
       this.disasterType.disasterType === DisasterTypeKey.flashFloods &&
-      this.eventState.event?.activeTrigger
+      this.eventState.activeTrigger
     );
   }
 
