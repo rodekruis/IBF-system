@@ -51,7 +51,9 @@ export class HelperService {
     ) {
       // daily pipeline
       lastInterval.setHours(0, 0, 0, 0);
-    } else if (disasterType === DisasterType.Typhoon) {
+    } else if (
+      [DisasterType.Typhoon, DisasterType.FlashFloods].includes(disasterType)
+    ) {
       // The update frequency is 6 hours, so dividing up in four 6-hour intervals
       if (lastInterval.getHours() >= 18) {
         lastInterval.setHours(18, 0, 0, 0);
@@ -62,9 +64,6 @@ export class HelperService {
       } else {
         lastInterval.setHours(0, 0, 0, 0);
       }
-    } else if (disasterType === DisasterType.FlashFloods) {
-      // hourly pipeline
-      lastInterval.setHours(lastInterval.getHours(), 0, 0, 0);
     }
     return lastInterval;
   }
