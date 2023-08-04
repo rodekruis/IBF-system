@@ -524,9 +524,9 @@ export class ChatComponent implements OnInit, OnDestroy {
         ? 'months'
         : null;
     const durationUnitValue =
-      disasterType.disasterType === DisasterTypeKey.typhoon
-        ? 6 // 6-hourly pipeline
-        : 1; // in all other cases it is 1-hourly/1-daily/1-monthly;
+      disasterType.leadTimeUnit === LeadTimeUnit.hour
+        ? 6 // all "hour" pipelines are 6-hourly
+        : 1; // in all other cases it is 1-daily/1-monthly;
 
     const nowDate = DateTime.now();
     const diff = nowDate
