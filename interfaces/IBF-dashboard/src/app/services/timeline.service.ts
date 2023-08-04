@@ -169,7 +169,11 @@ export class TimelineService {
         this.disasterType.disasterType === DisasterTypeKey.flashFloods
       ) {
         this.handleTimeStepButtonClick(
-          this.eventState.activeTrigger ? null : LeadTime.hour1,
+          this.eventState.event
+            ? (this.eventState.event.firstLeadTime as LeadTime)
+            : this.eventState.activeTrigger
+            ? null
+            : LeadTime.hour1,
           null,
         );
       }
