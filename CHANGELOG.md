@@ -1,3 +1,12 @@
+## [0.251.1](https://github.com/rodekruis/IBF-system/compare/v0.251.0...v0.251.1) (2023-08-04)
+
+
+### Bug Fixes
+
+* also show exposed point icon in overview mode AB[#22915](https://github.com/rodekruis/IBF-system/issues/22915) ([5f017db](https://github.com/rodekruis/IBF-system/commit/5f017db58028bef5a6d887201eded85528b66fe8))
+
+
+
 # [0.251.0](https://github.com/rodekruis/IBF-system/compare/v0.250.1...v0.251.0) (2023-07-31)
 
 
@@ -140,16 +149,6 @@
 * area-selection in warning event AB[#19848](https://github.com/rodekruis/IBF-system/issues/19848) ([92d158e](https://github.com/rodekruis/IBF-system/commit/92d158eeec58cc71a79c3d7555a29c18bd087a2d))
 * change icons to design system black AB[#19849](https://github.com/rodekruis/IBF-system/issues/19849) ([7c18657](https://github.com/rodekruis/IBF-system/commit/7c186575e5a6cb38e43904e4275d156aac73cb36))
 * icons navy to black AB[#19849](https://github.com/rodekruis/IBF-system/issues/19849) ([af43ba2](https://github.com/rodekruis/IBF-system/commit/af43ba2ef873eaea9d40b1c3adcaa2aae39e8925))
-
-
-
-## [0.247.2](https://github.com/rodekruis/IBF-system/compare/v0.247.1...v0.247.2) (2023-06-16)
-
-
-### Bug Fixes
-
-* forgot to commit AB[#19704](https://github.com/rodekruis/IBF-system/issues/19704) ([0a346d3](https://github.com/rodekruis/IBF-system/commit/0a346d3dd153c6b2a45eca91699305bbc65c4640))
-* reorganize buildings and roads views AB[#19704](https://github.com/rodekruis/IBF-system/issues/19704) ([85d73fe](https://github.com/rodekruis/IBF-system/commit/85d73fe3928e5a73a0cc110b8e0c827b3239a828))
 
 
 
