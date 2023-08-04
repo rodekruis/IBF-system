@@ -75,18 +75,31 @@ export class WhatsappService {
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
     disasterType: DisasterType,
+    date?: Date,
   ): Promise<string> {
     const baseMessage =
       country.notificationInfo.whatsappMessage[disasterType]['initial'];
 
     activeEvents.sort((a, b) => (a.firstLeadTime > b.firstLeadTime ? 1 : -1));
-    const nrEvents = activeEvents.length;
     const leadTimeFirstEvent = activeEvents[0].firstLeadTime;
+    const startDateFirstEvent = this.notificationContentService.getFirstLeadTimeDate(
+      Number(leadTimeFirstEvent.split('-')[0]),
+      leadTimeFirstEvent.split('-')[1],
+      date || new Date(),
+    );
+    const startTimeFirstEvent = await this.notificationContentService.getLeadTimeTimestamp(
+      leadTimeFirstEvent,
+      country.countryCodeISO3,
+      disasterType,
+    );
 
     // This code now assumes certain parameters in data. This is not right.
-    const message = baseMessage
-      .replace('[nrEvents]', nrEvents)
-      .replace('[leadTimeFirstEvent]', leadTimeFirstEvent);
+    const message = baseMessage.replace(
+      '[startFirstEvent]',
+      `${startDateFirstEvent}${
+        startTimeFirstEvent ? ` | ${startTimeFirstEvent}` : ''
+      }`,
+    );
 
     return message;
   }
@@ -95,11 +108,13 @@ export class WhatsappService {
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
     disasterType: DisasterType,
+    date?: Date,
   ) {
     const message = await this.configureInitialMessage(
       country,
       activeEvents,
       disasterType,
+      date,
     );
 
     await this.sendToUsers(country, disasterType, message);
@@ -230,32 +245,35 @@ export class WhatsappService {
           return;
         }
 
-        const triggerMessage = await this.configureFollowUpMessage(
-          country,
-          disasterType.disasterType,
-          activeEvents,
-        );
-        const eventName = activeEvents[0].eventName;
-        const eventMapImageEntity = await this.eventMapImageRepository.findOne({
-          where: {
-            countryCodeISO3: country.countryCodeISO3,
-            disasterType: disasterType,
-            eventName: !eventName ? IsNull() : eventName,
-          },
-        });
+        for (const event of activeEvents) {
+          const triggerMessage = await this.configureFollowUpMessage(
+            country,
+            disasterType.disasterType,
+            event,
+          );
+          const eventName = event.eventName;
+          const eventMapImageEntity = await this.eventMapImageRepository.findOne(
+            {
+              where: {
+                countryCodeISO3: country.countryCodeISO3,
+                disasterType: disasterType,
+                eventName: !eventName ? IsNull() : eventName,
+              },
+            },
+          );
 
-        await this.sendWhatsapp(
-          triggerMessage,
-          fromNumber,
-          eventMapImageEntity
-            ? `${EXTERNAL_API.eventMapImage}/${country.countryCodeISO3}/${
-                disasterType.disasterType
-              }/${eventName || 'no-name'}`
-            : null,
-        );
-
-        // Add small delay to ensure the order in which messages are received
-        await new Promise(resolve => setTimeout(resolve, 5000));
+          await this.sendWhatsapp(
+            triggerMessage,
+            fromNumber,
+            eventMapImageEntity
+              ? `${EXTERNAL_API.eventMapImage}/${country.countryCodeISO3}/${
+                  disasterType.disasterType
+                }/${eventName || 'no-name'}`
+              : null,
+          );
+          // Add small delay to ensure the order in which messages are received
+          await new Promise(resolve => setTimeout(resolve, 5000));
+        }
 
         const whatsappGroupMessage = this.configureWhatsappGroupMessage(
           country,
@@ -318,61 +336,59 @@ export class WhatsappService {
   private async configureFollowUpMessage(
     country: CountryEntity,
     disasterType: DisasterType,
-    activeEvents: EventSummaryCountry[],
+    event: EventSummaryCountry,
   ): Promise<string> {
     // TO DO: these changes are aimed at flash-floods but will break existing implementations
-    // const countryDisasterSettings = country.countryDisasterSettings.find(
-    //   s => s.disasterType === disasterType,
-    // );
-    // const adminLevel = countryDisasterSettings.defaultAdminLevel;
+    const adminLevel = country.countryDisasterSettings.find(
+      s => s.disasterType === disasterType,
+    ).defaultAdminLevel;
 
-    let eventList = '';
-    for await (const event of activeEvents) {
-      const eventString = await this.notificationContentService.getLeadTimeListEvent(
-        country,
-        event,
-        disasterType,
-        event.firstLeadTime,
-        new Date(),
-      );
-      const row = `- ${eventString.long
-        .replace('<strong>', '*')
-        .replace('</strong>', '*')}\n`;
+    // let eventList = '';
+    // for await (const event of activeEvents) {
+    //   const eventString = await this.notificationContentService.getLeadTimeListEvent(
+    //     country,
+    //     event,
+    //     disasterType,
+    //     event.firstLeadTime,
+    //     new Date(),
+    //   );
+    //   const row = `- ${eventString.long
+    //     .replace('<strong>', '*')
+    //     .replace('</strong>', '*')}\n`;
 
-      eventList += row;
-    }
-
-    // const triggeredAreas = await this.eventService.getTriggeredAreas(
-    //   country.countryCodeISO3,
-    //   disasterType,
-    //   countryDisasterSettings.defaultAdminLevel,
-    //   countryDisasterSettings.activeLeadTimes[0].leadTimeName, // assumes only 1 leadtime..
-    //   activeEvents[0].eventName,
-    // );
-
-    // const adminAreaLabel = country.adminRegionLabels[String(adminLevel)][
-    //   'plural'
-    // ].toLowerCase();
-    // const actionUnit = await this.notificationContentService.getActionUnit(
-    //   disasterType,
-    // );
-    // let areaList = '';
-    // for (const area of triggeredAreas) {
-    //   const row = `- *${area.name}${
-    //     area.nameParent ? ' (' + area.nameParent + ')' : ''
-    //   } - ${this.notificationContentService.formatActionUnitValue(
-    //     area.actionsValue,
-    //     actionUnit,
-    //   )}*\n`;
-    //   areaList += row;
+    //   eventList += row;
     // }
+
+    const triggeredAreas = await this.eventService.getTriggeredAreas(
+      country.countryCodeISO3,
+      disasterType,
+      adminLevel,
+      event.firstLeadTime,
+      event.eventName,
+    );
+
+    const adminAreaLabel = country.adminRegionLabels[String(adminLevel)][
+      'plural'
+    ].toLowerCase();
+    const actionUnit = await this.notificationContentService.getActionUnit(
+      disasterType,
+    );
+    let areaList = '';
+    for (const area of triggeredAreas) {
+      const row = `- *${area.name}${
+        area.nameParent ? ' (' + area.nameParent + ')' : ''
+      } - ${this.notificationContentService.formatActionUnitValue(
+        area.actionsValue,
+        actionUnit,
+      )}*\n`;
+      areaList += row;
+    }
 
     const followUpMessage =
       country.notificationInfo.whatsappMessage[disasterType]['follow-up'];
     const message = followUpMessage
-      // .replace('[nrTriggeredAreas]', triggeredAreas.length)
-      // .replace('[adminAreaLabel]', adminAreaLabel)
-      .replace('[eventList]', eventList);
+      .replace('[nrTriggeredAreas]', triggeredAreas.length)
+      .replace('[adminAreaLabel]', adminAreaLabel);
     return message;
   }
 

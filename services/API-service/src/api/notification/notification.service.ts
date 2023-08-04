@@ -47,18 +47,19 @@ export class NotificationService {
       const country = await this.notificationContentService.getCountryNotificationInfo(
         countryCodeISO3,
       );
-      this.emailService.sendTriggerEmail(
-        country,
-        disasterType,
-        activeEvents,
-        date,
-      );
+      // this.emailService.sendTriggerEmail(
+      //   country,
+      //   disasterType,
+      //   activeEvents,
+      //   date,
+      // );
 
       if (country.notificationInfo.useWhatsapp[disasterType]) {
         this.whatsappService.sendTriggerWhatsapp(
           country,
           activeEvents,
           disasterType,
+          date,
         );
       }
     }
