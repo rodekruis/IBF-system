@@ -442,7 +442,7 @@ export class TimelineService {
     } else if (disasterType.disasterType === DisasterTypeKey.flashFloods) {
       // show 1 button per day ..
       return (
-        [LeadTime.hour1, LeadTime.hour24, LeadTime.hour48].includes(leadTime) &&
+        [LeadTime.hour0, LeadTime.hour24, LeadTime.hour48].includes(leadTime) &&
         // .. except if already one present for that day
         !activeLeadTimes
           .map((lt) => this.getDateFromLeadTime(lt.leadTime))
