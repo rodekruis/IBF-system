@@ -1,3 +1,17 @@
+# [0.252.0](https://github.com/rodekruis/IBF-system/compare/v0.251.1...v0.252.0) (2023-08-04)
+
+
+### Bug Fixes
+
+* correct flood extent styling AB[#19593](https://github.com/rodekruis/IBF-system/issues/19593) ([9b75510](https://github.com/rodekruis/IBF-system/commit/9b75510d579f37db720a8158703660b5c90d2e8a))
+
+
+### Features
+
+* add 0-hour geoserver flood extent AB[#22917](https://github.com/rodekruis/IBF-system/issues/22917) ([13213a2](https://github.com/rodekruis/IBF-system/commit/13213a245b5172dd379ecd7de95e03f5421e4673))
+
+
+
 ## [0.251.1](https://github.com/rodekruis/IBF-system/compare/v0.251.0...v0.251.1) (2023-08-04)
 
 
@@ -137,18 +151,6 @@
 ### Bug Fixes
 
 * remove old settings upon update AB[#19858](https://github.com/rodekruis/IBF-system/issues/19858) ([85cb0e0](https://github.com/rodekruis/IBF-system/commit/85cb0e08cc77ea46d391ea74029c7a16940eafaa))
-
-
-
-## [0.247.3](https://github.com/rodekruis/IBF-system/compare/v0.247.2...v0.247.3) (2023-06-16)
-
-
-### Bug Fixes
-
-* aggregate numbers should also include warning event AB[#19835](https://github.com/rodekruis/IBF-system/issues/19835) ([86646d5](https://github.com/rodekruis/IBF-system/commit/86646d5c6fdcdeade820d3e78dc545b52280be35))
-* area-selection in warning event AB[#19848](https://github.com/rodekruis/IBF-system/issues/19848) ([92d158e](https://github.com/rodekruis/IBF-system/commit/92d158eeec58cc71a79c3d7555a29c18bd087a2d))
-* change icons to design system black AB[#19849](https://github.com/rodekruis/IBF-system/issues/19849) ([7c18657](https://github.com/rodekruis/IBF-system/commit/7c186575e5a6cb38e43904e4275d156aac73cb36))
-* icons navy to black AB[#19849](https://github.com/rodekruis/IBF-system/issues/19849) ([af43ba2](https://github.com/rodekruis/IBF-system/commit/af43ba2ef873eaea9d40b1c3adcaa2aae39e8925))
 
 
 
