@@ -1,3 +1,16 @@
+## [0.252.1](https://github.com/rodekruis/IBF-system/compare/v0.252.0...v0.252.1) (2023-08-04)
+
+
+### Bug Fixes
+
+* hourly to 6-hourly pipeline AB[#19596](https://github.com/rodekruis/IBF-system/issues/19596) ([d2db421](https://github.com/rodekruis/IBF-system/commit/d2db421d7353ed0c54c3c2c1bb35cbd7f373b351))
+* missing 1st date-button if 1st trigger is on next day AB[#19596](https://github.com/rodekruis/IBF-system/issues/19596) ([f6d4adf](https://github.com/rodekruis/IBF-system/commit/f6d4adfefd187b0f76eabf82d0eccc11aa23efea))
+* missing activeLeadTime if 1 event AB[#19596](https://github.com/rodekruis/IBF-system/issues/19596) ([c39f226](https://github.com/rodekruis/IBF-system/commit/c39f22600a96e4aa0de9b1f616f6c3620feafb36))
+* new styling in legend AB[#19593](https://github.com/rodekruis/IBF-system/issues/19593) ([8d8788a](https://github.com/rodekruis/IBF-system/commit/8d8788a38bd92a168e63518972d1c76e691e5458))
+* show admin-area bubble on select AB[#19596](https://github.com/rodekruis/IBF-system/issues/19596) ([fd76721](https://github.com/rodekruis/IBF-system/commit/fd767213289ca845d9ac8978a16645b0fb4f95d7))
+
+
+
 # [0.252.0](https://github.com/rodekruis/IBF-system/compare/v0.251.1...v0.252.0) (2023-08-04)
 
 
@@ -142,15 +155,6 @@
 
 * mistake AB[#19780](https://github.com/rodekruis/IBF-system/issues/19780) ([dd4c97e](https://github.com/rodekruis/IBF-system/commit/dd4c97e5d456702cf724e2fa186197a1ad060970))
 * remove unused leadTimeLabel AB[#19780](https://github.com/rodekruis/IBF-system/issues/19780) ([d3e8c50](https://github.com/rodekruis/IBF-system/commit/d3e8c500985e71aab9caa7921af31ecfc1429db6))
-
-
-
-## [0.247.4](https://github.com/rodekruis/IBF-system/compare/v0.247.3...v0.247.4) (2023-06-19)
-
-
-### Bug Fixes
-
-* remove old settings upon update AB[#19858](https://github.com/rodekruis/IBF-system/issues/19858) ([85cb0e0](https://github.com/rodekruis/IBF-system/commit/85cb0e08cc77ea46d391ea74029c7a16940eafaa))
 
 
 
