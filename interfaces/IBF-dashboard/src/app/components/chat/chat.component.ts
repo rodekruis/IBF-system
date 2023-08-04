@@ -187,16 +187,14 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
+    this.placeCode = placeCode;
+
     const activeLeadTime = this.timelineState?.timeStepButtons.find(
       (t) => t.value === this.timelineState?.activeLeadTime,
     );
-
-    this.placeCode = placeCode;
-
-    if (placeCode && activeLeadTime.alert) {
+    if (placeCode && (!activeLeadTime || activeLeadTime.alert)) {
       const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
         triggeredArea.placeCode === placeCode.placeCode;
-
       this.filteredActiveAreas = this.activeAreas.filter(
         filterTriggeredAreasByPlaceCode,
       );
