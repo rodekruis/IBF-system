@@ -96,7 +96,8 @@
         "update-success": "State of early action(s) successfully updated.",
         "update-failure": "Failed to update state of early action(s).",
         "prompt-button-label": "OK",
-        "no-actions": "There are currently no early actions to be checked off in the portal, please follow the local protocols relevant to the areas affected."
+        "no-actions": "There are currently no early actions to be checked off in the portal, please follow the local protocols relevant to the areas affected.",
+        "no-actions-flash-floods": "Please follow the local protocols relevant to the areas affected."
       },
       "stop-trigger-popup": {
         "eap": {
@@ -168,16 +169,21 @@
       },
       "active-event-active-trigger": {
         "header": "Trigger: {{ eventName }} at {{firstLeadTimeDate}}",
+        "header-ongoing": "Ongoing trigger: {{ eventName }}",
         "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
-        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away.",
-        "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>, but it can currently not be predicted to reach trigger thresholds yet. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
+        "welcome": "<strong>Forecasted:</strong> {{firstLeadTimeDate}}<br><strong>Exposed TA/Bomas:</strong> {{ nrTriggeredAreas }}",
+        "welcome-below-trigger": "<strong>Predicted:</strong> {{firstLeadTimeDate}}<br><strong>Exposed TA/Bomas:</strong> {{ nrTriggeredAreas }}"
       },
       "active-event": {
-        "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
-        "overview-below-trigger": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
-        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions (if applicable) of each area.",
+        "overview": "(Listed in order of exposed population)",
+        "overview-below-trigger": "(Listed in order of exposed population)",
+        "instruction": "",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:"
+      },
+      "ongoing-event": {
+        "header": "Ongoing trigger: {{ eventName }}",
+        "welcome": "<strong>Forecasted:</strong> {{ forecastDate }}.<br><strong>Exposed TA/vomas:</strong> {{ nrExposedAreas }}"
       },
       "stopped-event": {
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
@@ -252,7 +258,7 @@
           "no-landfall": "It is estimated to reach the point closest to land on <strong>{{ firstLeadTimeDate }}</strong>. It is <strong>not predicted to make landfall</strong>.<br><br>",
           "no-landfall-yet": "The <strong>landfall time prediction cannot be determined yet</strong>. Keep monitoring the event.<br><br>"
         },
-        "passed-event": {
+        "ongoing-event": {
           "landfall": "It has <strong>already made landfall</strong>.<br><br>",
           "no-landfall": "It has already reached the point closest to land.<br><br>"
         }
