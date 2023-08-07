@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { DateTime } from 'luxon';
-import { Observable } from 'rxjs';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -9,8 +8,6 @@ import { UserRole } from 'src/app/models/user/user-role.enum';
 import { User } from 'src/app/models/user/user.model';
 import { environment } from 'src/environments/environment';
 import { ScreenOrientationPopoverComponent } from '../../components/screen-orientation-popover/screen-orientation-popover.component';
-import { TimelineService } from '../../services/timeline.service';
-import { TimelineState } from '../../types/timeline-state';
 
 @Component({
   selector: 'app-dashboard',
@@ -24,13 +21,10 @@ export class DashboardPage implements OnInit {
   private readonly adminRole = UserRole.Admin;
   public environmentConfiguration = environment.configuration;
 
-  public timelineState: Observable<TimelineState>;
-
   constructor(
     private authService: AuthService,
     private analyticsService: AnalyticsService,
     private popoverController: PopoverController,
-    private timelineService: TimelineService,
   ) {
     this.authService.getAuthSubscription().subscribe(this.onUserChange);
 
@@ -47,7 +41,6 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.analyticsService.logPageView(AnalyticsPage.dashboard);
-    this.timelineState = this.timelineService.getTimelineStateSubscription();
   }
 
   private onUserChange = (user: User): void => {
@@ -84,7 +77,7 @@ export class DashboardPage implements OnInit {
     await popover.present();
   }
 
-  public getJSDate(dateTime: DateTime): Date {
-    return dateTime.toJSDate();
+  public getTodayDate(): Date {
+    return DateTime.now().toJSDate();
   }
 }
