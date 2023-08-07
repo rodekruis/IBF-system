@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TooltipPopoverComponent } from '../tooltip-popover/tooltip-popover.component';
 
@@ -6,7 +6,6 @@ import { TooltipPopoverComponent } from '../tooltip-popover/tooltip-popover.comp
   selector: 'app-tooltip',
   templateUrl: './tooltip.component.html',
   styleUrls: ['./tooltip.component.scss'],
-  encapsulation: ViewEncapsulation.None,
 })
 export class TooltipComponent {
   @Input()

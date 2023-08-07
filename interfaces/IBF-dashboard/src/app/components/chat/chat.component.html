@@ -1,19 +1,23 @@
 <ion-content scrollY="true">
   <app-dialogue-turn [isWarn]="isWarn">
     <p>
-      <span [innerHTML]="
-        'chat-component.common.warn-label.message'
-          | translate
-            : {
-                lastModelRunDate: lastModelRunDate,
-                name: authService.displayName
-              }
-      "></span>
-      <app-tooltip *ngIf="isWarn"
+      <span
+        [innerHTML]="
+          'chat-component.common.warn-label.message'
+            | translate
+              : {
+                  lastModelRunDate: lastModelRunDate,
+                  name: authService.displayName
+                }
+        "
+      ></span>
+      <app-tooltip
+        *ngIf="isWarn"
         [value]="'chat-component.common.warn-label.tooltip' | translate"
+        [inputColor]="danger"
       ></app-tooltip>
     </p>
-    
+
     <ion-col>
       <ion-row>
         <app-about-btn
