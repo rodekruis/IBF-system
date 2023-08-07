@@ -19,7 +19,7 @@ export class DialogueTurnComponent implements OnInit {
   actor = Actor.system;
 
   @Input()
-  timestamp: DateTime = DateTime.now();
+  timestamp: DateTime;
 
   @Input()
   isConnected = false;
@@ -51,7 +51,6 @@ export class DialogueTurnComponent implements OnInit {
   ngOnInit() {
     this.isSelf = this.actor === Actor.self;
     this.isSystem = this.actor === Actor.system;
-    this.timestamp = DateTime.now();
   }
 
   show() {
