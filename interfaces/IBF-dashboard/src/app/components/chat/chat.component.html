@@ -1,15 +1,19 @@
 <ion-content scrollY="true">
   <app-dialogue-turn [isWarn]="isWarn">
-    <p
-      [innerHTML]="
+    <p>
+      <span [innerHTML]="
         'chat-component.common.warn-label.message'
           | translate
             : {
                 lastModelRunDate: lastModelRunDate,
                 name: authService.displayName
               }
-      "
-    ></p>
+      "></span>
+      <app-tooltip
+        [value]="'chat-component.common.warn-label.tooltip' | translate"
+      ></app-tooltip>
+    </p>
+    
     <ion-col>
       <ion-row>
         <app-about-btn
