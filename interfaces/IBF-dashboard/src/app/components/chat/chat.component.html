@@ -9,7 +9,7 @@
                 name: authService.displayName
               }
       "></span>
-      <app-tooltip
+      <app-tooltip *ngIf="isWarn"
         [value]="'chat-component.common.warn-label.tooltip' | translate"
       ></app-tooltip>
     </p>
