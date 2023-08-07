@@ -195,12 +195,17 @@ export class NotificationContentService {
     }
   }
 
-  public getFirstLeadTimeDate(
+  public async getFirstLeadTimeDate(
     value: number,
     unit: string,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
     date?: Date,
-  ): string {
-    const now = date || new Date();
+  ): Promise<string> {
+    const now =
+      date ||
+      (await this.helperService.getRecentDate(countryCodeISO3, disasterType))
+        .timestamp;
 
     const getNewDate = {
       month: new Date(now).setMonth(new Date(now).getMonth() + value),
@@ -232,6 +237,8 @@ export class NotificationContentService {
     const dateAndTime = this.getFirstLeadTimeDate(
       Number(leadTimeValue),
       leadTimeUnit,
+      country.countryCodeISO3,
+      disasterType,
       date,
     );
     const disasterSpecificCopy = await this.getDisasterSpecificCopy(
@@ -278,6 +285,8 @@ export class NotificationContentService {
       This trigger was issued by the IBF portal on ${this.getFirstLeadTimeDate(
         0,
         leadTimeUnit,
+        country.countryCodeISO3,
+        disasterType,
         new Date(event.startDate),
       )}.
       <br /><br />`,
@@ -400,6 +409,21 @@ export class NotificationContentService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<string> {
+    const timezone = {
+      PHL: {
+        label: 'PHT',
+        difference: 8,
+      },
+      MWI: {
+        label: 'CAT',
+        difference: 2,
+      },
+    };
+
+    if (!Object.keys(timezone).includes(countryCodeISO3)) {
+      return null;
+    }
+
     const recentDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
@@ -410,28 +434,11 @@ export class NotificationContentService {
       gmtUploadDate.setTime(gmtUploadDate.getTime() + hours * 60 * 60 * 1000),
     );
 
-    const timezone = {
-      PHL: {
-        label: 'PHT',
-        difference: 8,
-      },
-      MWI: {
-        label: 'CAT',
-        difference: 2,
-      },
-      default: {
-        label: 'GMT',
-        difference: 0,
-      },
-    };
-
-    const hourDiff =
-      timezone[countryCodeISO3]?.difference || timezone.default.difference;
+    const hourDiff = timezone[countryCodeISO3]?.difference;
     const localEventDate = new Date(
       gmtEventDate.setTime(gmtEventDate.getTime() + hourDiff * 60 * 60 * 1000),
     );
-    const timezoneLabel =
-      timezone[countryCodeISO3]?.label || timezone.default.label;
+    const timezoneLabel = timezone[countryCodeISO3]?.label;
     return `${localEventDate.getHours()}:00 ${timezoneLabel}`;
   }
 }

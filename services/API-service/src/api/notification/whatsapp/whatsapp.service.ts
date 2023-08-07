@@ -71,50 +71,84 @@ export class WhatsappService {
       });
   }
 
+  private async getStartTimeEvent(
+    event: EventSummaryCountry,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    date?: Date,
+  ) {
+    const startDateFirstEvent = await this.notificationContentService.getFirstLeadTimeDate(
+      Number(event.firstLeadTime.split('-')[0]),
+      event.firstLeadTime.split('-')[1],
+      countryCodeISO3,
+      disasterType,
+      date,
+    );
+    const startTimeFirstEvent = await this.notificationContentService.getLeadTimeTimestamp(
+      event.firstLeadTime,
+      countryCodeISO3,
+      disasterType,
+    );
+    return (
+      startDateFirstEvent +
+      `${startTimeFirstEvent ? ' | ' + startTimeFirstEvent : ''}`
+    );
+  }
+
   private async configureInitialMessage(
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
     disasterType: DisasterType,
-    date?: Date,
   ): Promise<string> {
-    const baseMessage =
-      country.notificationInfo.whatsappMessage[disasterType]['initial'];
-
     activeEvents.sort((a, b) => (a.firstLeadTime > b.firstLeadTime ? 1 : -1));
-    const leadTimeFirstEvent = activeEvents[0].firstLeadTime;
-    const startDateFirstEvent = this.notificationContentService.getFirstLeadTimeDate(
-      Number(leadTimeFirstEvent.split('-')[0]),
-      leadTimeFirstEvent.split('-')[1],
-      date || new Date(),
-    );
-    const startTimeFirstEvent = await this.notificationContentService.getLeadTimeTimestamp(
-      leadTimeFirstEvent,
-      country.countryCodeISO3,
-      disasterType,
-    );
 
-    // This code now assumes certain parameters in data. This is not right.
-    const message = baseMessage.replace(
-      '[startFirstEvent]',
-      `${startDateFirstEvent}${
-        startTimeFirstEvent ? ` | ${startTimeFirstEvent}` : ''
-      }`,
-    );
+    if (activeEvents.length === 1) {
+      const baseMessage =
+        country.notificationInfo.whatsappMessage[disasterType][
+          'initial-single-event'
+        ];
+      const triggerState = activeEvents[0].thresholdReached
+        ? 'trigger'
+        : 'warning';
+      const startTimeEvent = await this.getStartTimeEvent(
+        activeEvents[0],
+        country.countryCodeISO3,
+        disasterType,
+      );
 
-    return message;
+      return baseMessage
+        .replace('[triggerState]', triggerState)
+        .replace('[triggerState]', triggerState)
+        .replace('[eventName]', activeEvents[0].eventName)
+        .replace('[startTimeEvent]', startTimeEvent);
+    } else if (activeEvents.length > 1) {
+      const baseMessage =
+        country.notificationInfo.whatsappMessage[disasterType][
+          'initial-multi-event'
+        ];
+
+      const startTimeFirstEvent = await this.getStartTimeEvent(
+        activeEvents[0],
+        country.countryCodeISO3,
+        disasterType,
+      );
+
+      // This code now assumes certain parameters in data. This is not right.
+      return baseMessage
+        .replace('[nrEvents]', activeEvents.length)
+        .replace('[startTimeFirstEvent]', startTimeFirstEvent);
+    }
   }
 
   public async sendTriggerWhatsapp(
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
     disasterType: DisasterType,
-    date?: Date,
   ) {
     const message = await this.configureInitialMessage(
       country,
       activeEvents,
       disasterType,
-      date,
     );
 
     await this.sendToUsers(country, disasterType, message);
@@ -272,7 +306,9 @@ export class WhatsappService {
               : null,
           );
           // Add small delay to ensure the order in which messages are received
-          await new Promise(resolve => setTimeout(resolve, 5000));
+          await new Promise(resolve =>
+            setTimeout(resolve, eventMapImageEntity ? 5000 : 2000),
+          );
         }
 
         const whatsappGroupMessage = this.configureWhatsappGroupMessage(
@@ -338,26 +374,11 @@ export class WhatsappService {
     disasterType: DisasterType,
     event: EventSummaryCountry,
   ): Promise<string> {
-    // TO DO: these changes are aimed at flash-floods but will break existing implementations
     const adminLevel = country.countryDisasterSettings.find(
       s => s.disasterType === disasterType,
     ).defaultAdminLevel;
 
-    // let eventList = '';
-    // for await (const event of activeEvents) {
-    //   const eventString = await this.notificationContentService.getLeadTimeListEvent(
-    //     country,
-    //     event,
-    //     disasterType,
-    //     event.firstLeadTime,
-    //     new Date(),
-    //   );
-    //   const row = `- ${eventString.long
-    //     .replace('<strong>', '*')
-    //     .replace('</strong>', '*')}\n`;
-
-    //   eventList += row;
-    // }
+    const triggerState = event.thresholdReached ? 'trigger' : 'warning';
 
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
@@ -384,11 +405,23 @@ export class WhatsappService {
       areaList += row;
     }
 
+    const startTimeEvent = await this.getStartTimeEvent(
+      event,
+      country.countryCodeISO3,
+      disasterType,
+    );
+
     const followUpMessage =
       country.notificationInfo.whatsappMessage[disasterType]['follow-up'];
     const message = followUpMessage
+      .replace('[triggerState]', triggerState)
+      .replace('[triggerState]', triggerState)
+      .replace('[eventName]', event.eventName)
+      .replace('[startTimeEvent]', startTimeEvent)
       .replace('[nrTriggeredAreas]', triggeredAreas.length)
-      .replace('[adminAreaLabel]', adminAreaLabel);
+      .replace('[adminAreaLabel]', adminAreaLabel)
+      .replace('[areaList]', areaList)
+      .replace('[triggerState]', triggerState);
     return message;
   }
 
