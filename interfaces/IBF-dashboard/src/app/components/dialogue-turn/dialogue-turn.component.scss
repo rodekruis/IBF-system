@@ -173,6 +173,14 @@
   }
 }
 
+.dialogue-turn.is-opening-bubble {
+  .dialogue-turn--content {
+    ion-card {
+      background-color: var(--ion-color-ibf-no-alert-tertiary) !important;
+      color: var(--ion-color-ibf-no-alert-primary) !important;
+    }
+  }}
+
 .dialogue-turn.is-triggered {
   .dialogue-turn--content {
     ion-card {
@@ -187,6 +195,15 @@
       ion-card {
         border: var(--ion-color-ibf-outline-red) solid 2px;
       }
+    }
+  }
+}
+
+.dialogue-turn.is-warning {
+  .dialogue-turn--content {
+    ion-card {
+      background-color: var(--ion-color-ibf-trigger-alert-tertiary) !important;
+      color: var(--ion-color-ibf-trigger-alert-primary) !important;
     }
   }
 }

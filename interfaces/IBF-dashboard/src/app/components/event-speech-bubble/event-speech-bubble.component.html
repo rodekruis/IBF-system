@@ -2,7 +2,8 @@
   *ngIf="type === 'active'"
   isConnected="true"
   [isTriggered]="event.thresholdReached"
-  [isNotTriggered]="!event.thresholdReached"
+  [isNotTriggered]="!event.thresholdReached && !isMalawiFlashFloods()"
+  [isWarning]="!event.thresholdReached && isMalawiFlashFloods()"
   [isSelected]="eventBubbleIsSelected(event.eventName)"
   isConnected="true"
 >
@@ -15,10 +16,10 @@
       ></ion-icon>
       <p
         class="event-header"
-        [innerHTML]="
-          'chat-component.' +
+        [innerHTML]="!isMalawiFlashFloods() ?
+          ('chat-component.' +
             disasterTypeName +
-            '.active-event-active-trigger.header'
+            '.active-event-active-trigger.header') : getMalawiFlashFloodsHeader()
             | translate
               : {
                   firstLeadTimeDate: event.firstLeadTimeDate,
@@ -45,7 +46,8 @@
                   firstLeadTimeDate: event.firstLeadTimeDate,
                   eventName:
                     event.eventName?.split('_')[0] || disasterTypeLabel,
-                  duration: event.duration
+                  duration: event.duration,
+                  nrTriggeredAreas: areas.length
                 }
         "
       ></span>
@@ -76,7 +78,7 @@
     <span>
       <ion-icon
         class="warning-icon"
-        src="/assets/icons/Alert_Title_Navy.svg"
+        [src]="isMalawiFlashFloods() ? '/assets/icons/Alert_Title_Purple_Clear.svg' : '/assets/icons/Alert_Title_Navy.svg'"
         slot="start"
       ></ion-icon>
       <p
@@ -105,7 +107,8 @@
                 eventName: event.eventName?.split('_')[0],
                 leadTime: event.firstLeadTimeLabel,
                 timeUnit: event.timeUnit,
-                disasterTypeLabel: disasterTypeLabel
+                disasterTypeLabel: disasterTypeLabel,
+                nrTriggeredAreas: areas.length
               }
       "
     ></p>
@@ -184,7 +187,7 @@
   </ng-container>
 
   <ng-container *ngIf="event">
-    <app-event-switcher [event]="event"></app-event-switcher>
+    <app-event-switcher [event]="event" [shape]="isMalawiFlashFloods() ? 'round' : 'block'"></app-event-switcher>
   </ng-container>
 </app-dialogue-turn>
 

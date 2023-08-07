@@ -603,14 +603,14 @@ export class ChatComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const passedEvent = event.firstLeadTime === LeadTime.hour0;
+    const ongoingEvent = event.firstLeadTime === LeadTime.hour0;
     const landfallEvent = event.disasterSpecificProperties?.typhoonLandfall;
     const noLandfallYetEvent =
       event.disasterSpecificProperties?.typhoonNoLandfallYet;
 
     return this.translateService.instant(
       `chat-component.typhoon.active-event-active-trigger.${
-        passedEvent ? 'passed-event' : 'upcoming-event'
+        ongoingEvent ? 'ongoing-event' : 'upcoming-event'
       }.${
         noLandfallYetEvent
           ? 'no-landfall-yet'
@@ -647,5 +647,24 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   public hasEap(): string {
     return this.disasterTypeService.hasEap(this.disasterType.disasterType);
+  }
+
+  public isMalawiFlashFloods(): boolean {
+    if (!this.country || !this.disasterType) {
+      return false;
+    }
+    return (
+      this.country.countryCodeISO3 === 'MWI' &&
+      this.disasterType.disasterType === DisasterTypeKey.flashFloods
+    );
+  }
+
+  public noActionsTranslateKey(): string {
+    let key = 'chat-component.common.save-actions.no-actions';
+    if (this.isMalawiFlashFloods()) {
+      key += '-flash-floods';
+    }
+
+    return key;
   }
 }

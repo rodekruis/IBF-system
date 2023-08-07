@@ -28,6 +28,9 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   @Input()
   public event: EventSummary;
 
+  @Input()
+  public shape: string;
+
   constructor(
     private disasterTypeService: DisasterTypeService,
     public eventService: EventService,
@@ -103,7 +106,10 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   }
 
   public getColor(event: EventSummary): string {
-    return event.thresholdReached
+    const mwiFlashFloods =
+      !event.thresholdReached &&
+      this.disasterTypeName === DisasterTypeKey.flashFloods;
+    return event.thresholdReached || mwiFlashFloods
       ? 'ibf-trigger-alert-primary'
       : 'ibf-no-alert-primary';
   }

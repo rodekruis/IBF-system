@@ -55,7 +55,6 @@ export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
 
   @Input()
   public actionIndicatorLabel: string;
-
   @Input()
   public actionIndicatorNumberFormat: string;
 
@@ -126,5 +125,26 @@ export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
       eventName === this.eventService.state?.event?.eventName ||
       eventName === this.placeCodeHover?.eventName
     );
+  }
+
+  public isMalawiFlashFloods(): boolean {
+    if (!this.countryCodeISO3 || !this.disasterTypeName) {
+      return false;
+    }
+    return (
+      this.countryCodeISO3 === 'MWI' &&
+      this.disasterTypeName === DisasterTypeKey.flashFloods
+    );
+  }
+
+  public getMalawiFlashFloodsHeader(): string {
+    let headerType = '';
+    if (this.event.disasterSpecificProperties?.flashFloodOngoing) {
+      headerType = '-ongoing';
+    }
+    if (!this.event.activeTrigger) {
+      headerType = '-below-trigger';
+    }
+    return `chat-component.flash-floods.active-event-active-trigger.header${headerType}`;
   }
 }

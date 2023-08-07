@@ -107,6 +107,11 @@ export class EventService {
           event.eventName,
         );
       }
+      if (disasterType === DisasterType.FlashFloods) {
+        event.disasterSpecificProperties = {
+          flashFloodOngoing: event.firstLeadTime === LeadTime.hour0,
+        };
+      }
     }
     return eventSummary;
   }

@@ -1,5 +1,5 @@
 <ion-content scrollY="true">
-  <app-dialogue-turn [isWarn]="isWarn">
+  <app-dialogue-turn [isWarn]="isWarn && !isMalawiFlashFloods()" [isOpeningBubble]="isMalawiFlashFloods()">
     <p
       [innerHTML]="
         'chat-component.common.warn-label.message'
@@ -47,45 +47,47 @@
   <!-- Active event -->
   <ng-container *ngIf="eventState?.activeTrigger">
     <ng-container *ngFor="let event of eventState?.events">
-      <app-event-speech-bubble
-        *ngIf="
-          activeAreas.length &&
-          filteredStoppedAreas.length === 0 &&
-          filteredActiveAreas.length === 0
-        "
-        [type]="'active'"
-        [event]="event"
-        [selectedEvent]="eventState?.event?.eventName"
-        [disasterTypeLabel]="disasterType?.label"
-        [disasterTypeName]="disasterType?.disasterType"
-        [typhoonLandfallText]="showTyphoonLandfallText(event)"
-        [clearOutMessage]="getClearOutMessage(event)"
-        [countryCodeISO3]="country?.countryCodeISO3"
-        [areas]="activeAreas"
-        [adminAreaLabelPlural]="adminAreaLabelPlural"
-        [actionIndicatorLabel]="actionIndicatorLabel"
-        [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
-      ></app-event-speech-bubble>
+      <ng-container>
+        <app-event-speech-bubble
+          *ngIf="
+            activeAreas.length &&
+            filteredStoppedAreas.length === 0 &&
+            filteredActiveAreas.length === 0
+          "
+          [type]="'active'"
+          [event]="event"
+          [selectedEvent]="eventState?.event?.eventName"
+          [disasterTypeLabel]="disasterType?.label"
+          [disasterTypeName]="disasterType?.disasterType"
+          [typhoonLandfallText]="showTyphoonLandfallText(event)"
+          [clearOutMessage]="getClearOutMessage(event)"
+          [countryCodeISO3]="country?.countryCodeISO3"
+          [areas]="activeAreas"
+          [adminAreaLabelPlural]="adminAreaLabelPlural"
+          [actionIndicatorLabel]="actionIndicatorLabel"
+          [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+        ></app-event-speech-bubble>
 
-      <app-event-speech-bubble
-        *ngIf="
-          stoppedAreas.length &&
-          filteredStoppedAreas.length === 0 &&
-          filteredActiveAreas.length === 0
-        "
-        [type]="'stopped'"
-        [event]="event"
-        [selectedEvent]="eventState?.event?.eventName"
-        [disasterTypeLabel]="disasterType?.label"
-        [disasterTypeName]="disasterType?.disasterType"
-        [typhoonLandfallText]="showTyphoonLandfallText(event)"
-        [clearOutMessage]="getClearOutMessage(null)"
-        [countryCodeISO3]="country?.countryCodeISO3"
-        [areas]="stoppedAreas"
-        [adminAreaLabelPlural]="adminAreaLabelPlural"
-        [actionIndicatorLabel]="actionIndicatorLabel"
-        [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
-      ></app-event-speech-bubble>
+        <app-event-speech-bubble
+          *ngIf="
+            stoppedAreas.length &&
+            filteredStoppedAreas.length === 0 &&
+            filteredActiveAreas.length === 0
+          "
+          [type]="'stopped'"
+          [event]="event"
+          [selectedEvent]="eventState?.event?.eventName"
+          [disasterTypeLabel]="disasterType?.label"
+          [disasterTypeName]="disasterType?.disasterType"
+          [typhoonLandfallText]="showTyphoonLandfallText(event)"
+          [clearOutMessage]="getClearOutMessage(null)"
+          [countryCodeISO3]="country?.countryCodeISO3"
+          [areas]="stoppedAreas"
+          [adminAreaLabelPlural]="adminAreaLabelPlural"
+          [actionIndicatorLabel]="actionIndicatorLabel"
+          [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+        ></app-event-speech-bubble>
+      </ng-container>
     </ng-container>
   </ng-container>
 
@@ -155,6 +157,7 @@
     *ngFor="let area of filteredActiveAreas; first as isFirst"
     [isConnected]="!isFirst"
     [isTriggered]="eventState?.event?.thresholdReached"
+    [isWarning]="!eventState?.event?.thresholdReached && isMalawiFlashFloods()"
   >
     <ion-button
       *ngIf="placeCode"
@@ -245,7 +248,7 @@
       <ion-item *ngIf="!area.eapActions.length" class="background-light">
         <ion-label class="ion-text-wrap">
           {{
-            'chat-component.common.save-actions.no-actions' | translate
+            noActionsTranslateKey() | translate
           }}</ion-label
         ></ion-item
       >
@@ -309,3 +312,4 @@
     </ng-container>
   </app-dialogue-turn>
 </ion-content>
+
