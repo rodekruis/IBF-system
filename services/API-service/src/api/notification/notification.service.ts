@@ -7,6 +7,7 @@ import { NotificationContentService } from './notification-content/notification-
 import { EmailService } from './email/email.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import { EventSummaryCountry } from '../../shared/data.model';
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 
 @Injectable()
 export class NotificationService {
@@ -116,6 +117,10 @@ export class NotificationService {
         countryCodeISO3,
         event.eventName,
       );
+    } else if (disasterType === DisasterType.FlashFloods) {
+      if (event.firstLeadTime === LeadTime.hour0) {
+        send = false;
+      }
     }
     return send;
   }
