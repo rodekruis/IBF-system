@@ -568,5 +568,20 @@
         "value": ["#C70000", "#33A02C"]
       }
     }
+  },
+  {
+    "countryCodes": "MWI",
+    "disasterTypes": ["flash-floods"],
+    "name": "rivers",
+    "label": "Rivers",
+    "type": "wms",
+    "leadTimeDependent": false,
+    "active": "no",
+    "legendColor": {
+      "MWI": {
+        "type": "square",
+        "value": ["#0096FF"]
+      }
+    }
   }
 ]
