@@ -71,30 +71,6 @@ export class WhatsappService {
       });
   }
 
-  private async getStartTimeEvent(
-    event: EventSummaryCountry,
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    date?: Date,
-  ) {
-    const startDateFirstEvent = await this.notificationContentService.getFirstLeadTimeDate(
-      Number(event.firstLeadTime.split('-')[0]),
-      event.firstLeadTime.split('-')[1],
-      countryCodeISO3,
-      disasterType,
-      date,
-    );
-    const startTimeFirstEvent = await this.notificationContentService.getLeadTimeTimestamp(
-      event.firstLeadTime,
-      countryCodeISO3,
-      disasterType,
-    );
-    return (
-      startDateFirstEvent +
-      `${startTimeFirstEvent ? ' | ' + startTimeFirstEvent : ''}`
-    );
-  }
-
   private async configureInitialMessage(
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
@@ -110,7 +86,7 @@ export class WhatsappService {
       const triggerState = activeEvents[0].thresholdReached
         ? 'trigger'
         : 'warning';
-      const startTimeEvent = await this.getStartTimeEvent(
+      const startTimeEvent = await this.notificationContentService.getStartTimeEvent(
         activeEvents[0],
         country.countryCodeISO3,
         disasterType,
@@ -127,7 +103,7 @@ export class WhatsappService {
           'initial-multi-event'
         ];
 
-      const startTimeFirstEvent = await this.getStartTimeEvent(
+      const startTimeFirstEvent = await this.notificationContentService.getStartTimeEvent(
         activeEvents[0],
         country.countryCodeISO3,
         disasterType,
@@ -405,7 +381,7 @@ export class WhatsappService {
       areaList += row;
     }
 
-    const startTimeEvent = await this.getStartTimeEvent(
+    const startTimeEvent = await this.notificationContentService.getStartTimeEvent(
       event,
       country.countryCodeISO3,
       disasterType,

@@ -60,7 +60,9 @@ export class EmailService {
       date ? new Date(date) : new Date(),
     );
     const emailHtml = this.formatEmail(replaceKeyValues);
-    const emailSubject = `IBF ${disasterType} notification`;
+    const emailSubject = `IBF ${(
+      await this.notificationContentService.getDisasterTypeLabel(disasterType)
+    ).toLowerCase()} notification`;
     this.sendEmail(
       emailSubject,
       emailHtml,
@@ -82,7 +84,9 @@ export class EmailService {
       date ? new Date(date) : new Date(),
     );
     const emailHtml = this.formatEmail(replaceKeyValues);
-    const emailSubject = `IBF ${disasterType} trigger is now below threshold`;
+    const emailSubject = `IBF ${(
+      await this.notificationContentService.getDisasterTypeLabel(disasterType)
+    ).toLowerCase()} trigger is now below threshold`;
     this.sendEmail(
       emailSubject,
       emailHtml,
@@ -580,7 +584,7 @@ export class EmailService {
     );
 
     const tableForLeadTimeStart = `<div>
-      <strong>${
+      <strong style="color:#6200EE">${
         (
           await this.notificationContentService.getLeadTimeListEvent(
             country,
@@ -593,7 +597,7 @@ export class EmailService {
       }</strong>
   </div>
   <table class="notification-alerts-table">
-      <caption class="notification-alerts-table-caption">This table lists the exposed ${adminAreaLabels.plural.toLowerCase()} in order of ${actionsUnit.label.toLowerCase()}:</caption>
+      <caption class="notification-alerts-table-caption">This table lists the potentially exposed ${adminAreaLabels.plural.toLowerCase()} in order of ${actionsUnit.label.toLowerCase()}:</caption>
       <thead>
           <tr>
               <th align="left">${adminAreaLabels.singular}${

@@ -173,9 +173,7 @@ export class NotificationContentService {
   ) {
     return event.eventName
       ? `${event.eventName.split('_')[0]}`
-      : this.firstCharOfWordsToUpper(
-          (await this.getDisaster(disasterType)).label,
-        );
+      : (await this.getDisaster(disasterType)).label.toLowerCase();
   }
 
   public formatActionUnitValue(
@@ -195,7 +193,7 @@ export class NotificationContentService {
     }
   }
 
-  public async getFirstLeadTimeDate(
+  private async getFirstLeadTimeDate(
     value: number,
     unit: string,
     countryCodeISO3: string,
@@ -234,7 +232,7 @@ export class NotificationContentService {
     const eventName = await this.getFormattedEventName(event, disasterType);
     const triggerStatus = event.thresholdReached ? 'Trigger' : 'Warning';
     const dateTimePreposition = leadTimeUnit === 'month' ? 'in' : 'on';
-    const dateAndTime = this.getFirstLeadTimeDate(
+    const dateAndTime = await this.getFirstLeadTimeDate(
       Number(leadTimeValue),
       leadTimeUnit,
       country.countryCodeISO3,
@@ -253,7 +251,7 @@ export class NotificationContentService {
       : leadTimeFromNow;
 
     const timestamp = disasterSpecificCopy.timestamp
-      ? ` | ${disasterSpecificCopy.timestamp}`
+      ? ` at ${disasterSpecificCopy.timestamp}`
       : '';
 
     const triggeredAreas = await this.eventService.getTriggeredAreas(
@@ -264,25 +262,26 @@ export class NotificationContentService {
       event.firstLeadTime,
       event.eventName,
     );
+    const nrTriggeredAreas = triggeredAreas.filter(a => a.actionsValue > 0)
+      .length;
+
     return {
-      short: `${triggerStatus}: ${eventName} ${
+      short: `${triggerStatus} for ${eventName}: ${
         disasterSpecificCopy.extraInfo || leadTime === LeadTime.hour0
           ? leadTimeString
           : `${dateAndTime}${timestamp}`
       }<br />`,
-      long: `<strong>A ${triggerStatus} for ${eventName} was issued</strong>
+      long: `<strong>A ${triggerStatus.toLowerCase()} for ${eventName} is issued.</strong>
       <br /><br /> 
-      Forecasted: ${disasterSpecificCopy.eventStatus}${
+      ${disasterSpecificCopy.eventStatus || 'It is forecasted: '}${
         disasterSpecificCopy.extraInfo || leadTime === LeadTime.hour0
           ? ''
           : ` ${dateTimePreposition} ${dateAndTime}${timestamp}`
       }. ${disasterSpecificCopy.extraInfo}
       <br /><br /> 
-      There are ${
-        triggeredAreas.length
-      } exposed (ADMIN-AREA-PLURAL). They are listed below in order of (EXPOSURE-UNIT).
+      There are ${nrTriggeredAreas} potentially exposed (ADMIN-AREA-PLURAL). They are listed below in order of (EXPOSURE-UNIT).
       <br /><br /> 
-      This trigger was issued by the IBF portal on ${this.getFirstLeadTimeDate(
+      This ${triggerStatus.toLowerCase()} was issued by IBF on ${await this.getFirstLeadTimeDate(
         0,
         leadTimeUnit,
         country.countryCodeISO3,
@@ -291,6 +290,30 @@ export class NotificationContentService {
       )}.
       <br /><br />`,
     };
+  }
+
+  public async getStartTimeEvent(
+    event: EventSummaryCountry,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    date?: Date,
+  ) {
+    const startDateFirstEvent = await this.getFirstLeadTimeDate(
+      Number(event.firstLeadTime.split('-')[0]),
+      event.firstLeadTime.split('-')[1],
+      countryCodeISO3,
+      disasterType,
+      date,
+    );
+    const startTimeFirstEvent = await this.getLeadTimeTimestamp(
+      event.firstLeadTime,
+      countryCodeISO3,
+      disasterType,
+    );
+    return (
+      startDateFirstEvent +
+      `${startTimeFirstEvent ? ' at ' + startTimeFirstEvent : ''}`
+    );
   }
 
   public async getDisasterTypeLabel(disasterType: DisasterType) {
@@ -398,13 +421,13 @@ export class NotificationContentService {
       DisasterType.FlashFloods,
     );
     return {
-      eventStatus: '',
+      eventStatus: 'The flash flood is forecasted: ',
       extraInfo: '',
       timestamp: timestampString,
     };
   }
 
-  public async getLeadTimeTimestamp(
+  private async getLeadTimeTimestamp(
     leadTime: LeadTime,
     countryCodeISO3: string,
     disasterType: DisasterType,
