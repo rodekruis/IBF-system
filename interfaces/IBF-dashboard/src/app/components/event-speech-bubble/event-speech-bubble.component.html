@@ -16,16 +16,18 @@
       ></ion-icon>
       <p
         class="event-header"
-        [innerHTML]="!isMalawiFlashFloods() ?
-          ('chat-component.' +
-            disasterTypeName +
-            '.active-event-active-trigger.header') : getMalawiFlashFloodsHeader()
-            | translate
-              : {
-                  firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName: event.eventName?.split('_')[0],
-                  disasterTypeLabel: disasterTypeLabel
-                }
+        [innerHTML]="
+          !isMalawiFlashFloods()
+            ? 'chat-component.' +
+              disasterTypeName +
+              '.active-event-active-trigger.header'
+            : (getMalawiFlashFloodsHeader()
+              | translate
+                : {
+                    firstLeadTimeDate: event.firstLeadTimeDate,
+                    eventName: event.eventName?.split('_')[0],
+                    disasterTypeLabel: disasterTypeLabel
+                  })
         "
       ></p>
     </span>
@@ -78,7 +80,11 @@
     <span>
       <ion-icon
         class="warning-icon"
-        [src]="isMalawiFlashFloods() ? '/assets/icons/Alert_Title_Purple_Clear.svg' : '/assets/icons/Alert_Title_Navy.svg'"
+        [src]="
+          isMalawiFlashFloods()
+            ? '/assets/icons/Alert_Title_Purple_Clear.svg'
+            : '/assets/icons/Alert_Title_Navy.svg'
+        "
         slot="start"
       ></ion-icon>
       <p
@@ -187,7 +193,10 @@
   </ng-container>
 
   <ng-container *ngIf="event">
-    <app-event-switcher [event]="event" [shape]="isMalawiFlashFloods() ? 'round' : 'block'"></app-event-switcher>
+    <app-event-switcher
+      [event]="event"
+      [shape]="isMalawiFlashFloods() ? 'round' : 'block'"
+    ></app-event-switcher>
   </ng-container>
 </app-dialogue-turn>
 

@@ -658,13 +658,4 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.disasterType.disasterType === DisasterTypeKey.flashFloods
     );
   }
-
-  public noActionsTranslateKey(): string {
-    let key = 'chat-component.common.save-actions.no-actions';
-    if (this.isMalawiFlashFloods()) {
-      key += '-flash-floods';
-    }
-
-    return key;
-  }
 }
