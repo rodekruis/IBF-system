@@ -8,6 +8,7 @@ import { DisasterEntity } from '../../disaster/disaster.entity';
 import { EventModule } from '../../event/event.module';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { NotificationContentService } from './notification-content.service';
+import { HelperService } from '../../../shared/helper.service';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { NotificationContentService } from './notification-content.service';
     AdminAreaModule,
   ],
   controllers: [],
-  providers: [NotificationContentService],
+  providers: [NotificationContentService, HelperService],
   exports: [NotificationContentService],
 })
 export class NotificationContentModule {}

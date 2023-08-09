@@ -1,3 +1,23 @@
+# [0.253.0](https://github.com/rodekruis/IBF-system/compare/v0.252.1...v0.253.0) (2023-08-09)
+
+
+### Bug Fixes
+
+* email changes AB[#20029](https://github.com/rodekruis/IBF-system/issues/20029) ([875bae4](https://github.com/rodekruis/IBF-system/commit/875bae4264d176a40902942c7a5fcfd8f47eb764))
+* make email in line with design AB[#20029](https://github.com/rodekruis/IBF-system/issues/20029) ([1ab005b](https://github.com/rodekruis/IBF-system/commit/1ab005b9c551cc950196b47613fc430d01b24412))
+* remove 'X hours' from now' references from portal AB[#20033](https://github.com/rodekruis/IBF-system/issues/20033) ([db4b945](https://github.com/rodekruis/IBF-system/commit/db4b94533f7848548045a8ef29a0eececf91d69e))
+* update email for flash-floods AB[#20029](https://github.com/rodekruis/IBF-system/issues/20029) ([4690d73](https://github.com/rodekruis/IBF-system/commit/4690d73c96f499a0cf04d1875072f95ee4ae1199))
+
+
+### Features
+
+* add river layer AB[#20154](https://github.com/rodekruis/IBF-system/issues/20154) ([c04e2a7](https://github.com/rodekruis/IBF-system/commit/c04e2a78c4d1c49c1ac027e219b88ddb27843fe8))
+* don't send notifications for ongoing event AB[#22941](https://github.com/rodekruis/IBF-system/issues/22941) ([1259349](https://github.com/rodekruis/IBF-system/commit/12593491d58ef196414ae30b7292dc440748112f))
+* whatsapp flow single vs multi event AB[#20030](https://github.com/rodekruis/IBF-system/issues/20030) ([8c3c3e6](https://github.com/rodekruis/IBF-system/commit/8c3c3e64e8c7a1f744b3f725e0799abad1e388ca))
+* WIP email + whatsapp flash-floods AB[#20147](https://github.com/rodekruis/IBF-system/issues/20147) ([a8ece07](https://github.com/rodekruis/IBF-system/commit/a8ece07b265d0e109216f1ddc7fbf8f427657f19))
+
+
+
 ## [0.252.1](https://github.com/rodekruis/IBF-system/compare/v0.252.0...v0.252.1) (2023-08-04)
 
 
@@ -145,16 +165,6 @@
 ### Bug Fixes
 
 * correct earlier PR AB[#19862](https://github.com/rodekruis/IBF-system/issues/19862) ([e9cfbaa](https://github.com/rodekruis/IBF-system/commit/e9cfbaa5428bce58e46767fcfdb2d6e4220f25bf))
-
-
-
-## [0.247.5](https://github.com/rodekruis/IBF-system/compare/v0.247.4...v0.247.5) (2023-06-19)
-
-
-### Bug Fixes
-
-* mistake AB[#19780](https://github.com/rodekruis/IBF-system/issues/19780) ([dd4c97e](https://github.com/rodekruis/IBF-system/commit/dd4c97e5d456702cf724e2fa186197a1ad060970))
-* remove unused leadTimeLabel AB[#19780](https://github.com/rodekruis/IBF-system/issues/19780) ([d3e8c50](https://github.com/rodekruis/IBF-system/commit/d3e8c500985e71aab9caa7921af31ecfc1429db6))
 
 
 

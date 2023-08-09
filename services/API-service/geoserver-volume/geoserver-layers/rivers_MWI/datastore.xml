@@ -1,0 +1,24 @@
+<dataStore>
+  <id>DataStoreInfoImpl-5565e293:189d00befc9:-1755</id>
+  <name>rivers_MWI</name>
+  <description>rivers_MWI</description>
+  <type>Shapefile</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <connectionParameters>
+    <entry key="charset">ISO-8859-1</entry>
+    <entry key="filetype">shapefile</entry>
+    <entry key="create spatial index">true</entry>
+    <entry key="memory mapped buffer">false</entry>
+    <entry key="timezone">GMT</entry>
+    <entry key="enable spatial index">true</entry>
+    <entry key="namespace">ibf-system</entry>
+    <entry key="cache and reuse memory maps">true</entry>
+    <entry key="url">file:workspaces/ibf-system/ibf-pipeline/input/other/rivers_malawi.shp</entry>
+    <entry key="fstype">shape</entry>
+  </connectionParameters>
+  <__default>false</__default>
+  <dateCreated>2023-08-07 13:14:18.66 UTC</dateCreated>
+</dataStore>
