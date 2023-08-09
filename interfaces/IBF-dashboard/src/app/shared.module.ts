@@ -38,6 +38,8 @@ import { ScreenOrientationPopoverComponent } from './components/screen-orientati
 import { TimelineComponent } from './components/timeline/timeline.component';
 import { TimestampComponent } from './components/timestamp/timestamp.component';
 import { ToggleTriggerPopoverComponent } from './components/toggle-trigger-popover/toggle-trigger-popover.component';
+import { TooltipPopoverComponent } from './components/tooltip-popover/tooltip-popover.component';
+import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
 import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-component/backend-mock-scenario.component';
 @NgModule({
@@ -84,6 +86,8 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     TimelineComponent,
     TimestampComponent,
     ToggleTriggerPopoverComponent,
+    TooltipComponent,
+    TooltipPopoverComponent,
     UserStateComponent,
   ],
   exports: [
@@ -120,6 +124,8 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     TimelineComponent,
     TimestampComponent,
     ToggleTriggerPopoverComponent,
+    TooltipComponent,
+    TooltipPopoverComponent,
     TranslateModule,
     UserStateComponent,
   ],

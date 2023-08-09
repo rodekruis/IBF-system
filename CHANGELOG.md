@@ -1,3 +1,22 @@
+# [0.254.0](https://github.com/rodekruis/IBF-system/compare/v0.253.0...v0.254.0) (2023-08-09)
+
+
+### Bug Fixes
+
+* make btns tertiary AB[#22950](https://github.com/rodekruis/IBF-system/issues/22950) ([54c6f3d](https://github.com/rodekruis/IBF-system/commit/54c6f3d2a1257011c7450ea697d551834c63edd5))
+* no text if no actions defined at all AB[#22989](https://github.com/rodekruis/IBF-system/issues/22989) ([6026ba8](https://github.com/rodekruis/IBF-system/commit/6026ba8bd7a9743b8e0d918903fe746fb6cf0a7b))
+* no timestamp in speech bubble AB[#22947](https://github.com/rodekruis/IBF-system/issues/22947) ([e9b567a](https://github.com/rodekruis/IBF-system/commit/e9b567a8c62cd20a617f99d6117e904c0d2ed25b))
+* show today's date AB[#22948](https://github.com/rodekruis/IBF-system/issues/22948) ([5c72f2d](https://github.com/rodekruis/IBF-system/commit/5c72f2d1ec1a141db6d427bbdd457362db1381a8))
+
+
+### Features
+
+* disable stop trigger for flash-floods AB[#20135](https://github.com/rodekruis/IBF-system/issues/20135) ([a1acfd3](https://github.com/rodekruis/IBF-system/commit/a1acfd34c14ad79a33be3534f1e2a0545a5f4567))
+* only show btn if too late AB[#22949](https://github.com/rodekruis/IBF-system/issues/22949) ([6e3109a](https://github.com/rodekruis/IBF-system/commit/6e3109a6c6163f3edf8da2f3c8d0447fc7d4485a))
+* tooltip with explanation of why too late AB[#22949](https://github.com/rodekruis/IBF-system/issues/22949) ([41de773](https://github.com/rodekruis/IBF-system/commit/41de773242b6c3ec9cbe69ced8b38748145413db))
+
+
+
 # [0.253.0](https://github.com/rodekruis/IBF-system/compare/v0.252.1...v0.253.0) (2023-08-09)
 
 
@@ -156,15 +175,6 @@
 ### Features
 
 * gzip api responses AB[#19925](https://github.com/rodekruis/IBF-system/issues/19925) ([a37af3e](https://github.com/rodekruis/IBF-system/commit/a37af3ea7fd72b4706280ad056c9b6349b7a8082))
-
-
-
-## [0.247.6](https://github.com/rodekruis/IBF-system/compare/v0.247.5...v0.247.6) (2023-06-19)
-
-
-### Bug Fixes
-
-* correct earlier PR AB[#19862](https://github.com/rodekruis/IBF-system/issues/19862) ([e9cfbaa](https://github.com/rodekruis/IBF-system/commit/e9cfbaa5428bce58e46767fcfdb2d6e4220f25bf))
 
 
 
