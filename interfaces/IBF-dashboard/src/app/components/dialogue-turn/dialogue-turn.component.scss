@@ -200,15 +200,6 @@
   }
 }
 
-.dialogue-turn.is-warning {
-  .dialogue-turn--content {
-    ion-card {
-      background-color: var(--ion-color-ibf-trigger-alert-tertiary) !important;
-      color: var(--ion-color-ibf-trigger-alert-primary) !important;
-    }
-  }
-}
-
 .dialogue-turn.is-spoken {
   .dialogue-turn--content {
     animation-name: speak;

@@ -2,8 +2,7 @@
   *ngIf="type === 'active'"
   isConnected="true"
   [isTriggered]="event.thresholdReached"
-  [isNotTriggered]="!event.thresholdReached && !isMalawiFlashFloods()"
-  [isWarning]="!event.thresholdReached && isMalawiFlashFloods()"
+  [isNotTriggered]="!event.thresholdReached"
   [isSelected]="eventBubbleIsSelected(event.eventName)"
   isConnected="true"
 >

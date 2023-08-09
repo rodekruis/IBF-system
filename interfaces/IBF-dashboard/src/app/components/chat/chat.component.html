@@ -1,7 +1,7 @@
 <ion-content scrollY="true">
   <app-dialogue-turn
-    [isWarn]="isWarn && !isMalawiFlashFloods()"
-    [isOpeningBubble]="isMalawiFlashFloods()"
+    [isWarn]="isWarn"
+    [isOpeningBubble]="true"
   >
     <p>
       <span
@@ -167,7 +167,6 @@
     *ngFor="let area of filteredActiveAreas; first as isFirst"
     [isConnected]="!isFirst"
     [isTriggered]="eventState?.event?.thresholdReached"
-    [isWarning]="!eventState?.event?.thresholdReached && isMalawiFlashFloods()"
   >
     <ion-button
       *ngIf="placeCode"
