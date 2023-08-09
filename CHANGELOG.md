@@ -1,3 +1,12 @@
+# [0.256.0](https://github.com/rodekruis/IBF-system/compare/v0.255.0...v0.256.0) (2023-08-09)
+
+
+### Features
+
+* add some leadtimes AB[#23008](https://github.com/rodekruis/IBF-system/issues/23008) ([ee8dd8a](https://github.com/rodekruis/IBF-system/commit/ee8dd8a87865e92ca953445e40b69109e6e7b55a))
+
+
+
 # [0.255.0](https://github.com/rodekruis/IBF-system/compare/v0.254.0...v0.255.0) (2023-08-09)
 
 
@@ -171,20 +180,6 @@
 ### Features
 
 * preload waterpoints layer AB[#19863](https://github.com/rodekruis/IBF-system/issues/19863) ([8a13c07](https://github.com/rodekruis/IBF-system/commit/8a13c079b10bf27292319fe0c62fdeee553a1636))
-
-
-
-# [0.249.0](https://github.com/rodekruis/IBF-system/compare/v0.248.0...v0.249.0) (2023-06-26)
-
-
-### Bug Fixes
-
-* put back command AB[#19925](https://github.com/rodekruis/IBF-system/issues/19925) ([cd89bc0](https://github.com/rodekruis/IBF-system/commit/cd89bc0f34e0f3dbc9880f8f88ac75a7789dd4c1))
-
-
-### Features
-
-* enable gzip on static files AB[#19925](https://github.com/rodekruis/IBF-system/issues/19925) ([7730cb5](https://github.com/rodekruis/IBF-system/commit/7730cb5c13ee749e6971ec300f7d01d85746e8a9))
 
 
 
