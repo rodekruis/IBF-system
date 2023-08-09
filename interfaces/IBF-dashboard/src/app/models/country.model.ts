@@ -23,6 +23,8 @@ export class CountryDisasterSettings {
   droughtEndOfMonthPipeline?: boolean;
   eapAlertClasses?: EapAlertClasses;
   monthlyForecastInfo?: {};
+  enableEarlyActions?: boolean;
+  enableStopTrigger?: boolean;
 }
 
 export class DroughtForecastSeasons {

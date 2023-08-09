@@ -102,11 +102,11 @@
             >
               <ion-text style="font-size: 18px"
                 ><strong>{{
-                  getJSDate((timelineState | async).today) | date: 'd LLL y'
+                  getTodayDate() | date: 'd LLL y'
                 }}</strong></ion-text
               >
               <ion-text style="font-size: 12px">{{
-                getJSDate((timelineState | async).today) | date: 'EEEE, H:mm z'
+                getTodayDate() | date: 'EEEE, H:mm z'
               }}</ion-text>
             </div>
           </ion-row>

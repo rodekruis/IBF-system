@@ -1,15 +1,22 @@
 <ion-content scrollY="true">
-  <app-dialogue-turn [isWarn]="isWarn && !isMalawiFlashFloods()" [isOpeningBubble]="isMalawiFlashFloods()">
-    <p
-      [innerHTML]="
-        'chat-component.common.warn-label.message'
-          | translate
-            : {
-                lastModelRunDate: lastModelRunDate,
-                name: authService.displayName
-              }
-      "
-    ></p>
+<app-dialogue-turn [isWarn]="isWarn && !isMalawiFlashFloods()" [isOpeningBubble]="isMalawiFlashFloods()">
+    <p>
+      <span
+        [innerHTML]="
+          'chat-component.common.warn-label.message'
+            | translate
+              : {
+                  lastModelRunDate: lastModelRunDate,
+                  name: authService.displayName
+                }
+        "
+      ></span>
+      <app-tooltip
+        *ngIf="isWarn"
+        [value]="'chat-component.common.warn-label.tooltip' | translate"
+      ></app-tooltip>
+    </p>
+
     <ion-col>
       <ion-row>
         <app-about-btn
@@ -245,61 +252,64 @@
     </ion-row>
 
     <ng-container *ngIf="eventState?.event?.thresholdReached">
-      <ion-item *ngIf="!area.eapActions.length" class="background-light">
-        <ion-label class="ion-text-wrap">
-          {{
-            noActionsTranslateKey() | translate
-          }}</ion-label
-        ></ion-item
-      >
-      <form
-        *ngIf="area.eapActions.length"
-        (submit)="submitEapAction(area.placeCode)"
-      >
-        <ion-list class="background-light">
-          <ion-item
-            *ngFor="let action of area.eapActions"
-            class="ion-no-padding"
-          >
-            <ion-checkbox
-              mode="ios"
-              slot="start"
+      <ng-container *ngIf="disasterTypeSettings.enableEarlyActions">
+        <ion-item *ngIf="!area.eapActions.length" class="background-light">
+          <ion-label class="ion-text-wrap">
+            {{
+              noActionsTranslateKey() | translate
+            }}</ion-label
+          ></ion-item
+        >
+        <form
+          *ngIf="area.eapActions.length"
+          (submit)="submitEapAction(area.placeCode)"
+        >
+          <ion-list class="background-light">
+            <ion-item
+              *ngFor="let action of area.eapActions"
+              class="ion-no-padding"
+            >
+              <ion-checkbox
+                mode="ios"
+                slot="start"
+                color="ibf-primary"
+                [checked]="action.checked"
+                name="action.action"
+                (ionChange)="
+                  changeAction(
+                    area.placeCode,
+                    action.action,
+                    $event.detail.checked
+                  )
+                "
+              ></ion-checkbox>
+              <ion-label class="action-label ion-text-wrap"
+                ><strong>{{ action.aofLabel }}: </strong>{{ action.label
+                }}<span *ngIf="action.month"
+                  ><strong>
+                    ({{ action.monthLong[getRegion(area.placeCode)] }})</strong
+                  ></span
+                >
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-row class="ion-nowrap ion-align-items-center ion-margin-top">
+            <ion-button
+              [disabled]="area.submitDisabled"
               color="ibf-primary"
-              [checked]="action.checked"
-              name="action.action"
-              (ionChange)="
-                changeAction(
-                  area.placeCode,
-                  action.action,
-                  $event.detail.checked
-                )
+              type="submit"
+              expand="block"
+              class="submit-button"
+              [innerHTML]="
+                'chat-component.common.save-actions.submit-button-label'
+                  | translate
               "
-            ></ion-checkbox>
-            <ion-label class="action-label ion-text-wrap"
-              ><strong>{{ action.aofLabel }}: </strong>{{ action.label
-              }}<span *ngIf="action.month"
-                ><strong>
-                  ({{ action.monthLong[getRegion(area.placeCode)] }})</strong
-                ></span
-              >
-            </ion-label>
-          </ion-item>
-        </ion-list>
-        <ion-row class="ion-nowrap ion-align-items-center ion-margin-top">
-          <ion-button
-            [disabled]="area.submitDisabled"
-            color="ibf-primary"
-            type="submit"
-            expand="block"
-            class="submit-button"
-            [innerHTML]="
-              'chat-component.common.save-actions.submit-button-label'
-                | translate
-            "
-          ></ion-button>
-        </ion-row>
-      </form>
+            ></ion-button>
+          </ion-row>
+        </form>
+      </ng-container>
       <ion-button
+        *ngIf="disasterTypeSettings?.enableStopTrigger"
         (click)="openToggleTriggerPopup(area, true)"
         [disabled]="!area.activeTrigger"
         color="ibf-primary"
