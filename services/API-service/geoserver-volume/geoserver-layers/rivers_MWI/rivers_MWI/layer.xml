@@ -1,0 +1,17 @@
+<layer>
+  <name>rivers_MWI</name>
+  <id>LayerInfoImpl-5565e293:189d00befc9:-1753</id>
+  <type>VECTOR</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-5565e293:189d00befc9:-1752</id>
+  </defaultStyle>
+  <resource class="featureType">
+    <id>FeatureTypeInfoImpl-5565e293:189d00befc9:-1754</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2023-08-07 13:14:34.960 UTC</dateCreated>
+  <dateModified>2023-08-07 13:18:29.278 UTC</dateModified>
+</layer>
