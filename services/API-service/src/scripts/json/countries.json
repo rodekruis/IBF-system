@@ -382,6 +382,9 @@
           "10-hour",
           "11-hour",
           "12-hour",
+          "15-hour",
+          "18-hour",
+          "21-hour",
           "24-hour",
           "48-hour"
         ],

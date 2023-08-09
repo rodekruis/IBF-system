@@ -1,0 +1,13 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl-69c177a3:189d8fdea9e:-74de</id>
+  <name>flood_extent_18-hour_MWI</name>
+  <description>flood_extent_18-hour_MWI</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2023-08-09 10:49:53.666 UTC</dateCreated>
+  <url>file:workspaces/ibf-system/ibf-pipeline/output/flood_extents/flood_extent_18-hour_MWI.tif</url>
+</coverageStore>

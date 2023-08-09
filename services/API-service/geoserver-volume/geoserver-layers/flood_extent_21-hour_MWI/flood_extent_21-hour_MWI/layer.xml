@@ -1,0 +1,16 @@
+<layer>
+  <name>flood_extent_21-hour_MWI</name>
+  <id>LayerInfoImpl-69c177a3:189d8fdea9e:-74d9</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-671146cb:189bf732cb3:-7e1e</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-69c177a3:189d8fdea9e:-74da</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2023-08-09 10:50:31.289 UTC</dateCreated>
+</layer>
