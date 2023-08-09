@@ -238,7 +238,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features.filter(
             (area) => area?.properties?.placeCode === this.placeCode,
           );
-          zoomExtraOffset = 0.5;
+          zoomExtraOffset = 0.1;
         } else {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features;
           zoomExtraOffset = 0;
