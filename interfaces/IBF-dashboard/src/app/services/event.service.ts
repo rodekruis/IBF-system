@@ -28,7 +28,6 @@ export class EventSummary {
 export class DisasterSpecificProperties {
   typhoonLandfall?: boolean;
   typhoonNoLandfallYet?: boolean;
-  flashFloodOngoing?: boolean;
 }
 
 @Injectable({

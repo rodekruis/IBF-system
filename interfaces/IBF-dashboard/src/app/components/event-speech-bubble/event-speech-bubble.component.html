@@ -16,17 +16,13 @@
       <p
         class="event-header"
         [innerHTML]="
-          !isMalawiFlashFloods()
-            ? 'chat-component.' +
-              disasterTypeName +
-              '.active-event-active-trigger.header'
-            : (getMalawiFlashFloodsHeader()
+          getHeader()
               | translate
                 : {
                     firstLeadTimeDate: event.firstLeadTimeDate,
                     eventName: event.eventName?.split('_')[0],
                     disasterTypeLabel: disasterTypeLabel
-                  })
+                  }
         "
       ></p>
     </span>
@@ -79,11 +75,7 @@
     <span>
       <ion-icon
         class="warning-icon"
-        [src]="
-          isMalawiFlashFloods()
-            ? '/assets/icons/Alert_Title_Purple_Clear.svg'
-            : '/assets/icons/Alert_Title_Navy.svg'
-        "
+        [src]="'/assets/icons/Alert_Title_Purple_Clear.svg'"
         slot="start"
       ></ion-icon>
       <p
