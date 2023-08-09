@@ -45,6 +45,7 @@ export enum wmsLegendType {
   exposureSquare = 'exposure-square',
   gradient = 'gradient',
   square = 'square',
+  line = 'line',
 }
 
 export enum IbfLayerThreshold {

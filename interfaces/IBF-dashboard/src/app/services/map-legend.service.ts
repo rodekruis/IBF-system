@@ -225,6 +225,13 @@ export class MapLegendService {
           layer.label,
         );
         break;
+      case wmsLegendType.line:
+        element += this.singleRowLegend(
+          SingleRowLegendType.line,
+          value[0],
+          layer.label,
+        );
+        break;
       default:
         break;
     }

@@ -579,7 +579,7 @@
     "active": "no",
     "legendColor": {
       "MWI": {
-        "type": "square",
+        "type": "line",
         "value": ["#0096FF"]
       }
     }
