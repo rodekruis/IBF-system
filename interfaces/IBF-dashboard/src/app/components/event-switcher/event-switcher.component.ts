@@ -28,9 +28,6 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   @Input()
   public event: EventSummary;
 
-  @Input()
-  public shape: string;
-
   constructor(
     private disasterTypeService: DisasterTypeService,
     public eventService: EventService,
