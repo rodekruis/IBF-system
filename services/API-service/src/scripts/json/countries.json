@@ -370,6 +370,7 @@
         "adminLevels": [3],
         "defaultAdminLevel": 3,
         "activeLeadTimes": [
+          "0-hour",
           "1-hour",
           "2-hour",
           "3-hour",
