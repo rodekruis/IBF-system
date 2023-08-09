@@ -39,6 +39,9 @@ export class DialogueTurnComponent implements OnInit {
   @Input()
   isSelected = true;
 
+  @Input()
+  isOpeningBubble = false;
+
   isSelf: boolean;
   isSystem: boolean;
 

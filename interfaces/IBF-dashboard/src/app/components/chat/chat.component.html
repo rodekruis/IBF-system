@@ -1,5 +1,5 @@
 <ion-content scrollY="true">
-  <app-dialogue-turn [isWarn]="isWarn">
+  <app-dialogue-turn [isWarn]="isWarn" [isOpeningBubble]="true">
     <p>
       <span
         [innerHTML]="
@@ -42,7 +42,6 @@
     [selectedEvent]="eventState?.event?.eventName"
     [disasterTypeLabel]="disasterType?.label"
     [disasterTypeName]="disasterType?.disasterType"
-    [typhoonLandfallText]="showTyphoonLandfallText(null)"
     [clearOutMessage]="getClearOutMessage(null)"
     [countryCodeISO3]="country?.countryCodeISO3"
     [areas]="stoppedAreas"
@@ -65,7 +64,6 @@
         [selectedEvent]="eventState?.event?.eventName"
         [disasterTypeLabel]="disasterType?.label"
         [disasterTypeName]="disasterType?.disasterType"
-        [typhoonLandfallText]="showTyphoonLandfallText(event)"
         [clearOutMessage]="getClearOutMessage(event)"
         [countryCodeISO3]="country?.countryCodeISO3"
         [areas]="activeAreas"
@@ -85,7 +83,6 @@
         [selectedEvent]="eventState?.event?.eventName"
         [disasterTypeLabel]="disasterType?.label"
         [disasterTypeName]="disasterType?.disasterType"
-        [typhoonLandfallText]="showTyphoonLandfallText(event)"
         [clearOutMessage]="getClearOutMessage(null)"
         [countryCodeISO3]="country?.countryCodeISO3"
         [areas]="stoppedAreas"
@@ -104,7 +101,6 @@
     [selectedEvent]="eventState?.event?.eventName"
     [disasterTypeLabel]="disasterType?.label"
     [disasterTypeName]="disasterType?.disasterType"
-    [typhoonLandfallText]="showTyphoonLandfallText(eventState?.event)"
     [clearOutMessage]="getClearOutMessage(null)"
     [countryCodeISO3]="country?.countryCodeISO3"
     [areas]="stoppedAreas"

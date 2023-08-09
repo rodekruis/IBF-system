@@ -26,13 +26,8 @@ import { EventState } from 'src/app/types/event-state';
 import { TimelineState } from 'src/app/types/timeline-state';
 import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
-import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { Indicator } from '../../types/indicator-group';
-import {
-  LeadTime,
-  LeadTimeTriggerKey,
-  LeadTimeUnit,
-} from '../../types/lead-time';
+import { LeadTimeTriggerKey, LeadTimeUnit } from '../../types/lead-time';
 import { TriggeredArea } from '../../types/triggered-area';
 import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
 import { ToggleTriggerPopoverComponent } from '../toggle-trigger-popover/toggle-trigger-popover.component';
@@ -597,32 +592,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       }
     }
   };
-
-  public showTyphoonLandfallText(event: EventSummary) {
-    if (this.disasterTypeName !== DisasterTypeKey.typhoon || !event) {
-      return;
-    }
-
-    const passedEvent = event.firstLeadTime === LeadTime.hour0;
-    const landfallEvent = event.disasterSpecificProperties?.typhoonLandfall;
-    const noLandfallYetEvent =
-      event.disasterSpecificProperties?.typhoonNoLandfallYet;
-
-    return this.translateService.instant(
-      `chat-component.typhoon.active-event-active-trigger.${
-        passedEvent ? 'passed-event' : 'upcoming-event'
-      }.${
-        noLandfallYetEvent
-          ? 'no-landfall-yet'
-          : landfallEvent
-          ? 'landfall'
-          : 'no-landfall'
-      }`,
-      {
-        firstLeadTimeDate: event.firstLeadTimeDate,
-      },
-    );
-  }
 
   public selectArea(area) {
     this.placeCodeService.setPlaceCode({

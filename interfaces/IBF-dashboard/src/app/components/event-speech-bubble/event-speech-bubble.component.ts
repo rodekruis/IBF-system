@@ -5,6 +5,7 @@ import {
   OnDestroy,
   OnInit,
 } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { PlaceCode } from '../../models/place-code.model';
@@ -12,6 +13,7 @@ import { EventService, EventSummary } from '../../services/event.service';
 import { PlaceCodeService } from '../../services/place-code.service';
 import { TimelineService } from '../../services/timeline.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
+import { LeadTime } from '../../types/lead-time';
 import { TriggeredArea } from '../../types/triggered-area';
 
 @Component({
@@ -22,47 +24,32 @@ import { TriggeredArea } from '../../types/triggered-area';
 export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
   @Input()
   public type: string;
-
   @Input()
   public event: EventSummary;
-
   @Input()
   public selectedEvent: string;
-
   @Input()
   public disasterTypeLabel: string;
-
   @Input()
   public disasterTypeName: DisasterTypeKey;
-
-  @Input()
-  public typhoonLandfallText: string;
-
   @Input()
   public forecastInfo: string[];
-
   @Input()
   public countryCodeISO3: string;
-
   @Input()
   public clearOutMessage: string;
-
   @Input()
   public areas: TriggeredArea[];
-
   @Input()
   public adminAreaLabelPlural: string;
-
   @Input()
   public actionIndicatorLabel: string;
-
   @Input()
   public actionIndicatorNumberFormat: string;
 
+  public typhoonLandfallText: string;
   public displayName: string;
-
   public isStopped: boolean;
-
   private placeCodeHoverSubscription: Subscription;
   public placeCodeHover: PlaceCode;
 
@@ -72,6 +59,7 @@ export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
     private eventService: EventService,
     private timelineService: TimelineService,
     private changeDetectorRef: ChangeDetectorRef,
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit() {
@@ -82,6 +70,8 @@ export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
     this.placeCodeHoverSubscription = this.placeCodeService
       .getPlaceCodeHoverSubscription()
       .subscribe(this.onPlaceCodeHoverChange);
+
+    this.typhoonLandfallText = this.showTyphoonLandfallText(this.event);
   }
 
   ngOnDestroy() {
@@ -125,6 +115,43 @@ export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
     return (
       eventName === this.eventService.state?.event?.eventName ||
       eventName === this.placeCodeHover?.eventName
+    );
+  }
+
+  public getHeader(): string {
+    let header = `chat-component.${this.disasterTypeName}.active-event-active-trigger.header`;
+    if (this.event.firstLeadTime === LeadTime.hour0) {
+      header += '-ongoing';
+    }
+    if (!this.event.thresholdReached) {
+      header += '-below-trigger';
+    }
+    return header;
+  }
+
+  public showTyphoonLandfallText(event: EventSummary) {
+    if (this.disasterTypeName !== DisasterTypeKey.typhoon || !event) {
+      return;
+    }
+
+    const ongoingEvent = event.firstLeadTime === LeadTime.hour0;
+    const landfallEvent = event.disasterSpecificProperties?.typhoonLandfall;
+    const noLandfallYetEvent =
+      event.disasterSpecificProperties?.typhoonNoLandfallYet;
+
+    return this.translateService.instant(
+      `chat-component.typhoon.active-event-active-trigger.${
+        ongoingEvent ? 'ongoing-event' : 'upcoming-event'
+      }.${
+        noLandfallYetEvent
+          ? 'no-landfall-yet'
+          : landfallEvent
+          ? 'landfall'
+          : 'no-landfall'
+      }`,
+      {
+        firstLeadTimeDate: event.firstLeadTimeDate,
+      },
     );
   }
 }
