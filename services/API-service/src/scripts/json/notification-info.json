@@ -155,7 +155,7 @@
     },
     "triggerStatement": {
       "floods": "An administrative area is triggered based on two parameters from the 6-days GloFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 60% probability of occurrence of a 5 year return period flood within the next 6 days. The GloFAS flood forecast triggers except in the Traditional Areas where the False Alarm Ratio (FAR) exceeds the predetermined maximum value which is 0.5.",
-      "flash-floods": "TBD"
+      "flash-floods": "A notification is issued when the model predicts that the rainfall forecasted can potentially lead to a flood, exposing at least 20 people. The trigger model updates every 6 hours based on rainfall forecasts. A <strong>warning</strong> notification will be issued based on the rainfall forecast, with a lead time of <strong>up to 48h</strong>. A <strong>trigger</strong> notification will be issued if the threshold is exceeded, with a lead time of <strong>12 hours or less</strong>."
     },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/",

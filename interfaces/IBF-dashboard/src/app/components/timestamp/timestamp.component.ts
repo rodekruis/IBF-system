@@ -18,7 +18,7 @@ export class TimestampComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.displayDate = this.timestamp.toFormat(this.dateFormat);
-    this.displayTime = this.timestamp.toFormat(this.timeFormat);
+    this.displayDate = this.timestamp?.toFormat(this.dateFormat);
+    this.displayTime = this.timestamp?.toFormat(this.timeFormat);
   }
 }
