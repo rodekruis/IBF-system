@@ -1,3 +1,13 @@
+## [0.256.1](https://github.com/rodekruis/IBF-system/compare/v0.256.0...v0.256.1) (2023-08-09)
+
+
+### Bug Fixes
+
+* rivers legend line not square AB[#20154](https://github.com/rodekruis/IBF-system/issues/20154) ([50e6db9](https://github.com/rodekruis/IBF-system/commit/50e6db9613ee691ec10412ca42c8fef562909d2f))
+* zoom in on area click instead of out AB[#23032](https://github.com/rodekruis/IBF-system/issues/23032) ([23c9a2e](https://github.com/rodekruis/IBF-system/commit/23c9a2e21b424414b0152a6cd66ae0b179173295))
+
+
+
 # [0.256.0](https://github.com/rodekruis/IBF-system/compare/v0.255.0...v0.256.0) (2023-08-09)
 
 
@@ -165,21 +175,6 @@
 ### Bug Fixes
 
 * switch off waterpoints UGA/MWI AB[#20019](https://github.com/rodekruis/IBF-system/issues/20019) ([fd564eb](https://github.com/rodekruis/IBF-system/commit/fd564ebe6aa1505cfd0299f159f03f4e0cb3b832))
-
-
-
-# [0.250.0](https://github.com/rodekruis/IBF-system/compare/v0.249.0...v0.250.0) (2023-07-03)
-
-
-### Bug Fixes
-
-* revert compression on dynamic API responses AB[#19925](https://github.com/rodekruis/IBF-system/issues/19925) ([8e6ec6b](https://github.com/rodekruis/IBF-system/commit/8e6ec6b0fd76a776b88ee96bad6cdbab41a1a431))
-* rn console logs AB[#19863](https://github.com/rodekruis/IBF-system/issues/19863) ([f0be2fd](https://github.com/rodekruis/IBF-system/commit/f0be2fd50d34903819cf66ee4887a667d8370e74))
-
-
-### Features
-
-* preload waterpoints layer AB[#19863](https://github.com/rodekruis/IBF-system/issues/19863) ([8a13c07](https://github.com/rodekruis/IBF-system/commit/8a13c079b10bf27292319fe0c62fdeee553a1636))
 
 
 
