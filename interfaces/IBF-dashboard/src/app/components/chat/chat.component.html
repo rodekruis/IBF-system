@@ -1,8 +1,5 @@
 <ion-content scrollY="true">
-  <app-dialogue-turn
-    [isWarn]="isWarn"
-    [isOpeningBubble]="true"
-  >
+  <app-dialogue-turn [isWarn]="isWarn" [isOpeningBubble]="true">
     <p>
       <span
         [innerHTML]="
@@ -57,47 +54,45 @@
   <!-- Active event -->
   <ng-container *ngIf="eventState?.activeTrigger">
     <ng-container *ngFor="let event of eventState?.events">
-      <ng-container>
-        <app-event-speech-bubble
-          *ngIf="
-            activeAreas.length &&
-            filteredStoppedAreas.length === 0 &&
-            filteredActiveAreas.length === 0
-          "
-          [type]="'active'"
-          [event]="event"
-          [selectedEvent]="eventState?.event?.eventName"
-          [disasterTypeLabel]="disasterType?.label"
-          [disasterTypeName]="disasterType?.disasterType"
-          [typhoonLandfallText]="showTyphoonLandfallText(event)"
-          [clearOutMessage]="getClearOutMessage(event)"
-          [countryCodeISO3]="country?.countryCodeISO3"
-          [areas]="activeAreas"
-          [adminAreaLabelPlural]="adminAreaLabelPlural"
-          [actionIndicatorLabel]="actionIndicatorLabel"
-          [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
-        ></app-event-speech-bubble>
+      <app-event-speech-bubble
+        *ngIf="
+          activeAreas.length &&
+          filteredStoppedAreas.length === 0 &&
+          filteredActiveAreas.length === 0
+        "
+        [type]="'active'"
+        [event]="event"
+        [selectedEvent]="eventState?.event?.eventName"
+        [disasterTypeLabel]="disasterType?.label"
+        [disasterTypeName]="disasterType?.disasterType"
+        [typhoonLandfallText]="showTyphoonLandfallText(event)"
+        [clearOutMessage]="getClearOutMessage(event)"
+        [countryCodeISO3]="country?.countryCodeISO3"
+        [areas]="activeAreas"
+        [adminAreaLabelPlural]="adminAreaLabelPlural"
+        [actionIndicatorLabel]="actionIndicatorLabel"
+        [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+      ></app-event-speech-bubble>
 
-        <app-event-speech-bubble
-          *ngIf="
-            stoppedAreas.length &&
-            filteredStoppedAreas.length === 0 &&
-            filteredActiveAreas.length === 0
-          "
-          [type]="'stopped'"
-          [event]="event"
-          [selectedEvent]="eventState?.event?.eventName"
-          [disasterTypeLabel]="disasterType?.label"
-          [disasterTypeName]="disasterType?.disasterType"
-          [typhoonLandfallText]="showTyphoonLandfallText(event)"
-          [clearOutMessage]="getClearOutMessage(null)"
-          [countryCodeISO3]="country?.countryCodeISO3"
-          [areas]="stoppedAreas"
-          [adminAreaLabelPlural]="adminAreaLabelPlural"
-          [actionIndicatorLabel]="actionIndicatorLabel"
-          [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
-        ></app-event-speech-bubble>
-      </ng-container>
+      <app-event-speech-bubble
+        *ngIf="
+          stoppedAreas.length &&
+          filteredStoppedAreas.length === 0 &&
+          filteredActiveAreas.length === 0
+        "
+        [type]="'stopped'"
+        [event]="event"
+        [selectedEvent]="eventState?.event?.eventName"
+        [disasterTypeLabel]="disasterType?.label"
+        [disasterTypeName]="disasterType?.disasterType"
+        [typhoonLandfallText]="showTyphoonLandfallText(event)"
+        [clearOutMessage]="getClearOutMessage(null)"
+        [countryCodeISO3]="country?.countryCodeISO3"
+        [areas]="stoppedAreas"
+        [adminAreaLabelPlural]="adminAreaLabelPlural"
+        [actionIndicatorLabel]="actionIndicatorLabel"
+        [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+      ></app-event-speech-bubble>
     </ng-container>
   </ng-container>
 
