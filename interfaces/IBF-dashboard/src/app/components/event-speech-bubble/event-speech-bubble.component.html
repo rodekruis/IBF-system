@@ -17,12 +17,12 @@
         class="event-header"
         [innerHTML]="
           getHeader()
-              | translate
-                : {
-                    firstLeadTimeDate: event.firstLeadTimeDate,
-                    eventName: event.eventName?.split('_')[0],
-                    disasterTypeLabel: disasterTypeLabel
-                  }
+            | translate
+              : {
+                  firstLeadTimeDate: event.firstLeadTimeDate,
+                  eventName: event.eventName?.split('_')[0],
+                  disasterTypeLabel: disasterTypeLabel
+                }
         "
       ></p>
     </span>
@@ -75,7 +75,7 @@
     <span>
       <ion-icon
         class="warning-icon"
-        [src]="'/assets/icons/Alert_Title_Purple_Clear.svg'"
+        src="/assets/icons/Alert_Title_Purple_Clear.svg"
         slot="start"
       ></ion-icon>
       <p

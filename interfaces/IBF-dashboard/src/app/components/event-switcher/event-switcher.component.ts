@@ -103,10 +103,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   }
 
   public getColor(event: EventSummary): string {
-    const mwiFlashFloods =
-      !event.thresholdReached &&
-      this.disasterTypeName === DisasterTypeKey.flashFloods;
-    return event.thresholdReached || mwiFlashFloods
+    return event.thresholdReached
       ? 'ibf-trigger-alert-primary'
       : 'ibf-no-alert-primary';
   }
