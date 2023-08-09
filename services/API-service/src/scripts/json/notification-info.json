@@ -20,11 +20,11 @@
     },
     "whatsappMessage": {
       "heavy-rain": {
-        "initial": "*TRIGGER WARNING*\n\nA trigger warning for heavy rain was activated on *[startDate]*. It is now *[leadTime]* away.\n\nTo receive more detailed information reply 'yes' to this message.",
-        "follow-up": "There are *[nrTriggeredAreas]* [adminAreaLabel] triggered. They are listed below in order of exposed population.\n[areaList]\n\nLog in to the IBF Portal on your desktop to find more information.",
-        "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate further about this trigger.",
-        "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below threshold.\n\n",
-        "no-trigger": "There is *no trigger* currently.",
+        "initial-single-event": "*IBF alert notification*\n\nAn alert for heavy rain is forecasted for: *[startTimeEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
+        "follow-up": "*IBF alert notification*\n\nAn alert for heavy rain is forecasted for: *[startTimeEvent]*.\n\nThere are *[nrTriggeredAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this alert.",
+        "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this alert.",
+        "no-trigger-old-event": "The alert formerly activated on *[startDate]* is now below threshold.\n\n",
+        "no-trigger": "There is *no alert* currently.",
         "community-notification": "A new community notification has been received. Go to the IBF portal to see the details of the notification."
       }
     },
@@ -157,13 +157,27 @@
       "floods": "An administrative area is triggered based on two parameters from the 6-days GloFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 60% probability of occurrence of a 5 year return period flood within the next 6 days. The GloFAS flood forecast triggers except in the Traditional Areas where the False Alarm Ratio (FAR) exceeds the predetermined maximum value which is 0.5.",
       "flash-floods": "TBD"
     },
-    "linkSocialMediaType": null,
-    "linkSocialMediaUrl": null,
+    "linkSocialMediaType": "WhatsApp",
+    "linkSocialMediaUrl": "https://chat.whatsapp.com/",
     "linkVideo": "https://bit.ly/IBF-video-Malawi",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Malawi-Published.pdf",
     "mailSegment": {
       "floods": 2163966,
       "flash-floods": 2525790
+    },
+    "useWhatsapp": {
+      "flash-floods": true,
+      "floods": false
+    },
+    "whatsappMessage": {
+      "flash-floods": {
+        "initial-single-event": "*IBF [triggerState] notification*\n\nA [triggerState] for flash floods is forecasted in *[eventName]* for: *[startTimeEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
+        "initial-multi-event": "*IBF notification*\n\nThere are *[nrEvents]* notifications issued for flash floods. The first notification is forecasted for: *[startTimeFirstEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
+        "follow-up": "*IBF [triggerState] notification*\n\nA [triggerState] for flash floods is forecasted in *[eventName]*: *[startTimeEvent]*.\n\nThere are *[nrTriggeredAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this [triggerState].",
+        "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this trigger.",
+        "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below threshold.\n\n",
+        "no-trigger": "There is *no trigger* currently."
+      }
     }
   },
   {
@@ -181,9 +195,9 @@
     },
     "whatsappMessage": {
       "floods": {
-        "initial": "*TRIGGER WARNING*\n\nA trigger warning for floods was activated on *[startDate]*. It is now *[leadTime]* away.\n\nTo receive more detailed information reply 'yes' to this message.",
-        "follow-up": "There are *[nrTriggeredAreas]* [adminAreaLabel] triggered. They are listed below in order of exposed population.\n[areaList]\nYou can use the map attached to assess the situation. The triggered areas are outlined in purple. The potential flood extent is shown in red.\n\nLog in to the IBF Portal on your desktop to find more information.",
-        "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate further about this trigger.\n\nUpdate the early actions that have been done in this form: [externalActionsForm]. Please note that through this form you can only check off actions, but you cannot see which actions have been done already.",
+        "initial-single-event": "*IBF trigger notification*\n\nA trigger for floods is forecasted for: *[startTimeEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
+        "follow-up": "*IBF trigger notification*\n\nA triggger for floods is forecasted for: *[startTimeEvent]*.\n\nThere are *[nrTriggeredAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this trigger.",
+        "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this trigger.\n\nUpdate the early actions that have been done in this form: [externalActionsForm]. Please note that through this form you can only check off actions, but you cannot see which actions have been done already.",
         "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below threshold.\n\n",
         "no-trigger": "There is *no trigger* currently.",
         "trigger-finished": "The event will close in the IBF-portal when the forecast stays below threshold for 7 days in a row. Until that time, anticipatory actions can still be managed in the IBF-portal."

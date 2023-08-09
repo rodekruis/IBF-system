@@ -7,8 +7,8 @@ import {
 } from './twilio.dto';
 import { WhatsappService } from './whatsapp.service';
 
-@ApiTags('notifications')
-@Controller('notifications/whatsapp')
+@ApiTags('notification')
+@Controller('notification/whatsapp')
 export class WhatsappController {
   private readonly whatsappService: WhatsappService;
   public constructor(whatsappService: WhatsappService) {

@@ -144,7 +144,7 @@
       },
       "active-event-active-trigger": {
         "header": "Trigger: {{ disasterTypeLabel }}",
-        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong>."
       },
       "active-event-no-trigger": {
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
@@ -167,10 +167,10 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
       },
       "active-event-active-trigger": {
-        "header": "Trigger: {{ eventName }} at {{firstLeadTimeDate}}",
+        "header": "Trigger: {{ eventName }} on {{firstLeadTimeDate}}",
         "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
-        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away.",
-        "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>, but it can currently not be predicted to reach trigger thresholds yet. It is now <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> away."
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>.",
+        "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>, but it can currently not be predicted to reach trigger thresholds yet."
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
