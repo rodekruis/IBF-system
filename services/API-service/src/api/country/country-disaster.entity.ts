@@ -98,4 +98,8 @@ export class CountryDisasterSettingsEntity {
   @ApiProperty()
   @Column('json', { nullable: true })
   public droughtAreas: JSON;
+
+  @ApiProperty()
+  @Column({ default: true })
+  public enableStopTrigger: boolean;
 }

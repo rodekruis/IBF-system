@@ -73,6 +73,9 @@ export class CountryDisasterSettingsDto {
   @ApiProperty({ example: false })
   public showMonthlyEapActions?: boolean;
 
+  @ApiProperty({ example: true })
+  public enableStopTrigger?: boolean;
+
   @ApiProperty({ example: {} })
   public monthlyForecastInfo?: {};
 

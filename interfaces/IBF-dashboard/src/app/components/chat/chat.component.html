@@ -305,6 +305,7 @@
         </ion-row>
       </form>
       <ion-button
+        *ngIf="disasterTypeSettings?.enableStopTrigger"
         (click)="openToggleTriggerPopup(area, true)"
         [disabled]="!area.activeTrigger"
         color="ibf-primary"

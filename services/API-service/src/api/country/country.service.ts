@@ -194,6 +194,8 @@ export class CountryService {
       : null;
     countryDisasterSettingsEntity.showMonthlyEapActions =
       disaster.showMonthlyEapActions;
+    countryDisasterSettingsEntity.enableStopTrigger =
+      disaster.enableStopTrigger;
     countryDisasterSettingsEntity.monthlyForecastInfo = disaster.monthlyForecastInfo
       ? JSON.parse(JSON.stringify(disaster.monthlyForecastInfo))
       : null;
