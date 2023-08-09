@@ -386,6 +386,7 @@
           "48-hour"
         ],
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=035b1d36a17c94db1855152253a141227&authkey=AePN7DrtvirE98a6YfPlDLM&expiration=2023-08-09T22%3A00%3A00.000Z&e=6YZPE0",
+        "enableEarlyActions": false,
         "enableStopTrigger": false
       }
     ],
