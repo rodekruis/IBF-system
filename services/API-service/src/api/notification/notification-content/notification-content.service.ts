@@ -272,15 +272,15 @@ export class NotificationContentService {
           : `${dateAndTime}${timestamp}`
       }<br />`,
       long: `<strong>A ${triggerStatus.toLowerCase()} for ${eventName} is issued.</strong>
-      <br /><br /> 
+      <br /><br />
       ${disasterSpecificCopy.eventStatus || 'It is forecasted: '}${
         disasterSpecificCopy.extraInfo || leadTime === LeadTime.hour0
           ? ''
           : ` ${dateTimePreposition} ${dateAndTime}${timestamp}`
       }. ${disasterSpecificCopy.extraInfo}
-      <br /><br /> 
+      <br /><br />
       There are ${nrTriggeredAreas} potentially exposed (ADMIN-AREA-PLURAL). They are listed below in order of (EXPOSURE-UNIT).
-      <br /><br /> 
+      <br /><br />
       This ${triggerStatus.toLowerCase()} was issued by IBF on ${await this.getFirstLeadTimeDate(
         0,
         leadTimeUnit,
