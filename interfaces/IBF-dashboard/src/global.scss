@@ -275,6 +275,12 @@ input:-webkit-autofill:focus {
   color: initial;
 }
 
+app-tooltip {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+}
+
 .tooltip--container {
   .popover-content {
     padding: 8px;
