@@ -7,21 +7,21 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class IbfButtonComponent implements OnInit {
   @Input()
-  backgroundColor: string = 'primary';
+  public backgroundColor = 'primary';
 
   @Input()
-  borderColor: string = this.backgroundColor;
+  public borderColor = this.backgroundColor;
 
   @Input()
-  textColor: string = 'ibf-white';
+  public textColor = 'ibf-white';
 
   @Input()
-  strong: string = 'false';
+  public strong = 'false';
 
   @Input()
-  size: string = 'default';
+  public size = 'default';
 
-  public style: string = '';
+  public style = '';
 
   constructor() {}
 
