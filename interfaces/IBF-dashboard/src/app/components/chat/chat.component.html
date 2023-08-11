@@ -20,16 +20,19 @@
     <ion-col>
       <ion-row>
         <app-about-btn
+          style="width: 50%"
           [btnLabel]="
             'chat-component.' + disasterTypeName + '.about-button-label'
               | translate
           "
         ></app-about-btn>
-        <app-ibf-guide-button></app-ibf-guide-button>
+        <app-ibf-guide-button style="width: 50%"></app-ibf-guide-button>
       </ion-row>
       <ion-row>
-        <app-activation-log-button></app-activation-log-button>
-        <app-export-view></app-export-view>
+        <app-activation-log-button
+          style="width: 50%"
+        ></app-activation-log-button>
+        <app-export-view style="width: 50%"></app-export-view>
       </ion-row>
     </ion-col>
   </app-dialogue-turn>
