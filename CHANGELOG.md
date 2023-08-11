@@ -1,3 +1,12 @@
+## [0.256.2](https://github.com/rodekruis/IBF-system/compare/v0.256.1...v0.256.2) (2023-08-11)
+
+
+### Bug Fixes
+
+* sort events in email header AB[#23027](https://github.com/rodekruis/IBF-system/issues/23027) ([1b257fc](https://github.com/rodekruis/IBF-system/commit/1b257fcf9d653eebb484c710fbde6601f16f7b60))
+
+
+
 ## [0.256.1](https://github.com/rodekruis/IBF-system/compare/v0.256.0...v0.256.1) (2023-08-09)
 
 
@@ -166,15 +175,6 @@
 * update gradients AB[#20162](https://github.com/rodekruis/IBF-system/issues/20162) ([b48326c](https://github.com/rodekruis/IBF-system/commit/b48326ce840d68856419aa42eb6bfc933d7f1dbe))
 * update icons to markers AB[#20121](https://github.com/rodekruis/IBF-system/issues/20121) ([ec1c72d](https://github.com/rodekruis/IBF-system/commit/ec1c72d7a1e15d83dfaa5a2cb7aca047691c6a28))
 * update legend width AB[#20121](https://github.com/rodekruis/IBF-system/issues/20121) ([95112d5](https://github.com/rodekruis/IBF-system/commit/95112d5bab8ef2d5d33b93f8a872a35754e8c79a))
-
-
-
-## [0.250.1](https://github.com/rodekruis/IBF-system/compare/v0.250.0...v0.250.1) (2023-07-03)
-
-
-### Bug Fixes
-
-* switch off waterpoints UGA/MWI AB[#20019](https://github.com/rodekruis/IBF-system/issues/20019) ([fd564eb](https://github.com/rodekruis/IBF-system/commit/fd564ebe6aa1505cfd0299f159f03f4e0cb3b832))
 
 
 
