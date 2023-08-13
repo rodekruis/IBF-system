@@ -21,6 +21,15 @@ export class IbfButtonComponent implements OnInit {
   @Input()
   public size = 'default';
 
+  @Input()
+  public disabled = false;
+
+  @Input()
+  public type = 'button';
+
+  @Input()
+  public width: string = null;
+
   public style = '';
 
   constructor() {}
@@ -28,7 +37,7 @@ export class IbfButtonComponent implements OnInit {
   ngOnInit() {
     this.style += `
     display: block;
-    --width: 100%;
+    ${this.width ? 'width: ' + this.width + ';' : ''}
     --background: var(--ion-color-${this.backgroundColor});
     --border-color: var(--ion-color-${this.borderColor});
     --border-width: 2px;

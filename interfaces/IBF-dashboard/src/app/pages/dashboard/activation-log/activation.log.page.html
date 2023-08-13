@@ -34,15 +34,18 @@
             }}
           </p>
         </ion-col>
-        <ion-col class="ion-text-right" size="3">
-          <ion-button
-            size="small"
-            color="ibf-primary"
-            class="ion-margin-vertical"
-            (click)="copyToClipboard()"
-          >
-            {{ 'activation-page.copy-to-clipboard' | translate }}
-          </ion-button>
+        <ion-col size="3">
+          <ion-row class="ion-justify-content-end">
+            <app-ibf-button
+              size="small"
+              backgroundColor="ibf-primary"
+              class="ion-margin-vertical"
+              width="180px"
+              (click)="copyToClipboard()"
+            >
+              {{ 'activation-page.copy-to-clipboard' | translate }}
+            </app-ibf-button>
+          </ion-row>
         </ion-col>
       </ion-row>
       <ion-row class="table-row">

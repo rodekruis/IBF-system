@@ -51,14 +51,14 @@
             </ion-card-subtitle>
           </ion-card-header>
           <ion-card-content>
-            <ion-button
+            <app-ibf-button
               (click)="presentPopover()"
-              color="ibf-white"
+              backgroundColor="ibf-white"
+              textColor="ibf-no-alert-primary"
               size="small"
-              expand="block"
             >
               {{ 'ibf-guide-component.title' | translate }}
-            </ion-button>
+            </app-ibf-button>
             <br />
             <span [innerHtml]="'login-page.note' | translate"></span>
           </ion-card-content>
