@@ -54,7 +54,8 @@ async function bootstrap(): Promise<void> {
   SwaggerModule.setup('/docs', app, document, swaggerCustomOptions);
   app.useGlobalPipes(
     new ValidationPipe({
-      exceptionFactory: errors => new BadRequestException(errors),
+      forbidUnknownValues: false,
+      exceptionFactory: (errors) => new BadRequestException(errors),
     }),
   );
   app.use(bodyParser.json({ limit: '25mb' }));

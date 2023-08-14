@@ -198,7 +198,7 @@ export class EmailService {
       {
         replaceKey: '(LINK-EAP-SOP)',
         replaceValue: country.countryDisasterSettings.find(
-          s => s.disasterType === disasterType,
+          (s) => s.disasterType === disasterType,
         ).eapLink,
       },
       {
@@ -211,29 +211,32 @@ export class EmailService {
       },
       {
         replaceKey: '(ADMIN-AREA-PLURAL)',
-        replaceValue: country.adminRegionLabels[
-          String(
-            country.countryDisasterSettings.find(
-              s => s.disasterType === disasterType,
-            ).defaultAdminLevel,
-          )
-        ].plural.toLowerCase(),
+        replaceValue:
+          country.adminRegionLabels[
+            String(
+              country.countryDisasterSettings.find(
+                (s) => s.disasterType === disasterType,
+              ).defaultAdminLevel,
+            )
+          ].plural.toLowerCase(),
       },
       {
         replaceKey: '(ADMIN-AREA-SINGULAR)',
-        replaceValue: country.adminRegionLabels[
-          String(
-            country.countryDisasterSettings.find(
-              s => s.disasterType === disasterType,
-            ).defaultAdminLevel,
-          )
-        ].singular.toLowerCase(),
+        replaceValue:
+          country.adminRegionLabels[
+            String(
+              country.countryDisasterSettings.find(
+                (s) => s.disasterType === disasterType,
+              ).defaultAdminLevel,
+            )
+          ].singular.toLowerCase(),
       },
       {
         replaceKey: '(DISASTER-TYPE)',
-        replaceValue: await this.notificationContentService.getDisasterTypeLabel(
-          disasterType,
-        ),
+        replaceValue:
+          await this.notificationContentService.getDisasterTypeLabel(
+            disasterType,
+          ),
       },
       {
         replaceKey: '(VIDEO-PDF-LINKS)',
@@ -286,7 +289,7 @@ export class EmailService {
       {
         replaceKey: '(LINK-EAP-SOP)',
         replaceValue: country.countryDisasterSettings.find(
-          s => s.disasterType === disasterType,
+          (s) => s.disasterType === disasterType,
         ).eapLink,
       },
       {
@@ -306,9 +309,10 @@ export class EmailService {
       },
       {
         replaceKey: '(DISASTER-TYPE)',
-        replaceValue: await this.notificationContentService.getDisasterTypeLabel(
-          disasterType,
-        ),
+        replaceValue:
+          await this.notificationContentService.getDisasterTypeLabel(
+            disasterType,
+          ),
       },
       {
         replaceKey: this.placeholderToday,
@@ -427,32 +431,35 @@ export class EmailService {
     events: EventSummaryCountry[],
     date?: Date,
   ): Promise<object> {
-    const triggeredLeadTimes = await this.notificationContentService.getLeadTimesAcrossEvents(
-      country.countryCodeISO3,
-      disasterType,
-      events,
-    );
+    const triggeredLeadTimes =
+      await this.notificationContentService.getLeadTimesAcrossEvents(
+        country.countryCodeISO3,
+        disasterType,
+        events,
+      );
     let leadTimeListShort = '';
     let leadTimeListLong = '';
     for (const leadTime of country.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
+      (s) => s.disasterType === disasterType,
     ).activeLeadTimes) {
       if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
         for await (const event of events) {
           // for each event ..
-          const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
-            country.countryCodeISO3,
-            disasterType,
-            event.eventName,
-          );
-          if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
-            const leadTimeListEvent = await this.notificationContentService.getLeadTimeListEvent(
-              country,
-              event,
+          const triggeredLeadTimes =
+            await this.eventService.getTriggerPerLeadtime(
+              country.countryCodeISO3,
               disasterType,
-              leadTime.leadTimeName as LeadTime,
-              date,
+              event.eventName,
             );
+          if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
+            const leadTimeListEvent =
+              await this.notificationContentService.getLeadTimeListEvent(
+                country,
+                event,
+                disasterType,
+                leadTime.leadTimeName as LeadTime,
+                date,
+              );
             // We are hack-misusing 'extraInfo' being filled as a proxy for typhoonNoLandfallYet-boolean
             leadTimeListShort = `${leadTimeListShort}${leadTimeListEvent.short}`;
             leadTimeListLong = `${leadTimeListLong}${leadTimeListEvent.long}`;
@@ -469,23 +476,25 @@ export class EmailService {
     events: EventSummaryCountry[],
     date: Date,
   ): Promise<string> {
-    const triggeredLeadTimes = await this.notificationContentService.getLeadTimesAcrossEvents(
-      country.countryCodeISO3,
-      disasterType,
-      events,
-    );
+    const triggeredLeadTimes =
+      await this.notificationContentService.getLeadTimesAcrossEvents(
+        country.countryCodeISO3,
+        disasterType,
+        events,
+      );
     let leadTimeTables = '';
     for (const leadTime of country.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
+      (s) => s.disasterType === disasterType,
     ).activeLeadTimes) {
       if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
         for await (const event of events) {
           // for each event ..
-          const triggeredLeadTimes = await this.eventService.getTriggerPerLeadtime(
-            country.countryCodeISO3,
-            disasterType,
-            event.eventName,
-          );
+          const triggeredLeadTimes =
+            await this.eventService.getTriggerPerLeadtime(
+              country.countryCodeISO3,
+              disasterType,
+              event.eventName,
+            );
           if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
             // .. find the right leadtime
             const tableForLeadTime = await this.getTableForLeadTime(
@@ -561,8 +570,9 @@ export class EmailService {
   ): string {
     const src = `${
       process.env.NG_API_URL
-    }/event/event-map-image/${countryCodeISO3}/${disasterType}/${eventName ||
-      'no-name'}`;
+    }/event/event-map-image/${countryCodeISO3}/${disasterType}/${
+      eventName || 'no-name'
+    }`;
     return src;
   }
 
@@ -583,7 +593,7 @@ export class EmailService {
     date: Date,
   ): Promise<string> {
     const adminLevel = country.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
+      (s) => s.disasterType === disasterType,
     ).defaultAdminLevel;
     const adminAreaLabels = country.adminRegionLabels[String(adminLevel)];
     const adminAreaLabelsParent =
@@ -641,8 +651,9 @@ export class EmailService {
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
       disasterType,
-      country.countryDisasterSettings.find(s => s.disasterType === disasterType)
-        .defaultAdminLevel,
+      country.countryDisasterSettings.find(
+        (s) => s.disasterType === disasterType,
+      ).defaultAdminLevel,
       leadTime.leadTimeName,
       eventName,
     );
@@ -651,12 +662,13 @@ export class EmailService {
     );
     let areaTableString = '';
     for (const area of triggeredAreas) {
-      const actionsUnitValue = await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
-        disaster.actionsUnit as DynamicIndicator,
-        area.placeCode,
-        leadTime.leadTimeName as LeadTime,
-        eventName,
-      );
+      const actionsUnitValue =
+        await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
+          disaster.actionsUnit as DynamicIndicator,
+          area.placeCode,
+          leadTime.leadTimeName as LeadTime,
+          eventName,
+        );
       const areaTable = `<tr class='notification-alerts-table-row'>
       <td align='left'>${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''

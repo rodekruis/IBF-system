@@ -1,7 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddTriggeredBooleanToEvent1654249478272
-  implements MigrationInterface {
+  implements MigrationInterface
+{
   name = 'AddTriggeredBooleanToEvent1654249478272';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

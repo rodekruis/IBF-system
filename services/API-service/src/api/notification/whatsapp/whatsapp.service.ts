@@ -61,11 +61,11 @@ export class WhatsappService {
     }
     return twilioClient.messages
       .create(payload)
-      .then(message => {
+      .then((message) => {
         this.storeSendWhatsapp(message, mediaUrl);
         return message.sid;
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('Error from Twilio:', err);
         throw err;
       });
@@ -86,11 +86,12 @@ export class WhatsappService {
       const triggerState = activeEvents[0].thresholdReached
         ? 'trigger'
         : 'warning';
-      const startTimeEvent = await this.notificationContentService.getStartTimeEvent(
-        activeEvents[0],
-        country.countryCodeISO3,
-        disasterType,
-      );
+      const startTimeEvent =
+        await this.notificationContentService.getStartTimeEvent(
+          activeEvents[0],
+          country.countryCodeISO3,
+          disasterType,
+        );
 
       return baseMessage
         .replace('[triggerState]', triggerState)
@@ -103,11 +104,12 @@ export class WhatsappService {
           'initial-multi-event'
         ];
 
-      const startTimeFirstEvent = await this.notificationContentService.getStartTimeEvent(
-        activeEvents[0],
-        country.countryCodeISO3,
-        disasterType,
-      );
+      const startTimeFirstEvent =
+        await this.notificationContentService.getStartTimeEvent(
+          activeEvents[0],
+          country.countryCodeISO3,
+          disasterType,
+        );
 
       // This code now assumes certain parameters in data. This is not right.
       return baseMessage
@@ -130,7 +132,7 @@ export class WhatsappService {
     await this.sendToUsers(country, disasterType, message);
 
     // Add small delay to ensure the order in which messages are received
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 
   public async sendTriggerFinishedWhatsapp(
@@ -187,7 +189,9 @@ export class WhatsappService {
     const findOneOptions = {
       sid: sid,
     };
-    return await this.twilioMessageRepository.findOne(findOneOptions);
+    return await this.twilioMessageRepository.findOne({
+      where: findOneOptions,
+    });
   }
 
   public async statusCallback(
@@ -236,14 +240,14 @@ export class WhatsappService {
 
     for await (const country of user.countries) {
       for await (const disasterType of user.disasterTypes.filter(
-        d => country.notificationInfo.useWhatsapp[d.disasterType],
+        (d) => country.notificationInfo.useWhatsapp[d.disasterType],
       )) {
         const events = await this.eventService.getEventSummary(
           country.countryCodeISO3,
           disasterType.disasterType,
         );
         const activeEvents = events
-          .filter(event => event.activeTrigger)
+          .filter((event) => event.activeTrigger)
           .sort((a, b) => (a.firstLeadTime > b.firstLeadTime ? 1 : -1));
         if (activeEvents.length === 0) {
           const noTriggerMessage = this.configureNoTriggerMessage(
@@ -262,15 +266,14 @@ export class WhatsappService {
             event,
           );
           const eventName = event.eventName;
-          const eventMapImageEntity = await this.eventMapImageRepository.findOne(
-            {
+          const eventMapImageEntity =
+            await this.eventMapImageRepository.findOne({
               where: {
                 countryCodeISO3: country.countryCodeISO3,
-                disasterType: disasterType,
+                disasterType: disasterType.disasterType,
                 eventName: !eventName ? IsNull() : eventName,
               },
-            },
-          );
+            });
 
           await this.sendWhatsapp(
             triggerMessage,
@@ -282,7 +285,7 @@ export class WhatsappService {
               : null,
           );
           // Add small delay to ensure the order in which messages are received
-          await new Promise(resolve =>
+          await new Promise((resolve) =>
             setTimeout(resolve, eventMapImageEntity ? 5000 : 2000),
           );
         }
@@ -351,7 +354,7 @@ export class WhatsappService {
     event: EventSummaryCountry,
   ): Promise<string> {
     const adminLevel = country.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
+      (s) => s.disasterType === disasterType,
     ).defaultAdminLevel;
 
     const triggerState = event.thresholdReached ? 'trigger' : 'warning';
@@ -364,9 +367,8 @@ export class WhatsappService {
       event.eventName,
     );
 
-    const adminAreaLabel = country.adminRegionLabels[String(adminLevel)][
-      'plural'
-    ].toLowerCase();
+    const adminAreaLabel =
+      country.adminRegionLabels[String(adminLevel)]['plural'].toLowerCase();
     const actionUnit = await this.notificationContentService.getActionUnit(
       disasterType,
     );
@@ -381,11 +383,12 @@ export class WhatsappService {
       areaList += row;
     }
 
-    const startTimeEvent = await this.notificationContentService.getStartTimeEvent(
-      event,
-      country.countryCodeISO3,
-      disasterType,
-    );
+    const startTimeEvent =
+      await this.notificationContentService.getStartTimeEvent(
+        event,
+        country.countryCodeISO3,
+        disasterType,
+      );
 
     const followUpMessage =
       country.notificationInfo.whatsappMessage[disasterType]['follow-up'];
@@ -435,13 +438,13 @@ export class WhatsappService {
     user: UserEntity,
     countryCodeISO3: string,
   ): boolean {
-    return user.countries.some(c => c.countryCodeISO3 === countryCodeISO3);
+    return user.countries.some((c) => c.countryCodeISO3 === countryCodeISO3);
   }
 
   private isDisasterEnabledForUser(
     user: UserEntity,
     disasterType: DisasterType,
   ): boolean {
-    return user.disasterTypes.some(d => d.disasterType === disasterType);
+    return user.disasterTypes.some((d) => d.disasterType === disasterType);
   }
 }

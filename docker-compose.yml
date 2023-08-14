@@ -25,7 +25,6 @@ services:
         - NODE_ENV=${NODE_ENV}
     environment:
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-      - DB_TYPE=${DB_TYPE}
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
       - DB_DATABASE=${DB_DATABASE}

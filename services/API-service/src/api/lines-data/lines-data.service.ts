@@ -13,9 +13,7 @@ export class LinesDataService {
   @InjectRepository(LinesDataEntity)
   private readonly linesDataRepository: Repository<LinesDataEntity>;
   @InjectRepository(LinesDataDynamicStatusEntity)
-  private readonly linesDataDynamicStatusRepo: Repository<
-    LinesDataDynamicStatusEntity
-  >;
+  private readonly linesDataDynamicStatusRepo: Repository<LinesDataDynamicStatusEntity>;
 
   public constructor(private readonly helperService: HelperService) {}
 
@@ -47,7 +45,7 @@ export class LinesDataService {
       });
     }
 
-    const dataArray = validatedObjArray.map(line => {
+    const dataArray = validatedObjArray.map((line) => {
       const pointAttributes = JSON.parse(JSON.stringify(line)); // hack: clone without referencing
       delete pointAttributes['wkt'];
       return {
@@ -115,7 +113,7 @@ export class LinesDataService {
     for (const fid of assetFids.exposedFids) {
       const asset = await this.linesDataRepository.findOne({
         where: {
-          referenceId: fid,
+          referenceId: Number(fid),
           linesDataCategory: assetFids.linesDataCategory,
           countryCodeISO3: assetFids.countryCodeISO3,
         },
@@ -126,7 +124,7 @@ export class LinesDataService {
 
       // Delete existing entries with same date, leadTime and countryCodeISO3 and stationCode
       await this.linesDataDynamicStatusRepo.delete({
-        linesData: asset,
+        linesData: { linesDataId: asset.linesDataId },
         leadTime: assetFids.leadTime,
         timestamp: MoreThanOrEqual(
           this.helperService.getUploadCutoffMoment(

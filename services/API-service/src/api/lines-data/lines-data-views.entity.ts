@@ -1,11 +1,11 @@
-import { ViewEntity, getConnection } from 'typeorm';
+import { ViewEntity } from 'typeorm';
 import { LinesDataEntity, LinesDataEnum } from './lines-data.entity';
 import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
+import { AppDataSource } from '../../../appdatasource';
 
 const getViewQuery = (type: LinesDataEnum) => {
   return () =>
-    getConnection()
-      .createQueryBuilder()
+    AppDataSource.createQueryBuilder()
       .select([
         `line."referenceId",line.geom${
           type === LinesDataEnum.roads
@@ -20,7 +20,7 @@ const getViewQuery = (type: LinesDataEnum) => {
         'line."linesDataId" = status."referenceId"',
       )
       .leftJoin(
-        subquery => {
+        (subquery) => {
           return subquery
             .select([
               'status."leadTime" as "leadTime"',

@@ -113,7 +113,7 @@ export class TyphoonTrackService {
     );
     const filters = {
       countryCodeISO3: countryCodeISO3,
-      date: lastTriggeredDate.date,
+      date: new Date(lastTriggeredDate.date),
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           DisasterType.Typhoon,
@@ -137,7 +137,7 @@ export class TyphoonTrackService {
       where: filters,
     });
     const landfallTrackPoint = typhoonTrackPoints.filter(
-      point => point.firstLandfall,
+      (point) => point.firstLandfall,
     );
     const typhoonLandfall = landfallTrackPoint.length > 0;
 
@@ -147,14 +147,14 @@ export class TyphoonTrackService {
         Math.max.apply(
           null,
           typhoonTrackPoints.map(
-            point => new Date(point.timestampOfTrackpoint),
+            (point) => new Date(point.timestampOfTrackpoint),
           ),
         ),
       );
 
       const closestToLandTimestamp = new Date(
         typhoonTrackPoints.find(
-          point => point.closestToLand,
+          (point) => point.closestToLand,
         ).timestampOfTrackpoint,
       );
 

@@ -41,7 +41,8 @@ export class UserService {
         .digest('hex'),
     };
 
-    return await this.userRepository.findOne(findOneOptions, {
+    return await this.userRepository.findOne({
+      where: findOneOptions,
       relations: this.relations,
     });
   }
@@ -98,7 +99,8 @@ export class UserService {
   }
 
   public async findById(userId: string): Promise<UserResponseObject> {
-    const user = await this.userRepository.findOne(userId, {
+    const user = await this.userRepository.findOne({
+      where: { userId: userId },
       relations: this.relations,
     });
     if (!user) {
@@ -116,7 +118,8 @@ export class UserService {
     dto: UpdatePasswordDto,
   ): Promise<UserResponseObject> {
     let updateUser: UserEntity;
-    const loggedInUser = await this.userRepository.findOne(loggedInUserId, {
+    const loggedInUser = await this.userRepository.findOne({
+      where: { userId: loggedInUserId },
       relations: this.relations,
     });
     if (!loggedInUser) {
@@ -127,17 +130,14 @@ export class UserService {
     if (dto.email) {
       if (loggedInUser.userRole !== UserRole.Admin) {
         const errors = {
-          User:
-            'You can only use this endpoint with email-property if you are an admin-user',
+          User: 'You can only use this endpoint with email-property if you are an admin-user',
         };
         throw new HttpException({ errors }, HttpStatus.UNAUTHORIZED);
       }
-      updateUser = await this.userRepository.findOne(
-        { email: dto.email },
-        {
-          relations: this.relations,
-        },
-      );
+      updateUser = await this.userRepository.findOne({
+        where: { email: dto.email },
+        relations: this.relations,
+      });
       if (!updateUser) {
         const errors = { email: dto.email + ' not found' };
         throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
@@ -175,7 +175,7 @@ export class UserService {
           ? user.disasterTypes.map(
               (disasterEntity): string => disasterEntity.disasterType,
             )
-          : (await this.disasterRepository.find()).map(d => d.disasterType),
+          : (await this.disasterRepository.find()).map((d) => d.disasterType),
         exp: exp.getTime() / 1000,
       },
       process.env.SECRET,

@@ -22,15 +22,11 @@ export class CountryService {
   @InjectRepository(DisasterEntity)
   private readonly disasterRepository: Repository<DisasterEntity>;
   @InjectRepository(CountryDisasterSettingsEntity)
-  private readonly countryDisasterSettingsRepository: Repository<
-    CountryDisasterSettingsEntity
-  >;
+  private readonly countryDisasterSettingsRepository: Repository<CountryDisasterSettingsEntity>;
   @InjectRepository(LeadTimeEntity)
   private readonly leadTimeRepository: Repository<LeadTimeEntity>;
   @InjectRepository(NotificationInfoEntity)
-  private readonly notificationInfoRepository: Repository<
-    NotificationInfoEntity
-  >;
+  private readonly notificationInfoRepository: Repository<NotificationInfoEntity>;
 
   private readonly relations: string[] = [
     'countryDisasterSettings',
@@ -64,7 +60,8 @@ export class CountryService {
       countryCodeISO3: countryCodeISO3,
     };
 
-    return await this.countryRepository.findOne(findOneOptions, {
+    return await this.countryRepository.findOne({
+      where: findOneOptions,
       relations: relations || this.relations,
     });
   }
@@ -111,10 +108,10 @@ export class CountryService {
     );
     countryEntity.disasterTypes = await this.disasterRepository.find({
       where: country.disasterTypes
-        .filter(disasterType => {
+        .filter((disasterType) => {
           if (envDisasterTypes) {
             const envDisasterType = envDisasterTypes.find(
-              d => d.split(':')[0] === disasterType,
+              (d) => d.split(':')[0] === disasterType,
             );
             if (!envDisasterType) {
               return false; // Disaster-type not loaded at all in this environment
@@ -148,7 +145,7 @@ export class CountryService {
 
     for await (const disaster of country.countryDisasterSettings) {
       const existingDisaster = countryEntity.countryDisasterSettings.find(
-        d => d.disasterType === disaster.disasterType,
+        (d) => d.disasterType === disaster.disasterType,
       );
       if (existingDisaster) {
         const savedDisaster = await this.addOrUpdateDisaster(
@@ -178,15 +175,18 @@ export class CountryService {
     countryDisasterSettingsEntity: CountryDisasterSettingsEntity,
     disaster: CountryDisasterSettingsDto,
   ): Promise<CountryDisasterSettingsEntity> {
-    countryDisasterSettingsEntity.adminLevels = disaster.adminLevels as AdminLevel[];
-    countryDisasterSettingsEntity.defaultAdminLevel = disaster.defaultAdminLevel as AdminLevel;
+    countryDisasterSettingsEntity.adminLevels =
+      disaster.adminLevels as AdminLevel[];
+    countryDisasterSettingsEntity.defaultAdminLevel =
+      disaster.defaultAdminLevel as AdminLevel;
     countryDisasterSettingsEntity.eapLink = disaster.eapLink;
     countryDisasterSettingsEntity.eapAlertClasses = disaster.eapAlertClasses
       ? JSON.parse(JSON.stringify([disaster.eapAlertClasses]))[0]
       : null;
-    countryDisasterSettingsEntity.droughtForecastSeasons = disaster.droughtForecastSeasons
-      ? JSON.parse(JSON.stringify(disaster.droughtForecastSeasons))
-      : null;
+    countryDisasterSettingsEntity.droughtForecastSeasons =
+      disaster.droughtForecastSeasons
+        ? JSON.parse(JSON.stringify(disaster.droughtForecastSeasons))
+        : null;
     countryDisasterSettingsEntity.droughtEndOfMonthPipeline =
       disaster.droughtEndOfMonthPipeline;
     countryDisasterSettingsEntity.droughtAreas = disaster.droughtAreas
@@ -198,24 +198,26 @@ export class CountryService {
       disaster.enableEarlyActions;
     countryDisasterSettingsEntity.enableStopTrigger =
       disaster.enableStopTrigger;
-    countryDisasterSettingsEntity.monthlyForecastInfo = disaster.monthlyForecastInfo
-      ? JSON.parse(JSON.stringify(disaster.monthlyForecastInfo))
-      : null;
-    countryDisasterSettingsEntity.activeLeadTimes = await this.leadTimeRepository.find(
-      {
+    countryDisasterSettingsEntity.monthlyForecastInfo =
+      disaster.monthlyForecastInfo
+        ? JSON.parse(JSON.stringify(disaster.monthlyForecastInfo))
+        : null;
+    countryDisasterSettingsEntity.activeLeadTimes =
+      await this.leadTimeRepository.find({
         where: disaster.activeLeadTimes.map(
           (countryLeadTime: string): object => {
             return { leadTimeName: countryLeadTime };
           },
         ),
-      },
-    );
+      });
     const saveResult = await this.countryDisasterSettingsRepository.save(
       countryDisasterSettingsEntity,
     );
-    const savedEntity = await this.countryDisasterSettingsRepository.findOne(
-      saveResult.countryDisasterSettingsId,
-    );
+    const savedEntity = await this.countryDisasterSettingsRepository.findOne({
+      where: {
+        countryDisasterSettingsId: saveResult.countryDisasterSettingsId,
+      },
+    });
     return savedEntity;
   }
 
@@ -282,9 +284,9 @@ export class CountryService {
     const saveResult = await this.notificationInfoRepository.save(
       notificationInfoEntity,
     );
-    const savedEntity = await this.notificationInfoRepository.findOne(
-      saveResult.notificationInfoId,
-    );
+    const savedEntity = await this.notificationInfoRepository.findOne({
+      where: { notificationInfoId: saveResult.notificationInfoId },
+    });
     return savedEntity;
   }
 }

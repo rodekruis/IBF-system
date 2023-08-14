@@ -2,13 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import {
-  InsertResult,
-  IsNull,
-  MoreThan,
-  MoreThanOrEqual,
-  Repository,
-} from 'typeorm';
+import { InsertResult, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 import { AdminAreaEntity } from './admin-area.entity';
 import { EventService } from '../event/event.service';
 import { AggregateDataRecord } from 'src/shared/data.model';
@@ -26,9 +20,7 @@ export class AdminAreaService {
   @InjectRepository(DisasterEntity)
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
   @InjectRepository(AdminAreaDynamicDataEntity)
-  private readonly adminAreaDynamicDataRepo: Repository<
-    AdminAreaDynamicDataEntity
-  >;
+  private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
 
   public constructor(
     private helperService: HelperService,
@@ -50,23 +42,21 @@ export class AdminAreaService {
 
     // then upload new admin-areas
     await Promise.all(
-      adminAreas.features.map(
-        (area): Promise<InsertResult> => {
-          return this.adminAreaRepository
-            .createQueryBuilder()
-            .insert()
-            .values({
-              countryCodeISO3: countryCodeISO3,
-              adminLevel: adminLevel,
-              name: area.properties[`ADM${adminLevel}_EN`],
-              placeCode: area.properties[`ADM${adminLevel}_PCODE`],
-              placeCodeParent:
-                area.properties[`ADM${adminLevel - 1}_PCODE`] || null,
-              geom: (): string => this.geomFunction(area.geometry.coordinates),
-            })
-            .execute();
-        },
-      ),
+      adminAreas.features.map((area): Promise<InsertResult> => {
+        return this.adminAreaRepository
+          .createQueryBuilder()
+          .insert()
+          .values({
+            countryCodeISO3: countryCodeISO3,
+            adminLevel: adminLevel,
+            name: area.properties[`ADM${adminLevel}_EN`],
+            placeCode: area.properties[`ADM${adminLevel}_PCODE`],
+            placeCodeParent:
+              area.properties[`ADM${adminLevel - 1}_PCODE`] || null,
+            geom: (): string => this.geomFunction(area.geometry.coordinates),
+          })
+          .execute();
+      }),
     );
   }
 
@@ -101,7 +91,7 @@ export class AdminAreaService {
     if (leadTime) {
       trigger = triggersPerLeadTime[leadTime];
     } else {
-      const leadTimeKeys = Object.keys(triggersPerLeadTime).filter(key =>
+      const leadTimeKeys = Object.keys(triggersPerLeadTime).filter((key) =>
         Object.values(LeadTime).includes(key as LeadTime),
       );
       for (const key of leadTimeKeys) {
@@ -144,8 +134,8 @@ export class AdminAreaService {
       disasterType: disasterType,
       adminLevel: adminLevel,
       value: MoreThan(0),
-      indicator: triggerUnit,
-      date: lastTriggeredDate.date,
+      indicator: triggerUnit as DynamicIndicator,
+      date: new Date(lastTriggeredDate.date),
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -391,7 +381,7 @@ export class AdminAreaService {
       countryCodeISO3: countryCodeISO3,
       disasterType: disasterType,
       adminLevel: adminLevel,
-      date: lastTriggeredDate.date,
+      date: new Date(lastTriggeredDate.date),
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -408,6 +398,6 @@ export class AdminAreaService {
     const adminAreasToShow = await this.adminAreaDynamicDataRepo.find({
       where: whereFilters,
     });
-    return adminAreasToShow.map(area => area.placeCode);
+    return adminAreasToShow.map((area) => area.placeCode);
   }
 }

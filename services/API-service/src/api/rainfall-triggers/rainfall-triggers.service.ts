@@ -6,9 +6,7 @@ import { RainfallTriggersEntity } from './rainfall-triggers.entity';
 @Injectable()
 export class RainfallTriggersService {
   @InjectRepository(RainfallTriggersEntity)
-  private readonly rainfallTriggersRepository: Repository<
-    RainfallTriggersEntity
-  >;
+  private readonly rainfallTriggersRepository: Repository<RainfallTriggersEntity>;
 
   public async getTriggerLevelsByCountry(
     countryCodeISO3,

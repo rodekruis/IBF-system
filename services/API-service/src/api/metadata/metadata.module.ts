@@ -1,5 +1,5 @@
 import { CountryModule } from './../country/country.module';
-import { HttpModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from '../user/user.module';
 import { MetadataController } from './metadata.controller';
@@ -9,6 +9,7 @@ import { LayerMetadataEntity } from './layer-metadata.entity';
 import { HelperService } from '../../shared/helper.service';
 import { EventModule } from '../event/event.module';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [

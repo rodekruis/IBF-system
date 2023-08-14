@@ -43,7 +43,7 @@ for (const layer of layerMetadata) {
 fs.writeFile(
   path + 'indicator-metadata.json',
   JSON.stringify(indicatorMetadata),
-  function(err) {
+  function (err) {
     if (err) {
       return console.log('err', err);
     }
@@ -54,7 +54,7 @@ fs.writeFile(
 fs.writeFile(
   path + 'layer-metadata.json',
   JSON.stringify(layerMetadata),
-  function(err) {
+  function (err) {
     if (err) {
       return console.log('err', err);
     }

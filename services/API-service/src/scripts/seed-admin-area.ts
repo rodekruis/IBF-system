@@ -13,15 +13,13 @@ export class SeedAdminArea implements InterfaceScript {
   public async run(): Promise<void> {
     const envCountries = process.env.COUNTRIES.split(',');
     await Promise.all(
-      countries.map(
-        (country): Promise<void> => {
-          if (envCountries.includes(country.countryCodeISO3)) {
-            return this.seedCountryAdminAreas(country);
-          } else {
-            return Promise.resolve();
-          }
-        },
-      ),
+      countries.map((country): Promise<void> => {
+        if (envCountries.includes(country.countryCodeISO3)) {
+          return this.seedCountryAdminAreas(country);
+        } else {
+          return Promise.resolve();
+        }
+      }),
     );
   }
 

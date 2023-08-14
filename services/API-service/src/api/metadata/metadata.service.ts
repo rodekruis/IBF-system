@@ -138,7 +138,9 @@ export class MetadataService {
     return indicators.filter(
       (metadata: IndicatorMetadataEntity): boolean =>
         metadata.countryCodes.split(',').includes(countryCodeISO3) &&
-        metadata.disasterTypes.map(d => d.disasterType).includes(disasterType),
+        metadata.disasterTypes
+          .map((d) => d.disasterType)
+          .includes(disasterType),
     );
   }
 
@@ -153,7 +155,9 @@ export class MetadataService {
     return layers.filter(
       (metadata: LayerMetadataEntity): boolean =>
         metadata.countryCodes.split(',').includes(countryCodeISO3) &&
-        metadata.disasterTypes.map(d => d.disasterType).includes(disasterType),
+        metadata.disasterTypes
+          .map((d) => d.disasterType)
+          .includes(disasterType),
     );
   }
 }

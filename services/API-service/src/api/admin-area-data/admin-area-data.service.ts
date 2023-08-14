@@ -25,8 +25,8 @@ export class AdminAreaDataService {
     await this.prepareAndUpload(validatedObjArray);
   }
 
-  private groupBy = function(xs, key) {
-    return xs.reduce(function(rv, x) {
+  private groupBy = function (xs, key) {
+    return xs.reduce(function (rv, x) {
       (rv[x[key]] = rv[x[key]] || []).push(x);
       return rv;
     }, {});
@@ -54,7 +54,7 @@ export class AdminAreaDataService {
   public async prepareAndUpload(validatedArray: UploadAdminAreaDataDto[]) {
     for (const adminLevel of [1, 2, 3, 4]) {
       const fileredByAdminLevel = validatedArray.filter(
-        r => r.adminLevel === adminLevel,
+        (r) => r.adminLevel === adminLevel,
       );
       if (fileredByAdminLevel.length === 0) {
         continue;
@@ -65,7 +65,7 @@ export class AdminAreaDataService {
         dto.indicator = indicator as UpdateableStaticIndicator;
         dto.countryCodeISO3 = dataByIndicator[indicator][0].countryCodeISO3;
         dto.adminLevel = dataByIndicator[indicator][0].adminLevel;
-        dto.dataPlaceCode = dataByIndicator[indicator].map(record => {
+        dto.dataPlaceCode = dataByIndicator[indicator].map((record) => {
           return { placeCode: record.placeCode, amount: record.value };
         });
         await this.uploadJson(dto);
