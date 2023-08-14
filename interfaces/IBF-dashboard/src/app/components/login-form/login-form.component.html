@@ -59,17 +59,16 @@
     </div>
   </ion-item>
 
-  <ion-button
-    buttonType="button"
+  <app-ibf-button
     type="submit"
-    class="login-button"
-    expand="block"
     [disabled]="!loginForm.form.valid"
     data-test="login-button"
+    backgroundColor="ibf-no-alert-primary"
+    textColor="ibf-white"
   >
     Log In
     <ion-icon slot="end" name="enter"></ion-icon>
-  </ion-button>
+  </app-ibf-button>
   <div (click)="presentPopover()" class="ion-margin-vertical">
     <ion-text
       style="cursor: pointer; text-decoration: underline"

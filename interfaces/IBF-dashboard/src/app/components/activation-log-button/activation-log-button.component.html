@@ -1,14 +1,17 @@
-<ion-button
+<app-ibf-button
   type="button"
   [title]="'activation-page.' + getEapKey() + '.page-title' | translate"
   [attr.aria-label]="
     'activation-page.' + getEapKey() + '.page-title' | translate
   "
-  size="small"
-  color="ibf-tertiary"
   (click)="goToPage()"
+  size="small"
+  strong="true"
+  backgroundColor="ibf-white"
+  borderColor="ibf-no-alert-secondary"
+  textColor="ibf-black"
 >
   <span class="ion-hide-sm-down">{{
     'activation-page.' + getEapKey() + '.page-title' | translate
   }}</span>
-</ion-button>
+</app-ibf-button>

@@ -21,16 +21,19 @@
     <ion-col>
       <ion-row>
         <app-about-btn
+          style="width: 50%"
           [btnLabel]="
             'chat-component.' + disasterTypeName + '.about-button-label'
               | translate
           "
         ></app-about-btn>
-        <app-ibf-guide-button></app-ibf-guide-button>
+        <app-ibf-guide-button style="width: 50%"></app-ibf-guide-button>
       </ion-row>
       <ion-row>
-        <app-activation-log-button></app-activation-log-button>
-        <app-export-view></app-export-view>
+        <app-activation-log-button
+          style="width: 50%"
+        ></app-activation-log-button>
+        <app-export-view style="width: 50%"></app-export-view>
       </ion-row>
     </ion-col>
   </app-dialogue-turn>
@@ -116,10 +119,10 @@
       [isConnected]="true"
       [isStopped]="true"
     >
-      <ion-button
+      <app-ibf-button
         *ngIf="placeCode"
         (click)="revertAreaSelection()"
-        color="ibf-no-alert-primary"
+        backgroundColor="ibf-no-alert-primary"
         size="small"
         class="ion-float-right"
       >
@@ -127,7 +130,7 @@
           'chat-component.common.revert-selection' | translate
         }}</span>
         <ion-icon name="arrow-back" slot="start"></ion-icon>
-      </ion-button>
+      </app-ibf-button>
       <p
         [innerHTML]="
           'chat-component.' + disasterTypeName + '.stopped-event.area'
@@ -141,17 +144,17 @@
                 }
         "
       ></p>
-      <ion-button
+      <app-ibf-button
         (click)="openToggleTriggerPopup(area, false)"
         [disabled]="!area.activeTrigger"
-        color="ibf-no-alert-primary"
-        expand="block"
-        [innerHTML]="
+        backgroundColor="ibf-no-alert-primary"
+      >
+        {{
           'chat-component.common.reactivate-trigger-popup.' +
             hasEap() +
             '.header' | translate
-        "
-      ></ion-button>
+        }}
+      </app-ibf-button>
     </app-dialogue-turn>
   </ng-container>
   <app-dialogue-turn
@@ -160,10 +163,10 @@
     [isConnected]="!isFirst"
     [isTriggered]="eventState?.event?.thresholdReached"
   >
-    <ion-button
+    <app-ibf-button
       *ngIf="placeCode"
       (click)="revertAreaSelection()"
-      color="ibf-primary"
+      backgroundColor="ibf-primary"
       size="small"
       class="ion-float-right"
     >
@@ -171,7 +174,7 @@
         'chat-component.common.revert-selection' | translate
       }}</span>
       <ion-icon name="arrow-back" slot="start"></ion-icon>
-    </ion-button>
+    </app-ibf-button>
     <ion-row>
       <ion-col size-lg="2" size-md="2" size-xs="2">
         <ion-img
@@ -288,31 +291,30 @@
             </ion-item>
           </ion-list>
           <ion-row class="ion-nowrap ion-align-items-center ion-margin-top">
-            <ion-button
+            <app-ibf-button
               [disabled]="area.submitDisabled"
-              color="ibf-primary"
+              backgroundColor="ibf-primary"
               type="submit"
-              expand="block"
-              class="submit-button"
-              [innerHTML]="
+              style="width: 100%"
+            >
+              {{
                 'chat-component.common.save-actions.submit-button-label'
                   | translate
-              "
-            ></ion-button>
+              }}
+            </app-ibf-button>
           </ion-row>
         </form>
       </ng-container>
-      <ion-button
+      <app-ibf-button
         *ngIf="disasterTypeSettings?.enableStopTrigger"
         (click)="openToggleTriggerPopup(area, true)"
         [disabled]="!area.activeTrigger"
-        color="ibf-primary"
-        expand="block"
-        [innerHTML]="
+        backgroundColor="ibf-primary"
+        >{{
           'chat-component.common.stop-trigger-popup.' + hasEap() + '.header'
             | translate
-        "
-      ></ion-button>
+        }}</app-ibf-button
+      >
     </ng-container>
   </app-dialogue-turn>
 </ion-content>

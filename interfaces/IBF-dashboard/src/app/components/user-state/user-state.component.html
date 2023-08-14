@@ -53,20 +53,18 @@
             </ng-container>
           </ion-col>
         </ion-item>
-        <ion-button
+        <app-ibf-button
           *ngIf="isLoggedIn"
-          type="button"
           [title]="'Log Out'"
           [attr.aria-label]="'Log Out'"
           size="small"
-          fill="solid"
-          color="ibf-primary"
+          backgroundColor="ibf-primary"
           (click)="doLogout()"
           data-test="logout-button"
         >
           <span class="ion-hide-sm-down">Log Out</span>
           <ion-icon name="log-out" slot="end"></ion-icon>
-        </ion-button>
+        </app-ibf-button>
       </ion-row>
     </div>
   </ion-row>

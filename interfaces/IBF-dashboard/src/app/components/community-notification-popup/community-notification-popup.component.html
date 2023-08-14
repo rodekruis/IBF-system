@@ -36,28 +36,27 @@
       | translate: { nameVolunteer: markerProperties?.nameVolunteer || '' }
   "
 ></div>
-<ion-button
+<app-ibf-button
   *ngIf="markerProperties?.photoUrl"
   class="community-notification-button"
   [disabled]="!markerProperties?.photoUrl"
   type="button"
-  color="ibf-primary"
-  shape="round"
+  backgroundColor="ibf-primary"
   (click)="openPhotoPopup(markerProperties?.photoUrl)"
   >{{ 'map-popups.community-notification.photo' | translate }}
   <ion-icon slot="start" name="image"></ion-icon>
-</ion-button>
+</app-ibf-button>
 <div *ngIf="!markerProperties?.photoUrl" class="community-notification-info">
   <strong>{{
     'map-popups.community-notification.no-photo' | translate
   }}</strong>
 </div>
-<ion-button
+<app-ibf-button
   class="community-notification-button"
   type="button"
-  color="ibf-primary"
-  shape="round"
-  fill="outline"
+  backgroundColor="ibf-white"
+  borderColor="ibf-primary"
+  textColor="ibf-primary"
   (click)="dismissCommunityNotification(markerProperties?.pointDataId)"
-  >{{ 'map-popups.community-notification.delete' | translate }}</ion-button
+  >{{ 'map-popups.community-notification.delete' | translate }}</app-ibf-button
 >

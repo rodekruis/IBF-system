@@ -26,6 +26,7 @@ import { EventSwitcherComponent } from './components/event-switcher/event-switch
 import { ExportViewPopoverComponent } from './components/export-view-popover/export-view-popover.component';
 import { ExportViewComponent } from './components/export-view/export-view.component';
 import { ForgotPasswordPopoverComponent } from './components/forgot-password-popover/forgot-password-popover.component';
+import { IbfButtonComponent } from './components/ibf-button/ibf-button.component';
 import { IbfGuideButtonComponent } from './components/ibf-guide-button/ibf-guide-button.component';
 import { IbfGuidePopoverComponent } from './components/ibf-guide-popover/ibf-guide-popover.component';
 import { LayerControlInfoPopoverComponent } from './components/layer-control-info-popover/layer-control-info-popover.component';
@@ -62,9 +63,9 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     BackendMockScenarioComponent,
     ChangePasswordPopoverComponent,
     ChatComponent,
-    CountrySwitcherComponent,
-    CommunityNotificationPopupComponent,
     CommunityNotificationPhotoPopupComponent,
+    CommunityNotificationPopupComponent,
+    CountrySwitcherComponent,
     DateButtonComponent,
     DialogueTurnComponent,
     DisasterTypeComponent,
@@ -74,6 +75,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     ExportViewComponent,
     ExportViewPopoverComponent,
     ForgotPasswordPopoverComponent,
+    IbfButtonComponent,
     IbfGuideButtonComponent,
     IbfGuidePopoverComponent,
     LayerControlInfoPopoverComponent,
@@ -100,9 +102,9 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     BackendMockScenarioComponent,
     ChangePasswordPopoverComponent,
     ChatComponent,
-    CountrySwitcherComponent,
-    CommunityNotificationPopupComponent,
     CommunityNotificationPhotoPopupComponent,
+    CommunityNotificationPopupComponent,
+    CountrySwitcherComponent,
     DateButtonComponent,
     DialogueTurnComponent,
     DisasterTypeComponent,
@@ -112,6 +114,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     ExportViewComponent,
     ExportViewPopoverComponent,
     ForgotPasswordPopoverComponent,
+    IbfButtonComponent,
     IbfGuideButtonComponent,
     IbfGuidePopoverComponent,
     LayerControlInfoPopoverComponent,
