@@ -274,3 +274,20 @@ input:-webkit-autofill:focus {
   inset: initial;
   color: initial;
 }
+
+app-tooltip {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+}
+
+.tooltip--container {
+  .popover-content {
+    padding: 8px;
+    overflow: visible;
+  }
+
+  ion-label {
+    padding-inline-start: 0;
+  }
+}

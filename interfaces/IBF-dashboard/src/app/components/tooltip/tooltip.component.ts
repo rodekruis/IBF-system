@@ -11,19 +11,21 @@ export class TooltipComponent {
   @Input()
   public value: string;
 
+  @Input()
+  public color: string;
+
   constructor(public popoverController: PopoverController) {}
 
   async presentPopover(e: Event) {
     const popover = await this.popoverController.create({
       component: TooltipPopoverComponent,
       componentProps: { value: this.value },
-      cssClass: 'my-custom-class',
+      cssClass: 'tooltip--container',
       event: e,
       showBackdrop: false,
     });
     await popover.present();
 
     const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
   }
 }
