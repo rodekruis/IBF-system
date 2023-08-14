@@ -16,10 +16,10 @@ export const ORMConfig: DataSourceOptions = {
   logger: 'advanced-console',
   maxQueryExecutionTime: 1000,
   migrations: ['migration/*.ts'],
-  // ssl:
-  //   process.env.NODE_ENV === 'development'
-  //     ? null
-  //     : {
-  //         ca: fs.readFileSync('cert/DigiCertGlobalRootCA.crt.pem').toString(),
-  //       },
+  ssl:
+    process.env.NODE_ENV === 'development'
+      ? null
+      : {
+          ca: fs.readFileSync('cert/DigiCertGlobalRootCA.crt.pem').toString(),
+        },
 };
