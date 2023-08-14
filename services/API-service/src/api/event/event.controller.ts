@@ -37,6 +37,7 @@ import { UserDecorator } from '../user/user.decorator';
 import { FileInterceptor } from '@nestjs/platform-express';
 import stream from 'stream';
 import { Response } from 'express-serve-static-core';
+import { IMAGE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 
 @ApiBearerAuth()
 @ApiTags('event')
@@ -221,17 +222,7 @@ export class EventController {
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
   @ApiParam({ name: 'eventName', required: false, type: 'string' })
   @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        image: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-    },
-  })
+  @ApiBody(IMAGE_UPLOAD_API_FORMAT)
   @ApiResponse({ status: 200, description: 'Post event map image' })
   @Post('/event-map-image/:countryCodeISO3/:disasterType/:eventName')
   @UseInterceptors(FileInterceptor('image'))

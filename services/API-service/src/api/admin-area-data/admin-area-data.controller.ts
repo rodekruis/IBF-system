@@ -24,6 +24,7 @@ import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-re
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaDataService } from './admin-area-data.service';
 import { UploadAdminAreaDataJsonDto } from './dto/upload-admin-area-data.dto';
+import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -50,17 +51,7 @@ export class AdminAreaDataController {
   })
   @Post('upload/csv')
   @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        file: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-    },
-  })
+  @ApiBody(FILE_UPLOAD_API_FORMAT)
   @UseInterceptors(FileInterceptor('file'))
   public async uploadCsv(@UploadedFile() adminAreaData): Promise<void> {
     await this.adminAreaDataService.uploadCsv(adminAreaData);

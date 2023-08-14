@@ -20,6 +20,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { Roles } from '../../roles.decorator';
 import { UserRole } from '../user/user-role.enum';
 import { Query } from '@nestjs/common/decorators';
+import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -109,17 +110,7 @@ export class AdminAreaDynamicDataController {
       'Upload raster file (.tif) such as a disaster-extent for given disaster-type (used by IBF-pipelines)',
   })
   @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        file: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-    },
-  })
+  @ApiBody(FILE_UPLOAD_API_FORMAT)
   @ApiParam({ name: 'disasterType', required: true, type: 'string' })
   @ApiResponse({
     status: 201,

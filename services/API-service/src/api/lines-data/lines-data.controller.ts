@@ -22,6 +22,7 @@ import { RolesGuard } from '../../roles.guard';
 import { UserRole } from '../user/user-role.enum';
 import { LinesDataService } from './lines-data.service';
 import { UploadLinesExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
+import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 
 @ApiBearerAuth()
 @ApiTags('lines-data')
@@ -47,17 +48,7 @@ export class LinesDataController {
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @Post('upload-csv/:linesDataCategory/:countryCodeISO3')
   @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        file: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-    },
-  })
+  @ApiBody(FILE_UPLOAD_API_FORMAT)
   @UseInterceptors(FileInterceptor('file'))
   public async uploadCsv(
     @UploadedFile() linesDataData,

@@ -26,6 +26,7 @@ import { UploadTriggerPerStationDto } from './dto/upload-trigger-per-station';
 import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 import { GlofasStationEntity } from './glofas-station.entity';
 import { GlofasStationService } from './glofas-station.service';
+import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -111,17 +112,7 @@ export class GlofasStationController {
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @Post('upload-csv/:countryCodeISO3')
   @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        file: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-    },
-  })
+  @ApiBody(FILE_UPLOAD_API_FORMAT)
   @UseInterceptors(FileInterceptor('file'))
   public async uploadCsv(
     @UploadedFile() glofasStationData,
