@@ -171,7 +171,6 @@ export class AdminAreaDynamicDataService {
       adminLevel: Number(adminLevel),
       indicator: indicator,
       disasterType: disasterType,
-      date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -206,7 +205,7 @@ export class AdminAreaDynamicDataService {
         indicator: indicator,
         placeCode: placeCode,
         leadTime: leadTime,
-        eventName: eventName === 'no-name' ? IsNull() : eventName,
+        eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
       })
       .select(['dynamic.value AS value'])
       .orderBy('dynamic.date', 'DESC')

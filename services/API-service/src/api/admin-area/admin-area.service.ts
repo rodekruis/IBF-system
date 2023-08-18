@@ -135,7 +135,6 @@ export class AdminAreaService {
       adminLevel: adminLevel,
       value: MoreThan(0),
       indicator: triggerUnit as DynamicIndicator,
-      date: new Date(lastTriggeredDate.date),
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -149,9 +148,10 @@ export class AdminAreaService {
     if (leadTime) {
       whereFilters['leadTime'] = leadTime;
     }
-    return await this.adminAreaDynamicDataRepo.find({
-      where: whereFilters,
-    });
+    return await this.adminAreaDynamicDataRepo
+      .createQueryBuilder()
+      .where(whereFilters)
+      .getMany();
   }
 
   public async getPlaceCodes(
@@ -229,9 +229,6 @@ export class AdminAreaService {
       .addSelect(['dynamic."indicator"', 'dynamic."value"'])
       .where('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('date = :lastTriggeredDate', {
-        lastTriggeredDate: lastTriggeredDate.date,
       })
       .andWhere('timestamp >= :last6hourInterval', {
         last6hourInterval: this.helperService.getUploadCutoffMoment(
@@ -328,9 +325,6 @@ export class AdminAreaService {
         'parent.name AS "nameParent"',
         'dynamic."eventName"',
       ])
-      .andWhere('date = :lastTriggeredDate', {
-        lastTriggeredDate: lastTriggeredDate.date,
-      })
       .andWhere('timestamp >= :cutoffMoment', {
         cutoffMoment: this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -381,7 +375,6 @@ export class AdminAreaService {
       countryCodeISO3: countryCodeISO3,
       disasterType: disasterType,
       adminLevel: adminLevel,
-      date: new Date(lastTriggeredDate.date),
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -395,9 +388,10 @@ export class AdminAreaService {
       whereFilters['leadTime'] = leadTime;
     }
 
-    const adminAreasToShow = await this.adminAreaDynamicDataRepo.find({
-      where: whereFilters,
-    });
+    const adminAreasToShow = await this.adminAreaDynamicDataRepo
+      .createQueryBuilder()
+      .where(whereFilters)
+      .getMany();
     return adminAreasToShow.map((area) => area.placeCode);
   }
 }

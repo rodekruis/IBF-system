@@ -85,7 +85,9 @@ export class EapActionsService {
         disasterType: eapAction.disasterType,
         adminArea: { id: adminArea.id },
         eventName:
-          eapAction.eventName === 'no-name' ? IsNull() : eapAction.eventName,
+          eapAction.eventName === 'no-name' || !eapAction.eventName
+            ? IsNull()
+            : eapAction.eventName,
       },
     });
 

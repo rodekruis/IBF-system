@@ -227,7 +227,6 @@ export class EventService {
       adminLevel: adminLevel,
       disasterType: disasterType,
       countryCodeISO3: countryCodeISO3,
-      date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -399,7 +398,6 @@ export class EventService {
     );
     const whereFilters = {
       countryCodeISO3: countryCodeISO3,
-      date: new Date(lastTriggeredDate.date),
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -586,7 +584,6 @@ export class EventService {
 
     const whereFilters = {
       indicator: triggerUnit,
-      date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -621,7 +618,6 @@ export class EventService {
     const whereOptions = {
       placeCode: In(triggerPlaceCodesArray),
       indicator: actionUnit,
-      date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -884,7 +880,7 @@ export class EventService {
       where: {
         countryCodeISO3: countryCodeISO3,
         disasterType: disasterType,
-        eventName: eventName === 'no-name' ? IsNull() : eventName,
+        eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
       },
     });
 
@@ -910,7 +906,7 @@ export class EventService {
       where: {
         countryCodeISO3: countryCodeISO3,
         disasterType: disasterType,
-        eventName: eventName === 'no-name' ? IsNull() : eventName,
+        eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
       },
     });
 

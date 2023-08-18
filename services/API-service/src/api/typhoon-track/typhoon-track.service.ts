@@ -53,7 +53,6 @@ export class TyphoonTrackService {
     await this.typhoonTrackRepository.delete({
       countryCodeISO3: uploadTyphoonTrack.countryCodeISO3,
       eventName: uploadTyphoonTrack.eventName,
-      date: uploadTyphoonTrack.date || new Date(),
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           DisasterType.Typhoon,
@@ -113,7 +112,6 @@ export class TyphoonTrackService {
     );
     const filters = {
       countryCodeISO3: countryCodeISO3,
-      date: new Date(lastTriggeredDate.date),
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           DisasterType.Typhoon,
