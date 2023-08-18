@@ -1,3 +1,13 @@
+## [0.257.1](https://github.com/rodekruis/IBF-system/compare/v0.257.0...v0.257.1) (2023-08-18)
+
+
+### Bug Fixes
+
+* better mock data flash floods AB[#22984](https://github.com/rodekruis/IBF-system/issues/22984) ([a052514](https://github.com/rodekruis/IBF-system/commit/a05251464e82a68747bae86c18ec0d29dd4579e4))
+* update 'no actions yet' copy AB[#23022](https://github.com/rodekruis/IBF-system/issues/23022) ([d20ef1f](https://github.com/rodekruis/IBF-system/commit/d20ef1fe646077e04cd8df04b181d7456c245588))
+
+
+
 # [0.257.0](https://github.com/rodekruis/IBF-system/compare/v0.256.2...v0.257.0) (2023-08-14)
 
 
@@ -128,15 +138,6 @@
 ### Features
 
 * add 0-hour geoserver flood extent AB[#22917](https://github.com/rodekruis/IBF-system/issues/22917) ([13213a2](https://github.com/rodekruis/IBF-system/commit/13213a245b5172dd379ecd7de95e03f5421e4673))
-
-
-
-## [0.251.1](https://github.com/rodekruis/IBF-system/compare/v0.251.0...v0.251.1) (2023-08-04)
-
-
-### Bug Fixes
-
-* also show exposed point icon in overview mode AB[#22915](https://github.com/rodekruis/IBF-system/issues/22915) ([5f017db](https://github.com/rodekruis/IBF-system/commit/5f017db58028bef5a6d887201eded85528b66fe8))
 
 
 
