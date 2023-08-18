@@ -34,7 +34,7 @@ export class AdminAreaDataService {
 
   public async validateArray(csvArray): Promise<UploadAdminAreaDataDto[]> {
     const validatatedArray = [];
-    for (const [i, row] of csvArray.entries()) {
+    for (const [_i, row] of csvArray.entries()) {
       const data = new UploadAdminAreaDataDto();
       data.countryCodeISO3 = row.countryCodeISO3;
       data.adminLevel = parseInt(row.adminLevel);

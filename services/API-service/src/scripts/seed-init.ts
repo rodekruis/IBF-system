@@ -200,10 +200,10 @@ export class SeedInit implements InterfaceScript {
     class EapAction {
       countryCodeISO3: string;
       disasterType: string;
-      areaOfFocus: {};
+      areaOfFocus: object;
       action: string;
       label: string;
-      month?: {};
+      month?: object;
     }
     const filteredActions: EapAction[] = eapActions.filter(
       (action: EapAction): boolean => {

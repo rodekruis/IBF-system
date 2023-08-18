@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { AdminAreaDynamicDataService } from './../../admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { LeadTimeEntity } from './../../lead-time/lead-time.entity';
 import { CountryEntity } from './../../country/country.entity';

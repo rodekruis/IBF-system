@@ -83,7 +83,7 @@ export class LinesDataService {
   ): Promise<object[]> {
     const errors = [];
     const validatatedArray = [];
-    for (const [i, row] of csvArray.entries()) {
+    for (const [_i, row] of csvArray.entries()) {
       const dto = this.getDtoPerLinesDataCategory(linesDataCategory);
       for (const attribute in dto) {
         if (dto.hasOwnProperty(attribute)) {

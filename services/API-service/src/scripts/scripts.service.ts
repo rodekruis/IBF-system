@@ -384,7 +384,7 @@ export class ScriptsService {
       }
     }
     // Make sure 'alert threshold' is uploaded last
-    return exposureUnits.sort((a, b) =>
+    return exposureUnits.sort((a, _b) =>
       a === DynamicIndicator.alertThreshold ? 1 : -1,
     );
   }

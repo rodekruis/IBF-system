@@ -1,6 +1,5 @@
 import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
-/* eslint-disable @typescript-eslint/camelcase */
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {

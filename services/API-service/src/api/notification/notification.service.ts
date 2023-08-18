@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Injectable } from '@nestjs/common';
 import { EventService } from '../event/event.service';
 import { DisasterType } from '../disaster/disaster-type.enum';
