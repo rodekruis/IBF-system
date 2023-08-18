@@ -1,4 +1,4 @@
-import { PORT, SCHEME } from './config';
+import { EXTERNAL_API, PORT } from './config';
 import { NestFactory } from '@nestjs/core';
 import { ApplicationModule } from './app.module';
 import {
@@ -26,7 +26,7 @@ async function bootstrap(): Promise<void> {
     .setTitle(apiDocumentationTitle)
     .setDescription(apiDocumentationDescription)
     .setVersion(apiVersion)
-    .addServer(SCHEME)
+    .addServer(EXTERNAL_API.root)
     .addBearerAuth()
     .build();
   const swaggerDocumentOptions: SwaggerDocumentOptions = {
