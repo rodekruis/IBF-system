@@ -15,7 +15,6 @@ import { SchoolDto } from './dto/upload-schools.dto';
 import { WaterpointDto } from './dto/upload-waterpoint.dto';
 import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
 import { PointDataDynamicStatusEntity } from './point-data-dynamic-status.entity';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster/disaster-type.enum';
 
 @Injectable()
