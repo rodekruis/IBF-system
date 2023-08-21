@@ -1,3 +1,15 @@
+## [0.257.2](https://github.com/rodekruis/IBF-system/compare/v0.257.1...v0.257.2) (2023-08-21)
+
+
+### Bug Fixes
+
+* changes needed after upgrade AB[#23109](https://github.com/rodekruis/IBF-system/issues/23109) ([372ea7e](https://github.com/rodekruis/IBF-system/commit/372ea7ed04515a1f2ac183dde1b91e69fd36a00d))
+* no recompile on save AB[#23131](https://github.com/rodekruis/IBF-system/issues/23131) ([f3ade0d](https://github.com/rodekruis/IBF-system/commit/f3ade0df20c1474bf04d2a0e79cf81136b8cfee8))
+* upgrade eslint-plugin-jest AB[#23109](https://github.com/rodekruis/IBF-system/issues/23109) ([a0200c8](https://github.com/rodekruis/IBF-system/commit/a0200c82bd2c6e5957da6a205ebd390688cc62f4))
+* upgrade eslint-plugin-jest AB[#23109](https://github.com/rodekruis/IBF-system/issues/23109) ([efae2e9](https://github.com/rodekruis/IBF-system/commit/efae2e90e7c9df74bd293ac4ad1564b03fb1b9e6))
+
+
+
 ## [0.257.1](https://github.com/rodekruis/IBF-system/compare/v0.257.0...v0.257.1) (2023-08-18)
 
 
@@ -124,20 +136,6 @@
 * missing activeLeadTime if 1 event AB[#19596](https://github.com/rodekruis/IBF-system/issues/19596) ([c39f226](https://github.com/rodekruis/IBF-system/commit/c39f22600a96e4aa0de9b1f616f6c3620feafb36))
 * new styling in legend AB[#19593](https://github.com/rodekruis/IBF-system/issues/19593) ([8d8788a](https://github.com/rodekruis/IBF-system/commit/8d8788a38bd92a168e63518972d1c76e691e5458))
 * show admin-area bubble on select AB[#19596](https://github.com/rodekruis/IBF-system/issues/19596) ([fd76721](https://github.com/rodekruis/IBF-system/commit/fd767213289ca845d9ac8978a16645b0fb4f95d7))
-
-
-
-# [0.252.0](https://github.com/rodekruis/IBF-system/compare/v0.251.1...v0.252.0) (2023-08-04)
-
-
-### Bug Fixes
-
-* correct flood extent styling AB[#19593](https://github.com/rodekruis/IBF-system/issues/19593) ([9b75510](https://github.com/rodekruis/IBF-system/commit/9b75510d579f37db720a8158703660b5c90d2e8a))
-
-
-### Features
-
-* add 0-hour geoserver flood extent AB[#22917](https://github.com/rodekruis/IBF-system/issues/22917) ([13213a2](https://github.com/rodekruis/IBF-system/commit/13213a245b5172dd379ecd7de95e03f5421e4673))
 
 
 
