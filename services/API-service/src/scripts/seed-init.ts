@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
-import { Connection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { CountryEntity } from '../api/country/country.entity';
 import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
 import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
@@ -43,7 +43,7 @@ export class SeedInit implements InterfaceScript {
   private readonly seedHelper: SeedHelper;
 
   public constructor(
-    private connection: Connection,
+    private dataSource: DataSource,
     private seedAdminArea: SeedAdminArea,
     private seedAdminAreaData: SeedAdminAreaData,
     private seedGlofasStation: SeedGlofasStation,
@@ -52,7 +52,7 @@ export class SeedInit implements InterfaceScript {
     private seedRainfallData: SeedRainfallData,
     private countryService: CountryService,
   ) {
-    this.seedHelper = new SeedHelper(connection);
+    this.seedHelper = new SeedHelper(dataSource);
   }
 
   public async run(): Promise<void> {
@@ -60,36 +60,32 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE DISASTER *****
     console.log('Seed Disasters...');
-    const disasterRepository = this.connection.getRepository(DisasterEntity);
-    const disasterEntities = disasters.map(
-      (disaster): DisasterEntity => {
-        const disasterEntity = new DisasterEntity();
-        disasterEntity.disasterType = disaster.disasterType as DisasterType;
-        disasterEntity.label = disaster.label;
-        disasterEntity.triggerUnit = disaster.triggerUnit;
-        disasterEntity.actionsUnit = disaster.actionsUnit;
-        disasterEntity.showOnlyTriggeredAreas = disaster.showOnlyTriggeredAreas;
-        disasterEntity.leadTimeUnit = disaster.leadTimeUnit as LeadTimeUnit;
-        disasterEntity.minLeadTime = disaster.minLeadTime as LeadTime;
-        disasterEntity.maxLeadTime = disaster.maxLeadTime as LeadTime;
-        return disasterEntity;
-      },
-    );
+    const disasterRepository = this.dataSource.getRepository(DisasterEntity);
+    const disasterEntities = disasters.map((disaster): DisasterEntity => {
+      const disasterEntity = new DisasterEntity();
+      disasterEntity.disasterType = disaster.disasterType as DisasterType;
+      disasterEntity.label = disaster.label;
+      disasterEntity.triggerUnit = disaster.triggerUnit;
+      disasterEntity.actionsUnit = disaster.actionsUnit;
+      disasterEntity.showOnlyTriggeredAreas = disaster.showOnlyTriggeredAreas;
+      disasterEntity.leadTimeUnit = disaster.leadTimeUnit as LeadTimeUnit;
+      disasterEntity.minLeadTime = disaster.minLeadTime as LeadTime;
+      disasterEntity.maxLeadTime = disaster.maxLeadTime as LeadTime;
+      return disasterEntity;
+    });
 
     await disasterRepository.save(disasterEntities);
 
     // ***** CREATE LEAD TIMES *****
     console.log('Seed Lead Times...');
-    const leadTimeRepository = this.connection.getRepository(LeadTimeEntity);
+    const leadTimeRepository = this.dataSource.getRepository(LeadTimeEntity);
 
     const leadTimeEntities = await Promise.all(
-      leadTimes.map(
-        async (leadTime): Promise<LeadTimeEntity> => {
-          const leadTimeEntity = new LeadTimeEntity();
-          leadTimeEntity.leadTimeName = leadTime.leadTimeName;
-          return leadTimeEntity;
-        },
-      ),
+      leadTimes.map(async (leadTime): Promise<LeadTimeEntity> => {
+        const leadTimeEntity = new LeadTimeEntity();
+        leadTimeEntity.leadTimeName = leadTime.leadTimeName;
+        return leadTimeEntity;
+      }),
     );
 
     await leadTimeRepository.save(leadTimeEntities);
@@ -109,24 +105,24 @@ export class SeedInit implements InterfaceScript {
       envDisasterTypes,
     );
 
-    const countryRepository = this.connection.getRepository(CountryEntity);
+    const countryRepository = this.dataSource.getRepository(CountryEntity);
     const countryEntities = [];
     for await (const countryEntity of await countryRepository.find()) {
       const notificationInfoEntity = new NotificationInfoEntity();
-      const notificationInfoCountry: NotificationInfoDto = notificationInfo.find(
-        (notificationInfoEntry): NotificationInfoDto => {
+      const notificationInfoCountry: NotificationInfoDto =
+        notificationInfo.find((notificationInfoEntry): NotificationInfoDto => {
           if (
             notificationInfoEntry.countryCodeISO3 ===
             countryEntity.countryCodeISO3
           ) {
             return notificationInfoEntry;
           }
-        },
-      );
-      countryEntity.notificationInfo = await this.countryService.createNotificationInfo(
-        notificationInfoEntity,
-        notificationInfoCountry,
-      );
+        });
+      countryEntity.notificationInfo =
+        await this.countryService.createNotificationInfo(
+          notificationInfoEntity,
+          notificationInfoCountry,
+        );
       countryEntities.push(countryEntity);
     }
 
@@ -138,7 +134,7 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE USERS *****
     console.log('Seed Users...');
-    const userRepository = this.connection.getRepository(UserEntity);
+    const userRepository = this.dataSource.getRepository(UserEntity);
 
     let selectedUsers;
     if (process.env.PRODUCTION_DATA_SERVER === 'yes') {
@@ -151,7 +147,7 @@ export class SeedInit implements InterfaceScript {
         where: { username: 'dunant' },
       });
       if (dunantUser) {
-        selectedUsers = users.filter(user => user.username !== 'dunant');
+        selectedUsers = users.filter((user) => user.username !== 'dunant');
         dunantUser.countries = await countryRepository.find();
         await userRepository.save(dunantUser);
       } else {
@@ -160,48 +156,43 @@ export class SeedInit implements InterfaceScript {
     }
 
     const userEntities = await Promise.all(
-      selectedUsers.map(
-        async (user): Promise<UserEntity> => {
-          const userEntity = new UserEntity();
-          userEntity.email = user.email;
-          userEntity.username = user.username;
-          userEntity.firstName = user.firstName;
-          userEntity.lastName = user.lastName;
-          userEntity.userRole = user.userRole as UserRole;
-          userEntity.countries = !user.countries
-            ? await countryRepository.find()
-            : await countryRepository.find({
-                where: user.countries.map((countryCodeISO3: string): object => {
-                  return {
-                    countryCodeISO3: countryCodeISO3,
-                  };
-                }),
-              });
-          userEntity.disasterTypes = !user.disasterTypes
-            ? []
-            : await disasterRepository.find({
-                where: user.disasterTypes.map(
-                  (disasterType: string): object => {
-                    return {
-                      disasterType: disasterType,
-                    };
-                  },
-                ),
-              });
-          userEntity.userStatus = user.userStatus as UserStatus;
-          userEntity.password = user.password;
-          return userEntity;
-        },
-      ),
+      selectedUsers.map(async (user): Promise<UserEntity> => {
+        const userEntity = new UserEntity();
+        userEntity.email = user.email;
+        userEntity.username = user.username;
+        userEntity.firstName = user.firstName;
+        userEntity.lastName = user.lastName;
+        userEntity.userRole = user.userRole as UserRole;
+        userEntity.countries = !user.countries
+          ? await countryRepository.find()
+          : await countryRepository.find({
+              where: user.countries.map((countryCodeISO3: string): object => {
+                return {
+                  countryCodeISO3: countryCodeISO3,
+                };
+              }),
+            });
+        userEntity.disasterTypes = !user.disasterTypes
+          ? []
+          : await disasterRepository.find({
+              where: user.disasterTypes.map((disasterType: string): object => {
+                return {
+                  disasterType: disasterType,
+                };
+              }),
+            });
+        userEntity.userStatus = user.userStatus as UserStatus;
+        userEntity.password = user.password;
+        return userEntity;
+      }),
     );
 
     await userRepository.save(userEntities);
 
     // ***** CREATE AREAS OF FOCUS *****
     console.log('Seed Areas of Focus...');
-    const areaOfFocusRepository = this.connection.getRepository(
-      AreaOfFocusEntity,
-    );
+    const areaOfFocusRepository =
+      this.dataSource.getRepository(AreaOfFocusEntity);
     await areaOfFocusRepository.save(areasOfFocus);
 
     // ***** CREATE EAP ACTIONS *****
@@ -209,60 +200,56 @@ export class SeedInit implements InterfaceScript {
     class EapAction {
       countryCodeISO3: string;
       disasterType: string;
-      areaOfFocus: {};
+      areaOfFocus: object;
       action: string;
       label: string;
-      month?: {};
+      month?: object;
     }
     const filteredActions: EapAction[] = eapActions.filter(
       (action: EapAction): boolean => {
         return envCountries.includes(action.countryCodeISO3);
       },
     );
-    const eapActionRepository = this.connection.getRepository(EapActionEntity);
+    const eapActionRepository = this.dataSource.getRepository(EapActionEntity);
     await eapActionRepository.save(filteredActions);
 
     // ***** CREATE INDICATOR METADATA *****
     console.log('Seed Indicators...');
-    const indicatorRepository = this.connection.getRepository(
+    const indicatorRepository = this.dataSource.getRepository(
       IndicatorMetadataEntity,
     );
     const indicators = JSON.parse(JSON.stringify(indicatorMetadata));
     const indicatorEntities = await Promise.all(
-      indicators.map(
-        async (indicator): Promise<IndicatorMetadataEntity> => {
-          indicator.disasterTypes = await disasterRepository.find({
-            where: indicator.disasterTypes.map(
-              (indicatorDisasterType: string): object => {
-                return { disasterType: indicatorDisasterType };
-              },
-            ),
-          });
-          return indicator;
-        },
-      ),
+      indicators.map(async (indicator): Promise<IndicatorMetadataEntity> => {
+        indicator.disasterTypes = await disasterRepository.find({
+          where: indicator.disasterTypes.map(
+            (indicatorDisasterType: string): object => {
+              return { disasterType: indicatorDisasterType };
+            },
+          ),
+        });
+        return indicator;
+      }),
     );
 
     await indicatorRepository.save(indicatorEntities);
 
     // ***** CREATE LAYER METADATA *****
     console.log('Seed Layers...');
-    const layerRepository = this.connection.getRepository(LayerMetadataEntity);
+    const layerRepository = this.dataSource.getRepository(LayerMetadataEntity);
 
     const layers = JSON.parse(JSON.stringify(layerMetadata));
     const layerEntities = await Promise.all(
-      layers.map(
-        async (layer): Promise<LayerMetadataEntity> => {
-          layer.disasterTypes = await disasterRepository.find({
-            where: layer.disasterTypes.map(
-              (layerDisasterType: string): object => {
-                return { disasterType: layerDisasterType };
-              },
-            ),
-          });
-          return layer;
-        },
-      ),
+      layers.map(async (layer): Promise<LayerMetadataEntity> => {
+        layer.disasterTypes = await disasterRepository.find({
+          where: layer.disasterTypes.map(
+            (layerDisasterType: string): object => {
+              return { disasterType: layerDisasterType };
+            },
+          ),
+        });
+        return layer;
+      }),
     );
     await layerRepository.save(layerEntities);
 

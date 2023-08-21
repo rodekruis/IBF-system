@@ -27,6 +27,7 @@ import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
 import { PointDataService } from './point-data.service';
 import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
+import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 
 @ApiBearerAuth()
 @ApiTags('point-data')
@@ -75,17 +76,7 @@ export class PointDataController {
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @Post('upload-csv/:pointDataCategory/:countryCodeISO3')
   @ApiConsumes('multipart/form-data')
-  @ApiBody({
-    schema: {
-      type: 'object',
-      properties: {
-        file: {
-          type: 'string',
-          format: 'binary',
-        },
-      },
-    },
-  })
+  @ApiBody(FILE_UPLOAD_API_FORMAT)
   @UseInterceptors(FileInterceptor('file'))
   public async uploadCsv(
     @UploadedFile() pointDataData,

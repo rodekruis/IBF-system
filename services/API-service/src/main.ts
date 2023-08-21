@@ -1,4 +1,4 @@
-import { PORT, SCHEME } from './config';
+import { EXTERNAL_API, PORT } from './config';
 import { NestFactory } from '@nestjs/core';
 import { ApplicationModule } from './app.module';
 import {
@@ -7,7 +7,7 @@ import {
   SwaggerDocumentOptions,
   SwaggerCustomOptions,
 } from '@nestjs/swagger';
-import { ValidationPipe } from '@nestjs/common';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import * as bodyParser from 'body-parser';
 
 async function bootstrap(): Promise<void> {
@@ -26,7 +26,7 @@ async function bootstrap(): Promise<void> {
     .setTitle(apiDocumentationTitle)
     .setDescription(apiDocumentationDescription)
     .setVersion(apiVersion)
-    .addServer(`${SCHEME}://`)
+    .addServer(EXTERNAL_API.root)
     .addBearerAuth()
     .build();
   const swaggerDocumentOptions: SwaggerDocumentOptions = {
@@ -52,7 +52,12 @@ async function bootstrap(): Promise<void> {
     swaggerDocumentOptions,
   );
   SwaggerModule.setup('/docs', app, document, swaggerCustomOptions);
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      forbidUnknownValues: false,
+      exceptionFactory: (errors) => new BadRequestException(errors),
+    }),
+  );
   app.use(bodyParser.json({ limit: '25mb' }));
   app.use(
     bodyParser.urlencoded({

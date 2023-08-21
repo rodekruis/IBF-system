@@ -1,4 +1,4 @@
-import { HttpModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HelperService } from '../../shared/helper.service';
 import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
@@ -6,6 +6,7 @@ import { UserModule } from '../user/user.module';
 import { TyphoonTrackController } from './typhoon-track.controller';
 import { TyphoonTrackEntity } from './typhoon-track.entity';
 import { TyphoonTrackService } from './typhoon-track.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [

@@ -1,7 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class DecoupleGlofasTriggerLevels1633686048253
-  implements MigrationInterface {
+  implements MigrationInterface
+{
   name = 'DecoupleGlofasTriggerLevels1633686048253';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

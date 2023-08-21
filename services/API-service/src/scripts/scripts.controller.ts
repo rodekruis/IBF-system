@@ -20,7 +20,6 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { Connection } from 'typeorm';
 import { SeedInit } from './seed-init';
 import { ScriptsService } from './scripts.service';
 import { RolesGuard } from '../roles.guard';

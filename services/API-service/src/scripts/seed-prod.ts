@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
-import { Connection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { UserEntity } from '../api/user/user.entity';
 import users from './json/users.json';
 import { UserRole } from '../api/user/user-role.enum';
@@ -8,10 +8,11 @@ import { UserStatus } from '../api/user/user-status.enum';
 
 @Injectable()
 export class SeedProd implements InterfaceScript {
-  public constructor(private connection: Connection) {}
+  public constructor(private dataSource: DataSource) {}
 
   public async run(): Promise<void> {
-    const userRepository = this.connection.getRepository(UserEntity);
+    console.log('Seeding production data...');
+    const userRepository = this.dataSource.getRepository(UserEntity);
     if ((await userRepository.find({ take: 1 })).length === 0) {
       const user = users.filter((user): boolean => {
         return user.userRole === UserRole.Admin;

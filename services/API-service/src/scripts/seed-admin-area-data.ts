@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
-import { Connection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { SeedHelper } from './seed-helper';
 import { AdminLevel } from 'src/api/country/admin-level.enum';
 import { AdminAreaDataService } from '../api/admin-area-data/admin-area-data.service';
@@ -18,9 +18,9 @@ export class SeedAdminAreaData implements InterfaceScript {
 
   public constructor(
     private adminAreaDataService: AdminAreaDataService,
-    connection: Connection,
+    dataSource: DataSource,
   ) {
-    this.seedHelper = new SeedHelper(connection);
+    this.seedHelper = new SeedHelper(dataSource);
   }
 
   public async run(): Promise<void> {

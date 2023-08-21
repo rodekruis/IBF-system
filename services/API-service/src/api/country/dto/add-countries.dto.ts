@@ -29,7 +29,7 @@ export class CountryDto {
       },
     },
   })
-  public adminRegionLabels: {};
+  public adminRegionLabels: object;
 
   @ApiProperty({
     example: {
@@ -37,7 +37,7 @@ export class CountryDto {
       floods: ['logo3.svg', 'logo4.png'],
     },
   })
-  public countryLogos: {};
+  public countryLogos: object;
 
   @ApiProperty({
     example: {
@@ -65,7 +65,7 @@ export class CountryDisasterSettingsDto {
   public activeLeadTimes: string[];
 
   @ApiProperty({ example: [3, 10] })
-  public droughtForecastSeasons?: {};
+  public droughtForecastSeasons?: object;
 
   @ApiProperty({ example: false })
   public droughtEndOfMonthPipeline?: boolean;
@@ -80,7 +80,7 @@ export class CountryDisasterSettingsDto {
   public enableStopTrigger?: boolean;
 
   @ApiProperty({ example: {} })
-  public monthlyForecastInfo?: {};
+  public monthlyForecastInfo?: object;
 
   @ApiProperty({
     example: 'https://docs.google.com',
@@ -103,10 +103,10 @@ export class CountryDisasterSettingsDto {
       },
     },
   })
-  public eapAlertClasses?: {};
+  public eapAlertClasses?: object;
 
   @ApiProperty({ example: {} })
-  public droughtAreas?: {};
+  public droughtAreas?: object;
 }
 
 export class AddCountriesDto {

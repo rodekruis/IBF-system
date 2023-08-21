@@ -1,7 +1,7 @@
 import { DisasterType } from './../api/disaster/disaster-type.enum';
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
-import { Connection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { SeedHelper } from './seed-helper';
 import countries from './json/countries.json';
 import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
@@ -12,27 +12,25 @@ export class SeedGlofasStation implements InterfaceScript {
 
   public constructor(
     private glofasStationService: GlofasStationService,
-    connection: Connection,
+    dataSource: DataSource,
   ) {
-    this.seedHelper = new SeedHelper(connection);
+    this.seedHelper = new SeedHelper(dataSource);
   }
 
   public async run(): Promise<void> {
     const envCountries = process.env.COUNTRIES.split(',');
 
     await Promise.all(
-      countries.map(
-        (country): Promise<void> => {
-          if (
-            envCountries.includes(country.countryCodeISO3) &&
-            country.disasterTypes.includes(DisasterType.Floods)
-          ) {
-            return this.seedCountryGlofasStations(country);
-          } else {
-            return Promise.resolve();
-          }
-        },
-      ),
+      countries.map((country): Promise<void> => {
+        if (
+          envCountries.includes(country.countryCodeISO3) &&
+          country.disasterTypes.includes(DisasterType.Floods)
+        ) {
+          return this.seedCountryGlofasStations(country);
+        } else {
+          return Promise.resolve();
+        }
+      }),
     );
   }
 

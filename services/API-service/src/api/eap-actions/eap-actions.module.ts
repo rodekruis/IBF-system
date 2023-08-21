@@ -1,6 +1,6 @@
 import { CountryEntity } from './../country/country.entity';
 import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
-import { HttpModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from '../user/user.entity';
 import { UserModule } from '../user/user.module';
@@ -11,6 +11,7 @@ import { EapActionsService } from './eap-actions.service';
 import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [

@@ -17,9 +17,7 @@ export class GlofasStationService {
   @InjectRepository(GlofasStationEntity)
   private readonly glofasStationRepository: Repository<GlofasStationEntity>;
   @InjectRepository(GlofasStationForecastEntity)
-  private readonly glofasStationForecastRepository: Repository<
-    GlofasStationForecastEntity
-  >;
+  private readonly glofasStationForecastRepository: Repository<GlofasStationForecastEntity>;
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
 
@@ -77,7 +75,9 @@ export class GlofasStationService {
         where: { countryCodeISO3: uploadTriggerPerStation.countryCodeISO3 },
         relations: ['countryDisasterSettings'],
       })
-    ).countryDisasterSettings.find(d => d.disasterType === DisasterType.Floods);
+    ).countryDisasterSettings.find(
+      (d) => d.disasterType === DisasterType.Floods,
+    );
 
     for await (const station of uploadTriggerPerStation.stationForecasts) {
       if (
@@ -102,11 +102,12 @@ export class GlofasStationService {
     for await (const station of uploadTriggerPerStation.stationForecasts) {
       const glofasStation = await this.glofasStationRepository.findOne({
         where: { stationCode: station.stationCode },
+        relations: ['stationForecasts'],
       });
 
       // Delete existing entries with same date, leadTime and countryCodeISO3 and stationCode
       await this.glofasStationForecastRepository.delete({
-        glofasStation: glofasStation,
+        glofasStation: { id: glofasStation.id },
         leadTime: uploadTriggerPerStation.leadTime,
         date: uploadTriggerPerStation.date || new Date(),
       });
@@ -171,7 +172,7 @@ export class GlofasStationService {
     const existingStations = await this.glofasStationRepository.find({
       where: { countryCodeISO3: countryCodeISO3 },
     });
-    const newStationCodes = newStations.map(s => s.stationCode);
+    const newStationCodes = newStations.map((s) => s.stationCode);
     for (const station of existingStations) {
       if (!newStationCodes.includes(station.stationCode)) {
         await this.glofasStationForecastRepository.delete({

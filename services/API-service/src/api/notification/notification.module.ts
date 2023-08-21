@@ -11,7 +11,6 @@ import { WhatsappModule } from './whatsapp/whatsapp.module';
 import { NotificationContentModule } from './notification-content/notification-content.module';
 import { EmailService } from './email/email.service';
 import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
-import { HelperService } from '../../shared/helper.service';
 
 @Module({
   imports: [

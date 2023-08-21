@@ -1,14 +1,10 @@
 import fs from 'fs';
 import csv from 'csv-parser';
 import { Readable } from 'stream';
-import { Connection } from 'typeorm';
+import { DataSource } from 'typeorm';
 
 export class SeedHelper {
-  private connection: Connection;
-
-  public constructor(connection: Connection) {
-    this.connection = connection;
-  }
+  public constructor(private dataSource: DataSource) {}
 
   public async getCsvData(source: string): Promise<object[]> {
     const buffer = fs.readFileSync(source);
@@ -29,7 +25,7 @@ export class SeedHelper {
         .pipe(csv({ separator: separator }))
         .on('error', (error): void => reject(error))
         .on('data', (row): number => {
-          Object.keys(row).forEach(key =>
+          Object.keys(row).forEach((key) =>
             row[key] === '' ? (row[key] = null) : row[key],
           );
           return parsedData.push(row);
@@ -41,10 +37,10 @@ export class SeedHelper {
   }
 
   public async truncateAll(): Promise<void> {
-    const entities = this.connection.entityMetadatas;
+    const entities = this.dataSource.entityMetadatas;
     try {
       for (const entity of entities) {
-        const repository = await this.connection.getRepository(entity.name);
+        const repository = this.dataSource.getRepository(entity.name);
         if (
           repository.metadata.schema === 'IBF-app' &&
           entity.tableType !== 'view'

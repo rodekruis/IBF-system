@@ -1,7 +1,7 @@
-import { LeadTime, LeadTimeUnit } from './enum/lead-time.enum';
+import { LeadTime } from './enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { Connection, In, IsNull, MoreThanOrEqual, Repository } from 'typeorm';
+import { DataSource, In, IsNull, MoreThanOrEqual, Repository } from 'typeorm';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
@@ -18,9 +18,7 @@ import { HelperService } from '../../shared/helper.service';
 @Injectable()
 export class AdminAreaDynamicDataService {
   @InjectRepository(AdminAreaDynamicDataEntity)
-  private readonly adminAreaDynamicDataRepo: Repository<
-    AdminAreaDynamicDataEntity
-  >;
+  private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
   @InjectRepository(DisasterEntity)
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
   @InjectRepository(CountryEntity)
@@ -29,7 +27,7 @@ export class AdminAreaDynamicDataService {
   public constructor(
     private eventService: EventService,
     private helperService: HelperService,
-    private connection: Connection,
+    private dataSource: DataSource,
   ) {}
 
   public async exposure(
@@ -74,7 +72,7 @@ export class AdminAreaDynamicDataService {
       disasterType.triggerUnit === uploadExposure.dynamicIndicator &&
       uploadExposure.exposurePlaceCodes.length > 0 &&
       country.countryDisasterSettings.find(
-        s => s.disasterType === uploadExposure.disasterType,
+        (s) => s.disasterType === uploadExposure.disasterType,
       ).defaultAdminLevel === uploadExposure.adminLevel
     ) {
       await this.insertTrigger(uploadExposure);
@@ -173,7 +171,6 @@ export class AdminAreaDynamicDataService {
       adminLevel: Number(adminLevel),
       indicator: indicator,
       disasterType: disasterType,
-      date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -208,7 +205,7 @@ export class AdminAreaDynamicDataService {
         indicator: indicator,
         placeCode: placeCode,
         leadTime: leadTime,
-        eventName: eventName === 'no-name' ? IsNull() : eventName,
+        eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
       })
       .select(['dynamic.value AS value'])
       .orderBy('dynamic.date', 'DESC')
@@ -267,11 +264,11 @@ export class AdminAreaDynamicDataService {
       .getRawMany();
 
     // Move to separate archive-table
-    const repository = this.connection.getRepository(
+    const repository = this.dataSource.getRepository(
       AdminAreaDynamicDataEntity,
     );
     const archiveTableExists = (
-      await this.connection.query(
+      await this.dataSource.query(
         `SELECT exists (
             SELECT FROM information_schema.tables
               WHERE  table_schema = '${repository.metadata.schema}'
@@ -281,7 +278,7 @@ export class AdminAreaDynamicDataService {
     )[0].exists;
     for await (const item of maxDate) {
       if (archiveTableExists) {
-        await this.connection.query(
+        await this.dataSource.query(
           `INSERT INTO "${repository.metadata.schema}"."${repository.metadata.tableName}-archive" \
             SELECT * \
             FROM "${repository.metadata.schema}"."${repository.metadata.tableName}" \
@@ -291,7 +288,7 @@ export class AdminAreaDynamicDataService {
           [item.disasterType, item.countryCodeISO3, item.max_date],
         );
       } else {
-        await this.connection.query(
+        await this.dataSource.query(
           `SELECT * \
             INTO "${repository.metadata.schema}"."${repository.metadata.tableName}-archive" \
             FROM "${repository.metadata.schema}"."${repository.metadata.tableName}" \
@@ -302,7 +299,7 @@ export class AdminAreaDynamicDataService {
         );
       }
 
-      await this.connection.query(
+      await this.dataSource.query(
         `DELETE \
           FROM "${repository.metadata.schema}"."${repository.metadata.tableName}" \
           WHERE "disasterType" = $1 \

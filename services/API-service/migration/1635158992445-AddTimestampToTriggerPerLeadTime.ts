@@ -1,7 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddTimestampToTriggerPerLeadTime1635158992445
-  implements MigrationInterface {
+  implements MigrationInterface
+{
   name = 'AddTimestampToTriggerPerLeadTime1635158992445';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

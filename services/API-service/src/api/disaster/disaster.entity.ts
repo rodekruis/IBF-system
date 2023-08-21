@@ -6,7 +6,6 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { DisasterType } from './disaster-type.enum';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { LayerMetadataEntity } from '../metadata/layer-metadata.entity';

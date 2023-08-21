@@ -1,10 +1,11 @@
-import { createParamDecorator } from '@nestjs/common';
+import { ExecutionContext, createParamDecorator } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
 import { User } from './user.model';
 
 export const UserDecorator = createParamDecorator(
-  (data, req): User => {
+  (data, ctx: ExecutionContext): User => {
     // if route is protected, there is a user set in auth.middleware
+    const req = ctx.switchToHttp().getRequest();
     if (!!req.user) {
       return !!data ? req.user[data] : req.user;
     }

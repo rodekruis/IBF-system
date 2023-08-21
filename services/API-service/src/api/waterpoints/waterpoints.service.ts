@@ -1,14 +1,10 @@
-import {
-  HttpException,
-  HttpService,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AxiosResponse } from 'axios';
 import { WKTStringFromGeometry } from 'wkt-io-ts';
 import { isRight } from 'fp-ts/lib/Either';
 import { CountryService } from '../country/country.service';
 import { GeoJson } from '../../shared/geo.model';
+import { HttpService } from '@nestjs/axios';
 
 @Injectable()
 export class WaterpointsService {
