@@ -65,7 +65,7 @@ From root run
 ```
 docker-compose -f docker-compose.yml up -d # for production
 
-docker-compose up -d # for development (NOTE: this does not start the ibf-dashboard!)
+docker-compose up -d # for development (NOTE: this does not start the ibf-dashboard)
 
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d # for development (same as previous line)
 
