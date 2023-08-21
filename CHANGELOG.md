@@ -1,3 +1,21 @@
+# [0.258.0](https://github.com/rodekruis/IBF-system/compare/v0.257.3...v0.258.0) (2023-08-21)
+
+
+### Bug Fixes
+
+* uninstall angular-toolkit AB[#23097](https://github.com/rodekruis/IBF-system/issues/23097) ([99bd4be](https://github.com/rodekruis/IBF-system/commit/99bd4be6ddcef378abaab87245dfd260c3a0f0b7))
+
+
+### Features
+
+* migrate tslint to eslint AB[#23103](https://github.com/rodekruis/IBF-system/issues/23103) ([cff98d2](https://github.com/rodekruis/IBF-system/commit/cff98d2430bc192a8e68a70cb1a5360f57459fc1))
+* update angular to v13 AB[#23097](https://github.com/rodekruis/IBF-system/issues/23097) ([0e8fe8c](https://github.com/rodekruis/IBF-system/commit/0e8fe8cd13c0b06ff07efcfc00fdb96d9a892686))
+* update ionic to v6 AB[#23096](https://github.com/rodekruis/IBF-system/issues/23096) ([addd696](https://github.com/rodekruis/IBF-system/commit/addd6962906d6788c7c3d2b27d9f7c004da99ac6))
+* update node to v16 AB[#23105](https://github.com/rodekruis/IBF-system/issues/23105) ([11f452b](https://github.com/rodekruis/IBF-system/commit/11f452bdac8935f6b9adface1264921f7d3f2fe0))
+* update to angular 12 AB[#23095](https://github.com/rodekruis/IBF-system/issues/23095) ([de522d5](https://github.com/rodekruis/IBF-system/commit/de522d5d9effe0facacb8891e827e1116a242b49))
+
+
+
 ## [0.257.3](https://github.com/rodekruis/IBF-system/compare/v0.257.2...v0.257.3) (2023-08-21)
 
 
@@ -112,26 +130,6 @@
 * disable stop trigger for flash-floods AB[#20135](https://github.com/rodekruis/IBF-system/issues/20135) ([a1acfd3](https://github.com/rodekruis/IBF-system/commit/a1acfd34c14ad79a33be3534f1e2a0545a5f4567))
 * only show btn if too late AB[#22949](https://github.com/rodekruis/IBF-system/issues/22949) ([6e3109a](https://github.com/rodekruis/IBF-system/commit/6e3109a6c6163f3edf8da2f3c8d0447fc7d4485a))
 * tooltip with explanation of why too late AB[#22949](https://github.com/rodekruis/IBF-system/issues/22949) ([41de773](https://github.com/rodekruis/IBF-system/commit/41de773242b6c3ec9cbe69ced8b38748145413db))
-
-
-
-# [0.253.0](https://github.com/rodekruis/IBF-system/compare/v0.252.1...v0.253.0) (2023-08-09)
-
-
-### Bug Fixes
-
-* email changes AB[#20029](https://github.com/rodekruis/IBF-system/issues/20029) ([875bae4](https://github.com/rodekruis/IBF-system/commit/875bae4264d176a40902942c7a5fcfd8f47eb764))
-* make email in line with design AB[#20029](https://github.com/rodekruis/IBF-system/issues/20029) ([1ab005b](https://github.com/rodekruis/IBF-system/commit/1ab005b9c551cc950196b47613fc430d01b24412))
-* remove 'X hours' from now' references from portal AB[#20033](https://github.com/rodekruis/IBF-system/issues/20033) ([db4b945](https://github.com/rodekruis/IBF-system/commit/db4b94533f7848548045a8ef29a0eececf91d69e))
-* update email for flash-floods AB[#20029](https://github.com/rodekruis/IBF-system/issues/20029) ([4690d73](https://github.com/rodekruis/IBF-system/commit/4690d73c96f499a0cf04d1875072f95ee4ae1199))
-
-
-### Features
-
-* add river layer AB[#20154](https://github.com/rodekruis/IBF-system/issues/20154) ([c04e2a7](https://github.com/rodekruis/IBF-system/commit/c04e2a78c4d1c49c1ac027e219b88ddb27843fe8))
-* don't send notifications for ongoing event AB[#22941](https://github.com/rodekruis/IBF-system/issues/22941) ([1259349](https://github.com/rodekruis/IBF-system/commit/12593491d58ef196414ae30b7292dc440748112f))
-* whatsapp flow single vs multi event AB[#20030](https://github.com/rodekruis/IBF-system/issues/20030) ([8c3c3e6](https://github.com/rodekruis/IBF-system/commit/8c3c3e64e8c7a1f744b3f725e0799abad1e388ca))
-* WIP email + whatsapp flash-floods AB[#20147](https://github.com/rodekruis/IBF-system/issues/20147) ([a8ece07](https://github.com/rodekruis/IBF-system/commit/a8ece07b265d0e109216f1ddc7fbf8f427657f19))
 
 
 
