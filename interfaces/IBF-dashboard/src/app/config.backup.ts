@@ -1,5 +1,5 @@
 export const DEBOUNCE_TIME_LOADER = 500;
-let DEBUG = {};
+const DEBUG = {};
 
 console.log = (string, val) => {
   if (string === 'mapComponent newLayer') {

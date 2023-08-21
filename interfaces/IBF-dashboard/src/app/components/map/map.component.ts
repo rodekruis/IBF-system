@@ -407,16 +407,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     if (layer.type === IbfLayerType.shape) {
       layer.leafletLayer = this.createAdminRegionsLayer(layer);
       this.layers.push(layer);
-
-      const colors =
-        this.eventState?.activeTrigger && this.eventState?.thresholdReached
-          ? this.mapService.state.colorGradientTriggered
-          : this.mapService.state.colorGradient;
-      const colorThreshold = this.mapService.getColorThreshold(
-        layer.data,
-        layer.colorProperty,
-        layer.colorBreaks,
-      );
     }
 
     if (layer.type === IbfLayerType.wms) {
@@ -438,7 +428,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     latlng: LatLng,
   ): Marker => {
     switch (layerName) {
-      case IbfLayerName.glofasStations:
+      case IbfLayerName.glofasStations: {
         const countryDisasterSettings = this.country?.countryDisasterSettings.find(
           (s) => s.disasterType === this.disasterType.disasterType,
         );
@@ -448,6 +438,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           countryDisasterSettings,
           this.timelineState.activeLeadTime,
         );
+      }
       case IbfLayerName.redCrossBranches:
         return this.pointMarkerService.createMarkerRedCrossBranch(
           geoJsonPoint.properties as RedCrossBranch,

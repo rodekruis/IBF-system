@@ -118,15 +118,13 @@ export class PointMarkerService {
     activeLeadTime: LeadTime,
   ): Marker {
     const markerTitle = markerProperties.stationName;
-    let markerIcon: IconOptions;
-    let className: string;
 
-    markerIcon = {
+    const markerIcon: IconOptions = {
       ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
       iconUrl: `assets/markers/glofas-station-${markerProperties.eapAlertClass}-trigger.svg`,
       iconRetinaUrl: `assets/markers/glofas-station-${markerProperties.eapAlertClass}-trigger.svg`,
     };
-    className = `trigger-popup-${markerProperties.eapAlertClass}`;
+    const className = `trigger-popup-${markerProperties.eapAlertClass}`;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
@@ -428,7 +426,7 @@ export class PointMarkerService {
     `;
 
     const infoPopup = `
-      <div style="background-color:${eapStatusColor}; color:${eapStatusColorText}; padding: 5px; margin-bottom: 5px"> \ \
+      <div style="background-color:${eapStatusColor}; color:${eapStatusColorText}; padding: 5px; margin-bottom: 5px"> \
         <strong>${title}
       </strong> \
       </div> \
