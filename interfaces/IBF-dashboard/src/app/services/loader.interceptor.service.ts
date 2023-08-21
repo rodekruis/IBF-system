@@ -35,6 +35,7 @@ export class LoaderInterceptorService implements HttpInterceptor {
             }
           },
           (error: any) => {
+            console.log('error: ', error);
             this.onEnd(requestPath);
           },
         ),
@@ -51,6 +52,7 @@ export class LoaderInterceptorService implements HttpInterceptor {
           }
         },
         (error: any) => {
+          console.log('error: ', error);
           this.onEnd(requestPath);
         },
       ),

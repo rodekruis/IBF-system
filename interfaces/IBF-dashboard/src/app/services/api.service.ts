@@ -26,7 +26,7 @@ export class ApiService {
     return anonymous ? '🌐' : '🔐';
   }
 
-  private createHeaders(anonymous: boolean = false): HttpHeaders {
+  private createHeaders(anonymous = false): HttpHeaders {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       Accept: 'application/json',
@@ -46,7 +46,7 @@ export class ApiService {
     return headers;
   }
 
-  get(path: string, anonymous: boolean = true, params = null): Observable<any> {
+  get(path: string, anonymous = true, params = null): Observable<any> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
     this.log(`ApiService GET: ${security} ${url}`);
@@ -67,11 +67,7 @@ export class ApiService {
       );
   }
 
-  post(
-    path: string,
-    body: object,
-    anonymous: boolean = false,
-  ): Observable<any> {
+  post(path: string, body: object, anonymous = false): Observable<any> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
     this.log(`ApiService POST: ${security} ${url}`, body);
@@ -92,7 +88,7 @@ export class ApiService {
       );
   }
 
-  put(path: string, body: object, anonymous: boolean = false): Observable<any> {
+  put(path: string, body: object, anonymous = false): Observable<any> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
     this.log(`ApiService PUT: ${security} ${url}`, body);

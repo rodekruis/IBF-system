@@ -24,7 +24,10 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets",
-                "ignore": ["icons/stage/*", "icons/test/*"]
+                "ignore": [
+                  "icons/stage/*",
+                  "icons/test/*"
+                ]
               },
               {
                 "glob": "**/*.svg",
@@ -95,7 +98,10 @@
                   "glob": "**/*",
                   "input": "src/assets",
                   "output": "assets",
-                  "ignore": ["icons/stage/*", "icons/test/*"]
+                  "ignore": [
+                    "icons/stage/*",
+                    "icons/test/*"
+                  ]
                 },
                 {
                   "glob": "**/*.svg",
@@ -121,7 +127,10 @@
                   "glob": "**/*",
                   "input": "src/assets",
                   "output": "assets",
-                  "ignore": ["icons/stage/*", "icons/test/*"]
+                  "ignore": [
+                    "icons/stage/*",
+                    "icons/test/*"
+                  ]
                 },
                 {
                   "glob": "**/*.svg",
@@ -159,8 +168,7 @@
             "production": {
               "browserTarget": "app:build:production"
             },
-            "ci": {
-            }
+            "ci": {}
           }
         },
         "extract-i18n": {
@@ -183,7 +191,10 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets",
-                "ignore": ["icons/stage/*", "icons/test/*"]
+                "ignore": [
+                  "icons/stage/*",
+                  "icons/test/*"
+                ]
               },
               "src/manifest.webmanifest"
             ]
@@ -233,13 +244,22 @@
               "devServerTarget": "app:serve:production"
             }
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
     "analytics": false,
-    "defaultCollection": "@ionic/angular-toolkit"
+    "defaultCollection": "@angular-eslint/schematics"
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {
