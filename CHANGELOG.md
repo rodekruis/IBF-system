@@ -1,3 +1,12 @@
+## [0.257.3](https://github.com/rodekruis/IBF-system/compare/v0.257.2...v0.257.3) (2023-08-21)
+
+
+### Bug Fixes
+
+* install axios dependency AB[#23122](https://github.com/rodekruis/IBF-system/issues/23122) ([f4c094e](https://github.com/rodekruis/IBF-system/commit/f4c094ee20863f35b5347c908944323ae44ca6c3))
+
+
+
 ## [0.257.2](https://github.com/rodekruis/IBF-system/compare/v0.257.1...v0.257.2) (2023-08-21)
 
 
@@ -123,19 +132,6 @@
 * don't send notifications for ongoing event AB[#22941](https://github.com/rodekruis/IBF-system/issues/22941) ([1259349](https://github.com/rodekruis/IBF-system/commit/12593491d58ef196414ae30b7292dc440748112f))
 * whatsapp flow single vs multi event AB[#20030](https://github.com/rodekruis/IBF-system/issues/20030) ([8c3c3e6](https://github.com/rodekruis/IBF-system/commit/8c3c3e64e8c7a1f744b3f725e0799abad1e388ca))
 * WIP email + whatsapp flash-floods AB[#20147](https://github.com/rodekruis/IBF-system/issues/20147) ([a8ece07](https://github.com/rodekruis/IBF-system/commit/a8ece07b265d0e109216f1ddc7fbf8f427657f19))
-
-
-
-## [0.252.1](https://github.com/rodekruis/IBF-system/compare/v0.252.0...v0.252.1) (2023-08-04)
-
-
-### Bug Fixes
-
-* hourly to 6-hourly pipeline AB[#19596](https://github.com/rodekruis/IBF-system/issues/19596) ([d2db421](https://github.com/rodekruis/IBF-system/commit/d2db421d7353ed0c54c3c2c1bb35cbd7f373b351))
-* missing 1st date-button if 1st trigger is on next day AB[#19596](https://github.com/rodekruis/IBF-system/issues/19596) ([f6d4adf](https://github.com/rodekruis/IBF-system/commit/f6d4adfefd187b0f76eabf82d0eccc11aa23efea))
-* missing activeLeadTime if 1 event AB[#19596](https://github.com/rodekruis/IBF-system/issues/19596) ([c39f226](https://github.com/rodekruis/IBF-system/commit/c39f22600a96e4aa0de9b1f616f6c3620feafb36))
-* new styling in legend AB[#19593](https://github.com/rodekruis/IBF-system/issues/19593) ([8d8788a](https://github.com/rodekruis/IBF-system/commit/8d8788a38bd92a168e63518972d1c76e691e5458))
-* show admin-area bubble on select AB[#19596](https://github.com/rodekruis/IBF-system/issues/19596) ([fd76721](https://github.com/rodekruis/IBF-system/commit/fd767213289ca845d9ac8978a16645b0fb4f95d7))
 
 
 
