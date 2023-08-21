@@ -33,13 +33,13 @@ const indicatorsFromJSON = [];
 const indicatorsToAdd = [];
 
 const populateIndicators = () => {
-  indicatorMetadata.forEach(indicator => {
-    indicator.countryCodes.split(',').forEach(cc => {
+  indicatorMetadata.forEach((indicator) => {
+    indicator.countryCodes.split(',').forEach((cc) => {
       if (cc !== '') {
         const country = countries.find(
-          country => country.countryCodeISO3 === cc,
+          (country) => country.countryCodeISO3 === cc,
         );
-        indicator.disasterTypes.forEach(disasterType => {
+        indicator.disasterTypes.forEach((disasterType) => {
           if (country.disasterTypes.includes(disasterType)) {
             indicatorsFromJSON.push({
               section: sectionNames.generalIndicator,
@@ -53,14 +53,14 @@ const populateIndicators = () => {
     });
   });
 
-  layerMetadata.forEach(layer => {
+  layerMetadata.forEach((layer) => {
     if (layer.type === 'wms' || layer.type === 'point') {
-      layer.countryCodes.split(',').forEach(cc => {
+      layer.countryCodes.split(',').forEach((cc) => {
         if (cc !== '') {
           const country = countries.find(
-            country => country.countryCodeISO3 === cc,
+            (country) => country.countryCodeISO3 === cc,
           );
-          layer.disasterTypes.forEach(disasterType => {
+          layer.disasterTypes.forEach((disasterType) => {
             if (country.disasterTypes.includes(disasterType)) {
               indicatorsFromJSON.push({
                 section: sectionNames.layerIndicator,
@@ -97,7 +97,7 @@ const populateExistingDataInXLSX = () => {
       continue;
     }
 
-    const index = existingDataInXLSX.findIndex(r => r.row === row);
+    const index = existingDataInXLSX.findIndex((r) => r.row === row);
 
     index === -1
       ? existingDataInXLSX.push({ row, [headers[col]]: worksheet[cell].v })
@@ -109,9 +109,9 @@ const populateExistingDataInXLSX = () => {
 };
 
 const compareData = () => {
-  indicatorsFromJSON.forEach(indicator => {
+  indicatorsFromJSON.forEach((indicator) => {
     const index = existingDataInXLSX.findIndex(
-      xlsxRow =>
+      (xlsxRow) =>
         indicator.section === xlsxRow.section &&
         indicator.layer === xlsxRow.layer &&
         indicator.countryCodeISO3 === xlsxRow.countryCodeISO3 &&
@@ -125,9 +125,9 @@ const compareData = () => {
 };
 
 const writeCSV = () => {
-  const lines = indicatorsToAdd.map(i => i.join('\t'));
+  const lines = indicatorsToAdd.map((i) => i.join('\t'));
   const csvData = lines.join('\n');
-  fs.writeFile(path + csvFileName, csvData, 'utf8', err => {
+  fs.writeFile(path + csvFileName, csvData, 'utf8', (err) => {
     err ? console.error(err) : console.log(`file ${csvFileName} written`);
   });
 };

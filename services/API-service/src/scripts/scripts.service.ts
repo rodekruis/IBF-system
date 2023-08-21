@@ -38,9 +38,7 @@ export class ScriptsService {
   @InjectRepository(TriggerPerLeadTime)
   private readonly triggerPerLeadTimeRepo: Repository<TriggerPerLeadTime>;
   @InjectRepository(AdminAreaDynamicDataEntity)
-  private readonly adminAreaDynamicDataRepo: Repository<
-    AdminAreaDynamicDataEntity
-  >;
+  private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
   @InjectRepository(AdminAreaEntity)
   private readonly adminAreaRepo: Repository<AdminAreaEntity>;
   @InjectRepository(EapActionStatusEntity)
@@ -91,9 +89,10 @@ export class ScriptsService {
     eventNr = eventNr || 1;
 
     if (mockInput.removeEvents) {
-      const countryAdminAreaIds = await this.eventService.getCountryAdminAreaIds(
-        mockInput.countryCodeISO3,
-      );
+      const countryAdminAreaIds =
+        await this.eventService.getCountryAdminAreaIds(
+          mockInput.countryCodeISO3,
+        );
       let allCountryEvents;
       if (mockInput.disasterType === DisasterType.Typhoon) {
         allCountryEvents = await this.eventPlaceCodeRepo.find({
@@ -288,7 +287,7 @@ export class ScriptsService {
     for (const unit of exposureUnits) {
       // For every admin-level ..
       for (const adminLevel of selectedCountry.countryDisasterSettings.find(
-        s => s.disasterType === disasterType,
+        (s) => s.disasterType === disasterType,
       ).adminLevels) {
         // Get the right mock-data-file
         const exposure = await this.getMockData(
@@ -361,13 +360,14 @@ export class ScriptsService {
     disasterType: DisasterType,
     typhoonScenario: TyphoonScenario,
   ) {
-    const indicators = await this.metadataService.getIndicatorsByCountryAndDisaster(
-      countryCodeISO3,
-      disasterType,
-    );
+    const indicators =
+      await this.metadataService.getIndicatorsByCountryAndDisaster(
+        countryCodeISO3,
+        disasterType,
+      );
     let exposureUnits = indicators
-      .filter(ind => ind.dynamic)
-      .map(ind => ind.name as DynamicIndicator);
+      .filter((ind) => ind.dynamic)
+      .map((ind) => ind.name as DynamicIndicator);
 
     if (
       disasterType === DisasterType.Dengue ||
@@ -384,7 +384,7 @@ export class ScriptsService {
       }
     }
     // Make sure 'alert threshold' is uploaded last
-    return exposureUnits.sort((a, b) =>
+    return exposureUnits.sort((a, _b) =>
       a === DynamicIndicator.alertThreshold ? 1 : -1,
     );
   }
@@ -409,13 +409,13 @@ export class ScriptsService {
     // For typhoon event-no-trigger case, set only alert-threshold to 0
     if (typhoonScenario === TyphoonScenario.EventNoTrigger) {
       if (unit === DynamicIndicator.alertThreshold) {
-        exposure.forEach(area => (area.amount = 0));
+        exposure.forEach((area) => (area.amount = 0));
       }
       return exposure;
     }
     // If non-triggered, replace all values by 0
     if (!triggered && unit !== DynamicIndicator.potentialThreshold) {
-      exposure.forEach(area => (area.amount = 0));
+      exposure.forEach((area) => (area.amount = 0));
     }
     return exposure;
   }
@@ -430,9 +430,9 @@ export class ScriptsService {
     triggered: boolean,
   ) {
     const leadTimes = selectedCountry.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
+      (s) => s.disasterType === disasterType,
     ).activeLeadTimes;
-    return leadTimes.filter(leadTime =>
+    return leadTimes.filter((leadTime) =>
       this.filterLeadTimesPerDisasterType(
         selectedCountry,
         leadTime,
@@ -455,7 +455,7 @@ export class ScriptsService {
       if (disasterType === DisasterType.Drought) {
         const regions = Object.keys(
           selectedCountry.countryDisasterSettings.find(
-            s => s.disasterType === disasterType,
+            (s) => s.disasterType === disasterType,
           ).droughtForecastSeasons,
         );
         return regions;
@@ -489,7 +489,7 @@ export class ScriptsService {
       triggered
     ) {
       const seasons = selectedCountry.countryDisasterSettings.find(
-        s => s.disasterType === DisasterType.Drought,
+        (s) => s.disasterType === DisasterType.Drought,
       ).droughtForecastSeasons[eventRegion];
       const leadTimeMonthFirstDay = this.getCurrentMonthInfoDrought(
         leadTime,
@@ -549,7 +549,7 @@ export class ScriptsService {
     currentMonthFirstDay = new Date(now.getFullYear(), now.getUTCMonth(), 1);
 
     const endOfMonthPipeline = selectedCountry.countryDisasterSettings.find(
-      s => s.disasterType === DisasterType.Drought,
+      (s) => s.disasterType === DisasterType.Drought,
     ).droughtEndOfMonthPipeline;
     if (endOfMonthPipeline) {
       currentMonthFirstDay = new Date(
@@ -580,7 +580,7 @@ export class ScriptsService {
     triggered: boolean,
   ): boolean {
     const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
+      (s) => s.disasterType === disasterType,
     ).droughtForecastSeasons;
 
     let useLeadTimeForMock = false;
@@ -604,15 +604,12 @@ export class ScriptsService {
     date: Date,
     selectedCountry: any,
   ) {
-    const {
-      currentYear,
-      currentUTCMonth,
-      leadTimeMonthFirstDay,
-    } = this.getCurrentMonthInfoDrought(
-      leadTime as LeadTime,
-      date,
-      selectedCountry,
-    );
+    const { currentYear, currentUTCMonth, leadTimeMonthFirstDay } =
+      this.getCurrentMonthInfoDrought(
+        leadTime as LeadTime,
+        date,
+        selectedCountry,
+      );
 
     // If current month is one of the months in the seasons, always use '0-month' and return early ..
     if (leadTime === LeadTime.month0) {
@@ -627,12 +624,12 @@ export class ScriptsService {
 
     // .. For other cases, continue to find the next forecast month
     const forecastMonthNumbers = Object.values(forecastSeasons).map(
-      season => season[this.rainMonthsKey][0],
+      (season) => season[this.rainMonthsKey][0],
     );
     let forecastMonthNumber: number;
     forecastMonthNumbers
       .sort((a, b) => (a > b ? -1 : 1))
-      .forEach(month => {
+      .forEach((month) => {
         if (currentUTCMonth + 1 < month) {
           // add 1 because 'currentUTCmonth' starts at 0, while 'month' does not
           forecastMonthNumber = month;
@@ -742,7 +739,7 @@ export class ScriptsService {
             : exposureUnit === DynamicIndicator.populationAffected
             ? 1000
             : null;
-        copyOfExposureUnit = areas.map(area => {
+        copyOfExposureUnit = areas.map((area) => {
           return {
             placeCode: area.placeCode,
             amount: area.triggered ? amountFactor : 0,
@@ -789,29 +786,29 @@ export class ScriptsService {
     droughtRegion: string,
   ): { placeCode: string; triggered: boolean }[] {
     const forecastSeasonData = selectedCountry.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
+      (s) => s.disasterType === disasterType,
     );
     const forecastSeasonAreas = forecastSeasonData.droughtForecastSeasons;
     const droughtRegionAreas = selectedCountry.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
+      (s) => s.disasterType === disasterType,
     ).droughtAreas;
 
-    const {
-      currentUTCMonth,
-      leadTimeMonthFirstDay,
-    } = this.getCurrentMonthInfoDrought(
-      leadTime as LeadTime,
-      date,
-      selectedCountry,
-    );
+    const { currentUTCMonth, leadTimeMonthFirstDay } =
+      this.getCurrentMonthInfoDrought(
+        leadTime as LeadTime,
+        date,
+        selectedCountry,
+      );
     const month = leadTimeMonthFirstDay.getMonth() + 1;
 
-    const triggeredAreas = droughtRegionAreas[droughtRegion].map(placeCode => {
-      return { placeCode: placeCode, triggered: false };
-    });
+    const triggeredAreas = droughtRegionAreas[droughtRegion].map(
+      (placeCode) => {
+        return { placeCode: placeCode, triggered: false };
+      },
+    );
     for (const season of Object.values(forecastSeasonAreas[droughtRegion])) {
       const filteredSeason = season[this.rainMonthsKey].filter(
-        seasonMonth => seasonMonth >= currentUTCMonth + 1,
+        (seasonMonth) => seasonMonth >= currentUTCMonth + 1,
       );
       if (filteredSeason[0] === month) {
         let placeCodes = [];
@@ -838,8 +835,8 @@ export class ScriptsService {
         }
 
         triggeredAreas
-          .filter(a => placeCodes.includes(a.placeCode))
-          .forEach(a => (a.triggered = true));
+          .filter((a) => placeCodes.includes(a.placeCode))
+          .forEach((a) => (a.triggered = true));
       }
     }
     return triggeredAreas;
@@ -903,7 +900,7 @@ export class ScriptsService {
     const stations = JSON.parse(stationsRaw);
 
     for (const activeLeadTime of selectedCountry.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
+      (s) => s.disasterType === disasterType,
     ).activeLeadTimes) {
       console.log(
         `Seeding Glofas stations for country: ${selectedCountry.countryCodeISO3} for leadtime: ${activeLeadTime}`,
@@ -1009,7 +1006,7 @@ export class ScriptsService {
     triggered: boolean,
   ) {
     for await (const leadTime of selectedCountry.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
+      (s) => s.disasterType === disasterType,
     ).activeLeadTimes) {
       console.log(
         `Seeding disaster extent raster file for country: ${selectedCountry.countryCodeISO3} for leadtime: ${leadTime}`,

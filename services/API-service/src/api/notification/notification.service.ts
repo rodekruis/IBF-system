@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Injectable } from '@nestjs/common';
 import { EventService } from '../event/event.service';
 import { DisasterType } from '../disaster/disaster-type.enum';
@@ -45,9 +44,10 @@ export class NotificationService {
       }
     }
     if (activeEvents.length) {
-      const country = await this.notificationContentService.getCountryNotificationInfo(
-        countryCodeISO3,
-      );
+      const country =
+        await this.notificationContentService.getCountryNotificationInfo(
+          countryCodeISO3,
+        );
       this.emailService.sendTriggerEmail(
         country,
         disasterType,
@@ -65,9 +65,10 @@ export class NotificationService {
     }
 
     if (finishedEvent) {
-      const country = await this.notificationContentService.getCountryNotificationInfo(
-        countryCodeISO3,
-      );
+      const country =
+        await this.notificationContentService.getCountryNotificationInfo(
+          countryCodeISO3,
+        );
 
       this.emailService.sendTriggerFinishedEmail(
         country,

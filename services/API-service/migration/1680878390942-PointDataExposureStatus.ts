@@ -1,7 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class PointDataExposureStatus1680878390942
-  implements MigrationInterface {
+  implements MigrationInterface
+{
   name = 'PointDataExposureStatus1680878390942';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

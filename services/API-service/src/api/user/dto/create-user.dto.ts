@@ -15,7 +15,7 @@ import { UserStatus } from '../user-status.enum';
 import countries from '../../../scripts/json/countries.json';
 import disasterTypes from '../../../scripts/json/disasters.json';
 
-const userRoleArray = Object.values(UserRole).map(item => String(item));
+const userRoleArray = Object.values(UserRole).map((item) => String(item));
 
 export class CreateUserDto {
   @ApiProperty({ example: 'dunant@redcross.nl' })
@@ -52,7 +52,7 @@ export class CreateUserDto {
   public role: UserRole;
 
   @ApiProperty({
-    example: countries.map(c => c.countryCodeISO3),
+    example: countries.map((c) => c.countryCodeISO3),
     default: [],
   })
   @IsArray()
@@ -60,7 +60,7 @@ export class CreateUserDto {
   public countryCodesISO3: string[];
 
   @ApiProperty({
-    example: disasterTypes.map(c => c.disasterType),
+    example: disasterTypes.map((c) => c.disasterType),
     default: [],
   })
   @IsArray()

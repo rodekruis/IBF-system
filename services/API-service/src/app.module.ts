@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { HealthModule } from './health.module';
 import { EapActionsModule } from './api/eap-actions/eap-actions.module';
@@ -22,10 +21,11 @@ import { CronjobModule } from './cronjob/cronjob.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { PointDataModule } from './api/point-data/point-data.module';
 import { LinesDataModule } from './api/lines-data/lines-data.module';
+import { TypeOrmModule } from './typeorm.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot(),
+    TypeOrmModule,
     EapActionsModule,
     WaterpointsModule,
     ScriptsModule,

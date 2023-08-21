@@ -1,7 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AssetViewsJoinByTimestamp1688740150607
-  implements MigrationInterface {
+  implements MigrationInterface
+{
   name = 'AssetViewsJoinByTimestamp1688740150607';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

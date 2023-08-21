@@ -5,12 +5,5 @@
     "eapAlertClass": "no",
     "forecastReturnPeriod": null,
     "triggerLevel": 5856
-  },
-  {
-    "stationCode": "G5106",
-    "forecastLevel": 0.0,
-    "eapAlertClass": "no",
-    "forecastReturnPeriod": null,
-    "triggerLevel": 6123
   }
 ]

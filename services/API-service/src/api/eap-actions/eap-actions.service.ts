@@ -85,7 +85,9 @@ export class EapActionsService {
         disasterType: eapAction.disasterType,
         adminArea: { id: adminArea.id },
         eventName:
-          eapAction.eventName === 'no-name' ? IsNull() : eapAction.eventName,
+          eapAction.eventName === 'no-name' || !eapAction.eventName
+            ? IsNull()
+            : eapAction.eventName,
       },
     });
 
@@ -96,7 +98,9 @@ export class EapActionsService {
     action.actionChecked = actionId;
 
     // If no user, take default user for now
-    const user = await this.userRepository.findOne(userId);
+    const user = await this.userRepository.findOne({
+      where: { userId: userId },
+    });
     action.user = user;
 
     const newAction = await this.eapActionStatusRepository.save(action);

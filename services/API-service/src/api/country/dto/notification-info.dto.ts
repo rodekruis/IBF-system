@@ -7,10 +7,10 @@ export class NotificationInfoDto {
   public countryCodeISO3: string;
 
   @ApiProperty()
-  public logo: {};
+  public logo: object;
 
   @ApiProperty()
-  public triggerStatement: {};
+  public triggerStatement: object;
 
   @ApiProperty()
   @IsString()
@@ -30,11 +30,11 @@ export class NotificationInfoDto {
 
   @ApiProperty()
   @IsOptional()
-  public useWhatsapp?: {};
+  public useWhatsapp?: object;
 
   @ApiProperty()
   @IsOptional()
-  public whatsappMessage?: {};
+  public whatsappMessage?: object;
 
   @ApiProperty()
   @IsOptional()
@@ -42,5 +42,5 @@ export class NotificationInfoDto {
   public externalEarlyActionForm?: string;
 
   @ApiProperty()
-  public mailSegment: {};
+  public mailSegment: object;
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
-import { Connection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { SeedHelper } from './seed-helper';
 import countries from './json/countries.json';
 import { LinesDataService } from '../api/lines-data/lines-data.service';
@@ -12,26 +12,24 @@ export class SeedLineData implements InterfaceScript {
 
   public constructor(
     private lineDataService: LinesDataService,
-    connection: Connection,
+    dataSource: DataSource,
   ) {
-    this.seedHelper = new SeedHelper(connection);
+    this.seedHelper = new SeedHelper(dataSource);
   }
 
   public async run(): Promise<void> {
     const envCountries = process.env.COUNTRIES.split(',');
 
     await Promise.all(
-      countries.map(
-        (country): Promise<void> => {
-          if (envCountries.includes(country.countryCodeISO3)) {
-            this.seedLineData(LinesDataEnum.roads, country);
-            this.seedLineData(LinesDataEnum.buildings, country);
-            return;
-          } else {
-            return Promise.resolve();
-          }
-        },
-      ),
+      countries.map((country): Promise<void> => {
+        if (envCountries.includes(country.countryCodeISO3)) {
+          this.seedLineData(LinesDataEnum.roads, country);
+          this.seedLineData(LinesDataEnum.buildings, country);
+          return;
+        } else {
+          return Promise.resolve();
+        }
+      }),
     );
   }
 

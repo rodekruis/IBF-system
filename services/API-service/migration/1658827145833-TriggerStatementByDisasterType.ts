@@ -1,7 +1,8 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class TriggerStatementByDisasterType1658827145833
-  implements MigrationInterface {
+  implements MigrationInterface
+{
   name = 'TriggerStatementByDisasterType1658827145833';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

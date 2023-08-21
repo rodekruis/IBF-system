@@ -1,6 +1,5 @@
 import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
-/* eslint-disable @typescript-eslint/camelcase */
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import {
@@ -15,7 +14,7 @@ import {
   In,
   MoreThan,
   IsNull,
-  Connection,
+  DataSource,
 } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -41,9 +40,7 @@ export class EventService {
   @InjectRepository(EventPlaceCodeEntity)
   private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
   @InjectRepository(AdminAreaDynamicDataEntity)
-  private readonly adminAreaDynamicDataRepo: Repository<
-    AdminAreaDynamicDataEntity
-  >;
+  private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
   @InjectRepository(AdminAreaEntity)
   private readonly adminAreaRepository: Repository<AdminAreaEntity>;
   @InjectRepository(TriggerPerLeadTime)
@@ -58,7 +55,7 @@ export class EventService {
   public constructor(
     private eapActionsService: EapActionsService,
     private helperService: HelperService,
-    private connection: Connection,
+    private dataSource: DataSource,
     private typhoonTrackService: TyphoonTrackService,
   ) {}
 
@@ -102,10 +99,11 @@ export class EventService {
         event.eventName,
       );
       if (disasterType === DisasterType.Typhoon) {
-        event.disasterSpecificProperties = await this.typhoonTrackService.getTyphoonSpecificProperties(
-          countryCodeISO3,
-          event.eventName,
-        );
+        event.disasterSpecificProperties =
+          await this.typhoonTrackService.getTyphoonSpecificProperties(
+            countryCodeISO3,
+            event.eventName,
+          );
       }
     }
     return eventSummary;
@@ -121,10 +119,11 @@ export class EventService {
   public async uploadTriggerPerLeadTime(
     uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ): Promise<void> {
-    uploadTriggerPerLeadTimeDto.date = this.helperService.setDayToLastDayOfMonth(
-      uploadTriggerPerLeadTimeDto.date,
-      uploadTriggerPerLeadTimeDto.triggersPerLeadTime[0].leadTime,
-    );
+    uploadTriggerPerLeadTimeDto.date =
+      this.helperService.setDayToLastDayOfMonth(
+        uploadTriggerPerLeadTimeDto.date,
+        uploadTriggerPerLeadTimeDto.triggersPerLeadTime[0].leadTime,
+      );
     const triggersPerLeadTime: TriggerPerLeadTime[] = [];
     const timestamp = uploadTriggerPerLeadTimeDto.date || new Date();
     for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
@@ -227,7 +226,6 @@ export class EventService {
       adminLevel: adminLevel,
       disasterType: disasterType,
       countryCodeISO3: countryCodeISO3,
-      date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -247,7 +245,7 @@ export class EventService {
       .where(whereFiltersDynamicData)
       .execute();
     const triggeredPlaceCodes = triggeredAreasRaw.map(
-      element => element.placeCode,
+      (element) => element.placeCode,
     );
 
     const whereFiltersEvent = {
@@ -375,11 +373,11 @@ export class EventService {
     let firstKey = null;
     if (timesteps) {
       Object.keys(timesteps)
-        .filter(key => Object.values(LeadTime).includes(key as LeadTime))
+        .filter((key) => Object.values(LeadTime).includes(key as LeadTime))
         .sort((a, b) =>
           Number(a.split('-')[0]) > Number(b.split('-')[0]) ? 1 : -1,
         )
-        .forEach(key => {
+        .forEach((key) => {
           if (timesteps[key] === '1') {
             firstKey = !firstKey ? key : firstKey;
           }
@@ -399,7 +397,6 @@ export class EventService {
     );
     const whereFilters = {
       countryCodeISO3: countryCodeISO3,
-      date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -441,14 +438,16 @@ export class EventService {
     userId: string,
     eventPlaceCodeDto: EventPlaceCodeDto,
   ): Promise<void> {
-    const user = await this.userRepository.findOne(userId);
+    const user = await this.userRepository.findOne({
+      where: { userId: userId },
+    });
     if (!user) {
       const errors = 'User not found';
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
-    const eventPlaceCode = await this.eventPlaceCodeRepo.findOne(
-      eventPlaceCodeDto.eventPlaceCodeId,
-    );
+    const eventPlaceCode = await this.eventPlaceCodeRepo.findOne({
+      where: { eventPlaceCodeId: eventPlaceCodeDto.eventPlaceCodeId },
+    });
     if (!eventPlaceCode) {
       const errors = 'Event placeCode not found';
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
@@ -467,7 +466,7 @@ export class EventService {
         select: ['id'],
         where: { countryCodeISO3: countryCodeISO3 },
       })
-    ).map(area => area.id);
+    ).map((area) => area.id);
   }
 
   private async getActionUnit(disasterType: DisasterType): Promise<string> {
@@ -563,7 +562,7 @@ export class EventService {
           activeTrigger: false,
         })
         .where({
-          eventPlaceCodeId: In(eventAreas.map(area => area.eventPlaceCodeId)),
+          eventPlaceCodeId: In(eventAreas.map((area) => area.eventPlaceCodeId)),
         })
         .execute();
     }
@@ -584,7 +583,6 @@ export class EventService {
 
     const whereFilters = {
       indicator: triggerUnit,
-      date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -608,7 +606,7 @@ export class EventService {
       .groupBy('area."placeCode"')
       .getRawMany();
 
-    const triggerPlaceCodesArray = triggeredPlaceCodes.map(a => a.placeCode);
+    const triggerPlaceCodesArray = triggeredPlaceCodes.map((a) => a.placeCode);
 
     if (triggerPlaceCodesArray.length === 0) {
       return [];
@@ -619,7 +617,6 @@ export class EventService {
     const whereOptions = {
       placeCode: In(triggerPlaceCodesArray),
       indicator: actionUnit,
-      date: lastTriggeredDate.date,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -646,7 +643,7 @@ export class EventService {
 
     for (const area of affectedAreas) {
       area.triggerValue = triggeredPlaceCodes.find(
-        p => p.placeCode === area.placeCode,
+        (p) => p.placeCode === area.placeCode,
       ).triggerValue;
     }
 
@@ -683,9 +680,9 @@ export class EventService {
     const idsToUpdateBelowThreshold = [];
     const uploadDate = await this.getRecentDate(countryCodeISO3, disasterType);
     const endDate = await this.getEndDate(disasterType, uploadDate.timestamp);
-    unclosedEventAreas.forEach(eventArea => {
+    unclosedEventAreas.forEach((eventArea) => {
       const affectedArea = affectedAreas.find(
-        area => area.placeCode === eventArea.adminArea.placeCode,
+        (area) => area.placeCode === eventArea.adminArea.placeCode,
       );
       if (affectedArea) {
         eventArea.activeTrigger = true;
@@ -736,7 +733,7 @@ export class EventService {
     const eventAreasToUpdate = [];
     for await (const eventArea of unclosedEventAreas) {
       affectedArea = affectedAreas.find(
-        area => area.placeCode === eventArea.adminArea.placeCode,
+        (area) => area.placeCode === eventArea.adminArea.placeCode,
       );
       if (
         affectedArea &&
@@ -749,7 +746,7 @@ export class EventService {
       }
     }
     if (eventAreasToUpdate.length) {
-      const repository = this.connection.getRepository(EventPlaceCodeEntity);
+      const repository = this.dataSource.getRepository(EventPlaceCodeEntity);
       const updateQuery = `UPDATE "${repository.metadata.schema}"."${
         repository.metadata.tableName
       }" epc \
@@ -757,7 +754,7 @@ export class EventService {
       FROM (VALUES ${eventAreasToUpdate.join(',')}) areas(id,value) \
       WHERE areas.id::uuid = epc."eventPlaceCodeId" \
       `;
-      await this.connection.query(updateQuery);
+      await this.dataSource.query(updateQuery);
     }
   }
 
@@ -786,7 +783,7 @@ export class EventService {
         },
         relations: ['adminArea'],
       })
-    ).map(area => area.adminArea.placeCode);
+    ).map((area) => area.adminArea.placeCode);
     const newEventAreas: EventPlaceCodeEntity[] = [];
     const startDate = await this.helperService.getRecentDate(
       countryCodeISO3,
@@ -844,13 +841,13 @@ export class EventService {
 
     //Below threshold events can be removed from this table after closing
     const belowThresholdEvents = expiredEventAreas.filter(
-      a => !a.thresholdReached,
+      (a) => !a.thresholdReached,
     );
     await this.eventPlaceCodeRepo.remove(belowThresholdEvents);
 
     //For the other ones update 'closed = true'
     const aboveThresholdEvents = expiredEventAreas.filter(
-      a => a.thresholdReached,
+      (a) => a.thresholdReached,
     );
     for await (const area of aboveThresholdEvents) {
       area.closed = true;
@@ -882,7 +879,7 @@ export class EventService {
       where: {
         countryCodeISO3: countryCodeISO3,
         disasterType: disasterType,
-        eventName: eventName === 'no-name' ? IsNull() : eventName,
+        eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
       },
     });
 
@@ -908,7 +905,7 @@ export class EventService {
       where: {
         countryCodeISO3: countryCodeISO3,
         disasterType: disasterType,
-        eventName: eventName === 'no-name' ? IsNull() : eventName,
+        eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
       },
     });
 

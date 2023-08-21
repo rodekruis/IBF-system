@@ -1,4 +1,4 @@
-import { HttpModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
@@ -10,6 +10,7 @@ import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 import { GlofasStationController } from './glofas-station.controller';
 import { GlofasStationEntity } from './glofas-station.entity';
 import { GlofasStationService } from './glofas-station.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [

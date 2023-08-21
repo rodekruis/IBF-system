@@ -15,7 +15,6 @@ import { SchoolDto } from './dto/upload-schools.dto';
 import { WaterpointDto } from './dto/upload-waterpoint.dto';
 import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
 import { PointDataDynamicStatusEntity } from './point-data-dynamic-status.entity';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster/disaster-type.enum';
 
 @Injectable()
@@ -23,9 +22,7 @@ export class PointDataService {
   @InjectRepository(PointDataEntity)
   private readonly pointDataRepository: Repository<PointDataEntity>;
   @InjectRepository(PointDataDynamicStatusEntity)
-  private readonly pointDataDynamicStatusRepo: Repository<
-    PointDataDynamicStatusEntity
-  >;
+  private readonly pointDataDynamicStatusRepo: Repository<PointDataDynamicStatusEntity>;
 
   public constructor(
     private readonly helperService: HelperService,
@@ -45,7 +42,7 @@ export class PointDataService {
       }
     }
     const selectColumns = attributes.map(
-      attribute => `point.attributes->'${attribute}' AS "${attribute}"`,
+      (attribute) => `point.attributes->'${attribute}' AS "${attribute}"`,
     );
     selectColumns.push('geom');
     selectColumns.push('"pointDataId"');
@@ -123,7 +120,7 @@ export class PointDataService {
       });
     }
 
-    const dataArray = validatedObjArray.map(point => {
+    const dataArray = validatedObjArray.map((point) => {
       const pointAttributes = JSON.parse(JSON.stringify(point)); // hack: clone without referencing
       delete pointAttributes['lat'];
       delete pointAttributes['lon'];
@@ -235,7 +232,7 @@ export class PointDataService {
     for (const fid of assetFids.exposedFids) {
       const asset = await this.pointDataRepository.findOne({
         where: {
-          referenceId: fid,
+          referenceId: Number(fid),
           pointDataCategory: assetFids.pointDataCategory,
           countryCodeISO3: assetFids.countryCodeISO3,
         },
@@ -246,7 +243,7 @@ export class PointDataService {
 
       // Delete existing entries with same date, leadTime and countryCodeISO3 and stationCode
       await this.pointDataDynamicStatusRepo.delete({
-        pointData: asset,
+        pointData: { pointDataId: asset.pointDataId },
         leadTime: assetFids.leadTime,
         timestamp: MoreThanOrEqual(
           this.helperService.getUploadCutoffMoment(

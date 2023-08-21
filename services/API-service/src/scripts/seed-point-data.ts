@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InterfaceScript } from './scripts.module';
-import { Connection } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { SeedHelper } from './seed-helper';
 import countries from './json/countries.json';
 import { PointDataEnum } from '../api/point-data/point-data.entity';
@@ -12,30 +12,28 @@ export class SeedPointData implements InterfaceScript {
 
   public constructor(
     private pointDataService: PointDataService,
-    connection: Connection,
+    dataSource: DataSource,
   ) {
-    this.seedHelper = new SeedHelper(connection);
+    this.seedHelper = new SeedHelper(dataSource);
   }
 
   public async run(): Promise<void> {
     const envCountries = process.env.COUNTRIES.split(',');
 
     await Promise.all(
-      countries.map(
-        (country): Promise<void> => {
-          if (envCountries.includes(country.countryCodeISO3)) {
-            this.seedPointData(PointDataEnum.redCrossBranches, country);
-            this.seedPointData(PointDataEnum.healthSites, country);
-            this.seedPointData(PointDataEnum.evacuationCenters, country);
-            this.seedPointData(PointDataEnum.dams, country);
-            this.seedPointData(PointDataEnum.schools, country);
-            this.seedPointData(PointDataEnum.waterpointsInternal, country);
-            return;
-          } else {
-            return Promise.resolve();
-          }
-        },
-      ),
+      countries.map((country): Promise<void> => {
+        if (envCountries.includes(country.countryCodeISO3)) {
+          this.seedPointData(PointDataEnum.redCrossBranches, country);
+          this.seedPointData(PointDataEnum.healthSites, country);
+          this.seedPointData(PointDataEnum.evacuationCenters, country);
+          this.seedPointData(PointDataEnum.dams, country);
+          this.seedPointData(PointDataEnum.schools, country);
+          this.seedPointData(PointDataEnum.waterpointsInternal, country);
+          return;
+        } else {
+          return Promise.resolve();
+        }
+      }),
     );
   }
 

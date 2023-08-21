@@ -2,7 +2,7 @@ import { EapActionStatusEntity } from './../api/eap-actions/eap-action-status.en
 import { EventPlaceCodeEntity } from './../api/event/event-place-code.entity';
 import { AdminAreaDynamicDataModule } from './../api/admin-area-dynamic-data/admin-area-dynamic-data.module';
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Arguments } from 'yargs';
 import { ScriptsController } from './scripts.controller';
 import { SeedInit } from './seed-init';
@@ -29,13 +29,11 @@ import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { LinesDataModule } from '../api/lines-data/lines-data.module';
 import SeedLineData from './seed-line-data';
+import { ORMConfig } from '../../ormconfig';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      migrations: [`src/migrations/*.{ts,js}`],
-      entities: ['src/app/**/*.entity.{ts,js}'],
-    }),
+    TypeOrmModule.forRoot(ORMConfig as TypeOrmModuleOptions),
     TypeOrmModule.forFeature([
       EventPlaceCodeEntity,
       EapActionStatusEntity,

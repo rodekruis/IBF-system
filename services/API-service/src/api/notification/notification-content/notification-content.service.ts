@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { AdminAreaDynamicDataService } from '../../admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { CountryEntity } from '../../country/country.entity';
 import { Injectable } from '@nestjs/common';
@@ -39,20 +38,21 @@ export class NotificationContentService {
     eventName: string,
   ) {
     const actionUnit = await this.indicatorRepository.findOne({
-      name: (await this.getDisaster(disasterType)).actionsUnit,
+      where: { name: (await this.getDisaster(disasterType)).actionsUnit },
     });
     const adminLevel = country.countryDisasterSettings.find(
-      s => s.disasterType === disasterType,
+      (s) => s.disasterType === disasterType,
     ).defaultAdminLevel;
 
-    let actionUnitValues = await this.adminAreaDynamicDataService.getAdminAreaDynamicData(
-      country.countryCodeISO3,
-      String(adminLevel),
-      actionUnit.name as DynamicIndicator,
-      disasterType,
-      leadTime,
-      eventName,
-    );
+    let actionUnitValues =
+      await this.adminAreaDynamicDataService.getAdminAreaDynamicData(
+        country.countryCodeISO3,
+        String(adminLevel),
+        actionUnit.name as DynamicIndicator,
+        disasterType,
+        leadTime,
+        eventName,
+      );
 
     // Filter on only the areas that are also shown in dashboard, to get same aggregate metric
     const placeCodesToShow = await this.adminAreaService.getPlaceCodes(
@@ -62,7 +62,7 @@ export class NotificationContentService {
       adminLevel,
       eventName,
     );
-    actionUnitValues = actionUnitValues.filter(row =>
+    actionUnitValues = actionUnitValues.filter((row) =>
       placeCodesToShow.includes(row.placeCode),
     );
 
@@ -74,12 +74,13 @@ export class NotificationContentService {
       );
     } else {
       const weighingIndicator = actionUnit.weightVar;
-      const weighingIndicatorValues = await this.adminAreaDataService.getAdminAreaData(
-        country.countryCodeISO3,
-        String(adminLevel),
-        weighingIndicator as DynamicIndicator,
-      );
-      weighingIndicatorValues.forEach(row => {
+      const weighingIndicatorValues =
+        await this.adminAreaDataService.getAdminAreaData(
+          country.countryCodeISO3,
+          String(adminLevel),
+          weighingIndicator as DynamicIndicator,
+        );
+      weighingIndicatorValues.forEach((row) => {
         row['weight'] = row.value;
         delete row.value;
       });
@@ -89,7 +90,7 @@ export class NotificationContentService {
         mergedValues.push({
           ...actionUnitValues[i],
           ...weighingIndicatorValues.find(
-            itmInner => itmInner.placeCode === actionUnitValues[i].placeCode,
+            (itmInner) => itmInner.placeCode === actionUnitValues[i].placeCode,
           ),
         });
       }
@@ -121,7 +122,8 @@ export class NotificationContentService {
       'countryDisasterSettings.activeLeadTimes',
     ];
 
-    return await this.countryRepository.findOne(findOneOptions, {
+    return await this.countryRepository.findOne({
+      where: findOneOptions,
       relations: relations,
     });
   }
@@ -138,7 +140,7 @@ export class NotificationContentService {
     return input
       .toLowerCase()
       .split(' ')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   }
 
@@ -163,7 +165,7 @@ export class NotificationContentService {
     disasterType: DisasterType,
   ): Promise<IndicatorMetadataEntity> {
     return await this.indicatorRepository.findOne({
-      name: (await this.getDisaster(disasterType)).actionsUnit,
+      where: { name: (await this.getDisaster(disasterType)).actionsUnit },
     });
   }
 
@@ -257,13 +259,15 @@ export class NotificationContentService {
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
       disasterType,
-      country.countryDisasterSettings.find(d => d.disasterType === disasterType)
-        .defaultAdminLevel,
+      country.countryDisasterSettings.find(
+        (d) => d.disasterType === disasterType,
+      ).defaultAdminLevel,
       event.firstLeadTime,
       event.eventName,
     );
-    const nrTriggeredAreas = triggeredAreas.filter(a => a.actionsValue > 0)
-      .length;
+    const nrTriggeredAreas = triggeredAreas.filter(
+      (a) => a.actionsValue > 0,
+    ).length;
 
     return {
       short: `${triggerStatus} for ${eventName}: ${
@@ -363,10 +367,8 @@ export class NotificationContentService {
     leadTimeString: string;
     timestamp: string;
   }> {
-    const {
-      typhoonLandfall,
-      typhoonNoLandfallYet,
-    } = event.disasterSpecificProperties;
+    const { typhoonLandfall, typhoonNoLandfallYet } =
+      event.disasterSpecificProperties;
     let eventStatus = '';
     let extraInfo = '';
     let leadTimeString = null;
