@@ -63,11 +63,11 @@ From root run
 ### Using Docker
 
 ```
-docker-compose -f docker-compose.yml up -d # for production
+docker compose -f docker-compose.yml up -d # for production
 
-docker-compose up -d # for development (NOTE: this does not start the ibf-dashboard)
+docker compose up -d # for development (NOTE: this does not start the ibf-dashboard)
 
-docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d # for development (same as previous line)
+docker compose -f docker-compose.yml -f docker-compose.override.yml up -d # for development (same as previous line)
 
 ```
 
@@ -89,7 +89,7 @@ For IBF-dashboard
 
 Suggestion: load everything through Docker, except IBF-dashboard. This has the benefit that changes in front-end code are immediately reflected, instead of having to rebuild.
 
-- `docker-compose up -d`
+- `docker compose up -d`
 - `cd interfaces/IBF-dashboard`
 - `npm start`
 
@@ -100,7 +100,7 @@ are connected to a database-server). For setting up a fully working version of t
 
 1. Seed database with initial static data
 
-- `docker-compose exec ibf-api-service npm run seed`
+- `docker compose exec ibf-api-service npm run seed`
 
 2. Load initial raster data
 

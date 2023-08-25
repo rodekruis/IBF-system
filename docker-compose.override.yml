@@ -5,9 +5,6 @@ services:
     command: ['npm', 'run', 'start:dev']
     environment:
       - NODE_ENV=development
-    volumes:
-      - 'api_service_node_modules:/home/ibf/api-service/node_modules'
-      - ./services/API-service:/home/ibf/api-service
     ports:
       - 3000:3000
     depends_on:
@@ -22,14 +19,6 @@ services:
   ibf-geoserver:
     ports:
       - 8081:8080
-    volumes:
-      - ./services/API-service/geoserver-volume/raster-files:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
-      - ./services/API-service/geoserver-volume/geoserver-layers:/opt/geoserver/data_dir/workspaces/ibf-system
-
-  nginx:
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/user.conf.d
-      - ./nginx/letsencrypt:/etc/letsencrypt
 
   ibf-local-db:
     image: postgis/postgis
