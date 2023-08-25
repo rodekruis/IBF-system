@@ -78,7 +78,7 @@ Developers use the following process for this.
 1. The attribute 'synchronize' in ormconfig.js is set to 'false' by default. This means that any changes in your entities in code are not automatically reflected in the datamodel.
 2. Otherwise TypeORM's migration:generate functionality cannot be used to automatically capture the difference between before (datamodel) and after (entities) state.
 3. A developer develops + tests until running into a datamodel change. If that happens
-   - Generate a migration through `docker-compose exec ibf-api-service npm run migration:generate <MigrationName>`
+   - Generate a migration through `docker compose exec ibf-api-service npm run migration:generate <MigrationName>`
    - Immediately run the migration (by restarting ibf-api-service, as migration:run is run upon 'prestart')
    - Test the feature
    - Continue developing and repeat this process as many times as needed
@@ -125,7 +125,7 @@ Use [ngrok](https://ngrok.com/) to mock an external API service:
    - In the `WhatsApp sandbox settings` (go to right subaccount > Develop > Messaging > Settings > Whatsapp sandbox settings) as:
      - `<EXTERNAL_API_SERVICE_URL>/api/notifications/whatsapp/incoming` in the `WHEN A MESSAGE COMES IN` field
      - `<EXTERNAL_API_SERVICE_URL>/api/notifications/whatsapp/status` in the `STATUS CALLBACK URL` field
-7. Rebuild the service with `docker-compose -d up ibf-api-service`
+7. Rebuild the service with `docker compose -d up ibf-api-service`
 8. Add your WhatsApp phone number to the WhatsApp sandbox by texting the code provided in the subaccount to the sandbox phone number
 9. Create a new IBF-user through API with your WhatsApp phone number and assigned to the country you are testing for
 10. Send a notification (for a country/disasterType with an active trigger) via the `/api/notification/send` endpoint.

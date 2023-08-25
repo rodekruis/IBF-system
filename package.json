@@ -3,7 +3,7 @@
   "version": "0.258.0",
   "private": true,
   "scripts": {
-    "start:services": "docker-compose up -d",
+    "start:services": "docker compose up -d",
     "start:interface": "npm start --prefix interfaces/IBF-dashboard/ -- --port 4200",
     "install:interface": "npm install --no-optional --no-audit --no-fund --prefix interfaces/IBF-dashboard/",
     "open": "npx npm-run-all open:ibf-api-service open:ibf-dashboard",
