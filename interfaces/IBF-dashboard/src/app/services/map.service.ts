@@ -84,18 +84,6 @@ export class MapService {
   private disasterType: DisasterType;
   private placeCode: PlaceCode;
 
-  private aggregatesToExclude = {
-    MWI: {
-      [DisasterTypeKey.flashFloods]: [
-        'nr_affected_roads',
-        'nr_affected_schools',
-        'nr_affected_clinics',
-        'nr_affected_waterpoints',
-        'nr_affected_buildings',
-      ],
-    },
-  };
-
   constructor(
     private countryService: CountryService,
     private adminLevelService: AdminLevelService,
@@ -419,18 +407,10 @@ export class MapService {
       return;
     }
 
-    Object.keys(this.aggregatesToExclude).includes(
-      this.country.countryCodeISO3,
-    );
-
     if (
-      !this.aggregatesToExclude[this.country.countryCodeISO3] ||
-      !this.aggregatesToExclude[this.country.countryCodeISO3][
+      indicator.countryDisasterTypes[this.country.countryCodeISO3][
         this.disasterType.disasterType
-      ] ||
-      !this.aggregatesToExclude[this.country.countryCodeISO3][
-        this.disasterType.disasterType
-      ].includes(indicator.name)
+      ].includes('map')
     ) {
       const layerActive = this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(indicator.name)

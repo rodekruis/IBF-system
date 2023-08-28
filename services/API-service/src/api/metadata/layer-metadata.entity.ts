@@ -8,6 +8,11 @@ export class LayerMetadataEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
+  @Column('json', {
+    default: {},
+  })
+  public countryDisasterTypes: JSON;
+
   @ApiProperty()
   @Column()
   public name: string;

@@ -45,6 +45,9 @@ export class MetadataService {
     indicatorEntity: IndicatorMetadataEntity,
     indicator: IndicatorDto,
   ): Promise<IndicatorMetadataEntity> {
+    indicatorEntity.description = JSON.parse(
+      JSON.stringify(indicator.countryDisasterTypes || {}),
+    );
     indicatorEntity.label = indicator.label;
     indicatorEntity.icon = indicator.icon;
     indicatorEntity.weightedAvg = indicator.weightedAvg;
@@ -54,7 +57,6 @@ export class MetadataService {
       JSON.stringify(indicator.colorBreaks),
     );
     indicatorEntity.numberFormatMap = indicator.numberFormatMap;
-    indicatorEntity.aggregateIndicator = indicator.aggregateIndicator;
     indicatorEntity.numberFormatAggregate = indicator.numberFormatAggregate;
     indicatorEntity.order = indicator.order;
     indicatorEntity.dynamic = indicator.dynamic;
@@ -116,8 +118,8 @@ export class MetadataService {
     const indicators = await this.indicatorRepository.find();
     return indicators.filter(
       (metadata: IndicatorMetadataEntity): boolean =>
-        metadata.description?.[countryCodeISO3] &&
-        metadata.description?.[countryCodeISO3][disasterType],
+        metadata.countryDisasterTypes?.[countryCodeISO3] &&
+        metadata.countryDisasterTypes?.[countryCodeISO3][disasterType],
     );
   }
 

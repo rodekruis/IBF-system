@@ -7,8 +7,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { DisasterType } from './disaster-type.enum';
-import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
-import { LayerMetadataEntity } from '../metadata/layer-metadata.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   LeadTime,

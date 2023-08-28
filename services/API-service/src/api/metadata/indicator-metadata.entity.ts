@@ -7,6 +7,11 @@ export class IndicatorMetadataEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
+  @Column('json', {
+    default: {},
+  })
+  public countryDisasterTypes: JSON;
+
   @ApiProperty()
   @Column()
   public name: string;
@@ -46,10 +51,6 @@ export class IndicatorMetadataEntity {
   @ApiProperty({ example: 'decimal0' })
   @Column()
   public numberFormatMap: string;
-
-  @ApiProperty({ example: process.env.COUNTRIES })
-  @Column()
-  public aggregateIndicator: string | null;
 
   @ApiProperty({ example: 'decimal0' })
   @Column()
