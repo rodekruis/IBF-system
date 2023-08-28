@@ -1,7 +1,5 @@
 [
   {
-    "countryCodes": "UGA,ZMB,KEN,ETH,PHL,MWI,SSD",
-    "disasterTypes": ["floods", "flash-floods"],
     "name": "flood_extent",
     "label": "Flood extent",
     "type": "wms",
@@ -71,8 +69,6 @@
     }
   },
   {
-    "countryCodes": "EGY,UGA",
-    "disasterTypes": ["heavy-rain"],
     "name": "rainfall_extent",
     "label": "Rainfall extent",
     "type": "wms",
@@ -106,8 +102,6 @@
     }
   },
   {
-    "countryCodes": "ETH,UGA",
-    "disasterTypes": ["drought"],
     "name": "rainfall_forecast",
     "label": "Rainfall forecast",
     "type": "wms",
@@ -135,8 +129,6 @@
     }
   },
   {
-    "countryCodes": "UGA,ZMB,KEN,ETH,EGY,ZWE,PHL,MWI,SSD",
-    "disasterTypes": ["floods", "heavy-rain", "drought"],
     "name": "population",
     "label": "Population",
     "type": "wms",
@@ -179,8 +171,6 @@
     }
   },
   {
-    "countryCodes": "UGA,ZMB,KEN,ETH,ZWE",
-    "disasterTypes": ["floods", "drought"],
     "name": "cropland",
     "label": "Cropland",
     "type": "wms",
@@ -193,7 +183,6 @@
         "floods": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined cropland: consists of 3 land use types<ol><li>rainfed cropland</li><li>mosaic cropland - 50-70% cropland & 20-50% vegetation (grassland/shrubland/forest)</li><li>mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) & 20-50% cropland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a target='_blank' href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010"
       },
       "KEN": {
-        "drought": "<p>The land use classes are based on GLOBCOVER Land Cover Classifications.</p><p>Combined cropland: consists of 3 land use types</p><ol>    <li>Rainfed cropland</li>    <li>Mosaic cropland - 50-70% cropland &amp; 20-50% vegetation (grassland/shrubland/forest)</li>    <li>Mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) &amp; 20-50% cropland</li></ol><p><strong>Source link:</strong> &copy; ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: http://due.esrin.esa.int/page_globcover.php.&nbsp;</p><p><strong>Latest updated: </strong>2010</p><p><br></p>",
         "floods": "<p>The land use classes are based on GLOBCOVER Land Cover Classifications.</p><p>Combined cropland: consists of 3 land use types</p><ol>    <li>Rainfed cropland</li>    <li>Mosaic cropland - 50-70% cropland &amp; 20-50% vegetation (grassland/shrubland/forest)</li>    <li>Mosaic vegetation - 50-70% vegetation (grassland/shrubland/forest) &amp; 20-50% cropland</li></ol><p><strong>Source link:</strong> &copy; ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: http://due.esrin.esa.int/page_globcover.php.&nbsp;</p><p><strong>Latest updated: </strong>2010</p><p><br></p>"
       },
       "UGA": {
@@ -210,8 +199,6 @@
     }
   },
   {
-    "countryCodes": "UGA,ZMB,KEN,ETH,ZWE",
-    "disasterTypes": ["floods", "drought"],
     "name": "grassland",
     "label": "Grassland",
     "type": "wms",
@@ -224,7 +211,6 @@
         "floods": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined grassland; consists of two land-use types.<ol><li>Mosaic forest or shrubland - 50-70% (forest/shrubland & 20-50% grassland</li><li>Mosaic grassland - 50-70% grassland & 20-50% forest or shrubland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a target='_blank' href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010"
       },
       "KEN": {
-        "drought": "<p>The land use classes are based on GLOBCOVER Land Cover Classifications.</p><p>Combined grassland; consists of two land-use types.</p><ol>    <li>Mosaic forest or shrubland - 50-70% (forest/shrubland &amp; 20-50% grassland</li>    <li>Mosaic grassland - 50-70% grassland &amp; 20-50% forest or shrubland</li></ol><p><strong>Source link</strong>: &copy; ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a target='_blank' href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>.&nbsp;</p><p><strong>Latest updated: </strong>2010</p>",
         "floods": "The land use classes are based on GLOBCOVER Land Cover Classifications.<br /><br />Combined grassland; consists of two land-use types.<ol><li>Mosaic forest or shrubland - 50-70% (forest/shrubland & 20-50% grassland</li><li>Mosaic grassland - 50-70% grassland & 20-50% forest or shrubland</li></ol><br />Source Link: © ESA 2010 and UCLouvain. Accompanied by a link to our ESA DUE GlobCover website: <a target='_blank' href='http://due.esrin.esa.int/page_globcover.php'>http://due.esrin.esa.int/page_globcover.php</a>. Year: 2010"
       },
       "UGA": {
@@ -241,8 +227,6 @@
     }
   },
   {
-    "countryCodes": "PHL",
-    "disasterTypes": ["floods"],
     "name": "riceland",
     "label": "Riceland",
     "type": "wms",
@@ -256,8 +240,6 @@
     }
   },
   {
-    "countryCodes": "UGA,ZMB,KEN,ETH,PHL,MWI,SSD",
-    "disasterTypes": ["floods"],
     "name": "glofas_stations",
     "label": "Glofas stations",
     "type": "point",
@@ -288,8 +270,6 @@
     }
   },
   {
-    "countryCodes": "PHL",
-    "disasterTypes": ["typhoon"],
     "name": "typhoon_track",
     "label": "Typhoon track",
     "type": "point",
@@ -302,8 +282,6 @@
     }
   },
   {
-    "countryCodes": "UGA,ZMB,KEN,ETH,ZWE,PHL,MWI,SSD",
-    "disasterTypes": ["floods", "heavy-rain", "dengue", "malaria", "drought"],
     "name": "red_cross_branches",
     "label": "Red Cross branches",
     "type": "point",
@@ -348,8 +326,6 @@
     }
   },
   {
-    "countryCodes": "ZWE",
-    "disasterTypes": ["drought"],
     "name": "dams",
     "label": "Dam Sites",
     "type": "point",
@@ -362,8 +338,6 @@
     }
   },
   {
-    "countryCodes": "EGY",
-    "disasterTypes": ["heavy-rain"],
     "name": "red_crescent_branches",
     "label": "Red Crescent branches",
     "type": "point",
@@ -376,8 +350,6 @@
     }
   },
   {
-    "countryCodes": "PHL,ETH,KEN,MWI",
-    "disasterTypes": ["floods", "dengue", "malaria", "typhoon", "flash-floods"],
     "name": "health_sites",
     "label": "Health Sites",
     "type": "point",
@@ -400,8 +372,6 @@
     }
   },
   {
-    "countryCodes": "UGA",
-    "disasterTypes": ["heavy-rain"],
     "name": "community_notifications",
     "label": "Community notifications",
     "type": "point",
@@ -414,8 +384,6 @@
     }
   },
   {
-    "countryCodes": "ZMB,KEN,ETH,ZWE",
-    "disasterTypes": ["floods", "drought", "heavy-rain"],
     "name": "waterpoints",
     "label": "Waterpoints",
     "type": "point",
@@ -449,8 +417,6 @@
     }
   },
   {
-    "countryCodes": "EGY",
-    "disasterTypes": ["heavy-rain"],
     "name": "flood_susceptibility",
     "label": "Flood susceptibility",
     "type": "wms",
@@ -469,47 +435,30 @@
     }
   },
   {
-    "countryCodes": "ZMB,UGA,ZWE,EGY,KEN,PHL,ETH,MWI",
-    "disasterTypes": ["floods", "heavy-rain", "drought"],
     "name": "adminRegions1",
     "label": "Admin Level 1",
     "type": "shape",
     "active": "yes"
   },
   {
-    "countryCodes": "UGA,ZMB,PHL,KEN,ETH,MWI,SSD",
-    "disasterTypes": ["floods", "dengue", "drought", "heavy-rain"],
     "name": "adminRegions2",
     "label": "Admin Level 2",
     "type": "shape",
     "active": "yes"
   },
   {
-    "countryCodes": "ZMB,ETH,UGA,PHL,KEN,MWI,SSD",
-    "disasterTypes": [
-      "floods",
-      "malaria",
-      "typhoon",
-      "drought",
-      "flash-floods",
-      "heavy-rain"
-    ],
     "name": "adminRegions3",
     "label": "Admin Level 3",
     "type": "shape",
     "active": "yes"
   },
   {
-    "countryCodes": "UGA",
-    "disasterTypes": ["floods", "drought", "heavy-rain"],
     "name": "adminRegions4",
     "label": "Admin Level 4",
     "type": "shape",
     "active": "yes"
   },
   {
-    "countryCodes": "SSD",
-    "disasterTypes": ["floods"],
     "name": "evacuation_centers",
     "label": "Evacuation Centers",
     "type": "point",
@@ -522,26 +471,30 @@
     }
   },
   {
-    "countryCodes": "MWI",
-    "disasterTypes": ["flash-floods"],
     "name": "schools",
     "label": "Schools",
     "type": "point",
     "leadTimeDependent": false,
-    "active": "no"
+    "active": "no",
+    "description": {
+      "MWI": {
+        "flash-floods": "TBD"
+      }
+    }
   },
   {
-    "countryCodes": "MWI",
-    "disasterTypes": ["flash-floods"],
     "name": "waterpoints_internal",
     "label": "Waterpoints",
     "type": "point",
     "leadTimeDependent": false,
-    "active": "no"
+    "active": "no",
+    "description": {
+      "MWI": {
+        "flash-floods": "TBD"
+      }
+    }
   },
   {
-    "countryCodes": "MWI",
-    "disasterTypes": ["flash-floods"],
     "name": "roads",
     "label": "Roads",
     "type": "wms",
@@ -552,11 +505,14 @@
         "type": "exposure-line",
         "value": ["#E80C0C", "#33A02C"]
       }
+    },
+    "description": {
+      "MWI": {
+        "flash-floods": "TBD"
+      }
     }
   },
   {
-    "countryCodes": "MWI",
-    "disasterTypes": ["flash-floods"],
     "name": "buildings",
     "label": "Buildings",
     "type": "wms",
@@ -567,11 +523,14 @@
         "type": "exposure-square",
         "value": ["#C70000", "#33A02C"]
       }
+    },
+    "description": {
+      "MWI": {
+        "flash-floods": "TBD"
+      }
     }
   },
   {
-    "countryCodes": "MWI",
-    "disasterTypes": ["flash-floods"],
     "name": "rivers",
     "label": "Rivers",
     "type": "wms",
@@ -581,6 +540,11 @@
       "MWI": {
         "type": "line",
         "value": ["#0096FF"]
+      }
+    },
+    "description": {
+      "MWI": {
+        "flash-floods": "TBD"
       }
     }
   }

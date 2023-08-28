@@ -63,20 +63,6 @@ export class DisasterEntity {
   public maxLeadTime: LeadTime;
 
   @ManyToMany(
-    (): typeof IndicatorMetadataEntity => IndicatorMetadataEntity,
-    (indicators): DisasterEntity[] => indicators.disasterTypes,
-  )
-  @JoinTable()
-  public indicators: IndicatorMetadataEntity[];
-
-  @ManyToMany(
-    (): typeof LayerMetadataEntity => LayerMetadataEntity,
-    (layers): DisasterEntity[] => layers.disasterTypes,
-  )
-  @JoinTable()
-  public layers: LayerMetadataEntity[];
-
-  @ManyToMany(
     (): typeof UserEntity => UserEntity,
     (user): DisasterEntity[] => user.disasterTypes,
   )
