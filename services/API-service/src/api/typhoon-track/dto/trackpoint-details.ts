@@ -1,11 +1,12 @@
 import {
   IsBoolean,
+  IsDate,
   IsEnum,
   IsNotEmpty,
   IsNumber,
-  IsString,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 
 export enum TyphoonCategory {
   TD = 'TD',
@@ -28,7 +29,8 @@ export class TrackpointDetailsDto {
 
   @ApiProperty({ example: new Date() })
   @IsNotEmpty()
-  @IsString()
+  @IsDate()
+  @Type(() => Date)
   public timestampOfTrackpoint: Date;
 
   @ApiProperty({ example: 100 })
