@@ -4,12 +4,8 @@
     "label": "Flood extent",
     "type": "wms",
     "legendColor": {
-      "ETH": {
-        "floods": { "type": "square", "value": ["#d7301f"] }
-      },
-      "KEN": {
-        "floods": { "type": "square", "value": ["#d7301f"] }
-      },
+      "ETH": { "floods": { "type": "square", "value": ["#d7301f"] } },
+      "KEN": { "floods": { "type": "square", "value": ["#d7301f"] } },
       "MWI": {
         "floods": { "type": "square", "value": ["#d7301f"] },
         "flash-floods": {
@@ -32,15 +28,9 @@
           "value": ["#ffff00", "#ffa500", "#d7301f"]
         }
       },
-      "SSD": {
-        "floods": { "type": "square", "value": ["#d7301f"] }
-      },
-      "UGA": {
-        "floods": { "type": "square", "value": ["#d7301f"] }
-      },
-      "ZMB": {
-        "floods": { "type": "square", "value": ["#d7301f"] }
-      }
+      "SSD": { "floods": { "type": "square", "value": ["#d7301f"] } },
+      "UGA": { "floods": { "type": "square", "value": ["#d7301f"] } },
+      "ZMB": { "floods": { "type": "square", "value": ["#d7301f"] } }
     },
     "leadTimeDependent": true,
     "active": "if-trigger",
@@ -74,10 +64,7 @@
     "label": "Rainfall extent",
     "type": "wms",
     "legendColor": {
-      "EGY": {
-        "type": "square",
-        "value": ["#d7301f"]
-      },
+      "EGY": { "type": "square", "value": ["#d7301f"] },
       "UGA": {
         "type": "gradient",
         "value": [
@@ -359,9 +346,7 @@
       "KEN": {
         "floods": "<p>Number of health facilities by type and location, health facility types; hospital and doctors</p><p><strong>Source link</strong>: <a target='_blank' href='https://healthsites.io/'>https://healthsites.io/</a></p>"
       },
-      "MWI": {
-        "flash-floods": "TBD"
-      },
+      "MWI": { "flash-floods": "TBD" },
       "PHL": {
         "dengue": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a target='_blank' href='https://healthsites.io/'>https://healthsites.io/<a/>",
         "floods": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a target='_blank' href='https://healthsites.io/'>https://healthsites.io/</a>",
@@ -473,11 +458,7 @@
     "type": "point",
     "leadTimeDependent": false,
     "active": "no",
-    "description": {
-      "MWI": {
-        "flash-floods": "TBD"
-      }
-    }
+    "description": { "MWI": { "flash-floods": "TBD" } }
   },
   {
     "name": "waterpoints_internal",
@@ -485,11 +466,7 @@
     "type": "point",
     "leadTimeDependent": false,
     "active": "no",
-    "description": {
-      "MWI": {
-        "flash-floods": "TBD"
-      }
-    }
+    "description": { "MWI": { "flash-floods": "TBD" } }
   },
   {
     "name": "roads",
@@ -498,16 +475,9 @@
     "leadTimeDependent": false,
     "active": "no",
     "legendColor": {
-      "MWI": {
-        "type": "exposure-line",
-        "value": ["#E80C0C", "#33A02C"]
-      }
+      "MWI": { "type": "exposure-line", "value": ["#E80C0C", "#33A02C"] }
     },
-    "description": {
-      "MWI": {
-        "flash-floods": "TBD"
-      }
-    }
+    "description": { "MWI": { "flash-floods": "TBD" } }
   },
   {
     "name": "buildings",
@@ -516,16 +486,9 @@
     "leadTimeDependent": false,
     "active": "no",
     "legendColor": {
-      "MWI": {
-        "type": "exposure-square",
-        "value": ["#C70000", "#33A02C"]
-      }
+      "MWI": { "type": "exposure-square", "value": ["#C70000", "#33A02C"] }
     },
-    "description": {
-      "MWI": {
-        "flash-floods": "TBD"
-      }
-    }
+    "description": { "MWI": { "flash-floods": "TBD" } }
   },
   {
     "name": "rivers",
@@ -533,16 +496,7 @@
     "type": "wms",
     "leadTimeDependent": false,
     "active": "no",
-    "legendColor": {
-      "MWI": {
-        "type": "line",
-        "value": ["#0096FF"]
-      }
-    },
-    "description": {
-      "MWI": {
-        "flash-floods": "TBD"
-      }
-    }
+    "legendColor": { "MWI": { "type": "line", "value": ["#0096FF"] } },
+    "description": { "MWI": { "flash-floods": "TBD" } }
   }
 ]
