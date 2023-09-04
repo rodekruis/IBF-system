@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { environment } from 'src/environments/environment';
 
@@ -7,12 +7,10 @@ import { environment } from 'src/environments/environment';
   templateUrl: './forgot-password-popover.component.html',
   styleUrls: ['./forgot-password-popover.component.scss'],
 })
-export class ForgotPasswordPopoverComponent implements OnInit {
+export class ForgotPasswordPopoverComponent {
   public emailAddress = environment.supportEmailAddress;
 
   constructor(private popoverController: PopoverController) {}
-
-  ngOnInit() {}
 
   public closePopover(): void {
     this.popoverController.dismiss();
