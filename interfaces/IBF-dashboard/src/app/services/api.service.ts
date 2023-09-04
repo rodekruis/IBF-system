@@ -49,6 +49,7 @@ export class ApiService {
     return headers;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   get(path: string, anonymous = true, params = null): Observable<any> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
@@ -70,6 +71,7 @@ export class ApiService {
       );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   post(path: string, body: object, anonymous = false): Observable<any> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
@@ -91,6 +93,7 @@ export class ApiService {
       );
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   put(path: string, body: object, anonymous = false): Observable<any> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);

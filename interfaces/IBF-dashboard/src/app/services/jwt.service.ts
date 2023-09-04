@@ -20,6 +20,7 @@ export class JwtService {
     window.localStorage.removeItem(this.tokenKey);
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public decodeToken(rawToken: string): any {
     return this.jwtHelper.decodeToken(rawToken);
   }
