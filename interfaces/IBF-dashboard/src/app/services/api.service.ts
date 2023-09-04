@@ -21,7 +21,7 @@ import { EventSummary } from './event.service';
   providedIn: 'root',
 })
 export class ApiService {
-  private log = DEBUG_LOG ? console.log : () => {};
+  private log = DEBUG_LOG ? console.log : () => undefined;
 
   constructor(private jwtService: JwtService, private http: HttpClient) {}
 

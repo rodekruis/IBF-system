@@ -13,7 +13,7 @@ import { CountryService } from '../services/country.service';
   providedIn: 'root',
 })
 export class AnalyticsService {
-  private log = DEBUG_LOG ? console.log : () => {};
+  private log = DEBUG_LOG ? console.log : () => undefined;
 
   applicationInsights: ApplicationInsights;
   isApplicationInsightsEnabled: boolean;

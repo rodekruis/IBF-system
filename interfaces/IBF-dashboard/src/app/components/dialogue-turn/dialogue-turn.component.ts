@@ -49,8 +49,6 @@ export class DialogueTurnComponent implements OnInit {
 
   animate = false;
 
-  constructor() {}
-
   ngOnInit() {
     this.isSelf = this.actor === Actor.self;
     this.isSystem = this.actor === Actor.system;

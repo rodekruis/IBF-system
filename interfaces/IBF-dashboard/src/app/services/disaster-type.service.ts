@@ -10,8 +10,6 @@ export class DisasterTypeService {
   private disasterTypeSubject = new BehaviorSubject<DisasterType>(null);
   public disasterType: DisasterType;
 
-  constructor() {}
-
   getDisasterTypeSubscription = (): Observable<DisasterType> => {
     return this.disasterTypeSubject.asObservable();
   };

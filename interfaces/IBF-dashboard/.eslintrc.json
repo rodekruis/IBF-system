@@ -22,8 +22,7 @@
           {
             "suffixes": ["Page", "Component"]
           }
-        ],
-        "@typescript-eslint/no-empty-function": "off"
+        ]
       }
     },
     {

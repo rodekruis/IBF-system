@@ -32,8 +32,6 @@ export class IbfButtonComponent implements OnInit {
 
   public style = '';
 
-  constructor() {}
-
   ngOnInit() {
     this.style += `
     display: block;

@@ -9,8 +9,6 @@ export class PlaceCodeService {
   private placeCodeSubject = new BehaviorSubject<PlaceCode>(null);
   private placeCodeHoverSubject = new BehaviorSubject<PlaceCode>(null);
 
-  constructor() {}
-
   getPlaceCodeSubscription(): Observable<PlaceCode> {
     return this.placeCodeSubject.asObservable();
   }
