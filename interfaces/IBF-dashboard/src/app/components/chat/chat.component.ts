@@ -546,9 +546,13 @@ export class ChatComponent implements OnInit, OnDestroy {
         const prefixKey = 'prefix';
         const prefix = this.disasterTypeSettings.monthlyForecastInfo[prefixKey];
 
-        return this.disasterTypeSettings.monthlyForecastInfo[
-          currentMonth
-        ].map((forecast) =>
+        const currentMonthforecastInfo = this.disasterTypeSettings
+          .monthlyForecastInfo[currentMonth];
+        if (typeof currentMonthforecastInfo === 'string') {
+          return [];
+        }
+
+        return currentMonthforecastInfo.map((forecast) =>
           this.translateService.instant(`${prefix}.${forecast}`),
         );
       },
