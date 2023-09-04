@@ -17,7 +17,6 @@
         "plugin:@typescript-eslint/recommended"
       ],
       "rules": {
-        "@typescript-eslint/no-explicit-any": "off",
         "@angular-eslint/no-empty-lifecycle-method": "off",
         "@angular-eslint/component-class-suffix": "off",
         "@typescript-eslint/ban-types": "off",

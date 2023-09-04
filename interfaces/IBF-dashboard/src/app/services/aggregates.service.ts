@@ -10,6 +10,7 @@ import { AdminLevel } from '../types/admin-level';
 import { EventState } from '../types/event-state';
 import { IbfLayerName } from '../types/ibf-layer';
 import { TimelineState } from '../types/timeline-state';
+import { TriggeredArea } from '../types/triggered-area';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EapActionsService } from './eap-actions.service';
@@ -30,7 +31,7 @@ export class AggregatesService {
   public timelineState: TimelineState;
   private adminLevel: AdminLevel;
   private defaultAdminLevel: AdminLevel;
-  public triggeredAreas: any[];
+  public triggeredAreas: TriggeredArea[];
   private AREA_STATUS_KEY = 'areaStatus';
 
   constructor(
@@ -99,7 +100,7 @@ export class AggregatesService {
     this.eventState = eventState;
   };
 
-  private onTriggeredAreasChange = (triggeredAreas: any[]) => {
+  private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
     this.triggeredAreas = triggeredAreas;
     this.loadMetadataAndAggregates();
   };

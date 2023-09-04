@@ -9,8 +9,11 @@ import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
+import { User } from '../models/user/user.model';
+import { Aggregate } from '../types/aggregate';
 import { DisasterTypeKey } from '../types/disaster-type-key';
 import { IbfLayerName } from '../types/ibf-layer';
+import { RecentDate } from '../types/recent-date';
 import { TriggeredArea } from '../types/triggered-area';
 import { EventSummary } from './event.service';
 
@@ -113,7 +116,7 @@ export class ApiService {
   // API-endpoints:
   /////////////////////////////////////////////////////////////////////////////
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string): Observable<User> {
     this.log('ApiService : login()');
 
     return this.post(
@@ -126,7 +129,7 @@ export class ApiService {
     );
   }
 
-  changePassword(password: string): Observable<any> {
+  changePassword(password: string): Observable<User> {
     this.log('ApiService : changePassword()');
     return this.post('user/change-password', {
       password,
@@ -203,7 +206,7 @@ export class ApiService {
   getRecentDates(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
-  ): Observable<any> {
+  ): Observable<RecentDate> {
     return this.get(
       `event/recent-date/${countryCodeISO3}/${disasterType}`,
       false,
@@ -260,7 +263,7 @@ export class ApiService {
     adminLevel: AdminLevel = AdminLevel.adminLevel1,
     leadTime: string,
     eventName: string,
-  ): Observable<any> {
+  ): Observable<Aggregate[]> {
     let params = new HttpParams();
     if (eventName) {
       params = params.append('eventName', eventName);
@@ -307,7 +310,7 @@ export class ApiService {
     countryCodeISO3: string,
     adminLevel: AdminLevel,
     indicator: string,
-  ) {
+  ): Observable<{ value: number; placeCode: string }[]> {
     return this.get(
       `admin-area-data/${countryCodeISO3}/${adminLevel}/${indicator}`,
       false,
@@ -335,7 +338,7 @@ export class ApiService {
     indicator: string,
     disasterType: DisasterTypeKey,
     eventName: string,
-  ) {
+  ): Observable<{ value: number; placeCode: string }[]> {
     let params = new HttpParams();
     if (eventName) {
       params = params.append('eventName', eventName);

@@ -9,6 +9,8 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EventState } from 'src/app/types/event-state';
 import { AnalyticsEvent, AnalyticsPage } from '../../analytics/analytics.enum';
 import { AnalyticsService } from '../../analytics/analytics.service';
+import { AreaOfFocus } from '../../types/area-of-focus';
+import { TriggeredArea } from '../../types/triggered-area';
 import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
 
 @Component({
@@ -22,8 +24,8 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
 
-  public areasOfFocus: any[];
-  public triggeredAreas: any[];
+  public areasOfFocus: AreaOfFocus[];
+  public triggeredAreas: TriggeredArea[];
   public trigger: boolean;
   public eventState: EventState;
 
@@ -62,7 +64,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     this.manualEventStateSubscription.unsubscribe();
   }
 
-  private onTriggeredAreasChange = (triggeredAreas) => {
+  private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
     this.triggeredAreas = triggeredAreas;
     this.calculateEAPActionStatus(this.triggeredAreas);
   };
@@ -100,14 +102,14 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   };
 
   private calculateEAPActionStatus(triggeredAreas): void {
-    const onEachAreaOfFocus = (areaOfFocus) => {
+    const onEachAreaOfFocus = (areaOfFocus: AreaOfFocus) => {
       areaOfFocus.count = 0;
       areaOfFocus.countChecked = 0;
       // Look at each triggered area ..
       triggeredAreas.forEach(this.onEachTriggeredArea(areaOfFocus));
     };
 
-    const onAreasOfFocusChange = (areasOfFocus) => {
+    const onAreasOfFocusChange = (areasOfFocus: AreaOfFocus[]) => {
       this.areasOfFocus = areasOfFocus;
 
       // Start calculation only when last area has eapActions attached to it
@@ -128,7 +130,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     this.eventState = eventState;
   };
 
-  public async moreInfo(areaOfFocus: any): Promise<void> {
+  public async moreInfo(areaOfFocus: AreaOfFocus): Promise<void> {
     const { id, label, description } = areaOfFocus;
 
     const popover = await this.popoverController.create({
