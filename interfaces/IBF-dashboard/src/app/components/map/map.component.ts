@@ -236,7 +236,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         let zoomExtraOffset: number;
         if (this.placeCode) {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features.filter(
-            (area) => area?.properties?.placeCode === this.placeCode,
+            (area) => area?.properties?.['placeCode'] === this.placeCode,
           );
           zoomExtraOffset = 0.1;
         } else {
@@ -750,7 +750,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     feature,
   ): string {
     feature = activeAggregateLayer.data?.features.find(
-      (f) => f.properties?.placeCode === feature.properties.placeCode,
+      (f) => f.properties?.['placeCode'] === feature.properties.placeCode,
     );
     return (
       '<strong>' +
@@ -857,10 +857,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const dates = layer.data?.features
       .filter(
         (f) =>
-          DateTime.fromISO(f.properties?.timestampOfTrackpoint) <=
+          DateTime.fromISO(f.properties?.['timestampOfTrackpoint']) <=
           DateTime.fromISO(this.lastModelRunDate),
       )
-      .map((t) => DateTime.fromISO(t.properties?.timestampOfTrackpoint));
+      .map((t) => DateTime.fromISO(t.properties?.['timestampOfTrackpoint']));
 
     this.closestPointToTyphoon = Math.max.apply(null, dates);
   }

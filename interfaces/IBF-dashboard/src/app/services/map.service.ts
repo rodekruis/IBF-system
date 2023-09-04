@@ -791,13 +791,15 @@ export class MapService {
         for (const area of adminRegions?.features || []) {
           const foundAdmDynamicEntry = admDynamicData.find(
             (admDynamicEntry): number => {
-              if (area.properties?.placeCode === admDynamicEntry.placeCode) {
+              if (
+                area.properties?.['placeCode'] === admDynamicEntry.placeCode
+              ) {
                 return admDynamicEntry.value;
               }
             },
           );
-          area.properties.indicators = {};
-          area.properties.indicators[layerName] = foundAdmDynamicEntry
+          area['properties']['indicators'] = {};
+          area['properties']['indicators'][layerName] = foundAdmDynamicEntry
             ? foundAdmDynamicEntry.value
             : null;
           updatedFeatures.push(area);

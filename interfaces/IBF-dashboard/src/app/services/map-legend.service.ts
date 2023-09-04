@@ -141,7 +141,7 @@ export class MapLegendService {
     element += this.layerTitle(layer.label, layer.unit);
 
     const noDataEntryFound = layer.data?.features.find(
-      (f) => f.properties?.indicators[layer.name] === null,
+      (f) => f.properties?.['indicators'][layer.name] === null,
     );
     element += `<div style='margin-top: 8px'>`;
     if (noDataEntryFound) {

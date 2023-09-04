@@ -36,8 +36,8 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     private disasterTypeService: DisasterTypeService,
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.countryCodeISO3 = params.countryCodeISO3;
-      this.disasterType = params.disasterType as DisasterTypeKey;
+      this.countryCodeISO3 = params?.['countryCodeISO3'];
+      this.disasterType = params?.['disasterType'] as DisasterTypeKey;
     });
   }
 
