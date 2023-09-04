@@ -107,7 +107,6 @@ export class AnalyticsService {
     error: Error,
     severityLevel: SeverityLevel = SeverityLevel.Error,
   ) {
-    console.log('=== error type: ', typeof error);
     switch (severityLevel) {
       case SeverityLevel.Critical:
       case SeverityLevel.Error:
