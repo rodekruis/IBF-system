@@ -20,5 +20,6 @@ module.exports = {
         argsIgnorePattern: '^_',
       },
     ],
+    '@typescript-eslint/camelcase': 'off',
   },
 };
