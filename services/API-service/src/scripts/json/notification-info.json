@@ -29,7 +29,12 @@
       }
     },
     "linkVideo": "https://bit.ly/IBF-video-Uganda",
-    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Uganda-Published.pdf"
+    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Uganda-Published.pdf",
+    "mailSegment": {
+      "drought": 102274,
+      "floods": 2525654,
+      "heavy-rain": 2539574
+    }
   },
   {
     "countryCodeISO3": "PHL",
@@ -46,7 +51,12 @@
     "linkSocialMediaType": null,
     "linkSocialMediaUrl": null,
     "linkVideo": "https://bit.ly/IBF-video-Philippines",
-    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Philippines-Published.pdf"
+    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Philippines-Published.pdf",
+    "mailSegment": {
+      "dengue": 105802,
+      "floods": 2525658,
+      "typhoon": 2525662
+    }
   },
   {
     "countryCodeISO3": "ZMB",
@@ -59,7 +69,10 @@
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/Ca2QYoYjKhyKm6zaZxOnin/",
     "linkVideo": "https://bit.ly/IBF-video-Zambia",
-    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zambia-Published.pdf"
+    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zambia-Published.pdf",
+    "mailSegment": {
+      "floods": 90286
+    }
   },
   {
     "countryCodeISO3": "KEN",
@@ -74,7 +87,11 @@
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/EbJ5kjSNlK018vkYwt5v5K/",
     "linkVideo": "https://bit.ly/IBF-video-Kenya",
-    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Kenya-Published.pdf"
+    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Kenya-Published.pdf",
+    "mailSegment": {
+      "drought": 90702,
+      "floods": 2525674
+    }
   },
   {
     "countryCodeISO3": "ETH",
@@ -91,7 +108,12 @@
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/Ibj8FcZwFxQLBcuMGUkrms/",
     "linkVideo": "https://bit.ly/IBF-video-Ethiopia",
-    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Ethiopia-Published.pdf"
+    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Ethiopia-Published.pdf",
+    "mailSegment": {
+      "drought": 90706,
+      "floods": 2525678,
+      "malaria": 2525682
+    }
   },
   {
     "countryCodeISO3": "EGY",
@@ -104,7 +126,10 @@
     "linkSocialMediaType": "Telegram",
     "linkSocialMediaUrl": "https://t.me/joinchat/hLtvficJO-llZDE0/",
     "linkVideo": "https://bit.ly/IBF-video-Egypt",
-    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Egypt-Published.pdf"
+    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Egypt-Published.pdf",
+    "mailSegment": {
+      "heavy-rain": 100810
+    }
   },
   {
     "countryCodeISO3": "ZWE",
@@ -117,7 +142,10 @@
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/FfVimuGRHHiJSk0BU7nGQT/",
     "linkVideo": "https://bit.ly/IBF-video-Zimbabwe",
-    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zimbabwe-Published.pdf"
+    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zimbabwe-Published.pdf",
+    "mailSegment": {
+      "drought": 105794
+    }
   },
   {
     "countryCodeISO3": "MWI",
@@ -133,6 +161,10 @@
     "linkSocialMediaUrl": "https://chat.whatsapp.com/",
     "linkVideo": "https://bit.ly/IBF-video-Malawi",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Malawi-Published.pdf",
+    "mailSegment": {
+      "floods": 2163966,
+      "flash-floods": 2525790
+    },
     "useWhatsapp": {
       "flash-floods": true,
       "floods": false
@@ -173,6 +205,9 @@
     },
     "externalEarlyActionForm": "https://eenew.ifrc.org/x/o3VEUuQG",
     "linkVideo": "https://bit.ly/IBF-video-SouthSudan",
-    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-South%20Sudan-Published.pdf"
+    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-South%20Sudan-Published.pdf",
+    "mailSegment": {
+      "floods": 2520726
+    }
   }
 ]
