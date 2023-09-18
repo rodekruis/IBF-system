@@ -179,6 +179,7 @@ export class CountryService {
       disaster.adminLevels as AdminLevel[];
     countryDisasterSettingsEntity.defaultAdminLevel =
       disaster.defaultAdminLevel as AdminLevel;
+
     countryDisasterSettingsEntity.eapLink = disaster.eapLink;
     countryDisasterSettingsEntity.eapAlertClasses = disaster.eapAlertClasses
       ? JSON.parse(JSON.stringify([disaster.eapAlertClasses]))[0]
@@ -187,6 +188,7 @@ export class CountryService {
       disaster.droughtForecastSeasons
         ? JSON.parse(JSON.stringify(disaster.droughtForecastSeasons))
         : null;
+
     countryDisasterSettingsEntity.droughtEndOfMonthPipeline =
       disaster.droughtEndOfMonthPipeline;
     countryDisasterSettingsEntity.droughtAreas = disaster.droughtAreas
@@ -277,9 +279,6 @@ export class CountryService {
     }
     notificationInfoEntity.externalEarlyActionForm =
       notificationInfoCountry.externalEarlyActionForm;
-    notificationInfoEntity.mailSegment = JSON.parse(
-      JSON.stringify(notificationInfoCountry.mailSegment),
-    );
 
     const saveResult = await this.notificationInfoRepository.save(
       notificationInfoEntity,
