@@ -41,7 +41,7 @@ export class CountryController {
     summary: 'Add/update notification info for given countries',
   })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'notification info added or updated',
   })
   @Post('notification-info')
