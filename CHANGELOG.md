@@ -1,3 +1,25 @@
+## [0.258.3](https://github.com/rodekruis/IBF-system/compare/v0.258.2...v0.258.3) (2023-09-18)
+
+
+### Bug Fixes
+
+* align descriptions better AB[#23356](https://github.com/rodekruis/IBF-system/issues/23356) ([c4e4c61](https://github.com/rodekruis/IBF-system/commit/c4e4c61bf5d099ee240a05604ff83fc7604dd645))
+* description xlsx AB[#23375](https://github.com/rodekruis/IBF-system/issues/23375) ([285a4eb](https://github.com/rodekruis/IBF-system/commit/285a4eba91e6d95ac8192d16a2cca85b24521281))
+* keep improved texts AB[#23375](https://github.com/rodekruis/IBF-system/issues/23375) ([3e3fa62](https://github.com/rodekruis/IBF-system/commit/3e3fa62aa0ee7efdf9abe1636ab8fc6b49ae9d66))
+* nestjs upgrade leftover AB[#23356](https://github.com/rodekruis/IBF-system/issues/23356) ([9506961](https://github.com/rodekruis/IBF-system/commit/95069613cbbc20bfe088e6cac083a34d1db2d22a))
+* only remove layers for KEN AB[#23375](https://github.com/rodekruis/IBF-system/issues/23375) ([5995b62](https://github.com/rodekruis/IBF-system/commit/5995b6285e44defd5be7428de340db1e5630b4e4))
+* set right countries for cropland/grassland AB[#23375](https://github.com/rodekruis/IBF-system/issues/23375) ([dd19505](https://github.com/rodekruis/IBF-system/commit/dd195054c6a9c73febde0edadb596d896afaf660))
+
+
+### Reverts
+
+* Revert "refactor: migration file AB#23529" ([796c8a5](https://github.com/rodekruis/IBF-system/commit/796c8a5bfc8119f6e4d9e39dbc8353c122a18ad8)), closes [AB#23529](https://github.com/AB/issues/23529)
+* Revert "refactor: remove segments AB#23529" ([8d642b7](https://github.com/rodekruis/IBF-system/commit/8d642b797031d409f998bdcf7aec4fa0203a652e)), closes [AB#23529](https://github.com/AB/issues/23529)
+* Revert "refactro: use env in mail service AB#23530" ([083558a](https://github.com/rodekruis/IBF-system/commit/083558a125c8744d0d70b5ead90b6faadec61d12)), closes [AB#23530](https://github.com/AB/issues/23530)
+* Revert "chore: disable lint camelcase check" ([ebadb3b](https://github.com/rodekruis/IBF-system/commit/ebadb3b0bba9b9dcd2f0451b08a8dd804262df0e))
+
+
+
 ## [0.258.2](https://github.com/rodekruis/IBF-system/compare/v0.258.1...v0.258.2) (2023-08-29)
 
 
@@ -102,15 +124,6 @@
 
 * rivers legend line not square AB[#20154](https://github.com/rodekruis/IBF-system/issues/20154) ([50e6db9](https://github.com/rodekruis/IBF-system/commit/50e6db9613ee691ec10412ca42c8fef562909d2f))
 * zoom in on area click instead of out AB[#23032](https://github.com/rodekruis/IBF-system/issues/23032) ([23c9a2e](https://github.com/rodekruis/IBF-system/commit/23c9a2e21b424414b0152a6cd66ae0b179173295))
-
-
-
-# [0.256.0](https://github.com/rodekruis/IBF-system/compare/v0.255.0...v0.256.0) (2023-08-09)
-
-
-### Features
-
-* add some leadtimes AB[#23008](https://github.com/rodekruis/IBF-system/issues/23008) ([ee8dd8a](https://github.com/rodekruis/IBF-system/commit/ee8dd8a87865e92ca953445e40b69109e6e7b55a))
 
 
 

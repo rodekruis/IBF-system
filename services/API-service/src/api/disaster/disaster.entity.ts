@@ -7,8 +7,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { DisasterType } from './disaster-type.enum';
-import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
-import { LayerMetadataEntity } from '../metadata/layer-metadata.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   LeadTime,
@@ -61,20 +59,6 @@ export class DisasterEntity {
   @ApiProperty({ example: LeadTime.day7 })
   @Column({ nullable: true })
   public maxLeadTime: LeadTime;
-
-  @ManyToMany(
-    (): typeof IndicatorMetadataEntity => IndicatorMetadataEntity,
-    (indicators): DisasterEntity[] => indicators.disasterTypes,
-  )
-  @JoinTable()
-  public indicators: IndicatorMetadataEntity[];
-
-  @ManyToMany(
-    (): typeof LayerMetadataEntity => LayerMetadataEntity,
-    (layers): DisasterEntity[] => layers.disasterTypes,
-  )
-  @JoinTable()
-  public layers: LayerMetadataEntity[];
 
   @ManyToMany(
     (): typeof UserEntity => UserEntity,

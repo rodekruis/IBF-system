@@ -218,40 +218,14 @@ export class SeedInit implements InterfaceScript {
     const indicatorRepository = this.dataSource.getRepository(
       IndicatorMetadataEntity,
     );
-    const indicators = JSON.parse(JSON.stringify(indicatorMetadata));
-    const indicatorEntities = await Promise.all(
-      indicators.map(async (indicator): Promise<IndicatorMetadataEntity> => {
-        indicator.disasterTypes = await disasterRepository.find({
-          where: indicator.disasterTypes.map(
-            (indicatorDisasterType: string): object => {
-              return { disasterType: indicatorDisasterType };
-            },
-          ),
-        });
-        return indicator;
-      }),
+    await indicatorRepository.save(
+      JSON.parse(JSON.stringify(indicatorMetadata)),
     );
-
-    await indicatorRepository.save(indicatorEntities);
 
     // ***** CREATE LAYER METADATA *****
     console.log('Seed Layers...');
     const layerRepository = this.dataSource.getRepository(LayerMetadataEntity);
-
-    const layers = JSON.parse(JSON.stringify(layerMetadata));
-    const layerEntities = await Promise.all(
-      layers.map(async (layer): Promise<LayerMetadataEntity> => {
-        layer.disasterTypes = await disasterRepository.find({
-          where: layer.disasterTypes.map(
-            (layerDisasterType: string): object => {
-              return { disasterType: layerDisasterType };
-            },
-          ),
-        });
-        return layer;
-      }),
-    );
-    await layerRepository.save(layerEntities);
+    await layerRepository.save(JSON.parse(JSON.stringify(layerMetadata)));
 
     // ***** SEED POINT DATA *****
     console.log('Seed point data...');

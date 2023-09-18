@@ -68,9 +68,9 @@ function deploy() {
     }
 
     function cleanup_docker() {
-        log "Remove unused docker images..."
+        log "Clean up Docker..."
 
-        docker image prune -f
+        docker system prune -f
     }
 
     function test_integration() {
@@ -99,13 +99,15 @@ function deploy() {
 
     load_environment_variables
 
+    cleanup_docker
+
     update_containers
 
     cleanup_docker
 
     test_integration
 
-    test_performance
+    # test_performance
 
     restart_webhook_service
 

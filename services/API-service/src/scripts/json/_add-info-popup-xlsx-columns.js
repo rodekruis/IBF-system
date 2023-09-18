@@ -34,43 +34,41 @@ const indicatorsToAdd = [];
 
 const populateIndicators = () => {
   indicatorMetadata.forEach((indicator) => {
-    indicator.countryCodes.split(',').forEach((cc) => {
-      if (cc !== '') {
-        const country = countries.find(
-          (country) => country.countryCodeISO3 === cc,
-        );
-        indicator.disasterTypes.forEach((disasterType) => {
-          if (country.disasterTypes.includes(disasterType)) {
-            indicatorsFromJSON.push({
-              section: sectionNames.generalIndicator,
-              layer: indicator.name,
-              countryCodeISO3: cc,
-              disasterType: disasterType,
-            });
-          }
-        });
-      }
+    Object.keys(indicator.countryDisasterTypes).forEach((cc) => {
+      const country = countries.find(
+        (country) => country.countryCodeISO3 === cc,
+      );
+      const disasterTypes = indicator.countryDisasterTypes[cc];
+      Object.keys(disasterTypes).forEach((disasterType) => {
+        if (country.disasterTypes.includes(disasterType)) {
+          indicatorsFromJSON.push({
+            section: sectionNames.generalIndicator,
+            layer: indicator.name,
+            countryCodeISO3: cc,
+            disasterType: disasterType,
+          });
+        }
+      });
     });
   });
 
   layerMetadata.forEach((layer) => {
     if (layer.type === 'wms' || layer.type === 'point') {
-      layer.countryCodes.split(',').forEach((cc) => {
-        if (cc !== '') {
-          const country = countries.find(
-            (country) => country.countryCodeISO3 === cc,
-          );
-          layer.disasterTypes.forEach((disasterType) => {
-            if (country.disasterTypes.includes(disasterType)) {
-              indicatorsFromJSON.push({
-                section: sectionNames.layerIndicator,
-                layer: layer.name,
-                countryCodeISO3: cc,
-                disasterType: disasterType,
-              });
-            }
-          });
-        }
+      Object.keys(layer.description).forEach((cc) => {
+        const country = countries.find(
+          (country) => country.countryCodeISO3 === cc,
+        );
+        const disasterTypes = layer.description[cc];
+        Object.keys(disasterTypes).forEach((disasterType) => {
+          if (country.disasterTypes.includes(disasterType)) {
+            indicatorsFromJSON.push({
+              section: sectionNames.layerIndicator,
+              layer: layer.name,
+              countryCodeISO3: cc,
+              disasterType: disasterType,
+            });
+          }
+        });
       });
     }
   });

@@ -1,8 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsIn } from 'class-validator';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('layer-metadata')
 export class LayerMetadataEntity {
@@ -10,16 +8,10 @@ export class LayerMetadataEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @ApiProperty({ example: process.env.COUNTRIES })
-  @Column()
-  public countryCodes: string;
-
-  @ApiProperty({ example: [{ disasterType: DisasterType.Floods }] })
-  @ManyToMany(
-    (): typeof DisasterEntity => DisasterEntity,
-    (disasterTypes): LayerMetadataEntity[] => disasterTypes.layers,
-  )
-  public disasterTypes: DisasterEntity[];
+  @Column('json', {
+    default: {},
+  })
+  public countryDisasterTypes: JSON;
 
   @ApiProperty()
   @Column()
