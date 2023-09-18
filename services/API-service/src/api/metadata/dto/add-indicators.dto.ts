@@ -1,22 +1,21 @@
 import {
   IsBoolean,
-  IsEnum,
   IsIn,
   IsNotEmpty,
   IsNumber,
   IsString,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { DisasterType } from '../../disaster/disaster-type.enum';
 
 export class IndicatorDto {
-  @ApiProperty({ example: process.env.COUNTRIES })
-  @IsString()
-  public countryCodes: string;
-
-  @ApiProperty({ example: [{ disasterType: DisasterType.Floods }] })
-  @IsEnum(DisasterType)
-  public disasterTypes: DisasterType[];
+  @ApiProperty({
+    example: {
+      EGY: {
+        'heavy-rain': ['map', 'aggregate'],
+      },
+    },
+  })
+  public countryDisasterTypes: JSON;
 
   @ApiProperty()
   @IsString()
@@ -56,9 +55,6 @@ export class IndicatorDto {
   @ApiProperty({ example: 'decimal0' })
   @IsString()
   public numberFormatMap: string;
-
-  @ApiProperty({ example: process.env.COUNTRIES })
-  public aggregateIndicator: string | null;
 
   @ApiProperty({ example: 'decimal0' })
   @IsIn(['decimal0', 'decimal2', 'perc'])
