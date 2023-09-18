@@ -1,3 +1,12 @@
+## [0.258.6](https://github.com/rodekruis/IBF-system/compare/v0.258.5...v0.258.6) (2023-09-18)
+
+
+### Bug Fixes
+
+* red outline issue AB[#23678](https://github.com/rodekruis/IBF-system/issues/23678) ([61b2d9c](https://github.com/rodekruis/IBF-system/commit/61b2d9c91677612d9f39a0c0ecd9b77feb220684))
+
+
+
 ## [0.258.5](https://github.com/rodekruis/IBF-system/compare/v0.258.4...v0.258.5) (2023-09-18)
 
 
@@ -104,26 +113,6 @@
 
 * better mock data flash floods AB[#22984](https://github.com/rodekruis/IBF-system/issues/22984) ([a052514](https://github.com/rodekruis/IBF-system/commit/a05251464e82a68747bae86c18ec0d29dd4579e4))
 * update 'no actions yet' copy AB[#23022](https://github.com/rodekruis/IBF-system/issues/23022) ([d20ef1f](https://github.com/rodekruis/IBF-system/commit/d20ef1fe646077e04cd8df04b181d7456c245588))
-
-
-
-# [0.257.0](https://github.com/rodekruis/IBF-system/compare/v0.256.2...v0.257.0) (2023-08-14)
-
-
-### Bug Fixes
-
-* lint AB[#23022](https://github.com/rodekruis/IBF-system/issues/23022) ([772f942](https://github.com/rodekruis/IBF-system/commit/772f942c5cbf8cf930e138352488c689a7b3eb7d))
-* move button to top right corner AB[#22949](https://github.com/rodekruis/IBF-system/issues/22949) ([6914837](https://github.com/rodekruis/IBF-system/commit/691483730b28440faea8acda71fd7d17eaee19e4))
-* prettier AB[#22949](https://github.com/rodekruis/IBF-system/issues/22949) ([b78a5cd](https://github.com/rodekruis/IBF-system/commit/b78a5cdd9b669bb59b002927cdef8765818b8892))
-* rm tooltip scroll + add padding AB[#22949](https://github.com/rodekruis/IBF-system/issues/22949) ([a4be0b0](https://github.com/rodekruis/IBF-system/commit/a4be0b0dd1285244423de8c2094673f9cd8440f8))
-* set tooltip btn color AB[#22949](https://github.com/rodekruis/IBF-system/issues/22949) ([ac1bcfe](https://github.com/rodekruis/IBF-system/commit/ac1bcfefa9af69a95ddb484d587e683b8fbe5462))
-* typo in tooltip text AB[#23087](https://github.com/rodekruis/IBF-system/issues/23087) ([6b454a3](https://github.com/rodekruis/IBF-system/commit/6b454a37359a493ad4309fc1f59365bb86c1ffda))
-
-
-### Features
-
-* change all btns to ibf-button AB[#23086](https://github.com/rodekruis/IBF-system/issues/23086) ([f0bbda6](https://github.com/rodekruis/IBF-system/commit/f0bbda66e8a60b4e0c12ccebc3d277996dd1e522))
-* create custom btn AB[#23023](https://github.com/rodekruis/IBF-system/issues/23023) ([11bd534](https://github.com/rodekruis/IBF-system/commit/11bd534e839f85dbbb0bd02e0b644189b98ff476))
 
 
 
