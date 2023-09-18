@@ -1,12 +1,10 @@
-<div class="ion-padding-top ibf-admin-level-buttons">
+<div class="ion-padding-top ion-margin-start">
   <ion-button
     *ngIf="getAdminLevelLabel(adminLevel.adminLevel1)"
     size="small"
-    class="ibf-admin-level-button"
+    class="breadcrumb breadcrumb-start"
     fill="solid"
-    [color]="
-      isAdminLevelActive(adminLevel.adminLevel1) ? 'ibf-primary' : 'ibf-white'
-    "
+    [class.selected]="isAdminLevelActive(adminLevel.adminLevel1)"
     [disabled]="isAdminLevelDisabled(adminLevel.adminLevel1)"
     (click)="clickAdminLevelButton(adminLevel.adminLevel1)"
   >
@@ -15,11 +13,9 @@
   <ion-button
     *ngIf="getAdminLevelLabel(adminLevel.adminLevel2)"
     size="small"
-    class="ibf-admin-level-button"
+    class="breadcrumb breadcrumb-middle"
     fill="solid"
-    [color]="
-      isAdminLevelActive(adminLevel.adminLevel2) ? 'ibf-primary' : 'ibf-white'
-    "
+    [class.selected]="isAdminLevelActive(adminLevel.adminLevel2)"
     [disabled]="isAdminLevelDisabled(adminLevel.adminLevel2)"
     (click)="clickAdminLevelButton(adminLevel.adminLevel2)"
   >
@@ -28,20 +24,18 @@
   <ion-button
     *ngIf="getAdminLevelLabel(adminLevel.adminLevel3)"
     size="small"
-    class="ibf-admin-level-button"
+    class="breadcrumb breadcrumb-end"
     fill="solid"
-    [color]="
-      isAdminLevelActive(adminLevel.adminLevel3) ? 'ibf-primary' : 'ibf-white'
-    "
+    [class.selected]="isAdminLevelActive(adminLevel.adminLevel3)"
     [disabled]="isAdminLevelDisabled(adminLevel.adminLevel3)"
     (click)="clickAdminLevelButton(adminLevel.adminLevel3)"
   >
     {{ getAdminLevelLabel(adminLevel.adminLevel3) }}
   </ion-button>
-  <ion-button
+  <!-- <ion-button
     *ngIf="getAdminLevelLabel(adminLevel.adminLevel4)"
     size="small"
-    class="ibf-admin-level-button"
+    class="breadcrumb"
     fill="solid"
     [color]="
       isAdminLevelActive(adminLevel.adminLevel4) ? 'ibf-primary' : 'ibf-white'
@@ -50,5 +44,5 @@
     (click)="clickAdminLevelButton(adminLevel.adminLevel4)"
   >
     {{ getAdminLevelLabel(adminLevel.adminLevel4) }}
-  </ion-button>
+  </ion-button> -->
 </div>

@@ -36,7 +36,6 @@ export class IbfButtonComponent implements OnInit {
 
   ngOnInit() {
     this.style += `
-    display: block;
     ${this.width ? 'width: ' + this.width + ';' : ''}
     --background: var(--ion-color-${this.backgroundColor});
     --border-color: var(--ion-color-${this.borderColor});
