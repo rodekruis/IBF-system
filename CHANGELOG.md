@@ -1,3 +1,12 @@
+## [0.258.5](https://github.com/rodekruis/IBF-system/compare/v0.258.4...v0.258.5) (2023-09-18)
+
+
+### Bug Fixes
+
+* update indicator metadata AB[#23677](https://github.com/rodekruis/IBF-system/issues/23677) ([f21cd6f](https://github.com/rodekruis/IBF-system/commit/f21cd6f2c53ef38047438f985db939f742989944))
+
+
+
 ## [0.258.4](https://github.com/rodekruis/IBF-system/compare/v0.258.3...v0.258.4) (2023-09-18)
 
 
@@ -115,15 +124,6 @@
 
 * change all btns to ibf-button AB[#23086](https://github.com/rodekruis/IBF-system/issues/23086) ([f0bbda6](https://github.com/rodekruis/IBF-system/commit/f0bbda66e8a60b4e0c12ccebc3d277996dd1e522))
 * create custom btn AB[#23023](https://github.com/rodekruis/IBF-system/issues/23023) ([11bd534](https://github.com/rodekruis/IBF-system/commit/11bd534e839f85dbbb0bd02e0b644189b98ff476))
-
-
-
-## [0.256.2](https://github.com/rodekruis/IBF-system/compare/v0.256.1...v0.256.2) (2023-08-11)
-
-
-### Bug Fixes
-
-* sort events in email header AB[#23027](https://github.com/rodekruis/IBF-system/issues/23027) ([1b257fc](https://github.com/rodekruis/IBF-system/commit/1b257fcf9d653eebb484c710fbde6601f16f7b60))
 
 
 
