@@ -426,25 +426,177 @@
     "name": "adminRegions1",
     "label": "Admin Level 1",
     "type": "shape",
-    "active": "yes"
+    "active": "yes",
+    "description": {
+      "EGY": {
+        "heavy-rain": ""
+      },
+      "ETH": {
+        "drought": "",
+        "floods": "",
+        "malaria": ""
+      },
+      "KEN": {
+        "drought": "",
+        "floods": ""
+      },
+      "MWI": {
+        "flash-floods": "",
+        "floods": ""
+      },
+      "PHL": {
+        "dengue": "",
+        "floods": "",
+        "typhoon": ""
+      },
+      "SSD": {
+        "floods": ""
+      },
+      "UGA": {
+        "drought": "",
+        "floods": "",
+        "heavy-rain": ""
+      },
+      "ZMB": {
+        "drought": "",
+        "floods": ""
+      },
+      "ZWE": {
+        "drought": ""
+      }
+    }
   },
   {
     "name": "adminRegions2",
     "label": "Admin Level 2",
     "type": "shape",
-    "active": "yes"
+    "active": "yes",
+    "description": {
+      "EGY": {
+        "heavy-rain": ""
+      },
+      "ETH": {
+        "drought": "",
+        "floods": "",
+        "malaria": ""
+      },
+      "KEN": {
+        "drought": "",
+        "floods": ""
+      },
+      "MWI": {
+        "flash-floods": "",
+        "floods": ""
+      },
+      "PHL": {
+        "dengue": "",
+        "floods": "",
+        "typhoon": ""
+      },
+      "SSD": {
+        "floods": ""
+      },
+      "UGA": {
+        "drought": "",
+        "floods": "",
+        "heavy-rain": ""
+      },
+      "ZMB": {
+        "drought": "",
+        "floods": ""
+      },
+      "ZWE": {
+        "drought": ""
+      }
+    }
   },
   {
     "name": "adminRegions3",
     "label": "Admin Level 3",
     "type": "shape",
-    "active": "yes"
+    "active": "yes",
+    "description": {
+      "EGY": {
+        "heavy-rain": ""
+      },
+      "ETH": {
+        "drought": "",
+        "floods": "",
+        "malaria": ""
+      },
+      "KEN": {
+        "drought": "",
+        "floods": ""
+      },
+      "MWI": {
+        "flash-floods": "",
+        "floods": ""
+      },
+      "PHL": {
+        "dengue": "",
+        "floods": "",
+        "typhoon": ""
+      },
+      "SSD": {
+        "floods": ""
+      },
+      "UGA": {
+        "drought": "",
+        "floods": "",
+        "heavy-rain": ""
+      },
+      "ZMB": {
+        "drought": "",
+        "floods": ""
+      },
+      "ZWE": {
+        "drought": ""
+      }
+    }
   },
   {
     "name": "adminRegions4",
     "label": "Admin Level 4",
     "type": "shape",
-    "active": "yes"
+    "active": "yes",
+    "description": {
+      "EGY": {
+        "heavy-rain": ""
+      },
+      "ETH": {
+        "drought": "",
+        "floods": "",
+        "malaria": ""
+      },
+      "KEN": {
+        "drought": "",
+        "floods": ""
+      },
+      "MWI": {
+        "flash-floods": "",
+        "floods": ""
+      },
+      "PHL": {
+        "dengue": "",
+        "floods": "",
+        "typhoon": ""
+      },
+      "SSD": {
+        "floods": ""
+      },
+      "UGA": {
+        "drought": "",
+        "floods": "",
+        "heavy-rain": ""
+      },
+      "ZMB": {
+        "drought": "",
+        "floods": ""
+      },
+      "ZWE": {
+        "drought": ""
+      }
+    }
   },
   {
     "name": "evacuation_centers",

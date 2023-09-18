@@ -119,7 +119,8 @@ export class MetadataService {
     return indicators.filter(
       (metadata: IndicatorMetadataEntity): boolean =>
         metadata.countryDisasterTypes?.[countryCodeISO3] &&
-        metadata.countryDisasterTypes?.[countryCodeISO3][disasterType],
+        metadata.countryDisasterTypes?.[countryCodeISO3][disasterType] !==
+          undefined,
     );
   }
 
@@ -132,7 +133,7 @@ export class MetadataService {
     return layers.filter(
       (metadata: LayerMetadataEntity): boolean =>
         metadata.description?.[countryCodeISO3] &&
-        metadata.description?.[countryCodeISO3][disasterType],
+        metadata.description?.[countryCodeISO3][disasterType] !== undefined,
     );
   }
 }
