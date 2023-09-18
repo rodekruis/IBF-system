@@ -158,7 +158,7 @@
     </app-dialogue-turn>
   </ng-container>
   <app-dialogue-turn
-    actor="self"
+    [actor]="actor.self"
     *ngFor="let area of filteredActiveAreas; first as isFirst"
     [isConnected]="!isFirst"
     [isTriggered]="eventState?.event?.thresholdReached"
@@ -276,7 +276,7 @@
                   changeAction(
                     area.placeCode,
                     action.action,
-                    $event.detail.checked
+                    $event['detail']['checked']
                   )
                 "
               ></ion-checkbox>

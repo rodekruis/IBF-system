@@ -1,10 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DateTime } from 'luxon';
-
-enum Actor {
-  system = 'system',
-  self = 'self',
-}
+import { Actor } from '../../types/chat';
 
 @Component({
   selector: 'app-dialogue-turn',

@@ -6,4 +6,5 @@ export class EapAction {
   placeCode: string;
   month: JSON;
   monthLong: JSON;
+  aofLabel?: string;
 }
