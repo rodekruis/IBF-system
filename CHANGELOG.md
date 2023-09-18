@@ -1,3 +1,13 @@
+## [0.258.4](https://github.com/rodekruis/IBF-system/compare/v0.258.3...v0.258.4) (2023-09-18)
+
+
+### Bug Fixes
+
+* production build AB[#23656](https://github.com/rodekruis/IBF-system/issues/23656) ([ed31a34](https://github.com/rodekruis/IBF-system/commit/ed31a34e6ad9bb398381397f929fd64ea24c5db1))
+* rm console.log AB[#17794](https://github.com/rodekruis/IBF-system/issues/17794) ([b3dfb15](https://github.com/rodekruis/IBF-system/commit/b3dfb156d5a31860d3736d6349e40a59251a1e84))
+
+
+
 ## [0.258.3](https://github.com/rodekruis/IBF-system/compare/v0.258.2...v0.258.3) (2023-09-18)
 
 
@@ -114,16 +124,6 @@
 ### Bug Fixes
 
 * sort events in email header AB[#23027](https://github.com/rodekruis/IBF-system/issues/23027) ([1b257fc](https://github.com/rodekruis/IBF-system/commit/1b257fcf9d653eebb484c710fbde6601f16f7b60))
-
-
-
-## [0.256.1](https://github.com/rodekruis/IBF-system/compare/v0.256.0...v0.256.1) (2023-08-09)
-
-
-### Bug Fixes
-
-* rivers legend line not square AB[#20154](https://github.com/rodekruis/IBF-system/issues/20154) ([50e6db9](https://github.com/rodekruis/IBF-system/commit/50e6db9613ee691ec10412ca42c8fef562909d2f))
-* zoom in on area click instead of out AB[#23032](https://github.com/rodekruis/IBF-system/issues/23032) ([23c9a2e](https://github.com/rodekruis/IBF-system/commit/23c9a2e21b424414b0152a6cd66ae0b179173295))
 
 
 
