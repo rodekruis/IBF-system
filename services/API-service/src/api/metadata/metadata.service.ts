@@ -45,7 +45,7 @@ export class MetadataService {
     indicatorEntity: IndicatorMetadataEntity,
     indicator: IndicatorDto,
   ): Promise<IndicatorMetadataEntity> {
-    indicatorEntity.description = JSON.parse(
+    indicatorEntity.countryDisasterTypes = JSON.parse(
       JSON.stringify(indicator.countryDisasterTypes || {}),
     );
     indicatorEntity.label = indicator.label;
