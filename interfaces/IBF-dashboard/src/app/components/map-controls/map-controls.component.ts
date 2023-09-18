@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './map-controls.component.html',
   styleUrls: ['./map-controls.component.scss'],
 })
-export class MapControlsComponent {
-  constructor() {}
-}
+export class MapControlsComponent {}

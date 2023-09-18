@@ -8,14 +8,12 @@ import { DateTime } from 'luxon';
 })
 export class TimestampComponent implements OnInit {
   @Input()
-  private timestamp: DateTime = DateTime.now();
+  public timestamp: DateTime = DateTime.now();
 
   private dateFormat = 'cccc, dd LLLL';
   private timeFormat = 'HH:mm';
   public displayDate: string;
   public displayTime: string;
-
-  constructor() {}
 
   ngOnInit() {
     this.displayDate = this.timestamp?.toFormat(this.dateFormat);

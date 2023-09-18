@@ -17,6 +17,7 @@ export class Indicator {
   lazyLoad: boolean;
   dynamic?: boolean;
   description: JSON;
+  aggregateUnit: string;
 }
 
 export enum NumberFormat {

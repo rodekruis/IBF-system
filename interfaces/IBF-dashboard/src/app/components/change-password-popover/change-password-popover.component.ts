@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/auth/auth.service';
   templateUrl: './change-password-popover.component.html',
   styleUrls: ['./change-password-popover.component.scss'],
 })
-export class ChangePasswordPopoverComponent implements OnInit {
+export class ChangePasswordPopoverComponent {
   @ViewChild('changePasswordForm')
   public changePasswordForm: NgForm;
 
@@ -23,8 +23,6 @@ export class ChangePasswordPopoverComponent implements OnInit {
     private authService: AuthService,
     private popoverController: PopoverController,
   ) {}
-
-  ngOnInit() {}
 
   public onSubmit() {
     if (!this.changePasswordForm.form.valid) {

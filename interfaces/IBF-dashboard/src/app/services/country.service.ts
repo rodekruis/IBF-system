@@ -19,10 +19,10 @@ export class CountryService {
     private activatedRoute: ActivatedRoute,
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
-      if (params.countryCodeISO3) {
+      if (params?.['countryCodeISO3']) {
         this.apiService.getCountries(null, true).subscribe((countries) => {
           this.countries = countries;
-          this.selectCountry(params.countryCodeISO3);
+          this.selectCountry(params?.['countryCodeISO3']);
         });
       } else {
         this.authService.getAuthSubscription().subscribe(this.onUserChange);

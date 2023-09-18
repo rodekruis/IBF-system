@@ -151,7 +151,7 @@ export class AuthService implements OnDestroy {
       .subscribe(this.onPasswordChanged, this.onChangePasswordError);
   }
 
-  private onPasswordChanged = async (res) => {
+  private onPasswordChanged = async () => {
     const toast = await this.toastController.create({
       message: `Password changed successfully`,
       duration: 5000,

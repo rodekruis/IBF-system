@@ -8,8 +8,6 @@ export class LoaderService {
   private loaderSubject = new BehaviorSubject<boolean>(false);
   private queue = [];
 
-  constructor() {}
-
   getLoaderSubscription(): Observable<boolean> {
     return this.loaderSubject.asObservable();
   }

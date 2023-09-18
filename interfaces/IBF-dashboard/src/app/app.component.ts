@@ -32,7 +32,7 @@ export class AppComponent implements OnDestroy {
   initializeApp() {
     this.translateService.setDefaultLang(this.defaultLanguage);
     this.translateService.use(this.defaultLanguage);
-    this.platform.ready().then(() => {});
+    this.platform.ready();
   }
 
   ngOnDestroy() {

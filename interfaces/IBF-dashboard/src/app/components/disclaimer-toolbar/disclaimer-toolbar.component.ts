@@ -8,6 +8,4 @@ import { environment } from '../../../environments/environment';
 })
 export class DisclaimerToolbarComponent {
   public environmentConfiguration = environment.configuration;
-
-  constructor() {}
 }

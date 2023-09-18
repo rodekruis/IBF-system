@@ -13,7 +13,7 @@ import { CountryService } from '../services/country.service';
   providedIn: 'root',
 })
 export class AnalyticsService {
-  private log = DEBUG_LOG ? console.log : () => {};
+  private log = DEBUG_LOG ? console.log : () => undefined;
 
   applicationInsights: ApplicationInsights;
   isApplicationInsightsEnabled: boolean;
@@ -66,11 +66,14 @@ export class AnalyticsService {
     }
   }
 
-  logError(error: any, severityLevel?: SeverityLevel): void {
+  logError(error: Error, severityLevel?: SeverityLevel): void {
     this.displayOnConsole(error, severityLevel);
   }
 
-  logEvent(name: string, properties?: { [key: string]: any }): void {
+  logEvent(
+    name: string,
+    properties?: { [key: string]: string | number | boolean },
+  ): void {
     if (this.isApplicationInsightsEnabled) {
       this.applicationInsights.trackEvent({ name }, properties);
     } else {
@@ -89,7 +92,10 @@ export class AnalyticsService {
     }
   }
 
-  logTrace(message: string, properties?: { [key: string]: any }) {
+  logTrace(
+    message: string,
+    properties?: { [key: string]: string | number | boolean },
+  ) {
     if (this.isApplicationInsightsEnabled) {
       this.applicationInsights.trackTrace({ message }, properties);
     } else {
@@ -98,7 +104,7 @@ export class AnalyticsService {
   }
 
   private displayOnConsole(
-    error: any,
+    error: Error,
     severityLevel: SeverityLevel = SeverityLevel.Error,
   ) {
     switch (severityLevel) {
