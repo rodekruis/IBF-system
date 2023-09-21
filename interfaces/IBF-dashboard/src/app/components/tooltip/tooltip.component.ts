@@ -26,6 +26,6 @@ export class TooltipComponent {
     });
     await popover.present();
 
-    const { role } = await popover.onDidDismiss();
+    await popover.onDidDismiss();
   }
 }
