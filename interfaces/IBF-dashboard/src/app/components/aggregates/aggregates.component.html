@@ -15,13 +15,15 @@
             <ion-label color="ibf-black"
               ><ion-text
                 ><strong>{{
-                  getAggregatesHeader().headerLabel
+                  getAggregatesHeader(mapView | async).headerLabel
                 }}</strong></ion-text
               ></ion-label
             >
             <ion-label color="ibf-black"
               ><ion-text
-                [innerHTML]="getAggregatesHeader().subHeaderLabel"
+                [innerHTML]="
+                  getAggregatesHeader(mapView | async).subHeaderLabel
+                "
               ></ion-text
             ></ion-label> </ion-col
           >`

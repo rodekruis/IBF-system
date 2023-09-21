@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -25,14 +25,10 @@ import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { EapActionsService } from '../../services/eap-actions.service';
+import { MapViewService } from '../../services/map-view.service';
+import { MapView } from '../../types/map-view';
 import { TriggeredArea } from '../../types/triggered-area';
 import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
-
-enum MapView {
-  national = 'national',
-  event = 'event',
-  adminArea = 'admin-area',
-}
 @Component({
   selector: 'app-aggregates',
   templateUrl: './aggregates.component.html',
@@ -60,6 +56,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private allPrefix: string;
 
   public eventState: EventState;
+  public mapView: Observable<MapView>;
 
   private indicatorSubscription: Subscription;
   private countrySubscription: Subscription;
@@ -83,6 +80,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private analyticsService: AnalyticsService,
     private eapActionsService: EapActionsService,
+    private mapViewService: MapViewService,
   ) {
     this.initialEventStateSubscription = this.eventService
       .getInitialEventStateSubscription()
@@ -121,6 +119,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
       .subscribe(this.onTriggeredAreasChange);
+
+    this.mapView = this.mapViewService.getMapViewSubscription();
   }
 
   ngOnDestroy() {
@@ -241,7 +241,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     );
   }
 
-  public getAggregatesHeader() {
+  public getAggregatesHeader(mapView: MapView) {
     const disasterTypeLabel = `${this.disasterType?.label
       ?.charAt(0)
       .toUpperCase()}${this.disasterType?.label?.substring(1)}`;
@@ -275,8 +275,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     };
 
     return {
-      headerLabel: header[this.getMapView()],
-      subHeaderLabel: subHeader[this.getMapView()],
+      headerLabel: header[mapView],
+      subHeaderLabel: subHeader[mapView],
     };
   }
 
@@ -396,26 +396,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       : (filtered = triggeredAreas.filter((a) => a.stopped));
     this.aggregatesPlaceCodes = filtered.map((a) => a.placeCode);
   };
-
-  public getMapView(): MapView {
-    if (!this.eventState?.event && this.placeCodeHover) {
-      return MapView.adminArea;
-    }
-
-    if (!this.eventState || !this.eventState.event) {
-      return MapView.national;
-    }
-
-    if (this.eventState.event && !this.placeCode && !this.placeCodeHover) {
-      return this.eventHasName() ? MapView.event : MapView.national;
-    }
-
-    if (this.placeCode || this.placeCodeHover) {
-      return MapView.adminArea;
-    }
-
-    return MapView.national;
-  }
 
   public eventHasName(): boolean {
     if (
