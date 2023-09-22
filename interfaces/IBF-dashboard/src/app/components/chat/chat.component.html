@@ -13,7 +13,7 @@
       ></span>
       <app-tooltip
         *ngIf="isWarn"
-        [value]="'chat-component.common.warn-label.tooltip' | translate"
+        [value]="'chat-component.common.warn-label.tooltip' | translate : { supportEmailAddress: supportEmailAddress}"
         color="danger"
       ></app-tooltip>
     </p>
