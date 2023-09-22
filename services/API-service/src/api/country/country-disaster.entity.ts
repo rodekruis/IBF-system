@@ -100,6 +100,10 @@ export class CountryDisasterSettingsEntity {
   public droughtAreas: JSON;
 
   @ApiProperty()
+  @Column('json', { nullable: true })
+  public eventAreas: JSON;
+
+  @ApiProperty()
   @Column({ default: true })
   public enableEarlyActions: boolean;
 

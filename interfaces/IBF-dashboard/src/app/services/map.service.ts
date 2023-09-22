@@ -1006,7 +1006,7 @@ export class MapService {
           adminRegion.properties.placeCode,
         );
         let dashArray;
-        if (adminRegion.properties.placeCode.includes('Disputed')) {
+        if (adminRegion.properties.placeCode?.includes('Disputed')) {
           dashArray = this.disputedBorderStyle.dashArray;
           weight = this.disputedBorderStyle.weight;
           color = this.disputedBorderStyle.color;

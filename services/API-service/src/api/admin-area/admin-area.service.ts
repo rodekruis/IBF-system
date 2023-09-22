@@ -5,13 +5,15 @@ import { HelperService } from '../../shared/helper.service';
 import { InsertResult, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
 import { AdminAreaEntity } from './admin-area.entity';
 import { EventService } from '../event/event.service';
-import { AggregateDataRecord } from 'src/shared/data.model';
+import { AggregateDataRecord } from '../../shared/data.model';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import { CountryService } from '../country/country.service';
+import { DateDto } from '../event/dto/date.dto';
 
 @Injectable()
 export class AdminAreaService {
@@ -25,6 +27,7 @@ export class AdminAreaService {
   public constructor(
     private helperService: HelperService,
     private eventService: EventService,
+    private countryService: CountryService,
   ) {}
 
   public async addOrUpdateAdminAreas(
@@ -189,6 +192,18 @@ export class AdminAreaService {
     leadTime: string,
     eventName: string,
   ): Promise<AggregateDataRecord[]> {
+    const lastTriggeredDate = await this.helperService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
+    if (disasterType === DisasterType.FlashFloods && !eventName) {
+      return await this.getEventAreaAggregates(
+        countryCodeISO3,
+        disasterType,
+        lastTriggeredDate,
+      );
+    }
+
     const placeCodes = await this.getPlaceCodes(
       countryCodeISO3,
       disasterType,
@@ -212,11 +227,6 @@ export class AdminAreaService {
       );
     }
     const staticIndicators = await staticIndicatorsScript.getRawMany();
-
-    const lastTriggeredDate = await this.helperService.getRecentDate(
-      countryCodeISO3,
-      disasterType,
-    );
 
     let dynamicIndicatorsScript = this.adminAreaRepository
       .createQueryBuilder('area')
@@ -281,6 +291,94 @@ export class AdminAreaService {
     });
   }
 
+  private async getEventAreaAggregates(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    lastTriggeredDate: DateDto,
+  ): Promise<AggregateDataRecord[]> {
+    const events = await this.eventService.getEventSummary(
+      countryCodeISO3,
+      disasterType,
+    );
+
+    const aggregateRecords = [];
+    for await (const event of events.filter((e) => e.activeTrigger)) {
+      const aggregateValues = await this.adminAreaDynamicDataRepo
+        .createQueryBuilder('dynamic')
+        .select('dynamic."indicator"', 'indicator')
+        .addSelect(
+          `CASE WHEN dynamic."indicator" = 'alert_threshold' THEN MAX(value) ELSE SUM(value) END as "value"`,
+        )
+        .where({
+          timestamp: MoreThanOrEqual(
+            this.helperService.getUploadCutoffMoment(
+              disasterType,
+              lastTriggeredDate.timestamp,
+            ),
+          ),
+          disasterType: disasterType,
+          eventName: event.eventName,
+        })
+        .groupBy('dynamic."indicator"')
+        .getRawMany();
+
+      for (const indicator of aggregateValues) {
+        const aggregateRecord = new AggregateDataRecord();
+        aggregateRecord.placeCode = event.eventName;
+        aggregateRecord.indicator = indicator.indicator;
+        aggregateRecord.value = indicator.value;
+        aggregateRecords.push(aggregateRecord);
+      }
+    }
+    return aggregateRecords;
+  }
+
+  private async getEventAreas(
+    countryCodeISO3: string,
+    disaster: DisasterEntity,
+    lastTriggeredDate: DateDto,
+  ): Promise<GeoJson> {
+    const events = await this.eventService.getEventSummary(
+      countryCodeISO3,
+      disaster.disasterType,
+    );
+    const country = await this.countryService.findOne(countryCodeISO3, [
+      'countryDisasterSettings',
+    ]);
+    const geoJson: GeoJson = {
+      type: 'FeatureCollection',
+      features: [],
+    };
+    for await (const event of events.filter((e) => e.activeTrigger)) {
+      const eventArea = country.countryDisasterSettings.find(
+        (d) => d.disasterType === disaster.disasterType,
+      ).eventAreas[event.eventName];
+      eventArea['properties'] = {};
+      eventArea['properties']['eventName'] = event.eventName;
+      eventArea['properties']['placeCode'] = event.eventName;
+
+      const aggregateValue = await this.adminAreaDynamicDataRepo
+        .createQueryBuilder('dynamic')
+        .select('SUM(value)', 'value') // TODO: facilitate other aggregate-cases than SUM
+        .where({
+          timestamp: MoreThanOrEqual(
+            this.helperService.getUploadCutoffMoment(
+              disaster.disasterType,
+              lastTriggeredDate.timestamp,
+            ),
+          ),
+          disasterType: disaster.disasterType,
+          indicator: disaster.actionsUnit,
+          eventName: event.eventName,
+        })
+        .getRawOne();
+
+      eventArea['properties'][disaster.actionsUnit] = aggregateValue.value;
+      geoJson.features.push(eventArea);
+    }
+    return geoJson;
+  }
+
   public async getAdminAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
@@ -289,6 +387,19 @@ export class AdminAreaService {
     eventName: string,
   ): Promise<GeoJson> {
     const disaster = await this.getDisasterType(disasterType);
+    const lastTriggeredDate = await this.helperService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
+
+    if (disasterType === DisasterType.FlashFloods && !eventName) {
+      return await this.getEventAreas(
+        countryCodeISO3,
+        disaster,
+        lastTriggeredDate,
+      );
+    }
+
     let adminAreasScript = this.adminAreaRepository
       .createQueryBuilder('area')
       .select([
@@ -301,11 +412,6 @@ export class AdminAreaService {
         countryCodeISO3: countryCodeISO3,
       })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
-
-    const lastTriggeredDate = await this.helperService.getRecentDate(
-      countryCodeISO3,
-      disasterType,
-    );
 
     adminAreasScript = adminAreasScript
       .leftJoin(

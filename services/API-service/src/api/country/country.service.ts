@@ -194,6 +194,9 @@ export class CountryService {
     countryDisasterSettingsEntity.droughtAreas = disaster.droughtAreas
       ? JSON.parse(JSON.stringify(disaster.droughtAreas))
       : null;
+    countryDisasterSettingsEntity.eventAreas = disaster.eventAreas
+      ? JSON.parse(JSON.stringify(disaster.eventAreas))
+      : null;
     countryDisasterSettingsEntity.showMonthlyEapActions =
       disaster.showMonthlyEapActions;
     countryDisasterSettingsEntity.enableEarlyActions =
