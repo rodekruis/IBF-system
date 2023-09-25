@@ -288,10 +288,7 @@
         "drought": "<p>This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.</p><p><strong>Source link:</strong> Kenya Red Cross Society (KRCS).&nbsp;</p><p><strong>Latest updated:</strong> 2020.</p>",
         "floods": "<p>This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.</p><p><strong>Source link:</strong> Kenya Red Cross Society (KRCS).&nbsp;</p><p><strong>Latest updated:</strong> 2020.</p>"
       },
-      "MWI": {
-        "flash-floods": "Data not available yet",
-        "floods": "Data not available yet"
-      },
+      "MWI": { "floods": "Data not available yet" },
       "PHL": {
         "dengue": "Data not available yet",
         "floods": "Data not available yet"
