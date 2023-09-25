@@ -14,8 +14,7 @@ import { DisasterType } from '../disaster/disaster-type.enum';
 import fs from 'fs';
 import { CountryEntity } from '../country/country.entity';
 import { HelperService } from '../../shared/helper.service';
-import { DateDto } from '../event/dto/date.dto';
-import { IndicatorDto } from '../metadata/dto/add-indicators.dto';
+import { EventAreaService } from '../admin-area/services/event-area.service';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -28,6 +27,7 @@ export class AdminAreaDynamicDataService {
 
   public constructor(
     private eventService: EventService,
+    private eventAreaService: EventAreaService,
     private helperService: HelperService,
     private dataSource: DataSource,
   ) {}
@@ -156,46 +156,6 @@ export class AdminAreaDynamicDataService {
     return false;
   }
 
-  private async getEventAreaAggregates(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    indicator: DynamicIndicator,
-    lastTriggeredDate: DateDto,
-  ): Promise<AdminDataReturnDto[]> {
-    const events = await this.eventService.getEventSummary(
-      countryCodeISO3,
-      disasterType,
-    );
-
-    const records = [];
-    for await (const event of events.filter((e) => e.activeTrigger)) {
-      const aggregateValue = await this.adminAreaDynamicDataRepo
-        .createQueryBuilder('dynamic')
-        .select(
-          `CASE WHEN dynamic."indicator" = 'alert_threshold' THEN MAX(value) ELSE SUM(value) END as "value"`,
-        )
-        .where({
-          timestamp: MoreThanOrEqual(
-            this.helperService.getUploadCutoffMoment(
-              disasterType,
-              lastTriggeredDate.timestamp,
-            ),
-          ),
-          disasterType: disasterType,
-          indicator: indicator,
-          eventName: event.eventName,
-        })
-        .groupBy('dynamic."indicator"')
-        .getRawOne();
-
-      const record = new AdminDataReturnDto();
-      record.placeCode = event.eventName;
-      record.value = aggregateValue.value;
-      records.push(record);
-    }
-    return records;
-  }
-
   public async getAdminAreaDynamicData(
     countryCodeISO3: string,
     adminLevel: string,
@@ -210,7 +170,7 @@ export class AdminAreaDynamicDataService {
     );
 
     if (disasterType === DisasterType.FlashFloods && !eventName) {
-      return await this.getEventAreaAggregates(
+      return await this.eventAreaService.getEventAreaDynamicData(
         countryCodeISO3,
         disasterType,
         indicator,
