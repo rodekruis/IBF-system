@@ -1,3 +1,21 @@
+## [0.258.8](https://github.com/rodekruis/IBF-system/compare/v0.258.7...v0.258.8) (2023-09-25)
+
+
+### Bug Fixes
+
+* rm redcross layer again AB[#23770](https://github.com/rodekruis/IBF-system/issues/23770) ([b983741](https://github.com/rodekruis/IBF-system/commit/b98374151aa1c50e45034462483279c84b2ab0b8))
+
+
+
+## [0.258.7](https://github.com/rodekruis/IBF-system/compare/v0.258.6...v0.258.7) (2023-09-22)
+
+
+### Bug Fixes
+
+* process info popups AB[#23665](https://github.com/rodekruis/IBF-system/issues/23665) ([38fc55b](https://github.com/rodekruis/IBF-system/commit/38fc55b472772d1e528dd8986ca8797643668259))
+
+
+
 ## [0.258.6](https://github.com/rodekruis/IBF-system/compare/v0.258.5...v0.258.6) (2023-09-18)
 
 
@@ -91,28 +109,6 @@
 ### Bug Fixes
 
 * install axios dependency AB[#23122](https://github.com/rodekruis/IBF-system/issues/23122) ([f4c094e](https://github.com/rodekruis/IBF-system/commit/f4c094ee20863f35b5347c908944323ae44ca6c3))
-
-
-
-## [0.257.2](https://github.com/rodekruis/IBF-system/compare/v0.257.1...v0.257.2) (2023-08-21)
-
-
-### Bug Fixes
-
-* changes needed after upgrade AB[#23109](https://github.com/rodekruis/IBF-system/issues/23109) ([372ea7e](https://github.com/rodekruis/IBF-system/commit/372ea7ed04515a1f2ac183dde1b91e69fd36a00d))
-* no recompile on save AB[#23131](https://github.com/rodekruis/IBF-system/issues/23131) ([f3ade0d](https://github.com/rodekruis/IBF-system/commit/f3ade0df20c1474bf04d2a0e79cf81136b8cfee8))
-* upgrade eslint-plugin-jest AB[#23109](https://github.com/rodekruis/IBF-system/issues/23109) ([a0200c8](https://github.com/rodekruis/IBF-system/commit/a0200c82bd2c6e5957da6a205ebd390688cc62f4))
-* upgrade eslint-plugin-jest AB[#23109](https://github.com/rodekruis/IBF-system/issues/23109) ([efae2e9](https://github.com/rodekruis/IBF-system/commit/efae2e90e7c9df74bd293ac4ad1564b03fb1b9e6))
-
-
-
-## [0.257.1](https://github.com/rodekruis/IBF-system/compare/v0.257.0...v0.257.1) (2023-08-18)
-
-
-### Bug Fixes
-
-* better mock data flash floods AB[#22984](https://github.com/rodekruis/IBF-system/issues/22984) ([a052514](https://github.com/rodekruis/IBF-system/commit/a05251464e82a68747bae86c18ec0d29dd4579e4))
-* update 'no actions yet' copy AB[#23022](https://github.com/rodekruis/IBF-system/issues/23022) ([d20ef1f](https://github.com/rodekruis/IBF-system/commit/d20ef1fe646077e04cd8df04b181d7456c245588))
 
 
 

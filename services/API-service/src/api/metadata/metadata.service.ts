@@ -118,9 +118,8 @@ export class MetadataService {
     const indicators = await this.indicatorRepository.find();
     return indicators.filter(
       (metadata: IndicatorMetadataEntity): boolean =>
-        metadata.countryDisasterTypes?.[countryCodeISO3] &&
-        metadata.countryDisasterTypes?.[countryCodeISO3][disasterType] !==
-          undefined,
+        metadata.countryDisasterTypes?.[countryCodeISO3]?.[disasterType] !==
+        undefined,
     );
   }
 
@@ -132,8 +131,8 @@ export class MetadataService {
 
     return layers.filter(
       (metadata: LayerMetadataEntity): boolean =>
-        metadata.description?.[countryCodeISO3] &&
-        metadata.description?.[countryCodeISO3][disasterType] !== undefined,
+        metadata.description?.[countryCodeISO3]?.[disasterType] !== undefined ||
+        metadata.type === 'shape', // this includes the 4 adminRegions layers
     );
   }
 }
