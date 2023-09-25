@@ -72,7 +72,10 @@ export class CountryEntity {
       coordinates: [],
     },
   })
-  @Column('geometry')
+  @Column('geometry', {
+    spatialFeatureType: 'Polygon',
+    srid: 4326,
+  })
   public countryBoundingBox: BoundingBox;
 
   @ApiProperty({ example: new Date() })

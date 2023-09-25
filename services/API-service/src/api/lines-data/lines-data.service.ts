@@ -53,7 +53,8 @@ export class LinesDataService {
         referenceId: line.fid || null,
         linesDataCategory: linesDataCategory,
         attributes: JSON.parse(JSON.stringify(pointAttributes)),
-        geom: (): string => `ST_GeomFromText('${line.wkt}')`,
+        geom: (): string => `st_geomfromtext(
+          'GEOMETRYCOLLECTION(${line.wkt})')`,
       };
     });
     await this.linesDataRepository.save(dataArray, { chunk: 100 });

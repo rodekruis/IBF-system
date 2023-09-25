@@ -7,6 +7,7 @@ import {
   JoinColumn,
   OneToMany,
   Index,
+  MultiPolygon,
 } from 'typeorm';
 import { CountryEntity } from '../country/country.entity';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
@@ -43,8 +44,12 @@ export class AdminAreaEntity {
   public placeCodeParent: string;
 
   @ApiProperty()
-  @Column('geometry', { nullable: true })
-  public geom: string;
+  @Column('geometry', {
+    spatialFeatureType: 'MultiPolygon',
+    srid: 4326,
+    nullable: true,
+  })
+  public geom: MultiPolygon;
 
   @OneToMany(
     (): typeof EventPlaceCodeEntity => EventPlaceCodeEntity,
