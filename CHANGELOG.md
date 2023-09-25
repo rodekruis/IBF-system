@@ -1,3 +1,12 @@
+## [0.258.9](https://github.com/rodekruis/IBF-system/compare/v0.258.8...v0.258.9) (2023-09-25)
+
+
+### Bug Fixes
+
+* process every-time-returning migrations AB[#23790](https://github.com/rodekruis/IBF-system/issues/23790) ([9be6f3d](https://github.com/rodekruis/IBF-system/commit/9be6f3d10bdc4fac58be1771e70b1fe450ca42f4))
+
+
+
 ## [0.258.8](https://github.com/rodekruis/IBF-system/compare/v0.258.7...v0.258.8) (2023-09-25)
 
 
@@ -100,15 +109,6 @@
 * update ionic to v6 AB[#23096](https://github.com/rodekruis/IBF-system/issues/23096) ([addd696](https://github.com/rodekruis/IBF-system/commit/addd6962906d6788c7c3d2b27d9f7c004da99ac6))
 * update node to v16 AB[#23105](https://github.com/rodekruis/IBF-system/issues/23105) ([11f452b](https://github.com/rodekruis/IBF-system/commit/11f452bdac8935f6b9adface1264921f7d3f2fe0))
 * update to angular 12 AB[#23095](https://github.com/rodekruis/IBF-system/issues/23095) ([de522d5](https://github.com/rodekruis/IBF-system/commit/de522d5d9effe0facacb8891e827e1116a242b49))
-
-
-
-## [0.257.3](https://github.com/rodekruis/IBF-system/compare/v0.257.2...v0.257.3) (2023-08-21)
-
-
-### Bug Fixes
-
-* install axios dependency AB[#23122](https://github.com/rodekruis/IBF-system/issues/23122) ([f4c094e](https://github.com/rodekruis/IBF-system/commit/f4c094ee20863f35b5347c908944323ae44ca6c3))
 
 
 
