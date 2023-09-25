@@ -19,9 +19,9 @@ export class LoaderInterceptorService implements HttpInterceptor {
   constructor(private loaderService: LoaderService) {}
 
   intercept(
-    request: HttpRequest<any>,
+    request: HttpRequest<unknown>,
     next: HttpHandler,
-  ): Observable<HttpEvent<any>> {
+  ): Observable<HttpEvent<unknown>> {
     const requestPath = request.url;
     const skipRequest = this.requestsToSkip.some((toSkip) =>
       requestPath.includes(toSkip),
@@ -29,12 +29,12 @@ export class LoaderInterceptorService implements HttpInterceptor {
     if (skipRequest) {
       return next.handle(request).pipe(
         tap(
-          (event: HttpEvent<any>) => {
+          (event: HttpEvent<unknown>) => {
             if (event instanceof HttpResponse) {
               this.onEnd(requestPath);
             }
           },
-          (error: any) => {
+          (error: unknown) => {
             console.log('error: ', error);
             this.onEnd(requestPath);
           },
@@ -46,12 +46,12 @@ export class LoaderInterceptorService implements HttpInterceptor {
 
     return next.handle(request).pipe(
       tap(
-        (event: HttpEvent<any>) => {
+        (event: HttpEvent<unknown>) => {
           if (event instanceof HttpResponse) {
             this.onEnd(requestPath);
           }
         },
-        (error: any) => {
+        (error: unknown) => {
           console.log('error: ', error);
           this.onEnd(requestPath);
         },

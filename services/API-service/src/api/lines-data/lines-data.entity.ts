@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, Index } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  Index,
+  Geometry,
+} from 'typeorm';
 
 export enum LinesDataEnum {
   roads = 'roads',
@@ -23,6 +29,10 @@ export class LinesDataEntity {
   public attributes: JSON;
 
   @Index({ spatial: true })
-  @Column('geometry', { nullable: true })
-  public geom: string;
+  @Column('geometry', {
+    spatialFeatureType: 'GeometryCollection',
+    srid: 4326,
+    nullable: true,
+  })
+  public geom: Geometry;
 }

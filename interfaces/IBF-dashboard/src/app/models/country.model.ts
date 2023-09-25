@@ -6,7 +6,7 @@ export class Country {
   countryDisasterSettings: CountryDisasterSettings[];
   countryName: string;
   adminRegionLabels: AdminRegionLabels;
-  countryLogos: {};
+  countryLogos: { [disasterType: string]: string[] };
   disasterTypes: DisasterType[];
   notificationInfo: NotificationInfo;
 }
@@ -17,12 +17,14 @@ export class CountryDisasterSettings {
   defaultAdminLevel: AdminLevel;
   activeLeadTimes: LeadTime[];
   droughtForecastSeasons: DroughtForecastSeasons;
-  droughtAreas: {};
+  droughtAreas: { [area: string]: string[] };
   eapLink: string;
   showMonthlyEapActions: boolean;
   droughtEndOfMonthPipeline?: boolean;
   eapAlertClasses?: EapAlertClasses;
-  monthlyForecastInfo?: {};
+  monthlyForecastInfo?: {
+    [key: string]: string[] | string;
+  };
   enableEarlyActions?: boolean;
   enableStopTrigger?: boolean;
 }

@@ -1,6 +1,13 @@
 # What is new in IBF?
 
-Find here the latest changes to the IBF-system. See notes at the bottom.
+Find here the latest changes to the IBF-system.
+
+- Not all changes to the IBF-system are listed here. Only those that result in different functionality or different user experience.
+- This list is meant to explain changes since the last manual. Please open the manual from the dashboard for a full explanation on the IBF-system.
+
+### 18-09-2023 (v0.258.4)
+
+- IBF Kenya: Cropland and grassland layers removed from Drought portal. Still available in Floods portal.
 
 ### 31-07-2023 (v0.251.0)
 
@@ -96,8 +103,3 @@ Find here the latest changes to the IBF-system. See notes at the bottom.
 ### 04-04-2022 (v0.141.4)
 
 - All IBF: "Stop mechanism" added. By clicking on any triggered area in the map, the trigger/alert for that area can be stopped. "Stopped" areas can be recognized by a black outline in the map, and are summarized in a corresponding speech bubble with black outline the "chat" section.
-
-## Notes
-
-- Not all changes to the IBF-system are listed here. Only those that result in different functionality or different user experience.
-- This list is meant to explain changes since the last manual. Please open the manual from the dashboard for a full explanation on the IBF-system.

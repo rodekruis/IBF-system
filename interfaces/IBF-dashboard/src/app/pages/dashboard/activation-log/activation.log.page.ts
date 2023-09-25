@@ -9,6 +9,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { DisasterTypeService } from '../../../services/disaster-type.service';
 import { DisasterTypeKey } from '../../../types/disaster-type-key';
 
+type ActivationLogRecord = { [key: string]: string | number | boolean };
+
 @Component({
   selector: 'app-activation-log',
   templateUrl: './activation.log.page.html',
@@ -21,7 +23,7 @@ export class ActivationLogPage implements OnInit, OnDestroy {
   public activationLogs:
     | {
         headerData: string[];
-        rowsData: any[][];
+        rowsData: (string | number | boolean)[][];
       }
     | string;
 
@@ -34,8 +36,8 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     private disasterTypeService: DisasterTypeService,
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.countryCodeISO3 = params.countryCodeISO3;
-      this.disasterType = params.disasterType as DisasterTypeKey;
+      this.countryCodeISO3 = params?.['countryCodeISO3'];
+      this.disasterType = params?.['disasterType'] as DisasterTypeKey;
     });
   }
 
@@ -50,13 +52,15 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     this.activationLogSubscription.unsubscribe();
   }
 
-  private onFetchActivationLogs = (data) => {
+  private onFetchActivationLogs = (data: ActivationLogRecord[]) => {
     this.activationLogs = this.jsonToCsv(data);
   };
 
   private jsonToCsv(
-    items: any[],
-  ): { headerData: string[]; rowsData: any[] } | string {
+    items: ActivationLogRecord[],
+  ):
+    | { headerData: string[]; rowsData: (string | number | boolean)[][] }
+    | string {
     if (items.length === 0) {
       return '';
     }

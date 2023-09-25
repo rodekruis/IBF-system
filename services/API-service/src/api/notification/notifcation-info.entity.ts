@@ -33,7 +33,4 @@ export class NotificationInfoEntity {
 
   @Column({ nullable: true })
   public externalEarlyActionForm: string;
-
-  @Column('json', { default: {} })
-  public mailSegment: JSON;
 }

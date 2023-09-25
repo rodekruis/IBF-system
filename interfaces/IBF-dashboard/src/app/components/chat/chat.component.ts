@@ -24,8 +24,10 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
 import { TimelineState } from 'src/app/types/timeline-state';
+import { environment } from '../../../environments/environment';
 import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
+import { Actor } from '../../types/chat';
 import { Indicator } from '../../types/indicator-group';
 import { LeadTimeTriggerKey, LeadTimeUnit } from '../../types/lead-time';
 import { TriggeredArea } from '../../types/triggered-area';
@@ -77,6 +79,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   public lastModelRunDate: string;
   private lastModelRunDateFormat = 'cccc, dd LLLL HH:mm';
   public isWarn = false;
+  public supportEmailAddress = environment.supportEmailAddress;
+
+  public actor = Actor;
 
   constructor(
     private eapActionsService: EapActionsService,
@@ -530,7 +535,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (diff[durationUnit] > durationUnitValue + percentageOvertimeAllowed) {
       this.isWarn = true;
     } else {
-      this.isWarn = false;
+      this.isWarn = true;
     }
   };
 
@@ -546,9 +551,13 @@ export class ChatComponent implements OnInit, OnDestroy {
         const prefixKey = 'prefix';
         const prefix = this.disasterTypeSettings.monthlyForecastInfo[prefixKey];
 
-        return this.disasterTypeSettings.monthlyForecastInfo[
-          currentMonth
-        ].map((forecast) =>
+        const currentMonthforecastInfo = this.disasterTypeSettings
+          .monthlyForecastInfo[currentMonth];
+        if (typeof currentMonthforecastInfo === 'string') {
+          return [];
+        }
+
+        return currentMonthforecastInfo.map((forecast) =>
           this.translateService.instant(`${prefix}.${forecast}`),
         );
       },

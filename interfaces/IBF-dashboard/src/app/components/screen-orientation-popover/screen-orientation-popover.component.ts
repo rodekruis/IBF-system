@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 
 @Component({
@@ -6,13 +6,11 @@ import { PopoverController } from '@ionic/angular';
   templateUrl: './screen-orientation-popover.component.html',
   styleUrls: ['./screen-orientation-popover.component.scss'],
 })
-export class ScreenOrientationPopoverComponent implements OnInit {
+export class ScreenOrientationPopoverComponent {
   @Input()
   public device: string;
 
   constructor(private popoverController: PopoverController) {}
-
-  ngOnInit() {}
 
   public closePopover(): void {
     this.popoverController.dismiss();

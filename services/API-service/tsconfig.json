@@ -18,7 +18,11 @@
     "baseUrl": "./",
     "skipLibCheck": true
   },
-  "watchOptions": { "watchFile": "fixedPollingInterval" },
+  "watchOptions": { 
+    "watchFile": "fixedPollingInterval",
+    "excludeDirectories": ["node_modules", "dist"],
+    "excludeFiles": ["**/*.json"]
+  },
   "include": ["src/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"],
   "types": ["jest"],

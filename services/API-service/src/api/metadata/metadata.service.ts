@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
 import { AddIndicatorsDto, IndicatorDto } from './dto/add-indicators.dto';
 import { AddLayersDto, LayerDto } from './dto/add-layers.dto';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
@@ -14,8 +13,6 @@ export class MetadataService {
   private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
   @InjectRepository(LayerMetadataEntity)
   private readonly layerRepository: Repository<LayerMetadataEntity>;
-  @InjectRepository(DisasterEntity)
-  private readonly disasterRepository: Repository<DisasterEntity>;
 
   public async addOrUpdateIndicators(
     indicators: AddIndicatorsDto,
@@ -48,14 +45,9 @@ export class MetadataService {
     indicatorEntity: IndicatorMetadataEntity,
     indicator: IndicatorDto,
   ): Promise<IndicatorMetadataEntity> {
-    indicatorEntity.countryCodes = indicator.countryCodes;
-    indicatorEntity.disasterTypes = await this.disasterRepository.find({
-      where: indicator.disasterTypes.map(
-        (countryDisasterType: DisasterType): object => {
-          return { disasterType: countryDisasterType };
-        },
-      ),
-    });
+    indicatorEntity.countryDisasterTypes = JSON.parse(
+      JSON.stringify(indicator.countryDisasterTypes || {}),
+    );
     indicatorEntity.label = indicator.label;
     indicatorEntity.icon = indicator.icon;
     indicatorEntity.weightedAvg = indicator.weightedAvg;
@@ -65,7 +57,6 @@ export class MetadataService {
       JSON.stringify(indicator.colorBreaks),
     );
     indicatorEntity.numberFormatMap = indicator.numberFormatMap;
-    indicatorEntity.aggregateIndicator = indicator.aggregateIndicator;
     indicatorEntity.numberFormatAggregate = indicator.numberFormatAggregate;
     indicatorEntity.order = indicator.order;
     indicatorEntity.dynamic = indicator.dynamic;
@@ -106,14 +97,6 @@ export class MetadataService {
     layerEntity: LayerMetadataEntity,
     layer: LayerDto,
   ): Promise<LayerMetadataEntity> {
-    layerEntity.countryCodes = layer.countryCodes;
-    layerEntity.disasterTypes = await this.disasterRepository.find({
-      where: layer.disasterTypes.map(
-        (countryDisasterType: DisasterType): object => {
-          return { disasterType: countryDisasterType };
-        },
-      ),
-    });
     layerEntity.label = layer.label;
     layerEntity.type = layer.type;
     layerEntity.legendColor = layer.legendColor
@@ -132,15 +115,11 @@ export class MetadataService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<IndicatorMetadataEntity[]> {
-    const indicators = await this.indicatorRepository.find({
-      relations: ['disasterTypes'],
-    });
+    const indicators = await this.indicatorRepository.find();
     return indicators.filter(
       (metadata: IndicatorMetadataEntity): boolean =>
-        metadata.countryCodes.split(',').includes(countryCodeISO3) &&
-        metadata.disasterTypes
-          .map((d) => d.disasterType)
-          .includes(disasterType),
+        metadata.countryDisasterTypes?.[countryCodeISO3]?.[disasterType] !==
+        undefined,
     );
   }
 
@@ -148,16 +127,12 @@ export class MetadataService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<LayerMetadataEntity[]> {
-    const layers = await this.layerRepository.find({
-      relations: ['disasterTypes'],
-    });
+    const layers = await this.layerRepository.find();
 
     return layers.filter(
       (metadata: LayerMetadataEntity): boolean =>
-        metadata.countryCodes.split(',').includes(countryCodeISO3) &&
-        metadata.disasterTypes
-          .map((d) => d.disasterType)
-          .includes(disasterType),
+        metadata.description?.[countryCodeISO3]?.[disasterType] !== undefined ||
+        metadata.type === 'shape', // this includes the 4 adminRegions layers
     );
   }
 }

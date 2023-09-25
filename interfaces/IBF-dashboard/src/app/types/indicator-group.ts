@@ -2,13 +2,13 @@ import { LayerActivation } from '../models/layer-activation.enum';
 import { ColorBreaks, IbfLayerLabel, IbfLayerName } from './ibf-layer';
 
 export class Indicator {
+  countryDisasterTypes: JSON;
   name: IbfLayerName;
   label: IbfLayerLabel;
   icon: string;
   active: LayerActivation;
   numberFormatMap: NumberFormat;
   numberFormatAggregate: NumberFormat;
-  aggregateIndicator: string;
   weightedAvg: boolean;
   weightVar: IbfLayerName;
   colorBreaks?: ColorBreaks;
@@ -17,6 +17,7 @@ export class Indicator {
   lazyLoad: boolean;
   dynamic?: boolean;
   description: JSON;
+  aggregateUnit: string;
 }
 
 export enum NumberFormat {

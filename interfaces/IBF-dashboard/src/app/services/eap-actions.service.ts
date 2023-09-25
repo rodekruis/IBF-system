@@ -23,7 +23,7 @@ import { TimelineService } from './timeline.service';
   providedIn: 'root',
 })
 export class EapActionsService {
-  private triggeredAreaSubject = new BehaviorSubject<any[]>([]);
+  private triggeredAreaSubject = new BehaviorSubject<TriggeredArea[]>([]);
   public triggeredAreas: TriggeredArea[];
   private country: Country;
   private disasterType: DisasterType;

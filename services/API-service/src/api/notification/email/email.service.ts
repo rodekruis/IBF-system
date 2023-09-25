@@ -35,15 +35,19 @@ export class EmailService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<number> {
-    const notificationInfo = (
-      await this.notificationContentService.getCountryNotificationInfo(
-        countryCodeISO3,
-      )
-    ).notificationInfo;
-    if (!notificationInfo || !notificationInfo.mailSegment[disasterType]) {
+    const segments: {
+      [countryDisaster: string]: string;
+    } = process.env.MC_SEGMENTS.split(',').reduce((prev, curr) => {
+      const segment = curr.split(':');
+      return { ...prev, [segment[0]]: Number(segment[1]) };
+    }, {});
+
+    const countryDisaster = `${countryCodeISO3}_${disasterType}`;
+    if (!segments || !segments[countryDisaster]) {
       return null;
     }
-    return notificationInfo.mailSegment[disasterType];
+
+    return Number(segments[countryDisaster]);
   }
 
   public async sendTriggerEmail(
@@ -436,6 +440,7 @@ export class EmailService {
         disasterType,
         events,
       );
+
     let leadTimeListShort = '';
     let leadTimeListLong = '';
     for (const leadTime of country.countryDisasterSettings.find(
@@ -459,6 +464,7 @@ export class EmailService {
                 leadTime.leadTimeName as LeadTime,
                 date,
               );
+
             // We are hack-misusing 'extraInfo' being filled as a proxy for typhoonNoLandfallYet-boolean
             leadTimeListShort = `${leadTimeListShort}${leadTimeListEvent.short}`;
             leadTimeListLong = `${leadTimeListLong}${leadTimeListEvent.long}`;
@@ -481,6 +487,7 @@ export class EmailService {
         disasterType,
         events,
       );
+
     let leadTimeTables = '';
     for (const leadTime of country.countryDisasterSettings.find(
       (s) => s.disasterType === disasterType,
@@ -494,6 +501,7 @@ export class EmailService {
               disasterType,
               event.eventName,
             );
+
           if (triggeredLeadTimes[leadTime.leadTimeName] === '1') {
             // .. find the right leadtime
             const tableForLeadTime = await this.getTableForLeadTime(
@@ -572,6 +580,7 @@ export class EmailService {
     }/event/event-map-image/${countryCodeISO3}/${disasterType}/${
       eventName || 'no-name'
     }`;
+
     return src;
   }
 
@@ -653,6 +662,7 @@ export class EmailService {
       country.countryDisasterSettings.find(
         (s) => s.disasterType === disasterType,
       ).defaultAdminLevel,
+
       leadTime.leadTimeName,
       eventName,
     );
@@ -668,6 +678,7 @@ export class EmailService {
           leadTime.leadTimeName as LeadTime,
           eventName,
         );
+
       const areaTable = `<tr class='notification-alerts-table-row'>
       <td align='left'>${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''

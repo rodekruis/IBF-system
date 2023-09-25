@@ -13,7 +13,7 @@
       ></span>
       <app-tooltip
         *ngIf="isWarn"
-        [value]="'chat-component.common.warn-label.tooltip' | translate"
+        [value]="'chat-component.common.warn-label.tooltip' | translate : { supportEmailAddress: supportEmailAddress}"
         color="danger"
       ></app-tooltip>
     </p>
@@ -158,7 +158,7 @@
     </app-dialogue-turn>
   </ng-container>
   <app-dialogue-turn
-    actor="self"
+    [actor]="actor.self"
     *ngFor="let area of filteredActiveAreas; first as isFirst"
     [isConnected]="!isFirst"
     [isTriggered]="eventState?.event?.thresholdReached"
@@ -276,7 +276,7 @@
                   changeAction(
                     area.placeCode,
                     action.action,
-                    $event.detail.checked
+                    $event['detail']['checked']
                   )
                 "
               ></ion-checkbox>

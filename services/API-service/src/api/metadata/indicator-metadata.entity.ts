@@ -1,7 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('indicator-metadata')
 export class IndicatorMetadataEntity {
@@ -9,16 +7,10 @@ export class IndicatorMetadataEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @ApiProperty({ example: process.env.COUNTRIES })
-  @Column()
-  public countryCodes: string;
-
-  @ApiProperty({ example: [{ disasterType: DisasterType.Floods }] })
-  @ManyToMany(
-    (): typeof DisasterEntity => DisasterEntity,
-    (disasterTypes): IndicatorMetadataEntity[] => disasterTypes.indicators,
-  )
-  public disasterTypes: DisasterEntity[];
+  @Column('json', {
+    default: {},
+  })
+  public countryDisasterTypes: JSON;
 
   @ApiProperty()
   @Column()
@@ -36,8 +28,8 @@ export class IndicatorMetadataEntity {
   @Column()
   public weightedAvg: boolean;
 
-  @ApiProperty({ example: 'total_houses', nullable: true })
-  @Column()
+  @ApiProperty({ example: 'total_houses' })
+  @Column({ nullable: true })
   public weightVar: string;
 
   @ApiProperty({ example: 'yes' })
@@ -59,10 +51,6 @@ export class IndicatorMetadataEntity {
   @ApiProperty({ example: 'decimal0' })
   @Column()
   public numberFormatMap: string;
-
-  @ApiProperty({ example: process.env.COUNTRIES })
-  @Column()
-  public aggregateIndicator: string | null;
 
   @ApiProperty({ example: 'decimal0' })
   @Column()

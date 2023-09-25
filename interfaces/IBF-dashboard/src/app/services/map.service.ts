@@ -31,6 +31,7 @@ import { AdminLevel } from '../types/admin-level';
 import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import { TimelineState } from '../types/timeline-state';
+import { TriggeredArea } from '../types/triggered-area';
 import { DisasterTypeService } from './disaster-type.service';
 import { EapActionsService } from './eap-actions.service';
 
@@ -78,23 +79,11 @@ export class MapService {
   public eventState: EventState;
   public timelineState: TimelineState;
   public adminLevel: AdminLevel;
-  public triggeredAreas: any[];
+  public triggeredAreas: TriggeredArea[];
 
   private country: Country;
   private disasterType: DisasterType;
   private placeCode: PlaceCode;
-
-  private aggregatesToExclude = {
-    MWI: {
-      [DisasterTypeKey.flashFloods]: [
-        'nr_affected_roads',
-        'nr_affected_schools',
-        'nr_affected_clinics',
-        'nr_affected_waterpoints',
-        'nr_affected_buildings',
-      ],
-    },
-  };
 
   constructor(
     private countryService: CountryService,
@@ -155,11 +144,11 @@ export class MapService {
     this.timelineState = timelineState;
   };
 
-  private onEventStateChange = (eventState: any) => {
+  private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
   };
 
-  private onTriggeredAreasChange = (triggeredAreas: any[]) => {
+  private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
     this.triggeredAreas = triggeredAreas;
     this.loadLayers();
   };
@@ -242,7 +231,10 @@ export class MapService {
     }
   }
 
-  private addStationLayer = (layer: IbfLayerMetadata, stations: any) => {
+  private addStationLayer = (
+    layer: IbfLayerMetadata,
+    stations: GeoJSON.FeatureCollection,
+  ) => {
     this.addLayer({
       name: IbfLayerName.glofasStations,
       label: IbfLayerLabel.glofasStations,
@@ -280,7 +272,7 @@ export class MapService {
 
   private addTyphoonTrackLayer = (
     layer: IbfLayerMetadata,
-    typhoonTrack: any,
+    typhoonTrack: GeoJSON.FeatureCollection,
   ) => {
     this.addLayer({
       name: IbfLayerName.typhoonTrack,
@@ -328,7 +320,7 @@ export class MapService {
   private addPointDataLayer = (
     layer: IbfLayerMetadata,
     layerName: IbfLayerName,
-    pointData: any,
+    pointData: GeoJSON.FeatureCollection,
   ) => {
     this.addLayer({
       name: layerName,
@@ -361,7 +353,10 @@ export class MapService {
     }
   };
 
-  private addWaterPointsLayer(layer: IbfLayerMetadata, waterPoints: any) {
+  private addWaterPointsLayer(
+    layer: IbfLayerMetadata,
+    waterPoints: GeoJSON.FeatureCollection,
+  ) {
     const isLoading = waterPoints ? false : true;
     this.addLayer({
       name: IbfLayerName.waterpoints,
@@ -398,7 +393,10 @@ export class MapService {
     }
   }
 
-  private addAdminRegionLayer(adminRegions: any, adminLevel: AdminLevel) {
+  private addAdminRegionLayer(
+    adminRegions: GeoJSON.FeatureCollection,
+    adminLevel: AdminLevel,
+  ) {
     this.addLayer({
       name: `${IbfLayerGroup.adminRegions}${adminLevel}` as IbfLayerName,
       label: `${IbfLayerGroup.adminRegions}${adminLevel}` as IbfLayerLabel,
@@ -419,18 +417,10 @@ export class MapService {
       return;
     }
 
-    Object.keys(this.aggregatesToExclude).includes(
-      this.country.countryCodeISO3,
-    );
-
     if (
-      !this.aggregatesToExclude[this.country.countryCodeISO3] ||
-      !this.aggregatesToExclude[this.country.countryCodeISO3][
+      indicator.countryDisasterTypes[this.country.countryCodeISO3][
         this.disasterType.disasterType
-      ] ||
-      !this.aggregatesToExclude[this.country.countryCodeISO3][
-        this.disasterType.disasterType
-      ].includes(indicator.name)
+      ].includes('map')
     ) {
       const layerActive = this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(indicator.name)
@@ -465,7 +455,7 @@ export class MapService {
 
   private addAggregateLayer(
     indicator: Indicator,
-    adminRegions: any,
+    adminRegions: GeoJSON.FeatureCollection,
     active: boolean,
   ) {
     this.addLayer({
@@ -751,7 +741,7 @@ export class MapService {
     eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
     // Do api request to get data layer
-    let admDynamicDataObs: Observable<any>;
+    let admDynamicDataObs: Observable<{ value: number; placeCode: string }[]>;
     if (dynamic) {
       admDynamicDataObs = this.apiService.getAdminAreaDynamicData(
         countryCodeISO3,
@@ -781,13 +771,15 @@ export class MapService {
         for (const area of adminRegions?.features || []) {
           const foundAdmDynamicEntry = admDynamicData.find(
             (admDynamicEntry): number => {
-              if (area.properties?.placeCode === admDynamicEntry.placeCode) {
-                return admDynamicEntry;
+              if (
+                area.properties?.['placeCode'] === admDynamicEntry.placeCode
+              ) {
+                return admDynamicEntry.value;
               }
             },
           );
-          area.properties.indicators = {};
-          area.properties.indicators[layerName] = foundAdmDynamicEntry
+          area['properties']['indicators'] = {};
+          area['properties']['indicators'][layerName] = foundAdmDynamicEntry
             ? foundAdmDynamicEntry.value
             : null;
           updatedFeatures.push(area);
@@ -847,10 +839,10 @@ export class MapService {
 
   getOutlineOpacity(colorPropertyValue) {
     switch (true) {
-      case colorPropertyValue === 0:
-        return 0;
-      default:
+      case colorPropertyValue === 1:
         return 1;
+      default:
+        return 0;
     }
   }
 
@@ -1014,7 +1006,7 @@ export class MapService {
           adminRegion.properties.placeCode,
         );
         let dashArray;
-        if (adminRegion.properties.placeCode.includes('Disputed')) {
+        if (adminRegion.properties.placeCode?.includes('Disputed')) {
           dashArray = this.disputedBorderStyle.dashArray;
           weight = this.disputedBorderStyle.weight;
           color = this.disputedBorderStyle.color;

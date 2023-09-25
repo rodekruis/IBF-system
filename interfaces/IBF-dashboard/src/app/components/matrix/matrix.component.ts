@@ -46,7 +46,7 @@ export class MatrixComponent implements OnDestroy {
   }
 
   private onLayerChange = (newLayer: IbfLayer) => {
-    if (newLayer && newLayer.name === 'alert_threshold') {
+    if (newLayer && newLayer.name === IbfLayerName.alertThreshold) {
       return;
     }
 
@@ -66,7 +66,7 @@ export class MatrixComponent implements OnDestroy {
     }
   };
 
-  async presentPopover(event: any, layer: IbfLayer): Promise<void> {
+  async presentPopover(event: Event, layer: IbfLayer): Promise<void> {
     event.stopPropagation();
 
     const popover = await this.popoverController.create({

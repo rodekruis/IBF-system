@@ -282,12 +282,12 @@ app-tooltip {
 }
 
 .tooltip--container {
-  .popover-content {
+  .popover-viewport {
     padding: 8px;
-    overflow: visible;
-  }
+    overflow: hidden;
 
-  ion-label {
-    padding-inline-start: 0;
+    ion-label {
+      padding-inline-start: 0;
+    }
   }
 }
