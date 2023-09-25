@@ -38,7 +38,6 @@ export class CountryDisasterSettingsEntity {
   @ApiProperty({ example: [1, 2, 3, 4] })
   @Column('int', {
     array: true,
-    default: (): string => 'array[]::int[]',
   })
   public adminLevels: AdminLevel[];
 

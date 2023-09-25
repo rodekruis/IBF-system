@@ -9,7 +9,7 @@ const getViewQuery = (type: LinesDataEnum) => {
       .select([
         `line."referenceId",line.geom${
           type === LinesDataEnum.roads
-            ? `line.attributes->>'highway' as "roadType"`
+            ? `,line.attributes->>'highway' as "highway"`
             : ''
         }`,
       ])
