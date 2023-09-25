@@ -3,12 +3,16 @@ import { InterfaceScript } from './scripts.module';
 import countries from './json/countries.json';
 import fs from 'fs';
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
+import { EventAreaService } from '../api/admin-area/services/event-area.service';
 
 @Injectable()
 export class SeedAdminArea implements InterfaceScript {
   private ADMIN_LEVELS = [1, 2, 3, 4];
 
-  public constructor(private adminAreaService: AdminAreaService) {}
+  public constructor(
+    private adminAreaService: AdminAreaService,
+    private eventAreaService: EventAreaService,
+  ) {}
 
   public async run(): Promise<void> {
     const envCountries = process.env.COUNTRIES.split(',');
@@ -35,6 +39,22 @@ export class SeedAdminArea implements InterfaceScript {
       await this.adminAreaService.addOrUpdateAdminAreas(
         country.countryCodeISO3,
         adminLevel,
+        adminJson,
+      );
+    }
+
+    // upload event-areas per disaster-type
+    for (const disasterType of country.disasterTypes) {
+      const fileName = `./src/scripts/git-lfs/admin-boundaries/${country.countryCodeISO3}_${disasterType}_event-areas.json`;
+      if (!fs.existsSync(fileName)) {
+        continue;
+      }
+      const adminJsonRaw = fs.readFileSync(fileName, 'utf-8');
+      const adminJson = JSON.parse(adminJsonRaw);
+
+      await this.eventAreaService.addOrUpdateEventAreas(
+        country.countryCodeISO3,
+        disasterType,
         adminJson,
       );
     }

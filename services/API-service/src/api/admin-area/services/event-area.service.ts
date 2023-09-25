@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, MoreThanOrEqual } from 'typeorm';
+import { Repository, MoreThanOrEqual, InsertResult } from 'typeorm';
 import {
   AggregateDataRecord,
   EventSummaryCountry,
@@ -10,22 +10,56 @@ import { HelperService } from '../../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from '../../admin-area-dynamic-data/dto/admin-data-return.dto';
 import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
-import { CountryService } from '../../country/country.service';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { DisasterEntity } from '../../disaster/disaster.entity';
 import { DateDto } from '../../event/dto/date.dto';
 import { EventService } from '../../event/event.service';
+import { EventAreaEntity } from '../event-area.entity';
 
 @Injectable()
 export class EventAreaService {
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
+  @InjectRepository(EventAreaEntity)
+  private readonly eventAreaRepository: Repository<EventAreaEntity>;
 
   public constructor(
     private helperService: HelperService,
     private eventService: EventService,
-    private countryService: CountryService,
   ) {}
+
+  public async addOrUpdateEventAreas(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    eventAreasGeoJson: GeoJson,
+  ) {
+    //delete existing entries for country & adminlevel first
+    await this.eventAreaRepository.delete({
+      countryCodeISO3: countryCodeISO3,
+    });
+
+    // then upload new admin-areas
+    await Promise.all(
+      eventAreasGeoJson.features.map((area): Promise<InsertResult> => {
+        return this.eventAreaRepository
+          .createQueryBuilder()
+          .insert()
+          .values({
+            countryCodeISO3: countryCodeISO3,
+            disasterType: disasterType,
+            eventAreaName: area.properties[`name`],
+            geom: (): string => this.geomFunction(area.geometry.coordinates),
+          })
+          .execute();
+      }),
+    );
+  }
+
+  private geomFunction(coordinates): string {
+    return `ST_GeomFromGeoJSON( '{ "type": "MultiPolygon", "coordinates": ${JSON.stringify(
+      coordinates,
+    )} }' )`;
+  }
 
   public async getEventAreas(
     countryCodeISO3: string,
@@ -36,20 +70,19 @@ export class EventAreaService {
       countryCodeISO3,
       disaster.disasterType,
     );
-    const country = await this.countryService.findOne(countryCodeISO3, [
-      'countryDisasterSettings',
-    ]);
-    const geoJson: GeoJson = {
-      type: 'FeatureCollection',
-      features: [],
-    };
+    const eventAreas = [];
     for await (const event of events.filter((e) => e.activeTrigger)) {
-      const eventArea = country.countryDisasterSettings.find(
-        (d) => d.disasterType === disaster.disasterType,
-      ).eventAreas[event.eventName];
-      eventArea['properties'] = {};
-      eventArea['properties']['eventName'] = event.eventName;
-      eventArea['properties']['placeCode'] = event.eventName;
+      const eventArea = await this.eventAreaRepository
+        .createQueryBuilder('area')
+        .where({
+          countryCodeISO3: countryCodeISO3,
+          eventAreaName: event.eventName,
+          disasterType: disaster.disasterType,
+        })
+        .select('ST_AsGeoJSON(area.geom)::json As geom')
+        .getRawOne();
+      eventArea['eventName'] = event.eventName;
+      eventArea['placeCode'] = event.eventName;
 
       const aggregateValue = await this.adminAreaDynamicDataRepo
         .createQueryBuilder('dynamic')
@@ -67,9 +100,10 @@ export class EventAreaService {
         })
         .getRawOne();
 
-      eventArea['properties'][disaster.actionsUnit] = aggregateValue.value;
-      geoJson.features.push(eventArea);
+      eventArea[disaster.actionsUnit] = aggregateValue.value;
+      eventAreas.push(eventArea);
     }
+    const geoJson = this.helperService.toGeojson(eventAreas);
     return geoJson;
   }
 
