@@ -10,8 +10,11 @@ import { PlaceCodeService } from './place-code.service';
   providedIn: 'root',
 })
 export class MapViewService {
-  private mapViewSubject = new BehaviorSubject<MapView>(null);
-  private mapView: MapView;
+  private breadcrumbsMapViewSubject = new BehaviorSubject<MapView>(null);
+  private breadcrumbsMapView: MapView;
+
+  private aggregatesMapViewSubject = new BehaviorSubject<MapView>(null);
+  private aggregatesMapView: MapView;
 
   private eventState: EventState;
   private placeCode: PlaceCode;
@@ -35,53 +38,89 @@ export class MapViewService {
       .subscribe(this.onPlacecodeHoverChange);
   }
 
-  private setMapView(view: MapView) {
-    this.mapView = view;
-    this.mapViewSubject.next(this.mapView);
+  private setAggregatesMapView(view: MapView) {
+    this.aggregatesMapView = view;
+    this.aggregatesMapViewSubject.next(this.aggregatesMapView);
   }
 
-  private updateMapView() {
+  private setBreadcrumbsMapView(view: MapView) {
+    this.breadcrumbsMapView = view;
+    this.breadcrumbsMapViewSubject.next(this.breadcrumbsMapView);
+    this.setAggregatesMapView(view);
+  }
+
+  private updateAggregatesMapView() {
     if (!this.eventState?.event && this.placeCodeHover) {
-      this.setMapView(MapView.adminArea);
+      this.setAggregatesMapView(MapView.adminArea);
       return;
     }
 
     if (!this.eventState || !this.eventState.event) {
-      this.setMapView(MapView.national);
+      this.setAggregatesMapView(MapView.national);
       return;
     }
 
-    if (this.eventState.event && !this.placeCode && !this.placeCodeHover) {
+    if (this.eventState.event && !this.placeCodeHover) {
       this.eventHasName()
-        ? this.setMapView(MapView.event)
-        : this.setMapView(MapView.national);
+        ? this.setAggregatesMapView(MapView.event)
+        : this.setAggregatesMapView(MapView.national);
       return;
     }
 
-    if (this.placeCode || this.placeCodeHover) {
-      this.setMapView(MapView.adminArea);
+    if (this.placeCodeHover) {
+      this.setAggregatesMapView(MapView.adminArea);
       return;
     }
 
-    this.setMapView(MapView.national);
+    this.setAggregatesMapView(MapView.national);
   }
 
-  public getMapViewSubscription(): Observable<MapView> {
-    return this.mapViewSubject.asObservable();
+  private updateBreadcrumbsMapView() {
+    if (!this.eventState?.event && this.placeCode) {
+      this.setAggregatesMapView(MapView.adminArea);
+      return;
+    }
+
+    if (!this.eventState || !this.eventState.event) {
+      this.setBreadcrumbsMapView(MapView.national);
+      return;
+    }
+
+    if (this.eventState.event && !this.placeCode) {
+      this.eventHasName()
+        ? this.setBreadcrumbsMapView(MapView.event)
+        : this.setBreadcrumbsMapView(MapView.national);
+      return;
+    }
+
+    if (this.placeCode) {
+      this.setBreadcrumbsMapView(MapView.adminArea);
+      return;
+    }
+
+    this.setBreadcrumbsMapView(MapView.national);
+  }
+
+  public getBreadcrumbsMapViewSubscription(): Observable<MapView> {
+    return this.breadcrumbsMapViewSubject.asObservable();
+  }
+
+  public getAggregatesMapViewSubscription(): Observable<MapView> {
+    return this.aggregatesMapViewSubject.asObservable();
   }
 
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
-    this.updateMapView();
+    this.updateBreadcrumbsMapView();
   };
 
   private onPlacecodeChange = (pc: PlaceCode) => {
     this.placeCode = pc;
-    this.updateMapView();
+    this.updateBreadcrumbsMapView();
   };
   private onPlacecodeHoverChange = (pc: PlaceCode) => {
     this.placeCodeHover = pc;
-    this.updateMapView();
+    this.updateAggregatesMapView();
   };
 
   private eventHasName(): boolean {

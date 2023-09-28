@@ -10,6 +10,13 @@ import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
 import { TimelineService } from './timeline.service';
 
+export class AdminLevelButton {
+  adminLevel: AdminLevel;
+  disabled: boolean;
+  label: string;
+  buttonTypeClass: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -19,7 +26,11 @@ export class AdminLevelService {
   );
   public oldAdminLevel: AdminLevel = null;
   public adminLevel: AdminLevel;
-  public countryAdminLevels: AdminLevel[];
+  private allCountryAdminLevels: AdminLevel[];
+  private adminLevelButtonsSubject = new BehaviorSubject<AdminLevelButton[]>(
+    [],
+  );
+  private adminLevelButtons: AdminLevelButton[];
   public adminLevelLabel: AdminLevelLabel = new AdminLevelLabel();
   public activeLayerNames: IbfLayerName[] = [];
 
@@ -102,15 +113,36 @@ export class AdminLevelService {
   };
 
   private processAdminLevel() {
-    this.countryAdminLevels = this.country.countryDisasterSettings.find(
+    this.allCountryAdminLevels = Object.keys(
+      this.country.adminRegionLabels,
+    ).map((k) => Number(k));
+
+    const countryDisasterAdminLevels = this.country.countryDisasterSettings.find(
       (s) => s.disasterType === this.disasterType.disasterType,
     ).adminLevels;
+
     this.setAdminLevel(
       this.country.countryDisasterSettings.find(
         (s) => s.disasterType === this.disasterType.disasterType,
       ).defaultAdminLevel,
     );
+
     this.adminLevelLabel = AdminLevelService.loadAdminLevelLabels(this.country);
+
+    this.adminLevelButtons = this.allCountryAdminLevels.map((level) => {
+      return {
+        adminLevel: level,
+        disabled: !countryDisasterAdminLevels.includes(level),
+        label: this.country.adminRegionLabels[level].plural,
+        buttonTypeClass: this.getButtonTypeClass(level),
+      };
+    });
+
+    this.adminLevelButtonsSubject.next(this.adminLevelButtons);
+  }
+
+  public getAdminLevelButtonsSubscription(): Observable<AdminLevelButton[]> {
+    return this.adminLevelButtonsSubject.asObservable();
   }
 
   getAdminLevelSubscription = (): Observable<AdminLevel> => {
@@ -120,5 +152,21 @@ export class AdminLevelService {
   public setAdminLevel(adminLevel: AdminLevel) {
     this.adminLevel = adminLevel;
     this.adminLevelSubject.next(this.adminLevel);
+  }
+
+  private getButtonTypeClass(adminLevel: AdminLevel): string {
+    const prefix = 'breadcrumb-';
+    const length = this.allCountryAdminLevels?.length;
+    if (length === 1) {
+      return `${prefix}alone`;
+    }
+    if (adminLevel === AdminLevel.adminLevel1) {
+      return `${prefix}start`;
+    }
+    if (adminLevel === length) {
+      return `${prefix}end`;
+    }
+
+    return `${prefix}middle`;
   }
 }

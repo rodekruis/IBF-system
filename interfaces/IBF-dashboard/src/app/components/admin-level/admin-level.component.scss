@@ -10,9 +10,7 @@
 
   &.selected {
     --background: var(--ion-color-ibf-no-alert-primary);
-    --border-color: var(--ion-color-ibf-no-alert-primary);
-    --border-width: 2px;
-    --border-style: solid;
+
     --color: var(--ion-color-ibf-white);
   }
 }
@@ -23,8 +21,13 @@
 
 .breadcrumb-middle {
   --border-radius: 0;
+  --border-width: 2px 0px;
 }
 
 .breadcrumb-end {
   --border-radius: 0 50vh 50vh 0;
+}
+
+.breadcrumb-alone {
+  --border-radius: 50vh;
 }

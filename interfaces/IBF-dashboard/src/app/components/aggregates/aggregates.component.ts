@@ -120,7 +120,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       .getTriggeredAreas()
       .subscribe(this.onTriggeredAreasChange);
 
-    this.mapView = this.mapViewService.getMapViewSubscription();
+    this.mapView = this.mapViewService.getAggregatesMapViewSubscription();
   }
 
   ngOnDestroy() {
