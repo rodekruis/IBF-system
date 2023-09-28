@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
@@ -55,6 +56,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
     private mapViewService: MapViewService,
+    public translate: TranslateService,
   ) {}
 
   ngOnInit(): void {

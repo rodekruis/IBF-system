@@ -10,33 +10,48 @@
     <ion-button
       class="breadcrumb"
       [ngClass]="
-      currentMapView === mapViewEnum.national
+        currentMapView === mapViewEnum.national
           ? 'breadcrumb-alone'
           : 'breadcrumb-start'
       "
       [class.selected]="currentMapView === mapViewEnum.national"
-      (click)="clickBreadcrumbButton(mapViewEnum.national, currentMapView === mapViewEnum.national)"
+      (click)="
+        clickBreadcrumbButton(
+          mapViewEnum.national,
+          currentMapView === mapViewEnum.national
+        )
+      "
     >
-      {{ mapViewEnum.national }}
+      {{ 'breadcrumbs.national-view' | translate }}
     </ion-button>
     <ion-button
       *ngIf="currentMapView !== mapViewEnum.national"
       class="breadcrumb"
       [ngClass]="
-      currentMapView === mapViewEnum.event
+        currentMapView === mapViewEnum.event
           ? 'breadcrumb-end'
           : 'breadcrumb-middle'
       "
       [class.selected]="currentMapView === mapViewEnum.event"
-      (click)="clickBreadcrumbButton(mapViewEnum.event, currentMapView === mapViewEnum.event)"
+      (click)="
+        clickBreadcrumbButton(
+          mapViewEnum.event,
+          currentMapView === mapViewEnum.event
+        )
+      "
     >
       {{ (eventState | async).event?.eventName }}
     </ion-button>
     <ion-button
-    *ngIf="currentMapView === mapViewEnum.adminArea"
+      *ngIf="currentMapView === mapViewEnum.adminArea"
       class="breadcrumb breadcrumb-end"
       [class.selected]="currentMapView === mapViewEnum.adminArea"
-      (click)="clickBreadcrumbButton(mapViewEnum.adminArea, currentMapView === mapViewEnum.adminArea)"
+      (click)="
+        clickBreadcrumbButton(
+          mapViewEnum.adminArea,
+          currentMapView === mapViewEnum.adminArea
+        )
+      "
     >
       {{ (placeCode | async).placeCodeName }}
     </ion-button>
