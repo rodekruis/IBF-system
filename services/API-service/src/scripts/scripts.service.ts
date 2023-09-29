@@ -674,7 +674,7 @@ export class ScriptsService {
     triggered: boolean,
   ): boolean {
     if (triggered) {
-      return [LeadTime.hour0, LeadTime.hour6].includes(leadTime);
+      return [LeadTime.hour24, LeadTime.hour6].includes(leadTime);
     } else {
       return leadTime === LeadTime.hour1;
     }
@@ -748,7 +748,7 @@ export class ScriptsService {
       }
     } else if (disasterType === DisasterType.FlashFloods && triggered) {
       if (
-        (eventRegion === 'Karonga' && activeLeadTime === LeadTime.hour0) ||
+        (eventRegion === 'Karonga' && activeLeadTime === LeadTime.hour24) ||
         (eventRegion === 'Rumphi' && activeLeadTime === LeadTime.hour6)
       ) {
         // loop from the end so index stays correct during splicing
@@ -945,7 +945,7 @@ export class ScriptsService {
       PointDataEnum.schools,
       PointDataEnum.waterpointsInternal,
     ];
-    for (const leadTime of [LeadTime.hour0, LeadTime.hour6]) {
+    for (const leadTime of [LeadTime.hour24, LeadTime.hour6]) {
       for (const assetType of Object.keys(LinesDataEnum)) {
         const payload = new UploadLinesExposureStatusDto();
         payload.countryCodeISO3 = countryCodeISO3;
@@ -956,16 +956,16 @@ export class ScriptsService {
         if (assetType === LinesDataEnum.roads) {
           const filename = `./src/api/lines-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${assetType}.json`;
           const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-          leadTime === LeadTime.hour0
-            ? (payload.exposedFids = assets[LeadTime.hour0])
+          leadTime === LeadTime.hour24
+            ? (payload.exposedFids = assets[LeadTime.hour24])
             : leadTime === LeadTime.hour6
             ? (payload.exposedFids = assets[LeadTime.hour6])
             : [];
         } else if (assetType === LinesDataEnum.buildings) {
           const filename = `./src/api/lines-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${assetType}.json`;
           const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-          leadTime === LeadTime.hour0
-            ? (payload.exposedFids = assets[LeadTime.hour0])
+          leadTime === LeadTime.hour24
+            ? (payload.exposedFids = assets[LeadTime.hour24])
             : leadTime === LeadTime.hour6
             ? (payload.exposedFids = assets[LeadTime.hour6])
             : [];
@@ -981,13 +981,13 @@ export class ScriptsService {
         payload.leadTime = leadTime;
         payload.date = date || new Date();
         if (pointAssetType === PointDataEnum.healthSites) {
-          leadTime === LeadTime.hour0
+          leadTime === LeadTime.hour24
             ? (payload.exposedFids = [])
             : leadTime === LeadTime.hour6
             ? (payload.exposedFids = ['124'])
             : [];
         } else if (pointAssetType === PointDataEnum.schools) {
-          leadTime === LeadTime.hour0
+          leadTime === LeadTime.hour24
             ? (payload.exposedFids = ['167'])
             : leadTime === LeadTime.hour6
             ? (payload.exposedFids = [])
@@ -995,8 +995,8 @@ export class ScriptsService {
         } else if (pointAssetType === PointDataEnum.waterpointsInternal) {
           const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${pointAssetType}.json`;
           const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-          leadTime === LeadTime.hour0
-            ? (payload.exposedFids = assets[LeadTime.hour0])
+          leadTime === LeadTime.hour24
+            ? (payload.exposedFids = assets[LeadTime.hour24])
             : leadTime === LeadTime.hour6
             ? (payload.exposedFids = assets[LeadTime.hour6])
             : [];
@@ -1039,7 +1039,7 @@ export class ScriptsService {
         }${triggered ? '-triggered' : ''}.tif`;
         destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
       } else if (disasterType === DisasterType.FlashFloods) {
-        if (leadTime === LeadTime.hour0 || leadTime === LeadTime.hour6) {
+        if (leadTime === LeadTime.hour24 || leadTime === LeadTime.hour6) {
           sourceFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
         } else {
           continue;
