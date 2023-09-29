@@ -24,6 +24,7 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
 import { TimelineState } from 'src/app/types/timeline-state';
+import { environment } from '../../../environments/environment';
 import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
 import { Actor } from '../../types/chat';
@@ -78,6 +79,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public lastModelRunDate: string;
   private lastModelRunDateFormat = 'cccc, dd LLLL HH:mm';
   public isWarn = false;
+  public supportEmailAddress = environment.supportEmailAddress;
 
   public actor = Actor;
 
@@ -533,7 +535,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (diff[durationUnit] > durationUnitValue + percentageOvertimeAllowed) {
       this.isWarn = true;
     } else {
-      this.isWarn = false;
+      this.isWarn = true;
     }
   };
 
