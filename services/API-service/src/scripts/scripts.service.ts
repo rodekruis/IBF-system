@@ -187,7 +187,11 @@ export class ScriptsService {
     }
 
     if (mockInput.disasterType === DisasterType.FlashFloods) {
-      await this.mockEsposedAssets(selectedCountry.countryCodeISO3, date);
+      await this.mockEsposedAssets(
+        selectedCountry.countryCodeISO3,
+        mockInput.triggered,
+        date,
+      );
     }
 
     if (mockInput.disasterType === DisasterType.Typhoon) {
@@ -936,8 +940,12 @@ export class ScriptsService {
     });
   }
 
-  private async mockEsposedAssets(countryCodeISO3: string, date: Date) {
-    if (countryCodeISO3 !== 'MWI') {
+  private async mockEsposedAssets(
+    countryCodeISO3: string,
+    triggered: boolean,
+    date: Date,
+  ) {
+    if (countryCodeISO3 !== 'MWI' || !triggered) {
       return;
     }
     const pointDataCategories = [
