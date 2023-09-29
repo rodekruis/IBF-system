@@ -68,12 +68,9 @@ export class PointDataService {
           'point."pointDataId" = status."referenceId"',
         )
         .andWhere(
-          '(status."timestamp" IS NULL OR status.timestamp >= :cutoffTime)',
+          '(status."timestamp" IS NULL OR status.timestamp = :modelTimestamp)',
           {
-            cutoffTime: this.helperService.getUploadCutoffMoment(
-              disasterType,
-              recentDate.timestamp,
-            ),
+            modelTimestamp: recentDate.timestamp,
           },
         )
         .addSelect('COALESCE(status.exposed,FALSE) as "exposed"');
