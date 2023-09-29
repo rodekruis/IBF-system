@@ -1,3 +1,13 @@
+## [0.258.11](https://github.com/rodekruis/IBF-system/compare/v0.258.10...v0.258.11) (2023-09-29)
+
+
+### Bug Fixes
+
+* change flash-floods mock ongoing to warning AB[#23822](https://github.com/rodekruis/IBF-system/issues/23822) ([419a55b](https://github.com/rodekruis/IBF-system/commit/419a55b2f691544aa315f2272da085dc39398b4c))
+* show no exposed assets if non-triggered AB[#23877](https://github.com/rodekruis/IBF-system/issues/23877) ([c6ef96a](https://github.com/rodekruis/IBF-system/commit/c6ef96a5e195221b32ef383ae6bd69970f227c35))
+
+
+
 ## [0.258.10](https://github.com/rodekruis/IBF-system/compare/v0.258.9...v0.258.10) (2023-09-29)
 
 
@@ -90,16 +100,6 @@
 ### Bug Fixes
 
 * timestamp trackpoing in typhoon pipeline AB[#23372](https://github.com/rodekruis/IBF-system/issues/23372) ([5550a06](https://github.com/rodekruis/IBF-system/commit/5550a068cdbc3fc97173e867a412f932e3d0c30e))
-
-
-
-## [0.258.1](https://github.com/rodekruis/IBF-system/compare/v0.258.0...v0.258.1) (2023-08-25)
-
-
-### Bug Fixes
-
-* update VM_SETUP.md AB[#23341](https://github.com/rodekruis/IBF-system/issues/23341) ([8592baf](https://github.com/rodekruis/IBF-system/commit/8592baf48dfb1e95af2cf85ab154c56284f4992c))
-* use inbuilt docker compose AB[#23107](https://github.com/rodekruis/IBF-system/issues/23107) ([6c96e28](https://github.com/rodekruis/IBF-system/commit/6c96e282616891a700e31b826692bb08fd3bf667))
 
 
 
