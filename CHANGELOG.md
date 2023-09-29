@@ -1,3 +1,12 @@
+## [0.258.10](https://github.com/rodekruis/IBF-system/compare/v0.258.9...v0.258.10) (2023-09-29)
+
+
+### Bug Fixes
+
+* add support email to too-late-tooltip + fix styling AB[#23759](https://github.com/rodekruis/IBF-system/issues/23759) ([97e236c](https://github.com/rodekruis/IBF-system/commit/97e236cf9c101516745c4c3fc2ab222ce0828fc0))
+
+
+
 ## [0.258.9](https://github.com/rodekruis/IBF-system/compare/v0.258.8...v0.258.9) (2023-09-25)
 
 
@@ -91,24 +100,6 @@
 
 * update VM_SETUP.md AB[#23341](https://github.com/rodekruis/IBF-system/issues/23341) ([8592baf](https://github.com/rodekruis/IBF-system/commit/8592baf48dfb1e95af2cf85ab154c56284f4992c))
 * use inbuilt docker compose AB[#23107](https://github.com/rodekruis/IBF-system/issues/23107) ([6c96e28](https://github.com/rodekruis/IBF-system/commit/6c96e282616891a700e31b826692bb08fd3bf667))
-
-
-
-# [0.258.0](https://github.com/rodekruis/IBF-system/compare/v0.257.3...v0.258.0) (2023-08-21)
-
-
-### Bug Fixes
-
-* uninstall angular-toolkit AB[#23097](https://github.com/rodekruis/IBF-system/issues/23097) ([99bd4be](https://github.com/rodekruis/IBF-system/commit/99bd4be6ddcef378abaab87245dfd260c3a0f0b7))
-
-
-### Features
-
-* migrate tslint to eslint AB[#23103](https://github.com/rodekruis/IBF-system/issues/23103) ([cff98d2](https://github.com/rodekruis/IBF-system/commit/cff98d2430bc192a8e68a70cb1a5360f57459fc1))
-* update angular to v13 AB[#23097](https://github.com/rodekruis/IBF-system/issues/23097) ([0e8fe8c](https://github.com/rodekruis/IBF-system/commit/0e8fe8cd13c0b06ff07efcfc00fdb96d9a892686))
-* update ionic to v6 AB[#23096](https://github.com/rodekruis/IBF-system/issues/23096) ([addd696](https://github.com/rodekruis/IBF-system/commit/addd6962906d6788c7c3d2b27d9f7c004da99ac6))
-* update node to v16 AB[#23105](https://github.com/rodekruis/IBF-system/issues/23105) ([11f452b](https://github.com/rodekruis/IBF-system/commit/11f452bdac8935f6b9adface1264921f7d3f2fe0))
-* update to angular 12 AB[#23095](https://github.com/rodekruis/IBF-system/issues/23095) ([de522d5](https://github.com/rodekruis/IBF-system/commit/de522d5d9effe0facacb8891e827e1116a242b49))
 
 
 
