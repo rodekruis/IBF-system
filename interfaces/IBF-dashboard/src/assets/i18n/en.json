@@ -385,5 +385,8 @@
   },
   "breadcrumbs": {
     "national-view": "National View"
+  },
+  "layers-menu": {
+    "menu-toggle-label": "Layers"
   }
 }

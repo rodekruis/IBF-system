@@ -23,11 +23,16 @@
     display: none;
     background: transparent;
   }
+
   ion-menu-toggle {
     cursor: pointer;
 
     ion-toolbar {
       --min-height: 36px;
+
+      ion-title {
+        font-size: 12px;
+      }
     }
   }
   ion-row {
