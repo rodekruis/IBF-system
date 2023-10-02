@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 import {
@@ -57,15 +57,15 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     private disasterTypeService: DisasterTypeService,
     private mapViewService: MapViewService,
     public translate: TranslateService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
     this.country = this.countryService.getCountrySubscription();
     this.disasterType = this.disasterTypeService.getDisasterTypeSubscription();
-    // this.currentMapView = this.mapViewService.getBreadcrumbsMapViewSubscription();
     this.mapViewSubscription = this.mapViewService
       .getBreadcrumbsMapViewSubscription()
-      .subscribe((view) => (this.currentMapView = view));
+      .subscribe(this.onMapViewChange);
     this.eventState = this.eventService.getManualEventStateSubscription();
     this.adminLevelButtons = this.adminLevelService.getAdminLevelButtonsSubscription();
     this.placeCode = this.placeCodeService.getPlaceCodeSubscription();
@@ -74,6 +74,11 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     this.countryDisasterAdminLevelsSubscirption.unsubscribe();
     this.mapViewSubscription.unsubscribe();
   }
+
+  private onMapViewChange = (view: MapView) => {
+    this.currentMapView = view;
+    this.changeDetectorRef.detectChanges();
+  };
 
   public clickAdminLevelButton(adminLevel: AdminLevel): void {
     const layer = this.getAdminLevelLayer(adminLevel);
