@@ -6,7 +6,7 @@
   "
 ></ng-container>
 <ng-template #breadcrumbs>
-  <div class="ion-padding-top ion-margin-start">
+  <div class="ion-margin-start breadcrumbs-container">
     <ion-button
       *ngIf="showBreadcrumb(mapViewEnum.national)"
       class="breadcrumb"
@@ -59,7 +59,7 @@
   </div>
 </ng-template>
 <ng-template #tabs>
-  <div class="ion-margin-top ion-margin-start">
+  <div class="ion-margin-start breadcrumbs-container">
     <ion-button
       *ngFor="let button of adminLevelButtons | async"
       size="small"
