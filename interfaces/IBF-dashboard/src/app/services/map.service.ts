@@ -384,6 +384,7 @@ export class MapService {
           this.timelineState.activeLeadTime,
           adminLevel,
           this.eventState?.event?.eventName,
+          this.placeCode?.placeCode,
         )
         .subscribe((adminRegions) =>
           this.addAdminRegionLayer(adminRegions, adminLevel),
@@ -697,6 +698,7 @@ export class MapService {
           this.timelineState.activeLeadTime,
           this.adminLevel,
           this.eventState?.event?.eventName,
+          this.placeCode?.placeCode,
         )
         .pipe(shareReplay(1));
     } else if (layer.group === IbfLayerGroup.adminRegions) {
@@ -710,6 +712,7 @@ export class MapService {
           this.timelineState.activeLeadTime,
           adminLevel,
           this.eventState?.event?.eventName,
+          this.placeCode?.placeCode,
         )
         .pipe(shareReplay(1));
     } else if (

@@ -98,7 +98,9 @@ export class EapActionsService {
         .getTriggeredAreas(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.adminLevel,
+          this.country.countryDisasterSettings.find(
+            (d) => d.disasterType === this.disasterType.disasterType,
+          ).defaultAdminLevel,
           this.timelineState.activeLeadTime,
           this.eventState.event?.eventName,
         )

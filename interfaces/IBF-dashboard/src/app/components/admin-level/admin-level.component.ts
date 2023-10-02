@@ -148,8 +148,6 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   }
 
   public useBreadcrumbs(disasterType: DisasterType): boolean {
-    console.log('disasterType: ', disasterType);
-    console.log('this.breadcrumbDisasters: ', this.breadcrumbDisasters);
     return this.breadcrumbDisasters.includes(
       disasterType?.disasterType as DisasterTypeKey,
     );
@@ -170,6 +168,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
         this.eventService?.resetEvents();
         return;
       } else {
+        this.adminLevelService.zoomOutAdminLevel();
         this.placeCodeService?.clearPlaceCode();
         return;
       }

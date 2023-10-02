@@ -62,6 +62,7 @@ import {
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { PlaceCode } from '../../models/place-code.model';
+import { AdminLevelService } from '../../services/admin-level.service';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { PointMarkerService } from '../../services/point-marker.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
@@ -120,6 +121,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     private apiService: ApiService,
     private pointMarkerService: PointMarkerService,
     private mapLegendService: MapLegendService,
+    private adminLevelService: AdminLevelService,
   ) {
     this.layerSubscription = this.mapService
       .getLayerSubscription()
@@ -618,7 +620,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     // if click in overview-mode
     if (!this.eventState.event) {
-      // go to event-mode, but don't set placeCode
+      // go to event-view, but don't set placeCode
       if (feature.properties.eventName) {
         const event = this.eventState?.events?.find(
           (e) => e.eventName === feature.properties.eventName,
@@ -630,7 +632,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.eventService.switchEvent(feature.properties.eventName);
       }
     } else if (this.eventState.event) {
-      // in in event-mode, then set placeCode
+      // if in event-view, then set placeCode
       if (feature.properties.placeCode === this.placeCode) {
         element.unbindPopup();
         this.placeCode = null;
@@ -646,6 +648,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           eventName: feature.properties.eventName,
         });
       }
+      this.adminLevelService.zoomInAdminLevel();
     }
   };
 

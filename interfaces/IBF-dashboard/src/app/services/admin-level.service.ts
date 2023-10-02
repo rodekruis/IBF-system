@@ -154,6 +154,16 @@ export class AdminLevelService {
     this.adminLevelSubject.next(this.adminLevel);
   }
 
+  public zoomInAdminLevel() {
+    this.adminLevel = this.adminLevel + 1;
+    this.adminLevelSubject.next(this.adminLevel);
+  }
+
+  public zoomOutAdminLevel() {
+    this.adminLevel = this.adminLevel - 1;
+    this.adminLevelSubject.next(this.adminLevel);
+  }
+
   private getButtonTypeClass(adminLevel: AdminLevel): string {
     const prefix = 'breadcrumb-';
     const length = this.allCountryAdminLevels?.length;

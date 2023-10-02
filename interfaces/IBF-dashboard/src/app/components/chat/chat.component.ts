@@ -25,6 +25,7 @@ import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
 import { TimelineState } from 'src/app/types/timeline-state';
 import { environment } from '../../../environments/environment';
+import { AdminLevelService } from '../../services/admin-level.service';
 import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
 import { Actor } from '../../types/chat';
@@ -97,6 +98,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private analyticsService: AnalyticsService,
     private popoverController: PopoverController,
+    private adminLevelService: AdminLevelService,
   ) {}
 
   ngOnInit() {
@@ -183,7 +185,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
     this.stoppedAreas = this.triggeredAreas.filter((area) => area.stopped);
     this.activeAreas = this.triggeredAreas.filter((area) => !area.stopped);
-    this.setDefaultFilteredAreas();
+    this.onPlaceCodeChange(this.placeCode);
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
@@ -602,16 +604,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   };
 
-  public selectArea(area) {
-    this.placeCodeService.setPlaceCode({
-      countryCodeISO3: this.country.countryCodeISO3,
-      placeCodeName: area.name,
-      placeCode: area.placeCode,
-      placeCodeParentName: area.nameParent,
-    });
-  }
-
   public revertAreaSelection() {
+    this.adminLevelService.zoomOutAdminLevel();
     this.placeCodeService.clearPlaceCode();
   }
 

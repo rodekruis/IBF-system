@@ -296,6 +296,7 @@ export class AdminAreaService {
     adminLevel: number,
     leadTime: string,
     eventName: string,
+    placeCodeParent?: string,
   ): Promise<GeoJson> {
     const disaster = await this.getDisasterType(disasterType);
     const lastTriggeredDate = await this.helperService.getRecentDate(
@@ -323,6 +324,11 @@ export class AdminAreaService {
         countryCodeISO3: countryCodeISO3,
       })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
+    if (placeCodeParent) {
+      adminAreasScript.andWhere('area."placeCodeParent" = :placeCodeParent', {
+        placeCodeParent: placeCodeParent,
+      });
+    }
 
     adminAreasScript = adminAreasScript
       .leftJoin(

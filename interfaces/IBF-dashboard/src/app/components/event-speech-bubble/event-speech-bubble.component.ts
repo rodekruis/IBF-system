@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { PlaceCode } from '../../models/place-code.model';
+import { AdminLevelService } from '../../services/admin-level.service';
 import { EventService, EventSummary } from '../../services/event.service';
 import { PlaceCodeService } from '../../services/place-code.service';
 import { TimelineService } from '../../services/timeline.service';
@@ -58,6 +59,7 @@ export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
     private timelineService: TimelineService,
+    private adminLevelService: AdminLevelService,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
   ) {}
@@ -79,6 +81,7 @@ export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
   }
 
   public selectArea(area) {
+    this.adminLevelService.zoomInAdminLevel();
     this.placeCodeService.setPlaceCode({
       countryCodeISO3: this.countryCodeISO3,
       placeCodeName: area.name,

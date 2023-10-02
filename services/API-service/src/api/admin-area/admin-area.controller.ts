@@ -82,6 +82,7 @@ export class AdminAreaController {
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
+  @ApiQuery({ name: 'placeCodeParent', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
@@ -99,6 +100,7 @@ export class AdminAreaController {
       params.adminLevel,
       query.leadTime,
       query.eventName,
+      query.placeCodeParent,
     );
   }
 

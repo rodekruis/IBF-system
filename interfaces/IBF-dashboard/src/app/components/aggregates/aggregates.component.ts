@@ -373,10 +373,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return this.aggregatesPlaceCodes.includes(placeCode.placeCode);
   }
 
-  public clearPlaceCode() {
-    this.placeCodeService.clearPlaceCode();
-  }
-
   public isActiveAreas(): boolean {
     return this.triggerStatus === 'trigger-active' ? true : false;
   }
