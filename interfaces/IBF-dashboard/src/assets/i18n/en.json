@@ -303,7 +303,7 @@
       }
     },
     "dengue": {
-      "about-button-label": "About Dengue Alerts",
+      "about-button-label": "About Alert",
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for dengue issued."
       },
@@ -327,7 +327,7 @@
       }
     },
     "malaria": {
-      "about-button-label": "About Malaria Alerts",
+      "about-button-label": "About Alert",
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for malaria issued."
       },
