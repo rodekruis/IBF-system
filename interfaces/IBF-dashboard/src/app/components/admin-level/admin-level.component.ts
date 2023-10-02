@@ -36,16 +36,24 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   public currentMapView: MapView;
   private mapViewSubscription: Subscription;
 
-  private countryDisasterAdminLevelsSubscirption: Subscription;
+  private countryDisasterAdminLevelsSubscription: Subscription;
   public adminLevelButtons: Observable<AdminLevelButton[]>;
 
   public adminLevel = AdminLevel;
 
-  public eventState: Observable<EventState>;
+  private eventStateSubscription: Subscription;
+  public eventState: EventState;
 
-  public placeCode: Observable<PlaceCode>;
+  private placeCodeSubscription: Subscription;
+  public placeCode: PlaceCode;
 
-  private breadcrumbCountryDisasters = ['MWI_flash-floods'];
+  private breadcrumbCountryDisasters = [
+    'MWI_flash-floods',
+    'EGY_heavy-rain',
+    'UGA_heavy-rain',
+    'PHL_dengue',
+    'ETH_malaria',
+  ];
 
   constructor(
     public adminLevelService: AdminLevelService,
@@ -66,17 +74,32 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     this.mapViewSubscription = this.mapViewService
       .getBreadcrumbsMapViewSubscription()
       .subscribe(this.onMapViewChange);
-    this.eventState = this.eventService.getManualEventStateSubscription();
+    this.eventStateSubscription = this.eventService
+      .getManualEventStateSubscription()
+      .subscribe(this.onEventChange);
     this.adminLevelButtons = this.adminLevelService.getAdminLevelButtonsSubscription();
-    this.placeCode = this.placeCodeService.getPlaceCodeSubscription();
+    this.placeCodeSubscription = this.placeCodeService
+      .getPlaceCodeSubscription()
+      .subscribe(this.onPlaceCodeChange);
   }
   ngOnDestroy(): void {
-    this.countryDisasterAdminLevelsSubscirption.unsubscribe();
+    this.countryDisasterAdminLevelsSubscription.unsubscribe();
     this.mapViewSubscription.unsubscribe();
+    this.eventStateSubscription.unsubscribe();
+    this.placeCodeSubscription.unsubscribe();
   }
 
   private onMapViewChange = (view: MapView) => {
     this.currentMapView = view;
+    this.changeDetectorRef.detectChanges();
+  };
+
+  private onEventChange = (eventState: EventState) => {
+    this.eventState = eventState;
+  };
+
+  private onPlaceCodeChange = (placeCode: PlaceCode) => {
+    this.placeCode = placeCode;
     this.changeDetectorRef.detectChanges();
   };
 
@@ -135,19 +158,24 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     );
   }
 
-  public clickBreadcrumbButton(view: MapView, selected: boolean) {
+  public clickBreadcrumbButton(breadCrumb: MapView, selected: boolean) {
     if (selected) {
       return;
     }
 
-    if (view === MapView.national) {
-      this.eventService?.resetEvents();
+    if (breadCrumb === MapView.event) {
+      this.placeCodeService?.clearPlaceCode();
       return;
     }
 
-    if (view === MapView.event) {
-      this.placeCodeService?.clearPlaceCode();
-      return;
+    if (breadCrumb === MapView.national) {
+      if (this.mapViewService.eventHasName()) {
+        this.eventService?.resetEvents();
+        return;
+      } else {
+        this.placeCodeService?.clearPlaceCode();
+        return;
+      }
     }
   }
 
@@ -157,7 +185,10 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
         this.currentMapView,
       );
     } else if (breadCrumb === MapView.event) {
-      return [MapView.event, MapView.adminArea].includes(this.currentMapView);
+      return (
+        [MapView.event, MapView.adminArea].includes(this.currentMapView) &&
+        this.mapViewService.eventHasName()
+      );
     } else if (breadCrumb === MapView.adminArea) {
       return [MapView.adminArea].includes(this.currentMapView);
     }
