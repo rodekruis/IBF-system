@@ -1,3 +1,40 @@
+## [0.258.12](https://github.com/rodekruis/IBF-system/compare/v0.258.11...v0.258.12) (2023-10-02)
+
+
+### Bug Fixes
+
+* too late AB[#23899](https://github.com/rodekruis/IBF-system/issues/23899) ([d218f5a](https://github.com/rodekruis/IBF-system/commit/d218f5a66acc2511c6c72e68c8767b771774e7a9))
+
+
+
+## [0.258.11](https://github.com/rodekruis/IBF-system/compare/v0.258.10...v0.258.11) (2023-09-29)
+
+
+### Bug Fixes
+
+* change flash-floods mock ongoing to warning AB[#23822](https://github.com/rodekruis/IBF-system/issues/23822) ([419a55b](https://github.com/rodekruis/IBF-system/commit/419a55b2f691544aa315f2272da085dc39398b4c))
+* show no exposed assets if non-triggered AB[#23877](https://github.com/rodekruis/IBF-system/issues/23877) ([c6ef96a](https://github.com/rodekruis/IBF-system/commit/c6ef96a5e195221b32ef383ae6bd69970f227c35))
+
+
+
+## [0.258.10](https://github.com/rodekruis/IBF-system/compare/v0.258.9...v0.258.10) (2023-09-29)
+
+
+### Bug Fixes
+
+* add support email to too-late-tooltip + fix styling AB[#23759](https://github.com/rodekruis/IBF-system/issues/23759) ([97e236c](https://github.com/rodekruis/IBF-system/commit/97e236cf9c101516745c4c3fc2ab222ce0828fc0))
+
+
+
+## [0.258.9](https://github.com/rodekruis/IBF-system/compare/v0.258.8...v0.258.9) (2023-09-25)
+
+
+### Bug Fixes
+
+* process every-time-returning migrations AB[#23790](https://github.com/rodekruis/IBF-system/issues/23790) ([9be6f3d](https://github.com/rodekruis/IBF-system/commit/9be6f3d10bdc4fac58be1771e70b1fe450ca42f4))
+
+
+
 ## [0.258.8](https://github.com/rodekruis/IBF-system/compare/v0.258.7...v0.258.8) (2023-09-25)
 
 
@@ -63,52 +100,6 @@
 * Revert "refactor: remove segments AB#23529" ([8d642b7](https://github.com/rodekruis/IBF-system/commit/8d642b797031d409f998bdcf7aec4fa0203a652e)), closes [AB#23529](https://github.com/AB/issues/23529)
 * Revert "refactro: use env in mail service AB#23530" ([083558a](https://github.com/rodekruis/IBF-system/commit/083558a125c8744d0d70b5ead90b6faadec61d12)), closes [AB#23530](https://github.com/AB/issues/23530)
 * Revert "chore: disable lint camelcase check" ([ebadb3b](https://github.com/rodekruis/IBF-system/commit/ebadb3b0bba9b9dcd2f0451b08a8dd804262df0e))
-
-
-
-## [0.258.2](https://github.com/rodekruis/IBF-system/compare/v0.258.1...v0.258.2) (2023-08-29)
-
-
-### Bug Fixes
-
-* timestamp trackpoing in typhoon pipeline AB[#23372](https://github.com/rodekruis/IBF-system/issues/23372) ([5550a06](https://github.com/rodekruis/IBF-system/commit/5550a068cdbc3fc97173e867a412f932e3d0c30e))
-
-
-
-## [0.258.1](https://github.com/rodekruis/IBF-system/compare/v0.258.0...v0.258.1) (2023-08-25)
-
-
-### Bug Fixes
-
-* update VM_SETUP.md AB[#23341](https://github.com/rodekruis/IBF-system/issues/23341) ([8592baf](https://github.com/rodekruis/IBF-system/commit/8592baf48dfb1e95af2cf85ab154c56284f4992c))
-* use inbuilt docker compose AB[#23107](https://github.com/rodekruis/IBF-system/issues/23107) ([6c96e28](https://github.com/rodekruis/IBF-system/commit/6c96e282616891a700e31b826692bb08fd3bf667))
-
-
-
-# [0.258.0](https://github.com/rodekruis/IBF-system/compare/v0.257.3...v0.258.0) (2023-08-21)
-
-
-### Bug Fixes
-
-* uninstall angular-toolkit AB[#23097](https://github.com/rodekruis/IBF-system/issues/23097) ([99bd4be](https://github.com/rodekruis/IBF-system/commit/99bd4be6ddcef378abaab87245dfd260c3a0f0b7))
-
-
-### Features
-
-* migrate tslint to eslint AB[#23103](https://github.com/rodekruis/IBF-system/issues/23103) ([cff98d2](https://github.com/rodekruis/IBF-system/commit/cff98d2430bc192a8e68a70cb1a5360f57459fc1))
-* update angular to v13 AB[#23097](https://github.com/rodekruis/IBF-system/issues/23097) ([0e8fe8c](https://github.com/rodekruis/IBF-system/commit/0e8fe8cd13c0b06ff07efcfc00fdb96d9a892686))
-* update ionic to v6 AB[#23096](https://github.com/rodekruis/IBF-system/issues/23096) ([addd696](https://github.com/rodekruis/IBF-system/commit/addd6962906d6788c7c3d2b27d9f7c004da99ac6))
-* update node to v16 AB[#23105](https://github.com/rodekruis/IBF-system/issues/23105) ([11f452b](https://github.com/rodekruis/IBF-system/commit/11f452bdac8935f6b9adface1264921f7d3f2fe0))
-* update to angular 12 AB[#23095](https://github.com/rodekruis/IBF-system/issues/23095) ([de522d5](https://github.com/rodekruis/IBF-system/commit/de522d5d9effe0facacb8891e827e1116a242b49))
-
-
-
-## [0.257.3](https://github.com/rodekruis/IBF-system/compare/v0.257.2...v0.257.3) (2023-08-21)
-
-
-### Bug Fixes
-
-* install axios dependency AB[#23122](https://github.com/rodekruis/IBF-system/issues/23122) ([f4c094e](https://github.com/rodekruis/IBF-system/commit/f4c094ee20863f35b5347c908944323ae44ca6c3))
 
 
 

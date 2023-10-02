@@ -535,7 +535,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (diff[durationUnit] > durationUnitValue + percentageOvertimeAllowed) {
       this.isWarn = true;
     } else {
-      this.isWarn = true;
+      this.isWarn = false;
     }
   };
 
