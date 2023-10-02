@@ -636,6 +636,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.placeCode = null;
         this.placeCodeService.clearPlaceCode();
       } else {
+        this.placeCodeService.clearPlaceCode();
         this.bindPopupAdminRegions(feature, element);
         this.placeCode = feature.properties.placeCode;
         this.placeCodeService.setPlaceCode({
