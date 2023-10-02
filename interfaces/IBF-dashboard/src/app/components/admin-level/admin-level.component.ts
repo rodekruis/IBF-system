@@ -14,12 +14,12 @@ import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { IbfLayer, IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
-import { Country, DisasterType } from '../../models/country.model';
+import { DisasterType } from '../../models/country.model';
 import { PlaceCode } from '../../models/place-code.model';
-import { CountryService } from '../../services/country.service';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { MapViewService } from '../../services/map-view.service';
 import { PlaceCodeService } from '../../services/place-code.service';
+import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { EventState } from '../../types/event-state';
 import { MapView } from '../../types/map-view';
 
@@ -29,14 +29,12 @@ import { MapView } from '../../types/map-view';
   styleUrls: ['./admin-level.component.scss'],
 })
 export class AdminLevelComponent implements OnInit, OnDestroy {
-  public country: Observable<Country>;
   public disasterType: Observable<DisasterType>;
 
   public mapViewEnum = MapView;
   public currentMapView: MapView;
   private mapViewSubscription: Subscription;
 
-  private countryDisasterAdminLevelsSubscription: Subscription;
   public adminLevelButtons: Observable<AdminLevelButton[]>;
 
   public adminLevel = AdminLevel;
@@ -47,12 +45,12 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   private placeCodeSubscription: Subscription;
   public placeCode: PlaceCode;
 
-  private breadcrumbCountryDisasters = [
-    'MWI_flash-floods',
-    'EGY_heavy-rain',
-    'UGA_heavy-rain',
-    'PHL_dengue',
-    'ETH_malaria',
+  private breadcrumbDisasters = [
+    DisasterTypeKey.flashFloods,
+    DisasterTypeKey.heavyRain,
+    DisasterTypeKey.dengue,
+    DisasterTypeKey.malaria,
+    DisasterTypeKey.floods,
   ];
 
   constructor(
@@ -61,7 +59,6 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     private analyticsService: AnalyticsService,
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
-    private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
     private mapViewService: MapViewService,
     public translate: TranslateService,
@@ -69,7 +66,6 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.country = this.countryService.getCountrySubscription();
     this.disasterType = this.disasterTypeService.getDisasterTypeSubscription();
     this.mapViewSubscription = this.mapViewService
       .getBreadcrumbsMapViewSubscription()
@@ -83,7 +79,6 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
       .subscribe(this.onPlaceCodeChange);
   }
   ngOnDestroy(): void {
-    this.countryDisasterAdminLevelsSubscription.unsubscribe();
     this.mapViewSubscription.unsubscribe();
     this.eventStateSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
@@ -152,9 +147,11 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     return this.mapService.getLayerByName(layerName);
   }
 
-  public useBreadcrumbs(country: Country, disasterType: DisasterType): boolean {
-    return this.breadcrumbCountryDisasters.includes(
-      `${country?.countryCodeISO3}_${disasterType?.disasterType}`,
+  public useBreadcrumbs(disasterType: DisasterType): boolean {
+    console.log('disasterType: ', disasterType);
+    console.log('this.breadcrumbDisasters: ', this.breadcrumbDisasters);
+    return this.breadcrumbDisasters.includes(
+      disasterType?.disasterType as DisasterTypeKey,
     );
   }
 
