@@ -1,3 +1,12 @@
+## [0.258.12](https://github.com/rodekruis/IBF-system/compare/v0.258.11...v0.258.12) (2023-10-02)
+
+
+### Bug Fixes
+
+* too late AB[#23899](https://github.com/rodekruis/IBF-system/issues/23899) ([d218f5a](https://github.com/rodekruis/IBF-system/commit/d218f5a66acc2511c6c72e68c8767b771774e7a9))
+
+
+
 ## [0.258.11](https://github.com/rodekruis/IBF-system/compare/v0.258.10...v0.258.11) (2023-09-29)
 
 
@@ -91,15 +100,6 @@
 * Revert "refactor: remove segments AB#23529" ([8d642b7](https://github.com/rodekruis/IBF-system/commit/8d642b797031d409f998bdcf7aec4fa0203a652e)), closes [AB#23529](https://github.com/AB/issues/23529)
 * Revert "refactro: use env in mail service AB#23530" ([083558a](https://github.com/rodekruis/IBF-system/commit/083558a125c8744d0d70b5ead90b6faadec61d12)), closes [AB#23530](https://github.com/AB/issues/23530)
 * Revert "chore: disable lint camelcase check" ([ebadb3b](https://github.com/rodekruis/IBF-system/commit/ebadb3b0bba9b9dcd2f0451b08a8dd804262df0e))
-
-
-
-## [0.258.2](https://github.com/rodekruis/IBF-system/compare/v0.258.1...v0.258.2) (2023-08-29)
-
-
-### Bug Fixes
-
-* timestamp trackpoing in typhoon pipeline AB[#23372](https://github.com/rodekruis/IBF-system/issues/23372) ([5550a06](https://github.com/rodekruis/IBF-system/commit/5550a068cdbc3fc97173e867a412f932e3d0c30e))
 
 
 
