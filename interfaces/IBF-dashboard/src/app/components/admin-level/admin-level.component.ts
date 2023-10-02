@@ -151,17 +151,15 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     }
   }
 
-  public showNationalBreadcrumb(): boolean {
-    return [MapView.national, MapView.event, MapView.adminArea].includes(
-      this.currentMapView,
-    );
-  }
-
-  public showEventBreadcrumb(): boolean {
-    return [MapView.event, MapView.adminArea].includes(this.currentMapView);
-  }
-
-  public showAdminAreaBreadcrumb(): boolean {
-    return [MapView.adminArea].includes(this.currentMapView);
+  public showBreadcrumb(breadCrumb: MapView): boolean {
+    if (breadCrumb === MapView.national) {
+      return [MapView.national, MapView.event, MapView.adminArea].includes(
+        this.currentMapView,
+      );
+    } else if (breadCrumb === MapView.event) {
+      return [MapView.event, MapView.adminArea].includes(this.currentMapView);
+    } else if (breadCrumb === MapView.adminArea) {
+      return [MapView.adminArea].includes(this.currentMapView);
+    }
   }
 }

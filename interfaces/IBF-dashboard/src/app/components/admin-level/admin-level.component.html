@@ -8,6 +8,7 @@
 <ng-template #breadcrumbs>
   <div class="ion-padding-top ion-margin-start">
     <ion-button
+    *ngIf="showBreadcrumb(mapViewEnum.national)"
       class="breadcrumb"
       [ngClass]="
         currentMapView === mapViewEnum.national
@@ -25,7 +26,7 @@
       {{ 'breadcrumbs.national-view' | translate }}
     </ion-button>
     <ion-button
-      *ngIf="currentMapView !== mapViewEnum.national"
+      *ngIf="showBreadcrumb(mapViewEnum.event)"
       class="breadcrumb"
       [ngClass]="
         currentMapView === mapViewEnum.event
@@ -43,7 +44,7 @@
       {{ (eventState | async).event?.eventName }}
     </ion-button>
     <ion-button
-      *ngIf="currentMapView === mapViewEnum.adminArea"
+    *ngIf="showBreadcrumb(mapViewEnum.adminArea)"
       class="breadcrumb breadcrumb-end"
       [class.selected]="currentMapView === mapViewEnum.adminArea"
       (click)="
