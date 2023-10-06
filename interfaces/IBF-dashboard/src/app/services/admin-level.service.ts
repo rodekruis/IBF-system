@@ -175,9 +175,7 @@ export class AdminLevelService {
   }
 
   public zoomToDefaultAdminLevel() {
-    this.adminLevel = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).defaultAdminLevel;
+    this.adminLevel = this.disasterTypeSettings.defaultAdminLevel;
     this.adminLevelSubject.next(this.adminLevel);
   }
 
