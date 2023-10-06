@@ -235,10 +235,13 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   ) {
     const placeCode = this.placeCode || this.placeCodeHover;
     const adminLevelType = this.adminLevelService.getAdminLevelType(placeCode);
+    // TODO: improve/explain logic
     return this.aggregatesService.getAggregate(
       weightedAvg,
       indicatorName,
-      adminLevelType === AdminLevelType.higher
+      this.placeCodeHover
+        ? this.placeCodeHover.placeCode
+        : adminLevelType === AdminLevelType.higher
         ? null
         : placeCode
         ? placeCode.placeCode
