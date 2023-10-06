@@ -642,6 +642,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           this.placeCodeService.clearPlaceCode();
         }
       } else {
+        this.placeCodeService.clearPlaceCode();
         this.bindPopupAdminRegions(feature, element);
         const zoomIn =
           feature.properties.adminLevel > (this.placeCode?.adminLevel || 0);
