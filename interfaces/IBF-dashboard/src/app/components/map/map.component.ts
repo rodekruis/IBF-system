@@ -77,7 +77,7 @@ import { IbfLayerThreshold } from './../../types/ibf-layer';
 export class MapComponent implements AfterViewInit, OnDestroy {
   private map: Map;
   public layers: IbfLayer[] = [];
-  private placeCode: string;
+  private placeCode: PlaceCode;
   private country: Country;
   private disasterType: DisasterType;
   public lastModelRunDate: string;
@@ -206,7 +206,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode): void => {
-    this.placeCode = placeCode?.placeCode;
+    this.placeCode = placeCode;
 
     this.layers.forEach((layer: IbfLayer): void => {
       if (layer.leafletLayer && 'resetStyle' in layer.leafletLayer) {
@@ -238,7 +238,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         let zoomExtraOffset: number;
         if (this.placeCode) {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features.filter(
-            (area) => area?.properties?.['placeCode'] === this.placeCode,
+            (area) =>
+              area?.properties?.['placeCode'] === this.placeCode.placeCode,
           );
           zoomExtraOffset = 0.1;
         } else {
@@ -633,22 +634,32 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       }
     } else if (this.eventState.event) {
       // if in event-view, then set placeCode
-      if (feature.properties.placeCode === this.placeCode) {
+      if (feature.properties.placeCode === this.placeCode?.placeCode) {
         element.unbindPopup();
-        this.placeCode = null;
-        this.placeCodeService.clearPlaceCode();
+        if (this.placeCode.placeCodeParent) {
+          this.placeCodeService.setPlaceCode(this.placeCode.placeCodeParent);
+        } else {
+          this.placeCodeService.clearPlaceCode();
+        }
       } else {
         this.bindPopupAdminRegions(feature, element);
-        this.placeCode = feature.properties.placeCode;
+        const zoomIn =
+          feature.properties.adminLevel > (this.placeCode?.adminLevel || 0);
+        if (zoomIn) {
+          this.adminLevelService.zoomInAdminLevel();
+        }
         this.placeCodeService.setPlaceCode({
           placeCode: feature.properties.placeCode,
           countryCodeISO3: feature.properties.countryCodeISO3,
           placeCodeName: feature.properties.name,
+          placeCodeParent: zoomIn
+            ? this.placeCode
+            : this.placeCode?.placeCodeParent,
           placeCodeParentName: feature.properties.nameParent,
+          adminLevel: feature.properties.adminLevel,
           eventName: feature.properties.eventName,
         });
       }
-      this.adminLevelService.zoomInAdminLevel();
     }
   };
 

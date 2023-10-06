@@ -28,6 +28,7 @@ import { environment } from '../../../environments/environment';
 import { AdminLevelService } from '../../services/admin-level.service';
 import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
+import { AdminLevelType } from '../../types/admin-level';
 import { Actor } from '../../types/chat';
 import { Indicator } from '../../types/indicator-group';
 import { LeadTimeTriggerKey, LeadTimeUnit } from '../../types/lead-time';
@@ -226,7 +227,9 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.indicators.length &&
       this.timelineState
     ) {
-      const adminLevel = this.disasterTypeSettings.defaultAdminLevel;
+      const adminLevel =
+        this.placeCode?.adminLevel ||
+        this.disasterTypeSettings.defaultAdminLevel;
       this.adminAreaLabel = this.country.adminRegionLabels[adminLevel].singular;
       this.adminAreaLabelPlural = this.country.adminRegionLabels[
         adminLevel
@@ -605,8 +608,17 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   public revertAreaSelection() {
-    this.adminLevelService.zoomOutAdminLevel();
-    this.placeCodeService.clearPlaceCode();
+    if (
+      this.adminLevelService.getAdminLevelType(this.placeCode) !==
+      AdminLevelType.deepest
+    ) {
+      this.adminLevelService.zoomOutAdminLevel();
+    }
+    if (this.placeCode.placeCodeParent) {
+      this.placeCodeService.setPlaceCode(this.placeCode.placeCodeParent);
+    } else {
+      this.placeCodeService.clearPlaceCode();
+    }
   }
 
   public getAreaParentString(area): string {

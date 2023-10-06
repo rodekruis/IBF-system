@@ -317,6 +317,7 @@ export class AdminAreaService {
       .select([
         'area."placeCode"',
         'area."name"',
+        'area."adminLevel"',
         'ST_AsGeoJSON(area.geom)::json As geom',
         'area."countryCodeISO3"',
       ])

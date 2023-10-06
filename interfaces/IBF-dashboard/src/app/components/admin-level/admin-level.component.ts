@@ -168,7 +168,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
         this.eventService?.resetEvents();
         return;
       } else {
-        this.adminLevelService.zoomOutAdminLevel();
+        this.adminLevelService.zoomToDefaultAdminLevel();
         this.placeCodeService?.clearPlaceCode();
         return;
       }

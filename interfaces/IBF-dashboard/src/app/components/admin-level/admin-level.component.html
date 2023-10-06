@@ -41,7 +41,7 @@
         )
       "
     >
-      {{ (eventState | async).event?.eventName }}
+      {{ eventState?.event?.eventName }}
     </ion-button>
     <ion-button
       *ngIf="showBreadcrumb(mapViewEnum.adminArea)"
