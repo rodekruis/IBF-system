@@ -8,6 +8,7 @@ export enum AdminLevel {
 export enum AdminLevelType {
   single = 'single',
   deepest = 'deepest',
+  higher = 'higher',
 }
 
 export class AdminLevelLabel {

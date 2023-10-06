@@ -203,7 +203,7 @@ export class AdminLevelService {
     } else if (this.isDeepestAdminLevel(placeCode)) {
       return AdminLevelType.deepest;
     } else {
-      return null;
+      return AdminLevelType.higher;
     }
   }
 
