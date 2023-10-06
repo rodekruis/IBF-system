@@ -9,6 +9,13 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EventState } from 'src/app/types/event-state';
 import { AnalyticsEvent, AnalyticsPage } from '../../analytics/analytics.enum';
 import { AnalyticsService } from '../../analytics/analytics.service';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from '../../models/country.model';
+import { CountryService } from '../../services/country.service';
+import { DisasterTypeService } from '../../services/disaster-type.service';
 import { AreaOfFocus } from '../../types/area-of-focus';
 import { TriggeredArea } from '../../types/triggered-area';
 import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
@@ -23,11 +30,17 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   private placeCodeSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
+  private countrySubscription: Subscription;
+  public disasterTypeSubscription: Subscription;
 
+  public country: Country;
+  public disasterType: DisasterType;
+  public disasterTypeSettings: CountryDisasterSettings;
   public areasOfFocus: AreaOfFocus[];
   public triggeredAreas: TriggeredArea[];
   public trigger: boolean;
   public eventState: EventState;
+  public placeCode: PlaceCode;
 
   constructor(
     private eapActionsService: EapActionsService,
@@ -37,9 +50,19 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     private popoverController: PopoverController,
     private analyticsService: AnalyticsService,
+    private disasterTypeService: DisasterTypeService,
+    private countryService: CountryService,
   ) {}
 
   ngOnInit() {
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .subscribe(this.onCountryChange);
+
+    this.disasterTypeSubscription = this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
+
     this.eapActionSubscription = this.eapActionsService
       .getTriggeredAreas()
       .subscribe(this.onTriggeredAreasChange);
@@ -58,11 +81,24 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.countrySubscription.unsubscribe();
+    this.disasterTypeSubscription.unsubscribe();
     this.eapActionSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
   }
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+  };
+
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
+    this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    );
+  };
 
   private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
     this.triggeredAreas = triggeredAreas;
@@ -70,21 +106,9 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
-    if (placeCode) {
-      const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
-        triggeredArea.placeCode === placeCode.placeCode;
-
-      const filteredAreas = this.triggeredAreas.filter(
-        filterTriggeredAreasByPlaceCode,
-      );
-
-      this.calculateEAPActionStatus(filteredAreas);
-    } else {
-      this.calculateEAPActionStatus(this.triggeredAreas);
-    }
+    this.placeCode = placeCode;
+    this.calculateEAPActionStatus(this.triggeredAreas);
   };
-
-  // data needs to be reorganized to avoid the mess that follows
 
   private onEachEAPAction = (areaOfFocus) => (action) => {
     // And count the total # of (checked) tasks this way
@@ -102,6 +126,11 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   };
 
   private calculateEAPActionStatus(triggeredAreas): void {
+    if (this.placeCode) {
+      triggeredAreas = triggeredAreas.filter(
+        (a) => a.placeCode === this.placeCode?.placeCode,
+      );
+    }
     const onEachAreaOfFocus = (areaOfFocus: AreaOfFocus) => {
       areaOfFocus.count = 0;
       areaOfFocus.countChecked = 0;
@@ -160,15 +189,9 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   }
 
   public showAreasOfFocusSummary(): boolean {
-    let show = false;
-
-    for (const area of this.triggeredAreas) {
-      if (area.eapActions.length > 0) {
-        show = true;
-        break;
-      }
+    if (!this.disasterTypeSettings.enableEarlyActions) {
+      return false;
     }
-
-    return show;
+    return true;
   }
 }
