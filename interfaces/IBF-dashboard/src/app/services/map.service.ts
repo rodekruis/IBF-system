@@ -734,15 +734,15 @@ export class MapService {
     return layerData;
   };
 
-  private getPlaceCodeParent(): string {
-    const adminLevelType = this.adminLevelService.getAdminLevelType(
-      this.placeCode,
-    );
+  public getPlaceCodeParent(placeCode?: PlaceCode): string {
+    placeCode = placeCode || this.placeCode;
+    const adminLevelType = this.adminLevelService.getAdminLevelType(placeCode);
+
     return adminLevelType === AdminLevelType.single
       ? null
       : adminLevelType === AdminLevelType.deepest
-      ? this.placeCode?.placeCodeParent.placeCode
-      : this.placeCode?.placeCode;
+      ? placeCode?.placeCodeParent.placeCode
+      : placeCode?.placeCode;
   }
 
   getCombineAdminRegionData(

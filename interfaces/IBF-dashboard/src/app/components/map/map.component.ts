@@ -605,6 +605,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       placeCodeName: feature.properties.name,
       placeCodeParentName: feature.properties.nameParent,
       eventName: feature.properties.eventName,
+      adminLevel: feature.properties.adminLevel,
     });
   };
 

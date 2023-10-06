@@ -190,6 +190,7 @@ export class AdminAreaService {
     adminLevel: number,
     leadTime: string,
     eventName: string,
+    placeCodeParent?: string,
   ): Promise<AggregateDataRecord[]> {
     const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
@@ -219,6 +220,14 @@ export class AdminAreaService {
         countryCodeISO3: countryCodeISO3,
       })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
+    if (placeCodeParent) {
+      staticIndicatorsScript.andWhere(
+        'area."placeCodeParent" = :placeCodeParent',
+        {
+          placeCodeParent: placeCodeParent,
+        },
+      );
+    }
     if (placeCodes.length) {
       staticIndicatorsScript = staticIndicatorsScript.andWhere(
         'area."placeCode" IN (:...placeCodes)',
@@ -249,7 +258,14 @@ export class AdminAreaService {
         disasterType: disasterType,
       })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
-
+    if (placeCodeParent) {
+      dynamicIndicatorsScript.andWhere(
+        'area."placeCodeParent" = :placeCodeParent',
+        {
+          placeCodeParent: placeCodeParent,
+        },
+      );
+    }
     if (leadTime) {
       dynamicIndicatorsScript.andWhere('dynamic."leadTime" = :leadTime', {
         leadTime: leadTime,
