@@ -45,12 +45,48 @@
     </ion-button>
     <ion-button
       *ngIf="showBreadcrumb(mapViewEnum.adminArea)"
-      class="breadcrumb breadcrumb-end"
+      class="breadcrumb"
+      [ngClass]="
+        currentMapView === mapViewEnum.adminArea
+          ? 'breadcrumb-end'
+          : 'breadcrumb-middle'
+      "
       [class.selected]="currentMapView === mapViewEnum.adminArea"
       (click)="
         clickBreadcrumbButton(
           mapViewEnum.adminArea,
           currentMapView === mapViewEnum.adminArea
+        )
+      "
+      [innerHtml]="currentMapView === mapViewEnum.adminArea ? placeCode?.placeCodeName : currentMapView === mapViewEnum.adminArea2 ? placeCode?.placeCodeParent?.placeCodeName : placeCode?.placeCodeParent?.placeCodeParent?.placeCodeName"
+    >
+    </ion-button>
+    <ion-button
+      *ngIf="showBreadcrumb(mapViewEnum.adminArea2)"
+      class="breadcrumb"
+      [ngClass]="
+        currentMapView === mapViewEnum.adminArea2
+          ? 'breadcrumb-end'
+          : 'breadcrumb-middle'
+      "
+      [class.selected]="currentMapView === mapViewEnum.adminArea2"
+      (click)="
+        clickBreadcrumbButton(
+          mapViewEnum.adminArea2,
+          currentMapView === mapViewEnum.adminArea2
+        )
+      "
+      [innerHtml]="currentMapView === mapViewEnum.adminArea2 ? placeCode?.placeCodeName : placeCode?.placeCodeParent?.placeCodeName"
+    >
+    </ion-button>
+    <ion-button
+      *ngIf="showBreadcrumb(mapViewEnum.adminArea3)"
+      class="breadcrumb breadcrumb-end"
+      [class.selected]="currentMapView === mapViewEnum.adminArea3"
+      (click)="
+        clickBreadcrumbButton(
+          mapViewEnum.adminArea3,
+          currentMapView === mapViewEnum.adminArea3
         )
       "
     >

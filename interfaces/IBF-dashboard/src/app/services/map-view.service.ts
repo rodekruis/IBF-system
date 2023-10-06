@@ -93,6 +93,16 @@ export class MapViewService {
       return;
     }
 
+    if (this.placeCode?.placeCodeParent?.placeCodeParent) {
+      this.setBreadcrumbsMapView(MapView.adminArea3);
+      return;
+    }
+
+    if (this.placeCode?.placeCodeParent) {
+      this.setBreadcrumbsMapView(MapView.adminArea2);
+      return;
+    }
+
     if (this.placeCode) {
       this.setBreadcrumbsMapView(MapView.adminArea);
       return;

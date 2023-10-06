@@ -12,7 +12,7 @@ import {
 } from 'src/app/services/admin-level.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
-import { AdminLevel } from 'src/app/types/admin-level';
+import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
 import { IbfLayer, IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
 import { DisasterType } from '../../models/country.model';
 import { PlaceCode } from '../../models/place-code.model';
@@ -158,6 +158,38 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
       return;
     }
 
+    // This currently only applies for UGA floods level 4 to 3
+    if (breadCrumb === MapView.adminArea2) {
+      if (
+        this.adminLevelService.getAdminLevelType(this.placeCode) !==
+        AdminLevelType.deepest
+      ) {
+        this.adminLevelService.zoomOutAdminLevel();
+      }
+      this.placeCodeService.setPlaceCode(this.placeCode.placeCodeParent);
+    }
+
+    // This has to work for the following scenarios
+    // scenario 1: UGA floods level 4 to 2
+    // scenario 2: UGA floods level 3 to 2 (where 3 is not deepest)
+    // scenario 3: ZMB floods level 3 to 2 (where 3 is deepest)
+    if (breadCrumb === MapView.adminArea) {
+      if (this.currentMapView === MapView.adminArea3) {
+        this.adminLevelService.zoomOutAdminLevel();
+        this.placeCodeService.setPlaceCode(
+          this.placeCode.placeCodeParent.placeCodeParent,
+        );
+      } else if (this.currentMapView === this.mapViewEnum.adminArea2) {
+        if (
+          this.adminLevelService.getAdminLevelType(this.placeCode) !==
+          AdminLevelType.deepest
+        ) {
+          this.adminLevelService.zoomOutAdminLevel();
+        }
+        this.placeCodeService.setPlaceCode(this.placeCode.placeCodeParent);
+      }
+    }
+
     if (breadCrumb === MapView.event) {
       this.placeCodeService?.clearPlaceCode();
       return;
@@ -177,16 +209,34 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
 
   public showBreadcrumb(breadCrumb: MapView): boolean {
     if (breadCrumb === MapView.national) {
-      return [MapView.national, MapView.event, MapView.adminArea].includes(
-        this.currentMapView,
-      );
+      return [
+        MapView.national,
+        MapView.event,
+        MapView.adminArea,
+        MapView.adminArea2,
+        MapView.adminArea3,
+      ].includes(this.currentMapView);
     } else if (breadCrumb === MapView.event) {
       return (
-        [MapView.event, MapView.adminArea].includes(this.currentMapView) &&
-        this.mapViewService.eventHasName()
+        [
+          MapView.event,
+          MapView.adminArea,
+          MapView.adminArea2,
+          MapView.adminArea3,
+        ].includes(this.currentMapView) && this.mapViewService.eventHasName()
       );
     } else if (breadCrumb === MapView.adminArea) {
-      return [MapView.adminArea].includes(this.currentMapView);
+      return [
+        MapView.adminArea,
+        MapView.adminArea2,
+        MapView.adminArea3,
+      ].includes(this.currentMapView);
+    } else if (breadCrumb === MapView.adminArea2) {
+      return [MapView.adminArea2, MapView.adminArea3].includes(
+        this.currentMapView,
+      );
+    } else if (breadCrumb === MapView.adminArea3) {
+      return [MapView.adminArea3].includes(this.currentMapView);
     }
   }
 }
