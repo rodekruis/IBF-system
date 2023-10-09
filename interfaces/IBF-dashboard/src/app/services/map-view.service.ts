@@ -57,40 +57,6 @@ export class MapViewService {
     this.setAggregatesMapView(view);
   }
 
-  private updateAggregatesMapView() {
-    if (
-      this.aggregatesMapView === MapView.national &&
-      this.placeCodeHover?.eventName
-    ) {
-      this.setAggregatesMapView(MapView.event);
-      return;
-    }
-
-    if (!this.eventState?.event && this.placeCodeHover) {
-      this.setAggregatesMapView(MapView.adminArea);
-      return;
-    }
-
-    if (!this.eventState || !this.eventState.event) {
-      this.setAggregatesMapView(MapView.national);
-      return;
-    }
-
-    if (this.eventState.event && !this.placeCodeHover) {
-      this.countryDisasterSettings?.isEventBased
-        ? this.setAggregatesMapView(MapView.event)
-        : this.setAggregatesMapView(MapView.national);
-      return;
-    }
-
-    if (this.placeCodeHover) {
-      this.setAggregatesMapView(MapView.adminArea);
-      return;
-    }
-
-    this.setAggregatesMapView(MapView.national);
-  }
-
   private updateBreadcrumbsMapView() {
     if (!this.eventState?.event && this.placeCode) {
       this.setAggregatesMapView(MapView.adminArea);
@@ -146,13 +112,12 @@ export class MapViewService {
   };
   private onPlacecodeHoverChange = (placeCode: PlaceCode) => {
     this.placeCodeHover = placeCode;
-    this.updateAggregatesMapView();
   };
 
   private onCountryDisasterSettingsChange = (
     settings: CountryDisasterSettings,
   ) => {
     this.countryDisasterSettings = settings;
-    this.updateAggregatesMapView();
+    this.updateBreadcrumbsMapView();
   };
 }

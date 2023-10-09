@@ -30,6 +30,7 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EventState } from 'src/app/types/event-state';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
+import { firstCharOfWordsToUpper } from '../../../shared/utils';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { EapActionsService } from '../../services/eap-actions.service';
 import { MapViewService } from '../../services/map-view.service';
@@ -256,36 +257,69 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   public getAggregatesHeader(mapView: MapView) {
     if (mapView === MapView.national) {
-      return {
-        headerLabel: 'National view', //TODO add to translation file
-        subHeaderLabel: `${this.getAreaCount()} ${
-          this.disasterTypeSettings?.isEventBased
-            ? 'Predicted ' + this.disasterType.label + '(s)' //TODO add to translation file + combine with exposedPrefix?
-            : `${this.exposedPrefix} ${this.adminAreaLabel()}`
-        }`,
-      };
+      return this.placeCodeHover
+        ? {
+            headerLabel:
+              this.placeCodeHover.placeCodeName ||
+              this.placeCodeHover.placeCode,
+            subHeaderLabel: this.disasterTypeSettings.isEventBased
+              ? firstCharOfWordsToUpper(this.disasterType.label)
+              : this.country.adminRegionLabels[
+                  this.adminLevelService.adminLevel
+                ]['singular'],
+          }
+        : {
+            headerLabel: 'National view', //TODO add to translation file
+            subHeaderLabel: `${this.getAreaCount()} ${
+              this.disasterTypeSettings?.isEventBased
+                ? 'Predicted ' +
+                  firstCharOfWordsToUpper(this.disasterType.label) +
+                  '(s)' //TODO add to translation file + combine with exposedPrefix?
+                : `${this.exposedPrefix} ${this.adminAreaLabel()}`
+            }`,
+          };
     }
 
     if (mapView === MapView.event) {
-      return {
-        headerLabel: this.getEventNameString() ? this.getEventNameString() : '',
-        subHeaderLabel: `${this.getAreaCount()} ${
-          this.exposedPrefix
-        } ${this.adminAreaLabel()}`,
-      };
+      return this.placeCodeHover
+        ? {
+            headerLabel: this.placeCodeHover.placeCodeName,
+            subHeaderLabel: this.country.adminRegionLabels[
+              this.adminLevelService.adminLevel
+            ]['singular'],
+          }
+        : {
+            headerLabel: this.getEventNameString() || '',
+            subHeaderLabel: `${this.getAreaCount()} ${
+              this.exposedPrefix
+            } ${this.adminAreaLabel()}`,
+          };
     }
 
-    if (mapView === MapView.adminArea) {
-      return {
-        headerLabel: this.placeCodeName(),
-        subHeaderLabel:
-          this.adminLevelService.getAdminLevelType(this.placeCode) ===
-          AdminLevelType.higher
-            ? `${this.getAreaCount()} ${
-                this.exposedPrefix
-              } ${this.adminAreaLabel()}`
-            : ' ',
-      };
+    if (
+      [MapView.adminArea, MapView.adminArea2, MapView.adminArea3].includes(
+        mapView,
+      )
+    ) {
+      return this.placeCodeHover
+        ? {
+            headerLabel: this.placeCodeHover.placeCodeName,
+            subHeaderLabel: this.country.adminRegionLabels[
+              this.adminLevelService.adminLevel
+            ]['singular'],
+          }
+        : {
+            headerLabel: this.placeCodeName(),
+            subHeaderLabel:
+              this.adminLevelService.getAdminLevelType(this.placeCode) ===
+              AdminLevelType.higher
+                ? `${this.getAreaCount()} ${
+                    this.exposedPrefix
+                  } ${this.adminAreaLabel()}`
+                : this.country.adminRegionLabels[
+                    this.adminLevelService.adminLevel
+                  ]['singular'],
+          };
     }
 
     return {

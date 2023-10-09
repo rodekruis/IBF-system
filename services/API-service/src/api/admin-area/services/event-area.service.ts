@@ -66,41 +66,49 @@ export class EventAreaService {
     disaster: DisasterEntity,
     lastTriggeredDate: DateDto,
   ): Promise<GeoJson> {
+    const eventAreas = [];
+
     const events = await this.eventService.getEventSummary(
       countryCodeISO3,
       disaster.disasterType,
     );
-    const eventAreas = [];
-    for await (const event of events.filter((e) => e.activeTrigger)) {
-      const eventArea = await this.eventAreaRepository
-        .createQueryBuilder('area')
-        .where({
-          countryCodeISO3: countryCodeISO3,
-          eventAreaName: event.eventName,
-          disasterType: disaster.disasterType,
-        })
-        .select('ST_AsGeoJSON(area.geom)::json As geom')
-        .getRawOne();
-      eventArea['eventName'] = event.eventName;
-      eventArea['placeCode'] = event.eventName;
+    const allEventAreas = await this.eventAreaRepository
+      .createQueryBuilder('area')
+      .where({
+        countryCodeISO3: countryCodeISO3,
+        disasterType: disaster.disasterType,
+      })
+      .select([
+        'area."eventAreaName" as "eventAreaName"',
+        'ST_AsGeoJSON(area.geom)::json As geom',
+      ])
+      .getRawMany();
+    for await (const eventArea of allEventAreas) {
+      eventArea['eventName'] = eventArea.eventAreaName;
+      eventArea['placeCode'] = eventArea.eventAreaName;
 
-      const aggregateValue = await this.adminAreaDynamicDataRepo
-        .createQueryBuilder('dynamic')
-        .select('SUM(value)', 'value') // TODO: facilitate other aggregate-cases than SUM
-        .where({
-          timestamp: MoreThanOrEqual(
-            this.helperService.getUploadCutoffMoment(
-              disaster.disasterType,
-              lastTriggeredDate.timestamp,
+      const event = events.find((e) => e.eventName === eventArea.eventAreaName); // TODO: facilitate slight differences between eventName and
+      if (event) {
+        const aggregateValue = await this.adminAreaDynamicDataRepo
+          .createQueryBuilder('dynamic')
+          .select('SUM(value)', 'value') // TODO: facilitate other aggregate-cases than SUM
+          .where({
+            timestamp: MoreThanOrEqual(
+              this.helperService.getUploadCutoffMoment(
+                disaster.disasterType,
+                lastTriggeredDate.timestamp,
+              ),
             ),
-          ),
-          disasterType: disaster.disasterType,
-          indicator: disaster.actionsUnit,
-          eventName: event.eventName,
-        })
-        .getRawOne();
+            disasterType: disaster.disasterType,
+            indicator: disaster.actionsUnit,
+            eventName: event.eventName,
+          })
+          .getRawOne();
+        eventArea[disaster.actionsUnit] = aggregateValue.value;
+      } else {
+        eventArea[disaster.actionsUnit] = 0;
+      }
 
-      eventArea[disaster.actionsUnit] = aggregateValue.value;
       eventAreas.push(eventArea);
     }
     const geoJson = this.helperService.toGeojson(eventAreas);

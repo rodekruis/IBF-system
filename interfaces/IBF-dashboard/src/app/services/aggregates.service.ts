@@ -229,7 +229,6 @@ export class AggregatesService {
   private onAggregateData = (records) => {
     const groupsByPlaceCode = this.aggregateOnPlaceCode(records);
     this.aggregates = groupsByPlaceCode.map(this.onEachPlaceCode);
-    console.log('this.aggregates: ', this.aggregates);
     this.nrTriggerActiveAreas = this.aggregates.filter(
       (a) => a[this.AREA_STATUS_KEY] === AreaStatus.TriggeredOrWarned,
     ).length;
