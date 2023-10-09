@@ -28,7 +28,7 @@ import { environment } from '../../../environments/environment';
 import { AdminLevelService } from '../../services/admin-level.service';
 import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
-import { AdminLevelType } from '../../types/admin-level';
+import { AdminLevel, AdminLevelType } from '../../types/admin-level';
 import { Actor } from '../../types/chat';
 import { Indicator } from '../../types/indicator-group';
 import { LeadTimeTriggerKey, LeadTimeUnit } from '../../types/lead-time';
@@ -82,6 +82,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   private lastModelRunDateFormat = 'cccc, dd LLLL HH:mm';
   public isWarn = false;
   public supportEmailAddress = environment.supportEmailAddress;
+  public adminLevel: AdminLevel;
 
   public actor = Actor;
 
@@ -227,12 +228,14 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.indicators.length &&
       this.timelineState
     ) {
-      const adminLevel =
+      this.adminLevel =
         this.placeCode?.adminLevel ||
         this.disasterTypeSettings.defaultAdminLevel;
-      this.adminAreaLabel = this.country.adminRegionLabels[adminLevel].singular;
+      this.adminAreaLabel = this.country.adminRegionLabels[
+        this.adminLevel
+      ].singular;
       this.adminAreaLabelPlural = this.country.adminRegionLabels[
-        adminLevel
+        this.adminLevel
       ].plural.toLowerCase();
       this.changeDetectorRef.detectChanges();
 
