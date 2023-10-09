@@ -1037,19 +1037,30 @@ export class MapService {
   };
 
   public setAdminRegionMouseOverStyle = (placeCode: string) => {
-    const areaState = this.triggeredAreas.find(
+    const area = this.triggeredAreas.find(
       (area) => area.placeCode === placeCode,
     );
-    if (!areaState) {
+    if (!area) {
+      const layer = this.layers.find(
+        (l) => l.name === IbfLayerName.alertThreshold,
+      );
+      const triggered = layer.data.features.find(
+        (f) => f.properties['placeCode'] === placeCode,
+      ).properties['indicators'][IbfLayerName.alertThreshold];
       return {
-        color: this.selectedOutlineColor[
-          this.disasterType?.activeTrigger ? 'triggered' : 'nonTriggered'
-        ],
-        weight: 3,
+        color: triggered
+          ? this.triggeredAreaColor
+          : this.selectedOutlineColor.nonTriggered,
+        weight: 5,
       };
-    } else if (areaState.stopped) {
+    } else if (area.stopped) {
       return {
         color: this.stoppedTriggerColor,
+        weight: 5,
+      };
+    } else if (!this.eventState.event.thresholdReached) {
+      return {
+        color: this.selectedOutlineColor.nonTriggered,
         weight: 5,
       };
     } else {
