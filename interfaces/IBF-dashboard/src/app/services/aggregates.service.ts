@@ -162,7 +162,7 @@ export class AggregatesService {
       }
 
       aggregate[this.AREA_STATUS_KEY] =
-        aggregate[IbfLayerName.alertThreshold] !== undefined &&
+        aggregate[IbfLayerName.alertThreshold] > 0 &&
         this.eventState.activeTrigger
           ? 'trigger-active'
           : 'non-triggered';
@@ -185,7 +185,7 @@ export class AggregatesService {
       ? 'trigger-stopped'
       : // the below relies on the fact that aggregate[indicator.name] is filled ..
       // .. above only if available, which is in turn only if trigger/warned (from API)
-      aggregate[IbfLayerName.alertThreshold] !== undefined &&
+      aggregate[IbfLayerName.alertThreshold] > 0 &&
         this.eventState.activeTrigger
       ? 'trigger-active'
       : 'non-triggered';

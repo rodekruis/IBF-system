@@ -27,6 +27,7 @@ import { DisasterTypeService } from '../../services/disaster-type.service';
 import { EapActionsService } from '../../services/eap-actions.service';
 import { MapViewService } from '../../services/map-view.service';
 import { AdminLevelType } from '../../types/admin-level';
+import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { MapView } from '../../types/map-view';
 import { TriggeredArea } from '../../types/triggered-area';
 import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
@@ -252,42 +253,76 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   public getAggregatesHeader(mapView: MapView) {
-    const disasterTypeLabel = `${this.disasterType?.label
-      ?.charAt(0)
-      .toUpperCase()}${this.disasterType?.label?.substring(1)}`;
+    if (mapView === MapView.national) {
+      return {
+        headerLabel: 'National view',
+        subHeaderLabel: `${this.getAreaCount()} ${
+          this.disasterType?.disasterType === DisasterTypeKey.flashFloods //TODO replace with isEVentBased
+            ? 'predicted ' + this.disasterType.label + '(s)' //TODO add to translation file
+            : `${this.exposedPrefix} ${this.adminAreaLabel()}`
+        }`,
+      };
+    }
 
-    const eventString = `${disasterTypeLabel}${
-      this.getEventNameString() ? ': ' + this.getEventNameString() : ''
-    }`;
+    if (mapView === MapView.event) {
+      return {
+        headerLabel: this.getEventNameString() ? this.getEventNameString() : '',
+        subHeaderLabel: `${this.getAreaCount()} ${this.adminAreaLabel()}`,
+      };
+    }
 
-    const header = {
-      [MapView.national]: `${
-        this.country?.countryName
-      } - ${this.translateService.instant(
-        'aggregates-component.national-view',
-      )}`,
-      [MapView.event]: eventString,
-      [MapView.adminArea]: eventString,
-    };
-
-    const areaCountString = `<strong>${this.getAreaCount()}</strong> ${
-      this.exposedPrefix
-    } ${this.adminAreaLabel()}`;
-
-    const parentName = this.placeCodeParentName()
-      ? ` (${this.placeCodeParentName()})`
-      : '';
-
-    const subHeader = {
-      [MapView.national]: areaCountString,
-      [MapView.event]: areaCountString,
-      [MapView.adminArea]: `${this.placeCodeName()}${parentName}`,
-    };
+    if (mapView === MapView.adminArea) {
+      return {
+        headerLabel: this.placeCodeName(),
+        subHeaderLabel:
+          this.adminLevelService.getAdminLevelType(this.placeCode) ===
+          AdminLevelType.higher
+            ? `${this.getAreaCount()} ${this.adminAreaLabel()}`
+            : ' ',
+      };
+    }
 
     return {
-      headerLabel: header[mapView],
-      subHeaderLabel: subHeader[mapView],
+      headerLabel: mapView,
+      subHeaderLabel: mapView,
     };
+
+    // const disasterTypeLabel = `${this.disasterType?.label
+    //   ?.charAt(0)
+    //   .toUpperCase()}${this.disasterType?.label?.substring(1)}`;
+
+    // const eventString = `${disasterTypeLabel}${
+    //   this.getEventNameString() ? ': ' + this.getEventNameString() : ''
+    // }`;
+
+    // const header = {
+    //   [MapView.national]: `${
+    //     this.country?.countryName
+    //   } - ${this.translateService.instant(
+    //     'aggregates-component.national-view',
+    //   )}`,
+    //   [MapView.event]: eventString,
+    //   [MapView.adminArea]: eventString,
+    // };
+
+    // const areaCountString = `<strong>${this.getAreaCount()}</strong> ${
+    //   this.exposedPrefix
+    // } ${this.adminAreaLabel()}`;
+
+    // const parentName = this.placeCodeParentName()
+    //   ? ` (${this.placeCodeParentName()})`
+    //   : '';
+
+    // const subHeader = {
+    //   [MapView.national]: areaCountString,
+    //   [MapView.event]: areaCountString,
+    //   [MapView.adminArea]: `${this.placeCodeName()}${parentName}`,
+    // };
+
+    // return {
+    //   headerLabel: header[mapView],
+    //   subHeaderLabel: subHeader[mapView],
+    // };
   }
 
   private getEventNameString(): string {

@@ -50,6 +50,14 @@ export class MapViewService {
   }
 
   private updateAggregatesMapView() {
+    if (
+      this.aggregatesMapView === MapView.national &&
+      this.placeCodeHover?.eventName
+    ) {
+      this.setAggregatesMapView(MapView.event);
+      return;
+    }
+
     if (!this.eventState?.event && this.placeCodeHover) {
       this.setAggregatesMapView(MapView.adminArea);
       return;
