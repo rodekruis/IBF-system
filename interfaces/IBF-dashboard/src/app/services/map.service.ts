@@ -853,7 +853,7 @@ export class MapService {
 
   getOutlineOpacity(colorPropertyValue) {
     switch (true) {
-      case colorPropertyValue === 1:
+      case colorPropertyValue >= 1:
         return 1;
       default:
         return 0;
