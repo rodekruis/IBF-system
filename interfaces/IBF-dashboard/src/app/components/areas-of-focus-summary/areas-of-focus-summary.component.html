@@ -78,9 +78,13 @@
             <span *ngIf="areaOfFocus.count > 0"
               >{{ areaOfFocus.countChecked }} / {{ areaOfFocus.count }}</span
             >
-            <span *ngIf="areaOfFocus.count === 0" class="actions-not-applicable"
-              >
-              {{ 'areas-of-focus-summary-component.not-applicable' | translate }}</span
+            <span
+              *ngIf="areaOfFocus.count === 0"
+              class="actions-not-applicable"
+            >
+              {{
+                'areas-of-focus-summary-component.not-applicable' | translate
+              }}</span
             >
           </ion-label>
         </ion-item>
