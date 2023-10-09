@@ -1,9 +1,5 @@
 <ng-container
-  *ngIf="
-    useBreadcrumbs(disasterType | async);
-    then breadcrumbs;
-    else tabs
-  "
+  *ngIf="useBreadcrumbs(disasterType | async); then breadcrumbs; else tabs"
 ></ng-container>
 <ng-template #breadcrumbs>
   <div class="ion-margin-start breadcrumbs-container">
@@ -58,7 +54,13 @@
           currentMapView === mapViewEnum.adminArea
         )
       "
-      [innerHtml]="currentMapView === mapViewEnum.adminArea ? placeCode?.placeCodeName : currentMapView === mapViewEnum.adminArea2 ? placeCode?.placeCodeParent?.placeCodeName : placeCode?.placeCodeParent?.placeCodeParent?.placeCodeName"
+      [innerHtml]="
+        currentMapView === mapViewEnum.adminArea
+          ? placeCode?.placeCodeName
+          : currentMapView === mapViewEnum.adminArea2
+          ? placeCode?.placeCodeParent?.placeCodeName
+          : placeCode?.placeCodeParent?.placeCodeParent?.placeCodeName
+      "
     >
     </ion-button>
     <ion-button
@@ -76,7 +78,11 @@
           currentMapView === mapViewEnum.adminArea2
         )
       "
-      [innerHtml]="currentMapView === mapViewEnum.adminArea2 ? placeCode?.placeCodeName : placeCode?.placeCodeParent?.placeCodeName"
+      [innerHtml]="
+        currentMapView === mapViewEnum.adminArea2
+          ? placeCode?.placeCodeName
+          : placeCode?.placeCodeParent?.placeCodeName
+      "
     >
     </ion-button>
     <ion-button
