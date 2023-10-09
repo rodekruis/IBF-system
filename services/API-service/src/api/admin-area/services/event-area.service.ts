@@ -72,44 +72,60 @@ export class EventAreaService {
       countryCodeISO3,
       disaster.disasterType,
     );
-    const allEventAreas = await this.eventAreaRepository
-      .createQueryBuilder('area')
-      .where({
-        countryCodeISO3: countryCodeISO3,
-        disasterType: disaster.disasterType,
-      })
-      .select([
-        'area."eventAreaName" as "eventAreaName"',
-        'ST_AsGeoJSON(area.geom)::json As geom',
-      ])
-      .getRawMany();
-    for await (const eventArea of allEventAreas) {
-      eventArea['eventName'] = eventArea.eventAreaName;
-      eventArea['placeCode'] = eventArea.eventAreaName;
+    for await (const event of events.filter((e) => e.activeTrigger)) {
+      const eventArea = await this.eventAreaRepository
+        .createQueryBuilder('area')
+        .where({
+          countryCodeISO3: countryCodeISO3,
+          disasterType: disaster.disasterType,
+          eventAreaName: event.eventName,
+        })
+        .select([
+          'area."eventAreaName" as "eventAreaName"',
+          'ST_AsGeoJSON(area.geom)::json As geom',
+        ])
+        .getRawOne();
 
-      const event = events.find((e) => e.eventName === eventArea.eventAreaName); // TODO: facilitate slight differences between eventName and
-      if (event) {
-        const aggregateValue = await this.adminAreaDynamicDataRepo
-          .createQueryBuilder('dynamic')
-          .select('SUM(value)', 'value') // TODO: facilitate other aggregate-cases than SUM
-          .where({
-            timestamp: MoreThanOrEqual(
-              this.helperService.getUploadCutoffMoment(
-                disaster.disasterType,
-                lastTriggeredDate.timestamp,
-              ),
+      eventArea['eventName'] = event.eventName;
+      eventArea['placeCode'] = event.eventName;
+      const aggregateValue = await this.adminAreaDynamicDataRepo
+        .createQueryBuilder('dynamic')
+        .select('SUM(value)', 'value') // TODO: facilitate other aggregate-cases than SUM
+        .where({
+          timestamp: MoreThanOrEqual(
+            this.helperService.getUploadCutoffMoment(
+              disaster.disasterType,
+              lastTriggeredDate.timestamp,
             ),
-            disasterType: disaster.disasterType,
-            indicator: disaster.actionsUnit,
-            eventName: event.eventName,
-          })
-          .getRawOne();
-        eventArea[disaster.actionsUnit] = aggregateValue.value;
-      } else {
-        eventArea[disaster.actionsUnit] = 0;
-      }
-
+          ),
+          disasterType: disaster.disasterType,
+          indicator: disaster.actionsUnit,
+          eventName: event.eventName,
+        })
+        .getRawOne();
+      eventArea[disaster.actionsUnit] = aggregateValue.value;
       eventAreas.push(eventArea);
+    }
+
+    if (eventAreas.length === 0) {
+      const allEventAreas = await this.eventAreaRepository
+        .createQueryBuilder('area')
+        .where({
+          countryCodeISO3: countryCodeISO3,
+          disasterType: disaster.disasterType,
+        })
+        .select([
+          'area."eventAreaName" as "eventAreaName"',
+          'ST_AsGeoJSON(area.geom)::json As geom',
+        ])
+        .getRawMany();
+      for await (const eventArea of allEventAreas) {
+        eventArea['eventName'] = eventArea.eventAreaName;
+        eventArea['placeCode'] = eventArea.eventAreaName;
+        eventArea[disaster.actionsUnit] = 0;
+
+        eventAreas.push(eventArea);
+      }
     }
     const geoJson = this.helperService.toGeojson(eventAreas);
     return geoJson;
