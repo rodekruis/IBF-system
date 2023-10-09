@@ -268,7 +268,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
     if (mapView === MapView.event) {
       return {
-        headerLabel: this.getEventNameString() ? this.getEventNameString() : '',
+        headerLabel: this.getEventNameString() || '',
         subHeaderLabel: `${this.getAreaCount()} ${
           this.exposedPrefix
         } ${this.adminAreaLabel()}`,
