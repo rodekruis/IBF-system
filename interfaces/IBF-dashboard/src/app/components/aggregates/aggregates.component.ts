@@ -16,7 +16,10 @@ import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
-import { AggregatesService } from 'src/app/services/aggregates.service';
+import {
+  AggregatesService,
+  AreaStatus,
+} from 'src/app/services/aggregates.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
@@ -38,7 +41,7 @@ import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/
 })
 export class AggregatesComponent implements OnInit, OnDestroy {
   @Input()
-  public triggerStatus: string;
+  public areaStatus: AreaStatus;
 
   public indicators: Indicator[] = [];
   public placeCode: PlaceCode;
@@ -46,16 +49,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private country: Country;
   private disasterType: DisasterType;
   private aggregateComponentTranslateNode = 'aggregates-component';
-  private defaultHeaderLabelTranslateNode = 'default-header-label';
   private exposedPrefixTranslateNode = 'exposed-prefix';
   private stoppedPrefixTranslateNode = 'stopped-prefix';
-  private allPrefixTranslateNode = 'all-prefix';
+  private exposedPrefix: string;
   private triggeredPlaceCodes: string[] = [];
   public aggregatesPlaceCodes: string[] = [];
-
-  private defaultHeaderLabel: string;
-  private exposedPrefix: string;
-  private allPrefix: string;
 
   public eventState: EventState;
   public mapView: Observable<MapView>;
@@ -145,15 +143,12 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   private onTranslate = (translatedStrings) => {
-    this.defaultHeaderLabel =
-      translatedStrings[this.defaultHeaderLabelTranslateNode];
     this.exposedPrefix =
       translatedStrings[
         this.isActiveAreas()
           ? this.exposedPrefixTranslateNode
           : this.stoppedPrefixTranslateNode
       ];
-    this.allPrefix = translatedStrings[this.allPrefixTranslateNode];
   };
 
   private onCountryChange = (country: Country) => {
@@ -248,18 +243,18 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         ? placeCode.placeCode
         : null, // .. or no filtering, if no placeCode is selected
       numberFormat,
-      this.triggerStatus,
+      this.areaStatus,
     );
   }
 
   public getAggregatesHeader(mapView: MapView) {
     if (mapView === MapView.national) {
       return {
-        headerLabel: 'National view',
+        headerLabel: 'National view', //TODO add to translation file
         subHeaderLabel: `${this.getAreaCount()} ${
           this.disasterType?.disasterType === DisasterTypeKey.flashFloods //TODO replace with isEVentBased
-            ? 'predicted ' + this.disasterType.label + '(s)' //TODO add to translation file
-            : `${this.exposedPrefix} ${this.adminAreaLabel()}`
+            ? 'predicted ' + this.disasterType.label + '(s)' //TODO add to translation file + combine with exposedPrefix?
+            : `${this.exposedPrefix} ${this.adminAreaLabel()}` //TODO exposedPrefix is empty here still
         }`,
       };
     }
@@ -267,7 +262,9 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     if (mapView === MapView.event) {
       return {
         headerLabel: this.getEventNameString() ? this.getEventNameString() : '',
-        subHeaderLabel: `${this.getAreaCount()} ${this.adminAreaLabel()}`,
+        subHeaderLabel: `${this.getAreaCount()} ${
+          this.exposedPrefix
+        } ${this.adminAreaLabel()}`,
       };
     }
 
@@ -277,7 +274,9 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         subHeaderLabel:
           this.adminLevelService.getAdminLevelType(this.placeCode) ===
           AdminLevelType.higher
-            ? `${this.getAreaCount()} ${this.adminAreaLabel()}`
+            ? `${this.getAreaCount()} ${
+                this.exposedPrefix
+              } ${this.adminAreaLabel()}`
             : ' ',
       };
     }
@@ -403,7 +402,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   private showNationalView(): boolean {
-    return this.triggerStatus === 'trigger-active' || this.getAreaCount() > 0;
+    return (
+      this.areaStatus === AreaStatus.TriggeredOrWarned ||
+      this.getAreaCount() > 0
+    );
   }
 
   private isNonTriggeredPlaceCode(placeCode: PlaceCode): boolean {
@@ -418,7 +420,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   public isActiveAreas(): boolean {
-    return this.triggerStatus === 'trigger-active' ? true : false;
+    return this.areaStatus === AreaStatus.TriggeredOrWarned ? true : false;
   }
   private getAreaCount(): number {
     return this.isActiveAreas()

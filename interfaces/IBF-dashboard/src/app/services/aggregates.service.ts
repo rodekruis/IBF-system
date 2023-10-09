@@ -18,6 +18,11 @@ import { EapActionsService } from './eap-actions.service';
 import { EventService } from './event.service';
 import { PlaceCodeService } from './place-code.service';
 
+export enum AreaStatus {
+  TriggeredOrWarned = 'triggered-or-warned',
+  NonTriggeredOrWarnd = 'non-triggered-or-warned',
+  Stopped = 'stopped',
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -162,10 +167,12 @@ export class AggregatesService {
       }
 
       aggregate[this.AREA_STATUS_KEY] =
-        aggregate[IbfLayerName.alertThreshold] > 0 &&
-        this.eventState.activeTrigger
-          ? 'trigger-active'
-          : 'non-triggered';
+        aggregate[IbfLayerName.alertThreshold] > 0
+          ? AreaStatus.TriggeredOrWarned
+          : aggregate[this.disasterType.actionsUnit] > 0 &&
+            this.eventState.activeTrigger
+          ? AreaStatus.TriggeredOrWarned
+          : AreaStatus.NonTriggeredOrWarnd;
       return;
     }
 
@@ -177,18 +184,14 @@ export class AggregatesService {
       aggregate[indicator.name] = foundIndicator.value;
     }
 
-    if (aggregate[this.AREA_STATUS_KEY]) {
-      return;
-    }
-
     aggregate[this.AREA_STATUS_KEY] = areaState?.stopped
-      ? 'trigger-stopped'
-      : // the below relies on the fact that aggregate[indicator.name] is filled ..
-      // .. above only if available, which is in turn only if trigger/warned (from API)
-      aggregate[IbfLayerName.alertThreshold] > 0 &&
+      ? AreaStatus.Stopped
+      : aggregate[IbfLayerName.alertThreshold] > 0
+      ? AreaStatus.TriggeredOrWarned
+      : aggregate[this.disasterType.actionsUnit] > 0 &&
         this.eventState.activeTrigger
-      ? 'trigger-active'
-      : 'non-triggered';
+      ? AreaStatus.TriggeredOrWarned
+      : AreaStatus.NonTriggeredOrWarnd;
   };
 
   private onEachPlaceCode = (feature) => {
@@ -226,12 +229,13 @@ export class AggregatesService {
   private onAggregateData = (records) => {
     const groupsByPlaceCode = this.aggregateOnPlaceCode(records);
     this.aggregates = groupsByPlaceCode.map(this.onEachPlaceCode);
+    console.log('this.aggregates: ', this.aggregates);
     this.nrTriggerActiveAreas = this.aggregates.filter(
-      (a) => a[this.AREA_STATUS_KEY] === 'trigger-active',
+      (a) => a[this.AREA_STATUS_KEY] === AreaStatus.TriggeredOrWarned,
     ).length;
 
     this.nrTriggerStoppedAreas = this.aggregates.filter(
-      (a) => a[this.AREA_STATUS_KEY] === 'trigger-stopped',
+      (a) => a[this.AREA_STATUS_KEY] === AreaStatus.Stopped,
     ).length;
   };
 
@@ -259,7 +263,7 @@ export class AggregatesService {
     indicator: IbfLayerName,
     placeCode: string,
     numberFormat: NumberFormat,
-    triggerStatus: string,
+    areaStatus: AreaStatus,
   ): number {
     let weighingIndicatorName: IbfLayerName;
     if (this.disasterType) {
@@ -272,7 +276,7 @@ export class AggregatesService {
       }
     }
     const weighedSum = this.aggregates
-      .filter((a) => a[this.AREA_STATUS_KEY] === triggerStatus)
+      .filter((a) => a[this.AREA_STATUS_KEY] === areaStatus)
       .reduce(
         this.aggregateReducer(
           weightedAverage,
