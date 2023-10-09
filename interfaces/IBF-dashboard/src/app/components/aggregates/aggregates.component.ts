@@ -264,9 +264,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
               this.placeCodeHover.placeCode,
             subHeaderLabel: this.disasterTypeSettings.isEventBased
               ? firstCharOfWordsToUpper(this.disasterType.label)
-              : this.country.adminRegionLabels[
-                  this.adminLevelService.adminLevel
-                ]['singular'],
+              : `${this.exposedPrefix} ${
+                  this.country.adminRegionLabels[
+                    this.adminLevelService.adminLevel
+                  ]['singular']
+                }`,
           }
         : {
             headerLabel: 'National view', //TODO add to translation file
