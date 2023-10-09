@@ -26,16 +26,7 @@
                 "
               ></ion-text
             ></ion-label> </ion-col
-          >`
-          <ion-button
-            fill="clear"
-            *ngIf="showPlaceCodeView(placeCode)"
-            [color]="isActiveAreas() ? 'light' : 'ibf-black'"
-            class="place-code-reset-button"
-            (click)="clearPlaceCode()"
           >
-            <ion-icon name="close" slot="icon-only"></ion-icon>
-          </ion-button>
         </ion-item>
       </ion-col>
     </ion-row>

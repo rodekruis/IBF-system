@@ -8,7 +8,8 @@ import {
   CountryDisasterSettings,
   DisasterType,
 } from '../models/country.model';
-import { AdminLevel } from '../types/admin-level';
+import { PlaceCode } from '../models/place-code.model';
+import { AdminLevelType } from '../types/admin-level';
 import { EapAction } from '../types/eap-action';
 import { EventState } from '../types/event-state';
 import { LeadTime } from '../types/lead-time';
@@ -17,6 +18,7 @@ import { TriggeredArea } from '../types/triggered-area';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
+import { PlaceCodeService } from './place-code.service';
 import { TimelineService } from './timeline.service';
 
 @Injectable({
@@ -28,10 +30,10 @@ export class EapActionsService {
   private country: Country;
   private disasterType: DisasterType;
   private disasterTypeSettings: CountryDisasterSettings;
-  private adminLevel: AdminLevel;
   private eventState: EventState;
   private timelineState: TimelineState;
   private currentRainSeasonName: string;
+  private placeCode: PlaceCode;
 
   constructor(
     private countryService: CountryService,
@@ -40,6 +42,7 @@ export class EapActionsService {
     private disasterTypeService: DisasterTypeService,
     private adminLevelService: AdminLevelService,
     private eventService: EventService,
+    private placeCodeService: PlaceCodeService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -60,6 +63,10 @@ export class EapActionsService {
     this.eventService
       .getInitialEventStateSubscription()
       .subscribe(this.onEventStatusChange);
+
+    this.placeCodeService
+      .getPlaceCodeSubscription()
+      .subscribe(this.onPlaceCodeChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -81,8 +88,21 @@ export class EapActionsService {
     this.eventState = eventState;
   };
 
-  private onAdminLevelChange = (adminLevel: AdminLevel) => {
-    this.adminLevel = adminLevel;
+  private onAdminLevelChange = () => {
+    if (this.placeCode) {
+      const adminLevelType = this.adminLevelService.getAdminLevelType(
+        this.placeCode,
+      );
+      if (adminLevelType !== AdminLevelType.higher) {
+        this.getTriggeredAreasApi();
+      }
+    } else {
+      this.getTriggeredAreasApi();
+    }
+  };
+
+  private onPlaceCodeChange = (placeCode: PlaceCode) => {
+    this.placeCode = placeCode;
     this.getTriggeredAreasApi();
   };
 
@@ -90,15 +110,18 @@ export class EapActionsService {
     if (
       this.country &&
       this.disasterType &&
-      this.adminLevel &&
       this.timelineState &&
       this.eventState
     ) {
+      const adminLevelToUse =
+        this.placeCode?.adminLevel ||
+        this.disasterTypeSettings.defaultAdminLevel;
+      console.log('adminLevelToUse: ', adminLevelToUse);
       this.apiService
         .getTriggeredAreas(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.adminLevel,
+          adminLevelToUse,
           this.timelineState.activeLeadTime,
           this.eventState.event?.eventName,
         )

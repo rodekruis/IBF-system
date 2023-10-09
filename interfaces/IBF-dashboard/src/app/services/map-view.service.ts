@@ -93,6 +93,16 @@ export class MapViewService {
       return;
     }
 
+    if (this.placeCode?.placeCodeParent?.placeCodeParent) {
+      this.setBreadcrumbsMapView(MapView.adminArea3);
+      return;
+    }
+
+    if (this.placeCode?.placeCodeParent) {
+      this.setBreadcrumbsMapView(MapView.adminArea2);
+      return;
+    }
+
     if (this.placeCode) {
       this.setBreadcrumbsMapView(MapView.adminArea);
       return;
@@ -114,16 +124,16 @@ export class MapViewService {
     this.updateBreadcrumbsMapView();
   };
 
-  private onPlacecodeChange = (pc: PlaceCode) => {
-    this.placeCode = pc;
+  private onPlacecodeChange = (placeCode: PlaceCode) => {
+    this.placeCode = placeCode;
     this.updateBreadcrumbsMapView();
   };
-  private onPlacecodeHoverChange = (pc: PlaceCode) => {
-    this.placeCodeHover = pc;
+  private onPlacecodeHoverChange = (placeCode: PlaceCode) => {
+    this.placeCodeHover = placeCode;
     this.updateAggregatesMapView();
   };
 
-  private eventHasName(): boolean {
+  public eventHasName(): boolean {
     if (
       !this.eventState ||
       !this.eventState.event ||

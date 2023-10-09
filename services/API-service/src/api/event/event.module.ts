@@ -14,6 +14,7 @@ import { HelperService } from '../../shared/helper.service';
 import { UserEntity } from '../user/user.entity';
 import { EventMapImageEntity } from './event-map-image.entity';
 import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
+import { CountryEntity } from '../country/country.entity';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
       DisasterEntity,
       UserEntity,
       EventMapImageEntity,
+      CountryEntity,
     ]),
   ],
   controllers: [EventController],

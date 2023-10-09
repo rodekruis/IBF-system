@@ -12,14 +12,14 @@ import {
 } from 'src/app/services/admin-level.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
-import { AdminLevel } from 'src/app/types/admin-level';
+import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
 import { IbfLayer, IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
-import { Country, DisasterType } from '../../models/country.model';
+import { DisasterType } from '../../models/country.model';
 import { PlaceCode } from '../../models/place-code.model';
-import { CountryService } from '../../services/country.service';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { MapViewService } from '../../services/map-view.service';
 import { PlaceCodeService } from '../../services/place-code.service';
+import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { EventState } from '../../types/event-state';
 import { MapView } from '../../types/map-view';
 
@@ -29,23 +29,29 @@ import { MapView } from '../../types/map-view';
   styleUrls: ['./admin-level.component.scss'],
 })
 export class AdminLevelComponent implements OnInit, OnDestroy {
-  public country: Observable<Country>;
   public disasterType: Observable<DisasterType>;
 
   public mapViewEnum = MapView;
   public currentMapView: MapView;
   private mapViewSubscription: Subscription;
 
-  private countryDisasterAdminLevelsSubscirption: Subscription;
   public adminLevelButtons: Observable<AdminLevelButton[]>;
 
   public adminLevel = AdminLevel;
 
-  public eventState: Observable<EventState>;
+  private eventStateSubscription: Subscription;
+  public eventState: EventState;
 
-  public placeCode: Observable<PlaceCode>;
+  private placeCodeSubscription: Subscription;
+  public placeCode: PlaceCode;
 
-  private breadcrumbCountryDisasters = ['MWI_flash-floods'];
+  private breadcrumbDisasters = [
+    DisasterTypeKey.flashFloods,
+    DisasterTypeKey.heavyRain,
+    DisasterTypeKey.dengue,
+    DisasterTypeKey.malaria,
+    DisasterTypeKey.floods,
+  ];
 
   constructor(
     public adminLevelService: AdminLevelService,
@@ -53,7 +59,6 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     private analyticsService: AnalyticsService,
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
-    private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
     private mapViewService: MapViewService,
     public translate: TranslateService,
@@ -61,22 +66,35 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.country = this.countryService.getCountrySubscription();
     this.disasterType = this.disasterTypeService.getDisasterTypeSubscription();
     this.mapViewSubscription = this.mapViewService
       .getBreadcrumbsMapViewSubscription()
       .subscribe(this.onMapViewChange);
-    this.eventState = this.eventService.getManualEventStateSubscription();
+    this.eventStateSubscription = this.eventService
+      .getManualEventStateSubscription()
+      .subscribe(this.onEventChange);
     this.adminLevelButtons = this.adminLevelService.getAdminLevelButtonsSubscription();
-    this.placeCode = this.placeCodeService.getPlaceCodeSubscription();
+    this.placeCodeSubscription = this.placeCodeService
+      .getPlaceCodeSubscription()
+      .subscribe(this.onPlaceCodeChange);
   }
   ngOnDestroy(): void {
-    this.countryDisasterAdminLevelsSubscirption.unsubscribe();
     this.mapViewSubscription.unsubscribe();
+    this.eventStateSubscription.unsubscribe();
+    this.placeCodeSubscription.unsubscribe();
   }
 
   private onMapViewChange = (view: MapView) => {
     this.currentMapView = view;
+    this.changeDetectorRef.detectChanges();
+  };
+
+  private onEventChange = (eventState: EventState) => {
+    this.eventState = eventState;
+  };
+
+  private onPlaceCodeChange = (placeCode: PlaceCode) => {
+    this.placeCode = placeCode;
     this.changeDetectorRef.detectChanges();
   };
 
@@ -129,37 +147,96 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     return this.mapService.getLayerByName(layerName);
   }
 
-  public useBreadcrumbs(country: Country, disasterType: DisasterType): boolean {
-    return this.breadcrumbCountryDisasters.includes(
-      `${country?.countryCodeISO3}_${disasterType?.disasterType}`,
+  public useBreadcrumbs(disasterType: DisasterType): boolean {
+    return this.breadcrumbDisasters.includes(
+      disasterType?.disasterType as DisasterTypeKey,
     );
   }
 
-  public clickBreadcrumbButton(view: MapView, selected: boolean) {
+  public clickBreadcrumbButton(breadCrumb: MapView, selected: boolean) {
     if (selected) {
       return;
     }
 
-    if (view === MapView.national) {
-      this.eventService?.resetEvents();
+    // This currently only applies for UGA floods level 4 to 3
+    if (breadCrumb === MapView.adminArea2) {
+      if (
+        this.adminLevelService.getAdminLevelType(this.placeCode) !==
+        AdminLevelType.deepest
+      ) {
+        this.adminLevelService.zoomOutAdminLevel();
+      }
+      this.placeCodeService.setPlaceCode(this.placeCode.placeCodeParent);
+    }
+
+    // This has to work for the following scenarios
+    // scenario 1: UGA floods level 4 to 2
+    // scenario 2: UGA floods level 3 to 2 (where 3 is not deepest)
+    // scenario 3: ZMB floods level 3 to 2 (where 3 is deepest)
+    if (breadCrumb === MapView.adminArea) {
+      if (this.currentMapView === MapView.adminArea3) {
+        this.adminLevelService.zoomOutAdminLevel();
+        this.placeCodeService.setPlaceCode(
+          this.placeCode.placeCodeParent.placeCodeParent,
+        );
+      } else if (this.currentMapView === this.mapViewEnum.adminArea2) {
+        if (
+          this.adminLevelService.getAdminLevelType(this.placeCode) !==
+          AdminLevelType.deepest
+        ) {
+          this.adminLevelService.zoomOutAdminLevel();
+        }
+        this.placeCodeService.setPlaceCode(this.placeCode.placeCodeParent);
+      }
+    }
+
+    if (breadCrumb === MapView.event) {
+      this.placeCodeService?.clearPlaceCode();
       return;
     }
 
-    if (view === MapView.event) {
-      this.placeCodeService?.clearPlaceCode();
-      return;
+    if (breadCrumb === MapView.national) {
+      if (this.mapViewService.eventHasName()) {
+        this.eventService?.resetEvents();
+        return;
+      } else {
+        this.adminLevelService.zoomToDefaultAdminLevel();
+        this.placeCodeService?.clearPlaceCode();
+        return;
+      }
     }
   }
 
   public showBreadcrumb(breadCrumb: MapView): boolean {
     if (breadCrumb === MapView.national) {
-      return [MapView.national, MapView.event, MapView.adminArea].includes(
+      return [
+        MapView.national,
+        MapView.event,
+        MapView.adminArea,
+        MapView.adminArea2,
+        MapView.adminArea3,
+      ].includes(this.currentMapView);
+    } else if (breadCrumb === MapView.event) {
+      return (
+        [
+          MapView.event,
+          MapView.adminArea,
+          MapView.adminArea2,
+          MapView.adminArea3,
+        ].includes(this.currentMapView) && this.mapViewService.eventHasName()
+      );
+    } else if (breadCrumb === MapView.adminArea) {
+      return [
+        MapView.adminArea,
+        MapView.adminArea2,
+        MapView.adminArea3,
+      ].includes(this.currentMapView);
+    } else if (breadCrumb === MapView.adminArea2) {
+      return [MapView.adminArea2, MapView.adminArea3].includes(
         this.currentMapView,
       );
-    } else if (breadCrumb === MapView.event) {
-      return [MapView.event, MapView.adminArea].includes(this.currentMapView);
-    } else if (breadCrumb === MapView.adminArea) {
-      return [MapView.adminArea].includes(this.currentMapView);
+    } else if (breadCrumb === MapView.adminArea3) {
+      return [MapView.adminArea3].includes(this.currentMapView);
     }
   }
 }

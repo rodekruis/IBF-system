@@ -34,6 +34,7 @@ import { HelperService } from '../../shared/helper.service';
 import { UserEntity } from '../user/user.entity';
 import { EventMapImageEntity } from './event-map-image.entity';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
+import { CountryEntity } from '../country/country.entity';
 
 @Injectable()
 export class EventService {
@@ -51,6 +52,8 @@ export class EventService {
   private readonly userRepository: Repository<UserEntity>;
   @InjectRepository(EventMapImageEntity)
   private readonly eventMapImageRepository: Repository<EventMapImageEntity>;
+  @InjectRepository(CountryEntity)
+  private readonly countryRepository: Repository<CountryEntity>;
 
   public constructor(
     private eapActionsService: EapActionsService,
@@ -219,6 +222,14 @@ export class EventService {
       disasterType,
     );
     const triggerUnit = await this.getTriggerUnit(disasterType);
+    const defaultAdminLevel = (
+      await this.countryRepository.findOne({
+        where: { countryCodeISO3: countryCodeISO3 },
+        relations: ['countryDisasterSettings'],
+      })
+    ).countryDisasterSettings.find(
+      (d) => d.disasterType === disasterType,
+    ).defaultAdminLevel;
 
     const whereFiltersDynamicData = {
       indicator: triggerUnit,
@@ -248,6 +259,15 @@ export class EventService {
       (element) => element.placeCode,
     );
 
+    if (adminLevel > defaultAdminLevel) {
+      // Use this to also return something on deeper levels than default
+      return this.getDeeperTriggeredAreas(
+        triggeredPlaceCodes,
+        disasterType,
+        lastTriggeredDate,
+      );
+    }
+
     const whereFiltersEvent = {
       closed: false,
       disasterType: disasterType,
@@ -260,6 +280,7 @@ export class EventService {
       .select([
         'area."placeCode" AS "placeCode"',
         'area.name AS name',
+        'area."adminLevel" AS "adminLevel"',
         'event."actionsValue"',
         'event."eventPlaceCodeId"',
         'event."activeTrigger"',
@@ -282,17 +303,12 @@ export class EventService {
       })
       .orderBy('event."actionsValue"', 'DESC');
 
-    let triggeredAreas;
-
     if (triggeredPlaceCodes.length) {
-      triggeredAreas = await triggeredAreasQuery
-        .andWhere('area."placeCode" IN(:...placeCodes)', {
-          placeCodes: triggeredPlaceCodes,
-        })
-        .getRawMany();
-    } else {
-      triggeredAreas = await triggeredAreasQuery.getRawMany();
+      triggeredAreasQuery.andWhere('area."placeCode" IN(:...placeCodes)', {
+        placeCodes: triggeredPlaceCodes,
+      });
     }
+    const triggeredAreas = await triggeredAreasQuery.getRawMany();
 
     for (const area of triggeredAreas) {
       if (
@@ -311,6 +327,51 @@ export class EventService {
       }
     }
     return triggeredAreas;
+  }
+
+  private async getDeeperTriggeredAreas(
+    triggeredPlaceCodes: string[],
+    disasterType: DisasterType,
+    lastTriggeredDate: DateDto,
+  ): Promise<TriggeredArea[]> {
+    const actionUnit = await this.getActionUnit(disasterType);
+    const areas = await this.adminAreaDynamicDataRepo
+      .createQueryBuilder('dynamic')
+      .where({
+        placeCode: In(triggeredPlaceCodes),
+        indicator: actionUnit,
+        timestamp: MoreThanOrEqual(
+          this.helperService.getUploadCutoffMoment(
+            disasterType,
+            lastTriggeredDate.timestamp,
+          ),
+        ),
+      })
+      .leftJoinAndSelect(
+        AdminAreaEntity,
+        'area',
+        'dynamic."placeCode" = area."placeCode"',
+      )
+      .select([
+        'dynamic."placeCode" AS "placeCode"',
+        'area.name AS name',
+        'area."adminLevel" AS "adminLevel"',
+        'dynamic.value AS value',
+      ])
+      .getRawMany();
+    return areas.map((area) => {
+      return {
+        placeCode: area.placeCode,
+        name: area.name,
+        nameParent: null,
+        actionsValue: area.value,
+        stopped: false,
+        startDate: null,
+        stoppedDate: null,
+        displayName: null,
+        eapActions: [],
+      };
+    });
   }
 
   public async getActivationLogData(

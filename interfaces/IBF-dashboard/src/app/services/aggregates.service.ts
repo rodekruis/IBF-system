@@ -6,6 +6,7 @@ import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { Country, DisasterType } from '../models/country.model';
+import { PlaceCode } from '../models/place-code.model';
 import { AdminLevel } from '../types/admin-level';
 import { EventState } from '../types/event-state';
 import { IbfLayerName } from '../types/ibf-layer';
@@ -15,6 +16,7 @@ import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EapActionsService } from './eap-actions.service';
 import { EventService } from './event.service';
+import { PlaceCodeService } from './place-code.service';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +34,7 @@ export class AggregatesService {
   private adminLevel: AdminLevel;
   private defaultAdminLevel: AdminLevel;
   public triggeredAreas: TriggeredArea[];
+  private placeCode: PlaceCode;
   private AREA_STATUS_KEY = 'areaStatus';
 
   constructor(
@@ -43,6 +46,7 @@ export class AggregatesService {
     private disasterTypeService: DisasterTypeService,
     private eventService: EventService,
     private eapActionsService: EapActionsService,
+    private placeCodeService: PlaceCodeService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -71,6 +75,10 @@ export class AggregatesService {
     this.eapActionsService
       .getTriggeredAreas()
       .subscribe(this.onTriggeredAreasChange);
+
+    this.placeCodeService
+      .getPlaceCodeSubscription()
+      .subscribe(this.onPlaceCodeChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -98,6 +106,10 @@ export class AggregatesService {
 
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
+  };
+
+  private onPlaceCodeChange = (placeCode: PlaceCode) => {
+    this.placeCode = placeCode;
   };
 
   private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
@@ -150,7 +162,8 @@ export class AggregatesService {
       }
 
       aggregate[this.AREA_STATUS_KEY] =
-        aggregate[indicator.name] !== undefined && this.eventState.activeTrigger
+        aggregate[IbfLayerName.alertThreshold] !== undefined &&
+        this.eventState.activeTrigger
           ? 'trigger-active'
           : 'non-triggered';
       return;
@@ -172,7 +185,8 @@ export class AggregatesService {
       ? 'trigger-stopped'
       : // the below relies on the fact that aggregate[indicator.name] is filled ..
       // .. above only if available, which is in turn only if trigger/warned (from API)
-      aggregate[indicator.name] !== undefined && this.eventState.activeTrigger
+      aggregate[IbfLayerName.alertThreshold] !== undefined &&
+        this.eventState.activeTrigger
       ? 'trigger-active'
       : 'non-triggered';
   };
@@ -203,6 +217,7 @@ export class AggregatesService {
           this.adminLevel,
           this.timelineState.activeLeadTime,
           this.eventState.event?.eventName,
+          this.mapService.getPlaceCodeParent(this.placeCode),
         )
         .subscribe(this.onAggregateData);
     }

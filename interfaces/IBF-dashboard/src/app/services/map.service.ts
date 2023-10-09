@@ -27,7 +27,7 @@ import { quantile } from 'src/shared/utils';
 import { Country, DisasterType } from '../models/country.model';
 import { LayerActivation } from '../models/layer-activation.enum';
 import { breakKey } from '../models/map.model';
-import { AdminLevel } from '../types/admin-level';
+import { AdminLevel, AdminLevelType } from '../types/admin-level';
 import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import { TimelineState } from '../types/timeline-state';
@@ -384,6 +384,7 @@ export class MapService {
           this.timelineState.activeLeadTime,
           adminLevel,
           this.eventState?.event?.eventName,
+          this.getPlaceCodeParent(),
         )
         .subscribe((adminRegions) =>
           this.addAdminRegionLayer(adminRegions, adminLevel),
@@ -697,6 +698,7 @@ export class MapService {
           this.timelineState.activeLeadTime,
           this.adminLevel,
           this.eventState?.event?.eventName,
+          this.getPlaceCodeParent(),
         )
         .pipe(shareReplay(1));
     } else if (layer.group === IbfLayerGroup.adminRegions) {
@@ -710,6 +712,7 @@ export class MapService {
           this.timelineState.activeLeadTime,
           adminLevel,
           this.eventState?.event?.eventName,
+          this.getPlaceCodeParent(),
         )
         .pipe(shareReplay(1));
     } else if (
@@ -730,6 +733,17 @@ export class MapService {
     }
     return layerData;
   };
+
+  public getPlaceCodeParent(placeCode?: PlaceCode): string {
+    placeCode = placeCode || this.placeCode;
+    const adminLevelType = this.adminLevelService.getAdminLevelType(placeCode);
+
+    return adminLevelType === AdminLevelType.single
+      ? null
+      : adminLevelType === AdminLevelType.deepest
+      ? placeCode?.placeCodeParent.placeCode
+      : placeCode?.placeCode;
+  }
 
   getCombineAdminRegionData(
     countryCodeISO3: string,
@@ -839,7 +853,7 @@ export class MapService {
 
   getOutlineOpacity(colorPropertyValue) {
     switch (true) {
-      case colorPropertyValue === 1:
+      case colorPropertyValue >= 1:
         return 1;
       default:
         return 0;

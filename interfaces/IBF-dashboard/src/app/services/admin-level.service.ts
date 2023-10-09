@@ -1,7 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AdminLevel, AdminLevelLabel } from 'src/app/types/admin-level';
-import { Country, DisasterType } from '../models/country.model';
+import {
+  AdminLevel,
+  AdminLevelLabel,
+  AdminLevelType,
+} from 'src/app/types/admin-level';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from '../models/country.model';
+import { PlaceCode } from '../models/place-code.model';
 import { EventState } from '../types/event-state';
 import { IbfLayerName } from '../types/ibf-layer';
 import { TimelineState } from '../types/timeline-state';
@@ -36,6 +45,7 @@ export class AdminLevelService {
 
   private country: Country;
   private disasterType: DisasterType;
+  private disasterTypeSettings: CountryDisasterSettings;
   private eventState: EventState;
   private timelineState: TimelineState;
 
@@ -92,6 +102,9 @@ export class AdminLevelService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+    this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType.disasterType,
+    );
     this.activeLayerNames = [];
   };
 
@@ -117,22 +130,14 @@ export class AdminLevelService {
       this.country.adminRegionLabels,
     ).map((k) => Number(k));
 
-    const countryDisasterAdminLevels = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).adminLevels;
-
-    this.setAdminLevel(
-      this.country.countryDisasterSettings.find(
-        (s) => s.disasterType === this.disasterType.disasterType,
-      ).defaultAdminLevel,
-    );
+    this.setAdminLevel(this.disasterTypeSettings.defaultAdminLevel);
 
     this.adminLevelLabel = AdminLevelService.loadAdminLevelLabels(this.country);
 
     this.adminLevelButtons = this.allCountryAdminLevels.map((level) => {
       return {
         adminLevel: level,
-        disabled: !countryDisasterAdminLevels.includes(level),
+        disabled: !this.disasterTypeSettings.adminLevels.includes(level),
         label: this.country.adminRegionLabels[level].plural,
         buttonTypeClass: this.getButtonTypeClass(level),
       };
@@ -154,6 +159,26 @@ export class AdminLevelService {
     this.adminLevelSubject.next(this.adminLevel);
   }
 
+  public zoomInAdminLevel() {
+    const adminLevels = this.disasterTypeSettings.adminLevels;
+    if (this.adminLevel < adminLevels[adminLevels.length - 1]) {
+      this.adminLevel = this.adminLevel + 1;
+      this.adminLevelSubject.next(this.adminLevel);
+    }
+  }
+
+  public zoomOutAdminLevel() {
+    if (this.adminLevel > this.disasterTypeSettings.defaultAdminLevel) {
+      this.adminLevel = this.adminLevel - 1;
+      this.adminLevelSubject.next(this.adminLevel);
+    }
+  }
+
+  public zoomToDefaultAdminLevel() {
+    this.adminLevel = this.disasterTypeSettings.defaultAdminLevel;
+    this.adminLevelSubject.next(this.adminLevel);
+  }
+
   private getButtonTypeClass(adminLevel: AdminLevel): string {
     const prefix = 'breadcrumb-';
     const length = this.allCountryAdminLevels?.length;
@@ -168,5 +193,23 @@ export class AdminLevelService {
     }
 
     return `${prefix}middle`;
+  }
+
+  public getAdminLevelType(placeCode: PlaceCode): AdminLevelType {
+    if (this.disasterTypeSettings.adminLevels?.length === 1) {
+      return AdminLevelType.single;
+    } else if (this.isDeepestAdminLevel(placeCode)) {
+      return AdminLevelType.deepest;
+    } else {
+      return AdminLevelType.higher;
+    }
+  }
+
+  private isDeepestAdminLevel(placeCode: PlaceCode): boolean {
+    return (
+      this.disasterTypeSettings.adminLevels[
+        this.disasterTypeSettings.adminLevels.length - 1
+      ] === this.adminLevel && placeCode?.adminLevel === this.adminLevel
+    );
   }
 }

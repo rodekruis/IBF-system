@@ -62,6 +62,7 @@ import {
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { PlaceCode } from '../../models/place-code.model';
+import { AdminLevelService } from '../../services/admin-level.service';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { PointMarkerService } from '../../services/point-marker.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
@@ -76,7 +77,7 @@ import { IbfLayerThreshold } from './../../types/ibf-layer';
 export class MapComponent implements AfterViewInit, OnDestroy {
   private map: Map;
   public layers: IbfLayer[] = [];
-  private placeCode: string;
+  private placeCode: PlaceCode;
   private country: Country;
   private disasterType: DisasterType;
   public lastModelRunDate: string;
@@ -120,6 +121,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     private apiService: ApiService,
     private pointMarkerService: PointMarkerService,
     private mapLegendService: MapLegendService,
+    private adminLevelService: AdminLevelService,
   ) {
     this.layerSubscription = this.mapService
       .getLayerSubscription()
@@ -204,7 +206,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode): void => {
-    this.placeCode = placeCode?.placeCode;
+    this.placeCode = placeCode;
 
     this.layers.forEach((layer: IbfLayer): void => {
       if (layer.leafletLayer && 'resetStyle' in layer.leafletLayer) {
@@ -236,7 +238,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         let zoomExtraOffset: number;
         if (this.placeCode) {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features.filter(
-            (area) => area?.properties?.['placeCode'] === this.placeCode,
+            (area) =>
+              area?.properties?.['placeCode'] === this.placeCode.placeCode,
           );
           zoomExtraOffset = 0.1;
         } else {
@@ -602,6 +605,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       placeCodeName: feature.properties.name,
       placeCodeParentName: feature.properties.nameParent,
       eventName: feature.properties.eventName,
+      adminLevel: feature.properties.adminLevel,
     });
   };
 
@@ -618,7 +622,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     // if click in overview-mode
     if (!this.eventState.event) {
-      // go to event-mode, but don't set placeCode
+      // go to event-view, but don't set placeCode
       if (feature.properties.eventName) {
         const event = this.eventState?.events?.find(
           (e) => e.eventName === feature.properties.eventName,
@@ -630,20 +634,30 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.eventService.switchEvent(feature.properties.eventName);
       }
     } else if (this.eventState.event) {
-      // in in event-mode, then set placeCode
-      if (feature.properties.placeCode === this.placeCode) {
+      // if in event-view, then set placeCode
+      if (feature.properties.placeCode === this.placeCode?.placeCode) {
         element.unbindPopup();
-        this.placeCode = null;
-        this.placeCodeService.clearPlaceCode();
+        if (this.placeCode.placeCodeParent) {
+          this.placeCodeService.setPlaceCode(this.placeCode.placeCodeParent);
+        } else {
+          this.placeCodeService.clearPlaceCode();
+        }
       } else {
-        this.placeCodeService.clearPlaceCode();
         this.bindPopupAdminRegions(feature, element);
-        this.placeCode = feature.properties.placeCode;
+        const zoomIn =
+          feature.properties.adminLevel > (this.placeCode?.adminLevel || 0);
+        if (zoomIn) {
+          this.adminLevelService.zoomInAdminLevel();
+        }
         this.placeCodeService.setPlaceCode({
           placeCode: feature.properties.placeCode,
           countryCodeISO3: feature.properties.countryCodeISO3,
           placeCodeName: feature.properties.name,
+          placeCodeParent: zoomIn
+            ? this.placeCode
+            : this.placeCode?.placeCodeParent,
           placeCodeParentName: feature.properties.nameParent,
+          adminLevel: feature.properties.adminLevel,
           eventName: feature.properties.eventName,
         });
       }

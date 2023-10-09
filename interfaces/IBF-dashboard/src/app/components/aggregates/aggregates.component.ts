@@ -26,6 +26,7 @@ import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { EapActionsService } from '../../services/eap-actions.service';
 import { MapViewService } from '../../services/map-view.service';
+import { AdminLevelType } from '../../types/admin-level';
 import { MapView } from '../../types/map-view';
 import { TriggeredArea } from '../../types/triggered-area';
 import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
@@ -233,10 +234,18 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     numberFormat: NumberFormat,
   ) {
     const placeCode = this.placeCode || this.placeCodeHover;
+    const adminLevelType = this.adminLevelService.getAdminLevelType(placeCode);
+    // TODO: improve/explain logic
     return this.aggregatesService.getAggregate(
       weightedAvg,
       indicatorName,
-      placeCode ? placeCode.placeCode : null,
+      this.placeCodeHover
+        ? this.placeCodeHover.placeCode
+        : adminLevelType === AdminLevelType.higher
+        ? null
+        : placeCode
+        ? placeCode.placeCode
+        : null,
       numberFormat,
       this.triggerStatus,
     );
@@ -371,10 +380,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private isCorrectStatusPlaceCode(placeCode: PlaceCode): boolean {
     return this.aggregatesPlaceCodes.includes(placeCode.placeCode);
-  }
-
-  public clearPlaceCode() {
-    this.placeCodeService.clearPlaceCode();
   }
 
   public isActiveAreas(): boolean {
