@@ -223,7 +223,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
           MapView.adminArea,
           MapView.adminArea2,
           MapView.adminArea3,
-        ].includes(this.currentMapView) && this.mapViewService.eventHasName() // TODO: replace this check by a country-disaster-setting
+        ].includes(this.currentMapView) && this.mapViewService.eventHasName() // TODO: use isEventBased boolean & move to service & check all other uses of eventHasName
       );
     } else if (breadCrumb === MapView.adminArea) {
       return [

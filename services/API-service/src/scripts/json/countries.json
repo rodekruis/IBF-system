@@ -194,7 +194,8 @@
         },
         "droughtEndOfMonthPipeline": false,
         "showMonthlyEapActions": true,
-        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0db9ce391f633443aae619a2a0e974904&authkey=AV-9MdWarHQlelBjlbQdaoA&expiration=2023-07-31T22%3a00%3a00.000Z"
+        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0db9ce391f633443aae619a2a0e974904&authkey=AV-9MdWarHQlelBjlbQdaoA&expiration=2023-07-31T22%3a00%3a00.000Z",
+        "isEventBased": true
       },
       {
         "disasterType": "heavy-rain",
@@ -297,6 +298,7 @@
             }
           }
         },
+        "isEventBased": true,
         "showMonthlyEapActions": true,
         "eapLink": "https://zambiaredcrosssociety-my.sharepoint.com/:w:/r/personal/wina_wina_redcross_org_zm/_layouts/15/Doc.aspx?sourcedoc=%7BA97A5C40-159E-45A9-A236-B0545E6A7734%7D&file=DROUGHT%20EAP%202021%20-SEPT%20Draft%202%20-Irene.docx&action=default&mobileredirect=true"
       }
@@ -550,6 +552,7 @@
           "10": [],
           "11": []
         },
+        "isEventBased": true,
         "eapLink": "https://drive.google.com/file/d/129ni2VlAxg5GngqoszmVjlaRFEuLwLph/view"
       }
     ],
@@ -632,6 +635,7 @@
           "10-month",
           "11-month"
         ],
+        "isEventBased": true,
         "droughtForecastSeasons": {
           "Belg": {
             "Belg MAM": {
@@ -1038,6 +1042,7 @@
           "167-hour",
           "168-hour"
         ],
+        "isEventBased": true,
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=019cd8c5dca4240d5bacca0756bbf6703&authkey=AUnDxa6EBrEIYrzZGBbKkGE&expiration=2022-10-17T22%3A00%3A00.000Z&e=caLZ0C"
       },
       {

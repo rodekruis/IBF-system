@@ -13,7 +13,11 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { Country, DisasterType } from 'src/app/models/country.model';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import {
@@ -30,7 +34,6 @@ import { DisasterTypeService } from '../../services/disaster-type.service';
 import { EapActionsService } from '../../services/eap-actions.service';
 import { MapViewService } from '../../services/map-view.service';
 import { AdminLevelType } from '../../types/admin-level';
-import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { MapView } from '../../types/map-view';
 import { TriggeredArea } from '../../types/triggered-area';
 import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
@@ -48,6 +51,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public placeCodeHover: PlaceCode;
   private country: Country;
   private disasterType: DisasterType;
+  public disasterTypeSettings: CountryDisasterSettings;
   private aggregateComponentTranslateNode = 'aggregates-component';
   private exposedPrefixTranslateNode = 'exposed-prefix';
   private stoppedPrefixTranslateNode = 'stopped-prefix';
@@ -157,6 +161,9 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+    this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
+      (s) => s.disasterType === this.disasterType?.disasterType,
+    );
   };
 
   private onEventStateChange = (eventState: EventState) => {
@@ -252,9 +259,9 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       return {
         headerLabel: 'National view', //TODO add to translation file
         subHeaderLabel: `${this.getAreaCount()} ${
-          this.disasterType?.disasterType === DisasterTypeKey.flashFloods //TODO replace with isEVentBased
-            ? 'predicted ' + this.disasterType.label + '(s)' //TODO add to translation file + combine with exposedPrefix?
-            : `${this.exposedPrefix} ${this.adminAreaLabel()}` //TODO exposedPrefix is empty here still
+          this.disasterTypeSettings?.isEventBased
+            ? 'Predicted ' + this.disasterType.label + '(s)' //TODO add to translation file + combine with exposedPrefix?
+            : `${this.exposedPrefix} ${this.adminAreaLabel()}`
         }`,
       };
     }
