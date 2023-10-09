@@ -45,7 +45,7 @@ import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/
 })
 export class AggregatesComponent implements OnInit, OnDestroy {
   @Input()
-  public areaStatus: AreaStatus;
+  public areaStatus: string;
 
   public indicators: Indicator[] = [];
   public placeCode: PlaceCode;
@@ -251,7 +251,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         ? placeCode.placeCode
         : null, // .. or no filtering, if no placeCode is selected
       numberFormat,
-      this.areaStatus,
+      this.areaStatus as AreaStatus,
     );
   }
 
