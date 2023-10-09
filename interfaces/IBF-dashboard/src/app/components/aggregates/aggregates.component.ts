@@ -235,17 +235,17 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   ) {
     const placeCode = this.placeCode || this.placeCodeHover;
     const adminLevelType = this.adminLevelService.getAdminLevelType(placeCode);
-    // TODO: improve/explain logic
+    // TODO: improve this logic
     return this.aggregatesService.getAggregate(
       weightedAvg,
       indicatorName,
-      this.placeCodeHover
+      this.placeCodeHover // hovering should always lead to aggregate-numbers updating on any level
         ? this.placeCodeHover.placeCode
-        : adminLevelType === AdminLevelType.higher
+        : adminLevelType === AdminLevelType.higher // else if on higher of multiple levels, do not filter by placeCode, as it it still the parent placeCode, while the aggregates data is on the child-placeCodes
         ? null
-        : placeCode
+        : placeCode // else if on single/deepest level, then follow normal behaviour of filtering on selected placeCode
         ? placeCode.placeCode
-        : null,
+        : null, // .. or no filtering, if no placeCode is selected
       numberFormat,
       this.triggerStatus,
     );

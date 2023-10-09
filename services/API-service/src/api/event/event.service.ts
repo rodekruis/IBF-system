@@ -260,7 +260,7 @@ export class EventService {
     );
 
     if (adminLevel > defaultAdminLevel) {
-      // Use this to also return something on deeper levels than default
+      // Use this to also return something on deeper levels than default (to show in chat-section)
       return this.getDeeperTriggeredAreas(
         triggeredPlaceCodes,
         disasterType,

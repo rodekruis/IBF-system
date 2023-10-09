@@ -89,6 +89,7 @@ export class EapActionsService {
   };
 
   private onAdminLevelChange = () => {
+    // This avoids duplicate calls because of adminLevel & placeCode change
     if (this.placeCode) {
       const adminLevelType = this.adminLevelService.getAdminLevelType(
         this.placeCode,
@@ -113,10 +114,12 @@ export class EapActionsService {
       this.timelineState &&
       this.eventState
     ) {
+      // This makes sure that if placeCode is set, that adminLevel is used below (which affects e.g. the chat-section) ..
+      // .. which is 1 adminLevel highr than the one used in the map ..
+      // .. if not set yet (so on highest adminLevel), then the chat-section uses the same level as the map (namely the defaultAdminLevel)
       const adminLevelToUse =
         this.placeCode?.adminLevel ||
         this.disasterTypeSettings.defaultAdminLevel;
-      console.log('adminLevelToUse: ', adminLevelToUse);
       this.apiService
         .getTriggeredAreas(
           this.country.countryCodeISO3,

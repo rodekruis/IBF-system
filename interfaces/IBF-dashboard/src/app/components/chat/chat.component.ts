@@ -608,12 +608,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   public revertAreaSelection() {
+    // TODO: merge/share this code with zoom-out actions in admin-level.component
+    // do not zoom out when on deepest level, because the deepest 2 levels have the same adminLevel in the map, and just differ on adminLevel/placeCode of the chat-section
     if (
       this.adminLevelService.getAdminLevelType(this.placeCode) !==
       AdminLevelType.deepest
     ) {
       this.adminLevelService.zoomOutAdminLevel();
     }
+    // if not on highest level, then set placeCode to parent
     if (this.placeCode.placeCodeParent) {
       this.placeCodeService.setPlaceCode(this.placeCode.placeCodeParent);
     } else {

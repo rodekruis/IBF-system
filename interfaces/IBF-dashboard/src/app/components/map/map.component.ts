@@ -644,6 +644,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         }
       } else {
         this.bindPopupAdminRegions(feature, element);
+        // only zoom-in when actually zooming in (instead of selecting a peer-area on the same level)
         const zoomIn =
           feature.properties.adminLevel > (this.placeCode?.adminLevel || 0);
         if (zoomIn) {

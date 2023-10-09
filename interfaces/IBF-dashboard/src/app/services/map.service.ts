@@ -739,10 +739,10 @@ export class MapService {
     const adminLevelType = this.adminLevelService.getAdminLevelType(placeCode);
 
     return adminLevelType === AdminLevelType.single
-      ? null
+      ? null // on single admin: don't pass any parentPlaceCode filtering
       : adminLevelType === AdminLevelType.deepest
-      ? placeCode?.placeCodeParent.placeCode
-      : placeCode?.placeCode;
+      ? placeCode?.placeCodeParent.placeCode // on deepest admin: pass parentPlaceCode
+      : placeCode?.placeCode; // on higher levels: pass current placeCode (TODO: why this last difference?)
   }
 
   getCombineAdminRegionData(
