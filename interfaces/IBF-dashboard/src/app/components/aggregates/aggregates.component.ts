@@ -480,16 +480,4 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       : (filtered = triggeredAreas.filter((a) => a.stopped));
     this.aggregatesPlaceCodes = filtered.map((a) => a.placeCode);
   };
-
-  public eventHasName(): boolean {
-    if (
-      !this.eventState ||
-      !this.eventState.event ||
-      !this.eventState.event.eventName
-    ) {
-      return false;
-    }
-
-    return true;
-  }
 }

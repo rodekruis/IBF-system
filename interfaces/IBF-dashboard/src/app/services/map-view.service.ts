@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { CountryDisasterSettings } from '../models/country.model';
 import { PlaceCode } from '../models/place-code.model';
 import { EventState } from '../types/event-state';
 import { MapView } from '../types/map-view';
+import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
 import { PlaceCodeService } from './place-code.service';
 
@@ -20,9 +22,12 @@ export class MapViewService {
   private placeCode: PlaceCode;
   private placeCodeHover: PlaceCode;
 
+  private countryDisasterSettings: CountryDisasterSettings;
+
   constructor(
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
+    private disasterTypeService: DisasterTypeService,
   ) {
     this.eventService
       .getInitialEventStateSubscription()
@@ -36,6 +41,9 @@ export class MapViewService {
     this.placeCodeService
       .getPlaceCodeHoverSubscription()
       .subscribe(this.onPlacecodeHoverChange);
+    this.disasterTypeService
+      .getCountryDisasterSettingsSubscription()
+      .subscribe(this.onCountryDisasterSettingsChange);
   }
 
   private setAggregatesMapView(view: MapView) {
@@ -61,7 +69,7 @@ export class MapViewService {
     }
 
     if (this.eventState.event && !this.placeCode) {
-      this.eventHasName()
+      this.countryDisasterSettings?.isEventBased
         ? this.setBreadcrumbsMapView(MapView.event)
         : this.setBreadcrumbsMapView(MapView.national);
       return;
@@ -106,15 +114,10 @@ export class MapViewService {
     this.placeCodeHover = placeCode;
   };
 
-  public eventHasName(): boolean {
-    if (
-      !this.eventState ||
-      !this.eventState.event ||
-      !this.eventState.event.eventName
-    ) {
-      return false;
-    }
-
-    return true;
-  }
+  private onCountryDisasterSettingsChange = (
+    settings: CountryDisasterSettings,
+  ) => {
+    this.countryDisasterSettings = settings;
+    this.updateBreadcrumbsMapView();
+  };
 }

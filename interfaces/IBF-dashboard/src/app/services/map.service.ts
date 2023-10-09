@@ -1058,7 +1058,7 @@ export class MapService {
         color: this.stoppedTriggerColor,
         weight: 5,
       };
-    } else if (!this.eventState.event.thresholdReached) {
+    } else if (!this.eventState?.event?.thresholdReached) {
       return {
         color: this.selectedOutlineColor.nonTriggered,
         weight: 5,
