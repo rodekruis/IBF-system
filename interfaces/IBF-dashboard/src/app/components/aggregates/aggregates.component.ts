@@ -296,7 +296,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           };
     }
 
-    if (mapView === MapView.adminArea) {
+    if (
+      [MapView.adminArea, MapView.adminArea2, MapView.adminArea3].includes(
+        mapView,
+      )
+    ) {
       return this.placeCodeHover
         ? {
             headerLabel: this.placeCodeHover.placeCodeName,
