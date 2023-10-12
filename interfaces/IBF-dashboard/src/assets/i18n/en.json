@@ -72,7 +72,9 @@
     "all-prefix": "All",
     "exposed-subgroups": "",
     "stopped-placecode": "(stopped)",
-    "national-view": "National View"
+    "national-view": "National View",
+    "predicted": "Predicted",
+    "plural-suffix": "(s)"
   },
   "areas-of-focus-summary-component": {
     "title": "Actions Summary",

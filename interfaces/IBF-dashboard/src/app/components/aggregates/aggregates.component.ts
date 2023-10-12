@@ -271,12 +271,18 @@ export class AggregatesComponent implements OnInit, OnDestroy {
                 }`,
           }
         : {
-            headerLabel: 'National view', //TODO add to translation file
+            headerLabel: this.translateService.instant(
+              'aggregates-component.national-view',
+            ), //TODO add to translation file
             subHeaderLabel: `${this.getAreaCount()} ${
               this.disasterTypeSettings?.isEventBased
-                ? 'Predicted ' +
+                ? this.translateService.instant(
+                    'aggregates-component.national-view',
+                  ) +
                   firstCharOfWordsToUpper(this.disasterType.label) +
-                  '(s)' //TODO add to translation file + combine with exposedPrefix?
+                  this.translateService.instant(
+                    'aggregates-component.plural-suffix',
+                  ) //TODO add to translation file + combine with exposedPrefix?
                 : `${this.exposedPrefix} ${this.adminAreaLabel()}`
             }`,
           };
@@ -328,43 +334,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       headerLabel: mapView,
       subHeaderLabel: mapView,
     };
-
-    // const disasterTypeLabel = `${this.disasterType?.label
-    //   ?.charAt(0)
-    //   .toUpperCase()}${this.disasterType?.label?.substring(1)}`;
-
-    // const eventString = `${disasterTypeLabel}${
-    //   this.getEventNameString() ? ': ' + this.getEventNameString() : ''
-    // }`;
-
-    // const header = {
-    //   [MapView.national]: `${
-    //     this.country?.countryName
-    //   } - ${this.translateService.instant(
-    //     'aggregates-component.national-view',
-    //   )}`,
-    //   [MapView.event]: eventString,
-    //   [MapView.adminArea]: eventString,
-    // };
-
-    // const areaCountString = `<strong>${this.getAreaCount()}</strong> ${
-    //   this.exposedPrefix
-    // } ${this.adminAreaLabel()}`;
-
-    // const parentName = this.placeCodeParentName()
-    //   ? ` (${this.placeCodeParentName()})`
-    //   : '';
-
-    // const subHeader = {
-    //   [MapView.national]: areaCountString,
-    //   [MapView.event]: areaCountString,
-    //   [MapView.adminArea]: `${this.placeCodeName()}${parentName}`,
-    // };
-
-    // return {
-    //   headerLabel: header[mapView],
-    //   subHeaderLabel: subHeader[mapView],
-    // };
   }
 
   private getEventNameString(): string {
