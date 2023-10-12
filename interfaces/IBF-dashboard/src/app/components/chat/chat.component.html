@@ -332,7 +332,10 @@
         </form>
       </ng-container>
       <app-ibf-button
-        *ngIf="disasterTypeSettings?.enableStopTrigger && placeCode?.adminLevel === disasterTypeSettings.defaultAdminLevel"
+        *ngIf="
+          disasterTypeSettings?.enableStopTrigger &&
+          placeCode?.adminLevel === disasterTypeSettings.defaultAdminLevel
+        "
         (click)="openToggleTriggerPopup(area, true)"
         [disabled]="!area.activeTrigger"
         backgroundColor="ibf-primary"
