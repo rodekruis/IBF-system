@@ -278,9 +278,8 @@ export class EapActionsService {
     // SIMULATE: uncomment the line below and change the number to simulate different months
     // return 9;
     if (
-      this.country.countryDisasterSettings.find(
-        (s) => s.disasterType === this.disasterType.disasterType,
-      ).droughtEndOfMonthPipeline
+      this.disasterTypeService.getCountryDisasterTypeSettings()
+        ?.droughtEndOfMonthPipeline
     ) {
       return this.timelineState.today.plus({ months: 1 }).month;
     }

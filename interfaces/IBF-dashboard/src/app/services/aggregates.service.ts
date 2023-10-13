@@ -96,9 +96,7 @@ export class AggregatesService {
     if (!this.country) {
       return;
     }
-    this.defaultAdminLevel = this.country.countryDisasterSettings.find(
-      (d) => d.disasterType === disasterType.disasterType,
-    ).defaultAdminLevel;
+    this.defaultAdminLevel = this.disasterTypeService.getCountryDisasterTypeSettings()?.defaultAdminLevel;
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {

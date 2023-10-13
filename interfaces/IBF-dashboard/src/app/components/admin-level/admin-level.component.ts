@@ -14,10 +14,7 @@ import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
 import { IbfLayer, IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
-import {
-  CountryDisasterSettings,
-  DisasterType,
-} from '../../models/country.model';
+import { DisasterType } from '../../models/country.model';
 import { PlaceCode } from '../../models/place-code.model';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { MapViewService } from '../../services/map-view.service';
@@ -34,8 +31,7 @@ import { MapView } from '../../types/map-view';
 export class AdminLevelComponent implements OnInit, OnDestroy {
   public disasterType: Observable<DisasterType>;
 
-  private countryDisasterSettingsSubscription: Subscription;
-  private countryDisasterSettings: CountryDisasterSettings;
+  // private countryDisasterSettings: CountryDisasterSettings;
 
   public mapViewEnum = MapView;
   public currentMapView: MapView;
@@ -73,9 +69,6 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.disasterType = this.disasterTypeService.getDisasterTypeSubscription();
-    this.disasterTypeService
-      .getCountryDisasterSettingsSubscription()
-      .subscribe(this.onCountryDisasterSettingsChange);
     this.mapViewSubscription = this.mapViewService
       .getBreadcrumbsMapViewSubscription()
       .subscribe(this.onMapViewChange);
@@ -91,7 +84,6 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     this.mapViewSubscription.unsubscribe();
     this.eventStateSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
-    this.countryDisasterSettingsSubscription.unsubscribe();
   }
 
   private onMapViewChange = (view: MapView) => {
@@ -105,13 +97,6 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
     this.placeCode = placeCode;
-    this.changeDetectorRef.detectChanges();
-  };
-
-  private onCountryDisasterSettingsChange = (
-    settings: CountryDisasterSettings,
-  ) => {
-    this.countryDisasterSettings = settings;
     this.changeDetectorRef.detectChanges();
   };
 
@@ -213,7 +198,9 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     }
 
     if (breadCrumb === MapView.national) {
-      if (this.countryDisasterSettings?.isEventBased) {
+      if (
+        this.disasterTypeService.getCountryDisasterTypeSettings()?.isEventBased
+      ) {
         this.eventService?.resetEvents();
         return;
       } else {
@@ -241,7 +228,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
           MapView.adminArea2,
           MapView.adminArea3,
         ].includes(this.currentMapView) &&
-        this.countryDisasterSettings?.isEventBased
+        this.disasterTypeService.getCountryDisasterTypeSettings()?.isEventBased
       );
     } else if (breadCrumb === MapView.adminArea) {
       return [

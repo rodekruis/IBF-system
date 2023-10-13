@@ -14,10 +14,6 @@ import { CountryService } from './country.service';
 export class DisasterTypeService {
   private disasterTypeSubject = new BehaviorSubject<DisasterType>(null);
   public disasterType: DisasterType;
-  private countryDisasterSettings: CountryDisasterSettings;
-  private countryDisasterSettingsSubject = new BehaviorSubject<CountryDisasterSettings>(
-    null,
-  );
 
   private country: Country;
 
@@ -34,7 +30,6 @@ export class DisasterTypeService {
   public setDisasterType(disasterType: DisasterType) {
     this.disasterType = disasterType;
     this.disasterTypeSubject.next(this.disasterType);
-    this.setCountryDisasterTypeSettings();
   }
 
   public hasEap(disasterType: DisasterTypeKey): string {
@@ -49,24 +44,12 @@ export class DisasterTypeService {
 
   private onCountryChange = (country: Country) => {
     this.country = country;
-
-    this.setCountryDisasterTypeSettings();
   };
 
-  private setCountryDisasterTypeSettings() {
+  public getCountryDisasterTypeSettings(): CountryDisasterSettings {
     const settings = this.country?.countryDisasterSettings.find(
       (s) => s.disasterType === this.disasterType?.disasterType,
     );
-
-    if (!settings) {
-      return;
-    }
-
-    this.countryDisasterSettings = settings;
-    this.countryDisasterSettingsSubject.next(this.countryDisasterSettings);
-  }
-
-  public getCountryDisasterSettingsSubscription(): Observable<CountryDisasterSettings> {
-    return this.countryDisasterSettingsSubject.asObservable();
+    return settings;
   }
 }
