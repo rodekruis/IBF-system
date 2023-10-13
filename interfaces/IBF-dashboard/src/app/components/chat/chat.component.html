@@ -150,6 +150,9 @@
       <app-ibf-button
         (click)="openToggleTriggerPopup(area, false)"
         [disabled]="!area.activeTrigger"
+        *ngIf="
+        disasterTypeSettings?.enableStopTrigger &&
+        placeCode?.adminLevel === disasterTypeSettings.defaultAdminLevel"
         backgroundColor="ibf-no-alert-primary"
       >
         {{

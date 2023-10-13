@@ -213,7 +213,7 @@ export class AdminAreaService {
     );
     let staticIndicatorsScript = this.adminAreaRepository
       .createQueryBuilder('area')
-      .select(['area."placeCode"'])
+      .select(['area."placeCode"', 'area."placeCodeParent"'])
       .leftJoin(AdminAreaDataEntity, 'data', 'area.placeCode = data.placeCode')
       .addSelect(['data."indicator"', 'data."value"'])
       .where('area."countryCodeISO3" = :countryCodeISO3', {
@@ -238,7 +238,7 @@ export class AdminAreaService {
 
     let dynamicIndicatorsScript = this.adminAreaRepository
       .createQueryBuilder('area')
-      .select(['area."placeCode"'])
+      .select(['area."placeCode", area."placeCodeParent"'])
       .leftJoin(
         AdminAreaDynamicDataEntity,
         'dynamic',
@@ -363,6 +363,7 @@ export class AdminAreaService {
         'dynamic."leadTime"',
         'dynamic."date"',
         'parent.name AS "nameParent"',
+        'parent."placeCode" as "placeCodeParent"',
         'dynamic."eventName"',
       ])
       .andWhere('timestamp >= :cutoffMoment', {

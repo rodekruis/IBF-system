@@ -597,6 +597,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     event.target.setStyle(
       this.mapService.setAdminRegionMouseOverStyle(
         feature.properties.placeCode,
+        feature.properties.placeCodeParent,
       ),
     );
     this.placeCodeService.setPlaceCodeHover({
