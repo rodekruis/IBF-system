@@ -77,7 +77,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public forecastInfo: string[];
   public country: Country;
   public disasterType: DisasterType;
-  public disasterTypeSettings: CountryDisasterSettings;
+  public countryDisasterSettings: CountryDisasterSettings;
   public lastModelRunDate: string;
   private lastModelRunDateFormat = 'cccc, dd LLLL HH:mm';
   public isWarn = false;
@@ -154,7 +154,10 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.disasterTypeSettings = this.disasterTypeService.getCountryDisasterTypeSettings();
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    );
   };
 
   private onIndicatorChange = (indicators: Indicator[]) => {
@@ -228,7 +231,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     ) {
       this.adminLevel =
         this.placeCode?.adminLevel ||
-        this.disasterTypeSettings.defaultAdminLevel;
+        this.countryDisasterSettings.defaultAdminLevel;
       this.adminAreaLabel = this.country.adminRegionLabels[
         this.adminLevel
       ].singular;
@@ -459,16 +462,15 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public getClearOutMessage(event: EventSummary) {
-    if (!this.disasterTypeSettings?.showMonthlyEapActions) {
+    if (!this.countryDisasterSettings?.showMonthlyEapActions) {
       return;
     }
 
-    const droughtForecastSeasons = this.disasterTypeService.getCountryDisasterTypeSettings()
+    const droughtForecastSeasons = this.countryDisasterSettings
       ?.droughtForecastSeasons;
-
     const forecastAreas = Object.keys(droughtForecastSeasons);
 
-    const droughtEndOfMonthPipeline = this.disasterTypeService.getCountryDisasterTypeSettings()
+    const droughtEndOfMonthPipeline = this.countryDisasterSettings
       ?.droughtEndOfMonthPipeline;
     const currentMonth = this.timelineState.today.plus({
       months: droughtEndOfMonthPipeline ? 1 : 0,
@@ -544,7 +546,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   public getForecastInfo() {
-    if (!this.disasterTypeSettings.monthlyForecastInfo) {
+    if (!this.countryDisasterSettings.monthlyForecastInfo) {
       return;
     }
 
@@ -553,9 +555,11 @@ export class ChatComponent implements OnInit, OnDestroy {
         const currentMonth = this.timelineState.today.month;
 
         const prefixKey = 'prefix';
-        const prefix = this.disasterTypeSettings.monthlyForecastInfo[prefixKey];
+        const prefix = this.countryDisasterSettings.monthlyForecastInfo[
+          prefixKey
+        ];
 
-        const currentMonthforecastInfo = this.disasterTypeSettings
+        const currentMonthforecastInfo = this.countryDisasterSettings
           .monthlyForecastInfo[currentMonth];
         if (typeof currentMonthforecastInfo === 'string') {
           return [];
@@ -567,7 +571,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       },
       ZWE: () => {
         const messageKey = 'message';
-        return this.disasterTypeSettings.monthlyForecastInfo[messageKey];
+        return this.countryDisasterSettings.monthlyForecastInfo[messageKey];
       },
     };
 
@@ -589,14 +593,14 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public getRegion = (placeCode: string): string => {
-    if (!this.disasterTypeSettings.droughtAreas) {
+    if (!this.countryDisasterSettings.droughtAreas) {
       return 'National';
     } else {
       for (const droughtArea of Object.keys(
-        this.disasterTypeSettings.droughtAreas,
+        this.countryDisasterSettings.droughtAreas,
       )) {
         if (
-          this.disasterTypeSettings.droughtAreas[droughtArea].includes(
+          this.countryDisasterSettings.droughtAreas[droughtArea].includes(
             placeCode,
           )
         ) {

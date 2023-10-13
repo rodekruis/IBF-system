@@ -14,8 +14,13 @@ import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
 import { IbfLayer, IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
-import { DisasterType } from '../../models/country.model';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from '../../models/country.model';
 import { PlaceCode } from '../../models/place-code.model';
+import { CountryService } from '../../services/country.service';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { MapViewService } from '../../services/map-view.service';
 import { PlaceCodeService } from '../../services/place-code.service';
@@ -29,7 +34,11 @@ import { MapView } from '../../types/map-view';
   styleUrls: ['./admin-level.component.scss'],
 })
 export class AdminLevelComponent implements OnInit, OnDestroy {
-  public disasterType: Observable<DisasterType>;
+  private countrySubscription: Subscription;
+  private disasterTypeSubscription: Subscription;
+  public country: Country;
+  public disasterType: DisasterType;
+  public countryDisasterSettings: CountryDisasterSettings;
 
   public mapViewEnum = MapView;
   public currentMapView: MapView;
@@ -59,6 +68,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     private analyticsService: AnalyticsService,
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
+    private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
     private mapViewService: MapViewService,
     public translate: TranslateService,
@@ -66,23 +76,47 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.disasterType = this.disasterTypeService.getDisasterTypeSubscription();
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .subscribe(this.onCountryChange);
+
+    this.disasterTypeSubscription = this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
+
     this.mapViewSubscription = this.mapViewService
       .getBreadcrumbsMapViewSubscription()
       .subscribe(this.onMapViewChange);
+
     this.eventStateSubscription = this.eventService
       .getManualEventStateSubscription()
       .subscribe(this.onEventChange);
-    this.adminLevelButtons = this.adminLevelService.getAdminLevelButtonsSubscription();
+
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
+
+    this.adminLevelButtons = this.adminLevelService.getAdminLevelButtonsSubscription();
   }
   ngOnDestroy(): void {
     this.mapViewSubscription.unsubscribe();
     this.eventStateSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
+    this.countrySubscription.unsubscribe();
+    this.disasterTypeSubscription.unsubscribe();
   }
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+  };
+
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    );
+  };
 
   private onMapViewChange = (view: MapView) => {
     this.currentMapView = view;
@@ -196,9 +230,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     }
 
     if (breadCrumb === MapView.national) {
-      if (
-        this.disasterTypeService.getCountryDisasterTypeSettings()?.isEventBased
-      ) {
+      if (this.countryDisasterSettings?.isEventBased) {
         this.eventService?.resetEvents();
         return;
       } else {
@@ -226,7 +258,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
           MapView.adminArea2,
           MapView.adminArea3,
         ].includes(this.currentMapView) &&
-        this.disasterTypeService.getCountryDisasterTypeSettings()?.isEventBased
+        this.countryDisasterSettings?.isEventBased
       );
     } else if (breadCrumb === MapView.adminArea) {
       return [

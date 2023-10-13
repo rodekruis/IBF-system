@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from '../models/country.model';
 import { PlaceCode } from '../models/place-code.model';
 import { EventState } from '../types/event-state';
 import { MapView } from '../types/map-view';
+import { CountryService } from './country.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
 import { PlaceCodeService } from './place-code.service';
@@ -17,15 +23,25 @@ export class MapViewService {
   private aggregatesMapViewSubject = new BehaviorSubject<MapView>(null);
   private aggregatesMapView: MapView;
 
+  private country: Country;
+  private disasterType: DisasterType;
+  private countryDisasterSettings: CountryDisasterSettings;
   private eventState: EventState;
   private placeCode: PlaceCode;
-  private placeCodeHover: PlaceCode;
 
   constructor(
+    private countryService: CountryService,
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private disasterTypeService: DisasterTypeService,
   ) {
+    this.countryService
+      .getCountrySubscription()
+      .subscribe(this.onCountryChange);
+
+    this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
     this.eventService
       .getInitialEventStateSubscription()
       .subscribe(this.onEventStateChange);
@@ -35,10 +51,19 @@ export class MapViewService {
     this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlacecodeChange);
-    this.placeCodeService
-      .getPlaceCodeHoverSubscription()
-      .subscribe(this.onPlacecodeHoverChange);
   }
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+  };
+
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    );
+  };
 
   private setAggregatesMapView(view: MapView) {
     this.aggregatesMapView = view;
@@ -63,7 +88,7 @@ export class MapViewService {
     }
 
     if (this.eventState.event && !this.placeCode) {
-      this.disasterTypeService.getCountryDisasterTypeSettings()?.isEventBased
+      this.countryDisasterSettings?.isEventBased
         ? this.setBreadcrumbsMapView(MapView.event)
         : this.setBreadcrumbsMapView(MapView.national);
       return;
@@ -103,8 +128,5 @@ export class MapViewService {
   private onPlacecodeChange = (placeCode: PlaceCode) => {
     this.placeCode = placeCode;
     this.updateBreadcrumbsMapView();
-  };
-  private onPlacecodeHoverChange = (placeCode: PlaceCode) => {
-    this.placeCodeHover = placeCode;
   };
 }

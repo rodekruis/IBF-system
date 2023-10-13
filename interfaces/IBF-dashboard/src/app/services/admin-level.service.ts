@@ -45,7 +45,7 @@ export class AdminLevelService {
 
   private country: Country;
   private disasterType: DisasterType;
-  private disasterTypeSettings: CountryDisasterSettings;
+  private countryDisasterSettings: CountryDisasterSettings;
   private eventState: EventState;
   private timelineState: TimelineState;
 
@@ -102,7 +102,10 @@ export class AdminLevelService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.disasterTypeSettings = this.disasterTypeService.getCountryDisasterTypeSettings();
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    );
     this.activeLayerNames = [];
   };
 
@@ -128,14 +131,14 @@ export class AdminLevelService {
       this.country.adminRegionLabels,
     ).map((k) => Number(k));
 
-    this.setAdminLevel(this.disasterTypeSettings.defaultAdminLevel);
+    this.setAdminLevel(this.countryDisasterSettings.defaultAdminLevel);
 
     this.adminLevelLabel = AdminLevelService.loadAdminLevelLabels(this.country);
 
     this.adminLevelButtons = this.allCountryAdminLevels.map((level) => {
       return {
         adminLevel: level,
-        disabled: !this.disasterTypeSettings.adminLevels.includes(level),
+        disabled: !this.countryDisasterSettings.adminLevels.includes(level),
         label: this.country.adminRegionLabels[level].plural,
         buttonTypeClass: this.getButtonTypeClass(level),
       };
@@ -158,7 +161,7 @@ export class AdminLevelService {
   }
 
   public zoomInAdminLevel() {
-    const adminLevels = this.disasterTypeSettings.adminLevels;
+    const adminLevels = this.countryDisasterSettings.adminLevels;
     if (this.adminLevel < adminLevels[adminLevels.length - 1]) {
       this.adminLevel = this.adminLevel + 1;
       this.adminLevelSubject.next(this.adminLevel);
@@ -166,14 +169,14 @@ export class AdminLevelService {
   }
 
   public zoomOutAdminLevel() {
-    if (this.adminLevel > this.disasterTypeSettings.defaultAdminLevel) {
+    if (this.adminLevel > this.countryDisasterSettings.defaultAdminLevel) {
       this.adminLevel = this.adminLevel - 1;
       this.adminLevelSubject.next(this.adminLevel);
     }
   }
 
   public zoomToDefaultAdminLevel() {
-    this.adminLevel = this.disasterTypeSettings.defaultAdminLevel;
+    this.adminLevel = this.countryDisasterSettings.defaultAdminLevel;
     this.adminLevelSubject.next(this.adminLevel);
   }
 
@@ -194,7 +197,7 @@ export class AdminLevelService {
   }
 
   public getAdminLevelType(placeCode: PlaceCode): AdminLevelType {
-    if (this.disasterTypeSettings.adminLevels?.length === 1) {
+    if (this.countryDisasterSettings.adminLevels?.length === 1) {
       return AdminLevelType.single;
     } else if (this.isDeepestAdminLevel(placeCode)) {
       return AdminLevelType.deepest;
@@ -205,8 +208,8 @@ export class AdminLevelService {
 
   private isDeepestAdminLevel(placeCode: PlaceCode): boolean {
     return (
-      this.disasterTypeSettings.adminLevels[
-        this.disasterTypeSettings.adminLevels.length - 1
+      this.countryDisasterSettings.adminLevels[
+        this.countryDisasterSettings.adminLevels.length - 1
       ] === this.adminLevel && placeCode?.adminLevel === this.adminLevel
     );
   }
