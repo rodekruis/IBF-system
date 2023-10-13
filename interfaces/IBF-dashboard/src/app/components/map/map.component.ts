@@ -31,7 +31,11 @@ import {
   LEAFLET_MAP_OPTIONS,
   LEAFLET_MAP_URL_TEMPLATE,
 } from 'src/app/config';
-import { Country, DisasterType } from 'src/app/models/country.model';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from 'src/app/models/country.model';
 import {
   CommunityNotification,
   DamSite,
@@ -79,6 +83,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private placeCode: PlaceCode;
   private country: Country;
   private disasterType: DisasterType;
+  private countryDisasterSettings: CountryDisasterSettings;
   public lastModelRunDate: string;
   public eventState: EventState;
   public timelineState: TimelineState;
@@ -192,6 +197,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    );
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -377,10 +386,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   private getGlofasStationStates() {
-    return Object.keys(
-      this.disasterTypeService.getCountryDisasterTypeSettings()
-        ?.eapAlertClasses,
-    );
+    return Object.keys(this.countryDisasterSettings?.eapAlertClasses);
   }
 
   onMapReady(map: Map) {
@@ -430,11 +436,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   ): Marker => {
     switch (layerName) {
       case IbfLayerName.glofasStations: {
-        const countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings();
         return this.pointMarkerService.createMarkerStation(
           geoJsonPoint.properties as Station,
           latlng,
-          countryDisasterSettings,
+          this.countryDisasterSettings,
           this.timelineState.activeLeadTime,
         );
       }
@@ -593,6 +598,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     event.target.setStyle(
       this.mapService.setAdminRegionMouseOverStyle(
         feature.properties.placeCode,
+        feature.properties.placeCodeParent,
       ),
     );
     this.placeCodeService.setPlaceCodeHover({

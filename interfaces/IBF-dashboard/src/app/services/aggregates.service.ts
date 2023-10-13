@@ -96,7 +96,10 @@ export class AggregatesService {
     if (!this.country) {
       return;
     }
-    this.defaultAdminLevel = this.disasterTypeService.getCountryDisasterTypeSettings()?.defaultAdminLevel;
+    this.defaultAdminLevel = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    )?.defaultAdminLevel;
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -159,30 +162,16 @@ export class AggregatesService {
       (a) => a.indicator === indicator.name,
     );
 
-    if (this.adminLevel !== this.defaultAdminLevel) {
-      if (foundIndicator) {
-        aggregate[indicator.name] = foundIndicator.value;
-      }
-
-      aggregate[this.AREA_STATUS_KEY] =
-        aggregate[IbfLayerName.alertThreshold] > 0
-          ? AreaStatus.TriggeredOrWarned
-          : aggregate[this.disasterType.actionsUnit] > 0 &&
-            this.eventState.activeTrigger
-          ? AreaStatus.TriggeredOrWarned
-          : AreaStatus.NonTriggeredOrWarnd;
-      return;
-    }
-
-    const areaState = this.triggeredAreas.find(
-      (area) => area.placeCode === feature.placeCode,
+    const area = this.mapService.getAreaByPlaceCode(
+      feature.placeCode,
+      feature.placeCodeParent,
     );
 
     if (foundIndicator) {
       aggregate[indicator.name] = foundIndicator.value;
     }
 
-    aggregate[this.AREA_STATUS_KEY] = areaState?.stopped
+    aggregate[this.AREA_STATUS_KEY] = area?.stopped
       ? AreaStatus.Stopped
       : aggregate[IbfLayerName.alertThreshold] > 0
       ? AreaStatus.TriggeredOrWarned
@@ -195,6 +184,7 @@ export class AggregatesService {
   private onEachPlaceCode = (feature) => {
     const aggregate = {
       placeCode: feature.placeCode,
+      placeCodeParent: feature.placeCodeParent,
     };
     this.indicators.forEach(
       this.onEachIndicatorByFeatureAndAggregate(feature, aggregate),
@@ -248,6 +238,7 @@ export class AggregatesService {
       } else {
         groupsByPlaceCode.push({
           placeCode: record.placeCode,
+          placeCodeParent: record.placeCodeParent,
           records: [record],
         });
       }

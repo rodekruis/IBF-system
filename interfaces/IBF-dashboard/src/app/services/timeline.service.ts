@@ -10,7 +10,11 @@ import {
   LeadTimeUnit,
 } from 'src/app/types/lead-time';
 import { CountryTriggers } from '../models/country-triggers.model';
-import { Country, DisasterType } from '../models/country.model';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from '../models/country.model';
 import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import { TimelineState } from '../types/timeline-state';
@@ -34,6 +38,7 @@ export class TimelineService {
   private triggersAllEvents: CountryTriggers;
   private country: Country;
   private disasterType: DisasterType;
+  private countryDisasterSettings: CountryDisasterSettings;
   private eventState: EventState;
 
   constructor(
@@ -68,6 +73,10 @@ export class TimelineService {
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.resetState();
     this.disasterType = disasterType;
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    );
   };
 
   private resetState() {
@@ -266,7 +275,7 @@ export class TimelineService {
     } else if (leadTime.includes(LeadTimeUnit.hour)) {
       return this.state.today.plus({ hours: Number(triggerKey) });
     } else if (leadTime.includes(LeadTimeUnit.month)) {
-      if (this.getCountryDisasterAttribute('droughtEndOfMonthPipeline')) {
+      if (this.countryDisasterSettings.droughtEndOfMonthPipeline) {
         return this.state.today.plus({ months: Number(triggerKey) + 1 });
       }
       return this.state.today.plus({ months: Number(triggerKey) });
@@ -278,7 +287,7 @@ export class TimelineService {
     previouslyAddedLeadTimes?: LeadTimeButtonInput[],
   ): boolean {
     const leadTimes = this.country
-      ? this.getCountryDisasterAttribute('activeLeadTimes')
+      ? this.countryDisasterSettings.activeLeadTimes
       : [];
     const leadTimeIndex = leadTimes.indexOf(leadTime);
 
@@ -389,9 +398,8 @@ export class TimelineService {
   }
 
   private checkRegionalDroughtSeason() {
-    const forecastSeasonAreas = this.getCountryDisasterAttribute(
-      'droughtForecastSeasons',
-    );
+    const forecastSeasonAreas = this.countryDisasterSettings
+      .droughtForecastSeasons;
     return Object.values(forecastSeasonAreas).length > 1;
   }
 
@@ -434,9 +442,9 @@ export class TimelineService {
           .includes(this.getDateFromLeadTime(leadTime))
       );
     } else if (disasterType.disasterType === DisasterTypeKey.heavyRain) {
-      const countryLeadTimes = this.getCountryDisasterAttribute(
-        'activeLeadTimes',
-      ).sort((a, b) => (a > b ? 1 : -1));
+      const countryLeadTimes = this.countryDisasterSettings.activeLeadTimes.sort(
+        (a, b) => (a > b ? 1 : -1),
+      );
       const maxLeadTime = countryLeadTimes[countryLeadTimes.length - 1];
       return leadTime > maxLeadTime ? false : true;
     } else if (disasterType.disasterType === DisasterTypeKey.flashFloods) {
@@ -501,9 +509,7 @@ export class TimelineService {
   private shiftYear = (monthNumber: number) => {
     // Make sure you start counting the year at the beginning of (one of the) seasons, instead of at January
     // so that 'month > currentMonth' does not break on a season like [12,1,2]
-    const seasonRegions = this.getCountryDisasterAttribute(
-      'droughtForecastSeasons',
-    );
+    const seasonRegions = this.countryDisasterSettings.droughtForecastSeasons;
     let seasonBeginnings = [];
     for (const region of Object.values(seasonRegions)) {
       seasonBeginnings.push(
@@ -518,7 +524,7 @@ export class TimelineService {
 
   private getNextForecastMonth(): DateTime {
     let todayLeadTime = this.state.today;
-    if (this.getCountryDisasterAttribute('droughtEndOfMonthPipeline')) {
+    if (this.countryDisasterSettings.droughtEndOfMonthPipeline) {
       todayLeadTime = this.state.today.plus({ month: 1 });
     }
     const currentYear = todayLeadTime.year;
@@ -556,16 +562,10 @@ export class TimelineService {
     return DateTime.utc(nextForecastMonthYear, forecastMonthNumber, 1);
   }
 
-  private getCountryDisasterAttribute(attribute) {
-    return this.disasterTypeService.getCountryDisasterTypeSettings()?.[
-      attribute
-    ];
-  }
-
   private getLeadTimeMonth(leadTime: LeadTime): DateTime {
     const addMonths =
       Number(LeadTimeTriggerKey[leadTime]) +
-      (this.getCountryDisasterAttribute('droughtEndOfMonthPipeline') ? 1 : 0);
+      (this.countryDisasterSettings.droughtEndOfMonthPipeline ? 1 : 0);
     const leadTimeMonth = this.state.today.plus({
       month: addMonths,
     });
@@ -576,7 +576,7 @@ export class TimelineService {
     const rainMonthsKey = 'rainMonths';
     const rainMonths = [];
     for (const area of Object.values(
-      this.getCountryDisasterAttribute('droughtForecastSeasons'),
+      this.countryDisasterSettings.droughtForecastSeasons,
     )) {
       for (const season of Object.values(area)) {
         rainMonths.push(season[rainMonthsKey]);

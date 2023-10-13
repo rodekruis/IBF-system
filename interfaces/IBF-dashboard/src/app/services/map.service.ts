@@ -807,6 +807,7 @@ export class MapService {
     colorPropertyValue,
     colorThreshold,
     placeCode: string,
+    placeCodeParent: string,
   ): string => {
     let adminRegionFillColor = this.state.defaultFillColor;
     const currentColorGradient =
@@ -814,12 +815,9 @@ export class MapService {
         ? this.state.colorGradientTriggered
         : this.state.colorGradient;
 
-    const areaState = this.triggeredAreas.find(
-      (area) => area.placeCode === placeCode,
-    );
-
+    const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
     switch (true) {
-      case areaState?.stopped:
+      case area?.stopped:
         adminRegionFillColor = this.state.colorStopped;
         break;
       case colorPropertyValue === null:
@@ -904,17 +902,22 @@ export class MapService {
     return name.substr(name.length - 1) < String(this.adminLevel);
   };
 
-  getAdminRegionColor = (layer: IbfLayer, placeCode: string): string => {
+  getAdminRegionColor = (
+    layer: IbfLayer,
+    placeCode: string,
+    placeCodeParent: string,
+  ): string => {
     let color =
       layer.group === IbfLayerGroup.adminRegions
         ? this.state.strokeColor
         : this.state.transparentColor;
 
     if (this.placeCode) {
-      const areaState = this.triggeredAreas.find(
-        (area) => area.placeCode === placeCode,
-      );
-      if (this.placeCode.placeCode === placeCode && !areaState) {
+      const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
+      if (
+        [placeCode, placeCodeParent].includes(this.placeCode.placeCode) &&
+        !area
+      ) {
         color = this.selectedOutlineColor[
           this.disasterType?.activeTrigger ? 'triggered' : 'nonTriggered'
         ];
@@ -959,10 +962,9 @@ export class MapService {
     const colorProperty = layer.colorProperty;
     return (adminRegion) => {
       const placeCode = adminRegion?.properties?.placeCode;
-      const areaState = this.triggeredAreas.find(
-        (area) => area.placeCode === placeCode,
-      );
-      const color = areaState?.stopped
+      const placeCodeParent = adminRegion?.properties?.placeCodeParent;
+      const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
+      const color = area?.stopped
         ? this.stoppedTriggerColor
         : this.triggeredAreaColor;
       const opacity = this.getOutlineOpacity(
@@ -973,7 +975,10 @@ export class MapService {
       const fillOpacity = 0;
       let weight = 3;
       if (this.placeCode) {
-        if (this.placeCode.placeCode !== placeCode && areaState) {
+        if (
+          ![placeCode, placeCodeParent].includes(this.placeCode.placeCode) &&
+          area
+        ) {
           weight = 1; // Decrease weight of unselected triggered areas from 3 to 1
         }
       }
@@ -1006,6 +1011,7 @@ export class MapService {
           colorPropertyValue,
           colorThreshold,
           adminRegion.properties.placeCode,
+          adminRegion.properties.placeCodeParent,
         );
         const fillOpacity = this.getAdminRegionFillOpacity(
           layer,
@@ -1018,6 +1024,7 @@ export class MapService {
         let color = this.getAdminRegionColor(
           layer,
           adminRegion.properties.placeCode,
+          adminRegion.properties.placeCodeParent,
         );
         let dashArray;
         if (adminRegion.properties.placeCode?.includes('Disputed')) {
@@ -1036,10 +1043,18 @@ export class MapService {
     };
   };
 
-  public setAdminRegionMouseOverStyle = (placeCode: string) => {
-    const area = this.triggeredAreas.find(
-      (area) => area.placeCode === placeCode,
+  public getAreaByPlaceCode(placeCode: string, placeCodeParent: string) {
+    return (
+      this.triggeredAreas.find((area) => area.placeCode === placeCode) ||
+      this.triggeredAreas.find((area) => area.placeCode === placeCodeParent) // in multi-admin the map placeCode can differ 1 level from the chat/triggeredArea placeCode
     );
+  }
+
+  public setAdminRegionMouseOverStyle = (
+    placeCode: string,
+    placeCodeParent: string,
+  ) => {
+    const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
     if (!area) {
       const layer = this.layers.find(
         (l) => l.name === IbfLayerName.alertThreshold,

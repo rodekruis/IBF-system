@@ -52,7 +52,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public placeCodeHover: PlaceCode;
   private country: Country;
   private disasterType: DisasterType;
-  public disasterTypeSettings: CountryDisasterSettings;
+  public countryDisasterSettings: CountryDisasterSettings;
   private aggregateComponentTranslateNode = 'aggregates-component';
   private exposedPrefixTranslateNode = 'exposed-prefix';
   private stoppedPrefixTranslateNode = 'stopped-prefix';
@@ -162,7 +162,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.disasterTypeSettings = this.disasterTypeService.getCountryDisasterTypeSettings();
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    );
   };
 
   private onEventStateChange = (eventState: EventState) => {
@@ -260,7 +263,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
             headerLabel:
               this.placeCodeHover.placeCodeName ||
               this.placeCodeHover.placeCode,
-            subHeaderLabel: this.disasterTypeSettings.isEventBased
+            subHeaderLabel: this.countryDisasterSettings.isEventBased
               ? `${this.translateService.instant(
                   'aggregates-component.predicted',
                 )} ${firstCharOfWordsToUpper(this.disasterType.label)}`
@@ -271,7 +274,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
               'aggregates-component.national-view',
             ),
             subHeaderLabel: `${this.getAreaCount()} ${
-              this.disasterTypeSettings?.isEventBased
+              this.countryDisasterSettings?.isEventBased
                 ? `${this.translateService.instant(
                     'aggregates-component.predicted',
                   )} ${

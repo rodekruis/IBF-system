@@ -150,6 +150,10 @@
       <app-ibf-button
         (click)="openToggleTriggerPopup(area, false)"
         [disabled]="!area.activeTrigger"
+        *ngIf="
+          countryDisasterSettings?.enableStopTrigger &&
+          placeCode?.adminLevel === countryDisasterSettings.defaultAdminLevel
+        "
         backgroundColor="ibf-no-alert-primary"
       >
         {{
@@ -216,7 +220,7 @@
         </ion-note>
         <br />
         <div
-          *ngIf="disasterTypeSettings?.showMonthlyEapActions"
+          *ngIf="countryDisasterSettings?.showMonthlyEapActions"
           class="ion-margin-bottom"
         >
           <ng-container
@@ -252,9 +256,9 @@
     </ion-row>
 
     <ng-container *ngIf="eventState?.event?.thresholdReached">
-      <ng-container *ngIf="disasterTypeSettings.enableEarlyActions">
+      <ng-container *ngIf="countryDisasterSettings.enableEarlyActions">
         <ion-item
-          *ngIf="adminLevel > disasterTypeSettings.defaultAdminLevel"
+          *ngIf="adminLevel > countryDisasterSettings.defaultAdminLevel"
           class="background-light"
         >
           <ion-label class="ion-text-wrap">
@@ -264,7 +268,7 @@
                   : {
                       defaultAdminAreaLabel:
                         country.adminRegionLabels[
-                          disasterTypeSettings.defaultAdminLevel
+                          countryDisasterSettings.defaultAdminLevel
                         ].singular
                     }
             }}</ion-label
@@ -272,7 +276,7 @@
         >
         <ion-item
           *ngIf="
-            adminLevel === disasterTypeSettings.defaultAdminLevel &&
+            adminLevel === countryDisasterSettings.defaultAdminLevel &&
             !area.eapActions.length
           "
           class="background-light"
@@ -333,8 +337,8 @@
       </ng-container>
       <app-ibf-button
         *ngIf="
-          disasterTypeSettings?.enableStopTrigger &&
-          placeCode?.adminLevel === disasterTypeSettings.defaultAdminLevel
+          countryDisasterSettings?.enableStopTrigger &&
+          placeCode?.adminLevel === countryDisasterSettings.defaultAdminLevel
         "
         (click)="openToggleTriggerPopup(area, true)"
         [disabled]="!area.activeTrigger"

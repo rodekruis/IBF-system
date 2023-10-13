@@ -35,7 +35,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
 
   public country: Country;
   public disasterType: DisasterType;
-  public disasterTypeSettings: CountryDisasterSettings;
+  public countryDisasterSettings: CountryDisasterSettings;
   public areasOfFocus: AreaOfFocus[];
   public triggeredAreas: TriggeredArea[];
   public trigger: boolean;
@@ -95,7 +95,10 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.disasterTypeSettings = this.disasterTypeService.getCountryDisasterTypeSettings();
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    );
   };
 
   private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
@@ -187,7 +190,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   }
 
   public showAreasOfFocusSummary(): boolean {
-    if (!this.disasterTypeSettings.enableEarlyActions) {
+    if (!this.countryDisasterSettings.enableEarlyActions) {
       return false;
     }
     return true;

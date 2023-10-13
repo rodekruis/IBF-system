@@ -88,7 +88,7 @@
         "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>.",
         "tooltip": "The forecast presented on the portal might not be up to date as the model did not run successfully. Contact {{supportEmailAddress}} for further information."
       },
-      "revert-selection": "All",
+      "revert-selection": "Back",
       "save-actions": {
         "submit-button-label": "Save",
         "header": "Result",

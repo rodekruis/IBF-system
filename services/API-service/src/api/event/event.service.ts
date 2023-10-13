@@ -352,11 +352,31 @@ export class EventService {
         'area',
         'dynamic."placeCode" = area."placeCode"',
       )
+      // add parent event (for data on 'stopped' areas 1 level deeper than default)
+      .leftJoin(
+        AdminAreaEntity,
+        'parent',
+        'area."placeCodeParent" = parent."placeCode"',
+      )
+      .leftJoin('parent.eventPlaceCodes', 'parentEvent')
+      .leftJoin('parentEvent.user', 'parentUser')
+      // add grandparent event (for data on 'stopped' areas 2 levels deeper than default)
+      .leftJoin(
+        AdminAreaEntity,
+        'grandparent',
+        'parent."placeCodeParent" = grandparent."placeCode"',
+      )
+      .leftJoin('grandparent.eventPlaceCodes', 'grandparentEvent')
+      .leftJoin('grandparentEvent.user', 'grandparentUser')
       .select([
         'dynamic."placeCode" AS "placeCode"',
         'area.name AS name',
         'area."adminLevel" AS "adminLevel"',
         'dynamic.value AS value',
+        'COALESCE("parentEvent"."startDate","grandparentEvent"."startDate") AS "startDate"',
+        'COALESCE(parentEvent.stopped,"grandparentEvent".stopped) AS stopped',
+        'COALESCE("parentEvent"."manualStoppedDate","grandparentEvent"."manualStoppedDate") AS "stoppedDate"',
+        'COALESCE("parentUser"."firstName","grandparentUser"."firstName") || \' \' || COALESCE("parentUser"."lastName","grandparentUser"."lastName") AS "displayName"',
       ])
       .getRawMany();
     return areas.map((area) => {
@@ -365,10 +385,10 @@ export class EventService {
         name: area.name,
         nameParent: null,
         actionsValue: area.value,
-        stopped: false,
-        startDate: null,
-        stoppedDate: null,
-        displayName: null,
+        stopped: area.stopped,
+        startDate: area.startDate,
+        stoppedDate: area.stoppedDate,
+        displayName: area.displayName,
         eapActions: [],
       };
     });

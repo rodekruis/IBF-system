@@ -16,6 +16,9 @@ export class AggregateDataRecord {
   @ApiProperty({ example: '21UGA001001' })
   public placeCode: string;
 
+  @ApiProperty({ example: '21UGA001' })
+  public placeCodeParent: string;
+
   @ApiProperty({ example: 'population_affected' })
   public indicator: string;
 

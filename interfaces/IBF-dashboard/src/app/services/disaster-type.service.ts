@@ -46,10 +46,12 @@ export class DisasterTypeService {
     this.country = country;
   };
 
-  public getCountryDisasterTypeSettings(): CountryDisasterSettings {
-    const settings = this.country?.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType?.disasterType,
+  public getCountryDisasterTypeSettings(
+    country: Country,
+    disasterType: DisasterType,
+  ): CountryDisasterSettings {
+    return country?.countryDisasterSettings.find(
+      (s) => s.disasterType === disasterType?.disasterType,
     );
-    return settings;
   }
 }
