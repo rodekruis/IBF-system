@@ -179,7 +179,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           : newLayer;
 
       if (newLayer.viewCenter) {
-        this.map.fitBounds(this.mapService.state.bounds);
+        this.zoomToArea();
       }
     } else {
       this.layers = [];
@@ -243,28 +243,30 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         const adminRegionsFiltered = JSON.parse(
           JSON.stringify(adminRegionsLayer.data),
         );
-        let zoomExtraOffset: number;
         if (this.placeCode) {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features.filter(
             (area) =>
-              area?.properties?.['placeCode'] === this.placeCode.placeCode,
+              area?.properties?.['placeCode'] === this.placeCode.placeCode ||
+              area?.properties?.['placeCodeParent'] ===
+                this.placeCode.placeCode,
           );
-          zoomExtraOffset = 0.1;
         } else {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features;
-          zoomExtraOffset = 0;
         }
         if (adminRegionsFiltered.features.length) {
           const layerBounds = bbox(adminRegionsFiltered);
+          const layerWidth = layerBounds[2] - layerBounds[0];
+          const layerHeight = layerBounds[3] - layerBounds[1];
+          const zoomExtraOffset = 0.1; //10% margin of height and width on all sides
           this.mapService.state.bounds = containsNumber(layerBounds)
             ? ([
                 [
-                  layerBounds[1] - zoomExtraOffset,
-                  layerBounds[0] - zoomExtraOffset,
+                  layerBounds[1] - zoomExtraOffset * layerHeight,
+                  layerBounds[0] - zoomExtraOffset * layerWidth,
                 ],
                 [
-                  layerBounds[3] + zoomExtraOffset,
-                  layerBounds[2] + zoomExtraOffset,
+                  layerBounds[3] + zoomExtraOffset * layerHeight,
+                  layerBounds[2] + zoomExtraOffset * layerWidth,
                 ],
               ] as LatLngBoundsLiteral)
             : this.mapService.state.bounds;
