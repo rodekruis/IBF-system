@@ -3,7 +3,7 @@
 }
 
 .breadcrumb {
-  height: 24px;
+  height: var(--breadcrumb-height);
   font-size: 12px;
 
   margin: 0;
@@ -23,18 +23,19 @@
 }
 
 .breadcrumb-start {
-  --border-radius: 50vh 0 0 50vh;
+  --border-width: 2px 0px 2px 2px;
+  --border-radius: var(--breadcrumb-radius) 0 0 var(--breadcrumb-radius);
 }
 
 .breadcrumb-middle {
   --border-radius: 0;
-  // --border-width: 2px 0px;
+  --border-width: 2px 0px 2px 2px;
 }
 
 .breadcrumb-end {
-  --border-radius: 0 50vh 50vh 0;
+  --border-radius: 0 var(--breadcrumb-radius) var(--breadcrumb-radius) 0;
 }
 
 .breadcrumb-alone {
-  --border-radius: 50vh;
+  --border-radius: var(--breadcrumb-radius);
 }
