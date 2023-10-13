@@ -67,7 +67,6 @@ import { DisasterTypeService } from '../../services/disaster-type.service';
 import { PointMarkerService } from '../../services/point-marker.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { TimelineState } from '../../types/timeline-state';
-import { IbfLayerThreshold } from './../../types/ibf-layer';
 
 @Component({
   selector: 'app-map',
@@ -608,10 +607,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private onAdminRegionClickByLayerAndFeatureAndElement = (
     feature,
-    element,
   ) => (): void => {
+    const adminLevel = feature.properties.adminLevel;
+    const placeCode = feature.properties.placeCode;
+
     this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
-      placeCode: feature.properties.placeCode,
+      placeCode,
       page: AnalyticsPage.dashboard,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
@@ -632,76 +633,26 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       }
     } else if (this.eventState.event) {
       // if in event-view, then set placeCode
-      if (feature.properties.placeCode === this.placeCode?.placeCode) {
-        element.unbindPopup();
-        if (this.placeCode.placeCodeParent) {
-          this.placeCodeService.setPlaceCode(this.placeCode.placeCodeParent);
-        } else {
-          this.placeCodeService.clearPlaceCode();
-        }
-      } else {
-        this.bindPopupAdminRegions(feature, element);
+      if (placeCode !== this.placeCode?.placeCode) {
         // only zoom-in when actually zooming in (instead of selecting a peer-area on the same level)
-        const zoomIn =
-          feature.properties.adminLevel > (this.placeCode?.adminLevel || 0);
+        const zoomIn = adminLevel > (this.placeCode?.adminLevel || 0);
         if (zoomIn) {
           this.adminLevelService.zoomInAdminLevel();
         }
         this.placeCodeService.setPlaceCode({
-          placeCode: feature.properties.placeCode,
+          placeCode,
           countryCodeISO3: feature.properties.countryCodeISO3,
           placeCodeName: feature.properties.name,
           placeCodeParent: zoomIn
             ? this.placeCode
             : this.placeCode?.placeCodeParent,
           placeCodeParentName: feature.properties.nameParent,
-          adminLevel: feature.properties.adminLevel,
+          adminLevel,
           eventName: feature.properties.eventName,
         });
       }
     }
   };
-
-  private bindPopupAdminRegions(feature, element): void {
-    let popup: string;
-    const activeAggregateLayer = this.mapService.layers.find(
-      (l) => l.active && l.group === IbfLayerGroup.aggregates,
-    );
-    if (
-      activeAggregateLayer &&
-      activeAggregateLayer.name === IbfLayerName.potentialCases
-    ) {
-      this.apiService
-        .getAdminAreaDynamicDataOne(
-          IbfLayerThreshold.potentialCasesThreshold,
-          feature.properties.placeCode,
-          this.timelineState.activeLeadTime,
-          this.eventState?.event?.eventName,
-        )
-        .subscribe((thresholdValue: number) => {
-          const leadTimes = this.disasterTypeService.getCountryDisasterTypeSettings()
-            ?.activeLeadTimes;
-          popup = this.createThresHoldPopupAdminRegions(
-            activeAggregateLayer,
-            feature,
-            thresholdValue,
-            leadTimes,
-          );
-          const popupOptions = {
-            minWidth: 300,
-            className: 'trigger-popup-max',
-          };
-          element.bindPopup(popup, popupOptions).openPopup();
-        });
-    } else {
-      popup = this.createDefaultPopupAdminRegions(
-        activeAggregateLayer,
-        feature,
-      );
-      element.bindPopup(popup).openPopup();
-    }
-  }
-
   private getAdminRegionLayerPane(layer: IbfLayer): LeafletPane {
     let adminRegionLayerPane = LeafletPane.overlayPane;
     switch (layer.group) {
@@ -816,10 +767,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           });
           element.on(
             'click',
-            this.onAdminRegionClickByLayerAndFeatureAndElement(
-              feature,
-              element,
-            ),
+            this.onAdminRegionClickByLayerAndFeatureAndElement(feature),
           );
         },
       });
