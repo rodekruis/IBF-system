@@ -726,7 +726,7 @@ export class ScriptsService {
       }
     } else if (disasterType === DisasterType.Drought && triggered) {
       if (Number(activeLeadTime.split('-')[0]) > 3) {
-        copyOfExposureUnit = [];
+        copyOfExposureUnit.forEach((area) => (area.amount = 0));
         // Hard-code lead-times of more then 3 months to non-trigger
       } else if (eventRegion !== this.nationalDroughtRegion) {
         // Hard-code that only areas of right region are triggered per selected leadtime
