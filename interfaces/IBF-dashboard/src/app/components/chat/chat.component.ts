@@ -154,9 +154,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    );
+    this.disasterTypeSettings = this.disasterTypeService.getCountryDisasterTypeSettings();
   };
 
   private onIndicatorChange = (indicators: Indicator[]) => {
@@ -465,15 +463,13 @@ export class ChatComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const droughtForecastSeasons = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).droughtForecastSeasons;
+    const droughtForecastSeasons = this.disasterTypeService.getCountryDisasterTypeSettings()
+      ?.droughtForecastSeasons;
 
     const forecastAreas = Object.keys(droughtForecastSeasons);
 
-    const droughtEndOfMonthPipeline = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).droughtEndOfMonthPipeline;
+    const droughtEndOfMonthPipeline = this.disasterTypeService.getCountryDisasterTypeSettings()
+      ?.droughtEndOfMonthPipeline;
     const currentMonth = this.timelineState.today.plus({
       months: droughtEndOfMonthPipeline ? 1 : 0,
     });

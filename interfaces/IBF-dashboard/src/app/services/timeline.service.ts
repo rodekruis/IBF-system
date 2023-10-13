@@ -557,9 +557,9 @@ export class TimelineService {
   }
 
   private getCountryDisasterAttribute(attribute) {
-    return this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    )[attribute];
+    return this.disasterTypeService.getCountryDisasterTypeSettings()?.[
+      attribute
+    ];
   }
 
   private getLeadTimeMonth(leadTime: LeadTime): DateTime {

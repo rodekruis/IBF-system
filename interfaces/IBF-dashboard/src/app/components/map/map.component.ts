@@ -379,9 +379,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private getGlofasStationStates() {
     return Object.keys(
-      this.country?.countryDisasterSettings.find(
-        (s) => s.disasterType === this.disasterType?.disasterType,
-      )?.eapAlertClasses,
+      this.disasterTypeService.getCountryDisasterTypeSettings()
+        ?.eapAlertClasses,
     );
   }
 
@@ -432,9 +431,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   ): Marker => {
     switch (layerName) {
       case IbfLayerName.glofasStations: {
-        const countryDisasterSettings = this.country?.countryDisasterSettings.find(
-          (s) => s.disasterType === this.disasterType.disasterType,
-        );
+        const countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings();
         return this.pointMarkerService.createMarkerStation(
           geoJsonPoint.properties as Station,
           latlng,
@@ -683,9 +680,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           this.eventState?.event?.eventName,
         )
         .subscribe((thresholdValue: number) => {
-          const leadTimes = this.country?.countryDisasterSettings.find(
-            (s) => s.disasterType === this.disasterType?.disasterType,
-          )?.activeLeadTimes;
+          const leadTimes = this.disasterTypeService.getCountryDisasterTypeSettings()
+            ?.activeLeadTimes;
           popup = this.createThresHoldPopupAdminRegions(
             activeAggregateLayer,
             feature,

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CountryDisasterSettings } from '../models/country.model';
 import { PlaceCode } from '../models/place-code.model';
 import { EventState } from '../types/event-state';
 import { MapView } from '../types/map-view';
@@ -22,8 +21,6 @@ export class MapViewService {
   private placeCode: PlaceCode;
   private placeCodeHover: PlaceCode;
 
-  private countryDisasterSettings: CountryDisasterSettings;
-
   constructor(
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
@@ -41,9 +38,6 @@ export class MapViewService {
     this.placeCodeService
       .getPlaceCodeHoverSubscription()
       .subscribe(this.onPlacecodeHoverChange);
-    this.disasterTypeService
-      .getCountryDisasterSettingsSubscription()
-      .subscribe(this.onCountryDisasterSettingsChange);
   }
 
   private setAggregatesMapView(view: MapView) {
@@ -69,7 +63,7 @@ export class MapViewService {
     }
 
     if (this.eventState.event && !this.placeCode) {
-      this.countryDisasterSettings?.isEventBased
+      this.disasterTypeService.getCountryDisasterTypeSettings()?.isEventBased
         ? this.setBreadcrumbsMapView(MapView.event)
         : this.setBreadcrumbsMapView(MapView.national);
       return;
@@ -112,12 +106,5 @@ export class MapViewService {
   };
   private onPlacecodeHoverChange = (placeCode: PlaceCode) => {
     this.placeCodeHover = placeCode;
-  };
-
-  private onCountryDisasterSettingsChange = (
-    settings: CountryDisasterSettings,
-  ) => {
-    this.countryDisasterSettings = settings;
-    this.updateBreadcrumbsMapView();
   };
 }
