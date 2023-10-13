@@ -20,7 +20,8 @@
             | translate
               : {
                   firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName: event.eventName?.split('_')[0] || disasterTypeLabel,
+                  eventName:
+                    event.eventName?.split('_')[0] || disasterTypeLabel,
                   disasterTypeLabel: disasterTypeLabel
                 }
         "
