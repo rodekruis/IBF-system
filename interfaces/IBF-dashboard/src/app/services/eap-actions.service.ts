@@ -75,9 +75,7 @@ export class EapActionsService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    );
+    this.disasterTypeSettings = this.disasterTypeService.getCountryDisasterTypeSettings();
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {

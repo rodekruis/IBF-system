@@ -154,9 +154,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    );
+    this.disasterTypeSettings = this.disasterTypeService.getCountryDisasterTypeSettings();
   };
 
   private onIndicatorChange = (indicators: Indicator[]) => {

@@ -31,8 +31,6 @@ import { MapView } from '../../types/map-view';
 export class AdminLevelComponent implements OnInit, OnDestroy {
   public disasterType: Observable<DisasterType>;
 
-  // private countryDisasterSettings: CountryDisasterSettings;
-
   public mapViewEnum = MapView;
   public currentMapView: MapView;
   private mapViewSubscription: Subscription;
