@@ -64,14 +64,9 @@
     }
   },
   "aggregates-component": {
-    "header-title-prefix": "Situation in",
     "more-information": "Click for more info on this indicator.",
-    "default-header-label": "...Loading",
     "exposed-prefix": "Exposed",
     "stopped-prefix": "Manually stopped",
-    "all-prefix": "All",
-    "exposed-subgroups": "",
-    "stopped-placecode": "(stopped)",
     "national-view": "National View",
     "predicted": "Predicted",
     "plural-suffix": "(s)"

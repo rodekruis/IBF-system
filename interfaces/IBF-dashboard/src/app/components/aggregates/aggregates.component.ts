@@ -263,27 +263,26 @@ export class AggregatesComponent implements OnInit, OnDestroy {
               this.placeCodeHover.placeCodeName ||
               this.placeCodeHover.placeCode,
             subHeaderLabel: this.disasterTypeSettings.isEventBased
-              ? firstCharOfWordsToUpper(this.disasterType.label)
-              : `${this.exposedPrefix} ${
-                  this.country.adminRegionLabels[
-                    this.adminLevelService.adminLevel
-                  ]['singular']
-                }`,
+              ? `${this.translateService.instant(
+                  'aggregates-component.predicted',
+                )} ${firstCharOfWordsToUpper(this.disasterType.label)}`
+              : `${this.exposedPrefix} ${this.getAdminAreaLabel('singular')}`,
           }
         : {
             headerLabel: this.translateService.instant(
               'aggregates-component.national-view',
-            ), //TODO add to translation file
+            ),
             subHeaderLabel: `${this.getAreaCount()} ${
               this.disasterTypeSettings?.isEventBased
-                ? this.translateService.instant(
-                    'aggregates-component.national-view',
-                  ) +
-                  firstCharOfWordsToUpper(this.disasterType.label) +
-                  this.translateService.instant(
-                    'aggregates-component.plural-suffix',
-                  ) //TODO add to translation file + combine with exposedPrefix?
-                : `${this.exposedPrefix} ${this.adminAreaLabel()}`
+                ? `${this.translateService.instant(
+                    'aggregates-component.predicted',
+                  )} ${
+                    firstCharOfWordsToUpper(this.disasterType.label) +
+                    this.translateService.instant(
+                      'aggregates-component.plural-suffix',
+                    )
+                  }`
+                : `${this.exposedPrefix} ${this.getAdminAreaLabel()}`
             }`,
           };
     }
@@ -292,15 +291,13 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       return this.placeCodeHover
         ? {
             headerLabel: this.placeCodeHover.placeCodeName,
-            subHeaderLabel: this.country.adminRegionLabels[
-              this.adminLevelService.adminLevel
-            ]['singular'],
+            subHeaderLabel: this.getAdminAreaLabel('singular'),
           }
         : {
             headerLabel: this.getEventNameString() || '',
             subHeaderLabel: `${this.getAreaCount()} ${
               this.exposedPrefix
-            } ${this.adminAreaLabel()}`,
+            } ${this.getAdminAreaLabel()}`,
           };
     }
 
@@ -312,9 +309,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       return this.placeCodeHover
         ? {
             headerLabel: this.placeCodeHover.placeCodeName,
-            subHeaderLabel: this.country.adminRegionLabels[
-              this.adminLevelService.adminLevel
-            ]['singular'],
+            subHeaderLabel: this.getAdminAreaLabel('singular'),
           }
         : {
             headerLabel: this.placeCodeName(),
@@ -323,10 +318,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
               AdminLevelType.higher
                 ? `${this.getAreaCount()} ${
                     this.exposedPrefix
-                  } ${this.adminAreaLabel()}`
-                : this.country.adminRegionLabels[
-                    this.adminLevelService.adminLevel
-                  ]['singular'],
+                  } ${this.getAdminAreaLabel()}`
+                : this.getAdminAreaLabel('singular'),
           };
     }
 
@@ -348,7 +341,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return this.eventState?.event?.eventName?.split('_')[0];
   }
 
-  private adminAreaLabel() {
+  private getAdminAreaLabel(singularPlural?: string) {
     if (
       !this.country ||
       !this.country.adminRegionLabels ||
@@ -357,21 +350,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     ) {
       return '';
     }
+    singularPlural =
+      singularPlural || (this.getAreaCount() === 1 ? 'singular' : 'plural');
     return this.country.adminRegionLabels[this.adminLevelService.adminLevel][
-      this.getAreaCount() === 1 ? 'singular' : 'plural'
+      singularPlural
     ];
-  }
-
-  private placeCodeParentName(): string {
-    if (this.placeCode) {
-      return this.placeCode.placeCodeParentName;
-    }
-
-    if (this.placeCodeHover) {
-      return this.placeCodeHover.placeCodeParentName;
-    }
-
-    return '';
   }
 
   private placeCodeName(): string {
@@ -384,25 +367,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     }
 
     return '';
-  }
-
-  public getNumberAreasExposed() {
-    let headerLabel;
-
-    const placeCode = this.placeCode || this.placeCodeHover;
-    if (this.showPlaceCodeView(placeCode)) {
-      headerLabel = '';
-    } else {
-      if (this.country) {
-        if (this.eventState?.activeTrigger) {
-          headerLabel = `${this.getAreaCount()}`;
-        } else {
-          headerLabel = '';
-        }
-      }
-    }
-
-    return headerLabel;
   }
 
   public showPlaceCodeView(placeCode: PlaceCode): boolean {
