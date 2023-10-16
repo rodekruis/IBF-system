@@ -724,7 +724,11 @@ export class ScriptsService {
           }
         }
       }
-    } else if (disasterType === DisasterType.Drought && triggered) {
+    } else if (
+      disasterType === DisasterType.Drought &&
+      selectedCountry.countryCodeISO3 !== 'ZWE' && // exclude ZWE drought from this rule
+      triggered
+    ) {
       if (Number(activeLeadTime.split('-')[0]) > 3) {
         copyOfExposureUnit.forEach((area) => (area.amount = 0));
         // Hard-code lead-times of more then 3 months to non-trigger
