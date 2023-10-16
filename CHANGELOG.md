@@ -1,3 +1,74 @@
+# [0.259.0](https://github.com/rodekruis/IBF-system/compare/v0.258.12...v0.259.0) (2023-10-16)
+
+
+### Bug Fixes
+
+* 1 event area AB[#24074](https://github.com/rodekruis/IBF-system/issues/24074) ([b0c36bf](https://github.com/rodekruis/IBF-system/commit/b0c36bf9fe0e2236201342f7dca45e6878f8b950))
+* add changedetector AB[#23895](https://github.com/rodekruis/IBF-system/issues/23895) ([6d95180](https://github.com/rodekruis/IBF-system/commit/6d9518016da527da2bf3ef579b962e1f1b05ab91))
+* add exposedPrefix manually stopped AB[#24074](https://github.com/rodekruis/IBF-system/issues/24074) ([0bccd9d](https://github.com/rodekruis/IBF-system/commit/0bccd9d9efb2f6a42f7a5dbf372cda15a2d0bbbb))
+* adjust breadcrumbs border AB[#24141](https://github.com/rodekruis/IBF-system/issues/24141) ([330a0e5](https://github.com/rodekruis/IBF-system/commit/330a0e53baa73a358b20b83124818a2043a703ce))
+* aggregate values on deeper levels AB[#23931](https://github.com/rodekruis/IBF-system/issues/23931) ([600baaf](https://github.com/rodekruis/IBF-system/commit/600baafd3c3d16af2d2f40ed1d8d29f446190541))
+* all = back AB[#24139](https://github.com/rodekruis/IBF-system/issues/24139) ([0758fca](https://github.com/rodekruis/IBF-system/commit/0758fcaafe6cbf67fb022eb60a5b3ac6199e5943))
+* also apply parentPlaceCode filter on aggregates endpoint AB[#24040](https://github.com/rodekruis/IBF-system/issues/24040) ([8b45320](https://github.com/rodekruis/IBF-system/commit/8b45320b894ad247218dd893b9da8260531cef97))
+* also fix middle column headers for multi-admin AB[#23933](https://github.com/rodekruis/IBF-system/issues/23933) ([b0e58b7](https://github.com/rodekruis/IBF-system/commit/b0e58b76e389c3a1b83a687f8e6d020fe0b79e43))
+* bug AB[#23927](https://github.com/rodekruis/IBF-system/issues/23927) ([0bca20c](https://github.com/rodekruis/IBF-system/commit/0bca20c813da820ba6eab2f99096991b10223cb7))
+* change too long btn texts ([dad34db](https://github.com/rodekruis/IBF-system/commit/dad34dbd6e40d83970423cff991c938739f614cd))
+* clear placecode on admin area switch AB[#23925](https://github.com/rodekruis/IBF-system/issues/23925) ([0650e1c](https://github.com/rodekruis/IBF-system/commit/0650e1c7633d4f5d7d36ac6a3c7a3c26995f6a26))
+* event areas in separate entity AB[#23762](https://github.com/rodekruis/IBF-system/issues/23762) ([4899a6e](https://github.com/rodekruis/IBF-system/commit/4899a6ea6e0883636b6d1c7e5cb6a9dae0158412))
+* exclude ZWE from 3-month rule AB[#24043](https://github.com/rodekruis/IBF-system/issues/24043) ([3cb7c9a](https://github.com/rodekruis/IBF-system/commit/3cb7c9ae58c1b227768d393a507850588ec02197))
+* explanatory comments AB[#24042](https://github.com/rodekruis/IBF-system/issues/24042) ([e4774aa](https://github.com/rodekruis/IBF-system/commit/e4774aab807b5fb1ab719517d1e30d969b8f5f5f))
+* header hovering behaviour AB[#24057](https://github.com/rodekruis/IBF-system/issues/24057) ([ab7f530](https://github.com/rodekruis/IBF-system/commit/ab7f530ad3656d8d03b042b29c7b985eb153b87b))
+* hide stop trigger btn on deeper levels AB[#24074](https://github.com/rodekruis/IBF-system/issues/24074) ([75e12f4](https://github.com/rodekruis/IBF-system/commit/75e12f44165d1d338e184d994a2afef3a5ad9ef0))
+* ibf-button ([74d9447](https://github.com/rodekruis/IBF-system/commit/74d944777c91022e77fc44426cee565bec22fd08))
+* improve zooming AB[#24144](https://github.com/rodekruis/IBF-system/issues/24144) ([38fd1bb](https://github.com/rodekruis/IBF-system/commit/38fd1bb6e09bdda56a6c98878c26cb7824cad0c6))
+* include warning areas in counter AB[#24056](https://github.com/rodekruis/IBF-system/issues/24056) ([d107179](https://github.com/rodekruis/IBF-system/commit/d1071799f418bacfa5e001869b9b8570467bf7be))
+* lint ([d305b5c](https://github.com/rodekruis/IBF-system/commit/d305b5c6bc92dbfa254858c0deab02817836d663))
+* make stopped areas work on deeper levels AB[#24076](https://github.com/rodekruis/IBF-system/issues/24076) ([7f249de](https://github.com/rodekruis/IBF-system/commit/7f249de3827ae3d0ce187bfa2516f03c654d219a))
+* mock alert_threshold to 1 if triggered + rm unused levels AB[#23921](https://github.com/rodekruis/IBF-system/issues/23921) ([e6557e1](https://github.com/rodekruis/IBF-system/commit/e6557e15cf34a02408923f1dc85ff978ebba4619))
+* move code to new service AB[#23762](https://github.com/rodekruis/IBF-system/issues/23762) ([ffbd9be](https://github.com/rodekruis/IBF-system/commit/ffbd9be20a5625acd64f3f37f2520012cb654f88))
+* move UG203701 to parent 21UGA003004 AB[#23934](https://github.com/rodekruis/IBF-system/issues/23934) ([9ec9445](https://github.com/rodekruis/IBF-system/commit/9ec94450d394033a19a5aea12d5ac89b2cbc8232))
+* navy outline on hover on warned area AB[#24058](https://github.com/rodekruis/IBF-system/issues/24058) ([50573e4](https://github.com/rodekruis/IBF-system/commit/50573e4aa5247a78fb71f22a74b891e3e2bf3b2b))
+* pass country/disasterType as arguments to method AB[#24055](https://github.com/rodekruis/IBF-system/issues/24055) ([73fc00d](https://github.com/rodekruis/IBF-system/commit/73fc00da7b01bf23b6164a3a804f8173ccf9ecaf))
+* prettier ([509e8f1](https://github.com/rodekruis/IBF-system/commit/509e8f15f428dfbcfa22bcd2863e920fa2105110))
+* prevent undefined AB[#24074](https://github.com/rodekruis/IBF-system/issues/24074) ([7b2ee9b](https://github.com/rodekruis/IBF-system/commit/7b2ee9bdcc6afe7892078f6a13b6f078230ad350))
+* replace missed disaster settings AB[#24055](https://github.com/rodekruis/IBF-system/issues/24055) ([5b17736](https://github.com/rodekruis/IBF-system/commit/5b177369335a43f5cd5fb1ea72bee83f385a095a))
+* replace subscription with function AB[#24055](https://github.com/rodekruis/IBF-system/issues/24055) ([34a4a77](https://github.com/rodekruis/IBF-system/commit/34a4a7799f2caf60cd1184febc179f2c8f41fe35))
+* revert as this now works different AB[#23925](https://github.com/rodekruis/IBF-system/issues/23925) ([3adcbe8](https://github.com/rodekruis/IBF-system/commit/3adcbe8401649ea46f1c00beadc04c00c4823a33))
+* revert unused change AB[#23762](https://github.com/rodekruis/IBF-system/issues/23762) ([2cb1de9](https://github.com/rodekruis/IBF-system/commit/2cb1de9c415522347c1f829cebb7ee742db69543))
+* rm closing X btn AB[#23901](https://github.com/rodekruis/IBF-system/issues/23901) ([dd53286](https://github.com/rodekruis/IBF-system/commit/dd5328693605a1415505fe0bfd3025184f002c85))
+* rm popup + back on area click AB[#24138](https://github.com/rodekruis/IBF-system/issues/24138) ([df958c0](https://github.com/rodekruis/IBF-system/commit/df958c0c7afa5825733bc3d121cb4730900c8396))
+* set hovering behaviour above other logic AB[#24040](https://github.com/rodekruis/IBF-system/issues/24040) ([8633df3](https://github.com/rodekruis/IBF-system/commit/8633df3a7f1c07bac9e735bcdc85981225bdf097))
+* show 'drought' instead of eventName fof ZWE drought AB[#24043](https://github.com/rodekruis/IBF-system/issues/24043) ([9020587](https://github.com/rodekruis/IBF-system/commit/9020587b647c51e2d7b4d8eaa9071169c622181c))
+* show which area selected in warning event + related border changes/cleanup AB[#24140](https://github.com/rodekruis/IBF-system/issues/24140) ([ad14126](https://github.com/rodekruis/IBF-system/commit/ad141269f0bab8e37f68728c29fd5b372847212a))
+* test ([f0ac543](https://github.com/rodekruis/IBF-system/commit/f0ac543261c2a4bfe4519b623fc5dd25bafc9894))
+* translation + prettier AB[#23653](https://github.com/rodekruis/IBF-system/issues/23653) ([58d7af5](https://github.com/rodekruis/IBF-system/commit/58d7af569b344adc240f803c03f2d4c46e55ba57))
+* translations AB[#24059](https://github.com/rodekruis/IBF-system/issues/24059) ([1f9256c](https://github.com/rodekruis/IBF-system/commit/1f9256c82388e299e959b474b2b209a33f7dd654))
+* update alert_threshold AB[#23934](https://github.com/rodekruis/IBF-system/issues/23934) ([2be55c3](https://github.com/rodekruis/IBF-system/commit/2be55c31c27d73e80b87cea300bad6eee4412328))
+* update populatio_affected AB[#23934](https://github.com/rodekruis/IBF-system/issues/23934) ([5b14182](https://github.com/rodekruis/IBF-system/commit/5b141828d0e76b37b17add386632e7e7582ee768))
+* update UGA floods mock data AB[#23934](https://github.com/rodekruis/IBF-system/issues/23934) ([ac1bc3b](https://github.com/rodekruis/IBF-system/commit/ac1bc3bb02d0ec7737346a696c55646942f7c347))
+* ZWE mock AB[#24043](https://github.com/rodekruis/IBF-system/issues/24043) ([bb77ac2](https://github.com/rodekruis/IBF-system/commit/bb77ac28755c7f1b5de6814888fd56fffee545f7))
+
+
+### Features
+
+* add breadcrumbs to adminLevel AB[#23652](https://github.com/rodekruis/IBF-system/issues/23652) ([7eaddc3](https://github.com/rodekruis/IBF-system/commit/7eaddc3a01295d87ac65b7575e509bab24fc5a47))
+* add isEventBased AB[#24055](https://github.com/rodekruis/IBF-system/issues/24055) ([963547f](https://github.com/rodekruis/IBF-system/commit/963547fe3a30d8c624ff58f00201e981b4252ed2))
+* add translations AB[#24059](https://github.com/rodekruis/IBF-system/issues/24059) ([b9759df](https://github.com/rodekruis/IBF-system/commit/b9759dfccab9292a3d9221ba896710b10ac2af39))
+* enable breadcrumbs for floods AB[#23921](https://github.com/rodekruis/IBF-system/issues/23921) ([eb5c50f](https://github.com/rodekruis/IBF-system/commit/eb5c50fe8099beb61ccadff65a0148b9ad4df031))
+* load districts in national view AB[#23762](https://github.com/rodekruis/IBF-system/issues/23762) ([a32a174](https://github.com/rodekruis/IBF-system/commit/a32a17487c09f4429c6f7a5e7188164bd67f34ba))
+* make single-admin work AB[#23901](https://github.com/rodekruis/IBF-system/issues/23901) ([3a53e4a](https://github.com/rodekruis/IBF-system/commit/3a53e4a8d4685f363151ab745b77c1d82be63421))
+* multiple admin-area breadcrumbs AB[#23922](https://github.com/rodekruis/IBF-system/issues/23922) ([e2ed372](https://github.com/rodekruis/IBF-system/commit/e2ed372072ecc8739a4833dbf54cd694bae61b80))
+* process isEventBased AB[#24055](https://github.com/rodekruis/IBF-system/issues/24055) ([08c0ccd](https://github.com/rodekruis/IBF-system/commit/08c0ccd49d1c37a257347a19ac122b91a906eedf))
+* show all event-areas if non-triggered AB[#24061](https://github.com/rodekruis/IBF-system/issues/24061) ([3818e83](https://github.com/rodekruis/IBF-system/commit/3818e83d22d879bbc7726531f33dc6909eb00cec))
+* show also non-triggered TAs mock AB[#23763](https://github.com/rodekruis/IBF-system/issues/23763) ([47545af](https://github.com/rodekruis/IBF-system/commit/47545af299a2749df91aa35b51f65eb12e863be5))
+* show diffent no-actions text AB[#24048](https://github.com/rodekruis/IBF-system/issues/24048) ([cf01e78](https://github.com/rodekruis/IBF-system/commit/cf01e78d8781ceee9ed969076fd4fbfb6f54bbfd))
+* show N/A for action summary on deeper levels AB[#23923](https://github.com/rodekruis/IBF-system/issues/23923) ([bff6ff4](https://github.com/rodekruis/IBF-system/commit/bff6ff408130b44f7b62c9b0eda5a107a850e938))
+* use isEventBased AB[#24055](https://github.com/rodekruis/IBF-system/issues/24055) ([8d7a0d6](https://github.com/rodekruis/IBF-system/commit/8d7a0d65021fe389737db768f5dffaebc223c737))
+* zoom in and out 1 level AB[#23927](https://github.com/rodekruis/IBF-system/issues/23927) ([92d7a62](https://github.com/rodekruis/IBF-system/commit/92d7a621d8c602940d5e31a5b19437f6a9845618))
+* zoom in and out to deeper levels AB[#23927](https://github.com/rodekruis/IBF-system/issues/23927) ([e988faa](https://github.com/rodekruis/IBF-system/commit/e988faa723af895b7ee8aa6bb950616c08cff654))
+
+
+
 ## [0.258.12](https://github.com/rodekruis/IBF-system/compare/v0.258.11...v0.258.12) (2023-10-02)
 
 
@@ -78,28 +149,6 @@
 
 * production build AB[#23656](https://github.com/rodekruis/IBF-system/issues/23656) ([ed31a34](https://github.com/rodekruis/IBF-system/commit/ed31a34e6ad9bb398381397f929fd64ea24c5db1))
 * rm console.log AB[#17794](https://github.com/rodekruis/IBF-system/issues/17794) ([b3dfb15](https://github.com/rodekruis/IBF-system/commit/b3dfb156d5a31860d3736d6349e40a59251a1e84))
-
-
-
-## [0.258.3](https://github.com/rodekruis/IBF-system/compare/v0.258.2...v0.258.3) (2023-09-18)
-
-
-### Bug Fixes
-
-* align descriptions better AB[#23356](https://github.com/rodekruis/IBF-system/issues/23356) ([c4e4c61](https://github.com/rodekruis/IBF-system/commit/c4e4c61bf5d099ee240a05604ff83fc7604dd645))
-* description xlsx AB[#23375](https://github.com/rodekruis/IBF-system/issues/23375) ([285a4eb](https://github.com/rodekruis/IBF-system/commit/285a4eba91e6d95ac8192d16a2cca85b24521281))
-* keep improved texts AB[#23375](https://github.com/rodekruis/IBF-system/issues/23375) ([3e3fa62](https://github.com/rodekruis/IBF-system/commit/3e3fa62aa0ee7efdf9abe1636ab8fc6b49ae9d66))
-* nestjs upgrade leftover AB[#23356](https://github.com/rodekruis/IBF-system/issues/23356) ([9506961](https://github.com/rodekruis/IBF-system/commit/95069613cbbc20bfe088e6cac083a34d1db2d22a))
-* only remove layers for KEN AB[#23375](https://github.com/rodekruis/IBF-system/issues/23375) ([5995b62](https://github.com/rodekruis/IBF-system/commit/5995b6285e44defd5be7428de340db1e5630b4e4))
-* set right countries for cropland/grassland AB[#23375](https://github.com/rodekruis/IBF-system/issues/23375) ([dd19505](https://github.com/rodekruis/IBF-system/commit/dd195054c6a9c73febde0edadb596d896afaf660))
-
-
-### Reverts
-
-* Revert "refactor: migration file AB#23529" ([796c8a5](https://github.com/rodekruis/IBF-system/commit/796c8a5bfc8119f6e4d9e39dbc8353c122a18ad8)), closes [AB#23529](https://github.com/AB/issues/23529)
-* Revert "refactor: remove segments AB#23529" ([8d642b7](https://github.com/rodekruis/IBF-system/commit/8d642b797031d409f998bdcf7aec4fa0203a652e)), closes [AB#23529](https://github.com/AB/issues/23529)
-* Revert "refactro: use env in mail service AB#23530" ([083558a](https://github.com/rodekruis/IBF-system/commit/083558a125c8744d0d70b5ead90b6faadec61d12)), closes [AB#23530](https://github.com/AB/issues/23530)
-* Revert "chore: disable lint camelcase check" ([ebadb3b](https://github.com/rodekruis/IBF-system/commit/ebadb3b0bba9b9dcd2f0451b08a8dd804262df0e))
 
 
 
