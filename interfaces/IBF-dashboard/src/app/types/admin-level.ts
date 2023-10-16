@@ -5,6 +5,12 @@ export enum AdminLevel {
   adminLevel4 = 4,
 }
 
+export enum AdminLevelType {
+  single = 'single',
+  deepest = 'deepest',
+  higher = 'higher',
+}
+
 export class AdminLevelLabel {
   adminLevel1: string;
   adminLevel2: string;

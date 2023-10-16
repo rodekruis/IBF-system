@@ -5,7 +5,11 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { Country, DisasterType } from 'src/app/models/country.model';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
 import { DisasterTypeService } from '../../services/disaster-type.service';
@@ -23,6 +27,7 @@ export class AboutBtnComponent implements OnDestroy {
   private countrySubscription: Subscription;
   private disasterType: DisasterType;
   private disasterTypeSubscription: Subscription;
+  private countryDisasterSettings: CountryDisasterSettings;
 
   constructor(
     private countryService: CountryService,
@@ -50,6 +55,10 @@ export class AboutBtnComponent implements OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    );
   };
 
   public btnAction() {
@@ -60,11 +69,7 @@ export class AboutBtnComponent implements OnDestroy {
     });
 
     if (this.country && this.disasterType) {
-      window.open(
-        this.country.countryDisasterSettings.find(
-          (s) => s.disasterType === this.disasterType.disasterType,
-        ).eapLink,
-      );
+      window.open(this.countryDisasterSettings?.eapLink);
     }
   }
 }

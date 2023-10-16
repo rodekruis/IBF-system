@@ -15,25 +15,18 @@
             <ion-label color="ibf-black"
               ><ion-text
                 ><strong>{{
-                  getAggregatesHeader().headerLabel
+                  getAggregatesHeader(mapView | async).headerLabel
                 }}</strong></ion-text
               ></ion-label
             >
             <ion-label color="ibf-black"
               ><ion-text
-                [innerHTML]="getAggregatesHeader().subHeaderLabel"
+                [innerHTML]="
+                  getAggregatesHeader(mapView | async).subHeaderLabel
+                "
               ></ion-text
-            ></ion-label> </ion-col
-          >`
-          <ion-button
-            fill="clear"
-            *ngIf="showPlaceCodeView(placeCode)"
-            [color]="isActiveAreas() ? 'light' : 'ibf-black'"
-            class="place-code-reset-button"
-            (click)="clearPlaceCode()"
-          >
-            <ion-icon name="close" slot="icon-only"></ion-icon>
-          </ion-button>
+            ></ion-label>
+          </ion-col>
         </ion-item>
       </ion-col>
     </ion-row>

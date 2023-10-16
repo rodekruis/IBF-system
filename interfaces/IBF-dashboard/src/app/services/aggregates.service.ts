@@ -6,6 +6,7 @@ import { MapService } from 'src/app/services/map.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { Country, DisasterType } from '../models/country.model';
+import { PlaceCode } from '../models/place-code.model';
 import { AdminLevel } from '../types/admin-level';
 import { EventState } from '../types/event-state';
 import { IbfLayerName } from '../types/ibf-layer';
@@ -15,7 +16,13 @@ import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EapActionsService } from './eap-actions.service';
 import { EventService } from './event.service';
+import { PlaceCodeService } from './place-code.service';
 
+export enum AreaStatus {
+  TriggeredOrWarned = 'triggered-or-warned',
+  NonTriggeredOrWarnd = 'non-triggered-or-warned',
+  Stopped = 'stopped',
+}
 @Injectable({
   providedIn: 'root',
 })
@@ -32,6 +39,7 @@ export class AggregatesService {
   private adminLevel: AdminLevel;
   private defaultAdminLevel: AdminLevel;
   public triggeredAreas: TriggeredArea[];
+  private placeCode: PlaceCode;
   private AREA_STATUS_KEY = 'areaStatus';
 
   constructor(
@@ -43,6 +51,7 @@ export class AggregatesService {
     private disasterTypeService: DisasterTypeService,
     private eventService: EventService,
     private eapActionsService: EapActionsService,
+    private placeCodeService: PlaceCodeService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -71,6 +80,10 @@ export class AggregatesService {
     this.eapActionsService
       .getTriggeredAreas()
       .subscribe(this.onTriggeredAreasChange);
+
+    this.placeCodeService
+      .getPlaceCodeSubscription()
+      .subscribe(this.onPlaceCodeChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -83,9 +96,10 @@ export class AggregatesService {
     if (!this.country) {
       return;
     }
-    this.defaultAdminLevel = this.country.countryDisasterSettings.find(
-      (d) => d.disasterType === disasterType.disasterType,
-    ).defaultAdminLevel;
+    this.defaultAdminLevel = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    )?.defaultAdminLevel;
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -98,6 +112,10 @@ export class AggregatesService {
 
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
+  };
+
+  private onPlaceCodeChange = (placeCode: PlaceCode) => {
+    this.placeCode = placeCode;
   };
 
   private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
@@ -144,42 +162,29 @@ export class AggregatesService {
       (a) => a.indicator === indicator.name,
     );
 
-    if (this.adminLevel !== this.defaultAdminLevel) {
-      if (foundIndicator) {
-        aggregate[indicator.name] = foundIndicator.value;
-      }
-
-      aggregate[this.AREA_STATUS_KEY] =
-        aggregate[indicator.name] !== undefined && this.eventState.activeTrigger
-          ? 'trigger-active'
-          : 'non-triggered';
-      return;
-    }
-
-    const areaState = this.triggeredAreas.find(
-      (area) => area.placeCode === feature.placeCode,
+    const area = this.mapService.getAreaByPlaceCode(
+      feature.placeCode,
+      feature.placeCodeParent,
     );
 
     if (foundIndicator) {
       aggregate[indicator.name] = foundIndicator.value;
     }
 
-    if (aggregate[this.AREA_STATUS_KEY]) {
-      return;
-    }
-
-    aggregate[this.AREA_STATUS_KEY] = areaState?.stopped
-      ? 'trigger-stopped'
-      : // the below relies on the fact that aggregate[indicator.name] is filled ..
-      // .. above only if available, which is in turn only if trigger/warned (from API)
-      aggregate[indicator.name] !== undefined && this.eventState.activeTrigger
-      ? 'trigger-active'
-      : 'non-triggered';
+    aggregate[this.AREA_STATUS_KEY] = area?.stopped
+      ? AreaStatus.Stopped
+      : aggregate[IbfLayerName.alertThreshold] > 0
+      ? AreaStatus.TriggeredOrWarned
+      : aggregate[this.disasterType.actionsUnit] > 0 &&
+        this.eventState.activeTrigger
+      ? AreaStatus.TriggeredOrWarned
+      : AreaStatus.NonTriggeredOrWarnd;
   };
 
   private onEachPlaceCode = (feature) => {
     const aggregate = {
       placeCode: feature.placeCode,
+      placeCodeParent: feature.placeCodeParent,
     };
     this.indicators.forEach(
       this.onEachIndicatorByFeatureAndAggregate(feature, aggregate),
@@ -203,6 +208,7 @@ export class AggregatesService {
           this.adminLevel,
           this.timelineState.activeLeadTime,
           this.eventState.event?.eventName,
+          this.mapService.getPlaceCodeParent(this.placeCode),
         )
         .subscribe(this.onAggregateData);
     }
@@ -212,11 +218,11 @@ export class AggregatesService {
     const groupsByPlaceCode = this.aggregateOnPlaceCode(records);
     this.aggregates = groupsByPlaceCode.map(this.onEachPlaceCode);
     this.nrTriggerActiveAreas = this.aggregates.filter(
-      (a) => a[this.AREA_STATUS_KEY] === 'trigger-active',
+      (a) => a[this.AREA_STATUS_KEY] === AreaStatus.TriggeredOrWarned,
     ).length;
 
     this.nrTriggerStoppedAreas = this.aggregates.filter(
-      (a) => a[this.AREA_STATUS_KEY] === 'trigger-stopped',
+      (a) => a[this.AREA_STATUS_KEY] === AreaStatus.Stopped,
     ).length;
   };
 
@@ -232,6 +238,7 @@ export class AggregatesService {
       } else {
         groupsByPlaceCode.push({
           placeCode: record.placeCode,
+          placeCodeParent: record.placeCodeParent,
           records: [record],
         });
       }
@@ -244,7 +251,7 @@ export class AggregatesService {
     indicator: IbfLayerName,
     placeCode: string,
     numberFormat: NumberFormat,
-    triggerStatus: string,
+    areaStatus: AreaStatus,
   ): number {
     let weighingIndicatorName: IbfLayerName;
     if (this.disasterType) {
@@ -257,7 +264,7 @@ export class AggregatesService {
       }
     }
     const weighedSum = this.aggregates
-      .filter((a) => a[this.AREA_STATUS_KEY] === triggerStatus)
+      .filter((a) => a[this.AREA_STATUS_KEY] === areaStatus)
       .reduce(
         this.aggregateReducer(
           weightedAverage,

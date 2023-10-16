@@ -64,20 +64,18 @@
     }
   },
   "aggregates-component": {
-    "header-title-prefix": "Situation in",
     "more-information": "Click for more info on this indicator.",
-    "default-header-label": "...Loading",
     "exposed-prefix": "Exposed",
     "stopped-prefix": "Manually stopped",
-    "all-prefix": "All",
-    "exposed-subgroups": "",
-    "stopped-placecode": "(stopped)",
-    "national-view": "National View"
+    "national-view": "National View",
+    "predicted": "Predicted",
+    "plural-suffix": "(s)"
   },
   "areas-of-focus-summary-component": {
     "title": "Actions Summary",
     "aof-subtitle": "Sector",
-    "tasks-subtitle": "Completed"
+    "tasks-subtitle": "Completed",
+    "not-applicable": "N/A"
   },
   "ibf-guide-component": {
     "title": "IBF Guide",
@@ -90,14 +88,15 @@
         "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>.",
         "tooltip": "The forecast presented on the portal might not be up to date as the model did not run successfully. Contact {{supportEmailAddress}} for further information."
       },
-      "revert-selection": "All",
+      "revert-selection": "Back",
       "save-actions": {
         "submit-button-label": "Save",
         "header": "Result",
         "update-success": "State of early action(s) successfully updated.",
         "update-failure": "Failed to update state of early action(s).",
         "prompt-button-label": "OK",
-        "no-actions": "There are no early actions in the portal yet. Please follow the local protocols relevant to the areas affected and review the portal later."
+        "no-actions": "There are no early actions in the portal yet. Please follow the local protocols relevant to the areas affected and review the portal later.",
+        "no-actions-admin-level": "Early actions are only available on {{ defaultAdminAreaLabel }} level."
       },
       "stop-trigger-popup": {
         "eap": {
@@ -303,7 +302,7 @@
       }
     },
     "dengue": {
-      "about-button-label": "About Dengue Alerts",
+      "about-button-label": "About Alert",
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for dengue issued."
       },
@@ -327,7 +326,7 @@
       }
     },
     "malaria": {
-      "about-button-label": "About Malaria Alerts",
+      "about-button-label": "About Alert",
       "no-event-no-trigger": {
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for malaria issued."
       },
@@ -382,5 +381,11 @@
         "title": "Community notification - photo"
       }
     }
+  },
+  "breadcrumbs": {
+    "national-view": "National View"
+  },
+  "layers-menu": {
+    "menu-toggle-label": "Layers"
   }
 }

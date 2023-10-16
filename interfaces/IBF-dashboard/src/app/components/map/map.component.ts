@@ -31,7 +31,11 @@ import {
   LEAFLET_MAP_OPTIONS,
   LEAFLET_MAP_URL_TEMPLATE,
 } from 'src/app/config';
-import { Country, DisasterType } from 'src/app/models/country.model';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from 'src/app/models/country.model';
 import {
   CommunityNotification,
   DamSite,
@@ -62,11 +66,11 @@ import {
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { PlaceCode } from '../../models/place-code.model';
+import { AdminLevelService } from '../../services/admin-level.service';
 import { DisasterTypeService } from '../../services/disaster-type.service';
 import { PointMarkerService } from '../../services/point-marker.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { TimelineState } from '../../types/timeline-state';
-import { IbfLayerThreshold } from './../../types/ibf-layer';
 
 @Component({
   selector: 'app-map',
@@ -76,9 +80,10 @@ import { IbfLayerThreshold } from './../../types/ibf-layer';
 export class MapComponent implements AfterViewInit, OnDestroy {
   private map: Map;
   public layers: IbfLayer[] = [];
-  private placeCode: string;
+  private placeCode: PlaceCode;
   private country: Country;
   private disasterType: DisasterType;
+  private countryDisasterSettings: CountryDisasterSettings;
   public lastModelRunDate: string;
   public eventState: EventState;
   public timelineState: TimelineState;
@@ -120,6 +125,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     private apiService: ApiService,
     private pointMarkerService: PointMarkerService,
     private mapLegendService: MapLegendService,
+    private adminLevelService: AdminLevelService,
   ) {
     this.layerSubscription = this.mapService
       .getLayerSubscription()
@@ -173,7 +179,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           : newLayer;
 
       if (newLayer.viewCenter) {
-        this.map.fitBounds(this.mapService.state.bounds);
+        this.zoomToArea();
       }
     } else {
       this.layers = [];
@@ -191,6 +197,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    );
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -204,7 +214,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode): void => {
-    this.placeCode = placeCode?.placeCode;
+    this.placeCode = placeCode;
 
     this.layers.forEach((layer: IbfLayer): void => {
       if (layer.leafletLayer && 'resetStyle' in layer.leafletLayer) {
@@ -233,27 +243,30 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         const adminRegionsFiltered = JSON.parse(
           JSON.stringify(adminRegionsLayer.data),
         );
-        let zoomExtraOffset: number;
         if (this.placeCode) {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features.filter(
-            (area) => area?.properties?.['placeCode'] === this.placeCode,
+            (area) =>
+              area?.properties?.['placeCode'] === this.placeCode.placeCode ||
+              area?.properties?.['placeCodeParent'] ===
+                this.placeCode.placeCode,
           );
-          zoomExtraOffset = 0.1;
         } else {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features;
-          zoomExtraOffset = 0;
         }
         if (adminRegionsFiltered.features.length) {
           const layerBounds = bbox(adminRegionsFiltered);
+          const layerWidth = layerBounds[2] - layerBounds[0];
+          const layerHeight = layerBounds[3] - layerBounds[1];
+          const zoomExtraOffset = 0.1; //10% margin of height and width on all sides
           this.mapService.state.bounds = containsNumber(layerBounds)
             ? ([
                 [
-                  layerBounds[1] - zoomExtraOffset,
-                  layerBounds[0] - zoomExtraOffset,
+                  layerBounds[1] - zoomExtraOffset * layerHeight,
+                  layerBounds[0] - zoomExtraOffset * layerWidth,
                 ],
                 [
-                  layerBounds[3] + zoomExtraOffset,
-                  layerBounds[2] + zoomExtraOffset,
+                  layerBounds[3] + zoomExtraOffset * layerHeight,
+                  layerBounds[2] + zoomExtraOffset * layerWidth,
                 ],
               ] as LatLngBoundsLiteral)
             : this.mapService.state.bounds;
@@ -375,11 +388,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   private getGlofasStationStates() {
-    return Object.keys(
-      this.country?.countryDisasterSettings.find(
-        (s) => s.disasterType === this.disasterType?.disasterType,
-      )?.eapAlertClasses,
-    );
+    return Object.keys(this.countryDisasterSettings?.eapAlertClasses);
   }
 
   onMapReady(map: Map) {
@@ -429,13 +438,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   ): Marker => {
     switch (layerName) {
       case IbfLayerName.glofasStations: {
-        const countryDisasterSettings = this.country?.countryDisasterSettings.find(
-          (s) => s.disasterType === this.disasterType.disasterType,
-        );
         return this.pointMarkerService.createMarkerStation(
           geoJsonPoint.properties as Station,
           latlng,
-          countryDisasterSettings,
+          this.countryDisasterSettings,
           this.timelineState.activeLeadTime,
         );
       }
@@ -594,6 +600,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     event.target.setStyle(
       this.mapService.setAdminRegionMouseOverStyle(
         feature.properties.placeCode,
+        feature.properties.placeCodeParent,
       ),
     );
     this.placeCodeService.setPlaceCodeHover({
@@ -602,15 +609,18 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       placeCodeName: feature.properties.name,
       placeCodeParentName: feature.properties.nameParent,
       eventName: feature.properties.eventName,
+      adminLevel: feature.properties.adminLevel,
     });
   };
 
   private onAdminRegionClickByLayerAndFeatureAndElement = (
     feature,
-    element,
   ) => (): void => {
+    const adminLevel = feature.properties.adminLevel;
+    const placeCode = feature.properties.placeCode;
+
     this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
-      placeCode: feature.properties.placeCode,
+      placeCode,
       page: AnalyticsPage.dashboard,
       isActiveTrigger: this.eventService.state.activeTrigger,
       component: this.constructor.name,
@@ -618,78 +628,39 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     // if click in overview-mode
     if (!this.eventState.event) {
-      // go to event-mode, but don't set placeCode
+      // go to event-view, but don't set placeCode
       if (feature.properties.eventName) {
         const event = this.eventState?.events?.find(
           (e) => e.eventName === feature.properties.eventName,
         );
         this.timelineService.handleTimeStepButtonClick(
-          event.firstLeadTime as LeadTime,
-          event.eventName,
+          event?.firstLeadTime as LeadTime,
+          event?.eventName,
         );
         this.eventService.switchEvent(feature.properties.eventName);
       }
     } else if (this.eventState.event) {
-      // in in event-mode, then set placeCode
-      if (feature.properties.placeCode === this.placeCode) {
-        element.unbindPopup();
-        this.placeCode = null;
-        this.placeCodeService.clearPlaceCode();
-      } else {
-        this.bindPopupAdminRegions(feature, element);
-        this.placeCode = feature.properties.placeCode;
+      // if in event-view, then set placeCode
+      if (placeCode !== this.placeCode?.placeCode) {
+        // only zoom-in when actually zooming in (instead of selecting a peer-area on the same level)
+        const zoomIn = adminLevel > (this.placeCode?.adminLevel || 0);
+        if (zoomIn) {
+          this.adminLevelService.zoomInAdminLevel();
+        }
         this.placeCodeService.setPlaceCode({
-          placeCode: feature.properties.placeCode,
+          placeCode,
           countryCodeISO3: feature.properties.countryCodeISO3,
           placeCodeName: feature.properties.name,
+          placeCodeParent: zoomIn
+            ? this.placeCode
+            : this.placeCode?.placeCodeParent,
           placeCodeParentName: feature.properties.nameParent,
+          adminLevel,
           eventName: feature.properties.eventName,
         });
       }
     }
   };
-
-  private bindPopupAdminRegions(feature, element): void {
-    let popup: string;
-    const activeAggregateLayer = this.mapService.layers.find(
-      (l) => l.active && l.group === IbfLayerGroup.aggregates,
-    );
-    if (
-      activeAggregateLayer &&
-      activeAggregateLayer.name === IbfLayerName.potentialCases
-    ) {
-      this.apiService
-        .getAdminAreaDynamicDataOne(
-          IbfLayerThreshold.potentialCasesThreshold,
-          feature.properties.placeCode,
-          this.timelineState.activeLeadTime,
-          this.eventState?.event?.eventName,
-        )
-        .subscribe((thresholdValue: number) => {
-          const leadTimes = this.country?.countryDisasterSettings.find(
-            (s) => s.disasterType === this.disasterType?.disasterType,
-          )?.activeLeadTimes;
-          popup = this.createThresHoldPopupAdminRegions(
-            activeAggregateLayer,
-            feature,
-            thresholdValue,
-            leadTimes,
-          );
-          const popupOptions = {
-            minWidth: 300,
-            className: 'trigger-popup-max',
-          };
-          element.bindPopup(popup, popupOptions).openPopup();
-        });
-    } else {
-      popup = this.createDefaultPopupAdminRegions(
-        activeAggregateLayer,
-        feature,
-      );
-      element.bindPopup(popup).openPopup();
-    }
-  }
-
   private getAdminRegionLayerPane(layer: IbfLayer): LeafletPane {
     let adminRegionLayerPane = LeafletPane.overlayPane;
     switch (layer.group) {
@@ -804,10 +775,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           });
           element.on(
             'click',
-            this.onAdminRegionClickByLayerAndFeatureAndElement(
-              feature,
-              element,
-            ),
+            this.onAdminRegionClickByLayerAndFeatureAndElement(feature),
           );
         },
       });

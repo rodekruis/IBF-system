@@ -10,6 +10,7 @@ import { EventModule } from '../event/event.module';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { CountryEntity } from '../country/country.entity';
 import { HelperService } from '../../shared/helper.service';
+import { AdminAreaModule } from '../admin-area/admin-area.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { HelperService } from '../../shared/helper.service';
     UserModule,
     EventModule,
     CountryModule,
+    AdminAreaModule,
   ],
   providers: [AdminAreaDynamicDataService, HelperService],
   controllers: [AdminAreaDynamicDataController],

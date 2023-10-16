@@ -7,7 +7,7 @@
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
-        "adminLevels": [1, 2, 3, 4],
+        "adminLevels": [2, 3, 4],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["5-day"],
         "eapLink": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd",
@@ -194,7 +194,8 @@
         },
         "droughtEndOfMonthPipeline": false,
         "showMonthlyEapActions": true,
-        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0db9ce391f633443aae619a2a0e974904&authkey=AV-9MdWarHQlelBjlbQdaoA&expiration=2023-07-31T22%3a00%3a00.000Z"
+        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0db9ce391f633443aae619a2a0e974904&authkey=AV-9MdWarHQlelBjlbQdaoA&expiration=2023-07-31T22%3a00%3a00.000Z",
+        "isEventBased": true
       },
       {
         "disasterType": "heavy-rain",
@@ -248,7 +249,7 @@
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
-        "adminLevels": [1, 2, 3],
+        "adminLevels": [2, 3],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["7-day"],
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=357745",
@@ -297,6 +298,7 @@
             }
           }
         },
+        "isEventBased": true,
         "showMonthlyEapActions": true,
         "eapLink": "https://zambiaredcrosssociety-my.sharepoint.com/:w:/r/personal/wina_wina_redcross_org_zm/_layouts/15/Doc.aspx?sourcedoc=%7BA97A5C40-159E-45A9-A236-B0545E6A7734%7D&file=DROUGHT%20EAP%202021%20-SEPT%20Draft%202%20-Irene.docx&action=default&mobileredirect=true"
       }
@@ -350,7 +352,7 @@
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
-        "adminLevels": [1, 2, 3],
+        "adminLevels": [3],
         "defaultAdminLevel": 3,
         "activeLeadTimes": ["6-day"],
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=035b1d36a17c94db1855152253a141227&authkey=AePN7DrtvirE98a6YfPlDLM&expiration=2023-08-09T22%3A00%3A00.000Z&e=6YZPE0",
@@ -391,7 +393,8 @@
         ],
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=035b1d36a17c94db1855152253a141227&authkey=AePN7DrtvirE98a6YfPlDLM&expiration=2023-08-09T22%3A00%3A00.000Z&e=6YZPE0",
         "enableEarlyActions": false,
-        "enableStopTrigger": false
+        "enableStopTrigger": false,
+        "isEventBased": true
       }
     ],
     "adminRegionLabels": {
@@ -487,7 +490,7 @@
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
-        "adminLevels": [1, 2, 3],
+        "adminLevels": [2, 3],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["7-day"],
         "eapLink": "https://kenyaredcross-my.sharepoint.com/:w:/g/personal/saado_halima_redcross_or_ke/ETp6Vml__etKk-C2KAqH4XIBrIJmAMT58mqA_iQlCZtuKw?rtime=FJll0Rbn2Ug",
@@ -549,6 +552,7 @@
           "10": [],
           "11": []
         },
+        "isEventBased": true,
         "eapLink": "https://drive.google.com/file/d/129ni2VlAxg5GngqoszmVjlaRFEuLwLph/view"
       }
     ],
@@ -591,7 +595,7 @@
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
-        "adminLevels": [1, 2, 3],
+        "adminLevels": [2, 3],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["7-day"],
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=404862",
@@ -631,6 +635,7 @@
           "10-month",
           "11-month"
         ],
+        "isEventBased": true,
         "droughtForecastSeasons": {
           "Belg": {
             "Belg MAM": {
@@ -1037,11 +1042,12 @@
           "167-hour",
           "168-hour"
         ],
+        "isEventBased": true,
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=019cd8c5dca4240d5bacca0756bbf6703&authkey=AUnDxa6EBrEIYrzZGBbKkGE&expiration=2022-10-17T22%3A00%3A00.000Z&e=caLZ0C"
       },
       {
         "disasterType": "floods",
-        "adminLevels": [1, 2, 3],
+        "adminLevels": [2, 3],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["3-day"],
         "eapLink": "https://www.anticipation-hub.org/Documents/Briefing_Sheets_and_Fact_Sheets/Flood_EAP_-_Final.pdf",

@@ -1,54 +1,118 @@
-<div class="ion-padding-top ibf-admin-level-buttons">
-  <ion-button
-    *ngIf="getAdminLevelLabel(adminLevel.adminLevel1)"
-    size="small"
-    class="ibf-admin-level-button"
-    fill="solid"
-    [color]="
-      isAdminLevelActive(adminLevel.adminLevel1) ? 'ibf-primary' : 'ibf-white'
-    "
-    [disabled]="isAdminLevelDisabled(adminLevel.adminLevel1)"
-    (click)="clickAdminLevelButton(adminLevel.adminLevel1)"
-  >
-    {{ getAdminLevelLabel(adminLevel.adminLevel1) }}
-  </ion-button>
-  <ion-button
-    *ngIf="getAdminLevelLabel(adminLevel.adminLevel2)"
-    size="small"
-    class="ibf-admin-level-button"
-    fill="solid"
-    [color]="
-      isAdminLevelActive(adminLevel.adminLevel2) ? 'ibf-primary' : 'ibf-white'
-    "
-    [disabled]="isAdminLevelDisabled(adminLevel.adminLevel2)"
-    (click)="clickAdminLevelButton(adminLevel.adminLevel2)"
-  >
-    {{ getAdminLevelLabel(adminLevel.adminLevel2) }}
-  </ion-button>
-  <ion-button
-    *ngIf="getAdminLevelLabel(adminLevel.adminLevel3)"
-    size="small"
-    class="ibf-admin-level-button"
-    fill="solid"
-    [color]="
-      isAdminLevelActive(adminLevel.adminLevel3) ? 'ibf-primary' : 'ibf-white'
-    "
-    [disabled]="isAdminLevelDisabled(adminLevel.adminLevel3)"
-    (click)="clickAdminLevelButton(adminLevel.adminLevel3)"
-  >
-    {{ getAdminLevelLabel(adminLevel.adminLevel3) }}
-  </ion-button>
-  <ion-button
-    *ngIf="getAdminLevelLabel(adminLevel.adminLevel4)"
-    size="small"
-    class="ibf-admin-level-button"
-    fill="solid"
-    [color]="
-      isAdminLevelActive(adminLevel.adminLevel4) ? 'ibf-primary' : 'ibf-white'
-    "
-    [disabled]="isAdminLevelDisabled(adminLevel.adminLevel4)"
-    (click)="clickAdminLevelButton(adminLevel.adminLevel4)"
-  >
-    {{ getAdminLevelLabel(adminLevel.adminLevel4) }}
-  </ion-button>
-</div>
+<ng-container
+  *ngIf="useBreadcrumbs(disasterType); then breadcrumbs; else tabs"
+></ng-container>
+<ng-template #breadcrumbs>
+  <div class="ion-margin-start breadcrumbs-container">
+    <ion-button
+      *ngIf="showBreadcrumb(mapViewEnum.national)"
+      class="breadcrumb"
+      [ngClass]="
+        currentMapView === mapViewEnum.national
+          ? 'breadcrumb-alone'
+          : 'breadcrumb-start'
+      "
+      [class.selected]="currentMapView === mapViewEnum.national"
+      (click)="
+        clickBreadcrumbButton(
+          mapViewEnum.national,
+          currentMapView === mapViewEnum.national
+        )
+      "
+    >
+      {{ 'breadcrumbs.national-view' | translate }}
+    </ion-button>
+    <ion-button
+      *ngIf="showBreadcrumb(mapViewEnum.event)"
+      class="breadcrumb"
+      [ngClass]="
+        currentMapView === mapViewEnum.event
+          ? 'breadcrumb-end'
+          : 'breadcrumb-middle'
+      "
+      [class.selected]="currentMapView === mapViewEnum.event"
+      (click)="
+        clickBreadcrumbButton(
+          mapViewEnum.event,
+          currentMapView === mapViewEnum.event
+        )
+      "
+    >
+      {{ eventState?.event?.eventName }}
+    </ion-button>
+    <ion-button
+      *ngIf="showBreadcrumb(mapViewEnum.adminArea)"
+      class="breadcrumb"
+      [ngClass]="
+        currentMapView === mapViewEnum.adminArea
+          ? 'breadcrumb-end'
+          : 'breadcrumb-middle'
+      "
+      [class.selected]="currentMapView === mapViewEnum.adminArea"
+      (click)="
+        clickBreadcrumbButton(
+          mapViewEnum.adminArea,
+          currentMapView === mapViewEnum.adminArea
+        )
+      "
+      [innerHtml]="
+        currentMapView === mapViewEnum.adminArea
+          ? placeCode?.placeCodeName
+          : currentMapView === mapViewEnum.adminArea2
+          ? placeCode?.placeCodeParent?.placeCodeName
+          : placeCode?.placeCodeParent?.placeCodeParent?.placeCodeName
+      "
+    >
+    </ion-button>
+    <ion-button
+      *ngIf="showBreadcrumb(mapViewEnum.adminArea2)"
+      class="breadcrumb"
+      [ngClass]="
+        currentMapView === mapViewEnum.adminArea2
+          ? 'breadcrumb-end'
+          : 'breadcrumb-middle'
+      "
+      [class.selected]="currentMapView === mapViewEnum.adminArea2"
+      (click)="
+        clickBreadcrumbButton(
+          mapViewEnum.adminArea2,
+          currentMapView === mapViewEnum.adminArea2
+        )
+      "
+      [innerHtml]="
+        currentMapView === mapViewEnum.adminArea2
+          ? placeCode?.placeCodeName
+          : placeCode?.placeCodeParent?.placeCodeName
+      "
+    >
+    </ion-button>
+    <ion-button
+      *ngIf="showBreadcrumb(mapViewEnum.adminArea3)"
+      class="breadcrumb breadcrumb-end"
+      [class.selected]="currentMapView === mapViewEnum.adminArea3"
+      (click)="
+        clickBreadcrumbButton(
+          mapViewEnum.adminArea3,
+          currentMapView === mapViewEnum.adminArea3
+        )
+      "
+    >
+      {{ placeCode?.placeCodeName }}
+    </ion-button>
+  </div>
+</ng-template>
+<ng-template #tabs>
+  <div class="ion-margin-start breadcrumbs-container">
+    <ion-button
+      *ngFor="let button of adminLevelButtons | async"
+      size="small"
+      fill="solid"
+      class="breadcrumb"
+      [ngClass]="button.buttonTypeClass"
+      [class.selected]="isAdminLevelActive(button.adminLevel, button.disabled)"
+      [disabled]="button.disabled"
+      (click)="clickAdminLevelButton(button.adminLevel)"
+    >
+      {{ button.label }}
+    </ion-button>
+  </div>
+</ng-template>

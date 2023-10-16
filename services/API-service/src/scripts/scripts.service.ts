@@ -724,9 +724,13 @@ export class ScriptsService {
           }
         }
       }
-    } else if (disasterType === DisasterType.Drought && triggered) {
+    } else if (
+      disasterType === DisasterType.Drought &&
+      selectedCountry.countryCodeISO3 !== 'ZWE' && // exclude ZWE drought from this rule
+      triggered
+    ) {
       if (Number(activeLeadTime.split('-')[0]) > 3) {
-        copyOfExposureUnit = [];
+        copyOfExposureUnit.forEach((area) => (area.amount = 0));
         // Hard-code lead-times of more then 3 months to non-trigger
       } else if (eventRegion !== this.nationalDroughtRegion) {
         // Hard-code that only areas of right region are triggered per selected leadtime
@@ -757,21 +761,21 @@ export class ScriptsService {
       ) {
         // loop from the end so index stays correct during splicing
         for (let i = copyOfExposureUnit.length - 1; i >= 0; i--) {
-          if (
-            copyOfExposureUnit[i].amount > 0 ||
-            [LeadTime.hour24, LeadTime.hour48].includes(activeLeadTime)
-          ) {
-            const adminArea = await this.adminAreaRepo.findOne({
-              where: { placeCode: copyOfExposureUnit[i].placeCode },
-            });
-            const adminAreaParent = await this.adminAreaRepo.findOne({
-              where: { placeCode: adminArea.placeCodeParent },
-            });
-            if (adminAreaParent.name === eventRegion) {
-              // leave this as is ..
-              continue;
-            }
+          // if (
+          //   copyOfExposureUnit[i].amount > 0 ||
+          //   [LeadTime.hour24, LeadTime.hour48].includes(activeLeadTime)
+          // ) {
+          const adminArea = await this.adminAreaRepo.findOne({
+            where: { placeCode: copyOfExposureUnit[i].placeCode },
+          });
+          const adminAreaParent = await this.adminAreaRepo.findOne({
+            where: { placeCode: adminArea.placeCodeParent },
+          });
+          if (adminAreaParent.name === eventRegion) {
+            // leave this as is ..
+            continue;
           }
+          // }
           // .. remove the rest from upload
           copyOfExposureUnit.splice(i, 1);
         }
