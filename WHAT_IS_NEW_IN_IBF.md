@@ -5,6 +5,10 @@ Find here the latest changes to the IBF-system.
 - Not all changes to the IBF-system are listed here. Only those that result in different functionality or different user experience.
 - This list is meant to explain changes since the last manual. Please open the manual from the dashboard for a full explanation on the IBF-system.
 
+### 16-10-2023 (v0.259.0)
+
+- Flash-floods, Heavy rain, Dengue, Malaria and Floods: Replaced the map admin-level switcher with breadcrumbs.
+
 ### 18-09-2023 (v0.258.4)
 
 - IBF Kenya: Cropland and grassland layers removed from Drought portal. Still available in Floods portal.
