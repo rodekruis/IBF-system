@@ -11,6 +11,8 @@ import { AdminAreaService } from './admin-area.service';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { HttpModule } from '@nestjs/axios';
+import { EventAreaService } from './services/event-area.service';
+import { EventAreaEntity } from './event-area.entity';
 
 @Module({
   imports: [
@@ -21,12 +23,13 @@ import { HttpModule } from '@nestjs/axios';
       CountryEntity,
       DisasterEntity,
       AdminAreaDynamicDataEntity,
+      EventAreaEntity,
     ]),
     EventModule,
     CountryModule,
   ],
-  providers: [AdminAreaService, HelperService],
+  providers: [AdminAreaService, EventAreaService, HelperService],
   controllers: [AdminAreaController],
-  exports: [AdminAreaService],
+  exports: [AdminAreaService, EventAreaService],
 })
 export class AdminAreaModule {}

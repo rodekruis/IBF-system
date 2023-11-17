@@ -8,7 +8,8 @@ import {
   CountryDisasterSettings,
   DisasterType,
 } from '../models/country.model';
-import { AdminLevel } from '../types/admin-level';
+import { PlaceCode } from '../models/place-code.model';
+import { AdminLevelType } from '../types/admin-level';
 import { EapAction } from '../types/eap-action';
 import { EventState } from '../types/event-state';
 import { LeadTime } from '../types/lead-time';
@@ -17,6 +18,7 @@ import { TriggeredArea } from '../types/triggered-area';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
+import { PlaceCodeService } from './place-code.service';
 import { TimelineService } from './timeline.service';
 
 @Injectable({
@@ -27,11 +29,11 @@ export class EapActionsService {
   public triggeredAreas: TriggeredArea[];
   private country: Country;
   private disasterType: DisasterType;
-  private disasterTypeSettings: CountryDisasterSettings;
-  private adminLevel: AdminLevel;
+  private countryDisasterSettings: CountryDisasterSettings;
   private eventState: EventState;
   private timelineState: TimelineState;
   private currentRainSeasonName: string;
+  private placeCode: PlaceCode;
 
   constructor(
     private countryService: CountryService,
@@ -40,6 +42,7 @@ export class EapActionsService {
     private disasterTypeService: DisasterTypeService,
     private adminLevelService: AdminLevelService,
     private eventService: EventService,
+    private placeCodeService: PlaceCodeService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -60,6 +63,10 @@ export class EapActionsService {
     this.eventService
       .getInitialEventStateSubscription()
       .subscribe(this.onEventStatusChange);
+
+    this.placeCodeService
+      .getPlaceCodeSubscription()
+      .subscribe(this.onPlaceCodeChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -68,8 +75,9 @@ export class EapActionsService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
     );
   };
 
@@ -81,8 +89,22 @@ export class EapActionsService {
     this.eventState = eventState;
   };
 
-  private onAdminLevelChange = (adminLevel: AdminLevel) => {
-    this.adminLevel = adminLevel;
+  private onAdminLevelChange = () => {
+    // This avoids duplicate calls because of adminLevel & placeCode change
+    if (this.placeCode) {
+      const adminLevelType = this.adminLevelService.getAdminLevelType(
+        this.placeCode,
+      );
+      if (adminLevelType !== AdminLevelType.higher) {
+        this.getTriggeredAreasApi();
+      }
+    } else {
+      this.getTriggeredAreasApi();
+    }
+  };
+
+  private onPlaceCodeChange = (placeCode: PlaceCode) => {
+    this.placeCode = placeCode;
     this.getTriggeredAreasApi();
   };
 
@@ -90,15 +112,20 @@ export class EapActionsService {
     if (
       this.country &&
       this.disasterType &&
-      this.adminLevel &&
       this.timelineState &&
       this.eventState
     ) {
+      // This makes sure that if placeCode is set, that adminLevel is used below (which affects e.g. the chat-section) ..
+      // .. which is 1 adminLevel highr than the one used in the map ..
+      // .. if not set yet (so on highest adminLevel), then the chat-section uses the same level as the map (namely the defaultAdminLevel)
+      const adminLevelToUse =
+        this.placeCode?.adminLevel ||
+        this.countryDisasterSettings.defaultAdminLevel;
       this.apiService
         .getTriggeredAreas(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
-          this.adminLevel,
+          adminLevelToUse,
           this.timelineState.activeLeadTime,
           this.eventState.event?.eventName,
         )
@@ -152,7 +179,7 @@ export class EapActionsService {
   };
 
   private filterEapActionsByMonth = (triggeredArea) => {
-    if (!this.disasterTypeSettings.showMonthlyEapActions) {
+    if (!this.countryDisasterSettings.showMonthlyEapActions) {
       return;
     }
 
@@ -171,7 +198,7 @@ export class EapActionsService {
     );
 
     const currentActionSeasonMonths = this.currentRainSeasonName
-      ? this.disasterTypeSettings.droughtForecastSeasons[region][
+      ? this.countryDisasterSettings.droughtForecastSeasons[region][
           this.currentRainSeasonName
         ].actionMonths
       : [];
@@ -207,13 +234,13 @@ export class EapActionsService {
   private getRegion(triggeredArea): string {
     const nationwideKey = 'National';
 
-    if (!this.disasterTypeSettings.droughtAreas) {
+    if (!this.countryDisasterSettings.droughtAreas) {
       return nationwideKey;
     }
 
-    const droughtAreas = Object.keys(this.disasterTypeSettings.droughtAreas);
+    const droughtAreas = Object.keys(this.countryDisasterSettings.droughtAreas);
     const isTriggeredAreaInDroughtArea = (droughtArea): boolean =>
-      this.disasterTypeSettings.droughtAreas[droughtArea].includes(
+      this.countryDisasterSettings.droughtAreas[droughtArea].includes(
         triggeredArea.placeCode,
       );
     for (const droughtArea of droughtAreas) {
@@ -224,7 +251,7 @@ export class EapActionsService {
   }
 
   private getCurrentRainSeasonName(region, monthOfSelectedLeadTime): string {
-    const seasons = this.disasterTypeSettings.droughtForecastSeasons[region];
+    const seasons = this.countryDisasterSettings.droughtForecastSeasons[region];
     for (const season of Object.keys(seasons)) {
       if (seasons[season].rainMonths.includes(monthOfSelectedLeadTime)) {
         return season;
@@ -251,11 +278,7 @@ export class EapActionsService {
   private getCurrentMonth(): number {
     // SIMULATE: uncomment the line below and change the number to simulate different months
     // return 9;
-    if (
-      this.country.countryDisasterSettings.find(
-        (s) => s.disasterType === this.disasterType.disasterType,
-      ).droughtEndOfMonthPipeline
-    ) {
+    if (this.countryDisasterSettings?.droughtEndOfMonthPipeline) {
       return this.timelineState.today.plus({ months: 1 }).month;
     }
     return this.timelineState.today.month;

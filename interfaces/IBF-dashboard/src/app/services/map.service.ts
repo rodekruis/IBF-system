@@ -27,7 +27,7 @@ import { quantile } from 'src/shared/utils';
 import { Country, DisasterType } from '../models/country.model';
 import { LayerActivation } from '../models/layer-activation.enum';
 import { breakKey } from '../models/map.model';
-import { AdminLevel } from '../types/admin-level';
+import { AdminLevel, AdminLevelType } from '../types/admin-level';
 import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import { TimelineState } from '../types/timeline-state';
@@ -41,12 +41,9 @@ import { EapActionsService } from './eap-actions.service';
 export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
   public layers = [] as IbfLayer[];
-  public selectedOutlineColor = {
-    triggered: '#737373',
-    nonTriggered: 'var(--ion-color-ibf-no-alert-primary)',
-  };
   private stoppedTriggerColor = 'var(--ion-color-ibf-black)';
   private triggeredAreaColor = 'var(--ion-color-ibf-outline-red)';
+  private nonTriggeredAreaColor = 'var(--ion-color-ibf-no-alert-primary)';
   private disputedBorderStyle = {
     weight: 2,
     dashArray: '5 5',
@@ -384,6 +381,7 @@ export class MapService {
           this.timelineState.activeLeadTime,
           adminLevel,
           this.eventState?.event?.eventName,
+          this.getPlaceCodeParent(),
         )
         .subscribe((adminRegions) =>
           this.addAdminRegionLayer(adminRegions, adminLevel),
@@ -697,6 +695,7 @@ export class MapService {
           this.timelineState.activeLeadTime,
           this.adminLevel,
           this.eventState?.event?.eventName,
+          this.getPlaceCodeParent(),
         )
         .pipe(shareReplay(1));
     } else if (layer.group === IbfLayerGroup.adminRegions) {
@@ -710,6 +709,7 @@ export class MapService {
           this.timelineState.activeLeadTime,
           adminLevel,
           this.eventState?.event?.eventName,
+          this.getPlaceCodeParent(),
         )
         .pipe(shareReplay(1));
     } else if (
@@ -730,6 +730,17 @@ export class MapService {
     }
     return layerData;
   };
+
+  public getPlaceCodeParent(placeCode?: PlaceCode): string {
+    placeCode = placeCode || this.placeCode;
+    const adminLevelType = this.adminLevelService.getAdminLevelType(placeCode);
+
+    return adminLevelType === AdminLevelType.single
+      ? null // on single admin: don't pass any parentPlaceCode filtering
+      : adminLevelType === AdminLevelType.deepest
+      ? placeCode?.placeCodeParent.placeCode // on deepest admin: pass parentPlaceCode
+      : placeCode?.placeCode; // on higher levels: pass current placeCode (TODO: why this last difference?)
+  }
 
   getCombineAdminRegionData(
     countryCodeISO3: string,
@@ -793,6 +804,7 @@ export class MapService {
     colorPropertyValue,
     colorThreshold,
     placeCode: string,
+    placeCodeParent: string,
   ): string => {
     let adminRegionFillColor = this.state.defaultFillColor;
     const currentColorGradient =
@@ -800,12 +812,9 @@ export class MapService {
         ? this.state.colorGradientTriggered
         : this.state.colorGradient;
 
-    const areaState = this.triggeredAreas.find(
-      (area) => area.placeCode === placeCode,
-    );
-
+    const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
     switch (true) {
-      case areaState?.stopped:
+      case area?.stopped:
         adminRegionFillColor = this.state.colorStopped;
         break;
       case colorPropertyValue === null:
@@ -837,13 +846,31 @@ export class MapService {
     return adminRegionFillColor;
   };
 
-  getOutlineOpacity(colorPropertyValue) {
-    switch (true) {
-      case colorPropertyValue === 1:
-        return 1;
-      default:
-        return 0;
+  getOutlineWeight(
+    colorPropertyValue: number,
+    stopped: boolean,
+    placeCode: string,
+    placeCodeParent: string,
+    area: TriggeredArea,
+  ) {
+    let weight = stopped ? 3 : colorPropertyValue >= 1 ? 3 : 0.33;
+    if (this.placeCode) {
+      if (
+        ![placeCode, placeCodeParent].includes(this.placeCode.placeCode) &&
+        area
+      ) {
+        weight = weight / 3; // Decrease weight of unselected triggered areas
+      }
     }
+    return weight;
+  }
+
+  getOutlineColor(colorPropertyValue: number, stopped: boolean) {
+    return stopped
+      ? this.stoppedTriggerColor
+      : colorPropertyValue >= 1
+      ? this.triggeredAreaColor
+      : this.nonTriggeredAreaColor;
   }
 
   getAdminRegionFillOpacity = (layer: IbfLayer, placeCode: string): number => {
@@ -890,23 +917,10 @@ export class MapService {
     return name.substr(name.length - 1) < String(this.adminLevel);
   };
 
-  getAdminRegionColor = (layer: IbfLayer, placeCode: string): string => {
-    let color =
-      layer.group === IbfLayerGroup.adminRegions
-        ? this.state.strokeColor
-        : this.state.transparentColor;
-
-    if (this.placeCode) {
-      const areaState = this.triggeredAreas.find(
-        (area) => area.placeCode === placeCode,
-      );
-      if (this.placeCode.placeCode === placeCode && !areaState) {
-        color = this.selectedOutlineColor[
-          this.disasterType?.activeTrigger ? 'triggered' : 'nonTriggered'
-        ];
-      }
-    }
-    return color;
+  getAdminRegionColor = (layer: IbfLayer): string => {
+    return layer.group === IbfLayerGroup.adminRegions
+      ? this.state.strokeColor
+      : this.state.transparentColor;
   };
 
   public getColorThreshold = (adminRegions, colorProperty, colorBreaks) => {
@@ -945,28 +959,25 @@ export class MapService {
     const colorProperty = layer.colorProperty;
     return (adminRegion) => {
       const placeCode = adminRegion?.properties?.placeCode;
-      const areaState = this.triggeredAreas.find(
-        (area) => area.placeCode === placeCode,
-      );
-      const color = areaState?.stopped
-        ? this.stoppedTriggerColor
-        : this.triggeredAreaColor;
-      const opacity = this.getOutlineOpacity(
+      const placeCodeParent = adminRegion?.properties?.placeCodeParent;
+      const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
+      const colorPropertyValue =
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
-          : adminRegion.properties.indicators[colorProperty],
+          : adminRegion.properties.indicators[colorProperty];
+      const color = this.getOutlineColor(colorPropertyValue, area?.stopped);
+      const weight = this.getOutlineWeight(
+        colorPropertyValue,
+        area?.stopped,
+        placeCode,
+        placeCodeParent,
+        area,
       );
-      const fillOpacity = 0;
-      let weight = 3;
-      if (this.placeCode) {
-        if (this.placeCode.placeCode !== placeCode && areaState) {
-          weight = 1; // Decrease weight of unselected triggered areas from 3 to 1
-        }
-      }
+
       return {
-        opacity,
+        opacity: 1,
         color,
-        fillOpacity,
+        fillOpacity: 0,
         weight,
       };
     };
@@ -992,6 +1003,7 @@ export class MapService {
           colorPropertyValue,
           colorThreshold,
           adminRegion.properties.placeCode,
+          adminRegion.properties.placeCodeParent,
         );
         const fillOpacity = this.getAdminRegionFillOpacity(
           layer,
@@ -1001,12 +1013,9 @@ export class MapService {
           layer,
           adminRegion.properties.placeCode,
         );
-        let color = this.getAdminRegionColor(
-          layer,
-          adminRegion.properties.placeCode,
-        );
+        let color = this.getAdminRegionColor(layer);
         let dashArray;
-        if (adminRegion.properties.placeCode.includes('Disputed')) {
+        if (adminRegion.properties.placeCode?.includes('Disputed')) {
           dashArray = this.disputedBorderStyle.dashArray;
           weight = this.disputedBorderStyle.weight;
           color = this.disputedBorderStyle.color;
@@ -1022,20 +1031,40 @@ export class MapService {
     };
   };
 
-  public setAdminRegionMouseOverStyle = (placeCode: string) => {
-    const areaState = this.triggeredAreas.find(
-      (area) => area.placeCode === placeCode,
+  public getAreaByPlaceCode(
+    placeCode: string,
+    placeCodeParent: string,
+  ): TriggeredArea {
+    return (
+      this.triggeredAreas.find((area) => area.placeCode === placeCode) ||
+      this.triggeredAreas.find((area) => area.placeCode === placeCodeParent) // in multi-admin the map placeCode can differ 1 level from the chat/triggeredArea placeCode
     );
-    if (!areaState) {
+  }
+
+  public setAdminRegionMouseOverStyle = (
+    placeCode: string,
+    placeCodeParent: string,
+  ) => {
+    const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
+    if (!area) {
+      const layer = this.layers.find(
+        (l) => l.name === IbfLayerName.alertThreshold,
+      );
+      const triggered = layer.data.features.find(
+        (f) => f.properties['placeCode'] === placeCode,
+      ).properties['indicators'][IbfLayerName.alertThreshold];
       return {
-        color: this.selectedOutlineColor[
-          this.disasterType?.activeTrigger ? 'triggered' : 'nonTriggered'
-        ],
-        weight: 3,
+        color: triggered ? this.triggeredAreaColor : this.nonTriggeredAreaColor,
+        weight: 5,
       };
-    } else if (areaState.stopped) {
+    } else if (area.stopped) {
       return {
         color: this.stoppedTriggerColor,
+        weight: 5,
+      };
+    } else if (!this.eventState?.event?.thresholdReached) {
+      return {
+        color: this.nonTriggeredAreaColor,
         weight: 5,
       };
     } else {

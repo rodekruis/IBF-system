@@ -14,6 +14,7 @@ import { DisasterType } from '../disaster/disaster-type.enum';
 import fs from 'fs';
 import { CountryEntity } from '../country/country.entity';
 import { HelperService } from '../../shared/helper.service';
+import { EventAreaService } from '../admin-area/services/event-area.service';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -26,6 +27,7 @@ export class AdminAreaDynamicDataService {
 
   public constructor(
     private eventService: EventService,
+    private eventAreaService: EventAreaService,
     private helperService: HelperService,
     private dataSource: DataSource,
   ) {}
@@ -166,6 +168,16 @@ export class AdminAreaDynamicDataService {
       countryCodeISO3,
       disasterType,
     );
+
+    if (disasterType === DisasterType.FlashFloods && !eventName) {
+      return await this.eventAreaService.getEventAreaDynamicData(
+        countryCodeISO3,
+        disasterType,
+        indicator,
+        lastTriggeredDate,
+      );
+    }
+
     const whereFilters = {
       countryCodeISO3: countryCodeISO3,
       adminLevel: Number(adminLevel),

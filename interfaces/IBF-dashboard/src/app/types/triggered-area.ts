@@ -1,3 +1,4 @@
+import { AdminLevel } from './admin-level';
 import { EapAction } from './eap-action';
 
 export class TriggeredArea {
@@ -9,6 +10,7 @@ export class TriggeredArea {
   name: string;
   nameParent: string;
   placeCode: string;
+  adminLevel: AdminLevel;
   startDate: string;
   stopped: boolean;
   stoppedDate: string;

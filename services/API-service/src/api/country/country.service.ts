@@ -212,6 +212,8 @@ export class CountryService {
           },
         ),
       });
+    countryDisasterSettingsEntity.isEventBased = disaster.isEventBased;
+
     const saveResult = await this.countryDisasterSettingsRepository.save(
       countryDisasterSettingsEntity,
     );
@@ -220,6 +222,7 @@ export class CountryService {
         countryDisasterSettingsId: saveResult.countryDisasterSettingsId,
       },
     });
+
     return savedEntity;
   }
 

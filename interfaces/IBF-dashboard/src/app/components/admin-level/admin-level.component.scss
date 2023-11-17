@@ -1,17 +1,41 @@
-.ibf-admin-level-buttons {
-  margin-left: 5px;
-  .ibf-admin-level-button {
-    margin-left: 0px;
-    margin-right: 0px;
-    text-transform: uppercase;
-    height: 16px;
-    font-size: 7px;
-    font-weight: 700;
+.breadcrumbs-container {
+  margin-top: 20px;
+}
+
+.breadcrumb {
+  height: var(--breadcrumb-height);
+  font-size: 12px;
+
+  margin: 0;
+  --box-shadow: none;
+
+  --background: var(--ion-color-ibf-white);
+  --border-color: var(--ion-color-ibf-no-alert-primary);
+  --border-width: 2px;
+  --border-style: solid;
+  --color: var(--ion-color-ibf-no-alert-primary);
+
+  &.selected {
+    --background: var(--ion-color-ibf-no-alert-primary);
+
+    --color: var(--ion-color-ibf-white);
   }
 }
 
-ion-button {
-  border: 1px solid var(--ion-color-ibf-primary);
+.breadcrumb-start {
+  --border-width: 2px 0px 2px 2px;
+  --border-radius: var(--breadcrumb-radius) 0 0 var(--breadcrumb-radius);
+}
+
+.breadcrumb-middle {
   --border-radius: 0;
-  --box-shadow: none;
+  --border-width: 2px 0px 2px 2px;
+}
+
+.breadcrumb-end {
+  --border-radius: 0 var(--breadcrumb-radius) var(--breadcrumb-radius) 0;
+}
+
+.breadcrumb-alone {
+  --border-radius: var(--breadcrumb-radius);
 }

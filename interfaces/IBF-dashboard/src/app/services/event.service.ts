@@ -4,7 +4,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { LeadTimeTriggerKey, LeadTimeUnit } from 'src/app/types/lead-time';
-import { Country, DisasterType } from '../models/country.model';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from '../models/country.model';
 import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import { DisasterTypeService } from './disaster-type.service';
@@ -36,6 +40,7 @@ export class DisasterSpecificProperties {
 export class EventService {
   private country: Country;
   private disasterType: DisasterType;
+  private countryDisasterSettings: CountryDisasterSettings;
 
   public nullState = {
     events: null,
@@ -75,6 +80,10 @@ export class EventService {
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.resetState();
     this.disasterType = disasterType;
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
+    );
     this.getEvents();
   };
 
@@ -261,9 +270,7 @@ export class EventService {
     if (this.disasterType.disasterType !== DisasterTypeKey.drought) {
       return;
     }
-    const seasons = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).droughtForecastSeasons;
+    const seasons = this.countryDisasterSettings?.droughtForecastSeasons;
     for (const seasonRegion of Object.keys(seasons)) {
       if (event.eventName?.toLowerCase().includes(seasonRegion.toLowerCase())) {
         const leadTimeMonth = DateTime.fromFormat(

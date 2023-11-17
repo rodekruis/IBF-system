@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint \"**/*.ts\"",
-    "fix:syntax": "npm run lint:syntax -- --write",
+    "format:fix": "npm run lint:syntax -- --write",
     "lint:syntax": "prettier --check \"**/*.{md,js,ts,scss,html}\" ",
     "prestart": "npm run migration:run && ts-node src/scripts seed-prod",
     "start": "node index.js",

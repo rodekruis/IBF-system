@@ -245,6 +245,7 @@ export class ApiService {
     leadTime: string,
     adminLevel: AdminLevel = AdminLevel.adminLevel1,
     eventName: string,
+    placeCodeParent?: string,
   ): Observable<GeoJSON.FeatureCollection> {
     let params = new HttpParams();
     if (eventName) {
@@ -252,6 +253,9 @@ export class ApiService {
     }
     if (leadTime) {
       params = params.append('leadTime', leadTime);
+    }
+    if (placeCodeParent) {
+      params = params.append('placeCodeParent', placeCodeParent);
     }
     return this.get(
       `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}`,
@@ -266,6 +270,7 @@ export class ApiService {
     adminLevel: AdminLevel = AdminLevel.adminLevel1,
     leadTime: string,
     eventName: string,
+    placeCodeParent?: string,
   ): Observable<Aggregate[]> {
     let params = new HttpParams();
     if (eventName) {
@@ -273,6 +278,9 @@ export class ApiService {
     }
     if (leadTime) {
       params = params.append('leadTime', leadTime);
+    }
+    if (placeCodeParent) {
+      params = params.append('placeCodeParent', placeCodeParent);
     }
     return this.get(
       `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}`,

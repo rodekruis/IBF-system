@@ -25,8 +25,10 @@ import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
 import { TimelineState } from 'src/app/types/timeline-state';
 import { environment } from '../../../environments/environment';
+import { AdminLevelService } from '../../services/admin-level.service';
 import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
+import { AdminLevel, AdminLevelType } from '../../types/admin-level';
 import { Actor } from '../../types/chat';
 import { Indicator } from '../../types/indicator-group';
 import { LeadTimeTriggerKey, LeadTimeUnit } from '../../types/lead-time';
@@ -75,11 +77,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   public forecastInfo: string[];
   public country: Country;
   public disasterType: DisasterType;
-  public disasterTypeSettings: CountryDisasterSettings;
+  public countryDisasterSettings: CountryDisasterSettings;
   public lastModelRunDate: string;
   private lastModelRunDateFormat = 'cccc, dd LLLL HH:mm';
   public isWarn = false;
   public supportEmailAddress = environment.supportEmailAddress;
+  public adminLevel: AdminLevel;
 
   public actor = Actor;
 
@@ -97,6 +100,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private analyticsService: AnalyticsService,
     private popoverController: PopoverController,
+    private adminLevelService: AdminLevelService,
   ) {}
 
   ngOnInit() {
@@ -150,8 +154,9 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.disasterTypeSettings = this.country?.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
+    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
+      this.country,
+      this.disasterType,
     );
   };
 
@@ -183,7 +188,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
     this.stoppedAreas = this.triggeredAreas.filter((area) => area.stopped);
     this.activeAreas = this.triggeredAreas.filter((area) => !area.stopped);
-    this.setDefaultFilteredAreas();
+    this.onPlaceCodeChange(this.placeCode);
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
@@ -224,10 +229,14 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.indicators.length &&
       this.timelineState
     ) {
-      const adminLevel = this.disasterTypeSettings.defaultAdminLevel;
-      this.adminAreaLabel = this.country.adminRegionLabels[adminLevel].singular;
+      this.adminLevel =
+        this.placeCode?.adminLevel ||
+        this.countryDisasterSettings.defaultAdminLevel;
+      this.adminAreaLabel = this.country.adminRegionLabels[
+        this.adminLevel
+      ].singular;
       this.adminAreaLabelPlural = this.country.adminRegionLabels[
-        adminLevel
+        this.adminLevel
       ].plural.toLowerCase();
       this.changeDetectorRef.detectChanges();
 
@@ -453,19 +462,16 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public getClearOutMessage(event: EventSummary) {
-    if (!this.disasterTypeSettings?.showMonthlyEapActions) {
+    if (!this.countryDisasterSettings?.showMonthlyEapActions) {
       return;
     }
 
-    const droughtForecastSeasons = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).droughtForecastSeasons;
-
+    const droughtForecastSeasons = this.countryDisasterSettings
+      ?.droughtForecastSeasons;
     const forecastAreas = Object.keys(droughtForecastSeasons);
 
-    const droughtEndOfMonthPipeline = this.country.countryDisasterSettings.find(
-      (s) => s.disasterType === this.disasterType.disasterType,
-    ).droughtEndOfMonthPipeline;
+    const droughtEndOfMonthPipeline = this.countryDisasterSettings
+      ?.droughtEndOfMonthPipeline;
     const currentMonth = this.timelineState.today.plus({
       months: droughtEndOfMonthPipeline ? 1 : 0,
     });
@@ -535,12 +541,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (diff[durationUnit] > durationUnitValue + percentageOvertimeAllowed) {
       this.isWarn = true;
     } else {
-      this.isWarn = true;
+      this.isWarn = false;
     }
   };
 
   public getForecastInfo() {
-    if (!this.disasterTypeSettings.monthlyForecastInfo) {
+    if (!this.countryDisasterSettings.monthlyForecastInfo) {
       return;
     }
 
@@ -549,9 +555,11 @@ export class ChatComponent implements OnInit, OnDestroy {
         const currentMonth = this.timelineState.today.month;
 
         const prefixKey = 'prefix';
-        const prefix = this.disasterTypeSettings.monthlyForecastInfo[prefixKey];
+        const prefix = this.countryDisasterSettings.monthlyForecastInfo[
+          prefixKey
+        ];
 
-        const currentMonthforecastInfo = this.disasterTypeSettings
+        const currentMonthforecastInfo = this.countryDisasterSettings
           .monthlyForecastInfo[currentMonth];
         if (typeof currentMonthforecastInfo === 'string') {
           return [];
@@ -563,7 +571,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       },
       ZWE: () => {
         const messageKey = 'message';
-        return this.disasterTypeSettings.monthlyForecastInfo[messageKey];
+        return this.countryDisasterSettings.monthlyForecastInfo[messageKey];
       },
     };
 
@@ -585,14 +593,14 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public getRegion = (placeCode: string): string => {
-    if (!this.disasterTypeSettings.droughtAreas) {
+    if (!this.countryDisasterSettings.droughtAreas) {
       return 'National';
     } else {
       for (const droughtArea of Object.keys(
-        this.disasterTypeSettings.droughtAreas,
+        this.countryDisasterSettings.droughtAreas,
       )) {
         if (
-          this.disasterTypeSettings.droughtAreas[droughtArea].includes(
+          this.countryDisasterSettings.droughtAreas[droughtArea].includes(
             placeCode,
           )
         ) {
@@ -602,17 +610,21 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   };
 
-  public selectArea(area) {
-    this.placeCodeService.setPlaceCode({
-      countryCodeISO3: this.country.countryCodeISO3,
-      placeCodeName: area.name,
-      placeCode: area.placeCode,
-      placeCodeParentName: area.nameParent,
-    });
-  }
-
   public revertAreaSelection() {
-    this.placeCodeService.clearPlaceCode();
+    // TODO: merge/share this code with zoom-out actions in admin-level.component
+    // do not zoom out when on deepest level, because the deepest 2 levels have the same adminLevel in the map, and just differ on adminLevel/placeCode of the chat-section
+    if (
+      this.adminLevelService.getAdminLevelType(this.placeCode) !==
+      AdminLevelType.deepest
+    ) {
+      this.adminLevelService.zoomOutAdminLevel();
+    }
+    // if not on highest level, then set placeCode to parent
+    if (this.placeCode.placeCodeParent) {
+      this.placeCodeService.setPlaceCode(this.placeCode.placeCodeParent);
+    } else {
+      this.placeCodeService.clearPlaceCode();
+    }
   }
 
   public getAreaParentString(area): string {
