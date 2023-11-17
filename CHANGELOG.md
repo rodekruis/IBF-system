@@ -1,3 +1,12 @@
+## [0.259.1](https://github.com/rodekruis/IBF-system/compare/v0.259.0...v0.259.1) (2023-11-17)
+
+
+### Bug Fixes
+
+* update flash-floods eap-link AB[#24908](https://github.com/rodekruis/IBF-system/issues/24908) ([ab4a4d9](https://github.com/rodekruis/IBF-system/commit/ab4a4d97b449644626fc3f4f90e0fcef9bd3161a))
+
+
+
 # [0.259.0](https://github.com/rodekruis/IBF-system/compare/v0.258.12...v0.259.0) (2023-10-16)
 
 
@@ -139,16 +148,6 @@
 ### Bug Fixes
 
 * update indicator metadata AB[#23677](https://github.com/rodekruis/IBF-system/issues/23677) ([f21cd6f](https://github.com/rodekruis/IBF-system/commit/f21cd6f2c53ef38047438f985db939f742989944))
-
-
-
-## [0.258.4](https://github.com/rodekruis/IBF-system/compare/v0.258.3...v0.258.4) (2023-09-18)
-
-
-### Bug Fixes
-
-* production build AB[#23656](https://github.com/rodekruis/IBF-system/issues/23656) ([ed31a34](https://github.com/rodekruis/IBF-system/commit/ed31a34e6ad9bb398381397f929fd64ea24c5db1))
-* rm console.log AB[#17794](https://github.com/rodekruis/IBF-system/issues/17794) ([b3dfb15](https://github.com/rodekruis/IBF-system/commit/b3dfb156d5a31860d3736d6349e40a59251a1e84))
 
 
 
