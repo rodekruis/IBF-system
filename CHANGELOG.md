@@ -1,3 +1,12 @@
+## [0.259.2](https://github.com/rodekruis/IBF-system/compare/v0.259.1...v0.259.2) (2023-11-20)
+
+
+### Bug Fixes
+
+* update MWI WhatsApp group URL AB[#24898](https://github.com/rodekruis/IBF-system/issues/24898) ([b0cd43c](https://github.com/rodekruis/IBF-system/commit/b0cd43c509c94439252fcc373d97d53dda0e8f99))
+
+
+
 ## [0.259.1](https://github.com/rodekruis/IBF-system/compare/v0.259.0...v0.259.1) (2023-11-17)
 
 
@@ -139,15 +148,6 @@
 ### Bug Fixes
 
 * red outline issue AB[#23678](https://github.com/rodekruis/IBF-system/issues/23678) ([61b2d9c](https://github.com/rodekruis/IBF-system/commit/61b2d9c91677612d9f39a0c0ecd9b77feb220684))
-
-
-
-## [0.258.5](https://github.com/rodekruis/IBF-system/compare/v0.258.4...v0.258.5) (2023-09-18)
-
-
-### Bug Fixes
-
-* update indicator metadata AB[#23677](https://github.com/rodekruis/IBF-system/issues/23677) ([f21cd6f](https://github.com/rodekruis/IBF-system/commit/f21cd6f2c53ef38047438f985db939f742989944))
 
 
 
