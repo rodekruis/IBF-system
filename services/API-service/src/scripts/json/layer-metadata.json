@@ -470,14 +470,6 @@
     "description": { "MWI": { "flash-floods": "TBD" } }
   },
   {
-    "name": "gauges",
-    "label": "River gauges",
-    "type": "point",
-    "leadTimeDependent": false,
-    "active": "no",
-    "description": { "MWI": { "flash-floods": "TBD" } }
-  },
-  {
     "name": "roads",
     "label": "Roads",
     "type": "wms",
