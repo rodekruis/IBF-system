@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { validate } from 'class-validator';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { MoreThanOrEqual, Repository } from 'typeorm';
+import { IsNull, MoreThanOrEqual, Repository } from 'typeorm';
 import { EvacuationCenterDto } from './dto/upload-evacuation-centers.dto';
 import { PointDataEntity, PointDataEnum } from './point-data.entity';
 import { DamSiteDto } from './dto/upload-dam-sites.dto';
@@ -13,9 +13,14 @@ import { CommunityNotificationDto } from './dto/upload-community-notifications.d
 import { WhatsappService } from '../notification/whatsapp/whatsapp.service';
 import { SchoolDto } from './dto/upload-schools.dto';
 import { WaterpointDto } from './dto/upload-waterpoint.dto';
-import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
+import {
+  UploadAssetExposureStatusDto,
+  UploadDynamicPointDataDto,
+} from './dto/upload-asset-exposure-status.dto';
 import { PointDataDynamicStatusEntity } from './point-data-dynamic-status.entity';
 import { DisasterType } from '../disaster/disaster-type.enum';
+import { GaugeDto } from './dto/upload-gauge.dto';
+import { DynamicPointDataEntity } from './dynamic-point-data.entity';
 
 @Injectable()
 export class PointDataService {
@@ -23,6 +28,8 @@ export class PointDataService {
   private readonly pointDataRepository: Repository<PointDataEntity>;
   @InjectRepository(PointDataDynamicStatusEntity)
   private readonly pointDataDynamicStatusRepo: Repository<PointDataDynamicStatusEntity>;
+  @InjectRepository(DynamicPointDataEntity)
+  private readonly dynamicPointDataRepository: Repository<DynamicPointDataEntity>;
 
   public constructor(
     private readonly helperService: HelperService,
@@ -47,20 +54,38 @@ export class PointDataService {
     selectColumns.push('geom');
     selectColumns.push('"pointDataId"');
 
+    const recentDate = await this.helperService.getRecentDate(
+      countryCodeISO3,
+      disasterType,
+    );
+
     const pointDataQuery = this.pointDataRepository
       .createQueryBuilder('point')
       .select(selectColumns)
       .where({
         pointDataCategory: pointDataCategory,
         countryCodeISO3: countryCodeISO3,
-      });
+      })
+      .leftJoin(
+        (subquery) => {
+          return subquery
+            .select([
+              'dynamic."pointPointDataId"',
+              'json_object_agg("key",value) as "dynamicData"',
+            ])
+            .from(DynamicPointDataEntity, 'dynamic')
+            .where('dynamic.timestamp = :modelTimestamp', {
+              modelTimestamp: recentDate.timestamp,
+            })
+            .groupBy('dynamic."pointPointDataId"');
+        },
+        'dynamic',
+        'dynamic."pointPointDataId" = point."pointDataId"',
+      )
+      .addSelect('dynamic."dynamicData" as "dynamicData"');
 
     // TO DO: hard-code for now
     if (disasterType === DisasterType.FlashFloods) {
-      const recentDate = await this.helperService.getRecentDate(
-        countryCodeISO3,
-        disasterType,
-      );
       pointDataQuery
         .leftJoin(
           PointDataDynamicStatusEntity,
@@ -95,6 +120,8 @@ export class PointDataService {
         return new SchoolDto();
       case PointDataEnum.waterpointsInternal:
         return new WaterpointDto();
+      case PointDataEnum.gauges:
+        return new GaugeDto();
       default:
         throw new HttpException(
           'Not a known point layer',
@@ -258,5 +285,41 @@ export class PointDataService {
       assetForecasts.push(assetForecast);
     }
     await this.pointDataDynamicStatusRepo.save(assetForecasts);
+  }
+
+  async uploadDynamicPointData(dynamicPointData: UploadDynamicPointDataDto) {
+    const dynamicPointDataArray: DynamicPointDataEntity[] = [];
+
+    for (const point of dynamicPointData.dynamicPointData) {
+      const asset = await this.pointDataRepository.findOne({
+        where: {
+          referenceId: Number(point.fid), // TODO: make sure this is unique
+        },
+      });
+      if (!asset) {
+        continue;
+      }
+
+      // Delete existing entries
+      await this.dynamicPointDataRepository.delete({
+        point: { pointDataId: asset.pointDataId },
+        leadTime: dynamicPointData.leadTime || IsNull(),
+        timestamp: MoreThanOrEqual(
+          this.helperService.getUploadCutoffMoment(
+            dynamicPointData.disasterType,
+            dynamicPointData.date || new Date(),
+          ),
+        ),
+      });
+
+      const dynamicPoint = new DynamicPointDataEntity();
+      dynamicPoint.key = dynamicPointData.key;
+      dynamicPoint.leadTime = dynamicPointData.leadTime;
+      dynamicPoint.timestamp = dynamicPointData.date || new Date();
+      dynamicPoint.value = point.value;
+      dynamicPoint.point = asset;
+      dynamicPointDataArray.push(dynamicPoint);
+    }
+    await this.dynamicPointDataRepository.save(dynamicPointDataArray);
   }
 }

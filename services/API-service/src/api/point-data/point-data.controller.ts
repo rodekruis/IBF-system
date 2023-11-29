@@ -26,7 +26,10 @@ import { RolesGuard } from '../../roles.guard';
 import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
 import { PointDataService } from './point-data.service';
-import { UploadAssetExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
+import {
+  UploadAssetExposureStatusDto,
+  UploadDynamicPointDataDto,
+} from './dto/upload-asset-exposure-status.dto';
 import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 
 @ApiBearerAuth()
@@ -131,5 +134,18 @@ export class PointDataController {
     @Body() assetFids: UploadAssetExposureStatusDto,
   ): Promise<void> {
     return await this.pointDataService.uploadAssetExposureStatus(assetFids);
+  }
+
+  @UseGuards(RolesGuard)
+  @ApiOperation({ summary: 'Upload dynamic point data' })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded dynamic point data.',
+  })
+  @Post('dynamic')
+  public async uploadDynamicPointData(
+    @Body() dynamicPointData: UploadDynamicPointDataDto,
+  ): Promise<void> {
+    return await this.pointDataService.uploadDynamicPointData(dynamicPointData);
   }
 }
