@@ -29,7 +29,6 @@ export class SeedPointData implements InterfaceScript {
           this.seedPointData(PointDataEnum.dams, country);
           this.seedPointData(PointDataEnum.schools, country);
           this.seedPointData(PointDataEnum.waterpointsInternal, country);
-          this.seedPointData(PointDataEnum.gauges, country);
           return;
         } else {
           return Promise.resolve();

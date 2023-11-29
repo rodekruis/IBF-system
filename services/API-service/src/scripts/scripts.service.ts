@@ -28,10 +28,7 @@ import { LinesDataService } from '../api/lines-data/lines-data.service';
 import { UploadLinesExposureStatusDto } from '../api/lines-data/dto/upload-asset-exposure-status.dto';
 import { LinesDataEnum } from '../api/lines-data/lines-data.entity';
 import { PointDataEnum } from '../api/point-data/point-data.entity';
-import {
-  UploadAssetExposureStatusDto,
-  UploadDynamicPointDataDto,
-} from '../api/point-data/dto/upload-asset-exposure-status.dto';
+import { UploadAssetExposureStatusDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
 import { PointDataService } from '../api/point-data/point-data.service';
 
 @Injectable()
@@ -193,11 +190,6 @@ export class ScriptsService {
       await this.mockEsposedAssets(
         selectedCountry.countryCodeISO3,
         mockInput.triggered,
-        date,
-      );
-      await this.mockDynamicPointData(
-        selectedCountry.countryCodeISO3,
-        mockInput.disasterType,
         date,
       );
     }
@@ -1023,30 +1015,6 @@ export class ScriptsService {
         }
         await this.pointDataService.uploadAssetExposureStatus(payload);
       }
-    }
-  }
-
-  private async mockDynamicPointData(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    date: Date,
-  ) {
-    if (countryCodeISO3 !== 'MWI') {
-      return;
-    }
-
-    const keys = ['water-level'];
-    for (const key of keys) {
-      const payload = new UploadDynamicPointDataDto();
-      payload.key = key;
-      payload.leadTime = null;
-      payload.date = date || new Date();
-      payload.disasterType = disasterType;
-      const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/dynamic-point-data_${key}.json`;
-      const dynamicPointData = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-      payload.dynamicPointData = dynamicPointData;
-
-      await this.pointDataService.uploadDynamicPointData(payload);
     }
   }
 

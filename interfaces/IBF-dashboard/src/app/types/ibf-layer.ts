@@ -123,7 +123,6 @@ export enum IbfLayerName {
   schools = 'schools',
   waterpointsInternal = 'waterpoints_internal',
   roads = 'roads',
-  gauges = 'gauges',
 }
 
 export enum IbfLayerLabel {
