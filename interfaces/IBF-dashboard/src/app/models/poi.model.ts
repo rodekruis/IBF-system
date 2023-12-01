@@ -79,3 +79,9 @@ export class CommunityNotification {
   public pointDataId: string;
   public photoUrl: string;
 }
+
+export class RiverGauge {
+  gaugeName: string;
+  currentLevel: number;
+  normalLevel: string;
+}

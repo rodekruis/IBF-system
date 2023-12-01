@@ -43,6 +43,7 @@ export class MapLegendService {
     [IbfLayerName.evacuationCenters]: 'evacuation-center-marker.svg',
     [IbfLayerName.schools]: 'school-marker.svg',
     [IbfLayerName.communityNotifications]: 'community-notification-marker.svg',
+    [IbfLayerName.gauges]: 'river-gauge-marker.svg',
   };
 
   constructor(
