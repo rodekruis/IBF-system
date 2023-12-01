@@ -79,6 +79,12 @@ export const LEAFLET_MARKER_ICON_OPTIONS_COMMUNITY_NOTIFICATION: IconOptions = {
   iconRetinaUrl: 'assets/markers/community-notification-marker.svg',
 };
 
+export const LEAFLET_MARKER_ICON_OPTIONS_RIVER_GAUGE: IconOptions = {
+  ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+  iconUrl: 'assets/markers/river-gauge-marker.svg',
+  iconRetinaUrl: 'assets/markers/river-gauge-marker.svg',
+};
+
 export const LEAFLET_MAP_OPTIONS: MapOptions = {
   zoom: 5,
   layers: [],

@@ -15,6 +15,7 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_EXPOSED,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
+  LEAFLET_MARKER_ICON_OPTIONS_RIVER_GAUGE,
   LEAFLET_MARKER_ICON_OPTIONS_SCHOOL,
   LEAFLET_MARKER_ICON_OPTIONS_SCHOOL_EXPOSED,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
@@ -26,6 +27,7 @@ import {
   EvacuationCenter,
   HealthSite,
   RedCrossBranch,
+  RiverGauge,
   School,
   Station,
   TyphoonTrackPoint,
@@ -378,6 +380,25 @@ export class PointMarkerService {
       'click',
       this.onMapMarkerClick(AnalyticsEvent.evacuationCenter),
     );
+
+    return markerInstance;
+  }
+
+  public createMarkerRiverGauges(
+    markerProperties: RiverGauge,
+    markerLatLng: LatLng,
+  ): Marker {
+    const markerTitle = markerProperties.gaugeName;
+
+    const markerInstance = marker(markerLatLng, {
+      title: markerTitle,
+      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RIVER_GAUGE),
+    });
+    // markerInstance.bindPopup(this.createMarkerRedCrossPopup(markerProperties));
+    // markerInstance.on(
+    //   'click',
+    //   this.onMapMarkerClick(AnalyticsEvent.redCrossBranch),
+    // );
 
     return markerInstance;
   }

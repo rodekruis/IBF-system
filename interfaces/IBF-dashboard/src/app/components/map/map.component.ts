@@ -42,6 +42,7 @@ import {
   EvacuationCenter,
   HealthSite,
   RedCrossBranch,
+  RiverGauge,
   School,
   Station,
   TyphoonTrackPoint,
@@ -490,6 +491,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       case IbfLayerName.communityNotifications:
         return this.pointMarkerService.createMarkerCommunityNotification(
           geoJsonPoint.properties as CommunityNotification,
+          latlng,
+        );
+      case IbfLayerName.gauges:
+        return this.pointMarkerService.createMarkerRiverGauges(
+          geoJsonPoint.properties as RiverGauge,
           latlng,
         );
       default:
