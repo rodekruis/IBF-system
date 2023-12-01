@@ -1035,7 +1035,11 @@ export class ScriptsService {
       return;
     }
 
-    const keys = ['water-level'];
+    const keys = [
+      'water-level',
+      'water-level-reference',
+      'water-level-previous',
+    ];
     for (const key of keys) {
       const payload = new UploadDynamicPointDataDto();
       payload.key = key;
