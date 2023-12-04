@@ -17,7 +17,6 @@ import {
   UploadAssetExposureStatusDto,
   UploadDynamicPointDataDto,
 } from './dto/upload-asset-exposure-status.dto';
-import { PointDataDynamicStatusEntity } from './point-data-dynamic-status.entity';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { GaugeDto } from './dto/upload-gauge.dto';
 import { DynamicPointDataEntity } from './dynamic-point-data.entity';
@@ -26,8 +25,6 @@ import { DynamicPointDataEntity } from './dynamic-point-data.entity';
 export class PointDataService {
   @InjectRepository(PointDataEntity)
   private readonly pointDataRepository: Repository<PointDataEntity>;
-  @InjectRepository(PointDataDynamicStatusEntity)
-  private readonly pointDataDynamicStatusRepo: Repository<PointDataDynamicStatusEntity>;
   @InjectRepository(DynamicPointDataEntity)
   private readonly dynamicPointDataRepository: Repository<DynamicPointDataEntity>;
 
@@ -84,22 +81,6 @@ export class PointDataService {
       )
       .addSelect('dynamic."dynamicData" as "dynamicData"');
 
-    // TO DO: hard-code for now
-    if (disasterType === DisasterType.FlashFloods) {
-      pointDataQuery
-        .leftJoin(
-          PointDataDynamicStatusEntity,
-          'status',
-          'point."pointDataId" = status."referenceId"',
-        )
-        .andWhere(
-          '(status."timestamp" IS NULL OR status.timestamp = :modelTimestamp)',
-          {
-            modelTimestamp: recentDate.timestamp,
-          },
-        )
-        .addSelect('COALESCE(status.exposed,FALSE) as "exposed"');
-    }
     const pointData = await pointDataQuery.getRawMany();
     return this.helperService.toGeojson(pointData);
   }
@@ -249,42 +230,19 @@ export class PointDataService {
     await this.whatsappService.sendCommunityNotification(countryCodeISO3);
   }
 
+  // The old endpoint is left in for a grace period, and here the input is transformed to the required input for the new endpoint
   public async uploadAssetExposureStatus(
     assetFids: UploadAssetExposureStatusDto,
   ) {
-    const assetForecasts: PointDataDynamicStatusEntity[] = [];
-    for (const fid of assetFids.exposedFids) {
-      const asset = await this.pointDataRepository.findOne({
-        where: {
-          referenceId: Number(fid),
-          pointDataCategory: assetFids.pointDataCategory,
-          countryCodeISO3: assetFids.countryCodeISO3,
-        },
-      });
-      if (!asset) {
-        continue;
-      }
-
-      // Delete existing entries with same date, leadTime and countryCodeISO3 and stationCode
-      await this.pointDataDynamicStatusRepo.delete({
-        pointData: { pointDataId: asset.pointDataId },
-        leadTime: assetFids.leadTime,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getUploadCutoffMoment(
-            assetFids.disasterType,
-            assetFids.date || new Date(),
-          ),
-        ),
-      });
-
-      const assetForecast = new PointDataDynamicStatusEntity();
-      assetForecast.pointData = asset;
-      assetForecast.leadTime = assetFids.leadTime;
-      assetForecast.timestamp = assetFids.date || new Date();
-      assetForecast.exposed = true;
-      assetForecasts.push(assetForecast);
-    }
-    await this.pointDataDynamicStatusRepo.save(assetForecasts);
+    const dynamicPointData = new UploadDynamicPointDataDto();
+    dynamicPointData.date = assetFids.date;
+    dynamicPointData.leadTime = assetFids.leadTime;
+    dynamicPointData.disasterType = assetFids.disasterType;
+    dynamicPointData.key = 'exposure';
+    dynamicPointData.dynamicPointData = assetFids.exposedFids.map((fid) => {
+      return { fid: fid, value: 'true' };
+    });
+    await this.uploadDynamicPointData(dynamicPointData);
   }
 
   async uploadDynamicPointData(dynamicPointData: UploadDynamicPointDataDto) {

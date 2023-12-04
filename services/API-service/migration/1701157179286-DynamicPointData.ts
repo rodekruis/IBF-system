@@ -14,6 +14,8 @@ export class DynamicPointData1701157179286 implements MigrationInterface {
       `ALTER TABLE "IBF-app"."dynamic-point-data" ADD CONSTRAINT "FK_289a1f52e25e270d9a28bd9d35a" FOREIGN KEY ("leadTime") REFERENCES "IBF-app"."lead-time"("leadTimeName") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
 
+    await queryRunner.query(`DROP TABLE "IBF-app"."point-data-dynamic-status"`);
+
     // NOTE: Do not prioritize this, but leave the code here for future reference
     // await queryRunner.query(`INSERT INTO "IBF-app"."point-data"
     // ("pointDataId", "countryCodeISO3", "pointDataCategory", "attributes", geom, "referenceId")
@@ -36,6 +38,10 @@ export class DynamicPointData1701157179286 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `CREATE TABLE "IBF-app"."point-data-dynamic-status" ("pointDataDynamicStatusId" uuid NOT NULL DEFAULT uuid_generate_v4(), "referenceId" uuid NOT NULL, "timestamp" TIMESTAMP NOT NULL, "exposed" boolean NOT NULL, "leadTime" character varying, CONSTRAINT "PK_e4a407d1bb1af9141b6c659a985" PRIMARY KEY ("pointDataDynamicStatusId"))`,
+    );
+
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."dynamic-point-data" DROP CONSTRAINT "FK_289a1f52e25e270d9a28bd9d35a"`,
     );

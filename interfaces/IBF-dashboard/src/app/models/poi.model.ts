@@ -35,7 +35,7 @@ export class Waterpoint {
 export class HealthSite {
   name: string;
   type: string;
-  exposed: boolean;
+  dynamicData?: { exposure: string };
 }
 
 export enum HealthSiteType {
@@ -61,13 +61,13 @@ export class EvacuationCenter {
 export class School {
   name: string;
   type: string;
-  exposed: boolean;
+  dynamicData?: { exposure: string };
 }
 
 export class WaterpointInternal {
   name: string;
   type: string;
-  exposed: boolean;
+  dynamicData?: { exposure: string };
 }
 export class CommunityNotification {
   public nameVolunteer: string;

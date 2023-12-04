@@ -508,7 +508,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     const exposedClass = cluster
       .getAllChildMarkers()
-      .some((marker) => marker.feature.properties.exposed)
+      .some((marker) => marker.feature.properties.dynamicData?.exposure)
       ? ' exposed'
       : '';
 
@@ -563,7 +563,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       });
       const exposedLayerData = JSON.parse(JSON.stringify(layer.data));
       exposedLayerData.features = exposedLayerData.features.filter(
-        (f) => f.properties.exposed,
+        (f) => f.properties.dynamicData?.exposure,
       );
       const mapLayerExposed = geoJSON(exposedLayerData, {
         pointToLayer: this.getPointToLayerByLayer(layer.name),
@@ -577,7 +577,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       });
       const nonExposedLayerData = JSON.parse(JSON.stringify(layer.data));
       nonExposedLayerData.features = nonExposedLayerData.features.filter(
-        (f) => !f.properties.exposed,
+        (f) => !f.properties.dynamicData?.exposure,
       );
       const mapLayerNotExposed = geoJSON(nonExposedLayerData, {
         pointToLayer: this.getPointToLayerByLayer(layer.name),

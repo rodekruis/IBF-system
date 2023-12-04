@@ -994,34 +994,33 @@ export class ScriptsService {
       }
 
       for (const pointAssetType of pointDataCategories) {
-        const payload = new UploadAssetExposureStatusDto();
-        payload.countryCodeISO3 = countryCodeISO3;
+        const payload = new UploadDynamicPointDataDto();
         payload.disasterType = DisasterType.FlashFloods;
-        payload.pointDataCategory = pointAssetType;
+        payload.key = 'exposure';
         payload.leadTime = leadTime;
         payload.date = date || new Date();
         if (pointAssetType === PointDataEnum.healthSites) {
           leadTime === LeadTime.hour24
-            ? (payload.exposedFids = [])
+            ? (payload.dynamicPointData = [])
             : leadTime === LeadTime.hour6
-            ? (payload.exposedFids = ['124'])
+            ? (payload.dynamicPointData = [{ fid: '124', value: 'true' }])
             : [];
         } else if (pointAssetType === PointDataEnum.schools) {
           leadTime === LeadTime.hour24
-            ? (payload.exposedFids = ['167'])
+            ? (payload.dynamicPointData = [{ fid: '167', value: 'true' }])
             : leadTime === LeadTime.hour6
-            ? (payload.exposedFids = [])
+            ? (payload.dynamicPointData = [])
             : [];
         } else if (pointAssetType === PointDataEnum.waterpointsInternal) {
           const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${pointAssetType}.json`;
           const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
           leadTime === LeadTime.hour24
-            ? (payload.exposedFids = assets[LeadTime.hour24])
+            ? (payload.dynamicPointData = assets[LeadTime.hour24])
             : leadTime === LeadTime.hour6
-            ? (payload.exposedFids = assets[LeadTime.hour6])
+            ? (payload.dynamicPointData = assets[LeadTime.hour6])
             : [];
         }
-        await this.pointDataService.uploadAssetExposureStatus(payload);
+        await this.pointDataService.uploadDynamicPointData(payload);
       }
     }
   }

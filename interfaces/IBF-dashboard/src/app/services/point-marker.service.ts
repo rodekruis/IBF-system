@@ -275,7 +275,7 @@ export class PointMarkerService {
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(
-        markerProperties.exposed
+        markerProperties.dynamicData?.exposure
           ? LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_EXPOSED
           : LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
       ),
@@ -343,7 +343,7 @@ export class PointMarkerService {
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(
-        markerProperties.exposed
+        markerProperties.dynamicData?.exposure
           ? LEAFLET_MARKER_ICON_OPTIONS_SCHOOL_EXPOSED
           : LEAFLET_MARKER_ICON_OPTIONS_SCHOOL,
       ),
@@ -364,11 +364,12 @@ export class PointMarkerService {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.name;
+    console.log('markerProperties: ', markerProperties);
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(
-        markerProperties.exposed
+        markerProperties.dynamicData?.exposure
           ? LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT_EXPOSED
           : LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
       ),

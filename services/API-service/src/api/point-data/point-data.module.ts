@@ -6,7 +6,6 @@ import { UserModule } from '../user/user.module';
 import { PointDataController } from './point-data.controller';
 import { PointDataEntity } from './point-data.entity';
 import { PointDataService } from './point-data.service';
-import { PointDataDynamicStatusEntity } from './point-data-dynamic-status.entity';
 import { HttpModule } from '@nestjs/axios';
 import { DynamicPointDataEntity } from './dynamic-point-data.entity';
 
@@ -14,11 +13,7 @@ import { DynamicPointDataEntity } from './dynamic-point-data.entity';
   imports: [
     HttpModule,
     UserModule,
-    TypeOrmModule.forFeature([
-      PointDataEntity,
-      PointDataDynamicStatusEntity,
-      DynamicPointDataEntity,
-    ]),
+    TypeOrmModule.forFeature([PointDataEntity, DynamicPointDataEntity]),
     WhatsappModule,
   ],
   providers: [PointDataService, HelperService],
