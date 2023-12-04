@@ -4,6 +4,7 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { PointDataEntity } from './point-data.entity';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
@@ -24,6 +25,7 @@ export class DynamicPointDataEntity {
   public leadTime: string;
 
   @Column({ type: 'timestamp' })
+  @Index()
   public timestamp: Date;
 
   @Column()

@@ -364,7 +364,6 @@ export class PointMarkerService {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.name;
-    console.log('markerProperties: ', markerProperties);
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
