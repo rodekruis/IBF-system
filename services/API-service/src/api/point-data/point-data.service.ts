@@ -304,6 +304,7 @@ export class PointDataService {
       await this.dynamicPointDataRepository.delete({
         point: { pointDataId: asset.pointDataId },
         leadTime: dynamicPointData.leadTime || IsNull(),
+        key: dynamicPointData.key,
         timestamp: MoreThanOrEqual(
           this.helperService.getUploadCutoffMoment(
             dynamicPointData.disasterType,
