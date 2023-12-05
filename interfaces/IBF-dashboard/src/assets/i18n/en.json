@@ -380,6 +380,14 @@
       "photo-popup": {
         "title": "Community notification - photo"
       }
+    },
+    "river-gauge": {
+      "unit": "cm",
+      "header": "River gauge #",
+      "current": "Current water level",
+      "normal": "Normal water level",
+      "below": "Below normal level",
+      "above": "Above normal level"
     }
   },
   "breadcrumbs": {

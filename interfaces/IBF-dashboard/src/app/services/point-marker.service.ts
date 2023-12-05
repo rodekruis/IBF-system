@@ -388,17 +388,23 @@ export class PointMarkerService {
     markerProperties: RiverGauge,
     markerLatLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.gaugeName;
+    const markerTitle = markerProperties;
 
     const markerInstance = marker(markerLatLng, {
-      title: markerTitle,
+      title: markerTitle.name,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RIVER_GAUGE),
     });
-    // markerInstance.bindPopup(this.createMarkerRedCrossPopup(markerProperties));
-    // markerInstance.on(
-    //   'click',
-    //   this.onMapMarkerClick(AnalyticsEvent.redCrossBranch),
-    // );
+    markerInstance.bindPopup(
+      this.createMarkerRiverGaugePopup(markerProperties),
+      {
+        minWidth: 300,
+        className: 'river-gauge-popup',
+      },
+    );
+    markerInstance.on(
+      'click',
+      this.onMapMarkerClick(AnalyticsEvent.redCrossBranch),
+    );
 
     return markerInstance;
   }
@@ -431,43 +437,21 @@ export class PointMarkerService {
 
     const headerContent = `<strong>${title}</strong>`;
 
-    const forecastBar = `
-    <div style="border-radius:10px;height:20px;background-color:#d4d3d2; width: 100%">
-        <div style="border-radius:10px 0 0 10px; border-right: dashed; border-right-width: thin;height:20px;width: 80%">
-          <div style="
-            border-radius:10px;
-            height:20px;
-            line-height:20px;
-            background-color:${eapStatusColor};
-            color:${eapStatusColorText};
-            text-align:center;
-            white-space: nowrap;
-            min-width: 15%;
-            width:${triggerWidth}%">${addComma(forecastValue)}</div>
-        </div>
-      </div>
-    `;
+    const thresholdBar = this.createThresholdBar(
+      eapStatusColor,
+      eapStatusColorText,
+      triggerWidth,
+      addComma(forecastValue),
+      thresholdName,
+      addComma(thresholdValue),
+      80,
+    );
 
     const middleContent = `
     <div style="margin-bottom:5px">
       ${subtitle}
     </div>
-    ${forecastBar}
-    <div style="
-      height:20px;
-      background-color:none;
-      border-right: dashed;
-      border-right-width: thin;
-      float: left; width: 80%;
-      padding-top: 5px;
-      margin-bottom:10px;
-      text-align: right;
-      padding-right: 2px;">
-      ${thresholdName}:
-    </div>
-    <div style="height:20px;background-color:none; margin-left: 81%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px">
-      <strong>${addComma(thresholdValue)}</strong>
-    </div>
+    ${thresholdBar}
     `;
     const footerContent = `
       <div style="text-align: center">
@@ -684,24 +668,145 @@ export class PointMarkerService {
     return markerInstance;
   }
 
-  public createDynamicPointPopup(
+  private createMarkerRiverGaugePopup(markerProperties: RiverGauge): string {
+    const accentColor = 'var(--ion-color-ibf-no-alert-primary)';
+
+    const current = Number(markerProperties.dynamicData['water-level']);
+    const previous = Number(
+      markerProperties.dynamicData['water-level-previous'],
+    );
+    const reference = Number(
+      markerProperties.dynamicData['water-level-reference'],
+    );
+
+    const difference = current - previous;
+
+    const triggerWidth = Math.max(
+      Math.min(Math.round((current / reference) * 100), 115),
+      0,
+    );
+
+    const translatedString = (key: string): string =>
+      this.translate.instant(`map-popups.river-gauge.${key}`);
+
+    const thresholdBar = this.createThresholdBar(
+      accentColor,
+      'var(--ion-color-ibf-white)',
+      triggerWidth,
+      `${current} ${translatedString('unit')}`,
+      translatedString('normal'),
+      `${reference}`,
+      45,
+    );
+
+    const headerContent = `
+      <div>
+        <strong>${translatedString('header')} ${markerProperties.fid} ${
+      markerProperties.name
+    } </strong>
+      </div>
+    `;
+    const middleContent = `
+    <div style="margin-bottom: 4px">
+      <ion-label style="font-size: 18px; padding-right: 8px"><strong>${current}</strong> ${translatedString(
+      'unit',
+    )}</ion-label>
+      <ion-label
+        color="${difference <= 0 ? 'success' : 'danger'}">
+        <ion-icon
+          style="maring-right 4px"
+          name="${
+            difference <= 0 ? 'caret-down-outline' : 'caret-up-outline'
+          }"></ion-icon>${Math.abs(difference)} cm</ion-label>
+    </div>
+    <div style="margin-bottom: 4px">
+      <ion-label><strong>${translatedString('current')}<strong></ion-label>
+    </div>
+    ${thresholdBar}
+    `;
+
+    const footerString =
+      current <= reference
+        ? translatedString('below')
+        : translatedString('above');
+    const footerContent = `<div style="text-align: center"><strong>${footerString}</strong></div>`;
+
+    return this.createDynamicPointPopup(
+      accentColor,
+      headerContent,
+      middleContent,
+      footerContent,
+    );
+  }
+
+  private createDynamicPointPopup(
     accentColor: string,
     headerContent: string,
     middleContent: string,
     footerContent: string,
   ): string {
-    const textColor = 'var(--ion-color-ibf-white)';
+    const contrastColor = 'var(--ion-color-ibf-white)';
 
     return `
-      <div style="background: ${accentColor}; color: ${textColor}; padding: 8px; border-radius: 8px 8px 0 0">
+      <div style="background: ${accentColor}; color: ${contrastColor}; padding: 8px; border-radius: 8px 8px 0 0">
         ${headerContent}
       </div>
       <div style="padding: 8px;">
         ${middleContent}
       </div>
-      <div style="background: ${accentColor}; color: ${textColor}; padding: 8px; border-radius: 0 0 8px 8px">
-        ${footerContent}
+      <div style="background: ${contrastColor}; color: ${accentColor}; padding: 0 8px; border-radius: 0 0 8px 8px">
+        <div style="border-top: 1px solid var(--ion-color-ibf-grey-light); padding: 8px 0">
+          ${footerContent}
+        </div>
       </div>
+
+    `;
+  }
+
+  private createThresholdBar(
+    backgroundColor: string,
+    textColor: string,
+    barWidth: number,
+    barValue: string,
+    thresholdDescription: string,
+    thresholdValue: string,
+    thresholdPosition: number, // width percentage to position threshold on bar
+  ): string {
+    return `
+    <div>
+      <div style="border-radius:10px;height:20px;background-color:#d4d3d2; width: 100%">
+        <div style="border-radius:10px 0 0 10px; border-right: dashed; border-right-width: thin;height:20px;width: ${thresholdPosition}%">
+          <div style="
+            border-radius:10px;
+            height:20px;
+            line-height:20px;
+            background-color:${backgroundColor};
+            color:${textColor};
+            text-align:center;
+            white-space: nowrap;
+            min-width: 15%;
+            width:${barWidth}%">${barValue}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="
+      height:20px;
+      background-color:none;
+      border-right: dashed;
+      border-right-width: thin;
+      float: left; width: ${thresholdPosition}%;
+      padding-top: 5px;
+      margin-bottom:10px;
+      text-align: right;
+      padding-right: 2px">
+      ${thresholdDescription}:
+    </div>
+    <div style="height:20px;background-color:none; margin-left: ${
+      thresholdPosition + 1
+    }%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px">
+      <strong>${thresholdValue}</strong>
+    </div>
     `;
   }
 }

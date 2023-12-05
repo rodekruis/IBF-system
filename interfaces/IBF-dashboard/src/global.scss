@@ -99,7 +99,8 @@
 .trigger-popup-min,
 .trigger-popup-med,
 .trigger-popup-max,
-.typhoon-track-popup {
+.typhoon-track-popup,
+.river-gauge-popup {
   .leaflet-popup-content-wrapper {
     padding: 0;
 
@@ -108,39 +109,20 @@
     }
   }
 }
-.trigger-popup-no {
-  .leaflet-popup-tip {
-    background-color: var(--ion-color-ibf-no-alert-primary);
-  }
-}
-.trigger-popup-min {
-  .leaflet-popup-tip {
-    background-color: var(--ion-color-ibf-yellow);
-  }
-}
-.trigger-popup-med {
-  .leaflet-popup-tip {
-    background-color: var(--ion-color-ibf-orange);
-  }
-}
-.trigger-popup-max {
-  .leaflet-popup-tip {
-    background-color: var(--ion-color-ibf-trigger-alert-primary);
-  }
-}
 
-.typhoon-track-popup {
+.trigger-popup-no,
+.trigger-popup-min,
+.trigger-popup-med,
+.trigger-popup-max,
+.typhoon-track-popup,
+.river-gauge-popup {
   a {
     &.leaflet-popup-close-button {
       color: var(--ion-color-ibf-white);
       font-size: 20px;
-      padding-top: 11px;
-      margin-right: 7px;
+      padding-top: 5px;
+      margin-right: 3px;
     }
-  }
-
-  .leaflet-popup-tip {
-    background-color: var(--ion-color-ibf-primary);
   }
 }
 

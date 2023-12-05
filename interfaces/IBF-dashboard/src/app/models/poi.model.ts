@@ -81,7 +81,13 @@ export class CommunityNotification {
 }
 
 export class RiverGauge {
-  gaugeName: string;
-  currentLevel: number;
-  normalLevel: string;
+  fid: string;
+  name: string;
+  dynamicData: {
+    'water-level': string;
+    'water-level-previous': string;
+    'water-level-reference': string;
+  };
+  exposed: boolean;
+  pointDataId: string;
 }
