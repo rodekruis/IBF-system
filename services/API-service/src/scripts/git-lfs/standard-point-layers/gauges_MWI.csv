@@ -1,4 +1,4 @@
-﻿id,fid,name,Country,lat,lon
-1,1,Kariba,MWI,-9.940606036,33.92438203
-2,2,Tugwi Mukosi,MWI,-9.938750283,33.92635764
-3,3,Mutirikwi,MWI,-11.89861174,33.59389079
+﻿id,lon,lat,fid,name,Country
+1,33.65612777,-11.13575247,1,Lake Kazuni,MWI
+2,33.88461925,-11.10706701,2,Kasitu River,MWI
+3,33.82902969,-9.943700455,4,Karonga,MWI
