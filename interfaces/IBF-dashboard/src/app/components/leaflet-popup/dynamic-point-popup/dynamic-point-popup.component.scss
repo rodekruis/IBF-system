@@ -1,0 +1,34 @@
+.leaflet--dynamic-point-popup--header {
+  &.gauges {
+    background: var(--ion-color-ibf-no-alert-primary);
+  }
+  &.typhoon_track {
+    background: var(--ion-color-ibf-primary);
+  }
+
+  color: white;
+  padding: 8px;
+  border-radius: 8px 8px 0 0;
+}
+
+.leaflet--dynamic-point-popup--content {
+  padding: 8px;
+}
+
+.leaflet--dynamic-point-popup--footer {
+  &.gauges {
+    color: var(--ion-color-ibf-no-alert-primary);
+  }
+  &.typhoon_track {
+    color: var(--ion-color-ibf-primary);
+  }
+
+  padding: 0 8px;
+  border-radius: 0 0 8px 8px;
+
+  div {
+    padding: 8px 0;
+    text-align: center;
+    border-top: 1px solid var(--ion-color-ibf-grey-light);
+  }
+}

@@ -30,6 +30,10 @@ import { IbfButtonComponent } from './components/ibf-button/ibf-button.component
 import { IbfGuideButtonComponent } from './components/ibf-guide-button/ibf-guide-button.component';
 import { IbfGuidePopoverComponent } from './components/ibf-guide-popover/ibf-guide-popover.component';
 import { LayerControlInfoPopoverComponent } from './components/layer-control-info-popover/layer-control-info-popover.component';
+import { DynamicPointPopupComponent } from './components/leaflet-popup/dynamic-point-popup/dynamic-point-popup.component';
+import { RiverGaugePopupContentComponent } from './components/leaflet-popup/river-gauge-popup-content/river-gauge-popup-content.component';
+import { ThresholdBarComponent } from './components/leaflet-popup/threshold-bar/threshold-bar.component';
+import { TyphoonTrackpointPopupContentComponent } from './components/leaflet-popup/typhoon-trackpoint-popup-content/typhoon-trackpoint-popup-content.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { LogosComponent } from './components/logos/logos.component';
 import { MapControlsComponent } from './components/map-controls/map-controls.component';
@@ -91,6 +95,10 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     TooltipComponent,
     TooltipPopoverComponent,
     UserStateComponent,
+    RiverGaugePopupContentComponent,
+    ThresholdBarComponent,
+    DynamicPointPopupComponent,
+    TyphoonTrackpointPopupContentComponent,
   ],
   exports: [
     AboutBtnComponent,
@@ -131,6 +139,10 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     TooltipPopoverComponent,
     TranslateModule,
     UserStateComponent,
+    RiverGaugePopupContentComponent,
+    ThresholdBarComponent,
+    DynamicPointPopupComponent,
+    TyphoonTrackpointPopupContentComponent,
   ],
 })
 export class SharedModule {}

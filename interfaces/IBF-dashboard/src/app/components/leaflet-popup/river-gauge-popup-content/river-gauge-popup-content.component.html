@@ -1,0 +1,35 @@
+<div style="margin-bottom: 4px; display: flex; justify-content: space-between">
+  <div>
+    <ion-label style="font-size: 18px; padding-right: 8px">
+      <strong>{{ current }}</strong>
+      {{ 'map-popups.river-gauge.unit' | translate }}
+    </ion-label>
+    <ion-label
+      style="margin-right: 4px"
+      [color]="difference <= 0 ? 'success' : 'danger'"
+    >
+      <ion-icon
+        [name]="difference <= 0 ? 'caret-down-outline' : 'caret-up-outline'"
+      ></ion-icon
+      >{{ differenceAbsolute }}
+      {{ 'map-popups.river-gauge.unit' | translate }}</ion-label
+    >
+  </div>
+  <app-tooltip value="TBD" color="ibf-no-alert-primary"></app-tooltip>
+</div>
+<div style="margin-bottom: 4px">
+  <ion-label
+    ><strong>{{
+      'map-popups.river-gauge.current' | translate
+    }}</strong></ion-label
+  >
+</div>
+<app-threshold-bar
+  backgroundColor="var(--ion-color-ibf-no-alert-primary)"
+  textColor="var(--ion-color-ibf-white)"
+  [barWidth]="triggerWidth"
+  [barValue]="current + ('map-popups.river-gauge.unit' | translate)"
+  [thresholdDescription]="'map-popups.river-gauge.normal' | translate"
+  [thresholdValue]="reference"
+  [thresholdPosition]="45"
+></app-threshold-bar>

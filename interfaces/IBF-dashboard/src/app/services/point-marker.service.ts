@@ -37,10 +37,12 @@ import {
 import { AnalyticsEvent, AnalyticsPage } from '../analytics/analytics.enum';
 import { AnalyticsService } from '../analytics/analytics.service';
 import { CommunityNotificationPopupComponent } from '../components/community-notification-popup/community-notification-popup.component';
+import { DynamicPointPopupComponent } from '../components/leaflet-popup/dynamic-point-popup/dynamic-point-popup.component';
 import {
   CountryDisasterSettings,
   EapAlertClasses,
 } from '../models/country.model';
+import { IbfLayerName } from '../types/ibf-layer';
 import { LeadTime } from '../types/lead-time';
 import { EventService } from './event.service';
 
@@ -167,12 +169,10 @@ export class PointMarkerService {
     );
 
     let className = 'typhoon-track-icon';
-    let passed = '';
 
     if (markerDateTime > modelDateTime) {
       className += ' typhoon-track-icon-future';
     } else {
-      passed = '(Passed)';
       if (isLatest) {
         className += ' typhoon-track-icon-latest';
       } else {
@@ -187,12 +187,6 @@ export class PointMarkerService {
     const dateAndTime = DateTime.fromISO(
       markerProperties.timestampOfTrackpoint,
     ).toFormat('ccc, dd LLLL, HH:mm');
-
-    const category = this.translate.instant(
-      'map-popups.PHL.typhoon.category.' + markerProperties.category,
-    );
-
-    const coordinate = this.formatAsCoordinate(markerLatLng);
 
     const markerInstance = marker(markerLatLng, {
       title: dateAndTime,
@@ -213,10 +207,10 @@ export class PointMarkerService {
 
     markerInstance.bindPopup(
       this.createMarkerTyphoonTrackPopup(
-        dateAndTime,
-        category,
-        coordinate,
-        passed,
+        markerProperties.timestampOfTrackpoint,
+        markerProperties.category,
+        markerLatLng,
+        markerDateTime <= modelDateTime,
       ),
       {
         minWidth: 300,
@@ -511,38 +505,23 @@ export class PointMarkerService {
   }
 
   private createMarkerTyphoonTrackPopup(
-    dateAndTime: string,
+    timestamp: string,
     category: string,
-    coordinate: string,
-    passed: string,
+    markerLatLng: LatLng,
+    passed: boolean,
   ): string {
-    const bg = 'var(--ion-color-ibf-primary)';
-
-    const headerContent = `<strong>Typhoon track <span>${passed}</span></strong>`;
-
-    const middleContent = `
-    <div style="display:flex; flex-direction: row; justify-content: space-between;">
-      <div>
-        <div style="margin-bottom: 8px;">Date and time: <strong>${dateAndTime}</strong></div>
-        <div>Category (ECWMF): <strong>${category}</strong></div>
-      </div>
-      <div>
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M26.8211 16.1286L26.8028 16.0965C26.6224 15.7859 26.3267 15.5591 25.98 15.4655C25.6334 15.372 25.2638 15.4192 24.9518 15.5969L22.8259 16.8254C23.0049 15.3864 22.7191 13.9279 22.0103 12.6631C21.9984 12.6347 21.9847 12.6071 21.9691 12.5806L21.9554 12.5622L17.9831 5.67707C17.894 5.52297 17.7755 5.38791 17.6343 5.27963C17.4931 5.17135 17.3319 5.09196 17.16 5.04598C16.9882 5.00001 16.8089 4.98836 16.6325 5.0117C16.4562 5.03504 16.2861 5.09291 16.1321 5.182L16.0954 5.20034C15.786 5.38181 15.5605 5.67798 15.4679 6.02465C15.3753 6.37131 15.423 6.74054 15.6006 7.05227L16.8239 9.17467C15.3552 8.99448 13.8677 9.29695 12.5859 10.0365L12.5355 10.064L5.67673 14.0291C5.5227 14.1182 5.38772 14.2368 5.27949 14.3781C5.17126 14.5194 5.09191 14.6806 5.04596 14.8526C5.00001 15.0245 4.98837 15.2039 5.01169 15.3803C5.03502 15.5568 5.09286 15.727 5.18191 15.8811L5.20023 15.9132C5.28928 16.0673 5.40779 16.2023 5.54901 16.3106C5.69022 16.4189 5.85137 16.4983 6.02325 16.5442C6.19513 16.5902 6.37438 16.6019 6.55076 16.5785C6.72714 16.5552 6.8972 16.4973 7.05122 16.4082L9.18169 15.1797C9.00449 16.6386 9.3017 18.1158 10.0293 19.3924C10.0319 19.4039 10.0366 19.4147 10.043 19.4245L10.0522 19.4383L14.0245 26.3234C14.2046 26.6344 14.5006 26.8612 14.8477 26.954C15.1947 27.0468 15.5643 26.9981 15.8755 26.8185L15.9122 26.8002C16.2224 26.6195 16.4486 26.3233 16.5413 25.9763C16.634 25.6293 16.5857 25.2597 16.407 24.9482L15.1837 22.8258C16.5925 23.0018 18.0208 22.7291 19.2659 22.0466C19.3212 22.0227 19.3748 21.9951 19.4263 21.964L19.44 21.9549L26.3263 17.9805C26.6357 17.7991 26.8611 17.5029 26.9538 17.1562C27.0464 16.8096 26.9987 16.4403 26.8211 16.1286ZM12.4347 18.0631C12.4301 18.0585 12.4301 18.0539 12.4255 18.0493C11.8868 17.1079 11.7406 15.9921 12.0185 14.9436C12.2963 13.8951 12.9759 12.9983 13.91 12.4476C13.9191 12.4431 13.9329 12.4339 13.942 12.4293C13.9512 12.4247 13.9558 12.4201 13.9649 12.4156C14.9062 11.8793 16.0204 11.7349 17.0671 12.0137C18.1138 12.2924 19.0089 12.9719 19.5591 13.9054C19.5637 13.9145 19.5729 13.9283 19.5775 13.9374C19.5821 13.9466 19.5866 13.9512 19.5912 13.9604C20.1288 14.9084 20.2701 16.0306 19.9843 17.0825C19.6985 18.1343 19.0088 19.0305 18.0655 19.5758C18.0609 19.5804 18.0564 19.5804 18.0518 19.5849C17.1047 20.1261 15.9819 20.2698 14.9291 19.9845C13.8764 19.6993 12.9794 19.0084 12.4347 18.0631Z" fill="${bg}"/>
-        </svg>
-      </div>
-    </div>`;
-
-    const footerContent = `<div style="text-align: right">
-      <strong>Coordinate: ${coordinate}</strong>
-    </div>`;
-
-    return this.createDynamicPointPopup(
-      bg,
-      headerContent,
-      middleContent,
-      footerContent,
-    );
+    const component = this.componentFactoryResolver
+      .resolveComponentFactory(DynamicPointPopupComponent)
+      .create(this.injector);
+    component.instance.layerName = IbfLayerName.typhoonTrack;
+    component.instance.typhoonTrackPoint = {
+      timestamp,
+      category,
+      markerLatLng,
+      passed,
+    };
+    component.changeDetectorRef.detectChanges();
+    return component.location.nativeElement;
   }
 
   private createMarkerRedCrossPopup(markerProperties: RedCrossBranch): string {
@@ -668,75 +647,14 @@ export class PointMarkerService {
     return markerInstance;
   }
 
-  private createMarkerRiverGaugePopup(markerProperties: RiverGauge): string {
-    const accentColor = 'var(--ion-color-ibf-no-alert-primary)';
-
-    const current = Number(markerProperties.dynamicData['water-level']);
-    const previous = Number(
-      markerProperties.dynamicData['water-level-previous'],
-    );
-    const reference = Number(
-      markerProperties.dynamicData['water-level-reference'],
-    );
-
-    const difference = current - previous;
-
-    const triggerWidth = Math.max(
-      Math.min(Math.round((current / reference) * 100), 115),
-      0,
-    );
-
-    const translatedString = (key: string): string =>
-      this.translate.instant(`map-popups.river-gauge.${key}`);
-
-    const thresholdBar = this.createThresholdBar(
-      accentColor,
-      'var(--ion-color-ibf-white)',
-      triggerWidth,
-      `${current} ${translatedString('unit')}`,
-      translatedString('normal'),
-      `${reference}`,
-      45,
-    );
-
-    const headerContent = `
-      <div>
-        <strong>${translatedString('header')} ${markerProperties.fid} ${
-      markerProperties.name
-    } </strong>
-      </div>
-    `;
-    const middleContent = `
-    <div style="margin-bottom: 4px">
-      <ion-label style="font-size: 18px; padding-right: 8px"><strong>${current}</strong> ${translatedString(
-      'unit',
-    )}</ion-label>
-      <ion-label
-        color="${difference <= 0 ? 'success' : 'danger'}">
-        <ion-icon
-          style="maring-right 4px"
-          name="${
-            difference <= 0 ? 'caret-down-outline' : 'caret-up-outline'
-          }"></ion-icon>${Math.abs(difference)} cm</ion-label>
-    </div>
-    <div style="margin-bottom: 4px">
-      <ion-label><strong>${translatedString('current')}<strong></ion-label>
-    </div>
-    ${thresholdBar}
-    `;
-
-    const footerString =
-      current <= reference
-        ? translatedString('below')
-        : translatedString('above');
-    const footerContent = `<div style="text-align: center"><strong>${footerString}</strong></div>`;
-
-    return this.createDynamicPointPopup(
-      accentColor,
-      headerContent,
-      middleContent,
-      footerContent,
-    );
+  private createMarkerRiverGaugePopup(markerProperties: RiverGauge) {
+    const component = this.componentFactoryResolver
+      .resolveComponentFactory(DynamicPointPopupComponent)
+      .create(this.injector);
+    component.instance.layerName = IbfLayerName.gauges;
+    component.instance.riverGauge = markerProperties;
+    component.changeDetectorRef.detectChanges();
+    return component.location.nativeElement;
   }
 
   private createDynamicPointPopup(

@@ -1,0 +1,20 @@
+<div class="leaflet--dynamic-point-popup--header" [ngClass]="layerName">
+  <strong>{{ title }}</strong>
+</div>
+<div class="leaflet--dynamic-point-popup--content">
+  <ng-container [ngSwitch]="layerName">
+    <app-river-gauge-popup-content
+      *ngSwitchCase="ibfLayerName.gauges"
+      [data]="riverGauge"
+    ></app-river-gauge-popup-content>
+    <app-typhoon-trackpoint-popup-content
+      *ngSwitchCase="ibfLayerName.typhoonTrack"
+      [data]="typhoonData"
+    ></app-typhoon-trackpoint-popup-content>
+  </ng-container>
+</div>
+<div class="leaflet--dynamic-point-popup--footer">
+  <div>
+    <strong>{{ footerContent }}</strong>
+  </div>
+</div>
