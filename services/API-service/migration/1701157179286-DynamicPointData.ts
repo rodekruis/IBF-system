@@ -33,7 +33,7 @@ export class DynamicPointData1701157179286 implements MigrationInterface {
     // await queryRunner.query(`INSERT INTO "IBF-app"."dynamic-point-data"
     // ("dynamicPointDataId", "timestamp", "key", value, "pointPointDataId")
     // select uuid_generate_v4()
-    //   ,date
+    //   ,'2023-12-11 14:29:06.012' -- NOTE: Put in here exact timestamp of main model run
     //   ,unnest(array['forecastLevel','forecastReturnPeriod','triggerLevel','eapAlertClass']) as key
     //   ,unnest(array[cast("forecastLevel" as varchar),cast("forecastReturnPeriod" as varchar),cast("triggerLevel" as varchar),"eapAlertClass"]) as value
     //   ,"glofasStationId"
