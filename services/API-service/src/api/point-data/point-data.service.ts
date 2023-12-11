@@ -20,6 +20,7 @@ import {
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { GaugeDto } from './dto/upload-gauge.dto';
 import { DynamicPointDataEntity } from './dynamic-point-data.entity';
+import { GlofasStationDto } from './dto/upload-glofas-station.dto';
 
 @Injectable()
 export class PointDataService {
@@ -103,6 +104,8 @@ export class PointDataService {
         return new WaterpointDto();
       case PointDataEnum.gauges:
         return new GaugeDto();
+      case PointDataEnum.glofasStations:
+        return new GlofasStationDto();
       default:
         throw new HttpException(
           'Not a known point layer',

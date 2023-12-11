@@ -10,6 +10,7 @@ export enum PointDataEnum {
   schools = 'schools',
   waterpointsInternal = 'waterpoints_internal',
   gauges = 'gauges',
+  glofasStations = 'glofas_stations',
 }
 
 @Entity('point-data')

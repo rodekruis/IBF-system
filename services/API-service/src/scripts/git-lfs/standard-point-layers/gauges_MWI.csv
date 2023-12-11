@@ -1,4 +1,4 @@
 ﻿id,lon,lat,fid,name,Country
-1,33.65612777,-11.13575247,gauge-MWI-1,Lake Kazuni,MWI
-2,33.88461925,-11.10706701,gauge-MWI-2,Kasitu River,MWI
-3,33.82902969,-9.943700455,gauge-MWI-4,Karonga,MWI
+1,33.65612777,-11.13575247,1,Lake Kazuni,MWI
+2,33.88461925,-11.10706701,2,Kasitu River,MWI
+3,33.82902969,-9.943700455,3,Karonga,MWI
