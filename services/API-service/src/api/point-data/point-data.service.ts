@@ -72,8 +72,11 @@ export class PointDataService {
               'json_object_agg("key",value) as "dynamicData"',
             ])
             .from(DynamicPointDataEntity, 'dynamic')
-            .where('dynamic.timestamp = :modelTimestamp', {
-              modelTimestamp: recentDate.timestamp,
+            .where('dynamic.timestamp >= :cutoffMoment', {
+              cutoffMoment: this.helperService.getUploadCutoffMoment(
+                disasterType,
+                recentDate.timestamp,
+              ),
             })
             .groupBy('dynamic."pointPointDataId"');
         },

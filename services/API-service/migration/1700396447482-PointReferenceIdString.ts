@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class PointReferenceIdString1702396447482 implements MigrationInterface {
-  name = 'PointReferenceIdString1702396447482';
+export class PointReferenceIdString1700396447482 implements MigrationInterface {
+  name = 'PointReferenceIdString1700396447482';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(

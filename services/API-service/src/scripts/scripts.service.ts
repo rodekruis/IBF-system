@@ -190,7 +190,7 @@ export class ScriptsService {
     }
 
     if (mockInput.disasterType === DisasterType.FlashFloods) {
-      await this.mockEsposedAssets(
+      await this.mockExposedAssets(
         selectedCountry.countryCodeISO3,
         mockInput.triggered,
         date,
@@ -952,7 +952,7 @@ export class ScriptsService {
     });
   }
 
-  private async mockEsposedAssets(
+  private async mockExposedAssets(
     countryCodeISO3: string,
     triggered: boolean,
     date: Date,
