@@ -184,7 +184,7 @@ export class MapService {
       } else if (layer.name === IbfLayerName.adminRegions4) {
         this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel4);
       } else if (layer.name === IbfLayerName.glofasStations) {
-        this.loadStationLayer(layer, layerActive);
+        this.loadPointDataLayer(layer, layerActive);
       } else if (layer.name === IbfLayerName.typhoonTrack) {
         this.loadTyphoonTrackLayer(layer, layerActive);
       } else if (layer.name === IbfLayerName.waterpoints) {

@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LatLng } from 'leaflet';
-import { EapAlertClass } from '../../../models/country.model';
+import { EapAlertClass, EapAlertClasses } from '../../../models/country.model';
 import { RiverGauge, Station } from '../../../models/poi.model';
 import { IbfLayerName } from '../../../types/ibf-layer';
 import { LeadTime } from '../../../types/lead-time';
@@ -30,7 +30,7 @@ export class DynamicPointPopupComponent implements OnInit {
   public glofasData?: {
     station: Station;
     leadTime: LeadTime;
-    eapAlertClass: EapAlertClass;
+    eapAlertClasses: EapAlertClasses;
   };
 
   public typhoonData: {
@@ -45,6 +45,8 @@ export class DynamicPointPopupComponent implements OnInit {
 
   public glofasHeaderStyle: string;
   public glofasFooterStyle: string;
+
+  public eapAlertClass: EapAlertClass;
 
   private allowedLayers = [
     IbfLayerName.gauges,
@@ -70,17 +72,26 @@ export class DynamicPointPopupComponent implements OnInit {
       };
     }
 
+    if (
+      this.layerName === IbfLayerName.glofasStations &&
+      this.glofasData.eapAlertClasses
+    ) {
+      this.eapAlertClass = this.glofasData.eapAlertClasses[
+        this.glofasData.station.dynamicData.eapAlertClass
+      ];
+    }
+
     this.title = this.getTitle();
     this.footerContent = this.getFooterContent();
 
     this.glofasHeaderStyle =
       this.layerName === IbfLayerName.glofasStations
-        ? `background: var(--ion-color-${this.glofasData.eapAlertClass.color});`
+        ? `background: var(--ion-color-${this.eapAlertClass.color});`
         : '';
 
     this.glofasFooterStyle =
       this.layerName === IbfLayerName.glofasStations
-        ? `color: var(--ion-color-${this.glofasData.eapAlertClass.color});`
+        ? `color: var(--ion-color-${this.eapAlertClass.color});`
         : '';
   }
 
@@ -123,7 +134,7 @@ export class DynamicPointPopupComponent implements OnInit {
     }
 
     if (this.layerName === IbfLayerName.glofasStations) {
-      return this.glofasData.eapAlertClass.label;
+      return this.eapAlertClass.label;
     }
 
     return '';

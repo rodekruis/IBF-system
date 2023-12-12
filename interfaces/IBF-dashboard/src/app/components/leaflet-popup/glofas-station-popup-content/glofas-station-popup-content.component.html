@@ -22,6 +22,6 @@
   [barWidth]="triggerWidth"
   [barValue]="addComma(barValue)"
   thresholdDescription="Trigger activation threshold"
-  [thresholdValue]="addComma(data?.station?.triggerLevel)"
+  [thresholdValue]="data?.station?.dynamicData?.triggerLevel"
   [thresholdPosition]="80"
 ></app-threshold-bar>

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EapAlertClass } from '../../../models/country.model';
+import { EapAlertClass, EapAlertClasses } from '../../../models/country.model';
 import { Station } from '../../../models/poi.model';
 import { LeadTime } from '../../../types/lead-time';
 
@@ -13,13 +13,14 @@ export class GlofasStationPopupContentComponent implements OnInit {
   public data: {
     station: Station;
     leadTime: LeadTime;
-    eapAlertClass: EapAlertClass;
+    eapAlertClasses: EapAlertClasses;
   };
 
   public barValue: number;
   public triggerWidth: number;
   public barBackgroundColor: string;
   public barTextColor: string;
+  private eapAlertClass: EapAlertClass;
 
   ngOnInit(): void {
     if (!this.data) {
@@ -27,27 +28,37 @@ export class GlofasStationPopupContentComponent implements OnInit {
     }
 
     const difference =
-      this.data.station.forecastLevel - this.data.station.triggerLevel;
+      Number(this.data.station.dynamicData.forecastLevel) -
+      Number(this.data.station.dynamicData.triggerLevel);
     const closeMargin = 0.05;
     const tooClose =
       Math.abs(difference) / this.data.station.triggerLevel < closeMargin;
 
     this.barValue =
       difference === 0 || !tooClose
-        ? this.data.station.forecastLevel
-        : this.data.station.triggerLevel +
-          Math.sign(difference) * this.data.station.triggerLevel * closeMargin;
+        ? Number(this.data.station.dynamicData.forecastLevel)
+        : Number(this.data.station.dynamicData.triggerLevel) +
+          Math.sign(difference) *
+            Number(this.data.station.dynamicData.triggerLevel) *
+            closeMargin;
 
     this.triggerWidth = Math.max(
       Math.min(
-        Math.round((this.barValue / this.data.station.triggerLevel) * 100),
+        Math.round(
+          (this.barValue / Number(this.data.station.dynamicData.triggerLevel)) *
+            100,
+        ),
         115,
       ),
       0,
     );
 
-    this.barBackgroundColor = `var(--ion-color-${this.data.eapAlertClass.color})`;
-    this.barTextColor = `var(--ion-color-${this.data.eapAlertClass.color}-contrast)`;
+    this.eapAlertClass = this.data.eapAlertClasses[
+      this.data.station.dynamicData.eapAlertClass
+    ];
+
+    this.barBackgroundColor = `var(--ion-color-${this.eapAlertClass.color})`;
+    this.barTextColor = `var(--ion-color-${this.eapAlertClass.color}-contrast)`;
   }
 
   public addComma = (n) => Math.round(n).toLocaleString('en-US');
