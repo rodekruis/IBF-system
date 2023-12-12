@@ -183,8 +183,6 @@ export class MapService {
         this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel3);
       } else if (layer.name === IbfLayerName.adminRegions4) {
         this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel4);
-      } else if (layer.name === IbfLayerName.glofasStations) {
-        this.loadPointDataLayer(layer, layerActive);
       } else if (layer.name === IbfLayerName.typhoonTrack) {
         this.loadTyphoonTrackLayer(layer, layerActive);
       } else if (layer.name === IbfLayerName.waterpoints) {
@@ -212,43 +210,6 @@ export class MapService {
         .subscribe(this.onLayerChange);
     }
   }
-
-  private loadStationLayer(layer: IbfLayerMetadata, layerActive: boolean) {
-    if (this.country) {
-      if (layerActive) {
-        this.apiService
-          .getStations(
-            this.country.countryCodeISO3,
-            this.timelineState.activeLeadTime,
-          )
-          .subscribe((stationData) => this.addStationLayer(layer, stationData));
-      } else {
-        this.addStationLayer(layer, null);
-      }
-    }
-  }
-
-  private addStationLayer = (
-    layer: IbfLayerMetadata,
-    stations: GeoJSON.FeatureCollection,
-  ) => {
-    this.addLayer({
-      name: IbfLayerName.glofasStations,
-      label: IbfLayerLabel.glofasStations,
-      type: IbfLayerType.point,
-      group: IbfLayerGroup.point,
-      description: this.getPopoverText(layer),
-      active: this.adminLevelService.activeLayerNames.length
-        ? this.adminLevelService.activeLayerNames.includes(
-            IbfLayerName.glofasStations,
-          )
-        : true,
-      show: true,
-      data: stations,
-      viewCenter: false,
-      order: 0,
-    });
-  };
 
   private loadTyphoonTrackLayer(layer: IbfLayerMetadata, layerActive: boolean) {
     if (this.country) {
@@ -659,13 +620,6 @@ export class MapService {
     if (layer.name === IbfLayerName.waterpoints) {
       layerData = this.apiService
         .getWaterPoints(this.country.countryCodeISO3)
-        .pipe(shareReplay(1));
-    } else if (layer.name === IbfLayerName.glofasStations) {
-      layerData = this.apiService
-        .getStations(
-          this.country.countryCodeISO3,
-          this.timelineState.activeLeadTime,
-        )
         .pipe(shareReplay(1));
     } else if (layer.name === IbfLayerName.typhoonTrack) {
       layerData = this.apiService

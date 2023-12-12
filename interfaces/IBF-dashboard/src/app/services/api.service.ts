@@ -166,13 +166,6 @@ export class ApiService {
     );
   }
 
-  getStations(
-    countryCodeISO3: string,
-    leadTime: LeadTime = LeadTime.day7,
-  ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`glofas-stations/${countryCodeISO3}/${leadTime}`, false);
-  }
-
   getTyphoonTrack(
     countryCodeISO3: string,
     eventName: string,
