@@ -25,11 +25,14 @@ export class RiverGaugePopupContentComponent implements OnInit {
       return;
     }
 
-    this.current = Number(this.data.dynamicData['water-level']);
-    this.currentString = String(this.current);
-    this.previous = Number(this.data.dynamicData['water-level-previous']);
-    this.reference = Number(this.data.dynamicData['water-level-reference']);
-    this.difference = this.current - this.previous;
+    this.current =
+      Math.round(Number(this.data.dynamicData?.['water-level']) * 100) / 100; // 2 decimals
+    this.currentString = isNaN(this.current) ? '' : String(this.current);
+    this.previous = Number(this.data.dynamicData?.['water-level-previous']);
+    this.reference = Math.round(
+      Number(this.data.dynamicData?.['water-level-reference']),
+    ); // 0 decimals
+    this.difference = Math.round((this.current - this.previous) * 100) / 100; // 2 decimals
     this.differenceAbsolute = Math.abs(this.difference);
 
     this.triggerWidth = Math.max(

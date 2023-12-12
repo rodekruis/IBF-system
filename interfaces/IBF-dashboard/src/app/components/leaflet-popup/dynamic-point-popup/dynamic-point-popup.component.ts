@@ -104,8 +104,10 @@ export class DynamicPointPopupComponent implements OnInit {
 
   private getFooterContent(): string {
     if (this.layerName === IbfLayerName.gauges) {
-      return this.riverGauge.dynamicData['water-level'] <=
-        this.riverGauge.dynamicData['water-level-reference']
+      return !this.riverGauge.dynamicData?.['water-level']
+        ? ''
+        : this.riverGauge.dynamicData?.['water-level'] <=
+          this.riverGauge.dynamicData?.['water-level-reference']
         ? this.translate.instant('map-popups.river-gauge.below')
         : this.translate.instant('map-popups.river-gauge.above');
     }

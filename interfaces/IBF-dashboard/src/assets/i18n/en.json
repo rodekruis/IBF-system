@@ -382,12 +382,15 @@
       }
     },
     "river-gauge": {
-      "unit": "cm",
-      "header": "River gauge #",
+      "unit": "m",
+      "sea-level": "MSL",
+      "header": "River gauge:",
       "current": "Current water level",
-      "normal": "Normal water level",
-      "below": "Below normal level",
-      "above": "Above normal level"
+      "normal": "Reference water level",
+      "below": "Below reference level",
+      "above": "Above reference level",
+      "no-data": "No water level data available",
+      "tooltip": "Current water level in meters above sea level (mMSL), from the same time as the overall last model run. The difference with 24 hours ago is shown in green or red. The bar chart compares it to a reference water level, which is a typical water level for this station for this time of year."
     }
   },
   "breadcrumbs": {

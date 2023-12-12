@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { GlofasStationPopupContentComponent } from './glofas-station-popup-content.component';
 
 describe('GlofasStationPopupContentComponent', () => {
@@ -8,9 +7,8 @@ describe('GlofasStationPopupContentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GlofasStationPopupContentComponent ]
-    })
-    .compileComponents();
+      declarations: [GlofasStationPopupContentComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
