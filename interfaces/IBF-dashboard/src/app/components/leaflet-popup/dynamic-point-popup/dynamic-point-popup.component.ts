@@ -75,12 +75,12 @@ export class DynamicPointPopupComponent implements OnInit {
 
     this.glofasHeaderStyle =
       this.layerName === IbfLayerName.glofasStations
-        ? `background: var(--ion-color-${this.glofasData.eapAlertClass.color});`
+        ? `background: var(--ion-color-${this.glofasData.eapAlertClass.color});color: var(--ion-color-${this.glofasData.eapAlertClass.color}-contrast);`
         : '';
 
     this.glofasFooterStyle =
       this.layerName === IbfLayerName.glofasStations
-        ? `color: var(--ion-color-${this.glofasData.eapAlertClass.color});`
+        ? `color: var(--ion-color-${this.glofasData.eapAlertClass.color}); background: var(--ion-color-${this.glofasData.eapAlertClass.color}-contrast);`
         : '';
   }
 
