@@ -10,6 +10,10 @@ export class GlofasStationDto {
   @IsOptional()
   public stationName: string = undefined;
 
+  @ApiProperty({ example: 'G5100' })
+  @IsOptional()
+  public fid: string = undefined;
+
   @ApiProperty({ example: 0 })
   @IsNotEmpty()
   public lat: number;

@@ -254,7 +254,7 @@ export class PointDataService {
     for (const point of dynamicPointData.dynamicPointData) {
       const asset = await this.pointDataRepository.findOne({
         where: {
-          referenceId: Number(point.fid), // TODO: make sure this is unique
+          referenceId: point.fid, // TODO: make sure this is unique
         },
       });
       if (!asset) {

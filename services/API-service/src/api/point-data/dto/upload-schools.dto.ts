@@ -10,8 +10,8 @@ export class SchoolDto {
   @IsString()
   public amenity: string = undefined;
 
-  @ApiProperty({ example: 1234 })
-  public fid: number = undefined;
+  @ApiProperty({ example: '1234' })
+  public fid: string = undefined;
 
   @ApiProperty({ example: 0 })
   @IsNotEmpty()

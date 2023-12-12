@@ -6,24 +6,22 @@ import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryEntity } from '../country/country.entity';
 import { EventModule } from '../event/event.module';
 import { UserModule } from '../user/user.module';
-import { GlofasStationForecastEntity } from './glofas-station-forecast.entity';
 import { GlofasStationController } from './glofas-station.controller';
-import { GlofasStationEntity } from './glofas-station.entity';
 import { GlofasStationService } from './glofas-station.service';
 import { HttpModule } from '@nestjs/axios';
+import { PointDataModule } from '../point-data/point-data.module';
 
 @Module({
   imports: [
     HttpModule,
     UserModule,
     TypeOrmModule.forFeature([
-      GlofasStationEntity,
-      GlofasStationForecastEntity,
       AdminAreaEntity,
       AdminAreaDynamicDataEntity,
       CountryEntity,
     ]),
     EventModule,
+    PointDataModule,
   ],
   providers: [GlofasStationService, HelperService],
   controllers: [GlofasStationController],

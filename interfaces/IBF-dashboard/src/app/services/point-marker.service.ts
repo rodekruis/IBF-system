@@ -466,7 +466,6 @@ export class PointMarkerService {
     countryDisasterSettings: CountryDisasterSettings,
     activeLeadTime: LeadTime,
   ) {
-    console.log('markerProperties: ', markerProperties);
     const leadTimes = countryDisasterSettings?.activeLeadTimes;
     const lastAvailableLeadTime: LeadTime = leadTimes[leadTimes.length - 1];
     const leadTime = activeLeadTime || lastAvailableLeadTime;

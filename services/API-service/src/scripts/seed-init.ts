@@ -25,7 +25,6 @@ import layerMetadata from './json/layer-metadata.json';
 import disasters from './json/disasters.json';
 
 import SeedAdminArea from './seed-admin-area';
-import SeedGlofasStation from './seed-glofas-station';
 import { SeedHelper } from './seed-helper';
 import SeedAdminAreaData from './seed-admin-area-data';
 import SeedRainfallData from './seed-rainfall-data';
@@ -46,7 +45,6 @@ export class SeedInit implements InterfaceScript {
     private dataSource: DataSource,
     private seedAdminArea: SeedAdminArea,
     private seedAdminAreaData: SeedAdminAreaData,
-    private seedGlofasStation: SeedGlofasStation,
     private seedPointData: SeedPointData,
     private seedLineData: SeedLineData,
     private seedRainfallData: SeedRainfallData,
@@ -242,10 +240,6 @@ export class SeedInit implements InterfaceScript {
     // ***** SEED RAINFALL DATA *****
     console.log('Seed rainfall data...');
     await this.seedRainfallData.run();
-
-    // ***** SEED GLOFAS-STATION DATA *****
-    console.log('Seed Glofas Stations...');
-    await this.seedGlofasStation.run();
   }
 }
 
