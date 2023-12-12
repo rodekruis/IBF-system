@@ -8,6 +8,7 @@ export class Station {
   forecastLevel: number;
   eapAlertClass: string;
   forecastReturnPeriod: number;
+  dynamicData?: any;
 }
 
 export class TyphoonTrackPoint {

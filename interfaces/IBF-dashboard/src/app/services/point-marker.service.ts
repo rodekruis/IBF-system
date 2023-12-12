@@ -125,10 +125,10 @@ export class PointMarkerService {
 
     const markerIcon: IconOptions = {
       ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-      iconUrl: `assets/markers/glofas-station-${markerProperties.eapAlertClass}-trigger.svg`,
-      iconRetinaUrl: `assets/markers/glofas-station-${markerProperties.eapAlertClass}-trigger.svg`,
+      iconUrl: `assets/markers/glofas-station-${markerProperties.dynamicData.eapAlertClass}-trigger.svg`,
+      iconRetinaUrl: `assets/markers/glofas-station-${markerProperties.dynamicData.eapAlertClass}-trigger.svg`,
     };
-    const className = `trigger-popup-${markerProperties.eapAlertClass}`;
+    const className = `trigger-popup-${markerProperties.dynamicData.eapAlertClass}`;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
@@ -472,7 +472,6 @@ export class PointMarkerService {
 
     const eapAlertClasses =
       countryDisasterSettings?.eapAlertClasses || ({} as EapAlertClasses);
-    const eapAlertClass = eapAlertClasses[markerProperties.eapAlertClass];
 
     const component = this.componentFactoryResolver
       .resolveComponentFactory(DynamicPointPopupComponent)
@@ -481,7 +480,7 @@ export class PointMarkerService {
     component.instance.glofasData = {
       station: markerProperties,
       leadTime,
-      eapAlertClass,
+      eapAlertClasses,
     };
     component.changeDetectorRef.detectChanges();
     return component.location.nativeElement;

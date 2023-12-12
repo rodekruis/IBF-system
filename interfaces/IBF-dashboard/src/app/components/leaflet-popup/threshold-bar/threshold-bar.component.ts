@@ -64,30 +64,29 @@ export class ThresholdBarComponent implements OnInit {
 
   private getBarLevelStyle(): string {
     return `
-    border-radius:10px;
-    height:20px;
-    line-height:20px;
-    background-color:${this.backgroundColor};
-    color:${this.textColor};
-    text-align:center;
-    white-space: nowrap;
-    min-width: 15%;
-    width:${this.barWidth}%
+      border-radius:10px;
+      height:20px;
+      line-height:20px;
+      background-color:${this.backgroundColor};
+      color:${this.textColor};
+      text-align:center;
+      white-space: nowrap;
+      min-width: 15%;
+      width:${this.barWidth}%
     `;
   }
 
   private getDescriptionStyle(): string {
     return `
-
-  height:20px;
-  background-color:none;
-  border-right: dashed;
-  border-right-width: thin;
-  float: left; width: ${this.thresholdPosition}%;
-  padding-top: 5px;
-  margin-bottom:10px;
-  text-align: right;
-  padding-right: 2px`;
+      height:20px;
+      background-color:none;
+      border-right: dashed;
+      border-right-width: thin;
+      float: left; width: ${this.thresholdPosition}%;
+      padding-top: 5px;
+      margin-bottom:10px;
+      text-align: right;
+      padding-right: 2px`;
   }
 
   private getValueStyle(): string {
