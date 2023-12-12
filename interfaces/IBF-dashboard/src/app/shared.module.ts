@@ -31,6 +31,7 @@ import { IbfGuideButtonComponent } from './components/ibf-guide-button/ibf-guide
 import { IbfGuidePopoverComponent } from './components/ibf-guide-popover/ibf-guide-popover.component';
 import { LayerControlInfoPopoverComponent } from './components/layer-control-info-popover/layer-control-info-popover.component';
 import { DynamicPointPopupComponent } from './components/leaflet-popup/dynamic-point-popup/dynamic-point-popup.component';
+import { GlofasStationPopupContentComponent } from './components/leaflet-popup/glofas-station-popup-content/glofas-station-popup-content.component';
 import { RiverGaugePopupContentComponent } from './components/leaflet-popup/river-gauge-popup-content/river-gauge-popup-content.component';
 import { ThresholdBarComponent } from './components/leaflet-popup/threshold-bar/threshold-bar.component';
 import { TyphoonTrackpointPopupContentComponent } from './components/leaflet-popup/typhoon-trackpoint-popup-content/typhoon-trackpoint-popup-content.component';
@@ -99,6 +100,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     ThresholdBarComponent,
     DynamicPointPopupComponent,
     TyphoonTrackpointPopupContentComponent,
+    GlofasStationPopupContentComponent,
   ],
   exports: [
     AboutBtnComponent,
@@ -143,6 +145,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     ThresholdBarComponent,
     DynamicPointPopupComponent,
     TyphoonTrackpointPopupContentComponent,
+    GlofasStationPopupContentComponent,
   ],
 })
 export class SharedModule {}

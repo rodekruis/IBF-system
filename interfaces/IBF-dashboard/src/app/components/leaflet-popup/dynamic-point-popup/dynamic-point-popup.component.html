@@ -1,4 +1,4 @@
-<div class="leaflet--dynamic-point-popup--header" [ngClass]="layerName">
+<div class="leaflet--dynamic-point-popup--header" [ngClass]="layerName" [style]="glofasHeaderStyle">
   <strong>{{ title }}</strong>
 </div>
 <div class="leaflet--dynamic-point-popup--content">
@@ -11,9 +11,13 @@
       *ngSwitchCase="ibfLayerName.typhoonTrack"
       [data]="typhoonData"
     ></app-typhoon-trackpoint-popup-content>
+    <app-glofas-station-popup-content
+      *ngSwitchCase="ibfLayerName.glofasStations"
+      [data]="glofasData"
+    ></app-glofas-station-popup-content>
   </ng-container>
 </div>
-<div class="leaflet--dynamic-point-popup--footer">
+<div class="leaflet--dynamic-point-popup--footer" [style]="glofasFooterStyle">
   <div>
     <strong>{{ footerContent }}</strong>
   </div>

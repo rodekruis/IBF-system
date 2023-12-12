@@ -465,43 +465,26 @@ export class PointMarkerService {
     markerProperties: Station,
     countryDisasterSettings: CountryDisasterSettings,
     activeLeadTime: LeadTime,
-  ): string {
-    const eapAlertClasses =
-      countryDisasterSettings?.eapAlertClasses || ({} as EapAlertClasses);
-    const eapAlertClass = eapAlertClasses[markerProperties.eapAlertClass];
-
-    const eapStatusText = eapAlertClass?.label;
-    const eapStatusColor = `var(--ion-color-${eapAlertClass?.color})`;
-    const eapStatusColorText = `var(--ion-color-${eapAlertClass?.color}-contrast)`;
-
-    const title =
-      markerProperties.stationCode +
-      ' STATION: ' +
-      markerProperties.stationName;
-
+  ) {
     const leadTimes = countryDisasterSettings?.activeLeadTimes;
     const lastAvailableLeadTime: LeadTime = leadTimes[leadTimes.length - 1];
     const leadTime = activeLeadTime || lastAvailableLeadTime;
 
-    const subtitle = `${leadTime} forecast of <span title="The amount of water moving down a river at a given time and place" style="text-decoration: underline; text-decoration-style: dotted; cursor:default">river discharge</span> in m<sup>3</sup>/s \
-          ${
-            markerProperties.forecastReturnPeriod
-              ? `<br>(Corresponding to a return period of <strong>${markerProperties.forecastReturnPeriod}</strong> years)`
-              : ''
-          }`;
+    const eapAlertClasses =
+      countryDisasterSettings?.eapAlertClasses || ({} as EapAlertClasses);
+    const eapAlertClass = eapAlertClasses[markerProperties.eapAlertClass];
 
-    const thresholdName = 'Trigger activation threshold';
-    const stationInfoPopup = this.createThresholdPopup(
-      eapStatusColorText,
-      title,
-      eapStatusColor,
-      eapStatusText,
-      markerProperties.forecastLevel,
-      markerProperties.triggerLevel,
-      subtitle,
-      thresholdName,
-    );
-    return stationInfoPopup;
+    const component = this.componentFactoryResolver
+      .resolveComponentFactory(DynamicPointPopupComponent)
+      .create(this.injector);
+    component.instance.layerName = IbfLayerName.glofasStations;
+    component.instance.glofasData = {
+      station: markerProperties,
+      leadTime,
+      eapAlertClass,
+    };
+    component.changeDetectorRef.detectChanges();
+    return component.location.nativeElement;
   }
 
   private createMarkerTyphoonTrackPopup(

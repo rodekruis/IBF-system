@@ -1,8 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LatLng } from 'leaflet';
-import { RiverGauge } from '../../../models/poi.model';
+import { EapAlertClass } from '../../../models/country.model';
+import { RiverGauge, Station } from '../../../models/poi.model';
 import { IbfLayerName } from '../../../types/ibf-layer';
+import { LeadTime } from '../../../types/lead-time';
 
 @Component({
   selector: 'app-dynamic-point-popup',
@@ -24,6 +26,13 @@ export class DynamicPointPopupComponent implements OnInit {
     passed: boolean;
   };
 
+  @Input()
+  public glofasData?: {
+    station: Station;
+    leadTime: LeadTime;
+    eapAlertClass: EapAlertClass;
+  };
+
   public typhoonData: {
     timestamp: string;
     category: string;
@@ -33,6 +42,9 @@ export class DynamicPointPopupComponent implements OnInit {
 
   public title: string;
   public footerContent: string;
+
+  public glofasHeaderStyle: string;
+  public glofasFooterStyle: string;
 
   private allowedLayers = [
     IbfLayerName.gauges,
@@ -47,7 +59,7 @@ export class DynamicPointPopupComponent implements OnInit {
       return;
     }
 
-    if (!this.riverGauge && !this.typhoonTrackPoint) {
+    if (!this.riverGauge && !this.typhoonTrackPoint && !this.glofasData) {
       return;
     }
 
@@ -60,6 +72,16 @@ export class DynamicPointPopupComponent implements OnInit {
 
     this.title = this.getTitle();
     this.footerContent = this.getFooterContent();
+
+    this.glofasHeaderStyle =
+      this.layerName === IbfLayerName.glofasStations
+        ? `background: var(--ion-color-${this.glofasData.eapAlertClass.color});`
+        : '';
+
+    this.glofasFooterStyle =
+      this.layerName === IbfLayerName.glofasStations
+        ? `color: var(--ion-color-${this.glofasData.eapAlertClass.color});`
+        : '';
   }
 
   private getTitle(): string {
@@ -71,6 +93,10 @@ export class DynamicPointPopupComponent implements OnInit {
 
     if (this.layerName === IbfLayerName.typhoonTrack) {
       return `Typhoon track${this.typhoonTrackPoint.passed ? ' (passed)' : ''}`;
+    }
+
+    if (this.layerName === IbfLayerName.glofasStations) {
+      return `${this.glofasData.station.stationCode} STATION: ${this.glofasData.station.stationName}`;
     }
 
     return '';
@@ -92,6 +118,10 @@ export class DynamicPointPopupComponent implements OnInit {
         4,
       )}° ${this.typhoonTrackPoint.markerLatLng.lng > 0 ? 'E' : 'W'}`;
       return `${lat}, ${lng}`;
+    }
+
+    if (this.layerName === IbfLayerName.glofasStations) {
+      return this.glofasData.eapAlertClass.label;
     }
 
     return '';
