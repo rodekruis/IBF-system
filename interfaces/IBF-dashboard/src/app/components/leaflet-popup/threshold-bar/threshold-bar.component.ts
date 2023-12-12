@@ -24,11 +24,14 @@ export class ThresholdBarComponent implements OnInit {
     if (
       !this.backgroundColor ||
       !this.textColor ||
-      !this.barWidth ||
-      !this.barValue ||
       !this.thresholdDescription ||
-      !this.thresholdValue ||
-      !this.thresholdPosition
+      !this.thresholdPosition ||
+      this.barWidth === null ||
+      this.barWidth === undefined ||
+      this.barValue === null ||
+      this.barValue === undefined ||
+      this.thresholdValue === null ||
+      this.thresholdValue === undefined
     ) {
       return;
     }
