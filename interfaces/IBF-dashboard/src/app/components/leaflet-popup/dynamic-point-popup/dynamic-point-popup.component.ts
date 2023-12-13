@@ -91,7 +91,9 @@ export class DynamicPointPopupComponent implements OnInit {
 
     this.glofasFooterStyle =
       this.layerName === IbfLayerName.glofasStations
-        ? `color: var(--ion-color-${this.eapAlertClass.color}); background: var(--ion-color-${this.eapAlertClass.color}-contrast);`
+        ? `color: var(--ion-color-${this.eapAlertClass.color}${
+            this.eapAlertClass.color === 'ibf-yellow' ? '-contrast' : ''
+          });`
         : '';
   }
 
