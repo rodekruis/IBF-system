@@ -390,7 +390,7 @@
       "below": "Below reference level",
       "above": "Above reference level",
       "no-data": "No water level data available",
-      "tooltip": "Current water level in meters above sea level (mMSL), from the same time as the overall last model run. The difference with 24 hours ago is shown in green or red. The bar chart compares it to a reference water level, which is a typical water level for this station for this time of year."
+      "tooltip": "Current water level displays the measurement in meters above sea level (mMSL) from the latest model run, with a color-coded indicator showing the change compared to 24 hours ago (green for decrease, red for increase). The bar chart compares the current water level to a reference level, representing the typical water level for this station during this season."
     }
   },
   "breadcrumbs": {
