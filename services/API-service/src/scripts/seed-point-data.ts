@@ -29,6 +29,8 @@ export class SeedPointData implements InterfaceScript {
           this.seedPointData(PointDataEnum.dams, country);
           this.seedPointData(PointDataEnum.schools, country);
           this.seedPointData(PointDataEnum.waterpointsInternal, country);
+          this.seedPointData(PointDataEnum.gauges, country);
+          this.seedPointData(PointDataEnum.glofasStations, country);
           return;
         } else {
           return Promise.resolve();
@@ -41,7 +43,7 @@ export class SeedPointData implements InterfaceScript {
     pointDataCategory: PointDataEnum,
     country,
   ): Promise<void> {
-    const filename = `./src/scripts/git-lfs/standard-point-layers/${pointDataCategory}_${country.countryCodeISO3}.csv`;
+    const filename = `./src/scripts/git-lfs/point-layers/${pointDataCategory}_${country.countryCodeISO3}.csv`;
     try {
       const data = await this.seedHelper.getCsvData(filename);
 

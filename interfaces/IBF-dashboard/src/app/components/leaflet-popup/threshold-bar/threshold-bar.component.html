@@ -1,0 +1,13 @@
+<div>
+  <div [style]="barBackgroundStyle">
+    <div [style]="barThresholdStyle">
+      <div [style]="barLevelStyle">
+        {{ barValue }}
+      </div>
+    </div>
+  </div>
+</div>
+<div [style]="descriptionStyle">{{ thresholdDescription }}:</div>
+<div [style]="valueStyle">
+  <strong>{{ thresholdValue }}</strong>
+</div>

@@ -42,6 +42,7 @@ import {
   EvacuationCenter,
   HealthSite,
   RedCrossBranch,
+  RiverGauge,
   School,
   Station,
   TyphoonTrackPoint,
@@ -492,6 +493,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           geoJsonPoint.properties as CommunityNotification,
           latlng,
         );
+      case IbfLayerName.gauges:
+        return this.pointMarkerService.createMarkerRiverGauges(
+          geoJsonPoint.properties as RiverGauge,
+          latlng,
+        );
       default:
         return this.pointMarkerService.createMarkerDefault(latlng);
     }
@@ -502,7 +508,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     const exposedClass = cluster
       .getAllChildMarkers()
-      .some((marker) => marker.feature.properties.exposed)
+      .some((marker) => marker.feature.properties.dynamicData?.exposure)
       ? ' exposed'
       : '';
 
@@ -557,7 +563,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       });
       const exposedLayerData = JSON.parse(JSON.stringify(layer.data));
       exposedLayerData.features = exposedLayerData.features.filter(
-        (f) => f.properties.exposed,
+        (f) => f.properties.dynamicData?.exposure,
       );
       const mapLayerExposed = geoJSON(exposedLayerData, {
         pointToLayer: this.getPointToLayerByLayer(layer.name),
@@ -571,7 +577,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       });
       const nonExposedLayerData = JSON.parse(JSON.stringify(layer.data));
       nonExposedLayerData.features = nonExposedLayerData.features.filter(
-        (f) => !f.properties.exposed,
+        (f) => !f.properties.dynamicData?.exposure,
       );
       const mapLayerNotExposed = geoJSON(nonExposedLayerData, {
         pointToLayer: this.getPointToLayerByLayer(layer.name),

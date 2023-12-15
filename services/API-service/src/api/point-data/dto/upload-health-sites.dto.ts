@@ -12,9 +12,9 @@ export class HealthSiteDto {
   @IsString()
   public type: string = undefined;
 
-  @ApiProperty({ example: 1234 })
+  @ApiProperty({ example: '1234' })
   @IsOptional()
-  public fid: number = undefined;
+  public fid: string = undefined;
 
   @ApiProperty({ example: 0 })
   @IsNotEmpty()

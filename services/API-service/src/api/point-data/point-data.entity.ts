@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { DynamicPointDataEntity } from './dynamic-point-data.entity';
 
 export enum PointDataEnum {
   evacuationCenters = 'evacuation_centers',
@@ -8,6 +9,8 @@ export enum PointDataEnum {
   communityNotifications = 'community_notifications',
   schools = 'schools',
   waterpointsInternal = 'waterpoints_internal',
+  gauges = 'gauges',
+  glofasStations = 'glofas_stations',
 }
 
 @Entity('point-data')
@@ -22,11 +25,17 @@ export class PointDataEntity {
   public pointDataCategory: PointDataEnum;
 
   @Column({ nullable: true })
-  public referenceId: number;
+  public referenceId: string;
 
   @Column('json', { default: {} })
   public attributes: JSON;
 
   @Column('json', { nullable: true })
   public geom: JSON;
+
+  @OneToMany(
+    (): typeof DynamicPointDataEntity => DynamicPointDataEntity,
+    (dynamicData): PointDataEntity => dynamicData.point,
+  )
+  public dynamicData: DynamicPointDataEntity[];
 }

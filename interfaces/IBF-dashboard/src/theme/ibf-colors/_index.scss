@@ -65,21 +65,28 @@
 
   --ion-color-ibf-grey: var(--fiveten-neutral-300);
 
-  --ion-color-ibf-yellow: #feff02;
+  --ion-color-ibf-yellow: #fff500;
   --ion-color-ibf-yellow-rgb: 254, 255, 2;
-  --ion-color-ibf-yellow-contrast: #000000;
+  --ion-color-ibf-yellow-contrast: #7d6906;
   --ion-color-ibf-yellow-contrast-rgb: 0, 0, 0;
-  --ion-color-ibf-yellow-shade: #feff02;
-  --ion-color-ibf-yellow-tint: #feff02;
+  --ion-color-ibf-yellow-shade: #fff500;
+  --ion-color-ibf-yellow-tint: #fff500;
 
-  --ion-color-ibf-orange: #fcb50c;
+  --ion-color-ibf-orange: #f0890d;
   --ion-color-ibf-orange-rgb: 252, 181, 12;
-  --ion-color-ibf-orange-contrast: #000000;
+  --ion-color-ibf-orange-contrast: white;
   --ion-color-ibf-orange-contrast-rgb: 0, 0, 0;
-  --ion-color-ibf-orange-shade: #fcb50c;
-  --ion-color-ibf-orange-tint: #fcb50c;
+  --ion-color-ibf-orange-shade: #f0890d;
+  --ion-color-ibf-orange-tint: #f0890d;
 
   --ion-color-ibf-outline-red: var(--fiveten-error-500);
+
+  --ion-color-success: var(--fiveten-success-500);
+  --ion-color-success-rgb: var(--fiveten-success-500-rgb);
+  --ion-color-success-contrast: var(--fiveten-neutral-000);
+  --ion-color-success-contrast-rgb: var(--fiveten-neutral-000);
+  --ion-color-success-shade: var(--fiveten-success-700);
+  --ion-color-success-tint: var(--fiveten-success-300);
 
   --ion-color-danger: var(--fiveten-error-500);
   --ion-color-danger-rgb: var(--fiveten-error-500-rgb);

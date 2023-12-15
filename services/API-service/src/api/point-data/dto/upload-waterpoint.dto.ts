@@ -14,8 +14,8 @@ export class WaterpointDto {
   @IsString()
   public type: string = undefined;
 
-  @ApiProperty({ example: 1234 })
-  public fid: number = undefined;
+  @ApiProperty({ example: '1234' })
+  public fid: string = undefined;
 
   @ApiProperty({ example: 0 })
   @IsNotEmpty()

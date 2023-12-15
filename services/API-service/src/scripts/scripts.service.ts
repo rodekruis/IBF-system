@@ -28,7 +28,7 @@ import { LinesDataService } from '../api/lines-data/lines-data.service';
 import { UploadLinesExposureStatusDto } from '../api/lines-data/dto/upload-asset-exposure-status.dto';
 import { LinesDataEnum } from '../api/lines-data/lines-data.entity';
 import { PointDataEnum } from '../api/point-data/point-data.entity';
-import { UploadAssetExposureStatusDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
+import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
 import { PointDataService } from '../api/point-data/point-data.service';
 
 @Injectable()
@@ -187,9 +187,14 @@ export class ScriptsService {
     }
 
     if (mockInput.disasterType === DisasterType.FlashFloods) {
-      await this.mockEsposedAssets(
+      await this.mockExposedAssets(
         selectedCountry.countryCodeISO3,
         mockInput.triggered,
+        date,
+      );
+      await this.mockDynamicPointData(
+        selectedCountry.countryCodeISO3,
+        mockInput.disasterType,
         date,
       );
     }
@@ -901,7 +906,8 @@ export class ScriptsService {
     triggered: boolean,
     date: Date,
   ) {
-    const stationsFileName = `./src/api/glofas-station/dto/example/glofas-stations-${
+    // TODO: this is still the old glofas input-format, needs to be updated
+    const stationsFileName = `./src/api/point-data/dto/example/glofas-stations/glofas-stations-${
       selectedCountry.countryCodeISO3
     }${triggered ? '-triggered' : ''}.json`;
     const stationsRaw = fs.readFileSync(stationsFileName, 'utf-8');
@@ -944,7 +950,7 @@ export class ScriptsService {
     });
   }
 
-  private async mockEsposedAssets(
+  private async mockExposedAssets(
     countryCodeISO3: string,
     triggered: boolean,
     date: Date,
@@ -986,35 +992,62 @@ export class ScriptsService {
       }
 
       for (const pointAssetType of pointDataCategories) {
-        const payload = new UploadAssetExposureStatusDto();
-        payload.countryCodeISO3 = countryCodeISO3;
+        const payload = new UploadDynamicPointDataDto();
         payload.disasterType = DisasterType.FlashFloods;
-        payload.pointDataCategory = pointAssetType;
+        payload.key = 'exposure';
         payload.leadTime = leadTime;
         payload.date = date || new Date();
         if (pointAssetType === PointDataEnum.healthSites) {
           leadTime === LeadTime.hour24
-            ? (payload.exposedFids = [])
+            ? (payload.dynamicPointData = [])
             : leadTime === LeadTime.hour6
-            ? (payload.exposedFids = ['124'])
+            ? (payload.dynamicPointData = [{ fid: '124', value: 'true' }])
             : [];
         } else if (pointAssetType === PointDataEnum.schools) {
           leadTime === LeadTime.hour24
-            ? (payload.exposedFids = ['167'])
+            ? (payload.dynamicPointData = [{ fid: '167', value: 'true' }])
             : leadTime === LeadTime.hour6
-            ? (payload.exposedFids = [])
+            ? (payload.dynamicPointData = [])
             : [];
         } else if (pointAssetType === PointDataEnum.waterpointsInternal) {
           const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${pointAssetType}.json`;
           const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
           leadTime === LeadTime.hour24
-            ? (payload.exposedFids = assets[LeadTime.hour24])
+            ? (payload.dynamicPointData = assets[LeadTime.hour24])
             : leadTime === LeadTime.hour6
-            ? (payload.exposedFids = assets[LeadTime.hour6])
+            ? (payload.dynamicPointData = assets[LeadTime.hour6])
             : [];
         }
-        await this.pointDataService.uploadAssetExposureStatus(payload);
+        await this.pointDataService.uploadDynamicPointData(payload);
       }
+    }
+  }
+
+  private async mockDynamicPointData(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    date: Date,
+  ) {
+    if (countryCodeISO3 !== 'MWI') {
+      return;
+    }
+
+    const keys = [
+      'water-level',
+      'water-level-reference',
+      'water-level-previous',
+    ];
+    for (const key of keys) {
+      const payload = new UploadDynamicPointDataDto();
+      payload.key = key;
+      payload.leadTime = null;
+      payload.date = date || new Date();
+      payload.disasterType = disasterType;
+      const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/dynamic-point-data_${key}.json`;
+      const dynamicPointData = JSON.parse(fs.readFileSync(filename, 'utf-8'));
+      payload.dynamicPointData = dynamicPointData;
+
+      await this.pointDataService.uploadDynamicPointData(payload);
     }
   }
 

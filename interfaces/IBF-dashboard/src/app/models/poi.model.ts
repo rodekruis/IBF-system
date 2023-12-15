@@ -8,6 +8,7 @@ export class Station {
   forecastLevel: number;
   eapAlertClass: string;
   forecastReturnPeriod: number;
+  dynamicData?: any;
 }
 
 export class TyphoonTrackPoint {
@@ -35,7 +36,7 @@ export class Waterpoint {
 export class HealthSite {
   name: string;
   type: string;
-  exposed: boolean;
+  dynamicData?: { exposure: string };
 }
 
 export enum HealthSiteType {
@@ -61,13 +62,13 @@ export class EvacuationCenter {
 export class School {
   name: string;
   type: string;
-  exposed: boolean;
+  dynamicData?: { exposure: string };
 }
 
 export class WaterpointInternal {
   name: string;
   type: string;
-  exposed: boolean;
+  dynamicData?: { exposure: string };
 }
 export class CommunityNotification {
   public nameVolunteer: string;
@@ -78,4 +79,16 @@ export class CommunityNotification {
   public dismissed: boolean;
   public pointDataId: string;
   public photoUrl: string;
+}
+
+export class RiverGauge {
+  fid: string;
+  name: string;
+  dynamicData: {
+    'water-level': string;
+    'water-level-previous': string;
+    'water-level-reference': string;
+  };
+  exposed: boolean;
+  pointDataId: string;
 }

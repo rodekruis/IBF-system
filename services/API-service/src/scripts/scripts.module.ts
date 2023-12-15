@@ -21,7 +21,6 @@ import { AdminAreaModule } from '../api/admin-area/admin-area.module';
 import { CountryModule } from '../api/country/country.module';
 import SeedAdminAreaData from './seed-admin-area-data';
 import SeedPointData from './seed-point-data';
-import SeedGlofasStation from './seed-glofas-station';
 import SeedRainfallData from './seed-rainfall-data';
 import { PointDataModule } from '../api/point-data/point-data.module';
 import { AdminAreaDataModule } from '../api/admin-area-data/admin-area-data.module';
@@ -63,7 +62,6 @@ import { ORMConfig } from '../../ormconfig';
     SeedAdminAreaData,
     SeedPointData,
     SeedLineData,
-    SeedGlofasStation,
     SeedRainfallData,
   ],
   controllers: [ScriptsController],

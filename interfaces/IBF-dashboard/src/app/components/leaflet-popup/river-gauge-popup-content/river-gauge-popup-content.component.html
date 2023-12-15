@@ -1,0 +1,54 @@
+<ng-container *ngIf="current">
+  <div
+    style="margin-bottom: 4px; display: flex; justify-content: space-between"
+  >
+    <div>
+      <ion-label style="font-size: 18px; padding-right: 8px">
+        <strong>{{ currentString }}</strong>
+        {{ 'map-popups.river-gauge.unit' | translate }}
+        {{ 'map-popups.river-gauge.sea-level' | translate }}
+      </ion-label>
+      <ion-label
+        style="margin-right: 4px"
+        [color]="difference <= 0 ? 'success' : 'danger'"
+      >
+        <ion-icon
+          [name]="difference <= 0 ? 'caret-down-outline' : 'caret-up-outline'"
+        ></ion-icon
+        >{{ differenceAbsolute }}
+        {{ 'map-popups.river-gauge.unit' | translate }}</ion-label
+      >
+    </div>
+    <app-tooltip
+      [value]="'map-popups.river-gauge.tooltip' | translate"
+      color="ibf-no-alert-primary"
+    ></app-tooltip>
+  </div>
+  <div style="margin-bottom: 4px">
+    <ion-label
+      ><strong>{{
+        'map-popups.river-gauge.current' | translate
+      }}</strong></ion-label
+    >
+  </div>
+  <app-threshold-bar
+    backgroundColor="var(--ion-color-ibf-no-alert-primary)"
+    textColor="var(--ion-color-ibf-white)"
+    [barWidth]="triggerWidth"
+    [barValue]="current + ('map-popups.river-gauge.unit' | translate)"
+    [thresholdDescription]="'map-popups.river-gauge.normal' | translate"
+    [thresholdValue]="reference + ('map-popups.river-gauge.unit' | translate)"
+    [thresholdPosition]="45"
+  ></app-threshold-bar>
+</ng-container>
+<ng-container *ngIf="!current">
+  <div
+    style="margin-bottom: 4px; display: flex; justify-content: space-between"
+  >
+    <div>
+      <ion-label style="font-size: 18px; padding-right: 8px">
+        {{ 'map-popups.river-gauge.no-data' | translate }}
+      </ion-label>
+    </div>
+  </div>
+</ng-container>
