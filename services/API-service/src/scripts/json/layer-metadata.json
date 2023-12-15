@@ -477,7 +477,7 @@
     "active": "no",
     "description": {
       "MWI": {
-        "flash-floods": "Current water level in meters above sea level (mMSL) is measured by a gauge during the latest model run. The difference compared to 24 hours ago is shown in green for decrease or red for increase. The reference water level is the typical level for this station during this season."
+        "flash-floods": "The river gauge layer shows you the location of river gauges on the map, they are visualised as blue drop pins with a river icon. Clicking on a drop pin opens a pop up containing information about the current water level in meters above sea level (mMSL) this is measured daily with the latest model run. The difference compared to 24 hours ago is shown in green for decrease or red for increase. The reference water level is the typical level for this station during this season."
       }
     }
   },
