@@ -1,3 +1,12 @@
+# [0.260.0](https://github.com/rodekruis/IBF-system/compare/v0.259.2...v0.260.0) (2023-11-29)
+
+
+### Features
+
+* dynamic point data entity + gauge layer AB[#25124](https://github.com/rodekruis/IBF-system/issues/25124) ([bfc3071](https://github.com/rodekruis/IBF-system/commit/bfc3071d1459a9b860442cb1431027e4fa34cd0c))
+
+
+
 ## [0.259.2](https://github.com/rodekruis/IBF-system/compare/v0.259.1...v0.259.2) (2023-11-20)
 
 
@@ -139,15 +148,6 @@
 ### Bug Fixes
 
 * process info popups AB[#23665](https://github.com/rodekruis/IBF-system/issues/23665) ([38fc55b](https://github.com/rodekruis/IBF-system/commit/38fc55b472772d1e528dd8986ca8797643668259))
-
-
-
-## [0.258.6](https://github.com/rodekruis/IBF-system/compare/v0.258.5...v0.258.6) (2023-09-18)
-
-
-### Bug Fixes
-
-* red outline issue AB[#23678](https://github.com/rodekruis/IBF-system/issues/23678) ([61b2d9c](https://github.com/rodekruis/IBF-system/commit/61b2d9c91677612d9f39a0c0ecd9b77feb220684))
 
 
 
