@@ -57,6 +57,9 @@ export class UploadDynamicPointDataDto {
   @IsEnum(DisasterType)
   public disasterType: DisasterType;
 
+  @ApiProperty({ example: PointDataEnum.gauges })
+  public pointDataCategory: PointDataEnum;
+
   @ApiProperty({ example: 'waterLevel' })
   public key: string;
 
