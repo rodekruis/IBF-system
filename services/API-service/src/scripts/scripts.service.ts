@@ -909,7 +909,8 @@ export class ScriptsService {
     triggered: boolean,
     date: Date,
   ) {
-    const stationsFileName = `./src/api/glofas-station/dto/example/glofas-stations-${
+    // TODO: this is still the old glofas input-format, needs to be updated
+    const stationsFileName = `./src/api/point-data/dto/example/glofas-stations/glofas-stations-${
       selectedCountry.countryCodeISO3
     }${triggered ? '-triggered' : ''}.json`;
     const stationsRaw = fs.readFileSync(stationsFileName, 'utf-8');
