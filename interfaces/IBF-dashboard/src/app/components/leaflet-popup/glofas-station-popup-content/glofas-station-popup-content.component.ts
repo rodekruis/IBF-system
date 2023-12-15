@@ -21,6 +21,10 @@ export class GlofasStationPopupContentComponent implements OnInit {
   public barBackgroundColor: string;
   public barTextColor: string;
   private eapAlertClass: EapAlertClass;
+  private defautEapAlertClass: EapAlertClass = {
+    label: 'No action',
+    color: 'ibf-no-alert-primary',
+  };
 
   ngOnInit(): void {
     if (!this.data) {
@@ -28,24 +32,25 @@ export class GlofasStationPopupContentComponent implements OnInit {
     }
 
     const difference =
-      Number(this.data.station.dynamicData.forecastLevel) -
-      Number(this.data.station.dynamicData.triggerLevel);
+      Number(this.data.station.dynamicData?.forecastLevel) -
+      Number(this.data.station.dynamicData?.triggerLevel);
     const closeMargin = 0.05;
     const tooClose =
       Math.abs(difference) / this.data.station.triggerLevel < closeMargin;
 
     this.barValue =
       difference === 0 || !tooClose
-        ? Number(this.data.station.dynamicData.forecastLevel)
-        : Number(this.data.station.dynamicData.triggerLevel) +
+        ? Number(this.data.station.dynamicData?.forecastLevel)
+        : Number(this.data.station.dynamicData?.triggerLevel) +
           Math.sign(difference) *
-            Number(this.data.station.dynamicData.triggerLevel) *
+            Number(this.data.station.dynamicData?.triggerLevel) *
             closeMargin;
 
     this.triggerWidth = Math.max(
       Math.min(
         Math.round(
-          (this.barValue / Number(this.data.station.dynamicData.triggerLevel)) *
+          (this.barValue /
+            Number(this.data.station.dynamicData?.triggerLevel)) *
             100,
         ),
         115,
@@ -53,9 +58,9 @@ export class GlofasStationPopupContentComponent implements OnInit {
       0,
     );
 
-    this.eapAlertClass = this.data.eapAlertClasses[
-      this.data.station.dynamicData.eapAlertClass
-    ];
+    this.eapAlertClass =
+      this.data.eapAlertClasses[this.data.station.dynamicData?.eapAlertClass] ||
+      this.defautEapAlertClass;
 
     this.barBackgroundColor = `var(--ion-color-${this.eapAlertClass.color})`;
     this.barTextColor = `var(--ion-color-${this.eapAlertClass.color}-contrast)`;

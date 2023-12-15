@@ -47,6 +47,10 @@ export class DynamicPointPopupComponent implements OnInit {
   public glofasFooterStyle: string;
 
   public eapAlertClass: EapAlertClass;
+  private defautEapAlertClass: EapAlertClass = {
+    label: 'No action',
+    color: 'ibf-no-alert-primary',
+  };
 
   private allowedLayers = [
     IbfLayerName.gauges,
@@ -76,9 +80,10 @@ export class DynamicPointPopupComponent implements OnInit {
       this.layerName === IbfLayerName.glofasStations &&
       this.glofasData.eapAlertClasses
     ) {
-      this.eapAlertClass = this.glofasData.eapAlertClasses[
-        this.glofasData.station.dynamicData.eapAlertClass
-      ];
+      this.eapAlertClass =
+        this.glofasData.eapAlertClasses[
+          this.glofasData.station.dynamicData?.eapAlertClass
+        ] || this.defautEapAlertClass;
     }
 
     this.title = this.getTitle();
