@@ -28,10 +28,7 @@ import { LinesDataService } from '../api/lines-data/lines-data.service';
 import { UploadLinesExposureStatusDto } from '../api/lines-data/dto/upload-asset-exposure-status.dto';
 import { LinesDataEnum } from '../api/lines-data/lines-data.entity';
 import { PointDataEnum } from '../api/point-data/point-data.entity';
-import {
-  UploadAssetExposureStatusDto,
-  UploadDynamicPointDataDto,
-} from '../api/point-data/dto/upload-asset-exposure-status.dto';
+import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
 import { PointDataService } from '../api/point-data/point-data.service';
 
 @Injectable()
