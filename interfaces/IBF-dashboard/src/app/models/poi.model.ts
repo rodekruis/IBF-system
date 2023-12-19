@@ -8,6 +8,7 @@ export class Station {
   forecastLevel: number;
   eapAlertClass: string;
   forecastReturnPeriod: number;
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   dynamicData?: any;
 }
 
