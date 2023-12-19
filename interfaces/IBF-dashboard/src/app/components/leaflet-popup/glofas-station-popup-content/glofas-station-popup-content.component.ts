@@ -36,7 +36,8 @@ export class GlofasStationPopupContentComponent implements OnInit {
       Number(this.data.station.dynamicData?.triggerLevel);
     const closeMargin = 0.05;
     const tooClose =
-      Math.abs(difference) / this.data.station.triggerLevel < closeMargin;
+      Math.abs(difference) / this.data.station.dynamicData?.triggerLevel <
+      closeMargin;
 
     this.barValue =
       difference === 0 || !tooClose
