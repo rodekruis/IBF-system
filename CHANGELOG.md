@@ -1,3 +1,16 @@
+## [0.261.1](https://github.com/rodekruis/IBF-system/compare/v0.261.0...v0.261.1) (2023-12-19)
+
+
+### Bug Fixes
+
+* catch missing glofas dynamic data better AB[#25411](https://github.com/rodekruis/IBF-system/issues/25411) ([d79ab9b](https://github.com/rodekruis/IBF-system/commit/d79ab9bbc50a4eb50bdd94bc35626d0f938fb0a0))
+* handle no data better AB[#25411](https://github.com/rodekruis/IBF-system/issues/25411) ([f29b4ed](https://github.com/rodekruis/IBF-system/commit/f29b4ed51d43daf2d9e415d263b8daa9069c6bbf))
+* set font to montserrat AB[#25371](https://github.com/rodekruis/IBF-system/issues/25371) ([4bffae4](https://github.com/rodekruis/IBF-system/commit/4bffae4f5da35057a0a57dd0db536242cf2d5312))
+* update size of unit and sea level AB[#25371](https://github.com/rodekruis/IBF-system/issues/25371) ([d66f16a](https://github.com/rodekruis/IBF-system/commit/d66f16a6b0c51e5a7040d30d04d8b4cdf3b105c5))
+* update width of popup AB[#25371](https://github.com/rodekruis/IBF-system/issues/25371) ([44845ce](https://github.com/rodekruis/IBF-system/commit/44845ce909ac5c0a668d6203bfd655962253cd48))
+
+
+
 # [0.261.0](https://github.com/rodekruis/IBF-system/compare/v0.260.0...v0.261.0) (2023-12-15)
 
 
@@ -163,15 +176,6 @@
 ### Bug Fixes
 
 * process every-time-returning migrations AB[#23790](https://github.com/rodekruis/IBF-system/issues/23790) ([9be6f3d](https://github.com/rodekruis/IBF-system/commit/9be6f3d10bdc4fac58be1771e70b1fe450ca42f4))
-
-
-
-## [0.258.8](https://github.com/rodekruis/IBF-system/compare/v0.258.7...v0.258.8) (2023-09-25)
-
-
-### Bug Fixes
-
-* rm redcross layer again AB[#23770](https://github.com/rodekruis/IBF-system/issues/23770) ([b983741](https://github.com/rodekruis/IBF-system/commit/b98374151aa1c50e45034462483279c84b2ab0b8))
 
 
 
