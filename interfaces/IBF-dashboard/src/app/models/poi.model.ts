@@ -2,12 +2,7 @@
 export class Station {
   stationName: string;
   stationCode: string;
-  typhoonTrackName: string;
-  typhoonTrackCode: string;
-  triggerLevel: number;
-  forecastLevel: number;
-  eapAlertClass: string;
-  forecastReturnPeriod: number;
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
   dynamicData?: any;
 }
 
@@ -89,6 +84,5 @@ export class RiverGauge {
     'water-level-previous': string;
     'water-level-reference': string;
   };
-  exposed: boolean;
   pointDataId: string;
 }

@@ -3,8 +3,10 @@
     style="margin-bottom: 4px; display: flex; justify-content: space-between"
   >
     <div>
-      <ion-label style="font-size: 18px; padding-right: 8px">
-        <strong>{{ currentString }}</strong>
+      <ion-label style="padding-right: 8px">
+        <span style="font-size: 18px"
+          ><strong>{{ currentString }}</strong></span
+        >
         {{ 'map-popups.river-gauge.unit' | translate }}
         {{ 'map-popups.river-gauge.sea-level' | translate }}
       </ion-label>
@@ -38,7 +40,7 @@
     [barValue]="current + ('map-popups.river-gauge.unit' | translate)"
     [thresholdDescription]="'map-popups.river-gauge.normal' | translate"
     [thresholdValue]="reference + ('map-popups.river-gauge.unit' | translate)"
-    [thresholdPosition]="45"
+    [thresholdPosition]="80"
   ></app-threshold-bar>
 </ng-container>
 <ng-container *ngIf="!current">

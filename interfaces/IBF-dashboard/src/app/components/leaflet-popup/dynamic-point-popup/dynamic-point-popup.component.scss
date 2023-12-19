@@ -1,3 +1,7 @@
+* {
+  font-family: var(--ion-font-family);
+}
+
 .leaflet--dynamic-point-popup--header {
   &.gauges {
     background: var(--ion-color-ibf-no-alert-primary);
