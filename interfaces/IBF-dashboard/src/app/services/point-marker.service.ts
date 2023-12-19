@@ -125,10 +125,16 @@ export class PointMarkerService {
 
     const markerIcon: IconOptions = {
       ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-      iconUrl: `assets/markers/glofas-station-${markerProperties.dynamicData?.eapAlertClass}-trigger.svg`,
-      iconRetinaUrl: `assets/markers/glofas-station-${markerProperties.dynamicData?.eapAlertClass}-trigger.svg`,
+      iconUrl: `assets/markers/glofas-station-${
+        markerProperties.dynamicData?.eapAlertClass || 'no'
+      }-trigger.svg`,
+      iconRetinaUrl: `assets/markers/glofas-station-${
+        markerProperties.dynamicData?.eapAlertClass || 'no'
+      }-trigger.svg`,
     };
-    const className = `trigger-popup-${markerProperties.dynamicData?.eapAlertClass}`;
+    const className = `trigger-popup-${
+      markerProperties.dynamicData?.eapAlertClass || 'no'
+    }`;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
