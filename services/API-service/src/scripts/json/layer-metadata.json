@@ -42,7 +42,7 @@
         "floods": "The flood extent layer indicates the inundated area of recurring floods within a return period depending on the EAP (for example 20-years) based on a global hydrological model.<br /><br />Source link: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
       },
       "MWI": {
-        "flash-floods": "<p>This layer shows the area that is potentially flooding in this event. The fooded area is derived from the HEC-RAS flood model. The model resulted in scenario's that are related to the forecasted rainfall. The rainfall forecast from GFS is every 6 hours matched for each Traditional Authority to the scenario from the flood model.</p><p>The color indicates the depth of the flooded area, yellow means the area is only flooded with a shallow layer of water and red means a deep layer of water, with the different shades of orange somewhere in between.</p>",
+        "flash-floods": "<p>This layer shows the potentially flooded area in the current event, determined by the HEC-RAS flood model. The model produces scenarios correlated with forecasted rainfall. GFS rainfall forecasts, updated every 6 hours, are synchronized with the flood model scenarios for each Traditional Authority.</p><p>The color scheme represents the depth of the flooded area: yellow signifies a shallow layer of water, red signifies a deep layer, and various shades of orange signifies intermediate depths.</p>",
         "floods": "<p>The flood extent layer indicates the inundated area of recurring floods within a return period depending on the EAP (for example 10-years) based on a global hydrological model.<br><br>Source link: Flood hazard map of the World - 10-year return period. European Commission, Joint Research Centre (JRC). 2016. <a target='_blank' href='https://data.jrc.ec.europa.eu/dataset/jrc-floods-floodmapgl_rp10y-tif'>Flood hazard map of the World - 10-year return period - European Commission (europa.eu)</a>.</p>"
       },
       "PHL": {
@@ -350,7 +350,7 @@
         "floods": "<p>Number of health facilities by type and location, health facility types; hospital and doctors</p><p><strong>Source link</strong>: <a target='_blank' href='https://healthsites.io/'>https://healthsites.io/</a></p>"
       },
       "MWI": {
-        "flash-floods": "<p>This layer shows the Health Sites in the potentially affected Traditional Authorities. Each Health Site has either a blue or a red marker. Blue when it is outside the potentially inundated area so safe and red when it is inside the potentially inundated area so in danger.</p><br><p>Source: Cloud2Street</p>"
+        "flash-floods": "<p>This layer shows Health Sites within Traditional Authorities that may be affected. Each Health Site is marked with either a blue or red indicator. Blue indicates it is outside the potentially inundated area and safe. Red indicates it is inside the potentially inundated area and at risk.</p><br><p>Source: Cloud2Street</p>"
       },
       "PHL": {
         "dengue": "Health facilities by type and location. Health facility types <strong>hospital</strong> and <strong>clinic</strong> are shown with different markers. Other types are omitted and rare in the data.<br /><br />Source: <a target='_blank' href='https://healthsites.io/'>https://healthsites.io/<a/>",
@@ -507,7 +507,7 @@
     },
     "description": {
       "MWI": {
-        "flash-floods": "<p>This layer shows the buildings in the potentially affected Traditional Authorities. Each building has either a green or a red outline. Green when it is outside the potentially inundated area so safe and red when it is inside the potentially inundated area so in danger.</p><br><p>Source: Openstreetmap</p>"
+        "flash-floods": "<p>This layer displays the buildings within Traditional Authorities that may be affected. Each building is outlined in either green or red. Green indicates it is outside the potentially inundated area and safe. Red indicates it is inside the potentially inundated area and at risk.</p><br><p>Source: Openstreetmap</p>"
       }
     }
   },
