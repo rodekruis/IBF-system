@@ -1,3 +1,12 @@
+## [0.261.2](https://github.com/rodekruis/IBF-system/compare/v0.261.1...v0.261.2) (2023-12-22)
+
+
+### Bug Fixes
+
+* update buildings AB[#25047](https://github.com/rodekruis/IBF-system/issues/25047) ([54e0692](https://github.com/rodekruis/IBF-system/commit/54e06923778fab50f0ad7378a3920674f97592fe))
+
+
+
 ## [0.261.1](https://github.com/rodekruis/IBF-system/compare/v0.261.0...v0.261.1) (2023-12-19)
 
 
@@ -167,15 +176,6 @@
 ### Bug Fixes
 
 * add support email to too-late-tooltip + fix styling AB[#23759](https://github.com/rodekruis/IBF-system/issues/23759) ([97e236c](https://github.com/rodekruis/IBF-system/commit/97e236cf9c101516745c4c3fc2ab222ce0828fc0))
-
-
-
-## [0.258.9](https://github.com/rodekruis/IBF-system/compare/v0.258.8...v0.258.9) (2023-09-25)
-
-
-### Bug Fixes
-
-* process every-time-returning migrations AB[#23790](https://github.com/rodekruis/IBF-system/issues/23790) ([9be6f3d](https://github.com/rodekruis/IBF-system/commit/9be6f3d10bdc4fac58be1771e70b1fe450ca42f4))
 
 
 
