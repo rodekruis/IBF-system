@@ -1,3 +1,12 @@
+## [0.261.3](https://github.com/rodekruis/IBF-system/compare/v0.261.2...v0.261.3) (2023-12-22)
+
+
+### Bug Fixes
+
+* update MWI flash-floods info popups AB[#25047](https://github.com/rodekruis/IBF-system/issues/25047) ([70ea361](https://github.com/rodekruis/IBF-system/commit/70ea3612c5b16ad3c5cb95252dc57585859ae298))
+
+
+
 ## [0.261.2](https://github.com/rodekruis/IBF-system/compare/v0.261.1...v0.261.2) (2023-12-22)
 
 
@@ -167,15 +176,6 @@
 
 * change flash-floods mock ongoing to warning AB[#23822](https://github.com/rodekruis/IBF-system/issues/23822) ([419a55b](https://github.com/rodekruis/IBF-system/commit/419a55b2f691544aa315f2272da085dc39398b4c))
 * show no exposed assets if non-triggered AB[#23877](https://github.com/rodekruis/IBF-system/issues/23877) ([c6ef96a](https://github.com/rodekruis/IBF-system/commit/c6ef96a5e195221b32ef383ae6bd69970f227c35))
-
-
-
-## [0.258.10](https://github.com/rodekruis/IBF-system/compare/v0.258.9...v0.258.10) (2023-09-29)
-
-
-### Bug Fixes
-
-* add support email to too-late-tooltip + fix styling AB[#23759](https://github.com/rodekruis/IBF-system/issues/23759) ([97e236c](https://github.com/rodekruis/IBF-system/commit/97e236cf9c101516745c4c3fc2ab222ce0828fc0))
 
 
 
