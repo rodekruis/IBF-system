@@ -1,8 +1,8 @@
 [
   {
     "stationCode": "G5075",
-    "forecastLevel": 0,
-    "eapAlertClass": "no",
+    "forecastLevel": 500,
+    "eapAlertClass": "med",
     "forecastReturnPeriod": null,
     "triggerLevel": 400
   },
@@ -43,8 +43,8 @@
   },
   {
     "stationCode": "G5230",
-    "forecastLevel": 0,
-    "eapAlertClass": "no",
+    "forecastLevel": 410,
+    "eapAlertClass": "min",
     "forecastReturnPeriod": null,
     "triggerLevel": 400
   },
