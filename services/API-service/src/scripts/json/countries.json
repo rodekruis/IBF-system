@@ -16,6 +16,14 @@
             "label": "No action",
             "color": "ibf-no-alert-primary"
           },
+          "min": {
+            "label": "Minimum alert",
+            "color": "ibf-yellow"
+          },
+          "med": {
+            "label": "Medium alert",
+            "color": "ibf-orange"
+          },
           "max": {
             "label": "Activate EAP",
             "color": "ibf-trigger-alert-primary"
