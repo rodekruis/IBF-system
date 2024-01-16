@@ -1,3 +1,12 @@
+## [0.261.5](https://github.com/rodekruis/IBF-system/compare/v0.261.4...v0.261.5) (2024-01-16)
+
+
+### Bug Fixes
+
+* put back old GET glofas endpoint AB[#25879](https://github.com/rodekruis/IBF-system/issues/25879) ([90427de](https://github.com/rodekruis/IBF-system/commit/90427de31957ea154ed463e33162b66bb238b40d))
+
+
+
 ## [0.261.4](https://github.com/rodekruis/IBF-system/compare/v0.261.3...v0.261.4) (2024-01-16)
 
 
@@ -167,15 +176,6 @@
 * use isEventBased AB[#24055](https://github.com/rodekruis/IBF-system/issues/24055) ([8d7a0d6](https://github.com/rodekruis/IBF-system/commit/8d7a0d65021fe389737db768f5dffaebc223c737))
 * zoom in and out 1 level AB[#23927](https://github.com/rodekruis/IBF-system/issues/23927) ([92d7a62](https://github.com/rodekruis/IBF-system/commit/92d7a621d8c602940d5e31a5b19437f6a9845618))
 * zoom in and out to deeper levels AB[#23927](https://github.com/rodekruis/IBF-system/issues/23927) ([e988faa](https://github.com/rodekruis/IBF-system/commit/e988faa723af895b7ee8aa6bb950616c08cff654))
-
-
-
-## [0.258.12](https://github.com/rodekruis/IBF-system/compare/v0.258.11...v0.258.12) (2023-10-02)
-
-
-### Bug Fixes
-
-* too late AB[#23899](https://github.com/rodekruis/IBF-system/issues/23899) ([d218f5a](https://github.com/rodekruis/IBF-system/commit/d218f5a66acc2511c6c72e68c8767b771774e7a9))
 
 
 
