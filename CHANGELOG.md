@@ -1,3 +1,13 @@
+## [0.261.4](https://github.com/rodekruis/IBF-system/compare/v0.261.3...v0.261.4) (2024-01-16)
+
+
+### Bug Fixes
+
+* put back old GET glofas endpoint AB[#25879](https://github.com/rodekruis/IBF-system/issues/25879) ([723a5ed](https://github.com/rodekruis/IBF-system/commit/723a5ed6c5c5d1b3542b4b1fdf74606b5592b6b2))
+* put back old GET glofas endpoint AB[#25879](https://github.com/rodekruis/IBF-system/issues/25879) ([565fb5f](https://github.com/rodekruis/IBF-system/commit/565fb5f0a3ef48baebae71df8edb38019a634f1c))
+
+
+
 ## [0.261.3](https://github.com/rodekruis/IBF-system/compare/v0.261.2...v0.261.3) (2023-12-22)
 
 
@@ -166,16 +176,6 @@
 ### Bug Fixes
 
 * too late AB[#23899](https://github.com/rodekruis/IBF-system/issues/23899) ([d218f5a](https://github.com/rodekruis/IBF-system/commit/d218f5a66acc2511c6c72e68c8767b771774e7a9))
-
-
-
-## [0.258.11](https://github.com/rodekruis/IBF-system/compare/v0.258.10...v0.258.11) (2023-09-29)
-
-
-### Bug Fixes
-
-* change flash-floods mock ongoing to warning AB[#23822](https://github.com/rodekruis/IBF-system/issues/23822) ([419a55b](https://github.com/rodekruis/IBF-system/commit/419a55b2f691544aa315f2272da085dc39398b4c))
-* show no exposed assets if non-triggered AB[#23877](https://github.com/rodekruis/IBF-system/issues/23877) ([c6ef96a](https://github.com/rodekruis/IBF-system/commit/c6ef96a5e195221b32ef383ae6bd69970f227c35))
 
 
 
