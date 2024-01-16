@@ -11,7 +11,6 @@ import { RolesGuard } from '../../roles.guard';
 import { UserRole } from '../user/user-role.enum';
 import { UploadTriggerPerStationDto } from './dto/upload-trigger-per-station';
 import { GlofasStationService } from './glofas-station.service';
-import { GlofasStationEntityDto } from './dto/glofas-station-entity.dto';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -32,7 +31,6 @@ export class GlofasStationController {
   @ApiResponse({
     status: 200,
     description: 'Glofas station locations and attributes for given country.',
-    type: [GlofasStationEntityDto],
   })
   @Get(':countryCodeISO3')
   public async getStationsByCountry(@Param() params): Promise<any[]> {
