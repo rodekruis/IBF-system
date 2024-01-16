@@ -20,11 +20,11 @@
     "placeCode": "21UGA014002"
   },
   {
-    "amount": 1,
+    "amount": 0.7,
     "placeCode": "21UGA003002"
   },
   {
-    "amount": 1,
+    "amount": 0.3,
     "placeCode": "21UGA003004"
   },
   {
@@ -40,7 +40,7 @@
     "placeCode": "21UGA010004"
   },
   {
-    "amount": 1,
+    "amount": 0.3,
     "placeCode": "21UGA005003"
   },
   {
@@ -60,7 +60,7 @@
     "placeCode": "21UGA014003"
   },
   {
-    "amount": 1,
+    "amount": 0.3,
     "placeCode": "21UGA005006"
   },
   {
@@ -172,7 +172,7 @@
     "placeCode": "21UGA011012"
   },
   {
-    "amount": 1,
+    "amount": 0.7,
     "placeCode": "21UGA005010"
   },
   {
@@ -228,11 +228,11 @@
     "placeCode": "21UGA013009"
   },
   {
-    "amount": 1,
+    "amount": 0.3,
     "placeCode": "21UGA003007"
   },
   {
-    "amount": 1,
+    "amount": 0.3,
     "placeCode": "21UGA005001"
   },
   {
@@ -260,7 +260,7 @@
     "placeCode": "21UGA011010"
   },
   {
-    "amount": 1,
+    "amount": 0.3,
     "placeCode": "21UGA005011"
   },
   {
@@ -312,7 +312,7 @@
     "placeCode": "21UGA001001"
   },
   {
-    "amount": 1,
+    "amount": 0.3,
     "placeCode": "21UGA003005"
   },
   {
@@ -376,7 +376,7 @@
     "placeCode": "21UGA008008"
   },
   {
-    "amount": 1,
+    "amount": 0.3,
     "placeCode": "21UGA003006"
   },
   {
