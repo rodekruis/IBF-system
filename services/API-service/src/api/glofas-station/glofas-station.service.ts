@@ -6,6 +6,8 @@ import { DisasterType } from '../disaster/disaster-type.enum';
 import { CountryEntity } from '../country/country.entity';
 import { PointDataService } from '../point-data/point-data.service';
 import { UploadDynamicPointDataDto } from '../point-data/dto/upload-asset-exposure-status.dto';
+import { GlofasStationEntityDto } from './dto/glofas-station-entity.dto';
+import { PointDataEnum } from '../point-data/point-data.entity';
 
 @Injectable()
 export class GlofasStationService {
@@ -13,6 +15,25 @@ export class GlofasStationService {
   private readonly countryRepository: Repository<CountryEntity>;
 
   public constructor(private readonly pointDataService: PointDataService) {}
+
+  public async getStationsByCountry(countryCodeISO3: string): Promise<any[]> {
+    const stations = await this.pointDataService.getPointDataByCountry(
+      PointDataEnum.glofasStations,
+      countryCodeISO3,
+      DisasterType.Floods,
+    );
+    return stations.features.map((s) => {
+      return {
+        id: s.properties['pointDataId'],
+        countryCodeISO3: countryCodeISO3,
+        stationCode: s.properties['stationCode'],
+        stationName: s.properties['stationName'],
+        lat: String(s.geometry.coordinates[1]),
+        lon: String(s.geometry.coordinates[0]),
+        geom: s.geometry,
+      };
+    });
+  }
 
   private async validateEapAlertClass(
     uploadTriggerPerStation: UploadTriggerPerStationDto,

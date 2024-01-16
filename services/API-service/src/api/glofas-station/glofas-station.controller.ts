@@ -1,7 +1,8 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
+  ApiParam,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -10,6 +11,7 @@ import { RolesGuard } from '../../roles.guard';
 import { UserRole } from '../user/user-role.enum';
 import { UploadTriggerPerStationDto } from './dto/upload-trigger-per-station';
 import { GlofasStationService } from './glofas-station.service';
+import { GlofasStationEntityDto } from './dto/glofas-station-entity.dto';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -20,6 +22,23 @@ export class GlofasStationController {
 
   public constructor(glofasStationService: GlofasStationService) {
     this.glofasStationService = glofasStationService;
+  }
+
+  @ApiOperation({
+    summary:
+      'Get Glofas station locations and attributes for given country (used by IBF-pipeline)',
+  })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiResponse({
+    status: 200,
+    description: 'Glofas station locations and attributes for given country.',
+    type: [GlofasStationEntityDto],
+  })
+  @Get(':countryCodeISO3')
+  public async getStationsByCountry(@Param() params): Promise<any[]> {
+    return await this.glofasStationService.getStationsByCountry(
+      params.countryCodeISO3,
+    );
   }
 
   @Roles(UserRole.PipelineUser)
