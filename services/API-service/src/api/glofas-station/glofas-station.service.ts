@@ -6,7 +6,6 @@ import { DisasterType } from '../disaster/disaster-type.enum';
 import { CountryEntity } from '../country/country.entity';
 import { PointDataService } from '../point-data/point-data.service';
 import { UploadDynamicPointDataDto } from '../point-data/dto/upload-asset-exposure-status.dto';
-import { GlofasStationEntityDto } from './dto/glofas-station-entity.dto';
 import { PointDataEnum } from '../point-data/point-data.entity';
 
 @Injectable()
