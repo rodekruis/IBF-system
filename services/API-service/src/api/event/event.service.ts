@@ -210,6 +210,18 @@ export class EventService {
     ).triggerUnit;
   }
 
+  private async getCountryDisasterSettings(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ) {
+    return (
+      await this.countryRepository.findOne({
+        where: { countryCodeISO3: countryCodeISO3 },
+        relations: ['countryDisasterSettings'],
+      })
+    ).countryDisasterSettings.find((d) => d.disasterType === disasterType);
+  }
+
   public async getTriggeredAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
@@ -223,12 +235,7 @@ export class EventService {
     );
     const triggerUnit = await this.getTriggerUnit(disasterType);
     const defaultAdminLevel = (
-      await this.countryRepository.findOne({
-        where: { countryCodeISO3: countryCodeISO3 },
-        relations: ['countryDisasterSettings'],
-      })
-    ).countryDisasterSettings.find(
-      (d) => d.disasterType === disasterType,
+      await this.getCountryDisasterSettings(countryCodeISO3, disasterType)
     ).defaultAdminLevel;
 
     const whereFiltersDynamicData = {
@@ -415,6 +422,7 @@ export class EventService {
         'case when event.closed = true then event."endDate" end as "endDate"',
         'disaster."actionsUnit" as "exposureIndicator"',
         'event."actionsValue" as "exposureValue"',
+        `CASE event."triggerValue" WHEN 1 THEN 'maximum' WHEN 0.7 THEN 'medium' WHEN 0.3 THEN 'minimum' END as "triggerValue"`,
         'event."eventPlaceCodeId" as "databaseId"',
       ])
       .leftJoin('event.adminArea', 'area')
