@@ -135,12 +135,17 @@ export class EapActionsService {
 
   private onTriggeredAreas = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
-    this.triggeredAreas.sort((a, b) =>
-      a.actionsValue > b.actionsValue ? -1 : 1,
-    );
+    this.triggeredAreas.sort((a, b) => {
+      if (a.triggerValue === b.triggerValue) {
+        return a.actionsValue > b.actionsValue ? -1 : 1;
+      } else {
+        return a.triggerValue > b.triggerValue ? -1 : 1;
+      }
+    });
     if (this.getActiveLeadtime()) {
       this.triggeredAreas.forEach((area) => {
         this.formatDates(area);
+        this.mapSeverityLevel(area);
         this.filterEapActionsByMonth(area);
         area.eapActions.forEach((action) => {
           if (Object.keys(action.month).length) {
@@ -176,6 +181,24 @@ export class EapActionsService {
     triggeredArea.stoppedDate = DateTime.fromISO(
       triggeredArea.stoppedDate,
     ).toFormat('cccc, dd LLLL');
+  };
+
+  private mapSeverityLevel = (triggeredArea: TriggeredArea) => {
+    const triggerValue = triggeredArea.triggerValue;
+    if (this.countryDisasterSettings.eapAlertClasses) {
+      for (const alertClass of Object.keys(
+        this.countryDisasterSettings.eapAlertClasses,
+      )) {
+        if (
+          triggerValue ===
+          this.countryDisasterSettings.eapAlertClasses[alertClass].value
+        ) {
+          triggeredArea.severityLevel = this.countryDisasterSettings.eapAlertClasses[
+            alertClass
+          ].label;
+        }
+      }
+    }
   };
 
   private filterEapActionsByMonth = (triggeredArea) => {

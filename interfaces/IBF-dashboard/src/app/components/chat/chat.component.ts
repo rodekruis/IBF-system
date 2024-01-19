@@ -180,9 +180,11 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private onTriggeredAreasChange = (triggeredAreas) => {
-    this.triggeredAreas = triggeredAreas.filter(
-      (area) => area.actionsValue > 0,
-    );
+    this.triggeredAreas = triggeredAreas;
+    // TODO: put back when mock data is updated
+    // .filter(
+    //   (area) => area.actionsValue > 0,
+    // );
     this.triggeredAreas.forEach((area) => {
       this.disableSubmitButtonForTriggeredArea(area);
     });

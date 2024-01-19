@@ -282,6 +282,7 @@ export class EventService {
         'area.name AS name',
         'area."adminLevel" AS "adminLevel"',
         'event."actionsValue"',
+        'event."triggerValue"',
         'event."eventPlaceCodeId"',
         'event."activeTrigger"',
         'event."stopped"',
@@ -334,6 +335,7 @@ export class EventService {
     disasterType: DisasterType,
     lastTriggeredDate: DateDto,
   ): Promise<TriggeredArea[]> {
+    // TODO: also return triggerValue here
     const actionUnit = await this.getActionUnit(disasterType);
     const areas = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
@@ -385,6 +387,7 @@ export class EventService {
         name: area.name,
         nameParent: null,
         actionsValue: area.value,
+        triggerValue: 1,
         stopped: area.stopped,
         startDate: area.startDate,
         stoppedDate: area.stoppedDate,
@@ -718,7 +721,6 @@ export class EventService {
       .addSelect('MAX(area.value) AS "actionsValue"')
       .addSelect('MAX(area."leadTime") AS "leadTime"')
       .where(whereOptions)
-      .andWhere('(area.value > 0 OR area."eventName" is not null)') // Also allow value=0 entries with event name (= below trigger event)
       .groupBy('area."placeCode"')
       .getRawMany();
 
@@ -783,8 +785,8 @@ export class EventService {
     // .. then fire one query to update all rows that need thresholdReached = false
     await this.updateEvents(idsToUpdateBelowThreshold, false, endDate);
 
-    // .. lastly we update those records where actionsValue changed
-    await this.updateActionsValue(unclosedEventAreas, affectedAreas);
+    // .. lastly we update those records where actionsValue or triggerValue changed
+    await this.updateValues(unclosedEventAreas, affectedAreas);
   }
 
   private async updateEvents(
@@ -806,7 +808,7 @@ export class EventService {
     }
   }
 
-  private async updateActionsValue(
+  private async updateValues(
     unclosedEventAreas: EventPlaceCodeEntity[],
     affectedAreas: AffectedAreaDto[],
   ) {
@@ -818,8 +820,10 @@ export class EventService {
       );
       if (
         affectedArea &&
-        eventArea.actionsValue !== affectedArea.actionsValue
+        (eventArea.actionsValue !== affectedArea.actionsValue ||
+          eventArea.triggerValue !== affectedArea.triggerValue)
       ) {
+        eventArea.triggerValue = affectedArea.triggerValue;
         eventArea.actionsValue = affectedArea.actionsValue;
         eventAreasToUpdate.push(
           `('${eventArea.eventPlaceCodeId}',${eventArea.actionsValue})`,
@@ -879,6 +883,7 @@ export class EventService {
         eventArea.adminArea = adminArea;
         eventArea.eventName = eventName;
         eventArea.thresholdReached = area.triggerValue > 0;
+        eventArea.triggerValue = area.triggerValue;
         eventArea.actionsValue = +area.actionsValue;
         eventArea.startDate = startDate.timestamp;
         eventArea.endDate = await this.getEndDate(
