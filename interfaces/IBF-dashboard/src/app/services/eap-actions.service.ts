@@ -145,7 +145,7 @@ export class EapActionsService {
     if (this.getActiveLeadtime()) {
       this.triggeredAreas.forEach((area) => {
         this.formatDates(area);
-        this.mapSeverityLevel(area);
+        this.mapTriggerValueToAlertClass(area);
         this.filterEapActionsByMonth(area);
         area.eapActions.forEach((action) => {
           if (Object.keys(action.month).length) {
@@ -183,8 +183,8 @@ export class EapActionsService {
     ).toFormat('cccc, dd LLLL');
   };
 
-  private mapSeverityLevel = (triggeredArea: TriggeredArea) => {
-    // If no match is found, then no severity level will be shown
+  private mapTriggerValueToAlertClass = (triggeredArea: TriggeredArea) => {
+    // If no match is found, then no alert class will be shown
     if (this.countryDisasterSettings.eapAlertClasses) {
       for (const alertClass of Object.keys(
         this.countryDisasterSettings.eapAlertClasses,
@@ -193,7 +193,7 @@ export class EapActionsService {
           triggeredArea.triggerValue ===
           this.countryDisasterSettings.eapAlertClasses[alertClass].value
         ) {
-          triggeredArea.severityLevel = this.countryDisasterSettings.eapAlertClasses[
+          triggeredArea.alertClass = this.countryDisasterSettings.eapAlertClasses[
             alertClass
           ].label;
         }

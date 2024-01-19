@@ -16,5 +16,5 @@ export class TriggeredArea {
   stopped: boolean;
   stoppedDate: string;
   submitDisabled: boolean;
-  severityLevel?: string;
+  alertClass?: string;
 }

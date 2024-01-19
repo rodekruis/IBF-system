@@ -172,8 +172,8 @@
           ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
             area.actionsValue | percent: '.0-0'
           }}</span>
-          <span *ngIf="area.severityLevel"> - {{
-            area.severityLevel
+          <span *ngIf="area.alertClass"> - {{
+            area.alertClass
           }}</span>
         </p>
       </li>
@@ -226,8 +226,8 @@
           ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
             area.actionsValue | percent: '.0-0'
           }}</span>
-          <span *ngIf="area.severityLevel"> - {{
-            area.severityLevel
+          <span *ngIf="area.alertClass"> - {{
+            area.alertClass
           }}</span>
         </p>
       </li>
