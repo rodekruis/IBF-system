@@ -509,7 +509,6 @@ export class EventService {
     }
     const result = {};
     result['date'] = triggersPerLeadTime[0].date;
-    result['countryCodeISO3'] = triggersPerLeadTime[0].countryCodeISO3;
     for (const leadTimeKey in LeadTime) {
       const leadTimeUnit = LeadTime[leadTimeKey];
       const leadTimeIsTriggered = triggersPerLeadTime.find(
@@ -777,7 +776,7 @@ export class EventService {
       if (affectedArea) {
         eventArea.activeTrigger = true;
         eventArea.endDate = endDate;
-        if (affectedArea.triggerValue > 0) {
+        if (affectedArea.triggerValue === 1) {
           eventArea.thresholdReached = true;
           idsToUpdateAboveThreshold.push(eventArea.eventPlaceCodeId);
         } else {
@@ -889,7 +888,7 @@ export class EventService {
         const eventArea = new EventPlaceCodeEntity();
         eventArea.adminArea = adminArea;
         eventArea.eventName = eventName;
-        eventArea.thresholdReached = area.triggerValue > 0;
+        eventArea.thresholdReached = area.triggerValue === 1;
         eventArea.triggerValue = area.triggerValue;
         eventArea.actionsValue = +area.actionsValue;
         eventArea.startDate = startDate.timestamp;
