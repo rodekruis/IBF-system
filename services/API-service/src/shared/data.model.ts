@@ -39,6 +39,9 @@ export class TriggeredArea {
   @ApiProperty({ example: 100 })
   public actionsValue: number;
 
+  @ApiProperty({ example: 1 })
+  public triggerValue: number;
+
   @ApiProperty({ example: false })
   public stopped: boolean;
 

@@ -41,6 +41,9 @@ export class EventPlaceCodeEntity {
   public startDate: Date;
 
   @Column({ type: 'float8', nullable: true })
+  public triggerValue: number;
+
+  @Column({ type: 'float8', nullable: true })
   public actionsValue: number;
 
   @Column({ type: 'timestamp', nullable: true })
