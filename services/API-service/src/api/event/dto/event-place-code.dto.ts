@@ -51,6 +51,9 @@ export class ActivationLogDto {
   @ApiProperty({ example: 100 })
   public exposureValue: number;
 
+  @ApiProperty({ example: 'Maximum alert' })
+  public alertClass: string;
+
   @ApiProperty({ example: '57084ea4-cac9-4f29-b955-fe9f08beb588' })
   public databaseId: string;
 
@@ -66,6 +69,7 @@ export class ActivationLogDto {
     this.manuallyStopped = null;
     this.exposureIndicator = null;
     this.exposureValue = null;
+    this.alertClass = null;
     this.databaseId = null;
   }
 }
