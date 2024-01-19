@@ -1,1363 +1,2335 @@
 [
   {
-    "placeCode": "UG41350109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20550101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20490101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30670101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20290102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30800201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30960102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150202",
-    "amount": 0
+    "placeCode": "UG10010101",
+    "amount": 0.0
   },
   {
     "placeCode": "UG10010102",
-    "amount": 0
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20610102",
-    "amount": 0
+    "placeCode": "UG10010103",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20560102",
-    "amount": 0
+    "placeCode": "UG10010104",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20290105",
-    "amount": 0
+    "placeCode": "UG10010105",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20540110",
-    "amount": 0.01
+    "placeCode": "UG10010106",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30830103",
-    "amount": 0
+    "placeCode": "UG10010201",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20590202",
-    "amount": 0
+    "placeCode": "UG10010301",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20610106",
-    "amount": 0
+    "placeCode": "UG10010302",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41350101",
-    "amount": 0
+    "placeCode": "UG10010401",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG31000103",
-    "amount": 0
+    "placeCode": "UG10010402",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG31000101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20460101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30830201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30640102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30730101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30710101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG31000104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30910101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20590201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20270102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30950102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20410101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20330102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30640101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30970101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30650101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30830102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30710102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30960101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30780101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30650102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30680101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG31000102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30960104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20420101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20410102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20270101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30810101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30730102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30730103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30710201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30930101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30690102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610117",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30670102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30830101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30820101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30790102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30670104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30980101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30700102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30670107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30650103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30680106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20290107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30790101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30810103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720401",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30680103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30680104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30710202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20600201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10200201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30960103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30950101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720301",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30910201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30830104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30840101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30710103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20620102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG31000105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41060101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30810102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30680102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20460102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30640103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30670106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30970102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30990101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30910202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30680107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30670103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30920101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30690101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30920103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20270104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20590203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30830105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30790104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10070105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30790103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30730104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30680105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30710104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30670108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30830106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41260101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41260102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30670105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20270103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20420102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30990102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30970103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30970104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10120111",
-    "amount": 0
+    "placeCode": "UG10010403",
+    "amount": 0.0
   },
   {
     "placeCode": "UG10020101",
-    "amount": 0
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20350201",
-    "amount": 0
+    "placeCode": "UG10020102",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30700101",
-    "amount": 0
+    "placeCode": "UG10020103",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20620101",
-    "amount": 0
+    "placeCode": "UG10020104",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30660103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30740101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30740201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41020101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30920102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720402",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20270105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30640104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30790105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30730105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720302",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030201",
-    "amount": 0
+    "placeCode": "UG10020105",
+    "amount": 0.0
   },
   {
     "placeCode": "UG10030101",
-    "amount": 0
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41240102",
-    "amount": 0
+    "placeCode": "UG10030102",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30700103",
-    "amount": 0
+    "placeCode": "UG10030103",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10140101",
-    "amount": 0
+    "placeCode": "UG10030104",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41010101",
-    "amount": 0
+    "placeCode": "UG10030105",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41010102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20400301",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20380101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20310101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10120110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10180101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41170101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20280102",
-    "amount": 0.06
-  },
-  {
-    "placeCode": "UG20360101",
-    "amount": 0.52
-  },
-  {
-    "placeCode": "UG41240101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20430102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10100101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10060201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20300201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41340101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20600101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41180103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20540104",
-    "amount": 0.01
-  },
-  {
-    "placeCode": "UG20520102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41130101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41270101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41250101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41300102",
-    "amount": 0
+    "placeCode": "UG10030106",
+    "amount": 0.0
   },
   {
     "placeCode": "UG10040101",
-    "amount": 0
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41150201",
-    "amount": 0
+    "placeCode": "UG10040102",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20550102",
-    "amount": 0
+    "placeCode": "UG10040103",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20510101",
-    "amount": 0
+    "placeCode": "UG10040104",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20610105",
-    "amount": 0
+    "placeCode": "UG10040105",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41100101",
-    "amount": 0
+    "placeCode": "UG10040106",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41130102",
-    "amount": 0
+    "placeCode": "UG10040107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10040108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10040109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10050101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10050102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10050103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10050104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10050105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10060101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10060102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10060103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10060201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10060202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10060203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10060204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10070101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10070102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10070103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10070104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10070105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10070106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10070107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10080101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10080102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10080103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10080104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10080105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10090101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10090102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10090103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10090104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10090105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10090106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10090107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10090108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10090109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10090110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10100101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10100102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10100103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10100104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10100201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10100202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10100203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10100204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10100205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10110101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10110102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10110103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10110104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10110105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10110106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10110107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10110108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10110109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120116",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120117",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120118",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120119",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120120",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120121",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120122",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10120123",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10130101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10130102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10130103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10130104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10130105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10130106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10130107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10130108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10130109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10130110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10130111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10130112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10140101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10140102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10140103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10140104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10140105",
+    "amount": 0.0
   },
   {
     "placeCode": "UG10140201",
-    "amount": 0
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10140202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10140203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10140204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10140205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10140206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10140207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10140208",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10150101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10150102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10150103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10150104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10150105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10150106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10150107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10150108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10160101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10160102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10160103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10160104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10160105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10160106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10160107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10170101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10170102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10170103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10170104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10170105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10170106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10170201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10170202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10170203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180301",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180302",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180303",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180304",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180305",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180306",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180401",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10180402",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10190101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10190102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10190103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10190104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10190105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10190106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10190107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200301",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200302",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10200303",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210301",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210401",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210402",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210403",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210404",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210405",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10210406",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10220115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10230101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10230102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10230103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10230104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10230105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10230106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10230107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10230108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10230109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10230110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10230111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10240101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10240102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10240103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10240104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10240105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10240106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10240107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10240108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10240109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10240110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10240111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10250101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10250102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10250201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10250202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10250203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10250204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10250205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10250206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260301",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260302",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260303",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260401",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260501",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260502",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260503",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260601",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260602",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260603",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG10260604",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20270101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20270102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20270103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20270104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20270105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20270106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20270107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20270108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20270109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20270110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20270111",
+    "amount": 0.0
   },
   {
     "placeCode": "UG20280101",
     "amount": 0.17
   },
   {
-    "placeCode": "UG20540102",
-    "amount": 0.02
+    "placeCode": "UG20280102",
+    "amount": 0.06
   },
   {
-    "placeCode": "UG41180101",
-    "amount": 0
+    "placeCode": "UG20280103",
+    "amount": 0.1
   },
   {
-    "placeCode": "UG41220101",
-    "amount": 0
+    "placeCode": "UG20280104",
+    "amount": 0.15
   },
   {
-    "placeCode": "UG10010101",
-    "amount": 0
+    "placeCode": "UG20280105",
+    "amount": 0.11
   },
   {
-    "placeCode": "UG20320102",
-    "amount": 0
+    "placeCode": "UG20280106",
+    "amount": 0.16
   },
   {
-    "placeCode": "UG41320101",
-    "amount": 0
+    "placeCode": "UG20280107",
+    "amount": 0.15
   },
   {
-    "placeCode": "UG10070101",
-    "amount": 0
+    "placeCode": "UG20280201",
+    "amount": 0.05
   },
   {
-    "placeCode": "UG20610108",
-    "amount": 0
+    "placeCode": "UG20280202",
+    "amount": 0.08
   },
   {
-    "placeCode": "UG10180301",
-    "amount": 0
+    "placeCode": "UG20280203",
+    "amount": 0.06
   },
   {
-    "placeCode": "UG20440102",
-    "amount": 0
+    "placeCode": "UG20280204",
+    "amount": 0.03
   },
   {
-    "placeCode": "UG41080201",
-    "amount": 0
+    "placeCode": "UG20280205",
+    "amount": 0.13
   },
   {
-    "placeCode": "UG41300101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20430101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10060202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20400101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41040102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41060201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41260103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20300202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070201",
-    "amount": 0
+    "placeCode": "UG20280206",
+    "amount": 0.09
   },
   {
     "placeCode": "UG20290101",
-    "amount": 0
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20290102",
+    "amount": 0.0
   },
   {
     "placeCode": "UG20290103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41180102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20550103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10110102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20300203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30940101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20540101",
-    "amount": 0.01
-  },
-  {
-    "placeCode": "UG20540103",
-    "amount": 0.01
-  },
-  {
-    "placeCode": "UG20340101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41040101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10060101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20320101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20540105",
-    "amount": 0.01
-  },
-  {
-    "placeCode": "UG10110101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10090101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10170101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20510102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150301",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20510103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20290108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260501",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41010103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20540111",
-    "amount": 0.02
-  },
-  {
-    "placeCode": "UG20290111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20540113",
-    "amount": 0.02
-  },
-  {
-    "placeCode": "UG41030207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10180102",
-    "amount": 0
+    "amount": 0.0
   },
   {
     "placeCode": "UG20290104",
-    "amount": 0
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20610104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10020102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20330101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41020102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530103",
-    "amount": 0
+    "placeCode": "UG20290105",
+    "amount": 0.0
   },
   {
     "placeCode": "UG20290106",
-    "amount": 0
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20540106",
-    "amount": 0.02
+    "placeCode": "UG20290107",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20390201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41020103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20430103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20310102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20540112",
-    "amount": 0.02
-  },
-  {
-    "placeCode": "UG20550104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20290113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20570101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20420103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41160101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10180401",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41020104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10040103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10040104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20380103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10030102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10100201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20400102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41130103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260601",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20360106",
-    "amount": 0.97
-  },
-  {
-    "placeCode": "UG10120112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10200101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20300204",
-    "amount": 0
+    "placeCode": "UG20290108",
+    "amount": 0.0
   },
   {
     "placeCode": "UG20290109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41160102",
-    "amount": 0
+    "amount": 0.0
   },
   {
     "placeCode": "UG20290110",
-    "amount": 0
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20350204",
-    "amount": 0
+    "placeCode": "UG20290111",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10260101",
-    "amount": 0
+    "placeCode": "UG20290112",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20360107",
-    "amount": 0.68
+    "placeCode": "UG20290113",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10020103",
-    "amount": 0
+    "placeCode": "UG20290114",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10140202",
-    "amount": 0
+    "placeCode": "UG20290115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20290116",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20290117",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20300101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20300102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20300201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20300202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20300203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20300204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20300205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20300206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20300207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20300208",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20300209",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20300210",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20310101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20310102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20310103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20310104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20310105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20310106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20310107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20320101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20320102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20320103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20320104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20320105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20320106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20330101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20330102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20330103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20330104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20330105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20330106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20330107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20330108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20330109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20330110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20330111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20330112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340111",
+    "amount": 0.0
   },
   {
     "placeCode": "UG20340112",
-    "amount": 0
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20540107",
-    "amount": 0.02
+    "placeCode": "UG20340113",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30740102",
-    "amount": 0
+    "placeCode": "UG20340114",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20530104",
-    "amount": 0
+    "placeCode": "UG20340115",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41060202",
-    "amount": 0
+    "placeCode": "UG20340116",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340117",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340118",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340119",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20340120",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350208",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350209",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350210",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350211",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350212",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350213",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20350214",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20360101",
+    "amount": 0.52
+  },
+  {
+    "placeCode": "UG20360102",
+    "amount": 0.35
+  },
+  {
+    "placeCode": "UG20360103",
+    "amount": 0.31
   },
   {
     "placeCode": "UG20360104",
     "amount": 0.62
   },
   {
-    "placeCode": "UG20400302",
-    "amount": 0
+    "placeCode": "UG20360105",
+    "amount": 0.79
+  },
+  {
+    "placeCode": "UG20360106",
+    "amount": 0.97
+  },
+  {
+    "placeCode": "UG20360107",
+    "amount": 0.68
+  },
+  {
+    "placeCode": "UG20360108",
+    "amount": 0.52
+  },
+  {
+    "placeCode": "UG20360109",
+    "amount": 0.26
+  },
+  {
+    "placeCode": "UG20360110",
+    "amount": 0.3
+  },
+  {
+    "placeCode": "UG20360111",
+    "amount": 0.43
+  },
+  {
+    "placeCode": "UG20360112",
+    "amount": 0.35
+  },
+  {
+    "placeCode": "UG20370101",
+    "amount": 0.05
   },
   {
     "placeCode": "UG20370102",
     "amount": 0.05
   },
   {
-    "placeCode": "UG20520108",
-    "amount": 0
+    "placeCode": "UG20370103",
+    "amount": 0.05
+  },
+  {
+    "placeCode": "UG20370104",
+    "amount": 0.05
+  },
+  {
+    "placeCode": "UG20370105",
+    "amount": 0.05
+  },
+  {
+    "placeCode": "UG20370106",
+    "amount": 0.05
+  },
+  {
+    "placeCode": "UG20380101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20380102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20380103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20380104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20380105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20380106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20390101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20390102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20390201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20390202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20390203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20390204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20390205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20390206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20390207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20390208",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20400101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20400102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20400103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20400104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20400201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20400202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20400203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20400301",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20400302",
+    "amount": 0.0
   },
   {
     "placeCode": "UG20400303",
-    "amount": 0
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20400304",
+    "amount": 0.0
   },
   {
     "placeCode": "UG20400305",
-    "amount": 0
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10260301",
-    "amount": 0
+    "placeCode": "UG20410101",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10180201",
-    "amount": 0
+    "placeCode": "UG20410102",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41290201",
-    "amount": 0
+    "placeCode": "UG20410103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20410104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20410105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20410106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20420101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20420102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20420103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20420104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20420105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20420106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20420107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20430101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20430102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20430103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20430104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20430105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20430106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20430107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20430108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20430109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20430110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20430111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20430112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440301",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20440302",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450208",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450209",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450210",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20450211",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20460101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20460102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20460103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20460104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20460105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20460106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20470101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20470102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20470103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20470104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20470105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20470106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20470201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20470202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20470203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20470204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480116",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20480117",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20490101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20490102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20490103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20490104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20490105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20490106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20490201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20490202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20500113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20510101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20510102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20510103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20510104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20510105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20510106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20510107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20510108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520116",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20520117",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20530114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20540101",
+    "amount": 0.01
+  },
+  {
+    "placeCode": "UG20540102",
+    "amount": 0.02
+  },
+  {
+    "placeCode": "UG20540103",
+    "amount": 0.01
+  },
+  {
+    "placeCode": "UG20540104",
+    "amount": 0.01
+  },
+  {
+    "placeCode": "UG20540105",
+    "amount": 0.01
+  },
+  {
+    "placeCode": "UG20540106",
+    "amount": 0.02
+  },
+  {
+    "placeCode": "UG20540107",
+    "amount": 0.02
   },
   {
     "placeCode": "UG20540108",
@@ -1368,4715 +2340,3743 @@
     "amount": 0.01
   },
   {
-    "placeCode": "UG20360102",
-    "amount": 0.35
+    "placeCode": "UG20540110",
+    "amount": 0.01
   },
   {
-    "placeCode": "UG20480102",
-    "amount": 0
+    "placeCode": "UG20540111",
+    "amount": 0.02
   },
   {
-    "placeCode": "UG20360105",
-    "amount": 0.79
+    "placeCode": "UG20540112",
+    "amount": 0.02
   },
   {
-    "placeCode": "UG10220101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20370101",
-    "amount": 0.05
-  },
-  {
-    "placeCode": "UG41240104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610116",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10240101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30810104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10240102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20360103",
-    "amount": 0.31
-  },
-  {
-    "placeCode": "UG41060102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10120113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41280101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10040102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20290112",
-    "amount": 0
+    "placeCode": "UG20540113",
+    "amount": 0.02
   },
   {
     "placeCode": "UG20540114",
     "amount": 0.01
   },
   {
-    "placeCode": "UG10180302",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20310103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41170102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20330104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20400304",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20380102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41130104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30830202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10190101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20300205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20430104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10040105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10010201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30910102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20590204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330301",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10100102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10030103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10170102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20550105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41200101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20400201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150302",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20330103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30870101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20300101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30910203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41230101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10120114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30770201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30710203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30730106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20620201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30930102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41300104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41280102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10080101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41250301",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30680108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210301",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30710204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41300105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290301",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41250102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20390101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30650104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30990103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10120115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30920104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10110103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30730107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30840102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20280201",
-    "amount": 0.05
-  },
-  {
-    "placeCode": "UG20510105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30930103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10200301",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20430105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41300103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20310105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20410104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20280202",
-    "amount": 0.08
-  },
-  {
-    "placeCode": "UG41110105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30780102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20620103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20360108",
-    "amount": 0.52
-  },
-  {
-    "placeCode": "UG30900101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20300206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41230102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20600103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30650105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41010104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260602",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30960105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20540201",
-    "amount": 0.03
-  },
-  {
-    "placeCode": "UG41080202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG31000106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20330105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41060203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41160103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20590205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30840103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41170103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41270102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10240103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10240104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20310104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30810105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630301",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20320103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41230103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20420106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10070102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20570102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20410103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10050101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30800101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290302",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41260104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41130107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10180103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20510104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30650106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41040103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20360109",
-    "amount": 0.26
-  },
-  {
-    "placeCode": "UG41290103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10130103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41130105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10170103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41260201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20420105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10090102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10190102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41280104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10130101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41180104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41130106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20280104",
-    "amount": 0.15
-  },
-  {
-    "placeCode": "UG10160101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20590206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20620104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20370103",
-    "amount": 0.05
-  },
-  {
-    "placeCode": "UG20280103",
-    "amount": 0.1
-  },
-  {
-    "placeCode": "UG41030105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10230101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10140102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20430106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41260202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10100202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10110104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20600102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20380104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10230102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10070103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20280204",
-    "amount": 0.03
-  },
-  {
-    "placeCode": "UG30730108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41270103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41280105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260401",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41260105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30890101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10130102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10230104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41130108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20590208",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20400103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10180303",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10230103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20590207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG31000107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20330107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41280106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10200203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450208",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41040104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20370104",
-    "amount": 0.05
-  },
-  {
-    "placeCode": "UG10060102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20280203",
-    "amount": 0.06
-  },
-  {
-    "placeCode": "UG20340113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41220102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10160102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41170105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41310102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20420104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10030104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10130104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30960106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41280103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20460104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41170104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41270104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20330106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41320102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10050102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20460103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41320103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10090103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41310103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720303",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10140103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41130109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41160104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20490102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41250302",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41270105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20430107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41270106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20370105",
-    "amount": 0.05
-  },
-  {
-    "placeCode": "UG41140105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20470201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30760115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10130105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41260106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41310101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41160106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20570103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41040106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41190101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20580101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20300207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41010105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10130106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20600104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20470101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30860101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10200204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30760114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10200202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210401",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41230104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20600202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10240105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30690103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10080102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10100204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41190102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20470102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20620105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10010301",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41220103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10200205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41020106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10090104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290401",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10030105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41310105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41060103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41180105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260302",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20280205",
-    "amount": 0.13
-  },
-  {
-    "placeCode": "UG41310104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450209",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30990105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10020104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20600105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41250303",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10170202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10130107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41200105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10140203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10170201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10100103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30990104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20590101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41230105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10180304",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30760116",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10100203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41170106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10110106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20320104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41200103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41190105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10190103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10040108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41190103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10110105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20380105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41060104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30850101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41250201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630302",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41160105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41040105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41200102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41280107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10240106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41190104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10150101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41040107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41170107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10090105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41020105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10140104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41340102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41310106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030209",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10100104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290303",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10150102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210402",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41040108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10070104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10120116",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260303",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10160103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41190106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20430108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10200103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20320105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20270106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41310107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41060106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030208",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150208",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41270107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30790106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30990107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050208",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41200104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630303",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20410105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30800102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30990108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10240108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30870102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20580102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30910204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10060203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10130108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10130109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350208",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10020105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41060105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41180106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20330108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30730109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10120117",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10200102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41190107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30990106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20490103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41040109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41180107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10150103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20600203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41310108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30770101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10190104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30920105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30780103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150209",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41230106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30770103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10230105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10090106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10240107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10170104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30970105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30940102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10150104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10170105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30940103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30970107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10130110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10090107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10050103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30940104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30830107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30880101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30900105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20600106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30820102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30820103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350209",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560110",
-    "amount": 0
+    "placeCode": "UG20540115",
+    "amount": 0.02
   },
   {
     "placeCode": "UG20540116",
     "amount": 0.03
   },
   {
-    "placeCode": "UG10160106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10200104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630304",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20310106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240116",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30770105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30740202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30780104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30900104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20540115",
-    "amount": 0.02
-  },
-  {
-    "placeCode": "UG20480113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10150106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10160104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10080103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30770102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30970106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30990109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20550106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10140205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10240110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10160105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10180105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30770104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30700104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30920106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30760118",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30880102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10070106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10240109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10250202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150210",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30740203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30690104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10110108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20570104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720304",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30870103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720403",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30900103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30640105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30920107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10040107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30780105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10140204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10230106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20280105",
-    "amount": 0.11
-  },
-  {
-    "placeCode": "UG30640106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30760117",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30890102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10250201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10070107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10250101",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30850102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30900102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30960107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10040106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20510106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10110107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10150105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41220104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10180104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20400104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20470202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350211",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41200106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090208",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30780106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30640107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10050104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350210",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10250204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030210",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10190106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30960109",
-    "amount": 0
-  },
-  {
     "placeCode": "UG20540117",
     "amount": 0.03
-  },
-  {
-    "placeCode": "UG30820104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10150107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20400202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41250202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20270107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10050105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450210",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10140206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10090108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350213",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41270108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41060204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20400203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210403",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110116",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20320106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610118",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41170108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10060204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10250205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150212",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10120118",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20550107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10130111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260603",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150211",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260502",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41270110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41230107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10160107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10060103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10170106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20300208",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30880103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350212",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30900106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20570105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10230107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30890103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41320104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20580103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10090109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630306",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080208",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30870104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41270109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20280206",
-    "amount": 0.09
-  },
-  {
-    "placeCode": "UG41300106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30680109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340116",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20540119",
-    "amount": 0.01
-  },
-  {
-    "placeCode": "UG10250203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30960108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30870106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41170109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20490104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41270111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340117",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20280106",
-    "amount": 0.16
-  },
-  {
-    "placeCode": "UG10210404",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20360110",
-    "amount": 0.3
-  },
-  {
-    "placeCode": "UG30990110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30870105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10190105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41320105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630305",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10110109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30880104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20290114",
-    "amount": 0
   },
   {
     "placeCode": "UG20540118",
     "amount": 0.03
   },
   {
-    "placeCode": "UG10210205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30770106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41340103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20390202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630308",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20290115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20290116",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30680110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20430109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10130112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20430112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41200107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10200206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20570106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10010103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20550108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10180305",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260604",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20390207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30910205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10230108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30860102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30890104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610119",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560116",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20280107",
-    "amount": 0.15
-  },
-  {
-    "placeCode": "UG20540122",
-    "amount": 0.02
-  },
-  {
-    "placeCode": "UG20300209",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10040109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20390204",
-    "amount": 0
+    "placeCode": "UG20540119",
+    "amount": 0.01
   },
   {
     "placeCode": "UG20540120",
     "amount": 0.01
   },
   {
-    "placeCode": "UG30810106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20570107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30900107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10150108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20470103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20580105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41280108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630307",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10230109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10090110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30680111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30770107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20290117",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20510107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41340104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30900108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41130111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30780201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10010302",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20570108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480116",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20500113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41020107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41160107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20490201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20390203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10080104",
-    "amount": 0
-  },
-  {
     "placeCode": "UG20540121",
     "amount": 0.01
   },
   {
-    "placeCode": "UG20340118",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30760119",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10100205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10030106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10010105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30800202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41010106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10120122",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30730110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30800103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30890105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20560115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20430110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20430111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20360112",
-    "amount": 0.35
-  },
-  {
-    "placeCode": "UG41030109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20580104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41120114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20620202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41220105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10230110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20310107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20390205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20390206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20570109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20360111",
-    "amount": 0.43
-  },
-  {
-    "placeCode": "UG10260503",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30830108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10010401",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20390102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20300210",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20390208",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30910206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20380106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20540202",
+    "placeCode": "UG20540122",
     "amount": 0.02
-  },
-  {
-    "placeCode": "UG10250102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030211",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41010107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30960110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290402",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10190107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30860201",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41220106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41170110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240119",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10010402",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30840104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10120119",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20570110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10120121",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30850103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41260203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG31000108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20490105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30840105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30790107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10010104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41130110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440301",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240117",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41190108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290305",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150303",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10120120",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290304",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41260107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30910207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30950103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30850104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210405",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050209",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140115",
-    "amount": 0
   },
   {
     "placeCode": "UG20540123",
     "amount": 0.02
   },
   {
-    "placeCode": "UG30650107",
-    "amount": 0
+    "placeCode": "UG20540124",
+    "amount": 0.3
   },
   {
-    "placeCode": "UG20460106",
-    "amount": 0
+    "placeCode": "UG20540201",
+    "amount": 0.03
   },
   {
-    "placeCode": "UG30850105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20470104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110117",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30770202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41220107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30640108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41300107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10140207",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720305",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30830203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20600204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30940106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240118",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41240120",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30990111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30840106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20590102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30650108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080209",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080210",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30940105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30830109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30730111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20470203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30770109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41170111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20460105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30950104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30950106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30670109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30960111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG31000109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41250304",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10170203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20410106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30970108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20590209",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30940107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30960112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30740103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30820108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30930104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20270108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30950105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30850106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720306",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30820106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30980102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30800104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30770108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20490106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20420107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30970110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30820110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30980105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30740204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30950108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30820107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30980103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30820111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30840107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20590212",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290404",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050210",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30950107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30970109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG31000110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20470105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20370106",
-    "amount": 0.05
-  },
-  {
-    "placeCode": "UG30840109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41040110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140116",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41270112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30700105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41250103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20590210",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30970112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20330109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41310109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30970111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30740104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30660115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30830204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290403",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41340105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150214",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41280109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41310111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20330110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30650109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30770203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630309",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30840108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10080105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630311",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290306",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41260110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30820109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30910208",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630310",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41300108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41320106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30760120",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30750113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30980104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30920108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30990112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41080211",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41300109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41230108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41040111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20600205",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20450211",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10200302",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10240111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090209",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41150213",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30860103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41310110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41210203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10010106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20330112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30800105",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41260108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110118",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290308",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41140117",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41010108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41190109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20630312",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41070110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41110119",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41160108",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41040112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350204",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20610120",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20440302",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20330111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30650110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41050211",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10250206",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340119",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41100202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20620107",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720404",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10260113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20270110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20520117",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG31000112",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41290309",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41190110",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41350111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20340120",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20490202",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30860104",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41030212",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20470106",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220115",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30780203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41230109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10210406",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20550109",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30800203",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41330302",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10180402",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20530114",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20300102",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20270111",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090210",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG10220113",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20350214",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG41090103",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG20480117",
-    "amount": 0
-  },
-  {
-    "placeCode": "UG30720307",
-    "amount": 0
+    "placeCode": "UG20540202",
+    "amount": 0.02
   },
   {
     "placeCode": "UG20540203",
     "amount": 0.05
   },
   {
-    "placeCode": "UG20630202",
-    "amount": 0
+    "placeCode": "UG20550101",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30850108",
-    "amount": 0
+    "placeCode": "UG20550102",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20520116",
-    "amount": 0
+    "placeCode": "UG20550103",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30780202",
-    "amount": 0
+    "placeCode": "UG20550104",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30850107",
-    "amount": 0
+    "placeCode": "UG20550105",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20470204",
-    "amount": 0
+    "placeCode": "UG20550106",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20510108",
-    "amount": 0
+    "placeCode": "UG20550107",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10120123",
-    "amount": 0
+    "placeCode": "UG20550108",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41100203",
-    "amount": 0
+    "placeCode": "UG20550109",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20620106",
-    "amount": 0
+    "placeCode": "UG20560101",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30860202",
-    "amount": 0
+    "placeCode": "UG20560102",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30740106",
-    "amount": 0
+    "placeCode": "UG20560103",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20540124",
-    "amount": 0.3
+    "placeCode": "UG20560104",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10200303",
-    "amount": 0
+    "placeCode": "UG20560105",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41290203",
-    "amount": 0
+    "placeCode": "UG20560106",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20610121",
-    "amount": 0
+    "placeCode": "UG20560107",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10180306",
-    "amount": 0
+    "placeCode": "UG20560108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20560109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20560110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20560111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20560112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20560113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20560114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20560115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20560116",
+    "amount": 0.0
   },
   {
     "placeCode": "UG20560117",
-    "amount": 0
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30980106",
-    "amount": 0
+    "placeCode": "UG20570101",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20440206",
-    "amount": 0
+    "placeCode": "UG20570102",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20350102",
-    "amount": 0
+    "placeCode": "UG20570103",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41330303",
-    "amount": 0
+    "placeCode": "UG20570104",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10140105",
-    "amount": 0
+    "placeCode": "UG20570105",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30910103",
-    "amount": 0
+    "placeCode": "UG20570106",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30840110",
-    "amount": 0
+    "placeCode": "UG20570107",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10010403",
-    "amount": 0
+    "placeCode": "UG20570108",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20450103",
-    "amount": 0
+    "placeCode": "UG20570109",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30990113",
-    "amount": 0
+    "placeCode": "UG20570110",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10230111",
-    "amount": 0
+    "placeCode": "UG20580101",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG31000111",
-    "amount": 0
+    "placeCode": "UG20580102",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20620203",
-    "amount": 0
+    "placeCode": "UG20580103",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30660116",
-    "amount": 0
+    "placeCode": "UG20580104",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30800204",
-    "amount": 0
+    "placeCode": "UG20580105",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG10140208",
-    "amount": 0
+    "placeCode": "UG20590101",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG31000113",
-    "amount": 0
+    "placeCode": "UG20590102",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG20270109",
-    "amount": 0
+    "placeCode": "UG20590201",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30820105",
-    "amount": 0
+    "placeCode": "UG20590202",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30720206",
-    "amount": 0
+    "placeCode": "UG20590203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20590204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20590205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20590206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20590207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20590208",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20590209",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20590210",
+    "amount": 0.0
   },
   {
     "placeCode": "UG20590211",
-    "amount": 0
+    "amount": 0.0
   },
   {
-    "placeCode": "UG30740105",
-    "amount": 0
+    "placeCode": "UG20590212",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20600101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20600102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20600103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20600104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20600105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20600106",
+    "amount": 0.0
   },
   {
     "placeCode": "UG20600107",
-    "amount": 0
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20600201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20600202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20600203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20600204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20600205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610116",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610117",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610118",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610119",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610120",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20610121",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20620101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20620102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20620103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20620104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20620105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20620106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20620107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20620201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20620202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20620203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630301",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630302",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630303",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630304",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630305",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630306",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630307",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630308",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630309",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630310",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630311",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG20630312",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30640101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30640102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30640103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30640104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30640105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30640106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30640107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30640108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30650101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30650102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30650103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30650104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30650105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30650106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30650107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30650108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30650109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30650110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30660116",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30670101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30670102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30670103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30670104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30670105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30670106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30670107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30670108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30670109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30680101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30680102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30680103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30680104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30680105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30680106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30680107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30680108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30680109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30680110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30680111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30690101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30690102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30690103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30690104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30700101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30700102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30700103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30700104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30700105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30710101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30710102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30710103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30710104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30710201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30710202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30710203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30710204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720101",
+    "amount": 0.0
   },
   {
     "placeCode": "UG30720102",
-    "amount": 0
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720301",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720302",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720303",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720304",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720305",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720306",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720307",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720401",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720402",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720403",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30720404",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30730101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30730102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30730103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30730104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30730105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30730106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30730107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30730108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30730109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30730110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30730111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30740101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30740102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30740103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30740104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30740105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30740106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30740201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30740202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30740203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30740204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30750113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30760114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30760115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30760116",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30760117",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30760118",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30760119",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30760120",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30770101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30770102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30770103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30770104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30770105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30770106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30770107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30770108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30770109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30770201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30770202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30770203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30780101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30780102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30780103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30780104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30780105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30780106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30780201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30780202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30780203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30790101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30790102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30790103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30790104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30790105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30790106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30790107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30800101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30800102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30800103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30800104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30800105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30800201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30800202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30800203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30800204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30810101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30810102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30810103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30810104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30810105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30810106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30820101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30820102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30820103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30820104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30820105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30820106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30820107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30820108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30820109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30820110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30820111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30830204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30840101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30840102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30840103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30840104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30840105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30840106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30840107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30840108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30840109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30840110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30850101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30850102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30850103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30850104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30850105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30850106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30850107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30850108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30860101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30860102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30860103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30860104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30860201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30860202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30870101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30870102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30870103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30870104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30870105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30870106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30880101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30880102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30880103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30880104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30890101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30890102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30890103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30890104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30890105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30900101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30900102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30900103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30900104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30900105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30900106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30900107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30900108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30910101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30910102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30910103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30910201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30910202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30910203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30910204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30910205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30910206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30910207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30910208",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30920101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30920102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30920103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30920104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30920105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30920106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30920107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30920108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30930101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30930102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30930103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30930104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30940101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30940102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30940103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30940104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30940105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30940106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30940107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30950101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30950102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30950103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30950104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30950105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30950106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30950107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30950108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30960101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30960102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30960103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30960104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30960105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30960106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30960107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30960108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30960109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30960110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30960111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30960112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30970101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30970102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30970103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30970104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30970105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30970106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30970107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30970108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30970109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30970110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30970111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30970112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30980101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30980102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30980103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30980104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30980105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30980106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG30990113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG31000113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41010101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41010102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41010103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41010104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41010105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41010106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41010107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41010108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41020101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41020102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41020103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41020104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41020105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41020106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41020107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030208",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030209",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030210",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030211",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41030212",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41040101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41040102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41040103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41040104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41040105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41040106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41040107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41040108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41040109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41040110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41040111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41040112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050208",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050209",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050210",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41050211",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41060101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41060102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41060103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41060104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41060105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41060106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41060201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41060202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41060203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41060204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41070203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080208",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080209",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080210",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41080211",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090208",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090209",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41090210",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41100203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110116",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110117",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110118",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41110119",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41120114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41130101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41130102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41130103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41130104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41130105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41130106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41130107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41130108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41130109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41130110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41130111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140116",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41140117",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150207",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150208",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150209",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150210",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150211",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150212",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150213",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150214",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150301",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150302",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41150303",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41160101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41160102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41160103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41160104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41160105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41160106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41160107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41160108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41170101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41170102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41170103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41170104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41170105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41170106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41170107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41170108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41170109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41170110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41170111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41180101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41180102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41180103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41180104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41180105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41180106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41180107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41190101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41190102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41190103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41190104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41190105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41190106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41190107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41190108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41190109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41190110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41200101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41200102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41200103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41200104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41200105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41200106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41200107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41210203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41220101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41220102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41220103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41220104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41220105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41220106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41220107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41230101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41230102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41230103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41230104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41230105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41230106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41230107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41230108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41230109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240113",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240114",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240115",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240116",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240117",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240118",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240119",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41240120",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41250101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41250102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41250103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41250201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41250202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41250301",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41250302",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41250303",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41250304",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41260101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41260102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41260103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41260104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41260105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41260106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41260107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41260108",
+    "amount": 0.0
   },
   {
     "placeCode": "UG41260109",
-    "amount": 0
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41290405",
-    "amount": 0
+    "placeCode": "UG41260110",
+    "amount": 0.0
   },
   {
-    "placeCode": "UG41290307",
-    "amount": 0
+    "placeCode": "UG41260201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41260202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41260203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41270101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41270102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41270103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41270104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41270105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41270106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41270107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41270108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41270109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41270110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41270111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41270112",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41280101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41280102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41280103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41280104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41280105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41280106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41280107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41280108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41280109",
+    "amount": 0.0
   },
   {
     "placeCode": "UG41280110",
-    "amount": 0
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290301",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290302",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290303",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290304",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290305",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290306",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290307",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290308",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290309",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290401",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290402",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290403",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290404",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41290405",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41300101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41300102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41300103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41300104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41300105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41300106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41300107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41300108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41300109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41310101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41310102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41310103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41310104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41310105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41310106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41310107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41310108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41310109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41310110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41310111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41320101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41320102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41320103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41320104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41320105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41320106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330204",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330205",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330206",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330301",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330302",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41330303",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41340101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41340102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41340103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41340104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41340105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350101",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350102",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350103",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350104",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350105",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350106",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350107",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350108",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350109",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350110",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350111",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350201",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350202",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350203",
+    "amount": 0.0
+  },
+  {
+    "placeCode": "UG41350204",
+    "amount": 0.0
   }
 ]
