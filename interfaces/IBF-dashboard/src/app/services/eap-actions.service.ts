@@ -184,13 +184,13 @@ export class EapActionsService {
   };
 
   private mapSeverityLevel = (triggeredArea: TriggeredArea) => {
-    const triggerValue = triggeredArea.triggerValue;
+    // If no match is found, then no severity level will be shown
     if (this.countryDisasterSettings.eapAlertClasses) {
       for (const alertClass of Object.keys(
         this.countryDisasterSettings.eapAlertClasses,
       )) {
         if (
-          triggerValue ===
+          triggeredArea.triggerValue ===
           this.countryDisasterSettings.eapAlertClasses[alertClass].value
         ) {
           triggeredArea.severityLevel = this.countryDisasterSettings.eapAlertClasses[

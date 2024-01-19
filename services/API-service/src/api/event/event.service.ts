@@ -335,7 +335,6 @@ export class EventService {
     disasterType: DisasterType,
     lastTriggeredDate: DateDto,
   ): Promise<TriggeredArea[]> {
-    // TODO: also return triggerValue here
     const actionUnit = await this.getActionUnit(disasterType);
     const areas = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
@@ -387,7 +386,7 @@ export class EventService {
         name: area.name,
         nameParent: null,
         actionsValue: area.value,
-        triggerValue: 1,
+        triggerValue: null, // leave empty for now, as we don't show triggerValue on deeper levels
         stopped: area.stopped,
         startDate: area.startDate,
         stoppedDate: area.stoppedDate,
