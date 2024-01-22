@@ -29,7 +29,7 @@
           },
           "max": {
             "label": "Trigger issued",
-            "color": "ibf-trigger-alert-primary",
+            "color": "ibf-glofas-trigger",
             "value": 1
           }
         }
@@ -283,7 +283,7 @@
           },
           "max": {
             "label": "Activate EAP",
-            "color": "ibf-trigger-alert-primary",
+            "color": "ibf-glofas-trigger",
             "value": 1
           }
         }
@@ -380,7 +380,7 @@
           },
           "max": {
             "label": "Trigger issued",
-            "color": "ibf-trigger-alert-primary",
+            "color": "ibf-glofas-trigger",
             "value": 1
           }
         }
@@ -466,7 +466,7 @@
           },
           "max": {
             "label": "Trigger issued",
-            "color": "ibf-trigger-alert-primary",
+            "color": "ibf-glofas-trigger",
             "value": 1
           }
         }
@@ -522,7 +522,7 @@
           },
           "max": {
             "label": "Trigger issued",
-            "color": "ibf-trigger-alert-primary",
+            "color": "ibf-glofas-trigger",
             "value": 1
           }
         }
@@ -629,7 +629,7 @@
           },
           "max": {
             "label": "Trigger issued",
-            "color": "ibf-trigger-alert-primary",
+            "color": "ibf-glofas-trigger",
             "value": 1
           }
         }
@@ -1083,7 +1083,7 @@
           },
           "max": {
             "label": "Trigger issued",
-            "color": "ibf-trigger-alert-primary",
+            "color": "ibf-glofas-trigger",
             "value": 1
           }
         }
