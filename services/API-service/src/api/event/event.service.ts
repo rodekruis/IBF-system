@@ -422,12 +422,12 @@ export class EventService {
         'case when event.closed = true then event."endDate" end as "endDate"',
         'disaster."actionsUnit" as "exposureIndicator"',
         'event."actionsValue" as "exposureValue"',
-        `CASE event."triggerValue" WHEN 1 THEN 'maximum' WHEN 0.7 THEN 'medium' WHEN 0.3 THEN 'minimum' END as "triggerValue"`,
+        `CASE event."triggerValue" WHEN 1 THEN 'Trigger/alert' WHEN 0.7 THEN 'Medium warning' WHEN 0.3 THEN 'Low warning' END as "alertClass"`,
         'event."eventPlaceCodeId" as "databaseId"',
       ])
       .leftJoin('event.adminArea', 'area')
       .leftJoin('event.disasterType', 'disaster')
-      .where({ thresholdReached: true })
+      .where({ triggerValue: MoreThan(0) })
       .orderBy('event."startDate"', 'DESC')
       .addOrderBy('area."countryCodeISO3"', 'ASC')
       .addOrderBy('event."disasterType"', 'ASC')
