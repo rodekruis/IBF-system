@@ -389,7 +389,16 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   private getGlofasStationStates() {
-    return Object.keys(this.countryDisasterSettings?.eapAlertClasses);
+    const classes = [];
+    for (const [key, value] of Object.entries(
+      this.countryDisasterSettings?.eapAlertClasses,
+    )) {
+      classes.push({ key, value: value.value });
+    }
+    classes.sort((e1, e2) => {
+      return e2.value - e1.value;
+    });
+    return classes.map((e) => e.key);
   }
 
   onMapReady(map: Map) {
