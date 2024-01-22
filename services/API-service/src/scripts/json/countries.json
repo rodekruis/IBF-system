@@ -18,12 +18,12 @@
             "value": 0
           },
           "min": {
-            "label": "Minimum alert",
+            "label": "Low warning",
             "color": "ibf-yellow",
             "value": 0.3
           },
           "med": {
-            "label": "Medium alert",
+            "label": "Medium warning",
             "color": "ibf-orange",
             "value": 0.7
           },
