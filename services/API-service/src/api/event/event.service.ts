@@ -325,6 +325,9 @@ export class EventService {
       ) {
         // Exception to speed up typhoon performance. Works because old-event is switched off for typhoon. Should be refactored better.
         area.eapActions = [];
+      } else if (area.triggerValue < 1) {
+        // Do not show actions for below-trigger events/areas
+        area.eapActions = [];
       } else {
         area.eapActions = await this.eapActionsService.getActionsWithStatus(
           countryCodeISO3,
