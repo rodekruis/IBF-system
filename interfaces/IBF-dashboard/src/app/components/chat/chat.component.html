@@ -160,7 +160,7 @@
         {{
           'chat-component.common.reactivate-trigger-popup.' +
             hasEap() +
-            '.header' | translate
+            '.header' | translate: { alertLabel: area.alertLabel }
         }}
       </app-ibf-button>
     </app-dialogue-turn>
@@ -346,7 +346,7 @@
         backgroundColor="ibf-primary"
         >{{
           'chat-component.common.stop-trigger-popup.' + hasEap() + '.header'
-            | translate
+            | translate: { alertLabel: area.alertLabel }
         }}</app-ibf-button
       >
     </ng-container>

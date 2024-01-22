@@ -100,14 +100,14 @@
       },
       "stop-trigger-popup": {
         "eap": {
-          "header": "Stop Trigger",
-          "message": "Are you sure? You are about to stop the trigger warning in <strong>{{ placeCodeName }}</strong>.<br><br>In case of a new event, the area will be triggered again by the IBF-Portal. But within the current event - even if predictions worsen - the trigger for this area will remain stopped. {{disasterSpecificText}}",
+          "header": "Stop {{alertLabel}}",
+          "message": "Are you sure? You are about to stop the {{alertLabel}} in <strong>{{ placeCodeName }}</strong>.<br><br>In case of a new event, the area will be triggered again by the IBF-Portal. But within the current event - even if predictions worsen - the trigger for this area will remain stopped. {{disasterSpecificText}}",
           "disaster-specific": {
             "floods": "(An event closes when the forecast stays below threshold for 7 days.)"
           },
-          "confirm": "Yes, stop trigger",
-          "cancel": "No, keep trigger",
-          "failure": "Failed to stop trigger."
+          "confirm": "Yes, stop {{alertLabel}}",
+          "cancel": "No, keep {{alertLabel}}",
+          "failure": "Failed to stop {{alertLabel}}."
         },
         "no-eap": {
           "header": "Stop Alert",
@@ -122,11 +122,11 @@
       },
       "reactivate-trigger-popup": {
         "eap": {
-          "header": "Reactivate Trigger",
-          "message": "Are you sure? You are about to reactivate the trigger warning in <strong>{{ placeCodeName }}</strong>.<br><br>If any actions were already checked off before this area was stopped, they will still be after reactivating.",
-          "confirm": "Yes, reactivate trigger",
-          "cancel": "No, keep stopped trigger",
-          "failure": "Failed to reactivate trigger."
+          "header": "Reactivate {{alertLabel}}",
+          "message": "Are you sure? You are about to reactivate the {{alertLabel}} in <strong>{{ placeCodeName }}</strong>.<br><br>If any actions were already checked off before this area was stopped, they will still be after reactivating.",
+          "confirm": "Yes, reactivate {{alertLabel}}",
+          "cancel": "No, keep stopped {{alertLabel}}",
+          "failure": "Failed to reactivate {{alertLabel}}."
         },
         "no-eap": {
           "header": "Reactivate Alert",
@@ -140,7 +140,7 @@
     "floods": {
       "about-button-label": "About Trigger",
       "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
+        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
       },
       "active-event-active-trigger": {
         "header": "Trigger: {{ disasterTypeLabel }}",
@@ -149,7 +149,7 @@
         "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>."
       },
       "active-event-no-trigger": {
-        "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
+        "welcome": "There is <strong>no active alert</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} exposed. They are listed below by alert level and by {{ actionIndicator}}. Only triggered {{adminAreaLabelPlural}} are highlighted in the map with a red outline.",

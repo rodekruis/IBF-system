@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
+import { TriggeredArea } from '../../types/triggered-area';
 
 @Component({
   selector: 'app-toggle-trigger-popover',
@@ -10,7 +11,7 @@ import { DisasterTypeKey } from '../../types/disaster-type-key';
 })
 export class ToggleTriggerPopoverComponent {
   @Input()
-  public placeCodeName: string;
+  public area: TriggeredArea;
 
   @Input()
   public eapNode: string;

@@ -14,7 +14,7 @@ import { EapAction } from '../types/eap-action';
 import { EventState } from '../types/event-state';
 import { LeadTime } from '../types/lead-time';
 import { TimelineState } from '../types/timeline-state';
-import { TriggeredArea } from '../types/triggered-area';
+import { AlertLabel, TriggeredArea } from '../types/triggered-area';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
@@ -184,7 +184,7 @@ export class EapActionsService {
   };
 
   private mapTriggerValueToAlertClass = (triggeredArea: TriggeredArea) => {
-    // If no match is found, then no alert class will be shown
+    // If no match is found, then no alertClass will be shown
     if (this.countryDisasterSettings.eapAlertClasses) {
       for (const alertClass of Object.keys(
         this.countryDisasterSettings.eapAlertClasses,
@@ -199,6 +199,13 @@ export class EapActionsService {
         }
       }
     }
+
+    if (triggeredArea.triggerValue === 1) {
+      triggeredArea.alertLabel = AlertLabel.trigger;
+    } else if (triggeredArea.triggerValue > 0) {
+      triggeredArea.alertLabel = AlertLabel.warning;
+    }
+    // AlertLabel.alert does not need to be defined as {{alertLabel}} is not a variable in the non-eap copy
   };
 
   private filterEapActionsByMonth = (triggeredArea) => {

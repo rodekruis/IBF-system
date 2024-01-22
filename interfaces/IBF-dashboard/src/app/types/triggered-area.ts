@@ -17,4 +17,11 @@ export class TriggeredArea {
   stoppedDate: string;
   submitDisabled: boolean;
   alertClass?: string;
+  alertLabel?: AlertLabel;
+}
+
+export enum AlertLabel {
+  trigger = 'trigger', // EAP trigger
+  warning = 'warning', // EAP below-trigger
+  alert = 'alert', // No-EAP
 }
