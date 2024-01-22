@@ -1016,6 +1016,11 @@ export class MapService {
         color: this.stoppedTriggerColor,
         weight: 5,
       };
+    } else if (!area.triggerValue || area.triggerValue < 1) {
+      return {
+        color: this.nonTriggeredAreaColor,
+        weight: 5,
+      };
     } else if (!this.eventState?.event?.thresholdReached) {
       return {
         color: this.nonTriggeredAreaColor,
