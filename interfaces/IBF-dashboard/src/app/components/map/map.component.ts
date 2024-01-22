@@ -347,7 +347,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             for (const glofasState of this.getGlofasStationStates()) {
               const element = this.mapLegendService.getGlofasPointLegendString(
                 layer,
-                `-${glofasState}-trigger`,
+                `-${glofasState.key}-trigger`,
+                glofasState.label,
               );
               elements.push(element);
             }
@@ -393,12 +394,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     for (const [key, value] of Object.entries(
       this.countryDisasterSettings?.eapAlertClasses,
     )) {
-      classes.push({ key, value: value.value });
+      classes.push({ key, label: value.label, value: value.value });
     }
     classes.sort((e1, e2) => {
       return e2.value - e1.value;
     });
-    return classes.map((e) => e.key);
+    return classes;
   }
 
   onMapReady(map: Map) {
