@@ -152,16 +152,16 @@
         "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
       },
       "active-event": {
-        "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
-        "overview-below-trigger": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ actionIndicator}}.",
+        "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} exposed. They are listed below by alert level and by {{ actionIndicator}}. Only triggered {{adminAreaLabelPlural}} are highlighted in the map with a red outline.",
+        "overview-below-trigger": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} exposed. They are listed below by alert level and by {{ actionIndicator}}.",
         "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:"
       },
       "stopped-event": {
-        "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
+        "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below by alert level and by {{ actionIndicator }} and are highlighted in the map with a black outline.",
         "instruction": "To see when this was done and by whom, click on the area in the list or in the map.",
-        "area": "The floods trigger warning for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+        "area": "The floods alert for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
     "flash-floods": {

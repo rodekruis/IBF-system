@@ -1,9 +1,9 @@
 import {
+  AfterViewChecked,
   ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -22,7 +22,7 @@ import { TriggeredArea } from '../../types/triggered-area';
   templateUrl: './event-speech-bubble.component.html',
   styleUrls: ['./event-speech-bubble.component.scss'],
 })
-export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
+export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()
   public type: string;
   @Input()
@@ -53,6 +53,7 @@ export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
   public isStopped: boolean;
   private placeCodeHoverSubscription: Subscription;
   public placeCodeHover: PlaceCode;
+  public alertClasses: { alertClass: string; areas: TriggeredArea[] }[];
 
   constructor(
     private authService: AuthService,
@@ -64,10 +65,12 @@ export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
   ) {}
 
-  ngOnInit() {
+  ngAfterViewChecked() {
     if (this.authService.displayName) {
       this.displayName = this.authService.displayName;
     }
+
+    this.alertClasses = this.splitAreasByAlertClass(this.areas);
 
     this.placeCodeHoverSubscription = this.placeCodeService
       .getPlaceCodeHoverSubscription()
@@ -78,6 +81,24 @@ export class EventSpeechBubbleComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.placeCodeHoverSubscription.unsubscribe();
+  }
+
+  public splitAreasByAlertClass(
+    areas: TriggeredArea[],
+  ): { alertClass: string; areas: TriggeredArea[] }[] {
+    const areasByAlertClass = {};
+
+    for (const area of areas) {
+      if (!areasByAlertClass[area.alertClass]) {
+        areasByAlertClass[area.alertClass] = [];
+      }
+      areasByAlertClass[area.alertClass].push(area);
+    }
+
+    return Object.keys(areasByAlertClass).map((alertClass) => ({
+      alertClass: alertClass,
+      areas: areasByAlertClass[alertClass],
+    }));
   }
 
   public selectArea(area) {

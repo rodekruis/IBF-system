@@ -375,11 +375,13 @@
         "eapAlertClasses": {
           "no": {
             "label": "No action",
-            "color": "ibf-no-alert-primary"
+            "color": "ibf-no-alert-primary",
+            "value": 0
           },
           "max": {
             "label": "Trigger issued",
-            "color": "ibf-trigger-alert-primary"
+            "color": "ibf-trigger-alert-primary",
+            "value": 1
           }
         }
       },
@@ -459,11 +461,13 @@
         "eapAlertClasses": {
           "no": {
             "label": "No action",
-            "color": "ibf-no-alert-primary"
+            "color": "ibf-no-alert-primary",
+            "value": 0
           },
           "max": {
             "label": "Trigger issued",
-            "color": "ibf-trigger-alert-primary"
+            "color": "ibf-trigger-alert-primary",
+            "value": 1
           }
         }
       }
@@ -513,11 +517,13 @@
         "eapAlertClasses": {
           "no": {
             "label": "No action",
-            "color": "ibf-no-alert-primary"
+            "color": "ibf-no-alert-primary",
+            "value": 0
           },
           "max": {
             "label": "Trigger issued",
-            "color": "ibf-trigger-alert-primary"
+            "color": "ibf-trigger-alert-primary",
+            "value": 1
           }
         }
       },
@@ -618,11 +624,13 @@
         "eapAlertClasses": {
           "no": {
             "label": "No action",
-            "color": "ibf-no-alert-primary"
+            "color": "ibf-no-alert-primary",
+            "value": 0
           },
           "max": {
             "label": "Trigger issued",
-            "color": "ibf-trigger-alert-primary"
+            "color": "ibf-trigger-alert-primary",
+            "value": 1
           }
         }
       },
@@ -1070,11 +1078,13 @@
         "eapAlertClasses": {
           "no": {
             "label": "No action",
-            "color": "ibf-no-alert-primary"
+            "color": "ibf-no-alert-primary",
+            "value": 0
           },
           "max": {
             "label": "Trigger issued",
-            "color": "ibf-trigger-alert-primary"
+            "color": "ibf-trigger-alert-primary",
+            "value": 1
           }
         }
       }
