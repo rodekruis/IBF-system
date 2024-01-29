@@ -32,6 +32,7 @@ export class DisasterTypeService {
     this.disasterTypeSubject.next(this.disasterType);
   }
 
+  // TODO move to back-end
   public hasEap(disasterType: DisasterTypeKey): string {
     const eapDisasterTypes = [
       DisasterTypeKey.floods,

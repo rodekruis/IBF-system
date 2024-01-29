@@ -3,6 +3,7 @@ import { EapAction } from './eap-action';
 
 export class TriggeredArea {
   actionsValue: number;
+  triggerValue: number;
   activeTrigger: boolean;
   displayName: string;
   eapActions: EapAction[];
@@ -15,4 +16,12 @@ export class TriggeredArea {
   stopped: boolean;
   stoppedDate: string;
   submitDisabled: boolean;
+  alertClass?: string;
+  alertLabel?: AlertLabel;
+}
+
+export enum AlertLabel {
+  trigger = 'trigger', // EAP trigger
+  warning = 'warning', // EAP below-trigger
+  alert = 'alert', // No-EAP
 }

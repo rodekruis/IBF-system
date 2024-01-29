@@ -50,6 +50,7 @@ export class DynamicPointPopupComponent implements OnInit {
   private defautEapAlertClass: EapAlertClass = {
     label: 'No action',
     color: 'ibf-no-alert-primary',
+    value: 0,
   };
 
   private allowedLayers = [

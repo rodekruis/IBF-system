@@ -390,7 +390,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public async openToggleTriggerPopup(
-    triggeredArea,
+    triggeredArea: TriggeredArea,
     stop: boolean,
   ): Promise<void> {
     const stopNode = stop ? 'stop-trigger-popup' : 'reactivate-trigger-popup';
@@ -404,7 +404,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       translucent: true,
       showBackdrop: true,
       componentProps: {
-        placeCodeName: triggeredArea.name,
+        area: triggeredArea,
         eapNode,
         stopNode,
         disasterType: this.disasterType.disasterType,

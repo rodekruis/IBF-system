@@ -88,6 +88,7 @@ export class MapLegendService {
   public getGlofasPointLegendString(
     layer: IbfLayer,
     glofasState: string,
+    label: string,
   ): string {
     return this.singleRowLegend(
       SingleRowLegendType.pin,
@@ -95,7 +96,7 @@ export class MapLegendService {
         this.layerIcon[layer.name].slice(0, -4) +
         glofasState +
         this.layerIcon[layer.name].slice(-4),
-      `${layer.label}${glofasState.replace(new RegExp('-', 'g'), ' ')}`,
+      `GloFAS ${label}`,
     );
   }
 

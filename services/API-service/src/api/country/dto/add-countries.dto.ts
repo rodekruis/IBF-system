@@ -92,14 +92,12 @@ export class CountryDisasterSettingsDto {
       no: {
         label: 'No action',
         color: 'ibf-gray',
-        valueLow: 0,
-        valueHigh: 0.8,
+        value: 0,
       },
       max: {
         label: 'Activate EAP',
         color: 'ibf-trigger-alert-primary',
-        valueLow: 0.8,
-        valueHigh: 1.01,
+        value: 1,
       },
     },
   })

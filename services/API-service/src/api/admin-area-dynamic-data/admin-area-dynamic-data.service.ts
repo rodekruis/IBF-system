@@ -123,9 +123,11 @@ export class AdminAreaDynamicDataService {
     const eventBelowTrigger =
       !trigger &&
       !!uploadExposure.eventName &&
-      [DisasterType.Typhoon, DisasterType.FlashFloods].includes(
-        uploadExposure.disasterType,
-      );
+      [
+        DisasterType.Typhoon,
+        DisasterType.FlashFloods,
+        DisasterType.Floods,
+      ].includes(uploadExposure.disasterType);
 
     const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
     uploadTriggerPerLeadTimeDto.countryCodeISO3 =
@@ -149,7 +151,7 @@ export class AdminAreaDynamicDataService {
     exposurePlaceCodes: DynamicDataPlaceCodeDto[],
   ): boolean {
     for (const exposurePlaceCode of exposurePlaceCodes) {
-      if (Number(exposurePlaceCode.amount) > 0) {
+      if (Number(exposurePlaceCode.amount) === 1) {
         return true;
       }
     }

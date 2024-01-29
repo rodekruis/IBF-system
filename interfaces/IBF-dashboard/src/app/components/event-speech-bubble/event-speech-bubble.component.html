@@ -88,7 +88,8 @@
             | translate
               : {
                   firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName: event.eventName?.split('_')[0]
+                  eventName: event.eventName?.split('_')[0],
+                  disasterTypeLabel: disasterTypeLabel
                 }
         "
       ></p>
@@ -157,24 +158,29 @@
               }
       "
     ></p>
-    <ul>
-      <li
-        *ngFor="let area of areas"
-        class="clickable-area"
-        (click)="selectArea(area)"
-      >
-        <p>
-          {{ area.name }}
-          <span *ngIf="area.nameParent">({{ area.nameParent }})</span> -
-          <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
-            area.actionsValue | number: '.0-0'
-          }}</span
-          ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
-            area.actionsValue | percent: '.0-0'
-          }}</span>
-        </p>
-      </li>
-    </ul>
+    <div *ngFor="let class of alertClasses">
+      <p class="ion-padding-top" *ngIf="class.alertClass !== 'undefined'">
+        <strong>{{ class.alertClass }}</strong>
+      </p>
+      <ul>
+        <li
+          *ngFor="let area of class.areas"
+          class="clickable-area"
+          (click)="selectArea(area)"
+        >
+          <p>
+            {{ area.name }}
+            <span *ngIf="area.nameParent">({{ area.nameParent }})</span> -
+            <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
+              area.actionsValue | number: '.0-0'
+            }}</span
+            ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
+              area.actionsValue | percent: '.0-0'
+            }}</span>
+          </p>
+        </li>
+      </ul>
+    </div>
     <p
       *ngIf="event.thresholdReached"
       [translate]="
@@ -208,24 +214,29 @@
               }
       "
     ></p>
-    <ul>
-      <li
-        *ngFor="let area of areas"
-        class="clickable-area"
-        (click)="selectArea(area)"
-      >
-        <p>
-          {{ area.name }}
-          <span *ngIf="area.nameParent">({{ area.nameParent }})</span> -
-          <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
-            area.actionsValue | number: '.0-0'
-          }}</span
-          ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
-            area.actionsValue | percent: '.0-0'
-          }}</span>
-        </p>
-      </li>
-    </ul>
+    <div *ngFor="let class of alertClasses">
+      <p class="ion-padding-top" *ngIf="class.alertClass !== 'undefined'">
+        <strong>{{ class.alertClass }}</strong>
+      </p>
+      <ul>
+        <li
+          *ngFor="let area of areas"
+          class="clickable-area"
+          (click)="selectArea(area)"
+        >
+          <p>
+            {{ area.name }}
+            <span *ngIf="area.nameParent">({{ area.nameParent }})</span> -
+            <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
+              area.actionsValue | number: '.0-0'
+            }}</span
+            ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
+              area.actionsValue | percent: '.0-0'
+            }}</span>
+          </p>
+        </li>
+      </ul>
+    </div>
     <p
       [translate]="
         'chat-component.' + disasterTypeName + '.stopped-event.instruction'

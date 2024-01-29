@@ -14,7 +14,7 @@ import { EapAction } from '../types/eap-action';
 import { EventState } from '../types/event-state';
 import { LeadTime } from '../types/lead-time';
 import { TimelineState } from '../types/timeline-state';
-import { TriggeredArea } from '../types/triggered-area';
+import { AlertLabel, TriggeredArea } from '../types/triggered-area';
 import { AdminLevelService } from './admin-level.service';
 import { DisasterTypeService } from './disaster-type.service';
 import { EventService } from './event.service';
@@ -135,12 +135,17 @@ export class EapActionsService {
 
   private onTriggeredAreas = (triggeredAreas) => {
     this.triggeredAreas = triggeredAreas;
-    this.triggeredAreas.sort((a, b) =>
-      a.actionsValue > b.actionsValue ? -1 : 1,
-    );
+    this.triggeredAreas.sort((a, b) => {
+      if (a.triggerValue === b.triggerValue) {
+        return a.actionsValue > b.actionsValue ? -1 : 1;
+      } else {
+        return a.triggerValue > b.triggerValue ? -1 : 1;
+      }
+    });
     if (this.getActiveLeadtime()) {
       this.triggeredAreas.forEach((area) => {
         this.formatDates(area);
+        this.mapTriggerValueToAlertClass(area);
         this.filterEapActionsByMonth(area);
         area.eapActions.forEach((action) => {
           if (Object.keys(action.month).length) {
@@ -176,6 +181,31 @@ export class EapActionsService {
     triggeredArea.stoppedDate = DateTime.fromISO(
       triggeredArea.stoppedDate,
     ).toFormat('cccc, dd LLLL');
+  };
+
+  private mapTriggerValueToAlertClass = (triggeredArea: TriggeredArea) => {
+    // If no match is found, then no alertClass will be shown
+    if (this.countryDisasterSettings.eapAlertClasses) {
+      for (const alertClass of Object.keys(
+        this.countryDisasterSettings.eapAlertClasses,
+      )) {
+        if (
+          triggeredArea.triggerValue ===
+          this.countryDisasterSettings.eapAlertClasses[alertClass].value
+        ) {
+          triggeredArea.alertClass = this.countryDisasterSettings.eapAlertClasses[
+            alertClass
+          ].label;
+        }
+      }
+    }
+
+    if (triggeredArea.triggerValue === 1) {
+      triggeredArea.alertLabel = AlertLabel.trigger;
+    } else if (triggeredArea.triggerValue > 0) {
+      triggeredArea.alertLabel = AlertLabel.warning;
+    }
+    // AlertLabel.alert does not need to be defined as {{alertLabel}} is not a variable in the non-eap copy
   };
 
   private filterEapActionsByMonth = (triggeredArea) => {

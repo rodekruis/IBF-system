@@ -1011,21 +1011,26 @@ export class MapService {
         color: triggered ? this.triggeredAreaColor : this.nonTriggeredAreaColor,
         weight: 5,
       };
-    } else if (area.stopped) {
+    }
+    if (area.stopped) {
       return {
         color: this.stoppedTriggerColor,
         weight: 5,
       };
-    } else if (!this.eventState?.event?.thresholdReached) {
+    }
+    if (
+      !area.triggerValue ||
+      area.triggerValue < 1 ||
+      !this.eventState?.event?.thresholdReached
+    ) {
       return {
         color: this.nonTriggeredAreaColor,
         weight: 5,
       };
-    } else {
-      return {
-        color: this.triggeredAreaColor,
-        weight: 5,
-      };
     }
+    return {
+      color: this.triggeredAreaColor,
+      weight: 5,
+    };
   };
 }

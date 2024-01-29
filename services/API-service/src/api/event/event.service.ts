@@ -210,6 +210,18 @@ export class EventService {
     ).triggerUnit;
   }
 
+  private async getCountryDisasterSettings(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ) {
+    return (
+      await this.countryRepository.findOne({
+        where: { countryCodeISO3: countryCodeISO3 },
+        relations: ['countryDisasterSettings'],
+      })
+    ).countryDisasterSettings.find((d) => d.disasterType === disasterType);
+  }
+
   public async getTriggeredAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
@@ -223,12 +235,7 @@ export class EventService {
     );
     const triggerUnit = await this.getTriggerUnit(disasterType);
     const defaultAdminLevel = (
-      await this.countryRepository.findOne({
-        where: { countryCodeISO3: countryCodeISO3 },
-        relations: ['countryDisasterSettings'],
-      })
-    ).countryDisasterSettings.find(
-      (d) => d.disasterType === disasterType,
+      await this.getCountryDisasterSettings(countryCodeISO3, disasterType)
     ).defaultAdminLevel;
 
     const whereFiltersDynamicData = {
@@ -282,6 +289,7 @@ export class EventService {
         'area.name AS name',
         'area."adminLevel" AS "adminLevel"',
         'event."actionsValue"',
+        'event."triggerValue"',
         'event."eventPlaceCodeId"',
         'event."activeTrigger"',
         'event."stopped"',
@@ -316,6 +324,9 @@ export class EventService {
         disasterType === DisasterType.Typhoon
       ) {
         // Exception to speed up typhoon performance. Works because old-event is switched off for typhoon. Should be refactored better.
+        area.eapActions = [];
+      } else if (area.triggerValue < 1) {
+        // Do not show actions for below-trigger events/areas
         area.eapActions = [];
       } else {
         area.eapActions = await this.eapActionsService.getActionsWithStatus(
@@ -385,6 +396,7 @@ export class EventService {
         name: area.name,
         nameParent: null,
         actionsValue: area.value,
+        triggerValue: null, // leave empty for now, as we don't show triggerValue on deeper levels
         stopped: area.stopped,
         startDate: area.startDate,
         stoppedDate: area.stoppedDate,
@@ -413,11 +425,12 @@ export class EventService {
         'case when event.closed = true then event."endDate" end as "endDate"',
         'disaster."actionsUnit" as "exposureIndicator"',
         'event."actionsValue" as "exposureValue"',
+        `CASE event."triggerValue" WHEN 1 THEN 'Trigger/alert' WHEN 0.7 THEN 'Medium warning' WHEN 0.3 THEN 'Low warning' END as "alertClass"`,
         'event."eventPlaceCodeId" as "databaseId"',
       ])
       .leftJoin('event.adminArea', 'area')
       .leftJoin('event.disasterType', 'disaster')
-      .where({ thresholdReached: true })
+      .where({ triggerValue: MoreThan(0) })
       .orderBy('event."startDate"', 'DESC')
       .addOrderBy('area."countryCodeISO3"', 'ASC')
       .addOrderBy('event."disasterType"', 'ASC')
@@ -499,7 +512,6 @@ export class EventService {
     }
     const result = {};
     result['date'] = triggersPerLeadTime[0].date;
-    result['countryCodeISO3'] = triggersPerLeadTime[0].countryCodeISO3;
     for (const leadTimeKey in LeadTime) {
       const leadTimeUnit = LeadTime[leadTimeKey];
       const leadTimeIsTriggered = triggersPerLeadTime.find(
@@ -718,7 +730,6 @@ export class EventService {
       .addSelect('MAX(area.value) AS "actionsValue"')
       .addSelect('MAX(area."leadTime") AS "leadTime"')
       .where(whereOptions)
-      .andWhere('(area.value > 0 OR area."eventName" is not null)') // Also allow value=0 entries with event name (= below trigger event)
       .groupBy('area."placeCode"')
       .getRawMany();
 
@@ -768,7 +779,7 @@ export class EventService {
       if (affectedArea) {
         eventArea.activeTrigger = true;
         eventArea.endDate = endDate;
-        if (affectedArea.triggerValue > 0) {
+        if (affectedArea.triggerValue === 1) {
           eventArea.thresholdReached = true;
           idsToUpdateAboveThreshold.push(eventArea.eventPlaceCodeId);
         } else {
@@ -783,8 +794,8 @@ export class EventService {
     // .. then fire one query to update all rows that need thresholdReached = false
     await this.updateEvents(idsToUpdateBelowThreshold, false, endDate);
 
-    // .. lastly we update those records where actionsValue changed
-    await this.updateActionsValue(unclosedEventAreas, affectedAreas);
+    // .. lastly we update those records where actionsValue or triggerValue changed
+    await this.updateValues(unclosedEventAreas, affectedAreas);
   }
 
   private async updateEvents(
@@ -806,7 +817,7 @@ export class EventService {
     }
   }
 
-  private async updateActionsValue(
+  private async updateValues(
     unclosedEventAreas: EventPlaceCodeEntity[],
     affectedAreas: AffectedAreaDto[],
   ) {
@@ -818,8 +829,10 @@ export class EventService {
       );
       if (
         affectedArea &&
-        eventArea.actionsValue !== affectedArea.actionsValue
+        (eventArea.actionsValue !== affectedArea.actionsValue ||
+          eventArea.triggerValue !== affectedArea.triggerValue)
       ) {
+        eventArea.triggerValue = affectedArea.triggerValue;
         eventArea.actionsValue = affectedArea.actionsValue;
         eventAreasToUpdate.push(
           `('${eventArea.eventPlaceCodeId}',${eventArea.actionsValue})`,
@@ -878,7 +891,8 @@ export class EventService {
         const eventArea = new EventPlaceCodeEntity();
         eventArea.adminArea = adminArea;
         eventArea.eventName = eventName;
-        eventArea.thresholdReached = area.triggerValue > 0;
+        eventArea.thresholdReached = area.triggerValue === 1;
+        eventArea.triggerValue = area.triggerValue;
         eventArea.actionsValue = +area.actionsValue;
         eventArea.startDate = startDate.timestamp;
         eventArea.endDate = await this.getEndDate(
