@@ -628,6 +628,7 @@ export class EmailService {
       <caption class="notification-alerts-table-caption">This table lists the potentially exposed ${adminAreaLabels.plural.toLowerCase()} in order of ${actionsUnit.label.toLowerCase()}:</caption>
       <thead>
           <tr>
+          <th align="left">Alert class</th>
               <th align="left">${adminAreaLabels.singular}${
       adminAreaLabelsParent ? ' (' + adminAreaLabelsParent.singular + ')' : ''
     }</th>
@@ -662,13 +663,14 @@ export class EmailService {
       country.countryDisasterSettings.find(
         (s) => s.disasterType === disasterType,
       ).defaultAdminLevel,
-
       leadTime.leadTimeName,
       eventName,
     );
+    triggeredAreas.sort((a, b) => (a.triggerValue > b.triggerValue ? -1 : 1));
     const disaster = await this.notificationContentService.getDisaster(
       disasterType,
     );
+    const hasEap = this.hasEap(disasterType);
     let areaTableString = '';
     for (const area of triggeredAreas) {
       const actionsUnitValue =
@@ -679,18 +681,47 @@ export class EmailService {
           eventName,
         );
 
-      const areaTable = `<tr class='notification-alerts-table-row'>
+      const areaTable = `
+      <tr class='notification-alerts-table-row'>
+      <td align='left'>${this.mapTriggerValueToAlertClass(
+        area.triggerValue,
+        hasEap,
+      )}</td>
       <td align='left'>${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''
       }</td>
-            <td align='center'>${this.notificationContentService.formatActionUnitValue(
-              actionsUnitValue,
-              actionsUnit,
-            )}</td>
-          </tr>`;
+        <td align='center'>${this.notificationContentService.formatActionUnitValue(
+          actionsUnitValue,
+          actionsUnit,
+        )}</td>
+      </tr>`;
       areaTableString = areaTableString + areaTable;
     }
     return areaTableString;
+  }
+
+  // TODO merge this with the front-end instance of this to some generic place in back-end
+  public hasEap(disasterType: DisasterType): boolean {
+    const eapDisasterTypes = [
+      DisasterType.Floods,
+      DisasterType.Drought,
+      DisasterType.Typhoon,
+      DisasterType.FlashFloods,
+    ];
+    return eapDisasterTypes.includes(disasterType);
+  }
+
+  private mapTriggerValueToAlertClass(
+    triggerValue: number,
+    hasEap: boolean,
+  ): string {
+    if (triggerValue === 1) {
+      return hasEap ? 'Trigger issued' : 'Alert issued';
+    } else if (triggerValue === 0.7) {
+      return 'Medium warning issued';
+    } else if (triggerValue === 0.3) {
+      return 'Low warning issued';
+    }
   }
 
   private formatEmail(emailKeyValueReplaceList: ReplaceKeyValue[]): string {
