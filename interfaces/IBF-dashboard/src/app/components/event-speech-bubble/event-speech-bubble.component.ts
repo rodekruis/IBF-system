@@ -84,7 +84,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   }
 
   public splitAreasByAlertClass(
-    areas: TriggeredArea[],
+    areas: TriggeredArea[] = [],
   ): { alertClass: string; areas: TriggeredArea[] }[] {
     const areasByAlertClass = {};
 

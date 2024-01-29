@@ -8,7 +8,7 @@
     ></ion-icon>
     <ion-card-title>{{
       'chat-component.common.' + stopNode + '.' + eapNode + '.header'
-        | translate: { alertLabel: area.alertLabel }
+        | translate: { alertLabel: area?.alertLabel }
     }}</ion-card-title>
   </ion-card-header>
   <ion-card-content class="ion-padding-top ion-text-center">
@@ -18,8 +18,8 @@
           'chat-component.common.' + stopNode + '.' + eapNode + '.message'
             | translate
               : {
-                  placeCodeName: area.name,
-                  alertLabel: area.alertLabel,
+                  placeCodeName: area?.name,
+                  alertLabel: area?.alertLabel,
                   disasterSpecificText: getDisasterSpecificText()
                 }
         "
@@ -34,7 +34,7 @@
           (click)="confirm()"
           >{{
             'chat-component.common.' + stopNode + '.' + eapNode + '.confirm'
-              | translate: { alertLabel: area.alertLabel }
+              | translate: { alertLabel: area?.alertLabel }
           }}</ion-button
         >
         <ion-button
@@ -44,7 +44,7 @@
         >
           {{
             'chat-component.common.' + stopNode + '.' + eapNode + '.cancel'
-              | translate: { alertLabel: area.alertLabel }
+              | translate: { alertLabel: area?.alertLabel }
           }}
         </ion-button>
       </div>
