@@ -327,6 +327,7 @@
               backgroundColor="ibf-primary"
               type="submit"
               style="width: 100%"
+              strong="true"
             >
               {{
                 'chat-component.common.save-actions.submit-button-label'
@@ -343,7 +344,10 @@
         "
         (click)="openToggleTriggerPopup(area, true)"
         [disabled]="!area.activeTrigger"
-        backgroundColor="ibf-primary"
+        backgroundColor="ibf-white"
+        textColor="ibf-no-alert-primary"
+        borderColor="ibf-no-alert-secondary"
+        strong="true"
         >{{
           'chat-component.common.stop-trigger-popup.' + hasEap() + '.header'
             | translate: { alertLabel: area.alertLabel }
