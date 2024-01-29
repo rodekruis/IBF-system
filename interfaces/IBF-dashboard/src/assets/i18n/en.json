@@ -95,7 +95,7 @@
         "update-success": "State of early action(s) successfully updated.",
         "update-failure": "Failed to update state of early action(s).",
         "prompt-button-label": "OK",
-        "no-actions": "There are no early actions in the portal yet. Please follow the local protocols relevant to the areas affected and review the portal later.",
+        "no-actions": "There are no early actions in the portal. Please follow the local protocols relevant to the areas affected.",
         "no-actions-admin-level": "Early actions are only available on {{ defaultAdminAreaLabel }} level."
       },
       "stop-trigger-popup": {
