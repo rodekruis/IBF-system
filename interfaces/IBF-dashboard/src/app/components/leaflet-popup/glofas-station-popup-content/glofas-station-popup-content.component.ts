@@ -35,8 +35,6 @@ export class GlofasStationPopupContentComponent implements OnInit {
       return;
     }
 
-    console.log('=== data.leadTime: ', this.data.leadTime);
-
     const difference =
       Number(this.data.station.dynamicData?.forecastLevel) -
       Number(this.data.station.dynamicData?.triggerLevel);
