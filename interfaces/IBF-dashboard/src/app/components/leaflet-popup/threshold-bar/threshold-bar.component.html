@@ -2,12 +2,12 @@
   <div [style]="barBackgroundStyle">
     <div [style]="barThresholdStyle">
       <div [style]="barLevelStyle">
-        {{ barValue }}
+        {{ barValue }}<sup *ngIf="unit">{{unit}}</sup>
       </div>
     </div>
   </div>
 </div>
 <div [style]="descriptionStyle">{{ thresholdDescription }}:</div>
 <div [style]="valueStyle">
-  <strong>{{ thresholdValue }}</strong>
+  <strong>{{ thresholdValue }}<sup *ngIf="unit">{{unit}}</sup></strong>
 </div>

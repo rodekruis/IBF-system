@@ -396,7 +396,11 @@
       "tooltip": "Current water level in meters above sea level (mMSL) is measured by a gauge during the latest model run. The difference compared to 24 hours ago is shown in green for decrease or red for increase. The reference water level is the typical level for this station during this season."
     },
     "glofas-station": {
-      "no-data": "No water discharge data available"
+      "no-data": "No water discharge data available",
+      "river-discharge": "Forecasted river discharge in {{ leadTime }}",
+      "river-discharge-explanation": "The amount of water moving down a river at a given time and place",
+      "forecast-return": "(Corresponding to a return period of {{returnPeriod}} years)",
+      "threshold-description": "Trigger activation threshold"
     }
   },
   "breadcrumbs": {

@@ -12,6 +12,7 @@ export class ThresholdBarComponent implements OnInit {
   @Input() public barValue: string;
   @Input() public thresholdDescription: string;
   @Input() public thresholdValue: number;
+  @Input() public unit?: string;
   @Input() public thresholdPosition: number; // width percentage to position threshold on bar
 
   public barBackgroundStyle: string;

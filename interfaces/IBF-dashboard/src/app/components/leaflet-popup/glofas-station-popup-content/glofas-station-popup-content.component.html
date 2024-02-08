@@ -1,21 +1,24 @@
 <ng-container *ngIf="data?.station?.dynamicData">
   <div style="margin-bottom: 4px">
-    {{ data?.leadTime }} forecast of
-    <span
-      title="The amount of water moving down a river at a given time and place"
-      style="
-        text-decoration: underline;
-        text-decoration-style: dotted;
-        cursor: default;
-      "
-      >river discharge</span
-    >
-    in m<sup>3</sup>/s
+    <strong
+      >{{
+        'map-popups.glofas-station.river-discharge'
+          | translate: { leadTime: getLeadTimeString() }
+      }}
+      <span
+        [title]="
+          'map-popups.glofas-station.river-discharge-explanation' | translate
+        "
+        style="cursor: default"
+        ><ion-icon name="information-circle-outline"></ion-icon></span
+    ></strong>
     <ng-container *ngIf="data?.station?.dynamicData?.forecastReturnPeriod">
       <br />
-      (Corresponding to a return period of
-      <strong>{{ data?.station?.dynamicData?.forecastReturnPeriod }}</strong>
-      years)
+      {{
+        'map-popups.glofas-station.forecast-return'
+          | translate
+            : { returnPeriod: data?.station?.dynamicData?.forecastReturnPeriod }
+      }}
     </ng-container>
   </div>
   <app-threshold-bar
@@ -23,9 +26,12 @@
     [textColor]="barTextColor"
     [barWidth]="triggerWidth"
     [barValue]="addComma(barValue)"
-    thresholdDescription="Trigger activation threshold"
+    [thresholdDescription]="
+      'map-popups.glofas-station.threshold-description' | translate
+    "
     [thresholdValue]="data?.station?.dynamicData?.triggerLevel"
     [thresholdPosition]="80"
+    unit="m3/s"
   ></app-threshold-bar>
 </ng-container>
 <ng-container *ngIf="!data?.station?.dynamicData">

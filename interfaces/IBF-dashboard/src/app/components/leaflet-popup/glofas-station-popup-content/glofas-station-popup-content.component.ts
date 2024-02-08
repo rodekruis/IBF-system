@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { EapAlertClass, EapAlertClasses } from '../../../models/country.model';
 import { Station } from '../../../models/poi.model';
 import { LeadTime } from '../../../types/lead-time';
@@ -27,10 +28,14 @@ export class GlofasStationPopupContentComponent implements OnInit {
     value: 0,
   };
 
+  constructor(private translate: TranslateService) {}
+
   ngOnInit(): void {
     if (!this.data) {
       return;
     }
+
+    console.log('=== data.leadTime: ', this.data.leadTime);
 
     const difference =
       Number(this.data.station.dynamicData?.forecastLevel) -
@@ -69,4 +74,14 @@ export class GlofasStationPopupContentComponent implements OnInit {
   }
 
   public addComma = (n) => Math.round(n).toLocaleString('en-US');
+
+  public getLeadTimeString(): string {
+    if (!this.data || !this.data?.leadTime) {
+      return '';
+    }
+
+    const [value, unit] = this.data.leadTime.split('-');
+
+    return `${value} ${unit}${Number(value) > 1 ? 's' : ''}`;
+  }
 }
