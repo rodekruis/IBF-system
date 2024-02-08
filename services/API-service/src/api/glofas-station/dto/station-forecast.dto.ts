@@ -24,9 +24,8 @@ export class GlofasStationForecastDto {
   public eapAlertClass: string;
 
   @ApiProperty({ example: 10 })
-  @IsNumber()
   @IsOptional()
-  public forecastReturnPeriod: number;
+  public forecastReturnPeriod: number | string;
 
   @ApiProperty({ example: 100 })
   @IsNumber()
