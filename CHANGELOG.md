@@ -1,3 +1,14 @@
+## [0.262.2](https://github.com/rodekruis/IBF-system/compare/v0.262.1...v0.262.2) (2024-02-09)
+
+
+### Bug Fixes
+
+* handle null in chat AB[#26338](https://github.com/rodekruis/IBF-system/issues/26338) ([dfcfc06](https://github.com/rodekruis/IBF-system/commit/dfcfc0625b9a180ea22e286e51ee7b9573f93f56))
+* mock pop affected perc AB[#26338](https://github.com/rodekruis/IBF-system/issues/26338) ([772115e](https://github.com/rodekruis/IBF-system/commit/772115eeb68cfe4749d17e8994a37f9b8df845d4))
+* set null population affected AB[#26338](https://github.com/rodekruis/IBF-system/issues/26338) ([7c37eb2](https://github.com/rodekruis/IBF-system/commit/7c37eb2a27509f0812b39cbac1bb1ebf51ca4486))
+
+
+
 ## [0.262.1](https://github.com/rodekruis/IBF-system/compare/v0.262.0...v0.262.1) (2024-02-09)
 
 
@@ -143,15 +154,6 @@
 ### Features
 
 * dynamic point data entity + gauge layer AB[#25124](https://github.com/rodekruis/IBF-system/issues/25124) ([bfc3071](https://github.com/rodekruis/IBF-system/commit/bfc3071d1459a9b860442cb1431027e4fa34cd0c))
-
-
-
-## [0.259.2](https://github.com/rodekruis/IBF-system/compare/v0.259.1...v0.259.2) (2023-11-20)
-
-
-### Bug Fixes
-
-* update MWI WhatsApp group URL AB[#24898](https://github.com/rodekruis/IBF-system/issues/24898) ([b0cd43c](https://github.com/rodekruis/IBF-system/commit/b0cd43c509c94439252fcc373d97d53dda0e8f99))
 
 
 
