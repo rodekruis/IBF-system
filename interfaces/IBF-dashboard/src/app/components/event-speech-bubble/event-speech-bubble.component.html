@@ -160,7 +160,13 @@
     ></p>
     <div *ngFor="let class of alertClasses">
       <p class="ion-padding-top" *ngIf="class.alertClass !== 'undefined'">
-        <strong>{{ class.alertClass }}</strong>
+        <strong>{{ class.alertClass }}: </strong
+        ><span
+          *ngIf="
+            !class.areas[0].actionsValue || class.areas[0].actionsValue === 0
+          "
+          >(no exposed population data available)</span
+        >
       </p>
       <ul>
         <li
@@ -170,13 +176,16 @@
         >
           <p>
             {{ area.name }}
-            <span *ngIf="area.nameParent">({{ area.nameParent }})</span> -
-            <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
-              area.actionsValue | number: '.0-0'
-            }}</span
-            ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
-              area.actionsValue | percent: '.0-0'
-            }}</span>
+            <span *ngIf="area.nameParent">({{ area.nameParent }})</span>
+            <ng-container *ngIf="area.actionsValue && area.actionsValue > 0">
+              {{ ' - ' }}
+              <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
+                area.actionsValue | number: '.0-0'
+              }}</span>
+              <span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
+                area.actionsValue | percent: '.0-0'
+              }}</span>
+            </ng-container>
           </p>
         </li>
       </ul>
