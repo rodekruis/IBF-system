@@ -1,3 +1,17 @@
+## [0.262.1](https://github.com/rodekruis/IBF-system/compare/v0.262.0...v0.262.1) (2024-02-09)
+
+
+### Bug Fixes
+
+* allow string in forecastReturnPeriod AB[#26287](https://github.com/rodekruis/IBF-system/issues/26287) ([2351a6f](https://github.com/rodekruis/IBF-system/commit/2351a6f308a6c7a28c3d8e2ec3e98e12bc36a5e1))
+* prettier ([22b4190](https://github.com/rodekruis/IBF-system/commit/22b41908df5a5a61526ec911b584c4dc502457e7))
+* remove console.log ([2aff8dc](https://github.com/rodekruis/IBF-system/commit/2aff8dc55f0abf84d3dd07afa613e4578d585205))
+* set return period to specific value AB[#26287](https://github.com/rodekruis/IBF-system/issues/26287) ([d7e503e](https://github.com/rodekruis/IBF-system/commit/d7e503e1da286f8ee1e7b7b9940ae8d004e5217c))
+* update exposed pop for alert=1 AB[#26287](https://github.com/rodekruis/IBF-system/issues/26287) ([8b64462](https://github.com/rodekruis/IBF-system/commit/8b64462114d34c67341cc25bdfb786eee77a706c))
+* update returnPeriod and triggerLevel AB[#26287](https://github.com/rodekruis/IBF-system/issues/26287) ([6c84a39](https://github.com/rodekruis/IBF-system/commit/6c84a3963657c0cdc937827ccdc2121d600b852b))
+
+
+
 # [0.262.0](https://github.com/rodekruis/IBF-system/compare/v0.261.5...v0.262.0) (2024-01-29)
 
 
@@ -138,15 +152,6 @@
 ### Bug Fixes
 
 * update MWI WhatsApp group URL AB[#24898](https://github.com/rodekruis/IBF-system/issues/24898) ([b0cd43c](https://github.com/rodekruis/IBF-system/commit/b0cd43c509c94439252fcc373d97d53dda0e8f99))
-
-
-
-## [0.259.1](https://github.com/rodekruis/IBF-system/compare/v0.259.0...v0.259.1) (2023-11-17)
-
-
-### Bug Fixes
-
-* update flash-floods eap-link AB[#24908](https://github.com/rodekruis/IBF-system/issues/24908) ([ab4a4d9](https://github.com/rodekruis/IBF-system/commit/ab4a4d97b449644626fc3f4f90e0fcef9bd3161a))
 
 
 
