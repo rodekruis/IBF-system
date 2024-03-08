@@ -100,6 +100,12 @@ export class TimelineService {
     return this.timelineStateSubject.asObservable();
   }
 
+  private hasInteractiveTimeline(disasterType: DisasterTypeKey) {
+    return [DisasterTypeKey.flashFloods, DisasterTypeKey.floods].includes(
+      disasterType,
+    );
+  }
+
   private leadTimeToLeadTimeButton = (
     leadTimeInput: LeadTimeButtonInput,
     index: number,
@@ -107,16 +113,14 @@ export class TimelineService {
     const leadTime = leadTimeInput.leadTime;
     const isLeadTimeEnabled =
       this.isLeadTimeEnabled(leadTime) &&
-      this.disasterType.disasterType !== DisasterTypeKey.flashFloods;
+      !this.hasInteractiveTimeline(this.disasterType.disasterType);
     const isUndefinedLeadTime = this.eventState.events
       .filter((e) => e.disasterSpecificProperties?.typhoonNoLandfallYet)
       .map((e) => e.firstLeadTime)
       .includes(leadTime);
     const triggerKey = LeadTimeTriggerKey[leadTime];
     const alert =
-      this.triggersAllEvents &&
-      this.triggersAllEvents[leadTime] &&
-      this.triggersAllEvents[leadTime] === '1' &&
+      this.triggersAllEvents?.[leadTime] === '1' &&
       (!isUndefinedLeadTime ||
         (isUndefinedLeadTime && leadTimeInput.undefined));
 
@@ -176,14 +180,14 @@ export class TimelineService {
         this.handleTimeStepButtonClick(LeadTime.hour72, null, true);
       } else if (
         // or the flash-floods scenario where all buttons are disabled
-        this.disasterType.disasterType === DisasterTypeKey.flashFloods
+        this.hasInteractiveTimeline(this.disasterType.disasterType)
       ) {
         this.handleTimeStepButtonClick(
           this.eventState.event
             ? (this.eventState.event.firstLeadTime as LeadTime)
             : this.eventState.activeTrigger
             ? null
-            : LeadTime.hour1,
+            : LeadTime.hour1, // TODO: this is flash-floods specific??
           null,
         );
       }
@@ -263,7 +267,7 @@ export class TimelineService {
         ? btn.value === timeStepButtonValue
         : eventName
         ? btn.value === timeStepButtonValue &&
-          !btn.disabled &&
+          // !btn.disabled && // TODO: check regression effects
           btn.eventName === eventName
         : btn.value === timeStepButtonValue && !btn.disabled,
     );
