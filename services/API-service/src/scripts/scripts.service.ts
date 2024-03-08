@@ -3,8 +3,10 @@ import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admi
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
 import {
+  FloodsScenario,
   MockAll,
   MockDynamic,
+  MockFloodsScenario,
   MockTyphoonScenario,
   TyphoonScenario,
 } from './scripts.controller';
@@ -277,6 +279,74 @@ export class ScriptsService {
     }
   }
 
+  public async mockFloodsScenario(mockFloodsScenario: MockFloodsScenario) {
+    console.log('mockFloodsScenario: ', mockFloodsScenario);
+    if (mockFloodsScenario.scenario === FloodsScenario.Trigger) {
+      // 1. API-call: /exposure
+      // per event/leadTime (some events could have same leadTime)
+      const events = [
+        { eventName: 'G5220', leadTime: '2-day' },
+        { eventName: 'G5075', leadTime: '4-day' },
+        { eventName: 'G5230', leadTime: '6-day' },
+      ];
+      for (const event of events) {
+        // per admin-level?
+        const adminLevels = [2]; // [2, 3, 4]; simplify for now
+        for (const adminLevel of adminLevels) {
+          // per indicator
+          // TODO: get indicators from metadata-service
+          const indicators = ['alert_threshold', 'population_affected'];
+          for (const indicator of indicators) {
+            // TODO: get from json mock data files
+            const exposurePlaceCodes = this.getEventMockData(
+              DisasterType.Floods,
+              mockFloodsScenario.countryCodeISO3,
+              mockFloodsScenario.scenario,
+              event.eventName,
+              adminLevel,
+              indicator as DynamicIndicator,
+            );
+
+            await this.adminAreaDynamicDataService.exposure({
+              countryCodeISO3: mockFloodsScenario.countryCodeISO3,
+              exposurePlaceCodes,
+              leadTime: event.leadTime as LeadTime,
+              dynamicIndicator: indicator as DynamicIndicator,
+              adminLevel: adminLevel as AdminLevel,
+              disasterType: DisasterType.Floods,
+              eventName: event.eventName,
+              date: mockFloodsScenario.date || new Date(),
+            });
+          }
+        }
+      }
+
+      // 2. API-call: /trigger-per-lead-time (or forget about for now?)
+
+      // 3. API-call: /glofas-stations
+
+      // 4. API-call: /raster-file
+
+      // 5. API-call: map-image-file? (not for now)
+    } else {
+      // TODO: other scenarios
+    }
+  }
+
+  private getEventMockData(
+    disasterType: DisasterType,
+    countryCodeISO3: string,
+    scenario: string,
+    eventName: string,
+    adminLevel: AdminLevel,
+    indicator: DynamicIndicator,
+  ) {
+    const fileName = `upload-${indicator}-${adminLevel}`;
+    const exposureFileName = `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario}/${eventName}/${fileName}.json`;
+    const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
+    return JSON.parse(exposureRaw);
+  }
+
   private async mockExposure(
     selectedCountry,
     disasterType: DisasterType,
@@ -404,7 +474,7 @@ export class ScriptsService {
     eventNr: number,
     countryCodeISO3: string,
     disasterType: DisasterType,
-    triggered: boolean,
+    triggered = true,
     typhoonScenario?: TyphoonScenario,
   ) {
     let fileName = `upload-${unit}-${adminLevel}`;
