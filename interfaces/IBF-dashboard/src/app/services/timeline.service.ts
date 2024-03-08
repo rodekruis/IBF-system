@@ -145,7 +145,8 @@ export class TimelineService {
   }
 
   private onTriggerPerLeadTime = (triggers) => {
-    this.triggersAllEvents = { ...this.triggersAllEvents, ...triggers };
+    // TODO: test regression effects here better + nothing happens with input anymore now? + use this somehow to highlight relevant leadTimes per event?
+    // this.triggersAllEvents = { ...this.triggersAllEvents, ...triggers };
 
     this.state.timeStepButtons = [];
     const visibleLeadTimes = this.getVisibleLeadTimes();
@@ -200,6 +201,17 @@ export class TimelineService {
     // this.state.today = this.state.today.plus({
     //   months: addMonthsToCurrentDate,
     // });
+
+    // First get triggers per day across all events for timeline
+    this.apiService
+      .getTriggerPerLeadTime(
+        this.country.countryCodeISO3,
+        this.disasterType.disasterType,
+        null,
+      )
+      .subscribe((response) => {
+        this.triggersAllEvents = response;
+      });
 
     const events = this.eventState?.events;
     if (events?.length) {
@@ -497,6 +509,12 @@ export class TimelineService {
       if (!events.length) {
         return leadTime === LeadTime.hour1;
       }
+      const relevantLeadTimes = this.eventState?.activeTrigger
+        ? events.map((e) => e.firstLeadTime)
+        : [];
+      return relevantLeadTimes.includes(leadTime);
+    } else if (disasterType.disasterType === DisasterTypeKey.floods) {
+      const events = this.eventState?.events;
       const relevantLeadTimes = this.eventState?.activeTrigger
         ? events.map((e) => e.firstLeadTime)
         : [];

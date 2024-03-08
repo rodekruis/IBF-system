@@ -169,6 +169,7 @@ export class EventService {
     if (uploadTriggerPerLeadTimeDto.eventName) {
       deleteFilters['eventName'] = uploadTriggerPerLeadTimeDto.eventName;
     }
+    // TODO: can this exception be removed when moving to calculated leadTime throughout?
     // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
     if (uploadTriggerPerLeadTimeDto.disasterType !== DisasterType.Typhoon) {
       deleteFilters['leadTime'] = selectedLeadTime.leadTime as LeadTime;
@@ -503,15 +504,26 @@ export class EventService {
       whereFilters['eventName'] = eventName;
     }
 
-    const triggersPerLeadTime = await this.triggerPerLeadTimeRepository.find({
-      where: whereFilters,
-    });
+    // get max per leadTime (for multi-event case national view)
+    const triggersPerLeadTime = await this.triggerPerLeadTimeRepository
+      .createQueryBuilder('triggerPerLeadTime')
+      .select([
+        'triggerPerLeadTime.leadTime as "leadTime"',
+        'triggerPerLeadTime.date as date',
+        'MAX(CASE WHEN triggerPerLeadTime.triggered = TRUE THEN 1 ELSE 0 END) as triggered',
+        'MAX(CASE WHEN triggerPerLeadTime.thresholdReached = TRUE THEN 1 ELSE 0 END) as "thresholdReached"',
+      ])
+      .where(whereFilters)
+      .groupBy('triggerPerLeadTime.leadTime')
+      .addGroupBy('triggerPerLeadTime.date')
+      .getRawMany();
 
     if (triggersPerLeadTime.length === 0) {
       return;
     }
-    const result = {};
-    result['date'] = triggersPerLeadTime[0].date;
+    const result = {
+      date: triggersPerLeadTime[0].date,
+    };
     for (const leadTimeKey in LeadTime) {
       const leadTimeUnit = LeadTime[leadTimeKey];
       const leadTimeIsTriggered = triggersPerLeadTime.find(

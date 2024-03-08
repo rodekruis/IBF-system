@@ -1,0 +1,37 @@
+[
+  {
+    "leadTime": "1-day",
+    "triggered": false,
+    "thresholdReached": false
+  },
+  {
+    "leadTime": "2-day",
+    "triggered": true,
+    "thresholdReached": false
+  },
+  {
+    "leadTime": "3-day",
+    "triggered": true,
+    "thresholdReached": false
+  },
+  {
+    "leadTime": "4-day",
+    "triggered": true,
+    "thresholdReached": false
+  },
+  {
+    "leadTime": "5-day",
+    "triggered": true,
+    "thresholdReached": false
+  },
+  {
+    "leadTime": "6-day",
+    "triggered": true,
+    "thresholdReached": false
+  },
+  {
+    "leadTime": "7-day",
+    "triggered": true,
+    "thresholdReached": false
+  }
+]

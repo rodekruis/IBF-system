@@ -165,7 +165,7 @@ export class ScriptsService {
         date,
       );
       await this.mockTriggerPerLeadTime(
-        selectedCountry,
+        selectedCountry.countryCodeISO3,
         mockInput.disasterType,
         mockInput.triggered,
         eventNr,
@@ -280,16 +280,19 @@ export class ScriptsService {
   }
 
   public async mockFloodsScenario(mockFloodsScenario: MockFloodsScenario) {
-    console.log('mockFloodsScenario: ', mockFloodsScenario);
+    const countryCodeISO3 = mockFloodsScenario.countryCodeISO3;
     if (mockFloodsScenario.scenario === FloodsScenario.Trigger) {
-      // 1. API-call: /exposure
-      // per event/leadTime (some events could have same leadTime)
+      // define events: events can have same leadTime
       const events = [
-        { eventName: 'G5220', leadTime: '2-day' },
-        { eventName: 'G5075', leadTime: '4-day' },
+        { eventName: 'G5075', leadTime: '2-day' },
+        { eventName: 'G5220', leadTime: '4-day' },
         { eventName: 'G5230', leadTime: '6-day' },
       ];
+
+      // per event/leadTime
       for (const event of events) {
+        // 1. API-call: /exposure
+
         // per admin-level
         // TODO: get dynamically
         const adminLevels = [2, 3, 4];
@@ -300,7 +303,7 @@ export class ScriptsService {
           for (const indicator of indicators) {
             const exposurePlaceCodes = this.getEventMockData(
               DisasterType.Floods,
-              mockFloodsScenario.countryCodeISO3,
+              countryCodeISO3,
               mockFloodsScenario.scenario,
               event.eventName,
               adminLevel,
@@ -308,7 +311,7 @@ export class ScriptsService {
             );
 
             await this.adminAreaDynamicDataService.exposure({
-              countryCodeISO3: mockFloodsScenario.countryCodeISO3,
+              countryCodeISO3: countryCodeISO3,
               exposurePlaceCodes,
               leadTime: event.leadTime as LeadTime,
               dynamicIndicator: indicator as DynamicIndicator,
@@ -319,9 +322,23 @@ export class ScriptsService {
             });
           }
         }
-      }
 
-      // 2. API-call: /trigger-per-lead-time (or forget about for now?)
+        // 2. API-call: /trigger-per-lead-time
+        // TODO: move this to new location to be able to separate per scenario
+        const triggersPerLeadTimeFileName = `./src/scripts/mock-data/${DisasterType.Floods}/${countryCodeISO3}/${mockFloodsScenario.scenario}/${event.eventName}/triggers-per-leadtime.json`;
+        const triggersPerLeadTimeRaw = fs.readFileSync(
+          triggersPerLeadTimeFileName,
+          'utf-8',
+        );
+        const triggersPerLeadTime = JSON.parse(triggersPerLeadTimeRaw);
+        await this.eventService.uploadTriggerPerLeadTime({
+          countryCodeISO3,
+          triggersPerLeadTime,
+          disasterType: DisasterType.Floods,
+          eventName: event.eventName,
+          date: mockFloodsScenario.date || new Date(),
+        });
+      }
 
       // 3. API-call: /glofas-stations
 
@@ -999,20 +1016,20 @@ export class ScriptsService {
   }
 
   private async mockTriggerPerLeadTime(
-    selectedCountry,
+    countryCodeISO3,
     disasterType: DisasterType,
     triggered: boolean,
     eventNr = 1,
     date: Date,
   ) {
-    const triggersFileName = `./src/api/event/dto/example/triggers-per-leadtime-${
-      selectedCountry.countryCodeISO3
-    }${triggered ? '-triggered' : ''}.json`;
+    const triggersFileName = `./src/api/event/dto/example/triggers-per-leadtime-${countryCodeISO3}${
+      triggered ? '-triggered' : ''
+    }.json`;
     const triggersRaw = fs.readFileSync(triggersFileName, 'utf-8');
     const triggers = JSON.parse(triggersRaw);
 
     await this.eventService.uploadTriggerPerLeadTime({
-      countryCodeISO3: selectedCountry.countryCodeISO3,
+      countryCodeISO3: countryCodeISO3,
       triggersPerLeadTime: triggers,
       disasterType: disasterType,
       eventName: this.getEventName(disasterType, eventNr),
