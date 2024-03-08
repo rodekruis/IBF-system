@@ -290,14 +290,14 @@ export class ScriptsService {
         { eventName: 'G5230', leadTime: '6-day' },
       ];
       for (const event of events) {
-        // per admin-level?
-        const adminLevels = [2]; // [2, 3, 4]; simplify for now
+        // per admin-level
+        // TODO: get dynamically
+        const adminLevels = [2, 3, 4];
         for (const adminLevel of adminLevels) {
           // per indicator
           // TODO: get indicators from metadata-service
           const indicators = ['alert_threshold', 'population_affected'];
           for (const indicator of indicators) {
-            // TODO: get from json mock data files
             const exposurePlaceCodes = this.getEventMockData(
               DisasterType.Floods,
               mockFloodsScenario.countryCodeISO3,
