@@ -281,6 +281,7 @@ export class ScriptsService {
 
   public async mockFloodsScenario(mockFloodsScenario: MockFloodsScenario) {
     const countryCodeISO3 = mockFloodsScenario.countryCodeISO3;
+    const date = mockFloodsScenario.date || new Date();
     if (mockFloodsScenario.scenario === FloodsScenario.Trigger) {
       // define events: events can have same leadTime
       const events = [
@@ -318,7 +319,7 @@ export class ScriptsService {
               adminLevel: adminLevel as AdminLevel,
               disasterType: DisasterType.Floods,
               eventName: event.eventName,
-              date: mockFloodsScenario.date || new Date(),
+              date,
             });
           }
         }
@@ -336,17 +337,35 @@ export class ScriptsService {
           triggersPerLeadTime,
           disasterType: DisasterType.Floods,
           eventName: event.eventName,
-          date: mockFloodsScenario.date || new Date(),
+          date,
         });
       }
 
       // 3. API-call: /glofas-stations
+      const selectedCountry = countries.find((country): any => {
+        if (countryCodeISO3 === country.countryCodeISO3) {
+          return country;
+        }
+      });
+      // TODO: the above uploads for all 7 leadTimes unnecessarily, but good enough for now
+      await this.mockGlofasStations(
+        selectedCountry,
+        DisasterType.Floods,
+        true,
+        date,
+      );
 
-      // 4. API-call: /raster-file
+      // 4. API-call: raster-file
+      // TODO: create new geoserver stores/layers for all new leadTimes
+      await this.mockRasterFile(selectedCountry, DisasterType.Floods, true);
 
-      // 5. API-call: map-image-file? (not for now)
+      // 5. API-call: map-image-file
+      if (countryCodeISO3 === 'SSD') {
+        await this.mockMapImageFile(countryCodeISO3, DisasterType.Floods, true);
+      }
     } else {
       // TODO: other scenarios
+      // TODO: re-use more code instead of repeating everything for each scenario?
     }
   }
 

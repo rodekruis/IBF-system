@@ -23,6 +23,7 @@ export class GlofasStationController {
     this.glofasStationService = glofasStationService;
   }
 
+  // NOTE: This endpoint is old and should be removed after pipeline migrated
   @ApiOperation({
     summary:
       'Get Glofas station locations and attributes for given country (used by IBF-pipeline)',
@@ -39,6 +40,7 @@ export class GlofasStationController {
     );
   }
 
+  // NOTE: This endpoint is old and should be removed after pipeline migrated
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
