@@ -79,8 +79,11 @@ export class EventSummaryCountry {
   @ApiProperty({ example: 'Mock typhoon' })
   public eventName: string;
 
-  @ApiProperty({ example: LeadTime.day7 })
+  @ApiProperty({ example: LeadTime.day3 })
   public firstLeadTime: LeadTime;
+
+  @ApiProperty({ example: LeadTime.day5 })
+  public firstTriggerLeadTime: LeadTime;
 
   @ApiProperty({ example: {} })
   public disasterSpecificProperties: DisasterSpecificProperties;

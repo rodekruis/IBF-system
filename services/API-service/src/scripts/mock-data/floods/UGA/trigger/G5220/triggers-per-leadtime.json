@@ -11,7 +11,7 @@
   },
   {
     "leadTime": "3-day",
-    "triggered": false,
+    "triggered": true,
     "thresholdReached": false
   },
   {

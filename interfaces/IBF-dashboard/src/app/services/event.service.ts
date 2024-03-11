@@ -24,6 +24,9 @@ export class EventSummary {
   firstLeadTime?: string;
   firstLeadTimeLabel?: string;
   firstLeadTimeDate?: string;
+  firstTriggerLeadTime?: string;
+  firstTriggerLeadTimeLabel?: string;
+  firstTriggerLeadTimeDate?: string;
   timeUnit?: string;
   duration?: number;
   disasterSpecificProperties: DisasterSpecificProperties;
@@ -194,10 +197,18 @@ export class EventService {
           ).toFormat('cccc, dd LLLL');
         }
         event.firstLeadTimeLabel = LeadTimeTriggerKey[event.firstLeadTime];
+        event.firstTriggerLeadTimeLabel =
+          LeadTimeTriggerKey[event.firstLeadTime];
         event.timeUnit = event.firstLeadTime?.split('-')[1];
 
         event.firstLeadTimeDate = event.firstLeadTime
           ? this.getFirstLeadTimeDate(event.firstLeadTime, event.timeUnit)
+          : null;
+        event.firstTriggerLeadTimeDate = event.firstTriggerLeadTime
+          ? this.getFirstLeadTimeDate(
+              event.firstTriggerLeadTime,
+              event.timeUnit,
+            )
           : null;
 
         event.duration = this.getEventDuration(event);

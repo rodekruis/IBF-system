@@ -100,6 +100,13 @@ export class EventService {
         countryCodeISO3,
         disasterType,
         event.eventName,
+        false,
+      );
+      event.firstTriggerLeadTime = await this.getFirstLeadTime(
+        countryCodeISO3,
+        disasterType,
+        event.eventName,
+        true,
       );
       if (disasterType === DisasterType.Typhoon) {
         event.disasterSpecificProperties =
@@ -459,6 +466,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
+    triggeredLeadTime: boolean,
   ) {
     const timesteps = await this.getTriggerPerLeadtime(
       countryCodeISO3,
@@ -473,8 +481,14 @@ export class EventService {
           Number(a.split('-')[0]) > Number(b.split('-')[0]) ? 1 : -1,
         )
         .forEach((key) => {
-          if (timesteps[key] === '1') {
-            firstKey = !firstKey ? key : firstKey;
+          if (triggeredLeadTime) {
+            if (timesteps[`${key}-thresholdReached`] === '1') {
+              firstKey = !firstKey ? key : firstKey;
+            }
+          } else {
+            if (timesteps[key] === '1') {
+              firstKey = !firstKey ? key : firstKey;
+            }
           }
         });
     }

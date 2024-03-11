@@ -348,6 +348,7 @@ export class ScriptsService {
         }
       });
       // TODO: the above uploads for all 7 leadTimes unnecessarily, but good enough for now
+      // TODO: make this align with events/scenarios as described above
       await this.mockGlofasStations(
         selectedCountry,
         DisasterType.Floods,

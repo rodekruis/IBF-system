@@ -20,6 +20,7 @@
             | translate
               : {
                   firstLeadTimeDate: event.firstLeadTimeDate,
+                  firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
                   eventName:
                     event.eventName?.split('_')[0] || disasterTypeLabel,
                   disasterTypeLabel: disasterTypeLabel
@@ -42,6 +43,7 @@
                   timeUnit: event.timeUnit,
                   disasterTypeLabel: disasterTypeLabel,
                   firstLeadTimeDate: event.firstLeadTimeDate,
+                  firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
                   eventName:
                     event.eventName?.split('_')[0] || disasterTypeLabel,
                   duration: event.duration,
@@ -103,6 +105,7 @@
             : {
                 startDate: event.startDate,
                 firstLeadTimeDate: event.firstLeadTimeDate,
+                firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
                 eventName: event.eventName?.split('_')[0],
                 leadTime: event.firstLeadTimeLabel,
                 timeUnit: event.timeUnit,
