@@ -29,6 +29,7 @@ import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin
 import { LinesDataModule } from '../api/lines-data/lines-data.module';
 import SeedLineData from './seed-line-data';
 import { ORMConfig } from '../../ormconfig';
+import { MockService } from './mock.service';
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { ORMConfig } from '../../ormconfig';
     SeedPointData,
     SeedLineData,
     SeedRainfallData,
+    MockService,
   ],
   controllers: [ScriptsController],
 })
