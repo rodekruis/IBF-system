@@ -61,6 +61,17 @@ export class MockFloodsScenario extends MockBaseScenario {
   public readonly scenario: FloodsScenario;
 }
 
+export enum FlashFloodsScenario {
+  TriggerWarning = 'trigger-warning',
+}
+export class MockFlashFloodsScenario extends MockBaseScenario {
+  @ApiProperty({
+    example: Object.values(FlashFloodsScenario).join(' | '),
+  })
+  @IsEnum(FlashFloodsScenario)
+  public readonly scenario: FlashFloodsScenario;
+}
+
 export enum EpidemicsScenario {
   Trigger = 'trigger',
 }
@@ -98,6 +109,33 @@ export class MockController {
     const result = await this.mockService.mock(
       body.countryCodeISO3,
       DisasterType.Floods,
+      body.scenario,
+      false,
+      body.date,
+    );
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Upload mock data for specific floods scenario',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Uploaded mock data for specific floods scenario',
+  })
+  @Post('/flash-floods')
+  public async mockFlashFloodsScenario(
+    @Body() body: MockFlashFloodsScenario,
+    @Res() res,
+  ): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+    const result = await this.mockService.mock(
+      body.countryCodeISO3,
+      DisasterType.FlashFloods,
       body.scenario,
       false,
       body.date,
