@@ -386,7 +386,7 @@ export class ScriptsService {
       // define events: events can have same leadTime
       // TODO: better event names
       const events = [
-        // { eventName: '0-month', leadTime: '0-month' },
+        { eventName: '0-month', leadTime: '0-month' },
         { eventName: '1-month', leadTime: '1-month' },
         { eventName: '2-month', leadTime: '2-month' },
       ];
