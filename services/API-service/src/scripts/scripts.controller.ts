@@ -26,6 +26,7 @@ import { RolesGuard } from '../roles.guard';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { Roles } from '../roles.decorator';
 import { UserRole } from '../api/user/user-role.enum';
+import { MockService } from './mock.service';
 
 class ResetDto {
   @ApiProperty({ example: 'fill_in_secret' })
@@ -125,7 +126,7 @@ export class MockFloodsScenario {
   public readonly secret: string;
 
   @ApiProperty({ example: 'UGA' })
-  @IsIn(['UGA', 'PHL', 'ETH'])
+  @IsIn(['UGA'])
   public readonly countryCodeISO3: string;
 
   @ApiProperty({
@@ -151,6 +152,7 @@ export class ScriptsController {
   public constructor(
     private scriptsService: ScriptsService,
     private seedInit: SeedInit,
+    private mockService: MockService,
   ) {}
 
   @Roles(UserRole.Admin)
@@ -254,30 +256,14 @@ export class ScriptsController {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
 
-    const result = await this.scriptsService.mockFloodsScenario(body);
-
-    return res.status(HttpStatus.ACCEPTED).send(result);
-  }
-
-  @Roles(UserRole.Admin)
-  @ApiOperation({
-    summary: 'Upload mock data for specific epidemics scenario',
-  })
-  @ApiResponse({
-    status: 202,
-    description: 'Uploaded mock data for specific epidemics scenario',
-  })
-  @Post('/mock-epidemics-scenario')
-  public async mockEpidemicsScenario(
-    // TODO: add own dto
-    @Body() body: MockFloodsScenario,
-    @Res() res,
-  ): Promise<string> {
-    if (body.secret !== process.env.RESET_SECRET) {
-      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
-    }
-
-    const result = await this.scriptsService.mockEpidemicsScenario(body);
+    // const result = await this.scriptsService.mockFloodsScenario(body);
+    const result = await this.mockService.mock(
+      body.countryCodeISO3,
+      DisasterType.Floods,
+      body.scenario,
+      false,
+      body.date,
+    );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }
