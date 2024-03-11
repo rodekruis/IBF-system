@@ -188,12 +188,22 @@ export class TimelineService {
                 this.eventState.event.firstLeadTime) as LeadTime)
             : this.eventState.activeTrigger
             ? null
-            : LeadTime.hour1, // TODO: this is flash-floods specific??
+            : this.getFallbackNoTriggerLeadTime(this.disasterType.disasterType),
           null,
         );
       }
     }
   };
+
+  private getFallbackNoTriggerLeadTime(disasterType: DisasterTypeKey) {
+    if (disasterType === DisasterTypeKey.floods) {
+      return LeadTime.day1;
+    } else if (disasterType === DisasterTypeKey.flashFloods) {
+      return LeadTime.hour1;
+    } else {
+      return null;
+    }
+  }
 
   private onRecentDates = (date) => {
     if (date.timestamp || date.date) {
