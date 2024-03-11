@@ -125,7 +125,7 @@ export class MockFloodsScenario {
   public readonly secret: string;
 
   @ApiProperty({ example: 'UGA' })
-  @IsIn(['UGA'])
+  @IsIn(['UGA', 'PHL', 'ETH'])
   public readonly countryCodeISO3: string;
 
   @ApiProperty({
@@ -255,6 +255,29 @@ export class ScriptsController {
     }
 
     const result = await this.scriptsService.mockFloodsScenario(body);
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Upload mock data for specific epidemics scenario',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Uploaded mock data for specific epidemics scenario',
+  })
+  @Post('/mock-epidemics-scenario')
+  public async mockEpidemicsScenario(
+    // TODO: add own dto
+    @Body() body: MockFloodsScenario,
+    @Res() res,
+  ): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+
+    const result = await this.scriptsService.mockEpidemicsScenario(body);
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }

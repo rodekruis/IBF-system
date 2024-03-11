@@ -80,7 +80,9 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   };
 
   public showLessButton() {
-    return this.disasterTypeName !== DisasterTypeKey.typhoon;
+    return !this.eventService.skipNationalView(
+      this.disasterTypeName as DisasterTypeKey,
+    );
   }
 
   public switchEvent(event: EventSummary): void {

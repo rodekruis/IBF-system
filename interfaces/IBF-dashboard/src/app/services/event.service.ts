@@ -219,8 +219,7 @@ export class EventService {
 
     if (events.length === 1) {
       this.setEventInitially(events[0]);
-    } else if (this.disasterType.disasterType === DisasterTypeKey.typhoon) {
-      // exception: make typhoon still load 1st event by default
+    } else if (this.skipNationalView(this.disasterType.disasterType)) {
       const triggerEvents = events.filter((e) => e.thresholdReached);
       const eventToLoad = triggerEvents ? triggerEvents[0] : events[0];
       this.setEventInitially(eventToLoad);
@@ -230,6 +229,14 @@ export class EventService {
 
     this.setAlertState();
   };
+
+  public skipNationalView(disastertype: DisasterTypeKey) {
+    return (
+      disastertype === DisasterTypeKey.typhoon ||
+      disastertype === DisasterTypeKey.dengue ||
+      disastertype === DisasterTypeKey.malaria
+    );
+  }
 
   private sortEvents() {
     this.state.events?.sort((a, b) => {
