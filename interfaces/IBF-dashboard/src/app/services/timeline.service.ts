@@ -262,14 +262,16 @@ export class TimelineService {
 
     this.state.activeLeadTime = timeStepButtonValue;
     this.state.timeStepButtons.forEach(this.deactivateLeadTimeButton);
-    const btnToActivate = this.state.timeStepButtons.find((btn) =>
-      noEvent
-        ? btn.value === timeStepButtonValue
-        : eventName
-        ? btn.value === timeStepButtonValue &&
-          // !btn.disabled && // TODO: check regression effects
-          btn.eventName === eventName
-        : btn.value === timeStepButtonValue && !btn.disabled,
+    const btnToActivate = this.state.timeStepButtons.find(
+      (btn) =>
+        noEvent
+          ? btn.value === timeStepButtonValue
+          : eventName &&
+            !this.hasDisabledTimeline(this.disasterType.disasterType)
+          ? btn.value === timeStepButtonValue &&
+            !btn.disabled &&
+            btn.eventName === eventName // if interactive timeline: also match on eventName (if available)
+          : btn.value === timeStepButtonValue, // if non-interactive timeline: only match on leadTime & also highlight disabled buttons
     );
     if (btnToActivate) {
       btnToActivate.active = true;
