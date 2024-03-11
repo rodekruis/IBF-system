@@ -98,7 +98,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
       this.eventService.switchEvent(event.eventName);
 
       this.timelineService.handleTimeStepButtonClick(
-        event.firstLeadTime as LeadTime,
+        (event.firstTriggerLeadTime || event.firstLeadTime) as LeadTime,
         event.eventName,
       );
     }

@@ -184,7 +184,8 @@ export class TimelineService {
       ) {
         this.handleTimeStepButtonClick(
           this.eventState.event
-            ? (this.eventState.event.firstLeadTime as LeadTime)
+            ? ((this.eventState.event.firstTriggerLeadTime ||
+                this.eventState.event.firstLeadTime) as LeadTime)
             : this.eventState.activeTrigger
             ? null
             : LeadTime.hour1, // TODO: this is flash-floods specific??
