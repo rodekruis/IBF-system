@@ -89,7 +89,7 @@ For IBF-dashboard
 
 Suggestion: load everything through Docker, except IBF-dashboard. This has the benefit that changes in front-end code are immediately reflected, instead of having to rebuild.
 
-- `docker compose up -d`
+- `n`
 - `cd interfaces/IBF-dashboard`
 - `npm start`
 
@@ -113,16 +113,16 @@ are connected to a database-server). For setting up a fully working version of t
 3. Post 1st batch of dynamic data to database
 
 - by calling mock-endpoint
-  - see API documentation: http://localhost:3000/docs/#/scripts
-  - run for all countries and disaster-type at once: http://localhost:3000/docs/#/scripts/ScriptsController_mockAll
-  - or run for 1 country and 1 disaster-type: http://localhost:3000/docs/#/scripts/ScriptsController_mockDynamic
+  - see API documentation: http://localhost:4000/docs/#/scripts
+  - run for all countries and disaster-type at once: http://localhost:4000/docs/#/scripts/ScriptsController_mockAll
+  - or run for 1 country and 1 disaster-type: http://localhost:4000/docs/#/scripts/ScriptsController_mockDynamic
 - or by having external pipeline make a call to IBF-system
 
 ### Installation result
 
 These commands will install the IBF-system with listeners at,
 
-1. [localhost:3000/docs](http://localhost:3000/docs) for the API-service documentation
+1. [localhost:4000/docs](http://localhost:4000/docs) for the API-service documentation
 2. \*development only - [localhost:4200](http://localhost:4200) for the web
    interface
 
@@ -133,7 +133,7 @@ Please read the troubleshoot guidlelines to support the insatllation of IBF in t
 
 ## Integration tests
 
-### Cypress
+### Cypress (THE USE OF CYPRESS IS DEPRECATED FOR IBF)
 
 We use Cypress for automated integration testing in this project.
 Installation:

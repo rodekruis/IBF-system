@@ -5,6 +5,7 @@ services:
     command: [ 'npm', 'run', 'start:dev' ]
     environment:
       - NODE_ENV=development
+      - LOCAL_PORT_IBF_SERVICE=${LOCAL_PORT_IBF_SERVICE}
     ports:
       - ${LOCAL_PORT_IBF_SERVICE}:3000
     depends_on:
