@@ -6,7 +6,7 @@
     "actionsUnit": "population_affected",
     "showOnlyTriggeredAreas": true,
     "leadTimeUnit": "day",
-    "minLeadTime": "1-day",
+    "minLeadTime": "0-day",
     "maxLeadTime": "7-day"
   },
   {
