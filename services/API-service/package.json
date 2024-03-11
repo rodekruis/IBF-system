@@ -13,7 +13,6 @@
     "start:dev": "npx tsc-watch --onSuccess \"  node index.js  \" --onFailure \"echo There was a problem with the build!\" -p tsconfig.json",
     "prestart:prod": "tsc",
     "start:prod": "node dist/main.js",
-    "seed": "npx ts-node src/scripts seed-init",
     "test": "jest --config=jest.json --detectOpenHandles --forceExit --passWithNoTests",
     "test:dev": "npm test -- --watchAll",
     "test:coverage": "npm test -- --coverage --coverageDirectory=coverage",

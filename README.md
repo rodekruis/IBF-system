@@ -37,7 +37,23 @@ This is the repository for the IBF-system. It includes a.o.:
 
 ![IBF-system design (draft)](./system-design/ibf-system-design.PNG)
 
-## Installation
+## Getting Started
+
+### Setup a local development-environment:
+
+- Install Git: <https://git-scm.com/download/>
+- Install Node.js: <https://nodejs.org/en/download/>
+
+  - Install the version specified in the [`.node-version`](.node-version)-file.
+  - To prevent conflicts between projects or components using other versions of Node.js it is recommended to use a 'version manager'.
+
+    - [NVM - Node Version Manager](http://nvm.sh/) (for macOS/Linux).
+
+    - [NVM for Windows](https://github.com/coreybutler/nvm-windows) (for Windows)
+
+    - [FNM](https://nodejs.org/en/download/package-manager/#fnm) (for Windows/macOS/Linux)
+
+### Installation
 
 1. Clone the repository
 
@@ -47,62 +63,21 @@ This is the repository for the IBF-system. It includes a.o.:
 
    Fill in the .env variables with someone who has them.
 
-3. Run `npm install` from the [API-service folder](./services/API-service)
+3. Run `npm run install:interface` 
 
-4. Run `npm install` from the [IBF-dashboard folder](./interfaces/IBF-dashboard)
-
-5. (Only if connecting local setup to remote database): Whitelist your machine IP at the database server
-
-### Using npm commands
+### Start apps
 
 From root run
 
-- npm run start:services
-- npm run start:interface
-
-### Using Docker
-
-```
-docker compose -f docker-compose.yml up -d # for production
-
-docker compose up -d # for development (NOTE: this does not start the ibf-dashboard)
-
-docker compose -f docker-compose.yml -f docker-compose.override.yml up -d # for development (same as previous line)
-
-```
-
-### Without Docker (for local development)
-
-For local development you can also run and start the services and interface
-without docker:
-
-For API-service
-
-- `cp .env services/API-service/.env`
-- `cd services/API-service`
-- `npm run start:dev`
-
-For IBF-dashboard
-
-- `cd interfaces/IBF-dashboard`
-- `npm start`
-
-Suggestion: load everything through Docker, except IBF-dashboard. This has the benefit that changes in front-end code are immediately reflected, instead of having to rebuild.
-
-- `n`
-- `cd interfaces/IBF-dashboard`
-- `npm start`
+- `npm run start:services`
+- `npm run start:interface`
 
 ### Load (local) database with data
 
 When running Docker locally, a database-container will start (as opposed to remote servers, which
 are connected to a database-server). For setting up a fully working version of the IBF-dasbhoard 2 steps are needed.
 
-1. Seed database with initial static data
-
-- `docker compose exec ibf-api-service npm run seed`
-
-2. Load initial raster data
+1. Load initial raster data
 
 - Get the file `raster-files.zip` from [this folder](https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde%20%20documenten/Forms/AllItems.aspx?id=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Impact%2Dbased%20forecasting%2FGeneral%5FData%2FProduction%20Data&p=true&originalPath=aHR0cHM6Ly9yb2Rla3J1aXMuc2hhcmVwb2ludC5jb20vc2l0ZXMvNTEwLUNSQVZLLTUxMC9fbGF5b3V0cy8xNS9ndWVzdGFjY2Vzcy5hc3B4P2ZvbGRlcmlkPTBmYTQ1NGU2ZGMwMDI0ZGJkYmE3YTE3ODY1NWJkYzIxNiZhdXRoa2V5PUFjcWhNODVKSFpZOGNjNkg3QlRLZ08wJmV4cGlyYXRpb249MjAyMS0xMS0yOVQyMyUzYTAwJTNhMDAuMDAwWiZydGltZT1zekJQVnJfSjJFZw).
 - Unzip it in `services/API-service/geoserver-volume/raster-files` folder, such that that folder now has subfolders:
@@ -110,8 +85,11 @@ are connected to a database-server). For setting up a fully working version of t
   - `mock-output`-foldermock output raster files that are used by the mock-endpoint (see below)
   - `output`-folder: currently empty, but any raster files that are posted to the API-service by IBF-pipelines (or mock endpoint) will be stored here, and Geoserver will be able to read them from here.
 
-3. Post 1st batch of dynamic data to database
+2. Post static data and 1st batch of dynamic data to database
 
+- login http://localhost:4000/docs#/--%20user%20--/UserController_login (click Try it out, fill in your username and password, and click Execute)
+  - Copy the resulting `user.token` of that api call
+  - Paste it to the Authorize button button at the top of that page
 - by calling mock-endpoint
   - see API documentation: http://localhost:4000/docs/#/scripts
   - run for all countries and disaster-type at once: http://localhost:4000/docs/#/scripts/ScriptsController_mockAll
