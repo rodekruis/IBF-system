@@ -14,7 +14,7 @@ import { EventService, EventSummary } from '../../services/event.service';
 import { PlaceCodeService } from '../../services/place-code.service';
 import { TimelineService } from '../../services/timeline.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
-import { LeadTime } from '../../types/lead-time';
+import { LeadTime, LeadTimeTriggerKey } from '../../types/lead-time';
 import { TriggeredArea } from '../../types/triggered-area';
 
 @Component({
@@ -77,6 +77,10 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       .subscribe(this.onPlaceCodeHoverChange);
 
     this.typhoonLandfallText = this.showTyphoonLandfallText(this.event);
+
+    if (this.event) {
+      this.event['header'] = this.getHeader(this.event);
+    }
   }
 
   ngOnDestroy() {
@@ -143,14 +147,20 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     );
   }
 
-  public getHeader(): string {
-    let header = `chat-component.${this.disasterTypeName}.active-event-active-trigger.header`;
-    if (this.event.firstLeadTime === LeadTime.hour0) {
-      header += '-ongoing';
+  public getHeader(event: EventSummary): string {
+    let headerKey = `chat-component.${this.disasterTypeName}.active-event-active-trigger.header`;
+    if (LeadTimeTriggerKey[event.firstLeadTime] === '0') {
+      headerKey += '-ongoing';
     }
-    if (!this.event.thresholdReached) {
-      header += '-below-trigger';
+    if (!event.thresholdReached) {
+      headerKey += '-below-trigger';
     }
+    const header = this.translateService.instant(headerKey, {
+      firstLeadTimeDate: event.firstLeadTimeDate,
+      firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
+      eventName: event.eventName?.split('_')[0] || this.disasterTypeLabel,
+      disasterTypeLabel: this.disasterTypeLabel,
+    });
     return header;
   }
 

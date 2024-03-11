@@ -1,4 +1,5 @@
 export enum LeadTime {
+  day0 = '0-day',
   day1 = '1-day',
   day2 = '2-day',
   day3 = '3-day',

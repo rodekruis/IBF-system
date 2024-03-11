@@ -285,7 +285,7 @@ export class ScriptsService {
     if (mockFloodsScenario.scenario === FloodsScenario.Trigger) {
       // define events: events can have same leadTime
       const events = [
-        { eventName: 'G5075', leadTime: '2-day' },
+        { eventName: 'G5075', leadTime: '0-day' },
         { eventName: 'G5220', leadTime: '4-day' },
         { eventName: 'G5230', leadTime: '6-day' },
       ];

@@ -144,7 +144,9 @@
       },
       "active-event-active-trigger": {
         "header": "Trigger: {{ disasterTypeLabel }} on {{firstTriggerLeadTimeDate}}",
+        "header-ongoing": "Ongoing trigger: {{ disasterTypeLabel }} on {{firstTriggerLeadTimeDate}}",
         "header-below-trigger": "Warning: {{ disasterTypeLabel }} on {{firstLeadTimeDate}}",
+        "header-ongoing-below-trigger": "Ongoing warning: {{ disasterTypeLabel }} on {{firstLeadTimeDate}}",
         "welcome": "First warning on {{firstLeadTimeDate}}",
         "welcome-below-trigger": "First trigger on {{firstTriggerLeadTimeDate}}."
       },
@@ -204,6 +206,7 @@
       },
       "active-event-active-trigger": {
         "header": "Trigger: {{ eventName }} in {{firstLeadTimeDate}}",
+        "header-ongoing": "Ongoing trigger: {{eventName}} in {{firstLeadTimeDate}}",
         "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
         "welcome-duration": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong> with a duration of <strong>{{ duration}}</strong> month(s)."
       },

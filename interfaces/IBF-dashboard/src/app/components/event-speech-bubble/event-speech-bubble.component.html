@@ -15,17 +15,7 @@
       ></ion-icon>
       <p
         class="event-header"
-        [innerHTML]="
-          getHeader()
-            | translate
-              : {
-                  firstLeadTimeDate: event.firstLeadTimeDate,
-                  firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
-                  eventName:
-                    event.eventName?.split('_')[0] || disasterTypeLabel,
-                  disasterTypeLabel: disasterTypeLabel
-                }
-        "
+        [innerHTML]="event.header"
       ></p>
     </span>
     <p>
@@ -83,17 +73,7 @@
       ></ion-icon>
       <p
         class="event-header"
-        [innerHTML]="
-          'chat-component.' +
-            disasterTypeName +
-            '.active-event-active-trigger.header-below-trigger'
-            | translate
-              : {
-                  firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName: event.eventName?.split('_')[0],
-                  disasterTypeLabel: disasterTypeLabel
-                }
-        "
+        [innerHTML]="event.header"
       ></p>
     </span>
     <p

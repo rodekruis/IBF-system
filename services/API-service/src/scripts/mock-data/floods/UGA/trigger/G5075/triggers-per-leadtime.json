@@ -1,7 +1,12 @@
 [
   {
+    "leadTime": "0-day",
+    "triggered": true,
+    "thresholdReached": false
+  },
+  {
     "leadTime": "1-day",
-    "triggered": false,
+    "triggered": true,
     "thresholdReached": false
   },
   {
@@ -21,17 +26,17 @@
   },
   {
     "leadTime": "5-day",
-    "triggered": true,
+    "triggered": false,
     "thresholdReached": false
   },
   {
     "leadTime": "6-day",
-    "triggered": true,
+    "triggered": false,
     "thresholdReached": false
   },
   {
     "leadTime": "7-day",
-    "triggered": true,
+    "triggered": false,
     "thresholdReached": false
   }
 ]

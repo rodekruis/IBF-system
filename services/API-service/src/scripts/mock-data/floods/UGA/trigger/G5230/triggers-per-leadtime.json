@@ -1,5 +1,10 @@
 [
   {
+    "leadTime": "0-day",
+    "triggered": false,
+    "thresholdReached": false
+  },
+  {
     "leadTime": "1-day",
     "triggered": false,
     "thresholdReached": false
