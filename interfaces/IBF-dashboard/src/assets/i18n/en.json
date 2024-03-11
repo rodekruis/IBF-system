@@ -294,6 +294,7 @@
       },
       "active-event-active-trigger": {
         "header": "Alert: {{ disasterTypeLabel }}",
+        "header-ongoing": "Ongoing alert: {{ disasterTypeLabel }}",
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
       },
       "active-event-no-trigger": {
@@ -318,6 +319,7 @@
       },
       "active-event-active-trigger": {
         "header": "Alert: {{ disasterTypeLabel }}",
+        "header-ongoing": "Ongoing alert: {{ disasterTypeLabel }}",
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. The alert is issued for <strong>{{ firstLeadTimeDate }}</strong>."
       },
       "active-event-no-trigger": {
