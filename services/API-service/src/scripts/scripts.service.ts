@@ -3,10 +3,8 @@ import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admi
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
 import {
-  FloodsScenario,
   MockAll,
   MockDynamic,
-  MockFloodsScenario,
   MockTyphoonScenario,
   TyphoonScenario,
 } from './scripts.controller';
@@ -32,6 +30,7 @@ import { LinesDataEnum } from '../api/lines-data/lines-data.entity';
 import { PointDataEnum } from '../api/point-data/point-data.entity';
 import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
 import { PointDataService } from '../api/point-data/point-data.service';
+import { FloodsScenario, MockFloodsScenario } from './mock.controller';
 
 @Injectable()
 export class ScriptsService {
@@ -363,68 +362,6 @@ export class ScriptsService {
       // 5. API-call: map-image-file
       if (countryCodeISO3 === 'SSD') {
         await this.mockMapImageFile(countryCodeISO3, DisasterType.Floods, true);
-      }
-    } else {
-      // TODO: other scenarios
-      // TODO: re-use more code instead of repeating everything for each scenario?
-    }
-  }
-
-  // TODO: use dto
-  public async mockEpidemicsScenario(
-    mockEpidemicsScenario: MockFloodsScenario,
-  ) {
-    const countryCodeISO3 = mockEpidemicsScenario.countryCodeISO3;
-    const disasterType =
-      countryCodeISO3 === 'ETH'
-        ? DisasterType.Malaria
-        : countryCodeISO3 === 'PHL'
-        ? DisasterType.Dengue
-        : null;
-    const date = mockEpidemicsScenario.date || new Date();
-    if (mockEpidemicsScenario.scenario === FloodsScenario.Trigger) {
-      // define events: events can have same leadTime
-      // TODO: better event names
-      const events = [
-        { eventName: '0-month', leadTime: '0-month' },
-        { eventName: '1-month', leadTime: '1-month' },
-        { eventName: '2-month', leadTime: '2-month' },
-      ];
-
-      // per event/leadTime
-      for (const event of events) {
-        // 1. API-call: /exposure
-        // per admin-level
-        const adminLevels = [countryCodeISO3 === 'PHL' ? 2 : 3];
-        for (const adminLevel of adminLevels) {
-          // per indicator
-          const indicators = [
-            'potential_cases',
-            'potential_cases_threshold',
-            'alert_threshold',
-          ];
-          for (const indicator of indicators) {
-            const exposurePlaceCodes = this.getEventMockData(
-              disasterType,
-              countryCodeISO3,
-              mockEpidemicsScenario.scenario,
-              event.eventName,
-              adminLevel,
-              indicator as DynamicIndicator,
-            );
-
-            await this.adminAreaDynamicDataService.exposure({
-              countryCodeISO3,
-              exposurePlaceCodes,
-              leadTime: event.leadTime as LeadTime,
-              dynamicIndicator: indicator as DynamicIndicator,
-              adminLevel: adminLevel as AdminLevel,
-              disasterType,
-              eventName: event.eventName,
-              date,
-            });
-          }
-        }
       }
     } else {
       // TODO: other scenarios

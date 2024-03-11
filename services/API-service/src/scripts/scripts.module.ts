@@ -30,6 +30,7 @@ import { LinesDataModule } from '../api/lines-data/lines-data.module';
 import SeedLineData from './seed-line-data';
 import { ORMConfig } from '../../ormconfig';
 import { MockService } from './mock.service';
+import { MockController } from './mock.controller';
 
 @Module({
   imports: [
@@ -66,7 +67,7 @@ import { MockService } from './mock.service';
     SeedRainfallData,
     MockService,
   ],
-  controllers: [ScriptsController],
+  controllers: [ScriptsController, MockController],
 })
 export class ScriptsModule {}
 

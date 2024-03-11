@@ -86,10 +86,6 @@ export enum TyphoonScenario {
   EventAfterLandfall = 'eventAfterLandfall',
 }
 
-export enum FloodsScenario {
-  Trigger = 'trigger',
-}
-
 export class MockTyphoonScenario {
   @ApiProperty({ example: 'fill_in_secret' })
   @IsNotEmpty()
@@ -119,31 +115,6 @@ export class MockTyphoonScenario {
   public readonly date: Date;
 }
 
-export class MockFloodsScenario {
-  @ApiProperty({ example: 'fill_in_secret' })
-  @IsNotEmpty()
-  @IsString()
-  public readonly secret: string;
-
-  @ApiProperty({ example: 'UGA' })
-  @IsIn(['UGA'])
-  public readonly countryCodeISO3: string;
-
-  @ApiProperty({
-    example: Object.values(FloodsScenario).join(' | '),
-  })
-  @IsEnum(FloodsScenario)
-  public readonly scenario: FloodsScenario;
-
-  @ApiProperty({ example: true })
-  @IsNotEmpty()
-  public readonly removeEvents: boolean;
-
-  @ApiProperty({ example: new Date() })
-  @IsOptional()
-  public readonly date: Date;
-}
-
 @Controller('scripts')
 @ApiTags('--- mock/seed data ---')
 @ApiBearerAuth()
@@ -152,7 +123,6 @@ export class ScriptsController {
   public constructor(
     private scriptsService: ScriptsService,
     private seedInit: SeedInit,
-    private mockService: MockService,
   ) {}
 
   @Roles(UserRole.Admin)
@@ -235,35 +205,6 @@ export class ScriptsController {
     }
 
     const result = await this.scriptsService.mockTyphoonScenario(body);
-
-    return res.status(HttpStatus.ACCEPTED).send(result);
-  }
-
-  @Roles(UserRole.Admin)
-  @ApiOperation({
-    summary: 'Upload mock data for specific floods scenario',
-  })
-  @ApiResponse({
-    status: 202,
-    description: 'Uploaded mock data for specific floods scenario',
-  })
-  @Post('/mock-floods-scenario')
-  public async mockFloodsScenario(
-    @Body() body: MockFloodsScenario,
-    @Res() res,
-  ): Promise<string> {
-    if (body.secret !== process.env.RESET_SECRET) {
-      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
-    }
-
-    // const result = await this.scriptsService.mockFloodsScenario(body);
-    const result = await this.mockService.mock(
-      body.countryCodeISO3,
-      DisasterType.Floods,
-      body.scenario,
-      false,
-      body.date,
-    );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }

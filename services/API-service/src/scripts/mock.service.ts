@@ -10,7 +10,7 @@ import { EventService } from '../api/event/event.service';
 import countries from './json/countries.json';
 
 class Scenario {
-  scenarionName: string;
+  scenarioName: string;
   defaultScenario?: boolean;
   events: { eventName: string; leadTime: LeadTime }[];
 }
@@ -37,9 +37,7 @@ export class MockService {
       return scenarios.find((scenario) => scenario.defaultScenario === true);
     }
 
-    return scenarios.find(
-      (scenario) => scenario.scenarionName === scenarioName,
-    );
+    return scenarios.find((scenario) => scenario.scenarioName === scenarioName);
   }
 
   private getFile(fileName: string) {
@@ -117,7 +115,7 @@ export class MockService {
           const exposurePlaceCodes = this.getIndicatorPlaceCodes(
             disasterType,
             countryCodeISO3,
-            scenario.scenarionName,
+            scenario.scenarioName,
             event.eventName,
             indicator,
             adminLevel,
@@ -142,16 +140,18 @@ export class MockService {
         }
       }
 
-      const triggersPerLeadTime = this.getFile(
-        `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarionName}/${event.eventName}/triggers-per-leadtime.json`,
-      );
-      await this.eventService.uploadTriggerPerLeadTime({
-        countryCodeISO3: countryCodeISO3,
-        triggersPerLeadTime,
-        disasterType: DisasterType.Floods,
-        eventName: event.eventName,
-        date,
-      });
+      if (disasterType === DisasterType.Floods) {
+        const triggersPerLeadTime = this.getFile(
+          `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-leadtime.json`,
+        );
+        await this.eventService.uploadTriggerPerLeadTime({
+          countryCodeISO3: countryCodeISO3,
+          triggersPerLeadTime,
+          disasterType: DisasterType.Floods,
+          eventName: event.eventName,
+          date,
+        });
+      }
     }
   }
 }
