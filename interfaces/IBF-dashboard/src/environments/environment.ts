@@ -4,7 +4,7 @@
 
 export const environment = {
   configuration: 'development',
-  apiUrl: 'http://localhost:3000/api', // API
+  apiUrl: `http://localhost:${process.env['LOCAL_PORT_IBF_SERVICE'] ? process.env['LOCAL_PORT_IBF_SERVICE'] : 3000}/api`, // API
   useServiceWorker: false, // feature-flags
   geoserverUrl: 'http://localhost:8081/geoserver/ibf-system/wms', // geoserver
   ibfSystemVersion: 'v0.0.0', // version
