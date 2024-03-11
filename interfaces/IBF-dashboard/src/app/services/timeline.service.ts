@@ -100,7 +100,7 @@ export class TimelineService {
     return this.timelineStateSubject.asObservable();
   }
 
-  private hasInteractiveTimeline(disasterType: DisasterTypeKey) {
+  private hasDisabledTimeline(disasterType: DisasterTypeKey) {
     return [DisasterTypeKey.flashFloods, DisasterTypeKey.floods].includes(
       disasterType,
     );
@@ -113,7 +113,7 @@ export class TimelineService {
     const leadTime = leadTimeInput.leadTime;
     const isLeadTimeEnabled =
       this.isLeadTimeEnabled(leadTime) &&
-      !this.hasInteractiveTimeline(this.disasterType.disasterType);
+      !this.hasDisabledTimeline(this.disasterType.disasterType);
     const isUndefinedLeadTime = this.eventState.events
       .filter((e) => e.disasterSpecificProperties?.typhoonNoLandfallYet)
       .map((e) => e.firstLeadTime)
@@ -180,7 +180,7 @@ export class TimelineService {
         this.handleTimeStepButtonClick(LeadTime.hour72, null, true);
       } else if (
         // or the flash-floods scenario where all buttons are disabled
-        this.hasInteractiveTimeline(this.disasterType.disasterType)
+        this.hasDisabledTimeline(this.disasterType.disasterType)
       ) {
         this.handleTimeStepButtonClick(
           this.eventState.event
@@ -302,6 +302,7 @@ export class TimelineService {
     leadTime: LeadTime,
     previouslyAddedLeadTimes?: LeadTimeButtonInput[],
   ): boolean {
+    // Get all possible leadTimes for this country and disaster-type
     const leadTimes = this.country
       ? this.countryDisasterSettings.activeLeadTimes
       : [];
@@ -317,6 +318,7 @@ export class TimelineService {
       return false;
     }
 
+    // Apply additional disaster-type-specific filtering
     const leadTimeAvailable =
       leadTimeIndex >= 0 &&
       this.filterActiveLeadTimePerDisasterType(this.disasterType, leadTime);
@@ -343,18 +345,27 @@ export class TimelineService {
         visibleLeadTimes.map((lt) => lt.leadTime).indexOf(leadTime) === -1 &&
         this.isLeadTimeEnabled(leadTime, visibleLeadTimes)
       ) {
-        // add separate events with same lead-time, separately
-        const filteredEvents = this.eventState.events.filter(
-          (e) => e.firstLeadTime === leadTime,
-        );
-        if (filteredEvents) {
-          for (const event of filteredEvents.reverse()) {
-            visibleLeadTimes.push({
-              leadTime,
-              eventName: event.eventName,
-              undefined: false,
-              duration: event.duration,
-            });
+        if (this.hasDisabledTimeline(this.disasterType.disasterType)) {
+          // for non-interactive timeline: add lead-time only once
+          visibleLeadTimes.push({
+            leadTime,
+            eventName: null,
+            undefined: false,
+          });
+        } else {
+          // for interactive timeline: add separate events with same lead-time separately
+          const filteredEvents = this.eventState.events.filter(
+            (e) => e.firstLeadTime === leadTime,
+          );
+          if (filteredEvents) {
+            for (const event of filteredEvents.reverse()) {
+              visibleLeadTimes.push({
+                leadTime,
+                eventName: event.eventName,
+                undefined: false,
+                duration: event.duration,
+              });
+            }
           }
         }
       }
