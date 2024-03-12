@@ -8,7 +8,7 @@
     "install:interface": "npm install --no-optional --no-audit --no-fund --prefix interfaces/IBF-dashboard/",
     "open": "npx npm-run-all open:ibf-api-service open:ibf-dashboard",
     "open:ibf-dashboard": "open http://localhost:4200/",
-    "open:ibf-api-service": "open http://localhost:3000/docs",
+    "open:ibf-api-service": "open http://localhost:4000/docs",
     "test:interface": "npm test --prefix interfaces/IBF-dashboard/",
     "test:performance": "npm run lighthouse:run",
     "test:integration": "npm run cypress:run",
