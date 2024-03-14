@@ -3,15 +3,15 @@
     "scenarioName": "trigger",
     "defaultScenario": true,
     "events": [
-      { "eventName": "G5075", "leadTime": "2-day" },
+      { "eventName": "G5075", "leadTime": "0-day" },
       { "eventName": "G5220", "leadTime": "4-day" },
       { "eventName": "G5230", "leadTime": "6-day" }
     ]
   },
   {
-    "scenarioName": "twoAreasNoMax",
+    "scenarioName": "twoWarnings",
     "events": [
-      { "eventName": "G5220", "leadTime": "4-day" },
+      { "eventName": "G5075", "leadTime": "0-day" },
       { "eventName": "G5230", "leadTime": "6-day" }
     ]
   },
