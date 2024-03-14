@@ -107,11 +107,9 @@ export class MockController {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
     const result = await this.mockService.mock(
-      body.countryCodeISO3,
+      body,
       DisasterType.Floods,
-      body.scenario,
       false,
-      body.date,
     );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
@@ -134,11 +132,9 @@ export class MockController {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
     const result = await this.mockService.mock(
-      body.countryCodeISO3,
+      body,
       DisasterType.FlashFloods,
-      body.scenario,
       false,
-      body.date,
     );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
@@ -165,13 +161,7 @@ export class MockController {
       body.countryCodeISO3 === 'PHL'
         ? DisasterType.Dengue
         : DisasterType.Malaria;
-    const result = await this.mockService.mock(
-      body.countryCodeISO3,
-      disasterType,
-      body.scenario,
-      false,
-      body.date,
-    );
+    const result = await this.mockService.mock(body, disasterType, false);
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }

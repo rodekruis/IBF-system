@@ -14,6 +14,12 @@ import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-ex
 import { PointDataEnum } from '../api/point-data/point-data.entity';
 import { LinesDataService } from '../api/lines-data/lines-data.service';
 import { PointDataService } from '../api/point-data/point-data.service';
+import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
+import {
+  MockEpidemicsScenario,
+  MockFlashFloodsScenario,
+  MockFloodsScenario,
+} from './mock.controller';
 
 class Scenario {
   scenarioName: string;
@@ -29,25 +35,32 @@ export class MockService {
     private eventService: EventService,
     private linesDataService: LinesDataService,
     private pointDataService: PointDataService,
+    private glofasStationService: GlofasStationService,
   ) {}
 
   public async mock(
-    countryCodeISO3: string,
+    mockBody:
+      | MockFloodsScenario
+      | MockEpidemicsScenario
+      | MockFlashFloodsScenario,
     disasterType: DisasterType,
-    scenarioName: string,
     defaultScenario: boolean,
-    date: Date,
   ) {
+    if (mockBody.removeEvents) {
+      console.log('mockBody.removeEvents: ', mockBody.removeEvents);
+      // this.removeEvents()
+    }
+
     const selectedCountry = countries.find((country): any => {
-      if (countryCodeISO3 === country.countryCodeISO3) {
+      if (mockBody.countryCodeISO3 === country.countryCodeISO3) {
         return country;
       }
     });
 
     const scenario = await this.getScenario(
       disasterType,
-      countryCodeISO3,
-      scenarioName,
+      mockBody.countryCodeISO3,
+      mockBody.scenario,
       defaultScenario,
     );
 
@@ -55,14 +68,17 @@ export class MockService {
       (s) => s.disasterType === disasterType,
     ).adminLevels;
 
-    const indicators = await this.getIndicators(countryCodeISO3, disasterType);
+    const indicators = await this.getIndicators(
+      mockBody.countryCodeISO3,
+      disasterType,
+    );
 
     for (const event of scenario.events) {
       for (const indicator of indicators) {
         for (const adminLevel of adminLevels) {
           const exposurePlaceCodes = this.getIndicatorPlaceCodes(
             disasterType,
-            countryCodeISO3,
+            mockBody.countryCodeISO3,
             scenario.scenarioName,
             event.eventName,
             indicator,
@@ -75,29 +91,38 @@ export class MockService {
           }
 
           await this.adminAreaDynamicDataService.exposure({
-            countryCodeISO3: countryCodeISO3,
+            countryCodeISO3: mockBody.countryCodeISO3,
             exposurePlaceCodes,
             leadTime: event.leadTime as LeadTime,
             dynamicIndicator: indicator,
             adminLevel: adminLevel,
             disasterType: disasterType,
             eventName: event.eventName,
-            date,
+            date: mockBody.date,
           });
         }
       }
 
-      if (disasterType === DisasterType.Floods) {
+      if (this.shouldMockTriggerPerLeadTime(disasterType)) {
         const triggersPerLeadTime = this.getFile(
-          `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-leadtime.json`,
+          `./src/scripts/mock-data/${disasterType}/${mockBody.countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-leadtime.json`,
         );
         await this.eventService.uploadTriggerPerLeadTime({
-          countryCodeISO3: countryCodeISO3,
+          countryCodeISO3: mockBody.countryCodeISO3,
           triggersPerLeadTime,
           disasterType: DisasterType.Floods,
           eventName: event.eventName,
-          date,
+          date: mockBody.date,
         });
+      }
+
+      if (this.shouldMockGlofasStations(disasterType)) {
+        await this.mockGlofasStations(
+          selectedCountry,
+          DisasterType.Floods,
+          true,
+          mockBody.date,
+        );
       }
 
       if (disasterType === DisasterType.FlashFloods) {
@@ -106,12 +131,12 @@ export class MockService {
         await this.mockExposedAssets(
           selectedCountry.countryCodeISO3,
           true, // TODO: assume triggered, no-trigger for now done via old endpoint
-          date,
+          mockBody.date,
         );
         await this.mockDynamicPointData(
           selectedCountry.countryCodeISO3,
           DisasterType.FlashFloods,
-          date,
+          mockBody.date,
         );
 
         // TODO: raster-file
@@ -166,7 +191,7 @@ export class MockService {
     );
   }
 
-  getIndicatorPlaceCodes(
+  private getIndicatorPlaceCodes(
     disasterType: DisasterType,
     countryCodeISO3: string,
     scenarioName: string,
@@ -177,6 +202,33 @@ export class MockService {
     return this.getFile(
       `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenarioName}/${eventName}/upload-${indicator}-${adminLevel}.json`,
     );
+  }
+
+  private async mockGlofasStations(
+    selectedCountry,
+    disasterType: DisasterType,
+    triggered: boolean,
+    date: Date,
+  ) {
+    const stations = this.getFile(
+      `./src/api/point-data/dto/example/glofas-stations/glofas-stations-${
+        selectedCountry.countryCodeISO3
+      }${triggered ? '-triggered' : ''}.json`,
+    );
+
+    for (const activeLeadTime of selectedCountry.countryDisasterSettings.find(
+      (s) => s.disasterType === disasterType,
+    ).activeLeadTimes) {
+      console.log(
+        `Seeding Glofas stations for country: ${selectedCountry.countryCodeISO3} for leadtime: ${activeLeadTime}`,
+      );
+      await this.glofasStationService.uploadTriggerDataPerStation({
+        countryCodeISO3: selectedCountry.countryCodeISO3,
+        stationForecasts: stations,
+        leadTime: activeLeadTime as LeadTime,
+        date,
+      });
+    }
   }
 
   private async mockExposedAssets(
@@ -278,5 +330,13 @@ export class MockService {
 
       await this.pointDataService.uploadDynamicPointData(payload);
     }
+  }
+
+  private shouldMockGlofasStations(disasterType: DisasterType): boolean {
+    return disasterType === DisasterType.Floods;
+  }
+
+  private shouldMockTriggerPerLeadTime(disasterType: DisasterType): boolean {
+    return disasterType === DisasterType.Floods;
   }
 }
