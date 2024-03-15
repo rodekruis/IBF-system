@@ -174,7 +174,7 @@ export class MockService {
           selectedCountry,
           DisasterType.Floods,
           mockBody.date,
-          scenario.events,
+          mockBody.scenario,
         );
       }
     }
@@ -244,22 +244,11 @@ export class MockService {
     selectedCountry,
     disasterType: DisasterType,
     date: Date,
-    events: { eventName: string; leadTime: LeadTime }[],
+    scenarioName: string,
   ) {
-    const triggeredStations = this.getFile(
-      `./src/api/point-data/dto/example/glofas-stations/glofas-stations-${selectedCountry.countryCodeISO3}-triggered.json`,
-    ).filter((station) =>
-      events.map((e) => e.eventName).includes(station.stationCode),
+    const stationForecasts = this.getFile(
+      `./src/scripts/mock-data/${disasterType}/${selectedCountry.countryCodeISO3}/${scenarioName}/glofas-stations.json`,
     );
-    console.log('triggeredStations: ', triggeredStations);
-
-    const nonTriggeredStations = this.getFile(
-      `./src/api/point-data/dto/example/glofas-stations/glofas-stations-${selectedCountry.countryCodeISO3}.json`,
-    ).filter(
-      (station) =>
-        !events.map((e) => e.eventName).includes(station.stationCode),
-    );
-    console.log('nonTriggeredStations: ', nonTriggeredStations);
 
     for (const activeLeadTime of selectedCountry.countryDisasterSettings.find(
       (s) => s.disasterType === disasterType,
@@ -269,7 +258,7 @@ export class MockService {
       );
       await this.glofasStationService.uploadTriggerDataPerStation({
         countryCodeISO3: selectedCountry.countryCodeISO3,
-        stationForecasts: [...triggeredStations, ...nonTriggeredStations],
+        stationForecasts,
         leadTime: activeLeadTime as LeadTime,
         date,
       });
