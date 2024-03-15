@@ -16,6 +16,10 @@
     ]
   },
   {
+    "scenarioName": "warningToTrigger",
+    "events": [{ "eventName": "G5220", "leadTime": "4-day" }]
+  },
+  {
     "scenarioName": "noTrigger"
   }
 ]

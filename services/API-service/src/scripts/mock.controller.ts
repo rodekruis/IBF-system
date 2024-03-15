@@ -53,6 +53,7 @@ export class MockBaseScenario {
 export enum FloodsScenario {
   Trigger = 'trigger',
   TwoWarnings = 'twoWarnings',
+  WarningToTrigger = 'warningToTrigger',
 }
 export class MockFloodsScenario extends MockBaseScenario {
   @ApiProperty({
