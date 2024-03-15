@@ -51,35 +51,39 @@ export class MockBaseScenario {
 }
 
 export enum FloodsScenario {
-  Trigger = 'trigger',
-  TwoWarnings = 'twoWarnings',
-  WarningToTrigger = 'warningToTrigger',
+  Default = 'default',
+  WarningsOnly = 'warnings-only',
+  WarningToTrigger = 'warning-to-trigger',
 }
 export class MockFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FloodsScenario).join(' | '),
+    description:
+      'default: ongoing + trigger + warning event; warnings-only: 2 warning events; warning-to-trigger: 1 event that evolves from warning to trigger',
   })
   @IsEnum(FloodsScenario)
   public readonly scenario: FloodsScenario;
 }
 
 export enum FlashFloodsScenario {
-  TriggerWarning = 'trigger-warning',
+  Default = 'default',
 }
 export class MockFlashFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FlashFloodsScenario).join(' | '),
+    description: 'default: trigger + warning event',
   })
   @IsEnum(FlashFloodsScenario)
   public readonly scenario: FlashFloodsScenario;
 }
 
 export enum EpidemicsScenario {
-  Trigger = 'trigger',
+  Default = 'default',
 }
 export class MockEpidemicsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(EpidemicsScenario).join(' | '),
+    description: 'default: trigger in each month',
   })
   @IsEnum(EpidemicsScenario)
   public readonly scenario: EpidemicsScenario;

@@ -1,6 +1,6 @@
 [
   {
-    "scenarioName": "trigger",
+    "scenarioName": "default",
     "defaultScenario": true,
     "events": [
       { "eventName": "G5075", "leadTime": "0-day" },
@@ -9,14 +9,14 @@
     ]
   },
   {
-    "scenarioName": "twoWarnings",
+    "scenarioName": "warnings-only",
     "events": [
       { "eventName": "G5075", "leadTime": "2-day" },
       { "eventName": "G5230", "leadTime": "5-day" }
     ]
   },
   {
-    "scenarioName": "warningToTrigger",
+    "scenarioName": "warning-to-trigger",
     "events": [{ "eventName": "G5220", "leadTime": "4-day" }]
   },
   {

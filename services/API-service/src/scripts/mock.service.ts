@@ -59,7 +59,7 @@ export class MockService {
       | MockEpidemicsScenario
       | MockFlashFloodsScenario,
     disasterType: DisasterType,
-    defaultScenario: boolean,
+    useDefaultScenario: boolean,
   ) {
     if (mockBody.removeEvents) {
       await this.removeEvents(mockBody.countryCodeISO3, disasterType);
@@ -75,7 +75,7 @@ export class MockService {
       disasterType,
       mockBody.countryCodeISO3,
       mockBody.scenario,
-      defaultScenario,
+      useDefaultScenario,
     );
 
     const adminLevels = selectedCountry.countryDisasterSettings.find(
@@ -136,6 +136,8 @@ export class MockService {
       }
 
       if (this.shouldMockExposedAssets(disasterType)) {
+        // TODO: the below methods are now duplidated between mock.service and scripts.service
+        // TODO: the below methods still assume hard-coded leadTimes and is not flexible
         await this.mockExposedAssets(
           selectedCountry.countryCodeISO3,
           true, // TODO: assume triggered, no-trigger for now done via old endpoint
@@ -144,6 +146,8 @@ export class MockService {
       }
 
       if (this.shouldMockDynamicPointData(disasterType)) {
+        // TODO: the below methods are now duplidated between mock.service and scripts.service
+        // TODO: the below methods still assume hard-coded leadTimes and is not flexible
         await this.mockDynamicPointData(
           selectedCountry.countryCodeISO3,
           DisasterType.FlashFloods,
@@ -156,7 +160,7 @@ export class MockService {
         // await this.mockTyphoonTrack()
       }
 
-      if (this.shouldMockMapImageFile(mockBody.countryCodeISO3)) {
+      if (this.shouldMockMapImageFile(disasterType, mockBody.countryCodeISO3)) {
         this.mockMapImageFile(
           mockBody.countryCodeISO3,
           disasterType,
@@ -173,13 +177,6 @@ export class MockService {
           scenario.events,
         );
       }
-
-      // if (disasterType === DisasterType.FlashFloods) {
-      //   // TODO: the below methods are now duplidated between mock.service and scrpts.service
-      //   // TODO: the below methods still assume hard-coded leadTimes and is not flexible
-
-      //   // TODO: raster-file
-      // }
     }
   }
 
@@ -224,7 +221,7 @@ export class MockService {
       .filter((ind) => ind.dynamic)
       .map((ind) => ind.name as DynamicIndicator);
 
-    // Make sure 'alert threshold' is uploaded last
+    // Make sure 'alert_threshold' is uploaded last
     return exposureUnits.sort((a, _b) =>
       a === DynamicIndicator.alertThreshold ? 1 : -1,
     );
@@ -529,7 +526,10 @@ export class MockService {
     return disasterType === DisasterType.Typhoon;
   }
 
-  private shouldMockMapImageFile(countryCodeISO3: string): boolean {
-    return countryCodeISO3 === 'SSD';
+  private shouldMockMapImageFile(
+    disasterType: DisasterType,
+    countryCodeISO3: string,
+  ): boolean {
+    return disasterType === DisasterType.Floods && countryCodeISO3 === 'SSD';
   }
 }

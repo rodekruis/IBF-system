@@ -1,6 +1,6 @@
 [
   {
-    "scenarioName": "trigger-warning",
+    "scenarioName": "default",
     "defaultScenario": true,
     "events": [
       { "eventName": "Rumphi", "leadTime": "6-hour" },
