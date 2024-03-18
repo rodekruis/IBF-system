@@ -148,9 +148,8 @@ export class TimelineService {
     );
   }
 
-  private onTriggerPerLeadTime = (triggers) => {
-    // TODO: test regression effects here better + nothing happens with input anymore now? + use this somehow to highlight relevant leadTimes per event?
-    // this.triggersAllEvents = { ...this.triggersAllEvents, ...triggers };
+  private onTriggerPerLeadTime = (triggersPerLeadTime: CountryTriggers) => {
+    this.triggersAllEvents = triggersPerLeadTime;
 
     this.state.timeStepButtons = [];
     const visibleLeadTimes = this.getVisibleLeadTimes();
@@ -224,25 +223,7 @@ export class TimelineService {
         this.disasterType.disasterType,
         null,
       )
-      .subscribe((response) => {
-        this.triggersAllEvents = response;
-      });
-
-    const events = this.eventState?.events;
-    if (events?.length) {
-      for (const event of events) {
-        this.apiService
-          .getTriggerPerLeadTime(
-            this.country.countryCodeISO3,
-            this.disasterType.disasterType,
-            event?.eventName,
-          )
-          .subscribe(this.onTriggerPerLeadTime);
-      }
-    }
-    if (!events || !events.length) {
-      this.onTriggerPerLeadTime(null);
-    }
+      .subscribe(this.onTriggerPerLeadTime);
   };
 
   public loadTimeStepButtons(): void {
