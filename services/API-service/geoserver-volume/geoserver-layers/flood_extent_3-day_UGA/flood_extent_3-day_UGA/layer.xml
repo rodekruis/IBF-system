@@ -1,0 +1,19 @@
+<layer>
+  <name>flood_extent_3-day_UGA</name>
+  <id>LayerInfoImpl--18a5c506:18e5207e95d:-7ff1</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl--18a5c506:18e5207e95d:-7ff2</id>
+  </resource>
+  <queryable>true</queryable>
+  <opaque>false</opaque>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2024-03-18 14:47:30.958 UTC</dateCreated>
+  <dateModified>2024-03-18 14:47:31.0 UTC</dateModified>
+</layer>

@@ -14,6 +14,8 @@ const rootUrl =
   process.env.NODE_ENV === 'development'
     ? `http://localhost:${process.env.LOCAL_PORT_IBF_SERVICE}/`
     : process.env.EXTERNAL_API_SERVICE_URL;
+export const INTERNAL_GEOSERVER_API_URL =
+  'http://ibf-geoserver:8080/geoserver/rest';
 export const EXTERNAL_API = {
   root: rootUrl,
   whatsAppStatus: baseApiUrl + API_PATHS.whatsAppStatus,
