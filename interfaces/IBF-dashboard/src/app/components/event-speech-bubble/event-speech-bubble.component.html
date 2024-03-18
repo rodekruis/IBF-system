@@ -6,7 +6,7 @@
   [isSelected]="eventBubbleIsSelected(event.eventName)"
   [isConnected]="true"
 >
-  <ng-container *ngIf="event.activeTrigger && event.thresholdReached">
+  <ng-container *ngIf="event.thresholdReached">
     <span>
       <ion-icon
         class="warning-icon"
@@ -64,7 +64,7 @@
     </p>
   </ng-container>
 
-  <ng-container *ngIf="event.activeTrigger && !event.thresholdReached">
+  <ng-container *ngIf="!event.thresholdReached">
     <span>
       <ion-icon
         class="warning-icon"
@@ -111,7 +111,7 @@
   <!-- =================================== -->
 
   <ng-container
-    *ngIf="event.eventName === selectedEvent && event.activeTrigger"
+    *ngIf="event.eventName === selectedEvent"
   >
     <p
       *ngIf="event.thresholdReached"
@@ -236,26 +236,6 @@
       "
     ></p>
   </ng-container>
-</app-dialogue-turn>
-
-<app-dialogue-turn *ngIf="type === 'old'" [isConnected]="true">
-  <p
-    [innerHTML]="
-      'chat-component.' + disasterTypeName + '.active-event-no-trigger.welcome'
-        | translate
-          : {
-              name: displayName,
-              startDate: event.startDate,
-              endDate: event.endDateLabel,
-              eventName: event.eventName?.split('_')[0]
-            }
-    "
-  ></p>
-  <p
-    class="clear-out-message"
-    *ngIf="!!clearOutMessage"
-    [innerHTML]="clearOutMessage"
-  ></p>
 </app-dialogue-turn>
 
 <app-dialogue-turn *ngIf="type === 'no-event'" [isConnected]="true">

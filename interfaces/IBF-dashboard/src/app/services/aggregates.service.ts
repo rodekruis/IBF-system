@@ -176,7 +176,7 @@ export class AggregatesService {
       : aggregate[IbfLayerName.alertThreshold] > 0
       ? AreaStatus.TriggeredOrWarned
       : aggregate[this.disasterType.actionsUnit] > 0 &&
-        this.eventState.activeTrigger
+        this.eventState.events?.length > 0
       ? AreaStatus.TriggeredOrWarned
       : AreaStatus.NonTriggeredOrWarnd;
   };

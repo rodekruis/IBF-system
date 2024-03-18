@@ -97,9 +97,8 @@ export class NotificationService {
       const date = uploadDate ? new Date(uploadDate) : new Date();
       const yesterdayActiveDate = new Date(date.setDate(date.getDate() + 6)); // determine yesterday still active events by endDate lying (7 - 1) days in the future
       if (
-        !event.activeTrigger &&
         new Date(event.endDate) >=
-          new Date(yesterdayActiveDate.setHours(0, 0, 0, 0))
+        new Date(yesterdayActiveDate.setHours(0, 0, 0, 0))
       ) {
         return true;
       }
@@ -112,7 +111,7 @@ export class NotificationService {
     disasterType: DisasterType,
     countryCodeISO3: string,
   ): Promise<boolean> {
-    let send = event.activeTrigger;
+    let send = true;
     if (disasterType === DisasterType.Typhoon) {
       send = await this.typhoonTrackService.shouldSendNotification(
         countryCodeISO3,

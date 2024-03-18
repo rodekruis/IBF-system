@@ -31,8 +31,6 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
   private alertInputSecretPlaceholderNode = 'alert-input-secret-placeholder';
   private alertButtonCancelLabel: string;
   private alertButtonCancelLabelNode = 'alert-button-cancel';
-  private alertButtonOldEventLabel: string;
-  private alertButtonOldEventLabelNode = 'alert-button-old-event';
   private alertButtonNoTriggerLabel: string;
   private alertButtonNoTriggerLabelNode = 'alert-button-no-trigger';
   private alertButtonTriggerLabel: string;
@@ -90,8 +88,6 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
       translatedStrings[this.alertButtonCancelLabelNode];
     this.alertButtonNoTriggerLabel =
       translatedStrings[this.alertButtonNoTriggerLabelNode];
-    this.alertButtonOldEventLabel =
-      translatedStrings[this.alertButtonOldEventLabelNode];
     this.alertButtonTriggerLabel =
       translatedStrings[this.alertButtonTriggerLabelNode];
     this.alertErrorApiError = translatedStrings[this.alertErrorApiErrorNode];
@@ -130,14 +126,6 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
         {
           text: this.alertButtonCancelLabel,
           role: 'cancel',
-        },
-        {
-          text: this.alertButtonOldEventLabel,
-          cssClass: 'no-trigger-scenario-button',
-          handler: (data) => {
-            this.mockApiRefresh(data.secret, true, true, true, alert);
-            return false;
-          },
         },
         {
           text: this.alertButtonNoTriggerLabel,

@@ -18,10 +18,7 @@ import {
 } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
-import {
-  LeadTime,
-  LeadTimeUnit,
-} from '../admin-area-dynamic-data/enum/lead-time.enum';
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
@@ -76,22 +73,15 @@ export class EventService {
       .addSelect([
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
-        'MAX(event."activeTrigger"::int)::boolean AS "activeTrigger"',
         'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
       ])
-      .where('closed = :closed', {
+      .where({
         closed: false,
+        endDate: MoreThanOrEqual(recentDate.date),
+        disasterType: disasterType,
       })
-      .andWhere('"endDate" >= :date', { date: recentDate.date })
-      .andWhere(
-        // for typhoon/flash-floods filter also on activeTrigger = true, thereby disabling old-event scenario
-        `(event."disasterType" NOT IN ('typhoon','flash-floods') OR (event."disasterType" IN ('typhoon','flash-floods') AND event."activeTrigger" = true))`,
-      )
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('event."disasterType" = :disasterType', {
-        disasterType: disasterType,
       })
       .getRawMany();
 
@@ -299,7 +289,6 @@ export class EventService {
         'event."actionsValue"',
         'event."triggerValue"',
         'event."eventPlaceCodeId"',
-        'event."activeTrigger"',
         'event."stopped"',
         'event."startDate"',
         'event."manualStoppedDate" AS "stoppedDate"',
@@ -327,11 +316,7 @@ export class EventService {
     const triggeredAreas = await triggeredAreasQuery.getRawMany();
 
     for (const area of triggeredAreas) {
-      if (
-        triggeredPlaceCodes.length === 0 &&
-        disasterType === DisasterType.Typhoon
-      ) {
-        // Exception to speed up typhoon performance. Works because old-event is switched off for typhoon. Should be refactored better.
+      if (triggeredPlaceCodes.length === 0) {
         area.eapActions = [];
       } else if (area.triggerValue < 1) {
         // Do not show actions for below-trigger events/areas
@@ -612,10 +597,7 @@ export class EventService {
       date,
     );
 
-    // Then set all events to inactive
-    await this.setAllEventsToInactive(countryCodeISO3, disasterType);
-
-    // update active ones to true + update population and end_date
+    // update existing event areas + update population and end_date
     await this.updateExistingEventAreas(
       countryCodeISO3,
       disasterType,
@@ -623,7 +605,7 @@ export class EventService {
       eventName,
     );
 
-    // add new ones
+    // add new event areas
     await this.addNewEventAreas(
       countryCodeISO3,
       disasterType,
@@ -631,60 +613,8 @@ export class EventService {
       eventName,
     );
 
-    // close old events
+    // close old event areas
     await this.closeEventsAutomatic(countryCodeISO3, disasterType, eventName);
-  }
-
-  private async setAllEventsToInactive(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-  ) {
-    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
-      countryCodeISO3,
-    );
-    // only set records that are not updated yet in this sequence of pipeline runs (e.g. multiple events in 1 day)
-    // after the 1st event this means everything is updated ..
-    // .. and from the 2nd event onwards if will not be set to activeTrigger=false again ..
-    const recentDate = await this.helperService.getRecentDate(
-      countryCodeISO3,
-      disasterType,
-    );
-    const cutoffDate = this.helperService.getUploadCutoffMoment(
-      disasterType,
-      recentDate.timestamp,
-    );
-    const endDate = await this.getEndDate(disasterType, cutoffDate);
-
-    // .. but only check on endDate if eventName is not null > I cannot remember why..
-    const eventAreas = await this.eventPlaceCodeRepo.find({
-      where: [
-        {
-          adminArea: { id: In(countryAdminAreaIds) },
-          disasterType: disasterType,
-          activeTrigger: true,
-          endDate: LessThan(endDate),
-        },
-        {
-          adminArea: { id: In(countryAdminAreaIds) },
-          disasterType: disasterType,
-          activeTrigger: true,
-          eventName: IsNull(),
-        },
-      ],
-    });
-
-    if (eventAreas.length) {
-      await this.eventPlaceCodeRepo
-        .createQueryBuilder()
-        .update()
-        .set({
-          activeTrigger: false,
-        })
-        .where({
-          eventPlaceCodeId: In(eventAreas.map((area) => area.eventPlaceCodeId)),
-        })
-        .execute();
-    }
   }
 
   private async getAffectedAreas(
@@ -797,14 +727,12 @@ export class EventService {
     const idsToUpdateAboveThreshold = [];
     const idsToUpdateBelowThreshold = [];
     const uploadDate = await this.getRecentDate(countryCodeISO3, disasterType);
-    const endDate = await this.getEndDate(disasterType, uploadDate.timestamp);
     unclosedEventAreas.forEach((eventArea) => {
       const affectedArea = affectedAreas.find(
         (area) => area.placeCode === eventArea.adminArea.placeCode,
       );
       if (affectedArea) {
-        eventArea.activeTrigger = true;
-        eventArea.endDate = endDate;
+        eventArea.endDate = uploadDate.timestamp;
         if (affectedArea.triggerValue === 1) {
           eventArea.thresholdReached = true;
           idsToUpdateAboveThreshold.push(eventArea.eventPlaceCodeId);
@@ -815,10 +743,18 @@ export class EventService {
       }
     });
     // .. first fire one query to update all rows that need thresholdReached = true
-    await this.updateEvents(idsToUpdateAboveThreshold, true, endDate);
+    await this.updateEvents(
+      idsToUpdateAboveThreshold,
+      true,
+      uploadDate.timestamp,
+    );
 
     // .. then fire one query to update all rows that need thresholdReached = false
-    await this.updateEvents(idsToUpdateBelowThreshold, false, endDate);
+    await this.updateEvents(
+      idsToUpdateBelowThreshold,
+      false,
+      uploadDate.timestamp,
+    );
 
     // .. lastly we update those records where actionsValue or triggerValue changed
     await this.updateValues(unclosedEventAreas, affectedAreas);
@@ -834,7 +770,6 @@ export class EventService {
         .createQueryBuilder()
         .update()
         .set({
-          activeTrigger: true,
           thresholdReached: aboveThreshold,
           endDate: endDate,
         })
@@ -921,11 +856,7 @@ export class EventService {
         eventArea.triggerValue = area.triggerValue;
         eventArea.actionsValue = +area.actionsValue;
         eventArea.startDate = startDate.timestamp;
-        eventArea.endDate = await this.getEndDate(
-          disasterType,
-          startDate.timestamp,
-        );
-        eventArea.activeTrigger = true;
+        eventArea.endDate = startDate.timestamp;
         eventArea.stopped = false;
         eventArea.manualStoppedDate = null;
         eventArea.disasterType = disasterType;
@@ -948,7 +879,7 @@ export class EventService {
       disasterType,
     );
     const whereFilters = {
-      endDate: LessThan(uploadDate.timestamp),
+      endDate: LessThan(uploadDate.timestamp), // If the area was not prolongued earlier, then the endDate is not updated and is therefore less than the uploadDate
       adminArea: In(countryAdminAreaIds),
       disasterType: disasterType,
       closed: false,
@@ -974,20 +905,6 @@ export class EventService {
       area.closed = true;
     }
     await this.eventPlaceCodeRepo.save(aboveThresholdEvents);
-  }
-
-  private async getEndDate(
-    disasterType: DisasterType,
-    passedDate: Date,
-  ): Promise<Date> {
-    const today = new Date(JSON.parse(JSON.stringify(passedDate)));
-
-    const disasterTypeEntity = await this.disasterTypeRepository.findOne({
-      where: { disasterType: disasterType },
-    });
-    return disasterTypeEntity.leadTimeUnit === LeadTimeUnit.month
-      ? new Date(today.getFullYear(), today.getMonth() + 1, 0, 23, 59, 59)
-      : new Date(today.setDate(today.getDate() + 7));
   }
 
   public async postEventMapImage(

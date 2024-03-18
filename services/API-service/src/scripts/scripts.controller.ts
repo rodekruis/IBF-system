@@ -5,6 +5,8 @@ import {
   Res,
   HttpStatus,
   UseGuards,
+  Patch,
+  HttpException,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -26,7 +28,7 @@ import { RolesGuard } from '../roles.guard';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { Roles } from '../roles.decorator';
 import { UserRole } from '../api/user/user-role.enum';
-import { MockService } from './mock.service';
+import { GeoserverSyncService } from './geoserver-sync.service';
 
 class ResetDto {
   @ApiProperty({ example: 'fill_in_secret' })
@@ -123,6 +125,7 @@ export class ScriptsController {
   public constructor(
     private scriptsService: ScriptsService,
     private seedInit: SeedInit,
+    private geoseverSyncService: GeoserverSyncService,
   ) {}
 
   @Roles(UserRole.Admin)

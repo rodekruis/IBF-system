@@ -19,7 +19,6 @@ export class EventSummary {
   endDate: string;
   endDateLabel: string;
   thresholdReached: boolean;
-  activeTrigger: boolean;
   eventName: string;
   firstLeadTime?: string;
   firstLeadTimeLabel?: string;
@@ -49,7 +48,6 @@ export class EventService {
     events: null,
     event: null,
     thresholdReached: null,
-    activeTrigger: null,
   };
 
   public state = this.nullState;
@@ -91,9 +89,7 @@ export class EventService {
   };
 
   public switchEvent(eventName: string) {
-    const event = this.state.activeTrigger
-      ? this.state.events.find((e) => e.eventName === eventName)
-      : this.state.event;
+    const event = this.state.events.find((e) => e.eventName === eventName);
     // Trigger a different 'event' subject in this case ..
     // .. so that timelineService can distinguish between initial event switch and manual event switch
     this.setEventManually(event);
@@ -105,7 +101,6 @@ export class EventService {
 
   private setEventInitially(event: EventSummary) {
     this.state.event = event;
-    this.state.activeTrigger = this.setOverallActiveTrigger();
     this.state.thresholdReached = this.setOverallThresholdReached();
     this.initialEventStateSubject.next(this.state);
     this.setAlertState();
@@ -113,7 +108,6 @@ export class EventService {
 
   private setEventManually(event: EventSummary) {
     this.state.event = event;
-    this.state.activeTrigger = this.setOverallActiveTrigger();
     this.state.thresholdReached = this.setOverallThresholdReached();
     this.manualEventStateSubject.next(this.state);
     this.setAlertState();
@@ -159,8 +153,8 @@ export class EventService {
     events,
   ) => {
     disasterType.activeTrigger =
-      events.filter((e: EventSummary) => e.activeTrigger && e.thresholdReached)
-        .length > 0 || false;
+      events.filter((e: EventSummary) => e.thresholdReached).length > 0 ||
+      false;
     callback(disasterType);
   };
 
@@ -313,7 +307,7 @@ export class EventService {
   private setAlertState = () => {
     const dashboardElement = document.getElementById('ibf-dashboard-interface');
     if (dashboardElement) {
-      if (this.state.activeTrigger && this.state.thresholdReached) {
+      if (this.state.thresholdReached) {
         dashboardElement.classList.remove('no-alert');
         dashboardElement.classList.add('trigger-alert');
       } else {
@@ -346,15 +340,6 @@ export class EventService {
     } else if (timeUnit === LeadTimeUnit.hour) {
       return futureDateTime.toFormat('cccc, dd LLLL HH:00');
     }
-  }
-
-  public isOldEvent = () => this.state.event && !this.state.activeTrigger;
-
-  private setOverallActiveTrigger() {
-    return this.state.event
-      ? this.state.event.activeTrigger
-      : this.state.events?.filter((e: EventSummary) => e.activeTrigger).length >
-          0;
   }
 
   private setOverallThresholdReached() {

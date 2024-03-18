@@ -26,6 +26,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
+import { DEBUG } from '../config';
+import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';
+import { GeoserverSyncService } from './geoserver-sync.service';
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
 
 class Scenario {
@@ -52,6 +55,7 @@ export class MockService {
     private linesDataService: LinesDataService,
     private pointDataService: PointDataService,
     private glofasStationService: GlofasStationService,
+    private geoServerSyncService: GeoserverSyncService,
     private adminAreaService: AdminAreaService,
   ) {}
 
@@ -406,36 +410,17 @@ export class MockService {
       console.log(
         `Seeding disaster extent raster file for country: ${selectedCountry.countryCodeISO3} for leadtime: ${leadTime}`,
       );
-
-      let sourceFileName, destFileName;
-      if (disasterType === DisasterType.Floods) {
-        sourceFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
-        destFileName = sourceFileName;
-      } else if (disasterType === DisasterType.HeavyRain) {
-        // Use 3-day mock for every lead-time
-        sourceFileName = `rainfall_extent_3-day_${
-          selectedCountry.countryCodeISO3
-        }${triggered ? '-triggered' : ''}.tif`;
-        if (selectedCountry.countryCodeISO3 === 'EGY') {
-          destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
-        } else if (selectedCountry.countryCodeISO3 === 'UGA') {
-          destFileName = `rainfall_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
-        }
-      } else if (disasterType === DisasterType.Drought) {
-        // Use 0-month mock for every lead-time
-        sourceFileName = `rainfall_forecast_0-month_${
-          selectedCountry.countryCodeISO3
-        }${triggered ? '-triggered' : ''}.tif`;
-        destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
-      } else if (disasterType === DisasterType.FlashFloods) {
-        if (leadTime === LeadTime.hour24 || leadTime === LeadTime.hour6) {
-          sourceFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
-        } else {
-          continue;
-        }
-        destFileName = sourceFileName;
-      }
-
+      const sourceFileName = this.getMockRasterSourceFileName(
+        disasterType,
+        selectedCountry.countryCodeISO3,
+        leadTime,
+        triggered,
+      );
+      const destFileName = this.getMockRasterDestFileName(
+        disasterType,
+        leadTime,
+        selectedCountry.countryCodeISO3,
+      );
       let file;
       try {
         file = fs.readFileSync(
@@ -455,6 +440,88 @@ export class MockService {
         disasterType,
       );
     }
+    // Add the needed stores and layers to geoserver, only do this in debug mode
+    // The resulting XML files should be commited to git and will end up on the servers that way
+    if (DEBUG) {
+      await this.geoServerSyncService.sync(
+        selectedCountry.countryCodeISO3,
+        disasterType,
+      );
+    }
+  }
+
+  private getMockRasterSourceFileName(
+    disasterType: DisasterType,
+    countryCodeISO3: string,
+    leadTime: string,
+    triggered?: boolean,
+  ) {
+    const directoryPath = './geoserver-volume/raster-files/mock-output/';
+    const leadTimeUnit = leadTime.replace(/\d+-/, '');
+
+    const files = fs.readdirSync(directoryPath);
+
+    const layerStorePrefix =
+      DisasterTypeGeoServerMapper.getLayerStorePrefixForDisasterType(
+        disasterType,
+      );
+
+    // Only for HeavyRain and Drought we have triggered and non-triggered files
+    const suffix =
+      triggered &&
+      [DisasterType.HeavyRain, DisasterType.Drought].includes(disasterType)
+        ? '-triggered.tif'
+        : '.tif';
+    const filename = `${layerStorePrefix}_${leadTimeUnit}_${countryCodeISO3}${suffix}`;
+    const fileExists = files.includes(filename);
+    if (fileExists) {
+      return filename;
+    } else {
+      // new code
+      const leadTimeNumber = parseInt(leadTime.split('-')[0]);
+      const closestFiles = files.filter(
+        (file) =>
+          file.startsWith(layerStorePrefix) &&
+          file.endsWith(`${leadTimeUnit}_${countryCodeISO3}${suffix}`),
+      );
+      // if no files are found, return null
+      if (closestFiles.length === 0) {
+        console.log(
+          'No closest files found for the given lead time',
+          layerStorePrefix,
+          leadTimeUnit,
+          countryCodeISO3,
+          suffix,
+        );
+        return null;
+      }
+      const numbersFromClosestFiles = closestFiles.map((file) =>
+        parseInt(file.split('_')[2]),
+      );
+      // from the numbers, find the closest number to the leadTimeNumber
+      let closestNumber = numbersFromClosestFiles[0];
+      for (let i = 1; i < numbersFromClosestFiles.length; i++) {
+        if (
+          Math.abs(numbersFromClosestFiles[i] - leadTimeNumber) <
+          Math.abs(closestNumber - leadTimeNumber)
+        ) {
+          closestNumber = numbersFromClosestFiles[i];
+        }
+      }
+      return null;
+    }
+  }
+
+  private getMockRasterDestFileName(
+    disasterType: DisasterType,
+    leadTime: string,
+    countryCode: string,
+  ): string {
+    const prefix = DisasterTypeGeoServerMapper.getDestFilePrefixForDisasterType(
+      disasterType,
+      countryCode,
+    );
+    return `${prefix}_${leadTime}_${countryCode}.tif`;
   }
 
   private async mockMapImageFile(

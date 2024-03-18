@@ -44,7 +44,7 @@
 
   <!-- No event -->
   <app-event-speech-bubble
-    *ngIf="!eventState?.activeTrigger && !eventService.isOldEvent()"
+    *ngIf="!eventState?.events?.length > 0"
     [type]="'no-event'"
     [event]="null"
     [selectedEvent]="eventState?.event?.eventName"
@@ -59,7 +59,7 @@
   ></app-event-speech-bubble>
 
   <!-- Active event -->
-  <ng-container *ngIf="eventState?.activeTrigger">
+  <ng-container *ngIf="eventState?.events?.length > 0">
     <ng-container *ngFor="let event of eventState?.events">
       <app-event-speech-bubble
         *ngIf="
@@ -101,23 +101,7 @@
     </ng-container>
   </ng-container>
 
-  <!-- Old event -->
-  <app-event-speech-bubble
-    *ngIf="eventService.isOldEvent()"
-    [type]="'old'"
-    [event]="eventState?.event"
-    [selectedEvent]="eventState?.event?.eventName"
-    [disasterTypeLabel]="disasterType?.label"
-    [disasterTypeName]="disasterType?.disasterType"
-    [clearOutMessage]="getClearOutMessage(null)"
-    [countryCodeISO3]="country?.countryCodeISO3"
-    [areas]="stoppedAreas"
-    [adminAreaLabelPlural]="adminAreaLabelPlural"
-    [actionIndicatorLabel]="actionIndicatorLabel"
-    [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
-  ></app-event-speech-bubble>
-
-  <ng-container *ngIf="eventState?.activeTrigger">
+  <ng-container *ngIf="eventState?.events?.length > 0">
     <app-dialogue-turn
       *ngFor="let area of filteredStoppedAreas; first as isFirst"
       [isConnected]="true"
@@ -150,7 +134,6 @@
       ></p>
       <app-ibf-button
         (click)="openToggleTriggerPopup(area, false)"
-        [disabled]="!area.activeTrigger"
         *ngIf="
           countryDisasterSettings?.enableStopTrigger &&
           placeCode?.adminLevel === countryDisasterSettings.defaultAdminLevel
@@ -343,7 +326,6 @@
           placeCode?.adminLevel === countryDisasterSettings.defaultAdminLevel
         "
         (click)="openToggleTriggerPopup(area, true)"
-        [disabled]="!area.activeTrigger"
         backgroundColor="ibf-white"
         textColor="ibf-no-alert-primary"
         borderColor="ibf-no-alert-secondary"

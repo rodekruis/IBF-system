@@ -31,6 +31,8 @@ import SeedLineData from './seed-line-data';
 import { ORMConfig } from '../../ormconfig';
 import { MockService } from './mock.service';
 import { MockController } from './mock.controller';
+import { GeoserverSyncService } from './geoserver-sync.service';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [
@@ -55,6 +57,7 @@ import { MockController } from './mock.controller';
     PointDataModule,
     LinesDataModule,
     AdminAreaDataModule,
+    HttpModule,
   ],
   providers: [
     SeedInit,
@@ -66,6 +69,7 @@ import { MockController } from './mock.controller';
     SeedLineData,
     SeedRainfallData,
     MockService,
+    GeoserverSyncService,
   ],
   controllers: [ScriptsController, MockController],
 })

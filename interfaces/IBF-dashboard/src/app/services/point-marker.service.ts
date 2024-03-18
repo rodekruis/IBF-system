@@ -110,7 +110,7 @@ export class PointMarkerService {
   private onMapMarkerClick = (analyticsEvent) => (): void => {
     this.analyticsService.logEvent(analyticsEvent, {
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
   };

@@ -146,7 +146,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
         adminLevel,
         adminLevelState: layer.active,
         page: AnalyticsPage.dashboard,
-        isActiveTrigger: this.eventService.state.activeTrigger,
+        isActiveTrigger: this.eventService.state.events?.length > 0,
         component: this.constructor.name,
       });
     } else {
@@ -225,6 +225,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     }
 
     if (breadCrumb === MapView.event) {
+      this.adminLevelService.zoomToDefaultAdminLevel();
       this.placeCodeService?.clearPlaceCode();
       return;
     }

@@ -15,6 +15,7 @@ import fs from 'fs';
 import { CountryEntity } from '../country/country.entity';
 import { HelperService } from '../../shared/helper.service';
 import { EventAreaService } from '../admin-area/services/event-area.service';
+import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -231,16 +232,9 @@ export class AdminAreaDynamicDataService {
     data: any,
     disasterType: DisasterType,
   ): Promise<void> {
-    let subfolder: string;
-    if (
-      [DisasterType.Floods, DisasterType.FlashFloods].includes(disasterType)
-    ) {
-      subfolder = 'flood_extents';
-    } else if (
-      [DisasterType.HeavyRain, DisasterType.Drought].includes(disasterType)
-    ) {
-      subfolder = 'rainfall_extents';
-    } else {
+    const subfolder =
+      DisasterTypeGeoServerMapper.getSubfolderForDisasterType(disasterType);
+    if (subfolder === '') {
       throw new HttpException(
         'Disaster Type not allowed',
         HttpStatus.BAD_REQUEST,
