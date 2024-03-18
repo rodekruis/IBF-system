@@ -5,6 +5,8 @@ import {
   Res,
   HttpStatus,
   UseGuards,
+  Patch,
+  HttpException,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -26,6 +28,7 @@ import { RolesGuard } from '../roles.guard';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { Roles } from '../roles.decorator';
 import { UserRole } from '../api/user/user-role.enum';
+import { GeoseverSyncService } from './geoserver-sync.service';
 
 class ResetDto {
   @ApiProperty({ example: 'fill_in_secret' })
@@ -122,6 +125,7 @@ export class ScriptsController {
   public constructor(
     private scriptsService: ScriptsService,
     private seedInit: SeedInit,
+    private geoseverSyncService: GeoseverSyncService,
   ) {}
 
   @Roles(UserRole.Admin)
@@ -206,5 +210,27 @@ export class ScriptsController {
     const result = await this.scriptsService.mockTyphoonScenario(body);
 
     return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary:
+      'Syncs the geoserver with countries.json, this also run the mock all script',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Geoserver synced with countries.json',
+  })
+  @Patch('/sync-geoserver')
+  public async syncGeoserver(@Body() body: ResetDto): Promise<void> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      throw new HttpException('Not allowed', HttpStatus.FORBIDDEN);
+    }
+    await this.scriptsService.mockAll({
+      secret: body.secret,
+      triggered: true,
+      date: new Date(),
+    });
+    return await this.geoseverSyncService.sync();
   }
 }
