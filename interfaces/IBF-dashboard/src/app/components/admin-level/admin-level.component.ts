@@ -225,6 +225,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     }
 
     if (breadCrumb === MapView.event) {
+      this.adminLevelService.zoomToDefaultAdminLevel();
       this.placeCodeService?.clearPlaceCode();
       return;
     }

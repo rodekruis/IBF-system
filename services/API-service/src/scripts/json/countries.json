@@ -41,7 +41,8 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       },
       {
         "disasterType": "drought",
@@ -295,7 +296,8 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       },
       {
         "disasterType": "drought",
@@ -392,7 +394,8 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       },
       {
         "disasterType": "flash-floods",
@@ -478,7 +481,8 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       }
     ],
     "adminRegionLabels": {
@@ -534,7 +538,8 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       },
       {
         "disasterType": "drought",
@@ -641,14 +646,16 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       },
       {
         "disasterType": "malaria",
         "adminLevels": [3],
         "defaultAdminLevel": 3,
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
-        "eapLink": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing"
+        "eapLink": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing",
+        "isEventBased": true
       },
       {
         "disasterType": "drought",
@@ -898,7 +905,8 @@
         "adminLevels": [2],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
-        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm"
+        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm",
+        "isEventBased": true
       },
       {
         "disasterType": "typhoon",
@@ -1095,7 +1103,8 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       }
     ],
     "adminRegionLabels": {
