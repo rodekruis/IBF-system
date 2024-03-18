@@ -29,6 +29,7 @@ import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { DEBUG } from '../config';
 import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';
 import { GeoserverSyncService } from './geoserver-sync.service';
+import { AdminAreaService } from '../api/admin-area/admin-area.service';
 
 class Scenario {
   scenarioName: string;
@@ -55,6 +56,7 @@ export class MockService {
     private pointDataService: PointDataService,
     private glofasStationService: GlofasStationService,
     private geoServerSyncService: GeoserverSyncService,
+    private adminAreaService: AdminAreaService,
   ) {}
 
   public async mock(
@@ -91,96 +93,123 @@ export class MockService {
       disasterType,
     );
 
-    for (const event of scenario.events) {
+    if (!scenario.events) {
+      const adminAreas = await this.adminAreaService.getAdminAreasRaw(
+        selectedCountry.countryCodeISO3,
+      );
       for (const indicator of indicators) {
         for (const adminLevel of adminLevels) {
-          const exposurePlaceCodes = this.getIndicatorPlaceCodes(
-            disasterType,
-            mockBody.countryCodeISO3,
-            scenario.scenarioName,
-            event.eventName,
-            indicator,
-            adminLevel,
+          const exposurePlaceCodes = adminAreas
+            .filter((area) => area.adminLevel === adminLevel)
+            .map((area) => ({ placeCode: area.placeCode, amount: 0 }));
+
+          for (const leadTime of selectedCountry.countryDisasterSettings.find(
+            (settings) => settings.disasterType === disasterType,
+          ).activeLeadTimes) {
+            await this.adminAreaDynamicDataService.exposure({
+              countryCodeISO3: mockBody.countryCodeISO3,
+              exposurePlaceCodes: exposurePlaceCodes,
+              leadTime: leadTime as LeadTime,
+              dynamicIndicator: indicator,
+              adminLevel: adminLevel,
+              disasterType: disasterType,
+              eventName: null,
+              date: mockBody.date,
+            });
+          }
+        }
+      }
+    } else {
+      for (const event of scenario.events) {
+        for (const indicator of indicators) {
+          for (const adminLevel of adminLevels) {
+            const exposurePlaceCodes = this.getIndicatorPlaceCodes(
+              disasterType,
+              mockBody.countryCodeISO3,
+              scenario.scenarioName,
+              event.eventName,
+              indicator,
+              adminLevel,
+            );
+
+            if (!exposurePlaceCodes) {
+              console.error('NO FILE!!!', indicator);
+              continue;
+            }
+
+            await this.adminAreaDynamicDataService.exposure({
+              countryCodeISO3: selectedCountry.countryCodeISO3,
+              exposurePlaceCodes: exposurePlaceCodes,
+              leadTime: event.leadTime as LeadTime,
+              dynamicIndicator: indicator,
+              adminLevel: adminLevel,
+              disasterType: disasterType,
+              eventName: event.eventName,
+              date: mockBody.date,
+            });
+          }
+        }
+
+        if (this.shouldMockTriggerPerLeadTime(disasterType)) {
+          const triggersPerLeadTime = this.getFile(
+            `./src/scripts/mock-data/${disasterType}/${mockBody.countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-leadtime.json`,
           );
 
-          if (!exposurePlaceCodes) {
-            console.error('NO FILE!!!', indicator);
-            continue;
-          }
-
-          await this.adminAreaDynamicDataService.exposure({
+          await this.eventService.uploadTriggerPerLeadTime({
             countryCodeISO3: mockBody.countryCodeISO3,
-            exposurePlaceCodes,
-            leadTime: event.leadTime as LeadTime,
-            dynamicIndicator: indicator,
-            adminLevel: adminLevel,
-            disasterType: disasterType,
+            triggersPerLeadTime,
+            disasterType: DisasterType.Floods,
             eventName: event.eventName,
             date: mockBody.date,
           });
         }
-      }
 
-      if (this.shouldMockTriggerPerLeadTime(disasterType)) {
-        const triggersPerLeadTime = this.getFile(
-          `./src/scripts/mock-data/${disasterType}/${mockBody.countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-leadtime.json`,
-        );
+        if (this.shouldMockTyphoonTrack(disasterType)) {
+          console.log('mockTyphoonTrack not implemented yet');
+          // await this.mockTyphoonTrack()
+        }
 
-        await this.eventService.uploadTriggerPerLeadTime({
-          countryCodeISO3: mockBody.countryCodeISO3,
-          triggersPerLeadTime,
-          disasterType: DisasterType.Floods,
-          eventName: event.eventName,
-          date: mockBody.date,
-        });
+        if (
+          this.shouldMockMapImageFile(disasterType, mockBody.countryCodeISO3)
+        ) {
+          this.mockMapImageFile(
+            mockBody.countryCodeISO3,
+            disasterType,
+            true,
+            event.eventName,
+          );
+        }
       }
+    }
 
-      if (this.shouldMockRasterFile(disasterType)) {
-        this.mockRasterFile(selectedCountry, disasterType, true);
-      }
-
-      if (this.shouldMockExposedAssets(disasterType)) {
-        // TODO: the below methods are now duplidated between mock.service and scripts.service
-        // TODO: the below methods still assume hard-coded leadTimes and is not flexible
-        await this.mockExposedAssets(
-          selectedCountry.countryCodeISO3,
-          true, // TODO: assume triggered, no-trigger for now done via old endpoint
-          mockBody.date,
-        );
-      }
-
-      if (this.shouldMockDynamicPointData(disasterType)) {
-        // TODO: the below methods are now duplidated between mock.service and scripts.service
-        // TODO: the below methods still assume hard-coded leadTimes and is not flexible
-        await this.mockDynamicPointData(
-          selectedCountry.countryCodeISO3,
-          DisasterType.FlashFloods,
-          mockBody.date,
-        );
-      }
-
-      if (this.shouldMockTyphoonTrack(disasterType)) {
-        console.log('mockTyphoonTrack not implemented yet');
-        // await this.mockTyphoonTrack()
-      }
-
-      if (this.shouldMockMapImageFile(disasterType, mockBody.countryCodeISO3)) {
-        this.mockMapImageFile(
-          mockBody.countryCodeISO3,
-          disasterType,
-          true,
-          event.eventName,
-        );
-      }
-
-      if (this.shouldMockGlofasStations(disasterType)) {
-        await this.mockGlofasStations(
-          selectedCountry,
-          DisasterType.Floods,
-          mockBody.date,
-          scenario.events,
-        );
-      }
+    if (this.shouldMockRasterFile(disasterType)) {
+      this.mockRasterFile(selectedCountry, disasterType, true);
+    }
+    if (this.shouldMockExposedAssets(disasterType)) {
+      // TODO: the below methods are now duplidated between mock.service and scripts.service
+      // TODO: the below methods still assume hard-coded leadTimes and is not flexible
+      await this.mockExposedAssets(
+        selectedCountry.countryCodeISO3,
+        true, // TODO: assume triggered, no-trigger for now done via old endpoint
+        mockBody.date,
+      );
+    }
+    if (this.shouldMockDynamicPointData(disasterType)) {
+      // TODO: the below methods are now duplidated between mock.service and scripts.service
+      // TODO: the below methods still assume hard-coded leadTimes and is not flexible
+      await this.mockDynamicPointData(
+        selectedCountry.countryCodeISO3,
+        DisasterType.FlashFloods,
+        mockBody.date,
+      );
+    }
+    if (this.shouldMockGlofasStations(disasterType)) {
+      await this.mockGlofasStations(
+        selectedCountry,
+        DisasterType.Floods,
+        mockBody.date,
+        mockBody.scenario,
+      );
     }
   }
 
@@ -248,22 +277,11 @@ export class MockService {
     selectedCountry,
     disasterType: DisasterType,
     date: Date,
-    events: { eventName: string; leadTime: LeadTime }[],
+    scenarioName: string,
   ) {
-    const triggeredStations = this.getFile(
-      `./src/api/point-data/dto/example/glofas-stations/glofas-stations-${selectedCountry.countryCodeISO3}-triggered.json`,
-    ).filter((station) =>
-      events.map((e) => e.eventName).includes(station.stationCode),
+    const stationForecasts = this.getFile(
+      `./src/scripts/mock-data/${disasterType}/${selectedCountry.countryCodeISO3}/${scenarioName}/glofas-stations.json`,
     );
-    console.log('triggeredStations: ', triggeredStations);
-
-    const nonTriggeredStations = this.getFile(
-      `./src/api/point-data/dto/example/glofas-stations/glofas-stations-${selectedCountry.countryCodeISO3}.json`,
-    ).filter(
-      (station) =>
-        !events.map((e) => e.eventName).includes(station.stationCode),
-    );
-    console.log('nonTriggeredStations: ', nonTriggeredStations);
 
     for (const activeLeadTime of selectedCountry.countryDisasterSettings.find(
       (s) => s.disasterType === disasterType,
@@ -273,7 +291,7 @@ export class MockService {
       );
       await this.glofasStationService.uploadTriggerDataPerStation({
         countryCodeISO3: selectedCountry.countryCodeISO3,
-        stationForecasts: [...triggeredStations, ...nonTriggeredStations],
+        stationForecasts,
         leadTime: activeLeadTime as LeadTime,
         date,
       });
