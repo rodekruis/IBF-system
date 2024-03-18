@@ -186,7 +186,7 @@ export class TimelineService {
           this.eventState.event
             ? ((this.eventState.event.firstTriggerLeadTime ||
                 this.eventState.event.firstLeadTime) as LeadTime)
-            : this.eventState.activeTrigger
+            : this.eventState.events?.length > 0
             ? null
             : this.getFallbackNoTriggerLeadTime(this.disasterType.disasterType),
           null,
@@ -231,17 +231,13 @@ export class TimelineService {
     const events = this.eventState?.events;
     if (events?.length) {
       for (const event of events) {
-        if (event.activeTrigger) {
-          this.apiService
-            .getTriggerPerLeadTime(
-              this.country.countryCodeISO3,
-              this.disasterType.disasterType,
-              event?.eventName,
-            )
-            .subscribe(this.onTriggerPerLeadTime);
-        } else {
-          this.onTriggerPerLeadTime(null);
-        }
+        this.apiService
+          .getTriggerPerLeadTime(
+            this.country.countryCodeISO3,
+            this.disasterType.disasterType,
+            event?.eventName,
+          )
+          .subscribe(this.onTriggerPerLeadTime);
       }
     }
     if (!events || !events.length) {
@@ -526,26 +522,31 @@ export class TimelineService {
       }
     } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
       const events = this.eventState?.events;
-      const relevantLeadTimes = this.eventState?.activeTrigger
-        ? events
-            .filter((e) => !e.disasterSpecificProperties?.typhoonNoLandfallYet)
-            .map((e) => e.firstLeadTime)
-        : [];
+      const relevantLeadTimes =
+        this.eventState?.events?.length > 0
+          ? events
+              .filter(
+                (e) => !e.disasterSpecificProperties?.typhoonNoLandfallYet,
+              )
+              .map((e) => e.firstLeadTime)
+          : [];
       return relevantLeadTimes.includes(leadTime);
     } else if (disasterType.disasterType === DisasterTypeKey.flashFloods) {
       const events = this.eventState?.events;
       if (!events.length) {
         return leadTime === LeadTime.hour1;
       }
-      const relevantLeadTimes = this.eventState?.activeTrigger
-        ? events.map((e) => e.firstLeadTime)
-        : [];
+      const relevantLeadTimes =
+        this.eventState?.events?.length > 0
+          ? events.map((e) => e.firstLeadTime)
+          : [];
       return relevantLeadTimes.includes(leadTime);
     } else if (disasterType.disasterType === DisasterTypeKey.floods) {
       const events = this.eventState?.events;
-      const relevantLeadTimes = this.eventState?.activeTrigger
-        ? events.map((e) => e.firstLeadTime)
-        : [];
+      const relevantLeadTimes =
+        this.eventState?.events?.length > 0
+          ? events.map((e) => e.firstLeadTime)
+          : [];
       return relevantLeadTimes.includes(leadTime);
     } else {
       return true;

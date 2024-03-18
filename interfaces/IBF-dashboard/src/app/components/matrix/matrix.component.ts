@@ -84,7 +84,7 @@ export class MatrixComponent implements OnDestroy {
       mapLayerName: layer.name,
       mapLayerStatus: layer.active,
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
 
@@ -96,7 +96,7 @@ export class MatrixComponent implements OnDestroy {
       mapLayerName: layer.name,
       mapLayerStatus: !layer.active,
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
 

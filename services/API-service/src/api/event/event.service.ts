@@ -73,8 +73,6 @@ export class EventService {
       .addSelect([
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
-        // TODO: for now keep this, remove need in front-end when possible
-        'MAX(1)::boolean AS "activeTrigger"',
         'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
       ])
       .where({

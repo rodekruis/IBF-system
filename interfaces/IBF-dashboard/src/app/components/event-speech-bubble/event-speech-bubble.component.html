@@ -6,7 +6,7 @@
   [isSelected]="eventBubbleIsSelected(event.eventName)"
   [isConnected]="true"
 >
-  <ng-container *ngIf="event.activeTrigger && event.thresholdReached">
+  <ng-container *ngIf="event.thresholdReached">
     <span>
       <ion-icon
         class="warning-icon"
@@ -64,7 +64,7 @@
     </p>
   </ng-container>
 
-  <ng-container *ngIf="event.activeTrigger && !event.thresholdReached">
+  <ng-container *ngIf="!event.thresholdReached">
     <span>
       <ion-icon
         class="warning-icon"
@@ -111,7 +111,7 @@
   <!-- =================================== -->
 
   <ng-container
-    *ngIf="event.eventName === selectedEvent && event.activeTrigger"
+    *ngIf="event.eventName === selectedEvent"
   >
     <p
       *ngIf="event.thresholdReached"
