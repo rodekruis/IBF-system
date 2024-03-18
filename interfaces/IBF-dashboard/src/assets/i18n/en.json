@@ -335,6 +335,7 @@
       },
       "active-event-active-trigger": {
         "header": "Alert: {{ disasterTypeLabel }}",
+        "header-ongoing": "Ongoing alert: {{ disasterTypeLabel }}",
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. The alert is issued for <strong>{{ firstLeadTimeDate }}</strong>."
       },
       "active-event": {
