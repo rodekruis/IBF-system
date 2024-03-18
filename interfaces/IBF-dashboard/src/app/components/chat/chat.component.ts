@@ -211,13 +211,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private setDefaultFilteredAreas = () => {
-    if (this.eventService.isOldEvent()) {
-      this.filteredActiveAreas = [...this.triggeredAreas];
-      this.filteredStoppedAreas = [];
-    } else {
-      this.filteredActiveAreas = [];
-      this.filteredStoppedAreas = [];
-    }
+    this.filteredActiveAreas = [];
+    this.filteredStoppedAreas = [];
   };
 
   private setupChatText = () => {

@@ -246,9 +246,9 @@ export class WhatsappService {
           country.countryCodeISO3,
           disasterType.disasterType,
         );
-        const activeEvents = events
-          .filter((event) => event.activeTrigger)
-          .sort((a, b) => (a.firstLeadTime > b.firstLeadTime ? 1 : -1));
+        const activeEvents = events.sort((a, b) =>
+          a.firstLeadTime > b.firstLeadTime ? 1 : -1,
+        );
         if (activeEvents.length === 0) {
           const noTriggerMessage = this.configureNoTriggerMessage(
             country,

@@ -53,9 +53,6 @@ export class EventPlaceCodeEntity {
   @Column({ type: 'timestamp', nullable: true })
   public manualStoppedDate: Date;
 
-  @Column({ default: true })
-  public activeTrigger: boolean;
-
   @Column({ default: false })
   public stopped: boolean;
 

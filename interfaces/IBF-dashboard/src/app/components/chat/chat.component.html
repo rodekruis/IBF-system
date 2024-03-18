@@ -44,7 +44,7 @@
 
   <!-- No event -->
   <app-event-speech-bubble
-    *ngIf="!eventState?.activeTrigger && !eventService.isOldEvent()"
+    *ngIf="!eventState?.activeTrigger"
     [type]="'no-event'"
     [event]="null"
     [selectedEvent]="eventState?.event?.eventName"
@@ -100,22 +100,6 @@
       ></app-event-speech-bubble>
     </ng-container>
   </ng-container>
-
-  <!-- Old event -->
-  <app-event-speech-bubble
-    *ngIf="eventService.isOldEvent()"
-    [type]="'old'"
-    [event]="eventState?.event"
-    [selectedEvent]="eventState?.event?.eventName"
-    [disasterTypeLabel]="disasterType?.label"
-    [disasterTypeName]="disasterType?.disasterType"
-    [clearOutMessage]="getClearOutMessage(null)"
-    [countryCodeISO3]="country?.countryCodeISO3"
-    [areas]="stoppedAreas"
-    [adminAreaLabelPlural]="adminAreaLabelPlural"
-    [actionIndicatorLabel]="actionIndicatorLabel"
-    [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
-  ></app-event-speech-bubble>
 
   <ng-container *ngIf="eventState?.activeTrigger">
     <app-dialogue-turn

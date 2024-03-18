@@ -348,8 +348,6 @@ export class EventService {
     }
   }
 
-  public isOldEvent = () => this.state.event && !this.state.activeTrigger;
-
   private setOverallActiveTrigger() {
     return this.state.event
       ? this.state.event.activeTrigger
