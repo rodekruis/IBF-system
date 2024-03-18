@@ -30,7 +30,6 @@ import { LinesDataEnum } from '../api/lines-data/lines-data.entity';
 import { PointDataEnum } from '../api/point-data/point-data.entity';
 import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
 import { PointDataService } from '../api/point-data/point-data.service';
-import { FloodsScenario, MockFloodsScenario } from './mock.controller';
 
 @Injectable()
 export class ScriptsService {

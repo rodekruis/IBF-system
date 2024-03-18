@@ -54,6 +54,7 @@ export enum FloodsScenario {
   Default = 'default',
   WarningsOnly = 'warnings-only',
   WarningToTrigger = 'warning-to-trigger',
+  NoTrigger = 'no-trigger',
 }
 export class MockFloodsScenario extends MockBaseScenario {
   @ApiProperty({
