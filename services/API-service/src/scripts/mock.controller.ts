@@ -19,6 +19,11 @@ import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { Roles } from '../roles.decorator';
 import { UserRole } from '../api/user/user-role.enum';
 import { MockService } from './mock.service';
+import {
+  FloodsScenario,
+  FlashFloodsScenario,
+  EpidemicsScenario,
+} from './enum/mock-scenario.enum';
 
 export class MockBaseScenario {
   @ApiProperty({ example: 'fill_in_secret' })
@@ -50,12 +55,6 @@ export class MockBaseScenario {
   public readonly date: Date;
 }
 
-export enum FloodsScenario {
-  Default = 'default',
-  WarningsOnly = 'warnings-only',
-  WarningToTrigger = 'warning-to-trigger',
-  NoTrigger = 'no-trigger',
-}
 export class MockFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FloodsScenario).join(' | '),
@@ -66,9 +65,6 @@ export class MockFloodsScenario extends MockBaseScenario {
   public readonly scenario: FloodsScenario;
 }
 
-export enum FlashFloodsScenario {
-  Default = 'default',
-}
 export class MockFlashFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FlashFloodsScenario).join(' | '),
@@ -78,9 +74,6 @@ export class MockFlashFloodsScenario extends MockBaseScenario {
   public readonly scenario: FlashFloodsScenario;
 }
 
-export enum EpidemicsScenario {
-  Default = 'default',
-}
 export class MockEpidemicsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(EpidemicsScenario).join(' | '),
