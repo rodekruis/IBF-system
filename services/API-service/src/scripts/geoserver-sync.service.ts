@@ -23,7 +23,8 @@ export class GeoseverSyncService {
     countryCodeISO3?: string,
     disasterType?: DisasterType,
   ): Promise<void> {
-    const filteredCountries = countries.filter((country: any) => {
+    const countriesCopy = JSON.parse(JSON.stringify(countries));
+    const filteredCountries = countriesCopy.filter((country: any) => {
       return countryCodeISO3
         ? country.countryCodeISO3 === countryCodeISO3
         : true;
@@ -40,7 +41,8 @@ export class GeoseverSyncService {
       country.countryDisasterSettings = disasterSettings;
     }
     const geoserverResourceNameObjects =
-      this.generateGeoserverResourceNames(filteredCountries);
+    this.generateGeoserverResourceNames(filteredCountries);
+    console.log("🚀 ~ GeoseverSyncService ~ geoserverResourceNameObjects:", geoserverResourceNameObjects)
     await this.syncStores(geoserverResourceNameObjects);
     await this.syncLayers(geoserverResourceNameObjects);
   }
@@ -49,9 +51,11 @@ export class GeoseverSyncService {
     const foundStoreNames = await this.getStoreNamesFromGeoserver(
       workspaceName,
     );
+    console.log("🚀 ~ GeoseverSyncService ~ syncStores ~ foundStoreNames:", foundStoreNames)
     const missingStoreNames = expectedStoreNameObjects.filter(
       (o) => !foundStoreNames.includes(o.resourceName),
     );
+    console.log("🚀 ~ GeoseverSyncService ~ syncStores ~ missingStoreNames:", missingStoreNames)
     await this.postStoreNamesToGeoserver(missingStoreNames);
   }
 

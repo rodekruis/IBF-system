@@ -211,26 +211,4 @@ export class ScriptsController {
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }
-
-  @Roles(UserRole.Admin)
-  @ApiOperation({
-    summary:
-      'Syncs the geoserver with countries.json, this also run the mock all script',
-  })
-  @ApiResponse({
-    status: 201,
-    description: 'Geoserver synced with countries.json',
-  })
-  @Patch('/sync-geoserver')
-  public async syncGeoserver(@Body() body: ResetDto): Promise<void> {
-    if (body.secret !== process.env.RESET_SECRET) {
-      throw new HttpException('Not allowed', HttpStatus.FORBIDDEN);
-    }
-    await this.scriptsService.mockAll({
-      secret: body.secret,
-      triggered: true,
-      date: new Date(),
-    });
-    return await this.geoseverSyncService.sync();
-  }
 }

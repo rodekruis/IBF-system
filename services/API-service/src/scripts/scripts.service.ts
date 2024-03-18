@@ -32,6 +32,7 @@ import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-ex
 import { PointDataService } from '../api/point-data/point-data.service';
 import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';
 import { GeoseverSyncService as GeoServerSyncService } from './geoserver-sync.service';
+import { DEBUG } from '../config';
 
 @Injectable()
 export class ScriptsService {
@@ -1059,10 +1060,14 @@ export class ScriptsService {
     disasterType: DisasterType,
     triggered: boolean,
   ) {
-    await this.geoServerSyncService.sync(
-      selectedCountry.countryCodeISO3,
-      disasterType,
-    );
+    // Add the needed stores and layers to geoserver, only do this in debug mode
+    // The resulting XML files should be commited to git and will end up on the servers that way
+    if (DEBUG) {
+      await this.geoServerSyncService.sync(
+        selectedCountry.countryCodeISO3,
+        disasterType,
+      );
+    }
     for await (const leadTime of selectedCountry.countryDisasterSettings.find(
       (s) => s.disasterType === disasterType,
     ).activeLeadTimes) {
