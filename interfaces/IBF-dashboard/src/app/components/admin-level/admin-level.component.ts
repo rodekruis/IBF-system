@@ -275,4 +275,8 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
       return [MapView.adminArea3].includes(this.currentMapView);
     }
   }
+
+  public disableNationalView(): boolean {
+    return this.eventState.events.length === 1;
+  }
 }
