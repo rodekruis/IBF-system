@@ -308,9 +308,9 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for dengue issued."
       },
       "active-event-active-trigger": {
-        "header": "Alert: {{ disasterTypeLabel }}",
-        "header-ongoing": "Ongoing alert: {{ disasterTypeLabel }}",
-        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. The alert is issued for <strong>{{ firstLeadTimeDate }}</strong>."
+        "header": "Alert for {{firstLeadTimeDate}}",
+        "header-ongoing": "Ongoing alert for {{firstLeadTimeDate}}",
+        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>."
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
@@ -334,9 +334,9 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for malaria issued."
       },
       "active-event-active-trigger": {
-        "header": "Alert: {{ disasterTypeLabel }}",
-        "header-ongoing": "Ongoing alert: {{ disasterTypeLabel }}",
-        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. The alert is issued for <strong>{{ firstLeadTimeDate }}</strong>."
+        "header": "Alert for {{firstLeadTimeDate}}",
+        "header-ongoing": "Ongoing alert for {{firstLeadTimeDate}}",
+        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>."
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
