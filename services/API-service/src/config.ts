@@ -5,8 +5,8 @@ export const PORT = 3000;
 // ---------------------------------------------------------------------------
 
 export const API_PATHS = {
-  whatsAppStatus: 'notifications/whatsapp/status',
-  whatsAppIncoming: 'notifications/whatsapp/incoming',
+  whatsAppStatus: 'notification/whatsapp/status',
+  whatsAppIncoming: 'notification/whatsapp/incoming',
   eventMapImage: 'event/event-map-image',
 };
 const baseApiUrl = process.env.EXTERNAL_API_SERVICE_URL + 'api/';
