@@ -44,7 +44,7 @@ import {
 } from '../models/country.model';
 import { IbfLayerName } from '../types/ibf-layer';
 import { LeadTime } from '../types/lead-time';
-import { EventService } from './event.service';
+import { EventService, EventSummary } from './event.service';
 
 @Injectable({
   providedIn: 'root',
@@ -119,10 +119,13 @@ export class PointMarkerService {
     markerProperties: Station,
     markerLatLng: LatLng,
     countryDisasterSettings: CountryDisasterSettings,
-    activeLeadTime: LeadTime,
+    events: EventSummary[],
   ): Marker {
-    const markerTitle = markerProperties.stationName;
+    const activeLeadTime = events.find(
+      (e) => e.eventName === markerProperties.stationCode, // TODO: this counds on eventName being equal to stationCode!
+    )?.firstLeadTime as LeadTime;
 
+    const markerTitle = markerProperties.stationName;
     const markerIcon: IconOptions = {
       ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
       iconUrl: `assets/markers/glofas-station-${

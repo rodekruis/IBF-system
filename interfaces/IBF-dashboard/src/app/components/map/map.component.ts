@@ -453,7 +453,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           geoJsonPoint.properties as Station,
           latlng,
           this.countryDisasterSettings,
-          this.timelineState.activeLeadTime,
+          this.eventState?.events,
         );
       }
       case IbfLayerName.redCrossBranches:

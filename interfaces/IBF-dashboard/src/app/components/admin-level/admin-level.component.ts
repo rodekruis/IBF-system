@@ -277,6 +277,6 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   }
 
   public disableNationalView(): boolean {
-    return this.eventState.events.length === 1;
+    return this.eventState?.events?.length === 1;
   }
 }
