@@ -9,11 +9,8 @@
     ]
   },
   {
-    "scenarioName": "warnings-only",
-    "events": [
-      { "eventName": "G5075", "leadTime": "2-day" },
-      { "eventName": "G5230", "leadTime": "5-day" }
-    ]
+    "scenarioName": "warning",
+    "events": [{ "eventName": "G5230", "leadTime": "5-day" }]
   },
   {
     "scenarioName": "warning-to-trigger",

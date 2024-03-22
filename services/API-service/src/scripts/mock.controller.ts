@@ -59,7 +59,7 @@ export class MockFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FloodsScenario).join(' | '),
     description:
-      'default: ongoing + trigger + warning event; warnings-only: 2 warning events; warning-to-trigger: 1 event that evolves from warning to trigger',
+      'default: ongoing + trigger + warning event; warning: 1 warning event; warning-to-trigger: 1 event that evolves from warning to trigger',
   })
   @IsEnum(FloodsScenario)
   public readonly scenario: FloodsScenario;

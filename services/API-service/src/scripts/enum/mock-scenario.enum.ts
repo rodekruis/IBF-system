@@ -1,6 +1,6 @@
 export enum FloodsScenario {
   Default = 'default',
-  WarningsOnly = 'warnings-only',
+  Warning = 'warning',
   WarningToTrigger = 'warning-to-trigger',
   NoTrigger = 'no-trigger',
 }

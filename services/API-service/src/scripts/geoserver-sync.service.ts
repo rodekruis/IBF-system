@@ -41,10 +41,7 @@ export class GeoserverSyncService {
     }
     const geoserverResourceNameObjects =
       this.generateGeoserverResourceNames(filteredCountries);
-    console.log(
-      '🚀 ~ GeoseverSyncService ~ geoserverResourceNameObjects:',
-      geoserverResourceNameObjects,
-    );
+
     await this.syncStores(geoserverResourceNameObjects);
     await this.syncLayers(geoserverResourceNameObjects);
   }
@@ -53,16 +50,8 @@ export class GeoserverSyncService {
     const foundStoreNames = await this.getStoreNamesFromGeoserver(
       workspaceName,
     );
-    console.log(
-      '🚀 ~ GeoseverSyncService ~ syncStores ~ foundStoreNames:',
-      foundStoreNames,
-    );
     const missingStoreNames = expectedStoreNameObjects.filter(
       (o) => !foundStoreNames.includes(o.resourceName),
-    );
-    console.log(
-      '🚀 ~ GeoseverSyncService ~ syncStores ~ missingStoreNames:',
-      missingStoreNames,
     );
     await this.postStoreNamesToGeoserver(missingStoreNames);
   }

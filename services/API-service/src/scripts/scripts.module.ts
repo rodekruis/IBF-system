@@ -33,6 +33,7 @@ import { MockService } from './mock.service';
 import { MockController } from './mock.controller';
 import { GeoserverSyncService } from './geoserver-sync.service';
 import { HttpModule } from '@nestjs/axios';
+import { MockHelperService } from './mock-helper.service';
 
 @Module({
   imports: [
@@ -69,6 +70,7 @@ import { HttpModule } from '@nestjs/axios';
     SeedLineData,
     SeedRainfallData,
     MockService,
+    MockHelperService,
     GeoserverSyncService,
   ],
   controllers: [ScriptsController, MockController],
