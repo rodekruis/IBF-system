@@ -41,6 +41,15 @@ export class AdminAreaDynamicDataService {
       uploadExposure.leadTime,
     );
 
+    // NOTE: This should be changed in pipeline, but this achieves the same result as long as that did not happen
+    // NOTE: this assumes eventName=leadTime, if this changes, then this doesn't work any more
+    if (!uploadExposure.eventName) {
+      uploadExposure.eventName = this.getEpidemicsEventNameException(
+        uploadExposure.disasterType,
+        uploadExposure.leadTime,
+      );
+    }
+
     // Delete existing entries in case of a re-run of the pipeline for some reason
     await this.deleteDynamicDuplicates(uploadExposure);
 
@@ -88,6 +97,19 @@ export class AdminAreaDynamicDataService {
         uploadExposure.date || new Date(),
       );
     }
+  }
+
+  private getEpidemicsEventNameException(
+    disasterType: DisasterType,
+    leadTime: LeadTime,
+  ): string {
+    if (
+      disasterType === DisasterType.Dengue ||
+      disasterType === DisasterType.Malaria
+    ) {
+      return leadTime as string;
+    }
+    return null;
   }
 
   private async deleteDynamicDuplicates(
