@@ -189,4 +189,16 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       },
     );
   }
+
+  public showFirstWarningDate(): boolean {
+    if (!this.event) {
+      return true;
+    }
+
+    if (this.event.firstLeadTime !== this.event.firstTriggerLeadTime) {
+      return true;
+    }
+
+    return false;
+  }
 }
