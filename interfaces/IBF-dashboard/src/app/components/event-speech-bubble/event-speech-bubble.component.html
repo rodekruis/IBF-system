@@ -20,7 +20,7 @@
     </span>
     <p>
       <span
-        *ngIf="!event.duration"
+        *ngIf="!event.duration && showFirstWarningDate()"
         [innerHTML]="
           'chat-component.' +
             disasterTypeName +

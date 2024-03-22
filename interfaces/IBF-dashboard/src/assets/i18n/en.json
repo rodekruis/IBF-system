@@ -147,7 +147,7 @@
         "header-below-trigger": "Warning: {{ disasterTypeLabel }} on {{firstLeadTimeDate}}",
         "header-ongoing-below-trigger": "Ongoing warning: {{ disasterTypeLabel }} on {{firstLeadTimeDate}}",
         "welcome": "First warning on {{firstLeadTimeDate}}",
-        "welcome-below-trigger": "First trigger on {{firstTriggerLeadTimeDate}}."
+        "welcome-below-trigger": ""
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} exposed. They are listed below by alert level and by {{ actionIndicator}}. Only triggered {{adminAreaLabelPlural}} are highlighted in the map with a red outline.",
