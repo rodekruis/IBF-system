@@ -183,7 +183,7 @@ export class MockService {
             selectedCountry,
             DisasterType.Floods,
             mockBody.date,
-            mockBody.scenario,
+            scenario.scenarioName,
             event,
           );
         }
@@ -205,7 +205,7 @@ export class MockService {
         selectedCountry,
         disasterType,
         mockBody.date,
-        mockBody.scenario,
+        scenario.scenarioName,
       );
     }
 

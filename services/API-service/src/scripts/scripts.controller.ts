@@ -26,7 +26,6 @@ import { RolesGuard } from '../roles.guard';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { Roles } from '../roles.decorator';
 import { UserRole } from '../api/user/user-role.enum';
-import { GeoserverSyncService } from './geoserver-sync.service';
 
 class ResetDto {
   @ApiProperty({ example: 'fill_in_secret' })
@@ -45,8 +44,14 @@ export class MockDynamic {
   @IsIn(process.env.COUNTRIES.split(','))
   public readonly countryCodeISO3: string;
 
-  @ApiProperty({ example: DisasterType.Floods })
-  @IsEnum(DisasterType)
+  @ApiProperty({
+    example: [
+      DisasterType.Drought,
+      DisasterType.Typhoon,
+      DisasterType.HeavyRain,
+    ].join(' | '),
+  })
+  @IsIn([DisasterType.Drought, DisasterType.Typhoon, DisasterType.HeavyRain])
   public readonly disasterType: DisasterType;
 
   @ApiProperty()
@@ -123,7 +128,6 @@ export class ScriptsController {
   public constructor(
     private scriptsService: ScriptsService,
     private seedInit: SeedInit,
-    private geoseverSyncService: GeoserverSyncService,
   ) {}
 
   @Roles(UserRole.Admin)

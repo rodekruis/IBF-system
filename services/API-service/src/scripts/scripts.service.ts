@@ -25,6 +25,7 @@ import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { MockHelperService } from './mock-helper.service';
+import { MockService } from './mock.service';
 
 @Injectable()
 export class ScriptsService {
@@ -51,10 +52,18 @@ export class ScriptsService {
     private eventService: EventService,
     private metadataService: MetadataService,
     private mockHelperService: MockHelperService,
+    private mockService: MockService,
   ) {}
 
   public async mockAll(mockAllInput: MockAll) {
     const envCountries = process.env.COUNTRIES.split(',');
+
+    const newMockServiceDisasterTypes = [
+      DisasterType.Floods,
+      DisasterType.Dengue,
+      DisasterType.Malaria,
+      DisasterType.FlashFloods,
+    ];
 
     for await (const countryCodeISO3 of envCountries) {
       const country = await this.countryRepo.findOne({
@@ -63,14 +72,28 @@ export class ScriptsService {
       });
 
       for await (const disasterType of country.disasterTypes) {
-        await this.mockCountry({
-          secret: mockAllInput.secret,
-          countryCodeISO3,
-          disasterType: disasterType.disasterType,
-          triggered: mockAllInput.triggered,
-          removeEvents: true,
-          date: mockAllInput.date || new Date(),
-        });
+        if (newMockServiceDisasterTypes.includes(disasterType.disasterType)) {
+          await this.mockService.mock(
+            {
+              secret: mockAllInput.secret,
+              countryCodeISO3,
+              removeEvents: true,
+              date: mockAllInput.date || new Date(),
+              scenario: null, // This is overwritten by useDefaultScenario=true anyway
+            },
+            disasterType.disasterType,
+            true,
+          );
+        } else {
+          await this.mockCountry({
+            secret: mockAllInput.secret,
+            countryCodeISO3,
+            disasterType: disasterType.disasterType,
+            triggered: mockAllInput.triggered,
+            removeEvents: true,
+            date: mockAllInput.date || new Date(),
+          });
+        }
       }
     }
   }
@@ -80,22 +103,6 @@ export class ScriptsService {
     eventNr?: number,
     typhoonScenario?: TyphoonScenario,
   ) {
-    // NOTE: keep updating this as you migrate countries/disaster-types
-    if (
-      (mockInput.disasterType === DisasterType.Floods &&
-        ['UGA', 'SSD', 'ZMB'].includes(mockInput.countryCodeISO3)) ||
-      [
-        DisasterType.FlashFloods,
-        DisasterType.Dengue,
-        DisasterType.Malaria,
-      ].includes(mockInput.disasterType)
-    ) {
-      console.log(
-        `Use the new mock endpoints for ${mockInput.countryCodeISO3} ${mockInput.disasterType}`,
-      );
-      return;
-    }
-
     eventNr = eventNr || 1;
 
     if (mockInput.removeEvents) {
@@ -165,47 +172,15 @@ export class ScriptsService {
       typhoonScenario,
     );
 
-    if (mockInput.disasterType === DisasterType.Floods) {
-      await this.mockGlofasStations(
-        selectedCountry,
-        mockInput.disasterType,
-        mockInput.triggered,
-        date,
-      );
-      await this.mockTriggerPerLeadTime(
-        selectedCountry.countryCodeISO3,
-        mockInput.disasterType,
-        mockInput.triggered,
-        eventNr,
-        date,
-      );
-    }
-
     if (
-      [
-        DisasterType.Floods,
-        DisasterType.HeavyRain,
-        DisasterType.Drought,
-        DisasterType.FlashFloods,
-      ].includes(mockInput.disasterType)
+      [DisasterType.HeavyRain, DisasterType.Drought].includes(
+        mockInput.disasterType,
+      )
     ) {
       await this.mockHelperService.mockRasterFile(
         selectedCountry,
         mockInput.disasterType,
         mockInput.triggered,
-      );
-    }
-
-    if (mockInput.disasterType === DisasterType.FlashFloods) {
-      await this.mockHelperService.mockExposedAssets(
-        selectedCountry.countryCodeISO3,
-        mockInput.triggered,
-        date,
-      );
-      await this.mockHelperService.mockDynamicPointData(
-        selectedCountry.countryCodeISO3,
-        mockInput.disasterType,
-        date,
       );
     }
 
@@ -215,16 +190,6 @@ export class ScriptsService {
         typhoonScenario,
         eventNr,
         date,
-      );
-    }
-
-    // for now base on SSD, make more generic later
-    if (mockInput.countryCodeISO3 === 'SSD') {
-      await this.mockHelperService.mockMapImageFile(
-        selectedCountry.countryCodeISO3,
-        mockInput.disasterType,
-        mockInput.triggered,
-        null,
       );
     }
   }
@@ -389,12 +354,7 @@ export class ScriptsService {
       .filter((ind) => ind.dynamic)
       .map((ind) => ind.name as DynamicIndicator);
 
-    if (
-      disasterType === DisasterType.Dengue ||
-      disasterType === DisasterType.Malaria
-    ) {
-      exposureUnits.push(DynamicIndicator.potentialThreshold);
-    } else if (disasterType === DisasterType.Typhoon) {
+    if (disasterType === DisasterType.Typhoon) {
       exposureUnits.push(DynamicIndicator.showAdminArea);
       if (typhoonScenario === TyphoonScenario.NoEvent) {
         exposureUnits = [
@@ -479,8 +439,6 @@ export class ScriptsService {
           ).droughtForecastSeasons,
         );
         return regions;
-      } else if (disasterType === DisasterType.FlashFloods) {
-        return ['Rumphi', 'Karonga'];
       }
     }
     return [null];
@@ -524,8 +482,6 @@ export class ScriptsService {
           }
         }
       }
-    } else if (disasterType === DisasterType.FlashFloods) {
-      return eventRegion;
     } else {
       return null;
     }
@@ -552,10 +508,6 @@ export class ScriptsService {
       );
     } else if (disasterType === DisasterType.Typhoon) {
       return leadTime === this.getTyphoonLeadTime(eventNr, typhoonScenario);
-    } else if (disasterType === DisasterType.FlashFloods) {
-      return this.useFlashFloodsLeadTime(leadTime as LeadTime, triggered);
-    } else if (disasterType === DisasterType.Floods) {
-      return this.useFloodsLeadTime(leadTime as LeadTime, triggered);
     } else {
       return true;
     }
@@ -691,25 +643,6 @@ export class ScriptsService {
     }
   }
 
-  private useFlashFloodsLeadTime(
-    leadTime: LeadTime,
-    triggered: boolean,
-  ): boolean {
-    if (triggered) {
-      return [LeadTime.hour24, LeadTime.hour6].includes(leadTime);
-    } else {
-      return leadTime === LeadTime.hour1;
-    }
-  }
-
-  private useFloodsLeadTime(leadTime: LeadTime, triggered: boolean): boolean {
-    if (triggered) {
-      return true;
-    } else {
-      return leadTime === LeadTime.day1;
-    }
-  }
-
   private async mockAmount(
     exposurePlacecodes: any,
     exposureUnit: DynamicIndicator,
@@ -721,36 +654,7 @@ export class ScriptsService {
     eventRegion?: string,
   ): Promise<any[]> {
     let copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
-    // This only returns something different for dengue/malaria exposure-units
-    if ([DisasterType.Dengue, DisasterType.Malaria].includes(disasterType)) {
-      for (const pcodeData of copyOfExposureUnit) {
-        if (exposureUnit === DynamicIndicator.potentialCases65) {
-          pcodeData.amount = Math.round(pcodeData.amount * 0.1);
-        } else if (
-          exposureUnit === DynamicIndicator.potentialCasesU9 ||
-          exposureUnit === DynamicIndicator.potentialCasesU5
-        ) {
-          pcodeData.amount = Math.round(pcodeData.amount * 0.2);
-        } else if (exposureUnit === DynamicIndicator.alertThreshold) {
-          if (!triggered) {
-            pcodeData.amount = 0;
-          } else {
-            pcodeData.amount = [
-              'PH137500000',
-              'PH137400000',
-              'PH133900000',
-              'PH137600000',
-              'PH031400000',
-              'ET020303',
-              'ET042105',
-              'ET042104',
-            ].includes(pcodeData.placeCode)
-              ? 1
-              : 0;
-          }
-        }
-      }
-    } else if (
+    if (
       disasterType === DisasterType.Drought &&
       selectedCountry.countryCodeISO3 !== 'ZWE' && // exclude ZWE drought from this rule
       triggered
@@ -779,34 +683,6 @@ export class ScriptsService {
             amount: area.triggered ? amountFactor : 0,
           };
         });
-      }
-    } else if (disasterType === DisasterType.FlashFloods && triggered) {
-      if (
-        (eventRegion === 'Karonga' && activeLeadTime === LeadTime.hour24) ||
-        (eventRegion === 'Rumphi' && activeLeadTime === LeadTime.hour6)
-      ) {
-        // loop from the end so index stays correct during splicing
-        for (let i = copyOfExposureUnit.length - 1; i >= 0; i--) {
-          // if (
-          //   copyOfExposureUnit[i].amount > 0 ||
-          //   [LeadTime.hour24, LeadTime.hour48].includes(activeLeadTime)
-          // ) {
-          const adminArea = await this.adminAreaRepo.findOne({
-            where: { placeCode: copyOfExposureUnit[i].placeCode },
-          });
-          const adminAreaParent = await this.adminAreaRepo.findOne({
-            where: { placeCode: adminArea.placeCodeParent },
-          });
-          if (adminAreaParent.name === eventRegion) {
-            // leave this as is ..
-            continue;
-          }
-          // }
-          // .. remove the rest from upload
-          copyOfExposureUnit.splice(i, 1);
-        }
-      } else {
-        copyOfExposureUnit = [];
       }
     }
     return copyOfExposureUnit;
