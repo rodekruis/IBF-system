@@ -1,0 +1,10 @@
+[
+  {
+    "scenarioName": "eventTrigger",
+    "defaultScenario": true,
+    "events": [{ "eventName": "Mock typhoon", "leadTime": "48-hour" }]
+  },
+  {
+    "scenarioName": "noEvent"
+  }
+]

@@ -10,8 +10,11 @@ import { LinesDataService } from '../api/lines-data/lines-data.service';
 import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
 import { PointDataEnum } from '../api/point-data/point-data.entity';
 import { PointDataService } from '../api/point-data/point-data.service';
+import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';
+import { TyphoonScenario } from './enum/mock-scenario.enum';
 import { Country } from './interfaces/country.interface';
+import { Event } from './mock.service';
 
 @Injectable()
 export class MockHelperService {
@@ -19,6 +22,7 @@ export class MockHelperService {
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private linesDataService: LinesDataService,
     private pointDataService: PointDataService,
+    private typhoonTrackService: TyphoonTrackService,
   ) {}
 
   public async mockExposedAssets(
@@ -330,5 +334,45 @@ export class MockHelperService {
     }
 
     return `${minDiff}-month` as LeadTime;
+  }
+
+  public async mockTyphoonTrack(
+    countryCodeISO3: string,
+    scenarioName: string,
+    event: Event,
+    date: Date,
+  ) {
+    const filePath = `./src/scripts/mock-data/${DisasterType.Typhoon}/${countryCodeISO3}/${scenarioName}/${event.eventName}`;
+    let trackFileName = `${filePath}/typhoon-track.json`;
+    // TODO: Implement the following scenarios
+    if (scenarioName === TyphoonScenario.EventNoLandfall) {
+      trackFileName = `${filePath}/typhoon-track-no-landfall.json`;
+    } else if (scenarioName === TyphoonScenario.EventNoLandfallYet) {
+      trackFileName = `${filePath}/typhoon-track-no-landfall-yet.json`;
+    }
+
+    const trackRaw = fs.readFileSync(trackFileName, 'utf-8');
+    const track = JSON.parse(trackRaw);
+
+    // Overwrite timestamps of trackpoints to align with today's date
+    // Make sure that the moment of landfall lies just ahead
+    let i = scenarioName === TyphoonScenario.EventAfterLandfall ? -29 : -23;
+    for (const trackpoint of track) {
+      const now = new Date(date) || new Date();
+      console.log('date: ', date, typeof date);
+      console.log('now: ', now, typeof now);
+      trackpoint.timestampOfTrackpoint = new Date(
+        now.getTime() + i * (1000 * 60 * 60 * 6),
+      );
+      i += 1;
+    }
+
+    await this.typhoonTrackService.uploadTyphoonTrack({
+      countryCodeISO3,
+      leadTime: event.leadTime,
+      eventName: event.eventName,
+      trackpointDetails: scenarioName === TyphoonScenario.NoEvent ? [] : track,
+      date,
+    });
   }
 }
