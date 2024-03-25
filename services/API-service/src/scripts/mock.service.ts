@@ -22,6 +22,8 @@ import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.enti
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { MockHelperService } from './mock-helper.service';
+import { DEBUG } from '../config';
+import { GeoserverSyncService } from './geoserver-sync.service';
 
 class Scenario {
   scenarioName: string;
@@ -51,6 +53,7 @@ export class MockService {
     private glofasStationService: GlofasStationService,
     private adminAreaService: AdminAreaService,
     private mockHelpService: MockHelperService,
+    private geoServerSyncService: GeoserverSyncService,
   ) {}
 
   public async mock(
@@ -191,7 +194,6 @@ export class MockService {
             selectedCountry,
             disasterType,
             true,
-            event.leadTime,
           );
         }
       }
@@ -221,6 +223,15 @@ export class MockService {
         selectedCountry.countryCodeISO3,
         disasterType,
         mockBody.date,
+      );
+    }
+
+    // Add the needed stores and layers to geoserver, only do this in debug mode
+    // The resulting XML files should be commited to git and will end up on the servers that way
+    if (DEBUG) {
+      await this.geoServerSyncService.sync(
+        selectedCountry.countryCodeISO3,
+        disasterType,
       );
     }
   }

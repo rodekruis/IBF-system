@@ -51,7 +51,7 @@ export class DisasterTypeGeoServerMapper {
   }
 
   // DOES not work for heavy rain as it will be phased out
-  static getStyleForCountryAndDisasterType(
+  static generateStyleForCountryAndDisasterType(
     countryCode: string,
     disasterType: DisasterType,
   ): string {

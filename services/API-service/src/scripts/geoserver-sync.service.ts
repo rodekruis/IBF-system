@@ -1,10 +1,11 @@
 import { HttpService } from '@nestjs/axios';
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import { INTERNAL_GEOSERVER_API_URL } from '../config';
 import countries from './json/countries.json';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';
+import fs from 'fs';
 
 const workspaceName = 'ibf-system';
 
@@ -103,6 +104,18 @@ export class GeoserverSyncService {
       const subfolder = DisasterTypeGeoServerMapper.getSubfolderForDisasterType(
         resourceNameObject.disasterType,
       );
+      if (
+        !fs.existsSync(
+          `./geoserver-volume/raster-files/output/${subfolder}/${resourceNameObject.resourceName}.tif`,
+        )
+      ) {
+        throw new HttpException(
+          {
+            error: `File not found: ./geoserver-volume/raster-files/output/${subfolder}/${resourceNameObject.resourceName}.tif`,
+          },
+          HttpStatus.NOT_FOUND,
+        );
+      }
       const url = `workspaces/${workspaceName}/coveragestores`; // replace with the correct API endpoint
       const body = {
         coverageStore: {
@@ -153,7 +166,7 @@ export class GeoserverSyncService {
       await this.post(publishLayerUrl, publishLayerBody);
       // Set the default style for the layer
       const styleName =
-        DisasterTypeGeoServerMapper.getStyleForCountryAndDisasterType(
+        DisasterTypeGeoServerMapper.generateStyleForCountryAndDisasterType(
           resourceNameObject.countryCodeISO3,
           resourceNameObject.disasterType,
         );

@@ -80,6 +80,22 @@ export class ScriptsService {
     eventNr?: number,
     typhoonScenario?: TyphoonScenario,
   ) {
+    // NOTE: keep updating this as you migrate countries/disaster-types
+    if (
+      (mockInput.disasterType === DisasterType.Floods &&
+        ['UGA', 'SSD', 'ZMB'].includes(mockInput.countryCodeISO3)) ||
+      [
+        DisasterType.FlashFloods,
+        DisasterType.Dengue,
+        DisasterType.Malaria,
+      ].includes(mockInput.disasterType)
+    ) {
+      console.log(
+        `Use the new mock endpoints for ${mockInput.countryCodeISO3} ${mockInput.disasterType}`,
+      );
+      return;
+    }
+
     eventNr = eventNr || 1;
 
     if (mockInput.removeEvents) {

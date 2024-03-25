@@ -5,13 +5,11 @@ import { UploadLinesExposureStatusDto } from '../api/lines-data/dto/upload-asset
 import { LinesDataEnum } from '../api/lines-data/lines-data.entity';
 import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
 import { PointDataEnum } from '../api/point-data/point-data.entity';
-import { DEBUG } from '../config';
 import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { EventService } from '../api/event/event.service';
 import { LinesDataService } from '../api/lines-data/lines-data.service';
 import { PointDataService } from '../api/point-data/point-data.service';
-import { GeoserverSyncService } from './geoserver-sync.service';
 import fs from 'fs';
 
 @Injectable()
@@ -21,7 +19,6 @@ export class MockHelperService {
     private eventService: EventService,
     private linesDataService: LinesDataService,
     private pointDataService: PointDataService,
-    private geoServerSyncService: GeoserverSyncService,
   ) {}
 
   public async mockExposedAssets(
@@ -129,16 +126,10 @@ export class MockHelperService {
     selectedCountry,
     disasterType: DisasterType,
     triggered: boolean,
-    leadTime?: LeadTime,
   ) {
-    let leadTimes;
-    if (leadTime) {
-      leadTimes = [leadTime];
-    } else {
-      leadTimes = selectedCountry.countryDisasterSettings.find(
-        (s) => s.disasterType === disasterType,
-      ).activeLeadTimes;
-    }
+    const leadTimes = selectedCountry.countryDisasterSettings.find(
+      (s) => s.disasterType === disasterType,
+    ).activeLeadTimes;
     for await (const leadTime of leadTimes) {
       console.log(
         `Seeding disaster extent raster file for country: ${selectedCountry.countryCodeISO3} for leadtime: ${leadTime}`,
@@ -154,6 +145,22 @@ export class MockHelperService {
         leadTime,
         selectedCountry.countryCodeISO3,
       );
+
+      // NOTE: this makes sure mock raster files are uploaded only once. If your intention is to have a different file, comment this out temporarily.
+      const subfolder =
+        DisasterTypeGeoServerMapper.getSubfolderForDisasterType(disasterType);
+      if (
+        fs.existsSync(
+          `./geoserver-volume/raster-files/output/${subfolder}/${destFileName}`,
+        )
+      ) {
+        console.log(
+          `File ${destFileName} already exists in output folder. Skipping.`,
+        );
+        return;
+      }
+      // END NOTE
+
       let file;
       try {
         file = fs.readFileSync(
@@ -170,14 +177,6 @@ export class MockHelperService {
       };
       await this.adminAreaDynamicDataService.postRaster(
         dataObject,
-        disasterType,
-      );
-    }
-    // Add the needed stores and layers to geoserver, only do this in debug mode
-    // The resulting XML files should be commited to git and will end up on the servers that way
-    if (DEBUG) {
-      await this.geoServerSyncService.sync(
-        selectedCountry.countryCodeISO3,
         disasterType,
       );
     }

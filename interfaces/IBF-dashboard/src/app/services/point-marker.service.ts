@@ -122,7 +122,7 @@ export class PointMarkerService {
     events: EventSummary[],
   ): Marker {
     const activeLeadTime = events.find(
-      (e) => e.eventName === markerProperties.stationCode, // TODO: this assumes eventName being equal to stationCode!
+      (e) => e.eventName === markerProperties.stationCode, // TODO: this assumes events to be defined per station, and eventName=stationCode
     )?.firstLeadTime as LeadTime;
 
     const markerTitle = markerProperties.stationName;
