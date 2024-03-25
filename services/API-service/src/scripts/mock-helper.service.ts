@@ -157,7 +157,7 @@ export class MockHelperService {
         console.log(
           `File ${destFileName} already exists in output folder. Skipping.`,
         );
-        return;
+        continue;
       }
       // END NOTE
 
