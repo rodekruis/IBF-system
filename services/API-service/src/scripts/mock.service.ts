@@ -26,6 +26,7 @@ import {
   MockEpidemicsScenario,
   MockFlashFloodsScenario,
   MockFloodsScenario,
+  MockTyphoonScenario,
 } from './mock.controller';
 
 class Scenario {
@@ -33,7 +34,7 @@ class Scenario {
   defaultScenario?: boolean;
   events: Event[];
 }
-class Event {
+export class Event {
   eventName: string;
   leadTime: LeadTime;
 }
@@ -63,7 +64,8 @@ export class MockService {
     mockBody:
       | MockFloodsScenario
       | MockEpidemicsScenario
-      | MockFlashFloodsScenario,
+      | MockFlashFloodsScenario
+      | MockTyphoonScenario,
     disasterType: DisasterType,
     useDefaultScenario: boolean,
     isApiTest: boolean,
@@ -172,8 +174,12 @@ export class MockService {
         }
 
         if (this.shouldMockTyphoonTrack(disasterType)) {
-          console.log('mockTyphoonTrack not implemented yet');
-          // await this.mockTyphoonTrack()
+          await this.mockHelpService.mockTyphoonTrack(
+            mockBody.countryCodeISO3,
+            scenario.scenarioName,
+            event,
+            mockBody.date as Date,
+          );
         }
 
         if (
@@ -262,8 +268,8 @@ export class MockService {
       return [LeadTime.day1];
     } else if (disasterType === DisasterType.FlashFloods) {
       return [LeadTime.hour1];
-      // } else if (disasterType === DisasterType.Typhoon) {
-      //   return [LeadTime.hour72];
+    } else if (disasterType === DisasterType.Typhoon) {
+      return [LeadTime.hour72];
     } else {
       return selectedCountry.countryDisasterSettings.find(
         (settings) => settings.disasterType === disasterType,

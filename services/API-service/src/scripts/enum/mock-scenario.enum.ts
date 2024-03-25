@@ -16,10 +16,13 @@ export enum EpidemicsScenario {
 }
 
 export enum TyphoonScenario {
+  // Implemented in new mock
   NoEvent = 'noEvent',
+  EventTrigger = 'eventTrigger',
+  // Not yet implemented in new mock
   EventNoLandfall = 'eventNoLandfall',
   EventNoLandfallYet = 'eventNoLandfallYet',
   EventNoTrigger = 'eventNoTrigger',
-  EventTrigger = 'eventTrigger',
   EventAfterLandfall = 'eventAfterLandfall',
+  // NOTE: this should also contain at least 1 multi-event scenario
 }
