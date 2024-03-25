@@ -4,7 +4,6 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { divIcon, icon, IconOptions, LatLng, Marker, marker } from 'leaflet';
 import { DateTime } from 'luxon';
 import {
@@ -56,7 +55,6 @@ export class PointMarkerService {
   constructor(
     private eventService: EventService,
     private analyticsService: AnalyticsService,
-    private translate: TranslateService,
     private injector: Injector,
     private applicationRef: ApplicationRef,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -122,7 +120,9 @@ export class PointMarkerService {
     events: EventSummary[],
   ): Marker {
     const activeLeadTime = events.find(
-      (e) => e.eventName === markerProperties.stationCode, // TODO: this assumes events to be defined per station, and eventName=stationCode
+      (e) =>
+        e.eventName ===
+        (markerProperties.stationCode || markerProperties.stationName), // NOTE: this assumes events to be defined per station, and eventName=stationCode or stationName
     )?.firstLeadTime as LeadTime;
 
     const markerTitle = markerProperties.stationName;
@@ -475,8 +475,7 @@ export class PointMarkerService {
     countryDisasterSettings: CountryDisasterSettings,
     activeLeadTime: LeadTime,
   ) {
-    const leadTimes = countryDisasterSettings?.activeLeadTimes;
-    const lastAvailableLeadTime: LeadTime = leadTimes[leadTimes.length - 1];
+    const lastAvailableLeadTime: LeadTime = LeadTime.day7; // Agreed with pipeline that untriggered station will always show day 7
     const leadTime = activeLeadTime || lastAvailableLeadTime;
 
     const eapAlertClasses =
