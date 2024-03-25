@@ -13,10 +13,7 @@
         src="/assets/icons/Alert_Title_Purple.svg"
         slot="start"
       ></ion-icon>
-      <p
-        class="event-header"
-        [innerHTML]="event.header"
-      ></p>
+      <p class="event-header" [innerHTML]="event.header"></p>
     </span>
     <p>
       <span
@@ -71,10 +68,7 @@
         src="/assets/icons/Alert_Title_Purple_Clear.svg"
         slot="start"
       ></ion-icon>
-      <p
-        class="event-header"
-        [innerHTML]="event.header"
-      ></p>
+      <p class="event-header" [innerHTML]="event.header"></p>
     </span>
     <p
       [innerHTML]="
@@ -110,9 +104,7 @@
 
   <!-- =================================== -->
 
-  <ng-container
-    *ngIf="event.eventName === selectedEvent"
-  >
+  <ng-container *ngIf="event.eventName === selectedEvent">
     <p
       *ngIf="event.thresholdReached"
       [innerHTML]="
