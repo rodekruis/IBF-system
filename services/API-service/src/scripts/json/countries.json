@@ -390,7 +390,16 @@
         "disasterType": "floods",
         "adminLevels": [3],
         "defaultAdminLevel": 3,
-        "activeLeadTimes": ["6-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=035b1d36a17c94db1855152253a141227&authkey=AePN7DrtvirE98a6YfPlDLM&expiration=2023-08-09T22%3A00%3A00.000Z&e=6YZPE0",
         "eapAlertClasses": {
           "no": {

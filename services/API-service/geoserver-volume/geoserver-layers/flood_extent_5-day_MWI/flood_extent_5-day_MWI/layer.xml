@@ -1,0 +1,19 @@
+<layer>
+  <name>flood_extent_5-day_MWI</name>
+  <id>LayerInfoImpl-4dd529d3:18e74a6986c:-7efd</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-4dd529d3:18e74a6986c:-7efe</id>
+  </resource>
+  <queryable>true</queryable>
+  <opaque>false</opaque>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2024-03-25 09:35:12.620 UTC</dateCreated>
+  <dateModified>2024-03-25 09:35:12.693 UTC</dateModified>
+</layer>

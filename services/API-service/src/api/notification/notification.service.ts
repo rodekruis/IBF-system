@@ -27,6 +27,7 @@ export class NotificationService {
       countryCodeISO3,
       disasterType,
     );
+    console.log('events: ', events);
 
     const activeEvents: EventSummaryCountry[] = [];
     let finishedEvent: EventSummaryCountry; // This is now for floods only, so can only be 1 event, so not an array
@@ -44,16 +45,17 @@ export class NotificationService {
       }
     }
     if (activeEvents.length) {
+      console.log('activeEvents: ', activeEvents);
       const country =
         await this.notificationContentService.getCountryNotificationInfo(
           countryCodeISO3,
         );
-      this.emailService.sendTriggerEmail(
-        country,
-        disasterType,
-        activeEvents,
-        date,
-      );
+      // this.emailService.sendTriggerEmail(
+      //   country,
+      //   disasterType,
+      //   activeEvents,
+      //   date,
+      // );
 
       if (country.notificationInfo.useWhatsapp[disasterType]) {
         this.whatsappService.sendTriggerWhatsapp(
