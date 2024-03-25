@@ -273,7 +273,16 @@
         "disasterType": "floods",
         "adminLevels": [2, 3],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["7-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=357745",
         "eapAlertClasses": {
           "no": {
@@ -468,7 +477,16 @@
         "disasterType": "floods",
         "adminLevels": [3],
         "defaultAdminLevel": 3,
-        "activeLeadTimes": ["7-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://rodekruis.sharepoint.com/:w:/r/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0cd2cac495841490ca69f208f8417a6df&authkey=AanLvhB0DzhoT7ZJK5oGFGc&expiration=2023-10-30T23%3A00%3A00.000Z&e=Anes64&ovuser=d3ab9790-6ae2-4bd8-aa5e-02864483e7c7%2Cjannisvisser%40redcross.nl&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIyNy8yMjEwMTQwNjMwMCIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D",
         "eapAlertClasses": {
           "no": {
