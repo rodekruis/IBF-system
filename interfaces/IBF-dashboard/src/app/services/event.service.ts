@@ -29,6 +29,7 @@ export class EventSummary {
   timeUnit?: string;
   duration?: number;
   disasterSpecificProperties: DisasterSpecificProperties;
+  hader?: string;
 }
 
 export class DisasterSpecificProperties {

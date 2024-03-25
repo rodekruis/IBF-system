@@ -44,7 +44,7 @@
 
   <!-- No event -->
   <app-event-speech-bubble
-    *ngIf="!eventState?.events?.length > 0"
+    *ngIf="!eventState?.events?.length"
     [type]="'no-event'"
     [event]="null"
     [selectedEvent]="eventState?.event?.eventName"
