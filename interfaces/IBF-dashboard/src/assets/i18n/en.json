@@ -142,10 +142,10 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
       },
       "active-event-active-trigger": {
-        "header": "Trigger: {{ disasterTypeLabel }} on {{firstTriggerLeadTimeDate}}",
-        "header-ongoing": "Ongoing trigger: {{ disasterTypeLabel }} on {{firstTriggerLeadTimeDate}}",
-        "header-below-trigger": "Warning: {{ disasterTypeLabel }} on {{firstLeadTimeDate}}",
-        "header-ongoing-below-trigger": "Ongoing warning: {{ disasterTypeLabel }} on {{firstLeadTimeDate}}",
+        "header": "Trigger: {{ eventName }} on {{firstTriggerLeadTimeDate}}",
+        "header-ongoing": "Ongoing trigger: {{ eventName }} on {{firstTriggerLeadTimeDate}}",
+        "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
+        "header-ongoing-below-trigger": "Ongoing warning: {{ eventName }} on {{firstLeadTimeDate}}",
         "welcome": "First warning on {{firstLeadTimeDate}}",
         "welcome-below-trigger": ""
       },
