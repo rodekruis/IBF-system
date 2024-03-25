@@ -267,7 +267,6 @@ export class MockHelperService {
     }
     console.log(`Seeding event map image country: ${countryCodeISO3}`);
 
-    // const eventName = this.getEventName(disasterType) || 'no-name';
     const filename = `${countryCodeISO3}_${disasterType}_${eventName}_map-image.png`;
     const file = fs.readFileSync(
       `./geoserver-volume/raster-files/mock-output/${filename}`,

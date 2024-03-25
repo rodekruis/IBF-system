@@ -127,7 +127,7 @@ export class EventService {
     const triggersPerLeadTime: TriggerPerLeadTime[] = [];
     const timestamp = uploadTriggerPerLeadTimeDto.date || new Date();
     for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
-      // Delete existing entries in case of a re-run of the pipeline for some reason
+      // Delete existing entries in case of a re-run of the pipeline within the same time period
       await this.deleteDuplicates(uploadTriggerPerLeadTimeDto, leadTime);
 
       const triggerPerLeadTime = new TriggerPerLeadTime();
@@ -166,9 +166,8 @@ export class EventService {
     if (uploadTriggerPerLeadTimeDto.eventName) {
       deleteFilters['eventName'] = uploadTriggerPerLeadTimeDto.eventName;
     }
-    // TODO: can this exception be removed when moving to calculated leadTime throughout?
-    // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
-    if (uploadTriggerPerLeadTimeDto.disasterType !== DisasterType.Typhoon) {
+    // Only filter on leadTime when using fixed LeadTime / not using events
+    if (uploadTriggerPerLeadTimeDto.disasterType === DisasterType.HeavyRain) {
       deleteFilters['leadTime'] = selectedLeadTime.leadTime as LeadTime;
     }
     await this.triggerPerLeadTimeRepository.delete(deleteFilters);

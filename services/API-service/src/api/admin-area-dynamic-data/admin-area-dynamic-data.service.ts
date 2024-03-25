@@ -130,11 +130,10 @@ export class AdminAreaDynamicDataService {
     if (uploadExposure.eventName) {
       deleteFilters['eventName'] = uploadExposure.eventName;
     }
-    // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
-    if (uploadExposure.disasterType !== DisasterType.Typhoon) {
+    // Only filter on leadTime when using fixed LeadTime / not using events
+    if (uploadExposure.disasterType === DisasterType.HeavyRain) {
       deleteFilters['leadTime'] = uploadExposure.leadTime as LeadTime;
     }
-
     await this.adminAreaDynamicDataRepo.delete(deleteFilters);
   }
 
@@ -143,14 +142,7 @@ export class AdminAreaDynamicDataService {
   ): Promise<void> {
     const trigger = this.isThereTrigger(uploadExposure.exposurePlaceCodes);
 
-    const eventBelowTrigger =
-      !trigger &&
-      !!uploadExposure.eventName &&
-      [
-        DisasterType.Typhoon,
-        DisasterType.FlashFloods,
-        DisasterType.Floods,
-      ].includes(uploadExposure.disasterType);
+    const eventBelowTrigger = !trigger && !!uploadExposure.eventName;
 
     const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
     uploadTriggerPerLeadTimeDto.countryCodeISO3 =
@@ -194,6 +186,7 @@ export class AdminAreaDynamicDataService {
       disasterType,
     );
 
+    // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
     if (disasterType === DisasterType.FlashFloods && !eventName) {
       return await this.eventAreaService.getEventAreaDynamicData(
         countryCodeISO3,
@@ -289,6 +282,7 @@ export class AdminAreaDynamicDataService {
           DisasterType.Floods,
           DisasterType.Typhoon,
           DisasterType.HeavyRain,
+          DisasterType.FlashFloods,
         ]),
       })
       .getRawMany();

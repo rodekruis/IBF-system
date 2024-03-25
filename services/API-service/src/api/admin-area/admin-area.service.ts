@@ -196,6 +196,8 @@ export class AdminAreaService {
       countryCodeISO3,
       disasterType,
     );
+
+    // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
     if (disasterType === DisasterType.FlashFloods && !eventName) {
       return await this.eventAreaService.getEventAreaAggregates(
         countryCodeISO3,
@@ -320,6 +322,7 @@ export class AdminAreaService {
       disasterType,
     );
 
+    // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
     if (disasterType === DisasterType.FlashFloods && !eventName) {
       return await this.eventAreaService.getEventAreas(
         countryCodeISO3,
