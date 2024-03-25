@@ -552,7 +552,16 @@
         "disasterType": "floods",
         "adminLevels": [2, 3],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["7-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://kenyaredcross-my.sharepoint.com/:w:/g/personal/saado_halima_redcross_or_ke/ETp6Vml__etKk-C2KAqH4XIBrIJmAMT58mqA_iQlCZtuKw?rtime=FJll0Rbn2Ug",
         "eapAlertClasses": {
           "no": {
@@ -660,7 +669,16 @@
         "disasterType": "floods",
         "adminLevels": [2, 3],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["7-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=404862",
         "eapAlertClasses": {
           "no": {
@@ -1117,7 +1135,16 @@
         "disasterType": "floods",
         "adminLevels": [2, 3],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["3-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://www.anticipation-hub.org/Documents/Briefing_Sheets_and_Fact_Sheets/Flood_EAP_-_Final.pdf",
         "eapAlertClasses": {
           "no": {
