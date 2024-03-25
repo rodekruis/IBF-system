@@ -5,8 +5,6 @@ import {
   Res,
   HttpStatus,
   UseGuards,
-  Patch,
-  HttpException,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
