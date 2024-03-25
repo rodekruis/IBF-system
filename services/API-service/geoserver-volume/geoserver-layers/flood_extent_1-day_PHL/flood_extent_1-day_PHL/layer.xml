@@ -1,0 +1,19 @@
+<layer>
+  <name>flood_extent_1-day_PHL</name>
+  <id>LayerInfoImpl-4dd529d3:18e74a6986c:-7dfa</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-e220b8e:1802c5fb97e:-7ffc</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-4dd529d3:18e74a6986c:-7dfb</id>
+  </resource>
+  <queryable>true</queryable>
+  <opaque>false</opaque>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2024-03-25 10:23:14.137 UTC</dateCreated>
+  <dateModified>2024-03-25 10:23:14.208 UTC</dateModified>
+</layer>
