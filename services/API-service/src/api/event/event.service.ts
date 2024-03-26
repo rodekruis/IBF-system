@@ -804,7 +804,7 @@ export class EventService {
       const updateQuery = `UPDATE "${repository.metadata.schema}"."${
         repository.metadata.tableName
       }" epc \
-      SET "actionsValue" = areas.value \
+      SET "actionsValue" = areas.value::double precision \
       FROM (VALUES ${eventAreasToUpdate.join(',')}) areas(id,value) \
       WHERE areas.id::uuid = epc."eventPlaceCodeId" \
       `;
