@@ -23,6 +23,10 @@ export class NotificationService {
     disasterType: DisasterType,
     date?: Date,
   ): Promise<void> {
+    // REFACTOR: First close finished events. This is ideally done through separate endpoint called at end of pipeline, but that would require all pipelines to be updated.
+    // Instead, making use of this endpoint which is already called at the end of every pipeline
+    await this.eventService.closeEventsAutomatic(countryCodeISO3, disasterType);
+
     const events = await this.eventService.getEventSummary(
       countryCodeISO3,
       disasterType,
@@ -48,12 +52,12 @@ export class NotificationService {
         await this.notificationContentService.getCountryNotificationInfo(
           countryCodeISO3,
         );
-      this.emailService.sendTriggerEmail(
-        country,
-        disasterType,
-        activeEvents,
-        date,
-      );
+      // this.emailService.sendTriggerEmail(
+      //   country,
+      //   disasterType,
+      //   activeEvents,
+      //   date,
+      // );
 
       if (country.notificationInfo.useWhatsapp[disasterType]) {
         this.whatsappService.sendTriggerWhatsapp(

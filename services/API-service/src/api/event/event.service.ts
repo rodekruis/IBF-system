@@ -613,7 +613,8 @@ export class EventService {
     );
 
     // close old event areas
-    await this.closeEventsAutomatic(countryCodeISO3, disasterType, eventName);
+    // NOTE: this has been replaced by a separate endpoint, to be called at the end of a pipeline run, so that it's called only once instead of per event
+    // await this.closeEventsAutomatic(countryCodeISO3, disasterType, eventName);
   }
 
   private async getAffectedAreas(
@@ -865,10 +866,9 @@ export class EventService {
     await this.eventPlaceCodeRepo.save(newEventAreas);
   }
 
-  private async closeEventsAutomatic(
+  public async closeEventsAutomatic(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    eventName: string,
   ) {
     const countryAdminAreaIds = await this.getCountryAdminAreaIds(
       countryCodeISO3,
@@ -883,9 +883,6 @@ export class EventService {
       disasterType: disasterType,
       closed: false,
     };
-    if (eventName) {
-      whereFilters['eventName'] = eventName;
-    }
     const expiredEventAreas = await this.eventPlaceCodeRepo.find({
       where: whereFilters,
     });
