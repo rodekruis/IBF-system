@@ -226,6 +226,12 @@ export class MockService {
       );
     }
 
+    // Close finished events (only applicable for follow-up mock pipeline runs, with removeEvents=false)
+    await this.eventService.closeEventsAutomatic(
+      selectedCountry.countryCodeISO3,
+      disasterType,
+    );
+
     // Add the needed stores and layers to geoserver, only do this in debug mode
     // The resulting XML files should be commited to git and will end up on the servers that way
     if (DEBUG) {

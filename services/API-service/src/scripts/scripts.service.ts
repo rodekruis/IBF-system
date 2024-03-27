@@ -192,6 +192,12 @@ export class ScriptsService {
         date,
       );
     }
+
+    // Close finished events (only applicable for follow-up mock pipeline runs, with removeEvents=false)
+    await this.eventService.closeEventsAutomatic(
+      selectedCountry.countryCodeISO3,
+      mockInput.disasterType,
+    );
   }
 
   public async mockTyphoonScenario(mockTyphoonScenario: MockTyphoonScenario) {
