@@ -1,0 +1,10 @@
+[
+  {
+    "scenarioName": "default",
+    "defaultScenario": true,
+    "events": [{ "eventName": "G1067", "leadTime": "4-day" }]
+  },
+  {
+    "scenarioName": "no-trigger"
+  }
+]

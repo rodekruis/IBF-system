@@ -1,0 +1,19 @@
+<layer>
+  <name>flood_extent_6-day_KEN</name>
+  <id>LayerInfoImpl-4dd529d3:18e74a6986c:-7ed2</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-4dd529d3:18e74a6986c:-7ed3</id>
+  </resource>
+  <queryable>true</queryable>
+  <opaque>false</opaque>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2024-03-25 10:00:01.734 UTC</dateCreated>
+  <dateModified>2024-03-25 10:00:01.787 UTC</dateModified>
+</layer>

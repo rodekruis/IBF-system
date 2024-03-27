@@ -127,10 +127,9 @@ export class MapLegendService {
       );
     }
 
-    const colors =
-      this.eventState?.activeTrigger && this.eventState?.thresholdReached
-        ? this.mapService.state.colorGradientTriggered
-        : this.mapService.state.colorGradient;
+    const colors = this.eventState?.thresholdReached
+      ? this.mapService.state.colorGradientTriggered
+      : this.mapService.state.colorGradient;
 
     const getColor = this.getFeatureColorByColorsAndColorThresholds(
       colors,

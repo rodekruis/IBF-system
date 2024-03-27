@@ -1,0 +1,13 @@
+[
+  {
+    "scenarioName": "default",
+    "defaultScenario": true,
+    "events": [
+      { "eventName": "G1966", "leadTime": "4-day" },
+      { "eventName": "G1967", "leadTime": "4-day" }
+    ]
+  },
+  {
+    "scenarioName": "no-trigger"
+  }
+]

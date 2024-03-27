@@ -1,0 +1,9 @@
+[
+  {
+    "stationCode": "G5100",
+    "forecastLevel": 5882,
+    "eapAlertClass": "max",
+    "forecastReturnPeriod": 10,
+    "triggerLevel": 5856
+  }
+]

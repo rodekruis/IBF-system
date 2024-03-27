@@ -6,30 +6,18 @@
   [isSelected]="eventBubbleIsSelected(event.eventName)"
   [isConnected]="true"
 >
-  <ng-container *ngIf="event.activeTrigger && event.thresholdReached">
+  <ng-container *ngIf="event.thresholdReached">
     <span>
       <ion-icon
         class="warning-icon"
         src="/assets/icons/Alert_Title_Purple.svg"
         slot="start"
       ></ion-icon>
-      <p
-        class="event-header"
-        [innerHTML]="
-          getHeader()
-            | translate
-              : {
-                  firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName:
-                    event.eventName?.split('_')[0] || disasterTypeLabel,
-                  disasterTypeLabel: disasterTypeLabel
-                }
-        "
-      ></p>
+      <p class="event-header" [innerHTML]="event.header"></p>
     </span>
     <p>
       <span
-        *ngIf="!event.duration"
+        *ngIf="!event.duration && showFirstWarningDate()"
         [innerHTML]="
           'chat-component.' +
             disasterTypeName +
@@ -42,6 +30,7 @@
                   timeUnit: event.timeUnit,
                   disasterTypeLabel: disasterTypeLabel,
                   firstLeadTimeDate: event.firstLeadTimeDate,
+                  firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
                   eventName:
                     event.eventName?.split('_')[0] || disasterTypeLabel,
                   duration: event.duration,
@@ -72,27 +61,14 @@
     </p>
   </ng-container>
 
-  <ng-container *ngIf="event.activeTrigger && !event.thresholdReached">
+  <ng-container *ngIf="!event.thresholdReached">
     <span>
       <ion-icon
         class="warning-icon"
         src="/assets/icons/Alert_Title_Purple_Clear.svg"
         slot="start"
       ></ion-icon>
-      <p
-        class="event-header"
-        [innerHTML]="
-          'chat-component.' +
-            disasterTypeName +
-            '.active-event-active-trigger.header-below-trigger'
-            | translate
-              : {
-                  firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName: event.eventName?.split('_')[0],
-                  disasterTypeLabel: disasterTypeLabel
-                }
-        "
-      ></p>
+      <p class="event-header" [innerHTML]="event.header"></p>
     </span>
     <p
       [innerHTML]="
@@ -103,6 +79,7 @@
             : {
                 startDate: event.startDate,
                 firstLeadTimeDate: event.firstLeadTimeDate,
+                firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
                 eventName: event.eventName?.split('_')[0],
                 leadTime: event.firstLeadTimeLabel,
                 timeUnit: event.timeUnit,
@@ -127,9 +104,7 @@
 
   <!-- =================================== -->
 
-  <ng-container
-    *ngIf="event.eventName === selectedEvent && event.activeTrigger"
-  >
+  <ng-container *ngIf="event.eventName === selectedEvent">
     <p
       *ngIf="event.thresholdReached"
       [innerHTML]="
@@ -253,26 +228,6 @@
       "
     ></p>
   </ng-container>
-</app-dialogue-turn>
-
-<app-dialogue-turn *ngIf="type === 'old'" [isConnected]="true">
-  <p
-    [innerHTML]="
-      'chat-component.' + disasterTypeName + '.active-event-no-trigger.welcome'
-        | translate
-          : {
-              name: displayName,
-              startDate: event.startDate,
-              endDate: event.endDateLabel,
-              eventName: event.eventName?.split('_')[0]
-            }
-    "
-  ></p>
-  <p
-    class="clear-out-message"
-    *ngIf="!!clearOutMessage"
-    [innerHTML]="clearOutMessage"
-  ></p>
 </app-dialogue-turn>
 
 <app-dialogue-turn *ngIf="type === 'no-event'" [isConnected]="true">

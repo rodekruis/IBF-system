@@ -1,0 +1,9 @@
+[
+  {
+    "stationCode": "G1966",
+    "forecastLevel": 18627.4509803922,
+    "eapAlertClass": "max",
+    "forecastReturnPeriod": 20,
+    "triggerLevel": 522
+  }
+]

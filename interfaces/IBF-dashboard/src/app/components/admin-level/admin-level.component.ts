@@ -57,8 +57,8 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   private breadcrumbDisasters = [
     DisasterTypeKey.flashFloods,
     DisasterTypeKey.heavyRain,
-    DisasterTypeKey.dengue,
-    DisasterTypeKey.malaria,
+    // DisasterTypeKey.dengue, // TODO: after switching to event-based, but events being defined in time, not in space, the breadcrumbs no longer made sense. Easiest to disable.
+    // DisasterTypeKey.malaria,
     DisasterTypeKey.floods,
   ];
 
@@ -146,7 +146,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
         adminLevel,
         adminLevelState: layer.active,
         page: AnalyticsPage.dashboard,
-        isActiveTrigger: this.eventService.state.activeTrigger,
+        isActiveTrigger: this.eventService.state.events?.length > 0,
         component: this.constructor.name,
       });
     } else {
@@ -225,6 +225,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     }
 
     if (breadCrumb === MapView.event) {
+      this.adminLevelService.zoomToDefaultAdminLevel();
       this.placeCodeService?.clearPlaceCode();
       return;
     }
@@ -273,5 +274,9 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     } else if (breadCrumb === MapView.adminArea3) {
       return [MapView.adminArea3].includes(this.currentMapView);
     }
+  }
+
+  public disableNationalView(): boolean {
+    return this.eventState?.events?.length === 1;
   }
 }

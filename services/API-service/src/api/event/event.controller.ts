@@ -38,6 +38,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import stream from 'stream';
 import { Response } from 'express-serve-static-core';
 import { IMAGE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
+import { SendNotificationDto } from '../notification/dto/send-notification.dto';
 
 @ApiBearerAuth()
 @ApiTags('event')
@@ -267,5 +268,25 @@ export class EventController {
       'Content-Type': 'image/png',
     });
     bufferStream.pipe(response);
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.PipelineUser)
+  @ApiOperation({
+    summary:
+      'Close events automatically for given country and disaster-type. Must be run at end of every pipeline. Currently not used, the same logic is also in /notification/send endpoint.',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Closed finished events.',
+  })
+  @Post('close-events')
+  public async closeEvents(
+    @Body() closeEventsDto: SendNotificationDto,
+  ): Promise<void> {
+    await this.eventService.closeEventsAutomatic(
+      closeEventsDto.countryCodeISO3,
+      closeEventsDto.disasterType,
+    );
   }
 }

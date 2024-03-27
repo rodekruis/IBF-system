@@ -33,7 +33,7 @@ export class ExportViewComponent {
 
     this.analyticsService.logEvent(AnalyticsEvent.exportView, {
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
 

@@ -211,13 +211,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private setDefaultFilteredAreas = () => {
-    if (this.eventService.isOldEvent()) {
-      this.filteredActiveAreas = [...this.triggeredAreas];
-      this.filteredStoppedAreas = [];
-    } else {
-      this.filteredActiveAreas = [];
-      this.filteredStoppedAreas = [];
-    }
+    this.filteredActiveAreas = [];
+    this.filteredStoppedAreas = [];
   };
 
   private setupChatText = () => {
@@ -294,7 +289,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       eapAction: action,
       eapActionStatus: checkbox,
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
 
@@ -335,7 +330,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
       placeCode,
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
 
@@ -439,7 +434,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   ): void {
     this.analyticsService.logEvent(AnalyticsEvent.stopTrigger, {
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       placeCode,
     });
     this.apiService.toggleTrigger(eventPlaceCodeId).subscribe({

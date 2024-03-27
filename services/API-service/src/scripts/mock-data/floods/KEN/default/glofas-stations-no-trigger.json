@@ -1,0 +1,16 @@
+[
+  {
+    "stationCode": "G5142",
+    "forecastLevel": 0,
+    "eapAlertClass": "no",
+    "forecastReturnPeriod": null,
+    "triggerLevel": 469
+  },
+  {
+    "stationCode": "G5195",
+    "forecastLevel": 0,
+    "eapAlertClass": "no",
+    "forecastReturnPeriod": null,
+    "triggerLevel": 469
+  }
+]

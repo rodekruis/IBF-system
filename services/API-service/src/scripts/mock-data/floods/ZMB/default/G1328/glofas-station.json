@@ -1,0 +1,9 @@
+[
+  {
+    "stationCode": "G1328",
+    "forecastLevel": 8823.5294117647,
+    "eapAlertClass": "max",
+    "forecastReturnPeriod": 20,
+    "triggerLevel": 2534
+  }
+]

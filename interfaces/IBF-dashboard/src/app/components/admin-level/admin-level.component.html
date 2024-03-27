@@ -12,6 +12,7 @@
           : 'breadcrumb-start'
       "
       [class.selected]="currentMapView === mapViewEnum.national"
+      [disabled]="disableNationalView()"
       (click)="
         clickBreadcrumbButton(
           mapViewEnum.national,

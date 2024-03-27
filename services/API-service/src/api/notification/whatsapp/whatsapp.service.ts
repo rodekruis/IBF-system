@@ -246,10 +246,10 @@ export class WhatsappService {
           country.countryCodeISO3,
           disasterType.disasterType,
         );
-        const activeEvents = events
-          .filter((event) => event.activeTrigger)
-          .sort((a, b) => (a.firstLeadTime > b.firstLeadTime ? 1 : -1));
-        if (activeEvents.length === 0) {
+        const sortedEvents = events.sort((a, b) =>
+          a.firstLeadTime > b.firstLeadTime ? 1 : -1,
+        );
+        if (sortedEvents.length === 0) {
           const noTriggerMessage = this.configureNoTriggerMessage(
             country,
             events,
@@ -259,7 +259,7 @@ export class WhatsappService {
           return;
         }
 
-        for (const event of activeEvents) {
+        for (const event of sortedEvents) {
           const triggerMessage = await this.configureFollowUpMessage(
             country,
             disasterType.disasterType,

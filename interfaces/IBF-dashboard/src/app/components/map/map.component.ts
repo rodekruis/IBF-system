@@ -385,7 +385,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         IbfLayerName.schools,
       ].includes(layerName) &&
       this.disasterType.disasterType === DisasterTypeKey.flashFloods &&
-      this.eventState.activeTrigger
+      this.eventState.events?.length > 0
     );
   }
 
@@ -453,7 +453,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           geoJsonPoint.properties as Station,
           latlng,
           this.countryDisasterSettings,
-          this.timelineState.activeLeadTime,
+          this.eventState?.events,
         );
       }
       case IbfLayerName.redCrossBranches:
@@ -638,7 +638,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
       placeCode,
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
 
@@ -650,7 +650,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           (e) => e.eventName === feature.properties.eventName,
         );
         this.timelineService.handleTimeStepButtonClick(
-          event?.firstLeadTime as LeadTime,
+          (event?.firstTriggerLeadTime || event?.firstLeadTime) as LeadTime,
           event?.eventName,
         );
         this.eventService.switchEvent(feature.properties.eventName);

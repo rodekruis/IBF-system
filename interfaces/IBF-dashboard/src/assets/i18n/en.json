@@ -39,7 +39,6 @@
         "alert-message": "Are you sure you want to mock the situation for <strong>{{ countryName }} {{ disasterTypeLabel }}</strong>?",
         "alert-input-secret-placeholder": "Please enter the reset secret",
         "alert-button-cancel": "Cancel",
-        "alert-button-old-event": "Old event",
         "alert-button-no-trigger": "No Trigger",
         "alert-button-trigger": "Trigger",
         "alert-error-api-error": "Failed to set mock scenario.",
@@ -143,13 +142,12 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
       },
       "active-event-active-trigger": {
-        "header": "Trigger: {{ disasterTypeLabel }}",
-        "header-below-trigger": "Warning: {{ disasterTypeLabel }}",
-        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger was issued on <strong>{{ startDate }}</strong>.",
-        "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>."
-      },
-      "active-event-no-trigger": {
-        "welcome": "There is <strong>no active alert</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
+        "header": "Trigger: {{ eventName }} on {{firstTriggerLeadTimeDate}}",
+        "header-ongoing": "Ongoing trigger: {{ eventName }} on {{firstTriggerLeadTimeDate}}",
+        "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
+        "header-ongoing-below-trigger": "Ongoing warning: {{ eventName }} on {{firstLeadTimeDate}}",
+        "welcome": "First warning on {{firstLeadTimeDate}}",
+        "welcome-below-trigger": ""
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} exposed. They are listed below by alert level and by {{ actionIndicator}}. Only triggered {{adminAreaLabelPlural}} are highlighted in the map with a red outline.",
@@ -162,6 +160,10 @@
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below by alert level and by {{ actionIndicator }} and are highlighted in the map with a black outline.",
         "instruction": "To see when this was done and by whom, click on the area in the list or in the map.",
         "area": "The floods alert for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+      },
+      "event-switcher": {
+        "current-event-message": "Back to national view",
+        "switch-event-button": "Show prediction"
       }
     },
     "flash-floods": {
@@ -200,11 +202,9 @@
       },
       "active-event-active-trigger": {
         "header": "Trigger: {{ eventName }} in {{firstLeadTimeDate}}",
+        "header-ongoing": "Ongoing trigger: {{eventName}} in {{firstLeadTimeDate}}",
         "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
         "welcome-duration": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong> with a duration of <strong>{{ duration}}</strong> month(s)."
-      },
-      "active-event-no-trigger": {
-        "welcome": "There is <strong>no active trigger</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
       },
       "clear-out": {
         "regional": {
@@ -287,10 +287,8 @@
       },
       "active-event-active-trigger": {
         "header": "Alert: {{ disasterTypeLabel }}",
+        "header-ongoing": "Ongoing alert: {{ disasterTypeLabel }}",
         "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
-      },
-      "active-event-no-trigger": {
-        "welcome": "There is <strong>no active alert</strong> any more, as can be seen in the map, which always reflects the latest forecast. However, you can still see here the EAP-actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here for 7 days after the end-date."
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
@@ -310,11 +308,9 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for dengue issued."
       },
       "active-event-active-trigger": {
-        "header": "Alert: {{ disasterTypeLabel }}",
-        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. The alert is issued for <strong>{{ firstLeadTimeDate }}</strong>."
-      },
-      "active-event-no-trigger": {
-        "welcome": "There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here until the end of the month."
+        "header": "Alert for {{firstLeadTimeDate}}",
+        "header-ongoing": "Ongoing alert for {{firstLeadTimeDate}}",
+        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>."
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
@@ -326,6 +322,10 @@
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
         "instruction": "To see when this was done and by whom, click on the area in the list or in the map.",
         "area": "The dengue alert for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+      },
+      "event-switcher": {
+        "current-event-message": "The portal is currently showing this event.",
+        "switch-event-button": "Show prediction"
       }
     },
     "malaria": {
@@ -334,11 +334,9 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for malaria issued."
       },
       "active-event-active-trigger": {
-        "header": "Alert: {{ disasterTypeLabel }}",
-        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. The alert is issued for <strong>{{ firstLeadTimeDate }}</strong>."
-      },
-      "active-event-no-trigger": {
-        "welcome": "There is <strong>no alert</strong> active any more (as you can see in the map). However, you can still see here the SOP actions that relate to the event that started on <strong>{{ startDate }}</strong> and ended on <strong>{{ endDate }}</strong>. These actions stay visible here until the end of the month."
+        "header": "Alert for {{firstLeadTimeDate}}",
+        "header-ongoing": "Ongoing alert for {{firstLeadTimeDate}}",
+        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>."
       },
       "active-event": {
         "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
@@ -350,6 +348,10 @@
         "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
         "instruction": "To see when this was done and by whom, click on the area in the list or in the map.",
         "area": "The malaria alert for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
+      },
+      "event-switcher": {
+        "current-event-message": "The portal is currently showing this event.",
+        "switch-event-button": "Show prediction"
       }
     }
   },

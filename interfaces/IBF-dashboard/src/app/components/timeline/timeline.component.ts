@@ -54,7 +54,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
     this.analyticsService.logEvent(AnalyticsEvent.leadTime, {
       page: AnalyticsPage.dashboard,
       leadTime,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
 

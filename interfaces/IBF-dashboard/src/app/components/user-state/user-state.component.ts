@@ -89,7 +89,7 @@ export class UserStateComponent implements OnInit {
   public doLogout() {
     this.analyticsService.logEvent(AnalyticsEvent.logOut, {
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
 

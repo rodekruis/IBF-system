@@ -182,7 +182,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     this.analyticsService.logEvent(AnalyticsEvent.aggregateInformation, {
       indicator: id,
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
 

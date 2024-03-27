@@ -72,7 +72,7 @@ export class EventAreaService {
       countryCodeISO3,
       disaster.disasterType,
     );
-    for await (const event of events.filter((e) => e.activeTrigger)) {
+    for await (const event of events) {
       const eventArea = await this.eventAreaRepository
         .createQueryBuilder('area')
         .where({
@@ -142,7 +142,7 @@ export class EventAreaService {
     );
 
     const aggregateRecords = [];
-    for await (const event of events.filter((e) => e.activeTrigger)) {
+    for await (const event of events) {
       const aggregateValues = await this.getEventAreaAggregatesPerIndicator(
         disasterType,
         lastTriggeredDate,
@@ -171,7 +171,7 @@ export class EventAreaService {
     );
 
     const records = [];
-    for await (const event of events.filter((e) => e.activeTrigger)) {
+    for await (const event of events) {
       const aggregateValues = await this.getEventAreaAggregatesPerIndicator(
         disasterType,
         lastTriggeredDate,
