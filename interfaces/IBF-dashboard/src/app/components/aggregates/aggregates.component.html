@@ -51,31 +51,32 @@
             color="ibf-white"
           >
             <ion-label class="ion-text-right" data-test="aggregate-number">
+
               <span *ngIf="indicator.numberFormatAggregate === 'decimal2'">
                 {{
-                  this.getAggregate(
+                  (getAggregate(
                     indicator.name,
                     indicator.weightedAvg,
                     indicator.numberFormatAggregate
-                  ) | number: '.2-2'
+                  ) | number: '.2-2') || 'aggregates-component.not-applicable' | translate
                 }}
               </span>
               <span *ngIf="indicator.numberFormatAggregate === 'decimal0'">
                 {{
-                  this.getAggregate(
+                  (getAggregate(
                     indicator.name,
                     indicator.weightedAvg,
                     indicator.numberFormatAggregate
-                  ) | number: '.0-0'
+                  ) | number: '.0-0') || 'aggregates-component.not-applicable' | translate
                 }}
               </span>
               <span *ngIf="indicator.numberFormatAggregate === 'perc'">
                 {{
-                  this.getAggregate(
+                  (getAggregate(
                     indicator.name,
                     indicator.weightedAvg,
                     indicator.numberFormatAggregate
-                  ) | percent: '.0-0'
+                  ) | percent: '.0-0') || 'aggregates-component.not-applicable' | translate
                 }}
               </span>
               {{ indicator.aggregateUnit }}

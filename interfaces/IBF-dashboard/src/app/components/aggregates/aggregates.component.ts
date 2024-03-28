@@ -1,9 +1,9 @@
 import {
+  AfterViewInit,
   ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
-  OnInit,
 } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -43,7 +43,7 @@ import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/
   templateUrl: './aggregates.component.html',
   styleUrls: ['./aggregates.component.scss'],
 })
-export class AggregatesComponent implements OnInit, OnDestroy {
+export class AggregatesComponent implements AfterViewInit, OnDestroy {
   @Input()
   public areaStatus: string;
 
@@ -96,7 +96,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       .subscribe(this.onEventStateChange);
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
@@ -241,7 +241,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     const placeCode = this.placeCode || this.placeCodeHover;
     const adminLevelType = this.adminLevelService.getAdminLevelType(placeCode);
     // TODO: improve this logic
-    return this.aggregatesService.getAggregate(
+
+    const agg = this.aggregatesService.getAggregate(
       weightedAvg,
       indicatorName,
       this.placeCodeHover // hovering should always lead to aggregate-numbers updating on any level
@@ -254,6 +255,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       numberFormat,
       this.areaStatus as AreaStatus,
     );
+
+    return agg;
   }
 
   public getAggregatesHeader(mapView: MapView) {

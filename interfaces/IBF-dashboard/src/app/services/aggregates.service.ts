@@ -252,7 +252,7 @@ export class AggregatesService {
     placeCode: string,
     numberFormat: NumberFormat,
     areaStatus: AreaStatus,
-  ): number {
+  ): number | null {
     let weighingIndicatorName: IbfLayerName;
     if (this.disasterType) {
       weighingIndicatorName = this.indicators.find((i) => i.name === indicator)
@@ -272,7 +272,7 @@ export class AggregatesService {
           weighingIndicatorName,
           placeCode,
         ),
-        0,
+        null || 0,
       );
 
     let aggregateValue: number;
@@ -297,11 +297,16 @@ export class AggregatesService {
   ) => (accumulator, aggregate) => {
     let indicatorValue = 0;
 
+    if (!aggregate[indicator]) {
+      return null;
+    }
+
     if (placeCode === null || placeCode === aggregate.placeCode) {
       const indicatorWeight = weightedAverage
         ? aggregate[weighingIndicator]
         : 1;
-      indicatorValue = indicatorWeight * (aggregate[indicator] || 0);
+
+      indicatorValue = indicatorWeight * aggregate[indicator];
     }
 
     return accumulator + indicatorValue;
