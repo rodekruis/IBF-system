@@ -160,6 +160,9 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
       eventName: event.eventName?.split('_')[0] || this.disasterTypeLabel,
       disasterTypeLabel: this.disasterTypeLabel,
+      alertClass: this.areas?.filter(
+        (a) => a.eventName === event.eventName,
+      )?.[0].alertClass,
     });
     return header;
   }

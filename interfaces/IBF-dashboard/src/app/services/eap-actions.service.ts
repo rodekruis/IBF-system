@@ -142,31 +142,31 @@ export class EapActionsService {
         return a.triggerValue > b.triggerValue ? -1 : 1;
       }
     });
-    if (this.getActiveLeadtime()) {
-      this.triggeredAreas.forEach((area) => {
-        this.formatDates(area);
-        this.mapTriggerValueToAlertClass(area);
-        this.filterEapActionsByMonth(area);
-        area.eapActions.forEach((action) => {
-          if (Object.keys(action.month).length) {
-            Object.defineProperty(action, 'monthLong', {
-              value: {},
+    // if (this.getActiveLeadtime()) {
+    this.triggeredAreas.forEach((area) => {
+      this.mapTriggerValueToAlertClass(area);
+      this.formatDates(area);
+      this.filterEapActionsByMonth(area);
+      area.eapActions.forEach((action) => {
+        if (Object.keys(action.month).length) {
+          Object.defineProperty(action, 'monthLong', {
+            value: {},
+          });
+          for (const region of Object.keys(action.month)) {
+            Object.defineProperty(action.monthLong, region, {
+              value: DateTime.utc(
+                2022, // year does not matter, this is just about converting month-number to month-name
+                action.month[region][this.currentRainSeasonName],
+                1,
+              ).monthLong,
             });
-            for (const region of Object.keys(action.month)) {
-              Object.defineProperty(action.monthLong, region, {
-                value: DateTime.utc(
-                  2022, // year does not matter, this is just about converting month-number to month-name
-                  action.month[region][this.currentRainSeasonName],
-                  1,
-                ).monthLong,
-              });
-            }
-          } else {
-            action.month = null;
           }
-        });
+        } else {
+          action.month = null;
+        }
       });
-    }
+    });
+    // }
     this.triggeredAreaSubject.next(this.triggeredAreas);
   };
 
@@ -184,6 +184,7 @@ export class EapActionsService {
   };
 
   private mapTriggerValueToAlertClass = (triggeredArea: TriggeredArea) => {
+    console.log('triggeredArea: ', triggeredArea);
     // If no match is found, then no alertClass will be shown
     if (this.countryDisasterSettings.eapAlertClasses) {
       for (const alertClass of Object.keys(

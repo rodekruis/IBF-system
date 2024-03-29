@@ -285,6 +285,7 @@ export class EventService {
         'area."placeCode" AS "placeCode"',
         'area.name AS name',
         'area."adminLevel" AS "adminLevel"',
+        'event."eventName"',
         'event."actionsValue"',
         'event."triggerValue"',
         'event."eventPlaceCodeId"',
@@ -373,6 +374,7 @@ export class EventService {
       .leftJoin('grandparentEvent.user', 'grandparentUser')
       .select([
         'dynamic."placeCode" AS "placeCode"',
+        'dynamic."eventName" AS "eventName"',
         'area.name AS name',
         'area."adminLevel" AS "adminLevel"',
         'dynamic.value AS value',
@@ -387,6 +389,7 @@ export class EventService {
         placeCode: area.placeCode,
         name: area.name,
         nameParent: null,
+        eventName: area.eventName,
         actionsValue: area.value,
         triggerValue: null, // leave empty for now, as we don't show triggerValue on deeper levels
         stopped: area.stopped,

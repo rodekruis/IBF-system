@@ -1,16 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
-import { Geometry } from './geo.model';
-
-export class AdminAreaRecord {
-  public placeCode: string;
-  public name: string;
-  public geom: Geometry;
-  public countryCodeISO3: string;
-  public date: Date;
-  public leadTime: string;
-  public population_affected: number;
-}
 
 export class AggregateDataRecord {
   @ApiProperty({ example: '21UGA001001' })
@@ -35,6 +24,9 @@ export class TriggeredArea {
 
   @ApiProperty({ example: 'Agago' })
   public nameParent: string;
+
+  @ApiProperty({ example: 'Event name' })
+  public eventName: string;
 
   @ApiProperty({ example: 100 })
   public actionsValue: number;

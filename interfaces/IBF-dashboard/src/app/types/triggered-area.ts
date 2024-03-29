@@ -15,6 +15,7 @@ export class TriggeredArea {
   stopped: boolean;
   stoppedDate: string;
   submitDisabled: boolean;
+  eventName: string;
   alertClass?: string;
   alertLabel?: AlertLabel;
 }

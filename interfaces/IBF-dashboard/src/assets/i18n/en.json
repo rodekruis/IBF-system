@@ -144,8 +144,8 @@
       "active-event-active-trigger": {
         "header": "Trigger: {{ eventName }} on {{firstTriggerLeadTimeDate}}",
         "header-ongoing": "Ongoing trigger: {{ eventName }} on {{firstTriggerLeadTimeDate}}",
-        "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
-        "header-ongoing-below-trigger": "Ongoing warning: {{ eventName }} on {{firstLeadTimeDate}}",
+        "header-below-trigger": "Warning {{alertClass}}: {{ eventName }} on {{firstLeadTimeDate}}",
+        "header-ongoing-below-trigger": "Ongoing warning {{alertClass}}: {{ eventName }} on {{firstLeadTimeDate}}",
         "welcome": "First warning on {{firstLeadTimeDate}}",
         "welcome-below-trigger": ""
       },
