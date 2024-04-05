@@ -58,8 +58,14 @@ export class TriggeredArea {
 export class DisasterSpecificProperties {
   typhoonLandfall?: boolean;
   typhoonNoLandfallYet?: boolean;
+  eapAlertClass?: {
+    key: string;
+    label: string;
+    color: string;
+    value: number;
+    textColor?: string;
+  };
 }
-
 export class EventSummaryCountry {
   @ApiProperty({ example: 'UGA' })
   public countryCodeISO3: string;
