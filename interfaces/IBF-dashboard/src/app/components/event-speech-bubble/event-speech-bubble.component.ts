@@ -205,4 +205,27 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
 
     return false;
   }
+
+  public getHeaderColors(): { iconColor: string; textColor: string } {
+    const defaultColors = {
+      iconColor: 'var(--ion-color-ibf-black)',
+      textColor: 'var(--ion-color-ibf-black)',
+    };
+
+    if (
+      !this.event ||
+      !this.event.disasterSpecificProperties ||
+      !this.event.disasterSpecificProperties.eapAlertClass
+    ) {
+      return defaultColors;
+    }
+
+    return {
+      iconColor: `var(--ion-color-${this.event.disasterSpecificProperties.eapAlertClass.color})`,
+      textColor: `var(--ion-color-${
+        this.event.disasterSpecificProperties.eapAlertClass.textColor ||
+        this.event.disasterSpecificProperties.eapAlertClass.color
+      })`,
+    };
+  }
 }

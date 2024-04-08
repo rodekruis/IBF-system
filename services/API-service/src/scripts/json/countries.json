@@ -28,8 +28,8 @@
           },
           "min": {
             "label": "Low warning issued",
-            "color": "ibf-yellow",
-            "textColor": "ibf-yellow-contrast",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
             "value": 0.3
           },
           "med": {
@@ -293,8 +293,8 @@
           },
           "min": {
             "label": "Met office to monitor",
-            "color": "ibf-yellow",
-            "textColor": "ibf-yellow-contrast",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
             "value": 0.3
           },
           "med": {

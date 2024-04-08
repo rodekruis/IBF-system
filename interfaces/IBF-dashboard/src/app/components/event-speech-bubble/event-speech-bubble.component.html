@@ -9,11 +9,12 @@
   <ng-container *ngIf="event.thresholdReached">
     <span>
       <ion-icon
+        [style]="'color: ' + getHeaderColors().iconColor"
         class="warning-icon"
-        src="/assets/icons/Alert_Title_Purple.svg"
+        src="/assets/icons/Alert_Title.svg"
         slot="start"
       ></ion-icon>
-      <p class="event-header" [innerHTML]="event.header"></p>
+      <p [style]="'color: ' + getHeaderColors().textColor" class="event-header" [innerHTML]="event.header"></p>
     </span>
     <p>
       <span
@@ -64,11 +65,12 @@
   <ng-container *ngIf="!event.thresholdReached">
     <span>
       <ion-icon
+        [style]="'color: ' + getHeaderColors().iconColor"
         class="warning-icon"
-        src="/assets/icons/Alert_Title_Purple_Clear.svg"
+        src="/assets/icons/Alert_Title.svg"
         slot="start"
       ></ion-icon>
-      <p class="event-header" [innerHTML]="event.header"></p>
+      <p [style]="'color: ' + getHeaderColors().textColor" class="event-header" [innerHTML]="event.header"></p>
     </span>
     <p
       [innerHTML]="

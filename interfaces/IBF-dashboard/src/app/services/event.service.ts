@@ -35,6 +35,12 @@ export class EventSummary {
 export class DisasterSpecificProperties {
   typhoonLandfall?: boolean;
   typhoonNoLandfallYet?: boolean;
+  eapAlertClass?: {
+    key: string;
+    value: string;
+    color: string;
+    textColor?: string;
+  };
 }
 
 @Injectable({
