@@ -29,7 +29,6 @@ import { AdminLevelService } from '../../services/admin-level.service';
 import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
 import { AdminLevel, AdminLevelType } from '../../types/admin-level';
-import { Actor } from '../../types/chat';
 import { Indicator } from '../../types/indicator-group';
 import { LeadTimeTriggerKey, LeadTimeUnit } from '../../types/lead-time';
 import { TriggeredArea } from '../../types/triggered-area';
@@ -83,8 +82,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   public isWarn = false;
   public supportEmailAddress = environment.supportEmailAddress;
   public adminLevel: AdminLevel;
-
-  public actor = Actor;
 
   constructor(
     private eapActionsService: EapActionsService,

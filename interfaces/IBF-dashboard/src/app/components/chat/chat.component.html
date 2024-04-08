@@ -104,7 +104,6 @@
   <ng-container *ngIf="eventState?.events?.length > 0">
     <app-dialogue-turn
       *ngFor="let area of filteredStoppedAreas; first as isFirst"
-      [isConnected]="true"
       [isStopped]="true"
     >
       <app-ibf-button
@@ -149,9 +148,7 @@
     </app-dialogue-turn>
   </ng-container>
   <app-dialogue-turn
-    [actor]="actor.self"
     *ngFor="let area of filteredActiveAreas; first as isFirst"
-    [isConnected]="!isFirst"
     [isTriggered]="eventState?.event?.thresholdReached"
   >
     <app-ibf-button

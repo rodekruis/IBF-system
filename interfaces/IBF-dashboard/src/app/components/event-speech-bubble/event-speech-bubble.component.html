@@ -1,10 +1,8 @@
 <app-dialogue-turn
   *ngIf="type === 'active'"
-  [isConnected]="true"
   [isTriggered]="event.thresholdReached"
   [isNotTriggered]="!event.thresholdReached"
   [isSelected]="eventBubbleIsSelected(event.eventName)"
-  [isConnected]="true"
 >
   <ng-container *ngIf="event.thresholdReached">
     <span>
@@ -191,9 +189,7 @@
 
 <app-dialogue-turn
   *ngIf="type === 'stopped' && event.eventName === selectedEvent"
-  [isConnected]="true"
   [isStopped]="true"
-  [isConnected]="true"
 >
   <ng-container>
     <p
@@ -240,7 +236,7 @@
   </ng-container>
 </app-dialogue-turn>
 
-<app-dialogue-turn *ngIf="type === 'no-event'" [isConnected]="true">
+<app-dialogue-turn *ngIf="type === 'no-event'">
   <p
     [innerHTML]="
       'chat-component.' + disasterTypeName + '.no-event-no-trigger.welcome'

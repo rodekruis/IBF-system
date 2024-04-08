@@ -2,9 +2,6 @@
   data-test="chat"
   class="dialogue-turn ion-align-items-start"
   [ngClass]="{
-    'is-connected': isConnected,
-    'is-other ion-justify-content-start': !isSelf,
-    'is-self ion-justify-content-end': isSelf,
     'is-pending': animate && !isSpoken,
     'is-spoken': animate && isSpoken,
     'is-warn': isWarn,
@@ -15,23 +12,8 @@
     'is-opening-bubble': isOpeningBubble
   }"
 >
-  <div class="dialogue-turn--actor">
-    <ng-container [ngSwitch]="actor">
-      <ng-container *ngSwitchCase="allActors.system">
-        <ion-icon
-          class="system-avatar"
-          src="assets/icons/IBF_Impact_Based_Forecast_Logo_32x32.svg"
-        ></ion-icon>
-      </ng-container>
-      <ng-container *ngSwitchCase="allActors.self">
-        <ion-avatar class="self-avatar" color="ibf-secondary">
-          <ion-icon name="person" size="large"></ion-icon>
-        </ion-avatar>
-      </ng-container>
-    </ng-container>
-  </div>
   <div class="dialogue-turn--content">
-    <ion-card [color]="isSelf ? 'ibf-chat-self' : 'ibf-chat-not-self'">
+    <ion-card>
       <ion-card-content>
         <ng-content></ng-content>
         <small><app-timestamp [timestamp]="timestamp"></app-timestamp></small>
