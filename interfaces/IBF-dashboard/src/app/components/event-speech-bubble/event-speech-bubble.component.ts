@@ -206,10 +206,15 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     return false;
   }
 
-  public getHeaderColors(): { iconColor: string; textColor: string } {
+  public getCardColors(): {
+    iconColor: string;
+    headerTextColor: string;
+    borderColor: string;
+  } {
     const defaultColors = {
       iconColor: 'var(--ion-color-ibf-black)',
-      textColor: 'var(--ion-color-ibf-black)',
+      headerTextColor: 'var(--ion-color-ibf-black)',
+      borderColor: null,
     };
 
     if (
@@ -222,10 +227,11 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
 
     return {
       iconColor: `var(--ion-color-${this.event.disasterSpecificProperties.eapAlertClass.color})`,
-      textColor: `var(--ion-color-${
+      headerTextColor: `var(--ion-color-${
         this.event.disasterSpecificProperties.eapAlertClass.textColor ||
         this.event.disasterSpecificProperties.eapAlertClass.color
       })`,
+      borderColor: `var(--ion-color-${this.event.disasterSpecificProperties.eapAlertClass.color})`,
     };
   }
 }

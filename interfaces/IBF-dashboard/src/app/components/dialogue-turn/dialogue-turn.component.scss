@@ -53,32 +53,6 @@
   }
 }
 
-.dialogue-turn.is-not-triggered {
-  &.is-selected {
-    .dialogue-turn--content {
-      ion-card {
-        border: var(--ion-color-ibf-no-alert-primary) solid 2px;
-      }
-    }
-  }
-}
-
-.dialogue-turn.is-triggered {
-  .dialogue-turn--content {
-    ion-card {
-      border: var(--ion-color-ibf-outline-red) solid 1px;
-    }
-  }
-
-  &.is-selected {
-    .dialogue-turn--content {
-      ion-card {
-        border: var(--ion-color-ibf-outline-red) solid 2px;
-      }
-    }
-  }
-}
-
 .dialogue-turn.is-spoken {
   .dialogue-turn--content {
     animation-name: speak;

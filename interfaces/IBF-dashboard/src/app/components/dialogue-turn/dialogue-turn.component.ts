@@ -26,10 +26,13 @@ export class DialogueTurnComponent {
   isNotTriggered = false;
 
   @Input()
-  isSelected = true;
+  isSelected = false;
 
   @Input()
   isOpeningBubble = false;
+
+  @Input()
+  borderColor = null;
 
   isSystem: boolean;
 

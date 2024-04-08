@@ -3,17 +3,18 @@
   [isTriggered]="event.thresholdReached"
   [isNotTriggered]="!event.thresholdReached"
   [isSelected]="eventBubbleIsSelected(event.eventName)"
+  [borderColor]="getCardColors().borderColor"
 >
   <ng-container *ngIf="event.thresholdReached">
     <span>
       <ion-icon
-        [style]="'color: ' + getHeaderColors().iconColor"
+        [style]="'color: ' + getCardColors().iconColor"
         class="warning-icon"
         src="/assets/icons/Alert_Title.svg"
         slot="start"
       ></ion-icon>
       <p
-        [style]="'color: ' + getHeaderColors().textColor"
+        [style]="'color: ' + getCardColors().headerTextColor"
         class="event-header"
         [innerHTML]="event.header"
       ></p>
@@ -67,13 +68,13 @@
   <ng-container *ngIf="!event.thresholdReached">
     <span>
       <ion-icon
-        [style]="'color: ' + getHeaderColors().iconColor"
+        [style]="'color: ' + getCardColors().iconColor"
         class="warning-icon"
         src="/assets/icons/Alert_Title.svg"
         slot="start"
       ></ion-icon>
       <p
-        [style]="'color: ' + getHeaderColors().textColor"
+        [style]="'color: ' + getCardColors().headerTextColor"
         class="event-header"
         [innerHTML]="event.header"
       ></p>
