@@ -3,63 +3,115 @@
 :root {
   --ion-color-ibf-no-alert-primary: var(--ion-color-fiveten-navy-900);
   --ion-color-ibf-no-alert-primary-rgb: var(--ion-color-fiveten-navy-900-rgb);
-  --ion-color-ibf-no-alert-primary-contrast: var(--ion-color-fiveten-navy-900-contrast);
-	--ion-color-ibf-no-alert-primary-contrast-rgb: var(--ion-color-fiveten-navy-900-contrast-rgb);
-	--ion-color-ibf-no-alert-primary-shade: var(--ion-color-fiveten-navy-900-shade);
-	--ion-color-ibf-no-alert-primary-tint: var(--ion-color-fiveten-navy-900-tint);
+  --ion-color-ibf-no-alert-primary-contrast: var(
+    --ion-color-fiveten-navy-900-contrast
+  );
+  --ion-color-ibf-no-alert-primary-contrast-rgb: var(
+    --ion-color-fiveten-navy-900-contrast-rgb
+  );
+  --ion-color-ibf-no-alert-primary-shade: var(
+    --ion-color-fiveten-navy-900-shade
+  );
+  --ion-color-ibf-no-alert-primary-tint: var(--ion-color-fiveten-navy-900-tint);
 
   --ion-color-ibf-no-alert-secondary: var(--ion-color-fiveten-navy-300);
   --ion-color-ibf-no-alert-secondary-rgb: var(--ion-color-fiveten-navy-300-rgb);
-  --ion-color-ibf-no-alert-secondary-contrast: var(--ion-color-fiveten-navy-300-contrast);
-  --ion-color-ibf-no-alert-secondary-contrast-rgb: var(--ion-color-fiveten-navy-300-contrast-rgb);
-  --ion-color-ibf-no-alert-secondary-shade: var(--ion-color-fiveten-navy-300-shade);
-  --ion-color-ibf-no-alert-secondary-tint: var(--ion-color-fiveten-navy-300-tint);
+  --ion-color-ibf-no-alert-secondary-contrast: var(
+    --ion-color-fiveten-navy-300-contrast
+  );
+  --ion-color-ibf-no-alert-secondary-contrast-rgb: var(
+    --ion-color-fiveten-navy-300-contrast-rgb
+  );
+  --ion-color-ibf-no-alert-secondary-shade: var(
+    --ion-color-fiveten-navy-300-shade
+  );
+  --ion-color-ibf-no-alert-secondary-tint: var(
+    --ion-color-fiveten-navy-300-tint
+  );
 
   --ion-color-ibf-no-alert-tertiary: var(--ion-color-fiveten-neutral-100);
-  --ion-color-ibf-no-alert-tertiary-rgb: var(--ion-color-fiveten-neutral-100-rgb);
-  --ion-color-ibf-no-alert-tertiary-contrast: var(--ion-color-fiveten-neutral-100-contrast);
-  --ion-color-ibf-no-alert-tertiary-contrast-rgb: var(--ion-color-fiveten-neutral-100-contrast-rgb);
-  --ion-color-ibf-no-alert-tertiary-shade: var(--ion-color-fiveten-neutral-100-shade);
-  --ion-color-ibf-no-alert-tertiary-tint: var(--ion-color-fiveten-neutral-100-tint);
+  --ion-color-ibf-no-alert-tertiary-rgb: var(
+    --ion-color-fiveten-neutral-100-rgb
+  );
+  --ion-color-ibf-no-alert-tertiary-contrast: var(
+    --ion-color-fiveten-neutral-100-contrast
+  );
+  --ion-color-ibf-no-alert-tertiary-contrast-rgb: var(
+    --ion-color-fiveten-neutral-100-contrast-rgb
+  );
+  --ion-color-ibf-no-alert-tertiary-shade: var(
+    --ion-color-fiveten-neutral-100-shade
+  );
+  --ion-color-ibf-no-alert-tertiary-tint: var(
+    --ion-color-fiveten-neutral-100-tint
+  );
 
   --ion-color-ibf-trigger-alert-primary: var(--ion-color-fiveten-purple-700);
-  --ion-color-ibf-trigger-alert-primary-rgb: var(--ion-color-fiveten-purple-700-rgb);
-  --ion-color-ibf-trigger-alert-primary-contrast: var(--ion-color-fiveten-purple-700-contrast);
+  --ion-color-ibf-trigger-alert-primary-rgb: var(
+    --ion-color-fiveten-purple-700-rgb
+  );
+  --ion-color-ibf-trigger-alert-primary-contrast: var(
+    --ion-color-fiveten-purple-700-contrast
+  );
   --ion-color-ibf-trigger-alert-primary-contrast-rgb: var(
     --ion-color-fiveten-purple-700-contrast-rgb
   );
-  --ion-color-ibf-trigger-alert-primary-shade: var(--ion-color-fiveten-purple-700-shade);
-  --ion-color-ibf-trigger-alert-primary-tint: var(--ion-color-fiveten-purple-700-tint);
+  --ion-color-ibf-trigger-alert-primary-shade: var(
+    --ion-color-fiveten-purple-700-shade
+  );
+  --ion-color-ibf-trigger-alert-primary-tint: var(
+    --ion-color-fiveten-purple-700-tint
+  );
 
   --ion-color-ibf-trigger-alert-secondary: var(--ion-color-fiveten-purple-300);
-  --ion-color-ibf-trigger-alert-secondary-rgb: var(--ion-color-fiveten-purple-300-rgb);
-  --ion-color-ibf-trigger-alert-secondary-contrast: var(--ion-color-fiveten-purple-300-contrast);
+  --ion-color-ibf-trigger-alert-secondary-rgb: var(
+    --ion-color-fiveten-purple-300-rgb
+  );
+  --ion-color-ibf-trigger-alert-secondary-contrast: var(
+    --ion-color-fiveten-purple-300-contrast
+  );
   --ion-color-ibf-trigger-alert-secondary-contrast-rgb: var(
     --ion-color-fiveten-purple-300-contrast-rgb
   );
-  --ion-color-ibf-trigger-alert-secondary-shade: var(--ion-color-fiveten-purple-300-shade);
-  --ion-color-ibf-trigger-alert-secondary-tint: var(--ion-color-fiveten-purple-300-tint);
+  --ion-color-ibf-trigger-alert-secondary-shade: var(
+    --ion-color-fiveten-purple-300-shade
+  );
+  --ion-color-ibf-trigger-alert-secondary-tint: var(
+    --ion-color-fiveten-purple-300-tint
+  );
 
   --ion-color-ibf-trigger-alert-tertiary: var(--ion-color-fiveten-purple-100);
-  --ion-color-ibf-trigger-alert-tertiary-rgb: var(--ion-color-fiveten-purple-100-rgb);
-  --ion-color-ibf-trigger-alert-tertiary-contrast: var(--ion-color-fiveten-purple-100-contrast);
+  --ion-color-ibf-trigger-alert-tertiary-rgb: var(
+    --ion-color-fiveten-purple-100-rgb
+  );
+  --ion-color-ibf-trigger-alert-tertiary-contrast: var(
+    --ion-color-fiveten-purple-100-contrast
+  );
   --ion-color-ibf-trigger-alert-tertiary-contrast-rgb: var(
     --ion-color-fiveten-purple-100-contrast-rgb
   );
-  --ion-color-ibf-trigger-alert-tertiary-shade: var(--ion-color-fiveten-purple-100-shade);
-  --ion-color-ibf-trigger-alert-tertiary-tint: var(--ion-color-fiveten-purple-100-tint);
+  --ion-color-ibf-trigger-alert-tertiary-shade: var(
+    --ion-color-fiveten-purple-100-shade
+  );
+  --ion-color-ibf-trigger-alert-tertiary-tint: var(
+    --ion-color-fiveten-purple-100-tint
+  );
 
   --ion-color-ibf-white: var(--ion-color-fiveten-neutral-0);
   --ion-color-ibf-white-rgb: var(--ion-color-fiveten-neutral-0-rgb);
   --ion-color-ibf-white-contrast: var(--ion-color-fiveten-neutral-0-contrast);
-  --ion-color-ibf-white-contrast-rgb: var(--ion-color-fiveten-neutral-0-contrast-rgb);
+  --ion-color-ibf-white-contrast-rgb: var(
+    --ion-color-fiveten-neutral-0-contrast-rgb
+  );
   --ion-color-ibf-white-shade: var(--ion-color-fiveten-neutral-0-shade);
   --ion-color-ibf-white-tint: var(--ion-color-fiveten-neutral-0-tint);
 
   --ion-color-ibf-black: var(--ion-color-fiveten-neutral-900);
   --ion-color-ibf-black-rgb: var(--ion-color-fiveten-neutral-900-rgb);
   --ion-color-ibf-black-contrast: var(--ion-color-fiveten-neutral-900-contrast);
-  --ion-color-ibf-black-contrast-rgb: var(--ion-color-fiveten-neutral-900-contrast-rgb);
+  --ion-color-ibf-black-contrast-rgb: var(
+    --ion-color-fiveten-neutral-900-contrast-rgb
+  );
   --ion-color-ibf-black-shade: var(--ion-color-fiveten-neutral-900-shade);
   --ion-color-ibf-black-tint: var(--ion-color-fiveten-neutral-900-tint);
 
@@ -68,21 +120,29 @@
   --ion-color-ibf-yellow: var(--ion-color-fiveten-yellow-500);
   --ion-color-ibf-yellow-rgb: var(--ion-color-fiveten-yellow-500-rgb);
   --ion-color-ibf-yellow-contrast: var(--ion-color-fiveten-yellow-500-contrast);
-  --ion-color-ibf-yellow-contrast-rgb: var(--ion-color-fiveten-yellow-500-contrast-rgb);
+  --ion-color-ibf-yellow-contrast-rgb: var(
+    --ion-color-fiveten-yellow-500-contrast-rgb
+  );
   --ion-color-ibf-yellow-shade: var(--ion-color-fiveten-yellow-500-shade);
   --ion-color-ibf-yellow-tint: var(--ion-color-fiveten-yellow-500-tint);
 
   --ion-color-ibf-orange: var(--ion-color-fiveten-orange-500);
   --ion-color-ibf-orange-rgb: var(--ion-color-fiveten-orange-500-rgb);
   --ion-color-ibf-orange-contrast: var(--ion-color-fiveten-orange-500-contrast);
-  --ion-color-ibf-orange-contrast-rgb: var(--ion-color-fiveten-orange-500-contrast-rgb);
+  --ion-color-ibf-orange-contrast-rgb: var(
+    --ion-color-fiveten-orange-500-contrast-rgb
+  );
   --ion-color-ibf-orange-shade: var(--ion-color-fiveten-orange-500-shade);
   --ion-color-ibf-orange-tint: var(--ion-color-fiveten-orange-500-tint);
 
   --ion-color-ibf-glofas-trigger: var(--ion-color-fiveten-red-500);
   --ion-color-ibf-glofas-trigger-rgb: var(--ion-color-fiveten-red-500-rgb);
-  --ion-color-ibf-glofas-trigger-contrast: var(--ion-color-fiveten-red-500-contrast);
-  --ion-color-ibf-glofas-trigger-contrast-rgb: var(--ion-color-fiveten-red-500-contrast-rgb);
+  --ion-color-ibf-glofas-trigger-contrast: var(
+    --ion-color-fiveten-red-500-contrast
+  );
+  --ion-color-ibf-glofas-trigger-contrast-rgb: var(
+    --ion-color-fiveten-red-500-contrast-rgb
+  );
   --ion-color-ibf-glofas-trigger-shade: var(--ion-color-fiveten-red-500-shade);
   --ion-color-ibf-glofas-trigger-tint: var(--ion-color-fiveten-red-500-tint);
 
@@ -91,28 +151,38 @@
   --ion-color-success: var(--ion-color-fiveten-green-500);
   --ion-color-success-rgb: var(--ion-color-fiveten-green-500-rgb);
   --ion-color-success-contrast: var(--ion-color-fiveten-green-500-contrast);
-  --ion-color-success-contrast-rgb: var(--ion-color-fiveten-green-500-contrast-rgb);
+  --ion-color-success-contrast-rgb: var(
+    --ion-color-fiveten-green-500-contrast-rgb
+  );
   --ion-color-success-shade: var(--ion-color-fiveten-green-500-shade);
   --ion-color-success-tint: var(--ion-color-fiveten-green-500-tint);
 
   --ion-color-danger: var(--ion-color-fiveten-red-500);
   --ion-color-danger-rgb: var(--ion-color-fiveten-red-500-rgb);
   --ion-color-danger-contrast: var(--ion-color-fiveten-red-500-contrast);
-  --ion-color-danger-contrast-rgb: var(--ion-color-fiveten-red-500-contrast-rgb);
+  --ion-color-danger-contrast-rgb: var(
+    --ion-color-fiveten-red-500-contrast-rgb
+  );
   --ion-color-danger-shade: var(--ion-color-fiveten-red-500-shade);
   --ion-color-danger-tint: var(--ion-color-fiveten-red-500-tint);
 
   --ion-color-light: var(--ion-color-fiveten-neutral-100);
   --ion-color-light-rgb: var(--ion-color-fiveten-neutral-100-rgb);
   --ion-color-light-contrast: var(--ion-color-fiveten-neutral-100-contrast);
-  --ion-color-light-contrast-rgb: var(--ion-color-fiveten-neutral-100-contrast-rgb);
+  --ion-color-light-contrast-rgb: var(
+    --ion-color-fiveten-neutral-100-contrast-rgb
+  );
   --ion-color-light-shade: var(--ion-color-fiveten-neutral-100-shade);
   --ion-color-light-tint: var(--ion-color-fiveten-neutral-100-tint);
 
   --ion-color-ibf-grey-light: var(--ion-color-fiveten-neutral-300);
   --ion-color-ibf-grey-light-rgb: var(--ion-color-fiveten-neutral-300-rgb);
-  --ion-color-ibf-grey-light-contrast: var(--ion-color-fiveten-neutral-300-contrast);
-  --ion-color-ibf-grey-light-contrast-rgb: var(--ion-color-fiveten-neutral-300-contrast-rgb);
+  --ion-color-ibf-grey-light-contrast: var(
+    --ion-color-fiveten-neutral-300-contrast
+  );
+  --ion-color-ibf-grey-light-contrast-rgb: var(
+    --ion-color-fiveten-neutral-300-contrast-rgb
+  );
   --ion-color-ibf-grey-light-shade: var(--ion-color-fiveten-neutral-300-shade);
   --ion-color-ibf-grey-light-tint: var(--ion-color-fiveten-neutral-300-tint);
 }
