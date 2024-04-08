@@ -29,6 +29,7 @@
           "min": {
             "label": "Low warning issued",
             "color": "ibf-yellow",
+            "textColor": "ibf-yellow-contrast",
             "value": 0.3
           },
           "med": {
@@ -293,6 +294,7 @@
           "min": {
             "label": "Met office to monitor",
             "color": "ibf-yellow",
+            "textColor": "ibf-yellow-contrast",
             "value": 0.3
           },
           "med": {
