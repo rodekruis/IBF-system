@@ -13,7 +13,9 @@
   }"
 >
   <div class="dialogue-turn--content">
-    <ion-card [style.border]="isSelected ? '0.125rem solid ' + borderColor : null">
+    <ion-card
+      [style.border]="isSelected ? '0.125rem solid ' + borderColor : null"
+    >
       <ion-card-content>
         <ng-content></ng-content>
         <small><app-timestamp [timestamp]="timestamp"></app-timestamp></small>
