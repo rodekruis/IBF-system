@@ -28,8 +28,19 @@ ion-checkbox {
 }
 
 .event-header {
+  display: flex;
+  flex-direction: row;
   font-weight: bold;
-  font-size: 14px !important;
+  font-size: 0.875rem;
+
+  .event-header--icon-title {
+    align-self: center;
+    flex-grow: 3;
+  }
+
+  .event-header--tooltip {
+    align-self: start;
+  }
 }
 
 .warning-icon {

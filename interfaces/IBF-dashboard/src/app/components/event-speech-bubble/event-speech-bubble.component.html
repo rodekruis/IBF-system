@@ -6,19 +6,25 @@
   [borderColor]="getCardColors().borderColor"
 >
   <ng-container *ngIf="event.thresholdReached">
-    <span>
-      <ion-icon
-        [style]="'color: ' + getCardColors().iconColor"
-        class="warning-icon"
-        src="/assets/icons/Alert_Title.svg"
-        slot="start"
-      ></ion-icon>
-      <p
-        [style]="'color: ' + getCardColors().headerTextColor"
-        class="event-header"
-        [innerHTML]="event.header"
-      ></p>
-    </span>
+    <div class="event-header">
+      <span class="event-header--icon-title">
+        <ion-icon
+          [style.color]="getCardColors().iconColor"
+          class="warning-icon"
+          src="/assets/icons/Alert_Title.svg"
+          slot="start"
+        ></ion-icon>
+        <span [style.color]="getCardColors().headerTextColor" class="">
+          {{ event.header }}
+        </span>
+      </span>
+
+      <app-tooltip
+        class="event-header--tooltip"
+        [value]="'chat-component.common.event-tooltip' | translate"
+        color="ibf-no-alert-primary"
+      ></app-tooltip>
+    </div>
     <p>
       <span
         *ngIf="!event.duration && showFirstWarningDate()"
@@ -66,19 +72,25 @@
   </ng-container>
 
   <ng-container *ngIf="!event.thresholdReached">
-    <span>
-      <ion-icon
-        [style]="'color: ' + getCardColors().iconColor"
-        class="warning-icon"
-        src="/assets/icons/Alert_Title.svg"
-        slot="start"
-      ></ion-icon>
-      <p
-        [style]="'color: ' + getCardColors().headerTextColor"
-        class="event-header"
-        [innerHTML]="event.header"
-      ></p>
-    </span>
+    <div class="event-header">
+      <span class="event-header--icon-title">
+        <ion-icon
+          [style.color]="getCardColors().iconColor"
+          class="warning-icon"
+          src="/assets/icons/Alert_Title.svg"
+          slot="start"
+        ></ion-icon>
+        <span [style.color]="getCardColors().headerTextColor" class="">
+          {{ event.header }}
+        </span>
+      </span>
+
+      <app-tooltip
+        class="event-header--tooltip"
+        [value]="'chat-component.common.event-tooltip' | translate"
+        color="ibf-no-alert-primary"
+      ></app-tooltip>
+    </div>
     <p
       [innerHTML]="
         'chat-component.' +

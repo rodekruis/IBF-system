@@ -87,6 +87,7 @@
         "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>.",
         "tooltip": "The forecast presented on the portal might not be up to date as the model did not run successfully. Contact {{supportEmailAddress}} for further information."
       },
+      "event-tooltip": "Select an area from this list or the map to monitor, manage the trigger, and the preplanned anticipatory actions (if applicable).",
       "revert-selection": "Back",
       "save-actions": {
         "submit-button-label": "Save",
