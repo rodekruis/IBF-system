@@ -14,7 +14,13 @@
 >
   <div class="dialogue-turn--content">
     <ion-card
-      [style.border]="isSelected ? '0.125rem solid ' + borderColor : null"
+      (mouseover)="onMouseOver()"
+      (mouseout)="onMouseOut()"
+      [style.border-color]="
+        mouseOver || isSelected
+          ? borderColor
+          : 'var(--ion-color-fiveten-neutral-100)'
+      "
     >
       <ion-card-content>
         <ng-content></ng-content>
