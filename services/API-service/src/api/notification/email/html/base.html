@@ -882,7 +882,7 @@
                                       >
                                         <img
                                           alt=""
-                                          src="(IMG-LOGO)"
+                                          src="<%= imgLogo %>"
                                           style="
                                             max-width: 332px;
                                             padding: 8px;
@@ -898,12 +898,12 @@
                                     <tr>
                                       <td colspan="2">
                                         <h2 class="notification-title">
-                                          (DISASTER-TYPE) IBF Notification
+                                          <%= disasterType %> IBF Notification
                                         </h2>
                                       </td>
                                     </tr>
                                     <tr>
-                                      (HEADER-EVENT-OVERVIEW)
+                                      <%- headerEventOverview %>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -922,7 +922,7 @@
                   <![endif]-->
                 </td>
               </tr>
-              (EMAIL-BODY)
+              <%- emailBody %>
               <tr>
                 <td
                   align="center"

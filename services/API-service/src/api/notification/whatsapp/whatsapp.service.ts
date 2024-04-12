@@ -16,6 +16,8 @@ import {
   TwilioStatusCallbackDto,
 } from './twilio.dto';
 import { NotificationType, TwilioMessageEntity } from './twilio.entity';
+import { EmailTemplateService } from '../email/email-template.service';
+import { formatActionUnitValue } from '../helpers/format-action-unit-value.helper';
 
 @Injectable()
 export class WhatsappService {
@@ -369,16 +371,15 @@ export class WhatsappService {
 
     const adminAreaLabel =
       country.adminRegionLabels[String(adminLevel)]['plural'].toLowerCase();
-    const actionUnit = await this.notificationContentService.getActionUnit(
-      disasterType,
-    );
+    const indicatorMetadata =
+      await this.notificationContentService.getIndicatorMetadata(disasterType);
     let areaList = '';
     for (const area of triggeredAreas) {
       const row = `- *${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''
-      } - ${this.notificationContentService.formatActionUnitValue(
+      } - ${formatActionUnitValue(
         area.actionsValue,
-        actionUnit,
+        indicatorMetadata.numberFormatMap,
       )}*\n`;
       areaList += row;
     }

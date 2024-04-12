@@ -9,6 +9,7 @@ import { EventModule } from '../../event/event.module';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { NotificationContentService } from './notification-content.service';
 import { HelperService } from '../../../shared/helper.service';
+import { EmailTemplateService } from '../email/email-template.service';
 
 @Module({
   imports: [

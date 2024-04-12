@@ -41,7 +41,7 @@ export class NotificationController {
   @Post('send')
   @ApiConsumes()
   @UseInterceptors()
-  public async exposure(
+  public async send(
     @Body() sendNotification: SendNotificationDto,
   ): Promise<void> {
     await this.notificationService.send(

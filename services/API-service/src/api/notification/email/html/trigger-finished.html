@@ -86,7 +86,7 @@
                               Dear reader,
                               <br /><br />
                               The trigger notification formerly activated on
-                              <strong>(START-DATE)</strong> is now
+                              <strong><%= startDate %></strong> is now
                               <strong>below threshold</strong>. <br /><br />
                               The event will close in the IBF-portal when the
                               forecast stays below threshold for 7 days in a
@@ -112,7 +112,7 @@
                                             align="center"
                                           >
                                             <a
-                                              href="(LINK-DASHBOARD)"
+                                              href="<%- linkDashboard %>"
                                               target="_blank"
                                               style="
                                                 font-size: 14px;
@@ -145,7 +145,7 @@
                                           >
                                             1. Manage the anticipatory actions
                                             in the IBF-portal for 1 more week.
-                                            (VIDEO-PDF-LINKS)
+                                            <%- videoPdfLinks %>
                                           </td>
                                         </tr>
                                       </table>
@@ -169,7 +169,7 @@
                                             align="center"
                                           >
                                             <a
-                                              href="(LINK-EAP-SOP)"
+                                              href="<%- linkEapSop %>"
                                               target="_blank"
                                               style="
                                                 font-size: 14px;
@@ -208,7 +208,7 @@
                                       </table>
                                     </td>
                                   </tr>
-                                  (SOCIAL-MEDIA-PART)
+                                  <%- socialMediaPart %>
                                 </tbody>
                               </table>
                             </div>
