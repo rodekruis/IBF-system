@@ -11,6 +11,7 @@ import { WhatsappModule } from './whatsapp/whatsapp.module';
 import { NotificationContentModule } from './notification-content/notification-content.module';
 import { EmailService } from './email/email.service';
 import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
+import { EmailTemplateService } from './email/email-template.service';
 
 @Module({
   imports: [
@@ -23,6 +24,6 @@ import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
     TyphoonTrackModule,
   ],
   controllers: [NotificationController],
-  providers: [NotificationService, EmailService],
+  providers: [NotificationService, EmailService, EmailTemplateService],
 })
 export class NotificationModule {}

@@ -83,8 +83,20 @@
                               id="Editable_Content_Areas"
                             ></section>
                             <div class="notification-content">
-                              Dear Reader,<br /><br />
-                              (EVENT-LIST-BODY)
+                              <div
+                                style="
+                                  color: black;
+                                  font-size: 18px;
+                                  font-family: Inter;
+                                  font-weight: 400;
+                                  line-height: 22.4px;
+                                  word-wrap: break-word;
+                                "
+                              >
+                                Dear Reader,
+                              </div>
+                              <br /><br />
+                              <%- eventListBody %>
                               <table class="notification-actions-table">
                                 <tbody>
                                   <tr>
@@ -98,7 +110,7 @@
                                         <tr>
                                           <td align="center">
                                             <a
-                                              href="(LINK-DASHBOARD)"
+                                              href="<%= linkDashboard %>"
                                               target="_blank"
                                               style="
                                                 font-size: 14px;
@@ -132,13 +144,13 @@
                                             Find more info on the potentially
                                             exposed areas on a map and manage
                                             anticipatory actions in the
-                                            IBF-portal. (VIDEO-PDF-LINKS)
+                                            IBF-portal. <%- videoPdfLinks %>
                                           </td>
                                         </tr>
                                       </table>
                                     </td>
                                   </tr>
-                                  (SOCIAL-MEDIA-PART)
+                                  <%- socialMediaPart %>
                                   <tr>
                                     <td>
                                       <table
@@ -150,7 +162,7 @@
                                         <tr>
                                           <td align="center">
                                             <a
-                                              href="(LINK-EAP-SOP)"
+                                              href="<%- linkEapSop %>"
                                               target="_blank"
                                               style="
                                                 font-size: 14px;
@@ -192,12 +204,12 @@
                               </table>
                               <br />
                               <b>Trigger Statement:</b>
-                              (TRIGGER-STATEMENT)
+                              <%- triggerStatement %>
                               <br />
-                              (MAP-IMAGE-PART)
+                              <%= mapImagePart %>
                               <br />
                               <br />
-                              (TABLES-stacked)
+                              <%- tablesStacked %>
                             </div>
                           </div>
                         </td>

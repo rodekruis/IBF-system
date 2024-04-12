@@ -9,10 +9,16 @@ import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { DisasterEntity } from '../../disaster/disaster.entity';
-import { EventSummaryCountry } from '../../../shared/data.model';
+import { EventSummaryCountry, TriggeredArea } from '../../../shared/data.model';
 import { AdminAreaDataService } from '../../admin-area-data/admin-area-data.service';
 import { AdminAreaService } from '../../admin-area/admin-area.service';
 import { HelperService } from '../../../shared/helper.service';
+import {
+  NotificationDataPerEventDto,
+  TriggerStatusLabelEnum,
+} from '../dto/notification-date-per-event.dto';
+import { AdminAreaLabel } from '../dto/admin-area-notification-info.dto';
+import { ContentTriggerEmail } from '../dto/content-trigger-email.dto';
 
 @Injectable()
 export class NotificationContentService {
@@ -25,92 +31,38 @@ export class NotificationContentService {
 
   public constructor(
     private readonly eventService: EventService,
-    private readonly adminAreaDynamicDataService: AdminAreaDynamicDataService,
-    private readonly adminAreaDataService: AdminAreaDataService,
-    private readonly adminAreaService: AdminAreaService,
     private readonly helperService: HelperService,
   ) {}
 
-  public async getTotalAffectedPerLeadTime(
+  public async getContentTriggerNotification(
     country: CountryEntity,
     disasterType: DisasterType,
-    leadTime: LeadTime,
-    eventName: string,
-  ) {
-    const actionUnit = await this.indicatorRepository.findOne({
-      where: { name: (await this.getDisaster(disasterType)).actionsUnit },
-    });
-    const adminLevel = country.countryDisasterSettings.find(
-      (s) => s.disasterType === disasterType,
-    ).defaultAdminLevel;
-
-    let actionUnitValues =
-      await this.adminAreaDynamicDataService.getAdminAreaDynamicData(
-        country.countryCodeISO3,
-        String(adminLevel),
-        actionUnit.name as DynamicIndicator,
-        disasterType,
-        leadTime,
-        eventName,
-      );
-
-    // Filter on only the areas that are also shown in dashboard, to get same aggregate metric
-    const placeCodesToShow = await this.adminAreaService.getPlaceCodes(
-      country.countryCodeISO3,
+    activeEvents: EventSummaryCountry[],
+  ): Promise<ContentTriggerEmail> {
+    const content = new ContentTriggerEmail();
+    content.disasterType = disasterType;
+    content.disasterTypeLabel = await this.getDisasterTypeLabel(disasterType);
+    content.dataPerEvent = await this.getNotificationDataForEvents(
+      activeEvents,
+      country,
       disasterType,
-      leadTime,
-      adminLevel,
-      eventName,
     );
-    actionUnitValues = actionUnitValues.filter((row) =>
-      placeCodesToShow.includes(row.placeCode),
+    content.defaultAdminLevel = this.getDefaultAdminLevel(
+      country,
+      disasterType,
     );
 
-    if (!actionUnit.weightedAvg) {
-      // If no weightedAvg, then return early with simple sum
-      return actionUnitValues.reduce(
-        (sum, current) => sum + Number(current.value),
-        0,
-      );
-    } else {
-      const weighingIndicator = actionUnit.weightVar;
-      const weighingIndicatorValues =
-        await this.adminAreaDataService.getAdminAreaData(
-          country.countryCodeISO3,
-          String(adminLevel),
-          weighingIndicator as DynamicIndicator,
-        );
-      weighingIndicatorValues.forEach((row) => {
-        row['weight'] = row.value;
-        delete row.value;
-      });
-
-      const mergedValues = [];
-      for (let i = 0; i < actionUnitValues.length; i++) {
-        mergedValues.push({
-          ...actionUnitValues[i],
-          ...weighingIndicatorValues.find(
-            (itmInner) => itmInner.placeCode === actionUnitValues[i].placeCode,
-          ),
-        });
-      }
-
-      const sumofWeighedValues = mergedValues.reduce(
-        (sum, current) =>
-          sum +
-          (current.weight ? Number(current.weight) : 0) * Number(current.value),
-        0,
-      );
-      const sumOfWeights = mergedValues.reduce(
-        (sum, current) => sum + (current.weight ? Number(current.weight) : 0),
-        0,
-      );
-      return sumofWeighedValues / sumOfWeights;
-    }
+    content.country = country;
+    content.indicatorMetadata = await this.getIndicatorMetadata(disasterType);
+    content.defaultAdminAreaLabel = this.getDefaulAdminAreaLabels(
+      country,
+      content.defaultAdminLevel,
+    );
+    return content;
   }
 
   public async getCountryNotificationInfo(
-    countryCodeISO3,
+    countryCodeISO3: string,
   ): Promise<CountryEntity> {
     const findOneOptions = {
       countryCodeISO3: countryCodeISO3,
@@ -136,7 +88,23 @@ export class NotificationContentService {
     });
   }
 
-  public firstCharOfWordsToUpper(input: string): string {
+  private getDefaultAdminLevel(
+    country: CountryEntity,
+    disasterType: DisasterType,
+  ): number {
+    return country.countryDisasterSettings.find(
+      (s) => s.disasterType === disasterType,
+    ).defaultAdminLevel;
+  }
+
+  private getDefaulAdminAreaLabels(
+    country: CountryEntity,
+    adminAreaDefaultLevel: number,
+  ): AdminAreaLabel {
+    return country.adminRegionLabels[String(adminAreaDefaultLevel)];
+  }
+
+  private firstCharOfWordsToUpper(input: string): string {
     return input
       .toLowerCase()
       .split(' ')
@@ -144,24 +112,7 @@ export class NotificationContentService {
       .join(' ');
   }
 
-  public async getLeadTimesAcrossEvents(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    events: EventSummaryCountry[],
-  ) {
-    let triggeredLeadTimes;
-    for await (const event of events) {
-      const newLeadTimes = await this.eventService.getTriggerPerLeadtime(
-        countryCodeISO3,
-        disasterType,
-        event.eventName,
-      );
-      triggeredLeadTimes = { ...triggeredLeadTimes, ...newLeadTimes };
-    }
-    return triggeredLeadTimes;
-  }
-
-  public async getActionUnit(
+  public async getIndicatorMetadata(
     disasterType: DisasterType,
   ): Promise<IndicatorMetadataEntity> {
     return await this.indicatorRepository.findOne({
@@ -178,21 +129,117 @@ export class NotificationContentService {
       : (await this.getDisaster(disasterType)).label.toLowerCase();
   }
 
-  public formatActionUnitValue(
-    value: number,
-    actionUnit: IndicatorMetadataEntity,
-  ) {
-    if (value === null) {
-      return null;
-    } else if (actionUnit.numberFormatMap === 'perc') {
-      return Math.round(value * 100).toLocaleString() + '%';
-    } else if (actionUnit.numberFormatMap === 'decimal2') {
-      return (Math.round(value * 100) / 100).toLocaleString();
-    } else if (actionUnit.numberFormatMap === 'decimal0') {
-      return Math.round(value).toLocaleString();
-    } else {
-      return Math.round(value).toLocaleString();
+  private async getNotificationDataForEvents(
+    activeEvents: EventSummaryCountry[],
+    country: CountryEntity,
+    disasterType: DisasterType,
+  ): Promise<NotificationDataPerEventDto[]> {
+    const sortedEvents = this.sortEventsByLeadTime(activeEvents);
+    const headerEventsRows = [];
+    for await (const event of sortedEvents) {
+      headerEventsRows.push(
+        await this.getNotificationDataForEvent(event, country, disasterType),
+      );
     }
+    return headerEventsRows;
+  }
+
+  private async getNotificationDataForEvent(
+    event: EventSummaryCountry,
+    country: CountryEntity,
+    disasterType: DisasterType,
+  ): Promise<NotificationDataPerEventDto> {
+    const data = new NotificationDataPerEventDto();
+    data.triggerStatusLabel = event.thresholdReached
+      ? TriggerStatusLabelEnum.Trigger
+      : TriggerStatusLabelEnum.Warning;
+
+    data.eventName = await this.getFormattedEventName(event, disasterType);
+    data.disasterSpecificCopy = await this.getDisasterSpecificCopy(
+      disasterType,
+      event.firstLeadTime,
+      event,
+    );
+    data.firstLeadTime = event.firstLeadTime;
+    data.triggeredAreas = await this.getSortedTriggeredAreas(
+      country,
+      disasterType,
+      event,
+    );
+    data.nrOfTriggeredAreas = await this.getNrOfTriggeredAreas(
+      data.triggeredAreas,
+    );
+
+    data.startDateEventString = await this.getFirstLeadTimeDate(
+      Number(event.firstLeadTime.split('-')[0]),
+      event.firstLeadTime.split('-')[1],
+      event.countryCodeISO3,
+      disasterType,
+    );
+    data.totalAffectectedOfIndicator = this.getTotalAffectedPerEvent(
+      data.triggeredAreas,
+    );
+
+    data.mapImage = await this.eventService.getEventMapImage(
+      country.countryCodeISO3,
+      disasterType,
+      event.eventName || 'no-name',
+    );
+
+    return data;
+  }
+
+  private async getNrOfTriggeredAreas(
+    triggeredAreas: TriggeredArea[],
+  ): Promise<number> {
+    // This filters out the areas that are affected by the event but do not have any affect action units
+    // Affected action units are for example people_affected, houses_affected, etc (differs per disaster type)
+    // We are not sure why this is done, but it is done in the original code
+    const triggeredAreaWithAffectedActionUnit = triggeredAreas.filter(
+      (a) => a.actionsValue > 0,
+    );
+    return triggeredAreaWithAffectedActionUnit.length;
+  }
+
+  private async getSortedTriggeredAreas(
+    country: CountryEntity,
+    disasterType: DisasterType,
+    event: EventSummaryCountry,
+  ): Promise<TriggeredArea[]> {
+    const defaultAdminLevel = country.countryDisasterSettings.find(
+      (s) => s.disasterType === disasterType,
+    ).defaultAdminLevel;
+    const triggeredAreas = await this.eventService.getTriggeredAreas(
+      country.countryCodeISO3,
+      disasterType,
+      defaultAdminLevel,
+      event.firstLeadTime,
+      event.eventName,
+    );
+    triggeredAreas.sort((a, b) => (a.triggerValue > b.triggerValue ? -1 : 1));
+    return triggeredAreas;
+  }
+
+  private sortEventsByLeadTime(
+    arr: EventSummaryCountry[],
+  ): EventSummaryCountry[] {
+    const leadTimeValue = (leadTime: LeadTime): number =>
+      Number(leadTime.split('-')[0]);
+
+    return arr.sort((a, b) => {
+      if (leadTimeValue(a.firstLeadTime) < leadTimeValue(b.firstLeadTime)) {
+        return -1;
+      }
+      if (leadTimeValue(a.firstLeadTime) > leadTimeValue(b.firstLeadTime)) {
+        return 1;
+      }
+
+      return 0;
+    });
+  }
+
+  private getTotalAffectedPerEvent(adminAreas: TriggeredArea[]) {
+    return adminAreas.reduce((acc, cur) => acc + cur.actionsValue, 0);
   }
 
   private async getFirstLeadTimeDate(
@@ -214,86 +261,13 @@ export class NotificationContentService {
     };
 
     const dayOption: Intl.DateTimeFormatOptions =
-      unit === 'month' ? {} : { day: '2-digit' };
+      unit === 'month' ? {} : { day: '2-digit', weekday: 'long' };
 
     return new Date(getNewDate[unit]).toLocaleDateString('default', {
       ...dayOption,
       month: 'short',
       year: 'numeric',
     });
-  }
-
-  public async getLeadTimeListEvent(
-    country: CountryEntity,
-    event: EventSummaryCountry,
-    disasterType: DisasterType,
-    leadTime: LeadTime,
-    date: Date,
-  ) {
-    const [leadTimeValue, leadTimeUnit] = leadTime.split('-');
-    const eventName = await this.getFormattedEventName(event, disasterType);
-    const triggerStatus = event.thresholdReached ? 'Trigger' : 'Warning';
-    const dateTimePreposition = leadTimeUnit === 'month' ? 'in' : 'on';
-    const dateAndTime = await this.getFirstLeadTimeDate(
-      Number(leadTimeValue),
-      leadTimeUnit,
-      country.countryCodeISO3,
-      disasterType,
-      date,
-    );
-    const disasterSpecificCopy = await this.getDisasterSpecificCopy(
-      disasterType,
-      leadTime,
-      event,
-    );
-    const leadTimeFromNow = `${leadTimeValue} ${leadTimeUnit}s`;
-
-    const leadTimeString = disasterSpecificCopy.leadTimeString
-      ? disasterSpecificCopy.leadTimeString
-      : leadTimeFromNow;
-
-    const timestamp = disasterSpecificCopy.timestamp
-      ? ` at ${disasterSpecificCopy.timestamp}`
-      : '';
-
-    const triggeredAreas = await this.eventService.getTriggeredAreas(
-      country.countryCodeISO3,
-      disasterType,
-      country.countryDisasterSettings.find(
-        (d) => d.disasterType === disasterType,
-      ).defaultAdminLevel,
-      event.firstLeadTime,
-      event.eventName,
-    );
-    const nrTriggeredAreas = triggeredAreas.filter(
-      (a) => a.actionsValue > 0,
-    ).length;
-
-    return {
-      short: `${triggerStatus} for ${eventName}: ${
-        disasterSpecificCopy.extraInfo || leadTime === LeadTime.hour0
-          ? leadTimeString
-          : `${dateAndTime}${timestamp}`
-      }<br />`,
-      long: `<strong>A ${triggerStatus.toLowerCase()} for ${eventName} is issued.</strong>
-      <br /><br />
-      ${disasterSpecificCopy.eventStatus || 'It is forecasted: '}${
-        disasterSpecificCopy.extraInfo || leadTime === LeadTime.hour0
-          ? ''
-          : ` ${dateTimePreposition} ${dateAndTime}${timestamp}`
-      }. ${disasterSpecificCopy.extraInfo}
-      <br /><br />
-      There are ${nrTriggeredAreas} potentially exposed (ADMIN-AREA-PLURAL). They are listed below in order of (EXPOSURE-UNIT).
-      <br /><br />
-      This ${triggerStatus.toLowerCase()} was issued by IBF on ${await this.getFirstLeadTimeDate(
-        0,
-        leadTimeUnit,
-        country.countryCodeISO3,
-        disasterType,
-        new Date(event.startDate),
-      )}.
-      <br /><br />`,
-    };
   }
 
   public async getStartTimeEvent(
