@@ -84,6 +84,7 @@ export class EventService {
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
+        'count(event."adminAreaId")::int AS "affectedAreas"',
       ])
       .where({
         closed: false,

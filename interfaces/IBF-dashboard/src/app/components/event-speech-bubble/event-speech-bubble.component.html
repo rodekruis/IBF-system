@@ -118,7 +118,7 @@
       <span *ngIf="!event.thresholdReached">{{ 'chat-component.' + disasterTypeName + '.alertLevel.expected' | translate }} {{ event.firstLeadTimeDate }}</span>
     </p>
     <p *ngIf="event.affectedAreas">
-      <strong>{{ 'chat-component.' + disasterTypeName + '.alertLevel.exposed-districts' | translate }} </strong>
+      <strong>{{ 'chat-component.' + disasterTypeName + '.alertLevel.exposed-areas' | translate : {adminAreaLabelPlural: adminAreaLabelPlural} }} </strong>
       <span>{{ event.affectedAreas }}</span>
     </p>
   </ng-container>

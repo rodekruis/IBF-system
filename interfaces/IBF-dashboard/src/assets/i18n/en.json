@@ -165,6 +165,7 @@
       "event-switcher": {
         "current-event-message": "Back to national view",
         "switch-event-button": "Show prediction"
+        "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
       }
     },
     "flash-floods": {
