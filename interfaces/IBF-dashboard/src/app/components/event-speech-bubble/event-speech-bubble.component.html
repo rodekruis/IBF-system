@@ -113,12 +113,31 @@
 
   <ng-container *ngIf="isEventWithForecastClasses()">
     <p>
-      <strong>{{ event.disasterSpecificProperties.eapAlertClass.label }}: </strong>
-      <span *ngIf="event.thresholdReached">{{ 'chat-component.' + disasterTypeName + '.alertLevel.expected-trigger' | translate }} {{ event.firstTriggerLeadTimeDate }}</span>
-      <span *ngIf="!event.thresholdReached">{{ 'chat-component.' + disasterTypeName + '.alertLevel.expected' | translate }} {{ event.firstLeadTimeDate }}</span>
+      <strong
+        >{{ event.disasterSpecificProperties.eapAlertClass.label }}:
+      </strong>
+      <span *ngIf="event.thresholdReached"
+        >{{
+          'chat-component.' + disasterTypeName + '.alertLevel.expected-trigger'
+            | translate
+        }}
+        {{ event.firstTriggerLeadTimeDate }}</span
+      >
+      <span *ngIf="!event.thresholdReached"
+        >{{
+          'chat-component.' + disasterTypeName + '.alertLevel.expected'
+            | translate
+        }}
+        {{ event.firstLeadTimeDate }}</span
+      >
     </p>
     <p *ngIf="event.affectedAreas">
-      <strong>{{ 'chat-component.' + disasterTypeName + '.alertLevel.exposed-areas' | translate : {adminAreaLabelPlural: adminAreaLabelPlural} }} </strong>
+      <strong
+        >{{
+          'chat-component.' + disasterTypeName + '.alertLevel.exposed-areas'
+            | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
+        }}
+      </strong>
       <span>{{ event.affectedAreas }}</span>
     </p>
   </ng-container>
@@ -172,7 +191,10 @@
           *ngIf="
             !class.areas[0].actionsValue || class.areas[0].actionsValue === 0
           "
-          >{{ 'chat-component.' + disasterTypeName + '.alertLevel.no-data' | translate }}</span
+          >{{
+            'chat-component.' + disasterTypeName + '.alertLevel.no-data'
+              | translate
+          }}</span
         >
       </p>
       <ul>
