@@ -168,12 +168,11 @@
     ></p>
     <div *ngFor="let class of alertClasses">
       <p class="ion-padding-top" *ngIf="class.alertClass !== 'undefined'">
-        <strong>{{ class.alertClass }}: </strong
-        ><span
+        <span
           *ngIf="
             !class.areas[0].actionsValue || class.areas[0].actionsValue === 0
           "
-          >(no exposed population data available)</span
+          >{{ 'chat-component.' + disasterTypeName + '.alertLevel.no-data' | translate }}</span
         >
       </p>
       <ul>

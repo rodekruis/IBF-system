@@ -41,6 +41,7 @@ export class DisasterSpecificProperties {
     value: string;
     color: string;
     textColor?: string;
+    label?: string;
   };
 }
 

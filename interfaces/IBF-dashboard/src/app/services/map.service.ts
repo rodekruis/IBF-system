@@ -67,7 +67,7 @@ export class MapService {
     defaultFillColor: '#A0B6EB',
     strokeColor: '#969696',
     colorStopped: '#d9d9d9',
-    noDataColor: '#fcf2d4',
+    noDataColor: '#d3dae0',
     transparentColor: 'transparent',
     defaultFillOpacity: 0.8,
     defaultWeight: 1,

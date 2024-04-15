@@ -147,13 +147,13 @@
         "header-ongoing": "Ongoing trigger: {{ eventName }} on {{firstTriggerLeadTimeDate}}",
         "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
         "header-ongoing-below-trigger": "Ongoing warning: {{ eventName }} on {{firstLeadTimeDate}}",
-        "welcome": "First warning on {{firstLeadTimeDate}}",
+        "welcome": "Flood expected to start on {{firstLeadTimeDate}}",
         "welcome-below-trigger": ""
       },
       "active-event": {
-        "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} exposed. They are listed below by alert level and by {{ actionIndicator}}. Only triggered {{adminAreaLabelPlural}} are highlighted in the map with a red outline.",
-        "overview-below-trigger": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} exposed. They are listed below by alert level and by {{ actionIndicator}}.",
-        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions of each area.",
+        "overview": "",
+        "overview-below-trigger": "",
+        "instruction": "",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:"
       },
@@ -165,7 +165,12 @@
       "event-switcher": {
         "current-event-message": "Back to national view",
         "switch-event-button": "Show prediction"
+      },
+      "alertLevel": {
+        "expected": "expected on",
+        "expected-trigger": "expected to reach threshold on",
         "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
+        "no-data": "No exposed population data available"
       }
     },
     "flash-floods": {
