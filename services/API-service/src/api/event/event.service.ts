@@ -76,6 +76,8 @@ export class EventService {
         'event."eventName"',
         'event."triggerValue"',
       ])
+      .distinctOn(['event."eventName"'])
+      .orderBy({ 'event."eventName"': 'ASC', 'event."triggerValue"': 'DESC' })
       .leftJoin('event.adminArea', 'area')
       .groupBy('area."countryCodeISO3"')
       .addGroupBy('event."eventName"')
