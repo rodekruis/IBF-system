@@ -111,6 +111,18 @@
     ></p>
   </ng-container>
 
+  <ng-container *ngIf="isEventWithForecastClasses()">
+    <p>
+      <strong>{{ event.disasterSpecificProperties.eapAlertClass.label }}: </strong>
+      <span *ngIf="event.thresholdReached">{{ 'chat-component.' + disasterTypeName + '.alertLevel.expected-trigger' | translate }} {{ event.firstTriggerLeadTimeDate }}</span>
+      <span *ngIf="!event.thresholdReached">{{ 'chat-component.' + disasterTypeName + '.alertLevel.expected' | translate }} {{ event.firstLeadTimeDate }}</span>
+    </p>
+    <p *ngIf="event.affectedAreas">
+      <strong>{{ 'chat-component.' + disasterTypeName + '.alertLevel.exposed-districts' | translate }} </strong>
+      <span>{{ event.affectedAreas }}</span>
+    </p>
+  </ng-container>
+
   <p *ngIf="typhoonLandfallText" [innerHTML]="typhoonLandfallText"></p>
 
   <p *ngIf="forecastInfo && countryCodeISO3 === 'ZWE'">
