@@ -50,36 +50,52 @@
             style="--inner-padding-end: 4px"
             color="ibf-white"
           >
-            <ion-label class="ion-text-right" data-test="aggregate-number">
-
+            <ion-label
+              *ngIf="!isAggregateNan(indicator.name)"
+              class="ion-text-right"
+              data-test="aggregate-number"
+            >
               <span *ngIf="indicator.numberFormatAggregate === 'decimal2'">
                 {{
-                  (getAggregate(
+                  getAggregate(
                     indicator.name,
                     indicator.weightedAvg,
                     indicator.numberFormatAggregate
-                  ) | number: '.2-2') || 'aggregates-component.not-applicable' | translate
+                  )
+                    | number: '.2-2'
+                    | translate
                 }}
               </span>
               <span *ngIf="indicator.numberFormatAggregate === 'decimal0'">
                 {{
-                  (getAggregate(
+                  getAggregate(
                     indicator.name,
                     indicator.weightedAvg,
                     indicator.numberFormatAggregate
-                  ) | number: '.0-0') || 'aggregates-component.not-applicable' | translate
+                  )
+                    | number: '.0-0'
+                    | translate
                 }}
               </span>
               <span *ngIf="indicator.numberFormatAggregate === 'perc'">
                 {{
-                  (getAggregate(
+                  getAggregate(
                     indicator.name,
                     indicator.weightedAvg,
                     indicator.numberFormatAggregate
-                  ) | percent: '.0-0') || 'aggregates-component.not-applicable' | translate
+                  )
+                    | percent: '.0-0'
+                    | translate
                 }}
               </span>
               {{ indicator.aggregateUnit }}
+            </ion-label>
+            <ion-label
+              *ngIf="isAggregateNan(indicator.name)"
+              class="ion-text-right"
+              data-test="aggregate-na"
+            >
+              {{ 'aggregates-component.not-applicable' | translate }}
             </ion-label>
           </ion-item>
         </ion-col>

@@ -252,7 +252,7 @@ export class AggregatesService {
     placeCode: string,
     numberFormat: NumberFormat,
     areaStatus: AreaStatus,
-  ): number | null {
+  ): number {
     let weighingIndicatorName: IbfLayerName;
     if (this.disasterType) {
       weighingIndicatorName = this.indicators.find((i) => i.name === indicator)
@@ -272,7 +272,7 @@ export class AggregatesService {
           weighingIndicatorName,
           placeCode,
         ),
-        null || 0,
+        0,
       );
 
     let aggregateValue: number;
@@ -297,18 +297,22 @@ export class AggregatesService {
   ) => (accumulator, aggregate) => {
     let indicatorValue = 0;
 
-    if (!aggregate[indicator]) {
-      return null;
-    }
-
     if (placeCode === null || placeCode === aggregate.placeCode) {
       const indicatorWeight = weightedAverage
         ? aggregate[weighingIndicator]
         : 1;
 
-      indicatorValue = indicatorWeight * aggregate[indicator];
+      indicatorValue = indicatorWeight * (aggregate[indicator] || 0);
     }
 
     return accumulator + indicatorValue;
   };
+
+  public isAggregateNan(indicator: IbfLayerName, placecode: string): boolean {
+    let aggregates = this.aggregates;
+    if (placecode) {
+      aggregates = this.aggregates.filter((a) => a.placeCode === placecode);
+    }
+    return aggregates.every((a) => a[indicator] === null);
+  }
 }
