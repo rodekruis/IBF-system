@@ -198,8 +198,12 @@
         >
       </p>
       <ul class="area-list">
-        <li *ngFor="let area of class.areas" (click)="selectArea(area)">
-          <p class="clickable-area">
+        <li
+          class="clickable-area"
+          *ngFor="let area of class.areas"
+          (click)="selectArea(area)"
+        >
+          <p>
             {{ area.name }}
             <span *ngIf="area.nameParent">({{ area.nameParent }})</span>
             <ng-container *ngIf="area.actionsValue && area.actionsValue > 0">
