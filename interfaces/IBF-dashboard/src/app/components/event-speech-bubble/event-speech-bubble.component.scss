@@ -22,6 +22,10 @@ ion-checkbox {
 .clickable-area {
   text-decoration: underline;
   cursor: pointer;
+
+  :hover {
+    font-weight: bold;
+  }
 }
 
 .event-header {

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { DateTime } from 'luxon';
 
 @Component({
@@ -6,7 +6,7 @@ import { DateTime } from 'luxon';
   templateUrl: './dialogue-turn.component.html',
   styleUrls: ['./dialogue-turn.component.scss'],
 })
-export class DialogueTurnComponent implements AfterViewInit {
+export class DialogueTurnComponent implements OnChanges {
   @Input()
   isSpoken = false;
 
@@ -40,19 +40,20 @@ export class DialogueTurnComponent implements AfterViewInit {
 
   public mouseOver = false;
 
-  ngAfterViewInit(): void {
-    this.isSelected = false;
-    this.mouseOver = false;
-  }
-
   show() {
     this.isSpoken = true;
   }
 
-  onMouseOver() {
+  ngOnChanges(): void {
+    if (!this.isSelected) {
+      this.mouseOver = false;
+    }
+  }
+
+  public onMouseOver() {
     this.mouseOver = true;
   }
-  onMouseOut() {
+  public onMouseOut() {
     this.mouseOver = false;
   }
 }

@@ -1,3 +1,5 @@
+<ng-template #contentTemplate><ng-content></ng-content></ng-template>
+
 <div
   data-test="chat"
   class="dialogue-turn ion-align-items-start"
@@ -14,16 +16,25 @@
 >
   <div class="dialogue-turn--content">
     <ion-card
+      *ngIf="isSelected"
+      [style.border-color]="borderColor"
+      (mouseout)="onMouseOut()"
+    >
+      <ion-card-content>
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+        <small><app-timestamp [timestamp]="timestamp"></app-timestamp></small>
+      </ion-card-content>
+    </ion-card>
+    <ion-card
+      *ngIf="!isSelected"
       (mouseover)="onMouseOver()"
       (mouseout)="onMouseOut()"
       [style.border-color]="
-        mouseOver || isSelected
-          ? borderColor
-          : 'var(--ion-color-fiveten-neutral-100)'
+        mouseOver ? borderColor : 'var(--ion-color-fiveten-neutral-100)'
       "
     >
       <ion-card-content>
-        <ng-content></ng-content>
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
         <small><app-timestamp [timestamp]="timestamp"></app-timestamp></small>
       </ion-card-content>
     </ion-card>
