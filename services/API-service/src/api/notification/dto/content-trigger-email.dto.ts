@@ -4,7 +4,7 @@ import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entit
 import { AdminAreaLabel } from './admin-area-notification-info.dto';
 import { NotificationDataPerEventDto } from './notification-date-per-event.dto';
 
-export class ContentTriggerEmail {
+export class ContentEventEmail {
   public disasterType: DisasterType;
   public disasterTypeLabel: string;
   public indicatorMetadata: IndicatorMetadataEntity;
