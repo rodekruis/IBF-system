@@ -23,7 +23,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
-import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
+import {
+  DisasterSpecificProperties,
+  EventSummaryCountry,
+  TriggeredArea,
+} from '../../shared/data.model';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DateDto } from './dto/date.dto';
 import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
@@ -34,6 +38,7 @@ import { UserEntity } from '../user/user.entity';
 import { EventMapImageEntity } from './event-map-image.entity';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import { CountryEntity } from '../country/country.entity';
+import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
 
 @Injectable()
 export class EventService {
@@ -74,6 +79,7 @@ export class EventService {
       disasterType: disasterType,
     });
     const rawEventSummary = await eventSummaryQueryBuilder.getRawMany();
+
     const eventSummary = await this.populateEventsDetails(
       rawEventSummary,
       countryCodeISO3,
@@ -121,6 +127,10 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ) {
+    const disasterSettings = await this.getCountryDisasterSettings(
+      countryCodeISO3,
+      disasterType,
+    );
     for (const event of events) {
       event.firstLeadTime = await this.getFirstLeadTime(
         countryCodeISO3,
@@ -141,6 +151,12 @@ export class EventService {
             event.eventName,
           );
       }
+      if (disasterSettings.eapAlertClasses) {
+        event.disasterSpecificProperties = await this.geEventEapAlertClass(
+          disasterSettings,
+          event.triggerValue,
+        );
+      }
     }
     return events;
   }
@@ -150,10 +166,15 @@ export class EventService {
   ): SelectQueryBuilder<EventPlaceCodeEntity> {
     return this.eventPlaceCodeRepo
       .createQueryBuilder('event')
-      .select(['area."countryCodeISO3"', 'event."eventName"'])
+      .select([
+        'area."countryCodeISO3"',
+        'event."eventName"',
+        'event."triggerValue"',
+      ])
       .leftJoin('event.adminArea', 'area')
       .groupBy('area."countryCodeISO3"')
       .addGroupBy('event."eventName"')
+      .addGroupBy('event."triggerValue"')
       .addSelect([
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
@@ -1000,5 +1021,24 @@ export class EventService {
     });
 
     return eventMapImageEntity?.image;
+  }
+
+  private async geEventEapAlertClass(
+    disasterSettings: CountryDisasterSettingsEntity,
+    eventTriggerValue: number,
+  ): Promise<DisasterSpecificProperties> {
+    const eapAlertClasses = JSON.parse(
+      JSON.stringify(disasterSettings.eapAlertClasses),
+    );
+    const alertClassKey = Object.keys(eapAlertClasses).find(
+      (key) => eapAlertClasses[key].value === eventTriggerValue,
+    );
+
+    return {
+      eapAlertClass: {
+        key: alertClassKey,
+        ...eapAlertClasses[alertClassKey],
+      },
+    };
   }
 }
