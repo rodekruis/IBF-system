@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ContentTriggerEmail } from '../dto/content-trigger-email.dto';
+import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import {
   NotificationDataPerEventDto,
@@ -26,11 +26,11 @@ export class EmailTemplateService {
   private placeholderToday = '(TODAY)';
 
   public createHtmlForTriggerEmail(
-    contentForEmail: ContentTriggerEmail,
+    emailContent: ContentEventEmail,
     date: Date,
   ): string {
     const replaceKeyValues = this.createReplaceKeyValuesTrigger(
-      contentForEmail,
+      emailContent,
       date,
     );
     return this.formatEmail(replaceKeyValues);
@@ -40,14 +40,14 @@ export class EmailTemplateService {
   public createHtmlForTriggerFinishedEmail(
     country: CountryEntity,
     disasterType: DisasterType,
-    finishedEvent: EventSummaryCountry,
+    finishedEvents: EventSummaryCountry[],
     disasterTypeLabel: string,
     date: Date,
   ): string {
     const replaceKeyValues = this.createReplaceKeyValuesTriggerFinished(
       country,
       disasterType,
-      finishedEvent,
+      finishedEvents,
       disasterTypeLabel,
       date,
     );
@@ -55,11 +55,11 @@ export class EmailTemplateService {
   }
 
   private createReplaceKeyValuesTrigger(
-    contentForEmail: ContentTriggerEmail,
+    emailContent: ContentEventEmail,
     date: Date,
   ): ReplaceKeyValue[] {
-    const country = contentForEmail.country;
-    const disasterType = contentForEmail.disasterType;
+    const country = emailContent.country;
+    const disasterType = emailContent.disasterType;
     const keyValueReplaceList = [
       {
         replaceKey: 'emailBody',
@@ -67,15 +67,15 @@ export class EmailTemplateService {
       },
       {
         replaceKey: 'headerEventOverview',
-        replaceValue: this.getHeaderEventOverview(contentForEmail.dataPerEvent),
+        replaceValue: this.getHeaderEventStarted(emailContent),
       },
       {
         replaceKey: 'socialMediaPart',
-        replaceValue: this.getSocialMediaHtml(contentForEmail.country),
+        replaceValue: this.getSocialMediaHtml(emailContent.country),
       },
       {
         replaceKey: 'tablesStacked',
-        replaceValue: this.getTablesForEvents(contentForEmail),
+        replaceValue: this.getTablesForEvents(emailContent),
       },
       {
         replaceKey: this.placeholderToday,
@@ -87,7 +87,7 @@ export class EmailTemplateService {
       },
       {
         replaceKey: 'eventListBody',
-        replaceValue: this.getEventListBody(contentForEmail),
+        replaceValue: this.getEventListBody(emailContent),
       },
       {
         replaceKey: 'imgLogo',
@@ -99,7 +99,7 @@ export class EmailTemplateService {
       },
       {
         replaceKey: 'mapImagePart',
-        replaceValue: this.getMapImageHtml(contentForEmail),
+        replaceValue: this.getMapImageHtml(emailContent),
       },
       {
         replaceKey: 'linkDashboard',
@@ -121,7 +121,7 @@ export class EmailTemplateService {
       },
       {
         replaceKey: 'disasterType',
-        replaceValue: contentForEmail.disasterTypeLabel,
+        replaceValue: emailContent.disasterTypeLabel,
       },
       {
         replaceKey: 'videoPdfLinks',
@@ -137,7 +137,7 @@ export class EmailTemplateService {
   private createReplaceKeyValuesTriggerFinished(
     country: CountryEntity,
     disasterType: DisasterType,
-    event: EventSummaryCountry,
+    events: EventSummaryCountry[],
     disasterTypeLabel: string,
     date: Date,
   ): ReplaceKeyValue[] {
@@ -151,12 +151,16 @@ export class EmailTemplateService {
         replaceValue: '',
       },
       {
-        replaceKey: 'imgLogo',
-        replaceValue: country.notificationInfo.logo[disasterType],
+        replaceKey: 'eventOverview',
+        replaceValue: this.geEventsFinishedOverview(
+          country,
+          events,
+          disasterTypeLabel,
+        ),
       },
       {
-        replaceKey: 'startDate',
-        replaceValue: event.startDate,
+        replaceKey: 'imgLogo',
+        replaceValue: country.notificationInfo.logo[disasterType],
       },
       {
         replaceKey: 'linkDashboard',
@@ -217,16 +221,42 @@ export class EmailTemplateService {
     }
   }
 
-  private getHeaderEventOverview(
-    eventsData: NotificationDataPerEventDto[],
+  private geEventsFinishedOverview(
+    country: CountryEntity,
+    events: EventSummaryCountry[],
+    disasterTypeLabel: string,
   ): string {
-    const leadTimeListShort = this.getEventListShort(eventsData);
+    let html = '';
+
+    const template = fs.readFileSync(
+      './src/api/notification/email/html/event-finished.html',
+      'utf-8',
+    );
+
+    for (const event of events) {
+      const eventFinshedHtml = ejs.render(template, {
+        disasterTypeLabel: disasterTypeLabel,
+        eventName: event.eventName,
+        issuedDate: 'yo',
+        timezone: CountryTimeZoneMapping[country.countryCodeISO3],
+      });
+      html += eventFinshedHtml;
+    }
+    return html;
+  }
+
+  private getHeaderEventStarted(emailContent: ContentEventEmail): string {
     let headerEventOverview = fs.readFileSync(
       './src/api/notification/email/html/header-event-overview.html',
       'utf8',
     );
     headerEventOverview = ejs.render(headerEventOverview, {
-      eventListHeader: leadTimeListShort,
+      sentOnDate: this.getCurrentDateTimeString(
+        emailContent.country.countryCodeISO3,
+      ),
+      disasterLabel: emailContent.disasterTypeLabel,
+      nrOfEvents: emailContent.dataPerEvent.length,
+      timezone: CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
     });
     return headerEventOverview;
   }
@@ -288,9 +318,9 @@ export class EmailTemplateService {
     }
   }
 
-  private getMapImageHtml(contentForEmail: ContentTriggerEmail): string {
+  private getMapImageHtml(emailContent: ContentEventEmail): string {
     let html = '';
-    for (const event of contentForEmail.dataPerEvent) {
+    for (const event of emailContent.dataPerEvent) {
       const mapImage = event.mapImage;
       if (mapImage) {
         let eventHtml = fs.readFileSync(
@@ -299,12 +329,12 @@ export class EmailTemplateService {
         );
         const replacements = {
           mapImgSrc: this.getMapImgSrc(
-            contentForEmail.country.countryCodeISO3,
-            contentForEmail.disasterType,
+            emailContent.country.countryCodeISO3,
+            emailContent.disasterType,
             event.eventName,
           ),
           mapImgDescription: this.getMapImageDescription(
-            contentForEmail.disasterType,
+            emailContent.disasterType,
           ),
           eventName: event.eventName ? ` for '${event.eventName}'` : '',
         };
@@ -387,7 +417,7 @@ export class EmailTemplateService {
     return text;
   }
 
-  private getTablesForEvents(emailContent: ContentTriggerEmail): string {
+  private getTablesForEvents(emailContent: ContentEventEmail): string {
     const adminAreaLabelsParent =
       emailContent.country.adminRegionLabels[
         String(emailContent.defaultAdminLevel - 1)
@@ -445,7 +475,7 @@ export class EmailTemplateService {
       .join('');
   }
 
-  private getEventListBody(emailContent: ContentTriggerEmail): string {
+  private getEventListBody(emailContent: ContentEventEmail): string {
     return emailContent.dataPerEvent
       .map((event) => {
         const data = {
@@ -457,8 +487,11 @@ export class EmailTemplateService {
           nrOfTriggeredAreas: event.nrOfTriggeredAreas,
           expectedTriggerDate: event.firstLeadTime,
           expectedExposedAdminBoundary: event.nrOfTriggeredAreas,
-          issuedDate: event.disasterSpecificCopy.timestamp,
-          startDateEventString: event.startDateEventString,
+          issuedDate: this.dateObjectToDateTimeString(
+            event.issuedDate,
+            emailContent.country.countryCodeISO3,
+          ),
+          startDateEventString: event.startDateDisasterString,
           defaulAdminAreaLabel:
             emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
           indicatorLabel: emailContent.indicatorMetadata.label,
@@ -487,9 +520,14 @@ export class EmailTemplateService {
 
   private getCurrentDateTimeString(countryCodeISO3: string): string {
     const date = new Date();
+    return this.dateObjectToDateTimeString(date, countryCodeISO3);
+  }
 
+  private dateObjectToDateTimeString(
+    date: Date,
+    countryCodeISO3: string,
+  ): string {
     const timeZone = CountryTimeZoneMapping[countryCodeISO3];
-
     const options: Intl.DateTimeFormatOptions = {
       weekday: 'long',
       day: '2-digit',
@@ -499,7 +537,6 @@ export class EmailTemplateService {
       minute: '2-digit',
       timeZone: timeZone,
     };
-
     return date.toLocaleString('default', options);
   }
 

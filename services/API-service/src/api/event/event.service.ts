@@ -15,6 +15,8 @@ import {
   MoreThan,
   IsNull,
   DataSource,
+  SelectQueryBuilder,
+  Between,
 } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -64,28 +66,62 @@ export class EventService {
     disasterType: DisasterType,
   ): Promise<EventSummaryCountry[]> {
     const recentDate = await this.getRecentDate(countryCodeISO3, disasterType);
-    const eventSummary = await this.eventPlaceCodeRepo
-      .createQueryBuilder('event')
-      .select(['area."countryCodeISO3"', 'event."eventName"'])
-      .leftJoin('event.adminArea', 'area')
-      .groupBy('area."countryCodeISO3"')
-      .addGroupBy('event."eventName"')
-      .addSelect([
-        'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
-        'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
-        'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
-      ])
-      .where({
-        closed: false,
-        endDate: MoreThanOrEqual(recentDate.date),
-        disasterType: disasterType,
-      })
-      .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
-      })
-      .getRawMany();
+    const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
+      countryCodeISO3,
+    ).andWhere({
+      closed: false,
+      endDate: MoreThanOrEqual(recentDate.date),
+      disasterType: disasterType,
+    });
+    const rawEventSummary = await eventSummaryQueryBuilder.getRawMany();
+    const eventSummary = await this.populateEventsDetails(
+      rawEventSummary,
+      countryCodeISO3,
+      disasterType,
+    );
+    return eventSummary;
+  }
 
-    for await (const event of eventSummary) {
+  public async getEventsSummaryTriggerFinishedMail(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<EventSummaryCountry[]> {
+    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
+      countryCodeISO3,
+    );
+
+    // I spend quite some time on trying to figure out what is the right query to get the event finished summary for the trigger closed email
+    // I came up with the following query but I am not sure if it is correct and how to test it properly
+    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const sixDaysAgo = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000);
+    const whereFilters = {
+      endDate: Between(sevenDaysAgo, sixDaysAgo),
+      adminArea: In(countryAdminAreaIds),
+      disasterType: disasterType,
+      closed: true,
+    };
+
+    const eventSummaryQueryBuilder =
+      this.createEventSummaryQueryBuilder(countryCodeISO3).andWhere(
+        whereFilters,
+      );
+
+    const rawEventSummaryTriggerFinished =
+      await eventSummaryQueryBuilder.getRawMany();
+    const eventSummaryTriggerFinished = await this.populateEventsDetails(
+      rawEventSummaryTriggerFinished,
+      countryCodeISO3,
+      disasterType,
+    );
+    return eventSummaryTriggerFinished;
+  }
+
+  private async populateEventsDetails(
+    events: EventSummaryCountry[],
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ) {
+    for (const event of events) {
       event.firstLeadTime = await this.getFirstLeadTime(
         countryCodeISO3,
         disasterType,
@@ -106,7 +142,26 @@ export class EventService {
           );
       }
     }
-    return eventSummary;
+    return events;
+  }
+
+  private createEventSummaryQueryBuilder(
+    countryCodeISO3: string,
+  ): SelectQueryBuilder<EventPlaceCodeEntity> {
+    return this.eventPlaceCodeRepo
+      .createQueryBuilder('event')
+      .select(['area."countryCodeISO3"', 'event."eventName"'])
+      .leftJoin('event.adminArea', 'area')
+      .groupBy('area."countryCodeISO3"')
+      .addGroupBy('event."eventName"')
+      .addSelect([
+        'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
+        'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
+        'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
+      ])
+      .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
+        countryCodeISO3: countryCodeISO3,
+      });
   }
 
   public async getRecentDate(
@@ -887,7 +942,8 @@ export class EventService {
       where: whereFilters,
     });
 
-    //Below threshold events can be removed from this table after closing
+    // Below threshold events can be removed from this table after closing
+    // Below threshold events are warnings an not triggered. I do not know why they are removed here
     const belowThresholdEvents = expiredEventAreas.filter(
       (a) => !a.thresholdReached,
     );

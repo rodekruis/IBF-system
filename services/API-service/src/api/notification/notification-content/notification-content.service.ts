@@ -6,19 +6,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
-import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { DisasterEntity } from '../../disaster/disaster.entity';
 import { EventSummaryCountry, TriggeredArea } from '../../../shared/data.model';
-import { AdminAreaDataService } from '../../admin-area-data/admin-area-data.service';
-import { AdminAreaService } from '../../admin-area/admin-area.service';
 import { HelperService } from '../../../shared/helper.service';
 import {
   NotificationDataPerEventDto,
   TriggerStatusLabelEnum,
 } from '../dto/notification-date-per-event.dto';
 import { AdminAreaLabel } from '../dto/admin-area-notification-info.dto';
-import { ContentTriggerEmail } from '../dto/content-trigger-email.dto';
+import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 
 @Injectable()
 export class NotificationContentService {
@@ -38,8 +35,8 @@ export class NotificationContentService {
     country: CountryEntity,
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
-  ): Promise<ContentTriggerEmail> {
-    const content = new ContentTriggerEmail();
+  ): Promise<ContentEventEmail> {
+    const content = new ContentEventEmail();
     content.disasterType = disasterType;
     content.disasterTypeLabel = await this.getDisasterTypeLabel(disasterType);
     content.dataPerEvent = await this.getNotificationDataForEvents(
@@ -169,17 +166,16 @@ export class NotificationContentService {
     data.nrOfTriggeredAreas = await this.getNrOfTriggeredAreas(
       data.triggeredAreas,
     );
-
-    data.startDateEventString = await this.getFirstLeadTimeDate(
-      Number(event.firstLeadTime.split('-')[0]),
-      event.firstLeadTime.split('-')[1],
+    // This looks weird, but as far as I understand the startDate of the event is the day it was first issued
+    data.issuedDate = new Date(event.startDate);
+    data.startDateDisasterString = await this.getFirstLeadTimeString(
+      event,
       event.countryCodeISO3,
       disasterType,
     );
     data.totalAffectectedOfIndicator = this.getTotalAffectedPerEvent(
       data.triggeredAreas,
     );
-
     data.mapImage = await this.eventService.getEventMapImage(
       country.countryCodeISO3,
       disasterType,
@@ -270,7 +266,7 @@ export class NotificationContentService {
     });
   }
 
-  public async getStartTimeEvent(
+  public async getFirstLeadTimeString(
     event: EventSummaryCountry,
     countryCodeISO3: string,
     disasterType: DisasterType,

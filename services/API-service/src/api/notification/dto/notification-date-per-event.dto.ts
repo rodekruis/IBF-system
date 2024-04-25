@@ -8,9 +8,10 @@ export class NotificationDataPerEventDto {
   firstLeadTime: LeadTime;
   triggeredAreas: TriggeredArea[];
   nrOfTriggeredAreas: number;
-  startDateEventString: string;
+  startDateDisasterString: string;
   totalAffectectedOfIndicator: number;
   mapImage?: Buffer;
+  issuedDate: Date;
 }
 
 export enum TriggerStatusLabelEnum {

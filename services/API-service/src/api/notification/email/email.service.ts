@@ -1,4 +1,3 @@
-
 import { CountryEntity } from './../../country/country.entity';
 import { Injectable } from '@nestjs/common';
 import Mailchimp from 'mailchimp-api-v3';
@@ -47,14 +46,14 @@ export class EmailService {
   ): Promise<void> {
     date = date ? new Date(date) : new Date();
 
-    const contentForEmail =
+    const emailContent =
       await this.notificationContentService.getContentTriggerNotification(
         country,
         disasterType,
         activeEvents,
       );
     const emailHtml = this.emailTemplateService.createHtmlForTriggerEmail(
-      contentForEmail,
+      emailContent,
       date,
     );
     const emailSubject = `IBF ${(
@@ -71,7 +70,7 @@ export class EmailService {
   public async sendTriggerFinishedEmail(
     country: CountryEntity,
     disasterType: DisasterType,
-    finishedEvent: EventSummaryCountry,
+    finishedEvents: EventSummaryCountry[],
     date?: Date,
   ): Promise<void> {
     const disasterTypeLabel =
@@ -80,7 +79,7 @@ export class EmailService {
       this.emailTemplateService.createHtmlForTriggerFinishedEmail(
         country,
         disasterType,
-        finishedEvent,
+        finishedEvents,
         disasterTypeLabel,
         date ? new Date(date) : new Date(),
       );

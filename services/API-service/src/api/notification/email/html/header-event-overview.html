@@ -1,5 +1,18 @@
 <tr>
   <td colspan="2" class="notification-sub-title">
-    <h3 class="notification-sub-title-left"><%- eventListHeader %></h3>
+    <h3 class="notification-sub-title-left">
+      <%= nrOfEvents %> <%= disasterLabel %> alerts
+    </h3>
+    <span
+      style="
+        font-size: 18px;
+        font-family: Inter;
+        font-weight: 700;
+        line-height: 22.4px;
+        text-align: center;
+      "
+      class="notification-sub-title-left"
+      >IBF alert send on <%= sentOnDate %> (<%= timezone %>)</span
+    >
   </td>
 </tr>

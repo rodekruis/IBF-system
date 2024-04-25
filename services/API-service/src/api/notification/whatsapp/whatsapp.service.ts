@@ -16,7 +16,6 @@ import {
   TwilioStatusCallbackDto,
 } from './twilio.dto';
 import { NotificationType, TwilioMessageEntity } from './twilio.entity';
-import { EmailTemplateService } from '../email/email-template.service';
 import { formatActionUnitValue } from '../helpers/format-action-unit-value.helper';
 
 @Injectable()
@@ -89,7 +88,7 @@ export class WhatsappService {
         ? 'trigger'
         : 'warning';
       const startTimeEvent =
-        await this.notificationContentService.getStartTimeEvent(
+        await this.notificationContentService.getFirstLeadTimeString(
           activeEvents[0],
           country.countryCodeISO3,
           disasterType,
@@ -107,7 +106,7 @@ export class WhatsappService {
         ];
 
       const startTimeFirstEvent =
-        await this.notificationContentService.getStartTimeEvent(
+        await this.notificationContentService.getFirstLeadTimeString(
           activeEvents[0],
           country.countryCodeISO3,
           disasterType,
@@ -385,7 +384,7 @@ export class WhatsappService {
     }
 
     const startTimeEvent =
-      await this.notificationContentService.getStartTimeEvent(
+      await this.notificationContentService.getFirstLeadTimeString(
         event,
         country.countryCodeISO3,
         disasterType,
