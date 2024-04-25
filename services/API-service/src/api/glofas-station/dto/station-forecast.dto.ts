@@ -6,6 +6,7 @@ import {
   IsString,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { EapAlertClassKeyEnum } from '../../../shared/data.model';
 
 export class GlofasStationForecastDto {
   @ApiProperty({ example: 'G1374' })
@@ -20,7 +21,7 @@ export class GlofasStationForecastDto {
 
   @ApiProperty({ example: 1 })
   @IsNotEmpty()
-  @IsIn(['no', 'min', 'med', 'max'])
+  @IsIn(Object.values(EapAlertClassKeyEnum))
   public eapAlertClass: string;
 
   @ApiProperty({ example: 10 })
