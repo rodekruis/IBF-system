@@ -1,4 +1,4 @@
-import { TriggeredArea } from '../../../shared/data.model';
+import { EapAlertClass, TriggeredArea } from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 
 export class NotificationDataPerEventDto {
@@ -12,6 +12,7 @@ export class NotificationDataPerEventDto {
   totalAffectectedOfIndicator: number;
   mapImage?: Buffer;
   issuedDate: Date;
+  eapAlertClass: EapAlertClass;
 }
 
 export enum TriggerStatusLabelEnum {

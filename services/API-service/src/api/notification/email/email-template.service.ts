@@ -9,7 +9,10 @@ import * as ejs from 'ejs';
 import * as fs from 'fs';
 import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
 import { DisasterType } from '../../disaster/disaster-type.enum';
-import { EventSummaryCountry } from '../../../shared/data.model';
+import {
+  EapAlertClassKeyEnum,
+  EventSummaryCountry,
+} from '../../../shared/data.model';
 import { CountryEntity } from '../../country/country.entity';
 
 const emailFolder = './src/api/notification/email';
@@ -23,8 +26,6 @@ class ReplaceKeyValue {
 
 @Injectable()
 export class EmailTemplateService {
-  private placeholderToday = '(TODAY)';
-
   public createHtmlForTriggerEmail(
     emailContent: ContentEventEmail,
     date: Date,
@@ -76,14 +77,6 @@ export class EmailTemplateService {
       {
         replaceKey: 'tablesStacked',
         replaceValue: this.getTablesForEvents(emailContent),
-      },
-      {
-        replaceKey: this.placeholderToday,
-        replaceValue: date.toLocaleDateString('default', {
-          day: '2-digit',
-          month: 'short',
-          year: 'numeric',
-        }),
       },
       {
         replaceKey: 'eventListBody',
@@ -194,14 +187,6 @@ export class EmailTemplateService {
       {
         replaceKey: 'disasterType',
         replaceValue: disasterTypeLabel,
-      },
-      {
-        replaceKey: this.placeholderToday,
-        replaceValue: date.toLocaleDateString('default', {
-          day: '2-digit',
-          month: 'short',
-          year: 'numeric',
-        }),
       },
     ];
     return keyValueReplaceList;
@@ -395,34 +380,11 @@ export class EmailTemplateService {
     return emailHtml;
   }
 
-  // TODO refactor this to use ejs package to render the html
-  private getEventListShort(
-    dataPerEvent: NotificationDataPerEventDto[],
-  ): string {
-    let text = '';
-    for (const event of dataPerEvent) {
-      const leadTimeString = event.disasterSpecificCopy.leadTimeString
-        ? event.disasterSpecificCopy.leadTimeString
-        : event.firstLeadTime;
-      const timestamp = event.disasterSpecificCopy.timestamp
-        ? ` at ${event.disasterSpecificCopy.timestamp}`
-        : '';
-      text += `${event.triggerStatusLabel} for ${event.eventName}: ${
-        event.disasterSpecificCopy.extraInfo ||
-        event.firstLeadTime === LeadTime.hour0
-          ? leadTimeString
-          : `${event.firstLeadTime}${timestamp}`
-      }<br />`;
-    }
-    return text;
-  }
-
   private getTablesForEvents(emailContent: ContentEventEmail): string {
     const adminAreaLabelsParent =
       emailContent.country.adminRegionLabels[
         String(emailContent.defaultAdminLevel - 1)
       ];
-
     return emailContent.dataPerEvent
       .map((event) => {
         const data = {
@@ -438,12 +400,10 @@ export class EmailTemplateService {
           defaultAdminAreaLabelParent: adminAreaLabelsParent.singular,
           indicatorLabel: emailContent.indicatorMetadata.label,
           indicatorUnit: emailContent.indicatorMetadata.unit,
-          triangleIcon: this.getTriangleIcon(event.triggerStatusLabel),
+          triangleIcon: this.getTriangleIcon(event.eapAlertClass?.key),
           tableRows: this.getTablesRows(event),
-          color:
-            event.triggerStatusLabel === TriggerStatusLabelEnum.Trigger
-              ? '#940000'
-              : '#da7c00',
+          color: this.ibfColorToHex(event.eapAlertClass?.color),
+          severityLabel: this.getEventSeverityLabel(event.eapAlertClass?.key),
         };
 
         const templatePath = `${emailTemplateFolder}/email-table-event.html`;
@@ -454,6 +414,16 @@ export class EmailTemplateService {
         return result;
       })
       .join('');
+  }
+
+  private getEventSeverityLabel(eapAlertClassKey: EapAlertClassKeyEnum) {
+    if (eapAlertClassKey === EapAlertClassKeyEnum.med) {
+      return 'Medium';
+    } else if (eapAlertClassKey === EapAlertClassKeyEnum.min) {
+      return 'Low';
+    } else {
+      return '';
+    }
   }
 
   private getTablesRows(event: NotificationDataPerEventDto) {
@@ -502,8 +472,10 @@ export class EmailTemplateService {
           ),
           timezone:
             CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
-          triangleIcon: this.getTriangleIcon(event.triggerStatusLabel),
+          triangleIcon: this.getTriangleIcon(event.eapAlertClass?.key),
           leadTime: event.firstLeadTime.replace('-', ' '),
+          disasterIssuedLabel: event.eapAlertClass.label,
+          color: this.ibfColorToHex(event.eapAlertClass?.color),
         };
 
         const templatePath =
@@ -516,6 +488,18 @@ export class EmailTemplateService {
         return ejs.render(template, data);
       })
       .join('');
+  }
+
+  private ibfColorToHex(color: string): string {
+    // TODO: Define in a place where FrontEnd and Backend can share this
+    switch (color) {
+      case 'ibf-orange':
+        return '#f0890d';
+      case 'ibf-yellow':
+        return '#fff500';
+      default:
+        return '#c70000';
+    }
   }
 
   private getCurrentDateTimeString(countryCodeISO3: string): string {
@@ -540,13 +524,15 @@ export class EmailTemplateService {
     return date.toLocaleString('default', options);
   }
 
-  private getTriangleIcon(triggerStatusLabel) {
+  private getTriangleIcon(eapAlertClassKey: EapAlertClassKeyEnum) {
     let fileName = '';
     // Still need implement the difference between medium and low warning
-    if (triggerStatusLabel === TriggerStatusLabelEnum.Trigger) {
-      fileName = 'trigger.png';
-    } else {
+    if (eapAlertClassKey === EapAlertClassKeyEnum.med) {
       fileName = 'warning-medium.png';
+    } else if (eapAlertClassKey === EapAlertClassKeyEnum.min) {
+      fileName = 'warning-low.png';
+    } else {
+      fileName = 'trigger.png';
     }
     const filePath = `${emailIconFolder}/${fileName}`;
     const imageDataURL = this.getPngImageAsDataURL(filePath);
