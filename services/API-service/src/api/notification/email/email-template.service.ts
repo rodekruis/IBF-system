@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
-import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import {
   NotificationDataPerEventDto,
   TriggerStatusLabelEnum,
@@ -43,14 +42,13 @@ export class EmailTemplateService {
     disasterType: DisasterType,
     finishedEvents: EventSummaryCountry[],
     disasterTypeLabel: string,
-    date: Date,
+    _date: Date, // I am not sure if this is needed and for what it was used before
   ): string {
     const replaceKeyValues = this.createReplaceKeyValuesTriggerFinished(
       country,
       disasterType,
       finishedEvents,
       disasterTypeLabel,
-      date,
     );
     return this.formatEmail(replaceKeyValues);
   }
@@ -132,7 +130,6 @@ export class EmailTemplateService {
     disasterType: DisasterType,
     events: EventSummaryCountry[],
     disasterTypeLabel: string,
-    date: Date,
   ): ReplaceKeyValue[] {
     const keyValueReplaceList = [
       {
@@ -372,15 +369,12 @@ export class EmailTemplateService {
           hazard: emailContent.disasterTypeLabel,
           triggerStatusLabel: event.triggerStatusLabel,
           eventName: event.eventName,
-          expectedTriggerDate: event.firstLeadTime,
-          expectedExposedAdminBoundary: event.nrOfTriggeredAreas,
           defaulAdminAreaLabelSingular:
             emailContent.defaultAdminAreaLabel.singular,
           defaulAdminAreaLabelPlural:
             emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
           defaultAdminAreaLabelParent: adminAreaLabelsParent.singular,
           indicatorLabel: emailContent.indicatorMetadata.label,
-          indicatorUnit: emailContent.indicatorMetadata.unit,
           triangleIcon: this.getTriangleIcon(event.eapAlertClass?.key),
           tableRows: this.getTablesRows(event),
           color: this.ibfColorToHex(event.eapAlertClass?.color),
@@ -432,8 +426,6 @@ export class EmailTemplateService {
           hazard: emailContent.disasterTypeLabel,
           triggerStatusLabel: event.triggerStatusLabel,
           eventName: event.eventName,
-          level: event.disasterSpecificCopy.eventStatus,
-          expectedWarningDate: event.disasterSpecificCopy.leadTimeString,
           nrOfTriggeredAreas: event.nrOfTriggeredAreas,
           expectedTriggerDate: event.firstLeadTime,
           expectedExposedAdminBoundary: event.nrOfTriggeredAreas,
@@ -447,26 +439,46 @@ export class EmailTemplateService {
           indicatorLabel: emailContent.indicatorMetadata.label,
           totalAffectectedOfIndicator: event.totalAffectectedOfIndicator,
           indicatorUnit: emailContent.indicatorMetadata.unit,
-          currentDate: this.getCurrentDateTimeString(
-            emailContent.country.countryCodeISO3,
-          ),
           timezone:
             CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
           triangleIcon: this.getTriangleIcon(event.eapAlertClass?.key),
           leadTime: event.firstLeadTime.replace('-', ' '),
           disasterIssuedLabel: event.eapAlertClass.label,
           color: this.ibfColorToHex(event.eapAlertClass?.color),
+          advisory: this.getAdvisoryHtml(event.triggerStatusLabel),
+          totalAffected: this.getTotalAffectedHtml(
+            event,
+            emailContent.indicatorMetadata.unit,
+          ),
         };
 
-        const templateFileName =
-          TriggerStatusLabelEnum.Trigger === event.triggerStatusLabel
-            ? 'body-trigger-event.html'
-            : 'body-warning-event.html';
+        const templateFileName = 'body-event.html';
         let template = this.readHtmlFile(templateFileName);
 
         return ejs.render(template, data);
       })
       .join('');
+  }
+
+  private getAdvisoryHtml(triggerStatusLabel: TriggerStatusLabelEnum): string {
+    return triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+      ? this.readHtmlFile('advisory-trigger.html')
+      : this.readHtmlFile('advisory-warning.html');
+  }
+
+  private getTotalAffectedHtml(
+    event: NotificationDataPerEventDto,
+    indicatorUnit: string,
+  ): string {
+    if (event.triggerStatusLabel === TriggerStatusLabelEnum.Warning) {
+      return this.readHtmlFile('body-total-affected-warning.html');
+    } else {
+      let html = this.readHtmlFile('body-total-affected-trigger.html');
+      return ejs.render(html, {
+        totalAffectectedOfIndicator: event.totalAffectectedOfIndicator,
+        indicatorUnit: indicatorUnit,
+      });
+    }
   }
 
   private ibfColorToHex(color: string): string {
