@@ -194,15 +194,9 @@ export class EmailTemplateService {
 
   private getEmailBody(triggerFinished: boolean): string {
     if (triggerFinished) {
-      return fs.readFileSync(
-        './src/api/notification/email/html/trigger-finished.html',
-        'utf8',
-      );
+      return this.readHtmlFile('trigger-finished.html');
     } else {
-      return fs.readFileSync(
-        './src/api/notification/email/html/trigger-notification.html',
-        'utf8',
-      );
+      return this.readHtmlFile('trigger-notification.html');
     }
   }
 
@@ -212,17 +206,16 @@ export class EmailTemplateService {
     disasterTypeLabel: string,
   ): string {
     let html = '';
-
-    const template = fs.readFileSync(
-      './src/api/notification/email/html/event-finished.html',
-      'utf-8',
-    );
+    const template = this.readHtmlFile('event-finished.html');
 
     for (const event of events) {
       const eventFinshedHtml = ejs.render(template, {
         disasterTypeLabel: disasterTypeLabel,
         eventName: event.eventName,
-        issuedDate: 'yo',
+        issuedDate: this.dateObjectToDateTimeString(
+          new Date(event.startDate),
+          country.countryCodeISO3,
+        ),
         timezone: CountryTimeZoneMapping[country.countryCodeISO3],
       });
       html += eventFinshedHtml;
@@ -231,10 +224,7 @@ export class EmailTemplateService {
   }
 
   private getHeaderEventStarted(emailContent: ContentEventEmail): string {
-    let headerEventOverview = fs.readFileSync(
-      './src/api/notification/email/html/header-event-overview.html',
-      'utf8',
-    );
+    let headerEventOverview = this.readHtmlFile('header.html');
     headerEventOverview = ejs.render(headerEventOverview, {
       sentOnDate: this.getCurrentDateTimeString(
         emailContent.country.countryCodeISO3,
@@ -294,10 +284,7 @@ export class EmailTemplateService {
 
   private getSocialMediaHtml(country: CountryEntity): string {
     if (country.notificationInfo.linkSocialMediaType) {
-      return fs.readFileSync(
-        './src/api/notification/email/html/social-media-link.html',
-        'utf8',
-      );
+      this.readHtmlFile('social-media-link.html');
     } else {
       return '';
     }
@@ -308,10 +295,7 @@ export class EmailTemplateService {
     for (const event of emailContent.dataPerEvent) {
       const mapImage = event.mapImage;
       if (mapImage) {
-        let eventHtml = fs.readFileSync(
-          './src/api/notification/email/html/map-image.html',
-          'utf8',
-        );
+        let eventHtml = this.readHtmlFile('map-image.html');
         const replacements = {
           mapImgSrc: this.getMapImgSrc(
             emailContent.country.countryCodeISO3,
@@ -354,10 +338,7 @@ export class EmailTemplateService {
   }
 
   private formatEmail(emailKeyValueReplaceList: ReplaceKeyValue[]): string {
-    let template = fs.readFileSync(
-      './src/api/notification/email/html/base.html',
-      'utf8',
-    );
+    const template = this.readHtmlFile('base.html');
     const replacements = emailKeyValueReplaceList.reduce(
       (acc, { replaceKey, replaceValue }) => {
         acc[replaceKey] = replaceValue;
@@ -406,9 +387,8 @@ export class EmailTemplateService {
           severityLabel: this.getEventSeverityLabel(event.eapAlertClass?.key),
         };
 
-        const templatePath = `${emailTemplateFolder}/email-table-event.html`;
-
-        let template = fs.readFileSync(templatePath, 'utf8');
+        const templateFileName = 'table-event.html';
+        const template = this.readHtmlFile(templateFileName);
 
         const result = ejs.render(template, data);
         return result;
@@ -429,11 +409,11 @@ export class EmailTemplateService {
   private getTablesRows(event: NotificationDataPerEventDto) {
     return event.triggeredAreas
       .map((area) => {
-        const areaTemplatePath =
+        const tableRowHmltFileName =
           TriggerStatusLabelEnum.Trigger === event.triggerStatusLabel
-            ? `${emailTemplateFolder}/email-table-trigger-row.html`
-            : `${emailTemplateFolder}//email-table-warning-row.html`;
-        const areaTemplate = fs.readFileSync(areaTemplatePath, 'utf8');
+            ? 'table-trigger-row.html'
+            : 'table-warning-row.html';
+        const areaTemplate = this.readHtmlFile(tableRowHmltFileName);
         const areaData = {
           affectectedOfIndicator: area.actionsValue,
           adminBoundary: area.displayName ? area.displayName : area.name,
@@ -478,12 +458,11 @@ export class EmailTemplateService {
           color: this.ibfColorToHex(event.eapAlertClass?.color),
         };
 
-        const templatePath =
+        const templateFileName =
           TriggerStatusLabelEnum.Trigger === event.triggerStatusLabel
-            ? `${emailTemplateFolder}/email-body-trigger-event.html`
-            : `${emailTemplateFolder}/email-body-warning-event.html`;
-
-        let template = fs.readFileSync(templatePath, 'utf8');
+            ? 'body-trigger-event.html'
+            : 'body-warning-event.html';
+        let template = this.readHtmlFile(templateFileName);
 
         return ejs.render(template, data);
       })
@@ -539,12 +518,16 @@ export class EmailTemplateService {
     return imageDataURL;
   }
 
-  private getPngImageAsDataURL(relativePath) {
+  private getPngImageAsDataURL(relativePath: string) {
     const imageBuffer = fs.readFileSync(relativePath);
     const imageDataURL = `data:image/png;base64,${imageBuffer.toString(
       'base64',
     )}`;
 
     return imageDataURL;
+  }
+
+  private readHtmlFile(fileName: string): string {
+    return fs.readFileSync(`${emailTemplateFolder}/${fileName}`, 'utf8');
   }
 }
