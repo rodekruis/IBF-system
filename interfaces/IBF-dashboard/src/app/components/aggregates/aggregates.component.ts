@@ -1,9 +1,9 @@
 import {
-  AfterViewInit,
   ChangeDetectorRef,
   Component,
   Input,
   OnDestroy,
+  OnInit,
 } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -43,7 +43,7 @@ import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/
   templateUrl: './aggregates.component.html',
   styleUrls: ['./aggregates.component.scss'],
 })
-export class AggregatesComponent implements AfterViewInit, OnDestroy {
+export class AggregatesComponent implements OnInit, OnDestroy {
   @Input()
   public areaStatus: string;
 
@@ -96,7 +96,7 @@ export class AggregatesComponent implements AfterViewInit, OnDestroy {
       .subscribe(this.onEventStateChange);
   }
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
