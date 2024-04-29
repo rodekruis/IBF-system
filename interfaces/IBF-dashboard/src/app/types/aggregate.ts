@@ -1,6 +1,6 @@
 export class Aggregate {
-  placecode: string;
-  placecodeParent: string;
+  placeCode: string;
+  placeCodeParent: string;
   indicator: string;
   value: number;
 }

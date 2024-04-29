@@ -38,7 +38,7 @@ Feature: View and use chat section
         When the user clicks on 'Activation Log' button
         Then the 'activation-log' page opens up in a new tab
         And it contains 'disaster-activation-data' for all the countries
-        And it contains 'country-code','disaster-type','placecode','name','startDate','endDate','stopped','manuallyStopped','exposureIndicator','exposureValue','databaseId'
+        And it contains 'country-code','disaster-type','placeCode','name','startDate','endDate','stopped','manuallyStopped','exposureIndicator','exposureValue','databaseId'
         And it is in a table
         And it can easily be copied to Excel
 
