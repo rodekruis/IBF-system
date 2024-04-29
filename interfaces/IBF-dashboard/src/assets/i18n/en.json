@@ -68,7 +68,8 @@
     "stopped-prefix": "Manually stopped",
     "national-view": "National View",
     "predicted": "Predicted",
-    "plural-suffix": "(s)"
+    "plural-suffix": "(s)",
+    "not-applicable": "N/A"
   },
   "areas-of-focus-summary-component": {
     "title": "Actions Summary",
