@@ -124,7 +124,7 @@ export class EventService {
           );
       }
       if (disasterSettings.eapAlertClasses) {
-        event.disasterSpecificProperties = await this.geEventEapAlertClass(
+        event.disasterSpecificProperties = await this.getEventEapAlertClass(
           disasterSettings,
           event.triggerValue,
         );
@@ -970,7 +970,7 @@ export class EventService {
     return eventMapImageEntity?.image;
   }
 
-  private async geEventEapAlertClass(
+  private async getEventEapAlertClass(
     disasterSettings: CountryDisasterSettingsEntity,
     eventTriggerValue: number,
   ): Promise<DisasterSpecificProperties> {
