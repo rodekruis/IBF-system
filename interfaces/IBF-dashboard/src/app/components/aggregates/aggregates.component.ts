@@ -238,22 +238,15 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     weightedAvg: boolean,
     numberFormat: NumberFormat,
   ) {
-    const placeCode = this.placeCode || this.placeCodeHover;
-    const adminLevelType = this.adminLevelService.getAdminLevelType(placeCode);
-    // TODO: improve this logic
-    return this.aggregatesService.getAggregate(
+    const agg = this.aggregatesService.getAggregate(
       weightedAvg,
       indicatorName,
-      this.placeCodeHover // hovering should always lead to aggregate-numbers updating on any level
-        ? this.placeCodeHover.placeCode
-        : adminLevelType === AdminLevelType.higher // else if on higher of multiple levels, do not filter by placeCode, as it it still the parent placeCode, while the aggregates data is on the child-placeCodes
-        ? null
-        : placeCode // else if on single/deepest level, then follow normal behaviour of filtering on selected placeCode
-        ? placeCode.placeCode
-        : null, // .. or no filtering, if no placeCode is selected
+      this.getPlaceCodeValue(),
       numberFormat,
       this.areaStatus as AreaStatus,
     );
+
+    return agg;
   }
 
   public getAggregatesHeader(mapView: MapView) {
@@ -416,4 +409,25 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       : (filtered = triggeredAreas.filter((a) => a.stopped));
     this.aggregatesPlaceCodes = filtered.map((a) => a.placeCode);
   };
+
+  public isAggregateNan(indicator: IbfLayerName): boolean {
+    return this.aggregatesService.isAggregateNan(
+      indicator,
+      this.getPlaceCodeValue(),
+    );
+  }
+
+  private getPlaceCodeValue(): string {
+    const placeCode = this.placeCode || this.placeCodeHover;
+    const adminLevelType = this.adminLevelService.getAdminLevelType(placeCode);
+    // TODO: improve this logic
+
+    return this.placeCodeHover // hovering should always lead to aggregate-numbers updating on any level
+      ? this.placeCodeHover.placeCode
+      : adminLevelType === AdminLevelType.higher // else if on higher of multiple levels, do not filter by placeCode, as it it still the parent placeCode, while the aggregates data is on the child-placeCodes
+      ? null
+      : placeCode // else if on single/deepest level, then follow normal behaviour of filtering on selected placeCode
+      ? placeCode.placeCode
+      : null; // .. or no filtering, if no placeCode is selected
+  }
 }
