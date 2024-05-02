@@ -71,22 +71,16 @@ export class EventService {
     const recentDate = await this.getRecentDate(countryCodeISO3, disasterType);
     const eventSummary = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
-      .select([
-        'area."countryCodeISO3"',
-        'event."eventName"',
-        'event."triggerValue"',
-      ])
-      .distinctOn(['event."eventName"'])
-      .orderBy({ 'event."eventName"': 'ASC', 'event."triggerValue"': 'DESC' })
+      .select(['area."countryCodeISO3"', 'event."eventName"'])
       .leftJoin('event.adminArea', 'area')
       .groupBy('area."countryCodeISO3"')
       .addGroupBy('event."eventName"')
-      .addGroupBy('event."triggerValue"')
       .addSelect([
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
         'count(event."adminAreaId")::int AS "affectedAreas"',
+        'MAX(event."triggerValue")::float AS "triggerValue"',
       ])
       .where({
         closed: false,
