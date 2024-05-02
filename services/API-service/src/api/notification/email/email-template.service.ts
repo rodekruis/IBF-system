@@ -190,6 +190,7 @@ export class EmailTemplateService {
   }
 
   private getEmailBody(triggerFinished: boolean): string {
+    // TODO: Also apply new EJS style templating to these files
     if (triggerFinished) {
       return this.readHtmlFile('trigger-finished.html');
     } else {
@@ -335,7 +336,10 @@ export class EmailTemplateService {
   }
 
   private formatEmail(emailKeyValueReplaceList: ReplaceKeyValue[]): string {
+    // TODO REFACTOR: Apply styles in a septerate file also for the base.html
     const template = this.readHtmlFile('base.html');
+    const styles = this.readHtmlFile('styles.ejs');
+    const templateWithStyle = styles + template;
     const replacements = emailKeyValueReplaceList.reduce(
       (acc, { replaceKey, replaceValue }) => {
         acc[replaceKey] = replaceValue;
@@ -344,7 +348,7 @@ export class EmailTemplateService {
       {},
     );
 
-    let emailHtml = template;
+    let emailHtml = templateWithStyle;
     let previousHtml = null;
 
     // This loop is needed to handle nested EJS tags. It repeatedly renders the template
@@ -428,7 +432,6 @@ export class EmailTemplateService {
           eventName: event.eventName,
           nrOfTriggeredAreas: event.nrOfTriggeredAreas,
           expectedTriggerDate: event.firstLeadTime,
-          expectedExposedAdminBoundary: event.nrOfTriggeredAreas,
           issuedDate: this.dateObjectToDateTimeString(
             event.issuedDate,
             emailContent.country.countryCodeISO3,
@@ -454,7 +457,6 @@ export class EmailTemplateService {
 
         const templateFileName = 'body-event.html';
         let template = this.readHtmlFile(templateFileName);
-
         return ejs.render(template, data);
       })
       .join('');
@@ -485,11 +487,11 @@ export class EmailTemplateService {
     // TODO: Define in a place where FrontEnd and Backend can share this
     switch (color) {
       case 'ibf-orange':
-        return '#f0890d';
+        return '#aa6009';
       case 'ibf-yellow':
-        return '#fff500';
+        return '#7d6906';
       default:
-        return '#c70000';
+        return '#8a0f32';
     }
   }
 
