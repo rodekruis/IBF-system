@@ -13,12 +13,14 @@
     <%= severityLabel %> <%= triggerStatusLabel %> <%= hazard %>: <%= eventName
     %>
   </div>
+  <div class="padded-div"></div>
   <div
-    class="body-text body-text-normal body-text-normal-stretch text-centered padding-top"
+    class="body-text body-text-normal body-text-normal-stretch text-centered"
   >
     Expected exposed <%= defaulAdminAreaLabelPlural %><% if (triggerStatusLabel
     === 'Trigger') { %> in order of <%= indicatorLabel.toLowerCase() %><% } %>:
   </div>
+  <div class="padded-div"></div>
   <div style="display: flex; justify-content: center; align-items: center">
     <div class="header-row table-row">
       <table style="margin: auto; text-align: left">
