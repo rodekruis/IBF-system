@@ -13,6 +13,7 @@ import {
   EventSummaryCountry,
 } from '../../../shared/data.model';
 import { CountryEntity } from '../../country/country.entity';
+import * as juice from 'juice';
 
 const emailFolder = './src/api/notification/email';
 const emailTemplateFolder = `${emailFolder}/html`;
@@ -25,10 +26,10 @@ class ReplaceKeyValue {
 
 @Injectable()
 export class EmailTemplateService {
-  public createHtmlForTriggerEmail(
+  public async createHtmlForTriggerEmail(
     emailContent: ContentEventEmail,
     date: Date,
-  ): string {
+  ): Promise<string> {
     const replaceKeyValues = this.createReplaceKeyValuesTrigger(
       emailContent,
       date,
@@ -37,25 +38,24 @@ export class EmailTemplateService {
   }
 
   // TODO REFACTOR this to use a DTO (ContentTriggerFinishedEmail) instead of multiple parameters
-  public createHtmlForTriggerFinishedEmail(
+  public async createHtmlForTriggerFinishedEmail(
     country: CountryEntity,
     disasterType: DisasterType,
     finishedEvents: EventSummaryCountry[],
     disasterTypeLabel: string,
     _date: Date, // I am not sure if this is needed and for what it was used before
-  ): string {
+  ): Promise<string> {
     const replaceKeyValues = this.createReplaceKeyValuesTriggerFinished(
       country,
       disasterType,
       finishedEvents,
       disasterTypeLabel,
     );
-    return this.formatEmail(replaceKeyValues);
+    return await this.formatEmail(replaceKeyValues);
   }
 
   private createReplaceKeyValuesTrigger(
     emailContent: ContentEventEmail,
-    date: Date,
   ): ReplaceKeyValue[] {
     const country = emailContent.country;
     const disasterType = emailContent.disasterType;
@@ -335,7 +335,9 @@ export class EmailTemplateService {
     }
   }
 
-  private formatEmail(emailKeyValueReplaceList: ReplaceKeyValue[]): string {
+  private async formatEmail(
+    emailKeyValueReplaceList: ReplaceKeyValue[],
+  ): Promise<string> {
     // TODO REFACTOR: Apply styles in a septerate file also for the base.html
     const template = this.readHtmlFile('base.html');
     const styles = this.readHtmlFile('styles.ejs');
@@ -358,8 +360,19 @@ export class EmailTemplateService {
       previousHtml = emailHtml;
       emailHtml = ejs.render(previousHtml, replacements);
     }
+    // Inline the CSS
+    const inlinedHtml = await new Promise((resolve, reject) => {
+      juice.juiceResources(emailHtml, { webResources: {} }, (err, html) => {
+        if (err) reject(err);
+        else resolve(html);
+      });
+    });
+    fs.writeFile('output.html', inlinedHtml as string, (err) => {
+      if (err) throw err;
+      console.log('The file has been saved!');
+    });
 
-    return emailHtml;
+    return inlinedHtml as string;
   }
 
   private getTablesForEvents(emailContent: ContentEventEmail): string {

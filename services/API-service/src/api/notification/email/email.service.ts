@@ -52,7 +52,7 @@ export class EmailService {
         disasterType,
         activeEvents,
       );
-    const emailHtml = this.emailTemplateService.createHtmlForTriggerEmail(
+    const emailHtml = await this.emailTemplateService.createHtmlForTriggerEmail(
       emailContent,
       date,
     );
@@ -76,7 +76,7 @@ export class EmailService {
     const disasterTypeLabel =
       await this.notificationContentService.getDisasterTypeLabel(disasterType);
     const emailHtml =
-      this.emailTemplateService.createHtmlForTriggerFinishedEmail(
+      await this.emailTemplateService.createHtmlForTriggerFinishedEmail(
         country,
         disasterType,
         finishedEvents,
