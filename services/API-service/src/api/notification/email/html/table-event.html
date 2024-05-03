@@ -1,51 +1,55 @@
-<div class="body-text event-table">
-  <div
-    class="body-text body-text-bold body-text-normal-stretch text-centered"
-    style="color: <%= color %>"
-  >
-    <img
-      class="body-text-icon"
-      src="<%= triangleIcon %>"
-      alt="Warning icon"
-      width="14"
-      height="14"
-    />
-    <%= severityLabel %> <%= triggerStatusLabel %> <%= hazard %>: <%= eventName
-    %>
-  </div>
-  <div class="padded-div"></div>
-  <div
-    class="body-text body-text-normal body-text-normal-stretch text-centered"
-  >
-    Expected exposed <%= defaulAdminAreaLabelPlural %><% if (triggerStatusLabel
-    === 'Trigger') { %> in order of <%= indicatorLabel.toLowerCase() %><% } %>:
-  </div>
-  <div class="padded-div"></div>
-  <div style="display: flex; justify-content: center; align-items: center">
-    <div class="header-row table-row">
-      <table style="margin: auto; text-align: left">
-        <tr class="table-row">
-          <% if (triggerStatusLabel === 'Trigger') { %>
-          <td class="table-cell body-text body-text-bold">
-            <%= indicatorLabel %>
-          </td>
-          <% } %>
-          <td class="table-cell body-text body-text-bold">
-            <%= defaulAdminAreaLabelSingular %> (<%= defaultAdminAreaLabelParent
-            %>)
-          </td>
-        </tr>
-        <%- tableRows %>
-      </table>
-    </div>
-  </div>
-  <% if (triggerStatusLabel === 'Warning') { %>
-  <div
-    class="body-text body-text-normal body-text-normal-stretch text-centered padding-top"
-  >
-    Please note: Information regarding exposed population not available for
-    medium warning level.
-  </div>
-  <% } %>
-</div>
-<div class="padded-div"></div>
+<table width="100%">
+  <tr>
+    <td style="text-align: center">
+      <div class="body-text event-table">
+        <div
+          class="body-text body-text-bold body-text-normal-stretch text-centered"
+          style="color: <%= color %>"
+        >
+          <img
+            class="body-text-icon"
+            src="<%= triangleIcon %>"
+            alt="Warning icon"
+            width="14"
+            height="14"
+          />
+          <%= severityLabel %> <%= triggerStatusLabel %> <%= hazard %>: <%=
+          eventName %>
+        </div>
+        <div class="padded-div"></div>
+        <div
+          class="body-text body-text-normal body-text-normal-stretch text-centered"
+        >
+          Expected exposed <%= defaulAdminAreaLabelPlural %><% if
+          (triggerStatusLabel === 'Trigger') { %> in order of <%=
+          indicatorLabel.toLowerCase() %><% } %>:
+        </div>
+        <div class="padded-div"></div>
+        <div>
+          <table align="center" style="margin-right: auto; margin-left: auto;">
+            <tr class="table-row">
+              <% if (triggerStatusLabel === 'Trigger') { %>
+              <td class="table-cell body-text body-text-bold">
+                <%= indicatorLabel %>
+              </td>
+              <% } %>
+              <td class="table-cell body-text body-text-bold">
+                <%= defaulAdminAreaLabelSingular %> (<%= defaultAdminAreaLabelParent %>)
+              </td>
+            </tr>
+            <%- tableRows %>
+          </table>
+        </div>
+        <% if (triggerStatusLabel === 'Warning') { %>
+        <div
+          class="body-text body-text-normal body-text-normal-stretch text-centered padding-top"
+        >
+          Please note: Information regarding exposed population not available
+          for medium warning level.
+        </div>
+        <% } %>
+      </div>
+      <div class="padded-div"></div>
+    </td>
+  </tr>
+</table>
