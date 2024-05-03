@@ -56,6 +56,7 @@ export class EmailTemplateService {
 
   private createReplaceKeyValuesTrigger(
     emailContent: ContentEventEmail,
+    _date: Date,
   ): ReplaceKeyValue[] {
     const country = emailContent.country;
     const disasterType = emailContent.disasterType;
@@ -366,10 +367,6 @@ export class EmailTemplateService {
         if (err) reject(err);
         else resolve(html);
       });
-    });
-    fs.writeFile('output.html', inlinedHtml as string, (err) => {
-      if (err) throw err;
-      console.log('The file has been saved!');
     });
 
     return inlinedHtml as string;
