@@ -88,7 +88,7 @@ services:
       web-server-network:
 
   ibf-geoserver:
-    image: kartoza/geoserver:2.19.2
+    image: kartoza/geoserver:2.24.2
     environment:
       - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD}
       - JAVA_OPTS="-DALLOW_ENV_PARAMETRIZATION=true"
