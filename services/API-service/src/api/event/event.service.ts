@@ -81,6 +81,7 @@ export class EventService {
         'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
         'count(event."adminAreaId")::int AS "affectedAreas"',
         'MAX(event."triggerValue")::float AS "triggerValue"',
+        'sum(event."actionsValue")::int AS "actionsValueSum"',
       ])
       .where({
         closed: false,

@@ -171,7 +171,7 @@
         "expected": "expected on",
         "expected-trigger": "expected to reach threshold on",
         "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
-        "no-data": "No exposed population data available"
+        "no-data": "No population data available"
       }
     },
     "flash-floods": {
