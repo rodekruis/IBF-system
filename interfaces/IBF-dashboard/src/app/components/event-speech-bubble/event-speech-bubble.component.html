@@ -134,10 +134,8 @@
     <p *ngIf="event.affectedAreas">
       <strong
         >{{
-
-            'chat-component.' + disasterTypeName + '.alertLevel.exposed-areas'
-              | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
-
+          'chat-component.' + disasterTypeName + '.alertLevel.exposed-areas'
+            | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
         }}
       </strong>
       <span>{{ event.affectedAreas + ' ' }}</span>
@@ -149,9 +147,11 @@
           ')'
       }}</span>
       <span *ngIf="!event.thresholdReached">
-        {{ '(' +
-          ('chat-component.' + disasterTypeName + '.alertLevel.no-data'
-            | translate) + ')'
+        {{
+          '(' +
+            ('chat-component.' + disasterTypeName + '.alertLevel.no-data'
+              | translate) +
+            ')'
         }}
       </span>
     </p>
