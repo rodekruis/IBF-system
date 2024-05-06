@@ -201,17 +201,6 @@
       "
     ></p>
     <div *ngFor="let class of alertClasses">
-      <p class="ion-padding-top" *ngIf="class.alertClass !== 'undefined'">
-        <span
-          *ngIf="
-            !class.areas[0].actionsValue || class.areas[0].actionsValue === 0
-          "
-          >{{
-            'chat-component.' + disasterTypeName + '.alertLevel.no-data'
-              | translate
-          }}</span
-        >
-      </p>
       <ul class="area-list">
         <li
           class="clickable-area"
