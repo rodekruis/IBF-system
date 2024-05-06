@@ -144,10 +144,10 @@
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
       },
       "active-event-active-trigger": {
-        "header": "Trigger: {{ eventName }} on {{firstTriggerLeadTimeDate}}",
-        "header-ongoing": "Ongoing trigger: {{ eventName }} on {{firstTriggerLeadTimeDate}}",
-        "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
-        "header-ongoing-below-trigger": "Ongoing warning: {{ eventName }} on {{firstLeadTimeDate}}",
+        "header": "{{ eventName }} on {{firstTriggerLeadTimeDate}}",
+        "header-ongoing": "{{ eventName }} on {{firstTriggerLeadTimeDate}}",
+        "header-below-trigger": "{{ eventName }} on {{firstLeadTimeDate}}",
+        "header-ongoing-below-trigger": "{{ eventName }} on {{firstLeadTimeDate}}",
         "welcome": "Flood expected to start on {{firstLeadTimeDate}}",
         "welcome-below-trigger": ""
       },
