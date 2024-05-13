@@ -85,114 +85,7 @@
                             <div class="notification-content">
                               <div class="body-text">Dear Reader,</div>
                               <br /><br />
-                              <%- eventListBody %>
-                              <table class="notification-actions-table">
-                                <tbody>
-                                  <tr>
-                                    <td>
-                                      <table
-                                        border="0"
-                                        cellspacing="0"
-                                        cellpadding="0"
-                                        class="notification-action-button"
-                                      >
-                                        <tr>
-                                          <td align="center">
-                                            <a
-                                              href="<%= linkDashboard %>"
-                                              target="_blank"
-                                              style="
-                                                font-size: 14px;
-                                                font-family: Helvetica, Arial,
-                                                  sans-serif;
-                                                font-weight: bold;
-                                                color: #ffffff;
-                                                text-decoration: none;
-                                                display: inline-block;
-                                              "
-                                              >Go to the IBF-portal</a
-                                            >
-                                          </td>
-                                        </tr>
-                                      </table>
-                                    </td>
-                                    <td>
-                                      <table
-                                        border="0"
-                                        cellspacing="0"
-                                        cellpadding="0"
-                                      >
-                                        <tr>
-                                          <td
-                                            style="
-                                              padding: 12px 18px 12px 18px;
-                                              border-radius: 3px;
-                                            "
-                                            align="left"
-                                            class="body-text"
-                                          >
-                                            Find more info on the potentially
-                                            exposed areas on a map and manage
-                                            anticipatory actions in the
-                                            IBF-portal. <%- videoPdfLinks %>
-                                          </td>
-                                        </tr>
-                                      </table>
-                                    </td>
-                                  </tr>
-                                  <%- socialMediaPart %>
-                                  <tr>
-                                    <td>
-                                      <table
-                                        border="0"
-                                        cellspacing="0"
-                                        cellpadding="0"
-                                        class="notification-action-button"
-                                      >
-                                        <tr>
-                                          <td align="center">
-                                            <a
-                                              href="<%- linkEapSop %>"
-                                              target="_blank"
-                                              style="
-                                                font-size: 14px;
-                                                font-family: Helvetica, Arial,
-                                                  sans-serif;
-                                                font-weight: bold;
-                                                color: #ffffff;
-                                                text-decoration: none;
-                                                display: inline-block;
-                                              "
-                                              >About trigger</a
-                                            >
-                                          </td>
-                                        </tr>
-                                      </table>
-                                    </td>
-                                    <td>
-                                      <table
-                                        border="0"
-                                        cellspacing="0"
-                                        cellpadding="0"
-                                      >
-                                        <tr>
-                                          <td
-                                            style="
-                                              padding: 12px 18px 12px 18px;
-                                              border-radius: 3px;
-                                            "
-                                            align="left"
-                                            class="body-text"
-                                          >
-                                            Read about the trigger methodology
-                                            and the anticipatory actions.
-                                          </td>
-                                        </tr>
-                                      </table>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
+                              <%- eventListBody %> <%- notificationActions %>
                               <br />
                               <b>Trigger Statement:</b>
                               <%- triggerStatement %>
@@ -200,7 +93,7 @@
                               <%= mapImagePart %>
                               <br />
                               <br />
-                              <%- tablesStacked %>
+                              <%- tablesStacked %> <%- footer %>
                             </div>
                           </div>
                         </td>

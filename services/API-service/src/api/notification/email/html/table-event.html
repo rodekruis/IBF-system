@@ -18,7 +18,7 @@
         </div>
         <div class="padded-div"></div>
         <div
-          class="body-text body-text-normal body-text-normal-stretch text-centered"
+          class="body-text body-text-normal body-text-normal-stretch text-centered body-text-12px"
         >
           Expected exposed <%= defaulAdminAreaLabelPlural %><% if
           (triggerStatusLabel === 'Trigger') { %> in order of <%=
@@ -26,15 +26,16 @@
         </div>
         <div class="padded-div"></div>
         <div>
-          <table align="center" style="margin-right: auto; margin-left: auto;">
+          <table align="center" style="margin-right: auto; margin-left: auto">
             <tr class="table-row">
               <% if (triggerStatusLabel === 'Trigger') { %>
-              <td class="table-cell body-text body-text-bold">
+              <td class="table-cell body-text body-text-bold body-text-12px">
                 <%= indicatorLabel %>
               </td>
               <% } %>
-              <td class="table-cell body-text body-text-bold">
-                <%= defaulAdminAreaLabelSingular %> (<%= defaultAdminAreaLabelParent %>)
+              <td class="table-cell body-text body-text-bold body-text-12px">
+                <%= defaulAdminAreaLabelSingular %> (<%=
+                defaultAdminAreaLabelParent %>)
               </td>
             </tr>
             <%- tableRows %>
@@ -42,7 +43,7 @@
         </div>
         <% if (triggerStatusLabel === 'Warning') { %>
         <div
-          class="body-text body-text-normal body-text-normal-stretch text-centered padding-top"
+          class="body-text body-text-normal body-text-normal-stretch text-centered padding-top body-text-12px"
         >
           Please note: Information regarding exposed population not available
           for medium warning level.
