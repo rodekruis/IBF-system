@@ -1,3 +1,12 @@
+## [0.262.5](https://github.com/rodekruis/IBF-system/compare/v0.262.4...v0.262.5) (2024-05-13)
+
+
+### Bug Fixes
+
+* use disaster type filter to select triggered areas AB[#27902](https://github.com/rodekruis/IBF-system/issues/27902) ([d0fc539](https://github.com/rodekruis/IBF-system/commit/d0fc5392b8d10739234abf690901edae8cf41147))
+
+
+
 ## [0.262.4](https://github.com/rodekruis/IBF-system/compare/v0.262.3...v0.262.4) (2024-05-13)
 
 
@@ -117,19 +126,6 @@
 ### Bug Fixes
 
 * update buildings AB[#25047](https://github.com/rodekruis/IBF-system/issues/25047) ([54e0692](https://github.com/rodekruis/IBF-system/commit/54e06923778fab50f0ad7378a3920674f97592fe))
-
-
-
-## [0.261.1](https://github.com/rodekruis/IBF-system/compare/v0.261.0...v0.261.1) (2023-12-19)
-
-
-### Bug Fixes
-
-* catch missing glofas dynamic data better AB[#25411](https://github.com/rodekruis/IBF-system/issues/25411) ([d79ab9b](https://github.com/rodekruis/IBF-system/commit/d79ab9bbc50a4eb50bdd94bc35626d0f938fb0a0))
-* handle no data better AB[#25411](https://github.com/rodekruis/IBF-system/issues/25411) ([f29b4ed](https://github.com/rodekruis/IBF-system/commit/f29b4ed51d43daf2d9e415d263b8daa9069c6bbf))
-* set font to montserrat AB[#25371](https://github.com/rodekruis/IBF-system/issues/25371) ([4bffae4](https://github.com/rodekruis/IBF-system/commit/4bffae4f5da35057a0a57dd0db536242cf2d5312))
-* update size of unit and sea level AB[#25371](https://github.com/rodekruis/IBF-system/issues/25371) ([d66f16a](https://github.com/rodekruis/IBF-system/commit/d66f16a6b0c51e5a7040d30d04d8b4cdf3b105c5))
-* update width of popup AB[#25371](https://github.com/rodekruis/IBF-system/issues/25371) ([44845ce](https://github.com/rodekruis/IBF-system/commit/44845ce909ac5c0a668d6203bfd655962253cd48))
 
 
 
