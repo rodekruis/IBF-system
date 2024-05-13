@@ -18,6 +18,7 @@ import * as juice from 'juice';
 const emailFolder = './src/api/notification/email';
 const emailTemplateFolder = `${emailFolder}/html`;
 const emailIconFolder = `${emailFolder}/icons`;
+const emailLogoFolder = `${emailFolder}/logos`;
 
 class ReplaceKeyValue {
   replaceKey: string;
@@ -70,8 +71,8 @@ export class EmailTemplateService {
         replaceValue: this.getHeaderEventStarted(emailContent),
       },
       {
-        replaceKey: 'socialMediaPart',
-        replaceValue: this.getSocialMediaHtml(emailContent.country),
+        replaceKey: 'notificationActions',
+        replaceValue: this.getNotificationActionsHtml(country, disasterType),
       },
       {
         replaceKey: 'tablesStacked',
@@ -98,12 +99,6 @@ export class EmailTemplateService {
         replaceValue: process.env.DASHBOARD_URL,
       },
       {
-        replaceKey: 'linkEapSop',
-        replaceValue: country.countryDisasterSettings.find(
-          (s) => s.disasterType === disasterType,
-        ).eapLink,
-      },
-      {
         replaceKey: 'socialMediaLink',
         replaceValue: country.notificationInfo.linkSocialMediaUrl,
       },
@@ -116,11 +111,8 @@ export class EmailTemplateService {
         replaceValue: emailContent.disasterTypeLabel,
       },
       {
-        replaceKey: 'videoPdfLinks',
-        replaceValue: this.getVideoPdfLinks(
-          country.notificationInfo.linkVideo,
-          country.notificationInfo.linkPdf,
-        ),
+        replaceKey: 'footer',
+        replaceValue: this.getFooterHtml(),
       },
     ];
     return keyValueReplaceList;
@@ -162,12 +154,6 @@ export class EmailTemplateService {
         replaceValue: this.getSocialMediaHtml(country),
       },
       {
-        replaceKey: 'linkEapSop',
-        replaceValue: country.countryDisasterSettings.find(
-          (s) => s.disasterType === disasterType,
-        ).eapLink,
-      },
-      {
         replaceKey: 'socialMediaLink',
         replaceValue: country.notificationInfo.linkSocialMediaUrl,
       },
@@ -176,15 +162,12 @@ export class EmailTemplateService {
         replaceValue: country.notificationInfo.linkSocialMediaType,
       },
       {
-        replaceKey: 'videoPdfLinks',
-        replaceValue: this.getVideoPdfLinks(
-          country.notificationInfo.linkVideo,
-          country.notificationInfo.linkPdf,
-        ),
-      },
-      {
         replaceKey: 'disasterType',
         replaceValue: disasterTypeLabel,
+      },
+      {
+        replaceKey: 'footer',
+        replaceValue: this.getFooterHtml(),
       },
     ];
     return keyValueReplaceList;
@@ -235,50 +218,22 @@ export class EmailTemplateService {
     return headerEventOverview;
   }
 
-  private getVideoPdfLinks(videoLink: string, pdfLink: string) {
-    // TODO: Use ejs template
-    const linkVideoHTML = `
-                    <a
-                        href="${videoLink}"
-                        title="Video instructions"
-                        target="_blank"
-                        style="
-                        font-size: 14px;
-                        font-family: Helvetica,
-                            Arial,
-                            sans-serif;
-                        font-weight: bold;
-                        color: #0c0c0c;
-                        display: inline-block;
-                    " >video</a>`;
+  private getNotificationActionsHtml(
+    country: CountryEntity,
+    disasterType: DisasterType,
+  ): string {
+    const socialMediaLinkHtml = this.getSocialMediaHtml(country);
 
-    const linkPdfHTML = `<a href="${pdfLink}"
-                        target="_blank"
-                        title="PDF instructions"
-                        style="
-                        font-size: 14px;
-                        font-family: Helvetica,
-                            Arial,
-                            sans-serif;
-                        font-weight: bold;
-                        color: #0c0c0c;
-                        display: inline-block;
-                        "  >PDF</a>`;
-    let videoStr = '';
-    if (videoLink) {
-      videoStr = ' ' + linkVideoHTML;
-    }
-    let pdfStr = '';
-    if (pdfLink) {
-      pdfStr = ' ' + linkPdfHTML;
-    }
-    let orStr = '';
-    if (videoStr && pdfStr) {
-      orStr = ' or';
-    }
-    if (videoStr || pdfStr) {
-      return `See instructions for the IBF-portal in${videoStr}${orStr}${pdfStr}.`;
-    }
+    let html = this.readHtmlFile('notification-actions.html');
+    const data = {
+      linkDashboard: process.env.DASHBOARD_URL,
+      linkEapSop: country.countryDisasterSettings.find(
+        (s) => s.disasterType === disasterType,
+      ).eapLink,
+      socialMediaPart: socialMediaLinkHtml,
+    };
+    html = ejs.render(html, data);
+    return html; //
   }
 
   private getSocialMediaHtml(country: CountryEntity): string {
@@ -364,8 +319,12 @@ export class EmailTemplateService {
     // Inline the CSS
     const inlinedHtml = await new Promise((resolve, reject) => {
       juice.juiceResources(emailHtml, { webResources: {} }, (err, html) => {
-        if (err) reject(err);
-        else resolve(html);
+        if (err) {
+          console.error('Error inlining CSS: ', err);
+          reject(err);
+        } else {
+          resolve(html);
+        }
       });
     });
 
@@ -404,7 +363,9 @@ export class EmailTemplateService {
       .join('');
   }
 
-  private getEventSeverityLabel(eapAlertClassKey: EapAlertClassKeyEnum) {
+  private getEventSeverityLabel(
+    eapAlertClassKey: EapAlertClassKeyEnum,
+  ): string {
     if (eapAlertClassKey === EapAlertClassKeyEnum.med) {
       return 'Medium';
     } else if (eapAlertClassKey === EapAlertClassKeyEnum.min) {
@@ -458,10 +419,14 @@ export class EmailTemplateService {
           leadTime: event.firstLeadTime.replace('-', ' '),
           disasterIssuedLabel: event.eapAlertClass.label,
           color: this.ibfColorToHex(event.eapAlertClass?.color),
-          advisory: this.getAdvisoryHtml(event.triggerStatusLabel),
+          advisory: this.getAdvisoryHtml(
+            event.triggerStatusLabel,
+            emailContent.country,
+            emailContent.disasterType,
+          ),
           totalAffected: this.getTotalAffectedHtml(
             event,
-            emailContent.indicatorMetadata.unit,
+            emailContent.indicatorMetadata.label.toLowerCase(),
           ),
         };
 
@@ -472,10 +437,19 @@ export class EmailTemplateService {
       .join('');
   }
 
-  private getAdvisoryHtml(triggerStatusLabel: TriggerStatusLabelEnum): string {
-    return triggerStatusLabel === TriggerStatusLabelEnum.Trigger
-      ? this.readHtmlFile('advisory-trigger.html')
-      : this.readHtmlFile('advisory-warning.html');
+  private getAdvisoryHtml(
+    triggerStatusLabel: TriggerStatusLabelEnum,
+    country: CountryEntity,
+    disasterType: DisasterType,
+  ): string {
+    const advisoryHtml =
+      triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+        ? this.readHtmlFile('advisory-trigger.html')
+        : this.readHtmlFile('advisory-warning.html');
+    const eapLink = country.countryDisasterSettings.find(
+      (s) => s.disasterType === disasterType,
+    ).eapLink;
+    return ejs.render(advisoryHtml, { eapLink: eapLink });
   }
 
   private getTotalAffectedHtml(
@@ -491,6 +465,12 @@ export class EmailTemplateService {
         indicatorUnit: indicatorUnit,
       });
     }
+  }
+
+  private getFooterHtml(): string {
+    const footerHtml = this.readHtmlFile('footer.html');
+    const ibfLogo = this.getLogoImageAsDataURL();
+    return ejs.render(footerHtml, { ibfLogo: ibfLogo });
   }
 
   private ibfColorToHex(color: string): string {
@@ -540,6 +520,11 @@ export class EmailTemplateService {
     const filePath = `${emailIconFolder}/${fileName}`;
     const imageDataURL = this.getPngImageAsDataURL(filePath);
     return imageDataURL;
+  }
+
+  private getLogoImageAsDataURL() {
+    const filePath = `${emailLogoFolder}/logo-IBF.png`;
+    return this.getPngImageAsDataURL(filePath);
   }
 
   private getPngImageAsDataURL(relativePath: string) {
