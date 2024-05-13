@@ -183,7 +183,7 @@
           "
         ></ion-label
         ><br />
-        <ion-note size="small">
+        <ion-note *ngIf="eventState?.event?.thresholdReached" size="small">
           <span
             [innerHTML]="
               'chat-component.' + disasterTypeName + '.active-event.exposed'
