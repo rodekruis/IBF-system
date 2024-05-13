@@ -80,6 +80,7 @@ export class ScriptsService {
               removeEvents: true,
               date: mockAllInput.date || new Date(),
               scenario: null, // This is overwritten by useDefaultScenario=true anyway
+              isApiTest: false,
             },
             disasterType.disasterType,
             true,

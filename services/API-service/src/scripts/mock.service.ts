@@ -234,7 +234,7 @@ export class MockService {
 
     // Add the needed stores and layers to geoserver, only do this in debug mode
     // The resulting XML files should be commited to git and will end up on the servers that way
-    if (DEBUG) {
+    if (DEBUG && !mockBody.isApiTest) {
       await this.geoServerSyncService.sync(
         selectedCountry.countryCodeISO3,
         disasterType,

@@ -53,6 +53,11 @@ export class MockBaseScenario {
   @ApiProperty({ example: new Date() })
   @IsOptional()
   public readonly date: Date;
+
+  // TODO change this to query param
+  @ApiProperty({ example: false })
+  @IsOptional()
+  public readonly isApiTest: boolean = false;
 }
 
 export class MockFloodsScenario extends MockBaseScenario {
