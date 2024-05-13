@@ -38,7 +38,6 @@ export class EmailTemplateService {
     return this.formatEmail(replaceKeyValues);
   }
 
-  // TODO REFACTOR this to use a DTO (ContentTriggerFinishedEmail) instead of multiple parameters
   public async createHtmlForTriggerFinishedEmail(
     country: CountryEntity,
     disasterType: DisasterType,
@@ -58,64 +57,29 @@ export class EmailTemplateService {
   private createReplaceKeyValuesTrigger(
     emailContent: ContentEventEmail,
     _date: Date,
-  ): ReplaceKeyValue[] {
+  ): Record<string, string> {
     const country = emailContent.country;
     const disasterType = emailContent.disasterType;
-    const keyValueReplaceList = [
-      {
-        replaceKey: 'emailBody',
-        replaceValue: this.getEmailBody(false),
-      },
-      {
-        replaceKey: 'headerEventOverview',
-        replaceValue: this.getHeaderEventStarted(emailContent),
-      },
-      {
-        replaceKey: 'notificationActions',
-        replaceValue: this.getNotificationActionsHtml(country, disasterType),
-      },
-      {
-        replaceKey: 'tablesStacked',
-        replaceValue: this.getTablesForEvents(emailContent),
-      },
-      {
-        replaceKey: 'eventListBody',
-        replaceValue: this.getEventListBody(emailContent),
-      },
-      {
-        replaceKey: 'imgLogo',
-        replaceValue: country.notificationInfo.logo[disasterType],
-      },
-      {
-        replaceKey: 'triggerStatement',
-        replaceValue: country.notificationInfo.triggerStatement[disasterType],
-      },
-      {
-        replaceKey: 'mapImagePart',
-        replaceValue: this.getMapImageHtml(emailContent),
-      },
-      {
-        replaceKey: 'linkDashboard',
-        replaceValue: process.env.DASHBOARD_URL,
-      },
-      {
-        replaceKey: 'socialMediaLink',
-        replaceValue: country.notificationInfo.linkSocialMediaUrl,
-      },
-      {
-        replaceKey: 'socialMediaType',
-        replaceValue: country.notificationInfo.linkSocialMediaType,
-      },
-      {
-        replaceKey: 'disasterType',
-        replaceValue: emailContent.disasterTypeLabel,
-      },
-      {
-        replaceKey: 'footer',
-        replaceValue: this.getFooterHtml(),
-      },
-    ];
-    return keyValueReplaceList;
+
+    const keyValueReplaceObject = {
+      emailBody: this.getEmailBody(false),
+      headerEventOverview: this.getHeaderEventStarted(emailContent),
+      notificationActions: this.getNotificationActionsHtml(
+        country,
+        disasterType,
+      ),
+      tablesStacked: this.getTablesForEvents(emailContent),
+      eventListBody: this.getEventListBody(emailContent),
+      imgLogo: country.notificationInfo.logo[disasterType],
+      triggerStatement: country.notificationInfo.triggerStatement[disasterType],
+      mapImagePart: this.getMapImageHtml(emailContent),
+      linkDashboard: process.env.DASHBOARD_URL,
+      socialMediaLink: country.notificationInfo.linkSocialMediaUrl,
+      socialMediaType: country.notificationInfo.linkSocialMediaType,
+      disasterType: emailContent.disasterTypeLabel,
+      footer: this.getFooterHtml(),
+    };
+    return keyValueReplaceObject;
   }
 
   private createReplaceKeyValuesTriggerFinished(
@@ -123,54 +87,24 @@ export class EmailTemplateService {
     disasterType: DisasterType,
     events: EventSummaryCountry[],
     disasterTypeLabel: string,
-  ): ReplaceKeyValue[] {
-    const keyValueReplaceList = [
-      {
-        replaceKey: 'emailBody',
-        replaceValue: this.getEmailBody(true),
-      },
-      {
-        replaceKey: 'headerEventOverview',
-        replaceValue: '',
-      },
-      {
-        replaceKey: 'eventOverview',
-        replaceValue: this.geEventsFinishedOverview(
-          country,
-          events,
-          disasterTypeLabel,
-        ),
-      },
-      {
-        replaceKey: 'imgLogo',
-        replaceValue: country.notificationInfo.logo[disasterType],
-      },
-      {
-        replaceKey: 'linkDashboard',
-        replaceValue: process.env.DASHBOARD_URL,
-      },
-      {
-        replaceKey: 'socialMediaPart',
-        replaceValue: this.getSocialMediaHtml(country),
-      },
-      {
-        replaceKey: 'socialMediaLink',
-        replaceValue: country.notificationInfo.linkSocialMediaUrl,
-      },
-      {
-        replaceKey: 'socialMediaType',
-        replaceValue: country.notificationInfo.linkSocialMediaType,
-      },
-      {
-        replaceKey: 'disasterType',
-        replaceValue: disasterTypeLabel,
-      },
-      {
-        replaceKey: 'footer',
-        replaceValue: this.getFooterHtml(),
-      },
-    ];
-    return keyValueReplaceList;
+  ): Record<string, string> {
+    const keyValueReplaceObject = {
+      emailBody: this.getEmailBody(true),
+      headerEventOverview: '',
+      eventOverview: this.geEventsFinishedOverview(
+        country,
+        events,
+        disasterTypeLabel,
+      ),
+      imgLogo: country.notificationInfo.logo[disasterType],
+      linkDashboard: process.env.DASHBOARD_URL,
+      socialMediaPart: this.getSocialMediaHtml(country),
+      socialMediaLink: country.notificationInfo.linkSocialMediaUrl,
+      socialMediaType: country.notificationInfo.linkSocialMediaType,
+      disasterType: disasterTypeLabel,
+      footer: this.getFooterHtml(),
+    };
+    return keyValueReplaceObject;
   }
 
   private getEmailBody(triggerFinished: boolean): string {
@@ -292,19 +226,12 @@ export class EmailTemplateService {
   }
 
   private async formatEmail(
-    emailKeyValueReplaceList: ReplaceKeyValue[],
+    emailKeyValueReplaceObject: Record<string, string>,
   ): Promise<string> {
     // TODO REFACTOR: Apply styles in a septerate file also for the base.html
     const template = this.readHtmlFile('base.html');
     const styles = this.readHtmlFile('styles.ejs');
     const templateWithStyle = styles + template;
-    const replacements = emailKeyValueReplaceList.reduce(
-      (acc, { replaceKey, replaceValue }) => {
-        acc[replaceKey] = replaceValue;
-        return acc;
-      },
-      {},
-    );
 
     let emailHtml = templateWithStyle;
     let previousHtml = null;
@@ -314,7 +241,7 @@ export class EmailTemplateService {
     // doesn't render nested tags in one pass.
     while (emailHtml !== previousHtml) {
       previousHtml = emailHtml;
-      emailHtml = ejs.render(previousHtml, replacements);
+      emailHtml = ejs.render(previousHtml, emailKeyValueReplaceObject);
     }
     // Inline the CSS
     const inlinedHtml = await new Promise((resolve, reject) => {
