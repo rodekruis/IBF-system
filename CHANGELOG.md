@@ -1,3 +1,12 @@
+## [0.262.3](https://github.com/rodekruis/IBF-system/compare/v0.262.2...v0.262.3) (2024-05-13)
+
+
+### Bug Fixes
+
+* **security:** update geoserver version AB[#27339](https://github.com/rodekruis/IBF-system/issues/27339) ([3ae9f87](https://github.com/rodekruis/IBF-system/commit/3ae9f87f560a68c985b5b3f2158bcb791d5ee320))
+
+
+
 ## [0.262.2](https://github.com/rodekruis/IBF-system/compare/v0.262.1...v0.262.2) (2024-02-09)
 
 
@@ -145,15 +154,6 @@
 * info popup AB[#25132](https://github.com/rodekruis/IBF-system/issues/25132) ([4d8337d](https://github.com/rodekruis/IBF-system/commit/4d8337d8e0fd0187de7a8809e7d88f4dbb6aaea7))
 * migration for production AB[#25126](https://github.com/rodekruis/IBF-system/issues/25126) ([04792e5](https://github.com/rodekruis/IBF-system/commit/04792e5291de5a0134432a3e595683e6aa8d044c))
 * mock data reference & previous water level ([961f40f](https://github.com/rodekruis/IBF-system/commit/961f40fff974c7f62fd427bcf2984df84af36bd6))
-
-
-
-# [0.260.0](https://github.com/rodekruis/IBF-system/compare/v0.259.2...v0.260.0) (2023-11-29)
-
-
-### Features
-
-* dynamic point data entity + gauge layer AB[#25124](https://github.com/rodekruis/IBF-system/issues/25124) ([bfc3071](https://github.com/rodekruis/IBF-system/commit/bfc3071d1459a9b860442cb1431027e4fa34cd0c))
 
 
 
