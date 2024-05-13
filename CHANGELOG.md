@@ -1,3 +1,12 @@
+## [0.262.4](https://github.com/rodekruis/IBF-system/compare/v0.262.3...v0.262.4) (2024-05-13)
+
+
+### Bug Fixes
+
+* **security:** remove crypto and unused packages AB[#27340](https://github.com/rodekruis/IBF-system/issues/27340) ([bb334bb](https://github.com/rodekruis/IBF-system/commit/bb334bba437b67850dff78bdbb118aaa26ddba2f))
+
+
+
 ## [0.262.3](https://github.com/rodekruis/IBF-system/compare/v0.262.2...v0.262.3) (2024-05-13)
 
 
@@ -121,39 +130,6 @@
 * set font to montserrat AB[#25371](https://github.com/rodekruis/IBF-system/issues/25371) ([4bffae4](https://github.com/rodekruis/IBF-system/commit/4bffae4f5da35057a0a57dd0db536242cf2d5312))
 * update size of unit and sea level AB[#25371](https://github.com/rodekruis/IBF-system/issues/25371) ([d66f16a](https://github.com/rodekruis/IBF-system/commit/d66f16a6b0c51e5a7040d30d04d8b4cdf3b105c5))
 * update width of popup AB[#25371](https://github.com/rodekruis/IBF-system/issues/25371) ([44845ce](https://github.com/rodekruis/IBF-system/commit/44845ce909ac5c0a668d6203bfd655962253cd48))
-
-
-
-# [0.261.0](https://github.com/rodekruis/IBF-system/compare/v0.260.0...v0.261.0) (2023-12-15)
-
-
-### Bug Fixes
-
-* add key to delete point AB[#25179](https://github.com/rodekruis/IBF-system/issues/25179) ([93cc6cd](https://github.com/rodekruis/IBF-system/commit/93cc6cd00af233e8512c6b3aa6bee12f6ffa7c6e))
-* allow forecast or threshold to be 0 AB[#25280](https://github.com/rodekruis/IBF-system/issues/25280) ([4811710](https://github.com/rodekruis/IBF-system/commit/481171069ea1b2e58cd4ba038edfa93329ad096b))
-* chane fid to numeric + basics to get out glofas data AB[#25126](https://github.com/rodekruis/IBF-system/issues/25126) ([9a13271](https://github.com/rodekruis/IBF-system/commit/9a13271075773d5c2273fdc128c9e89e320e9a12))
-* change yellow/orange AB[#25131](https://github.com/rodekruis/IBF-system/issues/25131) ([afb220e](https://github.com/rodekruis/IBF-system/commit/afb220ed9003bcff2211f7a5697b410a8cbe5590))
-* include point-data-category in dynamic api-call AB[#25126](https://github.com/rodekruis/IBF-system/issues/25126) ([b89f483](https://github.com/rodekruis/IBF-system/commit/b89f4837534ad53562f8b1e3a19bdb9dfc8c4829))
-* index on timestamp AB[#25127](https://github.com/rodekruis/IBF-system/issues/25127) ([02b0579](https://github.com/rodekruis/IBF-system/commit/02b057940631dfa7a94023a13bb3812bb551bc37))
-* info popup AB[#25132](https://github.com/rodekruis/IBF-system/issues/25132) ([84b6234](https://github.com/rodekruis/IBF-system/commit/84b62341798e67a5c23d3cec3766847028b23921))
-* keep min/med glfofas readable AB[#25280](https://github.com/rodekruis/IBF-system/issues/25280) ([30c7ecb](https://github.com/rodekruis/IBF-system/commit/30c7ecbab5ecf4f9909ebbba66b86ce7a816e83d))
-* make fid unique AB[#25128](https://github.com/rodekruis/IBF-system/issues/25128) ([bdd657a](https://github.com/rodekruis/IBF-system/commit/bdd657a0f5a85c182789c0072d2820f4d59f097b))
-* real static data AB[#25128](https://github.com/rodekruis/IBF-system/issues/25128) ([8f98503](https://github.com/rodekruis/IBF-system/commit/8f98503c1eff0a8c7e06976b631ac003aade9fa8))
-* tooltip + info popup AB[#25132](https://github.com/rodekruis/IBF-system/issues/25132) ([bcc4345](https://github.com/rodekruis/IBF-system/commit/bcc43452c6d93bdc531324c7a3efc24de3949245))
-* tooltip AB[#25280](https://github.com/rodekruis/IBF-system/issues/25280) ([d25b8de](https://github.com/rodekruis/IBF-system/commit/d25b8dea346d7d22c959de436ad6334acd783838))
-* update seed and mock AB[#25131](https://github.com/rodekruis/IBF-system/issues/25131) ([e053ddd](https://github.com/rodekruis/IBF-system/commit/e053ddd8a2bdaaa936e3b83729c6978eb2da572f))
-* use correct threshold value AB[#25280](https://github.com/rodekruis/IBF-system/issues/25280) ([ead16d6](https://github.com/rodekruis/IBF-system/commit/ead16d6cf3f60d200a0c80f05adf1bfd126394a8))
-
-
-### Features
-
-* add gauges to legend AB[#25130](https://github.com/rodekruis/IBF-system/issues/25130) ([99fa03b](https://github.com/rodekruis/IBF-system/commit/99fa03be22829a16c2abc803a7c7d1e97cc42ebc))
-* add river gauge pin AB[#25130](https://github.com/rodekruis/IBF-system/issues/25130) ([3ee918a](https://github.com/rodekruis/IBF-system/commit/3ee918afbda742558b30df0f79b754a48ab0c63e))
-* add river gauge popup AB[#25131](https://github.com/rodekruis/IBF-system/issues/25131) ([80ca4cf](https://github.com/rodekruis/IBF-system/commit/80ca4cf7ee36f7f64163c5f3faeacf4a600a994b))
-* handle missing data + small tweaks AB[#25131](https://github.com/rodekruis/IBF-system/issues/25131) ([5ede9ce](https://github.com/rodekruis/IBF-system/commit/5ede9ce230f34a4f858cc1ca1c7e213698109fd7))
-* info popup AB[#25132](https://github.com/rodekruis/IBF-system/issues/25132) ([4d8337d](https://github.com/rodekruis/IBF-system/commit/4d8337d8e0fd0187de7a8809e7d88f4dbb6aaea7))
-* migration for production AB[#25126](https://github.com/rodekruis/IBF-system/issues/25126) ([04792e5](https://github.com/rodekruis/IBF-system/commit/04792e5291de5a0134432a3e595683e6aa8d044c))
-* mock data reference & previous water level ([961f40f](https://github.com/rodekruis/IBF-system/commit/961f40fff974c7f62fd427bcf2984df84af36bd6))
 
 
 
