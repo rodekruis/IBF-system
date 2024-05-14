@@ -16,28 +16,14 @@
 >
   <div class="dialogue-turn--content">
     <ion-card
-      *ngIf="isSelected"
-      [style.border-color]="borderColor"
-      (mouseout)="onMouseOut()"
-    >
-      <ion-card-content>
-        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-        <small><app-timestamp [timestamp]="timestamp"></app-timestamp></small>
-      </ion-card-content>
-    </ion-card>
-    <ion-card
-      *ngIf="!isSelected"
+      [style.border-color]="mouseOver || isSelected ? borderColor : null"
       (mouseover)="onMouseOver()"
       (mouseout)="onMouseOut()"
-      [style.border-color]="
-        mouseOver ? borderColor : 'var(--ion-color-fiveten-neutral-100)'
-      "
     >
       <ion-card-content>
         <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
         <small><app-timestamp [timestamp]="timestamp"></app-timestamp></small>
       </ion-card-content>
     </ion-card>
-    <span class="dialogue-turn--speech-arrow"></span>
   </div>
 </div>
