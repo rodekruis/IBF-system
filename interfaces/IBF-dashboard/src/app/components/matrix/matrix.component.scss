@@ -2,8 +2,7 @@ $z-index: 900;
 $menu-width: 13vw;
 $line-height: 2.26rem;
 $toggle-button-bottom: 1rem;
-$toggle-button-right: 0.5vW;
-
+$toggle-button-right: 0.5vw;
 
 #layer-menu-container {
   position: fixed;
@@ -17,7 +16,7 @@ $toggle-button-right: 0.5vW;
 
   #layer-menu-toggle-button {
     width: 100%;
-    height: $line-height;;
+    height: $line-height;
     --border-radius: 0;
   }
 
@@ -94,4 +93,3 @@ $toggle-button-right: 0.5vW;
     }
   }
 }
-
