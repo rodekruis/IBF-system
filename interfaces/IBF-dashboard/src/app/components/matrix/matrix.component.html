@@ -12,11 +12,7 @@
       [name]="isLayerMenuOpen ? 'chevron-down-outline' : 'chevron-up-outline'"
     ></ion-icon
   ></ion-button>
-  <div
-    *ngIf="isLayerMenuOpen"
-    id="layer-menu"
-    [ngStyle]="{ visibility: isLayerMenuOpen ? 'visible' : 'hidden' }"
-  >
+  <div *ngIf="isLayerMenuOpen" id="layer-menu">
     <ion-list class="ion-no-padding">
       <ion-row
         *ngFor="let layer of getLayersInOrder()"
