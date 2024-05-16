@@ -7,7 +7,9 @@
     color="ibf-no-alert-primary "
     id="layer-menu-toggle-button"
     (click)="toggleLayerMenu()"
-    ><span class="ion-margin-end">Layers</span
+    ><span class="ion-margin-end">{{
+      'layers-menu.menu-toggle-label' | translate
+    }}</span
     ><ion-icon
       [name]="isLayerMenuOpen ? 'chevron-down-outline' : 'chevron-up-outline'"
     ></ion-icon
