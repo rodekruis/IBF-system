@@ -35,14 +35,12 @@
             | translate
               : {
                   name: displayName,
-                  startDate: event.startDate | date: 'EEEE, dd MMMM',
+                  startDate: event.startDate,
                   leadTime: event.firstLeadTimeLabel,
                   timeUnit: event.timeUnit,
                   disasterTypeLabel: disasterTypeLabel,
-                  firstLeadTimeDate:
-                    event.firstLeadTimeDate | date: 'EEEE, dd MMMM',
-                  firstTriggerLeadTimeDate:
-                    event.firstTriggerLeadTimeDate | date: 'EEEE, dd MMMM',
+                  firstLeadTimeDate: event.firstLeadTimeDate,
+                  firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
                   eventName:
                     event.eventName?.split('_')[0] || disasterTypeLabel,
                   duration: event.duration,
@@ -59,12 +57,11 @@
             | translate
               : {
                   name: displayName,
-                  startDate: event.startDate | date: 'EEEE, dd MMMM',
+                  startDate: event.startDate,
                   leadTime: event.firstLeadTimeLabel,
                   timeUnit: event.timeUnit,
                   disasterTypeLabel: disasterTypeLabel,
-                  firstLeadTimeDate:
-                    event.firstLeadTimeDate | date: 'EEEE, dd MMMM',
+                  firstLeadTimeDate: event.firstLeadTimeDate,
                   eventName:
                     event.eventName?.split('_')[0] || disasterTypeLabel,
                   duration: event.duration
@@ -101,11 +98,9 @@
           '.active-event-active-trigger.welcome-below-trigger'
           | translate
             : {
-                startDate: event.startDate | date: 'EEEE, dd MMMM',
-                firstLeadTimeDate:
-                  event.firstLeadTimeDate | date: 'EEEE, dd MMMM',
-                firstTriggerLeadTimeDate:
-                  event.firstTriggerLeadTimeDate | date: 'EEEE, dd MMMM',
+                startDate: event.startDate,
+                firstLeadTimeDate: event.firstLeadTimeDate,
+                firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
                 eventName: event.eventName?.split('_')[0],
                 leadTime: event.firstLeadTimeLabel,
                 timeUnit: event.timeUnit,
@@ -126,14 +121,14 @@
           'chat-component.' + disasterTypeName + '.alertLevel.expected-trigger'
             | translate
         }}
-        {{ event.firstTriggerLeadTimeDate | date: 'EEEE, dd MMMM' }}</span
+        {{ event.firstTriggerLeadTimeDate }}</span
       >
       <span *ngIf="!event.thresholdReached"
         >{{
           'chat-component.' + disasterTypeName + '.alertLevel.expected'
             | translate
         }}
-        {{ event.firstLeadTimeDate | date: 'EEEE, dd MMMM' }}</span
+        {{ event.firstLeadTimeDate }}</span
       >
     </p>
     <p *ngIf="event.affectedAreas">

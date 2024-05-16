@@ -1,4 +1,3 @@
-import { formatDate } from '@angular/common';
 import {
   AfterViewChecked,
   ChangeDetectorRef,
@@ -156,14 +155,9 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     if (!event.thresholdReached) {
       headerKey += '-below-trigger';
     }
-
     const header = this.translateService.instant(headerKey, {
-      firstLeadTimeDate: formatDate(event.firstLeadTimeDate, 'dd MMM', 'en'),
-      firstTriggerLeadTimeDate: formatDate(
-        event.firstTriggerLeadTimeDate,
-        'dd MMM',
-        'en',
-      ),
+      firstLeadTimeDate: event.firstLeadTimeDate,
+      firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
       eventName: event.eventName?.split('_')[0] || this.disasterTypeLabel,
       disasterTypeLabel: this.disasterTypeLabel,
     });
