@@ -13,6 +13,7 @@ $toggle-button-right: 0.5vw;
   height: $line-height;
   display: flex;
   flex-direction: column;
+  max-height: calc(0.625rem + $line-height * 10);
 
   #layer-menu-toggle-button {
     width: 100%;
@@ -22,8 +23,9 @@ $toggle-button-right: 0.5vw;
 
   #layer-menu {
     width: $menu-width;
+    max-height: calc(0.625rem + $line-height * 9);
     bottom: 0px;
-
+    overflow-y: auto;
     ion-row {
       min-height: 36px;
       border: 1px solid var(--ion-color-ibf-no-alert-primary);
@@ -31,7 +33,7 @@ $toggle-button-right: 0.5vw;
     }
 
     ion-item {
-      width: 100%;
+      width: 98%;
       --min-height: 36px;
       --padding-bottom: 0;
       --padding-top: 0;
