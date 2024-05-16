@@ -51,10 +51,6 @@ export class GeoserverSyncService {
     const foundStoreNames = await this.getStoreNamesFromGeoserver(
       workspaceName,
     );
-    console.log(
-      '🚀 ~ GeoserverSyncService ~ syncStores ~ foundStoreNames:',
-      foundStoreNames,
-    );
     const missingStoreNames = expectedStoreNameObjects.filter(
       (o) => !foundStoreNames.includes(o.resourceName),
     );

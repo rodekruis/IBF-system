@@ -7,6 +7,10 @@ import { EmailService } from './email/email.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import { EventSummaryCountry } from '../../shared/data.model';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import {
+  NotificationApiTestResponseChannelDto,
+  NotificationApiTestResponseDto,
+} from './dto/notification-api-test-response.dto';
 
 @Injectable()
 export class NotificationService {
@@ -21,33 +25,50 @@ export class NotificationService {
   public async send(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    isApiTest: boolean,
     date?: Date,
-  ): Promise<void> {
-    await this.sendNotiFicationsActiveEvents(
+  ): Promise<void | NotificationApiTestResponseDto> {
+    const apiTestResponse = new NotificationApiTestResponseDto();
+    const apiTestReponseActive = await this.sendNotiFicationsActiveEvents(
       disasterType,
       countryCodeISO3,
+      isApiTest,
       date,
     );
+    if (isApiTest && apiTestReponseActive) {
+      apiTestResponse.activeEvents = apiTestReponseActive;
+    }
 
     if (disasterType === DisasterType.Floods) {
       // Sending finished events is now for floods only
-      await this.sendNotificationsFinishedEvents(
+      const apiTestReponseFinished = await this.sendNotificationsFinishedEvents(
         countryCodeISO3,
         disasterType,
+        isApiTest,
         date,
       );
+      if (isApiTest && apiTestReponseFinished) {
+        apiTestResponse.finishedEvents = apiTestReponseFinished;
+      }
     }
 
     // REFACTOR: First close finished events. This is ideally done through separate endpoint called at end of pipeline, but that would require all pipelines to be updated.
     // Instead, making use of this endpoint which is already called at the end of every pipeline
     await this.eventService.closeEventsAutomatic(countryCodeISO3, disasterType);
+
+    if (isApiTest) {
+      return apiTestResponse;
+    }
   }
 
   private async sendNotiFicationsActiveEvents(
     disasterType: DisasterType,
     countryCodeISO3: string,
+    isApiTest: boolean,
     date?: Date,
-  ): Promise<void> {
+  ): Promise<void | NotificationApiTestResponseChannelDto> {
+    const apiTestReponseActive = new NotificationApiTestResponseChannelDto();
+
     const events = await this.eventService.getEventSummary(
       countryCodeISO3,
       disasterType,
@@ -66,12 +87,16 @@ export class NotificationService {
         await this.notificationContentService.getCountryNotificationInfo(
           countryCodeISO3,
         );
-      await this.emailService.sendTriggerEmail(
+      const messageForApiTest = await this.emailService.sendTriggerEmail(
         country,
         disasterType,
         activeNotifiableEvents,
+        isApiTest,
         date,
       );
+      if (isApiTest && messageForApiTest) {
+        apiTestReponseActive.email = messageForApiTest;
+      }
       if (country.notificationInfo.useWhatsapp[disasterType]) {
         this.whatsappService.sendTriggerWhatsapp(
           country,
@@ -80,13 +105,18 @@ export class NotificationService {
         );
       }
     }
+    if (isApiTest) {
+      return apiTestReponseActive;
+    }
   }
 
   private async sendNotificationsFinishedEvents(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    isApiTest: boolean,
     date?: Date,
-  ): Promise<void> {
+  ): Promise<void | NotificationApiTestResponseChannelDto> {
+    const apiTestReponseFinished = new NotificationApiTestResponseChannelDto();
     const finishedNotifiableEvents =
       await this.eventService.getEventsSummaryTriggerFinishedMail(
         countryCodeISO3,
@@ -99,12 +129,16 @@ export class NotificationService {
           countryCodeISO3,
         );
 
-      await this.emailService.sendTriggerFinishedEmail(
+      const emailFinished = await this.emailService.sendTriggerFinishedEmail(
         country,
         disasterType,
         finishedNotifiableEvents,
+        isApiTest,
         date,
       );
+      if (isApiTest && emailFinished) {
+        apiTestReponseFinished.email = emailFinished;
+      }
 
       if (country.notificationInfo.useWhatsapp[disasterType]) {
         // TODO: Send one whatsapp message for all closing events
@@ -115,6 +149,9 @@ export class NotificationService {
             disasterType,
           );
         }
+      }
+      if (isApiTest) {
+        return apiTestReponseFinished;
       }
     }
   }

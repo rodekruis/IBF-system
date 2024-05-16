@@ -9,7 +9,6 @@ export async function getAccessToken(): Promise<string> {
   const login = await loginApi(admin.email, admin.password);
 
   const accessToken = login.body.user.token;
-  console.log('🚀 ~ getAccessToken ~ login.body:', login.body);
   return accessToken;
 }
 
@@ -32,7 +31,6 @@ export function getServer(): TestAgent<request.Test> {
 }
 
 export function resetDB(accessToken: string): Promise<request.Response> {
-  console.log('🚀 ~ resetDB ~ accessToken:', accessToken);
   return getServer()
     .post('/scripts/reset')
     .set('Authorization', `Bearer ${accessToken}`)
@@ -49,6 +47,7 @@ export function mockFloods(
   return getServer()
     .post('/mock/floods')
     .set('Authorization', `Bearer ${accessToken}`)
+    .query({ isApiTest: true })
     .send({
       scenario,
       secret: process.env.RESET_SECRET,
@@ -66,6 +65,7 @@ export function sendNotification(
   return getServer()
     .post('/notification/send')
     .set('Authorization', `Bearer ${accessToken}`)
+    .query({ isApiTest: true })
     .send({
       countryCodeISO3,
       disasterType,

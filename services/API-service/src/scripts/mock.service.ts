@@ -63,6 +63,7 @@ export class MockService {
       | MockFlashFloodsScenario,
     disasterType: DisasterType,
     useDefaultScenario: boolean,
+    isApiTest: boolean,
   ) {
     if (mockBody.removeEvents) {
       await this.removeEvents(mockBody.countryCodeISO3, disasterType);
@@ -234,7 +235,7 @@ export class MockService {
 
     // Add the needed stores and layers to geoserver, only do this in debug mode
     // The resulting XML files should be commited to git and will end up on the servers that way
-    if (DEBUG && !mockBody.isApiTest) {
+    if (DEBUG && !isApiTest) {
       await this.geoServerSyncService.sync(
         selectedCountry.countryCodeISO3,
         disasterType,

@@ -56,6 +56,8 @@ export class ScriptsService {
   ) {}
 
   public async mockAll(mockAllInput: MockAll) {
+    const isApiTest = false
+
     const envCountries = process.env.COUNTRIES.split(',');
 
     const newMockServiceDisasterTypes = [
@@ -80,10 +82,10 @@ export class ScriptsService {
               removeEvents: true,
               date: mockAllInput.date || new Date(),
               scenario: null, // This is overwritten by useDefaultScenario=true anyway
-              isApiTest: false,
             },
             disasterType.disasterType,
             true,
+            isApiTest,
           );
         } else {
           await this.mockCountry({
