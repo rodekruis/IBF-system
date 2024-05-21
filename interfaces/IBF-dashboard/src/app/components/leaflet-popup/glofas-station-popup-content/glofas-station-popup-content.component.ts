@@ -65,7 +65,9 @@ export class GlofasStationPopupContentComponent implements OnInit {
       this.defautEapAlertClass;
 
     this.barBackgroundColor = `var(--ion-color-${this.eapAlertClass.color})`;
-    this.barTextColor = `var(--ion-color-${this.eapAlertClass.color}-contrast)`;
+    this.barTextColor = `var(--ion-color-${
+      this.eapAlertClass.textColor || 'ibf-white'
+    })`;
   }
 
   public addComma = (n) => Math.round(n).toLocaleString('en-US');

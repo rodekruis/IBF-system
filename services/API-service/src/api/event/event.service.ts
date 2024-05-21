@@ -21,7 +21,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
-import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
+import {
+  DisasterSpecificProperties,
+  EventSummaryCountry,
+  TriggeredArea,
+} from '../../shared/data.model';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DateDto } from './dto/date.dto';
 import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
@@ -32,6 +36,7 @@ import { UserEntity } from '../user/user.entity';
 import { EventMapImageEntity } from './event-map-image.entity';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import { CountryEntity } from '../country/country.entity';
+import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
 
 @Injectable()
 export class EventService {
@@ -74,6 +79,9 @@ export class EventService {
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
+        'count(event."adminAreaId")::int AS "affectedAreas"',
+        'MAX(event."triggerValue")::float AS "triggerValue"',
+        'sum(event."actionsValue")::int AS "actionsValueSum"',
       ])
       .where({
         closed: false,
@@ -84,6 +92,11 @@ export class EventService {
         countryCodeISO3: countryCodeISO3,
       })
       .getRawMany();
+
+    const disasterSettings = await this.getCountryDisasterSettings(
+      countryCodeISO3,
+      disasterType,
+    );
 
     for await (const event of eventSummary) {
       event.firstLeadTime = await this.getFirstLeadTime(
@@ -104,6 +117,12 @@ export class EventService {
             countryCodeISO3,
             event.eventName,
           );
+      }
+      if (disasterSettings.eapAlertClasses) {
+        event.disasterSpecificProperties = await this.getEventEapAlertClass(
+          disasterSettings,
+          event.triggerValue,
+        );
       }
     }
     return eventSummary;
@@ -944,5 +963,24 @@ export class EventService {
     });
 
     return eventMapImageEntity?.image;
+  }
+
+  private async getEventEapAlertClass(
+    disasterSettings: CountryDisasterSettingsEntity,
+    eventTriggerValue: number,
+  ): Promise<DisasterSpecificProperties> {
+    const eapAlertClasses = JSON.parse(
+      JSON.stringify(disasterSettings.eapAlertClasses),
+    );
+    const alertClassKey = Object.keys(eapAlertClasses).find(
+      (key) => eapAlertClasses[key].value === eventTriggerValue,
+    );
+
+    return {
+      eapAlertClass: {
+        key: alertClassKey,
+        ...eapAlertClasses[alertClassKey],
+      },
+    };
   }
 }

@@ -205,4 +205,63 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
 
     return false;
   }
+
+  public getCardColors(): {
+    iconColor: string;
+    headerTextColor: string;
+    borderColor: string;
+  } {
+    const defaultColors = {
+      iconColor: 'var(--ion-color-ibf-black)',
+      headerTextColor: 'var(--ion-color-ibf-black)',
+      borderColor: null,
+    };
+
+    if (!this.event) {
+      return defaultColors;
+    }
+
+    if (!this.event.disasterSpecificProperties) {
+      if (!this.event.thresholdReached) {
+        return defaultColors;
+      }
+
+      return {
+        iconColor: 'var(--ion-color-fiveten-red-500)',
+        headerTextColor: 'var(--ion-color-fiveten-red-500)',
+        borderColor: 'var(--ion-color-fiveten-red-500)',
+      };
+    }
+
+    if (!this.event.disasterSpecificProperties.eapAlertClass) {
+      if (!this.event.thresholdReached) {
+        return defaultColors;
+      }
+
+      return {
+        iconColor: 'var(--ion-color-fiveten-red-500)',
+        headerTextColor: 'var(--ion-color-fiveten-red-500)',
+        borderColor: 'var(--ion-color-fiveten-red-500)',
+      };
+    }
+
+    return {
+      iconColor: `var(--ion-color-${this.event.disasterSpecificProperties.eapAlertClass.color})`,
+      headerTextColor: `var(--ion-color-${
+        this.event.disasterSpecificProperties.eapAlertClass.textColor ||
+        this.event.disasterSpecificProperties.eapAlertClass.color
+      })`,
+      borderColor: `var(--ion-color-${this.event.disasterSpecificProperties.eapAlertClass.color})`,
+    };
+  }
+
+  public isEventWithForecastClasses(): boolean {
+    if (
+      !this.event ||
+      !this.event.disasterSpecificProperties ||
+      !this.event.disasterSpecificProperties.eapAlertClass
+    ) {
+      return false;
+    } else return true;
+  }
 }
