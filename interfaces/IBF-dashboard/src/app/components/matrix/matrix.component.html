@@ -3,17 +3,18 @@
   [ngStyle]="{ height: getLayerMenuContainerHeightInRem() + 'rem' }"
 >
   <ion-button
-    class="ion-no-margin"
+    class="ion-no-margin ion-justify-content-between"
     color="ibf-no-alert-primary "
     id="layer-menu-toggle-button"
     (click)="toggleLayerMenu()"
-    ><span class="ion-margin-end">{{
-      'layers-menu.menu-toggle-label' | translate
-    }}</span
-    ><ion-icon
-      [name]="isLayerMenuOpen ? 'chevron-down-outline' : 'chevron-up-outline'"
-    ></ion-icon
-  ></ion-button>
+  >
+    <div>
+      <ion-text> {{ 'layers-menu.menu-toggle-label' | translate }}</ion-text
+      ><ion-icon
+        [name]="isLayerMenuOpen ? 'chevron-down-outline' : 'chevron-up-outline'"
+      ></ion-icon>
+    </div>
+  </ion-button>
   <div *ngIf="isLayerMenuOpen" id="layer-menu">
     <ion-list class="ion-no-padding">
       <ion-row
