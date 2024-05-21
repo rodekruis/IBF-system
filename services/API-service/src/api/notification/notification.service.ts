@@ -23,6 +23,10 @@ export class NotificationService {
     disasterType: DisasterType,
     date?: Date,
   ): Promise<void> {
+    // REFACTOR: First close finished events. This is ideally done through separate endpoint called at end of pipeline, but that would require all pipelines to be updated.
+    // Instead, making use of this endpoint which is already called at the end of every pipeline
+    await this.eventService.closeEventsAutomatic(countryCodeISO3, disasterType);
+
     const events = await this.eventService.getEventSummary(
       countryCodeISO3,
       disasterType,
@@ -97,9 +101,8 @@ export class NotificationService {
       const date = uploadDate ? new Date(uploadDate) : new Date();
       const yesterdayActiveDate = new Date(date.setDate(date.getDate() + 6)); // determine yesterday still active events by endDate lying (7 - 1) days in the future
       if (
-        !event.activeTrigger &&
         new Date(event.endDate) >=
-          new Date(yesterdayActiveDate.setHours(0, 0, 0, 0))
+        new Date(yesterdayActiveDate.setHours(0, 0, 0, 0))
       ) {
         return true;
       }
@@ -112,7 +115,7 @@ export class NotificationService {
     disasterType: DisasterType,
     countryCodeISO3: string,
   ): Promise<boolean> {
-    let send = event.activeTrigger;
+    let send = true;
     if (disasterType === DisasterType.Typhoon) {
       send = await this.typhoonTrackService.shouldSendNotification(
         countryCodeISO3,

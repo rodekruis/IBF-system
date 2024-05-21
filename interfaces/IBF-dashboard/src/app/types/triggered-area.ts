@@ -4,7 +4,6 @@ import { EapAction } from './eap-action';
 export class TriggeredArea {
   actionsValue: number;
   triggerValue: number;
-  activeTrigger: boolean;
   displayName: string;
   eapActions: EapAction[];
   eventPlaceCodeId: string;

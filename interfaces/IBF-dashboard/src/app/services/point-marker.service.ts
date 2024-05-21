@@ -4,7 +4,6 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { divIcon, icon, IconOptions, LatLng, Marker, marker } from 'leaflet';
 import { DateTime } from 'luxon';
 import {
@@ -44,7 +43,7 @@ import {
 } from '../models/country.model';
 import { IbfLayerName } from '../types/ibf-layer';
 import { LeadTime } from '../types/lead-time';
-import { EventService } from './event.service';
+import { EventService, EventSummary } from './event.service';
 
 @Injectable({
   providedIn: 'root',
@@ -56,7 +55,6 @@ export class PointMarkerService {
   constructor(
     private eventService: EventService,
     private analyticsService: AnalyticsService,
-    private translate: TranslateService,
     private injector: Injector,
     private applicationRef: ApplicationRef,
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -110,7 +108,7 @@ export class PointMarkerService {
   private onMapMarkerClick = (analyticsEvent) => (): void => {
     this.analyticsService.logEvent(analyticsEvent, {
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
   };
@@ -119,10 +117,15 @@ export class PointMarkerService {
     markerProperties: Station,
     markerLatLng: LatLng,
     countryDisasterSettings: CountryDisasterSettings,
-    activeLeadTime: LeadTime,
+    events: EventSummary[],
   ): Marker {
-    const markerTitle = markerProperties.stationName;
+    const activeLeadTime = events.find(
+      (e) =>
+        e.eventName ===
+        (markerProperties.stationCode || markerProperties.stationName), // NOTE: this assumes events to be defined per station, and eventName=stationCode or stationName
+    )?.firstLeadTime as LeadTime;
 
+    const markerTitle = markerProperties.stationName;
     const markerIcon: IconOptions = {
       ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
       iconUrl: `assets/markers/glofas-station-${
@@ -472,8 +475,7 @@ export class PointMarkerService {
     countryDisasterSettings: CountryDisasterSettings,
     activeLeadTime: LeadTime,
   ) {
-    const leadTimes = countryDisasterSettings?.activeLeadTimes;
-    const lastAvailableLeadTime: LeadTime = leadTimes[leadTimes.length - 1];
+    const lastAvailableLeadTime: LeadTime = LeadTime.day7; // Agreed with pipeline that untriggered station will always show day 7
     const leadTime = activeLeadTime || lastAvailableLeadTime;
 
     const eapAlertClasses =

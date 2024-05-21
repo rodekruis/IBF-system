@@ -29,6 +29,11 @@ import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin
 import { LinesDataModule } from '../api/lines-data/lines-data.module';
 import SeedLineData from './seed-line-data';
 import { ORMConfig } from '../../ormconfig';
+import { MockService } from './mock.service';
+import { MockController } from './mock.controller';
+import { GeoserverSyncService } from './geoserver-sync.service';
+import { HttpModule } from '@nestjs/axios';
+import { MockHelperService } from './mock-helper.service';
 
 @Module({
   imports: [
@@ -53,6 +58,7 @@ import { ORMConfig } from '../../ormconfig';
     PointDataModule,
     LinesDataModule,
     AdminAreaDataModule,
+    HttpModule,
   ],
   providers: [
     SeedInit,
@@ -63,8 +69,11 @@ import { ORMConfig } from '../../ormconfig';
     SeedPointData,
     SeedLineData,
     SeedRainfallData,
+    MockService,
+    MockHelperService,
+    GeoserverSyncService,
   ],
-  controllers: [ScriptsController],
+  controllers: [ScriptsController, MockController],
 })
 export class ScriptsModule {}
 

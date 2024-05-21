@@ -44,8 +44,14 @@ export class MockDynamic {
   @IsIn(process.env.COUNTRIES.split(','))
   public readonly countryCodeISO3: string;
 
-  @ApiProperty({ example: DisasterType.Floods })
-  @IsEnum(DisasterType)
+  @ApiProperty({
+    example: [
+      DisasterType.Drought,
+      DisasterType.Typhoon,
+      DisasterType.HeavyRain,
+    ].join(' | '),
+  })
+  @IsIn([DisasterType.Drought, DisasterType.Typhoon, DisasterType.HeavyRain])
   public readonly disasterType: DisasterType;
 
   @ApiProperty()

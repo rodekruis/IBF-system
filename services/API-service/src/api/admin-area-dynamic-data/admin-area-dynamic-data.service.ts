@@ -15,6 +15,7 @@ import fs from 'fs';
 import { CountryEntity } from '../country/country.entity';
 import { HelperService } from '../../shared/helper.service';
 import { EventAreaService } from '../admin-area/services/event-area.service';
+import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -39,6 +40,15 @@ export class AdminAreaDynamicDataService {
       uploadExposure.date,
       uploadExposure.leadTime,
     );
+
+    // NOTE: This should be changed in pipeline, but this achieves the same result as long as that did not happen
+    // NOTE: this assumes eventName=leadTime, if this changes, then this doesn't work any more
+    if (!uploadExposure.eventName) {
+      uploadExposure.eventName = this.getEpidemicsEventNameException(
+        uploadExposure.disasterType,
+        uploadExposure.leadTime,
+      );
+    }
 
     // Delete existing entries in case of a re-run of the pipeline for some reason
     await this.deleteDynamicDuplicates(uploadExposure);
@@ -89,6 +99,19 @@ export class AdminAreaDynamicDataService {
     }
   }
 
+  private getEpidemicsEventNameException(
+    disasterType: DisasterType,
+    leadTime: LeadTime,
+  ): string {
+    if (
+      disasterType === DisasterType.Dengue ||
+      disasterType === DisasterType.Malaria
+    ) {
+      return leadTime as string;
+    }
+    return null;
+  }
+
   private async deleteDynamicDuplicates(
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
@@ -107,11 +130,10 @@ export class AdminAreaDynamicDataService {
     if (uploadExposure.eventName) {
       deleteFilters['eventName'] = uploadExposure.eventName;
     }
-    // Do not overwrite based on 'leadTime' as typhoon should also overwrite if lead-time has changed (as it's a calculated field, instead of fixed)
-    if (uploadExposure.disasterType !== DisasterType.Typhoon) {
+    // Only filter on leadTime when using fixed LeadTime / not using events
+    if (uploadExposure.disasterType === DisasterType.HeavyRain) {
       deleteFilters['leadTime'] = uploadExposure.leadTime as LeadTime;
     }
-
     await this.adminAreaDynamicDataRepo.delete(deleteFilters);
   }
 
@@ -120,14 +142,7 @@ export class AdminAreaDynamicDataService {
   ): Promise<void> {
     const trigger = this.isThereTrigger(uploadExposure.exposurePlaceCodes);
 
-    const eventBelowTrigger =
-      !trigger &&
-      !!uploadExposure.eventName &&
-      [
-        DisasterType.Typhoon,
-        DisasterType.FlashFloods,
-        DisasterType.Floods,
-      ].includes(uploadExposure.disasterType);
+    const eventBelowTrigger = !trigger && !!uploadExposure.eventName;
 
     const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
     uploadTriggerPerLeadTimeDto.countryCodeISO3 =
@@ -171,6 +186,7 @@ export class AdminAreaDynamicDataService {
       disasterType,
     );
 
+    // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
     if (disasterType === DisasterType.FlashFloods && !eventName) {
       return await this.eventAreaService.getEventAreaDynamicData(
         countryCodeISO3,
@@ -231,16 +247,9 @@ export class AdminAreaDynamicDataService {
     data: any,
     disasterType: DisasterType,
   ): Promise<void> {
-    let subfolder: string;
-    if (
-      [DisasterType.Floods, DisasterType.FlashFloods].includes(disasterType)
-    ) {
-      subfolder = 'flood_extents';
-    } else if (
-      [DisasterType.HeavyRain, DisasterType.Drought].includes(disasterType)
-    ) {
-      subfolder = 'rainfall_extents';
-    } else {
+    const subfolder =
+      DisasterTypeGeoServerMapper.getSubfolderForDisasterType(disasterType);
+    if (subfolder === '') {
       throw new HttpException(
         'Disaster Type not allowed',
         HttpStatus.BAD_REQUEST,
@@ -273,6 +282,7 @@ export class AdminAreaDynamicDataService {
           DisasterType.Floods,
           DisasterType.Typhoon,
           DisasterType.HeavyRain,
+          DisasterType.FlashFloods,
         ]),
       })
       .getRawMany();

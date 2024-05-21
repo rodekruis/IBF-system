@@ -1,4 +1,5 @@
 export enum LeadTime {
+  day0 = '0-day',
   day1 = '1-day',
   day2 = '2-day',
   day3 = '3-day',
@@ -190,6 +191,7 @@ export enum LeadTime {
 }
 
 export enum LeadTimeTriggerKey {
+  '0-day' = '0',
   '1-day' = '1',
   '2-day' = '2',
   '3-day' = '3',

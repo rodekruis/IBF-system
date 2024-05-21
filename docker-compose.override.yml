@@ -6,6 +6,7 @@ services:
     environment:
       - NODE_ENV=development
       - LOCAL_PORT_IBF_SERVICE=${LOCAL_PORT_IBF_SERVICE}
+      - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD}
     ports:
       - ${LOCAL_PORT_IBF_SERVICE}:3000
     depends_on:

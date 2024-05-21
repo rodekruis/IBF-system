@@ -1,0 +1,19 @@
+<layer>
+  <name>flood_extent_5-day_KEN</name>
+  <id>LayerInfoImpl-4dd529d3:18e74a6986c:-7ed4</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-4dd529d3:18e74a6986c:-7ed5</id>
+  </resource>
+  <queryable>true</queryable>
+  <opaque>false</opaque>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2024-03-25 10:00:01.441 UTC</dateCreated>
+  <dateModified>2024-03-25 10:00:01.505 UTC</dateModified>
+</layer>

@@ -67,7 +67,7 @@ export class MapService {
     defaultFillColor: '#A0B6EB',
     strokeColor: '#969696',
     colorStopped: '#d9d9d9',
-    noDataColor: '#fcf2d4',
+    noDataColor: '#d3dae0',
     transparentColor: 'transparent',
     defaultFillOpacity: 0.8,
     defaultWeight: 1,
@@ -407,7 +407,7 @@ export class MapService {
     return indicatorOrLayer.active === LayerActivation.yes
       ? true
       : indicatorOrLayer.active === LayerActivation.ifTrigger &&
-        this.eventState?.activeTrigger
+        this.eventState?.events?.length > 0
       ? true
       : false;
   }
@@ -429,10 +429,9 @@ export class MapService {
       colorProperty: indicator.name,
       colorBreaks: indicator.colorBreaks,
       numberFormatMap: indicator.numberFormatMap,
-      legendColor:
-        this.eventState.activeTrigger && this.eventState.thresholdReached
-          ? this.state.colorGradientTriggered[2]
-          : this.state.colorGradient[2],
+      legendColor: this.eventState.thresholdReached
+        ? this.state.colorGradientTriggered[2]
+        : this.state.colorGradient[2],
       group:
         indicator.name === IbfLayerName.alertThreshold
           ? IbfLayerGroup.outline
@@ -517,7 +516,7 @@ export class MapService {
   ): boolean => {
     if (
       layer.group === IbfLayerGroup.outline &&
-      this.eventState?.activeTrigger
+      this.eventState?.events?.length > 0
     ) {
       return true;
     }
@@ -761,10 +760,9 @@ export class MapService {
     placeCodeParent: string,
   ): string => {
     let adminRegionFillColor = this.state.defaultFillColor;
-    const currentColorGradient =
-      this.eventState.activeTrigger && this.eventState.thresholdReached
-        ? this.state.colorGradientTriggered
-        : this.state.colorGradient;
+    const currentColorGradient = this.eventState.thresholdReached
+      ? this.state.colorGradientTriggered
+      : this.state.colorGradient;
 
     const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
     switch (true) {

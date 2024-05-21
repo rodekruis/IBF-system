@@ -24,12 +24,8 @@ import { AdminLevel } from '../api/country/admin-level.enum';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
-import { LinesDataService } from '../api/lines-data/lines-data.service';
-import { UploadLinesExposureStatusDto } from '../api/lines-data/dto/upload-asset-exposure-status.dto';
-import { LinesDataEnum } from '../api/lines-data/lines-data.entity';
-import { PointDataEnum } from '../api/point-data/point-data.entity';
-import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
-import { PointDataService } from '../api/point-data/point-data.service';
+import { MockHelperService } from './mock-helper.service';
+import { MockService } from './mock.service';
 
 @Injectable()
 export class ScriptsService {
@@ -55,12 +51,19 @@ export class ScriptsService {
     private typhoonTrackService: TyphoonTrackService,
     private eventService: EventService,
     private metadataService: MetadataService,
-    private linesDataService: LinesDataService,
-    private pointDataService: PointDataService,
+    private mockHelperService: MockHelperService,
+    private mockService: MockService,
   ) {}
 
   public async mockAll(mockAllInput: MockAll) {
     const envCountries = process.env.COUNTRIES.split(',');
+
+    const newMockServiceDisasterTypes = [
+      DisasterType.Floods,
+      DisasterType.Dengue,
+      DisasterType.Malaria,
+      DisasterType.FlashFloods,
+    ];
 
     for await (const countryCodeISO3 of envCountries) {
       const country = await this.countryRepo.findOne({
@@ -69,14 +72,28 @@ export class ScriptsService {
       });
 
       for await (const disasterType of country.disasterTypes) {
-        await this.mockCountry({
-          secret: mockAllInput.secret,
-          countryCodeISO3,
-          disasterType: disasterType.disasterType,
-          triggered: mockAllInput.triggered,
-          removeEvents: true,
-          date: mockAllInput.date || new Date(),
-        });
+        if (newMockServiceDisasterTypes.includes(disasterType.disasterType)) {
+          await this.mockService.mock(
+            {
+              secret: mockAllInput.secret,
+              countryCodeISO3,
+              removeEvents: true,
+              date: mockAllInput.date || new Date(),
+              scenario: null, // This is overwritten by useDefaultScenario=true anyway
+            },
+            disasterType.disasterType,
+            true,
+          );
+        } else {
+          await this.mockCountry({
+            secret: mockAllInput.secret,
+            countryCodeISO3,
+            disasterType: disasterType.disasterType,
+            triggered: mockAllInput.triggered,
+            removeEvents: true,
+            date: mockAllInput.date || new Date(),
+          });
+        }
       }
     }
   }
@@ -155,47 +172,15 @@ export class ScriptsService {
       typhoonScenario,
     );
 
-    if (mockInput.disasterType === DisasterType.Floods) {
-      await this.mockGlofasStations(
-        selectedCountry,
-        mockInput.disasterType,
-        mockInput.triggered,
-        date,
-      );
-      await this.mockTriggerPerLeadTime(
-        selectedCountry,
-        mockInput.disasterType,
-        mockInput.triggered,
-        eventNr,
-        date,
-      );
-    }
-
     if (
-      [
-        DisasterType.Floods,
-        DisasterType.HeavyRain,
-        DisasterType.Drought,
-        DisasterType.FlashFloods,
-      ].includes(mockInput.disasterType)
+      [DisasterType.HeavyRain, DisasterType.Drought].includes(
+        mockInput.disasterType,
+      )
     ) {
-      await this.mockRasterFile(
+      await this.mockHelperService.mockRasterFile(
         selectedCountry,
         mockInput.disasterType,
         mockInput.triggered,
-      );
-    }
-
-    if (mockInput.disasterType === DisasterType.FlashFloods) {
-      await this.mockExposedAssets(
-        selectedCountry.countryCodeISO3,
-        mockInput.triggered,
-        date,
-      );
-      await this.mockDynamicPointData(
-        selectedCountry.countryCodeISO3,
-        mockInput.disasterType,
-        date,
       );
     }
 
@@ -208,14 +193,11 @@ export class ScriptsService {
       );
     }
 
-    // for now base on SSD, make more generic later
-    if (mockInput.countryCodeISO3 === 'SSD') {
-      await this.mockMapImageFile(
-        selectedCountry.countryCodeISO3,
-        mockInput.disasterType,
-        mockInput.triggered,
-      );
-    }
+    // Close finished events (only applicable for follow-up mock pipeline runs, with removeEvents=false)
+    await this.eventService.closeEventsAutomatic(
+      selectedCountry.countryCodeISO3,
+      mockInput.disasterType,
+    );
   }
 
   public async mockTyphoonScenario(mockTyphoonScenario: MockTyphoonScenario) {
@@ -378,12 +360,7 @@ export class ScriptsService {
       .filter((ind) => ind.dynamic)
       .map((ind) => ind.name as DynamicIndicator);
 
-    if (
-      disasterType === DisasterType.Dengue ||
-      disasterType === DisasterType.Malaria
-    ) {
-      exposureUnits.push(DynamicIndicator.potentialThreshold);
-    } else if (disasterType === DisasterType.Typhoon) {
+    if (disasterType === DisasterType.Typhoon) {
       exposureUnits.push(DynamicIndicator.showAdminArea);
       if (typhoonScenario === TyphoonScenario.NoEvent) {
         exposureUnits = [
@@ -404,7 +381,7 @@ export class ScriptsService {
     eventNr: number,
     countryCodeISO3: string,
     disasterType: DisasterType,
-    triggered: boolean,
+    triggered = true,
     typhoonScenario?: TyphoonScenario,
   ) {
     let fileName = `upload-${unit}-${adminLevel}`;
@@ -468,8 +445,6 @@ export class ScriptsService {
           ).droughtForecastSeasons,
         );
         return regions;
-      } else if (disasterType === DisasterType.FlashFloods) {
-        return ['Rumphi', 'Karonga'];
       }
     }
     return [null];
@@ -513,8 +488,6 @@ export class ScriptsService {
           }
         }
       }
-    } else if (disasterType === DisasterType.FlashFloods) {
-      return eventRegion;
     } else {
       return null;
     }
@@ -541,8 +514,6 @@ export class ScriptsService {
       );
     } else if (disasterType === DisasterType.Typhoon) {
       return leadTime === this.getTyphoonLeadTime(eventNr, typhoonScenario);
-    } else if (disasterType === DisasterType.FlashFloods) {
-      return this.useFlashFloodsLeadTime(leadTime as LeadTime, triggered);
     } else {
       return true;
     }
@@ -678,17 +649,6 @@ export class ScriptsService {
     }
   }
 
-  private useFlashFloodsLeadTime(
-    leadTime: LeadTime,
-    triggered: boolean,
-  ): boolean {
-    if (triggered) {
-      return [LeadTime.hour24, LeadTime.hour6].includes(leadTime);
-    } else {
-      return leadTime === LeadTime.hour1;
-    }
-  }
-
   private async mockAmount(
     exposurePlacecodes: any,
     exposureUnit: DynamicIndicator,
@@ -700,36 +660,7 @@ export class ScriptsService {
     eventRegion?: string,
   ): Promise<any[]> {
     let copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
-    // This only returns something different for dengue/malaria exposure-units
-    if ([DisasterType.Dengue, DisasterType.Malaria].includes(disasterType)) {
-      for (const pcodeData of copyOfExposureUnit) {
-        if (exposureUnit === DynamicIndicator.potentialCases65) {
-          pcodeData.amount = Math.round(pcodeData.amount * 0.1);
-        } else if (
-          exposureUnit === DynamicIndicator.potentialCasesU9 ||
-          exposureUnit === DynamicIndicator.potentialCasesU5
-        ) {
-          pcodeData.amount = Math.round(pcodeData.amount * 0.2);
-        } else if (exposureUnit === DynamicIndicator.alertThreshold) {
-          if (!triggered) {
-            pcodeData.amount = 0;
-          } else {
-            pcodeData.amount = [
-              'PH137500000',
-              'PH137400000',
-              'PH133900000',
-              'PH137600000',
-              'PH031400000',
-              'ET020303',
-              'ET042105',
-              'ET042104',
-            ].includes(pcodeData.placeCode)
-              ? 1
-              : 0;
-          }
-        }
-      }
-    } else if (
+    if (
       disasterType === DisasterType.Drought &&
       selectedCountry.countryCodeISO3 !== 'ZWE' && // exclude ZWE drought from this rule
       triggered
@@ -758,34 +689,6 @@ export class ScriptsService {
             amount: area.triggered ? amountFactor : 0,
           };
         });
-      }
-    } else if (disasterType === DisasterType.FlashFloods && triggered) {
-      if (
-        (eventRegion === 'Karonga' && activeLeadTime === LeadTime.hour24) ||
-        (eventRegion === 'Rumphi' && activeLeadTime === LeadTime.hour6)
-      ) {
-        // loop from the end so index stays correct during splicing
-        for (let i = copyOfExposureUnit.length - 1; i >= 0; i--) {
-          // if (
-          //   copyOfExposureUnit[i].amount > 0 ||
-          //   [LeadTime.hour24, LeadTime.hour48].includes(activeLeadTime)
-          // ) {
-          const adminArea = await this.adminAreaRepo.findOne({
-            where: { placeCode: copyOfExposureUnit[i].placeCode },
-          });
-          const adminAreaParent = await this.adminAreaRepo.findOne({
-            where: { placeCode: adminArea.placeCodeParent },
-          });
-          if (adminAreaParent.name === eventRegion) {
-            // leave this as is ..
-            continue;
-          }
-          // }
-          // .. remove the rest from upload
-          copyOfExposureUnit.splice(i, 1);
-        }
-      } else {
-        copyOfExposureUnit = [];
       }
     }
     return copyOfExposureUnit;
@@ -898,245 +801,5 @@ export class ScriptsService {
         typhoonScenario === TyphoonScenario.NoEvent ? [] : track,
       date,
     });
-  }
-
-  private async mockGlofasStations(
-    selectedCountry,
-    disasterType: DisasterType,
-    triggered: boolean,
-    date: Date,
-  ) {
-    // TODO: this is still the old glofas input-format, needs to be updated
-    const stationsFileName = `./src/api/point-data/dto/example/glofas-stations/glofas-stations-${
-      selectedCountry.countryCodeISO3
-    }${triggered ? '-triggered' : ''}.json`;
-    const stationsRaw = fs.readFileSync(stationsFileName, 'utf-8');
-    const stations = JSON.parse(stationsRaw);
-
-    for (const activeLeadTime of selectedCountry.countryDisasterSettings.find(
-      (s) => s.disasterType === disasterType,
-    ).activeLeadTimes) {
-      console.log(
-        `Seeding Glofas stations for country: ${selectedCountry.countryCodeISO3} for leadtime: ${activeLeadTime}`,
-      );
-      await this.glofasStationService.uploadTriggerDataPerStation({
-        countryCodeISO3: selectedCountry.countryCodeISO3,
-        stationForecasts: stations,
-        leadTime: activeLeadTime as LeadTime,
-        date,
-      });
-    }
-  }
-
-  private async mockTriggerPerLeadTime(
-    selectedCountry,
-    disasterType: DisasterType,
-    triggered: boolean,
-    eventNr = 1,
-    date: Date,
-  ) {
-    const triggersFileName = `./src/api/event/dto/example/triggers-per-leadtime-${
-      selectedCountry.countryCodeISO3
-    }${triggered ? '-triggered' : ''}.json`;
-    const triggersRaw = fs.readFileSync(triggersFileName, 'utf-8');
-    const triggers = JSON.parse(triggersRaw);
-
-    await this.eventService.uploadTriggerPerLeadTime({
-      countryCodeISO3: selectedCountry.countryCodeISO3,
-      triggersPerLeadTime: triggers,
-      disasterType: disasterType,
-      eventName: this.getEventName(disasterType, eventNr),
-      date,
-    });
-  }
-
-  private async mockExposedAssets(
-    countryCodeISO3: string,
-    triggered: boolean,
-    date: Date,
-  ) {
-    if (countryCodeISO3 !== 'MWI' || !triggered) {
-      return;
-    }
-    const pointDataCategories = [
-      PointDataEnum.healthSites,
-      PointDataEnum.schools,
-      PointDataEnum.waterpointsInternal,
-    ];
-    for (const leadTime of [LeadTime.hour24, LeadTime.hour6]) {
-      for (const assetType of Object.keys(LinesDataEnum)) {
-        const payload = new UploadLinesExposureStatusDto();
-        payload.countryCodeISO3 = countryCodeISO3;
-        payload.disasterType = DisasterType.FlashFloods;
-        payload.linesDataCategory = assetType as LinesDataEnum;
-        payload.leadTime = leadTime;
-        payload.date = date || new Date();
-        if (assetType === LinesDataEnum.roads) {
-          const filename = `./src/api/lines-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${assetType}.json`;
-          const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-          leadTime === LeadTime.hour24
-            ? (payload.exposedFids = assets[LeadTime.hour24])
-            : leadTime === LeadTime.hour6
-            ? (payload.exposedFids = assets[LeadTime.hour6])
-            : [];
-        } else if (assetType === LinesDataEnum.buildings) {
-          const filename = `./src/api/lines-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${assetType}.json`;
-          const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-          leadTime === LeadTime.hour24
-            ? (payload.exposedFids = assets[LeadTime.hour24])
-            : leadTime === LeadTime.hour6
-            ? (payload.exposedFids = assets[LeadTime.hour6])
-            : [];
-        }
-        await this.linesDataService.uploadAssetExposureStatus(payload);
-      }
-
-      for (const pointAssetType of pointDataCategories) {
-        const payload = new UploadDynamicPointDataDto();
-        payload.disasterType = DisasterType.FlashFloods;
-        payload.key = 'exposure';
-        payload.leadTime = leadTime;
-        payload.date = date || new Date();
-        if (pointAssetType === PointDataEnum.healthSites) {
-          leadTime === LeadTime.hour24
-            ? (payload.dynamicPointData = [])
-            : leadTime === LeadTime.hour6
-            ? (payload.dynamicPointData = [{ fid: '124', value: 'true' }])
-            : [];
-        } else if (pointAssetType === PointDataEnum.schools) {
-          leadTime === LeadTime.hour24
-            ? (payload.dynamicPointData = [{ fid: '167', value: 'true' }])
-            : leadTime === LeadTime.hour6
-            ? (payload.dynamicPointData = [])
-            : [];
-        } else if (pointAssetType === PointDataEnum.waterpointsInternal) {
-          const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${pointAssetType}.json`;
-          const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-          leadTime === LeadTime.hour24
-            ? (payload.dynamicPointData = assets[LeadTime.hour24])
-            : leadTime === LeadTime.hour6
-            ? (payload.dynamicPointData = assets[LeadTime.hour6])
-            : [];
-        }
-        await this.pointDataService.uploadDynamicPointData(payload);
-      }
-    }
-  }
-
-  private async mockDynamicPointData(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    date: Date,
-  ) {
-    if (countryCodeISO3 !== 'MWI') {
-      return;
-    }
-
-    const keys = [
-      'water-level',
-      'water-level-reference',
-      'water-level-previous',
-    ];
-    for (const key of keys) {
-      const payload = new UploadDynamicPointDataDto();
-      payload.key = key;
-      payload.leadTime = null;
-      payload.date = date || new Date();
-      payload.disasterType = disasterType;
-      const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/dynamic-point-data_${key}.json`;
-      const dynamicPointData = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-      payload.dynamicPointData = dynamicPointData;
-
-      await this.pointDataService.uploadDynamicPointData(payload);
-    }
-  }
-
-  private async mockRasterFile(
-    selectedCountry,
-    disasterType: DisasterType,
-    triggered: boolean,
-  ) {
-    for await (const leadTime of selectedCountry.countryDisasterSettings.find(
-      (s) => s.disasterType === disasterType,
-    ).activeLeadTimes) {
-      console.log(
-        `Seeding disaster extent raster file for country: ${selectedCountry.countryCodeISO3} for leadtime: ${leadTime}`,
-      );
-
-      let sourceFileName, destFileName;
-      if (disasterType === DisasterType.Floods) {
-        sourceFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
-        destFileName = sourceFileName;
-      } else if (disasterType === DisasterType.HeavyRain) {
-        // Use 3-day mock for every lead-time
-        sourceFileName = `rainfall_extent_3-day_${
-          selectedCountry.countryCodeISO3
-        }${triggered ? '-triggered' : ''}.tif`;
-        if (selectedCountry.countryCodeISO3 === 'EGY') {
-          destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
-        } else if (selectedCountry.countryCodeISO3 === 'UGA') {
-          destFileName = `rainfall_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
-        }
-      } else if (disasterType === DisasterType.Drought) {
-        // Use 0-month mock for every lead-time
-        sourceFileName = `rainfall_forecast_0-month_${
-          selectedCountry.countryCodeISO3
-        }${triggered ? '-triggered' : ''}.tif`;
-        destFileName = `rain_rp_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
-      } else if (disasterType === DisasterType.FlashFloods) {
-        if (leadTime === LeadTime.hour24 || leadTime === LeadTime.hour6) {
-          sourceFileName = `flood_extent_${leadTime}_${selectedCountry.countryCodeISO3}.tif`;
-        } else {
-          continue;
-        }
-        destFileName = sourceFileName;
-      }
-
-      let file;
-      try {
-        file = fs.readFileSync(
-          `./geoserver-volume/raster-files/mock-output/${sourceFileName}`,
-        );
-      } catch (error) {
-        console.log(`ERROR: ${sourceFileName} not found.`);
-        return;
-      }
-
-      const dataObject = {
-        originalname: destFileName,
-        buffer: file,
-      };
-      await this.adminAreaDynamicDataService.postRaster(
-        dataObject,
-        disasterType,
-      );
-    }
-  }
-
-  private async mockMapImageFile(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    triggered: boolean,
-  ) {
-    if (!triggered) {
-      return;
-    }
-    console.log(`Seeding event map image country: ${countryCodeISO3}`);
-
-    const eventName = this.getEventName(disasterType) || 'no-name';
-    const filename = `${countryCodeISO3}_${disasterType}_${eventName}_map-image.png`;
-    const file = fs.readFileSync(
-      `./geoserver-volume/raster-files/mock-output/${filename}`,
-    );
-    const dataObject = {
-      originalname: filename,
-      buffer: file,
-    };
-    await this.eventService.postEventMapImage(
-      countryCodeISO3,
-      disasterType,
-      eventName,
-      dataObject,
-    );
   }
 }

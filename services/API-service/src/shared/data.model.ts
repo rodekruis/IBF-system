@@ -58,8 +58,14 @@ export class TriggeredArea {
 export class DisasterSpecificProperties {
   typhoonLandfall?: boolean;
   typhoonNoLandfallYet?: boolean;
+  eapAlertClass?: {
+    key: string;
+    label: string;
+    color: string;
+    value: number;
+    textColor?: string;
+  };
 }
-
 export class EventSummaryCountry {
   @ApiProperty({ example: 'UGA' })
   public countryCodeISO3: string;
@@ -79,9 +85,15 @@ export class EventSummaryCountry {
   @ApiProperty({ example: 'Mock typhoon' })
   public eventName: string;
 
-  @ApiProperty({ example: LeadTime.day7 })
+  @ApiProperty({ example: LeadTime.day3 })
   public firstLeadTime: LeadTime;
+
+  @ApiProperty({ example: LeadTime.day5 })
+  public firstTriggerLeadTime: LeadTime;
 
   @ApiProperty({ example: {} })
   public disasterSpecificProperties: DisasterSpecificProperties;
+
+  @ApiProperty({ example: 5 })
+  public affectedAreas: number;
 }

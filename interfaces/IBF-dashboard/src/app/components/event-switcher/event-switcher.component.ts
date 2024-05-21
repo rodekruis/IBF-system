@@ -65,10 +65,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   };
 
   public multipleActiveEvents() {
-    return (
-      this.eventState?.events.filter((e: EventSummary) => e.activeTrigger)
-        .length > 1
-    );
+    return this.eventState?.events.length > 1;
   }
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
@@ -80,7 +77,9 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   };
 
   public showLessButton() {
-    return this.disasterTypeName !== DisasterTypeKey.typhoon;
+    return !this.eventService.skipNationalView(
+      this.disasterTypeName as DisasterTypeKey,
+    );
   }
 
   public switchEvent(event: EventSummary): void {
@@ -96,15 +95,9 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
       this.eventService.switchEvent(event.eventName);
 
       this.timelineService.handleTimeStepButtonClick(
-        event.firstLeadTime as LeadTime,
+        (event.firstTriggerLeadTime || event.firstLeadTime) as LeadTime,
         event.eventName,
       );
     }
-  }
-
-  public getColor(event: EventSummary): string {
-    return event.thresholdReached
-      ? 'ibf-trigger-alert-primary'
-      : 'ibf-no-alert-primary';
   }
 }

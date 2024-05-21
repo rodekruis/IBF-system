@@ -1,0 +1,9 @@
+[
+  {
+    "stationCode": "G5075",
+    "forecastLevel": 175,
+    "eapAlertClass": "min",
+    "forecastReturnPeriod": 2,
+    "triggerLevel": 520
+  }
+]

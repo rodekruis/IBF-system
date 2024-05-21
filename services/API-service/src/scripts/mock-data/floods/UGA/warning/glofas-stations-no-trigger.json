@@ -1,0 +1,51 @@
+[
+  {
+    "stationCode": "G5075",
+    "forecastLevel": 0,
+    "eapAlertClass": "no",
+    "forecastReturnPeriod": null,
+    "triggerLevel": 520
+  },
+  {
+    "stationCode": "G5160",
+    "forecastLevel": 0,
+    "eapAlertClass": "no",
+    "forecastReturnPeriod": null,
+    "triggerLevel": 400
+  },
+  {
+    "stationCode": "G5189",
+    "forecastLevel": 0,
+    "eapAlertClass": "no",
+    "forecastReturnPeriod": null,
+    "triggerLevel": 400
+  },
+  {
+    "stationCode": "G5196",
+    "forecastLevel": 0,
+    "eapAlertClass": "no",
+    "forecastReturnPeriod": null,
+    "triggerLevel": 400
+  },
+  {
+    "stationCode": "G5220",
+    "forecastLevel": 0,
+    "eapAlertClass": "no",
+    "forecastReturnPeriod": null,
+    "triggerLevel": 400
+  },
+  {
+    "stationCode": "G5227",
+    "forecastLevel": 0,
+    "eapAlertClass": "no",
+    "forecastReturnPeriod": null,
+    "triggerLevel": 400
+  },
+  {
+    "stationCode": "G5317",
+    "forecastLevel": 0,
+    "eapAlertClass": "no",
+    "forecastReturnPeriod": null,
+    "triggerLevel": 400
+  }
+]

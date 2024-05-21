@@ -9,7 +9,16 @@
         "disasterType": "floods",
         "adminLevels": [2, 3, 4],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["5-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd",
         "eapAlertClasses": {
           "no": {
@@ -19,7 +28,8 @@
           },
           "min": {
             "label": "Low warning issued",
-            "color": "ibf-yellow",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
             "value": 0.3
           },
           "med": {
@@ -32,7 +42,8 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       },
       {
         "disasterType": "drought",
@@ -263,7 +274,16 @@
         "disasterType": "floods",
         "adminLevels": [2, 3],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["7-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=357745",
         "eapAlertClasses": {
           "no": {
@@ -273,7 +293,8 @@
           },
           "min": {
             "label": "Met office to monitor",
-            "color": "ibf-yellow",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
             "value": 0.3
           },
           "med": {
@@ -286,7 +307,8 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       },
       {
         "disasterType": "drought",
@@ -370,7 +392,16 @@
         "disasterType": "floods",
         "adminLevels": [3],
         "defaultAdminLevel": 3,
-        "activeLeadTimes": ["6-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=035b1d36a17c94db1855152253a141227&authkey=AePN7DrtvirE98a6YfPlDLM&expiration=2023-08-09T22%3A00%3A00.000Z&e=6YZPE0",
         "eapAlertClasses": {
           "no": {
@@ -383,7 +414,8 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       },
       {
         "disasterType": "flash-floods",
@@ -456,7 +488,16 @@
         "disasterType": "floods",
         "adminLevels": [3],
         "defaultAdminLevel": 3,
-        "activeLeadTimes": ["7-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://rodekruis.sharepoint.com/:w:/r/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0cd2cac495841490ca69f208f8417a6df&authkey=AanLvhB0DzhoT7ZJK5oGFGc&expiration=2023-10-30T23%3A00%3A00.000Z&e=Anes64&ovuser=d3ab9790-6ae2-4bd8-aa5e-02864483e7c7%2Cjannisvisser%40redcross.nl&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIyNy8yMjEwMTQwNjMwMCIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D",
         "eapAlertClasses": {
           "no": {
@@ -469,7 +510,8 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       }
     ],
     "adminRegionLabels": {
@@ -512,7 +554,16 @@
         "disasterType": "floods",
         "adminLevels": [2, 3],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["7-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://kenyaredcross-my.sharepoint.com/:w:/g/personal/saado_halima_redcross_or_ke/ETp6Vml__etKk-C2KAqH4XIBrIJmAMT58mqA_iQlCZtuKw?rtime=FJll0Rbn2Ug",
         "eapAlertClasses": {
           "no": {
@@ -525,7 +576,8 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       },
       {
         "disasterType": "drought",
@@ -619,7 +671,16 @@
         "disasterType": "floods",
         "adminLevels": [2, 3],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["7-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=404862",
         "eapAlertClasses": {
           "no": {
@@ -632,14 +693,16 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       },
       {
         "disasterType": "malaria",
         "adminLevels": [3],
         "defaultAdminLevel": 3,
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
-        "eapLink": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing"
+        "eapLink": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing",
+        "isEventBased": true
       },
       {
         "disasterType": "drought",
@@ -889,7 +952,8 @@
         "adminLevels": [2],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
-        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm"
+        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm",
+        "isEventBased": true
       },
       {
         "disasterType": "typhoon",
@@ -1073,7 +1137,16 @@
         "disasterType": "floods",
         "adminLevels": [2, 3],
         "defaultAdminLevel": 2,
-        "activeLeadTimes": ["3-day"],
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
         "eapLink": "https://www.anticipation-hub.org/Documents/Briefing_Sheets_and_Fact_Sheets/Flood_EAP_-_Final.pdf",
         "eapAlertClasses": {
           "no": {
@@ -1086,7 +1159,8 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        }
+        },
+        "isEventBased": true
       }
     ],
     "adminRegionLabels": {

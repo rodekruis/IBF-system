@@ -1,0 +1,9 @@
+[
+  {
+    "stationCode": "G5230",
+    "forecastLevel": 250,
+    "eapAlertClass": "med",
+    "forecastReturnPeriod": 3,
+    "triggerLevel": 300
+  }
+]

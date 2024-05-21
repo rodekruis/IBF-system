@@ -1,0 +1,13 @@
+[
+  {
+    "scenarioName": "default",
+    "defaultScenario": true,
+    "events": [
+      { "eventName": "G1328", "leadTime": "7-day" },
+      { "eventName": "G1361", "leadTime": "7-day" }
+    ]
+  },
+  {
+    "scenarioName": "no-trigger"
+  }
+]

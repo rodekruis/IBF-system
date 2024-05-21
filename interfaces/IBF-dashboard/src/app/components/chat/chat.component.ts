@@ -29,7 +29,6 @@ import { AdminLevelService } from '../../services/admin-level.service';
 import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
 import { AdminLevel, AdminLevelType } from '../../types/admin-level';
-import { Actor } from '../../types/chat';
 import { Indicator } from '../../types/indicator-group';
 import { LeadTimeTriggerKey, LeadTimeUnit } from '../../types/lead-time';
 import { TriggeredArea } from '../../types/triggered-area';
@@ -83,8 +82,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   public isWarn = false;
   public supportEmailAddress = environment.supportEmailAddress;
   public adminLevel: AdminLevel;
-
-  public actor = Actor;
 
   constructor(
     private eapActionsService: EapActionsService,
@@ -211,13 +208,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private setDefaultFilteredAreas = () => {
-    if (this.eventService.isOldEvent()) {
-      this.filteredActiveAreas = [...this.triggeredAreas];
-      this.filteredStoppedAreas = [];
-    } else {
-      this.filteredActiveAreas = [];
-      this.filteredStoppedAreas = [];
-    }
+    this.filteredActiveAreas = [];
+    this.filteredStoppedAreas = [];
   };
 
   private setupChatText = () => {
@@ -294,7 +286,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       eapAction: action,
       eapActionStatus: checkbox,
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
 
@@ -335,7 +327,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
       placeCode,
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       component: this.constructor.name,
     });
 
@@ -439,7 +431,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   ): void {
     this.analyticsService.logEvent(AnalyticsEvent.stopTrigger, {
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.activeTrigger,
+      isActiveTrigger: this.eventService.state.events?.length > 0,
       placeCode,
     });
     this.apiService.toggleTrigger(eventPlaceCodeId).subscribe({

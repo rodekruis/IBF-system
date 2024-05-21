@@ -1,0 +1,19 @@
+<layer>
+  <name>flood_extent_1-day_ZMB</name>
+  <id>LayerInfoImpl--e95cd10:18e66d7e6d7:-7ff2</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff7</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl--e95cd10:18e66d7e6d7:-7ff3</id>
+  </resource>
+  <queryable>true</queryable>
+  <opaque>false</opaque>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2024-03-22 16:00:58.998 UTC</dateCreated>
+  <dateModified>2024-03-22 16:00:59.81 UTC</dateModified>
+</layer>

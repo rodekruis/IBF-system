@@ -1,0 +1,34 @@
+[
+  {
+    "placeCode": "UG202801",
+    "amount": 0.09
+  },
+  {
+    "placeCode": "UG202802",
+    "amount": 0.09
+  },
+  {
+    "placeCode": "UG202901",
+    "amount": 0.05
+  },
+  {
+    "placeCode": "UG203601",
+    "amount": 0.45
+  },
+  {
+    "placeCode": "UG205201",
+    "amount": 0.05
+  },
+  {
+    "placeCode": "UG205401",
+    "amount": 0.01
+  },
+  {
+    "placeCode": "UG205402",
+    "amount": 0.03
+  },
+  {
+    "placeCode": "UG205601",
+    "amount": 0.05
+  }
+]
