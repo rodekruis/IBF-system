@@ -362,6 +362,7 @@ export class EventService {
       .where({
         placeCode: In(triggeredPlaceCodes),
         indicator: actionUnit,
+        disasterType,
         timestamp: MoreThanOrEqual(
           this.helperService.getUploadCutoffMoment(
             disasterType,
