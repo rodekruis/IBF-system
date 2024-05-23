@@ -14,6 +14,7 @@ import {
 } from '../../../shared/data.model';
 import { CountryEntity } from '../../country/country.entity';
 import * as juice from 'juice';
+import { formatActionUnitValue } from '../helpers/format-action-unit-value.helper';
 
 const emailFolder = './src/api/notification/email';
 const emailTemplateFolder = `${emailFolder}/html`;
@@ -66,7 +67,7 @@ export class EmailTemplateService {
       headerEventOverview: this.getHeaderEventStarted(emailContent),
       notificationActions: this.getNotificationActionsHtml(
         country,
-        disasterType,
+        emailContent.linkEapSop,
       ),
       tablesStacked: this.getTablesForEvents(emailContent),
       eventListBody: this.getEventListBody(emailContent),
@@ -77,7 +78,7 @@ export class EmailTemplateService {
       socialMediaLink: country.notificationInfo.linkSocialMediaUrl,
       socialMediaType: country.notificationInfo.linkSocialMediaType,
       disasterType: emailContent.disasterTypeLabel,
-      footer: this.getFooterHtml(),
+      footer: this.getFooterHtml(country.countryName),
     };
     return keyValueReplaceObject;
   }
@@ -102,13 +103,12 @@ export class EmailTemplateService {
       socialMediaLink: country.notificationInfo.linkSocialMediaUrl,
       socialMediaType: country.notificationInfo.linkSocialMediaType,
       disasterType: disasterTypeLabel,
-      footer: this.getFooterHtml(),
+      footer: this.getFooterHtml(country.countryName),
     };
     return keyValueReplaceObject;
   }
 
   private getEmailBody(triggerFinished: boolean): string {
-    // TODO: Also apply new EJS style templating to these files
     if (triggerFinished) {
       return this.readHtmlFile('trigger-finished.html');
     } else {
@@ -154,16 +154,14 @@ export class EmailTemplateService {
 
   private getNotificationActionsHtml(
     country: CountryEntity,
-    disasterType: DisasterType,
+    linkEapSop: string,
   ): string {
     const socialMediaLinkHtml = this.getSocialMediaHtml(country);
 
     let html = this.readHtmlFile('notification-actions.html');
     const data = {
       linkDashboard: process.env.DASHBOARD_URL,
-      linkEapSop: country.countryDisasterSettings.find(
-        (s) => s.disasterType === disasterType,
-      ).eapLink,
+      linkEapSop: linkEapSop,
       socialMediaPart: socialMediaLinkHtml,
     };
     html = ejs.render(html, data);
@@ -269,9 +267,9 @@ export class EmailTemplateService {
           hazard: emailContent.disasterTypeLabel,
           triggerStatusLabel: event.triggerStatusLabel,
           eventName: event.eventName,
-          defaulAdminAreaLabelSingular:
+          defaultAdminAreaLabelSingular:
             emailContent.defaultAdminAreaLabel.singular,
-          defaulAdminAreaLabelPlural:
+          defaultAdminAreaLabelPlural:
             emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
           defaultAdminAreaLabelParent: adminAreaLabelsParent.singular,
           indicatorLabel: emailContent.indicatorMetadata.label,
@@ -335,10 +333,13 @@ export class EmailTemplateService {
             emailContent.country.countryCodeISO3,
           ),
           startDateEventString: event.startDateDisasterString,
-          defaulAdminAreaLabel:
+          defaultAdminAreaLabel:
             emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
           indicatorLabel: emailContent.indicatorMetadata.label,
-          totalAffectectedOfIndicator: event.totalAffectectedOfIndicator,
+          totalAffectedOfIndicator: formatActionUnitValue(
+            event.totalAffectedOfIndicator,
+            emailContent.indicatorMetadata.numberFormatMap,
+          ),
           indicatorUnit: emailContent.indicatorMetadata.unit,
           timezone:
             CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
@@ -348,8 +349,7 @@ export class EmailTemplateService {
           color: this.ibfColorToHex(event.eapAlertClass?.color),
           advisory: this.getAdvisoryHtml(
             event.triggerStatusLabel,
-            emailContent.country,
-            emailContent.disasterType,
+            emailContent.linkEapSop,
           ),
           totalAffected: this.getTotalAffectedHtml(
             event,
@@ -366,16 +366,13 @@ export class EmailTemplateService {
 
   private getAdvisoryHtml(
     triggerStatusLabel: TriggerStatusLabelEnum,
-    country: CountryEntity,
-    disasterType: DisasterType,
+    eapLink: string,
   ): string {
     const advisoryHtml =
       triggerStatusLabel === TriggerStatusLabelEnum.Trigger
         ? this.readHtmlFile('advisory-trigger.html')
         : this.readHtmlFile('advisory-warning.html');
-    const eapLink = country.countryDisasterSettings.find(
-      (s) => s.disasterType === disasterType,
-    ).eapLink;
+
     return ejs.render(advisoryHtml, { eapLink: eapLink });
   }
 
@@ -388,16 +385,19 @@ export class EmailTemplateService {
     } else {
       let html = this.readHtmlFile('body-total-affected-trigger.html');
       return ejs.render(html, {
-        totalAffectectedOfIndicator: event.totalAffectectedOfIndicator,
+        totalAffectedOfIndicator: event.totalAffectedOfIndicator,
         indicatorUnit: indicatorUnit,
       });
     }
   }
 
-  private getFooterHtml(): string {
+  private getFooterHtml(countryName: string): string {
     const footerHtml = this.readHtmlFile('footer.html');
     const ibfLogo = this.getLogoImageAsDataURL();
-    return ejs.render(footerHtml, { ibfLogo: ibfLogo });
+    return ejs.render(footerHtml, {
+      ibfLogo: ibfLogo,
+      countryName: countryName,
+    });
   }
 
   private ibfColorToHex(color: string): string {
@@ -436,7 +436,6 @@ export class EmailTemplateService {
 
   private getTriangleIcon(eapAlertClassKey: EapAlertClassKeyEnum) {
     let fileName = '';
-    // Still need implement the difference between medium and low warning
     if (eapAlertClassKey === EapAlertClassKeyEnum.med) {
       fileName = 'warning-medium.png';
     } else if (eapAlertClassKey === EapAlertClassKeyEnum.min) {

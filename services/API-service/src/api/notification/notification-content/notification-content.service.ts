@@ -1,4 +1,3 @@
-import { AdminAreaDynamicDataService } from '../../admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { CountryEntity } from '../../country/country.entity';
 import { Injectable } from '@nestjs/common';
 import { EventService } from '../../event/event.service';
@@ -51,7 +50,8 @@ export class NotificationContentService {
 
     content.country = country;
     content.indicatorMetadata = await this.getIndicatorMetadata(disasterType);
-    content.defaultAdminAreaLabel = this.getDefaulAdminAreaLabels(
+    content.linkEapSop = this.getLinkEapSop(country, disasterType);
+    content.defaultAdminAreaLabel = this.getdefaultAdminAreaLabel(
       country,
       content.defaultAdminLevel,
     );
@@ -94,7 +94,13 @@ export class NotificationContentService {
     ).defaultAdminLevel;
   }
 
-  private getDefaulAdminAreaLabels(
+  private getLinkEapSop(country: CountryEntity, disasterType: DisasterType): string {
+    return country.countryDisasterSettings.find(
+      (s) => s.disasterType === disasterType,
+    ).eapLink
+  }
+
+  private getdefaultAdminAreaLabel(
     country: CountryEntity,
     adminAreaDefaultLevel: number,
   ): AdminAreaLabel {
@@ -175,7 +181,7 @@ export class NotificationContentService {
       event.countryCodeISO3,
       disasterType,
     );
-    data.totalAffectectedOfIndicator = this.getTotalAffectedPerEvent(
+    data.totalAffectedOfIndicator = this.getTotalAffectedPerEvent(
       data.triggeredAreas,
     );
     data.mapImage = await this.eventService.getEventMapImage(
@@ -214,9 +220,7 @@ export class NotificationContentService {
     disasterType: DisasterType,
     event: EventSummaryCountry,
   ): Promise<TriggeredArea[]> {
-    const defaultAdminLevel = country.countryDisasterSettings.find(
-      (s) => s.disasterType === disasterType,
-    ).defaultAdminLevel;
+    const defaultAdminLevel = this.getDefaultAdminLevel(country, disasterType)
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
       disasterType,

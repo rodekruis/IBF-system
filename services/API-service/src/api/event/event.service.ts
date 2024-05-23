@@ -16,7 +16,6 @@ import {
   IsNull,
   DataSource,
   SelectQueryBuilder,
-  Between,
 } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';

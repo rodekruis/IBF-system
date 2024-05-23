@@ -23,7 +23,11 @@ export class NotificationService {
     disasterType: DisasterType,
     date?: Date,
   ): Promise<void> {
-    await this.sendNotiFicationsActiveEvents(
+    // REFACTOR: First close finished events. This is ideally done through separate endpoint called at end of pipeline, but that would require all pipelines to be updated.
+    // Instead, making use of this endpoint which is already called at the end of every pipeline
+    await this.eventService.closeEventsAutomatic(countryCodeISO3, disasterType);
+
+    await this.sendNotificationsActiveEvents(
       disasterType,
       countryCodeISO3,
       date,
@@ -37,13 +41,9 @@ export class NotificationService {
         date,
       );
     }
-
-    // REFACTOR: First close finished events. This is ideally done through separate endpoint called at end of pipeline, but that would require all pipelines to be updated.
-    // Instead, making use of this endpoint which is already called at the end of every pipeline
-    await this.eventService.closeEventsAutomatic(countryCodeISO3, disasterType);
   }
 
-  private async sendNotiFicationsActiveEvents(
+  private async sendNotificationsActiveEvents(
     disasterType: DisasterType,
     countryCodeISO3: string,
     date?: Date,
@@ -107,7 +107,6 @@ export class NotificationService {
       );
 
       if (country.notificationInfo.useWhatsapp[disasterType]) {
-        // TODO: Send one whatsapp message for all closing events
         for (const event of finishedNotifiableEvents) {
           await this.whatsappService.sendTriggerFinishedWhatsapp(
             country,
