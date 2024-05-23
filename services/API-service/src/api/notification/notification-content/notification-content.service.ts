@@ -94,10 +94,13 @@ export class NotificationContentService {
     ).defaultAdminLevel;
   }
 
-  private getLinkEapSop(country: CountryEntity, disasterType: DisasterType): string {
+  private getLinkEapSop(
+    country: CountryEntity,
+    disasterType: DisasterType,
+  ): string {
     return country.countryDisasterSettings.find(
       (s) => s.disasterType === disasterType,
-    ).eapLink
+    ).eapLink;
   }
 
   private getdefaultAdminAreaLabel(
@@ -220,7 +223,7 @@ export class NotificationContentService {
     disasterType: DisasterType,
     event: EventSummaryCountry,
   ): Promise<TriggeredArea[]> {
-    const defaultAdminLevel = this.getDefaultAdminLevel(country, disasterType)
+    const defaultAdminLevel = this.getDefaultAdminLevel(country, disasterType);
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
       disasterType,
