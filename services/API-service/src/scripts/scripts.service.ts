@@ -6,7 +6,6 @@ import {
   MockAll,
   MockDynamic,
   MockTyphoonScenario,
-  TyphoonScenario,
 } from './scripts.controller';
 import countries from './json/countries.json';
 import fs from 'fs';
@@ -26,6 +25,7 @@ import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { MockHelperService } from './mock-helper.service';
 import { MockService } from './mock.service';
+import { TyphoonScenario } from './enum/mock-scenario.enum';
 
 @Injectable()
 export class ScriptsService {
@@ -56,7 +56,7 @@ export class ScriptsService {
   ) {}
 
   public async mockAll(mockAllInput: MockAll) {
-    const isApiTest = false
+    const isApiTest = false;
 
     const envCountries = process.env.COUNTRIES.split(',');
 

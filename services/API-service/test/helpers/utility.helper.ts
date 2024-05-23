@@ -1,7 +1,10 @@
 import * as request from 'supertest';
 import TestAgent from 'supertest/lib/agent';
 import users from '../../src/scripts/json/users.json';
-import { FloodsScenario } from '../../src/scripts/enum/mock-scenario.enum';
+import {
+  FloodsScenario,
+  TyphoonScenario,
+} from '../../src/scripts/enum/mock-scenario.enum';
 import { DisasterType } from '../../src/api/disaster/disaster-type.enum';
 
 export async function getAccessToken(): Promise<string> {
@@ -50,6 +53,25 @@ export function mockFloods(
     .query({ isApiTest: true })
     .send({
       scenario,
+      secret: process.env.RESET_SECRET,
+      removeEvents: true,
+      date: new Date(),
+      countryCodeISO3,
+    });
+}
+
+export function mockTyphoon(
+  scenario: TyphoonScenario,
+  countryCodeISO3: string,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .post('/scripts/mock-typhoon-scenario')
+    .set('Authorization', `Bearer ${accessToken}`)
+    .query({ isApiTest: true })
+    .send({
+      scenario,
+      eventNr: 1,
       secret: process.env.RESET_SECRET,
       removeEvents: true,
       date: new Date(),

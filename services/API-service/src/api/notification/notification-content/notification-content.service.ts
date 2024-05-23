@@ -1,4 +1,3 @@
-import { AdminAreaDynamicDataService } from '../../admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { CountryEntity } from '../../country/country.entity';
 import { Injectable } from '@nestjs/common';
 import { EventService } from '../../event/event.service';
@@ -246,8 +245,12 @@ export class NotificationContentService {
     });
   }
 
-  private getTotalAffectedPerEvent(adminAreas: TriggeredArea[]) {
-    return adminAreas.reduce((acc, cur) => acc + cur.actionsValue, 0);
+  private getTotalAffectedPerEvent(adminAreas: TriggeredArea[]): number {
+    const total = adminAreas.reduce((acc, cur) => acc + cur.actionsValue, 0);
+    // Round to 2 decimals
+    if (total) {
+      return Math.floor(total * 100) / 100;
+    }
   }
 
   private async getFirstLeadTimeDate(

@@ -20,11 +20,6 @@ const emailTemplateFolder = `${emailFolder}/html`;
 const emailIconFolder = `${emailFolder}/icons`;
 const emailLogoFolder = `${emailFolder}/logos`;
 
-class ReplaceKeyValue {
-  replaceKey: string;
-  replaceValue: string;
-}
-
 @Injectable()
 export class EmailTemplateService {
   public async createHtmlForTriggerEmail(
@@ -275,9 +270,15 @@ export class EmailTemplateService {
             emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
           defaultAdminAreaLabelParent: adminAreaLabelsParent.singular,
           indicatorLabel: emailContent.indicatorMetadata.label,
-          triangleIcon: this.getTriangleIcon(event.eapAlertClass?.key),
+          triangleIcon: this.getTriangleIcon(
+            event.eapAlertClass?.key,
+            event.triggerStatusLabel,
+          ),
           tableRows: this.getTablesRows(event),
-          color: this.ibfColorToHex(event.eapAlertClass?.color),
+          color: this.getIbfHexColor(
+            event.eapAlertClass?.color,
+            event.triggerStatusLabel,
+          ),
           severityLabel: this.getEventSeverityLabel(event.eapAlertClass?.key),
         };
 
@@ -342,10 +343,19 @@ export class EmailTemplateService {
           indicatorUnit: emailContent.indicatorMetadata.unit,
           timezone:
             CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
-          triangleIcon: this.getTriangleIcon(event.eapAlertClass?.key),
+          triangleIcon: this.getTriangleIcon(
+            event.eapAlertClass?.key,
+            event.triggerStatusLabel,
+          ),
           leadTime: event.firstLeadTime.replace('-', ' '),
-          disasterIssuedLabel: event.eapAlertClass.label,
-          color: this.ibfColorToHex(event.eapAlertClass?.color),
+          disasterIssuedLabel: this.getDisasterIssuedLabel(
+            event.eapAlertClass?.label,
+            event.triggerStatusLabel,
+          ),
+          color: this.getIbfHexColor(
+            event.eapAlertClass?.color,
+            event.triggerStatusLabel,
+          ),
           advisory: this.getAdvisoryHtml(
             event.triggerStatusLabel,
             emailContent.country,
@@ -362,6 +372,17 @@ export class EmailTemplateService {
         return ejs.render(template, data);
       })
       .join('');
+  }
+
+  private getDisasterIssuedLabel(
+    eapLabel: string,
+    triggerStatusLabel: TriggerStatusLabelEnum,
+  ) {
+    if (eapLabel) {
+      return eapLabel;
+    } else {
+      return triggerStatusLabel;
+    }
   }
 
   private getAdvisoryHtml(
@@ -383,15 +404,18 @@ export class EmailTemplateService {
     event: NotificationDataPerEventDto,
     indicatorUnit: string,
   ): string {
+    let html = '';
     if (event.triggerStatusLabel === TriggerStatusLabelEnum.Warning) {
-      return this.readHtmlFile('body-total-affected-warning.html');
+      html = this.readHtmlFile('body-total-affected-warning.html');
     } else {
-      let html = this.readHtmlFile('body-total-affected-trigger.html');
-      return ejs.render(html, {
-        totalAffectectedOfIndicator: event.totalAffectectedOfIndicator,
-        indicatorUnit: indicatorUnit,
-      });
+
+       html = this.readHtmlFile('body-total-affected-trigger.html');
     }
+    return ejs.render(html, {
+      totalAffectectedOfIndicator: event.totalAffectectedOfIndicator,
+      indicatorUnit: indicatorUnit,
+    });
+
   }
 
   private getFooterHtml(): string {
@@ -400,16 +424,32 @@ export class EmailTemplateService {
     return ejs.render(footerHtml, { ibfLogo: ibfLogo });
   }
 
-  private ibfColorToHex(color: string): string {
-    // TODO: Define in a place where FrontEnd and Backend can share this
-    switch (color) {
-      case 'ibf-orange':
-        return '#aa6009';
-      case 'ibf-yellow':
-        return '#7d6906';
-      default:
-        return '#8a0f32';
+  private getIbfHexColor(
+    color: string,
+    triggerStatusLabel: TriggerStatusLabelEnum,
+  ): string {
+    const ibfOrange = '#aa6009';
+    const ibfYellow = '#7d6906';
+    const ibfRed = '#8a0f32';
+
+    // Color  defined in the EAP Alert Class. This is only used for flood events
+    // For other events, the color is defined in the disaster settings
+    // So we decide it based on the trigger status label
+
+    if (color) {
+      // TODO: Define in a place where FrontEnd and Backend can share this
+      switch (color) {
+        case 'ibf-orange':
+          return ibfOrange;
+        case 'ibf-yellow':
+          return ibfYellow;
+        default:
+          return ibfRed;
+      }
     }
+    return triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+      ? ibfRed
+      : ibfOrange;
   }
 
   private getCurrentDateTimeString(countryCodeISO3: string): string {
@@ -434,15 +474,25 @@ export class EmailTemplateService {
     return date.toLocaleString('default', options);
   }
 
-  private getTriangleIcon(eapAlertClassKey: EapAlertClassKeyEnum) {
+  private getTriangleIcon(
+    eapAlertClassKey: EapAlertClassKeyEnum,
+    triggerStatusLabel: TriggerStatusLabelEnum,
+  ) {
     let fileName = '';
     // Still need implement the difference between medium and low warning
-    if (eapAlertClassKey === EapAlertClassKeyEnum.med) {
-      fileName = 'warning-medium.png';
-    } else if (eapAlertClassKey === EapAlertClassKeyEnum.min) {
-      fileName = 'warning-low.png';
+    if (eapAlertClassKey) {
+      if (eapAlertClassKey === EapAlertClassKeyEnum.med) {
+        fileName = 'warning-medium.png';
+      } else if (eapAlertClassKey === EapAlertClassKeyEnum.min) {
+        fileName = 'warning-low.png';
+      } else {
+        fileName = 'trigger.png';
+      }
     } else {
-      fileName = 'trigger.png';
+      fileName =
+        triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+          ? 'trigger.png'
+          : 'warning-medium.png';
     }
     const filePath = `${emailIconFolder}/${fileName}`;
     const imageDataURL = this.getPngImageAsDataURL(filePath);

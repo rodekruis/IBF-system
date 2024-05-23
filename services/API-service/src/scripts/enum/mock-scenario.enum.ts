@@ -14,3 +14,12 @@ export enum EpidemicsScenario {
   Default = 'default',
   NoTrigger = 'no-trigger',
 }
+
+export enum TyphoonScenario {
+  NoEvent = 'noEvent',
+  EventNoLandfall = 'eventNoLandfall',
+  EventNoLandfallYet = 'eventNoLandfallYet',
+  EventNoTrigger = 'eventNoTrigger',
+  EventTrigger = 'eventTrigger',
+  EventAfterLandfall = 'eventAfterLandfall',
+}

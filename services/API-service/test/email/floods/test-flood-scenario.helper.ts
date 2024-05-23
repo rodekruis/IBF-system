@@ -1,55 +1,22 @@
-import {
-  getAccessToken,
-  mockFloods,
-  resetDB,
-  sendNotification,
-} from '../helpers/utility.helper';
-import { FloodsScenario } from '../../src/scripts/enum/mock-scenario.enum';
-import { DisasterType } from '../../src/api/disaster/disaster-type.enum';
+import { DisasterType } from '../../../src/api/disaster/disaster-type.enum';
+import { FloodsScenario } from '../../../src/scripts/enum/mock-scenario.enum';
+import { mockFloods, sendNotification } from '../../helpers/utility.helper';
+import disasters from '../../../src/scripts/json/disasters.json';
 import { JSDOM } from 'jsdom';
-import scenarios from '../../src/scripts/mock-data/floods/uga/scenarios.json';
-import disaters from '../../src/scripts/json/disasters.json';
 
-const disasterType = DisasterType.Floods;
-const countryCodeISO3 = 'UGA';
-describe('Should send an email for uga floods', () => {
-  let accessToken: string;
+export interface TestFloodScenarioDto {
+  scenarios: any[];
+  countryCodeISO3: string;
+  accessToken: string;
+}
 
-  beforeEach(async () => {
-    accessToken = await getAccessToken();
-    await resetDB(accessToken);
-  });
-
-  it('default', async () => {
-    // Arrange
-    const scenario = FloodsScenario.Default;
-    await testFloodScenario(scenario, accessToken);
-  });
-
-  it('warning', async () => {
-    // Arrange
-    const scenario = FloodsScenario.Warning;
-    await testFloodScenario(scenario, accessToken);
-  });
-
-  it('warning-to-trigger', async () => {
-    // Arrange
-    const scenario = FloodsScenario.WarningToTrigger;
-    await testFloodScenario(scenario, accessToken);
-  });
-
-  it('no-trigger', async () => {
-    // Arrange
-    const scenario = FloodsScenario.NoTrigger;
-    await testFloodScenario(scenario, accessToken);
-  });
-});
-
-async function testFloodScenario(
+export async function testFloodScenario(
   scenario: FloodsScenario,
-  accessToken: string,
+  params: TestFloodScenarioDto,
 ): Promise<void> {
-  const disasterTypeLabel = disaters.find(
+  const { scenarios, countryCodeISO3, accessToken } = params;
+  const disasterType = DisasterType.Floods;
+  const disasterTypeLabel = disasters.find(
     (d) => d.disasterType === disasterType,
   ).label;
   const scenarioSeed = scenarios.find((s) => s.scenarioName === scenario);
