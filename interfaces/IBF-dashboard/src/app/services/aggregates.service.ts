@@ -301,9 +301,18 @@ export class AggregatesService {
       const indicatorWeight = weightedAverage
         ? aggregate[weighingIndicator]
         : 1;
+
       indicatorValue = indicatorWeight * (aggregate[indicator] || 0);
     }
 
     return accumulator + indicatorValue;
   };
+
+  public isAggregateNan(indicator: IbfLayerName, placeCode: string): boolean {
+    let aggregates = this.aggregates;
+    if (placeCode) {
+      aggregates = this.aggregates.filter((a) => a.placeCode === placeCode);
+    }
+    return aggregates.every((a) => a[indicator] === null);
+  }
 }

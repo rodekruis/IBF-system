@@ -141,7 +141,6 @@ export class NotificationService {
       }
 
       if (country.notificationInfo.useWhatsapp[disasterType]) {
-        // TODO: Send one whatsapp message for all closing events
         for (const event of finishedNotifiableEvents) {
           await this.whatsappService.sendTriggerFinishedWhatsapp(
             country,

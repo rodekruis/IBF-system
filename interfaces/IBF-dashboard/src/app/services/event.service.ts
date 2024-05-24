@@ -30,11 +30,20 @@ export class EventSummary {
   duration?: number;
   disasterSpecificProperties: DisasterSpecificProperties;
   header?: string;
+  affectedAreas?: number;
+  actionsValueSum?: number;
 }
 
 export class DisasterSpecificProperties {
   typhoonLandfall?: boolean;
   typhoonNoLandfallYet?: boolean;
+  eapAlertClass?: {
+    key: string;
+    value: string;
+    color: string;
+    textColor?: string;
+    label?: string;
+  };
 }
 
 @Injectable({

@@ -8,6 +8,7 @@ export class ContentEventEmail {
   public disasterType: DisasterType;
   public disasterTypeLabel: string;
   public indicatorMetadata: IndicatorMetadataEntity;
+  public linkEapSop: string;
   public dataPerEvent: NotificationDataPerEventDto[];
   public mapImageData: any[];
   public defaultAdminLevel: number;

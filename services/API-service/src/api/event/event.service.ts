@@ -16,7 +16,6 @@ import {
   IsNull,
   DataSource,
   SelectQueryBuilder,
-  Between,
 } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -65,7 +64,6 @@ export class EventService {
     private dataSource: DataSource,
     private typhoonTrackService: TyphoonTrackService,
   ) {}
-
   public async getEventSummary(
     countryCodeISO3: string,
     disasterType: DisasterType,
@@ -78,14 +76,11 @@ export class EventService {
       endDate: MoreThanOrEqual(recentDate.date),
       disasterType: disasterType,
     });
-    const rawEventSummary = await eventSummaryQueryBuilder.getRawMany();
-
-    const eventSummary = await this.populateEventsDetails(
-      rawEventSummary,
+    return this.queryAndMapEventSummary(
+      eventSummaryQueryBuilder,
       countryCodeISO3,
       disasterType,
     );
-    return eventSummary;
   }
 
   public async getEventsSummaryTriggerFinishedMail(
@@ -100,38 +95,50 @@ export class EventService {
     // I came up with the following query but I am not sure if it is correct and how to test it properly
     const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const sixDaysAgo = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000);
-    const whereFilters = {
-      endDate: Between(sevenDaysAgo, sixDaysAgo),
-      adminArea: In(countryAdminAreaIds),
-      disasterType: disasterType,
-      closed: true,
-    };
+    const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
+      countryCodeISO3,
+    )
+      .andWhere('event.endDate > :endDateMin', { endDateMin: sevenDaysAgo })
+      .andWhere('event.endDate < :endDateMax', { endDateMax: sixDaysAgo })
+      .andWhere('event.adminArea IN (:...adminAreaIds)', {
+        adminAreaIds: countryAdminAreaIds,
+      })
+      .andWhere('event.disasterType = :disasterType', {
+        disasterType: disasterType,
+      })
+      .andWhere('event.closed = :closed', { closed: true });
 
-    const eventSummaryQueryBuilder =
-      this.createEventSummaryQueryBuilder(countryCodeISO3).andWhere(
-        whereFilters,
-      );
-
-    const rawEventSummaryTriggerFinished =
-      await eventSummaryQueryBuilder.getRawMany();
-    const eventSummaryTriggerFinished = await this.populateEventsDetails(
-      rawEventSummaryTriggerFinished,
+    return this.queryAndMapEventSummary(
+      eventSummaryQueryBuilder,
       countryCodeISO3,
       disasterType,
     );
-    return eventSummaryTriggerFinished;
+  }
+
+  private async queryAndMapEventSummary(
+    qb: SelectQueryBuilder<EventPlaceCodeEntity>,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<EventSummaryCountry[]> {
+    const rawEventSummary = await qb.getRawMany();
+    const eventSummary = await this.populateEventsDetails(
+      rawEventSummary,
+      countryCodeISO3,
+      disasterType,
+    );
+    return eventSummary;
   }
 
   private async populateEventsDetails(
-    events: EventSummaryCountry[],
+    rawEvents: any[],
     countryCodeISO3: string,
     disasterType: DisasterType,
-  ) {
+  ): Promise<EventSummaryCountry[]> {
     const disasterSettings = await this.getCountryDisasterSettings(
       countryCodeISO3,
       disasterType,
     );
-    for (const event of events) {
+    for (const event of rawEvents) {
       event.firstLeadTime = await this.getFirstLeadTime(
         countryCodeISO3,
         disasterType,
@@ -152,13 +159,13 @@ export class EventService {
           );
       }
       if (disasterSettings.eapAlertClasses) {
-        event.disasterSpecificProperties = await this.geEventEapAlertClass(
+        event.disasterSpecificProperties = await this.getEventEapAlertClass(
           disasterSettings,
           event.triggerValue,
         );
       }
     }
-    return events;
+    return rawEvents;
   }
 
   private createEventSummaryQueryBuilder(
@@ -179,6 +186,9 @@ export class EventService {
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
+        'count(event."adminAreaId")::int AS "affectedAreas"',
+        'MAX(event."triggerValue")::float AS "triggerValue"',
+        'sum(event."actionsValue")::int AS "actionsValueSum"',
       ])
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
@@ -419,6 +429,7 @@ export class EventService {
       .where({
         placeCode: In(triggeredPlaceCodes),
         indicator: actionUnit,
+        disasterType,
         timestamp: MoreThanOrEqual(
           this.helperService.getUploadCutoffMoment(
             disasterType,
@@ -1023,7 +1034,7 @@ export class EventService {
     return eventMapImageEntity?.image;
   }
 
-  private async geEventEapAlertClass(
+  private async getEventEapAlertClass(
     disasterSettings: CountryDisasterSettingsEntity,
     eventTriggerValue: number,
   ): Promise<DisasterSpecificProperties> {

@@ -1,20 +1,30 @@
 <app-dialogue-turn
   *ngIf="type === 'active'"
-  [isConnected]="true"
   [isTriggered]="event.thresholdReached"
   [isNotTriggered]="!event.thresholdReached"
   [isSelected]="eventBubbleIsSelected(event.eventName)"
-  [isConnected]="true"
+  [borderColor]="getCardColors().borderColor"
 >
   <ng-container *ngIf="event.thresholdReached">
-    <span>
-      <ion-icon
-        class="warning-icon"
-        src="/assets/icons/Alert_Title_Purple.svg"
-        slot="start"
-      ></ion-icon>
-      <p class="event-header" [innerHTML]="event.header"></p>
-    </span>
+    <div class="event-header">
+      <span class="event-header--icon-title">
+        <ion-icon
+          [style.color]="getCardColors().iconColor"
+          class="warning-icon"
+          src="/assets/icons/Alert_Title.svg"
+          slot="start"
+        ></ion-icon>
+        <span [style.color]="getCardColors().headerTextColor" class="">
+          {{ event.header }}
+        </span>
+      </span>
+
+      <app-tooltip
+        class="event-header--tooltip"
+        [value]="'chat-component.common.event-tooltip' | translate"
+        color="ibf-no-alert-primary"
+      ></app-tooltip>
+    </div>
     <p>
       <span
         *ngIf="!event.duration && showFirstWarningDate()"
@@ -62,14 +72,25 @@
   </ng-container>
 
   <ng-container *ngIf="!event.thresholdReached">
-    <span>
-      <ion-icon
-        class="warning-icon"
-        src="/assets/icons/Alert_Title_Purple_Clear.svg"
-        slot="start"
-      ></ion-icon>
-      <p class="event-header" [innerHTML]="event.header"></p>
-    </span>
+    <div class="event-header">
+      <span class="event-header--icon-title">
+        <ion-icon
+          [style.color]="getCardColors().iconColor"
+          class="warning-icon"
+          src="/assets/icons/Alert_Title.svg"
+          slot="start"
+        ></ion-icon>
+        <span [style.color]="getCardColors().headerTextColor" class="">
+          {{ event.header }}
+        </span>
+      </span>
+
+      <app-tooltip
+        class="event-header--tooltip"
+        [value]="'chat-component.common.event-tooltip' | translate"
+        color="ibf-no-alert-primary"
+      ></app-tooltip>
+    </div>
     <p
       [innerHTML]="
         'chat-component.' +
@@ -88,6 +109,52 @@
               }
       "
     ></p>
+  </ng-container>
+
+  <ng-container *ngIf="isEventWithForecastClasses()">
+    <p>
+      <strong
+        >{{ event.disasterSpecificProperties.eapAlertClass.label }}:
+      </strong>
+      <span *ngIf="event.thresholdReached"
+        >{{
+          'chat-component.' + disasterTypeName + '.alertLevel.expected-trigger'
+            | translate
+        }}
+        {{ event.firstTriggerLeadTimeDate }}</span
+      >
+      <span *ngIf="!event.thresholdReached"
+        >{{
+          'chat-component.' + disasterTypeName + '.alertLevel.expected'
+            | translate
+        }}
+        {{ event.firstLeadTimeDate }}</span
+      >
+    </p>
+    <p *ngIf="event.affectedAreas">
+      <strong
+        >{{
+          'chat-component.' + disasterTypeName + '.alertLevel.exposed-areas'
+            | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
+        }}
+      </strong>
+      <span>{{ event.affectedAreas + ' ' }}</span>
+      <span *ngIf="event.thresholdReached">{{
+        '(' +
+          (actionIndicatorLabel | titlecase) +
+          ' ' +
+          (event.actionsValueSum | number: '.0-0') +
+          ')'
+      }}</span>
+      <span *ngIf="!event.thresholdReached">
+        {{
+          '(' +
+            ('chat-component.' + disasterTypeName + '.alertLevel.no-data'
+              | translate) +
+            ')'
+        }}
+      </span>
+    </p>
   </ng-container>
 
   <p *ngIf="typhoonLandfallText" [innerHTML]="typhoonLandfallText"></p>
@@ -134,19 +201,10 @@
       "
     ></p>
     <div *ngFor="let class of alertClasses">
-      <p class="ion-padding-top" *ngIf="class.alertClass !== 'undefined'">
-        <strong>{{ class.alertClass }}: </strong
-        ><span
-          *ngIf="
-            !class.areas[0].actionsValue || class.areas[0].actionsValue === 0
-          "
-          >(no exposed population data available)</span
-        >
-      </p>
-      <ul>
+      <ul class="area-list">
         <li
-          *ngFor="let area of class.areas"
           class="clickable-area"
+          *ngFor="let area of class.areas"
           (click)="selectArea(area)"
         >
           <p>
@@ -181,9 +239,7 @@
 
 <app-dialogue-turn
   *ngIf="type === 'stopped' && event.eventName === selectedEvent"
-  [isConnected]="true"
   [isStopped]="true"
-  [isConnected]="true"
 >
   <ng-container>
     <p
@@ -230,7 +286,7 @@
   </ng-container>
 </app-dialogue-turn>
 
-<app-dialogue-turn *ngIf="type === 'no-event'" [isConnected]="true">
+<app-dialogue-turn *ngIf="type === 'no-event'">
   <p
     [innerHTML]="
       'chat-component.' + disasterTypeName + '.no-event-no-trigger.welcome'

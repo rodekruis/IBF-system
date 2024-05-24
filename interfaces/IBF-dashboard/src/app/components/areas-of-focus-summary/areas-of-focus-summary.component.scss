@@ -29,8 +29,8 @@
   --inner-padding-end: 0;
 
   .areas-of-focus-item-thumbnail {
-    background: var(--fiveten-neutral-100);
-    border: 0.2rem solid var(--fiveten-neutral-100);
+    background: var(--ion-color-fiveten-neutral-100);
+    border: 0.2rem solid var(--ion-color-fiveten-neutral-100);
     width: 2rem;
     height: 2rem;
     align-self: start;
@@ -53,7 +53,7 @@
 }
 
 .areas-of-focus-item-value {
-  --background: var(--fiveten-neutral-100);
+  --background: var(--ion-color-fiveten-neutral-100);
 
   ion-label {
     margin: 0px !important;

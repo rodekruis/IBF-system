@@ -1,24 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { DateTime } from 'luxon';
-import { Actor } from '../../types/chat';
 
 @Component({
   selector: 'app-dialogue-turn',
   templateUrl: './dialogue-turn.component.html',
   styleUrls: ['./dialogue-turn.component.scss'],
 })
-export class DialogueTurnComponent implements OnInit {
+export class DialogueTurnComponent implements OnChanges {
   @Input()
   isSpoken = false;
 
   @Input()
-  actor = Actor.system;
-
-  @Input()
   timestamp: DateTime;
-
-  @Input()
-  isConnected = false;
 
   @Input()
   isWarn = false;
@@ -33,24 +26,34 @@ export class DialogueTurnComponent implements OnInit {
   isNotTriggered = false;
 
   @Input()
-  isSelected = true;
+  isSelected = false;
 
   @Input()
   isOpeningBubble = false;
 
-  isSelf: boolean;
-  isSystem: boolean;
+  @Input()
+  borderColor = null;
 
-  public allActors = Actor;
+  public isSystem: boolean;
 
-  animate = false;
+  public animate = false;
 
-  ngOnInit() {
-    this.isSelf = this.actor === Actor.self;
-    this.isSystem = this.actor === Actor.system;
-  }
+  public mouseOver = false;
 
   show() {
     this.isSpoken = true;
+  }
+
+  ngOnChanges(): void {
+    if (!this.isSelected) {
+      this.mouseOver = false;
+    }
+  }
+
+  public onMouseOver() {
+    this.mouseOver = true;
+  }
+  public onMouseOut() {
+    this.mouseOver = false;
   }
 }

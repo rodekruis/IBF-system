@@ -50,7 +50,8 @@ export class NotificationContentService {
 
     content.country = country;
     content.indicatorMetadata = await this.getIndicatorMetadata(disasterType);
-    content.defaultAdminAreaLabel = this.getDefaulAdminAreaLabels(
+    content.linkEapSop = this.getLinkEapSop(country, disasterType);
+    content.defaultAdminAreaLabel = this.getDefaultAdminAreaLabel(
       country,
       content.defaultAdminLevel,
     );
@@ -93,7 +94,16 @@ export class NotificationContentService {
     ).defaultAdminLevel;
   }
 
-  private getDefaulAdminAreaLabels(
+  private getLinkEapSop(
+    country: CountryEntity,
+    disasterType: DisasterType,
+  ): string {
+    return country.countryDisasterSettings.find(
+      (s) => s.disasterType === disasterType,
+    ).eapLink;
+  }
+
+  private getDefaultAdminAreaLabel(
     country: CountryEntity,
     adminAreaDefaultLevel: number,
   ): AdminAreaLabel {
@@ -174,7 +184,7 @@ export class NotificationContentService {
       event.countryCodeISO3,
       disasterType,
     );
-    data.totalAffectectedOfIndicator = this.getTotalAffectedPerEvent(
+    data.totalAffectedOfIndicator = this.getTotalAffectedPerEvent(
       data.triggeredAreas,
     );
     data.mapImage = await this.eventService.getEventMapImage(
@@ -213,9 +223,7 @@ export class NotificationContentService {
     disasterType: DisasterType,
     event: EventSummaryCountry,
   ): Promise<TriggeredArea[]> {
-    const defaultAdminLevel = country.countryDisasterSettings.find(
-      (s) => s.disasterType === disasterType,
-    ).defaultAdminLevel;
+    const defaultAdminLevel = this.getDefaultAdminLevel(country, disasterType);
     const triggeredAreas = await this.eventService.getTriggeredAreas(
       country.countryCodeISO3,
       disasterType,
@@ -245,12 +253,8 @@ export class NotificationContentService {
     });
   }
 
-  private getTotalAffectedPerEvent(adminAreas: TriggeredArea[]): number {
-    const total = adminAreas.reduce((acc, cur) => acc + cur.actionsValue, 0);
-    // Round to 2 decimals
-    if (total) {
-      return Math.floor(total * 100) / 100;
-    }
+  private getTotalAffectedPerEvent(adminAreas: TriggeredArea[]) {
+    return adminAreas.reduce((acc, cur) => acc + cur.actionsValue, 0);
   }
 
   private async getFirstLeadTimeDate(

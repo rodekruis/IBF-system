@@ -9,7 +9,7 @@ export class NotificationDataPerEventDto {
   triggeredAreas: TriggeredArea[];
   nrOfTriggeredAreas: number;
   startDateDisasterString: string;
-  totalAffectectedOfIndicator: number;
+  totalAffectedOfIndicator: number;
   mapImage?: Buffer;
   issuedDate: Date;
   eapAlertClass: EapAlertClass;
