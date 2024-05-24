@@ -5,7 +5,7 @@
     "noImplicitAny": false,
     "removeComments": true,
     "noLib": false,
-    "lib": ["es2017"],
+    "lib": ["es2017", "dom"],
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es6",
@@ -18,7 +18,7 @@
     "baseUrl": "./",
     "skipLibCheck": true
   },
-  "watchOptions": { 
+  "watchOptions": {
     "watchFile": "fixedPollingInterval",
     "excludeDirectories": ["node_modules", "dist"],
     "excludeFiles": ["**/*.json"]

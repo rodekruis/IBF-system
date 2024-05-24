@@ -42,8 +42,9 @@ export class EmailService {
     country: CountryEntity,
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
+    isApiTest: boolean,
     date?: Date,
-  ): Promise<void> {
+  ): Promise<void | string> {
     date = date ? new Date(date) : new Date();
 
     const emailContent =
@@ -56,6 +57,9 @@ export class EmailService {
       emailContent,
       date,
     );
+    if (isApiTest) {
+      return emailHtml;
+    }
     const emailSubject = `IBF ${(
       await this.notificationContentService.getDisasterTypeLabel(disasterType)
     ).toLowerCase()} notification`;
@@ -71,8 +75,9 @@ export class EmailService {
     country: CountryEntity,
     disasterType: DisasterType,
     finishedEvents: EventSummaryCountry[],
+    isApiTest: boolean,
     date?: Date,
-  ): Promise<void> {
+  ): Promise<void | string> {
     const disasterTypeLabel =
       await this.notificationContentService.getDisasterTypeLabel(disasterType);
     const emailHtml =
@@ -83,6 +88,10 @@ export class EmailService {
         disasterTypeLabel,
         date ? new Date(date) : new Date(),
       );
+
+    if (isApiTest) {
+      return emailHtml;
+    }
     const emailSubject = `IBF ${disasterTypeLabel.toLowerCase()} trigger is now below threshold`;
     this.sendEmail(
       emailSubject,

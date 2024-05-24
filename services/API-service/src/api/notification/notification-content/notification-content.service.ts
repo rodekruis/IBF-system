@@ -51,7 +51,7 @@ export class NotificationContentService {
     content.country = country;
     content.indicatorMetadata = await this.getIndicatorMetadata(disasterType);
     content.linkEapSop = this.getLinkEapSop(country, disasterType);
-    content.defaultAdminAreaLabel = this.getdefaultAdminAreaLabel(
+    content.defaultAdminAreaLabel = this.getDefaultAdminAreaLabel(
       country,
       content.defaultAdminLevel,
     );
@@ -103,7 +103,7 @@ export class NotificationContentService {
     ).eapLink;
   }
 
-  private getdefaultAdminAreaLabel(
+  private getDefaultAdminAreaLabel(
     country: CountryEntity,
     adminAreaDefaultLevel: number,
   ): AdminAreaLabel {

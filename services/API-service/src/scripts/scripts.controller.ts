@@ -26,6 +26,7 @@ import { RolesGuard } from '../roles.guard';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { Roles } from '../roles.decorator';
 import { UserRole } from '../api/user/user-role.enum';
+import { TyphoonScenario } from './enum/mock-scenario.enum';
 
 class ResetDto {
   @ApiProperty({ example: 'fill_in_secret' })
@@ -80,15 +81,6 @@ export class MockAll {
   @ApiProperty({ example: new Date() })
   @IsOptional()
   public readonly date: Date;
-}
-
-export enum TyphoonScenario {
-  NoEvent = 'noEvent',
-  EventNoLandfall = 'eventNoLandfall',
-  EventNoLandfallYet = 'eventNoLandfallYet',
-  EventNoTrigger = 'eventNoTrigger',
-  EventTrigger = 'eventTrigger',
-  EventAfterLandfall = 'eventAfterLandfall',
 }
 
 export class MockTyphoonScenario {
