@@ -262,9 +262,9 @@ export class EmailTemplateService {
           hazard: emailContent.disasterTypeLabel,
           triggerStatusLabel: event.triggerStatusLabel,
           eventName: event.eventName,
-          defaulAdminAreaLabelSingular:
+          defaultAdminAreaLabelSingular:
             emailContent.defaultAdminAreaLabel.singular,
-          defaulAdminAreaLabelPlural:
+          defaultAdminAreaLabelPlural:
             emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
           defaultAdminAreaLabelParent: adminAreaLabelsParent.singular,
           indicatorLabel: emailContent.indicatorMetadata.label,
@@ -334,7 +334,7 @@ export class EmailTemplateService {
             emailContent.country.countryCodeISO3,
           ),
           startDateEventString: event.startDateDisasterString,
-          defaulAdminAreaLabel:
+          defaultAdminAreaLabel:
             emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
           indicatorLabel: emailContent.indicatorMetadata.label,
           totalAffectedOfIndicator: event.totalAffectedOfIndicator,
@@ -404,7 +404,7 @@ export class EmailTemplateService {
       html = this.readHtmlFile('body-total-affected-trigger.html');
     }
     return ejs.render(html, {
-      totalAffectectedOfIndicator: event.totalAffectedOfIndicator,
+      totalAffectedOfIndicator: event.totalAffectedOfIndicator,
       indicatorUnit: indicatorUnit,
     });
   }
