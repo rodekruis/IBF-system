@@ -192,7 +192,7 @@ export class NotificationContentService {
       disasterType,
       event.eventName || 'no-name',
     );
-    data.eapAlertClass = event.disasterSpecificProperties.eapAlertClass;
+    data.eapAlertClass = event.disasterSpecificProperties?.eapAlertClass;
     return data;
   }
 
