@@ -246,7 +246,7 @@ export class AggregatesService {
     return groupsByPlaceCode;
   }
 
-  getAggregate(
+  public getAggregate(
     weightedAverage: boolean,
     indicator: IbfLayerName,
     placeCode: string,
@@ -255,13 +255,7 @@ export class AggregatesService {
   ): number {
     let weighingIndicatorName: IbfLayerName;
     if (this.disasterType) {
-      weighingIndicatorName = this.indicators.find((i) => i.name === indicator)
-        .weightVar;
-      if (!weighingIndicatorName) {
-        weighingIndicatorName = this.indicators.find(
-          (i) => i.name === this.disasterType.actionsUnit,
-        )?.name;
-      }
+      weighingIndicatorName = this.getWeighingIndicatorName(indicator);
     }
     const weighedSum = this.aggregates
       .filter((a) => a[this.AREA_STATUS_KEY] === areaStatus)
@@ -308,11 +302,33 @@ export class AggregatesService {
     return accumulator + indicatorValue;
   };
 
-  public isAggregateNan(indicator: IbfLayerName, placeCode: string): boolean {
+  public isAggregateNan(
+    indicator: IbfLayerName,
+    placeCode: string,
+    weightedAverage: boolean,
+  ): boolean {
     let aggregates = this.aggregates;
     if (placeCode) {
       aggregates = this.aggregates.filter((a) => a.placeCode === placeCode);
     }
+
+    if (weightedAverage) {
+      indicator = this.getWeighingIndicatorName(indicator);
+    }
+
     return aggregates.every((a) => a[indicator] === null);
+  }
+
+  private getWeighingIndicatorName(indicator: IbfLayerName): IbfLayerName {
+    let weighingIndicatorName = this.indicators.find(
+      (i) => i.name === indicator,
+    ).weightVar;
+    if (!weighingIndicatorName) {
+      weighingIndicatorName = this.indicators.find(
+        (i) => i.name === this.disasterType.actionsUnit,
+      )?.name;
+    }
+
+    return weighingIndicatorName;
   }
 }

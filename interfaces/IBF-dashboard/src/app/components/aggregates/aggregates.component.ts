@@ -409,11 +409,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       : (filtered = triggeredAreas.filter((a) => a.stopped));
     this.aggregatesPlaceCodes = filtered.map((a) => a.placeCode);
   };
-
-  public isAggregateNan(indicator: IbfLayerName): boolean {
+  isAggregateNan(indicator: IbfLayerName, weightedAverage: boolean): boolean {
     return this.aggregatesService.isAggregateNan(
       indicator,
       this.getPlaceCodeValue(),
+      weightedAverage,
     );
   }
 
