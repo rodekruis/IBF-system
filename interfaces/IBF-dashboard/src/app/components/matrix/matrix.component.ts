@@ -29,7 +29,8 @@ export class MatrixComponent implements OnDestroy {
   public IbfLayerGroup = IbfLayerGroup;
   public hideLayerControlToggleButton = false;
 
-  private LINE_HEIGHT = 2.26;
+  private BUTTON_HEIGHT = 2.26;
+  private LINE_HEIGHT = 1.5;
 
   public isLayerMenuOpen = false;
 
@@ -140,8 +141,8 @@ export class MatrixComponent implements OnDestroy {
 
   public getLayerMenuContainerHeightInRem = (): number => {
     if (!this.isLayerMenuOpen) {
-      return this.LINE_HEIGHT;
+      return this.BUTTON_HEIGHT;
     }
-    return (this.getLayersInOrder().length + 1) * this.LINE_HEIGHT + 0.625;
+    return this.getLayersInOrder().length * (this.LINE_HEIGHT + 1);
   };
 }
