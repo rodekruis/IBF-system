@@ -3,7 +3,7 @@ $menu-width: 13vw;
 $menu-width-small-res: 16vw;
 $line-height: 2.26rem;
 $toggle-button-bottom: 1rem;
-$toggle-button-right: 0.5vw;
+$toggle-button-right: 0;
 
 #layer-menu-container {
   position: fixed;
@@ -22,7 +22,7 @@ $toggle-button-right: 0.5vw;
   #layer-menu-toggle-button {
     width: 100%;
     height: $line-height;
-    --border-radius: 0;
+    --border-radius: 0.25rem 0 0 0;
     div {
       width: 100%;
       display: flex;
