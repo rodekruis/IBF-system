@@ -23,6 +23,7 @@ $line-height: 1.5rem;
   #layer-menu-toggle-button {
     width: 100%;
     height: $toggle-button-height;
+    min-height: $toggle-button-height;
     --border-radius: 0.25rem 0 0 0;
     div {
       width: 100%;
@@ -57,8 +58,8 @@ $line-height: 1.5rem;
       --inner-padding-end: 0;
 
       ion-spinner {
-        width: 18px;
-        height: 18px;
+        width: 1rem;
+        height: 1rem;
       }
 
       .single-layer-toggler {
@@ -77,7 +78,7 @@ $line-height: 1.5rem;
         --ripple-color: #fff;
       }
       .info-icon {
-        font-size: 24px;
+        font-size: 1.3rem;
 
         cursor: pointer;
       }
