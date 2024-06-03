@@ -23,27 +23,24 @@
       >
         <ion-item lines="none">
           <ion-spinner *ngIf="layer.isLoading"></ion-spinner>
-          <div
-            *ngIf="!layer.isLoading"
-            (click)="toggleLayer(layer)"
-            class="matrix-toggler ion-no-margin"
-            [class.matrix-check]="isCheckBox(layer.group)"
-            [class.matrix-radio]="isRadioButton(layer.group)"
-            slot="start"
-          >
-            <svg
-              *ngIf="isCheckBox(layer.group) && layer.active"
-              class="matrix-check-mark"
-              viewBox="-4 -4 35 35"
-              part="container"
-            >
-              <path d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
-            </svg>
-            <div
-              *ngIf="isRadioButton(layer.group) && layer.active"
-              class="matrix-radio-circle"
-            ></div>
-          </div>
+          <ng-container *ngIf="!layer.isLoading">
+            <ion-icon
+              *ngIf="isCheckBox(layer.group)"
+              [name]="layer.active ? 'checkbox' : 'square-outline'"
+              (click)="toggleLayer(layer)"
+              class="single-layer-toggler"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="isRadioButton(layer.group)"
+              [name]="
+                layer.active
+                  ? 'radio-button-on-outline'
+                  : 'radio-button-off-outline'
+              "
+              (click)="toggleLayer(layer)"
+              class="single-layer-toggler"
+            ></ion-icon>
+          </ng-container>
           <ion-label
             class="ion-text-wrap ion-no-margin"
             [title]="layer.label"
