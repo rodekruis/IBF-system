@@ -29,6 +29,11 @@ export class MatrixComponent implements OnDestroy {
   public IbfLayerGroup = IbfLayerGroup;
   public hideLayerControlToggleButton = false;
 
+  private BUTTON_HEIGHT = 2.26;
+  private LINE_HEIGHT = 1.5;
+
+  public isLayerMenuOpen = false;
+
   constructor(
     private analyticsService: AnalyticsService,
     public eventService: EventService,
@@ -57,6 +62,7 @@ export class MatrixComponent implements OnDestroy {
       if (newLayerIndex >= 0) {
         this.layers.splice(newLayerIndex, 1, newLayer);
       } else {
+        this.isLayerMenuOpen = false;
         if (newLayer.group !== IbfLayerGroup.adminRegions) {
           this.layers.push(newLayer);
         }
@@ -128,4 +134,18 @@ export class MatrixComponent implements OnDestroy {
       layerGroup,
     );
   }
+
+  public toggleLayerMenu(): void {
+    this.isLayerMenuOpen = !this.isLayerMenuOpen;
+  }
+
+  public getLayerMenuContainerHeightInRem = (): number => {
+    if (!this.isLayerMenuOpen) {
+      return this.BUTTON_HEIGHT;
+    }
+    return (
+      (this.getLayersInOrder().length + 1) * this.LINE_HEIGHT +
+      this.BUTTON_HEIGHT
+    );
+  };
 }

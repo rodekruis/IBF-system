@@ -330,7 +330,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           index === self.findIndex((t) => t.name === value.name),
       ); // deduplicate based on name (for e.g. waterpoints_internal)
 
-    this.legendDiv.innerHTML = this.mapLegendService.getLegendTitle();
+    let detailsString = `<details open><summary><div class="legend-header">${this.mapLegendService.getLegendTitle()}
+    <ion-icon class="icon-down" name="chevron-down-outline"></ion-icon>
+    <ion-icon class="icon-up" name="chevron-up-outline"></ion-icon></div>
+    </summary>`;
     for (const layer of layersToShow.sort(this.sortLayers)) {
       const elements = [];
       switch (layer.type) {
@@ -372,9 +375,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       }
 
       for (const element of elements) {
-        this.legendDiv.innerHTML += element;
+        detailsString += element;
       }
     }
+    detailsString += '</details>';
+
+    this.legendDiv.innerHTML = detailsString;
   }
 
   private isMultiLinePointLayer(layerName: IbfLayerName): boolean {
