@@ -25,7 +25,7 @@ enum SingleRowLegendType {
   providedIn: 'root',
 })
 export class MapLegendService {
-  private legendDivTitle = `<div style='margin-bottom: 16px'><strong>Map Legend</strong></div>`;
+  private legendDivTitle = `<div><strong>Map Legend</strong></div>`;
 
   public eventState: EventState;
   private country: Country;
@@ -364,13 +364,13 @@ export class MapLegendService {
 
     const labelStyle =
       type === SingleRowLegendType.pin && label !== IbfLayerLabel.typhoonTrack
-        ? 'style="padding-top: 2px"'
+        ? 'style="padding-top: 2px;"'
         : '';
 
     return `
-    <ion-row ${rowStyle}>
+    <ion-row class="ion-nowrap" ${rowStyle}>
       <div style="${divStyle}">${pinImg}</div>
-      <ion-label ${labelStyle}>${label}</ion-label>
+      <ion-label class="ion-text-wrap" ${labelStyle}>${label}</ion-label>
     </ion-row>
     `;
   };
