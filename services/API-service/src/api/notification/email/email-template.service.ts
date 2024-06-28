@@ -21,11 +21,6 @@ const emailTemplateFolder = `${emailFolder}/html`;
 const emailIconFolder = `${emailFolder}/icons`;
 const emailLogoFolder = `${emailFolder}/logos`;
 
-class ReplaceKeyValue {
-  replaceKey: string;
-  replaceValue: string;
-}
-
 @Injectable()
 export class EmailTemplateService {
   public async createHtmlForTriggerEmail(
@@ -358,7 +353,7 @@ export class EmailTemplateService {
         };
 
         const templateFileName = 'body-event.html';
-        let template = this.readHtmlFile(templateFileName);
+        const template = this.readHtmlFile(templateFileName);
         return ejs.render(template, data);
       })
       .join('');
@@ -383,7 +378,7 @@ export class EmailTemplateService {
     if (event.triggerStatusLabel === TriggerStatusLabelEnum.Warning) {
       return this.readHtmlFile('body-total-affected-warning.html');
     } else {
-      let html = this.readHtmlFile('body-total-affected-trigger.html');
+      const html = this.readHtmlFile('body-total-affected-trigger.html');
       return ejs.render(html, {
         totalAffectedOfIndicator: event.totalAffectedOfIndicator,
         indicatorUnit: indicatorUnit,
