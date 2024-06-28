@@ -4,11 +4,26 @@
     <%= hazard %> <%= eventName %>
     <span class="body-text-break"></span>
   </span>
-  <span class="body-text body-text-bold"> <%= disasterIssuedLabel %>: </span>
+  <% if (firstTriggerLeadTimeString) { %>
   <span class="body-text body-text-normal">
-    <%= startDateEventString %>, <%= leadTime %>s from now.
+    <%= hazard %> expected to start on <%= firstLeadTimeString %>, <%=
+    firstLeadTimeQuantity %>s from now.
     <span class="body-text-break"></span>
   </span>
+  <span class="body-text body-text-bold"> <%= disasterIssuedLabel %>: </span>
+  <span class="body-text body-text-normal">
+    expected to reach threshold on <%= firstTriggerLeadTimeString %>, <%=
+    firstTriggerLeadTimeQuantity %>s from now.
+    <span class="body-text-break"></span>
+  </span>
+  <% } else { %>
+  <span class="body-text body-text-bold"> <%= disasterIssuedLabel %>: </span>
+  <span class="body-text body-text-normal">
+    expected on <%= firstLeadTimeString %>, <%= firstLeadTimeQuantity %>s from
+    now.
+    <span class="body-text-break"></span>
+  </span>
+  <% } %>
   <span class="body-text body-text-bold">
     Expected exposed <%= defaultAdminAreaLabel %>:
   </span>
