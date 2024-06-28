@@ -191,7 +191,7 @@ export class EmailTemplateService {
           mapImgDescription: this.getMapImageDescription(
             emailContent.disasterType,
           ),
-          eventName: event.eventName ? ` for '${event.eventName}'` : '',
+          eventName: event.eventName ? `(for ${event.eventName})` : '',
         };
         eventHtml = ejs.render(eventHtml, replacements);
         html += eventHtml;
