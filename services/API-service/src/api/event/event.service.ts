@@ -87,21 +87,15 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<EventSummaryCountry[]> {
-    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
-      countryCodeISO3,
-    );
+    const adminAreaIds = await this.getCountryAdminAreaIds(countryCodeISO3);
 
     const sixDaysAgo = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000);
     const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
       countryCodeISO3,
     )
       .andWhere('event.endDate > :endDate', { endDate: sixDaysAgo })
-      .andWhere('event.adminArea IN (:...adminAreaIds)', {
-        adminAreaIds: countryAdminAreaIds,
-      })
-      .andWhere('event.disasterType = :disasterType', {
-        disasterType: disasterType,
-      })
+      .andWhere('event.adminArea IN (:...adminAreaIds)', { adminAreaIds })
+      .andWhere('event.disasterType = :disasterType', { disasterType })
       .andWhere('event.closed = :closed', { closed: true });
 
     return this.queryAndMapEventSummary(
@@ -270,7 +264,7 @@ export class EventService {
     );
     const deleteFilters = {
       adminArea: In(countryAdminAreaIds),
-      disasterType: disasterType,
+      disasterType,
       startDate: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(disasterType, date),
       ),
@@ -288,7 +282,7 @@ export class EventService {
     return (
       await this.disasterTypeRepository.findOne({
         select: ['triggerUnit'],
-        where: { disasterType: disasterType },
+        where: { disasterType },
       })
     ).triggerUnit;
   }
@@ -299,7 +293,7 @@ export class EventService {
   ) {
     return (
       await this.countryRepository.findOne({
-        where: { countryCodeISO3: countryCodeISO3 },
+        where: { countryCodeISO3 },
         relations: ['countryDisasterSettings'],
       })
     ).countryDisasterSettings.find((d) => d.disasterType === disasterType);
@@ -322,11 +316,11 @@ export class EventService {
     ).defaultAdminLevel;
 
     const whereFiltersDynamicData = {
-      indicator: triggerUnit,
+      indicator: triggerUnit, // REFACTOR: trigger unit and indicator should not be used interchangeably
       value: MoreThan(0),
-      adminLevel: adminLevel,
-      disasterType: disasterType,
-      countryCodeISO3: countryCodeISO3,
+      adminLevel,
+      disasterType,
+      countryCodeISO3,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -576,14 +570,14 @@ export class EventService {
       disasterType,
     );
     const whereFilters = {
-      countryCodeISO3: countryCodeISO3,
+      countryCodeISO3,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
       ),
-      disasterType: disasterType,
+      disasterType,
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
@@ -663,7 +657,7 @@ export class EventService {
     return (
       await this.disasterTypeRepository.findOne({
         select: ['actionsUnit'],
-        where: { disasterType: disasterType },
+        where: { disasterType },
       })
     ).actionsUnit;
   }
@@ -718,16 +712,16 @@ export class EventService {
     );
 
     const whereFilters = {
-      indicator: triggerUnit,
+      indicator: triggerUnit, // REFACTOR: trigger unit and indicator should not be used interchangeably
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
       ),
-      countryCodeISO3: countryCodeISO3,
-      adminLevel: adminLevel,
-      disasterType: disasterType,
+      countryCodeISO3,
+      adminLevel,
+      disasterType,
       eventName: eventName || IsNull(),
     };
 
@@ -752,16 +746,16 @@ export class EventService {
 
     const whereOptions = {
       placeCode: In(triggerPlaceCodesArray),
-      indicator: actionUnit,
+      indicator: actionUnit, // REFACTOR: action unit and indicator should not be used interchangeably
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
       ),
-      countryCodeISO3: countryCodeISO3,
-      adminLevel: adminLevel,
-      disasterType: disasterType,
+      countryCodeISO3,
+      adminLevel,
+      disasterType,
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
@@ -778,7 +772,7 @@ export class EventService {
 
     for (const area of affectedAreas) {
       area.triggerValue = triggeredPlaceCodes.find(
-        (p) => p.placeCode === area.placeCode,
+        ({ placeCode }) => placeCode === area.placeCode,
       ).triggerValue;
     }
 
@@ -804,7 +798,7 @@ export class EventService {
       where: {
         closed: false,
         adminArea: In(countryAdminAreaIds),
-        disasterType: disasterType,
+        disasterType,
         eventName: eventName || IsNull(),
       },
       relations: ['adminArea'],
@@ -849,17 +843,14 @@ export class EventService {
 
   private async updateEvents(
     eventPlaceCodeIds: string[],
-    aboveThreshold: boolean,
+    thresholdReached: boolean,
     endDate: Date,
   ) {
     if (eventPlaceCodeIds.length) {
       await this.eventPlaceCodeRepo
         .createQueryBuilder()
         .update()
-        .set({
-          thresholdReached: aboveThreshold,
-          endDate: endDate,
-        })
+        .set({ thresholdReached, endDate })
         .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
         .execute();
     }
@@ -920,7 +911,7 @@ export class EventService {
         where: {
           closed: false,
           adminArea: In(countryAdminAreaIds),
-          disasterType: disasterType,
+          disasterType,
           eventName: eventName || IsNull(),
         },
         relations: ['adminArea'],
@@ -964,28 +955,26 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    const whereFilters = {
-      endDate: LessThan(uploadDate.timestamp), // If the area was not prolongued earlier, then the endDate is not updated and is therefore less than the uploadDate
+    const where = {
+      endDate: LessThan(uploadDate.timestamp), // If the area was not prolonged earlier, then the endDate is not updated and is therefore less than the uploadDate
       adminArea: In(countryAdminAreaIds),
-      disasterType: disasterType,
+      disasterType,
       closed: false,
     };
-    const expiredEventAreas = await this.eventPlaceCodeRepo.find({
-      where: whereFilters,
-    });
+    const expiredEventAreas = await this.eventPlaceCodeRepo.find({ where });
 
     // Below threshold events can be removed from this table after closing
     // Below threshold events are warnings an not triggered. I do not know why they are removed here
     const belowThresholdEvents = expiredEventAreas.filter(
-      (a) => !a.thresholdReached,
+      ({ thresholdReached }) => !thresholdReached,
     );
     await this.eventPlaceCodeRepo.remove(belowThresholdEvents);
 
     //For the other ones update 'closed = true'
     const aboveThresholdEvents = expiredEventAreas.filter(
-      (a) => a.thresholdReached,
+      ({ thresholdReached }) => thresholdReached,
     );
-    for await (const area of aboveThresholdEvents) {
+    for (const area of aboveThresholdEvents) {
       area.closed = true;
     }
     await this.eventPlaceCodeRepo.save(aboveThresholdEvents);
@@ -995,7 +984,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
-    imageFileBlob,
+    imageFileBlob: { buffer: Buffer },
   ): Promise<void> {
     let eventMapImageEntity = await this.eventMapImageRepository.findOne({
       where: {
@@ -1025,8 +1014,8 @@ export class EventService {
   ): Promise<Buffer> {
     const eventMapImageEntity = await this.eventMapImageRepository.findOne({
       where: {
-        countryCodeISO3: countryCodeISO3,
-        disasterType: disasterType,
+        countryCodeISO3,
+        disasterType,
         eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
       },
     });
