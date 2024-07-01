@@ -25,11 +25,6 @@
         text-align: center;
       }
 
-      .notification-sub-title-left {
-        color: white;
-        text-align: center;
-      }
-
       .notification-content {
         color: #000000;
         line-height: 1.5;
@@ -53,21 +48,6 @@
       .notification-actions-table td,
       .notification-alerts-table td {
         padding: 10px 0;
-      }
-
-      .notification-actions-table td:first-child {
-        width: 220px;
-      }
-
-      .notification-action-button {
-        height: 40px;
-        width: 200px;
-        background-color: #6200ee;
-        color: #ffffff;
-        font-weight: bold;
-        border: 0px;
-        border-radius: 40px;
-        cursor: pointer;
       }
 
       p {
@@ -394,7 +374,7 @@
 
       #templateBody {
         /*@editable*/
-        background-color: white;
+        background-color: #f4f5f8;
         /*@editable*/
         background-image: none;
         /*@editable*/
@@ -561,7 +541,7 @@
 
       @media only screen and (min-width: 768px) {
         .templateContainer {
-          width: 600px !important;
+          width: 800px !important;
         }
       }
 
@@ -882,7 +862,7 @@
                                       >
                                         <img
                                           alt=""
-                                          src="(IMG-LOGO)"
+                                          src="<%= imgLogo %>"
                                           style="
                                             max-width: 332px;
                                             padding: 8px;
@@ -898,12 +878,12 @@
                                     <tr>
                                       <td colspan="2">
                                         <h2 class="notification-title">
-                                          (DISASTER-TYPE) IBF Notification
+                                          <%= disasterType %> IBF Notification
                                         </h2>
                                       </td>
                                     </tr>
                                     <tr>
-                                      (HEADER-EVENT-OVERVIEW)
+                                      <%- headerEventOverview %>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -922,7 +902,7 @@
                   <![endif]-->
                 </td>
               </tr>
-              (EMAIL-BODY)
+              <%- emailBody %>
               <tr>
                 <td
                   align="center"

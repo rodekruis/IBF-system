@@ -16,7 +16,7 @@ export class EventMapImageEntity {
   public id: string;
 
   @Column({ type: 'bytea' })
-  public image: any;
+  public image: Buffer;
 
   @ApiProperty({ example: 'SSD' })
   @ManyToOne((): typeof CountryEntity => CountryEntity)

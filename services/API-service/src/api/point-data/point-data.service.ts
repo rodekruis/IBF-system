@@ -22,6 +22,16 @@ import { GaugeDto } from './dto/upload-gauge.dto';
 import { DynamicPointDataEntity } from './dynamic-point-data.entity';
 import { GlofasStationDto } from './dto/upload-glofas-station.dto';
 
+export interface CommunityNotification {
+  nameVolunteer: string;
+  nameVillage: string;
+  disasterType: string;
+  description: string;
+  end: Date;
+  _attachments: [{ download_url: string }];
+  _geolocation: [number, number];
+}
+
 @Injectable()
 export class PointDataService {
   @InjectRepository(PointDataEntity)
@@ -89,7 +99,7 @@ export class PointDataService {
     return this.helperService.toGeojson(pointData);
   }
 
-  private getDtoPerPointDataCategory(pointDataCategory: PointDataEnum): any {
+  private getDtoPerPointDataCategory(pointDataCategory: PointDataEnum) {
     switch (pointDataCategory) {
       case PointDataEnum.dams:
         return new DamSiteDto();
@@ -120,6 +130,7 @@ export class PointDataService {
   public async uploadJson(
     pointDataCategory: PointDataEnum,
     countryCodeISO3: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     validatedObjArray: any,
     deleteExisting = true,
   ) {
@@ -170,7 +181,7 @@ export class PointDataService {
     csvArray,
   ): Promise<object[]> {
     const errors = [];
-    const validatatedArray = [];
+    const validatedArray = [];
     for (const [i, row] of csvArray.entries()) {
       const dto = this.getDtoPerPointDataCategory(pointDataCategory);
       for (const attribute in dto) {
@@ -185,12 +196,12 @@ export class PointDataService {
         const errorObj = { lineNumber: i + 1, validationError: result };
         errors.push(errorObj);
       }
-      validatatedArray.push(dto);
+      validatedArray.push(dto);
     }
     if (errors.length > 0) {
       throw new HttpException(errors, HttpStatus.BAD_REQUEST);
     }
-    return validatatedArray;
+    return validatedArray;
   }
 
   public async dismissCommunityNotification(pointDataId: string) {
@@ -209,7 +220,7 @@ export class PointDataService {
 
   public async uploadCommunityNotification(
     countryCodeISO3: string,
-    communityNotification: any,
+    communityNotification: CommunityNotification,
   ): Promise<void> {
     const notification = new CommunityNotificationDto();
     notification.nameVolunteer = communityNotification['nameVolunteer'];

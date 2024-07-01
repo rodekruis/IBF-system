@@ -69,7 +69,7 @@ export class AdminAreaController {
     type: [AdminAreaEntity],
   })
   @Get('raw/:countryCodeISO3')
-  public async getAdminAreasRaw(@Param() params): Promise<any[]> {
+  public async getAdminAreasRaw(@Param() params) {
     return await this.adminAreaService.getAdminAreasRaw(params.countryCodeISO3);
   }
 

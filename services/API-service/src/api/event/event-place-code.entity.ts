@@ -37,6 +37,8 @@ export class EventPlaceCodeEntity {
   @Column({ default: true })
   public thresholdReached: boolean;
 
+  // TODO refactor this to be named issuedDate
+  // As far as I understand, this is the date when the event was created and not when the disaster will happen
   @Column({ type: 'timestamp' })
   public startDate: Date;
 

@@ -8,11 +8,7 @@ import { twilio } from './twilio.client';
 export class AuthMiddlewareTwilio implements NestMiddleware {
   public constructor() {}
 
-  public async use(
-    req: Request,
-    res: Response,
-    next: NextFunction,
-  ): Promise<any> {
+  public async use(req: Request, res: Response, next: NextFunction) {
     const twilioSignature = req.headers['x-twilio-signature'];
 
     if (DEBUG) {

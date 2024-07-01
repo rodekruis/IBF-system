@@ -9,7 +9,7 @@ import fs from 'fs';
 
 const workspaceName = 'ibf-system';
 
-class RecourceNameObject {
+class ResourceNameObject {
   resourceName: string;
   disasterType: DisasterType;
   countryCodeISO3: string;
@@ -24,7 +24,7 @@ export class GeoserverSyncService {
     disasterType?: DisasterType,
   ): Promise<void> {
     const countriesCopy = JSON.parse(JSON.stringify(countries));
-    const filteredCountries = countriesCopy.filter((country: any) => {
+    const filteredCountries = countriesCopy.filter((country) => {
       return countryCodeISO3
         ? country.countryCodeISO3 === countryCodeISO3
         : true;
@@ -32,7 +32,7 @@ export class GeoserverSyncService {
     // also filter by disaster type
     for (const country of filteredCountries) {
       const disasterSettings = country.countryDisasterSettings.filter(
-        (disasterSetting: any) => {
+        (disasterSetting) => {
           return disasterType
             ? disasterSetting.disasterType === disasterType
             : true;
@@ -47,7 +47,7 @@ export class GeoserverSyncService {
     await this.syncLayers(geoserverResourceNameObjects);
   }
 
-  private async syncStores(expectedStoreNameObjects: RecourceNameObject[]) {
+  private async syncStores(expectedStoreNameObjects: ResourceNameObject[]) {
     const foundStoreNames = await this.getStoreNamesFromGeoserver(
       workspaceName,
     );
@@ -58,8 +58,9 @@ export class GeoserverSyncService {
   }
 
   private generateGeoserverResourceNames(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     filteredCountries: any[],
-  ): RecourceNameObject[] {
+  ): ResourceNameObject[] {
     const resourceNameObjects = [];
     for (const country of filteredCountries) {
       resourceNameObjects.push(...this.generateStoreNameForCountry(country));
@@ -67,7 +68,7 @@ export class GeoserverSyncService {
     return resourceNameObjects;
   }
 
-  private generateStoreNameForCountry(country: any): RecourceNameObject[] {
+  private generateStoreNameForCountry(country): ResourceNameObject[] {
     const resourceNameObjects = [];
     const countryCode = country.countryCodeISO3;
     for (const disasterSetting of country.countryDisasterSettings) {
@@ -92,13 +93,13 @@ export class GeoserverSyncService {
   private async getStoreNamesFromGeoserver(workspaceName: string) {
     const data = await this.get(`workspaces/${workspaceName}/coveragestores`);
     const storeNames = data.coverageStores.coverageStore.map(
-      (store: any) => store.name,
+      (store) => store.name,
     );
     return storeNames;
   }
 
   private async postStoreNamesToGeoserver(
-    resourceNameObjects: RecourceNameObject[],
+    resourceNameObjects: ResourceNameObject[],
   ) {
     for (const resourceNameObject of resourceNameObjects) {
       const subfolder = DisasterTypeGeoServerMapper.getSubfolderForDisasterType(
@@ -135,7 +136,7 @@ export class GeoserverSyncService {
     }
   }
 
-  public async syncLayers(expectedLayerNames: RecourceNameObject[]) {
+  public async syncLayers(expectedLayerNames: ResourceNameObject[]) {
     const foundLayerNames = await this.getLayerNamesFromGeoserver(
       workspaceName,
     );
@@ -147,12 +148,12 @@ export class GeoserverSyncService {
 
   private async getLayerNamesFromGeoserver(workspaceName: string) {
     const data = await this.get(`workspaces/${workspaceName}/layers`);
-    const layerNames = data.layers.layer.map((layer: any) => layer.name);
+    const layerNames = data.layers.layer.map((layer) => layer.name);
     return layerNames;
   }
 
   private async postLayerNamesToGeoserver(
-    resourceNameObjects: RecourceNameObject[],
+    resourceNameObjects: ResourceNameObject[],
   ) {
     for (const resourceNameObject of resourceNameObjects) {
       const publishLayerUrl = `workspaces/${workspaceName}/coveragestores/${resourceNameObject.resourceName}/coverages`;
@@ -182,7 +183,7 @@ export class GeoserverSyncService {
     }
   }
 
-  private async post(path: string, body: any) {
+  private async post(path: string, body: unknown) {
     const url = `${INTERNAL_GEOSERVER_API_URL}/${path}`;
     const headers = this.getHeaders();
     const result = await firstValueFrom(
@@ -191,7 +192,7 @@ export class GeoserverSyncService {
     return result.data;
   }
 
-  private async put(path: string, body: any) {
+  private async put(path: string, body: unknown) {
     const url = `${INTERNAL_GEOSERVER_API_URL}/${path}`;
     const headers = this.getHeaders();
     const result = await firstValueFrom(

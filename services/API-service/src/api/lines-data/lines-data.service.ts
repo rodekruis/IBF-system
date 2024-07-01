@@ -17,7 +17,7 @@ export class LinesDataService {
 
   public constructor(private readonly helperService: HelperService) {}
 
-  private getDtoPerLinesDataCategory(linesDataCategory: LinesDataEnum): any {
+  private getDtoPerLinesDataCategory(linesDataCategory: LinesDataEnum) {
     switch (linesDataCategory) {
       case LinesDataEnum.roads:
         return new RoadDto();
@@ -34,6 +34,7 @@ export class LinesDataService {
   public async uploadJson(
     linesDataCategory: LinesDataEnum,
     countryCodeISO3: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     validatedObjArray: any,
     deleteExisting = true,
   ) {

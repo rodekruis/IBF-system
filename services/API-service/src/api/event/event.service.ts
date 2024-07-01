@@ -15,6 +15,7 @@ import {
   MoreThan,
   IsNull,
   DataSource,
+  SelectQueryBuilder,
 } from 'typeorm';
 
 import { InjectRepository } from '@nestjs/typeorm';
@@ -63,42 +64,78 @@ export class EventService {
     private dataSource: DataSource,
     private typhoonTrackService: TyphoonTrackService,
   ) {}
-
   public async getEventSummary(
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<EventSummaryCountry[]> {
     const recentDate = await this.getRecentDate(countryCodeISO3, disasterType);
-    const eventSummary = await this.eventPlaceCodeRepo
-      .createQueryBuilder('event')
-      .select(['area."countryCodeISO3"', 'event."eventName"'])
-      .leftJoin('event.adminArea', 'area')
-      .groupBy('area."countryCodeISO3"')
-      .addGroupBy('event."eventName"')
-      .addSelect([
-        'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
-        'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
-        'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
-        'count(event."adminAreaId")::int AS "affectedAreas"',
-        'MAX(event."triggerValue")::float AS "triggerValue"',
-        'sum(event."actionsValue")::int AS "actionsValueSum"',
-      ])
-      .where({
-        closed: false,
-        endDate: MoreThanOrEqual(recentDate.date),
+    const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
+      countryCodeISO3,
+    ).andWhere({
+      closed: false,
+      endDate: MoreThanOrEqual(recentDate.date),
+      disasterType: disasterType,
+    });
+    return this.queryAndMapEventSummary(
+      eventSummaryQueryBuilder,
+      countryCodeISO3,
+      disasterType,
+    );
+  }
+
+  public async getEventsSummaryTriggerFinishedMail(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<EventSummaryCountry[]> {
+    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
+      countryCodeISO3,
+    );
+
+    const sixDaysAgo = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000);
+    const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
+      countryCodeISO3,
+    )
+      .andWhere('event.endDate > :endDate', { endDate: sixDaysAgo })
+      .andWhere('event.adminArea IN (:...adminAreaIds)', {
+        adminAreaIds: countryAdminAreaIds,
+      })
+      .andWhere('event.disasterType = :disasterType', {
         disasterType: disasterType,
       })
-      .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
-      })
-      .getRawMany();
+      .andWhere('event.closed = :closed', { closed: true });
 
+    return this.queryAndMapEventSummary(
+      eventSummaryQueryBuilder,
+      countryCodeISO3,
+      disasterType,
+    );
+  }
+
+  private async queryAndMapEventSummary(
+    qb: SelectQueryBuilder<EventPlaceCodeEntity>,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<EventSummaryCountry[]> {
+    const rawEventSummary = await qb.getRawMany();
+    const eventSummary = await this.populateEventsDetails(
+      rawEventSummary,
+      countryCodeISO3,
+      disasterType,
+    );
+    return eventSummary;
+  }
+
+  private async populateEventsDetails(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    rawEvents: any[],
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<EventSummaryCountry[]> {
     const disasterSettings = await this.getCountryDisasterSettings(
       countryCodeISO3,
       disasterType,
     );
-
-    for await (const event of eventSummary) {
+    for (const event of rawEvents) {
       event.firstLeadTime = await this.getFirstLeadTime(
         countryCodeISO3,
         disasterType,
@@ -118,14 +155,44 @@ export class EventService {
             event.eventName,
           );
       }
-      if (disasterSettings.eapAlertClasses) {
+      if (disasterType === DisasterType.Floods) {
+        // REFACTOR: either make eapAlertClass a requirement across all hazard
+        // types or reimplement such that eapAlertClass is not needed in the
+        // backend (it is a VIEW of the DATA in the dashboard and email)
         event.disasterSpecificProperties = await this.getEventEapAlertClass(
           disasterSettings,
           event.triggerValue,
         );
       }
     }
-    return eventSummary;
+    return rawEvents;
+  }
+
+  private createEventSummaryQueryBuilder(
+    countryCodeISO3: string,
+  ): SelectQueryBuilder<EventPlaceCodeEntity> {
+    return this.eventPlaceCodeRepo
+      .createQueryBuilder('event')
+      .select([
+        'area."countryCodeISO3"',
+        'event."eventName"',
+        'event."triggerValue"',
+      ])
+      .leftJoin('event.adminArea', 'area')
+      .groupBy('area."countryCodeISO3"')
+      .addGroupBy('event."eventName"')
+      .addGroupBy('event."triggerValue"')
+      .addSelect([
+        'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
+        'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
+        'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
+        'count(event."adminAreaId")::int AS "affectedAreas"',
+        'MAX(event."triggerValue")::float AS "triggerValue"',
+        'sum(event."actionsValue")::int AS "actionsValueSum"',
+      ])
+      .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
+        countryCodeISO3: countryCodeISO3,
+      });
   }
 
   public async getRecentDate(
@@ -907,7 +974,8 @@ export class EventService {
       where: whereFilters,
     });
 
-    //Below threshold events can be removed from this table after closing
+    // Below threshold events can be removed from this table after closing
+    // Below threshold events are warnings an not triggered. I do not know why they are removed here
     const belowThresholdEvents = expiredEventAreas.filter(
       (a) => !a.thresholdReached,
     );
@@ -954,7 +1022,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
-  ): Promise<any> {
+  ): Promise<Buffer> {
     const eventMapImageEntity = await this.eventMapImageRepository.findOne({
       where: {
         countryCodeISO3: countryCodeISO3,

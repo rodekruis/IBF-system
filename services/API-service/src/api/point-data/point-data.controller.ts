@@ -25,7 +25,7 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
-import { PointDataService } from './point-data.service';
+import { CommunityNotification, PointDataService } from './point-data.service';
 import {
   UploadAssetExposureStatusDto,
   UploadDynamicPointDataDto,
@@ -101,7 +101,7 @@ export class PointDataController {
   @Post('community-notification/:countryCodeISO3')
   public async uploadCommunityNotification(
     @Param() params,
-    @Body() communityNotification: any,
+    @Body() communityNotification: CommunityNotification,
   ): Promise<void> {
     return await this.pointDataService.uploadCommunityNotification(
       params.countryCodeISO3,
