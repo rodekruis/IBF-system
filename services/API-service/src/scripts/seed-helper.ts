@@ -1,6 +1,7 @@
 import fs from 'fs';
-import csv from 'csv-parser';
 import { Readable } from 'stream';
+
+import csv from 'csv-parser';
 import { DataSource } from 'typeorm';
 
 export class SeedHelper {

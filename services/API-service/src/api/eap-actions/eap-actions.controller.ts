@@ -1,6 +1,4 @@
-import { Controller, Post, Body, Get, UseGuards, Param } from '@nestjs/common';
-import { EapAction, EapActionsService } from './eap-actions.service';
-import { UserDecorator } from '../user/user.decorator';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -8,15 +6,18 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CheckEapActionDto } from './dto/check-eap-action.dto';
-import { EapActionStatusEntity } from './eap-action-status.entity';
-import { AreaOfFocusEntity } from './area-of-focus.entity';
-import { RolesGuard } from '../../roles.guard';
+
 import { Roles } from '../../roles.decorator';
-import { UserRole } from '../user/user-role.enum';
-import { EapActionEntity } from './eap-action.entity';
-import { AddEapActionsDto } from './dto/eap-action.dto';
+import { RolesGuard } from '../../roles.guard';
 import { DisasterType } from '../disaster/disaster-type.enum';
+import { UserRole } from '../user/user-role.enum';
+import { UserDecorator } from '../user/user.decorator';
+import { AreaOfFocusEntity } from './area-of-focus.entity';
+import { CheckEapActionDto } from './dto/check-eap-action.dto';
+import { AddEapActionsDto } from './dto/eap-action.dto';
+import { EapActionStatusEntity } from './eap-action-status.entity';
+import { EapActionEntity } from './eap-action.entity';
+import { EapAction, EapActionsService } from './eap-actions.service';
 
 @ApiBearerAuth()
 @ApiTags('eap-actions')

@@ -1,20 +1,22 @@
+import crypto from 'crypto';
+
 import { IsEmail } from 'class-validator';
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
   BeforeInsert,
-  OneToMany,
-  ManyToMany,
+  Column,
+  Entity,
   JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import crypto from 'crypto';
+
 import { CountryEntity } from '../country/country.entity';
+import { DisasterEntity } from '../disaster/disaster.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { UserRole } from './user-role.enum';
 import { UserStatus } from './user-status.enum';
-import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
 
 @Entity('user')
 export class UserEntity {

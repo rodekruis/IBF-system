@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { InterfaceScript } from './scripts.module';
+
 import { DataSource } from 'typeorm';
-import { SeedHelper } from './seed-helper';
-import countries from './json/countries.json';
+
 import { PointDataEnum } from '../api/point-data/point-data.entity';
 import { PointDataService } from '../api/point-data/point-data.service';
+import countries from './json/countries.json';
+import { InterfaceScript } from './scripts.module';
+import { SeedHelper } from './seed-helper';
 
 @Injectable()
 export class SeedPointData implements InterfaceScript {

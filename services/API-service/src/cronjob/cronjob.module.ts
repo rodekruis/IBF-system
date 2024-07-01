@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+
 import { AdminAreaDynamicDataModule } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.module';
 import { CronjobService } from './cronjob.service';
 

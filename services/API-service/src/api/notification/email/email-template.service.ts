@@ -1,19 +1,21 @@
+import * as fs from 'fs';
 import { Injectable } from '@nestjs/common';
+
+import * as ejs from 'ejs';
+import * as juice from 'juice';
+
+import {
+  EapAlertClassKeyEnum,
+  EventSummaryCountry,
+} from '../../../shared/data.model';
+import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
+import { CountryEntity } from '../../country/country.entity';
+import { DisasterType } from '../../disaster/disaster-type.enum';
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 import {
   NotificationDataPerEventDto,
   TriggerStatusLabelEnum,
 } from '../dto/notification-date-per-event.dto';
-import * as ejs from 'ejs';
-import * as fs from 'fs';
-import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
-import { DisasterType } from '../../disaster/disaster-type.enum';
-import {
-  EapAlertClassKeyEnum,
-  EventSummaryCountry,
-} from '../../../shared/data.model';
-import { CountryEntity } from '../../country/country.entity';
-import * as juice from 'juice';
 import { formatActionUnitValue } from '../helpers/format-action-unit-value.helper';
 
 const emailFolder = './src/api/notification/email';

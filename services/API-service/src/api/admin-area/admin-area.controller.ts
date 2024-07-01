@@ -17,13 +17,14 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { GeoJson } from '../../shared/geo.model';
-import { RolesGuard } from '../../roles.guard';
-import { AdminAreaService } from './admin-area.service';
-import { AggregateDataRecord } from '../../shared/data.model';
-import { AdminAreaEntity } from './admin-area.entity';
+
 import { Roles } from '../../roles.decorator';
+import { RolesGuard } from '../../roles.guard';
+import { AggregateDataRecord } from '../../shared/data.model';
+import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
+import { AdminAreaEntity } from './admin-area.entity';
+import { AdminAreaService } from './admin-area.service';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)

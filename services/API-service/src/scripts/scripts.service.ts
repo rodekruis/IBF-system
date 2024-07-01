@@ -1,31 +1,33 @@
+import fs from 'fs';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { In, Repository } from 'typeorm';
+
+import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
+import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
+import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
+import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
+import { AdminLevel } from '../api/country/admin-level.enum';
+import { CountryEntity } from '../api/country/country.entity';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
+import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
+import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
+import { EventService } from '../api/event/event.service';
+import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
+import { MetadataService } from '../api/metadata/metadata.service';
+import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
+import countries from './json/countries.json';
+import { MockHelperService } from './mock-helper.service';
+import { MockService } from './mock.service';
 import {
   MockAll,
   MockDynamic,
   MockTyphoonScenario,
   TyphoonScenario,
 } from './scripts.controller';
-import countries from './json/countries.json';
-import fs from 'fs';
-import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
-import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
-import { EventService } from '../api/event/event.service';
-import { InjectRepository } from '@nestjs/typeorm';
-import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
-import { In, Repository } from 'typeorm';
-import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
-import { CountryEntity } from '../api/country/country.entity';
-import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
-import { MetadataService } from '../api/metadata/metadata.service';
-import { AdminLevel } from '../api/country/admin-level.enum';
-import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
-import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
-import { MockHelperService } from './mock-helper.service';
-import { MockService } from './mock.service';
 
 @Injectable()
 export class ScriptsService {
