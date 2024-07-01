@@ -5,7 +5,17 @@ module.exports = {
   printWidth: 80,
   tabWidth: 2,
   plugins: ['@ianvs/prettier-plugin-sort-imports'],
-  importOrder: ['^@nestjs', '', '<THIRD_PARTY_MODULES>', '', '^[.]'],
+  importOrder: [
+    '^@nestjs',
+    '',
+    '<THIRD_PARTY_MODULES>',
+    '',
+    '@api',
+    '@scripts',
+    '@shared',
+    '',
+    '^[.]',
+  ],
   importOrderParserPlugins: ['typescript', 'jsx', 'decorators-legacy'],
   importOrderTypeScriptVersion: '5.0.0',
 };
