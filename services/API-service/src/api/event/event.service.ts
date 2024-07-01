@@ -38,6 +38,7 @@ import { EventMapImageEntity } from './event-map-image.entity';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import { CountryEntity } from '../country/country.entity';
 import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
+import { subDays } from 'date-fns';
 
 @Injectable()
 export class EventService {
@@ -89,7 +90,7 @@ export class EventService {
   ): Promise<EventSummaryCountry[]> {
     const adminAreaIds = await this.getCountryAdminAreaIds(countryCodeISO3);
 
-    const sixDaysAgo = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000);
+    const sixDaysAgo = subDays(new Date(), 6);
     const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
       countryCodeISO3,
     )
