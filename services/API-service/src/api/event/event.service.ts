@@ -91,15 +91,11 @@ export class EventService {
       countryCodeISO3,
     );
 
-    // I spend quite some time on trying to figure out what is the right query to get the event finished summary for the trigger closed email
-    // I came up with the following query but I am not sure if it is correct and how to test it properly
-    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const sixDaysAgo = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000);
     const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
       countryCodeISO3,
     )
-      .andWhere('event.endDate > :endDateMin', { endDateMin: sevenDaysAgo })
-      .andWhere('event.endDate < :endDateMax', { endDateMax: sixDaysAgo })
+      .andWhere('event.endDate > :endDate', { endDate: sixDaysAgo })
       .andWhere('event.adminArea IN (:...adminAreaIds)', {
         adminAreaIds: countryAdminAreaIds,
       })
