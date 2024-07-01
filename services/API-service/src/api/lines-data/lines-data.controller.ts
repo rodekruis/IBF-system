@@ -17,12 +17,13 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
-import { UserRole } from '../user/user-role.enum';
-import { LinesDataService } from './lines-data.service';
-import { UploadLinesExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
 import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
+import { UserRole } from '../user/user-role.enum';
+import { UploadLinesExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
+import { LinesDataService } from './lines-data.service';
 
 @ApiBearerAuth()
 @ApiTags('lines-data')

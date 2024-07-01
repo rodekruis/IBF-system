@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { HelperService } from '../../../shared/helper.service';
 import { AdminAreaDataModule } from '../../admin-area-data/admin-area-data.module';
 import { AdminAreaDynamicDataModule } from '../../admin-area-dynamic-data/admin-area-dynamic-data.module';
 import { AdminAreaModule } from '../../admin-area/admin-area.module';
@@ -8,7 +10,6 @@ import { DisasterEntity } from '../../disaster/disaster.entity';
 import { EventModule } from '../../event/event.module';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { NotificationContentService } from './notification-content.service';
-import { HelperService } from '../../../shared/helper.service';
 
 @Module({
   imports: [

@@ -1,11 +1,13 @@
+import fs from 'fs';
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+
 import { firstValueFrom } from 'rxjs';
-import { INTERNAL_GEOSERVER_API_URL } from '../config';
-import countries from './json/countries.json';
+
 import { DisasterType } from '../api/disaster/disaster-type.enum';
+import { INTERNAL_GEOSERVER_API_URL } from '../config';
 import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';
-import fs from 'fs';
+import countries from './json/countries.json';
 
 const workspaceName = 'ibf-system';
 

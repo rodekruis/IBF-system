@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { In, Repository } from 'typeorm';
+
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
-import { NotificationInfoDto } from './dto/notification-info.dto';
+import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { AdminLevel } from './admin-level.enum';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import { CountryEntity } from './country.entity';
@@ -13,7 +15,7 @@ import {
   CountryDisasterSettingsDto,
   CountryDto,
 } from './dto/add-countries.dto';
-import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
+import { NotificationInfoDto } from './dto/notification-info.dto';
 
 @Injectable()
 export class CountryService {

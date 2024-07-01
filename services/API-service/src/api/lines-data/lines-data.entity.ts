@@ -1,9 +1,9 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  Index,
+  Entity,
   Geometry,
+  Index,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 export enum LinesDataEnum {

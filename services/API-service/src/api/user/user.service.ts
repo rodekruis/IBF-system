@@ -1,18 +1,19 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, In } from 'typeorm';
-import { UserEntity } from './user.entity';
-import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
-import { UserResponseObject } from './user.model';
-import { validate } from 'class-validator';
-import { HttpException } from '@nestjs/common/exceptions/http.exception';
-import { HttpStatus } from '@nestjs/common';
 import crypto from 'crypto';
+import { HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException } from '@nestjs/common/exceptions/http.exception';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { validate } from 'class-validator';
 import jwt from 'jsonwebtoken';
+import { In, Repository } from 'typeorm';
+
 import { CountryEntity } from '../country/country.entity';
-import { UserRole } from './user-role.enum';
-import { LookupService } from '../notification/lookup/lookup.service';
 import { DisasterEntity } from '../disaster/disaster.entity';
+import { LookupService } from '../notification/lookup/lookup.service';
+import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
+import { UserRole } from './user-role.enum';
+import { UserEntity } from './user.entity';
+import { UserResponseObject } from './user.model';
 
 @Injectable()
 export class UserService {

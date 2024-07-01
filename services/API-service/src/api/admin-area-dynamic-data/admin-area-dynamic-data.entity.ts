@@ -1,11 +1,12 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
-  JoinColumn,
+  Entity,
   Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { CountryEntity } from '../country/country.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';

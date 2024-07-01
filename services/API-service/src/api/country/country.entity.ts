@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 import {
   Column,
   Entity,
@@ -7,11 +9,11 @@ import {
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { BoundingBox } from '../../shared/geo.model';
-import { UserEntity } from '../user/user.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
-import { ApiProperty } from '@nestjs/swagger';
+import { UserEntity } from '../user/user.entity';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 
 @Entity('country')

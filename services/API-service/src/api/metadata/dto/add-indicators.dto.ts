@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 import {
   IsBoolean,
   IsIn,
@@ -5,7 +7,6 @@ import {
   IsNumber,
   IsString,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
 
 export class IndicatorDto {
   @ApiProperty({

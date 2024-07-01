@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+
 import { LookupService } from './lookup.service';
 
 @Module({

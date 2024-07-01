@@ -1,3 +1,6 @@
+import { ApiProperty } from '@nestjs/swagger';
+
+import { Type } from 'class-transformer';
 import {
   IsArray,
   IsEnum,
@@ -6,11 +9,10 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { TriggerPerLeadTimeDto } from './trigger-per-leadtime.dto';
-import triggers from './example/triggers-per-leadtime-UGA-triggered.json';
+
 import { DisasterType } from '../../disaster/disaster-type.enum';
+import triggers from './example/triggers-per-leadtime-UGA-triggered.json';
+import { TriggerPerLeadTimeDto } from './trigger-per-leadtime.dto';
 
 export class UploadTriggerPerLeadTimeDto {
   @ApiProperty({ example: 'UGA' })

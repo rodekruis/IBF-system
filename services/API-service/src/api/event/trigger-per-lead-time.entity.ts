@@ -1,10 +1,11 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
+  Entity,
   JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../country/country.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';

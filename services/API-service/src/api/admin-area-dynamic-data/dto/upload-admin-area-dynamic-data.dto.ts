@@ -1,3 +1,6 @@
+import { ApiProperty } from '@nestjs/swagger';
+
+import { Type } from 'class-transformer';
 import {
   IsArray,
   IsEnum,
@@ -7,13 +10,12 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
-import { ApiProperty } from '@nestjs/swagger';
+
+import { DisasterType } from '../../disaster/disaster-type.enum';
+import { DynamicIndicator } from '../enum/dynamic-data-unit';
+import { LeadTime } from '../enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dynamic-data-place-code.dto';
 import exposure from './example/PHL/dengue/upload-potential_cases-2.json';
-import { LeadTime } from '../enum/lead-time.enum';
-import { DynamicIndicator } from '../enum/dynamic-data-unit';
-import { DisasterType } from '../../disaster/disaster-type.enum';
 
 export class UploadAdminAreaDynamicDataDto {
   @ApiProperty({ example: 'PHL' })

@@ -1,10 +1,12 @@
-import { DisasterType } from './../api/disaster/disaster-type.enum';
 import { Injectable } from '@nestjs/common';
-import { InterfaceScript } from './scripts.module';
+
 import { DataSource } from 'typeorm';
-import { SeedHelper } from './seed-helper';
+
 import { RainfallTriggersEntity } from '../api/rainfall-triggers/rainfall-triggers.entity';
+import { DisasterType } from './../api/disaster/disaster-type.enum';
 import countries from './json/countries.json';
+import { InterfaceScript } from './scripts.module';
+import { SeedHelper } from './seed-helper';
 
 @Injectable()
 export class SeedRainfallData implements InterfaceScript {

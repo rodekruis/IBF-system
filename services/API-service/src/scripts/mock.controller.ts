@@ -1,9 +1,9 @@
 import {
-  Controller,
-  Post,
   Body,
-  Res,
+  Controller,
   HttpStatus,
+  Post,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -13,17 +13,19 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { RolesGuard } from '../roles.guard';
+
 import { DisasterType } from '../api/disaster/disaster-type.enum';
-import { Roles } from '../roles.decorator';
 import { UserRole } from '../api/user/user-role.enum';
-import { MockService } from './mock.service';
+import { Roles } from '../roles.decorator';
+import { RolesGuard } from '../roles.guard';
 import {
-  FloodsScenario,
-  FlashFloodsScenario,
   EpidemicsScenario,
+  FlashFloodsScenario,
+  FloodsScenario,
 } from './enum/mock-scenario.enum';
+import { MockService } from './mock.service';
 
 export class MockBaseScenario {
   @ApiProperty({ example: 'fill_in_secret' })

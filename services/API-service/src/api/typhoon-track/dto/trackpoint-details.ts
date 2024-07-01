@@ -1,3 +1,6 @@
+import { ApiProperty } from '@nestjs/swagger';
+
+import { Type } from 'class-transformer';
 import {
   IsBoolean,
   IsDate,
@@ -5,8 +8,6 @@ import {
   IsNotEmpty,
   IsNumber,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
 
 export enum TyphoonCategory {
   TD = 'TD',

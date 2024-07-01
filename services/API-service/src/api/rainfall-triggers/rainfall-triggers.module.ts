@@ -1,10 +1,11 @@
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { UserModule } from '../user/user.module';
 import { RainfallTriggersController } from './rainfall-triggers.controller';
 import { RainfallTriggersEntity } from './rainfall-triggers.entity';
 import { RainfallTriggersService } from './rainfall-triggers.service';
-import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [

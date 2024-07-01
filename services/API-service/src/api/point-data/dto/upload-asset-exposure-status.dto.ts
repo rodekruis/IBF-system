@@ -1,3 +1,6 @@
+import { ApiProperty } from '@nestjs/swagger';
+
+import { Type } from 'class-transformer';
 import {
   IsArray,
   IsEnum,
@@ -6,11 +9,10 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { PointDataEnum } from '../point-data.entity';
-import { Type } from 'class-transformer';
 
 export class UploadAssetExposureStatusDto {
   @ApiProperty({ example: ['123', '234'] })

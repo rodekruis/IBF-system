@@ -1,11 +1,12 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  OneToMany,
-  ManyToOne,
+  Entity,
   JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { CountryEntity } from '../country/country.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { AreaOfFocusEntity } from './area-of-focus.entity';

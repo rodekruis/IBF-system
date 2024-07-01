@@ -1,3 +1,6 @@
+import { ApiProperty } from '@nestjs/swagger';
+
+import { Type } from 'class-transformer';
 import {
   IsArray,
   IsNotEmpty,
@@ -5,11 +8,10 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
-import { Type } from 'class-transformer';
-import { GlofasStationForecastDto } from './station-forecast.dto';
 import stations from '../../point-data/dto/example/glofas-stations/glofas-stations-UGA-triggered.json';
+import { GlofasStationForecastDto } from './station-forecast.dto';
 
 export class UploadTriggerPerStationDto {
   @ApiProperty({ example: 'UGA' })

@@ -1,5 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, Column, OneToMany, PrimaryColumn } from 'typeorm';
+
+import { Column, Entity, OneToMany, PrimaryColumn } from 'typeorm';
+
 import { EapActionEntity } from './eap-action.entity';
 
 @Entity('area-of-focus')

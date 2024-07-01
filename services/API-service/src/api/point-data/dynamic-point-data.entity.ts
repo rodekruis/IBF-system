@@ -1,13 +1,14 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
-  JoinColumn,
+  Entity,
   Index,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { PointDataEntity } from './point-data.entity';
+
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
+import { PointDataEntity } from './point-data.entity';
 
 @Entity('dynamic-point-data')
 export class DynamicPointDataEntity {

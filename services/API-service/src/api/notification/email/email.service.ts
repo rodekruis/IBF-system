@@ -1,9 +1,10 @@
-import { CountryEntity } from './../../country/country.entity';
 import { Injectable } from '@nestjs/common';
+
 import Mailchimp from 'mailchimp-api-v3';
 
-import { DisasterType } from '../../disaster/disaster-type.enum';
 import { EventSummaryCountry } from '../../../shared/data.model';
+import { DisasterType } from '../../disaster/disaster-type.enum';
+import { CountryEntity } from './../../country/country.entity';
 import { NotificationContentService } from './../notification-content/notification-content.service';
 import { EmailTemplateService } from './email-template.service';
 

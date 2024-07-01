@@ -1,11 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
+  Entity,
   JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { GeoJson } from '../../shared/geo.model';
 import { CountryEntity } from '../country/country.entity';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';

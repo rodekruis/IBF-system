@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { InterfaceScript } from './scripts.module';
-import countries from './json/countries.json';
 import fs from 'fs';
+import { Injectable } from '@nestjs/common';
+
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { EventAreaService } from '../api/admin-area/services/event-area.service';
+import countries from './json/countries.json';
+import { InterfaceScript } from './scripts.module';
 
 @Injectable()
 export class SeedAdminArea implements InterfaceScript {

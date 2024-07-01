@@ -1,14 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
-  JoinColumn,
-  OneToMany,
+  Entity,
   Index,
+  JoinColumn,
+  ManyToOne,
   MultiPolygon,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { CountryEntity } from '../country/country.entity';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 

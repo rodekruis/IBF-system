@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, MoreThanOrEqual, InsertResult } from 'typeorm';
+
+import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
+
 import {
   AggregateDataRecord,
   EventSummaryCountry,

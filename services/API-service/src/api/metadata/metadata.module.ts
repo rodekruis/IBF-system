@@ -1,15 +1,16 @@
-import { CountryModule } from './../country/country.module';
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from '../user/user.module';
-import { MetadataController } from './metadata.controller';
-import { IndicatorMetadataEntity } from './indicator-metadata.entity';
-import { MetadataService } from './metadata.service';
-import { LayerMetadataEntity } from './layer-metadata.entity';
+
 import { HelperService } from '../../shared/helper.service';
-import { EventModule } from '../event/event.module';
 import { DisasterEntity } from '../disaster/disaster.entity';
-import { HttpModule } from '@nestjs/axios';
+import { EventModule } from '../event/event.module';
+import { UserModule } from '../user/user.module';
+import { CountryModule } from './../country/country.module';
+import { IndicatorMetadataEntity } from './indicator-metadata.entity';
+import { LayerMetadataEntity } from './layer-metadata.entity';
+import { MetadataController } from './metadata.controller';
+import { MetadataService } from './metadata.service';
 
 @Module({
   imports: [

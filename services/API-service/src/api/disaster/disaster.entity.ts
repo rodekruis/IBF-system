@@ -1,4 +1,5 @@
-import { CountryEntity } from './../country/country.entity';
+import { ApiProperty } from '@nestjs/swagger';
+
 import {
   Column,
   Entity,
@@ -6,13 +7,14 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { DisasterType } from './disaster-type.enum';
-import { ApiProperty } from '@nestjs/swagger';
+
 import {
   LeadTime,
   LeadTimeUnit,
 } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { UserEntity } from '../user/user.entity';
+import { CountryEntity } from './../country/country.entity';
+import { DisasterType } from './disaster-type.enum';
 
 @Entity('disaster')
 export class DisasterEntity {
