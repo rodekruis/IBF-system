@@ -158,7 +158,10 @@ export class EventService {
             event.eventName,
           );
       }
-      if (disasterSettings.eapAlertClasses) {
+      if (disasterType === DisasterType.Floods) {
+        // REFACTOR: either make eapAlertClass a requirement across all hazard
+        // types or reimplement such that eapAlertClass is not needed in the
+        // backend (it is a VIEW of the DATA in the dashboard and email)
         event.disasterSpecificProperties = await this.getEventEapAlertClass(
           disasterSettings,
           event.triggerValue,

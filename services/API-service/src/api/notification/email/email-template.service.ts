@@ -340,7 +340,10 @@ export class EmailTemplateService {
             CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
           triangleIcon: this.getTriangleIcon(event.eapAlertClass?.key),
           leadTime: event.firstLeadTime.replace('-', ' '),
-          disasterIssuedLabel: event.eapAlertClass.label,
+          disasterIssuedLabel:
+            event.eapAlertClass?.label ?? event.triggerStatusLabel,
+          // REFACTOR: avoid the logic fork in disasterIssuedLabel
+          // use the same label variable across all hazard types
           color: this.ibfColorToHex(event.eapAlertClass?.color),
           advisory: this.getAdvisoryHtml(
             event.triggerStatusLabel,
