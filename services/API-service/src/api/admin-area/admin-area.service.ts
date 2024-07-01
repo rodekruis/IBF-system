@@ -292,7 +292,7 @@ export class AdminAreaService {
     });
   }
 
-  public async getAdminAreasRaw(countryCodeISO3): Promise<any[]> {
+  public async getAdminAreasRaw(countryCodeISO3) {
     return await this.adminAreaRepository.find({
       select: [
         'countryCodeISO3',

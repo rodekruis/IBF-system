@@ -17,6 +17,11 @@ import { HelperService } from '../../shared/helper.service';
 import { EventAreaService } from '../admin-area/services/event-area.service';
 import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
 
+interface RasterData {
+  originalname: string;
+  buffer: Buffer;
+}
+
 @Injectable()
 export class AdminAreaDynamicDataService {
   @InjectRepository(AdminAreaDynamicDataEntity)
@@ -232,9 +237,9 @@ export class AdminAreaDynamicDataService {
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .where({
-        indicator: indicator,
-        placeCode: placeCode,
-        leadTime: leadTime,
+        indicator,
+        placeCode,
+        leadTime,
         eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
       })
       .select(['dynamic.value AS value'])
@@ -244,7 +249,7 @@ export class AdminAreaDynamicDataService {
   }
 
   public async postRaster(
-    data: any,
+    data: RasterData,
     disasterType: DisasterType,
   ): Promise<void> {
     const subfolder =

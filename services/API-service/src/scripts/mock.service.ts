@@ -68,7 +68,7 @@ export class MockService {
       await this.removeEvents(mockBody.countryCodeISO3, disasterType);
     }
 
-    const selectedCountry = countries.find((country): any => {
+    const selectedCountry = countries.find((country) => {
       if (mockBody.countryCodeISO3 === country.countryCodeISO3) {
         return country;
       }
@@ -244,6 +244,7 @@ export class MockService {
 
   private getLeadTimesForNoTrigger(
     disasterType: DisasterType,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selectedCountry: any,
   ): LeadTime[] {
     // NOTE: this reflects agreements with pipelines that are in place. This is ugly, and should be refactored better.

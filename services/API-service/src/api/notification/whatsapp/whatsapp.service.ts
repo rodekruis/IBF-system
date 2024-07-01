@@ -49,7 +49,7 @@ export class WhatsappService {
     message: string,
     recipientPhoneNr: string,
     mediaUrl?: string,
-  ): Promise<any> {
+  ) {
     const payload = {
       body: message,
       messagingServiceSid: process.env.TWILIO_MESSAGING_SID,
@@ -256,8 +256,7 @@ export class WhatsappService {
             events,
             disasterType.disasterType,
           );
-          await this.sendWhatsapp(noTriggerMessage, fromNumber);
-          return;
+          return await this.sendWhatsapp(noTriggerMessage, fromNumber);
         }
 
         for (const event of sortedEvents) {

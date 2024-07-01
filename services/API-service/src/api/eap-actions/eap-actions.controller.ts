@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Get, UseGuards, Param } from '@nestjs/common';
-import { EapActionsService } from './eap-actions.service';
+import { EapAction, EapActionsService } from './eap-actions.service';
 import { UserDecorator } from '../user/user.decorator';
 import {
   ApiBearerAuth,
@@ -70,7 +70,7 @@ export class EapActionsController {
   @Post('check-external/:countryCodeISO3/:disasterType')
   public async checkActionExternally(
     @Param() params,
-    @Body() eapActions: any,
+    @Body() eapActions: EapAction[],
   ): Promise<void> {
     return await this.eapActionsService.checkActionExternally(
       params.countryCodeISO3,

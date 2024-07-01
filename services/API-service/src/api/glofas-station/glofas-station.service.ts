@@ -15,7 +15,7 @@ export class GlofasStationService {
 
   public constructor(private readonly pointDataService: PointDataService) {}
 
-  public async getStationsByCountry(countryCodeISO3: string): Promise<any[]> {
+  public async getStationsByCountry(countryCodeISO3: string) {
     const stations = await this.pointDataService.getPointDataByCountry(
       PointDataEnum.glofasStations,
       countryCodeISO3,

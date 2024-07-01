@@ -130,6 +130,7 @@ export class EventService {
   }
 
   private async populateEventsDetails(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rawEvents: any[],
     countryCodeISO3: string,
     disasterType: DisasterType,
@@ -1025,7 +1026,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
-  ): Promise<any> {
+  ): Promise<Buffer> {
     const eventMapImageEntity = await this.eventMapImageRepository.findOne({
       where: {
         countryCodeISO3: countryCodeISO3,
