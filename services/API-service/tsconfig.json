@@ -16,9 +16,14 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": "./",
+    "paths": {
+      "@api/*": ["./src/api/*"],
+      "@scripts/*": ["./src/scripts/*"],
+      "@shared/*": ["./src/shared/*"]
+    },
     "skipLibCheck": true
   },
-  "watchOptions": { 
+  "watchOptions": {
     "watchFile": "fixedPollingInterval",
     "excludeDirectories": ["node_modules", "dist"],
     "excludeFiles": ["**/*.json"]

@@ -13,22 +13,23 @@ import {
   SelectQueryBuilder,
 } from 'typeorm';
 
+import { AdminAreaDynamicDataEntity } from '@api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import { LeadTime } from '@api/admin-area-dynamic-data/enum/lead-time.enum';
+import { AdminAreaEntity } from '@api/admin-area/admin-area.entity';
+import { CountryDisasterSettingsEntity } from '@api/country/country-disaster.entity';
+import { CountryEntity } from '@api/country/country.entity';
+import { DisasterType } from '@api/disaster/disaster-type.enum';
+import { DisasterEntity } from '@api/disaster/disaster.entity';
+import { EapActionsService } from '@api/eap-actions/eap-actions.service';
+import { TyphoonTrackService } from '@api/typhoon-track/typhoon-track.service';
+import { UserEntity } from '@api/user/user.entity';
 import {
   DisasterSpecificProperties,
   EventSummaryCountry,
   TriggeredArea,
-} from '../../shared/data.model';
-import { HelperService } from '../../shared/helper.service';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { AdminAreaEntity } from '../admin-area/admin-area.entity';
-import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
-import { CountryEntity } from '../country/country.entity';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
-import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
-import { UserEntity } from '../user/user.entity';
-import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import { EapActionsService } from './../eap-actions/eap-actions.service';
+} from '@shared/data.model';
+import { HelperService } from '@shared/helper.service';
+
 import { DateDto } from './dto/date.dto';
 import {
   ActivationLogDto,
