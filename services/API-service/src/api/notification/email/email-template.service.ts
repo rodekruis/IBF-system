@@ -1,19 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import * as fs from 'fs';
+import * as ejs from 'ejs';
+import * as juice from 'juice';
+import {
+  EapAlertClassKeyEnum,
+  EventSummaryCountry,
+} from '../../../shared/data.model';
+import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
+import { CountryEntity } from '../../country/country.entity';
+import { DisasterType } from '../../disaster/disaster-type.enum';
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 import {
   NotificationDataPerEventDto,
   TriggerStatusLabelEnum,
 } from '../dto/notification-date-per-event.dto';
-import * as ejs from 'ejs';
-import * as fs from 'fs';
-import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
-import { DisasterType } from '../../disaster/disaster-type.enum';
-import {
-  EapAlertClassKeyEnum,
-  EventSummaryCountry,
-} from '../../../shared/data.model';
-import { CountryEntity } from '../../country/country.entity';
-import * as juice from 'juice';
+import { Injectable } from '@nestjs/common';
 
 const emailFolder = './src/api/notification/email';
 const emailTemplateFolder = `${emailFolder}/html`;
@@ -108,12 +108,19 @@ export class EmailTemplateService {
     disasterTypeLabel: string,
   ): string {
     const template = this.readHtmlFile('event-finished.html');
-    return events.map(event => ejs.render(template, {
-      disasterTypeLabel,
-      eventName: event.eventName,
-      issuedDate: this.dateObjectToDateTimeString(new Date(event.startDate), country.countryCodeISO3),
-      timezone: CountryTimeZoneMapping[country.countryCodeISO3],
-    })).join('');
+    return events
+      .map((event) =>
+        ejs.render(template, {
+          disasterTypeLabel,
+          eventName: event.eventName,
+          issuedDate: this.dateObjectToDateTimeString(
+            new Date(event.startDate),
+            country.countryCodeISO3,
+          ),
+          timezone: CountryTimeZoneMapping[country.countryCodeISO3],
+        }),
+      )
+      .join('');
   }
 
   private getHeaderEventStarted(emailContent: ContentEventEmail): string {
@@ -146,13 +153,15 @@ export class EmailTemplateService {
   }
 
   private getSocialMediaHtml(country: CountryEntity) {
-    return country.notificationInfo.linkSocialMediaType ? this.readHtmlFile('social-media-link.html') : '';
+    return country.notificationInfo.linkSocialMediaType
+      ? this.readHtmlFile('social-media-link.html')
+      : '';
   }
 
   private getMapImageHtml(emailContent: ContentEventEmail) {
     return emailContent.dataPerEvent
-      .filter(event => event.mapImage)
-      .map(event => {
+      .filter((event) => event.mapImage)
+      .map((event) => {
         const eventHtmlTemplate = this.readHtmlFile('map-image.html');
         const replacements = {
           mapImgSrc: this.getMapImgSrc(
@@ -160,7 +169,9 @@ export class EmailTemplateService {
             emailContent.disasterType,
             event.eventName,
           ),
-          mapImgDescription: this.getMapImageDescription(emailContent.disasterType),
+          mapImgDescription: this.getMapImageDescription(
+            emailContent.disasterType,
+          ),
           eventName: event.eventName ? `(for ${event.eventName})` : '',
         };
         return ejs.render(eventHtmlTemplate, replacements);
@@ -182,7 +193,8 @@ export class EmailTemplateService {
 
   private getMapImageDescription(disasterType: DisasterType): string {
     const descriptions = {
-      [DisasterType.Floods]: 'The triggered areas are outlined in purple. The potential flood extent is shown in red.<br>',
+      [DisasterType.Floods]:
+        'The triggered areas are outlined in purple. The potential flood extent is shown in red.<br>',
     };
 
     return descriptions[disasterType] || '';
@@ -259,7 +271,9 @@ export class EmailTemplateService {
       .join('');
   }
 
-  private getEventSeverityLabel(eapAlertClassKey: EapAlertClassKeyEnum): string {
+  private getEventSeverityLabel(
+    eapAlertClassKey: EapAlertClassKeyEnum,
+  ): string {
     const severityLabels = {
       [EapAlertClassKeyEnum.med]: 'Medium',
       [EapAlertClassKeyEnum.min]: 'Low',
@@ -338,18 +352,33 @@ export class EmailTemplateService {
       .join('');
   }
 
-  private getDisasterIssuedLabel(eapLabel: string, triggerStatusLabel: TriggerStatusLabelEnum) {
+  private getDisasterIssuedLabel(
+    eapLabel: string,
+    triggerStatusLabel: TriggerStatusLabelEnum,
+  ) {
     return eapLabel || triggerStatusLabel;
   }
 
-  private getAdvisoryHtml(triggerStatusLabel: TriggerStatusLabelEnum, eapLink: string) {
-    const fileName = triggerStatusLabel === TriggerStatusLabelEnum.Trigger ? 'advisory-trigger.html' : 'advisory-warning.html';
+  private getAdvisoryHtml(
+    triggerStatusLabel: TriggerStatusLabelEnum,
+    eapLink: string,
+  ) {
+    const fileName =
+      triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+        ? 'advisory-trigger.html'
+        : 'advisory-warning.html';
     const advisoryHtml = this.readHtmlFile(fileName);
     return ejs.render(advisoryHtml, { eapLink });
   }
 
-  private getTotalAffectedHtml(event: NotificationDataPerEventDto, indicatorUnit: string): string {
-    const fileName = event.triggerStatusLabel === TriggerStatusLabelEnum.Warning ? 'body-total-affected-warning.html' : 'body-total-affected-trigger.html';
+  private getTotalAffectedHtml(
+    event: NotificationDataPerEventDto,
+    indicatorUnit: string,
+  ): string {
+    const fileName =
+      event.triggerStatusLabel === TriggerStatusLabelEnum.Warning
+        ? 'body-total-affected-warning.html'
+        : 'body-total-affected-trigger.html';
     const htmlTemplate = this.readHtmlFile(fileName);
     return ejs.render(htmlTemplate, {
       totalAffectedOfIndicator: event.totalAffectedOfIndicator,
@@ -426,8 +455,13 @@ export class EmailTemplateService {
       default: 'trigger.png',
     };
 
-    let fileName = eapAlertClassKey ? fileNameMap[eapAlertClassKey] : fileNameMap.default;
-    if (!eapAlertClassKey && triggerStatusLabel !== TriggerStatusLabelEnum.Trigger) {
+    let fileName = eapAlertClassKey
+      ? fileNameMap[eapAlertClassKey]
+      : fileNameMap.default;
+    if (
+      !eapAlertClassKey &&
+      triggerStatusLabel !== TriggerStatusLabelEnum.Trigger
+    ) {
       fileName = 'warning-medium.png';
     }
 
