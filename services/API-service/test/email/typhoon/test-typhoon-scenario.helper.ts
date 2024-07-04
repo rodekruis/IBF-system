@@ -9,8 +9,8 @@ export async function testTyphoonScenario(
   accessToken: string,
 ): Promise<void> {
   const nrOfEvents = 2;
-  const eventName = 'Mock typhoon'
-  const disasterTypeLabel = DisasterType.Typhoon
+  const eventName = 'Mock typhoon';
+  const disasterTypeLabel = DisasterType.Typhoon;
 
   // const disasterType = DisasterType.Typhoon;
   // const disasterTypeLabel = disasters.find(
