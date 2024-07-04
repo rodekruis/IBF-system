@@ -186,7 +186,7 @@ export class EmailTemplateService {
           mapImgDescription: this.getMapImageDescription(
             emailContent.disasterType,
           ),
-          eventName: event.eventName ? ` for '${event.eventName}'` : '',
+          eventName: event.eventName ? `(for ${event.eventName})` : '',
         };
         eventHtml = ejs.render(eventHtml, replacements);
         html += eventHtml;
@@ -365,7 +365,7 @@ export class EmailTemplateService {
         };
 
         const templateFileName = 'body-event.html';
-        let template = this.readHtmlFile(templateFileName);
+        const template = this.readHtmlFile(templateFileName);
         return ejs.render(template, data);
       })
       .join('');

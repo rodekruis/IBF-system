@@ -86,7 +86,7 @@ export class UserController {
   public async update(
     @UserDecorator('userId') loggedInUserId: string,
     @Body() userData: UpdatePasswordDto,
-  ): Promise<any> {
+  ) {
     return this.userService.update(loggedInUserId, userData);
   }
 }

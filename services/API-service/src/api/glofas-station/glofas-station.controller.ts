@@ -34,7 +34,7 @@ export class GlofasStationController {
     description: 'Glofas station locations and attributes for given country.',
   })
   @Get(':countryCodeISO3')
-  public async getStationsByCountry(@Param() params): Promise<any[]> {
+  public async getStationsByCountry(@Param() params) {
     return await this.glofasStationService.getStationsByCountry(
       params.countryCodeISO3,
     );

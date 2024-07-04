@@ -91,15 +91,11 @@ export class EventService {
       countryCodeISO3,
     );
 
-    // I spend quite some time on trying to figure out what is the right query to get the event finished summary for the trigger closed email
-    // I came up with the following query but I am not sure if it is correct and how to test it properly
-    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
     const sixDaysAgo = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000);
     const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
       countryCodeISO3,
     )
-      .andWhere('event.endDate > :endDateMin', { endDateMin: sevenDaysAgo })
-      .andWhere('event.endDate < :endDateMax', { endDateMax: sixDaysAgo })
+      .andWhere('event.endDate > :endDate', { endDate: sixDaysAgo })
       .andWhere('event.adminArea IN (:...adminAreaIds)', {
         adminAreaIds: countryAdminAreaIds,
       })
@@ -130,6 +126,7 @@ export class EventService {
   }
 
   private async populateEventsDetails(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     rawEvents: any[],
     countryCodeISO3: string,
     disasterType: DisasterType,
@@ -158,7 +155,10 @@ export class EventService {
             event.eventName,
           );
       }
-      if (disasterSettings.eapAlertClasses) {
+      if (disasterType === DisasterType.Floods) {
+        // REFACTOR: either make eapAlertClass a requirement across all hazard
+        // types or reimplement such that eapAlertClass is not needed in the
+        // backend (it is a VIEW of the DATA in the dashboard and email)
         event.disasterSpecificProperties = await this.getEventEapAlertClass(
           disasterSettings,
           event.triggerValue,
@@ -1022,7 +1022,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
-  ): Promise<any> {
+  ): Promise<Buffer> {
     const eventMapImageEntity = await this.eventMapImageRepository.findOne({
       where: {
         countryCodeISO3: countryCodeISO3,
