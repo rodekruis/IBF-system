@@ -1,3 +1,12 @@
+## [0.263.2](https://github.com/rodekruis/IBF-system/compare/v0.263.1...v0.263.2) (2024-07-04)
+
+
+### Bug Fixes
+
+* refactor AB[#22947](https://github.com/rodekruis/IBF-system/issues/22947) [#1439](https://github.com/rodekruis/IBF-system/issues/1439) ([f74858b](https://github.com/rodekruis/IBF-system/commit/f74858b0808c7eeaa864ebb74dc97b11f4b27b5f))
+
+
+
 ## [0.263.1](https://github.com/rodekruis/IBF-system/compare/v0.263.0...v0.263.1) (2024-07-04)
 
 
@@ -198,16 +207,6 @@
 ### Bug Fixes
 
 * put back old GET glofas endpoint AB[#25879](https://github.com/rodekruis/IBF-system/issues/25879) ([90427de](https://github.com/rodekruis/IBF-system/commit/90427de31957ea154ed463e33162b66bb238b40d))
-
-
-
-## [0.261.4](https://github.com/rodekruis/IBF-system/compare/v0.261.3...v0.261.4) (2024-01-16)
-
-
-### Bug Fixes
-
-* put back old GET glofas endpoint AB[#25879](https://github.com/rodekruis/IBF-system/issues/25879) ([723a5ed](https://github.com/rodekruis/IBF-system/commit/723a5ed6c5c5d1b3542b4b1fdf74606b5592b6b2))
-* put back old GET glofas endpoint AB[#25879](https://github.com/rodekruis/IBF-system/issues/25879) ([565fb5f](https://github.com/rodekruis/IBF-system/commit/565fb5f0a3ef48baebae71df8edb38019a634f1c))
 
 
 
