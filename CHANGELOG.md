@@ -1,3 +1,13 @@
+## [0.263.1](https://github.com/rodekruis/IBF-system/compare/v0.263.0...v0.263.1) (2024-07-04)
+
+
+### Bug Fixes
+
+* add n/a for weightedAvg AB[#28236](https://github.com/rodekruis/IBF-system/issues/28236) ([b02c429](https://github.com/rodekruis/IBF-system/commit/b02c429b15ed7d544b8c8af82afb5346c6d10057))
+* update dynamic point docs AB[#28548](https://github.com/rodekruis/IBF-system/issues/28548) ([c2799c6](https://github.com/rodekruis/IBF-system/commit/c2799c6f2e9117ca847f0ab870d83d59f39b8c9c))
+
+
+
 # [0.263.0](https://github.com/rodekruis/IBF-system/compare/v0.262.5...v0.263.0) (2024-05-21)
 
 
@@ -198,15 +208,6 @@
 
 * put back old GET glofas endpoint AB[#25879](https://github.com/rodekruis/IBF-system/issues/25879) ([723a5ed](https://github.com/rodekruis/IBF-system/commit/723a5ed6c5c5d1b3542b4b1fdf74606b5592b6b2))
 * put back old GET glofas endpoint AB[#25879](https://github.com/rodekruis/IBF-system/issues/25879) ([565fb5f](https://github.com/rodekruis/IBF-system/commit/565fb5f0a3ef48baebae71df8edb38019a634f1c))
-
-
-
-## [0.261.3](https://github.com/rodekruis/IBF-system/compare/v0.261.2...v0.261.3) (2023-12-22)
-
-
-### Bug Fixes
-
-* update MWI flash-floods info popups AB[#25047](https://github.com/rodekruis/IBF-system/issues/25047) ([70ea361](https://github.com/rodekruis/IBF-system/commit/70ea3612c5b16ad3c5cb95252dc57585859ae298))
 
 
 
