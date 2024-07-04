@@ -60,7 +60,7 @@ export class UploadDynamicPointDataDto {
   @ApiProperty({ example: PointDataEnum.gauges })
   public pointDataCategory: PointDataEnum;
 
-  @ApiProperty({ example: 'waterLevel' })
+  @ApiProperty({ example: 'water-level' })
   public key: string;
 
   @ApiProperty({ example: [{ fid: 1, value: 100 }] })
