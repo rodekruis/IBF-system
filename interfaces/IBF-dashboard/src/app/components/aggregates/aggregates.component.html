@@ -51,7 +51,7 @@
             color="ibf-white"
           >
             <ion-label
-              *ngIf="!isAggregateNan(indicator.name)"
+              *ngIf="!isAggregateNan(indicator.name, indicator.weightedAvg)"
               class="ion-text-right"
               data-test="aggregate-number"
             >
@@ -91,7 +91,7 @@
               {{ indicator.aggregateUnit }}
             </ion-label>
             <ion-label
-              *ngIf="isAggregateNan(indicator.name)"
+              *ngIf="isAggregateNan(indicator.name, indicator.weightedAvg)"
               class="ion-text-right"
               data-test="aggregate-na"
             >
