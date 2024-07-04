@@ -14,7 +14,6 @@ import {
 } from '../../../shared/data.model';
 import { CountryEntity } from '../../country/country.entity';
 import * as juice from 'juice';
-import { formatActionUnitValue } from '../helpers/format-action-unit-value.helper';
 
 const emailFolder = './src/api/notification/email';
 const emailTemplateFolder = `${emailFolder}/html`;
@@ -120,7 +119,7 @@ export class EmailTemplateService {
     const template = this.readHtmlFile('event-finished.html');
 
     for (const event of events) {
-      const eventFinshedHtml = ejs.render(template, {
+      const eventFinishedHtml = ejs.render(template, {
         disasterTypeLabel: disasterTypeLabel,
         eventName: event.eventName,
         issuedDate: this.dateObjectToDateTimeString(
@@ -129,7 +128,7 @@ export class EmailTemplateService {
         ),
         timezone: CountryTimeZoneMapping[country.countryCodeISO3],
       });
-      html += eventFinshedHtml;
+      html += eventFinishedHtml;
     }
     return html;
   }
@@ -221,7 +220,7 @@ export class EmailTemplateService {
   private async formatEmail(
     emailKeyValueReplaceObject: Record<string, string>,
   ): Promise<string> {
-    // TODO REFACTOR: Apply styles in a septerate file also for the base.html
+    // TODO REFACTOR: Apply styles in a separate file also for the base.html
     const template = this.readHtmlFile('base.html');
     const styles = this.readHtmlFile('styles.ejs');
     const templateWithStyle = styles + template;
@@ -304,13 +303,13 @@ export class EmailTemplateService {
   private getTablesRows(event: NotificationDataPerEventDto) {
     return event.triggeredAreas
       .map((area) => {
-        const tableRowHmltFileName =
+        const tableRowHtmlFileName =
           TriggerStatusLabelEnum.Trigger === event.triggerStatusLabel
             ? 'table-trigger-row.html'
             : 'table-warning-row.html';
-        const areaTemplate = this.readHtmlFile(tableRowHmltFileName);
+        const areaTemplate = this.readHtmlFile(tableRowHtmlFileName);
         const areaData = {
-          affectectedOfIndicator: area.actionsValue,
+          affectedOfIndicator: area.actionsValue,
           adminBoundary: area.displayName ? area.displayName : area.name,
           higherAdminBoundary: area.nameParent,
         };
