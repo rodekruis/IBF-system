@@ -1,3 +1,28 @@
+# [0.264.0](https://github.com/rodekruis/IBF-system/compare/v0.263.2...v0.264.0) (2024-07-08)
+
+
+### Bug Fixes
+
+* add space between to toggle AB[#28128](https://github.com/rodekruis/IBF-system/issues/28128) ([3e3b408](https://github.com/rodekruis/IBF-system/commit/3e3b4081722359b0fd87e7dfb4c2927875c9c332))
+* limit menu height + add scroll AB[#28123](https://github.com/rodekruis/IBF-system/issues/28123) ([0491857](https://github.com/rodekruis/IBF-system/commit/0491857567a6587e7f9ad29d78672a84d0f33b14))
+* make menu wider on narrower screens AB[#28127](https://github.com/rodekruis/IBF-system/issues/28127) ([a85720e](https://github.com/rodekruis/IBF-system/commit/a85720e77e2d8a117dc6e3ca6b032b6a3f153a3c))
+* prettier ([776a46e](https://github.com/rodekruis/IBF-system/commit/776a46e85d3f933b0bf242515ced2be8464c84ed))
+* rm breadcrumbs max-width AB[#28119](https://github.com/rodekruis/IBF-system/issues/28119) ([158c8b4](https://github.com/rodekruis/IBF-system/commit/158c8b4427345d8a7aa08db2d50568362266b7ab))
+* rm visibility control AB[#28019](https://github.com/rodekruis/IBF-system/issues/28019) ([3464205](https://github.com/rodekruis/IBF-system/commit/3464205bdbead9eb96e514951c51a13f51752a73))
+* simplify code for layer toggles AB[#28138](https://github.com/rodekruis/IBF-system/issues/28138) ([efd457c](https://github.com/rodekruis/IBF-system/commit/efd457c5398480e95d538927efdc76908e13e423))
+
+
+### Features
+
+* layer menu to custom div and move it to bottom right AB[#28019](https://github.com/rodekruis/IBF-system/issues/28019) AB[#28019](https://github.com/rodekruis/IBF-system/issues/28019) ([e6b3435](https://github.com/rodekruis/IBF-system/commit/e6b3435d3a465c45e4a8e9d56e9d3340d56f88a2))
+* lower line height AB[#28138](https://github.com/rodekruis/IBF-system/issues/28138) ([f080010](https://github.com/rodekruis/IBF-system/commit/f0800109d9c3fc5ca38928cd70511bb0f079f3cd))
+* make legend collapsible AB[#28499](https://github.com/rodekruis/IBF-system/issues/28499) ([90b0037](https://github.com/rodekruis/IBF-system/commit/90b00373836576a6a1d2f83fc90b095996902e2a))
+* make toggle text translatable AB[#28126](https://github.com/rodekruis/IBF-system/issues/28126) ([2040143](https://github.com/rodekruis/IBF-system/commit/20401437ded1bbcd97b294a0093f7b04e0e9de61))
+* move btn right + left corner radius AB[#28127](https://github.com/rodekruis/IBF-system/issues/28127) ([4d98f61](https://github.com/rodekruis/IBF-system/commit/4d98f6160f8948c766cbb3c2de0ff94c510e9420))
+* resize layer rows AB[#28138](https://github.com/rodekruis/IBF-system/issues/28138) ([b2872fb](https://github.com/rodekruis/IBF-system/commit/b2872fbcc783e4e724b65ae8d8e3e625a92ffd92))
+
+
+
 ## [0.263.2](https://github.com/rodekruis/IBF-system/compare/v0.263.1...v0.263.2) (2024-07-04)
 
 
@@ -198,15 +223,6 @@
 * set agreed in-between values in countries.json AB[#25832](https://github.com/rodekruis/IBF-system/issues/25832) ([573aecd](https://github.com/rodekruis/IBF-system/commit/573aecd50208ac1375c664e4c5cbfe816a8cb6d3))
 * show alertClass in activation log AB[#25984](https://github.com/rodekruis/IBF-system/issues/25984) ([bb2b84f](https://github.com/rodekruis/IBF-system/commit/bb2b84f7cef1d2e5d48e94f54e2e973f28ee70e4))
 * show severity by sublist AB[#26005](https://github.com/rodekruis/IBF-system/issues/26005) ([a32bdfd](https://github.com/rodekruis/IBF-system/commit/a32bdfda5e44ecdcf15436f771b074d4d5116c50))
-
-
-
-## [0.261.5](https://github.com/rodekruis/IBF-system/compare/v0.261.4...v0.261.5) (2024-01-16)
-
-
-### Bug Fixes
-
-* put back old GET glofas endpoint AB[#25879](https://github.com/rodekruis/IBF-system/issues/25879) ([90427de](https://github.com/rodekruis/IBF-system/commit/90427de31957ea154ed463e33162b66bb238b40d))
 
 
 
