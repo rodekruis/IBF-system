@@ -167,6 +167,7 @@ export class NotificationContentService {
       event,
     );
     data.firstLeadTime = event.firstLeadTime;
+    data.firstTriggerLeadTime = event.firstTriggerLeadTime;
     data.triggeredAreas = await this.getSortedTriggeredAreas(
       country,
       disasterType,
@@ -179,11 +180,17 @@ export class NotificationContentService {
     );
     // This looks weird, but as far as I understand the startDate of the event is the day it was first issued
     data.issuedDate = new Date(event.startDate);
-    data.startDateDisasterString = await this.getFirstLeadTimeString(
+    data.firstLeadTimeString = await this.getFirstLeadTimeString(
       event,
       event.countryCodeISO3,
       disasterType,
     );
+    data.firstTriggerLeadTimeString = await this.getFirstTriggerLeadTimeString(
+      event,
+      event.countryCodeISO3,
+      disasterType,
+    );
+
     data.totalAffectedOfIndicator = this.getTotalAffectedPerEvent(
       data.triggeredAreas,
     );
@@ -290,16 +297,48 @@ export class NotificationContentService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     date?: Date,
-  ) {
+  ): Promise<string> {
+    return this.getEventTimeString(
+      event.firstLeadTime,
+      countryCodeISO3,
+      disasterType,
+      date,
+    );
+  }
+
+  public async getFirstTriggerLeadTimeString(
+    event: EventSummaryCountry,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    date?: Date,
+  ): Promise<string> {
+    if (event.firstTriggerLeadTime) {
+      return this.getEventTimeString(
+        event.firstTriggerLeadTime,
+        countryCodeISO3,
+        disasterType,
+        date,
+      );
+    } else {
+      return null;
+    }
+  }
+
+  private async getEventTimeString(
+    leadTime: LeadTime,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    date?: Date,
+  ): Promise<string> {
     const startDateFirstEvent = await this.getFirstLeadTimeDate(
-      Number(event.firstLeadTime.split('-')[0]),
-      event.firstLeadTime.split('-')[1],
+      Number(leadTime.split('-')[0]),
+      leadTime.split('-')[1],
       countryCodeISO3,
       disasterType,
       date,
     );
     const startTimeFirstEvent = await this.getLeadTimeTimestamp(
-      event.firstLeadTime,
+      leadTime,
       countryCodeISO3,
       disasterType,
     );

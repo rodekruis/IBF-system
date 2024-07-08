@@ -305,23 +305,40 @@ export class EmailTemplateService {
     return emailContent.dataPerEvent
       .map((event) => {
         const data = {
+          // Event details
+          eventName: event.eventName,
           hazard: emailContent.disasterTypeLabel,
           triggerStatusLabel: event.triggerStatusLabel,
-          eventName: event.eventName,
-          nrOfTriggeredAreas: event.nrOfTriggeredAreas,
-          expectedTriggerDate: event.firstLeadTime,
           issuedDate: this.dateObjectToDateTimeString(
             event.issuedDate,
             emailContent.country.countryCodeISO3,
           ),
-          startDateEventString: event.startDateDisasterString,
+          timezone:
+            CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
+
+          // Lead time details
+          firstLeadTimeString: event.firstLeadTimeString,
+          firstTriggerLeadTimeString: event.firstTriggerLeadTimeString,
+          firstLeadTimeQuantity: event.firstLeadTime.replace('-', ' '),
+          firstTriggerLeadTimeQuantity: event.firstTriggerLeadTime
+            ? event.firstTriggerLeadTime.replace('-', ' ')
+            : '',
+
+          // Area details
+          nrOfTriggeredAreas: event.nrOfTriggeredAreas,
           defaultAdminAreaLabel:
             emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
+
+          // Indicator details
           indicatorLabel: emailContent.indicatorMetadata.label,
           totalAffectedOfIndicator: event.totalAffectedOfIndicator,
           indicatorUnit: emailContent.indicatorMetadata.unit,
-          timezone:
-            CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
+          totalAffected: this.getTotalAffectedHtml(
+            event,
+            emailContent.indicatorMetadata.label.toLowerCase(),
+          ),
+
+          // EAP details
           triangleIcon: this.getTriangleIcon(
             event.eapAlertClass?.key,
             event.triggerStatusLabel,
@@ -338,10 +355,6 @@ export class EmailTemplateService {
           advisory: this.getAdvisoryHtml(
             event.triggerStatusLabel,
             emailContent.linkEapSop,
-          ),
-          totalAffected: this.getTotalAffectedHtml(
-            event,
-            emailContent.indicatorMetadata.label.toLowerCase(),
           ),
         };
 
