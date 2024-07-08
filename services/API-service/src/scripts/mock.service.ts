@@ -63,12 +63,13 @@ export class MockService {
       | MockFlashFloodsScenario,
     disasterType: DisasterType,
     useDefaultScenario: boolean,
+    isApiTest: boolean,
   ) {
     if (mockBody.removeEvents) {
       await this.removeEvents(mockBody.countryCodeISO3, disasterType);
     }
 
-    const selectedCountry = countries.find((country): any => {
+    const selectedCountry = countries.find((country) => {
       if (mockBody.countryCodeISO3 === country.countryCodeISO3) {
         return country;
       }
@@ -234,7 +235,7 @@ export class MockService {
 
     // Add the needed stores and layers to geoserver, only do this in debug mode
     // The resulting XML files should be commited to git and will end up on the servers that way
-    if (DEBUG) {
+    if (DEBUG && !isApiTest) {
       await this.geoServerSyncService.sync(
         selectedCountry.countryCodeISO3,
         disasterType,
@@ -244,6 +245,7 @@ export class MockService {
 
   private getLeadTimesForNoTrigger(
     disasterType: DisasterType,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selectedCountry: any,
   ): LeadTime[] {
     // NOTE: this reflects agreements with pipelines that are in place. This is ugly, and should be refactored better.

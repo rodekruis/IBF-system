@@ -10,7 +10,7 @@ export class ContentEventEmail {
   public indicatorMetadata: IndicatorMetadataEntity;
   public linkEapSop: string;
   public dataPerEvent: NotificationDataPerEventDto[];
-  public mapImageData: any[];
+  public mapImageData: unknown[];
   public defaultAdminLevel: number;
   public defaultAdminAreaLabel: AdminAreaLabel;
   public country: CountryEntity; // Ensure that is has the following relations 'disasterTypes', 'notificationInfo','countryDisasterSettings','countryDisasterSettings.activeLeadTimes',

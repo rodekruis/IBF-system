@@ -104,6 +104,9 @@ export class EventSummaryCountry {
   @ApiProperty({ example: {} })
   public disasterSpecificProperties: DisasterSpecificProperties;
 
+  @ApiProperty({ example: 100 })
+  public triggerValue: number;
+
   @ApiProperty({ example: 5 })
   public affectedAreas: number;
 }

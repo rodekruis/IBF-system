@@ -6,7 +6,6 @@ import {
   MockAll,
   MockDynamic,
   MockTyphoonScenario,
-  TyphoonScenario,
 } from './scripts.controller';
 import countries from './json/countries.json';
 import fs from 'fs';
@@ -26,6 +25,7 @@ import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { MockHelperService } from './mock-helper.service';
 import { MockService } from './mock.service';
+import { TyphoonScenario } from './enum/mock-scenario.enum';
 
 @Injectable()
 export class ScriptsService {
@@ -56,6 +56,8 @@ export class ScriptsService {
   ) {}
 
   public async mockAll(mockAllInput: MockAll) {
+    const isApiTest = false;
+
     const envCountries = process.env.COUNTRIES.split(',');
 
     const newMockServiceDisasterTypes = [
@@ -83,6 +85,7 @@ export class ScriptsService {
             },
             disasterType.disasterType,
             true,
+            isApiTest,
           );
         } else {
           await this.mockCountry({
@@ -155,7 +158,7 @@ export class ScriptsService {
       await this.eventPlaceCodeRepo.remove(allCountryEvents);
     }
 
-    const selectedCountry = countries.find((country): any => {
+    const selectedCountry = countries.find((country) => {
       if (mockInput.countryCodeISO3 === country.countryCodeISO3) {
         return country;
       }
@@ -407,6 +410,7 @@ export class ScriptsService {
   }
 
   private getLeadTimes(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selectedCountry: any,
     disasterType: DisasterType,
     eventNr: number,
@@ -456,6 +460,7 @@ export class ScriptsService {
     typhoonScenario?: TyphoonScenario,
     eventRegion?: string,
     leadTime?: LeadTime,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selectedCountry?: any,
     date?: Date,
     triggered?: boolean,
@@ -494,6 +499,7 @@ export class ScriptsService {
   }
 
   private filterLeadTimesPerDisasterType(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selectedCountry: any,
     leadTime: string,
     disasterType: DisasterType,
@@ -552,6 +558,7 @@ export class ScriptsService {
   }
 
   private getDroughtLeadTime(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selectedCountry: any,
     leadTime: string,
     disasterType: DisasterType,
@@ -582,6 +589,7 @@ export class ScriptsService {
     forecastSeasons,
     leadTime: string,
     date: Date,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selectedCountry: any,
   ) {
     const { currentYear, currentUTCMonth, leadTimeMonthFirstDay } =
@@ -650,7 +658,8 @@ export class ScriptsService {
   }
 
   private async mockAmount(
-    exposurePlacecodes: any,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    exposurePlaceCodes: any,
     exposureUnit: DynamicIndicator,
     triggered: boolean,
     disasterType: DisasterType,
@@ -658,8 +667,8 @@ export class ScriptsService {
     activeLeadTime: LeadTime,
     date: Date,
     eventRegion?: string,
-  ): Promise<any[]> {
-    let copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlacecodes));
+  ) {
+    let copyOfExposureUnit = JSON.parse(JSON.stringify(exposurePlaceCodes));
     if (
       disasterType === DisasterType.Drought &&
       selectedCountry.countryCodeISO3 !== 'ZWE' && // exclude ZWE drought from this rule
@@ -718,9 +727,7 @@ export class ScriptsService {
     const month = leadTimeMonthFirstDay.getMonth() + 1;
 
     const triggeredAreas = droughtRegionAreas[droughtRegion].map(
-      (placeCode) => {
-        return { placeCode: placeCode, triggered: false };
-      },
+      (placeCode) => ({ placeCode, triggered: false }),
     );
     for (const season of Object.values(forecastSeasonAreas[droughtRegion])) {
       const filteredSeason = season[this.rainMonthsKey].filter(

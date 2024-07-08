@@ -263,7 +263,8 @@ export class EventController {
       );
     }
     const bufferStream = new stream.PassThrough();
-    bufferStream.end(Buffer.from(blob, 'binary'));
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    bufferStream.end(Buffer.from(blob as any, 'binary'));
     response.writeHead(HttpStatus.OK, {
       'Content-Type': 'image/png',
     });
