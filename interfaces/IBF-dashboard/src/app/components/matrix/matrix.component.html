@@ -1,92 +1,69 @@
-<div class="ibf-map-layer-control">
-  <ion-menu-toggle
-    menu="layer-control"
-    [class.ion-hide]="hideLayerControlToggleButton"
+<div
+  id="layer-menu-container"
+  [ngStyle]="{ height: getLayerMenuContainerHeightInRem() + 'rem' }"
+>
+  <ion-button
+    class="ion-no-margin ion-justify-content-between"
+    color="ibf-no-alert-primary "
+    id="layer-menu-toggle-button"
+    (click)="toggleLayerMenu()"
   >
-    <ion-header>
-      <ion-toolbar color="ibf-no-alert-primary">
-        <ion-buttons slot="end">
-          <ion-icon name="chevron-down-outline"></ion-icon>
-        </ion-buttons>
-        <ion-title data-test="layers-toggle">Layers</ion-title>
-      </ion-toolbar>
-    </ion-header>
-  </ion-menu-toggle>
-  <ion-menu
-    side="end"
-    type="overlay"
-    contentId="ibf-dashboard-map"
-    menuId="layer-control"
-    (ionDidOpen)="isLayerControlMenuOpen()"
-    (ionDidClose)="isLayerControlMenuOpen()"
-    data-test="layers-control-menu"
-    swipeGesture="false"
-  >
-    <ion-menu-toggle menu="layer-control">
-      <ion-header>
-        <ion-toolbar color="ibf-no-alert-primary">
-          <ion-buttons slot="end">
-            <ion-icon name="chevron-up-outline"></ion-icon>
-          </ion-buttons>
-          <ion-title>{{
-            'layers-menu.menu-toggle-label' | translate
-          }}</ion-title>
-        </ion-toolbar>
-      </ion-header>
-    </ion-menu-toggle>
-    <ion-content>
-      <ion-list class="ion-no-padding">
-        <ion-row
-          *ngFor="let layer of getLayersInOrder()"
-          class="ion-justify-content-between ion-nowrap"
-        >
-          <ion-item lines="none">
-            <ion-spinner *ngIf="layer.isLoading"></ion-spinner>
-            <div
-              *ngIf="!layer.isLoading"
+    <div>
+      <ion-text> {{ 'layers-menu.menu-toggle-label' | translate }}</ion-text
+      ><ion-icon
+        [name]="isLayerMenuOpen ? 'chevron-down-outline' : 'chevron-up-outline'"
+      ></ion-icon>
+    </div>
+  </ion-button>
+  <div *ngIf="isLayerMenuOpen" id="layer-menu">
+    <ion-list class="ion-no-padding">
+      <ion-row
+        *ngFor="let layer of getLayersInOrder()"
+        class="ion-justify-content-between ion-nowrap"
+      >
+        <ion-item lines="none">
+          <ion-spinner *ngIf="layer.isLoading"></ion-spinner>
+          <ng-container *ngIf="!layer.isLoading">
+            <ion-icon
+              *ngIf="isCheckBox(layer.group)"
+              [name]="layer.active ? 'checkbox' : 'square-outline'"
               (click)="toggleLayer(layer)"
-              class="matrix-toggler ion-no-margin"
-              [class.matrix-check]="isCheckBox(layer.group)"
-              [class.matrix-radio]="isRadioButton(layer.group)"
-              slot="start"
-            >
-              <svg
-                *ngIf="isCheckBox(layer.group) && layer.active"
-                class="matrix-check-mark"
-                viewBox="-4 -4 35 35"
-                part="container"
-              >
-                <path d="M1.73,12.91 8.1,19.28 22.79,4.59"></path>
-              </svg>
-              <div
-                *ngIf="isRadioButton(layer.group) && layer.active"
-                class="matrix-radio-circle"
-              ></div>
-            </div>
-            <ion-label
-              class="ion-text-wrap ion-no-margin"
-              [title]="layer.label"
-              style="margin-left: 8px"
-            >
-              {{ layer.label }}
-            </ion-label>
-            <ion-button
-              slot="end"
-              fill="clear"
-              class="ion-no-margin info-button"
-              (click)="presentPopover($event, layer)"
-              [title]="'aggregates-component.more-information' | translate"
-            >
-              <ion-icon
-                color="ibf-no-alert-primary"
-                name="information-circle-outline"
-                data-test="matrix-icon"
-                class="info-icon"
-              ></ion-icon>
-            </ion-button>
-          </ion-item>
-        </ion-row>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
+              class="single-layer-toggler"
+            ></ion-icon>
+            <ion-icon
+              *ngIf="isRadioButton(layer.group)"
+              [name]="
+                layer.active
+                  ? 'radio-button-on-outline'
+                  : 'radio-button-off-outline'
+              "
+              (click)="toggleLayer(layer)"
+              class="single-layer-toggler"
+            ></ion-icon>
+          </ng-container>
+          <ion-label
+            class="ion-text-wrap ion-no-margin"
+            [title]="layer.label"
+            style="margin-left: 8px"
+          >
+            {{ layer.label }}
+          </ion-label>
+          <ion-button
+            slot="end"
+            fill="clear"
+            class="ion-no-margin info-button"
+            (click)="presentPopover($event, layer)"
+            [title]="'aggregates-component.more-information' | translate"
+          >
+            <ion-icon
+              color="ibf-no-alert-primary"
+              name="information-circle-outline"
+              data-test="matrix-icon"
+              class="info-icon"
+            ></ion-icon>
+          </ion-button>
+        </ion-item>
+      </ion-row>
+    </ion-list>
+  </div>
 </div>

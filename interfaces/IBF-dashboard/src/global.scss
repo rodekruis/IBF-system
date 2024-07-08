@@ -63,10 +63,39 @@
 
 .info {
   padding: 6px 8px;
-  font: 12px Arial, Helvetica, sans-serif;
+  font: 0.75rem Arial, Helvetica, sans-serif;
   background: white;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  border-radius: 5px;
+  box-shadow: 0 0 0.9375rem rgba(0, 0, 0, 0.2);
+  border-radius: 0.3125rem;
+  width: 13vw;
+
+  details {
+    summary {
+      list-style-type: none;
+
+      .legend-header {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        cursor: pointer;
+
+        .icon-up {
+          display: block;
+        }
+        .icon-down {
+          display: none;
+        }
+      }
+    }
+    &[open] summary {
+      .icon-down {
+        display: block;
+      }
+      .icon-up {
+        display: none;
+      }
+    }
+  }
 }
 
 .leaflet-popup-content-wrapper {
