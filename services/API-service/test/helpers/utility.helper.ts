@@ -80,6 +80,27 @@ export function mockTyphoon(
     });
 }
 
+export function mockDynamicData(
+  disasterType: DisasterType,
+  countryCodeISO3: string,
+  triggered: boolean,
+  accessToken: string,
+  date?: Date,
+): Promise<request.Response> {
+  return getServer()
+    .post('/scripts/mock-dynamic-data')
+    .set('Authorization', `Bearer ${accessToken}`)
+    .query({ isApiTest: true })
+    .send({
+      disasterType,
+      secret: process.env.RESET_SECRET,
+      triggered,
+      removeEvents: true,
+      date: date ? date : new Date(),
+      countryCodeISO3,
+    });
+}
+
 export function sendNotification(
   countryCodeISO3: string,
   disasterType: DisasterType,
