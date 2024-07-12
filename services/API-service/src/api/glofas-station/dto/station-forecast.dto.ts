@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 import {
   IsIn,
   IsNotEmpty,
@@ -5,7 +7,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
+
 import { EapAlertClassKeyEnum } from '../../../shared/data.model';
 
 export class GlofasStationForecastDto {

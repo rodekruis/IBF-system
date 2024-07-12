@@ -1,9 +1,9 @@
 import {
-  Controller,
-  Post,
   Body,
-  Res,
+  Controller,
   HttpStatus,
+  Post,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -13,6 +13,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+
 import {
   IsEnum,
   IsIn,
@@ -20,12 +21,13 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { SeedInit } from './seed-init';
-import { ScriptsService } from './scripts.service';
-import { RolesGuard } from '../roles.guard';
+
 import { DisasterType } from '../api/disaster/disaster-type.enum';
-import { Roles } from '../roles.decorator';
 import { UserRole } from '../api/user/user-role.enum';
+import { Roles } from '../roles.decorator';
+import { RolesGuard } from '../roles.guard';
+import { ScriptsService } from './scripts.service';
+import { SeedInit } from './seed-init';
 
 class ResetDto {
   @ApiProperty({ example: 'fill_in_secret' })

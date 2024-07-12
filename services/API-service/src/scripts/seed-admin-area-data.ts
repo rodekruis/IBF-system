@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { InterfaceScript } from './scripts.module';
-import { DataSource } from 'typeorm';
-import { SeedHelper } from './seed-helper';
+
 import { AdminLevel } from 'src/api/country/admin-level.enum';
+import { DataSource } from 'typeorm';
+
 import { AdminAreaDataService } from '../api/admin-area-data/admin-area-data.service';
+import { InterfaceScript } from './scripts.module';
+import { SeedHelper } from './seed-helper';
 
 interface AdminAreaDataRecord {
   placeCode: string;

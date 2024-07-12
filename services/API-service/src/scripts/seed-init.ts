@@ -1,41 +1,41 @@
 import { Injectable } from '@nestjs/common';
-import { InterfaceScript } from './scripts.module';
+
 import { DataSource } from 'typeorm';
-import { CountryEntity } from '../api/country/country.entity';
-import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
-import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
-import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
-import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
-import { UserRole } from '../api/user/user-role.enum';
-import { UserStatus } from '../api/user/user-status.enum';
-import { UserEntity } from '../api/user/user.entity';
-import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
-import { DisasterType } from '../api/disaster/disaster-type.enum';
-import { DisasterEntity } from '../api/disaster/disaster.entity';
-import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
 
-import leadTimes from './json/lead-times.json';
-import notificationInfo from './json/notification-info.json';
-import countries from './json/countries.json';
-import users from './json/users.json';
-import areasOfFocus from './json/areas-of-focus.json';
-import eapActions from './json/EAP-actions.json';
-import indicatorMetadata from './json/indicator-metadata.json';
-import layerMetadata from './json/layer-metadata.json';
-import disasters from './json/disasters.json';
-
-import SeedAdminArea from './seed-admin-area';
-import { SeedHelper } from './seed-helper';
-import SeedAdminAreaData from './seed-admin-area-data';
-import SeedRainfallData from './seed-rainfall-data';
-import SeedPointData from './seed-point-data';
-import { CountryService } from '../api/country/country.service';
-import { NotificationInfoDto } from '../api/country/dto/notification-info.dto';
-import SeedLineData from './seed-line-data';
 import {
   LeadTime,
   LeadTimeUnit,
 } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
+import { CountryEntity } from '../api/country/country.entity';
+import { CountryService } from '../api/country/country.service';
+import { NotificationInfoDto } from '../api/country/dto/notification-info.dto';
+import { DisasterType } from '../api/disaster/disaster-type.enum';
+import { DisasterEntity } from '../api/disaster/disaster.entity';
+import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
+import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
+import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
+import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
+import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
+import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
+import { UserRole } from '../api/user/user-role.enum';
+import { UserStatus } from '../api/user/user-status.enum';
+import { UserEntity } from '../api/user/user.entity';
+import areasOfFocus from './json/areas-of-focus.json';
+import countries from './json/countries.json';
+import disasters from './json/disasters.json';
+import eapActions from './json/EAP-actions.json';
+import indicatorMetadata from './json/indicator-metadata.json';
+import layerMetadata from './json/layer-metadata.json';
+import leadTimes from './json/lead-times.json';
+import notificationInfo from './json/notification-info.json';
+import users from './json/users.json';
+import { InterfaceScript } from './scripts.module';
+import SeedAdminArea from './seed-admin-area';
+import SeedAdminAreaData from './seed-admin-area-data';
+import { SeedHelper } from './seed-helper';
+import SeedLineData from './seed-line-data';
+import SeedPointData from './seed-point-data';
+import SeedRainfallData from './seed-rainfall-data';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {

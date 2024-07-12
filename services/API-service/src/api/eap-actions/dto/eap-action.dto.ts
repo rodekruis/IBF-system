@@ -1,7 +1,9 @@
-import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { AreaOfFocusEntity } from '../area-of-focus.entity';
+
+import { IsNotEmpty, IsString } from 'class-validator';
+
 import { DisasterType } from '../../disaster/disaster-type.enum';
+import { AreaOfFocusEntity } from '../area-of-focus.entity';
 
 class EapActionDto {
   @ApiProperty({ example: 'UGA' })

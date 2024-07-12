@@ -1,17 +1,18 @@
-import { CountryEntity } from './../country/country.entity';
-import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
+import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
+import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { UserEntity } from '../user/user.entity';
 import { UserModule } from '../user/user.module';
-import { EapActionEntity } from './eap-action.entity';
+import { CountryEntity } from './../country/country.entity';
+import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
+import { EapActionEntity } from './eap-action.entity';
 import { EapActionsController } from './eap-actions.controller';
 import { EapActionsService } from './eap-actions.service';
-import { AreaOfFocusEntity } from './area-of-focus.entity';
-import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
-import { AdminAreaEntity } from '../admin-area/admin-area.entity';
-import { HttpModule } from '@nestjs/axios';
 
 @Module({
   imports: [

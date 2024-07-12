@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('indicator-metadata')
 export class IndicatorMetadataEntity {

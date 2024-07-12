@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { Geometry } from './geo.model';
 
