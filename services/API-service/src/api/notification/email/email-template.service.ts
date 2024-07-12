@@ -16,7 +16,6 @@ import {
   NotificationDataPerEventDto,
   TriggerStatusLabelEnum,
 } from '../dto/notification-date-per-event.dto';
-import { formatActionUnitValue } from '../helpers/format-action-unit-value.helper';
 
 const emailFolder = './src/api/notification/email';
 const emailTemplateFolder = `${emailFolder}/html`;
@@ -60,7 +59,7 @@ export class EmailTemplateService {
     const disasterType = emailContent.disasterType;
 
     const keyValueReplaceObject = {
-      emailBody: this.getEmailBody(false),
+      emailBody: this.readHtmlFile('trigger-notification.html'),
       headerEventOverview: this.getHeaderEventStarted(emailContent),
       notificationActions: this.getNotificationActionsHtml(
         country,
@@ -87,9 +86,9 @@ export class EmailTemplateService {
     disasterTypeLabel: string,
   ): Record<string, string> {
     const keyValueReplaceObject = {
-      emailBody: this.getEmailBody(true),
+      emailBody: this.readHtmlFile('trigger-finished.html'),
       headerEventOverview: '',
-      eventOverview: this.geEventsFinishedOverview(
+      eventOverview: this.getEventsFinishedOverview(
         country,
         events,
         disasterTypeLabel,
@@ -105,35 +104,25 @@ export class EmailTemplateService {
     return keyValueReplaceObject;
   }
 
-  private getEmailBody(triggerFinished: boolean): string {
-    if (triggerFinished) {
-      return this.readHtmlFile('trigger-finished.html');
-    } else {
-      return this.readHtmlFile('trigger-notification.html');
-    }
-  }
-
-  private geEventsFinishedOverview(
+  private getEventsFinishedOverview(
     country: CountryEntity,
     events: EventSummaryCountry[],
     disasterTypeLabel: string,
   ): string {
-    let html = '';
     const template = this.readHtmlFile('event-finished.html');
-
-    for (const event of events) {
-      const eventFinshedHtml = ejs.render(template, {
-        disasterTypeLabel: disasterTypeLabel,
-        eventName: event.eventName,
-        issuedDate: this.dateObjectToDateTimeString(
-          new Date(event.startDate),
-          country.countryCodeISO3,
-        ),
-        timezone: CountryTimeZoneMapping[country.countryCodeISO3],
-      });
-      html += eventFinshedHtml;
-    }
-    return html;
+    return events
+      .map((event) =>
+        ejs.render(template, {
+          disasterTypeLabel,
+          eventName: event.eventName,
+          issuedDate: this.dateObjectToDateTimeString(
+            new Date(event.startDate),
+            country.countryCodeISO3,
+          ),
+          timezone: CountryTimeZoneMapping[country.countryCodeISO3],
+        }),
+      )
+      .join('');
   }
 
   private getHeaderEventStarted(emailContent: ContentEventEmail): string {
@@ -162,23 +151,20 @@ export class EmailTemplateService {
       socialMediaPart: socialMediaLinkHtml,
     };
     html = ejs.render(html, data);
-    return html; //
+    return html;
   }
 
-  private getSocialMediaHtml(country: CountryEntity): string {
-    if (country.notificationInfo.linkSocialMediaType) {
-      this.readHtmlFile('social-media-link.html');
-    } else {
-      return '';
-    }
+  private getSocialMediaHtml(country: CountryEntity) {
+    return country.notificationInfo.linkSocialMediaType
+      ? this.readHtmlFile('social-media-link.html')
+      : '';
   }
 
-  private getMapImageHtml(emailContent: ContentEventEmail): string {
-    let html = '';
-    for (const event of emailContent.dataPerEvent) {
-      const mapImage = event.mapImage;
-      if (mapImage) {
-        let eventHtml = this.readHtmlFile('map-image.html');
+  private getMapImageHtml(emailContent: ContentEventEmail) {
+    return emailContent.dataPerEvent
+      .filter((event) => event.mapImage)
+      .map((event) => {
+        const eventHtmlTemplate = this.readHtmlFile('map-image.html');
         const replacements = {
           mapImgSrc: this.getMapImgSrc(
             emailContent.country.countryCodeISO3,
@@ -190,40 +176,36 @@ export class EmailTemplateService {
           ),
           eventName: event.eventName ? `(for ${event.eventName})` : '',
         };
-        eventHtml = ejs.render(eventHtml, replacements);
-        html += eventHtml;
-      }
-    }
-    return html;
+        return ejs.render(eventHtmlTemplate, replacements);
+      })
+      .join('');
   }
 
   private getMapImgSrc(
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
-  ): string {
-    const src = `${
+  ) {
+    return `${
       process.env.NG_API_URL
     }/event/event-map-image/${countryCodeISO3}/${disasterType}/${
       eventName || 'no-name'
     }`;
-
-    return src;
   }
 
   private getMapImageDescription(disasterType: DisasterType): string {
-    switch (disasterType) {
-      case DisasterType.Floods:
-        return 'The triggered areas are outlined in purple. The potential flood extent is shown in red.<br>';
-      default:
-        return '';
-    }
+    const descriptions = {
+      [DisasterType.Floods]:
+        'The triggered areas are outlined in purple. The potential flood extent is shown in red.<br>',
+    };
+
+    return descriptions[disasterType] || '';
   }
 
   private async formatEmail(
     emailKeyValueReplaceObject: Record<string, string>,
   ): Promise<string> {
-    // TODO REFACTOR: Apply styles in a septerate file also for the base.html
+    // TODO REFACTOR: Apply styles in a separate file also for the base.html
     const template = this.readHtmlFile('base.html');
     const styles = this.readHtmlFile('styles.ejs');
     const templateWithStyle = styles + template;
@@ -270,9 +252,15 @@ export class EmailTemplateService {
             emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
           defaultAdminAreaLabelParent: adminAreaLabelsParent.singular,
           indicatorLabel: emailContent.indicatorMetadata.label,
-          triangleIcon: this.getTriangleIcon(event.eapAlertClass?.key),
+          triangleIcon: this.getTriangleIcon(
+            event.eapAlertClass?.key,
+            event.triggerStatusLabel,
+          ),
           tableRows: this.getTablesRows(event),
-          color: this.ibfColorToHex(event.eapAlertClass?.color),
+          color: this.getIbfHexColor(
+            event.eapAlertClass?.color,
+            event.triggerStatusLabel,
+          ),
           severityLabel: this.getEventSeverityLabel(event.eapAlertClass?.key),
         };
 
@@ -288,25 +276,24 @@ export class EmailTemplateService {
   private getEventSeverityLabel(
     eapAlertClassKey: EapAlertClassKeyEnum,
   ): string {
-    if (eapAlertClassKey === EapAlertClassKeyEnum.med) {
-      return 'Medium';
-    } else if (eapAlertClassKey === EapAlertClassKeyEnum.min) {
-      return 'Low';
-    } else {
-      return '';
-    }
+    const severityLabels = {
+      [EapAlertClassKeyEnum.med]: 'Medium',
+      [EapAlertClassKeyEnum.min]: 'Low',
+    };
+
+    return severityLabels[eapAlertClassKey] || '';
   }
 
   private getTablesRows(event: NotificationDataPerEventDto) {
     return event.triggeredAreas
       .map((area) => {
-        const tableRowHmltFileName =
+        const tableRowHtmlFileName =
           TriggerStatusLabelEnum.Trigger === event.triggerStatusLabel
             ? 'table-trigger-row.html'
             : 'table-warning-row.html';
-        const areaTemplate = this.readHtmlFile(tableRowHmltFileName);
+        const areaTemplate = this.readHtmlFile(tableRowHtmlFileName);
         const areaData = {
-          affectectedOfIndicator: area.actionsValue,
+          affectedOfIndicator: area.actionsValue,
           adminBoundary: area.displayName ? area.displayName : area.name,
           higherAdminBoundary: area.nameParent,
         };
@@ -320,40 +307,56 @@ export class EmailTemplateService {
     return emailContent.dataPerEvent
       .map((event) => {
         const data = {
+          // Event details
+          eventName: event.eventName,
           hazard: emailContent.disasterTypeLabel,
           triggerStatusLabel: event.triggerStatusLabel,
-          eventName: event.eventName,
-          nrOfTriggeredAreas: event.nrOfTriggeredAreas,
-          expectedTriggerDate: event.firstLeadTime,
           issuedDate: this.dateObjectToDateTimeString(
             event.issuedDate,
             emailContent.country.countryCodeISO3,
           ),
-          startDateEventString: event.startDateDisasterString,
-          defaultAdminAreaLabel:
-            emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
-          indicatorLabel: emailContent.indicatorMetadata.label,
-          totalAffectedOfIndicator: formatActionUnitValue(
-            event.totalAffectedOfIndicator,
-            emailContent.indicatorMetadata.numberFormatMap,
-          ),
-          indicatorUnit: emailContent.indicatorMetadata.unit,
           timezone:
             CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
-          triangleIcon: this.getTriangleIcon(event.eapAlertClass?.key),
-          leadTime: event.firstLeadTime.replace('-', ' '),
-          disasterIssuedLabel:
-            event.eapAlertClass?.label ?? event.triggerStatusLabel,
-          // REFACTOR: avoid the logic fork in disasterIssuedLabel
-          // use the same label variable across all hazard types
-          color: this.ibfColorToHex(event.eapAlertClass?.color),
-          advisory: this.getAdvisoryHtml(
-            event.triggerStatusLabel,
-            emailContent.linkEapSop,
-          ),
+
+          // Lead time details
+          firstLeadTimeString: event.firstLeadTimeString,
+          firstTriggerLeadTimeString: event.firstTriggerLeadTimeString,
+          firstLeadTimeQuantity: event.firstLeadTime.replace('-', ' '),
+          firstTriggerLeadTimeQuantity: event.firstTriggerLeadTime
+            ? event.firstTriggerLeadTime.replace('-', ' ')
+            : '',
+
+          // Area details
+          nrOfTriggeredAreas: event.nrOfTriggeredAreas,
+          defaultAdminAreaLabel:
+            emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
+
+          // Indicator details
+          indicatorLabel: emailContent.indicatorMetadata.label,
+          totalAffectedOfIndicator: event.totalAffectedOfIndicator,
+          indicatorUnit: emailContent.indicatorMetadata.unit,
           totalAffected: this.getTotalAffectedHtml(
             event,
             emailContent.indicatorMetadata.label.toLowerCase(),
+          ),
+
+          // EAP details
+          triangleIcon: this.getTriangleIcon(
+            event.eapAlertClass?.key,
+            event.triggerStatusLabel,
+          ),
+          leadTime: event.firstLeadTime.replace('-', ' '),
+          disasterIssuedLabel: this.getDisasterIssuedLabel(
+            event.eapAlertClass?.label,
+            event.triggerStatusLabel,
+          ),
+          color: this.getIbfHexColor(
+            event.eapAlertClass?.color,
+            event.triggerStatusLabel,
+          ),
+          advisory: this.getAdvisoryHtml(
+            event.triggerStatusLabel,
+            emailContent.linkEapSop,
           ),
         };
 
@@ -364,31 +367,66 @@ export class EmailTemplateService {
       .join('');
   }
 
+  private getDisasterIssuedLabel(
+    eapLabel: string,
+    triggerStatusLabel: TriggerStatusLabelEnum,
+  ) {
+    return eapLabel || triggerStatusLabel;
+  }
+
   private getAdvisoryHtml(
     triggerStatusLabel: TriggerStatusLabelEnum,
     eapLink: string,
-  ): string {
-    const advisoryHtml =
+  ) {
+    const fileName =
       triggerStatusLabel === TriggerStatusLabelEnum.Trigger
-        ? this.readHtmlFile('advisory-trigger.html')
-        : this.readHtmlFile('advisory-warning.html');
-
-    return ejs.render(advisoryHtml, { eapLink: eapLink });
+        ? 'advisory-trigger.html'
+        : 'advisory-warning.html';
+    const advisoryHtml = this.readHtmlFile(fileName);
+    return ejs.render(advisoryHtml, { eapLink });
   }
 
   private getTotalAffectedHtml(
     event: NotificationDataPerEventDto,
     indicatorUnit: string,
   ): string {
-    if (event.triggerStatusLabel === TriggerStatusLabelEnum.Warning) {
-      return this.readHtmlFile('body-total-affected-warning.html');
-    } else {
-      const html = this.readHtmlFile('body-total-affected-trigger.html');
-      return ejs.render(html, {
-        totalAffectedOfIndicator: event.totalAffectedOfIndicator,
-        indicatorUnit: indicatorUnit,
-      });
+    const fileName =
+      event.triggerStatusLabel === TriggerStatusLabelEnum.Warning
+        ? 'body-total-affected-warning.html'
+        : 'body-total-affected-trigger.html';
+    const htmlTemplate = this.readHtmlFile(fileName);
+    return ejs.render(htmlTemplate, {
+      totalAffectedOfIndicator: event.totalAffectedOfIndicator,
+      indicatorUnit: indicatorUnit,
+    });
+  }
+
+  private getIbfHexColor(
+    color: string,
+    triggerStatusLabel: TriggerStatusLabelEnum,
+  ): string {
+    const ibfOrange = '#aa6009';
+    const ibfYellow = '#7d6906';
+    const ibfRed = '#8a0f32';
+
+    // Color  defined in the EAP Alert Class. This is only used for flood events
+    // For other events, the color is defined in the disaster settings
+    // So we decide it based on the trigger status label
+
+    if (color) {
+      // TODO: Define in a place where FrontEnd and Backend can share this
+      switch (color) {
+        case 'ibf-orange':
+          return ibfOrange;
+        case 'ibf-yellow':
+          return ibfYellow;
+        default:
+          return ibfRed;
+      }
     }
+    return triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+      ? ibfRed
+      : ibfOrange;
   }
 
   private getFooterHtml(countryName: string): string {
@@ -398,18 +436,6 @@ export class EmailTemplateService {
       ibfLogo: ibfLogo,
       countryName: countryName,
     });
-  }
-
-  private ibfColorToHex(color: string): string {
-    // TODO: Define in a place where FrontEnd and Backend can share this
-    switch (color) {
-      case 'ibf-orange':
-        return '#aa6009';
-      case 'ibf-yellow':
-        return '#7d6906';
-      default:
-        return '#8a0f32';
-    }
   }
 
   private getCurrentDateTimeString(countryCodeISO3: string): string {
@@ -434,18 +460,28 @@ export class EmailTemplateService {
     return date.toLocaleString('default', options);
   }
 
-  private getTriangleIcon(eapAlertClassKey: EapAlertClassKeyEnum) {
-    let fileName = '';
-    if (eapAlertClassKey === EapAlertClassKeyEnum.med) {
+  private getTriangleIcon(
+    eapAlertClassKey: EapAlertClassKeyEnum,
+    triggerStatusLabel: TriggerStatusLabelEnum,
+  ) {
+    const fileNameMap = {
+      [EapAlertClassKeyEnum.med]: 'warning-medium.png',
+      [EapAlertClassKeyEnum.min]: 'warning-low.png',
+      default: 'trigger.png',
+    };
+
+    let fileName = eapAlertClassKey
+      ? fileNameMap[eapAlertClassKey]
+      : fileNameMap.default;
+    if (
+      !eapAlertClassKey &&
+      triggerStatusLabel !== TriggerStatusLabelEnum.Trigger
+    ) {
       fileName = 'warning-medium.png';
-    } else if (eapAlertClassKey === EapAlertClassKeyEnum.min) {
-      fileName = 'warning-low.png';
-    } else {
-      fileName = 'trigger.png';
     }
+
     const filePath = `${emailIconFolder}/${fileName}`;
-    const imageDataURL = this.getPngImageAsDataURL(filePath);
-    return imageDataURL;
+    return this.getPngImageAsDataURL(filePath);
   }
 
   private getLogoImageAsDataURL() {

@@ -1,7 +1,9 @@
 import {
   Body,
   Controller,
+  ParseBoolPipe,
   Post,
+  Query,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -9,6 +11,7 @@ import {
   ApiBearerAuth,
   ApiConsumes,
   ApiOperation,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -16,6 +19,7 @@ import {
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { UserRole } from '../user/user-role.enum';
+import { NotificationApiTestResponseDto } from './dto/notification-api-test-response.dto';
 import { SendNotificationDto } from './dto/send-notification.dto';
 import { NotificationService } from './notification.service';
 
@@ -39,15 +43,30 @@ export class NotificationController {
     description:
       'Notification request sent (actual e-mails/whatsapps sent only if there is an active event)',
   })
+  @ApiQuery({
+    name: 'isApiTest',
+    required: false,
+    type: 'boolean',
+    description:
+      'If true, only returns the notification content without sending it',
+  })
   @Post('send')
   @ApiConsumes()
   @UseInterceptors()
   public async send(
     @Body() sendNotification: SendNotificationDto,
-  ): Promise<void> {
-    await this.notificationService.send(
+    @Query(
+      'isApiTest',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    isApiTest: boolean,
+  ): Promise<void | NotificationApiTestResponseDto> {
+    return await this.notificationService.send(
       sendNotification.countryCodeISO3,
       sendNotification.disasterType,
+      isApiTest,
       sendNotification.date,
     );
   }

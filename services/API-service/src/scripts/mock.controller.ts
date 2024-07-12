@@ -5,6 +5,8 @@ import {
   Post,
   Res,
   UseGuards,
+  Query,
+  ParseBoolPipe,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -104,6 +106,13 @@ export class MockController {
   public async mockFloodsScenario(
     @Body() body: MockFloodsScenario,
     @Res() res,
+    @Query(
+      'isApiTest',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    isApiTest: boolean,
   ): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
@@ -112,6 +121,7 @@ export class MockController {
       body,
       DisasterType.Floods,
       false,
+      isApiTest,
     );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
@@ -129,6 +139,13 @@ export class MockController {
   public async mockFlashFloodsScenario(
     @Body() body: MockFlashFloodsScenario,
     @Res() res,
+    @Query(
+      'isApiTest',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    isApiTest: boolean,
   ): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
@@ -137,6 +154,7 @@ export class MockController {
       body,
       DisasterType.FlashFloods,
       false,
+      isApiTest,
     );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
@@ -154,6 +172,13 @@ export class MockController {
   public async mockEpidemicsScenario(
     @Body() body: MockEpidemicsScenario,
     @Res() res,
+    @Query(
+      'isApiTest',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    isApiTest: boolean,
   ): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
@@ -163,7 +188,12 @@ export class MockController {
       body.countryCodeISO3 === 'PHL'
         ? DisasterType.Dengue
         : DisasterType.Malaria;
-    const result = await this.mockService.mock(body, disasterType, false);
+    const result = await this.mockService.mock(
+      body,
+      disasterType,
+      false,
+      isApiTest,
+    );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }

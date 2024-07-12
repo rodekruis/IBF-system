@@ -26,6 +26,7 @@ import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { UserRole } from '../api/user/user-role.enum';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
+import { TyphoonScenario } from './enum/mock-scenario.enum';
 import { ScriptsService } from './scripts.service';
 import { SeedInit } from './seed-init';
 
@@ -82,15 +83,6 @@ export class MockAll {
   @ApiProperty({ example: new Date() })
   @IsOptional()
   public readonly date: Date;
-}
-
-export enum TyphoonScenario {
-  NoEvent = 'noEvent',
-  EventNoLandfall = 'eventNoLandfall',
-  EventNoLandfallYet = 'eventNoLandfallYet',
-  EventNoTrigger = 'eventNoTrigger',
-  EventTrigger = 'eventTrigger',
-  EventAfterLandfall = 'eventAfterLandfall',
 }
 
 export class MockTyphoonScenario {

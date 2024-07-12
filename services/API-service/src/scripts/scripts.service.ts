@@ -19,6 +19,7 @@ import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
 import { MetadataService } from '../api/metadata/metadata.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
+import { TyphoonScenario } from './enum/mock-scenario.enum';
 import countries from './json/countries.json';
 import { MockHelperService } from './mock-helper.service';
 import { MockService } from './mock.service';
@@ -26,7 +27,6 @@ import {
   MockAll,
   MockDynamic,
   MockTyphoonScenario,
-  TyphoonScenario,
 } from './scripts.controller';
 
 @Injectable()
@@ -58,6 +58,8 @@ export class ScriptsService {
   ) {}
 
   public async mockAll(mockAllInput: MockAll) {
+    const isApiTest = false;
+
     const envCountries = process.env.COUNTRIES.split(',');
 
     const newMockServiceDisasterTypes = [
@@ -85,6 +87,7 @@ export class ScriptsService {
             },
             disasterType.disasterType,
             true,
+            isApiTest,
           );
         } else {
           await this.mockCountry({
