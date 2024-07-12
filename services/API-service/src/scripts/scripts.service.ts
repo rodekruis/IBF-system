@@ -1,7 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
-import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
 import {
   MockAll,
   MockDynamic,
@@ -23,7 +22,6 @@ import { MetadataService } from '../api/metadata/metadata.service';
 import { AdminLevel } from '../api/country/admin-level.enum';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { MockHelperService } from './mock-helper.service';
 import { MockService } from './mock.service';
 
@@ -35,8 +33,6 @@ export class ScriptsService {
   private readonly triggerPerLeadTimeRepo: Repository<TriggerPerLeadTime>;
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
-  @InjectRepository(AdminAreaEntity)
-  private readonly adminAreaRepo: Repository<AdminAreaEntity>;
   @InjectRepository(EapActionStatusEntity)
   private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
   @InjectRepository(CountryEntity)
@@ -47,7 +43,6 @@ export class ScriptsService {
 
   public constructor(
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
-    private glofasStationService: GlofasStationService,
     private typhoonTrackService: TyphoonTrackService,
     private eventService: EventService,
     private metadataService: MetadataService,
