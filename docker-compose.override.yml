@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   ibf-api-service:
-    command: [ 'npm', 'run', 'start:dev' ]
+    command: ['npm', 'run', 'start:dev']
     environment:
       - NODE_ENV=development
       - LOCAL_PORT_IBF_SERVICE=${LOCAL_PORT_IBF_SERVICE}
@@ -16,7 +14,7 @@ services:
       - api-network
 
   ibf-dashboard:
-    entrypoint: [ 'echo', 'Service ibf-dashboard disabled' ]
+    entrypoint: ['echo', 'Service ibf-dashboard disabled']
 
   ibf-geoserver:
     ports:
