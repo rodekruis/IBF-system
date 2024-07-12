@@ -1,13 +1,14 @@
 import {
-  Entity,
-  Column,
   Check,
-  PrimaryGeneratedColumn,
-  JoinTable,
-  OneToMany,
-  ManyToOne,
+  Column,
+  Entity,
   JoinColumn,
+  JoinTable,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';

@@ -1,12 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
+  Entity,
   JoinColumn,
+  ManyToOne,
   MultiPolygon,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { CountryEntity } from '../country/country.entity';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';

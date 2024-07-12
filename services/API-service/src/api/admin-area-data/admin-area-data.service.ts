@@ -1,15 +1,17 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+
+import { validate } from 'class-validator';
 import { Repository } from 'typeorm';
+
+import { HelperService } from '../../shared/helper.service';
+import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
+import { UpdateableStaticIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { AdminAreaDataEntity } from './admin-area-data.entity';
 import {
   UploadAdminAreaDataDto,
   UploadAdminAreaDataJsonDto,
 } from './dto/upload-admin-area-data.dto';
-import { validate } from 'class-validator';
-import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
-import { HelperService } from '../../shared/helper.service';
-import { UpdateableStaticIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 
 @Injectable()
 export class AdminAreaDataService {

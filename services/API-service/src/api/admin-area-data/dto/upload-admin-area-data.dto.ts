@@ -1,3 +1,6 @@
+import { ApiProperty } from '@nestjs/swagger';
+
+import { Type } from 'class-transformer';
 import {
   IsArray,
   IsEnum,
@@ -7,14 +10,13 @@ import {
   IsString,
   ValidateNested,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { ManyToOne, JoinColumn } from 'typeorm';
+import { JoinColumn, ManyToOne } from 'typeorm';
+
 import { DynamicDataPlaceCodeDto } from '../../admin-area-dynamic-data/dto/dynamic-data-place-code.dto';
+import indicatorData from '../../admin-area-dynamic-data/dto/example/ETH/malaria/upload-potential_cases-3.json';
 import { UpdateableStaticIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { AdminLevel } from '../../country/admin-level.enum';
 import { CountryEntity } from '../../country/country.entity';
-import indicatorData from '../../admin-area-dynamic-data/dto/example/ETH/malaria/upload-potential_cases-3.json';
 
 export class UploadAdminAreaDataDto {
   @ApiProperty()

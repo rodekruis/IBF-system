@@ -1,6 +1,9 @@
 import * as fs from 'fs';
+import { Injectable } from '@nestjs/common';
+
 import * as ejs from 'ejs';
 import * as juice from 'juice';
+
 import {
   EapAlertClassKeyEnum,
   EventSummaryCountry,
@@ -13,7 +16,6 @@ import {
   NotificationDataPerEventDto,
   TriggerStatusLabelEnum,
 } from '../dto/notification-date-per-event.dto';
-import { Injectable } from '@nestjs/common';
 
 const emailFolder = './src/api/notification/email';
 const emailTemplateFolder = `${emailFolder}/html`;

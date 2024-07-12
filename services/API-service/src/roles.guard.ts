@@ -1,9 +1,11 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
-import * as jwt from 'jsonwebtoken';
-import { UserService } from './api/user/user.service';
-import { User } from './api/user/user.model';
+import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
+
+import * as jwt from 'jsonwebtoken';
+
 import { UserRole } from './api/user/user-role.enum';
+import { User } from './api/user/user.model';
+import { UserService } from './api/user/user.service';
 
 @Injectable()
 export class RolesGuard implements CanActivate {

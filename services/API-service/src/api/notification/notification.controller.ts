@@ -1,4 +1,3 @@
-import { NotificationService } from './notification.service';
 import {
   Body,
   Controller,
@@ -16,11 +15,13 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { RolesGuard } from '../../roles.guard';
-import { SendNotificationDto } from './dto/send-notification.dto';
+
 import { Roles } from '../../roles.decorator';
+import { RolesGuard } from '../../roles.guard';
 import { UserRole } from '../user/user-role.enum';
 import { NotificationApiTestResponseDto } from './dto/notification-api-test-response.dto';
+import { SendNotificationDto } from './dto/send-notification.dto';
+import { NotificationService } from './notification.service';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)

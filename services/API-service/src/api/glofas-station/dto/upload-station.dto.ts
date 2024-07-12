@@ -1,5 +1,6 @@
-import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class UploadStationDto {
   @ApiProperty({ example: 'G1374' })

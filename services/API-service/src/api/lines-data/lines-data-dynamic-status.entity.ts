@@ -1,12 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import {
-  Entity,
-  PrimaryGeneratedColumn,
   Column,
+  Entity,
+  Index,
   JoinColumn,
   ManyToOne,
-  Index,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { LinesDataEntity } from './lines-data.entity';

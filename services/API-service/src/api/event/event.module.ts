@@ -1,20 +1,21 @@
-import { EapActionsModule } from './../eap-actions/eap-actions.module';
-import { CountryModule } from './../country/country.module';
-import { EventPlaceCodeEntity } from './event-place-code.entity';
-import { UserModule } from './../user/user.module';
 import { Module } from '@nestjs/common';
-import { EventController } from './event.controller';
-import { EventService } from './event.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
+
+import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
-import { HelperService } from '../../shared/helper.service';
-import { UserEntity } from '../user/user.entity';
-import { EventMapImageEntity } from './event-map-image.entity';
-import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
 import { CountryEntity } from '../country/country.entity';
+import { DisasterEntity } from '../disaster/disaster.entity';
+import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
+import { UserEntity } from '../user/user.entity';
+import { CountryModule } from './../country/country.module';
+import { EapActionsModule } from './../eap-actions/eap-actions.module';
+import { UserModule } from './../user/user.module';
+import { EventMapImageEntity } from './event-map-image.entity';
+import { EventPlaceCodeEntity } from './event-place-code.entity';
+import { EventController } from './event.controller';
+import { EventService } from './event.service';
+import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 
 @Module({
   imports: [

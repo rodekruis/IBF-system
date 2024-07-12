@@ -1,26 +1,27 @@
 import {
-  Post,
   Body,
   Controller,
-  UsePipes,
   HttpStatus,
+  Post,
   UseGuards,
+  UsePipes,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { UserResponseObject } from './user.model';
-import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
-import { ValidationPipe } from '../../shared/pipes/validation.pipe';
 import {
-  ApiTags,
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
-import { RolesGuard } from '../../roles.guard';
-import { UserRole } from './user-role.enum';
+
 import { Roles } from '../../roles.decorator';
+import { RolesGuard } from '../../roles.guard';
+import { ValidationPipe } from '../../shared/pipes/validation.pipe';
+import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
+import { UserRole } from './user-role.enum';
 import { UserDecorator } from './user.decorator';
+import { UserResponseObject } from './user.model';
+import { UserService } from './user.service';
 
 @ApiTags('-- user --')
 @Controller('user')

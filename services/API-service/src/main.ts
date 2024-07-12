@@ -1,14 +1,16 @@
-import { EXTERNAL_API, PORT } from './config';
-import { NestFactory } from '@nestjs/core';
-import { ApplicationModule } from './app.module';
-import {
-  SwaggerModule,
-  DocumentBuilder,
-  SwaggerDocumentOptions,
-  SwaggerCustomOptions,
-} from '@nestjs/swagger';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+import {
+  DocumentBuilder,
+  SwaggerCustomOptions,
+  SwaggerDocumentOptions,
+  SwaggerModule,
+} from '@nestjs/swagger';
+
 import * as bodyParser from 'body-parser';
+
+import { ApplicationModule } from './app.module';
+import { EXTERNAL_API, PORT } from './config';
 
 async function bootstrap(): Promise<void> {
   const appOptions = { cors: true };

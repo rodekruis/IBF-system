@@ -1,43 +1,45 @@
-import { EapActionsService } from './../eap-actions/eap-actions.service';
-import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { subDays } from 'date-fns';
 import {
-  ActivationLogDto,
-  AffectedAreaDto,
-  EventPlaceCodeDto,
-} from './dto/event-place-code.dto';
-import {
+  DataSource,
+  In,
+  IsNull,
   LessThan,
+  MoreThan,
   MoreThanOrEqual,
   Repository,
-  In,
-  MoreThan,
-  IsNull,
-  DataSource,
   SelectQueryBuilder,
 } from 'typeorm';
 
-import { InjectRepository } from '@nestjs/typeorm';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
-import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import {
   DisasterSpecificProperties,
   EventSummaryCountry,
   TriggeredArea,
 } from '../../shared/data.model';
+import { HelperService } from '../../shared/helper.service';
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
-import { DateDto } from './dto/date.dto';
-import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
+import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
+import { CountryEntity } from '../country/country.entity';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
-import { HelperService } from '../../shared/helper.service';
-import { UserEntity } from '../user/user.entity';
-import { EventMapImageEntity } from './event-map-image.entity';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
-import { CountryEntity } from '../country/country.entity';
-import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
+import { UserEntity } from '../user/user.entity';
+import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import { EapActionsService } from './../eap-actions/eap-actions.service';
+import { DateDto } from './dto/date.dto';
+import {
+  ActivationLogDto,
+  AffectedAreaDto,
+  EventPlaceCodeDto,
+} from './dto/event-place-code.dto';
+import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
+import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
+import { EventMapImageEntity } from './event-map-image.entity';
+import { EventPlaceCodeEntity } from './event-place-code.entity';
+import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 
 @Injectable()
 export class EventService {
@@ -89,7 +91,7 @@ export class EventService {
   ): Promise<EventSummaryCountry[]> {
     const adminAreaIds = await this.getCountryAdminAreaIds(countryCodeISO3);
 
-    const sixDaysAgo = new Date(Date.now() - 6 * 24 * 60 * 60 * 1000);
+    const sixDaysAgo = subDays(new Date(), 6);
     const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
       countryCodeISO3,
     )

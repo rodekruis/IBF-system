@@ -1,6 +1,7 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 import { UserRole } from './user-role.enum';
 import { UserStatus } from './user-status.enum';
-import { ApiProperty } from '@nestjs/swagger';
 
 export class User {
   public userId: string;
