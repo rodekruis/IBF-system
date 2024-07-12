@@ -1,8 +1,9 @@
+import { JSDOM } from 'jsdom';
+
 import { DisasterType } from '../../../src/api/disaster/disaster-type.enum';
 import { FloodsScenario } from '../../../src/scripts/enum/mock-scenario.enum';
-import { mockFloods, sendNotification } from '../../helpers/utility.helper';
 import disasters from '../../../src/scripts/json/disasters.json';
-import { JSDOM } from 'jsdom';
+import { mockFloods, sendNotification } from '../../helpers/utility.helper';
 
 export interface TestFloodScenarioDto {
   scenarios: any[];

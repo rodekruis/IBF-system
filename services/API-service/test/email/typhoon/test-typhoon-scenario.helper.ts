@@ -1,7 +1,8 @@
+import { JSDOM } from 'jsdom';
+
 import { DisasterType } from '../../../src/api/disaster/disaster-type.enum';
 import { TyphoonScenario } from '../../../src/scripts/enum/mock-scenario.enum';
 import { mockTyphoon, sendNotification } from '../../helpers/utility.helper';
-import { JSDOM } from 'jsdom';
 
 export async function testTyphoonScenario(
   scenario: TyphoonScenario,

@@ -1,11 +1,12 @@
 import * as request from 'supertest';
 import TestAgent from 'supertest/lib/agent';
-import users from '../../src/scripts/json/users.json';
+
+import { DisasterType } from '../../src/api/disaster/disaster-type.enum';
 import {
   FloodsScenario,
   TyphoonScenario,
 } from '../../src/scripts/enum/mock-scenario.enum';
-import { DisasterType } from '../../src/api/disaster/disaster-type.enum';
+import users from '../../src/scripts/json/users.json';
 
 export async function getAccessToken(): Promise<string> {
   const admin = users.find((user) => user.userRole === 'admin');

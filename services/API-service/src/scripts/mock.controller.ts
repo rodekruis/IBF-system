@@ -2,11 +2,11 @@ import {
   Body,
   Controller,
   HttpStatus,
+  ParseBoolPipe,
   Post,
+  Query,
   Res,
   UseGuards,
-  Query,
-  ParseBoolPipe,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
