@@ -1,109 +1,109 @@
-name: "Continuous Integration for IBF"
+name: 'Continuous Integration for IBF'
 
 on:
-    push:
-        branches: [master]
-        paths-ignore:
-            - "./package.json"
-            - "./COMMITLOG.md"
-    pull_request:
-        branches: [master]
+  push:
+    branches: [master]
+    paths-ignore:
+      - './package.json'
+      - './COMMITLOG.md'
+  pull_request:
+    branches: [master]
 
 jobs:
-    detect-changes:
-        runs-on: ubuntu-latest
+  detect-changes:
+    runs-on: ubuntu-latest
 
-        outputs:
-            ibf-api-service: ${{ steps.filter.outputs.ibf-api-service }}
-            ibf-dashboard: ${{ steps.filter.outputs.ibf-dashboard }}
+    outputs:
+      ibf-api-service: ${{ steps.filter.outputs.ibf-api-service }}
+      ibf-dashboard: ${{ steps.filter.outputs.ibf-dashboard }}
 
-        steps:
-            - uses: actions/checkout@v3
-            - uses: dorny/paths-filter@v2
-              id: filter
-              with:
-                  filters: |
-                      ibf-api-service:
-                        - "services/API-service/**"
-                      ibf-dashboard:
-                        - "interfaces/IBF-dashboard/**"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            ibf-api-service:
+              - "services/API-service/**"
+            ibf-dashboard:
+              - "interfaces/IBF-dashboard/**"
 
-    ibf-api-service:
-        needs: detect-changes
-        if: ${{ needs.detect-changes.outputs.ibf-api-service == 'true' }}
+  ibf-api-service:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.ibf-api-service == 'true' }}
 
-        runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
+    env:
+      SECRET: ${{ secrets.SECRET }}
+      MC_API: ${{ secrets.MC_API }}
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    defaults:
+      run:
+        working-directory: 'services/API-service'
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci --no-audit
+      - run: npm run lint
+      - run: npm test
+      - run: docker build . --file Dockerfile --tag
+          rodekruis/ibf-api-service:$(date +%s)
+
+  ibf-dashboard:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.ibf-dashboard == 'true' }}
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    defaults:
+      run:
+        working-directory: 'interfaces/IBF-dashboard'
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3.4.1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: npm ci --no-audit
+      - run: npm test
+      - run: docker build . --file Dockerfile --tag
+          rodekruis/ibf-dashboard:$(date +%s)
+
+  bump-version:
+    needs: [ibf-api-service, ibf-dashboard]
+    if: |
+      always() &&
+      github.event_name == 'push'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wait for previous workflow to complete
+        uses: softprops/turnstyle@v1
+        with:
+          abort-after-seconds: 1800
         env:
-            SECRET: ${{ secrets.SECRET }}
-            MC_API: ${{ secrets.MC_API }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-        strategy:
-            matrix:
-                node-version: [12.x]
+      - uses: actions/checkout@v3
 
-        defaults:
-            run:
-                working-directory: "services/API-service"
-
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3.4.1
-              with:
-                  node-version: ${{ matrix.node-version }}
-            - run: npm ci --no-audit
-            - run: npm run lint
-            - run: npm test
-            - run: docker build . --file Dockerfile --tag
-                  rodekruis/ibf-api-service:$(date +%s)
-
-    ibf-dashboard:
-        needs: detect-changes
-        if: ${{ needs.detect-changes.outputs.ibf-dashboard == 'true' }}
-
-        runs-on: ubuntu-latest
-
-        strategy:
-            matrix:
-                node-version: [14.x]
-
-        defaults:
-            run:
-                working-directory: "interfaces/IBF-dashboard"
-
-        steps:
-            - uses: actions/checkout@v3
-            - name: Use Node.js ${{ matrix.node-version }}
-              uses: actions/setup-node@v3.4.1
-              with:
-                  node-version: ${{ matrix.node-version }}
-            - run: npm ci --no-audit
-            - run: npm test
-            - run: docker build . --file Dockerfile --tag
-                  rodekruis/ibf-dashboard:$(date +%s)
-
-    bump-version:
-        needs: [ibf-api-service, ibf-dashboard]
-        if: |
-            always() &&
-            github.event_name == 'push'
-
-        runs-on: ubuntu-latest
-
-        steps:
-            - name: Wait for previous workflow to complete
-              uses: softprops/turnstyle@v1
-              with:
-                  abort-after-seconds: 1800
-              env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-            - uses: actions/checkout@v3
-
-            - name: Bump version and push tag
-              uses: TriPSs/conventional-changelog-action@v3
-              with:
-                  github-token: ${{ secrets.GITHUB_TOKEN }}
-                  git-message: "chore(release): {version}"
-                  release-count: 10
+      - name: Bump version and push tag
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          git-message: 'chore(release): {version}'
+          release-count: 10
