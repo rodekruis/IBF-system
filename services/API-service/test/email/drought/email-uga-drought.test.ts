@@ -1,11 +1,12 @@
+import { JSDOM } from 'jsdom';
+
+import { DisasterType } from '../../../src/api/disaster/disaster-type.enum';
 import {
   getAccessToken,
   mockDynamicData,
   resetDB,
   sendNotification,
 } from '../../helpers/utility.helper';
-import { DisasterType } from '../../../src/api/disaster/disaster-type.enum';
-import { JSDOM } from 'jsdom';
 
 const countryCodeISO3 = 'UGA';
 const disasterType = DisasterType.Drought;
