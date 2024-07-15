@@ -5,7 +5,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChatComponent } from './chat.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 describe('ChatComponent', () => {
   let component: ChatComponent;
@@ -14,13 +17,14 @@ describe('ChatComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-    declarations: [ChatComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    imports: [IonicModule,
-        RouterTestingModule,
-        TranslateModule.forRoot()],
-    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-}).compileComponents();
+        declarations: [ChatComponent],
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
+        providers: [
+          provideHttpClient(withInterceptorsFromDi()),
+          provideHttpClientTesting(),
+        ],
+      }).compileComponents();
 
       fixture = TestBed.createComponent(ChatComponent);
       component = fixture.componentInstance;

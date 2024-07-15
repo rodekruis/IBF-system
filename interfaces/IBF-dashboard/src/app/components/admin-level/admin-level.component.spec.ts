@@ -4,7 +4,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { AdminLevelComponent } from './admin-level.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 describe('AdminLevelComponent', () => {
   let component: AdminLevelComponent;
@@ -13,12 +16,13 @@ describe('AdminLevelComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-    declarations: [AdminLevelComponent],
-    imports: [IonicModule,
-        RouterTestingModule,
-        TranslateModule.forRoot()],
-    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-}).compileComponents();
+        declarations: [AdminLevelComponent],
+        imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
+        providers: [
+          provideHttpClient(withInterceptorsFromDi()),
+          provideHttpClientTesting(),
+        ],
+      }).compileComponents();
 
       fixture = TestBed.createComponent(AdminLevelComponent);
       component = fixture.componentInstance;

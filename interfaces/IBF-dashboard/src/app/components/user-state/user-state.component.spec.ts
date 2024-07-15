@@ -4,7 +4,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { UserStateComponent } from './user-state.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 describe('UserStateComponent', () => {
   let component: UserStateComponent;
@@ -13,12 +16,13 @@ describe('UserStateComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-    declarations: [UserStateComponent],
-    imports: [IonicModule,
-        RouterTestingModule,
-        TranslateModule.forRoot()],
-    providers: [provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-}).compileComponents();
+        declarations: [UserStateComponent],
+        imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
+        providers: [
+          provideHttpClient(withInterceptorsFromDi()),
+          provideHttpClientTesting(),
+        ],
+      }).compileComponents();
 
       fixture = TestBed.createComponent(UserStateComponent);
       component = fixture.componentInstance;

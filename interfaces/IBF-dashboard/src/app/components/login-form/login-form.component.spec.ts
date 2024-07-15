@@ -6,7 +6,10 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { LoginFormComponent } from './login-form.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 describe('LoginFormComponent', () => {
   let component: LoginFormComponent;
@@ -15,13 +18,19 @@ describe('LoginFormComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-    declarations: [LoginFormComponent],
-    imports: [IonicModule,
-        FormsModule,
-        RouterTestingModule,
-        TranslateModule.forRoot()],
-    providers: [{ provide: AuthService }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-}).compileComponents();
+        declarations: [LoginFormComponent],
+        imports: [
+          IonicModule,
+          FormsModule,
+          RouterTestingModule,
+          TranslateModule.forRoot(),
+        ],
+        providers: [
+          { provide: AuthService },
+          provideHttpClient(withInterceptorsFromDi()),
+          provideHttpClientTesting(),
+        ],
+      }).compileComponents();
 
       fixture = TestBed.createComponent(LoginFormComponent);
       component = fixture.componentInstance;

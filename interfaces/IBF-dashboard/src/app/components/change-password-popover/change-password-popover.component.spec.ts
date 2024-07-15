@@ -5,7 +5,10 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ChangePasswordPopoverComponent } from './change-password-popover.component';
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 describe('ChangePasswordPopoverComponent', () => {
   let component: ChangePasswordPopoverComponent;
@@ -14,12 +17,14 @@ describe('ChangePasswordPopoverComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-    declarations: [ChangePasswordPopoverComponent],
-    imports: [IonicModule.forRoot(),
-        FormsModule,
-        RouterTestingModule],
-    providers: [{ provide: AuthService }, provideHttpClient(withInterceptorsFromDi()), provideHttpClientTesting()]
-}).compileComponents();
+        declarations: [ChangePasswordPopoverComponent],
+        imports: [IonicModule.forRoot(), FormsModule, RouterTestingModule],
+        providers: [
+          { provide: AuthService },
+          provideHttpClient(withInterceptorsFromDi()),
+          provideHttpClientTesting(),
+        ],
+      }).compileComponents();
 
       fixture = TestBed.createComponent(ChangePasswordPopoverComponent);
       component = fixture.componentInstance;
