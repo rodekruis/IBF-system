@@ -1,3 +1,20 @@
+# [0.265.0](https://github.com/rodekruis/IBF-system/compare/v0.264.1...v0.265.0) (2024-07-15)
+
+
+### Bug Fixes
+
+* email module should not assume that eap alert class is required ([0415d96](https://github.com/rodekruis/IBF-system/commit/0415d9630610c897e4751dbd8cbe557972c38ea5))
+* lint AB[#26923](https://github.com/rodekruis/IBF-system/issues/26923) ([4512c07](https://github.com/rodekruis/IBF-system/commit/4512c07c1dec0b928e075d7c8393c96f2be1eb55))
+* lint error remove unused import ([1029dc1](https://github.com/rodekruis/IBF-system/commit/1029dc109b512a43683f7e0168456583cda1f903))
+* use correct ejs syntax AB[#26923](https://github.com/rodekruis/IBF-system/issues/26923) ([f549632](https://github.com/rodekruis/IBF-system/commit/f549632bc7254fa888e0175b24617ea5121cbff4))
+
+
+### Features
+
+* use date-fns library for date operations ([e268397](https://github.com/rodekruis/IBF-system/commit/e2683973b1f365becb1c8c772b3dbf58a96f1111))
+
+
+
 ## [0.264.1](https://github.com/rodekruis/IBF-system/compare/v0.264.0...v0.264.1) (2024-07-12)
 
 
@@ -176,20 +193,6 @@
 * handle null in chat AB[#26338](https://github.com/rodekruis/IBF-system/issues/26338) ([dfcfc06](https://github.com/rodekruis/IBF-system/commit/dfcfc0625b9a180ea22e286e51ee7b9573f93f56))
 * mock pop affected perc AB[#26338](https://github.com/rodekruis/IBF-system/issues/26338) ([772115e](https://github.com/rodekruis/IBF-system/commit/772115eeb68cfe4749d17e8994a37f9b8df845d4))
 * set null population affected AB[#26338](https://github.com/rodekruis/IBF-system/issues/26338) ([7c37eb2](https://github.com/rodekruis/IBF-system/commit/7c37eb2a27509f0812b39cbac1bb1ebf51ca4486))
-
-
-
-## [0.262.1](https://github.com/rodekruis/IBF-system/compare/v0.262.0...v0.262.1) (2024-02-09)
-
-
-### Bug Fixes
-
-* allow string in forecastReturnPeriod AB[#26287](https://github.com/rodekruis/IBF-system/issues/26287) ([2351a6f](https://github.com/rodekruis/IBF-system/commit/2351a6f308a6c7a28c3d8e2ec3e98e12bc36a5e1))
-* prettier ([22b4190](https://github.com/rodekruis/IBF-system/commit/22b41908df5a5a61526ec911b584c4dc502457e7))
-* remove console.log ([2aff8dc](https://github.com/rodekruis/IBF-system/commit/2aff8dc55f0abf84d3dd07afa613e4578d585205))
-* set return period to specific value AB[#26287](https://github.com/rodekruis/IBF-system/issues/26287) ([d7e503e](https://github.com/rodekruis/IBF-system/commit/d7e503e1da286f8ee1e7b7b9940ae8d004e5217c))
-* update exposed pop for alert=1 AB[#26287](https://github.com/rodekruis/IBF-system/issues/26287) ([8b64462](https://github.com/rodekruis/IBF-system/commit/8b64462114d34c67341cc25bdfb786eee77a706c))
-* update returnPeriod and triggerLevel AB[#26287](https://github.com/rodekruis/IBF-system/issues/26287) ([6c84a39](https://github.com/rodekruis/IBF-system/commit/6c84a3963657c0cdc937827ccdc2121d600b852b))
 
 
 
