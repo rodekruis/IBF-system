@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnDestroy } from '@angular/core';
-import { LeafletControlLayersConfig } from '@asymmetrik/ngx-leaflet';
+import { LeafletControlLayersConfig } from '@bluehalo/ngx-leaflet';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import {

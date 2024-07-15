@@ -48,34 +48,10 @@ npm start
 
 See other available tasks/scripts with: `npm run`
 
-## Documentation
+## Frameworks
 
-Documentation of the tools and libraries used.
+- [Ionic Framework](https://ionicframework.com/docs/) This UI-kit or library gives us a foundation to quickly build interfaces cross-platform/cross-device-type.
 
-- [Ionic Framework v5](https://ionicframework.com/docs/)  
-  This UI-kit or library gives us a foundation to quickly build interfaces cross-platform/cross-device-type.  
-  We use the (default) framework of Angular with(in) Ionic.
+- [Angular](https://angular.dev/overview) This front-end framework gives us a structure to create components that can be connected, combined, share data and can be delivered as a web-app.
 
-  - Available components: <https://ionicframework.com/docs/components>
-  - Icons: <https://ionicons.com/>
-
-- [Angular v10](https://v10.angular.io/docs)  
-  This front-end framework gives us a structure to create components that can be connected, combined, share data and can be delivered as a web-app.
-
-  - API Documentation: <https://10.angular.io/api>
-  - Used by Angular, RxJS: <https://rxjs.dev/guide/overview>
-
-- [Leaflet v1.6](https://leafletjs.com/)
-  A library for maps with multiple interactive layers.
-  - API Documentation: <https://leafletjs.com/reference-1.6.0.html>
-  - Angular component(s) used:
-    - `ngx-leaflet`: <https://github.com/Asymmetrik/ngx-leaflet>
-
-## Other resources
-
-- Leaflet Markers  
-  For easily exchangeable marker-images, see: <https://github.com/pointhi/leaflet-color-markers>
-
-## Loading the layer info popup descriptions
-
-See specific readme [here](./src/assets/i18n/README.md)
+- [Leaflet](https://leafletjs.com/) A library for maps with multiple interactive layers. Used with [ngx-leaflet](https://github.com/bluehalo/ngx-leaflet) for Angular.

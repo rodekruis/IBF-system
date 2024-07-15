@@ -11,22 +11,20 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "www",
+            "outputPath": {
+              "base": "www"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
+            "polyfills": ["src/polyfills.ts"],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets",
-                "ignore": [
-                  "icons/stage/*",
-                  "icons/test/*"
-                ]
+                "ignore": ["icons/stage/*", "icons/test/*"]
               },
               {
                 "glob": "**/*.svg",
@@ -58,12 +56,11 @@
               "@turf/meta"
             ],
             "aot": false,
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -79,8 +76,6 @@
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -88,8 +83,7 @@
                   "maximumError": "5mb"
                 }
               ],
-              "serviceWorker": true,
-              "ngswConfigPath": "ngsw-config.json"
+              "serviceWorker": "ngsw-config.json"
             },
             "stage": {
               "assets": [
@@ -97,10 +91,7 @@
                   "glob": "**/*",
                   "input": "src/assets",
                   "output": "assets",
-                  "ignore": [
-                    "icons/stage/*",
-                    "icons/test/*"
-                  ]
+                  "ignore": ["icons/stage/*", "icons/test/*"]
                 },
                 {
                   "glob": "**/*.svg",
@@ -126,10 +117,7 @@
                   "glob": "**/*",
                   "input": "src/assets",
                   "output": "assets",
-                  "ignore": [
-                    "icons/stage/*",
-                    "icons/test/*"
-                  ]
+                  "ignore": ["icons/stage/*", "icons/test/*"]
                 },
                 {
                   "glob": "**/*.svg",
@@ -190,10 +178,7 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "/assets",
-                "ignore": [
-                  "icons/stage/*",
-                  "icons/test/*"
-                ]
+                "ignore": ["icons/stage/*", "icons/test/*"]
               },
               "src/manifest.webmanifest"
             ]
@@ -245,10 +230,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         },
         "cypress-run": {
@@ -288,9 +270,10 @@
   },
   "cli": {
     "analytics": false,
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
+    "schematicCollections": ["@angular-eslint/schematics"],
+    "cache": {
+      "enabled": false
+    }
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {
