@@ -1,10 +1,11 @@
-import { Get, Controller, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+
 import { RolesGuard } from './roles.guard';
 
 @ApiTags('-- check API --')

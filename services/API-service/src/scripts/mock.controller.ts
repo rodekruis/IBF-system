@@ -1,9 +1,11 @@
 import {
-  Controller,
-  Post,
   Body,
-  Res,
+  Controller,
   HttpStatus,
+  ParseBoolPipe,
+  Post,
+  Query,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -13,17 +15,19 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
-import { RolesGuard } from '../roles.guard';
+
 import { DisasterType } from '../api/disaster/disaster-type.enum';
-import { Roles } from '../roles.decorator';
 import { UserRole } from '../api/user/user-role.enum';
-import { MockService } from './mock.service';
+import { Roles } from '../roles.decorator';
+import { RolesGuard } from '../roles.guard';
 import {
-  FloodsScenario,
-  FlashFloodsScenario,
   EpidemicsScenario,
+  FlashFloodsScenario,
+  FloodsScenario,
 } from './enum/mock-scenario.enum';
+import { MockService } from './mock.service';
 
 export class MockBaseScenario {
   @ApiProperty({ example: 'fill_in_secret' })
@@ -102,6 +106,13 @@ export class MockController {
   public async mockFloodsScenario(
     @Body() body: MockFloodsScenario,
     @Res() res,
+    @Query(
+      'isApiTest',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    isApiTest: boolean,
   ): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
@@ -110,6 +121,7 @@ export class MockController {
       body,
       DisasterType.Floods,
       false,
+      isApiTest,
     );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
@@ -127,6 +139,13 @@ export class MockController {
   public async mockFlashFloodsScenario(
     @Body() body: MockFlashFloodsScenario,
     @Res() res,
+    @Query(
+      'isApiTest',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    isApiTest: boolean,
   ): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
@@ -135,6 +154,7 @@ export class MockController {
       body,
       DisasterType.FlashFloods,
       false,
+      isApiTest,
     );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
@@ -152,6 +172,13 @@ export class MockController {
   public async mockEpidemicsScenario(
     @Body() body: MockEpidemicsScenario,
     @Res() res,
+    @Query(
+      'isApiTest',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    isApiTest: boolean,
   ): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
@@ -161,7 +188,12 @@ export class MockController {
       body.countryCodeISO3 === 'PHL'
         ? DisasterType.Dengue
         : DisasterType.Malaria;
-    const result = await this.mockService.mock(body, disasterType, false);
+    const result = await this.mockService.mock(
+      body,
+      disasterType,
+      false,
+      isApiTest,
+    );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }

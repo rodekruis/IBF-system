@@ -1,3 +1,5 @@
+import { ApiProperty } from '@nestjs/swagger';
+
 import {
   ArrayNotEmpty,
   IsArray,
@@ -9,11 +11,11 @@ import {
   IsString,
   MinLength,
 } from 'class-validator';
-import { ApiProperty } from '@nestjs/swagger';
-import { UserRole } from '../user-role.enum';
-import { UserStatus } from '../user-status.enum';
+
 import countries from '../../../scripts/json/countries.json';
 import disasterTypes from '../../../scripts/json/disasters.json';
+import { UserRole } from '../user-role.enum';
+import { UserStatus } from '../user-status.enum';
 
 const userRoleArray = Object.values(UserRole).map((item) => String(item));
 

@@ -1,5 +1,7 @@
-import { IsBoolean, IsEnum, IsIn, IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+
+import { IsBoolean, IsEnum, IsIn, IsNotEmpty, IsString } from 'class-validator';
+
 import { DisasterType } from '../../disaster/disaster-type.enum';
 
 export class LayerDto {

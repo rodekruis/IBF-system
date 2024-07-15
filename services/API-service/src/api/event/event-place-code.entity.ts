@@ -1,13 +1,14 @@
 import {
-  Entity,
-  Column,
   Check,
-  PrimaryGeneratedColumn,
-  JoinTable,
-  OneToMany,
-  ManyToOne,
+  Column,
+  Entity,
   JoinColumn,
+  JoinTable,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
+
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
@@ -37,6 +38,8 @@ export class EventPlaceCodeEntity {
   @Column({ default: true })
   public thresholdReached: boolean;
 
+  // TODO refactor this to be named issuedDate
+  // As far as I understand, this is the date when the event was created and not when the disaster will happen
   @Column({ type: 'timestamp' })
   public startDate: Date;
 

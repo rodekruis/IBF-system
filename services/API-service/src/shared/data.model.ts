@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { Geometry } from './geo.model';
 
@@ -55,17 +56,27 @@ export class TriggeredArea {
   public displayName: string;
 }
 
+export class EapAlertClass {
+  key: EapAlertClassKeyEnum;
+  label: string;
+  color: string;
+  value: number;
+  textColor?: string;
+}
+
+export enum EapAlertClassKeyEnum {
+  min = 'min',
+  med = 'med',
+  max = 'max',
+  no = 'no',
+}
+
 export class DisasterSpecificProperties {
   typhoonLandfall?: boolean;
   typhoonNoLandfallYet?: boolean;
-  eapAlertClass?: {
-    key: string;
-    label: string;
-    color: string;
-    value: number;
-    textColor?: string;
-  };
+  eapAlertClass?: EapAlertClass;
 }
+
 export class EventSummaryCountry {
   @ApiProperty({ example: 'UGA' })
   public countryCodeISO3: string;
@@ -93,6 +104,9 @@ export class EventSummaryCountry {
 
   @ApiProperty({ example: {} })
   public disasterSpecificProperties: DisasterSpecificProperties;
+
+  @ApiProperty({ example: 100 })
+  public triggerValue: number;
 
   @ApiProperty({ example: 5 })
   public affectedAreas: number;

@@ -1,6 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { IsNull, Not, Repository } from 'typeorm';
+
 import { EXTERNAL_API } from '../../../config';
 import { EventSummaryCountry } from '../../../shared/data.model';
 import { CountryEntity } from '../../country/country.entity';
@@ -8,6 +10,7 @@ import { DisasterType } from '../../disaster/disaster-type.enum';
 import { EventMapImageEntity } from '../../event/event-map-image.entity';
 import { EventService } from '../../event/event.service';
 import { UserEntity } from '../../user/user.entity';
+import { formatActionUnitValue } from '../helpers/format-action-unit-value.helper';
 import { LookupService } from '../lookup/lookup.service';
 import { NotificationContentService } from '../notification-content/notification-content.service';
 import { twilioClient } from './twilio.client';
@@ -48,7 +51,7 @@ export class WhatsappService {
     message: string,
     recipientPhoneNr: string,
     mediaUrl?: string,
-  ): Promise<any> {
+  ) {
     const payload = {
       body: message,
       messagingServiceSid: process.env.TWILIO_MESSAGING_SID,
@@ -87,7 +90,7 @@ export class WhatsappService {
         ? 'trigger'
         : 'warning';
       const startTimeEvent =
-        await this.notificationContentService.getStartTimeEvent(
+        await this.notificationContentService.getFirstLeadTimeString(
           activeEvents[0],
           country.countryCodeISO3,
           disasterType,
@@ -105,7 +108,7 @@ export class WhatsappService {
         ];
 
       const startTimeFirstEvent =
-        await this.notificationContentService.getStartTimeEvent(
+        await this.notificationContentService.getFirstLeadTimeString(
           activeEvents[0],
           country.countryCodeISO3,
           disasterType,
@@ -255,8 +258,7 @@ export class WhatsappService {
             events,
             disasterType.disasterType,
           );
-          await this.sendWhatsapp(noTriggerMessage, fromNumber);
-          return;
+          return await this.sendWhatsapp(noTriggerMessage, fromNumber);
         }
 
         for (const event of sortedEvents) {
@@ -369,22 +371,21 @@ export class WhatsappService {
 
     const adminAreaLabel =
       country.adminRegionLabels[String(adminLevel)]['plural'].toLowerCase();
-    const actionUnit = await this.notificationContentService.getActionUnit(
-      disasterType,
-    );
+    const indicatorMetadata =
+      await this.notificationContentService.getIndicatorMetadata(disasterType);
     let areaList = '';
     for (const area of triggeredAreas) {
       const row = `- *${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''
-      } - ${this.notificationContentService.formatActionUnitValue(
+      } - ${formatActionUnitValue(
         area.actionsValue,
-        actionUnit,
+        indicatorMetadata.numberFormatMap,
       )}*\n`;
       areaList += row;
     }
 
     const startTimeEvent =
-      await this.notificationContentService.getStartTimeEvent(
+      await this.notificationContentService.getFirstLeadTimeString(
         event,
         country.countryCodeISO3,
         disasterType,

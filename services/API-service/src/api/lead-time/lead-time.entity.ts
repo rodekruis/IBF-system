@@ -1,5 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+
 import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
+
 @Entity('lead-time')
 export class LeadTimeEntity {
   @PrimaryGeneratedColumn('uuid')

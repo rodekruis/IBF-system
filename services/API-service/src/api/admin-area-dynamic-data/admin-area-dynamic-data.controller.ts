@@ -1,26 +1,35 @@
-import { AdminDataReturnDto } from './dto/admin-data-return.dto';
-import { DynamicIndicator } from './enum/dynamic-data-unit';
-import { Body, Get, Param, UploadedFile } from '@nestjs/common';
-import { Controller, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import {
-  ApiOperation,
-  ApiConsumes,
-  ApiBearerAuth,
-  ApiTags,
-  ApiParam,
-  ApiBody,
-  ApiResponse,
-  ApiQuery,
-} from '@nestjs/swagger';
-import { RolesGuard } from '../../roles.guard';
-import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
-import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { Roles } from '../../roles.decorator';
-import { UserRole } from '../user/user-role.enum';
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { Query } from '@nestjs/common/decorators';
+import { FileInterceptor } from '@nestjs/platform-express';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiParam,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+
+import { Roles } from '../../roles.decorator';
+import { RolesGuard } from '../../roles.guard';
 import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
+import { DisasterType } from '../disaster/disaster-type.enum';
+import { UserRole } from '../user/user-role.enum';
+import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
+import { AdminDataReturnDto } from './dto/admin-data-return.dto';
+import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
+import { DynamicIndicator } from './enum/dynamic-data-unit';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)

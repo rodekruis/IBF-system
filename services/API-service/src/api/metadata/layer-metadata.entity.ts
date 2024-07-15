@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+
 import { IsIn } from 'class-validator';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('layer-metadata')
 export class LayerMetadataEntity {

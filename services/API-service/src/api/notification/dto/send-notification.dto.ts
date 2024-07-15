@@ -1,7 +1,9 @@
-import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { DisasterType } from '../../disaster/disaster-type.enum';
+
+import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+
 import countries from '../../../scripts/json/countries.json';
+import { DisasterType } from '../../disaster/disaster-type.enum';
 
 export class SendNotificationDto {
   @ApiProperty({ example: countries.map((c) => c.countryCodeISO3).join(' | ') })

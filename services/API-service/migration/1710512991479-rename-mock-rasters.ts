@@ -1,6 +1,7 @@
-import { MigrationInterface, QueryRunner } from 'typeorm';
 import * as fs from 'fs';
 import * as path from 'path';
+
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class RenameMockRasters1710512991479 implements MigrationInterface {
   public async up(_queryRunner: QueryRunner): Promise<void> {
@@ -13,8 +14,6 @@ export class RenameMockRasters1710512991479 implements MigrationInterface {
 
     if (fs.existsSync(directoryPath)) {
       const files = fs.readdirSync(directoryPath);
-      console.log('🚀 ~ RenameMockRasters1710512991479 ~ up ~ files:', files);
-
       files.forEach((file) => {
         if (!file.includes('hour_MWI')) {
           const newFilename = file.replace(

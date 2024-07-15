@@ -1,21 +1,28 @@
-import { LeadTime } from './enum/lead-time.enum';
-import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { DataSource, In, IsNull, MoreThanOrEqual, Repository } from 'typeorm';
-import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
-import { InjectRepository } from '@nestjs/typeorm';
-import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
-import { DynamicIndicator } from './enum/dynamic-data-unit';
-import { AdminDataReturnDto } from './dto/admin-data-return.dto';
-import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
-import { EventService } from '../event/event.service';
-import { DisasterEntity } from '../disaster/disaster.entity';
-import { DisasterType } from '../disaster/disaster-type.enum';
 import fs from 'fs';
-import { CountryEntity } from '../country/country.entity';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { DataSource, In, IsNull, MoreThanOrEqual, Repository } from 'typeorm';
+
+import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
 import { HelperService } from '../../shared/helper.service';
 import { EventAreaService } from '../admin-area/services/event-area.service';
-import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
+import { CountryEntity } from '../country/country.entity';
+import { DisasterType } from '../disaster/disaster-type.enum';
+import { DisasterEntity } from '../disaster/disaster.entity';
+import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
+import { EventService } from '../event/event.service';
+import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
+import { AdminDataReturnDto } from './dto/admin-data-return.dto';
+import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
+import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
+import { DynamicIndicator } from './enum/dynamic-data-unit';
+import { LeadTime } from './enum/lead-time.enum';
+
+interface RasterData {
+  originalname: string;
+  buffer: Buffer;
+}
 
 @Injectable()
 export class AdminAreaDynamicDataService {
@@ -232,9 +239,9 @@ export class AdminAreaDynamicDataService {
     const result = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .where({
-        indicator: indicator,
-        placeCode: placeCode,
-        leadTime: leadTime,
+        indicator,
+        placeCode,
+        leadTime,
         eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
       })
       .select(['dynamic.value AS value'])
@@ -244,7 +251,7 @@ export class AdminAreaDynamicDataService {
   }
 
   public async postRaster(
-    data: any,
+    data: RasterData,
     disasterType: DisasterType,
   ): Promise<void> {
     const subfolder =

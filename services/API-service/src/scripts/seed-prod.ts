@@ -1,10 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { InterfaceScript } from './scripts.module';
+
 import { DataSource } from 'typeorm';
-import { UserEntity } from '../api/user/user.entity';
-import users from './json/users.json';
+
 import { UserRole } from '../api/user/user-role.enum';
 import { UserStatus } from '../api/user/user-status.enum';
+import { UserEntity } from '../api/user/user.entity';
+import users from './json/users.json';
+import { InterfaceScript } from './scripts.module';
 
 @Injectable()
 export class SeedProd implements InterfaceScript {

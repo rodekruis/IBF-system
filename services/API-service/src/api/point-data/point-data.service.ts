@@ -1,26 +1,38 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { validate } from 'class-validator';
+import { IsNull, MoreThanOrEqual, Repository } from 'typeorm';
+
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { IsNull, MoreThanOrEqual, Repository } from 'typeorm';
-import { EvacuationCenterDto } from './dto/upload-evacuation-centers.dto';
-import { PointDataEntity, PointDataEnum } from './point-data.entity';
-import { DamSiteDto } from './dto/upload-dam-sites.dto';
-import { HealthSiteDto } from './dto/upload-health-sites.dto';
-import { RedCrossBranchDto } from './dto/upload-red-cross-branch.dto';
-import { CommunityNotificationDto } from './dto/upload-community-notifications.dto';
+import { DisasterType } from '../disaster/disaster-type.enum';
 import { WhatsappService } from '../notification/whatsapp/whatsapp.service';
-import { SchoolDto } from './dto/upload-schools.dto';
-import { WaterpointDto } from './dto/upload-waterpoint.dto';
 import {
   UploadAssetExposureStatusDto,
   UploadDynamicPointDataDto,
 } from './dto/upload-asset-exposure-status.dto';
-import { DisasterType } from '../disaster/disaster-type.enum';
+import { CommunityNotificationDto } from './dto/upload-community-notifications.dto';
+import { DamSiteDto } from './dto/upload-dam-sites.dto';
+import { EvacuationCenterDto } from './dto/upload-evacuation-centers.dto';
 import { GaugeDto } from './dto/upload-gauge.dto';
-import { DynamicPointDataEntity } from './dynamic-point-data.entity';
 import { GlofasStationDto } from './dto/upload-glofas-station.dto';
+import { HealthSiteDto } from './dto/upload-health-sites.dto';
+import { RedCrossBranchDto } from './dto/upload-red-cross-branch.dto';
+import { SchoolDto } from './dto/upload-schools.dto';
+import { WaterpointDto } from './dto/upload-waterpoint.dto';
+import { DynamicPointDataEntity } from './dynamic-point-data.entity';
+import { PointDataEntity, PointDataEnum } from './point-data.entity';
+
+export interface CommunityNotification {
+  nameVolunteer: string;
+  nameVillage: string;
+  disasterType: string;
+  description: string;
+  end: Date;
+  _attachments: [{ download_url: string }];
+  _geolocation: [number, number];
+}
 
 @Injectable()
 export class PointDataService {
@@ -89,7 +101,7 @@ export class PointDataService {
     return this.helperService.toGeojson(pointData);
   }
 
-  private getDtoPerPointDataCategory(pointDataCategory: PointDataEnum): any {
+  private getDtoPerPointDataCategory(pointDataCategory: PointDataEnum) {
     switch (pointDataCategory) {
       case PointDataEnum.dams:
         return new DamSiteDto();
@@ -120,6 +132,7 @@ export class PointDataService {
   public async uploadJson(
     pointDataCategory: PointDataEnum,
     countryCodeISO3: string,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     validatedObjArray: any,
     deleteExisting = true,
   ) {
@@ -170,7 +183,7 @@ export class PointDataService {
     csvArray,
   ): Promise<object[]> {
     const errors = [];
-    const validatatedArray = [];
+    const validatedArray = [];
     for (const [i, row] of csvArray.entries()) {
       const dto = this.getDtoPerPointDataCategory(pointDataCategory);
       for (const attribute in dto) {
@@ -185,12 +198,12 @@ export class PointDataService {
         const errorObj = { lineNumber: i + 1, validationError: result };
         errors.push(errorObj);
       }
-      validatatedArray.push(dto);
+      validatedArray.push(dto);
     }
     if (errors.length > 0) {
       throw new HttpException(errors, HttpStatus.BAD_REQUEST);
     }
-    return validatatedArray;
+    return validatedArray;
   }
 
   public async dismissCommunityNotification(pointDataId: string) {
@@ -209,7 +222,7 @@ export class PointDataService {
 
   public async uploadCommunityNotification(
     countryCodeISO3: string,
-    communityNotification: any,
+    communityNotification: CommunityNotification,
   ): Promise<void> {
     const notification = new CommunityNotificationDto();
     notification.nameVolunteer = communityNotification['nameVolunteer'];

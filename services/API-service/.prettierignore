@@ -1,0 +1,17 @@
+# Generated files
+dist
+coverage
+www
+
+
+# External code
+node_modules
+
+
+# Raster-files
+geoserver-volume/raster-files/*
+!geoserver-volume/raster-files/README.md
+
+
+# certificates
+cert/

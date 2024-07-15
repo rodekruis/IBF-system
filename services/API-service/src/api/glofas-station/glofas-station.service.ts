@@ -1,12 +1,14 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+
 import { Repository } from 'typeorm';
-import { UploadTriggerPerStationDto } from './dto/upload-trigger-per-station';
-import { DisasterType } from '../disaster/disaster-type.enum';
+
 import { CountryEntity } from '../country/country.entity';
-import { PointDataService } from '../point-data/point-data.service';
+import { DisasterType } from '../disaster/disaster-type.enum';
 import { UploadDynamicPointDataDto } from '../point-data/dto/upload-asset-exposure-status.dto';
 import { PointDataEnum } from '../point-data/point-data.entity';
+import { PointDataService } from '../point-data/point-data.service';
+import { UploadTriggerPerStationDto } from './dto/upload-trigger-per-station';
 
 @Injectable()
 export class GlofasStationService {
@@ -15,7 +17,7 @@ export class GlofasStationService {
 
   public constructor(private readonly pointDataService: PointDataService) {}
 
-  public async getStationsByCountry(countryCodeISO3: string): Promise<any[]> {
+  public async getStationsByCountry(countryCodeISO3: string) {
     const stations = await this.pointDataService.getPointDataByCountry(
       PointDataEnum.glofasStations,
       countryCodeISO3,

@@ -1,42 +1,45 @@
-import { EapActionsService } from './../eap-actions/eap-actions.service';
-import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { subDays } from 'date-fns';
 import {
-  ActivationLogDto,
-  AffectedAreaDto,
-  EventPlaceCodeDto,
-} from './dto/event-place-code.dto';
-import {
+  DataSource,
+  In,
+  IsNull,
   LessThan,
+  MoreThan,
   MoreThanOrEqual,
   Repository,
-  In,
-  MoreThan,
-  IsNull,
-  DataSource,
+  SelectQueryBuilder,
 } from 'typeorm';
 
-import { InjectRepository } from '@nestjs/typeorm';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
-import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 import {
   DisasterSpecificProperties,
   EventSummaryCountry,
   TriggeredArea,
 } from '../../shared/data.model';
+import { HelperService } from '../../shared/helper.service';
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
-import { DateDto } from './dto/date.dto';
-import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
+import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
+import { CountryEntity } from '../country/country.entity';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
-import { HelperService } from '../../shared/helper.service';
-import { UserEntity } from '../user/user.entity';
-import { EventMapImageEntity } from './event-map-image.entity';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
-import { CountryEntity } from '../country/country.entity';
-import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
+import { UserEntity } from '../user/user.entity';
+import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import { EapActionsService } from './../eap-actions/eap-actions.service';
+import { DateDto } from './dto/date.dto';
+import {
+  ActivationLogDto,
+  AffectedAreaDto,
+  EventPlaceCodeDto,
+} from './dto/event-place-code.dto';
+import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
+import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
+import { EventMapImageEntity } from './event-map-image.entity';
+import { EventPlaceCodeEntity } from './event-place-code.entity';
+import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 
 @Injectable()
 export class EventService {
@@ -63,42 +66,72 @@ export class EventService {
     private dataSource: DataSource,
     private typhoonTrackService: TyphoonTrackService,
   ) {}
-
   public async getEventSummary(
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<EventSummaryCountry[]> {
     const recentDate = await this.getRecentDate(countryCodeISO3, disasterType);
-    const eventSummary = await this.eventPlaceCodeRepo
-      .createQueryBuilder('event')
-      .select(['area."countryCodeISO3"', 'event."eventName"'])
-      .leftJoin('event.adminArea', 'area')
-      .groupBy('area."countryCodeISO3"')
-      .addGroupBy('event."eventName"')
-      .addSelect([
-        'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
-        'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
-        'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
-        'count(event."adminAreaId")::int AS "affectedAreas"',
-        'MAX(event."triggerValue")::float AS "triggerValue"',
-        'sum(event."actionsValue")::int AS "actionsValueSum"',
-      ])
-      .where({
-        closed: false,
-        endDate: MoreThanOrEqual(recentDate.date),
-        disasterType: disasterType,
-      })
-      .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
-      })
-      .getRawMany();
+    const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
+      countryCodeISO3,
+    ).andWhere({
+      closed: false,
+      endDate: MoreThanOrEqual(recentDate.date),
+      disasterType: disasterType,
+    });
+    return this.queryAndMapEventSummary(
+      eventSummaryQueryBuilder,
+      countryCodeISO3,
+      disasterType,
+    );
+  }
 
+  public async getEventsSummaryTriggerFinishedMail(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<EventSummaryCountry[]> {
+    const adminAreaIds = await this.getCountryAdminAreaIds(countryCodeISO3);
+
+    const sixDaysAgo = subDays(new Date(), 6);
+    const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
+      countryCodeISO3,
+    )
+      .andWhere('event.endDate > :endDate', { endDate: sixDaysAgo })
+      .andWhere('event.adminArea IN (:...adminAreaIds)', { adminAreaIds })
+      .andWhere('event.disasterType = :disasterType', { disasterType })
+      .andWhere('event.closed = :closed', { closed: true });
+
+    return this.queryAndMapEventSummary(
+      eventSummaryQueryBuilder,
+      countryCodeISO3,
+      disasterType,
+    );
+  }
+
+  private async queryAndMapEventSummary(
+    qb: SelectQueryBuilder<EventPlaceCodeEntity>,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<EventSummaryCountry[]> {
+    const rawEventSummary = await qb.getRawMany();
+    const eventSummary = await this.populateEventsDetails(
+      rawEventSummary,
+      countryCodeISO3,
+      disasterType,
+    );
+    return eventSummary;
+  }
+
+  private async populateEventsDetails(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    rawEvents: any[],
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<EventSummaryCountry[]> {
     const disasterSettings = await this.getCountryDisasterSettings(
       countryCodeISO3,
       disasterType,
     );
-
-    for await (const event of eventSummary) {
+    for (const event of rawEvents) {
       event.firstLeadTime = await this.getFirstLeadTime(
         countryCodeISO3,
         disasterType,
@@ -118,14 +151,44 @@ export class EventService {
             event.eventName,
           );
       }
-      if (disasterSettings.eapAlertClasses) {
+      if (disasterType === DisasterType.Floods) {
+        // REFACTOR: either make eapAlertClass a requirement across all hazard
+        // types or reimplement such that eapAlertClass is not needed in the
+        // backend (it is a VIEW of the DATA in the dashboard and email)
         event.disasterSpecificProperties = await this.getEventEapAlertClass(
           disasterSettings,
           event.triggerValue,
         );
       }
     }
-    return eventSummary;
+    return rawEvents;
+  }
+
+  private createEventSummaryQueryBuilder(
+    countryCodeISO3: string,
+  ): SelectQueryBuilder<EventPlaceCodeEntity> {
+    return this.eventPlaceCodeRepo
+      .createQueryBuilder('event')
+      .select([
+        'area."countryCodeISO3"',
+        'event."eventName"',
+        'event."triggerValue"',
+      ])
+      .leftJoin('event.adminArea', 'area')
+      .groupBy('area."countryCodeISO3"')
+      .addGroupBy('event."eventName"')
+      .addGroupBy('event."triggerValue"')
+      .addSelect([
+        'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
+        'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
+        'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
+        'count(event."adminAreaId")::int AS "affectedAreas"',
+        'MAX(event."triggerValue")::float AS "triggerValue"',
+        'sum(event."actionsValue")::int AS "actionsValueSum"',
+      ])
+      .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
+        countryCodeISO3: countryCodeISO3,
+      });
   }
 
   public async getRecentDate(
@@ -203,7 +266,7 @@ export class EventService {
     );
     const deleteFilters = {
       adminArea: In(countryAdminAreaIds),
-      disasterType: disasterType,
+      disasterType,
       startDate: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(disasterType, date),
       ),
@@ -221,7 +284,7 @@ export class EventService {
     return (
       await this.disasterTypeRepository.findOne({
         select: ['triggerUnit'],
-        where: { disasterType: disasterType },
+        where: { disasterType },
       })
     ).triggerUnit;
   }
@@ -232,7 +295,7 @@ export class EventService {
   ) {
     return (
       await this.countryRepository.findOne({
-        where: { countryCodeISO3: countryCodeISO3 },
+        where: { countryCodeISO3 },
         relations: ['countryDisasterSettings'],
       })
     ).countryDisasterSettings.find((d) => d.disasterType === disasterType);
@@ -255,11 +318,11 @@ export class EventService {
     ).defaultAdminLevel;
 
     const whereFiltersDynamicData = {
-      indicator: triggerUnit,
+      indicator: triggerUnit, // REFACTOR: trigger unit and indicator should not be used interchangeably
       value: MoreThan(0),
-      adminLevel: adminLevel,
-      disasterType: disasterType,
-      countryCodeISO3: countryCodeISO3,
+      adminLevel,
+      disasterType,
+      countryCodeISO3,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -509,14 +572,14 @@ export class EventService {
       disasterType,
     );
     const whereFilters = {
-      countryCodeISO3: countryCodeISO3,
+      countryCodeISO3,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
       ),
-      disasterType: disasterType,
+      disasterType,
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
@@ -596,7 +659,7 @@ export class EventService {
     return (
       await this.disasterTypeRepository.findOne({
         select: ['actionsUnit'],
-        where: { disasterType: disasterType },
+        where: { disasterType },
       })
     ).actionsUnit;
   }
@@ -651,16 +714,16 @@ export class EventService {
     );
 
     const whereFilters = {
-      indicator: triggerUnit,
+      indicator: triggerUnit, // REFACTOR: trigger unit and indicator should not be used interchangeably
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
       ),
-      countryCodeISO3: countryCodeISO3,
-      adminLevel: adminLevel,
-      disasterType: disasterType,
+      countryCodeISO3,
+      adminLevel,
+      disasterType,
       eventName: eventName || IsNull(),
     };
 
@@ -685,16 +748,16 @@ export class EventService {
 
     const whereOptions = {
       placeCode: In(triggerPlaceCodesArray),
-      indicator: actionUnit,
+      indicator: actionUnit, // REFACTOR: action unit and indicator should not be used interchangeably
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
           lastTriggeredDate.timestamp,
         ),
       ),
-      countryCodeISO3: countryCodeISO3,
-      adminLevel: adminLevel,
-      disasterType: disasterType,
+      countryCodeISO3,
+      adminLevel,
+      disasterType,
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
@@ -711,7 +774,7 @@ export class EventService {
 
     for (const area of affectedAreas) {
       area.triggerValue = triggeredPlaceCodes.find(
-        (p) => p.placeCode === area.placeCode,
+        ({ placeCode }) => placeCode === area.placeCode,
       ).triggerValue;
     }
 
@@ -737,7 +800,7 @@ export class EventService {
       where: {
         closed: false,
         adminArea: In(countryAdminAreaIds),
-        disasterType: disasterType,
+        disasterType,
         eventName: eventName || IsNull(),
       },
       relations: ['adminArea'],
@@ -782,17 +845,14 @@ export class EventService {
 
   private async updateEvents(
     eventPlaceCodeIds: string[],
-    aboveThreshold: boolean,
+    thresholdReached: boolean,
     endDate: Date,
   ) {
     if (eventPlaceCodeIds.length) {
       await this.eventPlaceCodeRepo
         .createQueryBuilder()
         .update()
-        .set({
-          thresholdReached: aboveThreshold,
-          endDate: endDate,
-        })
+        .set({ thresholdReached, endDate })
         .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
         .execute();
     }
@@ -853,7 +913,7 @@ export class EventService {
         where: {
           closed: false,
           adminArea: In(countryAdminAreaIds),
-          disasterType: disasterType,
+          disasterType,
           eventName: eventName || IsNull(),
         },
         relations: ['adminArea'],
@@ -897,27 +957,26 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    const whereFilters = {
-      endDate: LessThan(uploadDate.timestamp), // If the area was not prolongued earlier, then the endDate is not updated and is therefore less than the uploadDate
+    const where = {
+      endDate: LessThan(uploadDate.timestamp), // If the area was not prolonged earlier, then the endDate is not updated and is therefore less than the uploadDate
       adminArea: In(countryAdminAreaIds),
-      disasterType: disasterType,
+      disasterType,
       closed: false,
     };
-    const expiredEventAreas = await this.eventPlaceCodeRepo.find({
-      where: whereFilters,
-    });
+    const expiredEventAreas = await this.eventPlaceCodeRepo.find({ where });
 
-    //Below threshold events can be removed from this table after closing
+    // Below threshold events can be removed from this table after closing
+    // Below threshold events are warnings an not triggered. I do not know why they are removed here
     const belowThresholdEvents = expiredEventAreas.filter(
-      (a) => !a.thresholdReached,
+      ({ thresholdReached }) => !thresholdReached,
     );
     await this.eventPlaceCodeRepo.remove(belowThresholdEvents);
 
     //For the other ones update 'closed = true'
     const aboveThresholdEvents = expiredEventAreas.filter(
-      (a) => a.thresholdReached,
+      ({ thresholdReached }) => thresholdReached,
     );
-    for await (const area of aboveThresholdEvents) {
+    for (const area of aboveThresholdEvents) {
       area.closed = true;
     }
     await this.eventPlaceCodeRepo.save(aboveThresholdEvents);
@@ -927,7 +986,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
-    imageFileBlob,
+    imageFileBlob: { buffer: Buffer },
   ): Promise<void> {
     let eventMapImageEntity = await this.eventMapImageRepository.findOne({
       where: {
@@ -954,11 +1013,11 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
-  ): Promise<any> {
+  ): Promise<Buffer> {
     const eventMapImageEntity = await this.eventMapImageRepository.findOne({
       where: {
-        countryCodeISO3: countryCodeISO3,
-        disasterType: disasterType,
+        countryCodeISO3,
+        disasterType,
         eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
       },
     });

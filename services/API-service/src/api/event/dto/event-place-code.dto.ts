@@ -1,7 +1,9 @@
-import { IsNotEmpty, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { DisasterType } from '../../disaster/disaster-type.enum';
+
+import { IsNotEmpty, IsString } from 'class-validator';
+
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
+import { DisasterType } from '../../disaster/disaster-type.enum';
 
 export class AffectedAreaDto {
   public placeCode: string;

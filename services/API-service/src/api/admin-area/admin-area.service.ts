@@ -1,17 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+
+import { InsertResult, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
+
+import { AggregateDataRecord } from '../../shared/data.model';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { InsertResult, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
-import { AdminAreaEntity } from './admin-area.entity';
-import { EventService } from '../event/event.service';
-import { AggregateDataRecord } from '../../shared/data.model';
-import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import { DisasterType } from '../disaster/disaster-type.enum';
+import { DisasterEntity } from '../disaster/disaster.entity';
+import { EventService } from '../event/event.service';
+import { AdminAreaEntity } from './admin-area.entity';
 import { EventAreaService } from './services/event-area.service';
 
 @Injectable()
@@ -292,7 +294,7 @@ export class AdminAreaService {
     });
   }
 
-  public async getAdminAreasRaw(countryCodeISO3): Promise<any[]> {
+  public async getAdminAreasRaw(countryCodeISO3) {
     return await this.adminAreaRepository.find({
       select: [
         'countryCodeISO3',

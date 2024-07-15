@@ -1,29 +1,31 @@
-import { Injectable } from '@nestjs/common';
-import { DisasterType } from '../api/disaster/disaster-type.enum';
 import fs from 'fs';
-import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
-import { MetadataService } from '../api/metadata/metadata.service';
-import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
+import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { In, Repository } from 'typeorm';
+
+import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
+import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
+import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
+import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { AdminLevel } from '../api/country/admin-level.enum';
+import { DisasterType } from '../api/disaster/disaster-type.enum';
+import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
+import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { EventService } from '../api/event/event.service';
-import countries from './json/countries.json';
+import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
+import { MetadataService } from '../api/metadata/metadata.service';
+import { DEBUG } from '../config';
+import { GeoserverSyncService } from './geoserver-sync.service';
+import countries from './json/countries.json';
+import { MockHelperService } from './mock-helper.service';
 import {
   MockEpidemicsScenario,
   MockFlashFloodsScenario,
   MockFloodsScenario,
 } from './mock.controller';
-import { In, Repository } from 'typeorm';
-import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
-import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
-import { AdminAreaService } from '../api/admin-area/admin-area.service';
-import { MockHelperService } from './mock-helper.service';
-import { DEBUG } from '../config';
-import { GeoserverSyncService } from './geoserver-sync.service';
 
 class Scenario {
   scenarioName: string;
@@ -63,12 +65,13 @@ export class MockService {
       | MockFlashFloodsScenario,
     disasterType: DisasterType,
     useDefaultScenario: boolean,
+    isApiTest: boolean,
   ) {
     if (mockBody.removeEvents) {
       await this.removeEvents(mockBody.countryCodeISO3, disasterType);
     }
 
-    const selectedCountry = countries.find((country): any => {
+    const selectedCountry = countries.find((country) => {
       if (mockBody.countryCodeISO3 === country.countryCodeISO3) {
         return country;
       }
@@ -234,7 +237,7 @@ export class MockService {
 
     // Add the needed stores and layers to geoserver, only do this in debug mode
     // The resulting XML files should be commited to git and will end up on the servers that way
-    if (DEBUG) {
+    if (DEBUG && !isApiTest) {
       await this.geoServerSyncService.sync(
         selectedCountry.countryCodeISO3,
         disasterType,
@@ -244,6 +247,7 @@ export class MockService {
 
   private getLeadTimesForNoTrigger(
     disasterType: DisasterType,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     selectedCountry: any,
   ): LeadTime[] {
     // NOTE: this reflects agreements with pipelines that are in place. This is ugly, and should be refactored better.

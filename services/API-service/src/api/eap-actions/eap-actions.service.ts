@@ -1,15 +1,22 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from '../user/user.entity';
+
 import { In, IsNull, Repository } from 'typeorm';
-import { EapActionEntity } from './eap-action.entity';
-import { EapActionStatusEntity } from './eap-action-status.entity';
-import { CheckEapActionDto } from './dto/check-eap-action.dto';
-import { AreaOfFocusEntity } from './area-of-focus.entity';
-import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
+
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
-import { AddEapActionsDto } from './dto/eap-action.dto';
 import { DisasterType } from '../disaster/disaster-type.enum';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
+import { UserEntity } from '../user/user.entity';
+import { AreaOfFocusEntity } from './area-of-focus.entity';
+import { CheckEapActionDto } from './dto/check-eap-action.dto';
+import { AddEapActionsDto } from './dto/eap-action.dto';
+import { EapActionStatusEntity } from './eap-action-status.entity';
+import { EapActionEntity } from './eap-action.entity';
+
+export interface EapAction {
+  Early_action: string;
+  placeCode: string;
+}
 
 @Injectable()
 export class EapActionsService {
@@ -110,9 +117,8 @@ export class EapActionsService {
   public async checkActionExternally(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    eapActions,
+    eapActions: EapAction[],
   ): Promise<void> {
-    console.log('eapAction: ', eapActions);
     const eapActionIds = eapActions['Early_action'].split(' ');
     const actionIds = await this.eapActionRepository.find({
       where: {
@@ -129,7 +135,7 @@ export class EapActionsService {
     const placeCode = eapActions['placeCode'];
     const adminArea = await this.adminAreaRepository.findOne({
       select: ['id'],
-      where: { placeCode: placeCode },
+      where: { placeCode },
     });
 
     // note: the below will not be able to distinguish between different open events (= typhoon only)
@@ -223,7 +229,7 @@ export class EapActionsService {
         '(' + eapActionsStates.getQuery() + ')',
         'status',
         'action.id = status."actionCheckedId" AND status."placeCode" = :placeCode',
-        { placeCode: placeCode },
+        { placeCode },
       )
       .setParameters(eapActionsStates.getParameters())
       .leftJoin('action.areaOfFocus', 'area')

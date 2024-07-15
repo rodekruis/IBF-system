@@ -1,12 +1,17 @@
 import { Injectable } from '@nestjs/common';
-import { EventService } from '../event/event.service';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { WhatsappService } from './whatsapp/whatsapp.service';
-import { NotificationContentService } from './notification-content/notification-content.service';
-import { EmailService } from './email/email.service';
-import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
+
 import { EventSummaryCountry } from '../../shared/data.model';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import { DisasterType } from '../disaster/disaster-type.enum';
+import { EventService } from '../event/event.service';
+import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
+import {
+  NotificationApiTestResponseChannelDto,
+  NotificationApiTestResponseDto,
+} from './dto/notification-api-test-response.dto';
+import { EmailService } from './email/email.service';
+import { NotificationContentService } from './notification-content/notification-content.service';
+import { WhatsappService } from './whatsapp/whatsapp.service';
 
 @Injectable()
 export class NotificationService {
@@ -21,96 +26,137 @@ export class NotificationService {
   public async send(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    isApiTest: boolean,
     date?: Date,
-  ): Promise<void> {
+  ): Promise<void | NotificationApiTestResponseDto> {
+    const apiTestResponse = new NotificationApiTestResponseDto();
+    const apiTestReponseActive = await this.sendNotiFicationsActiveEvents(
+      disasterType,
+      countryCodeISO3,
+      isApiTest,
+      date,
+    );
+    if (isApiTest && apiTestReponseActive) {
+      apiTestResponse.activeEvents = apiTestReponseActive;
+    }
+
+    if (disasterType === DisasterType.Floods) {
+      // Sending finished events is now for floods only
+      const apiTestReponseFinished = await this.sendNotificationsFinishedEvents(
+        countryCodeISO3,
+        disasterType,
+        isApiTest,
+        date,
+      );
+      if (isApiTest && apiTestReponseFinished) {
+        apiTestResponse.finishedEvents = apiTestReponseFinished;
+      }
+    }
+
     // REFACTOR: First close finished events. This is ideally done through separate endpoint called at end of pipeline, but that would require all pipelines to be updated.
     // Instead, making use of this endpoint which is already called at the end of every pipeline
     await this.eventService.closeEventsAutomatic(countryCodeISO3, disasterType);
+
+    if (isApiTest) {
+      return apiTestResponse;
+    }
+  }
+
+  private async sendNotiFicationsActiveEvents(
+    disasterType: DisasterType,
+    countryCodeISO3: string,
+    isApiTest: boolean,
+    date?: Date,
+  ): Promise<void | NotificationApiTestResponseChannelDto> {
+    const apiTestReponseActive = new NotificationApiTestResponseChannelDto();
 
     const events = await this.eventService.getEventSummary(
       countryCodeISO3,
       disasterType,
     );
-
-    const activeEvents: EventSummaryCountry[] = [];
-    let finishedEvent: EventSummaryCountry; // This is now for floods only, so can only be 1 event, so not an array
+    const activeNotifiableEvents: EventSummaryCountry[] = [];
     for await (const event of events) {
       if (
-        await this.getNotifiableActiveEvent(
-          event,
-          disasterType,
-          countryCodeISO3,
-        )
+        await this.isNotifiableActiveEvent(event, disasterType, countryCodeISO3)
       ) {
-        activeEvents.push(event);
-      } else if (this.getFinishedEvent(event, disasterType, date)) {
-        finishedEvent = event;
+        activeNotifiableEvents.push(event);
       }
     }
-    if (activeEvents.length) {
+
+    if (activeNotifiableEvents.length) {
       const country =
         await this.notificationContentService.getCountryNotificationInfo(
           countryCodeISO3,
         );
-      this.emailService.sendTriggerEmail(
+      const messageForApiTest = await this.emailService.sendTriggerEmail(
         country,
         disasterType,
-        activeEvents,
+        activeNotifiableEvents,
+        isApiTest,
         date,
       );
-
+      if (isApiTest && messageForApiTest) {
+        apiTestReponseActive.email = messageForApiTest;
+      }
       if (country.notificationInfo.useWhatsapp[disasterType]) {
         this.whatsappService.sendTriggerWhatsapp(
           country,
-          activeEvents,
+          activeNotifiableEvents,
           disasterType,
         );
       }
     }
+    if (isApiTest) {
+      return apiTestReponseActive;
+    }
+  }
 
-    if (finishedEvent) {
+  private async sendNotificationsFinishedEvents(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    isApiTest: boolean,
+    date?: Date,
+  ): Promise<void | NotificationApiTestResponseChannelDto> {
+    const apiTestReponseFinished = new NotificationApiTestResponseChannelDto();
+    const finishedNotifiableEvents =
+      await this.eventService.getEventsSummaryTriggerFinishedMail(
+        countryCodeISO3,
+        disasterType,
+      );
+
+    if (finishedNotifiableEvents.length > 0) {
       const country =
         await this.notificationContentService.getCountryNotificationInfo(
           countryCodeISO3,
         );
 
-      this.emailService.sendTriggerFinishedEmail(
+      const emailFinished = await this.emailService.sendTriggerFinishedEmail(
         country,
         disasterType,
-        finishedEvent,
+        finishedNotifiableEvents,
+        isApiTest,
         date,
       );
+      if (isApiTest && emailFinished) {
+        apiTestReponseFinished.email = emailFinished;
+      }
 
       if (country.notificationInfo.useWhatsapp[disasterType]) {
-        this.whatsappService.sendTriggerFinishedWhatsapp(
-          country,
-          finishedEvent,
-          disasterType,
-        );
+        for (const event of finishedNotifiableEvents) {
+          await this.whatsappService.sendTriggerFinishedWhatsapp(
+            country,
+            event,
+            disasterType,
+          );
+        }
+      }
+      if (isApiTest) {
+        return apiTestReponseFinished;
       }
     }
   }
 
-  private getFinishedEvent(
-    event: EventSummaryCountry,
-    disasterType: DisasterType,
-    uploadDate?: Date,
-  ) {
-    // For now only do this for floods
-    if (disasterType === DisasterType.Floods) {
-      const date = uploadDate ? new Date(uploadDate) : new Date();
-      const yesterdayActiveDate = new Date(date.setDate(date.getDate() + 6)); // determine yesterday still active events by endDate lying (7 - 1) days in the future
-      if (
-        new Date(event.endDate) >=
-        new Date(yesterdayActiveDate.setHours(0, 0, 0, 0))
-      ) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  private async getNotifiableActiveEvent(
+  private async isNotifiableActiveEvent(
     event: EventSummaryCountry,
     disasterType: DisasterType,
     countryCodeISO3: string,

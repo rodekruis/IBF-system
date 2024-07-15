@@ -21,16 +21,17 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
+import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
-import { PointDataService } from './point-data.service';
 import {
   UploadAssetExposureStatusDto,
   UploadDynamicPointDataDto,
 } from './dto/upload-asset-exposure-status.dto';
-import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
+import { CommunityNotification, PointDataService } from './point-data.service';
 
 @ApiBearerAuth()
 @ApiTags('point-data')
@@ -101,7 +102,7 @@ export class PointDataController {
   @Post('community-notification/:countryCodeISO3')
   public async uploadCommunityNotification(
     @Param() params,
-    @Body() communityNotification: any,
+    @Body() communityNotification: CommunityNotification,
   ): Promise<void> {
     return await this.pointDataService.uploadCommunityNotification(
       params.countryCodeISO3,

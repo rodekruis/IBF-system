@@ -1,15 +1,17 @@
-import { Get, Param, Controller, UseGuards } from '@nestjs/common';
-import { AxiosResponse } from 'axios';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import {
-  ApiTags,
+  ApiBearerAuth,
   ApiOperation,
   ApiParam,
-  ApiBearerAuth,
   ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
+
+import { AxiosResponse } from 'axios';
+
+import { RolesGuard } from '../../roles.guard';
 import { GeoJson } from '../../shared/geo.model';
 import { WaterpointsService } from './waterpoints.service';
-import { RolesGuard } from '../../roles.guard';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
