@@ -67,7 +67,6 @@
     "@angular/language-service": "^18.1.0",
     "@cypress/schematic": "^2.4.0",
     "@ionic/cli": "^6.12.4",
-    "@rollup/rollup-darwin-arm64": "^4.18.1",
     "@types/jasmine": "^5.1.4",
     "@types/leaflet": "^1.9.12",
     "@types/leaflet.markercluster": "^1.5.4",
