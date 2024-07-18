@@ -1,10 +1,14 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { MapService } from 'src/app/services/map.service';
 import { MatrixComponent } from './matrix.component';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 describe('MatrixComponent', () => {
   let component: MatrixComponent;
@@ -14,13 +18,12 @@ describe('MatrixComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [MatrixComponent],
-        imports: [
-          IonicModule,
-          HttpClientTestingModule,
-          RouterTestingModule,
-          TranslateModule.forRoot(),
+        imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
+        providers: [
+          { provide: MapService },
+          provideHttpClient(withInterceptorsFromDi()),
+          provideHttpClientTesting(),
         ],
-        providers: [{ provide: MapService }],
       }).compileComponents();
 
       fixture = TestBed.createComponent(MatrixComponent);

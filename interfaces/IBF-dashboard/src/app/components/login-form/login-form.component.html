@@ -8,7 +8,8 @@
   <ion-item>
     <ion-label position="stacked">E-mail</ion-label>
     <ion-input
-      [(ngModel)]="model.email"
+      [ngModel]="model.email"
+      (ngModelChange)="model.email = $event"
       name="email"
       type="email"
       required
@@ -23,7 +24,8 @@
     <ion-label position="stacked">Password</ion-label>
     <div style="display: flex; width: 100%" class="ion-align-items-center">
       <ion-input
-        [(ngModel)]="model.password"
+        [ngModel]="model.password"
+        (ngModelChange)="model.password = $event"
         name="password"
         [type]="inputType"
         required

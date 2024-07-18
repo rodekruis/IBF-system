@@ -1,4 +1,4 @@
-FROM node:14-alpine
+FROM node:20-alpine
 
 RUN apk update && apk add python3 make g++ git
 
@@ -49,4 +49,4 @@ ENV SUPPORT_EMAIL_ADDRESS=$SUPPORT_EMAIL_ADDRESS
 ARG WHATS_NEW_URL
 ENV WHATS_NEW_URL=$WHATS_NEW_URL
 
-RUN npm run build -- --prod --configuration $NG_CONFIGURATION
+RUN npm run build -- --configuration $NG_CONFIGURATION

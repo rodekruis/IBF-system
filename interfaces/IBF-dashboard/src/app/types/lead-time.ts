@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
+
 export enum LeadTime {
   day0 = '0-day',
   day1 = '1-day',

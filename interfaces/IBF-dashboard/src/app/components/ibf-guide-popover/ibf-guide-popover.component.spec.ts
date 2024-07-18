@@ -1,8 +1,12 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { IbfGuidePopoverComponent } from './ibf-guide-popover.component';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 describe('IbfGuidePopoverComponent', () => {
   let component: IbfGuidePopoverComponent;
@@ -12,10 +16,10 @@ describe('IbfGuidePopoverComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [IbfGuidePopoverComponent],
-        imports: [
-          IonicModule,
-          HttpClientTestingModule,
-          TranslateModule.forRoot(),
+        imports: [IonicModule, TranslateModule.forRoot()],
+        providers: [
+          provideHttpClient(withInterceptorsFromDi()),
+          provideHttpClientTesting(),
         ],
       }).compileComponents();
 

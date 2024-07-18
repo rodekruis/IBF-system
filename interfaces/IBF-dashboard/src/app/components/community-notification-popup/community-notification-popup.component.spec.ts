@@ -1,9 +1,13 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { CommunityNotificationPopupComponent } from './community-notification-popup.component';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
 describe('CommunityNotificationPopupComponent', () => {
   let component: CommunityNotificationPopupComponent;
@@ -13,11 +17,10 @@ describe('CommunityNotificationPopupComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [CommunityNotificationPopupComponent],
-        imports: [
-          IonicModule,
-          HttpClientTestingModule,
-          RouterTestingModule,
-          TranslateModule.forRoot(),
+        imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
+        providers: [
+          provideHttpClient(withInterceptorsFromDi()),
+          provideHttpClientTesting(),
         ],
       }).compileComponents();
 
