@@ -1,3 +1,12 @@
+## [0.265.1](https://github.com/rodekruis/IBF-system/compare/v0.265.0...v0.265.1) (2024-07-19)
+
+
+### Bug Fixes
+
+* icon for max warning should use trigger icon instead of causing an error ([18cc84d](https://github.com/rodekruis/IBF-system/commit/18cc84d365d7518cabeed6f637434bb87ee6f54a))
+
+
+
 # [0.265.0](https://github.com/rodekruis/IBF-system/compare/v0.264.1...v0.265.0) (2024-07-15)
 
 
@@ -108,8 +117,8 @@
 * not multiple timeline-btns for multi-event with same leadtime AB[#26802](https://github.com/rodekruis/IBF-system/issues/26802) ([2123937](https://github.com/rodekruis/IBF-system/commit/21239376ad15a70ee47f533d5b1adb50ee09287a))
 * ongoing header malaria AB[#26935](https://github.com/rodekruis/IBF-system/issues/26935) ([d5372ae](https://github.com/rodekruis/IBF-system/commit/d5372ae9f49545f8d01a8ce71f5d90fbaade6efb))
 * own leadTime per station AB[#27137](https://github.com/rodekruis/IBF-system/issues/27137) ([c5170e0](https://github.com/rodekruis/IBF-system/commit/c5170e01d40d0326fe7491e3b5d967b7cd123aa3))
-* prettier ([e7ef0e9](https://github.com/rodekruis/IBF-system/commit/e7ef0e97c9deadf813094a8efa70c183cd69f31e))
 * prettier ([b9ec795](https://github.com/rodekruis/IBF-system/commit/b9ec7953dc31e54cc94b91a8908cb7e35ced61b2))
+* prettier ([e7ef0e9](https://github.com/rodekruis/IBF-system/commit/e7ef0e97c9deadf813094a8efa70c183cd69f31e))
 * prettier ([ba758f0](https://github.com/rodekruis/IBF-system/commit/ba758f05b9f60a2dd31bf0cc5adf35ab69b2aff8))
 * prettier ([1040a67](https://github.com/rodekruis/IBF-system/commit/1040a6754891e327c118c239c00e15aab7679c2a))
 * prettier ([d104a20](https://github.com/rodekruis/IBF-system/commit/d104a20b47412fd319a7a3ecfb632605b34c6e47))
@@ -182,17 +191,6 @@
 ### Bug Fixes
 
 * **security:** update geoserver version AB[#27339](https://github.com/rodekruis/IBF-system/issues/27339) ([3ae9f87](https://github.com/rodekruis/IBF-system/commit/3ae9f87f560a68c985b5b3f2158bcb791d5ee320))
-
-
-
-## [0.262.2](https://github.com/rodekruis/IBF-system/compare/v0.262.1...v0.262.2) (2024-02-09)
-
-
-### Bug Fixes
-
-* handle null in chat AB[#26338](https://github.com/rodekruis/IBF-system/issues/26338) ([dfcfc06](https://github.com/rodekruis/IBF-system/commit/dfcfc0625b9a180ea22e286e51ee7b9573f93f56))
-* mock pop affected perc AB[#26338](https://github.com/rodekruis/IBF-system/issues/26338) ([772115e](https://github.com/rodekruis/IBF-system/commit/772115eeb68cfe4749d17e8994a37f9b8df845d4))
-* set null population affected AB[#26338](https://github.com/rodekruis/IBF-system/issues/26338) ([7c37eb2](https://github.com/rodekruis/IBF-system/commit/7c37eb2a27509f0812b39cbac1bb1ebf51ca4486))
 
 
 
