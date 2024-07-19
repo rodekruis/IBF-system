@@ -52,8 +52,7 @@ jobs:
       - run: npm ci --no-audit
       - run: npm run lint
       - run: npm test
-      - run: docker build . --file Dockerfile --tag
-          rodekruis/ibf-api-service:$(date +%s)
+      - run: docker build . --file Dockerfile --tag ibf-api-service:$(date +%s)
 
   ibf-dashboard:
     needs: detect-changes
@@ -77,8 +76,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci --no-audit
       - run: npm test
-      - run: docker build . --file Dockerfile --tag
-          rodekruis/ibf-dashboard:$(date +%s)
+      - run: docker build . --file Dockerfile --tag ibf-dashboard:$(date +%s)
 
   bump-version:
     needs: [ibf-api-service, ibf-dashboard]
