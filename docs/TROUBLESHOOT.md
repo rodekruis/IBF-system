@@ -59,7 +59,7 @@ If there is a problem with your existing database schema, you can always try to 
 
 - Access the database via e.g. DBeaver
 - Alternatively, access it via commandline using
-  - `docker compose exec ibf-local-db bash`
+  - `docker compose exec ibf-db bash`
   - `psql -U <chosen local-db-username>`
 - Throw away schema via `drop schema "IBF-app" cascade;`
 - Recreate schema: `create schema "IBF-app";`

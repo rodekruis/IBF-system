@@ -31,6 +31,8 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    environment: test
+
     env:
       SECRET: ${{ secrets.SECRET }}
       MC_API: ${{ secrets.MC_API }}
@@ -54,6 +56,8 @@ jobs:
       - run: npm test
       - run: docker build . --file Dockerfile --tag
           rodekruis/ibf-api-service:$(date +%s)
+      - run: docker compose up -d
+      - run: docker compose exec ibf-api-service npm run test:api:all
 
   ibf-dashboard:
     needs: detect-changes
