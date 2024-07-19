@@ -3,9 +3,6 @@ name: 'Continuous Integration for IBF'
 on:
   push:
     branches: [master]
-    paths-ignore:
-      - './package.json'
-      - './COMMITLOG.md'
   pull_request:
     branches: [master]
 
@@ -18,8 +15,8 @@ jobs:
       ibf-dashboard: ${{ steps.filter.outputs.ibf-dashboard }}
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: dorny/paths-filter@v2
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: |
@@ -47,9 +44,9 @@ jobs:
         working-directory: 'services/API-service'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3.4.1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci --no-audit
@@ -73,9 +70,9 @@ jobs:
         working-directory: 'interfaces/IBF-dashboard'
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3.4.1
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci --no-audit
@@ -93,16 +90,16 @@ jobs:
 
     steps:
       - name: Wait for previous workflow to complete
-        uses: softprops/turnstyle@v1
+        uses: softprops/turnstyle@v2
         with:
           abort-after-seconds: 1800
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Bump version and push tag
-        uses: TriPSs/conventional-changelog-action@v3
+        uses: TriPSs/conventional-changelog-action@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           git-message: 'chore(release): {version}'
