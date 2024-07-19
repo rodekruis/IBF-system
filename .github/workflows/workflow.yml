@@ -36,6 +36,11 @@ jobs:
     env:
       SECRET: ${{ secrets.SECRET }}
       MC_API: ${{ secrets.MC_API }}
+      LOCAL_PORT_IBF_SERVICE: ${{ vars.LOCAL_PORT_IBF_SERVICE }}
+      GEOSERVER_ADMIN_PASSWORD: ${{ secrets.GEOSERVER_ADMIN_PASSWORD }}
+      DB_USERNAME: ${{ vars.DB_USERNAME }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_DATABASE: ${{ vars.DB_DATABASE }}
 
     strategy:
       matrix:
