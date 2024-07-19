@@ -70,7 +70,6 @@ services:
         - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
         - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
         - WHATS_NEW_URL=${WHATS_NEW_URL}
-    image: rodekruis/ibf-dashboard
     environment:
       - NG_CONFIGURATION=${NG_CONFIGURATION}
       - NG_API_URL=${NG_API_URL}
