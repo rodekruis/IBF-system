@@ -34,13 +34,24 @@ jobs:
     environment: test
 
     env:
+      CERTBOT_EMAIL: ${{ vars.CERTBOT_EMAIL }}
+      FQDN: ${{ vars.FQDN }}
+      NODE_ENV: ${{ vars.NODE_ENV }}
+      ADMIN_PASSWORD: ${{ secrets.ADMIN_PASSWORD }}
       SECRET: ${{ secrets.SECRET }}
+      RESET_SECRET: ${{ secrets.RESET_SECRET }}
       MC_API: ${{ secrets.MC_API }}
       LOCAL_PORT_IBF_SERVICE: ${{ vars.LOCAL_PORT_IBF_SERVICE }}
       GEOSERVER_ADMIN_PASSWORD: ${{ secrets.GEOSERVER_ADMIN_PASSWORD }}
+      DB_HOST: ${{ vars.DB_HOST }}
+      DB_PORT: ${{ vars.DB_PORT }}
       DB_USERNAME: ${{ vars.DB_USERNAME }}
       DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
       DB_DATABASE: ${{ vars.DB_DATABASE }}
+      PRODUCTION_DATA_SERVER: ${{ vars.PRODUCTION_DATA_SERVER }}
+      WATERPOINTDATA_TOKEN: ${{ secrets.WATERPOINTDATA_TOKEN }}
+      COUNTRIES: ${{ vars.COUNTRIES }}
+      DISASTER_TYPES: ${{ vars.DISASTER_TYPES }}
 
     strategy:
       matrix:
