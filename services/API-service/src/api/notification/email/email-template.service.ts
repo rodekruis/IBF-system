@@ -467,6 +467,7 @@ export class EmailTemplateService {
     const fileNameMap = {
       [EapAlertClassKeyEnum.med]: 'warning-medium.png',
       [EapAlertClassKeyEnum.min]: 'warning-low.png',
+      [EapAlertClassKeyEnum.max]: 'trigger.png',
       default: 'trigger.png',
     };
 
