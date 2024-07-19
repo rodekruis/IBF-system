@@ -1,7 +1,7 @@
 {
   "name": "ibf-api-service",
   "author": "IBF-system",
-  "homepage": "",
+  "homepage": "https://ibf.510.global/docs",
   "main": "index.js",
   "scripts": {
     "lint": "eslint \"**/*.ts\"",
