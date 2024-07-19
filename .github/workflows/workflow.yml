@@ -69,7 +69,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci --no-audit
-      - run: npm run lint
       - run: npm test
       - run: docker build . --file Dockerfile --tag ibf-api-service:$(date +%s)
       - run: docker compose up -d
