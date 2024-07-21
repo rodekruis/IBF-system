@@ -293,4 +293,14 @@ export class CountryService {
     });
     return savedEntity;
   }
+
+  public getBoundingBoxWkt(countryCodeISO3: string) {
+    return this.countryRepository
+      .createQueryBuilder('country')
+      .select('ST_AsText(country."countryBoundingBox") as wkt')
+      .where('country."countryCodeISO3" = :countryCodeISO3', {
+        countryCodeISO3,
+      })
+      .getRawOne<Record<'wkt', string>>();
+  }
 }
