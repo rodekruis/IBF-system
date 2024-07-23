@@ -965,8 +965,8 @@ export class EventService {
     };
     const expiredEventAreas = await this.eventPlaceCodeRepo.find({ where });
 
-    // Below threshold events can be removed from this table after closing
-    // Below threshold events are warnings an not triggered. I do not know why they are removed here
+    // Below trigger threshold events can be removed from this table after closing
+    // Below trigger threshold events are warnings an not triggered. I do not know why they are removed here
     const belowThresholdEvents = expiredEventAreas.filter(
       ({ thresholdReached }) => !thresholdReached,
     );

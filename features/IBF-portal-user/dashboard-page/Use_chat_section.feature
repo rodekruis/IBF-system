@@ -52,7 +52,7 @@ Feature: View and use chat section
         When the user views the 2nd speech bubble
         Then if NON-TRIGGERED it mentions there are 'no triggers'
         And if TRIGGERED it mentions there is a trigger
-        And if EVENT-WITHOUT-TRIGGER it mentions an activated event below threshold ('typhoon' only)
+        And if EVENT-WITHOUT-TRIGGER it mentions an activated event below trigger threshold ('typhoon' only)
         And it mentions when the event this trigger belongs to first started
         And it mentions for when the trigger is expected
         And it mentions the name of the event if applicable ('typhoon' only)

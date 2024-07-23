@@ -91,7 +91,7 @@ export class EmailService {
     if (isApiTest) {
       return emailHtml;
     }
-    const emailSubject = `IBF ${disasterTypeLabel} trigger is now below threshold`;
+    const emailSubject = `IBF ${disasterTypeLabel} ended`;
     this.sendEmail(
       emailSubject,
       emailHtml,

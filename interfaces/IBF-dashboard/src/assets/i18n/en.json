@@ -104,7 +104,7 @@
           "header": "Stop {{alertLabel}}",
           "message": "Are you sure? You are about to stop the {{alertLabel}} in <strong>{{ placeCodeName }}</strong>.<br><br>In case of a new event, the area will be triggered again by the IBF-Portal. But within the current event - even if predictions worsen - the trigger for this area will remain stopped. {{disasterSpecificText}}",
           "disaster-specific": {
-            "floods": "(An event closes when the forecast stays below threshold for 7 days.)"
+            "floods": "(An event closes when the forecast stays below trigger threshold for 7 days.)"
           },
           "confirm": "Yes, stop {{alertLabel}}",
           "cancel": "No, keep {{alertLabel}}",
@@ -114,7 +114,7 @@
           "header": "Stop Alert",
           "message": "Are you sure? You are about to stop the alert in <strong>{{ placeCodeName }}</strong>.<br><br>In case of a new event, a new alert for the area will be given by the IBF-Portal. But within the current event - even if predictions worsen - the alert for this area will remain stopped. {{disasterSpecificText}}",
           "disaster-specific": {
-            "heavy-rain": "(An event closes when the forecast stays below threshold for 7 days.)"
+            "heavy-rain": "(An event closes when the forecast stays below trigger threshold for 7 days.)"
           },
           "confirm": "Yes, stop alert",
           "cancel": "No, keep alert",
