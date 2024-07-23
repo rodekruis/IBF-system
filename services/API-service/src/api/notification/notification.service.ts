@@ -30,26 +30,27 @@ export class NotificationService {
     date?: Date,
   ): Promise<void | NotificationApiTestResponseDto> {
     const apiTestResponse = new NotificationApiTestResponseDto();
-    const apiTestReponseActive = await this.sendNotiFicationsActiveEvents(
+    const apiTestResponseActive = await this.sendNotiFicationsActiveEvents(
       disasterType,
       countryCodeISO3,
       isApiTest,
       date,
     );
-    if (isApiTest && apiTestReponseActive) {
-      apiTestResponse.activeEvents = apiTestReponseActive;
+    if (isApiTest && apiTestResponseActive) {
+      apiTestResponse.activeEvents = apiTestResponseActive;
     }
 
     if (disasterType === DisasterType.Floods) {
       // Sending finished events is now for floods only
-      const apiTestReponseFinished = await this.sendNotificationsFinishedEvents(
-        countryCodeISO3,
-        disasterType,
-        isApiTest,
-        date,
-      );
-      if (isApiTest && apiTestReponseFinished) {
-        apiTestResponse.finishedEvents = apiTestReponseFinished;
+      const apiTestResponseFinished =
+        await this.sendNotificationsFinishedEvents(
+          countryCodeISO3,
+          disasterType,
+          isApiTest,
+          date,
+        );
+      if (isApiTest && apiTestResponseFinished) {
+        apiTestResponse.finishedEvents = apiTestResponseFinished;
       }
     }
 
@@ -68,7 +69,7 @@ export class NotificationService {
     isApiTest: boolean,
     date?: Date,
   ): Promise<void | NotificationApiTestResponseChannelDto> {
-    const apiTestReponseActive = new NotificationApiTestResponseChannelDto();
+    const apiTestResponseActive = new NotificationApiTestResponseChannelDto();
 
     const events = await this.eventService.getEventSummary(
       countryCodeISO3,
@@ -96,7 +97,7 @@ export class NotificationService {
         date,
       );
       if (isApiTest && messageForApiTest) {
-        apiTestReponseActive.email = messageForApiTest;
+        apiTestResponseActive.email = messageForApiTest;
       }
       if (country.notificationInfo.useWhatsapp[disasterType]) {
         this.whatsappService.sendTriggerWhatsapp(
@@ -107,7 +108,7 @@ export class NotificationService {
       }
     }
     if (isApiTest) {
-      return apiTestReponseActive;
+      return apiTestResponseActive;
     }
   }
 
@@ -117,7 +118,7 @@ export class NotificationService {
     isApiTest: boolean,
     date?: Date,
   ): Promise<void | NotificationApiTestResponseChannelDto> {
-    const apiTestReponseFinished = new NotificationApiTestResponseChannelDto();
+    const apiTestResponseFinished = new NotificationApiTestResponseChannelDto();
     const finishedNotifiableEvents =
       await this.eventService.getEventsSummaryTriggerFinishedMail(
         countryCodeISO3,
@@ -138,7 +139,7 @@ export class NotificationService {
         date,
       );
       if (isApiTest && emailFinished) {
-        apiTestReponseFinished.email = emailFinished;
+        apiTestResponseFinished.email = emailFinished;
       }
 
       if (country.notificationInfo.useWhatsapp[disasterType]) {
@@ -151,7 +152,7 @@ export class NotificationService {
         }
       }
       if (isApiTest) {
-        return apiTestReponseFinished;
+        return apiTestResponseFinished;
       }
     }
   }
