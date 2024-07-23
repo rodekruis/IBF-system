@@ -73,7 +73,8 @@ export class EmailTemplateService {
       linkDashboard: process.env.DASHBOARD_URL,
       socialMediaLink: country.notificationInfo.linkSocialMediaUrl,
       socialMediaType: country.notificationInfo.linkSocialMediaType,
-      disasterType: emailContent.disasterTypeLabel,
+      disasterType: emailContent.disasterType,
+      disasterTypeLabel: emailContent.disasterTypeLabel,
       footer: this.getFooterHtml(country.countryName),
     };
     return keyValueReplaceObject;
@@ -98,7 +99,8 @@ export class EmailTemplateService {
       socialMediaPart: this.getSocialMediaHtml(country),
       socialMediaLink: country.notificationInfo.linkSocialMediaUrl,
       socialMediaType: country.notificationInfo.linkSocialMediaType,
-      disasterType: disasterTypeLabel,
+      disasterType: disasterType,
+      disasterTypeLabel: disasterTypeLabel,
       footer: this.getFooterHtml(country.countryName),
     };
     return keyValueReplaceObject;
@@ -131,7 +133,7 @@ export class EmailTemplateService {
       sentOnDate: this.getCurrentDateTimeString(
         emailContent.country.countryCodeISO3,
       ),
-      disasterLabel: emailContent.disasterTypeLabel,
+      disasterTypeLabel: emailContent.disasterTypeLabel,
       nrOfEvents: emailContent.dataPerEvent.length,
       timezone: CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
     });
@@ -243,7 +245,7 @@ export class EmailTemplateService {
     return emailContent.dataPerEvent
       .map((event) => {
         const data = {
-          hazard: emailContent.disasterTypeLabel,
+          disasterTypeLabel: emailContent.disasterTypeLabel,
           triggerStatusLabel: event.triggerStatusLabel,
           eventName: event.eventName,
           defaultAdminAreaLabelSingular:
@@ -309,7 +311,7 @@ export class EmailTemplateService {
         const data = {
           // Event details
           eventName: event.eventName,
-          hazard: emailContent.disasterTypeLabel,
+          disasterTypeLabel: emailContent.disasterTypeLabel,
           triggerStatusLabel: event.triggerStatusLabel,
           issuedDate: this.dateObjectToDateTimeString(
             event.issuedDate,

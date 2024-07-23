@@ -61,9 +61,7 @@ export class EmailService {
     if (isApiTest) {
       return emailHtml;
     }
-    const emailSubject = `IBF ${(
-      await this.notificationContentService.getDisasterTypeLabel(disasterType)
-    ).toLowerCase()} notification`;
+    const emailSubject = `IBF ${emailContent.disasterTypeLabel} alert`;
     this.sendEmail(
       emailSubject,
       emailHtml,
@@ -93,7 +91,7 @@ export class EmailService {
     if (isApiTest) {
       return emailHtml;
     }
-    const emailSubject = `IBF ${disasterTypeLabel.toLowerCase()} trigger is now below threshold`;
+    const emailSubject = `IBF ${disasterTypeLabel} trigger is now below threshold`;
     this.sendEmail(
       emailSubject,
       emailHtml,

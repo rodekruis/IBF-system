@@ -5,13 +5,13 @@
     style="color: <%= color %>"
   >
     <img class="body-text-icon" src="<%= triangleIcon %>" alt="triangleIcon" />
-    <%= hazard %> <%= eventName %>
+    <%= disasterTypeLabel %>: <%= eventName %>
     <span class="body-text-break"></span>
   </span>
   <% if (firstTriggerLeadTimeString) { %>
   <span class="body-text body-text-normal">
-    <%= hazard %> expected to start on <%= firstLeadTimeString %>, <%=
-    firstLeadTimeQuantity %>s from now.
+    <%= disasterTypeLabel %> expected to start on <%= firstLeadTimeString %>,
+    <%= firstLeadTimeQuantity %>s from now.
     <span class="body-text-break"></span>
   </span>
   <span class="body-text body-text-bold"> <%= disasterIssuedLabel %>: </span>
@@ -44,8 +44,8 @@
   </span>
   <div class="padded-div"></div>
   <span class="body-text body-text-normal body-text-16px">
-    This <%= triggerStatusLabel %> was issued by the IBF portal on <%=
-    issuedDate %> (<%= timezone %>)
+    This <%= triggerStatusLabel %> was issued by IBF on <%= issuedDate %> (<%=
+    timezone %>)
     <span class="body-text-break"></span>
   </span>
   <div class="padded-div"></div>
