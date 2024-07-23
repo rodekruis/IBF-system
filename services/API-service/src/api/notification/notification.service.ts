@@ -30,7 +30,7 @@ export class NotificationService {
     date?: Date,
   ): Promise<void | NotificationApiTestResponseDto> {
     const apiTestResponse = new NotificationApiTestResponseDto();
-    const apiTestResponseActive = await this.sendNotiFicationsActiveEvents(
+    const apiTestResponseActive = await this.sendNotificationsActiveEvents(
       disasterType,
       countryCodeISO3,
       isApiTest,
@@ -63,7 +63,7 @@ export class NotificationService {
     }
   }
 
-  private async sendNotiFicationsActiveEvents(
+  private async sendNotificationsActiveEvents(
     disasterType: DisasterType,
     countryCodeISO3: string,
     isApiTest: boolean,
