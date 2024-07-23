@@ -121,7 +121,7 @@ export class EmailTemplateService {
             new Date(event.startDate),
             country.countryCodeISO3,
           ),
-          timezone: CountryTimeZoneMapping[country.countryCodeISO3],
+          timeZone: this.getTimezoneDisplay(country.countryCodeISO3),
         }),
       )
       .join('');
@@ -135,10 +135,14 @@ export class EmailTemplateService {
       ),
       disasterTypeLabel: emailContent.disasterTypeLabel,
       nrOfEvents: emailContent.dataPerEvent.length,
-      timezone: CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
+      timeZone: this.getTimezoneDisplay(emailContent.country.countryCodeISO3),
     });
     return headerEventOverview;
   }
+
+  private getTimezoneDisplay = (countryCodeISO3: string) => {
+    return CountryTimeZoneMapping[countryCodeISO3].split('_').join(' ');
+  };
 
   private getNotificationActionsHtml(
     country: CountryEntity,
@@ -317,8 +321,9 @@ export class EmailTemplateService {
             event.issuedDate,
             emailContent.country.countryCodeISO3,
           ),
-          timezone:
-            CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
+          timeZone: this.getTimezoneDisplay(
+            emailContent.country.countryCodeISO3,
+          ),
 
           // Lead time details
           firstLeadTimeString: event.firstLeadTimeString,
