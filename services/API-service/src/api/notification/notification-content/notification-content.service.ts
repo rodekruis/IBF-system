@@ -464,7 +464,7 @@ export class NotificationContentService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<string> {
-    const timezone = {
+    const timeZone = {
       PHL: {
         label: 'PHT',
         difference: 8,
@@ -475,7 +475,7 @@ export class NotificationContentService {
       },
     };
 
-    if (!Object.keys(timezone).includes(countryCodeISO3)) {
+    if (!Object.keys(timeZone).includes(countryCodeISO3)) {
       return null;
     }
 
@@ -489,11 +489,11 @@ export class NotificationContentService {
       gmtUploadDate.setTime(gmtUploadDate.getTime() + hours * 60 * 60 * 1000),
     );
 
-    const hourDiff = timezone[countryCodeISO3]?.difference;
+    const hourDiff = timeZone[countryCodeISO3]?.difference;
     const localEventDate = new Date(
       gmtEventDate.setTime(gmtEventDate.getTime() + hourDiff * 60 * 60 * 1000),
     );
-    const timezoneLabel = timezone[countryCodeISO3]?.label;
+    const timezoneLabel = timeZone[countryCodeISO3]?.label;
     return `${localEventDate.getHours()}:00 ${timezoneLabel}`;
   }
 }
