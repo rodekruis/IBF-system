@@ -461,7 +461,7 @@
 
       #templateFooter {
         /*@editable*/
-        background-color: #333333;
+        background-color: #231a15;
         /*@editable*/
         background-image: none;
         /*@editable*/
@@ -963,16 +963,18 @@
                                         style="
                                           padding-top: 0;
                                           padding-right: 18px;
-                                          padding-bottom: 9px;
+                                          padding-bottom: 0;
                                           padding-left: 18px;
                                         "
                                         valign="top"
                                       >
-                                        Want to change how you receive these
-                                        emails? You can
                                         <a href="*|UNSUB|*"
-                                          >unsubscribe from this list</a
-                                        >.
+                                          >Click here to unsubscribe from IBF
+                                          alerts.</a
+                                        >
+                                        *|LIST:ADDRESSLINE|*<br />
+                                        *|IF:REWARDS|* *|HTML:REWARDS|*
+                                        *|END:IF|*
                                       </td>
                                     </tr>
                                   </tbody>
