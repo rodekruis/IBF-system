@@ -3,6 +3,7 @@ import { JSDOM } from 'jsdom';
 import { DisasterType } from '../../../src/api/disaster/disaster-type.enum';
 import {
   getAccessToken,
+  getEventTitle,
   mockDynamicData,
   resetDB,
   sendNotification,
@@ -64,7 +65,7 @@ describe('Should send an email for uga drought', () => {
 
     // Check if each expected event name is included in at least one title
     for (const expectedEventName of expectedEventNames) {
-      const eventTitle = `${disasterType} ${expectedEventName}`.toLowerCase();
+      const eventTitle = getEventTitle(disasterType, expectedEventName);
       const hasEvent = eventNamesInEmail.some((eventNameInEmail) =>
         eventNameInEmail.includes(eventTitle),
       );

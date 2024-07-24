@@ -3,7 +3,11 @@ import { JSDOM } from 'jsdom';
 import { DisasterType } from '../../../src/api/disaster/disaster-type.enum';
 import { FloodsScenario } from '../../../src/scripts/enum/mock-scenario.enum';
 import disasters from '../../../src/scripts/json/disasters.json';
-import { mockFloods, sendNotification } from '../../helpers/utility.helper';
+import {
+  getEventTitle,
+  mockFloods,
+  sendNotification,
+} from '../../helpers/utility.helper';
 
 export interface TestFloodScenarioDto {
   scenarios: any[];
@@ -56,7 +60,7 @@ export async function testFloodScenario(
 
   // Check if there are elements with the desired text content
   for (const event of eventsSeed) {
-    const eventTitle = `${disasterTypeLabel} ${event.eventName}`.toLowerCase();
+    const eventTitle = getEventTitle(disasterTypeLabel, event.eventName);
     const hasEvent = eventNamesInEmail.some((eventName) =>
       eventName.includes(eventTitle),
     );
