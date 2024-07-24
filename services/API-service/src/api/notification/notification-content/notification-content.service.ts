@@ -142,7 +142,8 @@ export class NotificationContentService {
     country: CountryEntity,
     disasterType: DisasterType,
   ): Promise<NotificationDataPerEventDto[]> {
-    const sortedEvents = this.sortEventsByLeadTime(activeEvents);
+    const sortedEvents =
+      this.sortEventsByLeadTimeAndThresholdReached(activeEvents);
     const headerEventsRows = [];
     for await (const event of sortedEvents) {
       headerEventsRows.push(
@@ -244,7 +245,7 @@ export class NotificationContentService {
     return triggeredAreas;
   }
 
-  private sortEventsByLeadTime(
+  private sortEventsByLeadTimeAndThresholdReached(
     arr: EventSummaryCountry[],
   ): EventSummaryCountry[] {
     const leadTimeValue = (leadTime: LeadTime): number =>
@@ -258,7 +259,12 @@ export class NotificationContentService {
         return 1;
       }
 
-      return 0;
+      // sort by thresholdReached (true first)
+      if (a.thresholdReached === b.thresholdReached) {
+        return 0;
+      } else {
+        return a.thresholdReached ? -1 : 1;
+      }
     });
   }
 
