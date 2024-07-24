@@ -406,10 +406,9 @@ export class EmailTemplateService {
     event: NotificationDataPerEventDto,
     indicatorUnit: string,
   ): string {
-    const fileName =
-      event.triggerStatusLabel === TriggerStatusLabelEnum.Warning
-        ? 'body-total-affected-warning.html'
-        : 'body-total-affected-trigger.html';
+    const fileName = event.totalAffectedOfIndicator
+      ? 'body-total-affected-available.html'
+      : 'body-total-affected-unavailable.html';
     const htmlTemplate = this.readHtmlFile(fileName);
     return ejs.render(htmlTemplate, {
       totalAffectedOfIndicator: event.totalAffectedOfIndicator,
