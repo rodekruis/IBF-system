@@ -1,62 +1,33 @@
 <table class="notification-actions-table">
   <tbody>
     <tr>
-      <td>
-        <table
-          border="0"
-          cellspacing="0"
-          cellpadding="0"
-          class="notification-action-button notification-action-button-primary"
+      <td align="center">
+        <a
+          href="<%= linkDashboard %>"
+          target="_blank"
+          class="body-text body-text-white button-text-padding notification-action-button notification-action-button-primary"
+          >Open IBF</a
         >
-          <tr>
-            <td align="center">
-              <a
-                href="<%= linkDashboard %>"
-                target="_blank"
-                class="body-text body-text-white"
-                >Open IBF</a
-              >
-            </td>
-          </tr>
-        </table>
       </td>
-      <td>
-        <table border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td align="left" class="body-text button-text-padding">
-              Find more information about the potentially exposed areas, view
-              the map and manage anticipatory actions.
-            </td>
-          </tr>
-        </table>
+      <td style="width: 16px">&nbsp;</td>
+      <td align="left" class="body-text">
+        Find more information about the potentially exposed areas, view the map
+        and manage anticipatory actions.
       </td>
     </tr>
     <%- socialMediaPart %>
     <tr>
-      <td>
-        <table
-          border="0"
-          cellspacing="0"
-          cellpadding="0"
-          class="notification-action-button notification-action-button-secondary"
+      <td align="center">
+        <a
+          href="<%- linkEapSop %>"
+          target="_blank"
+          class="body-text button-text-padding notification-action-button notification-action-button-secondary"
+          >About Trigger</a
         >
-          <tr>
-            <td align="center">
-              <a href="<%- linkEapSop %>" target="_blank" class="body-text"
-                >About Trigger</a
-              >
-            </td>
-          </tr>
-        </table>
       </td>
-      <td>
-        <table border="0" cellspacing="0" cellpadding="0">
-          <tr>
-            <td align="left" class="body-text button-text-padding">
-              Read about the trigger methodology and the anticipatory actions.
-            </td>
-          </tr>
-        </table>
+      <td style="width: 16px">&nbsp;</td>
+      <td align="left" class="body-text">
+        Read about the trigger methodology and the anticipatory actions.
       </td>
     </tr>
   </tbody>
