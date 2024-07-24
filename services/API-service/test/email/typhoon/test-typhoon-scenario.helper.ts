@@ -1,5 +1,3 @@
-import { get } from 'http';
-
 import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../src/api/disaster/disaster-type.enum';
