@@ -8,6 +8,7 @@ import {
   EapAlertClassKeyEnum,
   EventSummaryCountry,
 } from '../../../shared/data.model';
+import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
 import { CountryEntity } from '../../country/country.entity';
 import { DisasterType } from '../../disaster/disaster-type.enum';
@@ -328,10 +329,10 @@ export class EmailTemplateService {
           // Lead time details
           firstLeadTimeString: event.firstLeadTimeString,
           firstTriggerLeadTimeString: event.firstTriggerLeadTimeString,
-          firstLeadTimeQuantity: event.firstLeadTime.replace('-', ' '),
-          firstTriggerLeadTimeQuantity: event.firstTriggerLeadTime
-            ? event.firstTriggerLeadTime.replace('-', ' ')
-            : '',
+          firstLeadTimeFromNow: this.getTimeFromNow(event.firstLeadTime),
+          firstTriggerLeadTimeFromNow: this.getTimeFromNow(
+            event.firstTriggerLeadTime,
+          ),
 
           // Area details
           nrOfTriggeredAreas: event.nrOfTriggeredAreas,
@@ -372,6 +373,14 @@ export class EmailTemplateService {
         return ejs.render(template, data);
       })
       .join('');
+  }
+
+  private getTimeFromNow(leadTime: LeadTime) {
+    if (!leadTime) return '';
+
+    return [LeadTime.day0, LeadTime.month0, LeadTime.hour0].includes(leadTime)
+      ? 'ongoing'
+      : `${leadTime.replace('-', ' ')}s from now`;
   }
 
   private getDisasterIssuedLabel(

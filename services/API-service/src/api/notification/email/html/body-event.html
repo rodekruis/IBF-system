@@ -11,20 +11,19 @@
   <% if (firstTriggerLeadTimeString) { %>
   <span class="body-text body-text-normal">
     <%= disasterTypeLabel %> expected to start on <%= firstLeadTimeString %>,
-    <%= firstLeadTimeQuantity %>s from now.
+    <%= firstLeadTimeFromNow %>.
     <span class="body-text-break"></span>
   </span>
   <span class="body-text body-text-bold"> <%= disasterIssuedLabel %>: </span>
   <span class="body-text body-text-normal">
     expected to reach threshold on <%= firstTriggerLeadTimeString %>, <%=
-    firstTriggerLeadTimeQuantity %>s from now.
+    firstTriggerLeadTimeFromNow %>.
     <span class="body-text-break"></span>
   </span>
   <% } else { %>
   <span class="body-text body-text-bold"> <%= disasterIssuedLabel %>: </span>
   <span class="body-text body-text-normal">
-    expected on <%= firstLeadTimeString %>, <%= firstLeadTimeQuantity %>s from
-    now.
+    expected on <%= firstLeadTimeString %>, <%= firstLeadTimeFromNow %>.
     <span class="body-text-break"></span>
   </span>
   <% } %>
