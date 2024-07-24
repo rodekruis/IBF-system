@@ -194,9 +194,7 @@ export class NotificationContentService {
       disasterType,
     );
 
-    data.totalAffectedOfIndicator = this.getTotalAffectedPerEvent(
-      data.triggeredAreas,
-    );
+    data.totalAffectedOfIndicator = this.getTotalAffected(data.triggeredAreas);
     data.mapImage = await this.eventService.getEventMapImage(
       country.countryCodeISO3,
       disasterType,
@@ -268,8 +266,12 @@ export class NotificationContentService {
     });
   }
 
-  private getTotalAffectedPerEvent(adminAreas: TriggeredArea[]) {
-    return adminAreas.reduce((acc, cur) => acc + cur.actionsValue, 0);
+  private getTotalAffected(triggeredAreas: TriggeredArea[]) {
+    return parseFloat(
+      triggeredAreas
+        .reduce((acc, triggeredArea) => acc + triggeredArea.actionsValue, 0)
+        .toFixed(2),
+    );
   }
 
   private async getFirstLeadTimeDate(
