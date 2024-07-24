@@ -32,8 +32,9 @@
               </td>
               <% } %>
               <td class="table-cell body-text body-text-bold body-text-12px">
-                <%= defaultAdminAreaLabelSingular %> (<%=
-                defaultAdminAreaLabelParent %>)
+                <%= defaultAdminAreaLabelSingular %> <% if
+                (defaultAdminAreaLabelParent != defaultAdminAreaLabelSingular) {
+                %>(<%= defaultAdminAreaLabelParent %>)<% } %>
               </td>
             </tr>
             <%- tableRows %>

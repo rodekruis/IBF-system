@@ -245,7 +245,7 @@ export class EmailTemplateService {
   private getTablesForEvents(emailContent: ContentEventEmail): string {
     const adminAreaLabelsParent =
       emailContent.country.adminRegionLabels[
-        String(emailContent.defaultAdminLevel - 1)
+        String(Math.max(1, emailContent.defaultAdminLevel - 1))
       ];
     return emailContent.dataPerEvent
       .map((event) => {
