@@ -83,7 +83,7 @@ services:
       - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
       - WHATS_NEW_URL=${WHATS_NEW_URL}
     volumes:
-      - ibf-dashboard-root:/home/node/app/www
+      - ibf-dashboard-root:/home/node/app/www/browser
     networks:
       web-server-network:
 
