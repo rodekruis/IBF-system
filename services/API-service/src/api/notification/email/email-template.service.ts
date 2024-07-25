@@ -421,7 +421,7 @@ export class EmailTemplateService {
     triggerStatusLabel: TriggerStatusLabelEnum,
   ): string {
     const ibfOrange = '#aa6009';
-    const ibfYellow = '#7d6906';
+    const ibfYellow = '#665606';
     const ibfRed = '#8a0f32';
 
     // Color  defined in the EAP Alert Class. This is only used for flood events
@@ -433,7 +433,7 @@ export class EmailTemplateService {
       switch (color) {
         case 'ibf-orange':
           return ibfOrange;
-        case 'ibf-yellow':
+        case 'fiveten-yellow-500':
           return ibfYellow;
         default:
           return ibfRed;
