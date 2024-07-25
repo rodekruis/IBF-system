@@ -294,11 +294,7 @@ export class EmailTemplateService {
   private getTablesRows(event: NotificationDataPerEventDto) {
     return event.triggeredAreas
       .map((area) => {
-        const tableRowHtmlFileName =
-          TriggerStatusLabelEnum.Trigger === event.triggerStatusLabel
-            ? 'table-trigger-row.html'
-            : 'table-warning-row.html';
-        const areaTemplate = this.readHtmlFile(tableRowHtmlFileName);
+        const areaTemplate = this.readHtmlFile('table-row.html');
         const areaData = {
           affectedOfIndicator: area.actionsValue,
           adminBoundary: area.displayName ? area.displayName : area.name,
