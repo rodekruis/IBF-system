@@ -1,3 +1,12 @@
+## [0.265.2](https://github.com/rodekruis/IBF-system/compare/v0.265.1...v0.265.2) (2024-07-25)
+
+
+### Bug Fixes
+
+* use browser build directory ([08c80bf](https://github.com/rodekruis/IBF-system/commit/08c80bfe55c59204af9894a9cf9e3c213266fee3))
+
+
+
 ## [0.265.1](https://github.com/rodekruis/IBF-system/compare/v0.265.0...v0.265.1) (2024-07-19)
 
 
@@ -182,15 +191,6 @@
 ### Bug Fixes
 
 * **security:** remove crypto and unused packages AB[#27340](https://github.com/rodekruis/IBF-system/issues/27340) ([bb334bb](https://github.com/rodekruis/IBF-system/commit/bb334bba437b67850dff78bdbb118aaa26ddba2f))
-
-
-
-## [0.262.3](https://github.com/rodekruis/IBF-system/compare/v0.262.2...v0.262.3) (2024-05-13)
-
-
-### Bug Fixes
-
-* **security:** update geoserver version AB[#27339](https://github.com/rodekruis/IBF-system/issues/27339) ([3ae9f87](https://github.com/rodekruis/IBF-system/commit/3ae9f87f560a68c985b5b3f2158bcb791d5ee320))
 
 
 
