@@ -7,6 +7,7 @@ import { DisasterType } from '../../disaster/disaster-type.enum';
 import { CountryEntity } from './../../country/country.entity';
 import { NotificationContentService } from './../notification-content/notification-content.service';
 import { EmailTemplateService } from './email-template.service';
+import { MjmlService } from './mjml.service';
 
 @Injectable()
 export class EmailService {
@@ -18,6 +19,7 @@ export class EmailService {
   public constructor(
     private readonly notificationContentService: NotificationContentService,
     private readonly emailTemplateService: EmailTemplateService,
+    private readonly mjmlService: MjmlService,
   ) {}
 
   private async getSegmentId(
@@ -47,17 +49,19 @@ export class EmailService {
     date?: Date,
   ): Promise<void | string> {
     date = date ? new Date(date) : new Date();
-
     const emailContent =
       await this.notificationContentService.getContentTriggerNotification(
         country,
         disasterType,
         activeEvents,
       );
-    const emailHtml = await this.emailTemplateService.createHtmlForTriggerEmail(
-      emailContent,
-      date,
-    );
+    // emailHtml = await this.emailTemplateService.createHtmlForTriggerEmail(
+    //   emailContent,
+    //   date,
+    // );
+
+    const emailHtml = this.mjmlService.getHtmlOutput({ emailContent, date });
+
     if (isApiTest) {
       return emailHtml;
     }
