@@ -13,18 +13,16 @@
             width="14"
             height="14"
           />
-          <%= severityLabel %> <%= triggerStatusLabel %> <%= hazard %>: <%=
-          eventName %>
+          <%= severityLabel %> <%= triggerStatusLabel %> <%= disasterTypeLabel
+          %>: <%= eventName %>
         </div>
-        <div class="padded-div"></div>
         <div
-          class="body-text body-text-normal body-text-normal-stretch text-centered body-text-12px"
+          class="body-text body-text-normal body-text-normal-stretch text-centered body-text-12px padding-top padding-bottom"
         >
           Expected exposed <%= defaultAdminAreaLabelPlural %><% if
           (triggerStatusLabel === 'Trigger') { %> in order of <%=
           indicatorLabel.toLowerCase() %><% } %>:
         </div>
-        <div class="padded-div"></div>
         <div>
           <table align="center" style="margin-right: auto; margin-left: auto">
             <tr class="table-row">
@@ -34,8 +32,9 @@
               </td>
               <% } %>
               <td class="table-cell body-text body-text-bold body-text-12px">
-                <%= defaultAdminAreaLabelSingular %> (<%=
-                defaultAdminAreaLabelParent %>)
+                <%= defaultAdminAreaLabelSingular %> <% if
+                (defaultAdminAreaLabelParent != defaultAdminAreaLabelSingular) {
+                %>(<%= defaultAdminAreaLabelParent %>)<% } %>
               </td>
             </tr>
             <%- tableRows %>

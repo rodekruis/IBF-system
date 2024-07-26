@@ -2,7 +2,11 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../src/api/disaster/disaster-type.enum';
 import { TyphoonScenario } from '../../../src/scripts/enum/mock-scenario.enum';
-import { mockTyphoon, sendNotification } from '../../helpers/utility.helper';
+import {
+  getEventTitle,
+  mockTyphoon,
+  sendNotification,
+} from '../../helpers/utility.helper';
 
 export async function testTyphoonScenario(
   scenario: TyphoonScenario,
@@ -47,7 +51,7 @@ export async function testTyphoonScenario(
 
   // Check if there are elements with the desired text content
   for (const eventNameInEmail of eventNamesInEmail) {
-    const eventTitle = `${disasterTypeLabel} ${eventName}`.toLowerCase();
+    const eventTitle = getEventTitle(disasterTypeLabel, eventName);
     const hasEvent = eventNameInEmail.includes(eventTitle);
     expect(hasEvent).toBe(true);
   }

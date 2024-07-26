@@ -8,6 +8,7 @@ import {
   EapAlertClassKeyEnum,
   EventSummaryCountry,
 } from '../../../shared/data.model';
+import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
 import { CountryEntity } from '../../country/country.entity';
 import { DisasterType } from '../../disaster/disaster-type.enum';
@@ -73,7 +74,8 @@ export class EmailTemplateService {
       linkDashboard: process.env.DASHBOARD_URL,
       socialMediaLink: country.notificationInfo.linkSocialMediaUrl,
       socialMediaType: country.notificationInfo.linkSocialMediaType,
-      disasterType: emailContent.disasterTypeLabel,
+      disasterType: emailContent.disasterType,
+      disasterTypeLabel: emailContent.disasterTypeLabel,
       footer: this.getFooterHtml(country.countryName),
     };
     return keyValueReplaceObject;
@@ -98,7 +100,8 @@ export class EmailTemplateService {
       socialMediaPart: this.getSocialMediaHtml(country),
       socialMediaLink: country.notificationInfo.linkSocialMediaUrl,
       socialMediaType: country.notificationInfo.linkSocialMediaType,
-      disasterType: disasterTypeLabel,
+      disasterType: disasterType,
+      disasterTypeLabel: disasterTypeLabel,
       footer: this.getFooterHtml(country.countryName),
     };
     return keyValueReplaceObject;
@@ -119,7 +122,7 @@ export class EmailTemplateService {
             new Date(event.startDate),
             country.countryCodeISO3,
           ),
-          timezone: CountryTimeZoneMapping[country.countryCodeISO3],
+          timeZone: this.getTimezoneDisplay(country.countryCodeISO3),
         }),
       )
       .join('');
@@ -131,12 +134,16 @@ export class EmailTemplateService {
       sentOnDate: this.getCurrentDateTimeString(
         emailContent.country.countryCodeISO3,
       ),
-      disasterLabel: emailContent.disasterTypeLabel,
+      disasterTypeLabel: emailContent.disasterTypeLabel,
       nrOfEvents: emailContent.dataPerEvent.length,
-      timezone: CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
+      timeZone: this.getTimezoneDisplay(emailContent.country.countryCodeISO3),
     });
     return headerEventOverview;
   }
+
+  private getTimezoneDisplay = (countryCodeISO3: string) => {
+    return CountryTimeZoneMapping[countryCodeISO3].split('_').join(' ');
+  };
 
   private getNotificationActionsHtml(
     country: CountryEntity,
@@ -238,12 +245,12 @@ export class EmailTemplateService {
   private getTablesForEvents(emailContent: ContentEventEmail): string {
     const adminAreaLabelsParent =
       emailContent.country.adminRegionLabels[
-        String(emailContent.defaultAdminLevel - 1)
+        String(Math.max(1, emailContent.defaultAdminLevel - 1))
       ];
     return emailContent.dataPerEvent
       .map((event) => {
         const data = {
-          hazard: emailContent.disasterTypeLabel,
+          disasterTypeLabel: emailContent.disasterTypeLabel,
           triggerStatusLabel: event.triggerStatusLabel,
           eventName: event.eventName,
           defaultAdminAreaLabelSingular:
@@ -287,11 +294,7 @@ export class EmailTemplateService {
   private getTablesRows(event: NotificationDataPerEventDto) {
     return event.triggeredAreas
       .map((area) => {
-        const tableRowHtmlFileName =
-          TriggerStatusLabelEnum.Trigger === event.triggerStatusLabel
-            ? 'table-trigger-row.html'
-            : 'table-warning-row.html';
-        const areaTemplate = this.readHtmlFile(tableRowHtmlFileName);
+        const areaTemplate = this.readHtmlFile('table-row.html');
         const areaData = {
           affectedOfIndicator: area.actionsValue,
           adminBoundary: area.displayName ? area.displayName : area.name,
@@ -309,22 +312,23 @@ export class EmailTemplateService {
         const data = {
           // Event details
           eventName: event.eventName,
-          hazard: emailContent.disasterTypeLabel,
+          disasterTypeLabel: emailContent.disasterTypeLabel,
           triggerStatusLabel: event.triggerStatusLabel,
           issuedDate: this.dateObjectToDateTimeString(
             event.issuedDate,
             emailContent.country.countryCodeISO3,
           ),
-          timezone:
-            CountryTimeZoneMapping[emailContent.country.countryCodeISO3],
+          timeZone: this.getTimezoneDisplay(
+            emailContent.country.countryCodeISO3,
+          ),
 
           // Lead time details
           firstLeadTimeString: event.firstLeadTimeString,
           firstTriggerLeadTimeString: event.firstTriggerLeadTimeString,
-          firstLeadTimeQuantity: event.firstLeadTime.replace('-', ' '),
-          firstTriggerLeadTimeQuantity: event.firstTriggerLeadTime
-            ? event.firstTriggerLeadTime.replace('-', ' ')
-            : '',
+          firstLeadTimeFromNow: this.getTimeFromNow(event.firstLeadTime),
+          firstTriggerLeadTimeFromNow: this.getTimeFromNow(
+            event.firstTriggerLeadTime,
+          ),
 
           // Area details
           nrOfTriggeredAreas: event.nrOfTriggeredAreas,
@@ -367,6 +371,14 @@ export class EmailTemplateService {
       .join('');
   }
 
+  private getTimeFromNow(leadTime: LeadTime) {
+    if (!leadTime) return '';
+
+    return [LeadTime.day0, LeadTime.month0, LeadTime.hour0].includes(leadTime)
+      ? 'ongoing'
+      : `${leadTime.replace('-', ' ')}s from now`;
+  }
+
   private getDisasterIssuedLabel(
     eapLabel: string,
     triggerStatusLabel: TriggerStatusLabelEnum,
@@ -390,10 +402,9 @@ export class EmailTemplateService {
     event: NotificationDataPerEventDto,
     indicatorUnit: string,
   ): string {
-    const fileName =
-      event.triggerStatusLabel === TriggerStatusLabelEnum.Warning
-        ? 'body-total-affected-warning.html'
-        : 'body-total-affected-trigger.html';
+    const fileName = event.totalAffectedOfIndicator
+      ? 'body-total-affected-available.html'
+      : 'body-total-affected-unavailable.html';
     const htmlTemplate = this.readHtmlFile(fileName);
     return ejs.render(htmlTemplate, {
       totalAffectedOfIndicator: event.totalAffectedOfIndicator,
@@ -406,7 +417,7 @@ export class EmailTemplateService {
     triggerStatusLabel: TriggerStatusLabelEnum,
   ): string {
     const ibfOrange = '#aa6009';
-    const ibfYellow = '#7d6906';
+    const ibfYellow = '#665606';
     const ibfRed = '#8a0f32';
 
     // Color  defined in the EAP Alert Class. This is only used for flood events
@@ -418,7 +429,7 @@ export class EmailTemplateService {
       switch (color) {
         case 'ibf-orange':
           return ibfOrange;
-        case 'ibf-yellow':
+        case 'fiveten-yellow-500':
           return ibfYellow;
         default:
           return ibfRed;

@@ -30,6 +30,10 @@ export function getHostname(): string {
   return 'http://localhost:3000/api';
 }
 
+export function getEventTitle(disasterType: string, eventName: string) {
+  return `${disasterType}: ${eventName}`.toLowerCase();
+}
+
 export function getServer(): TestAgent<request.Test> {
   return request.agent(getHostname());
 }

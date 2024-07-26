@@ -142,7 +142,8 @@ export class NotificationContentService {
     country: CountryEntity,
     disasterType: DisasterType,
   ): Promise<NotificationDataPerEventDto[]> {
-    const sortedEvents = this.sortEventsByLeadTime(activeEvents);
+    const sortedEvents =
+      this.sortEventsByLeadTimeAndThresholdReached(activeEvents);
     const headerEventsRows = [];
     for await (const event of sortedEvents) {
       headerEventsRows.push(
@@ -193,9 +194,7 @@ export class NotificationContentService {
       disasterType,
     );
 
-    data.totalAffectedOfIndicator = this.getTotalAffectedPerEvent(
-      data.triggeredAreas,
-    );
+    data.totalAffectedOfIndicator = this.getTotalAffected(data.triggeredAreas);
     data.mapImage = await this.eventService.getEventMapImage(
       country.countryCodeISO3,
       disasterType,
@@ -244,7 +243,7 @@ export class NotificationContentService {
     return triggeredAreas;
   }
 
-  private sortEventsByLeadTime(
+  private sortEventsByLeadTimeAndThresholdReached(
     arr: EventSummaryCountry[],
   ): EventSummaryCountry[] {
     const leadTimeValue = (leadTime: LeadTime): number =>
@@ -258,12 +257,21 @@ export class NotificationContentService {
         return 1;
       }
 
-      return 0;
+      // sort by thresholdReached (true first)
+      if (a.thresholdReached === b.thresholdReached) {
+        return 0;
+      } else {
+        return a.thresholdReached ? -1 : 1;
+      }
     });
   }
 
-  private getTotalAffectedPerEvent(adminAreas: TriggeredArea[]) {
-    return adminAreas.reduce((acc, cur) => acc + cur.actionsValue, 0);
+  private getTotalAffected(triggeredAreas: TriggeredArea[]) {
+    return parseFloat(
+      triggeredAreas
+        .reduce((acc, triggeredArea) => acc + triggeredArea.actionsValue, 0)
+        .toFixed(2),
+    );
   }
 
   private async getFirstLeadTimeDate(
@@ -464,7 +472,7 @@ export class NotificationContentService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<string> {
-    const timezone = {
+    const timeZone = {
       PHL: {
         label: 'PHT',
         difference: 8,
@@ -475,7 +483,7 @@ export class NotificationContentService {
       },
     };
 
-    if (!Object.keys(timezone).includes(countryCodeISO3)) {
+    if (!Object.keys(timeZone).includes(countryCodeISO3)) {
       return null;
     }
 
@@ -489,11 +497,11 @@ export class NotificationContentService {
       gmtUploadDate.setTime(gmtUploadDate.getTime() + hours * 60 * 60 * 1000),
     );
 
-    const hourDiff = timezone[countryCodeISO3]?.difference;
+    const hourDiff = timeZone[countryCodeISO3]?.difference;
     const localEventDate = new Date(
       gmtEventDate.setTime(gmtEventDate.getTime() + hourDiff * 60 * 60 * 1000),
     );
-    const timezoneLabel = timezone[countryCodeISO3]?.label;
+    const timezoneLabel = timeZone[countryCodeISO3]?.label;
     return `${localEventDate.getHours()}:00 ${timezoneLabel}`;
   }
 }
