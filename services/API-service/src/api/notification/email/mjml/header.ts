@@ -1,47 +1,31 @@
-import {
-  COLOR_PRIMARY,
-  COLOR_WHITE,
-  getSectionElement,
-  getTextElement,
-} from '../../helpers/mjml.helper';
-
 export const getMjmlHeader = ({
   disasterTypeLabel,
   nrOfEvents,
   sentOnDate,
-  logosSrc,
+  timeZone,
 }: {
   disasterTypeLabel: string;
   nrOfEvents: number;
   sentOnDate: string;
-  logosSrc: string;
+  timeZone: string;
 }): object => {
-  const logosElement = {
-    tagName: 'mj-raw',
-    content: `<img src="${logosSrc}" style="display: block; height: 50px; width: auto; margin: auto; background: ${COLOR_WHITE};" />`,
+  const titleElement = {
+    tagName: 'mj-text',
+    attributes: { 'font-size': '36px', color: '#ffffff', align: 'center' },
+    content: `${nrOfEvents} ${disasterTypeLabel} alerts`,
   };
 
-  const titleElement = getTextElement({
-    content: `${nrOfEvents} ${disasterTypeLabel} alerts`,
-    attributes: {
-      color: COLOR_WHITE,
-      'font-size': '28px',
-      'font-weight': 'bold',
-      'padding-top': '14px',
-      align: 'center',
-    },
-  });
+  const subtitleElement = {
+    tagName: 'mj-text',
+    attributes: { 'font-size': '16px', color: '#ffffff', align: 'center' },
+    content: `IBF alert sent on ${sentOnDate} (${timeZone})`,
+  };
 
-  const subtitleElement = getTextElement({
-    content: `IBF alert sent on ${sentOnDate}`,
+  return {
+    tagName: 'mj-column',
     attributes: {
-      color: COLOR_WHITE,
-      align: 'center',
+      'background-color': '#4f22d7',
     },
-  });
-
-  return getSectionElement({
-    childrenEls: [logosElement, titleElement, subtitleElement],
-    attributes: { 'background-color': COLOR_PRIMARY },
-  });
+    children: [titleElement, subtitleElement],
+  };
 };

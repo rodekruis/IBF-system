@@ -7,6 +7,7 @@ import { EventSummaryCountry } from '../../../shared/data.model';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { CountryEntity } from './../../country/country.entity';
 import { NotificationContentService } from './../notification-content/notification-content.service';
+import { EmailTemplateService } from './email-template.service';
 import { MjmlService } from './mjml.service';
 
 @Injectable()
@@ -18,6 +19,7 @@ export class EmailService {
 
   public constructor(
     private readonly notificationContentService: NotificationContentService,
+    private readonly emailTemplateService: EmailTemplateService,
     private readonly mjmlService: MjmlService,
   ) {}
 
@@ -54,12 +56,12 @@ export class EmailService {
         disasterType,
         activeEvents,
       );
-    let emailHtml = '';
+    // emailHtml = await this.emailTemplateService.createHtmlForTriggerEmail(
+    //   emailContent,
+    //   date,
+    // );
 
-    emailHtml += this.mjmlService.getTriggerEmailHtmlOutput({
-      emailContent,
-      date,
-    });
+    const emailHtml = this.mjmlService.getHtmlOutput({ emailContent, date });
 
     if (isApiTest) {
       // NOTE: use this to test the email output instead of using Mailchimp

@@ -26,6 +26,11 @@ import { WhatsappModule } from './whatsapp/whatsapp.module';
     TyphoonTrackModule,
   ],
   controllers: [NotificationController],
-  providers: [NotificationService, EmailService, MjmlService, HelperService],
+  providers: [
+    NotificationService,
+    EmailService,
+    EmailTemplateService,
+    MjmlService,
+  ],
 })
 export class NotificationModule {}
