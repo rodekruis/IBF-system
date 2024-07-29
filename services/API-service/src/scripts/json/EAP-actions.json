@@ -999,7 +999,7 @@
       "id": "health"
     },
     "action": "health-1",
-    "label": "Set up Dengue Emergency Medical Units (DEMUs)."
+    "label": "Set up Malaria Emergency Medical Units (MEMUs)."
   },
   {
     "countryCodeISO3": "ETH",
