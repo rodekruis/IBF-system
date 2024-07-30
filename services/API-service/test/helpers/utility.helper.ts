@@ -3,6 +3,8 @@ import TestAgent from 'supertest/lib/agent';
 
 import { DisasterType } from '../../src/api/disaster/disaster-type.enum';
 import {
+  EpidemicsScenario,
+  FlashFloodsScenario,
   FloodsScenario,
   TyphoonScenario,
 } from '../../src/scripts/enum/mock-scenario.enum';
@@ -54,6 +56,42 @@ export function mockFloods(
 ): Promise<request.Response> {
   return getServer()
     .post('/mock/floods')
+    .set('Authorization', `Bearer ${accessToken}`)
+    .query({ isApiTest: true })
+    .send({
+      scenario,
+      secret: process.env.RESET_SECRET,
+      removeEvents: true,
+      date: new Date(),
+      countryCodeISO3,
+    });
+}
+
+export function mockEpidemics(
+  scenario: EpidemicsScenario,
+  countryCodeISO3: string,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .post('/mock/epidemics')
+    .set('Authorization', `Bearer ${accessToken}`)
+    .query({ isApiTest: true })
+    .send({
+      scenario,
+      secret: process.env.RESET_SECRET,
+      removeEvents: true,
+      date: new Date(),
+      countryCodeISO3,
+    });
+}
+
+export function mockFlashFlood(
+  scenario: FlashFloodsScenario,
+  countryCodeISO3: string,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .post('/mock/flash-floods')
     .set('Authorization', `Bearer ${accessToken}`)
     .query({ isApiTest: true })
     .send({
