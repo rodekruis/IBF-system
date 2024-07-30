@@ -5,10 +5,11 @@
   class="leaflet--map"
   data-test="leaflet-map"
 >
-  <div *ngFor="let layer of layers">
-    <div
-      *ngIf="layer.active && layer.show"
-      [leafletLayer]="layer.leafletLayer"
-    ></div>
-  </div>
+  @for (layer of layers; track layer.name) {
+    <div>
+      @if (layer.active && layer.show) {
+        <div [leafletLayer]="layer.leafletLayer"></div>
+      }
+    </div>
+  }
 </div>

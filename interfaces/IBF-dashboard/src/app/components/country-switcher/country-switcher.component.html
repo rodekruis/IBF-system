@@ -1,16 +1,20 @@
-<ion-item *ngIf="countryService.countries.length > 1">
-  <ion-label>Country</ion-label>
-  <ion-select
-    placeholder="Select Country"
-    interface="popover"
-    (ionChange)="handleCountryChange($event)"
-    [value]="country ? country.countryCodeISO3 : null"
-  >
-    <ion-select-option
-      *ngFor="let country of countryService.countries"
-      value="{{ country.countryCodeISO3 }}"
+@if (countryService.countries.length > 1) {
+  <ion-item>
+    <ion-label>Country</ion-label>
+    <ion-select
+      placeholder="Select Country"
+      interface="popover"
+      (ionChange)="handleCountryChange($event)"
+      [value]="country ? country.countryCodeISO3 : null"
     >
-      {{ country.countryName }}
-    </ion-select-option>
-  </ion-select>
-</ion-item>
+      @for (
+        country of countryService.countries;
+        track country.countryCodeISO3
+      ) {
+        <ion-select-option value="{{ country.countryCodeISO3 }}">
+          {{ country.countryName }}
+        </ion-select-option>
+      }
+    </ion-select>
+  </ion-item>
+}

@@ -1,247 +1,259 @@
-<app-dialogue-turn
-  *ngIf="type === 'active'"
-  [isTriggered]="event.thresholdReached"
-  [isNotTriggered]="!event.thresholdReached"
-  [isSelected]="eventBubbleIsSelected(event.eventName)"
-  [borderColor]="getCardColors().borderColor"
->
-  <ng-container *ngIf="event.thresholdReached">
-    <div class="event-header">
-      <span class="event-header--icon-title">
-        <ion-icon
-          [style.color]="getCardColors().iconColor"
-          class="warning-icon"
-          src="/assets/icons/Alert_Title.svg"
-          slot="start"
-        ></ion-icon>
-        <span [style.color]="getCardColors().headerTextColor" class="">
-          {{ event.header }}
+@if (type === 'active') {
+  <app-dialogue-turn
+    [isTriggered]="event.thresholdReached"
+    [isNotTriggered]="!event.thresholdReached"
+    [isSelected]="eventBubbleIsSelected(event.eventName)"
+    [borderColor]="getCardColors().borderColor"
+  >
+    @if (event.thresholdReached) {
+      <div class="event-header">
+        <span class="event-header--icon-title">
+          <ion-icon
+            [style.color]="getCardColors().iconColor"
+            class="warning-icon"
+            src="/assets/icons/Alert_Title.svg"
+            slot="start"
+          ></ion-icon>
+          <span [style.color]="getCardColors().headerTextColor" class="">
+            {{ event.header }}
+          </span>
         </span>
-      </span>
-
-      <app-tooltip
-        class="event-header--tooltip"
-        [value]="'chat-component.common.event-tooltip' | translate"
-        color="ibf-no-alert-primary"
-      ></app-tooltip>
-    </div>
-    <p>
-      <span
-        *ngIf="!event.duration && showFirstWarningDate()"
+        <app-tooltip
+          class="event-header--tooltip"
+          [value]="'chat-component.common.event-tooltip' | translate"
+          color="ibf-no-alert-primary"
+        ></app-tooltip>
+      </div>
+      <p>
+        @if (!event.duration && showFirstWarningDate()) {
+          <span
+            [innerHTML]="
+              'chat-component.' +
+                disasterTypeName +
+                '.active-event-active-trigger.welcome'
+                | translate
+                  : {
+                      name: displayName,
+                      startDate: event.startDate,
+                      leadTime: event.firstLeadTimeLabel,
+                      timeUnit: event.timeUnit,
+                      disasterTypeLabel: disasterTypeLabel,
+                      firstLeadTimeDate: event.firstLeadTimeDate,
+                      firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
+                      eventName:
+                        event.eventName?.split('_')[0] || disasterTypeLabel,
+                      duration: event.duration,
+                      nrTriggeredAreas: areas.length,
+                    }
+            "
+          ></span>
+        }
+        @if (event.duration) {
+          <span
+            [innerHTML]="
+              'chat-component.' +
+                disasterTypeName +
+                '.active-event-active-trigger.welcome-duration'
+                | translate
+                  : {
+                      name: displayName,
+                      startDate: event.startDate,
+                      leadTime: event.firstLeadTimeLabel,
+                      timeUnit: event.timeUnit,
+                      disasterTypeLabel: disasterTypeLabel,
+                      firstLeadTimeDate: event.firstLeadTimeDate,
+                      eventName:
+                        event.eventName?.split('_')[0] || disasterTypeLabel,
+                      duration: event.duration,
+                    }
+            "
+          ></span>
+        }
+      </p>
+    } @else {
+      <div class="event-header">
+        <span class="event-header--icon-title">
+          <ion-icon
+            [style.color]="getCardColors().iconColor"
+            class="warning-icon"
+            src="/assets/icons/Alert_Title.svg"
+            slot="start"
+          ></ion-icon>
+          <span [style.color]="getCardColors().headerTextColor" class="">
+            {{ event.header }}
+          </span>
+        </span>
+        <app-tooltip
+          class="event-header--tooltip"
+          [value]="'chat-component.common.event-tooltip' | translate"
+          color="ibf-no-alert-primary"
+        ></app-tooltip>
+      </div>
+      <p
         [innerHTML]="
           'chat-component.' +
             disasterTypeName +
-            '.active-event-active-trigger.welcome'
+            '.active-event-active-trigger.welcome-below-trigger'
             | translate
               : {
-                  name: displayName,
                   startDate: event.startDate,
-                  leadTime: event.firstLeadTimeLabel,
-                  timeUnit: event.timeUnit,
-                  disasterTypeLabel: disasterTypeLabel,
                   firstLeadTimeDate: event.firstLeadTimeDate,
                   firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
-                  eventName:
-                    event.eventName?.split('_')[0] || disasterTypeLabel,
-                  duration: event.duration,
-                  nrTriggeredAreas: areas.length
-                }
-        "
-      ></span>
-      <span
-        *ngIf="event.duration"
-        [innerHTML]="
-          'chat-component.' +
-            disasterTypeName +
-            '.active-event-active-trigger.welcome-duration'
-            | translate
-              : {
-                  name: displayName,
-                  startDate: event.startDate,
+                  eventName: event.eventName?.split('_')[0],
                   leadTime: event.firstLeadTimeLabel,
                   timeUnit: event.timeUnit,
                   disasterTypeLabel: disasterTypeLabel,
-                  firstLeadTimeDate: event.firstLeadTimeDate,
-                  eventName:
-                    event.eventName?.split('_')[0] || disasterTypeLabel,
-                  duration: event.duration
+                  nrTriggeredAreas: areas.length,
                 }
         "
-      ></span>
-    </p>
-  </ng-container>
+      ></p>
+    }
 
-  <ng-container *ngIf="!event.thresholdReached">
-    <div class="event-header">
-      <span class="event-header--icon-title">
-        <ion-icon
-          [style.color]="getCardColors().iconColor"
-          class="warning-icon"
-          src="/assets/icons/Alert_Title.svg"
-          slot="start"
-        ></ion-icon>
-        <span [style.color]="getCardColors().headerTextColor" class="">
-          {{ event.header }}
-        </span>
-      </span>
+    @if (isEventWithForecastClasses()) {
+      <p>
+        <strong
+          >{{ event.disasterSpecificProperties.eapAlertClass.label }}:
+        </strong>
+        @if (event.thresholdReached) {
+          <span
+            >{{
+              'chat-component.' +
+                disasterTypeName +
+                '.alertLevel.expected-trigger' | translate
+            }}
+            {{ event.firstTriggerLeadTimeDate }}</span
+          >
+        } @else {
+          <span
+            >{{
+              'chat-component.' + disasterTypeName + '.alertLevel.expected'
+                | translate
+            }}
+            {{ event.firstLeadTimeDate }}</span
+          >
+        }
+      </p>
+      @if (event.affectedAreas) {
+        <p>
+          <strong
+            >{{
+              'chat-component.' + disasterTypeName + '.alertLevel.exposed-areas'
+                | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
+            }}
+          </strong>
+          <span>{{ event.affectedAreas + ' ' }}</span>
+          @if (event.thresholdReached) {
+            <span>{{
+              '(' +
+                (actionIndicatorLabel | titlecase) +
+                ' ' +
+                (event.actionsValueSum | number: '.0-0') +
+                ')'
+            }}</span>
+          } @else {
+            <span>
+              {{
+                '(' +
+                  ('chat-component.' + disasterTypeName + '.alertLevel.no-data'
+                    | translate) +
+                  ')'
+              }}
+            </span>
+          }
+        </p>
+      }
+    }
 
-      <app-tooltip
-        class="event-header--tooltip"
-        [value]="'chat-component.common.event-tooltip' | translate"
-        color="ibf-no-alert-primary"
-      ></app-tooltip>
-    </div>
-    <p
-      [innerHTML]="
-        'chat-component.' +
-          disasterTypeName +
-          '.active-event-active-trigger.welcome-below-trigger'
-          | translate
-            : {
-                startDate: event.startDate,
-                firstLeadTimeDate: event.firstLeadTimeDate,
-                firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
-                eventName: event.eventName?.split('_')[0],
-                leadTime: event.firstLeadTimeLabel,
-                timeUnit: event.timeUnit,
-                disasterTypeLabel: disasterTypeLabel,
-                nrTriggeredAreas: areas.length
-              }
-      "
-    ></p>
-  </ng-container>
+    @if (typhoonLandfallText) {
+      <p [innerHTML]="typhoonLandfallText"></p>
+    }
 
-  <ng-container *ngIf="isEventWithForecastClasses()">
-    <p>
-      <strong
-        >{{ event.disasterSpecificProperties.eapAlertClass.label }}:
-      </strong>
-      <span *ngIf="event.thresholdReached"
-        >{{
-          'chat-component.' + disasterTypeName + '.alertLevel.expected-trigger'
-            | translate
-        }}
-        {{ event.firstTriggerLeadTimeDate }}</span
-      >
-      <span *ngIf="!event.thresholdReached"
-        >{{
-          'chat-component.' + disasterTypeName + '.alertLevel.expected'
-            | translate
-        }}
-        {{ event.firstLeadTimeDate }}</span
-      >
-    </p>
-    <p *ngIf="event.affectedAreas">
-      <strong
-        >{{
-          'chat-component.' + disasterTypeName + '.alertLevel.exposed-areas'
-            | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
-        }}
-      </strong>
-      <span>{{ event.affectedAreas + ' ' }}</span>
-      <span *ngIf="event.thresholdReached">{{
-        '(' +
-          (actionIndicatorLabel | titlecase) +
-          ' ' +
-          (event.actionsValueSum | number: '.0-0') +
-          ')'
-      }}</span>
-      <span *ngIf="!event.thresholdReached">
-        {{
-          '(' +
-            ('chat-component.' + disasterTypeName + '.alertLevel.no-data'
-              | translate) +
-            ')'
-        }}
-      </span>
-    </p>
-  </ng-container>
+    @if (forecastInfo && countryCodeISO3 === 'ZWE') {
+      <p>{{ forecastInfo }}</p>
+    }
 
-  <p *ngIf="typhoonLandfallText" [innerHTML]="typhoonLandfallText"></p>
+    @if (!!clearOutMessage) {
+      <p class="clear-out-message" [innerHTML]="clearOutMessage"></p>
+    }
 
-  <p *ngIf="forecastInfo && countryCodeISO3 === 'ZWE'">
-    {{ forecastInfo }}
-  </p>
+    <!-- =================================== -->
 
-  <p
-    class="clear-out-message"
-    *ngIf="!!clearOutMessage"
-    [innerHTML]="clearOutMessage"
-  ></p>
+    @if (event.eventName === selectedEvent) {
+      @if (event.thresholdReached) {
+        <p
+          [innerHTML]="
+            'chat-component.' + disasterTypeName + '.active-event.overview'
+              | translate
+                : {
+                    nrTriggeredAreas: areas.length,
+                    adminAreaLabelPlural: adminAreaLabelPlural,
+                    eventName: selectedEvent?.split('_')[0],
+                    actionIndicator: actionIndicatorLabel,
+                  }
+          "
+        ></p>
+      } @else {
+        <p
+          [innerHTML]="
+            'chat-component.' +
+              disasterTypeName +
+              '.active-event.overview-below-trigger'
+              | translate
+                : {
+                    nrTriggeredAreas: areas.length,
+                    adminAreaLabelPlural: adminAreaLabelPlural,
+                    eventName: selectedEvent?.split('_')[0],
+                    actionIndicator: actionIndicatorLabel,
+                  }
+          "
+        ></p>
+      }
+      @for (class of alertClasses; track class.alertClass) {
+        <div>
+          {{ class }}
+          <ul class="area-list">
+            @for (area of class.areas; track area.name) {
+              <li class="clickable-area" (click)="selectArea(area)">
+                <p>
+                  {{ area.name }}
+                  @if (area.nameParent) {
+                    <span>({{ area.nameParent }})</span>
+                  }
+                  @if (area.actionsValue && area.actionsValue > 0) {
+                    {{ ' - ' }}
+                    @switch (actionIndicatorNumberFormat) {
+                      @case ('decimal0') {
+                        <span>{{ area.actionsValue | number: '.0-0' }}</span>
+                      }
+                      @case ('perc') {
+                        <span>{{ area.actionsValue | percent: '.0-0' }}</span>
+                      }
+                    }
+                  }
+                </p>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+      @if (event.thresholdReached) {
+        <p
+          [translate]="
+            'chat-component.' + disasterTypeName + '.active-event.instruction'
+              | translate
+          "
+        ></p>
+      }
+    }
 
-  <!-- =================================== -->
+    @if (event) {
+      <app-event-switcher [event]="event"></app-event-switcher>
+    }
+  </app-dialogue-turn>
+}
 
-  <ng-container *ngIf="event.eventName === selectedEvent">
-    <p
-      *ngIf="event.thresholdReached"
-      [innerHTML]="
-        'chat-component.' + disasterTypeName + '.active-event.overview'
-          | translate
-            : {
-                nrTriggeredAreas: areas.length,
-                adminAreaLabelPlural: adminAreaLabelPlural,
-                eventName: selectedEvent?.split('_')[0],
-                actionIndicator: actionIndicatorLabel
-              }
-      "
-    ></p>
-    <p
-      *ngIf="!event.thresholdReached"
-      [innerHTML]="
-        'chat-component.' +
-          disasterTypeName +
-          '.active-event.overview-below-trigger'
-          | translate
-            : {
-                nrTriggeredAreas: areas.length,
-                adminAreaLabelPlural: adminAreaLabelPlural,
-                eventName: selectedEvent?.split('_')[0],
-                actionIndicator: actionIndicatorLabel
-              }
-      "
-    ></p>
-    <div *ngFor="let class of alertClasses">
-      <ul class="area-list">
-        <li
-          class="clickable-area"
-          *ngFor="let area of class.areas"
-          (click)="selectArea(area)"
-        >
-          <p>
-            {{ area.name }}
-            <span *ngIf="area.nameParent">({{ area.nameParent }})</span>
-            <ng-container *ngIf="area.actionsValue && area.actionsValue > 0">
-              {{ ' - ' }}
-              <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
-                area.actionsValue | number: '.0-0'
-              }}</span>
-              <span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
-                area.actionsValue | percent: '.0-0'
-              }}</span>
-            </ng-container>
-          </p>
-        </li>
-      </ul>
-    </div>
-    <p
-      *ngIf="event.thresholdReached"
-      [translate]="
-        'chat-component.' + disasterTypeName + '.active-event.instruction'
-          | translate
-      "
-    ></p>
-  </ng-container>
-
-  <ng-container *ngIf="event">
-    <app-event-switcher [event]="event"></app-event-switcher>
-  </ng-container>
-</app-dialogue-turn>
-
-<app-dialogue-turn
-  *ngIf="type === 'stopped' && event.eventName === selectedEvent"
-  [isStopped]="true"
->
-  <ng-container>
+@if (type === 'stopped' && event.eventName === selectedEvent) {
+  <app-dialogue-turn [isStopped]="true">
     <p
       [innerHTML]="
         'chat-component.' + disasterTypeName + '.stopped-event.overview'
@@ -250,55 +262,62 @@
                 nrStoppedAreas: areas.length,
                 adminAreaLabelPlural: adminAreaLabelPlural,
                 eventName: selectedEvent?.split('_')[0],
-                actionIndicator: actionIndicatorLabel
+                actionIndicator: actionIndicatorLabel,
               }
       "
     ></p>
-    <div *ngFor="let class of alertClasses">
-      <p class="ion-padding-top" *ngIf="class.alertClass !== 'undefined'">
-        <strong>{{ class.alertClass }}</strong>
-      </p>
-      <ul>
-        <li
-          *ngFor="let area of areas"
-          class="clickable-area"
-          (click)="selectArea(area)"
-        >
-          <p>
-            {{ area.name }}
-            <span *ngIf="area.nameParent">({{ area.nameParent }})</span> -
-            <span *ngIf="actionIndicatorNumberFormat === 'decimal0'">{{
-              area.actionsValue | number: '.0-0'
-            }}</span
-            ><span *ngIf="actionIndicatorNumberFormat === 'perc'">{{
-              area.actionsValue | percent: '.0-0'
-            }}</span>
+    @for (class of alertClasses; track class.alertClass) {
+      <div>
+        @if (class.alertClass !== 'undefined') {
+          <p class="ion-padding-top">
+            <strong>{{ class.alertClass }}</strong>
           </p>
-        </li>
-      </ul>
-    </div>
+        }
+        <ul>
+          @for (area of class.areas; track area.name) {
+            <li class="clickable-area" (click)="selectArea(area)">
+              <p>
+                {{ area.name }}
+                @if (area.nameParent) {
+                  <span>({{ area.nameParent }})</span>
+                }
+                -
+                @switch (actionIndicatorNumberFormat) {
+                  @case ('decimal0') {
+                    <span>{{ area.actionsValue | number: '.0-0' }}</span>
+                  }
+                  @case ('perc') {
+                    <span>{{ area.actionsValue | percent: '.0-0' }}</span>
+                  }
+                }
+              </p>
+            </li>
+          }
+        </ul>
+      </div>
+    }
     <p
       [translate]="
         'chat-component.' + disasterTypeName + '.stopped-event.instruction'
           | translate
       "
     ></p>
-  </ng-container>
-</app-dialogue-turn>
+  </app-dialogue-turn>
+}
 
-<app-dialogue-turn *ngIf="type === 'no-event'">
-  <p
-    [innerHTML]="
-      'chat-component.' + disasterTypeName + '.no-event-no-trigger.welcome'
-        | translate
-          : {
-              name: displayName
-            }
-    "
-  ></p>
-  <p
-    class="clear-out-message"
-    *ngIf="!!clearOutMessage"
-    [innerHTML]="clearOutMessage"
-  ></p>
-</app-dialogue-turn>
+@if (type === 'no-event') {
+  <app-dialogue-turn>
+    <p
+      [innerHTML]="
+        'chat-component.' + disasterTypeName + '.no-event-no-trigger.welcome'
+          | translate
+            : {
+                name: displayName,
+              }
+      "
+    ></p>
+    @if (!!clearOutMessage) {
+      <p class="clear-out-message" [innerHTML]="clearOutMessage"></p>
+    }
+  </app-dialogue-turn>
+}

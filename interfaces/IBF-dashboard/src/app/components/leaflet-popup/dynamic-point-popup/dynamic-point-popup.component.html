@@ -6,20 +6,23 @@
   <strong>{{ title }}</strong>
 </div>
 <div class="leaflet--dynamic-point-popup--content">
-  <ng-container [ngSwitch]="layerName">
-    <app-river-gauge-popup-content
-      *ngSwitchCase="ibfLayerName.gauges"
-      [data]="riverGauge"
-    ></app-river-gauge-popup-content>
-    <app-typhoon-trackpoint-popup-content
-      *ngSwitchCase="ibfLayerName.typhoonTrack"
-      [data]="typhoonData"
-    ></app-typhoon-trackpoint-popup-content>
-    <app-glofas-station-popup-content
-      *ngSwitchCase="ibfLayerName.glofasStations"
-      [data]="glofasData"
-    ></app-glofas-station-popup-content>
-  </ng-container>
+  @switch (layerName) {
+    @case (ibfLayerName.gauges) {
+      <app-river-gauge-popup-content
+        [data]="riverGauge"
+      ></app-river-gauge-popup-content>
+    }
+    @case (ibfLayerName.typhoonTrack) {
+      <app-typhoon-trackpoint-popup-content
+        [data]="typhoonData"
+      ></app-typhoon-trackpoint-popup-content>
+    }
+    @case (ibfLayerName.glofasStations) {
+      <app-glofas-station-popup-content
+        [data]="glofasData"
+      ></app-glofas-station-popup-content>
+    }
+  }
 </div>
 <div class="leaflet--dynamic-point-popup--footer" [style]="glofasFooterStyle">
   <div>

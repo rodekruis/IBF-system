@@ -6,20 +6,21 @@
           'chat-component.common.warn-label.message'
             | translate
               : {
-                  lastModelRunDate: lastModelRunDate,
-                  name: authService.displayName
+                  lastModelRunDate,
+                  name: authService.displayName,
                 }
         "
       ></span>
-      <app-tooltip
-        *ngIf="isWarn"
-        [value]="
-          'chat-component.common.warn-label.tooltip'
-            | translate: { supportEmailAddress: supportEmailAddress }
-        "
-        color="danger"
-        class="absolute"
-      ></app-tooltip>
+      @if (isWarn) {
+        <app-tooltip
+          [value]="
+            'chat-component.common.warn-label.tooltip'
+              | translate: { supportEmailAddress }
+          "
+          color="danger"
+          class="absolute"
+        ></app-tooltip>
+      }
     </p>
 
     <ion-col>
@@ -42,296 +43,306 @@
     </ion-col>
   </app-dialogue-turn>
 
-  <!-- No event -->
-  <app-event-speech-bubble
-    *ngIf="!eventState?.events?.length"
-    [type]="'no-event'"
-    [event]="null"
-    [selectedEvent]="eventState?.event?.eventName"
-    [disasterTypeLabel]="disasterType?.label"
-    [disasterTypeName]="disasterType?.disasterType"
-    [clearOutMessage]="getClearOutMessage(null)"
-    [countryCodeISO3]="country?.countryCodeISO3"
-    [areas]="stoppedAreas"
-    [adminAreaLabelPlural]="adminAreaLabelPlural"
-    [actionIndicatorLabel]="actionIndicatorLabel"
-    [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
-  ></app-event-speech-bubble>
+  @if (!eventState?.events?.length) {
+    <!-- No event -->
+    <app-event-speech-bubble
+      [type]="'no-event'"
+      [event]="null"
+      [selectedEvent]="eventState?.event?.eventName"
+      [disasterTypeLabel]="disasterType?.label"
+      [disasterTypeName]="disasterType?.disasterType"
+      [clearOutMessage]="getClearOutMessage(null)"
+      [countryCodeISO3]="country?.countryCodeISO3"
+      [areas]="stoppedAreas"
+      [adminAreaLabelPlural]="adminAreaLabelPlural"
+      [actionIndicatorLabel]="actionIndicatorLabel"
+      [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+    ></app-event-speech-bubble>
+  } @else {
+    <!-- Active event -->
+    @for (event of eventState?.events; track event.eventName) {
+      @if (
+        filteredStoppedAreas.length === 0 && filteredActiveAreas.length === 0
+      ) {
+        @if (activeAreas.length) {
+          <app-event-speech-bubble
+            [type]="'active'"
+            [event]="event"
+            [selectedEvent]="eventState?.event?.eventName"
+            [disasterTypeLabel]="disasterType?.label"
+            [disasterTypeName]="disasterType?.disasterType"
+            [clearOutMessage]="getClearOutMessage(event)"
+            [countryCodeISO3]="country?.countryCodeISO3"
+            [areas]="activeAreas"
+            [adminAreaLabelPlural]="adminAreaLabelPlural"
+            [actionIndicatorLabel]="actionIndicatorLabel"
+            [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+          ></app-event-speech-bubble>
+        }
+        @if (stoppedAreas.length) {
+          <app-event-speech-bubble
+            [type]="'stopped'"
+            [event]="event"
+            [selectedEvent]="eventState?.event?.eventName"
+            [disasterTypeLabel]="disasterType?.label"
+            [disasterTypeName]="disasterType?.disasterType"
+            [clearOutMessage]="getClearOutMessage(null)"
+            [countryCodeISO3]="country?.countryCodeISO3"
+            [areas]="stoppedAreas"
+            [adminAreaLabelPlural]="adminAreaLabelPlural"
+            [actionIndicatorLabel]="actionIndicatorLabel"
+            [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+          ></app-event-speech-bubble>
+        }
+      }
+    }
+  }
 
-  <!-- Active event -->
-  <ng-container *ngIf="eventState?.events?.length > 0">
-    <ng-container *ngFor="let event of eventState?.events">
-      <app-event-speech-bubble
-        *ngIf="
-          activeAreas.length &&
-          filteredStoppedAreas.length === 0 &&
-          filteredActiveAreas.length === 0
-        "
-        [type]="'active'"
-        [event]="event"
-        [selectedEvent]="eventState?.event?.eventName"
-        [disasterTypeLabel]="disasterType?.label"
-        [disasterTypeName]="disasterType?.disasterType"
-        [clearOutMessage]="getClearOutMessage(event)"
-        [countryCodeISO3]="country?.countryCodeISO3"
-        [areas]="activeAreas"
-        [adminAreaLabelPlural]="adminAreaLabelPlural"
-        [actionIndicatorLabel]="actionIndicatorLabel"
-        [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
-      ></app-event-speech-bubble>
-
-      <app-event-speech-bubble
-        *ngIf="
-          stoppedAreas.length &&
-          filteredStoppedAreas.length === 0 &&
-          filteredActiveAreas.length === 0
-        "
-        [type]="'stopped'"
-        [event]="event"
-        [selectedEvent]="eventState?.event?.eventName"
-        [disasterTypeLabel]="disasterType?.label"
-        [disasterTypeName]="disasterType?.disasterType"
-        [clearOutMessage]="getClearOutMessage(null)"
-        [countryCodeISO3]="country?.countryCodeISO3"
-        [areas]="stoppedAreas"
-        [adminAreaLabelPlural]="adminAreaLabelPlural"
-        [actionIndicatorLabel]="actionIndicatorLabel"
-        [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
-      ></app-event-speech-bubble>
-    </ng-container>
-  </ng-container>
-
-  <ng-container *ngIf="eventState?.events?.length > 0">
-    <app-dialogue-turn
-      *ngFor="let area of filteredStoppedAreas; first as isFirst"
-      [isStopped]="true"
-    >
-      <app-ibf-button
-        *ngIf="placeCode"
-        (click)="revertAreaSelection()"
-        backgroundColor="ibf-no-alert-primary"
-        size="small"
-        class="ion-float-right"
-      >
-        <span class="ion-hide-sm-down">{{
-          'chat-component.common.revert-selection' | translate
-        }}</span>
-        <ion-icon name="arrow-back" slot="start"></ion-icon>
-      </app-ibf-button>
-      <p
-        [innerHTML]="
-          'chat-component.' + disasterTypeName + '.stopped-event.area'
-            | translate
-              : {
-                  placeCodeName: area.name,
-                  startDate: area.startDate,
-                  stoppedDate: area.stoppedDate,
-                  displayName: area.displayName || 'unknown',
-                  parentName: getAreaParentString(area)
-                }
-        "
-      ></p>
-      <app-ibf-button
-        (click)="openToggleTriggerPopup(area, false)"
-        *ngIf="
-          countryDisasterSettings?.enableStopTrigger &&
-          placeCode?.adminLevel === countryDisasterSettings.defaultAdminLevel
-        "
-        backgroundColor="ibf-no-alert-primary"
-      >
-        {{
-          'chat-component.common.reactivate-trigger-popup.' +
-            hasEap() +
-            '.header' | translate: { alertLabel: area.alertLabel }
-        }}
-      </app-ibf-button>
-    </app-dialogue-turn>
-  </ng-container>
-  <app-dialogue-turn
-    *ngFor="let area of filteredActiveAreas; first as isFirst"
-    [isTriggered]="eventState?.event?.thresholdReached"
-  >
-    <app-ibf-button
-      *ngIf="placeCode"
-      (click)="revertAreaSelection()"
-      backgroundColor="ibf-primary"
-      size="small"
-      class="ion-float-right"
-    >
-      <span class="ion-hide-sm-down">{{
-        'chat-component.common.revert-selection' | translate
-      }}</span>
-      <ion-icon name="arrow-back" slot="start"></ion-icon>
-    </app-ibf-button>
-    <ion-row>
-      <ion-col size-lg="2" size-md="2" size-xs="2">
-        <ion-img
-          src="assets/icons/Alert_Chat_Black.svg"
-          class="chat-icon"
-        ></ion-img>
-      </ion-col>
-      <ion-col size-lg="10" size-md="10" size-xs="10">
-        <ion-label
+  @if (eventState?.events?.length > 0) {
+    @for (area of filteredStoppedAreas; track area.name; let isFirst = $first) {
+      <app-dialogue-turn [isStopped]="true">
+        @if (placeCode) {
+          <app-ibf-button
+            (click)="revertAreaSelection()"
+            backgroundColor="ibf-no-alert-primary"
+            size="small"
+            class="ion-float-right"
+          >
+            <span class="ion-hide-sm-down">{{
+              'chat-component.common.revert-selection' | translate
+            }}</span>
+            <ion-icon name="arrow-back" slot="start"></ion-icon>
+          </app-ibf-button>
+        }
+        <p
           [innerHTML]="
-            'chat-component.' + disasterTypeName + '.active-event.place-name'
+            'chat-component.' + disasterTypeName + '.stopped-event.area'
               | translate
                 : {
-                    adminAreaLabel: adminAreaLabel,
-                    placeName: area.name,
-                    parentName: getAreaParentString(area)
+                    placeCodeName: area.name,
+                    startDate: area.startDate,
+                    stoppedDate: area.stoppedDate,
+                    displayName: area.displayName || 'unknown',
+                    parentName: getAreaParentString(area),
                   }
           "
-        ></ion-label
-        ><br />
-        <ion-note *ngIf="eventState?.event?.thresholdReached" size="small">
-          <span
-            [innerHTML]="
-              'chat-component.' + disasterTypeName + '.active-event.exposed'
-                | translate
-            "
-          ></span>
-          <strong
-            ><span *ngIf="actionIndicatorNumberFormat === 'decimal0'">
-              {{ area.actionsValue | number: '.0-0' }}
-            </span>
-            <span *ngIf="actionIndicatorNumberFormat === 'perc'">
-              {{ area.actionsValue | percent: '.0-0' }}</span
-            >
-          </strong>
-        </ion-note>
-        <br />
-        <div
-          *ngIf="countryDisasterSettings?.showMonthlyEapActions"
-          class="ion-margin-bottom"
-        >
-          <ng-container
-            *ngIf="forecastInfo && country?.countryCodeISO3 === 'KEN'"
-          >
-            <ion-note size="small" *ngIf="area?.eapActions as actions">
-              <span *ngIf="forecastInfo?.length"
-                >{{
-                  'chat-component.drought.active-event.forecast-info.opening'
-                    | translate
-                }}
-              </span>
-
-              <span *ngFor="let forecast of forecastInfo; last as isLast">
-                <strong>{{ forecast }}</strong
-                ><span *ngIf="!isLast">
-                  {{
-                    'chat-component.drought.active-event.forecast-info.and'
-                      | translate
-                  }}
-                </span>
-              </span>
-              {{ ' ' }}
-              <span
-                [innerHTML]="
-                  getNumberOfActions(actions.length, forecastInfo?.length)
-                "
-              ></span>
-            </ion-note>
-          </ng-container>
-        </div>
-      </ion-col>
-    </ion-row>
-
-    <ng-container *ngIf="eventState?.event?.thresholdReached">
-      <ng-container *ngIf="countryDisasterSettings.enableEarlyActions">
-        <ion-item
-          *ngIf="adminLevel > countryDisasterSettings.defaultAdminLevel"
-          class="background-light"
-        >
-          <ion-label class="ion-text-wrap">
-            {{
-              'chat-component.common.save-actions.no-actions-admin-level'
-                | translate
-                  : {
-                      defaultAdminAreaLabel:
-                        country.adminRegionLabels[
-                          countryDisasterSettings.defaultAdminLevel
-                        ].singular
-                    }
-            }}</ion-label
-          ></ion-item
-        >
-        <ion-item
-          *ngIf="
-            adminLevel === countryDisasterSettings.defaultAdminLevel &&
-            !area.eapActions.length
-          "
-          class="background-light"
-        >
-          <ion-label class="ion-text-wrap">
-            {{
-              'chat-component.common.save-actions.no-actions' | translate
-            }}</ion-label
-          ></ion-item
-        >
-        <form
-          *ngIf="area.eapActions.length"
-          (submit)="submitEapAction(area.placeCode)"
-        >
-          <ion-list class="background-light">
-            <ion-item
-              *ngFor="let action of area.eapActions"
-              class="ion-no-padding"
-            >
-              <ion-checkbox
-                mode="ios"
-                slot="start"
-                color="ibf-primary"
-                [checked]="action.checked"
-                name="action.action"
-                (ionChange)="
-                  changeAction(
-                    area.placeCode,
-                    action.action,
-                    $event['detail']['checked']
-                  )
-                "
-              ></ion-checkbox>
-              <ion-label class="action-label ion-text-wrap"
-                ><strong>{{ action.aofLabel }}: </strong>{{ action.label
-                }}<span *ngIf="action.month"
-                  ><strong>
-                    ({{ action.monthLong[getRegion(area.placeCode)] }})</strong
-                  ></span
-                >
-              </ion-label>
-            </ion-item>
-          </ion-list>
-          <ion-row class="ion-nowrap ion-align-items-center ion-margin-top">
-            <app-ibf-button
-              [disabled]="area.submitDisabled"
-              backgroundColor="ibf-primary"
-              type="submit"
-              style="width: 100%"
-              strong="true"
-            >
-              {{
-                'chat-component.common.save-actions.submit-button-label'
-                  | translate
-              }}
-            </app-ibf-button>
-          </ion-row>
-        </form>
-      </ng-container>
-      <app-ibf-button
-        *ngIf="
+        ></p>
+        @if (
           countryDisasterSettings?.enableStopTrigger &&
           placeCode?.adminLevel === countryDisasterSettings.defaultAdminLevel
-        "
-        (click)="openToggleTriggerPopup(area, true)"
-        backgroundColor="ibf-white"
-        textColor="ibf-no-alert-primary"
-        borderColor="ibf-no-alert-secondary"
-        strong="true"
-        >{{
-          'chat-component.common.stop-trigger-popup.' + hasEap() + '.header'
-            | translate: { alertLabel: area.alertLabel }
-        }}</app-ibf-button
-      >
-    </ng-container>
-  </app-dialogue-turn>
+        ) {
+          <app-ibf-button
+            (click)="openToggleTriggerPopup(area, false)"
+            backgroundColor="ibf-no-alert-primary"
+          >
+            {{
+              'chat-component.common.reactivate-trigger-popup.' +
+                hasEap() +
+                '.header' | translate: { alertLabel: area.alertLabel }
+            }}
+          </app-ibf-button>
+        }
+      </app-dialogue-turn>
+    }
+  }
+  @for (area of filteredActiveAreas; track area.name; let isFirst = $first) {
+    <app-dialogue-turn [isTriggered]="eventState?.event?.thresholdReached">
+      @if (placeCode) {
+        <app-ibf-button
+          (click)="revertAreaSelection()"
+          backgroundColor="ibf-primary"
+          size="small"
+          class="ion-float-right"
+        >
+          <span class="ion-hide-sm-down">{{
+            'chat-component.common.revert-selection' | translate
+          }}</span>
+          <ion-icon name="arrow-back" slot="start"></ion-icon>
+        </app-ibf-button>
+      }
+      <ion-row>
+        <ion-col size-lg="2" size-md="2" size-xs="2">
+          <ion-img
+            src="assets/icons/Alert_Chat_Black.svg"
+            class="chat-icon"
+          ></ion-img>
+        </ion-col>
+        <ion-col size-lg="10" size-md="10" size-xs="10">
+          <ion-label
+            [innerHTML]="
+              'chat-component.' + disasterTypeName + '.active-event.place-name'
+                | translate
+                  : {
+                      adminAreaLabel,
+                      placeName: area.name,
+                      parentName: getAreaParentString(area),
+                    }
+            "
+          ></ion-label
+          ><br />
+          @if (eventState?.event?.thresholdReached) {
+            <ion-note size="small">
+              <span
+                [innerHTML]="
+                  'chat-component.' + disasterTypeName + '.active-event.exposed'
+                    | translate
+                "
+              ></span>
+              <strong>
+                @switch (actionIndicatorNumberFormat) {
+                  @case ('decimal0') {
+                    <span>{{ area.actionsValue | number: '.0-0' }}</span>
+                  }
+                  @case ('perc') {
+                    <span>{{ area.actionsValue | percent: '.0-0' }}</span>
+                  }
+                }
+              </strong>
+            </ion-note>
+          }
+          <br />
+          @if (countryDisasterSettings?.showMonthlyEapActions) {
+            <div class="ion-margin-bottom">
+              @if (forecastInfo && country?.countryCodeISO3 === 'KEN') {
+                @if (area?.eapActions; as actions) {
+                  <ion-note size="small">
+                    @if (forecastInfo?.length) {
+                      <span
+                        >{{
+                          'chat-component.drought.active-event.forecast-info.opening'
+                            | translate
+                        }}
+                      </span>
+                    }
+                    @for (
+                      forecast of forecastInfo;
+                      track forecast;
+                      let isLast = $last
+                    ) {
+                      <span>
+                        <strong>{{ forecast }}</strong>
+                        @if (!isLast) {
+                          <span>
+                            {{
+                              'chat-component.drought.active-event.forecast-info.and'
+                                | translate
+                            }}
+                          </span>
+                        }
+                      </span>
+                    }
+                    {{ ' ' }}
+                    <span
+                      [innerHTML]="
+                        getNumberOfActions(actions.length, forecastInfo?.length)
+                      "
+                    ></span>
+                  </ion-note>
+                }
+              }
+            </div>
+          }
+        </ion-col>
+      </ion-row>
+      @if (eventState?.event?.thresholdReached) {
+        @if (countryDisasterSettings.enableEarlyActions) {
+          @if (adminLevel > countryDisasterSettings.defaultAdminLevel) {
+            <ion-item class="background-light">
+              <ion-label class="ion-text-wrap">
+                {{
+                  'chat-component.common.save-actions.no-actions-admin-level'
+                    | translate
+                      : {
+                          defaultAdminAreaLabel:
+                            country.adminRegionLabels[
+                              countryDisasterSettings.defaultAdminLevel
+                            ].singular,
+                        }
+                }}</ion-label
+              ></ion-item
+            >
+          }
+          @if (
+            adminLevel === countryDisasterSettings.defaultAdminLevel &&
+            !area.eapActions.length
+          ) {
+            <ion-item class="background-light">
+              <ion-label class="ion-text-wrap">
+                {{
+                  'chat-component.common.save-actions.no-actions' | translate
+                }}</ion-label
+              ></ion-item
+            >
+          }
+          @if (area.eapActions.length) {
+            <form (submit)="submitEapAction(area.placeCode)">
+              <ion-list class="background-light">
+                @for (action of area.eapActions; track action) {
+                  <ion-item class="ion-no-padding">
+                    <ion-checkbox
+                      mode="ios"
+                      slot="start"
+                      color="ibf-primary"
+                      [checked]="action.checked"
+                      name="action.action"
+                      (ionChange)="
+                        changeAction(
+                          area.placeCode,
+                          action.action,
+                          $event['detail']['checked']
+                        )
+                      "
+                    ></ion-checkbox>
+                    <ion-label class="action-label ion-text-wrap"
+                      ><strong>{{ action.aofLabel }}: </strong
+                      >{{ action.label }}
+                      @if (action.month) {
+                        <span
+                          ><strong>
+                            ({{
+                              action.monthLong[getRegion(area.placeCode)]
+                            }})</strong
+                          ></span
+                        >
+                      }
+                    </ion-label>
+                  </ion-item>
+                }
+              </ion-list>
+              <ion-row class="ion-nowrap ion-align-items-center ion-margin-top">
+                <app-ibf-button
+                  [disabled]="area.submitDisabled"
+                  backgroundColor="ibf-primary"
+                  type="submit"
+                  style="width: 100%"
+                  strong="true"
+                >
+                  {{
+                    'chat-component.common.save-actions.submit-button-label'
+                      | translate
+                  }}
+                </app-ibf-button>
+              </ion-row>
+            </form>
+          }
+        }
+        @if (
+          countryDisasterSettings?.enableStopTrigger &&
+          placeCode?.adminLevel === countryDisasterSettings.defaultAdminLevel
+        ) {
+          <app-ibf-button
+            (click)="openToggleTriggerPopup(area, true)"
+            backgroundColor="ibf-white"
+            textColor="ibf-no-alert-primary"
+            borderColor="ibf-no-alert-secondary"
+            strong="true"
+            >{{
+              'chat-component.common.stop-trigger-popup.' + hasEap() + '.header'
+                | translate: { alertLabel: area.alertLabel }
+            }}</app-ibf-button
+          >
+        }
+      }
+    </app-dialogue-turn>
+  }
 </ion-content>

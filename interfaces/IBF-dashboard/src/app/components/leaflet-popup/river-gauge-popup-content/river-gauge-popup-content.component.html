@@ -1,4 +1,4 @@
-<ng-container *ngIf="current">
+@if (current) {
   <div
     style="margin-bottom: 4px; display: flex; justify-content: space-between"
   >
@@ -42,8 +42,7 @@
     [thresholdValue]="reference + ('map-popups.river-gauge.unit' | translate)"
     [thresholdPosition]="80"
   ></app-threshold-bar>
-</ng-container>
-<ng-container *ngIf="!current">
+} @else {
   <div
     style="margin-bottom: 4px; display: flex; justify-content: space-between"
   >
@@ -53,4 +52,4 @@
       </ion-label>
     </div>
   </div>
-</ng-container>
+}

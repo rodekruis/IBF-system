@@ -44,18 +44,15 @@
         [title]="isPassword() ? this.labelShow : this.labelHide"
         [attr.aria-label]="isPassword() ? this.labelShow : this.labelHide"
       >
-        <ion-icon
-          *ngIf="isPassword()"
-          slot="icon-only"
-          name="eye"
-          aria-hidden="true"
-        ></ion-icon>
-        <ion-icon
-          *ngIf="!isPassword()"
-          slot="icon-only"
-          name="eye-off"
-          aria-hidden="true"
-        ></ion-icon>
+        @if (isPassword()) {
+          <ion-icon slot="icon-only" name="eye" aria-hidden="true"></ion-icon>
+        } @else {
+          <ion-icon
+            slot="icon-only"
+            name="eye-off"
+            aria-hidden="true"
+          ></ion-icon>
+        }
       </ion-button>
     </div>
   </ion-item>

@@ -1,3 +1,5 @@
-<ion-text class="ion-float-end" *ngIf="timestamp">
-  {{ displayDate }} - <strong>{{ displayTime }}</strong>
-</ion-text>
+@if (timestamp) {
+  <ion-text class="ion-float-end">
+    {{ displayDate }} - <strong>{{ displayTime }}</strong>
+  </ion-text>
+}

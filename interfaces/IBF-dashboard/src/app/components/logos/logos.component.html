@@ -1,9 +1,6 @@
-<ng-container
-  *ngFor="
-    let logo of (country | async)?.countryLogos[
-      (disasterType | async)?.disasterType
-    ]
-  "
->
+@for (
+  logo of (country | async)?.countryLogos[(disasterType | async)?.disasterType];
+  track logo
+) {
   <img data-test="logo-image" src="assets/logos/{{ logo }}" />
-</ng-container>
+}

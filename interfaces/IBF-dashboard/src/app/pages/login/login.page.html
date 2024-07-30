@@ -26,20 +26,18 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center ion-align-items-center">
       <ion-col size-xs="12" size-sm="11" size-md="9" size-lg="7" size-xl="6">
-        <span
-          *ngFor="let disasterType of allDisasterTypes"
-          data-test="disaster-Type"
-          class="container"
-        >
-          <ion-icon
-            class="ibf"
-            [src]="getIconByCountry(disasterType)"
-            slot="start"
-            class="disaster-type-icon"
-            [title]="disasterType"
-          >
-          </ion-icon>
-        </span>
+        @for (disasterType of allDisasterTypes; track disasterType) {
+          <span data-test="disaster-Type" class="container">
+            <ion-icon
+              class="ibf"
+              [src]="getIconByCountry(disasterType)"
+              slot="start"
+              class="disaster-type-icon"
+              [title]="disasterType"
+            >
+            </ion-icon>
+          </span>
+        }
         <ion-card class="ibf-welcome-card" color="ibf-no-alert-primary">
           <ion-icon
             src="assets/icons/IBF_Impact_Based_Forecast_Logo_32x32.svg"

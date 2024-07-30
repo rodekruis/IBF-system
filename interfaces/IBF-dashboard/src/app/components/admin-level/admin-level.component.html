@@ -1,119 +1,123 @@
-<ng-container
-  *ngIf="useBreadcrumbs(disasterType); then breadcrumbs; else tabs"
-></ng-container>
-<ng-template #breadcrumbs>
+@if (useBreadcrumbs(disasterType)) {
   <div class="ion-margin-start breadcrumbs-container">
-    <ion-button
-      *ngIf="showBreadcrumb(mapViewEnum.national)"
-      class="breadcrumb"
-      [ngClass]="
-        currentMapView === mapViewEnum.national
-          ? 'breadcrumb-alone'
-          : 'breadcrumb-start'
-      "
-      [class.selected]="currentMapView === mapViewEnum.national"
-      [disabled]="disableNationalView()"
-      (click)="
-        clickBreadcrumbButton(
-          mapViewEnum.national,
+    @if (showBreadcrumb(mapViewEnum.national)) {
+      <ion-button
+        class="breadcrumb"
+        [ngClass]="
           currentMapView === mapViewEnum.national
-        )
-      "
-    >
-      {{ 'breadcrumbs.national-view' | translate }}
-    </ion-button>
-    <ion-button
-      *ngIf="showBreadcrumb(mapViewEnum.event)"
-      class="breadcrumb"
-      [ngClass]="
-        currentMapView === mapViewEnum.event
-          ? 'breadcrumb-end'
-          : 'breadcrumb-middle'
-      "
-      [class.selected]="currentMapView === mapViewEnum.event"
-      (click)="
-        clickBreadcrumbButton(
-          mapViewEnum.event,
+            ? 'breadcrumb-alone'
+            : 'breadcrumb-start'
+        "
+        [class.selected]="currentMapView === mapViewEnum.national"
+        [disabled]="disableNationalView()"
+        (click)="
+          clickBreadcrumbButton(
+            mapViewEnum.national,
+            currentMapView === mapViewEnum.national
+          )
+        "
+      >
+        {{ 'breadcrumbs.national-view' | translate }}
+      </ion-button>
+    }
+    @if (showBreadcrumb(mapViewEnum.event)) {
+      <ion-button
+        class="breadcrumb"
+        [ngClass]="
           currentMapView === mapViewEnum.event
-        )
-      "
-    >
-      {{ eventState?.event?.eventName }}
-    </ion-button>
-    <ion-button
-      *ngIf="showBreadcrumb(mapViewEnum.adminArea)"
-      class="breadcrumb"
-      [ngClass]="
-        currentMapView === mapViewEnum.adminArea
-          ? 'breadcrumb-end'
-          : 'breadcrumb-middle'
-      "
-      [class.selected]="currentMapView === mapViewEnum.adminArea"
-      (click)="
-        clickBreadcrumbButton(
-          mapViewEnum.adminArea,
+            ? 'breadcrumb-end'
+            : 'breadcrumb-middle'
+        "
+        [class.selected]="currentMapView === mapViewEnum.event"
+        (click)="
+          clickBreadcrumbButton(
+            mapViewEnum.event,
+            currentMapView === mapViewEnum.event
+          )
+        "
+      >
+        {{ eventState?.event?.eventName }}
+      </ion-button>
+    }
+    @if (showBreadcrumb(mapViewEnum.adminArea)) {
+      <ion-button
+        class="breadcrumb"
+        [ngClass]="
           currentMapView === mapViewEnum.adminArea
-        )
-      "
-      [innerHtml]="
-        currentMapView === mapViewEnum.adminArea
-          ? placeCode?.placeCodeName
-          : currentMapView === mapViewEnum.adminArea2
-          ? placeCode?.placeCodeParent?.placeCodeName
-          : placeCode?.placeCodeParent?.placeCodeParent?.placeCodeName
-      "
-    >
-    </ion-button>
-    <ion-button
-      *ngIf="showBreadcrumb(mapViewEnum.adminArea2)"
-      class="breadcrumb"
-      [ngClass]="
-        currentMapView === mapViewEnum.adminArea2
-          ? 'breadcrumb-end'
-          : 'breadcrumb-middle'
-      "
-      [class.selected]="currentMapView === mapViewEnum.adminArea2"
-      (click)="
-        clickBreadcrumbButton(
-          mapViewEnum.adminArea2,
+            ? 'breadcrumb-end'
+            : 'breadcrumb-middle'
+        "
+        [class.selected]="currentMapView === mapViewEnum.adminArea"
+        (click)="
+          clickBreadcrumbButton(
+            mapViewEnum.adminArea,
+            currentMapView === mapViewEnum.adminArea
+          )
+        "
+        [innerHtml]="
+          currentMapView === mapViewEnum.adminArea
+            ? placeCode?.placeCodeName
+            : currentMapView === mapViewEnum.adminArea2
+              ? placeCode?.placeCodeParent?.placeCodeName
+              : placeCode?.placeCodeParent?.placeCodeParent?.placeCodeName
+        "
+      >
+      </ion-button>
+    }
+    @if (showBreadcrumb(mapViewEnum.adminArea2)) {
+      <ion-button
+        class="breadcrumb"
+        [ngClass]="
           currentMapView === mapViewEnum.adminArea2
-        )
-      "
-      [innerHtml]="
-        currentMapView === mapViewEnum.adminArea2
-          ? placeCode?.placeCodeName
-          : placeCode?.placeCodeParent?.placeCodeName
-      "
-    >
-    </ion-button>
-    <ion-button
-      *ngIf="showBreadcrumb(mapViewEnum.adminArea3)"
-      class="breadcrumb breadcrumb-end"
-      [class.selected]="currentMapView === mapViewEnum.adminArea3"
-      (click)="
-        clickBreadcrumbButton(
-          mapViewEnum.adminArea3,
-          currentMapView === mapViewEnum.adminArea3
-        )
-      "
-    >
-      {{ placeCode?.placeCodeName }}
-    </ion-button>
+            ? 'breadcrumb-end'
+            : 'breadcrumb-middle'
+        "
+        [class.selected]="currentMapView === mapViewEnum.adminArea2"
+        (click)="
+          clickBreadcrumbButton(
+            mapViewEnum.adminArea2,
+            currentMapView === mapViewEnum.adminArea2
+          )
+        "
+        [innerHtml]="
+          currentMapView === mapViewEnum.adminArea2
+            ? placeCode?.placeCodeName
+            : placeCode?.placeCodeParent?.placeCodeName
+        "
+      >
+      </ion-button>
+    }
+    @if (showBreadcrumb(mapViewEnum.adminArea3)) {
+      <ion-button
+        class="breadcrumb breadcrumb-end"
+        [class.selected]="currentMapView === mapViewEnum.adminArea3"
+        (click)="
+          clickBreadcrumbButton(
+            mapViewEnum.adminArea3,
+            currentMapView === mapViewEnum.adminArea3
+          )
+        "
+      >
+        {{ placeCode?.placeCodeName }}
+      </ion-button>
+    }
   </div>
-</ng-template>
-<ng-template #tabs>
+} @else {
   <div class="ion-margin-start breadcrumbs-container">
-    <ion-button
-      *ngFor="let button of adminLevelButtons | async"
-      size="small"
-      fill="solid"
-      class="breadcrumb"
-      [ngClass]="button.buttonTypeClass"
-      [class.selected]="isAdminLevelActive(button.adminLevel, button.disabled)"
-      [disabled]="button.disabled"
-      (click)="clickAdminLevelButton(button.adminLevel)"
-    >
-      {{ button.label }}
-    </ion-button>
+    @for (button of adminLevelButtons | async; track button.adminLevel) {
+      <ion-button
+        size="small"
+        fill="solid"
+        class="breadcrumb"
+        [ngClass]="button.buttonTypeClass"
+        [class.selected]="
+          isAdminLevelActive(button.adminLevel, button.disabled)
+        "
+        [disabled]="button.disabled"
+        (click)="clickAdminLevelButton(button.adminLevel)"
+      >
+        {{ button.label }}
+      </ion-button>
+    }
   </div>
-</ng-template>
+}
