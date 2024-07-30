@@ -12,22 +12,20 @@ describe('IbfGuidePopoverComponent', () => {
   let component: IbfGuidePopoverComponent;
   let fixture: ComponentFixture<IbfGuidePopoverComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [IbfGuidePopoverComponent],
-        imports: [IonicModule, TranslateModule.forRoot()],
-        providers: [
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
-        ],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [IbfGuidePopoverComponent],
+      imports: [IonicModule, TranslateModule.forRoot()],
+      providers: [
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(IbfGuidePopoverComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(IbfGuidePopoverComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

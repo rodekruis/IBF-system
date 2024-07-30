@@ -15,28 +15,26 @@ describe('MapComponent', () => {
   let component: MapComponent;
   let fixture: ComponentFixture<MapComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [MapComponent],
-        imports: [
-          IonicModule,
-          LeafletModule,
-          RouterTestingModule,
-          TranslateModule.forRoot(),
-        ],
-        providers: [
-          { provide: MapService },
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
-        ],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [MapComponent],
+      imports: [
+        IonicModule,
+        LeafletModule,
+        RouterTestingModule,
+        TranslateModule.forRoot(),
+      ],
+      providers: [
+        { provide: MapService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(MapComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(MapComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

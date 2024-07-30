@@ -110,9 +110,8 @@ export class MatrixComponent implements OnDestroy {
   }
 
   public async isLayerControlMenuOpen(): Promise<void> {
-    this.hideLayerControlToggleButton = await this.menuController.isOpen(
-      'layer-control',
-    );
+    this.hideLayerControlToggleButton =
+      await this.menuController.isOpen('layer-control');
   }
 
   private sortLayers = (a: IbfLayer, b: IbfLayer) =>

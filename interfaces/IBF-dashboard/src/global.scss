@@ -63,7 +63,10 @@
 
 .info {
   padding: 6px 8px;
-  font: 0.75rem Arial, Helvetica, sans-serif;
+  font:
+    0.75rem Arial,
+    Helvetica,
+    sans-serif;
   background: white;
   box-shadow: 0 0 0.9375rem rgba(0, 0, 0, 0.2);
   border-radius: 0.3125rem;
@@ -270,7 +273,9 @@
 // https://stackoverflow.com/a/68240841/1753041
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
-  transition: background-color 600000s 0s, color 600000s 0s;
+  transition:
+    background-color 600000s 0s,
+    color 600000s 0s;
 }
 
 [popover].popover-viewport {

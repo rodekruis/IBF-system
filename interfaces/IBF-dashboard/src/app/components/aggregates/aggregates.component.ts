@@ -162,10 +162,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
-      this.country,
-      this.disasterType,
-    );
+    this.countryDisasterSettings =
+      this.disasterTypeService.getCountryDisasterTypeSettings(
+        this.country,
+        this.disasterType,
+      );
   };
 
   private onEventStateChange = (eventState: EventState) => {
@@ -425,9 +426,9 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return this.placeCodeHover // hovering should always lead to aggregate-numbers updating on any level
       ? this.placeCodeHover.placeCode
       : adminLevelType === AdminLevelType.higher // else if on higher of multiple levels, do not filter by placeCode, as it it still the parent placeCode, while the aggregates data is on the child-placeCodes
-      ? null
-      : placeCode // else if on single/deepest level, then follow normal behaviour of filtering on selected placeCode
-      ? placeCode.placeCode
-      : null; // .. or no filtering, if no placeCode is selected
+        ? null
+        : placeCode // else if on single/deepest level, then follow normal behaviour of filtering on selected placeCode
+          ? placeCode.placeCode
+          : null; // .. or no filtering, if no placeCode is selected
   }
 }

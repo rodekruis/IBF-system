@@ -130,9 +130,9 @@ export class DynamicPointPopupComponent implements OnInit {
       return !this.riverGauge.dynamicData?.['water-level']
         ? ''
         : this.riverGauge.dynamicData?.['water-level'] <=
-          this.riverGauge.dynamicData?.['water-level-reference']
-        ? this.translate.instant('map-popups.river-gauge.below')
-        : this.translate.instant('map-popups.river-gauge.above');
+            this.riverGauge.dynamicData?.['water-level-reference']
+          ? this.translate.instant('map-popups.river-gauge.below')
+          : this.translate.instant('map-popups.river-gauge.above');
     }
 
     if (this.layerName === IbfLayerName.typhoonTrack) {

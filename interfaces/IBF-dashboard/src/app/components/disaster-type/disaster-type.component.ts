@@ -82,22 +82,22 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
     }
   };
 
-  private onGetDisasterTypeActiveTrigger = (
-    disasterTypes: DisasterType[],
-  ) => () => {
-    this.disasterTypesCounter++;
-    if (this.disasterTypesCounter === disasterTypes.length) {
-      const activeDisasterType = disasterTypes.find(
-        ({ activeTrigger }) => activeTrigger,
-      );
+  private onGetDisasterTypeActiveTrigger =
+    (disasterTypes: DisasterType[]) => () => {
+      this.disasterTypesCounter++;
+      if (this.disasterTypesCounter === disasterTypes.length) {
+        const activeDisasterType = disasterTypes.find(
+          ({ activeTrigger }) => activeTrigger,
+        );
 
-      const disasterType = activeDisasterType
-        ? activeDisasterType
-        : this.disasterTypes[0];
-      this.selectedDisasterType = disasterType.disasterType as DisasterTypeKey;
-      this.disasterTypeService.setDisasterType(disasterType);
-    }
-  };
+        const disasterType = activeDisasterType
+          ? activeDisasterType
+          : this.disasterTypes[0];
+        this.selectedDisasterType =
+          disasterType.disasterType as DisasterTypeKey;
+        this.disasterTypeService.setDisasterType(disasterType);
+      }
+    };
 
   public switchDisasterType(disasterType: DisasterType): void {
     this.placeCodeService.clearPlaceCode();

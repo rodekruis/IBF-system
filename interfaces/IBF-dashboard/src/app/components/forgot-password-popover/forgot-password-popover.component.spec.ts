@@ -7,18 +7,16 @@ describe('ForgotPasswordPopoverComponent', () => {
   let component: ForgotPasswordPopoverComponent;
   let fixture: ComponentFixture<ForgotPasswordPopoverComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [ForgotPasswordPopoverComponent],
-        imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ForgotPasswordPopoverComponent],
+      imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(ForgotPasswordPopoverComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(ForgotPasswordPopoverComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

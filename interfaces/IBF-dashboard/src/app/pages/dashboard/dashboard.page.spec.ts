@@ -16,29 +16,27 @@ describe('DashboardPage', () => {
   let component: DashboardPage;
   let fixture: ComponentFixture<DashboardPage>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [DashboardPage],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        imports: [
-          IonicModule,
-          SharedModule,
-          RouterTestingModule,
-          TranslateModule.forRoot(),
-        ],
-        providers: [
-          { provide: MapService },
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
-        ],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [DashboardPage],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [
+        IonicModule,
+        SharedModule,
+        RouterTestingModule,
+        TranslateModule.forRoot(),
+      ],
+      providers: [
+        { provide: MapService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(DashboardPage);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(DashboardPage);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

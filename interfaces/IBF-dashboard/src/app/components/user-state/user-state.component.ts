@@ -66,8 +66,8 @@ export class UserStateComponent implements OnInit {
     return environmentConfiguration === 'production'
       ? this.translateService.instant('login-page.environment-label.production')
       : environmentConfiguration === 'stage'
-      ? this.translateService.instant('login-page.environment-label.stage')
-      : environmentConfiguration;
+        ? this.translateService.instant('login-page.environment-label.stage')
+        : environmentConfiguration;
   }
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {

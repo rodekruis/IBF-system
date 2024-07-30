@@ -12,22 +12,20 @@ describe('AreasOfFocusSummaryComponent', () => {
   let component: AreasOfFocusSummaryComponent;
   let fixture: ComponentFixture<AreasOfFocusSummaryComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [AreasOfFocusSummaryComponent],
-        imports: [IonicModule, RouterTestingModule],
-        providers: [
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
-        ],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [AreasOfFocusSummaryComponent],
+      imports: [IonicModule, RouterTestingModule],
+      providers: [
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(AreasOfFocusSummaryComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(AreasOfFocusSummaryComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

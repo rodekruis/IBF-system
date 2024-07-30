@@ -20,14 +20,15 @@ export class PlaceCodeService {
     this.placeCodeSubject.next(newPlaceCode);
   };
 
-  private onPlaceCodeChangeByPlaceCode = (newPlaceCode: PlaceCode) => (
-    oldPlaceCode: PlaceCode,
-  ) => {
-    if (oldPlaceCode && newPlaceCode) {
-      newPlaceCode =
-        oldPlaceCode.placeCode === newPlaceCode.placeCode ? null : newPlaceCode;
-    }
-  };
+  private onPlaceCodeChangeByPlaceCode =
+    (newPlaceCode: PlaceCode) => (oldPlaceCode: PlaceCode) => {
+      if (oldPlaceCode && newPlaceCode) {
+        newPlaceCode =
+          oldPlaceCode.placeCode === newPlaceCode.placeCode
+            ? null
+            : newPlaceCode;
+      }
+    };
 
   clearPlaceCode = (): void => {
     this.placeCodeSubject.next(null);
@@ -44,14 +45,15 @@ export class PlaceCodeService {
     this.placeCodeHoverSubject.next(newPlaceCode);
   };
 
-  private onPlaceCodeHoverChangeByPlaceCode = (newPlaceCode: PlaceCode) => (
-    oldPlaceCode: PlaceCode,
-  ) => {
-    if (oldPlaceCode && newPlaceCode) {
-      newPlaceCode =
-        oldPlaceCode.placeCode === newPlaceCode.placeCode ? null : newPlaceCode;
-    }
-  };
+  private onPlaceCodeHoverChangeByPlaceCode =
+    (newPlaceCode: PlaceCode) => (oldPlaceCode: PlaceCode) => {
+      if (oldPlaceCode && newPlaceCode) {
+        newPlaceCode =
+          oldPlaceCode.placeCode === newPlaceCode.placeCode
+            ? null
+            : newPlaceCode;
+      }
+    };
 
   clearPlaceCodeHover = (): void => {
     this.placeCodeHoverSubject.next(null);

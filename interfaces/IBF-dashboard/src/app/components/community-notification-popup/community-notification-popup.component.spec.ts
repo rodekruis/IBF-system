@@ -13,22 +13,20 @@ describe('CommunityNotificationPopupComponent', () => {
   let component: CommunityNotificationPopupComponent;
   let fixture: ComponentFixture<CommunityNotificationPopupComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [CommunityNotificationPopupComponent],
-        imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
-        providers: [
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
-        ],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [CommunityNotificationPopupComponent],
+      imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
+      providers: [
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(CommunityNotificationPopupComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(CommunityNotificationPopupComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

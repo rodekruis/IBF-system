@@ -23,7 +23,10 @@ import { EventSummary } from './event.service';
 export class ApiService {
   private log = DEBUG_LOG ? console.log : () => undefined;
 
-  constructor(private jwtService: JwtService, private http: HttpClient) {}
+  constructor(
+    private jwtService: JwtService,
+    private http: HttpClient,
+  ) {}
 
   private showSecurity(anonymous: boolean) {
     return anonymous ? '🌐' : '🔐';

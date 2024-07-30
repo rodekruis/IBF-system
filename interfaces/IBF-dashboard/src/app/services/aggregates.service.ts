@@ -96,10 +96,11 @@ export class AggregatesService {
     if (!this.country) {
       return;
     }
-    this.defaultAdminLevel = this.disasterTypeService.getCountryDisasterTypeSettings(
-      this.country,
-      this.disasterType,
-    )?.defaultAdminLevel;
+    this.defaultAdminLevel =
+      this.disasterTypeService.getCountryDisasterTypeSettings(
+        this.country,
+        this.disasterType,
+      )?.defaultAdminLevel;
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -155,31 +156,30 @@ export class AggregatesService {
     return this.indicatorSubject.asObservable();
   }
 
-  private onEachIndicatorByFeatureAndAggregate = (feature, aggregate) => (
-    indicator: Indicator,
-  ) => {
-    const foundIndicator = feature.records.find(
-      (a) => a.indicator === indicator.name,
-    );
+  private onEachIndicatorByFeatureAndAggregate =
+    (feature, aggregate) => (indicator: Indicator) => {
+      const foundIndicator = feature.records.find(
+        (a) => a.indicator === indicator.name,
+      );
 
-    const area = this.mapService.getAreaByPlaceCode(
-      feature.placeCode,
-      feature.placeCodeParent,
-    );
+      const area = this.mapService.getAreaByPlaceCode(
+        feature.placeCode,
+        feature.placeCodeParent,
+      );
 
-    if (foundIndicator) {
-      aggregate[indicator.name] = foundIndicator.value;
-    }
+      if (foundIndicator) {
+        aggregate[indicator.name] = foundIndicator.value;
+      }
 
-    aggregate[this.AREA_STATUS_KEY] = area?.stopped
-      ? AreaStatus.Stopped
-      : aggregate[IbfLayerName.alertThreshold] > 0
-      ? AreaStatus.TriggeredOrWarned
-      : aggregate[this.disasterType.actionsUnit] > 0 &&
-        this.eventState.events?.length > 0
-      ? AreaStatus.TriggeredOrWarned
-      : AreaStatus.NonTriggeredOrWarnd;
-  };
+      aggregate[this.AREA_STATUS_KEY] = area?.stopped
+        ? AreaStatus.Stopped
+        : aggregate[IbfLayerName.alertThreshold] > 0
+          ? AreaStatus.TriggeredOrWarned
+          : aggregate[this.disasterType.actionsUnit] > 0 &&
+              this.eventState.events?.length > 0
+            ? AreaStatus.TriggeredOrWarned
+            : AreaStatus.NonTriggeredOrWarnd;
+    };
 
   private onEachPlaceCode = (feature) => {
     const aggregate = {
@@ -283,24 +283,26 @@ export class AggregatesService {
     return aggregateValue;
   }
 
-  private aggregateReducer = (
-    weightedAverage: boolean,
-    indicator: IbfLayerName,
-    weighingIndicator: IbfLayerName,
-    placeCode: string,
-  ) => (accumulator, aggregate) => {
-    let indicatorValue = 0;
+  private aggregateReducer =
+    (
+      weightedAverage: boolean,
+      indicator: IbfLayerName,
+      weighingIndicator: IbfLayerName,
+      placeCode: string,
+    ) =>
+    (accumulator, aggregate) => {
+      let indicatorValue = 0;
 
-    if (placeCode === null || placeCode === aggregate.placeCode) {
-      const indicatorWeight = weightedAverage
-        ? aggregate[weighingIndicator]
-        : 1;
+      if (placeCode === null || placeCode === aggregate.placeCode) {
+        const indicatorWeight = weightedAverage
+          ? aggregate[weighingIndicator]
+          : 1;
 
-      indicatorValue = indicatorWeight * (aggregate[indicator] || 0);
-    }
+        indicatorValue = indicatorWeight * (aggregate[indicator] || 0);
+      }
 
-    return accumulator + indicatorValue;
-  };
+      return accumulator + indicatorValue;
+    };
 
   public isAggregateNan(
     indicator: IbfLayerName,
