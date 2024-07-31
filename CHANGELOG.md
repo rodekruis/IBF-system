@@ -1,3 +1,12 @@
+## [0.266.1](https://github.com/rodekruis/IBF-system/compare/v0.266.0...v0.266.1) (2024-07-31)
+
+
+### Bug Fixes
+
+* use MEMU for malaria ([119d7ec](https://github.com/rodekruis/IBF-system/commit/119d7eca6548f5c0c4e9f8b4221612feb1f9789d))
+
+
+
 # [0.266.0](https://github.com/rodekruis/IBF-system/compare/v0.265.2...v0.266.0) (2024-07-26)
 
 
@@ -206,15 +215,6 @@
 ### Reverts
 
 * Revert "refactor: move event eapAlertClass to be AB#27284" ([10dec03](https://github.com/rodekruis/IBF-system/commit/10dec031d4902ead44b5ee5cf362441a4c4228c0)), closes [AB#27284](https://github.com/AB/issues/27284)
-
-
-
-## [0.262.5](https://github.com/rodekruis/IBF-system/compare/v0.262.4...v0.262.5) (2024-05-13)
-
-
-### Bug Fixes
-
-* use disaster type filter to select triggered areas AB[#27902](https://github.com/rodekruis/IBF-system/issues/27902) ([d0fc539](https://github.com/rodekruis/IBF-system/commit/d0fc5392b8d10739234abf690901edae8cf41147))
 
 
 
