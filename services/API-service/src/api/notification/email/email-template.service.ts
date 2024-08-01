@@ -7,6 +7,7 @@ import * as juice from 'juice';
 import {
   EapAlertClassKeyEnum,
   EventSummaryCountry,
+  TriggeredArea,
 } from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
@@ -264,6 +265,7 @@ export class EmailTemplateService {
             event.triggerStatusLabel,
           ),
           tableRows: this.getTablesRows(event),
+          isIndicatorAvailable: this.isIndicatorAvailable(event.triggeredAreas),
           color: this.getIbfHexColor(
             event.eapAlertClass?.color,
             event.triggerStatusLabel,
@@ -291,8 +293,13 @@ export class EmailTemplateService {
     return severityLabels[eapAlertClassKey] || '';
   }
 
+  private isIndicatorAvailable(areas: TriggeredArea[]) {
+    return areas.some((area) => area.actionsValue);
+  }
+
   private getTablesRows(event: NotificationDataPerEventDto) {
     return event.triggeredAreas
+      .filter((area) => area.actionsValue)
       .map((area) => {
         const areaTemplate = this.readHtmlFile('table-row.html');
         const areaData = {

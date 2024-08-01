@@ -16,21 +16,19 @@
           <%= severityLabel %> <%= triggerStatusLabel %> <%= disasterTypeLabel
           %>: <%= eventName %>
         </div>
+        <% if (isIndicatorAvailable) { %>
         <div
           class="body-text body-text-normal body-text-normal-stretch text-centered body-text-12px padding-top padding-bottom"
         >
-          Expected exposed <%= defaultAdminAreaLabelPlural %><% if
-          (triggerStatusLabel === 'Trigger') { %> in order of <%=
-          indicatorLabel.toLowerCase() %><% } %>:
+          Expected exposed <%= defaultAdminAreaLabelPlural %> in order of <%=
+          indicatorLabel.toLowerCase() %>:
         </div>
         <div>
           <table align="center" style="margin-right: auto; margin-left: auto">
             <tr class="table-row">
-              <% if (triggerStatusLabel === 'Trigger') { %>
               <td class="table-cell body-text body-text-bold body-text-12px">
                 <%= indicatorLabel %>
               </td>
-              <% } %>
               <td class="table-cell body-text body-text-bold body-text-12px">
                 <%= defaultAdminAreaLabelSingular %> <% if
                 (defaultAdminAreaLabelParent != defaultAdminAreaLabelSingular) {
@@ -40,12 +38,11 @@
             <%- tableRows %>
           </table>
         </div>
-        <% if (triggerStatusLabel === 'Warning') { %>
+        <% } else { %>
         <div
           class="body-text body-text-normal body-text-normal-stretch text-centered padding-top body-text-12px"
         >
-          Please note: Information regarding <%= indicatorLabel %> not available
-          for medium warning level.
+          <%= indicatorLabel %> information is unavailable.
         </div>
         <% } %>
       </div>
