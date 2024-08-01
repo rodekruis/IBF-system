@@ -14,27 +14,25 @@ describe('LoginPage', () => {
   let component: LoginPage;
   let fixture: ComponentFixture<LoginPage>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [LoginPage],
-        imports: [
-          IonicModule,
-          SharedModule,
-          RouterTestingModule,
-          TranslateModule.forRoot(),
-        ],
-        providers: [
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
-        ],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [LoginPage],
+      imports: [
+        IonicModule,
+        SharedModule,
+        RouterTestingModule,
+        TranslateModule.forRoot(),
+      ],
+      providers: [
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(LoginPage);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(LoginPage);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

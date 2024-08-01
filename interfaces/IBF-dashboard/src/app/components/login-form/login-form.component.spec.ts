@@ -15,28 +15,26 @@ describe('LoginFormComponent', () => {
   let component: LoginFormComponent;
   let fixture: ComponentFixture<LoginFormComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [LoginFormComponent],
-        imports: [
-          IonicModule,
-          FormsModule,
-          RouterTestingModule,
-          TranslateModule.forRoot(),
-        ],
-        providers: [
-          { provide: AuthService },
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
-        ],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [LoginFormComponent],
+      imports: [
+        IonicModule,
+        FormsModule,
+        RouterTestingModule,
+        TranslateModule.forRoot(),
+      ],
+      providers: [
+        { provide: AuthService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(LoginFormComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(LoginFormComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

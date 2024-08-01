@@ -73,10 +73,11 @@ export class TimelineService {
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.resetState();
     this.disasterType = disasterType;
-    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
-      this.country,
-      this.disasterType,
-    );
+    this.countryDisasterSettings =
+      this.disasterTypeService.getCountryDisasterTypeSettings(
+        this.country,
+        this.disasterType,
+      );
   };
 
   private resetState() {
@@ -186,8 +187,10 @@ export class TimelineService {
             ? ((this.eventState.event.firstTriggerLeadTime ||
                 this.eventState.event.firstLeadTime) as LeadTime)
             : this.eventState.events?.length > 0
-            ? null
-            : this.getFallbackNoTriggerLeadTime(this.disasterType.disasterType),
+              ? null
+              : this.getFallbackNoTriggerLeadTime(
+                  this.disasterType.disasterType,
+                ),
           null,
         );
       }
@@ -255,11 +258,11 @@ export class TimelineService {
         noEvent
           ? btn.value === timeStepButtonValue
           : eventName &&
-            !this.hasDisabledTimeline(this.disasterType.disasterType)
-          ? btn.value === timeStepButtonValue &&
-            !btn.disabled &&
-            btn.eventName === eventName // if interactive timeline: also match on eventName (if available)
-          : btn.value === timeStepButtonValue, // if non-interactive timeline: only match on leadTime & also highlight disabled buttons
+              !this.hasDisabledTimeline(this.disasterType.disasterType)
+            ? btn.value === timeStepButtonValue &&
+              !btn.disabled &&
+              btn.eventName === eventName // if interactive timeline: also match on eventName (if available)
+            : btn.value === timeStepButtonValue, // if non-interactive timeline: only match on leadTime & also highlight disabled buttons
     );
     if (btnToActivate) {
       btnToActivate.active = true;
@@ -415,8 +418,8 @@ export class TimelineService {
   }
 
   private checkRegionalDroughtSeason() {
-    const forecastSeasonAreas = this.countryDisasterSettings
-      .droughtForecastSeasons;
+    const forecastSeasonAreas =
+      this.countryDisasterSettings.droughtForecastSeasons;
     return Object.values(forecastSeasonAreas).length > 1;
   }
 
@@ -459,9 +462,10 @@ export class TimelineService {
           .includes(this.getDateFromLeadTime(leadTime))
       );
     } else if (disasterType.disasterType === DisasterTypeKey.heavyRain) {
-      const countryLeadTimes = this.countryDisasterSettings.activeLeadTimes.sort(
-        (a, b) => (a > b ? 1 : -1),
-      );
+      const countryLeadTimes =
+        this.countryDisasterSettings.activeLeadTimes.sort((a, b) =>
+          a > b ? 1 : -1,
+        );
       const maxLeadTime = countryLeadTimes[countryLeadTimes.length - 1];
       return leadTime > maxLeadTime ? false : true;
     } else if (disasterType.disasterType === DisasterTypeKey.flashFloods) {

@@ -96,7 +96,8 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
 
-    this.adminLevelButtons = this.adminLevelService.getAdminLevelButtonsSubscription();
+    this.adminLevelButtons =
+      this.adminLevelService.getAdminLevelButtonsSubscription();
   }
   ngOnDestroy(): void {
     this.mapViewSubscription.unsubscribe();
@@ -112,10 +113,11 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
-      this.country,
-      this.disasterType,
-    );
+    this.countryDisasterSettings =
+      this.disasterTypeService.getCountryDisasterTypeSettings(
+        this.country,
+        this.disasterType,
+      );
   };
 
   private onMapViewChange = (view: MapView) => {

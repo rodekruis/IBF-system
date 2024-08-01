@@ -1,4 +1,4 @@
-<ng-container *ngIf="data?.station?.dynamicData">
+@if (data?.station?.dynamicData) {
   <div style="margin-bottom: 4px">
     <strong
       >{{
@@ -12,14 +12,14 @@
         style="cursor: default"
         ><ion-icon name="information-circle-outline"></ion-icon></span
     ></strong>
-    <ng-container *ngIf="data?.station?.dynamicData?.forecastReturnPeriod">
+    @if (data?.station?.dynamicData?.forecastReturnPeriod) {
       <br />
       {{
         'map-popups.glofas-station.forecast-return'
           | translate
             : { returnPeriod: data?.station?.dynamicData?.forecastReturnPeriod }
       }}
-    </ng-container>
+    }
   </div>
   <app-threshold-bar
     [backgroundColor]="barBackgroundColor"
@@ -33,8 +33,7 @@
     [thresholdPosition]="80"
     unit="m3/s"
   ></app-threshold-bar>
-</ng-container>
-<ng-container *ngIf="!data?.station?.dynamicData">
+} @else {
   <div
     style="margin-bottom: 4px; display: flex; justify-content: space-between"
   >
@@ -44,4 +43,4 @@
       </ion-label>
     </div>
   </div>
-</ng-container>
+}

@@ -8,22 +8,23 @@
       >
         <span>
           IBF PORTAL
-          <strong *ngIf="!isLoggedIn">
-            {{ showEnvironmentLabel(environmentConfiguration) }}</strong
-          >
-          <strong
-            *ngIf="isLoggedIn"
-            [ngClass]="{ active: disasterType?.activeTrigger }"
-          >
-            {{ countryName }}
-            {{ disasterType?.disasterType }} {{ activeTriggerMsg }}
-          </strong>
-          <ion-icon
-            *ngIf="isLoggedIn && disasterType?.activeTrigger"
-            class="ibf"
-            src="/assets/icons/Alert_Title_Purple.svg"
-            slot="start"
-          ></ion-icon>
+          @if (isLoggedIn) {
+            <strong [ngClass]="{ active: disasterType?.activeTrigger }">
+              {{ countryName }}
+              {{ disasterType?.disasterType }} {{ activeTriggerMsg }}
+            </strong>
+          } @else {
+            <strong>
+              {{ showEnvironmentLabel(environmentConfiguration) }}
+            </strong>
+          }
+          @if (isLoggedIn && disasterType?.activeTrigger) {
+            <ion-icon
+              class="ibf"
+              src="/assets/icons/Alert_Title_Purple.svg"
+              slot="start"
+            ></ion-icon>
+          }
         </span>
       </ion-title>
     </div>
@@ -32,7 +33,7 @@
         <app-logos></app-logos>
         <ion-item lines="none">
           <ion-col class="ion-no-padding">
-            <ng-container *ngIf="isLoggedIn">
+            @if (isLoggedIn) {
               <ion-title
                 size="small"
                 data-test="user-display-name-label"
@@ -50,21 +51,22 @@
                   >{{ authService.displayName }}</strong
                 >
               </ion-title>
-            </ng-container>
+            }
           </ion-col>
         </ion-item>
-        <app-ibf-button
-          *ngIf="isLoggedIn"
-          [title]="'Log Out'"
-          [attr.aria-label]="'Log Out'"
-          size="small"
-          backgroundColor="ibf-primary"
-          (click)="doLogout()"
-          data-test="logout-button"
-        >
-          <span class="ion-hide-sm-down">Log Out</span>
-          <ion-icon name="log-out" slot="end"></ion-icon>
-        </app-ibf-button>
+        @if (isLoggedIn) {
+          <app-ibf-button
+            [title]="'Log Out'"
+            [attr.aria-label]="'Log Out'"
+            size="small"
+            backgroundColor="ibf-primary"
+            (click)="doLogout()"
+            data-test="logout-button"
+          >
+            <span class="ion-hide-sm-down">Log Out</span>
+            <ion-icon name="log-out" slot="end"></ion-icon>
+          </app-ibf-button>
+        }
       </ion-row>
     </div>
   </ion-row>

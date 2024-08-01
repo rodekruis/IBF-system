@@ -246,24 +246,22 @@ export class MapLegendService {
       : 7 + (gradientLength - 4) * 14;
   }
 
-  private getFeatureColorByColorsAndColorThresholds = (
-    colors,
-    colorThreshold,
-  ) => (feature) => {
-    return feature <= colorThreshold[breakKey.break1] ||
-      !colorThreshold[breakKey.break1]
-      ? colors[0]
-      : feature <= colorThreshold[breakKey.break2] ||
-        !colorThreshold[breakKey.break2]
-      ? colors[1]
-      : feature <= colorThreshold[breakKey.break3] ||
-        !colorThreshold[breakKey.break3]
-      ? colors[2]
-      : feature <= colorThreshold[breakKey.break4] ||
-        !colorThreshold[breakKey.break4]
-      ? colors[3]
-      : colors[4];
-  };
+  private getFeatureColorByColorsAndColorThresholds =
+    (colors, colorThreshold) => (feature) => {
+      return feature <= colorThreshold[breakKey.break1] ||
+        !colorThreshold[breakKey.break1]
+        ? colors[0]
+        : feature <= colorThreshold[breakKey.break2] ||
+            !colorThreshold[breakKey.break2]
+          ? colors[1]
+          : feature <= colorThreshold[breakKey.break3] ||
+              !colorThreshold[breakKey.break3]
+            ? colors[2]
+            : feature <= colorThreshold[breakKey.break4] ||
+                !colorThreshold[breakKey.break4]
+              ? colors[3]
+              : colors[4];
+    };
 
   private getLabel = (grades, layer, labels) => (i) => {
     const label = labels ? '  -  ' + labels[i] : '';
@@ -377,8 +375,8 @@ export class MapLegendService {
   private layerTitle(label: string, unit?: string): string {
     return `<ion-row style="margin-top: 8px; margin-bottom: 8px;">
       <ion-label><strong>${label}${
-      unit ? ' (' + unit + ')' : ''
-    }</strong></ion-label>
+        unit ? ' (' + unit + ')' : ''
+      }</strong></ion-label>
     </ion-row>`;
   }
 }

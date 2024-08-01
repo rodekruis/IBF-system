@@ -6,18 +6,16 @@ describe('TimestampComponent', () => {
   let component: TimestampComponent;
   let fixture: ComponentFixture<TimestampComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [TimestampComponent],
-        imports: [IonicModule],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [TimestampComponent],
+      imports: [IonicModule],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(TimestampComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(TimestampComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

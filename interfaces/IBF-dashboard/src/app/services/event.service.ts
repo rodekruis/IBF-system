@@ -91,10 +91,11 @@ export class EventService {
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.resetState();
     this.disasterType = disasterType;
-    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
-      this.country,
-      this.disasterType,
-    );
+    this.countryDisasterSettings =
+      this.disasterTypeService.getCountryDisasterTypeSettings(
+        this.country,
+        this.disasterType,
+      );
     this.getEvents();
   };
 
@@ -159,14 +160,13 @@ export class EventService {
     }
   }
 
-  private onGetDisasterTypeEvent = (disasterType: DisasterType, callback) => (
-    events,
-  ) => {
-    disasterType.activeTrigger =
-      events.filter((e: EventSummary) => e.thresholdReached).length > 0 ||
-      false;
-    callback(disasterType);
-  };
+  private onGetDisasterTypeEvent =
+    (disasterType: DisasterType, callback) => (events) => {
+      disasterType.activeTrigger =
+        events.filter((e: EventSummary) => e.thresholdReached).length > 0 ||
+        false;
+      callback(disasterType);
+    };
 
   private onEvents = (events) => {
     this.apiService
@@ -333,10 +333,10 @@ export class EventService {
       timeUnit === LeadTimeUnit.month
         ? this.today.plus({ months: Number(timeUnitsInFuture) })
         : timeUnit === LeadTimeUnit.day
-        ? this.today.plus({ days: Number(timeUnitsInFuture) })
-        : timeUnit === LeadTimeUnit.hour
-        ? this.today.plus({ hours: Number(timeUnitsInFuture) })
-        : null;
+          ? this.today.plus({ days: Number(timeUnitsInFuture) })
+          : timeUnit === LeadTimeUnit.hour
+            ? this.today.plus({ hours: Number(timeUnitsInFuture) })
+            : null;
     const monthString = new Date(
       futureDateTime.year,
       futureDateTime.month - 1,

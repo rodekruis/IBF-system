@@ -6,14 +6,12 @@ describe('DialogueTurnComponent', () => {
   let component: DialogueTurnComponent;
   let fixture: ComponentFixture<DialogueTurnComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [DialogueTurnComponent],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      }).compileComponents();
-    }),
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [DialogueTurnComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DialogueTurnComponent);

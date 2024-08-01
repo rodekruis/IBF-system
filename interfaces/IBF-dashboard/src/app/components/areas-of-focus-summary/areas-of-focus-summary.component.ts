@@ -95,10 +95,11 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
-      this.country,
-      this.disasterType,
-    );
+    this.countryDisasterSettings =
+      this.disasterTypeService.getCountryDisasterTypeSettings(
+        this.country,
+        this.disasterType,
+      );
   };
 
   private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {

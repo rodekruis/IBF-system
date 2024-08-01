@@ -1,58 +1,64 @@
-<div *ngIf="multipleActiveEvents()">
-  <div *ngIf="event?.eventName === selectedEventName && !showLessButton()">
-    <br />
-    <p>
-      <strong
-        [innerHtml]="
-          'chat-component.' +
-            disasterTypeName +
-            '.event-switcher.current-event-message' | translate
-        "
-      ></strong>
-    </p>
+@if (multipleActiveEvents()) {
+  <div>
+    @if (event?.eventName === selectedEventName && !showLessButton()) {
+      <div>
+        <br />
+        <p>
+          <strong
+            [innerHtml]="
+              'chat-component.' +
+                disasterTypeName +
+                '.event-switcher.current-event-message' | translate
+            "
+          ></strong>
+        </p>
+      </div>
+    }
+    <div class="containerDiv">
+      @if (event?.eventName === selectedEventName && showLessButton()) {
+        <ion-button
+          class="ibf"
+          [class.selected]="event?.eventName === selectedEventName"
+          shape="round"
+          slot="start"
+          color="ibf-trigger-alert-primary"
+          size="small"
+          (click)="switchEvent(event)"
+        >
+          <span
+            [innerHtml]="
+              'chat-component.' +
+                disasterTypeName +
+                '.event-switcher.current-event-message'
+                | translate
+                  : {
+                      eventName: event?.eventName,
+                    }
+            "
+          ></span>
+          <ion-icon name="arrow-back" slot="start"></ion-icon>
+        </ion-button>
+      }
+      @if (event?.eventName !== selectedEventName) {
+        <ion-button
+          class="ibf event-switch-button"
+          [class.selected]="event?.eventName === selectedEventName"
+          shape="round"
+          slot="start"
+          color="ibf-trigger-alert-primary"
+          size="small"
+          (click)="switchEvent(event)"
+        >
+          <span
+            [innerHtml]="
+              'chat-component.' +
+                disasterTypeName +
+                '.event-switcher.switch-event-button' | translate
+            "
+          ></span>
+          <ion-icon name="arrow-forward" slot="end"></ion-icon>
+        </ion-button>
+      }
+    </div>
   </div>
-  <div class="containerDiv">
-    <ion-button
-      *ngIf="event?.eventName === selectedEventName && showLessButton()"
-      class="ibf"
-      [class.selected]="event?.eventName === selectedEventName"
-      shape="round"
-      slot="start"
-      color="ibf-trigger-alert-primary"
-      size="small"
-      (click)="switchEvent(event)"
-    >
-      <span
-        [innerHtml]="
-          'chat-component.' +
-            disasterTypeName +
-            '.event-switcher.current-event-message'
-            | translate
-              : {
-                  eventName: event?.eventName
-                }
-        "
-      ></span>
-      <ion-icon name="arrow-back" slot="start"></ion-icon>
-    </ion-button>
-    <ion-button
-      *ngIf="event?.eventName !== selectedEventName"
-      class="ibf event-switch-button"
-      [class.selected]="event?.eventName === selectedEventName"
-      shape="round"
-      slot="start"
-      color="ibf-trigger-alert-primary"
-      size="small"
-      (click)="switchEvent(event)"
-    >
-      <span
-        [innerHtml]="
-          'chat-component.' +
-            disasterTypeName +
-            '.event-switcher.switch-event-button' | translate
-        "
-      ></span>
-      <ion-icon name="arrow-forward" slot="end"></ion-icon>
-    </ion-button>
-  </div>
-</div>
+}

@@ -102,10 +102,11 @@ export class AdminLevelService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
-      this.country,
-      this.disasterType,
-    );
+    this.countryDisasterSettings =
+      this.disasterTypeService.getCountryDisasterTypeSettings(
+        this.country,
+        this.disasterType,
+      );
     this.activeLayerNames = [];
   };
 

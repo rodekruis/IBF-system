@@ -14,23 +14,21 @@ describe('MatrixComponent', () => {
   let component: MatrixComponent;
   let fixture: ComponentFixture<MatrixComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [MatrixComponent],
-        imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
-        providers: [
-          { provide: MapService },
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
-        ],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [MatrixComponent],
+      imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
+      providers: [
+        { provide: MapService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(MatrixComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(MatrixComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

@@ -1,18 +1,22 @@
 <ion-row>
-  <div *ngFor="let disasterType of disasterTypes">
-    <ion-icon
-      (click)="switchDisasterType(disasterType)"
-      class="disaster-type-button"
-      [ngClass]="disasterType?.activeTrigger ? 'triggered' : ''"
-      data-test="disaster-type-button"
-      [src]="
-        getButtonSvg(disasterType.disasterType, disasterType.activeTrigger)
-      "
-      slot="start"
-      [attr.data-test-selected]="
-        isSelectedDisaster(disasterType.disasterType) ? 'selected-disaster' : ''
-      "
-    >
-    </ion-icon>
-  </div>
+  @for (disasterType of disasterTypes; track disasterType.label) {
+    <div>
+      <ion-icon
+        (click)="switchDisasterType(disasterType)"
+        class="disaster-type-button"
+        [ngClass]="disasterType?.activeTrigger ? 'triggered' : ''"
+        data-test="disaster-type-button"
+        [src]="
+          getButtonSvg(disasterType.disasterType, disasterType.activeTrigger)
+        "
+        slot="start"
+        [attr.data-test-selected]="
+          isSelectedDisaster(disasterType.disasterType)
+            ? 'selected-disaster'
+            : ''
+        "
+      >
+      </ion-icon>
+    </div>
+  }
 </ion-row>

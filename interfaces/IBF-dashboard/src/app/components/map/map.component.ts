@@ -198,10 +198,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
-      this.country,
-      this.disasterType,
-    );
+    this.countryDisasterSettings =
+      this.disasterTypeService.getCountryDisasterTypeSettings(
+        this.country,
+        this.disasterType,
+      );
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -245,12 +246,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           JSON.stringify(adminRegionsLayer.data),
         );
         if (this.placeCode) {
-          adminRegionsFiltered.features = adminRegionsLayer.data?.features.filter(
-            (area) =>
-              area?.properties?.['placeCode'] === this.placeCode.placeCode ||
-              area?.properties?.['placeCodeParent'] ===
-                this.placeCode.placeCode,
-          );
+          adminRegionsFiltered.features =
+            adminRegionsLayer.data?.features.filter(
+              (area) =>
+                area?.properties?.['placeCode'] === this.placeCode.placeCode ||
+                area?.properties?.['placeCodeParent'] ===
+                  this.placeCode.placeCode,
+            );
         } else {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features;
         }
@@ -449,75 +451,74 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  private getPointToLayerByLayer = (layerName) => (
-    geoJsonPoint: GeoJSON.Feature,
-    latlng: LatLng,
-  ): Marker => {
-    switch (layerName) {
-      case IbfLayerName.glofasStations: {
-        return this.pointMarkerService.createMarkerStation(
-          geoJsonPoint.properties as Station,
-          latlng,
-          this.countryDisasterSettings,
-          this.eventState?.events,
-        );
+  private getPointToLayerByLayer =
+    (layerName) =>
+    (geoJsonPoint: GeoJSON.Feature, latlng: LatLng): Marker => {
+      switch (layerName) {
+        case IbfLayerName.glofasStations: {
+          return this.pointMarkerService.createMarkerStation(
+            geoJsonPoint.properties as Station,
+            latlng,
+            this.countryDisasterSettings,
+            this.eventState?.events,
+          );
+        }
+        case IbfLayerName.redCrossBranches:
+          return this.pointMarkerService.createMarkerRedCrossBranch(
+            geoJsonPoint.properties as RedCrossBranch,
+            latlng,
+          );
+        case IbfLayerName.typhoonTrack:
+          return this.pointMarkerService.createMarkerTyphoonTrack(
+            geoJsonPoint.properties as TyphoonTrackPoint,
+            latlng,
+            this.lastModelRunDate,
+            this.closestPointToTyphoon,
+          );
+        case IbfLayerName.damSites:
+          return this.pointMarkerService.createMarkerDam(
+            geoJsonPoint.properties as DamSite,
+            latlng,
+          );
+        case IbfLayerName.waterpoints:
+          return this.pointMarkerService.createMarkerWaterpoint(
+            geoJsonPoint.properties as Waterpoint,
+            latlng,
+          );
+        case IbfLayerName.healthSites:
+          return this.pointMarkerService.createMarkerHealthSite(
+            geoJsonPoint.properties as HealthSite,
+            latlng,
+          );
+        case IbfLayerName.evacuationCenters:
+          return this.pointMarkerService.createMarkerEvacuationCenter(
+            geoJsonPoint.properties as EvacuationCenter,
+            latlng,
+          );
+        case IbfLayerName.schools:
+          return this.pointMarkerService.createMarkerSchool(
+            geoJsonPoint.properties as School,
+            latlng,
+          );
+        case IbfLayerName.waterpointsInternal:
+          return this.pointMarkerService.createMarkerWaterpointInternal(
+            geoJsonPoint.properties as WaterpointInternal,
+            latlng,
+          );
+        case IbfLayerName.communityNotifications:
+          return this.pointMarkerService.createMarkerCommunityNotification(
+            geoJsonPoint.properties as CommunityNotification,
+            latlng,
+          );
+        case IbfLayerName.gauges:
+          return this.pointMarkerService.createMarkerRiverGauges(
+            geoJsonPoint.properties as RiverGauge,
+            latlng,
+          );
+        default:
+          return this.pointMarkerService.createMarkerDefault(latlng);
       }
-      case IbfLayerName.redCrossBranches:
-        return this.pointMarkerService.createMarkerRedCrossBranch(
-          geoJsonPoint.properties as RedCrossBranch,
-          latlng,
-        );
-      case IbfLayerName.typhoonTrack:
-        return this.pointMarkerService.createMarkerTyphoonTrack(
-          geoJsonPoint.properties as TyphoonTrackPoint,
-          latlng,
-          this.lastModelRunDate,
-          this.closestPointToTyphoon,
-        );
-      case IbfLayerName.damSites:
-        return this.pointMarkerService.createMarkerDam(
-          geoJsonPoint.properties as DamSite,
-          latlng,
-        );
-      case IbfLayerName.waterpoints:
-        return this.pointMarkerService.createMarkerWaterpoint(
-          geoJsonPoint.properties as Waterpoint,
-          latlng,
-        );
-      case IbfLayerName.healthSites:
-        return this.pointMarkerService.createMarkerHealthSite(
-          geoJsonPoint.properties as HealthSite,
-          latlng,
-        );
-      case IbfLayerName.evacuationCenters:
-        return this.pointMarkerService.createMarkerEvacuationCenter(
-          geoJsonPoint.properties as EvacuationCenter,
-          latlng,
-        );
-      case IbfLayerName.schools:
-        return this.pointMarkerService.createMarkerSchool(
-          geoJsonPoint.properties as School,
-          latlng,
-        );
-      case IbfLayerName.waterpointsInternal:
-        return this.pointMarkerService.createMarkerWaterpointInternal(
-          geoJsonPoint.properties as WaterpointInternal,
-          latlng,
-        );
-      case IbfLayerName.communityNotifications:
-        return this.pointMarkerService.createMarkerCommunityNotification(
-          geoJsonPoint.properties as CommunityNotification,
-          latlng,
-        );
-      case IbfLayerName.gauges:
-        return this.pointMarkerService.createMarkerRiverGauges(
-          geoJsonPoint.properties as RiverGauge,
-          latlng,
-        );
-      default:
-        return this.pointMarkerService.createMarkerDefault(latlng);
-    }
-  };
+    };
 
   private getIconCreateFunction = (cluster) => {
     const clusterSize = cluster.getChildCount();
@@ -618,71 +619,72 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     return [mapLayer];
   }
 
-  private onAdminRegionMouseOver = (feature) => (event): void => {
-    event.target.setStyle(
-      this.mapService.setAdminRegionMouseOverStyle(
-        feature.properties.placeCode,
-        feature.properties.placeCodeParent,
-      ),
-    );
-    this.placeCodeService.setPlaceCodeHover({
-      countryCodeISO3: feature.properties.countryCodeISO3,
-      placeCode: feature.properties.placeCode,
-      placeCodeName: feature.properties.name,
-      placeCodeParentName: feature.properties.nameParent,
-      eventName: feature.properties.eventName,
-      adminLevel: feature.properties.adminLevel,
-    });
-  };
+  private onAdminRegionMouseOver =
+    (feature) =>
+    (event): void => {
+      event.target.setStyle(
+        this.mapService.setAdminRegionMouseOverStyle(
+          feature.properties.placeCode,
+          feature.properties.placeCodeParent,
+        ),
+      );
+      this.placeCodeService.setPlaceCodeHover({
+        countryCodeISO3: feature.properties.countryCodeISO3,
+        placeCode: feature.properties.placeCode,
+        placeCodeName: feature.properties.name,
+        placeCodeParentName: feature.properties.nameParent,
+        eventName: feature.properties.eventName,
+        adminLevel: feature.properties.adminLevel,
+      });
+    };
 
-  private onAdminRegionClickByLayerAndFeatureAndElement = (
-    feature,
-  ) => (): void => {
-    const adminLevel = feature.properties.adminLevel;
-    const placeCode = feature.properties.placeCode;
+  private onAdminRegionClickByLayerAndFeatureAndElement =
+    (feature) => (): void => {
+      const adminLevel = feature.properties.adminLevel;
+      const placeCode = feature.properties.placeCode;
 
-    this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
-      placeCode,
-      page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.events?.length > 0,
-      component: this.constructor.name,
-    });
+      this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
+        placeCode,
+        page: AnalyticsPage.dashboard,
+        isActiveTrigger: this.eventService.state.events?.length > 0,
+        component: this.constructor.name,
+      });
 
-    // if click in overview-mode
-    if (!this.eventState.event) {
-      // go to event-view, but don't set placeCode
-      if (feature.properties.eventName) {
-        const event = this.eventState?.events?.find(
-          (e) => e.eventName === feature.properties.eventName,
-        );
-        this.timelineService.handleTimeStepButtonClick(
-          (event?.firstTriggerLeadTime || event?.firstLeadTime) as LeadTime,
-          event?.eventName,
-        );
-        this.eventService.switchEvent(feature.properties.eventName);
-      }
-    } else if (this.eventState.event) {
-      // if in event-view, then set placeCode
-      if (placeCode !== this.placeCode?.placeCode) {
-        // only zoom-in when actually zooming in (instead of selecting a peer-area on the same level)
-        const zoomIn = adminLevel > (this.placeCode?.adminLevel || 0);
-        if (zoomIn) {
-          this.adminLevelService.zoomInAdminLevel();
+      // if click in overview-mode
+      if (!this.eventState.event) {
+        // go to event-view, but don't set placeCode
+        if (feature.properties.eventName) {
+          const event = this.eventState?.events?.find(
+            (e) => e.eventName === feature.properties.eventName,
+          );
+          this.timelineService.handleTimeStepButtonClick(
+            (event?.firstTriggerLeadTime || event?.firstLeadTime) as LeadTime,
+            event?.eventName,
+          );
+          this.eventService.switchEvent(feature.properties.eventName);
         }
-        this.placeCodeService.setPlaceCode({
-          placeCode,
-          countryCodeISO3: feature.properties.countryCodeISO3,
-          placeCodeName: feature.properties.name,
-          placeCodeParent: zoomIn
-            ? this.placeCode
-            : this.placeCode?.placeCodeParent,
-          placeCodeParentName: feature.properties.nameParent,
-          adminLevel,
-          eventName: feature.properties.eventName,
-        });
+      } else if (this.eventState.event) {
+        // if in event-view, then set placeCode
+        if (placeCode !== this.placeCode?.placeCode) {
+          // only zoom-in when actually zooming in (instead of selecting a peer-area on the same level)
+          const zoomIn = adminLevel > (this.placeCode?.adminLevel || 0);
+          if (zoomIn) {
+            this.adminLevelService.zoomInAdminLevel();
+          }
+          this.placeCodeService.setPlaceCode({
+            placeCode,
+            countryCodeISO3: feature.properties.countryCodeISO3,
+            placeCodeName: feature.properties.name,
+            placeCodeParent: zoomIn
+              ? this.placeCode
+              : this.placeCode?.placeCodeParent,
+            placeCodeParentName: feature.properties.nameParent,
+            adminLevel,
+            eventName: feature.properties.eventName,
+          });
+        }
       }
-    }
-  };
+    };
   private getAdminRegionLayerPane(layer: IbfLayer): LeafletPane {
     let adminRegionLayerPane = LeafletPane.overlayPane;
     switch (layer.group) {
@@ -813,15 +815,15 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const events = this.eventState.event
       ? [this.eventState.event]
       : this.eventState.events.length > 0
-      ? this.eventState.events
-      : [new EventSummary()];
+        ? this.eventState.events
+        : [new EventSummary()];
 
     for (const event of events) {
       const leadTime = !layer.wms.leadTimeDependent
         ? null
         : !this.eventState.event && event.firstLeadTime
-        ? event.firstLeadTime
-        : this.timelineState.activeLeadTime;
+          ? event.firstLeadTime
+          : this.timelineState.activeLeadTime;
 
       const name = `ibf-system:${layer.name}_${leadTime ? `${leadTime}_` : ''}${
         this.country.countryCodeISO3

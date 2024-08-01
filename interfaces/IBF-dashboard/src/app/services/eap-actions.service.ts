@@ -75,10 +75,11 @@ export class EapActionsService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
-      this.country,
-      this.disasterType,
-    );
+    this.countryDisasterSettings =
+      this.disasterTypeService.getCountryDisasterTypeSettings(
+        this.country,
+        this.disasterType,
+      );
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -193,9 +194,8 @@ export class EapActionsService {
           triggeredArea.triggerValue ===
           this.countryDisasterSettings.eapAlertClasses[alertClass].value
         ) {
-          triggeredArea.alertClass = this.countryDisasterSettings.eapAlertClasses[
-            alertClass
-          ].label;
+          triggeredArea.alertClass =
+            this.countryDisasterSettings.eapAlertClasses[alertClass].label;
         }
       }
     }

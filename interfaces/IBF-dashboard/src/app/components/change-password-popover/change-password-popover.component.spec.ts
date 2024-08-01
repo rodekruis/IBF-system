@@ -14,23 +14,21 @@ describe('ChangePasswordPopoverComponent', () => {
   let component: ChangePasswordPopoverComponent;
   let fixture: ComponentFixture<ChangePasswordPopoverComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [ChangePasswordPopoverComponent],
-        imports: [IonicModule.forRoot(), FormsModule, RouterTestingModule],
-        providers: [
-          { provide: AuthService },
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
-        ],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ChangePasswordPopoverComponent],
+      imports: [IonicModule.forRoot(), FormsModule, RouterTestingModule],
+      providers: [
+        { provide: AuthService },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(ChangePasswordPopoverComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(ChangePasswordPopoverComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

@@ -13,22 +13,20 @@ describe('AdminLevelComponent', () => {
   let component: AdminLevelComponent;
   let fixture: ComponentFixture<AdminLevelComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [AdminLevelComponent],
-        imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
-        providers: [
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
-        ],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [AdminLevelComponent],
+      imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
+      providers: [
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(AdminLevelComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(AdminLevelComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

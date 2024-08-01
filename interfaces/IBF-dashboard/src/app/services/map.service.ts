@@ -407,9 +407,9 @@ export class MapService {
     return indicatorOrLayer.active === LayerActivation.yes
       ? true
       : indicatorOrLayer.active === LayerActivation.ifTrigger &&
-        this.eventState?.events?.length > 0
-      ? true
-      : false;
+          this.eventState?.events?.length > 0
+        ? true
+        : false;
   }
 
   private addAggregateLayer(
@@ -691,8 +691,8 @@ export class MapService {
     return adminLevelType === AdminLevelType.single
       ? null // on single admin: don't pass any parentPlaceCode filtering
       : adminLevelType === AdminLevelType.deepest
-      ? placeCode?.placeCodeParent.placeCode // on deepest admin: pass parentPlaceCode
-      : placeCode?.placeCode; // on higher levels: pass current placeCode (TODO: why this last difference?)
+        ? placeCode?.placeCodeParent.placeCode // on deepest admin: pass parentPlaceCode
+        : placeCode?.placeCode; // on higher levels: pass current placeCode (TODO: why this last difference?)
   }
 
   getCombineAdminRegionData(
@@ -821,8 +821,8 @@ export class MapService {
     return stopped
       ? this.stoppedTriggerColor
       : colorPropertyValue >= 1
-      ? this.triggeredAreaColor
-      : this.nonTriggeredAreaColor;
+        ? this.triggeredAreaColor
+        : this.nonTriggeredAreaColor;
   }
 
   getAdminRegionFillOpacity = (layer: IbfLayer, placeCode: string): number => {
@@ -848,10 +848,10 @@ export class MapService {
       layer.name === IbfLayerName.adminRegions
         ? this.state.defaultWeight
         : layer.group === IbfLayerGroup.adminRegions
-        ? this.adminLevelLowerThanDefault(layer.name)
-          ? 3
-          : 0.33
-        : this.state.defaultWeight;
+          ? this.adminLevelLowerThanDefault(layer.name)
+            ? 3
+            : 0.33
+          : this.state.defaultWeight;
 
     if (this.placeCode) {
       const areaState = this.triggeredAreas.find(
@@ -948,8 +948,8 @@ export class MapService {
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
           : typeof adminRegion.properties.indicators !== 'undefined'
-          ? adminRegion.properties.indicators[colorProperty]
-          : 'undefined';
+            ? adminRegion.properties.indicators[colorProperty]
+            : 'undefined';
       if (colorPropertyValue !== 'undefined') {
         const fillColor = this.getAdminRegionFillColor(
           colorPropertyValue,

@@ -6,18 +6,16 @@ describe('ExportViewPopoverComponent', () => {
   let component: ExportViewPopoverComponent;
   let fixture: ComponentFixture<ExportViewPopoverComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [ExportViewPopoverComponent],
-        imports: [IonicModule],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ExportViewPopoverComponent],
+      imports: [IonicModule],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(ExportViewPopoverComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(ExportViewPopoverComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

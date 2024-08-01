@@ -151,10 +151,11 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    this.countryDisasterSettings = this.disasterTypeService.getCountryDisasterTypeSettings(
-      this.country,
-      this.disasterType,
-    );
+    this.countryDisasterSettings =
+      this.disasterTypeService.getCountryDisasterTypeSettings(
+        this.country,
+        this.disasterType,
+      );
   };
 
   private onIndicatorChange = (indicators: Indicator[]) => {
@@ -222,12 +223,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.adminLevel =
         this.placeCode?.adminLevel ||
         this.countryDisasterSettings.defaultAdminLevel;
-      this.adminAreaLabel = this.country.adminRegionLabels[
-        this.adminLevel
-      ].singular;
-      this.adminAreaLabelPlural = this.country.adminRegionLabels[
-        this.adminLevel
-      ].plural.toLowerCase();
+      this.adminAreaLabel =
+        this.country.adminRegionLabels[this.adminLevel].singular;
+      this.adminAreaLabelPlural =
+        this.country.adminRegionLabels[this.adminLevel].plural.toLowerCase();
       this.changeDetectorRef.detectChanges();
 
       this.disasterTypeLabel = this.disasterType.label;
@@ -266,9 +265,9 @@ export class ChatComponent implements OnInit, OnDestroy {
   private filterTriggeredAreaByPlaceCode = (placeCode) => (triggeredArea) =>
     triggeredArea.placeCode === placeCode;
 
-  private filterChangedEAPActionByChangedEAPAction = (changedAction) => (
-    eapAction,
-  ) => !(eapAction.action === changedAction.action);
+  private filterChangedEAPActionByChangedEAPAction =
+    (changedAction) => (eapAction) =>
+      !(eapAction.action === changedAction.action);
 
   private filterEAPActionByEAPAction = (action) => (eapAction) =>
     eapAction.action === action;
@@ -290,9 +289,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       component: this.constructor.name,
     });
 
-    const filterTriggeredAreaByPlaceCode = this.filterTriggeredAreaByPlaceCode(
-      placeCode,
-    );
+    const filterTriggeredAreaByPlaceCode =
+      this.filterTriggeredAreaByPlaceCode(placeCode);
 
     const triggeredArea = this.triggeredAreas.find(
       filterTriggeredAreaByPlaceCode,
@@ -456,12 +454,12 @@ export class ChatComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const droughtForecastSeasons = this.countryDisasterSettings
-      ?.droughtForecastSeasons;
+    const droughtForecastSeasons =
+      this.countryDisasterSettings?.droughtForecastSeasons;
     const forecastAreas = Object.keys(droughtForecastSeasons);
 
-    const droughtEndOfMonthPipeline = this.countryDisasterSettings
-      ?.droughtEndOfMonthPipeline;
+    const droughtEndOfMonthPipeline =
+      this.countryDisasterSettings?.droughtEndOfMonthPipeline;
     const currentMonth = this.timelineState.today.plus({
       months: droughtEndOfMonthPipeline ? 1 : 0,
     });
@@ -515,10 +513,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       disasterType.leadTimeUnit === LeadTimeUnit.day
         ? 'days'
         : disasterType.leadTimeUnit === LeadTimeUnit.hour
-        ? 'hours'
-        : disasterType.leadTimeUnit === LeadTimeUnit.month
-        ? 'months'
-        : null;
+          ? 'hours'
+          : disasterType.leadTimeUnit === LeadTimeUnit.month
+            ? 'months'
+            : null;
     const durationUnitValue =
       disasterType.leadTimeUnit === LeadTimeUnit.hour
         ? 6 // all "hour" pipelines are 6-hourly
@@ -545,12 +543,11 @@ export class ChatComponent implements OnInit, OnDestroy {
         const currentMonth = this.timelineState.today.month;
 
         const prefixKey = 'prefix';
-        const prefix = this.countryDisasterSettings.monthlyForecastInfo[
-          prefixKey
-        ];
+        const prefix =
+          this.countryDisasterSettings.monthlyForecastInfo[prefixKey];
 
-        const currentMonthforecastInfo = this.countryDisasterSettings
-          .monthlyForecastInfo[currentMonth];
+        const currentMonthforecastInfo =
+          this.countryDisasterSettings.monthlyForecastInfo[currentMonth];
         if (typeof currentMonthforecastInfo === 'string') {
           return [];
         }

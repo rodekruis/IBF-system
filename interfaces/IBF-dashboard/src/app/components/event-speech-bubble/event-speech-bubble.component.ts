@@ -181,8 +181,8 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
         noLandfallYetEvent
           ? 'no-landfall-yet'
           : landfallEvent
-          ? 'landfall'
-          : 'no-landfall'
+            ? 'landfall'
+            : 'no-landfall'
       }`,
       {
         firstLeadTimeDate: event.firstLeadTimeDate,

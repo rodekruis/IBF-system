@@ -4,9 +4,7 @@ module.exports = {
   overrides: [
     {
       files: '*.html',
-      options: {
-        parser: 'angular',
-      },
+      options: { parser: 'angular' },
     },
   ],
 };

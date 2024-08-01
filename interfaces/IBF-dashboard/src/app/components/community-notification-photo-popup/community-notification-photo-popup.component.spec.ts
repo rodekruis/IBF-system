@@ -13,24 +13,20 @@ describe('CommunityNotificationPhotoPopupComponent', () => {
   let component: CommunityNotificationPhotoPopupComponent;
   let fixture: ComponentFixture<CommunityNotificationPhotoPopupComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [CommunityNotificationPhotoPopupComponent],
-        imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
-        providers: [
-          provideHttpClient(withInterceptorsFromDi()),
-          provideHttpClientTesting(),
-        ],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [CommunityNotificationPhotoPopupComponent],
+      imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
+      providers: [
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+      ],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(
-        CommunityNotificationPhotoPopupComponent,
-      );
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(CommunityNotificationPhotoPopupComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();

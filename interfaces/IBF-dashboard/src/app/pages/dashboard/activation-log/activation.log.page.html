@@ -11,64 +11,64 @@
 </ion-header>
 
 <ion-content class="ion-padding-horizontal">
-  <ng-container *ngIf="activationLogs">
-    <div
-      *ngIf="activationLogs['headerData']"
-      id="table-header"
-      class="ion-no-padding"
-    >
-      <ion-row *ngIf="activationLogs['headerData']">
-        <ion-col class="explanation" size="9">
-          <h4>
-            {{ 'activation-page.' + getEapKey() + '.page-title' | translate }}
-          </h4>
-          <p>
-            {{
-              'activation-page.' + getEapKey() + '.page-explanation' | translate
-            }}
-          </p>
-          <p>
-            {{
-              'activation-page.' + getEapKey() + '.copy-instructions'
-                | translate
-            }}
-          </p>
-        </ion-col>
-        <ion-col size="3">
-          <ion-row class="ion-justify-content-end">
-            <app-ibf-button
-              size="small"
-              backgroundColor="ibf-primary"
-              class="ion-margin-vertical"
-              width="180px"
-              (click)="copyToClipboard()"
-            >
-              {{ 'activation-page.copy-to-clipboard' | translate }}
-            </app-ibf-button>
+  @if (activationLogs) {
+    @if (activationLogs['headerData']) {
+      <div id="table-header" class="ion-no-padding">
+        <ion-row>
+          <ion-col class="explanation" size="9">
+            <h4>
+              {{ 'activation-page.' + getEapKey() + '.page-title' | translate }}
+            </h4>
+            <p>
+              {{
+                'activation-page.' + getEapKey() + '.page-explanation'
+                  | translate
+              }}
+            </p>
+            <p>
+              {{
+                'activation-page.' + getEapKey() + '.copy-instructions'
+                  | translate
+              }}
+            </p>
+          </ion-col>
+          <ion-col size="3">
+            <ion-row class="ion-justify-content-end">
+              <app-ibf-button
+                size="small"
+                backgroundColor="ibf-primary"
+                class="ion-margin-vertical"
+                width="180px"
+                (click)="copyToClipboard()"
+              >
+                {{ 'activation-page.copy-to-clipboard' | translate }}
+              </app-ibf-button>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+        <ion-row class="table-row">
+          @for (header of activationLogs['headerData']; track header) {
+            <ion-col class="table-cell">
+              <ion-text
+                ><strong>{{ header }}</strong></ion-text
+              >
+            </ion-col>
+          }
+        </ion-row>
+      </div>
+    }
+    @if (activationLogs['rowsData']) {
+      <div id="table-body" class="ion-margin-bottom">
+        @for (row of activationLogs['rowsData']; track row) {
+          <ion-row class="table-row">
+            @for (data of row; track data) {
+              <ion-col class="table-cell table-body-cell">
+                <ion-text>{{ data }}</ion-text>
+              </ion-col>
+            }
           </ion-row>
-        </ion-col>
-      </ion-row>
-      <ion-row class="table-row">
-        <ion-col
-          *ngFor="let header of activationLogs['headerData']"
-          class="table-cell"
-        >
-          <ion-text
-            ><strong>{{ header }}</strong></ion-text
-          >
-        </ion-col>
-      </ion-row>
-    </div>
-    <div
-      *ngIf="activationLogs['rowsData']"
-      id="table-body"
-      class="ion-margin-bottom"
-    >
-      <ion-row *ngFor="let row of activationLogs['rowsData']" class="table-row">
-        <ion-col class="table-cell table-body-cell" *ngFor="let data of row">
-          <ion-text>{{ data }}</ion-text>
-        </ion-col>
-      </ion-row>
-    </div>
-  </ng-container>
+        }
+      </div>
+    }
+  }
 </ion-content>

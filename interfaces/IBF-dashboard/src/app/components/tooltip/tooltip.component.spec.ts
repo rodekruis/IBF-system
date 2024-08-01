@@ -7,22 +7,17 @@ describe('TooltipComponent', () => {
   let component: TooltipComponent;
   let fixture: ComponentFixture<TooltipComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [TooltipComponent],
-        providers: [
-          { provide: PopoverController },
-          { provide: AngularDelegate },
-        ],
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      }).compileComponents();
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [TooltipComponent],
+      providers: [{ provide: PopoverController }, { provide: AngularDelegate }],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    }).compileComponents();
 
-      fixture = TestBed.createComponent(TooltipComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    }),
-  );
+    fixture = TestBed.createComponent(TooltipComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
