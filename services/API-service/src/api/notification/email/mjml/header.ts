@@ -22,10 +22,15 @@ export const getMjmlHeader = ({
   };
 
   return {
-    tagName: 'mj-column',
-    attributes: {
-      'background-color': '#4f22d7',
-    },
-    children: [titleElement, subtitleElement],
+    tagName: 'mj-section',
+    children: [
+      {
+        tagName: 'mj-column',
+        attributes: {
+          'background-color': '#4f22d7',
+        },
+        children: [titleElement, subtitleElement],
+      },
+    ],
   };
 };
