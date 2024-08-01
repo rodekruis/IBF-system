@@ -3,10 +3,13 @@ import { Injectable } from '@nestjs/common';
 import mjml2html from 'mjml';
 
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
+import { EmailTemplateService } from './email-template.service';
 import { getMjmlHeader } from './mjml/header';
 
 @Injectable()
 export class MjmlService {
+  public constructor(private emailTemplateService: EmailTemplateService) {}
+
   public getHtmlOutput({
     emailContent,
     date,
@@ -33,8 +36,8 @@ export class MjmlService {
       timeZone: 'UTC',
     });
 
-    // const bodyEventList =
-    //   this.emailTemplateService.getMjmlEventListBody(emailContent);
+    const bodyEventList =
+      this.emailTemplateService.getMjmlEventListBody(emailContent);
 
     const emailObject = {
       tagName: 'mjml',
@@ -42,12 +45,7 @@ export class MjmlService {
       children: [
         {
           tagName: 'mj-body',
-          children: [
-            {
-              tagName: 'mj-column',
-              children: [header],
-            },
-          ],
+          children: [header, ...bodyEventList],
         },
       ],
     };

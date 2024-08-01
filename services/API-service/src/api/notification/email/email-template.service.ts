@@ -18,6 +18,7 @@ import {
   NotificationDataPerEventDto,
   TriggerStatusLabelEnum,
 } from '../dto/notification-date-per-event.dto';
+import { getMjmlBodyEvent } from './mjml/body-event';
 
 const emailFolder = './src/api/notification/email';
 const emailTemplateFolder = `${emailFolder}/html`;
@@ -378,6 +379,67 @@ export class EmailTemplateService {
       .join('');
   }
 
+  public getMjmlEventListBody(emailContent: ContentEventEmail): object[] {
+    const eventList = [];
+
+    for (const event of emailContent.dataPerEvent) {
+      eventList.push(
+        getMjmlBodyEvent({
+          eventName: event.eventName,
+
+          disasterTypeLabel: emailContent.disasterTypeLabel,
+          triggerStatusLabel: event.triggerStatusLabel,
+          issuedDate: this.dateObjectToDateTimeString(
+            event.issuedDate,
+            emailContent.country.countryCodeISO3,
+          ),
+          timeZone: this.getTimezoneDisplay(
+            emailContent.country.countryCodeISO3,
+          ),
+
+          // Lead time details
+          firstLeadTimeString: event.firstLeadTimeString,
+          firstTriggerLeadTimeString: event.firstTriggerLeadTimeString,
+          firstLeadTimeFromNow: this.getTimeFromNow(event.firstLeadTime),
+          firstTriggerLeadTimeFromNow: this.getTimeFromNow(
+            event.firstTriggerLeadTime,
+          ),
+
+          // Area details
+          nrOfTriggeredAreas: event.nrOfTriggeredAreas,
+          defaultAdminAreaLabel:
+            emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
+
+          // Indicator details
+          indicatorLabel: emailContent.indicatorMetadata.label,
+          totalAffected: this.getTotalAffectedForMjml(event),
+
+          // EAP details
+          triangleIcon: this.getTriangleIcon(
+            event.eapAlertClass?.key,
+            event.triggerStatusLabel,
+          ),
+
+          disasterIssuedLabel: this.getDisasterIssuedLabel(
+            event.eapAlertClass?.label,
+            event.triggerStatusLabel,
+          ),
+          color: this.getIbfHexColor(
+            event.eapAlertClass?.color,
+            event.triggerStatusLabel,
+          ),
+
+          indicatorUnit: emailContent.indicatorMetadata.unit,
+        }),
+      );
+    }
+    console.log(
+      '🚀 ~ EmailTemplateService ~ getMjmlEventListBody ~ eventList:',
+      eventList,
+    );
+    return eventList;
+  }
+
   private getTimeFromNow(leadTime: LeadTime) {
     if (!leadTime) return '';
 
@@ -417,6 +479,10 @@ export class EmailTemplateService {
       totalAffectedOfIndicator: event.totalAffectedOfIndicator,
       indicatorUnit: indicatorUnit,
     });
+  }
+
+  getTotalAffectedForMjml(event: NotificationDataPerEventDto): number | null {
+    return event.totalAffectedOfIndicator ?? null;
   }
 
   private getIbfHexColor(
