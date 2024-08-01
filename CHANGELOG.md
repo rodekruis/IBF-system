@@ -1,3 +1,13 @@
+## [0.266.3](https://github.com/rodekruis/IBF-system/compare/v0.266.2...v0.266.3) (2024-08-01)
+
+
+### Bug Fixes
+
+* migrate angular control flow ([3d69a47](https://github.com/rodekruis/IBF-system/commit/3d69a47526244fc3f2c75565fb4473de201049f8))
+* upgrade prettier for ng-18 control flow support ([31b60a7](https://github.com/rodekruis/IBF-system/commit/31b60a73658deed117268a14f4f7f4b0695a7beb))
+
+
+
 ## [0.266.2](https://github.com/rodekruis/IBF-system/compare/v0.266.1...v0.266.2) (2024-08-01)
 
 
@@ -125,16 +135,6 @@
 ### Bug Fixes
 
 * refactor AB[#22947](https://github.com/rodekruis/IBF-system/issues/22947) [#1439](https://github.com/rodekruis/IBF-system/issues/1439) ([f74858b](https://github.com/rodekruis/IBF-system/commit/f74858b0808c7eeaa864ebb74dc97b11f4b27b5f))
-
-
-
-## [0.263.1](https://github.com/rodekruis/IBF-system/compare/v0.263.0...v0.263.1) (2024-07-04)
-
-
-### Bug Fixes
-
-* add n/a for weightedAvg AB[#28236](https://github.com/rodekruis/IBF-system/issues/28236) ([b02c429](https://github.com/rodekruis/IBF-system/commit/b02c429b15ed7d544b8c8af82afb5346c6d10057))
-* update dynamic point docs AB[#28548](https://github.com/rodekruis/IBF-system/issues/28548) ([c2799c6](https://github.com/rodekruis/IBF-system/commit/c2799c6f2e9117ca847f0ab870d83d59f39b8c9c))
 
 
 
