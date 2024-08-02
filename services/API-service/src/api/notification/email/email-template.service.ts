@@ -433,10 +433,6 @@ export class EmailTemplateService {
         }),
       );
     }
-    console.log(
-      '🚀 ~ EmailTemplateService ~ getMjmlEventListBody ~ eventList:',
-      eventList,
-    );
     return eventList;
   }
 

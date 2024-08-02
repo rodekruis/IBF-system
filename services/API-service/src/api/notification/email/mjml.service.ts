@@ -5,6 +5,7 @@ import mjml2html from 'mjml';
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 import { EmailTemplateService } from './email-template.service';
 import { getMjmlHeader } from './mjml/header';
+import { getMjmlNotificationAction } from './mjml/notification-actions';
 
 @Injectable()
 export class MjmlService {
@@ -39,13 +40,22 @@ export class MjmlService {
     const bodyEventList =
       this.emailTemplateService.getMjmlEventListBody(emailContent);
 
+    const notificationAction = getMjmlNotificationAction({
+      linkDashboard: process.env.DASHBOARD_URL,
+      linkEapSop: emailContent.linkEapSop,
+      socialMediaLink:
+        emailContent.country.notificationInfo.linkSocialMediaUrl ?? '',
+      socialMediaType:
+        emailContent.country.notificationInfo.linkSocialMediaType ?? '',
+    });
+
     const emailObject = {
       tagName: 'mjml',
       attributes: {},
       children: [
         {
           tagName: 'mj-body',
-          children: [header, ...bodyEventList],
+          children: [header, ...bodyEventList, notificationAction],
         },
       ],
     };
