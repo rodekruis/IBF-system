@@ -6,6 +6,7 @@ import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 import { EmailTemplateService } from './email-template.service';
 import { getMjmlHeader } from './mjml/header';
 import { getMjmlNotificationAction } from './mjml/notification-actions';
+import { getMjmlTriggerStatement } from './mjml/trigger-statement';
 
 @Injectable()
 export class MjmlService {
@@ -49,13 +50,25 @@ export class MjmlService {
         emailContent.country.notificationInfo.linkSocialMediaType ?? '',
     });
 
+    const triggerStatement = getMjmlTriggerStatement({
+      triggerStatement:
+        emailContent.country.notificationInfo.triggerStatement[
+          emailContent.disasterType
+        ],
+    });
+
     const emailObject = {
       tagName: 'mjml',
       attributes: {},
       children: [
         {
           tagName: 'mj-body',
-          children: [header, ...bodyEventList, notificationAction],
+          children: [
+            header,
+            ...bodyEventList,
+            notificationAction,
+            triggerStatement,
+          ],
         },
       ],
     };
