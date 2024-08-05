@@ -1,5 +1,9 @@
 import { TriggerStatusLabelEnum } from '../../dto/notification-date-per-event.dto';
-import { getReturnElement, getTextElement } from '../../helpers/mjml.helper';
+import {
+  getInlineTriangleIcon,
+  getReturnElement,
+  getTextElement,
+} from '../../helpers/mjml.helper';
 
 export const getMjmlBodyEvent = ({
   color,
@@ -38,10 +42,11 @@ export const getMjmlBodyEvent = ({
   triangleIcon: string;
   triggerStatusLabel: string;
 }): object => {
-  console.log('🚀 ~ triangleIcon:', triangleIcon);
+  const icon = getInlineTriangleIcon({ src: triangleIcon });
+
   const eventNameElement = getTextElement({
     attributes: { color },
-    content: `<strong>${disasterTypeLabel}: ${eventName}</strong>`,
+    content: `${icon} <strong>${disasterTypeLabel}: ${eventName}</strong>`,
   });
 
   const triggerOrWarningElement = getTextElement({

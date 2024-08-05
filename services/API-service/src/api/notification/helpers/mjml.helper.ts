@@ -92,3 +92,6 @@ export const getAdminAreaTable = ({
     content: tbody,
   };
 };
+
+export const getInlineTriangleIcon = ({ src }: { src: string }): string =>
+  `<img src="${src}" style="width: 14px; padding-right: 4px"></img>`;
