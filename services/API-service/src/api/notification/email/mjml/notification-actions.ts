@@ -1,3 +1,8 @@
+import {
+  getNotificationActionsSection,
+  getReturnElement,
+} from '../../helpers/mjml.helper';
+
 export const getMjmlNotificationAction = ({
   linkDashboard,
   linkEapSop,
@@ -27,44 +32,7 @@ export const getMjmlNotificationAction = ({
     'Read about the trigger methodology and the anticipatory actions.',
   );
 
-  return {
-    tagName: 'mj-section',
-    children: [
-      {
-        tagName: 'mj-column',
-        children: [ibfPortalRow, socialMediaRow, aboutTriggerRow],
-      },
-    ],
-  };
-};
-
-const getNotificationActionsSection = (
-  buttonText: string,
-  buttonLink: string,
-  descriptionn: string,
-): object => {
-  return {
-    tagName: 'mj-section',
-    children: [
-      {
-        tagName: 'mj-column',
-        children: [
-          {
-            tagName: 'mj-button',
-            attributes: { href: buttonLink },
-            content: buttonText,
-          },
-        ],
-      },
-      {
-        tagName: 'mj-column',
-        children: [
-          {
-            tagName: 'mj-text',
-            content: descriptionn,
-          },
-        ],
-      },
-    ],
-  };
+  return getReturnElement({
+    childrenEls: [ibfPortalRow, socialMediaRow, aboutTriggerRow],
+  });
 };

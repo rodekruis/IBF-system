@@ -1,3 +1,5 @@
+import { getReturnElement, getTextElement } from '../../helpers/mjml.helper';
+
 export const getMjmlHeader = ({
   disasterTypeLabel,
   nrOfEvents,
@@ -9,28 +11,30 @@ export const getMjmlHeader = ({
   sentOnDate: string;
   timeZone: string;
 }): object => {
-  const titleElement = {
-    tagName: 'mj-text',
-    attributes: { 'font-size': '36px', color: '#ffffff', align: 'center' },
-    content: `${nrOfEvents} ${disasterTypeLabel} alerts`,
-  };
+  const titleElement = getTextElement({
+    content: `${nrOfEvents} ${disasterTypeLabel} alerts ${new Date().getTime()}`,
+    attributes: {
+      color: 'white',
+      'font-size': '30px',
+      'font-weight': 'bold',
+      align: 'center',
+    },
+  });
 
-  const subtitleElement = {
-    tagName: 'mj-text',
-    attributes: { 'font-size': '16px', color: '#ffffff', align: 'center' },
+  const subtitleElement = getTextElement({
     content: `IBF alert sent on ${sentOnDate} (${timeZone})`,
-  };
+    attributes: {
+      color: 'white',
+      'font-size': '16px',
+      'font-weight': 'bold',
+      align: 'center',
+    },
+  });
 
-  return {
-    tagName: 'mj-section',
-    children: [
-      {
-        tagName: 'mj-column',
-        attributes: {
-          'background-color': '#4f22d7',
-        },
-        children: [titleElement, subtitleElement],
-      },
-    ],
-  };
+  return getReturnElement({
+    childrenEls: [titleElement, subtitleElement],
+    attributes: {
+      'background-color': '#4f22d7',
+    },
+  });
 };

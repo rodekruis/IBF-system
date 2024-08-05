@@ -1,4 +1,5 @@
 import { TriggerStatusLabelEnum } from '../../dto/notification-date-per-event.dto';
+import { getReturnElement, getTextElement } from '../../helpers/mjml.helper';
 
 export const getMjmlBodyEvent = ({
   color,
@@ -38,58 +39,47 @@ export const getMjmlBodyEvent = ({
   triggerStatusLabel: string;
 }): object => {
   console.log('🚀 ~ triangleIcon:', triangleIcon);
-  const eventNameElement = {
-    tagName: 'mj-text',
+  const eventNameElement = getTextElement({
     attributes: { color },
-    content: `${disasterTypeLabel}: ${eventName}`,
-  };
+    content: `<strong>${disasterTypeLabel}: ${eventName}</strong>`,
+  });
 
-  const triggerOrWarningElement = {
-    tagName: 'mj-text',
+  const triggerOrWarningElement = getTextElement({
     content: firstTriggerLeadTimeString
-      ? `${disasterTypeLabel} expected to start on ${firstLeadTimeString} ${firstLeadTimeFromNow}s from now. ${disasterIssuedLabel}: expected to reach threshold on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}s from now`
-      : `${disasterIssuedLabel}: expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}s from now.`,
-  };
+      ? `<strong>${disasterTypeLabel}:</strong> expected to start on ${firstLeadTimeString} ${firstLeadTimeFromNow}s from now.<br>
+        <strong>${disasterIssuedLabel}:</strong> expected to reach threshold on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}s from now`
+      : `<strong>${disasterIssuedLabel}:</strong> expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}s from now.`,
+  });
 
-  const exposedAdminAreasElement = {
-    tagName: 'mj-text',
-    content: `Expected exposed ${defaultAdminAreaLabel}: ${nrOfTriggeredAreas} (see list below)`,
-  };
+  const exposedAdminAreasElement = getTextElement({
+    content: `<strong>Expected exposed ${defaultAdminAreaLabel}:</strong> ${nrOfTriggeredAreas} (see list below)`,
+  });
 
-  const indicatorElement = {
-    tagName: 'mj-text',
+  const indicatorElement = getTextElement({
     content: totalAffected
-      ? `${indicatorLabel}: ${totalAffected} ${indicatorUnit}`
+      ? `<strong>${indicatorLabel}:</strong> ${totalAffected} ${indicatorUnit}`
       : `The ${indicatorUnit} information is unavailable`,
-  };
+  });
 
-  const advisoryElement = {
-    tagName: 'mj-text',
+  const advisoryElement = getTextElement({
     content:
       triggerStatusLabel === TriggerStatusLabelEnum.Trigger
-        ? `Advisory: activate Early Action Protocol`
-        : `Advisory: Inform all potentialy exposed ${defaultAdminAreaLabel}`,
-  };
+        ? `<strong>Advisory:</strong> activate Early Action Protocol`
+        : `<strong>Advisory:</strong> Inform all potentialy exposed ${defaultAdminAreaLabel}`,
+  });
 
-  const triggerStatusIssueDateElement = {
-    tagName: 'mj-text',
+  const triggerStatusIssueDateElement = getTextElement({
     content: `This ${triggerStatusLabel} was issued by IBF on ${issuedDate} (${timeZone})`,
-  };
+  });
 
-  return {
-    tagName: 'mj-section',
-    children: [
-      {
-        tagName: 'mj-column',
-        children: [
-          eventNameElement,
-          triggerOrWarningElement,
-          exposedAdminAreasElement,
-          indicatorElement,
-          advisoryElement,
-          triggerStatusIssueDateElement,
-        ],
-      },
+  return getReturnElement({
+    childrenEls: [
+      eventNameElement,
+      triggerOrWarningElement,
+      exposedAdminAreasElement,
+      indicatorElement,
+      advisoryElement,
+      triggerStatusIssueDateElement,
     ],
-  };
+  });
 };
