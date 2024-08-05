@@ -19,6 +19,7 @@ import {
   TriggerStatusLabelEnum,
 } from '../dto/notification-date-per-event.dto';
 import { getMjmlBodyEvent } from './mjml/body-event';
+import { getMjmlEventAdminAreaTable } from './mjml/event-admin-area-table';
 
 const emailFolder = './src/api/notification/email';
 const emailTemplateFolder = `${emailFolder}/html`;
@@ -434,6 +435,32 @@ export class EmailTemplateService {
       );
     }
     return eventList;
+  }
+
+  public getMjmlAdminAreaTableList(emailContent: ContentEventEmail): object[] {
+    const adminAreaTableList = [];
+
+    const adminAreaLabelsParent =
+      emailContent.country.adminRegionLabels[
+        String(Math.max(1, emailContent.defaultAdminLevel - 1))
+      ];
+
+    for (const event of emailContent.dataPerEvent) {
+      adminAreaTableList.push(
+        getMjmlEventAdminAreaTable({
+          disasterTypeLabel: emailContent.disasterTypeLabel,
+          color: this.getIbfHexColor(
+            event.eapAlertClass?.color,
+            event.triggerStatusLabel,
+          ),
+          defaultAdminAreaLabel: emailContent.defaultAdminAreaLabel,
+          defaultAdminAreaParentLabel: adminAreaLabelsParent,
+          indicatorMetadata: emailContent.indicatorMetadata,
+          event,
+        }),
+      );
+    }
+    return adminAreaTableList;
   }
 
   private getTimeFromNow(leadTime: LeadTime) {

@@ -56,3 +56,39 @@ export const getNotificationActionsSection = (
     ],
   };
 };
+
+export const getAdminAreaTable = ({
+  indicatorLabel,
+  adminAreaLabel,
+  adminAreaParentLabel,
+  adminAreaList,
+  isTrigger,
+}: {
+  indicatorLabel: string;
+  adminAreaLabel: string;
+  adminAreaParentLabel: string;
+  adminAreaList: { exposed?: number; name: string }[];
+  isTrigger: boolean;
+}) => {
+  const header = `
+    <tr>
+      ${isTrigger ? '<th>Exposed ' + indicatorLabel + '</th>' : ''}
+      <th>${adminAreaLabel} (${adminAreaParentLabel})</th>
+    </tr>
+  `;
+
+  const row = (adminArea) => `
+    <tr>
+      ${isTrigger ? '<td>' + adminArea.exposed + '</td>' : ''}
+      <td>${adminArea.name}</td>
+    </tr>
+  `;
+  const rows = adminAreaList.map((adminArea) => row(adminArea)).join('');
+
+  const tbody = `${header}${rows}`;
+
+  return {
+    tagName: 'mj-table',
+    content: tbody,
+  };
+};

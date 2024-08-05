@@ -19,20 +19,20 @@ export class MjmlService {
     emailContent: ContentEventEmail;
     date: Date;
   }): string {
-    const {
-      // disasterType,
-      disasterTypeLabel,
-      // indicatorMetadata,
-      // linkEapSop,
-      // dataPerEvent,
-      // mapImageData,
-      // defaultAdminLevel,
-      // defaultAdminAreaLabel,
-      // country,
-    } = emailContent;
+    // const {
+    //   // disasterType,
+    //   disasterTypeLabel,
+    //   // indicatorMetadata,
+    //   // linkEapSop,
+    //   // dataPerEvent,
+    //   // mapImageData,
+    //   // defaultAdminLevel,
+    //   // defaultAdminAreaLabel,
+    //   // country,
+    // } = emailContent;
 
     const header = getMjmlHeader({
-      disasterTypeLabel,
+      disasterTypeLabel: emailContent.disasterTypeLabel,
       nrOfEvents: emailContent.dataPerEvent.length,
       sentOnDate: date.toISOString(),
       timeZone: 'UTC',
@@ -57,6 +57,9 @@ export class MjmlService {
         ],
     });
 
+    const adminAreaTableList =
+      this.emailTemplateService.getMjmlAdminAreaTableList(emailContent);
+
     const emailObject = {
       tagName: 'mjml',
       attributes: {},
@@ -68,6 +71,7 @@ export class MjmlService {
             ...bodyEventList,
             notificationAction,
             triggerStatement,
+            ...adminAreaTableList,
           ],
         },
       ],
