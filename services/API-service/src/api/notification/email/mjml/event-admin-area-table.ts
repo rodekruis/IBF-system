@@ -5,7 +5,9 @@ import {
   TriggerStatusLabelEnum,
 } from '../../dto/notification-date-per-event.dto';
 import {
+  COLOR_WHITE,
   getAdminAreaTable,
+  getInlineTriangleIcon,
   getReturnElement,
   getTextElement,
 } from '../../helpers/mjml.helper';
@@ -17,6 +19,7 @@ export const getMjmlEventAdminAreaTable = ({
   defaultAdminAreaParentLabel,
   indicatorMetadata,
   event,
+  triangleIcon,
 }: {
   disasterTypeLabel: string;
   color: string;
@@ -24,19 +27,31 @@ export const getMjmlEventAdminAreaTable = ({
   defaultAdminAreaParentLabel: AdminAreaLabel;
   indicatorMetadata: IndicatorMetadataEntity;
   event: NotificationDataPerEventDto;
+  triangleIcon: string;
 }) => {
   const isTrigger = event.triggerStatusLabel === TriggerStatusLabelEnum.Trigger;
 
+  const icon = getInlineTriangleIcon({ src: triangleIcon });
+
   const titleElement = getTextElement({
-    content: `<strong>${disasterTypeLabel} ${event.triggerStatusLabel} ${event.eventName}</strong>`,
-    attributes: { color },
+    content: `${icon} <strong>${disasterTypeLabel} ${event.triggerStatusLabel} ${event.eventName}</strong>`,
+    attributes: {
+      color,
+      'container-background-color': COLOR_WHITE,
+      align: 'center',
+      padding: '10px 25px',
+    },
   });
 
   const subtitleElement = getTextElement({
     content: `Expected exposed ${defaultAdminAreaLabel.plural}${
-      isTrigger ? 'in order of exposed ' + indicatorMetadata.label : ''
+      isTrigger ? ' in order of exposed ' + indicatorMetadata.label : ''
     }`,
-    attributes: { color: event.eapAlertClass.color },
+    attributes: {
+      'container-background-color': COLOR_WHITE,
+      align: 'center',
+      padding: '10px 25px',
+    },
   });
 
   const adminAreaList = event.triggeredAreas.map((triggeredArea) => {
@@ -56,6 +71,8 @@ export const getMjmlEventAdminAreaTable = ({
 
   return getReturnElement({
     childrenEls: [titleElement, subtitleElement, adminAreaTable],
-    attributes: { 'background-color': 'white' },
+    attributes: {
+      'padding-bottom': '20px',
+    },
   });
 };
