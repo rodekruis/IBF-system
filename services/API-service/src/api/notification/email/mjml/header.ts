@@ -1,4 +1,9 @@
-import { getReturnElement, getTextElement } from '../../helpers/mjml.helper';
+import {
+  COLOR_PRIMARY,
+  COLOR_WHITE,
+  getReturnElement,
+  getTextElement,
+} from '../../helpers/mjml.helper';
 
 export const getMjmlHeader = ({
   disasterTypeLabel,
@@ -12,9 +17,9 @@ export const getMjmlHeader = ({
   timeZone: string;
 }): object => {
   const titleElement = getTextElement({
-    content: `${nrOfEvents} ${disasterTypeLabel} alerts ${new Date().getTime()}`,
+    content: `${nrOfEvents} ${disasterTypeLabel} alerts`,
     attributes: {
-      color: 'white',
+      color: COLOR_WHITE,
       'font-size': '30px',
       'font-weight': 'bold',
       align: 'center',
@@ -24,7 +29,7 @@ export const getMjmlHeader = ({
   const subtitleElement = getTextElement({
     content: `IBF alert sent on ${sentOnDate} (${timeZone})`,
     attributes: {
-      color: 'white',
+      color: COLOR_WHITE,
       'font-size': '16px',
       'font-weight': 'bold',
       align: 'center',
@@ -34,7 +39,7 @@ export const getMjmlHeader = ({
   return getReturnElement({
     childrenEls: [titleElement, subtitleElement],
     attributes: {
-      'background-color': '#4f22d7',
+      'background-color': COLOR_PRIMARY,
     },
   });
 };
