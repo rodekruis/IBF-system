@@ -3,6 +3,11 @@ import { Injectable } from '@nestjs/common';
 import mjml2html from 'mjml';
 
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
+import {
+  getReturnElement,
+  getTextElement,
+  WIDTH_BODY,
+} from '../helpers/mjml.helper';
 import { EmailTemplateService } from './email-template.service';
 import { getMjmlHeader } from './mjml/header';
 import { getMjmlNotificationAction } from './mjml/notification-actions';
@@ -19,46 +24,70 @@ export class MjmlService {
     emailContent: ContentEventEmail;
     date: Date;
   }): string {
-    // const {
-    //   // disasterType,
-    //   disasterTypeLabel,
-    //   // indicatorMetadata,
-    //   // linkEapSop,
-    //   // dataPerEvent,
-    //   // mapImageData,
-    //   // defaultAdminLevel,
-    //   // defaultAdminAreaLabel,
-    //   // country,
-    // } = emailContent;
+    const children = [];
 
-    const header = getMjmlHeader({
-      disasterTypeLabel: emailContent.disasterTypeLabel,
-      nrOfEvents: emailContent.dataPerEvent.length,
-      sentOnDate: date.toISOString(),
-      timeZone: 'UTC',
-    });
+    children.push(
+      getMjmlHeader({
+        disasterTypeLabel: emailContent.disasterTypeLabel,
+        nrOfEvents: emailContent.dataPerEvent.length,
+        sentOnDate: date.toISOString(),
+        timeZone: 'UTC',
+      }),
+    );
 
-    const bodyEventList =
-      this.emailTemplateService.getMjmlEventListBody(emailContent);
+    const mailBody = {
+      tagName: 'mj-section',
+      children: [],
+      attributes: {
+        'background-color': '#F4F5F8',
+        'padding-left': '90px',
+        'padding-right': '90px',
+      },
+    };
 
-    const notificationAction = getMjmlNotificationAction({
-      linkDashboard: process.env.DASHBOARD_URL,
-      linkEapSop: emailContent.linkEapSop,
-      socialMediaLink:
-        emailContent.country.notificationInfo.linkSocialMediaUrl ?? '',
-      socialMediaType:
-        emailContent.country.notificationInfo.linkSocialMediaType ?? '',
-    });
-
-    const triggerStatement = getMjmlTriggerStatement({
-      triggerStatement:
-        emailContent.country.notificationInfo.triggerStatement[
-          emailContent.disasterType
+    mailBody.children.push(
+      getReturnElement({
+        childrenEls: [
+          getTextElement({
+            content: 'Dear Reader,',
+          }),
         ],
-    });
+      }),
+    );
 
-    const adminAreaTableList =
-      this.emailTemplateService.getMjmlAdminAreaTableList(emailContent);
+    mailBody.children.push(
+      ...this.emailTemplateService.getMjmlEventListBody(emailContent),
+    );
+
+    mailBody.children.push(
+      getMjmlNotificationAction({
+        linkDashboard: process.env.DASHBOARD_URL,
+        linkEapSop: emailContent.linkEapSop,
+        socialMediaLink:
+          emailContent.country.notificationInfo.linkSocialMediaUrl ?? '',
+        socialMediaType:
+          emailContent.country.notificationInfo.linkSocialMediaType ?? '',
+      }),
+    );
+
+    mailBody.children.push(
+      getMjmlTriggerStatement({
+        triggerStatement:
+          emailContent.country.notificationInfo.triggerStatement[
+            emailContent.disasterType
+          ],
+      }),
+    );
+
+    mailBody.children.push(
+      ...this.emailTemplateService.getMjmlMapImages(emailContent),
+    );
+
+    mailBody.children.push(
+      ...this.emailTemplateService.getMjmlAdminAreaTableList(emailContent),
+    );
+
+    children.push(mailBody);
 
     const emailObject = {
       tagName: 'mjml',
@@ -66,13 +95,8 @@ export class MjmlService {
       children: [
         {
           tagName: 'mj-body',
-          children: [
-            header,
-            ...bodyEventList,
-            notificationAction,
-            triggerStatement,
-            ...adminAreaTableList,
-          ],
+          children,
+          attributes: { width: WIDTH_BODY },
         },
       ],
     };
