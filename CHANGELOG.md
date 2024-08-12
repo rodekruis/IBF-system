@@ -1,3 +1,12 @@
+## [0.266.4](https://github.com/rodekruis/IBF-system/compare/v0.266.3...v0.266.4) (2024-08-12)
+
+
+### Bug Fixes
+
+* remove debug variable ([58261f4](https://github.com/rodekruis/IBF-system/commit/58261f4d7c30a4bcb9b92786e5f7081c2a9807ae))
+
+
+
 ## [0.266.3](https://github.com/rodekruis/IBF-system/compare/v0.266.2...v0.266.3) (2024-08-01)
 
 
@@ -126,15 +135,6 @@
 * make toggle text translatable AB[#28126](https://github.com/rodekruis/IBF-system/issues/28126) ([2040143](https://github.com/rodekruis/IBF-system/commit/20401437ded1bbcd97b294a0093f7b04e0e9de61))
 * move btn right + left corner radius AB[#28127](https://github.com/rodekruis/IBF-system/issues/28127) ([4d98f61](https://github.com/rodekruis/IBF-system/commit/4d98f6160f8948c766cbb3c2de0ff94c510e9420))
 * resize layer rows AB[#28138](https://github.com/rodekruis/IBF-system/issues/28138) ([b2872fb](https://github.com/rodekruis/IBF-system/commit/b2872fbcc783e4e724b65ae8d8e3e625a92ffd92))
-
-
-
-## [0.263.2](https://github.com/rodekruis/IBF-system/compare/v0.263.1...v0.263.2) (2024-07-04)
-
-
-### Bug Fixes
-
-* refactor AB[#22947](https://github.com/rodekruis/IBF-system/issues/22947) [#1439](https://github.com/rodekruis/IBF-system/issues/1439) ([f74858b](https://github.com/rodekruis/IBF-system/commit/f74858b0808c7eeaa864ebb74dc97b11f4b27b5f))
 
 
 
