@@ -14,23 +14,28 @@ export const getMjmlNotificationAction = ({
   socialMediaLink: string;
   socialMediaType: string;
 }): object => {
-  const ibfPortalRow = getNotificationActionsSection(
-    'Go to the IBF-portal',
-    linkDashboard,
-    'Find more information about the potentially exposed areas, view the map and manage anticipatory actions.',
-  );
+  const ibfPortalRow = getNotificationActionsSection({
+    buttonText: 'Go to the IBF-portal',
+    buttonLink: linkDashboard,
+    description:
+      'Find more information about the potentially exposed areas, view the map and manage anticipatory actions.',
+    primary: true,
+  });
 
-  const socialMediaRow = getNotificationActionsSection(
-    `Join ${socialMediaType} group`,
-    socialMediaLink,
-    'Communicate with relevant others about the trigger.',
-  );
+  const socialMediaRow = getNotificationActionsSection({
+    buttonText: `${socialMediaType} group`,
+    buttonLink: socialMediaLink,
+    description: 'Communicate with relevant others about the trigger.',
+    primary: false,
+  });
 
-  const aboutTriggerRow = getNotificationActionsSection(
-    `About Trigger`,
-    linkEapSop,
-    'Read about the trigger methodology and the anticipatory actions.',
-  );
+  const aboutTriggerRow = getNotificationActionsSection({
+    buttonText: `About Trigger`,
+    buttonLink: linkEapSop,
+    description:
+      'Read about the trigger methodology and the anticipatory actions.',
+    primary: false,
+  });
 
   return getReturnElement({
     childrenEls: [ibfPortalRow, socialMediaRow, aboutTriggerRow],
