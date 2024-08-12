@@ -1,5 +1,6 @@
 import { TriggerStatusLabelEnum } from '../../dto/notification-date-per-event.dto';
 import {
+  // getImageElement,
   getInlineTriangleIcon,
   getReturnElement,
   getTextElement,
@@ -49,42 +50,44 @@ export const getMjmlBodyEvent = ({
     content: `${icon} <strong>${disasterTypeLabel}: ${eventName}</strong>`,
   });
 
-  const triggerOrWarningElement = getTextElement({
-    content: firstTriggerLeadTimeString
-      ? `<strong>${disasterTypeLabel}:</strong> expected to start on ${firstLeadTimeString} ${firstLeadTimeFromNow}s from now.<br>
-        <strong>${disasterIssuedLabel}:</strong> expected to reach threshold on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}s from now`
+  const contentContent = [];
+
+  contentContent.push(
+    firstTriggerLeadTimeString
+      ? `<strong>${disasterTypeLabel}:</strong> expected to start on ${firstLeadTimeString} ${firstLeadTimeFromNow}s from now.`
       : `<strong>${disasterIssuedLabel}:</strong> expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}s from now.`,
+  );
+
+  if (firstTriggerLeadTimeString) {
+    contentContent.push(
+      `<strong>${disasterIssuedLabel}:</strong> expected to reach threshold on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}s from now`,
+    );
+  }
+
+  contentContent.push(
+    `<strong>Expected exposed ${defaultAdminAreaLabel}:</strong> ${nrOfTriggeredAreas} (see list below)`,
+  ),
+    contentContent.push(
+      totalAffected
+        ? `<strong>${indicatorLabel}:</strong> ${totalAffected} ${indicatorUnit}`
+        : `The ${indicatorUnit} information is unavailable`,
+    );
+
+  contentContent.push(
+    triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+      ? `<strong>Advisory:</strong> activate Early Action Protocol`
+      : `<strong>Advisory:</strong> Inform all potentialy exposed ${defaultAdminAreaLabel}`,
+  );
+
+  const contentElement = getTextElement({
+    content: contentContent.join('<br>'),
   });
 
-  const exposedAdminAreasElement = getTextElement({
-    content: `<strong>Expected exposed ${defaultAdminAreaLabel}:</strong> ${nrOfTriggeredAreas} (see list below)`,
-  });
-
-  const indicatorElement = getTextElement({
-    content: totalAffected
-      ? `<strong>${indicatorLabel}:</strong> ${totalAffected} ${indicatorUnit}`
-      : `The ${indicatorUnit} information is unavailable`,
-  });
-
-  const advisoryElement = getTextElement({
-    content:
-      triggerStatusLabel === TriggerStatusLabelEnum.Trigger
-        ? `<strong>Advisory:</strong> activate Early Action Protocol`
-        : `<strong>Advisory:</strong> Inform all potentialy exposed ${defaultAdminAreaLabel}`,
-  });
-
-  const triggerStatusIssueDateElement = getTextElement({
+  const closingElement = getTextElement({
     content: `This ${triggerStatusLabel} was issued by IBF on ${issuedDate} (${timeZone})`,
   });
 
   return getReturnElement({
-    childrenEls: [
-      eventNameElement,
-      triggerOrWarningElement,
-      exposedAdminAreasElement,
-      indicatorElement,
-      advisoryElement,
-      triggerStatusIssueDateElement,
-    ],
+    childrenEls: [eventNameElement, contentElement, closingElement],
   });
 };
