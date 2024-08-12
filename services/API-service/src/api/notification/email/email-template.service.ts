@@ -20,6 +20,7 @@ import {
 } from '../dto/notification-date-per-event.dto';
 import { getMjmlBodyEvent } from './mjml/body-event';
 import { getMjmlEventAdminAreaTable } from './mjml/event-admin-area-table';
+import { getMjmlMapImage } from './mjml/map-image';
 
 const emailFolder = './src/api/notification/email';
 const emailTemplateFolder = `${emailFolder}/html`;
@@ -189,6 +190,28 @@ export class EmailTemplateService {
         return ejs.render(eventHtmlTemplate, replacements);
       })
       .join('');
+  }
+
+  public getMjmlMapImages(emailContent: ContentEventEmail) {
+    const mapImages = [];
+    for (const event of emailContent.dataPerEvent.filter(
+      (event) => event.mapImage,
+    )) {
+      mapImages.push(
+        getMjmlMapImage({
+          src: this.getMapImgSrc(
+            emailContent.country.countryCodeISO3,
+            emailContent.disasterType,
+            event.eventName,
+          ),
+          mapImgDescription: this.getMapImageDescription(
+            emailContent.disasterType,
+          ),
+          eventName: event.eventName ? `(for ${event.eventName})` : '',
+        }),
+      );
+    }
+    return mapImages;
   }
 
   private getMapImgSrc(
@@ -457,6 +480,10 @@ export class EmailTemplateService {
           defaultAdminAreaParentLabel: adminAreaLabelsParent,
           indicatorMetadata: emailContent.indicatorMetadata,
           event,
+          triangleIcon: this.getTriangleIcon(
+            event.eapAlertClass?.key,
+            event.triggerStatusLabel,
+          ),
         }),
       );
     }
