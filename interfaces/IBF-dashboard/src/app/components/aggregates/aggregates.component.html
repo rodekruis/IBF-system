@@ -62,47 +62,15 @@
                     class="ion-text-right"
                     data-test="aggregate-number"
                   >
-                    @switch (indicator.numberFormatAggregate) {
-                      @case ('decimal2') {
-                        <span>
-                          {{
-                            getAggregate(
-                              indicator.name,
-                              indicator.weightedAvg,
-                              indicator.numberFormatAggregate
-                            )
-                              | number: '.2-2'
-                              | translate
-                          }}
-                        </span>
-                      }
-                      @case ('decimal0') {
-                        <span>
-                          {{
-                            getAggregate(
-                              indicator.name,
-                              indicator.weightedAvg,
-                              indicator.numberFormatAggregate
-                            )
-                              | number: '.0-0'
-                              | translate
-                          }}
-                        </span>
-                      }
-                      @case ('perc') {
-                        <span>
-                          {{
-                            getAggregate(
-                              indicator.name,
-                              indicator.weightedAvg,
-                              indicator.numberFormatAggregate
-                            )
-                              | percent: '.0-0'
-                              | translate
-                          }}
-                        </span>
-                      }
-                    }
+                    {{
+                      getAggregate(
+                        indicator.name,
+                        indicator.weightedAvg,
+                        indicator.numberFormatAggregate
+                      )
+                        | compact: indicator.numberFormatAggregate
+                        | translate
+                    }}
                     {{ indicator.aggregateUnit }}
                   </ion-label>
                 } @else {

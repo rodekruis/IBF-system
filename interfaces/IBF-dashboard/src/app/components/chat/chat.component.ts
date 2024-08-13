@@ -29,7 +29,7 @@ import { AdminLevelService } from '../../services/admin-level.service';
 import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
 import { AdminLevel, AdminLevelType } from '../../types/admin-level';
-import { Indicator } from '../../types/indicator-group';
+import { Indicator, NumberFormat } from '../../types/indicator-group';
 import { LeadTimeTriggerKey, LeadTimeUnit } from '../../types/lead-time';
 import { TriggeredArea } from '../../types/triggered-area';
 import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
@@ -72,7 +72,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterTypeLabel: string;
   public disasterTypeName: string;
   public actionIndicatorLabel: string;
-  public actionIndicatorNumberFormat: string;
+  public actionIndicatorNumberFormat: NumberFormat;
   public forecastInfo: string[];
   public country: Country;
   public disasterType: DisasterType;
