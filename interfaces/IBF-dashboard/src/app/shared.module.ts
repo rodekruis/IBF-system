@@ -49,6 +49,7 @@ import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
 import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-component/backend-mock-scenario.component';
 import { CompactPipe } from './pipes/compact.pipe';
+import { DisclaimerApproximateComponent } from './components/disclaimer-approximate/disclaimer-approximate.component';
 
 @NgModule({
   imports: [
@@ -104,6 +105,7 @@ import { CompactPipe } from './pipes/compact.pipe';
     DynamicPointPopupComponent,
     TyphoonTrackpointPopupContentComponent,
     GlofasStationPopupContentComponent,
+    DisclaimerApproximateComponent,
   ],
   exports: [
     AboutBtnComponent,
@@ -149,6 +151,7 @@ import { CompactPipe } from './pipes/compact.pipe';
     DynamicPointPopupComponent,
     TyphoonTrackpointPopupContentComponent,
     GlofasStationPopupContentComponent,
+    DisclaimerApproximateComponent,
   ],
 })
 export class SharedModule {}
