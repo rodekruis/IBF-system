@@ -5,12 +5,12 @@ import { IsNull, Not, Repository } from 'typeorm';
 
 import { EXTERNAL_API } from '../../../config';
 import { EventSummaryCountry } from '../../../shared/data.model';
+import { HelperService } from '../../../shared/helper.service';
 import { CountryEntity } from '../../country/country.entity';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { EventMapImageEntity } from '../../event/event-map-image.entity';
 import { EventService } from '../../event/event.service';
 import { UserEntity } from '../../user/user.entity';
-import { formatActionUnitValue } from '../helpers/format-action-unit-value.helper';
 import { LookupService } from '../lookup/lookup.service';
 import { NotificationContentService } from '../notification-content/notification-content.service';
 import { twilioClient } from './twilio.client';
@@ -35,6 +35,7 @@ export class WhatsappService {
     private readonly eventService: EventService,
     private readonly lookupService: LookupService,
     private readonly notificationContentService: NotificationContentService,
+    private readonly helperService: HelperService,
   ) {}
 
   public async sendTestWhatsapp(
@@ -377,7 +378,7 @@ export class WhatsappService {
     for (const area of triggeredAreas) {
       const row = `- *${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''
-      } - ${formatActionUnitValue(
+      } - ${this.helperService.toCompactNumber(
         area.actionsValue,
         indicatorMetadata.numberFormatMap,
       )}*\n`;

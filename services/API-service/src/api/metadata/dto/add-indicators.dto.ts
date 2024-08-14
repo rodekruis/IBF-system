@@ -8,6 +8,8 @@ import {
   IsString,
 } from 'class-validator';
 
+import { NumberFormat } from '../../../shared/enums/number-format.enum';
+
 export class IndicatorDto {
   @ApiProperty({
     example: {
@@ -53,9 +55,9 @@ export class IndicatorDto {
   })
   public colorBreaks: JSON;
 
-  @ApiProperty({ example: 'decimal0' })
+  @ApiProperty({ example: NumberFormat.decimal0 })
   @IsString()
-  public numberFormatMap: string;
+  public numberFormatMap: NumberFormat;
 
   @ApiProperty({ example: 'decimal0' })
   @IsIn(['decimal0', 'decimal2', 'perc'])

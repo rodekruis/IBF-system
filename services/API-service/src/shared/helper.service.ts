@@ -11,6 +11,7 @@ import {
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { DateDto } from '../api/event/dto/date.dto';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
+import { NumberFormat } from './enums/number-format.enum';
 import { GeoJson, GeoJsonFeature } from './geo.model';
 
 @Injectable()
@@ -118,5 +119,22 @@ export class HelperService {
         timestamp: null,
       };
     }
+  }
+
+  public toCompactNumber(
+    value: number,
+    format: NumberFormat = NumberFormat.decimal0,
+    locale = 'en-GB',
+  ) {
+    const style = format === NumberFormat.perc ? 'percent' : 'decimal';
+    const min = format === NumberFormat.perc ? 0.1 : 10;
+
+    value = value > 0 ? Math.max(min, value) : 0;
+
+    return new Intl.NumberFormat(locale, {
+      maximumSignificantDigits: 1,
+      style,
+      notation: 'compact',
+    }).format(value);
   }
 }
