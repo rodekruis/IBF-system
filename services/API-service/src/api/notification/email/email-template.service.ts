@@ -20,6 +20,7 @@ import {
 } from '../dto/notification-date-per-event.dto';
 import { getMjmlBodyEvent } from './mjml/body-event';
 import { getMjmlEventAdminAreaTable } from './mjml/event-admin-area-table';
+import { getMjmlFooter } from './mjml/footer';
 import { getMjmlMapImage } from './mjml/map-image';
 
 const emailFolder = './src/api/notification/email';
@@ -570,6 +571,11 @@ export class EmailTemplateService {
       ibfLogo: ibfLogo,
       countryName: countryName,
     });
+  }
+
+  public getMjmlFooter(countryName: string): object {
+    const ibfLogo = this.getLogoImageAsDataURL();
+    return getMjmlFooter({ ibfLogo, countryName });
   }
 
   private getCurrentDateTimeString(countryCodeISO3: string): string {

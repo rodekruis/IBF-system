@@ -144,11 +144,14 @@ export const getAdminAreaTable = ({
   };
 };
 
-// export const getInlineTriangleIcon = ({ src }: { src: string }): string =>
-//   `<img src="${src}" style="width: 14px; padding-right: 4px"></img>`;
-
-export const getInlineTriangleIcon = ({ src }: { src: string }): string =>
-  `<img src="${src}" width="14" height="14" style="display: inline-block; width: 14px; height: 14px; max-width: 14px; max-height: 14px"></img>`;
+export const getInlineImage = ({
+  src,
+  size,
+}: {
+  src: string;
+  size: number;
+}): string =>
+  `<img src="${src}" width="${size}" height="${size}" style="display: inline-block; width: ${size}px; height: ${size}px; max-width: ${size}px; max-height: ${size}px"></img>`;
 
 export const getImageElement = ({
   src,

@@ -89,6 +89,10 @@ export class MjmlService {
 
     children.push(mailBody);
 
+    children.push(
+      this.emailTemplateService.getMjmlFooter(emailContent.country.countryName),
+    );
+
     const emailObject = {
       tagName: 'mjml',
       attributes: {},

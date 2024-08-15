@@ -7,7 +7,7 @@ import {
 import {
   COLOR_WHITE,
   getAdminAreaTable,
-  getInlineTriangleIcon,
+  getInlineImage,
   getReturnElement,
   getTextElement,
 } from '../../helpers/mjml.helper';
@@ -31,7 +31,7 @@ export const getMjmlEventAdminAreaTable = ({
 }) => {
   const isTrigger = event.triggerStatusLabel === TriggerStatusLabelEnum.Trigger;
 
-  const icon = getInlineTriangleIcon({ src: triangleIcon });
+  const icon = getInlineImage({ src: triangleIcon, size: 14 });
 
   const titleElement = getTextElement({
     content: `${icon} <strong>${disasterTypeLabel} ${event.triggerStatusLabel} ${event.eventName}</strong>`,
