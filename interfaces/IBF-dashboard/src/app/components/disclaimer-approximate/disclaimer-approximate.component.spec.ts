@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { DisclaimerApproximateComponent } from './disclaimer-approximate.component';
 
@@ -8,7 +10,8 @@ describe('DisclaimerApproximateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DisclaimerApproximateComponent],
+      declarations: [DisclaimerApproximateComponent],
+      imports: [IonicModule, TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DisclaimerApproximateComponent);
