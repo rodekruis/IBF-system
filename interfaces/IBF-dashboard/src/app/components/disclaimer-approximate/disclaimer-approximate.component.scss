@@ -1,8 +1,4 @@
-ion-item {
-  ion-thumbnail {
-    --size: 1rem;
-  }
-  ion-label {
-    font-size: 0.75rem;
-  }
+ion-popover {
+  --offset-x: 8px;
+  --offset-y: -2px;
 }

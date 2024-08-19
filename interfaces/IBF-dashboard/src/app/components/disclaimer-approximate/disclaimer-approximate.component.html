@@ -1,8 +1,13 @@
-<ion-item class="ion-margin-vertical" lines="none">
-  <ion-thumbnail slot="start">
-    <ion-img src="assets/icons/source-info-grey.svg"></ion-img>
-  </ion-thumbnail>
-  <ion-label class="ion-text-wrap" color="fiveten-neutral-700">
-    {{ 'disclaimer-approximate-component.message' | translate }}
-  </ion-label>
-</ion-item>
+<img src="assets/icons/source-info.svg" id="disclaimer-approximate-trigger" />
+<ion-popover
+  side="right"
+  trigger="disclaimer-approximate-trigger"
+  triggerAction="click"
+  showBackdrop="false"
+>
+  <ng-template>
+    <ion-content class="ion-padding font-size-12">
+      {{ 'disclaimer-approximate-component.message' | translate }}
+    </ion-content>
+  </ng-template>
+</ion-popover>
