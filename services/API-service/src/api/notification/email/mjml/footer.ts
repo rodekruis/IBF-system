@@ -1,20 +1,17 @@
 import {
-  COLOR_PRIMARY,
-  COLOR_WHITE,
   getImageElement,
+  getLogoImageAsDataURL,
   getReturnElement,
   getTextElement,
 } from '../../helpers/mjml.helper';
 
 export const getMjmlFooter = ({
-  ibfLogo,
   countryName,
 }: {
-  ibfLogo: string;
   countryName: string;
 }): object => {
   const logoElement = getImageElement({
-    src: ibfLogo,
+    src: getLogoImageAsDataURL(),
     otherAttributes: { width: '45px' },
   });
 
@@ -22,7 +19,6 @@ export const getMjmlFooter = ({
     content: `Impact-Based Forecasting Portal (IBF) was co-developed by Netherlands
     Red Cross 510 the together with the ${countryName} Red Cross
     National Society. For questions contact us at ibf-support@510.global`,
-    attributes: { color: COLOR_WHITE },
   });
 
   const twoColumnSectionElement = {
@@ -42,6 +38,5 @@ export const getMjmlFooter = ({
   };
   return getReturnElement({
     childrenEls: [twoColumnSectionElement],
-    attributes: { 'background-color': COLOR_PRIMARY },
   });
 };

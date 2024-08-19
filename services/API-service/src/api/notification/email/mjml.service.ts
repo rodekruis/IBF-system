@@ -4,20 +4,76 @@ import mjml2html from 'mjml';
 
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 import {
+  COLOR_GREY,
   getReturnElement,
   getTextElement,
   WIDTH_BODY,
 } from '../helpers/mjml.helper';
-import { EmailTemplateService } from './email-template.service';
+import { getMjmlEventListBody } from './mjml/body-event';
+import { getMjmlAdminAreaTableList } from './mjml/event-admin-area-table';
+import { getMjmlEventFinished } from './mjml/event-finished';
+import { getMjmlFooter } from './mjml/footer';
 import { getMjmlHeader } from './mjml/header';
+import { getMjmlMapImages } from './mjml/map-image';
 import { getMjmlNotificationAction } from './mjml/notification-actions';
 import { getMjmlTriggerStatement } from './mjml/trigger-statement';
 
 @Injectable()
 export class MjmlService {
-  public constructor(private emailTemplateService: EmailTemplateService) {}
+  private mailOpening = getReturnElement({
+    childrenEls: [
+      getTextElement({
+        content: 'Dear Reader,',
+      }),
+    ],
+  });
 
-  public getHtmlOutput({
+  private header = ({
+    emailContent,
+    date,
+  }: {
+    emailContent: ContentEventEmail;
+    date: Date;
+  }) =>
+    getMjmlHeader({
+      disasterTypeLabel: emailContent.disasterTypeLabel,
+      nrOfEvents: emailContent.dataPerEvent.length,
+      sentOnDate: date.toISOString(),
+      timeZone: 'UTC',
+    });
+
+  private footer = ({ countryName }: { countryName: string }) =>
+    getMjmlFooter({ countryName });
+
+  private notificationAction = ({
+    linkDashboard,
+    linkEapSop,
+    socialMediaLink,
+    socialMediaType,
+  }: {
+    linkDashboard: string;
+    linkEapSop: string;
+    socialMediaLink: string;
+    socialMediaType: string;
+  }) =>
+    getMjmlNotificationAction({
+      linkDashboard,
+      linkEapSop,
+      socialMediaLink,
+      socialMediaType,
+    });
+
+  private mailBody = {
+    tagName: 'mj-section',
+    children: [],
+    attributes: {
+      'background-color': COLOR_GREY,
+      'padding-left': '90px',
+      'padding-right': '90px',
+    },
+  };
+
+  public getTriggerEmailHtmlOutput({
     emailContent,
     date,
   }: {
@@ -26,41 +82,14 @@ export class MjmlService {
   }): string {
     const children = [];
 
-    children.push(
-      getMjmlHeader({
-        disasterTypeLabel: emailContent.disasterTypeLabel,
-        nrOfEvents: emailContent.dataPerEvent.length,
-        sentOnDate: date.toISOString(),
-        timeZone: 'UTC',
-      }),
-    );
+    children.push(this.header({ emailContent, date }));
 
-    const mailBody = {
-      tagName: 'mj-section',
-      children: [],
-      attributes: {
-        'background-color': '#F4F5F8',
-        'padding-left': '90px',
-        'padding-right': '90px',
-      },
-    };
+    this.mailBody.children.push(this.mailOpening);
 
-    mailBody.children.push(
-      getReturnElement({
-        childrenEls: [
-          getTextElement({
-            content: 'Dear Reader,',
-          }),
-        ],
-      }),
-    );
+    this.mailBody.children.push(...getMjmlEventListBody(emailContent));
 
-    mailBody.children.push(
-      ...this.emailTemplateService.getMjmlEventListBody(emailContent),
-    );
-
-    mailBody.children.push(
-      getMjmlNotificationAction({
+    this.mailBody.children.push(
+      this.notificationAction({
         linkDashboard: process.env.DASHBOARD_URL,
         linkEapSop: emailContent.linkEapSop,
         socialMediaLink:
@@ -70,7 +99,7 @@ export class MjmlService {
       }),
     );
 
-    mailBody.children.push(
+    this.mailBody.children.push(
       getMjmlTriggerStatement({
         triggerStatement:
           emailContent.country.notificationInfo.triggerStatement[
@@ -79,19 +108,69 @@ export class MjmlService {
       }),
     );
 
-    mailBody.children.push(
-      ...this.emailTemplateService.getMjmlMapImages(emailContent),
+    this.mailBody.children.push(...getMjmlMapImages(emailContent));
+
+    this.mailBody.children.push(...getMjmlAdminAreaTableList(emailContent));
+
+    this.mailBody.children.push(
+      this.footer({ countryName: emailContent.country.countryName }),
     );
 
-    mailBody.children.push(
-      ...this.emailTemplateService.getMjmlAdminAreaTableList(emailContent),
+    children.push(this.mailBody);
+
+    const emailObject = {
+      tagName: 'mjml',
+      attributes: {},
+      children: [
+        {
+          tagName: 'mj-body',
+          children,
+          attributes: { width: WIDTH_BODY },
+        },
+      ],
+    };
+
+    return mjml2html(emailObject).html;
+  }
+
+  public getEventFinishedEmailHtmlOutput({
+    emailContent,
+    date,
+  }: {
+    emailContent: ContentEventEmail;
+    date: Date;
+  }): string {
+    const children = [];
+
+    children.push(this.header({ emailContent, date }));
+
+    this.mailBody.children.push(this.mailOpening);
+
+    this.mailBody.children.push(
+      getMjmlEventFinished({
+        disasterTypeLabel: emailContent.disasterTypeLabel,
+        eventName: emailContent.dataPerEvent[0].eventName,
+        issuedDate: emailContent.dataPerEvent[0].issuedDate,
+        timezone: 'UTC',
+      }),
     );
 
-    children.push(mailBody);
-
-    children.push(
-      this.emailTemplateService.getMjmlFooter(emailContent.country.countryName),
+    this.mailBody.children.push(
+      this.notificationAction({
+        linkDashboard: process.env.DASHBOARD_URL,
+        linkEapSop: emailContent.linkEapSop,
+        socialMediaLink:
+          emailContent.country.notificationInfo.linkSocialMediaUrl ?? '',
+        socialMediaType:
+          emailContent.country.notificationInfo.linkSocialMediaType ?? '',
+      }),
     );
+
+    this.mailBody.children.push(
+      this.footer({ countryName: emailContent.country.countryName }),
+    );
+
+    children.push(this.mailBody);
 
     const emailObject = {
       tagName: 'mjml',

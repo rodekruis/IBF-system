@@ -1,12 +1,20 @@
+import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
 import { TriggerStatusLabelEnum } from '../../dto/notification-date-per-event.dto';
 import {
+  dateObjectToDateTimeString,
+  getDisasterIssuedLabel,
+  getIbfHexColor,
   // getImageElement,
   getInlineImage,
   getReturnElement,
   getTextElement,
+  getTimeFromNow,
+  getTimezoneDisplay,
+  getTotalAffected,
+  getTriangleIcon,
 } from '../../helpers/mjml.helper';
 
-export const getMjmlBodyEvent = ({
+const getMjmlBodyEvent = ({
   color,
   defaultAdminAreaLabel,
   disasterIssuedLabel,
@@ -90,4 +98,59 @@ export const getMjmlBodyEvent = ({
   return getReturnElement({
     childrenEls: [eventNameElement, contentElement, closingElement],
   });
+};
+
+export const getMjmlEventListBody = (
+  emailContent: ContentEventEmail,
+): object[] => {
+  const eventList = [];
+
+  for (const event of emailContent.dataPerEvent) {
+    eventList.push(
+      getMjmlBodyEvent({
+        eventName: event.eventName,
+
+        disasterTypeLabel: emailContent.disasterTypeLabel,
+        triggerStatusLabel: event.triggerStatusLabel,
+        issuedDate: dateObjectToDateTimeString(
+          event.issuedDate,
+          emailContent.country.countryCodeISO3,
+        ),
+        timeZone: getTimezoneDisplay(emailContent.country.countryCodeISO3),
+
+        // Lead time details
+        firstLeadTimeString: event.firstLeadTimeString,
+        firstTriggerLeadTimeString: event.firstTriggerLeadTimeString,
+        firstLeadTimeFromNow: getTimeFromNow(event.firstLeadTime),
+        firstTriggerLeadTimeFromNow: getTimeFromNow(event.firstTriggerLeadTime),
+
+        // Area details
+        nrOfTriggeredAreas: event.nrOfTriggeredAreas,
+        defaultAdminAreaLabel:
+          emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
+
+        // Indicator details
+        indicatorLabel: emailContent.indicatorMetadata.label,
+        totalAffected: getTotalAffected(event),
+
+        // EAP details
+        triangleIcon: getTriangleIcon(
+          event.eapAlertClass?.key,
+          event.triggerStatusLabel,
+        ),
+
+        disasterIssuedLabel: getDisasterIssuedLabel(
+          event.eapAlertClass?.label,
+          event.triggerStatusLabel,
+        ),
+        color: getIbfHexColor(
+          event.eapAlertClass?.color,
+          event.triggerStatusLabel,
+        ),
+
+        indicatorUnit: emailContent.indicatorMetadata.unit,
+      }),
+    );
+  }
+  return eventList;
 };

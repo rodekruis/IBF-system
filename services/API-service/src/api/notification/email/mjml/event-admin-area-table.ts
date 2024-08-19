@@ -1,5 +1,6 @@
 import { IndicatorMetadataEntity } from '../../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../../dto/admin-area-notification-info.dto';
+import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
 import {
   NotificationDataPerEventDto,
   TriggerStatusLabelEnum,
@@ -7,12 +8,14 @@ import {
 import {
   COLOR_WHITE,
   getAdminAreaTable,
+  getIbfHexColor,
   getInlineImage,
   getReturnElement,
   getTextElement,
+  getTriangleIcon,
 } from '../../helpers/mjml.helper';
 
-export const getMjmlEventAdminAreaTable = ({
+const getMjmlEventAdminAreaTable = ({
   disasterTypeLabel,
   color,
   defaultAdminAreaLabel,
@@ -75,4 +78,36 @@ export const getMjmlEventAdminAreaTable = ({
       'padding-bottom': '20px',
     },
   });
+};
+
+export const getMjmlAdminAreaTableList = (
+  emailContent: ContentEventEmail,
+): object[] => {
+  const adminAreaTableList = [];
+
+  const adminAreaLabelsParent =
+    emailContent.country.adminRegionLabels[
+      String(Math.max(1, emailContent.defaultAdminLevel - 1))
+    ];
+
+  for (const event of emailContent.dataPerEvent) {
+    adminAreaTableList.push(
+      getMjmlEventAdminAreaTable({
+        disasterTypeLabel: emailContent.disasterTypeLabel,
+        color: getIbfHexColor(
+          event.eapAlertClass?.color,
+          event.triggerStatusLabel,
+        ),
+        defaultAdminAreaLabel: emailContent.defaultAdminAreaLabel,
+        defaultAdminAreaParentLabel: adminAreaLabelsParent,
+        indicatorMetadata: emailContent.indicatorMetadata,
+        event,
+        triangleIcon: getTriangleIcon(
+          event.eapAlertClass?.key,
+          event.triggerStatusLabel,
+        ),
+      }),
+    );
+  }
+  return adminAreaTableList;
 };

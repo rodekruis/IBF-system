@@ -1,10 +1,13 @@
+import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
 import {
   getImageElement,
+  getMapImageDescription,
+  getMapImgSrc,
   getReturnElement,
   getTextElement,
 } from '../../helpers/mjml.helper';
 
-export const getMjmlMapImage = ({
+const getMjmlMapImage = ({
   eventName,
   mapImgDescription,
   src,
@@ -29,4 +32,24 @@ export const getMjmlMapImage = ({
   return getReturnElement({
     childrenEls: [titleElement, descriptionElement, mapImageElement],
   });
+};
+
+export const getMjmlMapImages = (emailContent: ContentEventEmail): object[] => {
+  const mapImages = [];
+  for (const event of emailContent.dataPerEvent.filter(
+    (event) => event.mapImage,
+  )) {
+    mapImages.push(
+      getMjmlMapImage({
+        src: getMapImgSrc(
+          emailContent.country.countryCodeISO3,
+          emailContent.disasterType,
+          event.eventName,
+        ),
+        mapImgDescription: getMapImageDescription(emailContent.disasterType),
+        eventName: event.eventName ? `(for ${event.eventName})` : '',
+      }),
+    );
+  }
+  return mapImages;
 };

@@ -1,10 +1,28 @@
+import * as fs from 'fs';
+
+import { EapAlertClassKeyEnum } from '../../../shared/data.model';
+import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
+import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
+import { DisasterType } from '../../disaster/disaster-type.enum';
+import {
+  NotificationDataPerEventDto,
+  TriggerStatusLabelEnum,
+} from '../dto/notification-date-per-event.dto';
+
 export const WIDTH_BODY = '632px';
 export const WIDTH_INNER_BODY = '437px';
 
 export const COLOR_PRIMARY = '#4f22d7';
-export const COLOR_SECONDARY = '#ffffff';
 export const COLOR_TERTIARY = '#cfbfff';
 export const COLOR_WHITE = '#ffffff';
+export const COLOR_GREY = '#f4f5f8';
+const COLOR_WARNING_ORANGE = '#aa6009';
+const COLOR_WARNING_YELLOW = '#665606';
+const COLOR_TRIGGER_RED = '#8a0f32';
+
+const emailFolder = './src/api/notification/email';
+const emailIconFolder = `${emailFolder}/icons`;
+const emailLogoFolder = `${emailFolder}/logos`;
 
 export const getReturnElement = ({
   childrenEls,
@@ -79,8 +97,8 @@ export const getNotificationActionsSection = ({
               height: '28px',
               'border-radius': '24px',
               padding: '0px',
-              'background-color': primary ? COLOR_PRIMARY : COLOR_SECONDARY,
-              color: primary ? COLOR_SECONDARY : COLOR_PRIMARY,
+              'background-color': primary ? COLOR_PRIMARY : COLOR_WHITE,
+              color: primary ? COLOR_WHITE : COLOR_PRIMARY,
               border: `1px solid ${primary ? COLOR_PRIMARY : COLOR_TERTIARY}`,
               'font-weight': 'bold',
             },
@@ -164,4 +182,129 @@ export const getImageElement = ({
     tagName: 'mj-image',
     attributes: { src, ...otherAttributes },
   };
+};
+
+export const getMapImgSrc = (
+  countryCodeISO3: string,
+  disasterType: DisasterType,
+  eventName: string,
+): string => {
+  return `${
+    process.env.NG_API_URL
+  }/event/event-map-image/${countryCodeISO3}/${disasterType}/${
+    eventName || 'no-name'
+  }`;
+};
+
+export const getMapImageDescription = (disasterType: DisasterType): string => {
+  const descriptions = {
+    [DisasterType.Floods]:
+      'The triggered areas are outlined in purple. The potential flood extent is shown in red.<br>',
+  };
+
+  return descriptions[disasterType] || '';
+};
+
+export const dateObjectToDateTimeString = (
+  date: Date,
+  countryCodeISO3: string,
+): string => {
+  const timeZone = CountryTimeZoneMapping[countryCodeISO3];
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: timeZone,
+  };
+  return date.toLocaleString('default', options);
+};
+
+export const getTimezoneDisplay = (countryCodeISO3: string) => {
+  return CountryTimeZoneMapping[countryCodeISO3].split('_').join(' ');
+};
+
+export const getTimeFromNow = (leadTime: LeadTime) => {
+  if (!leadTime) return '';
+
+  return [LeadTime.day0, LeadTime.month0, LeadTime.hour0].includes(leadTime)
+    ? 'ongoing'
+    : `${leadTime.replace('-', ' ')}s from now`;
+};
+
+export const getTotalAffected = (
+  event: NotificationDataPerEventDto,
+): number | null => {
+  return event.totalAffectedOfIndicator ?? null;
+};
+
+export const getTriangleIcon = (
+  eapAlertClassKey: EapAlertClassKeyEnum,
+  triggerStatusLabel: TriggerStatusLabelEnum,
+) => {
+  const fileNameMap = {
+    [EapAlertClassKeyEnum.med]: 'warning-medium.png',
+    [EapAlertClassKeyEnum.min]: 'warning-low.png',
+    [EapAlertClassKeyEnum.max]: 'trigger.png',
+    default: 'trigger.png',
+  };
+
+  let fileName = eapAlertClassKey
+    ? fileNameMap[eapAlertClassKey]
+    : fileNameMap.default;
+  if (
+    !eapAlertClassKey &&
+    triggerStatusLabel !== TriggerStatusLabelEnum.Trigger
+  ) {
+    fileName = 'warning-medium.png';
+  }
+  const filePath = `${emailIconFolder}/${fileName}`;
+  return getPngImageAsDataURL(filePath);
+};
+
+export const getPngImageAsDataURL = (relativePath: string) => {
+  const imageBuffer = fs.readFileSync(relativePath);
+  const imageDataURL = `data:image/png;base64,${imageBuffer.toString(
+    'base64',
+  )}`;
+
+  return imageDataURL;
+};
+
+export const getDisasterIssuedLabel = (
+  eapLabel: string,
+  triggerStatusLabel: TriggerStatusLabelEnum,
+) => {
+  return eapLabel || triggerStatusLabel;
+};
+
+export const getIbfHexColor = (
+  color: string,
+  triggerStatusLabel: TriggerStatusLabelEnum,
+): string => {
+  // Color  defined in the EAP Alert Class. This is only used for flood events
+  // For other events, the color is defined in the disaster settings
+  // So we decide it based on the trigger status label
+
+  if (color) {
+    // TODO: Define in a place where FrontEnd and Backend can share this
+    switch (color) {
+      case 'ibf-orange':
+        return COLOR_WARNING_ORANGE;
+      case 'fiveten-yellow-500':
+        return COLOR_WARNING_YELLOW;
+      default:
+        return COLOR_TRIGGER_RED;
+    }
+  }
+  return triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+    ? COLOR_TRIGGER_RED
+    : COLOR_WARNING_ORANGE;
+};
+
+export const getLogoImageAsDataURL = () => {
+  const filePath = `${emailLogoFolder}/logo-IBF.png`;
+  return getPngImageAsDataURL(filePath);
 };
