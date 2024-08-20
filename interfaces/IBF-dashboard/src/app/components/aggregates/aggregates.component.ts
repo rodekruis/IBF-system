@@ -394,9 +394,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return this.areaStatus === AreaStatus.TriggeredOrWarned ? true : false;
   }
   private getAreaCount(): number {
-    return this.isActiveAreas()
-      ? this.aggregatesService.nrTriggerActiveAreas
-      : this.aggregatesService.nrTriggerStoppedAreas;
+    return (
+      (this.isActiveAreas()
+        ? this.aggregatesService.nrTriggerActiveAreas
+        : this.aggregatesService.nrTriggerStoppedAreas) ?? 0
+    );
   }
 
   private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
