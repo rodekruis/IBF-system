@@ -9,7 +9,7 @@
         <ion-col class="ion-no-padding" size-lg="11" size-md="11" size-xs="11">
           <ion-item
             lines="none"
-            class="component-title-item ion-no-margin"
+            class="component-title-item"
             [color]="
               isActiveAreas() ? 'ibf-secondary' : 'ibf-no-alert-secondary'
             "
@@ -17,14 +17,14 @@
             <ion-col
               class="ion-no-padding ion-no-margin ion-align-items-center"
             >
-              <ion-label color="ibf-black"
+              <ion-label color="ibf-black" class="ion-text-wrap"
                 ><ion-text
                   ><strong>{{
                     getAggregatesHeader(mapView | async).headerLabel
                   }}</strong></ion-text
                 ></ion-label
               >
-              <ion-label color="ibf-black"
+              <ion-label color="ibf-black" class="ion-text-wrap"
                 ><ion-text
                   [innerHTML]="
                     getAggregatesHeader(mapView | async).subHeaderLabel
@@ -52,12 +52,18 @@
         @for (indicator of indicators; track indicator.name) {
           <ion-row class="ion-no-padding">
             <ion-col size-lg="7" size-md="7" size-xs="7">
-              <ion-item class="aggregate-item ion-no-padding" color="ibf-white">
-                <ion-thumbnail slot="start" class="aggregate-item-thumbnail">
+              <ion-item
+                class="aggregate-item ion-no-padding font-size-12"
+                color="ibf-white"
+              >
+                <ion-thumbnail
+                  slot="start"
+                  class="aggregate-item-thumbnail ion-no-margin"
+                >
                   <ion-img src="assets/icons/{{ indicator.icon }}"></ion-img>
                 </ion-thumbnail>
                 <ion-label
-                  class="aggregate-item-label"
+                  class="aggregate-item-label ion-no-margin ion-text-wrap"
                   [title]="indicator.label"
                 >
                   {{ indicator.label }}
@@ -66,7 +72,7 @@
             </ion-col>
             <ion-col size-lg="4" size-md="4" size-xs="4">
               <ion-item
-                class="aggregate-item-value ion-no-padding"
+                class="aggregate-item-value ion-no-padding font-size-12"
                 style="--inner-padding-end: 4px"
                 color="ibf-white"
               >
