@@ -67,7 +67,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.production.ts"
                 }
               ],
               "optimization": true,
@@ -86,6 +86,12 @@
               "serviceWorker": "ngsw-config.json"
             },
             "stage": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.stage.ts"
+                }
+              ],
               "assets": [
                 {
                   "glob": "**/*",
@@ -135,13 +141,30 @@
                   "input": "src/assets/icons/test",
                   "output": "assets/icons"
                 }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.test.ts"
+                }
               ]
             },
             "development": {
-              "fileReplacements": []
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             },
             "ci": {
-              "progress": false
+              "progress": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.ci.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": ""
