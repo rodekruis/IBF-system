@@ -4,8 +4,8 @@ const dotenv = require('dotenv');
 // Load environment-variables from .env file (if available)
 dotenv.config();
 
-const configFileTemplate = require('./src/environments/environment.prod.ts.template.js');
-const targetPath = './src/environments/environment.prod.ts';
+const configFileTemplate = require('./src/environments/environment.template.ts');
+const targetPath = `./src/environments/environment.${process.env.NG_CONFIGURATION}.ts`;
 
 fs.writeFile(targetPath, configFileTemplate, (err) => {
   if (err) {
