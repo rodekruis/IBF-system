@@ -40,6 +40,8 @@ export class MjmlService {
       nrOfEvents: emailContent.dataPerEvent.length,
       sentOnDate: date.toISOString(),
       timeZone: 'UTC',
+      logosSrc:
+        emailContent.country.notificationInfo.logo[emailContent.disasterType],
     });
 
   private footer = ({ countryName }: { countryName: string }) =>

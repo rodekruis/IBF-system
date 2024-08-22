@@ -1,6 +1,7 @@
 import {
   COLOR_PRIMARY,
   COLOR_WHITE,
+  getImageElement,
   getReturnElement,
   getTextElement,
 } from '../../helpers/mjml.helper';
@@ -10,12 +11,18 @@ export const getMjmlHeader = ({
   nrOfEvents,
   sentOnDate,
   timeZone,
+  logosSrc,
 }: {
   disasterTypeLabel: string;
   nrOfEvents: number;
   sentOnDate: string;
   timeZone: string;
+  logosSrc: string;
 }): object => {
+  const logosElement = getImageElement({
+    src: logosSrc,
+  });
+
   const titleElement = getTextElement({
     content: `${nrOfEvents} ${disasterTypeLabel} alerts`,
     attributes: {
@@ -37,7 +44,7 @@ export const getMjmlHeader = ({
   });
 
   return getReturnElement({
-    childrenEls: [titleElement, subtitleElement],
+    childrenEls: [logosElement, titleElement, subtitleElement],
     attributes: {
       'background-color': COLOR_PRIMARY,
     },
