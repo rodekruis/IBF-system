@@ -2,7 +2,7 @@ import {
   COLOR_PRIMARY,
   COLOR_WHITE,
   getImageElement,
-  getReturnElement,
+  getSectionElement,
   getTextElement,
 } from '../../helpers/mjml.helper';
 
@@ -43,8 +43,9 @@ export const getMjmlHeader = ({
     },
   });
 
-  return getReturnElement({
+  return getSectionElement({
     childrenEls: [logosElement, titleElement, subtitleElement],
+    backgroundColor: COLOR_PRIMARY,
     attributes: {
       'background-color': COLOR_PRIMARY,
     },

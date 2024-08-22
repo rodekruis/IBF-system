@@ -1,4 +1,4 @@
-import { getReturnElement, getTextElement } from '../../helpers/mjml.helper';
+import { getSectionElement, getTextElement } from '../../helpers/mjml.helper';
 
 export const getMjmlTriggerStatement = ({
   triggerStatement,
@@ -9,5 +9,5 @@ export const getMjmlTriggerStatement = ({
     content: `<strong>Trigger Statement</strong>: ${triggerStatement}`,
   });
 
-  return getReturnElement({ childrenEls: [textElement] });
+  return getSectionElement({ childrenEls: [textElement] });
 };

@@ -1,4 +1,4 @@
-import { getReturnElement, getTextElement } from '../../helpers/mjml.helper';
+import { getSectionElement, getTextElement } from '../../helpers/mjml.helper';
 
 export const getMjmlEventFinished = ({
   disasterTypeLabel,
@@ -28,7 +28,7 @@ export const getMjmlEventFinished = ({
     content: `This warning was issued by the IBF portal on ${issuedDate} (${timezone})`,
   });
 
-  return getReturnElement({
+  return getSectionElement({
     childrenEls: [eventEndedElement, pleaseNoteElement, warningIssuedDate],
   });
 };

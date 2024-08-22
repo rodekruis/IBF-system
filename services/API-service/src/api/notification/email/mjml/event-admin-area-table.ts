@@ -10,7 +10,7 @@ import {
   getAdminAreaTable,
   getIbfHexColor,
   getInlineImage,
-  getReturnElement,
+  getSectionElement,
   getTextElement,
   getTriangleIcon,
 } from '../../helpers/mjml.helper';
@@ -37,7 +37,7 @@ const getMjmlEventAdminAreaTable = ({
   const icon = getInlineImage({ src: triangleIcon, size: 14 });
 
   const titleElement = getTextElement({
-    content: `${icon} <strong>${disasterTypeLabel} ${event.triggerStatusLabel} ${event.eventName}</strong>`,
+    content: `${icon}<strong>${disasterTypeLabel} ${event.triggerStatusLabel} ${event.eventName}</strong>`,
     attributes: {
       color,
       'container-background-color': COLOR_WHITE,
@@ -72,7 +72,7 @@ const getMjmlEventAdminAreaTable = ({
     isTrigger,
   });
 
-  return getReturnElement({
+  return getSectionElement({
     childrenEls: [titleElement, subtitleElement, adminAreaTable],
     attributes: {
       'padding-bottom': '20px',

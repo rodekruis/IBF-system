@@ -20,15 +20,19 @@ const COLOR_WARNING_ORANGE = '#aa6009';
 const COLOR_WARNING_YELLOW = '#665606';
 const COLOR_TRIGGER_RED = '#8a0f32';
 
+const SECTION_PADDING = '0px 90px 20px 90px';
+
 const emailFolder = './src/api/notification/email';
 const emailIconFolder = `${emailFolder}/icons`;
 const emailLogoFolder = `${emailFolder}/logos`;
 
-export const getReturnElement = ({
+export const getSectionElement = ({
   childrenEls,
+  backgroundColor = COLOR_GREY,
   attributes,
 }: {
   childrenEls: object[];
+  backgroundColor?: string;
   attributes?: object;
 }) => {
   return {
@@ -41,7 +45,8 @@ export const getReturnElement = ({
     ],
     attributes: {
       width: WIDTH_INNER_BODY,
-      padding: '0px 0px 20px 0px',
+      padding: SECTION_PADDING,
+      'background-color': backgroundColor,
       ...attributes,
     },
   };
@@ -169,7 +174,7 @@ export const getInlineImage = ({
   src: string;
   size: number;
 }): string =>
-  `<img src="${src}" width="${size}" height="${size}" style="display: inline-block; width: ${size}px; height: ${size}px; max-width: ${size}px; max-height: ${size}px"></img>`;
+  `<img src="${src}" width="${size}" height="${size}" style="display: inline-block; width: ${size}px; height: ${size}px; max-width: ${size}px; max-height: ${size}px"></img>&nbsp;`;
 
 export const getImageElement = ({
   src,

@@ -54,8 +54,9 @@ export class EmailService {
         disasterType,
         activeEvents,
       );
+    let emailHtml = '';
 
-    const emailHtml = this.mjmlService.getTriggerEmailHtmlOutput({
+    emailHtml += this.mjmlService.getTriggerEmailHtmlOutput({
       emailContent,
       date,
     });

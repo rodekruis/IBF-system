@@ -3,7 +3,7 @@ import {
   getImageElement,
   getMapImageDescription,
   getMapImgSrc,
-  getReturnElement,
+  getSectionElement,
   getTextElement,
 } from '../../helpers/mjml.helper';
 
@@ -29,7 +29,7 @@ const getMjmlMapImage = ({
     otherAttributes: { width: '600px' },
   });
 
-  return getReturnElement({
+  return getSectionElement({
     childrenEls: [titleElement, descriptionElement, mapImageElement],
   });
 };

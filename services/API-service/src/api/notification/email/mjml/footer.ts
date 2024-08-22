@@ -1,7 +1,7 @@
 import {
   getImageElement,
   getLogoImageAsDataURL,
-  getReturnElement,
+  getSectionElement,
   getTextElement,
 } from '../../helpers/mjml.helper';
 
@@ -12,7 +12,7 @@ export const getMjmlFooter = ({
 }): object => {
   const logoElement = getImageElement({
     src: getLogoImageAsDataURL(),
-    otherAttributes: { width: '45px' },
+    otherAttributes: { width: '45px', height: '45px' },
   });
 
   const textElement = getTextElement({
@@ -36,7 +36,7 @@ export const getMjmlFooter = ({
       },
     ],
   };
-  return getReturnElement({
+  return getSectionElement({
     childrenEls: [twoColumnSectionElement],
   });
 };

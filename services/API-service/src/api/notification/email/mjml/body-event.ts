@@ -6,7 +6,7 @@ import {
   getIbfHexColor,
   // getImageElement,
   getInlineImage,
-  getReturnElement,
+  getSectionElement,
   getTextElement,
   getTimeFromNow,
   getTimezoneDisplay,
@@ -95,7 +95,7 @@ const getMjmlBodyEvent = ({
     content: `This ${triggerStatusLabel} was issued by IBF on ${issuedDate} (${timeZone})`,
   });
 
-  return getReturnElement({
+  return getSectionElement({
     childrenEls: [eventNameElement, contentElement, closingElement],
   });
 };

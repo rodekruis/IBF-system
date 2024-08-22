@@ -1,6 +1,6 @@
 import {
   getNotificationActionsSection,
-  getReturnElement,
+  getSectionElement,
 } from '../../helpers/mjml.helper';
 
 export const getMjmlNotificationAction = ({
@@ -37,7 +37,7 @@ export const getMjmlNotificationAction = ({
     primary: false,
   });
 
-  return getReturnElement({
+  return getSectionElement({
     childrenEls: [ibfPortalRow, socialMediaRow, aboutTriggerRow],
   });
 };
