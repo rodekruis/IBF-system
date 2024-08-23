@@ -1,4 +1,4 @@
-import * as fs from 'fs';
+// import * as fs from 'fs';
 import { Injectable } from '@nestjs/common';
 
 import Mailchimp from 'mailchimp-api-v3';
@@ -62,7 +62,8 @@ export class EmailService {
     });
 
     if (isApiTest) {
-      fs.writeFileSync(`email.html`, emailHtml);
+      // NOTE: use this to test the email output instead of using Mailchimp
+      // fs.writeFileSync(`email.html`, emailHtml);
       return emailHtml;
     }
     const emailSubject = `IBF ${emailContent.disasterTypeLabel} alert`;
