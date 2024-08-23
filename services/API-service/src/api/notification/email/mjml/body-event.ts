@@ -4,7 +4,6 @@ import {
   dateObjectToDateTimeString,
   getDisasterIssuedLabel,
   getIbfHexColor,
-  // getImageElement,
   getInlineImage,
   getSectionElement,
   getTextElement,
@@ -62,7 +61,7 @@ const getMjmlBodyEvent = ({
 
   contentContent.push(
     firstTriggerLeadTimeString
-      ? `<strong>${disasterTypeLabel}:</strong> expected to start on ${firstLeadTimeString} ${firstLeadTimeFromNow}s from now.`
+      ? `<strong>${disasterTypeLabel}:</strong> expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}s from now.`
       : `<strong>${disasterIssuedLabel}:</strong> expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}s from now.`,
   );
 

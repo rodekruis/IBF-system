@@ -1,6 +1,11 @@
-import { getSectionElement, getTextElement } from '../../helpers/mjml.helper';
+import { NotificationDataPerEventDto } from '../../dto/notification-date-per-event.dto';
+import {
+  getFormattedDate,
+  getSectionElement,
+  getTextElement,
+} from '../../helpers/mjml.helper';
 
-export const getMjmlEventFinished = ({
+const getMjmlFinishedEvent = ({
   disasterTypeLabel,
   eventName,
   issuedDate,
@@ -8,7 +13,7 @@ export const getMjmlEventFinished = ({
 }: {
   disasterTypeLabel: string;
   eventName: string;
-  issuedDate: Date;
+  issuedDate: string;
   timezone: string;
 }): object => {
   const belowThresholdText = `<strong>${disasterTypeLabel}: ${eventName} is now below threshold</strong>`;
@@ -31,4 +36,27 @@ export const getMjmlEventFinished = ({
   return getSectionElement({
     childrenEls: [eventEndedElement, pleaseNoteElement, warningIssuedDate],
   });
+};
+
+export const getMjmlFinishedEvents = ({
+  disasterType,
+  dataPerEvent,
+  timezone,
+}: {
+  disasterType: string;
+  dataPerEvent: NotificationDataPerEventDto[];
+  timezone: string;
+}): object[] => {
+  const finishedEvents = [];
+  for (const event of dataPerEvent) {
+    finishedEvents.push(
+      getMjmlFinishedEvent({
+        disasterTypeLabel: disasterType,
+        eventName: event.eventName,
+        issuedDate: getFormattedDate({ date: event.issuedDate }),
+        timezone: timezone,
+      }),
+    );
+  }
+  return finishedEvents;
 };

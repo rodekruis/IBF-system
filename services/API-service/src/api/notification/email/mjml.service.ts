@@ -4,13 +4,15 @@ import mjml2html from 'mjml';
 
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 import {
+  getFormattedDate,
   getSectionElement,
   getTextElement,
+  getTimezoneDisplay,
   WIDTH_BODY,
 } from '../helpers/mjml.helper';
 import { getMjmlEventListBody } from './mjml/body-event';
 import { getMjmlAdminAreaTableList } from './mjml/event-admin-area-table';
-import { getMjmlEventFinished } from './mjml/event-finished';
+import { getMjmlFinishedEvents } from './mjml/event-finished';
 import { getMjmlFooter } from './mjml/footer';
 import { getMjmlHeader } from './mjml/header';
 import { getMjmlMapImages } from './mjml/map-image';
@@ -33,13 +35,13 @@ export class MjmlService {
     date,
   }: {
     emailContent: ContentEventEmail;
-    date: Date;
+    date: string;
   }) =>
     getMjmlHeader({
       disasterTypeLabel: emailContent.disasterTypeLabel,
       nrOfEvents: emailContent.dataPerEvent.length,
-      sentOnDate: date.toISOString(),
-      timeZone: 'UTC',
+      sentOnDate: getFormattedDate({ date }),
+      timeZone: getTimezoneDisplay(emailContent.country.countryCodeISO3),
       logosSrc:
         emailContent.country.notificationInfo.logo[emailContent.disasterType],
     });
@@ -74,7 +76,9 @@ export class MjmlService {
   }): string {
     const children = [];
 
-    children.push(this.header({ emailContent, date }));
+    children.push(
+      this.header({ emailContent, date: getFormattedDate({ date }) }),
+    );
 
     children.push(this.mailOpening);
 
@@ -132,16 +136,17 @@ export class MjmlService {
   }): string {
     const children = [];
 
-    children.push(this.header({ emailContent, date }));
+    children.push(
+      this.header({ emailContent, date: getFormattedDate({ date }) }),
+    );
 
     children.push(this.mailOpening);
 
     children.push(
-      getMjmlEventFinished({
-        disasterTypeLabel: emailContent.disasterTypeLabel,
-        eventName: emailContent.dataPerEvent[0].eventName,
-        issuedDate: emailContent.dataPerEvent[0].issuedDate,
-        timezone: 'UTC',
+      ...getMjmlFinishedEvents({
+        disasterType: emailContent.disasterTypeLabel,
+        dataPerEvent: emailContent.dataPerEvent,
+        timezone: getTimezoneDisplay(emailContent.country.countryCodeISO3),
       }),
     );
 

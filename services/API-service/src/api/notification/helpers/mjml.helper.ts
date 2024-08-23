@@ -1,5 +1,7 @@
 import * as fs from 'fs';
 
+import moment from 'moment';
+
 import { EapAlertClassKeyEnum } from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
@@ -312,4 +314,18 @@ export const getIbfHexColor = (
 export const getLogoImageAsDataURL = () => {
   const filePath = `${emailLogoFolder}/logo-IBF.png`;
   return getPngImageAsDataURL(filePath);
+};
+
+export const getFormattedDate = ({
+  date,
+  countryCodeISO3,
+}: {
+  date: Date | string;
+  countryCodeISO3?: string;
+}): string => {
+  return `${moment(date).format('DDDD, dd MMMM')}${
+    countryCodeISO3
+      ? CountryTimeZoneMapping[countryCodeISO3].split('_').join(' ')
+      : ''
+  }`;
 };
