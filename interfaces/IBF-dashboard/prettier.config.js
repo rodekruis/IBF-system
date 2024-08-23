@@ -7,4 +7,5 @@ module.exports = {
       options: { parser: 'angular' },
     },
   ],
+  plugins: ['prettier-plugin-tailwindcss'],
 };
