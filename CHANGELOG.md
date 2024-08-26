@@ -1,3 +1,18 @@
+# [0.268.0](https://github.com/rodekruis/IBF-system/compare/v0.267.0...v0.268.0) (2024-08-26)
+
+
+### Bug Fixes
+
+* area count should return number ([9c65dce](https://github.com/rodekruis/IBF-system/commit/9c65dce3677a32b48d8d8f7512d967ad04047570))
+
+
+### Features
+
+* rename exposed indicator labels ([2cfa791](https://github.com/rodekruis/IBF-system/commit/2cfa791de0075c23876e8f20bfb04261c78387c9))
+* update indicator icons ([df9f3ad](https://github.com/rodekruis/IBF-system/commit/df9f3ad5df09edfcedbc90e678f97ccb60f8d94d))
+
+
+
 # [0.267.0](https://github.com/rodekruis/IBF-system/compare/v0.266.4...v0.267.0) (2024-08-26)
 
 
@@ -113,15 +128,6 @@
 ### Features
 
 * use date-fns library for date operations ([e268397](https://github.com/rodekruis/IBF-system/commit/e2683973b1f365becb1c8c772b3dbf58a96f1111))
-
-
-
-## [0.264.1](https://github.com/rodekruis/IBF-system/compare/v0.264.0...v0.264.1) (2024-07-12)
-
-
-### Bug Fixes
-
-* use auth interceptor ([24c3d90](https://github.com/rodekruis/IBF-system/commit/24c3d90591a98605fb552dbe492baa062fefc7b8))
 
 
 
