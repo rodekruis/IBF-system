@@ -147,7 +147,7 @@
               '(' +
                 (actionIndicatorLabel | titlecase) +
                 ' ' +
-                (event.actionsValueSum | number: '.0-0') +
+                (event.actionsValueSum | compact) +
                 ')'
             }}</span>
           } @else {
@@ -220,14 +220,9 @@
                   }
                   @if (area.actionsValue && area.actionsValue > 0) {
                     {{ ' - ' }}
-                    @switch (actionIndicatorNumberFormat) {
-                      @case ('decimal0') {
-                        <span>{{ area.actionsValue | number: '.0-0' }}</span>
-                      }
-                      @case ('perc') {
-                        <span>{{ area.actionsValue | percent: '.0-0' }}</span>
-                      }
-                    }
+                    <span>{{
+                      area.actionsValue | compact: actionIndicatorNumberFormat
+                    }}</span>
                   }
                 </p>
               </li>
@@ -281,14 +276,9 @@
                   <span>({{ area.nameParent }})</span>
                 }
                 -
-                @switch (actionIndicatorNumberFormat) {
-                  @case ('decimal0') {
-                    <span>{{ area.actionsValue | number: '.0-0' }}</span>
-                  }
-                  @case ('perc') {
-                    <span>{{ area.actionsValue | percent: '.0-0' }}</span>
-                  }
-                }
+                <span>{{
+                  area.actionsValue | compact: actionIndicatorNumberFormat
+                }}</span>
               </p>
             </li>
           }

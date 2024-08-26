@@ -7,6 +7,7 @@ import {
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { API_PATHS } from '../../../config';
+import { HelperService } from '../../../shared/helper.service';
 import { CountryEntity } from '../../country/country.entity';
 import { EventMapImageEntity } from '../../event/event-map-image.entity';
 import { EventModule } from '../../event/event.module';
@@ -30,7 +31,7 @@ import { WhatsappService } from './whatsapp.service';
     EventModule,
     NotificationContentModule,
   ],
-  providers: [WhatsappService],
+  providers: [WhatsappService, HelperService],
   controllers: [WhatsappController],
   exports: [WhatsappService],
 })

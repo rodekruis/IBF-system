@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { HelperService } from '../../shared/helper.service';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
 import { UserModule } from '../user/user.module';
@@ -25,6 +26,11 @@ import { WhatsappModule } from './whatsapp/whatsapp.module';
     TyphoonTrackModule,
   ],
   controllers: [NotificationController],
-  providers: [NotificationService, EmailService, EmailTemplateService],
+  providers: [
+    NotificationService,
+    EmailService,
+    EmailTemplateService,
+    HelperService,
+  ],
 })
 export class NotificationModule {}

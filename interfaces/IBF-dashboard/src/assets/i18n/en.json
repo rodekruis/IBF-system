@@ -71,6 +71,9 @@
     "plural-suffix": "(s)",
     "not-applicable": "N/A"
   },
+  "disclaimer-approximate-component": {
+    "message": "All numbers are approximate and meant to be used as guidance."
+  },
   "areas-of-focus-summary-component": {
     "title": "Actions Summary",
     "aof-subtitle": "Sector",

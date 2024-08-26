@@ -189,14 +189,7 @@
                 "
               ></span>
               <strong>
-                @switch (actionIndicatorNumberFormat) {
-                  @case ('decimal0') {
-                    <span>{{ area.actionsValue | number: '.0-0' }}</span>
-                  }
-                  @case ('perc') {
-                    <span>{{ area.actionsValue | percent: '.0-0' }}</span>
-                  }
-                }
+                {{ area.actionsValue | compact: actionIndicatorNumberFormat }}
               </strong>
             </ion-note>
           }
