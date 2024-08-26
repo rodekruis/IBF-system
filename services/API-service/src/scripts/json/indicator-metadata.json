@@ -141,7 +141,7 @@
   {
     "countryDisasterTypes": { "PHL": { "typhoon": ["map", "aggregate"] } },
     "name": "affected_population",
-    "label": "Affected population",
+    "label": "Exposed population",
     "icon": "Affected-population-white.svg",
     "weightedAvg": false,
     "active": "no",
@@ -385,7 +385,7 @@
       "ETH": { "drought": ["map"], "floods": ["map"], "malaria": ["map"] }
     },
     "name": "population_u5",
-    "label": "Population U5",
+    "label": "Population under 5",
     "icon": "Children-white.svg",
     "weightedAvg": true,
     "active": "no",
@@ -406,7 +406,7 @@
   {
     "countryDisasterTypes": { "MWI": { "floods": ["map", "aggregate"] } },
     "name": "exposed_pop_u18",
-    "label": "Exposed population U18",
+    "label": "Exposed population under 18",
     "icon": "Children-white.svg",
     "weightedAvg": false,
     "active": "no",
@@ -425,7 +425,7 @@
   {
     "countryDisasterTypes": { "MWI": { "floods": ["map", "aggregate"] } },
     "name": "exposed_pop_65",
-    "label": "Exposed population 65+",
+    "label": "Exposed population over 65",
     "icon": "Elderly-white.svg",
     "weightedAvg": false,
     "active": "no",
@@ -444,7 +444,7 @@
   {
     "countryDisasterTypes": { "UGA": { "floods": ["map", "aggregate"] } },
     "name": "population_u8",
-    "label": "Population U8",
+    "label": "Population under 8",
     "icon": "Children-white.svg",
     "weightedAvg": true,
     "active": "no",
@@ -463,7 +463,7 @@
   {
     "countryDisasterTypes": { "PHL": { "dengue": ["map"] } },
     "name": "population_u9",
-    "label": "Population U9",
+    "label": "Population under 9",
     "icon": "Children-white.svg",
     "weightedAvg": true,
     "active": "no",
@@ -482,7 +482,7 @@
   {
     "countryDisasterTypes": { "UGA": { "floods": ["map", "aggregate"] } },
     "name": "population_over65",
-    "label": "Population 65+",
+    "label": "Population over 65",
     "icon": "Elderly-white.svg",
     "weightedAvg": true,
     "active": "no",
@@ -504,7 +504,7 @@
   {
     "countryDisasterTypes": { "PHL": { "dengue": ["map", "aggregate"] } },
     "name": "population_over65",
-    "label": "Population 65+",
+    "label": "Population over 65",
     "icon": "Elderly-white.svg",
     "weightedAvg": true,
     "active": "no",
@@ -1054,7 +1054,7 @@
   {
     "countryDisasterTypes": { "ETH": { "malaria": ["map", "aggregate"] } },
     "name": "potential_cases_U5",
-    "label": "Potential Cases U5",
+    "label": "Potential cases under 5",
     "icon": "Children-white.svg",
     "weightedAvg": false,
     "active": "no",
@@ -1074,7 +1074,7 @@
   {
     "countryDisasterTypes": { "PHL": { "dengue": ["map", "aggregate"] } },
     "name": "potential_cases_U9",
-    "label": "Potential Cases U9",
+    "label": "Potential cases under 9",
     "icon": "Children-white.svg",
     "weightedAvg": false,
     "active": "no",
@@ -1097,7 +1097,7 @@
       "PHL": { "dengue": ["map", "aggregate"] }
     },
     "name": "potential_cases_65",
-    "label": "Potential Cases 65+",
+    "label": "Potential cases over 65",
     "icon": "Elderly-white.svg",
     "weightedAvg": false,
     "active": "no",
@@ -1120,7 +1120,7 @@
   {
     "countryDisasterTypes": { "ZWE": { "drought": ["map", "aggregate"] } },
     "name": "cattle_exposed",
-    "label": "Cattle exposed",
+    "label": "Exposed cattle",
     "icon": "Livestock.svg",
     "weightedAvg": false,
     "active": "no",
@@ -1140,7 +1140,7 @@
   {
     "countryDisasterTypes": { "ZWE": { "drought": ["map", "aggregate"] } },
     "name": "small_ruminants_exposed",
-    "label": "Small ruminants exposed",
+    "label": "Exposed small ruminants",
     "icon": "Small Ruminants_Chicken.svg",
     "weightedAvg": false,
     "active": "no",
@@ -1160,7 +1160,7 @@
   {
     "countryDisasterTypes": { "PHL": { "typhoon": ["map", "aggregate"] } },
     "name": "houses_affected",
-    "label": "% of houses affected",
+    "label": "% of houses exposed",
     "icon": "House-white.svg",
     "weightedAvg": true,
     "active": "if-trigger",
@@ -1242,7 +1242,7 @@
   {
     "countryDisasterTypes": { "MWI": { "flash-floods": ["map", "aggregate"] } },
     "name": "damage_estimation",
-    "label": "Estimation of damage",
+    "label": "Damage estimation",
     "icon": "Estimated_damage.svg",
     "weightedAvg": false,
     "active": "no",
@@ -1264,7 +1264,7 @@
   {
     "countryDisasterTypes": { "MWI": { "flash-floods": ["aggregate"] } },
     "name": "nr_affected_roads",
-    "label": "Affected roads",
+    "label": "Exposed roads",
     "icon": "Roads_affected.svg",
     "weightedAvg": false,
     "active": "no",
@@ -1286,7 +1286,7 @@
   {
     "countryDisasterTypes": { "MWI": { "flash-floods": ["aggregate"] } },
     "name": "nr_affected_schools",
-    "label": "Affected schools",
+    "label": "Exposed schools",
     "icon": "Schools_affected.svg",
     "weightedAvg": false,
     "active": "no",
@@ -1307,7 +1307,7 @@
   {
     "countryDisasterTypes": { "MWI": { "flash-floods": ["aggregate"] } },
     "name": "nr_affected_clinics",
-    "label": "Affected health sites",
+    "label": "Exposed health sites",
     "icon": "Clinics_affected.svg",
     "weightedAvg": false,
     "active": "no",
@@ -1328,7 +1328,7 @@
   {
     "countryDisasterTypes": { "MWI": { "flash-floods": ["aggregate"] } },
     "name": "nr_affected_waterpoints",
-    "label": "Affected waterpoints",
+    "label": "Exposed waterpoints",
     "icon": "Waterpoints_affected.svg",
     "weightedAvg": false,
     "active": "no",
@@ -1349,7 +1349,7 @@
   {
     "countryDisasterTypes": { "MWI": { "flash-floods": ["aggregate"] } },
     "name": "nr_affected_buildings",
-    "label": "Affected buildings",
+    "label": "Exposed buildings",
     "icon": "Buildings_affected.svg",
     "weightedAvg": false,
     "active": "no",

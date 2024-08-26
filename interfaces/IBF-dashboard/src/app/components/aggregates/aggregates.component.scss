@@ -1,7 +1,7 @@
 .component-title {
   .component-title-item {
     --inner-padding-end: 0;
-    height: 48px;
+    margin: 4px;
   }
   .aggregate--title {
     width: 100%;
@@ -19,7 +19,11 @@
 .aggregate-item-value,
 .aggregate-item-information-icon {
   --min-height: 2rem;
-  height: 2rem;
+
+  &,
+  &::part(native) {
+    height: 100%;
+  }
 }
 
 .aggregate-item {
@@ -31,7 +35,6 @@
     width: 2rem;
     height: 2rem;
     align-self: start;
-    margin: 0px !important;
     padding: 2px;
 
     ion-img {
@@ -42,30 +45,18 @@
   .aggregate-item-label {
     text-transform: capitalize;
     line-height: 1.2;
-    font-size: 12px;
-    margin: 0px !important;
-    white-space: normal !important;
-    padding: 0px 4px !important;
-  }
-}
-
-.aggregate-item-value {
-  ion-label {
-    margin: 0px !important;
-    font-size: 12px;
-    white-space: normal !important;
-  }
-}
-
-.aggregate-item-information-icon {
-  ion-label {
-    margin: 0px auto !important;
-    padding-top: 0.2em;
-    max-width: 20px;
+    white-space: normal;
+    padding: 0 4px;
   }
 }
 
 .aggregate-item-information-icon {
   --inner-padding-end: 0.2rem;
   cursor: pointer;
+
+  ion-label {
+    margin: 0 auto;
+    padding-top: 0.2em;
+    max-width: 20px;
+  }
 }
