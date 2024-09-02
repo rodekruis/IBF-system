@@ -1,3 +1,12 @@
+## [0.268.1](https://github.com/rodekruis/IBF-system/compare/v0.268.0...v0.268.1) (2024-09-02)
+
+
+### Bug Fixes
+
+* revert geoserver version ([a4e1921](https://github.com/rodekruis/IBF-system/commit/a4e19211503dda96eafae7b229576d1b23129d2d))
+
+
+
 # [0.268.0](https://github.com/rodekruis/IBF-system/compare/v0.267.0...v0.268.0) (2024-08-26)
 
 
@@ -111,23 +120,6 @@
 ### Bug Fixes
 
 * icon for max warning should use trigger icon instead of causing an error ([18cc84d](https://github.com/rodekruis/IBF-system/commit/18cc84d365d7518cabeed6f637434bb87ee6f54a))
-
-
-
-# [0.265.0](https://github.com/rodekruis/IBF-system/compare/v0.264.1...v0.265.0) (2024-07-15)
-
-
-### Bug Fixes
-
-* email module should not assume that eap alert class is required ([0415d96](https://github.com/rodekruis/IBF-system/commit/0415d9630610c897e4751dbd8cbe557972c38ea5))
-* lint AB[#26923](https://github.com/rodekruis/IBF-system/issues/26923) ([4512c07](https://github.com/rodekruis/IBF-system/commit/4512c07c1dec0b928e075d7c8393c96f2be1eb55))
-* lint error remove unused import ([1029dc1](https://github.com/rodekruis/IBF-system/commit/1029dc109b512a43683f7e0168456583cda1f903))
-* use correct ejs syntax AB[#26923](https://github.com/rodekruis/IBF-system/issues/26923) ([f549632](https://github.com/rodekruis/IBF-system/commit/f549632bc7254fa888e0175b24617ea5121cbff4))
-
-
-### Features
-
-* use date-fns library for date operations ([e268397](https://github.com/rodekruis/IBF-system/commit/e2683973b1f365becb1c8c772b3dbf58a96f1111))
 
 
 
