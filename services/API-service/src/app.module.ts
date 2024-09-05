@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 
 import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.module';
@@ -20,6 +20,7 @@ import { WaterpointsModule } from './api/waterpoints/waterpoints.module';
 import { AppController } from './app.controller';
 import { CronjobModule } from './cronjob/cronjob.module';
 import { HealthModule } from './health.module';
+import { LoggerMiddleware } from './middleware/logger.middleware';
 import { ScriptsModule } from './scripts/scripts.module';
 import { TypeOrmModule } from './typeorm.module';
 
@@ -50,4 +51,8 @@ import { TypeOrmModule } from './typeorm.module';
   controllers: [AppController],
   providers: [],
 })
-export class ApplicationModule {}
+export class ApplicationModule {
+  configure(consumer: MiddlewareConsumer): void {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
