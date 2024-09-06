@@ -11,11 +11,12 @@ export class CompactPipe implements PipeTransform {
   transform(value: number, format: NumberFormat = NumberFormat.decimal0) {
     const style = format === NumberFormat.perc ? 'percent' : 'decimal';
     const min = format === NumberFormat.perc ? 0.1 : 10;
+    const maximumSignificantDigits = format === NumberFormat.perc ? 2 : 1;
 
     value = value > 0 ? Math.max(min, value) : 0;
 
     return new Intl.NumberFormat(this.locale, {
-      maximumSignificantDigits: 1,
+      maximumSignificantDigits,
       style,
       notation: 'compact',
     }).format(value);
