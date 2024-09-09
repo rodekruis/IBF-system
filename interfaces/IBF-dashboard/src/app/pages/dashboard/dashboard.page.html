@@ -48,6 +48,16 @@
         ></ion-label>
       </ion-item>
     </ion-list>
+    <ion-list class="ion-no-padding" [class.ion-hide]="!isDev">
+      <ion-item
+        href="/status"
+        lines="full"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <ion-label [translate]="'status-report-page.dev-menu-link'"></ion-label>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-menu>
 

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ActivationLogPage } from './activation-log/activation.log.page';
 import { DashboardPage } from './dashboard.page';
+import { StatusReportPage } from './status-report/status-report.page';
 
 const routes: Routes = [
   {
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'log',
     component: ActivationLogPage,
+  },
+  {
+    path: 'status',
+    component: StatusReportPage,
   },
 ];
 

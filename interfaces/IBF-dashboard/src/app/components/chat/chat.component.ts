@@ -256,7 +256,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.lastModelRunDate = recentDate
       ? recentDate.toFormat(this.lastModelRunDateFormat)
       : 'unknown';
-    this.isLastModelDateStale(recentDate, disasterType);
+    this.isWarn = this.eventService.isLastModelDateStale(
+      recentDate,
+      disasterType,
+    );
   };
 
   private disableSubmitButtonForTriggeredArea = (triggeredArea) =>

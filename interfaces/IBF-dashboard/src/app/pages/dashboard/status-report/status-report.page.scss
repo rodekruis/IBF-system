@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+* {
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+}
+
+#report {
+  padding: 0.5rem;
+  width: 30%;
+}
+
+#countries {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.country {
+  width: 31%;
+  margin: 0 2% 2% 0;
+  padding: 1%;
+
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.country--name {
+  margin-bottom: 1rem;
+}
+
+.disaster {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.disaster--logo {
+  margin-right: 0.5rem;
+}
+
+.danger {
+  color: red;
+}
