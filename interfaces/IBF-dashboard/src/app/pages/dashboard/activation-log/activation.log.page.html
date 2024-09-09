@@ -5,7 +5,10 @@
         <ion-icon name="apps" slot="icon-only"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <app-user-state [isLoggedIn]="true"></app-user-state>
+    <app-user-state
+      [isLoggedIn]="true"
+      [showCountry]="!!countryCodeISO3"
+    ></app-user-state>
   </ion-toolbar>
   <app-disclaimer-toolbar></app-disclaimer-toolbar>
 </ion-header>
