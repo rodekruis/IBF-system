@@ -1,3 +1,14 @@
+## [0.268.2](https://github.com/rodekruis/IBF-system/compare/v0.268.1...v0.268.2) (2024-09-09)
+
+
+### Bug Fixes
+
+* set percentage to 2 significant digits ([e559a46](https://github.com/rodekruis/IBF-system/commit/e559a46915defb4e70680a75fdd90289c7dbcf6c))
+* use approximate instead of approx. ([888ed52](https://github.com/rodekruis/IBF-system/commit/888ed52f461be9b484b114475d5a6049c58d8fc8))
+* use approximately prefix ([ff29349](https://github.com/rodekruis/IBF-system/commit/ff29349dee3bef15c3bea2ee1972beecf81e4934))
+
+
+
 ## [0.268.1](https://github.com/rodekruis/IBF-system/compare/v0.268.0...v0.268.1) (2024-09-02)
 
 
@@ -111,15 +122,6 @@
 ### Bug Fixes
 
 * use browser build directory ([08c80bf](https://github.com/rodekruis/IBF-system/commit/08c80bfe55c59204af9894a9cf9e3c213266fee3))
-
-
-
-## [0.265.1](https://github.com/rodekruis/IBF-system/compare/v0.265.0...v0.265.1) (2024-07-19)
-
-
-### Bug Fixes
-
-* icon for max warning should use trigger icon instead of causing an error ([18cc84d](https://github.com/rodekruis/IBF-system/commit/18cc84d365d7518cabeed6f637434bb87ee6f54a))
 
 
 
