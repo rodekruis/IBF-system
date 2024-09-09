@@ -1,3 +1,14 @@
+## [0.268.3](https://github.com/rodekruis/IBF-system/compare/v0.268.2...v0.268.3) (2024-09-09)
+
+
+### Bug Fixes
+
+* adjust spacing ([c561438](https://github.com/rodekruis/IBF-system/commit/c561438fd79057ea98bbf7ead73ef9bceb191639))
+* remove target blank to avoid security issues ([6a0e963](https://github.com/rodekruis/IBF-system/commit/6a0e963d2a6d685785ed9c00177c582683b5f14d))
+* update indicators info copy ([f39d5c7](https://github.com/rodekruis/IBF-system/commit/f39d5c75b4444f050d932cd9bc80fb604d202e62))
+
+
+
 ## [0.268.2](https://github.com/rodekruis/IBF-system/compare/v0.268.1...v0.268.2) (2024-09-09)
 
 
@@ -113,15 +124,6 @@
 ### Features
 
 * use ongoing instead of 0-lead-time ([a62a512](https://github.com/rodekruis/IBF-system/commit/a62a5126b90752eeb59e69f43c19018c3ae4f3b0))
-
-
-
-## [0.265.2](https://github.com/rodekruis/IBF-system/compare/v0.265.1...v0.265.2) (2024-07-25)
-
-
-### Bug Fixes
-
-* use browser build directory ([08c80bf](https://github.com/rodekruis/IBF-system/commit/08c80bfe55c59204af9894a9cf9e3c213266fee3))
 
 
 
