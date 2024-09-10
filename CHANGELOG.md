@@ -1,3 +1,12 @@
+## [0.268.6](https://github.com/rodekruis/IBF-system/compare/v0.268.5...v0.268.6) (2024-09-10)
+
+
+### Bug Fixes
+
+* logos should stack horizontally and not vertically ([68c7c05](https://github.com/rodekruis/IBF-system/commit/68c7c05acbb8965cbe2a419e922ae10cabb94d70))
+
+
+
 ## [0.268.5](https://github.com/rodekruis/IBF-system/compare/v0.268.4...v0.268.5) (2024-09-10)
 
 
@@ -90,16 +99,6 @@
 
 * migrate angular control flow ([3d69a47](https://github.com/rodekruis/IBF-system/commit/3d69a47526244fc3f2c75565fb4473de201049f8))
 * upgrade prettier for ng-18 control flow support ([31b60a7](https://github.com/rodekruis/IBF-system/commit/31b60a73658deed117268a14f4f7f4b0695a7beb))
-
-
-
-## [0.266.2](https://github.com/rodekruis/IBF-system/compare/v0.266.1...v0.266.2) (2024-08-01)
-
-
-### Bug Fixes
-
-* email design review changes ([b30c9cf](https://github.com/rodekruis/IBF-system/commit/b30c9cf7f022237d79e5c116e464136094fc839e))
-* update email copy ([054219f](https://github.com/rodekruis/IBF-system/commit/054219ff86edd4328e83efc22b7d4c842a64cb1e))
 
 
 
