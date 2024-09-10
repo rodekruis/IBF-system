@@ -312,7 +312,7 @@
   },
   {
     "name": "dams",
-    "label": "Dam Sites",
+    "label": "Dam sites",
     "type": "point",
     "leadTimeDependent": false,
     "active": "no",
@@ -336,7 +336,7 @@
   },
   {
     "name": "health_sites",
-    "label": "Health Sites",
+    "label": "Health sites",
     "type": "point",
     "leadTimeDependent": false,
     "active": "no",
@@ -439,7 +439,7 @@
   },
   {
     "name": "evacuation_centers",
-    "label": "Evacuation Centers",
+    "label": "Evacuation centers",
     "type": "point",
     "leadTimeDependent": false,
     "active": "no",
