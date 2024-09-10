@@ -1,3 +1,16 @@
+## [0.268.7](https://github.com/rodekruis/IBF-system/compare/v0.268.6...v0.268.7) (2024-09-10)
+
+
+### Bug Fixes
+
+* remove target blank ([70c6d38](https://github.com/rodekruis/IBF-system/commit/70c6d38b4906450518b210682d9189b1c39d8f02))
+* typo ([f695a4e](https://github.com/rodekruis/IBF-system/commit/f695a4ec576093c48119022d8933286f8f610ea7))
+* update layer copy ([f106b28](https://github.com/rodekruis/IBF-system/commit/f106b2880355da5ac4bd68c6d25ee96a3073b194))
+* use consistent capitalization for labels ([518211a](https://github.com/rodekruis/IBF-system/commit/518211ae3c6c2578c5cb9f21d5722b738c3342c7))
+* use self-closing br tags ([20ebce4](https://github.com/rodekruis/IBF-system/commit/20ebce46c3b3b740f7a9b0ee6ce62dae88e518bd))
+
+
+
 ## [0.268.6](https://github.com/rodekruis/IBF-system/compare/v0.268.5...v0.268.6) (2024-09-10)
 
 
@@ -89,16 +102,6 @@
 ### Bug Fixes
 
 * remove debug variable ([58261f4](https://github.com/rodekruis/IBF-system/commit/58261f4d7c30a4bcb9b92786e5f7081c2a9807ae))
-
-
-
-## [0.266.3](https://github.com/rodekruis/IBF-system/compare/v0.266.2...v0.266.3) (2024-08-01)
-
-
-### Bug Fixes
-
-* migrate angular control flow ([3d69a47](https://github.com/rodekruis/IBF-system/commit/3d69a47526244fc3f2c75565fb4473de201049f8))
-* upgrade prettier for ng-18 control flow support ([31b60a7](https://github.com/rodekruis/IBF-system/commit/31b60a73658deed117268a14f4f7f4b0695a7beb))
 
 
 
