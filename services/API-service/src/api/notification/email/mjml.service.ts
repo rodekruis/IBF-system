@@ -35,7 +35,7 @@ export class MjmlService {
     date,
   }: {
     emailContent: ContentEventEmail;
-    date: string;
+    date: Date;
   }) =>
     getMjmlHeader({
       disasterTypeLabel: emailContent.disasterTypeLabel,
@@ -76,9 +76,7 @@ export class MjmlService {
   }): string {
     const children = [];
 
-    children.push(
-      this.header({ emailContent, date: getFormattedDate({ date }) }),
-    );
+    children.push(this.header({ emailContent, date }));
 
     children.push(this.mailOpening);
 
@@ -136,9 +134,7 @@ export class MjmlService {
   }): string {
     const children = [];
 
-    children.push(
-      this.header({ emailContent, date: getFormattedDate({ date }) }),
-    );
+    children.push(this.header({ emailContent, date }));
 
     children.push(this.mailOpening);
 

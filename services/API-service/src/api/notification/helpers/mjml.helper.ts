@@ -320,7 +320,7 @@ export const getFormattedDate = ({
   date,
   countryCodeISO3,
 }: {
-  date: Date | string;
+  date: Date;
   countryCodeISO3?: string;
 }): string => {
   return `${moment(date).format('DDDD, dd MMMM')}${
