@@ -1,3 +1,12 @@
+## [0.268.5](https://github.com/rodekruis/IBF-system/compare/v0.268.4...v0.268.5) (2024-09-10)
+
+
+### Bug Fixes
+
+* adjust spacing and replace p with br ([6d1019a](https://github.com/rodekruis/IBF-system/commit/6d1019af60c8da418b7cc05694502ee0bc8a0012))
+
+
+
 ## [0.268.4](https://github.com/rodekruis/IBF-system/compare/v0.268.3...v0.268.4) (2024-09-10)
 
 
@@ -91,15 +100,6 @@
 
 * email design review changes ([b30c9cf](https://github.com/rodekruis/IBF-system/commit/b30c9cf7f022237d79e5c116e464136094fc839e))
 * update email copy ([054219f](https://github.com/rodekruis/IBF-system/commit/054219ff86edd4328e83efc22b7d4c842a64cb1e))
-
-
-
-## [0.266.1](https://github.com/rodekruis/IBF-system/compare/v0.266.0...v0.266.1) (2024-07-31)
-
-
-### Bug Fixes
-
-* use MEMU for malaria ([119d7ec](https://github.com/rodekruis/IBF-system/commit/119d7eca6548f5c0c4e9f8b4221612feb1f9789d))
 
 
 
