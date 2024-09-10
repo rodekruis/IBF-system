@@ -141,7 +141,7 @@
   {
     "countryDisasterTypes": { "PHL": { "typhoon": ["map", "aggregate"] } },
     "name": "affected_population",
-    "label": "Eposed population",
+    "label": "Exposed population",
     "icon": "Affected-population-white.svg",
     "weightedAvg": false,
     "active": "no",
