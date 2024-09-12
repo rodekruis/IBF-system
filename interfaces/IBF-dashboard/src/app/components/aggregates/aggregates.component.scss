@@ -29,19 +29,6 @@
 .aggregate-item {
   --inner-padding-end: 0;
 
-  .aggregate-item-thumbnail {
-    background: var(--ion-color-fiveten-neutral-100);
-    border: 0.2rem solid var(--ion-color-fiveten-neutral-100);
-    width: 2rem;
-    height: 2rem;
-    align-self: start;
-    padding: 2px;
-
-    ion-img {
-      object-fit: contain;
-    }
-  }
-
   .aggregate-item-label {
     line-height: 1.2;
     white-space: normal;
@@ -50,12 +37,5 @@
 }
 
 .aggregate-item-information-icon {
-  --inner-padding-end: 0.2rem;
-  cursor: pointer;
-
-  ion-label {
-    margin: 0 auto;
-    padding-top: 0.2em;
-    max-width: 20px;
-  }
+  --inner-padding-end: 0;
 }
