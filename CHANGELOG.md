@@ -1,3 +1,14 @@
+## [0.268.8](https://github.com/rodekruis/IBF-system/compare/v0.268.7...v0.268.8) (2024-09-12)
+
+
+### Bug Fixes
+
+* misaligned text on hover ([4378a90](https://github.com/rodekruis/IBF-system/commit/4378a90382a0c2cc6c2c01b301ffdd96d1b926ad))
+* spacing in chat component ([6983e46](https://github.com/rodekruis/IBF-system/commit/6983e46d771b51fe6c11f635048f48b839dd0e71))
+* use unique id for for loop ([f9b4f2b](https://github.com/rodekruis/IBF-system/commit/f9b4f2bddb0100897fba69a68b0c5b0ac7eb2671))
+
+
+
 ## [0.268.7](https://github.com/rodekruis/IBF-system/compare/v0.268.6...v0.268.7) (2024-09-10)
 
 
@@ -93,15 +104,6 @@
 * add disclaimer to indicate approximate numbers ([19452a2](https://github.com/rodekruis/IBF-system/commit/19452a208d1c3e9018cc23ead02ec1c652616a76))
 * move discalimer approx to aggregate title ([47e4811](https://github.com/rodekruis/IBF-system/commit/47e4811ef6dda7a132d3ca2b14bf1b57e3a641ed))
 * use compact numbers in email ([ae23dd7](https://github.com/rodekruis/IBF-system/commit/ae23dd767256bd33c4153fe296c523531f634cfc))
-
-
-
-## [0.266.4](https://github.com/rodekruis/IBF-system/compare/v0.266.3...v0.266.4) (2024-08-12)
-
-
-### Bug Fixes
-
-* remove debug variable ([58261f4](https://github.com/rodekruis/IBF-system/commit/58261f4d7c30a4bcb9b92786e5f7081c2a9807ae))
 
 
 
