@@ -210,21 +210,22 @@
       }
       @for (class of alertClasses; track class.alertClass) {
         <div>
-          <ul class="area-list">
-            @for (area of class.areas; track area.name) {
-              <li class="clickable-area" (click)="selectArea(area)">
-                <p>
-                  {{ area.name }}
-                  @if (area.nameParent) {
-                    <span>({{ area.nameParent }})</span>
-                  }
-                  @if (area.actionsValue && area.actionsValue > 0) {
-                    {{ ' - ' }}
-                    <span>{{
-                      area.actionsValue | compact: actionIndicatorNumberFormat
-                    }}</span>
-                  }
-                </p>
+          <ul class="list-inside list-disc text-xs">
+            @for (area of class.areas; track area.eventPlaceCodeId) {
+              <li
+                class="my-1 cursor-pointer hover:underline"
+                (click)="selectArea(area)"
+              >
+                {{ area.name }}
+                @if (area.nameParent) {
+                  <span>({{ area.nameParent }})</span>
+                }
+                @if (area.actionsValue && area.actionsValue > 0) {
+                  {{ ' - ' }}
+                  <span>{{
+                    area.actionsValue | compact: actionIndicatorNumberFormat
+                  }}</span>
+                }
               </li>
             }
           </ul>
@@ -267,19 +268,20 @@
             <strong>{{ class.alertClass }}</strong>
           </p>
         }
-        <ul>
+        <ul class="list-inside list-disc text-xs">
           @for (area of class.areas; track area.name) {
-            <li class="clickable-area" (click)="selectArea(area)">
-              <p>
-                {{ area.name }}
-                @if (area.nameParent) {
-                  <span>({{ area.nameParent }})</span>
-                }
-                -
-                <span>{{
-                  area.actionsValue | compact: actionIndicatorNumberFormat
-                }}</span>
-              </p>
+            <li
+              class="my-1 cursor-pointer hover:underline"
+              (click)="selectArea(area)"
+            >
+              {{ area.name }}
+              @if (area.nameParent) {
+                <span>({{ area.nameParent }})</span>
+              }
+              -
+              <span>{{
+                area.actionsValue | compact: actionIndicatorNumberFormat
+              }}</span>
             </li>
           }
         </ul>
