@@ -269,7 +269,7 @@
           </p>
         }
         <ul class="list-inside list-disc text-xs">
-          @for (area of class.areas; track area.name) {
+          @for (area of class.areas; track area.eventPlaceCodeId) {
             <li
               class="my-1 cursor-pointer hover:underline"
               (click)="selectArea(area)"
