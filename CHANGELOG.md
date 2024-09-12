@@ -1,3 +1,12 @@
+## [0.268.9](https://github.com/rodekruis/IBF-system/compare/v0.268.8...v0.268.9) (2024-09-12)
+
+
+### Bug Fixes
+
+* use unique id for for loop ([6b97886](https://github.com/rodekruis/IBF-system/commit/6b97886b1f088e2827f3a756cfdb7bf22c0730e2))
+
+
+
 ## [0.268.8](https://github.com/rodekruis/IBF-system/compare/v0.268.7...v0.268.8) (2024-09-12)
 
 
@@ -92,18 +101,6 @@
 
 * rename exposed indicator labels ([2cfa791](https://github.com/rodekruis/IBF-system/commit/2cfa791de0075c23876e8f20bfb04261c78387c9))
 * update indicator icons ([df9f3ad](https://github.com/rodekruis/IBF-system/commit/df9f3ad5df09edfcedbc90e678f97ccb60f8d94d))
-
-
-
-# [0.267.0](https://github.com/rodekruis/IBF-system/compare/v0.266.4...v0.267.0) (2024-08-26)
-
-
-### Features
-
-* add compact pipe ([680429a](https://github.com/rodekruis/IBF-system/commit/680429abbf74cd3614a93110f1f8e76bb4b3f3bd))
-* add disclaimer to indicate approximate numbers ([19452a2](https://github.com/rodekruis/IBF-system/commit/19452a208d1c3e9018cc23ead02ec1c652616a76))
-* move discalimer approx to aggregate title ([47e4811](https://github.com/rodekruis/IBF-system/commit/47e4811ef6dda7a132d3ca2b14bf1b57e3a641ed))
-* use compact numbers in email ([ae23dd7](https://github.com/rodekruis/IBF-system/commit/ae23dd767256bd33c4153fe296c523531f634cfc))
 
 
 
