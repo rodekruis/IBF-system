@@ -12,7 +12,7 @@
 
 <ion-content class="ion-padding-horizontal">
   <div id="report">
-    <h1>IBF status report</h1>
+    <h1>{{ 'status-report-page.page-title' | translate }}</h1>
     <h2 id="today"></h2>
     <div id="countries">
       @for (country of statusData | keyvalue; track country.key) {
