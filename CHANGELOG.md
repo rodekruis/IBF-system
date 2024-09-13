@@ -1,3 +1,12 @@
+## [0.268.10](https://github.com/rodekruis/IBF-system/compare/v0.268.9...v0.268.10) (2024-09-13)
+
+
+### Bug Fixes
+
+* remove group by on event trigger value ([8fb6bb0](https://github.com/rodekruis/IBF-system/commit/8fb6bb04120bccb57682cca504cd3580400f5595))
+
+
+
 ## [0.268.9](https://github.com/rodekruis/IBF-system/compare/v0.268.8...v0.268.9) (2024-09-12)
 
 
@@ -86,21 +95,6 @@
 ### Bug Fixes
 
 * revert geoserver version ([a4e1921](https://github.com/rodekruis/IBF-system/commit/a4e19211503dda96eafae7b229576d1b23129d2d))
-
-
-
-# [0.268.0](https://github.com/rodekruis/IBF-system/compare/v0.267.0...v0.268.0) (2024-08-26)
-
-
-### Bug Fixes
-
-* area count should return number ([9c65dce](https://github.com/rodekruis/IBF-system/commit/9c65dce3677a32b48d8d8f7512d967ad04047570))
-
-
-### Features
-
-* rename exposed indicator labels ([2cfa791](https://github.com/rodekruis/IBF-system/commit/2cfa791de0075c23876e8f20bfb04261c78387c9))
-* update indicator icons ([df9f3ad](https://github.com/rodekruis/IBF-system/commit/df9f3ad5df09edfcedbc90e678f97ccb60f8d94d))
 
 
 
