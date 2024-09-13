@@ -13,7 +13,7 @@ export async function testFlashFloodScenario(
   countryCodeISO3: string,
   accessToken: string,
 ): Promise<void> {
-  const eventNames = ['Rumphi', 'Rumphi', 'Karonga'];
+  const eventNames = ['Rumphi', 'Karonga'];
   const disasterTypeLabel = 'Flash Flood'; // DisasterType.FlashFloods does not match
 
   const mockResult = await mockFlashFlood(
