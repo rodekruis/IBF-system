@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { CountryService } from '../../../services/country.service';
-import { DateTime } from 'luxon';
 import { RecentDate } from '../../../types/recent-date';
 import { Country, DisasterType } from '../../../models/country.model';
 import { DISASTER_TYPES_SVG_MAP } from '../../../config';
 import { EventService, EventSummary } from '../../../services/event.service';
+import { format, parseISO } from 'date-fns';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-status-report',
@@ -18,6 +19,7 @@ export class StatusReportPage implements OnInit {
     private apiService: ApiService,
     private countryService: CountryService,
     private eventService: EventService,
+    private translate: TranslateService,
   ) {}
 
   async ngOnInit() {
@@ -48,12 +50,16 @@ export class StatusReportPage implements OnInit {
     disasterType: DisasterType,
   ) => {
     this.statusData[countryCodeISO3][disasterType.disasterType].date =
-      DateTime.fromISO(date.date)?.toFormat('yyyy-MM-dd');
+      date?.date
+        ? format(parseISO(date?.date), 'yyyy-MM-dd')
+        : this.translate.instant('status-report-page.no-data');
     this.statusData[countryCodeISO3][disasterType.disasterType].isStale =
-      this.eventService.isLastModelDateStale(
-        DateTime.fromISO(date.date),
-        disasterType,
-      );
+      date?.date
+        ? this.eventService.isLastModelDateStale(
+            parseISO(date.date),
+            disasterType,
+          )
+        : true;
 
     this.apiService
       .getEventsSummary(countryCodeISO3, disasterType.disasterType)
@@ -72,6 +78,5 @@ export class StatusReportPage implements OnInit {
         ? DISASTER_TYPES_SVG_MAP[disasterType.disasterType].selectedTriggered
         : DISASTER_TYPES_SVG_MAP[disasterType.disasterType]
             .selectedNonTriggered;
-    console.log('this.statusData: ', this.statusData);
   };
 }

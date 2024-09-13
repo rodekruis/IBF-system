@@ -21,7 +21,8 @@
   },
   "status-report-page": {
     "dev-menu-link": "Open status report page",
-    "page-title": "IBF status report"
+    "page-title": "IBF status report",
+    "no-data": "No data"
   },
   "login-page": {
     "title": "Login",

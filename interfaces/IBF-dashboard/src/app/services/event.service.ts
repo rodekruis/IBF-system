@@ -12,6 +12,11 @@ import {
 import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import { DisasterTypeService } from './disaster-type.service';
+import {
+  differenceInDays,
+  differenceInHours,
+  differenceInMonths,
+} from 'date-fns';
 
 export class EventSummary {
   countryCodeISO3: string;
@@ -360,7 +365,7 @@ export class EventService {
   }
 
   public isLastModelDateStale = (
-    recentDate: DateTime,
+    recentDate: Date,
     disasterType: DisasterType,
   ) => {
     const percentageOvertimeAllowed = 0.1; // 10%
@@ -378,9 +383,16 @@ export class EventService {
         ? 6 // all "hour" pipelines are 6-hourly
         : 1; // in all other cases it is 1-daily/1-monthly;
 
-    const nowDate = DateTime.now();
-    const diff = nowDate.diff(recentDate, durationUnit).toObject();
+    const nowDate = Date.now();
+    const diff =
+      durationUnit === 'hours'
+        ? differenceInHours(nowDate, recentDate)
+        : durationUnit === 'days'
+          ? differenceInDays(nowDate, recentDate)
+          : durationUnit === 'months'
+            ? differenceInMonths(nowDate, recentDate)
+            : null;
 
-    return diff[durationUnit] > durationUnitValue + percentageOvertimeAllowed;
+    return diff > durationUnitValue + percentageOvertimeAllowed;
   };
 }

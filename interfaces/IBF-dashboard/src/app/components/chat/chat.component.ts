@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { DateTime } from 'luxon';
 import { forkJoin, Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
@@ -30,7 +29,7 @@ import { AggregatesService } from '../../services/aggregates.service';
 import { TimelineService } from '../../services/timeline.service';
 import { AdminLevel, AdminLevelType } from '../../types/admin-level';
 import { Indicator, NumberFormat } from '../../types/indicator-group';
-import { LeadTimeTriggerKey, LeadTimeUnit } from '../../types/lead-time';
+import { LeadTimeTriggerKey } from '../../types/lead-time';
 import { TriggeredArea } from '../../types/triggered-area';
 import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
 import { ToggleTriggerPopoverComponent } from '../toggle-trigger-popover/toggle-trigger-popover.component';
@@ -257,7 +256,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       ? recentDate.toFormat(this.lastModelRunDateFormat)
       : 'unknown';
     this.isWarn = this.eventService.isLastModelDateStale(
-      recentDate,
+      recentDate.toJSDate(), // TODO: migrate from luxon (DateTime) to date-fns (Date) over time completely
       disasterType,
     );
   };
@@ -508,33 +507,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
     return translateKey ? this.translateService.instant(translateKey) : null;
   }
-
-  private isLastModelDateStale = (recentDate, disasterType: DisasterType) => {
-    const percentageOvertimeAllowed = 0.1; // 10%
-
-    const durationUnit =
-      disasterType.leadTimeUnit === LeadTimeUnit.day
-        ? 'days'
-        : disasterType.leadTimeUnit === LeadTimeUnit.hour
-          ? 'hours'
-          : disasterType.leadTimeUnit === LeadTimeUnit.month
-            ? 'months'
-            : null;
-    const durationUnitValue =
-      disasterType.leadTimeUnit === LeadTimeUnit.hour
-        ? 6 // all "hour" pipelines are 6-hourly
-        : 1; // in all other cases it is 1-daily/1-monthly;
-
-    const nowDate = DateTime.now();
-    const diff = nowDate
-      .diff(DateTime.fromISO(recentDate), durationUnit)
-      .toObject();
-    if (diff[durationUnit] > durationUnitValue + percentageOvertimeAllowed) {
-      this.isWarn = true;
-    } else {
-      this.isWarn = false;
-    }
-  };
 
   public getForecastInfo() {
     if (!this.countryDisasterSettings.monthlyForecastInfo) {

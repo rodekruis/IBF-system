@@ -14,7 +14,7 @@ const routes: Routes = [
     component: ActivationLogPage,
   },
   {
-    path: 'status',
+    path: 'status-report',
     component: StatusReportPage,
   },
 ];
