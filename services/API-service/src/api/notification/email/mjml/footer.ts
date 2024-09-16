@@ -36,7 +36,17 @@ export const getMjmlFooter = ({
       },
     ],
   };
+
+  const mailchimpFooter = getTextElement({
+    content: `
+      <div style="background-color: #241C15; color: #ffffff; text-align: center">
+      <p><a style="color: #ffffff" href="*|UNSUB|*">Click here to usbubscribe from IBF alerts</a> *|LIST:ADDRESSLINE|*
+      </p>
+      <p>*|IF:REWARDS|* *|HTML:REWARDS|* *|END:IF|*</p>
+      </div>`,
+  });
+
   return getSectionElement({
-    childrenEls: [twoColumnSectionElement],
+    childrenEls: [twoColumnSectionElement, mailchimpFooter],
   });
 };
