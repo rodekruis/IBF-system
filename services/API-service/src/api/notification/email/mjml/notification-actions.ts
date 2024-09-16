@@ -15,7 +15,7 @@ export const getMjmlNotificationAction = ({
   socialMediaType: string;
 }): object => {
   const ibfPortalRow = getNotificationActionsSection({
-    buttonText: 'Go to the IBF-portal',
+    buttonText: 'Go to IBF portal',
     buttonLink: linkDashboard,
     description:
       'Find more information about the potentially exposed areas, view the map and manage anticipatory actions.',
