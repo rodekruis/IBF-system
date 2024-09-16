@@ -1,3 +1,14 @@
+## [0.268.11](https://github.com/rodekruis/IBF-system/compare/v0.268.10...v0.268.11) (2024-09-16)
+
+
+### Bug Fixes
+
+* improve readability of deviation from compact notation ([87f113d](https://github.com/rodekruis/IBF-system/commit/87f113db10f2b9ed79d7095fbbbbaed0ab177f09))
+* prefix for compact numbers ([7a80944](https://github.com/rodekruis/IBF-system/commit/7a809441254fa3f90ca4fd884513bf7e7b99eb51))
+* style aggregates rows ([efa967f](https://github.com/rodekruis/IBF-system/commit/efa967fb0b1dbc553c0f8619ab548a1a75df65a7))
+
+
+
 ## [0.268.10](https://github.com/rodekruis/IBF-system/compare/v0.268.9...v0.268.10) (2024-09-13)
 
 
@@ -86,15 +97,6 @@
 * set percentage to 2 significant digits ([e559a46](https://github.com/rodekruis/IBF-system/commit/e559a46915defb4e70680a75fdd90289c7dbcf6c))
 * use approximate instead of approx. ([888ed52](https://github.com/rodekruis/IBF-system/commit/888ed52f461be9b484b114475d5a6049c58d8fc8))
 * use approximately prefix ([ff29349](https://github.com/rodekruis/IBF-system/commit/ff29349dee3bef15c3bea2ee1972beecf81e4934))
-
-
-
-## [0.268.1](https://github.com/rodekruis/IBF-system/compare/v0.268.0...v0.268.1) (2024-09-02)
-
-
-### Bug Fixes
-
-* revert geoserver version ([a4e1921](https://github.com/rodekruis/IBF-system/commit/a4e19211503dda96eafae7b229576d1b23129d2d))
 
 
 
