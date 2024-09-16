@@ -4,11 +4,11 @@ import mjml2html from 'mjml';
 
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 import {
+  EMAIL_HEAD,
   getFormattedDate,
   getSectionElement,
   getTextElement,
   getTimezoneDisplay,
-  WIDTH_BODY,
 } from '../helpers/mjml.helper';
 import { getMjmlEventListBody } from './mjml/body-event';
 import { getMjmlAdminAreaTableList } from './mjml/event-admin-area-table';
@@ -114,10 +114,10 @@ export class MjmlService {
       tagName: 'mjml',
       attributes: {},
       children: [
+        EMAIL_HEAD,
         {
           tagName: 'mj-body',
           children,
-          attributes: { width: WIDTH_BODY },
         },
       ],
     };
@@ -165,10 +165,11 @@ export class MjmlService {
       tagName: 'mjml',
       attributes: {},
       children: [
+        EMAIL_HEAD,
         {
           tagName: 'mj-body',
           children,
-          attributes: { width: WIDTH_BODY },
+          attributes: { padding: '0px 20px 0 20px' },
         },
       ],
     };

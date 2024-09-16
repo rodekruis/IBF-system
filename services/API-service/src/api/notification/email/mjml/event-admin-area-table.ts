@@ -42,7 +42,7 @@ const getMjmlEventAdminAreaTable = ({
       color,
       'container-background-color': COLOR_WHITE,
       align: 'center',
-      padding: '10px 25px',
+      padding: '8px 24px',
     },
   });
 
@@ -53,7 +53,7 @@ const getMjmlEventAdminAreaTable = ({
     attributes: {
       'container-background-color': COLOR_WHITE,
       align: 'center',
-      padding: '10px 25px',
+      padding: '8px 24px',
     },
   });
 
@@ -75,7 +75,7 @@ const getMjmlEventAdminAreaTable = ({
   return getSectionElement({
     childrenEls: [titleElement, subtitleElement, adminAreaTable],
     attributes: {
-      'padding-bottom': '20px',
+      'padding-bottom': '24px',
     },
   });
 };

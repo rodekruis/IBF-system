@@ -11,9 +11,7 @@ import {
   TriggerStatusLabelEnum,
 } from '../dto/notification-date-per-event.dto';
 
-export const WIDTH_BODY = '632px';
-export const WIDTH_INNER_BODY = '437px';
-
+const SECTION_PADDING = '0px 16px 16px 16px';
 export const COLOR_PRIMARY = '#4f22d7';
 export const COLOR_TERTIARY = '#cfbfff';
 export const COLOR_WHITE = '#ffffff';
@@ -22,11 +20,19 @@ const COLOR_WARNING_ORANGE = '#aa6009';
 const COLOR_WARNING_YELLOW = '#665606';
 const COLOR_TRIGGER_RED = '#8a0f32';
 
-const SECTION_PADDING = '0px 90px 20px 90px';
-
 const emailFolder = './src/api/notification/email';
 const emailIconFolder = `${emailFolder}/icons`;
 const emailLogoFolder = `${emailFolder}/logos`;
+
+export const EMAIL_HEAD = {
+  tagName: 'mj-head',
+  children: [
+    {
+      tagName: 'mj-breakpoint',
+      attributes: { width: '520px' },
+    },
+  ],
+};
 
 export const getSectionElement = ({
   childrenEls,
@@ -46,7 +52,7 @@ export const getSectionElement = ({
       },
     ],
     attributes: {
-      width: WIDTH_INNER_BODY,
+      'full-width': 'full-width',
       padding: SECTION_PADDING,
       'background-color': backgroundColor,
       ...attributes,
@@ -86,22 +92,23 @@ export const getNotificationActionsSection = ({
 }): object => {
   return {
     tagName: 'mj-section',
-    attributes: { padding: '0px 0px 10px 0px' },
+    attributes: {
+      padding: '0px',
+    },
     children: [
       {
         tagName: 'mj-column',
         attributes: {
           'vertical-align': 'middle',
-          width: '200px',
+          padding: '8px 0px 8px 0px',
         },
         children: [
           {
             tagName: 'mj-button',
             attributes: {
               href: buttonLink,
-              align: 'left',
               width: '200px',
-              height: '28px',
+              height: '24px',
               'border-radius': '24px',
               padding: '0px',
               'background-color': primary ? COLOR_PRIMARY : COLOR_WHITE,
@@ -117,12 +124,11 @@ export const getNotificationActionsSection = ({
         tagName: 'mj-column',
         attributes: {
           'vertical-align': 'middle',
-          width: '250px',
+          padding: '4px',
         },
         children: [
           getTextElement({
             content: description,
-            attributes: { 'padding-left': '10px' },
           }),
         ],
       },

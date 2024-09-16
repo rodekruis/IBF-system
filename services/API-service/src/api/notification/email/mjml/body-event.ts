@@ -61,13 +61,13 @@ const getMjmlBodyEvent = ({
 
   contentContent.push(
     firstTriggerLeadTimeString
-      ? `<strong>${disasterTypeLabel}:</strong> expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}s from now.`
-      : `<strong>${disasterIssuedLabel}:</strong> expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}s from now.`,
+      ? `<strong>${disasterTypeLabel}:</strong> expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`
+      : `<strong>${disasterIssuedLabel}:</strong> expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
   );
 
   if (firstTriggerLeadTimeString) {
     contentContent.push(
-      `<strong>${disasterIssuedLabel}:</strong> expected to reach threshold on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}s from now`,
+      `<strong>${disasterIssuedLabel}:</strong> expected to reach threshold on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}`,
     );
   }
 
@@ -92,6 +92,10 @@ const getMjmlBodyEvent = ({
 
   const closingElement = getTextElement({
     content: `This ${triggerStatusLabel} was issued by IBF on ${issuedDate} (${timeZone})`,
+    attributes: {
+      'padding-top': '8px',
+      'font-size': '13px',
+    },
   });
 
   return getSectionElement({
