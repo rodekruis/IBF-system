@@ -34,14 +34,15 @@ export class CompactPipe implements PipeTransform {
     let prefix = '';
 
     if (format !== NumberFormat.perc) {
-      if (value > 10) {
-        min = 20;
-      } else if (value > 0) {
-        min = 10;
-      }
-
+      // Add deviation for values between 0 and 20
       if (value > 0 && value < 20) {
         prefix = '< ';
+
+        if (value > 10) {
+          min = 20;
+        } else if (value > 0) {
+          min = 10;
+        }
       }
     }
 
