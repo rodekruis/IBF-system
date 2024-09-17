@@ -21,5 +21,11 @@ module.exports = {
       },
     ],
     '@typescript-eslint/camelcase': 'off',
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
 };
