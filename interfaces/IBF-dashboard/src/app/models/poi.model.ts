@@ -34,11 +34,6 @@ export class HealthSite {
   dynamicData?: { exposure: string };
 }
 
-export enum HealthSiteType {
-  hospital = 'hospital',
-  clinic = 'clinic',
-}
-
 export class DamSite {
   damName: string;
   countryCodeISO3: string;
