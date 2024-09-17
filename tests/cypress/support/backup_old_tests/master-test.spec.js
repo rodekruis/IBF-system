@@ -50,7 +50,6 @@ const testCountry = ({ iso3Code, email }) => {
 
 describe('Loop through countries', () => {
   const countries = [
-    { iso3Code: 'EGY', email: 'egypt@redcross.nl' },
     { iso3Code: 'ETH', email: 'ethiopia@redcross.nl' },
     { iso3Code: 'KEN', email: 'kenya@redcross.nl' },
     { iso3Code: 'PHL', email: 'philippines@redcross.nl' },

@@ -16,18 +16,11 @@ export class DisasterTypeGeoServerMapper {
     return '';
   }
 
-  static getDestFilePrefixForDisasterType(
-    disasterType: DisasterType,
-    countryCode: string,
-  ): string {
+  static getDestFilePrefixForDisasterType(disasterType: DisasterType): string {
     if (disasterType === DisasterType.Floods) {
       return 'flood_extent';
     } else if (disasterType === DisasterType.HeavyRain) {
-      if (countryCode === 'EGY') {
-        return 'rain_rp';
-      } else if (countryCode === 'UGA') {
-        return 'rainfall_extent';
-      }
+      return 'rainfall_extent';
     } else if (disasterType === DisasterType.Drought) {
       return 'rain_rp';
     } else if (disasterType === DisasterType.FlashFloods) {

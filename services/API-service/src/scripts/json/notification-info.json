@@ -94,19 +94,6 @@
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Ethiopia-Published.pdf"
   },
   {
-    "countryCodeISO3": "EGY",
-    "logo": {
-      "heavy-rain": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/6907dc6e-311a-402b-b97d-551f04ef3d0b.png"
-    },
-    "triggerStatement": {
-      "heavy-rain": "Egyptian RCS can respond accordingly to their EAP/ SOP when the rainfall forecast from Global Forecast System for the lead times of 3- or 5- or 7 days exceeds the defined thresholds, which will be anticipated to occur in some regions of Egypt. The defined threshold corresponds to a 5-year return period heavy rainfall event."
-    },
-    "linkSocialMediaType": "Telegram",
-    "linkSocialMediaUrl": "https://t.me/joinchat/hLtvficJO-llZDE0/",
-    "linkVideo": "https://bit.ly/IBF-video-Egypt",
-    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Egypt-Published.pdf"
-  },
-  {
     "countryCodeISO3": "ZWE",
     "logo": {
       "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/ff56e5b1-f3be-1d68-be49-7898ba16be81.png"

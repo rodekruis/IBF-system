@@ -64,7 +64,6 @@
     "label": "Rainfall extent",
     "type": "wms",
     "legendColor": {
-      "EGY": { "type": "square", "value": ["#d7301f"] },
       "UGA": {
         "type": "gradient",
         "value": [
@@ -81,9 +80,6 @@
     "leadTimeDependent": true,
     "active": "yes",
     "description": {
-      "EGY": {
-        "heavy-rain": "Global Ensemble Forecast System (GEFS) is a global weather forecast model produced by the NOAA's National Centers for Environmental Prediction (NCEP). Dozens of atmospheric forecast variables up to 16 days in the future, including precipitation, are available through this dataset.<br/><br/>The Rainfall Extent layer shows areas where forecasted GEFS precipitation occurrence exceeds defined thresholds."
-      },
       "UGA": {
         "heavy-rain": "<p>The rainfall extent layer is a dynamic layer that updates every time the model runs (once a day).<br/>It’s visualised as squares on the map in a gradient of yellow (low) to red (high) depending on the intensity.</p><p>The layer shows the amount of forecasted 1-day cumulative precipitation over the area of interest.</p><p>The rainfall forecast is sourced from the European Centre for Medium-Range Weather Forecasts (ECMWF) through the Norwegian Meteorological Institute API (METNO).<br/>This is a global model that provides weather forecasts up to 3 days in advance, with a granularity of 1 hour.</p>"
       }
@@ -124,9 +120,6 @@
     "leadTimeDependent": false,
     "active": "no",
     "description": {
-      "EGY": {
-        "heavy-rain": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
-      },
       "ETH": {
         "drought": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
         "floods": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
@@ -276,9 +269,6 @@
     "leadTimeDependent": false,
     "active": "no",
     "description": {
-      "EGY": {
-        "heavy-rain": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Egyptian Red Crescent Society (ERCS). Year: 2020."
-      },
       "ETH": {
         "drought": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Ethiopia Red Cross Society (ERCS). Year: 2020.",
         "floods": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Ethiopia Red Cross Society (ERCS). Year: 2020.",
@@ -319,18 +309,6 @@
     "description": {
       "ZWE": {
         "drought": "This layer represents a selection of dams, and their associated reservoirs in Zimbabwe. The selection is made, based on the  Zimbabwe National Water Authority (ZINWA).<br/><br/>Source Link Zimbabwe:<ul><li><a href='https://www.zinwa.co.zw/dam-levels/'>https://www.zinwa.co.zw/dam-levels/</a></li></ul>"
-      }
-    }
-  },
-  {
-    "name": "red_crescent_branches",
-    "label": "Red Crescent branches",
-    "type": "point",
-    "leadTimeDependent": false,
-    "active": "no",
-    "description": {
-      "EGY": {
-        "heavy-rain": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Egyptian Red Crescent Society (ERCS). Year: 2020."
       }
     }
   },
@@ -392,24 +370,6 @@
       },
       "ZWE": {
         "drought": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
-      }
-    }
-  },
-  {
-    "name": "flood_susceptibility",
-    "label": "Flood susceptibility",
-    "type": "wms",
-    "legendColor": {
-      "EGY": {
-        "type": "gradient",
-        "value": ["#d0d1e6", "#a6bddb", "#74a9cf", "#3690c0"]
-      }
-    },
-    "leadTimeDependent": false,
-    "active": "no",
-    "description": {
-      "EGY": {
-        "heavy-rain": "Flood susceptibility identifies the most vulnerable areas based on physical characteristics that determine the propensity for flooding” (Vojtek and Vojtekova, 2019). The mapping of flood susceptible areas involves the analysis of multiple criteria for different characteristics of the region that collectively contribute to the likelihood of floods.<br/><br/>Nine influencing parameters based on a variety of satellite imagery and spatial datasets are the input factors of the model, such as topographical (Elevation model, Slope), physical (Land cover, Hydrological soil group) and hydrological properties (Height Above Nearest Drainage, Distance from Nearest Drainage, Topographic Wetness Index Slope, Rain intensity, Rain duration). Set of weights based on expert knowledge (The Analytical Hierarchical Process) from REACH (2019) was adapted in this analysis.<br/><br/><strong>LEGEND:</strong> There are 4 classes of flood susceptibility. The higher the flood susceptibility, the darker blue the color.<br/><br/>SOURCES:<ul><li>REACH. Yemen Flood Susceptibility. 2019. <a href='https://reliefweb.int/sites/reliefweb.int/files/resources/REACH_YEM_MethodologyNote_HVA_FloodSusceptibility_01APR2020_EN_V2.pdf'>https://reliefweb.int/sites/reliefweb.int/files/resources/REACH_YEM_MethodologyNote_HVA_FloodSusceptibility_01APR2020_EN_V2.pdf</a></li><li>Vojtek, M.; Vojteková, J. Flood Susceptibility Mapping on a National Scale in Slovakia Using the Analytical Hierarchy Process. Water 2019, 11, 364. <a ghref='https://doi.org/10.3390/w11020364'>https://doi.org/10.3390/w11020364</a></li></ul>"
       }
     }
   },
