@@ -1,3 +1,18 @@
+# [0.269.0](https://github.com/rodekruis/IBF-system/compare/v0.268.11...v0.269.0) (2024-09-17)
+
+
+### Bug Fixes
+
+* compilation issue + rm unused class ([20a2ce9](https://github.com/rodekruis/IBF-system/commit/20a2ce9dbcd4795460d6e5f33cea4c2dbd7e72c9))
+* prettier endofline issue ([6936333](https://github.com/rodekruis/IBF-system/commit/6936333c932fa3f7a74dba7d44e5219c428cee52))
+
+
+### Features
+
+* update mock windspeed data ([8425fb4](https://github.com/rodekruis/IBF-system/commit/8425fb4d284ac2aed01185cc67c798fba6d9b7a8))
+
+
+
 ## [0.268.11](https://github.com/rodekruis/IBF-system/compare/v0.268.10...v0.268.11) (2024-09-16)
 
 
@@ -86,17 +101,6 @@
 * adjust spacing ([c561438](https://github.com/rodekruis/IBF-system/commit/c561438fd79057ea98bbf7ead73ef9bceb191639))
 * remove target blank to avoid security issues ([6a0e963](https://github.com/rodekruis/IBF-system/commit/6a0e963d2a6d685785ed9c00177c582683b5f14d))
 * update indicators info copy ([f39d5c7](https://github.com/rodekruis/IBF-system/commit/f39d5c75b4444f050d932cd9bc80fb604d202e62))
-
-
-
-## [0.268.2](https://github.com/rodekruis/IBF-system/compare/v0.268.1...v0.268.2) (2024-09-09)
-
-
-### Bug Fixes
-
-* set percentage to 2 significant digits ([e559a46](https://github.com/rodekruis/IBF-system/commit/e559a46915defb4e70680a75fdd90289c7dbcf6c))
-* use approximate instead of approx. ([888ed52](https://github.com/rodekruis/IBF-system/commit/888ed52f461be9b484b114475d5a6049c58d8fc8))
-* use approximately prefix ([ff29349](https://github.com/rodekruis/IBF-system/commit/ff29349dee3bef15c3bea2ee1972beecf81e4934))
 
 
 
