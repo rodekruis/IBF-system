@@ -22,12 +22,12 @@ for (z in worksheet) {
     }
   }
   const col = z.substring(0, tt);
-  if (col === 'S') {
+  const colToProcess = 'P';
+  if (col === colToProcess) {
     let value = worksheet[z].v;
     value = value.replace(/(\r\n|\n|\r)/gm, ''); // Remove linebreaks
-    // Enforce that links always open in new tab
+    // Enforce that links never open in new tab
     value = value.replace(`target='_blank'`, '');
-    value = value.replace('<a ', `<a target='_blank'`);
     data += value;
   }
 }

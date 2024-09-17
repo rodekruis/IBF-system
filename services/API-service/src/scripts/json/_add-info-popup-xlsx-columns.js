@@ -124,6 +124,10 @@ const compareData = () => {
 
 const writeCSV = () => {
   const lines = indicatorsToAdd.map((i) => i.join('\t'));
+  if (!lines.length) {
+    console.log('No new lines to write');
+    return;
+  }
   const csvData = lines.join('\n');
   fs.writeFile(path + csvFileName, csvData, 'utf8', (err) => {
     err ? console.error(err) : console.log(`file ${csvFileName} written`);
