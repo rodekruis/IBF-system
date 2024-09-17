@@ -10,6 +10,7 @@ import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-da
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { AdminLevel } from '../api/country/admin-level.enum';
+import { CountryDisasterSettingsDto } from '../api/country/dto/add-countries.dto';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
@@ -84,7 +85,12 @@ export class MockService {
       useDefaultScenario,
     );
 
-    const adminLevels = selectedCountry.countryDisasterSettings.find(
+    const disasterSettings: CountryDisasterSettingsDto[] | undefined =
+      selectedCountry.countryDisasterSettings;
+    if (!disasterSettings) {
+      console.error('Disaster settings not found for country.');
+    }
+    const adminLevels = disasterSettings.find(
       (s) => s.disasterType === disasterType,
     ).adminLevels;
 
