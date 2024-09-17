@@ -20,6 +20,8 @@ const COLOR_WARNING_ORANGE = '#aa6009';
 const COLOR_WARNING_YELLOW = '#665606';
 const COLOR_TRIGGER_RED = '#8a0f32';
 
+const FONT_FAMILY = 'Arial, sans-serif';
+
 const emailFolder = './src/api/notification/email';
 const emailIconFolder = `${emailFolder}/icons`;
 const emailLogoFolder = `${emailFolder}/logos`;
@@ -73,6 +75,7 @@ export const getTextElement = ({
     attributes: {
       'line-height': '1.5',
       padding: '0px',
+      'font-family': FONT_FAMILY,
       'font-size': '14px',
       ...attributes,
     },
@@ -114,6 +117,7 @@ export const getNotificationActionsSection = ({
               'background-color': primary ? COLOR_PRIMARY : COLOR_WHITE,
               color: primary ? COLOR_WHITE : COLOR_PRIMARY,
               border: `1px solid ${primary ? COLOR_PRIMARY : COLOR_TERTIARY}`,
+              'font-family': FONT_FAMILY,
               'font-weight': 'bold',
             },
             content: buttonText,
@@ -171,7 +175,10 @@ export const getAdminAreaTable = ({
   return {
     tagName: 'mj-table',
     content: tbody,
-    attributes: { 'container-background-color': COLOR_WHITE },
+    attributes: {
+      'container-background-color': COLOR_WHITE,
+      'font-family': FONT_FAMILY,
+    },
   };
 };
 
