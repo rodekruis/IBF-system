@@ -1,3 +1,12 @@
+## [0.269.1](https://github.com/rodekruis/IBF-system/compare/v0.269.0...v0.269.1) (2024-09-17)
+
+
+### Bug Fixes
+
+* process info popup changes + improve process ([a006d20](https://github.com/rodekruis/IBF-system/commit/a006d2077778bc8e279948db591e3d4ed2005b36))
+
+
+
 # [0.269.0](https://github.com/rodekruis/IBF-system/compare/v0.268.11...v0.269.0) (2024-09-17)
 
 
@@ -90,17 +99,6 @@
 ### Bug Fixes
 
 * html validation ([0cb428a](https://github.com/rodekruis/IBF-system/commit/0cb428a6529a234721782c4492e0e6329e919799))
-
-
-
-## [0.268.3](https://github.com/rodekruis/IBF-system/compare/v0.268.2...v0.268.3) (2024-09-09)
-
-
-### Bug Fixes
-
-* adjust spacing ([c561438](https://github.com/rodekruis/IBF-system/commit/c561438fd79057ea98bbf7ead73ef9bceb191639))
-* remove target blank to avoid security issues ([6a0e963](https://github.com/rodekruis/IBF-system/commit/6a0e963d2a6d685785ed9c00177c582683b5f14d))
-* update indicators info copy ([f39d5c7](https://github.com/rodekruis/IBF-system/commit/f39d5c75b4444f050d932cd9bc80fb604d202e62))
 
 
 
