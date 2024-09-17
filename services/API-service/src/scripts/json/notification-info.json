@@ -2,9 +2,9 @@
   {
     "countryCodeISO3": "UGA",
     "logo": {
-      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c44cb471-0595-454d-aad6-d1050553315f.png",
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c44cb471-0595-454d-aad6-d1050553315f.png",
-      "heavy-rain": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c44cb471-0595-454d-aad6-d1050553315f.png"
+      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/79e11aea-b32e-38b3-8cdf-f07c7c98e58c.png",
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/79e11aea-b32e-38b3-8cdf-f07c7c98e58c.png",
+      "heavy-rain": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/79e11aea-b32e-38b3-8cdf-f07c7c98e58c.png"
     },
     "triggerStatement": {
       "floods": "URCS will activate this EAP when GloFAS issues a forecast of at least <b>60% probability</b> (based on the different ensemble runs) <b>of a 5-year return period</b> flood occurring in flood prone districts, which will be anticipated to affect <b>more than 1,000hh</b>. The EAP will be triggered with a <b>lead time of 7 days</b> and a FAR of <b>not more than 0.5.</b>",
@@ -34,9 +34,9 @@
   {
     "countryCodeISO3": "PHL",
     "logo": {
-      "dengue": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/af6240bf-bdd3-9982-9ca5-44f7e5a71f01.jpg",
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/af6240bf-bdd3-9982-9ca5-44f7e5a71f01.jpg",
-      "typhoon": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/af6240bf-bdd3-9982-9ca5-44f7e5a71f01.jpg"
+      "dengue": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/9b078528-da7b-9a8c-6f6a-686a5a705e0a.png",
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/9b078528-da7b-9a8c-6f6a-686a5a705e0a.png",
+      "typhoon": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/9b078528-da7b-9a8c-6f6a-686a5a705e0a.png"
     },
     "triggerStatement": {
       "floods": "The Flood Early Action Protocol will be triggered 3 days before the flood when the forecast of the GloFAS is predicting with more than 70% probability the occurrence of a 1 in 5 years flood (at least), in any of the 4 targeted river basins. Then the corresponding flood extent will be overlayed on the rice crop map to estimate the flood impact in the concerned river basin, allowing the selection of the municipalities where to focus the anticipatory actions (where for instance the predicted impact is more than 50% of crops possibly affected, or between 30-50%)",
@@ -51,7 +51,7 @@
   {
     "countryCodeISO3": "ZMB",
     "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/35e3a47b-65d0-9b15-ad8f-ac19300ef5b6.png"
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/70b81676-d8bd-cd07-afb1-4e7d8da9581b.png"
     },
     "triggerStatement": {
       "floods": "The trigger is activated if the daily issued GLOFAS forecast reports a water discharge that exceeds the threshold corresponding to a 10y return period flood in one or more GLOFAS stations. The EAP will be triggered with a lead time of 7 days."
@@ -64,8 +64,8 @@
   {
     "countryCodeISO3": "KEN",
     "logo": {
-      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/905748b3-7aaf-4b5e-b5b9-516ad6f4105a.png",
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/905748b3-7aaf-4b5e-b5b9-516ad6f4105a.png"
+      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/69a16c94-f1a8-ff36-89d2-84f7336d5883.png",
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/69a16c94-f1a8-ff36-89d2-84f7336d5883.png"
     },
     "triggerStatement": {
       "floods": "This EAP will be triggered when GloFAS issues a forecast where a trigger level will be exceeded and the probability of exceedance is at least the probability indicated. Three trigger levels were defined for this EAP:<ul><li>Stations in Nzoia  Basin a 5-year return period discharge (5.3m level/469.8 m3/s) with 85 % probability of exceedance</li><li>Stations in Athi Basin a 5 year return period discharge period discharge (469.236 m3/s) with 85% probability of exceedance</li><li>Stations in Tana Basin a 5-year return period discharge with (5.1m/ 1191.6 m3/s) 85% probability of exceedance</li></ul>",
@@ -79,9 +79,9 @@
   {
     "countryCodeISO3": "ETH",
     "logo": {
-      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/eedbd97e-52c1-4a16-8155-9b607ad05ad2.png",
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/eedbd97e-52c1-4a16-8155-9b607ad05ad2.png",
-      "malaria": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/eedbd97e-52c1-4a16-8155-9b607ad05ad2.png"
+      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/08e2626c-fd79-9026-1324-280899b3f436.png",
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/08e2626c-fd79-9026-1324-280899b3f436.png",
+      "malaria": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/08e2626c-fd79-9026-1324-280899b3f436.png"
     },
     "triggerStatement": {
       "floods": "The ERCS will act based on the developed trigger table when the Global Floods awareness system forecast indicates a level of river discharge greater or equal to a level of 10 years return period with a probability of at least 75% forecast uncertainty within 7 days lead time period.",
@@ -109,7 +109,7 @@
   {
     "countryCodeISO3": "ZWE",
     "logo": {
-      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/ff56e5b1-f3be-1d68-be49-7898ba16be81.png"
+      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/71256230-3d58-35b8-b48a-4497c85ce32c.png"
     },
     "triggerStatement": {
       "drought": "When the ENSO-based September forecast of the 510 Impact-based Forecast model anticipates a once-in-six year drought event, a first set of early actions addressing crop losses and livestock deaths is activated. In March, FEWSNET forecast of IPC 4 and above will trigger further actions devoted to reducing the impacts of livestock deaths and food insecurity."
@@ -122,8 +122,8 @@
   {
     "countryCodeISO3": "MWI",
     "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/575cc45e-7050-4b2d-d8bc-d1f278e42a66.png",
-      "flash-floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/ee9473a2-cac5-aec2-a2ee-cee872837098.jpeg"
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/31600ce7-b5e8-992f-8f53-e58f1b5dc955.png",
+      "flash-floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/d628fa5d-f4fa-bc51-9977-d6b464ff003b.png"
     },
     "triggerStatement": {
       "floods": "An administrative area is triggered based on two parameters from the 6-days GloFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 60% probability of occurrence of a 5 year return period flood within the next 6 days. The GloFAS flood forecast triggers except in the Traditional Areas where the False Alarm Ratio (FAR) exceeds the predetermined maximum value which is 0.5.",
@@ -152,7 +152,7 @@
   {
     "countryCodeISO3": "SSD",
     "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/093cd804-0be0-21f3-c712-f210dd0f7c05.png"
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/b6d46eb1-2ae5-e8ea-8497-0180d0399a92.png"
     },
     "triggerStatement": {
       "floods": "Triggered areas (payams) are those in which the trigger threshold has been reached. The threshold is defined by two parameters from the 7-days GloFAS forecast: the return period of the forecasted flood and the probability of occurrence, these are updated on a daily basis. The trigger is issued when GloFAS forecasts an occurrence with a probability of at least 60% of a 5 year return period flood in the next 7 days. The GloFAS  will not trigger in areas where the False Alarm Ratio (FAR) &gt; 0.35."
