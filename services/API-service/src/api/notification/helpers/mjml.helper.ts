@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-import moment from 'moment';
+import { format } from 'date-fns';
 
 import { EapAlertClassKeyEnum } from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
@@ -336,7 +336,7 @@ export const getFormattedDate = ({
   date: Date;
   countryCodeISO3?: string;
 }): string => {
-  return `${moment(date).format('DDDD, dd MMMM')}${
+  return `${format(date, 'DDDD, dd MMMM')}${
     countryCodeISO3
       ? CountryTimeZoneMapping[countryCodeISO3].split('_').join(' ')
       : ''
