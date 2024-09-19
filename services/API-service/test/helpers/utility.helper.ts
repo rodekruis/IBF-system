@@ -13,7 +13,6 @@ import users from '../../src/scripts/json/users.json';
 export async function getAccessToken(): Promise<string> {
   const admin = users.find((user) => user.userRole === 'admin');
   const login = await loginApi(admin.email, admin.password);
-  console.log('login: ', login);
 
   const accessToken = login.body.user.token;
   return accessToken;
@@ -30,7 +29,7 @@ export function loginApi(
 }
 
 export function getHostname(): string {
-  return 'http://localhost:3000/api';
+  return process.env.BASE_URL_IBF_SERVICE || 'http://localhost:3000/api';
 }
 
 export function getEventTitle(disasterType: string, eventName: string) {
