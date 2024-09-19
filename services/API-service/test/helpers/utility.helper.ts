@@ -13,6 +13,7 @@ import users from '../../src/scripts/json/users.json';
 export async function getAccessToken(): Promise<string> {
   const admin = users.find((user) => user.userRole === 'admin');
   const login = await loginApi(admin.email, admin.password);
+  console.log('login: ', login);
 
   const accessToken = login.body.user.token;
   return accessToken;
@@ -20,7 +21,7 @@ export async function getAccessToken(): Promise<string> {
 
 export function loginApi(
   email: string,
-  password: string,
+  password?: string,
 ): Promise<request.Response> {
   return getServer().post(`/user/login`).send({
     email,
