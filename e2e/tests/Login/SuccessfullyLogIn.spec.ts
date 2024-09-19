@@ -21,6 +21,6 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('Successfully get token and Login', async ({ page }) => {
+test('Successfully Login', async ({ page }) => {
   await page.waitForURL((url) => url.pathname.startsWith('/'));
 });
