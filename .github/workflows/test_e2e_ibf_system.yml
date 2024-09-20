@@ -42,6 +42,9 @@ jobs:
       - name: Set ENV-variables for test-environment
         run: |
           cp example.env .env
+      
+      - name: Install API-service code-dependencies
+        run: cd ./services/API-service && npm ci --omit=optional --no-fund --no-audit
 
       - name: Run Services with Docker
         working-directory: ./
@@ -54,9 +57,6 @@ jobs:
           NG_API_URL: http://localhost:4000/api
         run: |
           npm run start:interface &
-
-      - name: Install API-service code-dependencies
-        run: cd ./services/API-service && npm ci --omit=optional --no-fund --no-audit
 
       - name: Install E2E-Tests runtime-dependencies
         working-directory: ${{ env.e2eTestsPath }}
