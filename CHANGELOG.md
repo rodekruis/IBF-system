@@ -1,3 +1,12 @@
+## [0.269.2](https://github.com/rodekruis/IBF-system/compare/v0.269.1...v0.269.2) (2024-09-20)
+
+
+### Bug Fixes
+
+* suspicious logic to update triggerValue ([36fc8f2](https://github.com/rodekruis/IBF-system/commit/36fc8f27fa3601aec10884a3df4884ee7d95b48d))
+
+
+
 ## [0.269.1](https://github.com/rodekruis/IBF-system/compare/v0.269.0...v0.269.1) (2024-09-17)
 
 
@@ -90,15 +99,6 @@
 ### Bug Fixes
 
 * adjust spacing and replace p with br ([6d1019a](https://github.com/rodekruis/IBF-system/commit/6d1019af60c8da418b7cc05694502ee0bc8a0012))
-
-
-
-## [0.268.4](https://github.com/rodekruis/IBF-system/compare/v0.268.3...v0.268.4) (2024-09-10)
-
-
-### Bug Fixes
-
-* html validation ([0cb428a](https://github.com/rodekruis/IBF-system/commit/0cb428a6529a234721782c4492e0e6329e919799))
 
 
 
