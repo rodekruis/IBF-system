@@ -64,9 +64,9 @@ jobs:
         run: |
           npx playwright install chromium --with-deps
 
-      # - name: Wait for IBF-System to be running
-      #   run: |
-      #     timeout 100s sh -c 'until curl http://localhost:4200 -I; do echo "Waiting for the IBF-portal to be running..."; sleep 1; done'
+      - name: Wait for IBF-System to be running
+        run: |
+          timeout 300s sh -c 'until curl http://localhost:4200/api -I; do echo "Waiting for the IBF-portal to be running..."; sleep 1; done'
 
       - name: Run E2E-Tests with Playwright
         working-directory: ${{ env.e2eTestsPath }}
