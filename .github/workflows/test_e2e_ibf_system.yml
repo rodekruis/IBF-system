@@ -40,7 +40,8 @@ jobs:
 
       - name: Set ENV-variables for test-environment
         run: |
-          cp /env.example .env
+          pwd
+          cp env.example .env
 
       - name: Run Services with Docker
         working-directory: ./
