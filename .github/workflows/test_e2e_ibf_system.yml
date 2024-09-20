@@ -53,7 +53,7 @@ jobs:
         env:
           NG_API_URL: http://localhost:4000/api
         run: |
-          npm run start:interface
+          npm run start:interface &
 
       - name: Install E2E-Tests runtime-dependencies
         working-directory: ${{ env.e2eTestsPath }}
