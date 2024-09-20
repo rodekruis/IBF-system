@@ -54,12 +54,6 @@ services:
       web-server-network:
       api-network:
     restart: unless-stopped
-    healthcheck:
-      test: curl --fail http://localhost:${NG_API_URL} || exit 1
-      interval: 15s
-      retries: 15
-      start_period: 60s
-      timeout: 300s
 
   ibf-dashboard:
     build:
