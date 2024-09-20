@@ -42,7 +42,8 @@ jobs:
       - name: Set ENV-variables for test-environment
         run: |
           pwd
-          cp env.example .env
+          ls -alh
+          cp $GITHUB_WORKSPACE/env.example .env  # Adjust the path if needed
 
       - name: Run Services with Docker
         working-directory: ./
