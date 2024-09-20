@@ -1,9 +1,10 @@
 import { test } from '@playwright/test';
-import LoginPage from '../../Pages/LoginPage';
+
 import {
   getAccessToken,
   resetDB,
 } from '../../../services/API-service/test/helpers/utility.helper';
+import LoginPage from '../../Pages/LoginPage';
 
 let accessToken: string;
 
