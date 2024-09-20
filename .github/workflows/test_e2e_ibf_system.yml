@@ -56,9 +56,7 @@ jobs:
           npm run start:interface &
 
       - name: Install API-service code-dependencies
-        working-directory: ./services/API-service
-        run: |
-          npm i
+        run: cd ./services/API-service && npm ci --omit=optional --no-fund --no-audit
 
       - name: Install E2E-Tests runtime-dependencies
         working-directory: ${{ env.e2eTestsPath }}
