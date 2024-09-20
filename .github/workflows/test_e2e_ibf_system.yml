@@ -39,9 +39,8 @@ jobs:
         run: 'npm run lint'
 
       - name: Set ENV-variables for test-environment
-        working-directory: ./
         run: |
-          cp env.example .env
+          cp ./env.example .env
 
       - name: Run Services with Docker
         working-directory: ./
