@@ -1,12 +1,6 @@
 # Lighthouse
 .lighthouseci
 
-# Cypress
-cypress.env.json
-tests/cypress/screenshots
-tests/cypress/integration/examples
-tests/cypress/videos
-
 # IDE / Editors
 .vscode
 .idea

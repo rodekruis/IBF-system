@@ -11,12 +11,9 @@
     "open:ibf-api-service": "open http://localhost:4000/docs",
     "test:interface": "npm test --prefix interfaces/IBF-dashboard/",
     "test:performance": "npm run lighthouse:run",
-    "test:integration": "npm run cypress:run",
     "lint": "npx npm-run-all --print-label --parallel lint:interface lint:services",
     "lint:services": "npm run lint --prefix services/API-service/",
     "lint:interface": "npm run lint --prefix interfaces/IBF-dashboard/",
-    "cypress:open": "npx cypress open --config-file=tests/cypress/cypress.json",
-    "cypress:run": "npx cypress run --record --config-file=tests/cypress/cypress.json",
     "lighthouse:run": "lhci autorun --config=tests/lighthouse/lighthouserc.js"
   },
   "dependencies": {
@@ -24,8 +21,6 @@
   },
   "devDependencies": {
     "@lhci/cli": "^0.7.0",
-    "cypress": "^6.6.0",
-    "cypress-wait-until": "^1.7.1",
     "lighthouse": "^7.2.0",
     "pre-commit": "^1.2.2",
     "pre-push": "^0.1.1",
