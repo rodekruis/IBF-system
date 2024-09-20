@@ -58,8 +58,6 @@ jobs:
           NG_API_URL: http://localhost:4000/api
         run: |
           docker build . --file Dockerfile --tag ibf-dashboard:$(date +%s)
-        # run: |
-        #   npm run start:interface &
 
       - name: Install E2E-Tests runtime-dependencies
         working-directory: ${{ env.e2eTestsPath }}
@@ -68,7 +66,7 @@ jobs:
 
       - name: Wait for IBF-System to be running
         run: |
-          timeout 90s sh -c 'until curl http://localhost:4200 -I; do echo "Waiting for the IBF-portal to be running..."; sleep 1; done'
+          timeout 100s sh -c 'until curl http://localhost:4200 -I; do echo "Waiting for the IBF-portal to be running..."; sleep 1; done'
 
       - name: Run E2E-Tests with Playwright
         working-directory: ${{ env.e2eTestsPath }}
