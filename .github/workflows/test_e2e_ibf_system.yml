@@ -49,6 +49,8 @@ jobs:
 
       - name: Run Services with Docker
         working-directory: ./
+        env:
+          MC_API: ${{ secrets.MC_API }}
         run: |
           docker compose up -d
 
@@ -65,10 +67,8 @@ jobs:
       #     npx playwright install chromium --with-deps
 
       - name: Wait for IBF-API-service to be running
-        env:
-          MC_API: ${{ secrets.MC_API }}
         run: |
-          timeout 90s sh -c 'until curl http://localhost:4000/api -I; do echo "Waiting for the IBF-API-service to be running..."; sleep 1; done'
+          timeout 30s sh -c 'until curl http://localhost:4000/api -I; do echo "Waiting for the IBF-API-service to be running..."; sleep 1; done'
 
       - name: Run E2E-Tests with Playwright
         working-directory: ${{ env.e2eTestsPath }}
