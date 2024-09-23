@@ -52,7 +52,7 @@ jobs:
         env:
           MC_API: ${{ secrets.MC_API }}
         run: |
-          docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service
 
       # - name: Start Interface
       #   working-directory: 'interfaces/IBF-dashboard'
@@ -68,7 +68,7 @@ jobs:
 
       - name: Wait for IBF-API-service to be running
         run: |
-          timeout 40s sh -c 'until curl http://localhost:4000/api -I; do echo "Waiting for the IBF-API-service to be running..."; sleep 1; done'
+          timeout 60s sh -c 'until curl http://localhost:4000/api -I; do echo "Waiting for the IBF-API-service to be running..."; sleep 1; done'
 
       - name: Run E2E-Tests with Playwright
         working-directory: ${{ env.e2eTestsPath }}
