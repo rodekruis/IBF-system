@@ -13,8 +13,8 @@ import { NumberFormat } from '../../../shared/enums/number-format.enum';
 export class IndicatorDto {
   @ApiProperty({
     example: {
-      EGY: {
-        'heavy-rain': ['map', 'aggregate'],
+      UGA: {
+        floods: ['map', 'aggregate'],
       },
     },
   })
@@ -81,8 +81,8 @@ export class IndicatorDto {
 
   @ApiProperty({
     example: {
-      EGY: {
-        'heavy-rain':
+      UGA: {
+        floods:
           'This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Egyptian Red Crescent Society (ERCS). Year: 2020.',
       },
     },

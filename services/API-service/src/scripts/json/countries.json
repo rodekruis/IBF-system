@@ -900,48 +900,6 @@
     }
   },
   {
-    "countryCodeISO3": "EGY",
-    "countryCodeISO2": "EG",
-    "countryName": "Egypt",
-    "disasterTypes": ["heavy-rain"],
-    "countryDisasterSettings": [
-      {
-        "disasterType": "heavy-rain",
-        "adminLevels": [1],
-        "defaultAdminLevel": 1,
-        "activeLeadTimes": ["3-day", "5-day", "7-day"],
-        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0a248aa7f06fc4d149892726478ef0fe6&authkey=AWC-wu2bMWX0NRGu7aUjTe8&expiration=2022-02-24T23%3a00%3a00.000Z&rtime=DcUsZo3Z2Eg"
-      }
-    ],
-    "adminRegionLabels": {
-      "1": {
-        "singular": "Governorate",
-        "plural": "Governorates"
-      },
-      "2": {
-        "singular": "Markaz",
-        "plural": "Marakiz"
-      },
-      "3": {
-        "singular": "District",
-        "plural": "Districts"
-      }
-    },
-    "countryLogos": { "heavy-rain": ["EGY-ercs.png"] },
-    "countryBoundingBox": {
-      "type": "Polygon",
-      "coordinates": [
-        [
-          [24.2069487572, 20.7481080291],
-          [37.3734557629, 20.7481080291],
-          [37.3734557629, 32.7651320716],
-          [24.2069487572, 32.7651320716],
-          [24.2069487572, 20.7481080291]
-        ]
-      ]
-    }
-  },
-  {
     "countryCodeISO3": "PHL",
     "countryCodeISO2": "PH",
     "countryName": "Philippines",

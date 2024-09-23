@@ -35,7 +35,6 @@ import { SeedInit } from './seed-init';
 import SeedLineData from './seed-line-data';
 import SeedPointData from './seed-point-data';
 import SeedProd from './seed-prod';
-import SeedRainfallData from './seed-rainfall-data';
 
 @Module({
   imports: [
@@ -70,7 +69,6 @@ import SeedRainfallData from './seed-rainfall-data';
     SeedAdminAreaData,
     SeedPointData,
     SeedLineData,
-    SeedRainfallData,
     MockService,
     MockHelperService,
     GeoserverSyncService,

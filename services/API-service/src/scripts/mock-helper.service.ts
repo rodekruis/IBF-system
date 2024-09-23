@@ -250,10 +250,10 @@ export class MockHelperService {
     leadTime: string,
     countryCode: string,
   ): string {
-    const prefix = DisasterTypeGeoServerMapper.getDestFilePrefixForDisasterType(
-      disasterType,
-      countryCode,
-    );
+    const prefix =
+      DisasterTypeGeoServerMapper.getDestFilePrefixForDisasterType(
+        disasterType,
+      );
     return `${prefix}_${leadTime}_${countryCode}.tif`;
   }
 

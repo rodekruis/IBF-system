@@ -59,16 +59,6 @@
     "countries": ["ETH"]
   },
   {
-    "email": "egypt@redcross.nl",
-    "username": "egypt",
-    "firstName": "Egypt",
-    "lastName": "Manager",
-    "userRole": "disaster-manager",
-    "password": "password",
-    "userStatus": "active",
-    "countries": ["EGY"]
-  },
-  {
     "email": "philippines@redcross.nl",
     "username": "philippines",
     "firstName": "Philippines",

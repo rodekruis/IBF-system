@@ -35,7 +35,6 @@ import SeedAdminAreaData from './seed-admin-area-data';
 import { SeedHelper } from './seed-helper';
 import SeedLineData from './seed-line-data';
 import SeedPointData from './seed-point-data';
-import SeedRainfallData from './seed-rainfall-data';
 
 @Injectable()
 export class SeedInit implements InterfaceScript {
@@ -47,7 +46,6 @@ export class SeedInit implements InterfaceScript {
     private seedAdminAreaData: SeedAdminAreaData,
     private seedPointData: SeedPointData,
     private seedLineData: SeedLineData,
-    private seedRainfallData: SeedRainfallData,
     private countryService: CountryService,
   ) {
     this.seedHelper = new SeedHelper(dataSource);
@@ -236,10 +234,6 @@ export class SeedInit implements InterfaceScript {
     // ***** SEED INDICATOR DATA PER ADMIN AREA *****
     console.log('Seed Indicator data per admin-area...');
     await this.seedAdminAreaData.run();
-
-    // ***** SEED RAINFALL DATA *****
-    console.log('Seed rainfall data...');
-    await this.seedRainfallData.run();
   }
 }
 
