@@ -107,6 +107,16 @@ export const getNotificationActionsSection = ({
         },
         children: [
           {
+            tagName: 'mj-raw',
+            content: `<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${buttonLink}" style="height:38px;v-text-anchor:middle;width:200px;" arcsize="50%" strokecolor="${
+              primary ? COLOR_PRIMARY : COLOR_TERTIARY
+            }" fillcolor="${
+              primary ? COLOR_PRIMARY : COLOR_WHITE
+            }"><w:anchorlock/><center style="color: ${
+              primary ? COLOR_WHITE : COLOR_PRIMARY
+            }">${buttonText}<![endif]-->`,
+          },
+          {
             tagName: 'mj-button',
             attributes: {
               href: buttonLink,
@@ -121,6 +131,10 @@ export const getNotificationActionsSection = ({
               'font-weight': 'bold',
             },
             content: buttonText,
+          },
+          {
+            tagName: 'mj-raw',
+            content: '<!--[if mso]></center></v:roundrect><![endif]-->',
           },
         ],
       },
@@ -336,7 +350,7 @@ export const getFormattedDate = ({
   date: Date;
   countryCodeISO3?: string;
 }): string => {
-  return `${format(date, 'DDDD, dd MMMM')}${
+  return `${format(date, 'EEEE, dd MMMM')}${
     countryCodeISO3
       ? CountryTimeZoneMapping[countryCodeISO3].split('_').join(' ')
       : ''
