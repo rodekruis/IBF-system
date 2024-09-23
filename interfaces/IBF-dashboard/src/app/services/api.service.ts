@@ -231,7 +231,7 @@ export class ApiService {
   getEventsSummary(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
-  ): Observable<EventSummary> {
+  ): Observable<EventSummary[]> {
     return this.get(`event/${countryCodeISO3}/${disasterType}`, false);
   }
 
