@@ -52,15 +52,14 @@ jobs:
         env:
           MC_API: ${{ secrets.MC_API }}
         run: |
-          docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service
 
       - name: Start Interface
         working-directory: 'interfaces/IBF-dashboard'
         env:
           NG_API_URL: http://localhost:4000/api
         run: |
-          npm install
-          npm run start
+          npm run start:prod
 
       # - name: Install E2E-Tests runtime-dependencies
       #   working-directory: ${{ env.e2eTestsPath }}
