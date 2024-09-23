@@ -14,8 +14,8 @@ services:
       - api-network
     user: root
 
-  # ibf-dashboard:
-  #   entrypoint: ['echo', 'Service ibf-dashboard disabled']
+  ibf-dashboard:
+    entrypoint: ['echo', 'Service ibf-dashboard disabled']
 
   ibf-geoserver:
     ports:
