@@ -59,6 +59,7 @@ jobs:
         env:
           NG_API_URL: http://localhost:4000/api
         run: |
+          npm install
           npm run start:prod
 
       # - name: Install E2E-Tests runtime-dependencies
