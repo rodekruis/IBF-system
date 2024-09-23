@@ -14,7 +14,7 @@ USER node
 RUN npm ci --no-audit
 
 # Prepare configurations
-COPY --chown=node:node . .
+RUN chown -R node:node /home/ibf/api-service
 
 EXPOSE 3000
 
