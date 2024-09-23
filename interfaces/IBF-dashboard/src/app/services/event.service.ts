@@ -12,6 +12,11 @@ import {
 import { DisasterTypeKey } from '../types/disaster-type-key';
 import { EventState } from '../types/event-state';
 import { DisasterTypeService } from './disaster-type.service';
+import {
+  differenceInDays,
+  differenceInHours,
+  differenceInMonths,
+} from 'date-fns';
 
 export class EventSummary {
   countryCodeISO3: string;
@@ -149,13 +154,13 @@ export class EventService {
   }
 
   public getTriggerByDisasterType(
-    country: string,
+    countryCountryISO3: string,
     disasterType: DisasterType,
     callback,
   ) {
-    if (country && disasterType) {
+    if (countryCountryISO3 && disasterType) {
       this.apiService
-        .getEventsSummary(country, disasterType.disasterType)
+        .getEventsSummary(countryCountryISO3, disasterType.disasterType)
         .subscribe(this.onGetDisasterTypeEvent(disasterType, callback));
     }
   }
@@ -168,7 +173,7 @@ export class EventService {
       callback(disasterType);
     };
 
-  private onEvents = (events) => {
+  private onEvents = (events: EventSummary[]) => {
     this.apiService
       .getRecentDates(
         this.country.countryCodeISO3,
@@ -358,4 +363,36 @@ export class EventService {
       : this.state.events?.filter((e: EventSummary) => e.thresholdReached)
           .length > 0;
   }
+
+  public isLastModelDateStale = (
+    recentDate: Date,
+    disasterType: DisasterType,
+  ) => {
+    const percentageOvertimeAllowed = 0.1; // 10%
+
+    const durationUnit =
+      disasterType.leadTimeUnit === LeadTimeUnit.day
+        ? 'days'
+        : disasterType.leadTimeUnit === LeadTimeUnit.hour
+          ? 'hours'
+          : disasterType.leadTimeUnit === LeadTimeUnit.month
+            ? 'months'
+            : null;
+    const durationUnitValue =
+      disasterType.leadTimeUnit === LeadTimeUnit.hour
+        ? 6 // all "hour" pipelines are 6-hourly
+        : 1; // in all other cases it is 1-daily/1-monthly;
+
+    const nowDate = Date.now();
+    const diff =
+      durationUnit === 'hours'
+        ? differenceInHours(nowDate, recentDate)
+        : durationUnit === 'days'
+          ? differenceInDays(nowDate, recentDate)
+          : durationUnit === 'months'
+            ? differenceInMonths(nowDate, recentDate)
+            : null;
+
+    return diff > durationUnitValue + percentageOvertimeAllowed;
+  };
 }

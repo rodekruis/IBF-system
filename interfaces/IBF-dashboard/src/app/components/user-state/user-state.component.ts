@@ -25,6 +25,8 @@ import { ChangePasswordPopoverComponent } from '../change-password-popover/chang
 export class UserStateComponent implements OnInit {
   @Input()
   public isLoggedIn: boolean;
+  @Input()
+  public showCountry: boolean = true;
 
   public environmentConfiguration = environment.configuration;
 

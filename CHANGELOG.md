@@ -1,3 +1,31 @@
+# [0.270.0](https://github.com/rodekruis/IBF-system/compare/v0.269.2...v0.270.0) (2024-09-23)
+
+
+### Bug Fixes
+
+* add time for hourly pipelines ([7241844](https://github.com/rodekruis/IBF-system/commit/72418447077b99b4be5b0b902a65c6deb17a1913))
+* end of line lint errors in API-service ([22bd9c1](https://github.com/rodekruis/IBF-system/commit/22bd9c173d3ebcfdf87b11d252dfc07f8828241e))
+* make page title translatable ([ee4b2b4](https://github.com/rodekruis/IBF-system/commit/ee4b2b4fc5af201b9a865adb14ddb4bd484e6995))
+* process PR comments ([5d4e455](https://github.com/rodekruis/IBF-system/commit/5d4e45594487b2318e47a9d70e3599b2edafbdfc))
+* remove country name from header where not appropriate ([9ff0fce](https://github.com/rodekruis/IBF-system/commit/9ff0fce88149ce8f6070153d9899db52ba7aa84b))
+* use full width of page ([b712a28](https://github.com/rodekruis/IBF-system/commit/b712a283abba0a5fcedec9f2dd19f908034d6c57))
+
+
+### Features
+
+* status page with last run date and triggered state per country/disaster ([682d99d](https://github.com/rodekruis/IBF-system/commit/682d99d8a3f184ae3db1f5a3aa104a5fd9767fd3))
+
+
+
+## [0.269.2](https://github.com/rodekruis/IBF-system/compare/v0.269.1...v0.269.2) (2024-09-20)
+
+
+### Bug Fixes
+
+* suspicious logic to update triggerValue ([36fc8f2](https://github.com/rodekruis/IBF-system/commit/36fc8f27fa3601aec10884a3df4884ee7d95b48d))
+
+
+
 ## [0.269.1](https://github.com/rodekruis/IBF-system/compare/v0.269.0...v0.269.1) (2024-09-17)
 
 
@@ -81,24 +109,6 @@
 ### Bug Fixes
 
 * logos should stack horizontally and not vertically ([68c7c05](https://github.com/rodekruis/IBF-system/commit/68c7c05acbb8965cbe2a419e922ae10cabb94d70))
-
-
-
-## [0.268.5](https://github.com/rodekruis/IBF-system/compare/v0.268.4...v0.268.5) (2024-09-10)
-
-
-### Bug Fixes
-
-* adjust spacing and replace p with br ([6d1019a](https://github.com/rodekruis/IBF-system/commit/6d1019af60c8da418b7cc05694502ee0bc8a0012))
-
-
-
-## [0.268.4](https://github.com/rodekruis/IBF-system/compare/v0.268.3...v0.268.4) (2024-09-10)
-
-
-### Bug Fixes
-
-* html validation ([0cb428a](https://github.com/rodekruis/IBF-system/commit/0cb428a6529a234721782c4492e0e6329e919799))
 
 
 
