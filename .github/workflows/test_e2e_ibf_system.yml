@@ -58,6 +58,7 @@ jobs:
         working-directory: 'interfaces/IBF-dashboard'
         env:
           NG_API_URL: http://localhost:4000/api
+          NG_CONFIGURATION: production
         run: |
           npm install
           npm run start:prod
