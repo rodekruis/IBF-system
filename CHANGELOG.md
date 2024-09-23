@@ -1,3 +1,13 @@
+## [0.270.1](https://github.com/rodekruis/IBF-system/compare/v0.270.0...v0.270.1) (2024-09-23)
+
+
+### Bug Fixes
+
+* remove egypt specific code/data ([7fe1645](https://github.com/rodekruis/IBF-system/commit/7fe164593f683a49c28a7b2576955abb04e00cef))
+* update sharepoint link raster-files.zip ([dc5496c](https://github.com/rodekruis/IBF-system/commit/dc5496ce4206b5f9e81f3195949dedfbaf4a236e))
+
+
+
 # [0.270.0](https://github.com/rodekruis/IBF-system/compare/v0.269.2...v0.270.0) (2024-09-23)
 
 
@@ -100,15 +110,6 @@
 * update layer copy ([f106b28](https://github.com/rodekruis/IBF-system/commit/f106b2880355da5ac4bd68c6d25ee96a3073b194))
 * use consistent capitalization for labels ([518211a](https://github.com/rodekruis/IBF-system/commit/518211ae3c6c2578c5cb9f21d5722b738c3342c7))
 * use self-closing br tags ([20ebce4](https://github.com/rodekruis/IBF-system/commit/20ebce46c3b3b740f7a9b0ee6ce62dae88e518bd))
-
-
-
-## [0.268.6](https://github.com/rodekruis/IBF-system/compare/v0.268.5...v0.268.6) (2024-09-10)
-
-
-### Bug Fixes
-
-* logos should stack horizontally and not vertically ([68c7c05](https://github.com/rodekruis/IBF-system/commit/68c7c05acbb8965cbe2a419e922ae10cabb94d70))
 
 
 
