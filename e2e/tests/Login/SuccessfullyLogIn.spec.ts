@@ -8,10 +8,12 @@ import LoginPage from '../../Pages/LoginPage';
 
 let accessToken: string;
 
-test.beforeEach(async ({ page }) => {
+test.beforeEach(async () => {
   accessToken = await getAccessToken();
   await resetDB(accessToken);
+});
 
+test('Successfully Login', async ({ page }) => {
   // Login
   const loginPage = new LoginPage(page);
   await page.goto('/');
@@ -21,6 +23,5 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('Successfully Login', async ({ page }) => {
-  await page.waitForURL((url) => url.pathname.startsWith('/'));
+  await page.waitForURL((url) => url.pathname === '/');
 });

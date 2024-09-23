@@ -46,7 +46,7 @@ export default defineConfig({
   outputDir: './test-results',
   timeout: 60000,
   use: {
-    baseURL: process.env.BASE_URL,
+    baseURL: process.env.DASHBOARD_URL,
     video: 'on-first-retry',
     screenshot: 'only-on-failure',
     headless: true,
