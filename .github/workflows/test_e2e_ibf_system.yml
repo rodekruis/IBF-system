@@ -52,17 +52,17 @@ jobs:
         run: |
           docker compose up -d
 
-      - name: Start Interface
-        working-directory: 'interfaces/IBF-dashboard'
-        env:
-          NG_API_URL: http://localhost:4000/api
-        run: |
-          docker build . --file Dockerfile --tag ibf-dashboard:$(date +%s)
+      # - name: Start Interface
+      #   working-directory: 'interfaces/IBF-dashboard'
+      #   env:
+      #     NG_API_URL: http://localhost:4000/api
+      #   run: |
+      #     docker build . --file Dockerfile --tag ibf-dashboard:$(date +%s)
 
-      - name: Install E2E-Tests runtime-dependencies
-        working-directory: ${{ env.e2eTestsPath }}
-        run: |
-          npx playwright install chromium --with-deps
+      # - name: Install E2E-Tests runtime-dependencies
+      #   working-directory: ${{ env.e2eTestsPath }}
+      #   run: |
+      #     npx playwright install chromium --with-deps
 
       - name: Wait for IBF-API-service to be running
         env:
