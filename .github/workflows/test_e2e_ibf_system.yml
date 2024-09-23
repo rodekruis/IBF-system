@@ -18,6 +18,9 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
 
     steps:
       - name: Check out repository code
@@ -48,11 +51,11 @@ jobs:
       #     cd ./services/API-service && npm ci --omit=optional --no-fund --no-audit
 
       - name: Run Services with Docker
-        working-directory: ./
         env:
           MC_API: ${{ secrets.MC_API }}
         run: |
-          docker compose up -d
+          docker build . --file Dockerfile --tag ibf-api-service:$(date +%s)
+        working-directory: services/API-service
 
       # - name: Start Interface
       #   working-directory: 'interfaces/IBF-dashboard'
