@@ -19,6 +19,11 @@
       "copy-instructions": "Alert data can be copied into a spreadsheet by clicking on the \"Copy to clipboard\" button on the right."
     }
   },
+  "status-report-page": {
+    "dev-menu-link": "Open status report page",
+    "page-title": "IBF status report",
+    "no-data": "No data"
+  },
   "login-page": {
     "title": "Login",
     "welcome": "Hello! Welcome to IBF.",

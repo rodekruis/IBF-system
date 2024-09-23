@@ -871,18 +871,22 @@ export class EventService {
         eventArea.triggerValue = affectedArea.triggerValue;
         eventArea.actionsValue = affectedArea.actionsValue;
         eventAreasToUpdate.push(
-          `('${eventArea.eventPlaceCodeId}',${eventArea.actionsValue})`,
+          `('${eventArea.eventPlaceCodeId}',${eventArea.actionsValue},${eventArea.triggerValue})`,
         );
       }
     }
     if (eventAreasToUpdate.length) {
       const repository = this.dataSource.getRepository(EventPlaceCodeEntity);
-      const updateQuery = `UPDATE "${repository.metadata.schema}"."${
-        repository.metadata.tableName
-      }" epc \
-      SET "actionsValue" = areas.value::double precision \
-      FROM (VALUES ${eventAreasToUpdate.join(',')}) areas(id,value) \
-      WHERE areas.id::uuid = epc."eventPlaceCodeId" \
+      const updateQuery = `UPDATE \
+      "${repository.metadata.schema}"."${repository.metadata.tableName}" epc \
+      SET \
+          "actionsValue" = areas.actionValue::double precision, \
+          "triggerValue" = areas.triggerValue::double precision \
+      FROM \
+         (VALUES ${eventAreasToUpdate.join(',')}) \
+         areas(id, actionValue, triggerValue) \
+      WHERE \
+          areas.id::uuid = epc."eventPlaceCodeId" \
       `;
       await this.dataSource.query(updateQuery);
     }

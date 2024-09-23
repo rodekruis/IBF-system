@@ -1,0 +1,40 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button title="Home" [routerLink]="['/']">
+        <ion-icon name="apps" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <app-user-state [isLoggedIn]="true" [showCountry]="false"></app-user-state>
+  </ion-toolbar>
+  <app-disclaimer-toolbar></app-disclaimer-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+  <div id="report">
+    <h1>{{ 'status-report-page.page-title' | translate }}</h1>
+    <h2 id="today"></h2>
+    <div id="countries">
+      @for (country of statusData | keyvalue; track country.key) {
+        <div class="country">
+          <div class="country--name" [id]="'country--' + country.key">
+            {{ country.key }}
+          </div>
+          @for (disaster of country.value | keyvalue; track disaster.key) {
+            <div
+              class="disaster"
+              [id]="'country--' + country.key + '--' + disaster.key"
+            >
+              <img class="disaster--logo" [src]="disaster.value.imgSrc" />
+              <span
+                class="disaster--date"
+                [class.danger]="disaster.value.isStale"
+                >{{ disaster.value.date }}</span
+              >
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</ion-content>
