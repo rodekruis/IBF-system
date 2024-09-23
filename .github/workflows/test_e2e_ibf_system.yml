@@ -52,7 +52,7 @@ jobs:
         env:
           MC_API: ${{ secrets.MC_API }}
         run: |
-          docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service
+          docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
 
       # - name: Start Interface
       #   working-directory: 'interfaces/IBF-dashboard'
