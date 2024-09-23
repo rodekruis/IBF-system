@@ -18,9 +18,6 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [20.x]
 
     steps:
       - name: Check out repository code
@@ -51,16 +48,16 @@ jobs:
       #     cd ./services/API-service && npm ci --omit=optional --no-fund --no-audit
 
       - name: Run Services with Docker
+        working-directory: ./
         env:
           MC_API: ${{ secrets.MC_API }}
         run: |
-          docker build . --file Dockerfile --tag ibf-api-service:$(date +%s)
-        working-directory: services/API-service
+          docker compose up -d -f docker-compose.yml
 
       # - name: Start Interface
       #   working-directory: 'interfaces/IBF-dashboard'
       #   env:
-      #     NG_API_URL: http://localhost:4000/api
+      #     NG_API_URL: http://localhost:3000/api
       #   run: |
       #     docker build . --file Dockerfile --tag ibf-dashboard:$(date +%s)
 
@@ -71,7 +68,7 @@ jobs:
 
       - name: Wait for IBF-API-service to be running
         run: |
-          timeout 30s sh -c 'until curl http://localhost:4000/api -I; do echo "Waiting for the IBF-API-service to be running..."; sleep 1; done'
+          timeout 30s sh -c 'until curl http://localhost:3000/api -I; do echo "Waiting for the IBF-API-service to be running..."; sleep 1; done'
 
       - name: Run E2E-Tests with Playwright
         working-directory: ${{ env.e2eTestsPath }}

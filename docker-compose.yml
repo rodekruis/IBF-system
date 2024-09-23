@@ -54,7 +54,6 @@ services:
       web-server-network:
       api-network:
     restart: unless-stopped
-    user: "node"
 
   ibf-dashboard:
     build:
