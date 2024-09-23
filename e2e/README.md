@@ -45,9 +45,9 @@ npx playwright install
 
 ### Set necessary Environment-variables
 
-See the "Testing only"-section at the end of the [`/.env.example`](/.env.example)-file.
+See the "Testing only"-section at the end of the [`./.env.example`](./.env.example)-file.
 
-Make sure to fill in all relevant variables in your local `services/.env`-file.
+Make sure to fill in all relevant variables in your local `./.env`-file.
 
 ## Running tests
 
