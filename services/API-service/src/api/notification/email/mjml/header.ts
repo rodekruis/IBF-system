@@ -9,9 +9,15 @@ export const getMjmlHeader = ({
   sentOnDate: string;
   timeZone: string;
 }): object => {
-  const titleElement = {
-    tagName: 'mj-text',
-    attributes: { 'font-size': '36px', color: '#ffffff', align: 'center' },
+  const logosElement = getImageElement({
+    src: logosSrc,
+    otherAttributes: {
+      padding: '0px',
+      'container-background-color': COLOR_WHITE,
+    },
+  });
+
+  const titleElement = getTextElement({
     content: `${nrOfEvents} ${disasterTypeLabel} alerts`,
   };
 
@@ -24,7 +30,8 @@ export const getMjmlHeader = ({
   return {
     tagName: 'mj-column',
     attributes: {
-      'background-color': '#4f22d7',
+      'padding-top': '16px',
+      'background-color': COLOR_PRIMARY,
     },
     children: [titleElement, subtitleElement],
   };

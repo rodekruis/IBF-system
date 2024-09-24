@@ -31,6 +31,7 @@ import { WhatsappModule } from './whatsapp/whatsapp.module';
     EmailService,
     EmailTemplateService,
     MjmlService,
+    HelperService,
   ],
 })
 export class NotificationModule {}
