@@ -61,7 +61,7 @@ jobs:
           NG_CONFIGURATION: production
         run: |
           npm install
-          npm run start:prod
+          npm run start:prod > portal-server-logs.txt 2>&1 &
 
       # - name: Install E2E-Tests runtime-dependencies
       #   working-directory: ${{ env.e2eTestsPath }}
