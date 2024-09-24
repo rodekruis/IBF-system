@@ -1,11 +1,5 @@
 # IBF-system
 
-## Status
-
-| Component                 | Build Status                                                                                                                                                                              |
-| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Cypress Integration Tests | [![IBF-system](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/jkaw7k/master&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/jkaw7k/runs) |
-
 ## Introduction
 
 **NOTE**: Some background on IBF-terminology (e.g. triggers) is

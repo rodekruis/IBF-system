@@ -20,7 +20,7 @@ export async function getAccessToken(): Promise<string> {
 
 export function loginApi(
   email: string,
-  password: string,
+  password?: string,
 ): Promise<request.Response> {
   return getServer().post(`/user/login`).send({
     email,
@@ -29,7 +29,7 @@ export function loginApi(
 }
 
 export function getHostname(): string {
-  return 'http://localhost:3000/api';
+  return process.env.BASE_URL_IBF_SERVICE;
 }
 
 export function getEventTitle(disasterType: string, eventName: string) {

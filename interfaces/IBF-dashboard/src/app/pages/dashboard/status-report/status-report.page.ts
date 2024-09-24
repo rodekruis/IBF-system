@@ -8,13 +8,27 @@ import { EventService, EventSummary } from '../../../services/event.service';
 import { format, parseISO } from 'date-fns';
 import { TranslateService } from '@ngx-translate/core';
 
+interface DisasterStatus {
+  imgSrc: string;
+  date: string;
+  isStale: boolean;
+}
+
+interface CountryStatus {
+  [key: string]: DisasterStatus;
+}
+
+interface StatusData {
+  [key: string]: CountryStatus;
+}
+
 @Component({
   selector: 'app-status-report',
   templateUrl: './status-report.page.html',
   styleUrls: ['./status-report.page.scss'],
 })
 export class StatusReportPage implements OnInit {
-  public statusData = {};
+  public statusData: StatusData = {};
   constructor(
     private apiService: ApiService,
     private countryService: CountryService,
@@ -33,8 +47,11 @@ export class StatusReportPage implements OnInit {
       this.statusData[country.countryCodeISO3] = {};
       const disasterTypes = country.disasterTypes;
       for (const disasterType of disasterTypes) {
-        this.statusData[country.countryCodeISO3][disasterType.disasterType] =
-          {};
+        this.statusData[country.countryCodeISO3][disasterType.disasterType] = {
+          imgSrc: '',
+          date: '',
+          isStale: true,
+        };
         this.apiService
           .getRecentDates(country.countryCodeISO3, disasterType.disasterType)
           .subscribe((date) =>

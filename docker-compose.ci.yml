@@ -1,0 +1,41 @@
+services:
+  ibf-api-service:
+    command: ['npm', 'run', 'start:dev']
+    environment:
+      - NODE_ENV=development
+      - LOCAL_PORT_IBF_SERVICE=${LOCAL_PORT_IBF_SERVICE}
+      - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD}
+    ports:
+      - ${LOCAL_PORT_IBF_SERVICE}:3000
+    depends_on:
+      - ibf-local-db
+    networks:
+      - web-server-network
+      - api-network
+    user: root
+
+  ibf-dashboard:
+    entrypoint: ['echo', 'Service ibf-dashboard disabled']
+
+  ibf-geoserver:
+    ports:
+      - 8081:8080
+
+  ibf-local-db:
+    image: postgis/postgis
+    environment:
+      - POSTGRES_USER=${DB_USERNAME}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=${DB_DATABASE}
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      # - ibf-local-db-data:/var/lib/postgresql/data
+    ports:
+      - 5437:5432
+    networks:
+      - api-network
+    restart: unless-stopped
+
+# volumes:
+#   ibf-local-db-data:
+#   api_service_node_modules:

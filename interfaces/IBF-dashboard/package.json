@@ -16,15 +16,13 @@
     "postbuild:prod": "npm run compress",
     "prebuild": "npm run set-env-variables",
     "prestart": "npm install --no-audit --no-fund",
-    "serve:static": "cp www/browser/index.html www/browser/404.html && npx http-server www/browser/ -c-1 --gzip",
+    "serve:static": "cp www/browser/index.html www/browser/404.html && npx http-server www/browser/ -c-1 --gzip --port 4200",
     "set-env-variables": "node ./_set-env-variabes.js",
     "start": "ng serve",
     "start:no-install": "ng serve",
     "start:prod": "npm run build:prod && npm run serve:static",
     "test:dev": "ng test",
-    "test": "npm run test:dev -- --no-watch --browsers=ChromeHeadless",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "test": "npm run test:dev -- --no-watch --browsers=ChromeHeadless"
   },
   "dependencies": {
     "@angular/common": "^18.1.0",
@@ -65,7 +63,6 @@
     "@angular/compiler": "^18.1.0",
     "@angular/compiler-cli": "^18.1.0",
     "@angular/language-service": "^18.1.0",
-    "@cypress/schematic": "^2.4.0",
     "@ionic/cli": "^6.12.4",
     "@tailwindcss/aspect-ratio": "latest",
     "@tailwindcss/forms": "latest",
@@ -78,7 +75,6 @@
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
     "autoprefixer": "^10.4.7",
-    "cypress": "latest",
     "esbuild": "^0.23.0",
     "eslint": "^8.57.0",
     "jasmine-core": "^5.1.2",
