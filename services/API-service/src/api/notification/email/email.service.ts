@@ -1,3 +1,4 @@
+// import * as fs from 'fs';
 import { Injectable } from '@nestjs/common';
 
 import Mailchimp from 'mailchimp-api-v3';
@@ -6,7 +7,7 @@ import { EventSummaryCountry } from '../../../shared/data.model';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { CountryEntity } from './../../country/country.entity';
 import { NotificationContentService } from './../notification-content/notification-content.service';
-import { EmailTemplateService } from './email-template.service';
+import { MjmlService } from './mjml.service';
 
 @Injectable()
 export class EmailService {
@@ -17,7 +18,7 @@ export class EmailService {
 
   public constructor(
     private readonly notificationContentService: NotificationContentService,
-    private readonly emailTemplateService: EmailTemplateService,
+    private readonly mjmlService: MjmlService,
   ) {}
 
   private async getSegmentId(
@@ -47,18 +48,22 @@ export class EmailService {
     date?: Date,
   ): Promise<void | string> {
     date = date ? new Date(date) : new Date();
-
     const emailContent =
       await this.notificationContentService.getContentTriggerNotification(
         country,
         disasterType,
         activeEvents,
       );
-    const emailHtml = await this.emailTemplateService.createHtmlForTriggerEmail(
+    let emailHtml = '';
+
+    emailHtml += this.mjmlService.getTriggerEmailHtmlOutput({
       emailContent,
       date,
-    );
+    });
+
     if (isApiTest) {
+      // NOTE: use this to test the email output instead of using Mailchimp
+      // fs.writeFileSync(`email.html`, emailHtml);
       return emailHtml;
     }
     const emailSubject = `IBF ${emailContent.disasterTypeLabel} alert`;
@@ -79,14 +84,18 @@ export class EmailService {
   ): Promise<void | string> {
     const disasterTypeLabel =
       await this.notificationContentService.getDisasterTypeLabel(disasterType);
-    const emailHtml =
-      await this.emailTemplateService.createHtmlForTriggerFinishedEmail(
+
+    const emailContent =
+      await this.notificationContentService.getContentTriggerNotification(
         country,
         disasterType,
         finishedEvents,
-        disasterTypeLabel,
-        date ? new Date(date) : new Date(),
       );
+
+    const emailHtml = this.mjmlService.getEventFinishedEmailHtmlOutput({
+      emailContent,
+      date,
+    });
 
     if (isApiTest) {
       return emailHtml;
