@@ -8,7 +8,6 @@ import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
-import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { AdminLevel } from '../api/country/admin-level.enum';
 import { CountryEntity } from '../api/country/country.entity';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
@@ -16,7 +15,6 @@ import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.enti
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { EventService } from '../api/event/event.service';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
-import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
 import { MetadataService } from '../api/metadata/metadata.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { TyphoonScenario } from './enum/mock-scenario.enum';
@@ -37,8 +35,6 @@ export class ScriptsService {
   private readonly triggerPerLeadTimeRepo: Repository<TriggerPerLeadTime>;
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
-  @InjectRepository(AdminAreaEntity)
-  private readonly adminAreaRepo: Repository<AdminAreaEntity>;
   @InjectRepository(EapActionStatusEntity)
   private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
   @InjectRepository(CountryEntity)
@@ -49,7 +45,6 @@ export class ScriptsService {
 
   public constructor(
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
-    private glofasStationService: GlofasStationService,
     private typhoonTrackService: TyphoonTrackService,
     private eventService: EventService,
     private metadataService: MetadataService,
@@ -61,6 +56,7 @@ export class ScriptsService {
     const isApiTest = false;
 
     const envCountries = process.env.COUNTRIES.split(',');
+    console.log('envCountries: ', envCountries);
 
     const newMockServiceDisasterTypes = [
       DisasterType.Floods,

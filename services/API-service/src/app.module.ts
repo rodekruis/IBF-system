@@ -14,7 +14,6 @@ import { MetadataModule } from './api/metadata/metadata.module';
 import { NotificationModule } from './api/notification/notification.module';
 import { WhatsappModule } from './api/notification/whatsapp/whatsapp.module';
 import { PointDataModule } from './api/point-data/point-data.module';
-import { RainfallTriggersModule } from './api/rainfall-triggers/rainfall-triggers.module';
 import { TyphoonTrackModule } from './api/typhoon-track/typhoon-track.module';
 import { UserModule } from './api/user/user.module';
 import { WaterpointsModule } from './api/waterpoints/waterpoints.module';
@@ -39,7 +38,6 @@ import { TypeOrmModule } from './typeorm.module';
     AdminAreaDynamicDataModule,
     DisasterModule,
     AdminAreaDataModule,
-    RainfallTriggersModule,
     TyphoonTrackModule,
     NotificationModule,
     UserModule,

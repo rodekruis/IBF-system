@@ -43,7 +43,6 @@ export class MockBaseScenario {
       'ZMB',
       'MWI',
       'ZWE',
-      'EGY',
       'PHL',
       'SSD',
     ]).join(' | '),

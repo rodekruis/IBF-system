@@ -1,7 +1,6 @@
 [
   {
     "countryDisasterTypes": {
-      "EGY": { "heavy-rain": ["map"] },
       "ETH": { "drought": ["map"], "floods": ["map"], "malaria": ["map"] },
       "KEN": { "drought": ["map"], "floods": ["map"] },
       "MWI": { "flash-floods": ["map"], "floods": ["map"] },
@@ -24,9 +23,6 @@
     "dynamic": true,
     "lazyLoad": true,
     "description": {
-      "EGY": {
-        "heavy-rain": "Egyptian RCS can respond accordingly to their EAP/ SOP when the rainfall forecast from Global Forecast System for the lead times of 3- or 5- or 7 days exceeds the defined thresholds, which will be anticipated to occur in some regions of Egypt. The defined threshold corresponds to a 5-year return period heavy rainfall event."
-      },
       "ETH": {
         "drought": "Rainfall forecast based on NMA/ICPAC will be used as the primary trigger mechanism before the start of the season. This trigger will provide information with a lead time of up to 1 months. The trigger values for this trigger are for more than 50% of the geographical area of a zone(Admin level 2) a Drier than normal conditions(SPI3< -1) are predicted based on the 1 month Standard precipitation index (SPI3). The SPI3 values will be based on seasonal rainfall forecast issued by NMA/ICPAC. In addition to the above requirement the probability of below normal rain should be at 45% based on probabilistic forecast information provided by NMA/ICPAC.",
         "floods": "The ERCS will act based on the developed trigger table when the Global Floods awareness system forecast indicates a level of river discharge greater or equal to a level of 10 years return period with a probability of at least 75% forecast uncertainty within 7 days lead time period.",
@@ -64,7 +60,6 @@
   },
   {
     "countryDisasterTypes": {
-      "EGY": { "heavy-rain": ["map", "aggregate"] },
       "ETH": {
         "drought": ["map", "aggregate"],
         "floods": ["map", "aggregate"]
@@ -103,7 +98,6 @@
     "dynamic": true,
     "unit": "no. of people",
     "description": {
-      "EGY": { "heavy-rain": "-" },
       "ETH": {
         "drought": "This layer shows the estimated rounded number of people potentially exposed per geographic area. The estimate is calculated by determining the population living in the potential drought extant area.<br/><br/>Source (Population Data): <a href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a>",
         "floods": "This layer shows the estimated rounded number of people potentially exposed per geographic area. The estimate is calculated by determining the population living in the potentially flooded area. <br/><br/>Source (Population Data): <a href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
@@ -178,9 +172,6 @@
     "order": 1,
     "dynamic": true,
     "description": {
-      "EGY": {
-        "heavy-rain": "Percentage of people exposed is calculated by the population living in the rainfall extent area within the governorates currently triggered. The number of people and the rainfall extent are derived from the below sources.<br/><br/>Source (Population Data): <a href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Rainfall Extent): Global Ensemble Forecast System (GEFS) is a global weather forecast model produced by the NOAA's National Centers for Environmental Prediction (NCEP). Dozens of atmospheric forecast variables up to 16 days in the future, including precipitation, are available through this dataset. The Rainfall Extent layer shows areas where forecasted GEFS precipitation occurrence exceeds defined thresholds."
-      },
       "ETH": {
         "drought": "Percentage of people exposed is calculated by the population living in within the districts currently triggered. The number of people was derived from the below sources.<br/><br/>Source (Population Data): <a href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a>",
         "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
@@ -207,7 +198,6 @@
   },
   {
     "countryDisasterTypes": {
-      "EGY": { "heavy-rain": ["map", "aggregate"] },
       "ETH": {
         "drought": ["map", "aggregate"],
         "floods": ["map", "aggregate"],
@@ -244,9 +234,6 @@
     "dynamic": false,
     "unit": "no. of people",
     "description": {
-      "EGY": {
-        "heavy-rain": "Population data is aggregated per administrative area.<br/><br/>Source (Population Data): <a href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a>"
-      },
       "ETH": {
         "drought": "Population data is aggregated per administrative area.<br/><br/>Source (Population Data): <a href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a>",
         "floods": "Population data is aggregated per administrative area.<br/><br/>Source (Population Data): <a href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a>",

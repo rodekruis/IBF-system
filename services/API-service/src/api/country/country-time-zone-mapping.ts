@@ -5,7 +5,6 @@ export const CountryTimeZoneMapping: { [key: string]: string } = {
   ZMB: 'Africa/Lusaka',
   MWI: 'Africa/Blantyre',
   ZWE: 'Africa/Harare',
-  EGY: 'Africa/Cairo',
   PHL: 'Asia/Manila',
   SSD: 'Africa/Juba',
 };

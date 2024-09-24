@@ -825,18 +825,10 @@ export class MapService {
         : this.nonTriggeredAreaColor;
   }
 
-  getAdminRegionFillOpacity = (layer: IbfLayer, placeCode: string): number => {
+  getAdminRegionFillOpacity = (layer: IbfLayer): number => {
     let fillOpacity = this.state.defaultFillOpacity;
 
     if (layer.group === IbfLayerGroup.adminRegions) {
-      fillOpacity = 0.0;
-    }
-
-    if (
-      this.country &&
-      this.country.countryCodeISO3 === 'EGY' &&
-      !placeCode.includes('EG')
-    ) {
       fillOpacity = 0.0;
     }
 
@@ -957,10 +949,7 @@ export class MapService {
           adminRegion.properties.placeCode,
           adminRegion.properties.placeCodeParent,
         );
-        const fillOpacity = this.getAdminRegionFillOpacity(
-          layer,
-          adminRegion.properties.placeCode,
-        );
+        const fillOpacity = this.getAdminRegionFillOpacity(layer);
         let weight = this.getAdminRegionWeight(
           layer,
           adminRegion.properties.placeCode,
