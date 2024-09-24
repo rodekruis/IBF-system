@@ -17,7 +17,7 @@ type ActivationLogRecord = { [key: string]: string | number | boolean };
   styleUrls: ['./activation.log.page.scss'],
 })
 export class ActivationLogPage implements OnInit, OnDestroy {
-  private countryCodeISO3: string;
+  public countryCodeISO3: string;
   private disasterType: DisasterTypeKey;
   private activationLogSubscription: Subscription;
   public activationLogs:
