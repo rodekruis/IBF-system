@@ -59,6 +59,7 @@ export const getMjmlFooter = ({
     attributes: {
       padding: '4px',
       'background-color': '#241C15',
+      width: '100%',
     },
   };
 
