@@ -1,3 +1,15 @@
+## [0.270.2](https://github.com/rodekruis/IBF-system/compare/v0.270.1...v0.270.2) (2024-09-24)
+
+
+### Bug Fixes
+
+* remove malawi user config from example.env ([7a061db](https://github.com/rodekruis/IBF-system/commit/7a061db43216ca51a95ad83bbd6f407167986993))
+* setup env vars ([876fa1f](https://github.com/rodekruis/IBF-system/commit/876fa1f3e8043503ff1527f9e528245004e61c5a))
+* small cleanup ([9974e80](https://github.com/rodekruis/IBF-system/commit/9974e80404b623a37c864279970d26b62a94d9d1))
+* test different ownership command ([54acd1e](https://github.com/rodekruis/IBF-system/commit/54acd1e12bf7d3c2cf07729a6ea6b0e19ee9dfbd))
+
+
+
 ## [0.270.1](https://github.com/rodekruis/IBF-system/compare/v0.270.0...v0.270.1) (2024-09-23)
 
 
@@ -97,19 +109,6 @@
 * misaligned text on hover ([4378a90](https://github.com/rodekruis/IBF-system/commit/4378a90382a0c2cc6c2c01b301ffdd96d1b926ad))
 * spacing in chat component ([6983e46](https://github.com/rodekruis/IBF-system/commit/6983e46d771b51fe6c11f635048f48b839dd0e71))
 * use unique id for for loop ([f9b4f2b](https://github.com/rodekruis/IBF-system/commit/f9b4f2bddb0100897fba69a68b0c5b0ac7eb2671))
-
-
-
-## [0.268.7](https://github.com/rodekruis/IBF-system/compare/v0.268.6...v0.268.7) (2024-09-10)
-
-
-### Bug Fixes
-
-* remove target blank ([70c6d38](https://github.com/rodekruis/IBF-system/commit/70c6d38b4906450518b210682d9189b1c39d8f02))
-* typo ([f695a4e](https://github.com/rodekruis/IBF-system/commit/f695a4ec576093c48119022d8933286f8f610ea7))
-* update layer copy ([f106b28](https://github.com/rodekruis/IBF-system/commit/f106b2880355da5ac4bd68c6d25ee96a3073b194))
-* use consistent capitalization for labels ([518211a](https://github.com/rodekruis/IBF-system/commit/518211ae3c6c2578c5cb9f21d5722b738c3342c7))
-* use self-closing br tags ([20ebce4](https://github.com/rodekruis/IBF-system/commit/20ebce46c3b3b740f7a9b0ee6ce62dae88e518bd))
 
 
 
