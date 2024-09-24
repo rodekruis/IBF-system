@@ -108,13 +108,21 @@ export const getNotificationActionsSection = ({
         children: [
           {
             tagName: 'mj-raw',
-            content: `<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="${buttonLink}" style="height:38px;v-text-anchor:middle;width:200px;" arcsize="50%" strokecolor="${
-              primary ? COLOR_PRIMARY : COLOR_TERTIARY
-            }" fillcolor="${
-              primary ? COLOR_PRIMARY : COLOR_WHITE
-            }"><w:anchorlock/><center style="color: ${
-              primary ? COLOR_WHITE : COLOR_PRIMARY
-            }">${buttonText}<![endif]-->`,
+            content: `<!--[if mso]>
+              <div style="text-align: center">
+                <v:roundrect
+                  xmlns:v="urn:schemas-microsoft-com:vml"
+                  xmlns:w="urn:schemas-microsoft-com:office:word"
+                  href="${buttonLink}"
+                  style="height:38px;v-text-anchor:middle;width:200px;"
+                  arcsize="50%"
+                  strokecolor="${primary ? COLOR_PRIMARY : COLOR_TERTIARY}"
+                  fillcolor="${primary ? COLOR_PRIMARY : COLOR_WHITE}">
+                  <w:anchorlock/>
+                    <center
+                      style="color: ${primary ? COLOR_WHITE : COLOR_PRIMARY}">
+                        ${buttonText}
+              <![endif]-->`,
           },
           {
             tagName: 'mj-button',
@@ -134,7 +142,7 @@ export const getNotificationActionsSection = ({
           },
           {
             tagName: 'mj-raw',
-            content: '<!--[if mso]></center></v:roundrect><![endif]-->',
+            content: '<!--[if mso]></center></v:roundrect></div><![endif]-->',
           },
         ],
       },
