@@ -16,7 +16,7 @@
     "postbuild:prod": "npm run compress",
     "prebuild": "npm run set-env-variables",
     "prestart": "npm install --no-audit --no-fund",
-    "serve:static": "cp www/browser/index.html www/browser/404.html && npx http-server www/browser/ -c-1 --gzip",
+    "serve:static": "cp www/browser/index.html www/browser/404.html && npx http-server www/browser/ -c-1 --gzip --port 4200",
     "set-env-variables": "node ./_set-env-variabes.js",
     "start": "ng serve",
     "start:no-install": "ng serve",
