@@ -21,6 +21,10 @@ export const getMjmlHeader = ({
 }): object => {
   const logosElement = getImageElement({
     src: logosSrc,
+    otherAttributes: {
+      padding: '0px',
+      'container-background-color': COLOR_WHITE,
+    },
   });
 
   const titleElement = getTextElement({
@@ -47,6 +51,7 @@ export const getMjmlHeader = ({
     childrenEls: [logosElement, titleElement, subtitleElement],
     backgroundColor: COLOR_PRIMARY,
     attributes: {
+      'padding-top': '16px',
       'background-color': COLOR_PRIMARY,
     },
   });
