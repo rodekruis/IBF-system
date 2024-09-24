@@ -4,9 +4,9 @@
       <ion-title
         class="uppercase-text"
         size="medium"
-        data-test="heading-display-name-label"
+        data-testid="heading-display-name-label"
       >
-        <span>
+        <span data-testid="heading-display-name-span">
           IBF PORTAL
           @if (isLoggedIn) {
             <strong [ngClass]="{ active: disasterType?.activeTrigger }">

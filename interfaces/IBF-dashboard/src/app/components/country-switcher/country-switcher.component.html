@@ -3,6 +3,7 @@
     <ion-label>Country</ion-label>
     <ion-select
       placeholder="Select Country"
+      data-testid="country-switcher-dropdown"
       interface="popover"
       (ionChange)="handleCountryChange($event)"
       [value]="country ? country.countryCodeISO3 : null"

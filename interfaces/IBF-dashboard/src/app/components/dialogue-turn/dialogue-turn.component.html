@@ -20,7 +20,7 @@
       (mouseover)="onMouseOver()"
       (mouseout)="onMouseOut()"
     >
-      <ion-card-content class="space-y-2">
+      <ion-card-content data-testid="dialogue-turn-content" class="space-y-2">
         <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
         <small><app-timestamp [timestamp]="timestamp"></app-timestamp></small>
       </ion-card-content>
