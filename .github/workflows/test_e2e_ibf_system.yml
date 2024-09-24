@@ -43,9 +43,9 @@ jobs:
         run: |
           cp example.env .env
 
-      # - name: Install API-service code-dependencies
-      #   run: |
-      #     cd ./services/API-service && npm ci --omit=optional --no-fund --no-audit
+      - name: Install API-service code-dependencies
+        run: |
+          cd ./services/API-service && npm ci --omit=optional --no-fund --no-audit
 
       - name: Run Services with Docker
         working-directory: ./
