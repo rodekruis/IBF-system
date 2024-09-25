@@ -13,7 +13,7 @@ export async function testTyphoonScenario(
   countryCodeISO3: string,
   accessToken: string,
 ): Promise<void> {
-  const nrOfEvents = 2;
+  const nrOfEvents = 1;
   const eventName = 'Mock typhoon';
   const disasterTypeLabel = DisasterType.Typhoon;
 

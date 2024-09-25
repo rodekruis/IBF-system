@@ -147,100 +147,103 @@
   }
   @for (area of filteredActiveAreas; track area.name; let isFirst = $first) {
     <app-dialogue-turn [isTriggered]="eventState?.event?.thresholdReached">
-      @if (placeCode) {
-        <app-ibf-button
-          (click)="revertAreaSelection()"
-          backgroundColor="ibf-primary"
-          size="small"
-          class="ion-float-right"
-        >
-          <span class="ion-hide-sm-down">{{
-            'chat-component.common.revert-selection' | translate
-          }}</span>
-          <ion-icon name="arrow-back" slot="start"></ion-icon>
-        </app-ibf-button>
-      }
       <ion-row>
-        <ion-col size-lg="2" size-md="2" size-xs="2">
+        <ion-col
+          class="flex flex-row gap-2"
+          size-lg="8"
+          size-md="12"
+          size-sm="8"
+        >
           <ion-img
             src="assets/icons/Alert_Chat_Black.svg"
             class="chat-icon"
           ></ion-img>
-        </ion-col>
-        <ion-col size-lg="10" size-md="10" size-xs="10">
-          <ion-label
-            [innerHTML]="
-              'chat-component.' + disasterTypeName + '.active-event.place-name'
-                | translate
-                  : {
-                      adminAreaLabel,
-                      placeName: area.name,
-                      parentName: getAreaParentString(area),
-                    }
-            "
-          ></ion-label
-          ><br />
-          @if (eventState?.event?.thresholdReached) {
-            <ion-note size="small">
-              <span
-                [innerHTML]="
-                  'chat-component.' + disasterTypeName + '.active-event.exposed'
-                    | translate
-                "
-              ></span>
-              <strong>
-                @switch (actionIndicatorNumberFormat) {
-                  @case ('decimal0') {
-                    <span>{{ area.actionsValue | number: '.0-0' }}</span>
-                  }
-                  @case ('perc') {
-                    <span>{{ area.actionsValue | percent: '.0-0' }}</span>
-                  }
-                }
-              </strong>
-            </ion-note>
-          }
-          <br />
-          @if (countryDisasterSettings?.showMonthlyEapActions) {
-            <div class="ion-margin-bottom">
+          <div>
+            <ion-label
+              [innerHTML]="
+                'chat-component.' +
+                  disasterTypeName +
+                  '.active-event.place-name'
+                  | translate
+                    : {
+                        adminAreaLabel,
+                        placeName: area.name,
+                        parentName: getAreaParentString(area),
+                      }
+              "
+            ></ion-label
+            ><br />
+            @if (eventState?.event?.thresholdReached) {
+              <ion-note size="small">
+                <span
+                  [innerHTML]="
+                    'chat-component.' +
+                      disasterTypeName +
+                      '.active-event.exposed' | translate
+                  "
+                ></span>
+                <strong>
+                  {{ area.actionsValue | compact: actionIndicatorNumberFormat }}
+                </strong>
+              </ion-note>
+            } @else {
+              <ion-note size="small">
+                <span>{{ 'chat-component.common.no-info' | translate }}</span>
+              </ion-note>
+            }
+            <br />
+            @if (countryDisasterSettings?.showMonthlyEapActions) {
               @if (forecastInfo && country?.countryCodeISO3 === 'KEN') {
                 @if (area?.eapActions; as actions) {
-                  <ion-note size="small">
-                    @if (forecastInfo?.length) {
-                      <span
-                        >{{
-                          'chat-component.drought.active-event.forecast-info.opening'
-                            | translate
-                        }}
-                      </span>
-                    }
-                    @for (
-                      forecast of forecastInfo;
-                      track forecast;
-                      let isLast = $last
-                    ) {
-                      <span>
-                        <strong>{{ forecast }}</strong>
-                        @if (!isLast) {
-                          <span>
-                            {{
+                  <div class="ion-margin-bottom">
+                    <ion-note size="small">
+                      @if (forecastInfo?.length) {
+                        <span
+                          >{{
+                            'chat-component.drought.active-event.forecast-info.opening'
+                              | translate
+                          }}
+                        </span>
+                      }
+                      @for (
+                        forecast of forecastInfo;
+                        track forecast;
+                        let isLast = $last
+                      ) {
+                        <span>
+                          <strong>{{ forecast }}</strong>
+                          @if (!isLast) {
+                            <span>{{
                               'chat-component.drought.active-event.forecast-info.and'
                                 | translate
-                            }}
-                          </span>
-                        }
-                      </span>
-                    }
-                    {{ ' ' }}
-                    <span
-                      [innerHTML]="
+                            }}</span>
+                          }
+                        </span>
+                      }
+                      {{ ' ' }}
+                      <span>{{
                         getNumberOfActions(actions.length, forecastInfo?.length)
-                      "
-                    ></span>
-                  </ion-note>
+                      }}</span>
+                    </ion-note>
+                  </div>
                 }
               }
-            </div>
+            }
+          </div>
+        </ion-col>
+        <ion-col size-lg="4" size-md="12" size-sm="4">
+          @if (placeCode) {
+            <app-ibf-button
+              (click)="revertAreaSelection()"
+              backgroundColor="ibf-primary"
+              size="small"
+              class="ion-float-right"
+            >
+              <span class="ion-hide-sm-down">{{
+                'chat-component.common.revert-selection' | translate
+              }}</span>
+              <ion-icon name="arrow-back" slot="start"></ion-icon>
+            </app-ibf-button>
           }
         </ion-col>
       </ion-row>

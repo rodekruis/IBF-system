@@ -71,6 +71,9 @@
     "plural-suffix": "(s)",
     "not-applicable": "N/A"
   },
+  "disclaimer-approximate-component": {
+    "message": "All numbers are approximate and meant to be used as guidance."
+  },
   "areas-of-focus-summary-component": {
     "title": "Actions Summary",
     "aof-subtitle": "Sector",
@@ -84,6 +87,7 @@
   },
   "chat-component": {
     "common": {
+      "no-info": "No information available",
       "warn-label": {
         "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastModelRunDate}}</strong>.",
         "tooltip": "The forecast presented on the portal might not be up to date as the model did not run successfully. Contact {{supportEmailAddress}} for further information."

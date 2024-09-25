@@ -48,6 +48,9 @@ import { TooltipPopoverComponent } from './components/tooltip-popover/tooltip-po
 import { TooltipComponent } from './components/tooltip/tooltip.component';
 import { UserStateComponent } from './components/user-state/user-state.component';
 import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-component/backend-mock-scenario.component';
+import { CompactPipe } from './pipes/compact.pipe';
+import { DisclaimerApproximateComponent } from './components/disclaimer-approximate/disclaimer-approximate.component';
+
 @NgModule({
   imports: [
     AnalyticsModule,
@@ -57,6 +60,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     LeafletMarkerClusterModule,
     LeafletModule,
     TranslateModule,
+    CompactPipe,
   ],
   declarations: [
     AboutBtnComponent,
@@ -101,6 +105,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     DynamicPointPopupComponent,
     TyphoonTrackpointPopupContentComponent,
     GlofasStationPopupContentComponent,
+    DisclaimerApproximateComponent,
   ],
   exports: [
     AboutBtnComponent,
@@ -146,6 +151,7 @@ import { BackendMockScenarioComponent } from './mocks/backend-mock-scenario-comp
     DynamicPointPopupComponent,
     TyphoonTrackpointPopupContentComponent,
     GlofasStationPopupContentComponent,
+    DisclaimerApproximateComponent,
   ],
 })
 export class SharedModule {}

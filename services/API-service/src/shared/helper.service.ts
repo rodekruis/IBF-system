@@ -11,6 +11,7 @@ import {
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { DateDto } from '../api/event/dto/date.dto';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
+import { NumberFormat } from './enums/number-format.enum';
 import { GeoJson, GeoJsonFeature } from './geo.model';
 
 @Injectable()
@@ -118,5 +119,55 @@ export class HelperService {
         timestamp: null,
       };
     }
+  }
+
+  /*
+   * 0 becomes 0
+   * 2 becomes < 10
+   * 12 becomes < 20
+   * 20 becomes 20
+   * 56 becomes 60
+   * 297 becomes 300
+   * 462 becomes 460
+   * 1000 becomes 1K
+   * 4200 becomes 4.2K
+   * 225305 becomes 230K
+   * 79136946 becomes 79M
+   * negative numbers become 0
+   */
+  toCompactNumber(
+    value: number,
+    format: NumberFormat = NumberFormat.decimal0,
+    locale = 'en-GB',
+  ) {
+    if (value == null || isNaN(value)) {
+      return '';
+    }
+
+    const style = format === NumberFormat.perc ? 'percent' : 'decimal';
+    const maximumSignificantDigits = value > 100 ? 2 : 1;
+
+    let min = 0;
+    let prefix = '';
+
+    if (format !== NumberFormat.perc) {
+      if (value > 20) {
+        min = 20;
+      } else if (value > 0) {
+        min = 10;
+      }
+
+      if (value > 0 && value < 20) {
+        prefix = '< ';
+      }
+    }
+
+    value = value > 0 ? Math.max(value, min) : 0;
+
+    return `${prefix}${new Intl.NumberFormat(locale, {
+      maximumSignificantDigits,
+      style,
+      notation: 'compact',
+    }).format(value)}`;
   }
 }

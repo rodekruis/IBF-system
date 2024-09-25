@@ -2,6 +2,8 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
+import { NumberFormat } from '../../shared/enums/number-format.enum';
+
 @Entity('indicator-metadata')
 export class IndicatorMetadataEntity {
   @ApiProperty({ example: '6b9b7669-4839-4fdb-9645-9070a27bda86' })
@@ -49,9 +51,9 @@ export class IndicatorMetadataEntity {
   @Column('json', { nullable: true })
   public colorBreaks: JSON;
 
-  @ApiProperty({ example: 'decimal0' })
+  @ApiProperty({ example: NumberFormat.decimal0 })
   @Column()
-  public numberFormatMap: string;
+  public numberFormatMap: NumberFormat;
 
   @ApiProperty({ example: 'decimal0' })
   @Column()

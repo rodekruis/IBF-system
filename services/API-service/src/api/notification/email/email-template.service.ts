@@ -9,6 +9,7 @@ import {
   EventSummaryCountry,
   TriggeredArea,
 } from '../../../shared/data.model';
+import { HelperService } from '../../../shared/helper.service';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
 import { CountryEntity } from '../../country/country.entity';
@@ -26,6 +27,8 @@ const emailLogoFolder = `${emailFolder}/logos`;
 
 @Injectable()
 export class EmailTemplateService {
+  public constructor(private readonly helperService: HelperService) {}
+
   public async createHtmlForTriggerEmail(
     emailContent: ContentEventEmail,
     date: Date,
@@ -303,7 +306,9 @@ export class EmailTemplateService {
       .map((area) => {
         const areaTemplate = this.readHtmlFile('table-row.html');
         const areaData = {
-          affectedOfIndicator: area.actionsValue,
+          affectedOfIndicator: this.helperService.toCompactNumber(
+            area.actionsValue,
+          ),
           adminBoundary: area.displayName ? area.displayName : area.name,
           higherAdminBoundary: area.nameParent,
         };
@@ -414,7 +419,9 @@ export class EmailTemplateService {
       : 'body-total-affected-unavailable.html';
     const htmlTemplate = this.readHtmlFile(fileName);
     return ejs.render(htmlTemplate, {
-      totalAffectedOfIndicator: event.totalAffectedOfIndicator,
+      totalAffectedOfIndicator: this.helperService.toCompactNumber(
+        event.totalAffectedOfIndicator,
+      ),
       indicatorUnit: indicatorUnit,
     });
   }

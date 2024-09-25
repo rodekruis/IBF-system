@@ -8,7 +8,8 @@
 
 # Configuration, secrets, etc:
 .env
-environment.prod.ts
+environment.*
+!environment.template.ts
 
 
 # Assets ONLY included during build

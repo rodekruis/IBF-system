@@ -16,6 +16,7 @@ import { TimelineService } from '../../services/timeline.service';
 import { DisasterTypeKey } from '../../types/disaster-type-key';
 import { LeadTime, LeadTimeTriggerKey } from '../../types/lead-time';
 import { TriggeredArea } from '../../types/triggered-area';
+import { NumberFormat } from '../../types/indicator-group';
 
 @Component({
   selector: 'app-event-speech-bubble',
@@ -46,7 +47,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()
   public actionIndicatorLabel: string;
   @Input()
-  public actionIndicatorNumberFormat: string;
+  public actionIndicatorNumberFormat: NumberFormat;
 
   public typhoonLandfallText: string;
   public displayName: string;

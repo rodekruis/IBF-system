@@ -6,10 +6,10 @@
         style="background: var(--ion-color-ibf-secondary)"
         data-test="action-title"
       >
-        <ion-col class="ion-no-padding">
+        <ion-col class="ion-no-padding" size-lg="11" size-md="11" size-xs="11">
           <ion-item
             lines="none"
-            class="component-title-item ion-no-margin"
+            class="component-title-item"
             [color]="
               isActiveAreas() ? 'ibf-secondary' : 'ibf-no-alert-secondary'
             "
@@ -17,14 +17,14 @@
             <ion-col
               class="ion-no-padding ion-no-margin ion-align-items-center"
             >
-              <ion-label color="ibf-black"
+              <ion-label color="ibf-black" class="ion-text-wrap"
                 ><ion-text
                   ><strong>{{
                     getAggregatesHeader(mapView | async).headerLabel
                   }}</strong></ion-text
                 ></ion-label
               >
-              <ion-label color="ibf-black"
+              <ion-label color="ibf-black" class="ion-text-wrap"
                 ><ion-text
                   [innerHTML]="
                     getAggregatesHeader(mapView | async).subHeaderLabel
@@ -34,17 +34,39 @@
             </ion-col>
           </ion-item>
         </ion-col>
+        <ion-col size-lg="1" size-md="1" size-xs="1">
+          <ion-item
+            class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
+            data-test="icon-row"
+            color="transparent"
+            lines="none"
+          >
+            <ion-label>
+              <app-disclaimer-approximate></app-disclaimer-approximate>
+            </ion-label>
+          </ion-item>
+        </ion-col>
       </ion-row>
       <div data-test="aggregate-list">
         @for (indicator of indicators; track indicator.name) {
           <ion-row class="ion-no-padding">
             <ion-col size-lg="7" size-md="7" size-xs="7">
-              <ion-item class="aggregate-item ion-no-padding" color="ibf-white">
-                <ion-thumbnail slot="start" class="aggregate-item-thumbnail">
-                  <ion-img src="assets/icons/{{ indicator.icon }}"></ion-img>
+              <ion-item
+                class="aggregate-item ion-no-padding font-size-12"
+                color="ibf-white"
+                lines="full"
+              >
+                <ion-thumbnail
+                  slot="start"
+                  class="m-0 h-10 w-10 bg-slate-100 p-2"
+                >
+                  <ion-img
+                    class="object-contain"
+                    src="assets/icons/{{ indicator.icon }}"
+                  ></ion-img>
                 </ion-thumbnail>
                 <ion-label
-                  class="aggregate-item-label"
+                  class="aggregate-item-label ion-no-margin ion-text-wrap"
                   [title]="indicator.label"
                 >
                   {{ indicator.label }}
@@ -53,60 +75,31 @@
             </ion-col>
             <ion-col size-lg="4" size-md="4" size-xs="4">
               <ion-item
-                class="aggregate-item-value ion-no-padding"
+                class="aggregate-item-value ion-no-padding font-size-12"
                 style="--inner-padding-end: 4px"
                 color="ibf-white"
               >
                 @if (!isAggregateNan(indicator.name, indicator.weightedAvg)) {
                   <ion-label
-                    class="ion-text-right"
+                    class="ion-text-right m-0"
                     data-test="aggregate-number"
                   >
-                    @switch (indicator.numberFormatAggregate) {
-                      @case ('decimal2') {
-                        <span>
-                          {{
-                            getAggregate(
-                              indicator.name,
-                              indicator.weightedAvg,
-                              indicator.numberFormatAggregate
-                            )
-                              | number: '.2-2'
-                              | translate
-                          }}
-                        </span>
-                      }
-                      @case ('decimal0') {
-                        <span>
-                          {{
-                            getAggregate(
-                              indicator.name,
-                              indicator.weightedAvg,
-                              indicator.numberFormatAggregate
-                            )
-                              | number: '.0-0'
-                              | translate
-                          }}
-                        </span>
-                      }
-                      @case ('perc') {
-                        <span>
-                          {{
-                            getAggregate(
-                              indicator.name,
-                              indicator.weightedAvg,
-                              indicator.numberFormatAggregate
-                            )
-                              | percent: '.0-0'
-                              | translate
-                          }}
-                        </span>
-                      }
-                    }
+                    {{
+                      getAggregate(
+                        indicator.name,
+                        indicator.weightedAvg,
+                        indicator.numberFormatAggregate
+                      )
+                        | compact: indicator.numberFormatAggregate
+                        | translate
+                    }}
                     {{ indicator.aggregateUnit }}
                   </ion-label>
                 } @else {
-                  <ion-label class="ion-text-right" data-test="aggregate-na">
+                  <ion-label
+                    class="ion-text-right m-0"
+                    data-test="aggregate-na"
+                  >
                     {{ 'aggregates-component.not-applicable' | translate }}
                   </ion-label>
                 }
@@ -119,14 +112,13 @@
               [title]="'aggregates-component.more-information' | translate"
             >
               <ion-item
-                class="aggregate-item-information-icon ion-no-padding"
+                class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
                 data-test="icon-row"
-                style="--inner-padding-end: 0px"
                 color="ibf-white"
               >
                 <ion-label>
                   <img
-                    class="info-img"
+                    class="mx-auto my-0 w-5"
                     src="assets/icons/source-info.svg"
                     (click)="moreInfo(indicator)"
                   />
