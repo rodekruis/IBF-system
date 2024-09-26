@@ -34,6 +34,9 @@ class DashboardPage {
   }
 
   async navigateToFloodDisasterType() {
+    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForLoadState('networkidle');
+
     await this.floodIcon.click();
   }
 
