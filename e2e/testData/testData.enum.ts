@@ -4,4 +4,6 @@ export enum NoTriggerDataSet {
   CountryName = 'Uganda',
   UserMail = 'dunant@redcross.nl',
   UserPassword = 'password',
+  userName = 'Henry',
+  userSurname = 'Dunant',
 }

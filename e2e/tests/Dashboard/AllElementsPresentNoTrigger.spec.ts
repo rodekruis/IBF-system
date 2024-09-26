@@ -1,4 +1,5 @@
 import { test } from '@playwright/test';
+import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
 import HeaderComponent from 'Pages/HeaderComponent';
 import TopBarComponent from 'Pages/TopBarComponent';
@@ -40,6 +41,7 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
   const dashboard = new DashboardPage(page);
   const header = new HeaderComponent(page);
   const topBar = new TopBarComponent(page);
+  const chat = new ChatComponent(page);
 
   await dashboard.switchToCountryByName({
     countryName: NoTriggerDataSet.CountryName,
@@ -51,4 +53,8 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
     countryName: NoTriggerDataSet.CountryName,
   });
   await topBar.topBarComponentIsVisible();
+  await chat.chatColumnIsVisibleForNoTriggerState({
+    name: NoTriggerDataSet.userName,
+    surname: NoTriggerDataSet.userSurname,
+  });
 });
