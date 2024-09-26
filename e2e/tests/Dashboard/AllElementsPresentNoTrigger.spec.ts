@@ -1,5 +1,6 @@
 import { test } from '@playwright/test';
 import DashboardPage from 'Pages/DashboardPage';
+import HeaderComponent from 'Pages/HeaderComponent';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { FloodsScenario } from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
@@ -36,9 +37,15 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
   page,
 }) => {
   const dashboard = new DashboardPage(page);
+  const header = new HeaderComponent(page);
 
   await dashboard.switchToCountryByName({
     countryName: NoTriggerDataSet.CountryName,
   });
+
   await dashboard.navigateToFloodDisasterType();
+
+  await header.headerComponentIsVisible({
+    countryName: NoTriggerDataSet.CountryName,
+  });
 });
