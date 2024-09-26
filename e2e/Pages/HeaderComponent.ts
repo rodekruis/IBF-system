@@ -1,4 +1,4 @@
-// import { expect } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
 
 import DashboardPage from './DashboardPage';
@@ -17,7 +17,7 @@ class HeaderComponent extends DashboardPage {
     const header = this.header.filter({
       hasText: `IBF PORTAL ${countryName}`,
     });
-    await header.isVisible();
+    await expect(header).toBeVisible();
   }
 }
 

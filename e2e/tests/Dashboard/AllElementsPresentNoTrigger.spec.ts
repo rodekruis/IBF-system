@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 import DashboardPage from 'Pages/DashboardPage';
 import HeaderComponent from 'Pages/HeaderComponent';
+import TopBarComponent from 'Pages/TopBarComponent';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { FloodsScenario } from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
@@ -38,6 +39,7 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
 }) => {
   const dashboard = new DashboardPage(page);
   const header = new HeaderComponent(page);
+  const topBar = new TopBarComponent(page);
 
   await dashboard.switchToCountryByName({
     countryName: NoTriggerDataSet.CountryName,
@@ -48,4 +50,5 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
   await header.headerComponentIsVisible({
     countryName: NoTriggerDataSet.CountryName,
   });
+  await topBar.topBarComponentIsVisible();
 });
