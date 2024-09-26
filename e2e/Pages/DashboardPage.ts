@@ -13,13 +13,13 @@ class DashboardPage {
   constructor(page: Page) {
     this.page = page;
     this.floodIcon = this.page.locator(
-      '[ng-reflect-src="/assets/icons/Flood_Not Select"]',
+      '[data-testid="disaster-type-button"][ng-reflect-src*="Flood"]',
     );
     this.heavyRainIcon = this.page.locator(
-      '[ng-reflect-src="/assets/icons/Heavy Rain_Not S"]',
+      '[data-testid="disaster-type-button"][ng-reflect-src*="Rain"]',
     );
     this.droughtIcon = this.page.locator(
-      '[ng-reflect-src="/assets/icons/Drought_Not Sele"]',
+      '[data-testid="disaster-type-button"][ng-reflect-src*="Drought"]',
     );
     this.dashboardDevControlButton = this.page.getByTestId(
       'dashboard-dev-control-button',
