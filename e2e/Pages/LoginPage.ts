@@ -1,6 +1,6 @@
 import { Locator, Page } from 'playwright';
 
-import BasePage from './BasePage';
+import BasePage from './DashboardPage';
 
 class LoginPage extends BasePage {
   readonly page: Page;
