@@ -1,4 +1,5 @@
 import { test } from '@playwright/test';
+import AggregateComponenet from 'Pages/AggregateComponenet';
 import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
 import HeaderComponent from 'Pages/HeaderComponent';
@@ -42,6 +43,7 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
   const header = new HeaderComponent(page);
   const topBar = new TopBarComponent(page);
   const chat = new ChatComponent(page);
+  const aggregate = new AggregateComponenet(page);
 
   await dashboard.switchToCountryByName({
     countryName: NoTriggerDataSet.CountryName,
@@ -57,4 +59,5 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
     name: NoTriggerDataSet.userName,
     surname: NoTriggerDataSet.userSurname,
   });
+  await aggregate.aggregateComponentIsVisible();
 });

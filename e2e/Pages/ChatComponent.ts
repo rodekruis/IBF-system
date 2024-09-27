@@ -26,8 +26,8 @@ class ChatComponent extends DashboardPage {
     name: string;
     surname: string;
   }) {
+    // String cleaning to remove <strong> tags and replace placeholders with actual values
     const cleanedString = chatDialogueWarnLabel.replace(/<\/?strong>/g, '');
-
     const optionsDate: Intl.DateTimeFormatOptions = {
       weekday: 'long',
       day: '2-digit',
@@ -38,27 +38,25 @@ class ChatComponent extends DashboardPage {
       minute: '2-digit',
       hour12: false,
     };
-
     const date = new Date();
     const formattedDate = date
       .toLocaleDateString('en-US', optionsDate)
       .split(', ');
     const lastModelRunDate = `${formattedDate[0]}, ${formattedDate[1].split(' ')[1]} ${formattedDate[1].split(' ')[0]} ${date.toLocaleTimeString('en-US', optionsTime)}`;
-
+    // Formatted Strings
     const chatDialogueContent = cleanedString
       .replace('{{ name }}', `${name} ${surname}`)
       .replace('{{lastModelRunDate}}', lastModelRunDate);
-
     const chatDialogueContentNoAlerts =
       chatDialogueContentWelcomeNoTrigger.replace(/<\/?strong>/g, '');
-
+    // Locators based on data-testid and filtered by formatted strings
     const welcomeChatDialogue = this.chatDialogue.filter({
       hasText: chatDialogueContent,
     });
     const noTriggerChatDialogue = this.chatDialogue.filter({
       hasText: chatDialogueContentNoAlerts,
     });
-
+    // Assertions
     await expect(welcomeChatDialogue).toBeVisible();
     await expect(noTriggerChatDialogue).toBeVisible();
   }
