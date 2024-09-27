@@ -37,7 +37,8 @@ class DashboardPage {
     await this.page.waitForLoadState('domcontentloaded');
     await this.page.waitForLoadState('networkidle');
 
-    await this.floodIcon.click({ force: true });
+    await this.floodIcon.click();
+    await this.floodIcon.click();
   }
 
   async navigateToHeavyRainDisasterType() {
