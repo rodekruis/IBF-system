@@ -46,13 +46,13 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
   const chat = new ChatComponent(page);
   const aggregate = new AggregateComponenet(page);
   const map = new MapComponenet(page);
-
+  // Navigate to designated test country
   await dashboard.switchToCountryByName({
     countryName: NoTriggerDataSet.CountryName,
   });
-
+  // Navigate to disaster type the data was mocked for
   await dashboard.navigateToFloodDisasterType();
-
+  // Assertions
   await header.headerComponentIsVisible({
     countryName: NoTriggerDataSet.CountryName,
   });
