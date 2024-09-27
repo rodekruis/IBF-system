@@ -13,15 +13,11 @@ class DashboardPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.floodIcon = this.page.locator(
-      '[data-testid="disaster-type-button"][ng-reflect-src*="Flood"]',
+    this.floodIcon = this.page.getByTestId('disaster-type-button-floods');
+    this.heavyRainIcon = this.page.getByTestId(
+      'disaster-type-button-heavy-rain',
     );
-    this.heavyRainIcon = this.page.locator(
-      '[data-testid="disaster-type-button"][ng-reflect-src*="Rain"]',
-    );
-    this.droughtIcon = this.page.locator(
-      '[data-testid="disaster-type-button"][ng-reflect-src*="Drought"]',
-    );
+    this.droughtIcon = this.page.getByTestId('disaster-type-button-drought');
     this.dashboardDevControlButton = this.page.getByTestId(
       'dashboard-dev-control-button',
     );
@@ -38,10 +34,7 @@ class DashboardPage {
   async navigateToFloodDisasterType() {
     await this.page.waitForLoadState('domcontentloaded');
     await this.page.waitForLoadState('networkidle');
-    await this.page.waitForTimeout(5000);
-    await this.loader.waitFor({ state: 'hidden' });
     await this.floodIcon.click();
-    await this.floodIcon.click({ force: true });
   }
 
   async navigateToHeavyRainDisasterType() {
