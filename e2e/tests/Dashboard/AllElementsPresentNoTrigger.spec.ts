@@ -3,6 +3,7 @@ import AggregateComponenet from 'Pages/AggregateComponenet';
 import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
 import HeaderComponent from 'Pages/HeaderComponent';
+import MapComponenet from 'Pages/MapComponenet';
 import TopBarComponent from 'Pages/TopBarComponent';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
@@ -44,6 +45,7 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
   const topBar = new TopBarComponent(page);
   const chat = new ChatComponent(page);
   const aggregate = new AggregateComponenet(page);
+  const map = new MapComponenet(page);
 
   await dashboard.switchToCountryByName({
     countryName: NoTriggerDataSet.CountryName,
@@ -60,4 +62,5 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
     surname: NoTriggerDataSet.userSurname,
   });
   await aggregate.aggregateComponentIsVisible();
+  await map.mapComponentIsVisible();
 });
