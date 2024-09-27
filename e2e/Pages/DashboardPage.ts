@@ -9,6 +9,7 @@ class DashboardPage {
   readonly countrySwitcherDropdown: Locator;
   readonly countrySwitcherDropdownOption: Locator;
   readonly dashboardDevControlCloseButton: Locator;
+  readonly loader: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -31,12 +32,14 @@ class DashboardPage {
     this.dashboardDevControlCloseButton = this.page.getByTestId(
       'dashboard-dev-control-close-button',
     );
+    this.loader = this.page.getByTestId('loader');
   }
 
   async navigateToFloodDisasterType() {
     await this.page.waitForLoadState('domcontentloaded');
     await this.page.waitForLoadState('networkidle');
     await this.page.waitForTimeout(5000);
+    await this.loader.waitFor({ state: 'hidden' });
     await this.floodIcon.click();
     await this.floodIcon.click({ force: true });
   }
