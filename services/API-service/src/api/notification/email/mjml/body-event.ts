@@ -31,7 +31,6 @@ const getMjmlBodyEvent = ({
   triangleIcon,
   eapLink,
   triggerStatusLabel,
-  indicatorUnit,
   toCompactNumber,
 }: {
   color: string;
@@ -44,7 +43,6 @@ const getMjmlBodyEvent = ({
   firstTriggerLeadTimeFromNow: string;
   firstTriggerLeadTimeString: string;
   indicatorLabel: string;
-  indicatorUnit: string;
   issuedDate: string;
   nrOfTriggeredAreas: number;
   timeZone: string;
@@ -54,7 +52,7 @@ const getMjmlBodyEvent = ({
   triggerStatusLabel: string;
   toCompactNumber: (value: number) => string;
 }): object => {
-  const icon = getInlineImage({ src: triangleIcon, size: 14 });
+  const icon = getInlineImage({ src: triangleIcon, size: 16 });
 
   const eventNameElement = getTextElement({
     attributes: { color },
@@ -65,13 +63,13 @@ const getMjmlBodyEvent = ({
 
   contentContent.push(
     firstTriggerLeadTimeString
-      ? `<strong>${disasterTypeLabel}:</strong> expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`
-      : `<strong>${disasterIssuedLabel}:</strong> expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
+      ? `<strong>${disasterTypeLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`
+      : `<strong>${disasterIssuedLabel}:</strong> Expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
   );
 
   if (firstTriggerLeadTimeString) {
     contentContent.push(
-      `<strong>${disasterIssuedLabel}:</strong> expected to reach threshold on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}`,
+      `<strong>${disasterIssuedLabel}:</strong> Expected to trigger on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}.`,
     );
   }
 
@@ -81,19 +79,21 @@ const getMjmlBodyEvent = ({
     contentContent.push(
       `<strong>${indicatorLabel}:</strong> ${
         totalAffected
-          ? `approximately ${toCompactNumber(totalAffected)} ${indicatorUnit}`
+          ? `Approximately ${toCompactNumber(
+              totalAffected,
+            )} ${indicatorLabel.toLowerCase()}`
           : 'Information is unavailable'
       }`,
     );
 
   contentContent.push(
     triggerStatusLabel === TriggerStatusLabelEnum.Trigger
-      ? `<strong>Advisory:</strong> activate <a href="${eapLink}">Early Action Protocol</a>`
+      ? `<strong>Advisory:</strong> Activate <a href="${eapLink}">Early Action Protocol</a>`
       : `<strong>Advisory:</strong> Inform all potentialy exposed ${defaultAdminAreaLabel}`,
   );
 
   const contentElement = getTextElement({
-    content: contentContent.join('<br>'),
+    content: contentContent.join('<br/>'),
   });
 
   const closingElement = getTextElement({
@@ -106,6 +106,7 @@ const getMjmlBodyEvent = ({
 
   return getSectionElement({
     childrenEls: [eventNameElement, contentElement, closingElement],
+    attributes: { padding: '8px' },
   });
 };
 
@@ -159,8 +160,6 @@ export const getMjmlEventListBody = (
           event.eapAlertClass?.color,
           event.triggerStatusLabel,
         ),
-
-        indicatorUnit: emailContent.indicatorMetadata.unit,
       }),
     );
   }

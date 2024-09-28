@@ -21,7 +21,7 @@ export const getIbfFooter = ({
     content: `Impact-Based Forecasting Portal (IBF) was co-developed by Netherlands
     Red Cross 510 the together with the ${countryName} Red Cross
     National Society. For questions contact us at <a href="mailto:ibf-support@510.global">ibf-support@510.global</a>`,
-    attributes: { 'padding-top': '14px', 'font-size': '12px' },
+    attributes: { 'padding-top': '8px', 'font-size': '12px' },
   });
 
   const twoColumnSectionElement = {
@@ -30,12 +30,12 @@ export const getIbfFooter = ({
       {
         tagName: 'mj-column',
         children: [logoElement],
-        attributes: { width: '15%' },
+        attributes: { width: '20%' },
       },
       {
         tagName: 'mj-column',
         children: [textElement],
-        attributes: { width: '85%' },
+        attributes: { width: '80%' },
       },
     ],
     attributes: { padding: '0 8px' },
@@ -43,7 +43,6 @@ export const getIbfFooter = ({
 
   return getSectionElement({
     childrenEls: [twoColumnSectionElement],
-    attributes: { padding: '0 0 16px 0' },
   });
 };
 
@@ -54,7 +53,7 @@ export const getMailchimpFooter = (): object => {
         <a style="color: ${COLOR_WHITE}" href="*|UNSUB|*">
           Click here to unsubscribe from IBF alerts
         </a>
-        &nbsp;&nbsp;
+        &nbsp;
         *|LIST:ADDRESSLINE|*
       </p>
       <p style="margin: 0">*|IF:REWARDS|* *|HTML:REWARDS|* *|END:IF|*</p>
@@ -70,7 +69,7 @@ export const getMailchimpFooter = (): object => {
     tagName: 'mj-column',
     children: [mailchimpFooter],
     attributes: {
-      padding: '0',
+      padding: '0 8px',
       width: '100%',
     },
   };

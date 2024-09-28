@@ -29,12 +29,8 @@ export class MjmlService {
   public constructor(private readonly helperService: HelperService) {}
 
   private mailOpening = getSectionElement({
-    childrenEls: [
-      getTextElement({
-        content: 'Dear Reader,',
-        attributes: { 'padding-top': '20px' },
-      }),
-    ],
+    childrenEls: [getTextElement({ content: 'Dear Reader,' })],
+    attributes: { padding: '16px 8px 8px' },
   });
 
   private header = ({

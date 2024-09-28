@@ -17,7 +17,6 @@ interface AdminArea {
 }
 
 export const BODY_WIDTH = '768px';
-const SECTION_PADDING = '0 16px 16px 16px';
 export const COLOR_PRIMARY = '#4f22d7';
 export const COLOR_TERTIARY = '#cfbfff';
 export const COLOR_WHITE = '#ffffff';
@@ -75,7 +74,7 @@ export const getSectionElement = ({
     ],
     attributes: {
       'full-width': 'full-width',
-      padding: SECTION_PADDING,
+      padding: '16px',
       'background-color': backgroundColor,
       ...attributes,
     },
@@ -189,33 +188,25 @@ export const getAdminAreaTable = ({
   adminAreaLabel,
   adminAreaParentLabel,
   adminAreaList,
-  isTrigger,
 }: {
   indicatorLabel: string;
   adminAreaLabel: string;
   adminAreaParentLabel: string;
   adminAreaList: AdminArea[];
-  isTrigger: boolean;
 }) => {
-  const align = isTrigger ? 'left' : 'center';
-
   const header = `
-    <tr align="${align}">
-      ${
-        isTrigger ? `<th style="text-align: right;">${indicatorLabel}</th>` : ''
-      }
-      <th>${adminAreaLabel} (${adminAreaParentLabel})</th>
+    <tr>
+      <th align="right">${indicatorLabel}</th>
+      <th align="left">${adminAreaLabel} ${
+    adminAreaLabel === adminAreaParentLabel ? '' : `(${adminAreaParentLabel})`
+  }</th>
     </tr>
   `;
 
   const row = (adminArea: AdminArea) => `
-    <tr align="${align}">
-      ${
-        isTrigger
-          ? `<td style="text-align: right;">${adminArea.exposed}</td>`
-          : ''
-      }
-      <td>${adminArea.name}</td>
+    <tr>
+      <td align="right">${adminArea.exposed}</td>
+      <td align="left">${adminArea.name}</td>
     </tr>
   `;
   const rows = adminAreaList.map((adminArea) => row(adminArea)).join('');
@@ -228,6 +219,7 @@ export const getAdminAreaTable = ({
     attributes: {
       'container-background-color': COLOR_WHITE,
       cellpadding: '4',
+      'table-layout': 'fixed',
     },
   };
 };
@@ -239,7 +231,7 @@ export const getInlineImage = ({
   src: string;
   size: number;
 }): string =>
-  `<img src="${src}" width="${size}" height="${size}" style="display: inline-block; width: ${size}px; height: ${size}px; max-width: ${size}px; max-height: ${size}px"></img>&nbsp;`;
+  `<img src="${src}" width="${size}" height="${size}" style="display: inline-block; width: ${size}px; height: ${size}px; max-width: ${size}px; max-height: ${size}px; vertical-align: text-top;"></img>`;
 
 export const getImageElement = ({
   src,
@@ -299,9 +291,13 @@ export const getTimezoneDisplay = (countryCodeISO3: string) => {
 export const getTimeFromNow = (leadTime: LeadTime) => {
   if (!leadTime) return '';
 
+  const leadTimeQuantity = parseInt(leadTime.split('-')[0]);
+
   return [LeadTime.day0, LeadTime.month0, LeadTime.hour0].includes(leadTime)
     ? 'ongoing'
-    : `${leadTime.replace('-', ' ')}s from now`;
+    : `${leadTime.replace('-', ' ')}${
+        leadTimeQuantity === 1 ? '' : 's'
+      } from now`;
 };
 
 export const getTotalAffected = (
