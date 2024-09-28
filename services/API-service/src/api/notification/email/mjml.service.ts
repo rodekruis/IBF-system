@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import mjml2html from 'mjml';
 
+import { HelperService } from '../../../shared/helper.service';
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 import {
   BODY_WIDTH,
@@ -12,7 +13,10 @@ import {
   getTimezoneDisplay,
 } from '../helpers/mjml.helper';
 import { getMjmlEventListBody } from './mjml/body-event';
-import { getMjmlAdminAreaTableList } from './mjml/event-admin-area-table';
+import {
+  getMjmlAdminAreaDisclaimer,
+  getMjmlAdminAreaTableList,
+} from './mjml/event-admin-area-table';
 import { getMjmlFinishedEvents } from './mjml/event-finished';
 import { getIbfFooter, getMailchimpFooter } from './mjml/footer';
 import { getMjmlHeader } from './mjml/header';
@@ -22,6 +26,8 @@ import { getMjmlTriggerStatement } from './mjml/trigger-statement';
 
 @Injectable()
 export class MjmlService {
+  public constructor(private readonly helperService: HelperService) {}
+
   private mailOpening = getSectionElement({
     childrenEls: [
       getTextElement({
@@ -82,7 +88,9 @@ export class MjmlService {
 
     children.push(this.mailOpening);
 
-    children.push(...getMjmlEventListBody(emailContent));
+    children.push(
+      ...getMjmlEventListBody(emailContent, this.helperService.toCompactNumber),
+    );
 
     children.push(
       this.notificationAction({
@@ -106,7 +114,13 @@ export class MjmlService {
 
     children.push(...getMjmlMapImages(emailContent));
 
-    children.push(...getMjmlAdminAreaTableList(emailContent));
+    children.push(
+      getMjmlAdminAreaDisclaimer(),
+      ...getMjmlAdminAreaTableList(
+        emailContent,
+        this.helperService.toCompactNumber,
+      ),
+    );
 
     children.push(
       ...this.footer({ countryName: emailContent.country.countryName }),

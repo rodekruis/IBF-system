@@ -32,6 +32,7 @@ const getMjmlBodyEvent = ({
   eapLink,
   triggerStatusLabel,
   indicatorUnit,
+  toCompactNumber,
 }: {
   color: string;
   defaultAdminAreaLabel: string;
@@ -51,6 +52,7 @@ const getMjmlBodyEvent = ({
   triangleIcon: string;
   eapLink: string;
   triggerStatusLabel: string;
+  toCompactNumber: (value: number) => string;
 }): object => {
   const icon = getInlineImage({ src: triangleIcon, size: 14 });
 
@@ -77,9 +79,11 @@ const getMjmlBodyEvent = ({
     `<strong>Expected exposed ${defaultAdminAreaLabel}:</strong> ${nrOfTriggeredAreas} (see list below)`,
   ),
     contentContent.push(
-      totalAffected
-        ? `<strong>${indicatorLabel}:</strong> ${totalAffected} ${indicatorUnit}`
-        : `The ${indicatorUnit} information is unavailable`,
+      `<strong>${indicatorLabel}:</strong> ${
+        totalAffected
+          ? `approximately ${toCompactNumber(totalAffected)} ${indicatorUnit}`
+          : 'Information is unavailable'
+      }`,
     );
 
   contentContent.push(
@@ -107,6 +111,7 @@ const getMjmlBodyEvent = ({
 
 export const getMjmlEventListBody = (
   emailContent: ContentEventEmail,
+  toCompactNumber: (value: number) => string,
 ): object[] => {
   const eventList = [];
 
@@ -137,6 +142,7 @@ export const getMjmlEventListBody = (
         // Indicator details
         indicatorLabel: emailContent.indicatorMetadata.label,
         totalAffected: getTotalAffected(event),
+        toCompactNumber: toCompactNumber,
 
         // EAP details
         triangleIcon: getTriangleIcon(

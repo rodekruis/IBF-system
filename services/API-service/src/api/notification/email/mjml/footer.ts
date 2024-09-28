@@ -54,8 +54,9 @@ export const getMailchimpFooter = (): object => {
         <a style="color: ${COLOR_WHITE}" href="*|UNSUB|*">
           Click here to unsubscribe from IBF alerts
         </a>
+        &nbsp;&nbsp;
+        *|LIST:ADDRESSLINE|*
       </p>
-      <p>*|LIST:ADDRESSLINE|*</p>
       <p style="margin: 0">*|IF:REWARDS|* *|HTML:REWARDS|* *|END:IF|*</p>
     `,
     attributes: {

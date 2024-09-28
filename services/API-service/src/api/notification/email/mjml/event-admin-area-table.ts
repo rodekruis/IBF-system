@@ -23,6 +23,7 @@ const getMjmlEventAdminAreaTable = ({
   indicatorMetadata,
   event,
   triangleIcon,
+  toCompactNumber,
 }: {
   disasterTypeLabel: string;
   color: string;
@@ -31,6 +32,7 @@ const getMjmlEventAdminAreaTable = ({
   indicatorMetadata: IndicatorMetadataEntity;
   event: NotificationDataPerEventDto;
   triangleIcon: string;
+  toCompactNumber: (value: number) => string;
 }) => {
   const isTrigger = event.triggerStatusLabel === TriggerStatusLabelEnum.Trigger;
 
@@ -48,7 +50,7 @@ const getMjmlEventAdminAreaTable = ({
 
   const subtitleElement = getTextElement({
     content: `Expected exposed ${defaultAdminAreaLabel.plural}${
-      isTrigger ? ' in order of exposed ' + indicatorMetadata.label : ''
+      isTrigger ? ' in order of ' + indicatorMetadata.label : ''
     }`,
     attributes: {
       'container-background-color': COLOR_WHITE,
@@ -60,7 +62,7 @@ const getMjmlEventAdminAreaTable = ({
 
   const adminAreaList = event.triggeredAreas.map((triggeredArea) => {
     return {
-      exposed: triggeredArea.actionsValue,
+      exposed: toCompactNumber(triggeredArea.actionsValue),
       name: `${triggeredArea.name} (${triggeredArea.nameParent})`,
     };
   });
@@ -81,8 +83,24 @@ const getMjmlEventAdminAreaTable = ({
   });
 };
 
+export const getMjmlAdminAreaDisclaimer = (): object => {
+  return getSectionElement({
+    childrenEls: [
+      getTextElement({
+        content:
+          'All numbers are approximate and meant to be used as guidance.',
+        attributes: {
+          align: 'center',
+          'font-size': '14px',
+        },
+      }),
+    ],
+  });
+};
+
 export const getMjmlAdminAreaTableList = (
   emailContent: ContentEventEmail,
+  toCompactNumber: (value: number) => string,
 ): object[] => {
   const adminAreaTableList = [];
 
@@ -107,6 +125,7 @@ export const getMjmlAdminAreaTableList = (
           event.eapAlertClass?.key,
           event.triggerStatusLabel,
         ),
+        toCompactNumber,
       }),
     );
   }

@@ -11,6 +11,11 @@ import {
   TriggerStatusLabelEnum,
 } from '../dto/notification-date-per-event.dto';
 
+interface AdminArea {
+  exposed?: string;
+  name: string;
+}
+
 export const BODY_WIDTH = '768px';
 const SECTION_PADDING = '0 16px 16px 16px';
 export const COLOR_PRIMARY = '#4f22d7';
@@ -189,7 +194,7 @@ export const getAdminAreaTable = ({
   indicatorLabel: string;
   adminAreaLabel: string;
   adminAreaParentLabel: string;
-  adminAreaList: { exposed?: number; name: string }[];
+  adminAreaList: AdminArea[];
   isTrigger: boolean;
 }) => {
   const align = isTrigger ? 'left' : 'center';
@@ -197,19 +202,17 @@ export const getAdminAreaTable = ({
   const header = `
     <tr align="${align}">
       ${
-        isTrigger
-          ? '<th style="text-align: right;">Exposed ' + indicatorLabel + '</th>'
-          : ''
+        isTrigger ? `<th style="text-align: right;">${indicatorLabel}</th>` : ''
       }
       <th>${adminAreaLabel} (${adminAreaParentLabel})</th>
     </tr>
   `;
 
-  const row = (adminArea) => `
+  const row = (adminArea: AdminArea) => `
     <tr align="${align}">
       ${
         isTrigger
-          ? '<td style="text-align: right;">' + adminArea.exposed + '</td>'
+          ? `<td style="text-align: right;">${adminArea.exposed}</td>`
           : ''
       }
       <td>${adminArea.name}</td>
