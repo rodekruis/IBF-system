@@ -26,7 +26,7 @@ const getMjmlMapImage = ({
 
   const mapImageElement = getImageElement({
     src,
-    otherAttributes: { width: '600px' },
+    attributes: { width: '600px' },
   });
 
   return getSectionElement({

@@ -4,6 +4,7 @@ import mjml2html from 'mjml';
 
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 import {
+  BODY_WIDTH,
   EMAIL_HEAD,
   getFormattedDate,
   getSectionElement,
@@ -13,7 +14,7 @@ import {
 import { getMjmlEventListBody } from './mjml/body-event';
 import { getMjmlAdminAreaTableList } from './mjml/event-admin-area-table';
 import { getMjmlFinishedEvents } from './mjml/event-finished';
-import { getMjmlFooter } from './mjml/footer';
+import { getIbfFooter, getMailchimpFooter } from './mjml/footer';
 import { getMjmlHeader } from './mjml/header';
 import { getMjmlMapImages } from './mjml/map-image';
 import { getMjmlNotificationAction } from './mjml/notification-actions';
@@ -41,13 +42,14 @@ export class MjmlService {
       disasterTypeLabel: emailContent.disasterTypeLabel,
       nrOfEvents: emailContent.dataPerEvent.length,
       sentOnDate: getFormattedDate({ date }),
-      timeZone: getTimezoneDisplay(emailContent.country.countryCodeISO3),
       logosSrc:
         emailContent.country.notificationInfo.logo[emailContent.disasterType],
     });
 
-  private footer = ({ countryName }: { countryName: string }) =>
-    getMjmlFooter({ countryName });
+  private footer = ({ countryName }: { countryName: string }) => [
+    getIbfFooter({ countryName }),
+    getMailchimpFooter(),
+  ];
 
   private notificationAction = ({
     linkDashboard,
@@ -107,7 +109,7 @@ export class MjmlService {
     children.push(...getMjmlAdminAreaTableList(emailContent));
 
     children.push(
-      this.footer({ countryName: emailContent.country.countryName }),
+      ...this.footer({ countryName: emailContent.country.countryName }),
     );
 
     const emailObject = {
@@ -118,6 +120,7 @@ export class MjmlService {
         {
           tagName: 'mj-body',
           children,
+          attributes: { width: BODY_WIDTH, padding: '0 20px' },
         },
       ],
     };
@@ -158,7 +161,7 @@ export class MjmlService {
     );
 
     children.push(
-      this.footer({ countryName: emailContent.country.countryName }),
+      ...this.footer({ countryName: emailContent.country.countryName }),
     );
 
     const emailObject = {
@@ -169,7 +172,7 @@ export class MjmlService {
         {
           tagName: 'mj-body',
           children,
-          attributes: { padding: '0px 20px 0 20px' },
+          attributes: { width: BODY_WIDTH, padding: '0 20px' },
         },
       ],
     };

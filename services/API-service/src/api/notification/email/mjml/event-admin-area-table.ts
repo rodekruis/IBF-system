@@ -53,7 +53,8 @@ const getMjmlEventAdminAreaTable = ({
     attributes: {
       'container-background-color': COLOR_WHITE,
       align: 'center',
-      padding: '8px 24px',
+      padding: '0',
+      'font-size': '14px',
     },
   });
 

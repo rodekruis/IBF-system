@@ -11,24 +11,39 @@ import {
   TriggerStatusLabelEnum,
 } from '../dto/notification-date-per-event.dto';
 
-const SECTION_PADDING = '0px 16px 16px 16px';
+export const BODY_WIDTH = '768px';
+const SECTION_PADDING = '0 16px 16px 16px';
 export const COLOR_PRIMARY = '#4f22d7';
 export const COLOR_TERTIARY = '#cfbfff';
 export const COLOR_WHITE = '#ffffff';
 export const COLOR_GREY = '#f4f5f8';
+export const COLOR_BROWN = '#241C15';
 const COLOR_WARNING_ORANGE = '#aa6009';
 const COLOR_WARNING_YELLOW = '#665606';
 const COLOR_TRIGGER_RED = '#8a0f32';
-
-const FONT_FAMILY = 'Arial, sans-serif';
 
 const emailFolder = './src/api/notification/email';
 const emailIconFolder = `${emailFolder}/icons`;
 const emailLogoFolder = `${emailFolder}/logos`;
 
+const HEAD_ATTRIBUTES = {
+  tagName: 'mj-attributes',
+  children: [
+    {
+      tagName: 'mj-all',
+      attributes: { 'font-family': 'Arial, sans-serif' },
+    },
+    {
+      tagName: 'mj-text',
+      attributes: { 'font-size': '16px' },
+    },
+  ],
+};
+
 export const EMAIL_HEAD = {
   tagName: 'mj-head',
   children: [
+    HEAD_ATTRIBUTES,
     {
       tagName: 'mj-breakpoint',
       attributes: { width: '520px' },
@@ -74,9 +89,7 @@ export const getTextElement = ({
     content,
     attributes: {
       'line-height': '1.5',
-      padding: '0px',
-      'font-family': FONT_FAMILY,
-      'font-size': '14px',
+      padding: '0',
       ...attributes,
     },
   };
@@ -96,14 +109,16 @@ export const getNotificationActionsSection = ({
   return {
     tagName: 'mj-section',
     attributes: {
-      padding: '0px',
+      padding: '0',
+      'text-align': 'left',
     },
     children: [
       {
         tagName: 'mj-column',
         attributes: {
           'vertical-align': 'middle',
-          padding: '8px 0px 8px 0px',
+          padding: '8px 0 8px 0',
+          width: '224px',
         },
         children: [
           {
@@ -120,7 +135,9 @@ export const getNotificationActionsSection = ({
                   fillcolor="${primary ? COLOR_PRIMARY : COLOR_WHITE}">
                   <w:anchorlock/>
                     <center
-                      style="color: ${primary ? COLOR_WHITE : COLOR_PRIMARY}">
+                      style="font-size: 16px; color: ${
+                        primary ? COLOR_WHITE : COLOR_PRIMARY
+                      };">
                         ${buttonText}
               <![endif]-->`,
           },
@@ -131,12 +148,11 @@ export const getNotificationActionsSection = ({
               width: '200px',
               height: '24px',
               'border-radius': '24px',
-              padding: '0px',
+              padding: '0',
+              'font-size': '16px',
               'background-color': primary ? COLOR_PRIMARY : COLOR_WHITE,
               color: primary ? COLOR_WHITE : COLOR_PRIMARY,
               border: `1px solid ${primary ? COLOR_PRIMARY : COLOR_TERTIARY}`,
-              'font-family': FONT_FAMILY,
-              'font-weight': 'bold',
             },
             content: buttonText,
           },
@@ -149,6 +165,7 @@ export const getNotificationActionsSection = ({
       {
         tagName: 'mj-column',
         attributes: {
+          width: '512px',
           'vertical-align': 'middle',
           padding: '4px',
         },
@@ -179,14 +196,22 @@ export const getAdminAreaTable = ({
 
   const header = `
     <tr align="${align}">
-      ${isTrigger ? '<th>Exposed ' + indicatorLabel + '</th>' : ''}
+      ${
+        isTrigger
+          ? '<th style="text-align: right;">Exposed ' + indicatorLabel + '</th>'
+          : ''
+      }
       <th>${adminAreaLabel} (${adminAreaParentLabel})</th>
     </tr>
   `;
 
   const row = (adminArea) => `
     <tr align="${align}">
-      ${isTrigger ? '<td>' + adminArea.exposed + '</td>' : ''}
+      ${
+        isTrigger
+          ? '<td style="text-align: right;">' + adminArea.exposed + '</td>'
+          : ''
+      }
       <td>${adminArea.name}</td>
     </tr>
   `;
@@ -199,7 +224,7 @@ export const getAdminAreaTable = ({
     content: tbody,
     attributes: {
       'container-background-color': COLOR_WHITE,
-      'font-family': FONT_FAMILY,
+      cellpadding: '4',
     },
   };
 };
@@ -215,14 +240,14 @@ export const getInlineImage = ({
 
 export const getImageElement = ({
   src,
-  otherAttributes,
+  attributes,
 }: {
   src: string;
-  otherAttributes?: object;
+  attributes?: object;
 }): object => {
   return {
     tagName: 'mj-image',
-    attributes: { src, ...otherAttributes },
+    attributes: { src, ...attributes },
   };
 };
 

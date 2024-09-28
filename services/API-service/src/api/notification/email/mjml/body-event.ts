@@ -29,6 +29,7 @@ const getMjmlBodyEvent = ({
   timeZone,
   totalAffected,
   triangleIcon,
+  eapLink,
   triggerStatusLabel,
   indicatorUnit,
 }: {
@@ -48,6 +49,7 @@ const getMjmlBodyEvent = ({
   timeZone: string;
   totalAffected: number;
   triangleIcon: string;
+  eapLink: string;
   triggerStatusLabel: string;
 }): object => {
   const icon = getInlineImage({ src: triangleIcon, size: 14 });
@@ -82,7 +84,7 @@ const getMjmlBodyEvent = ({
 
   contentContent.push(
     triggerStatusLabel === TriggerStatusLabelEnum.Trigger
-      ? `<strong>Advisory:</strong> activate Early Action Protocol`
+      ? `<strong>Advisory:</strong> activate <a href="${eapLink}">Early Action Protocol</a>`
       : `<strong>Advisory:</strong> Inform all potentialy exposed ${defaultAdminAreaLabel}`,
   );
 
@@ -94,7 +96,7 @@ const getMjmlBodyEvent = ({
     content: `This ${triggerStatusLabel} was issued by IBF on ${issuedDate} (${timeZone})`,
     attributes: {
       'padding-top': '8px',
-      'font-size': '13px',
+      'font-size': '14px',
     },
   });
 
@@ -141,6 +143,7 @@ export const getMjmlEventListBody = (
           event.eapAlertClass?.key,
           event.triggerStatusLabel,
         ),
+        eapLink: emailContent.linkEapSop,
 
         disasterIssuedLabel: getDisasterIssuedLabel(
           event.eapAlertClass?.label,

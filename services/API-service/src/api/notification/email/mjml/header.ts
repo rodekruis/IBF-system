@@ -10,19 +10,17 @@ export const getMjmlHeader = ({
   disasterTypeLabel,
   nrOfEvents,
   sentOnDate,
-  timeZone,
   logosSrc,
 }: {
   disasterTypeLabel: string;
   nrOfEvents: number;
   sentOnDate: string;
-  timeZone: string;
   logosSrc: string;
 }): object => {
   const logosElement = getImageElement({
     src: logosSrc,
-    otherAttributes: {
-      padding: '0px',
+    attributes: {
+      padding: '0',
       'container-background-color': COLOR_WHITE,
     },
   });
@@ -31,17 +29,17 @@ export const getMjmlHeader = ({
     content: `${nrOfEvents} ${disasterTypeLabel} alerts`,
     attributes: {
       color: COLOR_WHITE,
-      'font-size': '30px',
+      'font-size': '28px',
       'font-weight': 'bold',
+      'padding-top': '14px',
       align: 'center',
     },
   });
 
   const subtitleElement = getTextElement({
-    content: `IBF alert sent on ${sentOnDate} (${timeZone})`,
+    content: `IBF alert sent on ${sentOnDate}`,
     attributes: {
       color: COLOR_WHITE,
-      'font-size': '16px',
       'font-weight': 'bold',
       align: 'center',
     },
@@ -49,7 +47,6 @@ export const getMjmlHeader = ({
 
   return getSectionElement({
     childrenEls: [logosElement, titleElement, subtitleElement],
-    backgroundColor: COLOR_PRIMARY,
     attributes: {
       'padding-top': '16px',
       'background-color': COLOR_PRIMARY,
