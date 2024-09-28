@@ -7,7 +7,6 @@ import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
 import { UserModule } from '../user/user.module';
 import { AdminAreaDynamicDataModule } from './../admin-area-dynamic-data/admin-area-dynamic-data.module';
 import { EventModule } from './../event/event.module';
-import { EmailTemplateService } from './email/email-template.service';
 import { EmailService } from './email/email.service';
 import { MjmlService } from './email/mjml.service';
 import { NotificationInfoEntity } from './notifcation-info.entity';
@@ -27,12 +26,6 @@ import { WhatsappModule } from './whatsapp/whatsapp.module';
     TyphoonTrackModule,
   ],
   controllers: [NotificationController],
-  providers: [
-    NotificationService,
-    EmailService,
-    EmailTemplateService,
-    MjmlService,
-    HelperService,
-  ],
+  providers: [NotificationService, EmailService, MjmlService, HelperService],
 })
 export class NotificationModule {}
