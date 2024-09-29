@@ -52,7 +52,7 @@ export async function testFloodScenario(
 
   // Get all span elements with apiTest="eventName" and their lower case text content
   const eventNamesInEmail = Array.from(
-    document.querySelectorAll('span[apiTest="eventName"]'),
+    document.querySelectorAll('[data-testid="event-name"]'),
     (el) => (el as Element).textContent.toLowerCase(),
   );
 

@@ -56,7 +56,7 @@ const getMjmlBodyEvent = ({
 
   const eventNameElement = getTextElement({
     attributes: { color },
-    content: `${icon} <strong>${disasterTypeLabel}: ${eventName}</strong>`,
+    content: `${icon} <strong data-testid="event-name">${disasterTypeLabel}: ${eventName}</strong>`,
   });
 
   const contentContent = [];
