@@ -1,4 +1,3 @@
-import { EapAlertClassKeyEnum } from '../../../../shared/data.model';
 import { IndicatorMetadataEntity } from '../../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../../dto/admin-area-notification-info.dto';
 import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
@@ -6,6 +5,7 @@ import { NotificationDataPerEventDto } from '../../dto/notification-date-per-eve
 import {
   COLOR_WHITE,
   getAdminAreaTable,
+  getEventSeverityLabel,
   getIbfHexColor,
   getInlineImage,
   getSectionElement,
@@ -142,13 +142,4 @@ export const getMjmlAdminAreaTableList = (
     );
   }
   return adminAreaTableList;
-};
-
-const getEventSeverityLabel = (eapAlertClassKey: EapAlertClassKeyEnum) => {
-  const severityLabels = {
-    [EapAlertClassKeyEnum.med]: 'Medium',
-    [EapAlertClassKeyEnum.min]: 'Low',
-  };
-
-  return severityLabels[eapAlertClassKey] || '';
 };

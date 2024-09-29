@@ -330,6 +330,17 @@ export const getTriangleIcon = (
   return getPngImageAsDataURL(filePath);
 };
 
+export const getEventSeverityLabel = (
+  eapAlertClassKey: EapAlertClassKeyEnum,
+) => {
+  const severityLabels = {
+    [EapAlertClassKeyEnum.med]: 'Medium',
+    [EapAlertClassKeyEnum.min]: 'Low',
+  };
+
+  return severityLabels[eapAlertClassKey] || '';
+};
+
 export const getPngImageAsDataURL = (relativePath: string) => {
   const imageBuffer = fs.readFileSync(relativePath);
   const imageDataURL = `data:image/png;base64,${imageBuffer.toString(
