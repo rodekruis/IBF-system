@@ -13,7 +13,7 @@ describe('Should send an email for eth malaria', () => {
 
   it('default', async () => {
     await testMalariaScenario(
-      EpidemicsScenario.Default,
+      EpidemicsScenario.Trigger,
       countryCodeISO3,
       accessToken,
     );

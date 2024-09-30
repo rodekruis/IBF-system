@@ -13,7 +13,7 @@ describe('Should send an email for phl dengue', () => {
 
   it('default', async () => {
     await testDengueScenario(
-      EpidemicsScenario.Default,
+      EpidemicsScenario.Trigger,
       countryCodeISO3,
       accessToken,
     );

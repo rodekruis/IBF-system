@@ -1,6 +1,6 @@
 [
   {
-    "scenarioName": "default",
+    "scenarioName": "trigger",
     "defaultScenario": true,
     "events": [{ "eventName": "G5305", "leadTime": "4-day" }]
   },

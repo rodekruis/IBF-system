@@ -13,7 +13,7 @@ describe('Should send an email for mwi flash flood', () => {
 
   it('default', async () => {
     await testFlashFloodScenario(
-      FlashFloodsScenario.Default,
+      FlashFloodsScenario.Trigger,
       countryCodeISO3,
       accessToken,
     );

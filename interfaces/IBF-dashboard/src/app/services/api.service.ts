@@ -434,7 +434,7 @@ export class ApiService {
           countryCodeISO3: country.countryCodeISO3,
           removeEvents,
           date: new Date(),
-          scenario: triggered ? 'default' : 'no-trigger',
+          scenario: triggered ? 'trigger' : 'no-trigger',
         }
       : {
           secret,

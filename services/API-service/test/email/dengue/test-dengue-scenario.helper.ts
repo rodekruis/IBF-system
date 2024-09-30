@@ -32,7 +32,7 @@ export async function testDengueScenario(
   expect(mockResult.status).toBe(202);
   expect(response.status).toBe(201);
 
-  if (scenario === EpidemicsScenario.Default) {
+  if (scenario === EpidemicsScenario.Trigger) {
     expect(response.body.activeEvents.email).toBeDefined();
   } else {
     expect(response.body.activeEvents.email).toBeUndefined();
@@ -51,13 +51,13 @@ export async function testDengueScenario(
     (el) => (el as Element).textContent.toLowerCase(),
   ).map((el) => el.trim());
 
-  if (scenario === EpidemicsScenario.Default) {
+  if (scenario === EpidemicsScenario.Trigger) {
     expect(eventNamesInEmail.length).toBe(eventNames.length);
   } else {
     expect(eventNamesInEmail.length).toBe(0);
   }
 
-  if (scenario === EpidemicsScenario.Default) {
+  if (scenario === EpidemicsScenario.Trigger) {
     // Check if each expected event name is included in at least one title
     for (const eventName of eventNames) {
       const eventTitle = getEventTitle(disasterTypeLabel, eventName);

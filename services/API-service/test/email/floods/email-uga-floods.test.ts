@@ -14,7 +14,7 @@ describe('Should send an email for uga floods', () => {
 
   it('default', async () => {
     // Arrange
-    const scenario = FloodsScenario.Default;
+    const scenario = FloodsScenario.Trigger;
     await testFloodScenario(scenario, {
       scenarios,
       countryCodeISO3,
