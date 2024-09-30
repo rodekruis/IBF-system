@@ -147,6 +147,16 @@ export class MockHelperService {
         selectedCountry.countryCodeISO3,
       );
 
+      if (!sourceFileName) {
+        console.log(
+          'Mock raster file not found' +
+            ` for country: ${selectedCountry.countryCodeISO3}` +
+            ` for disaster: ${disasterType}` +
+            ` for leadtime: ${leadTime}. Skipping.`,
+        );
+        return;
+      }
+
       // NOTE: this makes sure mock raster files are uploaded only once. If your intention is to have a different file, comment this out temporarily.
       const subfolder =
         DisasterTypeGeoServerMapper.getSubfolderForDisasterType(disasterType);
@@ -191,6 +201,11 @@ export class MockHelperService {
   ) {
     const directoryPath = './geoserver-volume/raster-files/mock-output/';
     const leadTimeUnit = leadTime.replace(/\d+-/, '');
+
+    if (!fs.existsSync(directoryPath)) {
+      console.log(`Directory ${directoryPath} does not exist.`);
+      return null;
+    }
 
     const files = fs.readdirSync(directoryPath);
 
@@ -269,6 +284,14 @@ export class MockHelperService {
     console.log(`Seeding event map image country: ${countryCodeISO3}`);
 
     const filename = `${countryCodeISO3}_${disasterType}_${eventName}_map-image.png`;
+
+    if (
+      !fs.existsSync(`./geoserver-volume/raster-files/mock-output/${filename}`)
+    ) {
+      console.log(`Mock map image file ${filename} not found. Skipping.`);
+      return;
+    }
+
     const file = fs.readFileSync(
       `./geoserver-volume/raster-files/mock-output/${filename}`,
     );
