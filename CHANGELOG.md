@@ -1,3 +1,14 @@
+## [0.271.1](https://github.com/rodekruis/IBF-system/compare/v0.271.0...v0.271.1) (2024-09-30)
+
+
+### Bug Fixes
+
+* change scenario name 'default' to 'trigger' ([63f133b](https://github.com/rodekruis/IBF-system/commit/63f133b15f3717ae52ca61a30c4ee4dc9ebb0e05))
+* rename more occurences of 'default' ([da97514](https://github.com/rodekruis/IBF-system/commit/da97514ab665376160bef85106e33bd40b047efd))
+* switch mock path and body for migrated disaster-types ([e77a1e4](https://github.com/rodekruis/IBF-system/commit/e77a1e45ad5c0442e678d1d9123ca24042d7231f))
+
+
+
 # [0.271.0](https://github.com/rodekruis/IBF-system/compare/v0.270.2...v0.271.0) (2024-09-30)
 
 
@@ -119,15 +130,6 @@
 ### Bug Fixes
 
 * remove group by on event trigger value ([8fb6bb0](https://github.com/rodekruis/IBF-system/commit/8fb6bb04120bccb57682cca504cd3580400f5595))
-
-
-
-## [0.268.9](https://github.com/rodekruis/IBF-system/compare/v0.268.8...v0.268.9) (2024-09-12)
-
-
-### Bug Fixes
-
-* use unique id for for loop ([6b97886](https://github.com/rodekruis/IBF-system/commit/6b97886b1f088e2827f3a756cfdb7bf22c0730e2))
 
 
 
