@@ -35,20 +35,16 @@ jobs:
       SECRET: ${{ secrets.SECRET }}
       MC_API: ${{ secrets.MC_API }}
 
-    strategy:
-      matrix:
-        node-version: [20.x]
-
     defaults:
       run:
         working-directory: 'services/API-service'
 
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js version
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: './services/API-service/.node-version'
       - run: npm ci --no-audit
       - run: npm run lint
       - run: npm test
@@ -59,20 +55,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x]
-
     defaults:
       run:
         working-directory: 'interfaces/IBF-dashboard'
 
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js version
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: './interfaces/IBF-dashboard/.node-version'
       - run: npm ci --no-audit
       - run: npm run lint
       - run: npm test
