@@ -78,7 +78,6 @@ jobs:
       - run: npm test
 
   ibf-e2e:
-
     runs-on: ubuntu-latest
 
     steps:
@@ -89,7 +88,7 @@ jobs:
           mailchimp-api-key: ${{ secrets.MC_API }}
 
   bump-version:
-    needs: [ibf-api-service, ibf-dashboard]
+    needs: [ibf-api-service, ibf-dashboard, ibf-e2e]
     if: |
       always() &&
       github.event_name == 'push'
