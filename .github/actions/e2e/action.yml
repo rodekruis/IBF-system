@@ -1,5 +1,5 @@
-name: 'E2E'
-description: 'Run IBF end-to-end tests'
+name: 'e2e'
+description: 'Run end-to-end tests'
 
 inputs:
   mailchimp-api-key:
@@ -17,28 +17,32 @@ runs:
           cache: 'npm'
           cache-dependency-path: './e2e/package-lock.json'
 
-      - name: Install E2E-Tests code-dependencies
+      - name: Install e2e code-dependencies
         shell: bash
         working-directory: ./e2e
         run: npm ci --omit=optional --no-fund --no-audit
 
-      - name: Lint E2E-Tests code
+      - name: Lint e2e code
         shell: bash
         working-directory: ./e2e
         run: npm run lint
 
-      - name: Set ENV-variables for test-environment
+      - name: Setup environment variables
         shell: bash
         run: cp example.env .env
 
-      - name: Run API-service
+      - name: Install IBF API-service code-dependencies
         shell: bash
-        working-directory: ./
+        working-directory: ./services/API-service
+        run: npm ci --omit=optional --no-fund --no-audit
+
+      - name: Run IBF API-service
+        shell: bash
         env:
           MC_API: ${{ inputs.mailchimp-api-key }}
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service
 
-      - name: Start IBF-dashboard
+      - name: Start IBF dashboard
         shell: bash
         working-directory: 'interfaces/IBF-dashboard'
         env:
@@ -48,7 +52,7 @@ runs:
           npm install
           npm run start:prod > dashboard-logs.txt 2>&1 &
 
-      - name: Install E2E-Tests runtime-dependencies
+      - name: Install runtime dependencies
         shell: bash
         working-directory: ./e2e
         run: npx playwright install chromium --with-deps
@@ -57,11 +61,11 @@ runs:
         shell: bash
         run: timeout 60s sh -c 'until curl http://localhost:4000/api -I; do echo "Waiting for the IBF API-service to be running..."; sleep 1; done'
 
-      - name: Wait for IBF-dashboard to be running
+      - name: Wait for IBF dashboard to be running
         shell: bash
-        run: timeout 60s sh -c 'until curl http://localhost:4200 -I; do echo "Waiting for the IBF-dashboard to be running..."; sleep 1; done'
+        run: timeout 60s sh -c 'until curl http://localhost:4200 -I; do echo "Waiting for the IBF dashboard to be running..."; sleep 1; done'
 
-      - name: Run E2E-Tests with Playwright
+      - name: Run end-to-end tests
         shell: bash
         working-directory: ./e2e
         env:
@@ -80,3 +84,4 @@ runs:
       - name: Docker logs
         if: always()
         uses: jwalton/gh-docker-logs@v2
+

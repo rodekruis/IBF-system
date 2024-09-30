@@ -69,6 +69,14 @@ jobs:
       - run: npm run lint
       - run: npm test
 
+  ibf-integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run integration test action
+        uses: ./.github/actions/integration
+
   ibf-e2e:
     runs-on: ubuntu-latest
 
@@ -80,7 +88,7 @@ jobs:
           mailchimp-api-key: ${{ secrets.MC_API }}
 
   bump-version:
-    needs: [ibf-api-service, ibf-dashboard, ibf-e2e]
+    needs: [ibf-api-service, ibf-dashboard, ibf-integration, ibf-e2e]
     if: |
       always() &&
       github.event_name == 'push'
@@ -103,3 +111,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           git-message: 'chore(release): {version}'
           release-count: 10
+
