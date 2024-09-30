@@ -29,8 +29,9 @@ const getMjmlBodyEvent = ({
   timeZone,
   totalAffected,
   triangleIcon,
+  eapLink,
   triggerStatusLabel,
-  indicatorUnit,
+  toCompactNumber,
 }: {
   color: string;
   defaultAdminAreaLabel: string;
@@ -42,32 +43,33 @@ const getMjmlBodyEvent = ({
   firstTriggerLeadTimeFromNow: string;
   firstTriggerLeadTimeString: string;
   indicatorLabel: string;
-  indicatorUnit: string;
   issuedDate: string;
   nrOfTriggeredAreas: number;
   timeZone: string;
   totalAffected: number;
   triangleIcon: string;
+  eapLink: string;
   triggerStatusLabel: string;
+  toCompactNumber: (value: number) => string;
 }): object => {
-  const icon = getInlineImage({ src: triangleIcon, size: 14 });
+  const icon = getInlineImage({ src: triangleIcon, size: 16 });
 
   const eventNameElement = getTextElement({
     attributes: { color },
-    content: `${icon} <strong>${disasterTypeLabel}: ${eventName}</strong>`,
+    content: `${icon} <strong data-testid="event-name">${disasterTypeLabel}: ${eventName}</strong>`,
   });
 
   const contentContent = [];
 
   contentContent.push(
     firstTriggerLeadTimeString
-      ? `<strong>${disasterTypeLabel}:</strong> expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`
-      : `<strong>${disasterIssuedLabel}:</strong> expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
+      ? `<strong>${disasterTypeLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`
+      : `<strong>${disasterIssuedLabel}:</strong> Expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
   );
 
   if (firstTriggerLeadTimeString) {
     contentContent.push(
-      `<strong>${disasterIssuedLabel}:</strong> expected to reach threshold on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}`,
+      `<strong>${disasterIssuedLabel}:</strong> Expected to trigger on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}.`,
     );
   }
 
@@ -75,36 +77,42 @@ const getMjmlBodyEvent = ({
     `<strong>Expected exposed ${defaultAdminAreaLabel}:</strong> ${nrOfTriggeredAreas} (see list below)`,
   ),
     contentContent.push(
-      totalAffected
-        ? `<strong>${indicatorLabel}:</strong> ${totalAffected} ${indicatorUnit}`
-        : `The ${indicatorUnit} information is unavailable`,
+      `<strong>${indicatorLabel}:</strong> ${
+        totalAffected
+          ? `Approximately ${toCompactNumber(
+              totalAffected,
+            )} ${indicatorLabel.toLowerCase()}`
+          : 'Information is unavailable'
+      }`,
     );
 
   contentContent.push(
     triggerStatusLabel === TriggerStatusLabelEnum.Trigger
-      ? `<strong>Advisory:</strong> activate Early Action Protocol`
+      ? `<strong>Advisory:</strong> Activate <a href="${eapLink}">Early Action Protocol</a>`
       : `<strong>Advisory:</strong> Inform all potentialy exposed ${defaultAdminAreaLabel}`,
   );
 
   const contentElement = getTextElement({
-    content: contentContent.join('<br>'),
+    content: contentContent.join('<br/>'),
   });
 
   const closingElement = getTextElement({
     content: `This ${triggerStatusLabel} was issued by IBF on ${issuedDate} (${timeZone})`,
     attributes: {
       'padding-top': '8px',
-      'font-size': '13px',
+      'font-size': '14px',
     },
   });
 
   return getSectionElement({
     childrenEls: [eventNameElement, contentElement, closingElement],
+    attributes: { padding: '8px' },
   });
 };
 
 export const getMjmlEventListBody = (
   emailContent: ContentEventEmail,
+  toCompactNumber: (value: number) => string,
 ): object[] => {
   const eventList = [];
 
@@ -135,12 +143,14 @@ export const getMjmlEventListBody = (
         // Indicator details
         indicatorLabel: emailContent.indicatorMetadata.label,
         totalAffected: getTotalAffected(event),
+        toCompactNumber: toCompactNumber,
 
         // EAP details
         triangleIcon: getTriangleIcon(
           event.eapAlertClass?.key,
           event.triggerStatusLabel,
         ),
+        eapLink: emailContent.linkEapSop,
 
         disasterIssuedLabel: getDisasterIssuedLabel(
           event.eapAlertClass?.label,
@@ -150,8 +160,6 @@ export const getMjmlEventListBody = (
           event.eapAlertClass?.color,
           event.triggerStatusLabel,
         ),
-
-        indicatorUnit: emailContent.indicatorMetadata.unit,
       }),
     );
   }

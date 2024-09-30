@@ -21,7 +21,7 @@ const getMjmlFinishedEvent = ({
     'The events actions will continue to show on the IBF portal and can still be managed.';
 
   const eventEndedElement = getTextElement({
-    content: `${belowThresholdText}<br>${portalText}`,
+    content: `${belowThresholdText}<br/>${portalText}`,
   });
 
   const pleaseNoteElement = getTextElement({
@@ -35,6 +35,7 @@ const getMjmlFinishedEvent = ({
 
   return getSectionElement({
     childrenEls: [eventEndedElement, pleaseNoteElement, warningIssuedDate],
+    attributes: { padding: '8px' },
   });
 };
 

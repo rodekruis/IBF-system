@@ -55,9 +55,9 @@ describe('Should send an email for uga drought', () => {
     const dom = new JSDOM(response.body.activeEvents.email);
     const document = dom.window.document;
 
-    // Get all span elements with apiTest="eventName" and their lower case text content
+    // Get all span elements with data-testid="event-name" and their lower case text content
     const eventNamesInEmail = Array.from(
-      document.querySelectorAll('span[apiTest="eventName"]'),
+      document.querySelectorAll('[data-testid="event-name"]'),
       (el) => (el as Element).textContent.toLowerCase(),
     );
 

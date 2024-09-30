@@ -297,7 +297,7 @@ export class NotificationContentService {
 
     return new Date(getNewDate[unit]).toLocaleDateString('default', {
       ...dayOption,
-      month: 'short',
+      month: 'long',
       year: 'numeric',
     });
   }

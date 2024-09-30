@@ -2,8 +2,10 @@ import { Injectable } from '@nestjs/common';
 
 import mjml2html from 'mjml';
 
+import { HelperService } from '../../../shared/helper.service';
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 import {
+  BODY_WIDTH,
   EMAIL_HEAD,
   getFormattedDate,
   getSectionElement,
@@ -11,9 +13,12 @@ import {
   getTimezoneDisplay,
 } from '../helpers/mjml.helper';
 import { getMjmlEventListBody } from './mjml/body-event';
-import { getMjmlAdminAreaTableList } from './mjml/event-admin-area-table';
+import {
+  getMjmlAdminAreaDisclaimer,
+  getMjmlAdminAreaTableList,
+} from './mjml/event-admin-area-table';
 import { getMjmlFinishedEvents } from './mjml/event-finished';
-import { getMjmlFooter } from './mjml/footer';
+import { getIbfFooter, getMailchimpFooter } from './mjml/footer';
 import { getMjmlHeader } from './mjml/header';
 import { getMjmlMapImages } from './mjml/map-image';
 import { getMjmlNotificationAction } from './mjml/notification-actions';
@@ -21,13 +26,11 @@ import { getMjmlTriggerStatement } from './mjml/trigger-statement';
 
 @Injectable()
 export class MjmlService {
+  public constructor(private readonly helperService: HelperService) {}
+
   private mailOpening = getSectionElement({
-    childrenEls: [
-      getTextElement({
-        content: 'Dear Reader,',
-        attributes: { 'padding-top': '20px' },
-      }),
-    ],
+    childrenEls: [getTextElement({ content: 'Dear reader,' })],
+    attributes: { padding: '16px 8px 8px' },
   });
 
   private header = ({
@@ -41,13 +44,14 @@ export class MjmlService {
       disasterTypeLabel: emailContent.disasterTypeLabel,
       nrOfEvents: emailContent.dataPerEvent.length,
       sentOnDate: getFormattedDate({ date }),
-      timeZone: getTimezoneDisplay(emailContent.country.countryCodeISO3),
       logosSrc:
         emailContent.country.notificationInfo.logo[emailContent.disasterType],
     });
 
-  private footer = ({ countryName }: { countryName: string }) =>
-    getMjmlFooter({ countryName });
+  private footer = ({ countryName }: { countryName: string }) => [
+    getIbfFooter({ countryName }),
+    getMailchimpFooter(),
+  ];
 
   private notificationAction = ({
     linkDashboard,
@@ -80,7 +84,9 @@ export class MjmlService {
 
     children.push(this.mailOpening);
 
-    children.push(...getMjmlEventListBody(emailContent));
+    children.push(
+      ...getMjmlEventListBody(emailContent, this.helperService.toCompactNumber),
+    );
 
     children.push(
       this.notificationAction({
@@ -104,10 +110,16 @@ export class MjmlService {
 
     children.push(...getMjmlMapImages(emailContent));
 
-    children.push(...getMjmlAdminAreaTableList(emailContent));
+    children.push(
+      getMjmlAdminAreaDisclaimer(),
+      ...getMjmlAdminAreaTableList(
+        emailContent,
+        this.helperService.toCompactNumber,
+      ),
+    );
 
     children.push(
-      this.footer({ countryName: emailContent.country.countryName }),
+      ...this.footer({ countryName: emailContent.country.countryName }),
     );
 
     const emailObject = {
@@ -118,6 +130,7 @@ export class MjmlService {
         {
           tagName: 'mj-body',
           children,
+          attributes: { width: BODY_WIDTH, padding: '0 20px' },
         },
       ],
     };
@@ -158,7 +171,7 @@ export class MjmlService {
     );
 
     children.push(
-      this.footer({ countryName: emailContent.country.countryName }),
+      ...this.footer({ countryName: emailContent.country.countryName }),
     );
 
     const emailObject = {
@@ -169,7 +182,7 @@ export class MjmlService {
         {
           tagName: 'mj-body',
           children,
-          attributes: { padding: '0px 20px 0 20px' },
+          attributes: { width: BODY_WIDTH, padding: '0 20px' },
         },
       ],
     };
