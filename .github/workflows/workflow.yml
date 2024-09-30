@@ -78,6 +78,9 @@ jobs:
       - run: npm test
 
   ibf-e2e:
+
+    runs-on: ubuntu-latest
+
     steps:
       - uses: ./.github/actions/e2e
 
