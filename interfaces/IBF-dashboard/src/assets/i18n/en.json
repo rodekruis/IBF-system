@@ -178,7 +178,7 @@
       },
       "alertLevel": {
         "expected": "expected on",
-        "expected-trigger": "expected to reach threshold on",
+        "expected-trigger": "expected to trigger on",
         "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
         "no-data": "No population data available"
       }
