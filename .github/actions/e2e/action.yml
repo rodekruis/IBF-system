@@ -78,7 +78,7 @@ runs:
           name: test-result-artifacts
           path: |
             ./e2e/test-results/
-            ./interfaces/IBF-dashboard/ibf-server-logs.txt
+            ./interfaces/IBF-dashboard/dashboard-logs.txt
           retention-days: 30
 
       - name: Docker logs
