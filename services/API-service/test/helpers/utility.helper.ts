@@ -29,7 +29,7 @@ export function loginApi(
 }
 
 export function getHostname(): string {
-  return process.env.BASE_URL_IBF_SERVICE;
+  return process.env.BASE_URL_IBF_SERVICE || 'http://localhost:3000/api';
 }
 
 export function getEventTitle(disasterType: string, eventName: string) {
