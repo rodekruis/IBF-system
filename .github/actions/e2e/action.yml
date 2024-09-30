@@ -1,5 +1,5 @@
 name: 'E2E'
-description: 'Run end-to-end tests for IBF'
+description: 'Run IBF end-to-end tests'
 
 inputs:
   mailchimp-api-key:
@@ -30,11 +30,6 @@ runs:
       - name: Set ENV-variables for test-environment
         shell: bash
         run: cp example.env .env
-
-      - name: Install API-service
-        shell: bash
-        working-directory: ./services/API-service
-        run: npm ci --omit=optional --no-fund --no-audit
 
       - name: Run API-service
         shell: bash
