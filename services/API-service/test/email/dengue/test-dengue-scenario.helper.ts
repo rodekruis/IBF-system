@@ -12,7 +12,7 @@ export async function testDengueScenario(
   scenario: EpidemicsScenario,
   countryCodeISO3: string,
   accessToken: string,
-): Promise<void> {
+): Promise<boolean> {
   const eventNames = ['0-month', '1-month', '2-month'];
   const disasterTypeLabel = DisasterType.Dengue;
 
@@ -67,4 +67,6 @@ export async function testDengueScenario(
       expect(hasEvent).toBe(true);
     }
   }
+
+  return true;
 }

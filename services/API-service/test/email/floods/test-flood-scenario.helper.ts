@@ -23,7 +23,7 @@ export interface TestFloodScenarioDto {
 export async function testFloodScenario(
   scenario: FloodsScenario,
   params: TestFloodScenarioDto,
-): Promise<void> {
+): Promise<boolean> {
   const { events, countryCodeISO3, accessToken } = params;
   const disasterType = DisasterType.Floods;
   const disasterTypeLabel = disasters.find(
@@ -69,4 +69,6 @@ export async function testFloodScenario(
     );
     expect(hasEvent).toBe(true);
   }
+
+  return true;
 }

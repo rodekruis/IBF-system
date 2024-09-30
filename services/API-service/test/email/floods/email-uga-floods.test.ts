@@ -17,37 +17,41 @@ describe('Should send an email for uga floods', () => {
       { eventName: 'G5220', leadTime: '4-day' },
       { eventName: 'G5230', leadTime: '6-day' },
     ];
-    await testFloodScenario(FloodsScenario.Trigger, {
+    const result = await testFloodScenario(FloodsScenario.Trigger, {
       events,
       countryCodeISO3,
       accessToken,
     });
+    expect(result).toBeTruthy();
   });
 
   it('warning', async () => {
     const events = [{ eventName: 'G5230', leadTime: '5-day' }];
-    await testFloodScenario(FloodsScenario.Warning, {
+    const result = await testFloodScenario(FloodsScenario.Warning, {
       events,
       countryCodeISO3,
       accessToken,
     });
+    expect(result).toBeTruthy();
   });
 
   it('warning-to-trigger', async () => {
     const events = [{ eventName: 'G5220', leadTime: '4-day' }];
-    await testFloodScenario(FloodsScenario.WarningToTrigger, {
+    const result = await testFloodScenario(FloodsScenario.WarningToTrigger, {
       events,
       countryCodeISO3,
       accessToken,
     });
+    expect(result).toBeTruthy();
   });
 
   it('no-trigger', async () => {
     const events = [];
-    await testFloodScenario(FloodsScenario.NoTrigger, {
+    const result = await testFloodScenario(FloodsScenario.NoTrigger, {
       events,
       countryCodeISO3,
       accessToken,
     });
+    expect(result).toBeTruthy();
   });
 });

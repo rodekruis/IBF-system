@@ -12,18 +12,20 @@ describe('Should send an email for phl dengue', () => {
   });
 
   it('trigger', async () => {
-    await testDengueScenario(
+    const result = await testDengueScenario(
       EpidemicsScenario.Trigger,
       countryCodeISO3,
       accessToken,
     );
+    expect(result).toBeTruthy();
   });
 
   it('no-trigger', async () => {
-    await testDengueScenario(
+    const result = await testDengueScenario(
       EpidemicsScenario.NoTrigger,
       countryCodeISO3,
       accessToken,
     );
+    expect(result).toBeTruthy();
   });
 });

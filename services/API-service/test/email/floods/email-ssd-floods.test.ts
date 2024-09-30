@@ -13,19 +13,21 @@ describe('Should send an email for ssd floods', () => {
 
   it('trigger', async () => {
     const events = [{ eventName: 'G5100', leadTime: '4-day' }];
-    await testFloodScenario(FloodsScenario.Trigger, {
+    const result = await testFloodScenario(FloodsScenario.Trigger, {
       events,
       countryCodeISO3,
       accessToken,
     });
+    expect(result).toBeTruthy();
   });
 
   it('no-trigger', async () => {
     const events = [];
-    await testFloodScenario(FloodsScenario.NoTrigger, {
+    const result = await testFloodScenario(FloodsScenario.NoTrigger, {
       events,
       countryCodeISO3,
       accessToken,
     });
+    expect(result).toBeTruthy();
   });
 });
