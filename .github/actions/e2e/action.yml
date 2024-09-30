@@ -1,6 +1,11 @@
 name: 'E2E'
 description: 'Run end-to-end tests for IBF'
 
+inputs:
+  mailchimp-api-key:
+    description: 'Mailchimp API key'
+    required: true
+
 runs:
     using: composite
 
@@ -33,7 +38,7 @@ runs:
       - name: Run API-service
         working-directory: ./
         env:
-          MC_API: ${{ secrets.MC_API }}
+          MC_API: ${{ inputs.mailchimp-api-key }}
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service
 
       - name: Start IBF-dashboard
