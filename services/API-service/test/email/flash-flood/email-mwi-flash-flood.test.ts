@@ -11,7 +11,7 @@ describe('Should send an email for mwi flash flood', () => {
     await resetDB(accessToken);
   });
 
-  it('default', async () => {
+  it('trigger', async () => {
     await testFlashFloodScenario(
       FlashFloodsScenario.Trigger,
       countryCodeISO3,

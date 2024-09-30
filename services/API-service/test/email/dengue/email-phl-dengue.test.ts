@@ -11,7 +11,7 @@ describe('Should send an email for phl dengue', () => {
     await resetDB(accessToken);
   });
 
-  it('default', async () => {
+  it('trigger', async () => {
     await testDengueScenario(
       EpidemicsScenario.Trigger,
       countryCodeISO3,

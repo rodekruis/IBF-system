@@ -62,7 +62,7 @@ export class MockFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FloodsScenario).join(' | '),
     description:
-      'default: ongoing + trigger + warning event; warning: 1 warning event; warning-to-trigger: 1 event that evolves from warning to trigger',
+      'trigger: ongoing + trigger + warning event; warning: 1 warning event; warning-to-trigger: 1 event that evolves from warning to trigger',
   })
   @IsEnum(FloodsScenario)
   public readonly scenario: FloodsScenario;
@@ -71,7 +71,7 @@ export class MockFloodsScenario extends MockBaseScenario {
 export class MockFlashFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FlashFloodsScenario).join(' | '),
-    description: 'default: trigger + warning event',
+    description: 'trigger: trigger + warning event',
   })
   @IsEnum(FlashFloodsScenario)
   public readonly scenario: FlashFloodsScenario;
@@ -80,7 +80,7 @@ export class MockFlashFloodsScenario extends MockBaseScenario {
 export class MockEpidemicsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(EpidemicsScenario).join(' | '),
-    description: 'default: trigger in each month',
+    description: 'trigger: trigger in each month',
   })
   @IsEnum(EpidemicsScenario)
   public readonly scenario: EpidemicsScenario;

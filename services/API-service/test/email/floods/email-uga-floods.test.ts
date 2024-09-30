@@ -12,7 +12,7 @@ describe('Should send an email for uga floods', () => {
     await resetDB(accessToken);
   });
 
-  it('default', async () => {
+  it('trigger', async () => {
     // Arrange
     const scenario = FloodsScenario.Trigger;
     await testFloodScenario(scenario, {
