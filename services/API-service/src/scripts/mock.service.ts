@@ -16,8 +16,8 @@ import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.enti
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { EventService } from '../api/event/event.service';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
-import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
 import { MetadataService } from '../api/metadata/metadata.service';
+import { PointDataService } from '../api/point-data/point-data.service';
 import { DEBUG } from '../config';
 import { GeoserverSyncService } from './geoserver-sync.service';
 import countries from './json/countries.json';
@@ -53,7 +53,7 @@ export class MockService {
     private metadataService: MetadataService,
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private eventService: EventService,
-    private glofasStationService: GlofasStationService,
+    private pointDataService: PointDataService,
     private adminAreaService: AdminAreaService,
     private mockHelpService: MockHelperService,
     private geoServerSyncService: GeoserverSyncService,
@@ -355,7 +355,7 @@ export class MockService {
     console.log(
       `Seeding Glofas stations for country: ${selectedCountry.countryCodeISO3} for leadtime: ${leadTime}`,
     );
-    await this.glofasStationService.uploadTriggerDataPerStation({
+    await this.pointDataService.reformatAndUploadOldGlofasStationData({
       countryCodeISO3: selectedCountry.countryCodeISO3,
       stationForecasts,
       leadTime,

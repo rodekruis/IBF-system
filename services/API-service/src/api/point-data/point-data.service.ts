@@ -16,6 +16,7 @@ import { CommunityNotificationDto } from './dto/upload-community-notifications.d
 import { DamSiteDto } from './dto/upload-dam-sites.dto';
 import { EvacuationCenterDto } from './dto/upload-evacuation-centers.dto';
 import { GaugeDto } from './dto/upload-gauge.dto';
+import { UploadGlofasStationDynamicOldFormatDto } from './dto/upload-glofas-station-old-format';
 import { GlofasStationDto } from './dto/upload-glofas-station.dto';
 import { HealthSiteDto } from './dto/upload-health-sites.dto';
 import { RedCrossBranchDto } from './dto/upload-red-cross-branch.dto';
@@ -300,5 +301,32 @@ export class PointDataService {
       dynamicPointDataArray.push(dynamicPoint);
     }
     await this.dynamicPointDataRepository.save(dynamicPointDataArray);
+  }
+
+  // Refactor: This function is used to map Glofas station dynamic mock data, which is still in format of old endpoint, to format of new endpoint
+  // The mock data should be updated to the new format, and then this function can be removed
+  public async reformatAndUploadOldGlofasStationData(
+    uploadTriggerPerStation: UploadGlofasStationDynamicOldFormatDto,
+  ): Promise<void> {
+    const keys = [
+      'forecastLevel',
+      'forecastReturnPeriod',
+      'triggerLevel',
+      'eapAlertClass',
+    ];
+    const date = uploadTriggerPerStation.date || new Date();
+    for await (const key of keys) {
+      const payload = new UploadDynamicPointDataDto();
+      payload.key = key;
+      payload.leadTime = uploadTriggerPerStation.leadTime;
+      payload.date = date;
+      payload.disasterType = DisasterType.Floods;
+      payload.dynamicPointData = uploadTriggerPerStation.stationForecasts.map(
+        (f) => {
+          return { fid: f.stationCode, value: f[key] };
+        },
+      );
+      await this.uploadDynamicPointData(payload);
+    }
   }
 }
