@@ -52,7 +52,6 @@ jobs:
       - run: npm ci --no-audit
       - run: npm run lint
       - run: npm test
-      - run: docker build . --file Dockerfile --tag ibf-api-service:$(date +%s)
 
   ibf-dashboard:
     needs: detect-changes
@@ -77,7 +76,9 @@ jobs:
       - run: npm ci --no-audit
       - run: npm run lint
       - run: npm test
-      - run: docker build . --file Dockerfile --tag ibf-dashboard:$(date +%s)
+
+  ibf-e2e:
+      - uses: ./e2e.yml
 
   bump-version:
     needs: [ibf-api-service, ibf-dashboard]
