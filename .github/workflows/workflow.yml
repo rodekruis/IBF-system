@@ -78,7 +78,7 @@ jobs:
       - run: npm test
 
   ibf-e2e:
-      - uses: ./e2e.yml
+      - uses: ./.github/actions/e2e
 
   bump-version:
     needs: [ibf-api-service, ibf-dashboard]
