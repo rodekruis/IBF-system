@@ -7,11 +7,10 @@ runs:
     steps:
       - name: Set up Node.js version
         uses: actions/setup-node@v4
-        working-directory: ./services/API-service
         with:
-          node-version-file: './.node-version'
+          node-version-file: './services/API-service/.node-version'
           cache: 'npm'
-          cache-dependency-path: './package-lock.json'
+          cache-dependency-path: './services/API-service/package-lock.json'
 
       - name: Install code-dependencies
         shell: bash
