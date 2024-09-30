@@ -11,9 +11,9 @@ describe('Should send an email for eth malaria', () => {
     await resetDB(accessToken);
   });
 
-  it('default', async () => {
+  it('trigger', async () => {
     await testMalariaScenario(
-      EpidemicsScenario.Default,
+      EpidemicsScenario.Trigger,
       countryCodeISO3,
       accessToken,
     );

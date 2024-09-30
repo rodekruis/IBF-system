@@ -410,18 +410,41 @@ export class ApiService {
     removeEvents: boolean,
     disasterType: DisasterType,
   ) {
-    return this.post(
-      'scripts/mock-dynamic-data',
-      {
-        secret,
-        countryCodeISO3: country.countryCodeISO3,
-        disasterType: disasterType.disasterType,
-        triggered,
-        removeEvents,
-        date: new Date(),
-      },
-      false,
-    );
+    // Part of disaster-types is migrated to new mock setup
+    // Once all disaster-types are migrated, this code can be simplified again
+    let apiPath = 'scripts/mock-dynamic-data';
+    let isNewBodyFormat = false;
+    if (disasterType.disasterType === DisasterTypeKey.floods) {
+      apiPath = 'mock/floods';
+      isNewBodyFormat = true;
+    } else if (disasterType.disasterType === DisasterTypeKey.flashFloods) {
+      apiPath = 'mock/flash-floods';
+      isNewBodyFormat = true;
+    } else if (
+      disasterType.disasterType === DisasterTypeKey.dengue ||
+      disasterType.disasterType === DisasterTypeKey.malaria
+    ) {
+      apiPath = 'mock/epidemics';
+      isNewBodyFormat = true;
+    }
+
+    const body = isNewBodyFormat
+      ? {
+          secret,
+          countryCodeISO3: country.countryCodeISO3,
+          removeEvents,
+          date: new Date(),
+          scenario: triggered ? 'trigger' : 'no-trigger',
+        }
+      : {
+          secret,
+          countryCodeISO3: country.countryCodeISO3,
+          disasterType: disasterType.disasterType,
+          triggered,
+          removeEvents,
+          date: new Date(),
+        };
+    return this.post(apiPath, body, false);
   }
 
   getActivationLogs(countryCodeISO3?: string, disasterType?: DisasterTypeKey) {

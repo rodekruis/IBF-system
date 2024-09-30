@@ -1,17 +1,17 @@
 export enum FloodsScenario {
-  Default = 'default',
+  Trigger = 'trigger',
   Warning = 'warning',
   WarningToTrigger = 'warning-to-trigger',
   NoTrigger = 'no-trigger',
 }
 
 export enum FlashFloodsScenario {
-  Default = 'default',
+  Trigger = 'trigger',
   NoTrigger = 'no-trigger',
 }
 
 export enum EpidemicsScenario {
-  Default = 'default',
+  Trigger = 'trigger',
   NoTrigger = 'no-trigger',
 }
 

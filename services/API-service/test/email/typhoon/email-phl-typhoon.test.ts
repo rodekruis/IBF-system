@@ -11,7 +11,7 @@ describe('Should send an email for phl typhoon', () => {
     await resetDB(accessToken);
   });
 
-  it('default', async () => {
+  it('trigger', async () => {
     await testTyphoonScenario(
       TyphoonScenario.EventTrigger,
       countryCodeISO3,
