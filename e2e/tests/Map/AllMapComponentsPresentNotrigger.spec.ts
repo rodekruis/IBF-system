@@ -38,13 +38,13 @@ test('[30538] All Map elements are present in no-trigger mode', async ({
   page,
 }) => {
   const dashboard = new DashboardPage(page);
-  const header = new UserStateComponent(page);
+  const userState = new UserStateComponent(page);
   const map = new MapComponent(page);
 
   // Navigate to disaster type the data was mocked for
   await dashboard.navigateToFloodDisasterType();
   // Assertions
-  await header.headerComponentIsVisible({
+  await userState.headerComponentIsVisible({
     countryName: NoTriggerDataSet.CountryName,
   });
   await map.mapComponentIsVisible();

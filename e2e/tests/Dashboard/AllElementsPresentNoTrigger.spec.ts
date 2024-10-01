@@ -41,23 +41,23 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
   page,
 }) => {
   const dashboard = new DashboardPage(page);
-  const header = new UserStateComponent(page);
-  const topBar = new DisasterTypeComponent(page);
+  const userState = new UserStateComponent(page);
+  const disasterType = new DisasterTypeComponent(page);
   const chat = new ChatComponent(page);
-  const aggregate = new AggregatesComponent(page);
+  const aggregates = new AggregatesComponent(page);
   const map = new MapComponenet(page);
 
   // Navigate to disaster type the data was mocked for
   await dashboard.navigateToFloodDisasterType();
   // Assertions
-  await header.headerComponentIsVisible({
+  await userState.headerComponentIsVisible({
     countryName: NoTriggerDataSet.CountryName,
   });
-  await topBar.topBarComponentIsVisible();
+  await disasterType.topBarComponentIsVisible();
   await chat.chatColumnIsVisibleForNoTriggerState({
     firstName: NoTriggerDataSet.firstName,
     lastName: NoTriggerDataSet.lastName,
   });
-  await aggregate.aggregateComponentIsVisible();
+  await aggregates.aggregateComponentIsVisible();
   await map.mapComponentIsVisible();
 });
