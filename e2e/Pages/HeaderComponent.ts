@@ -3,7 +3,7 @@ import { Locator, Page } from 'playwright';
 
 import DashboardPage from './DashboardPage';
 
-class HeaderComponent extends DashboardPage {
+class UserState extends DashboardPage {
   readonly page: Page;
   readonly header: Locator;
 
@@ -13,7 +13,7 @@ class HeaderComponent extends DashboardPage {
     this.header = this.page.getByTestId('heading-display-name-span');
   }
 
-  async headerComponentIsVisible({ countryName }: { countryName: string }) {
+  async userStateComponentIsVisible({ countryName }: { countryName: string }) {
     const header = this.header.filter({
       hasText: `IBF PORTAL ${countryName}`,
     });
@@ -21,4 +21,4 @@ class HeaderComponent extends DashboardPage {
   }
 }
 
-export default HeaderComponent;
+export default UserState;

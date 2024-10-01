@@ -3,7 +3,7 @@ import { Locator, Page } from 'playwright';
 
 import DashboardPage from './DashboardPage';
 
-class TopBarComponent extends DashboardPage {
+class DisasterType extends DashboardPage {
   readonly page: Page;
   readonly topBar: Locator;
 
@@ -19,4 +19,4 @@ class TopBarComponent extends DashboardPage {
   }
 }
 
-export default TopBarComponent;
+export default DisasterType;

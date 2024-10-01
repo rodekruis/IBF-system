@@ -3,7 +3,7 @@ import { Locator, Page } from 'playwright';
 
 import DashboardPage from './DashboardPage';
 
-class AggregateComponenet extends DashboardPage {
+class AggregatesComponent extends DashboardPage {
   readonly page: Page;
   readonly aggregateSectionColumn: Locator;
 
@@ -21,4 +21,4 @@ class AggregateComponenet extends DashboardPage {
   }
 }
 
-export default AggregateComponenet;
+export default AggregatesComponent;

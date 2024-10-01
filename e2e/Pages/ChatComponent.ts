@@ -1,4 +1,5 @@
 import { expect } from '@playwright/test';
+import { format } from 'date-fns';
 import { Locator, Page } from 'playwright';
 
 import EnglishTranslations from '../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
@@ -20,35 +21,28 @@ class ChatComponent extends DashboardPage {
   }
 
   async chatColumnIsVisibleForNoTriggerState({
-    name,
-    surname,
+    firstName,
+    lastName,
   }: {
-    name: string;
-    surname: string;
+    firstName: string;
+    lastName: string;
   }) {
     // String cleaning to remove <strong> tags and replace placeholders with actual values
     const cleanedString = chatDialogueWarnLabel.replace(/<\/?strong>/g, '');
-    const optionsDate: Intl.DateTimeFormatOptions = {
-      weekday: 'long',
-      day: '2-digit',
-      month: 'long',
-    };
-    const optionsTime: Intl.DateTimeFormatOptions = {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false,
-    };
+
     const date = new Date();
-    const formattedDate = date
-      .toLocaleDateString('en-US', optionsDate)
-      .split(', ');
-    const lastModelRunDate = `${formattedDate[0]}, ${formattedDate[1].split(' ')[1]} ${formattedDate[1].split(' ')[0]} ${date.toLocaleTimeString('en-US', optionsTime)}`;
+    const formattedDate = format(date, 'EEEE, dd MMMM');
+    const formattedTime = format(date, 'HH:mm');
+
+    const lastModelRunDate = `${formattedDate} ${formattedTime}`;
+
     // Formatted Strings
     const chatDialogueContent = cleanedString
-      .replace('{{ name }}', `${name} ${surname}`)
+      .replace('{{ name }}', `${firstName} ${lastName}`)
       .replace('{{lastModelRunDate}}', lastModelRunDate);
     const chatDialogueContentNoAlerts =
       chatDialogueContentWelcomeNoTrigger.replace(/<\/?strong>/g, '');
+
     // Locators based on data-testid and filtered by formatted strings
     const welcomeChatDialogue = this.chatDialogue.filter({
       hasText: chatDialogueContent,
@@ -56,6 +50,7 @@ class ChatComponent extends DashboardPage {
     const noTriggerChatDialogue = this.chatDialogue.filter({
       hasText: chatDialogueContentNoAlerts,
     });
+
     // Assertions
     await expect(welcomeChatDialogue).toBeVisible();
     await expect(noTriggerChatDialogue).toBeVisible();

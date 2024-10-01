@@ -1,10 +1,10 @@
 import { test } from '@playwright/test';
-import AggregateComponenet from 'Pages/AggregateComponenet';
+import AggregatesComponent from 'Pages/AggregateComponenet';
 import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
-import HeaderComponent from 'Pages/HeaderComponent';
-import MapComponenet from 'Pages/MapComponenet';
-import TopBarComponent from 'Pages/TopBarComponent';
+import UserState from 'Pages/HeaderComponent';
+import MapComponent from 'Pages/MapComponenet';
+import DisasterType from 'Pages/TopBarComponent';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { FloodsScenario } from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
@@ -41,25 +41,22 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
   page,
 }) => {
   const dashboard = new DashboardPage(page);
-  const header = new HeaderComponent(page);
-  const topBar = new TopBarComponent(page);
+  const state = new UserState(page);
+  const disaster = new DisasterType(page);
   const chat = new ChatComponent(page);
-  const aggregate = new AggregateComponenet(page);
-  const map = new MapComponenet(page);
-  // Navigate to designated test country
-  await dashboard.switchToCountryByName({
-    countryName: NoTriggerDataSet.CountryName,
-  });
+  const aggregate = new AggregatesComponent(page);
+  const map = new MapComponent(page);
+
   // Navigate to disaster type the data was mocked for
   await dashboard.navigateToFloodDisasterType();
   // Assertions
-  await header.headerComponentIsVisible({
+  await state.userStateComponentIsVisible({
     countryName: NoTriggerDataSet.CountryName,
   });
-  await topBar.topBarComponentIsVisible();
+  await disaster.topBarComponentIsVisible();
   await chat.chatColumnIsVisibleForNoTriggerState({
-    name: NoTriggerDataSet.userName,
-    surname: NoTriggerDataSet.userSurname,
+    firstName: NoTriggerDataSet.firstName,
+    lastName: NoTriggerDataSet.lastName,
   });
   await aggregate.aggregateComponentIsVisible();
   await map.mapComponentIsVisible();

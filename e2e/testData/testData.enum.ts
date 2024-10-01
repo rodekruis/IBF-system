@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 export enum NoTriggerDataSet {
   NoTriggerScenario = 'no-trigger',
   CountryCode = 'UGA',
   CountryName = 'Uganda',
-  UserMail = 'dunant@redcross.nl',
+  UserMail = 'uganda@redcross.nl',
   UserPassword = 'password',
-  userName = 'Henry',
-  userSurname = 'Dunant',
+  firstName = 'Uganda',
+  lastName = 'Manager',
 }

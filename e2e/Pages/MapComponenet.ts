@@ -3,7 +3,7 @@ import { Locator, Page } from 'playwright';
 
 import DashboardPage from './DashboardPage';
 
-class MapComponenet extends DashboardPage {
+class MapComponent extends DashboardPage {
   readonly page: Page;
   readonly mapComponent: Locator;
 
@@ -18,4 +18,4 @@ class MapComponenet extends DashboardPage {
   }
 }
 
-export default MapComponenet;
+export default MapComponent;
