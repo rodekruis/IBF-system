@@ -3,7 +3,7 @@ import { Locator, Page } from 'playwright';
 
 import DashboardPage from './DashboardPage';
 
-class HeaderComponent extends DashboardPage {
+class UserStateComponent extends DashboardPage {
   readonly page: Page;
   readonly header: Locator;
 
@@ -21,4 +21,4 @@ class HeaderComponent extends DashboardPage {
   }
 }
 
-export default HeaderComponent;
+export default UserStateComponent;

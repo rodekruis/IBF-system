@@ -1,10 +1,10 @@
 import { test } from '@playwright/test';
-import AggregateComponenet from 'Pages/AggregateComponenet';
+import AggregatesComponent from 'Pages/AggregateComponenet';
 import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
-import HeaderComponent from 'Pages/HeaderComponent';
+import DisasterTypeComponent from 'Pages/DisasterTypeComponent';
 import MapComponenet from 'Pages/MapComponent';
-import TopBarComponent from 'Pages/TopBarComponent';
+import UserStateComponent from 'Pages/UserStateComponent';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { FloodsScenario } from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
@@ -41,15 +41,12 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
   page,
 }) => {
   const dashboard = new DashboardPage(page);
-  const header = new HeaderComponent(page);
-  const topBar = new TopBarComponent(page);
+  const header = new UserStateComponent(page);
+  const topBar = new DisasterTypeComponent(page);
   const chat = new ChatComponent(page);
-  const aggregate = new AggregateComponenet(page);
+  const aggregate = new AggregatesComponent(page);
   const map = new MapComponenet(page);
-  // Navigate to designated test country
-  await dashboard.switchToCountryByName({
-    countryName: NoTriggerDataSet.CountryName,
-  });
+
   // Navigate to disaster type the data was mocked for
   await dashboard.navigateToFloodDisasterType();
   // Assertions
@@ -58,8 +55,8 @@ test('[30509] All Dashboard elements are present in no-trigger mode', async ({
   });
   await topBar.topBarComponentIsVisible();
   await chat.chatColumnIsVisibleForNoTriggerState({
-    name: NoTriggerDataSet.userName,
-    surname: NoTriggerDataSet.userSurname,
+    firstName: NoTriggerDataSet.firstName,
+    lastName: NoTriggerDataSet.lastName,
   });
   await aggregate.aggregateComponentIsVisible();
   await map.mapComponentIsVisible();
