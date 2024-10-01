@@ -1,3 +1,13 @@
+## [0.271.2](https://github.com/rodekruis/IBF-system/compare/v0.271.1...v0.271.2) (2024-10-01)
+
+
+### Bug Fixes
+
+* check if raster files exist before reading them ([2fdfdef](https://github.com/rodekruis/IBF-system/commit/2fdfdefc8a7242b94406b9c4340aa3b8ca092847))
+* merge NG_API_URL and BASE_URL_IBF_SERVICE into API_SERVICE_URL ([9c1d2bb](https://github.com/rodekruis/IBF-system/commit/9c1d2bb0de5a3fa68ae5d192299dbb495deb1815))
+
+
+
 ## [0.271.1](https://github.com/rodekruis/IBF-system/compare/v0.271.0...v0.271.1) (2024-09-30)
 
 
@@ -121,15 +131,6 @@
 * improve readability of deviation from compact notation ([87f113d](https://github.com/rodekruis/IBF-system/commit/87f113db10f2b9ed79d7095fbbbbaed0ab177f09))
 * prefix for compact numbers ([7a80944](https://github.com/rodekruis/IBF-system/commit/7a809441254fa3f90ca4fd884513bf7e7b99eb51))
 * style aggregates rows ([efa967f](https://github.com/rodekruis/IBF-system/commit/efa967fb0b1dbc553c0f8619ab548a1a75df65a7))
-
-
-
-## [0.268.10](https://github.com/rodekruis/IBF-system/compare/v0.268.9...v0.268.10) (2024-09-13)
-
-
-### Bug Fixes
-
-* remove group by on event trigger value ([8fb6bb0](https://github.com/rodekruis/IBF-system/commit/8fb6bb04120bccb57682cca504cd3580400f5595))
 
 
 
