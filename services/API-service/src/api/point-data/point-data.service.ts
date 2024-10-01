@@ -70,6 +70,18 @@ export class PointDataService {
       disasterType,
     );
 
+    // Subquery to get the most recent timestamp for each point
+    const maxTimestampPerPointQuery = this.dynamicPointDataRepository
+      .createQueryBuilder('sub')
+      .select(['sub."pointPointDataId"', 'MAX(sub.timestamp) as maxTimestamp'])
+      .where('sub.timestamp >= :cutoffMoment', {
+        cutoffMoment: this.helperService.getUploadCutoffMoment(
+          disasterType,
+          recentDate.timestamp,
+        ),
+      })
+      .groupBy('sub."pointPointDataId"');
+
     const pointDataQuery = this.pointDataRepository
       .createQueryBuilder('point')
       .select(selectColumns)
@@ -79,19 +91,23 @@ export class PointDataService {
       })
       .leftJoin(
         (subquery) => {
-          return subquery
-            .select([
-              'dynamic."pointPointDataId"',
-              'json_object_agg("key",value) as "dynamicData"',
-            ])
-            .from(DynamicPointDataEntity, 'dynamic')
-            .where('dynamic.timestamp >= :cutoffMoment', {
-              cutoffMoment: this.helperService.getUploadCutoffMoment(
-                disasterType,
-                recentDate.timestamp,
-              ),
-            })
-            .groupBy('dynamic."pointPointDataId"');
+          return (
+            // Join most recent dynamic data for each point
+            subquery
+              .select([
+                'dynamic."pointPointDataId"',
+                'json_object_agg("key",value) as "dynamicData"',
+              ])
+              .from(DynamicPointDataEntity, 'dynamic')
+              // Join with subquery to get only the record with the most recent timestamp for each point
+              .innerJoin(
+                `(${maxTimestampPerPointQuery.getQuery()})`,
+                'maxSub',
+                'dynamic."pointPointDataId" = "maxSub"."pointPointDataId" AND dynamic.timestamp = "maxSub".maxTimestamp',
+              )
+              .setParameters(maxTimestampPerPointQuery.getParameters())
+              .groupBy('dynamic."pointPointDataId"')
+          );
         },
         'dynamic',
         'dynamic."pointPointDataId" = point."pointDataId"',
@@ -282,7 +298,7 @@ export class PointDataService {
       // Delete existing entries
       await this.dynamicPointDataRepository.delete({
         point: { pointDataId: asset.pointDataId },
-        leadTime: dynamicPointData.leadTime || IsNull(),
+        leadTime: dynamicPointData.leadTime || IsNull(), // For Glofas stations, we should overwrite irregardless of lead time, but I'm not sure about other uses, so instead solving this in GET endpoint query, by making sure we only use the most recent timestam per point
         key: dynamicPointData.key,
         timestamp: MoreThanOrEqual(
           this.helperService.getUploadCutoffMoment(
