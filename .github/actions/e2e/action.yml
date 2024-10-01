@@ -7,81 +7,80 @@ inputs:
     required: true
 
 runs:
-    using: composite
+  using: composite
 
-    steps:
-      - name: Set up Node.js version
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: './e2e/.node-version'
-          cache: 'npm'
-          cache-dependency-path: './e2e/package-lock.json'
+  steps:
+    - name: Set up Node.js version
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: './e2e/.node-version'
+        cache: 'npm'
+        cache-dependency-path: './e2e/package-lock.json'
 
-      - name: Install e2e code-dependencies
-        shell: bash
-        working-directory: ./e2e
-        run: npm ci --omit=optional --no-fund --no-audit
+    - name: Install e2e code-dependencies
+      shell: bash
+      working-directory: ./e2e
+      run: npm ci --omit=optional --no-fund --no-audit
 
-      - name: Lint e2e code
-        shell: bash
-        working-directory: ./e2e
-        run: npm run lint
+    - name: Lint e2e code
+      shell: bash
+      working-directory: ./e2e
+      run: npm run lint
 
-      - name: Setup environment variables
-        shell: bash
-        run: cp example.env .env
+    - name: Setup environment variables
+      shell: bash
+      run: cp example.env .env
 
-      - name: Install IBF API-service code-dependencies
-        shell: bash
-        working-directory: ./services/API-service
-        run: npm ci --omit=optional --no-fund --no-audit
+    - name: Install IBF API-service code-dependencies
+      shell: bash
+      working-directory: ./services/API-service
+      run: npm ci --omit=optional --no-fund --no-audit
 
-      - name: Run IBF API-service
-        shell: bash
-        env:
-          MC_API: ${{ inputs.mailchimp-api-key }}
-        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service
+    - name: Run IBF API-service
+      shell: bash
+      env:
+        MC_API: ${{ inputs.mailchimp-api-key }}
+      run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service
 
-      - name: Start IBF dashboard
-        shell: bash
-        working-directory: 'interfaces/IBF-dashboard'
-        env:
-          NG_API_URL: http://localhost:3000/api
-          NG_CONFIGURATION: production
-        run: |
-          npm install
-          npm run start:prod > dashboard-logs.txt 2>&1 &
+    - name: Start IBF dashboard
+      shell: bash
+      working-directory: 'interfaces/IBF-dashboard'
+      env:
+        API_SERVICE_URL: http://localhost:3000/api
+        NG_CONFIGURATION: production
+      run: |
+        npm install
+        npm run start:prod > dashboard-logs.txt 2>&1 &
 
-      - name: Install runtime dependencies
-        shell: bash
-        working-directory: ./e2e
-        run: npx playwright install chromium --with-deps
+    - name: Install runtime dependencies
+      shell: bash
+      working-directory: ./e2e
+      run: npx playwright install chromium --with-deps
 
-      - name: Wait for IBF API-service to be running
-        shell: bash
-        run: timeout 60s sh -c 'until curl http://localhost:3000/api -I; do echo "Waiting for the IBF API-service to be running..."; sleep 1; done'
+    - name: Wait for IBF API-service to be running
+      shell: bash
+      run: timeout 60s sh -c 'until curl http://localhost:3000/api -I; do echo "Waiting for the IBF API-service to be running..."; sleep 1; done'
 
-      - name: Wait for IBF dashboard to be running
-        shell: bash
-        run: timeout 60s sh -c 'until curl http://localhost:4200 -I; do echo "Waiting for the IBF dashboard to be running..."; sleep 1; done'
+    - name: Wait for IBF dashboard to be running
+      shell: bash
+      run: timeout 60s sh -c 'until curl http://localhost:4200 -I; do echo "Waiting for the IBF dashboard to be running..."; sleep 1; done'
 
-      - name: Run end-to-end tests
-        shell: bash
-        working-directory: ./e2e
-        env:
-          DASHBOARD_URL: http://localhost:4200
-        run: npm test
+    - name: Run end-to-end tests
+      shell: bash
+      working-directory: ./e2e
+      env:
+        DASHBOARD_URL: http://localhost:4200
+      run: npm test
 
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: test-result-artifacts
-          path: |
-            ./e2e/test-results/
-            ./interfaces/IBF-dashboard/dashboard-logs.txt
-          retention-days: 30
+    - uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-result-artifacts
+        path: |
+          ./e2e/test-results/
+          ./interfaces/IBF-dashboard/dashboard-logs.txt
+        retention-days: 30
 
-      - name: Docker logs
-        if: always()
-        uses: jwalton/gh-docker-logs@v2
-
+    - name: Docker logs
+      if: always()
+      uses: jwalton/gh-docker-logs@v2

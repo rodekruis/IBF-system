@@ -46,7 +46,7 @@ services:
       - TWILIO_MESSAGING_SID=${TWILIO_MESSAGING_SID}
       - EXTERNAL_API_SERVICE_URL=${EXTERNAL_API_SERVICE_URL}
       - TWILIO_WHATSAPP_NUMBER=${TWILIO_WHATSAPP_NUMBER}
-      - NG_API_URL=${NG_API_URL}
+      - API_SERVICE_URL=${API_SERVICE_URL}
     volumes:
       - 'api_service_node_modules:/home/ibf/api-service/node_modules'
       - ./services/API-service:/home/ibf/api-service
@@ -60,7 +60,7 @@ services:
       context: ./interfaces/IBF-dashboard
       args:
         - NG_CONFIGURATION=${NG_CONFIGURATION}
-        - NG_API_URL=${NG_API_URL}
+        - API_SERVICE_URL=${API_SERVICE_URL}
         - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
         - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
         - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
@@ -72,7 +72,7 @@ services:
         - WHATS_NEW_URL=${WHATS_NEW_URL}
     environment:
       - NG_CONFIGURATION=${NG_CONFIGURATION}
-      - NG_API_URL=${NG_API_URL}
+      - API_SERVICE_URL=${API_SERVICE_URL}
       - NG_USE_SERVICE_WORKER=${NG_USE_SERVICE_WORKER}
       - NG_GEOSERVER_URL=${NG_GEOSERVER_URL}
       - NG_IBF_SYSTEM_VERSION=${NG_IBF_SYSTEM_VERSION}
