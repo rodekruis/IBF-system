@@ -13,6 +13,7 @@ class MapComponent extends DashboardPage {
   readonly breadCrumbAdminArea3View: Locator;
   readonly legend: Locator;
   readonly layerMenu: Locator;
+  readonly adminBoundry: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -33,6 +34,7 @@ class MapComponent extends DashboardPage {
     );
     this.legend = this.page.getByTestId('map-legend');
     this.layerMenu = this.page.getByTestId('layer-menu');
+    this.adminBoundry = this.page.locator('.leaflet-interactive');
   }
 
   async mapComponentIsVisible() {
@@ -96,6 +98,21 @@ class MapComponent extends DashboardPage {
       await expect(this.layerMenu).toBeVisible();
     } else {
       await expect(this.layerMenu).toBeHidden();
+    }
+  }
+
+  async assertAdminBoundariesVisible() {
+    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('domcontentloaded');
+    // await this.page.waitForTimeout(500); // This is a workaround for the issue with the map not loading in the same moment as the dom
+    await this.page.waitForSelector('.leaflet-interactive');
+
+    const adminBoundaries = this.adminBoundry;
+    const count = await adminBoundaries.count();
+
+    expect(count).toBeGreaterThan(0);
+    for (let i = 0; i < count; i++) {
+      await expect(adminBoundaries.nth(i)).toBeVisible();
     }
   }
 }

@@ -54,4 +54,5 @@ test('[30538] All Map elements are present in no-trigger mode', async ({
   await map.breadCrumbViewIsVisible({ nationalView: true });
   await map.isLegendOpen({ legendOpen: true });
   await map.isLayerMenuOpen({ layerMenuOpen: false });
+  await map.assertAdminBoundariesVisible();
 });
