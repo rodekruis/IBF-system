@@ -12,18 +12,20 @@ describe('Should send an email for eth malaria', () => {
   });
 
   it('trigger', async () => {
-    await testMalariaScenario(
+    const result = await testMalariaScenario(
       EpidemicsScenario.Trigger,
       countryCodeISO3,
       accessToken,
     );
+    expect(result).toBeTruthy();
   });
 
   it('no-trigger', async () => {
-    await testMalariaScenario(
+    const result = await testMalariaScenario(
       EpidemicsScenario.NoTrigger,
       countryCodeISO3,
       accessToken,
     );
+    expect(result).toBeTruthy();
   });
 });

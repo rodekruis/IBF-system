@@ -1,5 +1,4 @@
 import { FloodsScenario } from '../../../src/scripts/enum/mock-scenario.enum';
-import scenarios from '../../../src/scripts/mock-data/floods/ssd/scenarios.json';
 import { getAccessToken, resetDB } from '../../helpers/utility.helper';
 import { testFloodScenario } from './test-flood-scenario.helper';
 
@@ -13,22 +12,22 @@ describe('Should send an email for ssd floods', () => {
   });
 
   it('trigger', async () => {
-    // Arrange
-    const scenario = FloodsScenario.Trigger;
-    await testFloodScenario(scenario, {
-      scenarios,
+    const events = [{ eventName: 'G5100', leadTime: '4-day' }];
+    const result = await testFloodScenario(FloodsScenario.Trigger, {
+      events,
       countryCodeISO3,
       accessToken,
     });
+    expect(result).toBeTruthy();
   });
 
   it('no-trigger', async () => {
-    // Arrange
-    const scenario = FloodsScenario.NoTrigger;
-    await testFloodScenario(scenario, {
-      scenarios,
+    const events = [];
+    const result = await testFloodScenario(FloodsScenario.NoTrigger, {
+      events,
       countryCodeISO3,
       accessToken,
     });
+    expect(result).toBeTruthy();
   });
 });

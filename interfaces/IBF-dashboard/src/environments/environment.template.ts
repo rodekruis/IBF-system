@@ -4,7 +4,7 @@ module.exports = `//
 
 export const environment = {
   configuration: '${process.env.NG_CONFIGURATION || 'production'}',
-  apiUrl: '${process.env.NG_API_URL}', // API
+  apiUrl: '${process.env.API_SERVICE_URL}', // API
   useServiceWorker: ${
     process.env.NG_USE_SERVICE_WORKER === 'true'
   }, // feature-flags

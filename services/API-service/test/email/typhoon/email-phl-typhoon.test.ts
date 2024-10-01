@@ -12,10 +12,11 @@ describe('Should send an email for phl typhoon', () => {
   });
 
   it('trigger', async () => {
-    await testTyphoonScenario(
+    const result = await testTyphoonScenario(
       TyphoonScenario.EventTrigger,
       countryCodeISO3,
       accessToken,
     );
+    expect(result).toBeTruthy();
   });
 });

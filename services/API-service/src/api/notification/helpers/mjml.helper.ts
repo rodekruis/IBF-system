@@ -252,7 +252,7 @@ export const getMapImgSrc = (
   eventName: string,
 ): string => {
   return `${
-    process.env.NG_API_URL
+    process.env.API_SERVICE_URL
   }/event/event-map-image/${countryCodeISO3}/${disasterType}/${
     eventName || 'no-name'
   }`;

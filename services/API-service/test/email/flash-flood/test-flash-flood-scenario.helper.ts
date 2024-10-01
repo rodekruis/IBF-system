@@ -12,7 +12,7 @@ export async function testFlashFloodScenario(
   scenario: FlashFloodsScenario,
   countryCodeISO3: string,
   accessToken: string,
-): Promise<void> {
+): Promise<boolean> {
   const eventNames = ['Rumphi', 'Karonga'];
   const disasterTypeLabel = 'Flash Flood'; // DisasterType.FlashFloods does not match
 
@@ -67,4 +67,6 @@ export async function testFlashFloodScenario(
       expect(hasEvent).toBe(true);
     }
   }
+
+  return true;
 }

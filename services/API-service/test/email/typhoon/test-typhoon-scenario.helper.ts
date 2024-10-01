@@ -12,7 +12,7 @@ export async function testTyphoonScenario(
   scenario: TyphoonScenario,
   countryCodeISO3: string,
   accessToken: string,
-): Promise<void> {
+): Promise<boolean> {
   const nrOfEvents = 1;
   const eventName = 'Mock typhoon';
   const disasterTypeLabel = DisasterType.Typhoon;
@@ -55,4 +55,6 @@ export async function testTyphoonScenario(
     const hasEvent = eventNameInEmail.includes(eventTitle);
     expect(hasEvent).toBe(true);
   }
+
+  return true;
 }

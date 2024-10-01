@@ -9,8 +9,13 @@ import {
   sendNotification,
 } from '../../helpers/utility.helper';
 
+interface Event {
+  eventName: string;
+  leadTime: string;
+}
+
 export interface TestFloodScenarioDto {
-  scenarios: any[];
+  events: Event[];
   countryCodeISO3: string;
   accessToken: string;
 }
@@ -18,15 +23,13 @@ export interface TestFloodScenarioDto {
 export async function testFloodScenario(
   scenario: FloodsScenario,
   params: TestFloodScenarioDto,
-): Promise<void> {
-  const { scenarios, countryCodeISO3, accessToken } = params;
+): Promise<boolean> {
+  const { events, countryCodeISO3, accessToken } = params;
   const disasterType = DisasterType.Floods;
   const disasterTypeLabel = disasters.find(
     (d) => d.disasterType === disasterType,
   ).label;
-  const scenarioSeed = scenarios.find((s) => s.scenarioName === scenario);
   const mockResult = await mockFloods(scenario, countryCodeISO3, accessToken);
-  const eventsSeed = scenarioSeed.events ? scenarioSeed.events : [];
   // Act
   const response = await sendNotification(
     countryCodeISO3,
@@ -38,7 +41,7 @@ export async function testFloodScenario(
   // Also checking the status of the mockResult here as I think it also breaks often
   expect(mockResult.status).toBe(202);
   expect(response.status).toBe(201);
-  if (eventsSeed.length > 0) {
+  if (events.length > 0) {
     expect(response.body.activeEvents.email).toBeDefined();
   } else {
     expect(response.body.activeEvents.email).toBeFalsy();
@@ -56,14 +59,16 @@ export async function testFloodScenario(
     (el) => (el as Element).textContent.toLowerCase(),
   );
 
-  expect(eventNamesInEmail.length).toBe(eventsSeed.length);
+  expect(eventNamesInEmail.length).toBe(events.length);
 
   // Check if there are elements with the desired text content
-  for (const event of eventsSeed) {
+  for (const event of events) {
     const eventTitle = getEventTitle(disasterTypeLabel, event.eventName);
     const hasEvent = eventNamesInEmail.some((eventName) =>
       eventName.includes(eventTitle),
     );
     expect(hasEvent).toBe(true);
   }
+
+  return true;
 }

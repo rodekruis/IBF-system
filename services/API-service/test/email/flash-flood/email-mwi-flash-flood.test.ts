@@ -12,18 +12,20 @@ describe('Should send an email for mwi flash flood', () => {
   });
 
   it('trigger', async () => {
-    await testFlashFloodScenario(
+    const result = await testFlashFloodScenario(
       FlashFloodsScenario.Trigger,
       countryCodeISO3,
       accessToken,
     );
+    expect(result).toBeTruthy();
   });
 
   it('no-trigger', async () => {
-    await testFlashFloodScenario(
+    const result = await testFlashFloodScenario(
       FlashFloodsScenario.NoTrigger,
       countryCodeISO3,
       accessToken,
     );
+    expect(result).toBeTruthy();
   });
 });

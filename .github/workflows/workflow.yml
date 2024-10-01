@@ -35,24 +35,19 @@ jobs:
       SECRET: ${{ secrets.SECRET }}
       MC_API: ${{ secrets.MC_API }}
 
-    strategy:
-      matrix:
-        node-version: [20.x]
-
     defaults:
       run:
         working-directory: 'services/API-service'
 
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js version
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: './services/API-service/.node-version'
       - run: npm ci --no-audit
       - run: npm run lint
       - run: npm test
-      - run: docker build . --file Dockerfile --tag ibf-api-service:$(date +%s)
 
   ibf-dashboard:
     needs: detect-changes
@@ -60,27 +55,42 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [20.x]
-
     defaults:
       run:
         working-directory: 'interfaces/IBF-dashboard'
 
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js version
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version-file: './interfaces/IBF-dashboard/.node-version'
       - run: npm ci --no-audit
       - run: npm run lint
       - run: npm test
-      - run: docker build . --file Dockerfile --tag ibf-dashboard:$(date +%s)
+
+  ibf-integration:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run integration test action
+        uses: ./.github/actions/integration
+        with:
+          mailchimp-api-key: ${{ secrets.MC_API }}
+
+  ibf-e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run e2e test action
+        uses: ./.github/actions/e2e
+        with:
+          mailchimp-api-key: ${{ secrets.MC_API }}
 
   bump-version:
-    needs: [ibf-api-service, ibf-dashboard]
+    needs: [ibf-api-service, ibf-dashboard, ibf-integration, ibf-e2e]
     if: |
       always() &&
       github.event_name == 'push'
@@ -103,3 +113,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           git-message: 'chore(release): {version}'
           release-count: 10
+
