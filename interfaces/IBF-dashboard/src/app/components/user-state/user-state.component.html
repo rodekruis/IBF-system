@@ -30,14 +30,14 @@
     </div>
     <div class="ion-align-items-center">
       <ion-row class="ion-align-items-center">
-        <app-logos></app-logos>
+        <app-logos data-testid="user-state-country-logos"></app-logos>
         <ion-item lines="none">
-          <ion-col class="ion-no-padding">
+          <ion-col
+            data-testid="user-state-display-name-label"
+            class="ion-no-padding"
+          >
             @if (isLoggedIn) {
-              <ion-title
-                size="small"
-                data-test="user-display-name-label"
-                class="ion-no-padding"
+              <ion-title size="small" class="ion-no-padding"
                 >Logged In As:</ion-title
               >
               <ion-title
@@ -56,6 +56,7 @@
         </ion-item>
         @if (isLoggedIn) {
           <app-ibf-button
+            data-testid="user-state-logout-button"
             [title]="'Log Out'"
             [attr.aria-label]="'Log Out'"
             size="small"
