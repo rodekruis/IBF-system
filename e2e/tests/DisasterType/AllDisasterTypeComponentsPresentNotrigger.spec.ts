@@ -49,4 +49,5 @@ test('[30586] All Disaster Type elements are present in no-trigger mode', async 
   });
   await disasterType.topBarComponentIsVisible();
   await disasterType.allDisasterTypeElementsArePresent();
+  await disasterType.timlineElementsAreVisible();
 });
