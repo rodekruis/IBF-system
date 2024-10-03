@@ -42,15 +42,6 @@ class DashboardPage {
   async navigateToDroughtDisasterType() {
     await this.droughtIcon.click();
   }
-
-  async switchToCountryByName({ countryName }: { countryName: string }) {
-    await this.dashboardDevControlButton.click();
-    await this.countrySwitcherDropdown.click();
-    await this.countrySwitcherDropdownOption
-      .filter({ hasText: countryName })
-      .click();
-    await this.dashboardDevControlCloseButton.click();
-  }
 }
 
 export default DashboardPage;
