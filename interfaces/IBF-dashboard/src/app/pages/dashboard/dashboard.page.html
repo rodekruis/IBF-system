@@ -71,7 +71,11 @@
   >
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-button title="Home" [class.ion-hide]="isDev || isMultiCountry">
+        <ion-button
+          data-testid="dashboard-home-button"
+          title="Home"
+          [class.ion-hide]="isDev || isMultiCountry"
+        >
           <ion-icon name="apps" slot="icon-only"></ion-icon>
         </ion-button>
         <ion-menu-toggle

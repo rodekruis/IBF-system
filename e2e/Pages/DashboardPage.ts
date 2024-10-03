@@ -6,6 +6,7 @@ class DashboardPage {
   readonly heavyRainIcon: Locator;
   readonly droughtIcon: Locator;
   readonly dashboardDevControlButton: Locator;
+  readonly dashboardHomeButton: Locator;
   readonly countrySwitcherDropdown: Locator;
   readonly countrySwitcherDropdownOption: Locator;
   readonly dashboardDevControlCloseButton: Locator;
@@ -21,6 +22,7 @@ class DashboardPage {
     this.dashboardDevControlButton = this.page.getByTestId(
       'dashboard-dev-control-button',
     );
+    this.dashboardHomeButton = this.page.getByTestId('dashboard-home-button');
     this.countrySwitcherDropdown = this.page.getByTestId(
       'country-switcher-dropdown',
     );
