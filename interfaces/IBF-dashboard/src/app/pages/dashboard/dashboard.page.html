@@ -7,7 +7,10 @@
   <ion-menu-toggle menu="dev-control">
     <ion-header>
       <ion-toolbar>
-        <ion-buttons slot="start">
+        <ion-buttons
+          data-testid="dashboard-dev-control-close-button"
+          slot="start"
+        >
           <ion-icon name="chevron-back-outline"></ion-icon>
         </ion-buttons>
         <ion-title [translate]="'dashboard-page.dev-menu.title'"></ion-title>
@@ -75,7 +78,7 @@
           menu="dev-control"
           [class.ion-hide]="!isDev && !isMultiCountry"
         >
-          <ion-button>
+          <ion-button data-testid="dashboard-dev-control-button">
             <ion-icon name="apps" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-menu-toggle>
@@ -97,7 +100,7 @@
         >
           <ion-row
             class="component-title ion-justify-content-start ion-align-items-center"
-            data-test="dashboard-title"
+            data-testid="dashboard-top-bar"
           >
             <div style="margin-left: 8px">
               <app-disaster-type></app-disaster-type>
@@ -141,6 +144,7 @@
           </ion-row>
           <ion-row class="component-content">
             <ion-col
+              data-testid="dashboard-aggregate-section"
               sizeXs="12"
               sizeMd="3"
               sizeLg="3"
@@ -171,7 +175,7 @@
               <app-matrix></app-matrix>
               <ion-content id="ibf-dashboard-map">
                 <app-map-controls></app-map-controls>
-                <app-map></app-map>
+                <app-map data-testid="dashboard-map-componenet"></app-map>
               </ion-content>
             </ion-col>
           </ion-row>

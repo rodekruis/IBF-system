@@ -3,6 +3,7 @@
     @if (showBreadcrumb(mapViewEnum.national)) {
       <ion-button
         class="breadcrumb"
+        data-testid="breadcrumb-national-view"
         [ngClass]="
           currentMapView === mapViewEnum.national
             ? 'breadcrumb-alone'
@@ -23,6 +24,7 @@
     @if (showBreadcrumb(mapViewEnum.event)) {
       <ion-button
         class="breadcrumb"
+        data-testid="breadcrumb-event-view"
         [ngClass]="
           currentMapView === mapViewEnum.event
             ? 'breadcrumb-end'
@@ -42,6 +44,7 @@
     @if (showBreadcrumb(mapViewEnum.adminArea)) {
       <ion-button
         class="breadcrumb"
+        data-testid="breadcrumb-admin-area-view"
         [ngClass]="
           currentMapView === mapViewEnum.adminArea
             ? 'breadcrumb-end'
@@ -67,6 +70,7 @@
     @if (showBreadcrumb(mapViewEnum.adminArea2)) {
       <ion-button
         class="breadcrumb"
+        data-testid="breadcrumb-admin-area-2-view"
         [ngClass]="
           currentMapView === mapViewEnum.adminArea2
             ? 'breadcrumb-end'
@@ -90,6 +94,7 @@
     @if (showBreadcrumb(mapViewEnum.adminArea3)) {
       <ion-button
         class="breadcrumb breadcrumb-end"
+        data-testid="breadcrumb-admin-area-3-view"
         [class.selected]="currentMapView === mapViewEnum.adminArea3"
         (click)="
           clickBreadcrumbButton(

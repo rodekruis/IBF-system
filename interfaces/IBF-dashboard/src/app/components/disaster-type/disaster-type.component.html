@@ -5,7 +5,7 @@
         (click)="switchDisasterType(disasterType)"
         class="disaster-type-button"
         [ngClass]="disasterType?.activeTrigger ? 'triggered' : ''"
-        data-test="disaster-type-button"
+        [attr.data-testid]="'disaster-type-button-' + disasterType.disasterType"
         [src]="
           getButtonSvg(disasterType.disasterType, disasterType.activeTrigger)
         "

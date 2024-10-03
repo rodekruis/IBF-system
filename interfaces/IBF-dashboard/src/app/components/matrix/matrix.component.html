@@ -1,5 +1,6 @@
 <div
   id="layer-menu-container"
+  data-testid="layer-menu-container"
   [ngStyle]="{ height: getLayerMenuContainerHeightInRem() + 'rem' }"
 >
   <ion-button
@@ -16,7 +17,7 @@
     </div>
   </ion-button>
   @if (isLayerMenuOpen) {
-    <div id="layer-menu">
+    <div data-testid="layer-menu" id="layer-menu">
       <ion-list class="ion-no-padding">
         @for (layer of getLayersInOrder(); track layer.name) {
           <ion-row class="ion-justify-content-between ion-nowrap">
