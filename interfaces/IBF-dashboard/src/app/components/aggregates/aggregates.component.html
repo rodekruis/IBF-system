@@ -4,7 +4,7 @@
       <ion-row
         class="component-title"
         style="background: var(--ion-color-ibf-secondary)"
-        data-test="action-title"
+        data-testid="action-title"
       >
         <ion-col class="ion-no-padding" size-lg="11" size-md="11" size-xs="11">
           <ion-item
@@ -37,7 +37,7 @@
         <ion-col size-lg="1" size-md="1" size-xs="1">
           <ion-item
             class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
-            data-test="icon-row"
+            data-testid="aggregates-main-info-icon"
             color="transparent"
             lines="none"
           >
@@ -47,9 +47,9 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      <div data-test="aggregate-list">
+      <div data-testid="aggregate-list">
         @for (indicator of indicators; track indicator.name) {
-          <ion-row class="ion-no-padding">
+          <ion-row data-testid="aggregates-row" class="ion-no-padding">
             <ion-col size-lg="7" size-md="7" size-xs="7">
               <ion-item
                 class="aggregate-item ion-no-padding font-size-12"
@@ -73,7 +73,7 @@
                 </ion-label>
               </ion-item>
             </ion-col>
-            <ion-col size-lg="4" size-md="4" size-xs="4">
+            <ion-col data-testid="aggregates-affected-number" size-lg="4" size-md="4" size-xs="4">
               <ion-item
                 class="aggregate-item-value ion-no-padding font-size-12"
                 style="--inner-padding-end: 4px"
@@ -113,7 +113,7 @@
             >
               <ion-item
                 class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
-                data-test="icon-row"
+                data-testid="aggregates-info-icon"
                 color="ibf-white"
               >
                 <ion-label>

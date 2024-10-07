@@ -43,4 +43,5 @@ test('[30588] All Aggregate elements are present in no-trigger mode', async ({
   await dashboard.navigateToFloodDisasterType();
   // Assertions
   await aggregates.aggregateComponentIsVisible();
+  await aggregates.aggregatesAlementsDisplayedInNoTrigger();
 });
