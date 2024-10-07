@@ -73,7 +73,12 @@
                 </ion-label>
               </ion-item>
             </ion-col>
-            <ion-col data-testid="aggregates-affected-number" size-lg="4" size-md="4" size-xs="4">
+            <ion-col
+              data-testid="aggregates-affected-number"
+              size-lg="4"
+              size-md="4"
+              size-xs="4"
+            >
               <ion-item
                 class="aggregate-item-value ion-no-padding font-size-12"
                 style="--inner-padding-end: 4px"
@@ -118,6 +123,7 @@
               >
                 <ion-label>
                   <img
+                    alt="More information"
                     class="mx-auto my-0 w-5"
                     src="assets/icons/source-info.svg"
                     (click)="moreInfo(indicator)"
