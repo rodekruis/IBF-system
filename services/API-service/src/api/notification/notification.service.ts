@@ -41,18 +41,18 @@ export class NotificationService {
     }
 
     // NOTE: the finished event email is currently broken. It needs to be
-    if (disasterType === DisasterType.Floods) {
-      // Sending finished events is now for floods only
-      const finishedEventsResponse = await this.sendNotificationsFinishedEvents(
-        countryCodeISO3,
-        disasterType,
-        isApiTest,
-        date,
-      );
-      if (isApiTest && finishedEventsResponse) {
-        response.finishedEvents = finishedEventsResponse;
-      }
-    }
+    // if (disasterType === DisasterType.Floods) {
+    //   // Sending finished events is now for floods only
+    //   const finishedEventsResponse = await this.sendNotificationsFinishedEvents(
+    //     countryCodeISO3,
+    //     disasterType,
+    //     isApiTest,
+    //     date,
+    //   );
+    //   if (isApiTest && finishedEventsResponse) {
+    //     response.finishedEvents = finishedEventsResponse;
+    //   }
+    // }
 
     // REFACTOR: First close finished events. This is ideally done through separate endpoint called at end of pipeline, but that would require all pipelines to be updated.
     // Instead, making use of this endpoint which is already called at the end of every pipeline
