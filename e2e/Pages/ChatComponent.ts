@@ -13,11 +13,19 @@ const chatDialogueWarnLabel =
 class ChatComponent extends DashboardPage {
   readonly page: Page;
   readonly chatDialogue: Locator;
+  readonly chatAboutButton: Locator;
+  readonly chatGuideButton: Locator;
+  readonly exportViewButton: Locator;
+  readonly triggerLogButton: Locator;
 
   constructor(page: Page) {
     super(page);
     this.page = page;
     this.chatDialogue = this.page.getByTestId('dialogue-turn-content');
+    this.chatAboutButton = this.page.getByTestId('chat-about-trigger');
+    this.chatGuideButton = this.page.getByTestId('ibf-guide-button');
+    this.exportViewButton = this.page.getByTestId('export-view-button');
+    this.triggerLogButton = this.page.getByTestId('trigger-log-button');
   }
 
   async chatColumnIsVisibleForNoTriggerState({
@@ -54,6 +62,13 @@ class ChatComponent extends DashboardPage {
     // Assertions
     await expect(welcomeChatDialogue).toBeVisible();
     await expect(noTriggerChatDialogue).toBeVisible();
+  }
+
+  async allChatButtonsArePresent() {
+    await expect(this.chatAboutButton).toBeVisible();
+    await expect(this.chatGuideButton).toBeVisible();
+    await expect(this.exportViewButton).toBeVisible();
+    await expect(this.triggerLogButton).toBeVisible();
   }
 }
 
