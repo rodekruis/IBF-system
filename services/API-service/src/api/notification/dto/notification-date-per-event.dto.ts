@@ -29,7 +29,6 @@ export class NotificationDataPerEventDto {
   nrOfTriggeredAreas: number;
 
   totalAffectedOfIndicator: number;
-  mapImage?: Buffer;
   issuedDate: Date;
   eapAlertClass: EapAlertClass;
 }

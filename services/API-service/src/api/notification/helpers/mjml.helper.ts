@@ -5,7 +5,6 @@ import { format } from 'date-fns';
 import { EapAlertClassKeyEnum } from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
-import { DisasterType } from '../../disaster/disaster-type.enum';
 import {
   NotificationDataPerEventDto,
   TriggerStatusLabelEnum,
@@ -244,27 +243,6 @@ export const getImageElement = ({
     tagName: 'mj-image',
     attributes: { src, ...attributes },
   };
-};
-
-export const getMapImgSrc = (
-  countryCodeISO3: string,
-  disasterType: DisasterType,
-  eventName: string,
-): string => {
-  return `${
-    process.env.API_SERVICE_URL
-  }/event/event-map-image/${countryCodeISO3}/${disasterType}/${
-    eventName || 'no-name'
-  }`;
-};
-
-export const getMapImageDescription = (disasterType: DisasterType): string => {
-  const descriptions = {
-    [DisasterType.Floods]:
-      'The triggered areas are outlined in purple. The potential flood extent is shown in red.<br>',
-  };
-
-  return descriptions[disasterType] || '';
 };
 
 export const dateObjectToDateTimeString = (

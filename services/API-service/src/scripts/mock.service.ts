@@ -176,17 +176,6 @@ export class MockService {
           // await this.mockTyphoonTrack()
         }
 
-        if (
-          this.shouldMockMapImageFile(disasterType, mockBody.countryCodeISO3)
-        ) {
-          this.mockHelpService.mockMapImageFile(
-            mockBody.countryCodeISO3,
-            disasterType,
-            true,
-            event.eventName,
-          );
-        }
-
         if (this.shouldMockGlofasStations(disasterType)) {
           await this.mockGlofasStations(
             selectedCountry,
@@ -420,12 +409,5 @@ export class MockService {
 
   private shouldMockTyphoonTrack(disasterType: DisasterType): boolean {
     return disasterType === DisasterType.Typhoon;
-  }
-
-  private shouldMockMapImageFile(
-    disasterType: DisasterType,
-    countryCodeISO3: string,
-  ): boolean {
-    return disasterType === DisasterType.Floods && countryCodeISO3 === 'SSD';
   }
 }

@@ -37,7 +37,6 @@ import {
 } from './dto/event-place-code.dto';
 import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
-import { EventMapImageEntity } from './event-map-image.entity';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 
@@ -55,8 +54,6 @@ export class EventService {
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
   @InjectRepository(UserEntity)
   private readonly userRepository: Repository<UserEntity>;
-  @InjectRepository(EventMapImageEntity)
-  private readonly eventMapImageRepository: Repository<EventMapImageEntity>;
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
 
@@ -979,49 +976,6 @@ export class EventService {
       area.closed = true;
     }
     await this.eventPlaceCodeRepo.save(aboveThresholdEvents);
-  }
-
-  public async postEventMapImage(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    eventName: string,
-    imageFileBlob: { buffer: Buffer },
-  ): Promise<void> {
-    let eventMapImageEntity = await this.eventMapImageRepository.findOne({
-      where: {
-        countryCodeISO3: countryCodeISO3,
-        disasterType: disasterType,
-        eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
-      },
-    });
-
-    if (!eventMapImageEntity) {
-      eventMapImageEntity = new EventMapImageEntity();
-      eventMapImageEntity.countryCodeISO3 = countryCodeISO3;
-      eventMapImageEntity.disasterType = disasterType;
-      eventMapImageEntity.eventName =
-        eventName === 'no-name' ? null : eventName;
-    }
-
-    eventMapImageEntity.image = imageFileBlob.buffer;
-
-    this.eventMapImageRepository.save(eventMapImageEntity);
-  }
-
-  public async getEventMapImage(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    eventName: string,
-  ): Promise<Buffer> {
-    const eventMapImageEntity = await this.eventMapImageRepository.findOne({
-      where: {
-        countryCodeISO3,
-        disasterType,
-        eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
-      },
-    });
-
-    return eventMapImageEntity?.image;
   }
 
   private async getEventEapAlertClass(

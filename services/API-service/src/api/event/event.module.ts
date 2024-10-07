@@ -11,7 +11,6 @@ import { UserEntity } from '../user/user.entity';
 import { CountryModule } from './../country/country.module';
 import { EapActionsModule } from './../eap-actions/eap-actions.module';
 import { UserModule } from './../user/user.module';
-import { EventMapImageEntity } from './event-map-image.entity';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { EventController } from './event.controller';
 import { EventService } from './event.service';
@@ -30,7 +29,6 @@ import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
       AdminAreaEntity,
       DisasterEntity,
       UserEntity,
-      EventMapImageEntity,
       CountryEntity,
     ]),
   ],

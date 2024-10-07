@@ -20,7 +20,6 @@ import {
 import { getMjmlFinishedEvents } from './mjml/event-finished';
 import { getIbfFooter, getMailchimpFooter } from './mjml/footer';
 import { getMjmlHeader } from './mjml/header';
-import { getMjmlMapImages } from './mjml/map-image';
 import { getMjmlNotificationAction } from './mjml/notification-actions';
 import { getMjmlTriggerStatement } from './mjml/trigger-statement';
 
@@ -107,8 +106,6 @@ export class MjmlService {
           ],
       }),
     );
-
-    children.push(...getMjmlMapImages(emailContent));
 
     children.push(
       getMjmlAdminAreaDisclaimer(),
