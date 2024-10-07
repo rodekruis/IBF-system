@@ -29,7 +29,7 @@ export function loginApi(
 }
 
 export function getHostname(): string {
-  return process.env.NG_API_URL || 'http://localhost:3000/api';
+  return process.env.API_SERVICE_URL || 'http://localhost:3000/api';
 }
 
 export function getEventTitle(disasterType: string, eventName: string) {
