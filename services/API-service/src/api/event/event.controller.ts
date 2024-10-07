@@ -1,23 +1,14 @@
-import stream from 'stream';
 import {
   Body,
   Controller,
   Get,
-  HttpException,
-  HttpStatus,
   Param,
   Post,
   Query,
-  Res,
-  UploadedFile,
   UseGuards,
-  UseInterceptors,
 } from '@nestjs/common';
-import { FileInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,
-  ApiBody,
-  ApiConsumes,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -25,12 +16,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { Response } from 'express-serve-static-core';
-
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
-import { IMAGE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 import { SendNotificationDto } from '../notification/dto/send-notification.dto';
 import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
@@ -215,62 +203,6 @@ export class EventController {
     await this.eventService.uploadTriggerPerLeadTime(
       uploadTriggerPerLeadTimeDto,
     );
-  }
-
-  @UseGuards(RolesGuard)
-  @ApiOperation({
-    summary: 'Post event map image (Only .png-files supported)',
-  })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
-  @ApiParam({ name: 'eventName', required: false, type: 'string' })
-  @ApiConsumes('multipart/form-data')
-  @ApiBody(IMAGE_UPLOAD_API_FORMAT)
-  @ApiResponse({ status: 200, description: 'Post event map image' })
-  @Post('/event-map-image/:countryCodeISO3/:disasterType/:eventName')
-  @UseInterceptors(FileInterceptor('image'))
-  public async postEventMapImage(
-    @UploadedFile() imageFileBlob,
-    @Param() params,
-  ): Promise<void> {
-    await this.eventService.postEventMapImage(
-      params.countryCodeISO3,
-      params.disasterType,
-      params.eventName,
-      imageFileBlob,
-    );
-  }
-
-  @ApiOperation({
-    summary: 'Get event map image',
-  })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
-  @ApiParam({ name: 'eventName', required: false, type: 'string' })
-  @ApiResponse({ status: 200, description: 'Get event map image' })
-  @Get('/event-map-image/:countryCodeISO3/:disasterType/:eventName')
-  public async getEventMapImage(
-    @Res() response: Response,
-    @Param() params,
-  ): Promise<void> {
-    const blob = await this.eventService.getEventMapImage(
-      params.countryCodeISO3,
-      params.disasterType,
-      params.eventName,
-    );
-    if (!blob) {
-      throw new HttpException(
-        'Image not found. Please upload an image using POST and try again.',
-        HttpStatus.NOT_FOUND,
-      );
-    }
-    const bufferStream = new stream.PassThrough();
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    bufferStream.end(Buffer.from(blob as any, 'binary'));
-    response.writeHead(HttpStatus.OK, {
-      'Content-Type': 'image/png',
-    });
-    bufferStream.pipe(response);
   }
 
   @UseGuards(RolesGuard)

@@ -195,11 +195,6 @@ export class NotificationContentService {
     );
 
     data.totalAffectedOfIndicator = this.getTotalAffected(data.triggeredAreas);
-    data.mapImage = await this.eventService.getEventMapImage(
-      country.countryCodeISO3,
-      disasterType,
-      event.eventName || 'no-name',
-    );
     data.eapAlertClass = event.disasterSpecificProperties?.eapAlertClass;
     return data;
   }
