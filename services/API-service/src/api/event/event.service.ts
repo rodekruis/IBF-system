@@ -88,7 +88,7 @@ export class EventService {
   ): Promise<EventSummaryCountry[]> {
     const adminAreaIds = await this.getCountryAdminAreaIds(countryCodeISO3);
 
-    const sixDaysAgo = subDays(new Date(), 6);
+    const sixDaysAgo = subDays(new Date(), 6); // NOTE: this 7-day rule is no longer applicable. Fix this when re-enabling this feature.
     const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
       countryCodeISO3,
     )
