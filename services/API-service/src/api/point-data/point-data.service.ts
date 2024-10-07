@@ -70,10 +70,15 @@ export class PointDataService {
       disasterType,
     );
 
-    // Subquery to get the most recent timestamp for each point
+    // Subquery to get the max timestamp for each point ..
+    // .. as well as retrieving the leadTime of the record with the max forecastLevel
     const maxTimestampPerPointQuery = this.dynamicPointDataRepository
       .createQueryBuilder('sub')
-      .select(['sub."pointPointDataId"', 'MAX(sub.timestamp) as maxTimestamp'])
+      .select([
+        'sub."pointPointDataId"',
+        'MAX(sub.timestamp) as maxTimestamp',
+        `SPLIT_PART(MAX(CASE WHEN "key" = 'forecastLevel' THEN value || '_' || "leadTime" END),'_',2) as leadTimeOfMaxForecastLevel`,
+      ])
       .where('sub.timestamp >= :cutoffMoment', {
         cutoffMoment: this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -92,18 +97,17 @@ export class PointDataService {
       .leftJoin(
         (subquery) => {
           return (
-            // Join most recent dynamic data for each point
             subquery
               .select([
                 'dynamic."pointPointDataId"',
                 'json_object_agg("key",value) as "dynamicData"',
               ])
               .from(DynamicPointDataEntity, 'dynamic')
-              // Join with subquery to get only the record with the most recent timestamp for each point
+              // Join with subquery to get only the record with the most recent timestamp for each point, and if multiple take the records of the leadTime with the max forecastLevel
               .innerJoin(
                 `(${maxTimestampPerPointQuery.getQuery()})`,
                 'maxSub',
-                'dynamic."pointPointDataId" = "maxSub"."pointPointDataId" AND dynamic.timestamp = "maxSub".maxTimestamp',
+                'dynamic."pointPointDataId" = "maxSub"."pointPointDataId" AND dynamic.timestamp = "maxSub".maxTimestamp AND dynamic."leadTime" = "maxSub".leadTimeOfMaxForecastLevel',
               )
               .setParameters(maxTimestampPerPointQuery.getParameters())
               .groupBy('dynamic."pointPointDataId"')
