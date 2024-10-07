@@ -119,11 +119,14 @@ export class PointMarkerService {
     countryDisasterSettings: CountryDisasterSettings,
     events: EventSummary[],
   ): Marker {
-    const eventLeadTime = events.find(
+    const event = events.find(
       (e) =>
         e.eventName === markerProperties.stationCode ||
         e.eventName === markerProperties.stationName, // NOTE: this assumes events to be defined per station, and eventName=stationCode or stationName
-    )?.firstLeadTime as LeadTime;
+    );
+    // This reflects to take the trigger leadTime and not the earlier warning leadTime, in case of warning-to-trigger scenario
+    const eventLeadTime = (event?.firstTriggerLeadTime ||
+      event?.firstLeadTime) as LeadTime;
 
     const markerTitle = markerProperties.stationName;
     const markerIcon: IconOptions = {
