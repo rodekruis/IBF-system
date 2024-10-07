@@ -27,10 +27,6 @@ This is the repository for the IBF-system. It includes a.o.:
 - See the 510 IBF Project Document for more info and links to the 510-instances of these pipelines per disaster-type.
 - For development/testing purposes, there are mock-endpoints and mock-data available to replace the need for these pipelines. (See 'Load local database with data' below.)
 
-## System design
-
-![IBF-system design (draft)](./system-design/ibf-system-design.PNG)
-
 ## Getting Started
 
 ### Setup a local development-environment:
