@@ -119,11 +119,14 @@ export class PointMarkerService {
     countryDisasterSettings: CountryDisasterSettings,
     events: EventSummary[],
   ): Marker {
-    const activeLeadTime = events.find(
+    const event = events.find(
       (e) =>
-        e.eventName ===
-        (markerProperties.stationCode || markerProperties.stationName), // NOTE: this assumes events to be defined per station, and eventName=stationCode or stationName
-    )?.firstLeadTime as LeadTime;
+        e.eventName === markerProperties.stationCode ||
+        e.eventName === markerProperties.stationName, // NOTE: this assumes events to be defined per station, and eventName=stationCode or stationName
+    );
+    // This reflects to take the trigger leadTime and not the earlier warning leadTime, in case of warning-to-trigger scenario
+    const eventLeadTime = (event?.firstTriggerLeadTime ||
+      event?.firstLeadTime) as LeadTime;
 
     const markerTitle = markerProperties.stationName;
     const markerIcon: IconOptions = {
@@ -148,7 +151,7 @@ export class PointMarkerService {
       this.createMarkerStationPopup(
         markerProperties,
         countryDisasterSettings,
-        activeLeadTime,
+        eventLeadTime,
       ),
       {
         minWidth: 350,
@@ -473,10 +476,10 @@ export class PointMarkerService {
   private createMarkerStationPopup(
     markerProperties: Station,
     countryDisasterSettings: CountryDisasterSettings,
-    activeLeadTime: LeadTime,
+    eventLeadTime: LeadTime,
   ) {
     const lastAvailableLeadTime: LeadTime = LeadTime.day7; // Agreed with pipeline that untriggered station will always show day 7
-    const leadTime = activeLeadTime || lastAvailableLeadTime;
+    const leadTime = eventLeadTime || lastAvailableLeadTime;
 
     const eapAlertClasses =
       countryDisasterSettings?.eapAlertClasses || ({} as EapAlertClasses);

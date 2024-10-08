@@ -1,3 +1,4 @@
+import { DisasterType } from '../../../disaster/disaster-type.enum';
 import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
 import { TriggerStatusLabelEnum } from '../../dto/notification-date-per-event.dto';
 import {
@@ -14,6 +15,7 @@ import {
 } from '../../helpers/mjml.helper';
 
 const getMjmlBodyEvent = ({
+  disasterType,
   color,
   defaultAdminAreaLabel,
   disasterIssuedLabel,
@@ -33,6 +35,7 @@ const getMjmlBodyEvent = ({
   triggerStatusLabel,
   toCompactNumber,
 }: {
+  disasterType: DisasterType;
   color: string;
   defaultAdminAreaLabel: string;
   disasterIssuedLabel: string;
@@ -61,15 +64,24 @@ const getMjmlBodyEvent = ({
 
   const contentContent = [];
 
-  contentContent.push(
-    firstTriggerLeadTimeString
-      ? `<strong>${disasterTypeLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`
-      : `<strong>${disasterIssuedLabel}:</strong> Expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
-  );
-
-  if (firstTriggerLeadTimeString) {
+  if (disasterType === DisasterType.Floods) {
+    if (firstTriggerLeadTimeFromNow) {
+      if (firstLeadTimeString !== firstTriggerLeadTimeString) {
+        contentContent.push(
+          `<strong>${disasterTypeLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
+        );
+      }
+      contentContent.push(
+        `<strong>${disasterIssuedLabel}:</strong> Expected to trigger on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}.`,
+      );
+    } else {
+      contentContent.push(
+        `<strong>${disasterIssuedLabel}:</strong> Expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
+      );
+    }
+  } else {
     contentContent.push(
-      `<strong>${disasterIssuedLabel}:</strong> Expected to trigger on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}.`,
+      `<strong>${disasterTypeLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
     );
   }
 
@@ -97,7 +109,7 @@ const getMjmlBodyEvent = ({
   });
 
   const closingElement = getTextElement({
-    content: `This ${triggerStatusLabel} was issued by IBF on ${issuedDate} (${timeZone})`,
+    content: `This ${triggerStatusLabel} was first issued by IBF on ${issuedDate} (${timeZone})`,
     attributes: {
       'padding-top': '8px',
       'font-size': '14px',
@@ -119,6 +131,7 @@ export const getMjmlEventListBody = (
   for (const event of emailContent.dataPerEvent) {
     eventList.push(
       getMjmlBodyEvent({
+        disasterType: emailContent.disasterType,
         eventName: event.eventName,
 
         disasterTypeLabel: emailContent.disasterTypeLabel,

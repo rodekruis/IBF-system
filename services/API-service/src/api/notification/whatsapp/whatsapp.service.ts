@@ -8,7 +8,6 @@ import { EventSummaryCountry } from '../../../shared/data.model';
 import { HelperService } from '../../../shared/helper.service';
 import { CountryEntity } from '../../country/country.entity';
 import { DisasterType } from '../../disaster/disaster-type.enum';
-import { EventMapImageEntity } from '../../event/event-map-image.entity';
 import { EventService } from '../../event/event.service';
 import { UserEntity } from '../../user/user.entity';
 import { LookupService } from '../lookup/lookup.service';
@@ -26,8 +25,6 @@ export class WhatsappService {
   private readonly twilioMessageRepository: Repository<TwilioMessageEntity>;
   @InjectRepository(UserEntity)
   private readonly userRepository: Repository<UserEntity>;
-  @InjectRepository(EventMapImageEntity)
-  private readonly eventMapImageRepository: Repository<EventMapImageEntity>;
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
 
@@ -268,29 +265,10 @@ export class WhatsappService {
             disasterType.disasterType,
             event,
           );
-          const eventName = event.eventName;
-          const eventMapImageEntity =
-            await this.eventMapImageRepository.findOne({
-              where: {
-                countryCodeISO3: country.countryCodeISO3,
-                disasterType: disasterType.disasterType,
-                eventName: !eventName ? IsNull() : eventName,
-              },
-            });
 
-          await this.sendWhatsapp(
-            triggerMessage,
-            fromNumber,
-            eventMapImageEntity
-              ? `${EXTERNAL_API.eventMapImage}/${country.countryCodeISO3}/${
-                  disasterType.disasterType
-                }/${eventName || 'no-name'}`
-              : null,
-          );
+          await this.sendWhatsapp(triggerMessage, fromNumber);
           // Add small delay to ensure the order in which messages are received
-          await new Promise((resolve) =>
-            setTimeout(resolve, eventMapImageEntity ? 5000 : 2000),
-          );
+          await new Promise((resolve) => setTimeout(resolve, 2000));
         }
 
         const whatsappGroupMessage = this.configureWhatsappGroupMessage(

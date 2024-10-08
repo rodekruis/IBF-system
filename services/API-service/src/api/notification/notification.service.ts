@@ -29,37 +29,37 @@ export class NotificationService {
     isApiTest: boolean,
     date?: Date,
   ): Promise<void | NotificationApiTestResponseDto> {
-    const apiTestResponse = new NotificationApiTestResponseDto();
-    const apiTestResponseActive = await this.sendNotificationsActiveEvents(
+    const response = new NotificationApiTestResponseDto();
+    const activeEventsResponse = await this.sendNotificationsActiveEvents(
       disasterType,
       countryCodeISO3,
       isApiTest,
       date,
     );
-    if (isApiTest && apiTestResponseActive) {
-      apiTestResponse.activeEvents = apiTestResponseActive;
+    if (isApiTest && activeEventsResponse) {
+      response.activeEvents = activeEventsResponse;
     }
 
-    if (disasterType === DisasterType.Floods) {
-      // Sending finished events is now for floods only
-      const apiTestResponseFinished =
-        await this.sendNotificationsFinishedEvents(
-          countryCodeISO3,
-          disasterType,
-          isApiTest,
-          date,
-        );
-      if (isApiTest && apiTestResponseFinished) {
-        apiTestResponse.finishedEvents = apiTestResponseFinished;
-      }
-    }
+    // NOTE: the finished event email is currently broken. It needs to be
+    // if (disasterType === DisasterType.Floods) {
+    //   // Sending finished events is now for floods only
+    //   const finishedEventsResponse = await this.sendNotificationsFinishedEvents(
+    //     countryCodeISO3,
+    //     disasterType,
+    //     isApiTest,
+    //     date,
+    //   );
+    //   if (isApiTest && finishedEventsResponse) {
+    //     response.finishedEvents = finishedEventsResponse;
+    //   }
+    // }
 
     // REFACTOR: First close finished events. This is ideally done through separate endpoint called at end of pipeline, but that would require all pipelines to be updated.
     // Instead, making use of this endpoint which is already called at the end of every pipeline
     await this.eventService.closeEventsAutomatic(countryCodeISO3, disasterType);
 
     if (isApiTest) {
-      return apiTestResponse;
+      return response;
     }
   }
 
@@ -69,7 +69,7 @@ export class NotificationService {
     isApiTest: boolean,
     date?: Date,
   ): Promise<void | NotificationApiTestResponseChannelDto> {
-    const apiTestResponseActive = new NotificationApiTestResponseChannelDto();
+    const response = new NotificationApiTestResponseChannelDto();
 
     const events = await this.eventService.getEventSummary(
       countryCodeISO3,
@@ -97,7 +97,7 @@ export class NotificationService {
         date,
       );
       if (isApiTest && messageForApiTest) {
-        apiTestResponseActive.email = messageForApiTest;
+        response.email = messageForApiTest;
       }
       if (country.notificationInfo.useWhatsapp[disasterType]) {
         this.whatsappService.sendTriggerWhatsapp(
@@ -108,7 +108,7 @@ export class NotificationService {
       }
     }
     if (isApiTest) {
-      return apiTestResponseActive;
+      return response;
     }
   }
 
@@ -118,7 +118,7 @@ export class NotificationService {
     isApiTest: boolean,
     date?: Date,
   ): Promise<void | NotificationApiTestResponseChannelDto> {
-    const apiTestResponseFinished = new NotificationApiTestResponseChannelDto();
+    const response = new NotificationApiTestResponseChannelDto();
     const finishedNotifiableEvents =
       await this.eventService.getEventsSummaryTriggerFinishedMail(
         countryCodeISO3,
@@ -139,7 +139,7 @@ export class NotificationService {
         date,
       );
       if (isApiTest && emailFinished) {
-        apiTestResponseFinished.email = emailFinished;
+        response.email = emailFinished;
       }
 
       if (country.notificationInfo.useWhatsapp[disasterType]) {
@@ -152,7 +152,7 @@ export class NotificationService {
         }
       }
       if (isApiTest) {
-        return apiTestResponseFinished;
+        return response;
       }
     }
   }
