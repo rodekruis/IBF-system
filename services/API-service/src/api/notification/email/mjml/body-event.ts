@@ -109,7 +109,7 @@ const getMjmlBodyEvent = ({
   });
 
   const closingElement = getTextElement({
-    content: `This ${triggerStatusLabel} was issued by IBF on ${issuedDate} (${timeZone})`,
+    content: `This ${triggerStatusLabel} was first issued by IBF on ${issuedDate} (${timeZone})`,
     attributes: {
       'padding-top': '8px',
       'font-size': '14px',
