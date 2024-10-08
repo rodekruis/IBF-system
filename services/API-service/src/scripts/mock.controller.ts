@@ -26,6 +26,7 @@ import {
   EpidemicsScenario,
   FlashFloodsScenario,
   FloodsScenario,
+  TyphoonScenario,
 } from './enum/mock-scenario.enum';
 import { MockService } from './mock.service';
 
@@ -84,6 +85,15 @@ export class MockEpidemicsScenario extends MockBaseScenario {
   })
   @IsEnum(EpidemicsScenario)
   public readonly scenario: EpidemicsScenario;
+}
+
+export class MockTyphoonScenario extends MockBaseScenario {
+  @ApiProperty({
+    example: Object.values(TyphoonScenario).join(' | '),
+    description: 'default: ...',
+  })
+  @IsEnum(TyphoonScenario)
+  public readonly scenario: TyphoonScenario;
 }
 
 @Controller('mock')
@@ -190,6 +200,40 @@ export class MockController {
     const result = await this.mockService.mock(
       body,
       disasterType,
+      false,
+      isApiTest,
+    );
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Upload mock data for specific typhoon scenario',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Uploaded mock data for specific typhoon scenario',
+  })
+  @Post('/typhoon')
+  public async mockTyphoonScenario(
+    @Body() body: MockTyphoonScenario,
+    @Res() res,
+    @Query(
+      'isApiTest',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    isApiTest: boolean,
+  ): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+
+    const result = await this.mockService.mock(
+      body,
+      DisasterType.Typhoon,
       false,
       isApiTest,
     );
