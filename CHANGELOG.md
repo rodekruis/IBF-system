@@ -1,3 +1,12 @@
+## [0.271.3](https://github.com/rodekruis/IBF-system/compare/v0.271.2...v0.271.3) (2024-10-08)
+
+
+### Bug Fixes
+
+* mock flash floods exposed point assets ([ab58c0e](https://github.com/rodekruis/IBF-system/commit/ab58c0ed0c6cfb2ea72ee108956acbbb7e29ec28))
+
+
+
 ## [0.271.2](https://github.com/rodekruis/IBF-system/compare/v0.271.1...v0.271.2) (2024-10-01)
 
 
@@ -120,17 +129,6 @@
 ### Features
 
 * update mock windspeed data ([8425fb4](https://github.com/rodekruis/IBF-system/commit/8425fb4d284ac2aed01185cc67c798fba6d9b7a8))
-
-
-
-## [0.268.11](https://github.com/rodekruis/IBF-system/compare/v0.268.10...v0.268.11) (2024-09-16)
-
-
-### Bug Fixes
-
-* improve readability of deviation from compact notation ([87f113d](https://github.com/rodekruis/IBF-system/commit/87f113db10f2b9ed79d7095fbbbbaed0ab177f09))
-* prefix for compact numbers ([7a80944](https://github.com/rodekruis/IBF-system/commit/7a809441254fa3f90ca4fd884513bf7e7b99eb51))
-* style aggregates rows ([efa967f](https://github.com/rodekruis/IBF-system/commit/efa967fb0b1dbc553c0f8619ab548a1a75df65a7))
 
 
 
