@@ -70,14 +70,15 @@ export class PointDataService {
       disasterType,
     );
 
-    // Subquery to get the max timestamp for each point ..
-    // .. as well as retrieving the leadTime of the record with the max forecastLevel
+    // Subquery to get the max timestamp for each point, to be able to only get the most recent data ..
+    // .. and the maxLeadTime, which in case of multiple records with the same timestamp, decided to take the max leadTime record ..
+    // .. which makes sure that in the warning-to-trigger scenario the trigger data of Glofas stations is shown, not the warning data
     const maxTimestampPerPointQuery = this.dynamicPointDataRepository
       .createQueryBuilder('sub')
       .select([
         'sub."pointPointDataId"',
         'MAX(sub.timestamp) as maxTimestamp',
-        `SPLIT_PART(MAX(CASE WHEN "key" = 'forecastLevel' THEN value || '_' || "leadTime" END),'_',2) as leadTimeOfMaxForecastLevel`,
+        'MAX(sub."leadTime") as maxLeadTime',
       ])
       .where('sub.timestamp >= :cutoffMoment', {
         cutoffMoment: this.helperService.getUploadCutoffMoment(
@@ -96,22 +97,21 @@ export class PointDataService {
       })
       .leftJoin(
         (subquery) => {
-          return (
-            subquery
-              .select([
-                'dynamic."pointPointDataId"',
-                'json_object_agg("key",value) as "dynamicData"',
-              ])
-              .from(DynamicPointDataEntity, 'dynamic')
-              // Join with subquery to get only the record with the most recent timestamp for each point, and if multiple take the records of the leadTime with the max forecastLevel
-              .innerJoin(
-                `(${maxTimestampPerPointQuery.getQuery()})`,
-                'maxSub',
-                'dynamic."pointPointDataId" = "maxSub"."pointPointDataId" AND dynamic.timestamp = "maxSub".maxTimestamp AND dynamic."leadTime" = "maxSub".leadTimeOfMaxForecastLevel',
-              )
-              .setParameters(maxTimestampPerPointQuery.getParameters())
-              .groupBy('dynamic."pointPointDataId"')
-          );
+          return subquery
+            .select([
+              'dynamic."pointPointDataId"',
+              'json_object_agg("key",value) as "dynamicData"',
+            ])
+            .from(DynamicPointDataEntity, 'dynamic')
+            .innerJoin(
+              `(${maxTimestampPerPointQuery.getQuery()})`,
+              'maxSub',
+              `dynamic."pointPointDataId" = "maxSub"."pointPointDataId" 
+                AND dynamic.timestamp = "maxSub".maxTimestamp 
+                AND (dynamic."leadTime" = "maxSub".maxLeadTime OR (dynamic."leadTime" IS NULL AND "maxSub".maxLeadTime IS NULL))`, // Make sure the join also works with leadTime=null
+            )
+            .setParameters(maxTimestampPerPointQuery.getParameters())
+            .groupBy('dynamic."pointPointDataId"');
         },
         'dynamic',
         'dynamic."pointPointDataId" = point."pointDataId"',
