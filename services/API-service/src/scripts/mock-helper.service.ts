@@ -30,11 +30,7 @@ export class MockHelperService {
     if (countryCodeISO3 !== 'MWI' || !triggered) {
       return;
     }
-    const pointDataCategories = [
-      PointDataEnum.healthSites,
-      PointDataEnum.schools,
-      PointDataEnum.waterpointsInternal,
-    ];
+
     for (const leadTime of [LeadTime.hour24, LeadTime.hour6]) {
       for (const assetType of Object.keys(LinesDataEnum)) {
         const payload = new UploadLinesExposureStatusDto();
@@ -63,6 +59,11 @@ export class MockHelperService {
         await this.linesDataService.uploadAssetExposureStatus(payload);
       }
 
+      const pointDataCategories = [
+        PointDataEnum.healthSites,
+        PointDataEnum.schools,
+        PointDataEnum.waterpointsInternal,
+      ];
       for (const pointAssetType of pointDataCategories) {
         const payload = new UploadDynamicPointDataDto();
         payload.disasterType = DisasterType.FlashFloods;
