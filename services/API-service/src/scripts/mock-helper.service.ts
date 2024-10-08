@@ -43,23 +43,11 @@ export class MockHelperService {
         payload.linesDataCategory = assetType as LinesDataEnum;
         payload.leadTime = leadTime;
         payload.date = date || new Date();
-        if (assetType === LinesDataEnum.roads) {
-          const filename = `./src/api/lines-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${assetType}.json`;
-          const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-          leadTime === LeadTime.hour24
-            ? (payload.exposedFids = assets[LeadTime.hour24])
-            : leadTime === LeadTime.hour6
-            ? (payload.exposedFids = assets[LeadTime.hour6])
-            : [];
-        } else if (assetType === LinesDataEnum.buildings) {
-          const filename = `./src/api/lines-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${assetType}.json`;
-          const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-          leadTime === LeadTime.hour24
-            ? (payload.exposedFids = assets[LeadTime.hour24])
-            : leadTime === LeadTime.hour6
-            ? (payload.exposedFids = assets[LeadTime.hour6])
-            : [];
-        }
+        const filename = `./src/api/lines-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${assetType}.json`;
+        const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
+        // add mock data per lead-time in the respecitve json file
+        payload.exposedFids = assets[leadTime] ? assets[leadTime] : [];
+
         await this.linesDataService.uploadAssetExposureStatus(payload);
       }
 
@@ -69,27 +57,12 @@ export class MockHelperService {
         payload.key = 'exposure';
         payload.leadTime = leadTime;
         payload.date = date || new Date();
-        if (pointAssetType === PointDataEnum.healthSites) {
-          leadTime === LeadTime.hour24
-            ? (payload.dynamicPointData = [])
-            : leadTime === LeadTime.hour6
-            ? (payload.dynamicPointData = [{ fid: '124', value: 'true' }])
-            : [];
-        } else if (pointAssetType === PointDataEnum.schools) {
-          leadTime === LeadTime.hour24
-            ? (payload.dynamicPointData = [{ fid: '167', value: 'true' }])
-            : leadTime === LeadTime.hour6
-            ? (payload.dynamicPointData = [])
-            : [];
-        } else if (pointAssetType === PointDataEnum.waterpointsInternal) {
-          const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${pointAssetType}.json`;
-          const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-          leadTime === LeadTime.hour24
-            ? (payload.dynamicPointData = assets[LeadTime.hour24])
-            : leadTime === LeadTime.hour6
-            ? (payload.dynamicPointData = assets[LeadTime.hour6])
-            : [];
-        }
+
+        const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${pointAssetType}.json`;
+        const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
+        // add mock data per lead-time in the respecitve json file
+        payload.dynamicPointData = assets[leadTime] ? assets[leadTime] : [];
+
         await this.pointDataService.uploadDynamicPointData(payload);
       }
     }
