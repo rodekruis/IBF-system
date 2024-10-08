@@ -1,0 +1,9 @@
+{
+  "6-hour": [
+    { "fid": "334", "value": true},
+    { "fid": "359", "value": true},
+    { "fid": "130", "value": true},
+    { "fid": "234", "value": true}
+  ],
+  "24-hour": []
+}
