@@ -71,6 +71,7 @@ export class MockService {
     if (mockBody.removeEvents) {
       await this.removeEvents(mockBody.countryCodeISO3, disasterType);
     }
+    const date = mockBody.date || new Date();
 
     const selectedCountry = countries.find((country) => {
       if (mockBody.countryCodeISO3 === country.countryCodeISO3) {
@@ -121,7 +122,7 @@ export class MockService {
               adminLevel: adminLevel,
               disasterType: disasterType,
               eventName: null,
-              date: mockBody.date,
+              date: date,
             });
           }
         }
@@ -152,7 +153,7 @@ export class MockService {
               adminLevel: adminLevel,
               disasterType: disasterType,
               eventName: event.eventName,
-              date: mockBody.date,
+              date: date,
             });
           }
         }
@@ -167,7 +168,7 @@ export class MockService {
             triggersPerLeadTime,
             disasterType: DisasterType.Floods,
             eventName: event.eventName,
-            date: mockBody.date,
+            date: date,
           });
         }
 
@@ -180,7 +181,7 @@ export class MockService {
           await this.mockGlofasStations(
             selectedCountry,
             DisasterType.Floods,
-            mockBody.date,
+            date,
             scenario.scenarioName,
             event,
           );
@@ -202,7 +203,7 @@ export class MockService {
       await this.mockGlofasStations(
         selectedCountry,
         disasterType,
-        mockBody.date,
+        date,
         scenario.scenarioName,
       );
     }
@@ -213,7 +214,7 @@ export class MockService {
       await this.mockHelpService.mockExposedAssets(
         selectedCountry.countryCodeISO3,
         triggered,
-        mockBody.date,
+        date,
       );
     }
     if (this.shouldMockDynamicPointData(disasterType)) {
@@ -221,7 +222,7 @@ export class MockService {
       await this.mockHelpService.mockDynamicPointData(
         selectedCountry.countryCodeISO3,
         disasterType,
-        mockBody.date,
+        date,
       );
     }
 
