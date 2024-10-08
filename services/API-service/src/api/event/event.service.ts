@@ -346,6 +346,7 @@ export class EventService {
         triggeredPlaceCodes,
         disasterType,
         lastTriggeredDate,
+        eventName,
       );
     }
 
@@ -413,21 +414,30 @@ export class EventService {
     triggeredPlaceCodes: string[],
     disasterType: DisasterType,
     lastTriggeredDate: DateDto,
+    eventName?: string,
+    leadTime?: string,
   ): Promise<TriggeredArea[]> {
     const actionUnit = await this.getActionUnit(disasterType);
+    const whereFilters = {
+      placeCode: In(triggeredPlaceCodes),
+      indicator: actionUnit,
+      disasterType,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getUploadCutoffMoment(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
+      ),
+    };
+    if (eventName) {
+      whereFilters['eventName'] = eventName;
+    }
+    if (leadTime) {
+      whereFilters['leadTime'] = leadTime;
+    }
     const areas = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
-      .where({
-        placeCode: In(triggeredPlaceCodes),
-        indicator: actionUnit,
-        disasterType,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getUploadCutoffMoment(
-            disasterType,
-            lastTriggeredDate.timestamp,
-          ),
-        ),
-      })
+      .where(whereFilters)
       .leftJoinAndSelect(
         AdminAreaEntity,
         'area',
@@ -460,6 +470,7 @@ export class EventService {
         'COALESCE("parentUser"."firstName","grandparentUser"."firstName") || \' \' || COALESCE("parentUser"."lastName","grandparentUser"."lastName") AS "displayName"',
       ])
       .getRawMany();
+
     return areas.map((area) => {
       return {
         placeCode: area.placeCode,
