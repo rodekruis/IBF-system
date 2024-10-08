@@ -220,9 +220,10 @@ export class MockService {
 
     if (this.shouldMockExposedAssets(disasterType)) {
       // TODO: the below methods still assume hard-coded leadTimes and is not flexible
+      const triggered = scenario.events?.length > 0;
       await this.mockHelpService.mockExposedAssets(
         selectedCountry.countryCodeISO3,
-        !scenario.events, // no events means triggered=false
+        triggered, // no events means triggered=false
         mockBody.date,
       );
     }
