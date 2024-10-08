@@ -1,30 +1,30 @@
 [
   {
     "placeCode": "MW10220",
-    "amount": 1.0
+    "amount": 0
   },
   {
-    "placeCode": "MW10420",
-    "amount": 0.0
+    "placeCode": "MW10203",
+    "amount": 0
   },
   {
-    "placeCode": "MW10504",
-    "amount": 0.0
+    "placeCode": "MW10201",
+    "amount": 0
   },
   {
-    "placeCode": "MW10407",
-    "amount": 0.0
+    "placeCode": "MW10202",
+    "amount": 0
   },
   {
-    "placeCode": "MW10401",
-    "amount": 0.0
+    "placeCode": "MW10204",
+    "amount": 0
   },
   {
-    "placeCode": "MW10502",
-    "amount": 0.0
+    "placeCode": "MW10205",
+    "amount": 0
   },
   {
-    "placeCode": "MW10402",
-    "amount": 0.0
+    "placeCode": "MW10206",
+    "amount": 0
   }
 ]

@@ -1,34 +1,30 @@
 [
   {
     "placeCode": "MW10220",
-    "amount": 7.4162248e9
+    "amount": 3453
   },
   {
     "placeCode": "MW10203",
-    "amount": 6.9116378e8
+    "amount": 4346
   },
   {
-    "placeCode": "MW10420",
-    "amount": 3.6631984e8
+    "placeCode": "MW10201",
+    "amount": 29864
   },
   {
-    "placeCode": "MW10504",
-    "amount": 5.9767571e8
+    "placeCode": "MW10202",
+    "amount": 1986
   },
   {
-    "placeCode": "MW10407",
-    "amount": 1.28200845e9
+    "placeCode": "MW10204",
+    "amount": 20539
   },
   {
-    "placeCode": "MW10401",
-    "amount": 6.4190701e8
+    "placeCode": "MW10205",
+    "amount": 18324
   },
   {
-    "placeCode": "MW10502",
-    "amount": 1.85784115e9
-  },
-  {
-    "placeCode": "MW10402",
-    "amount": 1.21751194e9
+    "placeCode": "MW10206",
+    "amount": 34564
   }
 ]
