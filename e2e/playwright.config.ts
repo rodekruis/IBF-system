@@ -16,32 +16,27 @@ export default defineConfig({
   /* Retry on CI only */
   retries: 1,
   /* Opt out of parallel tests on CI. */
-  // reporter: [
-  //   ['list'],
-  //   [
-  //     '@alex_neo/playwright-azure-reporter',
-  //     {
-  //       orgUrl: process.env.AZURE_DEV_URL,
-  //       token: process.env.AZURE_DEVOPS_TOKEN,
-  //       planId: 30494,
-  //       projectName: '121 Platform',
-  //       environment: 'IBF local',
-  //       logging: true,
-  //       testRunTitle: 'Playwright Test Suite',
-  //       publishTestResultsMode: 'testRun',
-  //       uploadAttachments: true,
-  //       attachmentsType: ['screenshot', 'video', 'trace'],
-  //       testRunConfig: {
-  //         owner: {
-  //           displayName: 'Krajewski, Piotr',
-  //         },
-  //         comment: 'Playwright Test Suite',
-  //         configurationIds: [],
-  //       },
-  //     } as AzureReporterOptions,
-  //   ],
-  // ],
-  /* Shared settings for all the projects below. See https://playwright.devdocs/api/class-testoptions. */
+  reporter: [
+    ['list'],
+    [
+      'playwright-qase-reporter',
+      {
+        debug: true,
+        testops: {
+          api: {
+            token:
+              '2c7b0abd5947be0afc86683d46c40500132fd50c854061359a78cf583605eb96',
+          },
+          title: 'IBF-System',
+          project: 'IBF',
+          uploadAttachments: true,
+          run: {
+            complete: true,
+          },
+        },
+      },
+    ],
+  ],
   workers: 1,
   outputDir: './test-results',
   timeout: 60000,
