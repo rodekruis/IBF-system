@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 import DashboardPage from 'Pages/DashboardPage';
 import DisasterTypeComponent from 'Pages/DisasterTypeComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
+import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { FloodsScenario } from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
@@ -34,20 +35,21 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('[30586] All Disaster Type elements are present in no-trigger mode', async ({
-  page,
-}) => {
-  const dashboard = new DashboardPage(page);
-  const userState = new UserStateComponent(page);
-  const disasterType = new DisasterTypeComponent(page);
+test(
+  qase(4, 'All Disaster Type elements are present in no-trigger mode'),
+  async ({ page }) => {
+    const dashboard = new DashboardPage(page);
+    const userState = new UserStateComponent(page);
+    const disasterType = new DisasterTypeComponent(page);
 
-  // Navigate to disaster type the data was mocked for
-  await dashboard.navigateToFloodDisasterType();
-  // Assertions
-  await userState.headerComponentIsVisible({
-    countryName: NoTriggerDataSet.CountryName,
-  });
-  await disasterType.topBarComponentIsVisible();
-  await disasterType.allDisasterTypeElementsArePresent();
-  await disasterType.timlineElementsAreVisible();
-});
+    // Navigate to disaster type the data was mocked for
+    await dashboard.navigateToFloodDisasterType();
+    // Assertions
+    await userState.headerComponentIsVisible({
+      countryName: NoTriggerDataSet.CountryName,
+    });
+    await disasterType.topBarComponentIsVisible();
+    await disasterType.allDisasterTypeElementsArePresent();
+    await disasterType.timlineElementsAreVisible();
+  },
+);

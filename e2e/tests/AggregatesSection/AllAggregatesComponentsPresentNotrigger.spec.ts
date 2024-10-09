@@ -35,7 +35,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test(
-  qase(6, '[30588] All Aggregate elements are present in no-trigger mode'),
+  qase(6, 'All Aggregate elements are present in no-trigger mode'),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
     const aggregates = new AggregatesComponent(page);

@@ -1,4 +1,3 @@
-// import { AzureReporterOptions } from '@alex_neo/playwright-azure-reporter/dist/playwright-azure-reporter';
 import { defineConfig } from '@playwright/test';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -16,27 +15,26 @@ export default defineConfig({
   /* Retry on CI only */
   retries: 1,
   /* Opt out of parallel tests on CI. */
-  reporter: [
-    ['list'],
-    [
-      'playwright-qase-reporter',
-      {
-        debug: true,
-        testops: {
-          api: {
-            token:
-              '2c7b0abd5947be0afc86683d46c40500132fd50c854061359a78cf583605eb96',
-          },
-          title: 'IBF-System',
-          project: 'IBF',
-          uploadAttachments: true,
-          run: {
-            complete: true,
-          },
-        },
-      },
-    ],
-  ],
+  // reporter: [
+  //   ['list'],
+  //   [
+  //     'playwright-qase-reporter',
+  //     {
+  //       captureLogs: false,
+  //       debug: true,
+  //       testops: {
+  //         api: {
+  //           token: process.env.QASE_TOKEN,
+  //         },
+  //         project: 'IBF',
+  //         uploadAttachments: true,
+  //         run: {
+  //           complete: true,
+  //         },
+  //       },
+  //     },
+  //   ],
+  // ],
   workers: 1,
   outputDir: './test-results',
   timeout: 60000,
