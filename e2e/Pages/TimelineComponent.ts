@@ -25,6 +25,20 @@ class TimelineComponent extends DashboardPage {
       await expect(timelinePeriods.nth(i)).toBeVisible();
     }
   }
+
+  async timelineIsInactive() {
+    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForSelector('[data-testid="timeline-button"]');
+
+    const timelinePeriods = this.timeline;
+    const count = await timelinePeriods.count();
+
+    expect(count).toBeGreaterThan(0);
+    for (let i = 0; i < count; i++) {
+      const button = timelinePeriods.nth(i);
+      await expect(button).toHaveAttribute('disabled', '');
+    }
+  }
 }
 
 export default TimelineComponent;
