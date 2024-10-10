@@ -1,6 +1,6 @@
 import { test } from '@playwright/test';
-import AggregatesComponent from 'Pages/AggregateComponenet';
 import DashboardPage from 'Pages/DashboardPage';
+import UserStateComponent from 'Pages/UserStateComponent';
 import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
@@ -34,16 +34,17 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test(
-  qase(6, 'All Aggregate elements are present in no-trigger mode'),
-  async ({ page }) => {
-    const dashboard = new DashboardPage(page);
-    const aggregates = new AggregatesComponent(page);
+test(qase(8, 'Log out from IBF-system'), async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  const dashboard = new DashboardPage(page);
+  const userState = new UserStateComponent(page);
 
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToFloodDisasterType();
-    // Assertions
-    await aggregates.aggregateComponentIsVisible();
-    await aggregates.aggregatesAlementsDisplayedInNoTrigger();
-  },
-);
+  // Navigate to disaster type the data was mocked for
+  await dashboard.navigateToFloodDisasterType();
+  // Assertions
+  await userState.headerComponentIsVisible({
+    countryName: NoTriggerDataSet.CountryName,
+  });
+  await userState.logOut();
+  await loginPage.loginScreenIsVisible();
+});

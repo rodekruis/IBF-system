@@ -44,6 +44,9 @@ class AggregatesComponent extends DashboardPage {
 
   async aggregatesAlementsDisplayedInNoTrigger() {
     // Wait for the page to load
+    await this.page.waitForSelector('[data-testid="loader"]', {
+      state: 'hidden',
+    });
     await this.page.waitForSelector('[data-testid="aggregates-row"]');
     // Manipulate locators
     const affectedNumbers = await this.page.$$(
