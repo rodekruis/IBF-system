@@ -44,6 +44,10 @@ class UserStateComponent extends DashboardPage {
     );
     await expect(this.logOutButton).toBeVisible();
   }
+
+  async logOut() {
+    await this.logOutButton.click();
+  }
 }
 
 export default UserStateComponent;
