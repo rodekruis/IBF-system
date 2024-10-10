@@ -1,6 +1,7 @@
 import { test } from '@playwright/test';
 import DashboardPage from 'Pages/DashboardPage';
 import UserStateComponent from 'Pages/UserStateComponent';
+import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { FloodsScenario } from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
@@ -33,20 +34,21 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('[30585] All User State elements are present in no-trigger mode', async ({
-  page,
-}) => {
-  const dashboard = new DashboardPage(page);
-  const userState = new UserStateComponent(page);
+test(
+  qase(3, 'All User State elements are present in no-trigger mode'),
+  async ({ page }) => {
+    const dashboard = new DashboardPage(page);
+    const userState = new UserStateComponent(page);
 
-  // Navigate to disaster type the data was mocked for
-  await dashboard.navigateToFloodDisasterType();
-  // Assertions
-  await userState.headerComponentIsVisible({
-    countryName: NoTriggerDataSet.CountryName,
-  });
-  await userState.allUserStateElementsAreVisible({
-    firstName: NoTriggerDataSet.firstName,
-    lastName: NoTriggerDataSet.lastName,
-  });
-});
+    // Navigate to disaster type the data was mocked for
+    await dashboard.navigateToFloodDisasterType();
+    // Assertions
+    await userState.headerComponentIsVisible({
+      countryName: NoTriggerDataSet.CountryName,
+    });
+    await userState.allUserStateElementsAreVisible({
+      firstName: NoTriggerDataSet.firstName,
+      lastName: NoTriggerDataSet.lastName,
+    });
+  },
+);
