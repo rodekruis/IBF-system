@@ -30,6 +30,24 @@ class UserStateComponent extends DashboardPage {
     await expect(header).toBeVisible();
   }
 
+  async headerComponentDisplaysCorrectDisasterType({
+    countryName,
+    disasterName,
+  }: {
+    disasterName: string;
+    countryName: string;
+  }) {
+    const header = this.header.filter({
+      hasText: `IBF PORTAL ${countryName}`,
+    });
+    const headerText = await header.textContent().then((text) => text?.trim());
+    const headerTextTransformed = headerText?.replace('  ', ' ');
+
+    expect(headerTextTransformed).toContain(
+      `IBF PORTAL ${countryName} ${disasterName}`,
+    );
+  }
+
   async allUserStateElementsAreVisible({
     firstName,
     lastName,
