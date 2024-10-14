@@ -1,3 +1,12 @@
+## [0.272.1](https://github.com/rodekruis/IBF-system/compare/v0.272.0...v0.272.1) (2024-10-14)
+
+
+### Bug Fixes
+
+* area speech bbubble appears twice ([2d7ea68](https://github.com/rodekruis/IBF-system/commit/2d7ea687017011c066e383561de5f010a07b3f34))
+
+
+
 # [0.272.0](https://github.com/rodekruis/IBF-system/compare/v0.271.3...v0.272.0) (2024-10-14)
 
 
@@ -132,15 +141,6 @@
 ### Bug Fixes
 
 * suspicious logic to update triggerValue ([36fc8f2](https://github.com/rodekruis/IBF-system/commit/36fc8f27fa3601aec10884a3df4884ee7d95b48d))
-
-
-
-## [0.269.1](https://github.com/rodekruis/IBF-system/compare/v0.269.0...v0.269.1) (2024-09-17)
-
-
-### Bug Fixes
-
-* process info popup changes + improve process ([a006d20](https://github.com/rodekruis/IBF-system/commit/a006d2077778bc8e279948db591e3d4ed2005b36))
 
 
 
