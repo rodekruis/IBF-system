@@ -1,4 +1,5 @@
 import { expect } from '@playwright/test';
+import AggregatesComponent from 'Pages/AggregateComponenet';
 import { Locator, Page } from 'playwright';
 
 import DashboardPage from './DashboardPage';
@@ -14,6 +15,7 @@ class MapComponent extends DashboardPage {
   readonly legend: Locator;
   readonly layerMenu: Locator;
   readonly adminBoundry: Locator;
+  readonly layerCheckbox: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -33,8 +35,9 @@ class MapComponent extends DashboardPage {
       'breadcrumb-admin-area-3-view',
     );
     this.legend = this.page.getByTestId('map-legend');
-    this.layerMenu = this.page.getByTestId('layer-menu');
+    this.layerMenu = this.page.getByTestId('layer-menu-container');
     this.adminBoundry = this.page.locator('.leaflet-interactive');
+    this.layerCheckbox = this.page.getByTestId('matrix-checkbox');
   }
 
   async mapComponentIsVisible() {
@@ -113,6 +116,38 @@ class MapComponent extends DashboardPage {
     expect(count).toBeGreaterThan(0);
     for (let i = 0; i < count; i++) {
       await expect(adminBoundaries.nth(i)).toBeVisible();
+    }
+  }
+
+  async turnOffLayer() {
+    // Remove Glofas station from the map (in case the mock is for floods)
+    await this.layerMenu.click();
+    const getLayerRow = this.page
+      .getByTestId('matrix-layer-name')
+      .filter({ hasText: 'Glofas Station' });
+    const layerCheckbox = getLayerRow.locator(this.layerCheckbox);
+    await layerCheckbox.click();
+  }
+
+  async assertAggregateTitleOnHoverOverMap() {
+    // Declare component
+    const aggregates = new AggregatesComponent(this.page);
+    // Wait for the page to load
+    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForSelector('.leaflet-interactive');
+
+    // Get the count of the admin boundaries
+    const adminBoundaries = this.adminBoundry;
+    const count = await adminBoundaries.count();
+    // Assert the that Aggregates title is visible and does not contain the text 'National View'
+    expect(count).toBeGreaterThan(0);
+    for (let i = 0; i < count; i++) {
+      await this.adminBoundry.nth(i).hover();
+      await this.adminBoundry.nth(i).click();
+      await expect(aggregates.aggregatesTitleHeader).toContainText(
+        'National View',
+      );
     }
   }
 }
