@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 import { format } from 'date-fns';
 import { Locator, Page } from 'playwright';
 
-import EnglishTranslations from '../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
+import EnglishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
 import DashboardPage from './DashboardPage';
 
 const chatDialogueContentWelcomeNoTrigger =

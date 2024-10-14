@@ -1,9 +1,10 @@
 import { test } from '@playwright/test';
+import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
-import { FloodsScenario } from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { FloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import {
   getAccessToken,
   mockFloods,
@@ -33,11 +34,12 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('[30585] All User State elements are present in no-trigger mode', async ({
+test('[30587] All Chat section elements are present in no-trigger mode', async ({
   page,
 }) => {
   const dashboard = new DashboardPage(page);
   const userState = new UserStateComponent(page);
+  const chat = new ChatComponent(page);
 
   // Navigate to disaster type the data was mocked for
   await dashboard.navigateToFloodDisasterType();
@@ -45,8 +47,9 @@ test('[30585] All User State elements are present in no-trigger mode', async ({
   await userState.headerComponentIsVisible({
     countryName: NoTriggerDataSet.CountryName,
   });
-  await userState.allUserStateElementsAreVisible({
+  await chat.chatColumnIsVisibleForNoTriggerState({
     firstName: NoTriggerDataSet.firstName,
     lastName: NoTriggerDataSet.lastName,
   });
+  await chat.allChatButtonsArePresent();
 });

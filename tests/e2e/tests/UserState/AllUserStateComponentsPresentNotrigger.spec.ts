@@ -1,9 +1,9 @@
 import { test } from '@playwright/test';
-import AggregatesComponent from 'Pages/AggregateComponenet';
 import DashboardPage from 'Pages/DashboardPage';
+import UserStateComponent from 'Pages/UserStateComponent';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
-import { FloodsScenario } from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { FloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import {
   getAccessToken,
   mockFloods,
@@ -33,15 +33,20 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('[30588] All Aggregate elements are present in no-trigger mode', async ({
+test('[30585] All User State elements are present in no-trigger mode', async ({
   page,
 }) => {
   const dashboard = new DashboardPage(page);
-  const aggregates = new AggregatesComponent(page);
+  const userState = new UserStateComponent(page);
 
   // Navigate to disaster type the data was mocked for
   await dashboard.navigateToFloodDisasterType();
   // Assertions
-  await aggregates.aggregateComponentIsVisible();
-  await aggregates.aggregatesAlementsDisplayedInNoTrigger();
+  await userState.headerComponentIsVisible({
+    countryName: NoTriggerDataSet.CountryName,
+  });
+  await userState.allUserStateElementsAreVisible({
+    firstName: NoTriggerDataSet.firstName,
+    lastName: NoTriggerDataSet.lastName,
+  });
 });

@@ -1,10 +1,13 @@
 import { test } from '@playwright/test';
+import AggregatesComponent from 'Pages/AggregateComponenet';
+import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
 import DisasterTypeComponent from 'Pages/DisasterTypeComponent';
+import MapComponenet from 'Pages/MapComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
-import { FloodsScenario } from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { FloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import {
   getAccessToken,
   mockFloods,
@@ -34,12 +37,15 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('[30586] All Disaster Type elements are present in no-trigger mode', async ({
+test('[30509] All Dashboard elements are present in no-trigger mode', async ({
   page,
 }) => {
   const dashboard = new DashboardPage(page);
   const userState = new UserStateComponent(page);
   const disasterType = new DisasterTypeComponent(page);
+  const chat = new ChatComponent(page);
+  const aggregates = new AggregatesComponent(page);
+  const map = new MapComponenet(page);
 
   // Navigate to disaster type the data was mocked for
   await dashboard.navigateToFloodDisasterType();
@@ -48,6 +54,10 @@ test('[30586] All Disaster Type elements are present in no-trigger mode', async 
     countryName: NoTriggerDataSet.CountryName,
   });
   await disasterType.topBarComponentIsVisible();
-  await disasterType.allDisasterTypeElementsArePresent();
-  await disasterType.timlineElementsAreVisible();
+  await chat.chatColumnIsVisibleForNoTriggerState({
+    firstName: NoTriggerDataSet.firstName,
+    lastName: NoTriggerDataSet.lastName,
+  });
+  await aggregates.aggregateComponentIsVisible();
+  await map.mapComponentIsVisible();
 });

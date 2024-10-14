@@ -25,11 +25,11 @@
 
 ## Installation
 
-Clone the repository and run local Docker environment following the general [installation-documentation](../README.md#getting-started).
+Clone the repository and run local Docker environment following the general [installation-documentation](../../README.md#getting-started).
 
 ### Install E2E-test dependencies
 
-From the repository root-folder, move into this folder: `cd ./e2e/`
+From the repository root-folder, move into this folder: `cd ./tests/e2e/`
 
 Then, in _this_ folder, run:
 
@@ -45,7 +45,7 @@ npx playwright install
 
 ### Set necessary Environment-variables
 
-See the "Testing only"-section at the end of the [`./.env.example`](./.env.example)-file.
+See the "Testing only"-section at the end of the [`./.env.example`](../../.env.example)-file.
 
 Make sure to fill in all relevant variables in your local `./.env`-file.
 
@@ -121,7 +121,6 @@ class LoginPage extends BasePage {
 }
 
 export default LoginPage;
-
 ```
 
 ## Writing Tests

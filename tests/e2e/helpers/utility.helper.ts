@@ -1,8 +1,8 @@
 import * as request from 'supertest';
 import TestAgent from 'supertest/lib/agent';
 
-import { FloodsScenario } from '../../services/API-service/src/scripts/enum/mock-scenario.enum';
-import users from '../../services/API-service/src/scripts/json/users.json';
+import { FloodsScenario } from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import users from '../../../services/API-service/src/scripts/json/users.json';
 
 export async function getAccessToken(): Promise<string> {
   const admin = users.find(
@@ -27,6 +27,7 @@ export function loginApi(
 
 export function getHostname(): string | undefined {
   // Use here the port the API-service is exposed to on the host, as the e2e tests are run on the host
+
   return process.env.API_SERVICE_URL;
 }
 
