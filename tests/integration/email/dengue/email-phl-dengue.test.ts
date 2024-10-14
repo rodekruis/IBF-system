@@ -1,4 +1,4 @@
-import { EpidemicsScenario } from '../../../src/scripts/enum/mock-scenario.enum';
+import { EpidemicsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import { getAccessToken, resetDB } from '../../helpers/utility.helper';
 import { testDengueScenario } from './test-dengue-scenario.helper';
 

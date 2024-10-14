@@ -1,20 +1,20 @@
 import { JSDOM } from 'jsdom';
 
-import { DisasterType } from '../../../src/api/disaster/disaster-type.enum';
-import { EpidemicsScenario } from '../../../src/scripts/enum/mock-scenario.enum';
+import { DisasterType } from '../../../../services/API-service/src/api/disaster/disaster-type.enum';
+import { EpidemicsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import {
   getEventTitle,
   mockEpidemics,
   sendNotification,
 } from '../../helpers/utility.helper';
 
-export async function testMalariaScenario(
+export async function testDengueScenario(
   scenario: EpidemicsScenario,
   countryCodeISO3: string,
   accessToken: string,
 ): Promise<boolean> {
   const eventNames = ['0-month', '1-month', '2-month'];
-  const disasterTypeLabel = DisasterType.Malaria;
+  const disasterTypeLabel = DisasterType.Dengue;
 
   const mockResult = await mockEpidemics(
     scenario,
@@ -24,7 +24,7 @@ export async function testMalariaScenario(
   // Act
   const response = await sendNotification(
     countryCodeISO3,
-    DisasterType.Malaria,
+    DisasterType.Dengue,
     accessToken,
   );
   // Assert

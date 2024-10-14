@@ -1,14 +1,14 @@
 import * as request from 'supertest';
 import TestAgent from 'supertest/lib/agent';
 
-import { DisasterType } from '../../src/api/disaster/disaster-type.enum';
+import { DisasterType } from '../../../services/API-service/src/api/disaster/disaster-type.enum';
 import {
   EpidemicsScenario,
   FlashFloodsScenario,
   FloodsScenario,
   TyphoonScenario,
-} from '../../src/scripts/enum/mock-scenario.enum';
-import users from '../../src/scripts/json/users.json';
+} from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import users from '../../../services/API-service/src/scripts/json/users.json';
 
 export async function getAccessToken(): Promise<string> {
   const admin = users.find((user) => user.userRole === 'admin');
@@ -29,8 +29,7 @@ export function loginApi(
 }
 
 export function getHostname(): string {
-  // Use here the port that is used inside the API-service Docker container, as these tests are run inside the Docker container
-  return 'http://localhost:3000/api';
+  return process.env.API_SERVICE_URL;
 }
 
 export function getEventTitle(disasterType: string, eventName: string) {

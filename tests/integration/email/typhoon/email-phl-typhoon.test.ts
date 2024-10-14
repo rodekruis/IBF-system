@@ -1,4 +1,4 @@
-import { TyphoonScenario } from '../../../src/scripts/enum/mock-scenario.enum';
+import { TyphoonScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import { getAccessToken, resetDB } from '../../helpers/utility.helper';
 import { testTyphoonScenario } from './test-typhoon-scenario.helper';
 

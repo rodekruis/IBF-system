@@ -1,8 +1,9 @@
 import { JSDOM } from 'jsdom';
 
-import { DisasterType } from '../../../src/api/disaster/disaster-type.enum';
-import { FloodsScenario } from '../../../src/scripts/enum/mock-scenario.enum';
-import disasters from '../../../src/scripts/json/disasters.json';
+import { DisasterType } from '../../../../services/API-service/src/api/disaster/disaster-type.enum';
+import { FloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+
+import disasters from '../../../../services/API-service/src/scripts/json/disasters.json';
 import {
   getEventTitle,
   mockFloods,

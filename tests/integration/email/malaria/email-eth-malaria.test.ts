@@ -1,9 +1,9 @@
-import { FlashFloodsScenario } from '../../../src/scripts/enum/mock-scenario.enum';
+import { EpidemicsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import { getAccessToken, resetDB } from '../../helpers/utility.helper';
-import { testFlashFloodScenario } from './test-flash-flood-scenario.helper';
+import { testMalariaScenario } from './test-malaria-scenario.helper';
 
-const countryCodeISO3 = 'MWI';
-describe('Should send an email for mwi flash flood', () => {
+const countryCodeISO3 = 'ETH';
+describe('Should send an email for eth malaria', () => {
   let accessToken: string;
 
   beforeEach(async () => {
@@ -12,8 +12,8 @@ describe('Should send an email for mwi flash flood', () => {
   });
 
   it('trigger', async () => {
-    const result = await testFlashFloodScenario(
-      FlashFloodsScenario.Trigger,
+    const result = await testMalariaScenario(
+      EpidemicsScenario.Trigger,
       countryCodeISO3,
       accessToken,
     );
@@ -21,8 +21,8 @@ describe('Should send an email for mwi flash flood', () => {
   });
 
   it('no-trigger', async () => {
-    const result = await testFlashFloodScenario(
-      FlashFloodsScenario.NoTrigger,
+    const result = await testMalariaScenario(
+      EpidemicsScenario.NoTrigger,
       countryCodeISO3,
       accessToken,
     );

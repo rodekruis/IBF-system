@@ -1,4 +1,4 @@
-import { FloodsScenario } from '../../../src/scripts/enum/mock-scenario.enum';
+import { FloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import { getAccessToken, resetDB } from '../../helpers/utility.helper';
 import { testFloodScenario } from './test-flood-scenario.helper';
 
