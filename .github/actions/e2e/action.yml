@@ -13,18 +13,18 @@ runs:
     - name: Set up Node.js version
       uses: actions/setup-node@v4
       with:
-        node-version-file: './e2e/.node-version'
+        node-version-file: './tests/e2e/.node-version'
         cache: 'npm'
-        cache-dependency-path: './e2e/package-lock.json'
+        cache-dependency-path: './tests/e2e/package-lock.json'
 
     - name: Install e2e code-dependencies
       shell: bash
-      working-directory: ./e2e
+      working-directory: ./tests/e2e
       run: npm ci --omit=optional --no-fund --no-audit
 
     - name: Lint e2e code
       shell: bash
-      working-directory: ./e2e
+      working-directory: ./tests/e2e
       run: npm run lint
 
     - name: Setup environment variables
@@ -54,7 +54,7 @@ runs:
 
     - name: Install runtime dependencies
       shell: bash
-      working-directory: ./e2e
+      working-directory: ./tests/e2e
       run: npx playwright install chromium --with-deps
 
     - name: Wait for IBF API-service to be running
@@ -67,7 +67,7 @@ runs:
 
     - name: Run end-to-end tests
       shell: bash
-      working-directory: ./e2e
+      working-directory: ./tests/e2e
       env:
         DASHBOARD_URL: http://localhost:4200
       run: npm test
@@ -77,7 +77,7 @@ runs:
       with:
         name: test-result-artifacts
         path: |
-          ./e2e/test-results/
+          ./tests/e2e/test-results/
           ./interfaces/IBF-dashboard/dashboard-logs.txt
         retention-days: 30
 
