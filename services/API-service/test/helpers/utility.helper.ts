@@ -29,7 +29,8 @@ export function loginApi(
 }
 
 export function getHostname(): string {
-  return process.env.API_SERVICE_URL || 'http://localhost:3000/api';
+  // Use here the port that is used inside the API-service Docker container, as these tests are run inside the Docker container
+  return 'http://localhost:3000/api';
 }
 
 export function getEventTitle(disasterType: string, eventName: string) {

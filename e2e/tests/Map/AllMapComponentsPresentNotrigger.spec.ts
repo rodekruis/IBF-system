@@ -9,7 +9,7 @@ import {
   getAccessToken,
   mockFloods,
   resetDB,
-} from '../../../services/API-service/test/helpers/utility.helper';
+} from '../../helpers/utility.helper';
 import LoginPage from '../../Pages/LoginPage';
 
 let accessToken: string;
@@ -17,9 +17,9 @@ let accessToken: string;
 test.beforeEach(async ({ page }) => {
   // Login
   const loginPage = new LoginPage(page);
-
   accessToken = await getAccessToken();
   await resetDB(accessToken);
+
   // We should maybe create one mock for all different disaster types for now we can just use floods
   await mockFloods(
     FloodsScenario.NoTrigger,

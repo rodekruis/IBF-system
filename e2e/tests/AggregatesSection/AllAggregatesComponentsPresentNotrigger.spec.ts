@@ -8,7 +8,7 @@ import {
   getAccessToken,
   mockFloods,
   resetDB,
-} from '../../../services/API-service/test/helpers/utility.helper';
+} from '../../helpers/utility.helper';
 import LoginPage from '../../Pages/LoginPage';
 
 let accessToken: string;
