@@ -61,15 +61,22 @@ const getMjmlBodyEvent = ({
 
   const contentContent = [];
 
-  contentContent.push(
-    firstTriggerLeadTimeString
-      ? `<strong>${disasterTypeLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`
-      : `<strong>${disasterIssuedLabel}:</strong> Expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
-  );
-
-  if (firstTriggerLeadTimeString) {
+  if (firstTriggerLeadTimeFromNow) {
+    // Trigger event
+    if (firstLeadTimeString !== firstTriggerLeadTimeString) {
+      // Warning-to-trigger event: show start of warning first
+      contentContent.push(
+        `<strong>${disasterTypeLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
+      );
+    }
+    // Either way, show start of trigger next
     contentContent.push(
       `<strong>${disasterIssuedLabel}:</strong> Expected to trigger on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}.`,
+    );
+  } else {
+    // Warning event
+    contentContent.push(
+      `<strong>${disasterIssuedLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
     );
   }
 
@@ -97,7 +104,7 @@ const getMjmlBodyEvent = ({
   });
 
   const closingElement = getTextElement({
-    content: `This ${triggerStatusLabel} was issued by IBF on ${issuedDate} (${timeZone})`,
+    content: `This ${triggerStatusLabel} was first issued by IBF on ${issuedDate} (${timeZone})`,
     attributes: {
       'padding-top': '8px',
       'font-size': '14px',
@@ -154,7 +161,7 @@ export const getMjmlEventListBody = (
 
         disasterIssuedLabel: getDisasterIssuedLabel(
           event.eapAlertClass?.label,
-          event.triggerStatusLabel,
+          emailContent.disasterTypeLabel,
         ),
         color: getIbfHexColor(
           event.eapAlertClass?.color,

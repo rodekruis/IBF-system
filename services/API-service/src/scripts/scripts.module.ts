@@ -13,7 +13,6 @@ import { CountryEntity } from '../api/country/country.entity';
 import { CountryModule } from '../api/country/country.module';
 import { EventModule } from '../api/event/event.module';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
-import { GlofasStationModule } from '../api/glofas-station/glofas-station.module';
 import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
 import { LinesDataModule } from '../api/lines-data/lines-data.module';
 import { MetadataModule } from '../api/metadata/metadata.module';
@@ -51,7 +50,6 @@ import SeedProd from './seed-prod';
     AdminAreaModule,
     AdminAreaDynamicDataModule,
     CountryModule,
-    GlofasStationModule,
     EventModule,
     TyphoonTrackModule,
     UserModule,

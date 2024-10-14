@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 import DashboardPage from 'Pages/DashboardPage';
 import MapComponent from 'Pages/MapComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
+import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { FloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
@@ -34,22 +35,23 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('[30538] All Map elements are present in no-trigger mode', async ({
-  page,
-}) => {
-  const dashboard = new DashboardPage(page);
-  const userState = new UserStateComponent(page);
-  const map = new MapComponent(page);
+test(
+  qase(2, 'All Map elements are present in no-trigger mode'),
+  async ({ page }) => {
+    const dashboard = new DashboardPage(page);
+    const userState = new UserStateComponent(page);
+    const map = new MapComponent(page);
 
-  // Navigate to disaster type the data was mocked for
-  await dashboard.navigateToFloodDisasterType();
-  // Assertions
-  await userState.headerComponentIsVisible({
-    countryName: NoTriggerDataSet.CountryName,
-  });
-  await map.mapComponentIsVisible();
-  await map.breadCrumbViewIsVisible({ nationalView: true });
-  await map.isLegendOpen({ legendOpen: true });
-  await map.isLayerMenuOpen({ layerMenuOpen: false });
-  await map.assertAdminBoundariesVisible();
-});
+    // Navigate to disaster type the data was mocked for
+    await dashboard.navigateToFloodDisasterType();
+    // Assertions
+    await userState.headerComponentIsVisible({
+      countryName: NoTriggerDataSet.CountryName,
+    });
+    await map.mapComponentIsVisible();
+    await map.breadCrumbViewIsVisible({ nationalView: true });
+    await map.isLegendOpen({ legendOpen: true });
+    await map.isLayerMenuOpen({ layerMenuOpen: false });
+    await map.assertAdminBoundariesVisible();
+  },
+);

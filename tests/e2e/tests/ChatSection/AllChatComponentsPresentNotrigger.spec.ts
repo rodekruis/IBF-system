@@ -2,6 +2,7 @@ import { test } from '@playwright/test';
 import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
 import UserStateComponent from 'Pages/UserStateComponent';
+import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { FloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
@@ -34,22 +35,23 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('[30587] All Chat section elements are present in no-trigger mode', async ({
-  page,
-}) => {
-  const dashboard = new DashboardPage(page);
-  const userState = new UserStateComponent(page);
-  const chat = new ChatComponent(page);
+test(
+  qase(5, ' All Chat section elements are present in no-trigger mode'),
+  async ({ page }) => {
+    const dashboard = new DashboardPage(page);
+    const userState = new UserStateComponent(page);
+    const chat = new ChatComponent(page);
 
-  // Navigate to disaster type the data was mocked for
-  await dashboard.navigateToFloodDisasterType();
-  // Assertions
-  await userState.headerComponentIsVisible({
-    countryName: NoTriggerDataSet.CountryName,
-  });
-  await chat.chatColumnIsVisibleForNoTriggerState({
-    firstName: NoTriggerDataSet.firstName,
-    lastName: NoTriggerDataSet.lastName,
-  });
-  await chat.allChatButtonsArePresent();
-});
+    // Navigate to disaster type the data was mocked for
+    await dashboard.navigateToFloodDisasterType();
+    // Assertions
+    await userState.headerComponentIsVisible({
+      countryName: NoTriggerDataSet.CountryName,
+    });
+    await chat.chatColumnIsVisibleForNoTriggerState({
+      firstName: NoTriggerDataSet.firstName,
+      lastName: NoTriggerDataSet.lastName,
+    });
+    await chat.allChatButtonsArePresent();
+  },
+);

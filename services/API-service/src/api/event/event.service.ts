@@ -37,7 +37,6 @@ import {
 } from './dto/event-place-code.dto';
 import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
-import { EventMapImageEntity } from './event-map-image.entity';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
 
@@ -55,8 +54,6 @@ export class EventService {
   private readonly disasterTypeRepository: Repository<DisasterEntity>;
   @InjectRepository(UserEntity)
   private readonly userRepository: Repository<UserEntity>;
-  @InjectRepository(EventMapImageEntity)
-  private readonly eventMapImageRepository: Repository<EventMapImageEntity>;
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
 
@@ -91,7 +88,7 @@ export class EventService {
   ): Promise<EventSummaryCountry[]> {
     const adminAreaIds = await this.getCountryAdminAreaIds(countryCodeISO3);
 
-    const sixDaysAgo = subDays(new Date(), 6);
+    const sixDaysAgo = subDays(new Date(), 6); // NOTE: this 7-day rule is no longer applicable. Fix this when re-enabling this feature.
     const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
       countryCodeISO3,
     )
@@ -346,6 +343,7 @@ export class EventService {
         triggeredPlaceCodes,
         disasterType,
         lastTriggeredDate,
+        eventName,
       );
     }
 
@@ -413,21 +411,30 @@ export class EventService {
     triggeredPlaceCodes: string[],
     disasterType: DisasterType,
     lastTriggeredDate: DateDto,
+    eventName?: string,
+    leadTime?: string,
   ): Promise<TriggeredArea[]> {
     const actionUnit = await this.getActionUnit(disasterType);
+    const whereFilters = {
+      placeCode: In(triggeredPlaceCodes),
+      indicator: actionUnit,
+      disasterType,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getUploadCutoffMoment(
+          disasterType,
+          lastTriggeredDate.timestamp,
+        ),
+      ),
+    };
+    if (eventName) {
+      whereFilters['eventName'] = eventName;
+    }
+    if (leadTime) {
+      whereFilters['leadTime'] = leadTime;
+    }
     const areas = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
-      .where({
-        placeCode: In(triggeredPlaceCodes),
-        indicator: actionUnit,
-        disasterType,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getUploadCutoffMoment(
-            disasterType,
-            lastTriggeredDate.timestamp,
-          ),
-        ),
-      })
+      .where(whereFilters)
       .leftJoinAndSelect(
         AdminAreaEntity,
         'area',
@@ -460,6 +467,7 @@ export class EventService {
         'COALESCE("parentUser"."firstName","grandparentUser"."firstName") || \' \' || COALESCE("parentUser"."lastName","grandparentUser"."lastName") AS "displayName"',
       ])
       .getRawMany();
+
     return areas.map((area) => {
       return {
         placeCode: area.placeCode,
@@ -979,49 +987,6 @@ export class EventService {
       area.closed = true;
     }
     await this.eventPlaceCodeRepo.save(aboveThresholdEvents);
-  }
-
-  public async postEventMapImage(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    eventName: string,
-    imageFileBlob: { buffer: Buffer },
-  ): Promise<void> {
-    let eventMapImageEntity = await this.eventMapImageRepository.findOne({
-      where: {
-        countryCodeISO3: countryCodeISO3,
-        disasterType: disasterType,
-        eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
-      },
-    });
-
-    if (!eventMapImageEntity) {
-      eventMapImageEntity = new EventMapImageEntity();
-      eventMapImageEntity.countryCodeISO3 = countryCodeISO3;
-      eventMapImageEntity.disasterType = disasterType;
-      eventMapImageEntity.eventName =
-        eventName === 'no-name' ? null : eventName;
-    }
-
-    eventMapImageEntity.image = imageFileBlob.buffer;
-
-    this.eventMapImageRepository.save(eventMapImageEntity);
-  }
-
-  public async getEventMapImage(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    eventName: string,
-  ): Promise<Buffer> {
-    const eventMapImageEntity = await this.eventMapImageRepository.findOne({
-      where: {
-        countryCodeISO3,
-        disasterType,
-        eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
-      },
-    });
-
-    return eventMapImageEntity?.image;
   }
 
   private async getEventEapAlertClass(

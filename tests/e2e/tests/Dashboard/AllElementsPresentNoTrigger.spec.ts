@@ -5,6 +5,7 @@ import DashboardPage from 'Pages/DashboardPage';
 import DisasterTypeComponent from 'Pages/DisasterTypeComponent';
 import MapComponenet from 'Pages/MapComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
+import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { FloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
@@ -37,27 +38,28 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test('[30509] All Dashboard elements are present in no-trigger mode', async ({
-  page,
-}) => {
-  const dashboard = new DashboardPage(page);
-  const userState = new UserStateComponent(page);
-  const disasterType = new DisasterTypeComponent(page);
-  const chat = new ChatComponent(page);
-  const aggregates = new AggregatesComponent(page);
-  const map = new MapComponenet(page);
+test(
+  qase(1, 'All Dashboard elements are present in no-trigger mode'),
+  async ({ page }) => {
+    const dashboard = new DashboardPage(page);
+    const userState = new UserStateComponent(page);
+    const disasterType = new DisasterTypeComponent(page);
+    const chat = new ChatComponent(page);
+    const aggregates = new AggregatesComponent(page);
+    const map = new MapComponenet(page);
 
-  // Navigate to disaster type the data was mocked for
-  await dashboard.navigateToFloodDisasterType();
-  // Assertions
-  await userState.headerComponentIsVisible({
-    countryName: NoTriggerDataSet.CountryName,
-  });
-  await disasterType.topBarComponentIsVisible();
-  await chat.chatColumnIsVisibleForNoTriggerState({
-    firstName: NoTriggerDataSet.firstName,
-    lastName: NoTriggerDataSet.lastName,
-  });
-  await aggregates.aggregateComponentIsVisible();
-  await map.mapComponentIsVisible();
-});
+    // Navigate to disaster type the data was mocked for
+    await dashboard.navigateToFloodDisasterType();
+    // Assertions
+    await userState.headerComponentIsVisible({
+      countryName: NoTriggerDataSet.CountryName,
+    });
+    await disasterType.topBarComponentIsVisible();
+    await chat.chatColumnIsVisibleForNoTriggerState({
+      firstName: NoTriggerDataSet.firstName,
+      lastName: NoTriggerDataSet.lastName,
+    });
+    await aggregates.aggregateComponentIsVisible();
+    await map.mapComponentIsVisible();
+  },
+);

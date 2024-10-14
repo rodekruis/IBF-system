@@ -34,7 +34,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
   ngOnInit() {
     this.formattedDate = DateTime.fromISO(
       this.markerProperties?.uploadTime,
-    ).toFormat('d LLLL y, H:mm');
+    ).toFormat('d LLLL y, HH:mm');
   }
 
   public async openPhotoPopup(url: string) {

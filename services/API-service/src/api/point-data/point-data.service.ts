@@ -16,6 +16,7 @@ import { CommunityNotificationDto } from './dto/upload-community-notifications.d
 import { DamSiteDto } from './dto/upload-dam-sites.dto';
 import { EvacuationCenterDto } from './dto/upload-evacuation-centers.dto';
 import { GaugeDto } from './dto/upload-gauge.dto';
+import { UploadGlofasStationDynamicOldFormatDto } from './dto/upload-glofas-station-old-format';
 import { GlofasStationDto } from './dto/upload-glofas-station.dto';
 import { HealthSiteDto } from './dto/upload-health-sites.dto';
 import { RedCrossBranchDto } from './dto/upload-red-cross-branch.dto';
@@ -69,6 +70,24 @@ export class PointDataService {
       disasterType,
     );
 
+    // Subquery to get the max timestamp for each point, to be able to only get the most recent data ..
+    // .. and the maxLeadTime, which in case of multiple records with the same timestamp, decided to take the max leadTime record ..
+    // .. which makes sure that in the warning-to-trigger scenario the trigger data of Glofas stations is shown, not the warning data
+    const maxTimestampPerPointQuery = this.dynamicPointDataRepository
+      .createQueryBuilder('sub')
+      .select([
+        'sub."pointPointDataId"',
+        'MAX(sub.timestamp) as maxTimestamp',
+        'MAX(sub."leadTime") as maxLeadTime',
+      ])
+      .where('sub.timestamp >= :cutoffMoment', {
+        cutoffMoment: this.helperService.getUploadCutoffMoment(
+          disasterType,
+          recentDate.timestamp,
+        ),
+      })
+      .groupBy('sub."pointPointDataId"');
+
     const pointDataQuery = this.pointDataRepository
       .createQueryBuilder('point')
       .select(selectColumns)
@@ -84,12 +103,14 @@ export class PointDataService {
               'json_object_agg("key",value) as "dynamicData"',
             ])
             .from(DynamicPointDataEntity, 'dynamic')
-            .where('dynamic.timestamp >= :cutoffMoment', {
-              cutoffMoment: this.helperService.getUploadCutoffMoment(
-                disasterType,
-                recentDate.timestamp,
-              ),
-            })
+            .innerJoin(
+              `(${maxTimestampPerPointQuery.getQuery()})`,
+              'maxSub',
+              `dynamic."pointPointDataId" = "maxSub"."pointPointDataId" 
+                AND dynamic.timestamp = "maxSub".maxTimestamp 
+                AND (dynamic."leadTime" = "maxSub".maxLeadTime OR (dynamic."leadTime" IS NULL AND "maxSub".maxLeadTime IS NULL))`, // Make sure the join also works with leadTime=null
+            )
+            .setParameters(maxTimestampPerPointQuery.getParameters())
             .groupBy('dynamic."pointPointDataId"');
         },
         'dynamic',
@@ -281,7 +302,7 @@ export class PointDataService {
       // Delete existing entries
       await this.dynamicPointDataRepository.delete({
         point: { pointDataId: asset.pointDataId },
-        leadTime: dynamicPointData.leadTime || IsNull(),
+        leadTime: dynamicPointData.leadTime || IsNull(), // For Glofas stations, we should overwrite irregardless of lead time, but I'm not sure about other uses, so instead solving this in GET endpoint query, by making sure we only use the most recent timestam per point
         key: dynamicPointData.key,
         timestamp: MoreThanOrEqual(
           this.helperService.getUploadCutoffMoment(
@@ -300,5 +321,32 @@ export class PointDataService {
       dynamicPointDataArray.push(dynamicPoint);
     }
     await this.dynamicPointDataRepository.save(dynamicPointDataArray);
+  }
+
+  // Refactor: This function is used to map Glofas station dynamic mock data, which is still in format of old endpoint, to format of new endpoint
+  // The mock data should be updated to the new format, and then this function can be removed
+  public async reformatAndUploadOldGlofasStationData(
+    uploadTriggerPerStation: UploadGlofasStationDynamicOldFormatDto,
+  ): Promise<void> {
+    const keys = [
+      'forecastLevel',
+      'forecastReturnPeriod',
+      'triggerLevel',
+      'eapAlertClass',
+    ];
+    const date = uploadTriggerPerStation.date || new Date();
+    for await (const key of keys) {
+      const payload = new UploadDynamicPointDataDto();
+      payload.key = key;
+      payload.leadTime = uploadTriggerPerStation.leadTime;
+      payload.date = date;
+      payload.disasterType = DisasterType.Floods;
+      payload.dynamicPointData = uploadTriggerPerStation.stationForecasts.map(
+        (f) => {
+          return { fid: f.stationCode, value: f[key] };
+        },
+      );
+      await this.uploadDynamicPointData(payload);
+    }
   }
 }
