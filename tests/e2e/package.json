@@ -1,15 +1,11 @@
 {
   "name": "e2e",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "scripts": {
     "lint": "eslint \"**/*.{ts,js}\"",
     "fix": "npm run lint -- --fix",
     "test": "playwright test"
   },
-  "keywords": [],
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.10.0",

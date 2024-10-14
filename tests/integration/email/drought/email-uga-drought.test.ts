@@ -73,31 +73,31 @@ describe('Should send an email for uga drought', () => {
     }
   });
 
-  // it('non triggered any month', async () => {
-  //   // Mock settings
-  //   const currentDate = new Date();
-  //   const triggered = false;
+  it('non triggered any month', async () => {
+    // Mock settings
+    const currentDate = new Date();
+    const triggered = false;
 
-  //   const mockResult = await mockDynamicData(
-  //     disasterType,
-  //     countryCodeISO3,
-  //     triggered,
-  //     accessToken,
-  //     currentDate,
-  //   );
-  //   const response = await sendNotification(
-  //     countryCodeISO3,
-  //     disasterType,
-  //     accessToken,
-  //   );
+    const mockResult = await mockDynamicData(
+      disasterType,
+      countryCodeISO3,
+      triggered,
+      accessToken,
+      currentDate,
+    );
+    const response = await sendNotification(
+      countryCodeISO3,
+      disasterType,
+      accessToken,
+    );
 
-  //   // Assert
-  //   // Also checking the status of the mockResult here as I think it also breaks often
-  //   expect(mockResult.status).toBe(202);
-  //   expect(response.status).toBe(201);
-  //   expect(response.body.activeEvents.email).toBeFalsy();
-  //   expect(response.body.activeEvents.whatsapp).toBeFalsy();
-  // });
+    // Assert
+    // Also checking the status of the mockResult here as I think it also breaks often
+    expect(mockResult.status).toBe(202);
+    expect(response.status).toBe(201);
+    expect(response.body.activeEvents.email).toBeFalsy();
+    expect(response.body.activeEvents.whatsapp).toBeFalsy();
+  });
 
   // TODO: Add more tests for different months when this issue is fixed AB#27890
 });
