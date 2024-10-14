@@ -1,4 +1,3 @@
-import { DisasterType } from '../../../disaster/disaster-type.enum';
 import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
 import { TriggerStatusLabelEnum } from '../../dto/notification-date-per-event.dto';
 import {
@@ -15,7 +14,6 @@ import {
 } from '../../helpers/mjml.helper';
 
 const getMjmlBodyEvent = ({
-  disasterType,
   color,
   defaultAdminAreaLabel,
   disasterIssuedLabel,
@@ -35,7 +33,6 @@ const getMjmlBodyEvent = ({
   triggerStatusLabel,
   toCompactNumber,
 }: {
-  disasterType: DisasterType;
   color: string;
   defaultAdminAreaLabel: string;
   disasterIssuedLabel: string;
@@ -64,24 +61,22 @@ const getMjmlBodyEvent = ({
 
   const contentContent = [];
 
-  if (disasterType === DisasterType.Floods) {
-    if (firstTriggerLeadTimeFromNow) {
-      if (firstLeadTimeString !== firstTriggerLeadTimeString) {
-        contentContent.push(
-          `<strong>${disasterTypeLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
-        );
-      }
+  if (firstTriggerLeadTimeFromNow) {
+    // Trigger event
+    if (firstLeadTimeString !== firstTriggerLeadTimeString) {
+      // Warning-to-trigger event: show start of warning first
       contentContent.push(
-        `<strong>${disasterIssuedLabel}:</strong> Expected to trigger on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}.`,
-      );
-    } else {
-      contentContent.push(
-        `<strong>${disasterIssuedLabel}:</strong> Expected on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
+        `<strong>${disasterTypeLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
       );
     }
-  } else {
+    // Either way, show start of trigger next
     contentContent.push(
-      `<strong>${disasterTypeLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
+      `<strong>${disasterIssuedLabel}:</strong> Expected to trigger on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}.`,
+    );
+  } else {
+    // Warning event
+    contentContent.push(
+      `<strong>${disasterIssuedLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
     );
   }
 
@@ -131,7 +126,6 @@ export const getMjmlEventListBody = (
   for (const event of emailContent.dataPerEvent) {
     eventList.push(
       getMjmlBodyEvent({
-        disasterType: emailContent.disasterType,
         eventName: event.eventName,
 
         disasterTypeLabel: emailContent.disasterTypeLabel,
@@ -167,7 +161,7 @@ export const getMjmlEventListBody = (
 
         disasterIssuedLabel: getDisasterIssuedLabel(
           event.eapAlertClass?.label,
-          event.triggerStatusLabel,
+          emailContent.disasterTypeLabel,
         ),
         color: getIbfHexColor(
           event.eapAlertClass?.color,

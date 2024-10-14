@@ -330,9 +330,9 @@ export const getPngImageAsDataURL = (relativePath: string) => {
 
 export const getDisasterIssuedLabel = (
   eapLabel: string,
-  triggerStatusLabel: TriggerStatusLabelEnum,
+  disasterTypeLabel: string,
 ) => {
-  return eapLabel || triggerStatusLabel;
+  return eapLabel || disasterTypeLabel;
 };
 
 export const getIbfHexColor = (

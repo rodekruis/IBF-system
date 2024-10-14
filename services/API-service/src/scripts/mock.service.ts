@@ -119,10 +119,10 @@ export class MockService {
               exposurePlaceCodes: exposurePlaceCodes,
               leadTime: leadTime as LeadTime,
               dynamicIndicator: indicator,
-              adminLevel: adminLevel,
-              disasterType: disasterType,
+              adminLevel,
+              disasterType,
               eventName: null,
-              date: date,
+              date,
             });
           }
         }
@@ -150,10 +150,10 @@ export class MockService {
               exposurePlaceCodes: exposurePlaceCodes,
               leadTime: event.leadTime as LeadTime,
               dynamicIndicator: indicator,
-              adminLevel: adminLevel,
-              disasterType: disasterType,
+              adminLevel,
+              disasterType,
               eventName: event.eventName,
-              date: date,
+              date,
             });
           }
         }
@@ -168,7 +168,7 @@ export class MockService {
             triggersPerLeadTime,
             disasterType: DisasterType.Floods,
             eventName: event.eventName,
-            date: date,
+            date,
           });
         }
 
