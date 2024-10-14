@@ -7,7 +7,6 @@ export const PORT = 3000;
 export const API_PATHS = {
   whatsAppStatus: 'notification/whatsapp/status',
   whatsAppIncoming: 'notification/whatsapp/incoming',
-  eventMapImage: 'event/event-map-image',
 };
 const baseApiUrl = process.env.EXTERNAL_API_SERVICE_URL + 'api/';
 const rootUrl =
@@ -20,5 +19,4 @@ export const EXTERNAL_API = {
   root: rootUrl,
   whatsAppStatus: baseApiUrl + API_PATHS.whatsAppStatus,
   whatsAppIncoming: baseApiUrl + API_PATHS.whatsAppIncoming,
-  eventMapImage: baseApiUrl + API_PATHS.eventMapImage,
 };

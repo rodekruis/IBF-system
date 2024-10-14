@@ -16,8 +16,8 @@ import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.enti
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { EventService } from '../api/event/event.service';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
-import { GlofasStationService } from '../api/glofas-station/glofas-station.service';
 import { MetadataService } from '../api/metadata/metadata.service';
+import { PointDataService } from '../api/point-data/point-data.service';
 import { DEBUG } from '../config';
 import { GeoserverSyncService } from './geoserver-sync.service';
 import countries from './json/countries.json';
@@ -53,7 +53,7 @@ export class MockService {
     private metadataService: MetadataService,
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private eventService: EventService,
-    private glofasStationService: GlofasStationService,
+    private pointDataService: PointDataService,
     private adminAreaService: AdminAreaService,
     private mockHelpService: MockHelperService,
     private geoServerSyncService: GeoserverSyncService,
@@ -71,6 +71,7 @@ export class MockService {
     if (mockBody.removeEvents) {
       await this.removeEvents(mockBody.countryCodeISO3, disasterType);
     }
+    const date = mockBody.date || new Date();
 
     const selectedCountry = countries.find((country) => {
       if (mockBody.countryCodeISO3 === country.countryCodeISO3) {
@@ -118,10 +119,10 @@ export class MockService {
               exposurePlaceCodes: exposurePlaceCodes,
               leadTime: leadTime as LeadTime,
               dynamicIndicator: indicator,
-              adminLevel: adminLevel,
-              disasterType: disasterType,
+              adminLevel,
+              disasterType,
               eventName: null,
-              date: mockBody.date,
+              date,
             });
           }
         }
@@ -149,10 +150,10 @@ export class MockService {
               exposurePlaceCodes: exposurePlaceCodes,
               leadTime: event.leadTime as LeadTime,
               dynamicIndicator: indicator,
-              adminLevel: adminLevel,
-              disasterType: disasterType,
+              adminLevel,
+              disasterType,
               eventName: event.eventName,
-              date: mockBody.date,
+              date,
             });
           }
         }
@@ -167,7 +168,7 @@ export class MockService {
             triggersPerLeadTime,
             disasterType: DisasterType.Floods,
             eventName: event.eventName,
-            date: mockBody.date,
+            date,
           });
         }
 
@@ -176,22 +177,11 @@ export class MockService {
           // await this.mockTyphoonTrack()
         }
 
-        if (
-          this.shouldMockMapImageFile(disasterType, mockBody.countryCodeISO3)
-        ) {
-          this.mockHelpService.mockMapImageFile(
-            mockBody.countryCodeISO3,
-            disasterType,
-            true,
-            event.eventName,
-          );
-        }
-
         if (this.shouldMockGlofasStations(disasterType)) {
           await this.mockGlofasStations(
             selectedCountry,
             DisasterType.Floods,
-            mockBody.date,
+            date,
             scenario.scenarioName,
             event,
           );
@@ -213,7 +203,7 @@ export class MockService {
       await this.mockGlofasStations(
         selectedCountry,
         disasterType,
-        mockBody.date,
+        date,
         scenario.scenarioName,
       );
     }
@@ -223,8 +213,8 @@ export class MockService {
       const triggered = scenario.events?.length > 0;
       await this.mockHelpService.mockExposedAssets(
         selectedCountry.countryCodeISO3,
-        triggered, // no events means triggered=false
-        mockBody.date,
+        triggered,
+        date,
       );
     }
     if (this.shouldMockDynamicPointData(disasterType)) {
@@ -232,7 +222,7 @@ export class MockService {
       await this.mockHelpService.mockDynamicPointData(
         selectedCountry.countryCodeISO3,
         disasterType,
-        mockBody.date,
+        date,
       );
     }
 
@@ -356,7 +346,7 @@ export class MockService {
     console.log(
       `Seeding Glofas stations for country: ${selectedCountry.countryCodeISO3} for leadtime: ${leadTime}`,
     );
-    await this.glofasStationService.uploadTriggerDataPerStation({
+    await this.pointDataService.reformatAndUploadOldGlofasStationData({
       countryCodeISO3: selectedCountry.countryCodeISO3,
       stationForecasts,
       leadTime,
@@ -421,12 +411,5 @@ export class MockService {
 
   private shouldMockTyphoonTrack(disasterType: DisasterType): boolean {
     return disasterType === DisasterType.Typhoon;
-  }
-
-  private shouldMockMapImageFile(
-    disasterType: DisasterType,
-    countryCodeISO3: string,
-  ): boolean {
-    return disasterType === DisasterType.Floods && countryCodeISO3 === 'SSD';
   }
 }

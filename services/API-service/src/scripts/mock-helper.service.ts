@@ -30,11 +30,7 @@ export class MockHelperService {
     if (countryCodeISO3 !== 'MWI' || !triggered) {
       return;
     }
-    const pointDataCategories = [
-      PointDataEnum.healthSites,
-      PointDataEnum.schools,
-      PointDataEnum.waterpointsInternal,
-    ];
+
     for (const leadTime of [LeadTime.hour24, LeadTime.hour6]) {
       for (const assetType of Object.keys(LinesDataEnum)) {
         const payload = new UploadLinesExposureStatusDto();
@@ -51,6 +47,11 @@ export class MockHelperService {
         await this.linesDataService.uploadAssetExposureStatus(payload);
       }
 
+      const pointDataCategories = [
+        PointDataEnum.healthSites,
+        PointDataEnum.schools,
+        PointDataEnum.waterpointsInternal,
+      ];
       for (const pointAssetType of pointDataCategories) {
         const payload = new UploadDynamicPointDataDto();
         payload.disasterType = DisasterType.FlashFloods;
@@ -243,40 +244,5 @@ export class MockHelperService {
         disasterType,
       );
     return `${prefix}_${leadTime}_${countryCode}.tif`;
-  }
-
-  public async mockMapImageFile(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    triggered: boolean,
-    eventName: string,
-  ) {
-    if (!triggered) {
-      return;
-    }
-    console.log(`Seeding event map image country: ${countryCodeISO3}`);
-
-    const filename = `${countryCodeISO3}_${disasterType}_${eventName}_map-image.png`;
-
-    if (
-      !fs.existsSync(`./geoserver-volume/raster-files/mock-output/${filename}`)
-    ) {
-      console.log(`Mock map image file ${filename} not found. Skipping.`);
-      return;
-    }
-
-    const file = fs.readFileSync(
-      `./geoserver-volume/raster-files/mock-output/${filename}`,
-    );
-    const dataObject = {
-      originalname: filename,
-      buffer: file,
-    };
-    await this.eventService.postEventMapImage(
-      countryCodeISO3,
-      disasterType,
-      eventName,
-      dataObject,
-    );
   }
 }

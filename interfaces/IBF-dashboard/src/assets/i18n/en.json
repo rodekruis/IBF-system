@@ -154,9 +154,9 @@
       },
       "active-event-active-trigger": {
         "header": "{{ eventName }} on {{firstTriggerLeadTimeDate}}",
-        "header-ongoing": "{{ eventName }} on {{firstTriggerLeadTimeDate}}",
+        "header-ongoing": "{{ eventName }} ongoing",
         "header-below-trigger": "{{ eventName }} on {{firstLeadTimeDate}}",
-        "header-ongoing-below-trigger": "{{ eventName }} on {{firstLeadTimeDate}}",
+        "header-ongoing-below-trigger": "{{ eventName }} ongoing",
         "welcome": "Flood expected to start on {{firstLeadTimeDate}}",
         "welcome-below-trigger": ""
       },
