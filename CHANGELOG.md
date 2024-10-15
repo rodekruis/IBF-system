@@ -1,3 +1,12 @@
+## [0.272.2](https://github.com/rodekruis/IBF-system/compare/v0.272.1...v0.272.2) (2024-10-15)
+
+
+### Bug Fixes
+
+* update en.json import ([9683842](https://github.com/rodekruis/IBF-system/commit/9683842d5896a9a411dde02592aaddc24a63c337))
+
+
+
 ## [0.272.1](https://github.com/rodekruis/IBF-system/compare/v0.272.0...v0.272.1) (2024-10-14)
 
 
@@ -132,15 +141,6 @@
 ### Features
 
 * status page with last run date and triggered state per country/disaster ([682d99d](https://github.com/rodekruis/IBF-system/commit/682d99d8a3f184ae3db1f5a3aa104a5fd9767fd3))
-
-
-
-## [0.269.2](https://github.com/rodekruis/IBF-system/compare/v0.269.1...v0.269.2) (2024-09-20)
-
-
-### Bug Fixes
-
-* suspicious logic to update triggerValue ([36fc8f2](https://github.com/rodekruis/IBF-system/commit/36fc8f27fa3601aec10884a3df4884ee7d95b48d))
 
 
 
