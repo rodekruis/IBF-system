@@ -16,6 +16,7 @@ class MapComponent extends DashboardPage {
   readonly layerMenu: Locator;
   readonly adminBoundry: Locator;
   readonly layerCheckbox: Locator;
+  readonly layerMenuToggle: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -35,9 +36,10 @@ class MapComponent extends DashboardPage {
       'breadcrumb-admin-area-3-view',
     );
     this.legend = this.page.getByTestId('map-legend');
-    this.layerMenu = this.page.getByTestId('layer-menu-container');
+    this.layerMenu = this.page.getByTestId('layer-menu');
     this.adminBoundry = this.page.locator('.leaflet-interactive');
     this.layerCheckbox = this.page.getByTestId('matrix-checkbox');
+    this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
   }
 
   async mapComponentIsVisible() {
@@ -121,7 +123,7 @@ class MapComponent extends DashboardPage {
 
   async turnOffLayer() {
     // Remove Glofas station from the map (in case the mock is for floods)
-    await this.layerMenu.click();
+    await this.layerMenuToggle.click();
     const getLayerRow = this.page
       .getByTestId('matrix-layer-name')
       .filter({ hasText: 'Glofas Station' });
