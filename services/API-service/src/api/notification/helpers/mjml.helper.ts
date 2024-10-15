@@ -5,10 +5,7 @@ import { format } from 'date-fns';
 import { EapAlertClassKeyEnum } from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
-import {
-  NotificationDataPerEventDto,
-  TriggerStatusLabelEnum,
-} from '../dto/notification-date-per-event.dto';
+import { TriggerStatusLabelEnum } from '../dto/notification-date-per-event.dto';
 
 interface AdminArea {
   exposed?: string;
@@ -276,12 +273,6 @@ export const getTimeFromNow = (leadTime: LeadTime) => {
     : `${leadTime.replace('-', ' ')}${
         leadTimeQuantity === 1 ? '' : 's'
       } from now`;
-};
-
-export const getTotalAffected = (
-  event: NotificationDataPerEventDto,
-): number | null => {
-  return event.totalAffectedOfIndicator ?? null;
 };
 
 export const getTriangleIcon = (

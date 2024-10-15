@@ -10,7 +10,6 @@ import {
   getTextElement,
   getTimeFromNow,
   getTimezoneDisplay,
-  getTotalAffected,
   getTriangleIcon,
 } from '../../helpers/mjml.helper';
 
@@ -87,9 +86,7 @@ const getMjmlBodyEvent = ({
     contentContent.push(
       `<strong>${indicatorLabel}:</strong> ${
         totalAffected
-          ? `Approximately ${toCompactNumberWithFormat(
-              totalAffected,
-            )} ${indicatorLabel.toLowerCase()}`
+          ? `Approximately ${toCompactNumberWithFormat(totalAffected)}`
           : 'Information is unavailable'
       }`,
     );
@@ -150,7 +147,7 @@ export const getMjmlEventListBody = (
 
         // Indicator details
         indicatorLabel: emailContent.indicatorMetadata.label,
-        totalAffected: getTotalAffected(event),
+        totalAffected: event.totalAffectedOfIndicator,
         toCompactNumberWithFormat: (value: number) =>
           toCompactNumber(
             value,
