@@ -1,3 +1,12 @@
+## [0.273.1](https://github.com/rodekruis/IBF-system/compare/v0.273.0...v0.273.1) (2024-10-15)
+
+
+### Bug Fixes
+
+* make triggered-areas api-call after eventName is set ([b00e14a](https://github.com/rodekruis/IBF-system/commit/b00e14ae80a414ec81324e4d49c0af7e10b45b0f))
+
+
+
 # [0.273.0](https://github.com/rodekruis/IBF-system/compare/v0.272.2...v0.273.0) (2024-10-15)
 
 
@@ -121,16 +130,6 @@
 * setup env vars ([876fa1f](https://github.com/rodekruis/IBF-system/commit/876fa1f3e8043503ff1527f9e528245004e61c5a))
 * small cleanup ([9974e80](https://github.com/rodekruis/IBF-system/commit/9974e80404b623a37c864279970d26b62a94d9d1))
 * test different ownership command ([54acd1e](https://github.com/rodekruis/IBF-system/commit/54acd1e12bf7d3c2cf07729a6ea6b0e19ee9dfbd))
-
-
-
-## [0.270.1](https://github.com/rodekruis/IBF-system/compare/v0.270.0...v0.270.1) (2024-09-23)
-
-
-### Bug Fixes
-
-* remove egypt specific code/data ([7fe1645](https://github.com/rodekruis/IBF-system/commit/7fe164593f683a49c28a7b2576955abb04e00cef))
-* update sharepoint link raster-files.zip ([dc5496c](https://github.com/rodekruis/IBF-system/commit/dc5496ce4206b5f9e81f3195949dedfbaf4a236e))
 
 
 
