@@ -177,7 +177,3 @@ For the rest, follow the same instructions as above to receive initial and follo
    - Endpoint URL: `https://ibf.510.global/api/point-data/community-notification/${countryCodeISO3}`
    - To test this locally you can replace `ibf.510.global` by a local ngrok address
    - To demo on other environments, replace by respective environment-url, e.g. `ibf-test.510.global`
-
-## API tests
-
-1. Run them by `docker exec ibf-api-service npm run test:api:all`

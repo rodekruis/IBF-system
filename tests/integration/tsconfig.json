@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noLib": false,
+    "lib": ["es2017", "dom"],
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es6",
+    "sourceMap": true,
+    "allowJs": true,
+    "outDir": "./dist",
+    "types": ["node", "jest", "supertest"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "skipLibCheck": true
+  },
+  "watchOptions": {
+    "watchFile": "fixedPollingInterval",
+    "excludeDirectories": ["node_modules", "dist"],
+    "excludeFiles": ["**/*.json"]
+  },
+  "exclude": ["../node_modules", "../dist", "../src/**/*"],
+  "include": ["**/*.ts"],
+  "types": ["jest"],
+  "typeAcquisition": { "include": ["jest"] }
+}
+

@@ -7,47 +7,42 @@ inputs:
     required: true
 
 runs:
-    using: composite
+  using: composite
 
-    steps:
-      - name: Set up Node.js version
-        uses: actions/setup-node@v4
-        with:
-          node-version-file: './services/API-service/.node-version'
-          cache: 'npm'
-          cache-dependency-path: './services/API-service/package-lock.json'
+  steps:
+    - name: Set up Node.js version
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: './tests/integration/.node-version'
+        cache: 'npm'
+        cache-dependency-path: './tests/integration/package-lock.json'
 
-      - name: Install code-dependencies
-        shell: bash
-        working-directory: ./services/API-service
-        run: npm ci --omit=optional --no-fund --no-audit
+    - name: Install code-dependencies
+      shell: bash
+      working-directory: ./tests/integration
+      run: npm ci --omit=optional --no-fund --no-audit
 
-      - name: Setup environment variables
-        shell: bash
-        run: cp example.env .env
+    - name: Setup environment variables
+      shell: bash
+      run: cp example.env .env
 
-      - name: Install IBF API-service
-        shell: bash
-        working-directory: ./services/API-service
-        run: npm ci --omit=optional --no-fund --no-audit
+    - name: Run IBF API-service
+      shell: bash
+      env:
+        MC_API: ${{ inputs.mailchimp-api-key }}
+      run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service
 
-      - name: Run IBF API-service
-        shell: bash
-        env:
-          MC_API: ${{ inputs.mailchimp-api-key }}
-        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service
+    - name: Wait for IBF API-service to be running
+      shell: bash
+      run: timeout 60s sh -c 'until curl http://localhost:3000/api -I; do echo "Waiting for the IBF API-service to be running..."; sleep 1; done'
 
-      - name: Wait for IBF API-service to be running
-        shell: bash
-        run: timeout 60s sh -c 'until curl http://localhost:3000/api -I; do echo "Waiting for the IBF API-service to be running..."; sleep 1; done'
+    - name: Run integration tests
+      shell: bash
+      working-directory: ./tests/integration
+      env:
+        DASHBOARD_URL: http://localhost:4200
+      run: npm run test
 
-      - name: Run integration tests
-        shell: bash
-        env:
-          DASHBOARD_URL: http://localhost:4200
-        run: docker compose exec ibf-api-service npm run test:api:all
-
-      - name: Docker logs
-        if: always()
-        uses: jwalton/gh-docker-logs@v2
-
+    - name: Docker logs
+      if: always()
+      uses: jwalton/gh-docker-logs@v2
