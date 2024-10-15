@@ -657,11 +657,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           const event = this.eventState?.events?.find(
             (e) => e.eventName === feature.properties.eventName,
           );
+          this.eventService.switchEvent(feature.properties.eventName);
           this.timelineService.handleTimeStepButtonClick(
             (event?.firstTriggerLeadTime || event?.firstLeadTime) as LeadTime,
             event?.eventName,
           );
-          this.eventService.switchEvent(feature.properties.eventName);
         }
       } else if (this.eventState.event) {
         // if in event-view, then set placeCode
