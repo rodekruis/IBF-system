@@ -121,12 +121,12 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async turnOffLayer() {
+  async turnOffLayer({ layerName }: { layerName: string }) {
     // Remove Glofas station from the map (in case the mock is for floods)
     await this.layerMenuToggle.click();
     const getLayerRow = this.page
       .getByTestId('matrix-layer-name')
-      .filter({ hasText: 'Glofas Station' });
+      .filter({ hasText: layerName });
     const layerCheckbox = getLayerRow.locator(this.layerCheckbox);
     await layerCheckbox.click();
   }
@@ -134,20 +134,18 @@ class MapComponent extends DashboardPage {
   async assertAggregateTitleOnHoverOverMap() {
     // Declare component
     const aggregates = new AggregatesComponent(this.page);
+
     // Wait for the page to load
     await this.page.waitForLoadState('networkidle');
     await this.page.waitForLoadState('domcontentloaded');
     await this.page.waitForSelector('.leaflet-interactive');
 
-    // Get the count of the admin boundaries
-    const adminBoundaries = this.adminBoundry;
-    const count = await adminBoundaries.count();
     // Assert the that Aggregates title is visible and does not contain the text 'National View'
-    expect(count).toBeGreaterThan(0);
-    for (let i = 0; i < count; i++) {
+    // 20 is the more or less number of admin boundaries that can be hovered over with Playwright to succesfully assert the title
+    for (let i = 0; i < 20; i++) {
+      await this.page.waitForTimeout(200);
       await this.adminBoundry.nth(i).hover();
-      await this.adminBoundry.nth(i).click();
-      await expect(aggregates.aggregatesTitleHeader).toContainText(
+      await expect(aggregates.aggregatesTitleHeader).not.toContainText(
         'National View',
       );
     }

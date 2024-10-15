@@ -45,7 +45,7 @@ test(
     await dashboard.navigateToFloodDisasterType();
     // Assertions
     await aggregates.aggregateComponentIsVisible();
-    await map.turnOffLayer();
+    await map.turnOffLayer({ layerName: 'Glofas stations' });
     await map.assertAggregateTitleOnHoverOverMap();
   },
 );

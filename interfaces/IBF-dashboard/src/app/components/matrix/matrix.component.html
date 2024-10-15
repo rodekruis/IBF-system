@@ -27,6 +27,7 @@
               } @else {
                 @if (isCheckBox(layer.group)) {
                   <ion-icon
+                    data-testid="matrix-checkbox"
                     [name]="layer.active ? 'checkbox' : 'square-outline'"
                     (click)="toggleLayer(layer)"
                     class="single-layer-toggler"
