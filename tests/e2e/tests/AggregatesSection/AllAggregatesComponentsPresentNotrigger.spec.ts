@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import AggregatesComponent from 'Pages/AggregateComponenet';
+import AggregatesComponent from 'Pages/AggregatesComponet';
 import DashboardPage from 'Pages/DashboardPage';
 import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
