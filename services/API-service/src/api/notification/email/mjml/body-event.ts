@@ -1,3 +1,4 @@
+import { NumberFormat } from '../../../../shared/enums/number-format.enum';
 import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
 import { TriggerStatusLabelEnum } from '../../dto/notification-date-per-event.dto';
 import {
@@ -31,7 +32,7 @@ const getMjmlBodyEvent = ({
   triangleIcon,
   eapLink,
   triggerStatusLabel,
-  toCompactNumber,
+  toCompactNumberWithFormat,
 }: {
   color: string;
   defaultAdminAreaLabel: string;
@@ -50,7 +51,7 @@ const getMjmlBodyEvent = ({
   triangleIcon: string;
   eapLink: string;
   triggerStatusLabel: string;
-  toCompactNumber: (value: number) => string;
+  toCompactNumberWithFormat: (value: number) => string;
 }): object => {
   const icon = getInlineImage({ src: triangleIcon, size: 16 });
 
@@ -86,7 +87,7 @@ const getMjmlBodyEvent = ({
     contentContent.push(
       `<strong>${indicatorLabel}:</strong> ${
         totalAffected
-          ? `Approximately ${toCompactNumber(
+          ? `Approximately ${toCompactNumberWithFormat(
               totalAffected,
             )} ${indicatorLabel.toLowerCase()}`
           : 'Information is unavailable'
@@ -119,7 +120,7 @@ const getMjmlBodyEvent = ({
 
 export const getMjmlEventListBody = (
   emailContent: ContentEventEmail,
-  toCompactNumber: (value: number) => string,
+  toCompactNumber: (value: number, format: NumberFormat) => string,
 ): object[] => {
   const eventList = [];
 
@@ -150,7 +151,11 @@ export const getMjmlEventListBody = (
         // Indicator details
         indicatorLabel: emailContent.indicatorMetadata.label,
         totalAffected: getTotalAffected(event),
-        toCompactNumber: toCompactNumber,
+        toCompactNumberWithFormat: (value: number) =>
+          toCompactNumber(
+            value,
+            emailContent.indicatorMetadata.numberFormatMap,
+          ),
 
         // EAP details
         triangleIcon: getTriangleIcon(
