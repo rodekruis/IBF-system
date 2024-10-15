@@ -1,3 +1,12 @@
+# [0.273.0](https://github.com/rodekruis/IBF-system/compare/v0.272.2...v0.273.0) (2024-10-15)
+
+
+### Features
+
+* reverse multi-threshold other countries ([b2acf60](https://github.com/rodekruis/IBF-system/commit/b2acf601077c50c3949c6f2b39db3cf4fb4cea08))
+
+
+
 ## [0.272.2](https://github.com/rodekruis/IBF-system/compare/v0.272.1...v0.272.2) (2024-10-15)
 
 
@@ -122,25 +131,6 @@
 
 * remove egypt specific code/data ([7fe1645](https://github.com/rodekruis/IBF-system/commit/7fe164593f683a49c28a7b2576955abb04e00cef))
 * update sharepoint link raster-files.zip ([dc5496c](https://github.com/rodekruis/IBF-system/commit/dc5496ce4206b5f9e81f3195949dedfbaf4a236e))
-
-
-
-# [0.270.0](https://github.com/rodekruis/IBF-system/compare/v0.269.2...v0.270.0) (2024-09-23)
-
-
-### Bug Fixes
-
-* add time for hourly pipelines ([7241844](https://github.com/rodekruis/IBF-system/commit/72418447077b99b4be5b0b902a65c6deb17a1913))
-* end of line lint errors in API-service ([22bd9c1](https://github.com/rodekruis/IBF-system/commit/22bd9c173d3ebcfdf87b11d252dfc07f8828241e))
-* make page title translatable ([ee4b2b4](https://github.com/rodekruis/IBF-system/commit/ee4b2b4fc5af201b9a865adb14ddb4bd484e6995))
-* process PR comments ([5d4e455](https://github.com/rodekruis/IBF-system/commit/5d4e45594487b2318e47a9d70e3599b2edafbdfc))
-* remove country name from header where not appropriate ([9ff0fce](https://github.com/rodekruis/IBF-system/commit/9ff0fce88149ce8f6070153d9899db52ba7aa84b))
-* use full width of page ([b712a28](https://github.com/rodekruis/IBF-system/commit/b712a283abba0a5fcedec9f2dd19f908034d6c57))
-
-
-### Features
-
-* status page with last run date and triggered state per country/disaster ([682d99d](https://github.com/rodekruis/IBF-system/commit/682d99d8a3f184ae3db1f5a3aa104a5fd9767fd3))
 
 
 
