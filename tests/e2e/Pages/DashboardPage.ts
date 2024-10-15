@@ -34,14 +34,23 @@ class DashboardPage {
   }
 
   async navigateToFloodDisasterType() {
+    await this.page.waitForSelector(
+      '[data-testid=disaster-type-button-floods]',
+    );
     await this.floodIcon.click();
   }
 
   async navigateToHeavyRainDisasterType() {
+    await this.page.waitForSelector(
+      '[data-testid=disaster-type-button-heavy-rain]',
+    );
     await this.heavyRainIcon.click();
   }
 
   async navigateToDroughtDisasterType() {
+    await this.page.waitForSelector(
+      '[data-testid=disaster-type-button-drought]',
+    );
     await this.droughtIcon.click();
   }
 }
