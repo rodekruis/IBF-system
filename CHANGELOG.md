@@ -1,3 +1,12 @@
+## [0.273.2](https://github.com/rodekruis/IBF-system/compare/v0.273.1...v0.273.2) (2024-10-15)
+
+
+### Bug Fixes
+
+* do not send any mock exposure data when leadTime > 3 months ([7f269dd](https://github.com/rodekruis/IBF-system/commit/7f269ddd508a21ca7031d33e8d3497adb6b42d76))
+
+
+
 ## [0.273.1](https://github.com/rodekruis/IBF-system/compare/v0.273.0...v0.273.1) (2024-10-15)
 
 
@@ -118,18 +127,6 @@
 * install mjml ([a51c447](https://github.com/rodekruis/IBF-system/commit/a51c4476b1e5b3261eb97d853fcf439cb64b4a35))
 * install moment ([d89c1d1](https://github.com/rodekruis/IBF-system/commit/d89c1d16e884f7d222b0ccacefd1831b39c90cda))
 * use compact numbers and update copy ([f3d8ff9](https://github.com/rodekruis/IBF-system/commit/f3d8ff966f601f66eaa710122d1b2c8267407c2e))
-
-
-
-## [0.270.2](https://github.com/rodekruis/IBF-system/compare/v0.270.1...v0.270.2) (2024-09-24)
-
-
-### Bug Fixes
-
-* remove malawi user config from example.env ([7a061db](https://github.com/rodekruis/IBF-system/commit/7a061db43216ca51a95ad83bbd6f407167986993))
-* setup env vars ([876fa1f](https://github.com/rodekruis/IBF-system/commit/876fa1f3e8043503ff1527f9e528245004e61c5a))
-* small cleanup ([9974e80](https://github.com/rodekruis/IBF-system/commit/9974e80404b623a37c864279970d26b62a94d9d1))
-* test different ownership command ([54acd1e](https://github.com/rodekruis/IBF-system/commit/54acd1e12bf7d3c2cf07729a6ea6b0e19ee9dfbd))
 
 
 
