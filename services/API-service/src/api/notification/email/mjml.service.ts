@@ -83,9 +83,7 @@ export class MjmlService {
 
     children.push(this.mailOpening);
 
-    children.push(
-      ...getMjmlEventListBody(emailContent, this.helperService.toCompactNumber),
-    );
+    children.push(...getMjmlEventListBody(emailContent));
 
     children.push(
       this.notificationAction({
