@@ -15,10 +15,12 @@ class AggregatesComponent extends DashboardPage {
   readonly page: Page;
   readonly aggregateSectionColumn: Locator;
   readonly aggregatesTitleHeader: Locator;
-  readonly aggregatesMainInfoIcon: Locator;
   readonly aggregatesInfoIcon: Locator;
   readonly aggregatesLayerRow: Locator;
   readonly aggregatesAffectedNumber: Locator;
+  readonly aggreagtesTitleInfoIcon: Locator;
+  readonly approximatedisclaimer: Locator;
+  readonly popoverLayer: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -27,14 +29,18 @@ class AggregatesComponent extends DashboardPage {
       'dashboard-aggregate-section',
     );
     this.aggregatesTitleHeader = this.page.getByTestId('action-title');
-    this.aggregatesMainInfoIcon = this.page.getByTestId(
-      'aggregates-main-info-icon',
-    );
     this.aggregatesInfoIcon = this.page.getByTestId('aggregates-info-icon');
     this.aggregatesLayerRow = this.page.getByTestId('aggregates-row');
     this.aggregatesAffectedNumber = this.page.getByTestId(
       'aggregates-affected-number',
     );
+    this.aggreagtesTitleInfoIcon = this.page.getByTestId(
+      'aggregates-title-info-icon',
+    );
+    this.approximatedisclaimer = this.page.getByTestId(
+      'disclaimer-approximate-message',
+    );
+    this.popoverLayer = this.page.getByTestId('disclaimer-popover-layer');
   }
 
   async aggregateComponentIsVisible() {
@@ -48,6 +54,7 @@ class AggregatesComponent extends DashboardPage {
       state: 'hidden',
     });
     await this.page.waitForSelector('[data-testid="aggregates-row"]');
+
     // Manipulate locators
     const affectedNumbers = await this.page.$$(
       '[data-testid="aggregates-affected-number"]',
@@ -56,9 +63,10 @@ class AggregatesComponent extends DashboardPage {
     const headerTextModified = headerText?.replace(/View0/, 'View 0');
     const layerCount = await this.aggregatesLayerRow.count();
     const iconLayerCount = await this.aggregatesInfoIcon.count();
+
     // Basic Assertions
     expect(headerTextModified).toBe('National View 0 Predicted Flood(s)');
-    await expect(this.aggregatesMainInfoIcon).toBeVisible();
+    await expect(this.aggreagtesTitleInfoIcon).toBeVisible();
     expect(layerCount).toBe(5);
     expect(iconLayerCount).toBe(5);
 
@@ -72,6 +80,25 @@ class AggregatesComponent extends DashboardPage {
       const layerLocator = this.aggregatesLayerRow.locator(`text=${layerName}`);
       await expect(layerLocator).toBeVisible();
     }
+  }
+
+  async validatesAggregatesInfoButtons() {
+    // click on the first info icon and validate the opopver content
+    await this.aggreagtesTitleInfoIcon.click();
+    const disclaimerText = await this.approximatedisclaimer.textContent();
+    expect(disclaimerText).toContain(
+      'All numbers are approximate and meant to be used as guidance.',
+    );
+
+    // wait for opover layer to be laoded and click to remove it
+    await this.page.waitForTimeout(500);
+    await this.popoverLayer.click();
+
+    // click on the total exposed population info icon and validate the opopver content
+    const exposedPopulationLayer = this.aggregatesLayerRow.filter({
+      hasText: 'Exposed population',
+    });
+    await exposedPopulationLayer.getByTestId('aggregates-info-icon').click();
   }
 }
 
