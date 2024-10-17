@@ -44,5 +44,6 @@ test(
     // Assertions
     await aggregates.aggregateComponentIsVisible();
     await aggregates.validatesAggregatesInfoButtons();
+    await aggregates.validateLayerPopoverExternalLink();
   },
 );

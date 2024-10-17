@@ -21,6 +21,8 @@ class AggregatesComponent extends DashboardPage {
   readonly aggreagtesTitleInfoIcon: Locator;
   readonly approximatedisclaimer: Locator;
   readonly popoverLayer: Locator;
+  readonly layerInfoPopoverTitle: Locator;
+  readonly layerInfoPopoverContent: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -41,6 +43,8 @@ class AggregatesComponent extends DashboardPage {
       'disclaimer-approximate-message',
     );
     this.popoverLayer = this.page.getByTestId('disclaimer-popover-layer');
+    this.layerInfoPopoverTitle = this.page.getByTestId('layer-info-title');
+    this.layerInfoPopoverContent = this.page.getByTestId('layer-info-content');
   }
 
   async aggregateComponentIsVisible() {
@@ -99,6 +103,31 @@ class AggregatesComponent extends DashboardPage {
       hasText: 'Exposed population',
     });
     await exposedPopulationLayer.getByTestId('aggregates-info-icon').click();
+    const layerInfoTitle = await this.layerInfoPopoverTitle.textContent();
+    const layerInfoContent = await this.layerInfoPopoverContent.textContent();
+    expect(layerInfoTitle).toContain('Exposed population');
+    expect(layerInfoContent).toContain(
+      'This layer shows the estimated rounded number of people potentially exposed per geographic area.',
+    );
+  }
+
+  async validateLayerPopoverExternalLink() {
+    // Define link to click
+    const layerPopoverExternalLink = this.layerInfoPopoverContent.filter({
+      hasText: 'High Resolution Settlement Layer (HRSL)',
+    });
+
+    // Listen for new page event
+    const [newPage] = await Promise.all([
+      this.page.context().waitForEvent('page'),
+      await layerPopoverExternalLink.click({ button: 'middle' }),
+    ]);
+
+    // Validate the new tab was opened
+    expect(newPage).not.toBeNull();
+    await newPage.waitForLoadState();
+    const url = newPage.url();
+    expect(url).toContain('https://www.ciesin.columbia.edu/data/hrsl/');
   }
 }
 
