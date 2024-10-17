@@ -8,13 +8,13 @@
       data-test="close-matrix-icon"
       class="popover-close-button"
     ></ion-icon>
-    <ion-card-title>
+    <ion-card-title data-testid="layer-info-title">
       {{ layer.label }}
     </ion-card-title>
   </ion-card-header>
   <ion-card-content
+    data-testid="layer-info-content"
     class="ion-padding-top"
     [innerHTML]="layer.description"
-    data-test="matrix-popupinfo"
   ></ion-card-content>
 </ion-card>

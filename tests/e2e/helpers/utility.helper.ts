@@ -1,7 +1,6 @@
 import * as request from 'supertest';
 import TestAgent from 'supertest/lib/agent';
 
-import { FloodsScenario } from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import users from '../../../services/API-service/src/scripts/json/users.json';
 
 export async function getAccessToken(): Promise<string> {
@@ -45,7 +44,7 @@ export function resetDB(accessToken: string): Promise<request.Response> {
 }
 
 export function mockFloods(
-  scenario: FloodsScenario,
+  scenario: string,
   countryCodeISO3: string,
   accessToken: string,
 ): Promise<request.Response> {

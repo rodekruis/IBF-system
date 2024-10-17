@@ -1,6 +1,7 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
 
+import AggregatesComponent from './AggregatesComponet';
 import DashboardPage from './DashboardPage';
 
 class MapComponent extends DashboardPage {
@@ -14,6 +15,8 @@ class MapComponent extends DashboardPage {
   readonly legend: Locator;
   readonly layerMenu: Locator;
   readonly adminBoundry: Locator;
+  readonly layerCheckbox: Locator;
+  readonly layerMenuToggle: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -35,6 +38,8 @@ class MapComponent extends DashboardPage {
     this.legend = this.page.getByTestId('map-legend');
     this.layerMenu = this.page.getByTestId('layer-menu');
     this.adminBoundry = this.page.locator('.leaflet-interactive');
+    this.layerCheckbox = this.page.getByTestId('matrix-checkbox');
+    this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
   }
 
   async mapComponentIsVisible() {
@@ -113,6 +118,36 @@ class MapComponent extends DashboardPage {
     expect(count).toBeGreaterThan(0);
     for (let i = 0; i < count; i++) {
       await expect(adminBoundaries.nth(i)).toBeVisible();
+    }
+  }
+
+  async turnOffLayer({ layerName }: { layerName: string }) {
+    // Remove Glofas station from the map (in case the mock is for floods)
+    await this.layerMenuToggle.click();
+    const getLayerRow = this.page
+      .getByTestId('matrix-layer-name')
+      .filter({ hasText: layerName });
+    const layerCheckbox = getLayerRow.locator(this.layerCheckbox);
+    await layerCheckbox.click();
+  }
+
+  async assertAggregateTitleOnHoverOverMap() {
+    // Declare component
+    const aggregates = new AggregatesComponent(this.page);
+
+    // Wait for the page to load
+    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForSelector('.leaflet-interactive');
+
+    // Assert the that Aggregates title is visible and does not contain the text 'National View'
+    // 20 is the more or less number of admin boundaries that can be hovered over with Playwright to succesfully assert the title
+    for (let i = 0; i < 20; i++) {
+      await this.page.waitForTimeout(200);
+      await this.adminBoundry.nth(i).hover();
+      await expect(aggregates.aggregatesTitleHeader).not.toContainText(
+        'National View',
+      );
     }
   }
 }
