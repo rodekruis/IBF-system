@@ -9,7 +9,6 @@ import {
   getTextElement,
   getTimeFromNow,
   getTimezoneDisplay,
-  getTotalAffected,
   getTriangleIcon,
 } from '../../helpers/mjml.helper';
 
@@ -23,15 +22,12 @@ const getMjmlBodyEvent = ({
   firstLeadTimeString,
   firstTriggerLeadTimeFromNow,
   firstTriggerLeadTimeString,
-  indicatorLabel,
   issuedDate,
   nrOfTriggeredAreas,
   timeZone,
-  totalAffected,
   triangleIcon,
   eapLink,
   triggerStatusLabel,
-  toCompactNumber,
 }: {
   color: string;
   defaultAdminAreaLabel: string;
@@ -42,15 +38,12 @@ const getMjmlBodyEvent = ({
   firstLeadTimeString: string;
   firstTriggerLeadTimeFromNow: string;
   firstTriggerLeadTimeString: string;
-  indicatorLabel: string;
   issuedDate: string;
   nrOfTriggeredAreas: number;
   timeZone: string;
-  totalAffected: number;
   triangleIcon: string;
   eapLink: string;
   triggerStatusLabel: string;
-  toCompactNumber: (value: number) => string;
 }): object => {
   const icon = getInlineImage({ src: triangleIcon, size: 16 });
 
@@ -82,16 +75,7 @@ const getMjmlBodyEvent = ({
 
   contentContent.push(
     `<strong>Expected exposed ${defaultAdminAreaLabel}:</strong> ${nrOfTriggeredAreas} (see list below)`,
-  ),
-    contentContent.push(
-      `<strong>${indicatorLabel}:</strong> ${
-        totalAffected
-          ? `Approximately ${toCompactNumber(
-              totalAffected,
-            )} ${indicatorLabel.toLowerCase()}`
-          : 'Information is unavailable'
-      }`,
-    );
+  );
 
   contentContent.push(
     triggerStatusLabel === TriggerStatusLabelEnum.Trigger
@@ -117,10 +101,7 @@ const getMjmlBodyEvent = ({
   });
 };
 
-export const getMjmlEventListBody = (
-  emailContent: ContentEventEmail,
-  toCompactNumber: (value: number) => string,
-): object[] => {
+export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
   const eventList = [];
 
   for (const event of emailContent.dataPerEvent) {
@@ -146,11 +127,6 @@ export const getMjmlEventListBody = (
         nrOfTriggeredAreas: event.nrOfTriggeredAreas,
         defaultAdminAreaLabel:
           emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
-
-        // Indicator details
-        indicatorLabel: emailContent.indicatorMetadata.label,
-        totalAffected: getTotalAffected(event),
-        toCompactNumber: toCompactNumber,
 
         // EAP details
         triangleIcon: getTriangleIcon(

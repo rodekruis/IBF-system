@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { EventSummaryCountry, TriggeredArea } from '../../../shared/data.model';
+import { NumberFormat } from '../../../shared/enums/number-format.enum';
 import { HelperService } from '../../../shared/helper.service';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../../country/country.entity';
@@ -194,7 +195,11 @@ export class NotificationContentService {
       disasterType,
     );
 
-    data.totalAffectedOfIndicator = this.getTotalAffected(data.triggeredAreas);
+    const indicatorMetadata = await this.getIndicatorMetadata(disasterType);
+    data.totalAffectedOfIndicator = this.getTotal(
+      data.triggeredAreas,
+      indicatorMetadata.numberFormatMap,
+    );
     data.eapAlertClass = event.disasterSpecificProperties?.eapAlertClass;
     return data;
   }
@@ -261,12 +266,22 @@ export class NotificationContentService {
     });
   }
 
-  private getTotalAffected(triggeredAreas: TriggeredArea[]) {
-    return parseFloat(
-      triggeredAreas
-        .reduce((acc, triggeredArea) => acc + triggeredArea.actionsValue, 0)
-        .toFixed(2),
+  private getTotal(
+    triggeredAreas: TriggeredArea[],
+    numberFormat: NumberFormat,
+  ) {
+    const total = triggeredAreas.reduce(
+      (acc, { actionsValue }) => acc + actionsValue,
+      0,
     );
+
+    if (numberFormat === NumberFormat.perc) {
+      // return average for percentage
+      return total / triggeredAreas.length;
+    }
+
+    // return sum
+    return total;
   }
 
   private async getFirstLeadTimeDate(

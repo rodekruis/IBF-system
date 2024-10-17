@@ -1,3 +1,4 @@
+import { NumberFormat } from '../../../../shared/enums/number-format.enum';
 import { IndicatorMetadataEntity } from '../../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../../dto/admin-area-notification-info.dto';
 import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
@@ -30,7 +31,7 @@ const getMjmlEventAdminAreaTable = ({
   indicatorMetadata: IndicatorMetadataEntity;
   event: NotificationDataPerEventDto;
   triangleIcon: string;
-  toCompactNumber: (value: number) => string;
+  toCompactNumber: (value: number, format: NumberFormat) => string;
 }) => {
   const icon = getInlineImage({ src: triangleIcon, size: 16 });
 
@@ -68,7 +69,10 @@ const getMjmlEventAdminAreaTable = ({
     .filter(({ actionsValue }) => actionsValue)
     .map((triggeredArea) => {
       return {
-        exposed: toCompactNumber(triggeredArea.actionsValue),
+        exposed: toCompactNumber(
+          triggeredArea.actionsValue,
+          indicatorMetadata.numberFormatMap,
+        ),
         name: `${triggeredArea.name} ${
           triggeredArea.nameParent ? `(${triggeredArea.nameParent})` : ''
         }`,
@@ -112,7 +116,7 @@ export const getMjmlAdminAreaDisclaimer = (): object => {
 
 export const getMjmlAdminAreaTableList = (
   emailContent: ContentEventEmail,
-  toCompactNumber: (value: number) => string,
+  toCompactNumber: (value: number, format: NumberFormat) => string,
 ): object[] => {
   const adminAreaTableList = [];
 

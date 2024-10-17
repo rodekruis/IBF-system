@@ -145,7 +145,8 @@ export class HelperService {
     }
 
     const style = format === NumberFormat.perc ? 'percent' : 'decimal';
-    const maximumSignificantDigits = value > 100 ? 2 : 1;
+    const maximumSignificantDigits =
+      value > 100 || format === NumberFormat.perc ? 2 : 1;
 
     let min = 0;
     let prefix = '';
