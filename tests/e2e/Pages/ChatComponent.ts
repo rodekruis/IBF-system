@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import { format } from 'date-fns';
+import * as os from 'os';
 import { Locator, Page } from 'playwright';
 
 import EnglishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
@@ -20,6 +21,11 @@ class ChatComponent extends DashboardPage {
   readonly chatIbfGuidePopOverTitle: Locator;
   readonly chatIbfGuidePopOverContent: Locator;
   readonly chatIbfGuideCloseButton: Locator;
+  readonly exportViewPopOverTitle: Locator;
+  readonly exportViewCloseButton: Locator;
+  readonly windowsOsLink: Locator;
+  readonly macOsLink: Locator;
+  readonly linuxOsLink: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -35,6 +41,13 @@ class ChatComponent extends DashboardPage {
     this.chatIbfGuideCloseButton = this.page.getByTestId(
       'ibf-guide-close-button',
     );
+    this.exportViewPopOverTitle = this.page.getByTestId('export-view-title');
+    this.exportViewCloseButton = this.page.getByTestId(
+      'export-view-close-button',
+    );
+    this.windowsOsLink = this.page.getByTestId('export-view-windows-os');
+    this.macOsLink = this.page.getByTestId('export-view-mac-os');
+    this.linuxOsLink = this.page.getByTestId('export-view-linux-os');
   }
 
   async chatColumnIsVisibleForNoTriggerState({
@@ -113,7 +126,21 @@ class ChatComponent extends DashboardPage {
     // Open Export View Popover
     await this.exportViewButton.click();
 
+    // Define OS
+    const platform = os.platform();
+
     // Assert Popover Title and link are visible
+    console.log(`Platform: ${platform}`);
+    if (platform === 'win32') {
+      await expect(this.windowsOsLink).toBeVisible();
+    } else if (platform === 'darwin') {
+      await expect(this.macOsLink).toBeVisible();
+    } else if (platform === 'linux') {
+      await expect(this.linuxOsLink).toBeVisible();
+    }
+
+    // Close Export View Popover
+    await this.exportViewCloseButton.click();
   }
 
   async clickAndAssertTriggerLogButton() {

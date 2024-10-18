@@ -54,6 +54,6 @@ test(
     await chat.clickAndAssertAboutButton();
     await chat.clickAndAssertGuideButton();
     await chat.clickAndAssertExportViewButton();
-    // await chat.clickAndAssertTriggerLogButton();
+    await chat.clickAndAssertTriggerLogButton();
   },
 );
