@@ -54,6 +54,8 @@ test(
     await chat.clickAndAssertAboutButton();
     await chat.clickAndAssertGuideButton();
     await chat.clickAndAssertExportViewButton();
-    await chat.clickAndAssertTriggerLogButton();
+    await chat.clickAndAssertTriggerLogButton({
+      url: `/log?countryCodeISO3=${NoTriggerDataSet.CountryCode}&disasterType=floods`,
+    });
   },
 );

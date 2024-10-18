@@ -130,7 +130,6 @@ class ChatComponent extends DashboardPage {
     const platform = os.platform();
 
     // Assert Popover Title and link are visible
-    console.log(`Platform: ${platform}`);
     if (platform === 'win32') {
       await expect(this.windowsOsLink).toBeVisible();
     } else if (platform === 'darwin') {
@@ -143,8 +142,16 @@ class ChatComponent extends DashboardPage {
     await this.exportViewCloseButton.click();
   }
 
-  async clickAndAssertTriggerLogButton() {
-    await this.triggerLogButton.click();
+  async clickAndAssertTriggerLogButton({ url }: { url: string }) {
+    // Open Trigger Log
+    const [newPage] = await Promise.all([
+      this.page.context().waitForEvent('page'),
+      await this.triggerLogButton.click(),
+    ]);
+
+    // Assert new page is opened
+    await expect(newPage).toHaveURL(url);
+    await newPage.close();
   }
 }
 
