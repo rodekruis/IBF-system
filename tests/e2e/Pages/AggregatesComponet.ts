@@ -125,7 +125,7 @@ class AggregatesComponent extends DashboardPage {
 
     // Validate the new tab was opened
     expect(newPage).not.toBeNull();
-    await newPage.waitForLoadState('domcontentloaded');
+    await newPage.waitForLoadState('networkidle');
     const url = newPage.url();
     expect(url).toContain('https://www.ciesin.columbia.edu/data/hrsl/');
   }
