@@ -70,6 +70,30 @@ class ChatComponent extends DashboardPage {
     await expect(this.exportViewButton).toBeVisible();
     await expect(this.triggerLogButton).toBeVisible();
   }
+
+  async clickAndAssertAboutButton() {
+    // Listen for new page event
+    const [newPage] = await Promise.all([
+      this.page.context().waitForEvent('page'),
+      await this.chatAboutButton.click(),
+    ]);
+
+    // Assert new page is opened
+    expect(newPage).not.toBeNull();
+    await newPage.close();
+  }
+
+  async clickAndAssertGuideButton() {
+    await this.chatGuideButton.click();
+  }
+
+  async clickAndAssertExportViewButton() {
+    await this.exportViewButton.click();
+  }
+
+  async clickAndAssertTriggerLogButton() {
+    await this.triggerLogButton.click();
+  }
 }
 
 export default ChatComponent;
