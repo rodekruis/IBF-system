@@ -53,7 +53,7 @@ test(
     await chat.allChatButtonsArePresent();
     await chat.clickAndAssertAboutButton();
     await chat.clickAndAssertGuideButton();
-    // await chat.clickAndAssertExportViewButton();
+    await chat.clickAndAssertExportViewButton();
     // await chat.clickAndAssertTriggerLogButton();
   },
 );

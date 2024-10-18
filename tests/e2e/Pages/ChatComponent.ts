@@ -17,6 +17,9 @@ class ChatComponent extends DashboardPage {
   readonly chatGuideButton: Locator;
   readonly exportViewButton: Locator;
   readonly triggerLogButton: Locator;
+  readonly chatIbfGuidePopOverTitle: Locator;
+  readonly chatIbfGuidePopOverContent: Locator;
+  readonly chatIbfGuideCloseButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -26,6 +29,12 @@ class ChatComponent extends DashboardPage {
     this.chatGuideButton = this.page.getByTestId('ibf-guide-button');
     this.exportViewButton = this.page.getByTestId('export-view-button');
     this.triggerLogButton = this.page.getByTestId('trigger-log-button');
+    this.chatIbfGuidePopOverTitle = this.page.getByTestId('ibf-guide-title');
+    this.chatIbfGuidePopOverContent =
+      this.page.getByTestId('ibf-guide-content');
+    this.chatIbfGuideCloseButton = this.page.getByTestId(
+      'ibf-guide-close-button',
+    );
   }
 
   async chatColumnIsVisibleForNoTriggerState({
@@ -84,11 +93,27 @@ class ChatComponent extends DashboardPage {
   }
 
   async clickAndAssertGuideButton() {
+    // Open IBF Guide Popover
     await this.chatGuideButton.click();
+
+    // Assert Popover Title and Iframe are visible
+    const ibfGuidePopOverTitle =
+      await this.chatIbfGuidePopOverTitle.innerText();
+    const ibfGuidePopOverIframe =
+      this.chatIbfGuidePopOverContent.locator('iframe');
+    expect(ibfGuidePopOverTitle).toContain('IBF Guide');
+    await expect(this.chatIbfGuidePopOverContent).toBeVisible();
+    await expect(ibfGuidePopOverIframe).toBeVisible();
+
+    // Close IBF Guide Popover
+    await this.chatIbfGuideCloseButton.click();
   }
 
   async clickAndAssertExportViewButton() {
+    // Open Export View Popover
     await this.exportViewButton.click();
+
+    // Assert Popover Title and link are visible
   }
 
   async clickAndAssertTriggerLogButton() {
