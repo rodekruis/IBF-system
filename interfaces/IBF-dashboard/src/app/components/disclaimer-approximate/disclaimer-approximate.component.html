@@ -4,13 +4,17 @@
   id="disclaimer-approximate-trigger"
 />
 <ion-popover
+  data-testid="disclaimer-popover-layer"
   side="right"
   trigger="disclaimer-approximate-trigger"
   triggerAction="click"
   showBackdrop="false"
 >
   <ng-template>
-    <ion-content class="ion-padding font-size-12">
+    <ion-content
+      data-testid="disclaimer-approximate-message"
+      class="ion-padding font-size-12"
+    >
       {{ 'disclaimer-approximate-component.message' | translate }}
     </ion-content>
   </ng-template>
