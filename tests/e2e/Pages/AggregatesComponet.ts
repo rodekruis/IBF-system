@@ -117,17 +117,10 @@ class AggregatesComponent extends DashboardPage {
       hasText: 'High Resolution Settlement Layer (HRSL)',
     });
 
-    // Listen for new page event
-    const [newPage] = await Promise.all([
-      this.page.context().waitForEvent('page'),
-      await layerPopoverExternalLink.click({ button: 'middle' }),
-    ]);
-
-    // Validate the new tab was opened
-    expect(newPage).not.toBeNull();
-    await newPage.waitForLoadState('networkidle');
-    const url = newPage.url();
-    expect(url).toContain('https://www.ciesin.columbia.edu/data/hrsl/');
+    await layerPopoverExternalLink.click();
+    expect(this.page.url()).toContain(
+      'https://www.ciesin.columbia.edu/data/hrsl/',
+    );
   }
 }
 
