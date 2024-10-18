@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import { format } from 'date-fns';
+import * as os from 'os';
 import { Locator, Page } from 'playwright';
 
 import EnglishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
@@ -17,6 +18,14 @@ class ChatComponent extends DashboardPage {
   readonly chatGuideButton: Locator;
   readonly exportViewButton: Locator;
   readonly triggerLogButton: Locator;
+  readonly chatIbfGuidePopOverTitle: Locator;
+  readonly chatIbfGuidePopOverContent: Locator;
+  readonly chatIbfGuideCloseButton: Locator;
+  readonly exportViewPopOverTitle: Locator;
+  readonly exportViewCloseButton: Locator;
+  readonly windowsOsLink: Locator;
+  readonly macOsLink: Locator;
+  readonly linuxOsLink: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -26,6 +35,19 @@ class ChatComponent extends DashboardPage {
     this.chatGuideButton = this.page.getByTestId('ibf-guide-button');
     this.exportViewButton = this.page.getByTestId('export-view-button');
     this.triggerLogButton = this.page.getByTestId('trigger-log-button');
+    this.chatIbfGuidePopOverTitle = this.page.getByTestId('ibf-guide-title');
+    this.chatIbfGuidePopOverContent =
+      this.page.getByTestId('ibf-guide-content');
+    this.chatIbfGuideCloseButton = this.page.getByTestId(
+      'ibf-guide-close-button',
+    );
+    this.exportViewPopOverTitle = this.page.getByTestId('export-view-title');
+    this.exportViewCloseButton = this.page.getByTestId(
+      'export-view-close-button',
+    );
+    this.windowsOsLink = this.page.getByTestId('export-view-windows-os');
+    this.macOsLink = this.page.getByTestId('export-view-mac-os');
+    this.linuxOsLink = this.page.getByTestId('export-view-linux-os');
   }
 
   async chatColumnIsVisibleForNoTriggerState({
@@ -69,6 +91,67 @@ class ChatComponent extends DashboardPage {
     await expect(this.chatGuideButton).toBeVisible();
     await expect(this.exportViewButton).toBeVisible();
     await expect(this.triggerLogButton).toBeVisible();
+  }
+
+  async clickAndAssertAboutButton() {
+    // Listen for new page event
+    const [newPage] = await Promise.all([
+      this.page.context().waitForEvent('page'),
+      await this.chatAboutButton.click(),
+    ]);
+
+    // Assert new page is opened
+    expect(newPage).not.toBeNull();
+    await newPage.close();
+  }
+
+  async clickAndAssertGuideButton() {
+    // Open IBF Guide Popover
+    await this.chatGuideButton.click();
+
+    // Assert Popover Title and Iframe are visible
+    const ibfGuidePopOverTitle =
+      await this.chatIbfGuidePopOverTitle.innerText();
+    const ibfGuidePopOverIframe =
+      this.chatIbfGuidePopOverContent.locator('iframe');
+    expect(ibfGuidePopOverTitle).toContain('IBF Guide');
+    await expect(this.chatIbfGuidePopOverContent).toBeVisible();
+    await expect(ibfGuidePopOverIframe).toBeVisible();
+
+    // Close IBF Guide Popover
+    await this.chatIbfGuideCloseButton.click();
+  }
+
+  async clickAndAssertExportViewButton() {
+    // Open Export View Popover
+    await this.exportViewButton.click();
+
+    // Define OS
+    const platform = os.platform();
+
+    // Assert Popover Title and link are visible
+    if (platform === 'win32') {
+      await expect(this.windowsOsLink).toBeVisible();
+    } else if (platform === 'darwin') {
+      await expect(this.macOsLink).toBeVisible();
+    } else if (platform === 'linux') {
+      await expect(this.linuxOsLink).toBeVisible();
+    }
+
+    // Close Export View Popover
+    await this.exportViewCloseButton.click();
+  }
+
+  async clickAndAssertTriggerLogButton({ url }: { url: string }) {
+    // Open Trigger Log
+    const [newPage] = await Promise.all([
+      this.page.context().waitForEvent('page'),
+      await this.triggerLogButton.click(),
+    ]);
+
+    // Assert new page is opened
+    await expect(newPage).toHaveURL(url);
+    await newPage.close();
   }
 }
 

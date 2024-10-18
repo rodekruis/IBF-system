@@ -1,16 +1,17 @@
 <ion-card data-test="ibf-guide-popover" class="popover-window-card">
   <ion-card-header color="ibf-primary">
     <ion-icon
+      data-testid="ibf-guide-close-button"
       name="close-circle"
       size="large"
       (click)="closePopover()"
       class="popover-close-button"
     ></ion-icon>
-    <ion-card-title>{{
+    <ion-card-title data-testid="ibf-guide-title">{{
       'ibf-guide-component.title' | translate
     }}</ion-card-title>
   </ion-card-header>
-  <ion-card-content class="ion-padding-top">
+  <ion-card-content data-testid="ibf-guide-content" class="ion-padding-top">
     <p
       [innerHTML]="
         'ibf-guide-component.video-pdf-description'
