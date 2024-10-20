@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
+import { EnglishTranslations } from 'testData/translations.enum';
 
 import DashboardPage from './DashboardPage';
 
@@ -19,7 +20,7 @@ class AggregatesComponent extends DashboardPage {
   readonly aggregatesLayerRow: Locator;
   readonly aggregatesAffectedNumber: Locator;
   readonly aggreagtesTitleInfoIcon: Locator;
-  readonly approximatedisclaimer: Locator;
+  readonly approximateDisclaimer: Locator;
   readonly popoverLayer: Locator;
   readonly layerInfoPopoverTitle: Locator;
   readonly layerInfoPopoverContent: Locator;
@@ -39,7 +40,7 @@ class AggregatesComponent extends DashboardPage {
     this.aggreagtesTitleInfoIcon = this.page.getByTestId(
       'aggregates-title-info-icon',
     );
-    this.approximatedisclaimer = this.page.getByTestId(
+    this.approximateDisclaimer = this.page.getByTestId(
       'disclaimer-approximate-message',
     );
     this.popoverLayer = this.page.getByTestId('disclaimer-popover-layer');
@@ -89,9 +90,9 @@ class AggregatesComponent extends DashboardPage {
   async validatesAggregatesInfoButtons() {
     // click on the first info icon and validate the opopver content
     await this.aggreagtesTitleInfoIcon.click();
-    const disclaimerText = await this.approximatedisclaimer.textContent();
+    const disclaimerText = await this.approximateDisclaimer.textContent();
     expect(disclaimerText).toContain(
-      'All numbers are approximate and meant to be used as guidance.',
+      EnglishTranslations.ApproximateNumberDisclaimer,
     );
 
     // wait for opover layer to be laoded and click to remove it
@@ -107,7 +108,7 @@ class AggregatesComponent extends DashboardPage {
     const layerInfoContent = await this.layerInfoPopoverContent.textContent();
     expect(layerInfoTitle).toContain('Exposed population');
     expect(layerInfoContent).toContain(
-      'This layer shows the estimated rounded number of people potentially exposed per geographic area.',
+      EnglishTranslations.ExposedPopulationInfoButtonDisclaimer,
     );
   }
 

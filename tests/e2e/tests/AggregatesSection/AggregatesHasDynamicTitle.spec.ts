@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import AggregatesComponent from 'Pages/AggregatesComponet';
+import AggregatesComponent from 'Pages/AggregatesComponent';
 import DashboardPage from 'Pages/DashboardPage';
 import MapComponent from 'Pages/MapComponent';
 import { qase } from 'playwright-qase-reporter';
@@ -34,7 +34,7 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test.skip(
+test(
   qase(12, 'Aggregates title should be dynamic no-trigger'),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
