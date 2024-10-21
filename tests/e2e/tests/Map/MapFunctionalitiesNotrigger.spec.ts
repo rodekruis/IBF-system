@@ -61,5 +61,10 @@ test(
     await map.isLayerMenuOpen({ layerMenuOpen: false });
     await map.clickLayerMenu();
     await map.isLayerMenuOpen({ layerMenuOpen: true });
+
+    // Select and deselect the layer
+    await map.clickLayerMenu();
+    await map.clickLayerCheckbox({ layerName: 'Red Cross branches' });
+    await map.isLayerMenuOpen({ layerMenuOpen: true });
   },
 );

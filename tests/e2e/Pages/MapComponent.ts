@@ -123,7 +123,7 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async turnOffLayer({ layerName }: { layerName: string }) {
+  async clickLayerCheckbox({ layerName }: { layerName: string }) {
     // Remove Glofas station from the map (in case the mock is for floods)
     await this.layerMenuToggle.click();
     const getLayerRow = this.page
