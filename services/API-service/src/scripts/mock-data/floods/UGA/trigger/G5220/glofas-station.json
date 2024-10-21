@@ -3,7 +3,7 @@
     "stationCode": "G5220",
     "forecastLevel": 600,
     "eapAlertClass": "max",
-    "forecastReturnPeriod": 20,
+    "forecastReturnPeriod": 5,
     "triggerLevel": 400
   }
 ]

@@ -3,7 +3,7 @@
     "stationCode": "G5075",
     "forecastLevel": 175,
     "eapAlertClass": "min",
-    "forecastReturnPeriod": 2,
+    "forecastReturnPeriod": 1.5,
     "triggerLevel": 520
   }
 ]

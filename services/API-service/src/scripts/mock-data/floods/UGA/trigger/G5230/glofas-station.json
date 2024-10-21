@@ -3,7 +3,7 @@
     "stationCode": "G5230",
     "forecastLevel": 250,
     "eapAlertClass": "med",
-    "forecastReturnPeriod": 3,
+    "forecastReturnPeriod": 2,
     "triggerLevel": 300
   }
 ]
