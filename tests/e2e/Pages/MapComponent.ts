@@ -148,6 +148,8 @@ class MapComponent extends DashboardPage {
     await expect(aggregates.aggregatesTitleHeader).not.toContainText(
       'National View',
     );
+  }
+
   async clickLegendHeader() {
     await this.legendHeader.click();
   }
@@ -156,5 +158,4 @@ class MapComponent extends DashboardPage {
     await this.layerMenuToggle.click();
   }
 }
-
 export default MapComponent;
