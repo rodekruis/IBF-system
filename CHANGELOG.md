@@ -1,3 +1,14 @@
+## [0.273.3](https://github.com/rodekruis/IBF-system/compare/v0.273.2...v0.273.3) (2024-10-21)
+
+
+### Bug Fixes
+
+* compact number in email should consider format ([780ad71](https://github.com/rodekruis/IBF-system/commit/780ad7155f3b76846b9e5234e884f18b36831b98))
+* remove event aggregate in email ([2c4117e](https://github.com/rodekruis/IBF-system/commit/2c4117e7c0e02f95c5b93c6e86114b3f5d6faa48))
+* use average for percentage indicators in email body event ([1088ba8](https://github.com/rodekruis/IBF-system/commit/1088ba8fcb0748c47ef61eeac1c6a3ac214aee05))
+
+
+
 ## [0.273.2](https://github.com/rodekruis/IBF-system/compare/v0.273.1...v0.273.2) (2024-10-15)
 
 
@@ -97,36 +108,6 @@
 * change scenario name 'default' to 'trigger' ([63f133b](https://github.com/rodekruis/IBF-system/commit/63f133b15f3717ae52ca61a30c4ee4dc9ebb0e05))
 * rename more occurences of 'default' ([da97514](https://github.com/rodekruis/IBF-system/commit/da97514ab665376160bef85106e33bd40b047efd))
 * switch mock path and body for migrated disaster-types ([e77a1e4](https://github.com/rodekruis/IBF-system/commit/e77a1e45ad5c0442e678d1d9123ca24042d7231f))
-
-
-
-# [0.271.0](https://github.com/rodekruis/IBF-system/compare/v0.270.2...v0.271.0) (2024-09-30)
-
-
-### Bug Fixes
-
-* align outloook btn to center ([4ae8f2a](https://github.com/rodekruis/IBF-system/commit/4ae8f2a6dbb06375f86cdbb5380b88cd46f428be))
-* button text ([b9c0b59](https://github.com/rodekruis/IBF-system/commit/b9c0b597e1e7f0042060d7b161ccd121858632ad))
-* comment out fs + email save ([9877dec](https://github.com/rodekruis/IBF-system/commit/9877decac6ddbe626dd619769edd4ee239b9a672))
-* correct date format and timezones ([ec88ccd](https://github.com/rodekruis/IBF-system/commit/ec88ccdc9476ce89069f42fb1d203f1d5bf0f60d))
-* correct date handling ([2882240](https://github.com/rodekruis/IBF-system/commit/2882240d60e5507d2ac60375c7d279faeb1164fb))
-* heder date + buttons + mailchimp footer ([3a042f9](https://github.com/rodekruis/IBF-system/commit/3a042f9e48408f80cebf93fe39e3747f25ff7ad0))
-* mailchimp footer ([89cc52c](https://github.com/rodekruis/IBF-system/commit/89cc52ce10b603fc5592b2031eb01bdabf672426))
-* mailchimp footer width ([2ad5a77](https://github.com/rodekruis/IBF-system/commit/2ad5a77ecbda452ec673ea98d47023e34fd312f8))
-* mobile width + action margin + typo + issued text ([75760e6](https://github.com/rodekruis/IBF-system/commit/75760e6270c9618c752f0e7d21ba8ef5a3d91e77))
-* remove column from layout ([ebe8fc6](https://github.com/rodekruis/IBF-system/commit/ebe8fc6f5d49298afb5ede9972cd401769a4f417))
-* set arial as font ([482f380](https://github.com/rodekruis/IBF-system/commit/482f3801bfe410e2a2b3a4f6d11ef2147f6d3f3b))
-* update email logos ([2c584f5](https://github.com/rodekruis/IBF-system/commit/2c584f578f4d6a1bc4e3a845590611f8e290a883))
-* use date-fns instead of moment ([d5a9ee4](https://github.com/rodekruis/IBF-system/commit/d5a9ee43e433630e57ba44ac25a657c560c941f8))
-* white background to logo img ([a63805e](https://github.com/rodekruis/IBF-system/commit/a63805e80e108f744d9f08e5ff2c39c7941f3858))
-
-
-### Features
-
-* add logos to header ([f2d69e1](https://github.com/rodekruis/IBF-system/commit/f2d69e1e066fdd6f70eb9634034be7f2266404aa))
-* install mjml ([a51c447](https://github.com/rodekruis/IBF-system/commit/a51c4476b1e5b3261eb97d853fcf439cb64b4a35))
-* install moment ([d89c1d1](https://github.com/rodekruis/IBF-system/commit/d89c1d16e884f7d222b0ccacefd1831b39c90cda))
-* use compact numbers and update copy ([f3d8ff9](https://github.com/rodekruis/IBF-system/commit/f3d8ff966f601f66eaa710122d1b2c8267407c2e))
 
 
 
