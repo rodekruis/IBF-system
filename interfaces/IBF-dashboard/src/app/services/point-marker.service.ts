@@ -246,6 +246,7 @@ export class PointMarkerService {
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH),
+      alt: 'red-cross-branch-marker',
     });
     markerInstance.bindPopup(this.createMarkerRedCrossPopup(markerProperties));
     markerInstance.on(

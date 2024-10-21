@@ -18,6 +18,7 @@ class MapComponent extends DashboardPage {
   readonly layerCheckbox: Locator;
   readonly legendHeader: Locator;
   readonly layerMenuToggle: Locator;
+  readonly redCrossMarker: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -42,6 +43,7 @@ class MapComponent extends DashboardPage {
     this.layerCheckbox = this.page.getByTestId('matrix-checkbox');
     this.legendHeader = this.page.getByTestId('map-legend-header');
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
+    this.redCrossMarker = this.page.getByAltText('red-cross-branch-marker');
   }
 
   async mapComponentIsVisible() {
@@ -156,6 +158,19 @@ class MapComponent extends DashboardPage {
 
   async clickLayerMenu() {
     await this.layerMenuToggle.click();
+  }
+
+  async redCrossMarkersAreVisible() {
+    // Wait for the page to load
+    await this.page.waitForSelector('[alt="red-cross-branch-marker"]');
+
+    // Count the number of red cross markers
+    const redCrossMarkersCount = await this.redCrossMarker.count();
+    const nthSelector = this.getRandomInt(1, redCrossMarkersCount);
+
+    // Assert that the number of red cross markers is greater than 0 and randomly select one to be visible
+    expect(redCrossMarkersCount).toBeGreaterThan(0);
+    await expect(this.redCrossMarker.nth(nthSelector)).toBeVisible();
   }
 }
 export default MapComponent;

@@ -66,5 +66,7 @@ test(
     await map.clickLayerMenu();
     await map.clickLayerCheckbox({ layerName: 'Red Cross branches' });
     await map.isLayerMenuOpen({ layerMenuOpen: true });
+    // Red Cross branches layer should be visible
+    await map.redCrossMarkersAreVisible();
   },
 );
