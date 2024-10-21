@@ -1,3 +1,19 @@
+# [0.274.0](https://github.com/rodekruis/IBF-system/compare/v0.273.3...v0.274.0) (2024-10-21)
+
+
+### Bug Fixes
+
+* add check for leadtime not existing ([3d11334](https://github.com/rodekruis/IBF-system/commit/3d11334f0df53edd25362625b6bcc038e0636433))
+* update data via migration script where possible ([4b380df](https://github.com/rodekruis/IBF-system/commit/4b380dfd6dae8261ca48d02cbf2cc4d6a69d00cd))
+* update return period mock UGA ([20efcb9](https://github.com/rodekruis/IBF-system/commit/20efcb9effb7befde0a37c85136f4eb0459fa8ce))
+
+
+### Features
+
+* update trigger statements floods ([4dd9e55](https://github.com/rodekruis/IBF-system/commit/4dd9e558a155be15d7f51e29a0392ad3801e4010))
+
+
+
 ## [0.273.3](https://github.com/rodekruis/IBF-system/compare/v0.273.2...v0.273.3) (2024-10-21)
 
 
@@ -97,17 +113,6 @@
 
 * check if raster files exist before reading them ([2fdfdef](https://github.com/rodekruis/IBF-system/commit/2fdfdefc8a7242b94406b9c4340aa3b8ca092847))
 * merge NG_API_URL and BASE_URL_IBF_SERVICE into API_SERVICE_URL ([9c1d2bb](https://github.com/rodekruis/IBF-system/commit/9c1d2bb0de5a3fa68ae5d192299dbb495deb1815))
-
-
-
-## [0.271.1](https://github.com/rodekruis/IBF-system/compare/v0.271.0...v0.271.1) (2024-09-30)
-
-
-### Bug Fixes
-
-* change scenario name 'default' to 'trigger' ([63f133b](https://github.com/rodekruis/IBF-system/commit/63f133b15f3717ae52ca61a30c4ee4dc9ebb0e05))
-* rename more occurences of 'default' ([da97514](https://github.com/rodekruis/IBF-system/commit/da97514ab665376160bef85106e33bd40b047efd))
-* switch mock path and body for migrated disaster-types ([e77a1e4](https://github.com/rodekruis/IBF-system/commit/e77a1e45ad5c0442e678d1d9123ca24042d7231f))
 
 
 
