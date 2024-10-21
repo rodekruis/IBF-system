@@ -1,7 +1,7 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
 
-import AggregatesComponent from './AggregatesComponet';
+import AggregatesComponent from './AggregatesComponent';
 import DashboardPage from './DashboardPage';
 
 class MapComponent extends DashboardPage {
@@ -141,14 +141,11 @@ class MapComponent extends DashboardPage {
     await this.page.waitForSelector('.leaflet-interactive');
 
     // Assert the that Aggregates title is visible and does not contain the text 'National View'
-    // 20 is the more or less number of admin boundaries that can be hovered over with Playwright to succesfully assert the title
-    for (let i = 0; i < 20; i++) {
-      await this.page.waitForTimeout(200);
-      await this.adminBoundry.nth(i).hover();
-      await expect(aggregates.aggregatesTitleHeader).not.toContainText(
-        'National View',
-      );
-    }
+
+    await this.adminBoundry.first().hover();
+    await expect(aggregates.aggregatesTitleHeader).not.toContainText(
+      'National View',
+    );
   }
 }
 

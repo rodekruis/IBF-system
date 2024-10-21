@@ -1,5 +1,5 @@
 import { test } from '@playwright/test';
-import AggregatesComponent from 'Pages/AggregatesComponet';
+import AggregatesComponent from 'Pages/AggregatesComponent';
 import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
 import DisasterTypeComponent from 'Pages/DisasterTypeComponent';

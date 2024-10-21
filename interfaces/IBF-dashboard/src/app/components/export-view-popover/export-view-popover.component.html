@@ -1,19 +1,23 @@
 <ion-card data-test="export-view-popover" class="popover-window-card">
   <ion-card-header color="ibf-primary">
     <ion-icon
+      data-testid="export-view-close-button"
       name="close-circle"
       size="large"
       (click)="closePopover()"
       class="popover-close-button"
     ></ion-icon>
-    <ion-card-title>Export View</ion-card-title>
+    <ion-card-title data-testid="export-view-title">Export View</ion-card-title>
   </ion-card-header>
   <ion-card-content class="ion-padding-top">
     <div class="ion-margin-bottom">
       In order to export the current view of the IBF-dashboard, you will need to
       take a screenshot.
     </div>
-    <ion-text [class.ion-hide]="getOperatingSystem() !== 'Windows'">
+    <ion-text
+      data-testid="export-view-windows-os"
+      [class.ion-hide]="getOperatingSystem() !== 'Windows'"
+    >
       <a
         href="https://support.microsoft.com/en-us/windows/open-snipping-tool-and-take-a-screenshot-a35ac9ff-4a58-24c9-3253-f12bac9f9d44"
         title="Instructions to take a screenshot on the Windows Operation System"
@@ -23,7 +27,10 @@
         Instructions to take a screenshot on the Windows Operation System
       </a>
     </ion-text>
-    <ion-text [class.ion-hide]="getOperatingSystem() !== 'MacOS'">
+    <ion-text
+      data-testid="export-view-mac-os"
+      [class.ion-hide]="getOperatingSystem() !== 'MacOS'"
+    >
       <a
         href="https://support.apple.com/en-us/HT201361"
         title="Instructions to take a screenshot on the Mac Operation System"
@@ -33,7 +40,10 @@
         Instructions to take a screenshot on the Mac Operation System
       </a>
     </ion-text>
-    <ion-text [class.ion-hide]="getOperatingSystem() !== 'Linux'">
+    <ion-text
+      data-testid="export-view-linux-os"
+      [class.ion-hide]="getOperatingSystem() !== 'Linux'"
+    >
       <a
         href="https://help.ubuntu.com/stable/ubuntu-help/screen-shot-record.html"
         title="Instructions to take a screenshot on the Linux Operation System"

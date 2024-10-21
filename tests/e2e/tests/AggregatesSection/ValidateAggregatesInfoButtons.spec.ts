@@ -1,7 +1,6 @@
 import { test } from '@playwright/test';
 import AggregatesComponent from 'Pages/AggregatesComponent';
 import DashboardPage from 'Pages/DashboardPage';
-import MapComponent from 'Pages/MapComponent';
 import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
@@ -35,17 +34,16 @@ test.beforeEach(async ({ page }) => {
 });
 
 test(
-  qase(12, 'Aggregates title should be dynamic no-trigger'),
+  qase(13, 'All Aggregate info buttons show on click information'),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
     const aggregates = new AggregatesComponent(page);
-    const map = new MapComponent(page);
 
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
     await aggregates.aggregateComponentIsVisible();
-    await map.turnOffLayer({ layerName: 'Glofas stations' });
-    await map.assertAggregateTitleOnHoverOverMap();
+    await aggregates.validatesAggregatesInfoButtons();
+    await aggregates.validateLayerPopoverExternalLink();
   },
 );
