@@ -16,6 +16,7 @@ class MapComponent extends DashboardPage {
   readonly layerMenu: Locator;
   readonly adminBoundry: Locator;
   readonly layerCheckbox: Locator;
+  readonly legendHeader: Locator;
   readonly layerMenuToggle: Locator;
 
   constructor(page: Page) {
@@ -39,6 +40,7 @@ class MapComponent extends DashboardPage {
     this.layerMenu = this.page.getByTestId('layer-menu');
     this.adminBoundry = this.page.locator('.leaflet-interactive');
     this.layerCheckbox = this.page.getByTestId('matrix-checkbox');
+    this.legendHeader = this.page.getByTestId('map-legend-header');
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
   }
 
@@ -146,6 +148,12 @@ class MapComponent extends DashboardPage {
     await expect(aggregates.aggregatesTitleHeader).not.toContainText(
       'National View',
     );
+  async clickLegendHeader() {
+    await this.legendHeader.click();
+  }
+
+  async clickLayerMenu() {
+    await this.layerMenuToggle.click();
   }
 }
 

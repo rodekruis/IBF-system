@@ -53,6 +53,12 @@ class DashboardPage {
     );
     await this.droughtIcon.click();
   }
+
+  async waitForLoaderToDisappear() {
+    await this.page.waitForSelector('[data-testid=loader]', {
+      state: 'hidden',
+    });
+  }
 }
 
 export default DashboardPage;
