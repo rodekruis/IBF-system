@@ -57,16 +57,6 @@ export class DateButtonComponent implements OnInit, OnDestroy {
       this.firstLine = this.date.toFormat(this.dateFormat);
     }
 
-    if (disasterType === DisasterTypeKey.typhoon) {
-      if (this.active) {
-        this.thirdLine = this.date
-          ? this.date.toFormat(this.hourFormat)
-          : 'Landfall';
-      } else {
-        this.thirdLine = '';
-      }
-    }
-
     this.secondLine = this.date
       ? this.date.toFormat(this.monthFormat)
       : 'Undetermined';
@@ -82,8 +72,23 @@ export class DateButtonComponent implements OnInit, OnDestroy {
         displayMonth = `${displayMonth}-${endMonthDate.monthShort}`;
       }
       this.secondLine = `${displayMonth} ${endMonthDate.year}`;
+    }
 
+    // Refactor: I combined all code that sets thirdLine into one if-statement to avoid confusion. But basically this whole file is one big mess, which fills all 3 lines very hackily.
+    if (disasterType === DisasterTypeKey.typhoon) {
+      if (this.active) {
+        this.thirdLine = this.date
+          ? this.date.toFormat(this.hourFormat)
+          : 'Landfall';
+      }
+    } else if (
+      this.eventName &&
+      this.duration &&
+      disasterType === DisasterTypeKey.drought
+    ) {
       this.thirdLine = `Duration ${this.duration} months`;
+    } else {
+      this.thirdLine = '';
     }
   };
 }
