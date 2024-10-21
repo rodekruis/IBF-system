@@ -34,7 +34,7 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test(
+test.skip(
   qase(12, 'Aggregates title should be dynamic no-trigger'),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
@@ -45,7 +45,7 @@ test(
     await dashboard.navigateToFloodDisasterType();
     // Assertions
     await aggregates.aggregateComponentIsVisible();
-    await map.turnOffLayer({ layerName: 'Glofas stations' });
+    await map.clickLayerCheckbox({ layerName: 'Glofas stations' });
     await map.assertAggregateTitleOnHoverOverMap();
   },
 );

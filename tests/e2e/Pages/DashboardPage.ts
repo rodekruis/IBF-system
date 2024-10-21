@@ -33,6 +33,12 @@ class DashboardPage {
     this.loader = this.page.getByTestId('loader');
   }
 
+  getRandomInt(min: number, max: number): number {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
   async navigateToFloodDisasterType() {
     await this.page.waitForSelector(
       '[data-testid=disaster-type-button-floods]',
@@ -52,6 +58,12 @@ class DashboardPage {
       '[data-testid=disaster-type-button-drought]',
     );
     await this.droughtIcon.click();
+  }
+
+  async waitForLoaderToDisappear() {
+    await this.page.waitForSelector('[data-testid=loader]', {
+      state: 'hidden',
+    });
   }
 }
 
