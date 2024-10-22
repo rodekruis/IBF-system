@@ -230,7 +230,7 @@ export class EventService {
       this.setEventInitially(events[0]);
     } else if (this.skipNationalView(this.disasterType.disasterType)) {
       const triggerEvents = events.filter((e) => e.thresholdReached);
-      const eventToLoad = triggerEvents ? triggerEvents[0] : events[0];
+      const eventToLoad = triggerEvents.length ? triggerEvents[0] : events[0];
       this.setEventInitially(eventToLoad);
     } else {
       this.setEventInitially(null);
