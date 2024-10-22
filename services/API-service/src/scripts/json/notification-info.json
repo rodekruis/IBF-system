@@ -142,7 +142,7 @@
       "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/b6d46eb1-2ae5-e8ea-8497-0180d0399a92.png"
     },
     "triggerStatement": {
-      "floods": "Triggered areas (payams) are those in which the trigger threshold has been reached. The threshold is defined by two parameters from the 7-days GloFAS forecast: the return period of the forecasted flood and the probability of occurrence, these are updated on a daily basis. The trigger is issued when GloFAS forecasts an occurrence with a probability of at least 60% of a 5 year return period flood in the next 7 days. The GloFAS will not trigger in areas where the False Alarm Ratio (FAR) > 0.35.<br><br>Be aware that if a flood alert is issued with less than 7 days of lead time, the EAP may not be activated, please consider alternative response options."
+      "floods": "Triggered areas (payams) are those in which the trigger threshold has been reached. The threshold is defined by two parameters from the 7-days GloFAS forecast: the return period of the forecasted flood and the probability of occurrence, these are updated on a daily basis. The trigger is issued when GloFAS forecasts an occurrence with a probability of at least 60% of a 5 year return period flood in the next 7 days. The GloFAS will not trigger in areas where the False Alarm Ratio (FAR) > 0.35.<br><br>Be aware that if a flood alert is issued with less than 7 days of lead time, there might be not enough time for the pre-agreed early actions, please consider alternative response options."
     },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/G0GXqgiat5J69EQTEKVNec",
