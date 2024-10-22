@@ -18,7 +18,7 @@ export const getMjmlHeader = ({
 }): object => {
   const logosElement = {
     tagName: 'mj-raw',
-    content: `<img src="${logosSrc}" style="display: block; height: 50px; width: auto; margin: auto; background: ${COLOR_WHITE};" />`,
+    content: `<div style="text-align: center;"><img src="${logosSrc}" style="display: block; height: 50px; width: auto; margin: auto; background: ${COLOR_WHITE};" /></div>`,
   };
 
   const titleElement = getTextElement({
