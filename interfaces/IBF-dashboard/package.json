@@ -101,5 +101,8 @@
     "typescript": "^5.4.5",
     "typescript-eslint": "^8.11.0",
     "xlsx": "^0.18.5"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-musl": "^4.24.0"
   }
 }
