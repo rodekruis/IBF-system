@@ -35,7 +35,10 @@ test.beforeEach(async ({ page }) => {
 });
 
 test.skip(
-  qase(12, 'Aggregates title should be dynamic no-trigger'),
+  qase(
+    12,
+    'Aggregates title should be dynamic upon hovering over map district',
+  ),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
     const aggregates = new AggregatesComponent(page);
