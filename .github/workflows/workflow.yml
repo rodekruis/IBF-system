@@ -71,10 +71,7 @@ jobs:
 
   ibf-integration:
     needs: detect-changes
-    if: ${{
-      needs.detect-changes.outputs.ibf-api-service == 'true' ||
-      needs.detect-changes.outputs.ibf-dashboard == 'true'
-      }}
+    if: ${{ needs.detect-changes.outputs.ibf-api-service == 'true' }}
 
     runs-on: ubuntu-latest
 
