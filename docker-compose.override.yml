@@ -1,4 +1,15 @@
 services:
+  nginx:
+    image: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./tools/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./interfaces/IBF-dashboard/www/browser:/var/www/ibf-dashboard
+    networks:
+      - api-network
+    restart: unless-stopped
+
   ibf-api-service:
     command: ['npm', 'run', 'start:dev']
     environment:
@@ -10,11 +21,10 @@ services:
     depends_on:
       - ibf-local-db
     networks:
-      - web-server-network
       - api-network
 
   ibf-dashboard:
-    entrypoint: ['echo', 'Service ibf-dashboard disabled']
+    entrypoint: ['echo', 'ibf-dashboard is disabled']
 
   ibf-geoserver:
     ports:
