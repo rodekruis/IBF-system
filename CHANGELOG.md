@@ -1,3 +1,12 @@
+## [0.274.2](https://github.com/rodekruis/IBF-system/compare/v0.274.1...v0.274.2) (2024-10-22)
+
+
+### Bug Fixes
+
+* center header logo on outlook for windows ([d1ec7e2](https://github.com/rodekruis/IBF-system/commit/d1ec7e2ff15848cdf8629272b6d5f4c1d90985b8))
+
+
+
 ## [0.274.1](https://github.com/rodekruis/IBF-system/compare/v0.274.0...v0.274.1) (2024-10-21)
 
 
@@ -103,15 +112,6 @@
 
 * disable finished-event notifications ([30be269](https://github.com/rodekruis/IBF-system/commit/30be2697bd9eec74d400d1c035f2a25879216a4b))
 * switch all countries to multi-threshold ([f678d99](https://github.com/rodekruis/IBF-system/commit/f678d9921999a0b4c548b716f4e6367e197f6eeb))
-
-
-
-## [0.271.3](https://github.com/rodekruis/IBF-system/compare/v0.271.2...v0.271.3) (2024-10-08)
-
-
-### Bug Fixes
-
-* mock flash floods exposed point assets ([ab58c0e](https://github.com/rodekruis/IBF-system/commit/ab58c0ed0c6cfb2ea72ee108956acbbb7e29ec28))
 
 
 
