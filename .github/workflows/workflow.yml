@@ -70,6 +70,9 @@ jobs:
       - run: npm test
 
   ibf-integration:
+    needs: detect-changes
+    if: ${{ needs.detect-changes.outputs.ibf-api-service == 'true' }}
+
     runs-on: ubuntu-latest
 
     steps:
@@ -80,6 +83,12 @@ jobs:
           mailchimp-api-key: ${{ secrets.MC_API }}
 
   ibf-e2e:
+    needs: detect-changes
+    if: ${{
+      needs.detect-changes.outputs.ibf-api-service == 'true' ||
+      needs.detect-changes.outputs.ibf-dashboard == 'true'
+      }}
+
     runs-on: ubuntu-latest
 
     steps:
@@ -113,4 +122,3 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           git-message: 'chore(release): {version}'
           release-count: 10
-
