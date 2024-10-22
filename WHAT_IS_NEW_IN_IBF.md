@@ -5,6 +5,15 @@ Find here the latest changes to the IBF-system.
 - Not all changes to the IBF-system are listed here. Only those that result in different functionality or different user experience.
 - This list is meant to explain changes since the last manual. Please open the manual from the dashboard for a full explanation on the IBF-system.
 
+### 22-10-2024 (v0.274.3)
+
+- Floods: Flexible lead times. Not only a forecast for the EAP-agreed lead time is presented, but also for shorter lead times.
+- Floods: Forecasts grouped by flood event, where floods in different parts of the country are in separate events, that can each have their own lead time and potentially their own severity level.
+- Floods Uganda: In addition to the trigger level, a low and a medium warning level are defined, which lead to warning flood events, instead of trigger events.
+- All IBF: Trigger/warning notification email has been redesigned
+- All IBF: Updates in design of portal
+- All IBF: Because of above changes, PDF and video manuals are not completely up to date any more, especially for Floods.
+
 ### 16-10-2023 (v0.259.0)
 
 - Flash-floods, Heavy rain, Dengue, Malaria and Floods: Replaced the map admin-level switcher with breadcrumbs.
