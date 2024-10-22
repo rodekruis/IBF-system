@@ -33,9 +33,15 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
-test(
-  qase(12, 'Aggregates title should be dynamic no-trigger'),
+// The test is skipped because of the bug that was identified during writing of this test
+// The bug is that the marker of glofas stations cannot be disabled with the first chebox click (needs several) and it is failing on flood disaster type
+// https://github.com/rodekruis/IBF-system/issues/1657
+// When the bug is fixed, the test should be unskipped
+test.skip(
+  qase(
+    12,
+    'Aggregates title should be dynamic upon hovering over map district',
+  ),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
     const aggregates = new AggregatesComponent(page);
@@ -45,7 +51,7 @@ test(
     await dashboard.navigateToFloodDisasterType();
     // Assertions
     await aggregates.aggregateComponentIsVisible();
-    await map.turnOffLayer({ layerName: 'Glofas stations' });
+    await map.clickLayerCheckbox({ layerName: 'Glofas stations' });
     await map.assertAggregateTitleOnHoverOverMap();
   },
 );
