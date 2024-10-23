@@ -155,10 +155,11 @@ export class TyphoonTrackService {
       const closestToLandTimestamp = new Date(
         typhoonTrackPoints.find(
           (point) => point.closestToLand,
-        ).timestampOfTrackpoint,
+        )?.timestampOfTrackpoint,
       );
 
       typhoonNoLandfallYet =
+        closestToLandTimestamp &&
         maxTimestamp.getTime() === closestToLandTimestamp.getTime();
     }
 
