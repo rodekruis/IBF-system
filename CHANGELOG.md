@@ -1,3 +1,12 @@
+## [0.274.4](https://github.com/rodekruis/IBF-system/compare/v0.274.3...v0.274.4) (2024-10-23)
+
+
+### Bug Fixes
+
+* don't break if closestToLand point missing ([5306093](https://github.com/rodekruis/IBF-system/commit/530609320276813de82f14257537bcd50f85667a))
+
+
+
 ## [0.274.3](https://github.com/rodekruis/IBF-system/compare/v0.274.2...v0.274.3) (2024-10-22)
 
 
@@ -85,15 +94,6 @@
 ### Bug Fixes
 
 * update en.json import ([9683842](https://github.com/rodekruis/IBF-system/commit/9683842d5896a9a411dde02592aaddc24a63c337))
-
-
-
-## [0.272.1](https://github.com/rodekruis/IBF-system/compare/v0.272.0...v0.272.1) (2024-10-14)
-
-
-### Bug Fixes
-
-* area speech bbubble appears twice ([2d7ea68](https://github.com/rodekruis/IBF-system/commit/2d7ea687017011c066e383561de5f010a07b3f34))
 
 
 
