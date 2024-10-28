@@ -208,29 +208,27 @@
           "
         ></p>
       }
-      @for (class of alertClasses; track class.alertClass) {
-        <div>
-          <ul class="list-inside list-disc text-xs">
-            @for (area of class.areas; track area.eventPlaceCodeId) {
-              <li
-                class="my-1 cursor-pointer hover:underline"
-                (click)="selectArea(area)"
-              >
-                {{ area.name }}
-                @if (area.nameParent) {
-                  <span>({{ area.nameParent }})</span>
-                }
-                @if (area.actionsValue && area.actionsValue > 0) {
-                  {{ ' - ' }}
-                  <span>{{
-                    area.actionsValue | compact: actionIndicatorNumberFormat
-                  }}</span>
-                }
-              </li>
-            }
-          </ul>
-        </div>
-      }
+      <div>
+        <ul class="list-inside list-disc text-xs">
+          @for (area of areas; track area.eventPlaceCodeId) {
+            <li
+              class="my-1 cursor-pointer hover:underline"
+              (click)="selectArea(area)"
+            >
+              {{ area.name }}
+              @if (area.nameParent) {
+                <span>({{ area.nameParent }})</span>
+              }
+              @if (area.actionsValue && area.actionsValue > 0) {
+                {{ ' - ' }}
+                <span>{{
+                  area.actionsValue | compact: actionIndicatorNumberFormat
+                }}</span>
+              }
+            </li>
+          }
+        </ul>
+      </div>
       @if (event.thresholdReached) {
         <p
           [translate]="
@@ -261,32 +259,25 @@
               }
       "
     ></p>
-    @for (class of alertClasses; track class.alertClass) {
-      <div>
-        @if (class.alertClass !== 'undefined') {
-          <p class="ion-padding-top">
-            <strong>{{ class.alertClass }}</strong>
-          </p>
+    <div>
+      <ul class="list-inside list-disc text-xs">
+        @for (area of areas; track area.eventPlaceCodeId) {
+          <li
+            class="my-1 cursor-pointer hover:underline"
+            (click)="selectArea(area)"
+          >
+            {{ area.name }}
+            @if (area.nameParent) {
+              <span>({{ area.nameParent }})</span>
+            }
+            -
+            <span>{{
+              area.actionsValue | compact: actionIndicatorNumberFormat
+            }}</span>
+          </li>
         }
-        <ul class="list-inside list-disc text-xs">
-          @for (area of class.areas; track area.eventPlaceCodeId) {
-            <li
-              class="my-1 cursor-pointer hover:underline"
-              (click)="selectArea(area)"
-            >
-              {{ area.name }}
-              @if (area.nameParent) {
-                <span>({{ area.nameParent }})</span>
-              }
-              -
-              <span>{{
-                area.actionsValue | compact: actionIndicatorNumberFormat
-              }}</span>
-            </li>
-          }
-        </ul>
-      </div>
-    }
+      </ul>
+    </div>
     <p
       [translate]="
         'chat-component.' + disasterTypeName + '.stopped-event.instruction'
