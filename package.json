@@ -22,8 +22,7 @@
   "devDependencies": {
     "pre-commit": "^1.2.2",
     "pre-push": "^0.1.4",
-    "prettier": "^2.6.2",
-    "puppeteer": "^8.0.0"
+    "prettier": "^2.6.2"
   },
   "pre-commit": "lint"
 }

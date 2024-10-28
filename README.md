@@ -99,29 +99,6 @@ These commands will install the IBF-system with listeners at,
 Please read the troubleshoot guidlelines to support the insatllation of IBF in the
 [TROUBLESHOOT.md](/docs/TROUBLESHOOT.md)
 
-## Integration tests
-
-### Cypress (THE USE OF CYPRESS IS DEPRECATED FOR IBF)
-
-We use Cypress for automated integration testing in this project.
-Installation:
-
-0. (Potentially on Ubuntu?:
-   `sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb`)
-
-1. In root folder `npm install --only=dev`
-
-   - This should download and install Cypress
-   - If it fails, find out why and/or install Cypress in some other way (e.g.
-     `npm install cypress`)
-
-2. Set necessary environment variables by copying `cypress.env.json.example` to `cypress.env.json` and filling in the variables.
-
-3. Run `npm run cypress:open`
-
-   - When the Cypress window opens click on 'Run X integration specs'
-   - Alternatively run `npm run cypress:start` to run from commandline
-
 ## Releases
 
 See notable changes and the currently released version in
@@ -131,8 +108,6 @@ See notable changes and the currently released version in
 
 ### Release Checklist
 
-- [ ] Check if the latest integration tests passed on
-      [Cypress Dashboard](https://dashboard.cypress.io/projects/jkaw7k/runs?branches=%5B%5D&committers=%5B%5D&flaky=%5B%5D&page=1&status=%5B%5D&tags=%5B%5D&timeRange=%7B%22startDate%22%3A%221970-01-01%22%2C%22endDate%22%3A%222038-01-19%22%7D).
 - [ ] Pick a tag to release. Generally this is the latest tag in [tags](https://github.com/rodekruis/IBF-system/tags).
 - [ ] Click the 'Create release' button.
 - [ ] Enter as release title the tag-name (e.g. v0.128.5).
