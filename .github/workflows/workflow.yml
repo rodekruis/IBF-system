@@ -13,6 +13,8 @@ jobs:
     outputs:
       ibf-api-service: ${{ steps.filter.outputs.ibf-api-service }}
       ibf-dashboard: ${{ steps.filter.outputs.ibf-dashboard }}
+      ibf-e2e: ${{ steps.filter.outputs.ibf-e2e }}
+      ibf-integration: ${{ steps.filter.outputs.ibf-integration }}
 
     steps:
       - uses: actions/checkout@v4
