@@ -63,7 +63,7 @@
     "@angular/compiler": "^18.1.0",
     "@angular/compiler-cli": "^18.1.0",
     "@angular/language-service": "^18.1.0",
-    "@ionic/cli": "^6.12.4",
+    "@ionic/cli": "^7.2.0",
     "@tailwindcss/aspect-ratio": "latest",
     "@tailwindcss/forms": "latest",
     "@tailwindcss/line-clamp": "latest",
@@ -90,6 +90,6 @@
     "prettier-plugin-tailwindcss": "^0.6.6",
     "tailwindcss": "^3.1.6",
     "typescript": "^5.4.5",
-    "xlsx": "^0.17.5"
+    "xlsx": "^0.18.5"
   }
 }
