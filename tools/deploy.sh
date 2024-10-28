@@ -84,17 +84,6 @@ function deploy() {
         fi
     }
 
-    function test_performance() {
-        if [[ $NODE_ENV="test" ]]
-        then
-            log "Run performance tests on $NODE_ENV environment..."
-            cd "$repo" || return
-            npm run test:performance
-        else
-            log "Skip performance tests on $NODE_ENV environment..."
-        fi
-    }
-
     update_code "$target"
 
     load_environment_variables
@@ -106,8 +95,6 @@ function deploy() {
     cleanup_docker
 
     test_integration
-
-    # test_performance
 
     restart_webhook_service
 
