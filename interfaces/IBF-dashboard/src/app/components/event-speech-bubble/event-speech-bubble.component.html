@@ -133,7 +133,7 @@
           >
         }
       </p>
-      @if (event.affectedAreas) {
+      @if (nrAffectedAreas > 0) {
         <p>
           <strong
             >{{
@@ -141,7 +141,7 @@
                 | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
             }}
           </strong>
-          <span>{{ event.affectedAreas + ' ' }}</span>
+          <span>{{ nrAffectedAreas + ' ' }}</span>
           @if (event.thresholdReached) {
             <span>{{
               '(' +

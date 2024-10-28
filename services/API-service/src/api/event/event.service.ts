@@ -174,7 +174,6 @@ export class EventService {
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
-        'count(event."adminAreaId")::int AS "affectedAreas"',
         'MAX(event."triggerValue")::float AS "triggerValue"',
         'sum(event."actionsValue")::int AS "actionsValueSum"',
       ])
@@ -366,6 +365,7 @@ export class EventService {
         'event."stopped"',
         'event."startDate"',
         'event."manualStoppedDate" AS "stoppedDate"',
+        'event."eventName" as "eventName"',
         '"user"."firstName" || \' \' || "user"."lastName" AS "displayName"',
         'parent.name AS "nameParent"',
       ])

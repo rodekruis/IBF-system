@@ -54,6 +54,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   public isStopped: boolean;
   private placeCodeHoverSubscription: Subscription;
   public placeCodeHover: PlaceCode;
+  public nrAffectedAreas: number;
 
   constructor(
     private authService: AuthService,
@@ -69,7 +70,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     if (this.authService.displayName) {
       this.displayName = this.authService.displayName;
     }
-    console.log('areas: ', this.areas);
 
     this.placeCodeHoverSubscription = this.placeCodeService
       .getPlaceCodeHoverSubscription()
@@ -79,6 +79,9 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
 
     if (this.event) {
       this.event['header'] = this.getHeader(this.event);
+      this.nrAffectedAreas = this.areas.filter(
+        (a) => a.eventName === this.event.eventName,
+      ).length;
     }
   }
 

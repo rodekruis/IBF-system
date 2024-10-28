@@ -54,6 +54,9 @@ export class TriggeredArea {
 
   @ApiProperty({ example: 'Henry Dunant' })
   public displayName: string;
+
+  @ApiProperty({ example: 'G1966' })
+  public eventName: string;
 }
 
 export class EapAlertClass {
@@ -107,7 +110,4 @@ export class EventSummaryCountry {
 
   @ApiProperty({ example: 100 })
   public triggerValue: number;
-
-  @ApiProperty({ example: 5 })
-  public affectedAreas: number;
 }
