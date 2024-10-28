@@ -1,4 +1,5 @@
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -17,6 +18,7 @@ describe('ChangePasswordPopoverComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ChangePasswordPopoverComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [IonicModule.forRoot(), FormsModule, RouterTestingModule],
       providers: [
         { provide: AuthService },
