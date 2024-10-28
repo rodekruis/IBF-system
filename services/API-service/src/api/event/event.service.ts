@@ -479,6 +479,7 @@ export class EventService {
         startDate: area.startDate,
         stoppedDate: area.stoppedDate,
         displayName: area.displayName,
+        eventName: eventName,
         eapActions: [],
       };
     });
