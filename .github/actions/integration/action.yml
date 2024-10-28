@@ -34,7 +34,7 @@ runs:
 
     - name: Wait for IBF API-service to be running
       shell: bash
-      run: timeout 90s sh -c 'until curl http://localhost:3000/api -I; do echo "Waiting for the IBF API-service to be running..."; sleep 1; done'
+      run: timeout 60s sh -c 'until curl http://localhost:3000/api -I; do echo "Waiting for the IBF API-service to be running..."; sleep 1; done'
 
     - name: Run integration tests
       shell: bash
