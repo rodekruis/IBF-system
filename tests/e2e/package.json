@@ -14,7 +14,7 @@
     "@types/jest": "^29.5.14",
     "@types/node": "^22.5.4",
     "@types/supertest": "^6.0.2",
-    "eslint": "^8.57.0",
+    "eslint": "^9.13.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-promise": "^7.1.0",
