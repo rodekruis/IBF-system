@@ -73,7 +73,7 @@
     "prettier": "^2.7.1",
     "swagger-ui-express": "^4.0.6",
     "ts-jest": "^24.3.0",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "tsc-watch": "^6.0.0",
     "tsconfig-paths": "^3.9.0",
     "xlsx": "^0.18.5",
