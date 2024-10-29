@@ -3,7 +3,7 @@
     "countryCodeISO3": "UGA",
     "countryCodeISO2": "UG",
     "countryName": "Uganda",
-    "disasterTypes": ["floods", "heavy-rain"],
+    "disasterTypes": ["floods", "drought", "heavy-rain"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -268,7 +268,7 @@
     "countryCodeISO3": "ZMB",
     "countryCodeISO2": "ZM",
     "countryName": "Zambia",
-    "disasterTypes": ["floods"],
+    "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -665,7 +665,7 @@
     "countryCodeISO3": "ETH",
     "countryCodeISO2": "ET",
     "countryName": "Ethiopia",
-    "disasterTypes": ["floods", "drought"],
+    "disasterTypes": ["floods", "malaria", "drought"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -903,7 +903,7 @@
     "countryCodeISO3": "PHL",
     "countryCodeISO2": "PH",
     "countryName": "Philippines",
-    "disasterTypes": ["typhoon", "floods"],
+    "disasterTypes": ["dengue", "typhoon", "floods"],
     "countryDisasterSettings": [
       {
         "disasterType": "dengue",
