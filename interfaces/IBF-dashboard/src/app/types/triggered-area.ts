@@ -7,7 +7,6 @@ export class TriggeredArea {
   displayName: string;
   eapActions: EapAction[];
   eventPlaceCodeId: string;
-  eventName: string;
   name: string;
   nameParent: string;
   placeCode: string;

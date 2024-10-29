@@ -35,6 +35,7 @@ export class EventSummary {
   duration?: number;
   disasterSpecificProperties: DisasterSpecificProperties;
   header?: string;
+  nrAffectedAreas?: number;
   actionsValueSum?: number;
 }
 

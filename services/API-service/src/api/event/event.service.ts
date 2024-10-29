@@ -174,6 +174,7 @@ export class EventService {
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
+        'SUM(CASE WHEN event."actionsValue" > 0 OR event."triggerValue" > 0 THEN 1 ELSE 0 END) AS "nrAffectedAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
         'MAX(event."triggerValue")::float AS "triggerValue"',
         'sum(event."actionsValue")::int AS "actionsValueSum"',
       ])
@@ -479,7 +480,6 @@ export class EventService {
         startDate: area.startDate,
         stoppedDate: area.stoppedDate,
         displayName: area.displayName,
-        eventName: eventName,
         eapActions: [],
       };
     });
