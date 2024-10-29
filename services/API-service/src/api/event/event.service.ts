@@ -354,7 +354,7 @@ export class EventService {
     if (eventName) {
       whereFiltersEvent['eventName'] = eventName;
     }
-    const triggeredAreasQuery = this.eventPlaceCodeRepo
+    const triggeredAreas = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
         'area."placeCode" AS "placeCode"',
@@ -366,7 +366,6 @@ export class EventService {
         'event."stopped"',
         'event."startDate"',
         'event."manualStoppedDate" AS "stoppedDate"',
-        'event."eventName" as "eventName"',
         '"user"."firstName" || \' \' || "user"."lastName" AS "displayName"',
         'parent.name AS "nameParent"',
       ])
@@ -381,14 +380,9 @@ export class EventService {
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
-      .orderBy('event."actionsValue"', 'DESC');
-
-    if (triggeredPlaceCodes.length) {
-      triggeredAreasQuery.andWhere('area."placeCode" IN(:...placeCodes)', {
-        placeCodes: triggeredPlaceCodes,
-      });
-    }
-    const triggeredAreas = await triggeredAreasQuery.getRawMany();
+      .andWhere('(event."actionsValue" > 0 OR event."triggerValue" > 0)')
+      .orderBy('event."actionsValue"', 'DESC')
+      .getRawMany();
 
     for (const area of triggeredAreas) {
       if (triggeredPlaceCodes.length === 0) {

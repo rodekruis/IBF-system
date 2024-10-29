@@ -135,9 +135,7 @@ export class EapActionsService {
   }
 
   private onTriggeredAreas = (triggeredAreas) => {
-    this.triggeredAreas = triggeredAreas.filter(
-      (area) => area.actionsValue > 0 || area.triggerValue > 0,
-    ); // REFACTOR: Quick fix to filter out areas with 0 exposure (PHL typhoon), but at the same time not filter out warning-areas in UGA floods. Properly solve later.
+    this.triggeredAreas = triggeredAreas;
     this.triggeredAreas.sort((a, b) => {
       if (a.triggerValue === b.triggerValue) {
         return a.actionsValue > b.actionsValue ? -1 : 1;
