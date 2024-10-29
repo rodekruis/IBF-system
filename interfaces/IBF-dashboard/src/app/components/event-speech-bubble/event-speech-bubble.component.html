@@ -133,35 +133,33 @@
           >
         }
       </p>
-      @if (nrAffectedAreas > 0) {
-        <p>
-          <strong
-            >{{
-              'chat-component.' + disasterTypeName + '.alertLevel.exposed-areas'
-                | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
-            }}
-          </strong>
-          <span>{{ nrAffectedAreas + ' ' }}</span>
-          @if (event.thresholdReached) {
-            <span>{{
+      <p>
+        <strong
+          >{{
+            'chat-component.' + disasterTypeName + '.alertLevel.exposed-areas'
+              | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
+          }}
+        </strong>
+        <span>{{ nrAffectedAreas + ' ' }}</span>
+        @if (event.thresholdReached) {
+          <span>{{
+            '(' +
+              (actionIndicatorLabel | titlecase) +
+              ' ' +
+              (event.actionsValueSum | compact) +
+              ')'
+          }}</span>
+        } @else {
+          <span>
+            {{
               '(' +
-                (actionIndicatorLabel | titlecase) +
-                ' ' +
-                (event.actionsValueSum | compact) +
+                ('chat-component.' + disasterTypeName + '.alertLevel.no-data'
+                  | translate) +
                 ')'
-            }}</span>
-          } @else {
-            <span>
-              {{
-                '(' +
-                  ('chat-component.' + disasterTypeName + '.alertLevel.no-data'
-                    | translate) +
-                  ')'
-              }}
-            </span>
-          }
-        </p>
-      }
+            }}
+          </span>
+        }
+      </p>
     }
 
     @if (typhoonLandfallText) {

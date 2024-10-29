@@ -65,21 +65,19 @@
       @if (
         filteredStoppedAreas.length === 0 && filteredActiveAreas.length === 0
       ) {
-        @if (activeAreas.length) {
-          <app-event-speech-bubble
-            [type]="'active'"
-            [event]="event"
-            [selectedEvent]="eventState?.event?.eventName"
-            [disasterTypeLabel]="disasterType?.label"
-            [disasterTypeName]="disasterType?.disasterType"
-            [clearOutMessage]="getClearOutMessage(event)"
-            [countryCodeISO3]="country?.countryCodeISO3"
-            [areas]="activeAreas"
-            [adminAreaLabelPlural]="adminAreaLabelPlural"
-            [actionIndicatorLabel]="actionIndicatorLabel"
-            [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
-          ></app-event-speech-bubble>
-        }
+        <app-event-speech-bubble
+          [type]="'active'"
+          [event]="event"
+          [selectedEvent]="eventState?.event?.eventName"
+          [disasterTypeLabel]="disasterType?.label"
+          [disasterTypeName]="disasterType?.disasterType"
+          [clearOutMessage]="getClearOutMessage(event)"
+          [countryCodeISO3]="country?.countryCodeISO3"
+          [areas]="activeAreas"
+          [adminAreaLabelPlural]="adminAreaLabelPlural"
+          [actionIndicatorLabel]="actionIndicatorLabel"
+          [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+        ></app-event-speech-bubble>
         @if (stoppedAreas.length) {
           <app-event-speech-bubble
             [type]="'stopped'"
