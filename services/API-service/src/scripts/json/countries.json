@@ -498,7 +498,7 @@
           "6-day",
           "7-day"
         ],
-        "eapLink": "https://rodekruis.sharepoint.com/:w:/r/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0cd2cac495841490ca69f208f8417a6df&authkey=AanLvhB0DzhoT7ZJK5oGFGc&expiration=2023-10-30T23%3A00%3A00.000Z&e=Anes64&ovuser=d3ab9790-6ae2-4bd8-aa5e-02864483e7c7%2Cjannisvisser%40redcross.nl&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIyNy8yMjEwMTQwNjMwMCIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D",
+        "eapLink": "https://510ibfsystem.blob.core.windows.net/about-trigger/SSD-about-trigger.pdf",
         "eapAlertClasses": {
           "no": {
             "label": "No action",
@@ -910,7 +910,7 @@
         "adminLevels": [2],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
-        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm",
+        "eapLink": "https://510ibfsystem.blob.core.windows.net/about-trigger/IBF_dengue_technical_note.pdf",
         "isEventBased": true
       },
       {
