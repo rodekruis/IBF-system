@@ -65,19 +65,17 @@ const getMjmlEventAdminAreaTable = ({
     },
   });
 
-  const adminAreaList = event.triggeredAreas
-    .filter(({ actionsValue }) => actionsValue)
-    .map((triggeredArea) => {
-      return {
-        exposed: toCompactNumber(
-          triggeredArea.actionsValue,
-          indicatorMetadata.numberFormatMap,
-        ),
-        name: `${triggeredArea.name} ${
-          triggeredArea.nameParent ? `(${triggeredArea.nameParent})` : ''
-        }`,
-      };
-    });
+  const adminAreaList = event.triggeredAreas.map((triggeredArea) => {
+    return {
+      exposed: toCompactNumber(
+        triggeredArea.actionsValue,
+        indicatorMetadata.numberFormatMap,
+      ),
+      name: `${triggeredArea.name} ${
+        triggeredArea.nameParent ? `(${triggeredArea.nameParent})` : ''
+      }`,
+    };
+  });
 
   const adminAreaTable = getAdminAreaTable({
     adminAreaList,

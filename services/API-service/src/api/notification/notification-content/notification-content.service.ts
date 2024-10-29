@@ -177,11 +177,7 @@ export class NotificationContentService {
       disasterType,
       event,
     );
-    data.nrOfTriggeredAreas = await this.getNrOfTriggeredAreas(
-      data.triggeredAreas,
-      data.triggerStatusLabel,
-      disasterType,
-    );
+    data.nrOfTriggeredAreas = data.triggeredAreas.length;
     // This looks weird, but as far as I understand the startDate of the event is the day it was first issued
     data.issuedDate = new Date(event.startDate);
     data.firstLeadTimeString = await this.getFirstLeadTimeString(
@@ -202,28 +198,6 @@ export class NotificationContentService {
     );
     data.eapAlertClass = event.disasterSpecificProperties?.eapAlertClass;
     return data;
-  }
-
-  private async getNrOfTriggeredAreas(
-    triggeredAreas: TriggeredArea[],
-    statusLabel: TriggerStatusLabelEnum,
-    disasterType: DisasterType,
-  ): Promise<number> {
-    // This filters out the areas that are affected by the event but do not have any affect action units
-    // Affected action units are for example people_affected, houses_affected, etc (differs per disaster type)
-    // We are not sure why this is done, but it is done in the original code
-    // For warning flood events this is not done, because there are no flood extens for warning events so we do not know any actions values
-    if (
-      disasterType === DisasterType.Floods &&
-      statusLabel === TriggerStatusLabelEnum.Warning
-    ) {
-      return triggeredAreas.length;
-    } else {
-      const triggeredAreasWithoutActionValue = triggeredAreas.filter(
-        (a) => a.actionsValue > 0,
-      );
-      return triggeredAreasWithoutActionValue.length;
-    }
   }
 
   private async getSortedTriggeredAreas(
