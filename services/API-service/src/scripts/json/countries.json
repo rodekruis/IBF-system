@@ -19,7 +19,7 @@
           "6-day",
           "7-day"
         ],
-        "eapLink": "https://docs.google.com/document/d/1z4KfTIF1aJKgx-te8gPY6Scr2FcYR51x/edit#bookmark=id.j5clfgl1ywrd",
+        "eapLink": "https://510ibfsystem.blob.core.windows.net/about-trigger/URCS Final EAP - Ug Floods_28092020 MO-NE-2021_March_NE_Final(1).pdf",
         "eapAlertClasses": {
           "no": {
             "label": "No action",
@@ -402,7 +402,7 @@
           "6-day",
           "7-day"
         ],
-        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=035b1d36a17c94db1855152253a141227&authkey=AePN7DrtvirE98a6YfPlDLM&expiration=2023-08-09T22%3A00%3A00.000Z&e=6YZPE0",
+        "eapLink": "https://510ibfsystem.blob.core.windows.net/about-trigger/MWI-EAP-document.pdf",
         "eapAlertClasses": {
           "no": {
             "label": "No action",
@@ -498,7 +498,7 @@
           "6-day",
           "7-day"
         ],
-        "eapLink": "https://rodekruis.sharepoint.com/:w:/r/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0cd2cac495841490ca69f208f8417a6df&authkey=AanLvhB0DzhoT7ZJK5oGFGc&expiration=2023-10-30T23%3A00%3A00.000Z&e=Anes64&ovuser=d3ab9790-6ae2-4bd8-aa5e-02864483e7c7%2Cjannisvisser%40redcross.nl&clickparams=eyJBcHBOYW1lIjoiVGVhbXMtRGVza3RvcCIsIkFwcFZlcnNpb24iOiIyNy8yMjEwMTQwNjMwMCIsIkhhc0ZlZGVyYXRlZFVzZXIiOmZhbHNlfQ%3D%3D",
+        "eapLink": "https://510ibfsystem.blob.core.windows.net/about-trigger/SSD-about-trigger.pdf",
         "eapAlertClasses": {
           "no": {
             "label": "No action",
@@ -910,7 +910,7 @@
         "adminLevels": [2],
         "defaultAdminLevel": 2,
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
-        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0f9249b35da4d4c0a985b33393fc388df&authkey=AQSLnnafGF-M2t1CGIg0hdA&expiration=2022-06-29T22%3A00%3A00.000Z&e=2asHJm",
+        "eapLink": "https://510ibfsystem.blob.core.windows.net/about-trigger/IBF_dengue_technical_note.pdf",
         "isEventBased": true
       },
       {
@@ -1089,7 +1089,7 @@
           "168-hour"
         ],
         "isEventBased": true,
-        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=019cd8c5dca4240d5bacca0756bbf6703&authkey=AUnDxa6EBrEIYrzZGBbKkGE&expiration=2022-10-17T22%3A00%3A00.000Z&e=caLZ0C"
+        "eapLink": "https://reliefweb.int/report/philippines/philippines-typhoon-early-action-protocol-summary-eap-no-eap2024ph03-operation-no-mdrph055"
       },
       {
         "disasterType": "floods",
