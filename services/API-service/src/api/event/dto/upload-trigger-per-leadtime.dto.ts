@@ -10,8 +10,8 @@ import {
   ValidateNested,
 } from 'class-validator';
 
+import triggers from '../../../scripts/mock-data/floods/UGA/trigger/G5075/triggers-per-leadtime.json';
 import { DisasterType } from '../../disaster/disaster-type.enum';
-import triggers from './example/triggers-per-leadtime-UGA-triggered.json';
 import { TriggerPerLeadTimeDto } from './trigger-per-leadtime.dto';
 
 export class UploadTriggerPerLeadTimeDto {
