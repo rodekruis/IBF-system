@@ -26,9 +26,9 @@ services:
   ibf-dashboard:
     entrypoint: ['echo', 'ibf-dashboard is disabled']
 
-  ibf-geoserver:
-    ports:
-      - 8081:8080
+  # ibf-geoserver:
+  #   ports:
+  #     - 8081:8080
 
   ibf-local-db:
     image: postgis/postgis

@@ -30,6 +30,8 @@ services:
       - EXTERNAL_API_SERVICE_URL=${EXTERNAL_API_SERVICE_URL}
       - TWILIO_WHATSAPP_NUMBER=${TWILIO_WHATSAPP_NUMBER}
       - API_SERVICE_URL=${API_SERVICE_URL}
+    ports:
+      - 3000:3000
     volumes:
       - 'api_service_node_modules:/home/ibf/api-service/node_modules'
       - ./services/API-service:/home/ibf/api-service
@@ -74,6 +76,8 @@ services:
     environment:
       - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD}
       - JAVA_OPTS="-DALLOW_ENV_PARAMETRIZATION=true"
+    ports:
+      - 8081:8080
     volumes:
       - ./services/API-service/geoserver-volume/raster-files:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
       - ./services/API-service/geoserver-volume/geoserver-layers:/opt/geoserver/data_dir/workspaces/ibf-system
