@@ -38,11 +38,14 @@
       1. Follow instructions in Source for Node 16
       2. Verification - `node -v`
    2. Docker [Source](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
-      1. Follow instructions in Source all th
+      1. Follow instructions in Source
       2. Verification - `docker -v`
       3. Allow users to access docker commands
          1. `sudo usermod -aG docker <username>`
          2. Verification - `grep docker /etc/group`
+   3. Nginx [Source](https://ubuntu.com/tutorials/install-and-configure-nginx#2-installing-nginx)
+      1. Follow instructions in Source
+      2. Verification - `nginx -v`
 3. Setup IBF-system
    1. `cd /home/ibf-user`
    2. `git clone https://github.com/rodekruis/IBF-system.git`
@@ -61,7 +64,11 @@
          3. Load the `.env` vars by `source /home/ibf-user/IBF-system/.env`
          4. Test if the vars were loaded correctly `echo $NODE_ENV`
    8. Load certificate: load `DigiCertGlobalRootCA.crt.pem` in `services/API-service/cert` for connection to Azure Postgres server (if applicable)
-   9. `. tools/deploy.sh`
+   9. Set up Nginx
+      1. `cp tools/nginx.conf /etc/nginx/sites-enabled`
+      2. `sudo service nginx restart`
+      3. Verification - `service nginx status`
+   10. `. tools/deploy.sh`
 4. Load base data
 
    1. Load Geoserver source data
