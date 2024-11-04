@@ -1,3 +1,19 @@
+## [0.274.5](https://github.com/rodekruis/IBF-system/compare/v0.274.4...v0.274.5) (2024-11-04)
+
+
+### Bug Fixes
+
+* filter area list on actionsValue > 0 in front-end ([d6eb033](https://github.com/rodekruis/IBF-system/commit/d6eb03361b0a05f3dfcdd7849681d6757d1f17ef))
+* filter in back-end instead of front-end after all ([290dc4f](https://github.com/rodekruis/IBF-system/commit/290dc4f4cd42589def91f8343bef99a24f06782b))
+* filter on actionsValue > 0 OR triggerValue > 0 to leave in warning areas floods. ([e432731](https://github.com/rodekruis/IBF-system/commit/e432731951dddafb84539edf2dec7c63e14ecf95))
+* get area list count from array length instead of separately in backend ([b72e3b3](https://github.com/rodekruis/IBF-system/commit/b72e3b3424b2c961bf331cc662c65e8c1aefc8ad))
+* get count per event from back-end again ([ce55164](https://github.com/rodekruis/IBF-system/commit/ce551640f79e2563afb6bf12514a960ba6008d41))
+* missing eventName ([892ce19](https://github.com/rodekruis/IBF-system/commit/892ce19d021e804d51f177058919230ea1d9b1b4))
+* revert email-specific filtering as this is already done at the source now ([17fb63a](https://github.com/rodekruis/IBF-system/commit/17fb63a5e6b6f528b102aaa29359d1e0964c9626))
+* show speech bubble if 0 areas ([a46cfd2](https://github.com/rodekruis/IBF-system/commit/a46cfd269d18b1bfe1144a8b88b9e98a4e3727ac))
+
+
+
 ## [0.274.4](https://github.com/rodekruis/IBF-system/compare/v0.274.3...v0.274.4) (2024-10-23)
 
 
@@ -85,15 +101,6 @@
 ### Features
 
 * reverse multi-threshold other countries ([b2acf60](https://github.com/rodekruis/IBF-system/commit/b2acf601077c50c3949c6f2b39db3cf4fb4cea08))
-
-
-
-## [0.272.2](https://github.com/rodekruis/IBF-system/compare/v0.272.1...v0.272.2) (2024-10-15)
-
-
-### Bug Fixes
-
-* update en.json import ([9683842](https://github.com/rodekruis/IBF-system/commit/9683842d5896a9a411dde02592aaddc24a63c337))
 
 
 
