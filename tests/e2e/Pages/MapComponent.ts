@@ -19,6 +19,7 @@ class MapComponent extends DashboardPage {
   readonly legendHeader: Locator;
   readonly layerMenuToggle: Locator;
   readonly redCrossMarker: Locator;
+  readonly gloFASMarker: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -44,6 +45,7 @@ class MapComponent extends DashboardPage {
     this.legendHeader = this.page.getByTestId('map-legend-header');
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
     this.redCrossMarker = this.page.getByAltText('red-cross-branch-marker');
+    this.gloFASMarker = this.page.getByAltText('glofas-station-marker');
   }
 
   async mapComponentIsVisible() {
@@ -170,6 +172,19 @@ class MapComponent extends DashboardPage {
 
     // Assert that the number of red cross markers is greater than 0 and randomly select one to be visible
     expect(redCrossMarkersCount).toBeGreaterThan(0);
+    await expect(this.redCrossMarker.nth(nthSelector)).toBeVisible();
+  }
+
+  async gloFASMarkersAreVisible() {
+    // Wait for the page to load
+    await this.page.waitForSelector('[alt="glofas-station-marker"]');
+
+    // Count the number of red cross markers
+    const gloFASMarkersCount = await this.gloFASMarker.count();
+    const nthSelector = this.getRandomInt(1, gloFASMarkersCount);
+
+    // Assert that the number of red cross markers is greater than 0 and randomly select one to be visible
+    expect(gloFASMarkersCount).toBeGreaterThan(0);
     await expect(this.redCrossMarker.nth(nthSelector)).toBeVisible();
   }
 }
