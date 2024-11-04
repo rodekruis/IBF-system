@@ -45,7 +45,7 @@ import { firstCharOfWordsToUpper } from 'src/shared/utils';
 })
 export class AggregatesComponent implements OnInit, OnDestroy {
   @Input()
-  public areaStatus: AreaStatus;
+  public areaStatus: string;
 
   public indicators: Indicator[] = [];
   public placeCode: PlaceCode;
@@ -242,7 +242,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       indicatorName,
       this.getPlaceCodeValue(),
       numberFormat,
-      this.areaStatus,
+      this.areaStatus as AreaStatus,
     );
 
     return agg;
