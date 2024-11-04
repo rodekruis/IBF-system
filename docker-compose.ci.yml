@@ -10,7 +10,6 @@ services:
     depends_on:
       - ibf-local-db
     networks:
-      - web-server-network
       - api-network
     user: root
 
