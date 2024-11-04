@@ -185,7 +185,7 @@ class MapComponent extends DashboardPage {
 
     // Assert that the number of red cross markers is greater than 0 and randomly select one to be visible
     expect(gloFASMarkersCount).toBeGreaterThan(0);
-    await expect(this.redCrossMarker.nth(nthSelector)).toBeVisible();
+    await expect(this.gloFASMarker.nth(nthSelector)).toBeVisible();
   }
 }
 export default MapComponent;
