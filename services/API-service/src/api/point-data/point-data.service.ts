@@ -71,14 +71,13 @@ export class PointDataService {
     );
 
     // Subquery to get the max timestamp for each point, to be able to only get the most recent data ..
-    // .. and the maxLeadTime, which in case of multiple records with the same timestamp, decided to take the max leadTime record ..
+    // .. and also suffixes the leadTime, only to pick the max leadTime incase of multiple records with same timestamp ..
     // .. which makes sure that in the warning-to-trigger scenario the trigger data of Glofas stations is shown, not the warning data
     const maxTimestampPerPointQuery = this.dynamicPointDataRepository
       .createQueryBuilder('sub')
       .select([
         'sub."pointPointDataId"',
-        'MAX(sub.timestamp) as maxTimestamp',
-        'MAX(sub."leadTime") as maxLeadTime',
+        `MAX(sub.timestamp || '_' || COALESCE(sub."leadTime",'0')) as maxTimestampLeadTime`,
       ])
       .where('sub.timestamp >= :cutoffMoment', {
         cutoffMoment: this.helperService.getUploadCutoffMoment(
@@ -107,8 +106,7 @@ export class PointDataService {
               `(${maxTimestampPerPointQuery.getQuery()})`,
               'maxSub',
               `dynamic."pointPointDataId" = "maxSub"."pointPointDataId" 
-                AND dynamic.timestamp = "maxSub".maxTimestamp 
-                AND (dynamic."leadTime" = "maxSub".maxLeadTime OR (dynamic."leadTime" IS NULL AND "maxSub".maxLeadTime IS NULL))`, // Make sure the join also works with leadTime=null
+                AND (dynamic.timestamp || '_' || COALESCE(dynamic."leadTime",'0')) = "maxSub".maxTimestampLeadTime`,
             )
             .setParameters(maxTimestampPerPointQuery.getParameters())
             .groupBy('dynamic."pointPointDataId"');
