@@ -685,10 +685,6 @@ export class MapService {
   public getPlaceCodeParent(placeCode?: PlaceCode): string {
     placeCode = placeCode || this.placeCode;
     const adminLevelType = this.adminLevelService.getAdminLevelType(placeCode);
-    console.log(
-      '🚀 ~ MapService ~ getPlaceCodeParent ~ adminLevelType:',
-      adminLevelType,
-    );
 
     return adminLevelType === AdminLevelType.single
       ? null // on single admin: don't pass any parentPlaceCode filtering
