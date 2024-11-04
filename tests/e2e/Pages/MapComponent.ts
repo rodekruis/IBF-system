@@ -182,7 +182,6 @@ class MapComponent extends DashboardPage {
     // Count the number of gloFAS markers
     const gloFASMarkersCount = await this.gloFASMarker.count();
     const nthSelector = this.getRandomInt(1, gloFASMarkersCount);
-    console.log('nthSelector: ', nthSelector);
 
     // Assert that the number of gloFAS markers is greater than 0 and randomly select one to be visible
     expect(gloFASMarkersCount).toBeGreaterThan(0);
