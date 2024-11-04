@@ -70,7 +70,8 @@ module.exports = tseslint.config(
       '@typescript-eslint/no-inferrable-types': 'warn',
       '@typescript-eslint/no-extraneous-class': 'warn',
       '@typescript-eslint/consistent-type-definitions': 'warn',
-      '@angular-eslint/prefer-standalone': 'warn',
+      // Put this to 'off' for now because it automatically tries to fix this in code on save
+      '@angular-eslint/prefer-standalone': 'off',
       '@angular-eslint/prefer-on-push-component-change-detection': 'warn',
       '@angular-eslint/component-class-suffix': 'warn',
       '@angular-eslint/no-async-lifecycle-method': 'warn',
