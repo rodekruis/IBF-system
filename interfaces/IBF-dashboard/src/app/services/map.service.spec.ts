@@ -1,39 +1,23 @@
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TranslateModule } from '@ngx-translate/core';
-import { MapService } from './map.service';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
-import { IbfLayerLabel, IbfLayerName, IbfLayerType } from '../types/ibf-layer';
-
-const MOCK_LAYERS = [
-  {
-    type: IbfLayerType.point,
-    name: IbfLayerName.waterpointsInternal,
-    label: IbfLayerLabel.waterpoints,
-    description: 'waterpointsInternal',
-    active: true,
-    show: true,
-    viewCenter: false,
-    order: 1,
-  },
-  {
-    type: IbfLayerType.point,
-    name: IbfLayerName.redCrossBranches,
-    label: IbfLayerLabel.redCrossBranches,
-    description: 'redCrossBranches',
-    active: true,
-    show: true,
-    viewCenter: false,
-    order: 2,
-  },
-];
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { AdminLevelService } from 'src/app/services/admin-level.service';
+import { MapService } from 'src/app/services/map.service';
+import {
+  MOCK_COUNTRYDISASTERSETTINGS,
+  MOCK_LAYERS,
+  MOCK_PLACECODE,
+} from 'src/app/services/map.service.spec.helper';
+import { IbfLayerName } from 'src/app/types/ibf-layer';
 
 describe('MapService', () => {
   let service: MapService;
+  let adminLevelService: AdminLevelService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -44,6 +28,7 @@ describe('MapService', () => {
       ],
     });
     service = TestBed.inject(MapService);
+    adminLevelService = TestBed.inject(AdminLevelService);
   });
 
   it('should be created', () => {
@@ -52,7 +37,7 @@ describe('MapService', () => {
 
   describe('getLayerByName', () => {
     beforeEach(() => {
-      service['layers'] = MOCK_LAYERS;
+      service.layers = MOCK_LAYERS;
     });
 
     it('should get a layer from its name', () => {
@@ -67,6 +52,20 @@ describe('MapService', () => {
       const layerName = IbfLayerName.gauges;
 
       expect(service.getLayerByName(layerName)).toBeUndefined();
+    });
+  });
+
+  describe('getPlaceCodeParent', () => {
+    it('should return the palceCodeParent of the provided placeCode', () => {
+      // eslint-disable-next-line @typescript-eslint/dot-notation
+      adminLevelService['countryDisasterSettings'] =
+        MOCK_COUNTRYDISASTERSETTINGS;
+      // eslint-disable-next-line @typescript-eslint/dot-notation
+      adminLevelService['adminLevel'] = 3;
+
+      expect(service.getPlaceCodeParent(MOCK_PLACECODE)).toEqual(
+        MOCK_PLACECODE.placeCodeParent.placeCode,
+      );
     });
   });
 });
