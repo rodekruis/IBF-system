@@ -46,7 +46,7 @@ module.exports = tseslint.config(
       'no-relative-import-paths/no-relative-import-paths': 'warn',
       'regexp/no-unused-capturing-group': 'warn',
       '@typescript-eslint/prefer-nullish-coalescing': 'warn',
-      '@typescript-eslint/no-unnecessary-condition': 'warn',
+      '@typescript-eslint/no-unnecessary-condition': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'warn',
       '@typescript-eslint/prefer-includes': 'warn',
       '@typescript-eslint/use-unknown-in-catch-callback-variable': 'warn',
