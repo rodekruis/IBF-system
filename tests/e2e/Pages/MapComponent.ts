@@ -179,11 +179,12 @@ class MapComponent extends DashboardPage {
     // Wait for the page to load
     await this.page.waitForSelector('[alt="glofas-station-marker"]');
 
-    // Count the number of red cross markers
+    // Count the number of gloFAS markers
     const gloFASMarkersCount = await this.gloFASMarker.count();
     const nthSelector = this.getRandomInt(1, gloFASMarkersCount);
+    console.log('nthSelector: ', nthSelector);
 
-    // Assert that the number of red cross markers is greater than 0 and randomly select one to be visible
+    // Assert that the number of gloFAS markers is greater than 0 and randomly select one to be visible
     expect(gloFASMarkersCount).toBeGreaterThan(0);
     await expect(this.gloFASMarker.nth(nthSelector)).toBeVisible();
   }
