@@ -38,7 +38,7 @@ test.beforeEach(async ({ page }) => {
 test(
   qase(
     28,
-    '[No-trigger] GloFAS stations markers should be visible on Map "Legend"',
+    '[No-trigger] GloFAS stations markers should be visible on "Legend", "Layer" and "Map"',
   ),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
