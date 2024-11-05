@@ -19,6 +19,7 @@ class MapComponent extends DashboardPage {
   readonly legendHeader: Locator;
   readonly layerMenuToggle: Locator;
   readonly redCrossMarker: Locator;
+  readonly gloFASMarker: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -44,6 +45,7 @@ class MapComponent extends DashboardPage {
     this.legendHeader = this.page.getByTestId('map-legend-header');
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
     this.redCrossMarker = this.page.getByAltText('red-cross-branch-marker');
+    this.gloFASMarker = this.page.getByAltText('glofas-station-marker');
   }
 
   async mapComponentIsVisible() {
@@ -135,6 +137,21 @@ class MapComponent extends DashboardPage {
     await layerCheckbox.click();
   }
 
+  async validateCheckboxIsChekced({ layerName }: { layerName: string }) {
+    const getLayerRow = this.page
+      .getByTestId('matrix-layer-name')
+      .filter({ hasText: layerName });
+    const layerCheckbox = getLayerRow.locator(this.layerCheckbox);
+
+    // In case of checbox being checked the name attribute should be "checkbox"
+    const nameAttribute = await layerCheckbox.getAttribute('name');
+    const isChecked = nameAttribute === 'checkbox';
+
+    if (!isChecked) {
+      throw new Error(`Checkbox for layer ${layerName} is not checked`);
+    }
+  }
+
   async assertAggregateTitleOnHoverOverMap() {
     // Declare component
     const aggregates = new AggregatesComponent(this.page);
@@ -160,6 +177,17 @@ class MapComponent extends DashboardPage {
     await this.layerMenuToggle.click();
   }
 
+  async assertLegendElementIsVisible({
+    legendComponentName,
+  }: {
+    legendComponentName: string;
+  }) {
+    const legendComponent = this.legend.filter({
+      hasText: legendComponentName,
+    });
+    await expect(legendComponent).toBeVisible();
+  }
+
   async redCrossMarkersAreVisible() {
     // Wait for the page to load
     await this.page.waitForSelector('[alt="red-cross-branch-marker"]');
@@ -171,6 +199,19 @@ class MapComponent extends DashboardPage {
     // Assert that the number of red cross markers is greater than 0 and randomly select one to be visible
     expect(redCrossMarkersCount).toBeGreaterThan(0);
     await expect(this.redCrossMarker.nth(nthSelector)).toBeVisible();
+  }
+
+  async gloFASMarkersAreVisible() {
+    // Wait for the page to load
+    await this.page.waitForSelector('[alt="glofas-station-marker"]');
+
+    // Count the number of gloFAS markers
+    const gloFASMarkersCount = await this.gloFASMarker.count();
+    const nthSelector = this.getRandomInt(1, gloFASMarkersCount);
+
+    // Assert that the number of gloFAS markers is greater than 0 and randomly select one to be visible
+    expect(gloFASMarkersCount).toBeGreaterThan(0);
+    await expect(this.gloFASMarker.nth(nthSelector)).toBeVisible();
   }
 }
 export default MapComponent;

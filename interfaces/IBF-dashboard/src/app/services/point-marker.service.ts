@@ -145,6 +145,7 @@ export class PointMarkerService {
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: markerIcon ? icon(markerIcon) : divIcon(),
+      alt: 'glofas-station-marker',
       zIndexOffset: 700,
     });
     markerInstance.bindPopup(
