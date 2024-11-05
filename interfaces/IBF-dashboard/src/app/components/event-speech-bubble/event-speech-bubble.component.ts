@@ -54,7 +54,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   public isStopped: boolean;
   private placeCodeHoverSubscription: Subscription;
   public placeCodeHover: PlaceCode;
-  public alertClasses: { alertClass: string; areas: TriggeredArea[] }[];
 
   constructor(
     private authService: AuthService,
@@ -71,8 +70,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       this.displayName = this.authService.displayName;
     }
 
-    this.alertClasses = this.splitAreasByAlertClass(this.areas);
-
     this.placeCodeHoverSubscription = this.placeCodeService
       .getPlaceCodeHoverSubscription()
       .subscribe(this.onPlaceCodeHoverChange);
@@ -86,24 +83,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
 
   ngOnDestroy() {
     this.placeCodeHoverSubscription.unsubscribe();
-  }
-
-  public splitAreasByAlertClass(
-    areas: TriggeredArea[] = [],
-  ): { alertClass: string; areas: TriggeredArea[] }[] {
-    const areasByAlertClass = {};
-
-    for (const area of areas) {
-      if (!areasByAlertClass[area.alertClass]) {
-        areasByAlertClass[area.alertClass] = [];
-      }
-      areasByAlertClass[area.alertClass].push(area);
-    }
-
-    return Object.keys(areasByAlertClass).map((alertClass) => ({
-      alertClass: alertClass,
-      areas: areasByAlertClass[alertClass],
-    }));
   }
 
   public selectArea(area) {

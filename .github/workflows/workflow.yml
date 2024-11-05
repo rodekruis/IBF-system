@@ -13,6 +13,8 @@ jobs:
     outputs:
       ibf-api-service: ${{ steps.filter.outputs.ibf-api-service }}
       ibf-dashboard: ${{ steps.filter.outputs.ibf-dashboard }}
+      ibf-e2e: ${{ steps.filter.outputs.ibf-e2e }}
+      ibf-integration: ${{ steps.filter.outputs.ibf-integration }}
 
     steps:
       - uses: actions/checkout@v4
@@ -24,6 +26,10 @@ jobs:
               - "services/API-service/**"
             ibf-dashboard:
               - "interfaces/IBF-dashboard/**"
+            ibf-e2e:
+              - "tests/e2e/**"
+            ibf-integration:
+              - "tests/integration/**"
 
   ibf-api-service:
     needs: detect-changes
@@ -71,7 +77,10 @@ jobs:
 
   ibf-integration:
     needs: detect-changes
-    if: ${{ needs.detect-changes.outputs.ibf-api-service == 'true' }}
+    if: ${{
+      needs.detect-changes.outputs.ibf-api-service == 'true' ||
+      needs.detect-changes.outputs.ibf-integration == 'true'
+      }}
 
     runs-on: ubuntu-latest
 
@@ -86,7 +95,8 @@ jobs:
     needs: detect-changes
     if: ${{
       needs.detect-changes.outputs.ibf-api-service == 'true' ||
-      needs.detect-changes.outputs.ibf-dashboard == 'true'
+      needs.detect-changes.outputs.ibf-dashboard == 'true' ||
+      needs.detect-changes.outputs.ibf-e2e == 'true'
       }}
 
     runs-on: ubuntu-latest
