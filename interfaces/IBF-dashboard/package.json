@@ -61,7 +61,7 @@
     "@angular-eslint/template-parser": "18.1.0",
     "@angular/cli": "^18.1.0",
     "@angular/compiler": "^18.1.0",
-    "@angular/compiler-cli": "^18.1.0",
+    "@angular/compiler-cli": "^18.2.10",
     "@angular/language-service": "^18.1.0",
     "@ionic/cli": "^7.2.0",
     "@tailwindcss/aspect-ratio": "latest",
