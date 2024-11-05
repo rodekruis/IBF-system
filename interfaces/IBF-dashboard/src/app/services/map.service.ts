@@ -156,7 +156,7 @@ export class MapService {
 
   private getPopoverText(indicator: IbfLayerMetadata | Indicator): string {
     if (
-      indicator.description[this.country.countryCodeISO3]?.[
+      indicator.description?.[this.country.countryCodeISO3]?.[
         this.disasterType.disasterType
       ]
     ) {
@@ -215,7 +215,7 @@ export class MapService {
         this.apiService
           .getTyphoonTrack(
             this.country.countryCodeISO3,
-            this.eventState.event.eventName,
+            this.eventState?.event?.eventName,
           )
           .subscribe((trackData) => {
             this.addTyphoonTrackLayer(layer, trackData);
@@ -339,7 +339,7 @@ export class MapService {
           this.disasterType.disasterType,
           this.timelineState.activeLeadTime,
           adminLevel,
-          this.eventState.event.eventName,
+          this.eventState?.event?.eventName,
           this.getPlaceCodeParent(),
         )
         .subscribe((adminRegions) => {
@@ -391,7 +391,7 @@ export class MapService {
           indicator.name,
           indicator.dynamic,
           this.timelineState.activeLeadTime,
-          this.eventState.event.eventName,
+          this.eventState?.event?.eventName,
         ).subscribe((adminRegions) => {
           this.addAggregateLayer(indicator, adminRegions, layerActive);
         });
@@ -405,7 +405,7 @@ export class MapService {
     return indicatorOrLayer.active === LayerActivation.yes
       ? true
       : indicatorOrLayer.active === LayerActivation.ifTrigger &&
-          this.eventState.events.length > 0
+          this.eventState?.events?.length > 0
         ? true
         : false;
   }
@@ -514,7 +514,7 @@ export class MapService {
   ): boolean => {
     if (
       layer.group === IbfLayerGroup.outline &&
-      this.eventState.events.length > 0
+      this.eventState?.events?.length > 0
     ) {
       return true;
     }
@@ -622,7 +622,7 @@ export class MapService {
       layerData = this.apiService
         .getTyphoonTrack(
           this.country.countryCodeISO3,
-          this.eventState.event.eventName,
+          this.eventState?.event?.eventName,
         )
         .pipe(shareReplay(1));
     } else if (layer.type === IbfLayerType.point) {
@@ -645,7 +645,7 @@ export class MapService {
           this.disasterType.disasterType,
           this.timelineState.activeLeadTime,
           this.adminLevel,
-          this.eventState.event.eventName,
+          this.eventState?.event?.eventName,
           this.getPlaceCodeParent(),
         )
         .pipe(shareReplay(1));
@@ -659,7 +659,7 @@ export class MapService {
           this.disasterType.disasterType,
           this.timelineState.activeLeadTime,
           adminLevel,
-          this.eventState.event.eventName,
+          this.eventState?.event?.eventName,
           this.getPlaceCodeParent(),
         )
         .pipe(shareReplay(1));
@@ -674,7 +674,7 @@ export class MapService {
         layer.name,
         layer.dynamic,
         this.timelineState.activeLeadTime,
-        this.eventState.event.eventName,
+        this.eventState?.event?.eventName,
       ).pipe(shareReplay(1));
     } else {
       layerData = of(null);
@@ -689,8 +689,8 @@ export class MapService {
     return adminLevelType === AdminLevelType.single
       ? null // on single admin: don't pass any parentPlaceCode filtering
       : adminLevelType === AdminLevelType.deepest
-        ? placeCode.placeCodeParent.placeCode // on deepest admin: pass parentPlaceCode
-        : placeCode.placeCode; // on higher levels: pass current placeCode (TODO: why this last difference?)
+        ? placeCode?.placeCodeParent.placeCode // on deepest admin: pass parentPlaceCode
+        : placeCode?.placeCode; // on higher levels: pass current placeCode (TODO: why this last difference?)
   }
 
   getCombineAdminRegionData(
@@ -730,10 +730,12 @@ export class MapService {
     return zip(admDynamicDataObs, adminRegionsObs).pipe(
       map(([admDynamicData, adminRegions]) => {
         const updatedFeatures = [];
-        for (const area of adminRegions.features || []) {
+        for (const area of adminRegions?.features || []) {
           const foundAdmDynamicEntry = admDynamicData.find(
             (admDynamicEntry): number => {
-              if (area.properties['placeCode'] === admDynamicEntry.placeCode) {
+              if (
+                area.properties?.['placeCode'] === admDynamicEntry.placeCode
+              ) {
                 return admDynamicEntry.value;
               }
             },
@@ -762,7 +764,7 @@ export class MapService {
 
     const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
     switch (true) {
-      case area.stopped:
+      case area?.stopped:
         adminRegionFillColor = this.state.colorStopped;
         break;
       case colorPropertyValue === null:
@@ -904,10 +906,10 @@ export class MapService {
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
           : adminRegion.properties.indicators[colorProperty];
-      const color = this.getOutlineColor(colorPropertyValue, area.stopped);
+      const color = this.getOutlineColor(colorPropertyValue, area?.stopped);
       const weight = this.getOutlineWeight(
         colorPropertyValue,
-        area.stopped,
+        area?.stopped,
         placeCode,
         placeCodeParent,
         area,
@@ -1003,7 +1005,7 @@ export class MapService {
     if (
       !area.triggerValue ||
       area.triggerValue < 1 ||
-      !this.eventState.event.thresholdReached
+      !this.eventState?.event?.thresholdReached
     ) {
       return {
         color: this.nonTriggeredAreaColor,
