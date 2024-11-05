@@ -142,7 +142,6 @@ class MapComponent extends DashboardPage {
       .getByTestId('matrix-layer-name')
       .filter({ hasText: layerName });
     const layerCheckbox = getLayerRow.locator(this.layerCheckbox);
-    console.log(layerCheckbox);
 
     // In case of checbox being checked the name attribute should be "checkbox"
     const nameAttribute = await layerCheckbox.getAttribute('name');
@@ -176,6 +175,17 @@ class MapComponent extends DashboardPage {
 
   async clickLayerMenu() {
     await this.layerMenuToggle.click();
+  }
+
+  async assertLegendElementIsVisible({
+    legendComponentName,
+  }: {
+    legendComponentName: string;
+  }) {
+    const legendComponent = this.legend.filter({
+      hasText: legendComponentName,
+    });
+    await expect(legendComponent).toBeVisible();
   }
 
   async redCrossMarkersAreVisible() {
