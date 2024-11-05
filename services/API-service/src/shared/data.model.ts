@@ -109,5 +109,5 @@ export class EventSummaryCountry {
   public triggerValue: number;
 
   @ApiProperty({ example: 5 })
-  public affectedAreas: number;
+  public nrAffectedAreas: number;
 }

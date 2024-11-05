@@ -185,21 +185,6 @@ export class EapActionsService {
   };
 
   private mapTriggerValueToAlertClass = (triggeredArea: TriggeredArea) => {
-    // If no match is found, then no alertClass will be shown
-    if (this.countryDisasterSettings.eapAlertClasses) {
-      for (const alertClass of Object.keys(
-        this.countryDisasterSettings.eapAlertClasses,
-      )) {
-        if (
-          triggeredArea.triggerValue ===
-          this.countryDisasterSettings.eapAlertClasses[alertClass].value
-        ) {
-          triggeredArea.alertClass =
-            this.countryDisasterSettings.eapAlertClasses[alertClass].label;
-        }
-      }
-    }
-
     if (triggeredArea.triggerValue === 1) {
       triggeredArea.alertLabel = AlertLabel.trigger;
     } else if (triggeredArea.triggerValue > 0) {

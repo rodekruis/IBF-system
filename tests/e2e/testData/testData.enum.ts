@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 export enum NoTriggerDataSet {
   NoTriggerScenario = 'no-trigger',
   CountryCode = 'UGA',

@@ -1285,7 +1285,7 @@
     "unit": "schools",
     "description": {
       "MWI": {
-        "flash-floods": "This indicator shows the total number of school buildings in the potentially flooded area, calculated based on the selected area.<br/><br/>Source: Cloud2Street"
+        "flash-floods": "This indicator shows the total number of school buildings in the potentially flooded area, calculated based on the selected area.<br/><br/>Source schools: Provided by Unicef Malawi."
       }
     }
   },
@@ -1306,7 +1306,7 @@
     "unit": "health sites",
     "description": {
       "MWI": {
-        "flash-floods": "This indicator shows the total number of exposed health sites in the potentially flooded area, calculated based on the selected area.<br/><br/>Source: Cloud2Street"
+        "flash-floods": "This indicator shows the total number of exposed health sites in the potentially flooded area, calculated based on the selected area.<br/><br/>Source health sites: Malawi's Ministry of Health, publicly available at <a href='https://zipatala.health.gov.mw/facilities'>https://zipatala.health.gov.mw/facilities</a>."
       }
     }
   },

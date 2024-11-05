@@ -174,7 +174,7 @@ export class EventService {
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
-        'count(event."adminAreaId")::int AS "affectedAreas"',
+        'SUM(CASE WHEN event."actionsValue" > 0 OR event."triggerValue" > 0 THEN 1 ELSE 0 END) AS "nrAffectedAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
         'MAX(event."triggerValue")::float AS "triggerValue"',
         'sum(event."actionsValue")::int AS "actionsValueSum"',
       ])
@@ -354,7 +354,7 @@ export class EventService {
     if (eventName) {
       whereFiltersEvent['eventName'] = eventName;
     }
-    const triggeredAreasQuery = this.eventPlaceCodeRepo
+    const triggeredAreas = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
         'area."placeCode" AS "placeCode"',
@@ -380,14 +380,9 @@ export class EventService {
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
-      .orderBy('event."actionsValue"', 'DESC');
-
-    if (triggeredPlaceCodes.length) {
-      triggeredAreasQuery.andWhere('area."placeCode" IN(:...placeCodes)', {
-        placeCodes: triggeredPlaceCodes,
-      });
-    }
-    const triggeredAreas = await triggeredAreasQuery.getRawMany();
+      .andWhere('(event."actionsValue" > 0 OR event."triggerValue" > 0)')
+      .orderBy('event."actionsValue"', 'DESC')
+      .getRawMany();
 
     for (const area of triggeredAreas) {
       if (triggeredPlaceCodes.length === 0) {
