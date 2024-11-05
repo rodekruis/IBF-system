@@ -57,6 +57,8 @@ test(
     await map.mapComponentIsVisible();
     await map.isLegendOpen({ legendOpen: true });
     await map.isLayerMenuOpen({ layerMenuOpen: false });
+    await map.clickLayerMenu();
+    await map.validateCheckboxIsChekced({ layerName: 'Glofas stations' });
 
     // GloFAS layer should be visible by default
     await map.gloFASMarkersAreVisible();

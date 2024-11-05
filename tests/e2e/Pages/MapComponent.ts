@@ -137,6 +137,22 @@ class MapComponent extends DashboardPage {
     await layerCheckbox.click();
   }
 
+  async validateCheckboxIsChekced({ layerName }: { layerName: string }) {
+    const getLayerRow = this.page
+      .getByTestId('matrix-layer-name')
+      .filter({ hasText: layerName });
+    const layerCheckbox = getLayerRow.locator(this.layerCheckbox);
+    console.log(layerCheckbox);
+
+    // In case of checbox being checked the name attribute should be "checkbox"
+    const nameAttribute = await layerCheckbox.getAttribute('name');
+    const isChecked = nameAttribute === 'checkbox';
+
+    if (!isChecked) {
+      throw new Error(`Checkbox for layer ${layerName} is not checked`);
+    }
+  }
+
   async assertAggregateTitleOnHoverOverMap() {
     // Declare component
     const aggregates = new AggregatesComponent(this.page);
