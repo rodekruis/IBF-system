@@ -688,8 +688,8 @@ export class ScriptsService {
           exposureUnit === DynamicIndicator.alertThreshold
             ? 1
             : exposureUnit === DynamicIndicator.populationAffected
-            ? 1000
-            : null;
+              ? 1000
+              : null;
         copyOfExposureUnit = areas.map((area) => {
           return {
             placeCode: area.placeCode,

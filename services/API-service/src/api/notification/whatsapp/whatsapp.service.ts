@@ -39,9 +39,8 @@ export class WhatsappService {
     message: string,
     recipientPhoneNr: string,
   ): Promise<void> {
-    const validatedPhoneNumber = await this.lookupService.lookupAndCorrect(
-      recipientPhoneNr,
-    );
+    const validatedPhoneNumber =
+      await this.lookupService.lookupAndCorrect(recipientPhoneNr);
     await this.sendWhatsapp(message, validatedPhoneNumber);
   }
 

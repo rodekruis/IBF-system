@@ -194,8 +194,10 @@ export const getAdminAreaTable = ({
     <tr>
       <th align="right">${indicatorLabel}</th>
       <th align="left">${adminAreaLabel} ${
-    adminAreaLabel === adminAreaParentLabel ? '' : `(${adminAreaParentLabel})`
-  }</th>
+        adminAreaLabel === adminAreaParentLabel
+          ? ''
+          : `(${adminAreaParentLabel})`
+      }</th>
     </tr>
   `;
 
