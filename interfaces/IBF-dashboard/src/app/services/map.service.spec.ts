@@ -12,6 +12,7 @@ import {
   MOCK_COUNTRYDISASTERSETTINGS,
   MOCK_LAYERS,
   MOCK_PLACECODE,
+  MOCK_TRIGGEREDAREAS as MOCK_TRIGGEREDAREAS,
 } from 'src/app/services/map.service.spec.helper';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 
@@ -66,6 +67,19 @@ describe('MapService', () => {
       expect(service.getPlaceCodeParent(MOCK_PLACECODE)).toEqual(
         MOCK_PLACECODE.placeCodeParent.placeCode,
       );
+    });
+  });
+
+  describe('getAreaByPlaceCode', () => {
+    it('should return the triggered area corresponding to the provided placeCode or placeCodeParent', () => {
+      service.triggeredAreas = MOCK_TRIGGEREDAREAS;
+
+      expect(
+        service.getAreaByPlaceCode(
+          MOCK_PLACECODE.placeCode,
+          MOCK_PLACECODE.placeCodeParent.placeCode,
+        ),
+      ).toEqual(MOCK_TRIGGEREDAREAS[0]);
     });
   });
 });
