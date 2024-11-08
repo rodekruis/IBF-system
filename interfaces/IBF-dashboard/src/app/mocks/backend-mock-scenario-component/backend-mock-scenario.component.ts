@@ -131,7 +131,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           text: this.alertButtonNoTriggerLabel,
           cssClass: 'no-trigger-scenario-button',
           handler: (data) => {
-            this.mockApiRefresh(data.secret, false, true, false, alert);
+            this.mockApiRefresh(data.secret, false, true, alert);
             return false;
           },
         },
@@ -139,8 +139,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           text: this.alertButtonTriggerLabel,
           cssClass: 'trigger-scenario-button',
           handler: (data) => {
-            this.mockApiRefresh(data.secret, true, true, false, alert);
-            alert.dismiss(true);
+            this.mockApiRefresh(data.secret, true, true, alert);
             return false;
           },
         },
@@ -153,7 +152,6 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
     secret: string,
     triggered: boolean,
     removeEvents: boolean,
-    oldEvent: boolean,
     alert: HTMLIonAlertElement,
   ) {
     if (secret) {
@@ -166,11 +164,13 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           this.disasterType,
         )
         .subscribe({
-          next: () => this.processMockSuccess(secret, oldEvent, alert),
+          next: () => {
+            this.processMockSuccess(alert);
+          },
           error: (response) => {
             // Somehow the endpoint returns an error together with the 202 status.. Ignore.
             if (response.status === 202) {
-              this.processMockSuccess(secret, oldEvent, alert);
+              this.processMockSuccess(alert);
             } else {
               console.log('response: ', response);
               this.presentToast(this.alertErrorApiError);
@@ -182,11 +182,8 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
     }
   }
 
-  private processMockSuccess(secret, oldEvent, alert) {
+  private processMockSuccess(alert) {
     this.countryService.selectCountry(this.country.countryCodeISO3);
-    if (oldEvent) {
-      this.mockApiRefresh(secret, false, false, false, alert);
-    }
     alert.dismiss(true);
   }
 }

@@ -13,6 +13,7 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
+import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
 import {
   Country,
   CountryDisasterSettings,
@@ -25,19 +26,18 @@ import {
   AreaStatus,
 } from 'src/app/services/aggregates.service';
 import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
+import { MapViewService } from 'src/app/services/map-view.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { AdminLevelType } from 'src/app/types/admin-level';
 import { EventState } from 'src/app/types/event-state';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
-import { firstCharOfWordsToUpper } from '../../../shared/utils';
-import { DisasterTypeService } from '../../services/disaster-type.service';
-import { EapActionsService } from '../../services/eap-actions.service';
-import { MapViewService } from '../../services/map-view.service';
-import { AdminLevelType } from '../../types/admin-level';
-import { MapView } from '../../types/map-view';
-import { TriggeredArea } from '../../types/triggered-area';
-import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
+import { MapView } from 'src/app/types/map-view';
+import { TriggeredArea } from 'src/app/types/triggered-area';
+import { firstCharOfWordsToUpper } from 'src/shared/utils';
 @Component({
   selector: 'app-aggregates',
   templateUrl: './aggregates.component.html',
@@ -221,9 +221,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private getPopoverText(indicator: Indicator): string {
     if (
-      indicator.description &&
-      indicator.description[this.country.countryCodeISO3] &&
-      indicator.description[this.country.countryCodeISO3][
+      indicator.description?.[this.country.countryCodeISO3]?.[
         this.disasterType.disasterType
       ]
     ) {
@@ -267,7 +265,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
             headerLabel: this.translateService.instant(
               'aggregates-component.national-view',
             ),
-            subHeaderLabel: `${this.getAreaCount()} ${
+            subHeaderLabel: `${this.getEventCount()} ${
               this.countryDisasterSettings?.isEventBased
                 ? `${this.translateService.instant(
                     'aggregates-component.predicted',
@@ -338,10 +336,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private getAdminAreaLabel(singularPlural?: string) {
     if (
-      !this.country ||
-      !this.country.adminRegionLabels ||
-      !this.adminLevelService ||
-      !this.adminLevelService.adminLevel
+      !this.country?.adminRegionLabels ||
+      !this.adminLevelService?.adminLevel
     ) {
       return '';
     }
@@ -393,12 +389,19 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public isActiveAreas(): boolean {
     return this.areaStatus === AreaStatus.TriggeredOrWarned ? true : false;
   }
+
   private getAreaCount(): number {
     return (
       (this.isActiveAreas()
         ? this.aggregatesService.nrTriggerActiveAreas
         : this.aggregatesService.nrTriggerStoppedAreas) ?? 0
     );
+  }
+
+  private getEventCount(): number {
+    return this.countryDisasterSettings?.isEventBased
+      ? (this.eventState?.events?.length ?? 0)
+      : this.getAreaCount();
   }
 
   private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {

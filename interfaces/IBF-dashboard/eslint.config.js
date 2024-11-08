@@ -46,7 +46,7 @@ module.exports = tseslint.config(
       'no-relative-import-paths/no-relative-import-paths': 'warn',
       'regexp/no-unused-capturing-group': 'warn',
       '@typescript-eslint/prefer-nullish-coalescing': 'warn',
-      '@typescript-eslint/no-unnecessary-condition': 'warn',
+      '@typescript-eslint/no-unnecessary-condition': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'warn',
       '@typescript-eslint/prefer-includes': 'warn',
       '@typescript-eslint/use-unknown-in-catch-callback-variable': 'warn',
@@ -70,7 +70,8 @@ module.exports = tseslint.config(
       '@typescript-eslint/no-inferrable-types': 'warn',
       '@typescript-eslint/no-extraneous-class': 'warn',
       '@typescript-eslint/consistent-type-definitions': 'warn',
-      '@angular-eslint/prefer-standalone': 'warn',
+      // Put this to 'off' for now because it automatically tries to fix this in code on save
+      '@angular-eslint/prefer-standalone': 'off',
       '@angular-eslint/prefer-on-push-component-change-detection': 'warn',
       '@angular-eslint/component-class-suffix': 'warn',
       '@angular-eslint/no-async-lifecycle-method': 'warn',
