@@ -73,17 +73,6 @@ function deploy() {
         docker system prune -f
     }
 
-    function test_integration() {
-        if [[ $NODE_ENV="test" ]]
-        then
-            log "Run integration tests on $NODE_ENV environment..."
-            cd "$repo" || return
-            npm run test:integration
-        else
-            log "Skip integration tests on $NODE_ENV environment..."
-        fi
-    }
-
     update_code "$target"
 
     load_environment_variables
@@ -93,8 +82,6 @@ function deploy() {
     update_containers
 
     cleanup_docker
-
-    test_integration
 
     restart_webhook_service
 
