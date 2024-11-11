@@ -65,9 +65,10 @@
          4. Test if the vars were loaded correctly `echo $NODE_ENV`
    8. Load certificate: load `DigiCertGlobalRootCA.crt.pem` in `services/API-service/cert` for connection to Azure Postgres server (if applicable)
    9. Set up Nginx
-      1. `cp tools/nginx.conf /etc/nginx/sites-enabled`
-      2. `sudo service nginx restart`
-      3. Verification - `service nginx status`
+      1. `cp tools/nginx.conf /etc/nginx/conf.d/default.conf`
+      2. `nano /etc/nginx/conf.d/default.conf` and switch lines with http://ibf-api-service or http://ibf-geoserver to http://localhost
+      3. `sudo service nginx restart`
+      4. Verification - `service nginx status`
    10. `. tools/deploy.sh`
 4. Load base data
 

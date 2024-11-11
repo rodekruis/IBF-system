@@ -49,4 +49,4 @@ ENV SUPPORT_EMAIL_ADDRESS=$SUPPORT_EMAIL_ADDRESS
 ARG WHATS_NEW_URL
 ENV WHATS_NEW_URL=$WHATS_NEW_URL
 
-RUN npm run build -- --configuration $NG_CONFIGURATION
+CMD ["sh", "-c", "npm run build -- --configuration $NG_CONFIGURATION"]

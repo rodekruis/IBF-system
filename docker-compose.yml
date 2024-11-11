@@ -67,8 +67,8 @@ services:
       - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
       - WHATS_NEW_URL=${WHATS_NEW_URL}
     volumes:
-      - ./interfaces/IBF-dashboard/node_modules:/home/node/app/node_modules
-      - ./interfaces/IBF-dashboard/www:/home/node/app/www
+      - ibf_dashboard_node_modules:/home/node/app/node_modules
+      - ${BUILD_OUTPUT_PATH}:/home/node/app/www
 
   ibf-geoserver:
     container_name: ibf-geoserver
@@ -88,6 +88,7 @@ services:
 
 volumes:
   api_service_node_modules:
+  ibf_dashboard_node_modules:
 
 networks:
   api-network:

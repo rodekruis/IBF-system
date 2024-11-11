@@ -13,7 +13,7 @@
     "lint:check": "ng lint",
     "lint": "npx npm-run-all --print-label --parallel lint:check format:check",
     "ng": "ng",
-    "postbuild:prod": "npm run compress",
+    "postbuild": "npm run compress",
     "prebuild": "npm run set-env-variables",
     "prestart": "npm install --no-audit --no-fund",
     "serve:static": "cp www/browser/index.html www/browser/404.html && npx http-server www/browser/ -c-1 --gzip --port 4200",
