@@ -66,9 +66,15 @@
    8. Load certificate: load `DigiCertGlobalRootCA.crt.pem` in `services/API-service/cert` for connection to Azure Postgres server (if applicable)
    9. Set up Nginx
       1. `cp tools/nginx.conf /etc/nginx/conf.d/default.conf`
-      2. `nano /etc/nginx/conf.d/default.conf` and switch lines with http://ibf-api-service or http://ibf-geoserver to http://localhost
+      2. `nano /etc/nginx/conf.d/default.conf`
+         1. and switch lines with http://ibf-api-service or http://ibf-geoserver to http://localhost
+         2. and update `server_name` to e.g. `ibf-test.510.global`
       3. `sudo service nginx restart`
       4. Verification - `service nginx status`
+      5. Set up nginx directory
+         1. `sudo mkdir /var/www/ibf-dashboard`
+         2. `sudo chmod -R 777 /var/www/ibf-dashboard`
+         3. `sudo chown -R $(id -u):$(id -g) /var/www/ibf-dashboard`
    10. `. tools/deploy.sh`
 4. Load base data
 
