@@ -19,6 +19,20 @@ import { IbfLayerName } from 'src/app/types/ibf-layer';
 describe('MapService', () => {
   let service: MapService;
   let adminLevelService: AdminLevelService;
+  const placeCode: PlaceCode = {
+    countryCodeISO3: 'KEN',
+    placeCode: 'KE0090400198',
+    placeCodeName: 'Guba',
+    placeCodeParent: {
+      countryCodeISO3: 'KEN',
+      placeCode: 'KE009040',
+      placeCodeName: 'Banissa',
+      placeCodeParentName: 'Mandera',
+      adminLevel: 2,
+    },
+    placeCodeParentName: 'Banissa',
+    adminLevel: 3,
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -64,21 +78,6 @@ describe('MapService', () => {
 
       adminLevelService.adminLevel = 3;
 
-      const placeCode: PlaceCode = {
-        countryCodeISO3: 'KEN',
-        placeCode: 'KE0090400198',
-        placeCodeName: 'Guba',
-        placeCodeParent: {
-          countryCodeISO3: 'KEN',
-          placeCode: 'KE009040',
-          placeCodeName: 'Banissa',
-          placeCodeParentName: 'Mandera',
-          adminLevel: 2,
-        },
-        placeCodeParentName: 'Banissa',
-        adminLevel: 3,
-      };
-
       const expected = 'KE009040';
 
       expect(service.getPlaceCodeParent(placeCode)).toEqual(expected);
@@ -89,14 +88,14 @@ describe('MapService', () => {
     it('should return the triggered area corresponding to the provided placeCode or placeCodeParent', () => {
       service.triggeredAreas = MOCK_TRIGGEREDAREAS;
 
-      const placeCode = 'KE0090400198';
-      const placeCodeParent = 'KE009040';
-
       const expected = MOCK_TRIGGEREDAREAS[0];
 
-      expect(service.getAreaByPlaceCode(placeCode, placeCodeParent)).toEqual(
-        expected,
-      );
+      expect(
+        service.getAreaByPlaceCode(
+          placeCode.placeCode,
+          placeCode.placeCodeParent.placeCode,
+        ),
+      ).toEqual(expected);
     });
   });
 });
