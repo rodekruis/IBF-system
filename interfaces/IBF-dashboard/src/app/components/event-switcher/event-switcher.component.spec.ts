@@ -1,12 +1,12 @@
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { IonicModule } from '@ionic/angular';
-import { EventSwitcherComponent } from './event-switcher.component';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { EventSwitcherComponent } from 'src/app/components/event-switcher/event-switcher.component';
 
 describe('EventSwitcherComponent', () => {
   let component: EventSwitcherComponent;
@@ -15,7 +15,7 @@ describe('EventSwitcherComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [EventSwitcherComponent],
-      imports: [IonicModule, RouterTestingModule],
+      imports: [IonicModule, RouterModule.forRoot([])],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),

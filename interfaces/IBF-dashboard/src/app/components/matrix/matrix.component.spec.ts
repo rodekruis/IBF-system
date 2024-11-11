@@ -1,14 +1,14 @@
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { IonicModule } from '@ionic/angular';
-import { TranslateModule } from '@ngx-translate/core';
-import { MapService } from 'src/app/services/map.service';
-import { MatrixComponent } from './matrix.component';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
+import { MatrixComponent } from 'src/app/components/matrix/matrix.component';
+import { MapService } from 'src/app/services/map.service';
 
 describe('MatrixComponent', () => {
   let component: MatrixComponent;
@@ -17,7 +17,11 @@ describe('MatrixComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [MatrixComponent],
-      imports: [IonicModule, RouterTestingModule, TranslateModule.forRoot()],
+      imports: [
+        IonicModule,
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot(),
+      ],
       providers: [
         { provide: MapService },
         provideHttpClient(withInterceptorsFromDi()),

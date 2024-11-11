@@ -4,13 +4,21 @@ import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
 import { BehaviorSubject, Observable, of, zip } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { Country, DisasterType } from 'src/app/models/country.model';
+import { LayerActivation } from 'src/app/models/layer-activation.enum';
+import { breakKey } from 'src/app/models/map.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { EventState } from 'src/app/types/event-state';
 import {
   IbfLayer,
   IbfLayerGroup,
@@ -22,18 +30,10 @@ import {
 } from 'src/app/types/ibf-layer';
 import { Indicator } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
+import { TimelineState } from 'src/app/types/timeline-state';
+import { TriggeredArea } from 'src/app/types/triggered-area';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
-import { Country, DisasterType } from '../models/country.model';
-import { LayerActivation } from '../models/layer-activation.enum';
-import { breakKey } from '../models/map.model';
-import { AdminLevel, AdminLevelType } from '../types/admin-level';
-import { DisasterTypeKey } from '../types/disaster-type-key';
-import { EventState } from '../types/event-state';
-import { TimelineState } from '../types/timeline-state';
-import { TriggeredArea } from '../types/triggered-area';
-import { DisasterTypeService } from './disaster-type.service';
-import { EapActionsService } from './eap-actions.service';
 
 @Injectable({
   providedIn: 'root',
@@ -156,9 +156,7 @@ export class MapService {
 
   private getPopoverText(indicator: IbfLayerMetadata | Indicator): string {
     if (
-      indicator.description &&
-      indicator.description[this.country.countryCodeISO3] &&
-      indicator.description[this.country.countryCodeISO3][
+      indicator.description?.[this.country.countryCodeISO3]?.[
         this.disasterType.disasterType
       ]
     ) {
@@ -219,9 +217,9 @@ export class MapService {
             this.country.countryCodeISO3,
             this.eventState?.event?.eventName,
           )
-          .subscribe((trackData) =>
-            this.addTyphoonTrackLayer(layer, trackData),
-          );
+          .subscribe((trackData) => {
+            this.addTyphoonTrackLayer(layer, trackData);
+          });
       } else {
         this.addTyphoonTrackLayer(layer, null);
       }
@@ -344,9 +342,9 @@ export class MapService {
           this.eventState?.event?.eventName,
           this.getPlaceCodeParent(),
         )
-        .subscribe((adminRegions) =>
-          this.addAdminRegionLayer(adminRegions, adminLevel),
-        );
+        .subscribe((adminRegions) => {
+          this.addAdminRegionLayer(adminRegions, adminLevel);
+        });
     } else {
       this.addAdminRegionLayer(null, adminLevel);
     }
@@ -403,7 +401,7 @@ export class MapService {
     }
   }
 
-  private getActiveState(indicatorOrLayer: Indicator | IbfLayerMetadata) {
+  private getActiveState(indicatorOrLayer: IbfLayerMetadata | Indicator) {
     return indicatorOrLayer.active === LayerActivation.yes
       ? true
       : indicatorOrLayer.active === LayerActivation.ifTrigger &&
@@ -742,8 +740,8 @@ export class MapService {
               }
             },
           );
-          area['properties']['indicators'] = {};
-          area['properties']['indicators'][layerName] = foundAdmDynamicEntry
+          area.properties['indicators'] = {};
+          area.properties['indicators'][layerName] = foundAdmDynamicEntry
             ? foundAdmDynamicEntry.value
             : null;
           updatedFeatures.push(area);
@@ -884,8 +882,7 @@ export class MapService {
       .map((feature) =>
         typeof feature.properties[colorProperty] !== 'undefined'
           ? feature.properties[colorProperty]
-          : feature.properties.indicators &&
-            feature.properties.indicators[colorProperty],
+          : feature.properties.indicators?.[colorProperty],
       )
       .filter((v, i, a) => a.indexOf(v) === i);
 

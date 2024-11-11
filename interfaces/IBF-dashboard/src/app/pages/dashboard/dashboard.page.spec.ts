@@ -1,16 +1,16 @@
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { IonicModule } from '@ionic/angular';
-import { TranslateModule } from '@ngx-translate/core';
-import { MapService } from 'src/app/services/map.service';
-import { SharedModule } from 'src/app/shared.module';
-import { DashboardPage } from './dashboard.page';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
+import { DashboardPage } from 'src/app/pages/dashboard/dashboard.page';
+import { MapService } from 'src/app/services/map.service';
+import { SharedModule } from 'src/app/shared.module';
 
 describe('DashboardPage', () => {
   let component: DashboardPage;
@@ -23,7 +23,7 @@ describe('DashboardPage', () => {
       imports: [
         IonicModule,
         SharedModule,
-        RouterTestingModule,
+        RouterModule.forRoot([]),
         TranslateModule.forRoot(),
       ],
       providers: [
