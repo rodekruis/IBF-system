@@ -188,6 +188,17 @@ class MapComponent extends DashboardPage {
     await expect(legendComponent).toBeVisible();
   }
 
+  async assertLegendElementIsNotVisible({
+    legendComponentName,
+  }: {
+    legendComponentName: string;
+  }) {
+    const legendComponent = this.legend.filter({
+      hasText: legendComponentName,
+    });
+    await expect(legendComponent).toBeHidden();
+  }
+
   async redCrossMarkersAreVisible() {
     // Wait for the page to load
     await this.page.waitForSelector('[alt="red-cross-branch-marker"]');

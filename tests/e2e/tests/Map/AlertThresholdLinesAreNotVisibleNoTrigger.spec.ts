@@ -36,10 +36,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test(
-  qase(
-    28,
-    '[No-trigger] GloFAS stations markers should be visible on "Legend", "Layer" and "Map"',
-  ),
+  qase(30, '[No-trigger] No "Alert Threshold Reached" lines are visible'),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
     const userState = new UserStateComponent(page);
@@ -56,14 +53,8 @@ test(
 
     await map.mapComponentIsVisible();
     await map.isLegendOpen({ legendOpen: true });
-    await map.isLayerMenuOpen({ layerMenuOpen: false });
-    await map.clickLayerMenu();
-    await map.validateCheckboxIsChekced({ layerName: 'Glofas stations' });
-    await map.assertLegendElementIsVisible({
-      legendComponentName: 'GloFAS No action',
+    await map.assertLegendElementIsNotVisible({
+      legendComponentName: 'Alert Threshold Reached',
     });
-
-    // GloFAS layer should be visible by default
-    await map.gloFASMarkersAreVisible();
   },
 );
