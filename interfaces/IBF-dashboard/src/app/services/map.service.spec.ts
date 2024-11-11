@@ -57,7 +57,7 @@ describe('MapService', () => {
   });
 
   describe('getPlaceCodeParent', () => {
-    it('should return the palceCodeParent of the provided placeCode', () => {
+    it('should return the placeCodeParent of the provided placeCode', () => {
       // eslint-disable-next-line @typescript-eslint/dot-notation
       adminLevelService['countryDisasterSettings'] =
         MOCK_COUNTRYDISASTERSETTINGS;
