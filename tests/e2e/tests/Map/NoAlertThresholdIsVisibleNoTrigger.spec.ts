@@ -36,7 +36,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test(
-  qase(29, '[No-trigger] No alert Threshold Reached is visible on the legend'),
+  qase(29, '[No-trigger] Alert Threshold Reached is visible on the legend'),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
     const userState = new UserStateComponent(page);
