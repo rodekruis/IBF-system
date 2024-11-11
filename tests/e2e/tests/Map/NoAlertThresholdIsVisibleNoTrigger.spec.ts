@@ -53,7 +53,7 @@ test(
 
     await map.mapComponentIsVisible();
     await map.isLegendOpen({ legendOpen: true });
-    await map.assertLegendElementIsNotVisible({
+    await map.assertLegendElementIsVisible({
       legendComponentName: 'Alert Threshold Reached',
     });
   },
