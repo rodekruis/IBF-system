@@ -61,8 +61,8 @@ describe('MapService', () => {
       // eslint-disable-next-line @typescript-eslint/dot-notation
       adminLevelService['countryDisasterSettings'] =
         MOCK_COUNTRYDISASTERSETTINGS;
-      // eslint-disable-next-line @typescript-eslint/dot-notation
-      adminLevelService['adminLevel'] = 3;
+
+      adminLevelService.adminLevel = 3;
 
       const placeCode: PlaceCode = {
         countryCodeISO3: 'KEN',
