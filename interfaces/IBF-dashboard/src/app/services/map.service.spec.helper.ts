@@ -1,5 +1,4 @@
 import { CountryDisasterSettings } from 'src/app/models/country.model';
-import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import {
@@ -33,21 +32,6 @@ export const MOCK_LAYERS: IbfLayer[] = [
     order: 2,
   },
 ];
-
-export const MOCK_PLACECODE: PlaceCode = {
-  countryCodeISO3: 'KEN',
-  placeCode: 'KE0090400198',
-  placeCodeName: 'Guba',
-  placeCodeParent: {
-    countryCodeISO3: 'KEN',
-    placeCode: 'KE009040',
-    placeCodeName: 'Banissa',
-    placeCodeParentName: 'Mandera',
-    adminLevel: 2,
-  },
-  placeCodeParentName: 'Banissa',
-  adminLevel: 3,
-};
 
 export const MOCK_COUNTRYDISASTERSETTINGS: CountryDisasterSettings = {
   disasterType: DisasterTypeKey.floods,

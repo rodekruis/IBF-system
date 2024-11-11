@@ -6,12 +6,12 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { MapService } from 'src/app/services/map.service';
 import {
   MOCK_COUNTRYDISASTERSETTINGS,
   MOCK_LAYERS,
-  MOCK_PLACECODE,
   MOCK_TRIGGEREDAREAS as MOCK_TRIGGEREDAREAS,
 } from 'src/app/services/map.service.spec.helper';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
@@ -64,9 +64,24 @@ describe('MapService', () => {
       // eslint-disable-next-line @typescript-eslint/dot-notation
       adminLevelService['adminLevel'] = 3;
 
-      expect(service.getPlaceCodeParent(MOCK_PLACECODE)).toEqual(
-        MOCK_PLACECODE.placeCodeParent.placeCode,
-      );
+      const placeCode: PlaceCode = {
+        countryCodeISO3: 'KEN',
+        placeCode: 'KE0090400198',
+        placeCodeName: 'Guba',
+        placeCodeParent: {
+          countryCodeISO3: 'KEN',
+          placeCode: 'KE009040',
+          placeCodeName: 'Banissa',
+          placeCodeParentName: 'Mandera',
+          adminLevel: 2,
+        },
+        placeCodeParentName: 'Banissa',
+        adminLevel: 3,
+      };
+
+      const expected = 'KE009040';
+
+      expect(service.getPlaceCodeParent(placeCode)).toEqual(expected);
     });
   });
 
@@ -74,12 +89,14 @@ describe('MapService', () => {
     it('should return the triggered area corresponding to the provided placeCode or placeCodeParent', () => {
       service.triggeredAreas = MOCK_TRIGGEREDAREAS;
 
-      expect(
-        service.getAreaByPlaceCode(
-          MOCK_PLACECODE.placeCode,
-          MOCK_PLACECODE.placeCodeParent.placeCode,
-        ),
-      ).toEqual(MOCK_TRIGGEREDAREAS[0]);
+      const placeCode = 'KE0090400198';
+      const placeCodeParent = 'KE009040';
+
+      const expected = MOCK_TRIGGEREDAREAS[0];
+
+      expect(service.getAreaByPlaceCode(placeCode, placeCodeParent)).toEqual(
+        expected,
+      );
     });
   });
 });
