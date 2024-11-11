@@ -1,12 +1,12 @@
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { IonicModule } from '@ionic/angular';
-import { DateButtonComponent } from './date-button.component';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { DateButtonComponent } from 'src/app/components/date-button/date-button.component';
 
 describe('DateButtonComponent', () => {
   let component: DateButtonComponent;
@@ -15,7 +15,7 @@ describe('DateButtonComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [DateButtonComponent],
-      imports: [IonicModule, RouterTestingModule],
+      imports: [IonicModule, RouterModule.forRoot([])],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),

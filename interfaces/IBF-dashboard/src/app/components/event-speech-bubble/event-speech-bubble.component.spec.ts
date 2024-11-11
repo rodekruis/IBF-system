@@ -1,13 +1,13 @@
-import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { IonicModule } from '@ionic/angular';
-import { TranslateModule } from '@ngx-translate/core';
-import { EventSpeechBubbleComponent } from './event-speech-bubble.component';
 import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
+import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
+import { EventSpeechBubbleComponent } from 'src/app/components/event-speech-bubble/event-speech-bubble.component';
 
 describe('EventSpeechBubbleComponent', () => {
   let component: EventSpeechBubbleComponent;
@@ -18,7 +18,7 @@ describe('EventSpeechBubbleComponent', () => {
       declarations: [EventSpeechBubbleComponent],
       imports: [
         IonicModule.forRoot(),
-        RouterTestingModule,
+        RouterModule.forRoot([]),
         TranslateModule.forRoot(),
       ],
       providers: [
