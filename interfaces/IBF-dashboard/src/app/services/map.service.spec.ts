@@ -4,7 +4,7 @@ import {
 } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { MapService } from 'src/app/services/map.service';
@@ -22,7 +22,7 @@ describe('MapService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, TranslateModule.forRoot()],
+      imports: [RouterModule.forRoot([]), TranslateModule.forRoot()],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
