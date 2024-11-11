@@ -2,6 +2,7 @@ import * as request from 'supertest';
 import TestAgent from 'supertest/lib/agent';
 
 import { DisasterType } from '../../../services/API-service/src/api/disaster/disaster-type.enum';
+import { CreateUserDto } from '../../../services/API-service/src/api/user/dto/create-user.dto';
 import {
   EpidemicsScenario,
   FlashFloodsScenario,
@@ -12,13 +13,13 @@ import users from '../../../services/API-service/src/scripts/json/users.json';
 
 export async function getAccessToken(): Promise<string> {
   const admin = users.find((user) => user.userRole === 'admin');
-  const login = await loginApi(admin.email, admin.password);
+  const login = await loginUser(admin.email, admin.password);
 
   const accessToken = login.body.user.token;
   return accessToken;
 }
 
-export function loginApi(
+export function loginUser(
   email: string,
   password?: string,
 ): Promise<request.Response> {
@@ -156,4 +157,25 @@ export function sendNotification(
       countryCodeISO3,
       disasterType,
     });
+}
+
+export function createUser(
+  userData: CreateUserDto,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .post('/user')
+    .set('Authorization', `Bearer ${accessToken}`)
+    .send(userData);
+}
+
+export function changePassword(
+  email: string,
+  password: string,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .post('/user/change-password')
+    .set('Authorization', `Bearer ${accessToken}`)
+    .send({ email, password });
 }
