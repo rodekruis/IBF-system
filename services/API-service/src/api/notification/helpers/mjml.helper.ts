@@ -274,7 +274,7 @@ export const getTimeFromNow = (leadTime: LeadTime) => {
 
   return `${leadTime.replace('-', ' ')}${
     leadTimeQuantity === 1 ? '' : 's'
-  } from now.`;
+  } from now`;
 };
 
 export const getTriangleIcon = (
