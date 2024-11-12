@@ -192,17 +192,6 @@ class MapComponent extends DashboardPage {
     await expect(legendComponent).toBeVisible();
   }
 
-  async assertLegendElementIsNotVisible({
-    legendComponentName,
-  }: {
-    legendComponentName: string;
-  }) {
-    const legendComponent = this.legend.filter({
-      hasText: legendComponentName,
-    });
-    await expect(legendComponent).toBeHidden();
-  }
-
   async assertAlertThresholdLines({ visible = false }: { visible: boolean }) {
     if (visible === true) {
       const alertThresholdLinesCount = await this.alerThresholdLines.count();
