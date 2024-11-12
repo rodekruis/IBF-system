@@ -30,6 +30,8 @@ runs:
       shell: bash
       env:
         MC_API: ${{ inputs.mailchimp-api-key }}
+        TWILIO_SID: ${{ inputs.twilio-sid }}
+        TWILIO_AUTHTOKEN: ${{ inputs.twilio-authtoken }}
       run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service
 
     - name: Wait for IBF API-service to be running

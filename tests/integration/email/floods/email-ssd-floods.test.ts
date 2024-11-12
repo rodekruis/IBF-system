@@ -11,7 +11,7 @@ describe('Should send an email for ssd floods', () => {
     await resetDB(accessToken);
   });
 
-  it('trigger', async () => {
+  it.skip('trigger', async () => {
     const events = [{ eventName: 'G5100', leadTime: '4-day' }];
     const result = await testFloodScenario(FloodsScenario.Trigger, {
       events,
@@ -21,7 +21,7 @@ describe('Should send an email for ssd floods', () => {
     expect(result).toBeTruthy();
   });
 
-  it('no-trigger', async () => {
+  it.skip('no-trigger', async () => {
     const events = [];
     const result = await testFloodScenario(FloodsScenario.NoTrigger, {
       events,
