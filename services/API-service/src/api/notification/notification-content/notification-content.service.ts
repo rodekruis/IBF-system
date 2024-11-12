@@ -80,7 +80,7 @@ export class NotificationContentService {
     });
   }
 
-  public async getDisaster(
+  private async getDisaster(
     disasterType: DisasterType,
   ): Promise<DisasterEntity> {
     return await this.disasterRepository.findOne({
@@ -165,11 +165,7 @@ export class NotificationContentService {
       : TriggerStatusLabelEnum.Warning;
 
     data.eventName = await this.getFormattedEventName(event, disasterType);
-    data.disasterSpecificCopy = await this.getDisasterSpecificCopy(
-      disasterType,
-      event.firstLeadTime,
-      event,
-    );
+    data.disasterSpecificProperties = event.disasterSpecificProperties;
     data.firstLeadTime = event.firstLeadTime;
     data.firstTriggerLeadTime = event.firstTriggerLeadTime;
     data.triggeredAreas = await this.getSortedTriggeredAreas(
@@ -178,7 +174,7 @@ export class NotificationContentService {
       event,
     );
     data.nrOfTriggeredAreas = data.triggeredAreas.length;
-    // This looks weird, but as far as I understand the startDate of the event is the day it was first issued
+
     data.issuedDate = new Date(event.startDate);
     data.firstLeadTimeString = await this.getFirstLeadTimeString(
       event,
@@ -346,109 +342,6 @@ export class NotificationContentService {
     return this.firstCharOfWordsToUpper(
       (await this.getDisaster(disasterType)).label,
     );
-  }
-
-  private async getDisasterSpecificCopy(
-    disasterType: DisasterType,
-    leadTime: LeadTime,
-    event: EventSummaryCountry,
-  ): Promise<{
-    eventStatus: string;
-    extraInfo: string;
-    leadTimeString?: string;
-    timestamp?: string;
-  }> {
-    switch (disasterType) {
-      case DisasterType.HeavyRain:
-        return this.getHeavyRainCopy();
-      case DisasterType.Typhoon:
-        return await this.getTyphoonCopy(leadTime, event);
-      case DisasterType.FlashFloods:
-        return await this.getFlashFloodsCopy(leadTime, event);
-      default:
-        return { eventStatus: '', extraInfo: '' };
-    }
-  }
-
-  private getHeavyRainCopy(): {
-    eventStatus: string;
-    extraInfo: string;
-  } {
-    return {
-      eventStatus: 'Estimated',
-      extraInfo: '',
-    };
-  }
-
-  private async getTyphoonCopy(
-    leadTime: LeadTime,
-    event: EventSummaryCountry,
-  ): Promise<{
-    eventStatus: string;
-    extraInfo: string;
-    leadTimeString: string;
-    timestamp: string;
-  }> {
-    const { typhoonLandfall, typhoonNoLandfallYet } =
-      event.disasterSpecificProperties;
-    let eventStatus = '';
-    let extraInfo = '';
-    let leadTimeString = null;
-
-    if (leadTime === LeadTime.hour0) {
-      if (typhoonLandfall) {
-        eventStatus = 'Has <strong>already made landfall</strong>';
-        leadTimeString = 'Already made landfall';
-      } else {
-        eventStatus = 'Has already reached the point closest to land';
-        leadTimeString = 'reached the point closest to land';
-      }
-    } else {
-      if (typhoonNoLandfallYet) {
-        eventStatus =
-          '<strong>Landfall time prediction cannot be determined yet</strong>';
-        extraInfo = 'Keep monitoring the event.';
-        leadTimeString = 'Undetermined landfall';
-      } else if (typhoonLandfall) {
-        eventStatus = 'Estimated to <strong>make landfall</strong>';
-      } else {
-        eventStatus =
-          '<strong>Not predicted to make landfall</strong>. It is estimated to reach the point closest to land';
-      }
-    }
-
-    const timestampString = await this.getLeadTimeTimestamp(
-      leadTime,
-      event.countryCodeISO3,
-      DisasterType.Typhoon,
-    );
-
-    return {
-      eventStatus: eventStatus,
-      extraInfo: extraInfo,
-      leadTimeString,
-      timestamp: timestampString,
-    };
-  }
-
-  private async getFlashFloodsCopy(
-    leadTime: LeadTime,
-    event: EventSummaryCountry,
-  ): Promise<{
-    eventStatus: string;
-    extraInfo: string;
-    timestamp: string;
-  }> {
-    const timestampString = await this.getLeadTimeTimestamp(
-      leadTime,
-      event.countryCodeISO3,
-      DisasterType.FlashFloods,
-    );
-    return {
-      eventStatus: 'The flash flood is forecasted: ',
-      extraInfo: '',
-      timestamp: timestampString,
-    };
   }
 
   private async getLeadTimeTimestamp(
