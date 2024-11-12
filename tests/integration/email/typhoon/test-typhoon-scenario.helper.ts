@@ -38,7 +38,8 @@ export async function testTyphoonScenario(
   expect(response.body.finishedEvents).toBeFalsy();
 
   // Parse the HTML content
-  const dom = new JSDOM(response.body.activeEvents.email);
+  const emailContent = response.body.activeEvents.email;
+  const dom = new JSDOM(emailContent);
   const document = dom.window.document;
 
   // Get all span elements with data-testid="event-name" and their lower case text content
@@ -54,6 +55,24 @@ export async function testTyphoonScenario(
     const eventTitle = getEventTitle(disasterTypeLabel, eventName);
     const hasEvent = eventNameInEmail.includes(eventTitle);
     expect(hasEvent).toBe(true);
+  }
+
+  if (scenario === TyphoonScenario.EventTrigger) {
+    expect(emailContent).toContain('Expected to make landfall on');
+  } else if (scenario === TyphoonScenario.EventNoTrigger) {
+    expect(emailContent).toContain(
+      'Not predicted to reach trigger thresholds.',
+    );
+  } else if (scenario === TyphoonScenario.EventNoLandfall) {
+    expect(emailContent).toContain(
+      'Expected to reach the point closest to land on',
+    );
+  } else if (scenario === TyphoonScenario.EventNoLandfallYet) {
+    expect(emailContent).toContain(
+      'The landfall time prediction cannot be determined yet',
+    );
+  } else if (scenario === TyphoonScenario.EventAfterLandfall) {
+    expect(emailContent).toContain('Has already made landfall');
   }
 
   return true;
