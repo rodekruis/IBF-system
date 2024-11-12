@@ -11,7 +11,7 @@ describe('Should send an email for uga floods', () => {
     await resetDB(accessToken);
   });
 
-  it.skip('trigger', async () => {
+  it('trigger', async () => {
     const events = [
       { eventName: 'G5075', leadTime: '0-day' },
       { eventName: 'G5220', leadTime: '4-day' },
@@ -25,7 +25,7 @@ describe('Should send an email for uga floods', () => {
     expect(result).toBeTruthy();
   });
 
-  it.skip('warning', async () => {
+  it('warning', async () => {
     const events = [{ eventName: 'G5230', leadTime: '5-day' }];
     const result = await testFloodScenario(FloodsScenario.Warning, {
       events,
@@ -35,7 +35,7 @@ describe('Should send an email for uga floods', () => {
     expect(result).toBeTruthy();
   });
 
-  it.skip('warning-to-trigger', async () => {
+  it('warning-to-trigger', async () => {
     const events = [{ eventName: 'G5220', leadTime: '4-day' }];
     const result = await testFloodScenario(FloodsScenario.WarningToTrigger, {
       events,
@@ -45,7 +45,7 @@ describe('Should send an email for uga floods', () => {
     expect(result).toBeTruthy();
   });
 
-  it.skip('no-trigger', async () => {
+  it('no-trigger', async () => {
     const events = [];
     const result = await testFloodScenario(FloodsScenario.NoTrigger, {
       events,

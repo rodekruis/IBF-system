@@ -11,7 +11,7 @@ describe('Should send an email for eth malaria', () => {
     await resetDB(accessToken);
   });
 
-  it.skip('trigger', async () => {
+  it('trigger', async () => {
     const result = await testMalariaScenario(
       EpidemicsScenario.Trigger,
       countryCodeISO3,
@@ -20,7 +20,7 @@ describe('Should send an email for eth malaria', () => {
     expect(result).toBeTruthy();
   });
 
-  it.skip('no-trigger', async () => {
+  it('no-trigger', async () => {
     const result = await testMalariaScenario(
       EpidemicsScenario.NoTrigger,
       countryCodeISO3,

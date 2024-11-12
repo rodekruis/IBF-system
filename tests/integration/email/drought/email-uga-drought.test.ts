@@ -20,7 +20,7 @@ describe('Should send an email for uga drought', () => {
     await resetDB(accessToken);
   });
 
-  it.skip('triggered in january', async () => {
+  it('triggered in january', async () => {
     // Mock settings
     const dateJanuary = new Date(new Date().getFullYear(), 0, 2); // Use 2nd of January to avoid timezone issues
     const triggered = true;
@@ -73,7 +73,7 @@ describe('Should send an email for uga drought', () => {
     }
   });
 
-  it.skip('non triggered any month', async () => {
+  it('non triggered any month', async () => {
     // Mock settings
     const currentDate = new Date();
     const triggered = false;

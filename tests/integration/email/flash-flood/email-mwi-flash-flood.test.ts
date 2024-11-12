@@ -11,7 +11,7 @@ describe('Should send an email for mwi flash flood', () => {
     await resetDB(accessToken);
   });
 
-  it.skip('trigger', async () => {
+  it('trigger', async () => {
     const result = await testFlashFloodScenario(
       FlashFloodsScenario.Trigger,
       countryCodeISO3,
@@ -20,7 +20,7 @@ describe('Should send an email for mwi flash flood', () => {
     expect(result).toBeTruthy();
   });
 
-  it.skip('no-trigger', async () => {
+  it('no-trigger', async () => {
     const result = await testFlashFloodScenario(
       FlashFloodsScenario.NoTrigger,
       countryCodeISO3,

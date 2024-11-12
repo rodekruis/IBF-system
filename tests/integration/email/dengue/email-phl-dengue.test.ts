@@ -11,7 +11,7 @@ describe('Should send an email for phl dengue', () => {
     await resetDB(accessToken);
   });
 
-  it.skip('trigger', async () => {
+  it('trigger', async () => {
     const result = await testDengueScenario(
       EpidemicsScenario.Trigger,
       countryCodeISO3,
@@ -20,7 +20,7 @@ describe('Should send an email for phl dengue', () => {
     expect(result).toBeTruthy();
   });
 
-  it.skip('no-trigger', async () => {
+  it('no-trigger', async () => {
     const result = await testDengueScenario(
       EpidemicsScenario.NoTrigger,
       countryCodeISO3,
