@@ -23,8 +23,9 @@ describe('create user', () => {
 
     // Act
     const createResult = await createUser(newUserData, accessToken);
+    console.log('createResult: ', createResult);
     const loginResult = await loginUser(
-      newUserData.email,
+      createResult.body.user.email,
       newUserData.password,
     );
 
