@@ -90,6 +90,8 @@ jobs:
         uses: ./.github/actions/integration
         with:
           mailchimp-api-key: ${{ secrets.MC_API }}
+          twilio-sid: ${{ secrets.TWILIO_SID }}
+          twilio-authtoken: ${{ secrets.TWILIO_AUTHTOKEN }}
 
   ibf-e2e:
     needs: detect-changes

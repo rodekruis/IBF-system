@@ -49,13 +49,14 @@ export class UserService {
   }
 
   public async create(dto: CreateUserDto): Promise<UserResponseObject> {
-    // check uniqueness of username
-    let email = dto.email;
-    email = email.toLowerCase();
-    const user = await this.userRepository.findOne({ where: { email: email } });
+    const email = dto.email.toLowerCase();
+    const username = dto.username.toLowerCase();
+    const user = await this.userRepository.findOne({
+      where: [{ email: email }, { username: username }],
+    });
 
     if (user) {
-      const errors = { email: 'Email must be unique.' };
+      const errors = { errors: 'Email and username must be unique.' };
       throw new HttpException(
         { message: 'Input data validation failed', errors },
         HttpStatus.BAD_REQUEST,
