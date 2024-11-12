@@ -265,10 +265,10 @@
       },
       "active-event-active-trigger": {
         "header": "Trigger: {{ eventName }} at {{firstLeadTimeDate}}",
-        "header-ongoing": "Ongoing trigger: {{ eventName }} at {{firstLeadTimeDate}}",
+        "header-ongoing": "Ongoing trigger: {{ eventName }}",
         "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
-        "header-ongoing-below-trigger": "Ongoing warning: {{ eventName }} at {{firstLeadTimeDate}}",
-        "welcome": "A trigger warning for <strong>{{ eventName }}</strong> was issued on {{ startDate }}.",
+        "header-ongoing-below-trigger": "Ongoing warning: {{ eventName }}",
+        "welcome": "A trigger for <strong>{{ eventName }}</strong> was issued on {{ startDate }}.",
         "welcome-below-trigger": "A warning for <strong>{{ eventName }}</strong> was issued on {{ startDate }}, but it is currently <strong>not predicted to reach trigger thresholds</strong>.",
         "upcoming-event": {
           "landfall": "It is estimated to <strong>make landfall</strong> on <strong>{{ firstLeadTimeDate }}</strong>.<br><br>",
@@ -277,7 +277,7 @@
         },
         "ongoing-event": {
           "landfall": "It has <strong>already made landfall</strong>.<br><br>",
-          "no-landfall": "It has already reached the point closest to land.<br><br>"
+          "no-landfall": "It has already reached the point closest to land. It is <strong>not predicted to make landfall</strong>.<br><br>"
         }
       },
       "active-event": {
