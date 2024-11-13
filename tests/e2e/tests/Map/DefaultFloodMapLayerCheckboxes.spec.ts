@@ -14,6 +14,7 @@ import {
 import LoginPage from '../../Pages/LoginPage';
 
 let accessToken: string;
+let checkedLayers;
 
 test.beforeEach(async ({ page }) => {
   // Login
@@ -37,8 +38,8 @@ test.beforeEach(async ({ page }) => {
 
 test(
   qase(
-    28,
-    '[No-trigger] GloFAS stations markers should be visible on "Legend", "Layer" and "Map"',
+    32,
+    "[No Trigger] Conditional check for (default) map layer's checkboxes (Flood)",
   ),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
@@ -53,19 +54,21 @@ test(
     });
     // Wait for the page to load
     await dashboard.waitForLoaderToDisappear();
-
     await map.mapComponentIsVisible();
-    await map.isLegendOpen({ legendOpen: true });
-    await map.isLayerMenuOpen({ layerMenuOpen: false });
-    await map.clickLayerMenu();
-    await map.verifyLayerCheckboxCheckedByName({
-      layerName: 'Glofas stations',
-    });
-    await map.assertLegendElementIsVisible({
-      legendComponentName: 'GloFAS No action',
-    });
 
-    // GloFAS layer should be visible by default
-    await map.gloFASMarkersAreVisible();
+    // Open the layer menu
+    // await map.isLayerMenuOpen({ layerMenuOpen: false });
+    // await map.clickLayerMenu();
+    // await map.isLayerMenuOpen({ layerMenuOpen: true });
+    await map.clickLayerCheckbox({ layerName: 'Red Cross branches' });
+
+    // Check if the default layers are visible
+    checkedLayers = await map.returnLayerCheckedCheckboxes();
+    console.log('checkedLayers: ', checkedLayers);
+    if (checkedLayers) {
+      await map.validateLayersAreVisibleByName({ layerNames: checkedLayers });
+    } else {
+      throw new Error('No layers are visible');
+    }
   },
 );

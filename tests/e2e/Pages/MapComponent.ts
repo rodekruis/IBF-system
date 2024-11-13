@@ -45,8 +45,8 @@ class MapComponent extends DashboardPage {
     this.layerCheckbox = this.page.getByTestId('matrix-checkbox');
     this.legendHeader = this.page.getByTestId('map-legend-header');
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
-    this.redCrossMarker = this.page.getByAltText('red-cross-branch-marker');
-    this.gloFASMarker = this.page.getByAltText('glofas-station-marker');
+    this.redCrossMarker = this.page.getByAltText('Red Cross branches');
+    this.gloFASMarker = this.page.getByAltText('Glofas stations');
     this.alerThresholdLines = this.page.locator(
       '[stroke="var(--ion-color-ibf-outline-red)"]',
     );
@@ -141,7 +141,7 @@ class MapComponent extends DashboardPage {
     await layerCheckbox.click();
   }
 
-  async validateCheckboxIsChekced({ layerName }: { layerName: string }) {
+  async verifyLayerCheckboxCheckedByName({ layerName }: { layerName: string }) {
     const getLayerRow = this.page
       .getByTestId('matrix-layer-name')
       .filter({ hasText: layerName });
@@ -154,6 +154,33 @@ class MapComponent extends DashboardPage {
     if (!isChecked) {
       throw new Error(`Checkbox for layer ${layerName} is not checked`);
     }
+  }
+
+  async returnLayerCheckedCheckboxes() {
+    const getLayerRow = this.page.getByTestId('matrix-layer-name');
+    const layerCount = await getLayerRow.count();
+    console.log('layerCount: ', layerCount);
+
+    const availableLayers = [];
+    for (let i = 0; i < layerCount; i++) {
+      try {
+        const layerCheckbox = getLayerRow.nth(i).locator(this.layerCheckbox);
+        const nameAttribute = await layerCheckbox.getAttribute('name');
+        console.log(`Layer ${i} name attribute: `, nameAttribute);
+        const isChecked = nameAttribute === 'checkbox';
+        if (isChecked) {
+          const layerName = await getLayerRow.nth(i).textContent();
+          console.log(`Layer ${i} name: `, layerName);
+          if (layerName) {
+            availableLayers.push(layerName.trim());
+          }
+        }
+      } catch (error) {
+        console.error(`Error processing layer ${i}:`, error);
+      }
+    }
+    console.log('Available layers: ', availableLayers);
+    return availableLayers;
   }
 
   async assertAggregateTitleOnHoverOverMap() {
@@ -219,7 +246,7 @@ class MapComponent extends DashboardPage {
 
   async gloFASMarkersAreVisible() {
     // Wait for the page to load
-    await this.page.waitForSelector('[alt="glofas-station-marker"]');
+    await this.page.waitForSelector('[alt="Glofas stations"]');
 
     // Count the number of gloFAS markers
     const gloFASMarkersCount = await this.gloFASMarker.count();
@@ -228,6 +255,24 @@ class MapComponent extends DashboardPage {
     // Assert that the number of gloFAS markers is greater than 0 and randomly select one to be visible
     expect(gloFASMarkersCount).toBeGreaterThan(0);
     await expect(this.gloFASMarker.nth(nthSelector)).toBeVisible();
+  }
+
+  async validateLayersAreVisibleByName({
+    layerNames = [],
+  }: {
+    layerNames: string[];
+  }) {
+    for (const layerName of layerNames) {
+      await this.page.waitForSelector(`[alt="${layerName}"]`);
+      const layer = this.page.getByAltText(layerName);
+      // Count the number of markers
+      const markersCount = await layer.count();
+      const nthSelector = this.getRandomInt(1, markersCount);
+
+      // Assert that the number of gloFAS markers is greater than 0 and randomly select one to be visible
+      expect(markersCount).toBeGreaterThan(0);
+      await expect(layer.nth(nthSelector)).toBeVisible();
+    }
   }
 }
 export default MapComponent;
