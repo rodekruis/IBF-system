@@ -20,6 +20,7 @@ class MapComponent extends DashboardPage {
   readonly layerMenuToggle: Locator;
   readonly redCrossMarker: Locator;
   readonly gloFASMarker: Locator;
+  readonly alerThresholdLines: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -46,6 +47,9 @@ class MapComponent extends DashboardPage {
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
     this.redCrossMarker = this.page.getByAltText('red-cross-branch-marker');
     this.gloFASMarker = this.page.getByAltText('glofas-station-marker');
+    this.alerThresholdLines = this.page.locator(
+      '[stroke="var(--ion-color-ibf-outline-red)"]',
+    );
   }
 
   async mapComponentIsVisible() {
@@ -186,6 +190,18 @@ class MapComponent extends DashboardPage {
       hasText: legendComponentName,
     });
     await expect(legendComponent).toBeVisible();
+  }
+
+  async assertAlertThresholdLines({ visible = false }: { visible: boolean }) {
+    if (visible === true) {
+      const alertThresholdLinesCount = await this.alerThresholdLines.count();
+      const nthSelector = this.getRandomInt(1, alertThresholdLinesCount);
+      // Assert that the number of alerThresholdLines is greater than 0 and randomly select one to be visible
+      expect(alertThresholdLinesCount).toBeGreaterThan(0);
+      await expect(this.alerThresholdLines.nth(nthSelector)).toBeVisible();
+    } else {
+      await expect(this.alerThresholdLines).toBeHidden();
+    }
   }
 
   async redCrossMarkersAreVisible() {
