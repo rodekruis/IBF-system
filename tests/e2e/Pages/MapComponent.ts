@@ -156,30 +156,41 @@ class MapComponent extends DashboardPage {
     }
   }
 
+  async retryGetAttribute(locator: Locator, attribute: string, retries = 3) {
+    for (let attempt = 0; attempt < retries; attempt++) {
+      try {
+        return await locator.getAttribute(attribute);
+      } catch (error) {
+        console.log(`Retry ${attempt + 1} for attribute ${attribute} failed`);
+        if (attempt === retries - 1) throw error;
+      }
+    }
+  }
+
   async returnLayerCheckedCheckboxes() {
     const getLayerRow = this.page.getByTestId('matrix-layer-name');
     const layerCount = await getLayerRow.count();
-    console.log('layerCount: ', layerCount);
 
     const availableLayers = [];
     for (let i = 0; i < layerCount; i++) {
       try {
         const layerCheckbox = getLayerRow.nth(i).locator(this.layerCheckbox);
-        const nameAttribute = await layerCheckbox.getAttribute('name');
-        console.log(`Layer ${i} name attribute: `, nameAttribute);
-        const isChecked = nameAttribute === 'checkbox';
-        if (isChecked) {
-          const layerName = await getLayerRow.nth(i).textContent();
-          console.log(`Layer ${i} name: `, layerName);
-          if (layerName) {
-            availableLayers.push(layerName.trim());
+        if (await layerCheckbox.isVisible()) {
+          const nameAttribute = await this.retryGetAttribute(
+            layerCheckbox,
+            'name',
+          );
+          if (nameAttribute === 'checkbox') {
+            const layerName = await getLayerRow.nth(i).textContent();
+            if (layerName) {
+              availableLayers.push(layerName.trim());
+            }
           }
         }
       } catch (error) {
-        console.error(`Error processing layer ${i}:`, error);
+        // Handle errors without stopping the loop
       }
     }
-    console.log('Available layers: ', availableLayers);
     return availableLayers;
   }
 

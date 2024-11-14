@@ -39,7 +39,7 @@ test.beforeEach(async ({ page }) => {
 test(
   qase(
     32,
-    "[No Trigger] Conditional check for (default) map layer's checkboxes (Flood)",
+    "[No Trigger] Conditional check for (default) map layer's checkboxes",
   ),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
@@ -57,14 +57,12 @@ test(
     await map.mapComponentIsVisible();
 
     // Open the layer menu
-    // await map.isLayerMenuOpen({ layerMenuOpen: false });
-    // await map.clickLayerMenu();
-    // await map.isLayerMenuOpen({ layerMenuOpen: true });
-    await map.clickLayerCheckbox({ layerName: 'Red Cross branches' });
+    await map.isLayerMenuOpen({ layerMenuOpen: false });
+    await map.clickLayerMenu();
+    await map.isLayerMenuOpen({ layerMenuOpen: true });
 
     // Check if the default layers are visible
     checkedLayers = await map.returnLayerCheckedCheckboxes();
-    console.log('checkedLayers: ', checkedLayers);
     if (checkedLayers) {
       await map.validateLayersAreVisibleByName({ layerNames: checkedLayers });
     } else {
