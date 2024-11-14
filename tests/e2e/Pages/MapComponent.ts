@@ -244,7 +244,7 @@ class MapComponent extends DashboardPage {
 
   async redCrossMarkersAreVisible() {
     // Wait for the page to load
-    await this.page.waitForSelector('[alt="red-cross-branch-marker"]');
+    await this.page.waitForSelector('[alt="Red Cross branches"]');
 
     // Count the number of red cross markers
     const redCrossMarkersCount = await this.redCrossMarker.count();
