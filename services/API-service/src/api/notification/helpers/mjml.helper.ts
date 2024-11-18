@@ -268,11 +268,13 @@ export const getTimeFromNow = (leadTime: LeadTime) => {
 
   const leadTimeQuantity = parseInt(leadTime.split('-')[0]);
 
-  return [LeadTime.day0, LeadTime.month0, LeadTime.hour0].includes(leadTime)
-    ? 'ongoing'
-    : `${leadTime.replace('-', ' ')}${
-        leadTimeQuantity === 1 ? '' : 's'
-      } from now`;
+  if (leadTimeQuantity === 0) {
+    return 'ongoing';
+  }
+
+  return `${leadTime.replace('-', ' ')}${
+    leadTimeQuantity === 1 ? '' : 's'
+  } from now`;
 };
 
 export const getTriangleIcon = (
@@ -321,9 +323,9 @@ export const getPngImageAsDataURL = (relativePath: string) => {
 
 export const getDisasterIssuedLabel = (
   eapLabel: string,
-  disasterTypeLabel: string,
+  triggerStatusLabel: TriggerStatusLabelEnum,
 ) => {
-  return eapLabel || disasterTypeLabel;
+  return eapLabel || triggerStatusLabel;
 };
 
 export const getIbfHexColor = (

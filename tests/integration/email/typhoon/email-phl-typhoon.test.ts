@@ -19,4 +19,40 @@ describe('Should send an email for phl typhoon', () => {
     );
     expect(result).toBeTruthy();
   });
+
+  it('warning', async () => {
+    const result = await testTyphoonScenario(
+      TyphoonScenario.EventNoTrigger,
+      countryCodeISO3,
+      accessToken,
+    );
+    expect(result).toBeTruthy();
+  });
+
+  it('no landfall (trigger)', async () => {
+    const result = await testTyphoonScenario(
+      TyphoonScenario.EventNoLandfall,
+      countryCodeISO3,
+      accessToken,
+    );
+    expect(result).toBeTruthy();
+  });
+
+  it('no landfall yet (trigger)', async () => {
+    const result = await testTyphoonScenario(
+      TyphoonScenario.EventNoLandfallYet,
+      countryCodeISO3,
+      accessToken,
+    );
+    expect(result).toBeTruthy();
+  });
+
+  it('after landfall (trigger)', async () => {
+    const result = await testTyphoonScenario(
+      TyphoonScenario.EventAfterLandfall,
+      countryCodeISO3,
+      accessToken,
+    );
+    expect(result).toBeTruthy();
+  });
 });

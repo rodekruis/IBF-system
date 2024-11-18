@@ -1,5 +1,10 @@
+import { LeadTime } from '../../../admin-area-dynamic-data/enum/lead-time.enum';
+import { DisasterType } from '../../../disaster/disaster-type.enum';
 import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
-import { TriggerStatusLabelEnum } from '../../dto/notification-date-per-event.dto';
+import {
+  NotificationDataPerEventDto,
+  TriggerStatusLabelEnum,
+} from '../../dto/notification-date-per-event.dto';
 import {
   dateObjectToDateTimeString,
   getDisasterIssuedLabel,
@@ -28,6 +33,7 @@ const getMjmlBodyEvent = ({
   triangleIcon,
   eapLink,
   triggerStatusLabel,
+  disasterSpecificCopy,
 }: {
   color: string;
   defaultAdminAreaLabel: string;
@@ -44,6 +50,7 @@ const getMjmlBodyEvent = ({
   triangleIcon: string;
   eapLink: string;
   triggerStatusLabel: string;
+  disasterSpecificCopy: string;
 }): object => {
   const icon = getInlineImage({ src: triangleIcon, size: 16 });
 
@@ -54,23 +61,29 @@ const getMjmlBodyEvent = ({
 
   const contentContent = [];
 
-  if (firstTriggerLeadTimeFromNow) {
-    // Trigger event
-    if (firstLeadTimeString !== firstTriggerLeadTimeString) {
-      // Warning-to-trigger event: show start of warning first
-      contentContent.push(
-        `<strong>${disasterTypeLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
-      );
-    }
-    // Either way, show start of trigger next
+  if (disasterSpecificCopy) {
     contentContent.push(
-      `<strong>${disasterIssuedLabel}:</strong> Expected to trigger on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}.`,
+      `<strong>${disasterIssuedLabel}:</strong> ${disasterSpecificCopy}`,
     );
   } else {
-    // Warning event
-    contentContent.push(
-      `<strong>${disasterIssuedLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
-    );
+    if (triggerStatusLabel === TriggerStatusLabelEnum.Trigger) {
+      // Trigger event
+      if (firstLeadTimeString !== firstTriggerLeadTimeString) {
+        // Warning-to-trigger event: show start of warning first
+        contentContent.push(
+          `<strong>${disasterTypeLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
+        );
+      }
+      // Either way, show start of trigger next, the above line is optionally extra
+      contentContent.push(
+        `<strong>${disasterIssuedLabel}:</strong> Expected to start on ${firstTriggerLeadTimeString}, ${firstTriggerLeadTimeFromNow}.`,
+      );
+    } else {
+      // Warning event
+      contentContent.push(
+        `<strong>${disasterIssuedLabel}:</strong> Expected to start on ${firstLeadTimeString}, ${firstLeadTimeFromNow}.`,
+      );
+    }
   }
 
   contentContent.push(
@@ -88,7 +101,7 @@ const getMjmlBodyEvent = ({
   });
 
   const closingElement = getTextElement({
-    content: `This ${triggerStatusLabel} was first issued by IBF on ${issuedDate} (${timeZone})`,
+    content: `This ${triggerStatusLabel.toLowerCase()} was first issued by IBF on ${issuedDate} (${timeZone})`,
     attributes: {
       'padding-top': '8px',
       'font-size': '14px',
@@ -101,10 +114,48 @@ const getMjmlBodyEvent = ({
   });
 };
 
+const getTyphoonSpecificCopy = (event: NotificationDataPerEventDto): string => {
+  let disasterSpecificCopy: string;
+  if (event.firstLeadTime === LeadTime.hour0) {
+    if (event.disasterSpecificProperties.typhoonLandfall) {
+      disasterSpecificCopy = 'Has already made landfall.';
+    } else {
+      disasterSpecificCopy =
+        'Has already reached the point closest to land. Not predicted to make landfall.';
+    }
+  } else {
+    if (event.disasterSpecificProperties.typhoonLandfall) {
+      disasterSpecificCopy = `Expected to make landfall on ${
+        event.triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+          ? event.firstTriggerLeadTimeString
+          : event.firstLeadTimeString
+      }.`;
+    } else if (event.disasterSpecificProperties.typhoonNoLandfallYet) {
+      disasterSpecificCopy =
+        'The landfall time prediction cannot be determined yet. Keep monitoring the event.';
+    } else {
+      disasterSpecificCopy = `Expected to reach the point closest to land on ${
+        event.triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+          ? event.firstTriggerLeadTimeString
+          : event.firstLeadTimeString
+      }. Not predicted to make landfall.`;
+    }
+  }
+  if (event.triggerStatusLabel === TriggerStatusLabelEnum.Warning) {
+    disasterSpecificCopy += ' Not predicted to reach trigger thresholds.';
+  }
+  return disasterSpecificCopy;
+};
+
 export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
   const eventList = [];
 
   for (const event of emailContent.dataPerEvent) {
+    let disasterSpecificCopy: string;
+    if (emailContent.disasterType === DisasterType.Typhoon) {
+      disasterSpecificCopy = getTyphoonSpecificCopy(event);
+    }
+
     eventList.push(
       getMjmlBodyEvent({
         eventName: event.eventName,
@@ -137,12 +188,15 @@ export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
 
         disasterIssuedLabel: getDisasterIssuedLabel(
           event.eapAlertClass?.label,
-          emailContent.disasterTypeLabel,
+          event.triggerStatusLabel,
         ),
         color: getIbfHexColor(
           event.eapAlertClass?.color,
           event.triggerStatusLabel,
         ),
+
+        // Disaster-specific copy
+        disasterSpecificCopy,
       }),
     );
   }

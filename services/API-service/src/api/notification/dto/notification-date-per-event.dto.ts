@@ -1,10 +1,14 @@
-import { EapAlertClass, TriggeredArea } from '../../../shared/data.model';
+import {
+  DisasterSpecificProperties,
+  EapAlertClass,
+  TriggeredArea,
+} from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 
 export class NotificationDataPerEventDto {
   triggerStatusLabel: TriggerStatusLabelEnum;
   eventName: string;
-  disasterSpecificCopy: DisasterSpecificCopy;
+  disasterSpecificProperties: DisasterSpecificProperties;
 
   /**
    * The day that the event starts.

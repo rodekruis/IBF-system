@@ -64,7 +64,7 @@ export class EmailService {
     if (isApiTest) {
       // NOTE: use this to test the email output instead of using Mailchimp
       // fs.writeFileSync(
-      //   `email-${country.countryCodeISO3}-${disasterType}.html`,
+      //   `email-${country.countryCodeISO3}-${disasterType}-${new Date()}.html`,
       //   emailHtml,
       // );
       return emailHtml;
