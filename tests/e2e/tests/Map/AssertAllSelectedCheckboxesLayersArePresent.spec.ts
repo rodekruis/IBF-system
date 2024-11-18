@@ -37,10 +37,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test(
-  qase(
-    32,
-    "[No Trigger] Conditional check for (default) map layer's checkboxes",
-  ),
+  qase(32, 'Check if (default) checked checkbox-layers show in map'),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
     const userState = new UserStateComponent(page);
