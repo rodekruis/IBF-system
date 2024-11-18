@@ -25,17 +25,17 @@ import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaEntity } from './admin-area.entity';
 import { AdminAreaService } from './admin-area.service';
+import { EventAreaService } from './services/event-area.service';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
 @ApiTags('admin-areas')
 @Controller('admin-areas')
 export class AdminAreaController {
-  private readonly adminAreaService: AdminAreaService;
-
-  public constructor(adminAreaService: AdminAreaService) {
-    this.adminAreaService = adminAreaService;
-  }
+  public constructor(
+    private readonly adminAreaService: AdminAreaService,
+    private readonly eventAreaService: EventAreaService,
+  ) {}
 
   @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Adds or updates (if existing) admin-areas' })
@@ -55,6 +55,31 @@ export class AdminAreaController {
     await this.adminAreaService.addOrUpdateAdminAreas(
       params.countryCodeISO3,
       params.adminLevel,
+      adminAreaGeoJson,
+    );
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary:
+      'Adds or updates (if existing) event-areas (currently Flash-floods only)',
+  })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiResponse({
+    status: 201,
+    description: 'Added and/or Updated admin-areas.',
+  })
+  @Post('event-areas/:countryCodeISO3/:disasterType')
+  @ApiConsumes()
+  @UseInterceptors()
+  public async addOrUpdateEventAreas(
+    @Param() params,
+    @Body() adminAreaGeoJson: GeoJson,
+  ): Promise<void> {
+    await this.eventAreaService.addOrUpdateEventAreas(
+      params.countryCodeISO3,
+      params.disasterType,
       adminAreaGeoJson,
     );
   }
