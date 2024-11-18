@@ -145,7 +145,7 @@ export class PointMarkerService {
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: markerIcon ? icon(markerIcon) : divIcon(),
-      alt: 'glofas-station-marker',
+      alt: 'Glofas stations',
       zIndexOffset: 700,
     });
     markerInstance.bindPopup(
@@ -247,7 +247,7 @@ export class PointMarkerService {
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH),
-      alt: 'red-cross-branch-marker',
+      alt: 'Red Cross branches',
     });
     markerInstance.bindPopup(this.createMarkerRedCrossPopup(markerProperties));
     markerInstance.on(
