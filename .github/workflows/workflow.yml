@@ -40,8 +40,8 @@ jobs:
     env:
       SECRET: ${{ secrets.SECRET }}
       MC_API: ${{ secrets.MC_API }}
-      TWILIO_SID: ${{ inputs.twilio-sid }}
-      TWILIO_AUTHTOKEN: ${{ inputs.twilio-authtoken }}
+      TWILIO_SID: ${{ secrets.TWILIO_SID }}
+      TWILIO_AUTHTOKEN: ${{ secrets.TWILIO_AUTHTOKEN }}
 
     defaults:
       run:
