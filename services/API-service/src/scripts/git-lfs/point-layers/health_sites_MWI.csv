@@ -1,143 +1,186 @@
-lon,lat,fid,id,ADDRESS,name,OWNERSHIP,ROAD_ACCES,type
-33.92438203,-9.940606036,620,,,-,,,-
-33.92635764,-9.938750283,622,,,-,,,-
-33.59389079,-11.89861174,235,11,"Private Bag 47
-Mzimba",Mzimba BLM,BLM,Tarmac,Clinic
-33.85547058,-11.02250094,241,18,"Private Bag 93
-Rumphi",Rumphi BLM,BLM,Tarmac Good,Clinic
-33.5891909,-12.26210874,39,0000000000000000019f,"Private Bag 7
-Champhira
-M",Ehehleni,MOHP,Earth Fair,Dispensary
-33.89772056,-11.42316901,40,000000000000000001a0,"P.O. Box 70
-Ekwendeni",Ekwaiweni,MOHP,Earth Poor,Dispensary
-34.16667124,-10.59167152,1,000000000000000000b1,,Khondowe,MOHP,,Dispensary
-33.94000176,-11.53258197,27,000000000000000000c4,"P.O. Box 14
-Mzuzu",Lusangazi,MOHP,Tarmac,Dispensary
-33.89621784,-11.48532888,33,136,"Private Bag 6
-Mzuzu",Matuli,LG,Earth Fair,Dispensary
-33.55600181,-11.75789143,2,237,,Mazamba,MOHP,,Dispensary
-33.48616783,-12.23435976,259,231,"P.O. Box 164
-Embangweni",Vibangalala,MOHP,Earth Poor,Dispensary
-33.91139217,-9.95500107,599,000000000000000000a1,"Private Bag 1
-Karonga",Karonga,MOHP,Tarmac,District Hospital
-33.58428143,-11.89808111,616,000000000000000001f8,"P.O. Box 131
-Mzimba",Mzimba,MOHP,Tarmac,District Hospital
-33.85416852,-11.01971847,617,0000000000000000021b,"P.O. Box 225
-Rumphi",Rumphi,MOHP,Earth Fair,District Hospital
-33.44802914,-11.6783589,465,151,"P.O. Box 25
-Bulala
-Euthin",Bulala,MOHP,Earth Fair,Health Centre
-34.1702519,-10.59782954,553,239,"P.O. Bwengu
-Mzimba",Bwengu,MOHP/LG,Tarmac Good,Health Centre
-33.80064147,-11.84342145,449,0000000000000000011f,"P.O. Chikangawa
-Mzimba",Chikangawa,Forestry,Tarmac,Health Centre
-33.82306183,-11.19749836,75,0000000000000000023a,"P.O. Box 42
-Chitimba",Chitimba,MOHP/LG,Earth Good,Health Centre
-33.99121899,-11.31289098,493,0000000000000000018f,"P.O. Box 6
-Choma",Choma,MOHP,Earth Poor,Health Centre
-33.82497033,-11.44427839,171,000000000000000001a1,"P.O. Box 133
-Ekwendeni",Emsizini,MOHP,Earth Fair,Health Centre
-33.91639082,-11.0636094,207,238,"Private Bag 7
-Endindeni",Endindeni,MOHP/CHAM,Earth Poor,Health Centre
-33.88582814,-11.18000085,347,35,"P.A. Enukweni
-P.O. Ekwend",Enukweni,Cham,Tarmac,Health Centre
-33.4192501,-11.45836024,172,000000000000000001a2,"P.O. Box 46
-Euthini",Euthini,MOHP,Earth Fair,Health Centre
-33.63380867,-11.4573614,80,0000000000000000024e,"P.O. Box 32
-Chikwawa",Gaga,MOHP/LG,Gravel,Health Centre
-33.68652862,-12.27818826,173,000000000000000001aa,"P.O. Box 42
-Champhira
-Mzi",Hoho,MOHP,Earth Fair,Health Centre
-34.16139167,-10.73055914,174,000000000000000001ad,"Private Bag 11
-PA Chiweta",Jalawe,MOHP,Earth Good,Health Centre
-33.54752952,-12.35208002,501,000000000000000001ae,"P.O. Box 43
-Champhira",Jenda,MOHP,Tarmac,Health Centre
-33.52580924,-11.30864146,112,53,"Private Bag 85
-Mpherembe",Kabwafu,MOHP,Earth Fair,Health Centre
-33.33368887,-12.20402895,109,0000000000000000003e,P.O. Quacha,Kalikumbi,Cham,Earth Poor,Health Centre
-33.35924844,-11.83678185,363,61,"P.O. Box 153
-Mzimba",Kamteteka,MOHP,Earth Fair,Health Centre
-33.78889174,-11.10305906,364,62,"P.O. Box 42
-Engucwini",Kamwe,MOHP,Earth Poor,Health Centre
-33.87027925,-9.873609099,51,000000000000000000a5,"P.O. Box 55
-Karonga",Kasoba,MOHP,Earth Fair,Health Centre
-33.67291944,-11.38903013,565,255,"P.O. Box 11
-Lumbadzi",Lumbadzi,MOHP/LG,Tarmac,Health Centre
-33.68569031,-11.76436159,375,0000000000000000007a,"P.O. Box 20055
-Luwinga",Lunjika,Cham,Earth Poor,Health Centre
-33.95588954,-10.99686111,208,0000000000000000023e,"Private Bag 1
-Karonga",Lupembe,MOHP/LG,Fair,Health Centre
-33.71956164,-12.11342002,286,256,"Private Bag Luvwere
-P O K",Luvwere,MOHP/LG,Earth Road,Health Centre
-33.29456026,-11.53894065,567,258,"P.O. Box 121
-Luwelezi",Luwerezi,MOHP/LG,Earth Poor,Health Centre
-34.19257862,-10.68360926,377,0000000000000000007d,"P.A. Chiweta
-PO Chitimba",Luwuchi,Cham,Earth Fair,Health Centre
-34.02714151,-10.90778165,76,0000000000000000023f,"P.A. Luzi
-PO Rumphi",Luzi,MOHP/LG,Earth Fair,Health Centre
-33.42996978,-12.24625218,378,0000000000000000007e,"P.O. Box 22
-Mabiri
-Embang",Mabiri,Cham,Earth Good,Health Centre
-33.49999996,-11.22889044,177,000000000000000001b4,"Private Bag 55
-Mpherembe",Malidade,MOHP,Earth Fair,Health Centre
-33.43944091,-11.94000112,178,000000000000000001b8,"P.O. Box 20
-Manyamula
-Mzi",Manyamula,MOHP,Earth Fair,Health Centre
-33.37118991,-11.35761131,182,000000000000000001bf,"P.O. Box 22
-Mbalachanda",Mbalachanda,MOHP,Earth Fair,Health Centre
-33.46685992,-12.05110854,123,0000000000000000008e,C/O Embangweni Hospital,Mhalaunda,Cham,Earth Poor,Health Centre
-34.19488843,-10.76431007,124,97,"P.O. Box 7
-Mlowe",Mlowe,Cham,Earth Fair,Health Centre
-33.61463899,-11.28819202,572,262,"P.O. Box 103
-Mulanje",Mpala,MOHP/LG,Earth Fair,Health Centre
-33.81499978,-9.960561569,190,1.00E+02,"P.A. Mpata
-Karonga",Mpata,MOHP,Earth Bad,Health Centre
-34.07294094,-11.00606024,191,1.00E+06,"P.A. Mphompha
-PO Rumphi",Mphompha,MOHP,Earth Fair,Health Centre
-33.54880928,-11.49735953,193,000000000000000001ec,"P.O. Box 140
-Euthini",Mtende,MOHP,Earth Fair,Health Centre
-33.74594168,-11.39674884,521,000000000000000001f0,"P.O. Box 31
-Mtwalo",Mtwalo,MOHP,Earth Fair,Health Centre
-33.56521877,-11.6123107,482,0000000000000000017b,P.O. Muloza,Muloza Heath centre,MOHP/LG,Earth Fair,Health Centre
-33.57889038,-10.94389145,194,000000000000000001f5,"P.O. Box 15
-Mwazisi
-Rumph",Mwazisi,MOHP,Earth Fair,Health Centre
-33.643748,-10.34906075,209,240,"P.O. Box 19
-Mzokoto",Mzokoto,MOHP/LG,Earth Good,Health Centre
-33.69950014,-11.52468936,409,000000000000000000ce,"P.O. Box 75
-Kafukule",Njuyu,MOHP,Earth Poor,Health Centre
-33.91446895,-11.22208139,268,000000000000000000d4,"P.O. Box 50
-Ekwendeni",Nkhuyukuyu,MOHP,Earth Poor,Health Centre
-33.98803074,-10.91789043,146,106,"P.O. Box 27
-Mzokoto
-Rumph",Nthenje,Cham,Earth Poor,Health Centre
-33.87306173,-11.02278187,356,0000000000000000004c,"P.O. Box 15
-Rumphi",St Patricks,Cham,Earth Fair,Health Centre
-33.5761079,-11.17646924,74,0000000000000000022b,"P.O. Box 40
-Mpherembe
-Mzi",Thunduwike,MOHP,Earth Poor,Health Centre
-33.61388986,-9.893059697,551,233,"Private Bag 10
-Karonga",Wiliro,MOHP,Gravel Fair,Health Centre
-33.88366993,-11.3717199,298,33,"P.O. Box 19
-Ekwendeni",Ekwendeni,Cham,Tarmac,Hospital
-33.47605905,-12.13686151,299,34,"P.O. Box 7
-Embangweni",Embangweni,Cham,Earth Poor,Hospital
-33.94000176,-9.932170473,16,000000000000000000a2,"Private Bag 1
-Karonga",Karonga old,MOHP,Tarmac,Hospital
-34.11096815,-10.60417038,306,73,"P.O. Box 5
-Livingstonia",Livingstonia,Cham,Earth Poor,Hospital
-33.43367083,-11.42764149,311,000000000000000000f1,"P.O. Box 3
-Euthini",Mzambazi,Cham,Earth Fair,Hospital
-33.7430611,-10.97861001,218,0000000000000000014b,"P.O. Box 43
-Bolero
-Rumphi",Bolero,MOHP,Earth Fair,Rural Hospital
-33.31278014,-12.04083031,220,0000000000000000019e,"P.A. Mbelwa
-Endingeni",Edingeni,MOHP,Earth Fair,Rural Hospital
-33.98778103,-10.06610849,594,0000000000000000023d,"P.O. Box 27
-Katumbi
-Rumph",Katowo,MOHP/LG,Earth Fair,Rural Hospital
-33.99750187,-10.86666874,589,000000000000000001ca,"P.O. Box 21
-Phwamphwa
-Rum",Mhuju,MOHP,Gravel Fair,Rural Hospital
-33.92448127,-9.940330942,621,,,Banja La Mtsogolo Clinic,,,-
-33.92446367,-9.940067415,229,,,Maneno Private Clinic,,,-
+CODE,name,COMMON NAME,OWNERSHIP,type,STATUS,DISTRICT,DATE OPENED,lat,lon,vulnerability,depth,fid
+RU140107,Bolero Rural Hospital,Bolero hospital,Government,Hospital,Functional,Rumphi,Jan 1st 80,-10.97843,33.74342,no risk,0,1
+MZ160124,Bwengu Health Centre,Bwengu,Government,Health Centre,Functional,Mzimba,Jan 1st 75,-11.06356,33.91646,no risk,0,2
+KA150128,"Care Private Clinic, Mphenzi,",Care,Private,Clinic,Functional,Karonga,Oct 27th 10,-9.9394464,33.9229215,no risk,0,3
+RU140208,Chilinda,Chilinda clinic,Government,Health Post,Functional,Rumphi,Jan 1st 75,-10.59101,33.80605,no risk,0,4
+RU140292,Chitimba Health Centre,Chitimba,Government,Health Centre,Functional,Rumphi,Dec 31st 74,-10.59808,34.17026,no risk,0,5
+MZ160308,Chololo,Chololo,Government,Health Post,Functional,Mzimba,Jan 1st 75,-11.014233,33.972657,no risk,0,6
+RU140329,David Gordon Memorial,Livingstonia,Christian Health Association of Malawi (CHAM),Clinic,Functional,Rumphi,Jan 1st 75,-10.6036335,34.1109092,no risk,0,7
+RU140398,Eva Demaya Private Clinic,Eva demaya,Private,Clinic,Functional,Rumphi,Jan 1st 75,-10.96002,33.64862,no risk,0,8
+RU140470,Jalawe Health Centre,Jalawe,Government,Health Centre,Functional,Rumphi,Jan 1st 75,-10.73052,34.16172,no risk,0,9
+KA150569,Karonga BLM,BLM,Private,Clinic,Non-functional,Karonga,Jan 1st 75,-9.9402745,33.9242761,no risk,0,10
+KA150570,Karonga District Hospital,Chaboma,Government,District Hospital,Functional,Karonga,Jan 1st 31,-9.95545,33.91113,no risk,0,11
+CP060571,Karopa,Karopa,Government,Health Post,Functional,Chitipa,Jan 1st 00,-10.216613,33.650444,no risk,0,12
+RU140575,Kasambala Private Clinic,Kasambala,Private,Clinic,Functional,Rumphi,Apr 1st 96,-10.77593,34.03908,no risk,0,13
+KA150585,Kasoba Health Centre,Kasoba,Government,Health Centre,Functional,Karonga,Dec 31st 74,-9.87355,33.86972,no risk,0,14
+RU140586,Kasonkhwe,Kasonkhwe clinic,Christian Health Association of Malawi (CHAM),Health Post,Functional,Rumphi,Dec 31st 74,-10.733449,34.0789,no risk,0,15
+KA150598,Katiri Health Center,Katiri,Government,Dispensary,Functional,Karonga,Mar 31st 15,-10.0693605,33.8813089,no risk,0,16
+MC010599,Katope,Katope,Government,Health Post,Functional,Mchinji,Jan 1st 75,-11.074251,34.007405,no risk,0,17
+CP060605,Kavukuku,Kavukuku,Government,Health Post,Non-functional,Chitipa,Jan 1st 75,-10.275083,33.571761,no risk,0,18
+KA150615,Kayelekela,Kayelekela,Government,Dispensary,Functional,Karonga,Sep 24th 19,-9.970284,33.688526,no risk,0,19
+CP060638,Kopakopa,Kopakopa,Government,Health Post,Functional,Chitipa,Jan 1st 10,-10.138347,33.702798,no risk,0,20
+KA150647,"Kwambukwa Private Clinic, Mbuk",Kwambukwa,Private,Clinic,Functional,Karonga,Jun 30th 01,-9.94049,33.92423,no risk,0,21
+RU140702,Livingstonia Mission Hospital,Khondowe,Christian Health Association of Malawi (CHAM),Hospital,Non-functional,Rumphi,Jan 1st 75,-10.60467,34.1109,no risk,0,22
+KA150713,Lughano Private Clinic,Lughano,Private,Clinic,Functional,Karonga,Sep 26th 16,-9.9386275,33.9212449,no risk,0,23
+KA150729,Lupaso,Lupaso,Government,Health Post,Functional,Karonga,Jul 31st 88,-9.930017,33.853121,no risk,0,24
+MZ160743,Luzi Health Centre,Luzi Near M1 Road,Government,Health Centre,Functional,Mzimba,Jan 1st 75,-10.99681,33.95583,no risk,0,25
+KA150745,Lwezga Health Centre,Lwezga,Government,Health Centre,Functional,Karonga,Dec 31st 74,-9.9548558,33.9116481,no risk,0,26
+CP060781,Mahowe,Mahowe,Government,Health Centre,Functional,Chitipa,Sep 23rd 17,-10.183192,33.690349,no risk,0,27
+KA150821,Malungo,Malungo,Government,Health Post,Functional,Karonga,Dec 31st 76,-9.886358,33.905859,no risk,0,28
+KA150826,Maneno Private Clinic,Mhone,Private,Clinic,Functional,Karonga,Sep 1st 92,-9.9400195,33.924482,no risk,0,29
+RU140894,Mchenga Clinic,Mchenga,Non-Government,Clinic,Functional,Rumphi,Jan 1st 75,-10.69957,34.14036,no risk,0,30
+CP060897,Mchina,Mchina,Government,Health Post,Functional,Chitipa,Jan 1st 10,-10.309487,33.711544,no risk,0,31
+RU140914,Mhuju Rural Hospital,Mhuju Rural Hospital,Government,Hospital,Functional,Rumphi,Jan 1st 75,-10.86685,33.99765,no risk,0,32
+RU140917,Michael Gwamba Private clinic,Kwa Gwamba,Private,Clinic,Functional,Rumphi,Dec 31st 17,-11.02,33.78,no risk,0,33
+KA150966,Mlare Health Centre,Mlare,Government,Health Centre,Functional,Karonga,May 1st 08,-10.173157,34.0358777,no risk,0,34
+RU140972,Mlowe Health Centre,Mlowe,Christian Health Association of Malawi (CHAM),Health Centre,Functional,Rumphi,Dec 30th 74,-10.76429,34.19488,high risk,0.776367188,35
+KA150995,Mpata Health Centre,Mpata,Government,Health Centre,Functional,Karonga,Dec 31st 74,-9.96062,33.81525,no risk,0,36
+RU141007,Mphompha Health Centre,Mphompha,Government,Health Centre,Functional,Rumphi,Jan 1st 75,-11.00662,34.07305,no risk,0,37
+RU141087,Mwazisi Health Centre,mwazisi,Government,Health Centre,Functional,Rumphi,Jan 1st 75,-10.94356,33.5792,no risk,0,38
+RU141097,Mzokoto Health Centre,Mzokoto,Government,Health Centre,Functional,Rumphi,Dec 30th 59,-10.90777,34.02735,no risk,0,39
+RU141165,Ng'onga Health Centre,Ng'onga,Government,Health Centre,Functional,Rumphi,Jan 1st 75,-10.93922,33.94348,no risk,0,40
+RU141199,Nkhomboli,Nkhomboli,Government,Health Post,Functional,Rumphi,Jan 1st 75,-10.775985,34.039194,no risk,0,41
+CP061228,Nthalire Health Centre,Nthalire,Government,Health Centre,Functional,Chitipa,Jan 1st 84,-10.34894,33.64394,no risk,0,42
+RU141229,Nthenje Health Centre,Nthenje,Christian Health Association of Malawi (CHAM),Health Centre,Functional,Rumphi,Dec 31st 66,-10.91788,33.98786,no risk,0,43
+KA151248,Old Hospital,Old Hospital,Government,Health Post,Functional,Karonga,Jan 31st 87,-9.932075,33.940017,no risk,0,44
+RU141276,Phuno,Phuno,Government,Health Post,Functional,Rumphi,Jan 1st 75,-11.027859,34.074571,no risk,0,45
+RU141278,Phwezi Private Clinic,Pwezi Clinic,Private,Clinic,Functional,Rumphi,Jan 1st 75,-10.88762,34.04446,no risk,0,46
+RU141301,Rumphi BLM,Banja La Mtsogolo ,Private,Clinic,Functional,Rumphi,Dec 29th 05,-11.02279,33.85523,no risk,0,47
+RU141302,Rumphi District Hospital,Rumphi,Government,District Hospital,Functional,Rumphi,Jan 1st 75,-11.01993,33.85422,no risk,0,48
+KA151331,Silu,Silo,Government,Health Post,Functional,Karonga,Feb 23rd 99,-9.938145,33.823415,no risk,0,49
+RU141377,St. Patricks Health Centre,St. Patricks,Christian Health Association of Malawi (CHAM),Health Centre,Functional,Rumphi,Jan 1st 75,-11.02297,33.87319,no risk,0,50
+RU141405,Thazima,Thazima,Government,Health Post,Functional,Rumphi,Jan 1st 75,-10.8298,33.592408,no risk,0,51
+CP061414,Therere,Therere,Government,Health Post,Non-functional,Chitipa,Jan 1st 75,-10.417667,33.663209,no risk,0,52
+RU141449,Twisile Private Clinic,Twisile,Private,Clinic,Functional,Rumphi,Dec 30th 12,-10.9776,33.74598,no risk,0,53
+KA151471,Vilaule,Vilaule,Government,Health Post,Functional,Karonga,Jan 1st 04,-9.944731,33.773907,no risk,0,54
+KA151489,Wiliro Health Centre,Wililo,Government,Health Centre,Functional,Karonga,Jan 1st 83,-9.89312,33.61404,no risk,0,55
+RU141491,Wongani Private Clinic,Wongani,Private,Clinic,Functional,Rumphi,Jan 1st 12,-11.02379,33.85419,no risk,0,56
+RU141514,Zunga Health center,Zunga,Christian Health Association of Malawi (CHAM),Health Centre,Non-functional,Rumphi,Jan 1st 75,-10.84628,34.21231,no risk,0,57
+KA151538,Kayerekera Health Centre,Kayerekera Health Centre,Government,Health Centre,Functional,Karonga,Jan 1st 75,-9.94921887,33.9233951,no risk,0,58
+RU141710,Luviri Health Post,Luviri,Government,Health Post,Functional,Rumphi,Jan 1st 75,-11.02445329,33.86422674,high risk,1.332885742,59
+KA151831,BLM Karonga,BLM,Government,Clinic,Functional,Karonga,Jan 1st 75,-9.940556,33.924168,no risk,0,60
+BT240003,A-C Opticals,A.C Opticals,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.8,35.03,no risk,0,90
+BT240005,Akwezeke PVT Clinic,Akwezeke Pvt,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.84,35.09,no risk,0,64
+BT240006,AB Medical Clinic,Abowa,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.84,35.09,no risk,0,65
+BT240041,Arthur Garden,Chitekwe,Private,Health Centre,Functional,Blantyre,Jan 1st 75,-15.84,35.09,no risk,0,62
+BT240048,Auction Holdings,Auction Holdings Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.81195,35.06417,no risk,0,78
+BT240068,Beit Cure International,Beit Cure,Non-Government,Hospital,Functional,Blantyre,Jan 1st 75,-15.80354,35.01753,no risk,0,86
+BT240071,Belton Kapyepye Memorial Clini,Belton Kapyepye Memorial Clini,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.80869,34.99434,no risk,0,159
+BT240074,Bernald Kachale Pvt Clinic,Kachale,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.78018,35.07352,no risk,0,125
+BT240078,"Bhuptani, Girishkumar C.",BKM PVT Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.78826,35.00554,no risk,0,169
+BT240084,Blantyre Adventist Hospital,Blantyre Adventist Hospital,Private,Hospital,Functional,Blantyre,Jan 1st 75,-15.7824,35.0031,no risk,0,181
+BT240085,Blantyre Civic Centre,City assembly,Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.8,35.04,no risk,0,89
+BT240087,Blantyre Dream Project (Mandala),Blantyre Dream Project (Mandala),Non-Government,Health Centre,Functional,Blantyre,Jan 1st 75,-15.79182,35.01273,no risk,0,165
+BT240088,Blantyre Medicare CityCentre Clinic City Centre Clinic Makadam Pvt Clinic,Blantyre Medicare CityCentre Clinic City Centre Clinic Makadam Pvt Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.786933,35.007778,no risk,0,173
+BT240089,Blantyre Water Board - Mudi,Blantyre Water Board - Mudi,Other,Clinic,Functional,Blantyre,Jan 1st 75,-15.7953,35.03811,no risk,0,114
+BT240104,BLM Sunny Side B,Banja Lamtsogolo,Non-Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.8,35,no risk,0,163
+BT240105,BLM Zingwangwa Clinic,BLM Zingwangwa Clinic,Non-Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.81847,35.01171,no risk,0,156
+BT240129,Carlsberg / Sobo Blantyre,SOBO,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.79,35.03,no risk,0,120
+BT240133,Central East African Railways,Railways Private Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.81536,35.0633,no risk,0,75
+BT240169,Chichiri Escom,Chichiri ESCOM Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.79342,35.02444,no risk,0,115
+BT240170,Chichiri Prison,Chichiri Prison Clinic,Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.80577,35.03242,no risk,0,84
+BT240175,"Chifundo, Monje Pvt Clinic",Chifundo private clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.77562,34.98003,no risk,0,185
+BT240177,Chigeli,Chogeli clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.841674,35.044006,no risk,0,61
+BT240198,Chilani,Chilani,Private,Health Centre,Functional,Blantyre,Jan 1st 75,-15.82874,35.00677,no risk,0,153
+BT240207,Chirimba health centre,Chirimba,Government,Health Centre,Functional,Blantyre,Jan 1st 75,-15.746368,35.022984,no risk,0,135
+BT240215,Chilomoni,Chilomoni pvt clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.77435,34.98145,no risk,0,187
+BT240216,Chilomoni Health Centre,Chilomoni,Government,Health Centre,Functional,Blantyre,Jan 1st 75,-15.77128,34.98156,no risk,0,188
+BT240242,Chinjovu,Chinjobvu clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.73676,35.0192,no risk,0,136
+BT240281,Chitawira Private Hospital,Gombwa,Private,Hospital,Functional,Blantyre,Jan 1st 75,-15.81293,35.02274,no risk,0,77
+BT240284,Chitekwe Arthur D. Arthur Gar,Chitekwe Arthur D. Arthur Gar,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.83626,35.09193,no risk,0,66
+BT240320,Come Again Private,Come Again,Private,Unclassified,Functional,Blantyre,Dec 5th 16,-15.790118,35.085924,no risk,0,117
+BT240326,Dalirani,Dalirani Private Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.82529,35.08039,no risk,0,68
+BT240353,Dr Chilemba Surgery,Chilemba,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.7864,35.0008,no risk,0,176
+BT240354,Dr. Dzinyemba,Dr. Dzinyemba,Private,Clinic,Functional,Blantyre,Dec 30th 74,-15.78609,35.00663,no risk,0,178
+BT240358,Dr. Kidys,Dr. Kidys,Private,Hospital,Functional,Blantyre,Jan 1st 75,-15.78662,35.00755,no risk,0,175
+BT240359,Dr. S. Kampondeni,kampondeni,Private,Hospital,Functional,Blantyre,Jan 1st 75,-15.81641,35.06629,no risk,0,73
+BT240377,Ebenezar,Ebenezer private clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.746697,35.020051,no risk,0,134
+BT240386,Elim,Elim Private Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.8188,35.01231,no risk,0,155
+BT240401,Family Health,Family Health clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.802603,35.051349,no risk,0,88
+BT240417,Gate Way,Gateway Dispensary,Government,Dispensary,Functional,Blantyre,Jan 1st 75,-15.804572,35.017828,no risk,0,85
+BT240418,"Gatrad, Mahomed I",Gatrad Mahomed I,Private,Hospital,Functional,Blantyre,Jan 1st 75,-15.78707,35.00625,no risk,0,172
+BT240422,"Girach, Bilkis A",Girach,Private,Hospital,Functional,Blantyre,Jan 1st 75,-15.78721,35.00488,no risk,0,170
+BT240447,Hasco,Hasco Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.77738,35.00621,no risk,0,182
+BT240448,Healing Hearts,Healing Hearts,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.74,35.01,no risk,0,194
+BT240449,Henred,Henred,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.78901,35.03458,no risk,0,124
+BT240473,"Jere, Raymond M. Medicare",Medicare,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.78671,35.00799,no risk,0.067260742,174
+BT240485,Kachere Rehabilitation Centre,Kachere Rehabilitation,Non-Government,Hospital,Functional,Blantyre,Jan 1st 75,-15.80339,35.01819,no risk,0,87
+BT240506,Kalong - Limbe,Kalong - Limbe,Mission/Faith-based (other than CHAM),Hospital,Functional,Blantyre,Jan 1st 75,-15.80902,35.05916,no risk,0,83
+BT240539,Kanjedza Medical centre,Kanjedza Medical Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.81,35.05,no risk,0,82
+BT240540,Kanjedza Police,Kanjeza Police dispensary,Government,Dispensary,Functional,Blantyre,Jan 1st 75,-15.815721,35.048525,no risk,0,74
+BT240574,Kasamba,Kasamba Private Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.84,35.09,no risk,0,63
+BT240633,"Khuoge, Dane","Khuoge, Dane",Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.76708,35.07471,no risk,0,132
+BT240639,Kotecha Leesha D.,Kotecha Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.7895,35.08616,no risk,0,119
+BT240651,Lafarge Cement,Lafarge Cement Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.79231,35.02812,no risk,0,116
+BT240677,Limbe Diagnostic,Diagnostics,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.81863,35.05639,no risk,0,71
+BT240679,Limbe Home Based Care,Limbe Home Based Care,Non-Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.81714,35.05187,no risk,0,72
+BT240680,Limbe Leaf Tobacco - Limbe,Limbe Leaf Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.81361,35.07035,no risk,0,76
+BT240682,Limbe Medical Clinic,limbe Medical Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.81,35.06,high risk,1.677124023,79
+BT240685,Limbe Muslim Jamat - Diagnostic,LMJ Diagnostic centre,Other,Clinic,Functional,Blantyre,Jan 1st 75,-15.82,35.06,no risk,0,70
+BT240687,Limbe Muslim Jamat - Kachere,Limbe Muslim Jamat - Kachere,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.81,35.06,high risk,1.677124023,80
+BT240688,Limbe Muslim Jamat - Kanjedza,LMJ,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.81,35.06,high risk,1.677124023,81
+BT240689,Limbe Muslim Jamat - Limbe,Limbe Muslim Jamat Limbe,Other,Clinic,Functional,Blantyre,Jan 1st 75,-15.82,35.06,no risk,0,69
+BT240690,Limbe Muslim Jamat - Makhetha,Hajira,Other,Clinic,Functional,Blantyre,Jan 1st 75,-15.78,35.07,no risk,0,126
+BT240725,Lungu,Lungu Private Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.82999,35.07883,no risk,0,91
+BT240766,Madina Social Services,Madinah social services - Ndirande,Non-Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.82931,35.07405,no risk,0,92
+BT240796,Promenade medical centre,Promedence ,Private,Clinic,Functional,Blantyre,Aug 1st 16,-15.75017,35.0805,no risk,0,133
+BT240802,Malamulo Day - Amina,Malamulo day Amina,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.80361,35.07471,no risk,0,93
+BT240806,Malawi Polytechnic,Polytechnic,Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.80207,35.02718,no risk,0,94
+BT240841,Mapeto David White head,Mapeto,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.79,35.03,no risk,0,121
+BT240848,Masm Medi - Limbe,Masm Medi - Limbe,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.812582,35.055045,no risk,0,95
+BT240881,Mbayani ,Mbayani health Centre,Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.775577,35.000875,no risk,0,184
+BT240882,Mbayani Health Care Clinic ,Mbayani Health Care Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.765541,35.004675,no risk,0,190
+BT240904,Medicare City Centre / Makadam,City Health Clinic,Mission/Faith-based (other than CHAM),Clinic,Functional,Blantyre,Jan 1st 75,-15.79648,35.00797,no risk,0,164
+BT240907,Merit,Merit Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.77927,35.04387,no risk,0,127
+BT240958,Mkwaira Ladison E. L.&A,L and A,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.77528,35.04706,no risk,0,129
+BT241032,Mtengoumodzi Private Hospital,Mtengoumodzi,Private,Hospital,Functional,Blantyre,Jan 1st 75,-15.7245,35.01637,no risk,0,195
+BT241055,"Munthali Ndalakwanji, N, Pra","Munthali Ndalakwanji, N, Pra",Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.72915,35.05581,no risk,0,138
+BT241056,"Munthali, Joyce W Naperi medi",Joyce Munthali Private Hospital,Private,Hospital,Functional,Blantyre,Jan 1st 75,-15.8044,35.0082,no risk,0,160
+BT241057,Muopo,Muopo Private Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.83,35.09,no risk,0,96
+BT241063,Mwai Hale Medical Skin,Mwai Medical Pvt Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.82,35.01,no risk,0,154
+BT241064,Mwai medical clinic,Mwai medical clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.817263,35.013087,no risk,0,157
+BT241065,Mwaiwathu - Mbvunbula,Proff Mbvundula,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.81191,35.04788,no risk,0,97
+BT241067,Mwaiwathu Private Hospital,Mwaiwathu,Private,Hospital,Functional,Blantyre,Jan 1st 75,-15.78547,35.01691,no risk,0,179
+BT241070,Mwanamanga Happiness,Banja Clinic,Other,Clinic,Functional,Blantyre,Jan 1st 75,-15.762,34.9797,no risk,0,191
+BT241123,Namboya Felix,Namboya Felix,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.81381,35.0612,no risk,0,98
+BT241157,Ndirande BLM,BLM Ndirande clinic,Non-Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.77364,35.03081,no risk,0,130
+BT241158,Ndirande Health Centre,Ndirande,Government,Health Centre,Functional,Blantyre,Jan 1st 75,-15.7781,35.03946,no risk,0,128
+BT241237,Nyambadwe ,Nyambadwe,Private,Hospital,Functional,Blantyre,Jan 1st 75,-15.77139,35.02323,no risk,0,131
+BT241285,Portland cement,Portland Cement Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.79,35.03,no risk,0,123
+BT241292,Private Vehicle Hire Organisation,PVHO Private Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.78605,35.01818,no risk,0,177
+BT241293,Queen Elizabeth Central Hospital,Queen Elizabeth Central Hospital,Government,Central Hospital,Functional,Blantyre,Jan 1st 75,-15.80214,35.021,no risk,0,99
+BT241297,Rapha Pvt Clinic,Rapha Pvt Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.79,35.08,no risk,0,118
+BT241307,Saint Elgidio,DREAM Saint Egidio,Mission/Faith-based (other than CHAM),Clinic,Functional,Blantyre,Jan 1st 75,-15.8366432,34.99651928,no risk,0,150
+BT241325,Semema Pvt Clinic ,Semema,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.73135,35.05798,no risk,0,137
+BT241330,Shifa,Shifa Private Hospital,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.78715,35.01045,no risk,0,171
+BT241335,Magita PVT Clinic,Magita Private Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.79,35.03,no risk,0,122
+BT241337,Soche SDA,Soche SDA Clinic,Private,Unclassified,Functional,Blantyre,Jan 1st 75,-15.80918,35.01977,no risk,0,101
+BT241339,Society Medical Clinic,Society Medical Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.725756,35.058386,no risk,0,141
+BT241344,Miracle Private Clinic (Manje),Miracle Private Clinic ,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.72562,35.05823,no risk,0,142
+BT241347,South Lunzu,South Lunzu,Government,Health Centre,Functional,Blantyre,Jan 1st 75,-15.72678,35.05471,no risk,0,140
+BT241389,Sungani's Medical centre,Sunganis Medical Centre,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.72832,35.01953,no risk,0,139
+BT241391,Sunny Side B,Sunny Side B,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.80025,34.9964,no risk,0,161
+BT241393,Tadala,Tadala Private Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.83304,35.0852,no risk,0,102
+BT241403,Thandizo- Semak,Thandizo Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.74337,35.01677,no risk,0,193
+BT241409,Thejopal Rotta. S,Thejopal Rotta. S,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.78392,35.00238,no risk,0,180
+BT241432,Tilinanu Private Medical Clinic,Tilinanu ,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.77382,35.03262,no risk,0,144
+BT241441,Trizah Private Clinic,Tirzah,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.81,35.06,high risk,1.677124023,103
+BT241442,Trumate,Trumate,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.791433,35.084593,no risk,0,145
+BT241443,Truzag,Truzag Clinic,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.81196,35.05753,no risk,0,104
+BT241452,Ulemu,Ulemu,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.77529,35.00207,no risk,0,186
+BT241460,Umunthu Foundation private clinic,Umunthu Foundation private Clinic,Non-Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.84,35.1,no risk,0,105
+BT241463,Ungweru private clinic,Ungweru,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.75,35,no risk,0,192
+BT241474,Viyuyi Mathews M. Yankho Priv,Viyuyi Mathews M. Yankho Priv,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.74251,35.0776,no risk,0,146
+BT241484,Wehmat,Wehmat,Private,Clinic,Functional,Blantyre,Jan 1st 75,-15.8,35.01,no risk,0,162
+BT241488,White Dove,White Dove,Mission/Faith-based (other than CHAM),Clinic,Functional,Blantyre,Jan 1st 75,-15.767186,34.999598,no risk,0,189
+BT241505,Zingwangwa private clinic,Zingwangwa private clinic,Private,Clinic,Non-functional,Blantyre,Jan 1st 75,-15.817047,35.014587,no risk,0,106
+BT241525,Bangwe Madina Health Centre,Bangwe Madina Health Centre,Government,Health Centre,Functional,Blantyre,Jan 1st 75,-15.82429634,35.08775711,no risk,0,107
+BT241531,MACRO Chirimba,MACRO Chirimba,Non-Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.74368425,35.01398563,no risk,0,196
+BT241811,Bangwe DIC,Bangwe,Government,Dispensary,Functional,Blantyre,Jan 1st 75,-15.84015,35.083595,no risk,0,108
+BT241814,Blantyre District Health Office,Blantyre,Government,Health Centre,Functional,Blantyre,Jan 1st 75,-15.80401,35.016811,no risk,0,109
+BT241815,Chirimba DIC,Chirimba,Government,Dispensary,Functional,Blantyre,Jan 1st 75,-15.743391,35.018944,no risk,0,147
+BT241816,COM Private clinic,COM,Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.80489,35.005669,no risk,0,166
+BT241820,Mthunzi-wathu Private Clinic,Mthunzi-wathu,Government,Clinic,Functional,Blantyre,Jan 1st 75,-15.735082,35.06031,no risk,0,148
+BT241821,Naperi DIC,Naperi,Government,Dispensary,Functional,Blantyre,Jan 1st 75,-15.810602,35.013298,no risk,0,167
+BT241823,Sos Childrens Village Blantyre,Sos,Government,Health Centre,Functional,Blantyre,Jan 1st 75,-15.72571,35.05822,no risk,0,149
+CR260099,BLM Midima Clinic,Midima BLM,Non-Government,Dispensary,Non-functional,Chiradzulu,Dec 31st 74,-15.83121,35.08006,no risk,0,67
