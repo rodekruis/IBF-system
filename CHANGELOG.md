@@ -1,3 +1,14 @@
+# [0.275.0](https://github.com/rodekruis/IBF-system/compare/v0.274.9...v0.275.0) (2024-11-19)
+
+
+### Features
+
+* add endpoint to update event-areas on production ([f241112](https://github.com/rodekruis/IBF-system/commit/f241112d47948c17a77f9d290ba92220533afb47))
+* facilitate all districts as event-areas ([dc3d240](https://github.com/rodekruis/IBF-system/commit/dc3d240d9e3ce0fb486da6ec38fd5de19ebc9708))
+* functional mock data blantyre ([2e28434](https://github.com/rodekruis/IBF-system/commit/2e2843425aebc92cc8bf68d7cf82e6f22a069ef6))
+
+
+
 ## [0.274.9](https://github.com/rodekruis/IBF-system/compare/v0.274.6...v0.274.9) (2024-11-19)
 
 
@@ -104,15 +115,6 @@
 ### Bug Fixes
 
 * do not send any mock exposure data when leadTime > 3 months ([7f269dd](https://github.com/rodekruis/IBF-system/commit/7f269ddd508a21ca7031d33e8d3497adb6b42d76))
-
-
-
-## [0.273.1](https://github.com/rodekruis/IBF-system/compare/v0.273.0...v0.273.1) (2024-10-15)
-
-
-### Bug Fixes
-
-* make triggered-areas api-call after eventName is set ([b00e14a](https://github.com/rodekruis/IBF-system/commit/b00e14ae80a414ec81324e4d49c0af7e10b45b0f))
 
 
 
