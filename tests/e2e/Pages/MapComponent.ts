@@ -285,5 +285,30 @@ class MapComponent extends DashboardPage {
       await expect(layer.nth(nthSelector)).toBeVisible();
     }
   }
+
+  async gloFASMarkersAreVisibleByWarning({
+    glosfasStationStatus,
+    isVisible,
+  }: {
+    glosfasStationStatus: string;
+    isVisible: boolean;
+  }) {
+    // Select from: ""glofas-station-max-trigger", "glofas-station-med-trigger", "glofas-station-min-trigger"
+    // We don't have specyfic selectors for each of the markers, so we need have to use src as a selector which is not ideal
+    const glofasMarker = this.page.locator(
+      `img[src="assets/markers/${glosfasStationStatus}.svg"][alt="Glofas stations"]`,
+    );
+
+    if (isVisible) {
+      const markersCount = await glofasMarker.count();
+      const nthSelector = this.getRandomInt(0, markersCount - 1);
+
+      expect(markersCount).toBeGreaterThan(0);
+      await expect(glofasMarker.nth(nthSelector)).toBeVisible();
+    } else {
+      // Assert that no markers are visible
+      expect(await glofasMarker.count()).toBe(0);
+    }
+  }
 }
 export default MapComponent;
