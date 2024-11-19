@@ -27,10 +27,7 @@ import { RolesGuard } from '../../roles.guard';
 import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
-import {
-  UploadAssetExposureStatusDto,
-  UploadDynamicPointDataDto,
-} from './dto/upload-asset-exposure-status.dto';
+import { UploadDynamicPointDataDto } from './dto/upload-asset-exposure-status.dto';
 import { CommunityNotification, PointDataService } from './point-data.service';
 
 @ApiBearerAuth()
@@ -122,19 +119,6 @@ export class PointDataController {
     return await this.pointDataService.dismissCommunityNotification(
       params.pointDataId,
     );
-  }
-
-  @UseGuards(RolesGuard)
-  @ApiOperation({ summary: 'Upload asset exposure status' })
-  @ApiResponse({
-    status: 201,
-    description: 'Uploaded asset exposure status.',
-  })
-  @Post('exposure-status')
-  public async uploadAssetExposureStatus(
-    @Body() assetFids: UploadAssetExposureStatusDto,
-  ): Promise<void> {
-    return await this.pointDataService.uploadAssetExposureStatus(assetFids);
   }
 
   @UseGuards(RolesGuard)

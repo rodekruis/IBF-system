@@ -4,7 +4,8 @@
     "defaultScenario": true,
     "events": [
       { "eventName": "Rumphi", "leadTime": "6-hour" },
-      { "eventName": "Karonga", "leadTime": "24-hour" }
+      { "eventName": "Karonga", "leadTime": "24-hour" },
+      { "eventName": "Blantyre", "leadTime": "0-hour" }
     ]
   },
   {

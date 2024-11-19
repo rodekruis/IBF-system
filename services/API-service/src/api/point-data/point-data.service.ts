@@ -8,10 +8,7 @@ import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { WhatsappService } from '../notification/whatsapp/whatsapp.service';
-import {
-  UploadAssetExposureStatusDto,
-  UploadDynamicPointDataDto,
-} from './dto/upload-asset-exposure-status.dto';
+import { UploadDynamicPointDataDto } from './dto/upload-asset-exposure-status.dto';
 import { CommunityNotificationDto } from './dto/upload-community-notifications.dto';
 import { DamSiteDto } from './dto/upload-dam-sites.dto';
 import { EvacuationCenterDto } from './dto/upload-evacuation-centers.dto';
@@ -266,21 +263,6 @@ export class PointDataService {
     );
 
     await this.whatsappService.sendCommunityNotification(countryCodeISO3);
-  }
-
-  // The old endpoint is left in for a grace period, and here the input is transformed to the required input for the new endpoint
-  public async uploadAssetExposureStatus(
-    assetFids: UploadAssetExposureStatusDto,
-  ) {
-    const dynamicPointData = new UploadDynamicPointDataDto();
-    dynamicPointData.date = assetFids.date;
-    dynamicPointData.leadTime = assetFids.leadTime;
-    dynamicPointData.disasterType = assetFids.disasterType;
-    dynamicPointData.key = 'exposure';
-    dynamicPointData.dynamicPointData = assetFids.exposedFids.map((fid) => {
-      return { fid: fid, value: 'true' };
-    });
-    await this.uploadDynamicPointData(dynamicPointData);
   }
 
   async uploadDynamicPointData(dynamicPointData: UploadDynamicPointDataDto) {

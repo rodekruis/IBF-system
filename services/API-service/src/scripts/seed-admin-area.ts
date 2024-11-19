@@ -46,7 +46,7 @@ export class SeedAdminArea implements InterfaceScript {
 
     // upload event-areas per disaster-type
     for (const disasterType of country.disasterTypes) {
-      const fileName = `./src/scripts/git-lfs/admin-boundaries/${country.countryCodeISO3}_${disasterType}_event-areas.json`;
+      const fileName = `./src/scripts/git-lfs/event-areas/${country.countryCodeISO3}_${disasterType}_event-areas.json`;
       if (!fs.existsSync(fileName)) {
         continue;
       }
