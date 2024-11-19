@@ -1,3 +1,18 @@
+# [0.276.0](https://github.com/rodekruis/IBF-system/compare/v0.275.0...v0.276.0) (2024-11-19)
+
+
+### Bug Fixes
+
+* change blantyre to blantyre city ([83be243](https://github.com/rodekruis/IBF-system/commit/83be24364cb68442841368c6b172392b4f3a6190))
+* changes to make new data work ([fe3d584](https://github.com/rodekruis/IBF-system/commit/fe3d5843223d4a52065f94fa89839286ab3eb708))
+
+
+### Features
+
+* updated assets data ([70459f2](https://github.com/rodekruis/IBF-system/commit/70459f2a0f835902321c52f6d8e26e644b94e972))
+
+
+
 # [0.275.0](https://github.com/rodekruis/IBF-system/compare/v0.274.9...v0.275.0) (2024-11-19)
 
 
@@ -106,15 +121,6 @@
 * compact number in email should consider format ([780ad71](https://github.com/rodekruis/IBF-system/commit/780ad7155f3b76846b9e5234e884f18b36831b98))
 * remove event aggregate in email ([2c4117e](https://github.com/rodekruis/IBF-system/commit/2c4117e7c0e02f95c5b93c6e86114b3f5d6faa48))
 * use average for percentage indicators in email body event ([1088ba8](https://github.com/rodekruis/IBF-system/commit/1088ba8fcb0748c47ef61eeac1c6a3ac214aee05))
-
-
-
-## [0.273.2](https://github.com/rodekruis/IBF-system/compare/v0.273.1...v0.273.2) (2024-10-15)
-
-
-### Bug Fixes
-
-* do not send any mock exposure data when leadTime > 3 months ([7f269dd](https://github.com/rodekruis/IBF-system/commit/7f269ddd508a21ca7031d33e8d3497adb6b42d76))
 
 
 
