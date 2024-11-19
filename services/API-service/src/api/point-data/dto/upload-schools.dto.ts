@@ -1,14 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class SchoolDto {
   @ApiProperty({ example: 'name' })
   @IsString()
+  @IsOptional()
   public name: string = undefined;
 
   @ApiProperty({ example: 'amenity' })
   @IsString()
+  @IsOptional()
   public amenity: string = undefined;
 
   @ApiProperty({ example: '1234' })
