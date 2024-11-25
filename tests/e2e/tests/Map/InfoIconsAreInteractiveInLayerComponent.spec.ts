@@ -58,6 +58,6 @@ test(
     await map.isLayerMenuOpen({ layerMenuOpen: true });
 
     // Assert layer info icons to be intercative and contain basic required info
-    await map.asserAllInfoIconsIntercations();
+    await map.assertAllInfoIconsIntercations();
   },
 );

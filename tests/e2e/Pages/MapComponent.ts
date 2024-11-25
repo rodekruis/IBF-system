@@ -160,6 +160,15 @@ class MapComponent extends DashboardPage {
     }
   }
 
+  async clickInfoButtonByName({ layerName }: { layerName: string }) {
+    await this.page
+      .locator(`ion-item`)
+      .filter({ hasText: layerName })
+      .getByRole('button')
+      .first()
+      .click();
+  }
+
   async retryGetAttribute(locator: Locator, attribute: string, retries = 3) {
     for (let attempt = 0; attempt < retries; attempt++) {
       try {
@@ -198,40 +207,37 @@ class MapComponent extends DashboardPage {
     return availableLayers;
   }
 
-  async asserAllInfoIconsIntercations() {
+  async assertAllInfoIconsIntercations() {
     const getLayerRow = this.page.getByTestId('matrix-layer-name');
     const layerCount = await getLayerRow.count();
-    console.log('layerCount: ', layerCount);
 
-    const availableLayers = [];
     for (let i = 0; i < layerCount; i++) {
       try {
+        await this.page.waitForTimeout(200);
         const layerRow = getLayerRow.nth(i);
         if (await layerRow.isVisible()) {
-          const nameAttribute = await getLayerRow.nth(i).textContent();
-          console.log(i);
+          const nameAttribute = await layerRow.textContent();
           if (nameAttribute) {
-            availableLayers.push(nameAttribute.trim());
+            const trimmedName = nameAttribute.trim();
+
+            await this.clickInfoButtonByName({ layerName: trimmedName });
+            await expect(
+              this.page
+                .locator('ion-card-header')
+                .filter({ hasText: trimmedName }),
+            ).toBeVisible();
+            await expect(this.layerInfoContent).toBeVisible();
+            await this.closeButtonIcon.click();
           }
-          console.log('availableLayers: ', availableLayers[i]);
-          await this.page
-            .locator('ion-item')
-            .filter({ hasText: availableLayers[i] })
-            .getByRole('button')
-            .click();
-          await expect(
-            this.page
-              .locator('ion-card-header')
-              .filter({ hasText: availableLayers[i] }),
-          ).toHaveText(availableLayers[i]);
-          await expect(this.layerInfoContent).toBeVisible();
-          await this.closeButtonIcon.click();
         }
       } catch (error) {
-        // Handle errors without stopping the loop
+        if (error instanceof Error) {
+          console.error('Error: ', error.message);
+        } else {
+          console.error('Unexpected error: ', error);
+        }
       }
     }
-    return availableLayers;
   }
 
   async assertAggregateTitleOnHoverOverMap() {
