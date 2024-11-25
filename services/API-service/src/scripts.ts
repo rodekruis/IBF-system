@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 
-import { InterfaceScript, ScriptsModule } from './scripts/scripts.module';
+import yargs from 'yargs';
 
-import yargs = require('yargs');
+import { InterfaceScript, ScriptsModule } from './scripts/scripts.module';
 
 async function main(): Promise<void> {
   try {

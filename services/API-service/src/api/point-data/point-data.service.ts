@@ -249,7 +249,7 @@ export class PointDataService {
     try {
       notification.photoUrl =
         communityNotification['_attachments'][0]['download_url'];
-    } catch (e) {
+    } catch {
       notification.photoUrl = null;
     }
     notification.lat = communityNotification['_geolocation'][0];

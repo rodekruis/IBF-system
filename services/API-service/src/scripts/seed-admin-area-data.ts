@@ -42,7 +42,7 @@ export class SeedAdminAreaData implements InterfaceScript {
               populationRecord.value >= 0,
           ),
         );
-      } catch (exception) {
+      } catch {
         console.error(`Skip Indicator: Population - ${countryCodeISO3}`);
       }
     });

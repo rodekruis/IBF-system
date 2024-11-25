@@ -9,11 +9,12 @@ import {
 @ApiTags('-- check API --')
 @Controller('health')
 export class HealthController {
+  constructor(private readonly db: TypeOrmHealthIndicator) {}
+
   @ApiOperation({ summary: 'Check database connection' })
   @Get()
-  healthCheck(db: TypeOrmHealthIndicator) {
-    async (): Promise<HealthIndicatorResult> =>
-      db.pingCheck('database', { timeout: 300 });
+  async healthCheck(): Promise<HealthIndicatorResult> {
+    return this.db.pingCheck('database', { timeout: 300 });
   }
 }
 
