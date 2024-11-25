@@ -1,14 +1,15 @@
 import { NestFactory } from '@nestjs/core';
 
 import yargs from 'yargs';
+import { hideBin } from 'yargs/helpers';
 
 import { InterfaceScript, ScriptsModule } from './scripts/scripts.module';
 
 async function main(): Promise<void> {
   try {
     const context = await NestFactory.createApplicationContext(ScriptsModule);
-    const names: (string | number)[] = yargs.argv._;
-    // docker exec -it 121-programs-service npx ts-node src/scripts seed
+    const argv = await yargs(hideBin(process.argv)).argv;
+    const names: (string | number)[] = argv._;
     const name = [names];
     const { default: Module } = await import(`${__dirname}/scripts/${name}.ts`);
     if (typeof Module !== 'function') {
@@ -18,7 +19,7 @@ async function main(): Promise<void> {
     if (!script) {
       throw new TypeError(`Cannot create instance of ${Module.name}`);
     }
-    await script.run(yargs.argv);
+    await script.run(argv);
   } catch (error) {
     throw error;
   }

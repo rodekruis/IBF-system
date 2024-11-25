@@ -81,5 +81,6 @@
       2. Set `GITHUB_WEBHOOK_SECRET` value in `/etc/systemd/system/webhook.service` as same value set in Github Webhooks
       3. Verification - `ls /etc/systemd/system/`
       4. In `/home/ibf-user/IBF-system` - `npm install github-webhook-handler`
-      5. `sudo service webhook start`
-      6. Verification - `sudo service webhook status`
+      5. `sudo systemctl enable webhook` > this makes sure the webhook also restarts again automatically on reboot
+      6. `sudo service webhook start`
+      7. Verification - `sudo service webhook status`
