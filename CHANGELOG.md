@@ -1,3 +1,12 @@
+## [0.276.4](https://github.com/rodekruis/IBF-system/compare/v0.276.3...v0.276.4) (2024-11-25)
+
+
+### Bug Fixes
+
+* compilation error ([33a8b66](https://github.com/rodekruis/IBF-system/commit/33a8b66444d235b474a637adaad4355df3741c83))
+
+
+
 ## [0.276.3](https://github.com/rodekruis/IBF-system/compare/v0.276.2...v0.276.3) (2024-11-25)
 
 
@@ -104,15 +113,6 @@
 ### Bug Fixes
 
 * skip typhoon national view if 2 warning events ([e9c9f6e](https://github.com/rodekruis/IBF-system/commit/e9c9f6e35bd502f9c185026b82fce7bd57f033bb))
-
-
-
-## [0.274.2](https://github.com/rodekruis/IBF-system/compare/v0.274.1...v0.274.2) (2024-10-22)
-
-
-### Bug Fixes
-
-* center header logo on outlook for windows ([d1ec7e2](https://github.com/rodekruis/IBF-system/commit/d1ec7e2ff15848cdf8629272b6d5f4c1d90985b8))
 
 
 
