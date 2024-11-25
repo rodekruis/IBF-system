@@ -34,7 +34,7 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
+// https://app.qase.io/project/IBF?previewMode=side&suite=3&tab=&case=33
 test(
   qase(33, 'Interaction with info icon in map layer component'),
   async ({ page }) => {
@@ -58,6 +58,6 @@ test(
     await map.isLayerMenuOpen({ layerMenuOpen: true });
 
     // Assert layer info icons to be intercative and contain basic required info
-    await map.assertAllInfoIconsIntercations();
+    await map.validateInfoIconInteractions();
   },
 );

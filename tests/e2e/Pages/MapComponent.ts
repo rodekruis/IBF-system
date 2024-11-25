@@ -207,7 +207,7 @@ class MapComponent extends DashboardPage {
     return availableLayers;
   }
 
-  async assertAllInfoIconsIntercations() {
+  async validateInfoIconInteractions() {
     const getLayerRow = this.page.getByTestId('matrix-layer-name');
     const layerCount = await getLayerRow.count();
 
