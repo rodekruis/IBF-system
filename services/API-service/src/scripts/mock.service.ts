@@ -358,9 +358,8 @@ export class MockService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ) {
-    const countryAdminAreaIds = await this.eventService.getCountryAdminAreaIds(
-      countryCodeISO3,
-    );
+    const countryAdminAreaIds =
+      await this.eventService.getCountryAdminAreaIds(countryCodeISO3);
 
     const allCountryEvents = await this.eventPlaceCodeRepo.find({
       relations: ['eapActionStatuses', 'adminArea'],

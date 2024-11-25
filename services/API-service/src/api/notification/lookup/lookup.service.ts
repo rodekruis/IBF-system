@@ -26,12 +26,12 @@ export class LookupService {
       phoneNumber.substr(0, 2) == '00'
         ? phoneNumber.substr(2, phoneNumber.length - 2)
         : phoneNumber.substr(0, 3) == '+00'
-        ? phoneNumber.substr(3, phoneNumber.length - 3)
-        : phoneNumber.substr(0, 2) == '+0'
-        ? phoneNumber.substr(2, phoneNumber.length - 2)
-        : phoneNumber.substr(0, 1) == '+'
-        ? phoneNumber.substr(1, phoneNumber.length - 1)
-        : phoneNumber;
+          ? phoneNumber.substr(3, phoneNumber.length - 3)
+          : phoneNumber.substr(0, 2) == '+0'
+            ? phoneNumber.substr(2, phoneNumber.length - 2)
+            : phoneNumber.substr(0, 1) == '+'
+              ? phoneNumber.substr(1, phoneNumber.length - 1)
+              : phoneNumber;
     return `+${sanitizedPhoneNr}`;
   }
 }
