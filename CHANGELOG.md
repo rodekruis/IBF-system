@@ -1,3 +1,12 @@
+## [0.276.2](https://github.com/rodekruis/IBF-system/compare/v0.276.1...v0.276.2) (2024-11-25)
+
+
+### Bug Fixes
+
+* blantyre mock data adm3 ([2a50fa4](https://github.com/rodekruis/IBF-system/commit/2a50fa44748401c8bc4caf605ec201e2fc200e5c))
+
+
+
 ## [0.276.1](https://github.com/rodekruis/IBF-system/compare/v0.276.0...v0.276.1) (2024-11-25)
 
 
@@ -104,22 +113,6 @@
 ### Bug Fixes
 
 * empty thirdLine in date-button ([6588390](https://github.com/rodekruis/IBF-system/commit/6588390de4a74044691371800550d9803627d8c4))
-
-
-
-# [0.274.0](https://github.com/rodekruis/IBF-system/compare/v0.273.3...v0.274.0) (2024-10-21)
-
-
-### Bug Fixes
-
-* add check for leadtime not existing ([3d11334](https://github.com/rodekruis/IBF-system/commit/3d11334f0df53edd25362625b6bcc038e0636433))
-* update data via migration script where possible ([4b380df](https://github.com/rodekruis/IBF-system/commit/4b380dfd6dae8261ca48d02cbf2cc4d6a69d00cd))
-* update return period mock UGA ([20efcb9](https://github.com/rodekruis/IBF-system/commit/20efcb9effb7befde0a37c85136f4eb0459fa8ce))
-
-
-### Features
-
-* update trigger statements floods ([4dd9e55](https://github.com/rodekruis/IBF-system/commit/4dd9e558a155be15d7f51e29a0392ad3801e4010))
 
 
 
