@@ -46,9 +46,14 @@ export class SeedPointData implements InterfaceScript {
     country,
   ): Promise<void> {
     const filename = `./src/scripts/git-lfs/point-layers/${pointDataCategory}_${country.countryCodeISO3}.csv`;
+    let data;
     try {
-      const data = await this.seedHelper.getCsvData(filename);
+      data = await this.seedHelper.getCsvData(filename);
+    } catch {
+      return Promise.resolve();
+    }
 
+    try {
       const validatedData = await this.pointDataService.validateArray(
         pointDataCategory,
         data,
@@ -58,8 +63,8 @@ export class SeedPointData implements InterfaceScript {
         country.countryCodeISO3,
         validatedData,
       );
-    } catch {
-      return Promise.resolve();
+    } catch (error) {
+      throw error;
     }
   }
 }
