@@ -1,3 +1,12 @@
+## [0.276.3](https://github.com/rodekruis/IBF-system/compare/v0.276.2...v0.276.3) (2024-11-25)
+
+
+### Bug Fixes
+
+* reflect 'reboot VM' in VM_SETUP + use this as test PR ([442bc8a](https://github.com/rodekruis/IBF-system/commit/442bc8a7c9fadebde879a3fbd560607391e846ad))
+
+
+
 ## [0.276.2](https://github.com/rodekruis/IBF-system/compare/v0.276.1...v0.276.2) (2024-11-25)
 
 
@@ -104,15 +113,6 @@
 ### Bug Fixes
 
 * center header logo on outlook for windows ([d1ec7e2](https://github.com/rodekruis/IBF-system/commit/d1ec7e2ff15848cdf8629272b6d5f4c1d90985b8))
-
-
-
-## [0.274.1](https://github.com/rodekruis/IBF-system/compare/v0.274.0...v0.274.1) (2024-10-21)
-
-
-### Bug Fixes
-
-* empty thirdLine in date-button ([6588390](https://github.com/rodekruis/IBF-system/commit/6588390de4a74044691371800550d9803627d8c4))
 
 
 
