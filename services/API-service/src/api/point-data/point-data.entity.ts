@@ -34,6 +34,9 @@ export class PointDataEntity {
   @Column('json', { nullable: true })
   public geom: JSON;
 
+  @Column({ default: true })
+  public active: boolean;
+
   @OneToMany(
     (): typeof DynamicPointDataEntity => DynamicPointDataEntity,
     (dynamicData): PointDataEntity => dynamicData.point,
