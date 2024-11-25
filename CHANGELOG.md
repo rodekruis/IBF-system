@@ -1,3 +1,13 @@
+## [0.276.1](https://github.com/rodekruis/IBF-system/compare/v0.276.0...v0.276.1) (2024-11-25)
+
+
+### Bug Fixes
+
+* add twilio info in api-service workflow ([5d44fea](https://github.com/rodekruis/IBF-system/commit/5d44feaf9a080ee43fe0c569a603be932b399d96))
+* use correct env variables ([e082db4](https://github.com/rodekruis/IBF-system/commit/e082db41698e98aea01fa110bb2cea0bdb8e0ce7))
+
+
+
 # [0.276.0](https://github.com/rodekruis/IBF-system/compare/v0.275.0...v0.276.0) (2024-11-19)
 
 
@@ -110,17 +120,6 @@
 ### Features
 
 * update trigger statements floods ([4dd9e55](https://github.com/rodekruis/IBF-system/commit/4dd9e558a155be15d7f51e29a0392ad3801e4010))
-
-
-
-## [0.273.3](https://github.com/rodekruis/IBF-system/compare/v0.273.2...v0.273.3) (2024-10-21)
-
-
-### Bug Fixes
-
-* compact number in email should consider format ([780ad71](https://github.com/rodekruis/IBF-system/commit/780ad7155f3b76846b9e5234e884f18b36831b98))
-* remove event aggregate in email ([2c4117e](https://github.com/rodekruis/IBF-system/commit/2c4117e7c0e02f95c5b93c6e86114b3f5d6faa48))
-* use average for percentage indicators in email body event ([1088ba8](https://github.com/rodekruis/IBF-system/commit/1088ba8fcb0748c47ef61eeac1c6a3ac214aee05))
 
 
 
