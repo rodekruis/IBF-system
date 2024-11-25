@@ -31,20 +31,18 @@ export class SeedAdminAreaData implements InterfaceScript {
     envCountries.forEach(async (countryCodeISO3: string) => {
       const populationFilename = `./src/scripts/git-lfs/admin-area-data/population_${countryCodeISO3}.csv`;
       try {
-        const populationData = await this.seedHelper.getCsvData(
-          populationFilename,
-        );
+        const populationData =
+          await this.seedHelper.getCsvData(populationFilename);
 
-        const validatedData = await this.adminAreaDataService.validateArray(
-          populationData,
-        );
+        const validatedData =
+          await this.adminAreaDataService.validateArray(populationData);
         await this.adminAreaDataService.prepareAndUpload(
           validatedData.filter(
             (populationRecord: AdminAreaDataRecord) =>
               populationRecord.value >= 0,
           ),
         );
-      } catch (exception) {
+      } catch {
         console.error(`Skip Indicator: Population - ${countryCodeISO3}`);
       }
     });
@@ -115,9 +113,8 @@ export class SeedAdminAreaData implements InterfaceScript {
     for await (const fileName of fileNames) {
       const path = `./src/scripts/git-lfs/admin-area-data/${fileName}`;
       const adminAreaData = await this.seedHelper.getCsvData(path);
-      const validatedData = await this.adminAreaDataService.validateArray(
-        adminAreaData,
-      );
+      const validatedData =
+        await this.adminAreaDataService.validateArray(adminAreaData);
       await this.adminAreaDataService.prepareAndUpload(validatedData);
     }
   }

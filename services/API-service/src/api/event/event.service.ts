@@ -253,9 +253,8 @@ export class EventService {
     eventName: string,
     date: Date,
   ): Promise<void> {
-    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
-      countryCodeISO3,
-    );
+    const countryAdminAreaIds =
+      await this.getCountryAdminAreaIds(countryCodeISO3);
     const deleteFilters = {
       adminArea: In(countryAdminAreaIds),
       disasterType,
@@ -791,9 +790,8 @@ export class EventService {
       adminLevel,
       eventName,
     );
-    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
-      countryCodeISO3,
-    );
+    const countryAdminAreaIds =
+      await this.getCountryAdminAreaIds(countryCodeISO3);
     const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
       where: {
         closed: false,
@@ -907,9 +905,8 @@ export class EventService {
       adminLevel,
       eventName,
     );
-    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
-      countryCodeISO3,
-    );
+    const countryAdminAreaIds =
+      await this.getCountryAdminAreaIds(countryCodeISO3);
     const existingUnclosedEventAreas = (
       await this.eventPlaceCodeRepo.find({
         where: {
@@ -952,9 +949,8 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ) {
-    const countryAdminAreaIds = await this.getCountryAdminAreaIds(
-      countryCodeISO3,
-    );
+    const countryAdminAreaIds =
+      await this.getCountryAdminAreaIds(countryCodeISO3);
     const uploadDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,

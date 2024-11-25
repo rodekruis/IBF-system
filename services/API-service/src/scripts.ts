@@ -1,10 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 
+import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 import { InterfaceScript, ScriptsModule } from './scripts/scripts.module';
-
-import yargs = require('yargs');
 
 async function main(): Promise<void> {
   try {

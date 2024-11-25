@@ -50,9 +50,8 @@ export class GeoserverSyncService {
   }
 
   private async syncStores(expectedStoreNameObjects: ResourceNameObject[]) {
-    const foundStoreNames = await this.getStoreNamesFromGeoserver(
-      workspaceName,
-    );
+    const foundStoreNames =
+      await this.getStoreNamesFromGeoserver(workspaceName);
     const missingStoreNames = expectedStoreNameObjects.filter(
       (o) => !foundStoreNames.includes(o.resourceName),
     );
@@ -139,9 +138,8 @@ export class GeoserverSyncService {
   }
 
   public async syncLayers(expectedLayerNames: ResourceNameObject[]) {
-    const foundLayerNames = await this.getLayerNamesFromGeoserver(
-      workspaceName,
-    );
+    const foundLayerNames =
+      await this.getLayerNamesFromGeoserver(workspaceName);
     const missingLayerNames = expectedLayerNames.filter(
       (o) => !foundLayerNames.includes(o.resourceName),
     );

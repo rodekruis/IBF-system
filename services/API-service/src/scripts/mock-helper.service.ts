@@ -151,7 +151,7 @@ export class MockHelperService {
         file = fs.readFileSync(
           `./geoserver-volume/raster-files/mock-output/${sourceFileName}`,
         );
-      } catch (error) {
+      } catch {
         console.log(`ERROR: ${sourceFileName} not found.`);
         return;
       }

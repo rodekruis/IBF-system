@@ -21,9 +21,8 @@ export class WaterpointsService {
   public async getWaterpoints(
     countryCodeISO3: string,
   ): Promise<AxiosResponse<GeoJson>> {
-    const country = await this.countryService.getBoundingBoxWkt(
-      countryCodeISO3,
-    );
+    const country =
+      await this.countryService.getBoundingBoxWkt(countryCodeISO3);
     if (!country) {
       throw new HttpException('Country not found', HttpStatus.NOT_FOUND);
     }
