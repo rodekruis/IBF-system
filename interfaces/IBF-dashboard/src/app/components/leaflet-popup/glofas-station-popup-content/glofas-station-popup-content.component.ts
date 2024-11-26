@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EapAlertClass, EapAlertClasses } from '../../../models/country.model';
-import { Station } from '../../../models/poi.model';
-import { LeadTime } from '../../../types/lead-time';
+import { EapAlertClass, EapAlertClasses } from 'src/app/models/country.model';
+import { Station } from 'src/app/models/poi.model';
+import { LeadTime } from 'src/app/types/lead-time';
 
 @Component({
   selector: 'app-glofas-station-popup-content',
@@ -73,7 +73,7 @@ export class GlofasStationPopupContentComponent implements OnInit {
   public addComma = (n) => Math.round(n).toLocaleString('en-US');
 
   public getLeadTimeString(): string {
-    if (!this.data || !this.data?.leadTime) {
+    if (!this.data?.leadTime) {
       return '';
     }
 
