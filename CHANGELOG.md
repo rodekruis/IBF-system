@@ -1,3 +1,12 @@
+## [0.276.5](https://github.com/rodekruis/IBF-system/compare/v0.276.4...v0.276.5) (2024-11-26)
+
+
+### Bug Fixes
+
+* move to eslint.config.js ([20a4808](https://github.com/rodekruis/IBF-system/commit/20a48089b76d9ab44fad73f30d26703cbc824995))
+
+
+
 ## [0.276.4](https://github.com/rodekruis/IBF-system/compare/v0.276.3...v0.276.4) (2024-11-25)
 
 
@@ -104,15 +113,6 @@
 ### Bug Fixes
 
 * don't break if closestToLand point missing ([5306093](https://github.com/rodekruis/IBF-system/commit/530609320276813de82f14257537bcd50f85667a))
-
-
-
-## [0.274.3](https://github.com/rodekruis/IBF-system/compare/v0.274.2...v0.274.3) (2024-10-22)
-
-
-### Bug Fixes
-
-* skip typhoon national view if 2 warning events ([e9c9f6e](https://github.com/rodekruis/IBF-system/commit/e9c9f6e35bd502f9c185026b82fce7bd57f033bb))
 
 
 
