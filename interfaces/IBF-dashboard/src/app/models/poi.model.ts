@@ -2,8 +2,14 @@
 export class Station {
   stationName: string;
   stationCode: string;
-  /* eslint-disable  @typescript-eslint/no-explicit-any */
-  dynamicData?: any;
+  dynamicData?: StationDynamicData;
+}
+
+export class StationDynamicData {
+  forecastLevel: number;
+  triggerLevel: number;
+  forecastReturnPeriod: number;
+  eapAlertClass: string;
 }
 
 export class TyphoonTrackPoint {

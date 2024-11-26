@@ -12,7 +12,7 @@
         style="cursor: default"
         ><ion-icon name="information-circle-outline"></ion-icon></span
     ></strong>
-    @if (data?.station?.dynamicData?.forecastReturnPeriod) {
+    @if (data?.station?.dynamicData?.forecastReturnPeriod > 0) {
       <br />
       {{
         'map-popups.glofas-station.forecast-return'

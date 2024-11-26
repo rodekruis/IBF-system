@@ -155,7 +155,7 @@ module.exports = tseslint.config(
       '@angular-eslint/template/mouse-events-have-key-events': 'warn',
       '@angular-eslint/template/alt-text': 'warn',
       '@angular-eslint/template/elements-content': 'warn',
-      '@angular-eslint/template/i18n': 'warn',
+      '@angular-eslint/template/i18n': 'off', // 'warn' caused automatic changes that broke the code
 
       //'@angular-eslint/template/i18n': [
       //  'error',
