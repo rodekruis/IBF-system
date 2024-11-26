@@ -21,6 +21,8 @@ class MapComponent extends DashboardPage {
   readonly redCrossMarker: Locator;
   readonly gloFASMarker: Locator;
   readonly alerThresholdLines: Locator;
+  readonly closeButtonIcon: Locator;
+  readonly layerInfoContent: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -50,6 +52,8 @@ class MapComponent extends DashboardPage {
     this.alerThresholdLines = this.page.locator(
       '[stroke="var(--ion-color-ibf-outline-red)"]',
     );
+    this.closeButtonIcon = this.page.getByTestId('close-matrix-icon');
+    this.layerInfoContent = this.page.getByTestId('layer-info-content');
   }
 
   async mapComponentIsVisible() {
@@ -156,6 +160,15 @@ class MapComponent extends DashboardPage {
     }
   }
 
+  async clickInfoButtonByName({ layerName }: { layerName: string }) {
+    await this.page
+      .locator(`ion-item`)
+      .filter({ hasText: layerName })
+      .getByRole('button')
+      .first()
+      .click();
+  }
+
   async retryGetAttribute(locator: Locator, attribute: string, retries = 3) {
     for (let attempt = 0; attempt < retries; attempt++) {
       try {
@@ -194,6 +207,39 @@ class MapComponent extends DashboardPage {
     return availableLayers;
   }
 
+  async validateInfoIconInteractions() {
+    const getLayerRow = this.page.getByTestId('matrix-layer-name');
+    const layerCount = await getLayerRow.count();
+
+    for (let i = 0; i < layerCount; i++) {
+      try {
+        await this.page.waitForTimeout(200);
+        const layerRow = getLayerRow.nth(i);
+        if (await layerRow.isVisible()) {
+          const nameAttribute = await layerRow.textContent();
+          if (nameAttribute) {
+            const trimmedName = nameAttribute.trim();
+
+            await this.clickInfoButtonByName({ layerName: trimmedName });
+            await expect(
+              this.page
+                .locator('ion-card-header')
+                .filter({ hasText: trimmedName }),
+            ).toBeVisible();
+            await expect(this.layerInfoContent).toBeVisible();
+            await this.closeButtonIcon.click();
+          }
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error('Error: ', error.message);
+        } else {
+          console.error('Unexpected error: ', error);
+        }
+      }
+    }
+  }
+
   async assertAggregateTitleOnHoverOverMap() {
     // Declare component
     const aggregates = new AggregatesComponent(this.page);
@@ -203,7 +249,7 @@ class MapComponent extends DashboardPage {
     await this.page.waitForLoadState('domcontentloaded');
     await this.page.waitForSelector('.leaflet-interactive');
 
-    // Assert the that Aggregates title is visible and does not contain the text 'National View'
+    // Assert that Aggregates title is visible and does not contain the text 'National View'
 
     await this.adminBoundry.first().hover();
     await expect(aggregates.aggregatesTitleHeader).not.toContainText(
