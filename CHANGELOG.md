@@ -1,3 +1,12 @@
+## [0.276.6](https://github.com/rodekruis/IBF-system/compare/v0.276.5...v0.276.6) (2024-11-26)
+
+
+### Bug Fixes
+
+* only show RP if > 0 + linting fixes ([067c290](https://github.com/rodekruis/IBF-system/commit/067c290f313839e73a909e1e123311dd00871eb7))
+
+
+
 ## [0.276.5](https://github.com/rodekruis/IBF-system/compare/v0.276.4...v0.276.5) (2024-11-26)
 
 
@@ -104,15 +113,6 @@
 * typo ([61f8be9](https://github.com/rodekruis/IBF-system/commit/61f8be908a65733c9e14d5c4df71d13a2efabcf4))
 * version-nr ([5ac7228](https://github.com/rodekruis/IBF-system/commit/5ac7228709f0d520f937def9a5d6762328e30df1))
 * version-nr to fix bump-step ([45000d8](https://github.com/rodekruis/IBF-system/commit/45000d892fd2634f5ff47432777212adee70404c))
-
-
-
-## [0.274.4](https://github.com/rodekruis/IBF-system/compare/v0.274.3...v0.274.4) (2024-10-23)
-
-
-### Bug Fixes
-
-* don't break if closestToLand point missing ([5306093](https://github.com/rodekruis/IBF-system/commit/530609320276813de82f14257537bcd50f85667a))
 
 
 
