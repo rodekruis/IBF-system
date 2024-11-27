@@ -1,3 +1,12 @@
+## [0.276.7](https://github.com/rodekruis/IBF-system/compare/v0.276.6...v0.276.7) (2024-11-27)
+
+
+### Bug Fixes
+
+* deactivate instead of delete when updating point/lines data ([f11fc1c](https://github.com/rodekruis/IBF-system/commit/f11fc1c60c7740d3467d26a48ffeb5e88c6a9cc2))
+
+
+
 ## [0.276.6](https://github.com/rodekruis/IBF-system/compare/v0.276.5...v0.276.6) (2024-11-26)
 
 
@@ -84,30 +93,16 @@
 
 ### Bug Fixes
 
-* add leading zeros in mock data ([7f1aa40](https://github.com/rodekruis/IBF-system/commit/7f1aa404c12f2316b5a5a065285d8cb59cd54875))
 * align version-nr again ([3055537](https://github.com/rodekruis/IBF-system/commit/3055537fcf87f6aec966897fd6a6f6def4c6998c))
 * disaster-specific-copy in email if applicable ([a7af831](https://github.com/rodekruis/IBF-system/commit/a7af8316e724455711ccbf6a458f19b4acbf0ee4))
 * double dot ([e3f3ad7](https://github.com/rodekruis/IBF-system/commit/e3f3ad703167b3bdca94ead722f8e895831d8e02))
-* drop duplicate mock entry ([09f4ba4](https://github.com/rodekruis/IBF-system/commit/09f4ba41b736eaf82dcc3ca65abffba6ccacb914))
-* event count in national view ([30a619e](https://github.com/rodekruis/IBF-system/commit/30a619e50dde9f5b74a7bac85b735fbee1f7850f))
-* filter area list on actionsValue > 0 in front-end ([d6eb033](https://github.com/rodekruis/IBF-system/commit/d6eb03361b0a05f3dfcdd7849681d6757d1f17ef))
-* filter in back-end instead of front-end after all ([290dc4f](https://github.com/rodekruis/IBF-system/commit/290dc4f4cd42589def91f8343bef99a24f06782b))
-* filter on actionsValue > 0 OR triggerValue > 0 to leave in warning areas floods. ([e432731](https://github.com/rodekruis/IBF-system/commit/e432731951dddafb84539edf2dec7c63e14ecf95))
-* get area list count from array length instead of separately in backend ([b72e3b3](https://github.com/rodekruis/IBF-system/commit/b72e3b3424b2c961bf331cc662c65e8c1aefc8ad))
-* get correct glofas dynamic data ([c0c6fda](https://github.com/rodekruis/IBF-system/commit/c0c6fdaa5cb32f9341c7f3dff63d1e7924135fdb))
-* get count per event from back-end again ([ce55164](https://github.com/rodekruis/IBF-system/commit/ce551640f79e2563afb6bf12514a960ba6008d41))
 * make placecode global ([8c9cc55](https://github.com/rodekruis/IBF-system/commit/8c9cc559560aba34557845ea1ee58b9ba257a5b2))
-* missing eventName ([892ce19](https://github.com/rodekruis/IBF-system/commit/892ce19d021e804d51f177058919230ea1d9b1b4))
 * move variables around ([0b9db1b](https://github.com/rodekruis/IBF-system/commit/0b9db1b3847e0c2f19d5b12c4a04ec143a3bd05a))
 * remove console.log ([7fa275b](https://github.com/rodekruis/IBF-system/commit/7fa275b78e4c9374d9483c29b95d48f2a882b9eb))
-* remove old-event from front-end mock + change eslint rule ([29f10ae](https://github.com/rodekruis/IBF-system/commit/29f10aea363b7f2568995e34db8210e1ca5776b5))
 * remove ts exception ([82e6030](https://github.com/rodekruis/IBF-system/commit/82e60306620eaeff58fbc9f4941c97f57839788f))
 * replace deprecated RouterTestingModule ([2ce7730](https://github.com/rodekruis/IBF-system/commit/2ce7730bc72982c9aa7a8265a600b544abdb09b3))
-* replace dropped xample dto values ([eb7a73d](https://github.com/rodekruis/IBF-system/commit/eb7a73d5b1a52ae614cefeccf88eb7e1c207d9a6))
 * replace RouterTestingModule in every specfile ([8ea20e6](https://github.com/rodekruis/IBF-system/commit/8ea20e6a2fd71cc7d9dec9a071b5ed5170bf2659))
-* revert email-specific filtering as this is already done at the source now ([17fb63a](https://github.com/rodekruis/IBF-system/commit/17fb63a5e6b6f528b102aaa29359d1e0964c9626))
 * rm integration tests from deploy script ([8c0c4fd](https://github.com/rodekruis/IBF-system/commit/8c0c4fd60715761721a245ec92a73af86f9b9bd4))
-* show speech bubble if 0 areas ([a46cfd2](https://github.com/rodekruis/IBF-system/commit/a46cfd269d18b1bfe1144a8b88b9e98a4e3727ac))
 * small portal copy changes ([0593d1b](https://github.com/rodekruis/IBF-system/commit/0593d1b234ea725f914b2d46c49d37b853819faf))
 * switch no-unnecessary-condition to off + reverse changes in map.service ([b9b527e](https://github.com/rodekruis/IBF-system/commit/b9b527e589d0fdf64c129732fbf2d974c189e4de))
 * typo ([61f8be9](https://github.com/rodekruis/IBF-system/commit/61f8be908a65733c9e14d5c4df71d13a2efabcf4))
