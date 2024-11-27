@@ -16,6 +16,7 @@ class MapComponent extends DashboardPage {
   readonly layerMenu: Locator;
   readonly adminBoundry: Locator;
   readonly layerCheckbox: Locator;
+  readonly layerRadioButton: Locator;
   readonly legendHeader: Locator;
   readonly layerMenuToggle: Locator;
   readonly redCrossMarker: Locator;
@@ -45,6 +46,7 @@ class MapComponent extends DashboardPage {
     this.layerMenu = this.page.getByTestId('layer-menu');
     this.adminBoundry = this.page.locator('.leaflet-interactive');
     this.layerCheckbox = this.page.getByTestId('matrix-checkbox');
+    this.layerRadioButton = this.page.getByTestId('matrix-radio-button');
     this.legendHeader = this.page.getByTestId('map-legend-header');
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
     this.redCrossMarker = this.page.getByAltText('Red Cross branches');
@@ -157,6 +159,25 @@ class MapComponent extends DashboardPage {
 
     if (!isChecked) {
       throw new Error(`Checkbox for layer ${layerName} is not checked`);
+    }
+  }
+
+  async verifyLayerRadioButtonCheckedByName({
+    layerName,
+  }: {
+    layerName: string;
+  }) {
+    const getLayerRow = this.page
+      .getByTestId('matrix-layer-name')
+      .filter({ hasText: layerName });
+    const layerCheckbox = getLayerRow.locator(this.layerRadioButton);
+
+    // In case of checbox being checked the name attribute should be "checkbox"
+    const nameAttribute = await layerCheckbox.getAttribute('name');
+    const isChecked = nameAttribute === 'radio-button-on-outline';
+
+    if (!isChecked) {
+      throw new Error(`Radio button for layer ${layerName} is not checked`);
     }
   }
 
