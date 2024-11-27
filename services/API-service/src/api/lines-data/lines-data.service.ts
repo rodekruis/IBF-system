@@ -38,14 +38,17 @@ export class LinesDataService {
     countryCodeISO3: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     validatedObjArray: any,
-    deleteExisting = true,
+    deactivateExisting = true,
   ) {
     // Delete existing entries
-    if (deleteExisting) {
-      await this.linesDataRepository.delete({
-        countryCodeISO3: countryCodeISO3,
-        linesDataCategory: linesDataCategory,
-      });
+    if (deactivateExisting) {
+      await this.linesDataRepository.update(
+        {
+          countryCodeISO3: countryCodeISO3,
+          linesDataCategory: linesDataCategory,
+        },
+        { active: false },
+      );
     }
 
     const dataArray = validatedObjArray.map((line) => {
@@ -56,6 +59,7 @@ export class LinesDataService {
         referenceId: line.fid || null,
         linesDataCategory: linesDataCategory,
         attributes: JSON.parse(JSON.stringify(pointAttributes)),
+        active: true,
         geom: (): string => `st_geomfromtext(
           'GEOMETRYCOLLECTION(${line.wkt})')`,
       };

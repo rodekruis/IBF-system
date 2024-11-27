@@ -90,6 +90,7 @@ export class PointDataService {
       .where({
         pointDataCategory: pointDataCategory,
         countryCodeISO3: countryCodeISO3,
+        active: true,
       })
       .leftJoin(
         (subquery) => {
@@ -150,14 +151,17 @@ export class PointDataService {
     countryCodeISO3: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     validatedObjArray: any,
-    deleteExisting = true,
+    deactivateExisting = true,
   ) {
-    // Delete existing entries
-    if (deleteExisting) {
-      await this.pointDataRepository.delete({
-        countryCodeISO3: countryCodeISO3,
-        pointDataCategory: pointDataCategory,
-      });
+    // Deactivate existing entries
+    if (deactivateExisting) {
+      await this.pointDataRepository.update(
+        {
+          countryCodeISO3: countryCodeISO3,
+          pointDataCategory: pointDataCategory,
+        },
+        { active: false },
+      );
     }
 
     const dataArray = validatedObjArray.map((point) => {
@@ -169,6 +173,7 @@ export class PointDataService {
         referenceId: point.fid || null,
         pointDataCategory: pointDataCategory,
         attributes: JSON.parse(JSON.stringify(pointAttributes)),
+        active: true,
         geom: (): string =>
           `st_asgeojson(st_MakePoint(${point.lon}, ${point.lat}))::json`,
       };

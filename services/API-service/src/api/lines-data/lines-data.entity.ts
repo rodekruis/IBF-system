@@ -35,4 +35,7 @@ export class LinesDataEntity {
     nullable: true,
   })
   public geom: Geometry;
+
+  @Column({ default: true })
+  public active: boolean;
 }

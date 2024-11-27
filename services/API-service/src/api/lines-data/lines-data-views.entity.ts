@@ -40,6 +40,7 @@ const getViewQuery = (type: LinesDataEnum) => {
         'status."leadTime" = max_timestamp."leadTime"',
       )
       .where(`line."linesDataCategory" = '${type}'`)
+      .andWhere('line.active = true')
       .andWhere(
         '(status.timestamp = max_timestamp.max_timestamp OR status.timestamp IS NULL)',
       )
