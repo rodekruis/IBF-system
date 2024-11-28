@@ -28,8 +28,8 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_DATABASE}
     volumes:
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
       # - ibf-local-db-data:/var/lib/postgresql/data
+      - ./tools/db-init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - 5437:5432
     networks:
