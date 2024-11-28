@@ -14,7 +14,7 @@ services:
     user: root
 
   ibf-dashboard:
-    entrypoint: ['echo', 'Service ibf-dashboard disabled']
+    entrypoint: ['echo', 'ibf-dashboard is disabled']
 
   ibf-local-db:
     image: postgis/postgis
