@@ -11,7 +11,6 @@ services:
       - ibf-local-db
     networks:
       - api-network
-    user: root
 
   ibf-dashboard:
     entrypoint: ['echo', 'ibf-dashboard is disabled']
