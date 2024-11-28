@@ -50,3 +50,5 @@ ARG WHATS_NEW_URL
 ENV WHATS_NEW_URL=$WHATS_NEW_URL
 
 RUN npm run build -- --configuration $NG_CONFIGURATION
+
+CMD ["cp", "-a", "www/.", "_www/"]

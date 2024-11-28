@@ -43,4 +43,5 @@ services:
 
 volumes:
   ibf-local-db-data:
-  api_service_node_modules:
+  ibf-api-service-node-modules:
+  ibf-dashboard-node-modules:

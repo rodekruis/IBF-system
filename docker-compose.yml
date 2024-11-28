@@ -33,7 +33,7 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - 'api_service_node_modules:/home/ibf/api-service/node_modules'
+      - ibf-api-service-node-modules:/home/ibf/api-service/node_modules
       - ./services/API-service:/home/ibf/api-service
     networks:
       api-network:
@@ -67,8 +67,8 @@ services:
       - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
       - WHATS_NEW_URL=${WHATS_NEW_URL}
     volumes:
-      - ./interfaces/IBF-dashboard/node_modules:/home/node/app/node_modules
-      - ./interfaces/IBF-dashboard/www:/home/node/app/www
+      - ibf-dashboard-node-modules:/home/node/app/node_modules
+      - ./interfaces/IBF-dashboard/www:/home/node/app/_www
 
   ibf-geoserver:
     container_name: ibf-geoserver
@@ -87,7 +87,8 @@ services:
     restart: unless-stopped
 
 volumes:
-  api_service_node_modules:
+  ibf-api-service-node-modules:
+  ibf-dashboard-node-modules:
 
 networks:
   api-network:

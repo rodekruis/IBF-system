@@ -23,14 +23,9 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_DATABASE}
     volumes:
-      # - ibf-local-db-data:/var/lib/postgresql/data
       - ./tools/db-init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - 5437:5432
     networks:
       - api-network
     restart: unless-stopped
-
-# volumes:
-#   ibf-local-db-data:
-#   api_service_node_modules:
