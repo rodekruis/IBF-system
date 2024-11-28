@@ -69,7 +69,7 @@ are connected to a database-server). For setting up a fully working version of t
 
 1. Load initial raster data
 
-- Get the file `raster-files.zip` from [this folder](https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde%20%20documenten/Forms/AllItems.aspx?id=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2FIBF%20%2D%20System%2FIBF%20Portal%20Production%20Data&viewid=6b2bb429%2D8ac9%2D4abb%2D9d81%2D08c846f72f9b).
+- Download [raster-files.zip](https://510ibfsystem.blob.core.windows.net/rasters/raster-files.zip)
 - Unzip it in `services/API-service/geoserver-volume/raster-files` folder, such that that folder now has subfolders:
   - `input`-folder: static raster files that are served through 'geoserver' to the 'IBF-dashboard'
   - `mock-output`-foldermock output raster files that are used by the mock-endpoint (see below)

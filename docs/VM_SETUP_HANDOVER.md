@@ -102,7 +102,7 @@
 4. Load initial data
 
    1. Download
-      [raster-files.zip](https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-08-27T22%3A00%3A00.000Z&e=MnocDf)
+      [raster-files.zip](https://510ibfsystem.blob.core.windows.net/rasters/raster-files.zip)
    2. Unzip the files using `apt install unzip` and `unzip raster-files.zip`, into `services/API-service/geoserver-volume/raster-files/` such that that folder now has subfolders `input`, `mock-output` and `output`.
    3. Run seed script through `docker-compose exec ibf-api-service npm run seed`
 
