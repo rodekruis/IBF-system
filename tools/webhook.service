@@ -8,7 +8,7 @@ Environment=NODE_PORT=3099
 Environment=IBF_SYSTEM_REPO=/home/ibf-user/IBF-system
 Environment=GITHUB_WEBHOOK_SECRET=secret
 Type=simple
-User=ibf-user
+User=azureuser
 ExecStart=/usr/bin/node /home/ibf-user/IBF-system/tools/webhook.js
 Restart=on-failure
 
