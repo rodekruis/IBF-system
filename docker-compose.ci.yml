@@ -22,7 +22,6 @@ services:
       - ibf-local-db
     networks:
       - api-network
-    user: root
 
   ibf-local-db:
     image: postgis/postgis
