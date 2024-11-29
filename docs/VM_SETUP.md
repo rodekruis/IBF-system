@@ -40,6 +40,7 @@
       - `docker -v` to verify
       - `sudo usermod -aG docker <username>` to allow users to access docker commands
       - `grep docker /etc/group` to verify group members
+      - `sudo chmod 660 /var/run/docker.sock` to give group members access to docker socket
    3. [Install Nginx](https://nginx.org/en/linux_packages.html#Ubuntu)
       - `nginx -v` to verify
 
@@ -55,21 +56,26 @@
       [Source](https://stackoverflow.com/a/6448326/1753041)
    6. `sudo chmod -R g+rwX /home/ibf-user/IBF-system`
       [Source](https://stackoverflow.com/a/6448326/1753041)
-   7. Setup Environment Variables
+   7. Create build folder
+      - `mkdir /home/ibf-user/IBF-system/interfaces/IBF-dashboard/www`
+      - `chown azureuser:ibf-users /home/ibf-user/IBF-system/interfaces/IBF-dashboard/www`
+      - `chmod 775 /home/ibf-user/IBF-system/interfaces/IBF-dashboard/www`
+   8. Setup Environment Variables
       1. Create `/home/ibf-user/IBF-system/.env`
          1. `cp /home/ibf-user/IBF-system/example.env /home/ibf-user/IBF-system/.env`
          2. Set the appropriate values in the `.env` file
          3. Load the `.env` vars by `source /home/ibf-user/IBF-system/.env`
          4. Test if the vars were loaded correctly `echo $NODE_ENV`
-   8. Load certificate: load `DigiCertGlobalRootCA.crt.pem` in `services/API-service/cert` for connection to Azure Postgres server (if applicable)
-   9. Configure Nginx
-      - `cp /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.backup`
-      - `cp tools/nginx.conf /etc/nginx/conf.d/default.conf`
-      - Change `root` and `proxy_pass` values in `/etc/nginx/conf.d/default.conf`
-      - `service nginx restart` to restart nginx with new configuration
-      - `systemctl enable nginx` to start nginx on VM reboot
-      - `service nginx status` to verify
-   10. `source tools/deploy.sh`
+   9. Load certificate: load `DigiCertGlobalRootCA.crt.pem` in `services/API-service/cert` for connection to Azure Postgres server (if applicable)
+   10. Configure Nginx
+       - `cp /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.backup`
+       - `cp tools/nginx.conf /etc/nginx/conf.d/default.conf`
+       - Change `root` and `proxy_pass` values in `/etc/nginx/conf.d/default.conf`
+       - Set `user` directive to `azureuser` in `/etc/nginx/nginx.conf`
+       - `service nginx restart` to restart nginx with new configuration
+       - `systemctl enable nginx` to start nginx on VM reboot
+       - `service nginx status` to verify
+   11. `source tools/deploy.sh`
 
 4. Load base data
 
