@@ -4,8 +4,7 @@ RUN apk update && apk add python3 make g++ git
 
 RUN mkdir -p /home/ibf/api-service/node_modules && \
     mkdir -p /home/ibf/api-service/dist && \
-    chown -R node:node /home/ibf/api-service && \
-    chmod -R 777 /home/ibf/api-service
+    chown -R node:node /home/ibf/api-service
 
 WORKDIR /home/ibf/api-service/
 
