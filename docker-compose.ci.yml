@@ -1,4 +1,15 @@
 services:
+  nginx:
+    image: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./tools/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./interfaces/IBF-dashboard/www/browser:/var/www/ibf-dashboard
+    networks:
+      - api-network
+    restart: unless-stopped
+
   ibf-api-service:
     command: ['npm', 'run', 'start:dev']
     environment:
@@ -11,9 +22,6 @@ services:
       - ibf-local-db
     networks:
       - api-network
-
-  ibf-dashboard:
-    entrypoint: ['echo', 'ibf-dashboard is disabled']
 
   ibf-local-db:
     image: postgis/postgis
