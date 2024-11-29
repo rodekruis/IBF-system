@@ -18,6 +18,8 @@ services:
       - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD}
     ports:
       - ${LOCAL_PORT_IBF_SERVICE}:3000
+    volumes:
+      - ibf-api-service-node-modules:/home/ibf/api-service/node_modules
     depends_on:
       - ibf-local-db
     networks:
