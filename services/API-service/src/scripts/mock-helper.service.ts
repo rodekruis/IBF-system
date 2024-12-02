@@ -31,7 +31,7 @@ export class MockHelperService {
       return;
     }
 
-    for (const leadTime of [LeadTime.hour24, LeadTime.hour6]) {
+    for (const leadTime of [LeadTime.hour24, LeadTime.hour6, LeadTime.hour0]) {
       for (const assetType of Object.keys(LinesDataEnum)) {
         const payload = new UploadLinesExposureStatusDto();
         payload.countryCodeISO3 = countryCodeISO3;
@@ -132,18 +132,18 @@ export class MockHelperService {
       }
 
       // NOTE: this makes sure mock raster files are uploaded only once. If your intention is to have a different file, comment this out temporarily.
-      const subfolder =
-        DisasterTypeGeoServerMapper.getSubfolderForDisasterType(disasterType);
-      if (
-        fs.existsSync(
-          `./geoserver-volume/raster-files/output/${subfolder}/${destFileName}`,
-        )
-      ) {
-        console.log(
-          `File ${destFileName} already exists in output folder. Skipping.`,
-        );
-        continue;
-      }
+      // const subfolder =
+      //   DisasterTypeGeoServerMapper.getSubfolderForDisasterType(disasterType);
+      // if (
+      //   fs.existsSync(
+      //     `./geoserver-volume/raster-files/output/${subfolder}/${destFileName}`,
+      //   )
+      // ) {
+      //   console.log(
+      //     `File ${destFileName} already exists in output folder. Skipping.`,
+      //   );
+      //   continue;
+      // }
       // END NOTE
 
       let file;
@@ -175,6 +175,8 @@ export class MockHelperService {
   ) {
     const directoryPath = './geoserver-volume/raster-files/mock-output/';
     const leadTimeUnit = leadTime.replace(/\d+-/, '');
+    const leadTimePart =
+      disasterType === DisasterType.FlashFloods ? leadTime : leadTimeUnit;
 
     if (!fs.existsSync(directoryPath)) {
       console.log(`Directory ${directoryPath} does not exist.`);
@@ -194,7 +196,7 @@ export class MockHelperService {
       [DisasterType.HeavyRain, DisasterType.Drought].includes(disasterType)
         ? '-triggered.tif'
         : '.tif';
-    const filename = `${layerStorePrefix}_${leadTimeUnit}_${countryCodeISO3}${suffix}`;
+    const filename = `${layerStorePrefix}_${leadTimePart}_${countryCodeISO3}${suffix}`;
     const fileExists = files.includes(filename);
     if (fileExists) {
       return filename;
@@ -222,15 +224,17 @@ export class MockHelperService {
       );
       // from the numbers, find the closest number to the leadTimeNumber
       let closestNumber = numbersFromClosestFiles[0];
-      for (let i = 1; i < numbersFromClosestFiles.length; i++) {
+      let index: number;
+      for (let i = 0; i < numbersFromClosestFiles.length; i++) {
         if (
           Math.abs(numbersFromClosestFiles[i] - leadTimeNumber) <
           Math.abs(closestNumber - leadTimeNumber)
         ) {
           closestNumber = numbersFromClosestFiles[i];
+          index = i;
         }
       }
-      return null;
+      return closestFiles[index];
     }
   }
 

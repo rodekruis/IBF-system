@@ -1,106 +1,34 @@
 [
   {
-    "placeCode": "MW31531",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31532",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31533",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31534",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31535",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31536",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31537",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31538",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31539",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31540",
-    "amount": 100
-  },
-  {
     "placeCode": "MW31541",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31542",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31543",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31544",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31545",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31546",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31547",
-    "amount": 100
+    "amount": 174.0
   },
   {
     "placeCode": "MW31548",
-    "amount": 100
+    "amount": 671.0
   },
   {
     "placeCode": "MW31549",
-    "amount": 100
+    "amount": 390.0
   },
   {
-    "placeCode": "MW31550",
-    "amount": 100
+    "placeCode": "MW31542",
+    "amount": 209.0
   },
   {
-    "placeCode": "MW31551",
-    "amount": 100
+    "placeCode": "MW31536",
+    "amount": 432.0
   },
   {
-    "placeCode": "MW31552",
-    "amount": 100
+    "placeCode": "MW31535",
+    "amount": 1953.0
   },
   {
-    "placeCode": "MW31553",
-    "amount": 100
+    "placeCode": "MW31534",
+    "amount": 357.0
   },
   {
-    "placeCode": "MW31554",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31555",
-    "amount": 100
-  },
-  {
-    "placeCode": "MW31556",
-    "amount": 100
+    "placeCode": "MW31547",
+    "amount": 59.0
   }
 ]
