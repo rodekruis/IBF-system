@@ -55,14 +55,15 @@ test(
     await map.isLegendOpen({ legendOpen: true });
     await map.isLayerMenuOpen({ layerMenuOpen: false });
     await map.clickLayerMenu();
+    await map.isLayerMenuOpen({ layerMenuOpen: true });
     await map.verifyLayerRadioButtonCheckedByName({
       layerName: 'Exposed population',
     });
     await map.assertLegendElementIsVisible({
       legendComponentName: 'Exposed population',
     });
-
     // Exposed population layer should be visible by default in trigger mode
-    console.log('Exposed population layer is visible');
+    // Validate that the aggregate pane is not empty after the layer is checked and loaded
+    await map.validateAggregatePaneIsNotEmpty();
   },
 );

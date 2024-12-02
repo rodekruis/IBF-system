@@ -24,6 +24,7 @@ class MapComponent extends DashboardPage {
   readonly alerThresholdLines: Locator;
   readonly closeButtonIcon: Locator;
   readonly layerInfoContent: Locator;
+  readonly ibfAggregatePane: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -56,6 +57,9 @@ class MapComponent extends DashboardPage {
     );
     this.closeButtonIcon = this.page.getByTestId('close-matrix-icon');
     this.layerInfoContent = this.page.getByTestId('layer-info-content');
+    this.ibfAggregatePane = this.page.locator(
+      '.leaflet-pane.leaflet-ibf-aggregate-pane',
+    );
   }
 
   async mapComponentIsVisible() {
@@ -376,6 +380,17 @@ class MapComponent extends DashboardPage {
       // Assert that no markers are visible
       expect(await glofasMarker.count()).toBe(0);
     }
+  }
+
+  // This method checks that when radio button is checked then the layer is visible in leaflet-ibf-aggregate-pane
+  // Only one radio button can be checked at a time
+  // It valdates the functionality not data displayed
+  async validateAggregatePaneIsNotEmpty() {
+    const aggregatePaneContent = this.ibfAggregatePane.locator(
+      '.leaflet-interactive',
+    );
+    const aggregatePaneContentCount = await aggregatePaneContent.count();
+    expect(aggregatePaneContentCount).toBeGreaterThan(0);
   }
 }
 export default MapComponent;
