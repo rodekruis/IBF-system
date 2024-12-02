@@ -70,7 +70,7 @@
    10. Configure Nginx
        - `cp /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.backup`
        - `cp tools/nginx.conf /etc/nginx/conf.d/default.conf`
-       - Change `root` and `proxy_pass` values in `/etc/nginx/conf.d/default.conf`
+       - Change `root`, `server_name`, and `proxy_pass` values in `/etc/nginx/conf.d/default.conf`
        - Set `user` directive to `azureuser` in `/etc/nginx/nginx.conf`
        - `service nginx restart` to restart nginx with new configuration
        - `systemctl enable nginx` to start nginx on VM reboot
