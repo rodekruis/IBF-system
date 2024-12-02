@@ -1,3 +1,13 @@
+## [0.276.9](https://github.com/rodekruis/IBF-system/compare/v0.276.8...v0.276.9) (2024-12-02)
+
+
+### Bug Fixes
+
+* rm station G5056 ([afe38b1](https://github.com/rodekruis/IBF-system/commit/afe38b1d0548a50eb023cff6c7d2bd02b39fc516))
+* update glofas station coordinates ([a3f6ae1](https://github.com/rodekruis/IBF-system/commit/a3f6ae15425654c23ce5154bf7f4a11de9187a34))
+
+
+
 ## [0.276.8](https://github.com/rodekruis/IBF-system/compare/v0.276.7...v0.276.8) (2024-12-02)
 
 
@@ -90,17 +100,6 @@
 ### Features
 
 * updated assets data ([70459f2](https://github.com/rodekruis/IBF-system/commit/70459f2a0f835902321c52f6d8e26e644b94e972))
-
-
-
-# [0.275.0](https://github.com/rodekruis/IBF-system/compare/v0.274.9...v0.275.0) (2024-11-19)
-
-
-### Features
-
-* add endpoint to update event-areas on production ([f241112](https://github.com/rodekruis/IBF-system/commit/f241112d47948c17a77f9d290ba92220533afb47))
-* facilitate all districts as event-areas ([dc3d240](https://github.com/rodekruis/IBF-system/commit/dc3d240d9e3ce0fb486da6ec38fd5de19ebc9708))
-* functional mock data blantyre ([2e28434](https://github.com/rodekruis/IBF-system/commit/2e2843425aebc92cc8bf68d7cf82e6f22a069ef6))
 
 
 
