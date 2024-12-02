@@ -1,19 +1,20 @@
 {
-  "24-hour": [
-    { "fid": "11607", "value": true},
-    { "fid": "3583", "value": true}
-  ],
+  "0-hour": [],
   "6-hour": [
-    { "fid": "32309", "value": true},
-    { "fid": "8088", "value": true},
-    { "fid": "18275", "value": true},
-    { "fid": "2669", "value": true},
-    { "fid": "27789", "value": true},
-    { "fid": "17311", "value": true},
-    { "fid": "3751", "value": true},
-    { "fid": "156", "value": true},
-    { "fid": "3608", "value": true},
-    { "fid": "25527", "value": true},
-    { "fid": "32315", "value": true}
+    { "fid": "32309", "value": true },
+    { "fid": "8088", "value": true },
+    { "fid": "18275", "value": true },
+    { "fid": "2669", "value": true },
+    { "fid": "27789", "value": true },
+    { "fid": "17311", "value": true },
+    { "fid": "3751", "value": true },
+    { "fid": "156", "value": true },
+    { "fid": "3608", "value": true },
+    { "fid": "25527", "value": true },
+    { "fid": "32315", "value": true }
+  ],
+  "24-hour": [
+    { "fid": "11607", "value": true },
+    { "fid": "3583", "value": true }
   ]
 }

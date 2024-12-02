@@ -7,6 +7,7 @@ export enum FloodsScenario {
 
 export enum FlashFloodsScenario {
   Trigger = 'trigger',
+  SingleEvent = 'single-event',
   NoTrigger = 'no-trigger',
 }
 
