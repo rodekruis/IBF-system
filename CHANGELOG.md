@@ -1,3 +1,18 @@
+# [0.277.0](https://github.com/rodekruis/IBF-system/compare/v0.276.9...v0.277.0) (2024-12-02)
+
+
+### Bug Fixes
+
+* update adm3 areas blantyre city ([ef891ce](https://github.com/rodekruis/IBF-system/commit/ef891ce7674da761519dc7d3a5653120b64f8c26))
+* update blantyre mock data ([26e49b4](https://github.com/rodekruis/IBF-system/commit/26e49b4d9c5f7c091b93a6afb8b770838451e65f))
+
+
+### Features
+
+* add blantyre only scenario ([fcda9ce](https://github.com/rodekruis/IBF-system/commit/fcda9ce4122e8e71df085377388191389372f526))
+
+
+
 ## [0.276.9](https://github.com/rodekruis/IBF-system/compare/v0.276.8...v0.276.9) (2024-12-02)
 
 
@@ -85,21 +100,6 @@
 
 * add twilio info in api-service workflow ([5d44fea](https://github.com/rodekruis/IBF-system/commit/5d44feaf9a080ee43fe0c569a603be932b399d96))
 * use correct env variables ([e082db4](https://github.com/rodekruis/IBF-system/commit/e082db41698e98aea01fa110bb2cea0bdb8e0ce7))
-
-
-
-# [0.276.0](https://github.com/rodekruis/IBF-system/compare/v0.275.0...v0.276.0) (2024-11-19)
-
-
-### Bug Fixes
-
-* change blantyre to blantyre city ([83be243](https://github.com/rodekruis/IBF-system/commit/83be24364cb68442841368c6b172392b4f3a6190))
-* changes to make new data work ([fe3d584](https://github.com/rodekruis/IBF-system/commit/fe3d5843223d4a52065f94fa89839286ab3eb708))
-
-
-### Features
-
-* updated assets data ([70459f2](https://github.com/rodekruis/IBF-system/commit/70459f2a0f835902321c52f6d8e26e644b94e972))
 
 
 
