@@ -75,6 +75,10 @@
        - `service nginx restart` to restart nginx with new configuration
        - `systemctl enable nginx` to start nginx on VM reboot
        - `service nginx status` to verify
+       - Install SSL certificate using [certbot](https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal)
+         - `snap install --classic certbot`
+         - `ln -s /snap/bin/certbot /usr/bin/certbot`
+         - `certbot --nginx`
    11. `source tools/deploy.sh`
 
 4. Load base data
