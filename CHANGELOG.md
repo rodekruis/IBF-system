@@ -1,3 +1,19 @@
+## [0.276.8](https://github.com/rodekruis/IBF-system/compare/v0.276.7...v0.276.8) (2024-12-02)
+
+
+### Bug Fixes
+
+* add geoserver volume to docker ignore ([7643617](https://github.com/rodekruis/IBF-system/commit/7643617ef34e7428c41cabe9a2dedcf263614dcd))
+* move raster-files.zip to azure storage ([44c75e3](https://github.com/rodekruis/IBF-system/commit/44c75e342e1afc658527b2f01e82acb6d6f23ed7))
+* remove explicit lineclamp import ([4b18118](https://github.com/rodekruis/IBF-system/commit/4b181181f43702cbf8440369441a5a5883492005))
+* rm web-server-network from docker-compose.ci ([84247d8](https://github.com/rodekruis/IBF-system/commit/84247d82a0023143695b770a5988eb6a25b3b80f))
+* set correct nginx webserver root ([8ac4a23](https://github.com/rodekruis/IBF-system/commit/8ac4a23ea8e0a59a59781689e2071d93e70994dd))
+* set default server name in nginx conf ([7228694](https://github.com/rodekruis/IBF-system/commit/7228694121018a9acc63c04c97165d017481ef71))
+* use azureuser for webhook service ([d9af32c](https://github.com/rodekruis/IBF-system/commit/d9af32ce62b7cccae495331e22de62c2277f68ed))
+* use recursive instead of archive flag in cp ([3b704b7](https://github.com/rodekruis/IBF-system/commit/3b704b7dbaaea9c159f0743cd3a9f8ea7d35e66c))
+
+
+
 ## [0.276.7](https://github.com/rodekruis/IBF-system/compare/v0.276.6...v0.276.7) (2024-11-27)
 
 
@@ -85,29 +101,6 @@
 * add endpoint to update event-areas on production ([f241112](https://github.com/rodekruis/IBF-system/commit/f241112d47948c17a77f9d290ba92220533afb47))
 * facilitate all districts as event-areas ([dc3d240](https://github.com/rodekruis/IBF-system/commit/dc3d240d9e3ce0fb486da6ec38fd5de19ebc9708))
 * functional mock data blantyre ([2e28434](https://github.com/rodekruis/IBF-system/commit/2e2843425aebc92cc8bf68d7cf82e6f22a069ef6))
-
-
-
-## [0.274.9](https://github.com/rodekruis/IBF-system/compare/v0.274.6...v0.274.9) (2024-11-19)
-
-
-### Bug Fixes
-
-* align version-nr again ([3055537](https://github.com/rodekruis/IBF-system/commit/3055537fcf87f6aec966897fd6a6f6def4c6998c))
-* disaster-specific-copy in email if applicable ([a7af831](https://github.com/rodekruis/IBF-system/commit/a7af8316e724455711ccbf6a458f19b4acbf0ee4))
-* double dot ([e3f3ad7](https://github.com/rodekruis/IBF-system/commit/e3f3ad703167b3bdca94ead722f8e895831d8e02))
-* make placecode global ([8c9cc55](https://github.com/rodekruis/IBF-system/commit/8c9cc559560aba34557845ea1ee58b9ba257a5b2))
-* move variables around ([0b9db1b](https://github.com/rodekruis/IBF-system/commit/0b9db1b3847e0c2f19d5b12c4a04ec143a3bd05a))
-* remove console.log ([7fa275b](https://github.com/rodekruis/IBF-system/commit/7fa275b78e4c9374d9483c29b95d48f2a882b9eb))
-* remove ts exception ([82e6030](https://github.com/rodekruis/IBF-system/commit/82e60306620eaeff58fbc9f4941c97f57839788f))
-* replace deprecated RouterTestingModule ([2ce7730](https://github.com/rodekruis/IBF-system/commit/2ce7730bc72982c9aa7a8265a600b544abdb09b3))
-* replace RouterTestingModule in every specfile ([8ea20e6](https://github.com/rodekruis/IBF-system/commit/8ea20e6a2fd71cc7d9dec9a071b5ed5170bf2659))
-* rm integration tests from deploy script ([8c0c4fd](https://github.com/rodekruis/IBF-system/commit/8c0c4fd60715761721a245ec92a73af86f9b9bd4))
-* small portal copy changes ([0593d1b](https://github.com/rodekruis/IBF-system/commit/0593d1b234ea725f914b2d46c49d37b853819faf))
-* switch no-unnecessary-condition to off + reverse changes in map.service ([b9b527e](https://github.com/rodekruis/IBF-system/commit/b9b527e589d0fdf64c129732fbf2d974c189e4de))
-* typo ([61f8be9](https://github.com/rodekruis/IBF-system/commit/61f8be908a65733c9e14d5c4df71d13a2efabcf4))
-* version-nr ([5ac7228](https://github.com/rodekruis/IBF-system/commit/5ac7228709f0d520f937def9a5d6762328e30df1))
-* version-nr to fix bump-step ([45000d8](https://github.com/rodekruis/IBF-system/commit/45000d892fd2634f5ff47432777212adee70404c))
 
 
 
