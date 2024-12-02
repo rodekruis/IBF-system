@@ -12,28 +12,29 @@
     <string>WCS</string>
     <string>GeoTIFF</string>
   </keywords>
-  <nativeCRS>GEOGCS[&quot;WGS 84&quot;, 
-  DATUM[&quot;World Geodetic System 1984&quot;, 
-    SPHEROID[&quot;WGS 84&quot;, 6378137.0, 298.257223563, AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]], 
-    AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]], 
-  PRIMEM[&quot;Greenwich&quot;, 0.0, AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]], 
-  UNIT[&quot;degree&quot;, 0.017453292519943295], 
-  AXIS[&quot;Geodetic longitude&quot;, EAST], 
-  AXIS[&quot;Geodetic latitude&quot;, NORTH], 
-  AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</nativeCRS>
+  <nativeCRS>GEOGCS[&quot;WGS 84&quot;,
+    DATUM[&quot;World Geodetic System 1984&quot;,
+    SPHEROID[&quot;WGS 84&quot;, 6378137.0, 298.257223563,
+    AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]],
+    AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]],
+    PRIMEM[&quot;Greenwich&quot;, 0.0, AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]],
+    UNIT[&quot;degree&quot;, 0.017453292519943295],
+    AXIS[&quot;Geodetic longitude&quot;, EAST],
+    AXIS[&quot;Geodetic latitude&quot;, NORTH],
+    AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</nativeCRS>
   <srs>EPSG:4326</srs>
   <nativeBoundingBox>
-    <minx>33.53282861830312</minx>
-    <maxx>33.978726334909005</maxx>
-    <miny>-11.103218069058544</miny>
-    <maxy>-10.827279844250857</maxy>
+    <minx>33.2196966469999992</minx>
+    <maxx>34.2166875660000969</maxx>
+    <miny>-12.3751980819998995</miny>
+    <maxy>-9.7888203069999804</maxy>
     <crs>EPSG:4326</crs>
   </nativeBoundingBox>
   <latLonBoundingBox>
-    <minx>33.53282861830312</minx>
-    <maxx>33.978726334909005</maxx>
-    <miny>-11.103218069058544</miny>
-    <maxy>-10.827279844250857</maxy>
+    <minx>33.2196966469999992</minx>
+    <maxx>34.2166875660000969</maxx>
+    <miny>-12.3751980819998995</miny>
+    <maxy>-9.7888203069999804</maxy>
     <crs>EPSG:4326</crs>
   </latLonBoundingBox>
   <projectionPolicy>REPROJECT_TO_DECLARED</projectionPolicy>
@@ -107,7 +108,7 @@
   <parameters>
     <entry>
       <string>InputTransparentColor</string>
-      <null/>
+      <null />
     </entry>
     <entry>
       <string>SUGGESTED_TILE_SIZE</string>
