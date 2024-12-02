@@ -1,4 +1,15 @@
 services:
+  nginx:
+    image: nginx
+    ports:
+      - 8080:80
+    volumes:
+      - ./tools/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./interfaces/IBF-dashboard/www/browser:/var/www/ibf-dashboard
+    networks:
+      - api-network
+    restart: unless-stopped
+
   ibf-api-service:
     command: ['npm', 'run', 'start:dev']
     environment:
@@ -10,15 +21,10 @@ services:
     depends_on:
       - ibf-local-db
     networks:
-      - web-server-network
       - api-network
 
   ibf-dashboard:
-    entrypoint: ['echo', 'Service ibf-dashboard disabled']
-
-  ibf-geoserver:
-    ports:
-      - 8081:8080
+    entrypoint: ['echo', 'ibf-dashboard is disabled']
 
   ibf-local-db:
     image: postgis/postgis
@@ -27,7 +33,7 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD}
       - POSTGRES_DB=${DB_DATABASE}
     volumes:
-      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./tools/db-init.sql:/docker-entrypoint-initdb.d/init.sql
       - ibf-local-db-data:/var/lib/postgresql/data
     ports:
       - 5437:5432
@@ -37,4 +43,5 @@ services:
 
 volumes:
   ibf-local-db-data:
-  api_service_node_modules:
+  ibf-api-service-node-modules:
+  ibf-dashboard-node-modules:

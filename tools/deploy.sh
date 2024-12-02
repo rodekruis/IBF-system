@@ -56,8 +56,8 @@ function deploy() {
         docker compose --env-file /dev/null config > inspect.docker-compose.config
         docker compose --env-file /dev/null -f docker-compose.yml up -d --build
         docker compose --env-file /dev/null restart
-        # wait 2 minutes for services to go live
-        sleep 2m
+        # wait 30 seconds for services to go live
+        sleep 30s
     }
 
     function restart_webhook_service() {
@@ -73,11 +73,19 @@ function deploy() {
         docker system prune -f
     }
 
+    function cleanup_dashboard_build() {
+        log "Clean up dashboard build..."
+
+        rm -rf "$repo"/interfaces/IBF-dashboard/www/*
+    }
+
     update_code "$target"
 
     load_environment_variables
 
     cleanup_docker
+
+    cleanup_dashboard_build
 
     update_containers
 

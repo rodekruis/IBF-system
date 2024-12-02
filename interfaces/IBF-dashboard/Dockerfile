@@ -2,7 +2,10 @@ FROM node:20-alpine
 
 RUN apk update && apk add python3 make g++ git
 
-RUN mkdir -p /home/node/app/node_modules && mkdir -p /home/node/app/www && chown -R node:node /home/node/app
+RUN mkdir -p /home/node/app/node_modules && \
+    mkdir -p /home/node/app/www && \
+    mkdir -p /home/node/app/_www && \
+    chown -R node:node /home/node/app
 
 WORKDIR /home/node/app
 
@@ -50,3 +53,5 @@ ARG WHATS_NEW_URL
 ENV WHATS_NEW_URL=$WHATS_NEW_URL
 
 RUN npm run build -- --configuration $NG_CONFIGURATION
+
+CMD ["cp", "-r", "www/.", "_www/"]

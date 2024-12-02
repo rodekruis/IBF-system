@@ -24,7 +24,7 @@
          `touch /home/ibf-user`
    6. Open `/etc/sudoers` with `sudo nano /etc/sudoers` and add these lines
 
-   ```jsx
+   ```console
    # Allow members of group ibf-users to execute systemctl daemon-reload
    %ibf-users ALL=NOPASSWD: /bin/systemctl daemon-reload
 
@@ -33,17 +33,19 @@
    ```
 
 2. Install Software
-   1. NodeJS
-      [Source](https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions)
-      1. Follow instructions in Source for Node 16
-      2. Verification - `node -v`
-   2. Docker [Source](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
-      1. Follow instructions in Source all th
-      2. Verification - `docker -v`
-      3. Allow users to access docker commands
-         1. `sudo usermod -aG docker <username>`
-         2. Verification - `grep docker /etc/group`
+
+   1. [Install NodeJS](https://github.com/nodesource/distributions/blob/master/README.md#installation-instructions)
+      - `node -v` to verify
+   2. [Install Docker](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+      - `docker -v` to verify
+      - `sudo usermod -aG docker <username>` to allow users to access docker commands
+      - `grep docker /etc/group` to verify group members
+      - `sudo chmod 660 /var/run/docker.sock` to give group members access to docker socket
+   3. [Install Nginx](https://nginx.org/en/linux_packages.html#Ubuntu)
+      - `nginx -v` to verify
+
 3. Setup IBF-system
+
    1. `cd /home/ibf-user`
    2. `git clone https://github.com/rodekruis/IBF-system.git`
    3. `cd /home/ibf-user/IBF-system`
@@ -54,33 +56,46 @@
       [Source](https://stackoverflow.com/a/6448326/1753041)
    6. `sudo chmod -R g+rwX /home/ibf-user/IBF-system`
       [Source](https://stackoverflow.com/a/6448326/1753041)
-   7. Setup Environment Variables
+   7. Create build folder
+      - `mkdir /home/ibf-user/IBF-system/interfaces/IBF-dashboard/www`
+      - `chown azureuser:ibf-users /home/ibf-user/IBF-system/interfaces/IBF-dashboard/www`
+      - `chmod 775 /home/ibf-user/IBF-system/interfaces/IBF-dashboard/www`
+   8. Setup Environment Variables
       1. Create `/home/ibf-user/IBF-system/.env`
          1. `cp /home/ibf-user/IBF-system/example.env /home/ibf-user/IBF-system/.env`
          2. Set the appropriate values in the `.env` file
          3. Load the `.env` vars by `source /home/ibf-user/IBF-system/.env`
          4. Test if the vars were loaded correctly `echo $NODE_ENV`
-   8. Load certificate: load `DigiCertGlobalRootCA.crt.pem` in `services/API-service/cert` for connection to Azure Postgres server (if applicable)
-   9. `. tools/deploy.sh`
+   9. Load certificate: load `DigiCertGlobalRootCA.crt.pem` in `services/API-service/cert` for connection to Azure Postgres server (if applicable)
+   10. Configure Nginx
+       - `cp /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.backup`
+       - `cp tools/nginx.conf /etc/nginx/conf.d/default.conf`
+       - Change `root`, `server_name`, and `proxy_pass` values in `/etc/nginx/conf.d/default.conf`
+       - Set `user` directive to `azureuser` in `/etc/nginx/nginx.conf`
+       - `service nginx restart` to restart nginx with new configuration
+       - `systemctl enable nginx` to start nginx on VM reboot
+       - `service nginx status` to verify
+   11. `source tools/deploy.sh`
+
 4. Load base data
 
    1. Load Geoserver source data
-      1. Download
-         [raster-files.zip](https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?folderid=0fa454e6dc0024dbdba7a178655bdc216&authkey=AcqhM85JHZY8cc6H7BTKgO0&expiration=2021-08-27T22%3A00%3A00.000Z&e=MnocDf)
+      1. Download [raster-files.zip](https://510ibfsystem.blob.core.windows.net/rasters/raster-files.zip)
       2. Unzip the files using `apt install unzip` and `unzip raster-files.zip`, into `services/API-service/geoserver-volume/raster-files/`
    2. Seed database: `docker compose exec ibf-api-service npm run seed`
    3. Run all mock scenarios via Swagger: `api/scripts/mock-all`
 
-5. Setup web-hook
-   1. On Github
-      1. [Create web-hook](https://github.com/rodekruis/IBF-system/settings/hooks) to
+5. Setup webhook
+
+   1. On GitHub
+      1. [Create webhook](https://github.com/rodekruis/IBF-system/settings/hooks) to
          listen on `http://ip-address:3099/`
-      2. Set secret for web-hook access
-   2. On VM:
+      2. Set secret for webhook access
+   2. On VM
       1. `sudo cp tools/webhook.service /etc/systemd/system/`
-      2. Set `GITHUB_WEBHOOK_SECRET` value in `/etc/systemd/system/webhook.service` as same value set in Github Webhooks
-      3. Verification - `ls /etc/systemd/system/`
+      2. Set `GITHUB_WEBHOOK_SECRET` value in `/etc/systemd/system/webhook.service` as same value set in GitHub Webhooks
+      3. `ls /etc/systemd/system/` to verify
       4. In `/home/ibf-user/IBF-system` - `npm install github-webhook-handler`
-      5. `sudo systemctl enable webhook` > this makes sure the webhook also restarts again automatically on reboot
-      6. `sudo service webhook start`
-      7. Verification - `sudo service webhook status`
+      5. `systemctl enable webhook` to start webhook on VM reboot
+      6. `service webhook start` to start webhook manually
+      7. `service webhook status` to verify
