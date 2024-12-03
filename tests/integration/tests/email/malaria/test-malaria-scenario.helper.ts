@@ -1,22 +1,22 @@
 import { JSDOM } from 'jsdom';
 
-import { DisasterType } from '../../../../services/API-service/src/api/disaster/disaster-type.enum';
-import { FlashFloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { DisasterType } from '../../../../../services/API-service/src/api/disaster/disaster-type.enum';
+import { EpidemicsScenario } from '../../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import {
   getEventTitle,
-  mockFlashFlood,
+  mockEpidemics,
   sendNotification,
-} from '../../helpers/utility.helper';
+} from '../../../helpers/utility.helper';
 
-export async function testFlashFloodScenario(
-  scenario: FlashFloodsScenario,
+export async function testMalariaScenario(
+  scenario: EpidemicsScenario,
   countryCodeISO3: string,
   accessToken: string,
 ): Promise<boolean> {
-  const eventNames = ['Rumphi', 'Karonga'];
-  const disasterTypeLabel = 'Flash Flood'; // DisasterType.FlashFloods does not match
+  const eventNames = ['0-month', '1-month', '2-month'];
+  const disasterTypeLabel = DisasterType.Malaria;
 
-  const mockResult = await mockFlashFlood(
+  const mockResult = await mockEpidemics(
     scenario,
     countryCodeISO3,
     accessToken,
@@ -24,7 +24,7 @@ export async function testFlashFloodScenario(
   // Act
   const response = await sendNotification(
     countryCodeISO3,
-    DisasterType.FlashFloods,
+    DisasterType.Malaria,
     accessToken,
   );
   // Assert
@@ -32,7 +32,7 @@ export async function testFlashFloodScenario(
   expect(mockResult.status).toBe(202);
   expect(response.status).toBe(201);
 
-  if (scenario === FlashFloodsScenario.Trigger) {
+  if (scenario === EpidemicsScenario.Trigger) {
     expect(response.body.activeEvents.email).toBeDefined();
   } else {
     expect(response.body.activeEvents.email).toBeUndefined();
@@ -51,13 +51,13 @@ export async function testFlashFloodScenario(
     (el) => (el as Element).textContent.toLowerCase(),
   ).map((el) => el.trim());
 
-  if (scenario === FlashFloodsScenario.Trigger) {
+  if (scenario === EpidemicsScenario.Trigger) {
     expect(eventNamesInEmail.length).toBe(eventNames.length);
   } else {
     expect(eventNamesInEmail.length).toBe(0);
   }
 
-  if (scenario === FlashFloodsScenario.Trigger) {
+  if (scenario === EpidemicsScenario.Trigger) {
     // Check if each expected event name is included in at least one title
     for (const eventName of eventNames) {
       const eventTitle = getEventTitle(disasterTypeLabel, eventName);
