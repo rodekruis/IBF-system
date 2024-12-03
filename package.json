@@ -22,7 +22,7 @@
   "devDependencies": {
     "pre-commit": "^1.2.2",
     "pre-push": "^0.1.4",
-    "prettier": "^3.3.3"
+    "prettier": "^3.4.1"
   },
   "pre-commit": "lint"
 }
