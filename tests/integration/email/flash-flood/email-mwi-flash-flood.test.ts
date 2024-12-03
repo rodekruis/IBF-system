@@ -11,10 +11,10 @@ describe('Should send an email for mwi flash flood', () => {
     await resetDB(accessToken);
   });
 
-  it('trigger', async () => {
-    const eventNames = ['Blantyre City', 'Karonga']; // Scneario contains also 'Rumphi' but as ongoing, for which no email is sent
+  it('api-test', async () => {
+    const eventNames = ['Karonga']; // Scenario contains also 'Rumphi' but as ongoing, for which no email is sent
     const result = await testFlashFloodScenario(
-      FlashFloodsScenario.Trigger,
+      FlashFloodsScenario.ApiTest,
       countryCodeISO3,
       eventNames,
       accessToken,
