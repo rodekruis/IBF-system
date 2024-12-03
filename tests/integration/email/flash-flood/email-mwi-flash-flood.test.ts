@@ -11,19 +11,22 @@ describe('Should send an email for mwi flash flood', () => {
     await resetDB(accessToken);
   });
 
-  it('trigger', async () => {
+  it('api-test', async () => {
+    const eventNames = ['Karonga']; // Scenario contains also 'Rumphi' but as ongoing, for which no email is sent
     const result = await testFlashFloodScenario(
-      FlashFloodsScenario.Trigger,
+      FlashFloodsScenario.ApiTest,
       countryCodeISO3,
+      eventNames,
       accessToken,
     );
     expect(result).toBeTruthy();
-  });
+  }, 150000); //Increase timeout to 150 seconds, because mock takes long for this scenario
 
   it('no-trigger', async () => {
     const result = await testFlashFloodScenario(
       FlashFloodsScenario.NoTrigger,
       countryCodeISO3,
+      [],
       accessToken,
     );
     expect(result).toBeTruthy();

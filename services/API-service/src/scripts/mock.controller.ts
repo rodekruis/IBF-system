@@ -71,7 +71,8 @@ export class MockFloodsScenario extends MockBaseScenario {
 export class MockFlashFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FlashFloodsScenario).join(' | '),
-    description: 'trigger: trigger + warning + ongoing event; single-event: ',
+    description:
+      'trigger: trigger + warning + ongoing event; single-event: blantyre city only; api-test: karonga + rumphi only',
   })
   @IsEnum(FlashFloodsScenario)
   public readonly scenario: FlashFloodsScenario;
