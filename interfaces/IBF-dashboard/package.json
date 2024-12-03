@@ -68,7 +68,7 @@
     "@tailwindcss/forms": "latest",
     "@tailwindcss/line-clamp": "latest",
     "@tanstack/eslint-plugin-query": "^5.61.3",
-    "@types/jasmine": "^5.1.4",
+    "@types/jasmine": "^5.1.5",
     "@types/leaflet": "^1.9.12",
     "@types/leaflet.markercluster": "^1.5.4",
     "@types/luxon": "^3.4.2",
