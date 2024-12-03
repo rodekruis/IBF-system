@@ -1,3 +1,12 @@
+## [0.277.2](https://github.com/rodekruis/IBF-system/compare/v0.277.1...v0.277.2) (2024-12-03)
+
+
+### Bug Fixes
+
+* switch around leadtimes for blantyre & rumphi ([29b8f35](https://github.com/rodekruis/IBF-system/commit/29b8f352e61ed3c774d69795f87bd92932e725ac))
+
+
+
 ## [0.277.1](https://github.com/rodekruis/IBF-system/compare/v0.277.0...v0.277.1) (2024-12-03)
 
 
@@ -90,15 +99,6 @@
 ### Bug Fixes
 
 * reflect 'reboot VM' in VM_SETUP + use this as test PR ([442bc8a](https://github.com/rodekruis/IBF-system/commit/442bc8a7c9fadebde879a3fbd560607391e846ad))
-
-
-
-## [0.276.2](https://github.com/rodekruis/IBF-system/compare/v0.276.1...v0.276.2) (2024-11-25)
-
-
-### Bug Fixes
-
-* blantyre mock data adm3 ([2a50fa4](https://github.com/rodekruis/IBF-system/commit/2a50fa44748401c8bc4caf605ec201e2fc200e5c))
 
 
 
