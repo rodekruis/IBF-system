@@ -1,3 +1,12 @@
+## [0.277.1](https://github.com/rodekruis/IBF-system/compare/v0.277.0...v0.277.1) (2024-12-03)
+
+
+### Bug Fixes
+
+* mock buildings blantyre ([56499d4](https://github.com/rodekruis/IBF-system/commit/56499d4a10c81a1f82a4005312f24e71793acbe9))
+
+
+
 # [0.277.0](https://github.com/rodekruis/IBF-system/compare/v0.276.9...v0.277.0) (2024-12-02)
 
 
@@ -90,16 +99,6 @@
 ### Bug Fixes
 
 * blantyre mock data adm3 ([2a50fa4](https://github.com/rodekruis/IBF-system/commit/2a50fa44748401c8bc4caf605ec201e2fc200e5c))
-
-
-
-## [0.276.1](https://github.com/rodekruis/IBF-system/compare/v0.276.0...v0.276.1) (2024-11-25)
-
-
-### Bug Fixes
-
-* add twilio info in api-service workflow ([5d44fea](https://github.com/rodekruis/IBF-system/commit/5d44feaf9a080ee43fe0c569a603be932b399d96))
-* use correct env variables ([e082db4](https://github.com/rodekruis/IBF-system/commit/e082db41698e98aea01fa110bb2cea0bdb8e0ce7))
 
 
 
