@@ -16,6 +16,7 @@ class MapComponent extends DashboardPage {
   readonly layerMenu: Locator;
   readonly adminBoundry: Locator;
   readonly layerCheckbox: Locator;
+  readonly layerRadioButton: Locator;
   readonly legendHeader: Locator;
   readonly layerMenuToggle: Locator;
   readonly redCrossMarker: Locator;
@@ -23,6 +24,7 @@ class MapComponent extends DashboardPage {
   readonly alerThresholdLines: Locator;
   readonly closeButtonIcon: Locator;
   readonly layerInfoContent: Locator;
+  readonly ibfAggregatePane: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -45,6 +47,7 @@ class MapComponent extends DashboardPage {
     this.layerMenu = this.page.getByTestId('layer-menu');
     this.adminBoundry = this.page.locator('.leaflet-interactive');
     this.layerCheckbox = this.page.getByTestId('matrix-checkbox');
+    this.layerRadioButton = this.page.getByTestId('matrix-radio-button');
     this.legendHeader = this.page.getByTestId('map-legend-header');
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
     this.redCrossMarker = this.page.getByAltText('Red Cross branches');
@@ -54,6 +57,9 @@ class MapComponent extends DashboardPage {
     );
     this.closeButtonIcon = this.page.getByTestId('close-matrix-icon');
     this.layerInfoContent = this.page.getByTestId('layer-info-content');
+    this.ibfAggregatePane = this.page.locator(
+      '.leaflet-pane.leaflet-ibf-aggregate-pane',
+    );
   }
 
   async mapComponentIsVisible() {
@@ -157,6 +163,25 @@ class MapComponent extends DashboardPage {
 
     if (!isChecked) {
       throw new Error(`Checkbox for layer ${layerName} is not checked`);
+    }
+  }
+
+  async verifyLayerRadioButtonCheckedByName({
+    layerName,
+  }: {
+    layerName: string;
+  }) {
+    const getLayerRow = this.page
+      .getByTestId('matrix-layer-name')
+      .filter({ hasText: layerName });
+    const layerCheckbox = getLayerRow.locator(this.layerRadioButton);
+
+    // In case of checbox being checked the name attribute should be "checkbox"
+    const nameAttribute = await layerCheckbox.getAttribute('name');
+    const isChecked = nameAttribute === 'radio-button-on-outline';
+
+    if (!isChecked) {
+      throw new Error(`Radio button for layer ${layerName} is not checked`);
     }
   }
 
@@ -355,6 +380,17 @@ class MapComponent extends DashboardPage {
       // Assert that no markers are visible
       expect(await glofasMarker.count()).toBe(0);
     }
+  }
+
+  // This method checks that when radio button is checked then the layer is visible in leaflet-ibf-aggregate-pane
+  // Only one radio button can be checked at a time
+  // It valdates the functionality not data displayed
+  async validateAggregatePaneIsNotEmpty() {
+    const aggregatePaneContent = this.ibfAggregatePane.locator(
+      '.leaflet-interactive',
+    );
+    const aggregatePaneContentCount = await aggregatePaneContent.count();
+    expect(aggregatePaneContentCount).toBeGreaterThan(0);
   }
 }
 export default MapComponent;
