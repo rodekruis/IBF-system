@@ -11,9 +11,9 @@ import {
 export async function testFlashFloodScenario(
   scenario: FlashFloodsScenario,
   countryCodeISO3: string,
+  eventNames: string[] = [],
   accessToken: string,
 ): Promise<boolean> {
-  const eventNames = ['Rumphi', 'Karonga'];
   const disasterTypeLabel = 'Flash Flood'; // DisasterType.FlashFloods does not match
 
   const mockResult = await mockFlashFlood(

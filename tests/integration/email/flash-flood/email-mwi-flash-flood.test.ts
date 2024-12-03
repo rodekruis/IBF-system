@@ -12,18 +12,21 @@ describe('Should send an email for mwi flash flood', () => {
   });
 
   it('trigger', async () => {
+    const eventNames = ['Blantyre City', 'Karonga']; // Scneario contains also 'Rumphi' but as ongoing, for which no email is sent
     const result = await testFlashFloodScenario(
       FlashFloodsScenario.Trigger,
       countryCodeISO3,
+      eventNames,
       accessToken,
     );
     expect(result).toBeTruthy();
-  });
+  }, 90000); //Increase timeout to 90 seconds, because mock takes long for this scenario
 
   it('no-trigger', async () => {
     const result = await testFlashFloodScenario(
       FlashFloodsScenario.NoTrigger,
       countryCodeISO3,
+      [],
       accessToken,
     );
     expect(result).toBeTruthy();
