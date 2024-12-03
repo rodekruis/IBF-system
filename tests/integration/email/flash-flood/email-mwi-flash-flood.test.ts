@@ -20,7 +20,7 @@ describe('Should send an email for mwi flash flood', () => {
       accessToken,
     );
     expect(result).toBeTruthy();
-  }, 90000); //Increase timeout to 90 seconds, because mock takes long for this scenario
+  }, 150000); //Increase timeout to 150 seconds, because mock takes long for this scenario
 
   it('no-trigger', async () => {
     const result = await testFlashFloodScenario(
