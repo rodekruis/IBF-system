@@ -3,15 +3,15 @@
     "scenarioName": "trigger",
     "defaultScenario": true,
     "events": [
-      { "eventName": "Rumphi", "leadTime": "6-hour" },
+      { "eventName": "Rumphi", "leadTime": "0-hour" },
       { "eventName": "Karonga", "leadTime": "24-hour" },
-      { "eventName": "Blantyre City", "leadTime": "0-hour" }
+      { "eventName": "Blantyre City", "leadTime": "6-hour" }
     ]
   },
   {
     "scenarioName": "single-event",
     "defaultScenario": false,
-    "events": [{ "eventName": "Blantyre City", "leadTime": "0-hour" }]
+    "events": [{ "eventName": "Blantyre City", "leadTime": "6-hour" }]
   },
   {
     "scenarioName": "no-trigger"
