@@ -1,5 +1,5 @@
-import { EpidemicsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
-import { getAccessToken, resetDB } from '../../helpers/utility.helper';
+import { EpidemicsScenario } from '../../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { getAccessToken, resetDB } from '../../../helpers/utility.helper';
 import { testMalariaScenario } from './test-malaria-scenario.helper';
 
 const countryCodeISO3 = 'ETH';
