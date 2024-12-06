@@ -46,6 +46,7 @@ export class NotificationController {
   @ApiQuery({
     name: 'isApiTest',
     required: false,
+    schema: { default: false, type: 'boolean' },
     type: 'boolean',
     description:
       'If true, only returns the notification content without sending it',

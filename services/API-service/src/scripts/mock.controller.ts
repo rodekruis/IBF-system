@@ -12,6 +12,7 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiProperty,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -102,6 +103,13 @@ export class MockController {
     status: 202,
     description: 'Uploaded mock data for specific floods scenario',
   })
+  @ApiQuery({
+    name: 'isApiTest',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description: 'Set to true for tests',
+  })
   @Post('/floods')
   public async mockFloodsScenario(
     @Body() body: MockFloodsScenario,
@@ -135,6 +143,13 @@ export class MockController {
     status: 202,
     description: 'Uploaded mock data for specific floods scenario',
   })
+  @ApiQuery({
+    name: 'isApiTest',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description: 'Set to true for tests',
+  })
   @Post('/flash-floods')
   public async mockFlashFloodsScenario(
     @Body() body: MockFlashFloodsScenario,
@@ -167,6 +182,13 @@ export class MockController {
   @ApiResponse({
     status: 202,
     description: 'Uploaded mock data for specific epidemics scenario',
+  })
+  @ApiQuery({
+    name: 'isApiTest',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description: 'Set to true for tests',
   })
   @Post('/epidemics')
   public async mockEpidemicsScenario(
