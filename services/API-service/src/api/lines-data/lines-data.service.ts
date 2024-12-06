@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { MoreThanOrEqual, Repository } from 'typeorm';
+import { In, MoreThanOrEqual, Repository } from 'typeorm';
 
 import { HelperService } from '../../shared/helper.service';
 import { UploadLinesExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
@@ -117,38 +117,37 @@ export class LinesDataService {
   ) {
     // Make sure all assets within one upload have the same timestamp, to make sure the asset exposure views work correctly
     assetFids.date = assetFids.date || new Date();
-    const assetForecasts: LinesDataDynamicStatusEntity[] = [];
-    for (const fid of assetFids.exposedFids) {
-      const asset = await this.linesDataRepository.findOne({
-        where: {
-          referenceId: Number(fid),
-          linesDataCategory: assetFids.linesDataCategory,
-          countryCodeISO3: assetFids.countryCodeISO3,
-        },
-      });
-      if (!asset) {
-        continue;
-      }
 
-      // Delete existing entries with same date, leadTime and countryCodeISO3 and stationCode
-      await this.linesDataDynamicStatusRepo.delete({
-        linesData: { linesDataId: asset.linesDataId },
-        leadTime: assetFids.leadTime,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getUploadCutoffMoment(
-            assetFids.disasterType,
-            assetFids.date,
-          ),
+    const assets = await this.linesDataRepository.find({
+      where: {
+        referenceId: In(assetFids.exposedFids),
+        linesDataCategory: assetFids.linesDataCategory,
+        countryCodeISO3: assetFids.countryCodeISO3,
+      },
+    });
+
+    const linesDataIds = assets.map((asset) => asset.linesDataId);
+
+    await this.linesDataDynamicStatusRepo.delete({
+      linesData: { linesDataId: In(linesDataIds) },
+      leadTime: assetFids.leadTime,
+      timestamp: MoreThanOrEqual(
+        this.helperService.getUploadCutoffMoment(
+          assetFids.disasterType,
+          assetFids.date,
         ),
-      });
+      ),
+    });
 
-      const assetForecast = new LinesDataDynamicStatusEntity();
-      assetForecast.linesData = asset;
-      assetForecast.leadTime = assetFids.leadTime;
-      assetForecast.timestamp = assetFids.date;
-      assetForecast.exposed = true;
-      assetForecasts.push(assetForecast);
-    }
-    await this.linesDataDynamicStatusRepo.save(assetForecasts);
+    const linesDataDynamicStatuses = assets.map((asset) => {
+      const linesDataDynamicStatus = new LinesDataDynamicStatusEntity();
+      linesDataDynamicStatus.linesData = asset;
+      linesDataDynamicStatus.leadTime = assetFids.leadTime;
+      linesDataDynamicStatus.timestamp = assetFids.date;
+      linesDataDynamicStatus.exposed = true;
+      return linesDataDynamicStatus;
+    });
+
+    await this.linesDataDynamicStatusRepo.save(linesDataDynamicStatuses);
   }
 }

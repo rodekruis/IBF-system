@@ -1,5 +1,4 @@
 import { JSDOM } from 'jsdom';
-
 import { DisasterType } from '../../../../services/API-service/src/api/disaster/disaster-type.enum';
 import { FlashFloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import {
@@ -32,10 +31,13 @@ export async function testFlashFloodScenario(
   expect(mockResult.status).toBe(202);
   expect(response.status).toBe(201);
 
-  if (scenario === FlashFloodsScenario.ApiTest) {
-    expect(response.body.activeEvents.email).toBeDefined();
-  } else {
+  if (
+    scenario === FlashFloodsScenario.NoTrigger ||
+    scenario.startsWith('trigger-ongoing-') // ongoing triggers are not listed in emails
+  ) {
     expect(response.body.activeEvents.email).toBeUndefined();
+  } else {
+    expect(response.body.activeEvents.email).toBeDefined();
   }
 
   expect(response.body.activeEvents.whatsapp).toBeFalsy();
@@ -51,13 +53,13 @@ export async function testFlashFloodScenario(
     (el) => (el as Element).textContent.toLowerCase(),
   ).map((el) => el.trim());
 
-  if (scenario === FlashFloodsScenario.ApiTest) {
-    expect(eventNamesInEmail.length).toBe(eventNames.length);
-  } else {
+  if (scenario === FlashFloodsScenario.NoTrigger) {
     expect(eventNamesInEmail.length).toBe(0);
+  } else {
+    expect(eventNamesInEmail.length).toBe(eventNames.length);
   }
 
-  if (scenario === FlashFloodsScenario.ApiTest) {
+  if (scenario !== FlashFloodsScenario.NoTrigger) {
     // Check if each expected event name is included in at least one title
     for (const eventName of eventNames) {
       const eventTitle = getEventTitle(disasterTypeLabel, eventName);

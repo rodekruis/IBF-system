@@ -9,12 +9,16 @@
     ]
   },
   {
-    "scenarioName": "single-event",
+    "scenarioName": "trigger-blantyre",
     "events": [{ "eventName": "Blantyre City", "leadTime": "6-hour" }]
   },
   {
-    "scenarioName": "api-test",
+    "scenarioName": "warning-karonga",
     "events": [{ "eventName": "Karonga", "leadTime": "24-hour" }]
+  },
+  {
+    "scenarioName": "trigger-ongoing-rumphi",
+    "events": [{ "eventName": "Rumphi", "leadTime": "0-hour" }]
   },
   {
     "scenarioName": "no-trigger"
