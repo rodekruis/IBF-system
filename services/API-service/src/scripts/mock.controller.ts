@@ -12,6 +12,7 @@ import {
   ApiBearerAuth,
   ApiOperation,
   ApiProperty,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -71,7 +72,8 @@ export class MockFloodsScenario extends MockBaseScenario {
 export class MockFlashFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FlashFloodsScenario).join(' | '),
-    description: 'trigger: trigger + warning + ongoing event; single-event: ',
+    description:
+      'trigger: trigger-blantyre + warning-karonga + trigger-ongoing-rumphi; trigger-blantyre: trigger in Blantyre City; warning-karonga: warning in Karonga; trigger-ongoing-rumphi: ongoing trigger in Rumphi',
   })
   @IsEnum(FlashFloodsScenario)
   public readonly scenario: FlashFloodsScenario;
@@ -100,6 +102,13 @@ export class MockController {
   @ApiResponse({
     status: 202,
     description: 'Uploaded mock data for specific floods scenario',
+  })
+  @ApiQuery({
+    name: 'isApiTest',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description: 'Set to true for tests',
   })
   @Post('/floods')
   public async mockFloodsScenario(
@@ -134,6 +143,13 @@ export class MockController {
     status: 202,
     description: 'Uploaded mock data for specific floods scenario',
   })
+  @ApiQuery({
+    name: 'isApiTest',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description: 'Set to true for tests',
+  })
   @Post('/flash-floods')
   public async mockFlashFloodsScenario(
     @Body() body: MockFlashFloodsScenario,
@@ -166,6 +182,13 @@ export class MockController {
   @ApiResponse({
     status: 202,
     description: 'Uploaded mock data for specific epidemics scenario',
+  })
+  @ApiQuery({
+    name: 'isApiTest',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description: 'Set to true for tests',
   })
   @Post('/epidemics')
   public async mockEpidemicsScenario(

@@ -11,9 +11,9 @@ import {
 export async function testFlashFloodScenario(
   scenario: FlashFloodsScenario,
   countryCodeISO3: string,
+  eventNames: string[] = [],
   accessToken: string,
 ): Promise<boolean> {
-  const eventNames = ['Rumphi', 'Karonga'];
   const disasterTypeLabel = 'Flash Flood'; // DisasterType.FlashFloods does not match
 
   const mockResult = await mockFlashFlood(
@@ -32,10 +32,13 @@ export async function testFlashFloodScenario(
   expect(mockResult.status).toBe(202);
   expect(response.status).toBe(201);
 
-  if (scenario === FlashFloodsScenario.Trigger) {
-    expect(response.body.activeEvents.email).toBeDefined();
-  } else {
+  if (
+    scenario === FlashFloodsScenario.NoTrigger ||
+    scenario.startsWith('trigger-ongoing-') // ongoing triggers are not listed in emails
+  ) {
     expect(response.body.activeEvents.email).toBeUndefined();
+  } else {
+    expect(response.body.activeEvents.email).toBeDefined();
   }
 
   expect(response.body.activeEvents.whatsapp).toBeFalsy();
@@ -51,13 +54,13 @@ export async function testFlashFloodScenario(
     (el) => (el as Element).textContent.toLowerCase(),
   ).map((el) => el.trim());
 
-  if (scenario === FlashFloodsScenario.Trigger) {
-    expect(eventNamesInEmail.length).toBe(eventNames.length);
-  } else {
+  if (scenario === FlashFloodsScenario.NoTrigger) {
     expect(eventNamesInEmail.length).toBe(0);
+  } else {
+    expect(eventNamesInEmail.length).toBe(eventNames.length);
   }
 
-  if (scenario === FlashFloodsScenario.Trigger) {
+  if (scenario !== FlashFloodsScenario.NoTrigger) {
     // Check if each expected event name is included in at least one title
     for (const eventName of eventNames) {
       const eventTitle = getEventTitle(disasterTypeLabel, eventName);
