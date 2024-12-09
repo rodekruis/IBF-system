@@ -12,9 +12,44 @@ describe('Should send an email for mwi flash flood', () => {
   });
 
   it('trigger', async () => {
+    const eventNames = ['Blantyre City', 'Karonga'];  // Scenario contains also 'Rumphi' but as ongoing, for which no email is sent
     const result = await testFlashFloodScenario(
       FlashFloodsScenario.Trigger,
       countryCodeISO3,
+      eventNames,
+      accessToken,
+    );
+    expect(result).toBeTruthy();
+  });
+
+  it('trigger-blantyre', async () => {
+    const eventNames = ['Blantyre City'];
+    const result = await testFlashFloodScenario(
+      FlashFloodsScenario.TriggerBlantyre,
+      countryCodeISO3,
+      eventNames,
+      accessToken,
+    );
+    expect(result).toBeTruthy();
+  });
+
+  it('warning-karonga', async () => {
+    const eventNames = ['Karonga'];
+    const result = await testFlashFloodScenario(
+      FlashFloodsScenario.WarningKaronga,
+      countryCodeISO3,
+      eventNames,
+      accessToken,
+    );
+    expect(result).toBeTruthy();
+  });
+
+  it('trigger-ongoing-rumphi', async () => {
+    const eventNames = []; // ongoing triggers are not listed in emails
+    const result = await testFlashFloodScenario(
+      FlashFloodsScenario.TriggerOngoingRumphi,
+      countryCodeISO3,
+      eventNames,
       accessToken,
     );
     expect(result).toBeTruthy();
@@ -24,6 +59,7 @@ describe('Should send an email for mwi flash flood', () => {
     const result = await testFlashFloodScenario(
       FlashFloodsScenario.NoTrigger,
       countryCodeISO3,
+      [],
       accessToken,
     );
     expect(result).toBeTruthy();
