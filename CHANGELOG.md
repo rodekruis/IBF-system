@@ -1,3 +1,14 @@
+## [0.277.4](https://github.com/rodekruis/IBF-system/compare/v0.277.3...v0.277.4) (2024-12-09)
+
+
+### Bug Fixes
+
+* delete package-lock ([ab3b82c](https://github.com/rodekruis/IBF-system/commit/ab3b82c2863e4baa1dd9f3976477ae0e23e07082))
+* recreate lock file ([b467bbd](https://github.com/rodekruis/IBF-system/commit/b467bbded4e01753b66a993aa304f317388096f5))
+* update package.json ([9393d0b](https://github.com/rodekruis/IBF-system/commit/9393d0b1bd062d87f242eb5691dea3a935e136d4))
+
+
+
 ## [0.277.3](https://github.com/rodekruis/IBF-system/compare/v0.277.2...v0.277.3) (2024-12-09)
 
 
@@ -91,15 +102,6 @@
 ### Bug Fixes
 
 * move to eslint.config.js ([20a4808](https://github.com/rodekruis/IBF-system/commit/20a48089b76d9ab44fad73f30d26703cbc824995))
-
-
-
-## [0.276.4](https://github.com/rodekruis/IBF-system/compare/v0.276.3...v0.276.4) (2024-11-25)
-
-
-### Bug Fixes
-
-* compilation error ([33a8b66](https://github.com/rodekruis/IBF-system/commit/33a8b66444d235b474a637adaad4355df3741c83))
 
 
 
