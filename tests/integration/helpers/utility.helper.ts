@@ -10,6 +10,7 @@ import {
   TyphoonScenario,
 } from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import users from '../../../services/API-service/src/scripts/json/users.json';
+import { UploadTyphoonTrackDto } from '../../../services/API-service/src/api/typhoon-track/dto/upload-typhoon-track';
 
 export async function getAccessToken(): Promise<string> {
   const admin = users.find((user) => user.userRole === 'admin');
@@ -178,4 +179,40 @@ export function changePassword(
     .post('/user/change-password')
     .set('Authorization', `Bearer ${accessToken}`)
     .send({ email, password });
+}
+
+// Start splitting this up into multiple helper files
+export function getTyphoonTrack(
+  countryCodeISO3: string,
+  eventName: string,
+  accessToken: string,
+): Promise<request.Response> {
+  let query = {};
+  if (eventName) {
+    query = { eventName: eventName };
+  }
+  return getServer()
+    .get(`/typhoon-track/${countryCodeISO3}`)
+    .query(query)
+    .set('Authorization', `Bearer ${accessToken}`);
+}
+
+export function postTyphoonTrack(
+  uploadTyphoonTrackDto: UploadTyphoonTrackDto,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .post(`/typhoon-track`)
+    .set('Authorization', `Bearer ${accessToken}`)
+    .send(uploadTyphoonTrackDto);
+}
+
+export function getEventsSummary(
+  countryCodeISO3: string,
+  disasterType: DisasterType,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .get(`/event/${countryCodeISO3}/${disasterType}`)
+    .set('Authorization', `Bearer ${accessToken}`);
 }
