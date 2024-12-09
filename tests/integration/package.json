@@ -16,7 +16,7 @@
     "@typescript-eslint/eslint-plugin": "^8.16.0",
     "@typescript-eslint/parser": "^8.16.0",
     "atob": ">=2.1.0",
-    "dotenv": "^16.4.5",
+    "dotenv": "^16.4.7",
     "eslint": "^9.15.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jest": "^28.9.0",
