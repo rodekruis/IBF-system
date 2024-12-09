@@ -11,16 +11,49 @@ describe('Should send an email for mwi flash flood', () => {
     await resetDB(accessToken);
   });
 
-  it('api-test', async () => {
-    const eventNames = ['Karonga']; // Scenario contains also 'Rumphi' but as ongoing, for which no email is sent
+  it('trigger', async () => {
+    const eventNames = ['Blantyre City', 'Karonga'];  // Scenario contains also 'Rumphi' but as ongoing, for which no email is sent
     const result = await testFlashFloodScenario(
-      FlashFloodsScenario.ApiTest,
+      FlashFloodsScenario.Trigger,
       countryCodeISO3,
       eventNames,
       accessToken,
     );
     expect(result).toBeTruthy();
-  }, 150000); //Increase timeout to 150 seconds, because mock takes long for this scenario
+  });
+
+  it('trigger-blantyre', async () => {
+    const eventNames = ['Blantyre City'];
+    const result = await testFlashFloodScenario(
+      FlashFloodsScenario.TriggerBlantyre,
+      countryCodeISO3,
+      eventNames,
+      accessToken,
+    );
+    expect(result).toBeTruthy();
+  });
+
+  it('warning-karonga', async () => {
+    const eventNames = ['Karonga'];
+    const result = await testFlashFloodScenario(
+      FlashFloodsScenario.WarningKaronga,
+      countryCodeISO3,
+      eventNames,
+      accessToken,
+    );
+    expect(result).toBeTruthy();
+  });
+
+  it('trigger-ongoing-rumphi', async () => {
+    const eventNames = []; // ongoing triggers are not listed in emails
+    const result = await testFlashFloodScenario(
+      FlashFloodsScenario.TriggerOngoingRumphi,
+      countryCodeISO3,
+      eventNames,
+      accessToken,
+    );
+    expect(result).toBeTruthy();
+  });
 
   it('no-trigger', async () => {
     const result = await testFlashFloodScenario(
