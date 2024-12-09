@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { test } from '@playwright/test';
 import DashboardPage from 'Pages/DashboardPage';
 import MapComponent from 'Pages/MapComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
@@ -53,7 +53,11 @@ test(
 
     await map.mapComponentIsVisible();
     await map.isLegendOpen({ legendOpen: true });
-    const legendLayers = await map.returnLayerCheckedCheckboxes();
-    expect(legendLayers).toEqual(['Flood extent', 'Exposed population']);
+    await map.assertLegendElementIsVisible({
+      legendComponentName: 'Flood extent',
+    });
+    await map.assertLegendElementIsVisible({
+      legendComponentName: 'Exposed population',
+    });
   },
 );
