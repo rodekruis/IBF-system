@@ -12,7 +12,7 @@ describe('Should send an email for mwi flash flood', () => {
   });
 
   it('trigger', async () => {
-    const eventNames = ['Blantyre City', 'Karonga'];
+    const eventNames = ['Blantyre City', 'Karonga'];  // Scenario contains also 'Rumphi' but as ongoing, for which no email is sent
     const result = await testFlashFloodScenario(
       FlashFloodsScenario.Trigger,
       countryCodeISO3,
