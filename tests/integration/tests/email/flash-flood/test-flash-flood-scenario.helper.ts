@@ -1,22 +1,22 @@
 import { JSDOM } from 'jsdom';
 
-import { DisasterType } from '../../../../services/API-service/src/api/disaster/disaster-type.enum';
-import { EpidemicsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { DisasterType } from '../../../../../services/API-service/src/api/disaster/disaster-type.enum';
+import { FlashFloodsScenario } from '../../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import {
   getEventTitle,
-  mockEpidemics,
+  mockFlashFlood,
   sendNotification,
-} from '../../helpers/utility.helper';
+} from '../../../helpers/utility.helper';
 
-export async function testDengueScenario(
-  scenario: EpidemicsScenario,
+export async function testFlashFloodScenario(
+  scenario: FlashFloodsScenario,
   countryCodeISO3: string,
+  eventNames: string[] = [],
   accessToken: string,
 ): Promise<boolean> {
-  const eventNames = ['0-month', '1-month', '2-month'];
-  const disasterTypeLabel = DisasterType.Dengue;
+  const disasterTypeLabel = 'Flash Flood'; // DisasterType.FlashFloods does not match
 
-  const mockResult = await mockEpidemics(
+  const mockResult = await mockFlashFlood(
     scenario,
     countryCodeISO3,
     accessToken,
@@ -24,7 +24,7 @@ export async function testDengueScenario(
   // Act
   const response = await sendNotification(
     countryCodeISO3,
-    DisasterType.Dengue,
+    DisasterType.FlashFloods,
     accessToken,
   );
   // Assert
@@ -32,10 +32,13 @@ export async function testDengueScenario(
   expect(mockResult.status).toBe(202);
   expect(response.status).toBe(201);
 
-  if (scenario === EpidemicsScenario.Trigger) {
-    expect(response.body.activeEvents.email).toBeDefined();
-  } else {
+  if (
+    scenario === FlashFloodsScenario.NoTrigger ||
+    scenario.startsWith('trigger-ongoing-') // ongoing triggers are not listed in emails
+  ) {
     expect(response.body.activeEvents.email).toBeUndefined();
+  } else {
+    expect(response.body.activeEvents.email).toBeDefined();
   }
 
   expect(response.body.activeEvents.whatsapp).toBeFalsy();
@@ -51,13 +54,13 @@ export async function testDengueScenario(
     (el) => (el as Element).textContent.toLowerCase(),
   ).map((el) => el.trim());
 
-  if (scenario === EpidemicsScenario.Trigger) {
-    expect(eventNamesInEmail.length).toBe(eventNames.length);
-  } else {
+  if (scenario === FlashFloodsScenario.NoTrigger) {
     expect(eventNamesInEmail.length).toBe(0);
+  } else {
+    expect(eventNamesInEmail.length).toBe(eventNames.length);
   }
 
-  if (scenario === EpidemicsScenario.Trigger) {
+  if (scenario !== FlashFloodsScenario.NoTrigger) {
     // Check if each expected event name is included in at least one title
     for (const eventName of eventNames) {
       const eventTitle = getEventTitle(disasterTypeLabel, eventName);

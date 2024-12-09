@@ -1,5 +1,5 @@
-import { FlashFloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
-import { getAccessToken, resetDB } from '../../helpers/utility.helper';
+import { FlashFloodsScenario } from '../../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { getAccessToken, resetDB } from '../../../helpers/utility.helper';
 import { testFlashFloodScenario } from './test-flash-flood-scenario.helper';
 
 const countryCodeISO3 = 'MWI';

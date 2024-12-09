@@ -1,5 +1,5 @@
-import { FloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
-import { getAccessToken, resetDB } from '../../helpers/utility.helper';
+import { FloodsScenario } from '../../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { getAccessToken, resetDB } from '../../../helpers/utility.helper';
 import { testFloodScenario } from './test-flood-scenario.helper';
 
 const countryCodeISO3 = 'UGA';
