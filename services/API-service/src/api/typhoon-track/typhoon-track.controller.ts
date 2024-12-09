@@ -57,7 +57,7 @@ export class TyphoonTrackController {
     summary: 'Get Typhoon track data for given country and leadtime',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiQuery({ name: 'eventName', required: false, type: 'string' })
+  @ApiQuery({ name: 'eventName', required: true, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
