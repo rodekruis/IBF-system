@@ -3,7 +3,7 @@ import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { qase } from 'playwright-qase-reporter';
-import { NoTriggerDataSet } from 'testData/testData.enum';
+import { TriggerDataSet } from 'testData/testData.enum';
 
 import {
   getAccessToken,
@@ -22,20 +22,17 @@ test.beforeEach(async ({ page }) => {
   await resetDB(accessToken);
   // We should maybe create one mock for all different disaster types for now we can just use floods
   await mockFloods(
-    NoTriggerDataSet.NoTriggerScenario,
-    NoTriggerDataSet.CountryCode,
+    TriggerDataSet.TriggerScenario,
+    TriggerDataSet.CountryCode,
     accessToken,
   );
 
   await page.goto('/');
-  await loginPage.login(
-    NoTriggerDataSet.UserMail,
-    NoTriggerDataSet.UserPassword,
-  );
+  await loginPage.login(TriggerDataSet.UserMail, TriggerDataSet.UserPassword);
 });
 
 test(
-  qase(5, 'All Chat section elements are present in no-trigger mode'),
+  qase(44, '[Trigger] Show prediction button is clickable'),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
     const userState = new UserStateComponent(page);
@@ -45,12 +42,13 @@ test(
     await dashboard.navigateToFloodDisasterType();
     // Assertions
     await userState.headerComponentIsVisible({
-      countryName: NoTriggerDataSet.CountryName,
+      countryName: TriggerDataSet.CountryName,
     });
-    await chat.chatColumnIsVisibleForNoTriggerState({
-      firstName: NoTriggerDataSet.firstName,
-      lastName: NoTriggerDataSet.lastName,
+    await chat.chatColumnIsVisibleForTriggerState({
+      firstName: TriggerDataSet.firstName,
+      lastName: TriggerDataSet.lastName,
     });
     await chat.allChatButtonsArePresent();
+    await chat.chatPredictionButtonsAreActive();
   },
 );
