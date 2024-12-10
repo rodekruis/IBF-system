@@ -80,10 +80,39 @@ class ChatComponent extends DashboardPage {
     const noTriggerChatDialogue = this.chatDialogue.filter({
       hasText: chatDialogueContentNoAlerts,
     });
-
     // Assertions
     await expect(welcomeChatDialogue).toBeVisible();
     await expect(noTriggerChatDialogue).toBeVisible();
+  }
+
+  async chatColumnIsVisibleForTriggerState({
+    firstName,
+    lastName,
+  }: {
+    firstName: string;
+    lastName: string;
+  }) {
+    // String cleaning to remove <strong> tags and replace placeholders with actual values
+    const cleanedString = chatDialogueWarnLabel.replace(/<\/?strong>/g, '');
+
+    const date = new Date();
+    const formattedDate = format(date, 'EEEE, dd MMMM');
+    const formattedTime = format(date, 'HH:mm');
+
+    const lastModelRunDate = `${formattedDate} ${formattedTime}`;
+
+    // Formatted Strings
+    const chatDialogueContent = cleanedString
+      .replace('{{ name }}', `${firstName} ${lastName}`)
+      .replace('{{lastModelRunDate}}', lastModelRunDate);
+
+    // Locators based on data-testid and filtered by formatted strings
+    const welcomeChatDialogue = this.chatDialogue.filter({
+      hasText: chatDialogueContent,
+    });
+
+    // Assertions
+    await expect(welcomeChatDialogue).toBeVisible();
   }
 
   async allChatButtonsArePresent() {
@@ -152,6 +181,17 @@ class ChatComponent extends DashboardPage {
     // Assert new page is opened
     await expect(newPage).toHaveURL(url);
     await newPage.close();
+  }
+
+  async chatPredictionButtonsAreActive() {
+    const showPredictionButton = this.page.getByRole('button', {
+      name: 'Show prediction',
+    });
+    const countPredictionButtons = await showPredictionButton.count();
+    for (let i = 0; i < countPredictionButtons; i++) {
+      const predictionButton = showPredictionButton.nth(i);
+      await expect(predictionButton).toBeEnabled();
+    }
   }
 }
 
