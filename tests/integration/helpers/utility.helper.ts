@@ -1,16 +1,16 @@
 import * as request from 'supertest';
 import TestAgent from 'supertest/lib/agent';
 
-import { DisasterType } from '../../../services/API-service/src/api/disaster/disaster-type.enum';
-import { CreateUserDto } from '../../../services/API-service/src/api/user/dto/create-user.dto';
+import users from './API-service/json/users.json';
+import { UploadTyphoonTrackDto } from './API-service/dto/upload-typhoon-track.dto';
 import {
   EpidemicsScenario,
   FlashFloodsScenario,
   FloodsScenario,
   TyphoonScenario,
-} from '../../../services/API-service/src/scripts/enum/mock-scenario.enum';
-import users from '../../../services/API-service/src/scripts/json/users.json';
-import { UploadTyphoonTrackDto } from '../../../services/API-service/src/api/typhoon-track/dto/upload-typhoon-track';
+} from './API-service/enum/mock-scenario.enum';
+import { DisasterType } from './API-service/enum/disaster-type.enum';
+import { CreateUserDto } from './API-service/dto/create-user.dto';
 
 export async function getAccessToken(): Promise<string> {
   const admin = users.find((user) => user.userRole === 'admin');

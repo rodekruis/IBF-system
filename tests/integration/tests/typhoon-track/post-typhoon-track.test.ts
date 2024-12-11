@@ -1,4 +1,5 @@
-import { TyphoonScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { LeadTime } from '../../helpers/API-service/enum/lead-time.enum';
+import { TyphoonScenario } from '../../helpers/API-service/enum/mock-scenario.enum';
 import {
   getAccessToken,
   getTyphoonTrack,
@@ -6,9 +7,10 @@ import {
   postTyphoonTrack,
   resetDB,
 } from '../../helpers/utility.helper';
-import { LeadTime } from '../../../../services/API-service/src/api/admin-area-dynamic-data/enum/lead-time.enum';
-import { UploadTyphoonTrackDto } from '../../../../services/API-service/src/api/typhoon-track/dto/upload-typhoon-track';
-import { TyphoonCategory } from '../../../../services/API-service/src/api/typhoon-track/dto/trackpoint-details';
+import {
+  TyphoonCategory,
+  UploadTyphoonTrackDto,
+} from '../../helpers/API-service/dto/upload-typhoon-track.dto';
 
 const countryCodeISO3 = 'PHL';
 const eventName = 'Mock typhoon 1';

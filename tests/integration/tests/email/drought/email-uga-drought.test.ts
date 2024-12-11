@@ -1,6 +1,5 @@
 import { JSDOM } from 'jsdom';
 
-import { DisasterType } from '../../../../../services/API-service/src/api/disaster/disaster-type.enum';
 import {
   getAccessToken,
   getEventTitle,
@@ -8,6 +7,7 @@ import {
   resetDB,
   sendNotification,
 } from '../../../helpers/utility.helper';
+import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 
 const countryCodeISO3 = 'UGA';
 const disasterType = DisasterType.Drought;

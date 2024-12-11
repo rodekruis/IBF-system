@@ -1,12 +1,12 @@
 import { JSDOM } from 'jsdom';
 
-import { DisasterType } from '../../../../../services/API-service/src/api/disaster/disaster-type.enum';
-import { EpidemicsScenario } from '../../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import {
   getEventTitle,
   mockEpidemics,
   sendNotification,
 } from '../../../helpers/utility.helper';
+import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
+import { EpidemicsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
 
 export async function testDengueScenario(
   scenario: EpidemicsScenario,
