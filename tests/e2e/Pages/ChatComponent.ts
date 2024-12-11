@@ -192,6 +192,7 @@ class ChatComponent extends DashboardPage {
       const predictionButton = showPredictionButton.nth(i);
       await expect(predictionButton).toBeEnabled();
     }
+    return countPredictionButtons;
   }
 }
 
