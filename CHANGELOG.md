@@ -1,3 +1,12 @@
+## [0.277.6](https://github.com/rodekruis/IBF-system/compare/v0.277.5...v0.277.6) (2024-12-11)
+
+
+### Bug Fixes
+
+* connect dynamic data to active assets ([5e61128](https://github.com/rodekruis/IBF-system/commit/5e61128e8e226ae8b03f0e5813aca5189ffaf8d4))
+
+
+
 ## [0.277.4](https://github.com/rodekruis/IBF-system/compare/v0.277.3...v0.277.4) (2024-12-09)
 
 
@@ -84,24 +93,6 @@
 ### Bug Fixes
 
 * deactivate instead of delete when updating point/lines data ([f11fc1c](https://github.com/rodekruis/IBF-system/commit/f11fc1c60c7740d3467d26a48ffeb5e88c6a9cc2))
-
-
-
-## [0.276.6](https://github.com/rodekruis/IBF-system/compare/v0.276.5...v0.276.6) (2024-11-26)
-
-
-### Bug Fixes
-
-* only show RP if > 0 + linting fixes ([067c290](https://github.com/rodekruis/IBF-system/commit/067c290f313839e73a909e1e123311dd00871eb7))
-
-
-
-## [0.276.5](https://github.com/rodekruis/IBF-system/compare/v0.276.4...v0.276.5) (2024-11-26)
-
-
-### Bug Fixes
-
-* move to eslint.config.js ([20a4808](https://github.com/rodekruis/IBF-system/commit/20a48089b76d9ab44fad73f30d26703cbc824995))
 
 
 
