@@ -278,6 +278,7 @@ export class PointDataService {
         where: {
           referenceId: point.fid,
           pointDataCategory: dynamicPointData.pointDataCategory,
+          active: true,
         },
       });
       if (!asset) {
