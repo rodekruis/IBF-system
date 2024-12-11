@@ -1,9 +1,10 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import AggregatesComponent from 'Pages/AggregatesComponent';
 import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { qase } from 'playwright-qase-reporter';
-import { NoTriggerDataSet } from 'testData/testData.enum';
+import { TriggerDataSet } from 'testData/testData.enum';
 
 import {
   getAccessToken,
@@ -22,21 +23,22 @@ test.beforeEach(async ({ page }) => {
   await resetDB(accessToken);
   // We should maybe create one mock for all different disaster types for now we can just use floods
   await mockFloods(
-    NoTriggerDataSet.NoTriggerScenario,
-    NoTriggerDataSet.CountryCode,
+    TriggerDataSet.TriggerScenario,
+    TriggerDataSet.CountryCode,
     accessToken,
   );
 
   await page.goto('/');
-  await loginPage.login(
-    NoTriggerDataSet.UserMail,
-    NoTriggerDataSet.UserPassword,
-  );
+  await loginPage.login(TriggerDataSet.UserMail, TriggerDataSet.UserPassword);
 });
 
 test(
-  qase(5, 'All Chat section elements are present in no-trigger mode'),
+  qase(
+    43,
+    '[Trigger] Event list should show at least 1 trigger, medium or low warning event',
+  ),
   async ({ page }) => {
+    const aggregates = new AggregatesComponent(page);
     const dashboard = new DashboardPage(page);
     const userState = new UserStateComponent(page);
     const chat = new ChatComponent(page);
@@ -45,12 +47,19 @@ test(
     await dashboard.navigateToFloodDisasterType();
     // Assertions
     await userState.headerComponentIsVisible({
-      countryName: NoTriggerDataSet.CountryName,
+      countryName: TriggerDataSet.CountryName,
     });
-    await chat.chatColumnIsVisibleForNoTriggerState({
-      firstName: NoTriggerDataSet.firstName,
-      lastName: NoTriggerDataSet.lastName,
+    await chat.chatColumnIsVisibleForTriggerState({
+      firstName: TriggerDataSet.firstName,
+      lastName: TriggerDataSet.lastName,
     });
     await chat.allChatButtonsArePresent();
+
+    // get the number of warning events and aggregated events
+    const warningCount = await chat.chatPredictionButtonsAreActive();
+    const aggregatesNumber = await aggregates.getNumberOfPredictedEvents();
+
+    // check if the number of warning events is equal to the number of aggregated events
+    expect(warningCount).toEqual(aggregatesNumber);
   },
 );
