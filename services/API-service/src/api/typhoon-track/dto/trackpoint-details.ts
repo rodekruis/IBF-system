@@ -21,12 +21,12 @@ export class TrackpointDetailsDto {
   @ApiProperty({ example: 90.0 })
   @IsNotEmpty()
   @IsNumber()
-  public lat: string;
+  public lat: number;
 
   @ApiProperty({ example: 90.0 })
   @IsNotEmpty()
   @IsNumber()
-  public lon: string;
+  public lon: number;
 
   @ApiProperty({ example: new Date() })
   @IsNotEmpty()
