@@ -1,14 +1,13 @@
 import { JSDOM } from 'jsdom';
 
-import { DisasterType } from '../../../../../services/API-service/src/api/disaster/disaster-type.enum';
-import { FloodsScenario } from '../../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
-
-import disasters from '../../../../../services/API-service/src/scripts/json/disasters.json';
+import disasters from '../../../helpers/API-service/json/disasters.json';
 import {
   getEventTitle,
   mockFloods,
   sendNotification,
 } from '../../../helpers/utility.helper';
+import { FloodsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
+import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 
 interface Event {
   eventName: string;

@@ -1,7 +1,6 @@
-import { UserRole } from '../../../services/API-service/src/api/user/user-role.enum';
-import { UserStatus } from '../../../services/API-service/src/api/user/user-status.enum';
+import { UserRole } from '../helpers/API-service/enum/user-role.enum';
+import { UserStatus } from '../helpers/API-service/enum/user-status.enum';
 
-// REFACTOR: it will happen a lot throughout these integration tests to use DTO's from the API-service. Is it fine to import them like this?
 export const userData = {
   email: 'dunant@redcross.nl',
   username: 'dunant',

@@ -1,4 +1,4 @@
-import { TyphoonScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { TyphoonScenario } from '../../helpers/API-service/enum/mock-scenario.enum';
 import {
   getAccessToken,
   getTyphoonTrack,

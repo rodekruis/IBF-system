@@ -1,6 +1,6 @@
 import { JSDOM } from 'jsdom';
-import { DisasterType } from '../../../../../services/API-service/src/api/disaster/disaster-type.enum';
-import { FlashFloodsScenario } from '../../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
+import { FlashFloodsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
 import {
   getEventTitle,
   mockFlashFlood,

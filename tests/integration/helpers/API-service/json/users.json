@@ -1,0 +1,112 @@
+[
+  {
+    "email": "dunant@redcross.nl",
+    "username": "dunant",
+    "firstName": "Henry",
+    "lastName": "Dunant",
+    "userRole": "admin",
+    "password": "password",
+    "userStatus": "active"
+  },
+  {
+    "email": "uganda@redcross.nl",
+    "username": "uganda",
+    "firstName": "Uganda",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["UGA"]
+  },
+  {
+    "email": "zambia@redcross.nl",
+    "username": "zambia",
+    "firstName": "Zambia",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["ZMB"]
+  },
+  {
+    "email": "zimbabwe@redcross.nl",
+    "username": "zimbabwe",
+    "firstName": "Zimbabwe",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["ZWE"]
+  },
+  {
+    "email": "kenya@redcross.nl",
+    "username": "kenya",
+    "firstName": "Kenya",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["KEN"]
+  },
+  {
+    "email": "ethiopia@redcross.nl",
+    "username": "ethiopia",
+    "firstName": "Ethiopia",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["ETH"]
+  },
+  {
+    "email": "philippines@redcross.nl",
+    "username": "philippines",
+    "firstName": "Philippines",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["PHL"]
+  },
+  {
+    "email": "malawi@redcross.nl",
+    "username": "malawi",
+    "firstName": "Malawi",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["MWI"]
+  },
+  {
+    "email": "malawi-flash-floods@redcross.nl",
+    "username": "malawi-flash-floods",
+    "firstName": "Malawi",
+    "middleName": "Flash Floods",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["MWI"],
+    "disasterTypes": ["flash-floods"]
+  },
+  {
+    "email": "southsudan@redcross.nl",
+    "username": "southsudan",
+    "firstName": "South Sudan",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["SSD"]
+  },
+  {
+    "email": "demo-user@redcross.nl",
+    "username": "demo-user@redcross.nl",
+    "firstName": "Demo",
+    "lastName": "User",
+    "userRole": "disaster-manager",
+    "password": "ibf-portal",
+    "userStatus": "active"
+  }
+]

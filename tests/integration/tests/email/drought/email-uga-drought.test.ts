@@ -1,6 +1,5 @@
 import { JSDOM } from 'jsdom';
-
-import { DisasterType } from '../../../../../services/API-service/src/api/disaster/disaster-type.enum';
+import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import {
   getAccessToken,
   getEventTitle,
