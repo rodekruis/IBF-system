@@ -244,7 +244,6 @@ export class EventService {
   public skipNationalView(disastertype: DisasterTypeKey) {
     return (
       disastertype === DisasterTypeKey.typhoon ||
-      disastertype === DisasterTypeKey.dengue ||
       disastertype === DisasterTypeKey.malaria
     );
   }

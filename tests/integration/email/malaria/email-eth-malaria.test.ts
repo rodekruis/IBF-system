@@ -1,4 +1,4 @@
-import { EpidemicsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { MalariaScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import { getAccessToken, resetDB } from '../../helpers/utility.helper';
 import { testMalariaScenario } from './test-malaria-scenario.helper';
 
@@ -11,10 +11,10 @@ describe('Should send an email for eth malaria', () => {
     await resetDB(accessToken);
   });
 
-  // Unskip when dengue/malaria are switched on again
+  // Unskip when malaria is switched on again
   it.skip('trigger', async () => {
     const result = await testMalariaScenario(
-      EpidemicsScenario.Trigger,
+      MalariaScenario.Trigger,
       countryCodeISO3,
       accessToken,
     );
@@ -23,7 +23,7 @@ describe('Should send an email for eth malaria', () => {
 
   it.skip('no-trigger', async () => {
     const result = await testMalariaScenario(
-      EpidemicsScenario.NoTrigger,
+      MalariaScenario.NoTrigger,
       countryCodeISO3,
       accessToken,
     );

@@ -39,13 +39,7 @@ export class HelperService {
 
   public getUploadCutoffMoment(disasterType: DisasterType, date: Date): Date {
     const lastInterval = new Date(date);
-    if (
-      [
-        DisasterType.Dengue,
-        DisasterType.Malaria,
-        DisasterType.Drought,
-      ].includes(disasterType)
-    ) {
+    if ([DisasterType.Malaria, DisasterType.Drought].includes(disasterType)) {
       // monthly pipeline
       lastInterval.setDate(1);
       lastInterval.setHours(0, 0, 0, 0);

@@ -280,7 +280,6 @@
       },
       "MWI": { "floods": "Data not available yet" },
       "PHL": {
-        "dengue": "Data not available yet",
         "floods": "Data not available yet"
       },
       "SSD": {
@@ -331,7 +330,6 @@
         "flash-floods": "This layer shows health sites in areas that are covered by this flash floods portal. Health sites that are marked with a blue indicator means that they are outside of the predicted flash flood extent area and are therefore safe. Health sites that are marked with a red indicator means that they are inside of the predicted flash flood extent area and are therefore exposed.<br/><br/>Source: Malawi's Ministry of Health, publicly available at <a href='https://zipatala.health.gov.mw/facilities'>https://zipatala.health.gov.mw/facilities</a>."
       },
       "PHL": {
-        "dengue": "This layer shows health sites in areas that are covered by this portal. Health sites are marked with a drop pin with an icon of a house with the letter H, clicking on the drop pin opens a pop up with information about the type of health site and its location.<br/><br/>Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>",
         "floods": "This layer shows health sites in areas that are covered by this portal. Health sites are marked with a drop pin with an icon of a house with the letter H, clicking on the drop pin opens a pop up with information about the type of health site and its location.<br/><br/>Source: <a href='https://healthsites.io/'>https://healthsites.io/</a>",
         "typhoon": "This layer shows health sites in areas that are covered by this portal. Health sites are marked with a drop pin with an icon of a house with the letter H, clicking on the drop pin opens a pop up with information about the type of health site and its location.<br/><br/>Source: <a href='https://healthsites.io/'>https://healthsites.io/</a>"
       }

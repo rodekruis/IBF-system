@@ -13,7 +13,6 @@ export const userData = {
   disasterTypes: [
     'floods',
     'heavy-rain',
-    'dengue',
     'malaria',
     'drought',
     'typhoon',

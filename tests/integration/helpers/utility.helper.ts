@@ -4,7 +4,7 @@ import TestAgent from 'supertest/lib/agent';
 import { DisasterType } from '../../../services/API-service/src/api/disaster/disaster-type.enum';
 import { CreateUserDto } from '../../../services/API-service/src/api/user/dto/create-user.dto';
 import {
-  EpidemicsScenario,
+  MalariaScenario,
   FlashFloodsScenario,
   FloodsScenario,
   TyphoonScenario,
@@ -68,13 +68,13 @@ export function mockFloods(
     });
 }
 
-export function mockEpidemics(
-  scenario: EpidemicsScenario,
+export function mockMalaria(
+  scenario: MalariaScenario,
   countryCodeISO3: string,
   accessToken: string,
 ): Promise<request.Response> {
   return getServer()
-    .post('/mock/epidemics')
+    .post('/mock/malaria')
     .set('Authorization', `Bearer ${accessToken}`)
     .query({ isApiTest: true })
     .send({
