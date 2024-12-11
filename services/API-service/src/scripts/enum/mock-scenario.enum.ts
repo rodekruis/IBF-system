@@ -13,7 +13,7 @@ export enum FlashFloodsScenario {
   NoTrigger = 'no-trigger',
 }
 
-export enum EpidemicsScenario {
+export enum MalariaScenario {
   Trigger = 'trigger',
   NoTrigger = 'no-trigger',
 }

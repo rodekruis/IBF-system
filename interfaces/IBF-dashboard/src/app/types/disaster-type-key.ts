@@ -1,9 +1,8 @@
 export enum DisasterTypeKey {
+  drought = 'drought',
+  flashFloods = 'flash-floods',
   floods = 'floods',
   heavyRain = 'heavy-rain',
-  dengue = 'dengue',
   malaria = 'malaria',
-  drought = 'drought',
   typhoon = 'typhoon',
-  flashFloods = 'flash-floods',
 }

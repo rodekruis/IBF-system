@@ -60,7 +60,6 @@ export class ScriptsService {
 
     const newMockServiceDisasterTypes = [
       DisasterType.Floods,
-      DisasterType.Dengue,
       DisasterType.Malaria,
       DisasterType.FlashFloods,
     ];

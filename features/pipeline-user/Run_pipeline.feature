@@ -3,7 +3,7 @@ Feature: Run pipeline
 
     Background:
         Given a script which has first successfully authenticated as user with 'admin' role
-        Given disaster-type 'X' (floods | heavy-rain | drought | malaria | dengue | typhoon)
+        Given disaster-type 'X' (floods | heavy-rain | drought | malaria | typhoon)
 
     Scenario: Successfully run pipeline
         Given all below scenarios that are applicable given disaster-type 'X' are successfully performed

@@ -319,32 +319,6 @@
         "area": "The heavy rainfall alert for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
       }
     },
-    "dengue": {
-      "about-button-label": "About Alert",
-      "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for dengue issued."
-      },
-      "active-event-active-trigger": {
-        "header": "Alert for {{firstLeadTimeDate}}",
-        "header-ongoing": "Ongoing alert for {{firstLeadTimeDate}}",
-        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>."
-      },
-      "active-event": {
-        "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ actionIndicator}} and are highlighted in the map with a red outline.",
-        "instruction": "You can click on the month tabs above the map to see the predictions for each month. Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions of each area.",
-        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
-        "exposed": "Potential cases: up to"
-      },
-      "stopped-event": {
-        "overview": "The following <strong>{{ nrStoppedAreas }}</strong> {{adminAreaLabelPlural}} were manually stopped. They are listed below in order of {{ actionIndicator }} and are highlighted in the map with a black outline.",
-        "instruction": "To see when this was done and by whom, click on the area in the list or in the map.",
-        "area": "The dengue alert for <strong>{{ placeCodeName }}</strong>{{ parentName }} issued on <strong>{{ startDate }}</strong> was manually stopped by <strong>{{ displayName }}</strong> on <strong>{{ stoppedDate }}</strong>."
-      },
-      "event-switcher": {
-        "current-event-message": "The portal is currently showing this event.",
-        "switch-event-button": "Show prediction"
-      }
-    },
     "malaria": {
       "about-button-label": "About Alert",
       "no-event-no-trigger": {

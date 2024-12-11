@@ -52,7 +52,6 @@ export class SeedAdminAreaData implements InterfaceScript {
         'vulnerable_group_PHL.csv',
         'vulnerable_housing_PHL.csv',
         'total_houses_PHL.csv',
-        'vulnerability_dengue_data_ibfera_PHL.csv',
       ];
       await this.uploadFiles(fileNames);
     }

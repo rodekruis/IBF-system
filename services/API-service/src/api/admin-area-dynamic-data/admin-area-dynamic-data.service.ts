@@ -51,7 +51,7 @@ export class AdminAreaDynamicDataService {
     // NOTE: This should be changed in pipeline, but this achieves the same result as long as that did not happen
     // NOTE: this assumes eventName=leadTime, if this changes, then this doesn't work any more
     if (!uploadExposure.eventName) {
-      uploadExposure.eventName = this.getEpidemicsEventNameException(
+      uploadExposure.eventName = this.getMalariaEventNameException(
         uploadExposure.disasterType,
         uploadExposure.leadTime,
       );
@@ -106,14 +106,11 @@ export class AdminAreaDynamicDataService {
     }
   }
 
-  private getEpidemicsEventNameException(
+  private getMalariaEventNameException(
     disasterType: DisasterType,
     leadTime: LeadTime,
   ): string {
-    if (
-      disasterType === DisasterType.Dengue ||
-      disasterType === DisasterType.Malaria
-    ) {
+    if (disasterType === DisasterType.Malaria) {
       return leadTime as string;
     }
     return null;
