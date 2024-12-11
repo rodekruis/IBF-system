@@ -6,7 +6,7 @@ const countryCodeISO3 = 'SSD';
 describe('Should send an email for ssd floods', () => {
   let accessToken: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     accessToken = await getAccessToken();
     await resetDB(accessToken);
   });

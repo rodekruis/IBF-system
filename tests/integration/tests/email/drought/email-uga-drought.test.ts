@@ -15,7 +15,7 @@ const disasterType = DisasterType.Drought;
 describe('Should send an email for uga drought', () => {
   let accessToken: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     accessToken = await getAccessToken();
     await resetDB(accessToken);
   });
