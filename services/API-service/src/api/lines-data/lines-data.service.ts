@@ -123,6 +123,7 @@ export class LinesDataService {
         referenceId: In(assetFids.exposedFids),
         linesDataCategory: assetFids.linesDataCategory,
         countryCodeISO3: assetFids.countryCodeISO3,
+        active: true,
       },
     });
 
