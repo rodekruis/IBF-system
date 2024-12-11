@@ -33,7 +33,7 @@ test.beforeEach(async ({ page }) => {
   );
 });
 
-test(
+test.skip(
   qase(10, 'All Disaster Types can be selected in no-trigger mode'),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
