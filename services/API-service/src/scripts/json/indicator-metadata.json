@@ -4,6 +4,7 @@
       "ETH": { "drought": ["map"], "floods": ["map"], "malaria": ["map"] },
       "KEN": { "drought": ["map"], "floods": ["map"] },
       "MWI": { "flash-floods": ["map"], "floods": ["map"] },
+      "PHL": { "floods": ["map"], "typhoon": ["map"] },
       "SSD": { "floods": ["map"] },
       "UGA": { "drought": ["map"], "floods": ["map"], "heavy-rain": ["map"] },
       "ZMB": { "drought": ["map"], "floods": ["map"] },
