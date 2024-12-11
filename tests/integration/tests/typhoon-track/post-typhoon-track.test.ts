@@ -1,5 +1,4 @@
 import { TyphoonScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
-import { UploadTyphoonTrackDto } from '../../../../services/API-service/src/api/typhoon-track/dto/upload-typhoon-track';
 import {
   getAccessToken,
   getTyphoonTrack,
@@ -8,11 +7,10 @@ import {
   resetDB,
 } from '../../helpers/utility.helper';
 import { LeadTime } from '../../../../services/API-service/src/api/admin-area-dynamic-data/enum/lead-time.enum';
-import { TyphoonCategory } from '../../../../services/API-service/src/api/typhoon-track/dto/trackpoint-details';
 
 const countryCodeISO3 = 'PHL';
 const eventName = 'Mock typhoon 1';
-const sampleTyphoonTrack: UploadTyphoonTrackDto = {
+const sampleTyphoonTrack = {
   countryCodeISO3,
   leadTime: LeadTime.hour72,
   eventName,
@@ -20,7 +18,7 @@ const sampleTyphoonTrack: UploadTyphoonTrackDto = {
     {
       timestampOfTrackpoint: new Date('2024-12-09T06:00:00.000Z'),
       windspeed: 120,
-      category: TyphoonCategory.STS,
+      category: 'STS',
       firstLandfall: true,
       closestToLand: false,
       lat: 12.0,
@@ -29,7 +27,7 @@ const sampleTyphoonTrack: UploadTyphoonTrackDto = {
     {
       timestampOfTrackpoint: new Date('2024-12-09T09:00:00.000Z'), // 3 hours later
       windspeed: 110,
-      category: TyphoonCategory.STS,
+      category: 'STS',
       firstLandfall: false,
       closestToLand: true,
       lat: 12.0,

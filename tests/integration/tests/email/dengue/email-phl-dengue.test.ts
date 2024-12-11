@@ -6,7 +6,7 @@ const countryCodeISO3 = 'PHL';
 describe('Should send an email for phl dengue', () => {
   let accessToken: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     accessToken = await getAccessToken();
     await resetDB(accessToken);
   });

@@ -6,13 +6,13 @@ const countryCodeISO3 = 'MWI';
 describe('Should send an email for mwi flash flood', () => {
   let accessToken: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     accessToken = await getAccessToken();
     await resetDB(accessToken);
   });
 
   it('trigger', async () => {
-    const eventNames = ['Blantyre City', 'Karonga'];  // Scenario contains also 'Rumphi' but as ongoing, for which no email is sent
+    const eventNames = ['Blantyre City', 'Karonga']; // Scenario contains also 'Rumphi' but as ongoing, for which no email is sent
     const result = await testFlashFloodScenario(
       FlashFloodsScenario.Trigger,
       countryCodeISO3,

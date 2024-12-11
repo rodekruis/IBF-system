@@ -10,7 +10,7 @@ import {
 describe('create user', () => {
   let accessToken: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     accessToken = await getAccessToken();
     await resetDB(accessToken);
   });

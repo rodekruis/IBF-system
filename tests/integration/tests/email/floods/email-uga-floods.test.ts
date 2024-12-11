@@ -6,7 +6,7 @@ const countryCodeISO3 = 'UGA';
 describe('Should send an email for uga floods', () => {
   let accessToken: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     accessToken = await getAccessToken();
     await resetDB(accessToken);
   });
