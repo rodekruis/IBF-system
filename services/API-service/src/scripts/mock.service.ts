@@ -23,9 +23,9 @@ import { GeoserverSyncService } from './geoserver-sync.service';
 import countries from './json/countries.json';
 import { MockHelperService } from './mock-helper.service';
 import {
-  MockEpidemicsScenario,
   MockFlashFloodsScenario,
   MockFloodsScenario,
+  MockMalariaScenario,
 } from './mock.controller';
 
 class Scenario {
@@ -62,7 +62,7 @@ export class MockService {
   public async mock(
     mockBody:
       | MockFloodsScenario
-      | MockEpidemicsScenario
+      | MockMalariaScenario
       | MockFlashFloodsScenario,
     disasterType: DisasterType,
     useDefaultScenario: boolean,

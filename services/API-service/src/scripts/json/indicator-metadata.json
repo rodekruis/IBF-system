@@ -4,7 +4,6 @@
       "ETH": { "drought": ["map"], "floods": ["map"], "malaria": ["map"] },
       "KEN": { "drought": ["map"], "floods": ["map"] },
       "MWI": { "flash-floods": ["map"], "floods": ["map"] },
-      "PHL": { "dengue": ["map"], "floods": ["map"], "typhoon": ["map"] },
       "SSD": { "floods": ["map"] },
       "UGA": { "drought": ["map"], "floods": ["map"], "heavy-rain": ["map"] },
       "ZMB": { "drought": ["map"], "floods": ["map"] },
@@ -37,7 +36,6 @@
         "floods": "The layer shows each administrative area triggered based on two parameters from the 6-days GloFAS forecast on a daily basis at 10:35 CET: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 60% probability of occurrence of a 5 year return period flood within the next 6 days. The GloFAS flood forecast triggers except in the Traditional Areas where the False Alarm Ratio (FAR) exceeds the predetermined maximum value which is 0.5.<br/><br/>Source: <a href='https://www.globalfloods.eu'>Global Foods</a>"
       },
       "PHL": {
-        "dengue": "Administrative divisions that reached alert threshold, in terms of number of potential cases.<br/><br/> See definition at: <a href='https://rodekruis.sharepoint.com/sites/510-CRAVK-510/Gedeelde%20%20documenten/Forms/AllItems.aspx?id=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Epidemics%20Priority%20Index%2FIBF%2Ddengue%2Fdocuments%2FIBF%5Fdengue%5Ftechnical%5Fnote%2Epdf&parent=%2Fsites%2F510%2DCRAVK%2D510%2FGedeelde%20%20documenten%2F%5BRD%5D%20Epidemics%20Priority%20Index%2FIBF%2Ddengue%2Fdocuments&p=true&originalPath=aHR0cHM6Ly9yb2Rla3J1aXMuc2hhcmVwb2ludC5jb20vc2l0ZXMvNTEwLUNSQVZLLTUxMC9fbGF5b3V0cy8xNS9ndWVzdGFjY2Vzcy5hc3B4P2RvY2lkPTBmOTI0OWIzNWRhNGQ0YzBhOTg1YjMzMzkzZmMzODhkZiZhdXRoa2V5PUFRU0xubmFmR0YtTTJ0MUNHSWcwaGRBJmV4cGlyYXRpb249MjAyMi0wNi0xNFQyMiUzYTAwJTNhMDAuMDAwWiZydGltZT1TS016R0dzeDJVZw'> link to technical documentation</a>",
         "floods": "The layer shows each county triggered based on two parameters from the 3-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 50% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the  manucipalities where the False Alarm Ratio (RAR) &gt;0.5.<br/><br/>Source: <a href='https://www.globalfloods.eu'>Global Foods</a>",
         "typhoon": "The predicted impact (72 hours before landfall) is more than 10% of houses being totally damaged at municipal level, in at least 3 municipalities. The source for predicted impact is 510 typhoon impact prediction model.<br/><br/>Only municipalities that are included in the EAP can reach a triggered state. For other municipalities all data - such as predicted impact - is visible in the map, but they will never turn in to a triggered state."
       },
@@ -268,8 +266,7 @@
   },
   {
     "countryDisasterTypes": {
-      "ETH": { "malaria": ["map", "aggregate"] },
-      "PHL": { "dengue": ["map", "aggregate"] }
+      "ETH": { "malaria": ["map", "aggregate"] }
     },
     "name": "potential_cases",
     "label": "Potential Cases",
@@ -286,9 +283,6 @@
     "description": {
       "ETH": {
         "malaria": "Potential number of cases are calculated with the assumtion of a rough proportionality between malaria mosquito enviromental suitability and malaria risk. Then estimating a time lag between optimal malaria mosquito environmental conditions and the peak in number of malaria cases."
-      },
-      "PHL": {
-        "dengue": "Number of potential dengue cases, based on dengue risk and demographic data.<br/><br/>Source (Population Data): <a href='https://data.humdata.org/dataset/philippines-pre-disaster-indicators'>Pre-Disaster Indicators</a>"
       }
     }
   },
@@ -446,25 +440,6 @@
     }
   },
   {
-    "countryDisasterTypes": { "PHL": { "dengue": ["map"] } },
-    "name": "population_u9",
-    "label": "Population under 9",
-    "icon": "Children-white.svg",
-    "weightedAvg": true,
-    "active": "no",
-    "colorBreaks": null,
-    "numberFormatMap": "perc",
-    "numberFormatAggregate": "decimal0",
-    "weightvar": null,
-    "order": 4,
-    "dynamic": false,
-    "description": {
-      "PHL": {
-        "dengue": "Percentage of people under 9 years of age.<br/><br/>Source (Population Data): <a href='https://data.humdata.org/dataset/philippines-pre-disaster-indicators'>Pre-Disaster Indicators</a>"
-      }
-    }
-  },
-  {
     "countryDisasterTypes": { "UGA": { "floods": ["map", "aggregate"] } },
     "name": "population_over65",
     "label": "Population over 65",
@@ -478,31 +453,6 @@
     "order": 4,
     "dynamic": false,
     "description": {
-      "PHL": {
-        "dengue": "Percentage of people over 65 years of age.<br/><br/>Source (Population Data): <a href='https://data.humdata.org/dataset/philippines-pre-disaster-indicators'>Pre-Disaster Indicators</a>"
-      },
-      "UGA": {
-        "floods": "Percentage of people over 65 years old.<br/><br/>Source (Population Data): <a href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>National Population and Housing Census 2014</a>"
-      }
-    }
-  },
-  {
-    "countryDisasterTypes": { "PHL": { "dengue": ["map", "aggregate"] } },
-    "name": "population_over65",
-    "label": "Population over 65",
-    "icon": "Elderly-white.svg",
-    "weightedAvg": true,
-    "active": "no",
-    "colorBreaks": null,
-    "numberFormatMap": "perc",
-    "numberFormatAggregate": "decimal0",
-    "weightvar": null,
-    "order": 4,
-    "dynamic": false,
-    "description": {
-      "PHL": {
-        "dengue": "Percentage of people over 65 years of age.<br/><br/>Source (Population Data): <a href='https://data.humdata.org/dataset/philippines-pre-disaster-indicators'>Pre-Disaster Indicators</a>"
-      },
       "UGA": {
         "floods": "Percentage of people over 65 years old.<br/><br/>Source (Population Data): <a href='https://unstats.un.org/unsd/demographic/sources/census/wphc/Uganda/UGA-2016-05-23.pdf'>National Population and Housing Census 2014</a>"
       }
@@ -849,26 +799,6 @@
     }
   },
   {
-    "countryDisasterTypes": { "PHL": { "dengue": ["map"] } },
-    "name": "dengue_cases_average",
-    "label": "Dengue Cases Average",
-    "icon": "Affected-population-white.svg",
-    "weightedAvg": false,
-    "active": "no",
-    "colorBreaks": null,
-    "numberFormatMap": "decimal0",
-    "numberFormatAggregate": "decimal0",
-    "weightvar": null,
-    "order": 4,
-    "dynamic": false,
-    "unit": "cases",
-    "description": {
-      "PHL": {
-        "dengue": "Number of dengue cases per administrative division per year.<br/><br/>Source: <a href='https://doh.gov.ph/statistics'>https://doh.gov.ph/statistics</a>"
-      }
-    }
-  },
-  {
     "countryDisasterTypes": {
       "PHL": { "floods": ["map"], "typhoon": ["map"] }
     },
@@ -931,26 +861,6 @@
     "description": {
       "PHL": {
         "typhoon": "Total number of housing units in each municipality."
-      }
-    }
-  },
-  {
-    "countryDisasterTypes": { "PHL": { "dengue": ["map"] } },
-    "name": "dengue_incidence_average",
-    "label": "Dengue incidence (cases per year per 10M)",
-    "icon": "",
-    "weightedAvg": true,
-    "active": "no",
-    "colorBreaks": null,
-    "numberFormatMap": "decimal0",
-    "numberFormatAggregate": "decimal0",
-    "weightvar": null,
-    "order": 4,
-    "dynamic": false,
-    "unit": "incidence",
-    "description": {
-      "PHL": {
-        "dengue": "Number of dengue cases per 10.000.000 people per administrative division per year.<br/><br/>Source: <a href='https://doh.gov.ph/statistics'>https://doh.gov.ph/statistics</a>"
       }
     }
   },
@@ -1057,29 +967,8 @@
     }
   },
   {
-    "countryDisasterTypes": { "PHL": { "dengue": ["map", "aggregate"] } },
-    "name": "potential_cases_U9",
-    "label": "Potential cases under 9",
-    "icon": "Children-white.svg",
-    "weightedAvg": false,
-    "active": "no",
-    "colorBreaks": null,
-    "numberFormatMap": "decimal0",
-    "numberFormatAggregate": "decimal0",
-    "weightvar": null,
-    "order": 2,
-    "dynamic": true,
-    "lazyLoad": true,
-    "description": {
-      "PHL": {
-        "dengue": "Number of potential dengue cases among children under 9 years of age, based on dengue risk and demographic data.<br/><br/>Source (Population Data): <a href='https://data.humdata.org/dataset/philippines-pre-disaster-indicators'>Pre-Disaster Indicators</a>"
-      }
-    }
-  },
-  {
     "countryDisasterTypes": {
-      "ETH": { "malaria": ["map"] },
-      "PHL": { "dengue": ["map", "aggregate"] }
+      "ETH": { "malaria": ["map"] }
     },
     "name": "potential_cases_65",
     "label": "Potential cases over 65",
@@ -1096,9 +985,6 @@
     "description": {
       "ETH": {
         "malaria": "Elderly: vulnerable population group <a href='https://data.humdata.org/dataset/ethiopia-high-resolution-population-density-maps-demographic-estimates'>Ethiopia: High Resolution Population Density Maps + Demographic Estimates</a>"
-      },
-      "PHL": {
-        "dengue": "Number of potential dengue cases among people above 65 years of age, based on dengue risk and demographic data.<br/><br/>Source (Population Data): <a href='https://data.humdata.org/dataset/philippines-pre-disaster-indicators'>Pre-Disaster Indicators</a>"
       }
     }
   },

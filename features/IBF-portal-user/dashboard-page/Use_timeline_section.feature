@@ -22,11 +22,11 @@ Feature: View and Use timeline section
         And because "selected" it is in "selected" mode, with dark outline and bold text
 
     Scenario: View the timeline section with multiple active lead-times in NON-TRIGGERED mode
-        Given there are multiple active lead-time (e.g. Heavy-rain/Dengue/Malaria)
+        Given there are multiple active lead-time (e.g. Heavy-rain/Malaria)
         When the users views the timeline section
         Then it has multiple "enabled" buttons, these are the "active lead times"
         And they vary per country and disaster-type
-        - '0-month', '1-month', '2-month' from now for dengue, malaria
+        - '0-month', '1-month', '2-month' from now for malaria
         - Season- and region-based months for Kenya and Ethiopia droughts
         And it has exactly one "selected" button, the "selected lead time"
         And the "selected" lead-time is the most left / earliest of the "active lead times"

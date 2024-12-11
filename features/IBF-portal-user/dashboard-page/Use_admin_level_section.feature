@@ -15,7 +15,6 @@ Feature: View and use admin-level section
         - Levels 1,2,3 for Zambia
         - Level 3 for Ethiopia floods & malaria
         - Level 1 for Zimbabwe drought
-        - Level 2 for Philippines dengue
         - Level 3 for Philippines typhoon
         And "inactive" admin-levels are in "disabled" mode
         And exactly one button is marked as "selected", this is the "default admin-level", and it can vary between "disaster-types" within the same country
@@ -23,7 +22,6 @@ Feature: View and use admin-level section
         - Level 2 for Zambia
         - Level 3 for Ethiopia floods & malaria
         - Level 1 for Zimbabwe drought
-        - Level 2 for Philippines dengue
         - Level 3 for Philippines typhoon
         And the "selected" button is purple if TRIGGERED and navy-blue if NON-TRIGGERED
 

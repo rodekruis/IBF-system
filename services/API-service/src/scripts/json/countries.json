@@ -903,16 +903,8 @@
     "countryCodeISO3": "PHL",
     "countryCodeISO2": "PH",
     "countryName": "Philippines",
-    "disasterTypes": ["dengue", "typhoon", "floods"],
+    "disasterTypes": ["typhoon", "floods"],
     "countryDisasterSettings": [
-      {
-        "disasterType": "dengue",
-        "adminLevels": [2],
-        "defaultAdminLevel": 2,
-        "activeLeadTimes": ["0-month", "1-month", "2-month"],
-        "eapLink": "https://510ibfsystem.blob.core.windows.net/about-trigger/IBF_dengue_technical_note.pdf",
-        "isEventBased": true
-      },
       {
         "disasterType": "typhoon",
         "adminLevels": [3],
@@ -1140,7 +1132,6 @@
       }
     },
     "countryLogos": {
-      "dengue": ["PHL-prc.jpg"],
       "typhoon": ["PHL-prc.jpg"],
       "floods": ["PHL-prc.jpg"]
     },
