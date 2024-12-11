@@ -5,6 +5,11 @@ Find here the latest changes to the IBF-system.
 - Not all changes to the IBF-system are listed here. Only those that result in different functionality or different user experience.
 - This list is meant to explain changes since the last manual. Please open the manual from the dashboard for a full explanation on the IBF-system.
 
+### 11-12-2024 (v0.277.4)
+
+- Flash floods: Malawi portal is extended to district Blantyre City
+- Floods: Glofas station coordinates updated
+
 ### 08-11-2024 (v0.274.7)
 
 - Typhoon: Bug fixed where no longer all municipalities are listed in the chat section for warning events.
