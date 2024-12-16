@@ -67,5 +67,15 @@ test(
       glosfasStationStatus: 'glofas-station-max-trigger',
       isVisible: true,
     });
+    // At least one orange GloFAS station should be visible by default in trigger mode
+    await map.gloFASMarkersAreVisibleByWarning({
+      glosfasStationStatus: 'glofas-station-med-trigger',
+      isVisible: true,
+    });
+    // At least one yellow GloFAS station should be visible by default in trigger mode
+    await map.gloFASMarkersAreVisibleByWarning({
+      glosfasStationStatus: 'glofas-station-min-trigger',
+      isVisible: true,
+    });
   },
 );

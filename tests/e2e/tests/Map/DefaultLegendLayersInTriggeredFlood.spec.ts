@@ -52,6 +52,16 @@ test(
     await dashboard.waitForLoaderToDisappear();
 
     await map.mapComponentIsVisible();
+
+    await map.clickLayerMenu();
+    await map.isLayerMenuOpen({ layerMenuOpen: true });
+    await map.verifyLayerCheckboxCheckedByName({
+      layerName: 'Flood extent',
+    });
+    await map.verifyLayerRadioButtonCheckedByName({
+      layerName: 'Exposed population',
+    });
+    // Validate legend
     await map.isLegendOpen({ legendOpen: true });
     await map.assertLegendElementIsVisible({
       legendComponentName: 'Flood extent',
@@ -59,5 +69,11 @@ test(
     await map.assertLegendElementIsVisible({
       legendComponentName: 'Exposed population',
     });
+    // Validatge that the layer checked with radio button is visible on the map in this case 'Exposed population' only one such layer can be checked at a time
+    await map.validateAggregatePaneIsNotEmpty();
+    // Validate rest of the map
+    // await map.validateLayersAreVisibleByName({
+    //   layerNames: ['Flood extent'],
+    // });
   },
 );
