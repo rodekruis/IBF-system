@@ -83,7 +83,7 @@
     "**/*.{js,jsx,ts,tsx,html,css,scss,json,md}": [
       "prettier --write"
     ],
-    "**/*.{ts,js}": [
+    "**/*.{ts}": [
       "eslint --fix"
     ]
   }
