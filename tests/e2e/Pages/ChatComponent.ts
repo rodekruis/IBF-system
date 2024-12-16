@@ -115,7 +115,7 @@ class ChatComponent extends DashboardPage {
     await expect(welcomeChatDialogue).toBeVisible();
   }
 
-  async allChatButtonsArePresent() {
+  async allButtonsArePresent() {
     await expect(this.chatAboutButton).toBeVisible();
     await expect(this.chatGuideButton).toBeVisible();
     await expect(this.exportViewButton).toBeVisible();
@@ -183,7 +183,7 @@ class ChatComponent extends DashboardPage {
     await newPage.close();
   }
 
-  async chatPredictionButtonsAreActive() {
+  async predictionButtonsAreActive() {
     const showPredictionButton = this.page.getByRole('button', {
       name: 'Show prediction',
     });

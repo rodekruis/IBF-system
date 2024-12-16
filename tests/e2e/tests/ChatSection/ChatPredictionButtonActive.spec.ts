@@ -48,7 +48,7 @@ test(
       firstName: TriggerDataSet.firstName,
       lastName: TriggerDataSet.lastName,
     });
-    await chat.allChatButtonsArePresent();
-    await chat.chatPredictionButtonsAreActive();
+    await chat.allButtonsArePresent();
+    await chat.predictionButtonsAreActive();
   },
 );
