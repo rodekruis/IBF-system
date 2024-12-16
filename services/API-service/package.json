@@ -4,8 +4,8 @@
   "homepage": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint \"**/*.ts\"",
-    "format:fix": "npm run lint:syntax -- --write",
+    "lint": "eslint \"**/*.{ts,js}\"",
+    "fix": "npm run lint -- --fix",
     "lint:syntax": "prettier --check \"**/*.{md,js,ts,scss,html}\" ",
     "prestart": "npm run migration:run && ts-node src/scripts seed-prod",
     "start": "node index.js",
@@ -78,5 +78,13 @@
     "tsconfig-paths": "^3.9.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
     "yargs": "^17.0.0"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx,html,css,scss,json,md}": [
+      "prettier --write"
+    ],
+    "**/*.{ts,js}": [
+      "eslint --fix"
+    ]
   }
 }
