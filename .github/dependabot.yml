@@ -16,6 +16,9 @@ updates:
     open-pull-requests-limit: 2
     schedule:
       interval: 'weekly'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
 
   - package-ecosystem: 'npm'
     directory: '/services/API-service'
@@ -28,6 +31,9 @@ updates:
           - '@types/*'
           - '*eslint*'
           - '*prettier*'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
 
   - package-ecosystem: 'npm'
     directory: '/interfaces/IBF-dashboard'
@@ -38,6 +44,9 @@ updates:
       angular:
         patterns:
           - '@angular*'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
 
   - package-ecosystem: 'npm'
     directory: '/tests/integration'
@@ -50,6 +59,9 @@ updates:
           - '@types/*'
           - '*eslint*'
           - '*prettier*'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
 
   - package-ecosystem: 'npm'
     directory: '/tests/e2e'
@@ -62,3 +74,6 @@ updates:
           - '@types/*'
           - '*eslint*'
           - '*prettier*'
+    ignore:
+      - dependency-name: '*'
+        update-types: ['version-update:semver-patch']
