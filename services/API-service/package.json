@@ -4,7 +4,7 @@
   "homepage": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint \"**/*.{ts,js}\"",
+    "lint": "eslint \"**/*.ts\"",
     "fix": "npm run lint -- --fix",
     "lint:syntax": "prettier --check \"**/*.{md,js,ts,scss,html}\" ",
     "prestart": "npm run migration:run && ts-node src/scripts seed-prod",
@@ -83,7 +83,7 @@
     "**/*.{js,jsx,ts,tsx,html,css,scss,json,md}": [
       "prettier --write"
     ],
-    "**/*.{ts}": [
+    "**/*.ts": [
       "eslint --fix"
     ]
   }
