@@ -50,7 +50,7 @@ test(
     await userState.headerComponentIsVisible({
       countryName: NoTriggerDataSet.CountryName,
     });
-    await chat.allButtonsArePresent();
+    await chat.allDefaultButtonsArePresent();
     await chat.clickAndAssertAboutButton();
     await chat.clickAndAssertGuideButton();
     await chat.clickAndAssertExportViewButton();

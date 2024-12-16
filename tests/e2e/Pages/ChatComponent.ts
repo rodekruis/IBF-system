@@ -115,7 +115,7 @@ class ChatComponent extends DashboardPage {
     await expect(welcomeChatDialogue).toBeVisible();
   }
 
-  async allButtonsArePresent() {
+  async allDefaultButtonsArePresent() {
     await expect(this.chatAboutButton).toBeVisible();
     await expect(this.chatGuideButton).toBeVisible();
     await expect(this.exportViewButton).toBeVisible();

@@ -51,6 +51,6 @@ test(
       firstName: NoTriggerDataSet.firstName,
       lastName: NoTriggerDataSet.lastName,
     });
-    await chat.allButtonsArePresent();
+    await chat.allDefaultButtonsArePresent();
   },
 );
