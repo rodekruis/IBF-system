@@ -35,7 +35,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test(
-  qase(5, ' All Chat section elements are present in no-trigger mode'),
+  qase(5, 'All Chat section elements are present in no-trigger mode'),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
     const userState = new UserStateComponent(page);
@@ -51,6 +51,6 @@ test(
       firstName: NoTriggerDataSet.firstName,
       lastName: NoTriggerDataSet.lastName,
     });
-    await chat.allChatButtonsArePresent();
+    await chat.allDefaultButtonsArePresent();
   },
 );

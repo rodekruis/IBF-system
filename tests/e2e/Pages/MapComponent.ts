@@ -392,5 +392,16 @@ class MapComponent extends DashboardPage {
     const aggregatePaneContentCount = await aggregatePaneContent.count();
     expect(aggregatePaneContentCount).toBeGreaterThan(0);
   }
+
+  async validateLayerIsVisibleInMapBySrcElement({
+    layerName,
+  }: {
+    layerName: string;
+  }) {
+    // Select from: "flood_extent"
+    const layer = this.page.locator(`img[src*="${layerName}"]`);
+    const layerCount = await layer.count();
+    expect(layerCount).toBeGreaterThan(0);
+  }
 }
 export default MapComponent;
