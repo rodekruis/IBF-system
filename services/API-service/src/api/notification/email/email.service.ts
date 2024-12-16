@@ -69,7 +69,10 @@ export class EmailService {
       // );
       return emailHtml;
     }
-    const emailSubject = `IBF ${emailContent.disasterTypeLabel} alert`;
+    let emailSubject = `IBF ${emailContent.disasterTypeLabel} alert`;
+    if (process.env.NODE_ENV !== 'production') {
+      emailSubject += ` - NON-PRODUCTION`;
+    }
     this.sendEmail(
       emailSubject,
       emailHtml,
