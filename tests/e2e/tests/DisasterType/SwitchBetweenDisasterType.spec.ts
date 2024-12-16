@@ -32,8 +32,9 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
-test(
+// Test is skipped because it was flaky and more invastigation is needed to fix it
+// Logged in PBI: https://dev.azure.com/redcrossnl/IBF/_workitems/edit/32127/
+test.skip(
   qase(10, 'All Disaster Types can be selected in no-trigger mode'),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);

@@ -123,6 +123,13 @@ class AggregatesComponent extends DashboardPage {
       'https://www.ciesin.columbia.edu/data/hrsl/',
     );
   }
+
+  async getNumberOfPredictedEvents() {
+    const actionHeaderText = await this.aggregatesTitleHeader.textContent();
+    const eventsNumber = actionHeaderText?.match(/\d+/g);
+
+    return eventsNumber ? parseInt(eventsNumber[0], 10) : null;
+  }
 }
 
 export default AggregatesComponent;
