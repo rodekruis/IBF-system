@@ -1,12 +1,12 @@
 import { AdminLevel } from 'src/app/types/admin-level';
-import { DisasterTypeKey } from './../types/disaster-type-key';
-import { LeadTime, LeadTimeUnit } from './../types/lead-time';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { LeadTime, LeadTimeUnit } from 'src/app/types/lead-time';
 export class Country {
   countryCodeISO3: string;
   countryDisasterSettings: CountryDisasterSettings[];
   countryName: string;
   adminRegionLabels: AdminRegionLabels;
-  countryLogos: { [disasterType: string]: string[] };
+  countryLogos: Record<string, string[]>;
   disasterTypes: DisasterType[];
   notificationInfo: NotificationInfo;
 }
@@ -17,26 +17,25 @@ export class CountryDisasterSettings {
   defaultAdminLevel: AdminLevel;
   activeLeadTimes: LeadTime[];
   droughtForecastSeasons: DroughtForecastSeasons;
-  droughtAreas: { [area: string]: string[] };
+  droughtAreas: Record<string, string[]>;
   eapLink: string;
   showMonthlyEapActions: boolean;
   droughtEndOfMonthPipeline?: boolean;
   isEventBased: boolean;
   eapAlertClasses?: EapAlertClasses;
-  monthlyForecastInfo?: {
-    [key: string]: string[] | string;
-  };
+  monthlyForecastInfo?: Record<string, string | string[]>;
   enableEarlyActions?: boolean;
   enableStopTrigger?: boolean;
 }
 
 export class DroughtForecastSeasons {
-  [area: string]: {
-    [season: string]: {
+  [area: string]: Record<
+    string,
+    {
       rainMonths: number[];
       actionMonths: number[];
-    };
-  };
+    }
+  >;
 }
 
 export class NotificationInfo {

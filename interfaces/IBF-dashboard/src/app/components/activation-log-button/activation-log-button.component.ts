@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { Country, DisasterType } from '../../models/country.model';
-import { CountryService } from '../../services/country.service';
-import { DisasterTypeService } from '../../services/disaster-type.service';
+import { Country, DisasterType } from 'src/app/models/country.model';
+import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 
 @Component({
   selector: 'app-activation-log-button',

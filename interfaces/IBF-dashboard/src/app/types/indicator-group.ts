@@ -1,5 +1,9 @@
-import { LayerActivation } from '../models/layer-activation.enum';
-import { ColorBreaks, IbfLayerLabel, IbfLayerName } from './ibf-layer';
+import { LayerActivation } from 'src/app/models/layer-activation.enum';
+import {
+  ColorBreaks,
+  IbfLayerLabel,
+  IbfLayerName,
+} from 'src/app/types/ibf-layer';
 
 export class Indicator {
   countryDisasterTypes: JSON;

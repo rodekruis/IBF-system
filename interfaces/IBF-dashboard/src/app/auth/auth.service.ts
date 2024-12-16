@@ -3,9 +3,9 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { User } from 'src/app/models/user/user.model';
+import { UserRole } from 'src/app/models/user/user-role.enum';
 import { ApiService } from 'src/app/services/api.service';
 import { JwtService } from 'src/app/services/jwt.service';
-import { UserRole } from '../models/user/user-role.enum';
 
 const HTTP_STATUS_MESSAGE_MAP = {
   401: 'Email and/or password unknown',
@@ -95,7 +95,7 @@ export class AuthService implements OnDestroy {
   }
 
   private onLoginResponse = (response) => {
-    if (!response.user || !response.user.token) {
+    if (!response.user?.token) {
       return;
     }
 

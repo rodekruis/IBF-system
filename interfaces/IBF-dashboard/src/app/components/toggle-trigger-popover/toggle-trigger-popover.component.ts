@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { DisasterTypeKey } from '../../types/disaster-type-key';
-import { TriggeredArea } from '../../types/triggered-area';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { TriggeredArea } from 'src/app/types/triggered-area';
 
 @Component({
   selector: 'app-toggle-trigger-popover',

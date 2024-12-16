@@ -2,9 +2,9 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { SharedModule } from '../../shared.module';
-import { LoginPageRoutingModule } from './login-routing.module';
-import { LoginPage } from './login.page';
+import { LoginPage } from 'src/app/pages/login/login.page';
+import { LoginPageRoutingModule } from 'src/app/pages/login/login-routing.module';
+import { SharedModule } from 'src/app/shared.module';
 
 @NgModule({
   imports: [

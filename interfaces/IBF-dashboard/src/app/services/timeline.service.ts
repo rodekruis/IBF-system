@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
 import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from 'src/app/models/country.model';
+import { CountryTriggers } from 'src/app/models/country-triggers.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { EventService } from 'src/app/services/event.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { EventState } from 'src/app/types/event-state';
 import {
   LeadTime,
   LeadTimeButtonInput,
   LeadTimeTriggerKey,
   LeadTimeUnit,
 } from 'src/app/types/lead-time';
-import { CountryTriggers } from '../models/country-triggers.model';
-import {
-  Country,
-  CountryDisasterSettings,
-  DisasterType,
-} from '../models/country.model';
-import { DisasterTypeKey } from '../types/disaster-type-key';
-import { EventState } from '../types/event-state';
-import { TimelineState } from '../types/timeline-state';
-import { DisasterTypeService } from './disaster-type.service';
-import { EventService } from './event.service';
-import { PlaceCodeService } from './place-code.service';
+import { TimelineState } from 'src/app/types/timeline-state';
 
 @Injectable({
   providedIn: 'root',
@@ -335,7 +335,7 @@ export class TimelineService {
     for (const leadTime of disasterLeadTimes) {
       // Push first only active lead-times ..
       if (
-        visibleLeadTimes.map((lt) => lt.leadTime).indexOf(leadTime) === -1 &&
+        !visibleLeadTimes.map((lt) => lt.leadTime).includes(leadTime) &&
         this.isLeadTimeEnabled(leadTime, visibleLeadTimes)
       ) {
         if (this.hasDisabledTimeline(this.disasterType.disasterType)) {
@@ -367,7 +367,7 @@ export class TimelineService {
       // .. and then all other lead-times
       if (
         // skip already added leadTimes
-        visibleLeadTimes.map((lt) => lt.leadTime).indexOf(leadTime) === -1 &&
+        !visibleLeadTimes.map((lt) => lt.leadTime).includes(leadTime) &&
         // and decide for others to show or not
         this.filterVisibleLeadTimePerDisasterType(
           this.disasterType,
@@ -448,13 +448,13 @@ export class TimelineService {
       return (
         [
           LeadTime.hour0,
+          LeadTime.hour120,
+          LeadTime.hour144,
+          LeadTime.hour168,
           LeadTime.hour24,
           LeadTime.hour48,
           LeadTime.hour72,
           LeadTime.hour96,
-          LeadTime.hour120,
-          LeadTime.hour144,
-          LeadTime.hour168,
         ].includes(leadTime) &&
         // .. except if already one present for that day
         !activeLeadTimes

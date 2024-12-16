@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
-import { DateTime } from 'luxon';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { ApiService } from 'src/app/services/api.service';
-import { CountryService } from 'src/app/services/country.service';
-import { LeadTimeTriggerKey, LeadTimeUnit } from 'src/app/types/lead-time';
-import {
-  Country,
-  CountryDisasterSettings,
-  DisasterType,
-} from '../models/country.model';
-import { DisasterTypeKey } from '../types/disaster-type-key';
-import { EventState } from '../types/event-state';
-import { DisasterTypeService } from './disaster-type.service';
 import {
   differenceInDays,
   differenceInHours,
   differenceInMonths,
 } from 'date-fns';
+import { DateTime } from 'luxon';
+import { BehaviorSubject, Observable } from 'rxjs';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from 'src/app/models/country.model';
+import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { EventState } from 'src/app/types/event-state';
+import { LeadTimeTriggerKey, LeadTimeUnit } from 'src/app/types/lead-time';
 
 export class EventSummary {
   countryCodeISO3: string;
@@ -179,7 +179,9 @@ export class EventService {
         this.country.countryCodeISO3,
         this.disasterType.disasterType,
       )
-      .subscribe((date) => this.onRecentDates(date, events));
+      .subscribe((date) => {
+        this.onRecentDates(date, events);
+      });
   };
 
   private onRecentDates = (date, events) => {

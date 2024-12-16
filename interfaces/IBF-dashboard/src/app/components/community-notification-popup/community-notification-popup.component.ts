@@ -2,11 +2,11 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AlertController, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
-import { CommunityNotification } from '../../models/poi.model';
-import { ApiService } from '../../services/api.service';
-import { EventService } from '../../services/event.service';
-import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
-import { CommunityNotificationPhotoPopupComponent } from '../community-notification-photo-popup/community-notification-photo-popup.component';
+import { ActionResultPopoverComponent } from 'src/app/components/action-result-popover/action-result-popover.component';
+import { CommunityNotificationPhotoPopupComponent } from 'src/app/components/community-notification-photo-popup/community-notification-photo-popup.component';
+import { CommunityNotification } from 'src/app/models/poi.model';
+import { ApiService } from 'src/app/services/api.service';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-community-notification-popup',

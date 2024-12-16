@@ -6,10 +6,10 @@ import { Subscription } from 'rxjs';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { ApiService } from 'src/app/services/api.service';
-import { DisasterTypeService } from '../../../services/disaster-type.service';
-import { DisasterTypeKey } from '../../../types/disaster-type-key';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 
-type ActivationLogRecord = { [key: string]: string | number | boolean };
+type ActivationLogRecord = Record<string, boolean | number | string>;
 
 @Component({
   selector: 'app-activation-log',
@@ -23,7 +23,7 @@ export class ActivationLogPage implements OnInit, OnDestroy {
   public activationLogs:
     | {
         headerData: string[];
-        rowsData: (string | number | boolean)[][];
+        rowsData: (boolean | number | string)[][];
       }
     | string;
 
@@ -59,7 +59,7 @@ export class ActivationLogPage implements OnInit, OnDestroy {
   private jsonToCsv(
     items: ActivationLogRecord[],
   ):
-    | { headerData: string[]; rowsData: (string | number | boolean)[][] }
+    | { headerData: string[]; rowsData: (boolean | number | string)[][] }
     | string {
     if (items.length === 0) {
       return '';

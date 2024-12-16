@@ -8,31 +8,31 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ActionResultPopoverComponent } from 'src/app/components/action-result-popover/action-result-popover.component';
+import { ToggleTriggerPopoverComponent } from 'src/app/components/toggle-trigger-popover/toggle-trigger-popover.component';
 import {
   Country,
   CountryDisasterSettings,
   DisasterType,
 } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
+import { AdminLevelService } from 'src/app/services/admin-level.service';
+import { AggregatesService } from 'src/app/services/aggregates.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService, EventSummary } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { TimelineService } from 'src/app/services/timeline.service';
+import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
+import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
+import { LeadTimeTriggerKey } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
-import { environment } from '../../../environments/environment';
-import { AdminLevelService } from '../../services/admin-level.service';
-import { AggregatesService } from '../../services/aggregates.service';
-import { TimelineService } from '../../services/timeline.service';
-import { AdminLevel, AdminLevelType } from '../../types/admin-level';
-import { Indicator, NumberFormat } from '../../types/indicator-group';
-import { LeadTimeTriggerKey } from '../../types/lead-time';
-import { TriggeredArea } from '../../types/triggered-area';
-import { ActionResultPopoverComponent } from '../action-result-popover/action-result-popover.component';
-import { ToggleTriggerPopoverComponent } from '../toggle-trigger-popover/toggle-trigger-popover.component';
+import { TriggeredArea } from 'src/app/types/triggered-area';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-chat',
@@ -435,7 +435,9 @@ export class ChatComponent implements OnInit, OnDestroy {
       placeCode,
     });
     this.apiService.toggleTrigger(eventPlaceCodeId).subscribe({
-      next: () => this.reloadEapAndTrigger(),
+      next: () => {
+        this.reloadEapAndTrigger();
+      },
       error: () =>
         this.actionResult(
           this.translateService.instant(

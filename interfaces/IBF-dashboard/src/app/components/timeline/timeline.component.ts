@@ -5,14 +5,14 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
+import { PlaceCode } from 'src/app/models/place-code.model';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
-import { PlaceCode } from '../../models/place-code.model';
-import { DisasterTypeService } from '../../services/disaster-type.service';
-import { PlaceCodeService } from '../../services/place-code.service';
-import { DisasterTypeKey } from '../../types/disaster-type-key';
 
 @Component({
   selector: 'app-timeline',

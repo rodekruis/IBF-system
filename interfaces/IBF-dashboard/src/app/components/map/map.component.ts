@@ -6,16 +6,16 @@ import {
   Control,
   divIcon,
   DomUtil,
-  geoJSON,
   GeoJSON,
+  geoJSON,
   LatLng,
   LatLngBoundsLiteral,
   Layer,
   Map,
   MapOptions,
   Marker,
-  markerClusterGroup,
   MarkerClusterGroup,
+  markerClusterGroup,
   point,
   tileLayer,
 } from 'leaflet';
@@ -36,6 +36,7 @@ import {
   CountryDisasterSettings,
   DisasterType,
 } from 'src/app/models/country.model';
+import { PlaceCode } from 'src/app/models/place-code.model';
 import {
   CommunityNotification,
   DamSite,
@@ -49,13 +50,17 @@ import {
   Waterpoint,
   WaterpointInternal,
 } from 'src/app/models/poi.model';
+import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService, EventSummary } from 'src/app/services/event.service';
-import { MapLegendService } from 'src/app/services/map-legend.service';
 import { MapService } from 'src/app/services/map.service';
+import { MapLegendService } from 'src/app/services/map-legend.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { PointMarkerService } from 'src/app/services/point-marker.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
 import {
   IbfLayer,
@@ -66,12 +71,7 @@ import {
 } from 'src/app/types/ibf-layer';
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
-import { PlaceCode } from '../../models/place-code.model';
-import { AdminLevelService } from '../../services/admin-level.service';
-import { DisasterTypeService } from '../../services/disaster-type.service';
-import { PointMarkerService } from '../../services/point-marker.service';
-import { DisasterTypeKey } from '../../types/disaster-type-key';
-import { TimelineState } from '../../types/timeline-state';
+import { TimelineState } from 'src/app/types/timeline-state';
 
 @Component({
   selector: 'app-map',
@@ -388,9 +388,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private isMultiLinePointLayer(layerName: IbfLayerName): boolean {
     return (
       [
-        IbfLayerName.waterpointsInternal,
         IbfLayerName.healthSites,
         IbfLayerName.schools,
+        IbfLayerName.waterpointsInternal,
       ].includes(layerName) &&
       this.disasterType.disasterType === DisasterTypeKey.flashFloods &&
       this.eventState.events?.length > 0

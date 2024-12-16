@@ -3,19 +3,19 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { DEBUG_LOG } from 'src/app/config';
-import { CountryTriggers } from 'src/app/models/country-triggers.model';
 import { Country, DisasterType } from 'src/app/models/country.model';
+import { CountryTriggers } from 'src/app/models/country-triggers.model';
+import { User } from 'src/app/models/user/user.model';
+import { EventSummary } from 'src/app/services/event.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level';
+import { Aggregate } from 'src/app/types/aggregate';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { LeadTime } from 'src/app/types/lead-time';
+import { RecentDate } from 'src/app/types/recent-date';
+import { TriggeredArea } from 'src/app/types/triggered-area';
 import { environment } from 'src/environments/environment';
-import { User } from '../models/user/user.model';
-import { Aggregate } from '../types/aggregate';
-import { DisasterTypeKey } from '../types/disaster-type-key';
-import { IbfLayerName } from '../types/ibf-layer';
-import { RecentDate } from '../types/recent-date';
-import { TriggeredArea } from '../types/triggered-area';
-import { EventSummary } from './event.service';
 
 @Injectable({
   providedIn: 'root',
@@ -64,13 +64,13 @@ export class ApiService {
         params,
       })
       .pipe(
-        tap((response) =>
+        tap((response) => {
           this.log(
             `ApiService GET: ${security} ${url}`,
             '\nResponse:',
             response,
-          ),
-        ),
+          );
+        }),
       );
   }
 
@@ -85,14 +85,14 @@ export class ApiService {
         headers: this.createHeaders(anonymous),
       })
       .pipe(
-        tap((response) =>
+        tap((response) => {
           this.log(
             `ApiService POST: ${security} ${url}:`,
             body,
             '\nResponse:',
             response,
-          ),
-        ),
+          );
+        }),
       );
   }
 
@@ -107,14 +107,14 @@ export class ApiService {
         headers: this.createHeaders(anonymous),
       })
       .pipe(
-        tap((response) =>
+        tap((response) => {
           this.log(
             `ApiService PUT: ${security} ${url}:`,
             body,
             '\nResponse:',
             response,
-          ),
-        ),
+          );
+        }),
       );
   }
 
