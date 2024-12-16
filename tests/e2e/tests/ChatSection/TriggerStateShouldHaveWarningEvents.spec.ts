@@ -33,10 +33,7 @@ test.beforeEach(async ({ page }) => {
 });
 
 test(
-  qase(
-    43,
-    '[Trigger] Event list should show at least 1 trigger, medium or low warning event',
-  ),
+  qase(43, '[Trigger] Amount of  events should equal the aggregate number'),
   async ({ page }) => {
     const aggregates = new AggregatesComponent(page);
     const dashboard = new DashboardPage(page);
@@ -53,13 +50,13 @@ test(
       firstName: TriggerDataSet.firstName,
       lastName: TriggerDataSet.lastName,
     });
-    await chat.allChatButtonsArePresent();
+    await chat.allDefaultButtonsArePresent();
 
     // get the number of warning events and aggregated events
-    const warningCount = await chat.chatPredictionButtonsAreActive();
-    const aggregatesNumber = await aggregates.getNumberOfPredictedEvents();
+    const chatEventCount = await chat.predictionButtonsAreActive();
+    const aggregatesEventCount = await aggregates.getNumberOfPredictedEvents();
 
     // check if the number of warning events is equal to the number of aggregated events
-    expect(warningCount).toEqual(aggregatesNumber);
+    expect(chatEventCount).toEqual(aggregatesEventCount);
   },
 );
