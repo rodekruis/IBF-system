@@ -17,7 +17,13 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import {
+  IsEnum,
+  IsIn,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { UserRole } from '../api/user/user-role.enum';
@@ -37,17 +43,9 @@ export class MockBaseScenario {
   public readonly secret: string;
 
   @ApiProperty({
-    example: Object.values([
-      'UGA',
-      'KEN',
-      'ETH',
-      'ZMB',
-      'MWI',
-      'ZWE',
-      'PHL',
-      'SSD',
-    ]).join(' | '),
+    example: Object.values(process.env.COUNTRIES.split(',')).join(' | '),
   })
+  @IsIn(Object.values(process.env.COUNTRIES.split(',')))
   public readonly countryCodeISO3: string;
 
   @ApiProperty({ example: true })
