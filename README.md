@@ -75,16 +75,11 @@ are connected to a database-server). For setting up a fully working version of t
   - `mock-output`-foldermock output raster files that are used by the mock-endpoint (see below)
   - `output`-folder: currently empty, but any raster files that are posted to the API-service by IBF-pipelines (or mock endpoint) will be stored here, and Geoserver will be able to read them from here.
 
-2. Post static data and 1st batch of dynamic data to database
+2. Seed and mock database
 
-- login http://localhost:4000/docs#/--%20user%20--/UserController_login (click Try it out, fill in your username and password, and click Execute)
-  - Copy the resulting `user.token` of that api call
-  - Paste it to the Authorize button button at the top of that page
-- by calling mock-endpoint
-  - see API documentation: http://localhost:4000/docs/#/scripts
-  - run for all countries and disaster-type at once: http://localhost:4000/docs/#/scripts/ScriptsController_mockAll
-  - or run for 1 country and 1 disaster-type: http://localhost:4000/docs/#/scripts/ScriptsController_mockDynamic
-- or by having external pipeline make a call to IBF-system
+- Login via [Swagger login endpoint](http://localhost:4000/docs#/--%20user%20--/UserController_login) > See Authentication instruction at top of Swagger-page.
+- Seed via [Swagger seed endpoint](http://localhost:4000/docs#/---%20mock%2Fseed%20data%20---/ScriptsController_resetDb)
+- Mock via [Swagger mock-all endpoint](http://localhost:4000/docs#/---%20mock%2Fseed%20data%20---/ScriptsController_mockAll)
 
 ### Installation result
 
@@ -96,7 +91,7 @@ These commands will install the IBF-system with listeners at,
 
 ### Troubleshoot installation issues
 
-Please read the troubleshoot guidlelines to support the insatllation of IBF in the
+Please read the troubleshoot guidlelines to support the installation of IBF in the
 [TROUBLESHOOT.md](/docs/TROUBLESHOOT.md)
 
 ## Releases
@@ -117,8 +112,8 @@ See notable changes and the currently released version in
 
 The above steps should trigger the
 [release webhook](https://github.com/rodekruis/IBF-system/settings/hooks/240449523)
-which updates the [staging environment](https://ibf.510.global/login) to the
-published release. This takes a while (approx 20 mins) to update.
+which updates the [staging environment](https://ibf-demo.510.global/login) to the
+published release.
 
 ## Deployment
 
@@ -133,12 +128,12 @@ published release. This takes a while (approx 20 mins) to update.
 - Run seed-script
 - Run 'mock-all' endpoint
 
-### To "stage" environment
+### To "stage/demo" environment
 
 - Make sure to verify if the environment-settings are appropriately set on the
   stage VM before publishing the release.
 - When a [release](#release-checklist) is published, it is automatically
-  deployed to the staging-server.
+  deployed to the demo-server, via the webhook.
 - Wait until deploy is ready (by checking when the new version-number has appeared on the login-page of IBF-dashboard)
 - Note that the deployment logs can be followed in `/var/tmp/ibf-<yyyy-mm-dd>.stdout.log`
 - Run seed-script
@@ -149,9 +144,9 @@ published release. This takes a while (approx 20 mins) to update.
 - SSH into the production server
 - Make sure to verify if the [environment variables](./example.env) are
   appropriately set on the VM.
-- Currently the deploy-script must be run in sudo-mode. See [this section](/docs/TROUBLESHOOT.md#running-deploy-script-not-in-sudo-mode) of the TROUBLESHOOT guide.
-- Manually run the [deploy script](./tools/deploy.sh) with the tag which
-  should be deployed for the specific country.
+- It might be needed to run the deploy-script as `azureuser` (same user with which the webhook runs the deploy-script on ibf-test and ibf-demo), by running `sudo su - azureuser` first. (As otherwise you would be running it with the personal user-account you logged in with.)
+- Manually run the [deploy script](./tools/deploy.sh) with the release which
+  should be deployed for the specific country, through `. ./tools/deploy.sh <release-id>`
 - Sometimes npm packages are not all automatically correctly installed. In case of issues with the api-service restart after deployment has finished, check the [this section](/docs/TROUBLESHOOT.md#install-packages-in-api-service) of the TROUBLESHOOT guide
 
 ## Contributing to IBF
