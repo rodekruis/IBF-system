@@ -130,6 +130,12 @@ class AggregatesComponent extends DashboardPage {
 
     return eventsNumber ? parseInt(eventsNumber[0], 10) : null;
   }
+
+  async validateColourOfAggregatesHeader() {
+    const actionHeaderText = await this.aggregatesTitleHeader;
+    const headerColour = await actionHeaderText.getAttribute('style');
+    console.log('headerColour: ', headerColour);
+  }
 }
 
 export default AggregatesComponent;
