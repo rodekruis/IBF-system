@@ -31,8 +31,9 @@ test.beforeEach(async ({ page }) => {
   await loginPage.login(TriggerDataSet.UserMail, TriggerDataSet.UserPassword);
 });
 
+// https://app.qase.io/project/IBF?case=39&previewMode=side&suite=7
 test(
-  qase(39, '[Trigger] Aggregates values should be non-zero'),
+  qase(39, '[Trigger] Aggregated number of events should be non-zero'),
   async ({ page }) => {
     const aggregates = new AggregatesComponent(page);
     const dashboard = new DashboardPage(page);
