@@ -2,6 +2,15 @@ ion-label[position='stacked'] {
   --color: var(--ion-color-ibf-no-alert-primary);
 }
 
+ion-input {
+  border: none;
+  background: transparent;
+
+  ::ng-deep .native-input {
+    box-shadow: none;
+  }
+}
+
 .eye-button {
   --color: var(--ion-color-ibf-no-alert-primary);
 }

@@ -67,7 +67,12 @@
     Log In
     <ion-icon slot="end" name="enter"></ion-icon>
   </app-ibf-button>
-  <div (click)="presentPopover()" class="ion-margin-vertical">
+  <div
+    (click)="presentPopover()"
+    (keydown.enter)="presentPopover()"
+    tabindex="0"
+    class="ion-margin-vertical"
+  >
     <ion-text
       style="cursor: pointer; text-decoration: underline"
       color="ibf-no-alert-primary"
