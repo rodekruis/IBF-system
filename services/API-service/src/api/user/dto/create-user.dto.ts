@@ -35,7 +35,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   public firstName: string;
 
-  @ApiProperty({ required: false })
+  @ApiProperty({ example: 'middle-name', required: false })
   @IsString()
   @IsOptional()
   public middleName?: string;
