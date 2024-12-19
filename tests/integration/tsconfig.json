@@ -16,7 +16,8 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": "./",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "strict": true
   },
   "watchOptions": {
     "watchFile": "fixedPollingInterval",
@@ -28,4 +29,3 @@
   "types": ["jest"],
   "typeAcquisition": { "include": ["jest"] }
 }
-

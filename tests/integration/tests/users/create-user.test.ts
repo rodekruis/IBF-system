@@ -17,7 +17,7 @@ describe('create user', () => {
 
   it('successfully, and log-in with it', async () => {
     // Arrange
-    let newUserData = structuredClone(userData);
+    const newUserData = structuredClone(userData);
     newUserData.email = 'new-user@redcross.nl';
     newUserData.username = 'new-user';
 
@@ -37,7 +37,7 @@ describe('create user', () => {
 
   it('fails when email or username exists already', async () => {
     // Arrange
-    let existingUserData = structuredClone(userData);
+    const existingUserData = structuredClone(userData);
 
     // Act
     const createResult = await createUser(existingUserData, accessToken);
