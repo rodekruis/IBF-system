@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from 'src/app/models/country.model';
+import { PlaceCode } from 'src/app/models/place-code.model';
+import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { EventService } from 'src/app/services/event.service';
+import { TimelineService } from 'src/app/services/timeline.service';
+import {
   AdminLevel,
   AdminLevelLabel,
   AdminLevelType,
 } from 'src/app/types/admin-level';
-import {
-  Country,
-  CountryDisasterSettings,
-  DisasterType,
-} from '../models/country.model';
-import { PlaceCode } from '../models/place-code.model';
-import { EventState } from '../types/event-state';
-import { IbfLayerName } from '../types/ibf-layer';
-import { TimelineState } from '../types/timeline-state';
-import { CountryService } from './country.service';
-import { DisasterTypeService } from './disaster-type.service';
-import { EventService } from './event.service';
-import { TimelineService } from './timeline.service';
+import { EventState } from 'src/app/types/event-state';
+import { IbfLayerName } from 'src/app/types/ibf-layer';
+import { TimelineState } from 'src/app/types/timeline-state';
 
 export class AdminLevelButton {
   adminLevel: AdminLevel;

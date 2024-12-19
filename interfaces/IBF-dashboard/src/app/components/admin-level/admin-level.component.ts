@@ -7,26 +7,26 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import {
-  AdminLevelButton,
-  AdminLevelService,
-} from 'src/app/services/admin-level.service';
-import { EventService } from 'src/app/services/event.service';
-import { MapService } from 'src/app/services/map.service';
-import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
-import { IbfLayer, IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
-import {
   Country,
   CountryDisasterSettings,
   DisasterType,
-} from '../../models/country.model';
-import { PlaceCode } from '../../models/place-code.model';
-import { CountryService } from '../../services/country.service';
-import { DisasterTypeService } from '../../services/disaster-type.service';
-import { MapViewService } from '../../services/map-view.service';
-import { PlaceCodeService } from '../../services/place-code.service';
-import { DisasterTypeKey } from '../../types/disaster-type-key';
-import { EventState } from '../../types/event-state';
-import { MapView } from '../../types/map-view';
+} from 'src/app/models/country.model';
+import { PlaceCode } from 'src/app/models/place-code.model';
+import {
+  AdminLevelButton,
+  AdminLevelService,
+} from 'src/app/services/admin-level.service';
+import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { EventService } from 'src/app/services/event.service';
+import { MapService } from 'src/app/services/map.service';
+import { MapViewService } from 'src/app/services/map-view.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { EventState } from 'src/app/types/event-state';
+import { IbfLayer, IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
+import { MapView } from 'src/app/types/map-view';
 
 @Component({
   selector: 'app-admin-level',
@@ -184,9 +184,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   }
 
   public useBreadcrumbs(disasterType: DisasterType): boolean {
-    return this.breadcrumbDisasters.includes(
-      disasterType?.disasterType as DisasterTypeKey,
-    );
+    return this.breadcrumbDisasters.includes(disasterType?.disasterType);
   }
 
   public clickBreadcrumbButton(breadCrumb: MapView, selected: boolean) {
@@ -247,19 +245,19 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   public showBreadcrumb(breadCrumb: MapView): boolean {
     if (breadCrumb === MapView.national) {
       return [
-        MapView.national,
-        MapView.event,
         MapView.adminArea,
         MapView.adminArea2,
         MapView.adminArea3,
+        MapView.event,
+        MapView.national,
       ].includes(this.currentMapView);
     } else if (breadCrumb === MapView.event) {
       return (
         [
-          MapView.event,
           MapView.adminArea,
           MapView.adminArea2,
           MapView.adminArea3,
+          MapView.event,
         ].includes(this.currentMapView) &&
         this.countryDisasterSettings?.isEventBased
       );

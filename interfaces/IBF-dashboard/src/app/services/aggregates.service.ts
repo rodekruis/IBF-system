@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Country, DisasterType } from 'src/app/models/country.model';
+import { PlaceCode } from 'src/app/models/place-code.model';
+import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { EapActionsService } from 'src/app/services/eap-actions.service';
+import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import { AdminLevel } from 'src/app/types/admin-level';
+import { EventState } from 'src/app/types/event-state';
+import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
-import { Country, DisasterType } from '../models/country.model';
-import { PlaceCode } from '../models/place-code.model';
-import { AdminLevel } from '../types/admin-level';
-import { EventState } from '../types/event-state';
-import { IbfLayerName } from '../types/ibf-layer';
-import { TimelineState } from '../types/timeline-state';
-import { TriggeredArea } from '../types/triggered-area';
-import { AdminLevelService } from './admin-level.service';
-import { DisasterTypeService } from './disaster-type.service';
-import { EapActionsService } from './eap-actions.service';
-import { EventService } from './event.service';
-import { PlaceCodeService } from './place-code.service';
+import { TimelineState } from 'src/app/types/timeline-state';
+import { TriggeredArea } from 'src/app/types/triggered-area';
 
 export enum AreaStatus {
-  TriggeredOrWarned = 'triggered-or-warned',
   NonTriggeredOrWarnd = 'non-triggered-or-warned',
   Stopped = 'stopped',
+  TriggeredOrWarned = 'triggered-or-warned',
 }
 @Injectable({
   providedIn: 'root',
@@ -144,9 +144,9 @@ export class AggregatesService {
   private onIndicatorChange = (indicators) => {
     this.indicators = indicators;
     this.mapService.removeAggregateLayers();
-    this.indicators.forEach((indicator) =>
-      this.mapService.loadAggregateLayer(indicator),
-    );
+    this.indicators.forEach((indicator) => {
+      this.mapService.loadAggregateLayer(indicator);
+    });
     this.indicatorSubject.next(this.indicators);
 
     this.loadAggregateInformation();

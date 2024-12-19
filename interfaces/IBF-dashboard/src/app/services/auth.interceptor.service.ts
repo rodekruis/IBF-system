@@ -9,8 +9,8 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { AuthService } from 'src/app/auth/auth.service';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthInterceptorService implements HttpInterceptor {
@@ -22,8 +22,12 @@ export class AuthInterceptorService implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
       tap(
-        (event) => this.handleResponse(event),
-        (error) => this.handleError(error),
+        (event) => {
+          this.handleResponse(event);
+        },
+        (error) => {
+          this.handleError(error);
+        },
       ),
     );
   }

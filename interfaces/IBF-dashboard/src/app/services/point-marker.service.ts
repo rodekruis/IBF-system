@@ -7,6 +7,13 @@ import {
 import { divIcon, icon, IconOptions, LatLng, Marker, marker } from 'leaflet';
 import { DateTime } from 'luxon';
 import {
+  AnalyticsEvent,
+  AnalyticsPage,
+} from 'src/app/analytics/analytics.enum';
+import { AnalyticsService } from 'src/app/analytics/analytics.service';
+import { CommunityNotificationPopupComponent } from 'src/app/components/community-notification-popup/community-notification-popup.component';
+import { DynamicPointPopupComponent } from 'src/app/components/leaflet-popup/dynamic-point-popup/dynamic-point-popup.component';
+import {
   LEAFLET_MARKER_ICON_OPTIONS_BASE,
   LEAFLET_MARKER_ICON_OPTIONS_COMMUNITY_NOTIFICATION,
   LEAFLET_MARKER_ICON_OPTIONS_DAM,
@@ -21,6 +28,10 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT_EXPOSED,
 } from 'src/app/config';
 import {
+  CountryDisasterSettings,
+  EapAlertClasses,
+} from 'src/app/models/country.model';
+import {
   CommunityNotification,
   DamSite,
   EvacuationCenter,
@@ -33,17 +44,9 @@ import {
   Waterpoint,
   WaterpointInternal,
 } from 'src/app/models/poi.model';
-import { AnalyticsEvent, AnalyticsPage } from '../analytics/analytics.enum';
-import { AnalyticsService } from '../analytics/analytics.service';
-import { CommunityNotificationPopupComponent } from '../components/community-notification-popup/community-notification-popup.component';
-import { DynamicPointPopupComponent } from '../components/leaflet-popup/dynamic-point-popup/dynamic-point-popup.component';
-import {
-  CountryDisasterSettings,
-  EapAlertClasses,
-} from '../models/country.model';
-import { IbfLayerName } from '../types/ibf-layer';
-import { LeadTime } from '../types/lead-time';
-import { EventService, EventSummary } from './event.service';
+import { EventService, EventSummary } from 'src/app/services/event.service';
+import { IbfLayerName } from 'src/app/types/ibf-layer';
+import { LeadTime } from 'src/app/types/lead-time';
 
 @Injectable({
   providedIn: 'root',

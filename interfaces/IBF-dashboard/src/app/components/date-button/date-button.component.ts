@@ -2,9 +2,9 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { TimelineService } from 'src/app/services/timeline.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { DateFormats, MonthFormats } from 'src/app/types/lead-time';
-import { TimelineService } from '../../services/timeline.service';
-import { DisasterTypeKey } from '../../types/disaster-type-key';
 @Component({
   selector: 'app-date-button',
   templateUrl: './date-button.component.html',
@@ -15,8 +15,8 @@ export class DateButtonComponent implements OnInit, OnDestroy {
   @Input() active: boolean;
   @Input() alert: boolean;
   @Input() thresholdReached: boolean;
-  @Input() eventName: string | null;
-  @Input() duration: number | null;
+  @Input() eventName: null | string;
+  @Input() duration: null | number;
 
   private dateFormat = '';
   private monthFormat = '';

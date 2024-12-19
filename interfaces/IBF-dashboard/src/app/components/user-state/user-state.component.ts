@@ -8,14 +8,14 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ChangePasswordPopoverComponent } from 'src/app/components/change-password-popover/change-password-popover.component';
 import { Country, DisasterType } from 'src/app/models/country.model';
+import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { environment } from '../../../environments/environment';
-import { ApiService } from '../../services/api.service';
-import { ChangePasswordPopoverComponent } from '../change-password-popover/change-password-popover.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-state',
@@ -26,7 +26,7 @@ export class UserStateComponent implements OnInit {
   @Input()
   public isLoggedIn: boolean;
   @Input()
-  public showCountry: boolean = true;
+  public showCountry = true;
 
   public environmentConfiguration = environment.configuration;
 

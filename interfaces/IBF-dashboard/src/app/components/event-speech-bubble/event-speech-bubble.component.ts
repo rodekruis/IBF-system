@@ -7,16 +7,16 @@ import {
 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../auth/auth.service';
-import { PlaceCode } from '../../models/place-code.model';
-import { AdminLevelService } from '../../services/admin-level.service';
-import { EventService, EventSummary } from '../../services/event.service';
-import { PlaceCodeService } from '../../services/place-code.service';
-import { TimelineService } from '../../services/timeline.service';
-import { DisasterTypeKey } from '../../types/disaster-type-key';
-import { LeadTime, LeadTimeTriggerKey } from '../../types/lead-time';
-import { TriggeredArea } from '../../types/triggered-area';
-import { NumberFormat } from '../../types/indicator-group';
+import { AuthService } from 'src/app/auth/auth.service';
+import { PlaceCode } from 'src/app/models/place-code.model';
+import { AdminLevelService } from 'src/app/services/admin-level.service';
+import { EventService, EventSummary } from 'src/app/services/event.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { TimelineService } from 'src/app/services/timeline.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { NumberFormat } from 'src/app/types/indicator-group';
+import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
+import { TriggeredArea } from 'src/app/types/triggered-area';
 
 @Component({
   selector: 'app-event-speech-bubble',
@@ -77,7 +77,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     this.typhoonLandfallText = this.showTyphoonLandfallText(this.event);
 
     if (this.event) {
-      this.event['header'] = this.getHeader(this.event);
+      this.event.header = this.getHeader(this.event);
     }
   }
 
@@ -236,11 +236,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   }
 
   public isEventWithForecastClasses(): boolean {
-    if (
-      !this.event ||
-      !this.event.disasterSpecificProperties ||
-      !this.event.disasterSpecificProperties.eapAlertClass
-    ) {
+    if (!this.event?.disasterSpecificProperties?.eapAlertClass) {
       return false;
     } else return true;
   }

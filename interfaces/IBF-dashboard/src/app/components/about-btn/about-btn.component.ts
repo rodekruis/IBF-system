@@ -11,8 +11,8 @@ import {
   DisasterType,
 } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
-import { DisasterTypeService } from '../../services/disaster-type.service';
 
 @Component({
   selector: 'app-about-btn',

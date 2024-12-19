@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { ActivationLogPage } from 'src/app/pages/dashboard/activation-log/activation.log.page';
+import { DashboardPage } from 'src/app/pages/dashboard/dashboard.page';
+import { DashboardPageRoutingModule } from 'src/app/pages/dashboard/dashboard-routing.module';
+import { StatusReportPage } from 'src/app/pages/dashboard/status-report/status-report.page';
 import { SharedModule } from 'src/app/shared.module';
-import { ActivationLogPage } from './activation-log/activation.log.page';
-import { DashboardPageRoutingModule } from './dashboard-routing.module';
-import { DashboardPage } from './dashboard.page';
-import { StatusReportPage } from './status-report/status-report.page';
 
 @NgModule({
   imports: [
