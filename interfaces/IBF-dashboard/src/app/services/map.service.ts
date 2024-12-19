@@ -600,7 +600,7 @@ export class MapService {
         if (this.layerDataCache[layerDataCacheKey]) {
           const layerData = this.layerDataCache[layerDataCacheKey];
           this.updateLayer(layer)(layerData);
-        } else if (layer.active) {
+        } else {
           this.getLayerData(layer).subscribe((layerDataResponse) => {
             this.layerDataCache[layerDataCacheKey] = layerDataResponse;
             this.updateLayer(layer)(layerDataResponse);
