@@ -39,7 +39,7 @@
     "@ngx-translate/http-loader": "^8.0.0",
     "@turf/center": "^6.0.1",
     "@turf/invariant": "^6.1.2",
-    "date-fns": "^3.6.0",
+    "date-fns": "^4.1.0",
     "dotenv": "^16.0.1",
     "gzipper": "^7.2.0",
     "leaflet": "^1.9.4",
