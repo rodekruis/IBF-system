@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ActivationLogPage } from './activation-log/activation.log.page';
-import { DashboardPage } from './dashboard.page';
-import { StatusReportPage } from './status-report/status-report.page';
+import { ActivationLogPage } from 'src/app/pages/dashboard/activation-log/activation.log.page';
+import { DashboardPage } from 'src/app/pages/dashboard/dashboard.page';
+import { StatusReportPage } from 'src/app/pages/dashboard/status-report/status-report.page';
 
 const routes: Routes = [
   {

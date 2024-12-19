@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
+import { Country, DisasterType } from 'src/app/models/country.model';
+import { User } from 'src/app/models/user/user.model';
+import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
-import { AuthService } from '../../auth/auth.service';
-import { Country, DisasterType } from '../../models/country.model';
-import { User } from '../../models/user/user.model';
-import { CountryService } from '../../services/country.service';
-import { PlaceCodeService } from '../../services/place-code.service';
 
 @Component({
   selector: 'app-disaster-type',
@@ -93,8 +93,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
         const disasterType = activeDisasterType
           ? activeDisasterType
           : this.disasterTypes[0];
-        this.selectedDisasterType =
-          disasterType.disasterType as DisasterTypeKey;
+        this.selectedDisasterType = disasterType.disasterType;
         this.disasterTypeService.setDisasterType(disasterType);
       }
     };

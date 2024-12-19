@@ -1,5 +1,5 @@
 import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
-import { NumberFormat } from '../types/indicator-group';
+import { NumberFormat } from 'src/app/types/indicator-group';
 
 @Pipe({
   standalone: true,

@@ -1,24 +1,27 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { PlaceCode } from 'src/app/models/place-code.model';
-import { ApiService } from 'src/app/services/api.service';
-import { EapActionsService } from 'src/app/services/eap-actions.service';
-import { EventService } from 'src/app/services/event.service';
-import { PlaceCodeService } from 'src/app/services/place-code.service';
-import { EventState } from 'src/app/types/event-state';
-import { AnalyticsEvent, AnalyticsPage } from '../../analytics/analytics.enum';
-import { AnalyticsService } from '../../analytics/analytics.service';
+import {
+  AnalyticsEvent,
+  AnalyticsPage,
+} from 'src/app/analytics/analytics.enum';
+import { AnalyticsService } from 'src/app/analytics/analytics.service';
+import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
 import {
   Country,
   CountryDisasterSettings,
   DisasterType,
-} from '../../models/country.model';
-import { CountryService } from '../../services/country.service';
-import { DisasterTypeService } from '../../services/disaster-type.service';
-import { AreaOfFocus } from '../../types/area-of-focus';
-import { TriggeredArea } from '../../types/triggered-area';
-import { LayerControlInfoPopoverComponent } from '../layer-control-info-popover/layer-control-info-popover.component';
+} from 'src/app/models/country.model';
+import { PlaceCode } from 'src/app/models/place-code.model';
+import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { EapActionsService } from 'src/app/services/eap-actions.service';
+import { EventService } from 'src/app/services/event.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { AreaOfFocus } from 'src/app/types/area-of-focus';
+import { EventState } from 'src/app/types/event-state';
+import { TriggeredArea } from 'src/app/types/triggered-area';
 
 @Component({
   selector: 'app-areas-of-focus-summary',

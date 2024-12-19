@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-enums */
 /* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 
 export enum LeadTime {

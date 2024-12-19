@@ -6,7 +6,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from './auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -21,9 +21,9 @@ export class AuthGuard {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ):
+    | boolean
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
-    | boolean
     | UrlTree {
     const url: string = state.url;
 

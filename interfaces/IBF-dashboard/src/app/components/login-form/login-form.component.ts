@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth/auth.service';
-import { ForgotPasswordPopoverComponent } from '../forgot-password-popover/forgot-password-popover.component';
+import { ForgotPasswordPopoverComponent } from 'src/app/components/forgot-password-popover/forgot-password-popover.component';
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',

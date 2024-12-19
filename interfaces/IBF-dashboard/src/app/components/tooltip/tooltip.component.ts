@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { TooltipPopoverComponent } from '../tooltip-popover/tooltip-popover.component';
+import { TooltipPopoverComponent } from 'src/app/components/tooltip-popover/tooltip-popover.component';
 
 @Component({
   selector: 'app-tooltip',

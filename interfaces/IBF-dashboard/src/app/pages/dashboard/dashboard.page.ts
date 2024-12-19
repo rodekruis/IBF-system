@@ -4,10 +4,10 @@ import { DateTime } from 'luxon';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { UserRole } from 'src/app/models/user/user-role.enum';
+import { ScreenOrientationPopoverComponent } from 'src/app/components/screen-orientation-popover/screen-orientation-popover.component';
 import { User } from 'src/app/models/user/user.model';
+import { UserRole } from 'src/app/models/user/user-role.enum';
 import { environment } from 'src/environments/environment';
-import { ScreenOrientationPopoverComponent } from '../../components/screen-orientation-popover/screen-orientation-popover.component';
 
 @Component({
   selector: 'app-dashboard',

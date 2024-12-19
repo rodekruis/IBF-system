@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { RiverGauge } from '../../../models/poi.model';
+import { RiverGauge } from 'src/app/models/poi.model';
 
 @Component({
   selector: 'app-river-gauge-popup-content',

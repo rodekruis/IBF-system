@@ -1,4 +1,4 @@
-import { AdminLevel } from '../types/admin-level';
+import { AdminLevel } from 'src/app/types/admin-level';
 
 export class PlaceCode {
   countryCodeISO3: string;

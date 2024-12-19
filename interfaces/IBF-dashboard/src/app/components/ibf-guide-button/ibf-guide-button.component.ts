@@ -6,10 +6,10 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
+import { IbfGuidePopoverComponent } from 'src/app/components/ibf-guide-popover/ibf-guide-popover.component';
+import { Country } from 'src/app/models/country.model';
+import { CountryService } from 'src/app/services/country.service';
 import { EventService } from 'src/app/services/event.service';
-import { Country } from '../../models/country.model';
-import { CountryService } from '../../services/country.service';
-import { IbfGuidePopoverComponent } from '../ibf-guide-popover/ibf-guide-popover.component';
 
 @Component({
   selector: 'app-ibf-guide-button',

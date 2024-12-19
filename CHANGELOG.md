@@ -1,3 +1,12 @@
+## [0.277.7](https://github.com/rodekruis/IBF-system/compare/v0.277.6...v0.277.7) (2024-12-19)
+
+
+### Bug Fixes
+
+* move API-service lint-staged in rc file ([f52fdb8](https://github.com/rodekruis/IBF-system/commit/f52fdb89c4d79bc90c103f90dfc139ecb62820d2))
+
+
+
 ## [0.277.6](https://github.com/rodekruis/IBF-system/compare/v0.277.5...v0.277.6) (2024-12-11)
 
 
@@ -84,15 +93,6 @@
 * set default server name in nginx conf ([7228694](https://github.com/rodekruis/IBF-system/commit/7228694121018a9acc63c04c97165d017481ef71))
 * use azureuser for webhook service ([d9af32c](https://github.com/rodekruis/IBF-system/commit/d9af32ce62b7cccae495331e22de62c2277f68ed))
 * use recursive instead of archive flag in cp ([3b704b7](https://github.com/rodekruis/IBF-system/commit/3b704b7dbaaea9c159f0743cd3a9f8ea7d35e66c))
-
-
-
-## [0.276.7](https://github.com/rodekruis/IBF-system/compare/v0.276.6...v0.276.7) (2024-11-27)
-
-
-### Bug Fixes
-
-* deactivate instead of delete when updating point/lines data ([f11fc1c](https://github.com/rodekruis/IBF-system/commit/f11fc1c60c7740d3467d26a48ffeb5e88c6a9cc2))
 
 
 

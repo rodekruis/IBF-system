@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
-import { AuthService } from '../auth/auth.service';
-import { ApiService } from './api.service';
+import { ApiService } from 'src/app/services/api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -59,7 +59,7 @@ export class CountryService {
     country.countryCodeISO3 === countryCodeISO3;
 
   private filterCountryByUser = (user: User) => (country) =>
-    user.countries.indexOf(country.countryCodeISO3) >= 0;
+    user.countries.includes(country.countryCodeISO3);
 
   public selectCountry = (countryCodeISO3: string): void => {
     this.countrySubject.next(
@@ -68,7 +68,7 @@ export class CountryService {
   };
 
   public filterCountriesByUser(user: User): void {
-    if (!user || !user.countries) {
+    if (!user?.countries) {
       this.countries = [];
     } else {
       this.countries = this.countries

@@ -1,5 +1,5 @@
-import { AdminLevel } from './admin-level';
-import { EapAction } from './eap-action';
+import { AdminLevel } from 'src/app/types/admin-level';
+import { EapAction } from 'src/app/types/eap-action';
 
 export class TriggeredArea {
   actionsValue: number;
@@ -19,7 +19,7 @@ export class TriggeredArea {
 }
 
 export enum AlertLabel {
+  alert = 'alert', // No-EAP
   trigger = 'trigger', // EAP trigger
   warning = 'warning', // EAP below-trigger
-  alert = 'alert', // No-EAP
 }

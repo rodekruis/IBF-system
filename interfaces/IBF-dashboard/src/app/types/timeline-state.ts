@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { LeadTime, LeadTimeUnit } from './lead-time';
+import { LeadTime, LeadTimeUnit } from 'src/app/types/lead-time';
 
 export class TimelineState {
   today: DateTime;

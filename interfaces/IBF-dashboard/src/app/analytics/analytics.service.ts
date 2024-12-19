@@ -4,10 +4,10 @@ import {
   ITelemetryItem,
 } from '@microsoft/applicationinsights-web';
 import { SeverityLevel } from 'src/app/analytics/severity-level.model';
+import { DEBUG_LOG } from 'src/app/config';
+import { Country } from 'src/app/models/country.model';
+import { CountryService } from 'src/app/services/country.service';
 import { environment } from 'src/environments/environment';
-import { DEBUG_LOG } from '../config';
-import { Country } from '../models/country.model';
-import { CountryService } from '../services/country.service';
 
 @Injectable({
   providedIn: 'root',
@@ -72,7 +72,7 @@ export class AnalyticsService {
 
   logEvent(
     name: string,
-    properties?: { [key: string]: string | number | boolean },
+    properties?: Record<string, boolean | number | string>,
   ): void {
     if (this.isApplicationInsightsEnabled) {
       this.applicationInsights.trackEvent({ name }, properties);
@@ -94,7 +94,7 @@ export class AnalyticsService {
 
   logTrace(
     message: string,
-    properties?: { [key: string]: string | number | boolean },
+    properties?: Record<string, boolean | number | string>,
   ) {
     if (this.isApplicationInsightsEnabled) {
       this.applicationInsights.trackTrace({ message }, properties);
