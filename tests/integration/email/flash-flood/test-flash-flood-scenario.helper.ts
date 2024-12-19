@@ -1,4 +1,5 @@
 import { JSDOM } from 'jsdom';
+
 import { DisasterType } from '../../../../services/API-service/src/api/disaster/disaster-type.enum';
 import { FlashFloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import {
