@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { ActionResultPopoverComponent } from './action-result-popover.component';
+import { ActionResultPopoverComponent } from 'src/app/components/action-result-popover/action-result-popover.component';
 
 describe('ActionResultPopoverComponent', () => {
   let component: ActionResultPopoverComponent;

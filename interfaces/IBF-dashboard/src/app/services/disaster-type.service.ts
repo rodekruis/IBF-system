@@ -4,9 +4,9 @@ import {
   Country,
   CountryDisasterSettings,
   DisasterType,
-} from '../models/country.model';
-import { DisasterTypeKey } from '../types/disaster-type-key';
-import { CountryService } from './country.service';
+} from 'src/app/models/country.model';
+import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 
 @Injectable({
   providedIn: 'root',

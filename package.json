@@ -14,15 +14,15 @@
     "test:integration": "npm test --prefix tests/integration",
     "lint": "npx npm-run-all --print-label --parallel lint:interface lint:services",
     "lint:services": "npm run lint --prefix services/API-service/",
-    "lint:interface": "npm run lint --prefix interfaces/IBF-dashboard/"
+    "lint:interface": "npm run lint --prefix interfaces/IBF-dashboard/",
+    "prepare": "husky"
   },
   "dependencies": {
     "github-webhook-handler": "^1.0.0"
   },
   "devDependencies": {
-    "pre-commit": "^1.2.2",
-    "pre-push": "^0.1.4",
-    "prettier": "^3.4.2"
-  },
-  "pre-commit": "lint"
+    "prettier": "^3.4.2",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2"
+  }
 }

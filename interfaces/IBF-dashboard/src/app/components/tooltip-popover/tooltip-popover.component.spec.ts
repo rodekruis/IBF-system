@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TooltipPopoverComponent } from './tooltip-popover.component';
+import { TooltipPopoverComponent } from 'src/app/components/tooltip-popover/tooltip-popover.component';
 
 describe('TooltipPopoverComponent', () => {
   let component: TooltipPopoverComponent;

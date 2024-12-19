@@ -1,13 +1,13 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { DisasterType } from 'src/app/models/country.model';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService, EventSummary } from 'src/app/services/event.service';
+import { TimelineService } from 'src/app/services/timeline.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
+import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
-import { DisasterType } from '../../models/country.model';
-import { DisasterTypeService } from '../../services/disaster-type.service';
-import { TimelineService } from '../../services/timeline.service';
-import { DisasterTypeKey } from '../../types/disaster-type-key';
-import { LeadTime } from '../../types/lead-time';
 
 @Component({
   selector: 'app-event-switcher',

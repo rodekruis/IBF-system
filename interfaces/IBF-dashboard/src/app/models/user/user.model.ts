@@ -1,5 +1,5 @@
-import { UserRole } from './user-role.enum';
-import { UserStatus } from './user-status.enum';
+import { UserRole } from 'src/app/models/user/user-role.enum';
+import { UserStatus } from 'src/app/models/user/user-status.enum';
 
 export class User {
   token: string;

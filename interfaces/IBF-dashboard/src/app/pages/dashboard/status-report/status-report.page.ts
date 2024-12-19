@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../../services/api.service';
-import { CountryService } from '../../../services/country.service';
-import { RecentDate } from '../../../types/recent-date';
-import { Country, DisasterType } from '../../../models/country.model';
-import { DISASTER_TYPES_SVG_MAP } from '../../../config';
-import { EventService, EventSummary } from '../../../services/event.service';
-import { format, parseISO } from 'date-fns';
 import { TranslateService } from '@ngx-translate/core';
+import { format, parseISO } from 'date-fns';
+import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
+import { Country, DisasterType } from 'src/app/models/country.model';
+import { ApiService } from 'src/app/services/api.service';
+import { CountryService } from 'src/app/services/country.service';
+import { EventService, EventSummary } from 'src/app/services/event.service';
+import { RecentDate } from 'src/app/types/recent-date';
 
 interface DisasterStatus {
   imgSrc: string;
@@ -14,13 +14,9 @@ interface DisasterStatus {
   isStale: boolean;
 }
 
-interface CountryStatus {
-  [key: string]: DisasterStatus;
-}
+type CountryStatus = Record<string, DisasterStatus>;
 
-interface StatusData {
-  [key: string]: CountryStatus;
-}
+type StatusData = Record<string, CountryStatus>;
 
 @Component({
   selector: 'app-status-report',
@@ -54,9 +50,9 @@ export class StatusReportPage implements OnInit {
         };
         this.apiService
           .getRecentDates(country.countryCodeISO3, disasterType.disasterType)
-          .subscribe((date) =>
-            this.onRecentDates(date, country.countryCodeISO3, disasterType),
-          );
+          .subscribe((date) => {
+            this.onRecentDates(date, country.countryCodeISO3, disasterType);
+          });
       }
     }
   };
@@ -80,9 +76,9 @@ export class StatusReportPage implements OnInit {
 
     this.apiService
       .getEventsSummary(countryCodeISO3, disasterType.disasterType)
-      .subscribe((events) =>
-        this.onGetEvents(events, countryCodeISO3, disasterType),
-      );
+      .subscribe((events) => {
+        this.onGetEvents(events, countryCodeISO3, disasterType);
+      });
   };
 
   private onGetEvents = (

@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LatLng } from 'leaflet';
-import { EapAlertClass, EapAlertClasses } from '../../../models/country.model';
-import { RiverGauge, Station } from '../../../models/poi.model';
-import { IbfLayerName } from '../../../types/ibf-layer';
-import { LeadTime } from '../../../types/lead-time';
+import { EapAlertClass, EapAlertClasses } from 'src/app/models/country.model';
+import { RiverGauge, Station } from 'src/app/models/poi.model';
+import { IbfLayerName } from 'src/app/types/ibf-layer';
+import { LeadTime } from 'src/app/types/lead-time';
 
 @Component({
   selector: 'app-dynamic-point-popup',

@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Country, DisasterType } from '../models/country.model';
-import { breakKey } from '../models/map.model';
-import { EventState } from '../types/event-state';
+import { Country, DisasterType } from 'src/app/models/country.model';
+import { breakKey } from 'src/app/models/map.model';
+import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { EventService } from 'src/app/services/event.service';
+import { MapService } from 'src/app/services/map.service';
+import { EventState } from 'src/app/types/event-state';
 import {
   IbfLayer,
   IbfLayerLabel,
   IbfLayerName,
   wmsLegendType,
-} from '../types/ibf-layer';
-import { NumberFormat } from '../types/indicator-group';
-import { CountryService } from './country.service';
-import { DisasterTypeService } from './disaster-type.service';
-import { EventService } from './event.service';
-import { MapService } from './map.service';
+} from 'src/app/types/ibf-layer';
+import { NumberFormat } from 'src/app/types/indicator-group';
 
 enum SingleRowLegendType {
   fullSquare = 'full-square',
   fullSquareGradient = 'full-square-gradient',
-  outlineSquare = 'outline-square',
   line = 'line',
+  outlineSquare = 'outline-square',
   pin = 'pin',
 }
 @Injectable({
@@ -266,9 +266,8 @@ export class MapLegendService {
   private getLabel = (grades, layer, labels) => (i) => {
     const label = labels ? '  -  ' + labels[i] : '';
     if (layer.colorBreaks) {
-      const valueLow = layer.colorBreaks && layer.colorBreaks[i + 1]?.valueLow;
-      const valueHigh =
-        layer.colorBreaks && layer.colorBreaks[i + 1]?.valueHigh;
+      const valueLow = layer.colorBreaks?.[i + 1]?.valueLow;
+      const valueHigh = layer.colorBreaks?.[i + 1]?.valueHigh;
       if (valueLow === valueHigh) {
         return this.numberFormat(valueHigh, layer) + label + '<br/>';
       } else {

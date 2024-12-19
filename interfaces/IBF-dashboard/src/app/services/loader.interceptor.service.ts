@@ -8,7 +8,7 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { LoaderService } from './loader.service';
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Injectable({
   providedIn: 'root',

@@ -4,14 +4,14 @@ import {
   Country,
   CountryDisasterSettings,
   DisasterType,
-} from '../models/country.model';
-import { PlaceCode } from '../models/place-code.model';
-import { EventState } from '../types/event-state';
-import { MapView } from '../types/map-view';
-import { CountryService } from './country.service';
-import { DisasterTypeService } from './disaster-type.service';
-import { EventService } from './event.service';
-import { PlaceCodeService } from './place-code.service';
+} from 'src/app/models/country.model';
+import { PlaceCode } from 'src/app/models/place-code.model';
+import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { EventService } from 'src/app/services/event.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { EventState } from 'src/app/types/event-state';
+import { MapView } from 'src/app/types/map-view';
 
 @Injectable({
   providedIn: 'root',
@@ -83,7 +83,7 @@ export class MapViewService {
       return;
     }
 
-    if (!this.eventState || !this.eventState.event) {
+    if (!this.eventState?.event) {
       this.setBreadcrumbsMapView(MapView.national);
       return;
     }
