@@ -78,13 +78,5 @@
     "tsconfig-paths": "^3.9.0",
     "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz",
     "yargs": "^17.0.0"
-  },
-  "lint-staged": {
-    "**/*.{js,jsx,ts,tsx,html,css,scss,json,md}": [
-      "prettier --write"
-    ],
-    "**/*.ts": [
-      "eslint --fix"
-    ]
   }
 }
