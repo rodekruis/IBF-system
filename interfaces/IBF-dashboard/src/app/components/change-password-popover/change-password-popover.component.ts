@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -7,6 +8,7 @@ import { AuthService } from 'src/app/auth/auth.service';
   selector: 'app-change-password-popover',
   templateUrl: './change-password-popover.component.html',
   styleUrls: ['./change-password-popover.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChangePasswordPopoverComponent {
   @ViewChild('changePasswordForm')
@@ -34,9 +36,9 @@ export class ChangePasswordPopoverComponent {
       return;
     }
 
-    this.authService.changePassword(this.model.newPassword).add(() => {
+    this.authService.changePassword(this.model.newPassword).add(async () => {
       this.changePasswordForm.resetForm();
-      this.popoverController.dismiss();
+      await this.popoverController.dismiss();
     });
   }
 
@@ -44,7 +46,7 @@ export class ChangePasswordPopoverComponent {
     this.showDifferentPasswordMessage = false;
   }
 
-  public closePopover(): void {
-    this.popoverController.dismiss();
+  public async closePopover(): Promise<void> {
+    await this.popoverController.dismiss();
   }
 }

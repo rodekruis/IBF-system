@@ -1,12 +1,15 @@
 import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { PopoverController } from '@ionic/angular';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ForgotPasswordPopoverComponent } from 'src/app/components/forgot-password-popover/forgot-password-popover.component';
+
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginFormComponent {
   @ViewChild('loginForm')
@@ -43,7 +46,7 @@ export class LoginFormComponent {
       showBackdrop: true,
     });
 
-    popover.present();
+    await popover.present();
   }
 
   isPassword() {
