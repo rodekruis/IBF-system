@@ -37,7 +37,7 @@ Then, in _this_ folder, run:
 npm install
 ```
 
-The, install Playwright Browsers(-drivers):
+Then, install Playwright Browsers(-drivers):
 
 ```shell
 npx playwright install
