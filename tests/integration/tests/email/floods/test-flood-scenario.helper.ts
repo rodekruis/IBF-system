@@ -61,11 +61,9 @@ export async function testFloodScenario(
   // Check if there are elements with the desired text content
   for (const event of events) {
     const eventTitle = getEventTitle(disasterTypeLabel, event.eventName);
-    console.log('eventTitle: ', eventTitle);
     const hasEvent = eventNamesInEmail.some((eventName) =>
       eventName.includes(eventTitle),
     );
-    console.log('hasEvent: ', hasEvent);
     expect(hasEvent).toBe(true);
   }
 
