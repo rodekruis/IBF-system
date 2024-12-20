@@ -13,8 +13,10 @@ import users from '../../../services/API-service/src/scripts/json/users.json';
 
 export async function getAccessToken(): Promise<string> {
   const admin = users.find((user) => user.userRole === 'admin');
+  if (!admin) {
+    throw new Error('Admin user not found');
+  }
   const login = await loginUser(admin.email, admin.password);
-
   const accessToken = login.body.user.token;
   return accessToken;
 }
@@ -29,7 +31,7 @@ export function loginUser(
   });
 }
 
-export function getHostname(): string {
+export function getHostname(): string | undefined {
   return process.env.API_SERVICE_URL;
 }
 

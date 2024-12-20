@@ -51,7 +51,7 @@ export async function testFlashFloodScenario(
   // Get all span elements with data-testid="event-name" and their lower case text content
   const eventNamesInEmail = Array.from(
     document.querySelectorAll('[data-testid="event-name"]'),
-    (el) => (el as Element).textContent.toLowerCase(),
+    (el) => (el as Element).textContent?.toLowerCase() ?? '',
   ).map((el) => el.trim());
 
   if (scenario === FlashFloodsScenario.NoTrigger) {
