@@ -1,5 +1,6 @@
 // @ts-check
 const globals = require('globals');
+const eslint = require('@eslint/js');
 const tseslint = require('typescript-eslint');
 const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
 const eslintPluginSimpleSort = require('eslint-plugin-simple-import-sort');

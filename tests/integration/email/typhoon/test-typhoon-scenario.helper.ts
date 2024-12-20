@@ -45,7 +45,7 @@ export async function testTyphoonScenario(
   // Get all span elements with data-testid="event-name" and their lower case text content
   const eventNamesInEmail = Array.from(
     document.querySelectorAll('[data-testid="event-name"]'),
-    (el) => (el as Element).textContent.toLowerCase(),
+    (el) => (el as Element).textContent?.toLowerCase() ?? '',
   );
 
   expect(eventNamesInEmail.length).toBe(nrOfEvents);
