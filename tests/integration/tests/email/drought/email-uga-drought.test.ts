@@ -1,4 +1,5 @@
 import { JSDOM } from 'jsdom';
+
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import {
   getAccessToken,
@@ -57,7 +58,7 @@ describe('Should send an email for uga drought', () => {
     // Get all span elements with data-testid="event-name" and their lower case text content
     const eventNamesInEmail = Array.from(
       document.querySelectorAll('[data-testid="event-name"]'),
-      (el) => (el as Element).textContent.toLowerCase(),
+      (el) => (el as Element).textContent?.toLowerCase() ?? '',
     );
 
     expect(eventNamesInEmail.length).toBe(nrOfEvents);

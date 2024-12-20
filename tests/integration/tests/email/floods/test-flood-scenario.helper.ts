@@ -2,7 +2,6 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { FloodsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import disasters from '../../../helpers/API-service/json/disasters.json';
 import {
   getEventTitle,
   mockFloods,
@@ -25,10 +24,8 @@ export async function testFloodScenario(
   params: TestFloodScenarioDto,
 ): Promise<boolean> {
   const { events, countryCodeISO3, accessToken } = params;
-  const disasterType = DisasterType.Floods;
-  const disasterTypeLabel = disasters.find(
-    (d) => d.disasterType === disasterType,
-  ).label;
+  const disasterTypeLabel = 'Floods';
+
   const mockResult = await mockFloods(scenario, countryCodeISO3, accessToken);
   // Act
   const response = await sendNotification(
@@ -56,7 +53,7 @@ export async function testFloodScenario(
   // Get all span elements with data-testid="event-name" and their lower case text content
   const eventNamesInEmail = Array.from(
     document.querySelectorAll('[data-testid="event-name"]'),
-    (el) => (el as Element).textContent.toLowerCase(),
+    (el) => (el as Element).textContent?.toLowerCase() ?? '',
   );
 
   expect(eventNamesInEmail.length).toBe(events.length);

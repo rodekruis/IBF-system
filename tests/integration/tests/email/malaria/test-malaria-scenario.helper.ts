@@ -1,4 +1,5 @@
 import { JSDOM } from 'jsdom';
+
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { MalariaScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
 import {
@@ -43,7 +44,7 @@ export async function testMalariaScenario(
   // Get all span elements with data-testid="event-name" and their lower case text content
   const eventNamesInEmail = Array.from(
     document.querySelectorAll('[data-testid="event-name"]'),
-    (el) => (el as Element).textContent.toLowerCase(),
+    (el) => (el as Element).textContent?.toLowerCase() ?? '',
   ).map((el) => el.trim());
 
   if (scenario === MalariaScenario.Trigger) {
