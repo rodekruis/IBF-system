@@ -1,3 +1,15 @@
+## [0.277.9](https://github.com/rodekruis/IBF-system/compare/v0.277.8...v0.277.9) (2024-12-23)
+
+
+### Bug Fixes
+
+* make eventName required in GET /typhoon-track ([fe621ea](https://github.com/rodekruis/IBF-system/commit/fe621ea30d046646df9a28192306b9c7a11d6a82))
+* post typhoon track test ([9e46443](https://github.com/rodekruis/IBF-system/commit/9e46443733ed9fa75247d83560b5dd68fc3ffa64))
+* remove dengue from integration helper ([98bce23](https://github.com/rodekruis/IBF-system/commit/98bce233b0b70bc6029ed13940e70d06020ba784))
+* use test helper enum ([335c882](https://github.com/rodekruis/IBF-system/commit/335c882299d0c4572f6456044ed8711904f1cec2))
+
+
+
 ## [0.277.8](https://github.com/rodekruis/IBF-system/compare/v0.277.7...v0.277.8) (2024-12-23)
 
 
@@ -77,16 +89,6 @@
 ### Features
 
 * add blantyre only scenario ([fcda9ce](https://github.com/rodekruis/IBF-system/commit/fcda9ce4122e8e71df085377388191389372f526))
-
-
-
-## [0.276.9](https://github.com/rodekruis/IBF-system/compare/v0.276.8...v0.276.9) (2024-12-02)
-
-
-### Bug Fixes
-
-* rm station G5056 ([afe38b1](https://github.com/rodekruis/IBF-system/commit/afe38b1d0548a50eb023cff6c7d2bd02b39fc516))
-* update glofas station coordinates ([a3f6ae1](https://github.com/rodekruis/IBF-system/commit/a3f6ae15425654c23ce5154bf7f4a11de9187a34))
 
 
 
