@@ -32,7 +32,7 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
+// https://app.qase.io/project/IBF?case=13&previewMode=side&suite=7
 test(
   qase(13, 'All Aggregate info buttons show on click information'),
   async ({ page }) => {

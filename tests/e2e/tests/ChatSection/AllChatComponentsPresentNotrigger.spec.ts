@@ -33,7 +33,7 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
+// https://app.qase.io/project/IBF?case=5&previewMode=side&suite=6
 test(
   qase(5, 'All Chat section elements are present in no-trigger mode'),
   async ({ page }) => {

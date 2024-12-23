@@ -36,7 +36,7 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
+// https://app.qase.io/project/IBF?case=1&previewMode=side&suite=2
 test(
   qase(1, 'All Dashboard elements are present in no-trigger mode'),
   async ({ page }) => {

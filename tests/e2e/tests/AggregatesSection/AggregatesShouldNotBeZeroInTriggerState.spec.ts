@@ -1,8 +1,9 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
+import AggregatesComponent from 'Pages/AggregatesComponent';
 import DashboardPage from 'Pages/DashboardPage';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { qase } from 'playwright-qase-reporter';
-import { NoTriggerDataSet } from 'testData/testData.enum';
+import { TriggerDataSet } from 'testData/testData.enum';
 
 import {
   getAccessToken,
@@ -21,21 +22,20 @@ test.beforeEach(async ({ page }) => {
   await resetDB(accessToken);
   // We should maybe create one mock for all different disaster types for now we can just use floods
   await mockFloods(
-    NoTriggerDataSet.NoTriggerScenario,
-    NoTriggerDataSet.CountryCode,
+    TriggerDataSet.TriggerScenario,
+    TriggerDataSet.CountryCode,
     accessToken,
   );
 
   await page.goto('/');
-  await loginPage.login(
-    NoTriggerDataSet.UserMail,
-    NoTriggerDataSet.UserPassword,
-  );
+  await loginPage.login(TriggerDataSet.UserMail, TriggerDataSet.UserPassword);
 });
-// https://app.qase.io/project/IBF?case=3&previewMode=side&suite=4
+
+// https://app.qase.io/project/IBF?case=39&previewMode=side&suite=7
 test(
-  qase(3, 'All User State elements are present in no-trigger mode'),
+  qase(39, '[Trigger] Aggregated number of events should be non-zero'),
   async ({ page }) => {
+    const aggregates = new AggregatesComponent(page);
     const dashboard = new DashboardPage(page);
     const userState = new UserStateComponent(page);
 
@@ -43,11 +43,13 @@ test(
     await dashboard.navigateToFloodDisasterType();
     // Assertions
     await userState.headerComponentIsVisible({
-      countryName: NoTriggerDataSet.CountryName,
+      countryName: TriggerDataSet.CountryName,
     });
-    await userState.allUserStateElementsAreVisible({
-      firstName: NoTriggerDataSet.firstName,
-      lastName: NoTriggerDataSet.lastName,
-    });
+
+    // get the number of warning events and aggregated events
+    const aggregatesEventCount = await aggregates.getNumberOfPredictedEvents();
+
+    // check if the number of warning events is equal to the number of aggregated events
+    expect(aggregatesEventCount).toBeGreaterThan(0);
   },
 );

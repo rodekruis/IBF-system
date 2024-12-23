@@ -32,7 +32,7 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
+// https://app.qase.io/project/IBF?case=6&previewMode=side&suite=7
 test(
   qase(6, 'All Aggregate elements are present in no-trigger mode'),
   async ({ page }) => {

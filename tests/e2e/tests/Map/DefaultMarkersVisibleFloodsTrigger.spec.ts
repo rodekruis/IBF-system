@@ -31,7 +31,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/');
   await loginPage.login(TriggerDataSet.UserMail, TriggerDataSet.UserPassword);
 });
-
+// https://app.qase.io/project/IBF?case=38&previewMode=side&suite=3
 test(
   qase(
     38,

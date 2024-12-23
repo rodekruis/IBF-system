@@ -34,6 +34,7 @@ test.beforeEach(async ({ page }) => {
 });
 // Test is skipped because it was flaky and more invastigation is needed to fix it
 // Logged in PBI: https://dev.azure.com/redcrossnl/IBF/_workitems/edit/32127/
+// https://app.qase.io/project/IBF?case=4&previewMode=side&suite=5
 test.skip(
   qase(10, 'All Disaster Types can be selected in no-trigger mode'),
   async ({ page }) => {

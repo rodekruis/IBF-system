@@ -32,8 +32,8 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
-test(qase(8, 'Log out from IBF-system'), async ({ page }) => {
+// https://app.qase.io/project/IBF?case=8&previewMode=side&suite=4
+test(qase(4, 'Log out from IBF-system'), async ({ page }) => {
   const loginPage = new LoginPage(page);
   const dashboard = new DashboardPage(page);
   const userState = new UserStateComponent(page);
