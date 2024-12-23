@@ -1,12 +1,11 @@
 import { JSDOM } from 'jsdom';
-
-import { DisasterType } from '../../../../services/API-service/src/api/disaster/disaster-type.enum';
-import { TyphoonScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
+import { TyphoonScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
 import {
   getEventTitle,
   mockTyphoon,
   sendNotification,
-} from '../../helpers/utility.helper';
+} from '../../../helpers/utility.helper';
 
 export async function testTyphoonScenario(
   scenario: TyphoonScenario,

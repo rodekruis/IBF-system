@@ -1,12 +1,12 @@
-import { TyphoonScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
-import { getAccessToken, resetDB } from '../../helpers/utility.helper';
+import { TyphoonScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
+import { getAccessToken, resetDB } from '../../../helpers/utility.helper';
 import { testTyphoonScenario } from './test-typhoon-scenario.helper';
 
 const countryCodeISO3 = 'PHL';
 describe('Should send an email for phl typhoon', () => {
   let accessToken: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     accessToken = await getAccessToken();
     await resetDB(accessToken);
   });

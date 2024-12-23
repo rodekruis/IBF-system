@@ -1,12 +1,12 @@
-import { MalariaScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
-import { getAccessToken, resetDB } from '../../helpers/utility.helper';
+import { MalariaScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
+import { getAccessToken, resetDB } from '../../../helpers/utility.helper';
 import { testMalariaScenario } from './test-malaria-scenario.helper';
 
 const countryCodeISO3 = 'ETH';
 describe('Should send an email for eth malaria', () => {
   let accessToken: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     accessToken = await getAccessToken();
     await resetDB(accessToken);
   });

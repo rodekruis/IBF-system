@@ -1,0 +1,62 @@
+[
+  {
+    "disasterType": "floods",
+    "label": "flood",
+    "triggerUnit": "alert_threshold",
+    "actionsUnit": "population_affected",
+    "showOnlyTriggeredAreas": true,
+    "leadTimeUnit": "day",
+    "minLeadTime": "0-day",
+    "maxLeadTime": "7-day"
+  },
+  {
+    "disasterType": "heavy-rain",
+    "label": "heavy rainfall",
+    "triggerUnit": "alert_threshold",
+    "actionsUnit": "population_affected",
+    "showOnlyTriggeredAreas": true,
+    "leadTimeUnit": "day",
+    "minLeadTime": "1-day",
+    "maxLeadTime": "7-day"
+  },
+  {
+    "disasterType": "malaria",
+    "label": "malaria",
+    "triggerUnit": "alert_threshold",
+    "actionsUnit": "potential_cases",
+    "showOnlyTriggeredAreas": false,
+    "leadTimeUnit": "month",
+    "minLeadTime": "0-month",
+    "maxLeadTime": "2-month"
+  },
+  {
+    "disasterType": "drought",
+    "label": "drought",
+    "triggerUnit": "alert_threshold",
+    "actionsUnit": "population_affected",
+    "showOnlyTriggeredAreas": true,
+    "leadTimeUnit": "month",
+    "minLeadTime": "0-month",
+    "maxLeadTime": "11-month"
+  },
+  {
+    "disasterType": "typhoon",
+    "label": "typhoon",
+    "triggerUnit": "alert_threshold",
+    "actionsUnit": "houses_affected",
+    "showOnlyTriggeredAreas": false,
+    "leadTimeUnit": "hour",
+    "minLeadTime": "0-hour",
+    "maxLeadTime": "168-hour"
+  },
+  {
+    "disasterType": "flash-floods",
+    "label": "flash flood",
+    "triggerUnit": "alert_threshold",
+    "actionsUnit": "population_affected",
+    "showOnlyTriggeredAreas": false,
+    "leadTimeUnit": "hour",
+    "minLeadTime": "0-hour",
+    "maxLeadTime": "48-hour"
+  }
+]

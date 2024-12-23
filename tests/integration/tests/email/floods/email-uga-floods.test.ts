@@ -1,12 +1,12 @@
-import { FloodsScenario } from '../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
-import { getAccessToken, resetDB } from '../../helpers/utility.helper';
+import { FloodsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
+import { getAccessToken, resetDB } from '../../../helpers/utility.helper';
 import { testFloodScenario } from './test-flood-scenario.helper';
 
 const countryCodeISO3 = 'UGA';
 describe('Should send an email for uga floods', () => {
   let accessToken: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     accessToken = await getAccessToken();
     await resetDB(accessToken);
   });

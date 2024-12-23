@@ -1,15 +1,15 @@
-import { userData } from '../fixtures/users.const';
+import { userData } from '../../fixtures/users.const';
 import {
   changePassword,
   getAccessToken,
   loginUser,
   resetDB,
-} from '../helpers/utility.helper';
+} from '../../helpers/utility.helper';
 
 describe('change password of user ..', () => {
   let accessToken: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     accessToken = await getAccessToken();
     await resetDB(accessToken);
   });

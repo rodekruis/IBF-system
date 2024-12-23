@@ -1,21 +1,21 @@
-import { UserRole } from '../../../services/API-service/src/api/user/user-role.enum';
-import { userData } from '../fixtures/users.const';
+import { userData } from '../../fixtures/users.const';
 import {
   createUser,
   getAccessToken,
   loginUser,
   resetDB,
-} from '../helpers/utility.helper';
+} from '../../helpers/utility.helper';
+import { UserRole } from '../../helpers/API-service/enum/user-role.enum';
 
 describe('create user', () => {
   let accessToken: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     accessToken = await getAccessToken();
     await resetDB(accessToken);
   });
 
-  it('successfully and log-in with it', async () => {
+  it('successfully, and log-in with it', async () => {
     // Arrange
     let newUserData = structuredClone(userData);
     newUserData.email = 'new-user@redcross.nl';

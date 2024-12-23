@@ -1,13 +1,12 @@
 import { JSDOM } from 'jsdom';
-
-import { DisasterType } from '../../../../services/API-service/src/api/disaster/disaster-type.enum';
+import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import {
   getAccessToken,
   getEventTitle,
   mockDynamicData,
   resetDB,
   sendNotification,
-} from '../../helpers/utility.helper';
+} from '../../../helpers/utility.helper';
 
 const countryCodeISO3 = 'UGA';
 const disasterType = DisasterType.Drought;
@@ -15,7 +14,7 @@ const disasterType = DisasterType.Drought;
 describe('Should send an email for uga drought', () => {
   let accessToken: string;
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     accessToken = await getAccessToken();
     await resetDB(accessToken);
   });
