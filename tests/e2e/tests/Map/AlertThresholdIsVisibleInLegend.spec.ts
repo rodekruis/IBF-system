@@ -34,7 +34,7 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
+// https://app.qase.io/project/IBF?case=29&previewMode=side&suite=3
 test(
   qase(29, '[No-trigger] Alert Threshold Reached is visible on the legend'),
   async ({ page }) => {

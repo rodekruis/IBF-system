@@ -33,7 +33,7 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
+// https://app.qase.io/project/IBF?case=2&previewMode=side&suite=3
 test(
   qase(2, 'All Map elements are present in no-trigger mode'),
   async ({ page }) => {

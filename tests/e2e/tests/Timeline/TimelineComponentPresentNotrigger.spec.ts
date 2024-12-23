@@ -33,7 +33,7 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
+// https://app.qase.io/project/IBF?case=15&previewMode=side&suite=9
 test(qase(15, 'Timeline present in no trigger mode'), async ({ page }) => {
   const dashboard = new DashboardPage(page);
   const userState = new UserStateComponent(page);

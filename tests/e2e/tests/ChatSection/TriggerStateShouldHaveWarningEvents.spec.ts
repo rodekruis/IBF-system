@@ -31,7 +31,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/');
   await loginPage.login(TriggerDataSet.UserMail, TriggerDataSet.UserPassword);
 });
-
+// https://app.qase.io/project/IBF?case=43&previewMode=side&suite=6
 test(
   qase(43, '[Trigger] Amount of  events should equal the aggregate number'),
   async ({ page }) => {

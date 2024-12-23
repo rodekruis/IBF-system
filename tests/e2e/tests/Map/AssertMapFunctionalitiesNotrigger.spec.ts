@@ -34,7 +34,7 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
+// https://app.qase.io/project/IBF?case=7&previewMode=side&suite=3
 test(
   qase(7, 'Verify Map functionality for no-triggered mode'),
   async ({ page }) => {

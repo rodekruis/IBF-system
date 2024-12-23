@@ -30,7 +30,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/');
   await loginPage.login(TriggerDataSet.UserMail, TriggerDataSet.UserPassword);
 });
-
+// https://app.qase.io/project/IBF?case=44&previewMode=side&suite=6
 test(
   qase(44, '[Trigger] Show prediction button is clickable'),
   async ({ page }) => {

@@ -33,7 +33,7 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-
+// https://app.qase.io/project/IBF?case=4&previewMode=side&suite=5
 test(
   qase(4, 'All Disaster Type elements are present in no-trigger mode'),
   async ({ page }) => {
