@@ -1,4 +1,4 @@
-import { MalariaScenario } from '../../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
+import { MalariaScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
 import { getAccessToken, resetDB } from '../../../helpers/utility.helper';
 import { testMalariaScenario } from './test-malaria-scenario.helper';
 
