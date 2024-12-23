@@ -1,3 +1,13 @@
+## [0.277.8](https://github.com/rodekruis/IBF-system/compare/v0.277.7...v0.277.8) (2024-12-23)
+
+
+### Bug Fixes
+
+* process some automatic + quickwin eslint warnings ([a8af3a6](https://github.com/rodekruis/IBF-system/commit/a8af3a67b9eace943c7a1059c6776437a807bcd1))
+* revert small change in indicator-metadata ([023742a](https://github.com/rodekruis/IBF-system/commit/023742a0d96bd832738a553b1ea3ac871c253c98))
+
+
+
 ## [0.277.7](https://github.com/rodekruis/IBF-system/compare/v0.277.6...v0.277.7) (2024-12-19)
 
 
@@ -77,22 +87,6 @@
 
 * rm station G5056 ([afe38b1](https://github.com/rodekruis/IBF-system/commit/afe38b1d0548a50eb023cff6c7d2bd02b39fc516))
 * update glofas station coordinates ([a3f6ae1](https://github.com/rodekruis/IBF-system/commit/a3f6ae15425654c23ce5154bf7f4a11de9187a34))
-
-
-
-## [0.276.8](https://github.com/rodekruis/IBF-system/compare/v0.276.7...v0.276.8) (2024-12-02)
-
-
-### Bug Fixes
-
-* add geoserver volume to docker ignore ([7643617](https://github.com/rodekruis/IBF-system/commit/7643617ef34e7428c41cabe9a2dedcf263614dcd))
-* move raster-files.zip to azure storage ([44c75e3](https://github.com/rodekruis/IBF-system/commit/44c75e342e1afc658527b2f01e82acb6d6f23ed7))
-* remove explicit lineclamp import ([4b18118](https://github.com/rodekruis/IBF-system/commit/4b181181f43702cbf8440369441a5a5883492005))
-* rm web-server-network from docker-compose.ci ([84247d8](https://github.com/rodekruis/IBF-system/commit/84247d82a0023143695b770a5988eb6a25b3b80f))
-* set correct nginx webserver root ([8ac4a23](https://github.com/rodekruis/IBF-system/commit/8ac4a23ea8e0a59a59781689e2071d93e70994dd))
-* set default server name in nginx conf ([7228694](https://github.com/rodekruis/IBF-system/commit/7228694121018a9acc63c04c97165d017481ef71))
-* use azureuser for webhook service ([d9af32c](https://github.com/rodekruis/IBF-system/commit/d9af32ce62b7cccae495331e22de62c2277f68ed))
-* use recursive instead of archive flag in cp ([3b704b7](https://github.com/rodekruis/IBF-system/commit/3b704b7dbaaea9c159f0743cd3a9f8ea7d35e66c))
 
 
 
