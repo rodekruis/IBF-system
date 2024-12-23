@@ -1,4 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
 import {
@@ -32,6 +33,7 @@ import { MapView } from 'src/app/types/map-view';
   selector: 'app-admin-level',
   templateUrl: './admin-level.component.html',
   styleUrls: ['./admin-level.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AdminLevelComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
@@ -57,8 +59,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   private breadcrumbDisasters = [
     DisasterTypeKey.flashFloods,
     DisasterTypeKey.heavyRain,
-    // DisasterTypeKey.dengue, // TODO: after switching to event-based, but events being defined in time, not in space, the breadcrumbs no longer made sense. Easiest to disable.
-    // DisasterTypeKey.malaria,
+    // DisasterTypeKey.malaria, // TODO: after switching to event-based, but events being defined in time, not in space, the breadcrumbs no longer made sense. Easiest to disable.
     DisasterTypeKey.floods,
   ];
 
@@ -171,11 +172,11 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   public getAdminLevelLabel(adminLevel: AdminLevel): string {
     return this.adminLevelService.adminLevelLabel
       ? this.adminLevelService.adminLevelLabel[AdminLevel[adminLevel]]
-      : `Admin Level ${adminLevel}`;
+      : `Admin Level ${AdminLevel[adminLevel]}`;
   }
 
   private getAdminLevelLayerName(adminLevel: AdminLevel): IbfLayerName {
-    return `${IbfLayerGroup.adminRegions}${adminLevel}` as IbfLayerName;
+    return `${IbfLayerGroup.adminRegions}${AdminLevel[adminLevel]}` as IbfLayerName;
   }
 
   public getAdminLevelLayer(adminLevel: AdminLevel): IbfLayer {

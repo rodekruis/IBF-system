@@ -420,11 +420,8 @@ export class ApiService {
     } else if (disasterType.disasterType === DisasterTypeKey.flashFloods) {
       apiPath = 'mock/flash-floods';
       isNewBodyFormat = true;
-    } else if (
-      disasterType.disasterType === DisasterTypeKey.dengue ||
-      disasterType.disasterType === DisasterTypeKey.malaria
-    ) {
-      apiPath = 'mock/epidemics';
+    } else if (disasterType.disasterType === DisasterTypeKey.malaria) {
+      apiPath = 'mock/malaria';
       isNewBodyFormat = true;
     }
 

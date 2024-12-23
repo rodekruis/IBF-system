@@ -16,7 +16,12 @@ import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
-import { LeadTimeTriggerKey, LeadTimeUnit } from 'src/app/types/lead-time';
+import {
+  LeadTime,
+  LeadTimeTriggerKey,
+  LeadTimeUnit,
+} from 'src/app/types/lead-time';
+import { RecentDate } from 'src/app/types/recent-date';
 
 export class EventSummary {
   countryCodeISO3: string;
@@ -59,7 +64,11 @@ export class EventService {
   private disasterType: DisasterType;
   private countryDisasterSettings: CountryDisasterSettings;
 
-  public nullState = {
+  public nullState: {
+    events: EventSummary[];
+    event: EventSummary;
+    thresholdReached: boolean;
+  } = {
     events: null,
     event: null,
     thresholdReached: null,
@@ -156,7 +165,7 @@ export class EventService {
   public getTriggerByDisasterType(
     countryCountryISO3: string,
     disasterType: DisasterType,
-    callback,
+    callback: (disasterType: DisasterType) => void,
   ) {
     if (countryCountryISO3 && disasterType) {
       this.apiService
@@ -166,7 +175,11 @@ export class EventService {
   }
 
   private onGetDisasterTypeEvent =
-    (disasterType: DisasterType, callback) => (events) => {
+    (
+      disasterType: DisasterType,
+      callback: (disasterType: DisasterType) => void,
+    ) =>
+    (events: EventSummary[]) => {
       disasterType.activeTrigger =
         events.filter((e: EventSummary) => e.thresholdReached).length > 0 ||
         false;
@@ -184,7 +197,7 @@ export class EventService {
       });
   };
 
-  private onRecentDates = (date, events) => {
+  private onRecentDates = (date: RecentDate, events: EventSummary[]) => {
     if (date.timestamp || date.date) {
       this.today = DateTime.fromISO(date.timestamp || date.date);
     } else {
@@ -213,12 +226,15 @@ export class EventService {
         event.timeUnit = event.firstLeadTime?.split('-')[1];
 
         event.firstLeadTimeDate = event.firstLeadTime
-          ? this.getFirstLeadTimeDate(event.firstLeadTime, event.timeUnit)
+          ? this.getFirstLeadTimeDate(
+              event.firstLeadTime as LeadTime,
+              event.timeUnit as LeadTimeUnit,
+            )
           : null;
         event.firstTriggerLeadTimeDate = event.firstTriggerLeadTime
           ? this.getFirstLeadTimeDate(
-              event.firstTriggerLeadTime,
-              event.timeUnit,
+              event.firstTriggerLeadTime as LeadTime,
+              event.timeUnit as LeadTimeUnit,
             )
           : null;
 
@@ -244,7 +260,6 @@ export class EventService {
   public skipNationalView(disastertype: DisasterTypeKey) {
     return (
       disastertype === DisasterTypeKey.typhoon ||
-      disastertype === DisasterTypeKey.dengue ||
       disastertype === DisasterTypeKey.malaria
     );
   }
@@ -334,7 +349,7 @@ export class EventService {
     }
   };
 
-  public getFirstLeadTimeDate(firstKey, timeUnit: LeadTimeUnit) {
+  public getFirstLeadTimeDate(firstKey: LeadTime, timeUnit: LeadTimeUnit) {
     const timeUnitsInFuture = Number(LeadTimeTriggerKey[firstKey]);
     const futureDateTime =
       timeUnit === LeadTimeUnit.month

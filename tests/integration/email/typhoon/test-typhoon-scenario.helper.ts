@@ -17,10 +17,6 @@ export async function testTyphoonScenario(
   const eventName = 'Mock typhoon';
   const disasterTypeLabel = DisasterType.Typhoon;
 
-  // const disasterType = DisasterType.Typhoon;
-  // const disasterTypeLabel = disasters.find(
-  //   (d) => d.disasterType === disasterType,
-  // ).label;
   const mockResult = await mockTyphoon(scenario, countryCodeISO3, accessToken);
   // Act
   const response = await sendNotification(

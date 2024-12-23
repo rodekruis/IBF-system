@@ -20,16 +20,6 @@
     "maxLeadTime": "7-day"
   },
   {
-    "disasterType": "dengue",
-    "label": "dengue",
-    "triggerUnit": "alert_threshold",
-    "actionsUnit": "potential_cases",
-    "showOnlyTriggeredAreas": false,
-    "leadTimeUnit": "month",
-    "minLeadTime": "0-month",
-    "maxLeadTime": "2-month"
-  },
-  {
     "disasterType": "malaria",
     "label": "malaria",
     "triggerUnit": "alert_threshold",

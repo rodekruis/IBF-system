@@ -190,7 +190,7 @@ export class AdminLevelService {
     if (adminLevel === AdminLevel.adminLevel1) {
       return `${prefix}start`;
     }
-    if (adminLevel === length) {
+    if (Number(AdminLevel[adminLevel]) === length) {
       return `${prefix}end`;
     }
 

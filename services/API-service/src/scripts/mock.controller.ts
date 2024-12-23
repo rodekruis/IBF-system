@@ -30,9 +30,9 @@ import { UserRole } from '../api/user/user-role.enum';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
 import {
-  EpidemicsScenario,
   FlashFloodsScenario,
   FloodsScenario,
+  MalariaScenario,
 } from './enum/mock-scenario.enum';
 import { MockService } from './mock.service';
 
@@ -77,13 +77,13 @@ export class MockFlashFloodsScenario extends MockBaseScenario {
   public readonly scenario: FlashFloodsScenario;
 }
 
-export class MockEpidemicsScenario extends MockBaseScenario {
+export class MockMalariaScenario extends MockBaseScenario {
   @ApiProperty({
-    example: Object.values(EpidemicsScenario).join(' | '),
+    example: Object.values(MalariaScenario).join(' | '),
     description: 'trigger: trigger in each month',
   })
-  @IsEnum(EpidemicsScenario)
-  public readonly scenario: EpidemicsScenario;
+  @IsEnum(MalariaScenario)
+  public readonly scenario: MalariaScenario;
 }
 
 @Controller('mock')
@@ -175,11 +175,11 @@ export class MockController {
 
   @Roles(UserRole.Admin)
   @ApiOperation({
-    summary: 'Upload mock data for specific epidemics scenario',
+    summary: 'Upload mock data for specific malaria scenario',
   })
   @ApiResponse({
     status: 202,
-    description: 'Uploaded mock data for specific epidemics scenario',
+    description: 'Uploaded mock data for specific malaria scenario',
   })
   @ApiQuery({
     name: 'isApiTest',
@@ -188,9 +188,9 @@ export class MockController {
     type: 'boolean',
     description: 'Set to true for tests',
   })
-  @Post('/epidemics')
-  public async mockEpidemicsScenario(
-    @Body() body: MockEpidemicsScenario,
+  @Post('/malaria')
+  public async mockMalariaScenario(
+    @Body() body: MockMalariaScenario,
     @Res() res,
     @Query(
       'isApiTest',
@@ -204,13 +204,9 @@ export class MockController {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
 
-    const disasterType =
-      body.countryCodeISO3 === 'PHL'
-        ? DisasterType.Dengue
-        : DisasterType.Malaria;
     const result = await this.mockService.mock(
       body,
-      disasterType,
+      DisasterType.Malaria,
       false,
       isApiTest,
     );
