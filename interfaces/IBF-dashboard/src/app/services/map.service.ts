@@ -20,6 +20,7 @@ import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
 import {
+  ColorBreaks,
   IbfLayer,
   IbfLayerGroup,
   IbfLayerLabel,
@@ -44,12 +45,16 @@ export class MapService {
   private stoppedTriggerColor = 'var(--ion-color-ibf-black)';
   private triggeredAreaColor = 'var(--ion-color-ibf-outline-red)';
   private nonTriggeredAreaColor = 'var(--ion-color-ibf-no-alert-primary)';
-  private disputedBorderStyle = {
+  private disputedBorderStyle: {
+    weight: number;
+    dashArray: string;
+    color: string;
+  } = {
     weight: 2,
     dashArray: '5 5',
     color: null,
   };
-  private layerDataCache = {};
+  private layerDataCache: Record<string, GeoJSON.FeatureCollection> = {};
 
   public state = {
     bounds: [
@@ -192,7 +197,7 @@ export class MapService {
     });
   };
 
-  private async loadLayers() {
+  private loadLayers() {
     this.layers = [];
     this.layerSubject.next(null);
 
@@ -295,18 +300,12 @@ export class MapService {
   };
 
   private loadWaterPointsLayer = (layer: IbfLayerMetadata) => {
-    const layerDataCacheKey = this.getLayerDataCacheKey(layer.name);
-    if (this.layerDataCache[layerDataCacheKey]) {
-      this.addWaterPointsLayer(layer, this.layerDataCache[layerDataCacheKey]);
-    } else {
-      this.addWaterPointsLayer(layer, null);
-      this.apiService
-        .getWaterPoints(this.country.countryCodeISO3)
-        .subscribe((waterPoints) => {
-          this.addWaterPointsLayer(layer, waterPoints);
-          this.layerDataCache[layerDataCacheKey] = waterPoints;
-        });
-    }
+    this.addWaterPointsLayer(layer, null);
+    this.apiService
+      .getWaterPoints(this.country.countryCodeISO3)
+      .subscribe((waterPoints) => {
+        this.addWaterPointsLayer(layer, waterPoints);
+      });
   };
 
   private addWaterPointsLayer(
@@ -355,8 +354,9 @@ export class MapService {
     adminLevel: AdminLevel,
   ) {
     this.addLayer({
-      name: `${IbfLayerGroup.adminRegions}${adminLevel}` as IbfLayerName,
-      label: `${IbfLayerGroup.adminRegions}${adminLevel}` as IbfLayerLabel,
+      name: `${IbfLayerGroup.adminRegions}${adminLevel.toString()}` as IbfLayerName,
+      label:
+        `${IbfLayerGroup.adminRegions}${adminLevel.toString()}` as IbfLayerLabel,
       group: IbfLayerGroup.adminRegions,
       type: IbfLayerType.shape,
       description: '',
@@ -480,7 +480,12 @@ export class MapService {
 
   private addLayer(layer: IbfLayer): void {
     const { name, viewCenter, data } = layer;
-    if (viewCenter && data && data.features && data.features.length) {
+    // cache the data if available
+    const layerDataCacheKey = this.getLayerDataCacheKey(layer.name);
+    if (data) {
+      this.layerDataCache[layerDataCacheKey] = data;
+    }
+    if (viewCenter && data?.features?.length) {
       const layerBounds = bbox(data);
       this.state.bounds = containsNumber(layerBounds)
         ? ([
@@ -546,32 +551,33 @@ export class MapService {
       : interactedLayer.show;
   };
 
-  private updateLayer = (layer: IbfLayer) => (layerData) => {
-    this.addLayer({
-      name: layer.name,
-      label: layer.label,
-      type: layer.type,
-      description: layer.description,
-      active: this.adminLevelService.activeLayerNames.length
-        ? this.adminLevelService.activeLayerNames.includes(layer.name)
-        : layer.active,
-      viewCenter: false,
-      data: layerData,
-      wms: layer.wms,
-      colorProperty:
-        layer.group === IbfLayerGroup.adminRegions
-          ? this.disasterType.actionsUnit
-          : layer.colorProperty,
-      colorBreaks: layer.colorBreaks,
-      numberFormatMap: layer.numberFormatMap,
-      legendColor: layer.legendColor,
-      group: layer.group,
-      order: layer.order,
-      unit: layer.unit,
-      dynamic: layer.dynamic,
-      show: layer.show,
-    });
-  };
+  private updateLayer =
+    (layer: IbfLayer) => (layerData: GeoJSON.FeatureCollection) => {
+      this.addLayer({
+        name: layer.name,
+        label: layer.label,
+        type: layer.type,
+        description: layer.description,
+        active: this.adminLevelService.activeLayerNames.length
+          ? this.adminLevelService.activeLayerNames.includes(layer.name)
+          : layer.active,
+        viewCenter: false,
+        data: layerData,
+        wms: layer.wms,
+        colorProperty:
+          layer.group === IbfLayerGroup.adminRegions
+            ? this.disasterType.actionsUnit
+            : layer.colorProperty,
+        colorBreaks: layer.colorBreaks,
+        numberFormatMap: layer.numberFormatMap,
+        legendColor: layer.legendColor,
+        group: layer.group,
+        order: layer.order,
+        unit: layer.unit,
+        dynamic: layer.dynamic,
+        show: layer.show,
+      });
+    };
 
   public toggleLayer = (layer: IbfLayer): void => {
     layer.active = !layer.active;
@@ -583,7 +589,7 @@ export class MapService {
     if (layerName === IbfLayerName.waterpoints) {
       return `${this.country.countryCodeISO3}_${layerName}`;
     } else {
-      return `${this.country.countryCodeISO3}_${this.disasterType.disasterType}_${this.timelineState.activeLeadTime}_${this.adminLevel}_${layerName}`;
+      return `${this.country.countryCodeISO3}_${this.disasterType.disasterType}_${this.timelineState.activeLeadTime}_${this.adminLevel.toString()}_${layerName}`;
     }
   }
 
@@ -598,7 +604,8 @@ export class MapService {
         layer.active = this.isLayerActive(layer, newLayer);
         layer.show = this.isLayerShown(layer, newLayer);
         if (this.layerDataCache[layerDataCacheKey]) {
-          const layerData = this.layerDataCache[layerDataCacheKey];
+          const layerData: GeoJSON.FeatureCollection =
+            this.layerDataCache[layerDataCacheKey];
           this.updateLayer(layer)(layerData);
         } else if (layer.active) {
           this.getLayerData(layer).subscribe((layerDataResponse) => {
@@ -650,9 +657,7 @@ export class MapService {
         )
         .pipe(shareReplay(1));
     } else if (layer.group === IbfLayerGroup.adminRegions) {
-      const adminLevel = Number(
-        layer.name.substr(layer.name.length - 1),
-      ) as AdminLevel;
+      const adminLevel = Number(layer.name.slice(-1)) as AdminLevel;
       layerData = this.apiService
         .getAdminRegions(
           this.country.countryCodeISO3,
@@ -753,7 +758,7 @@ export class MapService {
 
   getAdminRegionFillColor = (
     colorPropertyValue,
-    colorThreshold,
+    colorThreshold: { break0: number },
     placeCode: string,
     placeCodeParent: string,
   ): string => {
@@ -856,7 +861,7 @@ export class MapService {
   };
 
   adminLevelLowerThanDefault = (name: IbfLayerName): boolean => {
-    return name.substr(name.length - 1) < String(this.adminLevel);
+    return name.slice(-1) < String(this.adminLevel);
   };
 
   getAdminRegionColor = (layer: IbfLayer): string => {
@@ -865,7 +870,11 @@ export class MapService {
       : this.state.transparentColor;
   };
 
-  public getColorThreshold = (adminRegions, colorProperty, colorBreaks) => {
+  public getColorThreshold = (
+    adminRegions: GeoJSON.FeatureCollection,
+    colorProperty: string,
+    colorBreaks: ColorBreaks,
+  ): { break0: number } => {
     if (colorBreaks) {
       const colorThresholdWithBreaks = {
         break0: 0,
@@ -878,11 +887,11 @@ export class MapService {
       });
       return colorThresholdWithBreaks;
     }
-    const colorPropertyValues = adminRegions.features
+    const colorPropertyValues: number[] = adminRegions.features
       .map((feature) =>
         typeof feature.properties[colorProperty] !== 'undefined'
           ? feature.properties[colorProperty]
-          : feature.properties.indicators?.[colorProperty],
+          : feature.properties['indicators']?.[colorProperty],
       )
       .filter((v, i, a) => a.indexOf(v) === i);
 
@@ -926,14 +935,14 @@ export class MapService {
 
   public setAdminRegionStyle = (layer: IbfLayer) => {
     const colorProperty = layer.colorProperty;
-    const colorThreshold = this.getColorThreshold(
+    const colorThreshold: { break0: number } = this.getColorThreshold(
       layer.data,
       colorProperty,
       layer.colorBreaks,
     );
 
     return (adminRegion) => {
-      const colorPropertyValue =
+      const colorPropertyValue: string =
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
           : typeof adminRegion.properties.indicators !== 'undefined'
@@ -952,7 +961,7 @@ export class MapService {
           adminRegion.properties.placeCode,
         );
         let color = this.getAdminRegionColor(layer);
-        let dashArray;
+        let dashArray: string;
         if (adminRegion.properties.placeCode?.includes('Disputed')) {
           dashArray = this.disputedBorderStyle.dashArray;
           weight = this.disputedBorderStyle.weight;

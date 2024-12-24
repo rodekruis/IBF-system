@@ -24,7 +24,7 @@
           <ion-row class="ion-justify-content-between ion-nowrap">
             <ion-item data-testid="matrix-layer-name" lines="none">
               @if (layer.isLoading) {
-                <ion-spinner></ion-spinner>
+                <ion-spinner class="mx-[0.15rem]"></ion-spinner>
               } @else {
                 @if (isCheckBox(layer.group)) {
                   <ion-icon

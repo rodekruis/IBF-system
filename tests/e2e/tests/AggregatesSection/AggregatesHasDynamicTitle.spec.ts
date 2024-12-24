@@ -33,12 +33,8 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-// The test is skipped because of the bug that was identified during writing of this test
-// The bug is that the marker of glofas stations cannot be disabled with the first chebox click (needs several) and it is failing on flood disaster type
-// https://github.com/rodekruis/IBF-system/issues/1657
-// When the bug is fixed, the test should be unskipped
-// https://app.qase.io/project/IBF?case=12&previewMode=side&suite=7
-test.skip(
+
+test(
   qase(
     12,
     'Aggregates title should be dynamic upon hovering over map district',
