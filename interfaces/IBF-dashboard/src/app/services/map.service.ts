@@ -300,18 +300,12 @@ export class MapService {
   };
 
   private loadWaterPointsLayer = (layer: IbfLayerMetadata) => {
-    const layerDataCacheKey = this.getLayerDataCacheKey(layer.name);
-    if (this.layerDataCache[layerDataCacheKey]) {
-      this.addWaterPointsLayer(layer, this.layerDataCache[layerDataCacheKey]);
-    } else {
-      this.addWaterPointsLayer(layer, null);
-      this.apiService
-        .getWaterPoints(this.country.countryCodeISO3)
-        .subscribe((waterPoints) => {
-          this.addWaterPointsLayer(layer, waterPoints);
-          this.layerDataCache[layerDataCacheKey] = waterPoints;
-        });
-    }
+    this.addWaterPointsLayer(layer, null);
+    this.apiService
+      .getWaterPoints(this.country.countryCodeISO3)
+      .subscribe((waterPoints) => {
+        this.addWaterPointsLayer(layer, waterPoints);
+      });
   };
 
   private addWaterPointsLayer(
