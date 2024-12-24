@@ -1,3 +1,14 @@
+## [0.277.10](https://github.com/rodekruis/IBF-system/compare/v0.277.9...v0.277.10) (2024-12-24)
+
+
+### Bug Fixes
+
+* add layer to cache ([8bf65ec](https://github.com/rodekruis/IBF-system/commit/8bf65ec35735e99699050c07197d70b2f2ff849c))
+* also call updateLayer if layer not active AB[#32327](https://github.com/rodekruis/IBF-system/issues/32327) ([1983a65](https://github.com/rodekruis/IBF-system/commit/1983a65eac9fb3ceab64674afe863bfa46bbf194))
+* remove waterpoints cache ([5956067](https://github.com/rodekruis/IBF-system/commit/5956067133c0aeccf4fdcae1554cf0e562ac91be))
+
+
+
 ## [0.277.9](https://github.com/rodekruis/IBF-system/compare/v0.277.8...v0.277.9) (2024-12-23)
 
 
@@ -74,21 +85,6 @@
 ### Bug Fixes
 
 * mock buildings blantyre ([56499d4](https://github.com/rodekruis/IBF-system/commit/56499d4a10c81a1f82a4005312f24e71793acbe9))
-
-
-
-# [0.277.0](https://github.com/rodekruis/IBF-system/compare/v0.276.9...v0.277.0) (2024-12-02)
-
-
-### Bug Fixes
-
-* update adm3 areas blantyre city ([ef891ce](https://github.com/rodekruis/IBF-system/commit/ef891ce7674da761519dc7d3a5653120b64f8c26))
-* update blantyre mock data ([26e49b4](https://github.com/rodekruis/IBF-system/commit/26e49b4d9c5f7c091b93a6afb8b770838451e65f))
-
-
-### Features
-
-* add blantyre only scenario ([fcda9ce](https://github.com/rodekruis/IBF-system/commit/fcda9ce4122e8e71df085377388191389372f526))
 
 
 
