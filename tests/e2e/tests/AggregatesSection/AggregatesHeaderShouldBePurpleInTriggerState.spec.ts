@@ -30,7 +30,7 @@ test.beforeEach(async ({ page }) => {
   await page.goto('/');
   await loginPage.login(TriggerDataSet.UserMail, TriggerDataSet.UserPassword);
 });
-
+// https://app.qase.io/project/IBF?previewMode=side&suite=7&case=40
 test(qase(40, '[Trigger] header colour is purple'), async ({ page }) => {
   const aggregates = new AggregatesComponent(page);
   const dashboard = new DashboardPage(page);
