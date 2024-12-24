@@ -486,6 +486,11 @@ export class MapService {
 
   private addLayer(layer: IbfLayer): void {
     const { name, viewCenter, data } = layer;
+    // cache the data if available
+    const layerDataCacheKey = this.getLayerDataCacheKey(layer.name);
+    if (data) {
+      this.layerDataCache[layerDataCacheKey] = data;
+    }
     if (viewCenter && data?.features?.length) {
       const layerBounds = bbox(data);
       this.state.bounds = containsNumber(layerBounds)
@@ -608,7 +613,7 @@ export class MapService {
           const layerData: GeoJSON.FeatureCollection =
             this.layerDataCache[layerDataCacheKey];
           this.updateLayer(layer)(layerData);
-        } else {
+        } else if (layer.active) {
           this.getLayerData(layer).subscribe((layerDataResponse) => {
             this.layerDataCache[layerDataCacheKey] = layerDataResponse;
             this.updateLayer(layer)(layerDataResponse);
