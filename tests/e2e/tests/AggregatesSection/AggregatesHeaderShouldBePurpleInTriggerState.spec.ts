@@ -44,6 +44,7 @@ test(qase(40, '[Trigger] header colour is purple'), async ({ page }) => {
   });
 
   // Validate that the aggregates header is purple by class
-  // ASK ANDREA WHICH IS THE NAME OF THE BACKGROUND COLOR CLASS!!!
-  await aggregates.validateColourOfAggregatesHeader();
+  await aggregates.validateColorOfAggregatesHeaderByClass({
+    isTrigger: true,
+  });
 });

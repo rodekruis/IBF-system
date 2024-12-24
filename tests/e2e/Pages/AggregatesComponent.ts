@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
+import { IbfStyles } from 'testData/styles.enum';
 import { EnglishTranslations } from 'testData/translations.enum';
 
 import DashboardPage from './DashboardPage';
@@ -24,6 +25,7 @@ class AggregatesComponent extends DashboardPage {
   readonly popoverLayer: Locator;
   readonly layerInfoPopoverTitle: Locator;
   readonly layerInfoPopoverContent: Locator;
+  readonly ibfDashboardInterface: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -46,6 +48,7 @@ class AggregatesComponent extends DashboardPage {
     this.popoverLayer = this.page.getByTestId('disclaimer-popover-layer');
     this.layerInfoPopoverTitle = this.page.getByTestId('layer-info-title');
     this.layerInfoPopoverContent = this.page.getByTestId('layer-info-content');
+    this.ibfDashboardInterface = page.getByTestId('ibf-dashboard-interface');
   }
 
   async aggregateComponentIsVisible() {
@@ -131,10 +134,19 @@ class AggregatesComponent extends DashboardPage {
     return eventsNumber ? parseInt(eventsNumber[0], 10) : null;
   }
 
-  async validateColourOfAggregatesHeader() {
-    const actionHeaderText = await this.aggregatesTitleHeader;
-    const headerColour = await actionHeaderText.getAttribute('style');
-    console.log('headerColour: ', headerColour);
+  async validateColorOfAggregatesHeaderByClass({
+    isTrigger = false,
+  }: {
+    isTrigger?: boolean;
+  }) {
+    const actionHeaderText = this.ibfDashboardInterface;
+    const headerColour = await actionHeaderText.getAttribute('class');
+
+    if (isTrigger) {
+      expect(headerColour).toContain(IbfStyles.trigger);
+    } else {
+      expect(headerColour).toContain(IbfStyles.noTrigger);
+    }
   }
 }
 
