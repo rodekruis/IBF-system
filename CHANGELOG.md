@@ -1,3 +1,14 @@
+## [0.277.13](https://github.com/rodekruis/IBF-system/compare/v0.277.12...v0.277.13) (2024-12-27)
+
+
+### Bug Fixes
+
+* api tests ([43e9105](https://github.com/rodekruis/IBF-system/commit/43e9105f1574d9c0703e7c48a2a7e01e98942bbe))
+* check on commit to master, not main ([ae32066](https://github.com/rodekruis/IBF-system/commit/ae3206658e53b13da1ce75d468f1d4db2e9baff6))
+* using singular instead of plural passed the tests ([727351f](https://github.com/rodekruis/IBF-system/commit/727351f808fc6d5449498291f0c33ff2958ab630))
+
+
+
 ## [0.277.12](https://github.com/rodekruis/IBF-system/compare/v0.277.11...v0.277.12) (2024-12-27)
 
 
@@ -75,16 +86,6 @@
 * delete package-lock ([ab3b82c](https://github.com/rodekruis/IBF-system/commit/ab3b82c2863e4baa1dd9f3976477ae0e23e07082))
 * recreate lock file ([b467bbd](https://github.com/rodekruis/IBF-system/commit/b467bbded4e01753b66a993aa304f317388096f5))
 * update package.json ([9393d0b](https://github.com/rodekruis/IBF-system/commit/9393d0b1bd062d87f242eb5691dea3a935e136d4))
-
-
-
-## [0.277.3](https://github.com/rodekruis/IBF-system/compare/v0.277.2...v0.277.3) (2024-12-09)
-
-
-### Bug Fixes
-
-* api test flash floods AB[#31853](https://github.com/rodekruis/IBF-system/issues/31853) ([cce4304](https://github.com/rodekruis/IBF-system/commit/cce4304e33c44c9c459b4738b944bfbfe3e8dd94))
-* increase timeout even more ([b539b09](https://github.com/rodekruis/IBF-system/commit/b539b09759077522b88c01a74d94f39ad97abcba))
 
 
 
