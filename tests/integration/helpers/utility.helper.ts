@@ -1,5 +1,6 @@
 import * as request from 'supertest';
 import TestAgent from 'supertest/lib/agent';
+
 import { CreateUserDto } from './API-service/dto/create-user.dto';
 import { UploadTyphoonTrackDto } from './API-service/dto/upload-typhoon-track.dto';
 import { DisasterType } from './API-service/enum/disaster-type.enum';
@@ -13,8 +14,10 @@ import users from './API-service/json/users.json';
 
 export async function getAccessToken(): Promise<string> {
   const admin = users.find((user) => user.userRole === 'admin');
+  if (!admin) {
+    throw new Error('Admin user not found');
+  }
   const login = await loginUser(admin.email, admin.password);
-
   const accessToken = login.body.user.token;
   return accessToken;
 }
@@ -29,7 +32,7 @@ export function loginUser(
   });
 }
 
-export function getHostname(): string {
+export function getHostname(): string | undefined {
   return process.env.API_SERVICE_URL;
 }
 
@@ -188,7 +191,7 @@ export function getTyphoonTrack(
 ): Promise<request.Response> {
   let query = {};
   if (eventName) {
-    query = { eventName: eventName };
+    query = { eventName };
   }
   return getServer()
     .get(`/typhoon-track/${countryCodeISO3}`)

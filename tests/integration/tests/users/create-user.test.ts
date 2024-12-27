@@ -1,11 +1,11 @@
 import { userData } from '../../fixtures/users.const';
+import { UserRole } from '../../helpers/API-service/enum/user-role.enum';
 import {
   createUser,
   getAccessToken,
   loginUser,
   resetDB,
 } from '../../helpers/utility.helper';
-import { UserRole } from '../../helpers/API-service/enum/user-role.enum';
 
 describe('create user', () => {
   let accessToken: string;
@@ -17,7 +17,7 @@ describe('create user', () => {
 
   it('successfully, and log-in with it', async () => {
     // Arrange
-    let newUserData = structuredClone(userData);
+    const newUserData = structuredClone(userData);
     newUserData.email = 'new-user@redcross.nl';
     newUserData.username = 'new-user';
 
@@ -37,7 +37,7 @@ describe('create user', () => {
 
   it('fails when email or username exists already', async () => {
     // Arrange
-    let existingUserData = structuredClone(userData);
+    const existingUserData = structuredClone(userData);
 
     // Act
     const createResult = await createUser(existingUserData, accessToken);

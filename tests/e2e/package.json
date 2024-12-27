@@ -10,8 +10,6 @@
   "devDependencies": {
     "@eslint/js": "^9.17.0",
     "@playwright/test": "^1.49.0",
-    "@types/express": "^5.0.0",
-    "@types/jest": "^29.5.14",
     "@types/node": "^22.10.2",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.17.0",
@@ -29,8 +27,6 @@
     "@alex_neo/playwright-azure-reporter": "^1.12.0",
     "date-fns": "^4.1.0",
     "dotenv": "16.4.5",
-    "playwright": "^1.47.0",
-    "structured-clone": "^0.2.2",
-    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+    "playwright": "^1.47.0"
   }
 }
