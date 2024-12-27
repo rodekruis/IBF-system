@@ -1,3 +1,12 @@
+## [0.277.12](https://github.com/rodekruis/IBF-system/compare/v0.277.11...v0.277.12) (2024-12-27)
+
+
+### Bug Fixes
+
+* use null as default value for middle name ([093ada0](https://github.com/rodekruis/IBF-system/commit/093ada00aa95c92c88db2f48c10e25f09a0dab97))
+
+
+
 ## [0.277.11](https://github.com/rodekruis/IBF-system/compare/v0.277.10...v0.277.11) (2024-12-27)
 
 
@@ -76,15 +85,6 @@
 
 * api test flash floods AB[#31853](https://github.com/rodekruis/IBF-system/issues/31853) ([cce4304](https://github.com/rodekruis/IBF-system/commit/cce4304e33c44c9c459b4738b944bfbfe3e8dd94))
 * increase timeout even more ([b539b09](https://github.com/rodekruis/IBF-system/commit/b539b09759077522b88c01a74d94f39ad97abcba))
-
-
-
-## [0.277.2](https://github.com/rodekruis/IBF-system/compare/v0.277.1...v0.277.2) (2024-12-03)
-
-
-### Bug Fixes
-
-* switch around leadtimes for blantyre & rumphi ([29b8f35](https://github.com/rodekruis/IBF-system/commit/29b8f352e61ed3c774d69795f87bd92932e725ac))
 
 
 
