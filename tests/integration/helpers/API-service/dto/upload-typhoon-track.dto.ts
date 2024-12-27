@@ -1,11 +1,11 @@
 import { LeadTime } from '../enum/lead-time.enum';
 
-export class UploadTyphoonTrackDto {
-  public countryCodeISO3: string;
-  public leadTime: LeadTime;
-  public eventName: string;
-  public trackpointDetails: TrackpointDetailsDto[];
-  public readonly date: Date;
+export interface UploadTyphoonTrackDto {
+  countryCodeISO3: string;
+  leadTime: LeadTime;
+  eventName: string;
+  trackpointDetails: TrackpointDetailsDto[];
+  readonly date: Date;
 }
 
 export enum TyphoonCategory {
@@ -16,12 +16,12 @@ export enum TyphoonCategory {
   STY = 'STY',
 }
 
-export class TrackpointDetailsDto {
-  public lat: number;
-  public lon: number;
-  public timestampOfTrackpoint: Date;
-  public windspeed: number;
-  public category: TyphoonCategory;
-  public firstLandfall: boolean;
-  public closestToLand: boolean;
+export interface TrackpointDetailsDto {
+  lat: number;
+  lon: number;
+  timestampOfTrackpoint: Date;
+  windspeed: number;
+  category: TyphoonCategory;
+  firstLandfall: boolean;
+  closestToLand: boolean;
 }
