@@ -191,7 +191,7 @@ export function getTyphoonTrack(
 ): Promise<request.Response> {
   let query = {};
   if (eventName) {
-    query = { eventName: eventName };
+    query = { eventName };
   }
   return getServer()
     .get(`/typhoon-track/${countryCodeISO3}`)

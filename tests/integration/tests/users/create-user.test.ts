@@ -1,11 +1,11 @@
 import { userData } from '../../fixtures/users.const';
+import { UserRole } from '../../helpers/API-service/enum/user-role.enum';
 import {
   createUser,
   getAccessToken,
   loginUser,
   resetDB,
 } from '../../helpers/utility.helper';
-import { UserRole } from '../../helpers/API-service/enum/user-role.enum';
 
 describe('create user', () => {
   let accessToken: string;
