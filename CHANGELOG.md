@@ -1,3 +1,12 @@
+## [0.277.11](https://github.com/rodekruis/IBF-system/compare/v0.277.10...v0.277.11) (2024-12-27)
+
+
+### Bug Fixes
+
+* no border on ion-input, also on focus ([89d5da8](https://github.com/rodekruis/IBF-system/commit/89d5da86d4294ce2356cc0ee033b5a7614370272))
+
+
+
 ## [0.277.10](https://github.com/rodekruis/IBF-system/compare/v0.277.9...v0.277.10) (2024-12-24)
 
 
@@ -76,15 +85,6 @@
 ### Bug Fixes
 
 * switch around leadtimes for blantyre & rumphi ([29b8f35](https://github.com/rodekruis/IBF-system/commit/29b8f352e61ed3c774d69795f87bd92932e725ac))
-
-
-
-## [0.277.1](https://github.com/rodekruis/IBF-system/compare/v0.277.0...v0.277.1) (2024-12-03)
-
-
-### Bug Fixes
-
-* mock buildings blantyre ([56499d4](https://github.com/rodekruis/IBF-system/commit/56499d4a10c81a1f82a4005312f24e71793acbe9))
 
 
 
