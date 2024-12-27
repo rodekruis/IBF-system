@@ -24,7 +24,7 @@ export async function testFloodScenario(
   params: TestFloodScenarioDto,
 ): Promise<boolean> {
   const { events, countryCodeISO3, accessToken } = params;
-  const disasterTypeLabel = 'Floods';
+  const disasterTypeLabel = 'Flood';
 
   const mockResult = await mockFloods(scenario, countryCodeISO3, accessToken);
   // Act
