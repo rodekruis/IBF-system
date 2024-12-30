@@ -37,7 +37,9 @@ describe('LoginFormComponent', () => {
             login: jasmine.createSpy('login').and.returnValue({
               add: jasmine
                 .createSpy('add')
-                .and.callFake((callback) => callback()),
+                .and.callFake((callback: () => void) => {
+                  callback();
+                }),
             }),
           },
         },
@@ -89,7 +91,7 @@ describe('LoginFormComponent', () => {
     component.model.password = 'password';
     component.onSubmit();
 
-    expect(component.loginForm.resetForm).toHaveBeenCalled();
+    expect(component.loginForm.resetForm).toHaveBeenCalledWith();
   });
 
   it('should toggle inputType on toggleInputType', () => {
@@ -116,7 +118,7 @@ describe('LoginFormComponent', () => {
 
     const popover = await popoverController.create(popoverOptions);
 
-    expect(popover.present).toHaveBeenCalled();
+    expect(popover.present).toHaveBeenCalledWith();
   });
 
   it('should return true if inputType is password', () => {
