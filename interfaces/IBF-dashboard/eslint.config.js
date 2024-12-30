@@ -9,11 +9,12 @@ const eslintPluginQuery = require('@tanstack/eslint-plugin-query');
 const eslintPluginPerfectionist = require('eslint-plugin-perfectionist');
 const eslintPluginRegexp = require('eslint-plugin-regexp');
 const eslintPluginSimpleSort = require('eslint-plugin-simple-import-sort');
+const eslintPluginJasmine = require('eslint-plugin-jasmine');
 
 module.exports = tseslint.config(
   {
     languageOptions: {
-      globals: globals.browser,
+      globals: { ...globals.browser, ...globals.jasmine },
       parserOptions: {
         project: './tsconfig.json',
       },
@@ -139,6 +140,15 @@ module.exports = tseslint.config(
       //  },
       //],
       'simple-import-sort/exports': 'error',
+    },
+  },
+  {
+    files: ['**/*.spec.ts'],
+    plugins: { jasmine: eslintPluginJasmine },
+    rules: {
+      ...eslintPluginJasmine.rules.recommended,
+      '@typescript-eslint/unbound-method': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
     },
   },
   {
