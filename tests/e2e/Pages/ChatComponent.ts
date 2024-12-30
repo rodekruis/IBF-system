@@ -26,6 +26,7 @@ class ChatComponent extends DashboardPage {
   readonly windowsOsLink: Locator;
   readonly macOsLink: Locator;
   readonly linuxOsLink: Locator;
+  readonly infoButtons: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -48,6 +49,7 @@ class ChatComponent extends DashboardPage {
     this.windowsOsLink = this.page.getByTestId('export-view-windows-os');
     this.macOsLink = this.page.getByTestId('export-view-mac-os');
     this.linuxOsLink = this.page.getByTestId('export-view-linux-os');
+    this.infoButtons = this.page.getByTestId('tooltip-button');
   }
 
   async chatColumnIsVisibleForNoTriggerState({
@@ -193,6 +195,16 @@ class ChatComponent extends DashboardPage {
       await expect(predictionButton).toBeEnabled();
     }
     return countPredictionButtons;
+  }
+
+  async validateInfoButtonsAreClickable() {
+    const countInfoButtons = await this.infoButtons.count();
+    for (let i = 0; i < countInfoButtons; i++) {
+      const infoButton = this.infoButtons.nth(i);
+      await infoButton.click();
+      await infoButton.click();
+    }
+    return countInfoButtons;
   }
 }
 
