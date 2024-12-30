@@ -31,8 +31,8 @@
     "@angular/router": "^19.0.5",
     "@angular/service-worker": "^19.0.5",
     "@auth0/angular-jwt": "^5.0.1",
-    "@bluehalo/ngx-leaflet": "^18.0.2",
-    "@bluehalo/ngx-leaflet-markercluster": "^18.0.1",
+    "@bluehalo/ngx-leaflet": "^19.0.0",
+    "@bluehalo/ngx-leaflet-markercluster": "^19.0.0",
     "@ionic/angular": "^6.7.5",
     "@microsoft/applicationinsights-web": "^2.5.11",
     "@ngx-translate/core": "^15.0.0",
@@ -48,7 +48,7 @@
     "rxjs": "~6.6.0",
     "tsconfig": "^7.0.0",
     "tslib": "^2.0.0",
-    "zone.js": "~0.14.7"
+    "zone.js": "^0.15.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^19.0.6",
