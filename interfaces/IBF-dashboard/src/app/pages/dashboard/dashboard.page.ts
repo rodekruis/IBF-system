@@ -13,6 +13,7 @@ import { environment } from 'src/environments/environment';
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
+  standalone: false,
 })
 export class DashboardPage implements OnInit {
   public version: string = environment.ibfSystemVersion;

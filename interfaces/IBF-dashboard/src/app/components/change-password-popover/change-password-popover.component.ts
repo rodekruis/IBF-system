@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/auth/auth.service';
   templateUrl: './change-password-popover.component.html',
   styleUrls: ['./change-password-popover.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class ChangePasswordPopoverComponent {
   @ViewChild('changePasswordForm')

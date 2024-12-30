@@ -12,6 +12,7 @@ import { EventService } from 'src/app/services/event.service';
   selector: 'app-community-notification-popup',
   templateUrl: './community-notification-popup.component.html',
   styleUrls: ['./community-notification-popup.component.scss'],
+  standalone: false,
 })
 export class CommunityNotificationPopupComponent implements OnInit {
   @Input() markerProperties: CommunityNotification;

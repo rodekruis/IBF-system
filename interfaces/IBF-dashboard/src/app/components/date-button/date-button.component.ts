@@ -9,6 +9,7 @@ import { DateFormats, MonthFormats } from 'src/app/types/lead-time';
   selector: 'app-date-button',
   templateUrl: './date-button.component.html',
   styleUrls: ['./date-button.component.scss'],
+  standalone: false,
 })
 export class DateButtonComponent implements OnInit, OnDestroy {
   @Input() date = DateTime.now();

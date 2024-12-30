@@ -5,6 +5,7 @@ import { PopoverController } from '@ionic/angular';
   selector: 'app-screen-orientation-popover',
   templateUrl: './screen-orientation-popover.component.html',
   styleUrls: ['./screen-orientation-popover.component.scss'],
+  standalone: false,
 })
 export class ScreenOrientationPopoverComponent {
   @Input()

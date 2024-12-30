@@ -22,6 +22,7 @@ type StatusData = Record<string, CountryStatus>;
   selector: 'app-status-report',
   templateUrl: './status-report.page.html',
   styleUrls: ['./status-report.page.scss'],
+  standalone: false,
 })
 export class StatusReportPage implements OnInit {
   public statusData: StatusData = {};

@@ -18,6 +18,7 @@ import { TimelineState } from 'src/app/types/timeline-state';
   selector: 'app-timeline',
   templateUrl: './timeline.component.html',
   styleUrls: ['./timeline.component.scss'],
+  standalone: false,
 })
 export class TimelineComponent implements OnInit, OnDestroy {
   private timelineStateSubscription: Subscription;

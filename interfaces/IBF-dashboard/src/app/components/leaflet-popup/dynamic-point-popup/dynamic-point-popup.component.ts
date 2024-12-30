@@ -10,6 +10,7 @@ import { LeadTime } from 'src/app/types/lead-time';
   selector: 'app-dynamic-point-popup',
   templateUrl: './dynamic-point-popup.component.html',
   styleUrls: ['./dynamic-point-popup.component.scss'],
+  standalone: false,
 })
 export class DynamicPointPopupComponent implements OnInit {
   @Input()

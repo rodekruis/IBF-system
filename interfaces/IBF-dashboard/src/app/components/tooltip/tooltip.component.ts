@@ -6,6 +6,7 @@ import { TooltipPopoverComponent } from 'src/app/components/tooltip-popover/tool
   selector: 'app-tooltip',
   templateUrl: './tooltip.component.html',
   styleUrls: ['./tooltip.component.scss'],
+  standalone: false,
 })
 export class TooltipComponent {
   @Input()

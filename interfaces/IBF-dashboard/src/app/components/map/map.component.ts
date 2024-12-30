@@ -77,6 +77,7 @@ import { TimelineState } from 'src/app/types/timeline-state';
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
+  standalone: false,
 })
 export class MapComponent implements AfterViewInit, OnDestroy {
   private map: Map;

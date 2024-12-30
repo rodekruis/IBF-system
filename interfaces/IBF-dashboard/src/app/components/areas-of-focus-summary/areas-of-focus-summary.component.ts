@@ -27,6 +27,7 @@ import { TriggeredArea } from 'src/app/types/triggered-area';
   selector: 'app-areas-of-focus-summary',
   templateUrl: './areas-of-focus-summary.component.html',
   styleUrls: ['./areas-of-focus-summary.component.scss'],
+  standalone: false,
 })
 export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   private eapActionSubscription: Subscription;

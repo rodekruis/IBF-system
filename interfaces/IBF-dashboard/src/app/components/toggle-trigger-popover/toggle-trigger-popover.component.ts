@@ -8,6 +8,7 @@ import { TriggeredArea } from 'src/app/types/triggered-area';
   selector: 'app-toggle-trigger-popover',
   templateUrl: './toggle-trigger-popover.component.html',
   styleUrls: ['./toggle-trigger-popover.component.scss'],
+  standalone: false,
 })
 export class ToggleTriggerPopoverComponent {
   @Input()

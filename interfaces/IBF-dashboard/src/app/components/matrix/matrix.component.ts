@@ -20,6 +20,7 @@ import {
   selector: 'app-matrix',
   templateUrl: './matrix.component.html',
   styleUrls: ['./matrix.component.scss'],
+  standalone: false,
 })
 export class MatrixComponent implements OnDestroy {
   private layerSubscription: Subscription;

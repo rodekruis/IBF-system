@@ -15,6 +15,7 @@ type ActivationLogRecord = Record<string, boolean | number | string>;
   selector: 'app-activation-log',
   templateUrl: './activation.log.page.html',
   styleUrls: ['./activation.log.page.scss'],
+  standalone: false,
 })
 export class ActivationLogPage implements OnInit, OnDestroy {
   public countryCodeISO3: string;

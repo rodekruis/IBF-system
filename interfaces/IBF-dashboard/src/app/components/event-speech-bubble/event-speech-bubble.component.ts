@@ -22,6 +22,7 @@ import { TriggeredArea } from 'src/app/types/triggered-area';
   selector: 'app-event-speech-bubble',
   templateUrl: './event-speech-bubble.component.html',
   styleUrls: ['./event-speech-bubble.component.scss'],
+  standalone: false,
 })
 export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()

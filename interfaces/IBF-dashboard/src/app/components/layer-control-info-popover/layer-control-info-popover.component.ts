@@ -7,6 +7,7 @@ import { IbfLayer } from 'src/app/types/ibf-layer';
   selector: 'app-layer-control-info-popover',
   templateUrl: './layer-control-info-popover.component.html',
   styleUrls: ['./layer-control-info-popover.component.scss'],
+  standalone: false,
 })
 export class LayerControlInfoPopoverComponent {
   public layer: IbfLayer = mockIbfLayer;

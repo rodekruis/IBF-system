@@ -7,6 +7,7 @@ import { LeadTime } from 'src/app/types/lead-time';
   selector: 'app-glofas-station-popup-content',
   templateUrl: './glofas-station-popup-content.component.html',
   styleUrls: ['./glofas-station-popup-content.component.css'],
+  standalone: false,
 })
 export class GlofasStationPopupContentComponent implements OnInit {
   @Input()

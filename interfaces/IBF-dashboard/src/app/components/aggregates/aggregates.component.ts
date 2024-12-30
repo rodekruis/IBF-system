@@ -42,6 +42,7 @@ import { firstCharOfWordsToUpper } from 'src/shared/utils';
   selector: 'app-aggregates',
   templateUrl: './aggregates.component.html',
   styleUrls: ['./aggregates.component.scss'],
+  standalone: false,
 })
 export class AggregatesComponent implements OnInit, OnDestroy {
   @Input()

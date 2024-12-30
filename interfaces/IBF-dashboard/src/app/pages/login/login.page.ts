@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
+  standalone: false,
 })
 export class LoginPage implements OnInit {
   public version: string = environment.ibfSystemVersion;

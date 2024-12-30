@@ -10,6 +10,7 @@ import { ForgotPasswordPopoverComponent } from 'src/app/components/forgot-passwo
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class LoginFormComponent {
   @ViewChild('loginForm')
