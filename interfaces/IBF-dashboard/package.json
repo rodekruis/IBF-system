@@ -79,7 +79,7 @@
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-no-relative-import-paths": "^1.5.5",
-    "eslint-plugin-perfectionist": "^3.9.1",
+    "eslint-plugin-perfectionist": "^4.4.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-regexp": "^2.6.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
