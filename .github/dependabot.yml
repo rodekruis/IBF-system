@@ -46,6 +46,9 @@ updates:
           - '@angular*'
           - '@bluehalo/*'
           - 'zone.js'
+      turf:
+        patterns:
+          - '@turf*'
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-patch']
