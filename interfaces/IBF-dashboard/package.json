@@ -35,7 +35,7 @@
     "@bluehalo/ngx-leaflet-markercluster": "^19.0.0",
     "@ionic/angular": "^6.7.5",
     "@microsoft/applicationinsights-web": "^2.5.11",
-    "@ngx-translate/core": "^15.0.0",
+    "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^8.0.0",
     "@turf/bbox": "^7.2.0",
     "@turf/invariant": "^7.2.0",
