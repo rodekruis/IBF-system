@@ -44,6 +44,8 @@ updates:
       angular:
         patterns:
           - '@angular*'
+          - '@bluehalo/*'
+          - 'zone.js'
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-patch']
