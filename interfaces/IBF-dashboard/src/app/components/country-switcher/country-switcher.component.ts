@@ -7,6 +7,7 @@ import { CountryService } from 'src/app/services/country.service';
   selector: 'app-country-switcher',
   templateUrl: './country-switcher.component.html',
   styleUrls: ['./country-switcher.component.scss'],
+  standalone: false,
 })
 export class CountrySwitcherComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;

@@ -5,6 +5,7 @@ import { PopoverController } from '@ionic/angular';
   selector: 'app-action-result-popover',
   templateUrl: './action-result-popover.component.html',
   styleUrls: ['./action-result-popover.component.scss'],
+  standalone: false,
 })
 export class ActionResultPopoverComponent implements OnInit {
   @Input()

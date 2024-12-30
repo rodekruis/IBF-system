@@ -8,6 +8,7 @@ import { DisasterTypeService } from 'src/app/services/disaster-type.service';
   selector: 'app-logos',
   templateUrl: './logos.component.html',
   styleUrls: ['./logos.component.scss'],
+  standalone: false,
 })
 export class LogosComponent implements OnInit {
   public country: Observable<Country>;

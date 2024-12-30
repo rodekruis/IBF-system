@@ -1,6 +1,8 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@use 'tailwindcss/base';
+@use 'tailwindcss/components';
+@use 'tailwindcss/utilities';
+
+@use 'ibf-colors';
 
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
@@ -9,8 +11,6 @@
 
 // custom font
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
-
-@import 'ibf-colors';
 
 :root {
   --ion-font-family: 'Montserrat', sans-serif;

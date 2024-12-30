@@ -15,6 +15,7 @@ import { EventService } from 'src/app/services/event.service';
   selector: 'app-ibf-guide-button',
   templateUrl: './ibf-guide-button.component.html',
   styleUrls: ['./ibf-guide-button.component.scss'],
+  standalone: false,
 })
 export class IbfGuideButtonComponent implements OnDestroy {
   private countrySubscription: Subscription;

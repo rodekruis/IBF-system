@@ -12,6 +12,7 @@ import { EventService } from 'src/app/services/event.service';
   selector: 'app-export-view',
   templateUrl: './export-view.component.html',
   styleUrls: ['./export-view.component.scss'],
+  standalone: false,
 })
 export class ExportViewComponent {
   constructor(

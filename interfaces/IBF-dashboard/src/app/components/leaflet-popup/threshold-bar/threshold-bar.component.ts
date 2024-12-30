@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'app-threshold-bar',
   templateUrl: './threshold-bar.component.html',
   styleUrls: ['./threshold-bar.component.scss'],
+  standalone: false,
 })
 export class ThresholdBarComponent implements OnInit {
   @Input() public backgroundColor: string;

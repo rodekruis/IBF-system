@@ -4,6 +4,7 @@ import { Component, Input, OnInit } from '@angular/core';
   selector: 'app-ibf-button',
   templateUrl: './ibf-button.component.html',
   styleUrls: ['./ibf-button.component.scss'],
+  standalone: false,
 })
 export class IbfButtonComponent implements OnInit {
   @Input()

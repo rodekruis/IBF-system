@@ -6,6 +6,7 @@ import { RiverGauge } from 'src/app/models/poi.model';
   selector: 'app-river-gauge-popup-content',
   templateUrl: './river-gauge-popup-content.component.html',
   styleUrls: ['./river-gauge-popup-content.component.scss'],
+  standalone: false,
 })
 export class RiverGaugePopupContentComponent implements OnInit {
   @Input()

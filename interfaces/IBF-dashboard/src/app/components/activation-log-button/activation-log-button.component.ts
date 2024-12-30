@@ -9,6 +9,7 @@ import { DisasterTypeService } from 'src/app/services/disaster-type.service';
   selector: 'app-activation-log-button',
   templateUrl: './activation-log-button.component.html',
   styleUrls: ['./activation-log-button.component.scss'],
+  standalone: false,
 })
 export class ActivationLogButtonComponent implements OnDestroy {
   private countrySubscription: Subscription;

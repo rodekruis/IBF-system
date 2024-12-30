@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
   selector: 'app-timestamp',
   templateUrl: './timestamp.component.html',
   styleUrls: ['./timestamp.component.scss'],
+  standalone: false,
 })
 export class TimestampComponent implements OnInit {
   @Input()

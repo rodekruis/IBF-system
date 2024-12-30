@@ -4,6 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-tooltip-popover',
   templateUrl: './tooltip-popover.component.html',
   styleUrls: ['./tooltip-popover.component.scss'],
+  standalone: false,
 })
 export class TooltipPopoverComponent {
   @Input()

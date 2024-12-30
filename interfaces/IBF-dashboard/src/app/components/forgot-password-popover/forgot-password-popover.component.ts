@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
   selector: 'app-forgot-password-popover',
   templateUrl: './forgot-password-popover.component.html',
   styleUrls: ['./forgot-password-popover.component.scss'],
+  standalone: false,
 })
 export class ForgotPasswordPopoverComponent {
   public emailAddress = environment.supportEmailAddress;

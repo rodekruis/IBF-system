@@ -18,6 +18,7 @@ import { EventService } from 'src/app/services/event.service';
   selector: 'app-about-btn',
   templateUrl: './about-btn.component.html',
   styleUrls: ['./about-btn.component.scss'],
+  standalone: false,
 })
 export class AboutBtnComponent implements OnDestroy {
   @Input()

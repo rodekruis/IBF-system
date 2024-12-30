@@ -5,6 +5,7 @@ import { DateTime } from 'luxon';
   selector: 'app-dialogue-turn',
   templateUrl: './dialogue-turn.component.html',
   styleUrls: ['./dialogue-turn.component.scss'],
+  standalone: false,
 })
 export class DialogueTurnComponent implements OnChanges {
   @Input()

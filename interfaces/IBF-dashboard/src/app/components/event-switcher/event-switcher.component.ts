@@ -13,6 +13,7 @@ import { TimelineState } from 'src/app/types/timeline-state';
   selector: 'app-event-switcher',
   templateUrl: './event-switcher.component.html',
   styleUrls: ['./event-switcher.component.scss'],
+  standalone: false,
 })
 export class EventSwitcherComponent implements OnInit, OnDestroy {
   public selectedEventName: string;

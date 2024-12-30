@@ -34,6 +34,7 @@ import { MapView } from 'src/app/types/map-view';
   templateUrl: './admin-level.component.html',
   styleUrls: ['./admin-level.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class AdminLevelComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;

@@ -11,6 +11,7 @@ import { DisasterTypeService } from 'src/app/services/disaster-type.service';
   selector: 'app-backend-mock-scenario',
   templateUrl: './backend-mock-scenario.component.html',
   styleUrls: ['./backend-mock-scenario.component.scss'],
+  standalone: false,
 })
 export class BackendMockScenarioComponent implements OnInit, OnDestroy {
   private country: Country;

@@ -6,6 +6,7 @@ import { DateTime } from 'luxon';
   selector: 'app-typhoon-trackpoint-popup-content',
   templateUrl: './typhoon-trackpoint-popup-content.component.html',
   styleUrls: ['./typhoon-trackpoint-popup-content.component.scss'],
+  standalone: false,
 })
 export class TyphoonTrackpointPopupContentComponent implements OnInit {
   @Input()

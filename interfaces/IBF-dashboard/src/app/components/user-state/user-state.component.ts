@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
   selector: 'app-user-state',
   templateUrl: './user-state.component.html',
   styleUrls: ['./user-state.component.scss'],
+  standalone: false,
 })
 export class UserStateComponent implements OnInit {
   @Input()

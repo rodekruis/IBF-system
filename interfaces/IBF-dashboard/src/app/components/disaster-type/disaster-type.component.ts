@@ -14,6 +14,7 @@ import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
   selector: 'app-disaster-type',
   templateUrl: './disaster-type.component.html',
   styleUrls: ['./disaster-type.component.scss'],
+  standalone: false,
 })
 export class DisasterTypeComponent implements OnInit, OnDestroy {
   public disasterTypesCounter = 0;
