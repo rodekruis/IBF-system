@@ -21,7 +21,7 @@
     "playwright-qase-reporter": "^2.0.16",
     "prettier": "3.4.2",
     "supertest": "^7.0.0",
-    "typescript-eslint": "^8.18.1"
+    "typescript-eslint": "^8.19.0"
   },
   "dependencies": {
     "@alex_neo/playwright-azure-reporter": "^1.12.0",
