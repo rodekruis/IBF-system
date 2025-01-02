@@ -115,8 +115,8 @@ jobs:
   bump-version:
     needs: [ibf-api-service, ibf-dashboard, ibf-integration, ibf-e2e]
     if: |
-      always() &&
-      github.event_name == 'push'
+      github.event_name == 'push' &&
+      success()
 
     runs-on: ubuntu-latest
 
