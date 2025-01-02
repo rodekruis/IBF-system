@@ -64,7 +64,7 @@ describe('LoginFormComponent', () => {
   }));
 
   it('should create', () => {
-    expect(component).not.toBeTruthy();
+    expect(component).toBeTruthy();
     expect(component.model.email).toBe('');
     expect(component.model.password).toBe('');
     expect(component.inputType).toBe('password');
