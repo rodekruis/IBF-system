@@ -113,7 +113,7 @@ jobs:
           mailchimp-api-key: ${{ secrets.MC_API }}
 
   bump-version:
-    needs: [ibf-api-service, ibf-dashboard, ibf-integration, ibf-e2e]
+    needs: [ibf-api-service, ibf-dashboard, ibf-integration]
     if: |
       github.event_name == 'push' &&
       success()
