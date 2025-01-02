@@ -50,7 +50,7 @@
     "slug": "^4.0.2",
     "twilio": "^5.3.5",
     "typeorm": "^0.3.6",
-    "typescript": "^4.9.5"
+    "typescript": "^5.7.2"
   },
   "devDependencies": {
     "@automock/adapters.nestjs": "^2.1.0",
