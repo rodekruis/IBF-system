@@ -42,7 +42,7 @@
     "jsonwebtoken": "^9.0.2",
     "juice": "^11.0.0",
     "mailchimp-api-v3": "^1.15.0",
-    "mjml": "^4.15.3",
+    "mjml": "^5.0.0-alpha.1",
     "mysql": "^2.15.0",
     "pg": "^8.8.0",
     "reflect-metadata": "^0.1.13",
