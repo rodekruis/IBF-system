@@ -5,34 +5,15 @@ on:
     branches: [master]
 
 jobs:
-  ibf-api-service:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "satisfy status check ibf-api-service for push to master"
-
-  ibf-dashboard:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "satisfy status check ibf-dashboard for push to master"
-
-  ibf-e2e:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "satisfy status check ibf-e2e for push to master"
-
-  ibf-integration:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "satisfy status check ibf-integration for push to master"
-
   bump-version:
-    needs: [ibf-api-service, ibf-dashboard, ibf-integration, ibf-e2e]
-    if: |
-      success()
-
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ssh-key: ${{ secrets.DEPLOY_KEY }}
+
       - name: Wait for previous workflow to complete
         uses: softprops/turnstyle@v2
         with:
