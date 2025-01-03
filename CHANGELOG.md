@@ -1,3 +1,12 @@
+## [0.277.19](https://github.com/rodekruis/IBF-system/compare/v0.277.13...v0.277.19) (2025-01-03)
+
+
+### Bug Fixes
+
+* test commit with failing test ([7602385](https://github.com/rodekruis/IBF-system/commit/76023859d59048c0390276e4d00dded582a16b02))
+
+
+
 ## [0.277.13](https://github.com/rodekruis/IBF-system/compare/v0.277.12...v0.277.13) (2024-12-27)
 
 
@@ -75,17 +84,6 @@
 ### Bug Fixes
 
 * connect dynamic data to active assets ([5e61128](https://github.com/rodekruis/IBF-system/commit/5e61128e8e226ae8b03f0e5813aca5189ffaf8d4))
-
-
-
-## [0.277.4](https://github.com/rodekruis/IBF-system/compare/v0.277.3...v0.277.4) (2024-12-09)
-
-
-### Bug Fixes
-
-* delete package-lock ([ab3b82c](https://github.com/rodekruis/IBF-system/commit/ab3b82c2863e4baa1dd9f3976477ae0e23e07082))
-* recreate lock file ([b467bbd](https://github.com/rodekruis/IBF-system/commit/b467bbded4e01753b66a993aa304f317388096f5))
-* update package.json ([9393d0b](https://github.com/rodekruis/IBF-system/commit/9393d0b1bd062d87f242eb5691dea3a935e136d4))
 
 
 
