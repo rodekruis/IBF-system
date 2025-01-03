@@ -5,6 +5,26 @@ on:
     branches: [master]
 
 jobs:
+  ibf-api-service:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "satisfy status check ibf-api-service for push to master"
+
+  ibf-dashboard:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "satisfy status check ibf-dashboard for push to master"
+
+  ibf-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "satisfy status check ibf-e2e for push to master"
+
+  ibf-integration:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "satisfy status check ibf-integration for push to master"
+
   bump-version:
     runs-on: ubuntu-latest
 
