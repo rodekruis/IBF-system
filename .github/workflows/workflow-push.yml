@@ -1,0 +1,26 @@
+name: 'Bump version and push tag on merge to master'
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  bump-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Wait for previous workflow to complete
+        uses: softprops/turnstyle@v2
+        with:
+          abort-after-seconds: 1800
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/checkout@v4
+
+      - name: Bump version and push tag
+        uses: TriPSs/conventional-changelog-action@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          git-message: 'chore(release): {version}'
+          release-count: 10
