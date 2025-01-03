@@ -1,8 +1,6 @@
-name: 'Continuous Integration for IBF'
+name: 'Run checks on pull request'
 
 on:
-  push:
-    branches: [master]
   pull_request:
     branches: [master]
 
@@ -111,28 +109,3 @@ jobs:
         uses: ./.github/actions/e2e
         with:
           mailchimp-api-key: ${{ secrets.MC_API }}
-
-  bump-version:
-    needs: [ibf-api-service, ibf-dashboard, ibf-integration, ibf-e2e]
-    if: |
-      github.event_name == 'push' &&
-      success()
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Wait for previous workflow to complete
-        uses: softprops/turnstyle@v2
-        with:
-          abort-after-seconds: 1800
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - uses: actions/checkout@v4
-
-      - name: Bump version and push tag
-        uses: TriPSs/conventional-changelog-action@v6
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          git-message: 'chore(release): {version}'
-          release-count: 10
