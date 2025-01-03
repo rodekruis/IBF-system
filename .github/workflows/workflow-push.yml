@@ -26,6 +26,10 @@ jobs:
       - run: echo "satisfy status check ibf-integration for push to master"
 
   bump-version:
+    needs: [ibf-api-service, ibf-dashboard, ibf-integration, ibf-e2e]
+    if: |
+      success()
+
     runs-on: ubuntu-latest
 
     steps:
