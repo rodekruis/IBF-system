@@ -105,6 +105,19 @@
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zimbabwe-Published.pdf"
   },
   {
+    "countryCodeISO3": "LSO",
+    "logo": {
+      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/71256230-3d58-35b8-b48a-4497c85ce32c.png"
+    },
+    "triggerStatement": {
+      "drought": "TBD"
+    },
+    "linkSocialMediaType": "WhatsApp",
+    "linkSocialMediaUrl": "https://chat.whatsapp.com/FfVimuGRHHiJSk0BU7nGQT",
+    "linkVideo": "https://bit.ly/IBF-video-Zimbabwe",
+    "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zimbabwe-Published.pdf"
+  },
+  {
     "countryCodeISO3": "MWI",
     "logo": {
       "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/31600ce7-b5e8-992f-8f53-e58f1b5dc955.png",

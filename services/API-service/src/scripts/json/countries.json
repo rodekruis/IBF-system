@@ -1,7 +1,6 @@
 [
   {
     "countryCodeISO3": "UGA",
-    "countryCodeISO2": "UG",
     "countryName": "Uganda",
     "disasterTypes": ["floods", "drought", "heavy-rain"],
     "countryDisasterSettings": [
@@ -266,7 +265,6 @@
   },
   {
     "countryCodeISO3": "ZMB",
-    "countryCodeISO2": "ZM",
     "countryName": "Zambia",
     "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
@@ -384,7 +382,6 @@
   },
   {
     "countryCodeISO3": "MWI",
-    "countryCodeISO2": "MW",
     "countryName": "Malawi",
     "disasterTypes": ["floods", "flash-floods"],
     "countryDisasterSettings": [
@@ -480,7 +477,6 @@
   },
   {
     "countryCodeISO3": "SSD",
-    "countryCodeISO2": "SS",
     "countryName": "South Sudan",
     "disasterTypes": ["floods"],
     "countryDisasterSettings": [
@@ -546,7 +542,6 @@
   },
   {
     "countryCodeISO3": "KEN",
-    "countryCodeISO2": "KE",
     "countryName": "Kenya",
     "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
@@ -663,7 +658,6 @@
   },
   {
     "countryCodeISO3": "ETH",
-    "countryCodeISO2": "ET",
     "countryName": "Ethiopia",
     "disasterTypes": ["floods", "malaria", "drought"],
     "countryDisasterSettings": [
@@ -901,7 +895,6 @@
   },
   {
     "countryCodeISO3": "PHL",
-    "countryCodeISO2": "PH",
     "countryName": "Philippines",
     "disasterTypes": ["typhoon", "floods"],
     "countryDisasterSettings": [
@@ -1150,7 +1143,6 @@
   },
   {
     "countryCodeISO3": "ZWE",
-    "countryCodeISO2": "ZW",
     "countryName": "Zimbabwe",
     "disasterTypes": ["drought"],
     "countryDisasterSettings": [
@@ -1217,6 +1209,71 @@
           [25.2373, -15.6097033],
           [25.2373, -22.4241096],
           [33.0683413, -22.4241096]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "LSO",
+    "countryName": "Lesotho",
+    "disasterTypes": ["drought"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "drought",
+        "adminLevels": [1],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-month",
+          "1-month",
+          "2-month",
+          "3-month",
+          "4-month",
+          "5-month",
+          "6-month",
+          "7-month",
+          "8-month",
+          "9-month",
+          "10-month",
+          "11-month"
+        ],
+        "droughtForecastSeasons": {
+          "National": {
+            "1": {
+              "rainMonths": [4, 5, 6, 7, 8],
+              "actionMonths": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8]
+            }
+          }
+        },
+        "showMonthlyEapActions": true,
+        "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "2": {
+        "singular": "Constituency",
+        "plural": "Constituencies"
+      },
+      "3": {
+        "singular": "Community council",
+        "plural": "Community councils"
+      }
+    },
+    "countryLogos": {
+      "drought": ["ZWE-ZRCS.png"]
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [29.3251664568, -30.6451058896],
+          [29.3251664568, -28.6475017229],
+          [26.9992619158, -28.6475017229],
+          [26.9992619158, -30.6451058896],
+          [29.3251664568, -30.6451058896]
         ]
       ]
     }

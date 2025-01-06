@@ -10,9 +10,6 @@ export class CountryDto {
   @ApiProperty({ example: 'UGA' })
   public countryCodeISO3: string;
 
-  @ApiProperty({ example: 'UG' })
-  public countryCodeISO2: string;
-
   @ApiProperty({ example: 'Uganda' })
   public countryName: string;
 

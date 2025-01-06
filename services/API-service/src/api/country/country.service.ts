@@ -103,7 +103,6 @@ export class CountryService {
     country: CountryDto,
     envDisasterTypes?: DisasterType[],
   ): Promise<void> {
-    countryEntity.countryCodeISO2 = country.countryCodeISO2;
     countryEntity.countryName = country.countryName;
     countryEntity.adminRegionLabels = JSON.parse(
       JSON.stringify(country.adminRegionLabels),
