@@ -52,7 +52,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public placeCode: PlaceCode;
   public placeCodeHover: PlaceCode;
   private country: Country;
-  private disasterType: DisasterType;
+  public disasterType: DisasterType;
   public countryDisasterSettings: CountryDisasterSettings;
   private aggregateComponentTranslateNode = 'aggregates-component';
   private exposedPrefixTranslateNode = 'exposed-prefix';
