@@ -42,7 +42,7 @@
     "@turf/meta": "^7.2.0",
     "date-fns": "^4.1.0",
     "dotenv": "^16.0.1",
-    "gzipper": "^7.2.0",
+    "gzipper": "^8.2.0",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
     "luxon": "^3.5.0",
