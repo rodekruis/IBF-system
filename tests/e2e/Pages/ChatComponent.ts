@@ -10,6 +10,8 @@ const chatDialogueContentWelcomeNoTrigger =
   EnglishTranslations['chat-component'].floods['no-event-no-trigger'].welcome;
 const chatDialogueWarnLabel =
   EnglishTranslations['chat-component'].common['warn-label'].message;
+const eventTooltipContent =
+  EnglishTranslations['chat-component'].common['event-tooltip'];
 
 class ChatComponent extends DashboardPage {
   readonly page: Page;
@@ -26,6 +28,8 @@ class ChatComponent extends DashboardPage {
   readonly windowsOsLink: Locator;
   readonly macOsLink: Locator;
   readonly linuxOsLink: Locator;
+  readonly tooltipButton: Locator;
+  readonly backDrop: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -48,6 +52,8 @@ class ChatComponent extends DashboardPage {
     this.windowsOsLink = this.page.getByTestId('export-view-windows-os');
     this.macOsLink = this.page.getByTestId('export-view-mac-os');
     this.linuxOsLink = this.page.getByTestId('export-view-linux-os');
+    this.tooltipButton = this.page.getByTestId('tooltip-button');
+    this.backDrop = page.locator('ion-backdrop').nth(2);
   }
 
   async chatColumnIsVisibleForNoTriggerState({
@@ -193,6 +199,17 @@ class ChatComponent extends DashboardPage {
       await expect(predictionButton).toBeEnabled();
     }
     return countPredictionButtons;
+  }
+
+  async validateEventsInfoButtonsAreClickable() {
+    const counttoolTipInfoButton = await this.tooltipButton.count();
+
+    for (let i = 0; i < counttoolTipInfoButton; i++) {
+      const toolTipInfoButton = this.tooltipButton.nth(i);
+      await toolTipInfoButton.click();
+      await this.validatePopOverText({ text: eventTooltipContent });
+      await this.backDrop.click();
+    }
   }
 }
 

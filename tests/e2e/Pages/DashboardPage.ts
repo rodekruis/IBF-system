@@ -1,3 +1,4 @@
+import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
 
 class DashboardPage {
@@ -64,6 +65,14 @@ class DashboardPage {
     await this.page.waitForSelector('[data-testid=loader]', {
       state: 'hidden',
     });
+  }
+
+  async validatePopOverText({ text }: { text: string }) {
+    const popOverText = await this.page
+      .locator('app-tooltip-popover')
+      .textContent();
+    const popOverTextTrimmed = popOverText?.trim();
+    expect(popOverTextTrimmed).toContain(text);
   }
 }
 
