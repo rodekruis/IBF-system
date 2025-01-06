@@ -151,3 +151,7 @@ test(
     await page.reload();
   },
 );
+
+test.afterAll(async () => {
+  await sharedPage.close();
+});
