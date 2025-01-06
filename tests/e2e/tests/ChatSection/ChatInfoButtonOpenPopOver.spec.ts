@@ -48,6 +48,6 @@ test(
       firstName: TriggerDataSet.firstName,
       lastName: TriggerDataSet.lastName,
     });
-    await chat.validateInfoButtonsAreClickable();
+    await chat.validateEventsInfoButtonsAreClickable();
   },
 );

@@ -28,7 +28,7 @@ class ChatComponent extends DashboardPage {
   readonly windowsOsLink: Locator;
   readonly macOsLink: Locator;
   readonly linuxOsLink: Locator;
-  readonly infoButtons: Locator;
+  readonly tooltipButton: Locator;
   readonly backDrop: Locator;
 
   constructor(page: Page) {
@@ -52,7 +52,7 @@ class ChatComponent extends DashboardPage {
     this.windowsOsLink = this.page.getByTestId('export-view-windows-os');
     this.macOsLink = this.page.getByTestId('export-view-mac-os');
     this.linuxOsLink = this.page.getByTestId('export-view-linux-os');
-    this.infoButtons = this.page.getByTestId('tooltip-button');
+    this.tooltipButton = this.page.getByTestId('tooltip-button');
     this.backDrop = page.locator('ion-backdrop').nth(2);
   }
 
@@ -201,12 +201,12 @@ class ChatComponent extends DashboardPage {
     return countPredictionButtons;
   }
 
-  async validateInfoButtonsAreClickable() {
-    const countInfoButtons = await this.infoButtons.count();
+  async validateEventsInfoButtonsAreClickable() {
+    const counttoolTipInfoButton = await this.tooltipButton.count();
 
-    for (let i = 0; i < countInfoButtons; i++) {
-      const infoButton = this.infoButtons.nth(i);
-      await infoButton.click();
+    for (let i = 0; i < counttoolTipInfoButton; i++) {
+      const toolTipInfoButton = this.tooltipButton.nth(i);
+      await toolTipInfoButton.click();
       await this.validatePopOverText({ text: eventTooltipContent });
       await this.backDrop.click();
     }
