@@ -104,39 +104,48 @@ export class MockService {
     );
 
     if (!scenario.events) {
-      // No trigger scenario
-      const adminAreas = await this.adminAreaService.getAdminAreasRaw(
-        mockBody.countryCodeISO3,
-      );
-      const leadTimesForNoTrigger = this.getLeadTimesNoEvents(
+      // No events scenario
+      await this.uploadNoEvents(
+        mockBody,
         disasterType,
         selectedCountry,
         date,
+        indicators,
+        adminLevels,
       );
-      for (const indicator of indicators) {
-        for (const adminLevel of adminLevels) {
-          const exposurePlaceCodes = adminAreas
-            .filter((area) => area.adminLevel === adminLevel)
-            .map((area) => ({ placeCode: area.placeCode, amount: 0 }));
-          for (const leadTime of leadTimesForNoTrigger) {
-            await this.adminAreaDynamicDataService.exposure({
-              countryCodeISO3: mockBody.countryCodeISO3,
-              exposurePlaceCodes: exposurePlaceCodes,
-              leadTime: leadTime as LeadTime,
-              dynamicIndicator: indicator,
-              adminLevel,
+    } else {
+      let eventsSkipped = 0;
+      for (const event of scenario.events) {
+        const leadTime = this.mockHelpService.getLeadTime(
+          disasterType,
+          selectedCountry,
+          event.eventName,
+          event.leadTime,
+          date,
+        );
+
+        if (this.mockHelpService.skipLeadTime(disasterType, leadTime)) {
+          eventsSkipped += 1;
+          if (eventsSkipped < scenario.events.length) {
+            // if not yet all events are skipped, then just skip this one and continue to the next event
+            continue;
+          } else if (eventsSkipped === scenario.events.length) {
+            // if all events are skipped, upload no events instead and skip the rest of the loop
+            await this.uploadNoEvents(
+              mockBody,
               disasterType,
-              eventName: null,
+              selectedCountry,
               date,
-            });
+              indicators,
+              adminLevels,
+            );
+            continue;
           }
         }
-      }
-    } else {
-      for (const event of scenario.events) {
+
         for (const indicator of indicators) {
           for (const adminLevel of adminLevels) {
-            const exposurePlaceCodes = this.getIndicatorPlaceCodes(
+            const exposurePlaceCodes = this.getMockExposureData(
               disasterType,
               mockBody.countryCodeISO3,
               scenario.scenarioName,
@@ -150,17 +159,9 @@ export class MockService {
               continue;
             }
 
-            const leadTime = this.mockHelpService.getLeadTime(
-              disasterType,
-              selectedCountry,
-              event.eventName,
-              event.leadTime,
-              date,
-            );
-
             await this.adminAreaDynamicDataService.exposure({
-              countryCodeISO3: selectedCountry.countryCodeISO3,
-              exposurePlaceCodes: exposurePlaceCodes,
+              countryCodeISO3: mockBody.countryCodeISO3,
+              exposurePlaceCodes,
               leadTime,
               dynamicIndicator: indicator,
               adminLevel,
@@ -255,6 +256,47 @@ export class MockService {
     }
   }
 
+  private async uploadNoEvents(
+    mockBody:
+      | MockFloodsScenario
+      | MockMalariaScenario
+      | MockFlashFloodsScenario
+      | MockDroughtScenario,
+    disasterType: DisasterType,
+    selectedCountry: Country,
+    date: Date,
+    indicators: DynamicIndicator[],
+    adminLevels: AdminLevel[],
+  ) {
+    const adminAreas = await this.adminAreaService.getAdminAreasRaw(
+      mockBody.countryCodeISO3,
+    );
+    const leadTimesForNoTrigger = this.getLeadTimesNoEvents(
+      disasterType,
+      selectedCountry,
+      date,
+    );
+    for (const indicator of indicators) {
+      for (const adminLevel of adminLevels) {
+        const exposurePlaceCodes = adminAreas
+          .filter((area) => area.adminLevel === adminLevel)
+          .map((area) => ({ placeCode: area.placeCode, amount: 0 }));
+        for (const leadTime of leadTimesForNoTrigger) {
+          await this.adminAreaDynamicDataService.exposure({
+            countryCodeISO3: mockBody.countryCodeISO3,
+            exposurePlaceCodes: exposurePlaceCodes,
+            leadTime: leadTime as LeadTime,
+            dynamicIndicator: indicator,
+            adminLevel,
+            disasterType,
+            eventName: null,
+            date,
+          });
+        }
+      }
+    }
+  }
+
   private getLeadTimesNoEvents(
     disasterType: DisasterType,
     selectedCountry: Country,
@@ -328,7 +370,7 @@ export class MockService {
     );
   }
 
-  private getIndicatorPlaceCodes(
+  private getMockExposureData(
     disasterType: DisasterType,
     countryCodeISO3: string,
     scenarioName: string,

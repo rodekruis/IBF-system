@@ -289,6 +289,15 @@ export class MockHelperService {
     }
   }
 
+  public skipLeadTime(disasterType: DisasterType, leadTime: LeadTime): boolean {
+    if (disasterType === DisasterType.Drought) {
+      if (Number(leadTime.split('-')[0]) > 3) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public getLeadTimeDroughtNoEvents(
     selectedCountry: Country,
     date: Date,
