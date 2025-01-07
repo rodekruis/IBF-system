@@ -179,7 +179,7 @@ export class TimelineService {
       if (this.disasterType.disasterType === DisasterTypeKey.typhoon) {
         this.handleTimeStepButtonClick(LeadTime.hour72, null, true);
       } else if (
-        // or the flash-floods scenario where all buttons are disabled
+        // or the floods/flash-floods scenario where all buttons are disabled
         this.hasDisabledTimeline(this.disasterType.disasterType)
       ) {
         this.handleTimeStepButtonClick(
@@ -563,7 +563,7 @@ export class TimelineService {
     const currentMonth = todayLeadTime.month;
 
     let forecastMonthNumbers = [];
-    for (const season of this.getRainMonths()) {
+    for (const season of this.getDroughtSeasons()) {
       let filteredSeason;
       if (season.includes(currentMonth)) {
         filteredSeason = season.filter((month) => {
@@ -604,17 +604,16 @@ export class TimelineService {
     return DateTime.utc(leadTimeMonth.year, leadTimeMonth.month, 1);
   }
 
-  private getRainMonths = (): number[][] => {
-    const rainMonthsKey = 'rainMonths';
-    const rainMonths = [];
+  private getDroughtSeasons = (): number[][] => {
+    const seasons: number[][] = [];
     for (const area of Object.values(
       this.countryDisasterSettings.droughtForecastSeasons,
     )) {
       for (const season of Object.values(area)) {
-        rainMonths.push(season[rainMonthsKey]);
+        seasons.push(season.rainMonths);
       }
     }
 
-    return rainMonths;
+    return seasons;
   };
 }
