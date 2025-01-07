@@ -64,7 +64,7 @@ export class CountryDisasterSettingsDto {
   public activeLeadTimes: string[];
 
   @ApiProperty({ example: [3, 10] })
-  public droughtForecastSeasons?: object;
+  public droughtSeasonRegions?: object;
 
   @ApiProperty({ example: false })
   public droughtEndOfMonthPipeline?: boolean;
@@ -103,7 +103,7 @@ export class CountryDisasterSettingsDto {
   public eapAlertClasses?: object;
 
   @ApiProperty({ example: {} })
-  public droughtAreas?: object;
+  public droughtRegions?: object;
 
   @ApiProperty({ example: false })
   public isEventBased?: boolean;

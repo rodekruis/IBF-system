@@ -443,7 +443,7 @@ export class ScriptsService {
         const regions = Object.keys(
           selectedCountry.countryDisasterSettings.find(
             (s) => s.disasterType === disasterType,
-          ).droughtForecastSeasons,
+          ).droughtSeasonRegions,
         );
         return regions;
       }
@@ -476,7 +476,7 @@ export class ScriptsService {
     ) {
       const seasons = selectedCountry.countryDisasterSettings.find(
         (s) => s.disasterType === DisasterType.Drought,
-      ).droughtForecastSeasons[eventRegion];
+      ).droughtSeasonRegions[eventRegion];
       const leadTimeMonthFirstDay = this.getCurrentMonthInfoDrought(
         leadTime,
         date,
@@ -565,7 +565,7 @@ export class ScriptsService {
   ): boolean {
     const forecastSeasonAreas = selectedCountry.countryDisasterSettings.find(
       (s) => s.disasterType === disasterType,
-    ).droughtForecastSeasons;
+    ).droughtSeasonRegions;
 
     let useLeadTimeForMock = false;
     for (const area of Object.keys(forecastSeasonAreas)) {
@@ -710,10 +710,10 @@ export class ScriptsService {
     const forecastSeasonData = selectedCountry.countryDisasterSettings.find(
       (s) => s.disasterType === disasterType,
     );
-    const forecastSeasonAreas = forecastSeasonData.droughtForecastSeasons;
+    const forecastSeasonAreas = forecastSeasonData.droughtSeasonRegions;
     const droughtRegionAreas = selectedCountry.countryDisasterSettings.find(
       (s) => s.disasterType === disasterType,
-    ).droughtAreas;
+    ).droughtRegions;
 
     const { currentUTCMonth, leadTimeMonthFirstDay } =
       this.getCurrentMonthInfoDrought(

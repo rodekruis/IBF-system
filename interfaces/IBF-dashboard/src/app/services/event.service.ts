@@ -301,7 +301,7 @@ export class EventService {
     if (this.disasterType.disasterType !== DisasterTypeKey.drought) {
       return;
     }
-    const seasonRegions = this.countryDisasterSettings?.droughtForecastSeasons;
+    const seasonRegions = this.countryDisasterSettings?.droughtSeasonRegions;
     for (const seasonRegion of Object.keys(seasonRegions)) {
       if (event.eventName?.toLowerCase().includes(seasonRegion.toLowerCase())) {
         const leadTimeMonth = DateTime.fromFormat(

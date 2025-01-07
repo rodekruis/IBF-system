@@ -213,7 +213,7 @@ export class EapActionsService {
     );
 
     const currentActionSeasonMonths = this.currentRainSeasonName
-      ? this.countryDisasterSettings.droughtForecastSeasons[region][
+      ? this.countryDisasterSettings.droughtSeasonRegions[region][
           this.currentRainSeasonName
         ].actionMonths
       : [];
@@ -249,24 +249,26 @@ export class EapActionsService {
   private getRegion(triggeredArea): string {
     const nationwideKey = 'National';
 
-    if (!this.countryDisasterSettings.droughtAreas) {
+    if (!this.countryDisasterSettings.droughtRegions) {
       return nationwideKey;
     }
 
-    const droughtAreas = Object.keys(this.countryDisasterSettings.droughtAreas);
-    const isTriggeredAreaInDroughtArea = (droughtArea): boolean =>
-      this.countryDisasterSettings.droughtAreas[droughtArea].includes(
+    const droughtRegions = Object.keys(
+      this.countryDisasterSettings.droughtRegions,
+    );
+    const isTriggeredAreaInDroughtRegion = (droughtRegion): boolean =>
+      this.countryDisasterSettings.droughtRegions[droughtRegion].includes(
         triggeredArea.placeCode,
       );
-    for (const droughtArea of droughtAreas) {
-      if (isTriggeredAreaInDroughtArea(droughtArea)) {
-        return droughtArea;
+    for (const droughtRegion of droughtRegions) {
+      if (isTriggeredAreaInDroughtRegion(droughtRegion)) {
+        return droughtRegion;
       }
     }
   }
 
   private getCurrentRainSeasonName(region, monthOfSelectedLeadTime): string {
-    const seasons = this.countryDisasterSettings.droughtForecastSeasons[region];
+    const seasons = this.countryDisasterSettings.droughtSeasonRegions[region];
     for (const season of Object.keys(seasons)) {
       if (seasons[season].rainMonths.includes(monthOfSelectedLeadTime)) {
         return season;

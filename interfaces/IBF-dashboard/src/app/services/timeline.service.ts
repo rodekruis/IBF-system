@@ -419,7 +419,7 @@ export class TimelineService {
 
   private checkRegionalDroughtSeason() {
     const forecastSeasonAreas =
-      this.countryDisasterSettings.droughtForecastSeasons;
+      this.countryDisasterSettings.droughtSeasonRegions;
     return Object.values(forecastSeasonAreas).length > 1;
   }
 
@@ -541,7 +541,7 @@ export class TimelineService {
   private shiftYear = (monthNumber: number) => {
     // Make sure you start counting the year at the beginning of (one of the) seasons, instead of at January
     // so that 'month > currentMonth' does not break on a season like [12,1,2]
-    const seasonRegions = this.countryDisasterSettings.droughtForecastSeasons;
+    const seasonRegions = this.countryDisasterSettings.droughtSeasonRegions;
     let seasonBeginnings = [];
     for (const region of Object.values(seasonRegions)) {
       seasonBeginnings.push(
@@ -607,7 +607,7 @@ export class TimelineService {
   private getDroughtSeasons = (): number[][] => {
     const seasons: number[][] = [];
     for (const area of Object.values(
-      this.countryDisasterSettings.droughtForecastSeasons,
+      this.countryDisasterSettings.droughtSeasonRegions,
     )) {
       for (const season of Object.values(area)) {
         seasons.push(season.rainMonths);

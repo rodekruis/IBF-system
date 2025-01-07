@@ -18,8 +18,8 @@ export interface CountryDisasterSettings {
   adminLevels: AdminLevel[];
   defaultAdminLevel: AdminLevel;
   activeLeadTimes: LeadTime[];
-  droughtForecastSeasons: DroughtSeasonRegions;
-  droughtAreas: Record<string, string[]>;
+  droughtSeasonRegions: DroughtSeasonRegions;
+  droughtRegions: Record<string, string[]>;
   eapLink: string;
   showMonthlyEapActions: boolean;
   droughtEndOfMonthPipeline?: boolean;

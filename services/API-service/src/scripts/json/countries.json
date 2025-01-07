@@ -62,7 +62,7 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastSeasons": {
+        "droughtSeasonRegions": {
           "Karamoja": {
             "Karamoja": {
               "rainMonths": [4, 5, 6, 7, 8, 9, 10],
@@ -80,7 +80,7 @@
             }
           }
         },
-        "droughtAreas": {
+        "droughtRegions": {
           "Karamoja": [
             "21UGA001001",
             "21UGA001002",
@@ -326,7 +326,7 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastSeasons": {
+        "droughtSeasonRegions": {
           "National": {
             "1": {
               "rainMonths": [10, 11, 12, 1, 2, 3],
@@ -592,7 +592,7 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastSeasons": {
+        "droughtSeasonRegions": {
           "National": {
             "MAM": {
               "rainMonths": [3, 4, 5],
@@ -717,7 +717,7 @@
           "11-month"
         ],
         "isEventBased": true,
-        "droughtForecastSeasons": {
+        "droughtSeasonRegions": {
           "Belg": {
             "Belg MAM": {
               "rainMonths": [2, 3, 4, 5],
@@ -755,7 +755,7 @@
             }
           }
         },
-        "droughtAreas": {
+        "droughtRegions": {
           "Belg": [
             "ET0104",
             "ET0106",
@@ -1164,7 +1164,7 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastSeasons": {
+        "droughtSeasonRegions": {
           "National": {
             "1": {
               "rainMonths": [4, 5, 6, 7, 8],
@@ -1236,7 +1236,7 @@
           "10-month",
           "11-month"
         ],
-        "droughtForecastSeasons": {
+        "droughtSeasonRegions": {
           "National": {
             "1": {
               "rainMonths": [10, 11, 12, 1, 2, 3],

@@ -260,7 +260,7 @@ export class MockHelperService {
     const seasonName = eventName.split('_')[1];
     const season = selectedCountry.countryDisasterSettings.find(
       (s) => s.disasterType === DisasterType.Drought,
-    ).droughtForecastSeasons[regionName][seasonName].rainMonths;
+    ).droughtSeasonRegions[regionName][seasonName].rainMonths;
 
     // if current month is one of the months in the seasons, use '0-month'
     const currentMonth = new Date(date).getUTCMonth() + 1;
@@ -283,20 +283,16 @@ export class MockHelperService {
     selectedCountry: Country,
     date: Date,
   ): LeadTime {
-    const droughtForecastSeasonRegions =
-      selectedCountry.countryDisasterSettings.find(
-        (s) => s.disasterType === DisasterType.Drought,
-      ).droughtForecastSeasons;
+    const droughtSeasonRegions = selectedCountry.countryDisasterSettings.find(
+      (s) => s.disasterType === DisasterType.Drought,
+    ).droughtSeasonRegions;
 
     // for no events, look at all seasons in all regions
     let minDiff = 12;
     const currentMonth = new Date(date).getUTCMonth() + 1;
-    for (const regionName of Object.keys(droughtForecastSeasonRegions)) {
-      for (const seasonName of Object.keys(
-        droughtForecastSeasonRegions[regionName],
-      )) {
-        const season =
-          droughtForecastSeasonRegions[regionName][seasonName].rainMonths;
+    for (const regionName of Object.keys(droughtSeasonRegions)) {
+      for (const seasonName of Object.keys(droughtSeasonRegions[regionName])) {
+        const season = droughtSeasonRegions[regionName][seasonName].rainMonths;
         if (season.includes(currentMonth)) {
           // .. if ongoing in any season, then return '0-month'
           return LeadTime.month0;
