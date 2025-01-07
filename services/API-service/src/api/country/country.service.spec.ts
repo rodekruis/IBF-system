@@ -10,10 +10,14 @@ import { NotificationInfoEntity } from '../notification/notifcation-info.entity'
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
+import { CountryDisasterSettingsDto } from './dto/add-countries.dto';
 
 describe('CountryService', () => {
   let service: CountryService;
   let countryRepository: Repository<CountryEntity>;
+  let disasterRepository: Repository<DisasterEntity>;
+  let countryDisasterSettingsRepository: Repository<CountryDisasterSettingsEntity>;
+  let leadTimeRepository: Repository<LeadTimeEntity>;
 
   const relations = [
     'countryDisasterSettings',
@@ -52,6 +56,15 @@ describe('CountryService', () => {
     service = module.get<CountryService>(CountryService);
     countryRepository = module.get<Repository<CountryEntity>>(
       getRepositoryToken(CountryEntity),
+    );
+    disasterRepository = module.get<Repository<DisasterEntity>>(
+      getRepositoryToken(DisasterEntity),
+    );
+    countryDisasterSettingsRepository = module.get<
+      Repository<CountryDisasterSettingsEntity>
+    >(getRepositoryToken(CountryDisasterSettingsEntity));
+    leadTimeRepository = module.get<Repository<LeadTimeEntity>>(
+      getRepositoryToken(LeadTimeEntity),
     );
   });
 
@@ -109,6 +122,87 @@ describe('CountryService', () => {
         where: { countryCodeISO3 },
         relations: customRelations,
       });
+    });
+  });
+
+  describe('addOrUpdateCountries', () => {
+    it('should add or update countries', async () => {
+      const getCountryDisasterTypeSettingsEntity = (
+        _countryDisasterSetting = null,
+        _countryEntity = null,
+      ) => {
+        // empty function in case we want to test deeper
+        const countryDisasterSettingsEntity =
+          new CountryDisasterSettingsEntity();
+        return countryDisasterSettingsEntity;
+      };
+
+      const getCountryEntity = (_country = null) => {
+        // empty function in case we want to test deeper
+        const countryEntity = new CountryEntity();
+        return countryEntity;
+      };
+
+      jest
+        .spyOn(countryRepository, 'findOne')
+        .mockResolvedValue(getCountryEntity());
+      jest.spyOn(disasterRepository, 'find').mockResolvedValue(null);
+      jest
+        .spyOn(countryRepository, 'save')
+        .mockResolvedValue(getCountryEntity());
+      jest.spyOn(leadTimeRepository, 'find').mockImplementation(({ where }) => {
+        if (!Array.isArray(where)) {
+          return Promise.resolve([]); // resolve to empty array if where is not an array
+        }
+        const leadTimeEntities = where
+          .map(({ leadTimeName }) => {
+            if (typeof leadTimeName !== 'string') {
+              return Promise.resolve([]); // resolve to empty array if leadTimeName is not a string
+            }
+            const leadTimeEntity = new LeadTimeEntity();
+            leadTimeEntity.leadTimeName = leadTimeName;
+          })
+          .filter((leadTimeEntity) => leadTimeEntity); // remove undefined
+        return Promise.resolve(leadTimeEntities);
+      });
+      jest
+        .spyOn(countryDisasterSettingsRepository, 'save')
+        .mockResolvedValue(getCountryDisasterTypeSettingsEntity());
+      jest
+        .spyOn(countryDisasterSettingsRepository, 'findOne')
+        .mockResolvedValue(getCountryDisasterTypeSettingsEntity());
+
+      await service.addOrUpdateCountries({ countries });
+      for (const country of countries) {
+        expect(countryRepository.findOne).toHaveBeenCalledWith({
+          where: { countryCodeISO3: country.countryCodeISO3 },
+          relations: ['countryDisasterSettings'],
+        });
+        expect(disasterRepository.find).toHaveBeenCalledWith({
+          where: country.disasterTypes.map((disasterType) => ({
+            disasterType,
+          })),
+        });
+        expect(countryRepository.save).toHaveBeenCalled();
+
+        for (const countryDisasterSetting of country.countryDisasterSettings as CountryDisasterSettingsDto[]) {
+          expect(leadTimeRepository.find).toHaveBeenCalledWith({
+            where: countryDisasterSetting.activeLeadTimes.map(
+              (leadTimeName) => ({ leadTimeName }),
+            ),
+          });
+          expect(countryDisasterSettingsRepository.save).toHaveBeenCalled();
+          expect(
+            countryDisasterSettingsRepository.findOne,
+          ).toHaveBeenCalledWith({
+            where: { countryDisasterSettingsId: undefined },
+          });
+          expect(countryRepository.findOne).toHaveBeenCalledWith({
+            where: { countryCodeISO3: country.countryCodeISO3 },
+            relations: ['countryDisasterSettings'],
+          });
+        }
+      }
     });
   });
 });
