@@ -7,4 +7,5 @@ export const CountryTimeZoneMapping: { [key: string]: string } = {
   ZWE: 'Africa/Harare',
   PHL: 'Asia/Manila',
   SSD: 'Africa/Juba',
+  LSO: 'Africa/Maseru',
 };
