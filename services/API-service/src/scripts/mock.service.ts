@@ -37,7 +37,7 @@ class Scenario {
 }
 class Event {
   eventName: string;
-  leadTime: LeadTime;
+  leadTime?: LeadTime;
 }
 
 @Injectable()
@@ -108,9 +108,10 @@ export class MockService {
       const adminAreas = await this.adminAreaService.getAdminAreasRaw(
         mockBody.countryCodeISO3,
       );
-      const leadTimesForNoTrigger = this.getLeadTimesForNoTrigger(
+      const leadTimesForNoTrigger = this.getLeadTimesNoEvents(
         disasterType,
         selectedCountry,
+        date,
       );
       for (const indicator of indicators) {
         for (const adminLevel of adminLevels) {
@@ -254,9 +255,10 @@ export class MockService {
     }
   }
 
-  private getLeadTimesForNoTrigger(
+  private getLeadTimesNoEvents(
     disasterType: DisasterType,
     selectedCountry: Country,
+    date: Date,
   ): LeadTime[] {
     // NOTE: this reflects agreements with pipelines that are in place. This is ugly, and should be refactored better.
     // When moving typhoon/droughts to this new mock-service, check well how this behaves / should be changed.
@@ -265,9 +267,11 @@ export class MockService {
     } else if (disasterType === DisasterType.FlashFloods) {
       return [LeadTime.hour1];
     } else if (disasterType === DisasterType.Drought) {
-      // const leadTime = this.mockHelpService.getDroughtLeadTime(selectedCountry,
-      // for now just use the first leadTime to get something
-      return [LeadTime.month0];
+      const leadTime = this.mockHelpService.getLeadTimeDroughtNoEvents(
+        selectedCountry,
+        date,
+      );
+      return [leadTime];
       // } else if (disasterType === DisasterType.Typhoon) {
       //   return [LeadTime.hour72];
     } else {

@@ -2,7 +2,7 @@
   {
     "scenarioName": "trigger",
     "defaultScenario": true,
-    "events": [{ "eventName": "National_1", "leadTime": "0-month" }]
+    "events": [{ "eventName": "National_1" }]
   },
   {
     "scenarioName": "no-trigger"

@@ -259,12 +259,11 @@ export class MockHelperService {
     const regionName = eventName.split('_')[0];
     const seasonName = eventName.split('_')[1];
     const season = selectedCountry.countryDisasterSettings.find(
-      (s) => s.disasterType === disasterType,
+      (s) => s.disasterType === DisasterType.Drought,
     ).droughtForecastSeasons[regionName][seasonName].rainMonths;
 
     // if current month is one of the months in the seasons, use '0-month'
     const currentMonth = new Date(date).getUTCMonth() + 1;
-    console.log('currentMonth: ', currentMonth);
     if (season.includes(currentMonth)) {
       return LeadTime.month0;
     }
@@ -278,5 +277,43 @@ export class MockHelperService {
       const diff = 12 - currentMonth + startOfSeasonMonth;
       return `${diff}-month` as LeadTime;
     }
+  }
+
+  public getLeadTimeDroughtNoEvents(
+    selectedCountry: Country,
+    date: Date,
+  ): LeadTime {
+    const droughtForecastSeasonRegions =
+      selectedCountry.countryDisasterSettings.find(
+        (s) => s.disasterType === DisasterType.Drought,
+      ).droughtForecastSeasons;
+
+    // for no events, look at all seasons in all regions
+    let minDiff = 12;
+    const currentMonth = new Date(date).getUTCMonth() + 1;
+    for (const regionName of Object.keys(droughtForecastSeasonRegions)) {
+      for (const seasonName of Object.keys(
+        droughtForecastSeasonRegions[regionName],
+      )) {
+        const season =
+          droughtForecastSeasonRegions[regionName][seasonName].rainMonths;
+        if (season.includes(currentMonth)) {
+          // .. if ongoing in any season, then return '0-month'
+          return LeadTime.month0;
+        }
+        // .. otherwise calculate smallest leadTime until first upcoming season
+        let diff: number;
+        if (currentMonth <= season[0]) {
+          diff = season[0] - currentMonth;
+        } else if (currentMonth > season[0]) {
+          diff = 12 - currentMonth + season[0];
+        }
+        if (diff < minDiff) {
+          minDiff = diff;
+        }
+      }
+    }
+
+    return `${minDiff}-month` as LeadTime;
   }
 }
