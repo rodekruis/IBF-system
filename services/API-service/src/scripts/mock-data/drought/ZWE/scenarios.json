@@ -2,7 +2,7 @@
   {
     "scenarioName": "trigger",
     "defaultScenario": true,
-    "events": [{ "eventName": "OND_National" }]
+    "events": [{ "eventName": "MAM_National" }]
   },
   {
     "scenarioName": "no-trigger"

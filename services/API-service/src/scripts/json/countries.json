@@ -328,7 +328,7 @@
         ],
         "droughtSeasonRegions": {
           "National": {
-            "1": {
+            "OND": {
               "rainMonths": [10, 11, 12, 1, 2, 3],
               "actionMonths": [4, 5, 6, 7, 8, 9, 10, 11, 12, 1, 2, 3]
             }
@@ -1166,7 +1166,7 @@
         ],
         "droughtSeasonRegions": {
           "National": {
-            "1": {
+            "MAM": {
               "rainMonths": [4, 5, 6, 7, 8],
               "actionMonths": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8]
             }
@@ -1238,7 +1238,7 @@
         ],
         "droughtSeasonRegions": {
           "National": {
-            "1": {
+            "OND": {
               "rainMonths": [10, 11, 12, 1, 2, 3],
               "actionMonths": [10, 11, 12, 1, 2, 3]
             }

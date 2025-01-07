@@ -1,0 +1,38 @@
+[
+  {
+    "placeCode": "KE002",
+    "amount": 3.0
+  },
+  {
+    "placeCode": "KE009",
+    "amount": 3.0
+  },
+  {
+    "placeCode": "KE010",
+    "amount": 3.0
+  },
+  {
+    "placeCode": "KE011",
+    "amount": 3.0
+  },
+  {
+    "placeCode": "KE023",
+    "amount": 3.0
+  },
+  {
+    "placeCode": "KE025",
+    "amount": 2.0
+  },
+  {
+    "placeCode": "KE030",
+    "amount": 2.0
+  },
+  {
+    "placeCode": "KE033",
+    "amount": 2.0
+  },
+  {
+    "placeCode": "KE034",
+    "amount": 2.0
+  }
+]

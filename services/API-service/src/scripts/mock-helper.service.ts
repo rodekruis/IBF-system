@@ -256,14 +256,24 @@ export class MockHelperService {
       return leadTime;
     }
 
-    const regionName = eventName.split('_')[0];
-    const seasonName = eventName.split('_')[1];
-    const season = selectedCountry.countryDisasterSettings.find(
+    const droughtCountrySettings = selectedCountry.countryDisasterSettings.find(
       (s) => s.disasterType === DisasterType.Drought,
-    ).droughtSeasonRegions[regionName][seasonName].rainMonths;
+    );
+
+    const regionName = eventName.split('_')[1];
+    const seasonName = eventName.split('_')[0];
+    const season =
+      droughtCountrySettings.droughtSeasonRegions[regionName][seasonName]
+        .rainMonths;
 
     // if current month is one of the months in the seasons, use '0-month'
-    const currentMonth = new Date(date).getUTCMonth() + 1;
+    let currentMonth = new Date(date).getUTCMonth() + 1;
+    // Refactor: this 'endOfMonthPipeline' feature can hopefully be dropped soon
+    const endOfMonthPipeline = droughtCountrySettings.droughtEndOfMonthPipeline;
+    if (endOfMonthPipeline) {
+      currentMonth = currentMonth === 12 ? 1 : currentMonth + 1;
+    }
+
     if (season.includes(currentMonth)) {
       return LeadTime.month0;
     }

@@ -56,12 +56,12 @@ export class ScriptsService {
     const isApiTest = false;
 
     const envCountries = process.env.COUNTRIES.split(',');
-    console.log('envCountries: ', envCountries);
 
     const newMockServiceDisasterTypes = [
       DisasterType.Floods,
       DisasterType.Malaria,
       DisasterType.FlashFloods,
+      DisasterType.Drought,
     ];
 
     for await (const countryCodeISO3 of envCountries) {
