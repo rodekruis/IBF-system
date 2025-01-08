@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { Page, test } from '@playwright/test';
 import AggregatesComponent from 'Pages/AggregatesComponent';
 import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
@@ -16,10 +16,26 @@ import {
 import LoginPage from '../../../Pages/LoginPage';
 
 let accessToken: string;
+let sharedPage: Page;
+// Instances
+let dashboard: DashboardPage;
+let userState: UserStateComponent;
+let disasterType: DisasterTypeComponent;
+let chat: ChatComponent;
+let aggregates: AggregatesComponent;
+let map: MapComponenet;
+let loginPage: LoginPage;
 
-test.beforeAll(async ({ page }) => {
-  // Login
-  const loginPage = new LoginPage(page);
+test.beforeAll(async ({ browser }) => {
+  sharedPage = await browser.newPage();
+  // Initialize instances after sharedPage is assigned
+  dashboard = new DashboardPage(sharedPage);
+  userState = new UserStateComponent(sharedPage);
+  disasterType = new DisasterTypeComponent(sharedPage);
+  chat = new ChatComponent(sharedPage);
+  aggregates = new AggregatesComponent(sharedPage);
+  map = new MapComponenet(sharedPage);
+  loginPage = new LoginPage(sharedPage);
 
   accessToken = await getAccessToken();
   await resetDB(accessToken);
@@ -30,23 +46,17 @@ test.beforeAll(async ({ page }) => {
     accessToken,
   );
 
-  await page.goto('/');
+  await sharedPage.goto('/');
   await loginPage.login(
     NoTriggerDataSet.UserMail,
     NoTriggerDataSet.UserPassword,
   );
 });
+
 // https://app.qase.io/project/IBF?case=1&previewMode=side&suite=2
 test(
   qase(1, 'All Dashboard elements are present in no-trigger mode'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(page);
-    const userState = new UserStateComponent(page);
-    const disasterType = new DisasterTypeComponent(page);
-    const chat = new ChatComponent(page);
-    const aggregates = new AggregatesComponent(page);
-    const map = new MapComponenet(page);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -60,5 +70,6 @@ test(
     });
     await aggregates.aggregateComponentIsVisible();
     await map.mapComponentIsVisible();
+    await page.reload();
   },
 );

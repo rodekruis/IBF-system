@@ -14,12 +14,21 @@ import LoginPage from '../../../Pages/LoginPage';
 
 let accessToken: string;
 let sharedPage: Page;
+// Instances
+let dashboard: DashboardPage;
+let userState: UserStateComponent;
+let map: MapComponent;
+let loginPage: LoginPage;
 
 test.beforeAll(async ({ browser }) => {
   sharedPage = await browser.newPage();
+  // Initialize instances after sharedPage is assigned
+  userState = new UserStateComponent(sharedPage);
+  dashboard = new DashboardPage(sharedPage);
+  userState = new UserStateComponent(sharedPage);
+  map = new MapComponent(sharedPage);
+  loginPage = new LoginPage(sharedPage);
 
-  // Login
-  const loginPage = new LoginPage(sharedPage);
   accessToken = await getAccessToken();
   await resetDB(accessToken);
 
@@ -41,10 +50,6 @@ test(
     '[Trigger] Map layer: "Flood extent" and "Exposed population" should be active by default',
   ),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const map = new MapComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -89,10 +94,6 @@ test(
     '[Trigger] Flood extent legend is visible when flood extent layer is active',
   ),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const map = new MapComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -118,10 +119,6 @@ test(
     '[Trigger] At least one red/orange/yellow GloFAS station should be visible',
   ),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const map = new MapComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions

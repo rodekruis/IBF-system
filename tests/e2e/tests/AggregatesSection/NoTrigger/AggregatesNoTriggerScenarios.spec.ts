@@ -14,12 +14,21 @@ import LoginPage from '../../../Pages/LoginPage';
 
 let accessToken: string;
 let sharedPage: Page;
+// Instances
+let dashboard: DashboardPage;
+let aggregates: AggregatesComponent;
+let map: MapComponent;
+let loginPage: LoginPage;
 
 test.beforeAll(async ({ browser }) => {
   sharedPage = await browser.newPage();
+  // Initialize instances after sharedPage is assigned
+  dashboard = new DashboardPage(sharedPage);
+  aggregates = new AggregatesComponent(sharedPage);
+  map = new MapComponent(sharedPage);
+  loginPage = new LoginPage(sharedPage);
 
   // Login
-  const loginPage = new LoginPage(sharedPage);
   accessToken = await getAccessToken();
   await resetDB(accessToken);
 
@@ -43,10 +52,6 @@ test(
     'Aggregates title should be dynamic upon hovering over map district',
   ),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const aggregates = new AggregatesComponent(sharedPage);
-    const map = new MapComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -61,9 +66,6 @@ test(
 test(
   qase(6, 'All Aggregate elements are present in no-trigger mode'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const aggregates = new AggregatesComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -77,9 +79,6 @@ test(
 test(
   qase(13, 'All Aggregate info buttons show on click information'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const aggregates = new AggregatesComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions

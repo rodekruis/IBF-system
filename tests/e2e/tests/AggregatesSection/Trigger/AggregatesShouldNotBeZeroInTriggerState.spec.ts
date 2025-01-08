@@ -14,12 +14,21 @@ import LoginPage from '../../../Pages/LoginPage';
 
 let accessToken: string;
 let sharedPage: Page;
+// Instances
+let dashboard: DashboardPage;
+let aggregates: AggregatesComponent;
+let userState: UserStateComponent;
+let loginPage: LoginPage;
 
 test.beforeAll(async ({ browser }) => {
   sharedPage = await browser.newPage();
+  // Initialize instances after sharedPage is assigned
+  dashboard = new DashboardPage(sharedPage);
+  aggregates = new AggregatesComponent(sharedPage);
+  userState = new UserStateComponent(sharedPage);
+  loginPage = new LoginPage(sharedPage);
 
   // Login
-  const loginPage = new LoginPage(sharedPage);
   accessToken = await getAccessToken();
   await resetDB(accessToken);
 
@@ -38,10 +47,6 @@ test.beforeAll(async ({ browser }) => {
 test(
   qase(39, '[Trigger] Aggregated number of events should be non-zero'),
   async ({ page }) => {
-    const aggregates = new AggregatesComponent(sharedPage);
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -60,10 +65,6 @@ test(
 
 // https://app.qase.io/project/IBF?previewMode=side&suite=7&case=40
 test(qase(40, '[Trigger] header colour is purple'), async ({ page }) => {
-  const aggregates = new AggregatesComponent(sharedPage);
-  const dashboard = new DashboardPage(sharedPage);
-  const userState = new UserStateComponent(sharedPage);
-
   // Navigate to disaster type the data was mocked for
   await dashboard.navigateToFloodDisasterType();
   // Assertions

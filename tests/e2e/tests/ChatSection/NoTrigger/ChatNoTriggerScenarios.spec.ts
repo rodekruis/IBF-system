@@ -14,12 +14,21 @@ import LoginPage from '../../../Pages/LoginPage';
 
 let accessToken: string;
 let sharedPage: Page;
+// Instances
+let dashboard: DashboardPage;
+let userState: UserStateComponent;
+let chat: ChatComponent;
+let loginPage: LoginPage;
 
 test.beforeAll(async ({ browser }) => {
   sharedPage = await browser.newPage();
+  // Initialize instances after sharedPage is assigned
+  dashboard = new DashboardPage(sharedPage);
+  userState = new UserStateComponent(sharedPage);
+  chat = new ChatComponent(sharedPage);
+  loginPage = new LoginPage(sharedPage);
 
   // Login
-  const loginPage = new LoginPage(sharedPage);
   accessToken = await getAccessToken();
   await resetDB(accessToken);
 
@@ -44,10 +53,6 @@ test(
     'All Chat section action buttons can be selected in no-trigger mode',
   ),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const chat = new ChatComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -69,10 +74,6 @@ test(
 test(
   qase(5, 'All Chat section elements are present in no-trigger mode'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const chat = new ChatComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions

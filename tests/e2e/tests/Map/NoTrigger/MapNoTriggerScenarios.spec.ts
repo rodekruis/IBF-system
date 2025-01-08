@@ -14,14 +14,23 @@ import LoginPage from '../../../Pages/LoginPage';
 
 let accessToken: string;
 let sharedPage: Page;
-
+// layers
 let checkedLayers;
+// Instances
+let dashboard: DashboardPage;
+let userState: UserStateComponent;
+let map: MapComponent;
+let loginPage: LoginPage;
 
 test.beforeAll(async ({ browser }) => {
   sharedPage = await browser.newPage();
+  // Initialize instances after sharedPage is assigned
+  userState = new UserStateComponent(sharedPage);
+  dashboard = new DashboardPage(sharedPage);
+  userState = new UserStateComponent(sharedPage);
+  map = new MapComponent(sharedPage);
+  loginPage = new LoginPage(sharedPage);
 
-  // Login
-  const loginPage = new LoginPage(sharedPage);
   accessToken = await getAccessToken();
   await resetDB(accessToken);
 
@@ -43,10 +52,6 @@ test.beforeAll(async ({ browser }) => {
 test(
   qase(29, '[No-trigger] Alert Threshold Reached is visible on the legend'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const map = new MapComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -70,10 +75,6 @@ test(
 test(
   qase(30, '[No-trigger] No "Alert Threshold Reached" lines are visible'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const map = new MapComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -94,10 +95,6 @@ test(
 test(
   qase(2, 'All Map elements are present in no-trigger mode'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const map = new MapComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -117,10 +114,6 @@ test(
 test(
   qase(32, 'Check if (default) checked checkbox-layers show in map'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const map = new MapComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -151,10 +144,6 @@ test(
 test(
   qase(7, 'Verify Map functionality for no-triggered mode'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const map = new MapComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -193,10 +182,6 @@ test(
     '[No-trigger] ONLY No trigger, medium warning, and low warning GloFAS stations should be visible',
   ),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const map = new MapComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -223,10 +208,6 @@ test(
     '[No-trigger] GloFAS stations markers should be visible on "Legend", "Layer" and "Map"',
   ),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const map = new MapComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -257,10 +238,6 @@ test(
 test(
   qase(33, 'Interaction with info icon in map layer component'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const map = new MapComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions

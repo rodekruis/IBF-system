@@ -15,12 +15,23 @@ import LoginPage from '../../../Pages/LoginPage';
 
 let accessToken: string;
 let sharedPage: Page;
+// Instances
+let dashboard: DashboardPage;
+let userState: UserStateComponent;
+let chat: ChatComponent;
+let aggregates: AggregatesComponent;
+let loginPage: LoginPage;
 
 test.beforeAll(async ({ browser }) => {
   sharedPage = await browser.newPage();
+  // Initialize instances after sharedPage is assigned
+  dashboard = new DashboardPage(sharedPage);
+  userState = new UserStateComponent(sharedPage);
+  chat = new ChatComponent(sharedPage);
+  aggregates = new AggregatesComponent(sharedPage);
+  loginPage = new LoginPage(sharedPage);
 
   // Login
-  const loginPage = new LoginPage(sharedPage);
   accessToken = await getAccessToken();
   await resetDB(accessToken);
 
@@ -39,10 +50,6 @@ test.beforeAll(async ({ browser }) => {
 test(
   qase(44, '[Trigger] Show prediction button is clickable'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const chat = new ChatComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
@@ -63,11 +70,6 @@ test(
 test(
   qase(43, '[Trigger] Amount of  events should equal the aggregate number'),
   async ({ page }) => {
-    const aggregates = new AggregatesComponent(sharedPage);
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const chat = new ChatComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions

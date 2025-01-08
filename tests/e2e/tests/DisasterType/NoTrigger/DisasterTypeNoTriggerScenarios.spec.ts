@@ -14,15 +14,23 @@ import LoginPage from '../../../Pages/LoginPage';
 
 let accessToken: string;
 let sharedPage: Page;
+// Instances
+let dashboard: DashboardPage;
+let userState: UserStateComponent;
+let disasterType: DisasterTypeComponent;
+let loginPage: LoginPage;
 
 test.beforeAll(async ({ browser }) => {
   sharedPage = await browser.newPage();
+  // Initialize instances after sharedPage is assigned
+  userState = new UserStateComponent(sharedPage);
+  dashboard = new DashboardPage(sharedPage);
+  userState = new UserStateComponent(sharedPage);
+  disasterType = new DisasterTypeComponent(sharedPage);
+  loginPage = new LoginPage(sharedPage);
 
-  // Login
-  const loginPage = new LoginPage(sharedPage);
   accessToken = await getAccessToken();
   await resetDB(accessToken);
-
   // We should maybe create one mock for all different disaster types for now we can just use floods
   await mockFloods(
     NoTriggerDataSet.NoTriggerScenario,
@@ -41,10 +49,6 @@ test.beforeAll(async ({ browser }) => {
 test(
   qase(4, 'All Disaster Type elements are present in no-trigger mode'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const disasterType = new DisasterTypeComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions

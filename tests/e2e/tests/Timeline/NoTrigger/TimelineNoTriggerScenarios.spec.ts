@@ -14,12 +14,21 @@ import LoginPage from '../../../Pages/LoginPage';
 
 let accessToken: string;
 let sharedPage: Page;
+// Instances
+let dashboard: DashboardPage;
+let userState: UserStateComponent;
+let timeline: TimelineComponent;
+let loginPage: LoginPage;
 
 test.beforeAll(async ({ browser }) => {
   sharedPage = await browser.newPage();
+  // Initialize instances after sharedPage is assigned
+  dashboard = new DashboardPage(sharedPage);
+  userState = new UserStateComponent(sharedPage);
+  timeline = new TimelineComponent(sharedPage);
+  loginPage = new LoginPage(sharedPage);
 
   // Login
-  const loginPage = new LoginPage(sharedPage);
   accessToken = await getAccessToken();
   await resetDB(accessToken);
 
@@ -39,10 +48,6 @@ test.beforeAll(async ({ browser }) => {
 
 // https://app.qase.io/project/IBF?case=15&previewMode=side&suite=9
 test(qase(15, 'Timeline present in no trigger mode'), async ({ page }) => {
-  const dashboard = new DashboardPage(sharedPage);
-  const userState = new UserStateComponent(sharedPage);
-  const timeline = new TimelineComponent(sharedPage);
-
   // Navigate to disaster type the data was mocked for
   await dashboard.navigateToFloodDisasterType();
   // Assertions
@@ -57,10 +62,6 @@ test(qase(15, 'Timeline present in no trigger mode'), async ({ page }) => {
 test(
   qase(14, 'Timeline is deactivated in no-trigger mode'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const timeline = new TimelineComponent(sharedPage);
-
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
     // Assertions
