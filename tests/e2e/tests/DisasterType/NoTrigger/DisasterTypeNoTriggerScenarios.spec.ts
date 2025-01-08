@@ -1,5 +1,6 @@
-import { test } from '@playwright/test';
+import { Page, test } from '@playwright/test';
 import DashboardPage from 'Pages/DashboardPage';
+import DisasterTypeComponent from 'Pages/DisasterTypeComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
@@ -8,17 +9,20 @@ import {
   getAccessToken,
   mockFloods,
   resetDB,
-} from '../../helpers/utility.helper';
-import LoginPage from '../../Pages/LoginPage';
+} from '../../../helpers/utility.helper';
+import LoginPage from '../../../Pages/LoginPage';
 
 let accessToken: string;
+let sharedPage: Page;
 
-test.beforeEach(async ({ page }) => {
+test.beforeAll(async ({ browser }) => {
+  sharedPage = await browser.newPage();
+
   // Login
-  const loginPage = new LoginPage(page);
-
+  const loginPage = new LoginPage(sharedPage);
   accessToken = await getAccessToken();
   await resetDB(accessToken);
+
   // We should maybe create one mock for all different disaster types for now we can just use floods
   await mockFloods(
     NoTriggerDataSet.NoTriggerScenario,
@@ -26,20 +30,41 @@ test.beforeEach(async ({ page }) => {
     accessToken,
   );
 
-  await page.goto('/');
+  await sharedPage.goto('/');
   await loginPage.login(
     NoTriggerDataSet.UserMail,
     NoTriggerDataSet.UserPassword,
   );
 });
+
+// https://app.qase.io/project/IBF?case=4&previewMode=side&suite=5
+test(
+  qase(4, 'All Disaster Type elements are present in no-trigger mode'),
+  async ({ page }) => {
+    const dashboard = new DashboardPage(sharedPage);
+    const userState = new UserStateComponent(sharedPage);
+    const disasterType = new DisasterTypeComponent(sharedPage);
+
+    // Navigate to disaster type the data was mocked for
+    await dashboard.navigateToFloodDisasterType();
+    // Assertions
+    await userState.headerComponentIsVisible({
+      countryName: NoTriggerDataSet.CountryName,
+    });
+    await disasterType.topBarComponentIsVisible();
+    await disasterType.allDisasterTypeElementsArePresent();
+    await page.reload();
+  },
+);
+
 // Test is skipped because it was flaky and more invastigation is needed to fix it
 // Logged in PBI: https://dev.azure.com/redcrossnl/IBF/_workitems/edit/32127/
 // https://app.qase.io/project/IBF?case=4&previewMode=side&suite=5
 test.skip(
   qase(10, 'All Disaster Types can be selected in no-trigger mode'),
   async ({ page }) => {
-    const dashboard = new DashboardPage(page);
-    const userState = new UserStateComponent(page);
+    const dashboard = new DashboardPage(sharedPage);
+    const userState = new UserStateComponent(sharedPage);
 
     // Navigate between disaster types no matter the mock data
     await dashboard.navigateToFloodDisasterType();
@@ -59,5 +84,10 @@ test.skip(
       countryName: NoTriggerDataSet.CountryName,
       disasterName: 'heavy-rain',
     });
+    await page.reload();
   },
 );
+
+test.afterAll(async () => {
+  await sharedPage.close();
+});

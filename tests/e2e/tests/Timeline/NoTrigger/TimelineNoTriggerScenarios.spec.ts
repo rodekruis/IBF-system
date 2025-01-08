@@ -1,6 +1,6 @@
 import { Page, test } from '@playwright/test';
-import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
+import TimelineComponent from 'Pages/TimelineComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
@@ -37,16 +37,29 @@ test.beforeAll(async ({ browser }) => {
   );
 });
 
-// https://app.qase.io/project/IBF?case=11&previewMode=side&suite=6
+// https://app.qase.io/project/IBF?case=15&previewMode=side&suite=9
+test(qase(15, 'Timeline present in no trigger mode'), async ({ page }) => {
+  const dashboard = new DashboardPage(sharedPage);
+  const userState = new UserStateComponent(sharedPage);
+  const timeline = new TimelineComponent(sharedPage);
+
+  // Navigate to disaster type the data was mocked for
+  await dashboard.navigateToFloodDisasterType();
+  // Assertions
+  await userState.headerComponentIsVisible({
+    countryName: NoTriggerDataSet.CountryName,
+  });
+  await timeline.timlineElementsAreVisible();
+  await page.reload();
+});
+
+// https://app.qase.io/project/IBF?case=14&previewMode=side&suite=9
 test(
-  qase(
-    11,
-    'All Chat section action buttons can be selected in no-trigger mode',
-  ),
+  qase(14, 'Timeline is deactivated in no-trigger mode'),
   async ({ page }) => {
     const dashboard = new DashboardPage(sharedPage);
     const userState = new UserStateComponent(sharedPage);
-    const chat = new ChatComponent(sharedPage);
+    const timeline = new TimelineComponent(sharedPage);
 
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
@@ -54,36 +67,7 @@ test(
     await userState.headerComponentIsVisible({
       countryName: NoTriggerDataSet.CountryName,
     });
-    await chat.allDefaultButtonsArePresent();
-    await chat.clickAndAssertAboutButton();
-    await chat.clickAndAssertGuideButton();
-    await chat.clickAndAssertExportViewButton();
-    await chat.clickAndAssertTriggerLogButton({
-      url: `/log?countryCodeISO3=${NoTriggerDataSet.CountryCode}&disasterType=floods`,
-    });
-    await page.reload();
-  },
-);
-
-// https://app.qase.io/project/IBF?case=5&previewMode=side&suite=6
-test(
-  qase(5, 'All Chat section elements are present in no-trigger mode'),
-  async ({ page }) => {
-    const dashboard = new DashboardPage(sharedPage);
-    const userState = new UserStateComponent(sharedPage);
-    const chat = new ChatComponent(sharedPage);
-
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToFloodDisasterType();
-    // Assertions
-    await userState.headerComponentIsVisible({
-      countryName: NoTriggerDataSet.CountryName,
-    });
-    await chat.chatColumnIsVisibleForNoTriggerState({
-      firstName: NoTriggerDataSet.firstName,
-      lastName: NoTriggerDataSet.lastName,
-    });
-    await chat.allDefaultButtonsArePresent();
+    await timeline.timelineIsInactive();
     await page.reload();
   },
 );

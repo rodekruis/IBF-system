@@ -5,7 +5,6 @@ import UserStateComponent from 'Pages/UserStateComponent';
 import { qase } from 'playwright-qase-reporter';
 import { TriggerDataSet } from 'testData/testData.enum';
 
-import { FloodsScenario } from '../../../../../services/API-service/src/scripts/enum/mock-scenario.enum';
 import {
   getAccessToken,
   mockFloods,
@@ -26,7 +25,7 @@ test.beforeAll(async ({ browser }) => {
 
   // We should maybe create one mock for all different disaster types for now we can just use floods
   await mockFloods(
-    FloodsScenario.Trigger,
+    TriggerDataSet.TriggerScenario,
     TriggerDataSet.CountryCode,
     accessToken,
   );

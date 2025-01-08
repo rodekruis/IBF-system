@@ -1,5 +1,9 @@
 import { test } from '@playwright/test';
+import AggregatesComponent from 'Pages/AggregatesComponent';
+import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
+import DisasterTypeComponent from 'Pages/DisasterTypeComponent';
+import MapComponenet from 'Pages/MapComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
@@ -8,12 +12,12 @@ import {
   getAccessToken,
   mockFloods,
   resetDB,
-} from '../../helpers/utility.helper';
-import LoginPage from '../../Pages/LoginPage';
+} from '../../../helpers/utility.helper';
+import LoginPage from '../../../Pages/LoginPage';
 
 let accessToken: string;
 
-test.beforeEach(async ({ page }) => {
+test.beforeAll(async ({ page }) => {
   // Login
   const loginPage = new LoginPage(page);
 
@@ -32,12 +36,16 @@ test.beforeEach(async ({ page }) => {
     NoTriggerDataSet.UserPassword,
   );
 });
-// https://app.qase.io/project/IBF?case=3&previewMode=side&suite=4
+// https://app.qase.io/project/IBF?case=1&previewMode=side&suite=2
 test(
-  qase(3, 'All User State elements are present in no-trigger mode'),
+  qase(1, 'All Dashboard elements are present in no-trigger mode'),
   async ({ page }) => {
     const dashboard = new DashboardPage(page);
     const userState = new UserStateComponent(page);
+    const disasterType = new DisasterTypeComponent(page);
+    const chat = new ChatComponent(page);
+    const aggregates = new AggregatesComponent(page);
+    const map = new MapComponenet(page);
 
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToFloodDisasterType();
@@ -45,9 +53,12 @@ test(
     await userState.headerComponentIsVisible({
       countryName: NoTriggerDataSet.CountryName,
     });
-    await userState.allUserStateElementsAreVisible({
+    await disasterType.topBarComponentIsVisible();
+    await chat.chatColumnIsVisibleForNoTriggerState({
       firstName: NoTriggerDataSet.firstName,
       lastName: NoTriggerDataSet.lastName,
     });
+    await aggregates.aggregateComponentIsVisible();
+    await map.mapComponentIsVisible();
   },
 );
