@@ -5,6 +5,7 @@ import { CreateUserDto } from './API-service/dto/create-user.dto';
 import { UploadTyphoonTrackDto } from './API-service/dto/upload-typhoon-track.dto';
 import { DisasterType } from './API-service/enum/disaster-type.enum';
 import {
+  DroughtScenario,
   FlashFloodsScenario,
   FloodsScenario,
   MalariaScenario,
@@ -126,23 +127,21 @@ export function mockTyphoon(
     });
 }
 
-export function mockDynamicData(
-  disasterType: DisasterType,
+export function mockDrought(
+  scenario: DroughtScenario,
   countryCodeISO3: string,
-  triggered: boolean,
+  date: Date,
   accessToken: string,
-  date?: Date,
 ): Promise<request.Response> {
   return getServer()
-    .post('/scripts/mock-dynamic-data')
+    .post('/mock/drought')
     .set('Authorization', `Bearer ${accessToken}`)
     .query({ isApiTest: true })
     .send({
-      disasterType,
+      scenario,
       secret: process.env.RESET_SECRET,
-      triggered,
       removeEvents: true,
-      date: date ? date : new Date(),
+      date: date || new Date(),
       countryCodeISO3,
     });
 }
