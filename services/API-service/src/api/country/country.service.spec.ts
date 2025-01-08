@@ -4,6 +4,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 
 import countries from '../../scripts/json/countries.json';
+import notificationInfos from '../../scripts/json/notification-info.json';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
@@ -11,6 +12,7 @@ import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
 import { CountryDisasterSettingsDto } from './dto/add-countries.dto';
+import { NotificationInfoDto } from './dto/notification-info.dto';
 
 describe('CountryService', () => {
   let service: CountryService;
@@ -18,6 +20,7 @@ describe('CountryService', () => {
   let disasterRepository: Repository<DisasterEntity>;
   let countryDisasterSettingsRepository: Repository<CountryDisasterSettingsEntity>;
   let leadTimeRepository: Repository<LeadTimeEntity>;
+  let notificationInfoRepository: Repository<NotificationInfoEntity>;
 
   const relations = [
     'countryDisasterSettings',
@@ -65,6 +68,9 @@ describe('CountryService', () => {
     >(getRepositoryToken(CountryDisasterSettingsEntity));
     leadTimeRepository = module.get<Repository<LeadTimeEntity>>(
       getRepositoryToken(LeadTimeEntity),
+    );
+    notificationInfoRepository = module.get<Repository<NotificationInfoEntity>>(
+      getRepositoryToken(NotificationInfoEntity),
     );
   });
 
@@ -203,6 +209,85 @@ describe('CountryService', () => {
           });
         }
       }
+    });
+  });
+
+  describe('addOrUpdateNotificationInfo', () => {
+    it('should add or update notification info', async () => {
+      jest.spyOn(service, 'findOne').mockResolvedValue(new CountryEntity());
+      jest.spyOn(service, 'createNotificationInfo').mockResolvedValue(null);
+      jest
+        .spyOn(countryRepository, 'save')
+        .mockResolvedValue(new CountryEntity());
+
+      const notificationInfoDto = notificationInfos as NotificationInfoDto[];
+      await service.addOrUpdateNotificationInfo(notificationInfoDto);
+
+      for (const notificationInfo of notificationInfoDto) {
+        expect(service.findOne).toHaveBeenCalledWith(
+          notificationInfo.countryCodeISO3,
+          ['notificationInfo'],
+        );
+      }
+      expect(countryRepository.save).toHaveBeenCalledWith(
+        notificationInfos.map(() => ({ notificationInfo: null })),
+      );
+    });
+  });
+
+  describe('createNotificationInfo', () => {
+    it('should create notification info', async () => {
+      const getNotificationInfoEntity = (
+        notificationInfoDto: NotificationInfoDto,
+      ) => {
+        const notificationInfoEntity = new NotificationInfoEntity();
+        notificationInfoEntity.logo = JSON.parse(
+          JSON.stringify(notificationInfoDto.logo),
+        );
+        notificationInfoEntity.triggerStatement = JSON.parse(
+          JSON.stringify(notificationInfoDto.triggerStatement),
+        );
+        notificationInfoEntity.linkSocialMediaType =
+          notificationInfoDto.linkSocialMediaType;
+        notificationInfoEntity.linkSocialMediaUrl =
+          notificationInfoDto.linkSocialMediaUrl;
+        notificationInfoEntity.linkVideo = notificationInfoDto.linkVideo;
+        notificationInfoEntity.linkPdf = notificationInfoDto.linkPdf;
+        if (notificationInfoDto.useWhatsapp) {
+          notificationInfoEntity.useWhatsapp = JSON.parse(
+            JSON.stringify(notificationInfoDto.useWhatsapp),
+          );
+        }
+        if (notificationInfoDto.whatsappMessage) {
+          notificationInfoEntity.whatsappMessage = JSON.parse(
+            JSON.stringify(notificationInfoDto.whatsappMessage),
+          );
+        }
+        notificationInfoEntity.externalEarlyActionForm =
+          notificationInfoDto.externalEarlyActionForm!;
+
+        return notificationInfoEntity;
+      };
+
+      jest
+        .spyOn(notificationInfoRepository, 'findOne')
+        .mockResolvedValue(new NotificationInfoEntity());
+      jest
+        .spyOn(notificationInfoRepository, 'save')
+        .mockResolvedValue(new NotificationInfoEntity());
+
+      const notificationInfoDto = notificationInfos[0] as NotificationInfoDto;
+      await service.createNotificationInfo(
+        new NotificationInfoEntity(),
+        notificationInfoDto,
+      );
+
+      expect(notificationInfoRepository.findOne).toHaveBeenCalledWith({
+        where: { notificationInfoId: undefined },
+      });
+      expect(notificationInfoRepository.save).toHaveBeenCalledWith(
+        getNotificationInfoEntity(notificationInfoDto),
+      );
     });
   });
 });
