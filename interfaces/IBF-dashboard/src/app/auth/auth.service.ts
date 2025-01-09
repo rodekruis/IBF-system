@@ -70,6 +70,11 @@ export class AuthService implements OnDestroy {
       return null;
     }
 
+    const isExpired: boolean = this.jwtService.checkExpiry(rawToken);
+    if (isExpired) {
+      return null;
+    }
+
     const decodedToken = this.jwtService.decodeToken(rawToken);
     const user: User = {
       token: rawToken,
