@@ -342,25 +342,15 @@ export class MockHelperService {
     event: Event,
     date: Date,
   ) {
-    const filePath = `./src/scripts/mock-data/${DisasterType.Typhoon}/${countryCodeISO3}/${scenarioName}/${event.eventName}`;
-    let trackFileName = `${filePath}/typhoon-track.json`;
-    // TODO: Implement the following scenarios
-    if (scenarioName === TyphoonScenario.EventNoLandfall) {
-      trackFileName = `${filePath}/typhoon-track-no-landfall.json`;
-    } else if (scenarioName === TyphoonScenario.EventNoLandfallYet) {
-      trackFileName = `${filePath}/typhoon-track-no-landfall-yet.json`;
-    }
-
-    const trackRaw = fs.readFileSync(trackFileName, 'utf-8');
+    const filePath = `./src/scripts/mock-data/${DisasterType.Typhoon}/${countryCodeISO3}/${scenarioName}/${event.eventName}/typhoon-track.json`;
+    const trackRaw = fs.readFileSync(filePath, 'utf-8');
     const track = JSON.parse(trackRaw);
 
     // Overwrite timestamps of trackpoints to align with today's date
     // Make sure that the moment of landfall lies just ahead
-    let i = scenarioName === TyphoonScenario.EventAfterLandfall ? -29 : -23;
+    let i = scenarioName === TyphoonScenario.OngoingTrigger ? -29 : -23;
     for (const trackpoint of track) {
       const now = new Date(date) || new Date();
-      console.log('date: ', date, typeof date);
-      console.log('now: ', now, typeof now);
       trackpoint.timestampOfTrackpoint = new Date(
         now.getTime() + i * (1000 * 60 * 60 * 6),
       );
@@ -371,7 +361,7 @@ export class MockHelperService {
       countryCodeISO3,
       leadTime: event.leadTime,
       eventName: event.eventName,
-      trackpointDetails: scenarioName === TyphoonScenario.NoEvent ? [] : track,
+      trackpointDetails: track,
       date,
     });
   }

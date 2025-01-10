@@ -280,6 +280,13 @@ export class MockController {
   @ApiOperation({
     summary: 'Upload mock data for specific typhoon scenario',
   })
+  @ApiQuery({
+    name: 'isApiTest',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description: 'Set to true for tests',
+  })
   @ApiResponse({
     status: 202,
     description: 'Uploaded mock data for specific typhoon scenario',

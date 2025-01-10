@@ -25,13 +25,11 @@ export enum DroughtSenario {
 }
 
 export enum TyphoonScenario {
-  // Implemented in new mock
-  NoEvent = 'noEvent',
-  EventTrigger = 'eventTrigger',
-  // Not yet implemented in new mock
-  EventNoLandfall = 'eventNoLandfall',
-  EventNoLandfallYet = 'eventNoLandfallYet',
-  EventNoTrigger = 'eventNoTrigger',
-  EventAfterLandfall = 'eventAfterLandfall',
-  // NOTE: this should also contain at least 1 multi-event scenario
+  Trigger = 'trigger',
+  NoTrigger = 'no-trigger',
+  Warning = 'warning',
+  NoLandfallTrigger = 'no-landfall-trigger',
+  NoLandfallYetWarning = 'no-landfall-yet-warning',
+  OngoingTrigger = 'ongoing-trigger',
+  WarningAndTrigger = 'warning-and-trigger',
 }

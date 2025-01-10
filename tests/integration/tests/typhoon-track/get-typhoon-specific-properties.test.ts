@@ -19,11 +19,7 @@ describe('get typhoon-specific properties', () => {
   // Here just 1 happy path is tested. See typhoon-track.service.spec for various unit tests on specific scenarios.
   it('should yield typhoonLandfall=true for scenario Trigger', async () => {
     // Arrange
-    await mockTyphoon(
-      TyphoonScenario.EventTrigger,
-      countryCodeISO3,
-      accessToken,
-    );
+    await mockTyphoon(TyphoonScenario.Trigger, countryCodeISO3, accessToken);
 
     // Act
     const eventsResult = await getEventsSummary(

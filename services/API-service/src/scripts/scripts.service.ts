@@ -195,10 +195,10 @@ export class ScriptsService {
   public async mockTyphoonScenario(mockTyphoonScenario: MockTyphoonScenario) {
     if (
       [
-        TyphoonScenario.EventTrigger,
-        TyphoonScenario.EventAfterLandfall,
-        TyphoonScenario.EventNoLandfall,
-        TyphoonScenario.EventNoLandfallYet,
+        TyphoonScenario.Trigger,
+        TyphoonScenario.OngoingTrigger,
+        TyphoonScenario.NoLandfallTrigger,
+        TyphoonScenario.NoLandfallYetWarning,
       ].includes(mockTyphoonScenario.scenario)
     ) {
       // Scenario 'eventTrigger' is equal to using the normal mock-endpoint for typhoon with 'triggered = true'
@@ -215,7 +215,7 @@ export class ScriptsService {
         mockTyphoonScenario.scenario,
       );
     } else if (
-      [TyphoonScenario.EventNoTrigger, TyphoonScenario.NoEvent].includes(
+      [TyphoonScenario.Warning, TyphoonScenario.NoTrigger].includes(
         mockTyphoonScenario.scenario,
       )
     ) {
@@ -232,7 +232,7 @@ export class ScriptsService {
         mockTyphoonScenario.scenario,
       );
     } else if (
-      mockTyphoonScenario.scenario === TyphoonScenario.EventAfterLandfall
+      mockTyphoonScenario.scenario === TyphoonScenario.OngoingTrigger
     ) {
       await this.mockCountry(
         {
@@ -244,7 +244,7 @@ export class ScriptsService {
           date: mockTyphoonScenario.date || new Date(),
         },
         mockTyphoonScenario.eventNr,
-        TyphoonScenario.EventAfterLandfall,
+        TyphoonScenario.OngoingTrigger,
       );
     } else {
       throw new HttpException('Not a known scenario', HttpStatus.BAD_REQUEST);
@@ -330,7 +330,7 @@ export class ScriptsService {
 
     if (disasterType === DisasterType.Typhoon) {
       exposureUnits.push(DynamicIndicator.showAdminArea);
-      if (typhoonScenario === TyphoonScenario.NoEvent) {
+      if (typhoonScenario === TyphoonScenario.NoTrigger) {
         exposureUnits = [
           DynamicIndicator.housesAffected,
           DynamicIndicator.alertThreshold,
@@ -361,7 +361,7 @@ export class ScriptsService {
     const exposure = JSON.parse(exposureRaw);
 
     // For typhoon event-no-trigger case, set only alert-threshold to 0
-    if (typhoonScenario === TyphoonScenario.EventNoTrigger) {
+    if (typhoonScenario === TyphoonScenario.Warning) {
       if (unit === DynamicIndicator.alertThreshold) {
         exposure.forEach((area) => (area.amount = 0));
       }
@@ -400,7 +400,7 @@ export class ScriptsService {
     typhoonScenario?: TyphoonScenario,
   ): string {
     if (disasterType === DisasterType.Typhoon) {
-      if (typhoonScenario === TyphoonScenario.NoEvent) {
+      if (typhoonScenario === TyphoonScenario.NoTrigger) {
         return null;
       } else {
         return `Mock typhoon ${eventNr}`;
@@ -427,9 +427,9 @@ export class ScriptsService {
     eventNr = 1,
     typhoonScenario?: TyphoonScenario,
   ): string {
-    if (typhoonScenario === TyphoonScenario.EventAfterLandfall) {
+    if (typhoonScenario === TyphoonScenario.OngoingTrigger) {
       return LeadTime.hour0;
-    } else if (typhoonScenario === TyphoonScenario.NoEvent) {
+    } else if (typhoonScenario === TyphoonScenario.NoTrigger) {
       return LeadTime.hour72;
     } else if (eventNr === 1) {
       return LeadTime.hour48;
@@ -458,9 +458,9 @@ export class ScriptsService {
     let trackFileName = `${filePath}/typhoon-track-${
       selectedCountry.countryCodeISO3
     }${eventNr > 1 ? `-eventNr-2` : ''}.json`;
-    if (typhoonScenario === TyphoonScenario.EventNoLandfall) {
+    if (typhoonScenario === TyphoonScenario.NoLandfallTrigger) {
       trackFileName = `${filePath}/typhoon-track-${selectedCountry.countryCodeISO3}-no-landfall.json`;
-    } else if (typhoonScenario === TyphoonScenario.EventNoLandfallYet) {
+    } else if (typhoonScenario === TyphoonScenario.NoLandfallYetWarning) {
       trackFileName = `${filePath}/typhoon-track-${selectedCountry.countryCodeISO3}-no-landfall-yet.json`;
     }
 
@@ -469,7 +469,7 @@ export class ScriptsService {
 
     // Overwrite timestamps of trackpoints to align with today's date
     // Make sure that the moment of landfall lies just ahead
-    let i = typhoonScenario === TyphoonScenario.EventAfterLandfall ? -29 : -23;
+    let i = typhoonScenario === TyphoonScenario.OngoingTrigger ? -29 : -23;
     for (const trackpoint of track) {
       const now = date || new Date();
       trackpoint.timestampOfTrackpoint = new Date(
@@ -488,7 +488,7 @@ export class ScriptsService {
       leadTime: mockLeadTime as LeadTime,
       eventName: this.getEventName(DisasterType.Typhoon, eventNr),
       trackpointDetails:
-        typhoonScenario === TyphoonScenario.NoEvent ? [] : track,
+        typhoonScenario === TyphoonScenario.NoTrigger ? [] : track,
       date,
     });
   }
