@@ -11,11 +11,11 @@ import {
   ValidateNested,
 } from 'class-validator';
 
+import exposure from '../../../scripts/mock-data/drought/ETH/trigger/Belg JAS_Belg/upload-alert_threshold-2.json';
 import { DisasterType } from '../../disaster/disaster-type.enum';
 import { DynamicIndicator } from '../enum/dynamic-data-unit';
 import { LeadTime } from '../enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dynamic-data-place-code.dto';
-import exposure from './example/ETH/drought/upload-alert_threshold-2.json';
 
 export class UploadAdminAreaDynamicDataDto {
   @ApiProperty({ example: 'PHL' })
