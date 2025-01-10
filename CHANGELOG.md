@@ -1,3 +1,24 @@
+# [0.278.0](https://github.com/rodekruis/IBF-system/compare/v0.277.20...v0.278.0) (2025-01-10)
+
+
+### Bug Fixes
+
+* correct seasons LSO ZWE AB[#32478](https://github.com/rodekruis/IBF-system/issues/32478) ([9ae25bf](https://github.com/rodekruis/IBF-system/commit/9ae25bfa0d5243be01319f1d978c9bb726585f4e))
+* drought email api test AB[#32480](https://github.com/rodekruis/IBF-system/issues/32480) ([9e6e9b4](https://github.com/rodekruis/IBF-system/commit/9e6e9b4a9d380cb0a8bc53175ace963bb60af1aa))
+* show adm-level-btns correctly for non-breadcrumb AB[#32487](https://github.com/rodekruis/IBF-system/issues/32487) ([4fad450](https://github.com/rodekruis/IBF-system/commit/4fad450bb7d07c3af5e03fbfb75c465fd966f9a9))
+
+
+### Features
+
+* enable no-trigger in new mock setup AB[#32480](https://github.com/rodekruis/IBF-system/issues/32480) ([2f32a9d](https://github.com/rodekruis/IBF-system/commit/2f32a9d663e11c42328160dfc95e8936ff5e71ae))
+* hardcode no trigger for >3 months AB[#32480](https://github.com/rodekruis/IBF-system/issues/32480) ([7b2ebe6](https://github.com/rodekruis/IBF-system/commit/7b2ebe653ce64dbce6d24d38a96729a1e4f37502))
+* initial setup Lesotho drought AB[#32478](https://github.com/rodekruis/IBF-system/issues/32478) ([b2ab17a](https://github.com/rodekruis/IBF-system/commit/b2ab17a9dd70ef8eedcf2b4d80b593ed8f36122b))
+* make no-trigger scenario work AB[#32478](https://github.com/rodekruis/IBF-system/issues/32478) ([1596ba0](https://github.com/rodekruis/IBF-system/commit/1596ba03627a9f29460b8b39f5069b51919efc39))
+* migrate drought to new mock setup with working LSO mock data AB[#32480](https://github.com/rodekruis/IBF-system/issues/32480) ([19007a7](https://github.com/rodekruis/IBF-system/commit/19007a7c0d1bf4c2dbc4c67a41107df24b1be8d1))
+* set up email LSO AB[#32529](https://github.com/rodekruis/IBF-system/issues/32529) ([c04274f](https://github.com/rodekruis/IBF-system/commit/c04274f91c2fae0e8b23ab594dc112a1f36b1a1a))
+
+
+
 ## [0.277.20](https://github.com/rodekruis/IBF-system/compare/v0.277.19...v0.277.20) (2025-01-10)
 
 
@@ -84,15 +105,6 @@
 ### Bug Fixes
 
 * move API-service lint-staged in rc file ([f52fdb8](https://github.com/rodekruis/IBF-system/commit/f52fdb89c4d79bc90c103f90dfc139ecb62820d2))
-
-
-
-## [0.277.6](https://github.com/rodekruis/IBF-system/compare/v0.277.5...v0.277.6) (2024-12-11)
-
-
-### Bug Fixes
-
-* connect dynamic data to active assets ([5e61128](https://github.com/rodekruis/IBF-system/commit/5e61128e8e226ae8b03f0e5813aca5189ffaf8d4))
 
 
 
