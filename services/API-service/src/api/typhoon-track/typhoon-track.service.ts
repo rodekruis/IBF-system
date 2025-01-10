@@ -52,16 +52,21 @@ export class TyphoonTrackService {
   private async deleteDuplicates(
     uploadTyphoonTrack: UploadTyphoonTrackDto,
   ): Promise<void> {
-    await this.typhoonTrackRepository.delete({
+    const deleteFilters = {
       countryCodeISO3: uploadTyphoonTrack.countryCodeISO3,
-      eventName: uploadTyphoonTrack.eventName,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           DisasterType.Typhoon,
           uploadTyphoonTrack.date,
         ),
       ),
-    });
+    };
+    if (uploadTyphoonTrack.eventName) {
+      deleteFilters['eventName'] = uploadTyphoonTrack.eventName;
+    }
+    // this implies that on eventName=null (no events), all typhoon tracks (in current time-period) will be deleted
+
+    await this.typhoonTrackRepository.delete(deleteFilters);
   }
 
   public async getTyphoonTrack(
