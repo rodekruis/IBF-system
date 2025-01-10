@@ -10,6 +10,7 @@ import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-da
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { AdminLevel } from '../api/country/admin-level.enum';
+import { CountryEntity } from '../api/country/country.entity';
 import { CountryDisasterSettingsDto } from '../api/country/dto/add-countries.dto';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
@@ -26,12 +27,14 @@ import { Country } from './interfaces/country.interface';
 import countries from './json/countries.json';
 import { MockHelperService } from './mock-helper.service';
 import {
+  MockAll,
   MockDroughtScenario,
   MockFlashFloodsScenario,
   MockFloodsScenario,
   MockMalariaScenario,
   MockTyphoonScenario,
 } from './mock.controller';
+import { ScriptsService } from './scripts.service';
 
 class Scenario {
   scenarioName: string;
@@ -53,6 +56,8 @@ export class MockService {
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
   @InjectRepository(EapActionStatusEntity)
   private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
+  @InjectRepository(CountryEntity)
+  private readonly countryRepo: Repository<CountryEntity>;
 
   constructor(
     private metadataService: MetadataService,
@@ -63,6 +68,7 @@ export class MockService {
     private typhoonTrackService: TyphoonTrackService,
     private mockHelpService: MockHelperService,
     private geoServerSyncService: GeoserverSyncService,
+    private scriptsService: ScriptsService,
   ) {}
 
   public async mock(
@@ -499,5 +505,55 @@ export class MockService {
 
   private shouldMockTyphoonTrack(disasterType: DisasterType): boolean {
     return disasterType === DisasterType.Typhoon;
+  }
+
+  public async mockAll(mockAllInput: MockAll) {
+    console.log('mockAllInput: ', mockAllInput);
+    const isApiTest = false;
+
+    const envCountries = process.env.COUNTRIES.split(',');
+    console.log('envCountries: ', envCountries);
+
+    const newMockServiceDisasterTypes = [
+      DisasterType.Floods,
+      DisasterType.Malaria,
+      DisasterType.FlashFloods,
+      DisasterType.Drought,
+      DisasterType.Typhoon,
+    ];
+
+    for await (const countryCodeISO3 of envCountries) {
+      console.log('countryCodeISO3: ', countryCodeISO3);
+      const country = await this.countryRepo.findOne({
+        where: { countryCodeISO3: countryCodeISO3 },
+        relations: ['disasterTypes'],
+      });
+
+      for await (const disasterType of country.disasterTypes) {
+        if (newMockServiceDisasterTypes.includes(disasterType.disasterType)) {
+          await this.mock(
+            {
+              secret: mockAllInput.secret,
+              countryCodeISO3,
+              removeEvents: true,
+              date: mockAllInput.date || new Date(),
+              scenario: null, // This is overwritten by useDefaultScenario=true anyway
+            },
+            disasterType.disasterType,
+            true,
+            isApiTest,
+          );
+        } else {
+          await this.scriptsService.mockCountry({
+            secret: mockAllInput.secret,
+            countryCodeISO3,
+            disasterType: disasterType.disasterType,
+            triggered: mockAllInput.triggered,
+            removeEvents: true,
+            date: mockAllInput.date || new Date(),
+          });
+        }
+      }
+    }
   }
 }
