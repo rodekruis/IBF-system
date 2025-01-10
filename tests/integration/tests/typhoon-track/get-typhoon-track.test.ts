@@ -17,11 +17,7 @@ describe('get typhoon track', () => {
 
   it('successfully', async () => {
     // Arrange
-    await mockTyphoon(
-      TyphoonScenario.EventTrigger,
-      countryCodeISO3,
-      accessToken,
-    );
+    await mockTyphoon(TyphoonScenario.Trigger, countryCodeISO3, accessToken);
     const eventName = 'Mock typhoon 1';
 
     // Act

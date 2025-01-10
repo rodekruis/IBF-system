@@ -18,7 +18,9 @@ import { EventService } from '../api/event/event.service';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { MetadataService } from '../api/metadata/metadata.service';
 import { PointDataService } from '../api/point-data/point-data.service';
+import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { DEBUG } from '../config';
+import { TyphoonScenario } from './enum/mock-scenario.enum';
 import { GeoserverSyncService } from './geoserver-sync.service';
 import { Country } from './interfaces/country.interface';
 import countries from './json/countries.json';
@@ -58,6 +60,7 @@ export class MockService {
     private eventService: EventService,
     private pointDataService: PointDataService,
     private adminAreaService: AdminAreaService,
+    private typhoonTrackService: TyphoonTrackService,
     private mockHelpService: MockHelperService,
     private geoServerSyncService: GeoserverSyncService,
   ) {}
@@ -103,6 +106,7 @@ export class MockService {
     const indicators = await this.getIndicators(
       mockBody.countryCodeISO3,
       disasterType,
+      scenario.scenarioName,
     );
 
     if (!scenario.events) {
@@ -262,7 +266,8 @@ export class MockService {
       | MockFloodsScenario
       | MockMalariaScenario
       | MockFlashFloodsScenario
-      | MockDroughtScenario,
+      | MockDroughtScenario
+      | MockTyphoonScenario,
     disasterType: DisasterType,
     selectedCountry: Country,
     date: Date,
@@ -295,6 +300,16 @@ export class MockService {
           });
         }
       }
+    }
+
+    if (this.shouldMockTyphoonTrack(disasterType)) {
+      await this.typhoonTrackService.uploadTyphoonTrack({
+        countryCodeISO3: mockBody.countryCodeISO3,
+        leadTime: leadTimesForNoTrigger[0] as LeadTime,
+        eventName: null,
+        trackpointDetails: [],
+        date,
+      });
     }
   }
 
@@ -355,15 +370,27 @@ export class MockService {
   private async getIndicators(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    scenarioName: string,
   ) {
     const indicators =
       await this.metadataService.getIndicatorsByCountryAndDisaster(
         countryCodeISO3,
         disasterType,
       );
-    const exposureUnits = indicators
+    let exposureUnits = indicators
       .filter((ind) => ind.dynamic)
       .map((ind) => ind.name as DynamicIndicator);
+
+    if (disasterType === DisasterType.Typhoon) {
+      exposureUnits.push(DynamicIndicator.showAdminArea);
+      // is this needed?
+      if (scenarioName === TyphoonScenario.NoTrigger) {
+        exposureUnits = [
+          DynamicIndicator.housesAffected,
+          DynamicIndicator.alertThreshold,
+        ];
+      }
+    }
 
     // Make sure 'alert_threshold' is uploaded last
     return exposureUnits.sort((a, _b) =>

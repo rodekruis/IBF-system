@@ -114,12 +114,11 @@ export function mockTyphoon(
   accessToken: string,
 ): Promise<request.Response> {
   return getServer()
-    .post('/scripts/mock-typhoon-scenario')
+    .post('/mock/typhoon')
     .set('Authorization', `Bearer ${accessToken}`)
     .query({ isApiTest: true })
     .send({
       scenario,
-      eventNr: 1,
       secret: process.env.RESET_SECRET,
       removeEvents: true,
       date: new Date(),

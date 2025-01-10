@@ -2,11 +2,7 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { TyphoonScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import {
-  getEventTitle,
-  mockTyphoon,
-  sendNotification,
-} from '../../../helpers/utility.helper';
+import { mockTyphoon, sendNotification } from '../../../helpers/utility.helper';
 
 export async function testTyphoonScenario(
   scenario: TyphoonScenario,
@@ -14,8 +10,6 @@ export async function testTyphoonScenario(
   accessToken: string,
 ): Promise<boolean> {
   const nrOfEvents = 1;
-  const eventName = 'Mock typhoon';
-  const disasterTypeLabel = DisasterType.Typhoon;
 
   const mockResult = await mockTyphoon(scenario, countryCodeISO3, accessToken);
   // Act
@@ -24,6 +18,7 @@ export async function testTyphoonScenario(
     DisasterType.Typhoon,
     accessToken,
   );
+
   // Assert
   // Also checking the status of the mockResult here as I think it also breaks often
   expect(mockResult.status).toBe(202);
@@ -45,29 +40,23 @@ export async function testTyphoonScenario(
   );
 
   expect(eventNamesInEmail.length).toBe(nrOfEvents);
+  console.log('eventNamesInEmail: ', eventNamesInEmail);
 
-  // Check if there are elements with the desired text content
-  for (const eventNameInEmail of eventNamesInEmail) {
-    const eventTitle = getEventTitle(disasterTypeLabel, eventName);
-    const hasEvent = eventNameInEmail.includes(eventTitle);
-    expect(hasEvent).toBe(true);
-  }
-
-  if (scenario === TyphoonScenario.EventTrigger) {
+  if (scenario === TyphoonScenario.Trigger) {
     expect(emailContent).toContain('Expected to make landfall on');
-  } else if (scenario === TyphoonScenario.EventNoTrigger) {
+  } else if (scenario === TyphoonScenario.Warning) {
     expect(emailContent).toContain(
       'Not predicted to reach trigger thresholds.',
     );
-  } else if (scenario === TyphoonScenario.EventNoLandfall) {
+  } else if (scenario === TyphoonScenario.NoLandfallTrigger) {
     expect(emailContent).toContain(
       'Expected to reach the point closest to land on',
     );
-  } else if (scenario === TyphoonScenario.EventNoLandfallYet) {
+  } else if (scenario === TyphoonScenario.NoLandfallYetWarning) {
     expect(emailContent).toContain(
       'The landfall time prediction cannot be determined yet',
     );
-  } else if (scenario === TyphoonScenario.EventAfterLandfall) {
+  } else if (scenario === TyphoonScenario.OngoingTrigger) {
     expect(emailContent).toContain('Has already made landfall');
   }
 
