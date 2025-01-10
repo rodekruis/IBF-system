@@ -24,4 +24,8 @@ export class JwtService {
   public decodeToken(rawToken: string): any {
     return this.jwtHelper.decodeToken(rawToken);
   }
+
+  public checkExpiry(rawToken: string): boolean {
+    return this.jwtHelper.isTokenExpired(rawToken);
+  }
 }
