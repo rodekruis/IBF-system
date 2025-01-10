@@ -30,6 +30,7 @@ import { UserRole } from '../api/user/user-role.enum';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
 import {
+  DroughtSenario,
   FlashFloodsScenario,
   FloodsScenario,
   MalariaScenario,
@@ -84,6 +85,16 @@ export class MockMalariaScenario extends MockBaseScenario {
   })
   @IsEnum(MalariaScenario)
   public readonly scenario: MalariaScenario;
+}
+
+export class MockDroughtScenario extends MockBaseScenario {
+  @ApiProperty({
+    example: Object.values(DroughtSenario).join(' | '),
+    description:
+      'trigger: trigger for 1st month of each ongoing/upcoming season in each region',
+  })
+  @IsEnum(DroughtSenario)
+  public readonly scenario: DroughtSenario;
 }
 
 @Controller('mock')
@@ -207,6 +218,47 @@ export class MockController {
     const result = await this.mockService.mock(
       body,
       DisasterType.Malaria,
+      false,
+      isApiTest,
+    );
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Upload mock data for specific drought scenario',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Uploaded mock data for specific drought scenario',
+  })
+  @ApiQuery({
+    name: 'isApiTest',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description: 'Set to true for tests',
+  })
+  @Post('/drought')
+  public async mockDroughtScenario(
+    @Body() body: MockDroughtScenario,
+    @Res() res,
+    @Query(
+      'isApiTest',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    isApiTest: boolean,
+  ): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+
+    const result = await this.mockService.mock(
+      body,
+      DisasterType.Drought,
       false,
       isApiTest,
     );

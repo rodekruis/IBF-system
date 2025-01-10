@@ -1,0 +1,18 @@
+[
+  {
+    "scenarioName": "trigger",
+    "defaultScenario": true,
+    "events": [
+      { "eventName": "Belg MAM_Belg" },
+      { "eventName": "Belg JAS_Belg" },
+      { "eventName": "Meher JAS_Meher" },
+      { "eventName": "Northern MAM_Northern" },
+      { "eventName": "Northern JAS_Northern" },
+      { "eventName": "Southern MAM_Southern" },
+      { "eventName": "Southern OND_Southern" }
+    ]
+  },
+  {
+    "scenarioName": "no-trigger"
+  }
+]

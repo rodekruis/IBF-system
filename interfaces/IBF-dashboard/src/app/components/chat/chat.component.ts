@@ -459,9 +459,9 @@ export class ChatComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const droughtForecastSeasons =
-      this.countryDisasterSettings?.droughtForecastSeasons;
-    const forecastAreas = Object.keys(droughtForecastSeasons);
+    const droughtSeasonRegions =
+      this.countryDisasterSettings?.droughtSeasonRegions;
+    const forecastAreas = Object.keys(droughtSeasonRegions);
 
     const droughtEndOfMonthPipeline =
       this.countryDisasterSettings?.droughtEndOfMonthPipeline;
@@ -478,8 +478,8 @@ export class ChatComponent implements OnInit, OnDestroy {
         !event?.eventName ||
         event.eventName.toLowerCase().includes(area.toLowerCase())
       ) {
-        for (const season of Object.keys(droughtForecastSeasons[area])) {
-          const rainMonths = droughtForecastSeasons[area][season].rainMonths;
+        for (const season of Object.keys(droughtSeasonRegions[area])) {
+          const rainMonths = droughtSeasonRegions[area][season].rainMonths;
           const finalMonth = rainMonths[rainMonths.length - 1];
           if (
             currentMonth.month +
@@ -558,18 +558,18 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public getRegion = (placeCode: string): string => {
-    if (!this.countryDisasterSettings.droughtAreas) {
+    if (!this.countryDisasterSettings.droughtRegions) {
       return 'National';
     } else {
-      for (const droughtArea of Object.keys(
-        this.countryDisasterSettings.droughtAreas,
+      for (const droughtRegion of Object.keys(
+        this.countryDisasterSettings.droughtRegions,
       )) {
         if (
-          this.countryDisasterSettings.droughtAreas[droughtArea].includes(
+          this.countryDisasterSettings.droughtRegions[droughtRegion].includes(
             placeCode,
           )
         ) {
-          return droughtArea;
+          return droughtRegion;
         }
       }
     }

@@ -18,6 +18,11 @@ export enum MalariaScenario {
   NoTrigger = 'no-trigger',
 }
 
+export enum DroughtScenario {
+  Trigger = 'trigger',
+  NoTrigger = 'no-trigger',
+}
+
 export enum TyphoonScenario {
   NoEvent = 'noEvent',
   EventNoLandfall = 'eventNoLandfall',

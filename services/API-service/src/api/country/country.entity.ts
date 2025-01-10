@@ -26,10 +26,6 @@ export class CountryEntity {
   @Column({ unique: true })
   public countryCodeISO3: string;
 
-  @ApiProperty({ example: 'UG' })
-  @Column({ unique: true })
-  public countryCodeISO2: string;
-
   @ApiProperty({ example: 'Uganda' })
   @Column({ unique: true })
   public countryName: string;

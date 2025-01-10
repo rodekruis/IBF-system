@@ -1,10 +1,11 @@
 import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
+import { DroughtScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
 import {
   getAccessToken,
   getEventTitle,
-  mockDynamicData,
+  mockDrought,
   resetDB,
   sendNotification,
 } from '../../../helpers/utility.helper';
@@ -23,18 +24,14 @@ describe('Should send an email for uga drought', () => {
   it('triggered in january', async () => {
     // Mock settings
     const dateJanuary = new Date(new Date().getFullYear(), 0, 2); // Use 2nd of January to avoid timezone issues
-    const triggered = true;
-
-    // TODO: Do not hard code this but get it from the seed data
     const expectedEventNames = ['Mam', 'Karamoja'];
 
     const nrOfEvents = 2;
-    const mockResult = await mockDynamicData(
-      disasterType,
+    const mockResult = await mockDrought(
+      DroughtScenario.Trigger,
       countryCodeISO3,
-      triggered,
-      accessToken,
       dateJanuary,
+      accessToken,
     );
     const response = await sendNotification(
       countryCodeISO3,
@@ -76,14 +73,12 @@ describe('Should send an email for uga drought', () => {
   it('non triggered any month', async () => {
     // Mock settings
     const currentDate = new Date();
-    const triggered = false;
 
-    const mockResult = await mockDynamicData(
-      disasterType,
+    const mockResult = await mockDrought(
+      DroughtScenario.NoTrigger,
       countryCodeISO3,
-      triggered,
-      accessToken,
       currentDate,
+      accessToken,
     );
     const response = await sendNotification(
       countryCodeISO3,

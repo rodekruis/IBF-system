@@ -4,7 +4,6 @@ import { Injectable } from '@nestjs/common';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
-import { EventService } from '../api/event/event.service';
 import { UploadLinesExposureStatusDto } from '../api/lines-data/dto/upload-asset-exposure-status.dto';
 import { LinesDataEnum } from '../api/lines-data/lines-data.entity';
 import { LinesDataService } from '../api/lines-data/lines-data.service';
@@ -12,12 +11,12 @@ import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-ex
 import { PointDataEnum } from '../api/point-data/point-data.entity';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';
+import { Country } from './interfaces/country.interface';
 
 @Injectable()
 export class MockHelperService {
   constructor(
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
-    private eventService: EventService,
     private linesDataService: LinesDataService,
     private pointDataService: PointDataService,
   ) {}
@@ -27,7 +26,7 @@ export class MockHelperService {
     triggered: boolean,
     date: Date,
   ) {
-    if (countryCodeISO3 !== 'MWI' || !triggered) {
+    if (!triggered) {
       return;
     }
 
@@ -38,7 +37,7 @@ export class MockHelperService {
         payload.disasterType = DisasterType.FlashFloods;
         payload.linesDataCategory = assetType as LinesDataEnum;
         payload.leadTime = leadTime;
-        payload.date = date || new Date();
+        payload.date = date;
         const filename = `./src/api/lines-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${assetType}.json`;
         const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
         // add mock data per lead-time in the respecitve json file
@@ -74,10 +73,6 @@ export class MockHelperService {
     disasterType: DisasterType,
     date: Date,
   ) {
-    if (countryCodeISO3 !== 'MWI') {
-      return;
-    }
-
     const keys = [
       'water-level',
       'water-level-reference',
@@ -87,7 +82,7 @@ export class MockHelperService {
       const payload = new UploadDynamicPointDataDto();
       payload.key = key;
       payload.leadTime = null;
-      payload.date = date || new Date();
+      payload.date = date;
       payload.disasterType = disasterType;
       const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/dynamic-point-data_${key}.json`;
       const dynamicPointData = JSON.parse(fs.readFileSync(filename, 'utf-8'));
@@ -248,5 +243,92 @@ export class MockHelperService {
         disasterType,
       );
     return `${prefix}_${leadTime}_${countryCode}.tif`;
+  }
+
+  public getLeadTime(
+    disasterType: DisasterType,
+    selectedCountry: Country,
+    eventName: string,
+    leadTime: LeadTime,
+    date: Date,
+  ): LeadTime {
+    if (disasterType !== DisasterType.Drought) {
+      return leadTime;
+    }
+
+    const droughtCountrySettings = selectedCountry.countryDisasterSettings.find(
+      (s) => s.disasterType === DisasterType.Drought,
+    );
+
+    const regionName = eventName.split('_')[1];
+    const seasonName = eventName.split('_')[0];
+    const season =
+      droughtCountrySettings.droughtSeasonRegions[regionName][seasonName]
+        .rainMonths;
+
+    // if current month is one of the months in the seasons, use '0-month'
+    let currentMonth = new Date(date).getUTCMonth() + 1;
+    // Refactor: this 'endOfMonthPipeline' feature can hopefully be dropped soon
+    const endOfMonthPipeline = droughtCountrySettings.droughtEndOfMonthPipeline;
+    if (endOfMonthPipeline) {
+      currentMonth = currentMonth === 12 ? 1 : currentMonth + 1;
+    }
+
+    if (season.includes(currentMonth)) {
+      return LeadTime.month0;
+    }
+
+    // otherwise, calculate the difference between the current month and the start of the season
+    const startOfSeasonMonth = season[0];
+    if (currentMonth < startOfSeasonMonth) {
+      const diff = startOfSeasonMonth - currentMonth;
+      return `${diff}-month` as LeadTime;
+    } else if (currentMonth > startOfSeasonMonth) {
+      const diff = 12 - currentMonth + startOfSeasonMonth;
+      return `${diff}-month` as LeadTime;
+    }
+  }
+
+  public skipLeadTime(disasterType: DisasterType, leadTime: LeadTime): boolean {
+    if (disasterType === DisasterType.Drought) {
+      if (Number(leadTime.split('-')[0]) > 3) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public getLeadTimeDroughtNoEvents(
+    selectedCountry: Country,
+    date: Date,
+  ): LeadTime {
+    const droughtSeasonRegions = selectedCountry.countryDisasterSettings.find(
+      (s) => s.disasterType === DisasterType.Drought,
+    ).droughtSeasonRegions;
+
+    // for no events, look at all seasons in all regions
+    let minDiff = 12;
+    const currentMonth = new Date(date).getUTCMonth() + 1;
+    for (const regionName of Object.keys(droughtSeasonRegions)) {
+      for (const seasonName of Object.keys(droughtSeasonRegions[regionName])) {
+        const season = droughtSeasonRegions[regionName][seasonName].rainMonths;
+        if (season.includes(currentMonth)) {
+          // .. if ongoing in any season, then return '0-month'
+          return LeadTime.month0;
+        }
+        // .. otherwise calculate smallest leadTime until first upcoming season
+        let diff: number;
+        if (currentMonth <= season[0]) {
+          diff = season[0] - currentMonth;
+        } else if (currentMonth > season[0]) {
+          diff = 12 - currentMonth + season[0];
+        }
+        if (diff < minDiff) {
+          minDiff = diff;
+        }
+      }
+    }
+
+    return `${minDiff}-month` as LeadTime;
   }
 }

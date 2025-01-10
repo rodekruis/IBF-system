@@ -16,8 +16,8 @@ export class CountryDisasterSettings {
   adminLevels: AdminLevel[];
   defaultAdminLevel: AdminLevel;
   activeLeadTimes: LeadTime[];
-  droughtForecastSeasons: DroughtForecastSeasons;
-  droughtAreas: Record<string, string[]>;
+  droughtSeasonRegions: DroughtSeasonRegions;
+  droughtRegions: Record<string, string[]>;
   eapLink: string;
   showMonthlyEapActions: boolean;
   droughtEndOfMonthPipeline?: boolean;
@@ -28,15 +28,14 @@ export class CountryDisasterSettings {
   enableStopTrigger?: boolean;
 }
 
-export class DroughtForecastSeasons {
-  [area: string]: Record<
-    string,
-    {
-      rainMonths: number[];
-      actionMonths: number[];
-    }
-  >;
+export interface DroughtSeason {
+  rainMonths: number[];
+  actionMonths: number[];
 }
+
+export type DroughtSeasons = Record<string, DroughtSeason>;
+
+export type DroughtSeasonRegions = Record<string, DroughtSeasons>;
 
 export class NotificationInfo {
   linkVideo: string;

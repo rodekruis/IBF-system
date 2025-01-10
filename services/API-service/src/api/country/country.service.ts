@@ -103,7 +103,6 @@ export class CountryService {
     country: CountryDto,
     envDisasterTypes?: DisasterType[],
   ): Promise<void> {
-    countryEntity.countryCodeISO2 = country.countryCodeISO2;
     countryEntity.countryName = country.countryName;
     countryEntity.adminRegionLabels = JSON.parse(
       JSON.stringify(country.adminRegionLabels),
@@ -186,15 +185,15 @@ export class CountryService {
     countryDisasterSettingsEntity.eapAlertClasses = disaster.eapAlertClasses
       ? JSON.parse(JSON.stringify([disaster.eapAlertClasses]))[0]
       : null;
-    countryDisasterSettingsEntity.droughtForecastSeasons =
-      disaster.droughtForecastSeasons
-        ? JSON.parse(JSON.stringify(disaster.droughtForecastSeasons))
+    countryDisasterSettingsEntity.droughtSeasonRegions =
+      disaster.droughtSeasonRegions
+        ? JSON.parse(JSON.stringify(disaster.droughtSeasonRegions))
         : null;
 
     countryDisasterSettingsEntity.droughtEndOfMonthPipeline =
       disaster.droughtEndOfMonthPipeline;
-    countryDisasterSettingsEntity.droughtAreas = disaster.droughtAreas
-      ? JSON.parse(JSON.stringify(disaster.droughtAreas))
+    countryDisasterSettingsEntity.droughtRegions = disaster.droughtRegions
+      ? JSON.parse(JSON.stringify(disaster.droughtRegions))
       : null;
     countryDisasterSettingsEntity.showMonthlyEapActions =
       disaster.showMonthlyEapActions;

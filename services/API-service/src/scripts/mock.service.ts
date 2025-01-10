@@ -20,9 +20,11 @@ import { MetadataService } from '../api/metadata/metadata.service';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { DEBUG } from '../config';
 import { GeoserverSyncService } from './geoserver-sync.service';
+import { Country } from './interfaces/country.interface';
 import countries from './json/countries.json';
 import { MockHelperService } from './mock-helper.service';
 import {
+  MockDroughtScenario,
   MockFlashFloodsScenario,
   MockFloodsScenario,
   MockMalariaScenario,
@@ -35,7 +37,7 @@ class Scenario {
 }
 class Event {
   eventName: string;
-  leadTime: LeadTime;
+  leadTime?: LeadTime;
 }
 
 @Injectable()
@@ -63,7 +65,8 @@ export class MockService {
     mockBody:
       | MockFloodsScenario
       | MockMalariaScenario
-      | MockFlashFloodsScenario,
+      | MockFlashFloodsScenario
+      | MockDroughtScenario,
     disasterType: DisasterType,
     useDefaultScenario: boolean,
     isApiTest: boolean,
@@ -77,7 +80,7 @@ export class MockService {
       if (mockBody.countryCodeISO3 === country.countryCodeISO3) {
         return country;
       }
-    });
+    }) as Country;
 
     const scenario = await this.getScenario(
       disasterType,
@@ -101,37 +104,48 @@ export class MockService {
     );
 
     if (!scenario.events) {
-      const adminAreas = await this.adminAreaService.getAdminAreasRaw(
-        selectedCountry.countryCodeISO3,
-      );
-      const leadTimesForNoTrigger = this.getLeadTimesForNoTrigger(
+      // No events scenario
+      await this.uploadNoEvents(
+        mockBody,
         disasterType,
         selectedCountry,
+        date,
+        indicators,
+        adminLevels,
       );
-      for (const indicator of indicators) {
-        for (const adminLevel of adminLevels) {
-          const exposurePlaceCodes = adminAreas
-            .filter((area) => area.adminLevel === adminLevel)
-            .map((area) => ({ placeCode: area.placeCode, amount: 0 }));
-          for (const leadTime of leadTimesForNoTrigger) {
-            await this.adminAreaDynamicDataService.exposure({
-              countryCodeISO3: mockBody.countryCodeISO3,
-              exposurePlaceCodes: exposurePlaceCodes,
-              leadTime: leadTime as LeadTime,
-              dynamicIndicator: indicator,
-              adminLevel,
+    } else {
+      let eventsSkipped = 0;
+      for (const event of scenario.events) {
+        const leadTime = this.mockHelpService.getLeadTime(
+          disasterType,
+          selectedCountry,
+          event.eventName,
+          event.leadTime,
+          date,
+        );
+
+        if (this.mockHelpService.skipLeadTime(disasterType, leadTime)) {
+          eventsSkipped += 1;
+          if (eventsSkipped < scenario.events.length) {
+            // if not yet all events are skipped, then just skip this one and continue to the next event
+            continue;
+          } else if (eventsSkipped === scenario.events.length) {
+            // if all events are skipped, upload no events instead and skip the rest of the loop
+            await this.uploadNoEvents(
+              mockBody,
               disasterType,
-              eventName: null,
+              selectedCountry,
               date,
-            });
+              indicators,
+              adminLevels,
+            );
+            continue;
           }
         }
-      }
-    } else {
-      for (const event of scenario.events) {
+
         for (const indicator of indicators) {
           for (const adminLevel of adminLevels) {
-            const exposurePlaceCodes = this.getIndicatorPlaceCodes(
+            const exposurePlaceCodes = this.getMockExposureData(
               disasterType,
               mockBody.countryCodeISO3,
               scenario.scenarioName,
@@ -146,9 +160,9 @@ export class MockService {
             }
 
             await this.adminAreaDynamicDataService.exposure({
-              countryCodeISO3: selectedCountry.countryCodeISO3,
-              exposurePlaceCodes: exposurePlaceCodes,
-              leadTime: event.leadTime as LeadTime,
+              countryCodeISO3: mockBody.countryCodeISO3,
+              exposurePlaceCodes,
+              leadTime,
               dynamicIndicator: indicator,
               adminLevel,
               disasterType,
@@ -242,10 +256,51 @@ export class MockService {
     }
   }
 
-  private getLeadTimesForNoTrigger(
+  private async uploadNoEvents(
+    mockBody:
+      | MockFloodsScenario
+      | MockMalariaScenario
+      | MockFlashFloodsScenario
+      | MockDroughtScenario,
     disasterType: DisasterType,
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    selectedCountry: any,
+    selectedCountry: Country,
+    date: Date,
+    indicators: DynamicIndicator[],
+    adminLevels: AdminLevel[],
+  ) {
+    const adminAreas = await this.adminAreaService.getAdminAreasRaw(
+      mockBody.countryCodeISO3,
+    );
+    const leadTimesForNoTrigger = this.getLeadTimesNoEvents(
+      disasterType,
+      selectedCountry,
+      date,
+    );
+    for (const indicator of indicators) {
+      for (const adminLevel of adminLevels) {
+        const exposurePlaceCodes = adminAreas
+          .filter((area) => area.adminLevel === adminLevel)
+          .map((area) => ({ placeCode: area.placeCode, amount: 0 }));
+        for (const leadTime of leadTimesForNoTrigger) {
+          await this.adminAreaDynamicDataService.exposure({
+            countryCodeISO3: mockBody.countryCodeISO3,
+            exposurePlaceCodes: exposurePlaceCodes,
+            leadTime: leadTime as LeadTime,
+            dynamicIndicator: indicator,
+            adminLevel,
+            disasterType,
+            eventName: null,
+            date,
+          });
+        }
+      }
+    }
+  }
+
+  private getLeadTimesNoEvents(
+    disasterType: DisasterType,
+    selectedCountry: Country,
+    date: Date,
   ): LeadTime[] {
     // NOTE: this reflects agreements with pipelines that are in place. This is ugly, and should be refactored better.
     // When moving typhoon/droughts to this new mock-service, check well how this behaves / should be changed.
@@ -253,6 +308,12 @@ export class MockService {
       return [LeadTime.day1];
     } else if (disasterType === DisasterType.FlashFloods) {
       return [LeadTime.hour1];
+    } else if (disasterType === DisasterType.Drought) {
+      const leadTime = this.mockHelpService.getLeadTimeDroughtNoEvents(
+        selectedCountry,
+        date,
+      );
+      return [leadTime];
       // } else if (disasterType === DisasterType.Typhoon) {
       //   return [LeadTime.hour72];
     } else {
@@ -309,7 +370,7 @@ export class MockService {
     );
   }
 
-  private getIndicatorPlaceCodes(
+  private getMockExposureData(
     disasterType: DisasterType,
     countryCodeISO3: string,
     scenarioName: string,
@@ -340,7 +401,7 @@ export class MockService {
       stationForecasts = this.getFile(
         `./src/scripts/mock-data/${disasterType}/${selectedCountry.countryCodeISO3}/${scenarioName}/glofas-stations-no-trigger.json`,
       );
-      leadTime = LeadTime.day7; // last available leadTime across all floods coutnries;
+      leadTime = LeadTime.day7; // last available leadTime across all floods countries;
     }
 
     console.log(

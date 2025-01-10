@@ -1,0 +1,14 @@
+[
+  {
+    "scenarioName": "trigger",
+    "defaultScenario": true,
+    "events": [
+      { "eventName": "Karamoja_Karamoja" },
+      { "eventName": "MAM_Central" },
+      { "eventName": "OND_Central" }
+    ]
+  },
+  {
+    "scenarioName": "no-trigger"
+  }
+]

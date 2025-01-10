@@ -128,6 +128,7 @@
         "drought": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>",
         "floods": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> High-Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016. &nbsp;<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a></p>"
       },
+      "LSO": { "drought": "TBD" },
       "MWI": {
         "floods": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> peanutButter: An R package to produce rapid-response gridded population estimates from building footprints, version 1.0.0 version 1.0.0. Accessed 15-08-2022. WorldPop, University of Southampton. 2021. &nbsp;<a href='https://apps.worldpop.org/peanutButter/'>https://apps.worldpop.org/peanutButter/</a></p>"
       },
@@ -278,10 +279,9 @@
         "drought": "<p>This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.</p><p><strong>Source link:</strong> Kenya Red Cross Society (KRCS).&nbsp;</p><p><strong>Latest updated:</strong> 2020.</p>",
         "floods": "<p>This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.</p><p><strong>Source link:</strong> Kenya Red Cross Society (KRCS).&nbsp;</p><p><strong>Latest updated:</strong> 2020.</p>"
       },
+      "LSO": { "drought": "TBD" },
       "MWI": { "floods": "Data not available yet" },
-      "PHL": {
-        "floods": "Data not available yet"
-      },
+      "PHL": { "floods": "Data not available yet" },
       "SSD": {
         "floods": "This layer is not available as the data is not available yet. When available, this layer will show the locations of the South Sudan Red Cross Society branches."
       },
@@ -362,6 +362,7 @@
         "drought": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source Link: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
         "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source Link: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
       },
+      "LSO": { "drought": "TBD" },
       "ZMB": {
         "drought": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
         "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"

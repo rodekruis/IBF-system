@@ -101,6 +101,16 @@
     "countries": ["SSD"]
   },
   {
+    "email": "lesotho@redcross.nl",
+    "username": "lesotho",
+    "firstName": "Lesotho",
+    "lastName": "Manager",
+    "userRole": "disaster-manager",
+    "password": "password",
+    "userStatus": "active",
+    "countries": ["LSO"]
+  },
+  {
     "email": "demo-user@redcross.nl",
     "username": "demo-user@redcross.nl",
     "firstName": "Demo",

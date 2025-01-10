@@ -27,14 +27,12 @@ export class EventSummary {
   countryCodeISO3: string;
   startDate: string;
   endDate: string;
-  endDateLabel: string;
   thresholdReached: boolean;
   eventName: string;
   firstLeadTime?: string;
   firstLeadTimeLabel?: string;
   firstLeadTimeDate?: string;
   firstTriggerLeadTime?: string;
-  firstTriggerLeadTimeLabel?: string;
   firstTriggerLeadTimeDate?: string;
   timeUnit?: string;
   duration?: number;
@@ -211,18 +209,7 @@ export class EventService {
         event.startDate = DateTime.fromISO(event.startDate).toFormat(
           'cccc, dd LLLL',
         );
-        if (event.endDate) {
-          event.endDate = DateTime.fromFormat(event.endDate, 'yyyy-LL-dd')
-            .minus({ days: 7 })
-            .toFormat('yyyy-LL-dd');
-          event.endDateLabel = DateTime.fromFormat(
-            event.endDate,
-            'yyyy-LL-dd',
-          ).toFormat('cccc, dd LLLL');
-        }
         event.firstLeadTimeLabel = LeadTimeTriggerKey[event.firstLeadTime];
-        event.firstTriggerLeadTimeLabel =
-          LeadTimeTriggerKey[event.firstLeadTime];
         event.timeUnit = event.firstLeadTime?.split('-')[1];
 
         event.firstLeadTimeDate = event.firstLeadTime
@@ -314,8 +301,8 @@ export class EventService {
     if (this.disasterType.disasterType !== DisasterTypeKey.drought) {
       return;
     }
-    const seasons = this.countryDisasterSettings?.droughtForecastSeasons;
-    for (const seasonRegion of Object.keys(seasons)) {
+    const seasonRegions = this.countryDisasterSettings?.droughtSeasonRegions;
+    for (const seasonRegion of Object.keys(seasonRegions)) {
       if (event.eventName?.toLowerCase().includes(seasonRegion.toLowerCase())) {
         const leadTimeMonth = DateTime.fromFormat(
           event.endDate,
@@ -323,13 +310,15 @@ export class EventService {
         ).plus({
           months: Number(LeadTimeTriggerKey[event.firstLeadTime]),
         }).month;
-        for (const season of Object.values(seasons[seasonRegion])) {
-          const rainMonthsKey = 'rainMonths';
-          const seasonMonths = season[rainMonthsKey];
+        for (const season of Object.values(seasonRegions[seasonRegion])) {
+          const seasonMonths = season.rainMonths;
           if (seasonMonths.includes(leadTimeMonth)) {
             const endMonth = seasonMonths[seasonMonths.length - 1];
-            const duration = endMonth - leadTimeMonth + 1;
-            return duration;
+            if (endMonth >= leadTimeMonth) {
+              return endMonth - leadTimeMonth + 1;
+            } else {
+              return 12 - leadTimeMonth + endMonth + 1;
+            }
           }
         }
       }
@@ -359,16 +348,11 @@ export class EventService {
           : timeUnit === LeadTimeUnit.hour
             ? this.today.plus({ hours: Number(timeUnitsInFuture) })
             : null;
-    const monthString = new Date(
-      futureDateTime.year,
-      futureDateTime.month - 1,
-      1,
-    ).toLocaleString('default', { month: 'long' });
 
     if (timeUnit === LeadTimeUnit.month) {
-      return `${monthString} ${futureDateTime.year}`;
+      return futureDateTime.toFormat('LLLL yyyy');
     } else if (timeUnit === LeadTimeUnit.day) {
-      return `${futureDateTime.day} ${monthString} ${futureDateTime.year}`;
+      return futureDateTime.toFormat('d LLLL yyyy');
     } else if (timeUnit === LeadTimeUnit.hour) {
       return futureDateTime.toFormat('cccc, dd LLLL HH:00');
     }

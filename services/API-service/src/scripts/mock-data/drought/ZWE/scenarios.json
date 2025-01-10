@@ -1,0 +1,10 @@
+[
+  {
+    "scenarioName": "trigger",
+    "defaultScenario": true,
+    "events": [{ "eventName": "MAM_National" }]
+  },
+  {
+    "scenarioName": "no-trigger"
+  }
+]
