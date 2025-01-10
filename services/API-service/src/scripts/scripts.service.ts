@@ -18,8 +18,7 @@ import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { MetadataService } from '../api/metadata/metadata.service';
 import countries from './json/countries.json';
 import { MockHelperService } from './mock-helper.service';
-import { MockService } from './mock.service';
-import { MockAll, MockDynamic } from './scripts.controller';
+import { MockDynamic } from './scripts.controller';
 
 @Injectable()
 export class ScriptsService {
@@ -39,55 +38,7 @@ export class ScriptsService {
     private eventService: EventService,
     private metadataService: MetadataService,
     private mockHelperService: MockHelperService,
-    private mockService: MockService,
   ) {}
-
-  public async mockAll(mockAllInput: MockAll) {
-    const isApiTest = false;
-
-    const envCountries = process.env.COUNTRIES.split(',');
-
-    const newMockServiceDisasterTypes = [
-      DisasterType.Floods,
-      DisasterType.Malaria,
-      DisasterType.FlashFloods,
-      DisasterType.Drought,
-      DisasterType.Typhoon,
-    ];
-
-    for await (const countryCodeISO3 of envCountries) {
-      const country = await this.countryRepo.findOne({
-        where: { countryCodeISO3: countryCodeISO3 },
-        relations: ['disasterTypes'],
-      });
-
-      for await (const disasterType of country.disasterTypes) {
-        if (newMockServiceDisasterTypes.includes(disasterType.disasterType)) {
-          await this.mockService.mock(
-            {
-              secret: mockAllInput.secret,
-              countryCodeISO3,
-              removeEvents: true,
-              date: mockAllInput.date || new Date(),
-              scenario: null, // This is overwritten by useDefaultScenario=true anyway
-            },
-            disasterType.disasterType,
-            true,
-            isApiTest,
-          );
-        } else {
-          await this.mockCountry({
-            secret: mockAllInput.secret,
-            countryCodeISO3,
-            disasterType: disasterType.disasterType,
-            triggered: mockAllInput.triggered,
-            removeEvents: true,
-            date: mockAllInput.date || new Date(),
-          });
-        }
-      }
-    }
-  }
 
   public async mockCountry(mockInput: MockDynamic) {
     if (mockInput.removeEvents) {
