@@ -185,26 +185,4 @@ export class ScriptsController {
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }
-
-  @Roles(UserRole.Admin)
-  @ApiOperation({
-    summary: 'Upload mock data for specific typhoon scenario',
-  })
-  @ApiResponse({
-    status: 202,
-    description: 'Uploaded mock data for specific typhoon scenario',
-  })
-  @Post('/mock-typhoon-scenario')
-  public async mockTyphoonScenario(
-    @Body() body: MockTyphoonScenario,
-    @Res() res,
-  ): Promise<string> {
-    if (body.secret !== process.env.RESET_SECRET) {
-      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
-    }
-
-    const result = await this.scriptsService.mockTyphoonScenario(body);
-
-    return res.status(HttpStatus.ACCEPTED).send(result);
-  }
 }
