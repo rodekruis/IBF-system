@@ -1,3 +1,12 @@
+## [0.277.20](https://github.com/rodekruis/IBF-system/compare/v0.277.19...v0.277.20) (2025-01-10)
+
+
+### Bug Fixes
+
+* check for token expiry AB[#31743](https://github.com/rodekruis/IBF-system/issues/31743) ([1df9fd9](https://github.com/rodekruis/IBF-system/commit/1df9fd95685e8a2484a4d03987bc514131283278))
+
+
+
 ## [0.277.19](https://github.com/rodekruis/IBF-system/compare/v0.277.13...v0.277.19) (2025-01-03)
 
 
