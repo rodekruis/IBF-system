@@ -1244,6 +1244,7 @@
             }
           }
         },
+        "enableEarlyActions": false,
         "showMonthlyEapActions": true,
         "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
       }
