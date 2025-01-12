@@ -60,8 +60,8 @@ test.beforeAll(async ({ browser }) => {
   );
 });
 
-test.beforeEach(async () => {
-  await dashboard.waitForPageToBeLoadedAndStable();
+test.afterEach(async () => {
+  await sharedPage.waitForTimeout(1000);
 });
 
 // AGGREGATES NO-TRIGGER TESTS

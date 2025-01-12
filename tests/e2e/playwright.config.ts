@@ -37,14 +37,14 @@ export default defineConfig({
   // ],
   workers: 1,
   outputDir: './test-results',
-  timeout: 60000,
+  timeout: 30000,
   use: {
     baseURL: process.env.DASHBOARD_URL,
     video: 'on-first-retry',
     screenshot: 'only-on-failure',
     headless: true,
     acceptDownloads: true,
-    actionTimeout: 20000,
+    actionTimeout: 10000,
     launchOptions: {
       downloadsPath: 'resources/downloads',
       args: ['--window-size=1920,1024'],
