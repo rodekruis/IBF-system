@@ -49,6 +49,10 @@ test.beforeAll(async ({ browser }) => {
   await loginPage.login(TriggerDataSet.UserMail, TriggerDataSet.UserPassword);
 });
 
+test.beforeEach(async () => {
+  await dashboard.waitForPageToBeLoadedAndStable();
+});
+
 // AGGREGATES TRIGGER TESTS
 // https://app.qase.io/project/IBF?case=39&previewMode=side&suite=7
 test(

@@ -74,6 +74,11 @@ class DashboardPage {
     const popOverTextTrimmed = popOverText?.trim();
     expect(popOverTextTrimmed).toContain(text);
   }
+
+  async waitForPageToBeLoadedAndStable() {
+    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForLoadState('networkidle');
+  }
 }
 
 export default DashboardPage;

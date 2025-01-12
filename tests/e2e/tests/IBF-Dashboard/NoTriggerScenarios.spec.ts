@@ -60,6 +60,10 @@ test.beforeAll(async ({ browser }) => {
   );
 });
 
+test.beforeEach(async () => {
+  await dashboard.waitForPageToBeLoadedAndStable();
+});
+
 // AGGREGATES NO-TRIGGER TESTS
 test(
   qase(
