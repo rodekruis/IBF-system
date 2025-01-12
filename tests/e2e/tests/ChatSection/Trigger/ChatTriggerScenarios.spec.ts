@@ -92,6 +92,29 @@ test(
   },
 );
 
+// https://app.qase.io/project/IBF?case=45&previewMode=side&suite=6
+test(
+  qase(45, '[Trigger] Info icon is clickable and opens popover'),
+  async ({ page }) => {
+    const dashboard = new DashboardPage(sharedPage);
+    const userState = new UserStateComponent(sharedPage);
+    const chat = new ChatComponent(sharedPage);
+
+    // Navigate to disaster type the data was mocked for
+    await dashboard.navigateToFloodDisasterType();
+    // Assertions
+    await userState.headerComponentIsVisible({
+      countryName: TriggerDataSet.CountryName,
+    });
+    await chat.chatColumnIsVisibleForTriggerState({
+      firstName: TriggerDataSet.firstName,
+      lastName: TriggerDataSet.lastName,
+    });
+    await chat.validateEventsInfoButtonsAreClickable();
+    await page.reload();
+  },
+);
+
 test.afterAll(async () => {
   await sharedPage.close();
 });
