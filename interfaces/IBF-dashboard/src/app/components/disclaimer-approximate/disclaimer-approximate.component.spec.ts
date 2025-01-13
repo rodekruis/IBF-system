@@ -9,8 +9,11 @@ describe('DisclaimerApproximateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [DisclaimerApproximateComponent],
-      imports: [IonicModule, TranslateModule.forRoot()],
+      imports: [
+        IonicModule,
+        TranslateModule.forRoot(),
+        DisclaimerApproximateComponent,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DisclaimerApproximateComponent);

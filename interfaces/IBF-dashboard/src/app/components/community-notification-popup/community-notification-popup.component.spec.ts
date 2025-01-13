@@ -16,12 +16,12 @@ describe('CommunityNotificationPopupComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CommunityNotificationPopupComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [
         IonicModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
+        CommunityNotificationPopupComponent,
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),

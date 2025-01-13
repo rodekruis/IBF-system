@@ -9,7 +9,7 @@ describe('TooltipComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [TooltipComponent],
+      imports: [TooltipComponent],
       providers: [{ provide: PopoverController }, { provide: AngularDelegate }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();

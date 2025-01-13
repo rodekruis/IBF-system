@@ -15,8 +15,7 @@ describe('AppComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [{ provide: Platform, useValue: platformSpy }],
     }).compileComponents();

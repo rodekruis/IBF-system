@@ -9,8 +9,11 @@ describe('ForgotPasswordPopoverComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ForgotPasswordPopoverComponent],
-      imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+      imports: [
+        IonicModule.forRoot(),
+        TranslateModule.forRoot(),
+        ForgotPasswordPopoverComponent,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ForgotPasswordPopoverComponent);

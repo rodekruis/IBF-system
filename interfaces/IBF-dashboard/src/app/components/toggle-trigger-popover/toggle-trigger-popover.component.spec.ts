@@ -9,8 +9,11 @@ describe('ToggleTriggerPopoverComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ToggleTriggerPopoverComponent],
-      imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+      imports: [
+        IonicModule.forRoot(),
+        TranslateModule.forRoot(),
+        ToggleTriggerPopoverComponent,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ToggleTriggerPopoverComponent);

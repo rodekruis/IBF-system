@@ -16,12 +16,12 @@ describe('IbfGuideButtonComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [IbfGuideButtonComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [
         IonicModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
+        IbfGuideButtonComponent,
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),

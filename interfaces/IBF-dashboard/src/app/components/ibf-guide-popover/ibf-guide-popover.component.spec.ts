@@ -14,8 +14,11 @@ describe('IbfGuidePopoverComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [IbfGuidePopoverComponent],
-      imports: [IonicModule, TranslateModule.forRoot()],
+      imports: [
+        IonicModule,
+        TranslateModule.forRoot(),
+        IbfGuidePopoverComponent,
+      ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),

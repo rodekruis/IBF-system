@@ -22,13 +22,13 @@ describe('LoginFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [LoginFormComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [
         IonicModule,
         FormsModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
+        LoginFormComponent,
       ],
       providers: [
         {

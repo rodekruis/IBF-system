@@ -8,8 +8,7 @@ describe('ExportViewPopoverComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ExportViewPopoverComponent],
-      imports: [IonicModule],
+      imports: [IonicModule, ExportViewPopoverComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExportViewPopoverComponent);

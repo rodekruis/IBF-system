@@ -15,9 +15,8 @@ describe('AboutBtnComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [AboutBtnComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [IonicModule, RouterModule.forRoot([])],
+      imports: [IonicModule, RouterModule.forRoot([]), AboutBtnComponent],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),

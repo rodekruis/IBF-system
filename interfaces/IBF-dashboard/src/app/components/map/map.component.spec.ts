@@ -17,12 +17,12 @@ describe('MapComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MapComponent],
       imports: [
         IonicModule,
         LeafletModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
+        MapComponent,
       ],
       providers: [
         { provide: MapService },
