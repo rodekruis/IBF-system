@@ -423,6 +423,12 @@ export class ApiService {
     } else if (disasterType.disasterType === DisasterTypeKey.malaria) {
       apiPath = 'mock/malaria';
       isNewBodyFormat = true;
+    } else if (disasterType.disasterType === DisasterTypeKey.drought) {
+      apiPath = 'mock/drought';
+      isNewBodyFormat = true;
+    } else if (disasterType.disasterType === DisasterTypeKey.typhoon) {
+      apiPath = 'mock/typhoon';
+      isNewBodyFormat = true;
     }
 
     const body = isNewBodyFormat
