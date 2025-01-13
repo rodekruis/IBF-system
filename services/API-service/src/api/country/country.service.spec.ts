@@ -104,52 +104,30 @@ describe('CountryService', () => {
 
   describe('addOrUpdateCountries', () => {
     it('should add or update countries', async () => {
-      const getCountryDisasterTypeSettingsEntity = (
-        _countryDisasterSetting = null,
-        _countryEntity = null,
-      ) => {
-        // empty function in case we want to test deeper
-        const countryDisasterSettingsEntity =
-          new CountryDisasterSettingsEntity();
-        return countryDisasterSettingsEntity;
-      };
-
-      const getCountryEntity = (_country = null) => {
-        // empty function in case we want to test deeper
-        const countryEntity = new CountryEntity();
-        return countryEntity;
-      };
-
+      // Arrange
       jest
         .spyOn(countryRepository, 'findOne')
-        .mockResolvedValue(getCountryEntity());
-      jest.spyOn(disasterRepository, 'find').mockResolvedValue(null);
+        .mockResolvedValue(new CountryEntity());
+      jest
+        .spyOn(disasterRepository, 'find')
+        .mockResolvedValue([new DisasterEntity()]);
       jest
         .spyOn(countryRepository, 'save')
-        .mockResolvedValue(getCountryEntity());
-      jest.spyOn(leadTimeRepository, 'find').mockImplementation(({ where }) => {
-        if (!Array.isArray(where)) {
-          return Promise.resolve([]); // resolve to empty array if where is not an array
-        }
-        const leadTimeEntities = where
-          .map(({ leadTimeName }) => {
-            if (typeof leadTimeName !== 'string') {
-              return Promise.resolve([]); // resolve to empty array if leadTimeName is not a string
-            }
-            const leadTimeEntity = new LeadTimeEntity();
-            leadTimeEntity.leadTimeName = leadTimeName;
-          })
-          .filter((leadTimeEntity) => leadTimeEntity); // remove undefined
-        return Promise.resolve(leadTimeEntities);
-      });
+        .mockResolvedValue(new CountryEntity());
+      jest
+        .spyOn(leadTimeRepository, 'find')
+        .mockResolvedValue([new LeadTimeEntity()]);
       jest
         .spyOn(countryDisasterSettingsRepository, 'save')
-        .mockResolvedValue(getCountryDisasterTypeSettingsEntity());
+        .mockResolvedValue(new CountryDisasterSettingsEntity());
       jest
         .spyOn(countryDisasterSettingsRepository, 'findOne')
-        .mockResolvedValue(getCountryDisasterTypeSettingsEntity());
+        .mockResolvedValue(new CountryDisasterSettingsEntity());
 
+      // Act
       await service.addOrUpdateCountries({ countries });
+
+      // Assert
       for (const country of countries) {
         expect(countryRepository.findOne).toHaveBeenCalledWith({
           where: { countryCodeISO3: country.countryCodeISO3 },
