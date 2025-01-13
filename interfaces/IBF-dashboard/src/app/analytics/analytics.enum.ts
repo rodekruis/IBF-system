@@ -23,7 +23,6 @@ export enum AnalyticsEvent {
   mapMarker = 'map-marker',
   mapPlaceSelect = 'map-place-select',
   redCrossBranch = 'red-cross-branch',
-  stopTrigger = 'stop-trigger',
   typhoonTrack = 'typhoon-track',
   watchIbfGuide = 'watch-ibf-guide',
   waterPoint = 'water-point',

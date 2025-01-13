@@ -25,7 +25,6 @@ export class CountryDisasterSettings {
   eapAlertClasses?: EapAlertClasses;
   monthlyForecastInfo?: Record<string, string | string[]>;
   enableEarlyActions?: boolean;
-  enableStopTrigger?: boolean;
 }
 
 export interface DroughtSeason {
