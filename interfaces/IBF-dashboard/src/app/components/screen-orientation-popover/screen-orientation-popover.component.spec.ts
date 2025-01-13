@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { ScreenOrientationPopoverComponent } from 'src/app/components/screen-orientation-popover/screen-orientation-popover.component';
+import { ScreenOrientationPopoverComponent } from './screen-orientation-popover.component';
 
 describe('ScreenOrientationPopoverComponent', () => {
   let component: ScreenOrientationPopoverComponent;
@@ -9,11 +9,8 @@ describe('ScreenOrientationPopoverComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        IonicModule.forRoot(),
-        TranslateModule.forRoot(),
-        ScreenOrientationPopoverComponent,
-      ],
+      declarations: [ScreenOrientationPopoverComponent],
+      imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ScreenOrientationPopoverComponent);

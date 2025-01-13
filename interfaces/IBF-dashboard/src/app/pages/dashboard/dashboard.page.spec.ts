@@ -18,13 +18,13 @@ describe('DashboardPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      declarations: [DashboardPage],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [
         IonicModule,
         SharedModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
-        DashboardPage,
       ],
       providers: [
         { provide: MapService },

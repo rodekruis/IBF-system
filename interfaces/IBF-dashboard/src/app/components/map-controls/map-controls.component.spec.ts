@@ -1,7 +1,7 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { MapControlsComponent } from 'src/app/components/map-controls/map-controls.component';
+import { MapControlsComponent } from './map-controls.component';
 
 describe('MapControlsComponent', () => {
   let component: MapControlsComponent;
@@ -9,7 +9,8 @@ describe('MapControlsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [IonicModule, MapControlsComponent],
+      declarations: [MapControlsComponent],
+      imports: [IonicModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 

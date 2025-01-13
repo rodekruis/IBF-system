@@ -15,11 +15,11 @@ describe('MockScenarioComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      declarations: [BackendMockScenarioComponent],
       imports: [
         IonicModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
-        BackendMockScenarioComponent,
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),

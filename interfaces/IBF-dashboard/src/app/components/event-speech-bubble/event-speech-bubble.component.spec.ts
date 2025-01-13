@@ -15,11 +15,11 @@ describe('EventSpeechBubbleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      declarations: [EventSpeechBubbleComponent],
       imports: [
         IonicModule.forRoot(),
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
-        EventSpeechBubbleComponent,
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),

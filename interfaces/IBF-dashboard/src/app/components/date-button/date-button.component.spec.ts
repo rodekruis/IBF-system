@@ -14,7 +14,8 @@ describe('DateButtonComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [IonicModule, RouterModule.forRoot([]), DateButtonComponent],
+      declarations: [DateButtonComponent],
+      imports: [IonicModule, RouterModule.forRoot([])],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),

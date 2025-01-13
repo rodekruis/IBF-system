@@ -15,8 +15,9 @@ describe('ExportViewComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      declarations: [ExportViewComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [IonicModule, RouterModule.forRoot([]), ExportViewComponent],
+      imports: [IonicModule, RouterModule.forRoot([])],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),

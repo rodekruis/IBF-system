@@ -15,7 +15,8 @@ describe('TimelineComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [IonicModule, RouterModule.forRoot([]), TimelineComponent],
+      declarations: [TimelineComponent],
+      imports: [IonicModule, RouterModule.forRoot([])],
       providers: [
         { provide: TimelineService },
         provideHttpClient(withInterceptorsFromDi()),

@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { DisclaimerApproximateComponent } from 'src/app/components/disclaimer-approximate/disclaimer-approximate.component';
+
+import { DisclaimerApproximateComponent } from './disclaimer-approximate.component';
 
 describe('DisclaimerApproximateComponent', () => {
   let component: DisclaimerApproximateComponent;
@@ -9,11 +10,8 @@ describe('DisclaimerApproximateComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        IonicModule,
-        TranslateModule.forRoot(),
-        DisclaimerApproximateComponent,
-      ],
+      declarations: [DisclaimerApproximateComponent],
+      imports: [IonicModule, TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DisclaimerApproximateComponent);

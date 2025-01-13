@@ -15,11 +15,8 @@ describe('CountrySwitcherComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        IonicModule,
-        RouterModule.forRoot([]),
-        CountrySwitcherComponent,
-      ],
+      declarations: [CountrySwitcherComponent],
+      imports: [IonicModule, RouterModule.forRoot([])],
       providers: [
         { provide: CountryService },
         provideHttpClient(withInterceptorsFromDi()),

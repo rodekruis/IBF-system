@@ -16,12 +16,12 @@ describe('ActivationLogButtonComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      declarations: [ActivationLogButtonComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [
         IonicModule.forRoot(),
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
-        ActivationLogButtonComponent,
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),

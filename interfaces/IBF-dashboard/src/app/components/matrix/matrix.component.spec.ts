@@ -16,11 +16,11 @@ describe('MatrixComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      declarations: [MatrixComponent],
       imports: [
         IonicModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
-        MatrixComponent,
       ],
       providers: [
         { provide: MapService },
