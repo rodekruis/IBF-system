@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import { Injectable } from '@nestjs/common';
 
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
@@ -342,7 +343,14 @@ export class MockHelperService {
     event: Event,
     date: Date,
   ) {
-    const filePath = `./src/scripts/mock-data/${DisasterType.Typhoon}/${countryCodeISO3}/${scenarioName}/${event.eventName}/typhoon-track.json`;
+    const ROOT_DIR = path.resolve('./src/scripts/mock-data');
+    const filePath = path.resolve(
+      ROOT_DIR,
+      `${DisasterType.Typhoon}/${countryCodeISO3}/${scenarioName}/${event.eventName}/typhoon-track.json`,
+    );
+    if (!filePath.startsWith(ROOT_DIR)) {
+      throw new Error('Invalid file path');
+    }
     const trackRaw = fs.readFileSync(filePath, 'utf-8');
     const track = JSON.parse(trackRaw);
 
