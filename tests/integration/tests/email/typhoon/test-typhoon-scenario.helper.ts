@@ -40,7 +40,6 @@ export async function testTyphoonScenario(
   );
 
   expect(eventNamesInEmail.length).toBe(nrOfEvents);
-  console.log('eventNamesInEmail: ', eventNamesInEmail);
 
   if (scenario === TyphoonScenario.Trigger) {
     expect(emailContent).toContain('Expected to make landfall on');
