@@ -16,12 +16,12 @@ describe('ChatComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ChatComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [
         IonicModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
+        ChatComponent,
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),

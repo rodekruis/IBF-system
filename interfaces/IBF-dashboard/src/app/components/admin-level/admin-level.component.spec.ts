@@ -15,11 +15,11 @@ describe('AdminLevelComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [AdminLevelComponent],
       imports: [
         IonicModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
+        AdminLevelComponent,
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),

@@ -8,8 +8,7 @@ describe('DisclaimerToolbarComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [DisclaimerToolbarComponent],
-      imports: [IonicModule],
+      imports: [IonicModule, DisclaimerToolbarComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DisclaimerToolbarComponent);

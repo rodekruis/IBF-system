@@ -8,7 +8,7 @@ describe('DialogueTurnComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [DialogueTurnComponent],
+      imports: [DialogueTurnComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));

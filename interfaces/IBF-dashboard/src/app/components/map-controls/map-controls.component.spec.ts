@@ -9,8 +9,7 @@ describe('MapControlsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [MapControlsComponent],
-      imports: [IonicModule],
+      imports: [IonicModule, MapControlsComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
 

@@ -14,8 +14,11 @@ describe('AreasOfFocusSummaryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [AreasOfFocusSummaryComponent],
-      imports: [IonicModule, RouterModule.forRoot([])],
+      imports: [
+        IonicModule,
+        RouterModule.forRoot([]),
+        AreasOfFocusSummaryComponent,
+      ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),

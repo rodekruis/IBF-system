@@ -14,8 +14,7 @@ describe('LogosComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [LogosComponent],
-      imports: [IonicModule, RouterModule.forRoot([])],
+      imports: [IonicModule, RouterModule.forRoot([]), LogosComponent],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),

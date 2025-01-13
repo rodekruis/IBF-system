@@ -8,8 +8,7 @@ describe('IbfButtonComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [IbfButtonComponent],
-      imports: [IonicModule.forRoot()],
+      imports: [IonicModule.forRoot(), IbfButtonComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(IbfButtonComponent);

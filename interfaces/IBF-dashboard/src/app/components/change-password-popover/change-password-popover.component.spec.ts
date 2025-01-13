@@ -17,9 +17,13 @@ describe('ChangePasswordPopoverComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ChangePasswordPopoverComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [IonicModule.forRoot(), FormsModule, RouterModule.forRoot([])],
+      imports: [
+        IonicModule.forRoot(),
+        FormsModule,
+        RouterModule.forRoot([]),
+        ChangePasswordPopoverComponent,
+      ],
       providers: [
         { provide: AuthService },
         provideHttpClient(withInterceptorsFromDi()),

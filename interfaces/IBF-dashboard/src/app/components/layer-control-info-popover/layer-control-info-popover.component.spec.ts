@@ -8,8 +8,7 @@ describe('LayerControlInfoPopoverComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [LayerControlInfoPopoverComponent],
-      imports: [IonicModule],
+      imports: [IonicModule, LayerControlInfoPopoverComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LayerControlInfoPopoverComponent);

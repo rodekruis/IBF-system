@@ -16,12 +16,12 @@ describe('UserStateComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [UserStateComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [
         IonicModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
+        UserStateComponent,
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),

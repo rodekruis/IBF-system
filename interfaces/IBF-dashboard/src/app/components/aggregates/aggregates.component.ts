@@ -361,7 +361,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return '';
   }
 
-  public showPlaceCodeView(placeCode: PlaceCode): boolean {
+  private showPlaceCodeView(placeCode: PlaceCode): boolean {
     return (
       placeCode &&
       (this.isCorrectStatusPlaceCode(placeCode) ||

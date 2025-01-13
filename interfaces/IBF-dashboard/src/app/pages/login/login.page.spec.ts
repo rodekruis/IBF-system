@@ -16,12 +16,12 @@ describe('LoginPage', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [LoginPage],
       imports: [
         IonicModule,
         SharedModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
+        LoginPage,
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),

@@ -9,8 +9,11 @@ describe('ScreenOrientationPopoverComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ScreenOrientationPopoverComponent],
-      imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
+      imports: [
+        IonicModule.forRoot(),
+        TranslateModule.forRoot(),
+        ScreenOrientationPopoverComponent,
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ScreenOrientationPopoverComponent);
