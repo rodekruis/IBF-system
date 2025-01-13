@@ -182,9 +182,9 @@ describe('CountryService', () => {
           relations: ['notificationInfo'],
         });
       }
-      expect(countryRepository.save).toHaveBeenCalledWith(
-        notificationInfos.map(() => ({ notificationInfo: null })),
-      );
+      expect(countryRepository.save).toHaveBeenCalledWith([
+        { notificationInfo: {} },
+      ]);
     });
   });
 
