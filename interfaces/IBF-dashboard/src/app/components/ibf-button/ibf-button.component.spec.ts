@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { IbfButtonComponent } from 'src/app/components/ibf-button/ibf-button.component';
+import { IbfButtonComponent } from './ibf-button.component';
 
 describe('IbfButtonComponent', () => {
   let component: IbfButtonComponent;
@@ -8,7 +8,8 @@ describe('IbfButtonComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [IonicModule.forRoot(), IbfButtonComponent],
+      declarations: [IbfButtonComponent],
+      imports: [IonicModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(IbfButtonComponent);

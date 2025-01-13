@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { DisclaimerToolbarComponent } from 'src/app/components/disclaimer-toolbar/disclaimer-toolbar.component';
+import { DisclaimerToolbarComponent } from './disclaimer-toolbar.component';
 
 describe('DisclaimerToolbarComponent', () => {
   let component: DisclaimerToolbarComponent;
@@ -8,7 +8,8 @@ describe('DisclaimerToolbarComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [IonicModule, DisclaimerToolbarComponent],
+      declarations: [DisclaimerToolbarComponent],
+      imports: [IonicModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DisclaimerToolbarComponent);

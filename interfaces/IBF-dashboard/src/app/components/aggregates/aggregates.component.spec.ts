@@ -84,11 +84,11 @@ describe('AggregatesComponent', () => {
 
   beforeEach(waitForAsync(async () => {
     await TestBed.configureTestingModule({
+      declarations: [AggregatesComponent],
       imports: [
         IonicModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
-        AggregatesComponent,
       ],
       providers: [
         { provide: AggregatesService },

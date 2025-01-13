@@ -15,11 +15,11 @@ describe('CommunityNotificationPhotoPopupComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      declarations: [CommunityNotificationPhotoPopupComponent],
       imports: [
         IonicModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
-        CommunityNotificationPhotoPopupComponent,
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),

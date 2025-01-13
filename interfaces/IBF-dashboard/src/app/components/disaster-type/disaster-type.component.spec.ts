@@ -15,11 +15,11 @@ describe('DisasterTypeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
+      declarations: [DisasterTypeComponent],
       imports: [
         IonicModule,
         RouterModule.forRoot([]),
         TranslateModule.forRoot(),
-        DisasterTypeComponent,
       ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),

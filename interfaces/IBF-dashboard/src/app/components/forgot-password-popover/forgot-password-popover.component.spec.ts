@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { ForgotPasswordPopoverComponent } from 'src/app/components/forgot-password-popover/forgot-password-popover.component';
+import { ForgotPasswordPopoverComponent } from './forgot-password-popover.component';
 
 describe('ForgotPasswordPopoverComponent', () => {
   let component: ForgotPasswordPopoverComponent;
@@ -9,11 +9,8 @@ describe('ForgotPasswordPopoverComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        IonicModule.forRoot(),
-        TranslateModule.forRoot(),
-        ForgotPasswordPopoverComponent,
-      ],
+      declarations: [ForgotPasswordPopoverComponent],
+      imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ForgotPasswordPopoverComponent);

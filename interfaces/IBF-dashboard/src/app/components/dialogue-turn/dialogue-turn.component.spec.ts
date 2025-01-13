@@ -1,6 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { DialogueTurnComponent } from 'src/app/components/dialogue-turn/dialogue-turn.component';
+import { DialogueTurnComponent } from './dialogue-turn.component';
 
 describe('DialogueTurnComponent', () => {
   let component: DialogueTurnComponent;
@@ -8,7 +8,7 @@ describe('DialogueTurnComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [DialogueTurnComponent],
+      declarations: [DialogueTurnComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     }).compileComponents();
   }));

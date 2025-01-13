@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { ToggleTriggerPopoverComponent } from 'src/app/components/toggle-trigger-popover/toggle-trigger-popover.component';
+import { ToggleTriggerPopoverComponent } from './toggle-trigger-popover.component';
 
 describe('ToggleTriggerPopoverComponent', () => {
   let component: ToggleTriggerPopoverComponent;
@@ -9,11 +9,8 @@ describe('ToggleTriggerPopoverComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        IonicModule.forRoot(),
-        TranslateModule.forRoot(),
-        ToggleTriggerPopoverComponent,
-      ],
+      declarations: [ToggleTriggerPopoverComponent],
+      imports: [IonicModule.forRoot(), TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ToggleTriggerPopoverComponent);
