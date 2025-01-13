@@ -166,7 +166,9 @@ describe('CountryService', () => {
       jest
         .spyOn(countryRepository, 'findOne')
         .mockResolvedValue(new CountryEntity());
-      jest.spyOn(service, 'createNotificationInfo').mockResolvedValue(null);
+      jest
+        .spyOn(service, 'createNotificationInfo')
+        .mockResolvedValue(new NotificationInfoEntity());
       jest
         .spyOn(countryRepository, 'save')
         .mockResolvedValue(new CountryEntity());
