@@ -52,7 +52,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
 
   public typhoonLandfallText: string;
   public displayName: string;
-  public isStopped: boolean;
   private placeCodeHoverSubscription: Subscription;
   public placeCodeHover: PlaceCode;
 

@@ -1,141 +1,134 @@
-@if (showAggregatesSection()) {
-  <div>
-    <ion-grid class="ion-no-padding">
-      <ion-row
-        class="component-title"
-        style="background: var(--ion-color-ibf-secondary)"
-        data-testid="action-title"
-      >
-        <ion-col class="ion-no-padding" size-lg="11" size-md="11" size-xs="11">
-          <ion-item
-            lines="none"
-            class="component-title-item"
-            [color]="
-              isActiveAreas() ? 'ibf-secondary' : 'ibf-no-alert-secondary'
-            "
-          >
-            <ion-col
-              class="ion-no-padding ion-no-margin ion-align-items-center"
+<div>
+  <ion-grid class="ion-no-padding">
+    <ion-row
+      class="component-title"
+      style="background: var(--ion-color-ibf-secondary)"
+      data-testid="action-title"
+    >
+      <ion-col class="ion-no-padding" size-lg="11" size-md="11" size-xs="11">
+        <ion-item
+          lines="none"
+          class="component-title-item"
+          color="ibf-secondary"
+        >
+          <ion-col class="ion-no-padding ion-no-margin ion-align-items-center">
+            <ion-label color="ibf-black" class="ion-text-wrap"
+              ><ion-text
+                ><strong>{{
+                  getAggregatesHeader(mapView | async).headerLabel
+                }}</strong></ion-text
+              ></ion-label
             >
-              <ion-label color="ibf-black" class="ion-text-wrap"
-                ><ion-text
-                  ><strong>{{
-                    getAggregatesHeader(mapView | async).headerLabel
-                  }}</strong></ion-text
-                ></ion-label
+            <ion-label color="ibf-black" class="ion-text-wrap"
+              ><ion-text
+                [innerHTML]="
+                  getAggregatesHeader(mapView | async).subHeaderLabel
+                "
+              ></ion-text
+            ></ion-label>
+          </ion-col>
+        </ion-item>
+      </ion-col>
+      <ion-col size-lg="1" size-md="1" size-xs="1">
+        <ion-item
+          class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
+          data-testid="aggregates-title-info-icon"
+          color="transparent"
+          lines="none"
+        >
+          <ion-label>
+            <app-disclaimer-approximate
+              data-testid="aggregates-disclaimer"
+            ></app-disclaimer-approximate>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <div data-testid="aggregate-list">
+      @for (indicator of indicators; track indicator.name) {
+        <ion-row data-testid="aggregates-row" class="ion-no-padding">
+          <ion-col size-lg="7" size-md="7" size-xs="7">
+            <ion-item
+              class="aggregate-item ion-no-padding font-size-12"
+              color="ibf-white"
+              lines="full"
+            >
+              <ion-thumbnail
+                slot="start"
+                class="m-0 h-10 w-10 bg-slate-100 p-2"
               >
-              <ion-label color="ibf-black" class="ion-text-wrap"
-                ><ion-text
-                  [innerHTML]="
-                    getAggregatesHeader(mapView | async).subHeaderLabel
-                  "
-                ></ion-text
-              ></ion-label>
-            </ion-col>
-          </ion-item>
-        </ion-col>
-        <ion-col size-lg="1" size-md="1" size-xs="1">
-          <ion-item
-            class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
-            data-testid="aggregates-title-info-icon"
-            color="transparent"
-            lines="none"
+                <ion-img
+                  class="object-contain"
+                  src="assets/icons/{{ indicator.icon }}"
+                ></ion-img>
+              </ion-thumbnail>
+              <ion-label
+                class="aggregate-item-label ion-no-margin ion-text-wrap"
+                [title]="indicator.label"
+              >
+                {{ indicator.label }}
+              </ion-label>
+            </ion-item>
+          </ion-col>
+          <ion-col
+            data-testid="aggregates-affected-number"
+            size-lg="4"
+            size-md="4"
+            size-xs="4"
           >
-            <ion-label>
-              <app-disclaimer-approximate
-                data-testid="aggregates-disclaimer"
-              ></app-disclaimer-approximate>
-            </ion-label>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-      <div data-testid="aggregate-list">
-        @for (indicator of indicators; track indicator.name) {
-          <ion-row data-testid="aggregates-row" class="ion-no-padding">
-            <ion-col size-lg="7" size-md="7" size-xs="7">
-              <ion-item
-                class="aggregate-item ion-no-padding font-size-12"
-                color="ibf-white"
-                lines="full"
-              >
-                <ion-thumbnail
-                  slot="start"
-                  class="m-0 h-10 w-10 bg-slate-100 p-2"
-                >
-                  <ion-img
-                    class="object-contain"
-                    src="assets/icons/{{ indicator.icon }}"
-                  ></ion-img>
-                </ion-thumbnail>
+            <ion-item
+              class="aggregate-item-value ion-no-padding font-size-12"
+              style="--inner-padding-end: 4px"
+              color="ibf-white"
+            >
+              @if (!isAggregateNan(indicator.name, indicator.weightedAvg)) {
                 <ion-label
-                  class="aggregate-item-label ion-no-margin ion-text-wrap"
-                  [title]="indicator.label"
+                  class="ion-text-right m-0"
+                  data-test="aggregate-number"
                 >
-                  {{ indicator.label }}
+                  {{
+                    getAggregate(
+                      indicator.name,
+                      indicator.weightedAvg,
+                      indicator.numberFormatAggregate
+                    )
+                      | compact: indicator.numberFormatAggregate
+                      | translate
+                  }}
+                  {{ indicator.aggregateUnit }}
                 </ion-label>
-              </ion-item>
-            </ion-col>
-            <ion-col
-              data-testid="aggregates-affected-number"
-              size-lg="4"
-              size-md="4"
-              size-xs="4"
-            >
-              <ion-item
-                class="aggregate-item-value ion-no-padding font-size-12"
-                style="--inner-padding-end: 4px"
-                color="ibf-white"
-              >
-                @if (!isAggregateNan(indicator.name, indicator.weightedAvg)) {
-                  <ion-label
-                    class="ion-text-right m-0"
-                    data-test="aggregate-number"
-                  >
-                    {{
-                      getAggregate(
-                        indicator.name,
-                        indicator.weightedAvg,
-                        indicator.numberFormatAggregate
-                      )
-                        | compact: indicator.numberFormatAggregate
-                        | translate
-                    }}
-                    {{ indicator.aggregateUnit }}
-                  </ion-label>
-                } @else {
-                  <ion-label
-                    class="ion-text-right m-0"
-                    data-test="aggregate-na"
-                  >
-                    {{ 'aggregates-component.not-applicable' | translate }}
-                  </ion-label>
-                }
-              </ion-item>
-            </ion-col>
-            <ion-col
-              size-lg="1"
-              size-md="1"
-              size-xs="1"
-              [title]="'aggregates-component.more-information' | translate"
-            >
-              <ion-item
-                class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
-                data-testid="aggregates-info-icon"
-                color="ibf-white"
-              >
-                <ion-label>
-                  <img
-                    alt="More information"
-                    class="mx-auto my-0 w-5"
-                    src="assets/icons/source-info.svg"
-                    (click)="moreInfo(indicator)"
-                  />
+              } @else {
+                <ion-label class="ion-text-right m-0" data-test="aggregate-na">
+                  {{ 'aggregates-component.not-applicable' | translate }}
                 </ion-label>
-              </ion-item>
-            </ion-col>
-          </ion-row>
-        }
-      </div>
-    </ion-grid>
-  </div>
-}
+              }
+            </ion-item>
+          </ion-col>
+          <ion-col
+            size-lg="1"
+            size-md="1"
+            size-xs="1"
+            [title]="'aggregates-component.more-information' | translate"
+          >
+            <ion-item
+              class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
+              data-testid="aggregates-info-icon"
+              color="ibf-white"
+            >
+              <ion-label>
+                <img
+                  alt="More information"
+                  class="mx-auto my-0 w-5"
+                  src="assets/icons/source-info.svg"
+                  (click)="moreInfo(indicator)"
+                  (keydown.enter)="moreInfo(indicator)"
+                  tabindex="0"
+                />
+              </ion-label>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      }
+    </div>
+  </ion-grid>
+</div>

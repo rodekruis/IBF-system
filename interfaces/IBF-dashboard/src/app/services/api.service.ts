@@ -393,16 +393,6 @@ export class ApiService {
     );
   }
 
-  toggleTrigger(eventPlaceCodeId: string) {
-    return this.post(
-      'event/toggle-stopped-trigger',
-      {
-        eventPlaceCodeId,
-      },
-      false,
-    );
-  }
-
   mockDynamicData(
     secret: string,
     country: Country,

@@ -38,7 +38,7 @@ Feature: View and use chat section
         When the user clicks on 'Activation Log' button
         Then the 'activation-log' page opens up in a new tab
         And it contains 'disaster-activation-data' for all the countries
-        And it contains 'country-code','disaster-type','placeCode','name','startDate','endDate','stopped','manuallyStopped','exposureIndicator','exposureValue','databaseId'
+        And it contains 'country-code','disaster-type','placeCode','name','startDate','endDate','exposureIndicator','exposureValue','databaseId'
         And it is in a table
         And it can easily be copied to Excel
 
@@ -100,21 +100,11 @@ Feature: View and use chat section
     Scenario: View overview & further instructions
         Given the dashboard is in TRIGGERED state
         Given the selected "admin level" is the "default admin level"
-        Given there are no areas for which the trigger is stopped
         When the user views the 3rd speech bubble
         Then it mentions an overview of the triggered areas, sorted by the "action unit" of that disaster type (e.g. "exposed population")
         And it mentions instructions that you can click an area in the map
         And if done so, that you can perform additional actions per area.
         And no such speech bubble is available on other admin levels then the default admin level
-
-    Scenario: View overview & further instructions WITH "stopped" areas
-        Given there are areas for which the trigger is stopped
-        Given for the rest the same as scenario above
-        Then the same applies as scenario above
-        And additionally there is a separate 4th speech bubble which lists stopped areas
-        And it is grey colorded (as "NON-TRIGGERED") with black border
-        And it mentions the stopped areas in same order as scenario above
-        And it mentions instructions that you can click a stopped area in the map
 
     Scenario: Click on area in triggered areas list in chat
         Given the dashboard is in TRIGGERED state
@@ -130,28 +120,11 @@ Feature: View and use chat section
         And it contains a list of all EAP-actions (same for every area) with "area of focus" name and "action" description
         And it shows which EAP-actions are already "checked" via the "checkbox"
         And it contains a disabled "save" button
-        And it contains an enabled "stop trigger/alert" button
-
-    Scenario: Click on area in stopped areas list in chat
-        Given the area is "stopped"
-        When the user selects a stopped area from map (see 'Use_map_section.feature')
-        Given the dashboard is in TRIGGERED state
-        Given the selected "admin level" is the "default admin level"
-        When the user views the 4rd speech bubble
-        And the user clicks on the name of an area
-        Then the map zooms down on the selected area
-        And a new speech bubble appears in the chat section
-        And it is grey colorded (as "NON-TRIGGERED") with black border
-        And it mentions the start date of this trigger
-        And the stop date
-        And the user who stopped it
-        And it contains a button to go back to the list of all triggered areas
 
     Scenario: View chat-section after area-selection in map
-        Given the area is not "stopped"
         Given EAP-actions are static and not monthly ('showMonthlyEapActions = false')
         When the user selects a triggered area from map (see 'Use_map_section.feature')
-        Then the speech bubbles giving overview of active and stopped areas disappear
+        Then the speech bubble giving overview of areas disappears
         And a new speech bubble appears in the chat section
         And it is pointed to the right instead of the left
         And it contains the "admin area" type and name
@@ -160,10 +133,8 @@ Feature: View and use chat section
         And it contains a list of all EAP-actions (same for every area) with "area of focus" name and "action" description
         And it shows which EAP-actions are already "checked" via the "checkbox"
         And it contains a disabled "save" button
-        And it contains an enabled "stop trigger/alert" button
 
     Scenario: View chat-section after area-selection in map with monthly actions
-        Given the area is not "stopped"
         Given EAP-actions are monthly ('showMonthlyEapActions = true') - currently only Kenya and Ethiopia Drought
         When the user selects a triggered area from map (see 'Use_map_section.feature')
         Then everything happens as above
@@ -172,16 +143,6 @@ Feature: View and use chat section
         And only the action up until the current month are shown
         And if there is an overlap of seasons, actions not relevant to the selected season are not shown
         And behind the action in brackets and bold the month to complete the action is shown
-
-    Scenario: View chat-section after area-selection in map of "stopped" area
-        Given the area is "stopped"
-        When the user selects a triggered area from map (see 'Use_map_section.feature')
-        Then the speech bubbles giving overview of active and stopped areas disappear
-        And a new speech bubble appears in the chat section
-        And it is grey colorded (as "NON-TRIGGERED") with black border
-        And it mentions the start date of this trigger
-        And the stop date
-        And the user who stopped it
 
     Scenario: Check or uncheck EAP-actions per triggered area
         Given the EAP-action speech-bubble is showing for one or more areas
@@ -195,13 +156,3 @@ Feature: View and use chat section
         Then a popup appears that the database is updated
         And it closes again by clicking outside of it
         And (after refreshing) the Area-of-Focus summary will have updated (see 'Use_area_of_focus_section.feature')
-
-    Scenario: Stop trigger
-        Given the dashboard is in TRIGGERED mode
-        When the user clicks the 'stop trigger/alert' button
-        Then a popup appears that asks if you are sure
-        And if confirmed the dashboard updates
-        And the area will now show as grey with black border in the map
-        And the lists of active vs stopped areas in the chat section will have updated
-        And the event is now stopped with today's date in the database
-        And as such reflected in the "activation report"

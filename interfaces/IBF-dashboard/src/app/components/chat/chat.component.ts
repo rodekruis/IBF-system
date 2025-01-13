@@ -9,7 +9,6 @@ import {
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActionResultPopoverComponent } from 'src/app/components/action-result-popover/action-result-popover.component';
-import { ToggleTriggerPopoverComponent } from 'src/app/components/toggle-trigger-popover/toggle-trigger-popover.component';
 import {
   Country,
   CountryDisasterSettings,
@@ -42,10 +41,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ChatComponent implements OnInit, OnDestroy {
   public triggeredAreas: TriggeredArea[];
-  public activeAreas: TriggeredArea[];
-  public filteredActiveAreas: TriggeredArea[];
-  public stoppedAreas: TriggeredArea[];
-  public filteredStoppedAreas: TriggeredArea[];
+  public filteredAreas: TriggeredArea[];
   public activeDisasterType: string;
   public eventState: EventState;
   private timelineState: TimelineState;
@@ -177,13 +173,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.setupChatText();
   };
 
-  private onTriggeredAreasChange = (triggeredAreas) => {
+  private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
     this.triggeredAreas = triggeredAreas;
     this.triggeredAreas.forEach((area) => {
       this.disableSubmitButtonForTriggeredArea(area);
     });
-    this.stoppedAreas = this.triggeredAreas.filter((area) => area.stopped);
-    this.activeAreas = this.triggeredAreas.filter((area) => !area.stopped);
     this.onPlaceCodeChange(this.placeCode);
   };
 
@@ -196,10 +190,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     if (placeCode && (!activeLeadTime || activeLeadTime.alert)) {
       const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
         triggeredArea.placeCode === placeCode.placeCode;
-      this.filteredActiveAreas = this.activeAreas.filter(
-        filterTriggeredAreasByPlaceCode,
-      );
-      this.filteredStoppedAreas = this.stoppedAreas.filter(
+      this.filteredAreas = this.triggeredAreas.filter(
         filterTriggeredAreasByPlaceCode,
       );
     } else {
@@ -209,8 +200,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private setDefaultFilteredAreas = () => {
-    this.filteredActiveAreas = [];
-    this.filteredStoppedAreas = [];
+    this.filteredAreas = [];
   };
 
   private setupChatText = () => {
@@ -378,80 +368,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.placeCodeService.setPlaceCode(this.placeCode);
       this.changedActions = [];
     });
-  }
-
-  public async openToggleTriggerPopup(
-    triggeredArea: TriggeredArea,
-    stop: boolean,
-  ): Promise<void> {
-    const stopNode = stop ? 'stop-trigger-popup' : 'reactivate-trigger-popup';
-    const eapNode = this.disasterTypeService.hasEap(
-      this.disasterType.disasterType,
-    );
-    const popover = await this.popoverController.create({
-      component: ToggleTriggerPopoverComponent,
-      animated: true,
-      cssClass: 'ibf-popover ibf-popover-normal',
-      translucent: true,
-      showBackdrop: true,
-      componentProps: {
-        area: triggeredArea,
-        eapNode,
-        stopNode,
-        disasterType: this.disasterType.disasterType,
-      },
-    });
-
-    await popover.present();
-
-    popover.onDidDismiss().then((res) => {
-      if (!res) {
-        return;
-      }
-
-      if (!res.role) {
-        return;
-      }
-
-      if (res.role === 'confirm') {
-        this.toggleTrigger(
-          triggeredArea.eventPlaceCodeId,
-          triggeredArea.placeCode,
-          stopNode,
-          eapNode,
-        );
-      }
-    });
-  }
-
-  public toggleTrigger(
-    eventPlaceCodeId: string,
-    placeCode: string,
-    stopNode: string,
-    eapNode: string,
-  ): void {
-    this.analyticsService.logEvent(AnalyticsEvent.stopTrigger, {
-      page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.events?.length > 0,
-      placeCode,
-    });
-    this.apiService.toggleTrigger(eventPlaceCodeId).subscribe({
-      next: () => {
-        this.reloadEapAndTrigger();
-      },
-      error: () =>
-        this.actionResult(
-          this.translateService.instant(
-            `chat-component.common.${stopNode}.${eapNode}.failure`,
-          ),
-        ),
-    });
-  }
-
-  private reloadEapAndTrigger() {
-    this.eapActionsService.getTriggeredAreasApi();
-    this.eventService.getEvents();
-    this.placeCodeService.clearPlaceCode();
   }
 
   public getClearOutMessage(event: EventSummary) {

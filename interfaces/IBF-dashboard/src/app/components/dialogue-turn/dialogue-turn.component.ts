@@ -18,9 +18,6 @@ export class DialogueTurnComponent implements OnChanges {
   isWarn = false;
 
   @Input()
-  isStopped = false;
-
-  @Input()
   isTriggered = false;
 
   @Input()

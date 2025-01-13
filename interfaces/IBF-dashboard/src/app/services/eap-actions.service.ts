@@ -179,9 +179,6 @@ export class EapActionsService {
     triggeredArea.startDate = DateTime.fromISO(
       triggeredArea.startDate,
     ).toFormat('cccc, dd LLLL');
-    triggeredArea.stoppedDate = DateTime.fromISO(
-      triggeredArea.stoppedDate,
-    ).toFormat('cccc, dd LLLL');
   };
 
   private mapTriggerValueToAlertClass = (triggeredArea: TriggeredArea) => {
