@@ -62,8 +62,8 @@ const MOCK_COUNTRYDISASTERSETTINGS: CountryDisasterSettings = {
     },
   },
   isEventBased: true,
-  droughtForecastSeasons: null,
-  droughtAreas: {},
+  droughtSeasonRegions: null,
+  droughtRegions: {},
   showMonthlyEapActions: false,
 };
 
