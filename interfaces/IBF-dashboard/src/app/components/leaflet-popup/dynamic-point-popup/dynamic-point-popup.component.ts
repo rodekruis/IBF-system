@@ -110,7 +110,7 @@ export class DynamicPointPopupComponent implements OnInit {
 
   private getTitle(): string {
     if (this.layerName === IbfLayerName.gauges) {
-      return `${this.translate.instant('map-popups.river-gauge.header')} ${
+      return `${this.translate.instant('map-popups.river-gauge.header') as string} ${
         this.riverGauge.fid
       } ${this.riverGauge.name}`;
     }
@@ -132,8 +132,8 @@ export class DynamicPointPopupComponent implements OnInit {
         ? ''
         : this.riverGauge.dynamicData?.['water-level'] <=
             this.riverGauge.dynamicData?.['water-level-reference']
-          ? this.translate.instant('map-popups.river-gauge.below')
-          : this.translate.instant('map-popups.river-gauge.above');
+          ? (this.translate.instant('map-popups.river-gauge.below') as string)
+          : (this.translate.instant('map-popups.river-gauge.above') as string);
     }
 
     if (this.layerName === IbfLayerName.typhoonTrack) {

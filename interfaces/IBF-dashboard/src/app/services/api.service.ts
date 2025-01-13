@@ -9,7 +9,7 @@ import { User } from 'src/app/models/user/user.model';
 import { EventSummary } from 'src/app/services/event.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level';
-import { Aggregate } from 'src/app/types/aggregate';
+import { AggregateRecord } from 'src/app/types/aggregate';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { LeadTime } from 'src/app/types/lead-time';
@@ -267,7 +267,7 @@ export class ApiService {
     leadTime: string,
     eventName: string,
     placeCodeParent?: string,
-  ): Observable<Aggregate[]> {
+  ): Observable<AggregateRecord[]> {
     let params = new HttpParams();
     if (eventName) {
       params = params.append('eventName', eventName);
@@ -412,6 +412,9 @@ export class ApiService {
       isNewBodyFormat = true;
     } else if (disasterType.disasterType === DisasterTypeKey.malaria) {
       apiPath = 'mock/malaria';
+      isNewBodyFormat = true;
+    } else if (disasterType.disasterType === DisasterTypeKey.drought) {
+      apiPath = 'mock/drought';
       isNewBodyFormat = true;
     }
 

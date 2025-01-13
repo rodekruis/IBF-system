@@ -37,8 +37,6 @@ import { firstCharOfWordsToUpper } from 'src/shared/utils';
   standalone: false,
 })
 export class AggregatesComponent implements OnInit, OnDestroy {
-  public areaStatus = AreaStatus.TriggeredOrWarned;
-
   public indicators: Indicator[] = [];
   public placeCode: PlaceCode;
   public placeCodeHover: PlaceCode;
@@ -176,7 +174,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       component: this.constructor.name,
     });
 
-    popover.present();
+    void popover.present();
   }
 
   private getPopoverText(indicator: Indicator): string {
@@ -202,7 +200,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       indicatorName,
       this.getPlaceCodeValue(),
       numberFormat,
-      this.areaStatus,
+      AreaStatus.TriggeredOrWarned,
     );
 
     return agg;
@@ -216,24 +214,28 @@ export class AggregatesComponent implements OnInit, OnDestroy {
               this.placeCodeHover.placeCodeName ||
               this.placeCodeHover.placeCode,
             subHeaderLabel: this.countryDisasterSettings.isEventBased
-              ? `${this.translateService.instant(
-                  'aggregates-component.predicted',
-                )} ${firstCharOfWordsToUpper(this.disasterType.label)}`
+              ? `${
+                  this.translateService.instant(
+                    'aggregates-component.predicted',
+                  ) as string
+                } ${firstCharOfWordsToUpper(this.disasterType.label)}`
               : `Exposed ${this.getAdminAreaLabel('singular')}`,
           }
         : {
             headerLabel: this.translateService.instant(
               'aggregates-component.national-view',
-            ),
+            ) as string,
             subHeaderLabel: `${this.getEventCount()?.toString()} ${
               this.countryDisasterSettings?.isEventBased
-                ? `${this.translateService.instant(
-                    'aggregates-component.predicted',
-                  )} ${firstCharOfWordsToUpper(
-                    this.disasterType.label,
-                  )}${this.translateService.instant(
-                    'aggregates-component.plural-suffix',
-                  )}`
+                ? `${
+                    this.translateService.instant(
+                      'aggregates-component.predicted',
+                    ) as string
+                  } ${firstCharOfWordsToUpper(this.disasterType.label)}${
+                    this.translateService.instant(
+                      'aggregates-component.plural-suffix',
+                    ) as string
+                  }`
                 : `Exposed ${this.getAdminAreaLabel()}`
             }`,
           };

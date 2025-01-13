@@ -129,7 +129,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
 
   public getHeader(event: EventSummary): string {
     let headerKey = `chat-component.${this.disasterTypeName}.active-event-active-trigger.header`;
-    if (LeadTimeTriggerKey[event.firstLeadTime] === '0') {
+    if ((LeadTimeTriggerKey[event.firstLeadTime] as string) === '0') {
       headerKey += '-ongoing';
     }
     if (!event.thresholdReached) {
@@ -140,7 +140,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
       eventName: event.eventName?.split('_')[0] || this.disasterTypeLabel,
       disasterTypeLabel: this.disasterTypeLabel,
-    });
+    }) as string;
     return header;
   }
 
@@ -167,7 +167,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       {
         firstLeadTimeDate: event.firstLeadTimeDate,
       },
-    );
+    ) as string;
   }
 
   public showFirstWarningDate(): boolean {
