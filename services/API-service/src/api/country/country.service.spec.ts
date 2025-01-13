@@ -102,35 +102,6 @@ describe('CountryService', () => {
     });
   });
 
-  describe('findOne', () => {
-    it('should return a single country with default relations', async () => {
-      const countryCodeISO3 = countries[0].countryCodeISO3;
-      const result = new CountryEntity();
-      jest.spyOn(countryRepository, 'findOne').mockResolvedValue(result);
-
-      expect(await service.findOne(countryCodeISO3)).toBe(result);
-      expect(countryRepository.findOne).toHaveBeenCalledWith({
-        where: { countryCodeISO3 },
-        relations,
-      });
-    });
-
-    it('should return a single country with custom relations', async () => {
-      const countryCodeISO3 = countries[0].countryCodeISO3;
-      const customRelations = relations.slice(0, 2);
-      const result = new CountryEntity();
-      jest.spyOn(countryRepository, 'findOne').mockResolvedValue(result);
-
-      expect(await service.findOne(countryCodeISO3, customRelations)).toBe(
-        result,
-      );
-      expect(countryRepository.findOne).toHaveBeenCalledWith({
-        where: { countryCodeISO3 },
-        relations: customRelations,
-      });
-    });
-  });
-
   describe('addOrUpdateCountries', () => {
     it('should add or update countries', async () => {
       const getCountryDisasterTypeSettingsEntity = (
@@ -214,7 +185,9 @@ describe('CountryService', () => {
 
   describe('addOrUpdateNotificationInfo', () => {
     it('should add or update notification info', async () => {
-      jest.spyOn(service, 'findOne').mockResolvedValue(new CountryEntity());
+      jest
+        .spyOn(countryRepository, 'findOne')
+        .mockResolvedValue(new CountryEntity());
       jest.spyOn(service, 'createNotificationInfo').mockResolvedValue(null);
       jest
         .spyOn(countryRepository, 'save')
@@ -224,10 +197,10 @@ describe('CountryService', () => {
       await service.addOrUpdateNotificationInfo(notificationInfoDto);
 
       for (const notificationInfo of notificationInfoDto) {
-        expect(service.findOne).toHaveBeenCalledWith(
-          notificationInfo.countryCodeISO3,
-          ['notificationInfo'],
-        );
+        expect(countryRepository.findOne).toHaveBeenCalledWith({
+          where: { countryCodeISO3: notificationInfo.countryCodeISO3 },
+          relations: ['notificationInfo'],
+        });
       }
       expect(countryRepository.save).toHaveBeenCalledWith(
         notificationInfos.map(() => ({ notificationInfo: null })),

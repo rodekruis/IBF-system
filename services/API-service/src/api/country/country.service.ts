@@ -54,20 +54,6 @@ export class CountryService {
     }
   }
 
-  public async findOne(
-    countryCodeISO3: string,
-    relations?: string[],
-  ): Promise<CountryEntity> {
-    const findOneOptions = {
-      countryCodeISO3: countryCodeISO3,
-    };
-
-    return await this.countryRepository.findOne({
-      where: findOneOptions,
-      relations: relations || this.relations,
-    });
-  }
-
   public async addOrUpdateCountries(
     countries: AddCountriesDto,
     envDisasterTypes?: string[],
@@ -233,10 +219,10 @@ export class CountryService {
   ): Promise<void> {
     const countriesToSave = [];
     for await (const notificationInfoCountry of notificationInfo) {
-      const existingCountry = await this.findOne(
-        notificationInfoCountry.countryCodeISO3,
-        ['notificationInfo'],
-      );
+      const existingCountry = await this.countryRepository.findOne({
+        where: { countryCodeISO3: notificationInfoCountry.countryCodeISO3 },
+        relations: ['notificationInfo'],
+      });
 
       if (existingCountry.notificationInfo) {
         existingCountry.notificationInfo = await this.createNotificationInfo(
