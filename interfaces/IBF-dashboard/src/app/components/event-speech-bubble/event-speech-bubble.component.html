@@ -245,48 +245,6 @@
   </app-dialogue-turn>
 }
 
-@if (type === 'stopped' && event.eventName === selectedEvent) {
-  <app-dialogue-turn [isStopped]="true">
-    <p
-      [innerHTML]="
-        'chat-component.' + disasterTypeName + '.stopped-event.overview'
-          | translate
-            : {
-                nrStoppedAreas: areas.length,
-                adminAreaLabelPlural: adminAreaLabelPlural,
-                eventName: selectedEvent?.split('_')[0],
-                actionIndicator: actionIndicatorLabel,
-              }
-      "
-    ></p>
-    <div>
-      <ul class="list-inside list-disc text-xs">
-        @for (area of areas; track area.eventPlaceCodeId) {
-          <li
-            class="my-1 cursor-pointer hover:underline"
-            (click)="selectArea(area)"
-          >
-            {{ area.name }}
-            @if (area.nameParent) {
-              <span>({{ area.nameParent }})</span>
-            }
-            -
-            <span>{{
-              area.actionsValue | compact: actionIndicatorNumberFormat
-            }}</span>
-          </li>
-        }
-      </ul>
-    </div>
-    <p
-      [translate]="
-        'chat-component.' + disasterTypeName + '.stopped-event.instruction'
-          | translate
-      "
-    ></p>
-  </app-dialogue-turn>
-}
-
 @if (type === 'no-event') {
   <app-dialogue-turn>
     <p

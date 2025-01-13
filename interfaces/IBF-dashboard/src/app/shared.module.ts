@@ -44,7 +44,6 @@ import { MatrixComponent } from 'src/app/components/matrix/matrix.component';
 import { ScreenOrientationPopoverComponent } from 'src/app/components/screen-orientation-popover/screen-orientation-popover.component';
 import { TimelineComponent } from 'src/app/components/timeline/timeline.component';
 import { TimestampComponent } from 'src/app/components/timestamp/timestamp.component';
-import { ToggleTriggerPopoverComponent } from 'src/app/components/toggle-trigger-popover/toggle-trigger-popover.component';
 import { TooltipComponent } from 'src/app/components/tooltip/tooltip.component';
 import { TooltipPopoverComponent } from 'src/app/components/tooltip-popover/tooltip-popover.component';
 import { UserStateComponent } from 'src/app/components/user-state/user-state.component';
@@ -96,7 +95,6 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     ScreenOrientationPopoverComponent,
     TimelineComponent,
     TimestampComponent,
-    ToggleTriggerPopoverComponent,
     TooltipComponent,
     TooltipPopoverComponent,
     UserStateComponent,
@@ -141,7 +139,6 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     ScreenOrientationPopoverComponent,
     TimelineComponent,
     TimestampComponent,
-    ToggleTriggerPopoverComponent,
     TooltipComponent,
     TooltipPopoverComponent,
     TranslateModule,

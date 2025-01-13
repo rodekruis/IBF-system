@@ -59,21 +59,21 @@ export class CommunityNotificationPopupComponent implements OnInit {
     const alert = await this.alertController.create({
       header: this.translate.instant(
         'map-popups.community-notification.delete',
-      ),
+      ) as string,
       message: this.translate.instant(
         'map-popups.community-notification.delete-question',
-      ),
+      ) as string,
       buttons: [
         {
           text: this.translate.instant(
             'map-popups.community-notification.delete-cancel',
-          ),
+          ) as string,
           role: this.alertDismissRole.cancel,
         },
         {
           text: this.translate.instant(
             'map-popups.community-notification.delete-confirm',
-          ),
+          ) as string,
           role: this.alertDismissRole.confirm,
         },
       ],
@@ -92,13 +92,13 @@ export class CommunityNotificationPopupComponent implements OnInit {
         this.actionResult(
           this.translate.instant(
             'map-popups.community-notification.delete-successs',
-          ),
+          ) as string,
         ),
       error: () =>
         this.actionResult(
           this.translate.instant(
             'map-popups.community-notification.delete-fail',
-          ),
+          ) as string,
         ),
     });
   }

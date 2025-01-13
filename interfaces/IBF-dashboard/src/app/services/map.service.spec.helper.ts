@@ -79,8 +79,6 @@ export const MOCK_TRIGGEREDAREAS: TriggeredArea[] = [
     placeCode: 'KE0090400198',
     adminLevel: AdminLevel.adminLevel3,
     startDate: '2024-11-04',
-    stopped: false,
-    stoppedDate: null,
     submitDisabled: false,
   },
   {
@@ -94,8 +92,6 @@ export const MOCK_TRIGGEREDAREAS: TriggeredArea[] = [
     placeCode: 'KE0090400197',
     adminLevel: AdminLevel.adminLevel3,
     startDate: '2024-11-04',
-    stopped: false,
-    stoppedDate: null,
     submitDisabled: false,
   },
 ];

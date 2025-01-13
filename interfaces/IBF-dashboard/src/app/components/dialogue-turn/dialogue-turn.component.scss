@@ -50,14 +50,6 @@
   }
 }
 
-.dialogue-turn.is-stopped {
-  .dialogue-turn--content {
-    ion-card {
-      border: var(--ion-color-ibf-black) solid 2px;
-    }
-  }
-}
-
 .dialogue-turn.is-spoken {
   .dialogue-turn--content {
     animation-name: speak;

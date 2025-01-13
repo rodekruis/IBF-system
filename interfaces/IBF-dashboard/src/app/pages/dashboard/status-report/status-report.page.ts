@@ -66,7 +66,7 @@ export class StatusReportPage implements OnInit {
     this.statusData[countryCodeISO3][disasterType.disasterType].date =
       date?.timestamp
         ? format(parseISO(date?.timestamp), 'yyyy-MM-dd HH:mm')
-        : this.translate.instant('status-report-page.no-data');
+        : (this.translate.instant('status-report-page.no-data') as string);
     this.statusData[countryCodeISO3][disasterType.disasterType].isStale =
       date?.timestamp
         ? this.eventService.isLastModelDateStale(

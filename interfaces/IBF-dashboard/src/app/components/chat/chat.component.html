@@ -54,7 +54,7 @@
       [disasterTypeName]="disasterType?.disasterType"
       [clearOutMessage]="getClearOutMessage(null)"
       [countryCodeISO3]="country?.countryCodeISO3"
-      [areas]="stoppedAreas"
+      [areas]="[]"
       [adminAreaLabelPlural]="adminAreaLabelPlural"
       [actionIndicatorLabel]="actionIndicatorLabel"
       [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
@@ -62,9 +62,7 @@
   } @else {
     <!-- Active event -->
     @for (event of eventState?.events; track event.eventName) {
-      @if (
-        filteredStoppedAreas.length === 0 && filteredActiveAreas.length === 0
-      ) {
+      @if (filteredAreas.length === 0) {
         <app-event-speech-bubble
           [type]="'active'"
           [event]="event"
@@ -73,78 +71,16 @@
           [disasterTypeName]="disasterType?.disasterType"
           [clearOutMessage]="getClearOutMessage(event)"
           [countryCodeISO3]="country?.countryCodeISO3"
-          [areas]="activeAreas"
+          [areas]="triggeredAreas"
           [adminAreaLabelPlural]="adminAreaLabelPlural"
           [actionIndicatorLabel]="actionIndicatorLabel"
           [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
         ></app-event-speech-bubble>
-        @if (stoppedAreas.length) {
-          <app-event-speech-bubble
-            [type]="'stopped'"
-            [event]="event"
-            [selectedEvent]="eventState?.event?.eventName"
-            [disasterTypeLabel]="disasterType?.label"
-            [disasterTypeName]="disasterType?.disasterType"
-            [clearOutMessage]="getClearOutMessage(null)"
-            [countryCodeISO3]="country?.countryCodeISO3"
-            [areas]="stoppedAreas"
-            [adminAreaLabelPlural]="adminAreaLabelPlural"
-            [actionIndicatorLabel]="actionIndicatorLabel"
-            [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
-          ></app-event-speech-bubble>
-        }
       }
     }
   }
 
-  @if (eventState?.events?.length > 0) {
-    @for (area of filteredStoppedAreas; track area.name; let isFirst = $first) {
-      <app-dialogue-turn [isStopped]="true">
-        @if (placeCode) {
-          <app-ibf-button
-            (click)="revertAreaSelection()"
-            backgroundColor="ibf-no-alert-primary"
-            size="small"
-            class="ion-float-right"
-          >
-            <span class="ion-hide-sm-down">{{
-              'chat-component.common.revert-selection' | translate
-            }}</span>
-            <ion-icon name="arrow-back" slot="start"></ion-icon>
-          </app-ibf-button>
-        }
-        <p
-          [innerHTML]="
-            'chat-component.' + disasterTypeName + '.stopped-event.area'
-              | translate
-                : {
-                    placeCodeName: area.name,
-                    startDate: area.startDate,
-                    stoppedDate: area.stoppedDate,
-                    displayName: area.displayName || 'unknown',
-                    parentName: getAreaParentString(area),
-                  }
-          "
-        ></p>
-        @if (
-          countryDisasterSettings?.enableStopTrigger &&
-          placeCode?.adminLevel === countryDisasterSettings.defaultAdminLevel
-        ) {
-          <app-ibf-button
-            (click)="openToggleTriggerPopup(area, false)"
-            backgroundColor="ibf-no-alert-primary"
-          >
-            {{
-              'chat-component.common.reactivate-trigger-popup.' +
-                hasEap() +
-                '.header' | translate: { alertLabel: area.alertLabel }
-            }}
-          </app-ibf-button>
-        }
-      </app-dialogue-turn>
-    }
-  }
-  @for (area of filteredActiveAreas; track area.name; let isFirst = $first) {
+  @for (area of filteredAreas; track area.name; let isFirst = $first) {
     <app-dialogue-turn [isTriggered]="eventState?.event?.thresholdReached">
       <ion-row>
         <ion-col
@@ -327,22 +263,6 @@
               </ion-row>
             </form>
           }
-        }
-        @if (
-          countryDisasterSettings?.enableStopTrigger &&
-          placeCode?.adminLevel === countryDisasterSettings.defaultAdminLevel
-        ) {
-          <app-ibf-button
-            (click)="openToggleTriggerPopup(area, true)"
-            backgroundColor="ibf-white"
-            textColor="ibf-no-alert-primary"
-            borderColor="ibf-no-alert-secondary"
-            strong="true"
-            >{{
-              'chat-component.common.stop-trigger-popup.' + hasEap() + '.header'
-                | translate: { alertLabel: area.alertLabel }
-            }}</app-ibf-button
-          >
         }
       }
     </app-dialogue-turn>

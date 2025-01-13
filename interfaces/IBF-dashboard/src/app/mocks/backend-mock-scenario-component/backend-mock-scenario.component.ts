@@ -73,7 +73,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
     this.disasterType = disasterType;
   };
 
-  private onTranslate = (translatedStrings) => {
+  private onTranslate = (translatedStrings: Record<string, string>) => {
     this.alertHeaderLabel = translatedStrings[this.alertHeaderLabelNode];
     this.alertSubHeaderLabel = translatedStrings[this.alertSubHeaderLabelNode];
     this.alertMessage = this.translateService.instant(
@@ -82,7 +82,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
         countryName: this.country.countryName,
         disasterTypeLabel: this.disasterType.disasterType,
       },
-    );
+    ) as string;
     this.alertInputSecretPlaceholder =
       translatedStrings[this.alertInputSecretPlaceholderNode];
     this.alertButtonCancelLabel =
@@ -93,7 +93,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
       translatedStrings[this.alertButtonTriggerLabelNode];
     this.alertErrorApiError = translatedStrings[this.alertErrorApiErrorNode];
     this.alertErrorNoSecret = translatedStrings[this.alertErrorNoSecretNode];
-    this.handleBackendMockScenarioChange();
+    void this.handleBackendMockScenarioChange();
   };
 
   async presentToast(message: string) {
@@ -101,7 +101,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
       message,
       duration: 2000,
     });
-    toast.present();
+    void toast.present();
   }
 
   public onClickBackendMockScenarioChange = () => {
@@ -174,12 +174,12 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
               this.processMockSuccess(alert);
             } else {
               console.log('response: ', response);
-              this.presentToast(this.alertErrorApiError);
+              void this.presentToast(this.alertErrorApiError);
             }
           },
         });
     } else {
-      this.presentToast(this.alertErrorNoSecret);
+      void this.presentToast(this.alertErrorNoSecret);
     }
   }
 
