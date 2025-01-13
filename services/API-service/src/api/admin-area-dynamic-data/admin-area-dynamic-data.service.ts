@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -260,10 +261,15 @@ export class AdminAreaDynamicDataService {
       );
     }
     try {
-      fs.writeFileSync(
-        `./geoserver-volume/raster-files/output/${subfolder}/${data.originalname}`,
-        data.buffer,
+      const ROOT_DIR = path.resolve('./geoserver-volume/raster-files/output');
+      const filePath = path.resolve(
+        ROOT_DIR,
+        `${subfolder}/${data.originalname}`,
       );
+      if (!filePath.startsWith(ROOT_DIR)) {
+        throw new Error('Invalid file path');
+      }
+      fs.writeFileSync(filePath, data.buffer);
     } catch (e) {
       console.error(e);
       throw new HttpException('File not written: ' + e, HttpStatus.NOT_FOUND);

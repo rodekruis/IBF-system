@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -176,8 +177,17 @@ export class ScriptsService {
     disasterType: DisasterType,
   ) {
     const fileName = `upload-${unit}-${adminLevel}`;
-    const exposureFileName = `./src/api/admin-area-dynamic-data/dto/example/${countryCodeISO3}/${disasterType}/${fileName}.json`;
-    const exposureRaw = fs.readFileSync(exposureFileName, 'utf-8');
+    const ROOT_DIR = path.resolve(
+      './src/api/admin-area-dynamic-data/dto/example',
+    );
+    const filePath = path.resolve(
+      ROOT_DIR,
+      `${countryCodeISO3}/${disasterType}/${fileName}.json`,
+    );
+    if (!filePath.startsWith(ROOT_DIR)) {
+      throw new Error('Invalid file path');
+    }
+    const exposureRaw = fs.readFileSync(filePath, 'utf-8');
     const exposure = JSON.parse(exposureRaw);
 
     return exposure;
