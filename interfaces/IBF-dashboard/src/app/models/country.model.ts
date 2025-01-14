@@ -63,10 +63,10 @@ export class EapAlertClass {
 }
 
 export class AdminRegionLabels {
-  1: AdminRegionLabel;
-  2: AdminRegionLabel;
-  3: AdminRegionLabel;
-  4: AdminRegionLabel;
+  1?: AdminRegionLabel;
+  2?: AdminRegionLabel;
+  3?: AdminRegionLabel;
+  4?: AdminRegionLabel;
 }
 
 export class AdminRegionLabel {
@@ -81,6 +81,6 @@ export class DisasterType {
   minLeadTime: LeadTime;
   maxLeadTime: LeadTime;
   actionsUnit: IbfLayerName;
-  triggerUnit: string;
+  triggerUnit: IbfLayerName;
   activeTrigger: boolean;
 }

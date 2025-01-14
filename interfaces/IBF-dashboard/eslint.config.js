@@ -207,6 +207,7 @@ module.exports = tseslint.config(
         'error',
         {
           parser: 'angular',
+          endOfLine: 'auto',
         },
       ],
     },

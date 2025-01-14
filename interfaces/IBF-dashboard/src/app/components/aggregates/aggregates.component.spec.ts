@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   provideHttpClient,
   withInterceptorsFromDi,
@@ -6,20 +7,19 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { AggregatesComponent } from 'src/app/components/aggregates/aggregates.component';
-import {
-  CountryDisasterSettings,
-  DisasterType,
-} from 'src/app/models/country.model';
+import { MOCK_COUNTRYDISASTERSETTINGS } from 'src/app/mocks/country-disaster-settings.mock';
+import { MOCK_DISASTERTYPE } from 'src/app/mocks/disaster-type.mock';
+import { MOCK_EVENT_STATE } from 'src/app/mocks/event-state.mock';
+import { MockTranslateService } from 'src/app/mocks/mock-translate.service';
 import { PlaceCode } from 'src/app/models/place-code.model';
+import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { AggregatesService } from 'src/app/services/aggregates.service';
-import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
-import { IbfLayerName } from 'src/app/types/ibf-layer';
-import { LeadTime, LeadTimeUnit } from 'src/app/types/lead-time';
+import { AdminLevelType } from 'src/app/types/admin-level';
 import { MapView } from 'src/app/types/map-view';
 
-const placeCodeHover: PlaceCode = {
+const placeCode: PlaceCode = {
   countryCodeISO3: 'KEN',
   placeCode: 'KE0090400198',
   placeCodeName: 'Guba',
@@ -34,53 +34,9 @@ const placeCodeHover: PlaceCode = {
   adminLevel: 3,
 };
 
-const MOCK_COUNTRYDISASTERSETTINGS: CountryDisasterSettings = {
-  disasterType: DisasterTypeKey.floods,
-  adminLevels: [2, 3],
-  defaultAdminLevel: 2,
-  activeLeadTimes: [
-    LeadTime.day0,
-    LeadTime.day1,
-    LeadTime.day2,
-    LeadTime.day3,
-    LeadTime.day4,
-    LeadTime.day5,
-    LeadTime.day6,
-    LeadTime.day7,
-  ],
-  eapLink:
-    'https://kenyaredcross-my.sharepoint.com/:w:/g/personal/saado_halima_redcross_or_ke/ETp6Vml__etKk-C2KAqH4XIBrIJmAMT58mqA_iQlCZtuKw?rtime=FJll0Rbn2Ug',
-  eapAlertClasses: {
-    no: {
-      label: 'No action',
-      color: 'ibf-no-alert-primary',
-      value: 0,
-    },
-    max: {
-      label: 'Trigger issued',
-      color: 'ibf-glofas-trigger',
-      value: 1,
-    },
-  },
-  isEventBased: true,
-  droughtSeasonRegions: null,
-  droughtRegions: {},
-  showMonthlyEapActions: false,
-};
-
-const MOCK_DISASTERTYPE: DisasterType = {
-  disasterType: DisasterTypeKey.floods,
-  label: 'floods',
-  leadTimeUnit: LeadTimeUnit.day,
-  minLeadTime: LeadTime.day0,
-  maxLeadTime: LeadTime.day7,
-  actionsUnit: IbfLayerName.population_affected,
-  triggerUnit: 'string',
-  activeTrigger: false,
-};
-
 describe('AggregatesComponent', () => {
   let component: AggregatesComponent;
+  let adminLevelService: AdminLevelService;
   let fixture: ComponentFixture<AggregatesComponent>;
 
   beforeEach(waitForAsync(async () => {
@@ -93,6 +49,8 @@ describe('AggregatesComponent', () => {
       ],
       providers: [
         { provide: AggregatesService },
+        { provide: AdminLevelService },
+        { provide: TranslateService, useClass: MockTranslateService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
@@ -100,6 +58,7 @@ describe('AggregatesComponent', () => {
 
     fixture = TestBed.createComponent(AggregatesComponent);
     component = fixture.componentInstance;
+    adminLevelService = TestBed.inject(AdminLevelService);
     fixture.detectChanges();
   }));
 
@@ -107,60 +66,113 @@ describe('AggregatesComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('getAggregatesHeader MapView.national', () => {
-    const mapView = MapView.national;
+  describe('getAggregatesHeader', () => {
+    it('should return expected header in National View', () => {
+      const mapView = MapView.national;
+      component.placeCodeHover = null;
+      component.eventState = MOCK_EVENT_STATE;
+      component.countryDisasterSettings = MOCK_COUNTRYDISASTERSETTINGS;
+      component.disasterType = MOCK_DISASTERTYPE;
 
-    component.placeCodeHover = placeCodeHover;
-    component.countryDisasterSettings = MOCK_COUNTRYDISASTERSETTINGS;
-    component.disasterType = MOCK_DISASTERTYPE;
+      const expected = {
+        headerLabel: 'National View',
+        subHeaderLabel: '2 Predicted Flood(s)',
+      };
 
-    let expected = {
-      headerLabel: 'Guba',
-      subHeaderLabel: 'aggregates-component.predicted Floods',
-    };
+      expect(component.getAggregatesHeader(mapView)).toEqual(expected);
+    });
 
-    expect(component.getAggregatesHeader(mapView)).toEqual(expected);
+    it('should return expected header in National View while hovering over map area', () => {
+      const mapView = MapView.national;
+      component.placeCodeHover = placeCode; // this is set when hovering on map area
+      component.countryDisasterSettings = MOCK_COUNTRYDISASTERSETTINGS;
+      component.disasterType = MOCK_DISASTERTYPE;
 
-    component.placeCodeHover = null;
-    component.countryDisasterSettings = MOCK_COUNTRYDISASTERSETTINGS;
-    component.disasterType = MOCK_DISASTERTYPE;
+      const expected = {
+        headerLabel: placeCode.placeCodeName, // 'Guba'
+        subHeaderLabel: 'Predicted Flood',
+      };
 
-    expected = {
-      headerLabel: 'aggregates-component.national-view',
-      subHeaderLabel:
-        '0 aggregates-component.predicted Floodsaggregates-component.plural-suffix',
-    };
+      expect(component.getAggregatesHeader(mapView)).toEqual(expected);
+    });
 
-    expect(component.getAggregatesHeader(mapView)).toEqual(expected);
-  });
+    it('should return expected header in Event View', () => {
+      const mapView = MapView.event;
+      component.placeCodeHover = null;
+      component.countryDisasterSettings = MOCK_COUNTRYDISASTERSETTINGS;
+      component.disasterType = MOCK_DISASTERTYPE;
+      component.eventState = MOCK_EVENT_STATE;
 
-  it('getAggregatesHeader MapView.event', () => {
-    const mapView = MapView.event;
+      const mockNrTriggeredAreas = 5;
+      const mockAdminAreaLabel = 'Subcounties';
+      // spying this method, which uses a global from aggregates.service
+      spyOn(component as any, 'getAreaCount').and.returnValue(
+        mockNrTriggeredAreas,
+      );
+      // spying this method because it uses this.country, which is private
+      spyOn(component as any, 'getAdminAreaLabel').and.returnValue(
+        mockAdminAreaLabel,
+      );
 
-    component.placeCodeHover = placeCodeHover;
-    // component.countryDisasterSettings = MOCK_COUNTRYDISASTERSETTINGS;
-    // component.disasterType = MOCK_DISASTERTYPE;
+      const expected = {
+        headerLabel: MOCK_EVENT_STATE.event.eventName,
+        subHeaderLabel: `${mockNrTriggeredAreas.toString()} exposed ${mockAdminAreaLabel}`,
+      };
 
-    const expected = {
-      headerLabel: 'Guba',
-      subHeaderLabel: '',
-    };
+      expect(component.getAggregatesHeader(mapView)).toEqual(expected);
+    });
 
-    expect(component.getAggregatesHeader(mapView)).toEqual(expected);
-  });
+    it('should return expected header in Event View while hovering over map area', () => {
+      const mapView = MapView.event;
+      component.placeCodeHover = placeCode; // this is set when hovering on map area
+      component.countryDisasterSettings = MOCK_COUNTRYDISASTERSETTINGS;
+      component.disasterType = MOCK_DISASTERTYPE;
 
-  it('getAggregatesHeader MapView.adminArea2', () => {
-    const mapView = MapView.adminArea2;
+      const expected = {
+        headerLabel: placeCode.placeCodeName, // 'Guba'
+        subHeaderLabel: '',
+      };
 
-    component.placeCodeHover = placeCodeHover;
-    // component.countryDisasterSettings = MOCK_COUNTRYDISASTERSETTINGS;
-    // component.disasterType = MOCK_DISASTERTYPE;
+      expect(component.getAggregatesHeader(mapView)).toEqual(expected);
+    });
 
-    const expected = {
-      headerLabel: 'Guba',
-      subHeaderLabel: '',
-    };
+    it('should return expected header in Admin-area View', () => {
+      const mapView = MapView.adminArea2;
+      component.placeCode = placeCode; // Admin-area View implies placeCode is set
+      component.placeCodeHover = null;
+      spyOn(adminLevelService as any, 'getAdminLevelType').and.returnValue(
+        AdminLevelType.higher,
+      );
+      const mockNrTriggeredAreas = 3;
+      const mockAdminAreaLabel = 'Wards';
+      // spying this method, which uses a global from aggregates.service
+      spyOn(component as any, 'getAreaCount').and.returnValue(
+        mockNrTriggeredAreas,
+      );
+      // spying this method because it uses this.country, which is private
+      spyOn(component as any, 'getAdminAreaLabel').and.returnValue(
+        mockAdminAreaLabel,
+      );
 
-    expect(component.getAggregatesHeader(mapView)).toEqual(expected);
+      const expected = {
+        headerLabel: placeCode.placeCodeName, //'Guba'
+        subHeaderLabel: `${mockNrTriggeredAreas.toString()} exposed ${mockAdminAreaLabel}`,
+      };
+
+      expect(component.getAggregatesHeader(mapView)).toEqual(expected);
+    });
+
+    it('should return expected header in Admin-area View while hovering over map area', () => {
+      const mapView = MapView.adminArea2;
+      component.placeCode = placeCode; // Admin-area View implies placeCode is set
+      component.placeCodeHover = placeCode;
+
+      const expected = {
+        headerLabel: 'Guba',
+        subHeaderLabel: '',
+      };
+
+      expect(component.getAggregatesHeader(mapView)).toEqual(expected);
+    });
   });
 });
