@@ -6,17 +6,25 @@ import {
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, PopoverController } from '@ionic/angular';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import {
+  AnalyticsEvent,
+  AnalyticsPage,
+} from 'src/app/analytics/analytics.enum';
+import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AggregatesComponent } from 'src/app/components/aggregates/aggregates.component';
+import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
 import { MOCK_COUNTRYDISASTERSETTINGS } from 'src/app/mocks/country-disaster-settings.mock';
 import { MOCK_DISASTERTYPE } from 'src/app/mocks/disaster-type.mock';
 import { MOCK_EVENT_STATE } from 'src/app/mocks/event-state.mock';
+import { MOCK_INDICATOR } from 'src/app/mocks/indicator.mock';
 import { MockTranslateService } from 'src/app/mocks/mock-translate.service';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { AggregatesService } from 'src/app/services/aggregates.service';
 import { AdminLevelType } from 'src/app/types/admin-level';
+import { Indicator } from 'src/app/types/indicator-group';
 import { MapView } from 'src/app/types/map-view';
 
 const placeCode: PlaceCode = {
@@ -38,7 +46,8 @@ describe('AggregatesComponent', () => {
   let component: AggregatesComponent;
   let adminLevelService: AdminLevelService;
   let fixture: ComponentFixture<AggregatesComponent>;
-
+  let popoverController: PopoverController;
+  let analyticsService: AnalyticsService;
   beforeEach(waitForAsync(async () => {
     await TestBed.configureTestingModule({
       declarations: [AggregatesComponent],
@@ -51,6 +60,8 @@ describe('AggregatesComponent', () => {
         { provide: AggregatesService },
         { provide: AdminLevelService },
         { provide: TranslateService, useClass: MockTranslateService },
+        { provide: PopoverController },
+        { provide: AnalyticsService },
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
@@ -60,6 +71,8 @@ describe('AggregatesComponent', () => {
     component = fixture.componentInstance;
     adminLevelService = TestBed.inject(AdminLevelService);
     fixture.detectChanges();
+    popoverController = TestBed.inject(PopoverController);
+    analyticsService = TestBed.inject(AnalyticsService);
   }));
 
   it('should create', () => {
@@ -173,6 +186,50 @@ describe('AggregatesComponent', () => {
       };
 
       expect(component.getAggregatesHeader(mapView)).toEqual(expected);
+    });
+  });
+
+  describe('moreInfo', () => {
+    it('should create popover and log analytics event', async () => {
+      // Arrange
+      const indicator: Indicator = MOCK_INDICATOR;
+      component.eventState = MOCK_EVENT_STATE;
+
+      const popoverSpy: HTMLIonPopoverElement = jasmine.createSpyObj(
+        'HTMLIonPopoverElement',
+        ['present'],
+      );
+      spyOn(popoverController as any, 'create').and.returnValue(popoverSpy);
+      spyOn(analyticsService as any, 'logEvent');
+      spyOn(component as any, 'getPopoverText').and.returnValue('');
+
+      // Act
+      await component.moreInfo(indicator);
+
+      // Assert
+      expect(popoverController.create).toHaveBeenCalledWith({
+        component: LayerControlInfoPopoverComponent,
+        animated: true,
+        cssClass: 'ibf-popover ibf-popover-normal no-alert',
+        translucent: true,
+        showBackdrop: true,
+        componentProps: {
+          layer: {
+            label: indicator.label,
+            description: '',
+          },
+        },
+      });
+      expect(popoverSpy.present).toHaveBeenCalled();
+      expect(analyticsService.logEvent).toHaveBeenCalledWith(
+        AnalyticsEvent.aggregateInformation,
+        {
+          indicator: indicator.name,
+          page: AnalyticsPage.dashboard,
+          isActiveTrigger: true,
+          component: component.constructor.name,
+        },
+      );
     });
   });
 });
