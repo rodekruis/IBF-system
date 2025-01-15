@@ -29,7 +29,7 @@ export class EventSummary {
   endDate: string;
   thresholdReached: boolean;
   eventName: string;
-  firstLeadTime?: string;
+  firstLeadTime?: LeadTime;
   firstLeadTimeLabel?: string;
   firstLeadTimeDate?: string;
   firstTriggerLeadTime?: string;
@@ -214,7 +214,7 @@ export class EventService {
 
         event.firstLeadTimeDate = event.firstLeadTime
           ? this.getFirstLeadTimeDate(
-              event.firstLeadTime as LeadTime,
+              event.firstLeadTime,
               event.timeUnit as LeadTimeUnit,
             )
           : null;

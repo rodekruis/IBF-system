@@ -12,8 +12,6 @@ export class TriggeredArea {
   placeCode: string;
   adminLevel: AdminLevel;
   startDate: string;
-  stopped: boolean;
-  stoppedDate: string;
   submitDisabled: boolean;
   alertLabel?: AlertLabel;
 }

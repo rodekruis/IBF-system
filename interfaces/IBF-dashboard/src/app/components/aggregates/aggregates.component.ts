@@ -1,10 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable, Subscription } from 'rxjs';
@@ -27,7 +21,6 @@ import {
 } from 'src/app/services/aggregates.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapViewService } from 'src/app/services/map-view.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
@@ -36,7 +29,6 @@ import { EventState } from 'src/app/types/event-state';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { MapView } from 'src/app/types/map-view';
-import { TriggeredArea } from 'src/app/types/triggered-area';
 import { firstCharOfWordsToUpper } from 'src/shared/utils';
 @Component({
   selector: 'app-aggregates',
@@ -45,20 +37,12 @@ import { firstCharOfWordsToUpper } from 'src/shared/utils';
   standalone: false,
 })
 export class AggregatesComponent implements OnInit, OnDestroy {
-  @Input()
-  public areaStatus: string;
-
   public indicators: Indicator[] = [];
   public placeCode: PlaceCode;
   public placeCodeHover: PlaceCode;
   private country: Country;
-  private disasterType: DisasterType;
+  public disasterType: DisasterType;
   public countryDisasterSettings: CountryDisasterSettings;
-  private aggregateComponentTranslateNode = 'aggregates-component';
-  private exposedPrefixTranslateNode = 'exposed-prefix';
-  private stoppedPrefixTranslateNode = 'stopped-prefix';
-  private exposedPrefix: string;
-  private triggeredPlaceCodes: string[] = [];
   public aggregatesPlaceCodes: string[] = [];
 
   public eventState: EventState;
@@ -72,7 +56,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private translateSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
-  private eapActionSubscription: Subscription;
 
   constructor(
     private countryService: CountryService,
@@ -85,7 +68,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
     private analyticsService: AnalyticsService,
-    private eapActionsService: EapActionsService,
     private mapViewService: MapViewService,
   ) {
     this.initialEventStateSubscription = this.eventService
@@ -118,14 +100,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       .getIndicators()
       .subscribe(this.onIndicatorChange);
 
-    this.translateSubscription = this.translateService
-      .get(this.aggregateComponentTranslateNode)
-      .subscribe(this.onTranslate);
-
-    this.eapActionSubscription = this.eapActionsService
-      .getTriggeredAreas()
-      .subscribe(this.onTriggeredAreasChange);
-
     this.mapView = this.mapViewService.getAggregatesMapViewSubscription();
   }
 
@@ -138,24 +112,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.translateSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
-    this.eapActionSubscription.unsubscribe();
   }
-
-  public showAggregatesSection() {
-    if (this.placeCode || this.placeCodeHover) {
-      return this.showPlaceCodeView(this.placeCode || this.placeCodeHover);
-    }
-    return this.showNationalView();
-  }
-
-  private onTranslate = (translatedStrings) => {
-    this.exposedPrefix =
-      translatedStrings[
-        this.isActiveAreas()
-          ? this.exposedPrefixTranslateNode
-          : this.stoppedPrefixTranslateNode
-      ];
-  };
 
   private onCountryChange = (country: Country) => {
     this.country = country;
@@ -213,11 +170,11 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.analyticsService.logEvent(AnalyticsEvent.aggregateInformation, {
       indicator: indicator.name,
       page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.events?.length > 0,
+      isActiveTrigger: this.eventState.events?.length > 0,
       component: this.constructor.name,
     });
 
-    popover.present();
+    void popover.present();
   }
 
   private getPopoverText(indicator: Indicator): string {
@@ -243,7 +200,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       indicatorName,
       this.getPlaceCodeValue(),
       numberFormat,
-      this.areaStatus as AreaStatus,
+      AreaStatus.TriggeredOrWarned,
     );
 
     return agg;
@@ -257,26 +214,29 @@ export class AggregatesComponent implements OnInit, OnDestroy {
               this.placeCodeHover.placeCodeName ||
               this.placeCodeHover.placeCode,
             subHeaderLabel: this.countryDisasterSettings.isEventBased
-              ? `${this.translateService.instant(
-                  'aggregates-component.predicted',
-                )} ${firstCharOfWordsToUpper(this.disasterType.label)}`
-              : `${this.exposedPrefix} ${this.getAdminAreaLabel('singular')}`,
+              ? `${
+                  this.translateService.instant(
+                    'aggregates-component.predicted',
+                  ) as string
+                } ${firstCharOfWordsToUpper(this.disasterType.label)}`
+              : `Exposed ${this.getAdminAreaLabel('singular')}`,
           }
         : {
             headerLabel: this.translateService.instant(
               'aggregates-component.national-view',
-            ),
-            subHeaderLabel: `${this.getEventCount()} ${
+            ) as string,
+            subHeaderLabel: `${this.getEventCount()?.toString()} ${
               this.countryDisasterSettings?.isEventBased
-                ? `${this.translateService.instant(
-                    'aggregates-component.predicted',
-                  )} ${
-                    firstCharOfWordsToUpper(this.disasterType.label) +
+                ? `${
+                    this.translateService.instant(
+                      'aggregates-component.predicted',
+                    ) as string
+                  } ${firstCharOfWordsToUpper(this.disasterType.label)}${
                     this.translateService.instant(
                       'aggregates-component.plural-suffix',
-                    )
+                    ) as string
                   }`
-                : `${this.exposedPrefix} ${this.getAdminAreaLabel()}`
+                : `Exposed ${this.getAdminAreaLabel()}`
             }`,
           };
     }
@@ -289,9 +249,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           }
         : {
             headerLabel: this.getEventNameString() || '',
-            subHeaderLabel: `${this.getAreaCount()} ${
-              this.exposedPrefix
-            } ${this.getAdminAreaLabel()}`,
+            subHeaderLabel: `${this.getAreaCount().toString()} exposed ${this.getAdminAreaLabel()}`,
           };
     }
 
@@ -310,9 +268,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
             subHeaderLabel:
               this.adminLevelService.getAdminLevelType(this.placeCode) ===
               AdminLevelType.higher
-                ? `${this.getAreaCount()} ${
-                    this.exposedPrefix
-                  } ${this.getAdminAreaLabel()}`
+                ? `${this.getAreaCount().toString()} exposed ${this.getAdminAreaLabel()}`
                 : this.getAdminAreaLabel('singular'),
           };
     }
@@ -335,7 +291,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return this.eventState?.event?.eventName?.split('_')[0];
   }
 
-  private getAdminAreaLabel(singularPlural?: string) {
+  private getAdminAreaLabel(singularPlural?: string): string {
     if (
       !this.country?.adminRegionLabels ||
       !this.adminLevelService?.adminLevel
@@ -361,42 +317,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     return '';
   }
 
-  public showPlaceCodeView(placeCode: PlaceCode): boolean {
-    return (
-      placeCode &&
-      (this.isCorrectStatusPlaceCode(placeCode) ||
-        this.isNonTriggeredPlaceCode(placeCode))
-    );
-  }
-
-  private showNationalView(): boolean {
-    return (
-      this.areaStatus === AreaStatus.TriggeredOrWarned ||
-      this.getAreaCount() > 0
-    );
-  }
-
-  private isNonTriggeredPlaceCode(placeCode: PlaceCode): boolean {
-    return (
-      this.isActiveAreas() &&
-      !this.triggeredPlaceCodes.includes(placeCode.placeCode)
-    );
-  }
-
-  private isCorrectStatusPlaceCode(placeCode: PlaceCode): boolean {
-    return this.aggregatesPlaceCodes.includes(placeCode.placeCode);
-  }
-
-  public isActiveAreas(): boolean {
-    return this.areaStatus === AreaStatus.TriggeredOrWarned ? true : false;
-  }
-
   private getAreaCount(): number {
-    return (
-      (this.isActiveAreas()
-        ? this.aggregatesService.nrTriggerActiveAreas
-        : this.aggregatesService.nrTriggerStoppedAreas) ?? 0
-    );
+    return this.aggregatesService.nrTriggerAreas;
   }
 
   private getEventCount(): number {
@@ -405,18 +327,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       : this.getAreaCount();
   }
 
-  private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
-    if (!triggeredAreas) {
-      this.triggeredPlaceCodes = [];
-    }
-    this.triggeredPlaceCodes = triggeredAreas.map((a) => a.placeCode);
-    let filtered = [];
-    this.isActiveAreas()
-      ? (filtered = triggeredAreas.filter((a) => !a.stopped))
-      : (filtered = triggeredAreas.filter((a) => a.stopped));
-    this.aggregatesPlaceCodes = filtered.map((a) => a.placeCode);
-  };
-  isAggregateNan(indicator: IbfLayerName, weightedAverage: boolean): boolean {
+  public isAggregateNan(
+    indicator: IbfLayerName,
+    weightedAverage: boolean,
+  ): boolean {
     return this.aggregatesService.isAggregateNan(
       indicator,
       this.getPlaceCodeValue(),

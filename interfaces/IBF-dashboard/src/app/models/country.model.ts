@@ -1,5 +1,6 @@
 import { AdminLevel } from 'src/app/types/admin-level';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { LeadTime, LeadTimeUnit } from 'src/app/types/lead-time';
 export class Country {
   countryCodeISO3: string;
@@ -23,9 +24,14 @@ export class CountryDisasterSettings {
   droughtEndOfMonthPipeline?: boolean;
   isEventBased: boolean;
   eapAlertClasses?: EapAlertClasses;
-  monthlyForecastInfo?: Record<string, string | string[]>;
+  monthlyForecastInfo?: MonthlyForecastInfo;
   enableEarlyActions?: boolean;
-  enableStopTrigger?: boolean;
+}
+
+interface MonthlyForecastInfo {
+  prefix?: string;
+  message?: string;
+  [key: string]: string | string[];
 }
 
 export interface DroughtSeason {
@@ -57,10 +63,10 @@ export class EapAlertClass {
 }
 
 export class AdminRegionLabels {
-  1: AdminRegionLabel;
-  2: AdminRegionLabel;
-  3: AdminRegionLabel;
-  4: AdminRegionLabel;
+  1?: AdminRegionLabel;
+  2?: AdminRegionLabel;
+  3?: AdminRegionLabel;
+  4?: AdminRegionLabel;
 }
 
 export class AdminRegionLabel {
@@ -74,7 +80,7 @@ export class DisasterType {
   leadTimeUnit: LeadTimeUnit;
   minLeadTime: LeadTime;
   maxLeadTime: LeadTime;
-  actionsUnit: string;
-  triggerUnit: string;
+  actionsUnit: IbfLayerName;
+  triggerUnit: IbfLayerName;
   activeTrigger: boolean;
 }

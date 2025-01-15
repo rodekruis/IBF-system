@@ -42,7 +42,6 @@ import { quantile } from 'src/shared/utils';
 export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
   public layers = [] as IbfLayer[];
-  private stoppedTriggerColor = 'var(--ion-color-ibf-black)';
   private triggeredAreaColor = 'var(--ion-color-ibf-outline-red)';
   private nonTriggeredAreaColor = 'var(--ion-color-ibf-no-alert-primary)';
   private disputedBorderStyle: {
@@ -71,7 +70,6 @@ export class MapService {
     ],
     defaultFillColor: '#A0B6EB',
     strokeColor: '#969696',
-    colorStopped: '#d9d9d9',
     noDataColor: '#d3dae0',
     transparentColor: 'transparent',
     defaultFillOpacity: 0.8,
@@ -759,19 +757,13 @@ export class MapService {
   getAdminRegionFillColor = (
     colorPropertyValue,
     colorThreshold: { break0: number },
-    placeCode: string,
-    placeCodeParent: string,
   ): string => {
     let adminRegionFillColor = this.state.defaultFillColor;
     const currentColorGradient = this.eventState.thresholdReached
       ? this.state.colorGradientTriggered
       : this.state.colorGradient;
 
-    const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
     switch (true) {
-      case area?.stopped:
-        adminRegionFillColor = this.state.colorStopped;
-        break;
       case colorPropertyValue === null:
         adminRegionFillColor = this.state.noDataColor;
         break;
@@ -803,12 +795,11 @@ export class MapService {
 
   getOutlineWeight(
     colorPropertyValue: number,
-    stopped: boolean,
     placeCode: string,
     placeCodeParent: string,
     area: TriggeredArea,
   ) {
-    let weight = stopped ? 3 : colorPropertyValue >= 1 ? 3 : 0.33;
+    let weight = colorPropertyValue >= 1 ? 3 : 0.33;
     if (this.placeCode) {
       if (
         ![placeCode, placeCodeParent].includes(this.placeCode.placeCode) &&
@@ -820,12 +811,10 @@ export class MapService {
     return weight;
   }
 
-  getOutlineColor(colorPropertyValue: number, stopped: boolean) {
-    return stopped
-      ? this.stoppedTriggerColor
-      : colorPropertyValue >= 1
-        ? this.triggeredAreaColor
-        : this.nonTriggeredAreaColor;
+  getOutlineColor(colorPropertyValue: number) {
+    return colorPropertyValue >= 1
+      ? this.triggeredAreaColor
+      : this.nonTriggeredAreaColor;
   }
 
   getAdminRegionFillOpacity = (layer: IbfLayer): number => {
@@ -908,17 +897,16 @@ export class MapService {
   public setOutlineLayerStyle = (layer: IbfLayer) => {
     const colorProperty = layer.colorProperty;
     return (adminRegion) => {
-      const placeCode = adminRegion?.properties?.placeCode;
-      const placeCodeParent = adminRegion?.properties?.placeCodeParent;
+      const placeCode: string = adminRegion?.properties?.placeCode;
+      const placeCodeParent: string = adminRegion?.properties?.placeCodeParent;
       const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
-      const colorPropertyValue =
+      const colorPropertyValue: number =
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
           : adminRegion.properties.indicators[colorProperty];
-      const color = this.getOutlineColor(colorPropertyValue, area?.stopped);
+      const color = this.getOutlineColor(colorPropertyValue);
       const weight = this.getOutlineWeight(
         colorPropertyValue,
-        area?.stopped,
         placeCode,
         placeCodeParent,
         area,
@@ -942,6 +930,7 @@ export class MapService {
     );
 
     return (adminRegion) => {
+      const placeCode: string = adminRegion.properties.placeCode;
       const colorPropertyValue: string =
         typeof adminRegion.properties[colorProperty] !== 'undefined'
           ? adminRegion.properties[colorProperty]
@@ -952,17 +941,12 @@ export class MapService {
         const fillColor = this.getAdminRegionFillColor(
           colorPropertyValue,
           colorThreshold,
-          adminRegion.properties.placeCode,
-          adminRegion.properties.placeCodeParent,
         );
         const fillOpacity = this.getAdminRegionFillOpacity(layer);
-        let weight = this.getAdminRegionWeight(
-          layer,
-          adminRegion.properties.placeCode,
-        );
+        let weight = this.getAdminRegionWeight(layer, placeCode);
         let color = this.getAdminRegionColor(layer);
         let dashArray: string;
-        if (adminRegion.properties.placeCode?.includes('Disputed')) {
+        if (placeCode?.includes('Disputed')) {
           dashArray = this.disputedBorderStyle.dashArray;
           weight = this.disputedBorderStyle.weight;
           color = this.disputedBorderStyle.color;
@@ -1002,12 +986,6 @@ export class MapService {
       ).properties['indicators'][IbfLayerName.alertThreshold];
       return {
         color: triggered ? this.triggeredAreaColor : this.nonTriggeredAreaColor,
-        weight: 5,
-      };
-    }
-    if (area.stopped) {
-      return {
-        color: this.stoppedTriggerColor,
         weight: 5,
       };
     }

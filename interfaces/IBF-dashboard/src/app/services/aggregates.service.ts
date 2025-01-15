@@ -12,6 +12,11 @@ import { MapService } from 'src/app/services/map.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel } from 'src/app/types/admin-level';
+import {
+  Aggregate,
+  AggregateByPlaceCode,
+  AggregateRecord,
+} from 'src/app/types/aggregate';
 import { EventState } from 'src/app/types/event-state';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
@@ -19,8 +24,7 @@ import { TimelineState } from 'src/app/types/timeline-state';
 import { TriggeredArea } from 'src/app/types/triggered-area';
 
 export enum AreaStatus {
-  NonTriggeredOrWarnd = 'non-triggered-or-warned',
-  Stopped = 'stopped',
+  NonTriggeredOrWarned = 'non-triggered-or-warned',
   TriggeredOrWarned = 'triggered-or-warned',
 }
 @Injectable({
@@ -29,18 +33,15 @@ export enum AreaStatus {
 export class AggregatesService {
   private indicatorSubject = new BehaviorSubject<Indicator[]>([]);
   public indicators: Indicator[] = [];
-  private aggregates = [];
-  public nrTriggerActiveAreas: number;
-  public nrTriggerStoppedAreas: number;
+  private aggregates: Aggregate[] = [];
+  public nrTriggerAreas: number;
   private country: Country;
   private disasterType: DisasterType;
   private eventState: EventState;
   public timelineState: TimelineState;
   private adminLevel: AdminLevel;
-  private defaultAdminLevel: AdminLevel;
   public triggeredAreas: TriggeredArea[];
   private placeCode: PlaceCode;
-  private AREA_STATUS_KEY = 'areaStatus';
 
   constructor(
     private countryService: CountryService,
@@ -96,11 +97,6 @@ export class AggregatesService {
     if (!this.country) {
       return;
     }
-    this.defaultAdminLevel =
-      this.disasterTypeService.getCountryDisasterTypeSettings(
-        this.country,
-        this.disasterType,
-      )?.defaultAdminLevel;
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -141,7 +137,7 @@ export class AggregatesService {
     }
   }
 
-  private onIndicatorChange = (indicators) => {
+  private onIndicatorChange = (indicators: Indicator[]) => {
     this.indicators = indicators;
     this.mapService.removeAggregateLayers();
     this.indicators.forEach((indicator) => {
@@ -157,32 +153,27 @@ export class AggregatesService {
   }
 
   private onEachIndicatorByFeatureAndAggregate =
-    (feature, aggregate) => (indicator: Indicator) => {
+    (feature: AggregateByPlaceCode, aggregate: Aggregate) =>
+    (indicator: Indicator) => {
       const foundIndicator = feature.records.find(
         (a) => a.indicator === indicator.name,
-      );
-
-      const area = this.mapService.getAreaByPlaceCode(
-        feature.placeCode,
-        feature.placeCodeParent,
       );
 
       if (foundIndicator) {
         aggregate[indicator.name] = foundIndicator.value;
       }
 
-      aggregate[this.AREA_STATUS_KEY] = area?.stopped
-        ? AreaStatus.Stopped
-        : aggregate[IbfLayerName.alertThreshold] > 0
+      aggregate.areaStatus =
+        Number(aggregate[IbfLayerName.alertThreshold]) > 0
           ? AreaStatus.TriggeredOrWarned
-          : aggregate[this.disasterType.actionsUnit] > 0 &&
+          : Number(aggregate[this.disasterType.actionsUnit]) > 0 &&
               this.eventState.events?.length > 0
             ? AreaStatus.TriggeredOrWarned
-            : AreaStatus.NonTriggeredOrWarnd;
+            : AreaStatus.NonTriggeredOrWarned; // Refactor: What is this needed for?
     };
 
-  private onEachPlaceCode = (feature) => {
-    const aggregate = {
+  private onEachPlaceCode = (feature: AggregateByPlaceCode) => {
+    const aggregate: Aggregate = {
       placeCode: feature.placeCode,
       placeCodeParent: feature.placeCodeParent,
     };
@@ -214,20 +205,18 @@ export class AggregatesService {
     }
   }
 
-  private onAggregateData = (records) => {
+  private onAggregateData = (records: AggregateRecord[]) => {
     const groupsByPlaceCode = this.aggregateOnPlaceCode(records);
     this.aggregates = groupsByPlaceCode.map(this.onEachPlaceCode);
-    this.nrTriggerActiveAreas = this.aggregates.filter(
-      (a) => a[this.AREA_STATUS_KEY] === AreaStatus.TriggeredOrWarned,
-    ).length;
-
-    this.nrTriggerStoppedAreas = this.aggregates.filter(
-      (a) => a[this.AREA_STATUS_KEY] === AreaStatus.Stopped,
+    this.nrTriggerAreas = this.aggregates.filter(
+      (a) => a.areaStatus === AreaStatus.TriggeredOrWarned,
     ).length;
   };
 
-  private aggregateOnPlaceCode(array) {
-    const groupsByPlaceCode = [];
+  private aggregateOnPlaceCode(
+    array: AggregateRecord[],
+  ): AggregateByPlaceCode[] {
+    const groupsByPlaceCode: AggregateByPlaceCode[] = [];
     array.forEach((record) => {
       if (
         groupsByPlaceCode.map((i) => i.placeCode).includes(record.placeCode)
@@ -257,8 +246,9 @@ export class AggregatesService {
     if (this.disasterType) {
       weighingIndicatorName = this.getWeighingIndicatorName(indicator);
     }
+
     const weighedSum = this.aggregates
-      .filter((a) => a[this.AREA_STATUS_KEY] === areaStatus)
+      .filter((a) => a.areaStatus === areaStatus)
       .reduce(
         this.aggregateReducer(
           weightedAverage,
@@ -271,7 +261,7 @@ export class AggregatesService {
 
     let aggregateValue: number;
     if (numberFormat === NumberFormat.perc) {
-      const sumOfWeights = this.aggregates.reduce(
+      const sumOfWeights: number = this.aggregates.reduce(
         this.aggregateReducer(false, weighingIndicatorName, null, placeCode),
         0,
       );
@@ -290,15 +280,15 @@ export class AggregatesService {
       weighingIndicator: IbfLayerName,
       placeCode: string,
     ) =>
-    (accumulator, aggregate) => {
+    (accumulator: number, aggregate: Aggregate) => {
       let indicatorValue = 0;
 
       if (placeCode === null || placeCode === aggregate.placeCode) {
         const indicatorWeight = weightedAverage
-          ? aggregate[weighingIndicator]
+          ? Number(aggregate[weighingIndicator])
           : 1;
 
-        indicatorValue = indicatorWeight * (aggregate[indicator] || 0);
+        indicatorValue = indicatorWeight * (Number(aggregate[indicator]) || 0);
       }
 
       return accumulator + indicatorValue;

@@ -39,13 +39,6 @@ Feature: View and use map section
         And it shows the legend relating to the default shape layer
         And depending on disaster-type other point/raster layers are default activated (e.g. 'flood extent', 'Glofas stations') where applicable
 
-    Scenario: View map in TRIGGERED mode with "stopped" areas
-        Given there are "stopped" areas
-        When the users views the map
-        Then everything those as in the scenario above
-        And "stopped" areas are grey instead of a shade of purple
-        And it has a black outline instead of a red outline for the "alert threshold" layer
-
     Scenario: View map in EVENT-WITHOUT-TRIGGER mode ('typhoon' only)
         Given the selected disaster type is 'typhoon'
         Given the event is EVENT-WITHOUT-TRIGGER: an event that didn't reach the trigger threshold

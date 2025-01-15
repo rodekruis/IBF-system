@@ -36,15 +36,14 @@ Feature: View and use aggregate section
         When the user enters views the aggregate section
         And it has light-purple background
         And the top header mentions 'X Exposed <admin-areas>' which has a slightly darker purple background
-        And the value here - for dynamic layers - always refers to the total of all "non-stopped" areas that are shown in the map
-        And the value here - for static layers (e.g. "total population") - always refers to the total of all (stopped + non-stopped) areas that are shown in the map
+        And the value here - for dynamic layers - always refers to the total of all areas that are shown in the map
+        And the value here - for static layers (e.g. "total population") - always refers to the total of all areas that are shown in the map
         And if e.g. only triggered areas are shown this means that e.g. "total population" refers to the total population in the triggered areas)
 
     Scenario: View aggregate section after area-selection in map
         When the user selects a triggered area from map (see 'Use_map_section.feature')
         Then the "values" in the aggregate section update
         And they refer now to only the selected area
-        And if this is a "stopped" area then it shows 0 for dynamic layers
         And the top header updates to the name of the selected area
         And an X appears in the right of the top header in the aggregate section, which - if clicked - reverts the area-selection
         And this is the same effect as clicking the selected admin-area in the map a 2nd time
