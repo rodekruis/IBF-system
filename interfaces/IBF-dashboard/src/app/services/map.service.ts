@@ -632,14 +632,10 @@ export class MapService {
         .pipe(shareReplay(1));
     } else if (layer.type === IbfLayerType.point) {
       // NOTE: any non-standard point layers should be placed above this 'else if'!
-      const layerName =
-        layer.name === IbfLayerName.redCrescentBranches
-          ? IbfLayerName.redCrossBranches
-          : layer.name;
       layerData = this.apiService
         .getPointData(
           this.country.countryCodeISO3,
-          layerName,
+          layer.name,
           this.disasterType.disasterType,
         )
         .pipe(shareReplay(1));
