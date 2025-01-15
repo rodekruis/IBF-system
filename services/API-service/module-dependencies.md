@@ -1,0 +1,43 @@
+# Module Dependencies Graph
+
+```mermaid
+graph LR
+  EapActionsModule-->UserModule
+  UserModule-->LookupModule
+  WaterpointsModule-->UserModule
+  WaterpointsModule-->CountryModule
+  CountryModule-->UserModule
+  AdminAreaModule-->UserModule
+  AdminAreaModule-->EventModule
+  EventModule-->UserModule
+  EventModule-->CountryModule
+  EventModule-->EapActionsModule
+  EventModule-->TyphoonTrackModule
+  TyphoonTrackModule-->UserModule
+  AdminAreaModule-->CountryModule
+  AdminAreaDynamicDataModule-->UserModule
+  AdminAreaDynamicDataModule-->EventModule
+  AdminAreaDynamicDataModule-->CountryModule
+  AdminAreaDynamicDataModule-->AdminAreaModule
+  MetadataModule-->UserModule
+  MetadataModule-->CountryModule
+  MetadataModule-->EventModule
+  PointDataModule-->UserModule
+  PointDataModule-->WhatsappModule
+  WhatsappModule-->LookupModule
+  WhatsappModule-->EventModule
+  WhatsappModule-->NotificationContentModule
+  NotificationContentModule-->EventModule
+  NotificationContentModule-->AdminAreaDynamicDataModule
+  NotificationContentModule-->AdminAreaDataModule
+  AdminAreaDataModule-->UserModule
+  NotificationContentModule-->AdminAreaModule
+  LinesDataModule-->UserModule
+  NotificationModule-->UserModule
+  NotificationModule-->EventModule
+  NotificationModule-->AdminAreaDynamicDataModule
+  NotificationModule-->WhatsappModule
+  NotificationModule-->NotificationContentModule
+  NotificationModule-->TyphoonTrackModule
+  CronjobModule-->AdminAreaDynamicDataModule
+```
