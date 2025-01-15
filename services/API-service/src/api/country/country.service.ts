@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { In, Repository } from 'typeorm';
@@ -222,6 +222,13 @@ export class CountryService {
         where: { countryCodeISO3: notificationInfoCountry.countryCodeISO3 },
         relations: ['notificationInfo'],
       });
+      if (!existingCountry) {
+        // It is not ideal to throw an error halfway, but it's at least better than the 500 error that currently would occur
+        throw new HttpException(
+          `Country with code ${notificationInfoCountry.countryCodeISO3} not found. If multiple countries passed, then earlier countries have processed correctly, later countries have not.`,
+          HttpStatus.NOT_FOUND,
+        );
+      }
 
       if (existingCountry.notificationInfo) {
         existingCountry.notificationInfo = await this.createNotificationInfo(
