@@ -1,4 +1,9 @@
-import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import fs from 'fs';
+import {
+  BadRequestException,
+  INestApplication,
+  ValidationPipe,
+} from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {
   DocumentBuilder,
@@ -8,9 +13,47 @@ import {
 } from '@nestjs/swagger';
 
 import * as bodyParser from 'body-parser';
+import { SpelunkerModule } from 'nestjs-spelunker';
 
 import { ApplicationModule } from './app.module';
-import { EXTERNAL_API, PORT } from './config';
+import { DEBUG, EXTERNAL_API, PORT } from './config';
+
+/**
+ * A visualization of module dependencies is generated using `nestjs-spelunker`
+ * The file can be vied with [Mermaid](https://mermaid.live) or the VSCode extention "bierner.markdown-mermaid"
+ * See: https://github.com/jmcdo29/nestjs-spelunker
+ */
+function generateModuleDependencyGraph(app: INestApplication): void {
+  const tree = SpelunkerModule.explore(app);
+  const root = SpelunkerModule.graph(tree);
+  const edges = SpelunkerModule.findGraphEdges(root);
+  const genericModules = [
+    // Sorted alphabetically
+    'ApplicationModule',
+    'HealthModule',
+    'HttpModule',
+    'ScheduleModule',
+    'ScriptsModule',
+    'TerminusModule',
+    'TypeOrmCoreModule',
+    'TypeOrmModule',
+  ];
+  const mermaidEdges = edges
+    .filter(
+      ({ from, to }) =>
+        !genericModules.includes(from.module.name) &&
+        !genericModules.includes(to.module.name),
+    )
+    .map(({ from, to }) => `  ${from.module.name}-->${to.module.name}`);
+  const mermaidGraph =
+    '# Module Dependencies Graph\n\n```mermaid\ngraph LR\n' +
+    mermaidEdges.join('\n') +
+    '\n```\n';
+
+  fs.writeFile('module-dependencies.md', mermaidGraph, 'utf8', (err) => {
+    if (err) console.warn(`Writing API-graph failed!`, err);
+  });
+}
 
 async function bootstrap(): Promise<void> {
   const appOptions = { cors: true };
@@ -67,6 +110,11 @@ async function bootstrap(): Promise<void> {
       extended: true,
     }),
   );
+
+  if (DEBUG) {
+    generateModuleDependencyGraph(app);
+  }
+
   await app.listen(process.env.PORT || PORT);
 }
 bootstrap();
