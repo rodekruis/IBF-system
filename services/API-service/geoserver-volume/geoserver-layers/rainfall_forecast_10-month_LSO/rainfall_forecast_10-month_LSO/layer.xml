@@ -1,0 +1,16 @@
+<layer>
+  <name>rainfall_forecast_10-month_LSO</name>
+  <id>LayerInfoImpl-6856175f:194734aebb7:-7f2c</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-5253576a:183547efa37:-7f65</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-6856175f:194734aebb7:-7f2d</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2025-01-17 14:29:57.201 UTC</dateCreated>
+</layer>
