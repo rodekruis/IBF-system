@@ -45,15 +45,6 @@ export class MapService {
   private stoppedTriggerColor = 'var(--ion-color-ibf-black)';
   private triggeredAreaColor = 'var(--ion-color-ibf-outline-red)';
   private nonTriggeredAreaColor = 'var(--ion-color-ibf-no-alert-primary)';
-  private disputedBorderStyle: {
-    weight: number;
-    dashArray: string;
-    color: string;
-  } = {
-    weight: 2,
-    dashArray: '5 5',
-    color: null,
-  };
   private layerDataCache: Record<string, GeoJSON.FeatureCollection> = {};
 
   public state = {
@@ -947,22 +938,10 @@ export class MapService {
           adminRegion.properties.placeCodeParent,
         );
         const fillOpacity = this.getAdminRegionFillOpacity(layer);
-        let weight = this.getAdminRegionWeight(
-          layer,
-          adminRegion.properties.placeCode,
-        );
-        let color = this.getAdminRegionColor(layer);
         let dashArray: string;
-        if (adminRegion.properties.placeCode?.includes('Disputed')) {
-          dashArray = this.disputedBorderStyle.dashArray;
-          weight = this.disputedBorderStyle.weight;
-          color = this.disputedBorderStyle.color;
-        }
         return {
           fillColor,
           fillOpacity,
-          weight,
-          color,
           dashArray,
         };
       }

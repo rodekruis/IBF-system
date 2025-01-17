@@ -741,42 +741,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     );
   }
 
-  private createDefaultPopupAdminRegions(
-    activeAggregateLayer: IbfLayer,
-    feature,
-  ): string {
-    feature = activeAggregateLayer.data?.features.find(
-      (f) => f.properties?.['placeCode'] === feature.properties.placeCode,
-    );
-    return (
-      '<strong>' +
-      feature.properties.name +
-      (feature.properties.placeCode.includes('Disputed')
-        ? ' (Disputed borders)'
-        : '') +
-      '</strong>' +
-      (feature.properties.nameParent
-        ? ` (${feature.properties.nameParent})`
-        : '') +
-      '<br/>' +
-      (!activeAggregateLayer
-        ? ''
-        : activeAggregateLayer.label +
-          ': ' +
-          this.numberFormat(
-            typeof feature.properties[activeAggregateLayer.colorProperty] !==
-              'undefined'
-              ? feature.properties[activeAggregateLayer.colorProperty]
-              : feature.properties.indicators[
-                  activeAggregateLayer.colorProperty
-                ],
-            activeAggregateLayer,
-          ) +
-          ' ' +
-          (activeAggregateLayer.unit || ''))
-    );
-  }
-
   private createAdminRegionsLayer(layer: IbfLayer): GeoJSON {
     if (!layer.data) {
       return;
