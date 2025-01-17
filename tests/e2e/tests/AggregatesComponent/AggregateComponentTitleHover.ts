@@ -3,7 +3,11 @@ import { qase } from 'playwright-qase-reporter';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
-export default (pages: Partial<Pages>, components: Partial<Components>) => {
+export default (
+  pages: Partial<Pages>,
+  components: Partial<Components>,
+  disasterType: string,
+) => {
   test(
     qase(12, 'Title should change based on hovered map district'),
     {
@@ -21,7 +25,7 @@ export default (pages: Partial<Pages>, components: Partial<Components>) => {
       }
 
       // Navigate to disaster type the data was mocked for
-      await dashboard.navigateToFloodDisasterType();
+      await dashboard.navigateToDisasterType(disasterType);
       // Assertions
       await aggregates.aggregateComponentIsVisible();
       await map.clickLayerCheckbox({ layerName: 'Glofas stations' });

@@ -9,7 +9,7 @@ import TimelineComponent from 'Pages/TimelineComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { TriggerDataSet } from 'testData/testData.enum';
 
-import { getAccessToken, mockFloods, resetDB } from '../helpers/utility.helper';
+import { getAccessToken, mockData, resetDB } from '../helpers/utility.helper';
 import LoginPage from '../Pages/LoginPage';
 import AggregateComponentEventCount from './AggregatesComponent/AggregateComponentEventCount';
 import AggregateComponentHeaderColour from './AggregatesComponent/AggregateComponentHeaderColour';
@@ -27,6 +27,10 @@ const pages: Partial<Pages> = {};
 const components: Partial<Components> = {};
 
 test.describe('Scenario: Trigger', () => {
+  const disasterType = TriggerDataSet.DisasterType;
+  const countryCodeISO3 = TriggerDataSet.CountryCode;
+  const scenario = TriggerDataSet.TriggerScenario;
+
   test.beforeAll(async ({ browser }) => {
     page = await browser.newPage();
     // Initialize pages and components after sharedPage is assigned
@@ -44,12 +48,7 @@ test.describe('Scenario: Trigger', () => {
     await resetDB(accessToken);
 
     // Load a mock scenario
-    // We should maybe create one mock for all different disaster types for now we can just use floods
-    await mockFloods(
-      TriggerDataSet.TriggerScenario,
-      TriggerDataSet.CountryCode,
-      accessToken,
-    );
+    await mockData(disasterType, scenario, countryCodeISO3, accessToken);
 
     await page.goto('/');
     // Login into the portal
@@ -68,19 +67,19 @@ test.describe('Scenario: Trigger', () => {
   });
 
   test.describe('MapComponent', () => {
-    MapComponentLayersDefault(pages, components);
-    MapComponentFloodExtent(pages, components);
-    MapComponentGloFASStationsTrigger(pages, components);
+    MapComponentLayersDefault(pages, components, disasterType);
+    MapComponentFloodExtent(pages, components, disasterType);
+    MapComponentGloFASStationsTrigger(pages, components, disasterType);
   });
 
   test.describe('AggregatesComponent', () => {
-    AggregateComponentEventCount(pages, components);
-    AggregateComponentHeaderColour(pages, components);
+    AggregateComponentEventCount(pages, components, disasterType);
+    AggregateComponentHeaderColour(pages, components, disasterType);
   });
 
   test.describe('ChatComponent', () => {
-    ChatComponentEventClick(pages, components);
-    ChatComponentEventCount(pages, components);
-    ChatComponentInfoPopover(pages, components);
+    ChatComponentEventClick(pages, components, disasterType);
+    ChatComponentEventCount(pages, components, disasterType);
+    ChatComponentInfoPopover(pages, components, disasterType);
   });
 });

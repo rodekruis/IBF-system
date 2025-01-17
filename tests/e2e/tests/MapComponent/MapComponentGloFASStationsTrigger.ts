@@ -4,7 +4,11 @@ import { TriggerDataSet } from 'testData/testData.enum';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
-export default (pages: Partial<Pages>, components: Partial<Components>) => {
+export default (
+  pages: Partial<Pages>,
+  components: Partial<Components>,
+  disasterType: string,
+) => {
   test(
     qase(38, 'Trigger GloFAS station(s) should be visible'),
     {
@@ -22,7 +26,7 @@ export default (pages: Partial<Pages>, components: Partial<Components>) => {
       }
 
       // Navigate to disaster type the data was mocked for
-      await dashboard.navigateToFloodDisasterType();
+      await dashboard.navigateToDisasterType(disasterType);
       // Assertions
       await userState.headerComponentIsVisible({
         countryName: TriggerDataSet.CountryName,

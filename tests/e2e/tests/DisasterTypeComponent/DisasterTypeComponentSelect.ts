@@ -25,19 +25,19 @@ export default (pages: Partial<Pages>, components: Partial<Components>) => {
       }
 
       // Navigate between disaster types no matter the mock data
-      await dashboard.navigateToFloodDisasterType();
+      await dashboard.navigateToDisasterType('floods');
       await userState.headerComponentDisplaysCorrectDisasterType({
         countryName: NoTriggerDataSet.CountryName,
         disasterName: 'floods',
       });
 
-      await dashboard.navigateToDroughtDisasterType();
+      await dashboard.navigateToDisasterType('drought');
       await userState.headerComponentDisplaysCorrectDisasterType({
         countryName: NoTriggerDataSet.CountryName,
         disasterName: 'drought',
       });
 
-      await dashboard.navigateToHeavyRainDisasterType();
+      await dashboard.navigateToDisasterType('heavy-rain');
       await userState.headerComponentDisplaysCorrectDisasterType({
         countryName: NoTriggerDataSet.CountryName,
         disasterName: 'heavy-rain',

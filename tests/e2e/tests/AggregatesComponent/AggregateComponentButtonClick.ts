@@ -3,7 +3,11 @@ import { qase } from 'playwright-qase-reporter';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
-export default (pages: Partial<Pages>, components: Partial<Components>) => {
+export default (
+  pages: Partial<Pages>,
+  components: Partial<Components>,
+  disasterType: string,
+) => {
   test(
     qase(13, 'Info button(s) should be clickable'),
     {
@@ -21,7 +25,7 @@ export default (pages: Partial<Pages>, components: Partial<Components>) => {
       }
 
       // Navigate to disaster type the data was mocked for
-      await dashboard.navigateToFloodDisasterType();
+      await dashboard.navigateToDisasterType(disasterType);
       // Assertions
       await aggregates.aggregateComponentIsVisible();
       await aggregates.validatesAggregatesInfoButtons();
