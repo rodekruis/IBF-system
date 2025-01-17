@@ -372,7 +372,7 @@ class MapComponent extends DashboardPage {
 
     if (isVisible) {
       const markersCount = await glofasMarker.count();
-      const nthSelector = this.getRandomInt(0, markersCount - 1);
+      const nthSelector = this.getRandomInt(1, markersCount);
 
       expect(markersCount).toBeGreaterThan(0);
       await expect(glofasMarker.nth(nthSelector)).toBeVisible();
