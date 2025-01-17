@@ -1,14 +1,16 @@
-export class CountryDto {
+import { AdminLevel } from '../enum/admin-level.enum';
+
+export interface CountryDto {
   countryCodeISO3: string;
   countryName: string;
   countryDisasterSettings: CountryDisasterSettingsDto[];
   adminRegionLabels: object;
   countryLogos: object;
-  countryBoundingBox: BoundingBox;
+  countryBoundingBox: any; //BoundingBox;
   disasterTypes: string[];
 }
 
-export class CountryDisasterSettingsDto {
+export interface CountryDisasterSettingsDto {
   disasterType: string;
   adminLevels: AdminLevel[];
   defaultAdminLevel: AdminLevel;
@@ -25,6 +27,6 @@ export class CountryDisasterSettingsDto {
   isEventBased?: boolean;
 }
 
-export class AddCountriesDto {
+export interface AddCountriesDto {
   countries: CountryDto[];
 }
