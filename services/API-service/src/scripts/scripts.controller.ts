@@ -14,19 +14,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import {
-  IsEnum,
-  IsIn,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { UserRole } from '../api/user/user-role.enum';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
-import { TyphoonScenario } from './enum/mock-scenario.enum';
 import { ScriptsService } from './scripts.service';
 import { SeedInit } from './seed-init';
 
@@ -48,62 +41,14 @@ export class MockDynamic {
   public readonly countryCodeISO3: string;
 
   @ApiProperty({
-    example: [
-      DisasterType.Drought,
-      DisasterType.Typhoon,
-      DisasterType.HeavyRain,
-    ].join(' | '),
+    example: DisasterType.HeavyRain,
   })
-  @IsIn([DisasterType.Drought, DisasterType.Typhoon, DisasterType.HeavyRain])
+  @IsIn([DisasterType.HeavyRain])
   public readonly disasterType: DisasterType;
 
   @ApiProperty()
   @IsNotEmpty()
   public readonly triggered: boolean;
-
-  @ApiProperty({ example: true })
-  @IsNotEmpty()
-  public readonly removeEvents: boolean;
-
-  @ApiProperty({ example: new Date() })
-  @IsOptional()
-  public readonly date: Date;
-}
-
-export class MockAll {
-  @ApiProperty({ example: 'fill_in_secret' })
-  @IsNotEmpty()
-  @IsString()
-  public readonly secret: string;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  public readonly triggered: boolean;
-
-  @ApiProperty({ example: new Date() })
-  @IsOptional()
-  public readonly date: Date;
-}
-
-export class MockTyphoonScenario {
-  @ApiProperty({ example: 'fill_in_secret' })
-  @IsNotEmpty()
-  @IsString()
-  public readonly secret: string;
-
-  @ApiProperty({ example: 'PHL' })
-  @IsIn(['PHL'])
-  public readonly countryCodeISO3: string;
-
-  @ApiProperty({
-    example: Object.values(TyphoonScenario).join(' | '),
-  })
-  @IsEnum(TyphoonScenario)
-  public readonly scenario: TyphoonScenario;
-
-  @ApiProperty({ example: 1 })
-  @IsOptional()
-  public readonly eventNr: number;
 
   @ApiProperty({ example: true })
   @IsNotEmpty()
@@ -165,46 +110,5 @@ export class ScriptsController {
     return res
       .status(HttpStatus.ACCEPTED)
       .send('Successfully uploaded mock pipeline data.');
-  }
-
-  @Roles(UserRole.Admin)
-  @ApiOperation({
-    summary: 'Upload mock data for all countries and disaster-types at once',
-  })
-  @ApiResponse({
-    status: 202,
-    description: 'Uploaded mock data for all countries and disaster-types',
-  })
-  @Post('/mock-all')
-  public async mockAll(@Body() body: MockAll, @Res() res): Promise<string> {
-    if (body.secret !== process.env.RESET_SECRET) {
-      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
-    }
-
-    const result = await this.scriptsService.mockAll(body);
-
-    return res.status(HttpStatus.ACCEPTED).send(result);
-  }
-
-  @Roles(UserRole.Admin)
-  @ApiOperation({
-    summary: 'Upload mock data for specific typhoon scenario',
-  })
-  @ApiResponse({
-    status: 202,
-    description: 'Uploaded mock data for specific typhoon scenario',
-  })
-  @Post('/mock-typhoon-scenario')
-  public async mockTyphoonScenario(
-    @Body() body: MockTyphoonScenario,
-    @Res() res,
-  ): Promise<string> {
-    if (body.secret !== process.env.RESET_SECRET) {
-      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
-    }
-
-    const result = await this.scriptsService.mockTyphoonScenario(body);
-
-    return res.status(HttpStatus.ACCEPTED).send(result);
   }
 }

@@ -34,6 +34,7 @@ import {
   FlashFloodsScenario,
   FloodsScenario,
   MalariaScenario,
+  TyphoonScenario,
 } from './enum/mock-scenario.enum';
 import { MockService } from './mock.service';
 
@@ -95,6 +96,30 @@ export class MockDroughtScenario extends MockBaseScenario {
   })
   @IsEnum(DroughtSenario)
   public readonly scenario: DroughtSenario;
+}
+
+export class MockAll {
+  @ApiProperty({ example: 'fill_in_secret' })
+  @IsNotEmpty()
+  @IsString()
+  public readonly secret: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  public readonly triggered: boolean;
+
+  @ApiProperty({ example: new Date() })
+  @IsOptional()
+  public readonly date: Date;
+}
+
+export class MockTyphoonScenario extends MockBaseScenario {
+  @ApiProperty({
+    example: Object.values(TyphoonScenario).join(' | '),
+    description: 'default: ...',
+  })
+  @IsEnum(TyphoonScenario)
+  public readonly scenario: TyphoonScenario;
 }
 
 @Controller('mock')
@@ -262,6 +287,66 @@ export class MockController {
       false,
       isApiTest,
     );
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Upload mock data for specific typhoon scenario',
+  })
+  @ApiQuery({
+    name: 'isApiTest',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description: 'Set to true for tests',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Uploaded mock data for specific typhoon scenario',
+  })
+  @Post('/typhoon')
+  public async mockTyphoonScenario(
+    @Body() body: MockTyphoonScenario,
+    @Res() res,
+    @Query(
+      'isApiTest',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    isApiTest: boolean,
+  ): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+
+    const result = await this.mockService.mock(
+      body,
+      DisasterType.Typhoon,
+      false,
+      isApiTest,
+    );
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Upload mock data for all countries and disaster-types at once',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Uploaded mock data for all countries and disaster-types',
+  })
+  @Post('/all')
+  public async mockAll(@Body() body: MockAll, @Res() res): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+
+    const result = await this.mockService.mockAll(body);
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }

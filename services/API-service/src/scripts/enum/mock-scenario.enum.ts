@@ -25,10 +25,11 @@ export enum DroughtSenario {
 }
 
 export enum TyphoonScenario {
-  NoEvent = 'noEvent',
-  EventNoLandfall = 'eventNoLandfall',
-  EventNoLandfallYet = 'eventNoLandfallYet',
-  EventNoTrigger = 'eventNoTrigger',
-  EventTrigger = 'eventTrigger',
-  EventAfterLandfall = 'eventAfterLandfall',
+  Trigger = 'trigger',
+  NoTrigger = 'no-trigger',
+  Warning = 'warning',
+  NoLandfallTrigger = 'no-landfall-trigger',
+  NoLandfallYetWarning = 'no-landfall-yet-warning',
+  OngoingTrigger = 'ongoing-trigger',
+  WarningAndTrigger = 'warning-and-trigger',
 }
