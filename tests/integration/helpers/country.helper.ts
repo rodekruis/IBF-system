@@ -1,5 +1,6 @@
 import * as request from 'supertest';
 
+import { AddCountriesDto } from './API-service/dto/create-country.dto';
 import { CreateNotificationInfoDto } from './API-service/dto/create-notification-info.dto';
 import { getServer } from './utility.helper';
 
@@ -24,11 +25,11 @@ export function getCountries(
 }
 
 export function addOrUpdateCountries(
-  notificationInfoData: CreateNotificationInfoDto[],
+  countryData: AddCountriesDto,
   accessToken: string,
 ): Promise<request.Response> {
   return getServer()
-    .post(`/country/notification-info`)
+    .post(`/country`)
     .set('Authorization', `Bearer ${accessToken}`)
-    .send(notificationInfoData);
+    .send(countryData);
 }
