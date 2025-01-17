@@ -44,15 +44,6 @@ export class MapService {
   public layers = [] as IbfLayer[];
   private triggeredAreaColor = 'var(--ion-color-ibf-outline-red)';
   private nonTriggeredAreaColor = 'var(--ion-color-ibf-no-alert-primary)';
-  private disputedBorderStyle: {
-    weight: number;
-    dashArray: string;
-    color: string;
-  } = {
-    weight: 2,
-    dashArray: '5 5',
-    color: null,
-  };
   private layerDataCache: Record<string, GeoJSON.FeatureCollection> = {};
 
   public state = {
@@ -934,20 +925,13 @@ export class MapService {
           colorThreshold,
         );
         const fillOpacity = this.getAdminRegionFillOpacity(layer);
-        let weight = this.getAdminRegionWeight(layer, placeCode);
-        let color = this.getAdminRegionColor(layer);
-        let dashArray: string;
-        if (placeCode?.includes('Disputed')) {
-          dashArray = this.disputedBorderStyle.dashArray;
-          weight = this.disputedBorderStyle.weight;
-          color = this.disputedBorderStyle.color;
-        }
+        const weight = this.getAdminRegionWeight(layer, placeCode);
+        const color = this.getAdminRegionColor(layer);
         return {
           fillColor,
           fillOpacity,
           weight,
           color,
-          dashArray,
         };
       }
     };
