@@ -217,6 +217,15 @@ export class MockService {
           );
         }
 
+        if (this.shouldMockExposedAssets(disasterType)) {
+          await this.mockHelpService.mockExposedAssets(
+            selectedCountry.countryCodeISO3,
+            date,
+            scenario.scenarioName,
+            event,
+          );
+        }
+
         if (this.shouldMockRasterFile(disasterType)) {
           // NOTE: in the floods-pipeline this should not happen per event, but per leadTime. So flood extents will be aggregated per leadTime after the event-loop. For mock-purposes this does not matter enough to change. For other disaster-types not sure also, so leaving like this.
           this.mockHelpService.mockRasterFile(
@@ -238,25 +247,16 @@ export class MockService {
       );
     }
 
-    if (this.shouldMockExposedAssets(disasterType)) {
-      // TODO: the below methods still assume hard-coded leadTimes and is not flexible
-      const triggered = scenario.events?.length > 0;
-      await this.mockHelpService.mockExposedAssets(
-        selectedCountry.countryCodeISO3,
-        triggered,
-        date,
-      );
-    }
     if (this.shouldMockDynamicPointData(disasterType)) {
-      // TODO: the below methods still assume hard-coded leadTimes and is not flexible
       await this.mockHelpService.mockDynamicPointData(
         selectedCountry.countryCodeISO3,
         disasterType,
+        scenario.scenarioName,
         date,
       );
     }
 
-    // Close finished events (only applicable for follow-up mock pipeline runs, with removeEvents=false)
+    // Close finished events (only relevant for follow-up mock pipeline runs, with removeEvents=false)
     await this.eventService.closeEventsAutomatic(
       selectedCountry.countryCodeISO3,
       disasterType,
