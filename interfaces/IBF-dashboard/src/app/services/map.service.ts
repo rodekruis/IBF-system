@@ -255,40 +255,35 @@ export class MapService {
     layer: IbfLayerMetadata,
     layerActive: boolean,
   ) => {
-    const layerName =
-      layer.name === IbfLayerName.redCrescentBranches
-        ? IbfLayerName.redCrossBranches
-        : layer.name;
     if (this.country) {
       if (layerActive) {
         this.apiService
           .getPointData(
             this.country.countryCodeISO3,
-            layerName,
+            layer.name,
             this.disasterType.disasterType,
           )
           .subscribe((pointData) => {
-            this.addPointDataLayer(layer, layerName, pointData);
+            this.addPointDataLayer(layer, pointData);
           });
       } else {
-        this.addPointDataLayer(layer, layerName, null);
+        this.addPointDataLayer(layer, null);
       }
     }
   };
 
   private addPointDataLayer = (
     layer: IbfLayerMetadata,
-    layerName: IbfLayerName,
     pointData: GeoJSON.FeatureCollection,
   ) => {
     this.addLayer({
-      name: layerName,
+      name: layer.name,
       label: layer.label,
       type: IbfLayerType.point,
       group: IbfLayerGroup.point,
       description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.length
-        ? this.adminLevelService.activeLayerNames.includes(layerName)
+        ? this.adminLevelService.activeLayerNames.includes(layer.name)
         : this.getActiveState(layer),
       show: true,
       data: pointData,
