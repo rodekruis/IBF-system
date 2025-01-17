@@ -82,8 +82,7 @@ export class IndicatorDto {
   @ApiProperty({
     example: {
       UGA: {
-        floods:
-          'This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br /><br />Source link: Egyptian Red Crescent Society (ERCS). Year: 2020.',
+        floods: 'description',
       },
     },
   })

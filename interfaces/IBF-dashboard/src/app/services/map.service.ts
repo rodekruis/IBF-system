@@ -45,15 +45,6 @@ export class MapService {
   private stoppedTriggerColor = 'var(--ion-color-ibf-black)';
   private triggeredAreaColor = 'var(--ion-color-ibf-outline-red)';
   private nonTriggeredAreaColor = 'var(--ion-color-ibf-no-alert-primary)';
-  private disputedBorderStyle: {
-    weight: number;
-    dashArray: string;
-    color: string;
-  } = {
-    weight: 2,
-    dashArray: '5 5',
-    color: null,
-  };
   private layerDataCache: Record<string, GeoJSON.FeatureCollection> = {};
 
   public state = {
@@ -257,40 +248,35 @@ export class MapService {
     layer: IbfLayerMetadata,
     layerActive: boolean,
   ) => {
-    const layerName =
-      layer.name === IbfLayerName.redCrescentBranches
-        ? IbfLayerName.redCrossBranches
-        : layer.name;
     if (this.country) {
       if (layerActive) {
         this.apiService
           .getPointData(
             this.country.countryCodeISO3,
-            layerName,
+            layer.name,
             this.disasterType.disasterType,
           )
           .subscribe((pointData) => {
-            this.addPointDataLayer(layer, layerName, pointData);
+            this.addPointDataLayer(layer, pointData);
           });
       } else {
-        this.addPointDataLayer(layer, layerName, null);
+        this.addPointDataLayer(layer, null);
       }
     }
   };
 
   private addPointDataLayer = (
     layer: IbfLayerMetadata,
-    layerName: IbfLayerName,
     pointData: GeoJSON.FeatureCollection,
   ) => {
     this.addLayer({
-      name: layerName,
+      name: layer.name,
       label: layer.label,
       type: IbfLayerType.point,
       group: IbfLayerGroup.point,
       description: this.getPopoverText(layer),
       active: this.adminLevelService.activeLayerNames.length
-        ? this.adminLevelService.activeLayerNames.includes(layerName)
+        ? this.adminLevelService.activeLayerNames.includes(layer.name)
         : this.getActiveState(layer),
       show: true,
       data: pointData,
@@ -634,14 +620,10 @@ export class MapService {
         .pipe(shareReplay(1));
     } else if (layer.type === IbfLayerType.point) {
       // NOTE: any non-standard point layers should be placed above this 'else if'!
-      const layerName =
-        layer.name === IbfLayerName.redCrescentBranches
-          ? IbfLayerName.redCrossBranches
-          : layer.name;
       layerData = this.apiService
         .getPointData(
           this.country.countryCodeISO3,
-          layerName,
+          layer.name,
           this.disasterType.disasterType,
         )
         .pipe(shareReplay(1));
@@ -956,22 +938,10 @@ export class MapService {
           adminRegion.properties.placeCodeParent,
         );
         const fillOpacity = this.getAdminRegionFillOpacity(layer);
-        let weight = this.getAdminRegionWeight(
-          layer,
-          adminRegion.properties.placeCode,
-        );
-        let color = this.getAdminRegionColor(layer);
         let dashArray: string;
-        if (adminRegion.properties.placeCode?.includes('Disputed')) {
-          dashArray = this.disputedBorderStyle.dashArray;
-          weight = this.disputedBorderStyle.weight;
-          color = this.disputedBorderStyle.color;
-        }
         return {
           fillColor,
           fillOpacity,
-          weight,
-          color,
           dashArray,
         };
       }
