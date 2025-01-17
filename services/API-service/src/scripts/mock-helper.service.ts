@@ -13,7 +13,10 @@ import { PointDataEnum } from '../api/point-data/point-data.entity';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';
-import { TyphoonScenario } from './enum/mock-scenario.enum';
+import {
+  FlashFloodsScenario,
+  TyphoonScenario,
+} from './enum/mock-scenario.enum';
 import { Country } from './interfaces/country.interface';
 import { Event } from './mock.service';
 
@@ -28,56 +31,53 @@ export class MockHelperService {
 
   public async mockExposedAssets(
     countryCodeISO3: string,
-    triggered: boolean,
     date: Date,
+    scenarioName: string,
+    event: Event,
   ) {
-    if (!triggered) {
-      return;
+    for (const assetType of Object.keys(LinesDataEnum)) {
+      const payload = new UploadLinesExposureStatusDto();
+      payload.countryCodeISO3 = countryCodeISO3;
+      payload.disasterType = DisasterType.FlashFloods;
+      payload.linesDataCategory = assetType as LinesDataEnum;
+      payload.leadTime = event.leadTime;
+      payload.date = date;
+      const filename = `./src/scripts/mock-data/${DisasterType.FlashFloods}/${countryCodeISO3}/${scenarioName}/${event.eventName}/lines-data/${assetType}.json`;
+      const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
+      payload.exposedFids = assets;
+
+      await this.linesDataService.uploadAssetExposureStatus(payload);
     }
 
-    for (const leadTime of [LeadTime.hour24, LeadTime.hour6, LeadTime.hour0]) {
-      for (const assetType of Object.keys(LinesDataEnum)) {
-        const payload = new UploadLinesExposureStatusDto();
-        payload.countryCodeISO3 = countryCodeISO3;
-        payload.disasterType = DisasterType.FlashFloods;
-        payload.linesDataCategory = assetType as LinesDataEnum;
-        payload.leadTime = leadTime;
-        payload.date = date;
-        const filename = `./src/api/lines-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${assetType}.json`;
-        const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-        // add mock data per lead-time in the respecitve json file
-        payload.exposedFids = assets[leadTime] ? assets[leadTime] : [];
+    const pointDataCategories = [
+      PointDataEnum.healthSites,
+      PointDataEnum.schools,
+      PointDataEnum.waterpointsInternal,
+    ];
+    for (const pointAssetType of pointDataCategories) {
+      const payload = new UploadDynamicPointDataDto();
+      payload.disasterType = DisasterType.FlashFloods;
+      payload.key = 'exposure';
+      payload.leadTime = event.leadTime;
+      payload.date = date || new Date();
 
-        await this.linesDataService.uploadAssetExposureStatus(payload);
-      }
+      const filename = `./src/scripts/mock-data/${DisasterType.FlashFloods}/${countryCodeISO3}/${scenarioName}/${event.eventName}/point-data/${pointAssetType}.json`;
+      const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
+      payload.dynamicPointData = assets;
 
-      const pointDataCategories = [
-        PointDataEnum.healthSites,
-        PointDataEnum.schools,
-        PointDataEnum.waterpointsInternal,
-      ];
-      for (const pointAssetType of pointDataCategories) {
-        const payload = new UploadDynamicPointDataDto();
-        payload.disasterType = DisasterType.FlashFloods;
-        payload.key = 'exposure';
-        payload.leadTime = leadTime;
-        payload.date = date || new Date();
-
-        const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${pointAssetType}.json`;
-        const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-        // add mock data per lead-time in the respecitve json file
-        payload.dynamicPointData = assets[leadTime] ? assets[leadTime] : [];
-
-        await this.pointDataService.uploadDynamicPointData(payload);
-      }
+      await this.pointDataService.uploadDynamicPointData(payload);
     }
   }
 
   public async mockDynamicPointData(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    scenarioName: string,
     date: Date,
   ) {
+    if (scenarioName === FlashFloodsScenario.NoTrigger) {
+      return;
+    }
     const keys = [
       'water-level',
       'water-level-reference',
@@ -89,7 +89,7 @@ export class MockHelperService {
       payload.leadTime = null;
       payload.date = date;
       payload.disasterType = disasterType;
-      const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/dynamic-point-data_${key}.json`;
+      const filename = `./src/scripts/mock-data/${DisasterType.FlashFloods}/${countryCodeISO3}/${scenarioName}/dynamic-point-data_${key}.json`;
       const dynamicPointData = JSON.parse(fs.readFileSync(filename, 'utf-8'));
       payload.dynamicPointData = dynamicPointData;
 

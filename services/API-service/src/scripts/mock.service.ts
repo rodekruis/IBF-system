@@ -216,6 +216,15 @@ export class MockService {
             event,
           );
         }
+
+        if (this.shouldMockExposedAssets(disasterType)) {
+          await this.mockHelpService.mockExposedAssets(
+            selectedCountry.countryCodeISO3,
+            date,
+            scenario.scenarioName,
+            event,
+          );
+        }
       }
     }
 
@@ -233,25 +242,16 @@ export class MockService {
       );
     }
 
-    if (this.shouldMockExposedAssets(disasterType)) {
-      // TODO: the below methods still assume hard-coded leadTimes and is not flexible
-      const triggered = scenario.events?.length > 0;
-      await this.mockHelpService.mockExposedAssets(
-        selectedCountry.countryCodeISO3,
-        triggered,
-        date,
-      );
-    }
     if (this.shouldMockDynamicPointData(disasterType)) {
-      // TODO: the below methods still assume hard-coded leadTimes and is not flexible
       await this.mockHelpService.mockDynamicPointData(
         selectedCountry.countryCodeISO3,
         disasterType,
+        scenario.scenarioName,
         date,
       );
     }
 
-    // Close finished events (only applicable for follow-up mock pipeline runs, with removeEvents=false)
+    // Close finished events (only relevant for follow-up mock pipeline runs, with removeEvents=false)
     await this.eventService.closeEventsAutomatic(
       selectedCountry.countryCodeISO3,
       disasterType,
