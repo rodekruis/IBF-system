@@ -44,25 +44,24 @@ class DashboardPage {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  async navigateToFloodDisasterType() {
+  async navigateToDisasterType(disasterType: string) {
     await this.page.waitForSelector(
-      '[data-testid=disaster-type-button-floods]',
+      `[data-testid=disaster-type-button-${disasterType}]`,
     );
-    await this.floodIcon.click();
-  }
-
-  async navigateToHeavyRainDisasterType() {
-    await this.page.waitForSelector(
-      '[data-testid=disaster-type-button-heavy-rain]',
-    );
-    await this.heavyRainIcon.click();
-  }
-
-  async navigateToDroughtDisasterType() {
-    await this.page.waitForSelector(
-      '[data-testid=disaster-type-button-drought]',
-    );
-    await this.droughtIcon.click();
+    switch (disasterType) {
+      case 'floods':
+        await this.floodIcon.click();
+        break;
+      case 'heavy-rain':
+        await this.heavyRainIcon.click();
+        break;
+      case 'drought':
+        await this.droughtIcon.click();
+        break;
+      default:
+        console.log('Invalid disaster type');
+        break;
+    }
   }
 
   async waitForLoaderToDisappear() {

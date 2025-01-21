@@ -43,13 +43,14 @@ export function resetDB(accessToken: string): Promise<request.Response> {
     });
 }
 
-export function mockFloods(
+export function mockData(
+  disasterType: string,
   scenario: string,
   countryCodeISO3: string,
   accessToken: string,
 ): Promise<request.Response> {
   return getServer()
-    .post('/mock/floods')
+    .post(`/mock/${disasterType}`)
     .set('Authorization', `Bearer ${accessToken}`)
     .query({ isApiTest: true })
     .send({

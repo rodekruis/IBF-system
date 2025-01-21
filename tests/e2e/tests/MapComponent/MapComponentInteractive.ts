@@ -7,7 +7,11 @@ import { Components, Pages } from '../../helpers/interfaces';
 // REFACTOR: break down the test into separate tests
 // for legend, layer menu, and red cross branches
 
-export default (pages: Partial<Pages>, components: Partial<Components>) => {
+export default (
+  pages: Partial<Pages>,
+  components: Partial<Components>,
+  disasterType: string,
+) => {
   test(
     qase(7, 'Map component should be interactive'),
     {
@@ -25,7 +29,7 @@ export default (pages: Partial<Pages>, components: Partial<Components>) => {
       }
 
       // Navigate to disaster type the data was mocked for
-      await dashboard.navigateToFloodDisasterType();
+      await dashboard.navigateToDisasterType(disasterType);
       // Assertions
       await userState.headerComponentIsVisible({
         countryName: NoTriggerDataSet.CountryName,

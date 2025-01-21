@@ -9,7 +9,7 @@ import TimelineComponent from 'Pages/TimelineComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
-import { getAccessToken, mockFloods, resetDB } from '../helpers/utility.helper';
+import { getAccessToken, mockData, resetDB } from '../helpers/utility.helper';
 import LoginPage from '../Pages/LoginPage';
 import AggregateComponentButtonClick from './AggregatesComponent/AggregateComponentButtonClick';
 import AggregateComponentTitleHover from './AggregatesComponent/AggregateComponentTitleHover';
@@ -37,6 +37,10 @@ const pages: Partial<Pages> = {};
 const components: Partial<Components> = {};
 
 test.describe('Scenario: No Trigger', () => {
+  const disasterType = NoTriggerDataSet.DisasterType;
+  const countryCodeISO3 = NoTriggerDataSet.CountryCode;
+  const scenario = NoTriggerDataSet.NoTriggerScenario;
+
   test.beforeAll(async ({ browser }) => {
     page = await browser.newPage();
     // Initialize pages and components after sharedPage is assigned
@@ -54,12 +58,7 @@ test.describe('Scenario: No Trigger', () => {
     await resetDB(accessToken);
 
     // Load a mock scenario
-    // We should maybe create one mock for all different disaster types for now we can just use floods
-    await mockFloods(
-      NoTriggerDataSet.NoTriggerScenario,
-      NoTriggerDataSet.CountryCode,
-      accessToken,
-    );
+    await mockData(disasterType, scenario, countryCodeISO3, accessToken);
 
     await page.goto('/');
     // Login into the portal
@@ -78,41 +77,45 @@ test.describe('Scenario: No Trigger', () => {
   });
 
   test.describe('DashboardPage', () => {
-    DashboardPageVisible(pages, components);
+    DashboardPageVisible(pages, components, disasterType);
   });
 
   test.describe('MapComponent', () => {
-    MapComponentVisible(pages, components);
-    MapComponentInteractive(pages, components);
-    MapComponentLayersVisible(pages, components);
-    MapComponentAlertThreshold(pages, components);
-    MapComponentGloFASStations(pages, components);
-    MapComponentGloFASStationsWarning(pages, components);
+    MapComponentVisible(pages, components, disasterType);
+    MapComponentInteractive(pages, components, disasterType);
+    MapComponentLayersVisible(pages, components, disasterType);
+    MapComponentAlertThreshold(pages, components, disasterType);
+    MapComponentGloFASStations(pages, components, disasterType);
+    MapComponentGloFASStationsWarning(pages, components, disasterType);
   });
 
   test.describe('UserStateComponent', () => {
-    UserStateComponentVisible(pages, components);
-    UserStateComponentLogout(pages, components);
+    UserStateComponentVisible(pages, components, disasterType);
+    UserStateComponentLogout(pages, components, disasterType);
   });
 
   test.describe('AggregatesComponent', () => {
-    AggregatesComponentVisible(pages, components);
-    AggregateComponentTitleHover(pages, components);
-    AggregateComponentButtonClick(pages, components);
+    AggregatesComponentVisible(pages, components, disasterType);
+    AggregateComponentTitleHover(pages, components, disasterType);
+    AggregateComponentButtonClick(pages, components, disasterType);
   });
 
   test.describe('ChatComponent', () => {
-    ChatComponentVisible(pages, components);
-    ChatComponentButtonClick(pages, components);
+    ChatComponentVisible(pages, components, disasterType);
+    ChatComponentButtonClick(pages, components, disasterType);
   });
 
   test.describe('DisasterTypeComponent', () => {
-    DisasterTypeComponentVisible(pages, components);
+    DisasterTypeComponentVisible(
+      pages,
+      components,
+      NoTriggerDataSet.DisasterType,
+    );
     DisasterTypeComponentSelect(pages, components);
   });
 
   test.describe('TimelineComponent', () => {
-    TimelineComponentVisible(pages, components);
-    TimelineComponentDisabled(pages, components);
+    TimelineComponentVisible(pages, components, NoTriggerDataSet.DisasterType);
+    TimelineComponentDisabled(pages, components, NoTriggerDataSet.DisasterType);
   });
 });

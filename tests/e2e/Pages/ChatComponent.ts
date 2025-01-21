@@ -4,10 +4,13 @@ import * as os from 'os';
 import { Locator, Page } from 'playwright';
 
 import EnglishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
+import { NoTriggerDataSet } from '../testData/testData.enum';
 import DashboardPage from './DashboardPage';
 
 const chatDialogueContentWelcomeNoTrigger =
-  EnglishTranslations['chat-component'].floods['no-event-no-trigger'].welcome;
+  EnglishTranslations['chat-component'][NoTriggerDataSet.DisasterType][
+    'no-event-no-trigger'
+  ].welcome;
 const chatDialogueWarnLabel =
   EnglishTranslations['chat-component'].common['warn-label'].message;
 const eventTooltipContent =

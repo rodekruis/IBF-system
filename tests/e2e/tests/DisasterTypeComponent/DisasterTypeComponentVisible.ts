@@ -4,7 +4,11 @@ import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
-export default (pages: Partial<Pages>, components: Partial<Components>) => {
+export default (
+  pages: Partial<Pages>,
+  components: Partial<Components>,
+  disasterType: string,
+) => {
   test(
     qase(4, 'Disaster type component elements should be visible'),
     {
@@ -15,20 +19,20 @@ export default (pages: Partial<Pages>, components: Partial<Components>) => {
     },
     async () => {
       const { dashboard } = pages;
-      const { userState, disasterType } = components;
+      const { userState, disasterType: disasterTypeComponent } = components;
 
-      if (!dashboard || !userState || !disasterType) {
+      if (!dashboard || !userState || !disasterTypeComponent) {
         throw new Error('pages and components not found');
       }
 
       // Navigate to disaster type the data was mocked for
-      await dashboard.navigateToFloodDisasterType();
+      await dashboard.navigateToDisasterType(disasterType);
       // Assertions
       await userState.headerComponentIsVisible({
         countryName: NoTriggerDataSet.CountryName,
       });
-      await disasterType.topBarComponentIsVisible();
-      await disasterType.allDisasterTypeElementsArePresent();
+      await disasterTypeComponent.topBarComponentIsVisible();
+      await disasterTypeComponent.allDisasterTypeElementsArePresent();
     },
   );
 };
