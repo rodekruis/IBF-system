@@ -1,5 +1,6 @@
 import { Locator, Page } from 'playwright';
 
+import areasOfFocus from '../../../services/API-service/src/scripts/json/areas-of-focus.json';
 import DashboardPage from './DashboardPage';
 
 class ActionsSummaryComponent extends DashboardPage {
@@ -21,8 +22,15 @@ class ActionsSummaryComponent extends DashboardPage {
 
     for (let i = 0; i < counttoolTipInfoButton; i++) {
       const toolTipInfoButton = this.tooltipButton.nth(i);
+      const descriptionText = areasOfFocus[i].description?.replace(
+        /<br>|<ul>|<li>|<strong>|<\/ul>|<\/li>|<\/strong>/g,
+        '',
+      );
+
       await toolTipInfoButton.click();
-      // await this.validatePopOverText({ text: eventTooltipContent });
+      await this.page.waitForTimeout(200);
+      await this.validateLabel({ text: areasOfFocus[i].label });
+      await this.validateDescription({ text: descriptionText });
       await this.page.getByTestId('close-matrix-icon').click();
     }
   }

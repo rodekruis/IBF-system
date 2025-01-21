@@ -12,6 +12,8 @@ class DashboardPage {
   readonly countrySwitcherDropdownOption: Locator;
   readonly dashboardDevControlCloseButton: Locator;
   readonly loader: Locator;
+  readonly tooltipLabel: Locator;
+  readonly tooltipContent: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -32,6 +34,8 @@ class DashboardPage {
       'dashboard-dev-control-close-button',
     );
     this.loader = this.page.getByTestId('loader');
+    this.tooltipLabel = this.page.getByTestId('layer-info-title');
+    this.tooltipContent = this.page.getByTestId('layer-info-content');
   }
 
   getRandomInt(min: number, max: number): number {
@@ -73,6 +77,16 @@ class DashboardPage {
       .textContent();
     const popOverTextTrimmed = popOverText?.trim();
     expect(popOverTextTrimmed).toContain(text);
+  }
+
+  async validateLabel({ text }: { text: string }) {
+    const label = await this.tooltipLabel.textContent();
+    expect(label).toContain(text);
+  }
+
+  async validateDescription({ text }: { text: string }) {
+    const description = await this.tooltipContent.textContent();
+    expect(description).toContain(text);
   }
 
   async waitForPageToBeLoadedAndStable() {
