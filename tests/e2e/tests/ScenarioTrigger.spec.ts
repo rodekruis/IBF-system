@@ -1,5 +1,6 @@
 import { Page, test } from '@playwright/test';
 import { Components, Pages } from 'helpers/interfaces';
+import ActionsSummaryComponent from 'Pages/ActionSummaryComponent';
 import AggregatesComponent from 'Pages/AggregatesComponent';
 import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
@@ -11,6 +12,7 @@ import { TriggerDataSet } from 'testData/testData.enum';
 
 import { getAccessToken, mockFloods, resetDB } from '../helpers/utility.helper';
 import LoginPage from '../Pages/LoginPage';
+import ActionSummaryTooltipTest from './ActionSummaryComponent/ActionSummaryTooltipTest';
 import AggregateComponentEventCount from './AggregatesComponent/AggregateComponentEventCount';
 import AggregateComponentHeaderColour from './AggregatesComponent/AggregateComponentHeaderColour';
 import ChatComponentEventClick from './ChatComponent/ChatComponentEventClick';
@@ -38,6 +40,7 @@ test.describe('Scenario: Trigger', () => {
     components.chat = new ChatComponent(page);
     components.disasterType = new DisasterTypeComponent(page);
     components.timeline = new TimelineComponent(page);
+    components.actionsSummary = new ActionsSummaryComponent(page);
 
     // Reset the database
     accessToken = await getAccessToken();
@@ -82,5 +85,9 @@ test.describe('Scenario: Trigger', () => {
     ChatComponentEventClick(pages, components);
     ChatComponentEventCount(pages, components);
     ChatComponentInfoPopover(pages, components);
+  });
+
+  test.describe('ActionsSummaryComponent', () => {
+    ActionSummaryTooltipTest(pages, components);
   });
 });

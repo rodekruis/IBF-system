@@ -1,3 +1,4 @@
+import ActionsSummaryComponent from 'Pages/ActionSummaryComponent';
 import AggregatesComponent from 'Pages/AggregatesComponent';
 import ChatComponent from 'Pages/ChatComponent';
 import DashboardPage from 'Pages/DashboardPage';
@@ -19,4 +20,5 @@ export interface Components {
   chat: ChatComponent;
   disasterType: DisasterTypeComponent;
   timeline: TimelineComponent;
+  actionsSummary: ActionsSummaryComponent;
 }
