@@ -87,6 +87,6 @@ test.describe('Scenario: Trigger', () => {
   });
 
   test.describe('ActionsSummaryComponent', () => {
-    ActionSummaryTooltipTest(pages, components);
+    ActionSummaryTooltipTest(pages, components, disasterType);
   });
 });
