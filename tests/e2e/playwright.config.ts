@@ -11,9 +11,8 @@ export default defineConfig({
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: 1,
+  forbidOnly: process.env.NODE_ENV !== 'development',
+  retries: 0,
   /* Opt out of parallel tests on CI. */
   // reporter: [
   //   ['list'],
@@ -37,14 +36,14 @@ export default defineConfig({
   // ],
   workers: 1,
   outputDir: './test-results',
-  timeout: 60000,
+  timeout: 30000,
   use: {
     baseURL: process.env.DASHBOARD_URL,
     video: 'on-first-retry',
     screenshot: 'only-on-failure',
     headless: true,
     acceptDownloads: true,
-    actionTimeout: 20000,
+    actionTimeout: 10000,
     launchOptions: {
       downloadsPath: 'resources/downloads',
       args: ['--window-size=1920,1024'],
