@@ -143,7 +143,12 @@ class MapComponent extends DashboardPage {
 
   async clickLayerCheckbox({ layerName }: { layerName: string }) {
     // Remove Glofas station from the map (in case the mock is for floods)
+    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('domcontentloaded');
+
     await this.layerMenuToggle.click();
+    await this.page.waitForSelector('data-testid=matrix-layer-name');
+
     const getLayerRow = this.page
       .getByTestId('matrix-layer-name')
       .filter({ hasText: layerName });
@@ -273,6 +278,7 @@ class MapComponent extends DashboardPage {
     await this.page.waitForLoadState('networkidle');
     await this.page.waitForLoadState('domcontentloaded');
     await this.page.waitForSelector('.leaflet-interactive');
+    await this.page.waitForTimeout(200);
 
     // Assert that Aggregates title is visible and does not contain the text 'National View'
 
