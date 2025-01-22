@@ -1,3 +1,16 @@
+## [0.278.2](https://github.com/rodekruis/IBF-system/compare/v0.278.1...v0.278.2) (2025-01-22)
+
+
+### Bug Fixes
+
+* code scanning alerts ([0a18940](https://github.com/rodekruis/IBF-system/commit/0a18940b55d3d8cf5db501da20195dbcca8333ed))
+* frontend mock uses new mock endpoints ([2c86845](https://github.com/rodekruis/IBF-system/commit/2c8684587c1d86854ea5dab88afed3cff41e821d))
+* overwrite old tracks on noEvents ([ec558b6](https://github.com/rodekruis/IBF-system/commit/ec558b66916896b6f385575c65c129904c826f3c))
+* process PR comments + fix mock-all no-trigger ([4171dfa](https://github.com/rodekruis/IBF-system/commit/4171dfa58826cd6d941bb25ec14b31c91eea8e3d))
+* test ([6e684b2](https://github.com/rodekruis/IBF-system/commit/6e684b26d60f11b032ebf8311665e4319d0f80ee))
+
+
+
 ## [0.278.1](https://github.com/rodekruis/IBF-system/compare/v0.278.0...v0.278.1) (2025-01-22)
 
 
@@ -95,16 +108,6 @@
 * post typhoon track test ([9e46443](https://github.com/rodekruis/IBF-system/commit/9e46443733ed9fa75247d83560b5dd68fc3ffa64))
 * remove dengue from integration helper ([98bce23](https://github.com/rodekruis/IBF-system/commit/98bce233b0b70bc6029ed13940e70d06020ba784))
 * use test helper enum ([335c882](https://github.com/rodekruis/IBF-system/commit/335c882299d0c4572f6456044ed8711904f1cec2))
-
-
-
-## [0.277.8](https://github.com/rodekruis/IBF-system/compare/v0.277.7...v0.277.8) (2024-12-23)
-
-
-### Bug Fixes
-
-* process some automatic + quickwin eslint warnings ([a8af3a6](https://github.com/rodekruis/IBF-system/commit/a8af3a67b9eace943c7a1059c6776437a807bcd1))
-* revert small change in indicator-metadata ([023742a](https://github.com/rodekruis/IBF-system/commit/023742a0d96bd832738a553b1ea3ac871c253c98))
 
 
 
