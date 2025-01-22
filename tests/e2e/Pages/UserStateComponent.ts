@@ -54,7 +54,6 @@ class UserStateComponent extends DashboardPage {
     const countryLogosCount = await this.countryLogos.count();
     for (let i = 0; i < countryLogosCount; i++) {
       await expect(this.countryLogos.nth(i)).toBeVisible();
-      console.log(i);
     }
 
     await expect(this.dashboardHomeButton).toBeVisible();
