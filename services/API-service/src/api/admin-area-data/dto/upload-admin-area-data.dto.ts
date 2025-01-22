@@ -12,8 +12,8 @@ import {
 } from 'class-validator';
 import { JoinColumn, ManyToOne } from 'typeorm';
 
+import indicatorData from '../../../scripts/mock-data/drought/ETH/trigger/Belg JAS_Belg/upload-alert_threshold-2.json';
 import { DynamicDataPlaceCodeDto } from '../../admin-area-dynamic-data/dto/dynamic-data-place-code.dto';
-import indicatorData from '../../admin-area-dynamic-data/dto/example/ETH/drought/upload-alert_threshold-2.json';
 import { UpdateableStaticIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { AdminLevel } from '../../country/admin-level.enum';
 import { CountryEntity } from '../../country/country.entity';

@@ -1,9 +1,0 @@
-{
-  "6-hour": [],
-  "0-hour": [
-    { "fid": "76", "value": true },
-    { "fid": "146", "value": true },
-    { "fid": "356", "value": true }
-  ],
-  "24-hour": [{ "fid": "16", "value": true }]
-}

@@ -10,6 +10,7 @@ import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-da
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { AdminLevel } from '../api/country/admin-level.enum';
+import { CountryEntity } from '../api/country/country.entity';
 import { CountryDisasterSettingsDto } from '../api/country/dto/add-countries.dto';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
@@ -18,24 +19,33 @@ import { EventService } from '../api/event/event.service';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { MetadataService } from '../api/metadata/metadata.service';
 import { PointDataService } from '../api/point-data/point-data.service';
+import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { DEBUG } from '../config';
+import {
+  FlashFloodsScenario,
+  FloodsScenario,
+  TyphoonScenario,
+} from './enum/mock-scenario.enum';
 import { GeoserverSyncService } from './geoserver-sync.service';
 import { Country } from './interfaces/country.interface';
 import countries from './json/countries.json';
 import { MockHelperService } from './mock-helper.service';
 import {
+  MockAll,
   MockDroughtScenario,
   MockFlashFloodsScenario,
   MockFloodsScenario,
   MockMalariaScenario,
+  MockTyphoonScenario,
 } from './mock.controller';
+import { ScriptsService } from './scripts.service';
 
 class Scenario {
   scenarioName: string;
   defaultScenario?: boolean;
   events: Event[];
 }
-class Event {
+export class Event {
   eventName: string;
   leadTime?: LeadTime;
 }
@@ -50,6 +60,8 @@ export class MockService {
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
   @InjectRepository(EapActionStatusEntity)
   private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
+  @InjectRepository(CountryEntity)
+  private readonly countryRepo: Repository<CountryEntity>;
 
   constructor(
     private metadataService: MetadataService,
@@ -57,8 +69,10 @@ export class MockService {
     private eventService: EventService,
     private pointDataService: PointDataService,
     private adminAreaService: AdminAreaService,
+    private typhoonTrackService: TyphoonTrackService,
     private mockHelpService: MockHelperService,
     private geoServerSyncService: GeoserverSyncService,
+    private scriptsService: ScriptsService,
   ) {}
 
   public async mock(
@@ -66,7 +80,8 @@ export class MockService {
       | MockFloodsScenario
       | MockMalariaScenario
       | MockFlashFloodsScenario
-      | MockDroughtScenario,
+      | MockDroughtScenario
+      | MockTyphoonScenario,
     disasterType: DisasterType,
     useDefaultScenario: boolean,
     isApiTest: boolean,
@@ -101,6 +116,7 @@ export class MockService {
     const indicators = await this.getIndicators(
       mockBody.countryCodeISO3,
       disasterType,
+      scenario.scenarioName,
     );
 
     if (!scenario.events) {
@@ -187,14 +203,27 @@ export class MockService {
         }
 
         if (this.shouldMockTyphoonTrack(disasterType)) {
-          console.log('mockTyphoonTrack not implemented yet');
-          // await this.mockTyphoonTrack()
+          await this.mockHelpService.mockTyphoonTrack(
+            mockBody.countryCodeISO3,
+            scenario.scenarioName,
+            event,
+            mockBody.date as Date,
+          );
         }
 
         if (this.shouldMockGlofasStations(disasterType)) {
           await this.mockGlofasStations(
             selectedCountry,
             DisasterType.Floods,
+            date,
+            scenario.scenarioName,
+            event,
+          );
+        }
+
+        if (this.shouldMockExposedAssets(disasterType)) {
+          await this.mockHelpService.mockExposedAssets(
+            selectedCountry.countryCodeISO3,
             date,
             scenario.scenarioName,
             event,
@@ -217,25 +246,16 @@ export class MockService {
       );
     }
 
-    if (this.shouldMockExposedAssets(disasterType)) {
-      // TODO: the below methods still assume hard-coded leadTimes and is not flexible
-      const triggered = scenario.events?.length > 0;
-      await this.mockHelpService.mockExposedAssets(
-        selectedCountry.countryCodeISO3,
-        triggered,
-        date,
-      );
-    }
-    if (this.shouldMockDynamicPointData(disasterType)) {
-      // TODO: the below methods still assume hard-coded leadTimes and is not flexible
+    if (this.shouldMockDynamicPointData(disasterType, scenario.scenarioName)) {
       await this.mockHelpService.mockDynamicPointData(
         selectedCountry.countryCodeISO3,
         disasterType,
+        scenario.scenarioName,
         date,
       );
     }
 
-    // Close finished events (only applicable for follow-up mock pipeline runs, with removeEvents=false)
+    // Close finished events (only relevant for follow-up mock pipeline runs, with removeEvents=false)
     await this.eventService.closeEventsAutomatic(
       selectedCountry.countryCodeISO3,
       disasterType,
@@ -256,7 +276,8 @@ export class MockService {
       | MockFloodsScenario
       | MockMalariaScenario
       | MockFlashFloodsScenario
-      | MockDroughtScenario,
+      | MockDroughtScenario
+      | MockTyphoonScenario,
     disasterType: DisasterType,
     selectedCountry: Country,
     date: Date,
@@ -290,6 +311,16 @@ export class MockService {
         }
       }
     }
+
+    if (this.shouldMockTyphoonTrack(disasterType)) {
+      await this.typhoonTrackService.uploadTyphoonTrack({
+        countryCodeISO3: mockBody.countryCodeISO3,
+        leadTime: leadTimesForNoTrigger[0] as LeadTime,
+        eventName: null,
+        trackpointDetails: [],
+        date,
+      });
+    }
   }
 
   private getLeadTimesNoEvents(
@@ -309,8 +340,8 @@ export class MockService {
         date,
       );
       return [leadTime];
-      // } else if (disasterType === DisasterType.Typhoon) {
-      //   return [LeadTime.hour72];
+    } else if (disasterType === DisasterType.Typhoon) {
+      return [LeadTime.hour72];
     } else {
       return selectedCountry.countryDisasterSettings.find(
         (settings) => settings.disasterType === disasterType,
@@ -349,18 +380,30 @@ export class MockService {
   private async getIndicators(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    scenarioName: string,
   ) {
     const indicators =
       await this.metadataService.getIndicatorsByCountryAndDisaster(
         countryCodeISO3,
         disasterType,
       );
-    const exposureUnits = indicators
+    let dynamicIndicators = indicators
       .filter((ind) => ind.dynamic)
       .map((ind) => ind.name as DynamicIndicator);
 
+    if (disasterType === DisasterType.Typhoon) {
+      dynamicIndicators.push(DynamicIndicator.showAdminArea);
+      // is this needed?
+      if (scenarioName === TyphoonScenario.NoTrigger) {
+        dynamicIndicators = [
+          DynamicIndicator.housesAffected,
+          DynamicIndicator.alertThreshold,
+        ];
+      }
+    }
+
     // Make sure 'alert_threshold' is uploaded last
-    return exposureUnits.sort((a, _b) =>
+    return dynamicIndicators.sort((a, _b) =>
       a === DynamicIndicator.alertThreshold ? 1 : -1,
     );
   }
@@ -460,11 +503,66 @@ export class MockService {
     return disasterType === DisasterType.FlashFloods;
   }
 
-  private shouldMockDynamicPointData(disasterType: DisasterType): boolean {
-    return disasterType === DisasterType.FlashFloods;
+  private shouldMockDynamicPointData(
+    disasterType: DisasterType,
+    scenarioName: string,
+  ): boolean {
+    return (
+      disasterType === DisasterType.FlashFloods &&
+      scenarioName !== FlashFloodsScenario.NoTrigger
+    );
   }
 
   private shouldMockTyphoonTrack(disasterType: DisasterType): boolean {
     return disasterType === DisasterType.Typhoon;
+  }
+
+  public async mockAll(mockAllInput: MockAll) {
+    const isApiTest = false;
+
+    const envCountries = process.env.COUNTRIES.split(',');
+
+    const newMockServiceDisasterTypes = [
+      DisasterType.Floods,
+      DisasterType.Malaria,
+      DisasterType.FlashFloods,
+      DisasterType.Drought,
+      DisasterType.Typhoon,
+    ];
+
+    for await (const countryCodeISO3 of envCountries) {
+      const country = await this.countryRepo.findOne({
+        where: { countryCodeISO3: countryCodeISO3 },
+        relations: ['disasterTypes'],
+      });
+
+      for await (const disasterType of country.disasterTypes) {
+        if (newMockServiceDisasterTypes.includes(disasterType.disasterType)) {
+          await this.mock(
+            {
+              secret: mockAllInput.secret,
+              countryCodeISO3,
+              removeEvents: true,
+              date: mockAllInput.date || new Date(),
+              scenario: mockAllInput.triggered
+                ? FloodsScenario.Trigger
+                : FloodsScenario.NoTrigger, // REFACTOR: this works for now but is hack. Should use base-enum values Trigger/NoTrigger. Solve when refactoring /mock/all.
+            },
+            disasterType.disasterType,
+            false,
+            isApiTest,
+          );
+        } else {
+          await this.scriptsService.mockCountry({
+            secret: mockAllInput.secret,
+            countryCodeISO3,
+            disasterType: disasterType.disasterType,
+            triggered: mockAllInput.triggered,
+            removeEvents: true,
+            date: mockAllInput.date || new Date(),
+          });
+        }
+      }
+    }
   }
 }

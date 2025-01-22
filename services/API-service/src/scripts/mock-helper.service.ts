@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 import { Injectable } from '@nestjs/common';
 
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
@@ -10,8 +11,11 @@ import { LinesDataService } from '../api/lines-data/lines-data.service';
 import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
 import { PointDataEnum } from '../api/point-data/point-data.entity';
 import { PointDataService } from '../api/point-data/point-data.service';
+import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';
+import { TyphoonScenario } from './enum/mock-scenario.enum';
 import { Country } from './interfaces/country.interface';
+import { Event } from './mock.service';
 
 @Injectable()
 export class MockHelperService {
@@ -19,58 +23,53 @@ export class MockHelperService {
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private linesDataService: LinesDataService,
     private pointDataService: PointDataService,
+    private typhoonTrackService: TyphoonTrackService,
   ) {}
 
   public async mockExposedAssets(
     countryCodeISO3: string,
-    triggered: boolean,
     date: Date,
+    scenarioName: string,
+    event: Event,
   ) {
-    if (!triggered) {
-      return;
+    for (const assetType of Object.keys(LinesDataEnum)) {
+      const payload = new UploadLinesExposureStatusDto();
+      payload.countryCodeISO3 = countryCodeISO3;
+      payload.disasterType = DisasterType.FlashFloods;
+      payload.linesDataCategory = assetType as LinesDataEnum;
+      payload.leadTime = event.leadTime;
+      payload.date = date;
+      const filename = `./src/scripts/mock-data/${DisasterType.FlashFloods}/${countryCodeISO3}/${scenarioName}/${event.eventName}/lines-data/${assetType}.json`;
+      const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
+      payload.exposedFids = assets;
+
+      await this.linesDataService.uploadAssetExposureStatus(payload);
     }
 
-    for (const leadTime of [LeadTime.hour24, LeadTime.hour6, LeadTime.hour0]) {
-      for (const assetType of Object.keys(LinesDataEnum)) {
-        const payload = new UploadLinesExposureStatusDto();
-        payload.countryCodeISO3 = countryCodeISO3;
-        payload.disasterType = DisasterType.FlashFloods;
-        payload.linesDataCategory = assetType as LinesDataEnum;
-        payload.leadTime = leadTime;
-        payload.date = date;
-        const filename = `./src/api/lines-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${assetType}.json`;
-        const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-        // add mock data per lead-time in the respecitve json file
-        payload.exposedFids = assets[leadTime] ? assets[leadTime] : [];
+    const pointDataCategories = [
+      PointDataEnum.healthSites,
+      PointDataEnum.schools,
+      PointDataEnum.waterpointsInternal,
+    ];
+    for (const pointAssetType of pointDataCategories) {
+      const payload = new UploadDynamicPointDataDto();
+      payload.disasterType = DisasterType.FlashFloods;
+      payload.key = 'exposure';
+      payload.leadTime = event.leadTime;
+      payload.date = date || new Date();
 
-        await this.linesDataService.uploadAssetExposureStatus(payload);
-      }
+      const filename = `./src/scripts/mock-data/${DisasterType.FlashFloods}/${countryCodeISO3}/${scenarioName}/${event.eventName}/point-data/${pointAssetType}.json`;
+      const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
+      payload.dynamicPointData = assets;
 
-      const pointDataCategories = [
-        PointDataEnum.healthSites,
-        PointDataEnum.schools,
-        PointDataEnum.waterpointsInternal,
-      ];
-      for (const pointAssetType of pointDataCategories) {
-        const payload = new UploadDynamicPointDataDto();
-        payload.disasterType = DisasterType.FlashFloods;
-        payload.key = 'exposure';
-        payload.leadTime = leadTime;
-        payload.date = date || new Date();
-
-        const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/${pointAssetType}.json`;
-        const assets = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-        // add mock data per lead-time in the respecitve json file
-        payload.dynamicPointData = assets[leadTime] ? assets[leadTime] : [];
-
-        await this.pointDataService.uploadDynamicPointData(payload);
-      }
+      await this.pointDataService.uploadDynamicPointData(payload);
     }
   }
 
   public async mockDynamicPointData(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    scenarioName: string,
     date: Date,
   ) {
     const keys = [
@@ -84,7 +83,7 @@ export class MockHelperService {
       payload.leadTime = null;
       payload.date = date;
       payload.disasterType = disasterType;
-      const filename = `./src/api/point-data/dto/example/${countryCodeISO3}/${DisasterType.FlashFloods}/dynamic-point-data_${key}.json`;
+      const filename = `./src/scripts/mock-data/${DisasterType.FlashFloods}/${countryCodeISO3}/${scenarioName}/dynamic-point-data_${key}.json`;
       const dynamicPointData = JSON.parse(fs.readFileSync(filename, 'utf-8'));
       payload.dynamicPointData = dynamicPointData;
 
@@ -330,5 +329,42 @@ export class MockHelperService {
     }
 
     return `${minDiff}-month` as LeadTime;
+  }
+
+  public async mockTyphoonTrack(
+    countryCodeISO3: string,
+    scenarioName: string,
+    event: Event,
+    date: Date,
+  ) {
+    const ROOT_DIR = path.resolve('./src/scripts/mock-data');
+    const filePath = path.resolve(
+      ROOT_DIR,
+      `${DisasterType.Typhoon}/${countryCodeISO3}/${scenarioName}/${event.eventName}/typhoon-track.json`,
+    );
+    if (!filePath.startsWith(ROOT_DIR)) {
+      throw new Error('Invalid file path');
+    }
+    const trackRaw = fs.readFileSync(filePath, 'utf-8');
+    const track = JSON.parse(trackRaw);
+
+    // Overwrite timestamps of trackpoints to align with today's date
+    // Make sure that the moment of landfall lies just ahead
+    let i = scenarioName === TyphoonScenario.OngoingTrigger ? -29 : -23;
+    for (const trackpoint of track) {
+      const now = new Date(date) || new Date();
+      trackpoint.timestampOfTrackpoint = new Date(
+        now.getTime() + i * (1000 * 60 * 60 * 6),
+      );
+      i += 1;
+    }
+
+    await this.typhoonTrackService.uploadTyphoonTrack({
+      countryCodeISO3,
+      leadTime: event.leadTime,
+      eventName: event.eventName,
+      trackpointDetails: track,
+      date,
+    });
   }
 }

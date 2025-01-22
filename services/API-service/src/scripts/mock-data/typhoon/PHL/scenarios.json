@@ -1,0 +1,38 @@
+[
+  {
+    "scenarioName": "trigger",
+    "defaultScenario": true,
+    "events": [{ "eventName": "Mock trigger typhoon", "leadTime": "48-hour" }]
+  },
+  {
+    "scenarioName": "warning",
+    "events": [{ "eventName": "Mock warning typhoon", "leadTime": "112-hour" }]
+  },
+  {
+    "scenarioName": "ongoing-trigger",
+    "events": [{ "eventName": "Mock ongoing typhoon", "leadTime": "0-hour" }]
+  },
+  {
+    "scenarioName": "no-landfall-trigger",
+    "events": [
+      { "eventName": "Mock no-landfall typhoon", "leadTime": "90-hour" }
+    ]
+  },
+  {
+    "scenarioName": "no-landfall-yet-warning",
+    "events": [
+      { "eventName": "Mock no-landfall-yet typhoon", "leadTime": "150-hour" }
+    ]
+  },
+  {
+    "scenarioName": "warning-and-trigger",
+    "defaultScenario": true,
+    "events": [
+      { "eventName": "Mock trigger typhoon", "leadTime": "48-hour" },
+      { "eventName": "Mock warning typhoon", "leadTime": "112-hour" }
+    ]
+  },
+  {
+    "scenarioName": "no-trigger"
+  }
+]

@@ -13,7 +13,7 @@ describe('Should send an email for phl typhoon', () => {
 
   it('trigger', async () => {
     const result = await testTyphoonScenario(
-      TyphoonScenario.EventTrigger,
+      TyphoonScenario.Trigger,
       countryCodeISO3,
       accessToken,
     );
@@ -22,7 +22,7 @@ describe('Should send an email for phl typhoon', () => {
 
   it('warning', async () => {
     const result = await testTyphoonScenario(
-      TyphoonScenario.EventNoTrigger,
+      TyphoonScenario.Warning,
       countryCodeISO3,
       accessToken,
     );
@@ -31,7 +31,7 @@ describe('Should send an email for phl typhoon', () => {
 
   it('no landfall (trigger)', async () => {
     const result = await testTyphoonScenario(
-      TyphoonScenario.EventNoLandfall,
+      TyphoonScenario.NoLandfallTrigger,
       countryCodeISO3,
       accessToken,
     );
@@ -40,7 +40,7 @@ describe('Should send an email for phl typhoon', () => {
 
   it('no landfall yet (trigger)', async () => {
     const result = await testTyphoonScenario(
-      TyphoonScenario.EventNoLandfallYet,
+      TyphoonScenario.NoLandfallYetWarning,
       countryCodeISO3,
       accessToken,
     );
@@ -49,7 +49,7 @@ describe('Should send an email for phl typhoon', () => {
 
   it('after landfall (trigger)', async () => {
     const result = await testTyphoonScenario(
-      TyphoonScenario.EventAfterLandfall,
+      TyphoonScenario.OngoingTrigger,
       countryCodeISO3,
       accessToken,
     );

@@ -34,6 +34,7 @@ import {
   FlashFloodsScenario,
   FloodsScenario,
   MalariaScenario,
+  TyphoonScenario,
 } from './enum/mock-scenario.enum';
 import { MockService } from './mock.service';
 
@@ -61,8 +62,6 @@ export class MockBaseScenario {
 export class MockFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FloodsScenario).join(' | '),
-    description:
-      'trigger: ongoing + trigger + warning event; warning: 1 warning event; warning-to-trigger: 1 event that evolves from warning to trigger',
   })
   @IsEnum(FloodsScenario)
   public readonly scenario: FloodsScenario;
@@ -71,8 +70,6 @@ export class MockFloodsScenario extends MockBaseScenario {
 export class MockFlashFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FlashFloodsScenario).join(' | '),
-    description:
-      'trigger: trigger-blantyre + warning-karonga + trigger-ongoing-rumphi; trigger-blantyre: trigger in Blantyre City; warning-karonga: warning in Karonga; trigger-ongoing-rumphi: ongoing trigger in Rumphi',
   })
   @IsEnum(FlashFloodsScenario)
   public readonly scenario: FlashFloodsScenario;
@@ -81,7 +78,6 @@ export class MockFlashFloodsScenario extends MockBaseScenario {
 export class MockMalariaScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(MalariaScenario).join(' | '),
-    description: 'trigger: trigger in each month',
   })
   @IsEnum(MalariaScenario)
   public readonly scenario: MalariaScenario;
@@ -90,11 +86,32 @@ export class MockMalariaScenario extends MockBaseScenario {
 export class MockDroughtScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(DroughtSenario).join(' | '),
-    description:
-      'trigger: trigger for 1st month of each ongoing/upcoming season in each region',
   })
   @IsEnum(DroughtSenario)
   public readonly scenario: DroughtSenario;
+}
+
+export class MockTyphoonScenario extends MockBaseScenario {
+  @ApiProperty({
+    example: Object.values(TyphoonScenario).join(' | '),
+  })
+  @IsEnum(TyphoonScenario)
+  public readonly scenario: TyphoonScenario;
+}
+
+export class MockAll {
+  @ApiProperty({ example: 'fill_in_secret' })
+  @IsNotEmpty()
+  @IsString()
+  public readonly secret: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  public readonly triggered: boolean;
+
+  @ApiProperty({ example: new Date() })
+  @IsOptional()
+  public readonly date: Date;
 }
 
 @Controller('mock')
@@ -262,6 +279,66 @@ export class MockController {
       false,
       isApiTest,
     );
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Upload mock data for specific typhoon scenario',
+  })
+  @ApiQuery({
+    name: 'isApiTest',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description: 'Set to true for tests',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Uploaded mock data for specific typhoon scenario',
+  })
+  @Post('/typhoon')
+  public async mockTyphoonScenario(
+    @Body() body: MockTyphoonScenario,
+    @Res() res,
+    @Query(
+      'isApiTest',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    isApiTest: boolean,
+  ): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+
+    const result = await this.mockService.mock(
+      body,
+      DisasterType.Typhoon,
+      false,
+      isApiTest,
+    );
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary: 'Upload mock data for all countries and disaster-types at once',
+  })
+  @ApiResponse({
+    status: 202,
+    description: 'Uploaded mock data for all countries and disaster-types',
+  })
+  @Post('/all')
+  public async mockAll(@Body() body: MockAll, @Res() res): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+
+    const result = await this.mockService.mockAll(body);
 
     return res.status(HttpStatus.ACCEPTED).send(result);
   }

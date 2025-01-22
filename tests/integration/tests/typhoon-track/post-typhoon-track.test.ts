@@ -52,11 +52,7 @@ describe('upload typhoon track', () => {
 
   it('upload successfully and return expected result on GET', async () => {
     // Arrange
-    await mockTyphoon(
-      TyphoonScenario.EventTrigger,
-      countryCodeISO3,
-      accessToken,
-    );
+    await mockTyphoon(TyphoonScenario.Trigger, countryCodeISO3, accessToken);
 
     // Act
     const postTrackResult = await postTyphoonTrack(
