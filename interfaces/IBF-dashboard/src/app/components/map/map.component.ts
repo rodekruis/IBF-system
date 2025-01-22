@@ -427,7 +427,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       const pointLayers = this.createPointLayer(layer);
 
       for (const pointLayer of pointLayers) {
-        const extraLayer = { ...layer };
+        const extraLayer = Object.assign({}, layer);
         extraLayer.leafletLayer = pointLayer;
         this.layers.push(extraLayer);
       }
