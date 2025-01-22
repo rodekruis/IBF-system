@@ -1,6 +1,6 @@
 export enum NoTriggerDataSet {
   NoTriggerScenario = 'no-trigger',
-  DisasterType = 'floods', // floods/drought
+  DisasterType = 'floods', // Only 'floods' works for now
   CountryCode = 'UGA',
   CountryName = 'Uganda',
   UserMail = 'uganda@redcross.nl',
@@ -11,7 +11,7 @@ export enum NoTriggerDataSet {
 
 export enum TriggerDataSet {
   TriggerScenario = 'trigger',
-  DisasterType = 'floods', // floods/drought
+  DisasterType = 'floods', // Only 'floods' works for now
   CountryCode = 'UGA',
   CountryName = 'Uganda',
   UserMail = 'uganda@redcross.nl',

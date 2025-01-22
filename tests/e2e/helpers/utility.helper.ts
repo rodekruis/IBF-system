@@ -48,6 +48,7 @@ export function mockData(
   scenario: string,
   countryCodeISO3: string,
   accessToken: string,
+  date?: Date,
 ): Promise<request.Response> {
   return getServer()
     .post(`/mock/${disasterType}`)
@@ -57,7 +58,7 @@ export function mockData(
       scenario,
       secret: process.env.RESET_SECRET,
       removeEvents: true,
-      date: new Date(),
+      date: date ?? new Date(),
       countryCodeISO3,
     });
 }

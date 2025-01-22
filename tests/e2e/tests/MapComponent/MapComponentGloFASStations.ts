@@ -47,6 +47,10 @@ export default (
 
       // GloFAS layer should be visible by default
       await map.gloFASMarkersAreVisible();
+
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+      await dashboard.page.waitForTimeout(1000);
     },
   );
 };

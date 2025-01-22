@@ -8,6 +8,7 @@ export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
   disasterType: string,
+  date: Date,
 ) => {
   test(
     qase(
@@ -37,6 +38,7 @@ export default (
       await chat.chatColumnIsVisibleForTriggerState({
         firstName: TriggerDataSet.firstName,
         lastName: TriggerDataSet.lastName,
+        date,
       });
       await chat.allDefaultButtonsArePresent();
 
@@ -47,6 +49,10 @@ export default (
 
       // check if the number of warning events is equal to the number of aggregated events
       expect(chatEventCount).toEqual(aggregatesEventCount);
+
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+      await dashboard.page.waitForTimeout(1000);
     },
   );
 };

@@ -91,7 +91,7 @@ class AggregatesComponent extends DashboardPage {
   }
 
   async validatesAggregatesInfoButtons() {
-    // click on the first info icon and validate the opopver content
+    // click on the first info icon and validate the popover content
     await this.aggreagtesTitleInfoIcon.click();
     const disclaimerText = await this.approximateDisclaimer.textContent();
     expect(disclaimerText).toContain(
@@ -102,7 +102,7 @@ class AggregatesComponent extends DashboardPage {
     await this.page.waitForTimeout(500);
     await this.popoverLayer.click();
 
-    // click on the total exposed population info icon and validate the opopver content
+    // click on the total exposed population info icon and validate the popover content
     const exposedPopulationLayer = this.aggregatesLayerRow.filter({
       hasText: 'Exposed population',
     });
@@ -125,6 +125,9 @@ class AggregatesComponent extends DashboardPage {
     expect(this.page.url()).toContain(
       'https://www.ciesin.columbia.edu/data/hrsl/',
     );
+
+    // Go back to the IBF-portal page
+    await this.page.goBack();
   }
 
   async getNumberOfPredictedEvents() {
