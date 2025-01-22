@@ -73,6 +73,7 @@ class DashboardPage {
   async validatePopOverText({ text }: { text: string }) {
     const popOverText = await this.page
       .locator('app-tooltip-popover')
+      .nth(0)
       .textContent();
     const popOverTextTrimmed = popOverText?.trim();
     expect(popOverTextTrimmed).toContain(text);

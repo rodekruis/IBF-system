@@ -38,6 +38,10 @@ export default (
       await chat.clickAndAssertTriggerLogButton({
         url: `/log?countryCodeISO3=${NoTriggerDataSet.CountryCode}&disasterType=${disasterType}`,
       });
+
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+      await dashboard.page.waitForTimeout(1000);
     },
   );
 };

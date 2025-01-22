@@ -32,6 +32,7 @@ test.describe('Scenario: Trigger', () => {
   const disasterType = TriggerDataSet.DisasterType;
   const countryCodeISO3 = TriggerDataSet.CountryCode;
   const scenario = TriggerDataSet.TriggerScenario;
+  const date = new Date();
 
   test.beforeAll(async ({ browser }) => {
     page = await browser.newPage();
@@ -51,7 +52,7 @@ test.describe('Scenario: Trigger', () => {
     await resetDB(accessToken);
 
     // Load a mock scenario
-    await mockData(disasterType, scenario, countryCodeISO3, accessToken);
+    await mockData(disasterType, scenario, countryCodeISO3, accessToken, date);
 
     await page.goto('/');
     // Login into the portal
@@ -59,10 +60,6 @@ test.describe('Scenario: Trigger', () => {
       TriggerDataSet.UserMail,
       TriggerDataSet.UserPassword,
     );
-  });
-
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/');
   });
 
   test.afterAll(async () => {
@@ -81,9 +78,9 @@ test.describe('Scenario: Trigger', () => {
   });
 
   test.describe('ChatComponent', () => {
-    ChatComponentEventClick(pages, components, disasterType);
-    ChatComponentEventCount(pages, components, disasterType);
-    ChatComponentInfoPopover(pages, components, disasterType);
+    ChatComponentEventClick(pages, components, disasterType, date);
+    ChatComponentEventCount(pages, components, disasterType, date);
+    ChatComponentInfoPopover(pages, components, disasterType, date);
   });
 
   test.describe('ActionsSummaryComponent', () => {

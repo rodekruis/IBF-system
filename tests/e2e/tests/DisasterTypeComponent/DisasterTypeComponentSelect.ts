@@ -31,17 +31,27 @@ export default (pages: Partial<Pages>, components: Partial<Components>) => {
         disasterName: 'floods',
       });
 
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+
       await dashboard.navigateToDisasterType('drought');
       await userState.headerComponentDisplaysCorrectDisasterType({
         countryName: NoTriggerDataSet.CountryName,
         disasterName: 'drought',
       });
 
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+
       await dashboard.navigateToDisasterType('heavy-rain');
       await userState.headerComponentDisplaysCorrectDisasterType({
         countryName: NoTriggerDataSet.CountryName,
         disasterName: 'heavy-rain',
       });
+
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+      await dashboard.page.waitForTimeout(1000);
     },
   );
 };

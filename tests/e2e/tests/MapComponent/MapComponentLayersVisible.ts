@@ -47,6 +47,10 @@ export default (
       } else {
         throw new Error('No layers are visible');
       }
+
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+      await dashboard.page.waitForTimeout(1000);
     },
   );
 };

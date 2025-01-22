@@ -30,6 +30,10 @@ export default (
       await aggregates.aggregateComponentIsVisible();
       await aggregates.validatesAggregatesInfoButtons();
       await aggregates.validateLayerPopoverExternalLink();
+
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+      await dashboard.page.waitForTimeout(1000);
     },
   );
 };

@@ -50,6 +50,10 @@ export default (
       });
       await aggregates.aggregateComponentIsVisible();
       await map.mapComponentIsVisible();
+
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+      await dashboard.page.waitForTimeout(1000);
     },
   );
 };

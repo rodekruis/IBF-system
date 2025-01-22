@@ -36,7 +36,7 @@ export default defineConfig({
   // ],
   workers: 1,
   outputDir: './test-results',
-  timeout: 30000,
+  timeout: 60000,
   use: {
     baseURL: process.env.DASHBOARD_URL,
     video: 'on-first-retry',

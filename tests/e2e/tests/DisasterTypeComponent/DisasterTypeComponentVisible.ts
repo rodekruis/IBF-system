@@ -33,6 +33,10 @@ export default (
       });
       await disasterTypeComponent.topBarComponentIsVisible();
       await disasterTypeComponent.allDisasterTypeElementsArePresent();
+
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+      await dashboard.page.waitForTimeout(1000);
     },
   );
 };

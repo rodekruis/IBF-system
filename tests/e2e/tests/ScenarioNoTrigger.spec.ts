@@ -58,7 +58,8 @@ test.describe('Scenario: No Trigger', () => {
     await resetDB(accessToken);
 
     // Load a mock scenario
-    await mockData(disasterType, scenario, countryCodeISO3, accessToken);
+    const date = new Date();
+    await mockData(disasterType, scenario, countryCodeISO3, accessToken, date);
 
     await page.goto('/');
     // Login into the portal
@@ -66,10 +67,6 @@ test.describe('Scenario: No Trigger', () => {
       NoTriggerDataSet.UserMail,
       NoTriggerDataSet.UserPassword,
     );
-  });
-
-  test.beforeEach(async ({ page }) => {
-    await page.goto('/');
   });
 
   test.afterAll(async () => {
@@ -89,11 +86,6 @@ test.describe('Scenario: No Trigger', () => {
     MapComponentGloFASStationsWarning(pages, components, disasterType);
   });
 
-  test.describe('UserStateComponent', () => {
-    UserStateComponentVisible(pages, components, disasterType);
-    UserStateComponentLogout(pages, components, disasterType);
-  });
-
   test.describe('AggregatesComponent', () => {
     AggregatesComponentVisible(pages, components, disasterType);
     AggregateComponentTitleHover(pages, components, disasterType);
@@ -106,16 +98,18 @@ test.describe('Scenario: No Trigger', () => {
   });
 
   test.describe('DisasterTypeComponent', () => {
-    DisasterTypeComponentVisible(
-      pages,
-      components,
-      NoTriggerDataSet.DisasterType,
-    );
+    DisasterTypeComponentVisible(pages, components, disasterType);
     DisasterTypeComponentSelect(pages, components);
   });
 
   test.describe('TimelineComponent', () => {
-    TimelineComponentVisible(pages, components, NoTriggerDataSet.DisasterType);
-    TimelineComponentDisabled(pages, components, NoTriggerDataSet.DisasterType);
+    TimelineComponentVisible(pages, components, disasterType);
+    TimelineComponentDisabled(pages, components, disasterType);
+  });
+
+  // Do this last, as it logs out the user
+  test.describe('UserStateComponent', () => {
+    UserStateComponentVisible(pages, components, disasterType);
+    UserStateComponentLogout(pages, components, disasterType);
   });
 });

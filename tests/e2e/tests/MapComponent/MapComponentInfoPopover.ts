@@ -42,6 +42,10 @@ export default (
 
       // Assert layer info icons to be intercative and contain basic required info
       await map.validateInfoIconInteractions();
+
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+      await dashboard.page.waitForTimeout(1000);
     },
   );
 };

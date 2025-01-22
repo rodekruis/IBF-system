@@ -8,6 +8,7 @@ export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
   disasterType: string,
+  date: Date,
 ) => {
   test(
     qase(44, 'Show prediction button should be clickable'),
@@ -34,9 +35,14 @@ export default (
       await chat.chatColumnIsVisibleForTriggerState({
         firstName: TriggerDataSet.firstName,
         lastName: TriggerDataSet.lastName,
+        date,
       });
       await chat.allDefaultButtonsArePresent();
       await chat.predictionButtonsAreActive();
+
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+      await dashboard.page.waitForTimeout(1000);
     },
   );
 };
