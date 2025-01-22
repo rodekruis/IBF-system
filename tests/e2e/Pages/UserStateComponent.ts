@@ -14,12 +14,8 @@ class UserStateComponent extends DashboardPage {
     super(page);
     this.page = page;
     this.header = this.page.getByTestId('heading-display-name-span');
-    this.countryLogos = this.page
-      .getByTestId('user-state-country-logos')
-      .nth(0);
-    this.userLoggedInLabel = this.page
-      .getByTestId('user-state-display-name-label')
-      .nth(0);
+    this.countryLogos = this.page.getByTestId('logo-image');
+    this.userLoggedInLabel = this.page.getByTestId('user-display-name');
     this.logOutButton = this.page.getByTestId('user-state-logout-button');
   }
 
@@ -55,11 +51,14 @@ class UserStateComponent extends DashboardPage {
     firstName: string;
     lastName: string;
   }) {
+    const countryLogosCount = await this.countryLogos.count();
+    for (let i = 0; i < countryLogosCount; i++) {
+      await expect(this.countryLogos.nth(i)).toBeVisible();
+      console.log(i);
+    }
+
     await expect(this.dashboardHomeButton).toBeVisible();
-    await expect(this.countryLogos).toBeVisible(); // skip-reason: test fails often because it claims the element is hidden instead of visible
-    await expect(this.userLoggedInLabel).toHaveText(
-      `Logged In As:${firstName} ${lastName}`,
-    );
+    await expect(this.userLoggedInLabel).toHaveText(`${firstName} ${lastName}`);
     await expect(this.logOutButton).toBeVisible();
   }
 
