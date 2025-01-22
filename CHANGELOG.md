@@ -1,3 +1,19 @@
+## [0.278.3](https://github.com/rodekruis/IBF-system/compare/v0.278.2...v0.278.3) (2025-01-22)
+
+
+### Bug Fixes
+
+* after rebase ([eb4638c](https://github.com/rodekruis/IBF-system/commit/eb4638cc41dced31e1602e8d9b4e49c3b9beed14))
+* complete test on getAggregatesHeader AB[#32035](https://github.com/rodekruis/IBF-system/issues/32035) ([2081f79](https://github.com/rodekruis/IBF-system/commit/2081f79480c4890e3edf998212e6a5ee4d5d32aa))
+* test ([045b1a7](https://github.com/rodekruis/IBF-system/commit/045b1a74726ceabca074a467d689d24d065ef903))
+
+
+### Reverts
+
+* Revert "refactor: move component from declarations to imports in spec files" ([1b75f44](https://github.com/rodekruis/IBF-system/commit/1b75f44ac4d6cc3152a6ae22a2ac181900a194fd))
+
+
+
 ## [0.278.2](https://github.com/rodekruis/IBF-system/compare/v0.278.1...v0.278.2) (2025-01-22)
 
 
@@ -96,18 +112,6 @@
 * add layer to cache ([8bf65ec](https://github.com/rodekruis/IBF-system/commit/8bf65ec35735e99699050c07197d70b2f2ff849c))
 * also call updateLayer if layer not active AB[#32327](https://github.com/rodekruis/IBF-system/issues/32327) ([1983a65](https://github.com/rodekruis/IBF-system/commit/1983a65eac9fb3ceab64674afe863bfa46bbf194))
 * remove waterpoints cache ([5956067](https://github.com/rodekruis/IBF-system/commit/5956067133c0aeccf4fdcae1554cf0e562ac91be))
-
-
-
-## [0.277.9](https://github.com/rodekruis/IBF-system/compare/v0.277.8...v0.277.9) (2024-12-23)
-
-
-### Bug Fixes
-
-* make eventName required in GET /typhoon-track ([fe621ea](https://github.com/rodekruis/IBF-system/commit/fe621ea30d046646df9a28192306b9c7a11d6a82))
-* post typhoon track test ([9e46443](https://github.com/rodekruis/IBF-system/commit/9e46443733ed9fa75247d83560b5dd68fc3ffa64))
-* remove dengue from integration helper ([98bce23](https://github.com/rodekruis/IBF-system/commit/98bce233b0b70bc6029ed13940e70d06020ba784))
-* use test helper enum ([335c882](https://github.com/rodekruis/IBF-system/commit/335c882299d0c4572f6456044ed8711904f1cec2))
 
 
 
