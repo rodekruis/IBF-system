@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import mockIbfLayer from 'src/app/mocks/ibf-layer.mock';
+import { MOCK_LAYERS } from 'src/app/mocks/ibf-layer.mock';
 import { IbfLayer } from 'src/app/types/ibf-layer';
 
 @Component({
@@ -10,11 +10,11 @@ import { IbfLayer } from 'src/app/types/ibf-layer';
   standalone: false,
 })
 export class LayerControlInfoPopoverComponent {
-  public layer: IbfLayer = mockIbfLayer;
+  public layer: IbfLayer = MOCK_LAYERS[0];
 
   constructor(private popoverController: PopoverController) {}
 
   public closePopover(): void {
-    this.popoverController.dismiss();
+    void this.popoverController.dismiss();
   }
 }

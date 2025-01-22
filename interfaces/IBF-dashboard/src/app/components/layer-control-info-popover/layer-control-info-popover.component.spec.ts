@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
+import { LayerControlInfoPopoverComponent } from './layer-control-info-popover.component';
 
 describe('LayerControlInfoPopoverComponent', () => {
   let component: LayerControlInfoPopoverComponent;

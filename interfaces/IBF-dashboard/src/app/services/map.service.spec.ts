@@ -6,14 +6,12 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MOCK_COUNTRYDISASTERSETTINGS } from 'src/app/mocks/country-disaster-settings.mock';
+import { MOCK_LAYERS } from 'src/app/mocks/ibf-layer.mock';
+import { MOCK_TRIGGEREDAREAS } from 'src/app/mocks/triggered-areas.mock';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { MapService } from 'src/app/services/map.service';
-import {
-  MOCK_COUNTRYDISASTERSETTINGS,
-  MOCK_LAYERS,
-  MOCK_TRIGGEREDAREAS as MOCK_TRIGGEREDAREAS,
-} from 'src/app/services/map.service.spec.helper';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 
 describe('MapService', () => {

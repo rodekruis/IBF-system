@@ -73,7 +73,8 @@ module.exports = tseslint.config(
       '@typescript-eslint/consistent-type-definitions': 'warn',
       // Put this to 'off' for now because it automatically tries to fix this in code on save
       '@angular-eslint/prefer-standalone': 'off',
-      '@angular-eslint/prefer-on-push-component-change-detection': 'warn',
+      // Put this to 'off' for now as changing this leads to breaking changes in the code
+      '@angular-eslint/prefer-on-push-component-change-detection': 'off',
       '@angular-eslint/component-class-suffix': 'warn',
       '@angular-eslint/no-async-lifecycle-method': 'warn',
       'perfectionist/sort-enums': 'warn',
@@ -140,6 +141,7 @@ module.exports = tseslint.config(
       //  },
       //],
       'simple-import-sort/exports': 'error',
+      'prettier/prettier': ['error', { endOfLine: 'auto' }],
     },
   },
   {
@@ -149,6 +151,7 @@ module.exports = tseslint.config(
       ...eslintPluginJasmine.rules.recommended,
       '@typescript-eslint/unbound-method': 'off',
       '@typescript-eslint/no-floating-promises': 'off',
+      'prettier/prettier': ['error', { endOfLine: 'auto' }],
     },
   },
   {
@@ -204,6 +207,7 @@ module.exports = tseslint.config(
         'error',
         {
           parser: 'angular',
+          endOfLine: 'auto',
         },
       ],
     },
@@ -211,6 +215,8 @@ module.exports = tseslint.config(
   {
     files: ['**/*.js'],
     extends: [eslintPluginPrettierRecommended],
-    rules: {},
+    rules: {
+      'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    },
   },
 );

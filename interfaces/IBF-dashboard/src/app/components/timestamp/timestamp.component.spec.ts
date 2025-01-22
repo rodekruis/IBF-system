@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { TimestampComponent } from 'src/app/components/timestamp/timestamp.component';
+import { TimestampComponent } from './timestamp.component';
 
 describe('TimestampComponent', () => {
   let component: TimestampComponent;

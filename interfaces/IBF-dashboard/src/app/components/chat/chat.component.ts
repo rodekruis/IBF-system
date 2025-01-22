@@ -9,7 +9,6 @@ import {
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActionResultPopoverComponent } from 'src/app/components/action-result-popover/action-result-popover.component';
-import { ToggleTriggerPopoverComponent } from 'src/app/components/toggle-trigger-popover/toggle-trigger-popover.component';
 import {
   Country,
   CountryDisasterSettings,
@@ -42,10 +41,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ChatComponent implements OnInit, OnDestroy {
   public triggeredAreas: TriggeredArea[];
-  public activeAreas: TriggeredArea[];
-  public filteredActiveAreas: TriggeredArea[];
-  public stoppedAreas: TriggeredArea[];
-  public filteredStoppedAreas: TriggeredArea[];
+  public filteredAreas: TriggeredArea[];
   public activeDisasterType: string;
   public eventState: EventState;
   private timelineState: TimelineState;
@@ -177,13 +173,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.setupChatText();
   };
 
-  private onTriggeredAreasChange = (triggeredAreas) => {
+  private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
     this.triggeredAreas = triggeredAreas;
     this.triggeredAreas.forEach((area) => {
       this.disableSubmitButtonForTriggeredArea(area);
     });
-    this.stoppedAreas = this.triggeredAreas.filter((area) => area.stopped);
-    this.activeAreas = this.triggeredAreas.filter((area) => !area.stopped);
     this.onPlaceCodeChange(this.placeCode);
   };
 
@@ -194,12 +188,9 @@ export class ChatComponent implements OnInit, OnDestroy {
       (t) => t.value === this.timelineState?.activeLeadTime,
     );
     if (placeCode && (!activeLeadTime || activeLeadTime.alert)) {
-      const filterTriggeredAreasByPlaceCode = (triggeredArea) =>
+      const filterTriggeredAreasByPlaceCode = (triggeredArea: TriggeredArea) =>
         triggeredArea.placeCode === placeCode.placeCode;
-      this.filteredActiveAreas = this.activeAreas.filter(
-        filterTriggeredAreasByPlaceCode,
-      );
-      this.filteredStoppedAreas = this.stoppedAreas.filter(
+      this.filteredAreas = this.triggeredAreas.filter(
         filterTriggeredAreasByPlaceCode,
       );
     } else {
@@ -209,8 +200,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private setDefaultFilteredAreas = () => {
-    this.filteredActiveAreas = [];
-    this.filteredStoppedAreas = [];
+    this.filteredAreas = [];
   };
 
   private setupChatText = () => {
@@ -240,10 +230,10 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       this.updateSuccessMessage = this.translateService.instant(
         `chat-component.common.save-actions.update-success`,
-      );
+      ) as string;
       this.updateFailureMessage = this.translateService.instant(
         `chat-component.common.save-actions.update-failure`,
-      );
+      ) as string;
 
       this.setLastModelRunDate(this.disasterType);
 
@@ -262,21 +252,25 @@ export class ChatComponent implements OnInit, OnDestroy {
     );
   };
 
-  private disableSubmitButtonForTriggeredArea = (triggeredArea) =>
-    (triggeredArea.submitDisabled = true);
+  private disableSubmitButtonForTriggeredArea = (
+    triggeredArea: TriggeredArea,
+  ) => (triggeredArea.submitDisabled = true);
 
-  private filterTriggeredAreaByPlaceCode = (placeCode) => (triggeredArea) =>
-    triggeredArea.placeCode === placeCode;
+  private filterTriggeredAreaByPlaceCode =
+    (placeCode: string) => (triggeredArea: TriggeredArea) =>
+      triggeredArea.placeCode === placeCode;
 
   private filterChangedEAPActionByChangedEAPAction =
-    (changedAction) => (eapAction) =>
+    (changedAction: EapAction) => (eapAction: EapAction) =>
       !(eapAction.action === changedAction.action);
 
-  private filterEAPActionByEAPAction = (action) => (eapAction) =>
-    eapAction.action === action;
+  private filterEAPActionByEAPAction =
+    (action: string) => (eapAction: EapAction) =>
+      eapAction.action === action;
 
-  private filterEAPActionByPlaceCode = (placeCode) => (eapAction) =>
-    eapAction.placeCode === placeCode;
+  private filterEAPActionByPlaceCode =
+    (placeCode: string) => (eapAction: EapAction) =>
+      eapAction.placeCode === placeCode;
 
   public changeAction(
     placeCode: string,
@@ -315,7 +309,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   }
 
-  private checkEAPAction = (action) => {
+  private checkEAPAction = (action: EapAction) => {
     return this.eapActionsService.checkEapAction(
       action.action,
       action.checked,
@@ -343,7 +337,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     ).subscribe({
       next: () => this.actionResult(this.updateSuccessMessage),
       error: () => {
-        this.actionResult(this.updateFailureMessage);
+        void this.actionResult(this.updateFailureMessage);
         this.revertActionStatusIfFailed();
       },
     });
@@ -374,84 +368,10 @@ export class ChatComponent implements OnInit, OnDestroy {
 
     await popover.present();
 
-    popover.onDidDismiss().then(() => {
+    void popover.onDidDismiss().then(() => {
       this.placeCodeService.setPlaceCode(this.placeCode);
       this.changedActions = [];
     });
-  }
-
-  public async openToggleTriggerPopup(
-    triggeredArea: TriggeredArea,
-    stop: boolean,
-  ): Promise<void> {
-    const stopNode = stop ? 'stop-trigger-popup' : 'reactivate-trigger-popup';
-    const eapNode = this.disasterTypeService.hasEap(
-      this.disasterType.disasterType,
-    );
-    const popover = await this.popoverController.create({
-      component: ToggleTriggerPopoverComponent,
-      animated: true,
-      cssClass: 'ibf-popover ibf-popover-normal',
-      translucent: true,
-      showBackdrop: true,
-      componentProps: {
-        area: triggeredArea,
-        eapNode,
-        stopNode,
-        disasterType: this.disasterType.disasterType,
-      },
-    });
-
-    await popover.present();
-
-    popover.onDidDismiss().then((res) => {
-      if (!res) {
-        return;
-      }
-
-      if (!res.role) {
-        return;
-      }
-
-      if (res.role === 'confirm') {
-        this.toggleTrigger(
-          triggeredArea.eventPlaceCodeId,
-          triggeredArea.placeCode,
-          stopNode,
-          eapNode,
-        );
-      }
-    });
-  }
-
-  public toggleTrigger(
-    eventPlaceCodeId: string,
-    placeCode: string,
-    stopNode: string,
-    eapNode: string,
-  ): void {
-    this.analyticsService.logEvent(AnalyticsEvent.stopTrigger, {
-      page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.events?.length > 0,
-      placeCode,
-    });
-    this.apiService.toggleTrigger(eventPlaceCodeId).subscribe({
-      next: () => {
-        this.reloadEapAndTrigger();
-      },
-      error: () =>
-        this.actionResult(
-          this.translateService.instant(
-            `chat-component.common.${stopNode}.${eapNode}.failure`,
-          ),
-        ),
-    });
-  }
-
-  private reloadEapAndTrigger() {
-    this.eapActionsService.getTriggeredAreasApi();
-    this.eventService.getEvents();
-    this.placeCodeService.clearPlaceCode();
   }
 
   public getClearOutMessage(event: EventSummary) {
@@ -492,7 +412,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       }
     }
 
-    let translateKey;
+    let translateKey: string;
     if (Object.values(forecastAreas).length === 1) {
       if (forecastMonthNumbers.includes(currentMonth.month - 1)) {
         translateKey = 'chat-component.drought.clear-out.national.message';
@@ -508,7 +428,9 @@ export class ChatComponent implements OnInit, OnDestroy {
         return;
       }
     }
-    return translateKey ? this.translateService.instant(translateKey) : null;
+    return translateKey
+      ? (this.translateService.instant(translateKey) as string)
+      : null;
   }
 
   public getForecastInfo() {
@@ -520,9 +442,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       KEN: () => {
         const currentMonth = this.timelineState.today.month;
 
-        const prefixKey = 'prefix';
-        const prefix =
-          this.countryDisasterSettings.monthlyForecastInfo[prefixKey];
+        const prefix: string =
+          this.countryDisasterSettings.monthlyForecastInfo.prefix;
 
         const currentMonthforecastInfo =
           this.countryDisasterSettings.monthlyForecastInfo[currentMonth];
@@ -530,8 +451,9 @@ export class ChatComponent implements OnInit, OnDestroy {
           return [];
         }
 
-        return currentMonthforecastInfo.map((forecast) =>
-          this.translateService.instant(`${prefix}.${forecast}`),
+        return currentMonthforecastInfo.map(
+          (forecast) =>
+            this.translateService.instant(`${prefix}.${forecast}`) as string,
         );
       },
       ZWE: () => {
@@ -549,7 +471,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       {
         nrActions,
       },
-    );
+    ) as string;
     if (!nrForecasts) {
       return text.charAt(0).toUpperCase() + text.slice(1);
     } else {
@@ -592,7 +514,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   }
 
-  public getAreaParentString(area): string {
+  public getAreaParentString(area: TriggeredArea): string {
     if (!area.nameParent) {
       return '';
     }
