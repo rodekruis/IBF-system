@@ -9,8 +9,7 @@ export default (
   components: Partial<Components>,
   disasterType: string,
 ) => {
-  // Skip for now, as test often fails
-  test.skip(
+  test(
     qase(3, 'User state component elements should be visible'),
     {
       annotation: {
