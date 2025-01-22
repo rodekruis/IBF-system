@@ -4,10 +4,13 @@ import * as os from 'os';
 import { Locator, Page } from 'playwright';
 
 import EnglishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
+import { NoTriggerDataSet } from '../testData/testData.enum';
 import DashboardPage from './DashboardPage';
 
 const chatDialogueContentWelcomeNoTrigger =
-  EnglishTranslations['chat-component'].floods['no-event-no-trigger'].welcome;
+  EnglishTranslations['chat-component'][NoTriggerDataSet.DisasterType][
+    'no-event-no-trigger'
+  ].welcome;
 const chatDialogueWarnLabel =
   EnglishTranslations['chat-component'].common['warn-label'].message;
 const eventTooltipContent =
@@ -94,17 +97,16 @@ class ChatComponent extends DashboardPage {
   async chatColumnIsVisibleForTriggerState({
     firstName,
     lastName,
+    date,
   }: {
     firstName: string;
     lastName: string;
+    date: Date;
   }) {
     // String cleaning to remove <strong> tags and replace placeholders with actual values
     const cleanedString = chatDialogueWarnLabel.replace(/<\/?strong>/g, '');
-
-    const date = new Date();
     const formattedDate = format(date, 'EEEE, dd MMMM');
     const formattedTime = format(date, 'HH:mm');
-
     const lastModelRunDate = `${formattedDate} ${formattedTime}`;
 
     // Formatted Strings
@@ -202,9 +204,9 @@ class ChatComponent extends DashboardPage {
   }
 
   async validateEventsInfoButtonsAreClickable() {
-    const counttoolTipInfoButton = await this.tooltipButton.count();
+    const countTooltipInfoButton = await this.tooltipButton.count();
 
-    for (let i = 0; i < counttoolTipInfoButton; i++) {
+    for (let i = 0; i < countTooltipInfoButton; i++) {
       const toolTipInfoButton = this.tooltipButton.nth(i);
       await toolTipInfoButton.click();
       await this.validatePopOverText({ text: eventTooltipContent });

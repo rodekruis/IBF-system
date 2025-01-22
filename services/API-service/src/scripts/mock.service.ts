@@ -200,16 +200,11 @@ export class MockService {
             event,
           );
         }
-
-        if (this.shouldMockRasterFile(disasterType)) {
-          // NOTE: in the floods-pipeline this should not happen per event, but per leadTime. So flood extents will be aggregated per leadTime after the event-loop. For mock-purposes this does not matter enough to change. For other disaster-types not sure also, so leaving like this.
-          this.mockHelpService.mockRasterFile(
-            selectedCountry,
-            disasterType,
-            true,
-          );
-        }
       }
+    }
+
+    if (this.shouldMockRasterFile(disasterType)) {
+      this.mockHelpService.mockRasterFile(selectedCountry, disasterType, true);
     }
 
     if (this.shouldMockGlofasStations(disasterType)) {

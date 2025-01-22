@@ -12,6 +12,8 @@ class DashboardPage {
   readonly countrySwitcherDropdownOption: Locator;
   readonly dashboardDevControlCloseButton: Locator;
   readonly loader: Locator;
+  readonly tooltipLabel: Locator;
+  readonly tooltipContent: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -32,6 +34,8 @@ class DashboardPage {
       'dashboard-dev-control-close-button',
     );
     this.loader = this.page.getByTestId('loader');
+    this.tooltipLabel = this.page.getByTestId('layer-info-title');
+    this.tooltipContent = this.page.getByTestId('layer-info-content');
   }
 
   getRandomInt(min: number, max: number): number {
@@ -40,25 +44,24 @@ class DashboardPage {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  async navigateToFloodDisasterType() {
+  async navigateToDisasterType(disasterType: string) {
     await this.page.waitForSelector(
-      '[data-testid=disaster-type-button-floods]',
+      `[data-testid=disaster-type-button-${disasterType}]`,
     );
-    await this.floodIcon.click();
-  }
-
-  async navigateToHeavyRainDisasterType() {
-    await this.page.waitForSelector(
-      '[data-testid=disaster-type-button-heavy-rain]',
-    );
-    await this.heavyRainIcon.click();
-  }
-
-  async navigateToDroughtDisasterType() {
-    await this.page.waitForSelector(
-      '[data-testid=disaster-type-button-drought]',
-    );
-    await this.droughtIcon.click();
+    switch (disasterType) {
+      case 'floods':
+        await this.floodIcon.click();
+        break;
+      case 'heavy-rain':
+        await this.heavyRainIcon.click();
+        break;
+      case 'drought':
+        await this.droughtIcon.click();
+        break;
+      default:
+        console.log('Invalid disaster type');
+        break;
+    }
   }
 
   async waitForLoaderToDisappear() {
@@ -70,9 +73,25 @@ class DashboardPage {
   async validatePopOverText({ text }: { text: string }) {
     const popOverText = await this.page
       .locator('app-tooltip-popover')
+      .nth(0)
       .textContent();
     const popOverTextTrimmed = popOverText?.trim();
     expect(popOverTextTrimmed).toContain(text);
+  }
+
+  async validateLabel({ text }: { text: string }) {
+    const label = await this.tooltipLabel.textContent();
+    expect(label).toContain(text);
+  }
+
+  async validateDescription({ text }: { text: string }) {
+    const description = await this.tooltipContent.textContent();
+    expect(description).toContain(text);
+  }
+
+  async waitForPageToBeLoadedAndStable() {
+    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForTimeout(500);
   }
 }
 

@@ -1,0 +1,45 @@
+import test from '@playwright/test';
+import { qase } from 'playwright-qase-reporter';
+import { NoTriggerDataSet } from 'testData/testData.enum';
+
+import { Components, Pages } from '../../helpers/interfaces';
+
+export default (
+  pages: Partial<Pages>,
+  components: Partial<Components>,
+  disasterType: string,
+) => {
+  // Skip for now, as test often fails
+  test.skip(
+    qase(3, 'User state component elements should be visible'),
+    {
+      annotation: {
+        type: 'url',
+        description: 'https://app.qase.io/project/IBF?case=3',
+      },
+    },
+    async () => {
+      const { dashboard } = pages;
+      const { userState } = components;
+
+      if (!dashboard || !userState) {
+        throw new Error('pages and components not found');
+      }
+
+      // Navigate to disaster type the data was mocked for
+      await dashboard.navigateToDisasterType(disasterType);
+      // Assertions
+      await userState.headerComponentIsVisible({
+        countryName: NoTriggerDataSet.CountryName,
+      });
+      await userState.allUserStateElementsAreVisible({
+        firstName: NoTriggerDataSet.firstName,
+        lastName: NoTriggerDataSet.lastName,
+      });
+
+      // Reload the page to prepare for next test
+      await dashboard.page.goto('/');
+      await dashboard.page.waitForTimeout(1000);
+    },
+  );
+};

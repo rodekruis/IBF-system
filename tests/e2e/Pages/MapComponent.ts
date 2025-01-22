@@ -304,7 +304,7 @@ class MapComponent extends DashboardPage {
   async assertAlertThresholdLines({ visible = false }: { visible: boolean }) {
     if (visible === true) {
       const alertThresholdLinesCount = await this.alerThresholdLines.count();
-      const nthSelector = this.getRandomInt(1, alertThresholdLinesCount);
+      const nthSelector = this.getRandomInt(1, alertThresholdLinesCount) - 1;
       // Assert that the number of alerThresholdLines is greater than 0 and randomly select one to be visible
       expect(alertThresholdLinesCount).toBeGreaterThan(0);
       await expect(this.alerThresholdLines.nth(nthSelector)).toBeVisible();
@@ -319,7 +319,7 @@ class MapComponent extends DashboardPage {
 
     // Count the number of red cross markers
     const redCrossMarkersCount = await this.redCrossMarker.count();
-    const nthSelector = this.getRandomInt(1, redCrossMarkersCount);
+    const nthSelector = this.getRandomInt(1, redCrossMarkersCount) - 1;
 
     // Assert that the number of red cross markers is greater than 0 and randomly select one to be visible
     expect(redCrossMarkersCount).toBeGreaterThan(0);
@@ -332,7 +332,7 @@ class MapComponent extends DashboardPage {
 
     // Count the number of gloFAS markers
     const gloFASMarkersCount = await this.gloFASMarker.count();
-    const nthSelector = this.getRandomInt(1, gloFASMarkersCount);
+    const nthSelector = this.getRandomInt(1, gloFASMarkersCount) - 1;
 
     // Assert that the number of gloFAS markers is greater than 0 and randomly select one to be visible
     expect(gloFASMarkersCount).toBeGreaterThan(0);
@@ -349,7 +349,7 @@ class MapComponent extends DashboardPage {
       const layer = this.page.getByAltText(layerName);
       // Count the number of markers
       const markersCount = await layer.count();
-      const nthSelector = this.getRandomInt(1, markersCount);
+      const nthSelector = this.getRandomInt(1, markersCount) - 1;
 
       // Assert that the number of gloFAS markers is greater than 0 and randomly select one to be visible
       expect(markersCount).toBeGreaterThan(0);
@@ -372,7 +372,7 @@ class MapComponent extends DashboardPage {
 
     if (isVisible) {
       const markersCount = await glofasMarker.count();
-      const nthSelector = this.getRandomInt(0, markersCount - 1);
+      const nthSelector = this.getRandomInt(1, markersCount) - 1;
 
       expect(markersCount).toBeGreaterThan(0);
       await expect(glofasMarker.nth(nthSelector)).toBeVisible();
