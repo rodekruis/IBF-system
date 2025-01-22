@@ -1,3 +1,12 @@
+## [0.278.1](https://github.com/rodekruis/IBF-system/compare/v0.278.0...v0.278.1) (2025-01-22)
+
+
+### Bug Fixes
+
+* flaky e2e tests AB[#32712](https://github.com/rodekruis/IBF-system/issues/32712) ([d25841d](https://github.com/rodekruis/IBF-system/commit/d25841d1d28f1185b66edf9fd7cee9e2734a9448))
+
+
+
 # [0.278.0](https://github.com/rodekruis/IBF-system/compare/v0.277.20...v0.278.0) (2025-01-10)
 
 
@@ -96,15 +105,6 @@
 
 * process some automatic + quickwin eslint warnings ([a8af3a6](https://github.com/rodekruis/IBF-system/commit/a8af3a67b9eace943c7a1059c6776437a807bcd1))
 * revert small change in indicator-metadata ([023742a](https://github.com/rodekruis/IBF-system/commit/023742a0d96bd832738a553b1ea3ac871c253c98))
-
-
-
-## [0.277.7](https://github.com/rodekruis/IBF-system/compare/v0.277.6...v0.277.7) (2024-12-19)
-
-
-### Bug Fixes
-
-* move API-service lint-staged in rc file ([f52fdb8](https://github.com/rodekruis/IBF-system/commit/f52fdb89c4d79bc90c103f90dfc139ecb62820d2))
 
 
 
