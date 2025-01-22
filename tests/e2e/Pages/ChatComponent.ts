@@ -4,13 +4,9 @@ import * as os from 'os';
 import { Locator, Page } from 'playwright';
 
 import EnglishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
-import { NoTriggerDataSet } from '../testData/testData.enum';
+import { DisasterTypeEnum } from '../tests/ScenarioNoTrigger.spec';
 import DashboardPage from './DashboardPage';
 
-const chatDialogueContentWelcomeNoTrigger =
-  EnglishTranslations['chat-component'][NoTriggerDataSet.DisasterType][
-    'no-event-no-trigger'
-  ].welcome;
 const chatDialogueWarnLabel =
   EnglishTranslations['chat-component'].common['warn-label'].message;
 const eventTooltipContent =
@@ -62,9 +58,11 @@ class ChatComponent extends DashboardPage {
   async chatColumnIsVisibleForNoTriggerState({
     firstName,
     lastName,
+    disasterType,
   }: {
     firstName: string;
     lastName: string;
+    disasterType: DisasterTypeEnum;
   }) {
     // String cleaning to remove <strong> tags and replace placeholders with actual values
     const cleanedString = chatDialogueWarnLabel.replace(/<\/?strong>/g, '');
@@ -79,6 +77,10 @@ class ChatComponent extends DashboardPage {
     const chatDialogueContent = cleanedString
       .replace('{{ name }}', `${firstName} ${lastName}`)
       .replace('{{lastModelRunDate}}', lastModelRunDate);
+
+    const chatDialogueContentWelcomeNoTrigger =
+      EnglishTranslations['chat-component'][disasterType]['no-event-no-trigger']
+        .welcome;
     const chatDialogueContentNoAlerts =
       chatDialogueContentWelcomeNoTrigger.replace(/<\/?strong>/g, '');
 

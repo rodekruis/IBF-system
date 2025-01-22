@@ -56,7 +56,7 @@ class AggregatesComponent extends DashboardPage {
     await expect(this.aggregateSectionColumn).toContainText('National View');
   }
 
-  async aggregatesAlementsDisplayedInNoTrigger() {
+  async aggregatesElementsDisplayedInNoTrigger() {
     // Wait for the page to load
     await this.page.waitForSelector('[data-testid="loader"]', {
       state: 'hidden',
@@ -73,10 +73,10 @@ class AggregatesComponent extends DashboardPage {
     const iconLayerCount = await this.aggregatesInfoIcon.count();
 
     // Basic Assertions
-    expect(headerTextModified).toBe('National View 0 Predicted Flood(s)');
+    expect(headerTextModified).toBe('National View 0 Predicted Drought(s)'); // TODO: make Flood(s) disaster-type agnostic
     await expect(this.aggreagtesTitleInfoIcon).toBeVisible();
-    expect(layerCount).toBe(5);
-    expect(iconLayerCount).toBe(5);
+    expect(layerCount).toBe(5); // TODO: this is UGA floods specific
+    expect(iconLayerCount).toBe(5); // TODO: this is UGA floods specific
 
     // Loop through the layers and check if they are present with correct data
     for (const affectedNumber of affectedNumbers) {
@@ -84,6 +84,7 @@ class AggregatesComponent extends DashboardPage {
       expect(affectedNumberText).toContain('0');
     }
     // Loop through the layers and check if they are present with correct names
+    // TODO: expectedLayersNames is UGA floods specific
     for (const layerName of expectedLayersNames) {
       const layerLocator = this.aggregatesLayerRow.locator(`text=${layerName}`);
       await expect(layerLocator).toBeVisible();

@@ -64,7 +64,7 @@ export class LinesDataService {
           'GEOMETRYCOLLECTION(${line.wkt})')`,
       };
     });
-    await this.linesDataRepository.save(dataArray, { chunk: 100 });
+    await this.linesDataRepository.save(dataArray, { chunk: 1000 });
   }
 
   public async uploadCsv(

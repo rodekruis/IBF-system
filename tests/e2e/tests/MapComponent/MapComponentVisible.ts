@@ -3,6 +3,7 @@ import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { Components, Pages } from '../../helpers/interfaces';
+import { DisasterTypeEnum } from '../ScenarioNoTrigger.spec';
 
 export default (
   pages: Partial<Pages>,
@@ -10,7 +11,7 @@ export default (
   disasterType: string,
 ) => {
   test(
-    qase(2, 'Map component elements should be visible'),
+    qase(2, `Map component elements should be visible - ${disasterType}`),
     {
       annotation: {
         type: 'url',
@@ -32,7 +33,11 @@ export default (
         countryName: NoTriggerDataSet.CountryName,
       });
       await map.mapComponentIsVisible();
-      await map.breadCrumbViewIsVisible({ nationalView: true });
+
+      // PROTOTYPE EXAMPLE of disaster-type specific assertion
+      if (disasterType === DisasterTypeEnum.Floods) {
+        await map.breadCrumbViewIsVisible({ nationalView: true });
+      }
       await map.isLegendOpen({ legendOpen: true });
       await map.isLayerMenuOpen({ layerMenuOpen: false });
       await map.assertAdminBoundariesVisible();

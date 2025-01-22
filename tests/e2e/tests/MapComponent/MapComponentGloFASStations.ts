@@ -3,14 +3,15 @@ import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { Components, Pages } from '../../helpers/interfaces';
+import { DisasterTypeEnum } from '../ScenarioNoTrigger.spec';
 
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  disasterType: DisasterTypeEnum,
 ) => {
   test(
-    qase(28, 'glofas_stations should be visible'),
+    qase(28, `glofas_stations should be visible - ${disasterType}`),
     {
       annotation: {
         type: 'url',
@@ -23,6 +24,12 @@ export default (
 
       if (!dashboard || !userState || !map) {
         throw new Error('pages and components not found');
+      }
+
+      // PROTOTYPE EXAMPLE of disaster-type specific test skip
+      if (disasterType !== DisasterTypeEnum.Floods) {
+        console.log('Skipping test for disaster type:', disasterType);
+        return;
       }
 
       // Navigate to disaster type the data was mocked for

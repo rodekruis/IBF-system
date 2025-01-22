@@ -28,7 +28,7 @@ export default (
       await dashboard.navigateToDisasterType(disasterType);
       // Assertions
       await aggregates.aggregateComponentIsVisible();
-      await aggregates.aggregatesAlementsDisplayedInNoTrigger();
+      await aggregates.aggregatesElementsDisplayedInNoTrigger();
 
       // Reload the page to prepare for next test
       await dashboard.page.goto('/');
