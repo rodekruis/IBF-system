@@ -21,7 +21,11 @@ import { MetadataService } from '../api/metadata/metadata.service';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { DEBUG } from '../config';
-import { TyphoonScenario } from './enum/mock-scenario.enum';
+import {
+  FlashFloodsScenario,
+  FloodsScenario,
+  TyphoonScenario,
+} from './enum/mock-scenario.enum';
 import { GeoserverSyncService } from './geoserver-sync.service';
 import { Country } from './interfaces/country.interface';
 import countries from './json/countries.json';
@@ -242,7 +246,7 @@ export class MockService {
       );
     }
 
-    if (this.shouldMockDynamicPointData(disasterType)) {
+    if (this.shouldMockDynamicPointData(disasterType, scenario.scenarioName)) {
       await this.mockHelpService.mockDynamicPointData(
         selectedCountry.countryCodeISO3,
         disasterType,
@@ -383,15 +387,15 @@ export class MockService {
         countryCodeISO3,
         disasterType,
       );
-    let exposureUnits = indicators
+    let dynamicIndicators = indicators
       .filter((ind) => ind.dynamic)
       .map((ind) => ind.name as DynamicIndicator);
 
     if (disasterType === DisasterType.Typhoon) {
-      exposureUnits.push(DynamicIndicator.showAdminArea);
+      dynamicIndicators.push(DynamicIndicator.showAdminArea);
       // is this needed?
       if (scenarioName === TyphoonScenario.NoTrigger) {
-        exposureUnits = [
+        dynamicIndicators = [
           DynamicIndicator.housesAffected,
           DynamicIndicator.alertThreshold,
         ];
@@ -399,7 +403,7 @@ export class MockService {
     }
 
     // Make sure 'alert_threshold' is uploaded last
-    return exposureUnits.sort((a, _b) =>
+    return dynamicIndicators.sort((a, _b) =>
       a === DynamicIndicator.alertThreshold ? 1 : -1,
     );
   }
@@ -499,8 +503,14 @@ export class MockService {
     return disasterType === DisasterType.FlashFloods;
   }
 
-  private shouldMockDynamicPointData(disasterType: DisasterType): boolean {
-    return disasterType === DisasterType.FlashFloods;
+  private shouldMockDynamicPointData(
+    disasterType: DisasterType,
+    scenarioName: string,
+  ): boolean {
+    return (
+      disasterType === DisasterType.FlashFloods &&
+      scenarioName !== FlashFloodsScenario.NoTrigger
+    );
   }
 
   private shouldMockTyphoonTrack(disasterType: DisasterType): boolean {
@@ -508,11 +518,9 @@ export class MockService {
   }
 
   public async mockAll(mockAllInput: MockAll) {
-    console.log('mockAllInput: ', mockAllInput);
     const isApiTest = false;
 
     const envCountries = process.env.COUNTRIES.split(',');
-    console.log('envCountries: ', envCountries);
 
     const newMockServiceDisasterTypes = [
       DisasterType.Floods,
@@ -523,7 +531,6 @@ export class MockService {
     ];
 
     for await (const countryCodeISO3 of envCountries) {
-      console.log('countryCodeISO3: ', countryCodeISO3);
       const country = await this.countryRepo.findOne({
         where: { countryCodeISO3: countryCodeISO3 },
         relations: ['disasterTypes'],
@@ -537,10 +544,12 @@ export class MockService {
               countryCodeISO3,
               removeEvents: true,
               date: mockAllInput.date || new Date(),
-              scenario: null, // This is overwritten by useDefaultScenario=true anyway
+              scenario: mockAllInput.triggered
+                ? FloodsScenario.Trigger
+                : FloodsScenario.NoTrigger, // REFACTOR: this works for now but is hack. Should use base-enum values Trigger/NoTrigger. Solve when refactoring /mock/all.
             },
             disasterType.disasterType,
-            true,
+            false,
             isApiTest,
           );
         } else {

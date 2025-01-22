@@ -13,10 +13,7 @@ import { PointDataEnum } from '../api/point-data/point-data.entity';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';
-import {
-  FlashFloodsScenario,
-  TyphoonScenario,
-} from './enum/mock-scenario.enum';
+import { TyphoonScenario } from './enum/mock-scenario.enum';
 import { Country } from './interfaces/country.interface';
 import { Event } from './mock.service';
 
@@ -75,9 +72,6 @@ export class MockHelperService {
     scenarioName: string,
     date: Date,
   ) {
-    if (scenarioName === FlashFloodsScenario.NoTrigger) {
-      return;
-    }
     const keys = [
       'water-level',
       'water-level-reference',

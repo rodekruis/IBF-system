@@ -124,6 +124,7 @@ export class ScriptsService {
           adminLevel,
           selectedCountry.countryCodeISO3,
           disasterType,
+          triggered,
         );
 
         // For every lead-time .. (repeat the same data for every lead-time)
@@ -175,6 +176,7 @@ export class ScriptsService {
     adminLevel: AdminLevel,
     countryCodeISO3: string,
     disasterType: DisasterType,
+    triggered: boolean,
   ) {
     const fileName = `upload-${unit}-${adminLevel}`;
     const ROOT_DIR = path.resolve(
@@ -189,6 +191,11 @@ export class ScriptsService {
     }
     const exposureRaw = fs.readFileSync(filePath, 'utf-8');
     const exposure = JSON.parse(exposureRaw);
+
+    // If non-triggered, replace all values by 0
+    if (!triggered) {
+      exposure.forEach((area) => (area.amount = 0));
+    }
 
     return exposure;
   }

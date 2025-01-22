@@ -62,8 +62,6 @@ export class MockBaseScenario {
 export class MockFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FloodsScenario).join(' | '),
-    description:
-      'trigger: ongoing + trigger + warning event; warning: 1 warning event; warning-to-trigger: 1 event that evolves from warning to trigger',
   })
   @IsEnum(FloodsScenario)
   public readonly scenario: FloodsScenario;
@@ -72,8 +70,6 @@ export class MockFloodsScenario extends MockBaseScenario {
 export class MockFlashFloodsScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(FlashFloodsScenario).join(' | '),
-    description:
-      'trigger: trigger-blantyre + warning-karonga + trigger-ongoing-rumphi; trigger-blantyre: trigger in Blantyre City; warning-karonga: warning in Karonga; trigger-ongoing-rumphi: ongoing trigger in Rumphi',
   })
   @IsEnum(FlashFloodsScenario)
   public readonly scenario: FlashFloodsScenario;
@@ -82,7 +78,6 @@ export class MockFlashFloodsScenario extends MockBaseScenario {
 export class MockMalariaScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(MalariaScenario).join(' | '),
-    description: 'trigger: trigger in each month',
   })
   @IsEnum(MalariaScenario)
   public readonly scenario: MalariaScenario;
@@ -91,11 +86,17 @@ export class MockMalariaScenario extends MockBaseScenario {
 export class MockDroughtScenario extends MockBaseScenario {
   @ApiProperty({
     example: Object.values(DroughtSenario).join(' | '),
-    description:
-      'trigger: trigger for 1st month of each ongoing/upcoming season in each region',
   })
   @IsEnum(DroughtSenario)
   public readonly scenario: DroughtSenario;
+}
+
+export class MockTyphoonScenario extends MockBaseScenario {
+  @ApiProperty({
+    example: Object.values(TyphoonScenario).join(' | '),
+  })
+  @IsEnum(TyphoonScenario)
+  public readonly scenario: TyphoonScenario;
 }
 
 export class MockAll {
@@ -111,15 +112,6 @@ export class MockAll {
   @ApiProperty({ example: new Date() })
   @IsOptional()
   public readonly date: Date;
-}
-
-export class MockTyphoonScenario extends MockBaseScenario {
-  @ApiProperty({
-    example: Object.values(TyphoonScenario).join(' | '),
-    description: 'default: ...',
-  })
-  @IsEnum(TyphoonScenario)
-  public readonly scenario: TyphoonScenario;
 }
 
 @Controller('mock')
