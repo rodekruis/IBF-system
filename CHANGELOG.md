@@ -1,3 +1,12 @@
+## [0.278.5](https://github.com/rodekruis/IBF-system/compare/v0.278.4...v0.278.5) (2025-01-24)
+
+
+### Bug Fixes
+
+* flaky tests because of timestamp AB[#32980](https://github.com/rodekruis/IBF-system/issues/32980) ([c2985be](https://github.com/rodekruis/IBF-system/commit/c2985bedd2d7182291ba2fa92eb8d998ceb21dca))
+
+
+
 ## [0.278.4](https://github.com/rodekruis/IBF-system/compare/v0.278.3...v0.278.4) (2025-01-24)
 
 
@@ -101,15 +110,6 @@
 ### Bug Fixes
 
 * use null as default value for middle name ([093ada0](https://github.com/rodekruis/IBF-system/commit/093ada00aa95c92c88db2f48c10e25f09a0dab97))
-
-
-
-## [0.277.11](https://github.com/rodekruis/IBF-system/compare/v0.277.10...v0.277.11) (2024-12-27)
-
-
-### Bug Fixes
-
-* no border on ion-input, also on focus ([89d5da8](https://github.com/rodekruis/IBF-system/commit/89d5da86d4294ce2356cc0ee033b5a7614370272))
 
 
 
