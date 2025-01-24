@@ -22,7 +22,6 @@ describe('CountryService', () => {
 
   const relations = [
     'countryDisasterSettings',
-    'countryDisasterSettings.activeLeadTimes',
     'disasterTypes',
     'notificationInfo',
   ];
