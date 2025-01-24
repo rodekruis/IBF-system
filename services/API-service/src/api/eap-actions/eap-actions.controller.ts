@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Post, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -12,7 +12,6 @@ import { RolesGuard } from '../../roles.guard';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
-import { AreaOfFocusDto } from './dto/area-of-focus.dto';
 import { CheckEapActionDto } from './dto/check-eap-action.dto';
 import { AddEapActionsDto } from './dto/eap-action.dto';
 import { EapActionStatusEntity } from './eap-action-status.entity';
@@ -78,17 +77,5 @@ export class EapActionsController {
       params.disasterType as DisasterType,
       eapActions,
     );
-  }
-
-  @UseGuards(RolesGuard)
-  @ApiOperation({ summary: 'Get Areas of Focus (categories of EAP-actions)' })
-  @ApiResponse({
-    status: 200,
-    description: 'Areas of focus.',
-    type: [AreaOfFocusDto],
-  })
-  @Get('areas-of-focus')
-  public async getAreasOfFocus(): Promise<AreaOfFocusDto[]> {
-    return await this.eapActionsService.getAreasOfFocus();
   }
 }
