@@ -1,0 +1,43 @@
+import { ApiProperty } from '@nestjs/swagger';
+
+import { IsNotEmpty } from 'class-validator';
+
+import {
+  LeadTime,
+  LeadTimeUnit,
+} from '../../admin-area-dynamic-data/enum/lead-time.enum';
+import { DisasterType } from '../disaster-type.enum';
+
+export class DisasterDto {
+  @ApiProperty({ example: 'DisasterType.Floods' })
+  public disasterType: DisasterType;
+
+  @ApiProperty({ example: 'flood' })
+  public label: string;
+
+  @ApiProperty({ example: 'alert_threshold' })
+  public triggerUnit: string;
+
+  @ApiProperty({ example: 'population_affected' })
+  public actionsUnit: string;
+
+  @ApiProperty({ default: false })
+  public showOnlyTriggeredAreas: boolean;
+
+  @ApiProperty({ example: LeadTimeUnit.day })
+  public leadTimeUnit: LeadTimeUnit;
+
+  @ApiProperty({ example: LeadTime.day0 })
+  public minLeadTime: LeadTime;
+
+  @ApiProperty({ example: LeadTime.day7 })
+  public maxLeadTime: LeadTime;
+}
+
+export class AddDisastersDto {
+  @ApiProperty({
+    example: [{}],
+  })
+  @IsNotEmpty()
+  public disasters: DisasterDto[];
+}
