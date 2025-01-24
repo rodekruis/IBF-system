@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { In, Repository } from 'typeorm';
 
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
-import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { AdminLevel } from './admin-level.enum';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
@@ -25,14 +25,11 @@ export class CountryService {
   private readonly disasterRepository: Repository<DisasterEntity>;
   @InjectRepository(CountryDisasterSettingsEntity)
   private readonly countryDisasterSettingsRepository: Repository<CountryDisasterSettingsEntity>;
-  @InjectRepository(LeadTimeEntity)
-  private readonly leadTimeRepository: Repository<LeadTimeEntity>;
   @InjectRepository(NotificationInfoEntity)
   private readonly notificationInfoRepository: Repository<NotificationInfoEntity>;
 
   private readonly relations: string[] = [
     'countryDisasterSettings',
-    'countryDisasterSettings.activeLeadTimes',
     'disasterTypes',
     'notificationInfo',
   ];
@@ -190,13 +187,7 @@ export class CountryService {
         ? JSON.parse(JSON.stringify(disaster.monthlyForecastInfo))
         : null;
     countryDisasterSettingsEntity.activeLeadTimes =
-      await this.leadTimeRepository.find({
-        where: disaster.activeLeadTimes.map(
-          (countryLeadTime: string): object => {
-            return { leadTimeName: countryLeadTime };
-          },
-        ),
-      });
+      disaster.activeLeadTimes as LeadTime[];
     countryDisasterSettingsEntity.isEventBased = disaster.isEventBased;
 
     const saveResult = await this.countryDisasterSettingsRepository.save(

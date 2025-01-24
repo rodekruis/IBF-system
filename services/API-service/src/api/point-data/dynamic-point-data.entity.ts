@@ -2,12 +2,11 @@ import {
   Column,
   Entity,
   Index,
-  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { LeadTimeEntity } from '../lead-time/lead-time.entity';
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { PointDataEntity } from './point-data.entity';
 
 @Entity('dynamic-point-data')
@@ -21,9 +20,8 @@ export class DynamicPointDataEntity {
   )
   public point: PointDataEntity;
 
-  @ManyToOne((): typeof LeadTimeEntity => LeadTimeEntity)
-  @JoinColumn({ name: 'leadTime', referencedColumnName: 'leadTimeName' })
-  public leadTime: string;
+  @Column({ nullable: true }) // ##TODO: check!
+  public leadTime: LeadTime;
 
   @Column({ type: 'timestamp' })
   @Index()
