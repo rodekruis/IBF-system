@@ -10,7 +10,7 @@ export default (
   disasterType: string,
 ) => {
   test(
-    qase(1, 'Dashboard page elements should be visible'),
+    qase(1, `Dashboard page elements should be visible - ${disasterType}`),
     {
       annotation: {
         type: 'url',
@@ -47,6 +47,7 @@ export default (
       await chat.chatColumnIsVisibleForNoTriggerState({
         firstName: NoTriggerDataSet.firstName,
         lastName: NoTriggerDataSet.lastName,
+        disasterType,
       });
       await aggregates.aggregateComponentIsVisible();
       await map.mapComponentIsVisible();

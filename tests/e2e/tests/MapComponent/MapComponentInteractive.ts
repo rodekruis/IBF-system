@@ -3,6 +3,7 @@ import { qase } from 'playwright-qase-reporter';
 import { NoTriggerDataSet } from 'testData/testData.enum';
 
 import { Components, Pages } from '../../helpers/interfaces';
+import { DisasterTypeEnum } from '../ScenarioNoTrigger.spec';
 
 // REFACTOR: break down the test into separate tests
 // for legend, layer menu, and red cross branches
@@ -10,10 +11,10 @@ import { Components, Pages } from '../../helpers/interfaces';
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  disasterType: DisasterTypeEnum,
 ) => {
   test(
-    qase(7, 'Map component should be interactive'),
+    qase(7, `Map component should be interactive - ${disasterType}`),
     {
       annotation: {
         type: 'url',

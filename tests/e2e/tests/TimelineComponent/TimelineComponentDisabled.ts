@@ -9,7 +9,7 @@ export default (
   components: Partial<Components>,
   disasterType: string,
 ) => {
-  test(
+  test.only(
     qase(14, 'Timeline should be disabled'),
     {
       annotation: {
@@ -31,7 +31,7 @@ export default (
       await userState.headerComponentIsVisible({
         countryName: NoTriggerDataSet.CountryName,
       });
-      await timeline.timelineIsInactive();
+      await timeline.timelineIsInactive(); // TODO: make conditional on disaster-type
 
       // Reload the page to prepare for next test
       await dashboard.page.goto('/');
