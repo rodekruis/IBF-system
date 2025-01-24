@@ -7,6 +7,7 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
+import { AREAS_OF_FOCUS } from 'src/app/models/area-of-focus.const';
 import {
   Country,
   CountryDisasterSettings,
@@ -40,7 +41,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   public country: Country;
   public disasterType: DisasterType;
   public countryDisasterSettings: CountryDisasterSettings;
-  public areasOfFocus: AreaOfFocus[];
+  public areasOfFocus: AreaOfFocus[] = AREAS_OF_FOCUS;
   public triggeredAreas: TriggeredArea[];
   public trigger: boolean;
   public eventState: EventState;
@@ -144,21 +145,12 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       triggeredAreas.forEach(this.onEachTriggeredArea(areaOfFocus));
     };
 
-    const onAreasOfFocusChange = (areasOfFocus: AreaOfFocus[]) => {
-      this.areasOfFocus = areasOfFocus;
-
-      // Start calculation only when last area has eapActions attached to it
-      if (triggeredAreas[triggeredAreas.length - 1]?.eapActions) {
-        // For each area of focus ..
-        this.areasOfFocus.forEach(onEachAreaOfFocus);
-      }
-      this.changeDetectorRef.detectChanges();
-    };
-
-    // Get areas of focus from db
-    if (triggeredAreas.length) {
-      this.apiService.getAreasOfFocus().subscribe(onAreasOfFocusChange);
+    // Start calculation only when last area has eapActions attached to it
+    if (triggeredAreas[triggeredAreas.length - 1]?.eapActions) {
+      // For each area of focus ..
+      this.areasOfFocus.forEach(onEachAreaOfFocus);
     }
+    this.changeDetectorRef.detectChanges();
   }
 
   private onEventStateChange = (eventState: EventState) => {
