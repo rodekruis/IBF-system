@@ -8,6 +8,7 @@ export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
   disasterType: string,
+  date: Date,
 ) => {
   test(
     qase(1, `Dashboard page elements should be visible - ${disasterType}`),

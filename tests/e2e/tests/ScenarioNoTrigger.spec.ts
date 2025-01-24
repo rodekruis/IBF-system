@@ -31,6 +31,7 @@ test.describe.only('Scenario: No Trigger', () => {
   const disasterTypes = [DisasterTypeEnum.Floods, DisasterTypeEnum.Drought];
   const countryCodeISO3 = NoTriggerDataSet.CountryCode;
   const scenario = NoTriggerDataSet.NoTriggerScenario;
+  const date = new Date();
 
   test.beforeAll(async ({ browser }) => {
     page = await browser.newPage();
