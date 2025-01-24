@@ -40,6 +40,7 @@ test.describe('Scenario: No Trigger', () => {
   const disasterType = NoTriggerDataSet.DisasterType;
   const countryCodeISO3 = NoTriggerDataSet.CountryCode;
   const scenario = NoTriggerDataSet.NoTriggerScenario;
+  const date = new Date();
 
   test.beforeAll(async ({ browser }) => {
     page = await browser.newPage();
@@ -58,7 +59,6 @@ test.describe('Scenario: No Trigger', () => {
     await resetDB(accessToken);
 
     // Load a mock scenario
-    const date = new Date();
     await mockData(disasterType, scenario, countryCodeISO3, accessToken, date);
 
     await page.goto('/');
@@ -74,7 +74,7 @@ test.describe('Scenario: No Trigger', () => {
   });
 
   test.describe('DashboardPage', () => {
-    DashboardPageVisible(pages, components, disasterType);
+    DashboardPageVisible(pages, components, disasterType, date);
   });
 
   test.describe('MapComponent', () => {
@@ -93,7 +93,7 @@ test.describe('Scenario: No Trigger', () => {
   });
 
   test.describe('ChatComponent', () => {
-    ChatComponentVisible(pages, components, disasterType);
+    ChatComponentVisible(pages, components, disasterType, date);
     ChatComponentButtonClick(pages, components, disasterType);
   });
 

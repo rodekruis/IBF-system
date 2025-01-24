@@ -62,14 +62,15 @@ class ChatComponent extends DashboardPage {
   async chatColumnIsVisibleForNoTriggerState({
     firstName,
     lastName,
+    date,
   }: {
     firstName: string;
     lastName: string;
+    date: Date;
   }) {
     // String cleaning to remove <strong> tags and replace placeholders with actual values
     const cleanedString = chatDialogueWarnLabel.replace(/<\/?strong>/g, '');
 
-    const date = new Date();
     const formattedDate = format(date, 'EEEE, dd MMMM');
     const formattedTime = format(date, 'HH:mm');
 

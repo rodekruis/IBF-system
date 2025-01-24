@@ -8,6 +8,7 @@ export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
   disasterType: string,
+  date: Date,
 ) => {
   test(
     qase(1, 'Dashboard page elements should be visible'),
@@ -47,6 +48,7 @@ export default (
       await chat.chatColumnIsVisibleForNoTriggerState({
         firstName: NoTriggerDataSet.firstName,
         lastName: NoTriggerDataSet.lastName,
+        date,
       });
       await aggregates.aggregateComponentIsVisible();
       await map.mapComponentIsVisible();
