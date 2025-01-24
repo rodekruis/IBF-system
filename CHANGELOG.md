@@ -1,3 +1,12 @@
+## [0.278.4](https://github.com/rodekruis/IBF-system/compare/v0.278.3...v0.278.4) (2025-01-24)
+
+
+### Bug Fixes
+
+* lint issue ([e27a84e](https://github.com/rodekruis/IBF-system/commit/e27a84e579b02f37244f08bda233114d2e7fce38))
+
+
+
 ## [0.278.3](https://github.com/rodekruis/IBF-system/compare/v0.278.2...v0.278.3) (2025-01-22)
 
 
@@ -101,17 +110,6 @@
 ### Bug Fixes
 
 * no border on ion-input, also on focus ([89d5da8](https://github.com/rodekruis/IBF-system/commit/89d5da86d4294ce2356cc0ee033b5a7614370272))
-
-
-
-## [0.277.10](https://github.com/rodekruis/IBF-system/compare/v0.277.9...v0.277.10) (2024-12-24)
-
-
-### Bug Fixes
-
-* add layer to cache ([8bf65ec](https://github.com/rodekruis/IBF-system/commit/8bf65ec35735e99699050c07197d70b2f2ff849c))
-* also call updateLayer if layer not active AB[#32327](https://github.com/rodekruis/IBF-system/issues/32327) ([1983a65](https://github.com/rodekruis/IBF-system/commit/1983a65eac9fb3ceab64674afe863bfa46bbf194))
-* remove waterpoints cache ([5956067](https://github.com/rodekruis/IBF-system/commit/5956067133c0aeccf4fdcae1554cf0e562ac91be))
 
 
 
