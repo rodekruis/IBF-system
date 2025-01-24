@@ -187,7 +187,7 @@ export class SeedInit implements InterfaceScript {
         return eapActionEntity;
       })
       .filter((action: EapActionEntity): boolean => {
-        return envDisasterTypes.includes(action.countryCodeISO3);
+        return envCountries.includes(action.countryCodeISO3);
       });
     const eapActionRepository = this.dataSource.getRepository(EapActionEntity);
     await eapActionRepository.save(filteredActions);
