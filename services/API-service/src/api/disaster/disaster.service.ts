@@ -11,7 +11,9 @@ export class DisasterService {
   @InjectRepository(DisasterEntity)
   private readonly disasterRepository: Repository<DisasterEntity>;
 
-  public async addOrUpdateDisasters(disasters: AddDisastersDto): Promise<void> {
+  public async addOrUpdateDisasterTypes(
+    disasters: AddDisastersDto,
+  ): Promise<void> {
     for await (const disaster of disasters.disasters) {
       const existingDisaster = await this.disasterRepository.findOne({
         where: {
@@ -19,17 +21,17 @@ export class DisasterService {
         },
       });
       if (existingDisaster) {
-        await this.addOrUpdateDisaster(existingDisaster, disaster);
+        await this.addOrUpdateDisasterType(existingDisaster, disaster);
         continue;
       }
 
       const newDisasterType = new DisasterEntity();
       newDisasterType.disasterType = disaster.disasterType;
-      await this.addOrUpdateDisaster(newDisasterType, disaster);
+      await this.addOrUpdateDisasterType(newDisasterType, disaster);
     }
   }
 
-  private async addOrUpdateDisaster(
+  private async addOrUpdateDisasterType(
     disasterEntity: DisasterEntity,
     disaster: DisasterDto,
   ): Promise<void> {

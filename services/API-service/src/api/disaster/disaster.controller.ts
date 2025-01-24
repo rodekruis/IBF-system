@@ -27,6 +27,6 @@ export class DisasterController {
   public async addOrUpdateCountries(
     @Body() disasters: AddDisastersDto,
   ): Promise<void> {
-    await this.disasterService.addOrUpdateDisasters(disasters);
+    await this.disasterService.addOrUpdateDisasterTypes(disasters);
   }
 }
