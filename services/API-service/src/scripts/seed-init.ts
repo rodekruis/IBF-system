@@ -69,7 +69,7 @@ export class SeedInit implements InterfaceScript {
       disasterDto.maxLeadTime = disaster.maxLeadTime as LeadTime;
       return disasterDto;
     });
-    await this.disasterService.addOrUpdateDisasters({
+    await this.disasterService.addOrUpdateDisasterTypes({
       disasters: disasterDtos,
     });
 
