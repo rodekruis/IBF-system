@@ -4,15 +4,13 @@ import {
   Column,
   Entity,
   JoinColumn,
-  JoinTable,
-  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
-import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { AdminLevel } from './admin-level.enum';
 import { CountryEntity } from './country.entity';
 
@@ -48,12 +46,8 @@ export class CountryDisasterSettingsEntity {
   public defaultAdminLevel: AdminLevel;
 
   @ApiProperty()
-  @ManyToMany(
-    (): typeof LeadTimeEntity => LeadTimeEntity,
-    (leadTime): CountryDisasterSettingsEntity[] => leadTime.countries,
-  )
-  @JoinTable()
-  public activeLeadTimes: LeadTimeEntity[];
+  @Column('json', { nullable: true })
+  public activeLeadTimes: LeadTime[];
 
   @ApiProperty({ example: [3, 10] })
   @Column('json', { nullable: true })

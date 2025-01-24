@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { DEBUG_LOG } from 'src/app/config';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { CountryTriggers } from 'src/app/models/country-triggers.model';
@@ -154,19 +154,7 @@ export class ApiService {
     if (minimalInfo) {
       params = params.append('minimalInfo', String(minimalInfo));
     }
-    return this.get(path, false, params).pipe(
-      map((countries) => {
-        return countries.map((country) => {
-          country.countryDisasterSettings?.map((disaster) => {
-            disaster.activeLeadTimes = disaster.activeLeadTimes.map(
-              (leadTime) => leadTime.leadTimeName,
-            );
-            return disaster;
-          });
-          return country;
-        });
-      }),
-    );
+    return this.get(path, false, params);
   }
 
   getTyphoonTrack(

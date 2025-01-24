@@ -22,6 +22,7 @@ export class UploadAssetExposureStatusDto {
   @ApiProperty({ example: LeadTime.hour1 })
   @IsNotEmpty()
   @IsString()
+  @IsEnum(LeadTime)
   public leadTime: LeadTime;
 
   @ApiProperty({ example: new Date() })
@@ -48,6 +49,7 @@ export class UploadDynamicPointDataDto {
   @ApiProperty({ example: LeadTime.hour1 })
   @IsOptional()
   @IsString()
+  @IsEnum(LeadTime)
   public leadTime: LeadTime;
 
   @ApiProperty({ example: new Date() })

@@ -6,7 +6,6 @@ import { In, Repository } from 'typeorm';
 import countries from '../../scripts/json/countries.json';
 import notificationInfos from '../../scripts/json/notification-info.json';
 import { DisasterEntity } from '../disaster/disaster.entity';
-import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import { CountryEntity } from './country.entity';
@@ -19,7 +18,6 @@ describe('CountryService', () => {
   let countryRepository: Repository<CountryEntity>;
   let disasterRepository: Repository<DisasterEntity>;
   let countryDisasterSettingsRepository: Repository<CountryDisasterSettingsEntity>;
-  let leadTimeRepository: Repository<LeadTimeEntity>;
   let notificationInfoRepository: Repository<NotificationInfoEntity>;
 
   const relations = [
@@ -46,10 +44,6 @@ describe('CountryService', () => {
           useClass: Repository,
         },
         {
-          provide: getRepositoryToken(LeadTimeEntity),
-          useClass: Repository,
-        },
-        {
           provide: getRepositoryToken(NotificationInfoEntity),
           useClass: Repository,
         },
@@ -66,9 +60,6 @@ describe('CountryService', () => {
     countryDisasterSettingsRepository = module.get<
       Repository<CountryDisasterSettingsEntity>
     >(getRepositoryToken(CountryDisasterSettingsEntity));
-    leadTimeRepository = module.get<Repository<LeadTimeEntity>>(
-      getRepositoryToken(LeadTimeEntity),
-    );
     notificationInfoRepository = module.get<Repository<NotificationInfoEntity>>(
       getRepositoryToken(NotificationInfoEntity),
     );
@@ -115,9 +106,6 @@ describe('CountryService', () => {
         .spyOn(countryRepository, 'save')
         .mockResolvedValue(new CountryEntity());
       jest
-        .spyOn(leadTimeRepository, 'find')
-        .mockResolvedValue([new LeadTimeEntity()]);
-      jest
         .spyOn(countryDisasterSettingsRepository, 'save')
         .mockResolvedValue(new CountryDisasterSettingsEntity());
       jest
@@ -140,12 +128,7 @@ describe('CountryService', () => {
         });
         expect(countryRepository.save).toHaveBeenCalled();
 
-        for (const countryDisasterSetting of country.countryDisasterSettings as CountryDisasterSettingsDto[]) {
-          expect(leadTimeRepository.find).toHaveBeenCalledWith({
-            where: countryDisasterSetting.activeLeadTimes.map(
-              (leadTimeName) => ({ leadTimeName }),
-            ),
-          });
+        for (const _countryDisasterSetting of country.countryDisasterSettings as CountryDisasterSettingsDto[]) {
           expect(countryDisasterSettingsRepository.save).toHaveBeenCalled();
           expect(
             countryDisasterSettingsRepository.findOne,

@@ -9,8 +9,8 @@ import {
 } from 'typeorm';
 
 import { GeoJson } from '../../shared/geo.model';
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../country/country.entity';
-import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 
 @Entity('typhoon-track')
 export class TyphoonTrackEntity {
@@ -26,9 +26,8 @@ export class TyphoonTrackEntity {
   })
   public countryCodeISO3: string;
 
-  @ManyToOne((): typeof LeadTimeEntity => LeadTimeEntity)
-  @JoinColumn({ name: 'leadTime', referencedColumnName: 'leadTimeName' })
-  public leadTime: string;
+  @Column({ nullable: true })
+  public leadTime: LeadTime;
 
   @Column({ type: 'date' })
   public date: Date;

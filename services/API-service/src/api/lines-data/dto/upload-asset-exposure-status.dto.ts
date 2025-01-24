@@ -20,6 +20,7 @@ export class UploadLinesExposureStatusDto {
   @ApiProperty({ example: LeadTime.hour1 })
   @IsNotEmpty()
   @IsString()
+  @IsEnum(LeadTime)
   public leadTime: LeadTime;
 
   @ApiProperty({ example: new Date() })
