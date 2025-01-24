@@ -13,7 +13,6 @@ import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { DisasterEntity } from '../api/disaster/disaster.entity';
 import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
 import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
-import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
 import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
@@ -26,7 +25,6 @@ import disasters from './json/disasters.json';
 import eapActions from './json/EAP-actions.json';
 import indicatorMetadata from './json/indicator-metadata.json';
 import layerMetadata from './json/layer-metadata.json';
-import leadTimes from './json/lead-times.json';
 import notificationInfo from './json/notification-info.json';
 import users from './json/users.json';
 import { InterfaceScript } from './scripts.module';
@@ -71,20 +69,6 @@ export class SeedInit implements InterfaceScript {
     });
 
     await disasterRepository.save(disasterEntities);
-
-    // ***** CREATE LEAD TIMES *****
-    console.log('Seed Lead Times...');
-    const leadTimeRepository = this.dataSource.getRepository(LeadTimeEntity);
-
-    const leadTimeEntities = await Promise.all(
-      leadTimes.map(async (leadTime): Promise<LeadTimeEntity> => {
-        const leadTimeEntity = new LeadTimeEntity();
-        leadTimeEntity.leadTimeName = leadTime.leadTimeName;
-        return leadTimeEntity;
-      }),
-    );
-
-    await leadTimeRepository.save(leadTimeEntities);
 
     // ***** CREATE COUNTRIES *****
     console.log(`Seed Countries... ${process.env.COUNTRIES}`);
