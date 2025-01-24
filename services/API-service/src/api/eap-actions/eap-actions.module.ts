@@ -8,7 +8,6 @@ import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { UserEntity } from '../user/user.entity';
 import { UserModule } from '../user/user.module';
 import { CountryEntity } from './../country/country.entity';
-import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionEntity } from './eap-action.entity';
 import { EapActionsController } from './eap-actions.controller';
@@ -20,7 +19,6 @@ import { EapActionsService } from './eap-actions.service';
       UserEntity,
       EapActionEntity,
       EapActionStatusEntity,
-      AreaOfFocusEntity,
       TriggerPerLeadTime,
       CountryEntity,
       EventPlaceCodeEntity,

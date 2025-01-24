@@ -12,7 +12,7 @@ import { RolesGuard } from '../../roles.guard';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
-import { AreaOfFocusEntity } from './area-of-focus.entity';
+import { AreaOfFocusDto } from './dto/area-of-focus.dto';
 import { CheckEapActionDto } from './dto/check-eap-action.dto';
 import { AddEapActionsDto } from './dto/eap-action.dto';
 import { EapActionStatusEntity } from './eap-action-status.entity';
@@ -85,10 +85,10 @@ export class EapActionsController {
   @ApiResponse({
     status: 200,
     description: 'Areas of focus.',
-    type: [AreaOfFocusEntity],
+    type: [AreaOfFocusDto],
   })
   @Get('areas-of-focus')
-  public async getAreasOfFocus(): Promise<AreaOfFocusEntity[]> {
+  public async getAreasOfFocus(): Promise<AreaOfFocusDto[]> {
     return await this.eapActionsService.getAreasOfFocus();
   }
 }
