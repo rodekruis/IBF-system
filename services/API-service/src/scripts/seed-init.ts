@@ -10,7 +10,11 @@ import { CountryEntity } from '../api/country/country.entity';
 import { CountryService } from '../api/country/country.service';
 import { NotificationInfoDto } from '../api/country/dto/notification-info.dto';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
-import { DisasterEntity } from '../api/disaster/disaster.entity';
+import {
+  DisasterEntity as DisasterDto,
+  DisasterEntity,
+} from '../api/disaster/disaster.entity';
+import { DisasterService } from '../api/disaster/disaster.service';
 import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
 import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
@@ -43,6 +47,7 @@ export class SeedInit implements InterfaceScript {
     private seedPointData: SeedPointData,
     private seedLineData: SeedLineData,
     private countryService: CountryService,
+    private disasterService: DisasterService,
   ) {
     this.seedHelper = new SeedHelper(dataSource);
   }
@@ -52,21 +57,21 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE DISASTER *****
     console.log('Seed Disasters...');
-    const disasterRepository = this.dataSource.getRepository(DisasterEntity);
-    const disasterEntities = disasters.map((disaster): DisasterEntity => {
-      const disasterEntity = new DisasterEntity();
-      disasterEntity.disasterType = disaster.disasterType as DisasterType;
-      disasterEntity.label = disaster.label;
-      disasterEntity.triggerUnit = disaster.triggerUnit;
-      disasterEntity.actionsUnit = disaster.actionsUnit;
-      disasterEntity.showOnlyTriggeredAreas = disaster.showOnlyTriggeredAreas;
-      disasterEntity.leadTimeUnit = disaster.leadTimeUnit as LeadTimeUnit;
-      disasterEntity.minLeadTime = disaster.minLeadTime as LeadTime;
-      disasterEntity.maxLeadTime = disaster.maxLeadTime as LeadTime;
-      return disasterEntity;
+    const disasterDtos = disasters.map((disaster): DisasterDto => {
+      const disasterDto = new DisasterDto();
+      disasterDto.disasterType = disaster.disasterType as DisasterType;
+      disasterDto.label = disaster.label;
+      disasterDto.triggerUnit = disaster.triggerUnit;
+      disasterDto.actionsUnit = disaster.actionsUnit;
+      disasterDto.showOnlyTriggeredAreas = disaster.showOnlyTriggeredAreas;
+      disasterDto.leadTimeUnit = disaster.leadTimeUnit as LeadTimeUnit;
+      disasterDto.minLeadTime = disaster.minLeadTime as LeadTime;
+      disasterDto.maxLeadTime = disaster.maxLeadTime as LeadTime;
+      return disasterDto;
     });
-
-    await disasterRepository.save(disasterEntities);
+    await this.disasterService.addOrUpdateDisasters({
+      disasters: disasterDtos,
+    });
 
     // ***** CREATE COUNTRIES *****
     console.log(`Seed Countries... ${process.env.COUNTRIES}`);
@@ -133,6 +138,7 @@ export class SeedInit implements InterfaceScript {
       }
     }
 
+    const disasterRepository = this.dataSource.getRepository(DisasterEntity);
     const userEntities = await Promise.all(
       selectedUsers.map(async (user): Promise<UserEntity> => {
         const userEntity = new UserEntity();
@@ -169,14 +175,6 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE EAP ACTIONS *****
     console.log('Seed EAP Actions...');
-    // class EapAction {
-    //   countryCodeISO3: string;
-    //   disasterType: string;
-    //   areaOfFocus: string;
-    //   action: string;
-    //   label: string;
-    //   month?: object;
-    // }
     const filteredActions: EapActionEntity[] = eapActions
       .map((action): EapActionEntity => {
         const eapActionEntity = new EapActionEntity();
@@ -189,7 +187,7 @@ export class SeedInit implements InterfaceScript {
         return eapActionEntity;
       })
       .filter((action: EapActionEntity): boolean => {
-        return envCountries.includes(action.countryCodeISO3);
+        return envDisasterTypes.includes(action.countryCodeISO3);
       });
     const eapActionRepository = this.dataSource.getRepository(EapActionEntity);
     await eapActionRepository.save(filteredActions);
