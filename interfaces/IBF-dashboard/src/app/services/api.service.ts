@@ -279,7 +279,7 @@ export class ApiService {
     adminLevel: number,
     leadTime: string,
     eventName: string,
-  ): Observable<TriggeredArea> {
+  ): Observable<TriggeredArea[]> {
     let params = new HttpParams();
     if (eventName) {
       params = params.append('eventName', eventName);
@@ -353,10 +353,6 @@ export class ApiService {
       `metadata/layers/${countryCodeISO3}/${disasterType}`,
       false,
     );
-  }
-
-  getAreasOfFocus() {
-    return this.get('eap-actions/areas-of-focus', false);
   }
 
   checkEapAction(

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AREAS_OF_FOCUS } from 'src/app/models/area-of-focus.const';
 import {
   Country,
   CountryDisasterSettings,
@@ -134,7 +135,7 @@ export class EapActionsService {
     }
   }
 
-  private onTriggeredAreas = (triggeredAreas) => {
+  private onTriggeredAreas = (triggeredAreas: TriggeredArea[]) => {
     this.triggeredAreas = triggeredAreas;
     this.triggeredAreas.sort((a, b) => {
       if (a.triggerValue === b.triggerValue) {
@@ -149,6 +150,9 @@ export class EapActionsService {
         this.mapTriggerValueToAlertClass(area);
         this.filterEapActionsByMonth(area);
         area.eapActions.forEach((action) => {
+          action.aofLabel = AREAS_OF_FOCUS.find(
+            (aof) => aof.id === action.aof,
+          ).label;
           if (Object.keys(action.month).length) {
             Object.defineProperty(action, 'monthLong', {
               value: {},

@@ -11,7 +11,6 @@ import { CountryService } from '../api/country/country.service';
 import { NotificationInfoDto } from '../api/country/dto/notification-info.dto';
 import { DisasterType } from '../api/disaster/disaster-type.enum';
 import { DisasterEntity } from '../api/disaster/disaster.entity';
-import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
 import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
 import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
@@ -19,7 +18,6 @@ import { NotificationInfoEntity } from '../api/notification/notifcation-info.ent
 import { UserRole } from '../api/user/user-role.enum';
 import { UserStatus } from '../api/user/user-status.enum';
 import { UserEntity } from '../api/user/user.entity';
-import areasOfFocus from './json/areas-of-focus.json';
 import countries from './json/countries.json';
 import disasters from './json/disasters.json';
 import eapActions from './json/EAP-actions.json';
@@ -169,27 +167,30 @@ export class SeedInit implements InterfaceScript {
 
     await userRepository.save(userEntities);
 
-    // ***** CREATE AREAS OF FOCUS *****
-    console.log('Seed Areas of Focus...');
-    const areaOfFocusRepository =
-      this.dataSource.getRepository(AreaOfFocusEntity);
-    await areaOfFocusRepository.save(areasOfFocus);
-
     // ***** CREATE EAP ACTIONS *****
     console.log('Seed EAP Actions...');
-    class EapAction {
-      countryCodeISO3: string;
-      disasterType: string;
-      areaOfFocus: object;
-      action: string;
-      label: string;
-      month?: object;
-    }
-    const filteredActions: EapAction[] = eapActions.filter(
-      (action: EapAction): boolean => {
+    // class EapAction {
+    //   countryCodeISO3: string;
+    //   disasterType: string;
+    //   areaOfFocus: string;
+    //   action: string;
+    //   label: string;
+    //   month?: object;
+    // }
+    const filteredActions: EapActionEntity[] = eapActions
+      .map((action): EapActionEntity => {
+        const eapActionEntity = new EapActionEntity();
+        eapActionEntity.countryCodeISO3 = action.countryCodeISO3;
+        eapActionEntity.disasterType = action.disasterType;
+        eapActionEntity.action = action.action;
+        eapActionEntity.label = action.label;
+        eapActionEntity.areaOfFocusId = action.areaOfFocusId as string;
+        eapActionEntity.month = JSON.parse(JSON.stringify(action.month || {}));
+        return eapActionEntity;
+      })
+      .filter((action: EapActionEntity): boolean => {
         return envCountries.includes(action.countryCodeISO3);
-      },
-    );
+      });
     const eapActionRepository = this.dataSource.getRepository(EapActionEntity);
     await eapActionRepository.save(filteredActions);
 
