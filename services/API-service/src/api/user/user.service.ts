@@ -11,9 +11,10 @@ import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { LookupService } from '../notification/lookup/lookup.service';
 import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRole } from './user-role.enum';
 import { UserEntity } from './user.entity';
-import { UserResponseObject } from './user.model';
+import { UserData, UserResponseObject } from './user.model';
 
 @Injectable()
 export class UserService {
@@ -115,7 +116,7 @@ export class UserService {
     return this.buildUserRO(user);
   }
 
-  public async update(
+  public async updatePassword(
     loggedInUserId: string,
     dto: UpdatePasswordDto,
   ): Promise<UserResponseObject> {
@@ -155,7 +156,37 @@ export class UserService {
     return this.buildUserRO(updateUser);
   }
 
-  public async generateJWT(user: UserEntity): Promise<string> {
+  // UNIT TEST?
+  public async updateUser(
+    email: string,
+    updateUserData: UpdateUserDto,
+  ): Promise<UserResponseObject> {
+    const user = await this.userRepository.findOne({
+      where: { email },
+    });
+    if (!user) {
+      const errors = { User: 'Not found' };
+      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+    }
+
+    // If nothing to update, raise a 400 Bad Request.
+    if (Object.keys(updateUserData).length === 0) {
+      throw new HttpException(
+        'Update user error: no attributes supplied to update',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+
+    // Overwrite any non-nested attributes of the user (so not countries/disaster-types)
+    for (const attribute in updateUserData) {
+      user[attribute] = updateUserData[attribute];
+    }
+
+    const savedUser = await this.userRepository.save(user);
+    return this.buildUserRO(savedUser, false);
+  }
+
+  private async generateJWT(user: UserEntity): Promise<string> {
     const today = new Date();
     const exp = new Date(today);
     exp.setDate(today.getDate() + 60);
@@ -188,12 +219,25 @@ export class UserService {
     return result;
   }
 
-  private async buildUserRO(user: UserEntity): Promise<UserResponseObject> {
-    const userRO = {
+  // UNIT TEST?
+  public async buildUserRO(
+    user: UserEntity,
+    includeToken = true,
+  ): Promise<UserResponseObject> {
+    const userRO: UserData = {
       email: user.email,
-      token: await this.generateJWT(user),
+      username: user.username,
+      firstName: user.firstName,
+      middleName: user.middleName,
+      lastName: user.lastName,
       userRole: user.userRole,
+      status: user.userStatus,
+      whatsappNumber: user.whatsappNumber,
     };
+
+    if (includeToken) {
+      userRO.token = await this.generateJWT(user);
+    }
 
     return { user: userRO };
   }

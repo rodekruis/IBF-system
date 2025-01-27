@@ -17,7 +17,9 @@ import disasterTypes from '../../../scripts/json/disaster-types.json';
 import { UserRole } from '../user-role.enum';
 import { UserStatus } from '../user-status.enum';
 
-const userRoleArray = Object.values(UserRole).map((item) => String(item));
+export const userRoleArray = Object.values(UserRole).map((item) =>
+  String(item),
+);
 
 export class CreateUserDto {
   @ApiProperty({ example: 'dunant@redcross.nl' })
