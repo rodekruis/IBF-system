@@ -1,6 +1,6 @@
 import { AreaOfFocus } from 'src/app/types/area-of-focus';
 
-// ##TODO: exact same const as in back-end. Solve differently (but better than via endpoint?)
+// ##TODO: exact same const as in back-end. Is this good practice? Better than via endpoint.
 export const AREAS_OF_FOCUS: AreaOfFocus[] = [
   {
     id: 'drr',
