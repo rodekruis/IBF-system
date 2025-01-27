@@ -2,7 +2,9 @@ import {
   Body,
   Controller,
   HttpStatus,
+  Patch,
   Post,
+  Query,
   UseGuards,
   UsePipes,
 } from '@nestjs/common';
@@ -10,6 +12,7 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import {
   ApiBearerAuth,
   ApiOperation,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -18,6 +21,7 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { ValidationPipe } from '../../shared/pipes/validation.pipe';
 import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserRole } from './user-role.enum';
 import { UserDecorator } from './user.decorator';
 import { UserResponseObject } from './user.model';
@@ -64,20 +68,11 @@ export class UserController {
   public async login(
     @Body() loginUserDto: LoginUserDto,
   ): Promise<UserResponseObject> {
-    const _user = await this.userService.findOne(loginUserDto);
-    if (!_user) {
+    const user = await this.userService.findOne(loginUserDto);
+    if (!user) {
       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
     }
-
-    const token = await this.userService.generateJWT(_user);
-    const { email, userRole } = _user;
-    const user = {
-      email,
-      token,
-      userRole,
-    };
-
-    return { user };
+    return await this.userService.buildUserRO(user);
   }
 
   @ApiBearerAuth()
@@ -88,6 +83,19 @@ export class UserController {
     @UserDecorator('userId') loggedInUserId: string,
     @Body() userData: UpdatePasswordDto,
   ) {
-    return this.userService.update(loggedInUserId, userData);
+    return this.userService.updatePassword(loggedInUserId, userData);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
+  @ApiOperation({ summary: 'Update user properties' })
+  @ApiQuery({ name: 'email', required: true, type: 'string' })
+  @Patch()
+  public async updateUser(
+    @Body() updateUserData: UpdateUserDto,
+    @Query('email') email: string,
+  ): Promise<UserResponseObject> {
+    return this.userService.updateUser(email, updateUserData);
   }
 }
