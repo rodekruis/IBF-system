@@ -30,7 +30,7 @@ export class LinesDataDynamicStatusEntity {
   public timestamp: Date;
 
   @ApiProperty({ example: LeadTime.hour1 })
-  @Column({ nullable: true }) // ##TODO: check!
+  @Column({ nullable: true })
   @Index()
   public leadTime: LeadTime;
 

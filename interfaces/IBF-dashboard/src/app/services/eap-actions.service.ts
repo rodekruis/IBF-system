@@ -179,7 +179,7 @@ export class EapActionsService {
     return this.triggeredAreaSubject.asObservable();
   }
 
-  private formatDates = (triggeredArea) => {
+  private formatDates = (triggeredArea: TriggeredArea) => {
     triggeredArea.startDate = DateTime.fromISO(
       triggeredArea.startDate,
     ).toFormat('cccc, dd LLLL');
@@ -194,7 +194,7 @@ export class EapActionsService {
     // AlertLabel.alert does not need to be defined as {{alertLabel}} is not a variable in the non-eap copy
   };
 
-  private filterEapActionsByMonth = (triggeredArea) => {
+  private filterEapActionsByMonth = (triggeredArea: TriggeredArea) => {
     if (!this.countryDisasterSettings.showMonthlyEapActions) {
       return;
     }
@@ -247,7 +247,7 @@ export class EapActionsService {
       );
   };
 
-  private getRegion(triggeredArea): string {
+  private getRegion(triggeredArea: TriggeredArea): string {
     const nationwideKey = 'National';
 
     if (!this.countryDisasterSettings.droughtRegions) {
@@ -257,7 +257,7 @@ export class EapActionsService {
     const droughtRegions = Object.keys(
       this.countryDisasterSettings.droughtRegions,
     );
-    const isTriggeredAreaInDroughtRegion = (droughtRegion): boolean =>
+    const isTriggeredAreaInDroughtRegion = (droughtRegion: string): boolean =>
       this.countryDisasterSettings.droughtRegions[droughtRegion].includes(
         triggeredArea.placeCode,
       );
@@ -268,7 +268,10 @@ export class EapActionsService {
     }
   }
 
-  private getCurrentRainSeasonName(region, monthOfSelectedLeadTime): string {
+  private getCurrentRainSeasonName(
+    region: string,
+    monthOfSelectedLeadTime: number,
+  ): string {
     const seasons = this.countryDisasterSettings.droughtSeasonRegions[region];
     for (const season of Object.keys(seasons)) {
       if (seasons[season].rainMonths.includes(monthOfSelectedLeadTime)) {

@@ -3,7 +3,7 @@ import path from 'path';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { DataSource, In, IsNull, MoreThanOrEqual, Repository } from 'typeorm';
+import { DataSource, In, MoreThanOrEqual, Repository } from 'typeorm';
 
 import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
 import { HelperService } from '../../shared/helper.service';
@@ -226,26 +226,6 @@ export class AdminAreaDynamicDataService {
       .orderBy('dynamic.date', 'DESC')
       .execute();
     return result;
-  }
-
-  public async getDynamicAdminAreaDataPerPcode(
-    indicator: DynamicIndicator,
-    placeCode: string,
-    leadTime: string,
-    eventName: string,
-  ): Promise<number> {
-    const result = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('dynamic')
-      .where({
-        indicator,
-        placeCode,
-        leadTime,
-        eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
-      })
-      .select(['dynamic.value AS value'])
-      .orderBy('dynamic.date', 'DESC')
-      .execute();
-    return result[0].value;
   }
 
   public async postRaster(
