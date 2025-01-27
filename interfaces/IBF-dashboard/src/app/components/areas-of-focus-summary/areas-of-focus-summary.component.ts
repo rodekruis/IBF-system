@@ -14,7 +14,6 @@ import {
   DisasterType,
 } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
-import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
@@ -50,7 +49,6 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
 
   constructor(
     private eapActionsService: EapActionsService,
-    private apiService: ApiService,
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private changeDetectorRef: ChangeDetectorRef,
