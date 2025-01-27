@@ -110,7 +110,7 @@ export class EapActionsService {
     this.getTriggeredAreasApi();
   };
 
-  public getTriggeredAreasApi() {
+  private getTriggeredAreasApi() {
     if (
       this.country &&
       this.disasterType &&
