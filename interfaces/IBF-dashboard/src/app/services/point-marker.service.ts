@@ -87,7 +87,7 @@ export class PointMarkerService {
     return markerInstance;
   }
 
-  private renderPopUpHTML(popupData): HTMLElement {
+  private renderPopUpHTML(popupData: CommunityNotification): HTMLElement {
     const popup = document.createElement('popup-component');
     const factory = this.componentFactoryResolver.resolveComponentFactory(
       CommunityNotificationPopupComponent,
@@ -108,7 +108,7 @@ export class PointMarkerService {
     return `${lat}, ${lng}`;
   }
 
-  private onMapMarkerClick = (analyticsEvent) => (): void => {
+  private onMapMarkerClick = (analyticsEvent: AnalyticsEvent) => (): void => {
     this.analyticsService.logEvent(analyticsEvent, {
       page: AnalyticsPage.dashboard,
       isActiveTrigger: this.eventService.state.events?.length > 0,
@@ -444,7 +444,7 @@ export class PointMarkerService {
       0,
     );
 
-    const addComma = (n) => Math.round(n).toLocaleString('en-US');
+    const addComma = (n: number) => Math.round(n).toLocaleString('en-US');
 
     const headerContent = `<strong>${title}</strong>`;
 

@@ -7,8 +7,6 @@ import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { DisasterType } from '../disaster/disaster-type.enum';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { UserEntity } from '../user/user.entity';
-import { AREAS_OF_FOCUS } from './area-of-focus.const';
-import { AreaOfFocusDto } from './dto/area-of-focus.dto';
 import { CheckEapActionDto } from './dto/check-eap-action.dto';
 import { AddEapActionsDto } from './dto/eap-action.dto';
 import { EapActionStatusEntity } from './eap-action-status.entity';
@@ -163,11 +161,6 @@ export class EapActionsService {
 
       await this.eapActionStatusRepository.save(action);
     }
-  }
-
-  public async getAreasOfFocus(): Promise<AreaOfFocusDto[]> {
-    // ##TODO: this could be a front-end const also? No need for endpoint.
-    return AREAS_OF_FOCUS;
   }
 
   public async getActionsWithStatus(

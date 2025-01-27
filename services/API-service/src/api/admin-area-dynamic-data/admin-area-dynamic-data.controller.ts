@@ -91,28 +91,6 @@ export class AdminAreaDynamicDataController {
     );
   }
 
-  @ApiOperation({
-    summary: 'Get dynamic admin-area data value for one specific admin-area',
-  })
-  @ApiParam({ name: 'indicator', required: true, type: 'string' })
-  @ApiParam({ name: 'placeCode', required: true, type: 'string' })
-  @ApiParam({ name: 'leadTime', required: true, type: 'string' })
-  @ApiParam({ name: 'eventName', required: true, type: 'string' })
-  @ApiResponse({
-    status: 200,
-    description: 'Dynamic admin-area data value for one specific admin-area.',
-    type: Number,
-  })
-  @Get('single/:indicator/:placeCode/:leadTime/:eventName')
-  public async getAdminAreaDataPerPcode(@Param() params): Promise<number> {
-    return await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
-      params.indicator as DynamicIndicator,
-      params.placeCode,
-      params.leadTime,
-      params.eventName,
-    );
-  }
-
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:

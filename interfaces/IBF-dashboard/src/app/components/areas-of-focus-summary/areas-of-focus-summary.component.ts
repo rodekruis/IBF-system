@@ -21,6 +21,7 @@ import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { AreaOfFocus } from 'src/app/types/area-of-focus';
+import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
 import { TriggeredArea } from 'src/app/types/triggered-area';
 
@@ -117,22 +118,24 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     this.calculateEAPActionStatus(this.triggeredAreas);
   };
 
-  private onEachEAPAction = (areaOfFocus) => (action) => {
-    // And count the total # of (checked) tasks this way
-    if (areaOfFocus.id === action.aof) {
-      areaOfFocus.count += 1;
-      if (action.checked) {
-        areaOfFocus.countChecked += 1;
+  private onEachEAPAction =
+    (areaOfFocus: AreaOfFocus) => (action: EapAction) => {
+      // And count the total # of (checked) tasks this way
+      if (areaOfFocus.id === action.aof) {
+        areaOfFocus.count += 1;
+        if (action.checked) {
+          areaOfFocus.countChecked += 1;
+        }
       }
-    }
-  };
+    };
 
-  private onEachTriggeredArea = (areaOfFocus) => (area) => {
-    // And at each action within the area ..
-    area.eapActions.forEach(this.onEachEAPAction(areaOfFocus));
-  };
+  private onEachTriggeredArea =
+    (areaOfFocus: AreaOfFocus) => (area: TriggeredArea) => {
+      // And at each action within the area ..
+      area.eapActions.forEach(this.onEachEAPAction(areaOfFocus));
+    };
 
-  private calculateEAPActionStatus(triggeredAreas): void {
+  private calculateEAPActionStatus(triggeredAreas: TriggeredArea[]): void {
     if (this.placeCode) {
       triggeredAreas = triggeredAreas.filter(
         (a) => a.placeCode === this.placeCode?.placeCode,
@@ -183,7 +186,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       component: this.constructor.name,
     });
 
-    popover.present();
+    void popover.present();
   }
 
   public showAreasOfFocusSummary(): boolean {

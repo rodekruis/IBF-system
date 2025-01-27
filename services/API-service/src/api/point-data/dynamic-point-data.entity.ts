@@ -20,7 +20,7 @@ export class DynamicPointDataEntity {
   )
   public point: PointDataEntity;
 
-  @Column({ nullable: true }) // ##TODO: check!
+  @Column({ nullable: true })
   public leadTime: LeadTime;
 
   @Column({ type: 'timestamp' })
