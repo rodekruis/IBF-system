@@ -388,6 +388,11 @@ export class AdminAreaService {
         leadTime: leadTime,
       });
     }
+    if (eventName) {
+      adminAreasScript.andWhere('dynamic."eventName" = :eventName', {
+        eventName: eventName,
+      });
+    }
 
     const placeCodes = await this.getPlaceCodes(
       countryCodeISO3,
