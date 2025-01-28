@@ -51,13 +51,12 @@ export class UserService {
 
   public async create(dto: CreateUserDto): Promise<UserResponseObject> {
     const email = dto.email.toLowerCase();
-    const username = dto.username.toLowerCase();
     const user = await this.userRepository.findOne({
-      where: [{ email: email }, { username: username }],
+      where: { email },
     });
 
     if (user) {
-      const errors = { errors: 'Email and username must be unique.' };
+      const errors = { errors: 'Email must be unique.' };
       throw new HttpException(
         { message: 'Input data validation failed', errors },
         HttpStatus.BAD_REQUEST,
@@ -73,13 +72,11 @@ export class UserService {
     // create new user
     const newUser = new UserEntity();
     newUser.email = email;
-    newUser.username = dto.username;
     newUser.password = dto.password;
     newUser.firstName = dto.firstName;
     newUser.middleName = dto.middleName;
     newUser.lastName = dto.lastName;
     newUser.userRole = dto.role;
-    newUser.userStatus = dto.status;
     newUser.whatsappNumber = dto.whatsappNumber;
     newUser.countries = await this.countryRepository.find({
       where: { countryCodeISO3: In(dto.countryCodesISO3) },
@@ -195,12 +192,10 @@ export class UserService {
       {
         userId: user.userId,
         email: user.email,
-        username: user.username,
         firstName: user.firstName,
         middleName: user.middleName,
         lastName: user.lastName,
         userRole: user.userRole,
-        userStatus: user.userStatus,
         countries: user.countries.map(
           (countryEntity): string => countryEntity.countryCodeISO3,
         ),
@@ -226,12 +221,10 @@ export class UserService {
   ): Promise<UserResponseObject> {
     const userRO: UserData = {
       email: user.email,
-      username: user.username,
       firstName: user.firstName,
       middleName: user.middleName,
       lastName: user.lastName,
       userRole: user.userRole,
-      status: user.userStatus,
       whatsappNumber: user.whatsappNumber,
     };
 

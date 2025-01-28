@@ -18,7 +18,6 @@ import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.enti
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
 import { UserRole } from '../api/user/user-role.enum';
-import { UserStatus } from '../api/user/user-status.enum';
 import { UserEntity } from '../api/user/user.entity';
 import countries from './json/countries.json';
 import disasterTypes from './json/disaster-types.json';
@@ -123,6 +122,7 @@ export class SeedInit implements InterfaceScript {
     console.log('Seed Users...');
     const userRepository = this.dataSource.getRepository(UserEntity);
 
+    const dunantEmail = 'dunant@redcross.nl';
     let selectedUsers;
     if (process.env.PRODUCTION_DATA_SERVER === 'yes') {
       selectedUsers = users.filter((user): boolean => {
@@ -131,10 +131,10 @@ export class SeedInit implements InterfaceScript {
       selectedUsers[0].password = process.env.ADMIN_PASSWORD;
     } else {
       const dunantUser = await userRepository.findOne({
-        where: { username: 'dunant' },
+        where: { email: dunantEmail },
       });
       if (dunantUser) {
-        selectedUsers = users.filter((user) => user.username !== 'dunant');
+        selectedUsers = users.filter((user) => user.email !== dunantEmail);
         dunantUser.countries = await countryRepository.find();
         await userRepository.save(dunantUser);
       } else {
@@ -148,7 +148,6 @@ export class SeedInit implements InterfaceScript {
       selectedUsers.map(async (user): Promise<UserEntity> => {
         const userEntity = new UserEntity();
         userEntity.email = user.email;
-        userEntity.username = user.username;
         userEntity.firstName = user.firstName;
         userEntity.lastName = user.lastName;
         userEntity.userRole = user.userRole as UserRole;
@@ -170,7 +169,6 @@ export class SeedInit implements InterfaceScript {
                 };
               }),
             });
-        userEntity.userStatus = user.userStatus as UserStatus;
         userEntity.password = user.password;
         return userEntity;
       }),

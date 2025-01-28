@@ -16,7 +16,6 @@ import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { UserRole } from './user-role.enum';
-import { UserStatus } from './user-status.enum';
 
 @Entity('user')
 export class UserEntity {
@@ -29,9 +28,6 @@ export class UserEntity {
 
   @Column({ nullable: true })
   public whatsappNumber: string;
-
-  @Column({ unique: true })
-  public username: string;
 
   @Column()
   public firstName: string;
@@ -78,9 +74,6 @@ export class UserEntity {
     },
   })
   public disasterTypes: DisasterTypeEntity[];
-
-  @Column({ default: UserStatus.Active })
-  public userStatus: UserStatus;
 
   @Column({ select: false })
   public password: string;

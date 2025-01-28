@@ -4,7 +4,6 @@ import {
   ArrayNotEmpty,
   IsArray,
   IsEmail,
-  IsEnum,
   IsIn,
   IsNotEmpty,
   IsOptional,
@@ -15,7 +14,6 @@ import {
 import countries from '../../../scripts/json/countries.json';
 import disasterTypes from '../../../scripts/json/disaster-types.json';
 import { UserRole } from '../user-role.enum';
-import { UserStatus } from '../user-status.enum';
 
 export const userRoleArray = Object.values(UserRole).map((item) =>
   String(item),
@@ -26,11 +24,6 @@ export class CreateUserDto {
   @IsEmail()
   @IsNotEmpty()
   public email: string;
-
-  @ApiProperty({ example: 'dunant' })
-  @IsString()
-  @IsNotEmpty()
-  public username: string;
 
   @ApiProperty({ example: 'Henry' })
   @IsString()
@@ -70,14 +63,6 @@ export class CreateUserDto {
   @IsArray()
   @ArrayNotEmpty()
   public disasterTypes: string[];
-
-  @ApiProperty({
-    example: UserStatus.Active,
-    default: UserStatus.Inactive,
-  })
-  @IsEnum(UserStatus)
-  @IsNotEmpty()
-  public status: UserStatus;
 
   @ApiProperty({ example: 'password' })
   @IsNotEmpty()

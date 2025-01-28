@@ -1,9 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsEnum, IsIn, IsOptional, IsString } from 'class-validator';
+import { IsIn, IsOptional, IsString } from 'class-validator';
 
 import { UserRole } from '../user-role.enum';
-import { UserStatus } from '../user-status.enum';
 import { userRoleArray } from './create-user.dto';
 
 export class UpdateUserDto {
@@ -29,13 +28,6 @@ export class UpdateUserDto {
   @IsIn(userRoleArray)
   @IsOptional()
   public role?: UserRole;
-
-  @ApiProperty({
-    example: UserStatus.Active,
-  })
-  @IsOptional()
-  @IsEnum(UserStatus)
-  public status?: UserStatus; // TODO: Remove this unused field?
 
   @ApiProperty({ example: '+31600000000' })
   @IsString()

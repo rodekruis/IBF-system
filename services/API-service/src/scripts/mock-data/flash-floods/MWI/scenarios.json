@@ -4,8 +4,7 @@
     "defaultScenario": true,
     "events": [
       { "eventName": "Rumphi", "leadTime": "0-hour" },
-      { "eventName": "Karonga", "leadTime": "24-hour" },
-      { "eventName": "Blantyre City", "leadTime": "6-hour" }
+      { "eventName": "Blantyre City", "leadTime": "0-hour" }
     ]
   },
   {

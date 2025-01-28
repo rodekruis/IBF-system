@@ -48,7 +48,7 @@ export class SeedHelper {
         ) {
           let q;
           if (entity.tableName === 'user') {
-            q = `DELETE FROM \"${repository.metadata.schema}\".\"${entity.tableName}\" WHERE username <> 'dunant'`;
+            q = `DELETE FROM \"${repository.metadata.schema}\".\"${entity.tableName}\" WHERE email <> 'dunant@redcross.nl'`;
           } else {
             q = `TRUNCATE TABLE \"${repository.metadata.schema}\".\"${entity.tableName}\" CASCADE;`;
           }

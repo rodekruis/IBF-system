@@ -1,17 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { UserRole } from './user-role.enum';
-import { UserStatus } from './user-status.enum';
 
 export class User {
   public userId: string;
   public email: string;
-  public username: string;
   public firstName: string;
   public middleName?: string;
   public lastName: string;
   public userRole: UserRole;
-  public userStatus: UserStatus;
   public countries: string[];
   public disasterTypes: string[];
   public exp: number;
@@ -21,9 +18,6 @@ export class User {
 export class UserData {
   @ApiProperty({ example: 'dunant@redcross.nl' })
   public email: string;
-
-  @ApiProperty({ example: 'dunant' })
-  public username: string;
 
   @ApiProperty({ example: 'Henry' })
   public firstName: string;
@@ -36,9 +30,6 @@ export class UserData {
 
   @ApiProperty({ example: UserRole.DisasterManager })
   public userRole: UserRole;
-
-  @ApiProperty({ example: UserStatus.Active })
-  public status: UserStatus;
 
   @ApiProperty({ example: '+31600000000' })
   public whatsappNumber: string;
