@@ -2,6 +2,7 @@ import * as request from 'supertest';
 import TestAgent from 'supertest/lib/agent';
 
 import { CreateUserDto } from './API-service/dto/create-user.dto';
+import { UpdateUserDto } from './API-service/dto/update-user.dto';
 import { UploadTyphoonTrackDto } from './API-service/dto/upload-typhoon-track.dto';
 import { DisasterType } from './API-service/enum/disaster-type.enum';
 import {
@@ -179,6 +180,18 @@ export function changePassword(
     .post('/user/change-password')
     .set('Authorization', `Bearer ${accessToken}`)
     .send({ email, password });
+}
+
+export function updateUser(
+  email: string,
+  updateUserData: UpdateUserDto,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .patch('/user')
+    .set('Authorization', `Bearer ${accessToken}`)
+    .query({ email })
+    .send(updateUserData);
 }
 
 // Start splitting this up into multiple helper files
