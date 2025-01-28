@@ -6,7 +6,6 @@ import { DisasterType } from '../disaster/disaster-type.enum';
 import { DisasterEntity } from '../disaster/disaster.entity';
 import { LookupService } from '../notification/lookup/lookup.service';
 import { UserRole } from './user-role.enum';
-import { UserStatus } from './user-status.enum';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 
@@ -30,14 +29,12 @@ const user: UserEntity = {
   userId: '1',
   email: 'test@example.org',
   whatsappNumber: '+3100000000',
-  username: 'test@example.org',
   firstName: 'Test',
   middleName: 'User',
   lastName: 'Example',
   userRole: UserRole.DisasterManager,
   countries: [],
   disasterTypes: disasters,
-  userStatus: UserStatus.Active,
   password: '',
   created: new Date(),
   hashPassword: function (): void {
