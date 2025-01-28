@@ -153,7 +153,6 @@ export class UserService {
     return this.buildUserRO(updateUser);
   }
 
-  // UNIT TEST?
   public async updateUser(
     email: string,
     updateUserData: UpdateUserDto,
@@ -214,7 +213,6 @@ export class UserService {
     return result;
   }
 
-  // UNIT TEST?
   public async buildUserRO(
     user: UserEntity,
     includeToken = true,
