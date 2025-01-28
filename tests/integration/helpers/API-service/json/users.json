@@ -3,7 +3,8 @@
     "email": "dunant@redcross.nl",
     "firstName": "Henry",
     "lastName": "Dunant",
-    "userRole": "admin"
+    "userRole": "admin",
+    "password": "password"
   },
   {
     "email": "uganda@redcross.nl",
