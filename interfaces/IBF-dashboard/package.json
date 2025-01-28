@@ -72,8 +72,6 @@
     "@types/leaflet.markercluster": "^1.5.4",
     "@types/luxon": "^3.4.2",
     "@types/node": "^20.14.10",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
     "angular-eslint": "^19.0.2",
     "autoprefixer": "^10.4.7",
     "esbuild": "^0.24.0",
