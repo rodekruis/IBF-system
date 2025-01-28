@@ -22,7 +22,6 @@ describe('manage users', () => {
       // Arrange
       const newUserData = structuredClone(userData);
       newUserData.email = 'new-user@redcross.nl';
-      newUserData.username = 'new-user';
 
       // Act
       const createResult = await createUser(newUserData, accessToken);
@@ -38,7 +37,7 @@ describe('manage users', () => {
       expect(loginResult.status).toBe(201);
     });
 
-    it('should fail when email or username already exists', async () => {
+    it('should fail when email already exists', async () => {
       // Arrange
       const existingUserData = structuredClone(userData);
 

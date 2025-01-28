@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
 import { UserRole } from '../api/user/user-role.enum';
-import { UserStatus } from '../api/user/user-status.enum';
 import { UserEntity } from '../api/user/user.entity';
 import users from './json/users.json';
 import { InterfaceScript } from './scripts.module';
@@ -25,12 +24,10 @@ export class SeedProd implements InterfaceScript {
 
       const adminUser = new UserEntity();
       adminUser.email = user.email;
-      adminUser.username = user.username;
       adminUser.firstName = user.firstName;
       adminUser.lastName = user.lastName;
       adminUser.userRole = user.userRole as UserRole;
       adminUser.password = user.password;
-      adminUser.userStatus = user.userStatus as UserStatus;
 
       await userRepository.save(adminUser);
     } else {
