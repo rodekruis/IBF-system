@@ -105,10 +105,6 @@ export class CountryDisasterSettingsEntity {
   public enableEarlyActions: boolean;
 
   @ApiProperty()
-  @Column({ default: true })
-  public enableStopTrigger: boolean;
-
-  @ApiProperty()
   @Column({ default: false })
   public isEventBased: boolean;
 }

@@ -491,8 +491,6 @@ export class EventService {
         'area."placeCode" AS "placeCode"',
         'area.name AS name',
         'event."startDate"',
-        'event.stopped as stopped',
-        'case when event.stopped = true then event."manualStoppedDate" end as "stopDate"',
         'event.closed as closed',
         'case when event.closed = true then event."endDate" end as "endDate"',
         'disaster."actionsUnit" as "exposureIndicator"',
