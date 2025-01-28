@@ -1,0 +1,17 @@
+<layer>
+  <name>rainfall_forecast_0-month_LSO</name>
+  <id>LayerInfoImpl-6856175f:194734aebb7:-7f6f</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-5253576a:183547efa37:-7f65</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-6856175f:194734aebb7:-7f70</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2025-01-17 14:18:44.257 UTC</dateCreated>
+  <dateModified>2025-01-17 14:19:16.241 UTC</dateModified>
+</layer>
