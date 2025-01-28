@@ -182,6 +182,7 @@ export class AdminAreaService {
         disasterType,
         adminLevel,
         leadTime,
+        eventName,
       );
     }
   }
@@ -273,6 +274,11 @@ export class AdminAreaService {
     if (leadTime) {
       dynamicIndicatorsScript.andWhere('dynamic."leadTime" = :leadTime', {
         leadTime: leadTime,
+      });
+    }
+    if (eventName) {
+      dynamicIndicatorsScript.andWhere('dynamic."eventName" = :eventName', {
+        eventName: eventName,
       });
     }
 
@@ -417,6 +423,7 @@ export class AdminAreaService {
     disasterType: DisasterType,
     adminLevel: number,
     leadTime: string,
+    eventName: string,
   ) {
     const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
@@ -438,11 +445,17 @@ export class AdminAreaService {
     if (leadTime) {
       whereFilters['leadTime'] = leadTime;
     }
+    if (eventName) {
+      whereFilters['eventName'] = eventName;
+    }
 
     const adminAreasToShow = await this.adminAreaDynamicDataRepo
       .createQueryBuilder()
       .where(whereFilters)
       .getMany();
+
+    // The 'showAdminArea' indicator queried for above is only used in Typhoon. Theoretically it could be used more widespread. For now
+    // If no data found, this will correctly return an empty array.
     return adminAreasToShow.map((area) => area.placeCode);
   }
 }
