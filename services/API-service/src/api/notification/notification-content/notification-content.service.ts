@@ -71,7 +71,6 @@ export class NotificationContentService {
       'disasterTypes',
       'notificationInfo',
       'countryDisasterSettings',
-      'countryDisasterSettings.activeLeadTimes',
     ];
 
     return await this.countryRepository.findOne({

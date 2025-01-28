@@ -14,7 +14,8 @@
     "strict": false,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
-    "noImplicitReturns": false,
+    "noImplicitAny": false, // For now keep on false, but switch to true locally sometimes to clean up code in files you're touching
+    "noImplicitReturns": false, // Same as 'noImplicitAny'
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
     "declaration": false,

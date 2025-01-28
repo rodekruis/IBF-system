@@ -9,8 +9,8 @@ import {
 
 import { CountryEntity } from '../country/country.entity';
 import { DisasterEntity } from '../disaster/disaster.entity';
-import { LeadTimeEntity } from '../lead-time/lead-time.entity';
 import { DynamicIndicator } from './enum/dynamic-data-unit';
+import { LeadTime } from './enum/lead-time.enum';
 
 @Entity('admin-area-dynamic-data')
 export class AdminAreaDynamicDataEntity {
@@ -53,7 +53,6 @@ export class AdminAreaDynamicDataEntity {
   @Column({ nullable: true, type: 'real' })
   public value: number;
 
-  @ManyToOne((): typeof LeadTimeEntity => LeadTimeEntity)
-  @JoinColumn({ name: 'leadTime', referencedColumnName: 'leadTimeName' })
-  public leadTime: string;
+  @Column({ nullable: true })
+  public leadTime: LeadTime;
 }

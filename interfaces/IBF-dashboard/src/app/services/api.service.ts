@@ -1,17 +1,19 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { DEBUG_LOG } from 'src/app/config';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { CountryTriggers } from 'src/app/models/country-triggers.model';
 import { User } from 'src/app/models/user/user.model';
+import { ActivationLogRecord } from 'src/app/pages/dashboard/activation-log/activation.log.page';
 import { EventSummary } from 'src/app/services/event.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { AggregateRecord } from 'src/app/types/aggregate';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
-import { IbfLayerName } from 'src/app/types/ibf-layer';
+import { IbfLayerMetadata, IbfLayerName } from 'src/app/types/ibf-layer';
+import { Indicator } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { RecentDate } from 'src/app/types/recent-date';
 import { TriggeredArea } from 'src/app/types/triggered-area';
@@ -52,14 +54,17 @@ export class ApiService {
     return headers;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  get(path: string, anonymous = true, params = null): Observable<any> {
+  get<T>(
+    path: string,
+    anonymous = true,
+    params: HttpParams = null,
+  ): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
     this.log(`ApiService GET: ${security} ${url}`);
 
     return this.http
-      .get(url, {
+      .get<T>(url, {
         headers: this.createHeaders(anonymous),
         params,
       })
@@ -74,14 +79,13 @@ export class ApiService {
       );
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  post(path: string, body: object, anonymous = false): Observable<any> {
+  post<T>(path: string, body: object, anonymous = false): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
     this.log(`ApiService POST: ${security} ${url}`, body);
 
     return this.http
-      .post(url, body, {
+      .post<T>(url, body, {
         headers: this.createHeaders(anonymous),
       })
       .pipe(
@@ -96,14 +100,13 @@ export class ApiService {
       );
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  put(path: string, body: object, anonymous = false): Observable<any> {
+  put<T>(path: string, body: object, anonymous = false): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
     this.log(`ApiService PUT: ${security} ${url}`, body);
 
     return this.http
-      .put(url, body, {
+      .put<T>(url, body, {
         headers: this.createHeaders(anonymous),
       })
       .pipe(
@@ -154,19 +157,7 @@ export class ApiService {
     if (minimalInfo) {
       params = params.append('minimalInfo', String(minimalInfo));
     }
-    return this.get(path, false, params).pipe(
-      map((countries) => {
-        return countries.map((country) => {
-          country.countryDisasterSettings?.map((disaster) => {
-            disaster.activeLeadTimes = disaster.activeLeadTimes.map(
-              (leadTime) => leadTime.leadTimeName,
-            );
-            return disaster;
-          });
-          return country;
-        });
-      }),
-    );
+    return this.get(path, false, params);
   }
 
   getTyphoonTrack(
@@ -254,7 +245,7 @@ export class ApiService {
       params = params.append('placeCodeParent', placeCodeParent);
     }
     return this.get(
-      `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}`,
+      `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel.toString()}`,
       false,
       params,
     );
@@ -279,7 +270,7 @@ export class ApiService {
       params = params.append('placeCodeParent', placeCodeParent);
     }
     return this.get(
-      `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}`,
+      `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel.toString()}`,
       false,
       params,
     );
@@ -291,7 +282,7 @@ export class ApiService {
     adminLevel: number,
     leadTime: string,
     eventName: string,
-  ): Observable<TriggeredArea> {
+  ): Observable<TriggeredArea[]> {
     let params = new HttpParams();
     if (eventName) {
       params = params.append('eventName', eventName);
@@ -300,13 +291,16 @@ export class ApiService {
       params = params.append('leadTime', leadTime);
     }
     return this.get(
-      `event/triggered-areas/${countryCodeISO3}/${adminLevel}/${disasterType}`,
+      `event/triggered-areas/${countryCodeISO3}/${adminLevel.toString()}/${disasterType}`,
       false,
       params,
     );
   }
 
-  getIndicators(countryCodeISO3: string, disasterType: DisasterTypeKey) {
+  getIndicators(
+    countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
+  ): Observable<Indicator[]> {
     return this.get(
       `metadata/indicators/${countryCodeISO3}/${disasterType}`,
       false,
@@ -319,21 +313,7 @@ export class ApiService {
     indicator: string,
   ): Observable<{ value: number; placeCode: string }[]> {
     return this.get(
-      `admin-area-data/${countryCodeISO3}/${adminLevel}/${indicator}`,
-      false,
-    );
-  }
-
-  getAdminAreaDynamicDataOne(
-    key: string,
-    placeCode: string,
-    leadTime: string,
-    eventName: string,
-  ) {
-    return this.get(
-      `admin-area-dynamic-data/single/${key}/${placeCode}/${leadTime}/${
-        eventName || 'no-name'
-      }`,
+      `admin-area-data/${countryCodeISO3}/${adminLevel.toString()}/${indicator}`,
       false,
     );
   }
@@ -354,21 +334,20 @@ export class ApiService {
       params = params.append('leadTime', leadTime);
     }
     return this.get(
-      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel}/${indicator}/${disasterType}`,
+      `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel.toString()}/${indicator}/${disasterType}`,
       false,
       params,
     );
   }
 
-  getLayers(countryCodeISO3: string, disasterType: DisasterTypeKey) {
+  getLayers(
+    countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
+  ): Observable<IbfLayerMetadata[]> {
     return this.get(
       `metadata/layers/${countryCodeISO3}/${disasterType}`,
       false,
     );
-  }
-
-  getAreasOfFocus() {
-    return this.get('eap-actions/areas-of-focus', false);
   }
 
   checkEapAction(
@@ -440,7 +419,10 @@ export class ApiService {
     return this.post(apiPath, body, false);
   }
 
-  getActivationLogs(countryCodeISO3?: string, disasterType?: DisasterTypeKey) {
+  getActivationLogs(
+    countryCodeISO3?: string,
+    disasterType?: DisasterTypeKey,
+  ): Observable<ActivationLogRecord[]> {
     return this.get(
       `event/activation-log${
         countryCodeISO3 && disasterType
@@ -454,7 +436,7 @@ export class ApiService {
     );
   }
 
-  dismissCommunityNotification(pointDataId: string) {
+  dismissCommunityNotification(pointDataId: string): Observable<void> {
     return this.put(
       `point-data/community-notification/${pointDataId}`,
       {},

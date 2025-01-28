@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 
-type ActivationLogRecord = Record<string, boolean | number | string>;
+export type ActivationLogRecord = Record<string, boolean | number | string>;
 
 @Component({
   selector: 'app-activation-log',
@@ -89,7 +89,7 @@ export class ActivationLogPage implements OnInit, OnDestroy {
         this.presentToast(
           this.translate.instant(
             'activation-page.' + this.getEapKey() + '.copy-success',
-          ),
+          ) as string,
           'ibf-primary',
         ),
       )
@@ -97,7 +97,7 @@ export class ActivationLogPage implements OnInit, OnDestroy {
         this.presentToast(
           this.translate.instant(
             'activation-page.' + this.getEapKey() + '.copy-fail',
-          ),
+          ) as string,
           'alert',
         ),
       );
