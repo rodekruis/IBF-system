@@ -38,11 +38,6 @@
           <type>Geometry</type>
           <srid>-1</srid>
         </geometry>
-        <parameter>
-          <name>leadTime</name>
-          <defaultValue>2-hour</defaultValue>
-          <regexpValidator>^[\w\d\s-]+$</regexpValidator>
-        </parameter>
       </virtualTable>
     </entry>
     <entry key="cachingEnabled">false</entry>
@@ -52,6 +47,8 @@
   </store>
   <serviceConfiguration>false</serviceConfiguration>
   <simpleConversionEnabled>false</simpleConversionEnabled>
+  <internationalTitle/>
+  <internationalAbstract/>
   <maxFeatures>0</maxFeatures>
   <numDecimals>0</numDecimals>
   <padWithZeros>false</padWithZeros>
