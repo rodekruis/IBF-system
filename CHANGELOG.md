@@ -1,3 +1,12 @@
+## [0.278.7](https://github.com/rodekruis/IBF-system/compare/v0.278.6...v0.278.7) (2025-01-29)
+
+
+### Bug Fixes
+
+* update misplaced glofas stations AB[#33136](https://github.com/rodekruis/IBF-system/issues/33136) ([2bfbae5](https://github.com/rodekruis/IBF-system/commit/2bfbae5500017a80ca1fc22e168962f616b172b3))
+
+
+
 ## [0.278.6](https://github.com/rodekruis/IBF-system/compare/v0.278.5...v0.278.6) (2025-01-29)
 
 
@@ -100,17 +109,6 @@
 ### Bug Fixes
 
 * test commit with failing test ([7602385](https://github.com/rodekruis/IBF-system/commit/76023859d59048c0390276e4d00dded582a16b02))
-
-
-
-## [0.277.13](https://github.com/rodekruis/IBF-system/compare/v0.277.12...v0.277.13) (2024-12-27)
-
-
-### Bug Fixes
-
-* api tests ([43e9105](https://github.com/rodekruis/IBF-system/commit/43e9105f1574d9c0703e7c48a2a7e01e98942bbe))
-* check on commit to master, not main ([ae32066](https://github.com/rodekruis/IBF-system/commit/ae3206658e53b13da1ce75d468f1d4db2e9baff6))
-* using singular instead of plural passed the tests ([727351f](https://github.com/rodekruis/IBF-system/commit/727351f808fc6d5449498291f0c33ff2958ab630))
 
 
 
