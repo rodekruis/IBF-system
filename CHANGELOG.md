@@ -1,3 +1,13 @@
+## [0.278.6](https://github.com/rodekruis/IBF-system/compare/v0.278.5...v0.278.6) (2025-01-29)
+
+
+### Bug Fixes
+
+* filter admin-areas on eventName AB[#33076](https://github.com/rodekruis/IBF-system/issues/33076) ([18c9760](https://github.com/rodekruis/IBF-system/commit/18c97609c1a0e3257afa8a629ed8d45cf1c2afe7))
+* filter for eventName at more places ([f766101](https://github.com/rodekruis/IBF-system/commit/f766101962c010e89f90497585b2e8dd666c07e2))
+
+
+
 ## [0.278.5](https://github.com/rodekruis/IBF-system/compare/v0.278.4...v0.278.5) (2025-01-24)
 
 
@@ -101,15 +111,6 @@
 * api tests ([43e9105](https://github.com/rodekruis/IBF-system/commit/43e9105f1574d9c0703e7c48a2a7e01e98942bbe))
 * check on commit to master, not main ([ae32066](https://github.com/rodekruis/IBF-system/commit/ae3206658e53b13da1ce75d468f1d4db2e9baff6))
 * using singular instead of plural passed the tests ([727351f](https://github.com/rodekruis/IBF-system/commit/727351f808fc6d5449498291f0c33ff2958ab630))
-
-
-
-## [0.277.12](https://github.com/rodekruis/IBF-system/compare/v0.277.11...v0.277.12) (2024-12-27)
-
-
-### Bug Fixes
-
-* use null as default value for middle name ([093ada0](https://github.com/rodekruis/IBF-system/commit/093ada00aa95c92c88db2f48c10e25f09a0dab97))
 
 
 
