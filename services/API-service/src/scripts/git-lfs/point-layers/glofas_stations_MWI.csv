@@ -1,5 +1,5 @@
-lat,lon,stationCode,stationName,fid
--16.525,35.125,G1724,Na,G1724
--16.225,34.975,G2001,Na,G2001
--16.225,35.275,G5670,Sinoya South,G5670
--16.025,34.825,G5694,Chikwawa,G5694
+stationCode,stationName,lat,lon,fid
+G1724,Na,-16.525,35.125,G1724
+G2001,Na,-16.225,34.975,G2001
+G5670,Sinoya South,-16.223,35.307,G5670
+G5694,Chikwawa,-16.025,34.825,G5694
