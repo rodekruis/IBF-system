@@ -17,7 +17,7 @@ Feature: View and use map section
         When the users views the map
         Then it shows all admin-areas for the entire country
         And depending on disaster-type a default exposure layer is activated
-        - 'Exposed population' for 'floods', 'heavy rain', 'drought' is NOT activated, as it is always 0 anyway
+        - 'Exposed population' for 'floods', 'drought' is NOT activated, as it is always 0 anyway
         - 'Houses affected' for 'typhoon' is NOT activated
         - 'Potential cases' for 'malaria' is activated, as even if no trigger it contains relevant data
         And it is visualized by 5 shades of grey in the map (as is any other selected shape-layer)
@@ -27,12 +27,12 @@ Feature: View and use map section
         Given the dashboard is in TRIGGERED mode
         When the users views the map
         Then it shows a selection of admin-areas dependent on disaster-type
-        - For 'floods' and 'heavy-rain' only the triggered areas are shown
+        - For 'floods' only the triggered areas are shown
         - For 'malaria', 'drought' the whole country is shown
         - For 'typhoon' a custom selection is shown based on specific pipeline-input (practically this is somewhere in-between the above 2 options)
         And it shows by default the 'Alert threshold' layer as red outline
         And it shows as main exposure shape layer
-        - 'Exposed population' for 'floods', 'heavy rain', 'drought'
+        - 'Exposed population' for 'floods', 'drought'
         - 'Potential cases' for 'malaria'
         - 'Houses affected' for 'typhoon'
         And it is visualized by 5 shades of purple in the map (as is any other selected shape-layer)

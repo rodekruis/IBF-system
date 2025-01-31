@@ -35,7 +35,6 @@ import {
   AffectedAreaDto,
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
-import { TriggerPerLeadTimeDto } from './dto/trigger-per-leadtime.dto';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
@@ -202,7 +201,7 @@ export class EventService {
     const timestamp = uploadTriggerPerLeadTimeDto.date || new Date();
     for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
       // Delete existing entries in case of a re-run of the pipeline within the same time period
-      await this.deleteDuplicates(uploadTriggerPerLeadTimeDto, leadTime);
+      await this.deleteDuplicates(uploadTriggerPerLeadTimeDto);
 
       const triggerPerLeadTime = new TriggerPerLeadTime();
       triggerPerLeadTime.date = uploadTriggerPerLeadTimeDto.date || new Date();
@@ -225,7 +224,6 @@ export class EventService {
 
   private async deleteDuplicates(
     uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
-    selectedLeadTime: TriggerPerLeadTimeDto,
   ): Promise<void> {
     const deleteFilters = {
       countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
@@ -239,10 +237,6 @@ export class EventService {
     };
     if (uploadTriggerPerLeadTimeDto.eventName) {
       deleteFilters['eventName'] = uploadTriggerPerLeadTimeDto.eventName;
-    }
-    // Only filter on leadTime when using fixed LeadTime / not using events
-    if (uploadTriggerPerLeadTimeDto.disasterType === DisasterType.HeavyRain) {
-      deleteFilters['leadTime'] = selectedLeadTime.leadTime as LeadTime;
     }
     await this.triggerPerLeadTimeRepository.delete(deleteFilters);
   }

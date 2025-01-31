@@ -322,7 +322,7 @@ export class TimelineService {
 
   private getVisibleLeadTimes() {
     const visibleLeadTimes: LeadTimeButtonInput[] = [];
-    const disasterLeadTimes = [];
+    const disasterLeadTimes: LeadTime[] = [];
     let disasterLeadTime = this.disasterType.minLeadTime;
     const maxLeadTime = Number(this.disasterType.maxLeadTime.split('-')[0]);
     while (Number(disasterLeadTime.split('-')[0]) <= maxLeadTime) {
@@ -462,13 +462,6 @@ export class TimelineService {
           .map((lt) => this.getDateFromLeadTime(lt.leadTime))
           .includes(this.getDateFromLeadTime(leadTime))
       );
-    } else if (disasterType.disasterType === DisasterTypeKey.heavyRain) {
-      const countryLeadTimes =
-        this.countryDisasterSettings.activeLeadTimes.sort((a, b) =>
-          a > b ? 1 : -1,
-        );
-      const maxLeadTime = countryLeadTimes[countryLeadTimes.length - 1];
-      return leadTime > maxLeadTime ? false : true;
     } else if (disasterType.disasterType === DisasterTypeKey.flashFloods) {
       // show 1 button per day ..
       return (

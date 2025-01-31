@@ -10,16 +10,6 @@
     "maxLeadTime": "7-day"
   },
   {
-    "disasterType": "heavy-rain",
-    "label": "heavy rainfall",
-    "triggerIndicator": "alert_threshold",
-    "mainExposureIndicator": "population_affected",
-    "showOnlyTriggeredAreas": true,
-    "leadTimeUnit": "day",
-    "minLeadTime": "1-day",
-    "maxLeadTime": "7-day"
-  },
-  {
     "disasterType": "malaria",
     "label": "malaria",
     "triggerIndicator": "alert_threshold",

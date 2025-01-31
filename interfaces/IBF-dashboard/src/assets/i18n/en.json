@@ -237,23 +237,6 @@
         "switch-event-button": "Show prediction"
       }
     },
-    "heavy-rain": {
-      "about-button-label": "About Alert",
-      "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country. You can turn data layers on and off. There is currently <strong>no alert</strong> issued."
-      },
-      "active-event-active-trigger": {
-        "header": "Alert: {{ disasterTypeLabel }}",
-        "header-ongoing": "Ongoing alert: {{ disasterTypeLabel }}",
-        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>. It is estimated to arrive around <strong>{{ leadTime }} {{ timeUnit }}(s)</strong> from now."
-      },
-      "active-event": {
-        "overview": "There are <strong>{{ nrTriggeredAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ mainExposureIndicator}} and are highlighted in the map with a red outline.",
-        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the alert and the preplanned anticipatory actions of each area.",
-        "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
-        "exposed": "Exposed Population:"
-      }
-    },
     "malaria": {
       "about-button-label": "About Alert",
       "no-event-no-trigger": {

@@ -11,7 +11,7 @@ Feature: View and use aggregate section
         And it has a list of exposure indicators
         And each indicator has an "icon", a "label", a "value" and an "info-button"
         And the first indicator is the main exposure variable
-        - 'Exposed population' for Floods, Drought, Heavy-rain
+        - 'Exposed population' for Floods, Drought
         - 'Potential cases' for Malaria
         - 'Houses affected' for Typhoon
         And the next indicator is 'Total population' if available (not for Typhoon)

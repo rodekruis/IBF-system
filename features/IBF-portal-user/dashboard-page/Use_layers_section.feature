@@ -32,24 +32,20 @@ Feature: View and use layers section ('matrix-component' in code)
         When the users views the open layers section
         Then it does show the red outline 'Alert threshold' layer activated
         And depending on disaster-type a default exposure layer is activated
-        - 'Exposed population' for 'floods', 'heavy rain', 'drought' is NOT activated, as it is always 0 anyway
+        - 'Exposed population' for 'floods' and 'drought' is NOT activated, as it is always 0 anyway
         - 'Houses affected' for 'typhoon' is NOT activated
         - 'Potential cases' for 'malaria' is activated, as even if no trigger it contains relevant data
-        And depending on disaster-type other point/raster layers are default activated (e.g. 'flood extent', 'Glofas stations') where applicable
-    - For 'floods': 'glofas stations'
-    - For 'heavy-rain': 'rainfall extent'
+        And depending on disaster-type other point/raster layers are default activated where applicable (for 'floods': 'glofas stations')
 
     Scenario: View layers section in TRIGGERED mode
         Given the dashboard is in TRIGGERED mode
         When the users views the open layers section
         Then it shows the red outline 'Alert threshold' layer activated
         And it shows as main exposure shape layer
-        - 'Exposed population' for 'floods', 'heavy rain', 'drought'
+        - 'Exposed population' for 'floods', 'drought'
         - 'Potential cases' for 'malaria'
         - 'Houses affected' for 'typhoon'
-        And depending on disaster-type other point/raster layers are default activated (e.g. 'flood extent', 'Glofas stations') where applicable
-    - For 'floods': 'glofas stations' AND 'flood extent'
-    - For 'heavy-rain': 'rainfall extent'
+        And depending on disaster-type other point/raster layers are default activated where applicable (for 'flodos': 'glofas stations' AND 'flood extent')
 
     Scenario: Unselect selected layer
         When the user unselects a currently selected layer

@@ -4,7 +4,6 @@ import { Locator, Page } from 'playwright';
 class DashboardPage {
   readonly page: Page;
   readonly floodIcon: Locator;
-  readonly heavyRainIcon: Locator;
   readonly droughtIcon: Locator;
   readonly dashboardDevControlButton: Locator;
   readonly dashboardHomeButton: Locator;
@@ -18,9 +17,6 @@ class DashboardPage {
   constructor(page: Page) {
     this.page = page;
     this.floodIcon = this.page.getByTestId('disaster-type-button-floods');
-    this.heavyRainIcon = this.page.getByTestId(
-      'disaster-type-button-heavy-rain',
-    );
     this.droughtIcon = this.page.getByTestId('disaster-type-button-drought');
     this.dashboardDevControlButton = this.page.getByTestId(
       'dashboard-dev-control-button',
@@ -51,9 +47,6 @@ class DashboardPage {
     switch (disasterType) {
       case 'floods':
         await this.floodIcon.click();
-        break;
-      case 'heavy-rain':
-        await this.heavyRainIcon.click();
         break;
       case 'drought':
         await this.droughtIcon.click();

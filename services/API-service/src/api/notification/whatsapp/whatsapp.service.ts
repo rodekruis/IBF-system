@@ -391,7 +391,7 @@ export class WhatsappService {
       return;
     }
 
-    const disasterType = DisasterType.HeavyRain;
+    const disasterType = DisasterType.Floods; // ##TODO: make this dynamic
 
     const messageKey = 'community-notification';
 

@@ -46,7 +46,7 @@ export class LayerDto {
   @ApiProperty({
     example: {
       UGA: {
-        'heavy-rain': 'description',
+        floods: 'description',
       },
     },
   })

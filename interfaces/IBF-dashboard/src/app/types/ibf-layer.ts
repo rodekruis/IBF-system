@@ -104,7 +104,6 @@ export enum IbfLayerName {
   poverty_incidence = 'poverty_incidence',
   probWithin50Km = 'prob_within_50km',
   rainfall = 'rainfall',
-  rainfallExtent = 'rainfall_extent',
   rainfallForecast = 'rainfall_forecast',
   redCrossBranches = 'red_cross_branches',
   roads = 'roads',

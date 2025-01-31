@@ -59,8 +59,6 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
 
   private breadcrumbDisasters = [
     DisasterTypeKey.flashFloods,
-    DisasterTypeKey.heavyRain,
-    // DisasterTypeKey.malaria, // TODO: after switching to event-based, but events being defined in time, not in space, the breadcrumbs no longer made sense. Easiest to disable.
     DisasterTypeKey.floods,
   ];
 
