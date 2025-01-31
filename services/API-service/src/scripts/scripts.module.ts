@@ -27,7 +27,6 @@ import { MockHelperService } from './mock-helper.service';
 import { MockController } from './mock.controller';
 import { MockService } from './mock.service';
 import { ScriptsController } from './scripts.controller';
-import { ScriptsService } from './scripts.service';
 import SeedAdminArea from './seed-admin-area';
 import SeedAdminAreaData from './seed-admin-area-data';
 import { SeedInit } from './seed-init';
@@ -62,7 +61,6 @@ import SeedProd from './seed-prod';
   providers: [
     SeedInit,
     SeedProd,
-    ScriptsService,
     SeedAdminArea,
     SeedAdminAreaData,
     SeedPointData,

@@ -3,7 +3,7 @@ Feature: Run pipeline
 
     Background:
         Given a script which has first successfully authenticated as user with 'admin' role
-        Given disaster-type 'X' (floods | heavy-rain | drought | malaria | typhoon)
+        Given disaster-type 'X' (floods | flash-floods | drought | malaria | typhoon)
 
     Scenario: Successfully run pipeline
         Given all below scenarios that are applicable given disaster-type 'X' are successfully performed
@@ -25,7 +25,7 @@ Feature: Run pipeline
         And in the dashboard the exposure layers are visible with individual and aggregate values as expected
 
     Scenario: Successfully upload raster file
-        Given disaster-type is 'floods' | 'heavy-rain'
+        Given disaster-type is 'floods' | 'drought' | 'flash-floods'
         When running this part of the script
         Then a success status code is returned
         And in the dashboard the '<disaster-type> extent' is visible as expected

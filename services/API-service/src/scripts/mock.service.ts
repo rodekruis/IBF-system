@@ -38,7 +38,6 @@ import {
   MockMalariaScenario,
   MockTyphoonScenario,
 } from './mock.controller';
-import { ScriptsService } from './scripts.service';
 
 class Scenario {
   scenarioName: string;
@@ -72,7 +71,6 @@ export class MockService {
     private typhoonTrackService: TyphoonTrackService,
     private mockHelpService: MockHelperService,
     private geoServerSyncService: GeoserverSyncService,
-    private scriptsService: ScriptsService,
   ) {}
 
   public async mock(
@@ -493,7 +491,6 @@ export class MockService {
   private shouldMockRasterFile(disasterType: DisasterType): boolean {
     return [
       DisasterType.Floods,
-      DisasterType.HeavyRain,
       DisasterType.Drought,
       DisasterType.FlashFloods,
     ].includes(disasterType);
@@ -522,14 +519,6 @@ export class MockService {
 
     const envCountries = process.env.COUNTRIES.split(',');
 
-    const newMockServiceDisasterTypes = [
-      DisasterType.Floods,
-      DisasterType.Malaria,
-      DisasterType.FlashFloods,
-      DisasterType.Drought,
-      DisasterType.Typhoon,
-    ];
-
     for await (const countryCodeISO3 of envCountries) {
       const country = await this.countryRepo.findOne({
         where: { countryCodeISO3: countryCodeISO3 },
@@ -537,31 +526,20 @@ export class MockService {
       });
 
       for await (const disasterType of country.disasterTypes) {
-        if (newMockServiceDisasterTypes.includes(disasterType.disasterType)) {
-          await this.mock(
-            {
-              secret: mockAllInput.secret,
-              countryCodeISO3,
-              removeEvents: true,
-              date: mockAllInput.date || new Date(),
-              scenario: mockAllInput.triggered
-                ? FloodsScenario.Trigger
-                : FloodsScenario.NoTrigger, // REFACTOR: this works for now but is hack. Should use base-enum values Trigger/NoTrigger. Solve when refactoring /mock/all.
-            },
-            disasterType.disasterType,
-            false,
-            isApiTest,
-          );
-        } else {
-          await this.scriptsService.mockCountry({
+        await this.mock(
+          {
             secret: mockAllInput.secret,
             countryCodeISO3,
-            disasterType: disasterType.disasterType,
-            triggered: mockAllInput.triggered,
             removeEvents: true,
             date: mockAllInput.date || new Date(),
-          });
-        }
+            scenario: mockAllInput.triggered
+              ? FloodsScenario.Trigger
+              : FloodsScenario.NoTrigger, // REFACTOR: this works for now but is hack. Should use base-enum values Trigger/NoTrigger. Solve when refactoring /mock/all.
+          },
+          disasterType.disasterType,
+          false,
+          isApiTest,
+        );
       }
     }
   }

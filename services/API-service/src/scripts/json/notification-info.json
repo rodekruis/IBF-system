@@ -3,28 +3,20 @@
     "countryCodeISO3": "UGA",
     "logo": {
       "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/79e11aea-b32e-38b3-8cdf-f07c7c98e58c.png",
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/79e11aea-b32e-38b3-8cdf-f07c7c98e58c.png",
-      "heavy-rain": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/79e11aea-b32e-38b3-8cdf-f07c7c98e58c.png"
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/79e11aea-b32e-38b3-8cdf-f07c7c98e58c.png"
     },
     "triggerStatement": {
       "floods": "URCS will activate this EAP when GloFAS issues a forecast of at least 60% probability (based on the different ensemble runs) of a 5-year return period flood occurring in flood prone districts, which will be anticipated to affect more than 1,000hh. The EAP will be activated when there is a lead time of 5 days and a False Alarm Ratio (FAR) of not more than 0.5.<br><br>Please be aware that you might receive flood alerts, but the EAP may not be activated under the following conditions:<ul><li>The lead time is less than 5 days, even if the forecast meets the required probability and impact thresholds.</li><li>Forecasts indicate a medium warning (2-year return period) or low warning (1.5-year return period).</li></ul>In these cases, please consider alternative response processes outside the EAP.",
-      "drought": "The primary trigger mechanism uses rainfall forecasts based on ECMWF before the start of the season. This trigger will provide information with a lead time of up to 3 months. The trigger values for this trigger are for more than 30% of the geographical area of a district (admin level 2) predicting drier than normal (below average rainfall) conditions. The rainfall values are based on the seasonal rainfall forecast issued by ECMWF. The probability of below normal rain should be at least 45% based on probabilistic forecast information provided by ECMWF.",
-      "heavy-rain": "Not currently available"
+      "drought": "The primary trigger mechanism uses rainfall forecasts based on ECMWF before the start of the season. This trigger will provide information with a lead time of up to 3 months. The trigger values for this trigger are for more than 30% of the geographical area of a district (admin level 2) predicting drier than normal (below average rainfall) conditions. The rainfall values are based on the seasonal rainfall forecast issued by ECMWF. The probability of below normal rain should be at least 45% based on probabilistic forecast information provided by ECMWF."
     },
     "linkSocialMediaType": "WhatsApp",
     "linkSocialMediaUrl": "https://chat.whatsapp.com/G0WaACPtd9q9CU6vxVvz1B",
     "useWhatsapp": {
       "floods": false,
-      "drought": false,
-      "heavy-rain": true
+      "drought": false
     },
     "whatsappMessage": {
-      "heavy-rain": {
-        "initial-single-event": "*IBF alert notification*\n\nAn alert for heavy rain is forecasted for: *[startTimeEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
-        "follow-up": "*IBF alert notification*\n\nAn alert for heavy rain is forecasted for: *[startTimeEvent]*.\n\nThere are *[nrTriggeredAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this alert.",
-        "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this alert.",
-        "no-trigger-old-event": "The alert formerly activated on *[startDate]* is now below trigger threshold.\n\n",
-        "no-trigger": "There is *no alert* currently.",
+      "floods": {
         "community-notification": "A new community notification has been received. Go to the IBF portal to see the details of the notification."
       }
     },

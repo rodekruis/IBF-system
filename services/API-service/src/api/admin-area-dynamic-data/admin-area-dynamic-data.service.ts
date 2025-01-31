@@ -135,10 +135,6 @@ export class AdminAreaDynamicDataService {
     if (uploadExposure.eventName) {
       deleteFilters['eventName'] = uploadExposure.eventName;
     }
-    // Only filter on leadTime when using fixed LeadTime / not using events
-    if (uploadExposure.disasterType === DisasterType.HeavyRain) {
-      deleteFilters['leadTime'] = uploadExposure.leadTime as LeadTime;
-    }
     await this.adminAreaDynamicDataRepo.delete(deleteFilters);
   }
 
@@ -271,7 +267,6 @@ export class AdminAreaDynamicDataService {
         disasterType: In([
           DisasterType.Floods,
           DisasterType.Typhoon,
-          DisasterType.HeavyRain,
           DisasterType.FlashFloods,
         ]),
       })

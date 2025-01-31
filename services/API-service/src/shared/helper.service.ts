@@ -43,9 +43,7 @@ export class HelperService {
       // monthly pipeline
       lastInterval.setDate(1);
       lastInterval.setHours(0, 0, 0, 0);
-    } else if (
-      [DisasterType.Floods, DisasterType.HeavyRain].includes(disasterType)
-    ) {
+    } else if ([DisasterType.Floods].includes(disasterType)) {
       // daily pipeline
       lastInterval.setHours(0, 0, 0, 0);
     } else if (

@@ -2,7 +2,7 @@
   {
     "countryCodeISO3": "UGA",
     "countryName": "Uganda",
-    "disasterTypes": ["floods", "drought", "heavy-rain"],
+    "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -218,13 +218,6 @@
         "showMonthlyEapActions": true,
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0db9ce391f633443aae619a2a0e974904&authkey=AV-9MdWarHQlelBjlbQdaoA&expiration=2023-07-31T22%3a00%3a00.000Z",
         "isEventBased": true
-      },
-      {
-        "disasterType": "heavy-rain",
-        "adminLevels": [3],
-        "defaultAdminLevel": 3,
-        "activeLeadTimes": ["1-day", "2-day", "3-day"],
-        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/doc.aspx?sourcedoc={68b43bcd-06f4-4f83-930d-b190daf9e6de}"
       }
     ],
     "adminRegionLabels": {
@@ -247,8 +240,7 @@
     },
     "countryLogos": {
       "floods": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.png"],
-      "drought": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.png"],
-      "heavy-rain": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.png"]
+      "drought": ["UGA-unma.png", "UGA-government.jpg", "UGA-urcs.png"]
     },
     "countryBoundingBox": {
       "type": "Polygon",
@@ -1245,7 +1237,8 @@
         },
         "enableEarlyActions": false,
         "showMonthlyEapActions": true,
-        "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
+        "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true",
+        "isEventBased": true
       }
     ],
     "adminRegionLabels": {

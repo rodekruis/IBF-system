@@ -60,32 +60,6 @@
     }
   },
   {
-    "name": "rainfall_extent",
-    "label": "Rainfall extent",
-    "type": "wms",
-    "legendColor": {
-      "UGA": {
-        "type": "gradient",
-        "value": [
-          "#ffff7f",
-          "#ffe200",
-          "#ffaa00",
-          "#ff8d00",
-          "#ff7100",
-          "#ff3800",
-          "#ff0000"
-        ]
-      }
-    },
-    "leadTimeDependent": true,
-    "active": "yes",
-    "description": {
-      "UGA": {
-        "heavy-rain": "<p>The rainfall extent layer is a dynamic layer that updates every time the model runs (once a day).<br/>It’s visualised as squares on the map in a gradient of yellow (low) to red (high) depending on the intensity.</p><p>The layer shows the amount of forecasted 1-day cumulative precipitation over the area of interest.</p><p>The rainfall forecast is sourced from the European Centre for Medium-Range Weather Forecasts (ECMWF) through the Norwegian Meteorological Institute API (METNO).<br/>This is a global model that provides weather forecasts up to 3 days in advance, with a granularity of 1 hour.</p>"
-      }
-    }
-  },
-  {
     "name": "rainfall_forecast",
     "label": "Rainfall forecast",
     "type": "wms",
@@ -141,8 +115,7 @@
       },
       "UGA": {
         "drought": "This layer shows the population. It is visualised in grey on the map. Population source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
-        "floods": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
-        "heavy-rain": "This layer shows the population. It is visualised in grey on the map. Population source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.<a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
+        "floods": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>"
       },
       "ZMB": {
         "drought": "The population data comes from the following source: High Resolution Settlement Layer (HRSL). Source imagery for HRSL © 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.  <a href='https://www.ciesin.columbia.edu/data/hrsl/'>https://www.ciesin.columbia.edu/data/hrsl/</a>",
@@ -288,8 +261,7 @@
       },
       "UGA": {
         "drought": "This layer represents the locations of the local branches. It is visualised as drop pins with a Red Cross icon. The source of this data comes from the National Society and may need updating.<br/><br/>Source link: Uganda Red Cross Society (URCS). Year: 2020.",
-        "floods": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Uganda Red Cross Society (URCS). Year: 2020.",
-        "heavy-rain": "This layer represents the locations of the local branches. It is visualised as drop pins with a Red Cross icon. The source of this data comes from the National Society and may need updating.<br/><br/>Source link: Uganda Red Cross Society (URCS). Year: 2020."
+        "floods": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Uganda Red Cross Society (URCS). Year: 2020."
       },
       "ZMB": {
         "drought": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Zambia Red Cross Society (ZRCS). Year: 2020.",
@@ -344,7 +316,8 @@
     "active": "yes",
     "description": {
       "UGA": {
-        "heavy-rain": "Community notifications are sent via volunteers that have direct contact with the community. They assess the information and fill in the details in a digital form.<br/><br/>The notifications are visualized as drop pins with a bell icon on the map.<br/><br/><strong>What to do?</strong> Click on the drop pin to open it and see the information attached to it. Some notifications contain photos.<br/><br/>The pins on the map will stay on the map until manually deleted. Make sure to delete irrelevant and old notifications.<br/><br/><strong>All sent notifications including deleted ones</strong>: <a href='https://kobonew.ifrc.org/api/v2/assets/aRa2musHL2hAxERkDHHLmi/export-settings/esL8MBFTLa6RS5XXNbdHcnN/data.xlsx'>https://kobonew.ifrc.org/api/v2/assets/aRa2musHL2hAxERkDHHLmi/export-settings/esL8MBFTLa6RS5XXNbdHcnN/data.xlsx</a>"
+        "drought": "Community notifications are sent via volunteers that have direct contact with the community. They assess the information and fill in the details in a digital form.<br/><br/>The notifications are visualized as drop pins with a bell icon on the map.<br/><br/><strong>What to do?</strong> Click on the drop pin to open it and see the information attached to it. Some notifications contain photos.<br/><br/>The pins on the map will stay on the map until manually deleted. Make sure to delete irrelevant and old notifications.<br/><br/><strong>All sent notifications including deleted ones</strong>: <a href='https://kobonew.ifrc.org/api/v2/assets/aRa2musHL2hAxERkDHHLmi/export-settings/esL8MBFTLa6RS5XXNbdHcnN/data.xlsx'>https://kobonew.ifrc.org/api/v2/assets/aRa2musHL2hAxERkDHHLmi/export-settings/esL8MBFTLa6RS5XXNbdHcnN/data.xlsx</a>",
+        "floods": "Community notifications are sent via volunteers that have direct contact with the community. They assess the information and fill in the details in a digital form.<br/><br/>The notifications are visualized as drop pins with a bell icon on the map.<br/><br/><strong>What to do?</strong> Click on the drop pin to open it and see the information attached to it. Some notifications contain photos.<br/><br/>The pins on the map will stay on the map until manually deleted. Make sure to delete irrelevant and old notifications.<br/><br/><strong>All sent notifications including deleted ones</strong>: <a href='https://kobonew.ifrc.org/api/v2/assets/aRa2musHL2hAxERkDHHLmi/export-settings/esL8MBFTLa6RS5XXNbdHcnN/data.xlsx'>https://kobonew.ifrc.org/api/v2/assets/aRa2musHL2hAxERkDHHLmi/export-settings/esL8MBFTLa6RS5XXNbdHcnN/data.xlsx</a>"
       }
     }
   },
