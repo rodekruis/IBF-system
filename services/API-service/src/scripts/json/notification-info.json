@@ -112,8 +112,8 @@
     "triggerStatement": {
       "drought": "TBD"
     },
-    "linkSocialMediaType": "WhatsApp",
-    "linkSocialMediaUrl": "https://chat.whatsapp.com/FfVimuGRHHiJSk0BU7nGQT",
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
     "linkVideo": "https://bit.ly/IBF-video-Zimbabwe",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Zimbabwe-Published.pdf"
   },
@@ -131,7 +131,6 @@
     "linkSocialMediaUrl": "https://chat.whatsapp.com/Kjh3qxURJOQImAgUUmbmbR/",
     "linkVideo": "https://bit.ly/IBF-video-Malawi",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Malawi-Published.pdf",
-
     "useWhatsapp": {
       "flash-floods": true,
       "floods": false
