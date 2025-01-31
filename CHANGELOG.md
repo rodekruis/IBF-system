@@ -1,3 +1,12 @@
+# [0.279.0](https://github.com/rodekruis/IBF-system/compare/v0.278.7...v0.279.0) (2025-01-31)
+
+
+### Features
+
+* set up geoserver for rainfall_forecast and population with dummy data AB[#32769](https://github.com/rodekruis/IBF-system/issues/32769) ([d6047c7](https://github.com/rodekruis/IBF-system/commit/d6047c7135c1ec03353d91333eca68df8090b6d5))
+
+
+
 ## [0.278.7](https://github.com/rodekruis/IBF-system/compare/v0.278.6...v0.278.7) (2025-01-29)
 
 
@@ -100,15 +109,6 @@
 ### Bug Fixes
 
 * check for token expiry AB[#31743](https://github.com/rodekruis/IBF-system/issues/31743) ([1df9fd9](https://github.com/rodekruis/IBF-system/commit/1df9fd95685e8a2484a4d03987bc514131283278))
-
-
-
-## [0.277.19](https://github.com/rodekruis/IBF-system/compare/v0.277.13...v0.277.19) (2025-01-03)
-
-
-### Bug Fixes
-
-* test commit with failing test ([7602385](https://github.com/rodekruis/IBF-system/commit/76023859d59048c0390276e4d00dded582a16b02))
 
 
 
