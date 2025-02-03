@@ -1,3 +1,12 @@
+# [0.280.0](https://github.com/rodekruis/IBF-system/compare/v0.279.0...v0.280.0) (2025-02-03)
+
+
+### Features
+
+* remove stop propertise from trigger log AB[#32660](https://github.com/rodekruis/IBF-system/issues/32660) ([36bb8db](https://github.com/rodekruis/IBF-system/commit/36bb8db4bf3c03d3b23757358a066e7c1b51ccb0))
+
+
+
 # [0.279.0](https://github.com/rodekruis/IBF-system/compare/v0.278.7...v0.279.0) (2025-01-31)
 
 
@@ -100,15 +109,6 @@
 * make no-trigger scenario work AB[#32478](https://github.com/rodekruis/IBF-system/issues/32478) ([1596ba0](https://github.com/rodekruis/IBF-system/commit/1596ba03627a9f29460b8b39f5069b51919efc39))
 * migrate drought to new mock setup with working LSO mock data AB[#32480](https://github.com/rodekruis/IBF-system/issues/32480) ([19007a7](https://github.com/rodekruis/IBF-system/commit/19007a7c0d1bf4c2dbc4c67a41107df24b1be8d1))
 * set up email LSO AB[#32529](https://github.com/rodekruis/IBF-system/issues/32529) ([c04274f](https://github.com/rodekruis/IBF-system/commit/c04274f91c2fae0e8b23ab594dc112a1f36b1a1a))
-
-
-
-## [0.277.20](https://github.com/rodekruis/IBF-system/compare/v0.277.19...v0.277.20) (2025-01-10)
-
-
-### Bug Fixes
-
-* check for token expiry AB[#31743](https://github.com/rodekruis/IBF-system/issues/31743) ([1df9fd9](https://github.com/rodekruis/IBF-system/commit/1df9fd95685e8a2484a4d03987bc514131283278))
 
 
 
