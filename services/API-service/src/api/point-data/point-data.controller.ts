@@ -28,7 +28,8 @@ import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
 import { UploadDynamicPointDataDto } from './dto/upload-asset-exposure-status.dto';
-import { CommunityNotification, PointDataService } from './point-data.service';
+import { CommunityNotificationExternalDto } from './dto/upload-community-notifications.dto';
+import { PointDataService } from './point-data.service';
 
 @ApiBearerAuth()
 @ApiTags('point-data')
@@ -99,7 +100,7 @@ export class PointDataController {
   @Post('community-notification/:countryCodeISO3')
   public async uploadCommunityNotification(
     @Param() params,
-    @Body() communityNotification: CommunityNotification,
+    @Body() communityNotification: CommunityNotificationExternalDto,
   ): Promise<void> {
     return await this.pointDataService.uploadCommunityNotification(
       params.countryCodeISO3,
