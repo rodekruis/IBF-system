@@ -75,6 +75,7 @@ export class PointMarkerService {
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_COMMUNITY_NOTIFICATION),
+      alt: 'Community notifications',
     });
     markerInstance.bindPopup(this.renderPopUpHTML(markerProperties), {
       minWidth: 220,
