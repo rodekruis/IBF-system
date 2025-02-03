@@ -46,6 +46,7 @@ describe('community notifications', () => {
       mockCommunityNotification,
       accessToken,
     );
+    // TODO: also test the whatsapp message upon posting a new notification
 
     const getResult = await getPointData(
       countryCodeISO3,
