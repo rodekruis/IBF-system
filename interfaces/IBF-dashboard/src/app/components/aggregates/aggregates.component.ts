@@ -207,36 +207,37 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   public getAggregatesHeader(mapView: MapView) {
+    if (!this.disasterType) {
+      return {
+        headerLabel: mapView,
+        subHeaderLabel: mapView,
+      };
+    }
+
     if (mapView === MapView.national) {
       return this.placeCodeHover
         ? {
             headerLabel:
               this.placeCodeHover.placeCodeName ||
               this.placeCodeHover.placeCode,
-            subHeaderLabel: this.countryDisasterSettings.isEventBased
-              ? `${
-                  this.translateService.instant(
-                    'aggregates-component.predicted',
-                  ) as string
-                } ${firstCharOfWordsToUpper(this.disasterType.label)}`
-              : `Exposed ${this.getAdminAreaLabel('singular')}`,
+            subHeaderLabel: `${
+              this.translateService.instant(
+                'aggregates-component.predicted',
+              ) as string
+            } ${firstCharOfWordsToUpper(this.disasterType.label)}`,
           }
         : {
             headerLabel: this.translateService.instant(
               'aggregates-component.national-view',
             ) as string,
             subHeaderLabel: `${this.getEventCount()?.toString()} ${
-              this.countryDisasterSettings?.isEventBased
-                ? `${
-                    this.translateService.instant(
-                      'aggregates-component.predicted',
-                    ) as string
-                  } ${firstCharOfWordsToUpper(this.disasterType.label)}${
-                    this.translateService.instant(
-                      'aggregates-component.plural-suffix',
-                    ) as string
-                  }`
-                : `Exposed ${this.getAdminAreaLabel()}`
+              this.translateService.instant(
+                'aggregates-component.predicted',
+              ) as string
+            } ${firstCharOfWordsToUpper(this.disasterType.label)}${
+              this.translateService.instant(
+                'aggregates-component.plural-suffix',
+              ) as string
             }`,
           };
     }
@@ -322,9 +323,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   private getEventCount(): number {
-    return this.countryDisasterSettings?.isEventBased
-      ? (this.eventState?.events?.length ?? 0)
-      : this.getAreaCount();
+    return this.eventState?.events?.length ?? 0;
   }
 
   public isAggregateNan(

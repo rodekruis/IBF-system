@@ -41,8 +41,7 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        },
-        "isEventBased": true
+        }
       },
       {
         "disasterType": "drought",
@@ -216,8 +215,7 @@
         },
         "droughtEndOfMonthPipeline": false,
         "showMonthlyEapActions": true,
-        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0db9ce391f633443aae619a2a0e974904&authkey=AV-9MdWarHQlelBjlbQdaoA&expiration=2023-07-31T22%3a00%3a00.000Z",
-        "isEventBased": true
+        "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0db9ce391f633443aae619a2a0e974904&authkey=AV-9MdWarHQlelBjlbQdaoA&expiration=2023-07-31T22%3a00%3a00.000Z"
       }
     ],
     "adminRegionLabels": {
@@ -297,8 +295,7 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        },
-        "isEventBased": true
+        }
       },
       {
         "disasterType": "drought",
@@ -326,7 +323,6 @@
             }
           }
         },
-        "isEventBased": true,
         "showMonthlyEapActions": true,
         "eapLink": "https://zambiaredcrosssociety-my.sharepoint.com/:w:/r/personal/wina_wina_redcross_org_zm/_layouts/15/Doc.aspx?sourcedoc=%7BA97A5C40-159E-45A9-A236-B0545E6A7734%7D&file=DROUGHT%20EAP%202021%20-SEPT%20Draft%202%20-Irene.docx&action=default&mobileredirect=true"
       }
@@ -403,8 +399,7 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        },
-        "isEventBased": true
+        }
       },
       {
         "disasterType": "flash-floods",
@@ -431,8 +426,7 @@
           "48-hour"
         ],
         "eapLink": "https://510ibfsystem.blob.core.windows.net/about-trigger/MWI-flashfloods-about.pdf",
-        "enableEarlyActions": false,
-        "isEventBased": true
+        "enableEarlyActions": false
       }
     ],
     "adminRegionLabels": {
@@ -497,8 +491,7 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        },
-        "isEventBased": true
+        }
       }
     ],
     "adminRegionLabels": {
@@ -562,8 +555,7 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        },
-        "isEventBased": true
+        }
       },
       {
         "disasterType": "drought",
@@ -612,7 +604,6 @@
           "10": [],
           "11": []
         },
-        "isEventBased": true,
         "eapLink": "https://drive.google.com/file/d/129ni2VlAxg5GngqoszmVjlaRFEuLwLph/view"
       }
     ],
@@ -678,16 +669,14 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        },
-        "isEventBased": true
+        }
       },
       {
         "disasterType": "malaria",
         "adminLevels": [3],
         "defaultAdminLevel": 3,
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
-        "eapLink": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing",
-        "isEventBased": true
+        "eapLink": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing"
       },
       {
         "disasterType": "drought",
@@ -707,7 +696,6 @@
           "10-month",
           "11-month"
         ],
-        "isEventBased": true,
         "droughtSeasonRegions": {
           "Belg": {
             "Belg MAM": {
@@ -1064,7 +1052,6 @@
           "167-hour",
           "168-hour"
         ],
-        "isEventBased": true,
         "eapLink": "https://reliefweb.int/report/philippines/philippines-typhoon-early-action-protocol-summary-eap-no-eap2024ph03-operation-no-mdrph055"
       },
       {
@@ -1093,8 +1080,7 @@
             "color": "ibf-glofas-trigger",
             "value": 1
           }
-        },
-        "isEventBased": true
+        }
       }
     ],
     "adminRegionLabels": {
@@ -1237,8 +1223,7 @@
         },
         "enableEarlyActions": false,
         "showMonthlyEapActions": true,
-        "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true",
-        "isEventBased": true
+        "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
       }
     ],
     "adminRegionLabels": {

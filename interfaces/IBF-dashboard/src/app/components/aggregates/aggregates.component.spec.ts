@@ -73,6 +73,8 @@ describe('AggregatesComponent', () => {
     fixture.detectChanges();
     popoverController = TestBed.inject(PopoverController);
     analyticsService = TestBed.inject(AnalyticsService);
+
+    component.disasterType = MOCK_DISASTERTYPE;
   }));
 
   it('should create', () => {

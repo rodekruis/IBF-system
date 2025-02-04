@@ -101,9 +101,6 @@ export class CountryDisasterSettingsDto {
 
   @ApiProperty({ example: {} })
   public droughtRegions?: object;
-
-  @ApiProperty({ example: false })
-  public isEventBased?: boolean;
 }
 
 export class AddCountriesDto {

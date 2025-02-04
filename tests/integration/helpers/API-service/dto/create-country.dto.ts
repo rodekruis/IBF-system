@@ -24,7 +24,6 @@ export interface CountryDisasterSettingsDto {
   eapLink: string;
   eapAlertClasses?: object;
   droughtRegions?: object;
-  isEventBased?: boolean;
 }
 
 export interface AddCountriesDto {
