@@ -22,6 +22,7 @@ import DisasterTypeComponentVisible from './DisasterTypeComponent/DisasterTypeCo
 import MapComponentAlertThreshold from './MapComponent/MapComponentAlertThreshold';
 import MapComponentGloFASStations from './MapComponent/MapComponentGloFASStations';
 import MapComponentGloFASStationsWarning from './MapComponent/MapComponentGloFASStationsWarning';
+import MapComponentInfoPopover from './MapComponent/MapComponentInfoPopover';
 import MapComponentInteractive from './MapComponent/MapComponentInteractive';
 import MapComponentLayersVisible from './MapComponent/MapComponentLayersVisible';
 import MapComponentVisible from './MapComponent/MapComponentVisible';
@@ -80,6 +81,7 @@ test.describe('Scenario: No Trigger', () => {
   test.describe('MapComponent', () => {
     MapComponentVisible(pages, components, disasterType);
     MapComponentInteractive(pages, components, disasterType);
+    MapComponentInfoPopover(pages, components, disasterType);
     MapComponentLayersVisible(pages, components, disasterType);
     MapComponentAlertThreshold(pages, components, disasterType);
     MapComponentGloFASStations(pages, components, disasterType);
