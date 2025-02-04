@@ -124,7 +124,9 @@ export class NotificationContentService {
     disasterType: DisasterType,
   ): Promise<IndicatorMetadataEntity> {
     return await this.indicatorRepository.findOne({
-      where: { name: (await this.getDisaster(disasterType)).actionsUnit },
+      where: {
+        name: (await this.getDisaster(disasterType)).mainExposureIndicator,
+      },
     });
   }
 
@@ -240,7 +242,7 @@ export class NotificationContentService {
     numberFormat: NumberFormat,
   ) {
     const total = triggeredAreas.reduce(
-      (acc, { actionsValue }) => acc + actionsValue,
+      (acc, { mainExposureValue }) => acc + mainExposureValue,
       0,
     );
 

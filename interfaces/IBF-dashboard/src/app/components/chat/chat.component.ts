@@ -67,8 +67,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   public adminAreaLabelPlural: string;
   public disasterTypeLabel: string;
   public disasterTypeName: string;
-  public actionIndicatorLabel: string;
-  public actionIndicatorNumberFormat: NumberFormat;
+  public mainExposureIndicatorLabel: string;
+  public mainExposureIndicatorNumberFormat: NumberFormat;
   public forecastInfo: string[];
   public country: Country;
   public disasterType: DisasterType;
@@ -221,11 +221,13 @@ export class ChatComponent implements OnInit, OnDestroy {
 
       this.disasterTypeLabel = this.disasterType.label;
       this.disasterTypeName = this.disasterType.disasterType;
-      const actionIndicator = this.indicators.find((indicator) => {
-        return indicator.name === this.disasterType.actionsUnit;
+      const mainExposureIndicator = this.indicators.find((indicator) => {
+        return indicator.name === this.disasterType.mainExposureIndicator;
       });
-      this.actionIndicatorLabel = actionIndicator?.label.toLowerCase();
-      this.actionIndicatorNumberFormat = actionIndicator?.numberFormatMap;
+      this.mainExposureIndicatorLabel =
+        mainExposureIndicator?.label.toLowerCase();
+      this.mainExposureIndicatorNumberFormat =
+        mainExposureIndicator?.numberFormatMap;
       this.getForecastInfo();
 
       this.updateSuccessMessage = this.translateService.instant(

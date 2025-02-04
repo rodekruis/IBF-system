@@ -174,9 +174,9 @@ export class EventService {
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
         'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
-        'SUM(CASE WHEN event."actionsValue" > 0 OR event."triggerValue" > 0 THEN 1 ELSE 0 END) AS "nrAffectedAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
+        'SUM(CASE WHEN event."mainExposureValue" > 0 OR event."triggerValue" > 0 THEN 1 ELSE 0 END) AS "nrAffectedAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
         'MAX(event."triggerValue")::float AS "triggerValue"',
-        'sum(event."actionsValue")::int AS "actionsValueSum"',
+        'sum(event."mainExposureValue")::int AS "actionsValueSum"',
       ])
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
@@ -274,10 +274,10 @@ export class EventService {
   public async getTriggerUnit(disasterType: DisasterType): Promise<string> {
     return (
       await this.disasterTypeRepository.findOne({
-        select: ['triggerUnit'],
+        select: ['triggerIndicator'],
         where: { disasterType },
       })
-    ).triggerUnit;
+    ).triggerIndicator;
   }
 
   private async getCountryDisasterSettings(
@@ -303,13 +303,13 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    const triggerUnit = await this.getTriggerUnit(disasterType);
+    const triggerIndicator = await this.getTriggerUnit(disasterType);
     const defaultAdminLevel = (
       await this.getCountryDisasterSettings(countryCodeISO3, disasterType)
     ).defaultAdminLevel;
 
     const whereFiltersDynamicData = {
-      indicator: triggerUnit, // REFACTOR: trigger unit and indicator should not be used interchangeably
+      indicator: triggerIndicator, // REFACTOR: trigger unit and indicator should not be used interchangeably
       value: MoreThan(0),
       adminLevel,
       disasterType,
@@ -359,7 +359,7 @@ export class EventService {
         'area."placeCode" AS "placeCode"',
         'area.name AS name',
         'area."adminLevel" AS "adminLevel"',
-        'event."actionsValue"',
+        'event."mainExposureValue"',
         'event."triggerValue"',
         'event."eventPlaceCodeId"',
         'event."stopped"',
@@ -379,8 +379,8 @@ export class EventService {
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
-      .andWhere('(event."actionsValue" > 0 OR event."triggerValue" > 0)')
-      .orderBy('event."actionsValue"', 'DESC')
+      .andWhere('(event."mainExposureValue" > 0 OR event."triggerValue" > 0)')
+      .orderBy('event."mainExposureValue"', 'DESC')
       .getRawMany();
 
     for (const area of triggeredAreas) {
@@ -408,10 +408,10 @@ export class EventService {
     eventName?: string,
     leadTime?: string,
   ): Promise<TriggeredArea[]> {
-    const actionUnit = await this.getActionUnit(disasterType);
+    const mainExposureIndicator = await this.getActionUnit(disasterType);
     const whereFilters = {
       placeCode: In(triggeredPlaceCodes),
-      indicator: actionUnit,
+      indicator: mainExposureIndicator,
       disasterType,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
@@ -467,7 +467,7 @@ export class EventService {
         placeCode: area.placeCode,
         name: area.name,
         nameParent: null,
-        actionsValue: area.value,
+        mainExposureValue: area.value,
         triggerValue: null, // leave empty for now, as we don't show triggerValue on deeper levels
         stopped: area.stopped,
         startDate: area.startDate,
@@ -493,8 +493,8 @@ export class EventService {
         'event."startDate"',
         'event.closed as closed',
         'case when event.closed = true then event."endDate" end as "endDate"',
-        'disaster."actionsUnit" as "exposureIndicator"',
-        'event."actionsValue" as "exposureValue"',
+        'disaster."mainExposureIndicator" as "exposureIndicator"',
+        'event."mainExposureValue" as "exposureValue"',
         `CASE event."triggerValue" WHEN 1 THEN 'Trigger/alert' WHEN 0.7 THEN 'Medium warning' WHEN 0.3 THEN 'Low warning' END as "alertClass"`,
         'event."eventPlaceCodeId" as "databaseId"',
       ])
@@ -653,10 +653,10 @@ export class EventService {
   private async getActionUnit(disasterType: DisasterType): Promise<string> {
     return (
       await this.disasterTypeRepository.findOne({
-        select: ['actionsUnit'],
+        select: ['mainExposureIndicator'],
         where: { disasterType },
       })
-    ).actionsUnit;
+    ).mainExposureIndicator;
   }
 
   public async processEventAreas(
@@ -701,7 +701,7 @@ export class EventService {
     adminLevel: number,
     eventName: string,
   ): Promise<AffectedAreaDto[]> {
-    const triggerUnit = await this.getTriggerUnit(disasterType);
+    const triggerIndicator = await this.getTriggerUnit(disasterType);
 
     const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
@@ -709,7 +709,7 @@ export class EventService {
     );
 
     const whereFilters = {
-      indicator: triggerUnit, // REFACTOR: trigger unit and indicator should not be used interchangeably
+      indicator: triggerIndicator, // REFACTOR: trigger unit and indicator should not be used interchangeably
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -739,11 +739,11 @@ export class EventService {
       return [];
     }
 
-    const actionUnit = await this.getActionUnit(disasterType);
+    const mainExposureIndicator = await this.getActionUnit(disasterType);
 
     const whereOptions = {
       placeCode: In(triggerPlaceCodesArray),
-      indicator: actionUnit, // REFACTOR: action unit and indicator should not be used interchangeably
+      indicator: mainExposureIndicator, // REFACTOR: action unit and indicator should not be used interchangeably
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -761,7 +761,7 @@ export class EventService {
     const affectedAreas: AffectedAreaDto[] = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
-      .addSelect('MAX(area.value) AS "actionsValue"')
+      .addSelect('MAX(area.value) AS "mainExposureValue"')
       .addSelect('MAX(area."leadTime") AS "leadTime"')
       .where(whereOptions)
       .groupBy('area."placeCode"')
@@ -833,7 +833,7 @@ export class EventService {
       uploadDate.timestamp,
     );
 
-    // .. lastly we update those records where actionsValue or triggerValue changed
+    // .. lastly we update those records where mainExposureValue or triggerValue changed
     await this.updateValues(unclosedEventAreas, affectedAreas);
   }
 
@@ -864,13 +864,13 @@ export class EventService {
       );
       if (
         affectedArea &&
-        (eventArea.actionsValue !== affectedArea.actionsValue ||
+        (eventArea.mainExposureValue !== affectedArea.mainExposureValue ||
           eventArea.triggerValue !== affectedArea.triggerValue)
       ) {
         eventArea.triggerValue = affectedArea.triggerValue;
-        eventArea.actionsValue = affectedArea.actionsValue;
+        eventArea.mainExposureValue = affectedArea.mainExposureValue;
         eventAreasToUpdate.push(
-          `('${eventArea.eventPlaceCodeId}',${eventArea.actionsValue},${eventArea.triggerValue})`,
+          `('${eventArea.eventPlaceCodeId}',${eventArea.mainExposureValue},${eventArea.triggerValue})`,
         );
       }
     }
@@ -879,7 +879,7 @@ export class EventService {
       const updateQuery = `UPDATE \
       "${repository.metadata.schema}"."${repository.metadata.tableName}" epc \
       SET \
-          "actionsValue" = areas.actionValue::double precision, \
+          "mainExposureValue" = areas.actionValue::double precision, \
           "triggerValue" = areas.triggerValue::double precision \
       FROM \
          (VALUES ${eventAreasToUpdate.join(',')}) \
@@ -931,7 +931,7 @@ export class EventService {
         eventArea.eventName = eventName;
         eventArea.thresholdReached = area.triggerValue === 1;
         eventArea.triggerValue = area.triggerValue;
-        eventArea.actionsValue = +area.actionsValue;
+        eventArea.mainExposureValue = +area.mainExposureValue;
         eventArea.startDate = startDate.timestamp;
         eventArea.endDate = startDate.timestamp;
         eventArea.stopped = false;

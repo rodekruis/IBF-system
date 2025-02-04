@@ -139,7 +139,7 @@ export class EapActionsService {
     this.triggeredAreas = triggeredAreas;
     this.triggeredAreas.sort((a, b) => {
       if (a.triggerValue === b.triggerValue) {
-        return a.actionsValue > b.actionsValue ? -1 : 1;
+        return a.mainExposureValue > b.mainExposureValue ? -1 : 1;
       } else {
         return a.triggerValue > b.triggerValue ? -1 : 1;
       }

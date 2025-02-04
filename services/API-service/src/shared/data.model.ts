@@ -38,7 +38,7 @@ export class TriggeredArea {
   public nameParent: string;
 
   @ApiProperty({ example: 100 })
-  public actionsValue: number;
+  public mainExposureValue: number;
 
   @ApiProperty({ example: 1 })
   public triggerValue: number;

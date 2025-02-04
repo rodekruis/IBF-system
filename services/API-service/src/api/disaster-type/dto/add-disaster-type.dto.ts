@@ -15,11 +15,17 @@ export class DisasterTypeDto {
   @ApiProperty({ example: 'flood' })
   public label: string;
 
-  @ApiProperty({ example: 'alert_threshold' })
-  public triggerUnit: string;
+  @ApiProperty({
+    example: 'alert_threshold',
+    description: `List the 'indicator' here that is used to identify trigger status. Must be 'alert_threshold' at themoment.`,
+  })
+  public triggerIndicator: string;
 
-  @ApiProperty({ example: 'population_affected' })
-  public actionsUnit: string;
+  @ApiProperty({
+    example: 'population_affected',
+    description: `List the 'indicator' here that is used as main exposure indicator.`,
+  })
+  public mainExposureIndicator: string;
 
   @ApiProperty({ default: false })
   public showOnlyTriggeredAreas: boolean;
