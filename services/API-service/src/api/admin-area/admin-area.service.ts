@@ -128,7 +128,8 @@ export class AdminAreaService {
     leadTime: string,
     eventName: string,
   ): Promise<AdminAreaDynamicDataEntity[]> {
-    const triggerUnit = await this.eventService.getTriggerUnit(disasterType);
+    const triggerIndicator =
+      await this.eventService.getTriggerUnit(disasterType);
     const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
@@ -138,7 +139,7 @@ export class AdminAreaService {
       disasterType: disasterType,
       adminLevel: adminLevel,
       value: MoreThan(0),
-      indicator: triggerUnit as DynamicIndicator,
+      indicator: triggerIndicator as DynamicIndicator,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -370,7 +371,7 @@ export class AdminAreaService {
         'area."placeCodeParent" = parent."placeCode"',
       )
       .addSelect([
-        `dynamic.value AS ${disasterTypeEntity.actionsUnit}`,
+        `dynamic.value AS ${disasterTypeEntity.mainExposureIndicator}`,
         'dynamic."leadTime"',
         'dynamic."date"',
         'parent.name AS "nameParent"',
@@ -387,7 +388,7 @@ export class AdminAreaService {
         disasterType: disasterType,
       })
       .andWhere('dynamic."indicator" = :indicator', {
-        indicator: disasterTypeEntity.actionsUnit,
+        indicator: disasterTypeEntity.mainExposureIndicator,
       });
     if (leadTime) {
       adminAreasScript.andWhere('dynamic."leadTime" = :leadTime', {

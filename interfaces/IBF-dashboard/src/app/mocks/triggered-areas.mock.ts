@@ -3,7 +3,7 @@ import { TriggeredArea } from 'src/app/types/triggered-area';
 
 export const MOCK_TRIGGEREDAREAS: TriggeredArea[] = [
   {
-    actionsValue: 1,
+    mainExposureValue: 1,
     triggerValue: 1,
     displayName: 'Guba',
     eapActions: [],
@@ -16,7 +16,7 @@ export const MOCK_TRIGGEREDAREAS: TriggeredArea[] = [
     submitDisabled: false,
   },
   {
-    actionsValue: 1,
+    mainExposureValue: 1,
     triggerValue: 1,
     displayName: 'Derkhale',
     eapActions: [],

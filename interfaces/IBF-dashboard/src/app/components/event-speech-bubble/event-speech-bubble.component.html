@@ -146,7 +146,7 @@
         @if (event.thresholdReached) {
           <span>{{
             '(' +
-              (actionIndicatorLabel | titlecase) +
+              (mainExposureIndicatorLabel | titlecase) +
               ' ' +
               (event.actionsValueSum | compact) +
               ')'
@@ -188,7 +188,7 @@
                     nrTriggeredAreas: areas.length,
                     adminAreaLabelPlural: adminAreaLabelPlural,
                     eventName: selectedEvent?.split('_')[0],
-                    actionIndicator: actionIndicatorLabel,
+                    mainExposureIndicator: mainExposureIndicatorLabel,
                   }
           "
         ></p>
@@ -203,7 +203,7 @@
                     nrTriggeredAreas: areas.length,
                     adminAreaLabelPlural: adminAreaLabelPlural,
                     eventName: selectedEvent?.split('_')[0],
-                    actionIndicator: actionIndicatorLabel,
+                    mainExposureIndicator: mainExposureIndicatorLabel,
                   }
           "
         ></p>
@@ -219,10 +219,11 @@
               @if (area.nameParent) {
                 <span>({{ area.nameParent }})</span>
               }
-              @if (area.actionsValue && area.actionsValue > 0) {
+              @if (area.mainExposureValue && area.mainExposureValue > 0) {
                 {{ ' - ' }}
                 <span>{{
-                  area.actionsValue | compact: actionIndicatorNumberFormat
+                  area.mainExposureValue
+                    | compact: mainExposureIndicatorNumberFormat
                 }}</span>
               }
             </li>

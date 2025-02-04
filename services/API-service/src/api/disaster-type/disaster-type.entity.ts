@@ -30,13 +30,14 @@ export class DisasterTypeEntity {
   @Column()
   public label: string;
 
-  @ApiProperty({ example: 'population_affected' })
-  @Column({ default: 'population_affected' })
-  public triggerUnit: string;
+  // REFACTOR: thisshould always be 'alert_threshold', so should not be a column
+  @ApiProperty({ example: 'alert_threshold' })
+  @Column({ default: 'alert_threshold' })
+  public triggerIndicator: string;
 
   @ApiProperty({ example: 'population_affected' })
   @Column({ default: 'population_affected' })
-  public actionsUnit: string;
+  public mainExposureIndicator: string;
 
   @ApiProperty({ example: false })
   @Column({ default: false })

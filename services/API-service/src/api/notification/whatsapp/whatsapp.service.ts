@@ -356,7 +356,7 @@ export class WhatsappService {
       const row = `- *${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''
       } - ${this.helperService.toCompactNumber(
-        area.actionsValue,
+        area.mainExposureValue,
         indicatorMetadata.numberFormatMap,
       )}*\n`;
       areaList += row;

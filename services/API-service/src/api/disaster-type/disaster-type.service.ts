@@ -40,8 +40,9 @@ export class DisasterTypeService {
   ): Promise<void> {
     disasterTypeEntity.disasterType = disasterTypeDto.disasterType;
     disasterTypeEntity.label = disasterTypeDto.label;
-    disasterTypeEntity.triggerUnit = disasterTypeDto.triggerUnit;
-    disasterTypeEntity.actionsUnit = disasterTypeDto.actionsUnit;
+    disasterTypeEntity.triggerIndicator = disasterTypeDto.triggerIndicator;
+    disasterTypeEntity.mainExposureIndicator =
+      disasterTypeDto.mainExposureIndicator;
     disasterTypeEntity.showOnlyTriggeredAreas =
       disasterTypeDto.showOnlyTriggeredAreas;
     disasterTypeEntity.leadTimeUnit = disasterTypeDto.leadTimeUnit;

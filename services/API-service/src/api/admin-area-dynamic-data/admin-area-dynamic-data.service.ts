@@ -79,7 +79,7 @@ export class AdminAreaDynamicDataService {
     await this.adminAreaDynamicDataRepo.save(areas);
 
     const disasterType = await this.disasterTypeRepository.findOne({
-      select: ['triggerUnit'],
+      select: ['triggerIndicator'],
       where: { disasterType: uploadExposure.disasterType },
     });
 
@@ -89,7 +89,7 @@ export class AdminAreaDynamicDataService {
     });
 
     if (
-      disasterType.triggerUnit === uploadExposure.dynamicIndicator &&
+      disasterType.triggerIndicator === uploadExposure.dynamicIndicator &&
       uploadExposure.exposurePlaceCodes.length > 0 &&
       country.countryDisasterSettings.find(
         (s) => s.disasterType === uploadExposure.disasterType,

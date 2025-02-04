@@ -46,9 +46,9 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()
   public adminAreaLabelPlural: string;
   @Input()
-  public actionIndicatorLabel: string;
+  public mainExposureIndicatorLabel: string;
   @Input()
-  public actionIndicatorNumberFormat: NumberFormat;
+  public mainExposureIndicatorNumberFormat: NumberFormat;
 
   public typhoonLandfallText: string;
   public displayName: string;

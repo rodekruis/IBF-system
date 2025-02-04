@@ -56,8 +56,8 @@
       [countryCodeISO3]="country?.countryCodeISO3"
       [areas]="[]"
       [adminAreaLabelPlural]="adminAreaLabelPlural"
-      [actionIndicatorLabel]="actionIndicatorLabel"
-      [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+      [mainExposureIndicatorLabel]="mainExposureIndicatorLabel"
+      [mainExposureIndicatorNumberFormat]="mainExposureIndicatorNumberFormat"
     ></app-event-speech-bubble>
   } @else {
     <!-- Active event -->
@@ -73,8 +73,10 @@
           [countryCodeISO3]="country?.countryCodeISO3"
           [areas]="triggeredAreas"
           [adminAreaLabelPlural]="adminAreaLabelPlural"
-          [actionIndicatorLabel]="actionIndicatorLabel"
-          [actionIndicatorNumberFormat]="actionIndicatorNumberFormat"
+          [mainExposureIndicatorLabel]="mainExposureIndicatorLabel"
+          [mainExposureIndicatorNumberFormat]="
+            mainExposureIndicatorNumberFormat
+          "
         ></app-event-speech-bubble>
       }
     }
@@ -118,7 +120,10 @@
                   "
                 ></span>
                 <strong>
-                  {{ area.actionsValue | compact: actionIndicatorNumberFormat }}
+                  {{
+                    area.mainExposureValue
+                      | compact: mainExposureIndicatorNumberFormat
+                  }}
                 </strong>
               </ion-note>
             } @else {

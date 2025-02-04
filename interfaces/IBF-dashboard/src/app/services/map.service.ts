@@ -348,7 +348,7 @@ export class MapService {
       show: true,
       data: adminRegions,
       viewCenter: this.adminLevel === adminLevel,
-      colorProperty: this.disasterType.actionsUnit,
+      colorProperty: this.disasterType.mainExposureIndicator,
       order: 0,
     });
   }
@@ -550,7 +550,7 @@ export class MapService {
         wms: layer.wms,
         colorProperty:
           layer.group === IbfLayerGroup.adminRegions
-            ? this.disasterType.actionsUnit
+            ? this.disasterType.mainExposureIndicator
             : layer.colorProperty,
         colorBreaks: layer.colorBreaks,
         numberFormatMap: layer.numberFormatMap,

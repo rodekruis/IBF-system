@@ -47,7 +47,7 @@ export class EventPlaceCodeEntity {
   public triggerValue: number;
 
   @Column({ type: 'float8', nullable: true })
-  public actionsValue: number;
+  public mainExposureValue: number;
 
   @Column({ type: 'timestamp', nullable: true })
   @Check(`"startDate" <= "endDate"`)

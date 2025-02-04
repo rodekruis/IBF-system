@@ -101,11 +101,11 @@ export class EventAreaService {
             ),
           ),
           disasterType: disasterType.disasterType,
-          indicator: disasterType.actionsUnit,
+          indicator: disasterType.mainExposureIndicator,
           eventName: event.eventName,
         })
         .getRawOne();
-      eventArea[disasterType.actionsUnit] = aggregateValue.value;
+      eventArea[disasterType.mainExposureIndicator] = aggregateValue.value;
       eventAreas.push(eventArea);
     }
 
@@ -124,7 +124,7 @@ export class EventAreaService {
       for await (const eventArea of allEventAreas) {
         eventArea['eventName'] = eventArea.eventAreaName;
         eventArea['placeCode'] = eventArea.eventAreaName;
-        eventArea[disasterType.actionsUnit] = 0;
+        eventArea[disasterType.mainExposureIndicator] = 0;
 
         eventAreas.push(eventArea);
       }

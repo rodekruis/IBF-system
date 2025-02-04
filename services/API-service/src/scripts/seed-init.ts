@@ -61,8 +61,9 @@ export class SeedInit implements InterfaceScript {
         disasterTypeDto.disasterType =
           disasterType.disasterType as DisasterType;
         disasterTypeDto.label = disasterType.label;
-        disasterTypeDto.triggerUnit = disasterType.triggerUnit;
-        disasterTypeDto.actionsUnit = disasterType.actionsUnit;
+        disasterTypeDto.triggerIndicator = disasterType.triggerIndicator;
+        disasterTypeDto.mainExposureIndicator =
+          disasterType.mainExposureIndicator;
         disasterTypeDto.showOnlyTriggeredAreas =
           disasterType.showOnlyTriggeredAreas;
         disasterTypeDto.leadTimeUnit =
