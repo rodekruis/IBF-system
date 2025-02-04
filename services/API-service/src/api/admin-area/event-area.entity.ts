@@ -10,8 +10,8 @@ import {
 } from 'typeorm';
 
 import { CountryEntity } from '../country/country.entity';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 
 @Entity('event-area')
 export class EventAreaEntity {
@@ -28,7 +28,7 @@ export class EventAreaEntity {
   public countryCodeISO3: string;
 
   @ApiProperty({ example: DisasterType.FlashFloods })
-  @ManyToOne((): typeof DisasterEntity => DisasterEntity)
+  @ManyToOne((): typeof DisasterTypeEntity => DisasterTypeEntity)
   @JoinColumn({
     name: 'disasterType',
     referencedColumnName: 'disasterType',

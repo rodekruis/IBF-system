@@ -3,7 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
 import { BoundingBox } from '../../../shared/geo.model';
-import { DisasterType } from '../../disaster/disaster-type.enum';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { AdminLevel } from '../admin-level.enum';
 
 export class CountryDto {

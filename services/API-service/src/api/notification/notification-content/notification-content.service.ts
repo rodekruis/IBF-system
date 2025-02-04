@@ -8,8 +8,8 @@ import { NumberFormat } from '../../../shared/enums/number-format.enum';
 import { HelperService } from '../../../shared/helper.service';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../../country/country.entity';
-import { DisasterType } from '../../disaster/disaster-type.enum';
-import { DisasterEntity } from '../../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { EventService } from '../../event/event.service';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../dto/admin-area-notification-info.dto';
@@ -25,8 +25,8 @@ export class NotificationContentService {
   private readonly countryRepository: Repository<CountryEntity>;
   @InjectRepository(IndicatorMetadataEntity)
   private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
-  @InjectRepository(DisasterEntity)
-  private readonly disasterRepository: Repository<DisasterEntity>;
+  @InjectRepository(DisasterTypeEntity)
+  private readonly disasterRepository: Repository<DisasterTypeEntity>;
 
   public constructor(
     private readonly eventService: EventService,
@@ -81,7 +81,7 @@ export class NotificationContentService {
 
   private async getDisaster(
     disasterType: DisasterType,
-  ): Promise<DisasterEntity> {
+  ): Promise<DisasterTypeEntity> {
     return await this.disasterRepository.findOne({
       where: { disasterType: disasterType },
     });

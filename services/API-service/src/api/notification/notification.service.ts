@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { EventSummaryCountry } from '../../shared/data.model';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { DisasterType } from '../disaster/disaster-type.enum';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { EventService } from '../event/event.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import {

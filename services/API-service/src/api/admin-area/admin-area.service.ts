@@ -10,8 +10,8 @@ import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { EventService } from '../event/event.service';
 import { AdminAreaEntity } from './admin-area.entity';
 import { EventAreaService } from './services/event-area.service';
@@ -20,8 +20,8 @@ import { EventAreaService } from './services/event-area.service';
 export class AdminAreaService {
   @InjectRepository(AdminAreaEntity)
   private readonly adminAreaRepository: Repository<AdminAreaEntity>;
-  @InjectRepository(DisasterEntity)
-  private readonly disasterTypeRepository: Repository<DisasterEntity>;
+  @InjectRepository(DisasterTypeEntity)
+  private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
 
@@ -294,7 +294,7 @@ export class AdminAreaService {
 
   private async getDisasterType(
     disasterType: DisasterType,
-  ): Promise<DisasterEntity> {
+  ): Promise<DisasterTypeEntity> {
     return await this.disasterTypeRepository.findOne({
       where: { disasterType: disasterType },
     });
@@ -324,7 +324,7 @@ export class AdminAreaService {
     eventName: string,
     placeCodeParent?: string,
   ): Promise<GeoJson> {
-    const disaster = await this.getDisasterType(disasterType);
+    const disasterTypeEntity = await this.getDisasterType(disasterType);
     const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
@@ -334,7 +334,7 @@ export class AdminAreaService {
     if (disasterType === DisasterType.FlashFloods && !eventName) {
       return await this.eventAreaService.getEventAreas(
         countryCodeISO3,
-        disaster,
+        disasterTypeEntity,
         lastTriggeredDate,
       );
     }
@@ -370,7 +370,7 @@ export class AdminAreaService {
         'area."placeCodeParent" = parent."placeCode"',
       )
       .addSelect([
-        `dynamic.value AS ${disaster.actionsUnit}`,
+        `dynamic.value AS ${disasterTypeEntity.actionsUnit}`,
         'dynamic."leadTime"',
         'dynamic."date"',
         'parent.name AS "nameParent"',
@@ -387,7 +387,7 @@ export class AdminAreaService {
         disasterType: disasterType,
       })
       .andWhere('dynamic."indicator" = :indicator', {
-        indicator: disaster.actionsUnit,
+        indicator: disasterTypeEntity.actionsUnit,
       });
     if (leadTime) {
       adminAreasScript.andWhere('dynamic."leadTime" = :leadTime', {

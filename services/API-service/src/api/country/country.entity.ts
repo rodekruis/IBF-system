@@ -11,7 +11,7 @@ import {
 } from 'typeorm';
 
 import { BoundingBox } from '../../shared/geo.model';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { UserEntity } from '../user/user.entity';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
@@ -88,10 +88,10 @@ export class CountryEntity {
 
   @ApiProperty()
   @ManyToMany(
-    (): typeof DisasterEntity => DisasterEntity,
+    (): typeof DisasterTypeEntity => DisasterTypeEntity,
     (disasterType): CountryEntity[] => disasterType.countries,
   )
-  public disasterTypes: DisasterEntity[];
+  public disasterTypes: DisasterTypeEntity[];
 
   @OneToOne(() => NotificationInfoEntity, {
     cascade: true,

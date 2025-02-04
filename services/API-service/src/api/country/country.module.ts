@@ -2,7 +2,7 @@ import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { UserModule } from '../user/user.module';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
@@ -16,7 +16,7 @@ import { CountryService } from './country.service';
     UserModule,
     TypeOrmModule.forFeature([
       CountryEntity,
-      DisasterEntity,
+      DisasterTypeEntity,
       CountryDisasterSettingsEntity,
       NotificationInfoEntity,
     ]),

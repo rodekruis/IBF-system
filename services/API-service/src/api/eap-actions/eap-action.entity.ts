@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import { CountryEntity } from '../country/country.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { EapActionStatusEntity } from './eap-action-status.entity';
 
 @Entity('eap-action')
@@ -34,7 +34,7 @@ export class EapActionEntity {
   })
   public countryCodeISO3: string;
 
-  @ManyToOne((): typeof DisasterEntity => DisasterEntity)
+  @ManyToOne((): typeof DisasterTypeEntity => DisasterTypeEntity)
   @JoinColumn({
     name: 'disasterType',
     referencedColumnName: 'disasterType',

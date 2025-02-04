@@ -11,7 +11,7 @@ import {
 } from 'class-validator';
 
 import triggers from '../../../scripts/mock-data/floods/UGA/trigger/G5075/triggers-per-leadtime.json';
-import { DisasterType } from '../../disaster/disaster-type.enum';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { TriggerPerLeadTimeDto } from './trigger-per-leadtime.dto';
 
 export class UploadTriggerPerLeadTimeDto {

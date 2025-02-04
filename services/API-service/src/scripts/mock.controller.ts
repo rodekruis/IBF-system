@@ -25,7 +25,7 @@ import {
   IsString,
 } from 'class-validator';
 
-import { DisasterType } from '../api/disaster/disaster-type.enum';
+import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { UserRole } from '../api/user/user-role.enum';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';

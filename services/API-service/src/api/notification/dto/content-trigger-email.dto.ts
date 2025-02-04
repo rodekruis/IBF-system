@@ -1,5 +1,5 @@
 import { CountryEntity } from '../../country/country.entity';
-import { DisasterType } from '../../disaster/disaster-type.enum';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from './admin-area-notification-info.dto';
 import { NotificationDataPerEventDto } from './notification-date-per-event.dto';

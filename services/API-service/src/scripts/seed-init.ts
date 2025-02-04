@@ -9,12 +9,10 @@ import {
 import { CountryEntity } from '../api/country/country.entity';
 import { CountryService } from '../api/country/country.service';
 import { NotificationInfoDto } from '../api/country/dto/notification-info.dto';
-import { DisasterType } from '../api/disaster/disaster-type.enum';
-import {
-  DisasterEntity as DisasterDto,
-  DisasterEntity,
-} from '../api/disaster/disaster.entity';
-import { DisasterService } from '../api/disaster/disaster.service';
+import { DisasterTypeEntity } from '../api/disaster-type/disaster-type.entity';
+import { DisasterType } from '../api/disaster-type/disaster-type.enum';
+import { DisasterTypeService } from '../api/disaster-type/disaster-type.service';
+import { DisasterTypeDto } from '../api/disaster-type/dto/add-disaster-type.dto';
 import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
 import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
@@ -23,7 +21,7 @@ import { UserRole } from '../api/user/user-role.enum';
 import { UserStatus } from '../api/user/user-status.enum';
 import { UserEntity } from '../api/user/user.entity';
 import countries from './json/countries.json';
-import disasters from './json/disasters.json';
+import disasterTypes from './json/disaster-types.json';
 import eapActions from './json/EAP-actions.json';
 import indicatorMetadata from './json/indicator-metadata.json';
 import layerMetadata from './json/layer-metadata.json';
@@ -47,7 +45,7 @@ export class SeedInit implements InterfaceScript {
     private seedPointData: SeedPointData,
     private seedLineData: SeedLineData,
     private countryService: CountryService,
-    private disasterService: DisasterService,
+    private disasterService: DisasterTypeService,
   ) {
     this.seedHelper = new SeedHelper(dataSource);
   }
@@ -56,21 +54,26 @@ export class SeedInit implements InterfaceScript {
     await this.seedHelper.truncateAll();
 
     // ***** CREATE DISASTER *****
-    console.log('Seed Disasters...');
-    const disasterDtos = disasters.map((disaster): DisasterDto => {
-      const disasterDto = new DisasterDto();
-      disasterDto.disasterType = disaster.disasterType as DisasterType;
-      disasterDto.label = disaster.label;
-      disasterDto.triggerUnit = disaster.triggerUnit;
-      disasterDto.actionsUnit = disaster.actionsUnit;
-      disasterDto.showOnlyTriggeredAreas = disaster.showOnlyTriggeredAreas;
-      disasterDto.leadTimeUnit = disaster.leadTimeUnit as LeadTimeUnit;
-      disasterDto.minLeadTime = disaster.minLeadTime as LeadTime;
-      disasterDto.maxLeadTime = disaster.maxLeadTime as LeadTime;
-      return disasterDto;
-    });
+    console.log('Seed Disaster types...');
+    const disasterTypeDtos = disasterTypes.map(
+      (disasterType): DisasterTypeDto => {
+        const disasterTypeDto = new DisasterTypeDto();
+        disasterTypeDto.disasterType =
+          disasterType.disasterType as DisasterType;
+        disasterTypeDto.label = disasterType.label;
+        disasterTypeDto.triggerUnit = disasterType.triggerUnit;
+        disasterTypeDto.actionsUnit = disasterType.actionsUnit;
+        disasterTypeDto.showOnlyTriggeredAreas =
+          disasterType.showOnlyTriggeredAreas;
+        disasterTypeDto.leadTimeUnit =
+          disasterType.leadTimeUnit as LeadTimeUnit;
+        disasterTypeDto.minLeadTime = disasterType.minLeadTime as LeadTime;
+        disasterTypeDto.maxLeadTime = disasterType.maxLeadTime as LeadTime;
+        return disasterTypeDto;
+      },
+    );
     await this.disasterService.addOrUpdateDisasterTypes({
-      disasters: disasterDtos,
+      disasterTypes: disasterTypeDtos,
     });
 
     // ***** CREATE COUNTRIES *****
@@ -138,7 +141,8 @@ export class SeedInit implements InterfaceScript {
       }
     }
 
-    const disasterRepository = this.dataSource.getRepository(DisasterEntity);
+    const disasterRepository =
+      this.dataSource.getRepository(DisasterTypeEntity);
     const userEntities = await Promise.all(
       selectedUsers.map(async (user): Promise<UserEntity> => {
         const userEntity = new UserEntity();

@@ -3,7 +3,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { HelperService } from '../../shared/helper.service';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { EventModule } from '../event/event.module';
 import { UserModule } from '../user/user.module';
 import { CountryModule } from './../country/country.module';
@@ -19,7 +19,7 @@ import { MetadataService } from './metadata.service';
     TypeOrmModule.forFeature([
       IndicatorMetadataEntity,
       LayerMetadataEntity,
-      DisasterEntity,
+      DisasterTypeEntity,
     ]),
     CountryModule,
     EventModule,

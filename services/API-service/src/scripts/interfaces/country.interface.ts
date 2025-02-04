@@ -1,6 +1,6 @@
 import { LeadTime } from '../../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminLevel } from '../../api/country/admin-level.enum';
-import { DisasterType } from '../../api/disaster/disaster-type.enum';
+import { DisasterType } from '../../api/disaster-type/disaster-type.enum';
 import { DroughtSeasonRegions } from './drought-season-regions.interface';
 
 export interface Country {

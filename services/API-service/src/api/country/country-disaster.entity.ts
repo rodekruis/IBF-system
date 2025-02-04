@@ -9,8 +9,8 @@ import {
 } from 'typeorm';
 
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { AdminLevel } from './admin-level.enum';
 import { CountryEntity } from './country.entity';
 
@@ -27,7 +27,7 @@ export class CountryDisasterSettingsEntity {
   public country: CountryEntity;
 
   @ApiProperty({ example: DisasterType.Floods })
-  @ManyToOne((): typeof DisasterEntity => DisasterEntity)
+  @ManyToOne((): typeof DisasterTypeEntity => DisasterTypeEntity)
   @JoinColumn({
     name: 'disasterType',
     referencedColumnName: 'disasterType',

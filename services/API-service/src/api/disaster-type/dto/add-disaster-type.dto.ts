@@ -8,7 +8,7 @@ import {
 } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster-type.enum';
 
-export class DisasterDto {
+export class DisasterTypeDto {
   @ApiProperty({ example: 'DisasterType.Floods' })
   public disasterType: DisasterType;
 
@@ -34,10 +34,10 @@ export class DisasterDto {
   public maxLeadTime: LeadTime;
 }
 
-export class AddDisastersDto {
+export class AddDisasterTypesDto {
   @ApiProperty({
     example: [{}],
   })
   @IsNotEmpty()
-  public disasters: DisasterDto[];
+  public disasterTypes: DisasterTypeDto[];
 }

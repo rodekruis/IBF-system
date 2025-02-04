@@ -8,7 +8,7 @@ import {
   IsString,
 } from 'class-validator';
 
-import { DisasterType } from '../../disaster/disaster-type.enum';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 
 export class SendNotificationDto {
   @ApiProperty({

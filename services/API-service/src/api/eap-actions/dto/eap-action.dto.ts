@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-import { DisasterType } from '../../disaster/disaster-type.enum';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { AreaOfFocusEnum } from './area-of-focus.dto';
 
 export class EapActionDto {
