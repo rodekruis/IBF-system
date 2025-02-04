@@ -1,12 +1,11 @@
 import { AreaOfFocus } from 'src/app/types/area-of-focus';
 
-// ##TODO: exact same const as in back-end. Is this good practice? Better than via endpoint.
 export const AREAS_OF_FOCUS: AreaOfFocus[] = [
   {
-    id: 'drr',
+    id: 'disaster-risk-reduction',
     label: 'Disaster Risk Reduction',
     description:
-      '(DRR) is a systematic approach to identifying, assessing and reducing the risks of disaster.<br><br>It aims to reduce socio-economic vulnerabilities to disaster as well as dealing with the environmental and other hazards that trigger them.',
+      'Disaster Risk Reduction (DRR) is a systematic approach to identifying, assessing and reducing the risks of disaster.<br><br>It aims to reduce socio-economic vulnerabilities to disaster as well as dealing with the environmental and other hazards that trigger them.',
     icon: 'Disaster risk reduction.svg',
   },
   {

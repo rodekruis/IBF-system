@@ -19,6 +19,26 @@ export class RemoveLeadTimeEntity1737713818319 implements MigrationInterface {
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."country-disaster-settings" ADD "activeLeadTimes" json`,
     );
+
+    // Drop old tables
+    await queryRunner.query(
+      `DROP TABLE "IBF-app"."disaster_lead_times_lead-time"`,
+    );
+    await queryRunner.query(
+      `DROP TABLE "IBF-app"."country-disaster-settings_active_lead_times_lead-time"`,
+    );
+    await queryRunner.query(
+      `DROP TABLE "IBF-app"."country_country_active_lead_times_lead-time"`,
+    );
+    await queryRunner.query(`DROP TABLE "IBF-app"."glofas-station-forecast"`);
+    await queryRunner.query(`DROP TABLE "IBF-app"."lead-time"`);
+
+    await queryRunner.query(`DROP TABLE "IBF-app"."dam-site"`);
+    await queryRunner.query(`DROP TABLE "IBF-app"."evacuation-center"`);
+    await queryRunner.query(`DROP TABLE "IBF-app"."glofas-station"`);
+    await queryRunner.query(`DROP TABLE "IBF-app"."health-site"`);
+    await queryRunner.query(`DROP TABLE "IBF-app"."rainfall-triggers"`);
+    await queryRunner.query(`DROP TABLE "IBF-app"."redcross-branch"`);
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

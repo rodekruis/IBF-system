@@ -1,6 +1,6 @@
 import { Locator, Page } from 'playwright';
 
-import { AREAS_OF_FOCUS } from '../../../services/API-service/src/api/eap-actions/area-of-focus.const';
+import { AREAS_OF_FOCUS } from '../../../interfaces/IBF-dashboard/src/app/models/area-of-focus.const';
 import DashboardPage from './DashboardPage';
 
 class ActionsSummaryComponent extends DashboardPage {

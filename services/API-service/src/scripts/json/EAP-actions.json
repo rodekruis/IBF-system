@@ -79,8 +79,8 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocusId": "drr",
-    "action": "uga-drr-1",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "uga-disaster-risk-reduction-1",
     "label": "Early warning information and tailored advisories (when to plant, micro gardening)",
     "month": {
       "Karamoja": { "Karamoja": 2 },
@@ -90,8 +90,8 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocusId": "drr",
-    "action": "uga-drr-2",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "uga-disaster-risk-reduction-2",
     "label": "Peer education for behaviour change communication",
     "month": {
       "Karamoja": { "Karamoja": 2 },
@@ -255,29 +255,29 @@
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-1",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-1",
     "label": "Dissemination of Early Warning (EW) information and possible Early Action (EA)."
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-2",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-2",
     "label": "Assess the status of the safe havens to be used as evacuation centers such as Schools, Community halls, health facilities, Places of worship (church buildings, mosques, temples); in terms of; infrastructure, water availability, sanitation facilities and security."
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-3",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-3",
     "label": "Activation of the rapid response teams (CDRTs, BDRTs, NDRTs) & refresher training."
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-4",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-4",
     "label": "Preposition personal protection equipment for staff and volunteers."
   },
   {
@@ -464,8 +464,8 @@
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-1",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-1",
     "label": "Send out early warning messages"
   },
   {
@@ -499,22 +499,22 @@
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-2",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-2",
     "label": "Assist with Evacuation orders"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-3",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-3",
     "label": "Deploy Search and Rescue teams"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-4",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-4",
     "label": "Activate contingency plans"
   },
   {
@@ -548,22 +548,22 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-1",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-1",
     "label": "Dissemination of Early Warning Messages"
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-2",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-2",
     "label": "Support Physical Evacuation"
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-3",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-3",
     "label": "Placement of flood markers"
   },
   {
@@ -624,8 +624,8 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocusId": "drr",
-    "action": "drr-1",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-1",
     "label": "Pre-agreement with suppliers on procurement",
     "month": {
       "National": {
@@ -676,8 +676,8 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocusId": "drr",
-    "action": "drr-2",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-2",
     "label": "Disseminating early warning information",
     "month": {
       "National": {
@@ -689,8 +689,8 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocusId": "drr",
-    "action": "drr-3",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-3",
     "label": "Rangeland management",
     "month": {
       "National": {
@@ -780,29 +780,29 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-1",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-1",
     "label": "Awareness raising "
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-2",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-2",
     "label": "Support Individual safety measures – life jackets, elevated beddings"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-3",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-3",
     "label": "Evacuation"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "drr-4",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-4",
     "label": "Provide forage and water for livestock"
   },
   {
@@ -1781,36 +1781,36 @@
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "ssd-drr-01",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "ssd-disaster-risk-reduction-01",
     "label": "Activate the SSRC Emergency Office Center Call number for 24/7 hours for people to call in"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "ssd-drr-02",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "ssd-disaster-risk-reduction-02",
     "label": "Prepare National Disaster Response Team (NDRT) bags ready for surge deployment"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "ssd-drr-03",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "ssd-disaster-risk-reduction-03",
     "label": "Dissemination of early warning messages to communities at risk of being affected by floods (e.g., through mass media, and through community meetings)"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "ssd-drr-04",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "ssd-disaster-risk-reduction-04",
     "label": "Organize pre-disaster meetings with relevant actors including relevant ministries and departments"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "ssd-drr-05",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "ssd-disaster-risk-reduction-05",
     "label": "Activation of trained South Sudan Red Cross Volunteers/staff and Community Disaster Response Teams (CDRTs)"
   },
   {
@@ -1837,8 +1837,8 @@
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocusId": "drr",
-    "action": "ssd-drr-06",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "ssd-disaster-risk-reduction-06",
     "label": "Participate in stakeholders' coordination meetings with relevant state/National line ministries, and other humanitarian Actors on flood responses"
   },
   {
