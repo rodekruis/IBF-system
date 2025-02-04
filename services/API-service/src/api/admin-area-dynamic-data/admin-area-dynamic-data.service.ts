@@ -49,11 +49,11 @@ export class AdminAreaDynamicDataService {
       uploadExposure.leadTime,
     );
 
-    // NOTE: This should be changed in pipeline, but this achieves the same result as long as that did not happen
-    // NOTE: this assumes eventName=leadTime, if this changes, then this doesn't work any more
+    // NOTE: Temporary exception. This should be changed in pipeline, but this achieves the same result as long as that did not happen
     if (!uploadExposure.eventName) {
-      uploadExposure.eventName = this.getMalariaEventNameException(
+      uploadExposure.eventName = this.getEventNameException(
         uploadExposure.disasterType,
+        uploadExposure.countryCodeISO3,
         uploadExposure.leadTime,
       );
     }
@@ -107,14 +107,22 @@ export class AdminAreaDynamicDataService {
     }
   }
 
-  private getMalariaEventNameException(
+  private getEventNameException(
     disasterType: DisasterType,
+    countryCodeISO3: string,
     leadTime: LeadTime,
   ): string {
     if (disasterType === DisasterType.Malaria) {
+      // NOTE: this assumes eventName=leadTime, if this changes, then this doesn't work any more
       return leadTime as string;
+    } else if (
+      disasterType === DisasterType.Drought &&
+      countryCodeISO3 === 'ZWE'
+    ) {
+      return 'MAM_National';
+    } else {
+      return null;
     }
-    return null;
   }
 
   private async deleteDynamicDuplicates(

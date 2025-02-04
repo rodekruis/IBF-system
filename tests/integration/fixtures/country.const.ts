@@ -34,7 +34,6 @@ export const countryData: CountryDto[] = [
             value: 1,
           },
         },
-        isEventBased: true,
       },
       {
         disasterType: 'flash-floods',
@@ -64,7 +63,6 @@ export const countryData: CountryDto[] = [
           'https://510ibfsystem.blob.core.windows.net/about-trigger/MWI-flashfloods-about.pdf',
         enableEarlyActions: false,
         enableStopTrigger: false,
-        isEventBased: true,
       },
     ],
     adminRegionLabels: {

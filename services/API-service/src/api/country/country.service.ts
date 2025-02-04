@@ -188,7 +188,6 @@ export class CountryService {
         : null;
     countryDisasterSettingsEntity.activeLeadTimes =
       disasterType.activeLeadTimes as LeadTime[];
-    countryDisasterSettingsEntity.isEventBased = disasterType.isEventBased;
 
     const saveResult = await this.countryDisasterSettingsRepository.save(
       countryDisasterSettingsEntity,
