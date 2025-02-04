@@ -53,8 +53,8 @@ describe('CountryService', () => {
     countryRepository = module.get<Repository<CountryEntity>>(
       getRepositoryToken(CountryEntity),
     );
-    disasterTypeRepository = module.get<Repository<DisasterEntity>>(
-      getRepositoryToken(DisasterEntity),
+    disasterTypeRepository = module.get<Repository<DisasterTypeEntity>>(
+      getRepositoryToken(DisasterTypeEntity),
     );
     countryDisasterSettingsRepository = module.get<
       Repository<CountryDisasterSettingsEntity>
@@ -100,7 +100,7 @@ describe('CountryService', () => {
         .mockResolvedValue(new CountryEntity());
       jest
         .spyOn(disasterTypeRepository, 'find')
-        .mockResolvedValue([new DisasterEntity()]);
+        .mockResolvedValue([new DisasterTypeEntity()]);
       jest
         .spyOn(countryRepository, 'save')
         .mockResolvedValue(new CountryEntity());

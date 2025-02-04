@@ -45,7 +45,7 @@ export class SeedInit implements InterfaceScript {
     private seedPointData: SeedPointData,
     private seedLineData: SeedLineData,
     private countryService: CountryService,
-    private disasterService: DisasterTypeService,
+    private disasterTypeService: DisasterTypeService,
   ) {
     this.seedHelper = new SeedHelper(dataSource);
   }
@@ -73,7 +73,7 @@ export class SeedInit implements InterfaceScript {
         return disasterTypeDto;
       },
     );
-    await this.disasterService.addOrUpdateDisasterTypes({
+    await this.disasterTypeService.addOrUpdateDisasterTypes({
       disasterTypes: disasterTypeDtos,
     });
 
@@ -142,7 +142,7 @@ export class SeedInit implements InterfaceScript {
       }
     }
 
-    const disasterRepository =
+    const disasterTypeRepository =
       this.dataSource.getRepository(DisasterTypeEntity);
     const userEntities = await Promise.all(
       selectedUsers.map(async (user): Promise<UserEntity> => {
@@ -163,7 +163,7 @@ export class SeedInit implements InterfaceScript {
             });
         userEntity.disasterTypes = !user.disasterTypes
           ? []
-          : await disasterRepository.find({
+          : await disasterTypeRepository.find({
               where: user.disasterTypes.map((disasterType: string): object => {
                 return {
                   disasterType: disasterType,

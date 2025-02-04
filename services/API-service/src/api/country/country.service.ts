@@ -22,7 +22,7 @@ export class CountryService {
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
   @InjectRepository(DisasterTypeEntity)
-  private readonly disasterRepository: Repository<DisasterTypeEntity>;
+  private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
   @InjectRepository(CountryDisasterSettingsEntity)
   private readonly countryDisasterSettingsRepository: Repository<CountryDisasterSettingsEntity>;
   @InjectRepository(NotificationInfoEntity)
@@ -90,7 +90,7 @@ export class CountryService {
     countryEntity.adminRegionLabels = JSON.parse(
       JSON.stringify(country.adminRegionLabels),
     );
-    countryEntity.disasterTypes = await this.disasterRepository.find({
+    countryEntity.disasterTypes = await this.disasterTypeRepository.find({
       where: country.disasterTypes
         .filter((disasterType) => {
           if (envDisasterTypes) {

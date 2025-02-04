@@ -26,7 +26,7 @@ export class NotificationContentService {
   @InjectRepository(IndicatorMetadataEntity)
   private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
   @InjectRepository(DisasterTypeEntity)
-  private readonly disasterRepository: Repository<DisasterTypeEntity>;
+  private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
 
   public constructor(
     private readonly eventService: EventService,
@@ -82,7 +82,7 @@ export class NotificationContentService {
   private async getDisaster(
     disasterType: DisasterType,
   ): Promise<DisasterTypeEntity> {
-    return await this.disasterRepository.findOne({
+    return await this.disasterTypeRepository.findOne({
       where: { disasterType: disasterType },
     });
   }
