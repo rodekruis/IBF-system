@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AreaOfFocusEnum {
-  public static readonly DRR = 'drr';
+  public static readonly DISASTER_RISK_REDUCTION = 'disaster-risk-reduction';
   public static readonly SHELTER = 'shelter';
   public static readonly LIVELIHOOD = 'livelihood';
   public static readonly HEALTH = 'health';

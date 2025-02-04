@@ -16,22 +16,26 @@ export class EapActionDto {
   @IsString()
   public disasterType: string;
 
-  @ApiProperty({ example: AreaOfFocusEnum.DRR })
+  @ApiProperty({ example: AreaOfFocusEnum.DISASTER_RISK_REDUCTION })
   @IsNotEmpty()
   @IsEnum(AreaOfFocusEnum)
   public areaOfFocusId: AreaOfFocusEnum;
 
-  @ApiProperty({ example: 'drr-1' })
+  @ApiProperty({ example: 'disaster-risk-reduction-1' })
   @IsNotEmpty()
   @IsString()
   public action: string;
 
-  @ApiProperty({ example: 'DRR dummy action' })
+  @ApiProperty({ example: 'Dummy action' })
   @IsNotEmpty()
   @IsString()
   public label: string;
 
-  @ApiProperty({ example: null })
+  @ApiProperty({
+    example: null,
+    description:
+      'Specify an optional calendar month (1-12) in which this action is applicable.',
+  })
   @IsOptional()
   public month?: object;
 }
@@ -42,9 +46,9 @@ export class AddEapActionsDto {
       {
         countryCodeISO3: 'UGA',
         disasterType: DisasterType.Floods,
-        action: 'drr-1',
-        areaOfFocus: AreaOfFocusEnum.DRR,
-        label: 'DRR dummy action',
+        action: 'disaster-risk-reduction-1',
+        areaOfFocus: AreaOfFocusEnum.DISASTER_RISK_REDUCTION,
+        label: 'Dummy action',
         month: null,
       },
     ],
