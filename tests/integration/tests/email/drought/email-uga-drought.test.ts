@@ -5,7 +5,7 @@ import { DroughtScenario } from '../../../helpers/API-service/enum/mock-scenario
 import {
   getAccessToken,
   getEventTitle,
-  mockDrought,
+  mock,
   resetDB,
   sendNotification,
 } from '../../../helpers/utility.helper';
@@ -27,8 +27,9 @@ describe('Should send an email for uga drought', () => {
     const expectedEventNames = ['Mam', 'Karamoja'];
 
     const nrOfEvents = 2;
-    const mockResult = await mockDrought(
+    const mockResult = await mock(
       DroughtScenario.Trigger,
+      disasterType,
       countryCodeISO3,
       dateJanuary,
       accessToken,
@@ -74,12 +75,14 @@ describe('Should send an email for uga drought', () => {
     // Mock settings
     const currentDate = new Date();
 
-    const mockResult = await mockDrought(
+    const mockResult = await mock(
       DroughtScenario.NoTrigger,
+      disasterType,
       countryCodeISO3,
       currentDate,
       accessToken,
     );
+    console.log('mockResult: ', mockResult);
     const response = await sendNotification(
       countryCodeISO3,
       disasterType,

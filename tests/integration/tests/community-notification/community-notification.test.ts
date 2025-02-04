@@ -6,7 +6,7 @@ import {
   dismissCommunityNotification,
   getAccessToken,
   getPointData,
-  mockFloods,
+  mock,
   postCommunityNotification,
   resetDB,
 } from '../../helpers/utility.helper';
@@ -23,7 +23,13 @@ describe('community notifications', () => {
     // Arrange
     const countryCodeISO3 = 'UGA';
     const disasterType = DisasterType.Floods;
-    await mockFloods(FloodsScenario.Trigger, countryCodeISO3, accessToken);
+    await mock(
+      FloodsScenario.Trigger,
+      DisasterType.Floods,
+      countryCodeISO3,
+      null,
+      accessToken,
+    );
 
     const mockCommunityNotification: CommunityNotificationExternalDto = {
       nameVolunteer: 'nameVolunteer',

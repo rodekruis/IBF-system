@@ -24,7 +24,6 @@ import { EapActionStatusEntity } from './../api/eap-actions/eap-action-status.en
 import { EventPlaceCodeEntity } from './../api/event/event-place-code.entity';
 import { GeoserverSyncService } from './geoserver-sync.service';
 import { MockHelperService } from './mock-helper.service';
-import { MockController } from './mock.controller';
 import { MockService } from './mock.service';
 import { ScriptsController } from './scripts.controller';
 import SeedAdminArea from './seed-admin-area';
@@ -69,7 +68,7 @@ import SeedProd from './seed-prod';
     MockHelperService,
     GeoserverSyncService,
   ],
-  controllers: [ScriptsController, MockController],
+  controllers: [ScriptsController],
 })
 export class ScriptsModule {}
 

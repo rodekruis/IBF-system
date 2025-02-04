@@ -9,7 +9,7 @@ import {
   getAccessToken,
   getEventsSummary,
   getTyphoonTrack,
-  mockTyphoon,
+  mock,
   postTyphoonTrack,
   resetDB,
 } from '../../helpers/utility.helper';
@@ -55,7 +55,13 @@ describe('typhoon track', () => {
   describe('typhoon track endpoints', () => {
     it('upload successfully and return expected result on GET', async () => {
       // Arrange
-      await mockTyphoon(TyphoonScenario.Trigger, countryCodeISO3, accessToken);
+      await mock(
+        TyphoonScenario.Trigger,
+        DisasterType.Typhoon,
+        countryCodeISO3,
+        null,
+        accessToken,
+      );
 
       // Act
       const postTrackResult = await postTyphoonTrack(
@@ -80,7 +86,13 @@ describe('typhoon track', () => {
     // Here just 1 happy path is tested. See typhoon-track.service.spec for various unit tests on specific scenarios.
     it('should yield typhoonLandfall=true for scenario Trigger', async () => {
       // Arrange
-      await mockTyphoon(TyphoonScenario.Trigger, countryCodeISO3, accessToken);
+      await mock(
+        TyphoonScenario.Trigger,
+        DisasterType.Typhoon,
+        countryCodeISO3,
+        null,
+        accessToken,
+      );
 
       // Act
       const eventsResult = await getEventsSummary(

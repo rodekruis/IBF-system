@@ -51,14 +51,13 @@ export function mockData(
   date?: Date,
 ): Promise<request.Response> {
   return getServer()
-    .post(`/mock/${disasterType}`)
+    .post(`/scripts/mock`)
     .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
+    .query({ disasterType, countryCodeISO3, isApiTest: true })
     .send({
       scenario,
       secret: process.env.RESET_SECRET,
       removeEvents: true,
       date: date ?? new Date(),
-      countryCodeISO3,
     });
 }

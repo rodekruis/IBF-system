@@ -19,7 +19,7 @@ export enum MalariaScenario {
 }
 
 // Refactor, can we use a base enum of Trigger/NoTrigger, that is extended by the disaster-specific enums?
-export enum DroughtSenario {
+export enum DroughtScenario {
   Trigger = 'trigger',
   NoTrigger = 'no-trigger',
 }
