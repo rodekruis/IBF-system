@@ -4,7 +4,7 @@ import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.en
 import { MalariaScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
 import {
   getEventTitle,
-  mockMalaria,
+  mock,
   sendNotification,
 } from '../../../helpers/utility.helper';
 
@@ -16,7 +16,13 @@ export async function testMalariaScenario(
   const eventNames = ['0-month', '1-month', '2-month'];
   const disasterTypeLabel = DisasterType.Malaria;
 
-  const mockResult = await mockMalaria(scenario, countryCodeISO3, accessToken);
+  const mockResult = await mock(
+    scenario,
+    DisasterType.Malaria,
+    countryCodeISO3,
+    null,
+    accessToken,
+  );
   // Act
   const response = await sendNotification(
     countryCodeISO3,

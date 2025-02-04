@@ -56,94 +56,27 @@ export function resetDB(accessToken: string): Promise<request.Response> {
     });
 }
 
-export function mockFloods(
-  scenario: FloodsScenario,
+export function mock(
+  scenario:
+    | FloodsScenario
+    | FlashFloodsScenario
+    | TyphoonScenario
+    | MalariaScenario
+    | DroughtScenario,
+  disasterType: DisasterType,
   countryCodeISO3: string,
+  date: Date | null,
   accessToken: string,
 ): Promise<request.Response> {
   return getServer()
-    .post('/mock/floods')
+    .post('/scripts/mock')
     .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
+    .query({ disasterType, countryCodeISO3, isApiTest: true })
     .send({
       scenario,
       secret: process.env.RESET_SECRET,
       removeEvents: true,
-      date: new Date(),
-      countryCodeISO3,
-    });
-}
-
-export function mockMalaria(
-  scenario: MalariaScenario,
-  countryCodeISO3: string,
-  accessToken: string,
-): Promise<request.Response> {
-  return getServer()
-    .post('/mock/malaria')
-    .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
-    .send({
-      scenario,
-      secret: process.env.RESET_SECRET,
-      removeEvents: true,
-      date: new Date(),
-      countryCodeISO3,
-    });
-}
-
-export function mockFlashFlood(
-  scenario: FlashFloodsScenario,
-  countryCodeISO3: string,
-  accessToken: string,
-): Promise<request.Response> {
-  return getServer()
-    .post('/mock/flash-floods')
-    .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
-    .send({
-      scenario,
-      secret: process.env.RESET_SECRET,
-      removeEvents: true,
-      date: new Date(),
-      countryCodeISO3,
-    });
-}
-
-export function mockTyphoon(
-  scenario: TyphoonScenario,
-  countryCodeISO3: string,
-  accessToken: string,
-): Promise<request.Response> {
-  return getServer()
-    .post('/mock/typhoon')
-    .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
-    .send({
-      scenario,
-      secret: process.env.RESET_SECRET,
-      removeEvents: true,
-      date: new Date(),
-      countryCodeISO3,
-    });
-}
-
-export function mockDrought(
-  scenario: DroughtScenario,
-  countryCodeISO3: string,
-  date: Date,
-  accessToken: string,
-): Promise<request.Response> {
-  return getServer()
-    .post('/mock/drought')
-    .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
-    .send({
-      scenario,
-      secret: process.env.RESET_SECRET,
-      removeEvents: true,
-      date: date || new Date(),
-      countryCodeISO3,
+      date: date ?? new Date(),
     });
 }
 

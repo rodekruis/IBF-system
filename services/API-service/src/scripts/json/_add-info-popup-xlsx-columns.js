@@ -3,9 +3,9 @@
 const fs = require('fs');
 const XLSX = require('xlsx');
 
-const indicatorMetadata = require('../../../../../services/API-service/src/scripts/json/indicator-metadata.json');
-const layerMetadata = require('../../../../../services/API-service/src/scripts/json/layer-metadata.json');
-const countries = require('../../../../../services/API-service/src/scripts/json/countries.json');
+const indicatorMetadata = require('./indicator-metadata.json');
+const layerMetadata = require('./layer-metadata.json');
+const countries = require('./countries.json');
 
 const path = '';
 const xlsxFileName = 'layer-popup-info.xlsx';

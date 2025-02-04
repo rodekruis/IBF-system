@@ -2,7 +2,7 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { TyphoonScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import { mockTyphoon, sendNotification } from '../../../helpers/utility.helper';
+import { mock, sendNotification } from '../../../helpers/utility.helper';
 
 export async function testTyphoonScenario(
   scenario: TyphoonScenario,
@@ -11,7 +11,13 @@ export async function testTyphoonScenario(
 ): Promise<boolean> {
   const nrOfEvents = 1;
 
-  const mockResult = await mockTyphoon(scenario, countryCodeISO3, accessToken);
+  const mockResult = await mock(
+    scenario,
+    DisasterType.Typhoon,
+    countryCodeISO3,
+    null,
+    accessToken,
+  );
   // Act
   const response = await sendNotification(
     countryCodeISO3,
