@@ -1,3 +1,4 @@
+// import { AzureReporterOptions } from '@alex_neo/playwright-azure-reporter/dist/playwright-azure-reporter';
 import { defineConfig } from '@playwright/test';
 import dotenv from 'dotenv';
 import path from 'path';
@@ -17,21 +18,26 @@ export default defineConfig({
   // reporter: [
   //   ['list'],
   //   [
-  //     'playwright-qase-reporter',
+  //     '@alex_neo/playwright-azure-reporter',
   //     {
-  //       captureLogs: false,
-  //       debug: true,
-  //       testops: {
-  //         api: {
-  //           token: process.env.QASE_TOKEN,
+  //       orgUrl: process.env.AZURE_DEV_URL,
+  //       token: process.env.AZURE_DEVOPS_TOKEN,
+  //       planId: 31870,
+  //       projectName: 'IBF',
+  //       environment: 'AQA',
+  //       logging: true,
+  //       testRunTitle: 'Playwright Test Suite',
+  //       publishTestResultsMode: 'testRun',
+  //       uploadAttachments: true,
+  //       attachmentsType: ['screenshot', 'video', 'trace'],
+  //       testRunConfig: {
+  //         owner: {
+  //           displayName: 'Krajewski, Piotr',
   //         },
-  //         project: 'IBF',
-  //         uploadAttachments: true,
-  //         run: {
-  //           complete: true,
-  //         },
+  //         comment: 'Playwright Test Suite',
+  //         configurationIds: [],
   //       },
-  //     },
+  //     } as AzureReporterOptions,
   //   ],
   // ],
   workers: 1,
