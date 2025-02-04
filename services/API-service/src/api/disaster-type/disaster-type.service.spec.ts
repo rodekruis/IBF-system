@@ -14,7 +14,7 @@ import { DisasterType } from './disaster-type.enum';
 import { DisasterTypeService } from './disaster-type.service';
 import { DisasterTypeDto } from './dto/add-disaster-type.dto';
 
-describe('DisasterService', () => {
+describe('DisasterTypeService', () => {
   let service: DisasterTypeService;
   let disasterTypeRepository: Repository<DisasterTypeEntity>;
 

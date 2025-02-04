@@ -22,7 +22,7 @@ export class UserService {
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
   @InjectRepository(DisasterTypeEntity)
-  private readonly disasterRepository: Repository<DisasterTypeEntity>;
+  private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
 
   private readonly relations: string[] = ['countries', 'disasterTypes'];
 
@@ -83,7 +83,7 @@ export class UserService {
     newUser.countries = await this.countryRepository.find({
       where: { countryCodeISO3: In(dto.countryCodesISO3) },
     });
-    newUser.disasterTypes = await this.disasterRepository.find({
+    newUser.disasterTypes = await this.disasterTypeRepository.find({
       where: { disasterType: In(dto.disasterTypes) },
     });
 
@@ -175,9 +175,11 @@ export class UserService {
         ),
         disasterTypes: user.disasterTypes.length
           ? user.disasterTypes.map(
-              (disasterEntity): string => disasterEntity.disasterType,
+              (disasterTypeEntity): string => disasterTypeEntity.disasterType,
             )
-          : (await this.disasterRepository.find()).map((d) => d.disasterType),
+          : (await this.disasterTypeRepository.find()).map(
+              (d) => d.disasterType,
+            ),
         exp: exp.getTime() / 1000,
       },
       process.env.SECRET,
