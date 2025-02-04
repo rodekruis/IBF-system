@@ -6,7 +6,7 @@ import { AdminAreaDataModule } from '../../admin-area-data/admin-area-data.modul
 import { AdminAreaDynamicDataModule } from '../../admin-area-dynamic-data/admin-area-dynamic-data.module';
 import { AdminAreaModule } from '../../admin-area/admin-area.module';
 import { CountryEntity } from '../../country/country.entity';
-import { DisasterEntity } from '../../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
 import { EventModule } from '../../event/event.module';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { NotificationContentService } from './notification-content.service';
@@ -16,7 +16,7 @@ import { NotificationContentService } from './notification-content.service';
     TypeOrmModule.forFeature([
       CountryEntity,
       IndicatorMetadataEntity,
-      DisasterEntity,
+      DisasterTypeEntity,
     ]),
     EventModule,
     AdminAreaDynamicDataModule,

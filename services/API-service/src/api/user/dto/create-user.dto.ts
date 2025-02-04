@@ -13,7 +13,7 @@ import {
 } from 'class-validator';
 
 import countries from '../../../scripts/json/countries.json';
-import disasterTypes from '../../../scripts/json/disasters.json';
+import disasterTypes from '../../../scripts/json/disaster-types.json';
 import { UserRole } from '../user-role.enum';
 import { UserStatus } from '../user-status.enum';
 

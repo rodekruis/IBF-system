@@ -5,7 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { CountryEntity } from '../country/country.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { EventModule } from '../event/event.module';
 import { UserModule } from '../user/user.module';
 import { CountryModule } from './../country/country.module';
@@ -22,7 +22,7 @@ import { EventAreaService } from './services/event-area.service';
     TypeOrmModule.forFeature([
       AdminAreaEntity,
       CountryEntity,
-      DisasterEntity,
+      DisasterTypeEntity,
       AdminAreaDynamicDataEntity,
       EventAreaEntity,
     ]),

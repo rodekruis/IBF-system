@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 import Mailchimp from 'mailchimp-api-v3';
 
 import { EventSummaryCountry } from '../../../shared/data.model';
-import { DisasterType } from '../../disaster/disaster-type.enum';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { CountryEntity } from './../../country/country.entity';
 import { NotificationContentService } from './../notification-content/notification-content.service';
 import { MjmlService } from './mjml.service';

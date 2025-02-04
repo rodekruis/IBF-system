@@ -1,5 +1,5 @@
 import { LeadTime } from '../../../admin-area-dynamic-data/enum/lead-time.enum';
-import { DisasterType } from '../../../disaster/disaster-type.enum';
+import { DisasterType } from '../../../disaster-type/disaster-type.enum';
 import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
 import {
   NotificationDataPerEventDto,

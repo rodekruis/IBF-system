@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 import { In, Repository } from 'typeorm';
 
 import { CountryEntity } from '../country/country.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { LookupService } from '../notification/lookup/lookup.service';
 import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { UserRole } from './user-role.enum';
@@ -21,8 +21,8 @@ export class UserService {
   private readonly userRepository: Repository<UserEntity>;
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
-  @InjectRepository(DisasterEntity)
-  private readonly disasterRepository: Repository<DisasterEntity>;
+  @InjectRepository(DisasterTypeEntity)
+  private readonly disasterRepository: Repository<DisasterTypeEntity>;
 
   private readonly relations: string[] = ['countries', 'disasterTypes'];
 

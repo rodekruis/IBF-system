@@ -1,4 +1,4 @@
-import { DisasterType } from '../api/disaster/disaster-type.enum';
+import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 
 export class DisasterTypeGeoServerMapper {
   static getLayerStorePrefixForDisasterType(

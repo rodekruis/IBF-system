@@ -4,8 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { AdminLevel } from './admin-level.enum';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
@@ -21,8 +21,8 @@ import { NotificationInfoDto } from './dto/notification-info.dto';
 export class CountryService {
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
-  @InjectRepository(DisasterEntity)
-  private readonly disasterRepository: Repository<DisasterEntity>;
+  @InjectRepository(DisasterTypeEntity)
+  private readonly disasterRepository: Repository<DisasterTypeEntity>;
   @InjectRepository(CountryDisasterSettingsEntity)
   private readonly countryDisasterSettingsRepository: Repository<CountryDisasterSettingsEntity>;
   @InjectRepository(NotificationInfoEntity)
@@ -127,27 +127,27 @@ export class CountryService {
 
     await this.countryRepository.save(countryEntity);
 
-    for await (const disaster of country.countryDisasterSettings) {
+    for await (const disasterType of country.countryDisasterSettings) {
       const existingDisaster = countryEntity.countryDisasterSettings.find(
-        (d) => d.disasterType === disaster.disasterType,
+        (d) => d.disasterType === disasterType.disasterType,
       );
       if (existingDisaster) {
         const savedDisaster = await this.addOrUpdateDisaster(
           existingDisaster,
-          disaster,
+          disasterType,
         );
         countryEntity.countryDisasterSettings.push(savedDisaster);
         continue;
       }
 
-      const newDisaster = new CountryDisasterSettingsEntity();
-      newDisaster.country = await this.countryRepository.findOne({
+      const newDisasterType = new CountryDisasterSettingsEntity();
+      newDisasterType.country = await this.countryRepository.findOne({
         where: { countryCodeISO3: country.countryCodeISO3 },
       });
-      newDisaster.disasterType = disaster.disasterType as DisasterType;
+      newDisasterType.disasterType = disasterType.disasterType as DisasterType;
       const savedDisaster = await this.addOrUpdateDisaster(
-        newDisaster,
-        disaster,
+        newDisasterType,
+        disasterType,
       );
       countryEntity.countryDisasterSettings.push(savedDisaster);
     }
@@ -157,38 +157,38 @@ export class CountryService {
 
   private async addOrUpdateDisaster(
     countryDisasterSettingsEntity: CountryDisasterSettingsEntity,
-    disaster: CountryDisasterSettingsDto,
+    disasterType: CountryDisasterSettingsDto,
   ): Promise<CountryDisasterSettingsEntity> {
     countryDisasterSettingsEntity.adminLevels =
-      disaster.adminLevels as AdminLevel[];
+      disasterType.adminLevels as AdminLevel[];
     countryDisasterSettingsEntity.defaultAdminLevel =
-      disaster.defaultAdminLevel as AdminLevel;
+      disasterType.defaultAdminLevel as AdminLevel;
 
-    countryDisasterSettingsEntity.eapLink = disaster.eapLink;
-    countryDisasterSettingsEntity.eapAlertClasses = disaster.eapAlertClasses
-      ? JSON.parse(JSON.stringify([disaster.eapAlertClasses]))[0]
+    countryDisasterSettingsEntity.eapLink = disasterType.eapLink;
+    countryDisasterSettingsEntity.eapAlertClasses = disasterType.eapAlertClasses
+      ? JSON.parse(JSON.stringify([disasterType.eapAlertClasses]))[0]
       : null;
     countryDisasterSettingsEntity.droughtSeasonRegions =
-      disaster.droughtSeasonRegions
-        ? JSON.parse(JSON.stringify(disaster.droughtSeasonRegions))
+      disasterType.droughtSeasonRegions
+        ? JSON.parse(JSON.stringify(disasterType.droughtSeasonRegions))
         : null;
 
     countryDisasterSettingsEntity.droughtEndOfMonthPipeline =
-      disaster.droughtEndOfMonthPipeline;
-    countryDisasterSettingsEntity.droughtRegions = disaster.droughtRegions
-      ? JSON.parse(JSON.stringify(disaster.droughtRegions))
+      disasterType.droughtEndOfMonthPipeline;
+    countryDisasterSettingsEntity.droughtRegions = disasterType.droughtRegions
+      ? JSON.parse(JSON.stringify(disasterType.droughtRegions))
       : null;
     countryDisasterSettingsEntity.showMonthlyEapActions =
-      disaster.showMonthlyEapActions;
+      disasterType.showMonthlyEapActions;
     countryDisasterSettingsEntity.enableEarlyActions =
-      disaster.enableEarlyActions;
+      disasterType.enableEarlyActions;
     countryDisasterSettingsEntity.monthlyForecastInfo =
-      disaster.monthlyForecastInfo
-        ? JSON.parse(JSON.stringify(disaster.monthlyForecastInfo))
+      disasterType.monthlyForecastInfo
+        ? JSON.parse(JSON.stringify(disasterType.monthlyForecastInfo))
         : null;
     countryDisasterSettingsEntity.activeLeadTimes =
-      disaster.activeLeadTimes as LeadTime[];
-    countryDisasterSettingsEntity.isEventBased = disaster.isEventBased;
+      disasterType.activeLeadTimes as LeadTime[];
+    countryDisasterSettingsEntity.isEventBased = disasterType.isEventBased;
 
     const saveResult = await this.countryDisasterSettingsRepository.save(
       countryDisasterSettingsEntity,

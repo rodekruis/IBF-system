@@ -8,7 +8,7 @@ import {
   LeadTime,
   LeadTimeUnit,
 } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
-import { DisasterType } from '../api/disaster/disaster-type.enum';
+import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { DateDto } from '../api/event/dto/date.dto';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { NumberFormat } from './enums/number-format.enum';

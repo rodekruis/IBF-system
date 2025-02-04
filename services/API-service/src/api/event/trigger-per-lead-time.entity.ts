@@ -8,7 +8,7 @@ import {
 
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../country/country.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 
 @Entity('trigger-per-lead-time')
 export class TriggerPerLeadTime {
@@ -28,7 +28,7 @@ export class TriggerPerLeadTime {
   })
   public countryCodeISO3: string;
 
-  @ManyToOne((): typeof DisasterEntity => DisasterEntity)
+  @ManyToOne((): typeof DisasterTypeEntity => DisasterTypeEntity)
   @JoinColumn({
     name: 'disasterType',
     referencedColumnName: 'disasterType',

@@ -5,7 +5,7 @@ import { In, Repository } from 'typeorm';
 
 import countries from '../../scripts/json/countries.json';
 import notificationInfos from '../../scripts/json/notification-info.json';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import { CountryEntity } from './country.entity';
@@ -16,7 +16,7 @@ import { NotificationInfoDto } from './dto/notification-info.dto';
 describe('CountryService', () => {
   let service: CountryService;
   let countryRepository: Repository<CountryEntity>;
-  let disasterRepository: Repository<DisasterEntity>;
+  let disasterTypeRepository: Repository<DisasterTypeEntity>;
   let countryDisasterSettingsRepository: Repository<CountryDisasterSettingsEntity>;
   let notificationInfoRepository: Repository<NotificationInfoEntity>;
 
@@ -35,7 +35,7 @@ describe('CountryService', () => {
           useClass: Repository,
         },
         {
-          provide: getRepositoryToken(DisasterEntity),
+          provide: getRepositoryToken(DisasterTypeEntity),
           useClass: Repository,
         },
         {
@@ -53,7 +53,7 @@ describe('CountryService', () => {
     countryRepository = module.get<Repository<CountryEntity>>(
       getRepositoryToken(CountryEntity),
     );
-    disasterRepository = module.get<Repository<DisasterEntity>>(
+    disasterTypeRepository = module.get<Repository<DisasterEntity>>(
       getRepositoryToken(DisasterEntity),
     );
     countryDisasterSettingsRepository = module.get<
@@ -99,7 +99,7 @@ describe('CountryService', () => {
         .spyOn(countryRepository, 'findOne')
         .mockResolvedValue(new CountryEntity());
       jest
-        .spyOn(disasterRepository, 'find')
+        .spyOn(disasterTypeRepository, 'find')
         .mockResolvedValue([new DisasterEntity()]);
       jest
         .spyOn(countryRepository, 'save')
@@ -120,7 +120,7 @@ describe('CountryService', () => {
           where: { countryCodeISO3: country.countryCodeISO3 },
           relations: ['countryDisasterSettings'],
         });
-        expect(disasterRepository.find).toHaveBeenCalledWith({
+        expect(disasterTypeRepository.find).toHaveBeenCalledWith({
           where: country.disasterTypes.map((disasterType) => ({
             disasterType,
           })),

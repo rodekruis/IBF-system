@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
-import { DisasterType } from '../../disaster/disaster-type.enum';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LinesDataEnum } from '../lines-data.entity';
 
 export class UploadLinesExposureStatusDto {

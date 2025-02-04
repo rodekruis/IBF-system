@@ -5,7 +5,7 @@ import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryEntity } from '../country/country.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
 import { UserEntity } from '../user/user.entity';
 import { CountryModule } from './../country/country.module';
@@ -27,7 +27,7 @@ import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
       TriggerPerLeadTime,
       AdminAreaDynamicDataEntity,
       AdminAreaEntity,
-      DisasterEntity,
+      DisasterTypeEntity,
       UserEntity,
       CountryEntity,
     ]),

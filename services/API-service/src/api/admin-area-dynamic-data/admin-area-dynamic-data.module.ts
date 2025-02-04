@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaModule } from '../admin-area/admin-area.module';
 import { CountryEntity } from '../country/country.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { EventModule } from '../event/event.module';
 import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { UserModule } from '../user/user.module';
@@ -18,7 +18,7 @@ import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
     TypeOrmModule.forFeature([
       TriggerPerLeadTime,
       AdminAreaDynamicDataEntity,
-      DisasterEntity,
+      DisasterTypeEntity,
       CountryEntity,
     ]),
     UserModule,
