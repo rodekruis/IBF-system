@@ -129,7 +129,7 @@ export class AdminAreaService {
     eventName: string,
   ): Promise<AdminAreaDynamicDataEntity[]> {
     const triggerIndicator =
-      await this.eventService.getTriggerUnit(disasterType);
+      await this.eventService.getTriggerIndicator(disasterType);
     const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
