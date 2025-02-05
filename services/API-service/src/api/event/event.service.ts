@@ -271,7 +271,9 @@ export class EventService {
     await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
   }
 
-  public async getTriggerUnit(disasterType: DisasterType): Promise<string> {
+  public async getTriggerIndicator(
+    disasterType: DisasterType,
+  ): Promise<string> {
     return (
       await this.disasterTypeRepository.findOne({
         select: ['triggerIndicator'],
@@ -303,13 +305,13 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    const triggerIndicator = await this.getTriggerUnit(disasterType);
+    const triggerIndicator = await this.getTriggerIndicator(disasterType);
     const defaultAdminLevel = (
       await this.getCountryDisasterSettings(countryCodeISO3, disasterType)
     ).defaultAdminLevel;
 
     const whereFiltersDynamicData = {
-      indicator: triggerIndicator, // REFACTOR: trigger unit and indicator should not be used interchangeably
+      indicator: triggerIndicator,
       value: MoreThan(0),
       adminLevel,
       disasterType,
@@ -408,7 +410,8 @@ export class EventService {
     eventName?: string,
     leadTime?: string,
   ): Promise<TriggeredArea[]> {
-    const mainExposureIndicator = await this.getActionUnit(disasterType);
+    const mainExposureIndicator =
+      await this.getMainExposureIndicator(disasterType);
     const whereFilters = {
       placeCode: In(triggeredPlaceCodes),
       indicator: mainExposureIndicator,
@@ -650,7 +653,9 @@ export class EventService {
     ).map((area) => area.id);
   }
 
-  private async getActionUnit(disasterType: DisasterType): Promise<string> {
+  private async getMainExposureIndicator(
+    disasterType: DisasterType,
+  ): Promise<string> {
     return (
       await this.disasterTypeRepository.findOne({
         select: ['mainExposureIndicator'],
@@ -701,7 +706,7 @@ export class EventService {
     adminLevel: number,
     eventName: string,
   ): Promise<AffectedAreaDto[]> {
-    const triggerIndicator = await this.getTriggerUnit(disasterType);
+    const triggerIndicator = await this.getTriggerIndicator(disasterType);
 
     const lastTriggeredDate = await this.helperService.getRecentDate(
       countryCodeISO3,
@@ -739,7 +744,8 @@ export class EventService {
       return [];
     }
 
-    const mainExposureIndicator = await this.getActionUnit(disasterType);
+    const mainExposureIndicator =
+      await this.getMainExposureIndicator(disasterType);
 
     const whereOptions = {
       placeCode: In(triggerPlaceCodesArray),
