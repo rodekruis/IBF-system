@@ -1,5 +1,5 @@
 import test from '@playwright/test';
-import { NoTriggerDataSet } from 'testData/testData.enum';
+import { ACTIVE_LAYERS, NoTriggerDataSet } from 'testData/testData.enum';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
@@ -32,7 +32,7 @@ export default (
     await map.isLayerMenuOpen({ layerMenuOpen: true });
 
     // Check if the default layers are visible
-    const activeLayers = await map.returnLayerCheckedCheckboxes();
+    const activeLayers = ACTIVE_LAYERS[disasterType];
     if (activeLayers) {
       await map.validateLayersAreVisibleByName({ layerNames: activeLayers });
     } else {

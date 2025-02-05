@@ -210,33 +210,6 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async returnLayerCheckedCheckboxes() {
-    const getLayerRow = this.page.getByTestId('matrix-layer-name');
-    const layerCount = await getLayerRow.count();
-
-    const availableLayers = [];
-    for (let i = 0; i < layerCount; i++) {
-      try {
-        const layerCheckbox = getLayerRow.nth(i).locator(this.layerCheckbox);
-        if (await layerCheckbox.isVisible()) {
-          const nameAttribute = await this.retryGetAttribute(
-            layerCheckbox,
-            'name',
-          );
-          if (nameAttribute === 'checkbox') {
-            const layerName = await getLayerRow.nth(i).textContent();
-            if (layerName) {
-              availableLayers.push(layerName.trim());
-            }
-          }
-        }
-      } catch (error) {
-        // Handle errors without stopping the loop
-      }
-    }
-    return availableLayers;
-  }
-
   async validateInfoIconInteractions() {
     const getLayerRow = this.page.getByTestId('matrix-layer-name');
     const layerCount = await getLayerRow.count();
