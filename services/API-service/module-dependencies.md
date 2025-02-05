@@ -19,6 +19,7 @@ graph LR
   AdminAreaDynamicDataModule-->EventModule
   AdminAreaDynamicDataModule-->CountryModule
   AdminAreaDynamicDataModule-->AdminAreaModule
+  DisasterTypeModule-->UserModule
   MetadataModule-->UserModule
   MetadataModule-->CountryModule
   MetadataModule-->EventModule
