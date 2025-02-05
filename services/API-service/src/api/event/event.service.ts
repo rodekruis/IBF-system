@@ -714,7 +714,7 @@ export class EventService {
     );
 
     const whereFilters = {
-      indicator: triggerIndicator, // REFACTOR: trigger unit and indicator should not be used interchangeably
+      indicator: triggerIndicator,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -749,7 +749,7 @@ export class EventService {
 
     const whereOptions = {
       placeCode: In(triggerPlaceCodesArray),
-      indicator: mainExposureIndicator, // REFACTOR: action unit and indicator should not be used interchangeably
+      indicator: mainExposureIndicator,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
