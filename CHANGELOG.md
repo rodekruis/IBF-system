@@ -1,3 +1,20 @@
+# [0.281.0](https://github.com/rodekruis/IBF-system/compare/v0.280.0...v0.281.0) (2025-02-05)
+
+
+### Bug Fixes
+
+* area-of-focus e2e test ([02d84e7](https://github.com/rodekruis/IBF-system/commit/02d84e78f1f816059ccec3adb8e54183b0dcb04c))
+* process more PR comments ([e05ff9c](https://github.com/rodekruis/IBF-system/commit/e05ff9cf21b49b65832328a374d371a7d48c2024))
+* seed eap-actions ([9da8f30](https://github.com/rodekruis/IBF-system/commit/9da8f3012c81b8a7cf2cf0f8f03a001b6b298d9c))
+* tests leadtime ([2c9b0d8](https://github.com/rodekruis/IBF-system/commit/2c9b0d816b3194d8cc1b5e90b49c30b3c008af8c))
+
+
+### Features
+
+* create endpoint to add/update disaster ([292560b](https://github.com/rodekruis/IBF-system/commit/292560be7cb3b935876a0e4c6e33b96565c6f6a8))
+
+
+
 # [0.280.0](https://github.com/rodekruis/IBF-system/compare/v0.279.0...v0.280.0) (2025-02-03)
 
 
@@ -88,27 +105,6 @@
 ### Bug Fixes
 
 * flaky e2e tests AB[#32712](https://github.com/rodekruis/IBF-system/issues/32712) ([d25841d](https://github.com/rodekruis/IBF-system/commit/d25841d1d28f1185b66edf9fd7cee9e2734a9448))
-
-
-
-# [0.278.0](https://github.com/rodekruis/IBF-system/compare/v0.277.20...v0.278.0) (2025-01-10)
-
-
-### Bug Fixes
-
-* correct seasons LSO ZWE AB[#32478](https://github.com/rodekruis/IBF-system/issues/32478) ([9ae25bf](https://github.com/rodekruis/IBF-system/commit/9ae25bfa0d5243be01319f1d978c9bb726585f4e))
-* drought email api test AB[#32480](https://github.com/rodekruis/IBF-system/issues/32480) ([9e6e9b4](https://github.com/rodekruis/IBF-system/commit/9e6e9b4a9d380cb0a8bc53175ace963bb60af1aa))
-* show adm-level-btns correctly for non-breadcrumb AB[#32487](https://github.com/rodekruis/IBF-system/issues/32487) ([4fad450](https://github.com/rodekruis/IBF-system/commit/4fad450bb7d07c3af5e03fbfb75c465fd966f9a9))
-
-
-### Features
-
-* enable no-trigger in new mock setup AB[#32480](https://github.com/rodekruis/IBF-system/issues/32480) ([2f32a9d](https://github.com/rodekruis/IBF-system/commit/2f32a9d663e11c42328160dfc95e8936ff5e71ae))
-* hardcode no trigger for >3 months AB[#32480](https://github.com/rodekruis/IBF-system/issues/32480) ([7b2ebe6](https://github.com/rodekruis/IBF-system/commit/7b2ebe653ce64dbce6d24d38a96729a1e4f37502))
-* initial setup Lesotho drought AB[#32478](https://github.com/rodekruis/IBF-system/issues/32478) ([b2ab17a](https://github.com/rodekruis/IBF-system/commit/b2ab17a9dd70ef8eedcf2b4d80b593ed8f36122b))
-* make no-trigger scenario work AB[#32478](https://github.com/rodekruis/IBF-system/issues/32478) ([1596ba0](https://github.com/rodekruis/IBF-system/commit/1596ba03627a9f29460b8b39f5069b51919efc39))
-* migrate drought to new mock setup with working LSO mock data AB[#32480](https://github.com/rodekruis/IBF-system/issues/32480) ([19007a7](https://github.com/rodekruis/IBF-system/commit/19007a7c0d1bf4c2dbc4c67a41107df24b1be8d1))
-* set up email LSO AB[#32529](https://github.com/rodekruis/IBF-system/issues/32529) ([c04274f](https://github.com/rodekruis/IBF-system/commit/c04274f91c2fae0e8b23ab594dc112a1f36b1a1a))
 
 
 
