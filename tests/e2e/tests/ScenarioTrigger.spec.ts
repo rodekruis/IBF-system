@@ -21,6 +21,7 @@ import ChatComponentInfoPopover from './ChatComponent/ChatComponentInfoPopover';
 import MapComponentFloodExtent from './MapComponent/MapComponentFloodExtent';
 import MapComponentGloFASStationsTrigger from './MapComponent/MapComponentGloFASStationsTrigger';
 import MapComponentLayersDefault from './MapComponent/MapComponentLayersDefault';
+import TimelineComponentNotClickable from './TimelineComponent/TimelineComponentNotClickable';
 
 let accessToken: string;
 let page: Page;
@@ -81,6 +82,10 @@ test.describe('Scenario: Trigger', () => {
     ChatComponentEventClick(pages, components, disasterType, date);
     ChatComponentEventCount(pages, components, disasterType, date);
     ChatComponentInfoPopover(pages, components, disasterType, date);
+  });
+
+  test.describe('TimelineComponent', () => {
+    TimelineComponentNotClickable(pages, components, disasterType);
   });
 
   test.describe('ActionsSummaryComponent', () => {
