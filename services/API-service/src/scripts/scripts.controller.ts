@@ -16,7 +16,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { DisasterType } from '../api/disaster/disaster-type.enum';
+import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { UserRole } from '../api/user/user-role.enum';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
@@ -92,7 +92,6 @@ export class ScriptsController {
     )
     isApiTest: boolean,
   ): Promise<string> {
-    console.log('body: ', body);
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
