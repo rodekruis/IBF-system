@@ -24,7 +24,7 @@ import {
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
-import { DisasterType } from '../disaster/disaster-type.enum';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
@@ -88,28 +88,6 @@ export class AdminAreaDynamicDataController {
       params.disasterType as DisasterType,
       query.leadTime,
       query.eventName,
-    );
-  }
-
-  @ApiOperation({
-    summary: 'Get dynamic admin-area data value for one specific admin-area',
-  })
-  @ApiParam({ name: 'indicator', required: true, type: 'string' })
-  @ApiParam({ name: 'placeCode', required: true, type: 'string' })
-  @ApiParam({ name: 'leadTime', required: true, type: 'string' })
-  @ApiParam({ name: 'eventName', required: true, type: 'string' })
-  @ApiResponse({
-    status: 200,
-    description: 'Dynamic admin-area data value for one specific admin-area.',
-    type: Number,
-  })
-  @Get('single/:indicator/:placeCode/:leadTime/:eventName')
-  public async getAdminAreaDataPerPcode(@Param() params): Promise<number> {
-    return await this.adminAreaDynamicDataService.getDynamicAdminAreaDataPerPcode(
-      params.indicator as DynamicIndicator,
-      params.placeCode,
-      params.leadTime,
-      params.eventName,
     );
   }
 

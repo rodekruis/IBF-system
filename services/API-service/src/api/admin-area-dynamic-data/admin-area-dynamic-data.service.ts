@@ -3,14 +3,14 @@ import path from 'path';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { DataSource, In, IsNull, MoreThanOrEqual, Repository } from 'typeorm';
+import { DataSource, In, MoreThanOrEqual, Repository } from 'typeorm';
 
 import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
 import { HelperService } from '../../shared/helper.service';
 import { EventAreaService } from '../admin-area/services/event-area.service';
 import { CountryEntity } from '../country/country.entity';
-import { DisasterType } from '../disaster/disaster-type.enum';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
 import { EventService } from '../event/event.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
@@ -29,8 +29,8 @@ interface RasterData {
 export class AdminAreaDynamicDataService {
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
-  @InjectRepository(DisasterEntity)
-  private readonly disasterTypeRepository: Repository<DisasterEntity>;
+  @InjectRepository(DisasterTypeEntity)
+  private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
 
@@ -79,7 +79,7 @@ export class AdminAreaDynamicDataService {
     await this.adminAreaDynamicDataRepo.save(areas);
 
     const disasterType = await this.disasterTypeRepository.findOne({
-      select: ['triggerUnit'],
+      select: ['triggerIndicator'],
       where: { disasterType: uploadExposure.disasterType },
     });
 
@@ -89,7 +89,7 @@ export class AdminAreaDynamicDataService {
     });
 
     if (
-      disasterType.triggerUnit === uploadExposure.dynamicIndicator &&
+      disasterType.triggerIndicator === uploadExposure.dynamicIndicator &&
       uploadExposure.exposurePlaceCodes.length > 0 &&
       country.countryDisasterSettings.find(
         (s) => s.disasterType === uploadExposure.disasterType,
@@ -226,26 +226,6 @@ export class AdminAreaDynamicDataService {
       .orderBy('dynamic.date', 'DESC')
       .execute();
     return result;
-  }
-
-  public async getDynamicAdminAreaDataPerPcode(
-    indicator: DynamicIndicator,
-    placeCode: string,
-    leadTime: string,
-    eventName: string,
-  ): Promise<number> {
-    const result = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('dynamic')
-      .where({
-        indicator,
-        placeCode,
-        leadTime,
-        eventName: eventName === 'no-name' || !eventName ? IsNull() : eventName,
-      })
-      .select(['dynamic.value AS value'])
-      .orderBy('dynamic.date', 'DESC')
-      .execute();
-    return result[0].value;
   }
 
   public async postRaster(

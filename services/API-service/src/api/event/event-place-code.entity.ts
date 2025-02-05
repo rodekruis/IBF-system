@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { UserEntity } from '../user/user.entity';
 
@@ -25,7 +25,7 @@ export class EventPlaceCodeEntity {
   )
   public adminArea: AdminAreaEntity;
 
-  @ManyToOne((): typeof DisasterEntity => DisasterEntity)
+  @ManyToOne((): typeof DisasterTypeEntity => DisasterTypeEntity)
   @JoinColumn({
     name: 'disasterType',
     referencedColumnName: 'disasterType',
@@ -47,7 +47,7 @@ export class EventPlaceCodeEntity {
   public triggerValue: number;
 
   @Column({ type: 'float8', nullable: true })
-  public actionsValue: number;
+  public mainExposureValue: number;
 
   @Column({ type: 'timestamp', nullable: true })
   @Check(`"startDate" <= "endDate"`)

@@ -7,7 +7,7 @@ import { EXTERNAL_API } from '../../../config';
 import { EventSummaryCountry } from '../../../shared/data.model';
 import { HelperService } from '../../../shared/helper.service';
 import { CountryEntity } from '../../country/country.entity';
-import { DisasterType } from '../../disaster/disaster-type.enum';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { EventService } from '../../event/event.service';
 import { UserEntity } from '../../user/user.entity';
 import { LookupService } from '../lookup/lookup.service';
@@ -356,7 +356,7 @@ export class WhatsappService {
       const row = `- *${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''
       } - ${this.helperService.toCompactNumber(
-        area.actionsValue,
+        area.mainExposureValue,
         indicatorMetadata.numberFormatMap,
       )}*\n`;
       areaList += row;

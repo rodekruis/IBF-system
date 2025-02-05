@@ -4,10 +4,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, IsNull, Repository } from 'typeorm';
 
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
-import { DisasterType } from '../disaster/disaster-type.enum';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { UserEntity } from '../user/user.entity';
-import { AreaOfFocusEntity } from './area-of-focus.entity';
 import { CheckEapActionDto } from './dto/check-eap-action.dto';
 import { AddEapActionsDto } from './dto/eap-action.dto';
 import { EapActionStatusEntity } from './eap-action-status.entity';
@@ -26,8 +25,6 @@ export class EapActionsService {
   private readonly eapActionStatusRepository: Repository<EapActionStatusEntity>;
   @InjectRepository(EapActionEntity)
   private readonly eapActionRepository: Repository<EapActionEntity>;
-  @InjectRepository(AreaOfFocusEntity)
-  private readonly areaOfFocusRepository: Repository<AreaOfFocusEntity>;
   @InjectRepository(EventPlaceCodeEntity)
   private readonly eventPlaceCodeRepository: Repository<EventPlaceCodeEntity>;
   @InjectRepository(AdminAreaEntity)
@@ -47,8 +44,10 @@ export class EapActionsService {
       });
       if (existingEapAction) {
         existingEapAction.label = eapAction.label;
-        existingEapAction.areaOfFocus = eapAction.areaOfFocus;
-        existingEapAction.month = eapAction.month;
+        existingEapAction.areaOfFocusId = eapAction.areaOfFocusId as string;
+        existingEapAction.month = JSON.parse(
+          JSON.stringify(eapAction.month || {}),
+        );
         eapActionsToSave.push(existingEapAction);
         continue;
       }
@@ -58,8 +57,8 @@ export class EapActionsService {
       newEapAction.disasterType = eapAction.disasterType;
       newEapAction.action = eapAction.action;
       newEapAction.label = eapAction.label;
-      newEapAction.areaOfFocus = eapAction.areaOfFocus;
-      newEapAction.month = eapAction.month;
+      newEapAction.areaOfFocusId = eapAction.areaOfFocusId as string;
+      newEapAction.month = JSON.parse(JSON.stringify(eapAction.month || {}));
       eapActionsToSave.push(newEapAction);
     }
     return await this.eapActionRepository.save(eapActionsToSave);
@@ -164,10 +163,6 @@ export class EapActionsService {
     }
   }
 
-  public async getAreasOfFocus(): Promise<AreaOfFocusEntity[]> {
-    return await this.areaOfFocusRepository.find();
-  }
-
   public async getActionsWithStatus(
     countryCodeISO3: string,
     disasterType: string,
@@ -213,8 +208,7 @@ export class EapActionsService {
     const eapActions = await this.eapActionRepository
       .createQueryBuilder('action')
       .select([
-        'area."label" AS "aofLabel"',
-        'area.id AS aof',
+        'action."areaOfFocusId" AS aof',
         'action."action"',
         'action."label"',
         'action."disasterType"',
@@ -232,7 +226,6 @@ export class EapActionsService {
         { placeCode },
       )
       .setParameters(eapActionsStates.getParameters())
-      .leftJoin('action.areaOfFocus', 'area')
       .where('action."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })

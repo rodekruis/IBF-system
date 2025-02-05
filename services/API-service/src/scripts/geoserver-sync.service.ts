@@ -4,7 +4,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { firstValueFrom } from 'rxjs';
 
-import { DisasterType } from '../api/disaster/disaster-type.enum';
+import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { INTERNAL_GEOSERVER_API_URL } from '../config';
 import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';
 import countries from './json/countries.json';

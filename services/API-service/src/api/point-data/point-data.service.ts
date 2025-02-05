@@ -6,7 +6,7 @@ import { IsNull, MoreThanOrEqual, Repository } from 'typeorm';
 
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
-import { DisasterType } from '../disaster/disaster-type.enum';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { WhatsappService } from '../notification/whatsapp/whatsapp.service';
 import { UploadDynamicPointDataDto } from './dto/upload-asset-exposure-status.dto';
 import { CommunityNotificationDto } from './dto/upload-community-notifications.dto';

@@ -3,11 +3,11 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
-import { DisasterType } from '../../disaster/disaster-type.enum';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 
 export class AffectedAreaDto {
   public placeCode: string;
-  public actionsValue: number;
+  public mainExposureValue: number;
   public triggerValue: number;
   public leadTime: LeadTime;
 }

@@ -166,7 +166,7 @@ export class AggregatesService {
       aggregate.areaStatus =
         Number(aggregate[IbfLayerName.alertThreshold]) > 0
           ? AreaStatus.TriggeredOrWarned
-          : Number(aggregate[this.disasterType.actionsUnit]) > 0 &&
+          : Number(aggregate[this.disasterType.mainExposureIndicator]) > 0 &&
               this.eventState.events?.length > 0
             ? AreaStatus.TriggeredOrWarned
             : AreaStatus.NonTriggeredOrWarned; // Refactor: What is this needed for?
@@ -317,7 +317,7 @@ export class AggregatesService {
     ).weightVar;
     if (!weighingIndicatorName) {
       weighingIndicatorName = this.indicators.find(
-        (i) => i.name === this.disasterType.actionsUnit,
+        (i) => i.name === this.disasterType.mainExposureIndicator,
       )?.name;
     }
 

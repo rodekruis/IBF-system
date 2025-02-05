@@ -2,107 +2,85 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-1",
     "label": "Community sensitization and awareness (health risk, preventive measures of floods, hygiene)"
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-2",
     "label": "Procure and distribute water purification chemicals (Aqua tab and Pur/water guard)"
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-3",
     "label": "Conduct training for volunteers (CBS, community health and first Aid, community hygiene promoters)"
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-4",
     "label": "Waste management (collect rubbish and manage it from Urban centers)"
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-1",
     "label": "Cleaning water sources/desilting drainage channels/dredging in Urban areas"
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-2",
     "label": "Community mapping - (map out designated centers, evacuation roots and holding stores)"
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-3",
     "label": "Provision of shelter kit (Rope, Handsaw, Nails, shovel, hoe, Machete, Shears, Tie wire, Hammer and Tarpaulins)"
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-4",
     "label": "Training of volunteers in shelter construction and management"
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-5",
     "label": "Reinforcing housing structures (roofs and walls) using local available materials such as sand bags"
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-6",
     "label": "Distribute water treatment products aquatabs, pur, water storage vessels and soap, sufficient for 30 days"
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-1",
     "label": "Cash and voucher Assistance (CVA) to facilitate evacuation and meet shelter needs to the affected population"
   },
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "drr" },
-    "action": "uga-drr-1",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "uga-disaster-risk-reduction-1",
     "label": "Early warning information and tailored advisories (when to plant, micro gardening)",
     "month": {
       "Karamoja": { "Karamoja": 2 },
@@ -112,8 +90,8 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "drr" },
-    "action": "uga-drr-2",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "uga-disaster-risk-reduction-2",
     "label": "Peer education for behaviour change communication",
     "month": {
       "Karamoja": { "Karamoja": 2 },
@@ -123,7 +101,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "inclusion" },
+    "areaOfFocusId": "inclusion",
     "action": "uga-inclusion-1",
     "label": "Sensitization/awareness raising on PGI + MHM kits",
     "month": {
@@ -134,7 +112,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "wash" },
+    "areaOfFocusId": "wash",
     "action": "uga-wash-1",
     "label": "Orientation of water user committees",
     "month": {
@@ -145,7 +123,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "livelihood" },
+    "areaOfFocusId": "livelihood",
     "action": "uga-livelihood-1",
     "label": "Demonstration of appropriate storage facilities and post harvest handling",
     "month": {
@@ -156,7 +134,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "wash" },
+    "areaOfFocusId": "wash",
     "action": "uga-wash-2",
     "label": "Training on bore hole repairs and maintenance",
     "month": {
@@ -167,7 +145,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "livelihood" },
+    "areaOfFocusId": "livelihood",
     "action": "uga-livelihood-2",
     "label": "Provision and distribution of improved seed varieties/planting materials",
     "month": {
@@ -178,7 +156,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "wash" },
+    "areaOfFocusId": "wash",
     "action": "uga-wash-3",
     "label": "Provide water storage vessels",
     "month": {
@@ -189,7 +167,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "inclusion" },
+    "areaOfFocusId": "inclusion",
     "action": "uga-inclusion-2",
     "label": "Apprenticeship training for girls and boys for income diversification (weaving, sowing, crafts)",
     "month": {
@@ -200,7 +178,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "livelihood" },
+    "areaOfFocusId": "livelihood",
     "action": "uga-livelihood-3",
     "label": "Massive vaccination of animals",
     "month": {
@@ -211,7 +189,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "livelihood" },
+    "areaOfFocusId": "livelihood",
     "action": "uga-livelihood-4",
     "label": "Preparing and storage of fodder/hay/foliage",
     "month": {
@@ -222,7 +200,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "livelihood" },
+    "areaOfFocusId": "livelihood",
     "action": "uga-livelihood-5",
     "label": "Food procurement for food assistance and shcool feeding",
     "month": {
@@ -233,7 +211,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "livelihood" },
+    "areaOfFocusId": "livelihood",
     "action": "uga-livelihood-6",
     "label": "Food assistance as per trigger calendar at the end of the seasons (possibly in collaboration with WFP on PGI conditions)",
     "month": {
@@ -244,7 +222,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "livelihood" },
+    "areaOfFocusId": "livelihood",
     "action": "uga-livelihood-7",
     "label": "School feeding programme for primary schools",
     "month": {
@@ -255,7 +233,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "inclusion" },
+    "areaOfFocusId": "inclusion",
     "action": "uga-inclusion-3",
     "label": "Sensitization/awareness raising on PGI + MHM kits",
     "month": {
@@ -266,7 +244,7 @@
   {
     "countryCodeISO3": "UGA",
     "disasterType": "drought",
-    "areaOfFocus": { "id": "livelihood" },
+    "areaOfFocusId": "livelihood",
     "action": "uga-livelihood-8",
     "label": "Provision and distribution of improved seed varieties/planting materials for the new season ahead",
     "month": {
@@ -277,108 +255,84 @@
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-1",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-1",
     "label": "Dissemination of Early Warning (EW) information and possible Early Action (EA)."
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-2",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-2",
     "label": "Assess the status of the safe havens to be used as evacuation centers such as Schools, Community halls, health facilities, Places of worship (church buildings, mosques, temples); in terms of; infrastructure, water availability, sanitation facilities and security."
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-3",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-3",
     "label": "Activation of the rapid response teams (CDRTs, BDRTs, NDRTs) & refresher training."
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-4",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-4",
     "label": "Preposition personal protection equipment for staff and volunteers."
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-1",
     "label": "Assess the status of identified access and evacuation routes and inform communities of the safe routes to use and those to avoid"
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-2",
     "label": "Pre-position of non-food items (NFIs) such as shelter kits, mats, Insecticide Treated Nets (ITNs), plastic sheets, blankets, kitchen sets, water purification tablets, Jerricans, soap, PPEs such as rain coats, gumboots, restock FA kits among others to be distributed to flood prone households in case of evacuation."
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-3",
     "label": "Pre-position and distribute Non Food Items (NFIs) such as tents and family kits to the high risk families."
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-1",
     "label": "Livestock protection such as pre-identification of alternative pasturelands and relocation of kraals to elevated grounds."
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-2",
     "label": "Community sensitization on proper food storage, preservation and livestock protection. Assess the status of the safe areas for animals. Identify community stores where communities can keep their food. Provide food storage bags."
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "health"
-    },
+    "areaOfFocusId": "health",
     "action": "health-1",
     "label": "Preposition ambulatory services, mobile clinics, ambulances - mobilise the CHWs. Preposition rapid test kits (RDTs). Distribute ITNs (Insecticide Treated Nets)"
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-1",
     "label": "Identify the potential sanitation facilities at the evacuation centres. Pre-position and distribution of soap and 20 litre water storage containers."
   },
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zmb-drought-01",
     "label": "Beneficiary identification and Registration",
     "month": {
@@ -390,9 +344,7 @@
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zmb-drought-02",
     "label": "Distribution of Drought Tolerant Seed",
     "month": {
@@ -404,9 +356,7 @@
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zmb-drought-03",
     "label": "Purchase of dipping and dosing chemicals",
     "month": {
@@ -418,9 +368,7 @@
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zmb-drought-04",
     "label": "Manning of dipping tanks and community mobilisation",
     "month": {
@@ -432,9 +380,7 @@
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zmb-drought-05",
     "label": "Identification of Boreholes",
     "month": {
@@ -446,9 +392,7 @@
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zmb-drought-06",
     "label": "Repair and rehabilitation of Boreholes",
     "month": {
@@ -460,9 +404,7 @@
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zmb-drought-07",
     "label": "Beneficiary identification and Registration",
     "month": {
@@ -474,9 +416,7 @@
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zmb-drought-08",
     "label": "Confirm minimum expenditure basket",
     "month": {
@@ -488,9 +428,7 @@
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zmb-drought-09",
     "label": "Initiate Framework Contracts",
     "month": {
@@ -502,9 +440,7 @@
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zmb-drought-10",
     "label": "Supplementary feeding to target schools",
     "month": {
@@ -516,9 +452,7 @@
   {
     "countryCodeISO3": "ZMB",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zmb-drought-11",
     "label": "MPCT to target households",
     "month": {
@@ -530,198 +464,154 @@
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-1",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-1",
     "label": "Send out early warning messages"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-1",
     "label": "Set up Cash for Work for reinforcement of infrastructure"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-2",
     "label": "Preposition and distribute NFI's"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-3",
     "label": "Set up Cash and Voucher assistance"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-1",
     "label": "Establish camps/ Camp management structures"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-2",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-2",
     "label": "Assist with Evacuation orders"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-3",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-3",
     "label": "Deploy Search and Rescue teams"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-4",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-4",
     "label": "Activate contingency plans"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-2",
     "label": "Preposition tents and shelter kits"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-1",
     "label": "Distribute Pure/ Aquatabs and buckets"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-2",
     "label": "Distribute soap, hygiene and dignity kits"
   },
   {
     "countryCodeISO3": "MWI",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-3",
     "label": "Protect critical WASH infrastructure"
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-1",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-1",
     "label": "Dissemination of Early Warning Messages"
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-2",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-2",
     "label": "Support Physical Evacuation"
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-3",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-3",
     "label": "Placement of flood markers"
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-1",
     "label": "Prepositioning and Distribution of shelter NFI"
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-2",
     "label": "Advocate for clearing of drainages and construction of dykes"
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-1",
     "label": "Support provision of Veterinary Care services to protect and treat livestock"
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "health"
-    },
+    "areaOfFocusId": "health",
     "action": "health-1",
     "label": "Activation of mobile health teams"
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "health"
-    },
+    "areaOfFocusId": "health",
     "action": "health-2",
     "label": "Preposition of mobile health equipment and emergency medical supplies"
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-1",
     "label": "Prepositioning and Distribution of wash NFI"
   },
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-1",
     "label": "Market analysis",
     "month": {
@@ -734,10 +624,8 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-1",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-1",
     "label": "Pre-agreement with suppliers on procurement",
     "month": {
       "National": {
@@ -749,9 +637,7 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-1",
     "label": "Preparatory activities for cash for water",
     "month": {
@@ -764,9 +650,7 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-2",
     "label": "CVA or Market-based intervention",
     "month": {
@@ -779,9 +663,7 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-2",
     "label": "Cash for water",
     "month": {
@@ -794,10 +676,8 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-2",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-2",
     "label": "Disseminating early warning information",
     "month": {
       "National": {
@@ -809,10 +689,8 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-3",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-3",
     "label": "Rangeland management",
     "month": {
       "National": {
@@ -824,9 +702,7 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-3",
     "label": "Distribute pasture seed",
     "month": {
@@ -839,9 +715,7 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-4",
     "label": "Advocation pasture management",
     "month": {
@@ -854,9 +728,7 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-3",
     "label": "Installation of mass water storage tanks",
     "month": {
@@ -869,9 +741,7 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-4",
     "label": "Rapid assessment of water facilities",
     "month": {
@@ -884,9 +754,7 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-5",
     "label": "Destilting of water pans, repair of earth dams",
     "month": {
@@ -899,9 +767,7 @@
   {
     "countryCodeISO3": "KEN",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-6",
     "label": "Prioritize key/critical water facilities",
     "month": {
@@ -914,162 +780,126 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-1",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-1",
     "label": "Awareness raising "
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-2",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-2",
     "label": "Support Individual safety measures – life jackets, elevated beddings"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-3",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-3",
     "label": "Evacuation"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "drr-4",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "disaster-risk-reduction-4",
     "label": "Provide forage and water for livestock"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-1",
     "label": "Water blockage and diversion measures"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-2",
     "label": "Support house enforcement"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-1",
     "label": "Early harvesting the crops"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-2",
     "label": "Food distribution"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-3",
     "label": "Relocating the livestock from flood zones (including evacuation in the worst case)"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "malaria",
-    "areaOfFocus": {
-      "id": "health"
-    },
+    "areaOfFocusId": "health",
     "action": "health-1",
     "label": "Set up Malaria Emergency Medical Units (MEMUs)."
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "malaria",
-    "areaOfFocus": {
-      "id": "health"
-    },
+    "areaOfFocusId": "health",
     "action": "health-2",
     "label": " Mobilize Community Heath Volunteers (CHV) to monitor and report suspected cases"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "malaria",
-    "areaOfFocus": {
-      "id": "health"
-    },
+    "areaOfFocusId": "health",
     "action": "health-3",
     "label": "Community-based information dissemination on disease prevention and health promotion"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "malaria",
-    "areaOfFocus": {
-      "id": "health"
-    },
+    "areaOfFocusId": "health",
     "action": "health-4",
     "label": "Social media campaign on prevention and control measures"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "malaria",
-    "areaOfFocus": {
-      "id": "health"
-    },
+    "areaOfFocusId": "health",
     "action": "health-5",
     "label": "Psychosocial support through welfare desk"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "malaria",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-1",
     "label": "Hygiene promotion on safe usage of water"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "malaria",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "wash-2",
     "label": "Cleaning of mosquito breeding sites, garbage disposal"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "malaria",
-    "areaOfFocus": {
-      "id": "inclusion"
-    },
+    "areaOfFocusId": "inclusion",
     "action": "inclusion-1",
     "label": "Protection, gender and inclusion: ensure all staff is trained, distribute guidelines, assess minimum standards at DEMUs and welfare desks"
   },
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "eth-drought-a1",
     "label": "A1. Rehabilitation of critical water facilities (boreholes, shallow wells, hand-dug wells with",
     "month": {
@@ -1093,9 +923,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "eth-drought-a2",
     "label": "A2. Demarcate and preserve drought time water sources (boreholes, birkas, ponds etc.)",
     "month": {
@@ -1119,9 +947,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "eth-drought-a3",
     "label": "A3. Promote water preservation and wise utilization techniques",
     "month": {
@@ -1145,9 +971,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "eth-drought-a4",
     "label": "A4. Introduce water preservation and wise utilization techniques",
     "month": {
@@ -1171,9 +995,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "eth-drought-a5",
     "label": "A5. Engage the WSH sector - Water treatment",
     "month": {
@@ -1197,9 +1019,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "eth-drought-a6",
     "label": "A6. Awareness creation",
     "month": {
@@ -1223,9 +1043,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "eth-drought-a7",
     "label": "A7. Conflict negotiation",
     "month": {
@@ -1249,9 +1067,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "eth-drought-a8",
     "label": "A8. Pre-position of relevant medicines (for malaria, water-borne diseases, first aid equipment, mosquito nets)",
     "month": {
@@ -1275,9 +1091,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "eth-drought-a9",
     "label": "A9. Promote awareness on water born disease control (such as cholera), use of mosquito net, basic sanitation (latrine, hand washing, drinking water treatment etc.)",
     "month": {
@@ -1301,9 +1115,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "eth-drought-a10",
     "label": "A10. Support water harvesting in schools/other social service providers",
     "month": {
@@ -1327,9 +1139,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "eth-drought-a11",
     "label": "A11. Training for Red Cross local staff, DAS, health extensions, local leaders",
     "month": {
@@ -1353,9 +1163,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "wash"
-    },
+    "areaOfFocusId": "wash",
     "action": "eth-drought-a12",
     "label": "A12. Cleaning and de-silting of water sources - river, springs, wells to avoid mosquitoes breeding in stagnant water",
     "month": {
@@ -1379,9 +1187,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-b1",
     "label": "B1. Promote food saving",
     "month": {
@@ -1405,9 +1211,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-b2",
     "label": "B2. Promote planting of short maturing and drought tolerant vegetable and crop varieties",
     "month": {
@@ -1431,9 +1235,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-b3",
     "label": "B3. Preposition short maturing, drought tolerant vegetable, healty and nutritious crop and vegetable varieties",
     "month": {
@@ -1457,9 +1259,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-b4",
     "label": "B4. Provide and distribute short maturing, drought tolerant vegetable, healty and nutritious crop and vegetable varieties",
     "month": {
@@ -1483,9 +1283,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-b5",
     "label": "B5. Promote safe usage of alternative foods (wild foods, fishing, hunting etc.)",
     "month": {
@@ -1509,9 +1307,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-b6",
     "label": "B6, Water harvesting on the farmland + soil moisture conservation",
     "month": {
@@ -1535,9 +1331,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-b7",
     "label": "B7. Asset protection intervention, through cash for work / food for work",
     "month": {
@@ -1561,9 +1355,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-b8",
     "label": "B8. Providing improved storage materials/equipment (triple bag, metal silo) to reduce post harvest losses",
     "month": {
@@ -1587,9 +1379,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-b9",
     "label": "B9. Training for Red Cross local staff, DAS, health extensions, local leaders",
     "month": {
@@ -1613,9 +1403,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-b10",
     "label": "B10. Training selected women on screening of early malnutrition signs and symptoms to refer to health centers",
     "month": {
@@ -1639,9 +1427,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-b11",
     "label": "B11. Awareness creation for target communities",
     "month": {
@@ -1665,9 +1451,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-c1",
     "label": "C1. Vaccination",
     "month": {
@@ -1691,9 +1475,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-c2",
     "label": "C2. Pre-stocking of vet medicines and equipment",
     "month": {
@@ -1717,9 +1499,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-c3",
     "label": "C3. Provide short maturing forage seed/planting for livestock and cash for abimal feed production",
     "month": {
@@ -1743,9 +1523,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-c4",
     "label": "C4. Engage cooperatives, private investors in provision of animal feed and contract signing",
     "month": {
@@ -1769,9 +1547,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-c5",
     "label": "C5. Provide cash/in kind for animal feed",
     "month": {
@@ -1795,9 +1571,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-c6",
     "label": "C6. Promote systematic destocking (together with marketing)",
     "month": {
@@ -1821,9 +1595,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-c7",
     "label": "C7. Promote systematic migration with livestock to other pasture and water available areas (herd splitting like browsers can stay behind a bit longer) whenever it is applicable",
     "month": {
@@ -1847,9 +1619,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-c8",
     "label": "C8. Conflict resolution or negotiation of resource sharing",
     "month": {
@@ -1873,9 +1643,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-c9",
     "label": "C9. Introduce temporary slaughter houses (communities also can make dry meat-qwanta) whenever it is applicable",
     "month": {
@@ -1899,9 +1667,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-c10",
     "label": "C10. Promoting area closure (rangeland management)",
     "month": {
@@ -1925,9 +1691,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-c11",
     "label": "C11. Training for Red Cross local staff, DAS, health extension, local leaders",
     "month": {
@@ -1951,9 +1715,7 @@
   {
     "countryCodeISO3": "ETH",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "eth-drought-c12",
     "label": "C12. Awareness creation",
     "month": {
@@ -1977,144 +1739,112 @@
   {
     "countryCodeISO3": "PHL",
     "disasterType": "typhoon",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-1",
     "label": "Early Harvesting"
   },
   {
     "countryCodeISO3": "PHL",
     "disasterType": "typhoon",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-2",
     "label": "Evacuation Of Livestock And Assets"
   },
   {
     "countryCodeISO3": "PHL",
     "disasterType": "typhoon",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "shelter-1",
     "label": "Distribution Of Shelter Strengthening Kit (SSK)"
   },
   {
     "countryCodeISO3": "PHL",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-1",
     "label": "Harvest crops and fish early"
   },
   {
     "countryCodeISO3": "PHL",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-2",
     "label": "Evacuate livestock and assets"
   },
   {
     "countryCodeISO3": "PHL",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "livelihood-3",
     "label": "Relocate small businesses"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "ssd-drr-01",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "ssd-disaster-risk-reduction-01",
     "label": "Activate the SSRC Emergency Office Center Call number for 24/7 hours for people to call in"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "ssd-drr-02",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "ssd-disaster-risk-reduction-02",
     "label": "Prepare National Disaster Response Team (NDRT) bags ready for surge deployment"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "ssd-drr-03",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "ssd-disaster-risk-reduction-03",
     "label": "Dissemination of early warning messages to communities at risk of being affected by floods (e.g., through mass media, and through community meetings)"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "ssd-drr-04",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "ssd-disaster-risk-reduction-04",
     "label": "Organize pre-disaster meetings with relevant actors including relevant ministries and departments"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "ssd-drr-05",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "ssd-disaster-risk-reduction-05",
     "label": "Activation of trained South Sudan Red Cross Volunteers/staff and Community Disaster Response Teams (CDRTs)"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "ssd-shelter-01",
     "label": "Engage communities in identification of safe locations for evacuation in case of emergencies"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "ssd-shelter-02",
     "label": "Support evacuating of communities' at-risk areas"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "shelter"
-    },
+    "areaOfFocusId": "shelter",
     "action": "ssd-shelter-03",
     "label": "Preposition of Essential Households Items (e.g., mosquito nets, first aid kits, water purifiers, blankets, etc.) for 3,500 households"
   },
   {
     "countryCodeISO3": "SSD",
     "disasterType": "floods",
-    "areaOfFocus": {
-      "id": "drr"
-    },
-    "action": "ssd-drr-06",
+    "areaOfFocusId": "disaster-risk-reduction",
+    "action": "ssd-disaster-risk-reduction-06",
     "label": "Participate in stakeholders' coordination meetings with relevant state/National line ministries, and other humanitarian Actors on flood responses"
   },
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zwe-drought-01",
     "label": "Beneficiary identification and Registration",
     "month": {
@@ -2126,9 +1856,7 @@
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zwe-drought-02",
     "label": "Distribution of Drought Tolerant Seed",
     "month": {
@@ -2140,9 +1868,7 @@
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zwe-drought-03",
     "label": "Purchase of dipping and dosing chemicals",
     "month": {
@@ -2154,9 +1880,7 @@
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zwe-drought-04",
     "label": "Manning of dipping tanks and community mobilisation",
     "month": {
@@ -2168,9 +1892,7 @@
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zwe-drought-05",
     "label": "Identification of Boreholes",
     "month": {
@@ -2182,9 +1904,7 @@
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zwe-drought-06",
     "label": "Repair and rehabilitation of Boreholes",
     "month": {
@@ -2196,9 +1916,7 @@
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zwe-drought-07",
     "label": "Beneficiary identification and Registration",
     "month": {
@@ -2210,9 +1928,7 @@
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zwe-drought-08",
     "label": "Confirm minimum expenditure basket",
     "month": {
@@ -2224,9 +1940,7 @@
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zwe-drought-09",
     "label": "Initiate Framework Contracts",
     "month": {
@@ -2238,9 +1952,7 @@
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zwe-drought-10",
     "label": "Supplementary feeding to target schools",
     "month": {
@@ -2252,9 +1964,7 @@
   {
     "countryCodeISO3": "ZWE",
     "disasterType": "drought",
-    "areaOfFocus": {
-      "id": "livelihood"
-    },
+    "areaOfFocusId": "livelihood",
     "action": "zwe-drought-11",
     "label": "MPCT to target households",
     "month": {

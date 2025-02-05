@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 
-import { DisasterType } from '../disaster/disaster-type.enum';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { AddIndicatorsDto, IndicatorDto } from './dto/add-indicators.dto';
 import { AddLayersDto, LayerDto } from './dto/add-layers.dto';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';

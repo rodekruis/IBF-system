@@ -8,7 +8,7 @@ import jwt from 'jsonwebtoken';
 import { In, Repository } from 'typeorm';
 
 import { CountryEntity } from '../country/country.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { LookupService } from '../notification/lookup/lookup.service';
 import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { UserRole } from './user-role.enum';
@@ -21,8 +21,8 @@ export class UserService {
   private readonly userRepository: Repository<UserEntity>;
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
-  @InjectRepository(DisasterEntity)
-  private readonly disasterRepository: Repository<DisasterEntity>;
+  @InjectRepository(DisasterTypeEntity)
+  private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
 
   private readonly relations: string[] = ['countries', 'disasterTypes'];
 
@@ -83,7 +83,7 @@ export class UserService {
     newUser.countries = await this.countryRepository.find({
       where: { countryCodeISO3: In(dto.countryCodesISO3) },
     });
-    newUser.disasterTypes = await this.disasterRepository.find({
+    newUser.disasterTypes = await this.disasterTypeRepository.find({
       where: { disasterType: In(dto.disasterTypes) },
     });
 
@@ -175,9 +175,11 @@ export class UserService {
         ),
         disasterTypes: user.disasterTypes.length
           ? user.disasterTypes.map(
-              (disasterEntity): string => disasterEntity.disasterType,
+              (disasterTypeEntity): string => disasterTypeEntity.disasterType,
             )
-          : (await this.disasterRepository.find()).map((d) => d.disasterType),
+          : (await this.disasterTypeRepository.find()).map(
+              (d) => d.disasterType,
+            ),
         exp: exp.getTime() / 1000,
       },
       process.env.SECRET,

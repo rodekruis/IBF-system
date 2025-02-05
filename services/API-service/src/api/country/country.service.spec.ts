@@ -5,8 +5,7 @@ import { In, Repository } from 'typeorm';
 
 import countries from '../../scripts/json/countries.json';
 import notificationInfos from '../../scripts/json/notification-info.json';
-import { DisasterEntity } from '../disaster/disaster.entity';
-import { LeadTimeEntity } from '../lead-time/lead-time.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import { CountryEntity } from './country.entity';
@@ -17,14 +16,12 @@ import { NotificationInfoDto } from './dto/notification-info.dto';
 describe('CountryService', () => {
   let service: CountryService;
   let countryRepository: Repository<CountryEntity>;
-  let disasterRepository: Repository<DisasterEntity>;
+  let disasterTypeRepository: Repository<DisasterTypeEntity>;
   let countryDisasterSettingsRepository: Repository<CountryDisasterSettingsEntity>;
-  let leadTimeRepository: Repository<LeadTimeEntity>;
   let notificationInfoRepository: Repository<NotificationInfoEntity>;
 
   const relations = [
     'countryDisasterSettings',
-    'countryDisasterSettings.activeLeadTimes',
     'disasterTypes',
     'notificationInfo',
   ];
@@ -38,15 +35,11 @@ describe('CountryService', () => {
           useClass: Repository,
         },
         {
-          provide: getRepositoryToken(DisasterEntity),
+          provide: getRepositoryToken(DisasterTypeEntity),
           useClass: Repository,
         },
         {
           provide: getRepositoryToken(CountryDisasterSettingsEntity),
-          useClass: Repository,
-        },
-        {
-          provide: getRepositoryToken(LeadTimeEntity),
           useClass: Repository,
         },
         {
@@ -60,15 +53,12 @@ describe('CountryService', () => {
     countryRepository = module.get<Repository<CountryEntity>>(
       getRepositoryToken(CountryEntity),
     );
-    disasterRepository = module.get<Repository<DisasterEntity>>(
-      getRepositoryToken(DisasterEntity),
+    disasterTypeRepository = module.get<Repository<DisasterTypeEntity>>(
+      getRepositoryToken(DisasterTypeEntity),
     );
     countryDisasterSettingsRepository = module.get<
       Repository<CountryDisasterSettingsEntity>
     >(getRepositoryToken(CountryDisasterSettingsEntity));
-    leadTimeRepository = module.get<Repository<LeadTimeEntity>>(
-      getRepositoryToken(LeadTimeEntity),
-    );
     notificationInfoRepository = module.get<Repository<NotificationInfoEntity>>(
       getRepositoryToken(NotificationInfoEntity),
     );
@@ -109,14 +99,11 @@ describe('CountryService', () => {
         .spyOn(countryRepository, 'findOne')
         .mockResolvedValue(new CountryEntity());
       jest
-        .spyOn(disasterRepository, 'find')
-        .mockResolvedValue([new DisasterEntity()]);
+        .spyOn(disasterTypeRepository, 'find')
+        .mockResolvedValue([new DisasterTypeEntity()]);
       jest
         .spyOn(countryRepository, 'save')
         .mockResolvedValue(new CountryEntity());
-      jest
-        .spyOn(leadTimeRepository, 'find')
-        .mockResolvedValue([new LeadTimeEntity()]);
       jest
         .spyOn(countryDisasterSettingsRepository, 'save')
         .mockResolvedValue(new CountryDisasterSettingsEntity());
@@ -133,19 +120,14 @@ describe('CountryService', () => {
           where: { countryCodeISO3: country.countryCodeISO3 },
           relations: ['countryDisasterSettings'],
         });
-        expect(disasterRepository.find).toHaveBeenCalledWith({
+        expect(disasterTypeRepository.find).toHaveBeenCalledWith({
           where: country.disasterTypes.map((disasterType) => ({
             disasterType,
           })),
         });
         expect(countryRepository.save).toHaveBeenCalled();
 
-        for (const countryDisasterSetting of country.countryDisasterSettings as CountryDisasterSettingsDto[]) {
-          expect(leadTimeRepository.find).toHaveBeenCalledWith({
-            where: countryDisasterSetting.activeLeadTimes.map(
-              (leadTimeName) => ({ leadTimeName }),
-            ),
-          });
+        for (const _countryDisasterSetting of country.countryDisasterSettings as CountryDisasterSettingsDto[]) {
           expect(countryDisasterSettingsRepository.save).toHaveBeenCalled();
           expect(
             countryDisasterSettingsRepository.findOne,

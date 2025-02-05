@@ -8,9 +8,9 @@ import {
 } from 'typeorm';
 
 import { CountryEntity } from '../country/country.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
-import { LeadTimeEntity } from '../lead-time/lead-time.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DynamicIndicator } from './enum/dynamic-data-unit';
+import { LeadTime } from './enum/lead-time.enum';
 
 @Entity('admin-area-dynamic-data')
 export class AdminAreaDynamicDataEntity {
@@ -24,7 +24,7 @@ export class AdminAreaDynamicDataEntity {
   })
   public countryCodeISO3: string;
 
-  @ManyToOne((): typeof DisasterEntity => DisasterEntity)
+  @ManyToOne((): typeof DisasterTypeEntity => DisasterTypeEntity)
   @JoinColumn({
     name: 'disasterType',
     referencedColumnName: 'disasterType',
@@ -53,7 +53,6 @@ export class AdminAreaDynamicDataEntity {
   @Column({ nullable: true, type: 'real' })
   public value: number;
 
-  @ManyToOne((): typeof LeadTimeEntity => LeadTimeEntity)
-  @JoinColumn({ name: 'leadTime', referencedColumnName: 'leadTimeName' })
-  public leadTime: string;
+  @Column({ nullable: true })
+  public leadTime: LeadTime;
 }

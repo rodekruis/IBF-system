@@ -1,6 +1,6 @@
 import { Locator, Page } from 'playwright';
 
-import areasOfFocus from '../../../services/API-service/src/scripts/json/areas-of-focus.json';
+import { AREAS_OF_FOCUS } from '../../../interfaces/IBF-dashboard/src/app/models/area-of-focus.const';
 import DashboardPage from './DashboardPage';
 
 class ActionsSummaryComponent extends DashboardPage {
@@ -22,14 +22,14 @@ class ActionsSummaryComponent extends DashboardPage {
 
     for (let i = 0; i < counttoolTipInfoButton; i++) {
       const toolTipInfoButton = this.tooltipButton.nth(i);
-      const descriptionText = areasOfFocus[i].description?.replace(
+      const descriptionText = AREAS_OF_FOCUS[i].description?.replace(
         /<br>|<ul>|<li>|<strong>|<\/ul>|<\/li>|<\/strong>/g,
         '',
       );
 
       await toolTipInfoButton.click();
       await this.page.waitForTimeout(200);
-      await this.validateLabel({ text: areasOfFocus[i].label });
+      await this.validateLabel({ text: AREAS_OF_FOCUS[i].label });
       await this.validateDescription({ text: descriptionText });
       await this.page.getByTestId('close-matrix-icon').click();
     }

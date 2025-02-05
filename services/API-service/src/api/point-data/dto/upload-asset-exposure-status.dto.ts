@@ -11,7 +11,7 @@ import {
 } from 'class-validator';
 
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
-import { DisasterType } from '../../disaster/disaster-type.enum';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { PointDataEnum } from '../point-data.entity';
 
 export class UploadAssetExposureStatusDto {
@@ -22,6 +22,7 @@ export class UploadAssetExposureStatusDto {
   @ApiProperty({ example: LeadTime.hour1 })
   @IsNotEmpty()
   @IsString()
+  @IsEnum(LeadTime)
   public leadTime: LeadTime;
 
   @ApiProperty({ example: new Date() })
@@ -48,6 +49,7 @@ export class UploadDynamicPointDataDto {
   @ApiProperty({ example: LeadTime.hour1 })
   @IsOptional()
   @IsString()
+  @IsEnum(LeadTime)
   public leadTime: LeadTime;
 
   @ApiProperty({ example: new Date() })

@@ -5,7 +5,7 @@ import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.modul
 import { AdminAreaDynamicDataModule } from './api/admin-area-dynamic-data/admin-area-dynamic-data.module';
 import { AdminAreaModule } from './api/admin-area/admin-area.module';
 import { CountryModule } from './api/country/country.module';
-import { DisasterModule } from './api/disaster/disaster.module';
+import { DisasterTypeModule } from './api/disaster-type/disaster-type.module';
 import { EapActionsModule } from './api/eap-actions/eap-actions.module';
 import { EventModule } from './api/event/event.module';
 import { LinesDataModule } from './api/lines-data/lines-data.module';
@@ -34,7 +34,7 @@ import { TypeOrmModule } from './typeorm.module';
     MetadataModule,
     AdminAreaModule,
     AdminAreaDynamicDataModule,
-    DisasterModule,
+    DisasterTypeModule,
     AdminAreaDataModule,
     TyphoonTrackModule,
     NotificationModule,

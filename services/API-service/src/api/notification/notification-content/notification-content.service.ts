@@ -8,8 +8,8 @@ import { NumberFormat } from '../../../shared/enums/number-format.enum';
 import { HelperService } from '../../../shared/helper.service';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../../country/country.entity';
-import { DisasterType } from '../../disaster/disaster-type.enum';
-import { DisasterEntity } from '../../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { EventService } from '../../event/event.service';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../dto/admin-area-notification-info.dto';
@@ -25,8 +25,8 @@ export class NotificationContentService {
   private readonly countryRepository: Repository<CountryEntity>;
   @InjectRepository(IndicatorMetadataEntity)
   private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
-  @InjectRepository(DisasterEntity)
-  private readonly disasterRepository: Repository<DisasterEntity>;
+  @InjectRepository(DisasterTypeEntity)
+  private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
 
   public constructor(
     private readonly eventService: EventService,
@@ -71,7 +71,6 @@ export class NotificationContentService {
       'disasterTypes',
       'notificationInfo',
       'countryDisasterSettings',
-      'countryDisasterSettings.activeLeadTimes',
     ];
 
     return await this.countryRepository.findOne({
@@ -82,8 +81,8 @@ export class NotificationContentService {
 
   private async getDisaster(
     disasterType: DisasterType,
-  ): Promise<DisasterEntity> {
-    return await this.disasterRepository.findOne({
+  ): Promise<DisasterTypeEntity> {
+    return await this.disasterTypeRepository.findOne({
       where: { disasterType: disasterType },
     });
   }
@@ -125,7 +124,9 @@ export class NotificationContentService {
     disasterType: DisasterType,
   ): Promise<IndicatorMetadataEntity> {
     return await this.indicatorRepository.findOne({
-      where: { name: (await this.getDisaster(disasterType)).actionsUnit },
+      where: {
+        name: (await this.getDisaster(disasterType)).mainExposureIndicator,
+      },
     });
   }
 
@@ -241,7 +242,7 @@ export class NotificationContentService {
     numberFormat: NumberFormat,
   ) {
     const total = triggeredAreas.reduce(
-      (acc, { actionsValue }) => acc + actionsValue,
+      (acc, { mainExposureValue }) => acc + mainExposureValue,
       0,
     );
 

@@ -12,8 +12,8 @@ import { HelperService } from '../../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from '../../admin-area-dynamic-data/dto/admin-data-return.dto';
 import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
-import { DisasterType } from '../../disaster/disaster-type.enum';
-import { DisasterEntity } from '../../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { DateDto } from '../../event/dto/date.dto';
 import { EventService } from '../../event/event.service';
 import { EventAreaEntity } from '../event-area.entity';
@@ -65,21 +65,21 @@ export class EventAreaService {
 
   public async getEventAreas(
     countryCodeISO3: string,
-    disaster: DisasterEntity,
+    disasterType: DisasterTypeEntity,
     lastTriggeredDate: DateDto,
   ): Promise<GeoJson> {
     const eventAreas = [];
 
     const events = await this.eventService.getEventSummary(
       countryCodeISO3,
-      disaster.disasterType,
+      disasterType.disasterType,
     );
     for await (const event of events) {
       const eventArea = await this.eventAreaRepository
         .createQueryBuilder('area')
         .where({
           countryCodeISO3: countryCodeISO3,
-          disasterType: disaster.disasterType,
+          disasterType: disasterType.disasterType,
           eventAreaName: event.eventName,
         })
         .select([
@@ -96,16 +96,16 @@ export class EventAreaService {
         .where({
           timestamp: MoreThanOrEqual(
             this.helperService.getUploadCutoffMoment(
-              disaster.disasterType,
+              disasterType.disasterType,
               lastTriggeredDate.timestamp,
             ),
           ),
-          disasterType: disaster.disasterType,
-          indicator: disaster.actionsUnit,
+          disasterType: disasterType.disasterType,
+          indicator: disasterType.mainExposureIndicator,
           eventName: event.eventName,
         })
         .getRawOne();
-      eventArea[disaster.actionsUnit] = aggregateValue.value;
+      eventArea[disasterType.mainExposureIndicator] = aggregateValue.value;
       eventAreas.push(eventArea);
     }
 
@@ -114,7 +114,7 @@ export class EventAreaService {
         .createQueryBuilder('area')
         .where({
           countryCodeISO3: countryCodeISO3,
-          disasterType: disaster.disasterType,
+          disasterType: disasterType.disasterType,
         })
         .select([
           'area."eventAreaName" as "eventAreaName"',
@@ -124,7 +124,7 @@ export class EventAreaService {
       for await (const eventArea of allEventAreas) {
         eventArea['eventName'] = eventArea.eventAreaName;
         eventArea['placeCode'] = eventArea.eventAreaName;
-        eventArea[disaster.actionsUnit] = 0;
+        eventArea[disasterType.mainExposureIndicator] = 0;
 
         eventAreas.push(eventArea);
       }

@@ -20,7 +20,8 @@ import {
   LeadTimeTriggerKey,
   LeadTimeUnit,
 } from 'src/app/types/lead-time';
-import { TimelineState } from 'src/app/types/timeline-state';
+import { RecentDate } from 'src/app/types/recent-date';
+import { TimelineState, TimeStepButton } from 'src/app/types/timeline-state';
 
 @Injectable({
   providedIn: 'root',
@@ -207,7 +208,7 @@ export class TimelineService {
     }
   }
 
-  private onRecentDates = (date) => {
+  private onRecentDates = (date: RecentDate) => {
     if (date.timestamp || date.date) {
       this.state.today = DateTime.fromISO(date.timestamp || date.date);
     } else {
@@ -240,7 +241,7 @@ export class TimelineService {
     }
   }
 
-  private deactivateLeadTimeButton = (leadTimeButton) =>
+  private deactivateLeadTimeButton = (leadTimeButton: TimeStepButton) =>
     (leadTimeButton.active = false);
 
   public handleTimeStepButtonClick(
@@ -397,7 +398,7 @@ export class TimelineService {
     if (undefinedLeadTimeEvents) {
       for (const event of undefinedLeadTimeEvents) {
         visibleLeadTimes.push({
-          leadTime: event.firstLeadTime as LeadTime,
+          leadTime: event.firstLeadTime,
           eventName: event.eventName,
           undefined: true,
         });
@@ -407,7 +408,7 @@ export class TimelineService {
     return visibleLeadTimes;
   }
 
-  private getDateFromLeadTime(leadTime) {
+  private getDateFromLeadTime(leadTime: LeadTime) {
     const date = this.getLeadTimeDate(
       leadTime,
       LeadTimeTriggerKey[leadTime],
@@ -562,9 +563,9 @@ export class TimelineService {
     const currentYear = todayLeadTime.year;
     const currentMonth = todayLeadTime.month;
 
-    let forecastMonthNumbers = [];
+    let forecastMonthNumbers: number[] = [];
     for (const season of this.getDroughtSeasons()) {
-      let filteredSeason;
+      let filteredSeason: number[];
       if (season.includes(currentMonth)) {
         filteredSeason = season.filter((month) => {
           const shiftedMonth = this.shiftYear(month);

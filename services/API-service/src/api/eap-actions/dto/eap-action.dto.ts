@@ -1,11 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
-import { DisasterType } from '../../disaster/disaster-type.enum';
-import { AreaOfFocusEntity } from '../area-of-focus.entity';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
+import { AreaOfFocusEnum } from './area-of-focus.dto';
 
-class EapActionDto {
+export class EapActionDto {
   @ApiProperty({ example: 'UGA' })
   @IsNotEmpty()
   @IsString()
@@ -16,22 +16,28 @@ class EapActionDto {
   @IsString()
   public disasterType: string;
 
-  @ApiProperty({ example: JSON.parse(JSON.stringify({ id: 'drr' })) })
+  @ApiProperty({ example: AreaOfFocusEnum.DISASTER_RISK_REDUCTION })
   @IsNotEmpty()
-  public areaOfFocus: AreaOfFocusEntity;
+  @IsEnum(AreaOfFocusEnum)
+  public areaOfFocusId: AreaOfFocusEnum;
 
-  @ApiProperty({ example: 'drr-1' })
+  @ApiProperty({ example: 'disaster-risk-reduction-1' })
   @IsNotEmpty()
   @IsString()
   public action: string;
 
-  @ApiProperty({ example: 'DRR dummy action' })
+  @ApiProperty({ example: 'Dummy action' })
   @IsNotEmpty()
   @IsString()
   public label: string;
 
-  @ApiProperty({ example: null })
-  public month: JSON;
+  @ApiProperty({
+    example: null,
+    description:
+      'Specify an optional calendar month (1-12) in which this action is applicable.',
+  })
+  @IsOptional()
+  public month?: object;
 }
 
 export class AddEapActionsDto {
@@ -40,9 +46,9 @@ export class AddEapActionsDto {
       {
         countryCodeISO3: 'UGA',
         disasterType: DisasterType.Floods,
-        action: 'drr-1',
-        areaOfFocus: { id: 'drr' },
-        label: 'DRR dummy action',
+        action: 'disaster-risk-reduction-1',
+        areaOfFocus: AreaOfFocusEnum.DISASTER_RISK_REDUCTION,
+        label: 'Dummy action',
         month: null,
       },
     ],

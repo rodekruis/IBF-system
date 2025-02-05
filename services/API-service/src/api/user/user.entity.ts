@@ -12,7 +12,7 @@ import {
 } from 'typeorm';
 
 import { CountryEntity } from '../country/country.entity';
-import { DisasterEntity } from '../disaster/disaster.entity';
+import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { UserRole } from './user-role.enum';
@@ -63,7 +63,7 @@ export class UserEntity {
   public countries: CountryEntity[];
 
   @ManyToMany(
-    (): typeof DisasterEntity => DisasterEntity,
+    (): typeof DisasterTypeEntity => DisasterTypeEntity,
     (disasterType): UserEntity[] => disasterType.users,
   )
   @JoinTable({
@@ -77,7 +77,7 @@ export class UserEntity {
       referencedColumnName: 'disasterType',
     },
   })
-  public disasterTypes: DisasterEntity[];
+  public disasterTypes: DisasterTypeEntity[];
 
   @Column({ default: UserStatus.Active })
   public userStatus: UserStatus;

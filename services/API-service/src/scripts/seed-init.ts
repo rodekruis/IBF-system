@@ -9,24 +9,22 @@ import {
 import { CountryEntity } from '../api/country/country.entity';
 import { CountryService } from '../api/country/country.service';
 import { NotificationInfoDto } from '../api/country/dto/notification-info.dto';
-import { DisasterType } from '../api/disaster/disaster-type.enum';
-import { DisasterEntity } from '../api/disaster/disaster.entity';
-import { AreaOfFocusEntity } from '../api/eap-actions/area-of-focus.entity';
+import { DisasterTypeEntity } from '../api/disaster-type/disaster-type.entity';
+import { DisasterType } from '../api/disaster-type/disaster-type.enum';
+import { DisasterTypeService } from '../api/disaster-type/disaster-type.service';
+import { DisasterTypeDto } from '../api/disaster-type/dto/add-disaster-type.dto';
 import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
-import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
 import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
 import { UserRole } from '../api/user/user-role.enum';
 import { UserStatus } from '../api/user/user-status.enum';
 import { UserEntity } from '../api/user/user.entity';
-import areasOfFocus from './json/areas-of-focus.json';
 import countries from './json/countries.json';
-import disasters from './json/disasters.json';
+import disasterTypes from './json/disaster-types.json';
 import eapActions from './json/EAP-actions.json';
 import indicatorMetadata from './json/indicator-metadata.json';
 import layerMetadata from './json/layer-metadata.json';
-import leadTimes from './json/lead-times.json';
 import notificationInfo from './json/notification-info.json';
 import users from './json/users.json';
 import { InterfaceScript } from './scripts.module';
@@ -47,6 +45,7 @@ export class SeedInit implements InterfaceScript {
     private seedPointData: SeedPointData,
     private seedLineData: SeedLineData,
     private countryService: CountryService,
+    private disasterTypeService: DisasterTypeService,
   ) {
     this.seedHelper = new SeedHelper(dataSource);
   }
@@ -55,36 +54,28 @@ export class SeedInit implements InterfaceScript {
     await this.seedHelper.truncateAll();
 
     // ***** CREATE DISASTER *****
-    console.log('Seed Disasters...');
-    const disasterRepository = this.dataSource.getRepository(DisasterEntity);
-    const disasterEntities = disasters.map((disaster): DisasterEntity => {
-      const disasterEntity = new DisasterEntity();
-      disasterEntity.disasterType = disaster.disasterType as DisasterType;
-      disasterEntity.label = disaster.label;
-      disasterEntity.triggerUnit = disaster.triggerUnit;
-      disasterEntity.actionsUnit = disaster.actionsUnit;
-      disasterEntity.showOnlyTriggeredAreas = disaster.showOnlyTriggeredAreas;
-      disasterEntity.leadTimeUnit = disaster.leadTimeUnit as LeadTimeUnit;
-      disasterEntity.minLeadTime = disaster.minLeadTime as LeadTime;
-      disasterEntity.maxLeadTime = disaster.maxLeadTime as LeadTime;
-      return disasterEntity;
-    });
-
-    await disasterRepository.save(disasterEntities);
-
-    // ***** CREATE LEAD TIMES *****
-    console.log('Seed Lead Times...');
-    const leadTimeRepository = this.dataSource.getRepository(LeadTimeEntity);
-
-    const leadTimeEntities = await Promise.all(
-      leadTimes.map(async (leadTime): Promise<LeadTimeEntity> => {
-        const leadTimeEntity = new LeadTimeEntity();
-        leadTimeEntity.leadTimeName = leadTime.leadTimeName;
-        return leadTimeEntity;
-      }),
+    console.log('Seed Disaster types...');
+    const disasterTypeDtos = disasterTypes.map(
+      (disasterType): DisasterTypeDto => {
+        const disasterTypeDto = new DisasterTypeDto();
+        disasterTypeDto.disasterType =
+          disasterType.disasterType as DisasterType;
+        disasterTypeDto.label = disasterType.label;
+        disasterTypeDto.triggerIndicator = disasterType.triggerIndicator;
+        disasterTypeDto.mainExposureIndicator =
+          disasterType.mainExposureIndicator;
+        disasterTypeDto.showOnlyTriggeredAreas =
+          disasterType.showOnlyTriggeredAreas;
+        disasterTypeDto.leadTimeUnit =
+          disasterType.leadTimeUnit as LeadTimeUnit;
+        disasterTypeDto.minLeadTime = disasterType.minLeadTime as LeadTime;
+        disasterTypeDto.maxLeadTime = disasterType.maxLeadTime as LeadTime;
+        return disasterTypeDto;
+      },
     );
-
-    await leadTimeRepository.save(leadTimeEntities);
+    await this.disasterTypeService.addOrUpdateDisasterTypes({
+      disasterTypes: disasterTypeDtos,
+    });
 
     // ***** CREATE COUNTRIES *****
     console.log(`Seed Countries... ${process.env.COUNTRIES}`);
@@ -151,6 +142,8 @@ export class SeedInit implements InterfaceScript {
       }
     }
 
+    const disasterTypeRepository =
+      this.dataSource.getRepository(DisasterTypeEntity);
     const userEntities = await Promise.all(
       selectedUsers.map(async (user): Promise<UserEntity> => {
         const userEntity = new UserEntity();
@@ -170,7 +163,7 @@ export class SeedInit implements InterfaceScript {
             });
         userEntity.disasterTypes = !user.disasterTypes
           ? []
-          : await disasterRepository.find({
+          : await disasterTypeRepository.find({
               where: user.disasterTypes.map((disasterType: string): object => {
                 return {
                   disasterType: disasterType,
@@ -185,27 +178,22 @@ export class SeedInit implements InterfaceScript {
 
     await userRepository.save(userEntities);
 
-    // ***** CREATE AREAS OF FOCUS *****
-    console.log('Seed Areas of Focus...');
-    const areaOfFocusRepository =
-      this.dataSource.getRepository(AreaOfFocusEntity);
-    await areaOfFocusRepository.save(areasOfFocus);
-
     // ***** CREATE EAP ACTIONS *****
     console.log('Seed EAP Actions...');
-    class EapAction {
-      countryCodeISO3: string;
-      disasterType: string;
-      areaOfFocus: object;
-      action: string;
-      label: string;
-      month?: object;
-    }
-    const filteredActions: EapAction[] = eapActions.filter(
-      (action: EapAction): boolean => {
+    const filteredActions: EapActionEntity[] = eapActions
+      .map((action): EapActionEntity => {
+        const eapActionEntity = new EapActionEntity();
+        eapActionEntity.countryCodeISO3 = action.countryCodeISO3;
+        eapActionEntity.disasterType = action.disasterType;
+        eapActionEntity.action = action.action;
+        eapActionEntity.label = action.label;
+        eapActionEntity.areaOfFocusId = action.areaOfFocusId as string;
+        eapActionEntity.month = JSON.parse(JSON.stringify(action.month || {}));
+        return eapActionEntity;
+      })
+      .filter((action: EapActionEntity): boolean => {
         return envCountries.includes(action.countryCodeISO3);
-      },
-    );
+      });
     const eapActionRepository = this.dataSource.getRepository(EapActionEntity);
     await eapActionRepository.save(filteredActions);
 

@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
   IsArray,
+  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -21,6 +22,7 @@ export class UploadTyphoonTrackDto {
   @ApiProperty({ example: LeadTime.hour72 })
   @IsNotEmpty()
   @IsString()
+  @IsEnum(LeadTime)
   public leadTime: LeadTime;
 
   @ApiProperty({ example: 'Typhoon name' })

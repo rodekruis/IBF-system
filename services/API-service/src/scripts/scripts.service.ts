@@ -11,7 +11,7 @@ import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-da
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminLevel } from '../api/country/admin-level.enum';
 import { CountryEntity } from '../api/country/country.entity';
-import { DisasterType } from '../api/disaster/disaster-type.enum';
+import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { EventService } from '../api/event/event.service';

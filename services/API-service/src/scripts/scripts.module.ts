@@ -11,9 +11,9 @@ import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { AdminAreaModule } from '../api/admin-area/admin-area.module';
 import { CountryEntity } from '../api/country/country.entity';
 import { CountryModule } from '../api/country/country.module';
+import { DisasterTypeModule } from '../api/disaster-type/disaster-type.module';
 import { EventModule } from '../api/event/event.module';
 import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
-import { LeadTimeEntity } from '../api/lead-time/lead-time.entity';
 import { LinesDataModule } from '../api/lines-data/lines-data.module';
 import { MetadataModule } from '../api/metadata/metadata.module';
 import { PointDataModule } from '../api/point-data/point-data.module';
@@ -42,7 +42,6 @@ import SeedProd from './seed-prod';
       EventPlaceCodeEntity,
       EapActionStatusEntity,
       AdminAreaEntity,
-      LeadTimeEntity,
       CountryEntity,
       TriggerPerLeadTime,
       AdminAreaDynamicDataEntity,
@@ -50,6 +49,7 @@ import SeedProd from './seed-prod';
     AdminAreaModule,
     AdminAreaDynamicDataModule,
     CountryModule,
+    DisasterTypeModule,
     EventModule,
     TyphoonTrackModule,
     UserModule,

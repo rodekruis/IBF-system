@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AREAS_OF_FOCUS } from 'src/app/models/area-of-focus.const';
 import {
   Country,
   CountryDisasterSettings,
@@ -109,7 +110,7 @@ export class EapActionsService {
     this.getTriggeredAreasApi();
   };
 
-  public getTriggeredAreasApi() {
+  private getTriggeredAreasApi() {
     if (
       this.country &&
       this.disasterType &&
@@ -134,11 +135,11 @@ export class EapActionsService {
     }
   }
 
-  private onTriggeredAreas = (triggeredAreas) => {
+  private onTriggeredAreas = (triggeredAreas: TriggeredArea[]) => {
     this.triggeredAreas = triggeredAreas;
     this.triggeredAreas.sort((a, b) => {
       if (a.triggerValue === b.triggerValue) {
-        return a.actionsValue > b.actionsValue ? -1 : 1;
+        return a.mainExposureValue > b.mainExposureValue ? -1 : 1;
       } else {
         return a.triggerValue > b.triggerValue ? -1 : 1;
       }
@@ -149,6 +150,9 @@ export class EapActionsService {
         this.mapTriggerValueToAlertClass(area);
         this.filterEapActionsByMonth(area);
         area.eapActions.forEach((action) => {
+          action.aofLabel = AREAS_OF_FOCUS.find(
+            (aof) => aof.id === action.aof,
+          ).label;
           if (Object.keys(action.month).length) {
             Object.defineProperty(action, 'monthLong', {
               value: {},
@@ -175,7 +179,7 @@ export class EapActionsService {
     return this.triggeredAreaSubject.asObservable();
   }
 
-  private formatDates = (triggeredArea) => {
+  private formatDates = (triggeredArea: TriggeredArea) => {
     triggeredArea.startDate = DateTime.fromISO(
       triggeredArea.startDate,
     ).toFormat('cccc, dd LLLL');
@@ -190,7 +194,7 @@ export class EapActionsService {
     // AlertLabel.alert does not need to be defined as {{alertLabel}} is not a variable in the non-eap copy
   };
 
-  private filterEapActionsByMonth = (triggeredArea) => {
+  private filterEapActionsByMonth = (triggeredArea: TriggeredArea) => {
     if (!this.countryDisasterSettings.showMonthlyEapActions) {
       return;
     }
@@ -243,7 +247,7 @@ export class EapActionsService {
       );
   };
 
-  private getRegion(triggeredArea): string {
+  private getRegion(triggeredArea: TriggeredArea): string {
     const nationwideKey = 'National';
 
     if (!this.countryDisasterSettings.droughtRegions) {
@@ -253,7 +257,7 @@ export class EapActionsService {
     const droughtRegions = Object.keys(
       this.countryDisasterSettings.droughtRegions,
     );
-    const isTriggeredAreaInDroughtRegion = (droughtRegion): boolean =>
+    const isTriggeredAreaInDroughtRegion = (droughtRegion: string): boolean =>
       this.countryDisasterSettings.droughtRegions[droughtRegion].includes(
         triggeredArea.placeCode,
       );
@@ -264,7 +268,10 @@ export class EapActionsService {
     }
   }
 
-  private getCurrentRainSeasonName(region, monthOfSelectedLeadTime): string {
+  private getCurrentRainSeasonName(
+    region: string,
+    monthOfSelectedLeadTime: number,
+  ): string {
     const seasons = this.countryDisasterSettings.droughtSeasonRegions[region];
     for (const season of Object.keys(seasons)) {
       if (seasons[season].rainMonths.includes(monthOfSelectedLeadTime)) {
