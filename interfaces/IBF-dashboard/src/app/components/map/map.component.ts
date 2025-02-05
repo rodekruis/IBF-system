@@ -14,6 +14,7 @@ import {
   Map,
   MapOptions,
   Marker,
+  MarkerCluster,
   MarkerClusterGroup,
   markerClusterGroup,
   point,
@@ -521,7 +522,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       }
     };
 
-  private getIconCreateFunction = (cluster) => {
+  private getIconCreateFunction = (cluster: MarkerCluster) => {
     const clusterSize = cluster.getChildCount();
 
     const exposedClass = cluster
@@ -641,8 +642,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private onAdminRegionClickByLayerAndFeatureAndElement =
     (feature) => (): void => {
-      const adminLevel = feature.properties.adminLevel;
-      const placeCode = feature.properties.placeCode;
+      const adminLevel: number = feature.properties.adminLevel;
+      const placeCode: string = feature.properties.placeCode;
 
       this.analyticsService.logEvent(AnalyticsEvent.mapPlaceSelect, {
         placeCode,
@@ -668,7 +669,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         // if in event-view, then set placeCode
         if (placeCode !== this.placeCode?.placeCode) {
           // only zoom-in when actually zooming in (instead of selecting a peer-area on the same level)
-          const zoomIn = adminLevel > (this.placeCode?.adminLevel || 0);
+          const zoomIn = adminLevel > (Number(this.placeCode?.adminLevel) || 0);
           if (zoomIn) {
             this.adminLevelService.zoomInAdminLevel();
           }
