@@ -38,7 +38,7 @@
           )
         "
       >
-        {{ eventState?.event?.eventName }}
+        {{ eventState?.event?.eventName.split('_')[0] }}
       </ion-button>
     }
     @if (showBreadcrumb(mapViewEnum.adminArea)) {

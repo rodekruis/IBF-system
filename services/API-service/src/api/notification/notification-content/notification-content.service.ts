@@ -134,6 +134,7 @@ export class NotificationContentService {
     event: EventSummaryCountry,
     disasterType: DisasterType,
   ) {
+    // REFACTOR: make formattedEventName a property of EventSummaryCountry, which also the front-end can draw from
     return event.eventName
       ? `${event.eventName.split('_')[0]}`
       : (await this.getDisaster(disasterType)).label.toLowerCase();
