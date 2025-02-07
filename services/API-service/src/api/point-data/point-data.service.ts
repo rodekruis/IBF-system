@@ -9,7 +9,10 @@ import { HelperService } from '../../shared/helper.service';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { WhatsappService } from '../notification/whatsapp/whatsapp.service';
 import { UploadDynamicPointDataDto } from './dto/upload-asset-exposure-status.dto';
-import { CommunityNotificationDto } from './dto/upload-community-notifications.dto';
+import {
+  CommunityNotificationDto,
+  CommunityNotificationExternalDto,
+} from './dto/upload-community-notifications.dto';
 import { DamSiteDto } from './dto/upload-dam-sites.dto';
 import { EvacuationCenterDto } from './dto/upload-evacuation-centers.dto';
 import { GaugeDto } from './dto/upload-gauge.dto';
@@ -21,16 +24,6 @@ import { SchoolDto } from './dto/upload-schools.dto';
 import { WaterpointDto } from './dto/upload-waterpoint.dto';
 import { DynamicPointDataEntity } from './dynamic-point-data.entity';
 import { PointDataEntity, PointDataEnum } from './point-data.entity';
-
-export interface CommunityNotification {
-  nameVolunteer: string;
-  nameVillage: string;
-  disasterType: string;
-  description: string;
-  end: Date;
-  _attachments: [{ download_url: string }];
-  _geolocation: [number, number];
-}
 
 @Injectable()
 export class PointDataService {
@@ -243,22 +236,22 @@ export class PointDataService {
 
   public async uploadCommunityNotification(
     countryCodeISO3: string,
-    communityNotification: CommunityNotification,
+    communityNotification: CommunityNotificationExternalDto,
   ): Promise<void> {
     const notification = new CommunityNotificationDto();
-    notification.nameVolunteer = communityNotification['nameVolunteer'];
-    notification.nameVillage = communityNotification['nameVillage'];
-    notification.type = communityNotification['disasterType'];
-    notification.description = communityNotification['description'];
-    notification.uploadTime = communityNotification['end'];
+    notification.nameVolunteer = communityNotification.nameVolunteer;
+    notification.nameVillage = communityNotification.nameVillage;
+    notification.type = communityNotification.disasterType;
+    notification.description = communityNotification.description;
+    notification.uploadTime = communityNotification.end;
     try {
       notification.photoUrl =
-        communityNotification['_attachments'][0]['download_url'];
+        communityNotification._attachments[0].download_url;
     } catch {
       notification.photoUrl = null;
     }
-    notification.lat = communityNotification['_geolocation'][0];
-    notification.lon = communityNotification['_geolocation'][1];
+    notification.lat = communityNotification._geolocation[0];
+    notification.lon = communityNotification._geolocation[1];
 
     await this.uploadJson(
       PointDataEnum.communityNotifications,

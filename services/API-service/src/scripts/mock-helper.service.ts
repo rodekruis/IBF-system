@@ -184,10 +184,9 @@ export class MockHelperService {
         disasterType,
       );
 
-    // Only for HeavyRain and Drought we have triggered and non-triggered files
+    // Only for Drought we have triggered and non-triggered files
     const suffix =
-      triggered &&
-      [DisasterType.HeavyRain, DisasterType.Drought].includes(disasterType)
+      triggered && [DisasterType.Drought].includes(disasterType)
         ? '-triggered.tif'
         : '.tif';
     const filename = `${layerStorePrefix}_${leadTimePart}_${countryCodeISO3}${suffix}`;

@@ -2,62 +2,28 @@ import {
   Body,
   Controller,
   HttpStatus,
+  ParseBoolPipe,
   Post,
+  Query,
   Res,
   UseGuards,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
-  ApiProperty,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-
-import { IsIn, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { UserRole } from '../api/user/user-role.enum';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
-import { ScriptsService } from './scripts.service';
+import { MockInputDto } from './dto/mock-input.dto';
+import { ResetDto } from './dto/reset.dto';
+import { MockService } from './mock.service';
 import { SeedInit } from './seed-init';
-
-class ResetDto {
-  @ApiProperty({ example: 'fill_in_secret' })
-  @IsNotEmpty()
-  @IsString()
-  public readonly secret: string;
-}
-
-export class MockDynamic {
-  @ApiProperty({ example: 'fill_in_secret' })
-  @IsNotEmpty()
-  @IsString()
-  public readonly secret: string;
-
-  @ApiProperty({ example: 'UGA' })
-  @IsIn(process.env.COUNTRIES.split(','))
-  public readonly countryCodeISO3: string;
-
-  @ApiProperty({
-    example: DisasterType.HeavyRain,
-  })
-  @IsIn([DisasterType.HeavyRain])
-  public readonly disasterType: DisasterType;
-
-  @ApiProperty()
-  @IsNotEmpty()
-  public readonly triggered: boolean;
-
-  @ApiProperty({ example: true })
-  @IsNotEmpty()
-  public readonly removeEvents: boolean;
-
-  @ApiProperty({ example: new Date() })
-  @IsOptional()
-  public readonly date: Date;
-}
 
 @Controller('scripts')
 @ApiTags('--- mock/seed data ---')
@@ -65,8 +31,8 @@ export class MockDynamic {
 @UseGuards(RolesGuard)
 export class ScriptsController {
   public constructor(
-    private scriptsService: ScriptsService,
     private seedInit: SeedInit,
+    private mockService: MockService,
   ) {}
 
   @Roles(UserRole.Admin)
@@ -89,26 +55,55 @@ export class ScriptsController {
 
   @Roles(UserRole.Admin)
   @ApiOperation({
-    summary: 'Mock pipeline data for given country and disaster-type',
+    summary:
+      'Upload mock data for specified country and/or disasterType, or all if not specified',
   })
   @ApiResponse({
     status: 202,
     description:
-      'Successfully uploaded mock pipeline data for given country and disaster-type.',
+      'Uploaded mock data for specified country, disasterType and scenario, if matching mock data found',
   })
-  @Post('/mock-dynamic-data')
-  public async mockDynamic(
-    @Body() body: MockDynamic,
+  @ApiQuery({
+    name: 'disasterType',
+    required: false,
+    enum: DisasterType,
+  })
+  @ApiQuery({
+    name: 'countryCodeISO3',
+    required: false,
+  })
+  @ApiQuery({
+    name: 'isApiTest',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description: 'Set to true for tests',
+  })
+  @Post('mock')
+  public async mock(
+    @Query('disasterType') disasterType: DisasterType,
+    @Query('countryCodeISO3') countryCodeISO3: string,
+    @Body() body: MockInputDto,
     @Res() res,
+    @Query(
+      'isApiTest',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    isApiTest: boolean,
   ): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
 
-    await this.scriptsService.mockCountry(body);
+    const result = await this.mockService.mock(
+      body,
+      disasterType,
+      countryCodeISO3,
+      isApiTest,
+    );
 
-    return res
-      .status(HttpStatus.ACCEPTED)
-      .send('Successfully uploaded mock pipeline data.');
+    return res.status(HttpStatus.ACCEPTED).send(result);
   }
 }

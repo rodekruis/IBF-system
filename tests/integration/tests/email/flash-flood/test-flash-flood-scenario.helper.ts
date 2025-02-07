@@ -4,7 +4,7 @@ import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.en
 import { FlashFloodsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
 import {
   getEventTitle,
-  mockFlashFlood,
+  mock,
   sendNotification,
 } from '../../../helpers/utility.helper';
 
@@ -16,9 +16,11 @@ export async function testFlashFloodScenario(
 ): Promise<boolean> {
   const disasterTypeLabel = 'Flash Flood'; // DisasterType.FlashFloods does not match
 
-  const mockResult = await mockFlashFlood(
+  const mockResult = await mock(
     scenario,
+    DisasterType.FlashFloods,
     countryCodeISO3,
+    null,
     accessToken,
   );
   // Act

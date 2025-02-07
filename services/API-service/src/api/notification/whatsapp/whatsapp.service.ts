@@ -391,7 +391,7 @@ export class WhatsappService {
       return;
     }
 
-    const disasterType = DisasterType.HeavyRain;
+    const disasterType = DisasterType.Floods; // ##TODO: make this dynamic
 
     const messageKey = 'community-notification';
 
@@ -424,6 +424,9 @@ export class WhatsappService {
     user: UserEntity,
     disasterType: DisasterType,
   ): boolean {
-    return user.disasterTypes.some((d) => d.disasterType === disasterType);
+    return (
+      user.disasterTypes.length === 0 ||
+      user.disasterTypes.some((d) => d.disasterType === disasterType)
+    );
   }
 }

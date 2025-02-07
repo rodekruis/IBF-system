@@ -28,7 +28,6 @@ class DisasterTypeComponent extends DashboardPage {
     const currentDateTime = `${formattedDate} ${formattedTime}`;
 
     await expect(this.floodIcon).toBeVisible();
-    await expect(this.heavyRainIcon).toBeVisible();
     await expect(this.droughtIcon).toBeVisible();
     await expect(this.topBar).toContainText(currentDateTime);
   }

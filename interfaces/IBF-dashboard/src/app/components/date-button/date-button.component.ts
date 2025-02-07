@@ -49,11 +49,9 @@ export class DateButtonComponent implements OnInit, OnDestroy {
     this.dateFormat = DateFormats[disasterType] || DateFormats.default;
     this.monthFormat = MonthFormats[disasterType] || MonthFormats.default;
     if (
-      [
-        DisasterTypeKey.flashFloods,
-        DisasterTypeKey.floods,
-        DisasterTypeKey.heavyRain,
-      ].includes(disasterType)
+      [DisasterTypeKey.flashFloods, DisasterTypeKey.floods].includes(
+        disasterType,
+      )
     ) {
       this.firstLine = this.date.toFormat(this.dateFormat);
     }
@@ -72,7 +70,7 @@ export class DateButtonComponent implements OnInit, OnDestroy {
       if (this.duration > 1) {
         displayMonth = `${displayMonth}-${endMonthDate.monthShort}`;
       }
-      this.secondLine = `${displayMonth} ${endMonthDate.year}`;
+      this.secondLine = `${displayMonth} ${endMonthDate.year.toString()}`;
     }
 
     // Refactor: I combined all code that sets thirdLine into one if-statement to avoid confusion. But basically this whole file is one big mess, which fills all 3 lines very hackily.
@@ -87,7 +85,7 @@ export class DateButtonComponent implements OnInit, OnDestroy {
       this.duration &&
       disasterType === DisasterTypeKey.drought
     ) {
-      this.thirdLine = `Duration ${this.duration} months`;
+      this.thirdLine = `Duration ${this.duration.toString()} months`;
     } else {
       this.thirdLine = '';
     }

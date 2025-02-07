@@ -21,24 +21,18 @@ import { MetadataService } from '../api/metadata/metadata.service';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { DEBUG } from '../config';
+import { MockInputDto } from './dto/mock-input.dto';
 import {
+  DroughtScenario,
   FlashFloodsScenario,
   FloodsScenario,
+  MalariaScenario,
   TyphoonScenario,
 } from './enum/mock-scenario.enum';
 import { GeoserverSyncService } from './geoserver-sync.service';
 import { Country } from './interfaces/country.interface';
 import countries from './json/countries.json';
 import { MockHelperService } from './mock-helper.service';
-import {
-  MockAll,
-  MockDroughtScenario,
-  MockFlashFloodsScenario,
-  MockFloodsScenario,
-  MockMalariaScenario,
-  MockTyphoonScenario,
-} from './mock.controller';
-import { ScriptsService } from './scripts.service';
 
 class Scenario {
   scenarioName: string;
@@ -72,37 +66,45 @@ export class MockService {
     private typhoonTrackService: TyphoonTrackService,
     private mockHelpService: MockHelperService,
     private geoServerSyncService: GeoserverSyncService,
-    private scriptsService: ScriptsService,
   ) {}
 
-  public async mock(
-    mockBody:
-      | MockFloodsScenario
-      | MockMalariaScenario
-      | MockFlashFloodsScenario
-      | MockDroughtScenario
-      | MockTyphoonScenario,
+  public async mockCountryDisasterTypeData(
+    countryCodeISO3: string,
+    removeEvents: boolean,
+    date: Date,
+    scenarioName:
+      | FloodsScenario
+      | FlashFloodsScenario
+      | TyphoonScenario
+      | DroughtScenario
+      | MalariaScenario,
     disasterType: DisasterType,
     useDefaultScenario: boolean,
     isApiTest: boolean,
   ) {
-    if (mockBody.removeEvents) {
-      await this.removeEvents(mockBody.countryCodeISO3, disasterType);
+    if (removeEvents) {
+      await this.removeEvents(countryCodeISO3, disasterType);
     }
-    const date = mockBody.date || new Date();
+    date = date || new Date();
 
     const selectedCountry = countries.find((country) => {
-      if (mockBody.countryCodeISO3 === country.countryCodeISO3) {
+      if (countryCodeISO3 === country.countryCodeISO3) {
         return country;
       }
     }) as Country;
 
     const scenario = await this.getScenario(
       disasterType,
-      mockBody.countryCodeISO3,
-      mockBody.scenario,
+      countryCodeISO3,
+      scenarioName,
       useDefaultScenario,
     );
+    if (!scenario) {
+      console.log(
+        `Scenario ${scenarioName} not found for country ${countryCodeISO3} and disasterType ${disasterType}`,
+      );
+      return;
+    }
 
     const disasterSettings: CountryDisasterSettingsDto[] | undefined =
       selectedCountry.countryDisasterSettings;
@@ -114,7 +116,7 @@ export class MockService {
     ).adminLevels;
 
     const indicators = await this.getIndicators(
-      mockBody.countryCodeISO3,
+      countryCodeISO3,
       disasterType,
       scenario.scenarioName,
     );
@@ -122,7 +124,6 @@ export class MockService {
     if (!scenario.events) {
       // No events scenario
       await this.uploadNoEvents(
-        mockBody,
         disasterType,
         selectedCountry,
         date,
@@ -148,7 +149,6 @@ export class MockService {
           } else if (eventsSkipped === scenario.events.length) {
             // if all events are skipped, upload no events instead and skip the rest of the loop
             await this.uploadNoEvents(
-              mockBody,
               disasterType,
               selectedCountry,
               date,
@@ -163,7 +163,7 @@ export class MockService {
           for (const adminLevel of adminLevels) {
             const exposurePlaceCodes = this.getMockExposureData(
               disasterType,
-              mockBody.countryCodeISO3,
+              countryCodeISO3,
               scenario.scenarioName,
               event.eventName,
               indicator,
@@ -176,7 +176,7 @@ export class MockService {
             }
 
             await this.adminAreaDynamicDataService.exposure({
-              countryCodeISO3: mockBody.countryCodeISO3,
+              countryCodeISO3: countryCodeISO3,
               exposurePlaceCodes,
               leadTime,
               dynamicIndicator: indicator,
@@ -190,11 +190,11 @@ export class MockService {
 
         if (this.shouldMockTriggerPerLeadTime(disasterType)) {
           const triggersPerLeadTime = this.getFile(
-            `./src/scripts/mock-data/${disasterType}/${mockBody.countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-leadtime.json`,
+            `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-leadtime.json`,
           );
 
           await this.eventService.uploadTriggerPerLeadTime({
-            countryCodeISO3: mockBody.countryCodeISO3,
+            countryCodeISO3,
             triggersPerLeadTime,
             disasterType: DisasterType.Floods,
             eventName: event.eventName,
@@ -204,10 +204,10 @@ export class MockService {
 
         if (this.shouldMockTyphoonTrack(disasterType)) {
           await this.mockHelpService.mockTyphoonTrack(
-            mockBody.countryCodeISO3,
+            countryCodeISO3,
             scenario.scenarioName,
             event,
-            mockBody.date as Date,
+            date as Date,
           );
         }
 
@@ -272,12 +272,6 @@ export class MockService {
   }
 
   private async uploadNoEvents(
-    mockBody:
-      | MockFloodsScenario
-      | MockMalariaScenario
-      | MockFlashFloodsScenario
-      | MockDroughtScenario
-      | MockTyphoonScenario,
     disasterType: DisasterType,
     selectedCountry: Country,
     date: Date,
@@ -285,7 +279,7 @@ export class MockService {
     adminLevels: AdminLevel[],
   ) {
     const adminAreas = await this.adminAreaService.getAdminAreasRaw(
-      mockBody.countryCodeISO3,
+      selectedCountry.countryCodeISO3,
     );
     const leadTimesForNoTrigger = this.getLeadTimesNoEvents(
       disasterType,
@@ -299,7 +293,7 @@ export class MockService {
           .map((area) => ({ placeCode: area.placeCode, amount: 0 }));
         for (const leadTime of leadTimesForNoTrigger) {
           await this.adminAreaDynamicDataService.exposure({
-            countryCodeISO3: mockBody.countryCodeISO3,
+            countryCodeISO3: selectedCountry.countryCodeISO3,
             exposurePlaceCodes: exposurePlaceCodes,
             leadTime: leadTime as LeadTime,
             dynamicIndicator: indicator,
@@ -314,7 +308,7 @@ export class MockService {
 
     if (this.shouldMockTyphoonTrack(disasterType)) {
       await this.typhoonTrackService.uploadTyphoonTrack({
-        countryCodeISO3: mockBody.countryCodeISO3,
+        countryCodeISO3: selectedCountry.countryCodeISO3,
         leadTime: leadTimesForNoTrigger[0] as LeadTime,
         eventName: null,
         trackpointDetails: [],
@@ -493,7 +487,6 @@ export class MockService {
   private shouldMockRasterFile(disasterType: DisasterType): boolean {
     return [
       DisasterType.Floods,
-      DisasterType.HeavyRain,
       DisasterType.Drought,
       DisasterType.FlashFloods,
     ].includes(disasterType);
@@ -517,51 +510,45 @@ export class MockService {
     return disasterType === DisasterType.Typhoon;
   }
 
-  public async mockAll(mockAllInput: MockAll) {
-    const isApiTest = false;
+  public async mock(
+    mockInput: MockInputDto,
+    disasterType?: DisasterType,
+    countryCodeISO3?: string,
+    isApiTest = false,
+  ) {
+    const countryCodes = countryCodeISO3
+      ? [countryCodeISO3]
+      : process.env.COUNTRIES.split(',');
 
-    const envCountries = process.env.COUNTRIES.split(',');
-
-    const newMockServiceDisasterTypes = [
-      DisasterType.Floods,
-      DisasterType.Malaria,
-      DisasterType.FlashFloods,
-      DisasterType.Drought,
-      DisasterType.Typhoon,
-    ];
-
-    for await (const countryCodeISO3 of envCountries) {
+    for await (const countryCodeISO3 of countryCodes) {
       const country = await this.countryRepo.findOne({
         where: { countryCodeISO3: countryCodeISO3 },
         relations: ['disasterTypes'],
       });
+      const countryDisasterTypes = country.disasterTypes.map(
+        (dt) => dt.disasterType,
+      );
+      if (disasterType && !countryDisasterTypes.includes(disasterType)) {
+        console.log(
+          `Provided disaster type ${disasterType} not found for country ${countryCodeISO3}`,
+        );
+        continue;
+      }
 
-      for await (const disasterType of country.disasterTypes) {
-        if (newMockServiceDisasterTypes.includes(disasterType.disasterType)) {
-          await this.mock(
-            {
-              secret: mockAllInput.secret,
-              countryCodeISO3,
-              removeEvents: true,
-              date: mockAllInput.date || new Date(),
-              scenario: mockAllInput.triggered
-                ? FloodsScenario.Trigger
-                : FloodsScenario.NoTrigger, // REFACTOR: this works for now but is hack. Should use base-enum values Trigger/NoTrigger. Solve when refactoring /mock/all.
-            },
-            disasterType.disasterType,
-            false,
-            isApiTest,
-          );
-        } else {
-          await this.scriptsService.mockCountry({
-            secret: mockAllInput.secret,
-            countryCodeISO3,
-            disasterType: disasterType.disasterType,
-            triggered: mockAllInput.triggered,
-            removeEvents: true,
-            date: mockAllInput.date || new Date(),
-          });
-        }
+      const disasterTypes = disasterType
+        ? [disasterType]
+        : countryDisasterTypes;
+
+      for await (const disasterType of disasterTypes) {
+        await this.mockCountryDisasterTypeData(
+          countryCodeISO3,
+          mockInput.removeEvents,
+          mockInput.date,
+          mockInput.scenario,
+          disasterType,
+          false,
+          isApiTest,
+        );
       }
     }
   }

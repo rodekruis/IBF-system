@@ -23,7 +23,6 @@ export interface CountryDisasterSettings {
   eapLink: string;
   showMonthlyEapActions: boolean;
   droughtEndOfMonthPipeline?: boolean;
-  isEventBased: boolean;
   eapAlertClasses?: EapAlertClasses;
   monthlyForecastInfo?: Record<string, string | string[]>;
   enableEarlyActions?: boolean;

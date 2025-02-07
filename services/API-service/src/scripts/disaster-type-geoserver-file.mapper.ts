@@ -6,8 +6,6 @@ export class DisasterTypeGeoServerMapper {
   ): string {
     if (disasterType === DisasterType.Floods) {
       return 'flood_extent';
-    } else if (disasterType === DisasterType.HeavyRain) {
-      return 'rainfall_extent';
     } else if (disasterType === DisasterType.Drought) {
       return 'rainfall_forecast';
     } else if (disasterType === DisasterType.FlashFloods) {
@@ -19,8 +17,6 @@ export class DisasterTypeGeoServerMapper {
   static getDestFilePrefixForDisasterType(disasterType: DisasterType): string {
     if (disasterType === DisasterType.Floods) {
       return 'flood_extent';
-    } else if (disasterType === DisasterType.HeavyRain) {
-      return 'rainfall_extent';
     } else if (disasterType === DisasterType.Drought) {
       return 'rain_rp';
     } else if (disasterType === DisasterType.FlashFloods) {
@@ -35,15 +31,12 @@ export class DisasterTypeGeoServerMapper {
       [DisasterType.Floods, DisasterType.FlashFloods].includes(disasterType)
     ) {
       subfolder = 'flood_extents';
-    } else if (
-      [DisasterType.HeavyRain, DisasterType.Drought].includes(disasterType)
-    ) {
+    } else if ([DisasterType.Drought].includes(disasterType)) {
       subfolder = 'rainfall_extents';
     }
     return subfolder;
   }
 
-  // DOES not work for heavy rain as it will be phased out
   static generateStyleForCountryAndDisasterType(
     countryCode: string,
     disasterType: DisasterType,

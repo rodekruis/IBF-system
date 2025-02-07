@@ -2,6 +2,7 @@ import * as request from 'supertest';
 import TestAgent from 'supertest/lib/agent';
 
 import { CreateUserDto } from './API-service/dto/create-user.dto';
+import { CommunityNotificationExternalDto } from './API-service/dto/upload-community-notification.dto';
 import { UploadTyphoonTrackDto } from './API-service/dto/upload-typhoon-track.dto';
 import { DisasterType } from './API-service/enum/disaster-type.enum';
 import {
@@ -11,6 +12,7 @@ import {
   MalariaScenario,
   TyphoonScenario,
 } from './API-service/enum/mock-scenario.enum';
+import { PointDataEnum } from './API-service/enum/point-data.enum';
 import users from './API-service/json/users.json';
 
 export async function getAccessToken(): Promise<string> {
@@ -54,94 +56,27 @@ export function resetDB(accessToken: string): Promise<request.Response> {
     });
 }
 
-export function mockFloods(
-  scenario: FloodsScenario,
+export function mock(
+  scenario:
+    | FloodsScenario
+    | FlashFloodsScenario
+    | TyphoonScenario
+    | MalariaScenario
+    | DroughtScenario,
+  disasterType: DisasterType,
   countryCodeISO3: string,
+  date: Date | null,
   accessToken: string,
 ): Promise<request.Response> {
   return getServer()
-    .post('/mock/floods')
+    .post('/scripts/mock')
     .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
+    .query({ disasterType, countryCodeISO3, isApiTest: true })
     .send({
       scenario,
       secret: process.env.RESET_SECRET,
       removeEvents: true,
-      date: new Date(),
-      countryCodeISO3,
-    });
-}
-
-export function mockMalaria(
-  scenario: MalariaScenario,
-  countryCodeISO3: string,
-  accessToken: string,
-): Promise<request.Response> {
-  return getServer()
-    .post('/mock/malaria')
-    .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
-    .send({
-      scenario,
-      secret: process.env.RESET_SECRET,
-      removeEvents: true,
-      date: new Date(),
-      countryCodeISO3,
-    });
-}
-
-export function mockFlashFlood(
-  scenario: FlashFloodsScenario,
-  countryCodeISO3: string,
-  accessToken: string,
-): Promise<request.Response> {
-  return getServer()
-    .post('/mock/flash-floods')
-    .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
-    .send({
-      scenario,
-      secret: process.env.RESET_SECRET,
-      removeEvents: true,
-      date: new Date(),
-      countryCodeISO3,
-    });
-}
-
-export function mockTyphoon(
-  scenario: TyphoonScenario,
-  countryCodeISO3: string,
-  accessToken: string,
-): Promise<request.Response> {
-  return getServer()
-    .post('/mock/typhoon')
-    .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
-    .send({
-      scenario,
-      secret: process.env.RESET_SECRET,
-      removeEvents: true,
-      date: new Date(),
-      countryCodeISO3,
-    });
-}
-
-export function mockDrought(
-  scenario: DroughtScenario,
-  countryCodeISO3: string,
-  date: Date,
-  accessToken: string,
-): Promise<request.Response> {
-  return getServer()
-    .post('/mock/drought')
-    .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
-    .send({
-      scenario,
-      secret: process.env.RESET_SECRET,
-      removeEvents: true,
-      date: date || new Date(),
-      countryCodeISO3,
+      date: date ?? new Date(),
     });
 }
 
@@ -215,4 +150,36 @@ export function getEventsSummary(
   return getServer()
     .get(`/event/${countryCodeISO3}/${disasterType}`)
     .set('Authorization', `Bearer ${accessToken}`);
+}
+
+export function postCommunityNotification(
+  countryCodeISO3: string,
+  uploadCommunityNotificationDto: CommunityNotificationExternalDto,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .post(`/point-data/community-notification/${countryCodeISO3}`)
+    .set('Authorization', `Bearer ${accessToken}`)
+    .send(uploadCommunityNotificationDto);
+}
+
+export function dismissCommunityNotification(
+  pointDataId: string,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .put(`/point-data/community-notification/${pointDataId}`)
+    .set('Authorization', `Bearer ${accessToken}`);
+}
+
+export function getPointData(
+  countryCodeISO3: string,
+  pointDataCategory: PointDataEnum,
+  disasterType: DisasterType,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .get(`/point-data/${pointDataCategory}/${countryCodeISO3}`)
+    .set('Authorization', `Bearer ${accessToken}`)
+    .query({ disasterType });
 }

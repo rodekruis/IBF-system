@@ -78,6 +78,7 @@ export class MapViewService {
   }
 
   private updateBreadcrumbsMapView() {
+    // TODO: is this option still possible after removing isEventBased?
     if (!this.eventState?.event && this.placeCode) {
       this.setAggregatesMapView(MapView.adminArea);
       return;
@@ -89,9 +90,7 @@ export class MapViewService {
     }
 
     if (this.eventState.event && !this.placeCode) {
-      this.countryDisasterSettings?.isEventBased
-        ? this.setBreadcrumbsMapView(MapView.event)
-        : this.setBreadcrumbsMapView(MapView.national);
+      this.setBreadcrumbsMapView(MapView.event);
       return;
     }
 

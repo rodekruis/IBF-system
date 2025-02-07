@@ -22,7 +22,6 @@ export class CountryDisasterSettings {
   eapLink: string;
   showMonthlyEapActions: boolean;
   droughtEndOfMonthPipeline?: boolean;
-  isEventBased: boolean;
   eapAlertClasses?: EapAlertClasses;
   monthlyForecastInfo?: MonthlyForecastInfo;
   enableEarlyActions?: boolean;

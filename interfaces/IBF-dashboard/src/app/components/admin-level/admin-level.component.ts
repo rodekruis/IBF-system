@@ -59,9 +59,8 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
 
   private breadcrumbDisasters = [
     DisasterTypeKey.flashFloods,
-    DisasterTypeKey.heavyRain,
-    // DisasterTypeKey.malaria, // TODO: after switching to event-based, but events being defined in time, not in space, the breadcrumbs no longer made sense. Easiest to disable.
     DisasterTypeKey.floods,
+    DisasterTypeKey.drought,
   ];
 
   constructor(
@@ -233,14 +232,8 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     }
 
     if (breadCrumb === MapView.national) {
-      if (this.countryDisasterSettings?.isEventBased) {
-        this.eventService?.resetEvents();
-        return;
-      } else {
-        this.adminLevelService.zoomToDefaultAdminLevel();
-        this.placeCodeService?.clearPlaceCode();
-        return;
-      }
+      this.eventService?.resetEvents();
+      return;
     }
   }
 
@@ -254,15 +247,12 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
         MapView.national,
       ].includes(this.currentMapView);
     } else if (breadCrumb === MapView.event) {
-      return (
-        [
-          MapView.adminArea,
-          MapView.adminArea2,
-          MapView.adminArea3,
-          MapView.event,
-        ].includes(this.currentMapView) &&
-        this.countryDisasterSettings?.isEventBased
-      );
+      return [
+        MapView.adminArea,
+        MapView.adminArea2,
+        MapView.adminArea3,
+        MapView.event,
+      ].includes(this.currentMapView);
     } else if (breadCrumb === MapView.adminArea) {
       return [
         MapView.adminArea,
