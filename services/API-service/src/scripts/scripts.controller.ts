@@ -79,7 +79,7 @@ export class ScriptsController {
     description: 'Set to true for tests',
   })
   @Post('mock')
-  public async mockAll(
+  public async mock(
     @Query('disasterType') disasterType: DisasterType,
     @Query('countryCodeISO3') countryCodeISO3: string,
     @Body() body: MockInputDto,
