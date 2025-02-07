@@ -90,10 +90,6 @@ export class MapViewService {
     }
 
     if (this.eventState.event && !this.placeCode) {
-      console.log(
-        'this.eventState.event && !this.placeCode: ',
-        this.eventState.event && !this.placeCode,
-      );
       this.setBreadcrumbsMapView(MapView.event);
       return;
     }

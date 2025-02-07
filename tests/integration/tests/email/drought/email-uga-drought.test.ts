@@ -82,7 +82,6 @@ describe('Should send an email for uga drought', () => {
       currentDate,
       accessToken,
     );
-    console.log('mockResult: ', mockResult);
     const response = await sendNotification(
       countryCodeISO3,
       disasterType,
