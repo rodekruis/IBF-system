@@ -1,3 +1,16 @@
+## [0.281.1](https://github.com/rodekruis/IBF-system/compare/v0.281.0...v0.281.1) (2025-02-07)
+
+
+### Bug Fixes
+
+* e2e test AB[#33251](https://github.com/rodekruis/IBF-system/issues/33251) ([5afffa3](https://github.com/rodekruis/IBF-system/commit/5afffa343cdff55b5d019a85886799609b6d6bd8))
+* get formatted eventname + refactor note + small typing AB[#33247](https://github.com/rodekruis/IBF-system/issues/33247) ([2fc1fb4](https://github.com/rodekruis/IBF-system/commit/2fc1fb493d59262ff4890a042990333f2d0634ae))
+* remove isEventBased + switch on breadcrumbs drought AB[#33247](https://github.com/rodekruis/IBF-system/issues/33247) ([f6d31eb](https://github.com/rodekruis/IBF-system/commit/f6d31ebd9d988afe8956da7833e5ab736970306c))
+* select earliest possible event on map-click AB[#33247](https://github.com/rodekruis/IBF-system/issues/33247) ([bf15eee](https://github.com/rodekruis/IBF-system/commit/bf15eee50657c55a3891f1fc5988a0ea6bdec316))
+* test whatsapp message on new notification AB[#33243](https://github.com/rodekruis/IBF-system/issues/33243) ([b815a75](https://github.com/rodekruis/IBF-system/commit/b815a7516e46a9b3491ca5cf3fc572539a3d3aa9))
+
+
+
 # [0.281.0](https://github.com/rodekruis/IBF-system/compare/v0.280.0...v0.281.0) (2025-02-05)
 
 
@@ -96,15 +109,6 @@
 * overwrite old tracks on noEvents ([ec558b6](https://github.com/rodekruis/IBF-system/commit/ec558b66916896b6f385575c65c129904c826f3c))
 * process PR comments + fix mock-all no-trigger ([4171dfa](https://github.com/rodekruis/IBF-system/commit/4171dfa58826cd6d941bb25ec14b31c91eea8e3d))
 * test ([6e684b2](https://github.com/rodekruis/IBF-system/commit/6e684b26d60f11b032ebf8311665e4319d0f80ee))
-
-
-
-## [0.278.1](https://github.com/rodekruis/IBF-system/compare/v0.278.0...v0.278.1) (2025-01-22)
-
-
-### Bug Fixes
-
-* flaky e2e tests AB[#32712](https://github.com/rodekruis/IBF-system/issues/32712) ([d25841d](https://github.com/rodekruis/IBF-system/commit/d25841d1d28f1185b66edf9fd7cee9e2734a9448))
 
 
 
