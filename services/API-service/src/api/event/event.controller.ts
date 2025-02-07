@@ -19,6 +19,7 @@ import {
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { SendNotificationDto } from '../notification/dto/send-notification.dto';
 import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
@@ -46,7 +47,7 @@ export class EventController {
       'Get summary of active events - if any - for given country and disaster-type',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
     status: 200,
     description:
@@ -69,7 +70,7 @@ export class EventController {
       'Get date of last forecast-data-upload for given country and disaster-type.',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
     status: 200,
     description:
@@ -90,7 +91,7 @@ export class EventController {
       'Get yes/no trigger per lead-time for given country and disaster-type.',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
@@ -116,7 +117,7 @@ export class EventController {
       'Get triggered admin-areas for given country, disaster-type and lead-time.',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
@@ -152,7 +153,7 @@ export class EventController {
     type: [ActivationLogDto],
   })
   @ApiQuery({ name: 'countryCodeISO3', required: false, type: 'string' })
-  @ApiQuery({ name: 'disasterType', required: false, type: 'string' })
+  @ApiQuery({ name: 'disasterType', required: false, enum: DisasterType })
   @Get('activation-log')
   public async getActivationLogData(
     @Query() query,

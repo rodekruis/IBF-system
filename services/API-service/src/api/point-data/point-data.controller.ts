@@ -26,6 +26,7 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 import { GeoJson } from '../../shared/geo.model';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { UploadDynamicPointDataDto } from './dto/upload-asset-exposure-status.dto';
 import { CommunityNotificationExternalDto } from './dto/upload-community-notifications.dto';
@@ -44,7 +45,7 @@ export class PointDataController {
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
-  @ApiQuery({ name: 'disasterType', required: true, type: 'string' })
+  @ApiQuery({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
     status: 200,
     description:

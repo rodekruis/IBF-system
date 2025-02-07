@@ -66,7 +66,7 @@ export class EapActionsController {
     type: EapActionStatusEntity,
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @Post('check-external/:countryCodeISO3/:disasterType')
   public async checkActionExternally(
     @Param() params,

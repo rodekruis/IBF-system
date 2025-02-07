@@ -9,6 +9,7 @@ import {
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { AddIndicatorsDto } from './dto/add-indicators.dto';
 import { AddLayersDto } from './dto/add-layers.dto';
@@ -60,7 +61,7 @@ export class MetadataController {
       'Get metadata on all indicators (admin-area-layers) for given country and disaster-type',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
     status: 200,
     description:
@@ -81,7 +82,7 @@ export class MetadataController {
     summary: 'Get metadata on all layers for given country and disaster-type',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
     status: 200,
     description:

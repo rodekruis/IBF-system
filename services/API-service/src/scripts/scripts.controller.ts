@@ -66,6 +66,7 @@ export class ScriptsController {
   @ApiQuery({
     name: 'disasterType',
     required: false,
+    enum: DisasterType,
   })
   @ApiQuery({
     name: 'countryCodeISO3',

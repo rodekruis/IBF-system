@@ -67,7 +67,7 @@ export class AdminAreaDynamicDataController {
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiParam({ name: 'indicator', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
@@ -98,7 +98,7 @@ export class AdminAreaDynamicDataController {
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody(FILE_UPLOAD_API_FORMAT)
-  @ApiParam({ name: 'disasterType', required: true, type: 'string' })
+  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
     status: 201,
     description: 'Uploaded raster file for given disaster-type',
