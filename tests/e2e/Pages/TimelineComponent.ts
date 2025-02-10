@@ -78,6 +78,9 @@ class TimelineComponent extends DashboardPage {
     });
     console.log('Timeline buttons should be loaded.');
 
+    const html = await this.page.content();
+    console.log(html);
+
     const count = await timelinePeriods.count();
     console.log(`Found ${count} timeline buttons.`);
 
