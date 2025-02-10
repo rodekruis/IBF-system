@@ -70,26 +70,14 @@ class TimelineComponent extends DashboardPage {
     const timelinePeriods = this.page.locator(
       '[data-testid="timeline-button"][color="ibf-trigger-alert-secondary"]',
     );
-    // Debug logging
-    console.log('Waiting for timeline buttons to be visible...');
-    await this.page.waitForSelector('[data-testid="timeline-button"]', {
-      timeout: 5000,
-      state: 'visible',
-    });
-    console.log('Timeline buttons should be loaded.');
-
-    const html = await this.page.content();
-    console.log(html);
 
     const count = await timelinePeriods.count();
-    console.log(`Found ${count} timeline buttons.`);
-
     expect(count).toBeGreaterThan(0);
 
     for (let i = 0; i < count; i++) {
       const button = timelinePeriods.nth(i);
       const childElement = button.locator(
-        '[ng-reflect-src="/assets/icons/Alert_Title_Purp"]',
+        '[ng-reflect-src="/assets/icons/Alert_Title_Purple.svg"]',
       );
       await expect(childElement).toBeVisible();
     }
