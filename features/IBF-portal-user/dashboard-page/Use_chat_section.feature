@@ -3,7 +3,7 @@ Feature: View and use chat section
 
     Background:
         Given a logged-in user on the dashboard page
-        Given logged in for a specific "country"
+        Given navigation to a specific "country" and "disaster-type"
 
     Scenario: View chat section
         When the user enters the dashboard page
@@ -11,10 +11,9 @@ Feature: View and use chat section
         And it contains multiple "speech-bubbles" with information
         And the speech-bubbles have grey background in NON-TRIGGERED mode
         And the speech-bubbles have purple background in TRIGGERED mode
-        And each speech-bubble has a timestamp (of now) in the bottomright corner
-        And the 1st speech-bubble gives information on last model run (see below)
-        And the 2nd speech-bubble gives general trigger information (see below)
-        And if TRIGGERED a 3rd speech-bubble gives further instructions
+        And the 1st speech-bubble gives information on last model run and contains 4 action buttons (see below)
+        And if no events, a 2nd speech-bubble gives information on 'no alerts' (see below)
+        And if events, a speech bubble per event give further information (see below)
 
     Scenario: View last model run information
         When the user views the 1st speech bubble
@@ -48,33 +47,31 @@ Feature: View and use chat section
         And the user can follow the instructions provided
         And can close the popup window if do not need to take screenshot
 
-    Scenario: View general trigger information
-        When the user views the 2nd speech bubble
-        Then if NON-TRIGGERED it mentions there are 'no triggers'
-        And if TRIGGERED it mentions there is a trigger
-        And if EVENT-WITHOUT-TRIGGER it mentions an activated event below trigger threshold ('typhoon' only)
-        And it mentions when the event this trigger belongs to first started
-        And it mentions for when the trigger is expected
-        And it mentions the name of the event if applicable ('typhoon' only)
-        And the exact UX copy differs between disaster-types (Potentially: document in more detail)
-        And for 'drought' if there are multiple triggered lead-times, then the other ones are mentioned here with instructions to look at them
+    Scenario: View no events speech bubble
+        Given there are no events
+        When the user views the speech bubble
+        Then it mentions there are 'no triggers'
 
-    Scenario: View general trigger information with 2 or more active events
-        Given the selected 'disaster-type' is 'typhoon'
-        Given there are 2 or more active events (see 'API-admin-user/Upload_mock_data.feature' for instructions how to upload additional events)
-        When the user views the 2nd speech bubble
-        Then it mentions a paragraph per event with event-details such as name, start-date, arrival-time.
-        And it contains a button for each event
-        And the first event/button is the selected event and has a 'selected styling'
-        And the other buttons have a 'non-selected' styling
-        And all info in the map by default refers to the 1st event
-        And the timeline sections has just as many active timeline-buttons as there are events
+    Scenario: View collapsed event speech bubble
+        Given 2 or more events
+        When the user views the event speech bubble
+        Then it includes a header
+        And the header includes the 'alert level' via warning icon and label ('Trigger/warning/ongoing')
+        And the header includes the event name
+        And the header includes the starting date (except if 'Ongoing')
+        And the speech bubble contains additinal info, which differs per 'disasterType' and can contain 'first forecasted date', 'startDate', 'duration', 'making landfall or not (typhoon)'
+        And it contains a button to select the event
 
-    Scenario: View general trigger information when event already made landfall ('typhoon' only)
-        Given the selected 'disaster-type' is 'typhoon'
-        Given the event has already made landfall (i.e. leadTime = '0-hour')
-        When the user views the 2nd speech bubble
-        Then it mentions - in addition to earlier scenarios - that it already made landfall
+    Scenario: View expanded event speech bubble
+        Given 1 event is selected (or only 1 event is available, which is then automatically selected)
+        When the user views the event speech bubble
+        Then - if triggered - it has a red outline, if warning not
+        And it contains the same header and info as in the collapsed view
+        And the speech bubble mentions how many areas are exposed
+        And it contains a list of exposed areas, including name and value of 'mainExposureIndicator'
+        And upon hovering these areas get underlined and a hand-cursor
+        And below the list additional instructions are given
+        And it contains a button to go back to National View
 
     Scenario: View general trigger information with clear-out warning or message
         Given the 'showMonthlyEapActions' is 'true' (currently only for Kenya Droughts)
@@ -88,37 +85,26 @@ Feature: View and use chat section
         Given - instead - that the current month (month of last (mock) pipeline run) is exactly one of the 'droughtSeasonRegions'
         Then the message reads that the EAP-actions have been automatically cleared out after this month
 
-    Scenario: Switch event
-        Given the selected 'disaster-type' is 'typhoon'
-        Given there are 2 or more active events (see 'API-admin-user/Upload_mock_data.feature' for instructions how to upload additional events)
+    Scenario: Select event
+        Given there are 2 or more events
         When the user clicks a non-selected event button
-        Then that button switches to active state
-        And the previously active button switches to inactive state
+        Then the speech bubble expands and previously expanded speech bubble collapses
+        And the button switches to active state and the previously active button (if any) switches to inactive state
         And the selected timeline-button in the timeline-section also switches to the one related to the new event
-        And all data in the dashboard switches to the new event
-
-    Scenario: View overview & further instructions
-        Given the dashboard is in TRIGGERED state
-        Given the selected "admin level" is the "default admin level"
-        When the user views the 3rd speech bubble
-        Then it mentions an overview of the triggered areas, sorted by the "action unit" of that disaster type (e.g. "exposed population")
-        And it mentions instructions that you can click an area in the map
-        And if done so, that you can perform additional actions per area.
-        And no such speech bubble is available on other admin levels then the default admin level
+        And all data in the dashboard (map, aggregates, action-summary) switches to the new event
 
     Scenario: Click on area in triggered areas list in chat
         Given the dashboard is in TRIGGERED state
         Given the selected "admin level" is the "default admin level"
-        When the user views the 3rd speech bubble
+        When the user views an event speech bubble
         And the user clicks on the name of a triggered area
         Then the map zooms down on the selected area
         And a new speech bubble appears in the chat section
-        And it is pointed to the right instead of the left
         And it contains the "admin area" type and name
-        And it contains the relevant "action unit" type and value (e.g. "Exposed population" or "Potential cases")
+        And it contains the relevant "main exposure unit" type and value (e.g. "Exposed population" or "Potential cases")
         And it contains a button to go back to the list of all triggered areas
-        And it contains a list of all EAP-actions (same for every area) with "area of focus" name and "action" description
-        And it shows which EAP-actions are already "checked" via the "checkbox"
+        And it contains a list of all early actions (same for every area) with "area of focus" name and "action" description
+        And it shows which early actions are already "checked" via the "checkbox"
         And it contains a disabled "save" button
 
     Scenario: View chat-section after area-selection in map
@@ -130,15 +116,14 @@ Feature: View and use chat section
         And it contains the "admin area" type and name
         And it contains the relevant "action unit" type and value (e.g. "Exposed population" or "Potential cases")
         And it contains a button to go back to the list of all triggered areas
-        And it contains a list of all EAP-actions (same for every area) with "area of focus" name and "action" description
-        And it shows which EAP-actions are already "checked" via the "checkbox"
+        And it contains a list of all early actions (same for every area) with "area of focus" name and "action" description
+        And it shows which early actions are already "checked" via the "checkbox"
         And it contains a disabled "save" button
 
     Scenario: View chat-section after area-selection in map with monthly actions
         Given EAP-actions are monthly ('showMonthlyEapActions = true') - currently only Kenya and Ethiopia Drought
         When the user selects a triggered area from map (see 'Use_map_section.feature')
         Then everything happens as above
-        And additionally above the EAP-action a sentence appears on which sources lead to the actions
         And it mentions how many actions there are
         And only the action up until the current month are shown
         And if there is an overlap of seasons, actions not relevant to the selected season are not shown

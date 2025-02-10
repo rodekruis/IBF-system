@@ -42,3 +42,7 @@ Feature: Use dev menu section
         And the user has filled in an incorrect secret
         And clicks "No Trigger" or "Trigger"
         Then a message appears that says 'Failed to set mock scenario'
+
+    Scenario: Open trigger log for all countries
+
+    Scenario: Open status report

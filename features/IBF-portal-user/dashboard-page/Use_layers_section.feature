@@ -6,26 +6,21 @@ Feature: View and use layers section ('matrix-component' in code)
 
     Scenario: View Layers section in collapsed state
         When the user enters the dashboard page
-        Then the user sees the Layer-section within the map on the right
+        Then the user sees the Layer-section within the map on the bottom right
         And it is in collapsed state
-        And it mentions 'Layers' and has an arrow pointing left
-        And it is purple if TRIGGERED and navy-blue if NON-TRIGGERED
+        And it mentions 'Layers' and has an arrow pointing up
 
     Scenario: Open Layers section
         When the user clicks the 'Layers' section
-        Then it opens downwards
-        And the arrow in the header now points right
+        Then it opens upwards
+        And the arrow in the header now points down
         And it contains a list of all available layers
-        And which layers depends on "country", "disaster-type", "triggered-state" (to do: more detail)
-        And each indicator has a "label", a "legend" and an "info-button"
+        And which layers depends on "country" and "disaster-type"
+        And each indicator has a "checkbox" or "radio-button", a "label" and an "info-button"
+        And "checkbox" means that multiple of those layers can be selected, and "radio-button" means at most one can be selected
         And some of the layers are "active" by default
-        And this also depends on "triggered-state"
-        And the "active" rows are purple if TRIGGERED and navy-blue if NON-TRIGGERED
-        And the "active" rows have the "legend box" filled
-        And if a "point layer" it contains a "marker-icon" (the same as in the map. If the map contains multiple versions of this icon, here only one is shown)
-        And if a "raster" layer then a square with the color of the raster-layer in the map (e.g. "red" for "flood extent")
-        And if a "shape" layer then "grey" (TO DO: should this update after we changed map-colors to purple?)
-        And if an "outline" layer ("Alert threshold") then grey with a red outline
+        And this also depends on "triggered" or not
+        And the "active" rows have the "checkbox"/"radiobutton" filled
 
     Scenario: View layers section in NON-TRIGGERED mode
         Given the dashboard is in NON-TRIGGERED mode
@@ -47,31 +42,29 @@ Feature: View and use layers section ('matrix-component' in code)
         - 'Houses affected' for 'typhoon'
         And depending on disaster-type other point/raster layers are default activated where applicable (for 'flodos': 'glofas stations' AND 'flood extent')
 
-    Scenario: Unselect selected layer
+    Scenario: Unselect selected "checkbox" layer
         When the user unselects a currently selected layer
         Then the layer switches to "unselected" mode
         And the data is no longer visible in the map
         And the legend for the layer in the map - if applicable - disappears
 
-    Scenario: Unselect 'Alert threshold' layer
-        When the user unselects the 'Alert threshold' layer
-        Then nothing happens as this is not possible
-        And the red outline always stays visible in the map (or not if 'NON-TRIGGERED')
-
-    Scenario: Select unselected layer
+    Scenario: Select unselected "checkbox" layer
         When the user selects an unselected layer
         Then the layer switches to "selected" mode
         And the data becomes visible in the map
+        And the layer is added to the legend
 
-    Scenario: Select unselected "shape" layer
-        When the user selects an unselected "shape" layer
-        Then a legend appears in the bottom-left of the map, if a "shape"
-        And - in addition to the above scenario - any currently selected "shape" layer becomes "unselected"
-        And switches to "unselected mode"
-        And the data in the map is replaced by the new layer
+    Scenario: Select unselected "radio-button" layer
+        When the user selects an unselected "radio-button" layer
+        Then any currently selected "radio-button" layer becomes "unselected"
+        And the admin-areas in the map is now coloured based on the new layer
         And the legend in the map is replaced by the new layer
-        And this becomes you can visualize at most one shape-layer at a time, while raster/point-layers can be overlaid on each other infinitely
 
+    Scenario: Unselect selected "radio-button" layer
+        When the user unselects the selected "radio-button" layer
+        Then it toggles to unselected
+        And it disappears from the legend
+        And in the map the admin-areas are not coloured now as no layer is selected
 
     Scenario: Click info-button
         When the user clicks on an info-button
@@ -80,7 +73,7 @@ Feature: View and use layers section ('matrix-component' in code)
         And it contains a close-button
 
     Scenario: Select point layer with no data
+        Given a point layer with no data (e.g. 'community notifications')
         When the users selects a point layer with no data
         Then the row switches to "selected" mode
         And no data appears in the map, as it is not available.
-        And the layer is still included to stimulate end-user to provide data (example: Red Cross branches for some clarity)

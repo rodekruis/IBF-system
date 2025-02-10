@@ -13,18 +13,18 @@ Feature: Use login page
     And it contains a link to a video guide
     And it contains a warning about browsers to use
     And it contains the date and time
-    And it contains a login form with "email" and "password" 
+    And it contains a login form with "email" and "password"
     And it contains a disabled "log in" button
     And above the 'welcome-card' it shows all disaster-types currently included anywhere in IBF
     And all icons for disaster-types included for countries included on the current environment/server are in "navy-blue" and others in "grey"
-    And when hovering over an icon it shows the disaster-type name     
-  
+    And when hovering over an icon it shows the disaster-type name
+
   Scenario: Click version-number
     Given a user on the login-page
     When the user clicks the version-number in the header
     Then a new tab opens on the IBF Github repository, specifically to the version tag
 
-  Sencario: Watch video guide
+  Scenario: Watch video guide
     Given a user on the login-page
     When the user clicks the 'watch video guide' link
     Then a popup opens with the video
@@ -37,16 +37,16 @@ Feature: Use login page
   Scenario: Log in successfully
     Given a successfully filled in login form
     Given the credentials are known to IBF-system
-    When the user clicks "log in" 
+    When the user clicks "log in"
     Then the page switches to the dashboard-page
 
   Scenario: Log in unsuccessfully
     Given a successfully filled in login form
     Given the credentials are not known to IBF-system
-    When the user clicks "log in" 
+    When the user clicks "log in"
     Then the feedback message is shown as "Authentication Failed: Email and/or password unknown"
     And 'email' and 'password' fields are emptied
     And 'log in' button is disabled again
-  
+
 
 
