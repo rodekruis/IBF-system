@@ -76,9 +76,7 @@ class TimelineComponent extends DashboardPage {
 
     for (let i = 0; i < count; i++) {
       const button = timelinePeriods.nth(i);
-      const childElement = button.locator(
-        '[ng-reflect-src="/assets/icons/Alert_Title_Purple.svg"]',
-      );
+      const childElement = button.locator('[role="img"]');
       await expect(childElement).toBeVisible();
     }
   }
