@@ -64,7 +64,7 @@ class TimelineComponent extends DashboardPage {
 
   async assertPurpleTimelineButtonElements() {
     await this.waitForTimelineToBeLoaded();
-    await this.page.waitForTimeout(500);
+    await this.page.waitForTimeout(1000);
 
     const timelinePeriods = this.page.locator(
       '[data-testid="timeline-button"][ng-reflect-color="ibf-trigger-alert-secondary"]',
