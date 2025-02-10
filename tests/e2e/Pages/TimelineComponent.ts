@@ -16,6 +16,7 @@ class TimelineComponent extends DashboardPage {
 
   async waitForTimelineToBeLoaded() {
     await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForLoadState('networkidle');
     await this.page.waitForSelector('[data-testid="timeline-button"]');
   }
 
@@ -69,7 +70,15 @@ class TimelineComponent extends DashboardPage {
     const timelinePeriods = this.page.locator(
       '[data-testid="timeline-button"][ng-reflect-color="ibf-trigger-alert-secondary"]',
     );
+    // Debug logging
+    console.log('Waiting for timeline buttons to be visible...');
+    await this.page.waitForSelector('[data-testid="timeline-button"]', {
+      timeout: 5000,
+    });
+    console.log('Timeline buttons should be loaded.');
+
     const count = await timelinePeriods.count();
+    console.log(`Found ${count} timeline buttons.`);
 
     expect(count).toBeGreaterThan(0);
 
