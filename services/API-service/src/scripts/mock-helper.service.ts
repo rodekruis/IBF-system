@@ -265,13 +265,7 @@ export class MockHelperService {
         .rainMonths;
 
     // if current month is one of the months in the seasons, use '0-month'
-    let currentMonth = new Date(date).getUTCMonth() + 1;
-    // Refactor: this 'endOfMonthPipeline' feature can hopefully be dropped soon
-    const endOfMonthPipeline = droughtCountrySettings.droughtEndOfMonthPipeline;
-    if (endOfMonthPipeline) {
-      currentMonth = currentMonth === 12 ? 1 : currentMonth + 1;
-    }
-
+    const currentMonth = new Date(date).getUTCMonth() + 1;
     if (season.includes(currentMonth)) {
       return LeadTime.month0;
     }

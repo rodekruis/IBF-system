@@ -16,7 +16,6 @@ export interface CountryDisasterSettingsDto {
   defaultAdminLevel: AdminLevel;
   activeLeadTimes: string[];
   droughtSeasonRegions?: object;
-  droughtEndOfMonthPipeline?: boolean;
   showMonthlyEapActions?: boolean;
   enableEarlyActions?: boolean;
   enableStopTrigger?: boolean;
