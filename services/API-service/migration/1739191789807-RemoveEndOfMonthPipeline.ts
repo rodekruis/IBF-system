@@ -9,6 +9,13 @@ export class RemoveEndOfMonthPipeline1739191789807
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."country-disaster-settings" DROP COLUMN "droughtEndOfMonthPipeline"`,
     );
+
+    // Remove Zimbabwe montyhlyForecastInfo
+    await queryRunner.query(
+      `UPDATE "IBF-app"."country-disaster-settings" SET "monthlyForecastInfo" = null 
+      WHERE "countryCountryId" = (SELECT "countryId" FROM "IBF-app".country WHERE "countryCodeISO3"='ZWE') 
+      AND "disasterType" = 'drought'`,
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {

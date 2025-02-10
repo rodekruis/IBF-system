@@ -454,10 +454,6 @@ export class ChatComponent implements OnInit, OnDestroy {
             this.translateService.instant(`${prefix}.${forecast}`) as string,
         );
       },
-      ZWE: () => {
-        const messageKey = 'message';
-        return this.countryDisasterSettings.monthlyForecastInfo[messageKey];
-      },
     };
 
     this.forecastInfo = forecastInfoSeed[this.country.countryCodeISO3]();
