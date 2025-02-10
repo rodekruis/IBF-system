@@ -172,9 +172,6 @@ export class CountryService {
       disasterType.droughtSeasonRegions
         ? JSON.parse(JSON.stringify(disasterType.droughtSeasonRegions))
         : null;
-
-    countryDisasterSettingsEntity.droughtEndOfMonthPipeline =
-      disasterType.droughtEndOfMonthPipeline;
     countryDisasterSettingsEntity.droughtRegions = disasterType.droughtRegions
       ? JSON.parse(JSON.stringify(disasterType.droughtRegions))
       : null;

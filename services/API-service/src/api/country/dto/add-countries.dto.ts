@@ -67,9 +67,6 @@ export class CountryDisasterSettingsDto {
   public droughtSeasonRegions?: object;
 
   @ApiProperty({ example: false })
-  public droughtEndOfMonthPipeline?: boolean;
-
-  @ApiProperty({ example: false })
   public showMonthlyEapActions?: boolean;
 
   @ApiProperty({ example: true })

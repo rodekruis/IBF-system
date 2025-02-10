@@ -385,11 +385,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.countryDisasterSettings?.droughtSeasonRegions;
     const forecastAreas = Object.keys(droughtSeasonRegions);
 
-    const droughtEndOfMonthPipeline =
-      this.countryDisasterSettings?.droughtEndOfMonthPipeline;
-    const currentMonth = this.timelineState.today.plus({
-      months: droughtEndOfMonthPipeline ? 1 : 0,
-    });
+    const currentMonth = this.timelineState.today;
     const nextMonth = currentMonth.plus({
       months: 1,
     });

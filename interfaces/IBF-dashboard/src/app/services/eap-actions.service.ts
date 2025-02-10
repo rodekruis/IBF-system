@@ -297,11 +297,6 @@ export class EapActionsService {
   }
 
   private getCurrentMonth(): number {
-    // SIMULATE: uncomment the line below and change the number to simulate different months
-    // return 9;
-    if (this.countryDisasterSettings?.droughtEndOfMonthPipeline) {
-      return this.timelineState.today.plus({ months: 1 }).month;
-    }
     return this.timelineState.today.month;
   }
 

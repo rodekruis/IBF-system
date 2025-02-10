@@ -55,10 +55,6 @@ export class CountryDisasterSettingsEntity {
 
   @ApiProperty({ example: false })
   @Column({ default: false })
-  public droughtEndOfMonthPipeline: boolean;
-
-  @ApiProperty({ example: false })
-  @Column({ default: false })
   public showMonthlyEapActions: boolean;
 
   @ApiProperty()

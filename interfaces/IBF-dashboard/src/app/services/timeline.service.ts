@@ -285,9 +285,6 @@ export class TimelineService {
     } else if (leadTime.includes(LeadTimeUnit.hour)) {
       return this.state.today.plus({ hours: Number(triggerKey) });
     } else if (leadTime.includes(LeadTimeUnit.month)) {
-      if (this.countryDisasterSettings.droughtEndOfMonthPipeline) {
-        return this.state.today.plus({ months: Number(triggerKey) + 1 });
-      }
       return this.state.today.plus({ months: Number(triggerKey) });
     }
   }
@@ -549,12 +546,8 @@ export class TimelineService {
   };
 
   private getNextForecastMonth(): DateTime {
-    let todayLeadTime = this.state.today;
-    if (this.countryDisasterSettings.droughtEndOfMonthPipeline) {
-      todayLeadTime = this.state.today.plus({ month: 1 });
-    }
-    const currentYear = todayLeadTime.year;
-    const currentMonth = todayLeadTime.month;
+    const currentYear = this.state.today.year;
+    const currentMonth = this.state.today.month;
 
     let forecastMonthNumbers: number[] = [];
     for (const season of this.getDroughtSeasons()) {
@@ -589,9 +582,7 @@ export class TimelineService {
   }
 
   private getLeadTimeMonth(leadTime: LeadTime): DateTime {
-    const addMonths =
-      Number(LeadTimeTriggerKey[leadTime]) +
-      (this.countryDisasterSettings.droughtEndOfMonthPipeline ? 1 : 0);
+    const addMonths = Number(LeadTimeTriggerKey[leadTime]);
     const leadTimeMonth = this.state.today.plus({
       month: addMonths,
     });
