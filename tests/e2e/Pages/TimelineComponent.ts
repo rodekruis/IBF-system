@@ -68,7 +68,7 @@ class TimelineComponent extends DashboardPage {
     await this.page.waitForTimeout(1000);
 
     const timelinePeriods = this.page.locator(
-      '[data-testid="timeline-button"][ng-reflect-color="ibf-trigger-alert-secondary"]',
+      '[data-testid="timeline-button"][color="ibf-trigger-alert-secondary"]',
     );
     // Debug logging
     console.log('Waiting for timeline buttons to be visible...');
