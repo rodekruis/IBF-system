@@ -14,9 +14,13 @@ class TimelineComponent extends DashboardPage {
     this.timeline = this.page.getByTestId('timeline-button');
   }
 
-  async timlineElementsAreVisible() {
+  async waitForTimelineToBeLoaded() {
     await this.page.waitForLoadState('domcontentloaded');
     await this.page.waitForSelector('[data-testid="timeline-button"]');
+  }
+
+  async timlineElementsAreVisible() {
+    await this.waitForTimelineToBeLoaded();
 
     const timelinePeriods = this.timeline;
     const count = await timelinePeriods.count();
@@ -28,8 +32,7 @@ class TimelineComponent extends DashboardPage {
   }
 
   async timelineIsInactive() {
-    await this.page.waitForLoadState('domcontentloaded');
-    await this.page.waitForSelector('[data-testid="timeline-button"]');
+    await this.waitForTimelineToBeLoaded();
 
     const timelinePeriods = this.timeline;
     const count = await timelinePeriods.count();
@@ -42,6 +45,8 @@ class TimelineComponent extends DashboardPage {
   }
 
   async validateTimelineDates() {
+    await this.waitForTimelineToBeLoaded();
+
     const timelinePeriods = this.timeline;
     const count = await timelinePeriods.count();
 
@@ -58,6 +63,8 @@ class TimelineComponent extends DashboardPage {
   }
 
   async assertPurpleTimelineButtonElements() {
+    await this.waitForTimelineToBeLoaded();
+
     const timelinePeriods = this.page.locator(
       '[data-testid="timeline-button"][ng-reflect-color="ibf-trigger-alert-secondary"]',
     );
