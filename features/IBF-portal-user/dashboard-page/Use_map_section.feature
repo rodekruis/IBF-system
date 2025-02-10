@@ -39,28 +39,11 @@ Feature: View and use map section
         And it shows the legend relating to the default shape layer
         And depending on disaster-type other point/raster layers are default activated (e.g. 'flood extent', 'Glofas stations') where applicable
 
-    Scenario: View map in EVENT-WITHOUT-TRIGGER mode ('typhoon' only)
-        Given the selected disaster type is 'typhoon'
-        Given the event is EVENT-WITHOUT-TRIGGER: an event that didn't reach the trigger threshold
+    Scenario: View map in warning mode
+        Given a warning event
         When the users views the map
-        Then a typhoon track is shown
-        And it shows a selection of admin-areas in gradients of grey, according to the percentage of 'Houses affected'
+        Then it shows a selection of admin-areas in gradients of navy-blue instead of purple
         And the dashboard is in NON-TRIGGERED mode
-
-    Scenario: View legend
-        Given a shape-layer is "selected" in the map
-        When the users views the legend in the bottom-left of the map
-        Then it shows the label of the currently selected shape layer
-        And - if applicable - behind it in brackets the "unit" of this layer
-        And it shows maximum 5 different shades of color with minimum-maximum values per color behind it
-        And these are shades of purple if TRIGGERED and shades of grey if NON-TRIGGERED
-        And the minimum/maximum values are calculated automatically by dividing the data into 5 equal-sized quintiles
-
-        And if the layer has "custom color breaks" (e.g. UGA Flood vulnerability index) then the numbers are not calculated but default
-        And additionally a text label per category is added
-
-        And if the map contains admin-areas with 'no data' for this layer, then an additional 'no data' row is on top
-        And it has a light-yellow color
 
     Scenario: Click point-layer marker
         When the user clicks on the point-layer marker eg red-cross
@@ -80,36 +63,5 @@ Feature: View and use map section
         Then the circles with numbers start to break up in circles with smaller numbers
         And when you're zoomed in far enough you see the individual markers
         And these are clickable again just like normal point layers
-
-    Scenario: Click admin-area in the map in NON-TRIGGERED mode
-        Given the dashboard is in NON-TRIGGERED mode
-        Given a "shape-layer" is selected
-        When the user clicks on an admin-area
-        Then a popup appears with the name of the admin-area, and the label and value of the selected "shape layer"
-        And the "aggregates" section updates to "name" and "data" of the selected admin-area
-
-        When the user clicks the same admin-area again
-        Then the selection reverts
-        And this is the same effect as when clicking the appearing X in the header of the "aggregates section"
-
-
-    Scenario: Click admin-area in the map in TRIGGERED mode
-        Given the dashboard is in TRIGGERED mode
-        Given a "shape-layer" is selected
-        When the user clicks on a "non-triggered" admin-area
-        Then the same happens as in above scenario
-
-        When the user clicks on a "triggered" admin-area
-        Then - in addition to the above - the chat-section updates (as described in 'Use_chat_section.feature')
-        And the 'Area of focus' section filters to only the numbers specifically for that area
-
-
-    Scenario: Click admin-area if trigger is on 'potential cases'
-        Given the disaster-type is "malaria"
-        And the "potential cases" layer is the current selected admin-level
-        When the user clicks on an admin-area
-        Then a more extensive popup appears
-        Which looks similar to the Glofas-station popup
-        And it contains a visualization of the forecast-level vs the trigger-level for that area
 
 
