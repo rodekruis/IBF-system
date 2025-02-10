@@ -74,6 +74,7 @@ class TimelineComponent extends DashboardPage {
     console.log('Waiting for timeline buttons to be visible...');
     await this.page.waitForSelector('[data-testid="timeline-button"]', {
       timeout: 5000,
+      state: 'visible',
     });
     console.log('Timeline buttons should be loaded.');
 
