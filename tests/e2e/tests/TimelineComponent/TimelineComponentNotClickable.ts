@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   disasterType: string,
 ) => {
-  test('[33066] Timeline Buttons are not clickable in floods', async () => {
+  test('[33066] Timeline Buttons are not clickable', async () => {
     const { dashboard } = pages;
     const { userState, timeline } = components;
 
@@ -23,6 +23,8 @@ export default (
       countryName: TriggerDataSet.CountryName,
     });
     await timeline.timelineIsInactive();
+    await timeline.validateTimelineDates();
+    await timeline.assertPurpleTimelineButtonElements();
 
     // Reload the page to prepare for next test
     await dashboard.page.goto('/');

@@ -1,4 +1,5 @@
 import { expect } from '@playwright/test';
+import { addDays, format } from 'date-fns';
 import { Locator, Page } from 'playwright';
 
 import DashboardPage from './DashboardPage';
@@ -37,6 +38,39 @@ class TimelineComponent extends DashboardPage {
     for (let i = 0; i < count; i++) {
       const button = timelinePeriods.nth(i);
       await expect(button).toHaveAttribute('disabled', '');
+    }
+  }
+
+  async validateTimelineDates() {
+    const timelinePeriods = this.timeline;
+    const count = await timelinePeriods.count();
+
+    // This is optional but the question is if there is always prediction for 7 days if not then we should remove it to keep it high level
+    expect(count).toBe(8);
+
+    const today = new Date();
+    for (let i = 0; i < count; i++) {
+      const expectedDate = format(addDays(today, i), 'EEE dd MMM yyyy');
+      const button = timelinePeriods.nth(i);
+      const buttonText = (await button.innerText()).replace(/\s+/g, ' ').trim();
+      expect(buttonText).toBe(expectedDate);
+    }
+  }
+
+  async assertPurpleTimelineButtonElements() {
+    const timelinePeriods = this.page.locator(
+      '[data-testid="timeline-button"][ng-reflect-color="ibf-trigger-alert-secondary"]',
+    );
+    const count = await timelinePeriods.count();
+
+    expect(count).toBeGreaterThan(0);
+
+    for (let i = 0; i < count; i++) {
+      const button = timelinePeriods.nth(i);
+      const childElement = button.locator(
+        '[ng-reflect-src="/assets/icons/Alert_Title_Purp"]',
+      );
+      await expect(childElement).toBeVisible();
     }
   }
 }
