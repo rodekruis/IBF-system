@@ -5,6 +5,11 @@ Find here the latest changes to the IBF-system.
 - Not all changes to the IBF-system are listed here. Only those that result in different functionality or different user experience.
 - This list is meant to explain changes since the last manual. Please open the manual from the dashboard for a full explanation on the IBF-system.
 
+### 12-02-2025 (v0.282.0)
+
+- IBF Uganda: 'Heavy rainfall' is removed as a 'disaster type' from IBF. The 'community notification' feature is moved to Uganda Floods.
+- IBF Floods: Glofas station slightly misplaced coordinates corrected
+
 ### 29-01-2025 (v0.278.6)
 
 - All IBF: 'Stop trigger' functionality is removed.
@@ -12,7 +17,6 @@ Find here the latest changes to the IBF-system.
 ### 11-12-2024 (v0.277.4)
 
 - Flash floods: Malawi portal is extended to district Blantyre City
-- Floods: Glofas station coordinates updated
 
 ### 08-11-2024 (v0.274.7)
 
