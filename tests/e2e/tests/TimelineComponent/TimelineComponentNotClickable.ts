@@ -1,5 +1,4 @@
 import test from '@playwright/test';
-import { TriggerDataSet } from 'testData/testData.enum';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
@@ -19,10 +18,9 @@ export default (
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToDisasterType(disasterType);
     // Assertions
-    await userState.headerComponentIsVisible({
-      countryName: TriggerDataSet.CountryName,
+    await timeline.validateTimelineBasedOnHeader({
+      disasterName: 'floods',
     });
-    await timeline.timelineIsInactive();
     await timeline.validateTimelineDates();
     await timeline.assertPurpleTimelineButtonElements();
 

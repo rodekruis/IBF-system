@@ -44,6 +44,15 @@ class UserStateComponent extends DashboardPage {
     );
   }
 
+  async headerComponentIncludesCorrectDisasterType({
+    disasterName,
+  }: {
+    disasterName: string;
+  }) {
+    const headerText = await this.header.nth(1).textContent();
+    expect(headerText).toContain(disasterName);
+  }
+
   async allUserStateElementsAreVisible({
     firstName,
     lastName,

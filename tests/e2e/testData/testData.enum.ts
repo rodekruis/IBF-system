@@ -20,6 +20,8 @@ export enum TriggerDataSet {
   firstName = 'Uganda',
   lastName = 'Manager',
 }
+// For now there are only floods
+export const disasterTypeWithInactiveTimeline = ['floods'];
 
 // NOTE: this is a first starting point of starting to work more with statically defined test data. Move this to separate const file.
 export const ACTIVE_LAYERS: Record<string, string[]> = {
