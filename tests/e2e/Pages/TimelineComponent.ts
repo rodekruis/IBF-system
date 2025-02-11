@@ -33,7 +33,7 @@ class TimelineComponent extends DashboardPage {
     }
   }
 
-  async validateTimelineBasedOnHeader({
+  async validateTimelineBasedOnDisasterName({
     disasterName,
   }: {
     disasterName: string;
