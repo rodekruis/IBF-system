@@ -10,6 +10,7 @@ import {
 import { Roles } from '../../roles.decorator';
 import { UserRole } from '../user/user-role.enum';
 import { CountryEntity } from './country.entity';
+import { countriesEnum } from './country.enum';
 import { CountryService } from './country.service';
 import { AddCountriesDto } from './dto/add-countries.dto';
 import { NotificationInfoDto } from './dto/notification-info.dto';
@@ -55,7 +56,7 @@ export class CountryController {
   @ApiOperation({
     summary: 'Get countries including their attributes by list of countryCodes',
   })
-  @ApiQuery({ name: 'countryCodesISO3', required: false, type: 'string' })
+  @ApiQuery({ name: 'countryCodesISO3', required: false, enum: countriesEnum })
   @ApiQuery({ name: 'minimalInfo', required: false, type: 'boolean' })
   @ApiResponse({
     status: 200,

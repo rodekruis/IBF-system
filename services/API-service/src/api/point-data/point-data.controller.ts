@@ -26,6 +26,7 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 import { GeoJson } from '../../shared/geo.model';
+import { countriesEnum } from '../country/country.enum';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { UploadDynamicPointDataDto } from './dto/upload-asset-exposure-status.dto';
@@ -43,7 +44,7 @@ export class PointDataController {
     summary:
       'Get point data locations and attributes for given country and point data layer',
   })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
   @ApiQuery({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
@@ -76,7 +77,7 @@ export class PointDataController {
     description: 'Validation errors in content of CSV',
   })
   @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @Post('upload-csv/:pointDataCategory/:countryCodeISO3')
   @ApiConsumes('multipart/form-data')
   @ApiBody(FILE_UPLOAD_API_FORMAT)
@@ -97,7 +98,7 @@ export class PointDataController {
     status: 201,
     description: 'Uploaded community notification.',
   })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @Post('community-notification/:countryCodeISO3')
   public async uploadCommunityNotification(
     @Param() params,

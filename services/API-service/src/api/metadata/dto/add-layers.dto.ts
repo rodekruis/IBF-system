@@ -2,10 +2,11 @@ import { ApiProperty } from '@nestjs/swagger';
 
 import { IsBoolean, IsEnum, IsIn, IsNotEmpty, IsString } from 'class-validator';
 
+import { countriesEnum } from '../../country/country.enum';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 
 export class LayerDto {
-  @ApiProperty({ example: process.env.COUNTRIES })
+  @ApiProperty({ example: countriesEnum.join(',') })
   @IsString()
   public countryCodes: string;
 

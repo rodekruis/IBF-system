@@ -11,6 +11,7 @@ import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { AdminLevel } from '../api/country/admin-level.enum';
 import { CountryEntity } from '../api/country/country.entity';
+import { countriesEnum } from '../api/country/country.enum';
 import { CountryDisasterSettingsDto } from '../api/country/dto/add-countries.dto';
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
@@ -516,9 +517,7 @@ export class MockService {
     countryCodeISO3?: string,
     isApiTest = false,
   ) {
-    const countryCodes = countryCodeISO3
-      ? [countryCodeISO3]
-      : process.env.COUNTRIES.split(',');
+    const countryCodes = countryCodeISO3 ? [countryCodeISO3] : countriesEnum;
 
     for await (const countryCodeISO3 of countryCodes) {
       const country = await this.countryRepo.findOne({

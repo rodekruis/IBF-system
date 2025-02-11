@@ -22,6 +22,7 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AggregateDataRecord } from '../../shared/data.model';
 import { GeoJson } from '../../shared/geo.model';
+import { countriesEnum } from '../country/country.enum';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaEntity } from './admin-area.entity';
@@ -40,7 +41,7 @@ export class AdminAreaController {
 
   @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Adds or updates (if existing) admin-areas' })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiResponse({
     status: 201,
@@ -65,7 +66,7 @@ export class AdminAreaController {
     summary:
       'Adds or updates (if existing) event-areas (currently Flash-floods only)',
   })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
     status: 201,
@@ -89,7 +90,7 @@ export class AdminAreaController {
     summary:
       'Get admin-area boundaries and attributes for given country in raw format (used by IBF-pipelines)',
   })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiResponse({
     status: 200,
     description: 'Admin-area boundaries and attributes for given country',
@@ -104,7 +105,7 @@ export class AdminAreaController {
     summary:
       'Get (relevant) admin-areas boundaries and attributes for given country, disater-type and lead-time (as GeoJSON)',
   })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
@@ -135,7 +136,7 @@ export class AdminAreaController {
     summary:
       'Get static and dynamic data per admin-area and indicator for given country, disaster-type, leadTime',
   })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiQuery({ name: 'leadTime', required: false, type: 'string' })

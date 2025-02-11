@@ -16,6 +16,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { countriesEnum } from '../api/country/country.enum';
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { UserRole } from '../api/user/user-role.enum';
 import { Roles } from '../roles.decorator';
@@ -63,15 +64,8 @@ export class ScriptsController {
     description:
       'Uploaded mock data for specified country, disasterType and scenario, if matching mock data found',
   })
-  @ApiQuery({
-    name: 'disasterType',
-    required: false,
-    enum: DisasterType,
-  })
-  @ApiQuery({
-    name: 'countryCodeISO3',
-    required: false,
-  })
+  @ApiQuery({ name: 'disasterType', required: false, enum: DisasterType })
+  @ApiQuery({ name: 'countryCodeISO3', required: false, enum: countriesEnum })
   @ApiQuery({
     name: 'isApiTest',
     required: false,

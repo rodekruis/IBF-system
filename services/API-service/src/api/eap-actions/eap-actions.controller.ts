@@ -9,6 +9,7 @@ import {
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
+import { countriesEnum } from '../country/country.enum';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
@@ -65,7 +66,7 @@ export class EapActionsController {
     description: 'Checked off early action.',
     type: EapActionStatusEntity,
   })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @Post('check-external/:countryCodeISO3/:disasterType')
   public async checkActionExternally(

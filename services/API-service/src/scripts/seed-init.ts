@@ -7,6 +7,7 @@ import {
   LeadTimeUnit,
 } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../api/country/country.entity';
+import { countriesEnum } from '../api/country/country.enum';
 import { CountryService } from '../api/country/country.service';
 import { NotificationInfoDto } from '../api/country/dto/notification-info.dto';
 import { DisasterTypeEntity } from '../api/disaster-type/disaster-type.entity';
@@ -77,10 +78,9 @@ export class SeedInit implements InterfaceScript {
     });
 
     // ***** CREATE COUNTRIES *****
-    console.log(`Seed Countries... ${process.env.COUNTRIES}`);
-    const envCountries = process.env.COUNTRIES.split(',');
+    console.log(`Seed Countries... ${countriesEnum.join(', ')}`);
     const selectedCountries = countries.filter((country): boolean => {
-      return envCountries.includes(country.countryCodeISO3);
+      return countriesEnum.includes(country.countryCodeISO3);
     });
 
     const envDisasterTypes = process.env.DISASTER_TYPES.split(',');
@@ -190,7 +190,7 @@ export class SeedInit implements InterfaceScript {
         return eapActionEntity;
       })
       .filter((action: EapActionEntity): boolean => {
-        return envCountries.includes(action.countryCodeISO3);
+        return countriesEnum.includes(action.countryCodeISO3);
       });
     const eapActionRepository = this.dataSource.getRepository(EapActionEntity);
     await eapActionRepository.save(filteredActions);

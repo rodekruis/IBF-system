@@ -4,6 +4,7 @@ import { AdminLevel } from 'src/api/country/admin-level.enum';
 import { DataSource } from 'typeorm';
 
 import { AdminAreaDataService } from '../api/admin-area-data/admin-area-data.service';
+import { countriesEnum } from '../api/country/country.enum';
 import { InterfaceScript } from './scripts.module';
 import { SeedHelper } from './seed-helper';
 
@@ -26,9 +27,7 @@ export class SeedAdminAreaData implements InterfaceScript {
   }
 
   public async run(): Promise<void> {
-    const envCountries = process.env.COUNTRIES.split(',');
-
-    envCountries.forEach(async (countryCodeISO3: string) => {
+    countriesEnum.forEach(async (countryCodeISO3: string) => {
       const populationFilename = `./src/scripts/git-lfs/admin-area-data/population_${countryCodeISO3}.csv`;
       try {
         const populationData =
@@ -47,7 +46,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       }
     });
 
-    if (envCountries.includes('PHL')) {
+    if (countriesEnum.includes('PHL')) {
       const fileNames = [
         'vulnerable_group_PHL.csv',
         'vulnerable_housing_PHL.csv',
@@ -56,7 +55,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       await this.uploadFiles(fileNames);
     }
 
-    if (envCountries.includes('UGA')) {
+    if (countriesEnum.includes('UGA')) {
       const fileNames = [
         'flood_vulnerability_UGA.csv',
         'covid_risk_UGA.csv',
@@ -66,7 +65,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       await this.uploadFiles(fileNames);
     }
 
-    if (envCountries.includes('KEN')) {
+    if (countriesEnum.includes('KEN')) {
       const fileNames = [
         'flood_vulnerability_KEN.csv',
         'drought_vulnerability_KEN.csv',
@@ -74,7 +73,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       await this.uploadFiles(fileNames);
     }
 
-    if (envCountries.includes('ETH')) {
+    if (countriesEnum.includes('ETH')) {
       const fileNames = [
         'malaria_risk_ETH.csv',
         'malaria_suitable_temperature_ETH.csv',
@@ -93,7 +92,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       await this.uploadFiles(fileNames);
     }
 
-    if (envCountries.includes('ZWE')) {
+    if (countriesEnum.includes('ZWE')) {
       const fileNames = [
         'ruminants_ZWE.csv',
         'cattle_ZWE.csv',
@@ -102,7 +101,7 @@ export class SeedAdminAreaData implements InterfaceScript {
       await this.uploadFiles(fileNames);
     }
 
-    if (envCountries.includes('MWI')) {
+    if (countriesEnum.includes('MWI')) {
       const fileNames = ['flood_vulnerability_MWI.csv'];
       await this.uploadFiles(fileNames);
     }

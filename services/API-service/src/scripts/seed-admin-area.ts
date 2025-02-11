@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { EventAreaService } from '../api/admin-area/services/event-area.service';
+import { countriesEnum } from '../api/country/country.enum';
 import countries from './json/countries.json';
 import { InterfaceScript } from './scripts.module';
 
@@ -16,10 +17,9 @@ export class SeedAdminArea implements InterfaceScript {
   ) {}
 
   public async run(): Promise<void> {
-    const envCountries = process.env.COUNTRIES.split(',');
     await Promise.all(
       countries.map((country): Promise<void> => {
-        if (envCountries.includes(country.countryCodeISO3)) {
+        if (countriesEnum.includes(country.countryCodeISO3)) {
           return this.seedCountryAdminAreas(country);
         } else {
           return Promise.resolve();

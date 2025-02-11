@@ -11,6 +11,7 @@ import { AxiosResponse } from 'axios';
 
 import { RolesGuard } from '../../roles.guard';
 import { GeoJson } from '../../shared/geo.model';
+import { countriesEnum } from '../country/country.enum';
 import { WaterpointsService } from './waterpoints.service';
 
 @ApiBearerAuth()
@@ -27,7 +28,7 @@ export class WaterpointsController {
   @ApiOperation({
     summary: 'Get waterpoint locations and attributes for country',
   })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiResponse({
     status: 200,
     description: 'Waterpoint locations and attributes in GEOJSON format',

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { DataSource } from 'typeorm';
 
+import { countriesEnum } from '../api/country/country.enum';
 import { LinesDataEnum } from '../api/lines-data/lines-data.entity';
 import { LinesDataService } from '../api/lines-data/lines-data.service';
 import countries from './json/countries.json';
@@ -20,11 +21,9 @@ export class SeedLineData implements InterfaceScript {
   }
 
   public async run(): Promise<void> {
-    const envCountries = process.env.COUNTRIES.split(',');
-
     await Promise.all(
       countries.map((country): Promise<void> => {
-        if (envCountries.includes(country.countryCodeISO3)) {
+        if (countriesEnum.includes(country.countryCodeISO3)) {
           this.seedLineData(LinesDataEnum.roads, country);
           this.seedLineData(LinesDataEnum.buildings, country);
           return;

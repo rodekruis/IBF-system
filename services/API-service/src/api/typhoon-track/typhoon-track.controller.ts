@@ -19,6 +19,7 @@ import {
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { GeoJson } from '../../shared/geo.model';
+import { countriesEnum } from '../country/country.enum';
 import { UserRole } from '../user/user-role.enum';
 import { UploadTyphoonTrackDto } from './dto/upload-typhoon-track';
 import { TyphoonTrackEntity } from './typhoon-track.entity';
@@ -56,7 +57,7 @@ export class TyphoonTrackController {
   @ApiOperation({
     summary: 'Get Typhoon track data for given country and leadtime',
   })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiQuery({ name: 'eventName', required: true, type: 'string' })
   @ApiResponse({
     status: 200,
