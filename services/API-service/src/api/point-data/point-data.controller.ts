@@ -31,6 +31,7 @@ import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { UploadDynamicPointDataDto } from './dto/upload-asset-exposure-status.dto';
 import { CommunityNotificationExternalDto } from './dto/upload-community-notifications.dto';
+import { PointDataEnum } from './point-data.entity';
 import { PointDataService } from './point-data.service';
 
 @ApiBearerAuth()
@@ -45,7 +46,7 @@ export class PointDataController {
       'Get point data locations and attributes for given country and point data layer',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
-  @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
+  @ApiParam({ name: 'pointDataCategory', required: true, enum: PointDataEnum })
   @ApiQuery({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
     status: 200,
@@ -76,7 +77,7 @@ export class PointDataController {
     status: 400,
     description: 'Validation errors in content of CSV',
   })
-  @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
+  @ApiParam({ name: 'pointDataCategory', required: true, enum: PointDataEnum })
   @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @Post('upload-csv/:pointDataCategory/:countryCodeISO3')
   @ApiConsumes('multipart/form-data')
