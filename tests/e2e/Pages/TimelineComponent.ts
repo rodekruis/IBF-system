@@ -2,7 +2,7 @@ import { expect } from '@playwright/test';
 import { addDays, format } from 'date-fns';
 import { Locator, Page } from 'playwright';
 
-import { disasterTypeWithInactiveTimeline } from '../testData/testData.enum';
+import { DISASTER_TYPES_WITH_INACTIVE_TIMELINE } from '../testData/testData.enum';
 import DashboardPage from './DashboardPage';
 
 class TimelineComponent extends DashboardPage {
@@ -38,7 +38,7 @@ class TimelineComponent extends DashboardPage {
   }: {
     disasterName: string;
   }) {
-    if (disasterTypeWithInactiveTimeline.includes(disasterName)) {
+    if (DISASTER_TYPES_WITH_INACTIVE_TIMELINE.includes(disasterName)) {
       await this.timelineIsInactive();
     } else {
       await this.timelineIsActive();
@@ -58,6 +58,8 @@ class TimelineComponent extends DashboardPage {
     }
   }
 
+  // NOTE: This method is not used in the current tests because the disaster types with active timeline are not yet in scope
+  // But it is kept here for future reference. It was tested briefly with drought and it worked.
   async timelineIsActive() {
     await this.waitForTimelineToBeLoaded();
     await this.page.waitForTimeout(1000);
@@ -107,8 +109,9 @@ class TimelineComponent extends DashboardPage {
 
     for (let i = 0; i < count; i++) {
       const button = timelinePeriods.nth(i);
-      const childElement = button.locator('[role="img"]');
-      await expect(childElement).toBeVisible();
+      // Cheks if each purple button has a triangle icon element
+      const triangleIcon = button.locator('[role="img"]');
+      await expect(triangleIcon).toBeVisible();
     }
   }
 }
