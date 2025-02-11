@@ -135,7 +135,7 @@ class MapComponent extends DashboardPage {
 
   async assertAdminBoundariesVisible() {
     await this.waitForMapToBeLoaded();
-    await this.page.waitForTimeout(1000); // This is a workaround for the issue with the map not loading in the same moment as the dom
+    await this.page.waitForTimeout(2000); // This is a workaround for the issue with the map not loading in the same moment as the dom
     await this.page.waitForSelector('.leaflet-interactive');
 
     const adminBoundaries = this.adminBoundry;
