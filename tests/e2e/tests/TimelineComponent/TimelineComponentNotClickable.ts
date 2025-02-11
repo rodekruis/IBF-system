@@ -22,7 +22,7 @@ export default (
     await userState.headerComponentIsVisible({
       countryName: TriggerDataSet.CountryName,
     });
-    await timeline.validateTimelineBasedOnHeader({
+    await timeline.validateTimelineBasedOnDisasterName({
       disasterName: 'floods',
     });
     await timeline.validateTimelineDates();
