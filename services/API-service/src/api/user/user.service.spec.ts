@@ -6,7 +6,6 @@ import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { LookupService } from '../notification/lookup/lookup.service';
 import { UserRole } from './user-role.enum';
-import { UserStatus } from './user-status.enum';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
 
@@ -30,14 +29,12 @@ const user: UserEntity = {
   userId: '1',
   email: 'test@example.org',
   whatsappNumber: '+3100000000',
-  username: 'test@example.org',
   firstName: 'Test',
   middleName: 'User',
   lastName: 'Example',
   userRole: UserRole.DisasterManager,
   countries: [],
-  disasterTypes: disasterTypes,
-  userStatus: UserStatus.Active,
+  disasterTypes: disasterTypes, // NOTE: if this is passed as empty array, a mock for disasterRepository.find() is needed
   password: '',
   created: new Date(),
   hashPassword: function (): void {
@@ -54,12 +51,30 @@ describe('UserService', () => {
     userService = new UserService(new LookupService());
   });
 
-  describe('generateJWT', () => {
-    it('should generate a JWT token of type string and starting with the characters "eyJ"', async () => {
-      const generated = await userService.generateJWT(user);
+  describe('buildUserRO', () => {
+    it('should generate an object including a JWT token starting with the characters "eyJ"', async () => {
+      // Arrange
+      const includeToken = true;
+
+      // Act
+      const userRO = await userService.buildUserRO(user, includeToken);
+
+      // Assert
       const expectedFirstCharacters = 'eyJ';
-      expect(typeof generated).toBe('string');
-      expect(generated.indexOf(expectedFirstCharacters)).toBe(0);
+      expect(userRO.user.token).toBeDefined();
+      expect(userRO.user.token?.indexOf(expectedFirstCharacters)).toBe(0);
+    });
+
+    it('should generate an object without a JWT token when instructed as such', async () => {
+      // Arrange
+      const includeToken = false;
+
+      // Act
+      const userRO = await userService.buildUserRO(user, includeToken);
+
+      // Assert
+      expect(userRO.user).toBeDefined();
+      expect(userRO.user.token).not.toBeDefined();
     });
   });
 });

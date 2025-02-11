@@ -79,12 +79,10 @@ export class AuthService implements OnDestroy {
     const user: User = {
       token: rawToken,
       email: decodedToken.email,
-      username: decodedToken.username,
       firstName: decodedToken.firstName,
       middleName: decodedToken.middleName,
       lastName: decodedToken.lastName,
       userRole: decodedToken.userRole,
-      userStatus: decodedToken.userStatus,
       countries: decodedToken.countries,
       disasterTypes: decodedToken.disasterTypes,
     };
@@ -93,13 +91,13 @@ export class AuthService implements OnDestroy {
     return user;
   }
 
-  public login(email, password) {
+  public login(email: string, password: string) {
     return this.apiService
       .login(email, password)
       .subscribe(this.onLoginResponse, this.onLoginError);
   }
 
-  private onLoginResponse = (response) => {
+  private onLoginResponse = (response: { user: User }) => {
     if (!response.user?.token) {
       return;
     }
@@ -129,7 +127,7 @@ export class AuthService implements OnDestroy {
       message: `Authentication Failed: ${message}`,
       duration: 5000,
     });
-    toast.present();
+    void toast.present();
     console.error('AuthService error: ', error);
   };
 
@@ -161,7 +159,7 @@ export class AuthService implements OnDestroy {
       message: `Password changed successfully`,
       duration: 5000,
     });
-    toast.present();
+    void toast.present();
   };
 
   private onChangePasswordError = async (error) => {
@@ -171,7 +169,7 @@ export class AuthService implements OnDestroy {
       message: `Authentication Failed: ${message}`,
       duration: 5000,
     });
-    toast.present();
+    void toast.present();
     console.error('AuthService error: ', error);
   };
 }

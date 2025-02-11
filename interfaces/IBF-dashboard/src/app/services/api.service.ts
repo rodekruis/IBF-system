@@ -125,7 +125,7 @@ export class ApiService {
   // API-endpoints:
   /////////////////////////////////////////////////////////////////////////////
 
-  login(email: string, password: string): Observable<User> {
+  login(email: string, password: string): Observable<{ user: User }> {
     this.log('ApiService : login()');
 
     return this.post(

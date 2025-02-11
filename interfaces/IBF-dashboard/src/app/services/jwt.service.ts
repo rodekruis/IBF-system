@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { User } from 'src/app/models/user/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +21,7 @@ export class JwtService {
     window.localStorage.removeItem(this.tokenKey);
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public decodeToken(rawToken: string): any {
+  public decodeToken(rawToken: string): User {
     return this.jwtHelper.decodeToken(rawToken);
   }
 
