@@ -24,6 +24,7 @@ import {
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
+import { AdminLevel } from '../country/admin-level.enum';
 import { countriesEnum } from '../country/country.enum';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
@@ -66,7 +67,7 @@ export class AdminAreaDynamicDataController {
       'Get dynamic admin-area data for given indicator, country, disaster-type and lead-time.',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
-  @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiParam({ name: 'adminLevel', required: true, enum: AdminLevel })
   @ApiParam({ name: 'indicator', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiQuery({ name: 'leadTime', required: false, type: 'string' })

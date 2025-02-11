@@ -22,6 +22,7 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AggregateDataRecord } from '../../shared/data.model';
 import { GeoJson } from '../../shared/geo.model';
+import { AdminLevel } from '../country/admin-level.enum';
 import { countriesEnum } from '../country/country.enum';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
@@ -42,7 +43,7 @@ export class AdminAreaController {
   @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Adds or updates (if existing) admin-areas' })
   @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
-  @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiParam({ name: 'adminLevel', required: true, enum: AdminLevel })
   @ApiResponse({
     status: 201,
     description: 'Added and/or Updated admin-areas.',
@@ -107,7 +108,7 @@ export class AdminAreaController {
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
-  @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiParam({ name: 'adminLevel', required: true, enum: AdminLevel })
   @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiQuery({ name: 'placeCodeParent', required: false, type: 'string' })
@@ -138,7 +139,7 @@ export class AdminAreaController {
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
-  @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiParam({ name: 'adminLevel', required: true, enum: AdminLevel })
   @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiQuery({ name: 'placeCodeParent', required: false, type: 'string' })
