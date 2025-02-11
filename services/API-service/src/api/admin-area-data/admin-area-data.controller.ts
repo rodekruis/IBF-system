@@ -23,6 +23,7 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
+import { countriesEnum } from '../country/country.enum';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaDataService } from './admin-area-data.service';
 import { UploadAdminAreaDataJsonDto } from './dto/upload-admin-area-data.dto';
@@ -79,7 +80,7 @@ export class AdminAreaDataController {
     summary:
       'Get static indicator data per admin-area for given indicator and country.',
   })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @ApiParam({ name: 'indicator', required: true, type: 'string' })
   @ApiResponse({
