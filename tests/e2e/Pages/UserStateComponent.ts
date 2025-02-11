@@ -49,6 +49,9 @@ class UserStateComponent extends DashboardPage {
   }: {
     disasterName: string;
   }) {
+    await this.page.waitForLoadState('domcontentloaded');
+    await this.page.waitForLoadState('networkidle');
+
     const headerText = await this.header.nth(1).textContent();
     expect(headerText).toContain(disasterName);
   }
