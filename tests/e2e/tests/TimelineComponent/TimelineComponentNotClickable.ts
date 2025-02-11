@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   disasterType: string,
 ) => {
-  test('[33066] Timeline Buttons are not clickable', async () => {
+  test(`[33066] Timeline's purple buttons are active or inactive dependent on disaster type`, async () => {
     const { dashboard } = pages;
     const { userState, timeline } = components;
 
