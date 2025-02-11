@@ -24,6 +24,7 @@ import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 import { countriesEnum } from '../country/country.enum';
 import { UserRole } from '../user/user-role.enum';
 import { UploadLinesExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
+import { LinesDataEnum } from './lines-data.entity';
 import { LinesDataService } from './lines-data.service';
 
 @ApiBearerAuth()
@@ -46,7 +47,7 @@ export class LinesDataController {
     status: 400,
     description: 'Validation errors in content of CSV',
   })
-  @ApiParam({ name: 'linesDataCategory', required: true, type: 'string' })
+  @ApiParam({ name: 'linesDataCategory', required: true, enum: LinesDataEnum })
   @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @Post('upload-csv/:linesDataCategory/:countryCodeISO3')
   @ApiConsumes('multipart/form-data')
