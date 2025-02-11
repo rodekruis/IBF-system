@@ -4,7 +4,6 @@ import { Locator, Page } from 'playwright';
 
 import { disasterTypeWithInactiveTimeline } from '../testData/testData.enum';
 import DashboardPage from './DashboardPage';
-import UserStateComponent from './UserStateComponent';
 
 class TimelineComponent extends DashboardPage {
   readonly page: Page;
@@ -39,12 +38,6 @@ class TimelineComponent extends DashboardPage {
   }: {
     disasterName: string;
   }) {
-    const userStateComponent = new UserStateComponent(this.page);
-
-    await userStateComponent.headerComponentIncludesCorrectDisasterType({
-      disasterName,
-    });
-
     if (disasterTypeWithInactiveTimeline.includes(disasterName)) {
       await this.timelineIsInactive();
     } else {
