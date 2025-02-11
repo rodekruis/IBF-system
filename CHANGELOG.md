@@ -1,3 +1,18 @@
+# [0.282.0](https://github.com/rodekruis/IBF-system/compare/v0.281.1...v0.282.0) (2025-02-11)
+
+
+### Bug Fixes
+
+* revert local testing scenario update ([246e5b8](https://github.com/rodekruis/IBF-system/commit/246e5b8538e52eab73cefcc1972716faeece0d4e))
+* tests ([100723c](https://github.com/rodekruis/IBF-system/commit/100723cd3944faddd80a7d24477fb6175287967c))
+
+
+### Features
+
+* add update-user endpoint AB[#33049](https://github.com/rodekruis/IBF-system/issues/33049) ([4b1972c](https://github.com/rodekruis/IBF-system/commit/4b1972c66e1a3fdcaa88e30635e5a3a24629a997))
+
+
+
 ## [0.281.1](https://github.com/rodekruis/IBF-system/compare/v0.281.0...v0.281.1) (2025-02-07)
 
 
@@ -96,19 +111,6 @@
 ### Reverts
 
 * Revert "refactor: move component from declarations to imports in spec files" ([1b75f44](https://github.com/rodekruis/IBF-system/commit/1b75f44ac4d6cc3152a6ae22a2ac181900a194fd))
-
-
-
-## [0.278.2](https://github.com/rodekruis/IBF-system/compare/v0.278.1...v0.278.2) (2025-01-22)
-
-
-### Bug Fixes
-
-* code scanning alerts ([0a18940](https://github.com/rodekruis/IBF-system/commit/0a18940b55d3d8cf5db501da20195dbcca8333ed))
-* frontend mock uses new mock endpoints ([2c86845](https://github.com/rodekruis/IBF-system/commit/2c8684587c1d86854ea5dab88afed3cff41e821d))
-* overwrite old tracks on noEvents ([ec558b6](https://github.com/rodekruis/IBF-system/commit/ec558b66916896b6f385575c65c129904c826f3c))
-* process PR comments + fix mock-all no-trigger ([4171dfa](https://github.com/rodekruis/IBF-system/commit/4171dfa58826cd6d941bb25ec14b31c91eea8e3d))
-* test ([6e684b2](https://github.com/rodekruis/IBF-system/commit/6e684b26d60f11b032ebf8311665e4319d0f80ee))
 
 
 
