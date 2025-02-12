@@ -14,9 +14,9 @@ import {
   DisasterType,
 } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
+import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { AlertArea } from 'src/app/types/alert-area';
@@ -43,12 +43,11 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   public countryDisasterSettings: CountryDisasterSettings;
   public areasOfFocus: AreaOfFocus[] = AREAS_OF_FOCUS;
   public alertAreas: AlertArea[];
-  public trigger: boolean;
   public eventState: EventState;
   public placeCode: PlaceCode;
 
   constructor(
-    private eapActionsService: EapActionsService,
+    private alertAreaService: AlertAreaService,
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -67,7 +66,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
 
-    this.eapActionSubscription = this.eapActionsService
+    this.eapActionSubscription = this.alertAreaService
       .getAlertAreas()
       .subscribe(this.onAlertAreasChange);
 

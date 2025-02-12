@@ -17,9 +17,9 @@ import {
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { AggregatesService } from 'src/app/services/aggregates.service';
+import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService, EventSummary } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
@@ -79,7 +79,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public adminLevel: AdminLevel;
 
   constructor(
-    private eapActionsService: EapActionsService,
+    private alertAreaService: AlertAreaService,
     public authService: AuthService,
     public eventService: EventService,
     public placeCodeService: PlaceCodeService,
@@ -99,7 +99,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
 
-    this.eapActionSubscription = this.eapActionsService
+    this.eapActionSubscription = this.alertAreaService
       .getAlertAreas()
       .subscribe(this.onAlertAreasChange);
 
@@ -304,7 +304,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private checkEAPAction = (action: EapAction) => {
-    return this.eapActionsService.checkEapAction(
+    return this.alertAreaService.checkEapAction(
       action.action,
       action.checked,
       action.placeCode,
