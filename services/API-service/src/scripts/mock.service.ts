@@ -16,7 +16,7 @@ import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { EventService } from '../api/event/event.service';
-import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
+import { AlertPerLeadTimeEntity } from '../api/event/trigger-per-lead-time.entity';
 import { MetadataService } from '../api/metadata/metadata.service';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
@@ -48,8 +48,8 @@ export class Event {
 export class MockService {
   @InjectRepository(EventPlaceCodeEntity)
   private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
-  @InjectRepository(TriggerPerLeadTime)
-  private readonly triggerPerLeadTimeRepo: Repository<TriggerPerLeadTime>;
+  @InjectRepository(AlertPerLeadTimeEntity)
+  private readonly triggerPerLeadTimeRepo: Repository<AlertPerLeadTimeEntity>;
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
   @InjectRepository(EapActionStatusEntity)

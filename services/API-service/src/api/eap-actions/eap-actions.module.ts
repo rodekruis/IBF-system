@@ -4,7 +4,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
-import { TriggerPerLeadTime } from '../event/trigger-per-lead-time.entity';
 import { UserEntity } from '../user/user.entity';
 import { UserModule } from '../user/user.module';
 import { CountryEntity } from './../country/country.entity';
@@ -19,7 +18,6 @@ import { EapActionsService } from './eap-actions.service';
       UserEntity,
       EapActionEntity,
       EapActionStatusEntity,
-      TriggerPerLeadTime,
       CountryEntity,
       EventPlaceCodeEntity,
       AdminAreaEntity,
