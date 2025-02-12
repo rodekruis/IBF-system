@@ -21,8 +21,7 @@ class DisasterTypeComponent extends DashboardPage {
     await expect(topBar).toBeVisible();
   }
 
-  async allDisasterTypeElementsArePresent() {
-    const date = new Date();
+  async allDisasterTypeElementsArePresent(date: Date) {
     const formattedDate = format(date, 'd MMM yyyyEEEE,');
     const formattedTime = format(date, 'HH:mm');
     const currentDateTime = `${formattedDate} ${formattedTime}`;

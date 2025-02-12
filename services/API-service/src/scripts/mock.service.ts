@@ -233,7 +233,11 @@ export class MockService {
     }
 
     if (this.shouldMockRasterFile(disasterType)) {
-      this.mockHelpService.mockRasterFile(selectedCountry, disasterType, true);
+      this.mockHelpService.mockRasterFile(
+        selectedCountry,
+        disasterType,
+        !scenario.events,
+      );
     }
 
     if (this.shouldMockGlofasStations(disasterType)) {
