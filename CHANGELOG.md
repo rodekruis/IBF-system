@@ -1,3 +1,17 @@
+# [0.283.0](https://github.com/rodekruis/IBF-system/compare/v0.282.0...v0.283.0) (2025-02-12)
+
+
+### Bug Fixes
+
+* monthlyForecastInfo KEN ([099612a](https://github.com/rodekruis/IBF-system/commit/099612a6ae99704166283423ee8724da927cd2d5))
+
+
+### Features
+
+* remove endOfMonthPipeline exception AB[#33425](https://github.com/rodekruis/IBF-system/issues/33425) ([d0ec5d8](https://github.com/rodekruis/IBF-system/commit/d0ec5d87483d6155d15cfa92c0a19bbfb6bc7fd0))
+
+
+
 # [0.282.0](https://github.com/rodekruis/IBF-system/compare/v0.281.1...v0.282.0) (2025-02-11)
 
 
@@ -95,22 +109,6 @@
 ### Bug Fixes
 
 * lint issue ([e27a84e](https://github.com/rodekruis/IBF-system/commit/e27a84e579b02f37244f08bda233114d2e7fce38))
-
-
-
-## [0.278.3](https://github.com/rodekruis/IBF-system/compare/v0.278.2...v0.278.3) (2025-01-22)
-
-
-### Bug Fixes
-
-* after rebase ([eb4638c](https://github.com/rodekruis/IBF-system/commit/eb4638cc41dced31e1602e8d9b4e49c3b9beed14))
-* complete test on getAggregatesHeader AB[#32035](https://github.com/rodekruis/IBF-system/issues/32035) ([2081f79](https://github.com/rodekruis/IBF-system/commit/2081f79480c4890e3edf998212e6a5ee4d5d32aa))
-* test ([045b1a7](https://github.com/rodekruis/IBF-system/commit/045b1a74726ceabca074a467d689d24d065ef903))
-
-
-### Reverts
-
-* Revert "refactor: move component from declarations to imports in spec files" ([1b75f44](https://github.com/rodekruis/IBF-system/commit/1b75f44ac4d6cc3152a6ae22a2ac181900a194fd))
 
 
 
