@@ -37,7 +37,7 @@ import {
 } from './dto/event-place-code.dto';
 import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
-import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
+import { AlertPerLeadTimeEntity } from './trigger-per-lead-time.entity';
 
 @Injectable()
 export class EventService {
@@ -47,8 +47,8 @@ export class EventService {
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
   @InjectRepository(AdminAreaEntity)
   private readonly adminAreaRepository: Repository<AdminAreaEntity>;
-  @InjectRepository(TriggerPerLeadTime)
-  private readonly triggerPerLeadTimeRepository: Repository<TriggerPerLeadTime>;
+  @InjectRepository(AlertPerLeadTimeEntity)
+  private readonly triggerPerLeadTimeRepository: Repository<AlertPerLeadTimeEntity>;
   @InjectRepository(DisasterTypeEntity)
   private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
   @InjectRepository(UserEntity)
@@ -197,20 +197,20 @@ export class EventService {
         uploadTriggerPerLeadTimeDto.date,
         uploadTriggerPerLeadTimeDto.triggersPerLeadTime[0].leadTime,
       );
-    const triggersPerLeadTime: TriggerPerLeadTime[] = [];
+    const triggersPerLeadTime: AlertPerLeadTimeEntity[] = [];
     const timestamp = uploadTriggerPerLeadTimeDto.date || new Date();
     for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
       // Delete existing entries in case of a re-run of the pipeline within the same time period
       await this.deleteDuplicates(uploadTriggerPerLeadTimeDto);
 
-      const triggerPerLeadTime = new TriggerPerLeadTime();
+      const triggerPerLeadTime = new AlertPerLeadTimeEntity();
       triggerPerLeadTime.date = uploadTriggerPerLeadTimeDto.date || new Date();
       triggerPerLeadTime.timestamp = timestamp;
       triggerPerLeadTime.countryCodeISO3 =
         uploadTriggerPerLeadTimeDto.countryCodeISO3;
       triggerPerLeadTime.leadTime = leadTime.leadTime as LeadTime;
-      triggerPerLeadTime.triggered = leadTime.triggered;
-      triggerPerLeadTime.thresholdReached =
+      triggerPerLeadTime.forecastAlert = leadTime.triggered;
+      triggerPerLeadTime.forecastTrigger =
         leadTime.triggered && leadTime.thresholdReached;
       triggerPerLeadTime.disasterType =
         uploadTriggerPerLeadTimeDto.disasterType;
@@ -583,8 +583,8 @@ export class EventService {
       .select([
         'triggerPerLeadTime.leadTime as "leadTime"',
         'triggerPerLeadTime.date as date',
-        'MAX(CASE WHEN triggerPerLeadTime.triggered = TRUE THEN 1 ELSE 0 END) as triggered',
-        'MAX(CASE WHEN triggerPerLeadTime.thresholdReached = TRUE THEN 1 ELSE 0 END) as "thresholdReached"',
+        'MAX(CASE WHEN triggerPerLeadTime.forecastAlert = TRUE THEN 1 ELSE 0 END) as triggered',
+        'MAX(CASE WHEN triggerPerLeadTime.forecastTrigger = TRUE THEN 1 ELSE 0 END) as "thresholdReached"',
       ])
       .where(whereFilters)
       .groupBy('triggerPerLeadTime.leadTime')

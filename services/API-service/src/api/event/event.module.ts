@@ -14,7 +14,7 @@ import { UserModule } from './../user/user.module';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { EventController } from './event.controller';
 import { EventService } from './event.service';
-import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
+import { AlertPerLeadTimeEntity } from './trigger-per-lead-time.entity';
 
 @Module({
   imports: [
@@ -24,7 +24,7 @@ import { TriggerPerLeadTime } from './trigger-per-lead-time.entity';
     TyphoonTrackModule,
     TypeOrmModule.forFeature([
       EventPlaceCodeEntity,
-      TriggerPerLeadTime,
+      AlertPerLeadTimeEntity,
       AdminAreaDynamicDataEntity,
       AdminAreaEntity,
       DisasterTypeEntity,
