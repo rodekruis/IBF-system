@@ -10,6 +10,8 @@ import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 
+// NOTE: this entity is filled directly via /trigger-per-lead-time endpoint for floods only (for all lead times), while for other disaster-types only event starting lead times are filled indirectly as part of /exposure endpoint
+// REFACTOR: to either use this for all disaster types or to remove this exception for floods
 @Entity('alert-per-lead-time')
 export class AlertPerLeadTimeEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -42,8 +44,8 @@ export class AlertPerLeadTimeEntity {
   public eventName: string;
 
   @Column({ default: false })
-  public forecastAlert: boolean;
+  public forecastAlert: boolean; // true indicates a trigger or warning for this lead time, false indicates neither
 
   @Column({ default: true })
-  public forecastTrigger: boolean;
+  public forecastTrigger: boolean; // true indicates a trigger for this lead time, false indicates either a warning or no event
 }
