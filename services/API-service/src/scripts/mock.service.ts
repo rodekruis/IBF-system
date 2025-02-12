@@ -435,7 +435,7 @@ export class MockService {
       leadTime = event.leadTime;
     } else {
       stationForecasts = this.getFile(
-        `./src/scripts/mock-data/${disasterType}/${selectedCountry.countryCodeISO3}/${scenarioName}/glofas-stations-no-trigger.json`,
+        `./src/scripts/mock-data/${disasterType}/${selectedCountry.countryCodeISO3}/${scenarioName}/glofas-stations-no-alert.json`,
       );
       leadTime = LeadTime.day7; // last available leadTime across all floods countries;
     }
