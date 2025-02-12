@@ -23,7 +23,8 @@ import { RedCrossBranchDto } from './dto/upload-red-cross-branch.dto';
 import { SchoolDto } from './dto/upload-schools.dto';
 import { WaterpointDto } from './dto/upload-waterpoint.dto';
 import { DynamicPointDataEntity } from './dynamic-point-data.entity';
-import { PointDataEntity, PointDataEnum } from './point-data.entity';
+import { PointDataEntity } from './point-data.entity';
+import { PointDataEnum } from './point-data.enum';
 
 @Injectable()
 export class PointDataService {
@@ -96,7 +97,7 @@ export class PointDataService {
             .innerJoin(
               `(${maxTimestampPerPointQuery.getQuery()})`,
               'maxSub',
-              `dynamic."pointPointDataId" = "maxSub"."pointPointDataId" 
+              `dynamic."pointPointDataId" = "maxSub"."pointPointDataId"
                 AND (dynamic.timestamp || '_' || COALESCE(dynamic."leadTime",'0')) = "maxSub".maxTimestampLeadTime`,
             )
             .setParameters(maxTimestampPerPointQuery.getParameters())

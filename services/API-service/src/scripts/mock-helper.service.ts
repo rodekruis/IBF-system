@@ -9,7 +9,7 @@ import { UploadLinesExposureStatusDto } from '../api/lines-data/dto/upload-asset
 import { LinesDataEnum } from '../api/lines-data/lines-data.entity';
 import { LinesDataService } from '../api/lines-data/lines-data.service';
 import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
-import { PointDataEnum } from '../api/point-data/point-data.entity';
+import { PointDataEnum } from '../api/point-data/point-data.enum';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { DisasterTypeGeoServerMapper } from './disaster-type-geoserver-file.mapper';

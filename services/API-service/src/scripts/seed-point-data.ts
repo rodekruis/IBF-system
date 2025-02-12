@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
 import { countriesEnum } from '../api/country/country.enum';
-import { PointDataEnum } from '../api/point-data/point-data.entity';
+import { PointDataEnum } from '../api/point-data/point-data.enum';
 import { PointDataService } from '../api/point-data/point-data.service';
 import countries from './json/countries.json';
 import { InterfaceScript } from './scripts.module';

@@ -12,7 +12,7 @@ import {
 
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
-import { PointDataEnum } from '../point-data.entity';
+import { PointDataEnum } from '../point-data.enum';
 
 export class UploadAssetExposureStatusDto {
   @ApiProperty({ example: ['123', '234'] })

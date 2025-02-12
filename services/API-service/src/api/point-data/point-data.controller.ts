@@ -31,7 +31,7 @@ import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { UploadDynamicPointDataDto } from './dto/upload-asset-exposure-status.dto';
 import { CommunityNotificationExternalDto } from './dto/upload-community-notifications.dto';
-import { PointDataEnum } from './point-data.entity';
+import { PointDataEnum } from './point-data.enum';
 import { PointDataService } from './point-data.service';
 
 @ApiBearerAuth()
