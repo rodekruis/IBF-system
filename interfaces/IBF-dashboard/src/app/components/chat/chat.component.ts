@@ -17,7 +17,6 @@ import {
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { AggregatesService } from 'src/app/services/aggregates.service';
-import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EapActionsService } from 'src/app/services/eap-actions.service';
@@ -90,7 +89,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     private aggregatesService: AggregatesService,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
-    private apiService: ApiService,
     private analyticsService: AnalyticsService,
     private popoverController: PopoverController,
     private adminLevelService: AdminLevelService,
@@ -385,11 +383,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.countryDisasterSettings?.droughtSeasonRegions;
     const forecastAreas = Object.keys(droughtSeasonRegions);
 
-    const droughtEndOfMonthPipeline =
-      this.countryDisasterSettings?.droughtEndOfMonthPipeline;
-    const currentMonth = this.timelineState.today.plus({
-      months: droughtEndOfMonthPipeline ? 1 : 0,
-    });
+    const currentMonth = this.timelineState.today;
     const nextMonth = currentMonth.plus({
       months: 1,
     });
@@ -458,16 +452,12 @@ export class ChatComponent implements OnInit, OnDestroy {
             this.translateService.instant(`${prefix}.${forecast}`) as string,
         );
       },
-      ZWE: () => {
-        const messageKey = 'message';
-        return this.countryDisasterSettings.monthlyForecastInfo[messageKey];
-      },
     };
 
     this.forecastInfo = forecastInfoSeed[this.country.countryCodeISO3]();
   }
 
-  public getNumberOfActions(nrActions: number, nrForecasts: number) {
+  public getNumberOfActions(nrActions: number, nrForecasts: number): string {
     const text = this.translateService.instant(
       'chat-component.drought.active-event.forecast-info.actions',
       {

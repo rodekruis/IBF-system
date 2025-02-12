@@ -133,7 +133,7 @@
             }
             <br />
             @if (countryDisasterSettings?.showMonthlyEapActions) {
-              @if (forecastInfo && country?.countryCodeISO3 === 'KEN') {
+              @if (forecastInfo) {
                 @if (area?.eapActions; as actions) {
                   <div class="ion-margin-bottom">
                     <ion-note size="small">
@@ -153,6 +153,7 @@
                         <span>
                           <strong>{{ forecast }}</strong>
                           @if (!isLast) {
+                            {{ ' ' }}
                             <span>{{
                               'chat-component.drought.active-event.forecast-info.and'
                                 | translate
@@ -161,9 +162,14 @@
                         </span>
                       }
                       {{ ' ' }}
-                      <span>{{
-                        getNumberOfActions(actions.length, forecastInfo?.length)
-                      }}</span>
+                      <span
+                        [innerHTML]="
+                          getNumberOfActions(
+                            actions.length,
+                            forecastInfo?.length
+                          )
+                        "
+                      ></span>
                     </ion-note>
                   </div>
                 }

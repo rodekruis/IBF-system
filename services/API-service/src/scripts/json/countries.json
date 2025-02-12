@@ -213,7 +213,6 @@
             "21UGA015009"
           ]
         },
-        "droughtEndOfMonthPipeline": false,
         "showMonthlyEapActions": true,
         "eapLink": "https://rodekruis.sharepoint.com/sites/510-CRAVK-510/_layouts/15/guestaccess.aspx?docid=0db9ce391f633443aae619a2a0e974904&authkey=AV-9MdWarHQlelBjlbQdaoA&expiration=2023-07-31T22%3a00%3a00.000Z"
       }
@@ -587,7 +586,6 @@
             }
           }
         },
-        "droughtEndOfMonthPipeline": true,
         "showMonthlyEapActions": true,
         "monthlyForecastInfo": {
           "prefix": "chat-component.drought.active-event.forecast-info",
@@ -1148,9 +1146,6 @@
               "actionMonths": [9, 10, 11, 12, 1, 2, 3, 4, 5, 6, 7, 8]
             }
           }
-        },
-        "monthlyForecastInfo": {
-          "message": "The IBF Portal will load the forecast for the current month around the 20th of each month."
         },
         "showMonthlyEapActions": true,
         "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
