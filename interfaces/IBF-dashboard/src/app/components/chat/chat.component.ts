@@ -24,12 +24,12 @@ import { EventService, EventSummary } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
+import { AlertArea } from 'src/app/types/alert-area';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTimeTriggerKey } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
-import { TriggeredArea } from 'src/app/types/triggered-area';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -39,8 +39,8 @@ import { environment } from 'src/environments/environment';
   standalone: false,
 })
 export class ChatComponent implements OnInit, OnDestroy {
-  public triggeredAreas: TriggeredArea[];
-  public filteredAreas: TriggeredArea[];
+  public alertAreas: AlertArea[];
+  public filteredAreas: AlertArea[];
   public activeDisasterType: string;
   public eventState: EventState;
   private timelineState: TimelineState;
@@ -100,8 +100,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       .subscribe(this.onCountryChange);
 
     this.eapActionSubscription = this.eapActionsService
-      .getTriggeredAreas()
-      .subscribe(this.onTriggeredAreasChange);
+      .getAlertAreas()
+      .subscribe(this.onAlertAreasChange);
 
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
@@ -171,10 +171,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.setupChatText();
   };
 
-  private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
-    this.triggeredAreas = triggeredAreas;
-    this.triggeredAreas.forEach((area) => {
-      this.disableSubmitButtonForTriggeredArea(area);
+  private onAlertAreasChange = (alertAreas: AlertArea[]) => {
+    this.alertAreas = alertAreas;
+    this.alertAreas.forEach((area) => {
+      this.disableSubmitButtonForArea(area);
     });
     this.onPlaceCodeChange(this.placeCode);
   };
@@ -185,12 +185,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     const activeLeadTime = this.timelineState?.timeStepButtons.find(
       (t) => t.value === this.timelineState?.activeLeadTime,
     );
-    if (placeCode && (!activeLeadTime || activeLeadTime.alert)) {
-      const filterTriggeredAreasByPlaceCode = (triggeredArea: TriggeredArea) =>
-        triggeredArea.placeCode === placeCode.placeCode;
-      this.filteredAreas = this.triggeredAreas.filter(
-        filterTriggeredAreasByPlaceCode,
-      );
+    if (placeCode && (!activeLeadTime || activeLeadTime.forecastAlert)) {
+      const filterAreasByPlaceCode = (alertArea: AlertArea) =>
+        alertArea.placeCode === placeCode.placeCode;
+      this.filteredAreas = this.alertAreas.filter(filterAreasByPlaceCode);
     } else {
       this.setDefaultFilteredAreas();
     }
@@ -252,13 +250,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     );
   };
 
-  private disableSubmitButtonForTriggeredArea = (
-    triggeredArea: TriggeredArea,
-  ) => (triggeredArea.submitDisabled = true);
+  private disableSubmitButtonForArea = (alertArea: AlertArea) =>
+    (alertArea.submitDisabled = true);
 
-  private filterTriggeredAreaByPlaceCode =
-    (placeCode: string) => (triggeredArea: TriggeredArea) =>
-      triggeredArea.placeCode === placeCode;
+  private filterAreaByPlaceCode =
+    (placeCode: string) => (alertArea: AlertArea) =>
+      alertArea.placeCode === placeCode;
 
   private filterChangedEAPActionByChangedEAPAction =
     (changedAction: EapAction) => (eapAction: EapAction) =>
@@ -286,13 +283,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       component: this.constructor.name,
     });
 
-    const filterTriggeredAreaByPlaceCode =
-      this.filterTriggeredAreaByPlaceCode(placeCode);
+    const filterAreaByPlaceCode = this.filterAreaByPlaceCode(placeCode);
 
-    const triggeredArea = this.triggeredAreas.find(
-      filterTriggeredAreaByPlaceCode,
-    );
-    const changedAction = triggeredArea.eapActions.find(
+    const alertArea = this.alertAreas.find(filterAreaByPlaceCode);
+    const changedAction = alertArea.eapActions.find(
       this.filterEAPActionByEAPAction(action),
     );
 
@@ -304,7 +298,7 @@ export class ChatComponent implements OnInit, OnDestroy {
         this.filterChangedEAPActionByChangedEAPAction(changedAction),
       );
     }
-    this.triggeredAreas.find(filterTriggeredAreaByPlaceCode).submitDisabled =
+    this.alertAreas.find(filterAreaByPlaceCode).submitDisabled =
       this.changedActions.length === 0;
     this.changeDetectorRef.detectChanges();
   }
@@ -326,9 +320,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       component: this.constructor.name,
     });
 
-    this.triggeredAreas.find(
-      this.filterTriggeredAreaByPlaceCode(placeCode),
-    ).submitDisabled = true;
+    this.alertAreas.find(this.filterAreaByPlaceCode(placeCode)).submitDisabled =
+      true;
 
     forkJoin(
       this.changedActions
@@ -344,10 +337,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   private revertActionStatusIfFailed() {
-    const triggeredArea = this.triggeredAreas.find(
+    const alertArea = this.alertAreas.find(
       (area) => area.placeCode === this.changedActions[0].placeCode,
     );
-    for (const action of triggeredArea.eapActions) {
+    for (const action of alertArea.eapActions) {
       if (this.changedActions.includes(action)) {
         action.checked = !action.checked;
       }
@@ -506,7 +499,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
   }
 
-  public getAreaParentString(area: TriggeredArea): string {
+  public getAreaParentString(area: AlertArea): string {
     if (!area.nameParent) {
       return '';
     }

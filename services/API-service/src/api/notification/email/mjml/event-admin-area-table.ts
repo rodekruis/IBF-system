@@ -47,7 +47,7 @@ const getMjmlEventAdminAreaTable = ({
     },
   });
 
-  const isIndicatorAvailable = event.triggeredAreas.some(
+  const isIndicatorAvailable = event.alertAreas.some(
     ({ mainExposureValue }) => mainExposureValue,
   );
 
@@ -65,7 +65,7 @@ const getMjmlEventAdminAreaTable = ({
     },
   });
 
-  const adminAreaList = event.triggeredAreas.map((triggeredArea) => {
+  const adminAreaList = event.alertAreas.map((triggeredArea) => {
     return {
       exposed: toCompactNumber(
         triggeredArea.mainExposureValue,

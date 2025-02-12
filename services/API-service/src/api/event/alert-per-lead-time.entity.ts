@@ -10,7 +10,7 @@ import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 
-// NOTE: this entity is filled directly via /trigger-per-lead-time endpoint for floods only (for all lead times), while for other disaster-types only event starting lead times are filled indirectly as part of /exposure endpoint
+// NOTE: this entity is filled directly via /triggers-per-leadtime endpoint for floods only (for all lead times), while for other disaster-types only event starting lead times are filled indirectly as part of /exposure endpoint
 // REFACTOR: to either use this for all disaster types or to remove this exception for floods
 @Entity('alert-per-lead-time')
 export class AlertPerLeadTimeEntity {

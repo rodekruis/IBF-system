@@ -1,7 +1,7 @@
 import {
+  AlertArea,
   DisasterSpecificProperties,
   EapAlertClass,
-  TriggeredArea,
 } from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 
@@ -25,12 +25,12 @@ export class NotificationDataPerEventDto {
   firstLeadTimeString: string;
   firstTriggerLeadTimeString: string;
 
-  triggeredAreas: TriggeredArea[];
+  alertAreas: AlertArea[];
 
   /**
-   * The number of areas where the event triggers.
+   * The number of areas involved in the event.
    */
-  nrOfTriggeredAreas: number;
+  nrOfAlertAreas: number;
 
   totalAffectedOfIndicator: number;
   issuedDate: Date;

@@ -44,7 +44,7 @@
                       eventName:
                         event.eventName?.split('_')[0] || disasterTypeLabel,
                       duration: event.duration,
-                      nrTriggeredAreas: areas.length,
+                      nrAlertAreas: areas.length,
                     }
             "
           ></span>
@@ -105,7 +105,7 @@
                   leadTime: event.firstLeadTimeLabel,
                   timeUnit: event.timeUnit,
                   disasterTypeLabel: disasterTypeLabel,
-                  nrTriggeredAreas: areas.length,
+                  nrAlertAreas: areas.length,
                 }
         "
       ></p>
@@ -185,7 +185,7 @@
             'chat-component.' + disasterTypeName + '.active-event.overview'
               | translate
                 : {
-                    nrTriggeredAreas: areas.length,
+                    nrAlertAreas: areas.length,
                     adminAreaLabelPlural: adminAreaLabelPlural,
                     eventName: selectedEvent?.split('_')[0],
                     mainExposureIndicator: mainExposureIndicatorLabel,
@@ -200,7 +200,7 @@
               '.active-event.overview-below-trigger'
               | translate
                 : {
-                    nrTriggeredAreas: areas.length,
+                    nrAlertAreas: areas.length,
                     adminAreaLabelPlural: adminAreaLabelPlural,
                     eventName: selectedEvent?.split('_')[0],
                     mainExposureIndicator: mainExposureIndicatorLabel,

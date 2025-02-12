@@ -31,7 +31,7 @@ export const notificationInfoData: CreateNotificationInfoDto[] = [
         'initial-multi-event':
           "*IBF notification*\n\nThere are *[nrEvents]* notifications issued for flash floods. The first notification is forecasted for: *[startTimeFirstEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
         'follow-up':
-          '*IBF [triggerState] notification*\n\nA [triggerState] for flash floods is forecasted in *[eventName]*: *[startTimeEvent]*.\n\nThere are *[nrTriggeredAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this [triggerState].',
+          '*IBF [triggerState] notification*\n\nA [triggerState] for flash floods is forecasted in *[eventName]*: *[startTimeEvent]*.\n\nThere are *[nrAlertAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this [triggerState].',
         'whatsapp-group':
           'Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this trigger.',
         'no-trigger-old-event':

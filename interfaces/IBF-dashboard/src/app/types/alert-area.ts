@@ -1,7 +1,7 @@
 import { AdminLevel } from 'src/app/types/admin-level';
 import { EapAction } from 'src/app/types/eap-action';
 
-export class TriggeredArea {
+export class AlertArea {
   mainExposureValue: number;
   triggerValue: number;
   displayName: string;

@@ -11,10 +11,10 @@ import { UserEntity } from '../user/user.entity';
 import { CountryModule } from './../country/country.module';
 import { EapActionsModule } from './../eap-actions/eap-actions.module';
 import { UserModule } from './../user/user.module';
+import { AlertPerLeadTimeEntity } from './alert-per-lead-time.entity';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 import { EventController } from './event.controller';
 import { EventService } from './event.service';
-import { AlertPerLeadTimeEntity } from './trigger-per-lead-time.entity';
 
 @Module({
   imports: [

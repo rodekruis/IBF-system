@@ -16,18 +16,18 @@ import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevelType } from 'src/app/types/admin-level';
+import { AlertArea, AlertLabel } from 'src/app/types/alert-area';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
 import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
-import { AlertLabel, TriggeredArea } from 'src/app/types/triggered-area';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EapActionsService {
-  private triggeredAreaSubject = new BehaviorSubject<TriggeredArea[]>([]);
-  public triggeredAreas: TriggeredArea[];
+  private alertAreaSubject = new BehaviorSubject<AlertArea[]>([]);
+  public alertAreas: AlertArea[];
   private country: Country;
   private disasterType: DisasterType;
   private countryDisasterSettings: CountryDisasterSettings;
@@ -98,19 +98,19 @@ export class EapActionsService {
         this.placeCode,
       );
       if (adminLevelType !== AdminLevelType.higher) {
-        this.getTriggeredAreasApi();
+        this.getAlertAreasApi();
       }
     } else {
-      this.getTriggeredAreasApi();
+      this.getAlertAreasApi();
     }
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
     this.placeCode = placeCode;
-    this.getTriggeredAreasApi();
+    this.getAlertAreasApi();
   };
 
-  private getTriggeredAreasApi() {
+  private getAlertAreasApi() {
     if (
       this.country &&
       this.disasterType &&
@@ -124,20 +124,20 @@ export class EapActionsService {
         this.placeCode?.adminLevel ||
         this.countryDisasterSettings.defaultAdminLevel;
       this.apiService
-        .getTriggeredAreas(
+        .getAlertAreas(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
           adminLevelToUse,
           this.timelineState.activeLeadTime,
           this.eventState.event?.eventName,
         )
-        .subscribe(this.onTriggeredAreas);
+        .subscribe(this.onAlertAreas);
     }
   }
 
-  private onTriggeredAreas = (triggeredAreas: TriggeredArea[]) => {
-    this.triggeredAreas = triggeredAreas;
-    this.triggeredAreas.sort((a, b) => {
+  private onAlertAreas = (alertAreas: AlertArea[]) => {
+    this.alertAreas = alertAreas;
+    this.alertAreas.sort((a, b) => {
       if (a.triggerValue === b.triggerValue) {
         return a.mainExposureValue > b.mainExposureValue ? -1 : 1;
       } else {
@@ -145,7 +145,7 @@ export class EapActionsService {
       }
     });
     if (this.getActiveLeadtime()) {
-      this.triggeredAreas.forEach((area) => {
+      this.alertAreas.forEach((area) => {
         this.formatDates(area);
         this.mapTriggerValueToAlertClass(area);
         this.filterEapActionsByMonth(area);
@@ -172,34 +172,34 @@ export class EapActionsService {
         });
       });
     }
-    this.triggeredAreaSubject.next(this.triggeredAreas);
+    this.alertAreaSubject.next(this.alertAreas);
   };
 
-  getTriggeredAreas(): Observable<TriggeredArea[]> {
-    return this.triggeredAreaSubject.asObservable();
+  getAlertAreas(): Observable<AlertArea[]> {
+    return this.alertAreaSubject.asObservable();
   }
 
-  private formatDates = (triggeredArea: TriggeredArea) => {
-    triggeredArea.startDate = DateTime.fromISO(
-      triggeredArea.startDate,
-    ).toFormat('cccc, dd LLLL');
+  private formatDates = (alertArea: AlertArea) => {
+    alertArea.startDate = DateTime.fromISO(alertArea.startDate).toFormat(
+      'cccc, dd LLLL',
+    );
   };
 
-  private mapTriggerValueToAlertClass = (triggeredArea: TriggeredArea) => {
-    if (triggeredArea.triggerValue === 1) {
-      triggeredArea.alertLabel = AlertLabel.trigger;
-    } else if (triggeredArea.triggerValue > 0) {
-      triggeredArea.alertLabel = AlertLabel.warning;
+  private mapTriggerValueToAlertClass = (alertArea: AlertArea) => {
+    if (alertArea.triggerValue === 1) {
+      alertArea.alertLabel = AlertLabel.trigger;
+    } else if (alertArea.triggerValue > 0) {
+      alertArea.alertLabel = AlertLabel.warning;
     }
     // AlertLabel.alert does not need to be defined as {{alertLabel}} is not a variable in the non-eap copy
   };
 
-  private filterEapActionsByMonth = (triggeredArea: TriggeredArea) => {
+  private filterEapActionsByMonth = (alertArea: AlertArea) => {
     if (!this.countryDisasterSettings.showMonthlyEapActions) {
       return;
     }
 
-    const region = this.getRegion(triggeredArea);
+    const region = this.getRegion(alertArea);
 
     let monthOfSelectedLeadTime =
       this.getCurrentMonth() + Number(this.getActiveLeadtime().split('-')[0]);
@@ -229,7 +229,7 @@ export class EapActionsService {
         action.month[region][this.currentRainSeasonName],
       ) <= currentActionSeasonMonths.indexOf(this.getCurrentMonth());
 
-    triggeredArea.eapActions = triggeredArea.eapActions
+    alertArea.eapActions = alertArea.eapActions
       .filter(
         (action: EapAction) =>
           actionMonthInCurrentActionSeasonMonths(action) &&
@@ -247,7 +247,7 @@ export class EapActionsService {
       );
   };
 
-  private getRegion(triggeredArea: TriggeredArea): string {
+  private getRegion(alertArea: AlertArea): string {
     const nationwideKey = 'National';
 
     if (!this.countryDisasterSettings.droughtRegions) {
@@ -257,12 +257,12 @@ export class EapActionsService {
     const droughtRegions = Object.keys(
       this.countryDisasterSettings.droughtRegions,
     );
-    const isTriggeredAreaInDroughtRegion = (droughtRegion: string): boolean =>
+    const isAlertAreaInDroughtRegion = (droughtRegion: string): boolean =>
       this.countryDisasterSettings.droughtRegions[droughtRegion].includes(
-        triggeredArea.placeCode,
+        alertArea.placeCode,
       );
     for (const droughtRegion of droughtRegions) {
-      if (isTriggeredAreaInDroughtRegion(droughtRegion)) {
+      if (isAlertAreaInDroughtRegion(droughtRegion)) {
         return droughtRegion;
       }
     }

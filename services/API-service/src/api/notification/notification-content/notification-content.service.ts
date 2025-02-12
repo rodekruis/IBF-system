@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 
-import { EventSummaryCountry, TriggeredArea } from '../../../shared/data.model';
+import { AlertArea, EventSummaryCountry } from '../../../shared/data.model';
 import { NumberFormat } from '../../../shared/enums/number-format.enum';
 import { HelperService } from '../../../shared/helper.service';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
@@ -170,12 +170,12 @@ export class NotificationContentService {
     data.disasterSpecificProperties = event.disasterSpecificProperties;
     data.firstLeadTime = event.firstLeadTime;
     data.firstTriggerLeadTime = event.firstTriggerLeadTime;
-    data.triggeredAreas = await this.getSortedTriggeredAreas(
+    data.alertAreas = await this.getSortedAlertAreas(
       country,
       disasterType,
       event,
     );
-    data.nrOfTriggeredAreas = data.triggeredAreas.length;
+    data.nrOfAlertAreas = data.alertAreas.length;
 
     data.issuedDate = new Date(event.startDate);
     data.firstLeadTimeString = await this.getFirstLeadTimeString(
@@ -191,28 +191,28 @@ export class NotificationContentService {
 
     const indicatorMetadata = await this.getIndicatorMetadata(disasterType);
     data.totalAffectedOfIndicator = this.getTotal(
-      data.triggeredAreas,
+      data.alertAreas,
       indicatorMetadata.numberFormatMap,
     );
     data.eapAlertClass = event.disasterSpecificProperties?.eapAlertClass;
     return data;
   }
 
-  private async getSortedTriggeredAreas(
+  private async getSortedAlertAreas(
     country: CountryEntity,
     disasterType: DisasterType,
     event: EventSummaryCountry,
-  ): Promise<TriggeredArea[]> {
+  ): Promise<AlertArea[]> {
     const defaultAdminLevel = this.getDefaultAdminLevel(country, disasterType);
-    const triggeredAreas = await this.eventService.getTriggeredAreas(
+    const alertAreas = await this.eventService.getAlertAreas(
       country.countryCodeISO3,
       disasterType,
       defaultAdminLevel,
       event.firstLeadTime,
       event.eventName,
     );
-    triggeredAreas.sort((a, b) => (a.triggerValue > b.triggerValue ? -1 : 1));
-    return triggeredAreas;
+    alertAreas.sort((a, b) => (a.triggerValue > b.triggerValue ? -1 : 1));
+    return alertAreas;
   }
 
   private sortEventsByLeadTimeAndThresholdReached(
@@ -238,18 +238,15 @@ export class NotificationContentService {
     });
   }
 
-  private getTotal(
-    triggeredAreas: TriggeredArea[],
-    numberFormat: NumberFormat,
-  ) {
-    const total = triggeredAreas.reduce(
+  private getTotal(alertAreas: AlertArea[], numberFormat: NumberFormat) {
+    const total = alertAreas.reduce(
       (acc, { mainExposureValue }) => acc + mainExposureValue,
       0,
     );
 
     if (numberFormat === NumberFormat.perc) {
       // return average for percentage
-      return total / triggeredAreas.length;
+      return total / alertAreas.length;
     }
 
     // return sum

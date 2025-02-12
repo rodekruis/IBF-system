@@ -131,7 +131,7 @@
       "flash-floods": {
         "initial-single-event": "*IBF [triggerState] notification*\n\nA [triggerState] for flash floods is forecasted in *[eventName]* for: *[startTimeEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
         "initial-multi-event": "*IBF notification*\n\nThere are *[nrEvents]* notifications issued for flash floods. The first notification is forecasted for: *[startTimeFirstEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
-        "follow-up": "*IBF [triggerState] notification*\n\nA [triggerState] for flash floods is forecasted in *[eventName]*: *[startTimeEvent]*.\n\nThere are *[nrTriggeredAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this [triggerState].",
+        "follow-up": "*IBF [triggerState] notification*\n\nA [triggerState] for flash floods is forecasted in *[eventName]*: *[startTimeEvent]*.\n\nThere are *[nrAlertAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this [triggerState].",
         "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this trigger.",
         "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below trigger threshold.\n\n",
         "no-trigger": "There is *no trigger* currently."
@@ -154,7 +154,7 @@
     "whatsappMessage": {
       "floods": {
         "initial-single-event": "*IBF trigger notification*\n\nA trigger for floods is forecasted for: *[startTimeEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
-        "follow-up": "*IBF trigger notification*\n\nA triggger for floods is forecasted for: *[startTimeEvent]*.\n\nThere are *[nrTriggeredAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this trigger.",
+        "follow-up": "*IBF trigger notification*\n\nA triggger for floods is forecasted for: *[startTimeEvent]*.\n\nThere are *[nrAlertAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this trigger.",
         "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this trigger.\n\nUpdate the early actions that have been done in this form: [externalActionsForm]. Please note that through this form you can only check off actions, but you cannot see which actions have been done already.",
         "no-trigger-old-event": "The trigger warning formerly activated on *[startDate]* is now below trigger threshold.\n\n",
         "no-trigger": "There is *no trigger* currently.",

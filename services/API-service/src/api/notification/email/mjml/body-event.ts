@@ -28,7 +28,7 @@ const getMjmlBodyEvent = ({
   firstTriggerLeadTimeFromNow,
   firstTriggerLeadTimeString,
   issuedDate,
-  nrOfTriggeredAreas,
+  nrOfAlertAreas,
   timeZone,
   triangleIcon,
   eapLink,
@@ -45,7 +45,7 @@ const getMjmlBodyEvent = ({
   firstTriggerLeadTimeFromNow: string;
   firstTriggerLeadTimeString: string;
   issuedDate: string;
-  nrOfTriggeredAreas: number;
+  nrOfAlertAreas: number;
   timeZone: string;
   triangleIcon: string;
   eapLink: string;
@@ -87,7 +87,7 @@ const getMjmlBodyEvent = ({
   }
 
   contentContent.push(
-    `<strong>Expected exposed ${defaultAdminAreaLabel}:</strong> ${nrOfTriggeredAreas} (see list below)`,
+    `<strong>Expected exposed ${defaultAdminAreaLabel}:</strong> ${nrOfAlertAreas} (see list below)`,
   );
 
   contentContent.push(
@@ -175,7 +175,7 @@ export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
         firstTriggerLeadTimeFromNow: getTimeFromNow(event.firstTriggerLeadTime),
 
         // Area details
-        nrOfTriggeredAreas: event.nrOfTriggeredAreas,
+        nrOfAlertAreas: event.nrOfAlertAreas,
         defaultAdminAreaLabel:
           emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
 

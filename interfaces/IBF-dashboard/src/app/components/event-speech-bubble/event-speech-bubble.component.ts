@@ -13,10 +13,10 @@ import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { EventService, EventSummary } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import { AlertArea } from 'src/app/types/alert-area';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
-import { TriggeredArea } from 'src/app/types/triggered-area';
 
 @Component({
   selector: 'app-event-speech-bubble',
@@ -42,7 +42,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()
   public clearOutMessage: string;
   @Input()
-  public areas: TriggeredArea[];
+  public areas: AlertArea[];
   @Input()
   public adminAreaLabelPlural: string;
   @Input()

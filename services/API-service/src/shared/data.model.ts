@@ -27,7 +27,7 @@ export class AggregateDataRecord {
   public value: number;
 }
 
-export class TriggeredArea {
+export class AlertArea {
   @ApiProperty({ example: '21UGA001001' })
   public placeCode: string;
 
