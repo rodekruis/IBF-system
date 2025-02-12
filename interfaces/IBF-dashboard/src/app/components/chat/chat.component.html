@@ -83,7 +83,7 @@
   }
 
   @for (area of filteredAreas; track area.name; let isFirst = $first) {
-    <app-dialogue-turn [isTriggered]="eventState?.event?.thresholdReached">
+    <app-dialogue-turn [isTriggered]="eventState?.event?.forecastTrigger">
       <ion-row>
         <ion-col
           class="flex flex-row gap-2"
@@ -110,7 +110,7 @@
               "
             ></ion-label
             ><br />
-            @if (eventState?.event?.thresholdReached) {
+            @if (eventState?.event?.forecastTrigger) {
               <ion-note size="small">
                 <span
                   [innerHTML]="
@@ -193,7 +193,7 @@
           }
         </ion-col>
       </ion-row>
-      @if (eventState?.event?.thresholdReached) {
+      @if (eventState?.event?.forecastTrigger) {
         @if (countryDisasterSettings.enableEarlyActions) {
           @if (adminLevel > countryDisasterSettings.defaultAdminLevel) {
             <ion-item class="background-light">

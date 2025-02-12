@@ -88,7 +88,7 @@ export class StatusReportPage implements OnInit {
     disasterType: DisasterType,
   ) => {
     this.statusData[countryCodeISO3][disasterType.disasterType].imgSrc =
-      events.filter((e: EventSummary) => e.thresholdReached).length > 0
+      events.filter((e: EventSummary) => e.forecastTrigger).length > 0
         ? DISASTER_TYPES_SVG_MAP[disasterType.disasterType].selectedTriggered
         : DISASTER_TYPES_SVG_MAP[disasterType.disasterType]
             .selectedNonTriggered;

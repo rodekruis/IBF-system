@@ -138,16 +138,16 @@ export class AlertAreaService {
   private onAlertAreas = (alertAreas: AlertArea[]) => {
     this.alertAreas = alertAreas;
     this.alertAreas.sort((a, b) => {
-      if (a.triggerValue === b.triggerValue) {
+      if (a.forecastSeverity === b.forecastSeverity) {
         return a.mainExposureValue > b.mainExposureValue ? -1 : 1;
       } else {
-        return a.triggerValue > b.triggerValue ? -1 : 1;
+        return a.forecastSeverity > b.forecastSeverity ? -1 : 1;
       }
     });
     if (this.getActiveLeadtime()) {
       this.alertAreas.forEach((area) => {
         this.formatDates(area);
-        this.mapTriggerValueToAlertClass(area);
+        this.mapForecastSeverityToAlertLabel(area);
         this.filterEapActionsByMonth(area);
         area.eapActions.forEach((action) => {
           action.aofLabel = AREAS_OF_FOCUS.find(
@@ -185,10 +185,11 @@ export class AlertAreaService {
     );
   };
 
-  private mapTriggerValueToAlertClass = (alertArea: AlertArea) => {
-    if (alertArea.triggerValue === 1) {
+  private mapForecastSeverityToAlertLabel = (alertArea: AlertArea) => {
+    // ##TODO this logic should change in new setup
+    if (alertArea.forecastSeverity === 1) {
       alertArea.alertLabel = AlertLabel.trigger;
-    } else if (alertArea.triggerValue > 0) {
+    } else if (alertArea.forecastSeverity > 0) {
       alertArea.alertLabel = AlertLabel.warning;
     }
     // AlertLabel.alert does not need to be defined as {{alertLabel}} is not a variable in the non-eap copy

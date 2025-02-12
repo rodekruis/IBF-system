@@ -153,7 +153,7 @@ export class EventService {
         // backend (it is a VIEW of the DATA in the dashboard and email)
         event.disasterSpecificProperties = await this.getEventEapAlertClass(
           disasterSettings,
-          event.triggerValue,
+          event.forecastSeverity,
         );
       }
     }
@@ -172,10 +172,10 @@ export class EventService {
       .addSelect([
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
-        'MAX(event."thresholdReached"::int)::boolean AS "thresholdReached"',
-        'SUM(CASE WHEN event."mainExposureValue" > 0 OR event."triggerValue" > 0 THEN 1 ELSE 0 END) AS "nrAffectedAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
-        'MAX(event."triggerValue")::float AS "triggerValue"',
-        'sum(event."mainExposureValue")::int AS "actionsValueSum"',
+        'MAX(event."forecastTrigger"::int)::boolean AS "forecastTrigger"',
+        'SUM(CASE WHEN event."mainExposureValue" > 0 OR event."forecastSeverity" > 0 THEN 1 ELSE 0 END) AS "nrAlertAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
+        'MAX(event."forecastSeverity")::float AS "forecastSeverity"',
+        'sum(event."mainExposureValue")::int AS "mainExposureValueSum"',
       ])
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
@@ -352,7 +352,7 @@ export class EventService {
         'area.name AS name',
         'area."adminLevel" AS "adminLevel"',
         'event."mainExposureValue"',
-        'event."triggerValue"',
+        'event."forecastSeverity"',
         'event."eventPlaceCodeId"',
         'event."stopped"',
         'event."startDate"',
@@ -371,15 +371,17 @@ export class EventService {
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3: countryCodeISO3,
       })
-      .andWhere('(event."mainExposureValue" > 0 OR event."triggerValue" > 0)')
+      .andWhere(
+        '(event."mainExposureValue" > 0 OR event."forecastSeverity" > 0)',
+      )
       .orderBy('event."mainExposureValue"', 'DESC')
       .getRawMany();
 
     for (const area of alertAreas) {
       if (alertPlaceCodes.length === 0) {
         area.eapActions = [];
-      } else if (area.triggerValue < 1) {
-        // Do not show actions for below-trigger events/areas
+      } else if (area.forecastSeverity < 1) {
+        // Do not show actions for warning events/areas
         area.eapActions = [];
       } else {
         area.eapActions = await this.eapActionsService.getActionsWithStatus(
@@ -461,7 +463,7 @@ export class EventService {
         name: area.name,
         nameParent: null,
         mainExposureValue: area.value,
-        triggerValue: null, // leave empty for now, as we don't show triggerValue on deeper levels
+        forecastSeverity: null, // leave empty for now, as we don't show forecastSeverity on deeper levels
         stopped: area.stopped,
         startDate: area.startDate,
         stoppedDate: area.stoppedDate,
@@ -488,12 +490,12 @@ export class EventService {
         'case when event.closed = true then event."endDate" end as "endDate"',
         'disaster."mainExposureIndicator" as "exposureIndicator"',
         'event."mainExposureValue" as "exposureValue"',
-        `CASE event."triggerValue" WHEN 1 THEN 'Trigger/alert' WHEN 0.7 THEN 'Medium warning' WHEN 0.3 THEN 'Low warning' END as "alertClass"`,
+        `CASE event."forecastSeverity" WHEN 1 THEN 'Trigger/alert' WHEN 0.7 THEN 'Medium warning' WHEN 0.3 THEN 'Low warning' END as "alertClass"`, // ##TODO Check this
         'event."eventPlaceCodeId" as "databaseId"',
       ])
       .leftJoin('event.adminArea', 'area')
       .leftJoin('event.disasterType', 'disaster')
-      .where({ triggerValue: MoreThan(0) })
+      .where({ forecastSeverity: MoreThan(0) })
       .orderBy('event."startDate"', 'DESC')
       .addOrderBy('area."countryCodeISO3"', 'ASC')
       .addOrderBy('event."disasterType"', 'ASC')
@@ -691,6 +693,7 @@ export class EventService {
     // await this.closeEventsAutomatic(countryCodeISO3, disasterType, eventName);
   }
 
+  // ##TODO REFACTOR: call this getAlertAreas but then it becomes duplicate. Figure out the difference and if they can be combined.
   private async getAffectedAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
@@ -718,20 +721,21 @@ export class EventService {
       eventName: eventName || IsNull(),
     };
 
-    const triggeredPlaceCodes = await this.adminAreaDynamicDataRepo
+    // ##TODO: this currently gets forecastSeverity based on layer identified by triggerIndicator (alert_threshold). This must change (and be made more flexible in transition period)
+    const alertPlaceCodes = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
-      .addSelect('MAX(area.value) AS "triggerValue"')
+      .addSelect('MAX(area.value) AS "forecastSeverity"')
       .where(whereFilters)
       .andWhere(
         `(area.value > 0 OR (area."eventName" is not null AND area."disasterType" IN ('flash-floods','typhoon')))`,
-      ) // Also allow value=0 entries with typhoon/flash-floods and event name (= below trigger event)
+      ) // Also allow value=0 entries with typhoon/flash-floods and event name (= warning event) // ##TODO: this check should be possible to remove after this item
       .groupBy('area."placeCode"')
       .getRawMany();
 
-    const triggerPlaceCodesArray = triggeredPlaceCodes.map((a) => a.placeCode);
+    const alertPlaceCodesArray = alertPlaceCodes.map((a) => a.placeCode);
 
-    if (triggerPlaceCodesArray.length === 0) {
+    if (alertPlaceCodesArray.length === 0) {
       return [];
     }
 
@@ -739,7 +743,7 @@ export class EventService {
       await this.getMainExposureIndicator(disasterType);
 
     const whereOptions = {
-      placeCode: In(triggerPlaceCodesArray),
+      placeCode: In(alertPlaceCodesArray),
       indicator: mainExposureIndicator,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
@@ -765,9 +769,9 @@ export class EventService {
       .getRawMany();
 
     for (const area of affectedAreas) {
-      area.triggerValue = triggeredPlaceCodes.find(
+      area.forecastSeverity = alertPlaceCodes.find(
         ({ placeCode }) => placeCode === area.placeCode,
-      ).triggerValue;
+      ).forecastSeverity;
     }
 
     return affectedAreas;
@@ -798,8 +802,8 @@ export class EventService {
     });
 
     // To optimize performance here ..
-    const idsToUpdateAboveThreshold = [];
-    const idsToUpdateBelowThreshold = [];
+    const idsToUpdateTrigger = [];
+    const idsToUpdateWarning = [];
     const uploadDate = await this.getRecentDate(countryCodeISO3, disasterType);
     unclosedEventAreas.forEach((eventArea) => {
       const affectedArea = affectedAreas.find(
@@ -807,43 +811,35 @@ export class EventService {
       );
       if (affectedArea) {
         eventArea.endDate = uploadDate.timestamp;
-        if (affectedArea.triggerValue === 1) {
-          eventArea.thresholdReached = true;
-          idsToUpdateAboveThreshold.push(eventArea.eventPlaceCodeId);
+        if (affectedArea.forecastSeverity === 1) {
+          eventArea.forecastTrigger = true; // ##TODO: for now just rename done, but this functionality will change based on the new input
+          idsToUpdateTrigger.push(eventArea.eventPlaceCodeId);
         } else {
-          eventArea.thresholdReached = false;
-          idsToUpdateBelowThreshold.push(eventArea.eventPlaceCodeId);
+          eventArea.forecastTrigger = false;
+          idsToUpdateWarning.push(eventArea.eventPlaceCodeId);
         }
       }
     });
-    // .. first fire one query to update all rows that need thresholdReached = true
-    await this.updateEvents(
-      idsToUpdateAboveThreshold,
-      true,
-      uploadDate.timestamp,
-    );
+    // .. first fire one query to update all rows that need forecastTrigger = true
+    await this.updateEvents(idsToUpdateTrigger, true, uploadDate.timestamp);
 
-    // .. then fire one query to update all rows that need thresholdReached = false
-    await this.updateEvents(
-      idsToUpdateBelowThreshold,
-      false,
-      uploadDate.timestamp,
-    );
+    // .. then fire one query to update all rows that need forecastTrigger = false
+    await this.updateEvents(idsToUpdateWarning, false, uploadDate.timestamp);
 
-    // .. lastly we update those records where mainExposureValue or triggerValue changed
+    // .. lastly we update those records where mainExposureValue or forecastSeverity changed
     await this.updateValues(unclosedEventAreas, affectedAreas);
   }
 
   private async updateEvents(
     eventPlaceCodeIds: string[],
-    thresholdReached: boolean,
+    forecastTrigger: boolean,
     endDate: Date,
   ) {
     if (eventPlaceCodeIds.length) {
       await this.eventPlaceCodeRepo
         .createQueryBuilder()
         .update()
-        .set({ thresholdReached, endDate })
+        .set({ forecastTrigger, endDate })
         .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
         .execute();
     }
@@ -862,12 +858,12 @@ export class EventService {
       if (
         affectedArea &&
         (eventArea.mainExposureValue !== affectedArea.mainExposureValue ||
-          eventArea.triggerValue !== affectedArea.triggerValue)
+          eventArea.forecastSeverity !== affectedArea.forecastSeverity)
       ) {
-        eventArea.triggerValue = affectedArea.triggerValue;
+        eventArea.forecastSeverity = affectedArea.forecastSeverity;
         eventArea.mainExposureValue = affectedArea.mainExposureValue;
         eventAreasToUpdate.push(
-          `('${eventArea.eventPlaceCodeId}',${eventArea.mainExposureValue},${eventArea.triggerValue})`,
+          `('${eventArea.eventPlaceCodeId}',${eventArea.mainExposureValue},${eventArea.forecastSeverity})`,
         );
       }
     }
@@ -876,11 +872,11 @@ export class EventService {
       const updateQuery = `UPDATE \
       "${repository.metadata.schema}"."${repository.metadata.tableName}" epc \
       SET \
-          "mainExposureValue" = areas.actionValue::double precision, \
-          "triggerValue" = areas.triggerValue::double precision \
+          "mainExposureValue" = areas.mainExposureValue::double precision, \
+          "forecastSeverity" = areas.forecastSeverity::double precision \
       FROM \
          (VALUES ${eventAreasToUpdate.join(',')}) \
-         areas(id, actionValue, triggerValue) \
+         areas(id, mainExposureValue, forecastSeverity) \
       WHERE \
           areas.id::uuid = epc."eventPlaceCodeId" \
       `;
@@ -926,8 +922,8 @@ export class EventService {
         const eventArea = new EventPlaceCodeEntity();
         eventArea.adminArea = adminArea;
         eventArea.eventName = eventName;
-        eventArea.thresholdReached = area.triggerValue === 1;
-        eventArea.triggerValue = area.triggerValue;
+        eventArea.forecastTrigger = area.forecastSeverity === 1;
+        eventArea.forecastSeverity = area.forecastSeverity;
         eventArea.mainExposureValue = +area.mainExposureValue;
         eventArea.startDate = startDate.timestamp;
         eventArea.endDate = startDate.timestamp;
@@ -958,16 +954,15 @@ export class EventService {
     };
     const expiredEventAreas = await this.eventPlaceCodeRepo.find({ where });
 
-    // Below trigger threshold events can be removed from this table after closing
-    // Below trigger threshold events are warnings an not triggered. I do not know why they are removed here
+    // Warning events are removed from this table after closing to clean up
     const belowThresholdEvents = expiredEventAreas.filter(
-      ({ thresholdReached }) => !thresholdReached,
+      ({ forecastTrigger: forecastTrigger }) => !forecastTrigger,
     );
     await this.eventPlaceCodeRepo.remove(belowThresholdEvents);
 
     //For the other ones update 'closed = true'
     const aboveThresholdEvents = expiredEventAreas.filter(
-      ({ thresholdReached }) => thresholdReached,
+      ({ forecastTrigger: forecastTrigger }) => forecastTrigger,
     );
     for (const area of aboveThresholdEvents) {
       area.closed = true;
@@ -977,13 +972,13 @@ export class EventService {
 
   private async getEventEapAlertClass(
     disasterSettings: CountryDisasterSettingsEntity,
-    eventTriggerValue: number,
+    eventForecastSeverity: number,
   ): Promise<DisasterSpecificProperties> {
     const eapAlertClasses = JSON.parse(
       JSON.stringify(disasterSettings.eapAlertClasses),
     );
     const alertClassKey = Object.keys(eapAlertClasses).find(
-      (key) => eapAlertClasses[key].value === eventTriggerValue,
+      (key) => eapAlertClasses[key].value === eventForecastSeverity,
     );
 
     return {

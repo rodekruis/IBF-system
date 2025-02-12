@@ -36,15 +36,14 @@ export class EventPlaceCodeEntity {
   public eventName: string;
 
   @Column({ default: true })
-  public thresholdReached: boolean;
+  public forecastTrigger: boolean;
 
-  // TODO refactor this to be named issuedDate
-  // As far as I understand, this is the date when the event was created and not when the disaster will happen
+  // REFACTOR: this to be named firstIssuedDate?
   @Column({ type: 'timestamp' })
   public startDate: Date;
 
   @Column({ type: 'float8', nullable: true })
-  public triggerValue: number;
+  public forecastSeverity: number;
 
   @Column({ type: 'float8', nullable: true })
   public mainExposureValue: number;

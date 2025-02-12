@@ -6,7 +6,7 @@ import {
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 
 export class NotificationDataPerEventDto {
-  triggerStatusLabel: TriggerStatusLabelEnum;
+  triggerStatusLabel: AlertStatusLabelEnum;
   eventName: string;
   disasterSpecificProperties: DisasterSpecificProperties;
 
@@ -37,7 +37,7 @@ export class NotificationDataPerEventDto {
   eapAlertClass: EapAlertClass;
 }
 
-export enum TriggerStatusLabelEnum {
+export enum AlertStatusLabelEnum {
   Trigger = 'Trigger',
   Warning = 'Warning',
 }

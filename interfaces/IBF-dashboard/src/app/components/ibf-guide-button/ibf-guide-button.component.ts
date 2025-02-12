@@ -53,7 +53,7 @@ export class IbfGuideButtonComponent implements OnDestroy {
       },
       animated: true,
       cssClass: `ibf-popover ibf-popover-large ${
-        this.eventService.state.thresholdReached ? 'trigger-alert' : 'no-alert'
+        this.eventService.state.forecastTrigger ? 'trigger-alert' : 'no-alert'
       }`,
       translucent: true,
       showBackdrop: true,
@@ -65,6 +65,6 @@ export class IbfGuideButtonComponent implements OnDestroy {
       component: this.constructor.name,
     });
 
-    popover.present();
+    void popover.present();
   }
 }

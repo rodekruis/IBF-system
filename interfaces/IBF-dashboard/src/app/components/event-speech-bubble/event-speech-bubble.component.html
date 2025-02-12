@@ -1,11 +1,11 @@
 @if (type === 'active') {
   <app-dialogue-turn
-    [isTriggered]="event.thresholdReached"
-    [isNotTriggered]="!event.thresholdReached"
+    [isTriggered]="event.forecastTrigger"
+    [isNotTriggered]="!event.forecastTrigger"
     [isSelected]="eventBubbleIsSelected(event.eventName)"
     [borderColor]="getCardColors().borderColor"
   >
-    @if (event.thresholdReached) {
+    @if (event.forecastTrigger) {
       <div class="event-header">
         <span class="event-header--icon-title">
           <ion-icon
@@ -116,7 +116,7 @@
         <strong
           >{{ event.disasterSpecificProperties.eapAlertClass.label }}:
         </strong>
-        @if (event.thresholdReached) {
+        @if (event.forecastTrigger) {
           <span
             >{{
               'chat-component.' +
@@ -142,13 +142,13 @@
               | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
           }}
         </strong>
-        <span>{{ event.nrAffectedAreas + ' ' }}</span>
-        @if (event.thresholdReached) {
+        <span>{{ event.nrAlertAreas + ' ' }}</span>
+        @if (event.forecastTrigger) {
           <span>{{
             '(' +
               (mainExposureIndicatorLabel | titlecase) +
               ' ' +
-              (event.actionsValueSum | compact) +
+              (event.mainExposureValueSum | compact) +
               ')'
           }}</span>
         } @else {
@@ -179,7 +179,7 @@
     <!-- =================================== -->
 
     @if (event.eventName === selectedEvent) {
-      @if (event.thresholdReached) {
+      @if (event.forecastTrigger) {
         <p
           [innerHTML]="
             'chat-component.' + disasterTypeName + '.active-event.overview'
@@ -230,7 +230,7 @@
           }
         </ul>
       </div>
-      @if (event.thresholdReached) {
+      @if (event.forecastTrigger) {
         <p
           [translate]="
             'chat-component.' + disasterTypeName + '.active-event.instruction'
