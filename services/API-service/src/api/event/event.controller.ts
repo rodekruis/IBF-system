@@ -19,6 +19,7 @@ import {
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
+import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminLevel } from '../country/admin-level.enum';
 import { countriesEnum } from '../country/country.enum';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
@@ -121,7 +122,7 @@ export class EventController {
   @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiParam({ name: 'adminLevel', required: true, enum: AdminLevel })
-  @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
+  @ApiQuery({ name: 'leadTime', required: false, enum: LeadTime })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,

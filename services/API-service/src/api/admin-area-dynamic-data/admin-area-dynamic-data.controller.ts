@@ -32,6 +32,7 @@ import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { DynamicIndicator } from './enum/dynamic-data-unit';
+import { LeadTime } from './enum/lead-time.enum';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -70,7 +71,7 @@ export class AdminAreaDynamicDataController {
   @ApiParam({ name: 'adminLevel', required: true, enum: AdminLevel })
   @ApiParam({ name: 'indicator', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
-  @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
+  @ApiQuery({ name: 'leadTime', required: false, enum: LeadTime })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
