@@ -100,7 +100,7 @@ test.describe('Scenario: No Trigger', () => {
   });
 
   test.describe('DisasterTypeComponent', () => {
-    DisasterTypeComponentVisible(pages, components, disasterType, date);
+    DisasterTypeComponentVisible(pages, components, disasterType);
     DisasterTypeComponentSelect(pages, components);
   });
 
