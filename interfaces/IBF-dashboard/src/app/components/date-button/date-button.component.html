@@ -13,11 +13,11 @@
     </div>
   }
 </span>
-@if (alert) {
+@if (forecastAlert) {
   <ion-icon
     class="warning-icon"
     [src]="
-      thresholdReached
+      forecastTrigger
         ? '/assets/icons/Alert_Title_Purple.svg'
         : '/assets/icons/Alert_Title_Navy.svg'
     "

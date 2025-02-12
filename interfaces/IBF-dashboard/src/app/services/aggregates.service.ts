@@ -17,15 +17,15 @@ import {
   AggregateByPlaceCode,
   AggregateRecord,
 } from 'src/app/types/aggregate';
+import { AlertArea } from 'src/app/types/alert-area';
 import { EventState } from 'src/app/types/event-state';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { TimelineState } from 'src/app/types/timeline-state';
-import { TriggeredArea } from 'src/app/types/triggered-area';
 
 export enum AreaStatus {
-  NonTriggeredOrWarned = 'non-triggered-or-warned',
-  TriggeredOrWarned = 'triggered-or-warned',
+  Alert = 'alert',
+  NoAlert = 'no-alert',
 }
 @Injectable({
   providedIn: 'root',
@@ -40,7 +40,7 @@ export class AggregatesService {
   private eventState: EventState;
   public timelineState: TimelineState;
   private adminLevel: AdminLevel;
-  public triggeredAreas: TriggeredArea[];
+  public alertAreas: AlertArea[];
   private placeCode: PlaceCode;
 
   constructor(
@@ -78,9 +78,7 @@ export class AggregatesService {
       .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
 
-    this.eapActionsService
-      .getTriggeredAreas()
-      .subscribe(this.onTriggeredAreasChange);
+    this.eapActionsService.getAlertAreas().subscribe(this.onAlertAreasChange);
 
     this.placeCodeService
       .getPlaceCodeSubscription()
@@ -115,8 +113,8 @@ export class AggregatesService {
     this.placeCode = placeCode;
   };
 
-  private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
-    this.triggeredAreas = triggeredAreas;
+  private onAlertAreasChange = (alertAreas: AlertArea[]) => {
+    this.alertAreas = alertAreas;
     this.loadMetadataAndAggregates();
   };
 
@@ -165,11 +163,11 @@ export class AggregatesService {
 
       aggregate.areaStatus =
         Number(aggregate[IbfLayerName.alertThreshold]) > 0
-          ? AreaStatus.TriggeredOrWarned
+          ? AreaStatus.Alert
           : Number(aggregate[this.disasterType.mainExposureIndicator]) > 0 &&
               this.eventState.events?.length > 0
-            ? AreaStatus.TriggeredOrWarned
-            : AreaStatus.NonTriggeredOrWarned; // Refactor: What is this needed for?
+            ? AreaStatus.Alert
+            : AreaStatus.NoAlert; // Refactor: What is this needed for?
     };
 
   private onEachPlaceCode = (feature: AggregateByPlaceCode) => {
@@ -209,7 +207,7 @@ export class AggregatesService {
     const groupsByPlaceCode = this.aggregateOnPlaceCode(records);
     this.aggregates = groupsByPlaceCode.map(this.onEachPlaceCode);
     this.nrTriggerAreas = this.aggregates.filter(
-      (a) => a.areaStatus === AreaStatus.TriggeredOrWarned,
+      (a) => a.areaStatus === AreaStatus.Alert,
     ).length;
   };
 

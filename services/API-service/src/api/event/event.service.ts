@@ -14,9 +14,9 @@ import {
 } from 'typeorm';
 
 import {
+  AlertArea,
   DisasterSpecificProperties,
   EventSummaryCountry,
-  TriggeredArea,
 } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
@@ -29,15 +29,15 @@ import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import { UserEntity } from '../user/user.entity';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { EapActionsService } from './../eap-actions/eap-actions.service';
+import { AlertPerLeadTimeEntity } from './alert-per-lead-time.entity';
 import { DateDto } from './dto/date.dto';
 import {
   ActivationLogDto,
   AffectedAreaDto,
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
-import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
+import { UploadAlertPerLeadTimeDto } from './dto/upload-alert-per-leadtime.dto';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
-import { AlertPerLeadTimeEntity } from './trigger-per-lead-time.entity';
 
 @Injectable()
 export class EventService {
@@ -48,7 +48,7 @@ export class EventService {
   @InjectRepository(AdminAreaEntity)
   private readonly adminAreaRepository: Repository<AdminAreaEntity>;
   @InjectRepository(AlertPerLeadTimeEntity)
-  private readonly triggerPerLeadTimeRepository: Repository<AlertPerLeadTimeEntity>;
+  private readonly alertPerLeadTimeRepository: Repository<AlertPerLeadTimeEntity>;
   @InjectRepository(DisasterTypeEntity)
   private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
   @InjectRepository(UserEntity)
@@ -189,56 +189,54 @@ export class EventService {
     return this.helperService.getRecentDate(countryCodeISO3, disasterType);
   }
 
-  public async uploadTriggerPerLeadTime(
-    uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
+  public async uploadAlertPerLeadTime(
+    uploadAlertPerLeadTimeDto: UploadAlertPerLeadTimeDto,
   ): Promise<void> {
-    uploadTriggerPerLeadTimeDto.date =
-      this.helperService.setDayToLastDayOfMonth(
-        uploadTriggerPerLeadTimeDto.date,
-        uploadTriggerPerLeadTimeDto.triggersPerLeadTime[0].leadTime,
-      );
-    const triggersPerLeadTime: AlertPerLeadTimeEntity[] = [];
-    const timestamp = uploadTriggerPerLeadTimeDto.date || new Date();
-    for (const leadTime of uploadTriggerPerLeadTimeDto.triggersPerLeadTime) {
+    uploadAlertPerLeadTimeDto.date = this.helperService.setDayToLastDayOfMonth(
+      uploadAlertPerLeadTimeDto.date,
+      uploadAlertPerLeadTimeDto.triggersPerLeadTime[0].leadTime,
+    );
+    const alertsPerLeadTime: AlertPerLeadTimeEntity[] = [];
+    const timestamp = uploadAlertPerLeadTimeDto.date || new Date();
+    for (const leadTime of uploadAlertPerLeadTimeDto.triggersPerLeadTime) {
       // Delete existing entries in case of a re-run of the pipeline within the same time period
-      await this.deleteDuplicates(uploadTriggerPerLeadTimeDto);
+      await this.deleteDuplicates(uploadAlertPerLeadTimeDto);
 
-      const triggerPerLeadTime = new AlertPerLeadTimeEntity();
-      triggerPerLeadTime.date = uploadTriggerPerLeadTimeDto.date || new Date();
-      triggerPerLeadTime.timestamp = timestamp;
-      triggerPerLeadTime.countryCodeISO3 =
-        uploadTriggerPerLeadTimeDto.countryCodeISO3;
-      triggerPerLeadTime.leadTime = leadTime.leadTime as LeadTime;
-      triggerPerLeadTime.forecastAlert = leadTime.triggered;
-      triggerPerLeadTime.forecastTrigger =
-        leadTime.triggered && leadTime.thresholdReached;
-      triggerPerLeadTime.disasterType =
-        uploadTriggerPerLeadTimeDto.disasterType;
-      triggerPerLeadTime.eventName = uploadTriggerPerLeadTimeDto.eventName;
+      const alertPerLeadTime = new AlertPerLeadTimeEntity();
+      alertPerLeadTime.date = uploadAlertPerLeadTimeDto.date || new Date();
+      alertPerLeadTime.timestamp = timestamp;
+      alertPerLeadTime.countryCodeISO3 =
+        uploadAlertPerLeadTimeDto.countryCodeISO3;
+      alertPerLeadTime.leadTime = leadTime.leadTime as LeadTime;
+      alertPerLeadTime.forecastAlert = leadTime.triggered; //##TODO: change when dto changes
+      alertPerLeadTime.forecastTrigger =
+        leadTime.triggered && leadTime.thresholdReached; //##TODO: change when dto changes
+      alertPerLeadTime.disasterType = uploadAlertPerLeadTimeDto.disasterType;
+      alertPerLeadTime.eventName = uploadAlertPerLeadTimeDto.eventName;
 
-      triggersPerLeadTime.push(triggerPerLeadTime);
+      alertsPerLeadTime.push(alertPerLeadTime);
     }
 
-    await this.triggerPerLeadTimeRepository.save(triggersPerLeadTime);
+    await this.alertPerLeadTimeRepository.save(alertsPerLeadTime);
   }
 
   private async deleteDuplicates(
-    uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
+    uploadAlertPerLeadTimeDto: UploadAlertPerLeadTimeDto,
   ): Promise<void> {
     const deleteFilters = {
-      countryCodeISO3: uploadTriggerPerLeadTimeDto.countryCodeISO3,
-      disasterType: uploadTriggerPerLeadTimeDto.disasterType,
+      countryCodeISO3: uploadAlertPerLeadTimeDto.countryCodeISO3,
+      disasterType: uploadAlertPerLeadTimeDto.disasterType,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
-          uploadTriggerPerLeadTimeDto.disasterType,
-          uploadTriggerPerLeadTimeDto.date,
+          uploadAlertPerLeadTimeDto.disasterType,
+          uploadAlertPerLeadTimeDto.date,
         ),
       ),
     };
-    if (uploadTriggerPerLeadTimeDto.eventName) {
-      deleteFilters['eventName'] = uploadTriggerPerLeadTimeDto.eventName;
+    if (uploadAlertPerLeadTimeDto.eventName) {
+      deleteFilters['eventName'] = uploadAlertPerLeadTimeDto.eventName;
     }
-    await this.triggerPerLeadTimeRepository.delete(deleteFilters);
+    await this.alertPerLeadTimeRepository.delete(deleteFilters);
   }
 
   private async deleteDuplicateEvents(
@@ -288,14 +286,14 @@ export class EventService {
     ).countryDisasterSettings.find((d) => d.disasterType === disasterType);
   }
 
-  public async getTriggeredAreas(
+  public async getAlertAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
     leadTime: string,
     eventName: string,
-  ): Promise<TriggeredArea[]> {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+  ): Promise<AlertArea[]> {
+    const lastUploadDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -313,7 +311,7 @@ export class EventService {
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastTriggeredDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       ),
     };
@@ -323,21 +321,19 @@ export class EventService {
     if (leadTime) {
       whereFiltersDynamicData['leadTime'] = leadTime;
     }
-    const triggeredAreasRaw = await this.adminAreaDynamicDataRepo
+    const alertAreasRaw = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .select(['dynamic.placeCode AS "placeCode"'])
       .where(whereFiltersDynamicData)
       .execute();
-    const triggeredPlaceCodes = triggeredAreasRaw.map(
-      (element) => element.placeCode,
-    );
+    const alertPlaceCodes = alertAreasRaw.map((element) => element.placeCode);
 
     if (adminLevel > defaultAdminLevel) {
       // Use this to also return something on deeper levels than default (to show in chat-section)
-      return this.getDeeperTriggeredAreas(
-        triggeredPlaceCodes,
+      return this.getDeeperAlertAreas(
+        alertPlaceCodes,
         disasterType,
-        lastTriggeredDate,
+        lastUploadDate,
         eventName,
       );
     }
@@ -349,7 +345,7 @@ export class EventService {
     if (eventName) {
       whereFiltersEvent['eventName'] = eventName;
     }
-    const triggeredAreas = await this.eventPlaceCodeRepo
+    const alertAreas = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
         'area."placeCode" AS "placeCode"',
@@ -379,8 +375,8 @@ export class EventService {
       .orderBy('event."mainExposureValue"', 'DESC')
       .getRawMany();
 
-    for (const area of triggeredAreas) {
-      if (triggeredPlaceCodes.length === 0) {
+    for (const area of alertAreas) {
+      if (alertPlaceCodes.length === 0) {
         area.eapActions = [];
       } else if (area.triggerValue < 1) {
         // Do not show actions for below-trigger events/areas
@@ -394,16 +390,16 @@ export class EventService {
         );
       }
     }
-    return triggeredAreas;
+    return alertAreas;
   }
 
-  private async getDeeperTriggeredAreas(
+  private async getDeeperAlertAreas(
     triggeredPlaceCodes: string[],
     disasterType: DisasterType,
     lastTriggeredDate: DateDto,
     eventName?: string,
     leadTime?: string,
-  ): Promise<TriggeredArea[]> {
+  ): Promise<AlertArea[]> {
     const mainExposureIndicator =
       await this.getMainExposureIndicator(disasterType);
     const whereFilters = {
@@ -527,7 +523,7 @@ export class EventService {
     eventName: string,
     triggeredLeadTime: boolean,
   ) {
-    const timesteps = await this.getTriggerPerLeadtime(
+    const timesteps = await this.getAlertPerLeadtime(
       countryCodeISO3,
       disasterType,
       eventName,
@@ -541,7 +537,7 @@ export class EventService {
         )
         .forEach((key) => {
           if (triggeredLeadTime) {
-            if (timesteps[`${key}-thresholdReached`] === '1') {
+            if (timesteps[`${key}-forecastTrigger`] === '1') {
               firstKey = !firstKey ? key : firstKey;
             }
           } else {
@@ -554,12 +550,12 @@ export class EventService {
     return firstKey;
   }
 
-  public async getTriggerPerLeadtime(
+  public async getAlertPerLeadtime(
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
   ): Promise<object> {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getRecentDate(
       countryCodeISO3,
       disasterType,
     );
@@ -568,7 +564,7 @@ export class EventService {
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastTriggeredDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       ),
       disasterType,
@@ -578,34 +574,35 @@ export class EventService {
     }
 
     // get max per leadTime (for multi-event case national view)
-    const triggersPerLeadTime = await this.triggerPerLeadTimeRepository
-      .createQueryBuilder('triggerPerLeadTime')
+    const alertsPerLeadTime = await this.alertPerLeadTimeRepository
+      .createQueryBuilder('alertPerLeadTime')
       .select([
-        'triggerPerLeadTime.leadTime as "leadTime"',
-        'triggerPerLeadTime.date as date',
-        'MAX(CASE WHEN triggerPerLeadTime.forecastAlert = TRUE THEN 1 ELSE 0 END) as triggered',
-        'MAX(CASE WHEN triggerPerLeadTime.forecastTrigger = TRUE THEN 1 ELSE 0 END) as "thresholdReached"',
+        'alertPerLeadTime.leadTime as "leadTime"',
+        'alertPerLeadTime.date as date',
+        'MAX(CASE WHEN alertPerLeadTime.forecastAlert = TRUE THEN 1 ELSE 0 END) as "forecastAlert"',
+        'MAX(CASE WHEN alertPerLeadTime.forecastTrigger = TRUE THEN 1 ELSE 0 END) as "forecastTrigger"',
       ])
       .where(whereFilters)
-      .groupBy('triggerPerLeadTime.leadTime')
-      .addGroupBy('triggerPerLeadTime.date')
+      .groupBy('alertPerLeadTime.leadTime')
+      .addGroupBy('alertPerLeadTime.date')
       .getRawMany();
 
-    if (triggersPerLeadTime.length === 0) {
+    if (alertsPerLeadTime.length === 0) {
       return;
     }
     const result = {
-      date: triggersPerLeadTime[0].date,
+      date: alertsPerLeadTime[0].date,
     };
     for (const leadTimeKey in LeadTime) {
       const leadTimeUnit = LeadTime[leadTimeKey];
-      const leadTimeIsTriggered = triggersPerLeadTime.find(
+      const leadTimeIsAlerted = alertsPerLeadTime.find(
         (el): boolean => el.leadTime === leadTimeUnit,
       );
-      if (leadTimeIsTriggered) {
-        result[leadTimeUnit] = String(Number(leadTimeIsTriggered.triggered));
-        result[`${leadTimeUnit}-thresholdReached`] = String(
-          Number(leadTimeIsTriggered.thresholdReached),
+      // REFACTOR: don't reformat the data structure so much, but keep (and use in front-end) closer to how the data is stored
+      if (leadTimeIsAlerted) {
+        result[leadTimeUnit] = String(Number(leadTimeIsAlerted.forecastAlert));
+        result[`${leadTimeUnit}-forecastTrigger`] = String(
+          Number(leadTimeIsAlerted.forecastTrigger),
         );
       }
     }

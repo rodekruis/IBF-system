@@ -11,7 +11,7 @@ import { EventAreaService } from '../admin-area/services/event-area.service';
 import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
-import { UploadTriggerPerLeadTimeDto } from '../event/dto/upload-trigger-per-leadtime.dto';
+import { UploadAlertPerLeadTimeDto } from '../event/dto/upload-alert-per-leadtime.dto';
 import { EventService } from '../event/event.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
@@ -95,7 +95,7 @@ export class AdminAreaDynamicDataService {
         (s) => s.disasterType === uploadExposure.disasterType,
       ).defaultAdminLevel === uploadExposure.adminLevel
     ) {
-      await this.insertTrigger(uploadExposure);
+      await this.insertAlertPerLeadTime(uploadExposure);
 
       await this.eventService.processEventAreas(
         uploadExposure.countryCodeISO3,
@@ -146,32 +146,32 @@ export class AdminAreaDynamicDataService {
     await this.adminAreaDynamicDataRepo.delete(deleteFilters);
   }
 
-  private async insertTrigger(
+  private async insertAlertPerLeadTime(
     uploadExposure: UploadAdminAreaDynamicDataDto,
   ): Promise<void> {
-    const trigger = this.isThereTrigger(uploadExposure.exposurePlaceCodes);
+    const forecastTrigger = this.isForecastTrigger(
+      uploadExposure.exposurePlaceCodes,
+    );
 
-    const eventBelowTrigger = !trigger && !!uploadExposure.eventName;
+    const forecastAlert = !forecastTrigger && !!uploadExposure.eventName; // ##TODO: REFACTOR
 
-    const uploadTriggerPerLeadTimeDto = new UploadTriggerPerLeadTimeDto();
-    uploadTriggerPerLeadTimeDto.countryCodeISO3 =
-      uploadExposure.countryCodeISO3;
-    uploadTriggerPerLeadTimeDto.disasterType = uploadExposure.disasterType;
-    uploadTriggerPerLeadTimeDto.eventName = uploadExposure.eventName;
-    uploadTriggerPerLeadTimeDto.triggersPerLeadTime = [
+    const uploadAlertPerLeadTimeDto = new UploadAlertPerLeadTimeDto();
+    uploadAlertPerLeadTimeDto.countryCodeISO3 = uploadExposure.countryCodeISO3;
+    uploadAlertPerLeadTimeDto.disasterType = uploadExposure.disasterType;
+    uploadAlertPerLeadTimeDto.eventName = uploadExposure.eventName;
+    uploadAlertPerLeadTimeDto.triggersPerLeadTime = [
+      // ##TODO: change when dto changes
       {
         leadTime: uploadExposure.leadTime as LeadTime,
-        triggered: trigger || eventBelowTrigger,
-        thresholdReached: trigger && !eventBelowTrigger,
+        triggered: forecastTrigger || forecastAlert,
+        thresholdReached: forecastTrigger && !forecastAlert,
       },
     ];
-    uploadTriggerPerLeadTimeDto.date = uploadExposure.date || new Date();
-    await this.eventService.uploadTriggerPerLeadTime(
-      uploadTriggerPerLeadTimeDto,
-    );
+    uploadAlertPerLeadTimeDto.date = uploadExposure.date || new Date();
+    await this.eventService.uploadAlertPerLeadTime(uploadAlertPerLeadTimeDto);
   }
 
-  private isThereTrigger(
+  private isForecastTrigger(
     exposurePlaceCodes: DynamicDataPlaceCodeDto[],
   ): boolean {
     for (const exposurePlaceCode of exposurePlaceCodes) {

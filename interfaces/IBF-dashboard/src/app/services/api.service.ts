@@ -3,20 +3,20 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { DEBUG_LOG } from 'src/app/config';
+import { AlertPerLeadTime } from 'src/app/models/alert-per-lead-time.model';
 import { Country, DisasterType } from 'src/app/models/country.model';
-import { CountryTriggers } from 'src/app/models/country-triggers.model';
 import { User } from 'src/app/models/user/user.model';
 import { ActivationLogRecord } from 'src/app/pages/dashboard/activation-log/activation.log.page';
 import { EventSummary } from 'src/app/services/event.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { AggregateRecord } from 'src/app/types/aggregate';
+import { AlertArea } from 'src/app/types/alert-area';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { IbfLayerMetadata, IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { RecentDate } from 'src/app/types/recent-date';
-import { TriggeredArea } from 'src/app/types/triggered-area';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -203,17 +203,17 @@ export class ApiService {
     );
   }
 
-  getTriggerPerLeadTime(
+  getAlertPerLeadTime(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
     eventName: string,
-  ): Observable<CountryTriggers> {
+  ): Observable<AlertPerLeadTime> {
     let params = new HttpParams();
     if (eventName) {
       params = params.append('eventName', eventName);
     }
     return this.get(
-      `event/triggers/${countryCodeISO3}/${disasterType}`,
+      `event/alerts/${countryCodeISO3}/${disasterType}`,
       false,
       params,
     );
@@ -276,13 +276,13 @@ export class ApiService {
     );
   }
 
-  getTriggeredAreas(
+  getAlertAreas(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
     adminLevel: number,
     leadTime: string,
     eventName: string,
-  ): Observable<TriggeredArea[]> {
+  ): Observable<AlertArea[]> {
     let params = new HttpParams();
     if (eventName) {
       params = params.append('eventName', eventName);
@@ -291,7 +291,7 @@ export class ApiService {
       params = params.append('leadTime', leadTime);
     }
     return this.get(
-      `event/triggered-areas/${countryCodeISO3}/${adminLevel.toString()}/${disasterType}`,
+      `event/alert-areas/${countryCodeISO3}/${adminLevel.toString()}/${disasterType}`,
       false,
       params,
     );

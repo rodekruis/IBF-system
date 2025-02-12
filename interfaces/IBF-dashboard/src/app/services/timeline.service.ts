@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AlertPerLeadTime } from 'src/app/models/alert-per-lead-time.model';
 import {
   Country,
   CountryDisasterSettings,
   DisasterType,
 } from 'src/app/models/country.model';
-import { CountryTriggers } from 'src/app/models/country-triggers.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
@@ -36,7 +36,7 @@ export class TimelineService {
   private timelineStateSubject = new BehaviorSubject<TimelineState>(
     this.startingState,
   );
-  private triggersAllEvents: CountryTriggers;
+  private alertsAllEvents: AlertPerLeadTime;
   private country: Country;
   private disasterType: DisasterType;
   private countryDisasterSettings: CountryDisasterSettings;
@@ -82,7 +82,7 @@ export class TimelineService {
   };
 
   private resetState() {
-    this.triggersAllEvents = null;
+    this.alertsAllEvents = null;
     this.eventState = this.eventService.nullState;
     this.state = this.startingState;
   }
@@ -121,8 +121,8 @@ export class TimelineService {
       .map((e) => e.firstLeadTime)
       .includes(leadTime);
     const triggerKey = LeadTimeTriggerKey[leadTime];
-    const alert =
-      this.triggersAllEvents?.[leadTime] === '1' &&
+    const forecastAlert =
+      this.alertsAllEvents?.[leadTime] === '1' &&
       (!isUndefinedLeadTime ||
         (isUndefinedLeadTime && leadTimeInput.undefined));
 
@@ -130,9 +130,10 @@ export class TimelineService {
       date: this.getLeadTimeDate(leadTime, triggerKey, leadTimeInput.undefined),
       unit: leadTime.split('-')[1] as LeadTimeUnit,
       value: leadTime,
-      alert,
-      thresholdReached:
-        alert && this.triggersAllEvents[`${leadTime}-thresholdReached`] === '1',
+      forecastAlert,
+      forecastTrigger:
+        forecastAlert &&
+        this.alertsAllEvents[`${leadTime}-forecastTrigger`] === '1',
       disabled: !isLeadTimeEnabled && !leadTimeInput.undefined,
       active: false,
       noEvent: this.isNoEvent(),
@@ -150,16 +151,17 @@ export class TimelineService {
     );
   }
 
-  private onTriggerPerLeadTime = (triggersPerLeadTime: CountryTriggers) => {
-    this.triggersAllEvents = triggersPerLeadTime;
+  private onAlertPerLeadTime = (alertsPerLeadTime: AlertPerLeadTime) => {
+    this.alertsAllEvents = alertsPerLeadTime;
 
     this.state.timeStepButtons = [];
     const visibleLeadTimes = this.getVisibleLeadTimes();
     visibleLeadTimes.map(this.leadTimeToLeadTimeButton);
 
-    // filter enabled + triggered lead-times
+    // filter enabled + alerted lead-times
     let toShowTimeStepButtons = this.state.timeStepButtons.filter(
-      (timeStepButton) => !timeStepButton.disabled && timeStepButton.alert,
+      (timeStepButton) =>
+        !timeStepButton.disabled && timeStepButton.forecastAlert,
     );
     // except if that leads to empty set: filter enabled lead-times
     if (toShowTimeStepButtons.length === 0) {
@@ -222,12 +224,12 @@ export class TimelineService {
 
     // First get triggers per day across all events for timeline
     this.apiService
-      .getTriggerPerLeadTime(
+      .getAlertPerLeadTime(
         this.country.countryCodeISO3,
         this.disasterType.disasterType,
         null,
       )
-      .subscribe(this.onTriggerPerLeadTime);
+      .subscribe(this.onAlertPerLeadTime);
   };
 
   public loadTimeStepButtons(): void {
@@ -481,12 +483,12 @@ export class TimelineService {
       const leadTimeMonth = this.getLeadTimeMonth(leadTime);
       if (this.checkRegionalDroughtSeason()) {
         // If regional drought seasons (and thus potentially multiple triggers) ..
-        const triggeredLeadTimes = Object.keys(this.triggersAllEvents).filter(
-          (lt) => this.triggersAllEvents[lt] === '1',
+        const alertedLeadTimes = Object.keys(this.alertsAllEvents).filter(
+          (lt) => this.alertsAllEvents[lt] === '1',
         );
-        // .. show all triggered lead times only
-        if (triggeredLeadTimes.length) {
-          return triggeredLeadTimes.includes(leadTime);
+        // .. show all alerted lead times only
+        if (alertedLeadTimes.length) {
+          return alertedLeadTimes.includes(leadTime);
         }
         // .. otherwise determine first available leadtime month
         const nextForecastMonth = this.getNextForecastMonth();

@@ -6,9 +6,9 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { MOCK_ALERT_AREAS } from 'src/app/mocks/alert-areas.mock';
 import { MOCK_COUNTRYDISASTERSETTINGS } from 'src/app/mocks/country-disaster-settings.mock';
 import { MOCK_LAYERS } from 'src/app/mocks/ibf-layer.mock';
-import { MOCK_TRIGGEREDAREAS } from 'src/app/mocks/triggered-areas.mock';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { MapService } from 'src/app/services/map.service';
@@ -83,10 +83,10 @@ describe('MapService', () => {
   });
 
   describe('getAreaByPlaceCode', () => {
-    it('should return the triggered area corresponding to the provided placeCode or placeCodeParent', () => {
-      service.triggeredAreas = MOCK_TRIGGEREDAREAS;
+    it('should return the alert area corresponding to the provided placeCode or placeCodeParent', () => {
+      service.alertAreas = MOCK_ALERT_AREAS;
 
-      const expected = MOCK_TRIGGEREDAREAS[0];
+      const expected = MOCK_ALERT_AREAS[0];
 
       expect(
         service.getAreaByPlaceCode(

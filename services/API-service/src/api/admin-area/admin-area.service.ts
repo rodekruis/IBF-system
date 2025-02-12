@@ -86,20 +86,20 @@ export class AdminAreaService {
     leadTime: string,
     eventName: string,
   ) {
-    const triggersPerLeadTime = await this.eventService.getTriggerPerLeadtime(
+    const alertsPerLeadTime = await this.eventService.getAlertPerLeadtime(
       countryCodeISO3,
       disasterType,
       eventName,
     );
     let trigger;
     if (leadTime) {
-      trigger = triggersPerLeadTime[leadTime];
+      trigger = alertsPerLeadTime[leadTime];
     } else {
-      const leadTimeKeys = Object.keys(triggersPerLeadTime).filter((key) =>
+      const leadTimeKeys = Object.keys(alertsPerLeadTime).filter((key) =>
         Object.values(LeadTime).includes(key as LeadTime),
       );
       for (const key of leadTimeKeys) {
-        if (triggersPerLeadTime[key] === '1') {
+        if (alertsPerLeadTime[key] === '1') {
           trigger = '1';
           break;
         }
@@ -169,6 +169,7 @@ export class AdminAreaService {
     const disasterTypeEntity = await this.disasterTypeRepository.findOne({
       where: { disasterType: disasterType },
     });
+    // REFACTOR: exact working if this property and code very unclear
     if (disasterTypeEntity.showOnlyTriggeredAreas) {
       return await this.getTriggeredPlaceCodes(
         countryCodeISO3,
@@ -456,7 +457,7 @@ export class AdminAreaService {
       .where(whereFilters)
       .getMany();
 
-    // The 'showAdminArea' indicator queried for above is only used in Typhoon. Theoretically it could be used more widespread. For now
+    // The 'showAdminArea' indicator queried for above is only used in Typhoon. Theoretically it could be used more widespread.
     // If no data found, this will correctly return an empty array.
     return adminAreasToShow.map((area) => area.placeCode);
   }

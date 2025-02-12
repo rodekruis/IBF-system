@@ -200,7 +200,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       indicatorName,
       this.getPlaceCodeValue(),
       numberFormat,
-      AreaStatus.TriggeredOrWarned,
+      AreaStatus.Alert,
     );
 
     return agg;
