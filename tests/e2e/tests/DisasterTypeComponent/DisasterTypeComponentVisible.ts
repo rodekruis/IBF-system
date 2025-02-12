@@ -7,7 +7,6 @@ export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
   disasterType: string,
-  date: Date,
 ) => {
   test('[33028] Disaster type component elements should be visible', async () => {
     const { dashboard } = pages;
@@ -24,7 +23,7 @@ export default (
       countryName: NoTriggerDataSet.CountryName,
     });
     await disasterTypeComponent.topBarComponentIsVisible();
-    await disasterTypeComponent.allDisasterTypeElementsArePresent(date);
+    await disasterTypeComponent.allDisasterTypeElementsArePresent();
 
     // Reload the page to prepare for next test
     await dashboard.page.goto('/');

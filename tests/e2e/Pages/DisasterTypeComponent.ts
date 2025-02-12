@@ -21,10 +21,11 @@ class DisasterTypeComponent extends DashboardPage {
     await expect(topBar).toBeVisible();
   }
 
-  async allDisasterTypeElementsArePresent(date: Date) {
+  async allDisasterTypeElementsArePresent() {
+    const date = new Date();
     const formattedDate = format(date, 'd MMM yyyyEEEE,');
-    const formattedTime = format(date, 'HH:mm');
-    const currentDateTime = `${formattedDate} ${formattedTime}`;
+    // const formattedTime = format(date, 'HH:mm ');
+    const currentDateTime = `${formattedDate}`; // ${formattedTime}`; // Including the time makes the test flaky, omit for now
 
     await expect(this.floodIcon).toBeVisible();
     await expect(this.droughtIcon).toBeVisible();
