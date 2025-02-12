@@ -62,6 +62,11 @@ class MapComponent extends DashboardPage {
     );
   }
 
+  async waitForMapToBeLoaded() {
+    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('domcontentloaded');
+  }
+
   async mapComponentIsVisible() {
     await expect(this.mapComponent).toBeVisible();
   }
@@ -119,6 +124,8 @@ class MapComponent extends DashboardPage {
   }: {
     layerMenuOpen?: boolean;
   }) {
+    await this.waitForMapToBeLoaded();
+
     if (layerMenuOpen) {
       await expect(this.layerMenu).toBeVisible();
     } else {
@@ -127,9 +134,8 @@ class MapComponent extends DashboardPage {
   }
 
   async assertAdminBoundariesVisible() {
-    await this.page.waitForLoadState('networkidle');
-    await this.page.waitForLoadState('domcontentloaded');
-    await this.page.waitForTimeout(500); // This is a workaround for the issue with the map not loading in the same moment as the dom
+    await this.waitForMapToBeLoaded();
+    await this.page.waitForTimeout(2000); // This is a workaround for the issue with the map not loading in the same moment as the dom
     await this.page.waitForSelector('.leaflet-interactive');
 
     const adminBoundaries = this.adminBoundry;
@@ -143,8 +149,7 @@ class MapComponent extends DashboardPage {
 
   async clickLayerCheckbox({ layerName }: { layerName: string }) {
     // Remove Glofas station from the map (in case the mock is for floods)
-    await this.page.waitForLoadState('networkidle');
-    await this.page.waitForLoadState('domcontentloaded');
+    await this.waitForMapToBeLoaded();
 
     await this.layerMenuToggle.click();
     await this.page.waitForSelector('data-testid=matrix-layer-name');
@@ -248,8 +253,7 @@ class MapComponent extends DashboardPage {
     const aggregates = new AggregatesComponent(this.page);
 
     // Wait for the page to load
-    await this.page.waitForLoadState('networkidle');
-    await this.page.waitForLoadState('domcontentloaded');
+    await this.waitForMapToBeLoaded();
     await this.page.waitForSelector('.leaflet-interactive');
     await this.page.waitForTimeout(200);
 
