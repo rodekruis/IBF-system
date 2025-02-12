@@ -229,9 +229,7 @@ export class AdminAreaService {
     if (placeCodeParent) {
       staticIndicatorsScript.andWhere(
         'area."placeCodeParent" = :placeCodeParent',
-        {
-          placeCodeParent: placeCodeParent,
-        },
+        { placeCodeParent: placeCodeParent },
       );
     }
     if (placeCodes.length) {
@@ -267,9 +265,7 @@ export class AdminAreaService {
     if (placeCodeParent) {
       dynamicIndicatorsScript.andWhere(
         'area."placeCodeParent" = :placeCodeParent',
-        {
-          placeCodeParent: placeCodeParent,
-        },
+        { placeCodeParent: placeCodeParent },
       );
     }
     if (leadTime) {
@@ -311,9 +307,7 @@ export class AdminAreaService {
         'adminLevel',
         'geom',
       ],
-      where: {
-        countryCodeISO3: countryCodeISO3,
-      },
+      where: { countryCodeISO3: countryCodeISO3 },
     });
   }
 

@@ -5,9 +5,7 @@ const eslintPluginPrettier = require('eslint-plugin-prettier');
 const eslintPluginJest = require('eslint-plugin-jest');
 const tsEslintPlugin = require('@typescript-eslint/eslint-plugin');
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+const compat = new FlatCompat({ baseDirectory: __dirname });
 
 module.exports = [
   {
@@ -27,18 +25,10 @@ module.exports = [
       '@typescript-eslint/no-var-requires': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
-        {
-          varsIgnorePattern: '^_',
-          argsIgnorePattern: '^_',
-        },
+        { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
       ],
       '@typescript-eslint/camelcase': 'off',
-      'prettier/prettier': [
-        'error',
-        {
-          endOfLine: 'auto',
-        },
-      ],
+      'prettier/prettier': ['error', { endOfLine: 'auto' }],
     },
   },
   ...compat.extends('plugin:@typescript-eslint/recommended'),

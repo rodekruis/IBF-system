@@ -5,9 +5,7 @@ export class NotificationInfoEntity {
   @PrimaryGeneratedColumn('uuid')
   public notificationInfoId: string;
 
-  @Column('json', {
-    default: {},
-  })
+  @Column('json', { default: {} })
   public logo: JSON;
 
   @Column('json', { default: {} })

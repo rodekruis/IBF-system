@@ -95,10 +95,7 @@ export class PointDataController {
   }
 
   @ApiOperation({ summary: 'Upload community notification' })
-  @ApiResponse({
-    status: 201,
-    description: 'Uploaded community notification.',
-  })
+  @ApiResponse({ status: 201, description: 'Uploaded community notification.' })
   @ApiParam({ name: 'countryCodeISO3', required: true, enum: countriesEnum })
   @Post('community-notification/:countryCodeISO3')
   public async uploadCommunityNotification(
@@ -127,10 +124,7 @@ export class PointDataController {
 
   @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Upload dynamic point data' })
-  @ApiResponse({
-    status: 201,
-    description: 'Uploaded dynamic point data.',
-  })
+  @ApiResponse({ status: 201, description: 'Uploaded dynamic point data.' })
   @Post('dynamic')
   public async uploadDynamicPointData(
     @Body() dynamicPointData: UploadDynamicPointDataDto,

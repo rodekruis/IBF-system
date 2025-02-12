@@ -22,10 +22,7 @@ export class AdminAreaDataEntity {
   })
   public countryCodeISO3: string;
 
-  @Column({
-    type: 'enum',
-    enum: AdminLevel,
-  })
+  @Column({ type: 'enum', enum: AdminLevel })
   public adminLevel: AdminLevel;
 
   @Index()

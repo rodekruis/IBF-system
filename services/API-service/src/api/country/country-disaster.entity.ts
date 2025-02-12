@@ -28,17 +28,12 @@ export class CountryDisasterSettingsEntity {
 
   @ApiProperty({ example: DisasterType.Floods })
   @ManyToOne((): typeof DisasterTypeEntity => DisasterTypeEntity)
-  @JoinColumn({
-    name: 'disasterType',
-    referencedColumnName: 'disasterType',
-  })
+  @JoinColumn({ name: 'disasterType', referencedColumnName: 'disasterType' })
   @Column()
   public disasterType: DisasterType;
 
   @ApiProperty({ example: [1, 2, 3, 4] })
-  @Column('int', {
-    array: true,
-  })
+  @Column('int', { array: true })
   public adminLevels: AdminLevel[];
 
   @ApiProperty({ example: AdminLevel.adminLevel1 })
@@ -65,9 +60,7 @@ export class CountryDisasterSettingsEntity {
   @Column('json', { default: null, nullable: true })
   public monthlyForecastInfo: JSON;
 
-  @ApiProperty({
-    example: 'https://docs.google.com',
-  })
+  @ApiProperty({ example: 'https://docs.google.com' })
   @Column({ default: '' })
   public eapLink: string;
 

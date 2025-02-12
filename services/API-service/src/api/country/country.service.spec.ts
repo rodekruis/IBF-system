@@ -30,10 +30,7 @@ describe('CountryService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         CountryService,
-        {
-          provide: getRepositoryToken(CountryEntity),
-          useClass: Repository,
-        },
+        { provide: getRepositoryToken(CountryEntity), useClass: Repository },
         {
           provide: getRepositoryToken(DisasterTypeEntity),
           useClass: Repository,

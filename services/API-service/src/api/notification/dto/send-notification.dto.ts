@@ -12,9 +12,7 @@ import { countriesEnum } from '../../country/country.enum';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 
 export class SendNotificationDto {
-  @ApiProperty({
-    example: Object.values(countriesEnum).join(' | '),
-  })
+  @ApiProperty({ example: Object.values(countriesEnum).join(' | ') })
   @IsNotEmpty()
   @IsString()
   @IsIn(Object.values(countriesEnum))

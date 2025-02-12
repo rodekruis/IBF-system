@@ -90,10 +90,7 @@ const getMjmlEventAdminAreaTable = ({
     childrenEls.push(adminAreaTable);
   }
 
-  return getSectionElement({
-    childrenEls,
-    attributes: { padding: '8px' },
-  });
+  return getSectionElement({ childrenEls, attributes: { padding: '8px' } });
 };
 
 export const getMjmlAdminAreaDisclaimer = (): object => {
@@ -102,10 +99,7 @@ export const getMjmlAdminAreaDisclaimer = (): object => {
       getTextElement({
         content:
           'All numbers are approximate and meant to be used as guidance.',
-        attributes: {
-          align: 'center',
-          'font-size': '14px',
-        },
+        attributes: { align: 'center', 'font-size': '14px' },
       }),
     ],
     attributes: { padding: '8px' },

@@ -56,12 +56,7 @@ export class NotificationController {
   @UseInterceptors()
   public async send(
     @Body() sendNotification: SendNotificationDto,
-    @Query(
-      'isApiTest',
-      new ParseBoolPipe({
-        optional: true,
-      }),
-    )
+    @Query('isApiTest', new ParseBoolPipe({ optional: true }))
     isApiTest: boolean,
   ): Promise<void | NotificationApiTestResponseDto> {
     return await this.notificationService.send(

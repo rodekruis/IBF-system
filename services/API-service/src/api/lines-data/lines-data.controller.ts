@@ -66,10 +66,7 @@ export class LinesDataController {
 
   @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Upload asset exposure status' })
-  @ApiResponse({
-    status: 201,
-    description: 'Uploaded asset exposure status.',
-  })
+  @ApiResponse({ status: 201, description: 'Uploaded asset exposure status.' })
   @Post('exposure-status')
   public async uploadAssetExposureStatus(
     @Body() assetFids: UploadLinesExposureStatusDto,

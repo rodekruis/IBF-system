@@ -9,9 +9,7 @@ export class LayerMetadataEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column('json', {
-    default: {},
-  })
+  @Column('json', { default: {} })
   public countryDisasterTypes: JSON;
 
   @ApiProperty()
@@ -40,8 +38,6 @@ export class LayerMetadataEntity {
   @IsIn(['no', 'yes', 'if-trigger'])
   public active: string;
 
-  @Column('json', {
-    default: {},
-  })
+  @Column('json', { default: {} })
   public description: JSON;
 }

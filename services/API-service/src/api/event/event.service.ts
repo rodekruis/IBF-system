@@ -342,10 +342,7 @@ export class EventService {
       );
     }
 
-    const whereFiltersEvent = {
-      closed: false,
-      disasterType: disasterType,
-    };
+    const whereFiltersEvent = { closed: false, disasterType: disasterType };
     if (eventName) {
       whereFiltersEvent['eventName'] = eventName;
     }
@@ -594,9 +591,7 @@ export class EventService {
     if (triggersPerLeadTime.length === 0) {
       return;
     }
-    const result = {
-      date: triggersPerLeadTime[0].date,
-    };
+    const result = { date: triggersPerLeadTime[0].date };
     for (const leadTimeKey in LeadTime) {
       const leadTimeUnit = LeadTime[leadTimeKey];
       const leadTimeIsTriggered = triggersPerLeadTime.find(
@@ -990,10 +985,7 @@ export class EventService {
     );
 
     return {
-      eapAlertClass: {
-        key: alertClassKey,
-        ...eapAlertClasses[alertClassKey],
-      },
+      eapAlertClass: { key: alertClassKey, ...eapAlertClasses[alertClassKey] },
     };
   }
 }

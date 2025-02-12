@@ -22,9 +22,7 @@ export class EapActionEntity {
   @Column()
   public label: string;
 
-  @Column('json', {
-    default: {},
-  })
+  @Column('json', { default: {} })
   public month: JSON;
 
   @ManyToOne((): typeof CountryEntity => CountryEntity)
@@ -35,10 +33,7 @@ export class EapActionEntity {
   public countryCodeISO3: string;
 
   @ManyToOne((): typeof DisasterTypeEntity => DisasterTypeEntity)
-  @JoinColumn({
-    name: 'disasterType',
-    referencedColumnName: 'disasterType',
-  })
+  @JoinColumn({ name: 'disasterType', referencedColumnName: 'disasterType' })
   public disasterType: string;
 
   @Column({ nullable: true })

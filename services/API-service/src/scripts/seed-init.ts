@@ -85,9 +85,7 @@ export class SeedInit implements InterfaceScript {
 
     const envDisasterTypes = process.env.DISASTER_TYPES.split(',');
     await this.countryService.addOrUpdateCountries(
-      {
-        countries: selectedCountries,
-      },
+      { countries: selectedCountries },
       envDisasterTypes,
     );
 
@@ -155,18 +153,14 @@ export class SeedInit implements InterfaceScript {
           ? await countryRepository.find()
           : await countryRepository.find({
               where: user.countries.map((countryCodeISO3: string): object => {
-                return {
-                  countryCodeISO3: countryCodeISO3,
-                };
+                return { countryCodeISO3: countryCodeISO3 };
               }),
             });
         userEntity.disasterTypes = !user.disasterTypes
           ? []
           : await disasterTypeRepository.find({
               where: user.disasterTypes.map((disasterType: string): object => {
-                return {
-                  disasterType: disasterType,
-                };
+                return { disasterType: disasterType };
               }),
             });
         userEntity.password = user.password;

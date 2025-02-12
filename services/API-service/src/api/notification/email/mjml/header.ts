@@ -34,10 +34,7 @@ export const getMjmlHeader = ({
 
   const subtitleElement = getTextElement({
     content: `IBF alert sent on ${sentOnDate}`,
-    attributes: {
-      color: COLOR_WHITE,
-      align: 'center',
-    },
+    attributes: { color: COLOR_WHITE, align: 'center' },
   });
 
   return getSectionElement({

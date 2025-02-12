@@ -18,8 +18,5 @@ export class HealthController {
   }
 }
 
-@Module({
-  controllers: [HealthController],
-  imports: [TerminusModule],
-})
+@Module({ controllers: [HealthController], imports: [TerminusModule] })
 export class HealthModule {}

@@ -19,9 +19,7 @@ export class DisasterTypeService {
   ): Promise<void> {
     for await (const disasterType of disasterTypes.disasterTypes) {
       const existingDisasterType = await this.disasterTypeRepository.findOne({
-        where: {
-          disasterType: disasterType.disasterType,
-        },
+        where: { disasterType: disasterType.disasterType },
       });
       if (existingDisasterType) {
         await this.addOrUpdateDisasterType(existingDisasterType, disasterType);

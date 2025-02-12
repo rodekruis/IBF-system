@@ -457,15 +457,9 @@ export class MockService {
 
     const allCountryEvents = await this.eventPlaceCodeRepo.find({
       relations: ['eapActionStatuses', 'adminArea'],
-      where: {
-        adminArea: In(countryAdminAreaIds),
-        disasterType,
-      },
+      where: { adminArea: In(countryAdminAreaIds), disasterType },
     });
-    await this.triggerPerLeadTimeRepo.delete({
-      countryCodeISO3,
-      disasterType,
-    });
+    await this.triggerPerLeadTimeRepo.delete({ countryCodeISO3, disasterType });
     await this.adminAreaDynamicDataRepo.delete({
       countryCodeISO3,
       disasterType,

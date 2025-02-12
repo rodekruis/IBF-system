@@ -104,12 +104,7 @@ async function bootstrap(): Promise<void> {
     }),
   );
   app.use(bodyParser.json({ limit: '25mb' }));
-  app.use(
-    bodyParser.urlencoded({
-      limit: '25mb',
-      extended: true,
-    }),
-  );
+  app.use(bodyParser.urlencoded({ limit: '25mb', extended: true }));
 
   if (DEBUG) {
     generateModuleDependencyGraph(app);

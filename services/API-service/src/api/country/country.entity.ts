@@ -38,19 +38,11 @@ export class CountryEntity {
 
   @ApiProperty({
     example: {
-      '1': {
-        singular: 'Region',
-        plural: 'Regions',
-      },
-      '2': {
-        singular: 'District',
-        plural: 'Districts',
-      },
+      '1': { singular: 'Region', plural: 'Regions' },
+      '2': { singular: 'District', plural: 'Districts' },
     },
   })
-  @Column('json', {
-    default: {},
-  })
+  @Column('json', { default: {} })
   public adminRegionLabels: JSON;
 
   @ApiProperty({
@@ -59,21 +51,11 @@ export class CountryEntity {
       floods: ['logo3.svg', 'logo4.png'],
     },
   })
-  @Column('json', {
-    default: {},
-  })
+  @Column('json', { default: {} })
   public countryLogos: JSON;
 
-  @ApiProperty({
-    example: {
-      type: 'Polygon',
-      coordinates: [],
-    },
-  })
-  @Column('geometry', {
-    spatialFeatureType: 'Polygon',
-    srid: 4326,
-  })
+  @ApiProperty({ example: { type: 'Polygon', coordinates: [] } })
+  @Column('geometry', { spatialFeatureType: 'Polygon', srid: 4326 })
   public countryBoundingBox: BoundingBox;
 
   @ApiProperty({ example: new Date() })
@@ -93,9 +75,7 @@ export class CountryEntity {
   )
   public disasterTypes: DisasterTypeEntity[];
 
-  @OneToOne(() => NotificationInfoEntity, {
-    cascade: true,
-  })
+  @OneToOne(() => NotificationInfoEntity, { cascade: true })
   @JoinColumn()
   public notificationInfo: NotificationInfoEntity;
 }

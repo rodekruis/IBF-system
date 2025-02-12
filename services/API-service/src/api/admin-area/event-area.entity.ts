@@ -29,10 +29,7 @@ export class EventAreaEntity {
 
   @ApiProperty({ example: DisasterType.FlashFloods })
   @ManyToOne((): typeof DisasterTypeEntity => DisasterTypeEntity)
-  @JoinColumn({
-    name: 'disasterType',
-    referencedColumnName: 'disasterType',
-  })
+  @JoinColumn({ name: 'disasterType', referencedColumnName: 'disasterType' })
   public disasterType: string;
 
   @ApiProperty({ example: 'Rumphi' })
@@ -40,9 +37,6 @@ export class EventAreaEntity {
   public eventAreaName: string;
 
   @ApiProperty()
-  @Column('geometry', {
-    spatialFeatureType: 'MultiPolygon',
-    srid: 4326,
-  })
+  @Column('geometry', { spatialFeatureType: 'MultiPolygon', srid: 4326 })
   public geom: MultiPolygon;
 }

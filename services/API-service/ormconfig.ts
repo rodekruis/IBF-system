@@ -20,7 +20,5 @@ export const ORMConfig: DataSourceOptions = {
   ssl:
     process.env.NODE_ENV === 'development'
       ? null
-      : {
-          ca: fs.readFileSync('cert/DigiCertGlobalRootCA.crt.pem').toString(),
-        },
+      : { ca: fs.readFileSync('cert/DigiCertGlobalRootCA.crt.pem').toString() },
 };

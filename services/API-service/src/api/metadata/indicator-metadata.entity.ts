@@ -10,9 +10,7 @@ export class IndicatorMetadataEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column('json', {
-    default: {},
-  })
+  @Column('json', { default: {} })
   public countryDisasterTypes: JSON;
 
   @ApiProperty()
@@ -79,8 +77,6 @@ export class IndicatorMetadataEntity {
   @Column({ default: false })
   public lazyLoad: boolean;
 
-  @Column('json', {
-    default: {},
-  })
+  @Column('json', { default: {} })
   public description: JSON;
 }

@@ -79,12 +79,7 @@ export class ScriptsController {
     @Query('countryCodeISO3') countryCodeISO3: string,
     @Body() body: MockInputDto,
     @Res() res,
-    @Query(
-      'isApiTest',
-      new ParseBoolPipe({
-        optional: true,
-      }),
-    )
+    @Query('isApiTest', new ParseBoolPipe({ optional: true }))
     isApiTest: boolean,
   ): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {

@@ -49,12 +49,8 @@ const getViewQuery = (type: LinesDataEnum) => {
         'COALESCE(status.exposed,FALSE) as "exposed"',
       ]);
 };
-@ViewEntity({
-  expression: getViewQuery(LinesDataEnum.buildings),
-})
+@ViewEntity({ expression: getViewQuery(LinesDataEnum.buildings) })
 export class BuildingsExposurePerLeadTime {}
 
-@ViewEntity({
-  expression: getViewQuery(LinesDataEnum.roads),
-})
+@ViewEntity({ expression: getViewQuery(LinesDataEnum.roads) })
 export class RoadsExposurePerLeadTime {}

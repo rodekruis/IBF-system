@@ -36,9 +36,7 @@ export class EventAreaService {
     eventAreasGeoJson: GeoJson,
   ) {
     //delete existing entries for country & adminlevel first
-    await this.eventAreaRepository.delete({
-      countryCodeISO3: countryCodeISO3,
-    });
+    await this.eventAreaRepository.delete({ countryCodeISO3: countryCodeISO3 });
 
     // then upload new admin-areas
     await Promise.all(

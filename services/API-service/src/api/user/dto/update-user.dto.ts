@@ -21,10 +21,7 @@ export class UpdateUserDto {
   @IsOptional()
   public lastName?: string;
 
-  @ApiProperty({
-    enum: userRoleArray,
-    example: userRoleArray.join(' | '),
-  })
+  @ApiProperty({ enum: userRoleArray, example: userRoleArray.join(' | ') })
   @IsIn(userRoleArray)
   @IsOptional()
   public role?: UserRole;

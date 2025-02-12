@@ -41,9 +41,7 @@ export class DisasterTypeDto {
 }
 
 export class AddDisasterTypesDto {
-  @ApiProperty({
-    example: [{}],
-  })
+  @ApiProperty({ example: [{}] })
   @IsNotEmpty()
   public disasterTypes: DisasterTypeDto[];
 }

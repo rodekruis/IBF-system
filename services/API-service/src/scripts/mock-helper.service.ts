@@ -150,10 +150,7 @@ export class MockHelperService {
         return;
       }
 
-      const dataObject = {
-        originalname: destFileName,
-        buffer: file,
-      };
+      const dataObject = { originalname: destFileName, buffer: file };
       await this.adminAreaDynamicDataService.postRaster(
         dataObject,
         disasterType,

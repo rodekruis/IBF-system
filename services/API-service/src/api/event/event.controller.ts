@@ -173,10 +173,7 @@ export class EventController {
     status: 201,
     description: 'Trigger stopped for given admin-area.',
   })
-  @ApiResponse({
-    status: 404,
-    description: 'No admin-area for this event.',
-  })
+  @ApiResponse({ status: 404, description: 'No admin-area for this event.' })
   @Post('toggle-stopped-trigger')
   public async toggleStoppedTrigger(
     @UserDecorator('userId') userId: string,
@@ -214,10 +211,7 @@ export class EventController {
     summary:
       'Close events automatically for given country and disaster-type. Must be run at end of every pipeline. Currently not used, the same logic is also in /notification/send endpoint.',
   })
-  @ApiResponse({
-    status: 201,
-    description: 'Closed finished events.',
-  })
+  @ApiResponse({ status: 201, description: 'Closed finished events.' })
   @Post('close-events')
   public async closeEvents(
     @Body() closeEventsDto: SendNotificationDto,

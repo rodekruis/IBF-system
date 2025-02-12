@@ -33,10 +33,7 @@ export class WaterpointsController {
     status: 200,
     description: 'Waterpoint locations and attributes in GEOJSON format',
   })
-  @ApiResponse({
-    status: 404,
-    description: 'Country not found',
-  })
+  @ApiResponse({ status: 404, description: 'Country not found' })
   @Get(':countryCodeISO3')
   public async getWaterpoints(
     @Param() params,

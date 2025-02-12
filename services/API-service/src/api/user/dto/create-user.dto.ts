@@ -40,10 +40,7 @@ export class CreateUserDto {
   @IsNotEmpty()
   public lastName: string;
 
-  @ApiProperty({
-    enum: userRoleArray,
-    example: userRoleArray.join(' | '),
-  })
+  @ApiProperty({ enum: userRoleArray, example: userRoleArray.join(' | ') })
   @IsIn(userRoleArray)
   @IsNotEmpty()
   public role: UserRole;

@@ -186,9 +186,7 @@ export class WhatsappService {
   }
 
   public async findOne(sid: string): Promise<TwilioMessageEntity> {
-    const findOneOptions = {
-      sid: sid,
-    };
+    const findOneOptions = { sid: sid };
     return await this.twilioMessageRepository.findOne({
       where: findOneOptions,
     });

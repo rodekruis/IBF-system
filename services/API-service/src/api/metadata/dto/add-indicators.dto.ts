@@ -11,13 +11,7 @@ import {
 import { NumberFormat } from '../../../shared/enums/number-format.enum';
 
 export class IndicatorDto {
-  @ApiProperty({
-    example: {
-      UGA: {
-        floods: ['map', 'aggregate'],
-      },
-    },
-  })
+  @ApiProperty({ example: { UGA: { floods: ['map', 'aggregate'] } } })
   public countryDisasterTypes: JSON;
 
   @ApiProperty()
@@ -79,20 +73,12 @@ export class IndicatorDto {
   @IsBoolean()
   public lazyLoad: boolean;
 
-  @ApiProperty({
-    example: {
-      UGA: {
-        floods: 'description',
-      },
-    },
-  })
+  @ApiProperty({ example: { UGA: { floods: 'description' } } })
   public description: JSON;
 }
 
 export class AddIndicatorsDto {
-  @ApiProperty({
-    example: [{}],
-  })
+  @ApiProperty({ example: [{}] })
   @IsNotEmpty()
   public indicators: IndicatorDto[];
 }

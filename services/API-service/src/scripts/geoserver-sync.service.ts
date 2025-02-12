@@ -173,11 +173,7 @@ export class GeoserverSyncService {
         );
       const styleUrl = `layers/${resourceNameObject.resourceName}`;
       const body = {
-        layer: {
-          defaultStyle: {
-            name: `${workspaceName}:${styleName}`,
-          },
-        },
+        layer: { defaultStyle: { name: `${workspaceName}:${styleName}` } },
       };
       await this.put(styleUrl, body);
     }

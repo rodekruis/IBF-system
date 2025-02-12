@@ -39,9 +39,7 @@ export class CountryController {
   }
 
   @Roles(UserRole.Admin)
-  @ApiOperation({
-    summary: 'Add/update notification info for given countries',
-  })
+  @ApiOperation({ summary: 'Add/update notification info for given countries' })
   @ApiResponse({
     status: 201,
     description: 'notification info added or updated',
