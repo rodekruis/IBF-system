@@ -319,7 +319,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   private getAreaCount(): number {
-    return this.aggregatesService.nrTriggerAreas;
+    return this.aggregatesService.nrAlertAreas;
   }
 
   private getEventCount(): number {

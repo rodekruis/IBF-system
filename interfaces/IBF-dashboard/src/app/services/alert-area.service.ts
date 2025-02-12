@@ -25,7 +25,7 @@ import { TimelineState } from 'src/app/types/timeline-state';
 @Injectable({
   providedIn: 'root',
 })
-export class EapActionsService {
+export class AlertAreaService {
   private alertAreaSubject = new BehaviorSubject<AlertArea[]>([]);
   public alertAreas: AlertArea[];
   private country: Country;

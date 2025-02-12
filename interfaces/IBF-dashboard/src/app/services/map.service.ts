@@ -9,10 +9,10 @@ import { LayerActivation } from 'src/app/models/layer-activation.enum';
 import { breakKey } from 'src/app/models/map.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
+import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
@@ -84,7 +84,7 @@ export class MapService {
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private disasterTypeService: DisasterTypeService,
-    private eapActionsService: EapActionsService,
+    private alertAreaService: AlertAreaService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -114,7 +114,7 @@ export class MapService {
       .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
 
-    this.eapActionsService.getAlertAreas().subscribe(this.onAlertAreasChange);
+    this.alertAreaService.getAlertAreas().subscribe(this.onAlertAreasChange);
   }
 
   private onCountryChange = (country: Country): void => {
