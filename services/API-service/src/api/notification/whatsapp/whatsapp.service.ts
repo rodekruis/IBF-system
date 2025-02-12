@@ -83,7 +83,7 @@ export class WhatsappService {
         country.notificationInfo.whatsappMessage[disasterType][
           'initial-single-event'
         ];
-      const triggerState = activeEvents[0].thresholdReached
+      const alertState = activeEvents[0].forecastTrigger
         ? 'trigger'
         : 'warning';
       const startTimeEvent =
@@ -94,8 +94,8 @@ export class WhatsappService {
         );
 
       return baseMessage
-        .replace('[triggerState]', triggerState)
-        .replace('[triggerState]', triggerState)
+        .replace('[triggerState]', alertState)
+        .replace('[triggerState]', alertState)
         .replace('[eventName]', activeEvents[0].eventName)
         .replace('[startTimeEvent]', startTimeEvent);
     } else if (activeEvents.length > 1) {
@@ -337,7 +337,7 @@ export class WhatsappService {
       (s) => s.disasterType === disasterType,
     ).defaultAdminLevel;
 
-    const triggerState = event.thresholdReached ? 'trigger' : 'warning';
+    const alertState = event.forecastTrigger ? 'trigger' : 'warning';
 
     const alertAreas = await this.eventService.getAlertAreas(
       country.countryCodeISO3,
@@ -372,14 +372,14 @@ export class WhatsappService {
     const followUpMessage =
       country.notificationInfo.whatsappMessage[disasterType]['follow-up'];
     const message = followUpMessage
-      .replace('[triggerState]', triggerState)
-      .replace('[triggerState]', triggerState)
+      .replace('[triggerState]', alertState)
+      .replace('[triggerState]', alertState)
       .replace('[eventName]', event.eventName)
       .replace('[startTimeEvent]', startTimeEvent)
       .replace('[nrAlertAreas]', alertAreas.length)
       .replace('[adminAreaLabel]', adminAreaLabel)
       .replace('[areaList]', areaList)
-      .replace('[triggerState]', triggerState);
+      .replace('[triggerState]', alertState);
     return message;
   }
 

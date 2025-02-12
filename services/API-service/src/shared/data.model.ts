@@ -41,7 +41,7 @@ export class AlertArea {
   public mainExposureValue: number;
 
   @ApiProperty({ example: 1 })
-  public triggerValue: number;
+  public forecastSeverity: number;
 
   @ApiProperty({ example: false })
   public stopped: boolean;
@@ -91,7 +91,7 @@ export class EventSummaryCountry {
   public activeTrigger: boolean;
 
   @ApiProperty({ example: true })
-  public thresholdReached: boolean;
+  public forecastTrigger: boolean;
 
   @ApiProperty({ example: 'Mock typhoon' })
   public eventName: string;
@@ -106,8 +106,8 @@ export class EventSummaryCountry {
   public disasterSpecificProperties: DisasterSpecificProperties;
 
   @ApiProperty({ example: 100 })
-  public triggerValue: number;
+  public forecastSeverity: number;
 
   @ApiProperty({ example: 5 })
-  public nrAffectedAreas: number;
+  public nrAlertAreas: number;
 }

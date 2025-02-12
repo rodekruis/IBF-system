@@ -43,7 +43,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
       component: CommunityNotificationPhotoPopupComponent,
       animated: true,
       cssClass: `ibf-popover ibf-popover-large ${
-        this.eventService.state.thresholdReached ? 'trigger-alert' : 'no-alert'
+        this.eventService.state.forecastTrigger ? 'trigger-alert' : 'no-alert'
       }`,
       translucent: true,
       showBackdrop: true,
@@ -52,7 +52,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
       },
     });
 
-    popover.present();
+    void popover.present();
   }
 
   public async dismissCommunityNotification(pointDataId: string) {
@@ -117,7 +117,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
 
     await popover.present();
 
-    popover.onDidDismiss().then(() => {
+    void popover.onDidDismiss().then(() => {
       window.location.reload();
     });
   }

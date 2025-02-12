@@ -132,7 +132,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     if ((LeadTimeTriggerKey[event.firstLeadTime] as string) === '0') {
       headerKey += '-ongoing';
     }
-    if (!event.thresholdReached) {
+    if (!event.forecastTrigger) {
       headerKey += '-below-trigger';
     }
     const header = this.translateService.instant(headerKey, {
@@ -202,7 +202,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     }
 
     if (!this.event.disasterSpecificProperties) {
-      if (!this.event.thresholdReached) {
+      if (!this.event.forecastTrigger) {
         return defaultColors;
       }
 
@@ -214,7 +214,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     }
 
     if (!this.event.disasterSpecificProperties.eapAlertClass) {
-      if (!this.event.thresholdReached) {
+      if (!this.event.forecastTrigger) {
         return defaultColors;
       }
 

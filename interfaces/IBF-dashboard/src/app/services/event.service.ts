@@ -27,7 +27,7 @@ export class EventSummary {
   countryCodeISO3: string;
   startDate: string;
   endDate: string;
-  thresholdReached: boolean;
+  forecastTrigger: boolean;
   eventName: string;
   firstLeadTime?: LeadTime;
   firstLeadTimeLabel?: string;
@@ -38,8 +38,8 @@ export class EventSummary {
   duration?: number;
   disasterSpecificProperties: DisasterSpecificProperties;
   header?: string;
-  nrAffectedAreas?: number;
-  actionsValueSum?: number;
+  nrAlertAreas?: number;
+  mainExposureValueSum?: number;
 }
 
 export class DisasterSpecificProperties {
@@ -62,14 +62,10 @@ export class EventService {
   private disasterType: DisasterType;
   private countryDisasterSettings: CountryDisasterSettings;
 
-  public nullState: {
-    events: EventSummary[];
-    event: EventSummary;
-    thresholdReached: boolean;
-  } = {
+  public nullState: EventState = {
     events: null,
     event: null,
-    thresholdReached: null,
+    forecastTrigger: null,
   };
 
   public state = this.nullState;
@@ -124,14 +120,14 @@ export class EventService {
 
   private setEventInitially(event: EventSummary) {
     this.state.event = event;
-    this.state.thresholdReached = this.setOverallThresholdReached();
+    this.state.forecastTrigger = this.setOverallForecasTrigger();
     this.initialEventStateSubject.next(this.state);
     this.setAlertState();
   }
 
   private setEventManually(event: EventSummary) {
     this.state.event = event;
-    this.state.thresholdReached = this.setOverallThresholdReached();
+    this.state.forecastTrigger = this.setOverallForecasTrigger();
     this.manualEventStateSubject.next(this.state);
     this.setAlertState();
   }
@@ -179,7 +175,7 @@ export class EventService {
     ) =>
     (events: EventSummary[]) => {
       disasterType.activeTrigger =
-        events.filter((e: EventSummary) => e.thresholdReached).length > 0 ||
+        events.filter((e: EventSummary) => e.forecastTrigger).length > 0 ||
         false;
       callback(disasterType);
     };
@@ -234,7 +230,7 @@ export class EventService {
     if (events.length === 1) {
       this.setEventInitially(events[0]);
     } else if (this.skipNationalView(this.disasterType.disasterType)) {
-      const triggerEvents = events.filter((e) => e.thresholdReached);
+      const triggerEvents = events.filter((e) => e.forecastTrigger);
       const eventToLoad = triggerEvents.length ? triggerEvents[0] : events[0];
       this.setEventInitially(eventToLoad);
     } else {
@@ -328,7 +324,7 @@ export class EventService {
   private setAlertState = () => {
     const dashboardElement = document.getElementById('ibf-dashboard-interface');
     if (dashboardElement) {
-      if (this.state.thresholdReached) {
+      if (this.state.forecastTrigger) {
         dashboardElement.classList.remove('no-alert');
         dashboardElement.classList.add('trigger-alert');
       } else {
@@ -358,10 +354,10 @@ export class EventService {
     }
   }
 
-  private setOverallThresholdReached() {
+  private setOverallForecasTrigger() {
     return this.state.event
-      ? this.state.event.thresholdReached
-      : this.state.events?.filter((e: EventSummary) => e.thresholdReached)
+      ? this.state.event.forecastTrigger
+      : this.state.events?.filter((e: EventSummary) => e.forecastTrigger)
           .length > 0;
   }
 

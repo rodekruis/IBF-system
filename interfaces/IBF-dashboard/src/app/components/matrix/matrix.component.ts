@@ -80,7 +80,7 @@ export class MatrixComponent implements OnDestroy {
       component: LayerControlInfoPopoverComponent,
       animated: true,
       cssClass: `ibf-popover ibf-popover-normal ${
-        this.eventService.state.thresholdReached ? 'trigger-alert' : 'no-alert'
+        this.eventService.state.forecastTrigger ? 'trigger-alert' : 'no-alert'
       }`,
       translucent: true,
       showBackdrop: true,
@@ -95,7 +95,7 @@ export class MatrixComponent implements OnDestroy {
       component: this.constructor.name,
     });
 
-    popover.present();
+    void popover.present();
   }
 
   public toggleLayer(layer: IbfLayer): void {
