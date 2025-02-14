@@ -259,8 +259,8 @@ export class MockService {
       );
     }
 
-    // Close finished events (only relevant for follow-up mock pipeline runs, with removeEvents=false)
-    await this.eventService.closeEventsAutomatic(
+    // Process events
+    await this.eventService.processEvents(
       selectedCountry.countryCodeISO3,
       disasterType,
     );

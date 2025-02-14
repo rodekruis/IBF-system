@@ -97,6 +97,7 @@ export class HelperService {
     const alertPerLeadTimeRepository = this.dataSource.getRepository(
       AlertPerLeadTimeEntity,
     );
+    // REFACTOR: this data could just as well be based on adminAreaDynamicDataRepository, thereby reducing a need for this table to remain
     const result = await alertPerLeadTimeRepository.findOne({
       where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
       order: { timestamp: 'DESC' },
