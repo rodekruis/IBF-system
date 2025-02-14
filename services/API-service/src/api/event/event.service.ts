@@ -30,12 +30,12 @@ import { UserEntity } from '../user/user.entity';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AlertPerLeadTimeEntity } from './alert-per-lead-time.entity';
-import { DateDto } from './dto/date.dto';
 import {
   ActivationLogDto,
   AffectedAreaDto,
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
+import { LastUploadDateDto } from './dto/last-upload-date.dto';
 import { UploadAlertPerLeadTimeDto } from './dto/upload-alert-per-leadtime.dto';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 
@@ -188,7 +188,7 @@ export class EventService {
   public async getLastUploadDate(
     countryCodeISO3: string,
     disasterType: DisasterType,
-  ): Promise<DateDto> {
+  ): Promise<LastUploadDateDto> {
     return this.helperService.getLastUploadDate(countryCodeISO3, disasterType);
   }
 
@@ -401,7 +401,7 @@ export class EventService {
   private async getDeeperAlertAreas(
     triggeredPlaceCodes: string[],
     disasterType: DisasterType,
-    lastUploadDate: DateDto,
+    lastUploadDate: LastUploadDateDto,
     eventName?: string,
     leadTime?: string,
   ): Promise<AlertArea[]> {

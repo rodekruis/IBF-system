@@ -14,7 +14,7 @@ import { AdminDataReturnDto } from '../../admin-area-dynamic-data/dto/admin-data
 import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
 import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
-import { DateDto } from '../../event/dto/date.dto';
+import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
 import { EventService } from '../../event/event.service';
 import { EventAreaEntity } from '../event-area.entity';
 
@@ -66,7 +66,7 @@ export class EventAreaService {
   public async getEventAreas(
     countryCodeISO3: string,
     disasterType: DisasterTypeEntity,
-    lastUploadDate: DateDto,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<GeoJson> {
     const eventAreas = [];
 
@@ -136,7 +136,7 @@ export class EventAreaService {
   public async getEventAreaAggregates(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    lastUploadDate: DateDto,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<AggregateDataRecord[]> {
     const events = await this.eventService.getEventSummary(
       countryCodeISO3,
@@ -165,7 +165,7 @@ export class EventAreaService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     indicator: DynamicIndicator,
-    lastUploadDate: DateDto,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<AdminDataReturnDto[]> {
     const events = await this.eventService.getEventSummary(
       countryCodeISO3,
@@ -191,7 +191,7 @@ export class EventAreaService {
 
   private async getEventAreaAggregatesPerIndicator(
     disasterType: DisasterType,
-    lastUploadDate: DateDto,
+    lastUploadDate: LastUploadDateDto,
     event: EventSummaryCountry,
     indicator?: DynamicIndicator,
   ): Promise<{ indicator: string; value: number }[]> {
