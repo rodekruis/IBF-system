@@ -1,3 +1,12 @@
+## [0.283.1](https://github.com/rodekruis/IBF-system/compare/v0.283.0...v0.283.1) (2025-02-14)
+
+
+### Bug Fixes
+
+* flaky e2e test ([7df307c](https://github.com/rodekruis/IBF-system/commit/7df307c980aea7d17025069bce5c1f2bf9efd9f3))
+
+
+
 # [0.283.0](https://github.com/rodekruis/IBF-system/compare/v0.282.0...v0.283.0) (2025-02-12)
 
 
@@ -100,15 +109,6 @@
 ### Bug Fixes
 
 * flaky tests because of timestamp AB[#32980](https://github.com/rodekruis/IBF-system/issues/32980) ([c2985be](https://github.com/rodekruis/IBF-system/commit/c2985bedd2d7182291ba2fa92eb8d998ceb21dca))
-
-
-
-## [0.278.4](https://github.com/rodekruis/IBF-system/compare/v0.278.3...v0.278.4) (2025-01-24)
-
-
-### Bug Fixes
-
-* lint issue ([e27a84e](https://github.com/rodekruis/IBF-system/commit/e27a84e579b02f37244f08bda233114d2e7fce38))
 
 
 
