@@ -208,9 +208,9 @@ export class EventService {
       alertPerLeadTime.countryCodeISO3 =
         uploadAlertPerLeadTimeDto.countryCodeISO3;
       alertPerLeadTime.leadTime = leadTime.leadTime as LeadTime;
-      alertPerLeadTime.forecastAlert = leadTime.triggered; //##TODO: change when dto changes
+      alertPerLeadTime.forecastAlert = leadTime.triggered; // NOTE: rename 'triggered' when DTO changes
       alertPerLeadTime.forecastTrigger =
-        leadTime.triggered && leadTime.thresholdReached; //##TODO: change when dto changes
+        leadTime.triggered && leadTime.thresholdReached; // NOTE: rename 'triggered'/'thresholdReached' when DTO changes
       alertPerLeadTime.disasterType = uploadAlertPerLeadTimeDto.disasterType;
       alertPerLeadTime.eventName = uploadAlertPerLeadTimeDto.eventName;
 

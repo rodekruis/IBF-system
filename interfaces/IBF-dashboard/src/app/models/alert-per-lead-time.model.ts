@@ -1,4 +1,4 @@
-//##TODO: REFACTOR: this class makes little sense, compared to what actually comes from the API.
+// REFACTOR: this class makes little sense, compared to what actually comes from the API.
 export class AlertPerLeadTime {
   1: string;
   2: string;
