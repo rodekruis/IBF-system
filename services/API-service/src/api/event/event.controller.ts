@@ -28,7 +28,10 @@ import {
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
-import { UploadAlertPerLeadTimeDto } from './dto/upload-alert-per-leadtime.dto';
+import {
+  UploadAlertPerLeadTimeDto,
+  uploadTriggerPerLeadTimeDto,
+} from './dto/upload-alert-per-leadtime.dto';
 import { EventService } from './event.service';
 
 @ApiBearerAuth()
@@ -185,6 +188,23 @@ export class EventController {
     );
   }
 
+  // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-leadtime
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.PipelineUser)
+  @ApiOperation({
+    summary: '[OLD endpoint] Upload alert data per leadtime',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded alert data per leadtime',
+  })
+  @Post('triggers-per-leadtime')
+  public async uploadTriggerPerLeadTime(
+    @Body() uploadTriggerPerLeadTimeDto: uploadTriggerPerLeadTimeDto,
+  ): Promise<void> {
+    await this.eventService.convertDtoAndUpload(uploadTriggerPerLeadTimeDto);
+  }
+
   @UseGuards(RolesGuard)
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
@@ -194,7 +214,7 @@ export class EventController {
     status: 201,
     description: 'Uploaded alert data per leadtime',
   })
-  @Post('triggers-per-leadtime') // NOTE AB#32041: Rename to 'alerts-per-leadtime'. This desired path change can be employed in practice to facilitate an old and new endpoint side-by-side.
+  @Post('alerts-per-leadtime')
   public async uploadAlertPerLeadTime(
     @Body() uploadAlertPerLeadTimeDto: UploadAlertPerLeadTimeDto,
   ): Promise<void> {
