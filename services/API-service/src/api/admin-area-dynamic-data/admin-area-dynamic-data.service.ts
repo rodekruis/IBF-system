@@ -156,7 +156,7 @@ export class AdminAreaDynamicDataService {
       uploadExposure.exposurePlaceCodes,
     );
 
-    const forecastAlert = !forecastTrigger && !!uploadExposure.eventName; // NOTE AB#32041: eventName being filled or not should no longer be needed to distinguish alert/warning from no alert.
+    const forecastAlert = !!uploadExposure.eventName; // NOTE AB#32041: eventName being filled or not should no longer be needed to distinguish alert/warning from no alert.
 
     const uploadAlertPerLeadTimeDto = new UploadAlertPerLeadTimeDto();
     uploadAlertPerLeadTimeDto.countryCodeISO3 = uploadExposure.countryCodeISO3;
