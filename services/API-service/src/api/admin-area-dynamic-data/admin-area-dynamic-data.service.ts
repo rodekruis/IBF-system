@@ -162,12 +162,11 @@ export class AdminAreaDynamicDataService {
     uploadAlertPerLeadTimeDto.countryCodeISO3 = uploadExposure.countryCodeISO3;
     uploadAlertPerLeadTimeDto.disasterType = uploadExposure.disasterType;
     uploadAlertPerLeadTimeDto.eventName = uploadExposure.eventName;
-    uploadAlertPerLeadTimeDto.triggersPerLeadTime = [
-      // NOTE AB#32041: occurences of 'triggersPerLeadTime','triggered','thresholdReached' here will be changed when the DTO changes
+    uploadAlertPerLeadTimeDto.alertsPerLeadTime = [
       {
         leadTime: uploadExposure.leadTime as LeadTime,
-        triggered: forecastTrigger || forecastAlert,
-        thresholdReached: forecastTrigger && !forecastAlert,
+        forecastAlert,
+        forecastTrigger,
       },
     ];
     uploadAlertPerLeadTimeDto.date = uploadExposure.date || new Date();
@@ -178,6 +177,7 @@ export class AdminAreaDynamicDataService {
     exposurePlaceCodes: DynamicDataPlaceCodeDto[],
   ): boolean {
     for (const exposurePlaceCode of exposurePlaceCodes) {
+      // NOTE AB#32041: this functionality will change in new setup
       if (Number(exposurePlaceCode.amount) === 1) {
         return true;
       }

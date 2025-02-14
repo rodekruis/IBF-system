@@ -10,6 +10,7 @@ import {
 
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 
+// NOTE: new DTO, used by new endpoint
 export class AlertPerLeadTimeDto {
   @ApiProperty({ example: '7-day' })
   @IsNotEmpty()
@@ -20,10 +21,29 @@ export class AlertPerLeadTimeDto {
   @ApiProperty({ default: false })
   @IsNotEmpty()
   @IsBoolean()
-  public triggered: boolean; // NOTE AB#32041: Leave this public-facing dto unchanged for now. Will change to 'forecastAlert' (or via separate dto/endpoint)
+  public forecastAlert: boolean;
 
   @ApiProperty({ default: false })
   @IsOptional()
   @IsBoolean()
-  public thresholdReached: boolean; // NOTE AB#32041: Leave this public-facing dto unchanged for now. Will change to 'forecastTrigger' (or via separate dto/endpoint)
+  public forecastTrigger: boolean;
+}
+
+// NOTE: old DTO, used by old endpoint. Remove this when all pipelines migrated.
+export class TriggerPerLeadTimeDto {
+  @ApiProperty({ example: '7-day' })
+  @IsNotEmpty()
+  @IsString()
+  @IsEnum(LeadTime)
+  public leadTime: LeadTime;
+
+  @ApiProperty({ default: false })
+  @IsNotEmpty()
+  @IsBoolean()
+  public triggered: boolean;
+
+  @ApiProperty({ default: false })
+  @IsOptional()
+  @IsBoolean()
+  public thresholdReached: boolean;
 }

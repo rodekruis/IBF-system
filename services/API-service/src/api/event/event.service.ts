@@ -36,7 +36,10 @@ import {
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
-import { UploadAlertPerLeadTimeDto } from './dto/upload-alert-per-leadtime.dto';
+import {
+  UploadAlertPerLeadTimeDto,
+  uploadTriggerPerLeadTimeDto,
+} from './dto/upload-alert-per-leadtime.dto';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 
 @Injectable()
@@ -192,16 +195,38 @@ export class EventService {
     return this.helperService.getLastUploadDate(countryCodeISO3, disasterType);
   }
 
+  // NOTE: remove after all pipelines migrated to new endpoint
+  public async convertDtoAndUpload(
+    uploadTriggerPerLeadTimeDto: uploadTriggerPerLeadTimeDto,
+  ) {
+    const uploadAlertPerLeadTimeDto = new UploadAlertPerLeadTimeDto();
+    uploadAlertPerLeadTimeDto.countryCodeISO3 =
+      uploadTriggerPerLeadTimeDto.countryCodeISO3;
+    uploadAlertPerLeadTimeDto.disasterType =
+      uploadTriggerPerLeadTimeDto.disasterType;
+    uploadAlertPerLeadTimeDto.eventName = uploadTriggerPerLeadTimeDto.eventName;
+    uploadAlertPerLeadTimeDto.date = uploadAlertPerLeadTimeDto.date;
+    uploadAlertPerLeadTimeDto.alertsPerLeadTime =
+      uploadTriggerPerLeadTimeDto.triggersPerLeadTime.map((trigger) => {
+        return {
+          leadTime: trigger.leadTime,
+          forecastAlert: trigger.triggered,
+          forecastTrigger: trigger.thresholdReached,
+        };
+      });
+    await this.uploadAlertPerLeadTime(uploadAlertPerLeadTimeDto);
+  }
+
   public async uploadAlertPerLeadTime(
     uploadAlertPerLeadTimeDto: UploadAlertPerLeadTimeDto,
   ): Promise<void> {
     uploadAlertPerLeadTimeDto.date = this.helperService.setDayToLastDayOfMonth(
       uploadAlertPerLeadTimeDto.date,
-      uploadAlertPerLeadTimeDto.triggersPerLeadTime[0].leadTime,
+      uploadAlertPerLeadTimeDto.alertsPerLeadTime[0].leadTime,
     );
     const alertsPerLeadTime: AlertPerLeadTimeEntity[] = [];
     const timestamp = uploadAlertPerLeadTimeDto.date || new Date();
-    for (const leadTime of uploadAlertPerLeadTimeDto.triggersPerLeadTime) {
+    for (const leadTime of uploadAlertPerLeadTimeDto.alertsPerLeadTime) {
       // Delete existing entries in case of a re-run of the pipeline within the same time period
       await this.deleteDuplicates(uploadAlertPerLeadTimeDto);
 
@@ -211,9 +236,8 @@ export class EventService {
       alertPerLeadTime.countryCodeISO3 =
         uploadAlertPerLeadTimeDto.countryCodeISO3;
       alertPerLeadTime.leadTime = leadTime.leadTime as LeadTime;
-      alertPerLeadTime.forecastAlert = leadTime.triggered; // NOTE AB#32041: rename 'triggered' when DTO changes
-      alertPerLeadTime.forecastTrigger =
-        leadTime.triggered && leadTime.thresholdReached; // NOTE AB#32041: rename 'triggered'/'thresholdReached' when DTO changes
+      alertPerLeadTime.forecastAlert = leadTime.forecastAlert;
+      alertPerLeadTime.forecastTrigger = leadTime.forecastTrigger;
       alertPerLeadTime.disasterType = uploadAlertPerLeadTimeDto.disasterType;
       alertPerLeadTime.eventName = uploadAlertPerLeadTimeDto.eventName;
 
