@@ -66,7 +66,7 @@ export class EventAreaService {
   public async getEventAreas(
     countryCodeISO3: string,
     disasterType: DisasterTypeEntity,
-    lastTriggeredDate: DateDto,
+    lastUploadDate: DateDto,
   ): Promise<GeoJson> {
     const eventAreas = [];
 
@@ -97,7 +97,7 @@ export class EventAreaService {
           timestamp: MoreThanOrEqual(
             this.helperService.getUploadCutoffMoment(
               disasterType.disasterType,
-              lastTriggeredDate.timestamp,
+              lastUploadDate.timestamp,
             ),
           ),
           disasterType: disasterType.disasterType,
@@ -136,7 +136,7 @@ export class EventAreaService {
   public async getEventAreaAggregates(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    lastTriggeredDate: DateDto,
+    lastUploadDate: DateDto,
   ): Promise<AggregateDataRecord[]> {
     const events = await this.eventService.getEventSummary(
       countryCodeISO3,
@@ -147,7 +147,7 @@ export class EventAreaService {
     for await (const event of events) {
       const aggregateValues = await this.getEventAreaAggregatesPerIndicator(
         disasterType,
-        lastTriggeredDate,
+        lastUploadDate,
         event,
       );
 
@@ -165,7 +165,7 @@ export class EventAreaService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     indicator: DynamicIndicator,
-    lastTriggeredDate: DateDto,
+    lastUploadDate: DateDto,
   ): Promise<AdminDataReturnDto[]> {
     const events = await this.eventService.getEventSummary(
       countryCodeISO3,
@@ -176,7 +176,7 @@ export class EventAreaService {
     for await (const event of events) {
       const aggregateValues = await this.getEventAreaAggregatesPerIndicator(
         disasterType,
-        lastTriggeredDate,
+        lastUploadDate,
         event,
         indicator,
       );
@@ -191,7 +191,7 @@ export class EventAreaService {
 
   private async getEventAreaAggregatesPerIndicator(
     disasterType: DisasterType,
-    lastTriggeredDate: DateDto,
+    lastUploadDate: DateDto,
     event: EventSummaryCountry,
     indicator?: DynamicIndicator,
   ): Promise<{ indicator: string; value: number }[]> {
@@ -199,7 +199,7 @@ export class EventAreaService {
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastTriggeredDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       ),
       disasterType: disasterType,

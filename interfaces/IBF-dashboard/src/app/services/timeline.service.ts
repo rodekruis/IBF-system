@@ -14,13 +14,13 @@ import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
+import { LastUploadDate } from 'src/app/types/last-upload-date';
 import {
   LeadTime,
   LeadTimeButtonInput,
   LeadTimeTriggerKey,
   LeadTimeUnit,
 } from 'src/app/types/lead-time';
-import { RecentDate } from 'src/app/types/recent-date';
 import { TimelineState, TimeStepButton } from 'src/app/types/timeline-state';
 
 @Injectable({
@@ -210,9 +210,11 @@ export class TimelineService {
     }
   }
 
-  private onRecentDates = (date: RecentDate) => {
-    if (date.timestamp || date.date) {
-      this.state.today = DateTime.fromISO(date.timestamp || date.date);
+  private onLastUploadDate = (lastUploadDate: LastUploadDate) => {
+    if (lastUploadDate.timestamp || lastUploadDate.date) {
+      this.state.today = DateTime.fromISO(
+        lastUploadDate.timestamp || lastUploadDate.date,
+      );
     } else {
       this.state.today = DateTime.now();
     }
@@ -235,11 +237,11 @@ export class TimelineService {
   public loadTimeStepButtons(): void {
     if (this.country && this.disasterType && this.eventState) {
       this.apiService
-        .getRecentDates(
+        .getLastUploadDate(
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
         )
-        .subscribe(this.onRecentDates);
+        .subscribe(this.onLastUploadDate);
     }
   }
 

@@ -17,7 +17,7 @@ const eventName = 'Mock typhoon 1';
 
 const timestamp = new Date();
 const date = timestamp.toISOString();
-const mockRecentDate = { date, timestamp };
+const mockLastUploadDate = { date, timestamp };
 
 const mockTyphoonTrack: TyphoonTrackEntity[] = [
   {
@@ -51,8 +51,8 @@ describe('TyphoonTrackService', () => {
     );
 
     jest
-      .spyOn(helperService, 'getRecentDate')
-      .mockResolvedValue(mockRecentDate);
+      .spyOn(helperService, 'getLastUploadDate')
+      .mockResolvedValue(mockLastUploadDate);
 
     jest
       .spyOn(typhoonTrackRepository, 'find')

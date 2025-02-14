@@ -67,19 +67,19 @@ export class EventController {
   @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
-      'Get date of last forecast-data-upload for given country and disaster-type.',
+      'Get date of last (pipeline) upload for given country and disaster-type.',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
     status: 200,
     description:
-      'Date of last forecast-data-upload for given country and disaster-type.',
+      'Date of last (pipeline) upload for given country and disaster-type.',
     type: DateDto,
   })
-  @Get('recent-date/:countryCodeISO3/:disasterType')
-  public async getRecentDate(@Param() params): Promise<DateDto> {
-    return await this.eventService.getRecentDate(
+  @Get('last-upload-date/:countryCodeISO3/:disasterType')
+  public async getLastUploadDate(@Param() params): Promise<DateDto> {
+    return await this.eventService.getLastUploadDate(
       params.countryCodeISO3,
       params.disasterType,
     );

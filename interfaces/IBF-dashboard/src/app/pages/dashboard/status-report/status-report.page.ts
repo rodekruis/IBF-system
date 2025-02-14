@@ -6,7 +6,7 @@ import { Country, DisasterType } from 'src/app/models/country.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { EventService, EventSummary } from 'src/app/services/event.service';
-import { RecentDate } from 'src/app/types/recent-date';
+import { LastUploadDate } from 'src/app/types/last-upload-date';
 
 interface DisasterStatus {
   imgSrc: string;
@@ -50,27 +50,27 @@ export class StatusReportPage implements OnInit {
           isStale: true,
         };
         this.apiService
-          .getRecentDates(country.countryCodeISO3, disasterType.disasterType)
+          .getLastUploadDate(country.countryCodeISO3, disasterType.disasterType)
           .subscribe((date) => {
-            this.onRecentDates(date, country.countryCodeISO3, disasterType);
+            this.onLastUploadDate(date, country.countryCodeISO3, disasterType);
           });
       }
     }
   };
 
-  private onRecentDates = (
-    date: RecentDate,
+  private onLastUploadDate = (
+    lastUploadDate: LastUploadDate,
     countryCodeISO3: string,
     disasterType: DisasterType,
   ) => {
     this.statusData[countryCodeISO3][disasterType.disasterType].date =
-      date?.timestamp
-        ? format(parseISO(date?.timestamp), 'yyyy-MM-dd HH:mm')
+      lastUploadDate?.timestamp
+        ? format(parseISO(lastUploadDate?.timestamp), 'yyyy-MM-dd HH:mm')
         : (this.translate.instant('status-report-page.no-data') as string);
     this.statusData[countryCodeISO3][disasterType.disasterType].isStale =
-      date?.timestamp
+      lastUploadDate?.timestamp
         ? this.eventService.isLastModelDateStale(
-            parseISO(date.timestamp),
+            parseISO(lastUploadDate.timestamp),
             disasterType,
           )
         : true;

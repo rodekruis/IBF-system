@@ -1,4 +1,4 @@
-export class RecentDate {
+export class LastUploadDate {
   date: string;
   timestamp: string;
 }
