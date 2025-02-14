@@ -35,7 +35,7 @@ export class UploadAlertPerLeadTimeDto {
   @IsArray()
   @ValidateNested()
   @Type(() => AlertPerLeadTimeDto)
-  public triggersPerLeadTime: AlertPerLeadTimeDto[]; // NOTE: Leave this public-facing dto unchanged for now. Will change to 'alertsPerLeadTime'
+  public triggersPerLeadTime: AlertPerLeadTimeDto[]; // NOTE AB#32041: Leave this public-facing dto unchanged for now. Will change to 'alertsPerLeadTime'
 
   @ApiProperty({ example: new Date() })
   @IsOptional()

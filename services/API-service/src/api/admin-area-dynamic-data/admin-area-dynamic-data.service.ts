@@ -153,14 +153,14 @@ export class AdminAreaDynamicDataService {
       uploadExposure.exposurePlaceCodes,
     );
 
-    const forecastAlert = !forecastTrigger && !!uploadExposure.eventName; // REFACTOR: eventName being filled or not should no longer be needed to distinguish alert/warning from no alert.
+    const forecastAlert = !forecastTrigger && !!uploadExposure.eventName; // NOTE AB#32041: eventName being filled or not should no longer be needed to distinguish alert/warning from no alert.
 
     const uploadAlertPerLeadTimeDto = new UploadAlertPerLeadTimeDto();
     uploadAlertPerLeadTimeDto.countryCodeISO3 = uploadExposure.countryCodeISO3;
     uploadAlertPerLeadTimeDto.disasterType = uploadExposure.disasterType;
     uploadAlertPerLeadTimeDto.eventName = uploadExposure.eventName;
     uploadAlertPerLeadTimeDto.triggersPerLeadTime = [
-      // NOTE: occurences of 'triggersPerLeadTime','triggered','thresholdReached' here will be changed when the DTO changes
+      // NOTE AB#32041: occurences of 'triggersPerLeadTime','triggered','thresholdReached' here will be changed when the DTO changes
       {
         leadTime: uploadExposure.leadTime as LeadTime,
         triggered: forecastTrigger || forecastAlert,
