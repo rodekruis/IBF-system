@@ -20,9 +20,9 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AlertArea, EventSummaryCountry } from '../../shared/data.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
-import { SendNotificationDto } from '../notification/dto/send-notification.dto';
 import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
+import { CountryDisasterTypeDto } from './dto/country-disaster-type.dto';
 import {
   ActivationLogDto,
   EventPlaceCodeDto,
@@ -201,11 +201,12 @@ export class EventController {
     await this.eventService.uploadAlertPerLeadTime(uploadAlertPerLeadTimeDto);
   }
 
+  // NOTE: keep this endpoint in until all pipelines migrated to /event/process
   @UseGuards(RolesGuard)
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
-      'Close events automatically for given country and disaster-type. Must be run at end of every pipeline. Currently not used, the same logic is also in /notification/send endpoint.',
+      'Close events automatically for given country and disaster-type. Must be run at end of every pipeline. As a backup, the same logic is also in /notification/send endpoint.',
   })
   @ApiResponse({
     status: 201,
@@ -213,11 +214,32 @@ export class EventController {
   })
   @Post('close-events')
   public async closeEvents(
-    @Body() closeEventsDto: SendNotificationDto,
+    @Body() closeEventsDto: CountryDisasterTypeDto,
   ): Promise<void> {
-    await this.eventService.closeEventsAutomatic(
+    // NOTE: this old endpoint will also point to this new method already
+    await this.eventService.processEvents(
       closeEventsDto.countryCodeISO3,
       closeEventsDto.disasterType,
+    );
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.PipelineUser)
+  @ApiOperation({
+    summary:
+      'Process events for given country and disaster-type. Must be run at end of every pipeline.',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Processed events.',
+  })
+  @Post('process')
+  public async processEvents(
+    @Body() processEventsDto: CountryDisasterTypeDto,
+  ): Promise<void> {
+    await this.eventService.processEvents(
+      processEventsDto.countryCodeISO3,
+      processEventsDto.disasterType,
     );
   }
 }

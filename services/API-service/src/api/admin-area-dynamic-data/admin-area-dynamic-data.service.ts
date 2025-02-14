@@ -95,15 +95,18 @@ export class AdminAreaDynamicDataService {
         (s) => s.disasterType === uploadExposure.disasterType,
       ).defaultAdminLevel === uploadExposure.adminLevel
     ) {
+      // NOTE: keep this functionality here instead of in /events/process for now, as this also needs to be called in case of no-events upload
+      // REFACTOR: this whole setup/table/functionality should maybe change in the future
       await this.insertAlertPerLeadTime(uploadExposure);
 
-      await this.eventService.processEventAreas(
-        uploadExposure.countryCodeISO3,
-        uploadExposure.disasterType,
-        uploadExposure.adminLevel,
-        uploadExposure.eventName,
-        uploadExposure.date || new Date(),
-      );
+      // NOTE: remove, but leave commented here for clarity for now
+      // await this.eventService.processEventAreas(
+      //   uploadExposure.countryCodeISO3,
+      //   uploadExposure.disasterType,
+      //   uploadExposure.adminLevel,
+      //   uploadExposure.eventName,
+      //   uploadExposure.date || new Date(),
+      // );
     }
   }
 

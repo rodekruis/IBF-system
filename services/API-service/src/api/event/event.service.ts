@@ -336,7 +336,7 @@ export class EventService {
       return this.getDeeperAlertAreas(
         alertPlaceCodes,
         disasterType,
-        lastUploadDate,
+        lastUploadDate.timestamp,
         eventName,
       );
     }
@@ -401,7 +401,7 @@ export class EventService {
   private async getDeeperAlertAreas(
     triggeredPlaceCodes: string[],
     disasterType: DisasterType,
-    lastUploadDate: LastUploadDateDto,
+    lastUploadTimestamp: Date,
     eventName?: string,
     leadTime?: string,
   ): Promise<AlertArea[]> {
@@ -414,7 +414,7 @@ export class EventService {
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastUploadDate.timestamp,
+          lastUploadTimestamp,
         ),
       ),
     };
@@ -660,40 +660,99 @@ export class EventService {
     ).mainExposureIndicator;
   }
 
-  public async processEventAreas(
+  public async processEvents(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<void> {
+    const lastUploadDate = await this.helperService.getLastUploadDate(
+      countryCodeISO3,
+      disasterType,
+    );
+    const pipelineRunEventNames = await this.getActiveEventNames(
+      countryCodeISO3,
+      disasterType,
+      lastUploadDate,
+    );
+
+    const defaultAdminLevel = (
+      await this.getCountryDisasterSettings(countryCodeISO3, disasterType)
+    ).defaultAdminLevel;
+    for (const eventName of pipelineRunEventNames) {
+      await this.processEventAreas(
+        countryCodeISO3,
+        disasterType,
+        defaultAdminLevel,
+        eventName.eventName,
+        lastUploadDate.timestamp,
+      );
+    }
+
+    await this.closeEventsAutomatic(countryCodeISO3, disasterType);
+
+    // NOTE: also include the functionality of /notification/send endpoint here
+  }
+
+  private async getActiveEventNames(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    lastUploadDate: LastUploadDateDto,
+  ) {
+    const whereFilters = {
+      timestamp: MoreThanOrEqual(
+        this.helperService.getUploadCutoffMoment(
+          disasterType,
+          lastUploadDate.timestamp,
+        ),
+      ),
+      countryCodeISO3,
+      disasterType,
+    };
+    return await this.adminAreaDynamicDataRepo
+      .createQueryBuilder('dynamic')
+      .select('dynamic."eventName"')
+      .where(whereFilters)
+      .groupBy('dynamic."eventName"')
+      .getRawMany();
+  }
+
+  private async processEventAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
     eventName: string,
-    date: Date,
+    lastUploadTimestamp: Date,
   ): Promise<void> {
     // First delete duplicate events for upload within same time-block
     await this.deleteDuplicateEvents(
       countryCodeISO3,
       disasterType,
       eventName,
-      date,
+      lastUploadTimestamp,
+    );
+
+    const affectedAreas = await this.getAffectedAreas(
+      countryCodeISO3,
+      disasterType,
+      adminLevel,
+      eventName,
+      lastUploadTimestamp,
     );
 
     // update existing event areas + update population and end_date
     await this.updateExistingEventAreas(
       countryCodeISO3,
       disasterType,
-      adminLevel,
       eventName,
+      affectedAreas,
     );
 
     // add new event areas
     await this.addNewEventAreas(
       countryCodeISO3,
       disasterType,
-      adminLevel,
       eventName,
+      affectedAreas,
     );
-
-    // close old event areas
-    // NOTE: this has been replaced by a separate endpoint, to be called at the end of a pipeline run, so that it's called only once instead of per event
-    // await this.closeEventsAutomatic(countryCodeISO3, disasterType, eventName);
   }
 
   // NOTE AB#32041 REFACTOR: call this getAlertAreas but then it becomes duplicate. Figure out the difference and if they can be combined.
@@ -702,20 +761,16 @@ export class EventService {
     disasterType: DisasterType,
     adminLevel: number,
     eventName: string,
+    lastUploadTimestamp: Date,
   ): Promise<AffectedAreaDto[]> {
     const triggerIndicator = await this.getTriggerIndicator(disasterType);
-
-    const lastUploadDate = await this.helperService.getLastUploadDate(
-      countryCodeISO3,
-      disasterType,
-    );
 
     const whereFilters = {
       indicator: triggerIndicator,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastUploadDate.timestamp,
+          lastUploadTimestamp,
         ),
       ),
       countryCodeISO3,
@@ -751,7 +806,7 @@ export class EventService {
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastUploadDate.timestamp,
+          lastUploadTimestamp,
         ),
       ),
       countryCodeISO3,
@@ -783,15 +838,9 @@ export class EventService {
   private async updateExistingEventAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    adminLevel: number,
     eventName: string,
+    affectedAreas: AffectedAreaDto[],
   ): Promise<void> {
-    const affectedAreas = await this.getAffectedAreas(
-      countryCodeISO3,
-      disasterType,
-      adminLevel,
-      eventName,
-    );
     const countryAdminAreaIds =
       await this.getCountryAdminAreaIds(countryCodeISO3);
     const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
@@ -897,15 +946,9 @@ export class EventService {
   private async addNewEventAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    adminLevel: number,
     eventName: string,
+    affectedAreas: AffectedAreaDto[],
   ): Promise<void> {
-    const affectedAreas = await this.getAffectedAreas(
-      countryCodeISO3,
-      disasterType,
-      adminLevel,
-      eventName,
-    );
     const countryAdminAreaIds =
       await this.getCountryAdminAreaIds(countryCodeISO3);
     const existingUnclosedEventAreas = (
