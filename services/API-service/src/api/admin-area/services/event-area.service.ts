@@ -11,7 +11,7 @@ import { GeoJson } from '../../../shared/geo.model';
 import { HelperService } from '../../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from '../../admin-area-dynamic-data/dto/admin-data-return.dto';
-import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
+import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';

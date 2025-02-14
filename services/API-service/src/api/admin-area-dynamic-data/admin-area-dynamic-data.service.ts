@@ -17,7 +17,7 @@ import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
-import { DynamicIndicator } from './enum/dynamic-data-unit';
+import { DynamicIndicator } from './enum/dynamic-indicator.enum';
 import { LeadTime } from './enum/lead-time.enum';
 
 interface RasterData {

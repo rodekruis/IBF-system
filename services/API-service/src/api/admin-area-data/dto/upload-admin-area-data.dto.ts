@@ -14,7 +14,7 @@ import { JoinColumn, ManyToOne } from 'typeorm';
 
 import indicatorData from '../../../scripts/mock-data/drought/ETH/trigger/Belg JAS_Belg/upload-alert_threshold-2.json';
 import { DynamicDataPlaceCodeDto } from '../../admin-area-dynamic-data/dto/dynamic-data-place-code.dto';
-import { UpdateableStaticIndicator } from '../../admin-area-dynamic-data/enum/dynamic-data-unit';
+import { UpdateableStaticIndicator } from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { AdminLevel } from '../../country/admin-level.enum';
 import { CountryEntity } from '../../country/country.entity';
 

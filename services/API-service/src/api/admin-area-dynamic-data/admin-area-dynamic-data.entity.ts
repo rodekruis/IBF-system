@@ -9,7 +9,7 @@ import {
 
 import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
-import { DynamicIndicator } from './enum/dynamic-data-unit';
+import { DynamicIndicator } from './enum/dynamic-indicator.enum';
 import { LeadTime } from './enum/lead-time.enum';
 
 @Entity('admin-area-dynamic-data')

@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 
 import { HelperService } from '../../shared/helper.service';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
-import { UpdateableStaticIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
+import { UpdateableStaticIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { AdminAreaDataEntity } from './admin-area-data.entity';
 import {
   UploadAdminAreaDataDto,
