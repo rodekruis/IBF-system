@@ -339,7 +339,7 @@ export class WhatsappService {
 
     const triggerState = event.thresholdReached ? 'trigger' : 'warning';
 
-    const triggeredAreas = await this.eventService.getTriggeredAreas(
+    const alertAreas = await this.eventService.getAlertAreas(
       country.countryCodeISO3,
       disasterType,
       adminLevel,
@@ -352,7 +352,7 @@ export class WhatsappService {
     const indicatorMetadata =
       await this.notificationContentService.getIndicatorMetadata(disasterType);
     let areaList = '';
-    for (const area of triggeredAreas) {
+    for (const area of alertAreas) {
       const row = `- *${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''
       } - ${this.helperService.toCompactNumber(
@@ -376,7 +376,7 @@ export class WhatsappService {
       .replace('[triggerState]', triggerState)
       .replace('[eventName]', event.eventName)
       .replace('[startTimeEvent]', startTimeEvent)
-      .replace('[nrTriggeredAreas]', triggeredAreas.length)
+      .replace('[nrAlertAreas]', alertAreas.length)
       .replace('[adminAreaLabel]', adminAreaLabel)
       .replace('[areaList]', areaList)
       .replace('[triggerState]', triggerState);
@@ -390,8 +390,7 @@ export class WhatsappService {
     if (countryCodeISO3 !== 'UGA') {
       return;
     }
-
-    const disasterType = DisasterType.Floods; // ##TODO: make this dynamic
+    const disasterType = DisasterType.Floods;
 
     const messageKey = 'community-notification';
 

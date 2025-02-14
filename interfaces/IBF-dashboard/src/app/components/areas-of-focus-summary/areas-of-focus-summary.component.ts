@@ -14,15 +14,15 @@ import {
   DisasterType,
 } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
+import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { AlertArea } from 'src/app/types/alert-area';
 import { AreaOfFocus } from 'src/app/types/area-of-focus';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
-import { TriggeredArea } from 'src/app/types/triggered-area';
 
 @Component({
   selector: 'app-areas-of-focus-summary',
@@ -42,13 +42,12 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   public disasterType: DisasterType;
   public countryDisasterSettings: CountryDisasterSettings;
   public areasOfFocus: AreaOfFocus[] = AREAS_OF_FOCUS;
-  public triggeredAreas: TriggeredArea[];
-  public trigger: boolean;
+  public alertAreas: AlertArea[];
   public eventState: EventState;
   public placeCode: PlaceCode;
 
   constructor(
-    private eapActionsService: EapActionsService,
+    private alertAreaService: AlertAreaService,
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -67,9 +66,9 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
 
-    this.eapActionSubscription = this.eapActionsService
-      .getTriggeredAreas()
-      .subscribe(this.onTriggeredAreasChange);
+    this.eapActionSubscription = this.alertAreaService
+      .getAlertAreas()
+      .subscribe(this.onAlertAreasChange);
 
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
@@ -106,14 +105,14 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       );
   };
 
-  private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
-    this.triggeredAreas = triggeredAreas;
-    this.calculateEAPActionStatus(this.triggeredAreas);
+  private onAlertAreasChange = (alertAreas: AlertArea[]) => {
+    this.alertAreas = alertAreas;
+    this.calculateEAPActionStatus(this.alertAreas);
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
     this.placeCode = placeCode;
-    this.calculateEAPActionStatus(this.triggeredAreas);
+    this.calculateEAPActionStatus(this.alertAreas);
   };
 
   private onEachEAPAction =
@@ -127,27 +126,26 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       }
     };
 
-  private onEachTriggeredArea =
-    (areaOfFocus: AreaOfFocus) => (area: TriggeredArea) => {
-      // And at each action within the area ..
-      area.eapActions.forEach(this.onEachEAPAction(areaOfFocus));
-    };
+  private onEachAlertArea = (areaOfFocus: AreaOfFocus) => (area: AlertArea) => {
+    // And at each action within the area ..
+    area.eapActions.forEach(this.onEachEAPAction(areaOfFocus));
+  };
 
-  private calculateEAPActionStatus(triggeredAreas: TriggeredArea[]): void {
+  private calculateEAPActionStatus(alertAreas: AlertArea[]): void {
     if (this.placeCode) {
-      triggeredAreas = triggeredAreas.filter(
+      alertAreas = alertAreas.filter(
         (a) => a.placeCode === this.placeCode?.placeCode,
       );
     }
     const onEachAreaOfFocus = (areaOfFocus: AreaOfFocus) => {
       areaOfFocus.count = 0;
       areaOfFocus.countChecked = 0;
-      // Look at each triggered area ..
-      triggeredAreas.forEach(this.onEachTriggeredArea(areaOfFocus));
+      // Look at each alert area ..
+      alertAreas.forEach(this.onEachAlertArea(areaOfFocus));
     };
 
     // Start calculation only when last area has eapActions attached to it
-    if (triggeredAreas[triggeredAreas.length - 1]?.eapActions) {
+    if (alertAreas[alertAreas.length - 1]?.eapActions) {
       // For each area of focus ..
       this.areasOfFocus.forEach(onEachAreaOfFocus);
     }

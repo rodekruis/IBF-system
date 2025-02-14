@@ -9,14 +9,15 @@ import { LayerActivation } from 'src/app/models/layer-activation.enum';
 import { breakKey } from 'src/app/models/map.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
+import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EapActionsService } from 'src/app/services/eap-actions.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
+import { AlertArea } from 'src/app/types/alert-area';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
 import {
@@ -32,7 +33,6 @@ import {
 import { Indicator } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
-import { TriggeredArea } from 'src/app/types/triggered-area';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
 
@@ -70,7 +70,7 @@ export class MapService {
   public eventState: EventState;
   public timelineState: TimelineState;
   public adminLevel: AdminLevel;
-  public triggeredAreas: TriggeredArea[];
+  public alertAreas: AlertArea[];
 
   private country: Country;
   private disasterType: DisasterType;
@@ -84,7 +84,7 @@ export class MapService {
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private disasterTypeService: DisasterTypeService,
-    private eapActionsService: EapActionsService,
+    private alertAreaService: AlertAreaService,
   ) {
     this.countryService
       .getCountrySubscription()
@@ -114,9 +114,7 @@ export class MapService {
       .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
 
-    this.eapActionsService
-      .getTriggeredAreas()
-      .subscribe(this.onTriggeredAreasChange);
+    this.alertAreaService.getAlertAreas().subscribe(this.onAlertAreasChange);
   }
 
   private onCountryChange = (country: Country): void => {
@@ -139,8 +137,8 @@ export class MapService {
     this.eventState = eventState;
   };
 
-  private onTriggeredAreasChange = (triggeredAreas: TriggeredArea[]) => {
-    this.triggeredAreas = triggeredAreas;
+  private onAlertAreasChange = (alertAreas: AlertArea[]) => {
+    this.alertAreas = alertAreas;
     this.loadLayers();
   };
 
@@ -779,7 +777,7 @@ export class MapService {
     colorPropertyValue: number,
     placeCode: string,
     placeCodeParent: string,
-    area: TriggeredArea,
+    area: AlertArea,
   ) {
     let weight = colorPropertyValue >= 1 ? 3 : 0.33;
     if (this.placeCode) {
@@ -820,7 +818,7 @@ export class MapService {
           : this.state.defaultWeight;
 
     if (this.placeCode) {
-      const areaState = this.triggeredAreas.find(
+      const areaState = this.alertAreas.find(
         (area) => area.placeCode === placeCode,
       );
       if (this.placeCode.placeCode === placeCode && !areaState) {
@@ -940,10 +938,10 @@ export class MapService {
   public getAreaByPlaceCode(
     placeCode: string,
     placeCodeParent: string,
-  ): TriggeredArea {
+  ): AlertArea {
     return (
-      this.triggeredAreas.find((area) => area.placeCode === placeCode) ||
-      this.triggeredAreas.find((area) => area.placeCode === placeCodeParent) // in multi-admin the map placeCode can differ 1 level from the chat/triggeredArea placeCode
+      this.alertAreas.find((area) => area.placeCode === placeCode) ||
+      this.alertAreas.find((area) => area.placeCode === placeCodeParent) // in multi-admin the map placeCode can differ 1 level from the chat/triggeredArea placeCode
     );
   }
 

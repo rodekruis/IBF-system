@@ -14,9 +14,9 @@ import { CountryEntity } from '../api/country/country.entity';
 import { CountryDisasterSettingsDto } from '../api/country/dto/add-countries.dto';
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
+import { AlertPerLeadTimeEntity } from '../api/event/alert-per-lead-time.entity';
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { EventService } from '../api/event/event.service';
-import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { MetadataService } from '../api/metadata/metadata.service';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
@@ -48,8 +48,8 @@ export class Event {
 export class MockService {
   @InjectRepository(EventPlaceCodeEntity)
   private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
-  @InjectRepository(TriggerPerLeadTime)
-  private readonly triggerPerLeadTimeRepo: Repository<TriggerPerLeadTime>;
+  @InjectRepository(AlertPerLeadTimeEntity)
+  private readonly alertPerLeadTimeRepo: Repository<AlertPerLeadTimeEntity>;
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
   @InjectRepository(EapActionStatusEntity)
@@ -188,14 +188,14 @@ export class MockService {
           }
         }
 
-        if (this.shouldMockTriggerPerLeadTime(disasterType)) {
-          const triggersPerLeadTime = this.getFile(
-            `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-leadtime.json`,
+        if (this.shouldMockAlertPerLeadTime(disasterType)) {
+          const alertsPerLeadTime = this.getFile(
+            `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-leadtime.json`,
           );
 
-          await this.eventService.uploadTriggerPerLeadTime({
+          await this.eventService.uploadAlertPerLeadTime({
             countryCodeISO3,
-            triggersPerLeadTime,
+            triggersPerLeadTime: alertsPerLeadTime, // NOTE: rename 'triggersPerLeadTime' when dto changes
             disasterType: DisasterType.Floods,
             eventName: event.eventName,
             date,
@@ -233,11 +233,15 @@ export class MockService {
     }
 
     if (this.shouldMockRasterFile(disasterType)) {
-      this.mockHelpService.mockRasterFile(selectedCountry, disasterType, true);
+      this.mockHelpService.mockRasterFile(
+        selectedCountry,
+        disasterType,
+        !scenario.events,
+      );
     }
 
     if (this.shouldMockGlofasStations(disasterType)) {
-      // This uploads all non-triggered stations outside of the event-loop
+      // This uploads all non-alerted stations outside of the event-loop
       await this.mockGlofasStations(
         selectedCountry,
         disasterType,
@@ -461,7 +465,7 @@ export class MockService {
         disasterType,
       },
     });
-    await this.triggerPerLeadTimeRepo.delete({
+    await this.alertPerLeadTimeRepo.delete({
       countryCodeISO3,
       disasterType,
     });
@@ -480,7 +484,7 @@ export class MockService {
     return disasterType === DisasterType.Floods;
   }
 
-  private shouldMockTriggerPerLeadTime(disasterType: DisasterType): boolean {
+  private shouldMockAlertPerLeadTime(disasterType: DisasterType): boolean {
     return disasterType === DisasterType.Floods;
   }
 

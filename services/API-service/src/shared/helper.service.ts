@@ -9,8 +9,8 @@ import {
   LeadTimeUnit,
 } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
+import { AlertPerLeadTimeEntity } from '../api/event/alert-per-lead-time.entity';
 import { DateDto } from '../api/event/dto/date.dto';
-import { TriggerPerLeadTime } from '../api/event/trigger-per-lead-time.entity';
 import { NumberFormat } from './enums/number-format.enum';
 import { GeoJson, GeoJsonFeature } from './geo.model';
 
@@ -94,9 +94,10 @@ export class HelperService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<DateDto> {
-    const triggerPerLeadTimeRepository =
-      this.dataSource.getRepository(TriggerPerLeadTime);
-    const result = await triggerPerLeadTimeRepository.findOne({
+    const alertPerLeadTimeRepository = this.dataSource.getRepository(
+      AlertPerLeadTimeEntity,
+    );
+    const result = await alertPerLeadTimeRepository.findOne({
       where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
       order: { timestamp: 'DESC' },
     });

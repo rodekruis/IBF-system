@@ -10,11 +10,11 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-import triggers from '../../../scripts/mock-data/floods/UGA/trigger/G5075/triggers-per-leadtime.json';
+import triggers from '../../../scripts/mock-data/floods/UGA/trigger/G5075/alerts-per-leadtime.json';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
-import { TriggerPerLeadTimeDto } from './trigger-per-leadtime.dto';
+import { AlertPerLeadTimeDto } from './alert-per-leadtime.dto';
 
-export class UploadTriggerPerLeadTimeDto {
+export class UploadAlertPerLeadTimeDto {
   @ApiProperty({ example: 'UGA' })
   @IsNotEmpty()
   @IsString()
@@ -34,8 +34,8 @@ export class UploadTriggerPerLeadTimeDto {
   @ApiProperty({ example: triggers })
   @IsArray()
   @ValidateNested()
-  @Type(() => TriggerPerLeadTimeDto)
-  public triggersPerLeadTime: TriggerPerLeadTimeDto[];
+  @Type(() => AlertPerLeadTimeDto)
+  public triggersPerLeadTime: AlertPerLeadTimeDto[]; // NOTE: Leave this public-facing dto unchanged for now. Will change to 'alertsPerLeadTime'
 
   @ApiProperty({ example: new Date() })
   @IsOptional()

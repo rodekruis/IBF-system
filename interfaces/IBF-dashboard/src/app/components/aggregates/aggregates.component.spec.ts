@@ -118,12 +118,10 @@ describe('AggregatesComponent', () => {
       component.disasterType = MOCK_DISASTERTYPE;
       component.eventState = MOCK_EVENT_STATE;
 
-      const mockNrTriggeredAreas = 5;
+      const mockNrAlertAreas = 5;
       const mockAdminAreaLabel = 'Subcounties';
       // spying this method, which uses a global from aggregates.service
-      spyOn(component as any, 'getAreaCount').and.returnValue(
-        mockNrTriggeredAreas,
-      );
+      spyOn(component as any, 'getAreaCount').and.returnValue(mockNrAlertAreas);
       // spying this method because it uses this.country, which is private
       spyOn(component as any, 'getAdminAreaLabel').and.returnValue(
         mockAdminAreaLabel,
@@ -131,7 +129,7 @@ describe('AggregatesComponent', () => {
 
       const expected = {
         headerLabel: MOCK_EVENT_STATE.event.eventName,
-        subHeaderLabel: `${mockNrTriggeredAreas.toString()} exposed ${mockAdminAreaLabel}`,
+        subHeaderLabel: `${mockNrAlertAreas.toString()} exposed ${mockAdminAreaLabel}`,
       };
 
       expect(component.getAggregatesHeader(mapView)).toEqual(expected);
@@ -158,12 +156,10 @@ describe('AggregatesComponent', () => {
       spyOn(adminLevelService as any, 'getAdminLevelType').and.returnValue(
         AdminLevelType.higher,
       );
-      const mockNrTriggeredAreas = 3;
+      const mockNrAlertAreas = 3;
       const mockAdminAreaLabel = 'Wards';
       // spying this method, which uses a global from aggregates.service
-      spyOn(component as any, 'getAreaCount').and.returnValue(
-        mockNrTriggeredAreas,
-      );
+      spyOn(component as any, 'getAreaCount').and.returnValue(mockNrAlertAreas);
       // spying this method because it uses this.country, which is private
       spyOn(component as any, 'getAdminAreaLabel').and.returnValue(
         mockAdminAreaLabel,
@@ -171,7 +167,7 @@ describe('AggregatesComponent', () => {
 
       const expected = {
         headerLabel: placeCode.placeCodeName, //'Guba'
-        subHeaderLabel: `${mockNrTriggeredAreas.toString()} exposed ${mockAdminAreaLabel}`,
+        subHeaderLabel: `${mockNrAlertAreas.toString()} exposed ${mockAdminAreaLabel}`,
       };
 
       expect(component.getAggregatesHeader(mapView)).toEqual(expected);

@@ -1,7 +1,7 @@
 import { AdminLevel } from 'src/app/types/admin-level';
-import { TriggeredArea } from 'src/app/types/triggered-area';
+import { AlertArea } from 'src/app/types/alert-area';
 
-export const MOCK_TRIGGEREDAREAS: TriggeredArea[] = [
+export const MOCK_ALERT_AREAS: AlertArea[] = [
   {
     mainExposureValue: 1,
     triggerValue: 1,

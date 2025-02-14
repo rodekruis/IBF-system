@@ -18,17 +18,17 @@ import {
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
-import { EventSummaryCountry, TriggeredArea } from '../../shared/data.model';
+import { AlertArea, EventSummaryCountry } from '../../shared/data.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { SendNotificationDto } from '../notification/dto/send-notification.dto';
 import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
-import { DateDto, TriggerPerLeadTimeExampleDto } from './dto/date.dto';
+import { DateDto } from './dto/date.dto';
 import {
   ActivationLogDto,
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
-import { UploadTriggerPerLeadTimeDto } from './dto/upload-trigger-per-leadtime.dto';
+import { UploadAlertPerLeadTimeDto } from './dto/upload-alert-per-leadtime.dto';
 import { EventService } from './event.service';
 
 @ApiBearerAuth()
@@ -88,7 +88,7 @@ export class EventController {
   @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
-      'Get yes/no trigger per lead-time for given country and disaster-type.',
+      'Get alert data per lead-time for given country, disaster-type, event.',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
@@ -96,15 +96,14 @@ export class EventController {
   @ApiResponse({
     status: 200,
     description:
-      'Yes/no trigger per lead-time for given country and disaster-type.',
-    type: TriggerPerLeadTimeExampleDto,
+      'Alert data per lead-time for given country, disaster-type, event.',
   })
-  @Get('triggers/:countryCodeISO3/:disasterType')
-  public async getTriggerPerLeadtime(
+  @Get('alerts/:countryCodeISO3/:disasterType')
+  public async getAlertPerLeadtime(
     @Param() params,
     @Query() query,
   ): Promise<object> {
-    return await this.eventService.getTriggerPerLeadtime(
+    return await this.eventService.getAlertPerLeadtime(
       params.countryCodeISO3,
       params.disasterType,
       query.eventName,
@@ -114,7 +113,7 @@ export class EventController {
   @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
-      'Get triggered admin-areas for given country, disaster-type and lead-time.',
+      'Get alerted admin-areas for given country, disaster-type and lead-time.',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
@@ -124,15 +123,15 @@ export class EventController {
   @ApiResponse({
     status: 200,
     description:
-      'Triggered admin-areas for given country, disaster-type and lead-time.',
-    type: [TriggeredArea],
+      'Alerted admin-areas for given country, disaster-type and lead-time.',
+    type: [AlertArea],
   })
-  @Get('triggered-areas/:countryCodeISO3/:adminLevel/:disasterType')
-  public async getTriggeredAreas(
+  @Get('alert-areas/:countryCodeISO3/:adminLevel/:disasterType')
+  public async getAlertAreas(
     @Param() params,
     @Query() query,
-  ): Promise<TriggeredArea[]> {
-    return await this.eventService.getTriggeredAreas(
+  ): Promise<AlertArea[]> {
+    return await this.eventService.getAlertAreas(
       params.countryCodeISO3,
       params.disasterType,
       params.adminLevel,
@@ -189,21 +188,17 @@ export class EventController {
   @UseGuards(RolesGuard)
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
-    summary:
-      'Upload yes/no trigger data per leadtime for given country and disaster-type',
+    summary: 'Upload alert data per leadtime',
   })
   @ApiResponse({
     status: 201,
-    description:
-      'Uploaded yes/no trigger data per leadtime for given country and disaster-type.',
+    description: 'Uploaded alert data per leadtime',
   })
-  @Post('triggers-per-leadtime')
-  public async uploadTriggersPerLeadTime(
-    @Body() uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
+  @Post('triggers-per-leadtime') // NOTE: Rename to 'alerts-per-leadtime'. This desired path change can be employed in practice to facilitate an old and new endpoint side-by-side.
+  public async uploadAlertPerLeadTime(
+    @Body() uploadAlertPerLeadTimeDto: UploadAlertPerLeadTimeDto,
   ): Promise<void> {
-    await this.eventService.uploadTriggerPerLeadTime(
-      uploadTriggerPerLeadTimeDto,
-    );
+    await this.eventService.uploadAlertPerLeadTime(uploadAlertPerLeadTimeDto);
   }
 
   @UseGuards(RolesGuard)

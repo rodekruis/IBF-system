@@ -200,7 +200,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       indicatorName,
       this.getPlaceCodeValue(),
       numberFormat,
-      AreaStatus.TriggeredOrWarned,
+      AreaStatus.Alert,
     );
 
     return agg;
@@ -319,7 +319,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   private getAreaCount(): number {
-    return this.aggregatesService.nrTriggerAreas;
+    return this.aggregatesService.nrAlertAreas;
   }
 
   private getEventCount(): number {
