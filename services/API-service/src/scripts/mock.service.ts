@@ -195,7 +195,7 @@ export class MockService {
 
           await this.eventService.uploadAlertPerLeadTime({
             countryCodeISO3,
-            triggersPerLeadTime: alertsPerLeadTime, //##TODO: change to alertsPerLeadTime
+            triggersPerLeadTime: alertsPerLeadTime, // NOTE: rename 'triggersPerLeadTime' when dto changes
             disasterType: DisasterType.Floods,
             eventName: event.eventName,
             date,

@@ -194,7 +194,7 @@ export class EventController {
     status: 201,
     description: 'Uploaded alert data per leadtime',
   })
-  @Post('triggers-per-leadtime') // ##TODO: Rename to 'alerts-per-leadtime'
+  @Post('triggers-per-leadtime') // NOTE: Rename to 'alerts-per-leadtime'. This desired path change can be employed in practice to facilitate an old and new endpoint side-by-side.
   public async uploadAlertPerLeadTime(
     @Body() uploadAlertPerLeadTimeDto: UploadAlertPerLeadTimeDto,
   ): Promise<void> {

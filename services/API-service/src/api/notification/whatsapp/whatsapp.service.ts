@@ -390,8 +390,7 @@ export class WhatsappService {
     if (countryCodeISO3 !== 'UGA') {
       return;
     }
-
-    const disasterType = DisasterType.Floods; // ##TODO: make this dynamic
+    const disasterType = DisasterType.Floods;
 
     const messageKey = 'community-notification';
 
