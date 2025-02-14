@@ -186,13 +186,12 @@ export class AlertAreaService {
   };
 
   private mapForecastSeverityToAlertLabel = (alertArea: AlertArea) => {
-    // ##TODO this logic should change in new setup
+    // NOTE AB#32041: this logic should change in new setup
     if (alertArea.forecastSeverity === 1) {
       alertArea.alertLabel = AlertLabel.trigger;
     } else if (alertArea.forecastSeverity > 0) {
       alertArea.alertLabel = AlertLabel.warning;
     }
-    // AlertLabel.alert does not need to be defined as {{alertLabel}} is not a variable in the non-eap copy
   };
 
   private filterEapActionsByMonth = (alertArea: AlertArea) => {

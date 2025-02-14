@@ -20,10 +20,10 @@ export class AlertPerLeadTimeDto {
   @ApiProperty({ default: false })
   @IsNotEmpty()
   @IsBoolean()
-  public triggered: boolean; // NOTE: Leave this public-facing dto unchanged for now. Will change to 'forecastAlert' (or via separate dto/endpoint)
+  public triggered: boolean; // NOTE AB#32041: Leave this public-facing dto unchanged for now. Will change to 'forecastAlert' (or via separate dto/endpoint)
 
   @ApiProperty({ default: false })
   @IsOptional()
   @IsBoolean()
-  public thresholdReached: boolean; // NOTE: Leave this public-facing dto unchanged for now. Will change to 'forecastTrigger' (or via separate dto/endpoint)
+  public thresholdReached: boolean; // NOTE AB#32041: Leave this public-facing dto unchanged for now. Will change to 'forecastTrigger' (or via separate dto/endpoint)
 }

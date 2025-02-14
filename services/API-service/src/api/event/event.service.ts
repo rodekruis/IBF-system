@@ -208,9 +208,9 @@ export class EventService {
       alertPerLeadTime.countryCodeISO3 =
         uploadAlertPerLeadTimeDto.countryCodeISO3;
       alertPerLeadTime.leadTime = leadTime.leadTime as LeadTime;
-      alertPerLeadTime.forecastAlert = leadTime.triggered; // NOTE: rename 'triggered' when DTO changes
+      alertPerLeadTime.forecastAlert = leadTime.triggered; // NOTE AB#32041: rename 'triggered' when DTO changes
       alertPerLeadTime.forecastTrigger =
-        leadTime.triggered && leadTime.thresholdReached; // NOTE: rename 'triggered'/'thresholdReached' when DTO changes
+        leadTime.triggered && leadTime.thresholdReached; // NOTE AB#32041: rename 'triggered'/'thresholdReached' when DTO changes
       alertPerLeadTime.disasterType = uploadAlertPerLeadTimeDto.disasterType;
       alertPerLeadTime.eventName = uploadAlertPerLeadTimeDto.eventName;
 
@@ -490,7 +490,7 @@ export class EventService {
         'case when event.closed = true then event."endDate" end as "endDate"',
         'disaster."mainExposureIndicator" as "exposureIndicator"',
         'event."mainExposureValue" as "exposureValue"',
-        `CASE event."forecastSeverity" WHEN 1 THEN 'Trigger/alert' WHEN 0.7 THEN 'Medium warning' WHEN 0.3 THEN 'Low warning' END as "alertClass"`, // ##TODO Check this
+        `CASE event."forecastSeverity" WHEN 1 THEN 'Trigger/alert' WHEN 0.7 THEN 'Medium warning' WHEN 0.3 THEN 'Low warning' END as "alertClass"`, // NOTE AB#32041: Check this
         'event."eventPlaceCodeId" as "databaseId"',
       ])
       .leftJoin('event.adminArea', 'area')
@@ -693,7 +693,7 @@ export class EventService {
     // await this.closeEventsAutomatic(countryCodeISO3, disasterType, eventName);
   }
 
-  // ##TODO REFACTOR: call this getAlertAreas but then it becomes duplicate. Figure out the difference and if they can be combined.
+  // NOTE AB#32041 REFACTOR: call this getAlertAreas but then it becomes duplicate. Figure out the difference and if they can be combined.
   private async getAffectedAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
@@ -721,7 +721,7 @@ export class EventService {
       eventName: eventName || IsNull(),
     };
 
-    // ##TODO: this currently gets forecastSeverity based on layer identified by triggerIndicator (alert_threshold). This must change (and be made more flexible in transition period)
+    // NOTE AB#32041: this currently gets forecastSeverity based on layer identified by triggerIndicator (alert_threshold). This must change (and be made more flexible in transition period)
     const alertPlaceCodes = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
@@ -729,7 +729,7 @@ export class EventService {
       .where(whereFilters)
       .andWhere(
         `(area.value > 0 OR (area."eventName" is not null AND area."disasterType" IN ('flash-floods','typhoon')))`,
-      ) // Also allow value=0 entries with typhoon/flash-floods and event name (= warning event) // ##TODO: this check should be possible to remove after this item
+      ) // Also allow value=0 entries with typhoon/flash-floods and event name (= warning event) // NOTE AB#32041: this check should be possible to remove after this item
       .groupBy('area."placeCode"')
       .getRawMany();
 
@@ -812,7 +812,7 @@ export class EventService {
       if (affectedArea) {
         eventArea.endDate = uploadDate.timestamp;
         if (affectedArea.forecastSeverity === 1) {
-          eventArea.forecastTrigger = true; // ##TODO: for now just rename done, but this functionality will change based on the new input
+          eventArea.forecastTrigger = true; // NOTE AB#32041: for now just rename done, but this functionality will change based on the new input
           idsToUpdateTrigger.push(eventArea.eventPlaceCodeId);
         } else {
           eventArea.forecastTrigger = false;
