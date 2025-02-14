@@ -6,7 +6,7 @@ import { In, Repository } from 'typeorm';
 
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
-import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
+import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { AdminLevel } from '../api/country/admin-level.enum';

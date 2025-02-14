@@ -8,7 +8,7 @@ import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
+import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
