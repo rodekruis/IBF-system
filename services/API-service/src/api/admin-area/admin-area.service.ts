@@ -130,7 +130,7 @@ export class AdminAreaService {
   ): Promise<AdminAreaDynamicDataEntity[]> {
     const triggerIndicator =
       await this.eventService.getTriggerIndicator(disasterType);
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
@@ -143,7 +143,7 @@ export class AdminAreaService {
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastTriggeredDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       ),
     };
@@ -197,7 +197,7 @@ export class AdminAreaService {
     eventName: string,
     placeCodeParent?: string,
   ): Promise<AggregateDataRecord[]> {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
@@ -207,7 +207,7 @@ export class AdminAreaService {
       return await this.eventAreaService.getEventAreaAggregates(
         countryCodeISO3,
         disasterType,
-        lastTriggeredDate,
+        lastUploadDate,
       );
     }
 
@@ -258,7 +258,7 @@ export class AdminAreaService {
       .andWhere('timestamp >= :last6hourInterval', {
         last6hourInterval: this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastTriggeredDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       })
       .andWhere('"disasterType" = :disasterType', {
@@ -327,7 +327,7 @@ export class AdminAreaService {
     placeCodeParent?: string,
   ): Promise<GeoJson> {
     const disasterTypeEntity = await this.getDisasterType(disasterType);
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
@@ -337,7 +337,7 @@ export class AdminAreaService {
       return await this.eventAreaService.getEventAreas(
         countryCodeISO3,
         disasterTypeEntity,
-        lastTriggeredDate,
+        lastUploadDate,
       );
     }
 
@@ -382,7 +382,7 @@ export class AdminAreaService {
       .andWhere('timestamp >= :cutoffMoment', {
         cutoffMoment: this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastTriggeredDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       })
       .andWhere('"disasterType" = :disasterType', {
@@ -428,7 +428,7 @@ export class AdminAreaService {
     leadTime: string,
     eventName: string,
   ) {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
@@ -439,7 +439,7 @@ export class AdminAreaService {
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastTriggeredDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       ),
       indicator: DynamicIndicator.showAdminArea,

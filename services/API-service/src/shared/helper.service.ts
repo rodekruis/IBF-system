@@ -90,7 +90,7 @@ export class HelperService {
     });
   }
 
-  public async getRecentDate(
+  public async getLastUploadDate(
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<DateDto> {

@@ -16,12 +16,12 @@ import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
+import { LastUploadDate } from 'src/app/types/last-upload-date';
 import {
   LeadTime,
   LeadTimeTriggerKey,
   LeadTimeUnit,
 } from 'src/app/types/lead-time';
-import { RecentDate } from 'src/app/types/recent-date';
 
 export class EventSummary {
   countryCodeISO3: string;
@@ -182,18 +182,23 @@ export class EventService {
 
   private onEvents = (events: EventSummary[]) => {
     this.apiService
-      .getRecentDates(
+      .getLastUploadDate(
         this.country.countryCodeISO3,
         this.disasterType.disasterType,
       )
       .subscribe((date) => {
-        this.onRecentDates(date, events);
+        this.onLastUploadDate(date, events);
       });
   };
 
-  private onRecentDates = (date: RecentDate, events: EventSummary[]) => {
-    if (date.timestamp || date.date) {
-      this.today = DateTime.fromISO(date.timestamp || date.date);
+  private onLastUploadDate = (
+    lastUploadDate: LastUploadDate,
+    events: EventSummary[],
+  ) => {
+    if (lastUploadDate.timestamp || lastUploadDate.date) {
+      this.today = DateTime.fromISO(
+        lastUploadDate.timestamp || lastUploadDate.date,
+      );
     } else {
       this.today = DateTime.now();
     }
@@ -362,7 +367,7 @@ export class EventService {
   }
 
   public isLastModelDateStale = (
-    recentDate: Date,
+    lastUploadDate: Date,
     disasterType: DisasterType,
   ) => {
     const percentageOvertimeAllowed = 0.1; // 10%
@@ -383,11 +388,11 @@ export class EventService {
     const nowDate = Date.now();
     const diff =
       durationUnit === 'hours'
-        ? differenceInHours(nowDate, recentDate)
+        ? differenceInHours(nowDate, lastUploadDate)
         : durationUnit === 'days'
-          ? differenceInDays(nowDate, recentDate)
+          ? differenceInDays(nowDate, lastUploadDate)
           : durationUnit === 'months'
-            ? differenceInMonths(nowDate, recentDate)
+            ? differenceInMonths(nowDate, lastUploadDate)
             : null;
 
     return diff > durationUnitValue + percentageOvertimeAllowed;

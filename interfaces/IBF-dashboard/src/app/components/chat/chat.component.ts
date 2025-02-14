@@ -240,12 +240,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private setLastModelRunDate = (disasterType: DisasterType) => {
-    const recentDate = this.timelineState.today;
-    this.lastModelRunDate = recentDate
-      ? recentDate.toFormat(this.lastModelRunDateFormat)
+    const lastUploadDate = this.timelineState.today;
+    this.lastModelRunDate = lastUploadDate
+      ? lastUploadDate.toFormat(this.lastModelRunDateFormat)
       : 'unknown';
     this.isWarn = this.eventService.isLastModelDateStale(
-      recentDate.toJSDate(), // TODO: migrate from luxon (DateTime) to date-fns (Date) over time completely
+      lastUploadDate.toJSDate(), // TODO: migrate from luxon (DateTime) to date-fns (Date) over time completely
       disasterType,
     );
   };

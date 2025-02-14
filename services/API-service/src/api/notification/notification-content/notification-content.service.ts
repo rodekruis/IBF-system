@@ -263,8 +263,12 @@ export class NotificationContentService {
   ): Promise<string> {
     const now =
       date ||
-      (await this.helperService.getRecentDate(countryCodeISO3, disasterType))
-        .timestamp;
+      (
+        await this.helperService.getLastUploadDate(
+          countryCodeISO3,
+          disasterType,
+        )
+      ).timestamp;
 
     const getNewDate = {
       month: new Date(now).setMonth(new Date(now).getMonth() + value),
@@ -364,11 +368,11 @@ export class NotificationContentService {
       return null;
     }
 
-    const recentDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
-    const gmtUploadDate = new Date(recentDate.timestamp);
+    const gmtUploadDate = new Date(lastUploadDate.timestamp);
     const hours = Number(leadTime.split('-')[0]);
     const gmtEventDate = new Date(
       gmtUploadDate.setTime(gmtUploadDate.getTime() + hours * 60 * 60 * 1000),

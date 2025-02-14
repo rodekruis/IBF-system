@@ -113,7 +113,7 @@ export class TyphoonTrackService {
   }
 
   private async getTrackFilters(countryCodeISO3: string, eventName: string) {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       DisasterType.Typhoon,
     );
@@ -123,7 +123,7 @@ export class TyphoonTrackService {
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           DisasterType.Typhoon,
-          lastTriggeredDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       ),
     };

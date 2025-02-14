@@ -190,7 +190,7 @@ export class AdminAreaDynamicDataService {
     leadTime: LeadTime,
     eventName: string,
   ): Promise<AdminDataReturnDto[]> {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
@@ -201,7 +201,7 @@ export class AdminAreaDynamicDataService {
         countryCodeISO3,
         disasterType,
         indicator,
-        lastTriggeredDate,
+        lastUploadDate,
       );
     }
 
@@ -213,7 +213,7 @@ export class AdminAreaDynamicDataService {
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastTriggeredDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       ),
     };
