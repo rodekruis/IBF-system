@@ -1,42 +1,42 @@
 [
   {
     "leadTime": "0-day",
-    "triggered": true,
-    "thresholdReached": false
+    "forecastAlert": true,
+    "forecastTrigger": false
   },
   {
     "leadTime": "1-day",
-    "triggered": true,
-    "thresholdReached": false
+    "forecastAlert": true,
+    "forecastTrigger": false
   },
   {
     "leadTime": "2-day",
-    "triggered": true,
-    "thresholdReached": false
+    "forecastAlert": true,
+    "forecastTrigger": false
   },
   {
     "leadTime": "3-day",
-    "triggered": true,
-    "thresholdReached": false
+    "forecastAlert": true,
+    "forecastTrigger": false
   },
   {
     "leadTime": "4-day",
-    "triggered": true,
-    "thresholdReached": false
+    "forecastAlert": true,
+    "forecastTrigger": false
   },
   {
     "leadTime": "5-day",
-    "triggered": false,
-    "thresholdReached": false
+    "forecastAlert": false,
+    "forecastTrigger": false
   },
   {
     "leadTime": "6-day",
-    "triggered": false,
-    "thresholdReached": false
+    "forecastAlert": false,
+    "forecastTrigger": false
   },
   {
     "leadTime": "7-day",
-    "triggered": false,
-    "thresholdReached": false
+    "forecastAlert": false,
+    "forecastTrigger": false
   }
 ]
