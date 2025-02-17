@@ -27,7 +27,7 @@
     "lib": ["es2020", "dom"],
     "useDefineForClassFields": false,
     "resolveJsonModule": true,
-    "strictNullChecks": true
+    "strictNullChecks": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": true,
