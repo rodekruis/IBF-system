@@ -23,11 +23,11 @@ import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { SendNotificationDto } from '../notification/dto/send-notification.dto';
 import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
-import { DateDto } from './dto/date.dto';
 import {
   ActivationLogDto,
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
+import { LastUploadDateDto } from './dto/last-upload-date.dto';
 import { UploadAlertPerLeadTimeDto } from './dto/upload-alert-per-leadtime.dto';
 import { EventService } from './event.service';
 
@@ -67,19 +67,19 @@ export class EventController {
   @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
-      'Get date of last forecast-data-upload for given country and disaster-type.',
+      'Get date of last (pipeline) upload for given country and disaster-type.',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
     status: 200,
     description:
-      'Date of last forecast-data-upload for given country and disaster-type.',
-    type: DateDto,
+      'Date of last (pipeline) upload for given country and disaster-type.',
+    type: LastUploadDateDto,
   })
-  @Get('recent-date/:countryCodeISO3/:disasterType')
-  public async getRecentDate(@Param() params): Promise<DateDto> {
-    return await this.eventService.getRecentDate(
+  @Get('last-upload-date/:countryCodeISO3/:disasterType')
+  public async getLastUploadDate(@Param() params): Promise<LastUploadDateDto> {
+    return await this.eventService.getLastUploadDate(
       params.countryCodeISO3,
       params.disasterType,
     );

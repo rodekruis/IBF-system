@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { IbfButtonComponent } from './ibf-button.component';
+import { IbfButtonComponent } from 'src/app/components/ibf-button/ibf-button.component';
 
 describe('IbfButtonComponent', () => {
   let component: IbfButtonComponent;

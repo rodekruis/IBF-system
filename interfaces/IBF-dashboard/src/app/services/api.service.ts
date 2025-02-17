@@ -15,8 +15,8 @@ import { AlertArea } from 'src/app/types/alert-area';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { IbfLayerMetadata, IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator } from 'src/app/types/indicator-group';
+import { LastUploadDate } from 'src/app/types/last-upload-date';
 import { LeadTime } from 'src/app/types/lead-time';
-import { RecentDate } from 'src/app/types/recent-date';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -193,12 +193,12 @@ export class ApiService {
     return this.get(`waterpoints/${countryCodeISO3}`, false);
   }
 
-  getRecentDates(
+  getLastUploadDate(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
-  ): Observable<RecentDate> {
+  ): Observable<LastUploadDate> {
     return this.get(
-      `event/recent-date/${countryCodeISO3}/${disasterType}`,
+      `event/last-upload-date/${countryCodeISO3}/${disasterType}`,
       false,
     );
   }

@@ -87,7 +87,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private country: Country;
   private disasterType: DisasterType;
   private countryDisasterSettings: CountryDisasterSettings;
-  public lastModelRunDate: string;
+  public lastUploadDate: string;
   public eventState: EventState;
   public timelineState: TimelineState;
   private closestPointToTyphoon: number;
@@ -210,7 +210,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
 
-    this.lastModelRunDate = this.timelineState?.today.toUTC().toString();
+    this.lastUploadDate = this.timelineState?.today.toUTC().toString();
   };
 
   private onEventStateChange = (eventState: EventState) => {
@@ -474,7 +474,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           return this.pointMarkerService.createMarkerTyphoonTrack(
             geoJsonPoint.properties as TyphoonTrackPoint,
             latlng,
-            this.lastModelRunDate,
+            this.lastUploadDate,
             this.closestPointToTyphoon,
           );
         case IbfLayerName.damSites:
@@ -816,7 +816,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       .filter(
         (f) =>
           DateTime.fromISO(f.properties?.['timestampOfTrackpoint']) <=
-          DateTime.fromISO(this.lastModelRunDate),
+          DateTime.fromISO(this.lastUploadDate),
       )
       .map((t) => DateTime.fromISO(t.properties?.['timestampOfTrackpoint']));
 

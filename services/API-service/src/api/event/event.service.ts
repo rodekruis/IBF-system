@@ -30,12 +30,12 @@ import { UserEntity } from '../user/user.entity';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AlertPerLeadTimeEntity } from './alert-per-lead-time.entity';
-import { DateDto } from './dto/date.dto';
 import {
   ActivationLogDto,
   AffectedAreaDto,
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
+import { LastUploadDateDto } from './dto/last-upload-date.dto';
 import { UploadAlertPerLeadTimeDto } from './dto/upload-alert-per-leadtime.dto';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 
@@ -66,12 +66,15 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<EventSummaryCountry[]> {
-    const recentDate = await this.getRecentDate(countryCodeISO3, disasterType);
+    const lastUploadDate = await this.getLastUploadDate(
+      countryCodeISO3,
+      disasterType,
+    );
     const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
       countryCodeISO3,
     ).andWhere({
       closed: false,
-      endDate: MoreThanOrEqual(recentDate.date),
+      endDate: MoreThanOrEqual(lastUploadDate.date),
       disasterType: disasterType,
     });
     return this.queryAndMapEventSummary(
@@ -182,11 +185,11 @@ export class EventService {
       });
   }
 
-  public async getRecentDate(
+  public async getLastUploadDate(
     countryCodeISO3: string,
     disasterType: DisasterType,
-  ): Promise<DateDto> {
-    return this.helperService.getRecentDate(countryCodeISO3, disasterType);
+  ): Promise<LastUploadDateDto> {
+    return this.helperService.getLastUploadDate(countryCodeISO3, disasterType);
   }
 
   public async uploadAlertPerLeadTime(
@@ -293,7 +296,7 @@ export class EventService {
     leadTime: string,
     eventName: string,
   ): Promise<AlertArea[]> {
-    const lastUploadDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
@@ -398,7 +401,7 @@ export class EventService {
   private async getDeeperAlertAreas(
     triggeredPlaceCodes: string[],
     disasterType: DisasterType,
-    lastTriggeredDate: DateDto,
+    lastUploadDate: LastUploadDateDto,
     eventName?: string,
     leadTime?: string,
   ): Promise<AlertArea[]> {
@@ -411,7 +414,7 @@ export class EventService {
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastTriggeredDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       ),
     };
@@ -557,7 +560,7 @@ export class EventService {
     disasterType: DisasterType,
     eventName: string,
   ): Promise<object> {
-    const lastUploadDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
@@ -702,7 +705,7 @@ export class EventService {
   ): Promise<AffectedAreaDto[]> {
     const triggerIndicator = await this.getTriggerIndicator(disasterType);
 
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
@@ -712,7 +715,7 @@ export class EventService {
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastTriggeredDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       ),
       countryCodeISO3,
@@ -748,7 +751,7 @@ export class EventService {
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
-          lastTriggeredDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       ),
       countryCodeISO3,
@@ -804,13 +807,16 @@ export class EventService {
     // To optimize performance here ..
     const idsToUpdateTrigger = [];
     const idsToUpdateWarning = [];
-    const uploadDate = await this.getRecentDate(countryCodeISO3, disasterType);
+    const lastUploadDate = await this.getLastUploadDate(
+      countryCodeISO3,
+      disasterType,
+    );
     unclosedEventAreas.forEach((eventArea) => {
       const affectedArea = affectedAreas.find(
         (area) => area.placeCode === eventArea.adminArea.placeCode,
       );
       if (affectedArea) {
-        eventArea.endDate = uploadDate.timestamp;
+        eventArea.endDate = lastUploadDate.timestamp;
         if (affectedArea.forecastSeverity === 1) {
           eventArea.forecastTrigger = true; // NOTE AB#32041: for now just rename done, but this functionality will change based on the new input
           idsToUpdateTrigger.push(eventArea.eventPlaceCodeId);
@@ -821,10 +827,14 @@ export class EventService {
       }
     });
     // .. first fire one query to update all rows that need forecastTrigger = true
-    await this.updateEvents(idsToUpdateTrigger, true, uploadDate.timestamp);
+    await this.updateEvents(idsToUpdateTrigger, true, lastUploadDate.timestamp);
 
     // .. then fire one query to update all rows that need forecastTrigger = false
-    await this.updateEvents(idsToUpdateWarning, false, uploadDate.timestamp);
+    await this.updateEvents(
+      idsToUpdateWarning,
+      false,
+      lastUploadDate.timestamp,
+    );
 
     // .. lastly we update those records where mainExposureValue or forecastSeverity changed
     await this.updateValues(unclosedEventAreas, affectedAreas);
@@ -910,7 +920,7 @@ export class EventService {
       })
     ).map((area) => area.adminArea.placeCode);
     const newEventAreas: EventPlaceCodeEntity[] = [];
-    const startDate = await this.helperService.getRecentDate(
+    const startDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
@@ -942,12 +952,12 @@ export class EventService {
   ) {
     const countryAdminAreaIds =
       await this.getCountryAdminAreaIds(countryCodeISO3);
-    const uploadDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
     const where = {
-      endDate: LessThan(uploadDate.timestamp), // If the area was not prolonged earlier, then the endDate is not updated and is therefore less than the uploadDate
+      endDate: LessThan(lastUploadDate.timestamp), // If the area was not prolonged earlier, then the endDate is not updated and is therefore less than the lastUploadDate
       adminArea: In(countryAdminAreaIds),
       disasterType,
       closed: false,

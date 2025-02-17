@@ -72,8 +72,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   public country: Country;
   public disasterType: DisasterType;
   public countryDisasterSettings: CountryDisasterSettings;
-  public lastModelRunDate: string;
-  private lastModelRunDateFormat = 'cccc, dd LLLL HH:mm';
+  public lastUploadDate: string;
+  private lastUploadDateFormat = 'cccc, dd LLLL HH:mm';
   public isWarn = false;
   public supportEmailAddress = environment.supportEmailAddress;
   public adminLevel: AdminLevel;
@@ -240,12 +240,12 @@ export class ChatComponent implements OnInit, OnDestroy {
   };
 
   private setLastModelRunDate = (disasterType: DisasterType) => {
-    const recentDate = this.timelineState.today;
-    this.lastModelRunDate = recentDate
-      ? recentDate.toFormat(this.lastModelRunDateFormat)
+    const lastUploadDate = this.timelineState.today;
+    this.lastUploadDate = lastUploadDate
+      ? lastUploadDate.toFormat(this.lastUploadDateFormat)
       : 'unknown';
-    this.isWarn = this.eventService.isLastModelDateStale(
-      recentDate.toJSDate(), // TODO: migrate from luxon (DateTime) to date-fns (Date) over time completely
+    this.isWarn = this.eventService.isLastUploadDateStale(
+      lastUploadDate.toJSDate(), // TODO: migrate from luxon (DateTime) to date-fns (Date) over time completely
       disasterType,
     );
   };

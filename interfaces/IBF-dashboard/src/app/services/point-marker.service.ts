@@ -4,8 +4,8 @@ import {
   Injectable,
   Injector,
 } from '@angular/core';
+import { format, isAfter, isBefore, isEqual, parseISO } from 'date-fns';
 import { divIcon, icon, IconOptions, LatLng, Marker, marker } from 'leaflet';
-import { DateTime } from 'luxon';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -174,20 +174,17 @@ export class PointMarkerService {
   public createMarkerTyphoonTrack(
     markerProperties: TyphoonTrackPoint,
     markerLatLng: LatLng,
-    lastModelRunDate: string,
+    lastUploadDateString: string,
     closestPointToTyphoon: number,
   ): Marker {
-    const markerDateTime = DateTime.fromISO(
-      markerProperties.timestampOfTrackpoint,
-    );
-    const modelDateTime = DateTime.fromISO(lastModelRunDate);
-    const isLatest = markerDateTime.equals(
-      DateTime.fromMillis(closestPointToTyphoon),
-    );
+    const markerDateTime = parseISO(markerProperties.timestampOfTrackpoint);
+    const lastUploadDate = parseISO(lastUploadDateString);
+    const isLatest = isEqual(markerDateTime, new Date(closestPointToTyphoon));
+    const titleFormat = 'ccc, dd LLLL, HH:mm';
 
     let className = 'typhoon-track-icon';
 
-    if (markerDateTime > modelDateTime) {
+    if (isBefore(lastUploadDate, markerDateTime)) {
       className += ' typhoon-track-icon-future';
     } else {
       if (isLatest) {
@@ -201,12 +198,10 @@ export class PointMarkerService {
       className += ' typhoon-track-icon-firstLandfall';
     }
 
-    const dateAndTime = DateTime.fromISO(
-      markerProperties.timestampOfTrackpoint,
-    ).toFormat('ccc, dd LLLL, HH:mm');
+    const title = format(markerDateTime, titleFormat);
 
     const markerInstance = marker(markerLatLng, {
-      title: dateAndTime,
+      title,
       icon: divIcon({
         className,
         iconSize: isLatest
@@ -227,7 +222,7 @@ export class PointMarkerService {
         markerProperties.timestampOfTrackpoint,
         markerProperties.category,
         markerLatLng,
-        markerDateTime <= modelDateTime,
+        !isAfter(markerDateTime, lastUploadDate),
       ),
       {
         minWidth: 350,

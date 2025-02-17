@@ -55,7 +55,7 @@ export class PointDataService {
     selectColumns.push('geom');
     selectColumns.push('"pointDataId"');
 
-    const recentDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
@@ -72,7 +72,7 @@ export class PointDataService {
       .where('sub.timestamp >= :cutoffMoment', {
         cutoffMoment: this.helperService.getUploadCutoffMoment(
           disasterType,
-          recentDate.timestamp,
+          lastUploadDate.timestamp,
         ),
       })
       .groupBy('sub."pointPointDataId"');
