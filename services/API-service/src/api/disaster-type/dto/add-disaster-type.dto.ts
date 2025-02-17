@@ -16,12 +16,6 @@ export class DisasterTypeDto {
   public label: string;
 
   @ApiProperty({
-    example: 'alert_threshold',
-    description: `List the 'indicator' here that is used to identify trigger status. Must be 'alert_threshold' at the moment.`,
-  })
-  public triggerIndicator: string;
-
-  @ApiProperty({
     example: 'population_affected',
     description: `List the 'indicator' here that is used as main exposure indicator.`,
   })

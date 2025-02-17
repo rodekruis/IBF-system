@@ -14,7 +14,6 @@ const disasterTypes: DisasterTypeEntity[] = [
     id: '1',
     disasterType: DisasterType.Floods,
     label: 'Floods',
-    triggerIndicator: 'population_affected',
     mainExposureIndicator: 'population_affected',
     showOnlyTriggeredAreas: false,
     countries: [],

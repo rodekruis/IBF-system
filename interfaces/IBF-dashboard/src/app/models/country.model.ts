@@ -79,6 +79,5 @@ export class DisasterType {
   minLeadTime: LeadTime;
   maxLeadTime: LeadTime;
   mainExposureIndicator: IbfLayerName;
-  triggerIndicator: IbfLayerName;
   activeTrigger: boolean;
 }

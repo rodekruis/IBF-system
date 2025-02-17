@@ -8,6 +8,7 @@ import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import { ALERT_LEVEL_INDICATORS } from '../admin-area-dynamic-data/const/alert-level-indicators.const';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
@@ -128,8 +129,6 @@ export class AdminAreaService {
     leadTime: string,
     eventName: string,
   ): Promise<AdminAreaDynamicDataEntity[]> {
-    const triggerIndicator =
-      await this.eventService.getTriggerIndicator(disasterType);
     const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
@@ -139,7 +138,7 @@ export class AdminAreaService {
       disasterType: disasterType,
       adminLevel: adminLevel,
       value: MoreThan(0),
-      indicator: triggerIndicator as DynamicIndicator,
+      indicator: ALERT_LEVEL_INDICATORS.alertThreshold,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,

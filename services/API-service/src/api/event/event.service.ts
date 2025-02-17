@@ -19,6 +19,7 @@ import {
   EventSummaryCountry,
 } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';
+import { ALERT_LEVEL_INDICATORS } from '../admin-area-dynamic-data/const/alert-level-indicators.const';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
@@ -290,17 +291,6 @@ export class EventService {
     await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
   }
 
-  public async getTriggerIndicator(
-    disasterType: DisasterType,
-  ): Promise<string> {
-    return (
-      await this.disasterTypeRepository.findOne({
-        select: ['triggerIndicator'],
-        where: { disasterType },
-      })
-    ).triggerIndicator;
-  }
-
   private async getCountryDisasterSettings(
     countryCodeISO3: string,
     disasterType: DisasterType,
@@ -324,13 +314,12 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    const triggerIndicator = await this.getTriggerIndicator(disasterType);
     const defaultAdminLevel = (
       await this.getCountryDisasterSettings(countryCodeISO3, disasterType)
     ).defaultAdminLevel;
 
     const whereFiltersDynamicData = {
-      indicator: triggerIndicator,
+      indicator: ALERT_LEVEL_INDICATORS.alertThreshold,
       value: MoreThan(0),
       adminLevel,
       disasterType,
@@ -787,10 +776,8 @@ export class EventService {
     eventName: string,
     lastUploadTimestamp: Date,
   ): Promise<AffectedAreaDto[]> {
-    const triggerIndicator = await this.getTriggerIndicator(disasterType);
-
     const whereFilters = {
-      indicator: triggerIndicator,
+      indicator: ALERT_LEVEL_INDICATORS.alertThreshold,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
@@ -803,7 +790,7 @@ export class EventService {
       eventName: eventName || IsNull(),
     };
 
-    // NOTE AB#32041: this currently gets forecastSeverity based on layer identified by triggerIndicator (alert_threshold). This must change (and be made more flexible in transition period)
+    // NOTE AB#32041: this currently gets forecastSeverity based on layer identified by alert_threshold. This must change (and be made more flexible in transition period)
     const alertPlaceCodes = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('area')
       .select('area."placeCode"')
