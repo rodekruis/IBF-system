@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { ScreenOrientationPopoverComponent } from './screen-orientation-popover.component';
+import { ScreenOrientationPopoverComponent } from 'src/app/components/screen-orientation-popover/screen-orientation-popover.component';
 
 describe('ScreenOrientationPopoverComponent', () => {
   let component: ScreenOrientationPopoverComponent;
