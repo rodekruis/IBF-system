@@ -17,7 +17,7 @@ const eventName = 'Mock typhoon 1';
 
 const timestamp = new Date();
 const date = timestamp.toISOString();
-const mockLastUploadDate = { date, timestamp };
+const mockLastUploadDate = { date, timestamp, cutoffMoment: timestamp };
 
 const mockTyphoonTrack: TyphoonTrackEntity[] = [
   {
