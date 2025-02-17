@@ -30,7 +30,7 @@ import {
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
 import {
   UploadAlertPerLeadTimeDto,
-  uploadTriggerPerLeadTimeDto,
+  UploadTriggerPerLeadTimeDto,
 } from './dto/upload-alert-per-leadtime.dto';
 import { EventService } from './event.service';
 
@@ -200,7 +200,7 @@ export class EventController {
   })
   @Post('triggers-per-leadtime')
   public async uploadTriggerPerLeadTime(
-    @Body() uploadTriggerPerLeadTimeDto: uploadTriggerPerLeadTimeDto,
+    @Body() uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ): Promise<void> {
     await this.eventService.convertDtoAndUpload(uploadTriggerPerLeadTimeDto);
   }
