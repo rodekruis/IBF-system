@@ -14,6 +14,7 @@ import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UploadAlertPerLeadTimeDto } from '../event/dto/upload-alert-per-leadtime.dto';
 import { EventService } from '../event/event.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
+import { ALERT_LEVEL_INDICATORS } from './const/alert-level-indicators.const';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
@@ -78,18 +79,14 @@ export class AdminAreaDynamicDataService {
     }
     await this.adminAreaDynamicDataRepo.save(areas);
 
-    const disasterType = await this.disasterTypeRepository.findOne({
-      select: ['triggerIndicator'],
-      where: { disasterType: uploadExposure.disasterType },
-    });
-
     const country = await this.countryRepository.findOne({
       relations: ['countryDisasterSettings'],
       where: { countryCodeISO3: uploadExposure.countryCodeISO3 },
     });
 
     if (
-      disasterType.triggerIndicator === uploadExposure.dynamicIndicator &&
+      uploadExposure.dynamicIndicator ===
+        ALERT_LEVEL_INDICATORS.alertThreshold &&
       uploadExposure.exposurePlaceCodes.length > 0 &&
       country.countryDisasterSettings.find(
         (s) => s.disasterType === uploadExposure.disasterType,
