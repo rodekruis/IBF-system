@@ -129,15 +129,15 @@ export class LinesDataService {
 
     const linesDataIds = assets.map((asset) => asset.linesDataId);
 
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      assetFids.disasterType,
+      assetFids.date,
+    );
+
     await this.linesDataDynamicStatusRepo.delete({
       linesData: { linesDataId: In(linesDataIds) },
       leadTime: assetFids.leadTime,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          assetFids.disasterType,
-          assetFids.date,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
     });
 
     const linesDataDynamicStatuses = assets.map((asset) => {
@@ -149,6 +149,6 @@ export class LinesDataService {
       return linesDataDynamicStatus;
     });
 
-    await this.linesDataDynamicStatusRepo.save(linesDataDynamicStatuses);
+    return this.linesDataDynamicStatusRepo.save(linesDataDynamicStatuses);
   }
 }

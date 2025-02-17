@@ -190,10 +190,10 @@ export class MockService {
 
         if (this.shouldMockAlertPerLeadTime(disasterType)) {
           const alertsPerLeadTime = this.getFile(
-            `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-leadtime.json`,
+            `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-lead-time.json`,
           );
 
-          await this.eventService.uploadAlertPerLeadTime({
+          await this.eventService.uploadAlertsPerLeadTime({
             countryCodeISO3,
             alertsPerLeadTime,
             disasterType: DisasterType.Floods,

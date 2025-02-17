@@ -72,6 +72,6 @@ export class LinesDataController {
   public async uploadAssetExposureStatus(
     @Body() assetFids: UploadLinesExposureStatusDto,
   ): Promise<void> {
-    return await this.linesDataService.uploadAssetExposureStatus(assetFids);
+    await this.linesDataService.uploadAssetExposureStatus(assetFids);
   }
 }

@@ -3,7 +3,13 @@ import path from 'path';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { DataSource, In, MoreThanOrEqual, Repository } from 'typeorm';
+import {
+  DataSource,
+  DeleteResult,
+  In,
+  MoreThanOrEqual,
+  Repository,
+} from 'typeorm';
 
 import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
 import { HelperService } from '../../shared/helper.service';
@@ -11,7 +17,8 @@ import { EventAreaService } from '../admin-area/services/event-area.service';
 import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
-import { UploadAlertPerLeadTimeDto } from '../event/dto/upload-alert-per-leadtime.dto';
+import { AlertPerLeadTimeEntity } from '../event/alert-per-lead-time.entity';
+import { UploadAlertsPerLeadTimeDto } from '../event/dto/upload-alerts-per-lead-time.dto';
 import { EventService } from '../event/event.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
@@ -128,47 +135,51 @@ export class AdminAreaDynamicDataService {
 
   private async deleteDynamicDuplicates(
     uploadExposure: UploadAdminAreaDynamicDataDto,
-  ): Promise<void> {
+  ): Promise<DeleteResult> {
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      uploadExposure.disasterType,
+      uploadExposure.date,
+    );
+
     const deleteFilters = {
       indicator: uploadExposure.dynamicIndicator,
       countryCodeISO3: uploadExposure.countryCodeISO3,
       adminLevel: uploadExposure.adminLevel,
       disasterType: uploadExposure.disasterType,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          uploadExposure.disasterType,
-          uploadExposure.date,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
     };
     if (uploadExposure.eventName) {
       deleteFilters['eventName'] = uploadExposure.eventName;
     }
-    await this.adminAreaDynamicDataRepo.delete(deleteFilters);
+
+    return this.adminAreaDynamicDataRepo.delete(deleteFilters);
   }
 
   private async insertAlertPerLeadTime(
     uploadExposure: UploadAdminAreaDynamicDataDto,
-  ): Promise<void> {
+  ): Promise<AlertPerLeadTimeEntity[]> {
     const forecastTrigger = this.isForecastTrigger(
       uploadExposure.exposurePlaceCodes,
     );
 
     const forecastAlert = !!uploadExposure.eventName; // NOTE AB#32041: eventName being filled or not should no longer be needed to distinguish alert/warning from no alert.
 
-    const uploadAlertPerLeadTimeDto = new UploadAlertPerLeadTimeDto();
-    uploadAlertPerLeadTimeDto.countryCodeISO3 = uploadExposure.countryCodeISO3;
-    uploadAlertPerLeadTimeDto.disasterType = uploadExposure.disasterType;
-    uploadAlertPerLeadTimeDto.eventName = uploadExposure.eventName;
-    uploadAlertPerLeadTimeDto.alertsPerLeadTime = [
+    const uploadAlertsPerLeadTimeDto = new UploadAlertsPerLeadTimeDto();
+    uploadAlertsPerLeadTimeDto.countryCodeISO3 = uploadExposure.countryCodeISO3;
+    uploadAlertsPerLeadTimeDto.disasterType = uploadExposure.disasterType;
+    uploadAlertsPerLeadTimeDto.eventName = uploadExposure.eventName;
+    uploadAlertsPerLeadTimeDto.alertsPerLeadTime = [
       {
         leadTime: uploadExposure.leadTime as LeadTime,
         forecastAlert,
         forecastTrigger,
       },
     ];
-    uploadAlertPerLeadTimeDto.date = uploadExposure.date || new Date();
-    await this.eventService.uploadAlertPerLeadTime(uploadAlertPerLeadTimeDto);
+    uploadAlertsPerLeadTimeDto.date = uploadExposure.date || new Date();
+
+    return this.eventService.uploadAlertsPerLeadTime(
+      uploadAlertsPerLeadTimeDto,
+    );
   }
 
   private isForecastTrigger(
@@ -206,17 +217,17 @@ export class AdminAreaDynamicDataService {
       );
     }
 
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      disasterType,
+      lastUploadDate.timestamp,
+    );
+
     const whereFilters = {
       countryCodeISO3: countryCodeISO3,
       adminLevel: Number(adminLevel),
       indicator: indicator,
       disasterType: disasterType,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadDate.timestamp,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
@@ -230,6 +241,7 @@ export class AdminAreaDynamicDataService {
       .select(['dynamic.value AS value', 'dynamic.placeCode AS "placeCode"'])
       .orderBy('dynamic.date', 'DESC')
       .execute();
+
     return result;
   }
 
