@@ -366,7 +366,7 @@ export class EventService {
           .length > 0;
   }
 
-  public isLastModelDateStale = (
+  public isLastUploadDateStale = (
     lastUploadDate: Date,
     disasterType: DisasterType,
   ) => {
