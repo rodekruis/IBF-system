@@ -270,24 +270,26 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
-    date: Date,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<void> {
     const countryAdminAreaIds =
       await this.getCountryAdminAreaIds(countryCodeISO3);
+
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      disasterType,
+      lastUploadDate.timestamp,
+    );
+
     const deleteFilters = {
       adminArea: In(countryAdminAreaIds),
       disasterType,
-      startDate: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(disasterType, date),
-      ),
+      startDate: MoreThanOrEqual(uploadCutoffMoment),
     };
     if (eventName) {
       deleteFilters['eventName'] = eventName;
     }
-    const eventAreasToDelete = await this.eventPlaceCodeRepo.find({
-      where: deleteFilters,
-    });
-    await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
+
+    await this.eventPlaceCodeRepo.delete(deleteFilters);
   }
 
   public async getTriggerIndicator(
@@ -360,7 +362,7 @@ export class EventService {
       return this.getDeeperAlertAreas(
         alertPlaceCodes,
         disasterType,
-        lastUploadDate.timestamp,
+        lastUploadDate,
         eventName,
       );
     }
@@ -423,24 +425,25 @@ export class EventService {
   }
 
   private async getDeeperAlertAreas(
-    triggeredPlaceCodes: string[],
+    alertPlaceCodes: string[],
     disasterType: DisasterType,
-    lastUploadTimestamp: Date,
+    lastUploadDate: LastUploadDateDto,
     eventName?: string,
     leadTime?: string,
   ): Promise<AlertArea[]> {
     const mainExposureIndicator =
       await this.getMainExposureIndicator(disasterType);
+
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      disasterType,
+      lastUploadDate.timestamp,
+    );
+
     const whereFilters = {
-      placeCode: In(triggeredPlaceCodes),
+      placeCode: In(alertPlaceCodes),
       indicator: mainExposureIndicator,
       disasterType,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadTimestamp,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
@@ -448,6 +451,7 @@ export class EventService {
     if (leadTime) {
       whereFilters['leadTime'] = leadTime;
     }
+
     const areas = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .where(whereFilters)
@@ -707,7 +711,7 @@ export class EventService {
         disasterType,
         defaultAdminLevel,
         eventName.eventName,
-        lastUploadDate.timestamp,
+        lastUploadDate,
       );
     }
 
@@ -744,14 +748,14 @@ export class EventService {
     disasterType: DisasterType,
     adminLevel: number,
     eventName: string,
-    lastUploadTimestamp: Date,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<void> {
     // First delete duplicate events for upload within same time-block
     await this.deleteDuplicateEvents(
       countryCodeISO3,
       disasterType,
       eventName,
-      lastUploadTimestamp,
+      lastUploadDate,
     );
 
     const affectedAreas = await this.getAffectedAreas(
@@ -759,7 +763,7 @@ export class EventService {
       disasterType,
       adminLevel,
       eventName,
-      lastUploadTimestamp,
+      lastUploadDate,
     );
 
     // update existing event areas + update population and end_date
@@ -785,18 +789,18 @@ export class EventService {
     disasterType: DisasterType,
     adminLevel: number,
     eventName: string,
-    lastUploadTimestamp: Date,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<AffectedAreaDto[]> {
     const triggerIndicator = await this.getTriggerIndicator(disasterType);
 
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      disasterType,
+      lastUploadDate.timestamp,
+    );
+
     const whereFilters = {
       indicator: triggerIndicator,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadTimestamp,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
       countryCodeISO3,
       adminLevel,
       disasterType,
@@ -827,12 +831,7 @@ export class EventService {
     const whereOptions = {
       placeCode: In(alertPlaceCodesArray),
       indicator: mainExposureIndicator,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadTimestamp,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
       countryCodeISO3,
       adminLevel,
       disasterType,
