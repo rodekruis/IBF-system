@@ -71,6 +71,7 @@ module.exports = tseslint.config(
       '@typescript-eslint/no-inferrable-types': 'warn',
       '@typescript-eslint/no-extraneous-class': 'warn',
       '@typescript-eslint/consistent-type-definitions': 'warn',
+      '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'warn',
       // Put this to 'off' for now because it automatically tries to fix this in code on save
       '@angular-eslint/prefer-standalone': 'off',
       // Put this to 'off' for now as changing this leads to breaking changes in the code
