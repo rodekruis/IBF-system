@@ -199,14 +199,15 @@ export class EventService {
   public async convertDtoAndUpload(
     uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ) {
-    const uploadAlertPerLeadTimeDto = new UploadAlertsPerLeadTimeDto();
-    uploadAlertPerLeadTimeDto.countryCodeISO3 =
+    const uploadAlertsPerLeadTimeDto = new UploadAlertsPerLeadTimeDto();
+    uploadAlertsPerLeadTimeDto.countryCodeISO3 =
       uploadTriggerPerLeadTimeDto.countryCodeISO3;
-    uploadAlertPerLeadTimeDto.disasterType =
+    uploadAlertsPerLeadTimeDto.disasterType =
       uploadTriggerPerLeadTimeDto.disasterType;
-    uploadAlertPerLeadTimeDto.eventName = uploadTriggerPerLeadTimeDto.eventName;
-    uploadAlertPerLeadTimeDto.date = uploadAlertPerLeadTimeDto.date;
-    uploadAlertPerLeadTimeDto.alertsPerLeadTime =
+    uploadAlertsPerLeadTimeDto.eventName =
+      uploadTriggerPerLeadTimeDto.eventName;
+    uploadAlertsPerLeadTimeDto.date = uploadAlertsPerLeadTimeDto.date;
+    uploadAlertsPerLeadTimeDto.alertsPerLeadTime =
       uploadTriggerPerLeadTimeDto.triggersPerLeadTime.map((trigger) => {
         return {
           leadTime: trigger.leadTime,
@@ -214,7 +215,7 @@ export class EventService {
           forecastTrigger: trigger.thresholdReached,
         };
       });
-    await this.uploadAlertsPerLeadTime(uploadAlertPerLeadTimeDto);
+    await this.uploadAlertsPerLeadTime(uploadAlertsPerLeadTimeDto);
   }
 
   public async uploadAlertsPerLeadTime(

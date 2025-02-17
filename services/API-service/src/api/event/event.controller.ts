@@ -215,7 +215,7 @@ export class EventController {
     description: 'Uploaded alert data per lead time',
   })
   @Post('alerts-per-lead-time')
-  public async uploadAlertPerLeadTime(
+  public async uploadAlertsPerLeadTime(
     @Body() uploadAlertsPerLeadTimeDto: UploadAlertsPerLeadTimeDto,
   ): Promise<void> {
     await this.eventService.uploadAlertsPerLeadTime(uploadAlertsPerLeadTimeDto);
