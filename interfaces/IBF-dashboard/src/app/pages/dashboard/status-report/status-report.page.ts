@@ -69,7 +69,7 @@ export class StatusReportPage implements OnInit {
         : (this.translate.instant('status-report-page.no-data') as string);
     this.statusData[countryCodeISO3][disasterType.disasterType].isStale =
       lastUploadDate?.timestamp
-        ? this.eventService.isUploadDateStale(
+        ? this.eventService.isLastUploadDateStale(
             parseISO(lastUploadDate.timestamp),
             disasterType,
           )
