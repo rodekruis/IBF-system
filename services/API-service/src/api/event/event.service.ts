@@ -31,9 +31,9 @@ import { UserEntity } from '../user/user.entity';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AlertPerLeadTimeEntity } from './alert-per-lead-time.entity';
+import { AreaForecastDataDto } from './dto/area-forecast-data.dto';
 import {
   ActivationLogDto,
-  AffectedAreaDto,
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
@@ -189,6 +189,7 @@ export class EventService {
       });
   }
 
+  // NOTE: this method is here purely as a passthrough, as otherwise eventController would call the helperService directly
   public async getLastUploadDate(
     countryCodeISO3: string,
     disasterType: DisasterType,
@@ -271,16 +272,14 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
-    date: Date,
+    uploadCutoffMoment: Date,
   ): Promise<void> {
     const countryAdminAreaIds =
       await this.getCountryAdminAreaIds(countryCodeISO3);
     const deleteFilters = {
       adminArea: In(countryAdminAreaIds),
       disasterType,
-      startDate: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(disasterType, date),
-      ),
+      startDate: MoreThanOrEqual(uploadCutoffMoment),
     };
     if (eventName) {
       deleteFilters['eventName'] = eventName;
@@ -324,12 +323,7 @@ export class EventService {
       adminLevel,
       disasterType,
       countryCodeISO3,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadDate.timestamp,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
     };
     if (eventName) {
       whereFiltersDynamicData['eventName'] = eventName;
@@ -349,7 +343,7 @@ export class EventService {
       return this.getDeeperAlertAreas(
         alertPlaceCodes,
         disasterType,
-        lastUploadDate.timestamp,
+        lastUploadDate,
         eventName,
       );
     }
@@ -414,7 +408,7 @@ export class EventService {
   private async getDeeperAlertAreas(
     triggeredPlaceCodes: string[],
     disasterType: DisasterType,
-    lastUploadTimestamp: Date,
+    lastUploadDate: LastUploadDateDto,
     eventName?: string,
     leadTime?: string,
   ): Promise<AlertArea[]> {
@@ -424,12 +418,7 @@ export class EventService {
       placeCode: In(triggeredPlaceCodes),
       indicator: mainExposureIndicator,
       disasterType,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadTimestamp,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
@@ -579,12 +568,7 @@ export class EventService {
     );
     const whereFilters = {
       countryCodeISO3,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadDate.timestamp,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
       disasterType,
     };
     if (eventName) {
@@ -681,42 +665,42 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    const pipelineRunEventNames = await this.getActiveEventNames(
+    const activeEventNames = await this.getActiveEventNames(
       countryCodeISO3,
       disasterType,
-      lastUploadDate,
+      lastUploadDate.cutoffMoment,
     );
 
     const defaultAdminLevel = (
       await this.getCountryDisasterSettings(countryCodeISO3, disasterType)
     ).defaultAdminLevel;
-    for (const eventName of pipelineRunEventNames) {
+    for (const eventName of activeEventNames) {
       await this.processEventAreas(
         countryCodeISO3,
         disasterType,
         defaultAdminLevel,
         eventName.eventName,
+        lastUploadDate.cutoffMoment,
         lastUploadDate.timestamp,
       );
     }
 
-    await this.closeEventsAutomatic(countryCodeISO3, disasterType);
+    await this.closeEventsAutomatic(
+      countryCodeISO3,
+      disasterType,
+      lastUploadDate.timestamp,
+    );
 
-    // NOTE: also include the functionality of /notification/send endpoint here
+    // NOTE AB#32041: also include the functionality of /notification/send endpoint here
   }
 
   private async getActiveEventNames(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    lastUploadDate: LastUploadDateDto,
+    uploadCutoffMoment: Date,
   ) {
     const whereFilters = {
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadDate.timestamp,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
       countryCodeISO3,
       disasterType,
     };
@@ -733,22 +717,24 @@ export class EventService {
     disasterType: DisasterType,
     adminLevel: number,
     eventName: string,
+    uploadCutoffMoment: Date,
     lastUploadTimestamp: Date,
   ): Promise<void> {
     // First delete duplicate events for upload within same time-block
+    // REFACTOR: evaluate if this is still needed. The overwriting should be necessary only on raw input (admin-area-dynamic-data) not on this derived data?
     await this.deleteDuplicateEvents(
       countryCodeISO3,
       disasterType,
       eventName,
-      lastUploadTimestamp,
+      uploadCutoffMoment,
     );
 
-    const affectedAreas = await this.getAffectedAreas(
+    const activeAlertAreas = await this.getActiveAlertAreas(
       countryCodeISO3,
       disasterType,
       adminLevel,
       eventName,
-      lastUploadTimestamp,
+      uploadCutoffMoment,
     );
 
     // update existing event areas + update population and end_date
@@ -756,7 +742,8 @@ export class EventService {
       countryCodeISO3,
       disasterType,
       eventName,
-      affectedAreas,
+      activeAlertAreas,
+      lastUploadTimestamp,
     );
 
     // add new event areas
@@ -764,143 +751,214 @@ export class EventService {
       countryCodeISO3,
       disasterType,
       eventName,
-      affectedAreas,
+      activeAlertAreas,
+      lastUploadTimestamp,
     );
   }
 
-  // NOTE AB#32041 REFACTOR: call this getAlertAreas but then it becomes duplicate. Figure out the difference and if they can be combined.
-  private async getAffectedAreas(
+  // NOTE AB#32041 REFACTOR: Figure out the difference with getAlertAreas and see if they can be combined.
+  private async getActiveAlertAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
     eventName: string,
-    lastUploadTimestamp: Date,
-  ): Promise<AffectedAreaDto[]> {
+    uploadCutoffMoment: Date,
+  ): Promise<AreaForecastDataDto[]> {
     const whereFilters = {
-      indicator: ALERT_LEVEL_INDICATORS.alertThreshold,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadTimestamp,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
       countryCodeISO3,
       adminLevel,
       disasterType,
-      eventName: eventName || IsNull(),
+      eventName,
     };
-
-    // NOTE AB#32041: this currently gets forecastSeverity based on layer identified by alert_threshold. This must change (and be made more flexible in transition period)
-    const alertPlaceCodes = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('area')
-      .select('area."placeCode"')
-      .addSelect('MAX(area.value) AS "forecastSeverity"')
-      .where(whereFilters)
-      .andWhere(
-        `(area.value > 0 OR (area."eventName" is not null AND area."disasterType" IN ('flash-floods','typhoon')))`,
-      ) // Also allow value=0 entries with typhoon/flash-floods and event name (= warning event) // NOTE AB#32041: this check should be possible to remove after this item
-      .groupBy('area."placeCode"')
-      .getRawMany();
-
-    const alertPlaceCodesArray = alertPlaceCodes.map((a) => a.placeCode);
-
-    if (alertPlaceCodesArray.length === 0) {
-      return [];
-    }
-
     const mainExposureIndicator =
       await this.getMainExposureIndicator(disasterType);
-
-    const whereOptions = {
-      placeCode: In(alertPlaceCodesArray),
-      indicator: mainExposureIndicator,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadTimestamp,
-        ),
-      ),
-      countryCodeISO3,
-      adminLevel,
-      disasterType,
-    };
-    if (eventName) {
-      whereFilters['eventName'] = eventName;
-    }
-
-    const affectedAreas: AffectedAreaDto[] = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('area')
-      .select('area."placeCode"')
-      .addSelect('MAX(area.value) AS "mainExposureValue"')
-      .addSelect('MAX(area."leadTime") AS "leadTime"')
-      .where(whereOptions)
-      .groupBy('area."placeCode"')
+    const areaswithForecastSeverityData = await this.adminAreaDynamicDataRepo
+      .createQueryBuilder('severity')
+      .select([
+        'severity.placeCode AS "placeCode"',
+        'severity.value AS "forecastSeverity"',
+        'trigger.value AS "forecastTrigger"',
+        'exposure.value AS "mainExposureValue"',
+      ])
+      .leftJoin(
+        AdminAreaDynamicDataEntity,
+        'trigger',
+        `severity.placeCode = trigger."placeCode"
+        AND severity.timestamp = trigger."timestamp"
+        AND severity.eventName = trigger."eventName"
+        AND severity.disasterType = trigger."disasterType"
+        AND trigger.indicator = :forecastTrigger`,
+        { forecastTrigger: ALERT_LEVEL_INDICATORS.forecastTrigger },
+      )
+      .leftJoin(
+        AdminAreaDynamicDataEntity,
+        'exposure',
+        `severity.placeCode = exposure."placeCode"
+        AND severity.timestamp = exposure."timestamp"
+        AND severity.eventName = exposure."eventName"
+        AND severity.disasterType = exposure."disasterType"
+        AND exposure.indicator = :mainExposureIndicator`,
+        { mainExposureIndicator },
+      )
+      .where({
+        ...whereFilters,
+        indicator: ALERT_LEVEL_INDICATORS.forecastSeverity,
+      })
       .getRawMany();
 
-    for (const area of affectedAreas) {
-      area.forecastSeverity = alertPlaceCodes.find(
-        ({ placeCode }) => placeCode === area.placeCode,
-      ).forecastSeverity;
+    // This "if" assumes that if forecast_severity is present for 1 area it is present for all
+    if (areaswithForecastSeverityData.length) {
+      return areaswithForecastSeverityData.map((area) => ({
+        placeCode: area.placeCode,
+        forecastSeverity: area.forecastSeverity,
+        forecastTrigger: area.forecastTrigger === 1 ? true : false, // This reflects that forecastTrigger is optional (and assumed false if not present) and that this boolean layer is uploaded in practice as 1/0.
+        mainExposureValue: area.mainExposureValue,
+      }));
+    } else {
+      // NOTE: remove after all pipelines migrated to new setup
+      // NOTE: this query could potentially be included in the query above for optimization, but not worth it for transition period only
+      const areasWithAlertThresholdData = await this.adminAreaDynamicDataRepo
+        .createQueryBuilder('alert')
+        .select([
+          'alert.placeCode AS "placeCode"',
+          'alert.value AS "alertThresholdValue"',
+          'exposure.value AS "mainExposureValue"',
+        ])
+        .leftJoin(
+          AdminAreaDynamicDataEntity,
+          'exposure',
+          `alert.placeCode = exposure."placeCode"
+        AND alert.timestamp = exposure."timestamp"
+        AND alert.eventName = exposure."eventName"
+        AND alert.disasterType = exposure."disasterType"
+        AND exposure.indicator = :indicator`,
+          { indicator: mainExposureIndicator },
+        )
+        .where({
+          ...whereFilters,
+          indicator: ALERT_LEVEL_INDICATORS.alertThreshold,
+        })
+        .getRawMany();
+
+      // TODO: handle situations where also this results in empty array?
+
+      return areasWithAlertThresholdData.map((area) => ({
+        placeCode: area.placeCode,
+        forecastSeverity: area.alertThresholdValue,
+        forecastTrigger: area.alertThresholdValue === 1, // This reflects current functionality where trigger is equal to alert_threshold=1
+        mainExposureValue: area.mainExposureValue,
+      }));
     }
 
-    return affectedAreas;
+    // NOTE AB#32041: this currently gets forecastSeverity based on layer identified by alert_threshold. This must change (and be made more flexible in transition period)
+    // const alertPlaceCodes = await this.adminAreaDynamicDataRepo
+    //   .createQueryBuilder('area')
+    //   .select('area."placeCode"')
+    //   .addSelect('MAX(area.value) AS "forecastSeverity"')
+    //   .where(whereFilters)
+    //   .andWhere(
+    //     `(area.value > 0 OR (area."eventName" is not null AND area."disasterType" IN ('flash-floods','typhoon')))`,
+    //   ) // Also allow value=0 entries with typhoon/flash-floods and event name (= warning event) // NOTE AB#32041: this check should be possible to remove after this item
+    //   .groupBy('area."placeCode"')
+    //   .getRawMany();
+
+    // const alertPlaceCodesArray = alertPlaceCodes.map((a) => a.placeCode);
+
+    // if (alertPlaceCodesArray.length === 0) {
+    //   return [];
+    // }
+
+    // const whereOptions = {
+    //   placeCode: In(alertPlaceCodesArray),
+    //   indicator: mainExposureIndicator,
+    //   timestamp: MoreThanOrEqual(uploadCutoffMoment),
+    //   countryCodeISO3,
+    //   adminLevel,
+    //   disasterType,
+    // };
+    // if (eventName) {
+    //   whereFilters['eventName'] = eventName;
+    // }
+
+    // const affectedAreas: AffectedAreaDto[] = await this.adminAreaDynamicDataRepo
+    //   .createQueryBuilder('area')
+    //   .select('area."placeCode"')
+    //   .addSelect('MAX(area.value) AS "mainExposureValue"')
+    //   .addSelect('MAX(area."leadTime") AS "leadTime"')
+    //   .where(whereOptions)
+    //   .groupBy('area."placeCode"')
+    //   .getRawMany();
+
+    // for (const area of affectedAreas) {
+    //   area.forecastSeverity = alertPlaceCodes.find(
+    //     ({ placeCode }) => placeCode === area.placeCode,
+    //   ).forecastSeverity;
+    // }
+
+    // return affectedAreas;
   }
 
   private async updateExistingEventAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
-    affectedAreas: AffectedAreaDto[],
+    activeAlertAreas: AreaForecastDataDto[],
+    lastUploadTimestamp: Date,
   ): Promise<void> {
-    const countryAdminAreaIds =
-      await this.getCountryAdminAreaIds(countryCodeISO3);
-    const unclosedEventAreas = await this.eventPlaceCodeRepo.find({
+    // const countryAdminAreaIds =
+    //   await this.getCountryAdminAreaIds(countryCodeISO3);
+    const openEventAreas = await this.eventPlaceCodeRepo.find({
       where: {
         closed: false,
-        adminArea: In(countryAdminAreaIds),
+        adminArea: { countryCodeISO3 },
         disasterType,
         eventName: eventName || IsNull(),
       },
       relations: ['adminArea'],
     });
 
-    // To optimize performance here ..
-    const idsToUpdateTrigger = [];
-    const idsToUpdateWarning = [];
-    const lastUploadDate = await this.getLastUploadDate(
-      countryCodeISO3,
-      disasterType,
-    );
-    unclosedEventAreas.forEach((eventArea) => {
-      const affectedArea = affectedAreas.find(
-        (area) => area.placeCode === eventArea.adminArea.placeCode,
+    const triggerAreaIdsToUpdate: string[] = [];
+    const warningAreaIdsToUpdate: string[] = [];
+    const areasToUpdate: EventPlaceCodeEntity[] = [];
+    openEventAreas.forEach((openEventArea) => {
+      const activeAlertArea = activeAlertAreas.find(
+        (area) => area.placeCode === openEventArea.adminArea.placeCode,
       );
-      if (affectedArea) {
-        eventArea.endDate = lastUploadDate.timestamp;
-        if (affectedArea.forecastSeverity === 1) {
-          eventArea.forecastTrigger = true; // NOTE AB#32041: for now just rename done, but this functionality will change based on the new input
-          idsToUpdateTrigger.push(eventArea.eventPlaceCodeId);
+      if (activeAlertArea) {
+        if (activeAlertArea.forecastTrigger) {
+          openEventArea.forecastTrigger = true;
+          triggerAreaIdsToUpdate.push(openEventArea.eventPlaceCodeId);
         } else {
-          eventArea.forecastTrigger = false;
-          idsToUpdateWarning.push(eventArea.eventPlaceCodeId);
+          openEventArea.forecastTrigger = false;
+          warningAreaIdsToUpdate.push(openEventArea.eventPlaceCodeId);
+        }
+
+        // NOTE: for performance reasons only update if values actually changed. Otherwise unneeded queries per area are fired.
+        if (
+          openEventArea.forecastSeverity !== activeAlertArea.forecastSeverity ||
+          openEventArea.mainExposureValue !== activeAlertArea.mainExposureValue
+        ) {
+          openEventArea.forecastSeverity = activeAlertArea.forecastSeverity;
+          openEventArea.mainExposureValue = activeAlertArea.mainExposureValue;
+          areasToUpdate.push(openEventArea);
         }
       }
     });
-    // .. first fire one query to update all rows that need forecastTrigger = true
-    await this.updateEvents(idsToUpdateTrigger, true, lastUploadDate.timestamp);
 
-    // .. then fire one query to update all rows that need forecastTrigger = false
-    await this.updateEvents(
-      idsToUpdateWarning,
-      false,
-      lastUploadDate.timestamp,
-    );
+    const endDate = lastUploadTimestamp;
+    // NOTE this split in 3 updates is to optimize performance. Combine all bulk (same value) updates as much as possible in one query, to avoid separate query per area.
+    // 1. first fire one query to update all rows that need forecastTrigger = true (and pass endDate)
+    await this.updateBulkEventData(triggerAreaIdsToUpdate, true, endDate);
+
+    // 2. then fire one query to update all rows that need forecastTrigger = false
+    await this.updateBulkEventData(warningAreaIdsToUpdate, false, endDate);
 
     // .. lastly we update those records where mainExposureValue or forecastSeverity changed
-    await this.updateValues(unclosedEventAreas, affectedAreas);
+    await this.updateOtherEventData(areasToUpdate);
   }
 
-  private async updateEvents(
+  private async updateBulkEventData(
     eventPlaceCodeIds: string[],
     forecastTrigger: boolean,
     endDate: Date,
@@ -915,58 +973,44 @@ export class EventService {
     }
   }
 
-  private async updateValues(
-    unclosedEventAreas: EventPlaceCodeEntity[],
-    affectedAreas: AffectedAreaDto[],
-  ) {
-    let affectedArea: AffectedAreaDto;
-    const eventAreasToUpdate = [];
-    for await (const eventArea of unclosedEventAreas) {
-      affectedArea = affectedAreas.find(
-        (area) => area.placeCode === eventArea.adminArea.placeCode,
-      );
-      if (
-        affectedArea &&
-        (eventArea.mainExposureValue !== affectedArea.mainExposureValue ||
-          eventArea.forecastSeverity !== affectedArea.forecastSeverity)
-      ) {
-        eventArea.forecastSeverity = affectedArea.forecastSeverity;
-        eventArea.mainExposureValue = affectedArea.mainExposureValue;
-        eventAreasToUpdate.push(
-          `('${eventArea.eventPlaceCodeId}',${eventArea.mainExposureValue},${eventArea.forecastSeverity})`,
-        );
-      }
+  private async updateOtherEventData(openEventAreas: EventPlaceCodeEntity[]) {
+    if (!openEventAreas.length) {
+      return;
     }
-    if (eventAreasToUpdate.length) {
-      const repository = this.dataSource.getRepository(EventPlaceCodeEntity);
-      const updateQuery = `UPDATE \
+
+    const eventAreasInput = openEventAreas.map(
+      (eventArea) =>
+        `('${eventArea.eventPlaceCodeId}',${eventArea.mainExposureValue},${eventArea.forecastSeverity})`,
+    );
+    const repository = this.dataSource.getRepository(EventPlaceCodeEntity);
+    const updateQuery = `UPDATE \
       "${repository.metadata.schema}"."${repository.metadata.tableName}" epc \
       SET \
           "mainExposureValue" = areas.mainExposureValue::double precision, \
           "forecastSeverity" = areas.forecastSeverity::double precision \
       FROM \
-         (VALUES ${eventAreasToUpdate.join(',')}) \
+         (VALUES ${eventAreasInput.join(',')}) \
          areas(id, mainExposureValue, forecastSeverity) \
       WHERE \
           areas.id::uuid = epc."eventPlaceCodeId" \
       `;
-      await this.dataSource.query(updateQuery);
-    }
+    await this.dataSource.query(updateQuery);
   }
 
   private async addNewEventAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,
-    affectedAreas: AffectedAreaDto[],
+    activeAlertAreas: AreaForecastDataDto[],
+    lastUploadTimestamp: Date,
   ): Promise<void> {
-    const countryAdminAreaIds =
-      await this.getCountryAdminAreaIds(countryCodeISO3);
-    const existingUnclosedEventAreas = (
+    // const countryAdminAreaIds =
+    //   await this.getCountryAdminAreaIds(countryCodeISO3);
+    const openEventAreaPlaceCodes = (
       await this.eventPlaceCodeRepo.find({
         where: {
           closed: false,
-          adminArea: In(countryAdminAreaIds),
+          adminArea: { countryCodeISO3 },
           disasterType,
           eventName: eventName || IsNull(),
         },
@@ -974,23 +1018,19 @@ export class EventService {
       })
     ).map((area) => area.adminArea.placeCode);
     const newEventAreas: EventPlaceCodeEntity[] = [];
-    const startDate = await this.helperService.getLastUploadDate(
-      countryCodeISO3,
-      disasterType,
-    );
-    for await (const area of affectedAreas) {
-      if (!existingUnclosedEventAreas.includes(area.placeCode)) {
+    for await (const activeAlertArea of activeAlertAreas) {
+      if (!openEventAreaPlaceCodes.includes(activeAlertArea.placeCode)) {
         const adminArea = await this.adminAreaRepository.findOne({
-          where: { placeCode: area.placeCode },
+          where: { placeCode: activeAlertArea.placeCode },
         });
         const eventArea = new EventPlaceCodeEntity();
         eventArea.adminArea = adminArea;
         eventArea.eventName = eventName;
-        eventArea.forecastTrigger = area.forecastSeverity === 1;
-        eventArea.forecastSeverity = area.forecastSeverity;
-        eventArea.mainExposureValue = +area.mainExposureValue;
-        eventArea.startDate = startDate.timestamp;
-        eventArea.endDate = startDate.timestamp;
+        eventArea.forecastTrigger = activeAlertArea.forecastTrigger;
+        eventArea.forecastSeverity = activeAlertArea.forecastSeverity;
+        eventArea.mainExposureValue = +activeAlertArea.mainExposureValue;
+        eventArea.startDate = lastUploadTimestamp;
+        eventArea.endDate = lastUploadTimestamp;
         eventArea.stopped = false;
         eventArea.manualStoppedDate = null;
         eventArea.disasterType = disasterType;
@@ -1003,15 +1043,12 @@ export class EventService {
   public async closeEventsAutomatic(
     countryCodeISO3: string,
     disasterType: DisasterType,
+    lastUploadTimestamp: Date,
   ) {
     const countryAdminAreaIds =
       await this.getCountryAdminAreaIds(countryCodeISO3);
-    const lastUploadDate = await this.helperService.getLastUploadDate(
-      countryCodeISO3,
-      disasterType,
-    );
     const where = {
-      endDate: LessThan(lastUploadDate.timestamp), // If the area was not prolonged earlier, then the endDate is not updated and is therefore less than the lastUploadDate
+      endDate: LessThan(lastUploadTimestamp), // If the area was not prolonged earlier, then the endDate is not updated and is therefore less than the lastUploadDate
       adminArea: In(countryAdminAreaIds),
       disasterType,
       closed: false,

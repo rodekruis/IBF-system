@@ -106,11 +106,16 @@ export class HelperService {
       return {
         date: new Date(result.date).toISOString(),
         timestamp: new Date(result.timestamp),
+        cutoffMoment: this.getUploadCutoffMoment(
+          disasterType,
+          result.timestamp,
+        ),
       };
     } else {
       return {
         date: null,
         timestamp: null,
+        cutoffMoment: null,
       };
     }
   }

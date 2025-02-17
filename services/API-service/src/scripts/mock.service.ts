@@ -6,6 +6,7 @@ import { In, Repository } from 'typeorm';
 
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
+import { MOCK_USE_OLD_PIPELINE_UPLOAD } from '../api/admin-area-dynamic-data/const/alert-level-indicators.const';
 import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
@@ -189,10 +190,24 @@ export class MockService {
         }
 
         if (this.shouldMockAlertPerLeadTime(disasterType)) {
+          if (MOCK_USE_OLD_PIPELINE_UPLOAD) {
+            // Old endpoint
+            const triggersPerLeadTime = this.getFile(
+              `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-leadtime.json`,
+            );
+
+            await this.eventService.convertDtoAndUpload({
+              countryCodeISO3,
+              triggersPerLeadTime,
+              disasterType: DisasterType.Floods,
+              eventName: event.eventName,
+              date,
+            });
+          }
+
           const alertsPerLeadTime = this.getFile(
             `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-leadtime.json`,
           );
-
           await this.eventService.uploadAlertPerLeadTime({
             countryCodeISO3,
             alertsPerLeadTime,
@@ -389,6 +404,17 @@ export class MockService {
       .filter((ind) => ind.dynamic)
       .map((ind) => ind.name as DynamicIndicator);
 
+    // NOTE: this indicators always need to be mocked. Should the way to get indicators-array here be refactored?
+    // NOTE: remove this if when all pipelines migrated to new setup. (So that the code within the if always runs)
+    if (!MOCK_USE_OLD_PIPELINE_UPLOAD) {
+      dynamicIndicators.push(
+        ...[
+          DynamicIndicator.forecastSeverity,
+          DynamicIndicator.forecastTrigger,
+        ],
+      );
+    }
+
     if (disasterType === DisasterType.Typhoon) {
       dynamicIndicators.push(DynamicIndicator.showAdminArea);
       // is this needed?
@@ -400,10 +426,7 @@ export class MockService {
       }
     }
 
-    // Make sure 'alert_threshold' is uploaded last
-    return dynamicIndicators.sort((a, _b) =>
-      a === DynamicIndicator.alertThreshold ? 1 : -1,
-    );
+    return dynamicIndicators;
   }
 
   private getMockExposureData(
