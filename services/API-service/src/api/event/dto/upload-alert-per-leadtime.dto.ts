@@ -47,7 +47,7 @@ export class UploadAlertPerLeadTimeDto {
 }
 
 // NOTE: old DTO, used by old endpoint. Remove this when all pipelines migrated.
-export class uploadTriggerPerLeadTimeDto {
+export class UploadTriggerPerLeadTimeDto {
   @ApiProperty({ example: 'UGA' })
   @IsNotEmpty()
   @IsString()

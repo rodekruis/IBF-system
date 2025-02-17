@@ -38,7 +38,7 @@ import {
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
 import {
   UploadAlertPerLeadTimeDto,
-  uploadTriggerPerLeadTimeDto,
+  UploadTriggerPerLeadTimeDto,
 } from './dto/upload-alert-per-leadtime.dto';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 
@@ -197,7 +197,7 @@ export class EventService {
 
   // NOTE: remove after all pipelines migrated to new endpoint
   public async convertDtoAndUpload(
-    uploadTriggerPerLeadTimeDto: uploadTriggerPerLeadTimeDto,
+    uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ) {
     const uploadAlertPerLeadTimeDto = new UploadAlertPerLeadTimeDto();
     uploadAlertPerLeadTimeDto.countryCodeISO3 =
