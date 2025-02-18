@@ -4,6 +4,7 @@ import { EapAction } from 'src/app/types/eap-action';
 export class AlertArea {
   mainExposureValue: number;
   forecastSeverity: number;
+  forecastTrigger: boolean;
   displayName: string;
   eapActions: EapAction[];
   eventPlaceCodeId: string;

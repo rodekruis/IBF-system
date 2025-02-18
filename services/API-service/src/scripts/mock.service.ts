@@ -2,7 +2,7 @@ import fs from 'fs';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
@@ -401,7 +401,7 @@ export class MockService {
         disasterType,
       );
     let dynamicIndicators = indicators
-      .filter((ind) => ind.dynamic)
+      .filter((ind) => ind.dynamic && ind.name !== DynamicIndicator.trigger)
       .map((ind) => ind.name as DynamicIndicator);
 
     if (disasterType === DisasterType.Typhoon) {
@@ -415,18 +415,16 @@ export class MockService {
       }
     }
 
-    // NOTE: this indicators always need to be mocked. Should the way to get indicators-array here be refactored?
-    // NOTE: update this when all pipelines migrated to new setup. (Keep 'push', remove 'if' and 'splice')
-    if (!MOCK_USE_OLD_PIPELINE_UPLOAD) {
+    // NOTE: update this when all pipelines migrated to new setup.
+    if (MOCK_USE_OLD_PIPELINE_UPLOAD) {
+      dynamicIndicators.push(DynamicIndicator.alertThreshold);
+    } else {
+      // REFACTOR: these indicators always need to be mocked, but are not user-facing layers and thus not in indicator-metadata.json. Refactor this setup.
       dynamicIndicators.push(
         ...[
           DynamicIndicator.forecastSeverity,
           DynamicIndicator.forecastTrigger,
         ],
-      );
-      dynamicIndicators.splice(
-        dynamicIndicators.indexOf(DynamicIndicator.alertThreshold),
-        1,
       );
     }
 
@@ -482,13 +480,10 @@ export class MockService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ) {
-    const countryAdminAreaIds =
-      await this.eventService.getCountryAdminAreaIds(countryCodeISO3);
-
     const allCountryEvents = await this.eventPlaceCodeRepo.find({
       relations: ['eapActionStatuses', 'adminArea'],
       where: {
-        adminArea: In(countryAdminAreaIds),
+        adminArea: { countryCodeISO3 },
         disasterType,
       },
     });

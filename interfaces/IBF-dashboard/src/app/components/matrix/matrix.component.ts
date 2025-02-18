@@ -52,7 +52,7 @@ export class MatrixComponent implements OnDestroy {
   }
 
   private onLayerChange = (newLayer: IbfLayer) => {
-    if (newLayer && newLayer.name === IbfLayerName.alertThreshold) {
+    if (newLayer && newLayer.name === IbfLayerName.trigger) {
       return;
     }
 

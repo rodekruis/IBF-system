@@ -256,18 +256,10 @@ export class NotificationContentService {
   private async getFirstLeadTimeDate(
     value: number,
     unit: string,
-    countryCodeISO3: string,
-    disasterType: DisasterType,
+    lastUploadTimestamp: Date,
     date?: Date,
   ): Promise<string> {
-    const now =
-      date ||
-      (
-        await this.helperService.getLastUploadDate(
-          countryCodeISO3,
-          disasterType,
-        )
-      ).timestamp;
+    const now = date || lastUploadTimestamp;
 
     const getNewDate = {
       month: new Date(now).setMonth(new Date(now).getMonth() + value),
@@ -323,17 +315,20 @@ export class NotificationContentService {
     disasterType: DisasterType,
     date?: Date,
   ): Promise<string> {
+    const lastUploadDate = await this.helperService.getLastUploadDate(
+      countryCodeISO3,
+      disasterType,
+    );
     const startDateFirstEvent = await this.getFirstLeadTimeDate(
       Number(leadTime.split('-')[0]),
       leadTime.split('-')[1],
-      countryCodeISO3,
-      disasterType,
+      lastUploadDate.timestamp,
       date,
     );
     const startTimeFirstEvent = await this.getLeadTimeTimestamp(
       leadTime,
       countryCodeISO3,
-      disasterType,
+      lastUploadDate.timestamp,
     );
     return (
       startDateFirstEvent +
@@ -350,7 +345,7 @@ export class NotificationContentService {
   private async getLeadTimeTimestamp(
     leadTime: LeadTime,
     countryCodeISO3: string,
-    disasterType: DisasterType,
+    lastUploadTimestamp: Date,
   ): Promise<string> {
     const timeZone = {
       PHL: {
@@ -367,11 +362,7 @@ export class NotificationContentService {
       return null;
     }
 
-    const lastUploadDate = await this.helperService.getLastUploadDate(
-      countryCodeISO3,
-      disasterType,
-    );
-    const gmtUploadDate = new Date(lastUploadDate.timestamp);
+    const gmtUploadDate = new Date(lastUploadTimestamp);
     const hours = Number(leadTime.split('-')[0]);
     const gmtEventDate = new Date(
       gmtUploadDate.setTime(gmtUploadDate.getTime() + hours * 60 * 60 * 1000),

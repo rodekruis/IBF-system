@@ -11,8 +11,8 @@
       "ZWE": { "drought": ["map"] },
       "LSO": { "drought": ["map"] }
     },
-    "name": "alert_threshold",
-    "label": "Alert Threshold Reached",
+    "name": "trigger",
+    "label": "Area triggered",
     "icon": "Person2-white.svg",
     "weightedAvg": false,
     "active": "yes",

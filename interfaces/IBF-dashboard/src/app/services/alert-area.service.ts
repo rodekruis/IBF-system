@@ -185,8 +185,7 @@ export class AlertAreaService {
   };
 
   private mapForecastSeverityToAlertLabel = (alertArea: AlertArea) => {
-    // NOTE AB#32041: this logic should change in new setup
-    if (alertArea.forecastSeverity === 1) {
+    if (alertArea.forecastTrigger) {
       alertArea.alertLabel = AlertLabel.trigger;
     } else if (alertArea.forecastSeverity > 0) {
       alertArea.alertLabel = AlertLabel.warning;

@@ -92,14 +92,12 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<EventSummaryCountry[]> {
-    const adminAreaIds = await this.getCountryAdminAreaIds(countryCodeISO3);
-
     const sixDaysAgo = subDays(new Date(), 6); // NOTE: this 7-day rule is no longer applicable. Fix this when re-enabling this feature.
     const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
       countryCodeISO3,
     )
       .andWhere('event.endDate > :endDate', { endDate: sixDaysAgo })
-      .andWhere('event.adminArea IN (:...adminAreaIds)', { adminAreaIds })
+      .andWhere({ adminArea: { countryCodeISO3 } })
       .andWhere('event.disasterType = :disasterType', { disasterType })
       .andWhere('event.closed = :closed', { closed: true });
 
@@ -179,9 +177,9 @@ export class EventService {
       .addSelect([
         'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
         'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
-        'MAX(event."forecastTrigger"::int)::boolean AS "forecastTrigger"',
-        'SUM(CASE WHEN event."mainExposureValue" > 0 OR event."forecastSeverity" > 0 THEN 1 ELSE 0 END) AS "nrAlertAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
+        'SUM(CASE WHEN event."forecastSeverity" > 0 THEN 1 ELSE 0 END) AS "nrAlertAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
         'MAX(event."forecastSeverity")::float AS "forecastSeverity"',
+        'MAX(event."forecastTrigger"::int)::boolean AS "forecastTrigger"',
         'sum(event."mainExposureValue")::int AS "mainExposureValueSum"',
       ])
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
@@ -261,6 +259,9 @@ export class EventService {
           uploadAlertPerLeadTimeDto.date,
         ),
       ),
+      leadTime: In(
+        uploadAlertPerLeadTimeDto.alertsPerLeadTime.map((a) => a.leadTime),
+      ),
     };
     if (uploadAlertPerLeadTimeDto.eventName) {
       deleteFilters['eventName'] = uploadAlertPerLeadTimeDto.eventName;
@@ -274,10 +275,8 @@ export class EventService {
     eventName: string,
     uploadCutoffMoment: Date,
   ): Promise<void> {
-    const countryAdminAreaIds =
-      await this.getCountryAdminAreaIds(countryCodeISO3);
     const deleteFilters = {
-      adminArea: In(countryAdminAreaIds),
+      adminArea: { countryCodeISO3 },
       disasterType,
       startDate: MoreThanOrEqual(uploadCutoffMoment),
     };
@@ -341,6 +340,7 @@ export class EventService {
       closed: false,
       disasterType: disasterType,
       adminArea: { countryCodeISO3 },
+      forecastSeverity: MoreThan(0),
     };
     if (eventName) {
       whereFiltersEvent['eventName'] = eventName;
@@ -369,9 +369,6 @@ export class EventService {
         'area."placeCodeParent" = parent."placeCode"',
       )
       .where(whereFiltersEvent)
-      .andWhere(
-        '(event."mainExposureValue" > 0 OR event."forecastSeverity" > 0)', // NOTE AB#32041: should this change to just forecastSeverity>0 in new setup, or is there a separate reason to keep in the OR on mainExposureValue?
-      )
       .orderBy('event."mainExposureValue"', 'DESC')
       .getRawMany();
 
@@ -483,7 +480,12 @@ export class EventService {
         'case when event.closed = true then event."endDate" end as "endDate"',
         'disaster."mainExposureIndicator" as "exposureIndicator"',
         'event."mainExposureValue" as "exposureValue"',
-        `CASE event."forecastSeverity" WHEN 1 THEN 'Trigger/alert' WHEN 0.7 THEN 'Medium warning' WHEN 0.3 THEN 'Low warning' END as "alertClass"`, // NOTE AB#32041: Check this
+        `CASE 
+        WHEN event."forecastTrigger" = true THEN 'Trigger' 
+        WHEN event."forecastSeverity" = 1 THEN 'High warning' 
+        WHEN event."forecastSeverity" = 0.7 THEN 'Medium warning' 
+        WHEN event."forecastSeverity" = 0.3 THEN 'Low warning' 
+        END as "alertClass"`,
         'event."eventPlaceCodeId" as "databaseId"',
       ])
       .leftJoin('event.adminArea', 'area')
@@ -621,17 +623,6 @@ export class EventService {
     eventPlaceCode.manualStoppedDate = new Date();
     eventPlaceCode.user = user;
     await this.eventPlaceCodeRepo.save(eventPlaceCode);
-  }
-
-  public async getCountryAdminAreaIds(
-    countryCodeISO3: string,
-  ): Promise<string[]> {
-    return (
-      await this.adminAreaRepository.find({
-        select: ['id'],
-        where: { countryCodeISO3: countryCodeISO3 },
-      })
-    ).map((area) => area.id);
   }
 
   private async getMainExposureIndicator(
@@ -894,8 +885,6 @@ export class EventService {
     activeAlertAreas: AreaForecastDataDto[],
     lastUploadTimestamp: Date,
   ): Promise<void> {
-    // const countryAdminAreaIds =
-    //   await this.getCountryAdminAreaIds(countryCodeISO3);
     const openEventAreas = await this.eventPlaceCodeRepo.find({
       where: {
         closed: false,
@@ -992,8 +981,6 @@ export class EventService {
     activeAlertAreas: AreaForecastDataDto[],
     lastUploadTimestamp: Date,
   ): Promise<void> {
-    // const countryAdminAreaIds =
-    //   await this.getCountryAdminAreaIds(countryCodeISO3);
     const openEventAreaPlaceCodes = (
       await this.eventPlaceCodeRepo.find({
         where: {
@@ -1033,11 +1020,9 @@ export class EventService {
     disasterType: DisasterType,
     lastUploadTimestamp: Date,
   ) {
-    const countryAdminAreaIds =
-      await this.getCountryAdminAreaIds(countryCodeISO3);
     const where = {
       endDate: LessThan(lastUploadTimestamp), // If the area was not prolonged earlier, then the endDate is not updated and is therefore less than the lastUploadDate
-      adminArea: In(countryAdminAreaIds),
+      adminArea: { countryCodeISO3 },
       disasterType,
       closed: false,
     };

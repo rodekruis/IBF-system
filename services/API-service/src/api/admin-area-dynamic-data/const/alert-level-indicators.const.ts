@@ -4,13 +4,16 @@ import { DynamicIndicator } from '../enum/dynamic-indicator.enum';
 export type AlertLevelIndicatorType =
   | 'alertThreshold'
   | 'forecastTrigger'
-  | 'forecastSeverity';
+  | 'forecastSeverity'
+  | 'trigger';
+
 export const ALERT_LEVEL_INDICATORS: {
   [key in AlertLevelIndicatorType]: DynamicIndicator;
 } = {
   alertThreshold: DynamicIndicator.alertThreshold,
   forecastTrigger: DynamicIndicator.forecastTrigger,
   forecastSeverity: DynamicIndicator.forecastSeverity,
+  trigger: DynamicIndicator.trigger,
 };
 
 // Set this to true to temporarily test with old pipeline upload. Remove after all pipelines migrated.

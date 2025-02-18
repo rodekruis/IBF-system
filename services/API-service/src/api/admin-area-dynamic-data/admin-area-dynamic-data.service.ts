@@ -10,6 +10,7 @@ import { HelperService } from '../../shared/helper.service';
 import { EventAreaService } from '../admin-area/services/event-area.service';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
+import { ALERT_LEVEL_INDICATORS } from './const/alert-level-indicators.const';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { DynamicIndicator } from './enum/dynamic-indicator.enum';
@@ -121,6 +122,13 @@ export class AdminAreaDynamicDataService {
       disasterType,
     );
 
+    // NOTE: For now calculated field 'trigger' hard-coded points to 'forecastTrigger'.
+    // TODO: when including 'manual trigger', based it on 'forecsastTrigger' and/or 'userTrigger'
+    // TODO AB#32041: facilitate transition period, by having this point to 'alert_threshold' when needed
+    if (indicator === ALERT_LEVEL_INDICATORS.trigger) {
+      indicator = ALERT_LEVEL_INDICATORS.forecastTrigger;
+    }
+
     // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
     if (disasterType === DisasterType.FlashFloods && !eventName) {
       return await this.eventAreaService.getEventAreaDynamicData(
@@ -132,16 +140,11 @@ export class AdminAreaDynamicDataService {
     }
 
     const whereFilters = {
-      countryCodeISO3: countryCodeISO3,
+      countryCodeISO3,
       adminLevel: Number(adminLevel),
-      indicator: indicator,
-      disasterType: disasterType,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadDate.timestamp,
-        ),
-      ),
+      indicator,
+      disasterType,
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
