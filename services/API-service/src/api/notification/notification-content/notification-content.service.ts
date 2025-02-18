@@ -207,7 +207,6 @@ export class NotificationContentService {
       country.countryCodeISO3,
       disasterType,
       defaultAdminLevel,
-      event.firstLeadTime,
       event.eventName,
     );
     alertAreas.sort((a, b) =>

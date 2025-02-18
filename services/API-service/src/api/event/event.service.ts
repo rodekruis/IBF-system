@@ -306,38 +306,27 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
-    leadTime: string,
     eventName: string,
   ): Promise<AlertArea[]> {
     const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
+    const activeAlertAreas = await this.getActiveAlertAreas(
+      countryCodeISO3,
+      disasterType,
+      adminLevel,
+      lastUploadDate.cutoffMoment,
+      eventName,
+    );
+
+    const alertPlaceCodes = activeAlertAreas
+      .filter((area) => area.forecastTrigger)
+      .map((area) => area.placeCode);
+
     const defaultAdminLevel = (
       await this.getCountryDisasterSettings(countryCodeISO3, disasterType)
     ).defaultAdminLevel;
-
-    const whereFiltersDynamicData = {
-      indicator: ALERT_LEVEL_INDICATORS.alertThreshold,
-      value: MoreThan(0),
-      adminLevel,
-      disasterType,
-      countryCodeISO3,
-      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
-    };
-    if (eventName) {
-      whereFiltersDynamicData['eventName'] = eventName;
-    }
-    if (leadTime) {
-      whereFiltersDynamicData['leadTime'] = leadTime;
-    }
-    const alertAreasRaw = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('dynamic')
-      .select(['dynamic.placeCode AS "placeCode"'])
-      .where(whereFiltersDynamicData)
-      .execute();
-    const alertPlaceCodes = alertAreasRaw.map((element) => element.placeCode);
-
     if (adminLevel > defaultAdminLevel) {
       // Use this to also return something on deeper levels than default (to show in chat-section)
       return this.getDeeperAlertAreas(
@@ -351,6 +340,7 @@ export class EventService {
     const whereFiltersEvent = {
       closed: false,
       disasterType: disasterType,
+      adminArea: { countryCodeISO3 },
     };
     if (eventName) {
       whereFiltersEvent['eventName'] = eventName;
@@ -363,6 +353,7 @@ export class EventService {
         'area."adminLevel" AS "adminLevel"',
         'event."mainExposureValue"',
         'event."forecastSeverity"',
+        'event."forecastTrigger"',
         'event."eventPlaceCodeId"',
         'event."stopped"',
         'event."startDate"',
@@ -378,11 +369,8 @@ export class EventService {
         'area."placeCodeParent" = parent."placeCode"',
       )
       .where(whereFiltersEvent)
-      .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
-      })
       .andWhere(
-        '(event."mainExposureValue" > 0 OR event."forecastSeverity" > 0)',
+        '(event."mainExposureValue" > 0 OR event."forecastSeverity" > 0)', // NOTE AB#32041: should this change to just forecastSeverity>0 in new setup, or is there a separate reason to keep in the OR on mainExposureValue?
       )
       .orderBy('event."mainExposureValue"', 'DESC')
       .getRawMany();
@@ -390,7 +378,7 @@ export class EventService {
     for (const area of alertAreas) {
       if (alertPlaceCodes.length === 0) {
         area.eapActions = [];
-      } else if (area.forecastSeverity < 1) {
+      } else if (!area.forecastTrigger) {
         // Do not show actions for warning events/areas
         area.eapActions = [];
       } else {
@@ -406,7 +394,7 @@ export class EventService {
   }
 
   private async getDeeperAlertAreas(
-    triggeredPlaceCodes: string[],
+    alertPlaceCodes: string[],
     disasterType: DisasterType,
     lastUploadDate: LastUploadDateDto,
     eventName?: string,
@@ -415,7 +403,7 @@ export class EventService {
     const mainExposureIndicator =
       await this.getMainExposureIndicator(disasterType);
     const whereFilters = {
-      placeCode: In(triggeredPlaceCodes),
+      placeCode: In(alertPlaceCodes),
       indicator: mainExposureIndicator,
       disasterType,
       timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
@@ -733,8 +721,8 @@ export class EventService {
       countryCodeISO3,
       disasterType,
       adminLevel,
-      eventName,
       uploadCutoffMoment,
+      eventName,
     );
 
     if (activeAlertAreas.length) {
@@ -771,16 +759,18 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
-    eventName: string,
     uploadCutoffMoment: Date,
+    eventName?: string,
   ): Promise<AreaForecastDataDto[]> {
     const whereFilters = {
       timestamp: MoreThanOrEqual(uploadCutoffMoment),
       countryCodeISO3,
       adminLevel,
       disasterType,
-      eventName,
     };
+    if (eventName) {
+      whereFilters['eventName'] = eventName;
+    }
     const mainExposureIndicator =
       await this.getMainExposureIndicator(disasterType);
     const areaswithForecastSeverityData = await this.adminAreaDynamicDataRepo

@@ -343,7 +343,6 @@ export class WhatsappService {
       country.countryCodeISO3,
       disasterType,
       adminLevel,
-      event.firstLeadTime,
       event.eventName,
     );
 

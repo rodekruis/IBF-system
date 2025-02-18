@@ -116,17 +116,16 @@ export class EventController {
   @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
-      'Get alerted admin-areas for given country, disaster-type and lead-time.',
+      'Get alerted admin-areas for given country, disaster-type, admin-level (and event-name).',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
-      'Alerted admin-areas for given country, disaster-type and lead-time.',
+      'Alerted admin-areas for given country, disaster-type, admin-level (and event-name).',
     type: [AlertArea],
   })
   @Get('alert-areas/:countryCodeISO3/:adminLevel/:disasterType')
@@ -138,7 +137,6 @@ export class EventController {
       params.countryCodeISO3,
       params.disasterType,
       params.adminLevel,
-      query.leadTime,
       query.eventName,
     );
   }

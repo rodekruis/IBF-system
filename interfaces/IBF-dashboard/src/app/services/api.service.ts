@@ -280,15 +280,11 @@ export class ApiService {
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
     adminLevel: number,
-    leadTime: string,
     eventName: string,
   ): Observable<AlertArea[]> {
     let params = new HttpParams();
     if (eventName) {
       params = params.append('eventName', eventName);
-    }
-    if (leadTime) {
-      params = params.append('leadTime', leadTime);
     }
     return this.get(
       `event/alert-areas/${countryCodeISO3}/${adminLevel.toString()}/${disasterType}`,

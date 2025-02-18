@@ -128,7 +128,6 @@ export class AlertAreaService {
           this.country.countryCodeISO3,
           this.disasterType.disasterType,
           adminLevelToUse,
-          this.timelineState.activeLeadTime,
           this.eventState.event?.eventName,
         )
         .subscribe(this.onAlertAreas);
