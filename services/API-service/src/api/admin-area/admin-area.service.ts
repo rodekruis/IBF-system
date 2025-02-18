@@ -8,8 +8,10 @@ import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import { ALERT_LEVEL_INDICATORS } from '../admin-area-dynamic-data/const/alert-level-indicators.const';
-import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
+import {
+  ALERT_THRESHOLD,
+  DynamicIndicator,
+} from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
@@ -138,7 +140,7 @@ export class AdminAreaService {
       disasterType: disasterType,
       adminLevel: adminLevel,
       value: MoreThan(0),
-      indicator: ALERT_LEVEL_INDICATORS.alertThreshold,
+      indicator: ALERT_THRESHOLD,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,
