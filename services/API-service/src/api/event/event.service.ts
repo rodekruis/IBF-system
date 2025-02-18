@@ -19,7 +19,7 @@ import {
   EventSummaryCountry,
 } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';
-import { ALERT_LEVEL_INDICATORS } from '../admin-area-dynamic-data/const/alert-level-indicators.const';
+import { ALERT_THRESHOLD } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
@@ -319,7 +319,7 @@ export class EventService {
     ).defaultAdminLevel;
 
     const whereFiltersDynamicData = {
-      indicator: ALERT_LEVEL_INDICATORS.alertThreshold,
+      indicator: ALERT_THRESHOLD,
       value: MoreThan(0),
       adminLevel,
       disasterType,
@@ -777,7 +777,7 @@ export class EventService {
     lastUploadTimestamp: Date,
   ): Promise<AffectedAreaDto[]> {
     const whereFilters = {
-      indicator: ALERT_LEVEL_INDICATORS.alertThreshold,
+      indicator: ALERT_THRESHOLD,
       timestamp: MoreThanOrEqual(
         this.helperService.getUploadCutoffMoment(
           disasterType,

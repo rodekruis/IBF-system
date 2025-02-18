@@ -14,11 +14,13 @@ import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UploadAlertPerLeadTimeDto } from '../event/dto/upload-alert-per-leadtime.dto';
 import { EventService } from '../event/event.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
-import { ALERT_LEVEL_INDICATORS } from './const/alert-level-indicators.const';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
-import { DynamicIndicator } from './enum/dynamic-indicator.enum';
+import {
+  ALERT_THRESHOLD,
+  DynamicIndicator,
+} from './enum/dynamic-indicator.enum';
 import { LeadTime } from './enum/lead-time.enum';
 
 interface RasterData {
@@ -85,8 +87,7 @@ export class AdminAreaDynamicDataService {
     });
 
     if (
-      uploadExposure.dynamicIndicator ===
-        ALERT_LEVEL_INDICATORS.alertThreshold &&
+      uploadExposure.dynamicIndicator === ALERT_THRESHOLD &&
       uploadExposure.exposurePlaceCodes.length > 0 &&
       country.countryDisasterSettings.find(
         (s) => s.disasterType === uploadExposure.disasterType,
