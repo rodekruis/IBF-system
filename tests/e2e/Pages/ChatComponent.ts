@@ -74,12 +74,12 @@ class ChatComponent extends DashboardPage {
     const formattedDate = format(date, 'EEEE, dd MMMM');
     const formattedTime = format(date, 'HH:mm');
 
-    const lastModelRunDate = `${formattedDate} ${formattedTime}`;
+    const lastUploadDate = `${formattedDate} ${formattedTime}`;
 
     // Formatted Strings
     const chatDialogueContent = cleanedString
       .replace('{{ name }}', `${firstName} ${lastName}`)
-      .replace('{{lastModelRunDate}}', lastModelRunDate);
+      .replace('{{lastUploadDate}}', lastUploadDate);
     const chatDialogueContentNoAlerts =
       chatDialogueContentWelcomeNoTrigger.replace(/<\/?strong>/g, '');
 
@@ -108,12 +108,12 @@ class ChatComponent extends DashboardPage {
     const cleanedString = chatDialogueWarnLabel.replace(/<\/?strong>/g, '');
     const formattedDate = format(date, 'EEEE, dd MMMM');
     const formattedTime = format(date, 'HH:mm');
-    const lastModelRunDate = `${formattedDate} ${formattedTime}`;
+    const lastUploadDate = `${formattedDate} ${formattedTime}`;
 
     // Formatted Strings
     const chatDialogueContent = cleanedString
       .replace('{{ name }}', `${firstName} ${lastName}`)
-      .replace('{{lastModelRunDate}}', lastModelRunDate);
+      .replace('{{lastUploadDate}}', lastUploadDate);
 
     // Locators based on data-testid and filtered by formatted strings
     const welcomeChatDialogue = this.chatDialogue.filter({
