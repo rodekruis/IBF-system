@@ -18,9 +18,9 @@ import {
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
+import { CountryDisasterTypeDto } from '../event/dto/country-disaster-type.dto';
 import { UserRole } from '../user/user-role.enum';
 import { NotificationApiTestResponseDto } from './dto/notification-api-test-response.dto';
-import { SendNotificationDto } from './dto/send-notification.dto';
 import { NotificationService } from './notification.service';
 
 @ApiBearerAuth()
@@ -55,7 +55,7 @@ export class NotificationController {
   @ApiConsumes()
   @UseInterceptors()
   public async send(
-    @Body() sendNotification: SendNotificationDto,
+    @Body() sendNotification: CountryDisasterTypeDto,
     @Query(
       'isApiTest',
       new ParseBoolPipe({

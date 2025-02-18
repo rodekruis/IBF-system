@@ -133,6 +133,6 @@ export class PointDataController {
   public async uploadDynamicPointData(
     @Body() dynamicPointData: UploadDynamicPointDataDto,
   ): Promise<void> {
-    return await this.pointDataService.uploadDynamicPointData(dynamicPointData);
+    await this.pointDataService.uploadDynamicPointData(dynamicPointData);
   }
 }

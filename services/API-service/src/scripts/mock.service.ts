@@ -6,7 +6,7 @@ import { In, Repository } from 'typeorm';
 
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
-import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-data-unit';
+import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { AdminLevel } from '../api/country/admin-level.enum';
@@ -190,12 +190,12 @@ export class MockService {
 
         if (this.shouldMockAlertPerLeadTime(disasterType)) {
           const alertsPerLeadTime = this.getFile(
-            `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-leadtime.json`,
+            `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-lead-time.json`,
           );
 
-          await this.eventService.uploadAlertPerLeadTime({
+          await this.eventService.uploadAlertsPerLeadTime({
             countryCodeISO3,
-            triggersPerLeadTime: alertsPerLeadTime, // NOTE AB#32041: rename 'triggersPerLeadTime' when dto changes
+            alertsPerLeadTime,
             disasterType: DisasterType.Floods,
             eventName: event.eventName,
             date,
@@ -259,8 +259,8 @@ export class MockService {
       );
     }
 
-    // Close finished events (only relevant for follow-up mock pipeline runs, with removeEvents=false)
-    await this.eventService.closeEventsAutomatic(
+    // Process events
+    await this.eventService.processEvents(
       selectedCountry.countryCodeISO3,
       disasterType,
     );

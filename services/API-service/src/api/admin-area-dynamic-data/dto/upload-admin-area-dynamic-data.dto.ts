@@ -13,7 +13,7 @@ import {
 
 import exposure from '../../../scripts/mock-data/drought/ETH/trigger/Belg JAS_Belg/upload-alert_threshold-2.json';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
-import { DynamicIndicator } from '../enum/dynamic-data-unit';
+import { DynamicIndicator } from '../enum/dynamic-indicator.enum';
 import { LeadTime } from '../enum/lead-time.enum';
 import { DynamicDataPlaceCodeDto } from './dynamic-data-place-code.dto';
 
