@@ -12,7 +12,7 @@ import {
 } from 'class-validator';
 import { JoinColumn, ManyToOne } from 'typeorm';
 
-import indicatorData from '../../../scripts/mock-data/drought/ETH/trigger/Belg JAS_Belg/upload-alert_threshold-2.json';
+import indicatorData from '../../../scripts/mock-data/drought/ETH/trigger/Belg JAS_Belg/upload-forecast_trigger-2.json';
 import { DynamicDataPlaceCodeDto } from '../../admin-area-dynamic-data/dto/dynamic-data-place-code.dto';
 import { UpdateableStaticIndicator } from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { AdminLevel } from '../../country/admin-level.enum';

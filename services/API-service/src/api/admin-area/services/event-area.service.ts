@@ -212,7 +212,7 @@ export class EventAreaService {
       .createQueryBuilder('dynamic')
       .select('dynamic."indicator"', 'indicator')
       .addSelect(
-        `CASE WHEN dynamic."indicator" = 'alert_threshold' THEN MAX(value) ELSE SUM(value) END as "value"`,
+        `CASE WHEN dynamic."indicator" IN ('alert_threshold','forecast_severity','forecast_trigger') THEN MAX(value) ELSE SUM(value) END as "value"`, // NOTE: remove 'alert_threshold' after flash-floods pipeline migrated
       )
       .where(whereFilters)
       .groupBy('dynamic."indicator"')

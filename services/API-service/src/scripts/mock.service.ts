@@ -404,6 +404,17 @@ export class MockService {
       .filter((ind) => ind.dynamic)
       .map((ind) => ind.name as DynamicIndicator);
 
+    if (disasterType === DisasterType.Typhoon) {
+      dynamicIndicators.push(DynamicIndicator.showAdminArea);
+      // is this needed?
+      if (scenarioName === TyphoonScenario.NoTrigger) {
+        dynamicIndicators = [
+          DynamicIndicator.housesAffected,
+          DynamicIndicator.alertThreshold,
+        ];
+      }
+    }
+
     // NOTE: this indicators always need to be mocked. Should the way to get indicators-array here be refactored?
     // NOTE: update this when all pipelines migrated to new setup. (Keep 'push', remove 'if' and 'splice')
     if (!MOCK_USE_OLD_PIPELINE_UPLOAD) {
@@ -417,17 +428,6 @@ export class MockService {
         dynamicIndicators.indexOf(DynamicIndicator.alertThreshold),
         1,
       );
-    }
-
-    if (disasterType === DisasterType.Typhoon) {
-      dynamicIndicators.push(DynamicIndicator.showAdminArea);
-      // is this needed?
-      if (scenarioName === TyphoonScenario.NoTrigger) {
-        dynamicIndicators = [
-          DynamicIndicator.housesAffected,
-          DynamicIndicator.alertThreshold,
-        ];
-      }
     }
 
     return dynamicIndicators;
