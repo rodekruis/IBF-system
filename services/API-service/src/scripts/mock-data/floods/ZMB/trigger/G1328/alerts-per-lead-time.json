@@ -1,0 +1,42 @@
+[
+  {
+    "leadTime": "0-day",
+    "forecastAlert": false,
+    "forecastTrigger": false
+  },
+  {
+    "leadTime": "1-day",
+    "forecastAlert": false,
+    "forecastTrigger": false
+  },
+  {
+    "leadTime": "2-day",
+    "forecastAlert": false,
+    "forecastTrigger": false
+  },
+  {
+    "leadTime": "3-day",
+    "forecastAlert": false,
+    "forecastTrigger": false
+  },
+  {
+    "leadTime": "4-day",
+    "forecastAlert": false,
+    "forecastTrigger": false
+  },
+  {
+    "leadTime": "5-day",
+    "forecastAlert": false,
+    "forecastTrigger": false
+  },
+  {
+    "leadTime": "6-day",
+    "forecastAlert": false,
+    "forecastTrigger": false
+  },
+  {
+    "leadTime": "7-day",
+    "forecastAlert": true,
+    "forecastTrigger": true
+  }
+]

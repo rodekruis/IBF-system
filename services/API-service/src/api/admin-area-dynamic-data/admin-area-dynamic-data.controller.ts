@@ -29,7 +29,7 @@ import { UserRole } from '../user/user-role.enum';
 import { AdminAreaDynamicDataService } from './admin-area-dynamic-data.service';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
-import { DynamicIndicator } from './enum/dynamic-data-unit';
+import { DynamicIndicator } from './enum/dynamic-indicator.enum';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)

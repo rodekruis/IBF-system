@@ -127,7 +127,7 @@ export class MapLegendService {
       );
     }
 
-    const colors = this.eventState?.thresholdReached
+    const colors = this.eventState?.forecastTrigger
       ? this.mapService.state.colorGradientTriggered
       : this.mapService.state.colorGradient;
 

@@ -10,7 +10,7 @@ import {
 } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { AlertPerLeadTimeEntity } from '../api/event/alert-per-lead-time.entity';
-import { DateDto } from '../api/event/dto/date.dto';
+import { LastUploadDateDto } from '../api/event/dto/last-upload-date.dto';
 import { NumberFormat } from './enums/number-format.enum';
 import { GeoJson, GeoJsonFeature } from './geo.model';
 
@@ -90,13 +90,14 @@ export class HelperService {
     });
   }
 
-  public async getRecentDate(
+  public async getLastUploadDate(
     countryCodeISO3: string,
     disasterType: DisasterType,
-  ): Promise<DateDto> {
+  ): Promise<LastUploadDateDto> {
     const alertPerLeadTimeRepository = this.dataSource.getRepository(
       AlertPerLeadTimeEntity,
     );
+    // REFACTOR: this data could just as well be based on adminAreaDynamicDataRepository, thereby reducing a need for this table to remain
     const result = await alertPerLeadTimeRepository.findOne({
       where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
       order: { timestamp: 'DESC' },

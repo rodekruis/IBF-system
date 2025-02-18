@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { EapAlertClassKeyEnum } from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
-import { TriggerStatusLabelEnum } from '../dto/notification-date-per-event.dto';
+import { AlertStatusLabelEnum } from '../dto/notification-date-per-event.dto';
 
 interface AdminArea {
   exposed?: string;
@@ -281,7 +281,7 @@ export const getTimeFromNow = (leadTime: LeadTime) => {
 
 export const getTriangleIcon = (
   eapAlertClassKey: EapAlertClassKeyEnum,
-  triggerStatusLabel: TriggerStatusLabelEnum,
+  triggerStatusLabel: AlertStatusLabelEnum,
 ) => {
   const fileNameMap = {
     [EapAlertClassKeyEnum.med]: 'warning-medium.png',
@@ -295,7 +295,7 @@ export const getTriangleIcon = (
     : fileNameMap.default;
   if (
     !eapAlertClassKey &&
-    triggerStatusLabel !== TriggerStatusLabelEnum.Trigger
+    triggerStatusLabel !== AlertStatusLabelEnum.Trigger
   ) {
     fileName = 'warning-medium.png';
   }
@@ -325,14 +325,14 @@ export const getPngImageAsDataURL = (relativePath: string) => {
 
 export const getDisasterIssuedLabel = (
   eapLabel: string,
-  triggerStatusLabel: TriggerStatusLabelEnum,
+  triggerStatusLabel: AlertStatusLabelEnum,
 ) => {
   return eapLabel || triggerStatusLabel;
 };
 
 export const getIbfHexColor = (
   color: string,
-  triggerStatusLabel: TriggerStatusLabelEnum,
+  triggerStatusLabel: AlertStatusLabelEnum,
 ): string => {
   // Color  defined in the EAP Alert Class. This is only used for flood events
   // For other events, the color is defined in the disaster settings
@@ -349,7 +349,7 @@ export const getIbfHexColor = (
         return COLOR_TRIGGER_RED;
     }
   }
-  return triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+  return triggerStatusLabel === AlertStatusLabelEnum.Trigger
     ? COLOR_TRIGGER_RED
     : COLOR_WARNING_ORANGE;
 };

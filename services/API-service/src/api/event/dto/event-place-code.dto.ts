@@ -8,7 +8,7 @@ import { DisasterType } from '../../disaster-type/disaster-type.enum';
 export class AffectedAreaDto {
   public placeCode: string;
   public mainExposureValue: number;
-  public triggerValue: number;
+  public forecastSeverity: number;
   public leadTime: LeadTime;
 }
 

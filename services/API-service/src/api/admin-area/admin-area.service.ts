@@ -8,7 +8,10 @@ import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-data-unit';
+import {
+  ALERT_THRESHOLD,
+  DynamicIndicator,
+} from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
@@ -86,7 +89,7 @@ export class AdminAreaService {
     leadTime: string,
     eventName: string,
   ) {
-    const alertsPerLeadTime = await this.eventService.getAlertPerLeadtime(
+    const alertsPerLeadTime = await this.eventService.getAlertPerLeadTime(
       countryCodeISO3,
       disasterType,
       eventName,
@@ -128,24 +131,22 @@ export class AdminAreaService {
     leadTime: string,
     eventName: string,
   ): Promise<AdminAreaDynamicDataEntity[]> {
-    const triggerIndicator =
-      await this.eventService.getTriggerIndicator(disasterType);
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      disasterType,
+      lastUploadDate.timestamp,
+    );
+
     const whereFilters = {
       countryCodeISO3: countryCodeISO3,
       disasterType: disasterType,
       adminLevel: adminLevel,
       value: MoreThan(0),
-      indicator: triggerIndicator as DynamicIndicator,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastTriggeredDate.timestamp,
-        ),
-      ),
+      indicator: ALERT_THRESHOLD,
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
@@ -153,7 +154,8 @@ export class AdminAreaService {
     if (leadTime) {
       whereFilters['leadTime'] = leadTime;
     }
-    return await this.adminAreaDynamicDataRepo
+
+    return this.adminAreaDynamicDataRepo
       .createQueryBuilder()
       .where(whereFilters)
       .getMany();
@@ -197,7 +199,7 @@ export class AdminAreaService {
     eventName: string,
     placeCodeParent?: string,
   ): Promise<AggregateDataRecord[]> {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
@@ -207,7 +209,7 @@ export class AdminAreaService {
       return await this.eventAreaService.getEventAreaAggregates(
         countryCodeISO3,
         disasterType,
-        lastTriggeredDate,
+        lastUploadDate,
       );
     }
 
@@ -223,25 +225,27 @@ export class AdminAreaService {
       .select(['area."placeCode"', 'area."placeCodeParent"'])
       .leftJoin(AdminAreaDataEntity, 'data', 'area.placeCode = data.placeCode')
       .addSelect(['data."indicator"', 'data."value"'])
-      .where('area."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
+      .where('area."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
+      .andWhere('area."adminLevel" = :adminLevel', { adminLevel });
+
     if (placeCodeParent) {
       staticIndicatorsScript.andWhere(
         'area."placeCodeParent" = :placeCodeParent',
-        {
-          placeCodeParent: placeCodeParent,
-        },
+        { placeCodeParent },
       );
     }
     if (placeCodes.length) {
       staticIndicatorsScript = staticIndicatorsScript.andWhere(
         'area."placeCode" IN (:...placeCodes)',
-        { placeCodes: placeCodes },
+        { placeCodes },
       );
     }
     const staticIndicators = await staticIndicatorsScript.getRawMany();
+
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      disasterType,
+      lastUploadDate.timestamp,
+    );
 
     let dynamicIndicatorsScript = this.adminAreaRepository
       .createQueryBuilder('area')
@@ -252,44 +256,34 @@ export class AdminAreaService {
         'area.placeCode = dynamic.placeCode',
       )
       .addSelect(['dynamic."indicator"', 'dynamic."value"'])
-      .where('area."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('timestamp >= :last6hourInterval', {
-        last6hourInterval: this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastTriggeredDate.timestamp,
-        ),
-      })
-      .andWhere('"disasterType" = :disasterType', {
-        disasterType: disasterType,
-      })
-      .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
+      .where('area."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
+      .andWhere('timestamp >= :uploadCutoffMoment', { uploadCutoffMoment })
+      .andWhere('"disasterType" = :disasterType', { disasterType })
+      .andWhere('area."adminLevel" = :adminLevel', { adminLevel });
+
     if (placeCodeParent) {
       dynamicIndicatorsScript.andWhere(
         'area."placeCodeParent" = :placeCodeParent',
-        {
-          placeCodeParent: placeCodeParent,
-        },
+        { placeCodeParent },
       );
     }
     if (leadTime) {
       dynamicIndicatorsScript.andWhere('dynamic."leadTime" = :leadTime', {
-        leadTime: leadTime,
+        leadTime,
       });
     }
     if (eventName) {
       dynamicIndicatorsScript.andWhere('dynamic."eventName" = :eventName', {
-        eventName: eventName,
+        eventName,
       });
     }
-
     if (placeCodes.length) {
       dynamicIndicatorsScript = dynamicIndicatorsScript.andWhere(
         'area."placeCode" IN (:...placeCodes)',
-        { placeCodes: placeCodes },
+        { placeCodes },
       );
     }
+
     const dynamicIndicators = await dynamicIndicatorsScript.getRawMany();
     return staticIndicators.concat(dynamicIndicators);
   }
@@ -297,9 +291,7 @@ export class AdminAreaService {
   private async getDisasterType(
     disasterType: DisasterType,
   ): Promise<DisasterTypeEntity> {
-    return await this.disasterTypeRepository.findOne({
-      where: { disasterType: disasterType },
-    });
+    return this.disasterTypeRepository.findOne({ where: { disasterType } });
   }
 
   public async getAdminAreasRaw(countryCodeISO3) {
@@ -327,9 +319,13 @@ export class AdminAreaService {
     placeCodeParent?: string,
   ): Promise<GeoJson> {
     const disasterTypeEntity = await this.getDisasterType(disasterType);
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
+    );
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      disasterType,
+      lastUploadDate.timestamp,
     );
 
     // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
@@ -337,7 +333,7 @@ export class AdminAreaService {
       return await this.eventAreaService.getEventAreas(
         countryCodeISO3,
         disasterTypeEntity,
-        lastTriggeredDate,
+        lastUploadDate,
       );
     }
 
@@ -350,13 +346,11 @@ export class AdminAreaService {
         'ST_AsGeoJSON(area.geom)::json As geom',
         'area."countryCodeISO3"',
       ])
-      .where('area."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
+      .where('area."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
+      .andWhere('area."adminLevel" = :adminLevel', { adminLevel });
     if (placeCodeParent) {
       adminAreasScript.andWhere('area."placeCodeParent" = :placeCodeParent', {
-        placeCodeParent: placeCodeParent,
+        placeCodeParent,
       });
     }
 
@@ -379,27 +373,19 @@ export class AdminAreaService {
         'parent."placeCode" as "placeCodeParent"',
         'dynamic."eventName"',
       ])
-      .andWhere('timestamp >= :cutoffMoment', {
-        cutoffMoment: this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastTriggeredDate.timestamp,
-        ),
-      })
-      .andWhere('"disasterType" = :disasterType', {
-        disasterType: disasterType,
-      })
+      .andWhere('timestamp >= :uploadCutoffMoment', { uploadCutoffMoment })
+      .andWhere('"disasterType" = :disasterType', { disasterType })
       .andWhere('dynamic."indicator" = :indicator', {
         indicator: disasterTypeEntity.mainExposureIndicator,
       })
       .orderBy('dynamic."leadTime"', 'DESC'); // This makes sure that if an area is part of 2 events, the earlier event is first and therefore on "top" in the map, so that on clicking the area in the map the earliest event is selected.
+
     if (leadTime) {
-      adminAreasScript.andWhere('dynamic."leadTime" = :leadTime', {
-        leadTime: leadTime,
-      });
+      adminAreasScript.andWhere('dynamic."leadTime" = :leadTime', { leadTime });
     }
     if (eventName) {
       adminAreasScript.andWhere('dynamic."eventName" = :eventName', {
-        eventName: eventName,
+        eventName,
       });
     }
 
@@ -410,14 +396,15 @@ export class AdminAreaService {
       adminLevel,
       eventName,
     );
+
     if (placeCodes.length) {
       adminAreasScript = adminAreasScript.andWhere(
         'area."placeCode" IN (:...placeCodes)',
-        { placeCodes: placeCodes },
+        { placeCodes },
       );
     }
-    const adminAreas = await adminAreasScript.getRawMany();
 
+    const adminAreas = await adminAreasScript.getRawMany();
     return this.helperService.toGeojson(adminAreas);
   }
 
@@ -428,23 +415,24 @@ export class AdminAreaService {
     leadTime: string,
     eventName: string,
   ) {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
+    const uplaodCutoffMoment = this.helperService.getUploadCutoffMoment(
+      disasterType,
+      lastUploadDate.timestamp,
+    );
+
     const whereFilters = {
       countryCodeISO3: countryCodeISO3,
       disasterType: disasterType,
       adminLevel: adminLevel,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastTriggeredDate.timestamp,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uplaodCutoffMoment),
       indicator: DynamicIndicator.showAdminArea,
       value: 1,
     };
+
     if (leadTime) {
       whereFilters['leadTime'] = leadTime;
     }

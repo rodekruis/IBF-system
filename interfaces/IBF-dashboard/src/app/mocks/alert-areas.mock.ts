@@ -4,7 +4,7 @@ import { AlertArea } from 'src/app/types/alert-area';
 export const MOCK_ALERT_AREAS: AlertArea[] = [
   {
     mainExposureValue: 1,
-    triggerValue: 1,
+    forecastSeverity: 1,
     displayName: 'Guba',
     eapActions: [],
     eventPlaceCodeId: '',
@@ -17,7 +17,7 @@ export const MOCK_ALERT_AREAS: AlertArea[] = [
   },
   {
     mainExposureValue: 1,
-    triggerValue: 1,
+    forecastSeverity: 1,
     displayName: 'Derkhale',
     eapActions: [],
     eventPlaceCodeId: '',

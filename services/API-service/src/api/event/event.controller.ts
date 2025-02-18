@@ -20,15 +20,18 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AlertArea, EventSummaryCountry } from '../../shared/data.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
-import { SendNotificationDto } from '../notification/dto/send-notification.dto';
 import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
-import { DateDto } from './dto/date.dto';
+import { CountryDisasterTypeDto } from './dto/country-disaster-type.dto';
 import {
   ActivationLogDto,
   EventPlaceCodeDto,
 } from './dto/event-place-code.dto';
-import { UploadAlertPerLeadTimeDto } from './dto/upload-alert-per-leadtime.dto';
+import { LastUploadDateDto } from './dto/last-upload-date.dto';
+import {
+  UploadAlertsPerLeadTimeDto,
+  UploadTriggerPerLeadTimeDto,
+} from './dto/upload-alerts-per-lead-time.dto';
 import { EventService } from './event.service';
 
 @ApiBearerAuth()
@@ -67,19 +70,19 @@ export class EventController {
   @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
-      'Get date of last forecast-data-upload for given country and disaster-type.',
+      'Get date of last (pipeline) upload for given country and disaster-type.',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
     status: 200,
     description:
-      'Date of last forecast-data-upload for given country and disaster-type.',
-    type: DateDto,
+      'Date of last (pipeline) upload for given country and disaster-type.',
+    type: LastUploadDateDto,
   })
-  @Get('recent-date/:countryCodeISO3/:disasterType')
-  public async getRecentDate(@Param() params): Promise<DateDto> {
-    return await this.eventService.getRecentDate(
+  @Get('last-upload-date/:countryCodeISO3/:disasterType')
+  public async getLastUploadDate(@Param() params): Promise<LastUploadDateDto> {
+    return await this.eventService.getLastUploadDate(
       params.countryCodeISO3,
       params.disasterType,
     );
@@ -99,11 +102,11 @@ export class EventController {
       'Alert data per lead-time for given country, disaster-type, event.',
   })
   @Get('alerts/:countryCodeISO3/:disasterType')
-  public async getAlertPerLeadtime(
+  public async getAlertPerLeadTime(
     @Param() params,
     @Query() query,
   ): Promise<object> {
-    return await this.eventService.getAlertPerLeadtime(
+    return await this.eventService.getAlertPerLeadTime(
       params.countryCodeISO3,
       params.disasterType,
       query.eventName,
@@ -185,27 +188,45 @@ export class EventController {
     );
   }
 
+  // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-lead-time
   @UseGuards(RolesGuard)
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
-    summary: 'Upload alert data per leadtime',
+    summary: '[OLD endpoint] Upload alert data per leadtime',
   })
   @ApiResponse({
     status: 201,
     description: 'Uploaded alert data per leadtime',
   })
-  @Post('triggers-per-leadtime') // NOTE: Rename to 'alerts-per-leadtime'. This desired path change can be employed in practice to facilitate an old and new endpoint side-by-side.
-  public async uploadAlertPerLeadTime(
-    @Body() uploadAlertPerLeadTimeDto: UploadAlertPerLeadTimeDto,
+  @Post('triggers-per-leadtime')
+  public async uploadTriggerPerLeadTime(
+    @Body() uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ): Promise<void> {
-    await this.eventService.uploadAlertPerLeadTime(uploadAlertPerLeadTimeDto);
+    await this.eventService.convertDtoAndUpload(uploadTriggerPerLeadTimeDto);
   }
 
   @UseGuards(RolesGuard)
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
+    summary: 'Upload alert data per lead time',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Uploaded alert data per lead time',
+  })
+  @Post('alerts-per-lead-time')
+  public async uploadAlertsPerLeadTime(
+    @Body() uploadAlertsPerLeadTimeDto: UploadAlertsPerLeadTimeDto,
+  ): Promise<void> {
+    await this.eventService.uploadAlertsPerLeadTime(uploadAlertsPerLeadTimeDto);
+  }
+
+  // NOTE: keep this endpoint in until all pipelines migrated to /event/process
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.PipelineUser)
+  @ApiOperation({
     summary:
-      'Close events automatically for given country and disaster-type. Must be run at end of every pipeline. Currently not used, the same logic is also in /notification/send endpoint.',
+      'Close events automatically for given country and disaster-type. Must be run at end of every pipeline. As a backup, the same logic is also in /notification/send endpoint.',
   })
   @ApiResponse({
     status: 201,
@@ -213,11 +234,32 @@ export class EventController {
   })
   @Post('close-events')
   public async closeEvents(
-    @Body() closeEventsDto: SendNotificationDto,
+    @Body() closeEventsDto: CountryDisasterTypeDto,
   ): Promise<void> {
-    await this.eventService.closeEventsAutomatic(
+    // NOTE: this old endpoint will also point to this new method already
+    await this.eventService.processEvents(
       closeEventsDto.countryCodeISO3,
       closeEventsDto.disasterType,
+    );
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.PipelineUser)
+  @ApiOperation({
+    summary:
+      'Process events for given country and disaster-type. Must be run at end of every pipeline.',
+  })
+  @ApiResponse({
+    status: 201,
+    description: 'Processed events.',
+  })
+  @Post('process')
+  public async processEvents(
+    @Body() processEventsDto: CountryDisasterTypeDto,
+  ): Promise<void> {
+    await this.eventService.processEvents(
+      processEventsDto.countryCodeISO3,
+      processEventsDto.disasterType,
     );
   }
 }

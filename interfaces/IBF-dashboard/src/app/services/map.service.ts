@@ -409,7 +409,7 @@ export class MapService {
       colorProperty: indicator.name,
       colorBreaks: indicator.colorBreaks,
       numberFormatMap: indicator.numberFormatMap,
-      legendColor: this.eventState.thresholdReached
+      legendColor: this.eventState.forecastTrigger
         ? this.state.colorGradientTriggered[2]
         : this.state.colorGradient[2],
       group:
@@ -739,7 +739,7 @@ export class MapService {
     colorThreshold: { break0: number },
   ): string => {
     let adminRegionFillColor = this.state.defaultFillColor;
-    const currentColorGradient = this.eventState.thresholdReached
+    const currentColorGradient = this.eventState.forecastTrigger
       ? this.state.colorGradientTriggered
       : this.state.colorGradient;
 
@@ -963,9 +963,9 @@ export class MapService {
       };
     }
     if (
-      !area.triggerValue ||
-      area.triggerValue < 1 ||
-      !this.eventState?.event?.thresholdReached
+      !area.forecastSeverity ||
+      area.forecastSeverity < 1 ||
+      !this.eventState?.event?.forecastTrigger
     ) {
       return {
         color: this.nonTriggeredAreaColor,

@@ -15,8 +15,8 @@ import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entit
 import { AdminAreaLabel } from '../dto/admin-area-notification-info.dto';
 import { ContentEventEmail } from '../dto/content-trigger-email.dto';
 import {
+  AlertStatusLabelEnum,
   NotificationDataPerEventDto,
-  TriggerStatusLabelEnum,
 } from '../dto/notification-date-per-event.dto';
 
 @Injectable()
@@ -145,8 +145,7 @@ export class NotificationContentService {
     country: CountryEntity,
     disasterType: DisasterType,
   ): Promise<NotificationDataPerEventDto[]> {
-    const sortedEvents =
-      this.sortEventsByLeadTimeAndThresholdReached(activeEvents);
+    const sortedEvents = this.sortEventsByLeadTimeAndAlertState(activeEvents);
     const headerEventsRows = [];
     for await (const event of sortedEvents) {
       headerEventsRows.push(
@@ -162,9 +161,9 @@ export class NotificationContentService {
     disasterType: DisasterType,
   ): Promise<NotificationDataPerEventDto> {
     const data = new NotificationDataPerEventDto();
-    data.triggerStatusLabel = event.thresholdReached
-      ? TriggerStatusLabelEnum.Trigger
-      : TriggerStatusLabelEnum.Warning;
+    data.triggerStatusLabel = event.forecastTrigger
+      ? AlertStatusLabelEnum.Trigger
+      : AlertStatusLabelEnum.Warning;
 
     data.eventName = await this.getFormattedEventName(event, disasterType);
     data.disasterSpecificProperties = event.disasterSpecificProperties;
@@ -211,11 +210,13 @@ export class NotificationContentService {
       event.firstLeadTime,
       event.eventName,
     );
-    alertAreas.sort((a, b) => (a.triggerValue > b.triggerValue ? -1 : 1));
+    alertAreas.sort((a, b) =>
+      a.forecastSeverity > b.forecastSeverity ? -1 : 1,
+    );
     return alertAreas;
   }
 
-  private sortEventsByLeadTimeAndThresholdReached(
+  private sortEventsByLeadTimeAndAlertState(
     arr: EventSummaryCountry[],
   ): EventSummaryCountry[] {
     const leadTimeValue = (leadTime: LeadTime): number =>
@@ -229,11 +230,11 @@ export class NotificationContentService {
         return 1;
       }
 
-      // sort by thresholdReached (true first)
-      if (a.thresholdReached === b.thresholdReached) {
+      // sort by forecastTrigger (true first)
+      if (a.forecastTrigger === b.forecastTrigger) {
         return 0;
       } else {
-        return a.thresholdReached ? -1 : 1;
+        return a.forecastTrigger ? -1 : 1;
       }
     });
   }
@@ -262,8 +263,12 @@ export class NotificationContentService {
   ): Promise<string> {
     const now =
       date ||
-      (await this.helperService.getRecentDate(countryCodeISO3, disasterType))
-        .timestamp;
+      (
+        await this.helperService.getLastUploadDate(
+          countryCodeISO3,
+          disasterType,
+        )
+      ).timestamp;
 
     const getNewDate = {
       month: new Date(now).setMonth(new Date(now).getMonth() + value),
@@ -363,11 +368,11 @@ export class NotificationContentService {
       return null;
     }
 
-    const recentDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
-    const gmtUploadDate = new Date(recentDate.timestamp);
+    const gmtUploadDate = new Date(lastUploadDate.timestamp);
     const hours = Number(leadTime.split('-')[0]);
     const gmtEventDate = new Date(
       gmtUploadDate.setTime(gmtUploadDate.getTime() + hours * 60 * 60 * 1000),

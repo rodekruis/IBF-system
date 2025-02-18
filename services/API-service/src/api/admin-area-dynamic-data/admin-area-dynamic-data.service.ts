@@ -3,7 +3,13 @@ import path from 'path';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { DataSource, In, MoreThanOrEqual, Repository } from 'typeorm';
+import {
+  DataSource,
+  DeleteResult,
+  In,
+  MoreThanOrEqual,
+  Repository,
+} from 'typeorm';
 
 import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
 import { HelperService } from '../../shared/helper.service';
@@ -11,13 +17,17 @@ import { EventAreaService } from '../admin-area/services/event-area.service';
 import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
-import { UploadAlertPerLeadTimeDto } from '../event/dto/upload-alert-per-leadtime.dto';
+import { AlertPerLeadTimeEntity } from '../event/alert-per-lead-time.entity';
+import { UploadAlertsPerLeadTimeDto } from '../event/dto/upload-alerts-per-lead-time.dto';
 import { EventService } from '../event/event.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
-import { DynamicIndicator } from './enum/dynamic-data-unit';
+import {
+  ALERT_THRESHOLD,
+  DynamicIndicator,
+} from './enum/dynamic-indicator.enum';
 import { LeadTime } from './enum/lead-time.enum';
 
 interface RasterData {
@@ -78,32 +88,30 @@ export class AdminAreaDynamicDataService {
     }
     await this.adminAreaDynamicDataRepo.save(areas);
 
-    const disasterType = await this.disasterTypeRepository.findOne({
-      select: ['triggerIndicator'],
-      where: { disasterType: uploadExposure.disasterType },
-    });
-
     const country = await this.countryRepository.findOne({
       relations: ['countryDisasterSettings'],
       where: { countryCodeISO3: uploadExposure.countryCodeISO3 },
     });
 
     if (
-      disasterType.triggerIndicator === uploadExposure.dynamicIndicator &&
+      uploadExposure.dynamicIndicator === ALERT_THRESHOLD &&
       uploadExposure.exposurePlaceCodes.length > 0 &&
       country.countryDisasterSettings.find(
         (s) => s.disasterType === uploadExposure.disasterType,
       ).defaultAdminLevel === uploadExposure.adminLevel
     ) {
+      // NOTE: keep this functionality here instead of in /events/process for now, as this also needs to be called in case of no-events upload
+      // REFACTOR: this whole setup/table/functionality should maybe change in the future
       await this.insertAlertPerLeadTime(uploadExposure);
 
-      await this.eventService.processEventAreas(
-        uploadExposure.countryCodeISO3,
-        uploadExposure.disasterType,
-        uploadExposure.adminLevel,
-        uploadExposure.eventName,
-        uploadExposure.date || new Date(),
-      );
+      // NOTE: remove, but leave commented here for clarity for now
+      // await this.eventService.processEventAreas(
+      //   uploadExposure.countryCodeISO3,
+      //   uploadExposure.disasterType,
+      //   uploadExposure.adminLevel,
+      //   uploadExposure.eventName,
+      //   uploadExposure.date || new Date(),
+      // );
     }
   }
 
@@ -127,54 +135,58 @@ export class AdminAreaDynamicDataService {
 
   private async deleteDynamicDuplicates(
     uploadExposure: UploadAdminAreaDynamicDataDto,
-  ): Promise<void> {
+  ): Promise<DeleteResult> {
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      uploadExposure.disasterType,
+      uploadExposure.date,
+    );
+
     const deleteFilters = {
       indicator: uploadExposure.dynamicIndicator,
       countryCodeISO3: uploadExposure.countryCodeISO3,
       adminLevel: uploadExposure.adminLevel,
       disasterType: uploadExposure.disasterType,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          uploadExposure.disasterType,
-          uploadExposure.date,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
     };
     if (uploadExposure.eventName) {
       deleteFilters['eventName'] = uploadExposure.eventName;
     }
-    await this.adminAreaDynamicDataRepo.delete(deleteFilters);
+
+    return this.adminAreaDynamicDataRepo.delete(deleteFilters);
   }
 
   private async insertAlertPerLeadTime(
     uploadExposure: UploadAdminAreaDynamicDataDto,
-  ): Promise<void> {
+  ): Promise<AlertPerLeadTimeEntity[]> {
     const forecastTrigger = this.isForecastTrigger(
       uploadExposure.exposurePlaceCodes,
     );
 
-    const forecastAlert = !forecastTrigger && !!uploadExposure.eventName; // REFACTOR: eventName being filled or not should no longer be needed to distinguish alert/warning from no alert.
+    const forecastAlert = !!uploadExposure.eventName; // NOTE AB#32041: eventName being filled or not should no longer be needed to distinguish alert/warning from no alert.
 
-    const uploadAlertPerLeadTimeDto = new UploadAlertPerLeadTimeDto();
-    uploadAlertPerLeadTimeDto.countryCodeISO3 = uploadExposure.countryCodeISO3;
-    uploadAlertPerLeadTimeDto.disasterType = uploadExposure.disasterType;
-    uploadAlertPerLeadTimeDto.eventName = uploadExposure.eventName;
-    uploadAlertPerLeadTimeDto.triggersPerLeadTime = [
-      // NOTE: occurences of 'triggersPerLeadTime','triggered','thresholdReached' here will be changed when the DTO changes
+    const uploadAlertsPerLeadTimeDto = new UploadAlertsPerLeadTimeDto();
+    uploadAlertsPerLeadTimeDto.countryCodeISO3 = uploadExposure.countryCodeISO3;
+    uploadAlertsPerLeadTimeDto.disasterType = uploadExposure.disasterType;
+    uploadAlertsPerLeadTimeDto.eventName = uploadExposure.eventName;
+    uploadAlertsPerLeadTimeDto.alertsPerLeadTime = [
       {
         leadTime: uploadExposure.leadTime as LeadTime,
-        triggered: forecastTrigger || forecastAlert,
-        thresholdReached: forecastTrigger && !forecastAlert,
+        forecastAlert,
+        forecastTrigger,
       },
     ];
-    uploadAlertPerLeadTimeDto.date = uploadExposure.date || new Date();
-    await this.eventService.uploadAlertPerLeadTime(uploadAlertPerLeadTimeDto);
+    uploadAlertsPerLeadTimeDto.date = uploadExposure.date || new Date();
+
+    return this.eventService.uploadAlertsPerLeadTime(
+      uploadAlertsPerLeadTimeDto,
+    );
   }
 
   private isForecastTrigger(
     exposurePlaceCodes: DynamicDataPlaceCodeDto[],
   ): boolean {
     for (const exposurePlaceCode of exposurePlaceCodes) {
+      // NOTE AB#32041: this functionality will change in new setup
       if (Number(exposurePlaceCode.amount) === 1) {
         return true;
       }
@@ -190,7 +202,7 @@ export class AdminAreaDynamicDataService {
     leadTime: LeadTime,
     eventName: string,
   ): Promise<AdminDataReturnDto[]> {
-    const lastTriggeredDate = await this.helperService.getRecentDate(
+    const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
@@ -201,21 +213,21 @@ export class AdminAreaDynamicDataService {
         countryCodeISO3,
         disasterType,
         indicator,
-        lastTriggeredDate,
+        lastUploadDate,
       );
     }
+
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      disasterType,
+      lastUploadDate.timestamp,
+    );
 
     const whereFilters = {
       countryCodeISO3: countryCodeISO3,
       adminLevel: Number(adminLevel),
       indicator: indicator,
       disasterType: disasterType,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastTriggeredDate.timestamp,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;
@@ -229,6 +241,7 @@ export class AdminAreaDynamicDataService {
       .select(['dynamic.value AS value', 'dynamic.placeCode AS "placeCode"'])
       .orderBy('dynamic.date', 'DESC')
       .execute();
+
     return result;
   }
 

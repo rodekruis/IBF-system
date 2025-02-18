@@ -2,8 +2,8 @@ import { LeadTime } from '../../../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../../../disaster-type/disaster-type.enum';
 import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
 import {
+  AlertStatusLabelEnum,
   NotificationDataPerEventDto,
-  TriggerStatusLabelEnum,
 } from '../../dto/notification-date-per-event.dto';
 import {
   dateObjectToDateTimeString,
@@ -66,7 +66,7 @@ const getMjmlBodyEvent = ({
       `<strong>${disasterIssuedLabel}:</strong> ${disasterSpecificCopy}`,
     );
   } else {
-    if (triggerStatusLabel === TriggerStatusLabelEnum.Trigger) {
+    if (triggerStatusLabel === AlertStatusLabelEnum.Trigger) {
       // Trigger event
       if (firstLeadTimeString !== firstTriggerLeadTimeString) {
         // Warning-to-trigger event: show start of warning first
@@ -91,7 +91,7 @@ const getMjmlBodyEvent = ({
   );
 
   contentContent.push(
-    triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+    triggerStatusLabel === AlertStatusLabelEnum.Trigger
       ? `<strong>Advisory:</strong> Activate <a href="${eapLink}">Early Action Protocol</a>`
       : `<strong>Advisory:</strong> Inform all potentialy exposed ${defaultAdminAreaLabel}`,
   );
@@ -126,7 +126,7 @@ const getTyphoonSpecificCopy = (event: NotificationDataPerEventDto): string => {
   } else {
     if (event.disasterSpecificProperties.typhoonLandfall) {
       disasterSpecificCopy = `Expected to make landfall on ${
-        event.triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+        event.triggerStatusLabel === AlertStatusLabelEnum.Trigger
           ? event.firstTriggerLeadTimeString
           : event.firstLeadTimeString
       }.`;
@@ -135,13 +135,13 @@ const getTyphoonSpecificCopy = (event: NotificationDataPerEventDto): string => {
         'The landfall time prediction cannot be determined yet. Keep monitoring the event.';
     } else {
       disasterSpecificCopy = `Expected to reach the point closest to land on ${
-        event.triggerStatusLabel === TriggerStatusLabelEnum.Trigger
+        event.triggerStatusLabel === AlertStatusLabelEnum.Trigger
           ? event.firstTriggerLeadTimeString
           : event.firstLeadTimeString
       }. Not predicted to make landfall.`;
     }
   }
-  if (event.triggerStatusLabel === TriggerStatusLabelEnum.Warning) {
+  if (event.triggerStatusLabel === AlertStatusLabelEnum.Warning) {
     disasterSpecificCopy += ' Not predicted to reach trigger thresholds.';
   }
   return disasterSpecificCopy;

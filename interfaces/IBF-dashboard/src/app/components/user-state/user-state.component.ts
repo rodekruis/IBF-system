@@ -110,7 +110,7 @@ export class UserStateComponent implements OnInit {
       component: ChangePasswordPopoverComponent,
       animated: true,
       cssClass: `ibf-popover ibf-popover-normal ${
-        this.eventService.state.event?.thresholdReached
+        this.eventService.state.event?.forecastTrigger
           ? 'trigger-alert'
           : 'no-alert'
       }`,
@@ -118,6 +118,6 @@ export class UserStateComponent implements OnInit {
       showBackdrop: true,
     });
 
-    popover.present();
+    void popover.present();
   }
 }
