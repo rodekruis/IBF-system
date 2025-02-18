@@ -8,15 +8,9 @@ import { DataSource, In, MoreThanOrEqual, Repository } from 'typeorm';
 import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
 import { HelperService } from '../../shared/helper.service';
 import { EventAreaService } from '../admin-area/services/event-area.service';
-import { CountryEntity } from '../country/country.entity';
-import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
-import { UploadAlertPerLeadTimeDto } from '../event/dto/upload-alert-per-leadtime.dto';
-import { EventService } from '../event/event.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
-import { ALERT_LEVEL_INDICATORS } from './const/alert-level-indicators.const';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
-import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { DynamicIndicator } from './enum/dynamic-indicator.enum';
 import { LeadTime } from './enum/lead-time.enum';
@@ -30,13 +24,8 @@ interface RasterData {
 export class AdminAreaDynamicDataService {
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
-  @InjectRepository(DisasterTypeEntity)
-  private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
-  @InjectRepository(CountryEntity)
-  private readonly countryRepository: Repository<CountryEntity>;
 
   public constructor(
-    private eventService: EventService,
     private eventAreaService: EventAreaService,
     private helperService: HelperService,
     private dataSource: DataSource,
@@ -78,33 +67,6 @@ export class AdminAreaDynamicDataService {
       areas.push(area);
     }
     await this.adminAreaDynamicDataRepo.save(areas);
-
-    const country = await this.countryRepository.findOne({
-      relations: ['countryDisasterSettings'],
-      where: { countryCodeISO3: uploadExposure.countryCodeISO3 },
-    });
-
-    if (
-      uploadExposure.dynamicIndicator ===
-        ALERT_LEVEL_INDICATORS.alertThreshold &&
-      uploadExposure.exposurePlaceCodes.length > 0 &&
-      country.countryDisasterSettings.find(
-        (s) => s.disasterType === uploadExposure.disasterType,
-      ).defaultAdminLevel === uploadExposure.adminLevel
-    ) {
-      // NOTE: keep this functionality here instead of in /events/process for now, as this also needs to be called in case of no-events upload
-      // REFACTOR: this whole setup/table/functionality should maybe change in the future
-      await this.insertAlertPerLeadTime(uploadExposure);
-
-      // NOTE: remove, but leave commented here for clarity for now
-      // await this.eventService.processEventAreas(
-      //   uploadExposure.countryCodeISO3,
-      //   uploadExposure.disasterType,
-      //   uploadExposure.adminLevel,
-      //   uploadExposure.eventName,
-      //   uploadExposure.date || new Date(),
-      // );
-    }
   }
 
   private getEventNameException(
@@ -144,42 +106,6 @@ export class AdminAreaDynamicDataService {
       deleteFilters['eventName'] = uploadExposure.eventName;
     }
     await this.adminAreaDynamicDataRepo.delete(deleteFilters);
-  }
-
-  private async insertAlertPerLeadTime(
-    uploadExposure: UploadAdminAreaDynamicDataDto,
-  ): Promise<void> {
-    const forecastTrigger = this.isForecastTrigger(
-      uploadExposure.exposurePlaceCodes,
-    );
-
-    const forecastAlert = !!uploadExposure.eventName; // NOTE AB#32041: eventName being filled or not should no longer be needed to distinguish alert/warning from no alert.
-
-    const uploadAlertPerLeadTimeDto = new UploadAlertPerLeadTimeDto();
-    uploadAlertPerLeadTimeDto.countryCodeISO3 = uploadExposure.countryCodeISO3;
-    uploadAlertPerLeadTimeDto.disasterType = uploadExposure.disasterType;
-    uploadAlertPerLeadTimeDto.eventName = uploadExposure.eventName;
-    uploadAlertPerLeadTimeDto.alertsPerLeadTime = [
-      {
-        leadTime: uploadExposure.leadTime as LeadTime,
-        forecastAlert,
-        forecastTrigger,
-      },
-    ];
-    uploadAlertPerLeadTimeDto.date = uploadExposure.date || new Date();
-    await this.eventService.uploadAlertPerLeadTime(uploadAlertPerLeadTimeDto);
-  }
-
-  private isForecastTrigger(
-    exposurePlaceCodes: DynamicDataPlaceCodeDto[],
-  ): boolean {
-    for (const exposurePlaceCode of exposurePlaceCodes) {
-      // NOTE AB#32041: this functionality will change in new setup
-      if (Number(exposurePlaceCode.amount) === 1) {
-        return true;
-      }
-    }
-    return false;
   }
 
   public async getAdminAreaDynamicData(

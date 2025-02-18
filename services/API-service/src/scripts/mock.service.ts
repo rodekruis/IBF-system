@@ -405,13 +405,17 @@ export class MockService {
       .map((ind) => ind.name as DynamicIndicator);
 
     // NOTE: this indicators always need to be mocked. Should the way to get indicators-array here be refactored?
-    // NOTE: remove this if when all pipelines migrated to new setup. (So that the code within the if always runs)
+    // NOTE: update this when all pipelines migrated to new setup. (Keep 'push', remove 'if' and 'splice')
     if (!MOCK_USE_OLD_PIPELINE_UPLOAD) {
       dynamicIndicators.push(
         ...[
           DynamicIndicator.forecastSeverity,
           DynamicIndicator.forecastTrigger,
         ],
+      );
+      dynamicIndicators.splice(
+        dynamicIndicators.indexOf(DynamicIndicator.alertThreshold),
+        1,
       );
     }
 

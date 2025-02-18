@@ -737,6 +737,16 @@ export class EventService {
       uploadCutoffMoment,
     );
 
+    if (activeAlertAreas.length) {
+      await this.insertAlertsPerLeadTime(
+        countryCodeISO3,
+        disasterType,
+        eventName,
+        activeAlertAreas,
+        lastUploadTimestamp,
+      );
+    }
+
     // update existing event areas + update population and end_date
     await this.updateExistingEventAreas(
       countryCodeISO3,
@@ -777,6 +787,7 @@ export class EventService {
       .createQueryBuilder('severity')
       .select([
         'severity.placeCode AS "placeCode"',
+        'severity.leadTime AS "leadTime"',
         'severity.value AS "forecastSeverity"',
         'trigger.value AS "forecastTrigger"',
         'exposure.value AS "mainExposureValue"',
@@ -788,6 +799,7 @@ export class EventService {
         AND severity.timestamp = trigger."timestamp"
         AND severity.eventName = trigger."eventName"
         AND severity.disasterType = trigger."disasterType"
+        AND severity.leadTime = trigger."leadTime"
         AND trigger.indicator = :forecastTrigger`,
         { forecastTrigger: ALERT_LEVEL_INDICATORS.forecastTrigger },
       )
@@ -798,12 +810,14 @@ export class EventService {
         AND severity.timestamp = exposure."timestamp"
         AND severity.eventName = exposure."eventName"
         AND severity.disasterType = exposure."disasterType"
-        AND exposure.indicator = :mainExposureIndicator`,
+        AND severity.leadTime = exposure."leadTime"
+        AND severity.indicator = :mainExposureIndicator`,
         { mainExposureIndicator },
       )
       .where({
         ...whereFilters,
         indicator: ALERT_LEVEL_INDICATORS.forecastSeverity,
+        value: MoreThan(0),
       })
       .getRawMany();
 
@@ -811,6 +825,7 @@ export class EventService {
     if (areaswithForecastSeverityData.length) {
       return areaswithForecastSeverityData.map((area) => ({
         placeCode: area.placeCode,
+        leadTime: area.leadTime as LeadTime,
         forecastSeverity: area.forecastSeverity,
         forecastTrigger: area.forecastTrigger === 1 ? true : false, // This reflects that forecastTrigger is optional (and assumed false if not present) and that this boolean layer is uploaded in practice as 1/0.
         mainExposureValue: area.mainExposureValue,
@@ -822,6 +837,7 @@ export class EventService {
         .createQueryBuilder('alert')
         .select([
           'alert.placeCode AS "placeCode"',
+          'alert.leadTime AS "leadTime"',
           'alert.value AS "alertThresholdValue"',
           'exposure.value AS "mainExposureValue"',
         ])
@@ -832,6 +848,7 @@ export class EventService {
         AND alert.timestamp = exposure."timestamp"
         AND alert.eventName = exposure."eventName"
         AND alert.disasterType = exposure."disasterType"
+        AND alert.leadTime = exposure."leadTime"
         AND exposure.indicator = :indicator`,
           { indicator: mainExposureIndicator },
         )
@@ -839,64 +856,45 @@ export class EventService {
           ...whereFilters,
           indicator: ALERT_LEVEL_INDICATORS.alertThreshold,
         })
+        .andWhere(
+          `(alert.value > 0 OR (alert."disasterType" IN ('typhoon','flash-floods')))`, // This reflects the current functionality where alert_threshold=0 for warnings in typhoon and flash-floods
+        )
         .getRawMany();
 
       // TODO: handle situations where also this results in empty array?
 
       return areasWithAlertThresholdData.map((area) => ({
         placeCode: area.placeCode,
+        leadTime: area.leadTime as LeadTime,
         forecastSeverity: area.alertThresholdValue,
         forecastTrigger: area.alertThresholdValue === 1, // This reflects current functionality where trigger is equal to alert_threshold=1
         mainExposureValue: area.mainExposureValue,
       }));
     }
+  }
 
-    // NOTE AB#32041: this currently gets forecastSeverity based on layer identified by alert_threshold. This must change (and be made more flexible in transition period)
-    // const alertPlaceCodes = await this.adminAreaDynamicDataRepo
-    //   .createQueryBuilder('area')
-    //   .select('area."placeCode"')
-    //   .addSelect('MAX(area.value) AS "forecastSeverity"')
-    //   .where(whereFilters)
-    //   .andWhere(
-    //     `(area.value > 0 OR (area."eventName" is not null AND area."disasterType" IN ('flash-floods','typhoon')))`,
-    //   ) // Also allow value=0 entries with typhoon/flash-floods and event name (= warning event) // NOTE AB#32041: this check should be possible to remove after this item
-    //   .groupBy('area."placeCode"')
-    //   .getRawMany();
+  private async insertAlertsPerLeadTime(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    eventName: string,
+    activeAlertAreas: AreaForecastDataDto[],
+    lastUploadTimestamp: Date,
+  ) {
+    const uploadAlertPerLeadTimeDto = new UploadAlertPerLeadTimeDto();
+    uploadAlertPerLeadTimeDto.countryCodeISO3 = countryCodeISO3;
+    uploadAlertPerLeadTimeDto.disasterType = disasterType;
+    uploadAlertPerLeadTimeDto.eventName = eventName;
+    uploadAlertPerLeadTimeDto.date = lastUploadTimestamp;
+    // TODO: improve this to not be dependent on first array-element (although in practice this should work as leadTime should be equal for all eventName records)
+    uploadAlertPerLeadTimeDto.alertsPerLeadTime = [
+      {
+        leadTime: activeAlertAreas[0].leadTime,
+        forecastAlert: activeAlertAreas[0].forecastSeverity > 0,
+        forecastTrigger: activeAlertAreas[0].forecastTrigger,
+      },
+    ];
 
-    // const alertPlaceCodesArray = alertPlaceCodes.map((a) => a.placeCode);
-
-    // if (alertPlaceCodesArray.length === 0) {
-    //   return [];
-    // }
-
-    // const whereOptions = {
-    //   placeCode: In(alertPlaceCodesArray),
-    //   indicator: mainExposureIndicator,
-    //   timestamp: MoreThanOrEqual(uploadCutoffMoment),
-    //   countryCodeISO3,
-    //   adminLevel,
-    //   disasterType,
-    // };
-    // if (eventName) {
-    //   whereFilters['eventName'] = eventName;
-    // }
-
-    // const affectedAreas: AffectedAreaDto[] = await this.adminAreaDynamicDataRepo
-    //   .createQueryBuilder('area')
-    //   .select('area."placeCode"')
-    //   .addSelect('MAX(area.value) AS "mainExposureValue"')
-    //   .addSelect('MAX(area."leadTime") AS "leadTime"')
-    //   .where(whereOptions)
-    //   .groupBy('area."placeCode"')
-    //   .getRawMany();
-
-    // for (const area of affectedAreas) {
-    //   area.forecastSeverity = alertPlaceCodes.find(
-    //     ({ placeCode }) => placeCode === area.placeCode,
-    //   ).forecastSeverity;
-    // }
-
-    // return affectedAreas;
+    await this.uploadAlertPerLeadTime(uploadAlertPerLeadTimeDto);
   }
 
   private async updateExistingEventAreas(
