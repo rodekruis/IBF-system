@@ -1,18 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { InsertResult, MoreThan, MoreThanOrEqual, Repository } from 'typeorm';
+import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
 
 import { AggregateDataRecord } from '../../shared/data.model';
 import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import { ALERT_LEVEL_INDICATORS } from '../admin-area-dynamic-data/const/alert-level-indicators.const';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
 import { EventService } from '../event/event.service';
 import { AdminAreaEntity } from './admin-area.entity';
 import { EventAreaService } from './services/event-area.service';
@@ -86,6 +86,7 @@ export class AdminAreaService {
     adminLevel: number,
     leadTime: string,
     eventName: string,
+    lastUploadDate: LastUploadDateDto,
   ) {
     const alertsPerLeadTime = await this.eventService.getAlertPerLeadtime(
       countryCodeISO3,
@@ -110,52 +111,16 @@ export class AdminAreaService {
     let placeCodes = [];
     if (parseInt(trigger) === 1) {
       placeCodes = (
-        await this.getTriggeredAreasPerAdminLevel(
+        await this.eventService.getActiveAlertAreas(
           countryCodeISO3,
           disasterType,
           adminLevel,
-          leadTime,
+          lastUploadDate.cutoffMoment,
           eventName,
         )
       ).map((triggeredArea): string => triggeredArea.placeCode);
     }
     return placeCodes;
-  }
-
-  private async getTriggeredAreasPerAdminLevel(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    adminLevel: number,
-    leadTime: string,
-    eventName: string,
-  ): Promise<AdminAreaDynamicDataEntity[]> {
-    const lastUploadDate = await this.helperService.getLastUploadDate(
-      countryCodeISO3,
-      disasterType,
-    );
-    const whereFilters = {
-      countryCodeISO3: countryCodeISO3,
-      disasterType: disasterType,
-      adminLevel: adminLevel,
-      value: MoreThan(0),
-      indicator: ALERT_LEVEL_INDICATORS.alertThreshold,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadDate.timestamp,
-        ),
-      ),
-    };
-    if (eventName) {
-      whereFilters['eventName'] = eventName;
-    }
-    if (leadTime) {
-      whereFilters['leadTime'] = leadTime;
-    }
-    return await this.adminAreaDynamicDataRepo
-      .createQueryBuilder()
-      .where(whereFilters)
-      .getMany();
   }
 
   public async getPlaceCodes(
@@ -164,6 +129,7 @@ export class AdminAreaService {
     leadTime: string,
     adminLevel: number,
     eventName: string,
+    lastUploadDate: LastUploadDateDto,
   ) {
     const disasterTypeEntity = await this.disasterTypeRepository.findOne({
       where: { disasterType: disasterType },
@@ -176,6 +142,7 @@ export class AdminAreaService {
         adminLevel,
         leadTime,
         eventName,
+        lastUploadDate,
       );
     } else {
       return await this.getPlaceCodesToShow(
@@ -216,6 +183,7 @@ export class AdminAreaService {
       leadTime,
       adminLevel,
       eventName,
+      lastUploadDate,
     );
     let staticIndicatorsScript = this.adminAreaRepository
       .createQueryBuilder('area')
@@ -408,6 +376,7 @@ export class AdminAreaService {
       leadTime,
       adminLevel,
       eventName,
+      lastUploadDate,
     );
     if (placeCodes.length) {
       adminAreasScript = adminAreasScript.andWhere(

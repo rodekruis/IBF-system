@@ -755,7 +755,7 @@ export class EventService {
   }
 
   // NOTE AB#32041 REFACTOR: Figure out the difference with getAlertAreas and see if they can be combined.
-  private async getActiveAlertAreas(
+  public async getActiveAlertAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
