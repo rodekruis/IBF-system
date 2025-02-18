@@ -1,3 +1,15 @@
+## [0.283.2](https://github.com/rodekruis/IBF-system/compare/v0.283.1...v0.283.2) (2025-02-18)
+
+
+### Bug Fixes
+
+* comment out new indicators AB[#33654](https://github.com/rodekruis/IBF-system/issues/33654) ([758bc09](https://github.com/rodekruis/IBF-system/commit/758bc0950cccecc71d605b4effac4cb0b3d23266))
+* facilitate old and new alert-per-lead-time endpoint/dto AB[#33630](https://github.com/rodekruis/IBF-system/issues/33630) ([a6ef169](https://github.com/rodekruis/IBF-system/commit/a6ef1697950d435dec4f6d7c83644c2dda56a008))
+* integration tests ([9c9ba7c](https://github.com/rodekruis/IBF-system/commit/9c9ba7caab16fc49002d1adf076c3f2a9ce00cde))
+* mock data to new dto AB[#33630](https://github.com/rodekruis/IBF-system/issues/33630) ([04f4335](https://github.com/rodekruis/IBF-system/commit/04f4335b2d40c15c7aba1886692d6d708d7df851))
+
+
+
 ## [0.283.1](https://github.com/rodekruis/IBF-system/compare/v0.283.0...v0.283.1) (2025-02-14)
 
 
@@ -100,15 +112,6 @@
 
 * filter admin-areas on eventName AB[#33076](https://github.com/rodekruis/IBF-system/issues/33076) ([18c9760](https://github.com/rodekruis/IBF-system/commit/18c97609c1a0e3257afa8a629ed8d45cf1c2afe7))
 * filter for eventName at more places ([f766101](https://github.com/rodekruis/IBF-system/commit/f766101962c010e89f90497585b2e8dd666c07e2))
-
-
-
-## [0.278.5](https://github.com/rodekruis/IBF-system/compare/v0.278.4...v0.278.5) (2025-01-24)
-
-
-### Bug Fixes
-
-* flaky tests because of timestamp AB[#32980](https://github.com/rodekruis/IBF-system/issues/32980) ([c2985be](https://github.com/rodekruis/IBF-system/commit/c2985bedd2d7182291ba2fa92eb8d998ceb21dca))
 
 
 
