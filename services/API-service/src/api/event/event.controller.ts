@@ -29,9 +29,9 @@ import {
 } from './dto/event-place-code.dto';
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
 import {
-  UploadAlertPerLeadTimeDto,
-  uploadTriggerPerLeadTimeDto,
-} from './dto/upload-alert-per-leadtime.dto';
+  UploadAlertsPerLeadTimeDto,
+  UploadTriggerPerLeadTimeDto,
+} from './dto/upload-alerts-per-lead-time.dto';
 import { EventService } from './event.service';
 
 @ApiBearerAuth()
@@ -102,11 +102,11 @@ export class EventController {
       'Alert data per lead-time for given country, disaster-type, event.',
   })
   @Get('alerts/:countryCodeISO3/:disasterType')
-  public async getAlertPerLeadtime(
+  public async getAlertPerLeadTime(
     @Param() params,
     @Query() query,
   ): Promise<object> {
-    return await this.eventService.getAlertPerLeadtime(
+    return await this.eventService.getAlertPerLeadTime(
       params.countryCodeISO3,
       params.disasterType,
       query.eventName,
@@ -188,7 +188,7 @@ export class EventController {
     );
   }
 
-  // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-leadtime
+  // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-lead-time
   @UseGuards(RolesGuard)
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
@@ -200,7 +200,7 @@ export class EventController {
   })
   @Post('triggers-per-leadtime')
   public async uploadTriggerPerLeadTime(
-    @Body() uploadTriggerPerLeadTimeDto: uploadTriggerPerLeadTimeDto,
+    @Body() uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ): Promise<void> {
     await this.eventService.convertDtoAndUpload(uploadTriggerPerLeadTimeDto);
   }
@@ -208,17 +208,17 @@ export class EventController {
   @UseGuards(RolesGuard)
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
-    summary: 'Upload alert data per leadtime',
+    summary: 'Upload alert data per lead time',
   })
   @ApiResponse({
     status: 201,
-    description: 'Uploaded alert data per leadtime',
+    description: 'Uploaded alert data per lead time',
   })
-  @Post('alerts-per-leadtime')
-  public async uploadAlertPerLeadTime(
-    @Body() uploadAlertPerLeadTimeDto: UploadAlertPerLeadTimeDto,
+  @Post('alerts-per-lead-time')
+  public async uploadAlertsPerLeadTime(
+    @Body() uploadAlertsPerLeadTimeDto: UploadAlertsPerLeadTimeDto,
   ): Promise<void> {
-    await this.eventService.uploadAlertPerLeadTime(uploadAlertPerLeadTimeDto);
+    await this.eventService.uploadAlertsPerLeadTime(uploadAlertsPerLeadTimeDto);
   }
 
   // NOTE: keep this endpoint in until all pipelines migrated to /event/process
