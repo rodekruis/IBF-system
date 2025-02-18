@@ -5,7 +5,7 @@ Feature: Use disaster-type section
         Given a logged-in user on the dashboard page
 
     Scenario: View the disaster type section
-        When the user enters the dashboard page
+        When the user enters the dashboard page asdf
         Then the user sees the Situational overview section on the left between the Header and the Chat section
         And it contains a "disaster-type selector" (see details below)
         And it contains today's date and time, which is always the date of visiting the dashboard, not the last model run date

@@ -4,6 +4,10 @@ Feature: View area-of-focus section
     Background:
         Given a logged-in user on the dashboard page
 
+# Are those to be part of map feature? What are areas of focus? do we maybe already cover them?
+# This is called Actions-summary check if we cover it with existing tests
+
+# We have sufficient tests for Actions-summary already in AZ test plan
     Scenario: View area of focus section in NON-TRIGGERED mode
         Given there are no events or only warning events
         When the user enters the dashboard page

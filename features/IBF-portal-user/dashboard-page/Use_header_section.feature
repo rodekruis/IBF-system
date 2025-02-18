@@ -3,7 +3,7 @@ Feature: View and use header section
 
     Background:
         Given a logged-in user on the dashboard page
-        Given logged in for a specific "country"
+        Given logged in for a specific "country" fa
 
     Scenario: View header of dashboard page
         When the user enters the dashboard page
@@ -20,6 +20,7 @@ Feature: View and use header section
         Then the user get logged out from IBF-portal
         And returns to the "login" page
 
+# this is moved to a separate component and is represented in a separate feature file same in AZ test plan
     Scenario: Open the "Change Password" form
         When the user clicks on the username
         Then a popup opens with "Change Password" as title

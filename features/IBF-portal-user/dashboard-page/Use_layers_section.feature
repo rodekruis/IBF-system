@@ -1,11 +1,13 @@
 @ibf-portal-user
 Feature: View and use layers section ('matrix-component' in code)
 
+
+# layers feature is part of the map-section
     Background:
         Given a logged-in user on the dashboard page
 
     Scenario: View Layers section in collapsed state
-        When the user enters the dashboard page
+        When the user enters the dashboard page fgase
         Then the user sees the Layer-section within the map on the bottom right
         And it is in collapsed state
         And it mentions 'Layers' and has an arrow pointing up
@@ -72,6 +74,8 @@ Feature: View and use layers section ('matrix-component' in code)
         And this information can sometimes be slightly different then the information for the same indicator in the "aggregates section"
         And it contains a close-button
 
+# Do we need this scenario?
+# Investigate if we already have this test in some variation
     Scenario: Select point layer with no data
         Given a point layer with no data (e.g. 'community notifications')
         When the users selects a point layer with no data

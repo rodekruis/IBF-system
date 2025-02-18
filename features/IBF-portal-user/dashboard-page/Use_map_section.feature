@@ -23,6 +23,7 @@ Feature: View and use map section
         And it is visualized by 5 shades of grey in the map (as is any other selected shape-layer)
         And depending on disaster-type other point/rasterlayers are default activated (e.g. 'flood extent', 'Glofas stations') where applicable
 
+# this is broken into different scenarios in trigger mode
     Scenario: View map in TRIGGERED mode
         Given the dashboard is in TRIGGERED mode
         When the users views the map
@@ -33,13 +34,19 @@ Feature: View and use map section
         And it shows by default the 'Alert threshold' layer as red outline
         And it shows as main exposure shape layer
         - 'Exposed population' for 'floods', 'drought'
+
+        # Create tests for the following disaster-types
+        # idea create a JSON for drought and floods that can be reused in the same test 
+        - 'Exposed population' for 'drought'
         - 'Potential cases' for 'malaria'
         - 'Houses affected' for 'typhoon'
+
         And it is visualized by 5 shades of purple in the map (as is any other selected shape-layer)
         And it shows the legend relating to the default shape layer
         And depending on disaster-type other point/raster layers are default activated (e.g. 'flood extent', 'Glofas stations') where applicable
 
-    Scenario: View map in warning mode
+# add
+    Scenario: View map in warning mode 
         Given a warning event
         When the users views the map
         Then it shows a selection of admin-areas in gradients of navy-blue instead of purple
@@ -57,6 +64,7 @@ Feature: View and use map section
         Then a more extensive popup appears
         And it contains a visualization of the forecast-level vs the trigger-level for that glofas-station
 
+# add
     Scenario: Zoom-in to a marker-cluster layer
         Given a "marker-cluster" layer is toggled on (e.g. "Health sites" or "Waterpoints")
         When the user zooms in either (through scrolling, through fingers or through the zoom-controls in the top-left of the map

@@ -25,7 +25,7 @@ Feature: View and use chat section
 
     Scenario: Click 'About Trigger'
         When the user clicks on "About Trigger" button
-        Then a new tab opens with the EAP-document
+        Then a new tab opens with the EAP-document hg
         And if it is a Google Sheet it might scroll automatically to the specific 'trigger' section of the EAP
         And if it is a PDF this is not possible and it loads at the top.
 
@@ -129,15 +129,23 @@ Feature: View and use chat section
         And if there is an overlap of seasons, actions not relevant to the selected season are not shown
         And behind the action in brackets and bold the month to complete the action is shown
 
-    Scenario: Check or uncheck EAP-actions per triggered area
-        Given the EAP-action speech-bubble is showing for one or more areas
-        When the user checks or unchecks an EAP-action
-        Then the 'save' button enables
+# what is this exactly? Now I know
+# Addto AZ test plan
+Scenario: Check or uncheck EAP-actions per triggered area
+Given the EAP-action speech-bubble is showing for one or more areas
 
-        When the user makes further changes that amount to the original selection
-        Then the 'save' button disables again
+And the user checks or unchecks an EAP-action
 
-        When the user clicks the 'save' button
-        Then a popup appears that the database is updated
-        And it closes again by clicking outside of it
-        And (after refreshing) the Area-of-Focus summary will have updated (see 'Use_area_of_focus_section.feature')
+And the 'save' button enables
+
+And the user makes further changes that amount to the original selection
+
+And the 'save' button disables again
+
+When the user clicks the 'save' button
+
+Then a popup appears that the database is updated
+
+And it closes again by clicking outside of it
+
+And (after refreshing) the Area-of-Focus summary will have updated (see 'Use_area_of_focus_section.feature')
