@@ -9,6 +9,7 @@ import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserv
 import { HelperService } from '../../shared/helper.service';
 import { EventAreaService } from '../admin-area/services/event-area.service';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { EventService } from '../event/event.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { ALERT_LEVEL_INDICATORS } from './const/alert-level-indicators.const';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
@@ -28,6 +29,7 @@ export class AdminAreaDynamicDataService {
 
   public constructor(
     private eventAreaService: EventAreaService,
+    private eventService: EventService,
     private helperService: HelperService,
     private dataSource: DataSource,
   ) {}
@@ -111,7 +113,7 @@ export class AdminAreaDynamicDataService {
 
   public async getAdminAreaDynamicData(
     countryCodeISO3: string,
-    adminLevel: string,
+    adminLevel: number,
     indicator: DynamicIndicator,
     disasterType: DisasterType,
     leadTime: LeadTime,
@@ -122,13 +124,6 @@ export class AdminAreaDynamicDataService {
       disasterType,
     );
 
-    // NOTE: For now calculated field 'trigger' hard-coded points to 'forecastTrigger'.
-    // TODO: when including 'manual trigger', based it on 'forecsastTrigger' and/or 'userTrigger'
-    // TODO AB#32041: facilitate transition period, by having this point to 'alert_threshold' when needed
-    if (indicator === ALERT_LEVEL_INDICATORS.trigger) {
-      indicator = ALERT_LEVEL_INDICATORS.forecastTrigger;
-    }
-
     // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
     if (disasterType === DisasterType.FlashFloods && !eventName) {
       return await this.eventAreaService.getEventAreaDynamicData(
@@ -137,6 +132,22 @@ export class AdminAreaDynamicDataService {
         indicator,
         lastUploadDate,
       );
+    }
+
+    // NOTE: 'trigger' is a calculated field, and not actually in db. The calculation is done here.
+    if (indicator === ALERT_LEVEL_INDICATORS.trigger) {
+      // NOTE: this only gets alert areas, not all, but that is actually fine for the front-end
+      const alertAreas = await this.eventService.getActiveAlertAreas(
+        countryCodeISO3,
+        disasterType,
+        adminLevel,
+        lastUploadDate.cutoffMoment,
+        eventName,
+      );
+      return alertAreas.map((area) => ({
+        value: area.forecastTrigger ? 1 : 0,
+        placeCode: area.placeCode,
+      }));
     }
 
     const whereFilters = {
