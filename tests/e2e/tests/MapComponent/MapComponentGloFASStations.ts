@@ -9,36 +9,28 @@ export default (
   components: Partial<Components>,
   disasterType: DisasterTypeEnum,
 ) => {
-  test(
-    qase(28, `glofas_stations should be visible - ${disasterType}`),
-    {
-      annotation: {
-        type: 'url',
-        description: 'https://app.qase.io/project/IBF?case=28',
-      },
-    },
-    async () => {
-      const { dashboard } = pages;
-      const { userState, map } = components;
+  test(`[33015] glofas_stations should be visible - ${disasterType}`, async () => {
+    const { dashboard } = pages;
+    const { userState, map } = components;
 
     if (!dashboard || !userState || !map) {
       throw new Error('pages and components not found');
     }
 
-      // PROTOTYPE EXAMPLE of disaster-type specific test skip
-      if (disasterType !== DisasterTypeEnum.Floods) {
-        console.log('Skipping test for disaster type:', disasterType);
-        return;
-      }
+    // PROTOTYPE EXAMPLE of disaster-type specific test skip
+    if (disasterType !== DisasterTypeEnum.Floods) {
+      console.log('Skipping test for disaster type:', disasterType);
+      return;
+    }
 
-      // Navigate to disaster type the data was mocked for
-      await dashboard.navigateToDisasterType(disasterType);
-      // Assertions
-      await userState.headerComponentIsVisible({
-        countryName: NoTriggerDataSet.CountryName,
-      });
-      // Wait for the page to load
-      await dashboard.waitForLoaderToDisappear();
+    // Navigate to disaster type the data was mocked for
+    await dashboard.navigateToDisasterType(disasterType);
+    // Assertions
+    await userState.headerComponentIsVisible({
+      countryName: NoTriggerDataSet.CountryName,
+    });
+    // Wait for the page to load
+    await dashboard.waitForLoaderToDisappear();
 
     await map.mapComponentIsVisible();
     await map.isLegendOpen({ legendOpen: true });
