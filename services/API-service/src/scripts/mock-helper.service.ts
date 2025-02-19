@@ -290,40 +290,6 @@ export class MockHelperService {
     return false;
   }
 
-  public getLeadTimeDroughtNoEvents(
-    selectedCountry: Country,
-    date: Date,
-  ): LeadTime {
-    const droughtSeasonRegions = selectedCountry.countryDisasterSettings.find(
-      (s) => s.disasterType === DisasterType.Drought,
-    ).droughtSeasonRegions;
-
-    // for no events, look at all seasons in all regions
-    let minDiff = 12;
-    const currentMonth = new Date(date).getUTCMonth() + 1;
-    for (const regionName of Object.keys(droughtSeasonRegions)) {
-      for (const seasonName of Object.keys(droughtSeasonRegions[regionName])) {
-        const season = droughtSeasonRegions[regionName][seasonName].rainMonths;
-        if (season.includes(currentMonth)) {
-          // .. if ongoing in any season, then return '0-month'
-          return LeadTime.month0;
-        }
-        // .. otherwise calculate smallest leadTime until first upcoming season
-        let diff: number;
-        if (currentMonth <= season[0]) {
-          diff = season[0] - currentMonth;
-        } else if (currentMonth > season[0]) {
-          diff = 12 - currentMonth + season[0];
-        }
-        if (diff < minDiff) {
-          minDiff = diff;
-        }
-      }
-    }
-
-    return `${minDiff}-month` as LeadTime;
-  }
-
   public async mockTyphoonTrack(
     countryCodeISO3: string,
     scenarioName: string,

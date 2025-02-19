@@ -196,7 +196,7 @@ export class EventService {
   }
 
   // NOTE: remove after all pipelines migrated to new endpoint
-  public async convertDtoAndUpload(
+  public async convertOldDtoAndUploadAlertPerLeadTime(
     uploadTriggerPerLeadTimeDto: uploadTriggerPerLeadTimeDto,
   ) {
     const uploadAlertPerLeadTimeDto = new UploadAlertPerLeadTimeDto();
@@ -716,15 +716,13 @@ export class EventService {
       eventName,
     );
 
-    if (activeAlertAreas.length) {
-      await this.insertAlertsPerLeadTime(
-        countryCodeISO3,
-        disasterType,
-        eventName,
-        activeAlertAreas,
-        lastUploadTimestamp,
-      );
-    }
+    await this.insertAlertsPerLeadTime(
+      countryCodeISO3,
+      disasterType,
+      eventName,
+      activeAlertAreas,
+      lastUploadTimestamp,
+    );
 
     // update existing event areas + update population and end_date
     await this.updateExistingEventAreas(
@@ -866,16 +864,98 @@ export class EventService {
     uploadAlertPerLeadTimeDto.disasterType = disasterType;
     uploadAlertPerLeadTimeDto.eventName = eventName;
     uploadAlertPerLeadTimeDto.date = lastUploadTimestamp;
-    // TODO: improve this to not be dependent on first array-element (although in practice this should work as leadTime should be equal for all eventName records)
-    uploadAlertPerLeadTimeDto.alertsPerLeadTime = [
-      {
-        leadTime: activeAlertAreas[0].leadTime,
-        forecastAlert: activeAlertAreas[0].forecastSeverity > 0,
-        forecastTrigger: activeAlertAreas[0].forecastTrigger,
-      },
-    ];
+    if (activeAlertAreas.length) {
+      // TODO: improve this to not be dependent on first array-element (although in practice this should work as leadTime should be equal for all eventName records)
+      uploadAlertPerLeadTimeDto.alertsPerLeadTime = [
+        {
+          leadTime: activeAlertAreas[0].leadTime,
+          forecastAlert: activeAlertAreas[0].forecastSeverity > 0,
+          forecastTrigger: activeAlertAreas[0].forecastTrigger,
+        },
+      ];
+    } else {
+      const noEventLeadTimes = await this.getLeadTimesNoEvents(
+        disasterType,
+        countryCodeISO3,
+        lastUploadTimestamp,
+      );
+      uploadAlertPerLeadTimeDto.alertsPerLeadTime = noEventLeadTimes.map(
+        (leadTime) => ({
+          leadTime,
+          forecastAlert: false,
+          forecastTrigger: false,
+        }),
+      );
+    }
 
     await this.uploadAlertPerLeadTime(uploadAlertPerLeadTimeDto);
+  }
+
+  public async getLeadTimesNoEvents(
+    disasterType: DisasterType,
+    countryCodeISO3: string,
+    date: Date,
+  ): Promise<LeadTime[]> {
+    // REFACTOR: this reflects agreements with pipelines that are in place. This is ugly, and should be refactored better.
+    if (disasterType === DisasterType.Floods) {
+      return [LeadTime.day1];
+    } else if (disasterType === DisasterType.FlashFloods) {
+      return [LeadTime.hour1];
+    } else if (disasterType === DisasterType.Drought) {
+      const leadTime = await this.getLeadTimeDroughtNoEvents(
+        countryCodeISO3,
+        date,
+      );
+      return [leadTime];
+    } else if (disasterType === DisasterType.Typhoon) {
+      return [LeadTime.hour72];
+    } else {
+      const country = await this.countryRepository.findOne({
+        where: { countryCodeISO3 },
+        relations: ['countryDisasterSettings'],
+      });
+      return country.countryDisasterSettings.find(
+        (settings) => settings.disasterType === disasterType,
+      ).activeLeadTimes;
+    }
+  }
+
+  public async getLeadTimeDroughtNoEvents(
+    countryCodeISO3: string,
+    date: Date,
+  ): Promise<LeadTime> {
+    const country = await this.countryRepository.findOne({
+      where: { countryCodeISO3 },
+      relations: ['countryDisasterSettings'],
+    });
+    const droughtSeasonRegions = country.countryDisasterSettings.find(
+      (s) => s.disasterType === DisasterType.Drought,
+    ).droughtSeasonRegions;
+
+    // for no events, look at all seasons in all regions
+    let minDiff = 12;
+    const currentMonth = new Date(date).getUTCMonth() + 1;
+    for (const regionName of Object.keys(droughtSeasonRegions)) {
+      for (const seasonName of Object.keys(droughtSeasonRegions[regionName])) {
+        const season = droughtSeasonRegions[regionName][seasonName].rainMonths;
+        if (season.includes(currentMonth)) {
+          // .. if ongoing in any season, then return '0-month'
+          return LeadTime.month0;
+        }
+        // .. otherwise calculate smallest leadTime until first upcoming season
+        let diff: number;
+        if (currentMonth <= season[0]) {
+          diff = season[0] - currentMonth;
+        } else if (currentMonth > season[0]) {
+          diff = 12 - currentMonth + season[0];
+        }
+        if (diff < minDiff) {
+          minDiff = diff;
+        }
+      }
+    }
+
+    return `${minDiff}-month` as LeadTime;
   }
 
   private async updateExistingEventAreas(
