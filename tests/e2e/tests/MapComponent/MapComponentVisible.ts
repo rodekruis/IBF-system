@@ -9,7 +9,7 @@ export default (
   components: Partial<Components>,
   disasterType: string,
 ) => {
-  test(`Map component elements should be visible - ${disasterType}`, async () => {
+  test(`[33013] Map component elements should be visible - ${disasterType}`, async () => {
     const { dashboard } = pages;
     const { userState, map } = components;
 

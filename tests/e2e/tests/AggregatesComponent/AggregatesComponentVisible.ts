@@ -15,11 +15,11 @@ export default (
       throw new Error('pages and components not found');
     }
 
-      // Navigate to disaster type the data was mocked for
-      await dashboard.navigateToDisasterType(disasterType);
-      // Assertions
-      await aggregates.aggregateComponentIsVisible();
-      await aggregates.aggregatesElementsDisplayedInNoTrigger();
+    // Navigate to disaster type the data was mocked for
+    await dashboard.navigateToDisasterType(disasterType);
+    // Assertions
+    await aggregates.aggregateComponentIsVisible();
+    await aggregates.aggregatesElementsDisplayedInNoTrigger();
 
     // Reload the page to prepare for next test
     await dashboard.page.goto('/');

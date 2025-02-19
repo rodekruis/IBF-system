@@ -66,7 +66,7 @@ class ChatComponent extends DashboardPage {
   }) {
     // String cleaning to remove <strong> tags and replace placeholders with actual values
     const cleanedString = chatDialogueWarnLabel.replace(/<\/?strong>/g, '');
-
+    const date = new Date();
     const formattedDate = format(date, 'EEEE, dd MMMM');
     const formattedTime = format(date, 'HH:mm');
 
@@ -75,7 +75,7 @@ class ChatComponent extends DashboardPage {
     // Formatted Strings
     const chatDialogueContent = cleanedString
       .replace('{{ name }}', `${firstName} ${lastName}`)
-      .replace('{{lastModelRunDate}}', lastModelRunDate);
+      .replace('{{lastModelRunDate}}', lastUploadDate);
 
     const chatDialogueContentWelcomeNoTrigger =
       EnglishTranslations['chat-component'][disasterType]['no-event-no-trigger']
