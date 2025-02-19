@@ -66,6 +66,7 @@ export class EventService {
     private dataSource: DataSource,
     private typhoonTrackService: TyphoonTrackService,
   ) {}
+
   public async getEventSummary(
     countryCodeISO3: string,
     disasterType: DisasterType,
@@ -654,6 +655,17 @@ export class EventService {
       await this.getCountryDisasterSettings(countryCodeISO3, disasterType)
     ).defaultAdminLevel;
     for (const eventName of activeEventNames) {
+      if (eventName.eventName === null) {
+        await this.insertAlertsPerLeadTime(
+          countryCodeISO3,
+          disasterType,
+          null,
+          [],
+          lastUploadDate.timestamp,
+        );
+        continue;
+      }
+
       await this.processEventAreas(
         countryCodeISO3,
         disasterType,
@@ -845,7 +857,8 @@ export class EventService {
       return areasWithAlertThresholdData.map((area) => ({
         placeCode: area.placeCode,
         leadTime: area.leadTime as LeadTime,
-        forecastSeverity: area.alertThresholdValue,
+        forecastSeverity:
+          area.alertThresholdValue > 0 ? area.alertThresholdValue : 1, // This maps 0-values for typhoon/flash-floods to severity of 1 in the new setup.
         forecastTrigger: area.alertThresholdValue === 1, // This reflects current functionality where trigger is equal to alert_threshold=1
         mainExposureValue: area.mainExposureValue,
       }));
