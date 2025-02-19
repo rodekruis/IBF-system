@@ -16,10 +16,6 @@ This is the repository for the IBF-system. It includes a.o.:
 
 - showing all impact forecast data - either leading to a trigger or not - in the IBF-portal
 
-3. A [features](./features/) folder describing all feature scenarios in the IBF-system, using Gherking language.
-
-4. A [docs](./docs) folder with further documentation beyond this readme.
-
 ## Dependencies
 
 - The IBF-dashboard will not show meaningful information (or even load correctly) without impact forecast data being uploaded to it.
