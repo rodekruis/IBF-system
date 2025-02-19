@@ -323,10 +323,7 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-
-    const alertPlaceCodes = activeAlertAreas
-      .filter((area) => area.forecastTrigger)
-      .map((area) => area.placeCode);
+    const alertPlaceCodes = activeAlertAreas.map(({ placeCode }) => placeCode);
 
     if (adminLevel > defaultAdminLevel) {
       // Use this to also return something on deeper levels than default (to show in chat-section)
