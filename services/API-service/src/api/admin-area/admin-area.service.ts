@@ -151,6 +151,7 @@ export class AdminAreaService {
         adminLevel,
         leadTime,
         eventName,
+        lastUploadDate,
       );
     }
   }
@@ -318,12 +319,12 @@ export class AdminAreaService {
         'area."countryCodeISO3"',
       ])
       .where('area."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
+        countryCodeISO3,
       })
-      .andWhere('area."adminLevel" = :adminLevel', { adminLevel: adminLevel });
+      .andWhere('area."adminLevel" = :adminLevel', { adminLevel });
     if (placeCodeParent) {
       adminAreasScript.andWhere('area."placeCodeParent" = :placeCodeParent', {
-        placeCodeParent: placeCodeParent,
+        placeCodeParent,
       });
     }
 
@@ -395,11 +396,8 @@ export class AdminAreaService {
     adminLevel: number,
     leadTime: string,
     eventName: string,
+    lastUploadDate: LastUploadDateDto,
   ) {
-    const lastUploadDate = await this.helperService.getLastUploadDate(
-      countryCodeISO3,
-      disasterType,
-    );
     const whereFilters = {
       countryCodeISO3: countryCodeISO3,
       disasterType: disasterType,

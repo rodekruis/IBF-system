@@ -101,7 +101,7 @@ export class MapLegendService {
   }
 
   public getShapeLegendString(layer: IbfLayer): string {
-    if (layer.name === IbfLayerName.alertThreshold) {
+    if (layer.name === IbfLayerName.trigger) {
       return this.singleRowLegend(
         SingleRowLegendType.outlineSquare,
         'red',

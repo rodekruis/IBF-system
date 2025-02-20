@@ -9,7 +9,9 @@ import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserv
 import { HelperService } from '../../shared/helper.service';
 import { EventAreaService } from '../admin-area/services/event-area.service';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { EventService } from '../event/event.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
+import { ALERT_LEVEL_INDICATORS } from './const/alert-level-indicators.const';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { DynamicIndicator } from './enum/dynamic-indicator.enum';
@@ -27,6 +29,7 @@ export class AdminAreaDynamicDataService {
 
   public constructor(
     private eventAreaService: EventAreaService,
+    private eventService: EventService,
     private helperService: HelperService,
     private dataSource: DataSource,
   ) {}
@@ -110,7 +113,7 @@ export class AdminAreaDynamicDataService {
 
   public async getAdminAreaDynamicData(
     countryCodeISO3: string,
-    adminLevel: string,
+    adminLevel: number,
     indicator: DynamicIndicator,
     disasterType: DisasterType,
     leadTime: LeadTime,
@@ -131,17 +134,28 @@ export class AdminAreaDynamicDataService {
       );
     }
 
+    // NOTE: 'trigger' is a calculated field, and not actually in db. The calculation is done here.
+    if (indicator === ALERT_LEVEL_INDICATORS.trigger) {
+      // NOTE: this only gets alert areas, not all, but that is actually fine for the front-end
+      const alertAreas = await this.eventService.getActiveAlertAreas(
+        countryCodeISO3,
+        disasterType,
+        adminLevel,
+        lastUploadDate.cutoffMoment,
+        eventName,
+      );
+      return alertAreas.map((area) => ({
+        value: area.forecastTrigger ? 1 : 0,
+        placeCode: area.placeCode,
+      }));
+    }
+
     const whereFilters = {
-      countryCodeISO3: countryCodeISO3,
+      countryCodeISO3,
       adminLevel: Number(adminLevel),
-      indicator: indicator,
-      disasterType: disasterType,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadDate.timestamp,
-        ),
-      ),
+      indicator,
+      disasterType,
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;

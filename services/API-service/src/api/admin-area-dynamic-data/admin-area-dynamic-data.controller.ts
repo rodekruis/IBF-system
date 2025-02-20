@@ -83,7 +83,7 @@ export class AdminAreaDynamicDataController {
   ): Promise<AdminDataReturnDto[]> {
     return await this.adminAreaDynamicDataService.getAdminAreaDynamicData(
       params.countryCodeISO3,
-      params.adminLevel,
+      Number(params.adminLevel),
       params.indicator as DynamicIndicator,
       params.disasterType as DisasterType,
       query.leadTime,

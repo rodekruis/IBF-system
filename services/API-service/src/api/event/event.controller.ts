@@ -200,7 +200,9 @@ export class EventController {
   public async uploadTriggerPerLeadTime(
     @Body() uploadTriggerPerLeadTimeDto: uploadTriggerPerLeadTimeDto,
   ): Promise<void> {
-    await this.eventService.convertDtoAndUpload(uploadTriggerPerLeadTimeDto);
+    await this.eventService.convertOldDtoAndUploadAlertPerLeadTime(
+      uploadTriggerPerLeadTimeDto,
+    );
   }
 
   @UseGuards(RolesGuard)
