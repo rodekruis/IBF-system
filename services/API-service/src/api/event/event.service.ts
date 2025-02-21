@@ -684,7 +684,6 @@ export class EventService {
       adminLevel,
       lastUploadDate,
       eventName,
-      lastUploadDate,
     );
 
     // update existing event areas + update population and end_date
