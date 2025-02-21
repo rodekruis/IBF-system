@@ -874,10 +874,6 @@ export class EventService {
     activeAlertAreas: AreaForecastDataDto[],
     lastUploadTimestamp: Date,
   ) {
-    if (!activeAlertAreas.length) {
-      return;
-    }
-
     const uploadAlertPerLeadTimeDto = new UploadAlertPerLeadTimeDto();
     uploadAlertPerLeadTimeDto.countryCodeISO3 = countryCodeISO3;
     uploadAlertPerLeadTimeDto.disasterType = disasterType;
