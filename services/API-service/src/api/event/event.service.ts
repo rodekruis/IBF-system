@@ -15,7 +15,8 @@ import {
 
 import {
   AlertArea,
-  DisasterSpecificProperties,
+  EapAlertClass,
+  EapAlertClassKeyEnum,
   EventSummaryCountry,
 } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';
@@ -84,7 +85,7 @@ export class EventService {
     ).andWhere({
       closed: false,
       endDate: MoreThanOrEqual(lastUploadDate.date),
-      disasterType: disasterType,
+      disasterType,
     });
     return this.queryAndMapEventSummary(
       eventSummaryQueryBuilder,
@@ -156,16 +157,15 @@ export class EventService {
             countryCodeISO3,
             event.eventName,
           );
+      } else {
+        event.disasterSpecificProperties = {};
       }
-      if (disasterType === DisasterType.Floods) {
-        // REFACTOR: either make eapAlertClass a requirement across all hazard
-        // types or reimplement such that eapAlertClass is not needed in the
-        // backend (it is a VIEW of the DATA in the dashboard and email)
-        event.disasterSpecificProperties = await this.getEventEapAlertClass(
+      event.disasterSpecificProperties.eapAlertClass =
+        await this.getEventEapAlertClass(
           disasterSettings,
           event.forecastSeverity,
+          event.forecastTrigger,
         );
-      }
     }
     return rawEvents;
   }
@@ -188,7 +188,7 @@ export class EventService {
         'sum(event."mainExposureValue")::int AS "mainExposureValueSum"',
       ])
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
+        countryCodeISO3,
       });
   }
 
@@ -1114,22 +1114,46 @@ export class EventService {
     await this.eventPlaceCodeRepo.save(aboveThresholdEvents);
   }
 
+  // REFACTOR: this can be set up much better
   private async getEventEapAlertClass(
     disasterSettings: CountryDisasterSettingsEntity,
     eventForecastSeverity: number,
-  ): Promise<DisasterSpecificProperties> {
-    const eapAlertClasses = JSON.parse(
-      JSON.stringify(disasterSettings.eapAlertClasses),
-    );
-    const alertClassKey = Object.keys(eapAlertClasses).find(
-      (key) => eapAlertClasses[key].value === eventForecastSeverity,
-    );
-
-    return {
-      eapAlertClass: {
+    eventForecastTrigger: boolean,
+  ): Promise<EapAlertClass> {
+    if (disasterSettings.disasterType === DisasterType.Floods) {
+      const eapAlertClasses = JSON.parse(
+        JSON.stringify(disasterSettings.eapAlertClasses),
+      );
+      const alertClassKey = Object.keys(eapAlertClasses).find(
+        (key) => eapAlertClasses[key].value === eventForecastSeverity,
+      );
+      return {
         key: alertClassKey,
         ...eapAlertClasses[alertClassKey],
-      },
-    };
+      };
+    } else {
+      if (eventForecastTrigger) {
+        return {
+          key: EapAlertClassKeyEnum.max,
+          label: 'Trigger',
+          color: 'ibf-glofas-trigger',
+          value: 1,
+        };
+      } else if (eventForecastSeverity > 0) {
+        return {
+          key: EapAlertClassKeyEnum.med,
+          label: 'Warning',
+          color: 'ibf-orange',
+          value: 1,
+        };
+      } else {
+        return {
+          key: EapAlertClassKeyEnum.no,
+          label: 'No alert',
+          color: 'ibf-no-alert-primary',
+          value: 0,
+        };
+      }
+    }
   }
 }

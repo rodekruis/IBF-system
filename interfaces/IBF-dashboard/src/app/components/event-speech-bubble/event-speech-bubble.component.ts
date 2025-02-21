@@ -49,6 +49,8 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   public mainExposureIndicatorLabel: string;
   @Input()
   public mainExposureIndicatorNumberFormat: NumberFormat;
+  @Input()
+  public enableEarlyActions: boolean;
 
   public typhoonLandfallText: string;
   public displayName: string;
@@ -85,7 +87,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     this.placeCodeHoverSubscription.unsubscribe();
   }
 
-  public selectArea(area) {
+  public selectArea(area: AlertArea) {
     this.adminLevelService.zoomInAdminLevel();
     this.placeCodeService.setPlaceCode({
       countryCodeISO3: this.countryCodeISO3,

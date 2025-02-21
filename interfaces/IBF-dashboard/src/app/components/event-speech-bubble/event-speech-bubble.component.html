@@ -97,18 +97,13 @@
         @if (event.forecastTrigger) {
           <span
             >{{
-              'chat-component.' +
-                disasterTypeName +
-                '.alertLevel.expected-trigger' | translate
+              'chat-component.common.alertLevel.expected-trigger' | translate
             }}
             {{ event.firstTriggerLeadTimeDate }}</span
           >
         } @else {
           <span
-            >{{
-              'chat-component.' + disasterTypeName + '.alertLevel.expected'
-                | translate
-            }}
+            >{{ 'chat-component.common.alertLevel.expected' | translate }}
             {{ event.firstLeadTimeDate }}</span
           >
         }
@@ -116,7 +111,7 @@
       <p>
         <strong
           >{{
-            'chat-component.' + disasterTypeName + '.alertLevel.exposed-areas'
+            'chat-component.common.alertLevel.exposed-areas'
               | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
           }}
         </strong>
@@ -133,8 +128,7 @@
           <span>
             {{
               '(' +
-                ('chat-component.' + disasterTypeName + '.alertLevel.no-data'
-                  | translate) +
+                ('chat-component.common.alertLevel.no-data' | translate) +
                 ')'
             }}
           </span>
@@ -192,6 +186,8 @@
             <li
               class="my-1 cursor-pointer hover:underline"
               (click)="selectArea(area)"
+              (keydown.enter)="selectArea(area)"
+              tabindex="0"
             >
               {{ area.name }}
               @if (area.nameParent) {
@@ -208,7 +204,7 @@
           }
         </ul>
       </div>
-      @if (event.forecastTrigger) {
+      @if (event.forecastTrigger && enableEarlyActions) {
         <p
           [translate]="
             'chat-component.' + disasterTypeName + '.active-event.instruction'
