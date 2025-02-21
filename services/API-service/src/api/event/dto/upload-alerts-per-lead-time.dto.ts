@@ -11,6 +11,7 @@ import {
 } from 'class-validator';
 
 import alertsPerLeadTime from '../../../scripts/mock-data/floods/UGA/trigger/G5075/alerts-per-lead-time.json';
+import triggersPerLeadTime from '../../../scripts/mock-data/floods/UGA/trigger/G5075/triggers-per-lead-time.json';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import {
   AlertPerLeadTimeDto,
@@ -64,7 +65,7 @@ export class UploadTriggerPerLeadTimeDto {
   @IsString()
   public eventName: string;
 
-  @ApiProperty({ example: alertsPerLeadTime })
+  @ApiProperty({ example: triggersPerLeadTime })
   @IsArray()
   @ValidateNested()
   @Type(() => TriggerPerLeadTimeDto)

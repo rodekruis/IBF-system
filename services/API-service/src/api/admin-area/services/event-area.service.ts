@@ -80,10 +80,6 @@ export class EventAreaService {
       countryCodeISO3,
       disasterType.disasterType,
     );
-    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
-      disasterType.disasterType,
-      lastUploadDate.timestamp,
-    );
 
     for await (const event of events) {
       const eventArea = await this.eventAreaRepository
@@ -105,7 +101,7 @@ export class EventAreaService {
         .createQueryBuilder('dynamic')
         .select('SUM(value)', 'value') // TODO: facilitate other aggregate-cases than SUM
         .where({
-          timestamp: MoreThanOrEqual(uploadCutoffMoment),
+          timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
           disasterType: disasterType.disasterType,
           indicator: disasterType.mainExposureIndicator,
           eventName: event.eventName,

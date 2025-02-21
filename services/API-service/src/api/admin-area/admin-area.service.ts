@@ -208,11 +208,6 @@ export class AdminAreaService {
     }
     const staticIndicators = await staticIndicatorsScript.getRawMany();
 
-    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
-      disasterType,
-      lastUploadDate.timestamp,
-    );
-
     let dynamicIndicatorsScript = this.adminAreaRepository
       .createQueryBuilder('area')
       .select(['area."placeCode", area."placeCodeParent"'])
@@ -223,7 +218,9 @@ export class AdminAreaService {
       )
       .addSelect(['dynamic."indicator"', 'dynamic."value"'])
       .where('area."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
-      .andWhere('timestamp >= :uploadCutoffMoment', { uploadCutoffMoment })
+      .andWhere('timestamp >= :cutoffMoment', {
+        cutoffMoment: lastUploadDate.cutoffMoment,
+      })
       .andWhere('"disasterType" = :disasterType', { disasterType })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel });
 
@@ -289,10 +286,6 @@ export class AdminAreaService {
       countryCodeISO3,
       disasterType,
     );
-    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
-      disasterType,
-      lastUploadDate.timestamp,
-    );
 
     // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
     if (disasterType === DisasterType.FlashFloods && !eventName) {
@@ -339,7 +332,9 @@ export class AdminAreaService {
         'parent."placeCode" as "placeCodeParent"',
         'dynamic."eventName"',
       ])
-      .andWhere('timestamp >= :uploadCutoffMoment', { uploadCutoffMoment })
+      .andWhere('timestamp >= :cutoffMoment', {
+        cutoffMoment: lastUploadDate.cutoffMoment,
+      })
       .andWhere('"disasterType" = :disasterType', { disasterType })
       .andWhere('dynamic."indicator" = :indicator', {
         indicator: disasterTypeEntity.mainExposureIndicator,

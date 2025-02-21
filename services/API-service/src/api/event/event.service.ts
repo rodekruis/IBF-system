@@ -729,30 +729,14 @@ export class EventService {
     eventName?: string,
   ): Promise<AreaForecastDataDto[]> {
     const whereFilters = {
-      indicator: ALERT_THRESHOLD,
       timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
       countryCodeISO3,
       adminLevel,
       disasterType,
-      eventName: eventName || IsNull(),
     };
 
-    // NOTE AB#32041: this currently gets forecastSeverity based on layer identified by alert_threshold. This must change (and be made more flexible in transition period)
-    const alertPlaceCodes = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('area')
-      .select('area."placeCode"')
-      .addSelect('MAX(area.value) AS "forecastSeverity"')
-      .where(whereFilters)
-      .andWhere(
-        `(area.value > 0 OR (area."eventName" is not null AND area."disasterType" IN ('flash-floods','typhoon')))`,
-      ) // Also allow value=0 entries with typhoon/flash-floods and event name (= warning event) // NOTE AB#32041: this check should be possible to remove after this item
-      .groupBy('area."placeCode"')
-      .getRawMany();
-
-    const alertPlaceCodesArray = alertPlaceCodes.map((a) => a.placeCode);
-
-    if (alertPlaceCodesArray.length === 0) {
-      return [];
+    if (eventName) {
+      whereFilters['eventName'] = eventName;
     }
 
     const mainExposureIndicator =
