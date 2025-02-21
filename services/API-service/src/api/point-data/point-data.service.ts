@@ -60,6 +60,11 @@ export class PointDataService {
       disasterType,
     );
 
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      disasterType,
+      lastUploadDate.timestamp,
+    );
+
     // Subquery to get the max timestamp for each point, to be able to only get the most recent data ..
     // .. and also suffixes the leadTime, only to pick the max leadTime incase of multiple records with same timestamp ..
     // .. which makes sure that in the warning-to-trigger scenario the trigger data of Glofas stations is shown, not the warning data
@@ -69,12 +74,7 @@ export class PointDataService {
         'sub."pointPointDataId"',
         `MAX(sub.timestamp || '_' || COALESCE(sub."leadTime",'0')) as maxTimestampLeadTime`,
       ])
-      .where('sub.timestamp >= :cutoffMoment', {
-        cutoffMoment: this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadDate.timestamp,
-        ),
-      })
+      .where('sub.timestamp >= :uploadCutoffMoment', { uploadCutoffMoment })
       .groupBy('sub."pointPointDataId"');
 
     const pointDataQuery = this.pointDataRepository
@@ -96,7 +96,7 @@ export class PointDataService {
             .innerJoin(
               `(${maxTimestampPerPointQuery.getQuery()})`,
               'maxSub',
-              `dynamic."pointPointDataId" = "maxSub"."pointPointDataId" 
+              `dynamic."pointPointDataId" = "maxSub"."pointPointDataId"
                 AND (dynamic.timestamp || '_' || COALESCE(dynamic."leadTime",'0')) = "maxSub".maxTimestampLeadTime`,
             )
             .setParameters(maxTimestampPerPointQuery.getParameters())
@@ -278,17 +278,17 @@ export class PointDataService {
         continue;
       }
 
+      const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+        dynamicPointData.disasterType,
+        dynamicPointData.date || new Date(),
+      );
+
       // Delete existing entries
       await this.dynamicPointDataRepository.delete({
         point: { pointDataId: asset.pointDataId },
         leadTime: dynamicPointData.leadTime || IsNull(), // For Glofas stations, we should overwrite irregardless of lead time, but I'm not sure about other uses, so instead solving this in GET endpoint query, by making sure we only use the most recent timestam per point
         key: dynamicPointData.key,
-        timestamp: MoreThanOrEqual(
-          this.helperService.getUploadCutoffMoment(
-            dynamicPointData.disasterType,
-            dynamicPointData.date || new Date(),
-          ),
-        ),
+        timestamp: MoreThanOrEqual(uploadCutoffMoment),
       });
 
       const dynamicPoint = new DynamicPointDataEntity();
@@ -299,7 +299,8 @@ export class PointDataService {
       dynamicPoint.point = asset;
       dynamicPointDataArray.push(dynamicPoint);
     }
-    await this.dynamicPointDataRepository.save(dynamicPointDataArray);
+
+    return this.dynamicPointDataRepository.save(dynamicPointDataArray);
   }
 
   // Refactor: This function is used to map Glofas station dynamic mock data, which is still in format of old endpoint, to format of new endpoint

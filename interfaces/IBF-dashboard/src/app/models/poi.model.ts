@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention, no-underscore-dangle, id-blacklist, id-match */
 export class Station {
   stationName: string;
   stationCode: string;

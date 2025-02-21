@@ -7,13 +7,13 @@ version: 2
 updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 3
     schedule:
       interval: 'weekly'
 
   - package-ecosystem: 'npm'
     directory: '/'
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 3
     schedule:
       interval: 'weekly'
     ignore:
@@ -22,7 +22,7 @@ updates:
 
   - package-ecosystem: 'npm'
     directory: '/services/API-service'
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 3
     schedule:
       interval: 'weekly'
     groups:
@@ -31,13 +31,15 @@ updates:
           - '@types/*'
           - '*eslint*'
           - '*prettier*'
+      nestjs:
+        patterns: ['@nestjs/*']
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-patch']
 
   - package-ecosystem: 'npm'
     directory: '/interfaces/IBF-dashboard'
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 3
     schedule:
       interval: 'weekly'
     groups:
@@ -55,7 +57,7 @@ updates:
 
   - package-ecosystem: 'npm'
     directory: '/tests/integration'
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 3
     schedule:
       interval: 'weekly'
     groups:
@@ -70,7 +72,7 @@ updates:
 
   - package-ecosystem: 'npm'
     directory: '/tests/e2e'
-    open-pull-requests-limit: 2
+    open-pull-requests-limit: 3
     schedule:
       interval: 'weekly'
     groups:

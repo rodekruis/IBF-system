@@ -23,7 +23,7 @@ export default (
       countryName: TriggerDataSet.CountryName,
     });
     await timeline.validateTimelineBasedOnDisasterName({
-      disasterName: 'floods',
+      disasterName: TriggerDataSet.DisasterType,
     });
     await timeline.validateTimelineDates();
     await timeline.assertPurpleTimelineButtonElements();

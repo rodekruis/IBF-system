@@ -27,11 +27,11 @@ export const notificationInfoData: CreateNotificationInfoDto[] = [
     whatsappMessage: {
       'flash-floods': {
         'initial-single-event':
-          "*IBF [triggerState] notification*\n\nA [triggerState] for flash floods is forecasted in *[eventName]* for: *[startTimeEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
+          "*IBF [alertState] notification*\n\nA [alertState] for flash floods is forecasted in *[eventName]* for: *[startTimeEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
         'initial-multi-event':
           "*IBF notification*\n\nThere are *[nrEvents]* notifications issued for flash floods. The first notification is forecasted for: *[startTimeFirstEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
         'follow-up':
-          '*IBF [triggerState] notification*\n\nA [triggerState] for flash floods is forecasted in *[eventName]*: *[startTimeEvent]*.\n\nThere are *[nrAlertAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this [triggerState].',
+          '*IBF [alertState] notification*\n\nA [alertState] for flash floods is forecasted in *[eventName]*: *[startTimeEvent]*.\n\nThere are *[nrAlertAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this [alertState].',
         'whatsapp-group':
           'Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this trigger.',
         'no-trigger-old-event':

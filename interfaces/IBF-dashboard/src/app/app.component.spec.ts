@@ -2,7 +2,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { Platform } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { AppComponent } from './app.component';
+import { AppComponent } from 'src/app/app.component';
 
 describe('AppComponent', () => {
   let platformReadySpy;
