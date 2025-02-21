@@ -128,7 +128,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   }
 
   public getHeader(event: EventSummary): string {
-    let headerKey = `chat-component.${this.disasterTypeName}.active-event-active-trigger.header`;
+    let headerKey = `chat-component.${this.disasterTypeName}.active-event.header`;
     if ((LeadTimeTriggerKey[event.firstLeadTime] as string) === '0') {
       headerKey += '-ongoing';
     }
@@ -155,7 +155,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       event.disasterSpecificProperties?.typhoonNoLandfallYet;
 
     return this.translateService.instant(
-      `chat-component.typhoon.active-event-active-trigger.${
+      `chat-component.typhoon.active-event.${
         ongoingEvent ? 'ongoing-event' : 'upcoming-event'
       }.${
         noLandfallYetEvent

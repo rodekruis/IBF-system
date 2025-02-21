@@ -26,12 +26,10 @@
         ></app-tooltip>
       </div>
       <p>
-        @if (!event.duration && showFirstWarningDate()) {
+        @if (showFirstWarningDate()) {
           <span
             [innerHTML]="
-              'chat-component.' +
-                disasterTypeName +
-                '.active-event-active-trigger.welcome'
+              'chat-component.' + disasterTypeName + '.active-event.welcome'
                 | translate
                   : {
                       name: displayName,
@@ -45,27 +43,6 @@
                         event.eventName?.split('_')[0] || disasterTypeLabel,
                       duration: event.duration,
                       nrAlertAreas: areas.length,
-                    }
-            "
-          ></span>
-        }
-        @if (event.duration) {
-          <span
-            [innerHTML]="
-              'chat-component.' +
-                disasterTypeName +
-                '.active-event-active-trigger.welcome-duration'
-                | translate
-                  : {
-                      name: displayName,
-                      firstIssuedDate: event.firstIssuedDate,
-                      leadTime: event.firstLeadTimeLabel,
-                      timeUnit: event.timeUnit,
-                      disasterTypeLabel: disasterTypeLabel,
-                      firstLeadTimeDate: event.firstLeadTimeDate,
-                      eventName:
-                        event.eventName?.split('_')[0] || disasterTypeLabel,
-                      duration: event.duration,
                     }
             "
           ></span>
@@ -95,7 +72,7 @@
         [innerHTML]="
           'chat-component.' +
             disasterTypeName +
-            '.active-event-active-trigger.welcome-below-trigger'
+            '.active-event.welcome-below-trigger'
             | translate
               : {
                   firstIssuedDate: event.firstIssuedDate,
@@ -106,6 +83,7 @@
                   timeUnit: event.timeUnit,
                   disasterTypeLabel: disasterTypeLabel,
                   nrAlertAreas: areas.length,
+                  duration: event.duration,
                 }
         "
       ></p>
@@ -250,7 +228,7 @@
   <app-dialogue-turn>
     <p
       [innerHTML]="
-        'chat-component.' + disasterTypeName + '.no-event-no-trigger.welcome'
+        'chat-component.' + disasterTypeName + '.no-event.welcome'
           | translate
             : {
                 name: displayName,
