@@ -116,7 +116,7 @@
           }}
         </strong>
         <span>{{ event.nrAlertAreas + ' ' }}</span>
-        @if (event.forecastTrigger) {
+        @if (event.mainExposureValueSum) {
           <span>{{
             '(' +
               (mainExposureIndicatorLabel | titlecase) +
@@ -138,10 +138,6 @@
 
     @if (typhoonLandfallText) {
       <p [innerHTML]="typhoonLandfallText"></p>
-    }
-
-    @if (forecastInfo && countryCodeISO3 === 'ZWE') {
-      <p>{{ forecastInfo }}</p>
     }
 
     @if (!!clearOutMessage) {
