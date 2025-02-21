@@ -17,6 +17,7 @@ import { EventModule } from '../api/event/event.module';
 import { LinesDataModule } from '../api/lines-data/lines-data.module';
 import { MetadataModule } from '../api/metadata/metadata.module';
 import { PointDataModule } from '../api/point-data/point-data.module';
+import { ProcessPipelineModule } from '../api/process-pipeline/process-pipeline.module';
 import { TyphoonTrackModule } from '../api/typhoon-track/typhoon-track.module';
 import { UserModule } from '../api/user/user.module';
 import { AdminAreaDynamicDataModule } from './../api/admin-area-dynamic-data/admin-area-dynamic-data.module';
@@ -49,6 +50,7 @@ import SeedProd from './seed-prod';
     CountryModule,
     DisasterTypeModule,
     EventModule,
+    ProcessPipelineModule,
     TyphoonTrackModule,
     UserModule,
     MetadataModule,

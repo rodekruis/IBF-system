@@ -20,6 +20,7 @@ import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { EventService } from '../api/event/event.service';
 import { MetadataService } from '../api/metadata/metadata.service';
 import { PointDataService } from '../api/point-data/point-data.service';
+import { ProcessPipelineService } from '../api/process-pipeline/process-pipeline.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { DEBUG } from '../config';
 import { MockInputDto } from './dto/mock-input.dto';
@@ -62,6 +63,7 @@ export class MockService {
     private metadataService: MetadataService,
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private eventService: EventService,
+    private processPipelineService: ProcessPipelineService,
     private pointDataService: PointDataService,
     private adminAreaService: AdminAreaService,
     private typhoonTrackService: TyphoonTrackService,
@@ -271,9 +273,10 @@ export class MockService {
     }
 
     // Process events
-    await this.eventService.processEvents(
+    await this.processPipelineService.processEvents(
       selectedCountry.countryCodeISO3,
       disasterType,
+      isApiTest,
     );
 
     // Add the needed stores and layers to geoserver, only do this in debug mode

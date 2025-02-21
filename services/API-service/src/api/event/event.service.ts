@@ -290,7 +290,7 @@ export class EventService {
     await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
   }
 
-  private async getCountryDisasterSettings(
+  public async getCountryDisasterSettings(
     countryCodeISO3: string,
     disasterType: DisasterType,
   ) {
@@ -637,55 +637,7 @@ export class EventService {
     ).mainExposureIndicator;
   }
 
-  public async processEvents(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-  ): Promise<void> {
-    const lastUploadDate = await this.helperService.getLastUploadDate(
-      countryCodeISO3,
-      disasterType,
-    );
-    const activeEventNames = await this.getActiveEventNames(
-      countryCodeISO3,
-      disasterType,
-      lastUploadDate.cutoffMoment,
-    );
-
-    const defaultAdminLevel = (
-      await this.getCountryDisasterSettings(countryCodeISO3, disasterType)
-    ).defaultAdminLevel;
-    for (const eventName of activeEventNames) {
-      if (eventName.eventName === null) {
-        await this.insertAlertsPerLeadTime(
-          countryCodeISO3,
-          disasterType,
-          null,
-          [],
-          lastUploadDate.timestamp,
-        );
-        continue;
-      }
-
-      await this.processEventAreas(
-        countryCodeISO3,
-        disasterType,
-        defaultAdminLevel,
-        eventName.eventName,
-        lastUploadDate.cutoffMoment,
-        lastUploadDate.timestamp,
-      );
-    }
-
-    await this.closeEventsAutomatic(
-      countryCodeISO3,
-      disasterType,
-      lastUploadDate.timestamp,
-    );
-
-    // NOTE AB#32041: also include the functionality of /notification/send endpoint here
-  }
-
-  private async getActiveEventNames(
+  public async getActiveEventNames(
     countryCodeISO3: string,
     disasterType: DisasterType,
     uploadCutoffMoment: Date,
@@ -703,7 +655,7 @@ export class EventService {
       .getRawMany();
   }
 
-  private async processEventAreas(
+  public async processEventAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
@@ -865,7 +817,7 @@ export class EventService {
     }
   }
 
-  private async insertAlertsPerLeadTime(
+  public async insertAlertsPerLeadTime(
     countryCodeISO3: string,
     disasterType: DisasterType,
     eventName: string,

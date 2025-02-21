@@ -75,9 +75,9 @@ export class ScriptsController {
   @ApiQuery({
     name: 'isApiTest',
     required: false,
-    schema: { default: false, type: 'boolean' },
+    schema: { default: true, type: 'boolean' },
     type: 'boolean',
-    description: 'Set to true for tests',
+    description: 'Set to false to send actual test notifications',
   })
   @Post('mock')
   public async mock(
