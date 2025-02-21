@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { DisclaimerToolbarComponent } from './disclaimer-toolbar.component';
+import { DisclaimerToolbarComponent } from 'src/app/components/disclaimer-toolbar/disclaimer-toolbar.component';
 
 describe('DisclaimerToolbarComponent', () => {
   let component: DisclaimerToolbarComponent;

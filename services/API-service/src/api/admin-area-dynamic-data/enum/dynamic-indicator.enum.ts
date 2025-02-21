@@ -38,3 +38,8 @@ export enum UpdateableStaticIndicator {
   hotspotHealth = 'Hotspot_Health',
   hotspotNutrition = 'Hotspot_Nutrition',
 }
+
+export const ALERT_THRESHOLD = DynamicIndicator.alertThreshold;
+export const FORECAST_SEVERITY = DynamicIndicator.forecastSeverity;
+export const FORECAST_TRIGGER = DynamicIndicator.forecastTrigger;
+export const TRIGGER = DynamicIndicator.trigger;

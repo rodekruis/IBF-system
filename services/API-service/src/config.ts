@@ -20,3 +20,6 @@ export const EXTERNAL_API = {
   whatsAppStatus: baseApiUrl + API_PATHS.whatsAppStatus,
   whatsAppIncoming: baseApiUrl + API_PATHS.whatsAppIncoming,
 };
+
+// Set this to true to temporarily test with old pipeline upload. Remove after all pipelines migrated.
+export const MOCK_USE_OLD_PIPELINE_UPLOAD = false;

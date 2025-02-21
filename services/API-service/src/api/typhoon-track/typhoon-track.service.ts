@@ -1,7 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
+import {
+  DeleteResult,
+  InsertResult,
+  MoreThanOrEqual,
+  Repository,
+} from 'typeorm';
 
 import { DisasterSpecificProperties } from '../../shared/data.model';
 import { GeoJson } from '../../shared/geo.model';
@@ -51,22 +56,22 @@ export class TyphoonTrackService {
 
   private async deleteDuplicates(
     uploadTyphoonTrack: UploadTyphoonTrackDto,
-  ): Promise<void> {
+  ): Promise<DeleteResult> {
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      DisasterType.Typhoon,
+      uploadTyphoonTrack.date,
+    );
+
     const deleteFilters = {
       countryCodeISO3: uploadTyphoonTrack.countryCodeISO3,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          DisasterType.Typhoon,
-          uploadTyphoonTrack.date,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
     };
     if (uploadTyphoonTrack.eventName) {
       deleteFilters['eventName'] = uploadTyphoonTrack.eventName;
     }
     // this implies that on eventName=null (no events), all typhoon tracks (in current time-period) will be deleted
 
-    await this.typhoonTrackRepository.delete(deleteFilters);
+    return this.typhoonTrackRepository.delete(deleteFilters);
   }
 
   public async getTyphoonTrack(
@@ -117,6 +122,7 @@ export class TyphoonTrackService {
       countryCodeISO3,
       DisasterType.Typhoon,
     );
+
     const filters = {
       countryCodeISO3,
       eventName, // eventName is required because National View is currently not supported for Typhoon

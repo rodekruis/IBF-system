@@ -3,7 +3,13 @@ import path from 'path';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { DataSource, In, MoreThanOrEqual, Repository } from 'typeorm';
+import {
+  DataSource,
+  DeleteResult,
+  In,
+  MoreThanOrEqual,
+  Repository,
+} from 'typeorm';
 
 import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
 import { HelperService } from '../../shared/helper.service';
@@ -11,10 +17,9 @@ import { EventAreaService } from '../admin-area/services/event-area.service';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { EventService } from '../event/event.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
-import { ALERT_LEVEL_INDICATORS } from './const/alert-level-indicators.const';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
-import { DynamicIndicator } from './enum/dynamic-indicator.enum';
+import { DynamicIndicator, TRIGGER } from './enum/dynamic-indicator.enum';
 import { LeadTime } from './enum/lead-time.enum';
 
 interface RasterData {
@@ -92,23 +97,24 @@ export class AdminAreaDynamicDataService {
 
   private async deleteDynamicDuplicates(
     uploadExposure: UploadAdminAreaDynamicDataDto,
-  ): Promise<void> {
+  ): Promise<DeleteResult> {
+    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
+      uploadExposure.disasterType,
+      uploadExposure.date,
+    );
+
     const deleteFilters = {
       indicator: uploadExposure.dynamicIndicator,
       countryCodeISO3: uploadExposure.countryCodeISO3,
       adminLevel: uploadExposure.adminLevel,
       disasterType: uploadExposure.disasterType,
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          uploadExposure.disasterType,
-          uploadExposure.date,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(uploadCutoffMoment),
     };
     if (uploadExposure.eventName) {
       deleteFilters['eventName'] = uploadExposure.eventName;
     }
-    await this.adminAreaDynamicDataRepo.delete(deleteFilters);
+
+    return this.adminAreaDynamicDataRepo.delete(deleteFilters);
   }
 
   public async getAdminAreaDynamicData(
@@ -135,13 +141,13 @@ export class AdminAreaDynamicDataService {
     }
 
     // NOTE: 'trigger' is a calculated field, and not actually in db. The calculation is done here.
-    if (indicator === ALERT_LEVEL_INDICATORS.trigger) {
+    if (indicator === TRIGGER) {
       // NOTE: this only gets alert areas, not all, but that is actually fine for the front-end
       const alertAreas = await this.eventService.getActiveAlertAreas(
         countryCodeISO3,
         disasterType,
         adminLevel,
-        lastUploadDate.cutoffMoment,
+        lastUploadDate,
         eventName,
       );
       return alertAreas.map((area) => ({
@@ -169,6 +175,7 @@ export class AdminAreaDynamicDataService {
       .select(['dynamic.value AS value', 'dynamic.placeCode AS "placeCode"'])
       .orderBy('dynamic.date', 'DESC')
       .execute();
+
     return result;
   }
 

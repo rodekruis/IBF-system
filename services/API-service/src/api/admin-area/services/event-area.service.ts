@@ -10,9 +10,14 @@ import {
 import { GeoJson } from '../../../shared/geo.model';
 import { HelperService } from '../../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../../admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import { ALERT_LEVEL_INDICATORS } from '../../admin-area-dynamic-data/const/alert-level-indicators.const';
 import { AdminDataReturnDto } from '../../admin-area-dynamic-data/dto/admin-data-return.dto';
-import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
+import {
+  ALERT_THRESHOLD,
+  DynamicIndicator,
+  FORECAST_SEVERITY,
+  FORECAST_TRIGGER,
+  TRIGGER,
+} from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
@@ -75,11 +80,12 @@ export class EventAreaService {
       countryCodeISO3,
       disasterType.disasterType,
     );
+
     for await (const event of events) {
       const eventArea = await this.eventAreaRepository
         .createQueryBuilder('area')
         .where({
-          countryCodeISO3: countryCodeISO3,
+          countryCodeISO3,
           disasterType: disasterType.disasterType,
           eventAreaName: event.eventName,
         })
@@ -95,12 +101,7 @@ export class EventAreaService {
         .createQueryBuilder('dynamic')
         .select('SUM(value)', 'value') // TODO: facilitate other aggregate-cases than SUM
         .where({
-          timestamp: MoreThanOrEqual(
-            this.helperService.getUploadCutoffMoment(
-              disasterType.disasterType,
-              lastUploadDate.timestamp,
-            ),
-          ),
+          timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
           disasterType: disasterType.disasterType,
           indicator: disasterType.mainExposureIndicator,
           eventName: event.eventName,
@@ -184,7 +185,7 @@ export class EventAreaService {
       const record = new AdminDataReturnDto();
       record.placeCode = event.eventName;
       record.value =
-        indicator === ALERT_LEVEL_INDICATORS.trigger
+        indicator === TRIGGER
           ? this.getCalculatedFieldTriggerValue(aggregateValues)
           : aggregateValues.find((ind) => ind.indicator === indicator).value;
       records.push(record);
@@ -230,11 +231,12 @@ export class EventAreaService {
       disasterType,
       eventName: event.eventName,
     };
-    return await this.adminAreaDynamicDataRepo
+
+    return this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .select('dynamic."indicator"', 'indicator')
       .addSelect(
-        `CASE WHEN dynamic."indicator" IN ('${ALERT_LEVEL_INDICATORS.alertThreshold}','${ALERT_LEVEL_INDICATORS.forecastSeverity}','${ALERT_LEVEL_INDICATORS.forecastTrigger}') THEN MAX(value) ELSE SUM(value) END as "value"`, // NOTE: remove 'alert_threshold' after flash-floods pipeline migrated
+        `CASE WHEN dynamic."indicator" IN ('${ALERT_THRESHOLD}','${FORECAST_SEVERITY}','${FORECAST_TRIGGER}') THEN MAX(value) ELSE SUM(value) END as "value"`, // NOTE: remove 'alert_threshold' after flash-floods pipeline migrated
       )
       .where(whereFilters)
       .groupBy('dynamic."indicator"')

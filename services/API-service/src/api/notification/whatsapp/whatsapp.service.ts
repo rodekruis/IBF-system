@@ -94,8 +94,7 @@ export class WhatsappService {
         );
 
       return baseMessage
-        .replace('[triggerState]', alertState)
-        .replace('[triggerState]', alertState)
+        .replace(/\[alertState\]/g, alertState)
         .replace('[eventName]', activeEvents[0].eventName)
         .replace('[startTimeEvent]', startTimeEvent);
     } else if (activeEvents.length > 1) {
@@ -371,14 +370,12 @@ export class WhatsappService {
     const followUpMessage =
       country.notificationInfo.whatsappMessage[disasterType]['follow-up'];
     const message = followUpMessage
-      .replace('[triggerState]', alertState)
-      .replace('[triggerState]', alertState)
+      .replace(/\[alertState\]/g, alertState)
       .replace('[eventName]', event.eventName)
       .replace('[startTimeEvent]', startTimeEvent)
       .replace('[nrAlertAreas]', alertAreas.length)
       .replace('[adminAreaLabel]', adminAreaLabel)
-      .replace('[areaList]', areaList)
-      .replace('[triggerState]', alertState);
+      .replace('[areaList]', areaList);
     return message;
   }
 

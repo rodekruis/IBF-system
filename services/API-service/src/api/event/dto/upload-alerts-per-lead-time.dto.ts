@@ -10,15 +10,16 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-import triggers from '../../../scripts/mock-data/floods/UGA/trigger/G5075/alerts-per-leadtime.json';
+import alertsPerLeadTime from '../../../scripts/mock-data/floods/UGA/trigger/G5075/alerts-per-lead-time.json';
+import triggersPerLeadTime from '../../../scripts/mock-data/floods/UGA/trigger/G5075/triggers-per-lead-time.json';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import {
   AlertPerLeadTimeDto,
   TriggerPerLeadTimeDto,
-} from './alert-per-leadtime.dto';
+} from './alert-per-lead-time.dto';
 
 // NOTE: new DTO, used by new endpoint
-export class UploadAlertPerLeadTimeDto {
+export class UploadAlertsPerLeadTimeDto {
   @ApiProperty({ example: 'UGA' })
   @IsNotEmpty()
   @IsString()
@@ -35,7 +36,7 @@ export class UploadAlertPerLeadTimeDto {
   @IsString()
   public eventName: string;
 
-  @ApiProperty({ example: triggers })
+  @ApiProperty({ example: alertsPerLeadTime })
   @IsArray()
   @ValidateNested()
   @Type(() => AlertPerLeadTimeDto)
@@ -47,7 +48,7 @@ export class UploadAlertPerLeadTimeDto {
 }
 
 // NOTE: old DTO, used by old endpoint. Remove this when all pipelines migrated.
-export class uploadTriggerPerLeadTimeDto {
+export class UploadTriggerPerLeadTimeDto {
   @ApiProperty({ example: 'UGA' })
   @IsNotEmpty()
   @IsString()
@@ -64,7 +65,7 @@ export class uploadTriggerPerLeadTimeDto {
   @IsString()
   public eventName: string;
 
-  @ApiProperty({ example: triggers })
+  @ApiProperty({ example: triggersPerLeadTime })
   @IsArray()
   @ValidateNested()
   @Type(() => TriggerPerLeadTimeDto)

@@ -26,7 +26,7 @@ export class ProcessPipelineService {
     const activeEventNames = await this.eventService.getActiveEventNames(
       countryCodeISO3,
       disasterType,
-      lastUploadDate.cutoffMoment,
+      lastUploadDate,
     );
 
     const defaultAdminLevel = (
@@ -42,7 +42,7 @@ export class ProcessPipelineService {
           disasterType,
           null,
           [],
-          lastUploadDate.timestamp,
+          lastUploadDate,
         );
         continue;
       }
@@ -52,15 +52,14 @@ export class ProcessPipelineService {
         disasterType,
         defaultAdminLevel,
         eventName.eventName,
-        lastUploadDate.cutoffMoment,
-        lastUploadDate.timestamp,
+        lastUploadDate,
       );
     }
 
     await this.eventService.closeEventsAutomatic(
       countryCodeISO3,
       disasterType,
-      lastUploadDate.timestamp,
+      lastUploadDate,
     );
 
     return await this.notificationService.send(

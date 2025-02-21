@@ -6,7 +6,6 @@ import { Repository } from 'typeorm';
 
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
-import { MOCK_USE_OLD_PIPELINE_UPLOAD } from '../api/admin-area-dynamic-data/const/alert-level-indicators.const';
 import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
@@ -22,7 +21,7 @@ import { MetadataService } from '../api/metadata/metadata.service';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { ProcessPipelineService } from '../api/process-pipeline/process-pipeline.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
-import { DEBUG } from '../config';
+import { DEBUG, MOCK_USE_OLD_PIPELINE_UPLOAD } from '../config';
 import { MockInputDto } from './dto/mock-input.dto';
 import {
   DroughtScenario,
@@ -191,7 +190,7 @@ export class MockService {
           if (MOCK_USE_OLD_PIPELINE_UPLOAD) {
             // Old endpoint
             const triggersPerLeadTime = this.getFile(
-              `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-leadtime.json`,
+              `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-lead-time.json`,
             );
 
             await this.eventService.convertOldDtoAndUploadAlertPerLeadTime({
@@ -204,9 +203,10 @@ export class MockService {
           }
 
           const alertsPerLeadTime = this.getFile(
-            `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-leadtime.json`,
+            `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-lead-time.json`,
           );
-          await this.eventService.uploadAlertPerLeadTime({
+
+          await this.eventService.uploadAlertsPerLeadTime({
             countryCodeISO3,
             alertsPerLeadTime,
             disasterType: DisasterType.Floods,
