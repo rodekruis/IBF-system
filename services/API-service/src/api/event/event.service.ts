@@ -874,6 +874,10 @@ export class EventService {
     activeAlertAreas: AreaForecastDataDto[],
     lastUploadTimestamp: Date,
   ) {
+    if (!activeAlertAreas.length) {
+      return;
+    }
+
     const uploadAlertPerLeadTimeDto = new UploadAlertPerLeadTimeDto();
     uploadAlertPerLeadTimeDto.countryCodeISO3 = countryCodeISO3;
     uploadAlertPerLeadTimeDto.disasterType = disasterType;
@@ -1035,14 +1039,16 @@ export class EventService {
     forecastTrigger: boolean,
     endDate: Date,
   ) {
-    if (eventPlaceCodeIds.length) {
-      await this.eventPlaceCodeRepo
-        .createQueryBuilder()
-        .update()
-        .set({ forecastTrigger, endDate })
-        .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
-        .execute();
+    if (!eventPlaceCodeIds.length) {
+      return;
     }
+
+    await this.eventPlaceCodeRepo
+      .createQueryBuilder()
+      .update()
+      .set({ forecastTrigger, endDate })
+      .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
+      .execute();
   }
 
   private async updateOtherEventData(openEventAreas: EventPlaceCodeEntity[]) {
