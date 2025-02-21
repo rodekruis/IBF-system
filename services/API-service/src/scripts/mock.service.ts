@@ -200,19 +200,19 @@ export class MockService {
               eventName: event.eventName,
               date,
             });
+          } else {
+            const alertsPerLeadTime = this.getFile(
+              `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-lead-time.json`,
+            );
+
+            await this.eventService.uploadAlertsPerLeadTime({
+              countryCodeISO3,
+              alertsPerLeadTime,
+              disasterType: DisasterType.Floods,
+              eventName: event.eventName,
+              date,
+            });
           }
-
-          const alertsPerLeadTime = this.getFile(
-            `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-lead-time.json`,
-          );
-
-          await this.eventService.uploadAlertsPerLeadTime({
-            countryCodeISO3,
-            alertsPerLeadTime,
-            disasterType: DisasterType.Floods,
-            eventName: event.eventName,
-            date,
-          });
         }
 
         if (this.shouldMockTyphoonTrack(disasterType)) {
