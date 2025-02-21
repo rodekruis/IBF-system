@@ -292,7 +292,10 @@ export class EventService {
       deleteFilters['eventName'] = eventName;
     }
 
-    await this.eventPlaceCodeRepo.delete(deleteFilters);
+    const eventAreasToDelete = await this.eventPlaceCodeRepo.find({
+      where: deleteFilters,
+    });
+    await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
   }
 
   public async getCountryDisasterSettings(
