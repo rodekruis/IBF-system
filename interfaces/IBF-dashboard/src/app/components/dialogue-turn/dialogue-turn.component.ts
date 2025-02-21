@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges } from '@angular/core';
-import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-dialogue-turn',
@@ -12,7 +11,7 @@ export class DialogueTurnComponent implements OnChanges {
   isSpoken = false;
 
   @Input()
-  timestamp: DateTime;
+  firstIssuedDate: string;
 
   @Input()
   isWarn = false;
