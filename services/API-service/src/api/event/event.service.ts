@@ -319,14 +319,12 @@ export class EventService {
       lastUploadDate.cutoffMoment,
       eventName,
     );
+    const { defaultAdminLevel } = await this.getCountryDisasterSettings(
+      countryCodeISO3,
+      disasterType,
+    );
+    const alertPlaceCodes = activeAlertAreas.map(({ placeCode }) => placeCode);
 
-    const alertPlaceCodes = activeAlertAreas
-      .filter((area) => area.forecastTrigger)
-      .map((area) => area.placeCode);
-
-    const defaultAdminLevel = (
-      await this.getCountryDisasterSettings(countryCodeISO3, disasterType)
-    ).defaultAdminLevel;
     if (adminLevel > defaultAdminLevel) {
       // Use this to also return something on deeper levels than default (to show in chat-section)
       return this.getDeeperAlertAreas(
@@ -346,6 +344,7 @@ export class EventService {
     if (eventName) {
       whereFiltersEvent['eventName'] = eventName;
     }
+
     const alertAreas = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
@@ -388,6 +387,7 @@ export class EventService {
         );
       }
     }
+
     return alertAreas;
   }
 
@@ -400,6 +400,7 @@ export class EventService {
   ): Promise<AlertArea[]> {
     const mainExposureIndicator =
       await this.getMainExposureIndicator(disasterType);
+
     const whereFilters = {
       placeCode: In(alertPlaceCodes),
       indicator: mainExposureIndicator,
@@ -412,6 +413,7 @@ export class EventService {
     if (leadTime) {
       whereFilters['leadTime'] = leadTime;
     }
+
     const areas = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .where(whereFilters)
@@ -448,20 +450,18 @@ export class EventService {
       ])
       .getRawMany();
 
-    return areas.map((area) => {
-      return {
-        placeCode: area.placeCode,
-        name: area.name,
-        nameParent: null,
-        mainExposureValue: area.value,
-        forecastSeverity: null, // leave empty for now, as we don't show forecastSeverity on deeper levels
-        stopped: area.stopped,
-        startDate: area.startDate,
-        stoppedDate: area.stoppedDate,
-        displayName: area.displayName,
-        eapActions: [],
-      };
-    });
+    return areas.map((area) => ({
+      placeCode: area.placeCode,
+      name: area.name,
+      nameParent: null,
+      mainExposureValue: area.value,
+      forecastSeverity: null, // leave empty for now, as we don't show forecastSeverity on deeper levels
+      stopped: area.stopped,
+      startDate: area.startDate,
+      stoppedDate: area.stoppedDate,
+      displayName: area.displayName,
+      eapActions: [],
+    }));
   }
 
   public async getActivationLogData(
@@ -481,11 +481,11 @@ export class EventService {
         'case when event.closed = true then event."endDate" end as "endDate"',
         'disaster."mainExposureIndicator" as "exposureIndicator"',
         'event."mainExposureValue" as "exposureValue"',
-        `CASE 
-        WHEN event."forecastTrigger" = true THEN 'Trigger' 
-        WHEN event."forecastSeverity" = 1 THEN 'High warning' 
-        WHEN event."forecastSeverity" = 0.7 THEN 'Medium warning' 
-        WHEN event."forecastSeverity" = 0.3 THEN 'Low warning' 
+        `CASE
+        WHEN event."forecastTrigger" = true THEN 'Trigger'
+        WHEN event."forecastSeverity" = 1 THEN 'High warning'
+        WHEN event."forecastSeverity" = 0.7 THEN 'Medium warning'
+        WHEN event."forecastSeverity" = 0.3 THEN 'Low warning'
         END as "alertClass"`,
         'event."eventPlaceCodeId" as "databaseId"',
       ])
@@ -557,6 +557,7 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
+
     const whereFilters = {
       countryCodeISO3,
       timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
@@ -985,14 +986,16 @@ export class EventService {
     forecastTrigger: boolean,
     endDate: Date,
   ) {
-    if (eventPlaceCodeIds.length) {
-      await this.eventPlaceCodeRepo
-        .createQueryBuilder()
-        .update()
-        .set({ forecastTrigger, endDate })
-        .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
-        .execute();
+    if (!eventPlaceCodeIds.length) {
+      return;
     }
+
+    await this.eventPlaceCodeRepo
+      .createQueryBuilder()
+      .update()
+      .set({ forecastTrigger, endDate })
+      .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
+      .execute();
   }
 
   private async updateOtherEventData(openEventAreas: EventPlaceCodeEntity[]) {
