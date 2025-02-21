@@ -770,7 +770,7 @@ export class EventService {
         AND severity.eventName = exposure."eventName"
         AND severity.disasterType = exposure."disasterType"
         AND severity.leadTime = exposure."leadTime"
-        AND severity.indicator = :mainExposureIndicator`,
+        AND exposure.indicator = :mainExposureIndicator`,
         { mainExposureIndicator },
       )
       .where({
@@ -791,7 +791,6 @@ export class EventService {
       }));
     } else {
       // NOTE: remove after all pipelines migrated to new setup
-      // NOTE: this query could potentially be included in the query above for optimization, but not worth it for transition period only
       const areasWithAlertThresholdData = await this.adminAreaDynamicDataRepo
         .createQueryBuilder('alert')
         .select([
