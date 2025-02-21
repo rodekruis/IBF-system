@@ -120,12 +120,7 @@ export class TyphoonTrackService {
     const filters = {
       countryCodeISO3,
       eventName, // eventName is required because National View is currently not supported for Typhoon
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          DisasterType.Typhoon,
-          lastUploadDate.timestamp,
-        ),
-      ),
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
     };
     return filters;
   }

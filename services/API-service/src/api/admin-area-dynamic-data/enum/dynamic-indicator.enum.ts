@@ -7,6 +7,7 @@ export enum DynamicIndicator {
   alertThreshold = 'alert_threshold',
   forecastTrigger = 'forecast_trigger',
   forecastSeverity = 'forecast_severity',
+  trigger = 'trigger', // NOTE: this is the front-end layer that is calculated based on forecastTrigger and/or userTrigger
   potentialCases = 'potential_cases',
   potentialThreshold = 'potential_cases_threshold',
   cattleExposed = 'cattle_exposed',

@@ -413,7 +413,7 @@ export class MapService {
         ? this.state.colorGradientTriggered[2]
         : this.state.colorGradient[2],
       group:
-        indicator.name === IbfLayerName.alertThreshold
+        indicator.name === IbfLayerName.trigger
           ? IbfLayerGroup.outline
           : IbfLayerGroup.aggregates,
       order: 20 + indicator.order,
@@ -779,7 +779,7 @@ export class MapService {
     placeCodeParent: string,
     area: AlertArea,
   ) {
-    let weight = colorPropertyValue >= 1 ? 3 : 0.33;
+    let weight = colorPropertyValue === 1 ? 3 : 0.33;
     if (this.placeCode) {
       if (
         ![placeCode, placeCodeParent].includes(this.placeCode.placeCode) &&
@@ -792,7 +792,7 @@ export class MapService {
   }
 
   getOutlineColor(colorPropertyValue: number) {
-    return colorPropertyValue >= 1
+    return colorPropertyValue === 1
       ? this.triggeredAreaColor
       : this.nonTriggeredAreaColor;
   }
@@ -951,22 +951,16 @@ export class MapService {
   ) => {
     const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
     if (!area) {
-      const layer = this.layers.find(
-        (l) => l.name === IbfLayerName.alertThreshold,
-      );
+      const layer = this.layers.find((l) => l.name === IbfLayerName.trigger);
       const triggered = layer.data.features.find(
         (f) => f.properties['placeCode'] === placeCode,
-      ).properties['indicators'][IbfLayerName.alertThreshold];
+      ).properties['indicators'][IbfLayerName.trigger];
       return {
         color: triggered ? this.triggeredAreaColor : this.nonTriggeredAreaColor,
         weight: 5,
       };
     }
-    if (
-      !area.forecastSeverity ||
-      area.forecastSeverity < 1 ||
-      !this.eventState?.event?.forecastTrigger
-    ) {
+    if (!area.forecastTrigger || !this.eventState?.event?.forecastTrigger) {
       return {
         color: this.nonTriggeredAreaColor,
         weight: 5,

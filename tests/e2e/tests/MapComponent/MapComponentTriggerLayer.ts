@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   disasterType: string,
 ) => {
-  test('[33016] alert_threshold should be visible', async () => {
+  test('[33016] trigger outline layer should be visible', async () => {
     const { dashboard } = pages;
     const { userState, map } = components;
 
@@ -28,9 +28,9 @@ export default (
     await map.mapComponentIsVisible();
     await map.isLegendOpen({ legendOpen: true });
     await map.assertLegendElementIsVisible({
-      legendComponentName: 'Alert Threshold Reached',
+      legendComponentName: 'Area triggered',
     });
-    await map.assertAlertThresholdLines({ visible: false });
+    await map.assertTriggerOutlines({ visible: false });
 
     // Reload the page to prepare for next test
     await dashboard.page.goto('/');

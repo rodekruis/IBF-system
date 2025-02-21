@@ -10,6 +10,7 @@ import {
 import { GeoJson } from '../../../shared/geo.model';
 import { HelperService } from '../../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../../admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import { ALERT_LEVEL_INDICATORS } from '../../admin-area-dynamic-data/const/alert-level-indicators.const';
 import { AdminDataReturnDto } from '../../admin-area-dynamic-data/dto/admin-data-return.dto';
 import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
@@ -178,41 +179,62 @@ export class EventAreaService {
         disasterType,
         lastUploadDate,
         event,
-        indicator,
       );
 
       const record = new AdminDataReturnDto();
       record.placeCode = event.eventName;
-      record.value = aggregateValues[0].value;
+      record.value =
+        indicator === ALERT_LEVEL_INDICATORS.trigger
+          ? this.getCalculatedFieldTriggerValue(aggregateValues)
+          : aggregateValues.find((ind) => ind.indicator === indicator).value;
       records.push(record);
     }
     return records;
+  }
+
+  private getCalculatedFieldTriggerValue(
+    aggregateValues: { indicator: string; value: number }[],
+  ): number {
+    const forecastTrigger = aggregateValues.find(
+      (ind) => ind.indicator === DynamicIndicator.forecastTrigger,
+    );
+    // if 'forecast_trigger' available, use that ..
+    if (forecastTrigger) {
+      return forecastTrigger.value;
+    } else {
+      const forecastSeverity = aggregateValues.find(
+        (ind) => ind.indicator === DynamicIndicator.forecastSeverity,
+      );
+      // .. if not, then check 'forecast_severity' as 'forecast_trigger' is optional. If found, then 'forecast_trigger' is assumed false ..
+      if (forecastSeverity) {
+        return 0;
+      } else {
+        const alertThreshold = aggregateValues.find(
+          (ind) => ind.indicator === DynamicIndicator.alertThreshold,
+        );
+        // .. if also not found, then assume old style and look for alert_threshold
+        if (alertThreshold) {
+          return alertThreshold.value;
+        }
+      }
+    }
   }
 
   private async getEventAreaAggregatesPerIndicator(
     disasterType: DisasterType,
     lastUploadDate: LastUploadDateDto,
     event: EventSummaryCountry,
-    indicator?: DynamicIndicator,
   ): Promise<{ indicator: string; value: number }[]> {
     const whereFilters = {
-      timestamp: MoreThanOrEqual(
-        this.helperService.getUploadCutoffMoment(
-          disasterType,
-          lastUploadDate.timestamp,
-        ),
-      ),
-      disasterType: disasterType,
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
+      disasterType,
       eventName: event.eventName,
     };
-    if (indicator) {
-      whereFilters['indicator'] = indicator;
-    }
     return await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .select('dynamic."indicator"', 'indicator')
       .addSelect(
-        `CASE WHEN dynamic."indicator" = 'alert_threshold' THEN MAX(value) ELSE SUM(value) END as "value"`,
+        `CASE WHEN dynamic."indicator" IN ('${ALERT_LEVEL_INDICATORS.alertThreshold}','${ALERT_LEVEL_INDICATORS.forecastSeverity}','${ALERT_LEVEL_INDICATORS.forecastTrigger}') THEN MAX(value) ELSE SUM(value) END as "value"`, // NOTE: remove 'alert_threshold' after flash-floods pipeline migrated
       )
       .where(whereFilters)
       .groupBy('dynamic."indicator"')
