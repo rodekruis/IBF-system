@@ -291,10 +291,8 @@ export class EventService {
     if (eventName) {
       deleteFilters['eventName'] = eventName;
     }
-    const eventAreasToDelete = await this.eventPlaceCodeRepo.find({
-      where: deleteFilters,
-    });
-    await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
+
+    await this.eventPlaceCodeRepo.delete(deleteFilters);
   }
 
   public async getCountryDisasterSettings(
@@ -650,13 +648,8 @@ export class EventService {
     disasterType: DisasterType,
     lastUploadDate: LastUploadDateDto,
   ) {
-    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
-      disasterType,
-      lastUploadDate.timestamp,
-    );
-
     const whereFilters = {
-      timestamp: MoreThanOrEqual(uploadCutoffMoment),
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
       countryCodeISO3,
       disasterType,
     };
@@ -691,13 +684,6 @@ export class EventService {
       adminLevel,
       lastUploadDate,
       eventName,
-    );
-
-    await this.insertAlertsPerLeadTime(
-      countryCodeISO3,
-      disasterType,
-      eventName,
-      activeAlertAreas,
       lastUploadDate,
     );
 

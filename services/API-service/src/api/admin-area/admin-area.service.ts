@@ -379,9 +379,9 @@ export class AdminAreaService {
     lastUploadDate: LastUploadDateDto,
   ) {
     const whereFilters = {
-      countryCodeISO3: countryCodeISO3,
-      disasterType: disasterType,
-      adminLevel: adminLevel,
+      countryCodeISO3,
+      disasterType,
+      adminLevel,
       timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
       indicator: DynamicIndicator.showAdminArea,
       value: 1,
