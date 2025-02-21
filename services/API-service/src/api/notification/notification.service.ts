@@ -40,7 +40,7 @@ export class NotificationService {
       response.activeEvents = activeEventsResponse;
     }
 
-    // NOTE: the finished event email is currently broken. It needs to be
+    // NOTE: the finished event email is currently broken. It needs to be fixed. See AB#31766.
     // if (disasterType === DisasterType.Floods) {
     //   // Sending finished events is now for floods only
     //   const finishedEventsResponse = await this.sendNotificationsFinishedEvents(
@@ -53,11 +53,6 @@ export class NotificationService {
     //     response.finishedEvents = finishedEventsResponse;
     //   }
     // }
-
-    // NOTE: we used to run closeEventsAutomatic as a backup here for pipelines that did not yet call /close-events.
-    // This relied on the fact that closeEventsAutomatic was idempotent (could be repeated without consequence).
-    // This is no longer the case with the full processEvents() code, so instead we must make sure now to change all pipelines.
-    // await this.eventService.closeEventsAutomatic(countryCodeISO3, disasterType);
 
     if (isApiTest) {
       return response;
