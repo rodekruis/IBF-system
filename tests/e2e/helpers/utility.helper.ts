@@ -53,7 +53,7 @@ export function mockData(
   return getServer()
     .post(`/scripts/mock`)
     .set('Authorization', `Bearer ${accessToken}`)
-    .query({ disasterType, countryCodeISO3, isApiTest: true })
+    .query({ disasterType, countryCodeISO3, noNotifications: true })
     .send({
       scenario,
       secret: process.env.RESET_SECRET,

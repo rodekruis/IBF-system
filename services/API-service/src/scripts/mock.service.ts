@@ -82,7 +82,7 @@ export class MockService {
       | MalariaScenario,
     disasterType: DisasterType,
     useDefaultScenario: boolean,
-    isApiTest: boolean,
+    noNotifications: boolean,
   ) {
     if (removeEvents) {
       await this.removeEvents(countryCodeISO3, disasterType);
@@ -276,12 +276,12 @@ export class MockService {
     await this.processPipelineService.processEvents(
       selectedCountry.countryCodeISO3,
       disasterType,
-      isApiTest,
+      noNotifications,
     );
 
     // Add the needed stores and layers to geoserver, only do this in debug mode
     // The resulting XML files should be commited to git and will end up on the servers that way
-    if (DEBUG && !isApiTest) {
+    if (DEBUG && !noNotifications) {
       await this.geoServerSyncService.sync(
         selectedCountry.countryCodeISO3,
         disasterType,
@@ -505,7 +505,7 @@ export class MockService {
     mockInput: MockInputDto,
     disasterType?: DisasterType,
     countryCodeISO3?: string,
-    isApiTest = false,
+    noNotifications = false,
   ) {
     const countryCodes = countryCodeISO3
       ? [countryCodeISO3]
@@ -538,7 +538,7 @@ export class MockService {
           mockInput.scenario,
           disasterType,
           false,
-          isApiTest,
+          noNotifications,
         );
       }
     }

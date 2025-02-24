@@ -40,11 +40,11 @@ export class EmailService {
     return Number(segments[countryDisaster]);
   }
 
-  public async sendTriggerEmail(
+  public async sendActiveEventsEmail(
     country: CountryEntity,
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
-    isApiTest: boolean,
+    noNotifications: boolean,
     date?: Date,
   ): Promise<void | string> {
     date = date ? new Date(date) : new Date();
@@ -61,7 +61,7 @@ export class EmailService {
       date,
     });
 
-    if (isApiTest) {
+    if (noNotifications) {
       // NOTE: use this to test the email output instead of using Mailchimp
       // fs.writeFileSync(
       //   `email-${country.countryCodeISO3}-${disasterType}-${new Date()}.html`,
@@ -81,11 +81,11 @@ export class EmailService {
     );
   }
 
-  public async sendTriggerFinishedEmail(
+  public async sendEventFinishedEmail(
     country: CountryEntity,
     disasterType: DisasterType,
     finishedEvents: EventSummaryCountry[],
-    isApiTest: boolean,
+    noNotifications: boolean,
     date?: Date,
   ): Promise<void | string> {
     const disasterTypeLabel =
@@ -103,7 +103,7 @@ export class EmailService {
       date,
     });
 
-    if (isApiTest) {
+    if (noNotifications) {
       return emailHtml;
     }
     const emailSubject = `IBF ${disasterTypeLabel} ended`;

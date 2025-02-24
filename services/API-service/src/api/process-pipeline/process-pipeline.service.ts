@@ -17,7 +17,7 @@ export class ProcessPipelineService {
   public async processEvents(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    isApiTest = false,
+    noNotifications = false,
   ): Promise<void | NotificationApiTestResponseDto> {
     const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
@@ -65,7 +65,7 @@ export class ProcessPipelineService {
     return await this.notificationService.send(
       countryCodeISO3,
       disasterType,
-      isApiTest,
+      noNotifications,
       lastUploadDate.timestamp,
     );
   }

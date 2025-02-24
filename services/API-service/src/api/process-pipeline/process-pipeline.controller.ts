@@ -85,7 +85,7 @@ export class ProcessPipelineController {
       'Notification request sent (actual e-mails/whatsapps sent only if there is an active event)',
   })
   @ApiQuery({
-    name: 'isApiTest',
+    name: 'noNotifications',
     required: false,
     schema: { default: false, type: 'boolean' },
     type: 'boolean',
@@ -98,17 +98,17 @@ export class ProcessPipelineController {
   public async send(
     @Body() sendNotification: ProcessEventsDto,
     @Query(
-      'isApiTest',
+      'noNotifications',
       new ParseBoolPipe({
         optional: true,
       }),
     )
-    isApiTest: boolean,
+    noNotifications: boolean,
   ): Promise<void | NotificationApiTestResponseDto> {
     return await this.processPipelineService.processEvents(
       sendNotification.countryCodeISO3,
       sendNotification.disasterType,
-      isApiTest,
+      noNotifications,
     );
   }
 }
