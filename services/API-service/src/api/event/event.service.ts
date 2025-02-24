@@ -307,7 +307,10 @@ export class EventService {
         where: { countryCodeISO3 },
         relations: ['countryDisasterSettings'],
       })
-    ).countryDisasterSettings.find((d) => d.disasterType === disasterType);
+    ).countryDisasterSettings.find(
+      (countryDisasterSettings: CountryDisasterSettingsEntity) =>
+        countryDisasterSettings.disasterType === disasterType,
+    );
   }
 
   public async getAlertAreas(
@@ -598,7 +601,8 @@ export class EventService {
     for (const leadTimeKey in LeadTime) {
       const leadTimeUnit = LeadTime[leadTimeKey];
       const leadTimeIsAlerted = alertsPerLeadTime.find(
-        (el): boolean => el.leadTime === leadTimeUnit,
+        (alertPerLeadTime: AlertPerLeadTimeEntity): boolean =>
+          alertPerLeadTime.leadTime === leadTimeUnit,
       );
       // REFACTOR: don't reformat the data structure so much, but keep (and use in front-end) closer to how the data is stored
       if (leadTimeIsAlerted) {
@@ -892,7 +896,8 @@ export class EventService {
         relations: ['countryDisasterSettings'],
       });
       return country.countryDisasterSettings.find(
-        (settings) => settings.disasterType === disasterType,
+        (countryDisasterSettings: CountryDisasterSettingsEntity) =>
+          countryDisasterSettings.disasterType === disasterType,
       ).activeLeadTimes;
     }
   }
@@ -906,7 +911,8 @@ export class EventService {
       relations: ['countryDisasterSettings'],
     });
     const droughtSeasonRegions = country.countryDisasterSettings.find(
-      (s) => s.disasterType === DisasterType.Drought,
+      (countryDisasterSettings: CountryDisasterSettingsEntity) =>
+        countryDisasterSettings.disasterType === DisasterType.Drought,
     ).droughtSeasonRegions;
 
     // for no events, look at all seasons in all regions
@@ -955,7 +961,7 @@ export class EventService {
     const triggerAreaIdsToUpdate: string[] = [];
     const warningAreaIdsToUpdate: string[] = [];
     const areasToUpdate: EventPlaceCodeEntity[] = [];
-    activeEventAreas.forEach((activeEventArea) => {
+    activeEventAreas.forEach((activeEventArea: EventPlaceCodeEntity) => {
       const activeAlertArea = activeAlertAreas.find(
         (area) => area.placeCode === activeEventArea.adminArea.placeCode,
       );
@@ -1052,7 +1058,10 @@ export class EventService {
         },
         relations: ['adminArea'],
       })
-    ).map((area) => area.adminArea.placeCode);
+    ).map(
+      (eventPlaceCode: EventPlaceCodeEntity) =>
+        eventPlaceCode.adminArea.placeCode,
+    );
     const newEventAreas: EventPlaceCodeEntity[] = [];
     for await (const activeAlertArea of activeAlertAreas) {
       if (!activeEventAreaPlaceCodes.includes(activeAlertArea.placeCode)) {
