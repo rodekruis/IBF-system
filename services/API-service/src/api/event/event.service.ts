@@ -689,6 +689,14 @@ export class EventService {
       eventName,
     );
 
+    await this.insertAlertsPerLeadTime(
+      countryCodeISO3,
+      disasterType,
+      eventName,
+      activeAlertAreas,
+      lastUploadDate,
+    );
+
     // update existing event areas + update population and end_date
     await this.updateExistingEventAreas(
       countryCodeISO3,
