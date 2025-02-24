@@ -75,7 +75,7 @@ class ChatComponent extends DashboardPage {
     // Formatted Strings
     const chatDialogueContent = cleanedString
       .replace('{{ name }}', `${firstName} ${lastName}`)
-      .replace('{{lastModelRunDate}}', lastUploadDate);
+      .replace('{{lastUploadDate}}', lastUploadDate);
 
     const chatDialogueContentWelcomeNoTrigger =
       EnglishTranslations['chat-component'][disasterType]['no-event-no-trigger']
