@@ -10,7 +10,7 @@ import {
 
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 
-export class CountryDisasterTypeDto {
+export class ProcessEventsDto {
   @ApiProperty({
     example: Object.values(process.env.COUNTRIES.split(',')).join(' | '),
   })

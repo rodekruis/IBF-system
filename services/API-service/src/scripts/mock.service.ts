@@ -2,7 +2,7 @@ import fs from 'fs';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { In, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
@@ -19,8 +19,9 @@ import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { EventService } from '../api/event/event.service';
 import { MetadataService } from '../api/metadata/metadata.service';
 import { PointDataService } from '../api/point-data/point-data.service';
+import { ProcessPipelineService } from '../api/process-pipeline/process-pipeline.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
-import { DEBUG } from '../config';
+import { DEBUG, MOCK_USE_OLD_PIPELINE_UPLOAD } from '../config';
 import { MockInputDto } from './dto/mock-input.dto';
 import {
   DroughtScenario,
@@ -61,6 +62,7 @@ export class MockService {
     private metadataService: MetadataService,
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private eventService: EventService,
+    private processPipelineService: ProcessPipelineService,
     private pointDataService: PointDataService,
     private adminAreaService: AdminAreaService,
     private typhoonTrackService: TyphoonTrackService,
@@ -115,11 +117,7 @@ export class MockService {
       (s) => s.disasterType === disasterType,
     ).adminLevels;
 
-    const indicators = await this.getIndicators(
-      countryCodeISO3,
-      disasterType,
-      scenario.scenarioName,
-    );
+    const indicators = await this.getIndicators(countryCodeISO3, disasterType);
 
     if (!scenario.events) {
       // No events scenario
@@ -189,17 +187,32 @@ export class MockService {
         }
 
         if (this.shouldMockAlertPerLeadTime(disasterType)) {
-          const alertsPerLeadTime = this.getFile(
-            `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-lead-time.json`,
-          );
+          if (MOCK_USE_OLD_PIPELINE_UPLOAD) {
+            // Old endpoint
+            const triggersPerLeadTime = this.getFile(
+              `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-lead-time.json`,
+            );
 
-          await this.eventService.uploadAlertsPerLeadTime({
-            countryCodeISO3,
-            alertsPerLeadTime,
-            disasterType: DisasterType.Floods,
-            eventName: event.eventName,
-            date,
-          });
+            await this.eventService.convertOldDtoAndUploadAlertPerLeadTime({
+              countryCodeISO3,
+              triggersPerLeadTime,
+              disasterType: DisasterType.Floods,
+              eventName: event.eventName,
+              date,
+            });
+          } else {
+            const alertsPerLeadTime = this.getFile(
+              `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-lead-time.json`,
+            );
+
+            await this.eventService.uploadAlertsPerLeadTime({
+              countryCodeISO3,
+              alertsPerLeadTime,
+              disasterType: DisasterType.Floods,
+              eventName: event.eventName,
+              date,
+            });
+          }
         }
 
         if (this.shouldMockTyphoonTrack(disasterType)) {
@@ -260,9 +273,10 @@ export class MockService {
     }
 
     // Process events
-    await this.eventService.processEvents(
+    await this.processPipelineService.processEvents(
       selectedCountry.countryCodeISO3,
       disasterType,
+      isApiTest,
     );
 
     // Add the needed stores and layers to geoserver, only do this in debug mode
@@ -285,9 +299,9 @@ export class MockService {
     const adminAreas = await this.adminAreaService.getAdminAreasRaw(
       selectedCountry.countryCodeISO3,
     );
-    const leadTimesForNoTrigger = this.getLeadTimesNoEvents(
+    const leadTimesForNoEvents = await this.eventService.getLeadTimesNoEvents(
       disasterType,
-      selectedCountry,
+      selectedCountry.countryCodeISO3,
       date,
     );
     for (const indicator of indicators) {
@@ -295,7 +309,7 @@ export class MockService {
         const exposurePlaceCodes = adminAreas
           .filter((area) => area.adminLevel === adminLevel)
           .map((area) => ({ placeCode: area.placeCode, amount: 0 }));
-        for (const leadTime of leadTimesForNoTrigger) {
+        for (const leadTime of leadTimesForNoEvents) {
           await this.adminAreaDynamicDataService.exposure({
             countryCodeISO3: selectedCountry.countryCodeISO3,
             exposurePlaceCodes: exposurePlaceCodes,
@@ -313,37 +327,11 @@ export class MockService {
     if (this.shouldMockTyphoonTrack(disasterType)) {
       await this.typhoonTrackService.uploadTyphoonTrack({
         countryCodeISO3: selectedCountry.countryCodeISO3,
-        leadTime: leadTimesForNoTrigger[0] as LeadTime,
+        leadTime: leadTimesForNoEvents[0] as LeadTime,
         eventName: null,
         trackpointDetails: [],
         date,
       });
-    }
-  }
-
-  private getLeadTimesNoEvents(
-    disasterType: DisasterType,
-    selectedCountry: Country,
-    date: Date,
-  ): LeadTime[] {
-    // NOTE: this reflects agreements with pipelines that are in place. This is ugly, and should be refactored better.
-    // When moving typhoon/droughts to this new mock-service, check well how this behaves / should be changed.
-    if (disasterType === DisasterType.Floods) {
-      return [LeadTime.day1];
-    } else if (disasterType === DisasterType.FlashFloods) {
-      return [LeadTime.hour1];
-    } else if (disasterType === DisasterType.Drought) {
-      const leadTime = this.mockHelpService.getLeadTimeDroughtNoEvents(
-        selectedCountry,
-        date,
-      );
-      return [leadTime];
-    } else if (disasterType === DisasterType.Typhoon) {
-      return [LeadTime.hour72];
-    } else {
-      return selectedCountry.countryDisasterSettings.find(
-        (settings) => settings.disasterType === disasterType,
-      ).activeLeadTimes;
     }
   }
 
@@ -378,32 +366,34 @@ export class MockService {
   private async getIndicators(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    scenarioName: string,
   ) {
     const indicators =
       await this.metadataService.getIndicatorsByCountryAndDisaster(
         countryCodeISO3,
         disasterType,
       );
-    let dynamicIndicators = indicators
-      .filter((ind) => ind.dynamic)
+    const dynamicIndicators = indicators
+      .filter((ind) => ind.dynamic && ind.name !== DynamicIndicator.trigger)
       .map((ind) => ind.name as DynamicIndicator);
 
     if (disasterType === DisasterType.Typhoon) {
       dynamicIndicators.push(DynamicIndicator.showAdminArea);
-      // is this needed?
-      if (scenarioName === TyphoonScenario.NoTrigger) {
-        dynamicIndicators = [
-          DynamicIndicator.housesAffected,
-          DynamicIndicator.alertThreshold,
-        ];
-      }
     }
 
-    // Make sure 'alert_threshold' is uploaded last
-    return dynamicIndicators.sort((a, _b) =>
-      a === DynamicIndicator.alertThreshold ? 1 : -1,
-    );
+    // NOTE: update this when all pipelines migrated to new setup.
+    if (MOCK_USE_OLD_PIPELINE_UPLOAD) {
+      dynamicIndicators.push(DynamicIndicator.alertThreshold);
+    } else {
+      // REFACTOR: these indicators always need to be mocked, but are not user-facing layers and thus not in indicator-metadata.json. Refactor this setup.
+      dynamicIndicators.push(
+        ...[
+          DynamicIndicator.forecastSeverity,
+          DynamicIndicator.forecastTrigger,
+        ],
+      );
+    }
+
+    return dynamicIndicators;
   }
 
   private getMockExposureData(
@@ -455,13 +445,10 @@ export class MockService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ) {
-    const countryAdminAreaIds =
-      await this.eventService.getCountryAdminAreaIds(countryCodeISO3);
-
     const allCountryEvents = await this.eventPlaceCodeRepo.find({
       relations: ['eapActionStatuses', 'adminArea'],
       where: {
-        adminArea: In(countryAdminAreaIds),
+        adminArea: { countryCodeISO3 },
         disasterType,
       },
     });

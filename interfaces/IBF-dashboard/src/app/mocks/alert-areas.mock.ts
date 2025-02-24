@@ -5,6 +5,7 @@ export const MOCK_ALERT_AREAS: AlertArea[] = [
   {
     mainExposureValue: 1,
     forecastSeverity: 1,
+    forecastTrigger: true,
     displayName: 'Guba',
     eapActions: [],
     eventPlaceCodeId: '',
@@ -18,6 +19,7 @@ export const MOCK_ALERT_AREAS: AlertArea[] = [
   {
     mainExposureValue: 1,
     forecastSeverity: 1,
+    forecastTrigger: true,
     displayName: 'Derkhale',
     eapActions: [],
     eventPlaceCodeId: '',

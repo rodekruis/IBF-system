@@ -11,7 +11,13 @@ import { GeoJson } from '../../../shared/geo.model';
 import { HelperService } from '../../../shared/helper.service';
 import { AdminAreaDynamicDataEntity } from '../../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from '../../admin-area-dynamic-data/dto/admin-data-return.dto';
-import { DynamicIndicator } from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
+import {
+  ALERT_THRESHOLD,
+  DynamicIndicator,
+  FORECAST_SEVERITY,
+  FORECAST_TRIGGER,
+  TRIGGER,
+} from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
@@ -74,10 +80,6 @@ export class EventAreaService {
       countryCodeISO3,
       disasterType.disasterType,
     );
-    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
-      disasterType.disasterType,
-      lastUploadDate.timestamp,
-    );
 
     for await (const event of events) {
       const eventArea = await this.eventAreaRepository
@@ -99,7 +101,7 @@ export class EventAreaService {
         .createQueryBuilder('dynamic')
         .select('SUM(value)', 'value') // TODO: facilitate other aggregate-cases than SUM
         .where({
-          timestamp: MoreThanOrEqual(uploadCutoffMoment),
+          timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
           disasterType: disasterType.disasterType,
           indicator: disasterType.mainExposureIndicator,
           eventName: event.eventName,
@@ -178,43 +180,63 @@ export class EventAreaService {
         disasterType,
         lastUploadDate,
         event,
-        indicator,
       );
 
       const record = new AdminDataReturnDto();
       record.placeCode = event.eventName;
-      record.value = aggregateValues[0].value;
+      record.value =
+        indicator === TRIGGER
+          ? this.getCalculatedFieldTriggerValue(aggregateValues)
+          : aggregateValues.find((ind) => ind.indicator === indicator).value;
       records.push(record);
     }
     return records;
+  }
+
+  private getCalculatedFieldTriggerValue(
+    aggregateValues: { indicator: string; value: number }[],
+  ): number {
+    const forecastTrigger = aggregateValues.find(
+      (ind) => ind.indicator === DynamicIndicator.forecastTrigger,
+    );
+    // if 'forecast_trigger' available, use that ..
+    if (forecastTrigger) {
+      return forecastTrigger.value;
+    } else {
+      const forecastSeverity = aggregateValues.find(
+        (ind) => ind.indicator === DynamicIndicator.forecastSeverity,
+      );
+      // .. if not, then check 'forecast_severity' as 'forecast_trigger' is optional. If found, then 'forecast_trigger' is assumed false ..
+      if (forecastSeverity) {
+        return 0;
+      } else {
+        const alertThreshold = aggregateValues.find(
+          (ind) => ind.indicator === DynamicIndicator.alertThreshold,
+        );
+        // .. if also not found, then assume old style and look for alert_threshold
+        if (alertThreshold) {
+          return alertThreshold.value;
+        }
+      }
+    }
   }
 
   private async getEventAreaAggregatesPerIndicator(
     disasterType: DisasterType,
     lastUploadDate: LastUploadDateDto,
     event: EventSummaryCountry,
-    indicator?: DynamicIndicator,
   ): Promise<{ indicator: string; value: number }[]> {
-    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
-      disasterType,
-      lastUploadDate.timestamp,
-    );
-
     const whereFilters = {
-      timestamp: MoreThanOrEqual(uploadCutoffMoment),
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
       disasterType,
       eventName: event.eventName,
     };
-
-    if (indicator) {
-      whereFilters['indicator'] = indicator;
-    }
 
     return this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .select('dynamic."indicator"', 'indicator')
       .addSelect(
-        `CASE WHEN dynamic."indicator" = 'alert_threshold' THEN MAX(value) ELSE SUM(value) END as "value"`,
+        `CASE WHEN dynamic."indicator" IN ('${ALERT_THRESHOLD}','${FORECAST_SEVERITY}','${FORECAST_TRIGGER}') THEN MAX(value) ELSE SUM(value) END as "value"`, // NOTE: remove 'alert_threshold' after flash-floods pipeline migrated
       )
       .where(whereFilters)
       .groupBy('dynamic."indicator"')

@@ -20,25 +20,26 @@ graph LR
   AdminAreaDynamicDataModule-->CountryModule
   AdminAreaDynamicDataModule-->AdminAreaModule
   DisasterTypeModule-->UserModule
+  ProcessPipelineModule-->UserModule
+  ProcessPipelineModule-->EventModule
+  ProcessPipelineModule-->NotificationModule
+  NotificationModule-->UserModule
+  NotificationModule-->EventModule
+  NotificationModule-->WhatsappModule
+  WhatsappModule-->LookupModule
+  WhatsappModule-->EventModule
+  WhatsappModule-->NotificationContentModule
+  NotificationContentModule-->EventModule
+  NotificationContentModule-->AdminAreaDataModule
+  AdminAreaDataModule-->UserModule
+  NotificationContentModule-->AdminAreaModule
+  NotificationModule-->NotificationContentModule
+  NotificationModule-->TyphoonTrackModule
   MetadataModule-->UserModule
   MetadataModule-->CountryModule
   MetadataModule-->EventModule
   PointDataModule-->UserModule
   PointDataModule-->WhatsappModule
-  WhatsappModule-->LookupModule
-  WhatsappModule-->EventModule
-  WhatsappModule-->NotificationContentModule
-  NotificationContentModule-->EventModule
-  NotificationContentModule-->AdminAreaDynamicDataModule
-  NotificationContentModule-->AdminAreaDataModule
-  AdminAreaDataModule-->UserModule
-  NotificationContentModule-->AdminAreaModule
   LinesDataModule-->UserModule
-  NotificationModule-->UserModule
-  NotificationModule-->EventModule
-  NotificationModule-->AdminAreaDynamicDataModule
-  NotificationModule-->WhatsappModule
-  NotificationModule-->NotificationContentModule
-  NotificationModule-->TyphoonTrackModule
   CronjobModule-->AdminAreaDynamicDataModule
 ```

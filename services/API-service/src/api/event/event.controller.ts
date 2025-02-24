@@ -22,7 +22,6 @@ import { AlertArea, EventSummaryCountry } from '../../shared/data.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
-import { CountryDisasterTypeDto } from './dto/country-disaster-type.dto';
 import {
   ActivationLogDto,
   EventPlaceCodeDto,
@@ -116,17 +115,16 @@ export class EventController {
   @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
-      'Get alerted admin-areas for given country, disaster-type and lead-time.',
+      'Get alerted admin-areas for given country, disaster-type, admin-level (and event-name).',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiQuery({ name: 'leadTime', required: false, type: 'string' })
   @ApiQuery({ name: 'eventName', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
     description:
-      'Alerted admin-areas for given country, disaster-type and lead-time.',
+      'Alerted admin-areas for given country, disaster-type, admin-level (and event-name).',
     type: [AlertArea],
   })
   @Get('alert-areas/:countryCodeISO3/:adminLevel/:disasterType')
@@ -138,7 +136,6 @@ export class EventController {
       params.countryCodeISO3,
       params.disasterType,
       params.adminLevel,
-      query.leadTime,
       query.eventName,
     );
   }
@@ -202,7 +199,9 @@ export class EventController {
   public async uploadTriggerPerLeadTime(
     @Body() uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
   ): Promise<void> {
-    await this.eventService.convertDtoAndUpload(uploadTriggerPerLeadTimeDto);
+    await this.eventService.convertOldDtoAndUploadAlertPerLeadTime(
+      uploadTriggerPerLeadTimeDto,
+    );
   }
 
   @UseGuards(RolesGuard)
@@ -219,47 +218,5 @@ export class EventController {
     @Body() uploadAlertsPerLeadTimeDto: UploadAlertsPerLeadTimeDto,
   ): Promise<void> {
     await this.eventService.uploadAlertsPerLeadTime(uploadAlertsPerLeadTimeDto);
-  }
-
-  // NOTE: keep this endpoint in until all pipelines migrated to /event/process
-  @UseGuards(RolesGuard)
-  @Roles(UserRole.PipelineUser)
-  @ApiOperation({
-    summary:
-      'Close events automatically for given country and disaster-type. Must be run at end of every pipeline. As a backup, the same logic is also in /notification/send endpoint.',
-  })
-  @ApiResponse({
-    status: 201,
-    description: 'Closed finished events.',
-  })
-  @Post('close-events')
-  public async closeEvents(
-    @Body() closeEventsDto: CountryDisasterTypeDto,
-  ): Promise<void> {
-    // NOTE: this old endpoint will also point to this new method already
-    await this.eventService.processEvents(
-      closeEventsDto.countryCodeISO3,
-      closeEventsDto.disasterType,
-    );
-  }
-
-  @UseGuards(RolesGuard)
-  @Roles(UserRole.PipelineUser)
-  @ApiOperation({
-    summary:
-      'Process events for given country and disaster-type. Must be run at end of every pipeline.',
-  })
-  @ApiResponse({
-    status: 201,
-    description: 'Processed events.',
-  })
-  @Post('process')
-  public async processEvents(
-    @Body() processEventsDto: CountryDisasterTypeDto,
-  ): Promise<void> {
-    await this.eventService.processEvents(
-      processEventsDto.countryCodeISO3,
-      processEventsDto.disasterType,
-    );
   }
 }

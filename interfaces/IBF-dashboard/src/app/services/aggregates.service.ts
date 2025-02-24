@@ -162,7 +162,7 @@ export class AggregatesService {
       }
 
       aggregate.areaStatus =
-        Number(aggregate[IbfLayerName.alertThreshold]) > 0
+        Number(aggregate[IbfLayerName.trigger]) === 1
           ? AreaStatus.Alert
           : Number(aggregate[this.disasterType.mainExposureIndicator]) > 0 &&
               this.eventState.events?.length > 0
@@ -238,7 +238,6 @@ export class AggregatesService {
     indicator: IbfLayerName,
     placeCode: string,
     numberFormat: NumberFormat,
-    areaStatus: AreaStatus,
   ): number {
     let weighingIndicatorName: IbfLayerName;
     if (this.disasterType) {
@@ -246,7 +245,7 @@ export class AggregatesService {
     }
 
     const weighedSum = this.aggregates
-      .filter((a) => a.areaStatus === areaStatus)
+      .filter((a) => a.areaStatus === AreaStatus.Alert)
       .reduce(
         this.aggregateReducer(
           weightedAverage,

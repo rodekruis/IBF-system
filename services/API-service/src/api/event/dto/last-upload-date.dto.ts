@@ -5,4 +5,6 @@ export class LastUploadDateDto {
   public date: string;
   @ApiProperty({ example: new Date() })
   public timestamp: Date;
+  @ApiProperty({ example: new Date() })
+  public cutoffMoment: Date;
 }

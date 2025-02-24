@@ -15,10 +15,7 @@ import {
 } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
-import {
-  AggregatesService,
-  AreaStatus,
-} from 'src/app/services/aggregates.service';
+import { AggregatesService } from 'src/app/services/aggregates.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
@@ -200,7 +197,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       indicatorName,
       this.getPlaceCodeValue(),
       numberFormat,
-      AreaStatus.Alert,
     );
 
     return agg;
@@ -319,7 +315,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   private getAreaCount(): number {
-    return this.aggregatesService.nrAlertAreas;
+    return this.aggregatesService.nrAlertAreas ?? 0;
   }
 
   private getEventCount(): number {

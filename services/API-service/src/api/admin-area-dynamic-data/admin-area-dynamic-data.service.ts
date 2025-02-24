@@ -14,20 +14,12 @@ import {
 import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
 import { HelperService } from '../../shared/helper.service';
 import { EventAreaService } from '../admin-area/services/event-area.service';
-import { CountryEntity } from '../country/country.entity';
-import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
-import { AlertPerLeadTimeEntity } from '../event/alert-per-lead-time.entity';
-import { UploadAlertsPerLeadTimeDto } from '../event/dto/upload-alerts-per-lead-time.dto';
 import { EventService } from '../event/event.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
-import { DynamicDataPlaceCodeDto } from './dto/dynamic-data-place-code.dto';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
-import {
-  ALERT_THRESHOLD,
-  DynamicIndicator,
-} from './enum/dynamic-indicator.enum';
+import { DynamicIndicator, TRIGGER } from './enum/dynamic-indicator.enum';
 import { LeadTime } from './enum/lead-time.enum';
 
 interface RasterData {
@@ -39,14 +31,10 @@ interface RasterData {
 export class AdminAreaDynamicDataService {
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
-  @InjectRepository(DisasterTypeEntity)
-  private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
-  @InjectRepository(CountryEntity)
-  private readonly countryRepository: Repository<CountryEntity>;
 
   public constructor(
-    private eventService: EventService,
     private eventAreaService: EventAreaService,
+    private eventService: EventService,
     private helperService: HelperService,
     private dataSource: DataSource,
   ) {}
@@ -87,32 +75,6 @@ export class AdminAreaDynamicDataService {
       areas.push(area);
     }
     await this.adminAreaDynamicDataRepo.save(areas);
-
-    const country = await this.countryRepository.findOne({
-      relations: ['countryDisasterSettings'],
-      where: { countryCodeISO3: uploadExposure.countryCodeISO3 },
-    });
-
-    if (
-      uploadExposure.dynamicIndicator === ALERT_THRESHOLD &&
-      uploadExposure.exposurePlaceCodes.length > 0 &&
-      country.countryDisasterSettings.find(
-        (s) => s.disasterType === uploadExposure.disasterType,
-      ).defaultAdminLevel === uploadExposure.adminLevel
-    ) {
-      // NOTE: keep this functionality here instead of in /events/process for now, as this also needs to be called in case of no-events upload
-      // REFACTOR: this whole setup/table/functionality should maybe change in the future
-      await this.insertAlertPerLeadTime(uploadExposure);
-
-      // NOTE: remove, but leave commented here for clarity for now
-      // await this.eventService.processEventAreas(
-      //   uploadExposure.countryCodeISO3,
-      //   uploadExposure.disasterType,
-      //   uploadExposure.adminLevel,
-      //   uploadExposure.eventName,
-      //   uploadExposure.date || new Date(),
-      // );
-    }
   }
 
   private getEventNameException(
@@ -155,48 +117,9 @@ export class AdminAreaDynamicDataService {
     return this.adminAreaDynamicDataRepo.delete(deleteFilters);
   }
 
-  private async insertAlertPerLeadTime(
-    uploadExposure: UploadAdminAreaDynamicDataDto,
-  ): Promise<AlertPerLeadTimeEntity[]> {
-    const forecastTrigger = this.isForecastTrigger(
-      uploadExposure.exposurePlaceCodes,
-    );
-
-    const forecastAlert = !!uploadExposure.eventName; // NOTE AB#32041: eventName being filled or not should no longer be needed to distinguish alert/warning from no alert.
-
-    const uploadAlertsPerLeadTimeDto = new UploadAlertsPerLeadTimeDto();
-    uploadAlertsPerLeadTimeDto.countryCodeISO3 = uploadExposure.countryCodeISO3;
-    uploadAlertsPerLeadTimeDto.disasterType = uploadExposure.disasterType;
-    uploadAlertsPerLeadTimeDto.eventName = uploadExposure.eventName;
-    uploadAlertsPerLeadTimeDto.alertsPerLeadTime = [
-      {
-        leadTime: uploadExposure.leadTime as LeadTime,
-        forecastAlert,
-        forecastTrigger,
-      },
-    ];
-    uploadAlertsPerLeadTimeDto.date = uploadExposure.date || new Date();
-
-    return this.eventService.uploadAlertsPerLeadTime(
-      uploadAlertsPerLeadTimeDto,
-    );
-  }
-
-  private isForecastTrigger(
-    exposurePlaceCodes: DynamicDataPlaceCodeDto[],
-  ): boolean {
-    for (const exposurePlaceCode of exposurePlaceCodes) {
-      // NOTE AB#32041: this functionality will change in new setup
-      if (Number(exposurePlaceCode.amount) === 1) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   public async getAdminAreaDynamicData(
     countryCodeISO3: string,
-    adminLevel: string,
+    adminLevel: number,
     indicator: DynamicIndicator,
     disasterType: DisasterType,
     leadTime: LeadTime,
@@ -217,17 +140,28 @@ export class AdminAreaDynamicDataService {
       );
     }
 
-    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
-      disasterType,
-      lastUploadDate.timestamp,
-    );
+    // NOTE: 'trigger' is a calculated field, and not actually in db. The calculation is done here.
+    if (indicator === TRIGGER) {
+      // NOTE: this only gets alert areas, not all, but that is actually fine for the front-end
+      const alertAreas = await this.eventService.getActiveAlertAreas(
+        countryCodeISO3,
+        disasterType,
+        adminLevel,
+        lastUploadDate,
+        eventName,
+      );
+      return alertAreas.map((area) => ({
+        value: area.forecastTrigger ? 1 : 0,
+        placeCode: area.placeCode,
+      }));
+    }
 
     const whereFilters = {
-      countryCodeISO3: countryCodeISO3,
+      countryCodeISO3,
       adminLevel: Number(adminLevel),
-      indicator: indicator,
-      disasterType: disasterType,
-      timestamp: MoreThanOrEqual(uploadCutoffMoment),
+      indicator,
+      disasterType,
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
     };
     if (eventName) {
       whereFilters['eventName'] = eventName;

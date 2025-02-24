@@ -2,16 +2,14 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { HelperService } from '../../shared/helper.service';
+import { EventModule } from '../event/event.module';
 import { IndicatorMetadataEntity } from '../metadata/indicator-metadata.entity';
 import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
 import { UserModule } from '../user/user.module';
-import { AdminAreaDynamicDataModule } from './../admin-area-dynamic-data/admin-area-dynamic-data.module';
-import { EventModule } from './../event/event.module';
 import { EmailService } from './email/email.service';
 import { MjmlService } from './email/mjml.service';
 import { NotificationInfoEntity } from './notifcation-info.entity';
 import { NotificationContentModule } from './notification-content/notification-content.module';
-import { NotificationController } from './notification.controller';
 import { NotificationService } from './notification.service';
 import { WhatsappModule } from './whatsapp/whatsapp.module';
 
@@ -20,12 +18,12 @@ import { WhatsappModule } from './whatsapp/whatsapp.module';
     TypeOrmModule.forFeature([NotificationInfoEntity, IndicatorMetadataEntity]),
     UserModule,
     EventModule,
-    AdminAreaDynamicDataModule,
     WhatsappModule,
     NotificationContentModule,
     TyphoonTrackModule,
   ],
-  controllers: [NotificationController],
+  controllers: [],
   providers: [NotificationService, EmailService, MjmlService, HelperService],
+  exports: [NotificationService],
 })
 export class NotificationModule {}

@@ -114,4 +114,3 @@
 * filter for eventName at more places ([f766101](https://github.com/rodekruis/IBF-system/commit/f766101962c010e89f90497585b2e8dd666c07e2))
 
 
-

@@ -4,12 +4,12 @@ import csv from 'csv-parser';
 import { DataSource } from 'typeorm';
 import { Readable } from 'typeorm/platform/PlatformTools';
 
+import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import {
   LeadTime,
   LeadTimeUnit,
 } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
-import { AlertPerLeadTimeEntity } from '../api/event/alert-per-lead-time.entity';
 import { LastUploadDateDto } from '../api/event/dto/last-upload-date.dto';
 import { NumberFormat } from './enums/number-format.enum';
 import { GeoJson, GeoJsonFeature } from './geo.model';
@@ -94,11 +94,10 @@ export class HelperService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<LastUploadDateDto> {
-    const alertPerLeadTimeRepository = this.dataSource.getRepository(
-      AlertPerLeadTimeEntity,
+    const adminAreaDynamicDataRepository = this.dataSource.getRepository(
+      AdminAreaDynamicDataEntity,
     );
-    // REFACTOR: this data could just as well be based on adminAreaDynamicDataRepository, thereby reducing a need for this table to remain
-    const result = await alertPerLeadTimeRepository.findOne({
+    const result = await adminAreaDynamicDataRepository.findOne({
       where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
       order: { timestamp: 'DESC' },
     });
@@ -106,11 +105,16 @@ export class HelperService {
       return {
         date: new Date(result.date).toISOString(),
         timestamp: new Date(result.timestamp),
+        cutoffMoment: this.getUploadCutoffMoment(
+          disasterType,
+          result.timestamp,
+        ),
       };
     } else {
       return {
         date: null,
         timestamp: null,
+        cutoffMoment: null,
       };
     }
   }

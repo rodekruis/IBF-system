@@ -21,7 +21,7 @@ class MapComponent extends DashboardPage {
   readonly layerMenuToggle: Locator;
   readonly redCrossMarker: Locator;
   readonly gloFASMarker: Locator;
-  readonly alerThresholdLines: Locator;
+  readonly triggerAreaOutlines: Locator;
   readonly closeButtonIcon: Locator;
   readonly layerInfoContent: Locator;
   readonly ibfAggregatePane: Locator;
@@ -52,7 +52,7 @@ class MapComponent extends DashboardPage {
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
     this.redCrossMarker = this.page.getByAltText('Red Cross branches');
     this.gloFASMarker = this.page.getByAltText('Glofas stations');
-    this.alerThresholdLines = this.page.locator(
+    this.triggerAreaOutlines = this.page.locator(
       '[stroke="var(--ion-color-ibf-outline-red)"]',
     );
     this.closeButtonIcon = this.page.getByTestId('close-matrix-icon');
@@ -284,15 +284,15 @@ class MapComponent extends DashboardPage {
     await expect(legendComponent).toBeVisible();
   }
 
-  async assertAlertThresholdLines({ visible = false }: { visible: boolean }) {
+  async assertTriggerOutlines({ visible = false }: { visible: boolean }) {
     if (visible === true) {
-      const alertThresholdLinesCount = await this.alerThresholdLines.count();
-      const nthSelector = this.getRandomInt(1, alertThresholdLinesCount) - 1;
+      const triggerAreaOutlinesCount = await this.triggerAreaOutlines.count();
+      const nthSelector = this.getRandomInt(1, triggerAreaOutlinesCount) - 1;
       // Assert that the number of alerThresholdLines is greater than 0 and randomly select one to be visible
-      expect(alertThresholdLinesCount).toBeGreaterThan(0);
-      await expect(this.alerThresholdLines.nth(nthSelector)).toBeVisible();
+      expect(triggerAreaOutlinesCount).toBeGreaterThan(0);
+      await expect(this.triggerAreaOutlines.nth(nthSelector)).toBeVisible();
     } else {
-      await expect(this.alerThresholdLines).toBeHidden();
+      await expect(this.triggerAreaOutlines).toBeHidden();
     }
   }
 
