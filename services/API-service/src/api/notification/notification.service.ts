@@ -173,7 +173,7 @@ export class NotificationService {
     } else if (disasterType === DisasterType.FlashFloods) {
       if (event.firstLeadTime === LeadTime.hour0) {
         // For ongoing events only send an email - once - if the event starts as ongoing
-        if (event.startDate.getTime() !== lastUploadTimestamp.getTime()) {
+        if (event.firstIssuedDate.getTime() !== lastUploadTimestamp.getTime()) {
           send = false;
         }
       }

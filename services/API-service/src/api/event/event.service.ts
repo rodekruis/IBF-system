@@ -180,7 +180,7 @@ export class EventService {
       .groupBy('area."countryCodeISO3"')
       .addGroupBy('event."eventName"')
       .addSelect([
-        'MIN("startDate") AS "startDate"',
+        'MIN("firstIssuedDate") AS "firstIssuedDate"',
         'MAX("endDate") AS "endDate"',
         'SUM(CASE WHEN event."forecastSeverity" > 0 THEN 1 ELSE 0 END) AS "nrAlertAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
         'MAX(event."forecastSeverity")::float AS "forecastSeverity"',
@@ -286,7 +286,7 @@ export class EventService {
     const deleteFilters = {
       adminArea: { countryCodeISO3 },
       disasterType,
-      startDate: MoreThanOrEqual(lastUploadDate.cutoffMoment),
+      firstIssuedDate: MoreThanOrEqual(lastUploadDate.cutoffMoment),
     };
     if (eventName) {
       deleteFilters['eventName'] = eventName;
@@ -364,7 +364,7 @@ export class EventService {
         'event."forecastTrigger"',
         'event."eventPlaceCodeId"',
         'event."stopped"',
-        'event."startDate"',
+        'event."firstIssuedDate"',
         'event."manualStoppedDate" AS "stoppedDate"',
         '"user"."firstName" || \' \' || "user"."lastName" AS "displayName"',
         'parent.name AS "nameParent"',
@@ -451,7 +451,7 @@ export class EventService {
         'area.name AS name',
         'area."adminLevel" AS "adminLevel"',
         'dynamic.value AS value',
-        'COALESCE("parentEvent"."startDate","grandparentEvent"."startDate") AS "startDate"',
+        'COALESCE("parentEvent"."firstIssuedDate","grandparentEvent"."firstIssuedDate") AS "firstIssuedDate"',
         'COALESCE(parentEvent.stopped,"grandparentEvent".stopped) AS stopped',
         'COALESCE("parentEvent"."manualStoppedDate","grandparentEvent"."manualStoppedDate") AS "stoppedDate"',
         'COALESCE("parentUser"."firstName","grandparentUser"."firstName") || \' \' || COALESCE("parentUser"."lastName","grandparentUser"."lastName") AS "displayName"',
@@ -465,7 +465,7 @@ export class EventService {
       mainExposureValue: area.value,
       forecastSeverity: null, // leave empty for now, as we don't show forecastSeverity on deeper levels
       stopped: area.stopped,
-      startDate: area.startDate,
+      firstIssuedDate: area.firstIssuedDate,
       stoppedDate: area.stoppedDate,
       displayName: area.displayName,
       eapActions: [],
@@ -484,7 +484,7 @@ export class EventService {
         'COALESCE(event."eventName", \'no name\') AS "eventName"',
         'area."placeCode" AS "placeCode"',
         'area.name AS name',
-        'event."startDate"',
+        'event."firstIssuedDate"',
         'event.closed as closed',
         'case when event.closed = true then event."endDate" end as "endDate"',
         'disaster."mainExposureIndicator" as "exposureIndicator"',
@@ -500,7 +500,7 @@ export class EventService {
       .leftJoin('event.adminArea', 'area')
       .leftJoin('event.disasterType', 'disaster')
       .where({ forecastSeverity: MoreThan(0) })
-      .orderBy('event."startDate"', 'DESC')
+      .orderBy('event."firstIssuedDate"', 'DESC')
       .addOrderBy('area."countryCodeISO3"', 'ASC')
       .addOrderBy('event."disasterType"', 'ASC')
       .addOrderBy('area."placeCode"', 'ASC');
@@ -1063,7 +1063,7 @@ export class EventService {
         eventArea.forecastTrigger = activeAlertArea.forecastTrigger;
         eventArea.forecastSeverity = activeAlertArea.forecastSeverity;
         eventArea.mainExposureValue = +activeAlertArea.mainExposureValue;
-        eventArea.startDate = lastUploadDate.timestamp;
+        eventArea.firstIssuedDate = lastUploadDate.timestamp;
         eventArea.endDate = lastUploadDate.timestamp;
         eventArea.stopped = false;
         eventArea.manualStoppedDate = null;

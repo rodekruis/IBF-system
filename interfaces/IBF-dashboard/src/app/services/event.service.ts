@@ -25,7 +25,7 @@ import {
 
 export class EventSummary {
   countryCodeISO3: string;
-  startDate: string;
+  firstIssuedDate: string;
   endDate: string;
   forecastTrigger: boolean;
   eventName: string;
@@ -207,9 +207,9 @@ export class EventService {
 
     if (events.length) {
       for (const event of this.state.events) {
-        event.startDate = DateTime.fromISO(event.startDate).toFormat(
-          'cccc, dd LLLL',
-        );
+        event.firstIssuedDate = DateTime.fromISO(
+          event.firstIssuedDate,
+        ).toFormat('cccc, dd LLLL');
         event.firstLeadTimeLabel = LeadTimeTriggerKey[event.firstLeadTime];
         event.timeUnit = event.firstLeadTime?.split('-')[1];
 
@@ -274,9 +274,9 @@ export class EventService {
         if (a.duration > b.duration) {
           return 1;
         } else if (a.duration === b.duration) {
-          if (a.startDate > b.startDate) {
+          if (a.firstIssuedDate > b.firstIssuedDate) {
             return 1;
-          } else if (a.startDate === b.startDate) {
+          } else if (a.firstIssuedDate === b.firstIssuedDate) {
             if (a.eventName > b.eventName) {
               return 1;
             } else {

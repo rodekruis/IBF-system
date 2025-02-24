@@ -288,7 +288,10 @@ export class WhatsappService {
     if (events.length > 0) {
       message += country.notificationInfo.whatsappMessage[disasterType][
         'no-trigger-old-event'
-      ].replace('[startDate]', format(events[0].startDate, 'yyyy-MM-dd'));
+      ].replace(
+        '[firstIssuedDate]',
+        format(events[0].firstIssuedDate, 'yyyy-MM-dd'),
+      );
     }
     message +=
       country.notificationInfo.whatsappMessage[disasterType]['no-trigger'];
@@ -304,7 +307,10 @@ export class WhatsappService {
     if (event) {
       message += country.notificationInfo.whatsappMessage[disasterType][
         'no-trigger-old-event'
-      ].replace('[startDate]', format(event.startDate, 'yyyy-MM-dd'));
+      ].replace(
+        '[firstIssuedDate]',
+        format(event.firstIssuedDate, 'yyyy-MM-dd'),
+      );
     }
     message +=
       country.notificationInfo.whatsappMessage[disasterType][

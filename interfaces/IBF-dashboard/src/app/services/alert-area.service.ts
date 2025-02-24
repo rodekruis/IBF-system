@@ -179,9 +179,9 @@ export class AlertAreaService {
   }
 
   private formatDates = (alertArea: AlertArea) => {
-    alertArea.startDate = DateTime.fromISO(alertArea.startDate).toFormat(
-      'cccc, dd LLLL',
-    );
+    alertArea.firstIssuedDate = DateTime.fromISO(
+      alertArea.firstIssuedDate,
+    ).toFormat('cccc, dd LLLL');
   };
 
   private mapForecastSeverityToAlertLabel = (alertArea: AlertArea) => {

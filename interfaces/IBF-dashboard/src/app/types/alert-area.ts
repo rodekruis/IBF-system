@@ -12,7 +12,7 @@ export class AlertArea {
   nameParent: string;
   placeCode: string;
   adminLevel: AdminLevel;
-  startDate: string;
+  firstIssuedDate: string;
   submitDisabled: boolean;
   alertLabel?: AlertLabel;
 }

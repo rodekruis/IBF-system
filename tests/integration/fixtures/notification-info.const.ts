@@ -35,7 +35,7 @@ export const notificationInfoData: CreateNotificationInfoDto[] = [
         'whatsapp-group':
           'Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this trigger.',
         'no-trigger-old-event':
-          'The trigger warning formerly activated on *[startDate]* is now below trigger threshold.\n\n',
+          'The trigger warning formerly activated on *[firstIssuedDate]* is now below trigger threshold.\n\n',
         'no-trigger': 'There is *no trigger* currently.',
       },
     },
