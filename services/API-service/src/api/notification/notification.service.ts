@@ -27,14 +27,14 @@ export class NotificationService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     isApiTest: boolean,
-    date?: Date,
+    lastUploadTimestamp: Date,
   ): Promise<void | NotificationApiTestResponseDto> {
     const response = new NotificationApiTestResponseDto();
     const activeEventsResponse = await this.sendNotificationsActiveEvents(
       disasterType,
       countryCodeISO3,
       isApiTest,
-      date,
+      lastUploadTimestamp,
     );
     if (isApiTest && activeEventsResponse) {
       response.activeEvents = activeEventsResponse;
@@ -47,7 +47,7 @@ export class NotificationService {
     //     countryCodeISO3,
     //     disasterType,
     //     isApiTest,
-    //     date,
+    //     lastUploadTimestamp,
     //   );
     //   if (isApiTest && finishedEventsResponse) {
     //     response.finishedEvents = finishedEventsResponse;
@@ -63,7 +63,7 @@ export class NotificationService {
     disasterType: DisasterType,
     countryCodeISO3: string,
     isApiTest: boolean,
-    date?: Date,
+    lastUploadTimestamp: Date,
   ): Promise<void | NotificationApiTestResponseChannelDto> {
     const response = new NotificationApiTestResponseChannelDto();
 
@@ -74,7 +74,12 @@ export class NotificationService {
     const activeNotifiableEvents: EventSummaryCountry[] = [];
     for await (const event of events) {
       if (
-        await this.isNotifiableActiveEvent(event, disasterType, countryCodeISO3)
+        await this.isNotifiableActiveEvent(
+          event,
+          disasterType,
+          countryCodeISO3,
+          lastUploadTimestamp,
+        )
       ) {
         activeNotifiableEvents.push(event);
       }
@@ -90,7 +95,7 @@ export class NotificationService {
         disasterType,
         activeNotifiableEvents,
         isApiTest,
-        date,
+        lastUploadTimestamp,
       );
       if (isApiTest && messageForApiTest) {
         response.email = messageForApiTest;
@@ -112,7 +117,7 @@ export class NotificationService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     isApiTest: boolean,
-    date?: Date,
+    lastUploadTimestamp: Date,
   ): Promise<void | NotificationApiTestResponseChannelDto> {
     const response = new NotificationApiTestResponseChannelDto();
     const finishedNotifiableEvents =
@@ -132,7 +137,7 @@ export class NotificationService {
         disasterType,
         finishedNotifiableEvents,
         isApiTest,
-        date,
+        lastUploadTimestamp,
       );
       if (isApiTest && emailFinished) {
         response.email = emailFinished;
@@ -157,6 +162,7 @@ export class NotificationService {
     event: EventSummaryCountry,
     disasterType: DisasterType,
     countryCodeISO3: string,
+    lastUploadTimestamp: Date,
   ): Promise<boolean> {
     let send = true;
     if (disasterType === DisasterType.Typhoon) {
@@ -166,7 +172,10 @@ export class NotificationService {
       );
     } else if (disasterType === DisasterType.FlashFloods) {
       if (event.firstLeadTime === LeadTime.hour0) {
-        send = false;
+        // For ongoing events only send an email - once - if the event starts as ongoing
+        if (event.startDate !== lastUploadTimestamp.toISOString()) {
+          send = false;
+        }
       }
     }
     return send;
