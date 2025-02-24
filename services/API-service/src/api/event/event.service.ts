@@ -180,8 +180,8 @@ export class EventService {
       .groupBy('area."countryCodeISO3"')
       .addGroupBy('event."eventName"')
       .addSelect([
-        'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
-        'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
+        'MIN("startDate") AS "startDate"',
+        'MAX("endDate") AS "endDate"',
         'SUM(CASE WHEN event."forecastSeverity" > 0 THEN 1 ELSE 0 END) AS "nrAlertAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
         'MAX(event."forecastSeverity")::float AS "forecastSeverity"',
         'MAX(event."forecastTrigger"::int)::boolean AS "forecastTrigger"',

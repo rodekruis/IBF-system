@@ -68,6 +68,7 @@ export function mock(
   countryCodeISO3: string,
   date: Date | null,
   accessToken: string,
+  removeEvents = true,
 ): Promise<request.Response> {
   return getServer()
     .post('/scripts/mock')
@@ -76,7 +77,7 @@ export function mock(
     .send({
       scenario,
       secret: process.env.RESET_SECRET,
-      removeEvents: true,
+      removeEvents,
       date: date ?? new Date(),
     });
 }

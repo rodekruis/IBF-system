@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { format } from 'date-fns';
 import { IsNull, Not, Repository } from 'typeorm';
 
 import { EXTERNAL_API } from '../../../config';
@@ -287,7 +288,7 @@ export class WhatsappService {
     if (events.length > 0) {
       message += country.notificationInfo.whatsappMessage[disasterType][
         'no-trigger-old-event'
-      ].replace('[startDate]', events[0].startDate);
+      ].replace('[startDate]', format(events[0].startDate, 'yyyy-MM-dd'));
     }
     message +=
       country.notificationInfo.whatsappMessage[disasterType]['no-trigger'];
@@ -303,7 +304,7 @@ export class WhatsappService {
     if (event) {
       message += country.notificationInfo.whatsappMessage[disasterType][
         'no-trigger-old-event'
-      ].replace('[startDate]', event.startDate);
+      ].replace('[startDate]', format(event.startDate, 'yyyy-MM-dd'));
     }
     message +=
       country.notificationInfo.whatsappMessage[disasterType][

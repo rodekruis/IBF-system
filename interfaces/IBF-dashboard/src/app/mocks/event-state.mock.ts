@@ -3,8 +3,8 @@ import { EventState } from 'src/app/types/event-state';
 
 const MOCK_EVENT: EventSummary = {
   countryCodeISO3: 'KEN',
-  startDate: '2024-11-04',
-  endDate: '2024-11-04',
+  startDate: '2025-02-21T12:38:48.546Z',
+  endDate: '2025-03-21T12:38:48.546Z',
   forecastTrigger: true,
   eventName: 'National',
   disasterSpecificProperties: {},

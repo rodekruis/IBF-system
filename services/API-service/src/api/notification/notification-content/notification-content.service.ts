@@ -176,7 +176,7 @@ export class NotificationContentService {
     );
     data.nrOfAlertAreas = data.alertAreas.length;
 
-    data.issuedDate = new Date(event.startDate);
+    data.issuedDate = event.startDate;
     data.firstLeadTimeString = await this.getFirstLeadTimeString(
       event,
       event.countryCodeISO3,
