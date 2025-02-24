@@ -1,3 +1,30 @@
+# [0.284.0](https://github.com/rodekruis/IBF-system/compare/v0.283.2...v0.284.0) (2025-02-24)
+
+
+### Bug Fixes
+
+* alert per trigger should insert ([caf0877](https://github.com/rodekruis/IBF-system/commit/caf0877ebf75813ae8f27d9e48cf4c32e8c26102))
+* fallback undefined value ([107c41f](https://github.com/rodekruis/IBF-system/commit/107c41f8d7fdf132ff0904732c8b4abb310ca794))
+* include warnings in deeper alert areas ([213aaf6](https://github.com/rodekruis/IBF-system/commit/213aaf65e94e7cd479eebcd7db26f9ea94989deb))
+* integration testing old style ([dc80aff](https://github.com/rodekruis/IBF-system/commit/dc80aff2db8245febed39e004b07d9f9808d0e44))
+* label trigger log forecastSeverity=1 as Warning ([eae8154](https://github.com/rodekruis/IBF-system/commit/eae81549114c3446a580d2dbfa5e8201333a5613))
+* MOCK_USE_OLD_PIPELINE_UPLOAD with ELSE block ([4e1304a](https://github.com/rodekruis/IBF-system/commit/4e1304a6c6d12228cfdca5d3df418e069186cce6))
+* no-trigger alerts-per-lead-time upload ([6cebcea](https://github.com/rodekruis/IBF-system/commit/6cebcea8c3c7f989300c9d36b980ebb4ea787654))
+* put back insertAlertsPerLeadTime call in processEventAreas() ([55b1ebd](https://github.com/rodekruis/IBF-system/commit/55b1ebdcab049cd42ba8ebcf1364b919e61c5e77))
+* remaining references to alert_threshold in backend AB[#33490](https://github.com/rodekruis/IBF-system/issues/33490) ([d48239f](https://github.com/rodekruis/IBF-system/commit/d48239f526bc5991415f1a7c6325dc320f8215e0))
+* remove extra argument ([7805282](https://github.com/rodekruis/IBF-system/commit/78052820cc52b9b022c5410ab935fced1173dcbb))
+* update alertThreshold reference in GET /admin-areas AB[#33490](https://github.com/rodekruis/IBF-system/issues/33490) ([14a0b7d](https://github.com/rodekruis/IBF-system/commit/14a0b7dc943537cac13fac43acb6f113b440a7e6))
+* update reference to alertThreshold in getAlertAreas AB[#33490](https://github.com/rodekruis/IBF-system/issues/33490) ([1498834](https://github.com/rodekruis/IBF-system/commit/1498834cacef6700d9c9a4015507062a2e5ed78e))
+
+
+### Features
+
+* change frontend red outline layer + alert_threshold references AB[#33686](https://github.com/rodekruis/IBF-system/issues/33686) ([7fdc119](https://github.com/rodekruis/IBF-system/commit/7fdc119e10c0dea9aed00a1ce9eb69ec513b476d))
+* facilitate transition period for 'trigger' layer ([eb47068](https://github.com/rodekruis/IBF-system/commit/eb4706832dca46138a14c36ac88d82d95b362cf9))
+* process pipeline runs old and new AB[#33398](https://github.com/rodekruis/IBF-system/issues/33398) AB[#33999](https://github.com/rodekruis/IBF-system/issues/33999) ([ff1b91a](https://github.com/rodekruis/IBF-system/commit/ff1b91aa130e47a4a160fe8a35089bd9fb83c794))
+
+
+
 ## [0.283.2](https://github.com/rodekruis/IBF-system/compare/v0.283.1...v0.283.2) (2025-02-18)
 
 
@@ -103,14 +130,5 @@
 
 * update misplaced glofas stations AB[#33136](https://github.com/rodekruis/IBF-system/issues/33136) ([2bfbae5](https://github.com/rodekruis/IBF-system/commit/2bfbae5500017a80ca1fc22e168962f616b172b3))
 
-
-
-## [0.278.6](https://github.com/rodekruis/IBF-system/compare/v0.278.5...v0.278.6) (2025-01-29)
-
-
-### Bug Fixes
-
-* filter admin-areas on eventName AB[#33076](https://github.com/rodekruis/IBF-system/issues/33076) ([18c9760](https://github.com/rodekruis/IBF-system/commit/18c97609c1a0e3257afa8a629ed8d45cf1c2afe7))
-* filter for eventName at more places ([f766101](https://github.com/rodekruis/IBF-system/commit/f766101962c010e89f90497585b2e8dd666c07e2))
 
 
