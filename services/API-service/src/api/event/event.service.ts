@@ -942,7 +942,7 @@ export class EventService {
     activeAlertAreas: AreaForecastDataDto[],
     lastUploadDate: LastUploadDateDto,
   ): Promise<void> {
-    const openEventAreas = await this.eventPlaceCodeRepo.find({
+    const activeEventAreas = await this.eventPlaceCodeRepo.find({
       where: {
         closed: false,
         adminArea: { countryCodeISO3 },
@@ -955,27 +955,29 @@ export class EventService {
     const triggerAreaIdsToUpdate: string[] = [];
     const warningAreaIdsToUpdate: string[] = [];
     const areasToUpdate: EventPlaceCodeEntity[] = [];
-    openEventAreas.forEach((openEventArea) => {
+    activeEventAreas.forEach((activeEventArea) => {
       const activeAlertArea = activeAlertAreas.find(
-        (area) => area.placeCode === openEventArea.adminArea.placeCode,
+        (area) => area.placeCode === activeEventArea.adminArea.placeCode,
       );
       if (activeAlertArea) {
         if (activeAlertArea.forecastTrigger) {
-          openEventArea.forecastTrigger = true;
-          triggerAreaIdsToUpdate.push(openEventArea.eventPlaceCodeId);
+          activeEventArea.forecastTrigger = true;
+          triggerAreaIdsToUpdate.push(activeEventArea.eventPlaceCodeId);
         } else {
-          openEventArea.forecastTrigger = false;
-          warningAreaIdsToUpdate.push(openEventArea.eventPlaceCodeId);
+          activeEventArea.forecastTrigger = false;
+          warningAreaIdsToUpdate.push(activeEventArea.eventPlaceCodeId);
         }
 
         // NOTE: for performance reasons only update if values actually changed. Otherwise unneeded queries per area are fired.
         if (
-          openEventArea.forecastSeverity !== activeAlertArea.forecastSeverity ||
-          openEventArea.mainExposureValue !== activeAlertArea.mainExposureValue
+          activeEventArea.forecastSeverity !==
+            activeAlertArea.forecastSeverity ||
+          activeEventArea.mainExposureValue !==
+            activeAlertArea.mainExposureValue
         ) {
-          openEventArea.forecastSeverity = activeAlertArea.forecastSeverity;
-          openEventArea.mainExposureValue = activeAlertArea.mainExposureValue;
-          areasToUpdate.push(openEventArea);
+          activeEventArea.forecastSeverity = activeAlertArea.forecastSeverity;
+          activeEventArea.mainExposureValue = activeAlertArea.mainExposureValue;
+          areasToUpdate.push(activeEventArea);
         }
       }
     });
@@ -1009,12 +1011,12 @@ export class EventService {
       .execute();
   }
 
-  private async updateOtherEventData(openEventAreas: EventPlaceCodeEntity[]) {
-    if (!openEventAreas.length) {
+  private async updateOtherEventData(activeEventAreas: EventPlaceCodeEntity[]) {
+    if (!activeEventAreas.length) {
       return;
     }
 
-    const eventAreasInput = openEventAreas.map(
+    const eventAreasInput = activeEventAreas.map(
       (eventArea) =>
         `('${eventArea.eventPlaceCodeId}',${eventArea.mainExposureValue},${eventArea.forecastSeverity})`,
     );
@@ -1040,7 +1042,7 @@ export class EventService {
     activeAlertAreas: AreaForecastDataDto[],
     lastUploadDate: LastUploadDateDto,
   ): Promise<void> {
-    const openEventAreaPlaceCodes = (
+    const activeEventAreaPlaceCodes = (
       await this.eventPlaceCodeRepo.find({
         where: {
           closed: false,
@@ -1053,7 +1055,7 @@ export class EventService {
     ).map((area) => area.adminArea.placeCode);
     const newEventAreas: EventPlaceCodeEntity[] = [];
     for await (const activeAlertArea of activeAlertAreas) {
-      if (!openEventAreaPlaceCodes.includes(activeAlertArea.placeCode)) {
+      if (!activeEventAreaPlaceCodes.includes(activeAlertArea.placeCode)) {
         const adminArea = await this.adminAreaRepository.findOne({
           where: { placeCode: activeAlertArea.placeCode },
         });
