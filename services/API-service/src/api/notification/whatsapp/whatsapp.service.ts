@@ -118,7 +118,7 @@ export class WhatsappService {
     }
   }
 
-  public async sendTriggerWhatsapp(
+  public async sendActiveEventsWhatsapp(
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
     disasterType: DisasterType,
@@ -135,7 +135,7 @@ export class WhatsappService {
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 
-  public async sendTriggerFinishedWhatsapp(
+  public async sendEventFinishedWhatsapp(
     country: CountryEntity,
     finishedEvent: EventSummaryCountry,
     disasterType: DisasterType,

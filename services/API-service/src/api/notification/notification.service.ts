@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { EventSummaryCountry } from '../../shared/data.model';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
 import { EventService } from '../event/event.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import {
@@ -26,17 +27,17 @@ export class NotificationService {
   public async send(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    isApiTest: boolean,
-    lastUploadTimestamp: Date,
+    noNotifications: boolean,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<void | NotificationApiTestResponseDto> {
     const response = new NotificationApiTestResponseDto();
     const activeEventsResponse = await this.sendNotificationsActiveEvents(
       disasterType,
       countryCodeISO3,
-      isApiTest,
-      lastUploadTimestamp,
+      noNotifications,
+      lastUploadDate,
     );
-    if (isApiTest && activeEventsResponse) {
+    if (noNotifications && activeEventsResponse) {
       response.activeEvents = activeEventsResponse;
     }
 
@@ -46,15 +47,15 @@ export class NotificationService {
     //   const finishedEventsResponse = await this.sendNotificationsFinishedEvents(
     //     countryCodeISO3,
     //     disasterType,
-    //     isApiTest,
-    //     lastUploadTimestamp,
+    //     noNotifications,
+    //     lastUploadDate,
     //   );
-    //   if (isApiTest && finishedEventsResponse) {
+    //   if (noNotifications && finishedEventsResponse) {
     //     response.finishedEvents = finishedEventsResponse;
     //   }
     // }
 
-    if (isApiTest) {
+    if (noNotifications) {
       return response;
     }
   }
@@ -62,8 +63,8 @@ export class NotificationService {
   private async sendNotificationsActiveEvents(
     disasterType: DisasterType,
     countryCodeISO3: string,
-    isApiTest: boolean,
-    lastUploadTimestamp: Date,
+    noNotifications: boolean,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<void | NotificationApiTestResponseChannelDto> {
     const response = new NotificationApiTestResponseChannelDto();
 
@@ -78,7 +79,7 @@ export class NotificationService {
           event,
           disasterType,
           countryCodeISO3,
-          lastUploadTimestamp,
+          lastUploadDate,
         )
       ) {
         activeNotifiableEvents.push(event);
@@ -90,25 +91,25 @@ export class NotificationService {
         await this.notificationContentService.getCountryNotificationInfo(
           countryCodeISO3,
         );
-      const messageForApiTest = await this.emailService.sendTriggerEmail(
+      const emailContent = await this.emailService.sendActiveEventsEmail(
         country,
         disasterType,
         activeNotifiableEvents,
-        isApiTest,
-        lastUploadTimestamp,
+        noNotifications,
+        lastUploadDate,
       );
-      if (isApiTest && messageForApiTest) {
-        response.email = messageForApiTest;
+      if (noNotifications && emailContent) {
+        response.email = emailContent;
       }
       if (country.notificationInfo.useWhatsapp[disasterType]) {
-        this.whatsappService.sendTriggerWhatsapp(
+        this.whatsappService.sendActiveEventsWhatsapp(
           country,
           activeNotifiableEvents,
           disasterType,
         );
       }
     }
-    if (isApiTest) {
+    if (noNotifications) {
       return response;
     }
   }
@@ -116,8 +117,8 @@ export class NotificationService {
   private async sendNotificationsFinishedEvents(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    isApiTest: boolean,
-    lastUploadTimestamp: Date,
+    noNotifications: boolean,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<void | NotificationApiTestResponseChannelDto> {
     const response = new NotificationApiTestResponseChannelDto();
     const finishedNotifiableEvents =
@@ -132,27 +133,28 @@ export class NotificationService {
           countryCodeISO3,
         );
 
-      const emailFinished = await this.emailService.sendTriggerFinishedEmail(
-        country,
-        disasterType,
-        finishedNotifiableEvents,
-        isApiTest,
-        lastUploadTimestamp,
-      );
-      if (isApiTest && emailFinished) {
-        response.email = emailFinished;
+      const emailFinishedContent =
+        await this.emailService.sendEventFinishedEmail(
+          country,
+          disasterType,
+          finishedNotifiableEvents,
+          noNotifications,
+          lastUploadDate,
+        );
+      if (noNotifications && emailFinishedContent) {
+        response.email = emailFinishedContent;
       }
 
       if (country.notificationInfo.useWhatsapp[disasterType]) {
         for (const event of finishedNotifiableEvents) {
-          await this.whatsappService.sendTriggerFinishedWhatsapp(
+          await this.whatsappService.sendEventFinishedWhatsapp(
             country,
             event,
             disasterType,
           );
         }
       }
-      if (isApiTest) {
+      if (noNotifications) {
         return response;
       }
     }
@@ -162,7 +164,7 @@ export class NotificationService {
     event: EventSummaryCountry,
     disasterType: DisasterType,
     countryCodeISO3: string,
-    lastUploadTimestamp: Date,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<boolean> {
     let send = true;
     if (disasterType === DisasterType.Typhoon) {
@@ -173,7 +175,9 @@ export class NotificationService {
     } else if (disasterType === DisasterType.FlashFloods) {
       if (event.firstLeadTime === LeadTime.hour0) {
         // For ongoing events only send an email - once - if the event starts as ongoing
-        if (event.firstIssuedDate.getTime() !== lastUploadTimestamp.getTime()) {
+        if (
+          event.firstIssuedDate.getTime() !== lastUploadDate.timestamp.getTime()
+        ) {
           send = false;
         }
       }

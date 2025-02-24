@@ -73,7 +73,7 @@ export class ScriptsController {
     required: false,
   })
   @ApiQuery({
-    name: 'isApiTest',
+    name: 'noNotifications',
     required: false,
     schema: { default: true, type: 'boolean' },
     type: 'boolean',
@@ -86,12 +86,12 @@ export class ScriptsController {
     @Body() body: MockInputDto,
     @Res() res,
     @Query(
-      'isApiTest',
+      'noNotifications',
       new ParseBoolPipe({
         optional: true,
       }),
     )
-    isApiTest: boolean,
+    noNotifications: boolean,
   ): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
@@ -101,7 +101,7 @@ export class ScriptsController {
       body,
       disasterType,
       countryCodeISO3,
-      isApiTest,
+      noNotifications,
     );
 
     return res.status(HttpStatus.ACCEPTED).send(result);

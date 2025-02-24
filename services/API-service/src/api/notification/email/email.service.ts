@@ -5,6 +5,7 @@ import Mailchimp from 'mailchimp-api-v3';
 
 import { EventSummaryCountry } from '../../../shared/data.model';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
+import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
 import { CountryEntity } from './../../country/country.entity';
 import { NotificationContentService } from './../notification-content/notification-content.service';
 import { MjmlService } from './mjml.service';
@@ -40,14 +41,13 @@ export class EmailService {
     return Number(segments[countryDisaster]);
   }
 
-  public async sendTriggerEmail(
+  public async sendActiveEventsEmail(
     country: CountryEntity,
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
-    isApiTest: boolean,
-    date?: Date,
+    noNotifications: boolean,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<void | string> {
-    date = date ? new Date(date) : new Date();
     const emailContent =
       await this.notificationContentService.getContentTriggerNotification(
         country,
@@ -58,10 +58,10 @@ export class EmailService {
 
     emailHtml += this.mjmlService.getTriggerEmailHtmlOutput({
       emailContent,
-      date,
+      date: lastUploadDate.timestamp,
     });
 
-    if (isApiTest) {
+    if (noNotifications) {
       // NOTE: use this to test the email output instead of using Mailchimp
       // fs.writeFileSync(
       //   `email-${country.countryCodeISO3}-${disasterType}-${new Date()}.html`,
@@ -81,12 +81,12 @@ export class EmailService {
     );
   }
 
-  public async sendTriggerFinishedEmail(
+  public async sendEventFinishedEmail(
     country: CountryEntity,
     disasterType: DisasterType,
     finishedEvents: EventSummaryCountry[],
-    isApiTest: boolean,
-    date?: Date,
+    noNotifications: boolean,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<void | string> {
     const disasterTypeLabel =
       await this.notificationContentService.getDisasterTypeLabel(disasterType);
@@ -100,10 +100,10 @@ export class EmailService {
 
     const emailHtml = this.mjmlService.getEventFinishedEmailHtmlOutput({
       emailContent,
-      date,
+      date: lastUploadDate.timestamp,
     });
 
-    if (isApiTest) {
+    if (noNotifications) {
       return emailHtml;
     }
     const emailSubject = `IBF ${disasterTypeLabel} ended`;

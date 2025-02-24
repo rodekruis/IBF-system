@@ -69,11 +69,12 @@ export function mock(
   date: Date | null,
   accessToken: string,
   removeEvents = true,
+  noNotifications = true,
 ): Promise<request.Response> {
   return getServer()
     .post('/scripts/mock')
     .set('Authorization', `Bearer ${accessToken}`)
-    .query({ disasterType, countryCodeISO3, isApiTest: true })
+    .query({ disasterType, countryCodeISO3, noNotifications })
     .send({
       scenario,
       secret: process.env.RESET_SECRET,
@@ -86,11 +87,12 @@ export function sendNotification(
   countryCodeISO3: string,
   disasterType: DisasterType,
   accessToken: string,
+  noNotifications = true,
 ): Promise<request.Response> {
   return getServer()
     .post('/notification/send')
     .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
+    .query({ noNotifications })
     .send({
       countryCodeISO3,
       disasterType,
