@@ -180,8 +180,8 @@ export class EventService {
       .groupBy('area."countryCodeISO3"')
       .addGroupBy('event."eventName"')
       .addSelect([
-        'to_char(MIN("startDate") , \'yyyy-mm-dd\') AS "startDate"',
-        'to_char(MAX("endDate") , \'yyyy-mm-dd\') AS "endDate"',
+        'MIN("firstIssuedDate") AS "firstIssuedDate"',
+        'MAX("endDate") AS "endDate"',
         'SUM(CASE WHEN event."forecastSeverity" > 0 THEN 1 ELSE 0 END) AS "nrAlertAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
         'MAX(event."forecastSeverity")::float AS "forecastSeverity"',
         'MAX(event."forecastTrigger"::int)::boolean AS "forecastTrigger"',
@@ -286,7 +286,7 @@ export class EventService {
     const deleteFilters = {
       adminArea: { countryCodeISO3 },
       disasterType,
-      startDate: MoreThanOrEqual(lastUploadDate.cutoffMoment),
+      firstIssuedDate: MoreThanOrEqual(lastUploadDate.cutoffMoment),
     };
     if (eventName) {
       deleteFilters['eventName'] = eventName;
@@ -307,7 +307,10 @@ export class EventService {
         where: { countryCodeISO3 },
         relations: ['countryDisasterSettings'],
       })
-    ).countryDisasterSettings.find((d) => d.disasterType === disasterType);
+    ).countryDisasterSettings.find(
+      (countryDisasterSettings: CountryDisasterSettingsEntity) =>
+        countryDisasterSettings.disasterType === disasterType,
+    );
   }
 
   public async getAlertAreas(
@@ -364,7 +367,7 @@ export class EventService {
         'event."forecastTrigger"',
         'event."eventPlaceCodeId"',
         'event."stopped"',
-        'event."startDate"',
+        'event."firstIssuedDate"',
         'event."manualStoppedDate" AS "stoppedDate"',
         '"user"."firstName" || \' \' || "user"."lastName" AS "displayName"',
         'parent.name AS "nameParent"',
@@ -451,7 +454,7 @@ export class EventService {
         'area.name AS name',
         'area."adminLevel" AS "adminLevel"',
         'dynamic.value AS value',
-        'COALESCE("parentEvent"."startDate","grandparentEvent"."startDate") AS "startDate"',
+        'COALESCE("parentEvent"."firstIssuedDate","grandparentEvent"."firstIssuedDate") AS "firstIssuedDate"',
         'COALESCE(parentEvent.stopped,"grandparentEvent".stopped) AS stopped',
         'COALESCE("parentEvent"."manualStoppedDate","grandparentEvent"."manualStoppedDate") AS "stoppedDate"',
         'COALESCE("parentUser"."firstName","grandparentUser"."firstName") || \' \' || COALESCE("parentUser"."lastName","grandparentUser"."lastName") AS "displayName"',
@@ -465,7 +468,7 @@ export class EventService {
       mainExposureValue: area.value,
       forecastSeverity: null, // leave empty for now, as we don't show forecastSeverity on deeper levels
       stopped: area.stopped,
-      startDate: area.startDate,
+      firstIssuedDate: area.firstIssuedDate,
       stoppedDate: area.stoppedDate,
       displayName: area.displayName,
       eapActions: [],
@@ -484,7 +487,7 @@ export class EventService {
         'COALESCE(event."eventName", \'no name\') AS "eventName"',
         'area."placeCode" AS "placeCode"',
         'area.name AS name',
-        'event."startDate"',
+        'event."firstIssuedDate"',
         'event.closed as closed',
         'case when event.closed = true then event."endDate" end as "endDate"',
         'disaster."mainExposureIndicator" as "exposureIndicator"',
@@ -500,7 +503,7 @@ export class EventService {
       .leftJoin('event.adminArea', 'area')
       .leftJoin('event.disasterType', 'disaster')
       .where({ forecastSeverity: MoreThan(0) })
-      .orderBy('event."startDate"', 'DESC')
+      .orderBy('event."firstIssuedDate"', 'DESC')
       .addOrderBy('area."countryCodeISO3"', 'ASC')
       .addOrderBy('event."disasterType"', 'ASC')
       .addOrderBy('area."placeCode"', 'ASC');
@@ -598,7 +601,8 @@ export class EventService {
     for (const leadTimeKey in LeadTime) {
       const leadTimeUnit = LeadTime[leadTimeKey];
       const leadTimeIsAlerted = alertsPerLeadTime.find(
-        (el): boolean => el.leadTime === leadTimeUnit,
+        (alertPerLeadTime: AlertPerLeadTimeEntity): boolean =>
+          alertPerLeadTime.leadTime === leadTimeUnit,
       );
       // REFACTOR: don't reformat the data structure so much, but keep (and use in front-end) closer to how the data is stored
       if (leadTimeIsAlerted) {
@@ -892,7 +896,8 @@ export class EventService {
         relations: ['countryDisasterSettings'],
       });
       return country.countryDisasterSettings.find(
-        (settings) => settings.disasterType === disasterType,
+        (countryDisasterSettings: CountryDisasterSettingsEntity) =>
+          countryDisasterSettings.disasterType === disasterType,
       ).activeLeadTimes;
     }
   }
@@ -906,7 +911,8 @@ export class EventService {
       relations: ['countryDisasterSettings'],
     });
     const droughtSeasonRegions = country.countryDisasterSettings.find(
-      (s) => s.disasterType === DisasterType.Drought,
+      (countryDisasterSettings: CountryDisasterSettingsEntity) =>
+        countryDisasterSettings.disasterType === DisasterType.Drought,
     ).droughtSeasonRegions;
 
     // for no events, look at all seasons in all regions
@@ -942,7 +948,7 @@ export class EventService {
     activeAlertAreas: AreaForecastDataDto[],
     lastUploadDate: LastUploadDateDto,
   ): Promise<void> {
-    const openEventAreas = await this.eventPlaceCodeRepo.find({
+    const activeEventAreas = await this.eventPlaceCodeRepo.find({
       where: {
         closed: false,
         adminArea: { countryCodeISO3 },
@@ -955,27 +961,29 @@ export class EventService {
     const triggerAreaIdsToUpdate: string[] = [];
     const warningAreaIdsToUpdate: string[] = [];
     const areasToUpdate: EventPlaceCodeEntity[] = [];
-    openEventAreas.forEach((openEventArea) => {
+    activeEventAreas.forEach((activeEventArea: EventPlaceCodeEntity) => {
       const activeAlertArea = activeAlertAreas.find(
-        (area) => area.placeCode === openEventArea.adminArea.placeCode,
+        (area) => area.placeCode === activeEventArea.adminArea.placeCode,
       );
       if (activeAlertArea) {
         if (activeAlertArea.forecastTrigger) {
-          openEventArea.forecastTrigger = true;
-          triggerAreaIdsToUpdate.push(openEventArea.eventPlaceCodeId);
+          activeEventArea.forecastTrigger = true;
+          triggerAreaIdsToUpdate.push(activeEventArea.eventPlaceCodeId);
         } else {
-          openEventArea.forecastTrigger = false;
-          warningAreaIdsToUpdate.push(openEventArea.eventPlaceCodeId);
+          activeEventArea.forecastTrigger = false;
+          warningAreaIdsToUpdate.push(activeEventArea.eventPlaceCodeId);
         }
 
         // NOTE: for performance reasons only update if values actually changed. Otherwise unneeded queries per area are fired.
         if (
-          openEventArea.forecastSeverity !== activeAlertArea.forecastSeverity ||
-          openEventArea.mainExposureValue !== activeAlertArea.mainExposureValue
+          activeEventArea.forecastSeverity !==
+            activeAlertArea.forecastSeverity ||
+          activeEventArea.mainExposureValue !==
+            activeAlertArea.mainExposureValue
         ) {
-          openEventArea.forecastSeverity = activeAlertArea.forecastSeverity;
-          openEventArea.mainExposureValue = activeAlertArea.mainExposureValue;
-          areasToUpdate.push(openEventArea);
+          activeEventArea.forecastSeverity = activeAlertArea.forecastSeverity;
+          activeEventArea.mainExposureValue = activeAlertArea.mainExposureValue;
+          areasToUpdate.push(activeEventArea);
         }
       }
     });
@@ -1009,12 +1017,12 @@ export class EventService {
       .execute();
   }
 
-  private async updateOtherEventData(openEventAreas: EventPlaceCodeEntity[]) {
-    if (!openEventAreas.length) {
+  private async updateOtherEventData(activeEventAreas: EventPlaceCodeEntity[]) {
+    if (!activeEventAreas.length) {
       return;
     }
 
-    const eventAreasInput = openEventAreas.map(
+    const eventAreasInput = activeEventAreas.map(
       (eventArea) =>
         `('${eventArea.eventPlaceCodeId}',${eventArea.mainExposureValue},${eventArea.forecastSeverity})`,
     );
@@ -1040,7 +1048,7 @@ export class EventService {
     activeAlertAreas: AreaForecastDataDto[],
     lastUploadDate: LastUploadDateDto,
   ): Promise<void> {
-    const openEventAreaPlaceCodes = (
+    const activeEventAreaPlaceCodes = (
       await this.eventPlaceCodeRepo.find({
         where: {
           closed: false,
@@ -1050,10 +1058,13 @@ export class EventService {
         },
         relations: ['adminArea'],
       })
-    ).map((area) => area.adminArea.placeCode);
+    ).map(
+      (eventPlaceCode: EventPlaceCodeEntity) =>
+        eventPlaceCode.adminArea.placeCode,
+    );
     const newEventAreas: EventPlaceCodeEntity[] = [];
     for await (const activeAlertArea of activeAlertAreas) {
-      if (!openEventAreaPlaceCodes.includes(activeAlertArea.placeCode)) {
+      if (!activeEventAreaPlaceCodes.includes(activeAlertArea.placeCode)) {
         const adminArea = await this.adminAreaRepository.findOne({
           where: { placeCode: activeAlertArea.placeCode },
         });
@@ -1063,7 +1074,7 @@ export class EventService {
         eventArea.forecastTrigger = activeAlertArea.forecastTrigger;
         eventArea.forecastSeverity = activeAlertArea.forecastSeverity;
         eventArea.mainExposureValue = +activeAlertArea.mainExposureValue;
-        eventArea.startDate = lastUploadDate.timestamp;
+        eventArea.firstIssuedDate = lastUploadDate.timestamp;
         eventArea.endDate = lastUploadDate.timestamp;
         eventArea.stopped = false;
         eventArea.manualStoppedDate = null;

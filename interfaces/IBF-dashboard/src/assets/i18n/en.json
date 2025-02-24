@@ -147,8 +147,8 @@
         "header": "Trigger: {{ eventName }} on {{firstLeadTimeDate}}",
         "header-ongoing": "Ongoing trigger: {{ eventName }}",
         "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
-        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>.",
-        "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ startDate }}</strong>, but it can currently not be predicted to reach trigger thresholds yet."
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger in <strong>{{ eventName }}</strong> was issued on <strong>{{ firstIssuedDate }}</strong>.",
+        "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ firstIssuedDate }}</strong>, but it can currently not be predicted to reach trigger thresholds yet."
       },
       "active-event": {
         "overview": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ mainExposureIndicator}} and are highlighted in the map with a red outline.",
@@ -170,8 +170,8 @@
       "active-event-active-trigger": {
         "header": "Trigger: {{ eventName }} in {{firstLeadTimeDate}}",
         "header-ongoing": "Ongoing trigger: {{eventName}} in {{firstLeadTimeDate}}",
-        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
-        "welcome-duration": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ startDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong> with a duration of <strong>{{ duration}}</strong> month(s)."
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ firstIssuedDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
+        "welcome-duration": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ firstIssuedDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong> with a duration of <strong>{{ duration}}</strong> month(s)."
       },
       "clear-out": {
         "regional": {
@@ -213,8 +213,8 @@
         "header-ongoing": "Ongoing trigger: {{ eventName }}",
         "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
         "header-ongoing-below-trigger": "Ongoing warning: {{ eventName }}",
-        "welcome": "A trigger for <strong>{{ eventName }}</strong> was issued on {{ startDate }}.",
-        "welcome-below-trigger": "A warning for <strong>{{ eventName }}</strong> was issued on {{ startDate }}, but it is currently <strong>not predicted to reach trigger thresholds</strong>.",
+        "welcome": "A trigger for <strong>{{ eventName }}</strong> was issued on {{ firstIssuedDate }}.",
+        "welcome-below-trigger": "A warning for <strong>{{ eventName }}</strong> was issued on {{ firstIssuedDate }}, but it is currently <strong>not predicted to reach trigger thresholds</strong>.",
         "upcoming-event": {
           "landfall": "It is estimated to <strong>make landfall</strong> on <strong>{{ firstLeadTimeDate }}</strong>.<br><br>",
           "no-landfall": "It is estimated to reach the point closest to land on <strong>{{ firstLeadTimeDate }}</strong>. It is <strong>not predicted to make landfall</strong>.<br><br>",
@@ -245,7 +245,7 @@
       "active-event-active-trigger": {
         "header": "Alert for {{firstLeadTimeDate}}",
         "header-ongoing": "Ongoing alert for {{firstLeadTimeDate}}",
-        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ startDate }}</strong>."
+        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ firstIssuedDate }}</strong>."
       },
       "active-event": {
         "overview": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ mainExposureIndicator}} and are highlighted in the map with a red outline.",

@@ -66,7 +66,7 @@ export class ProcessPipelineService {
       countryCodeISO3,
       disasterType,
       noNotifications,
-      lastUploadDate.timestamp,
+      lastUploadDate,
     );
   }
 }

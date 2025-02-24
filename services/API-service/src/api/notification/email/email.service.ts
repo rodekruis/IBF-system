@@ -5,6 +5,7 @@ import Mailchimp from 'mailchimp-api-v3';
 
 import { EventSummaryCountry } from '../../../shared/data.model';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
+import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
 import { CountryEntity } from './../../country/country.entity';
 import { NotificationContentService } from './../notification-content/notification-content.service';
 import { MjmlService } from './mjml.service';
@@ -45,9 +46,8 @@ export class EmailService {
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
     noNotifications: boolean,
-    date?: Date,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<void | string> {
-    date = date ? new Date(date) : new Date();
     const emailContent =
       await this.notificationContentService.getContentTriggerNotification(
         country,
@@ -58,7 +58,7 @@ export class EmailService {
 
     emailHtml += this.mjmlService.getTriggerEmailHtmlOutput({
       emailContent,
-      date,
+      date: lastUploadDate.timestamp,
     });
 
     if (noNotifications) {
@@ -86,7 +86,7 @@ export class EmailService {
     disasterType: DisasterType,
     finishedEvents: EventSummaryCountry[],
     noNotifications: boolean,
-    date?: Date,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<void | string> {
     const disasterTypeLabel =
       await this.notificationContentService.getDisasterTypeLabel(disasterType);
@@ -100,7 +100,7 @@ export class EmailService {
 
     const emailHtml = this.mjmlService.getEventFinishedEmailHtmlOutput({
       emailContent,
-      date,
+      date: lastUploadDate.timestamp,
     });
 
     if (noNotifications) {

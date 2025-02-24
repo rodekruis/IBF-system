@@ -35,7 +35,7 @@
                 | translate
                   : {
                       name: displayName,
-                      startDate: event.startDate,
+                      firstIssuedDate: event.firstIssuedDate,
                       leadTime: event.firstLeadTimeLabel,
                       timeUnit: event.timeUnit,
                       disasterTypeLabel: disasterTypeLabel,
@@ -58,7 +58,7 @@
                 | translate
                   : {
                       name: displayName,
-                      startDate: event.startDate,
+                      firstIssuedDate: event.firstIssuedDate,
                       leadTime: event.firstLeadTimeLabel,
                       timeUnit: event.timeUnit,
                       disasterTypeLabel: disasterTypeLabel,
@@ -98,7 +98,7 @@
             '.active-event-active-trigger.welcome-below-trigger'
             | translate
               : {
-                  startDate: event.startDate,
+                  firstIssuedDate: event.firstIssuedDate,
                   firstLeadTimeDate: event.firstLeadTimeDate,
                   firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
                   eventName: event.eventName?.split('_')[0],

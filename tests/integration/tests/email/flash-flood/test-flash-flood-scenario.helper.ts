@@ -34,10 +34,7 @@ export async function testFlashFloodScenario(
   expect(mockResult.status).toBe(202);
   expect(response.status).toBe(201);
 
-  if (
-    scenario === FlashFloodsScenario.NoTrigger ||
-    scenario.startsWith('trigger-ongoing-') // ongoing triggers are not listed in emails
-  ) {
+  if (scenario === FlashFloodsScenario.NoTrigger) {
     expect(response.body.activeEvents.email).toBeUndefined();
   } else {
     expect(response.body.activeEvents.email).toBeDefined();
@@ -72,6 +69,32 @@ export async function testFlashFloodScenario(
       expect(hasEvent).toBe(true);
     }
   }
+
+  if (scenario !== FlashFloodsScenario.TriggerOngoingRumphi) {
+    return true;
+  }
+
+  // For ongoing scenario, simulate a 2nd pipeline run to test that it does not send an email the 2nd time
+  const tomorrowDate = new Date();
+  tomorrowDate.setDate(tomorrowDate.getDate() + 1);
+  const removeEvents = false;
+  await mock(
+    scenario,
+    DisasterType.FlashFloods,
+    countryCodeISO3,
+    tomorrowDate,
+    accessToken,
+    removeEvents,
+  );
+  // Act
+  const secondPipelineRunEmailResponse = await sendNotification(
+    countryCodeISO3,
+    DisasterType.FlashFloods,
+    accessToken,
+  );
+  expect(
+    secondPipelineRunEmailResponse.body.activeEvents.email,
+  ).toBeUndefined();
 
   return true;
 }

@@ -38,9 +38,8 @@ export class EventPlaceCodeEntity {
   @Column({ default: true })
   public forecastTrigger: boolean;
 
-  // REFACTOR: this to be named firstIssuedDate?
   @Column({ type: 'timestamp' })
-  public startDate: Date;
+  public firstIssuedDate: Date;
 
   @Column({ type: 'float8', nullable: true })
   public forecastSeverity: number;
@@ -49,7 +48,7 @@ export class EventPlaceCodeEntity {
   public mainExposureValue: number;
 
   @Column({ type: 'timestamp', nullable: true })
-  @Check(`"startDate" <= "endDate"`)
+  @Check(`"firstIssuedDate" <= "endDate"`)
   public endDate: Date;
 
   @Column({ type: 'timestamp', nullable: true })

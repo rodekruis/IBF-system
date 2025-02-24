@@ -12,7 +12,7 @@ describe('Should send an email for mwi flash flood', () => {
   });
 
   it('trigger', async () => {
-    const eventNames = ['Blantyre City', 'Karonga']; // Scenario contains also 'Rumphi' but as ongoing, for which no email is sent
+    const eventNames = ['Blantyre City', 'Karonga', 'Rumphi'];
     const result = await testFlashFloodScenario(
       FlashFloodsScenario.Trigger,
       countryCodeISO3,
@@ -45,7 +45,7 @@ describe('Should send an email for mwi flash flood', () => {
   });
 
   it('trigger-ongoing-rumphi', async () => {
-    const eventNames = []; // ongoing triggers are not listed in emails
+    const eventNames = ['Rumphi'];
     const result = await testFlashFloodScenario(
       FlashFloodsScenario.TriggerOngoingRumphi,
       countryCodeISO3,

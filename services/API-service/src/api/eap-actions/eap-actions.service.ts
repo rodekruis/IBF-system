@@ -137,7 +137,7 @@ export class EapActionsService {
       where: { placeCode },
     });
 
-    // note: the below will not be able to distinguish between different open events (= typhoon only)
+    // note: the below will not be able to distinguish between different active events (= typhoon only)
     const eventPlaceCode = await this.eventPlaceCodeRepository.findOne({
       where: {
         closed: false,
@@ -147,7 +147,7 @@ export class EapActionsService {
     });
 
     if (!eventPlaceCode) {
-      const errors = 'No open event found to check off actions for';
+      const errors = 'No active event found to check off actions for';
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
     }
 

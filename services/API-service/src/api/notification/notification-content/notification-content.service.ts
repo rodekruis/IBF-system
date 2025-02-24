@@ -10,6 +10,7 @@ import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../../country/country.entity';
 import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
+import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
 import { EventService } from '../../event/event.service';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../dto/admin-area-notification-info.dto';
@@ -176,7 +177,7 @@ export class NotificationContentService {
     );
     data.nrOfAlertAreas = data.alertAreas.length;
 
-    data.issuedDate = new Date(event.startDate);
+    data.issuedDate = event.firstIssuedDate;
     data.firstLeadTimeString = await this.getFirstLeadTimeString(
       event,
       event.countryCodeISO3,
@@ -256,10 +257,10 @@ export class NotificationContentService {
   private async getFirstLeadTimeDate(
     value: number,
     unit: string,
-    lastUploadTimestamp: Date,
+    lastUploadDate: LastUploadDateDto,
     date?: Date,
   ): Promise<string> {
-    const now = date || lastUploadTimestamp;
+    const now = date || lastUploadDate.timestamp;
 
     const getNewDate = {
       month: new Date(now).setMonth(new Date(now).getMonth() + value),
@@ -322,13 +323,13 @@ export class NotificationContentService {
     const startDateFirstEvent = await this.getFirstLeadTimeDate(
       Number(leadTime.split('-')[0]),
       leadTime.split('-')[1],
-      lastUploadDate.timestamp,
+      lastUploadDate,
       date,
     );
     const startTimeFirstEvent = await this.getLeadTimeTimestamp(
       leadTime,
       countryCodeISO3,
-      lastUploadDate.timestamp,
+      lastUploadDate,
     );
     return (
       startDateFirstEvent +
@@ -345,7 +346,7 @@ export class NotificationContentService {
   private async getLeadTimeTimestamp(
     leadTime: LeadTime,
     countryCodeISO3: string,
-    lastUploadTimestamp: Date,
+    lastUploadDate: LastUploadDateDto,
   ): Promise<string> {
     const timeZone = {
       PHL: {
@@ -362,7 +363,7 @@ export class NotificationContentService {
       return null;
     }
 
-    const gmtUploadDate = new Date(lastUploadTimestamp);
+    const gmtUploadDate = lastUploadDate.timestamp;
     const hours = Number(leadTime.split('-')[0]);
     const gmtEventDate = new Date(
       gmtUploadDate.setTime(gmtUploadDate.getTime() + hours * 60 * 60 * 1000),

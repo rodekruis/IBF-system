@@ -68,15 +68,17 @@ export function mock(
   countryCodeISO3: string,
   date: Date | null,
   accessToken: string,
+  removeEvents = true,
+  noNotifications = true,
 ): Promise<request.Response> {
   return getServer()
     .post('/scripts/mock')
     .set('Authorization', `Bearer ${accessToken}`)
-    .query({ disasterType, countryCodeISO3, noNotifications: true })
+    .query({ disasterType, countryCodeISO3, noNotifications })
     .send({
       scenario,
       secret: process.env.RESET_SECRET,
-      removeEvents: true,
+      removeEvents,
       date: date ?? new Date(),
     });
 }
@@ -85,11 +87,12 @@ export function sendNotification(
   countryCodeISO3: string,
   disasterType: DisasterType,
   accessToken: string,
+  noNotifications = true,
 ): Promise<request.Response> {
   return getServer()
     .post('/notification/send')
     .set('Authorization', `Bearer ${accessToken}`)
-    .query({ noNotifications: true })
+    .query({ noNotifications })
     .send({
       countryCodeISO3,
       disasterType,

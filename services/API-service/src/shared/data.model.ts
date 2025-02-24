@@ -47,7 +47,7 @@ export class AlertArea {
   public stopped: boolean;
 
   @ApiProperty({ example: new Date().toISOString() })
-  public startDate: string;
+  public firstIssuedDate: string;
 
   @ApiProperty({ example: new Date().toISOString() })
   public stoppedDate: string;
@@ -81,11 +81,11 @@ export class EventSummaryCountry {
   @ApiProperty({ example: 'UGA' })
   public countryCodeISO3: string;
 
-  @ApiProperty({ example: new Date().toISOString() })
-  public startDate: string;
+  @ApiProperty({ example: new Date() })
+  public firstIssuedDate: Date;
 
-  @ApiProperty({ example: new Date().toISOString() })
-  public endDate: string;
+  @ApiProperty({ example: new Date() })
+  public endDate: Date;
 
   @ApiProperty({ example: true })
   public activeTrigger: boolean;

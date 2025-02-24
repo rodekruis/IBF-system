@@ -13,7 +13,7 @@ export const MOCK_ALERT_AREAS: AlertArea[] = [
     nameParent: 'Banissa',
     placeCode: 'KE0090400198',
     adminLevel: AdminLevel.adminLevel3,
-    startDate: '2024-11-04',
+    firstIssuedDate: '2025-02-21T12:38:48.546Z',
     submitDisabled: false,
   },
   {
@@ -27,7 +27,7 @@ export const MOCK_ALERT_AREAS: AlertArea[] = [
     nameParent: 'Banissa',
     placeCode: 'KE0090400197',
     adminLevel: AdminLevel.adminLevel3,
-    startDate: '2024-11-04',
+    firstIssuedDate: '2025-02-21T12:38:48.546Z',
     submitDisabled: false,
   },
 ];

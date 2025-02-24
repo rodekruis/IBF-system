@@ -49,11 +49,12 @@ export function mockData(
   countryCodeISO3: string,
   accessToken: string,
   date?: Date,
+  noNotifications = true,
 ): Promise<request.Response> {
   return getServer()
     .post(`/scripts/mock`)
     .set('Authorization', `Bearer ${accessToken}`)
-    .query({ disasterType, countryCodeISO3, noNotifications: true })
+    .query({ disasterType, countryCodeISO3, noNotifications })
     .send({
       scenario,
       secret: process.env.RESET_SECRET,

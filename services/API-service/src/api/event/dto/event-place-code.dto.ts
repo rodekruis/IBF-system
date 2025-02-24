@@ -28,7 +28,7 @@ export class ActivationLogDto {
   public name: string;
 
   @ApiProperty({ example: new Date().toISOString() })
-  public startDate: string;
+  public firstIssuedDate: string;
 
   @ApiProperty({ example: null })
   public endDate: string;
@@ -57,7 +57,7 @@ export class ActivationLogDto {
     this.eventName = null;
     this.placeCode = null;
     this.name = null;
-    this.startDate = null;
+    this.firstIssuedDate = null;
     this.endDate = null;
     this.stopped = null;
     this.manuallyStopped = null;
