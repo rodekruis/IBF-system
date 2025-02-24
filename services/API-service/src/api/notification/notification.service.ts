@@ -26,17 +26,17 @@ export class NotificationService {
   public async send(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    isApiTest: boolean,
+    noNotifications: boolean,
     date?: Date,
   ): Promise<void | NotificationApiTestResponseDto> {
     const response = new NotificationApiTestResponseDto();
     const activeEventsResponse = await this.sendNotificationsActiveEvents(
       disasterType,
       countryCodeISO3,
-      isApiTest,
+      noNotifications,
       date,
     );
-    if (isApiTest && activeEventsResponse) {
+    if (noNotifications && activeEventsResponse) {
       response.activeEvents = activeEventsResponse;
     }
 
@@ -46,15 +46,15 @@ export class NotificationService {
     //   const finishedEventsResponse = await this.sendNotificationsFinishedEvents(
     //     countryCodeISO3,
     //     disasterType,
-    //     isApiTest,
+    //     noNotifications,
     //     date,
     //   );
-    //   if (isApiTest && finishedEventsResponse) {
+    //   if (noNotifications && finishedEventsResponse) {
     //     response.finishedEvents = finishedEventsResponse;
     //   }
     // }
 
-    if (isApiTest) {
+    if (noNotifications) {
       return response;
     }
   }
@@ -62,7 +62,7 @@ export class NotificationService {
   private async sendNotificationsActiveEvents(
     disasterType: DisasterType,
     countryCodeISO3: string,
-    isApiTest: boolean,
+    noNotifications: boolean,
     date?: Date,
   ): Promise<void | NotificationApiTestResponseChannelDto> {
     const response = new NotificationApiTestResponseChannelDto();
@@ -85,25 +85,25 @@ export class NotificationService {
         await this.notificationContentService.getCountryNotificationInfo(
           countryCodeISO3,
         );
-      const messageForApiTest = await this.emailService.sendTriggerEmail(
+      const emailContent = await this.emailService.sendActiveEventsEmail(
         country,
         disasterType,
         activeNotifiableEvents,
-        isApiTest,
+        noNotifications,
         date,
       );
-      if (isApiTest && messageForApiTest) {
-        response.email = messageForApiTest;
+      if (noNotifications && emailContent) {
+        response.email = emailContent;
       }
       if (country.notificationInfo.useWhatsapp[disasterType]) {
-        this.whatsappService.sendTriggerWhatsapp(
+        this.whatsappService.sendActiveEventsWhatsapp(
           country,
           activeNotifiableEvents,
           disasterType,
         );
       }
     }
-    if (isApiTest) {
+    if (noNotifications) {
       return response;
     }
   }
@@ -111,7 +111,7 @@ export class NotificationService {
   private async sendNotificationsFinishedEvents(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    isApiTest: boolean,
+    noNotifications: boolean,
     date?: Date,
   ): Promise<void | NotificationApiTestResponseChannelDto> {
     const response = new NotificationApiTestResponseChannelDto();
@@ -127,27 +127,28 @@ export class NotificationService {
           countryCodeISO3,
         );
 
-      const emailFinished = await this.emailService.sendTriggerFinishedEmail(
-        country,
-        disasterType,
-        finishedNotifiableEvents,
-        isApiTest,
-        date,
-      );
-      if (isApiTest && emailFinished) {
-        response.email = emailFinished;
+      const emailFinishedContent =
+        await this.emailService.sendEventFinishedEmail(
+          country,
+          disasterType,
+          finishedNotifiableEvents,
+          noNotifications,
+          date,
+        );
+      if (noNotifications && emailFinishedContent) {
+        response.email = emailFinishedContent;
       }
 
       if (country.notificationInfo.useWhatsapp[disasterType]) {
         for (const event of finishedNotifiableEvents) {
-          await this.whatsappService.sendTriggerFinishedWhatsapp(
+          await this.whatsappService.sendEventFinishedWhatsapp(
             country,
             event,
             disasterType,
           );
         }
       }
-      if (isApiTest) {
+      if (noNotifications) {
         return response;
       }
     }

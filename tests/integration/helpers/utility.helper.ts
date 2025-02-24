@@ -72,7 +72,7 @@ export function mock(
   return getServer()
     .post('/scripts/mock')
     .set('Authorization', `Bearer ${accessToken}`)
-    .query({ disasterType, countryCodeISO3, isApiTest: true })
+    .query({ disasterType, countryCodeISO3, noNotifications: true })
     .send({
       scenario,
       secret: process.env.RESET_SECRET,
@@ -89,7 +89,7 @@ export function sendNotification(
   return getServer()
     .post('/notification/send')
     .set('Authorization', `Bearer ${accessToken}`)
-    .query({ isApiTest: true })
+    .query({ noNotifications: true })
     .send({
       countryCodeISO3,
       disasterType,
