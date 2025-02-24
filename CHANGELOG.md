@@ -1,3 +1,17 @@
+# [0.285.0](https://github.com/rodekruis/IBF-system/compare/v0.284.0...v0.285.0) (2025-02-24)
+
+
+### Bug Fixes
+
+* correctly test on event.startDate in timestamp format AB[#33907](https://github.com/rodekruis/IBF-system/issues/33907) ([4702efe](https://github.com/rodekruis/IBF-system/commit/4702efe0825692a417ce2eaf300d0d348785752f))
+
+
+### Features
+
+* send email on event starting as ongoing AB[#33907](https://github.com/rodekruis/IBF-system/issues/33907) ([26aca8a](https://github.com/rodekruis/IBF-system/commit/26aca8ae4a3680f311e240cd844d91c600b7282e))
+
+
+
 # [0.284.0](https://github.com/rodekruis/IBF-system/compare/v0.283.2...v0.284.0) (2025-02-24)
 
 
@@ -120,15 +134,6 @@
 ### Features
 
 * set up geoserver for rainfall_forecast and population with dummy data AB[#32769](https://github.com/rodekruis/IBF-system/issues/32769) ([d6047c7](https://github.com/rodekruis/IBF-system/commit/d6047c7135c1ec03353d91333eca68df8090b6d5))
-
-
-
-## [0.278.7](https://github.com/rodekruis/IBF-system/compare/v0.278.6...v0.278.7) (2025-01-29)
-
-
-### Bug Fixes
-
-* update misplaced glofas stations AB[#33136](https://github.com/rodekruis/IBF-system/issues/33136) ([2bfbae5](https://github.com/rodekruis/IBF-system/commit/2bfbae5500017a80ca1fc22e168962f616b172b3))
 
 
 
