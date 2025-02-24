@@ -491,7 +491,7 @@ export class EventService {
         'event."mainExposureValue" as "exposureValue"',
         `CASE
         WHEN event."forecastTrigger" = true THEN 'Trigger'
-        WHEN event."forecastSeverity" = 1 THEN 'High warning'
+        WHEN event."forecastSeverity" = 1 THEN 'Warning'
         WHEN event."forecastSeverity" = 0.7 THEN 'Medium warning'
         WHEN event."forecastSeverity" = 0.3 THEN 'Low warning'
         END as "alertClass"`,
