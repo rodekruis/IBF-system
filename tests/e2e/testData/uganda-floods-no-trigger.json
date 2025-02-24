@@ -1,0 +1,40 @@
+{
+  "scenario": "no-trigger",
+  "disasterType": "floods",
+  "countryCode": "KEN",
+  "countryName": "Kenya",
+  "userMail": "kenya@redcross.nl",
+  "userPassword": "password",
+  "firstName": "Kenya",
+  "lastName": "Manager",
+  "mapLayers": ["glofas_stations"],
+  "aggregatesComponent": {
+    "headerText": "National View 0 Predicted Flood(s)",
+    "indicators": [
+      {
+        "name": "population_exposed",
+        "label": "Exposed population",
+        "popover": {
+          "description": "This is the exposed population",
+          "source": {
+            "label": "High Resolution Settlement Layer (HRSL)",
+            "url": "https://www.ciesin.columbia.edu/data/hrsl/"
+          }
+        }
+      },
+      { "name": "population_total", "label": "Total population" },
+      {
+        "name": "population_female_headed_household",
+        "label": "Female-headed household"
+      },
+      {
+        "name": "population_under_eight",
+        "label": "Population under 8"
+      },
+      {
+        "name": "population_over_sixty_five",
+        "label": "Population over 65"
+      }
+    ]
+  }
+}

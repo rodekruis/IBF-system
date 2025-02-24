@@ -5,7 +5,7 @@ import { Components, Pages } from '../../helpers/interfaces';
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  testData: any,
 ) => {
   test('[33058] Aggregates component elements should be visible', async () => {
     const { dashboard } = pages;
@@ -16,10 +16,10 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(disasterType);
+    await dashboard.navigateToDisasterType(testData.disasterType);
     // Assertions
     await aggregates.aggregateComponentIsVisible();
-    await aggregates.aggregatesAlementsDisplayedInNoTrigger();
+    await aggregates.aggregatesAlementsDisplayedInNoTrigger(testData);
 
     // Reload the page to prepare for next test
     await dashboard.page.goto('/');

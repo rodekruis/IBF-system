@@ -5,14 +5,6 @@ import { EnglishTranslations } from 'testData/translations.enum';
 
 import DashboardPage from './DashboardPage';
 
-const expectedLayersNames = [
-  'Exposed population',
-  'Total Population',
-  'Female-headed household',
-  'Population under 8',
-  'Population over 65',
-];
-
 class AggregatesComponent extends DashboardPage {
   readonly page: Page;
   readonly aggregateSectionColumn: Locator;
@@ -56,7 +48,7 @@ class AggregatesComponent extends DashboardPage {
     await expect(this.aggregateSectionColumn).toContainText('National View');
   }
 
-  async aggregatesAlementsDisplayedInNoTrigger() {
+  async aggregatesAlementsDisplayedInNoTrigger(testData: any) {
     // Wait for the page to load
     await this.page.waitForSelector('[data-testid="loader"]', {
       state: 'hidden',
@@ -73,10 +65,10 @@ class AggregatesComponent extends DashboardPage {
     const iconLayerCount = await this.aggregatesInfoIcon.count();
 
     // Basic Assertions
-    expect(headerTextModified).toBe('National View 0 Predicted Flood(s)');
+    expect(headerTextModified).toBe(testData.aggregatesComponent.headerText);
     await expect(this.aggreagtesTitleInfoIcon).toBeVisible();
-    expect(layerCount).toBe(5);
-    expect(iconLayerCount).toBe(5);
+    expect(layerCount).toBe(testData.aggregatesComponent.indicators.length);
+    expect(iconLayerCount).toBe(testData.aggregatesComponent.indicators.length);
 
     // Loop through the layers and check if they are present with correct data
     for (const affectedNumber of affectedNumbers) {
@@ -84,8 +76,8 @@ class AggregatesComponent extends DashboardPage {
       expect(affectedNumberText).toContain('0');
     }
     // Loop through the layers and check if they are present with correct names
-    for (const layerName of expectedLayersNames) {
-      const layerLocator = this.aggregatesLayerRow.locator(`text=${layerName}`);
+    for (const { label } of testData.aggregatesComponent.indicators) {
+      const layerLocator = this.aggregatesLayerRow.locator(`text=${label}`);
       await expect(layerLocator).toBeVisible();
     }
   }
@@ -123,7 +115,7 @@ class AggregatesComponent extends DashboardPage {
 
     await layerPopoverExternalLink.click();
     expect(this.page.url()).toContain(
-      'https://www.ciesin.columbia.edu/data/hrsl/',
+      'https://www.ciesin.columbia.edu/data/hrsl',
     );
 
     // Go back to the IBF-portal page

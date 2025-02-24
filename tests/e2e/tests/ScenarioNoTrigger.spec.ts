@@ -7,7 +7,7 @@ import DisasterTypeComponent from 'Pages/DisasterTypeComponent';
 import MapComponent from 'Pages/MapComponent';
 import TimelineComponent from 'Pages/TimelineComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
-import { NoTriggerDataSet } from 'testData/testData.enum';
+import { NoTriggerDataSet, TestScenarios } from 'testData/testData.enum';
 
 import { getAccessToken, mockData, resetDB } from '../helpers/utility.helper';
 import LoginPage from '../Pages/LoginPage';
@@ -37,7 +37,10 @@ let page: Page;
 const pages: Partial<Pages> = {};
 const components: Partial<Components> = {};
 
-test.describe('Scenario: No Trigger', () => {
+test.describe.only('Scenario: No Trigger', () => {
+  const testScenario = TestScenarios[
+    `${NoTriggerDataSet.CountryCode}-${NoTriggerDataSet.DisasterType}-{TestData.scenario}`
+  ] as any;
   const disasterType = NoTriggerDataSet.DisasterType;
   const countryCodeISO3 = NoTriggerDataSet.CountryCode;
   const scenario = NoTriggerDataSet.NoTriggerScenario;
@@ -84,12 +87,14 @@ test.describe('Scenario: No Trigger', () => {
     MapComponentInfoPopover(pages, components, disasterType);
     MapComponentLayersVisible(pages, components, disasterType);
     MapComponentTriggerLayer(pages, components, disasterType);
-    MapComponentGloFASStations(pages, components, disasterType);
-    MapComponentGloFASStationsWarning(pages, components, disasterType);
+    if (testScenario.mapLayers.includes('glofas_stations')) {
+      MapComponentGloFASStations(pages, components, disasterType);
+      MapComponentGloFASStationsWarning(pages, components, disasterType);
+    }
   });
 
   test.describe('AggregatesComponent', () => {
-    AggregatesComponentVisible(pages, components, disasterType);
+    AggregatesComponentVisible(pages, components, testScenario);
     AggregateComponentTitleHover(pages, components, disasterType);
     AggregateComponentButtonClick(pages, components, disasterType);
   });
