@@ -30,20 +30,12 @@
         @if (showFirstWarningDate()) {
           <span
             [innerHTML]="
-              'chat-component.' + disasterTypeName + '.active-event.welcome'
+              'chat-component.' +
+                disasterTypeName +
+                '.active-event.first-warning-date'
                 | translate
                   : {
-                      name: displayName,
-                      firstIssuedDate: event.firstIssuedDate,
-                      leadTime: event.firstLeadTimeLabel,
-                      timeUnit: event.timeUnit,
-                      disasterTypeLabel: disasterTypeLabel,
                       firstLeadTimeDate: event.firstLeadTimeDate,
-                      firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
-                      eventName:
-                        event.eventName?.split('_')[0] || disasterTypeLabel,
-                      duration: event.duration,
-                      nrAlertAreas: areas.length,
                     }
             "
           ></span>
@@ -69,77 +61,55 @@
           color="ibf-no-alert-primary"
         ></app-tooltip>
       </div>
-      <p
-        [innerHTML]="
-          'chat-component.' +
-            disasterTypeName +
-            '.active-event.welcome-below-trigger'
+    }
+
+    <p>
+      <strong
+        >{{ event.disasterSpecificProperties.eapAlertClass.label }}:
+      </strong>
+      @if (typhoonLandfallText) {
+        <span [innerHTML]="typhoonLandfallText"></span>
+      } @else {
+        <span>{{
+          'chat-component.common.alertLevel.expected'
             | translate
               : {
-                  firstIssuedDate: event.firstIssuedDate,
-                  firstLeadTimeDate: event.firstLeadTimeDate,
-                  firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
-                  eventName: event.eventName?.split('_')[0],
-                  leadTime: event.firstLeadTimeLabel,
-                  timeUnit: event.timeUnit,
-                  disasterTypeLabel: disasterTypeLabel,
-                  nrAlertAreas: areas.length,
-                  duration: event.duration,
+                  date:
+                    event.firstTriggerLeadTimeDate || event.firstLeadTimeDate,
                 }
-        "
-      ></p>
-    }
-
-    @if (isEventWithForecastClasses()) {
-      <p>
-        <strong
-          >{{ event.disasterSpecificProperties.eapAlertClass.label }}:
-        </strong>
-        @if (event.forecastTrigger) {
-          <span
-            >{{
-              'chat-component.common.alertLevel.expected-trigger' | translate
-            }}
-            {{ event.firstTriggerLeadTimeDate }}</span
-          >
-        } @else {
-          <span
-            >{{ 'chat-component.common.alertLevel.expected' | translate }}
-            {{ event.firstLeadTimeDate }}</span
-          >
-        }
-      </p>
-      <p>
-        <strong
-          >{{
-            'chat-component.common.alertLevel.exposed-areas'
-              | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
-          }}
-        </strong>
-        <span>{{ event.nrAlertAreas + ' ' }}</span>
-        @if (event.mainExposureValueSum) {
+        }}</span>
+        @if (!event.forecastTrigger) {
           <span>{{
-            '(' +
-              (mainExposureIndicatorLabel | titlecase) +
-              ' ' +
-              (event.mainExposureValueSum | compact) +
-              ')'
+            'chat-component.common.alertLevel.warning'
+              | translate: { date: event.firstLeadTimeDate }
           }}</span>
-        } @else {
-          <span>
-            {{
-              '(' +
-                ('chat-component.common.alertLevel.no-data' | translate) +
-                ')'
-            }}
-          </span>
         }
-      </p>
-    }
-
-    @if (typhoonLandfallText) {
-      <p [innerHTML]="typhoonLandfallText"></p>
-    }
+      }
+    </p>
+    <p>
+      <strong
+        >{{
+          'chat-component.common.alertLevel.exposed-areas'
+            | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
+        }}
+      </strong>
+      <span>{{ event.nrAlertAreas + ' ' }}</span>
+      @if (event.mainExposureValueSum) {
+        <span>{{
+          '(' +
+            (mainExposureIndicatorLabel | titlecase) +
+            ' ' +
+            (event.mainExposureValueSum | compact) +
+            ')'
+        }}</span>
+      } @else {
+        <span>
+          {{
+            '(' + ('chat-component.common.alertLevel.no-data' | translate) + ')'
+          }}
+        </span>
+      }
+    </p>
 
     @if (!!clearOutMessage) {
       <p class="clear-out-message" [innerHTML]="clearOutMessage"></p>
@@ -148,35 +118,6 @@
     <!-- =================================== -->
 
     @if (event.eventName === selectedEvent) {
-      @if (event.forecastTrigger) {
-        <p
-          [innerHTML]="
-            'chat-component.' + disasterTypeName + '.active-event.overview'
-              | translate
-                : {
-                    nrAlertAreas: areas.length,
-                    adminAreaLabelPlural: adminAreaLabelPlural,
-                    eventName: selectedEvent?.split('_')[0],
-                    mainExposureIndicator: mainExposureIndicatorLabel,
-                  }
-          "
-        ></p>
-      } @else {
-        <p
-          [innerHTML]="
-            'chat-component.' +
-              disasterTypeName +
-              '.active-event.overview-below-trigger'
-              | translate
-                : {
-                    nrAlertAreas: areas.length,
-                    adminAreaLabelPlural: adminAreaLabelPlural,
-                    eventName: selectedEvent?.split('_')[0],
-                    mainExposureIndicator: mainExposureIndicatorLabel,
-                  }
-          "
-        ></p>
-      }
       <div>
         <ul class="list-inside list-disc text-xs">
           @for (area of areas; track area.eventPlaceCodeId) {
@@ -201,14 +142,6 @@
           }
         </ul>
       </div>
-      @if (event.forecastTrigger && enableEarlyActions) {
-        <p
-          [translate]="
-            'chat-component.' + disasterTypeName + '.active-event.instruction'
-              | translate
-          "
-        ></p>
-      }
     }
 
     @if (event) {
