@@ -94,7 +94,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
       // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
       this.eventService.switchEvent(event.eventName);
 
-      this.timelineService.handleTimeStepButtonClick(
+      this.timelineService.setTimelineState(
         event.firstTriggerLeadTime || event.firstLeadTime,
         event.eventName,
       );
