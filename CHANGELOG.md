@@ -1,3 +1,21 @@
+# [0.286.0](https://github.com/rodekruis/IBF-system/compare/v0.285.0...v0.286.0) (2025-02-25)
+
+
+### Bug Fixes
+
+* basic changes to arrive at working front-end AB[#33407](https://github.com/rodekruis/IBF-system/issues/33407) ([f47e01b](https://github.com/rodekruis/IBF-system/commit/f47e01b42ff9fb460948aeafff6549d9ae4bacd6))
+* bug in getActiveAlertAreas query ([547a4e3](https://github.com/rodekruis/IBF-system/commit/547a4e3c98d61c2e2d09993e31ffd60d4acf51c5))
+* remove app-timestamp properly ([fb37f49](https://github.com/rodekruis/IBF-system/commit/fb37f49099264d7072490e60819b94f988934d86))
+* rename startDate to firstIssuedDate ([40a0e46](https://github.com/rodekruis/IBF-system/commit/40a0e46869c9d0942239bd8d96cae60e43081c62))
+* show exposure for warnings also if available AB[#33407](https://github.com/rodekruis/IBF-system/issues/33407) ([4dc5f72](https://github.com/rodekruis/IBF-system/commit/4dc5f723b6cd4c3a4ed59935249a609f95af2693))
+
+
+### Features
+
+* show first issued date in bottomright of speech bubble ([940e63f](https://github.com/rodekruis/IBF-system/commit/940e63f718d7faba24f47c0767538d39dec416ff))
+
+
+
 # [0.285.0](https://github.com/rodekruis/IBF-system/compare/v0.284.0...v0.285.0) (2025-02-24)
 
 
@@ -125,15 +143,6 @@
 ### Features
 
 * remove stop propertise from trigger log AB[#32660](https://github.com/rodekruis/IBF-system/issues/32660) ([36bb8db](https://github.com/rodekruis/IBF-system/commit/36bb8db4bf3c03d3b23757358a066e7c1b51ccb0))
-
-
-
-# [0.279.0](https://github.com/rodekruis/IBF-system/compare/v0.278.7...v0.279.0) (2025-01-31)
-
-
-### Features
-
-* set up geoserver for rainfall_forecast and population with dummy data AB[#32769](https://github.com/rodekruis/IBF-system/issues/32769) ([d6047c7](https://github.com/rodekruis/IBF-system/commit/d6047c7135c1ec03353d91333eca68df8090b6d5))
 
 
 
