@@ -1,10 +1,4 @@
-import {
-  AfterViewChecked,
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-} from '@angular/core';
+import { AfterViewChecked, Component, Input, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -12,7 +6,6 @@ import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { EventService, EventSummary } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
-import { TimelineService } from 'src/app/services/timeline.service';
 import { AlertArea } from 'src/app/types/alert-area';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { NumberFormat } from 'src/app/types/indicator-group';
@@ -61,9 +54,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     private authService: AuthService,
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
-    private timelineService: TimelineService,
     private adminLevelService: AdminLevelService,
-    private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
   ) {}
 
@@ -101,25 +92,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
 
   private onPlaceCodeHoverChange = (placeCodeHover: PlaceCode) => {
     this.placeCodeHover = placeCodeHover;
-    if (!this.eventService.state?.event) {
-      if (this.placeCodeHover) {
-        const btn = this.timelineService.state?.timeStepButtons?.find(
-          (t) => t.eventName === this.placeCodeHover.eventName,
-        );
-        if (btn) {
-          btn.active = true;
-        }
-
-        this.changeDetectorRef.detectChanges();
-      } else {
-        if (this.timelineService.state?.timeStepButtons) {
-          for (const btn of this.timelineService.state.timeStepButtons) {
-            btn.active = false;
-          }
-          this.changeDetectorRef.detectChanges();
-        }
-      }
-    }
   };
 
   public eventBubbleIsSelected(eventName: string) {

@@ -394,16 +394,20 @@ export enum LeadTimeUnit {
 export enum DateFormats {
   default = 'ccc dd',
   typhoon = 'dd ccc',
+  'flash-floods' = 'dd ccc',
 }
 
 export enum MonthFormats {
   default = 'LLL yyyy',
   typhoon = 'ccc dd LLL',
+  'flash-floods' = 'ccc dd LLL',
 }
 
 export class LeadTimeButtonInput {
   leadTime: LeadTime;
-  eventName: string;
-  undefined: boolean;
+  eventNames: string[];
+  forecastAlert: boolean;
+  forecastTrigger: boolean;
+  undefinedLeadTime: boolean;
   duration?: number;
 }

@@ -26,9 +26,4 @@ ion-button {
     border-width: 2px;
     --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
-
-  &.active.noEvent {
-    border: none;
-    font-weight: 500;
-  }
 }

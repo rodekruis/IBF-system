@@ -13,11 +13,8 @@ import { DateFormats, MonthFormats } from 'src/app/types/lead-time';
 })
 export class DateButtonComponent implements OnInit, OnDestroy {
   @Input() date = DateTime.now();
-  @Input() active: boolean;
   @Input() forecastAlert: boolean;
   @Input() forecastTrigger: boolean;
-  @Input() eventName: null | string;
-  @Input() duration: null | number;
 
   private dateFormat = '';
   private monthFormat = '';
@@ -43,16 +40,14 @@ export class DateButtonComponent implements OnInit, OnDestroy {
     this.timelineStateSubscription.unsubscribe();
   }
 
+  // REFACTOR: the setup of this file is hacky and messy
   private onTimelineStateChange = () => {
     const disasterType = this.disasterTypeService?.disasterType?.disasterType;
 
     this.dateFormat = DateFormats[disasterType] || DateFormats.default;
     this.monthFormat = MonthFormats[disasterType] || MonthFormats.default;
-    if (
-      [DisasterTypeKey.flashFloods, DisasterTypeKey.floods].includes(
-        disasterType,
-      )
-    ) {
+
+    if (disasterType === DisasterTypeKey.floods) {
       this.firstLine = this.date.toFormat(this.dateFormat);
     }
 
@@ -61,31 +56,16 @@ export class DateButtonComponent implements OnInit, OnDestroy {
       : 'Undetermined';
 
     if (
-      this.eventName &&
-      this.duration &&
-      disasterType === DisasterTypeKey.drought
+      disasterType === DisasterTypeKey.typhoon ||
+      disasterType === DisasterTypeKey.flashFloods
     ) {
-      const endMonthDate = this.date.plus({ months: this.duration - 1 });
-      let displayMonth = this.date.monthShort;
-      if (this.duration > 1) {
-        displayMonth = `${displayMonth}-${endMonthDate.monthShort}`;
-      }
-      this.secondLine = `${displayMonth} ${endMonthDate.year.toString()}`;
-    }
-
-    // Refactor: I combined all code that sets thirdLine into one if-statement to avoid confusion. But basically this whole file is one big mess, which fills all 3 lines very hackily.
-    if (disasterType === DisasterTypeKey.typhoon) {
-      if (this.active) {
+      if (this.forecastAlert) {
         this.thirdLine = this.date
           ? this.date.toFormat(this.hourFormat)
-          : 'Landfall';
+          : disasterType === DisasterTypeKey.typhoon
+            ? 'Landfall'
+            : '';
       }
-    } else if (
-      this.eventName &&
-      this.duration &&
-      disasterType === DisasterTypeKey.drought
-    ) {
-      this.thirdLine = `Duration ${this.duration.toString()} months`;
     } else {
       this.thirdLine = '';
     }

@@ -185,7 +185,7 @@ export class EventService {
         'SUM(CASE WHEN event."forecastSeverity" > 0 THEN 1 ELSE 0 END) AS "nrAlertAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
         'MAX(event."forecastSeverity")::float AS "forecastSeverity"',
         'MAX(event."forecastTrigger"::int)::boolean AS "forecastTrigger"',
-        'sum(event."mainExposureValue")::int AS "mainExposureValueSum"',
+        'sum(event."mainExposureValue")::int AS "mainExposureValueSum"', // FIX: this goes wrong in case of percentage indicator (% houses affected typhoon)
       ])
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3,

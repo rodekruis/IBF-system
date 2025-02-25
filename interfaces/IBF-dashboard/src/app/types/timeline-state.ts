@@ -13,9 +13,6 @@ export class TimeStepButton {
   value: LeadTime;
   forecastAlert: boolean;
   forecastTrigger: boolean;
-  disabled: boolean;
   active: boolean;
-  noEvent: boolean;
-  eventName: string;
-  duration?: number;
+  eventNames: string[];
 }
