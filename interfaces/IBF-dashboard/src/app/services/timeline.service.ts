@@ -242,10 +242,12 @@ export class TimelineService {
     for (const event of this.eventState.events) {
       // Push first event starting lead-times ..
       const duration = event.duration || 1;
+      const startLeadTimeToUse =
+        event.firstTriggerLeadTime || event.firstLeadTime;
       for (let i = 0; i < duration; i++) {
         // .. for events with duration (drought) also push the following lead-times
         const leadTime =
-          `${String(Number(event.firstLeadTime.split('-')[0]) + i)}-${
+          `${String(Number(startLeadTimeToUse.split('-')[0]) + i)}-${
             event.firstLeadTime.split('-')[1]
           }` as LeadTime;
         if (!visibleLeadTimes.map((lt) => lt.leadTime).includes(leadTime)) {
