@@ -9,7 +9,7 @@ import DashboardPage from './DashboardPage';
 
 const chatDialogueContentWelcomeNoTrigger =
   EnglishTranslations['chat-component'][NoTriggerDataSet.DisasterType][
-    'no-event-no-trigger'
+    'no-event'
   ].welcome;
 const chatDialogueWarnLabel =
   EnglishTranslations['chat-component'].common['warn-label'].message;

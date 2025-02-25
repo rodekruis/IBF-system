@@ -246,7 +246,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           }
         : {
             headerLabel: this.getEventNameString() || '',
-            subHeaderLabel: `${this.getAreaCount().toString()} exposed ${this.getAdminAreaLabel()}`,
+            subHeaderLabel: `${this.getAreaCount()?.toString()} exposed ${this.getAdminAreaLabel()}`,
           };
     }
 

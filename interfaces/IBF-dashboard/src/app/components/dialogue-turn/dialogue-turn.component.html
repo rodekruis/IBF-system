@@ -17,11 +17,19 @@
     <ion-card
       [style.border-color]="mouseOver || isSelected ? borderColor : null"
       (mouseover)="onMouseOver()"
+      (focus)="onMouseOver()"
       (mouseout)="onMouseOut()"
+      (blur)="onMouseOut()"
     >
       <ion-card-content data-testid="dialogue-turn-content" class="space-y-2">
         <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-        <small><app-timestamp [timestamp]="timestamp"></app-timestamp></small>
+        @if (firstIssuedDate) {
+          <small>
+            <ion-text class="ion-float-end">
+              First issued: {{ firstIssuedDate }}
+            </ion-text>
+          </small>
+        }
       </ion-card-content>
     </ion-card>
   </div>

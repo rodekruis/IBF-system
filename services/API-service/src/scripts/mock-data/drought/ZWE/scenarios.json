@@ -5,6 +5,10 @@
     "events": [{ "eventName": "MAM_National" }]
   },
   {
+    "scenarioName": "warning",
+    "events": [{ "eventName": "MAM_National" }]
+  },
+  {
     "scenarioName": "no-trigger"
   }
 ]

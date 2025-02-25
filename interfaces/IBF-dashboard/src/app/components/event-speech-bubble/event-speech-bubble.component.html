@@ -4,6 +4,7 @@
     [isNotTriggered]="!event.forecastTrigger"
     [isSelected]="eventBubbleIsSelected(event.eventName)"
     [borderColor]="getCardColors().borderColor"
+    [firstIssuedDate]="event.firstIssuedDate"
   >
     @if (event.forecastTrigger) {
       <div class="event-header">
@@ -26,12 +27,10 @@
         ></app-tooltip>
       </div>
       <p>
-        @if (!event.duration && showFirstWarningDate()) {
+        @if (showFirstWarningDate()) {
           <span
             [innerHTML]="
-              'chat-component.' +
-                disasterTypeName +
-                '.active-event-active-trigger.welcome'
+              'chat-component.' + disasterTypeName + '.active-event.welcome'
                 | translate
                   : {
                       name: displayName,
@@ -45,27 +44,6 @@
                         event.eventName?.split('_')[0] || disasterTypeLabel,
                       duration: event.duration,
                       nrAlertAreas: areas.length,
-                    }
-            "
-          ></span>
-        }
-        @if (event.duration) {
-          <span
-            [innerHTML]="
-              'chat-component.' +
-                disasterTypeName +
-                '.active-event-active-trigger.welcome-duration'
-                | translate
-                  : {
-                      name: displayName,
-                      firstIssuedDate: event.firstIssuedDate,
-                      leadTime: event.firstLeadTimeLabel,
-                      timeUnit: event.timeUnit,
-                      disasterTypeLabel: disasterTypeLabel,
-                      firstLeadTimeDate: event.firstLeadTimeDate,
-                      eventName:
-                        event.eventName?.split('_')[0] || disasterTypeLabel,
-                      duration: event.duration,
                     }
             "
           ></span>
@@ -95,7 +73,7 @@
         [innerHTML]="
           'chat-component.' +
             disasterTypeName +
-            '.active-event-active-trigger.welcome-below-trigger'
+            '.active-event.welcome-below-trigger'
             | translate
               : {
                   firstIssuedDate: event.firstIssuedDate,
@@ -106,6 +84,7 @@
                   timeUnit: event.timeUnit,
                   disasterTypeLabel: disasterTypeLabel,
                   nrAlertAreas: areas.length,
+                  duration: event.duration,
                 }
         "
       ></p>
@@ -119,18 +98,13 @@
         @if (event.forecastTrigger) {
           <span
             >{{
-              'chat-component.' +
-                disasterTypeName +
-                '.alertLevel.expected-trigger' | translate
+              'chat-component.common.alertLevel.expected-trigger' | translate
             }}
             {{ event.firstTriggerLeadTimeDate }}</span
           >
         } @else {
           <span
-            >{{
-              'chat-component.' + disasterTypeName + '.alertLevel.expected'
-                | translate
-            }}
+            >{{ 'chat-component.common.alertLevel.expected' | translate }}
             {{ event.firstLeadTimeDate }}</span
           >
         }
@@ -138,12 +112,12 @@
       <p>
         <strong
           >{{
-            'chat-component.' + disasterTypeName + '.alertLevel.exposed-areas'
+            'chat-component.common.alertLevel.exposed-areas'
               | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
           }}
         </strong>
         <span>{{ event.nrAlertAreas + ' ' }}</span>
-        @if (event.forecastTrigger) {
+        @if (event.mainExposureValueSum) {
           <span>{{
             '(' +
               (mainExposureIndicatorLabel | titlecase) +
@@ -155,8 +129,7 @@
           <span>
             {{
               '(' +
-                ('chat-component.' + disasterTypeName + '.alertLevel.no-data'
-                  | translate) +
+                ('chat-component.common.alertLevel.no-data' | translate) +
                 ')'
             }}
           </span>
@@ -166,10 +139,6 @@
 
     @if (typhoonLandfallText) {
       <p [innerHTML]="typhoonLandfallText"></p>
-    }
-
-    @if (forecastInfo && countryCodeISO3 === 'ZWE') {
-      <p>{{ forecastInfo }}</p>
     }
 
     @if (!!clearOutMessage) {
@@ -214,6 +183,8 @@
             <li
               class="my-1 cursor-pointer hover:underline"
               (click)="selectArea(area)"
+              (keydown.enter)="selectArea(area)"
+              tabindex="0"
             >
               {{ area.name }}
               @if (area.nameParent) {
@@ -230,7 +201,7 @@
           }
         </ul>
       </div>
-      @if (event.forecastTrigger) {
+      @if (event.forecastTrigger && enableEarlyActions) {
         <p
           [translate]="
             'chat-component.' + disasterTypeName + '.active-event.instruction'
@@ -250,7 +221,7 @@
   <app-dialogue-turn>
     <p
       [innerHTML]="
-        'chat-component.' + disasterTypeName + '.no-event-no-trigger.welcome'
+        'chat-component.' + disasterTypeName + '.no-event.welcome'
           | translate
             : {
                 name: displayName,

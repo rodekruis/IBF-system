@@ -95,7 +95,7 @@
         "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastUploadDate}}</strong>.",
         "tooltip": "The forecast presented on the portal might not be up to date as the model did not run successfully. Contact {{supportEmailAddress}} for further information."
       },
-      "event-tooltip": "Select an area from this list or the map to monitor, manage the trigger, and the preplanned anticipatory actions (if applicable).",
+      "event-tooltip": "Select an area from this list or the map to monitor and manage the preplanned anticipatory actions (if applicable).",
       "revert-selection": "Back",
       "save-actions": {
         "submit-button-label": "Save",
@@ -105,22 +105,26 @@
         "prompt-button-label": "OK",
         "no-actions": "There are no early actions in the portal. Please follow the local protocols relevant to the areas affected.",
         "no-actions-admin-level": "Early actions are only available on {{ defaultAdminAreaLabel }} level."
+      },
+      "alertLevel": {
+        "expected": "expected on",
+        "expected-trigger": "expected to trigger on",
+        "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
+        "no-data": "No population data available"
       }
     },
     "floods": {
       "about-button-label": "About Trigger",
-      "no-event-no-trigger": {
+      "no-event": {
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
       },
-      "active-event-active-trigger": {
+      "active-event": {
         "header": "{{ eventName }} on {{firstTriggerLeadTimeDate}}",
         "header-ongoing": "{{ eventName }} ongoing",
         "header-below-trigger": "{{ eventName }} on {{firstLeadTimeDate}}",
         "header-ongoing-below-trigger": "{{ eventName }} ongoing",
         "welcome": "Flood expected to start on {{firstLeadTimeDate}}",
-        "welcome-below-trigger": ""
-      },
-      "active-event": {
+        "welcome-below-trigger": "",
         "overview": "",
         "overview-below-trigger": "",
         "instruction": "",
@@ -130,30 +134,22 @@
       "event-switcher": {
         "current-event-message": "Back to national view",
         "switch-event-button": "Show prediction"
-      },
-      "alertLevel": {
-        "expected": "expected on",
-        "expected-trigger": "expected to trigger on",
-        "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
-        "no-data": "No population data available"
       }
     },
     "flash-floods": {
       "about-button-label": "About Trigger",
-      "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
+      "no-event": {
+        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
       },
-      "active-event-active-trigger": {
+      "active-event": {
         "header": "Trigger: {{ eventName }} on {{firstLeadTimeDate}}",
         "header-ongoing": "Ongoing trigger: {{ eventName }}",
         "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
-        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger in <strong>{{ eventName }}</strong> was issued on <strong>{{ firstIssuedDate }}</strong>.",
-        "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued on <strong>{{ firstIssuedDate }}</strong>, but it can currently not be predicted to reach trigger thresholds yet."
-      },
-      "active-event": {
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger in <strong>{{ eventName }}</strong> was issued.",
+        "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued, but it can currently not be predicted to reach trigger thresholds yet.",
         "overview": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ mainExposureIndicator}} and are highlighted in the map with a red outline.",
         "overview-below-trigger": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ mainExposureIndicator}}.",
-        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions (if applicable) of each area.",
+        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the preplanned anticipatory actions (if applicable) of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:"
       },
@@ -164,28 +160,19 @@
     },
     "drought": {
       "about-button-label": "About Trigger",
-      "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
-      },
-      "active-event-active-trigger": {
-        "header": "Trigger: {{ eventName }} in {{firstLeadTimeDate}}",
-        "header-ongoing": "Ongoing trigger: {{eventName}} in {{firstLeadTimeDate}}",
-        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ firstIssuedDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong>.",
-        "welcome-duration": "A <strong>{{ disasterTypeLabel }}</strong> trigger warning was issued on <strong>{{ firstIssuedDate }}</strong> for <strong>{{ firstLeadTimeDate }}</strong> with a duration of <strong>{{ duration}}</strong> month(s)."
-      },
-      "clear-out": {
-        "regional": {
-          "warning": "Please be aware that the EAP-actions for some areas related to this trigger will be automatically cleared out by the IBF-Portal after this month, due to the start of the next rainy season in those areas.",
-          "message": "Old EAP-actions for some areas have been automatically cleared out by the IBF-Portal, due to the start of the next rainy season in those areas."
-        },
-        "national": {
-          "warning": "Please be aware that the EAP-actions related to this trigger will be automatically cleared out by the IBF-Portal after this month, due to the start of the next rainy season.",
-          "message": "Old EAP-actions have been automatically cleared out by the IBF-Portal, due to the start of the next rainy season."
-        }
+      "no-event": {
+        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
       },
       "active-event": {
+        "header": "Trigger: {{ eventName }} in {{firstLeadTimeDate}}",
+        "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
+        "header-ongoing": "Ongoing trigger: {{eventName}} in {{firstLeadTimeDate}}",
+        "header-ongoing-below-trigger": "Ongoing warning: {{eventName}} in {{firstLeadTimeDate}}",
+        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger alert was issued for <strong>{{ firstLeadTimeDate }}</strong> with a remaining duration of <strong>{{ duration }}</strong> month(s).",
+        "welcome-below-trigger": "A <strong>{{ disasterTypeLabel }}</strong> warning alert was issued for <strong>{{ firstLeadTimeDate }}</strong> with a remaining duration of <strong>{{ duration }}</strong> month(s).",
         "overview": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ mainExposureIndicator}} and are highlighted in the map with a red outline.",
-        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions of each area.",
+        "overview-below-trigger": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} warned. They are listed below in order of {{ mainExposureIndicator}}.",
+        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:",
         "forecast-info": {
@@ -198,6 +185,16 @@
           "actions": "the following <strong>{{ nrActions }}</strong> actions should be taken."
         }
       },
+      "clear-out": {
+        "regional": {
+          "warning": "Please be aware that the EAP-actions for some areas related to this trigger will be automatically cleared out by the IBF-Portal after this month, due to the start of the next rainy season in those areas.",
+          "message": "Old EAP-actions for some areas have been automatically cleared out by the IBF-Portal, due to the start of the next rainy season in those areas."
+        },
+        "national": {
+          "warning": "Please be aware that the EAP-actions related to this trigger will be automatically cleared out by the IBF-Portal after this month, due to the start of the next rainy season.",
+          "message": "Old EAP-actions have been automatically cleared out by the IBF-Portal, due to the start of the next rainy season."
+        }
+      },
       "event-switcher": {
         "current-event-message": "Back to national view",
         "switch-event-button": "Show prediction"
@@ -205,16 +202,16 @@
     },
     "typhoon": {
       "about-button-label": "About Trigger",
-      "no-event-no-trigger": {
-        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no triggers</strong> issued."
+      "no-event": {
+        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
       },
-      "active-event-active-trigger": {
+      "active-event": {
         "header": "Trigger: {{ eventName }} at {{firstLeadTimeDate}}",
         "header-ongoing": "Ongoing trigger: {{ eventName }}",
         "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
         "header-ongoing-below-trigger": "Ongoing warning: {{ eventName }}",
-        "welcome": "A trigger for <strong>{{ eventName }}</strong> was issued on {{ firstIssuedDate }}.",
-        "welcome-below-trigger": "A warning for <strong>{{ eventName }}</strong> was issued on {{ firstIssuedDate }}, but it is currently <strong>not predicted to reach trigger thresholds</strong>.",
+        "welcome": "A trigger for <strong>{{ eventName }}</strong> was issued.",
+        "welcome-below-trigger": "A warning for <strong>{{ eventName }}</strong> was issued, but it is currently <strong>not predicted to reach trigger thresholds</strong>.",
         "upcoming-event": {
           "landfall": "It is estimated to <strong>make landfall</strong> on <strong>{{ firstLeadTimeDate }}</strong>.<br><br>",
           "no-landfall": "It is estimated to reach the point closest to land on <strong>{{ firstLeadTimeDate }}</strong>. It is <strong>not predicted to make landfall</strong>.<br><br>",
@@ -223,12 +220,10 @@
         "ongoing-event": {
           "landfall": "It has <strong>already made landfall</strong>.<br><br>",
           "no-landfall": "It has already reached the point closest to land. It is <strong>not predicted to make landfall</strong>.<br><br>"
-        }
-      },
-      "active-event": {
+        },
         "overview": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} triggered for typhoon <strong>{{ eventName }}</strong>. They are listed below in order of {{ mainExposureIndicator}} and are highlighted in the map with a red outline.",
         "overview-below-trigger": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} exposed for typhoon <strong>{{ eventName }}</strong>. They are listed below in order of {{ mainExposureIndicator}}.",
-        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions of each area.",
+        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Affected population:"
       },
@@ -239,17 +234,15 @@
     },
     "malaria": {
       "about-button-label": "About Alert",
-      "no-event-no-trigger": {
+      "no-event": {
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for malaria issued."
       },
-      "active-event-active-trigger": {
+      "active-event": {
         "header": "Alert for {{firstLeadTimeDate}}",
         "header-ongoing": "Ongoing alert for {{firstLeadTimeDate}}",
-        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued on <strong>{{ firstIssuedDate }}</strong>."
-      },
-      "active-event": {
+        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued.",
         "overview": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ mainExposureIndicator}} and are highlighted in the map with a red outline.",
-        "instruction": "You can click on the month tabs above the map to see the predictions for each month. Please select an area to monitor by selecting from the list or on the map and manage the trigger and the preplanned anticipatory actions of each area.",
+        "instruction": "You can click on the month tabs above the map to see the predictions for each month. Please select an area to monitor by selecting from the list or on the map and manage the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Potential cases: up to"
       },
