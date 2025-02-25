@@ -21,9 +21,7 @@
       fill="solid"
       data-testid="timeline-button"
       [class.active]="timeStepButton.active"
-      [class.alert]="
-        timeStepButton.forecastTrigger && !timeStepButton?.disabled
-      "
+      [class.alert]="timeStepButton.forecastTrigger"
     >
       <app-date-button
         [date]="timeStepButton.date"
