@@ -77,6 +77,7 @@
           [mainExposureIndicatorNumberFormat]="
             mainExposureIndicatorNumberFormat
           "
+          [forecastSource]="countryDisasterSettings?.forecastSource"
         ></app-event-speech-bubble>
       }
     }
@@ -132,49 +133,6 @@
               </ion-note>
             }
             <br />
-            @if (countryDisasterSettings?.showMonthlyEapActions) {
-              @if (forecastInfo) {
-                @if (area?.eapActions; as actions) {
-                  <div class="ion-margin-bottom">
-                    <ion-note size="small">
-                      @if (forecastInfo?.length) {
-                        <span
-                          >{{
-                            'chat-component.drought.active-event.forecast-info.opening'
-                              | translate
-                          }}
-                        </span>
-                      }
-                      @for (
-                        forecast of forecastInfo;
-                        track forecast;
-                        let isLast = $last
-                      ) {
-                        <span>
-                          <strong>{{ forecast }}</strong>
-                          @if (!isLast) {
-                            {{ ' ' }}
-                            <span>{{
-                              'chat-component.drought.active-event.forecast-info.and'
-                                | translate
-                            }}</span>
-                          }
-                        </span>
-                      }
-                      {{ ' ' }}
-                      <span
-                        [innerHTML]="
-                          getNumberOfActions(
-                            actions.length,
-                            forecastInfo?.length
-                          )
-                        "
-                      ></span>
-                    </ion-note>
-                  </div>
-                }
-              }
-            }
           </div>
         </ion-col>
         <ion-col size-lg="4" size-md="12" size-sm="4">

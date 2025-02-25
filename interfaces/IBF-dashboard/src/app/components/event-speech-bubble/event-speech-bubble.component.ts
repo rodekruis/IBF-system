@@ -2,6 +2,7 @@ import { AfterViewChecked, Component, Input, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ForecastSource } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { EventService, EventSummary } from 'src/app/services/event.service';
@@ -29,7 +30,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()
   public disasterTypeName: DisasterTypeKey;
   @Input()
-  public forecastInfo: string[];
+  public forecastSource: ForecastSource;
   @Input()
   public countryCodeISO3: string;
   @Input()

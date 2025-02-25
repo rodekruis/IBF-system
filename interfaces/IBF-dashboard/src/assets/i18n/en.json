@@ -109,6 +109,7 @@
       "alertLevel": {
         "expected": "expected on {{ date }}. ",
         "warning": "It is currently not predicted to reach trigger thresholds. ",
+        "source": "Forecast source: ",
         "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
         "no-data": "No exposure data available"
       }
@@ -160,16 +161,7 @@
         "header-ongoing": "Ongoing trigger: {{eventName}} in {{firstLeadTimeDate}}",
         "header-ongoing-below-trigger": "Ongoing warning: {{eventName}} in {{firstLeadTimeDate}}",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
-        "exposed": "Exposed Population:",
-        "forecast-info": {
-          "opening": "Due to the",
-          "and": "and the ",
-          "below-average-mam": "Below Average MAM",
-          "below-average-ond": "Below Average OND",
-          "mam-forecast": "MAM Forecast",
-          "ond-forecast": "OND Forecast",
-          "actions": "the following <strong>{{ nrActions }}</strong> actions should be taken."
-        }
+        "exposed": "Exposed Population:"
       },
       "clear-out": {
         "regional": {
