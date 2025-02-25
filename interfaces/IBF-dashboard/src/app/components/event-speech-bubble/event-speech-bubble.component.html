@@ -4,7 +4,7 @@
     [isNotTriggered]="!event.forecastTrigger"
     [isSelected]="eventBubbleIsSelected(event.eventName)"
     [borderColor]="getCardColors().borderColor"
-    [firstIssuedDate]="event.startDate"
+    [firstIssuedDate]="event.firstIssuedDate"
   >
     @if (event.forecastTrigger) {
       <div class="event-header">
