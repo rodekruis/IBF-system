@@ -19,7 +19,7 @@ export interface CountryDisasterSettingsDto {
   showMonthlyEapActions?: boolean;
   enableEarlyActions?: boolean;
   enableStopTrigger?: boolean;
-  monthlyForecastInfo?: object;
+  forecastSource?: object;
   eapLink: string;
   eapAlertClasses?: object;
   droughtRegions?: object;

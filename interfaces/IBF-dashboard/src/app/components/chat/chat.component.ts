@@ -68,7 +68,6 @@ export class ChatComponent implements OnInit, OnDestroy {
   public disasterTypeName: string;
   public mainExposureIndicatorLabel: string;
   public mainExposureIndicatorNumberFormat: NumberFormat;
-  public forecastInfo: string[];
   public country: Country;
   public disasterType: DisasterType;
   public countryDisasterSettings: CountryDisasterSettings;
@@ -224,7 +223,6 @@ export class ChatComponent implements OnInit, OnDestroy {
         mainExposureIndicator?.label.toLowerCase();
       this.mainExposureIndicatorNumberFormat =
         mainExposureIndicator?.numberFormatMap;
-      this.getForecastInfo();
 
       this.updateSuccessMessage = this.translateService.instant(
         `chat-component.common.save-actions.update-success`,
@@ -420,48 +418,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     return translateKey
       ? (this.translateService.instant(translateKey) as string)
       : null;
-  }
-
-  public getForecastInfo() {
-    if (!this.countryDisasterSettings.monthlyForecastInfo) {
-      return;
-    }
-
-    const forecastInfoSeed = {
-      KEN: () => {
-        const currentMonth = this.timelineState.today.month;
-
-        const prefix: string =
-          this.countryDisasterSettings.monthlyForecastInfo.prefix;
-
-        const currentMonthforecastInfo =
-          this.countryDisasterSettings.monthlyForecastInfo[currentMonth];
-        if (typeof currentMonthforecastInfo === 'string') {
-          return [];
-        }
-
-        return currentMonthforecastInfo.map(
-          (forecast) =>
-            this.translateService.instant(`${prefix}.${forecast}`) as string,
-        );
-      },
-    };
-
-    this.forecastInfo = forecastInfoSeed[this.country.countryCodeISO3]();
-  }
-
-  public getNumberOfActions(nrActions: number, nrForecasts: number): string {
-    const text = this.translateService.instant(
-      'chat-component.drought.active-event.forecast-info.actions',
-      {
-        nrActions,
-      },
-    ) as string;
-    if (!nrForecasts) {
-      return text.charAt(0).toUpperCase() + text.slice(1);
-    } else {
-      return text;
-    }
   }
 
   public getRegion = (placeCode: string): string => {
