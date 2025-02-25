@@ -6,7 +6,6 @@ import { EventService, EventSummary } from 'src/app/services/event.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
-import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
 
 @Component({
@@ -95,8 +94,8 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
       // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
       this.eventService.switchEvent(event.eventName);
 
-      this.timelineService.handleTimeStepButtonClick(
-        (event.firstTriggerLeadTime || event.firstLeadTime) as LeadTime,
+      this.timelineService.setTimelineState(
+        event.firstTriggerLeadTime || event.firstLeadTime,
         event.eventName,
       );
     }

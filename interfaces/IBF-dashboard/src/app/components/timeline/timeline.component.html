@@ -12,7 +12,7 @@
   ) {
     <ion-button
       expand="full"
-      disabled="{{ timeStepButton.disabled }}"
+      disabled="true"
       color="{{
         timeStepButton.forecastTrigger
           ? 'ibf-trigger-alert-secondary'
@@ -24,21 +24,11 @@
       [class.alert]="
         timeStepButton.forecastTrigger && !timeStepButton?.disabled
       "
-      [class.noEvent]="timeStepButton.noEvent"
-      (click)="
-        handleTimeStepButtonClick(
-          timeStepButton.value,
-          timeStepButton.eventName
-        )
-      "
     >
       <app-date-button
         [date]="timeStepButton.date"
-        [active]="!timeStepButton.disabled"
         [forecastAlert]="timeStepButton.forecastAlert"
         [forecastTrigger]="timeStepButton.forecastTrigger"
-        [eventName]="timeStepButton.eventName"
-        [duration]="timeStepButton.duration"
       ></app-date-button>
     </ion-button>
   }
