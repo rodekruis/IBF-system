@@ -5,7 +5,6 @@ import {
   CountryDisasterSettings,
   DisasterType,
 } from 'src/app/models/country.model';
-import { CountryService } from 'src/app/services/country.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,14 +12,6 @@ import { CountryService } from 'src/app/services/country.service';
 export class DisasterTypeService {
   private disasterTypeSubject = new BehaviorSubject<DisasterType>(null);
   public disasterType: DisasterType;
-
-  private country: Country;
-
-  constructor(private countryService: CountryService) {
-    this.countryService
-      .getCountrySubscription()
-      .subscribe(this.onCountryChange);
-  }
 
   public getDisasterTypeSubscription = (): Observable<DisasterType> => {
     return this.disasterTypeSubject.asObservable();
@@ -30,10 +21,6 @@ export class DisasterTypeService {
     this.disasterType = disasterType;
     this.disasterTypeSubject.next(this.disasterType);
   }
-
-  private onCountryChange = (country: Country) => {
-    this.country = country;
-  };
 
   public getCountryDisasterTypeSettings(
     country: Country,
