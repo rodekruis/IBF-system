@@ -258,6 +258,7 @@ export class MockHelperService {
       (s) => s.disasterType === DisasterType.Drought,
     );
 
+    // NOTE: in mock drought events, we fill this part behind the underscore to get the regionName. Pipelines will only upload the part before the underscore, as there's no use here for the other part.
     const regionName = eventName.split('_')[1];
     const seasonName = eventName.split('_')[0];
     const season =
