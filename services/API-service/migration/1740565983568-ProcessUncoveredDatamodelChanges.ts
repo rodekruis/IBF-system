@@ -18,9 +18,25 @@ export class ProcessUncoveredDatamodelChanges1740565983568
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."alert-per-lead-time" ADD CONSTRAINT "FK_495a2dc210c1d7302e60d800c6d" FOREIGN KEY ("disasterType") REFERENCES "IBF-app"."disaster"("disasterType") ON DELETE NO ACTION ON UPDATE NO ACTION`,
     );
+
+    // Process 'alert_theshold' indicator data change via migration
+    await queryRunner.query(
+      `UPDATE "IBF-app"."indicator-metadata" SET "label" = 'Area triggered' WHERE "name" = 'alert_threshold';`,
+    );
+    await queryRunner.query(
+      `UPDATE "IBF-app"."indicator-metadata" SET "name" = 'trigger' WHERE "name" = 'alert_threshold';`,
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    // Reverse 'alert_theshold' indicator data change via migration
+    await queryRunner.query(
+      `UPDATE "IBF-app"."indicator-metadata" SET "label" = 'Alert Threshold Reached' WHERE "name" = 'trigger';`,
+    );
+    await queryRunner.query(
+      `UPDATE "IBF-app"."indicator-metadata" SET "name" = 'alert_threshold' WHERE "name" = 'trigger';`,
+    );
+
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."alert-per-lead-time" DROP CONSTRAINT "FK_495a2dc210c1d7302e60d800c6d"`,
     );
