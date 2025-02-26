@@ -80,16 +80,10 @@ export class UserStateComponent implements OnInit {
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
     if (this.disasterType) {
-      const eapNode = this.disasterTypeService.hasEap(
-        this.disasterType.disasterType,
-      );
       const yesNode = this.disasterType.activeTrigger ? 'yes' : 'no';
-
-      this.translateService
-        .get('dashboard-page.triggered-message')
-        .subscribe((triggerTexts) => {
-          this.activeTriggerMsg = triggerTexts[eapNode][yesNode];
-        });
+      this.activeTriggerMsg = this.translateService.instant(
+        `dashboard-page.triggered-message.${yesNode}`,
+      ) as string;
     }
   };
 

@@ -64,6 +64,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
     }
   };
 
+  // REFACTOR: this country subscription and setup should be in disaster-type.service instead of here.
   private setupDisasterTypes = (user: User, country: Country) => {
     if (country) {
       this.disasterTypesCounter = 0;
