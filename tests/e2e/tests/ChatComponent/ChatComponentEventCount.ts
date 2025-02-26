@@ -32,7 +32,7 @@ export default (
 
     // get the number of warning events and aggregated events
     const chatEventCount = await chat.predictionButtonsAreActive();
-    const aggregatesEventCount = await aggregates.getNumberOfPredictedEvents();
+    const aggregatesEventCount = await aggregates.getEventCount();
 
     // check if the number of warning events is equal to the number of aggregated events
     expect(chatEventCount).toEqual(aggregatesEventCount);

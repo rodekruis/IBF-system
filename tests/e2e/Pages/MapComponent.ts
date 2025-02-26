@@ -248,9 +248,8 @@ class MapComponent extends DashboardPage {
     await this.page.waitForTimeout(200);
 
     // Assert that Aggregates title is visible and does not contain the text 'National View'
-
     await this.adminBoundaries.first().hover();
-    await expect(aggregates.aggregatesTitleHeader).not.toContainText(
+    await expect(aggregates.aggregatesHeaderLabel).not.toContainText(
       'National View',
     );
   }

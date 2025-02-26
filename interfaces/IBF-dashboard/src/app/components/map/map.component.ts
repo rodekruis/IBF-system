@@ -661,7 +661,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           );
           this.eventService.switchEvent(feature.properties.eventName);
           this.timelineService.handleTimeStepButtonClick(
-            (event?.firstTriggerLeadTime || event?.firstLeadTime) as LeadTime,
+            event?.firstTriggerLeadTime || event?.firstLeadTime,
             event?.eventName,
           );
         }
