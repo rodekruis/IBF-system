@@ -28,9 +28,5 @@ export default (
 
     // check if the number of warning events is equal to the number of aggregated events
     expect(eventCount).toBeGreaterThan(0);
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
   });
 };

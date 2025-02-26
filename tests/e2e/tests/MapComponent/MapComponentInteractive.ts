@@ -46,9 +46,5 @@ export default (
 
     // Red Cross branches layer should be visible
     await map.redCrossMarkersAreVisible();
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
   });
 };

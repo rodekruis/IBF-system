@@ -44,9 +44,5 @@ export default (
       eapAlertClass: 'max',
       isVisible: false,
     });
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
   });
 };

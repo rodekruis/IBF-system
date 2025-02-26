@@ -129,7 +129,6 @@ class MapComponent extends DashboardPage {
 
   async areAdminBoundariesVisible({ layerName }: { layerName?: string } = {}) {
     await this.waitForMapToBeLoaded();
-    await this.adminBoundaries.first().waitFor();
 
     const layer = layerName
       ? this.page.locator(`.admin-boundary.${layerName}`)
@@ -148,7 +147,6 @@ class MapComponent extends DashboardPage {
     await this.waitForMapToBeLoaded();
 
     await this.layerMenuToggle.click();
-    await this.layerMenu.waitFor();
 
     const checkbox = this.page
       .locator(`.matrix-layer.${layerName}`)
@@ -161,6 +159,8 @@ class MapComponent extends DashboardPage {
     const checkbox = this.page
       .locator(`.matrix-layer.${layerName}`)
       .getByTestId('matrix-checkbox');
+
+    await this.page.waitForTimeout(100);
 
     // In case of checbox being checked the name attribute should be "checkbox"
     const nameAttribute = await checkbox.getAttribute('name');
@@ -199,7 +199,6 @@ class MapComponent extends DashboardPage {
 
     for (let i = 0; i < layerCount; i++) {
       try {
-        await this.page.waitForTimeout(50);
         const layerRow = this.matrixLayers.nth(i);
         if (await layerRow.isVisible()) {
           const nameAttribute = await layerRow.textContent();
@@ -232,11 +231,11 @@ class MapComponent extends DashboardPage {
 
     // Wait for the page to load
     await this.waitForMapToBeLoaded();
-    await this.adminBoundaries.first().waitFor();
-    await this.page.waitForTimeout(200);
+
+    const adminBoundaries = this.page.locator('.admin-boundary');
 
     // Assert that Aggregates title is visible and does not contain the text 'National View'
-    await this.adminBoundaries.first().hover();
+    await adminBoundaries.first().hover();
     await expect(aggregates.aggregatesHeaderLabel).not.toContainText(
       'National View',
     );
@@ -299,9 +298,6 @@ class MapComponent extends DashboardPage {
     eapAlertClass?: string;
     isVisible?: boolean;
   } = {}) {
-    // Wait for the page to load
-    await this.glofasStations.first().waitFor();
-
     const markers = this.page.locator(`.glofas-station-${eapAlertClass}`);
 
     const count = await markers.count();

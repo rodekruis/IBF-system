@@ -27,9 +27,5 @@ export default (
     await map.isLegendOpen({ legendOpen: true });
     await map.isLayerMenuOpen({ layerMenuOpen: false });
     await map.areAdminBoundariesVisible();
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
   });
 };

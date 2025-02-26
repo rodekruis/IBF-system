@@ -105,14 +105,14 @@ class AggregatesComponent extends DashboardPage {
       EnglishTranslations.ApproximateNumberDisclaimer,
     );
 
-    // wait for opover layer to be laoded and click to remove it
-    await this.page.waitForTimeout(500);
+    // wait for popover layer to be laoded and click to remove it
     await this.popoverLayer.click();
 
     // click on the total exposed population info icon and validate the popover content
     const exposedPopulationLayer = this.aggregatesLayerRow.filter({
       hasText: 'Exposed population',
     });
+    await this.page.locator('ion-backdrop').last().click();
     await exposedPopulationLayer.getByTestId('aggregates-info-icon').click();
     const layerInfoTitle = await this.layerInfoPopoverTitle.textContent();
     const layerInfoContent = await this.layerInfoPopoverContent.textContent();

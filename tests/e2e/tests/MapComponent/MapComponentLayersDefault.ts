@@ -49,9 +49,5 @@ export default (
     await map.validateLayerIsVisibleInMapBySrcElement({
       layerName: 'flood_extent',
     });
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
   });
 };

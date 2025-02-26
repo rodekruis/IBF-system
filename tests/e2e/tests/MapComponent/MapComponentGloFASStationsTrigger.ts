@@ -40,9 +40,5 @@ export default (
     await map.glofasMarkersAreVisible({
       eapAlertClass: 'max',
     });
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
   });
 };
