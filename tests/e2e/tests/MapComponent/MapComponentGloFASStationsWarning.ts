@@ -37,11 +37,11 @@ export default (
     });
 
     // GloFAS layer should be visible by default
-    await map.gloFASMarkersAreVisible();
+    await map.glofasMarkersAreVisible();
 
     // Assert that the max warning GloFAS markers are not visible
-    await map.gloFASMarkersAreVisibleByWarning({
-      glosfasStationStatus: 'glofas-station-max-trigger',
+    await map.glofasMarkersAreVisible({
+      eapAlertClass: 'max',
       isVisible: false,
     });
 

@@ -20,7 +20,7 @@ class MapComponent extends DashboardPage {
   readonly legendHeader: Locator;
   readonly layerMenuToggle: Locator;
   readonly redCrossMarker: Locator;
-  readonly gloFASMarker: Locator;
+  readonly glofasStations: Locator;
   readonly triggerAreaOutlines: Locator;
   readonly closeButtonIcon: Locator;
   readonly layerInfoContent: Locator;
@@ -53,7 +53,7 @@ class MapComponent extends DashboardPage {
     this.legendHeader = this.page.getByTestId('map-legend-header');
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
     this.redCrossMarker = this.page.getByAltText('Red Cross branches');
-    this.gloFASMarker = this.page.getByAltText('Glofas stations');
+    this.glofasStations = this.page.locator('.glofas-station');
     this.triggerAreaOutlines = this.page.locator(
       '[stroke="var(--ion-color-ibf-outline-red)"]',
     );
@@ -299,19 +299,6 @@ class MapComponent extends DashboardPage {
     await expect(this.redCrossMarker.nth(nthSelector)).toBeVisible();
   }
 
-  async gloFASMarkersAreVisible() {
-    // Wait for the page to load
-    await this.page.waitForSelector('[alt="Glofas stations"]');
-
-    // Count the number of gloFAS markers
-    const gloFASMarkersCount = await this.gloFASMarker.count();
-    const nthSelector = this.getRandomInt(1, gloFASMarkersCount) - 1;
-
-    // Assert that the number of gloFAS markers is greater than 0 and randomly select one to be visible
-    expect(gloFASMarkersCount).toBeGreaterThan(0);
-    await expect(this.gloFASMarker.nth(nthSelector)).toBeVisible();
-  }
-
   async validateLayersAreVisibleByName({
     layerNames = [],
   }: {
@@ -330,28 +317,27 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async gloFASMarkersAreVisibleByWarning({
-    glosfasStationStatus,
-    isVisible,
+  async glofasMarkersAreVisible({
+    eapAlertClass = 'no',
+    isVisible = true,
   }: {
-    glosfasStationStatus: string;
-    isVisible: boolean;
-  }) {
-    // Select from: ""glofas-station-max-trigger", "glofas-station-med-trigger", "glofas-station-min-trigger"
-    // We don't have specyfic selectors for each of the markers, so we need have to use src as a selector which is not ideal
-    const glofasMarker = this.page.locator(
-      `img[src="assets/markers/${glosfasStationStatus}.svg"][alt="Glofas stations"]`,
-    );
+    eapAlertClass?: string;
+    isVisible?: boolean;
+  } = {}) {
+    // Wait for the page to load
+    await this.glofasStations.first().waitFor();
 
-    const markersCount = await glofasMarker.count();
+    const markers = this.page.locator(`.glofas-station-${eapAlertClass}`);
+
+    const count = await markers.count();
     if (isVisible) {
-      const nthSelector = this.getRandomInt(1, markersCount) - 1;
+      const nthSelector = this.getRandomInt(1, count) - 1; // pick a random marker
 
-      expect(markersCount).toBeGreaterThan(0);
-      await expect(glofasMarker.nth(nthSelector)).toBeVisible();
+      expect(count).toBeGreaterThan(0);
+      await expect(markers.nth(nthSelector)).toBeVisible();
     } else {
       // Assert that no markers are visible
-      expect(markersCount).toBe(0);
+      expect(count).toBe(0);
     }
   }
 
