@@ -1,11 +1,10 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class ProcessUncoveredDatamodelChanges1740565983568
-  implements MigrationInterface
-{
-  name = 'ProcessUncoveredDatamodelChanges1740565983568';
+export class WarningRefactorToProd1740565983568 implements MigrationInterface {
+  name = 'WarningRefactorToProd1740565983568';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
+    // Process uncovered datamodel changes
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."alert-per-lead-time" DROP CONSTRAINT "FK_3cae353eb56d44a19f3528a59b2"`,
     );
@@ -26,9 +25,25 @@ export class ProcessUncoveredDatamodelChanges1740565983568
     await queryRunner.query(
       `UPDATE "IBF-app"."indicator-metadata" SET "name" = 'trigger' WHERE "name" = 'alert_threshold';`,
     );
+
+    // Update 'admin-area-data' table to change 'adminLevel' column type from enum to integer
+    await queryRunner.query(
+      `ALTER TABLE "IBF-app"."admin-area-data" ALTER COLUMN "adminLevel" TYPE integer USING CASE "adminLevel" WHEN '1' THEN 1 WHEN '2' THEN 2 WHEN '3' THEN 3 WHEN '4' THEN 4 END`,
+    );
+    await queryRunner.query(
+      `DROP TYPE "IBF-app"."admin-area-data_adminlevel_enum"`,
+    );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
+    // Revert the 'adminLevel' column type from integer back to enum
+    await queryRunner.query(
+      `CREATE TYPE "IBF-app"."admin-area-data_adminlevel_enum" AS ENUM('1', '2', '3', '4')`,
+    );
+    await queryRunner.query(
+      `ALTER TABLE "IBF-app"."admin-area-data" ALTER COLUMN "adminLevel" TYPE "IBF-app"."admin-area-data_adminlevel_enum" USING CASE "adminLevel" WHEN 1 THEN '1' WHEN 2 THEN '2' WHEN 3 THEN '3' WHEN 4 THEN '4' END::"IBF-app"."admin-area-data_adminlevel_enum"`,
+    );
+
     // Reverse 'alert_theshold' indicator data change via migration
     await queryRunner.query(
       `UPDATE "IBF-app"."indicator-metadata" SET "label" = 'Alert Threshold Reached' WHERE "name" = 'trigger';`,
@@ -37,6 +52,7 @@ export class ProcessUncoveredDatamodelChanges1740565983568
       `UPDATE "IBF-app"."indicator-metadata" SET "name" = 'alert_threshold' WHERE "name" = 'trigger';`,
     );
 
+    // Reverse uncovered datamodel changes
     await queryRunner.query(
       `ALTER TABLE "IBF-app"."alert-per-lead-time" DROP CONSTRAINT "FK_495a2dc210c1d7302e60d800c6d"`,
     );
