@@ -29,11 +29,11 @@ export default (
 
     await map.clickLayerMenu();
     await map.isLayerMenuOpen({ layerMenuOpen: true });
-    await map.verifyLayerCheckboxCheckedByName({
-      layerName: 'Flood extent',
+    await map.isLayerCheckboxChecked({
+      layerName: 'flood_extent',
     });
-    await map.verifyLayerRadioButtonCheckedByName({
-      layerName: 'Exposed population',
+    await map.isLayerRadioButtonChecked({
+      layerName: 'population_affected',
     });
     // Validate legend
     await map.isLegendOpen({ legendOpen: true });

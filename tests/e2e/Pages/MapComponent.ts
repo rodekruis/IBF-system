@@ -14,9 +14,8 @@ class MapComponent extends DashboardPage {
   readonly breadCrumbAdminArea3View: Locator;
   readonly legend: Locator;
   readonly layerMenu: Locator;
+  readonly matrixLayers: Locator;
   readonly adminBoundaries: Locator;
-  readonly layerCheckbox: Locator;
-  readonly layerRadioButton: Locator;
   readonly legendHeader: Locator;
   readonly layerMenuToggle: Locator;
   readonly redCrossMarker: Locator;
@@ -45,11 +44,10 @@ class MapComponent extends DashboardPage {
     );
     this.legend = this.page.getByTestId('map-legend');
     this.layerMenu = this.page.getByTestId('layer-menu');
+    this.matrixLayers = this.page.locator('matrix-layer');
     this.adminBoundaries = this.page.locator(
       '.leaflet-ibf-admin-boundaries-pane .leaflet-interactive',
     );
-    this.layerCheckbox = this.page.getByTestId('matrix-checkbox');
-    this.layerRadioButton = this.page.getByTestId('matrix-radio-button');
     this.legendHeader = this.page.getByTestId('map-legend-header');
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
     this.redCrossMarker = this.page.getByAltText('Red Cross branches');
@@ -148,28 +146,27 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async clickLayerCheckbox({ layerName }: { layerName: string }) {
+  async checkLayerCheckbox({ layerName }: { layerName: string }) {
     // Remove Glofas station from the map (in case the mock is for floods)
     await this.waitForMapToBeLoaded();
 
     await this.layerMenuToggle.click();
-    await this.page.waitForSelector('data-testid=matrix-layer-name');
+    await this.layerMenu.waitFor();
 
-    const getLayerRow = this.page
-      .getByTestId('matrix-layer-name')
-      .filter({ hasText: layerName });
-    const layerCheckbox = getLayerRow.locator(this.layerCheckbox);
-    await layerCheckbox.click();
+    const checkbox = this.page
+      .locator(`.matrix-layer.${layerName}`)
+      .getByTestId('matrix-checkbox');
+
+    await checkbox.click();
   }
 
-  async verifyLayerCheckboxCheckedByName({ layerName }: { layerName: string }) {
-    const getLayerRow = this.page
-      .getByTestId('matrix-layer-name')
-      .filter({ hasText: layerName });
-    const layerCheckbox = getLayerRow.locator(this.layerCheckbox);
+  async isLayerCheckboxChecked({ layerName }: { layerName: string }) {
+    const checkbox = this.page
+      .locator(`.matrix-layer.${layerName}`)
+      .getByTestId('matrix-checkbox');
 
     // In case of checbox being checked the name attribute should be "checkbox"
-    const nameAttribute = await layerCheckbox.getAttribute('name');
+    const nameAttribute = await checkbox.getAttribute('name');
     const isChecked = nameAttribute === 'checkbox';
 
     if (!isChecked) {
@@ -177,18 +174,13 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async verifyLayerRadioButtonCheckedByName({
-    layerName,
-  }: {
-    layerName: string;
-  }) {
-    const getLayerRow = this.page
-      .getByTestId('matrix-layer-name')
-      .filter({ hasText: layerName });
-    const layerCheckbox = getLayerRow.locator(this.layerRadioButton);
+  async isLayerRadioButtonChecked({ layerName }: { layerName: string }) {
+    const radioButton = this.page
+      .locator(`.matrix-layer.${layerName}`)
+      .getByTestId('matrix-radio-button');
 
-    // In case of checbox being checked the name attribute should be "checkbox"
-    const nameAttribute = await layerCheckbox.getAttribute('name');
+    // In case of radio button being checked the name attribute should be "radio-button-on-outline"
+    const nameAttribute = await radioButton.getAttribute('name');
     const isChecked = nameAttribute === 'radio-button-on-outline';
 
     if (!isChecked) {
@@ -206,13 +198,12 @@ class MapComponent extends DashboardPage {
   }
 
   async validateInfoIconInteractions() {
-    const getLayerRow = this.page.getByTestId('matrix-layer-name');
-    const layerCount = await getLayerRow.count();
+    const layerCount = await this.matrixLayers.count();
 
     for (let i = 0; i < layerCount; i++) {
       try {
-        await this.page.waitForTimeout(200);
-        const layerRow = getLayerRow.nth(i);
+        await this.page.waitForTimeout(50);
+        const layerRow = this.matrixLayers.nth(i);
         if (await layerRow.isVisible()) {
           const nameAttribute = await layerRow.textContent();
           if (nameAttribute) {

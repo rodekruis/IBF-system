@@ -41,7 +41,7 @@ export default (
 
     // Select and deselect the layer
     await map.clickLayerMenu();
-    await map.clickLayerCheckbox({ layerName: 'Red Cross branches' });
+    await map.checkLayerCheckbox({ layerName: 'red_cross_branches' });
     await map.isLayerMenuOpen({ layerMenuOpen: true });
 
     // Red Cross branches layer should be visible

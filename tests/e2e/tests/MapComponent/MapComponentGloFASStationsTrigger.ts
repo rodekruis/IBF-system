@@ -29,8 +29,8 @@ export default (
     await map.isLegendOpen({ legendOpen: true });
     await map.isLayerMenuOpen({ layerMenuOpen: false });
     await map.clickLayerMenu();
-    await map.verifyLayerCheckboxCheckedByName({
-      layerName: 'Glofas stations',
+    await map.isLayerCheckboxChecked({
+      layerName: 'glofas_stations',
     });
     await map.assertLegendElementIsVisible({
       legendComponentName: 'GloFAS No action',
