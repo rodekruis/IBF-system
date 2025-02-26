@@ -59,7 +59,6 @@ export class SeedAdminAreaData implements InterfaceScript {
     if (envCountries.includes('UGA')) {
       const fileNames = [
         'flood_vulnerability_UGA.csv',
-        'covid_risk_UGA.csv',
         'drought_vulnerability_UGA.csv',
         'IPC_forecast_long_UGA.csv',
       ];
