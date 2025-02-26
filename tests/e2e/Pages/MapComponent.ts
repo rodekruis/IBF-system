@@ -14,7 +14,7 @@ class MapComponent extends DashboardPage {
   readonly breadCrumbAdminArea3View: Locator;
   readonly legend: Locator;
   readonly layerMenu: Locator;
-  readonly adminBoundry: Locator;
+  readonly adminBoundaries: Locator;
   readonly layerCheckbox: Locator;
   readonly layerRadioButton: Locator;
   readonly legendHeader: Locator;
@@ -24,7 +24,7 @@ class MapComponent extends DashboardPage {
   readonly triggerAreaOutlines: Locator;
   readonly closeButtonIcon: Locator;
   readonly layerInfoContent: Locator;
-  readonly ibfAggregatePane: Locator;
+  readonly aggregates: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -45,7 +45,9 @@ class MapComponent extends DashboardPage {
     );
     this.legend = this.page.getByTestId('map-legend');
     this.layerMenu = this.page.getByTestId('layer-menu');
-    this.adminBoundry = this.page.locator('.leaflet-interactive');
+    this.adminBoundaries = this.page.locator(
+      '.leaflet-ibf-admin-boundaries-pane .leaflet-interactive',
+    );
     this.layerCheckbox = this.page.getByTestId('matrix-checkbox');
     this.layerRadioButton = this.page.getByTestId('matrix-radio-button');
     this.legendHeader = this.page.getByTestId('map-legend-header');
@@ -57,8 +59,8 @@ class MapComponent extends DashboardPage {
     );
     this.closeButtonIcon = this.page.getByTestId('close-matrix-icon');
     this.layerInfoContent = this.page.getByTestId('layer-info-content');
-    this.ibfAggregatePane = this.page.locator(
-      '.leaflet-pane.leaflet-ibf-aggregate-pane',
+    this.aggregates = this.page.locator(
+      '.leaflet-ibf-aggregate-pane .leaflet-interactive',
     );
   }
 
@@ -136,14 +138,13 @@ class MapComponent extends DashboardPage {
   async assertAdminBoundariesVisible() {
     await this.waitForMapToBeLoaded();
     await this.page.waitForTimeout(2000); // This is a workaround for the issue with the map not loading in the same moment as the dom
-    await this.page.waitForSelector('.leaflet-interactive');
+    await this.adminBoundaries.first().waitFor();
 
-    const adminBoundaries = this.adminBoundry;
-    const count = await adminBoundaries.count();
+    const count = await this.adminBoundaries.count();
 
     expect(count).toBeGreaterThan(0);
     for (let i = 0; i < count; i++) {
-      await expect(adminBoundaries.nth(i)).toBeVisible();
+      await expect(this.adminBoundaries.nth(i)).toBeVisible();
     }
   }
 
@@ -204,17 +205,6 @@ class MapComponent extends DashboardPage {
       .click();
   }
 
-  async retryGetAttribute(locator: Locator, attribute: string, retries = 3) {
-    for (let attempt = 0; attempt < retries; attempt++) {
-      try {
-        return await locator.getAttribute(attribute);
-      } catch (error) {
-        console.log(`Retry ${attempt + 1} for attribute ${attribute} failed`);
-        if (attempt === retries - 1) throw error;
-      }
-    }
-  }
-
   async validateInfoIconInteractions() {
     const getLayerRow = this.page.getByTestId('matrix-layer-name');
     const layerCount = await getLayerRow.count();
@@ -254,12 +244,12 @@ class MapComponent extends DashboardPage {
 
     // Wait for the page to load
     await this.waitForMapToBeLoaded();
-    await this.page.waitForSelector('.leaflet-interactive');
+    await this.adminBoundaries.first().waitFor();
     await this.page.waitForTimeout(200);
 
     // Assert that Aggregates title is visible and does not contain the text 'National View'
 
-    await this.adminBoundry.first().hover();
+    await this.adminBoundaries.first().hover();
     await expect(aggregates.aggregatesTitleHeader).not.toContainText(
       'National View',
     );
@@ -353,27 +343,24 @@ class MapComponent extends DashboardPage {
       `img[src="assets/markers/${glosfasStationStatus}.svg"][alt="Glofas stations"]`,
     );
 
+    const markersCount = await glofasMarker.count();
     if (isVisible) {
-      const markersCount = await glofasMarker.count();
       const nthSelector = this.getRandomInt(1, markersCount) - 1;
 
       expect(markersCount).toBeGreaterThan(0);
       await expect(glofasMarker.nth(nthSelector)).toBeVisible();
     } else {
       // Assert that no markers are visible
-      expect(await glofasMarker.count()).toBe(0);
+      expect(markersCount).toBe(0);
     }
   }
 
   // This method checks that when radio button is checked then the layer is visible in leaflet-ibf-aggregate-pane
   // Only one radio button can be checked at a time
   // It valdates the functionality not data displayed
-  async validateAggregatePaneIsNotEmpty() {
-    const aggregatePaneContent = this.ibfAggregatePane.locator(
-      '.leaflet-interactive',
-    );
-    const aggregatePaneContentCount = await aggregatePaneContent.count();
-    expect(aggregatePaneContentCount).toBeGreaterThan(0);
+  async validateAggregatesAreVisible() {
+    const count = await this.aggregates.count();
+    expect(count).toBeGreaterThan(0);
   }
 
   async validateLayerIsVisibleInMapBySrcElement({

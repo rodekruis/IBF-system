@@ -19,7 +19,6 @@ export default (
     await dashboard.navigateToDisasterType(disasterType);
     // Assertions
     await aggregates.aggregateComponentIsVisible();
-    await map.clickLayerCheckbox({ layerName: 'Glofas stations' });
     await map.assertAggregateTitleOnHoverOverMap();
 
     // Reload the page to prepare for next test
