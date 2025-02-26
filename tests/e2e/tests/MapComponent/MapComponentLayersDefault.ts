@@ -44,7 +44,7 @@ export default (
       legendComponentName: 'Exposed population',
     });
     // Validate that the layer checked with radio button is visible on the map in this case 'Exposed population' only one such layer can be checked at a time
-    await map.validateAggregatesAreVisible();
+    await map.areAdminBoundariesVisible({ layerName: 'population_affected' });
     // Validate rest of the map
     await map.validateLayerIsVisibleInMapBySrcElement({
       layerName: 'flood_extent',

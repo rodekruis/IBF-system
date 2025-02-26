@@ -23,7 +23,6 @@ class MapComponent extends DashboardPage {
   readonly triggerAreaOutlines: Locator;
   readonly closeButtonIcon: Locator;
   readonly layerInfoContent: Locator;
-  readonly aggregates: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -45,9 +44,7 @@ class MapComponent extends DashboardPage {
     this.legend = this.page.getByTestId('map-legend');
     this.layerMenu = this.page.getByTestId('layer-menu');
     this.matrixLayers = this.page.locator('matrix-layer');
-    this.adminBoundaries = this.page.locator(
-      '.leaflet-ibf-admin-boundaries-pane .leaflet-interactive',
-    );
+    this.adminBoundaries = this.page.locator('.admin-boundary');
     this.legendHeader = this.page.getByTestId('map-legend-header');
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
     this.redCrossMarker = this.page.getByAltText('Red Cross branches');
@@ -57,9 +54,6 @@ class MapComponent extends DashboardPage {
     );
     this.closeButtonIcon = this.page.getByTestId('close-matrix-icon');
     this.layerInfoContent = this.page.getByTestId('layer-info-content');
-    this.aggregates = this.page.locator(
-      '.leaflet-ibf-aggregate-pane .leaflet-interactive',
-    );
   }
 
   async waitForMapToBeLoaded() {
@@ -133,16 +127,19 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async assertAdminBoundariesVisible() {
+  async areAdminBoundariesVisible({ layerName }: { layerName?: string } = {}) {
     await this.waitForMapToBeLoaded();
-    await this.page.waitForTimeout(2000); // This is a workaround for the issue with the map not loading in the same moment as the dom
     await this.adminBoundaries.first().waitFor();
 
-    const count = await this.adminBoundaries.count();
+    const layer = layerName
+      ? this.page.locator(`.admin-boundary.${layerName}`)
+      : this.adminBoundaries;
+
+    const count = await layer.count();
 
     expect(count).toBeGreaterThan(0);
     for (let i = 0; i < count; i++) {
-      await expect(this.adminBoundaries.nth(i)).toBeVisible();
+      await expect(layer.nth(i)).toBeVisible();
     }
   }
 
@@ -317,14 +314,6 @@ class MapComponent extends DashboardPage {
       // Assert that no markers are visible
       expect(count).toBe(0);
     }
-  }
-
-  // This method checks that when radio button is checked then the layer is visible in leaflet-ibf-aggregate-pane
-  // Only one radio button can be checked at a time
-  // It valdates the functionality not data displayed
-  async validateAggregatesAreVisible() {
-    const count = await this.aggregates.count();
-    expect(count).toBeGreaterThan(0);
   }
 
   async validateLayerIsVisibleInMapBySrcElement({
