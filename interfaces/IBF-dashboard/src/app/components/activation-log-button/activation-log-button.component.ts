@@ -54,14 +54,4 @@ export class ActivationLogButtonComponent implements OnDestroy {
     );
     window.open(url, '_blank');
   }
-
-  public getEapKey(): string {
-    if (!this.disasterType) {
-      return 'trigger';
-    }
-    return this.disasterTypeService.hasEap(this.disasterType.disasterType) ===
-      'eap'
-      ? 'trigger'
-      : 'alert';
-  }
 }

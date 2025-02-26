@@ -87,17 +87,13 @@ export class ActivationLogPage implements OnInit, OnDestroy {
       .writeText(tsvContent)
       .then(() =>
         this.presentToast(
-          this.translate.instant(
-            'activation-page.' + this.getEapKey() + '.copy-success',
-          ) as string,
+          this.translate.instant('activation-page.copy-success') as string,
           'ibf-primary',
         ),
       )
       .catch(() =>
         this.presentToast(
-          this.translate.instant(
-            'activation-page.' + this.getEapKey() + '.copy-fail',
-          ) as string,
+          this.translate.instant('activation-page.copy-fail') as string,
           'alert',
         ),
       );
@@ -113,14 +109,5 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     });
 
     await toast.present();
-  }
-
-  public getEapKey(): string {
-    if (!this.disasterType) {
-      return 'trigger';
-    }
-    return this.disasterTypeService.hasEap(this.disasterType) === 'eap'
-      ? 'trigger'
-      : 'alert';
   }
 }
