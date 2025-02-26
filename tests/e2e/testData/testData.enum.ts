@@ -26,7 +26,7 @@ export const DISASTER_TYPES_WITH_INACTIVE_TIMELINE = ['floods', 'flash-floods'];
 // NOTE: this is a first starting point of starting to work more with statically defined test data. Move this to separate const file.
 export const ACTIVE_LAYERS: Record<string, string[]> = {
   floods: [
-    'Glofas stations',
+    'glofas_stations',
     // 'Community notifications', // This active layer does not come with any default (mock) data, so therefore ignore here
   ],
   drought: [

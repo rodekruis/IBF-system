@@ -299,21 +299,9 @@ class MapComponent extends DashboardPage {
     await expect(this.redCrossMarker.nth(nthSelector)).toBeVisible();
   }
 
-  async validateLayersAreVisibleByName({
-    layerNames = [],
-  }: {
-    layerNames: string[];
-  }) {
-    for (const layerName of layerNames) {
-      await this.page.waitForSelector(`[alt="${layerName}"]`);
-      const layer = this.page.getByAltText(layerName);
-      // Count the number of markers
-      const markersCount = await layer.count();
-      const nthSelector = this.getRandomInt(1, markersCount) - 1;
-
-      // Assert that the number of gloFAS markers is greater than 0 and randomly select one to be visible
-      expect(markersCount).toBeGreaterThan(0);
-      await expect(layer.nth(nthSelector)).toBeVisible();
+  async isLayerVisible({ layerName }: { layerName: string }) {
+    if (layerName === 'glofas_stations') {
+      await this.glofasMarkersAreVisible();
     }
   }
 
