@@ -179,10 +179,9 @@ export class CountryService {
       disasterType.showMonthlyEapActions;
     countryDisasterSettingsEntity.enableEarlyActions =
       disasterType.enableEarlyActions;
-    countryDisasterSettingsEntity.monthlyForecastInfo =
-      disasterType.monthlyForecastInfo
-        ? JSON.parse(JSON.stringify(disasterType.monthlyForecastInfo))
-        : null;
+    countryDisasterSettingsEntity.forecastSource = disasterType.forecastSource
+      ? JSON.parse(JSON.stringify(disasterType.forecastSource))
+      : null;
     countryDisasterSettingsEntity.activeLeadTimes =
       disasterType.activeLeadTimes as LeadTime[];
 

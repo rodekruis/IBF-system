@@ -59,7 +59,7 @@ export class CountryDisasterSettingsEntity {
 
   @ApiProperty()
   @Column('json', { default: null, nullable: true })
-  public monthlyForecastInfo: JSON;
+  public forecastSource: JSON;
 
   @ApiProperty({
     example: 'https://docs.google.com',

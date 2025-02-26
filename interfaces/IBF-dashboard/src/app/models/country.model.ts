@@ -22,14 +22,13 @@ export class CountryDisasterSettings {
   eapLink: string;
   showMonthlyEapActions: boolean;
   eapAlertClasses?: EapAlertClasses;
-  monthlyForecastInfo?: MonthlyForecastInfo;
+  forecastSource?: ForecastSource;
   enableEarlyActions?: boolean;
 }
 
-interface MonthlyForecastInfo {
-  prefix?: string;
-  message?: string;
-  [key: string]: string | string[];
+export interface ForecastSource {
+  label: string;
+  url?: string;
 }
 
 export interface DroughtSeason {

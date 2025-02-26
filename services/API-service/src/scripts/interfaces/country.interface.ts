@@ -23,7 +23,7 @@ export interface CountryDisasterSettings {
   eapLink: string;
   showMonthlyEapActions: boolean;
   eapAlertClasses?: EapAlertClasses;
-  monthlyForecastInfo?: Record<string, string | string[]>;
+  forecastSource?: Record<string, string>;
   enableEarlyActions?: boolean;
 }
 
