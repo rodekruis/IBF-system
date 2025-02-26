@@ -7,7 +7,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { AdminLevel } from '../country/admin-level.enum';
 import { CountryEntity } from '../country/country.entity';
 
 @Entity('admin-area-data')
@@ -22,11 +21,8 @@ export class AdminAreaDataEntity {
   })
   public countryCodeISO3: string;
 
-  @Column({
-    type: 'enum',
-    enum: AdminLevel,
-  })
-  public adminLevel: AdminLevel;
+  @Column()
+  public adminLevel: number;
 
   @Index()
   @Column()
