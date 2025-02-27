@@ -1,17 +1,11 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import {
-  AnalyticsEvent,
-  AnalyticsPage,
-} from 'src/app/analytics/analytics.enum';
-import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
-import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
 
 @Component({
@@ -29,7 +23,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
 
   constructor(
     public timelineService: TimelineService,
-    private analyticsService: AnalyticsService,
     private eventService: EventService,
     private disasterTypeService: DisasterTypeService,
     private placeCodeService: PlaceCodeService,
@@ -51,33 +44,9 @@ export class TimelineComponent implements OnInit, OnDestroy {
     this.placeCodeHoverSubscription.unsubscribe();
   }
 
-  handleTimeStepButtonClick(leadTime: LeadTime, eventName: string) {
-    this.analyticsService.logEvent(AnalyticsEvent.leadTime, {
-      page: AnalyticsPage.dashboard,
-      leadTime,
-      isActiveTrigger: this.eventService.state.events?.length > 0,
-      component: this.constructor.name,
-    });
-
-    // Only trigger event-switch if there are multiple events
-    if (this.eventService.state.events.length > 1) {
-      // Call eventService directly instead of via timelineService, to avoid cyclical dependency between event- and timeline service
-      const clickedEvent = this.eventService.state.events.find(
-        (e) => e.firstLeadTime === leadTime && e.eventName === eventName,
-      );
-      this.eventService.switchEvent(clickedEvent.eventName);
-      this.timelineService.handleTimeStepButtonClick(
-        leadTime,
-        clickedEvent.eventName,
-      );
-    } else {
-      // if single event, then just switch lead-time
-      this.timelineService.handleTimeStepButtonClick(leadTime);
-    }
-  }
-
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
+    this.changeDetectorRef.detectChanges();
   };
 
   private onPlaceCodeHoverChange = (placeCode: PlaceCode) => {
@@ -88,10 +57,10 @@ export class TimelineComponent implements OnInit, OnDestroy {
     ) {
       this.placeCodeHover = placeCode;
       if (this.placeCodeHover) {
-        const btn = this.timelineState?.timeStepButtons?.find(
-          (t) => t.eventName === placeCode.eventName,
+        const btns = this.timelineState?.timeStepButtons?.filter((t) =>
+          t.eventNames.includes(placeCode.eventName),
         );
-        if (btn) {
+        for (const btn of btns) {
           btn.active = true;
         }
 
