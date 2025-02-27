@@ -1,3 +1,18 @@
+# [0.287.0](https://github.com/rodekruis/IBF-system/compare/v0.286.0...v0.287.0) (2025-02-27)
+
+
+### Bug Fixes
+
+* build error ([fd02446](https://github.com/rodekruis/IBF-system/commit/fd0244617d6b2edb704474dab3786a26abdda65b))
+* warning-to-trigger scenario ([3721dec](https://github.com/rodekruis/IBF-system/commit/3721deca4dd6d0b9ff1d0d8c3b8810509de01f4e))
+
+
+### Features
+
+* unclickable timelines + refactor AB[#33408](https://github.com/rodekruis/IBF-system/issues/33408) ([0f25bf0](https://github.com/rodekruis/IBF-system/commit/0f25bf0a56d89c2f462dba917439785e8db4777f))
+
+
+
 # [0.286.0](https://github.com/rodekruis/IBF-system/compare/v0.285.0...v0.286.0) (2025-02-25)
 
 
@@ -134,15 +149,6 @@
 ### Features
 
 * create endpoint to add/update disaster ([292560b](https://github.com/rodekruis/IBF-system/commit/292560be7cb3b935876a0e4c6e33b96565c6f6a8))
-
-
-
-# [0.280.0](https://github.com/rodekruis/IBF-system/compare/v0.279.0...v0.280.0) (2025-02-03)
-
-
-### Features
-
-* remove stop propertise from trigger log AB[#32660](https://github.com/rodekruis/IBF-system/issues/32660) ([36bb8db](https://github.com/rodekruis/IBF-system/commit/36bb8db4bf3c03d3b23757358a066e7c1b51ccb0))
 
 
 
