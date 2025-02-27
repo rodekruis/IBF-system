@@ -41,14 +41,10 @@ export default (
 
     // Select and deselect the layer
     await map.clickLayerMenu();
-    await map.clickLayerCheckbox({ layerName: 'Red Cross branches' });
+    await map.checkLayerCheckbox({ layerName: 'red_cross_branches' });
     await map.isLayerMenuOpen({ layerMenuOpen: true });
 
     // Red Cross branches layer should be visible
     await map.redCrossMarkersAreVisible();
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
   });
 };

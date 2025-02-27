@@ -32,15 +32,8 @@ export default (
     await map.isLayerMenuOpen({ layerMenuOpen: true });
 
     // Check if the default layers are visible
-    const activeLayers = ACTIVE_LAYERS[disasterType];
-    if (activeLayers) {
-      await map.validateLayersAreVisibleByName({ layerNames: activeLayers });
-    } else {
-      throw new Error('No layers are visible');
+    for (const layerName in ACTIVE_LAYERS[disasterType]) {
+      await map.isLayerVisible({ layerName });
     }
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
   });
 };

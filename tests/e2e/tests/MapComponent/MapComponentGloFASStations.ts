@@ -29,18 +29,14 @@ export default (
     await map.isLegendOpen({ legendOpen: true });
     await map.isLayerMenuOpen({ layerMenuOpen: false });
     await map.clickLayerMenu();
-    await map.verifyLayerCheckboxCheckedByName({
-      layerName: 'Glofas stations',
+    await map.isLayerCheckboxChecked({
+      layerName: 'glofas_stations',
     });
     await map.assertLegendElementIsVisible({
       legendComponentName: 'GloFAS No action',
     });
 
     // GloFAS layer should be visible by default
-    await map.gloFASMarkersAreVisible();
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
+    await map.glofasMarkersAreVisible();
   });
 };

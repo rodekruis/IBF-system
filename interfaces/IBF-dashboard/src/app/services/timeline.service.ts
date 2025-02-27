@@ -187,8 +187,8 @@ export class TimelineService {
       ) {
         this.handleTimeStepButtonClick(
           this.eventState.event
-            ? ((this.eventState.event.firstTriggerLeadTime ||
-                this.eventState.event.firstLeadTime) as LeadTime)
+            ? this.eventState.event.firstTriggerLeadTime ||
+                this.eventState.event.firstLeadTime
             : this.eventState.events?.length > 0
               ? null
               : this.getFallbackNoTriggerLeadTime(

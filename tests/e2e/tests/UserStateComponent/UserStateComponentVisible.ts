@@ -26,9 +26,5 @@ export default (
       firstName: NoTriggerDataSet.firstName,
       lastName: NoTriggerDataSet.lastName,
     });
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
   });
 };

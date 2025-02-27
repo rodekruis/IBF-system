@@ -16,11 +16,12 @@ const expectedLayersNames = [
 class AggregatesComponent extends DashboardPage {
   readonly page: Page;
   readonly aggregateSectionColumn: Locator;
-  readonly aggregatesTitleHeader: Locator;
+  readonly aggregatesHeaderLabel: Locator;
+  readonly aggregatesSubHeaderLabel: Locator;
+  readonly aggreagtesHeaderInfoIcon: Locator;
   readonly aggregatesInfoIcon: Locator;
   readonly aggregatesLayerRow: Locator;
   readonly aggregatesAffectedNumber: Locator;
-  readonly aggreagtesTitleInfoIcon: Locator;
   readonly approximateDisclaimer: Locator;
   readonly popoverLayer: Locator;
   readonly layerInfoPopoverTitle: Locator;
@@ -33,14 +34,19 @@ class AggregatesComponent extends DashboardPage {
     this.aggregateSectionColumn = this.page.getByTestId(
       'dashboard-aggregate-section',
     );
-    this.aggregatesTitleHeader = this.page.getByTestId('action-title');
+    this.aggregatesHeaderLabel = this.page.getByTestId(
+      'aggregates-header-label',
+    );
+    this.aggregatesSubHeaderLabel = this.page.getByTestId(
+      'aggregates-sub-header-label',
+    );
+    this.aggreagtesHeaderInfoIcon = this.page.getByTestId(
+      'aggregates-header-info-icon',
+    );
     this.aggregatesInfoIcon = this.page.getByTestId('aggregates-info-icon');
     this.aggregatesLayerRow = this.page.getByTestId('aggregates-row');
     this.aggregatesAffectedNumber = this.page.getByTestId(
       'aggregates-affected-number',
-    );
-    this.aggreagtesTitleInfoIcon = this.page.getByTestId(
-      'aggregates-title-info-icon',
     );
     this.approximateDisclaimer = this.page.getByTestId(
       'disclaimer-approximate-message',
@@ -67,14 +73,15 @@ class AggregatesComponent extends DashboardPage {
     const affectedNumbers = await this.page.$$(
       '[data-testid="aggregates-affected-number"]',
     );
-    const headerText = await this.aggregatesTitleHeader.textContent();
-    const headerTextModified = headerText?.replace(/View0/, 'View 0');
+    const headerText = await this.aggregatesHeaderLabel.textContent();
+    const subHeaderText = await this.aggregatesSubHeaderLabel.textContent();
     const layerCount = await this.aggregatesLayerRow.count();
     const iconLayerCount = await this.aggregatesInfoIcon.count();
 
     // Basic Assertions
-    expect(headerTextModified).toBe('National View 0 Predicted Flood(s)');
-    await expect(this.aggreagtesTitleInfoIcon).toBeVisible();
+    expect(headerText).toBe('National View');
+    expect(subHeaderText).toBe('0 Predicted Flood(s)');
+    await expect(this.aggreagtesHeaderInfoIcon).toBeVisible();
     expect(layerCount).toBe(5);
     expect(iconLayerCount).toBe(5);
 
@@ -92,20 +99,20 @@ class AggregatesComponent extends DashboardPage {
 
   async validatesAggregatesInfoButtons() {
     // click on the first info icon and validate the popover content
-    await this.aggreagtesTitleInfoIcon.click();
+    await this.aggreagtesHeaderInfoIcon.click();
     const disclaimerText = await this.approximateDisclaimer.textContent();
     expect(disclaimerText).toContain(
       EnglishTranslations.ApproximateNumberDisclaimer,
     );
 
-    // wait for opover layer to be laoded and click to remove it
-    await this.page.waitForTimeout(500);
+    // wait for popover layer to be laoded and click to remove it
     await this.popoverLayer.click();
 
     // click on the total exposed population info icon and validate the popover content
     const exposedPopulationLayer = this.aggregatesLayerRow.filter({
       hasText: 'Exposed population',
     });
+    await this.page.locator('ion-backdrop').last().click();
     await exposedPopulationLayer.getByTestId('aggregates-info-icon').click();
     const layerInfoTitle = await this.layerInfoPopoverTitle.textContent();
     const layerInfoContent = await this.layerInfoPopoverContent.textContent();
@@ -130,11 +137,12 @@ class AggregatesComponent extends DashboardPage {
     await this.page.goBack();
   }
 
-  async getNumberOfPredictedEvents() {
-    const actionHeaderText = await this.aggregatesTitleHeader.textContent();
-    const eventsNumber = actionHeaderText?.match(/\d+/g);
+  async getEventCount() {
+    const aggregatesHeaderLabel =
+      await this.aggregatesSubHeaderLabel.textContent();
+    const eventCount = aggregatesHeaderLabel?.match(/\d+/g);
 
-    return eventsNumber ? parseInt(eventsNumber[0], 10) : null;
+    return eventCount ? parseInt(eventCount[0], 10) : null;
   }
 
   async validateColorOfAggregatesHeaderByClass({

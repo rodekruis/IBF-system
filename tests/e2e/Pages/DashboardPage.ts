@@ -84,7 +84,6 @@ class DashboardPage {
 
   async waitForPageToBeLoadedAndStable() {
     await this.page.waitForLoadState('domcontentloaded');
-    await this.page.waitForTimeout(500);
   }
 }
 

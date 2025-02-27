@@ -14,17 +14,15 @@ class MapComponent extends DashboardPage {
   readonly breadCrumbAdminArea3View: Locator;
   readonly legend: Locator;
   readonly layerMenu: Locator;
-  readonly adminBoundry: Locator;
-  readonly layerCheckbox: Locator;
-  readonly layerRadioButton: Locator;
+  readonly matrixLayers: Locator;
+  readonly adminBoundaries: Locator;
   readonly legendHeader: Locator;
   readonly layerMenuToggle: Locator;
   readonly redCrossMarker: Locator;
-  readonly gloFASMarker: Locator;
+  readonly glofasStations: Locator;
   readonly triggerAreaOutlines: Locator;
   readonly closeButtonIcon: Locator;
   readonly layerInfoContent: Locator;
-  readonly ibfAggregatePane: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -45,21 +43,17 @@ class MapComponent extends DashboardPage {
     );
     this.legend = this.page.getByTestId('map-legend');
     this.layerMenu = this.page.getByTestId('layer-menu');
-    this.adminBoundry = this.page.locator('.leaflet-interactive');
-    this.layerCheckbox = this.page.getByTestId('matrix-checkbox');
-    this.layerRadioButton = this.page.getByTestId('matrix-radio-button');
+    this.matrixLayers = this.page.locator('matrix-layer');
+    this.adminBoundaries = this.page.locator('.admin-boundary');
     this.legendHeader = this.page.getByTestId('map-legend-header');
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
     this.redCrossMarker = this.page.getByAltText('Red Cross branches');
-    this.gloFASMarker = this.page.getByAltText('Glofas stations');
+    this.glofasStations = this.page.locator('.glofas-station');
     this.triggerAreaOutlines = this.page.locator(
       '[stroke="var(--ion-color-ibf-outline-red)"]',
     );
     this.closeButtonIcon = this.page.getByTestId('close-matrix-icon');
     this.layerInfoContent = this.page.getByTestId('layer-info-content');
-    this.ibfAggregatePane = this.page.locator(
-      '.leaflet-pane.leaflet-ibf-aggregate-pane',
-    );
   }
 
   async waitForMapToBeLoaded() {
@@ -133,42 +127,43 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async assertAdminBoundariesVisible() {
+  async areAdminBoundariesVisible({ layerName }: { layerName?: string } = {}) {
     await this.waitForMapToBeLoaded();
-    await this.page.waitForTimeout(2000); // This is a workaround for the issue with the map not loading in the same moment as the dom
-    await this.page.waitForSelector('.leaflet-interactive');
 
-    const adminBoundaries = this.adminBoundry;
-    const count = await adminBoundaries.count();
+    const layer = layerName
+      ? this.page.locator(`.admin-boundary.${layerName}`)
+      : this.adminBoundaries;
+
+    const count = await layer.count();
 
     expect(count).toBeGreaterThan(0);
     for (let i = 0; i < count; i++) {
-      await expect(adminBoundaries.nth(i)).toBeVisible();
+      await expect(layer.nth(i)).toBeVisible();
     }
   }
 
-  async clickLayerCheckbox({ layerName }: { layerName: string }) {
+  async checkLayerCheckbox({ layerName }: { layerName: string }) {
     // Remove Glofas station from the map (in case the mock is for floods)
     await this.waitForMapToBeLoaded();
 
     await this.layerMenuToggle.click();
-    await this.page.waitForSelector('data-testid=matrix-layer-name');
 
-    const getLayerRow = this.page
-      .getByTestId('matrix-layer-name')
-      .filter({ hasText: layerName });
-    const layerCheckbox = getLayerRow.locator(this.layerCheckbox);
-    await layerCheckbox.click();
+    const checkbox = this.page
+      .locator(`.matrix-layer.${layerName}`)
+      .getByTestId('matrix-checkbox');
+
+    await checkbox.click();
   }
 
-  async verifyLayerCheckboxCheckedByName({ layerName }: { layerName: string }) {
-    const getLayerRow = this.page
-      .getByTestId('matrix-layer-name')
-      .filter({ hasText: layerName });
-    const layerCheckbox = getLayerRow.locator(this.layerCheckbox);
+  async isLayerCheckboxChecked({ layerName }: { layerName: string }) {
+    const checkbox = this.page
+      .locator(`.matrix-layer.${layerName}`)
+      .getByTestId('matrix-checkbox');
+
+    await this.page.waitForTimeout(100);
 
     // In case of checbox being checked the name attribute should be "checkbox"
-    const nameAttribute = await layerCheckbox.getAttribute('name');
+    const nameAttribute = await checkbox.getAttribute('name');
     const isChecked = nameAttribute === 'checkbox';
 
     if (!isChecked) {
@@ -176,18 +171,13 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async verifyLayerRadioButtonCheckedByName({
-    layerName,
-  }: {
-    layerName: string;
-  }) {
-    const getLayerRow = this.page
-      .getByTestId('matrix-layer-name')
-      .filter({ hasText: layerName });
-    const layerCheckbox = getLayerRow.locator(this.layerRadioButton);
+  async isLayerRadioButtonChecked({ layerName }: { layerName: string }) {
+    const radioButton = this.page
+      .locator(`.matrix-layer.${layerName}`)
+      .getByTestId('matrix-radio-button');
 
-    // In case of checbox being checked the name attribute should be "checkbox"
-    const nameAttribute = await layerCheckbox.getAttribute('name');
+    // In case of radio button being checked the name attribute should be "radio-button-on-outline"
+    const nameAttribute = await radioButton.getAttribute('name');
     const isChecked = nameAttribute === 'radio-button-on-outline';
 
     if (!isChecked) {
@@ -204,25 +194,12 @@ class MapComponent extends DashboardPage {
       .click();
   }
 
-  async retryGetAttribute(locator: Locator, attribute: string, retries = 3) {
-    for (let attempt = 0; attempt < retries; attempt++) {
-      try {
-        return await locator.getAttribute(attribute);
-      } catch (error) {
-        console.log(`Retry ${attempt + 1} for attribute ${attribute} failed`);
-        if (attempt === retries - 1) throw error;
-      }
-    }
-  }
-
   async validateInfoIconInteractions() {
-    const getLayerRow = this.page.getByTestId('matrix-layer-name');
-    const layerCount = await getLayerRow.count();
+    const layerCount = await this.matrixLayers.count();
 
     for (let i = 0; i < layerCount; i++) {
       try {
-        await this.page.waitForTimeout(200);
-        const layerRow = getLayerRow.nth(i);
+        const layerRow = this.matrixLayers.nth(i);
         if (await layerRow.isVisible()) {
           const nameAttribute = await layerRow.textContent();
           if (nameAttribute) {
@@ -254,13 +231,12 @@ class MapComponent extends DashboardPage {
 
     // Wait for the page to load
     await this.waitForMapToBeLoaded();
-    await this.page.waitForSelector('.leaflet-interactive');
-    await this.page.waitForTimeout(200);
+
+    const adminBoundaries = this.page.locator('.admin-boundary');
 
     // Assert that Aggregates title is visible and does not contain the text 'National View'
-
-    await this.adminBoundry.first().hover();
-    await expect(aggregates.aggregatesTitleHeader).not.toContainText(
+    await adminBoundaries.first().hover();
+    await expect(aggregates.aggregatesHeaderLabel).not.toContainText(
       'National View',
     );
   }
@@ -309,71 +285,31 @@ class MapComponent extends DashboardPage {
     await expect(this.redCrossMarker.nth(nthSelector)).toBeVisible();
   }
 
-  async gloFASMarkersAreVisible() {
-    // Wait for the page to load
-    await this.page.waitForSelector('[alt="Glofas stations"]');
-
-    // Count the number of gloFAS markers
-    const gloFASMarkersCount = await this.gloFASMarker.count();
-    const nthSelector = this.getRandomInt(1, gloFASMarkersCount) - 1;
-
-    // Assert that the number of gloFAS markers is greater than 0 and randomly select one to be visible
-    expect(gloFASMarkersCount).toBeGreaterThan(0);
-    await expect(this.gloFASMarker.nth(nthSelector)).toBeVisible();
-  }
-
-  async validateLayersAreVisibleByName({
-    layerNames = [],
-  }: {
-    layerNames: string[];
-  }) {
-    for (const layerName of layerNames) {
-      await this.page.waitForSelector(`[alt="${layerName}"]`);
-      const layer = this.page.getByAltText(layerName);
-      // Count the number of markers
-      const markersCount = await layer.count();
-      const nthSelector = this.getRandomInt(1, markersCount) - 1;
-
-      // Assert that the number of gloFAS markers is greater than 0 and randomly select one to be visible
-      expect(markersCount).toBeGreaterThan(0);
-      await expect(layer.nth(nthSelector)).toBeVisible();
+  async isLayerVisible({ layerName }: { layerName: string }) {
+    if (layerName === 'glofas_stations') {
+      await this.glofasMarkersAreVisible();
     }
   }
 
-  async gloFASMarkersAreVisibleByWarning({
-    glosfasStationStatus,
-    isVisible,
+  async glofasMarkersAreVisible({
+    eapAlertClass = 'no',
+    isVisible = true,
   }: {
-    glosfasStationStatus: string;
-    isVisible: boolean;
-  }) {
-    // Select from: ""glofas-station-max-trigger", "glofas-station-med-trigger", "glofas-station-min-trigger"
-    // We don't have specyfic selectors for each of the markers, so we need have to use src as a selector which is not ideal
-    const glofasMarker = this.page.locator(
-      `img[src="assets/markers/${glosfasStationStatus}.svg"][alt="Glofas stations"]`,
-    );
+    eapAlertClass?: string;
+    isVisible?: boolean;
+  } = {}) {
+    const markers = this.page.locator(`.glofas-station-${eapAlertClass}`);
 
+    const count = await markers.count();
     if (isVisible) {
-      const markersCount = await glofasMarker.count();
-      const nthSelector = this.getRandomInt(1, markersCount) - 1;
+      const nthSelector = this.getRandomInt(1, count) - 1; // pick a random marker
 
-      expect(markersCount).toBeGreaterThan(0);
-      await expect(glofasMarker.nth(nthSelector)).toBeVisible();
+      expect(count).toBeGreaterThan(0);
+      await expect(markers.nth(nthSelector)).toBeVisible();
     } else {
       // Assert that no markers are visible
-      expect(await glofasMarker.count()).toBe(0);
+      expect(count).toBe(0);
     }
-  }
-
-  // This method checks that when radio button is checked then the layer is visible in leaflet-ibf-aggregate-pane
-  // Only one radio button can be checked at a time
-  // It valdates the functionality not data displayed
-  async validateAggregatePaneIsNotEmpty() {
-    const aggregatePaneContent = this.ibfAggregatePane.locator(
-      '.leaflet-interactive',
-    );
-    const aggregatePaneContentCount = await aggregatePaneContent.count();
-    expect(aggregatePaneContentCount).toBeGreaterThan(0);
   }
 
   async validateLayerIsVisibleInMapBySrcElement({
