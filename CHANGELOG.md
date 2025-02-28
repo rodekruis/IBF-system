@@ -1,3 +1,12 @@
+# [0.291.0](https://github.com/rodekruis/IBF-system/compare/v0.290.0...v0.291.0) (2025-02-28)
+
+
+### Features
+
+* remove auto clearout message drought AB[#34049](https://github.com/rodekruis/IBF-system/issues/34049) ([56ec079](https://github.com/rodekruis/IBF-system/commit/56ec0793ea9419876237151fc1a2a487474eceaf))
+
+
+
 # [0.290.0](https://github.com/rodekruis/IBF-system/compare/v0.289.0...v0.290.0) (2025-02-28)
 
 
@@ -133,15 +142,6 @@
 * facilitate old and new alert-per-lead-time endpoint/dto AB[#33630](https://github.com/rodekruis/IBF-system/issues/33630) ([a6ef169](https://github.com/rodekruis/IBF-system/commit/a6ef1697950d435dec4f6d7c83644c2dda56a008))
 * integration tests ([9c9ba7c](https://github.com/rodekruis/IBF-system/commit/9c9ba7caab16fc49002d1adf076c3f2a9ce00cde))
 * mock data to new dto AB[#33630](https://github.com/rodekruis/IBF-system/issues/33630) ([04f4335](https://github.com/rodekruis/IBF-system/commit/04f4335b2d40c15c7aba1886692d6d708d7df851))
-
-
-
-## [0.283.1](https://github.com/rodekruis/IBF-system/compare/v0.283.0...v0.283.1) (2025-02-14)
-
-
-### Bug Fixes
-
-* flaky e2e test ([7df307c](https://github.com/rodekruis/IBF-system/commit/7df307c980aea7d17025069bce5c1f2bf9efd9f3))
 
 
 
