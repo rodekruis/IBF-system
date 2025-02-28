@@ -493,26 +493,6 @@
     "description": { "UGA": { "floods": "Not currently available" } }
   },
   {
-    "countryDisasterTypes": { "UGA": { "floods": ["map"] } },
-    "name": "covid_risk",
-    "label": "COVID Risk",
-    "icon": "",
-    "weightedAvg": true,
-    "active": "no",
-    "colorBreaks": null,
-    "numberFormatMap": "decimal2",
-    "numberFormatAggregate": "",
-    "weightvar": null,
-    "order": 3,
-    "dynamic": false,
-    "lazyLoad": false,
-    "description": {
-      "UGA": {
-        "floods": "The COVID-19 Risk Index is a composite index for the context of exposure, vulnerability to COVID and the capacity to anticipate, cope with and recover from the impacts of COVID-19 (a higher percentage indicates a higher risk to COVID-19). The National Society  selected the following criteria below:<br/><br/>Exposure<ul><li>population / km2</li></ul>Vulnerability<ul><li>% population 65+</li><li>% poverty incidence</li></ul>Lack of Coping Capacity<ul><li>% with no toilet facility</li><li>% access to safe drinking water</li><li>% illiterate</li><li>% with mobile access</li><li>% with internet access</li><li>% received remittances</li><li>HIV: incidence per 100</li><li>MALARIA: Plasmodium Falciparum incidence per 1000</li><li>% households which consume less than two meals per day</li><li># healh facilities per person</li><li>% with a health facility within 5 km</li></ul><br/>Source (Risk Data): <a href='https://nlrc.maps.arcgis.com/apps/opsdashboard/index.html#/9ca9f0f452b04046b8594a74c31f0c3b'>COVID-19 Risk Index Uganda</a>."
-      }
-    }
-  },
-  {
     "countryDisasterTypes": { "ETH": { "malaria": ["map"] } },
     "name": "malaria_risk",
     "label": "Malaria risk",
