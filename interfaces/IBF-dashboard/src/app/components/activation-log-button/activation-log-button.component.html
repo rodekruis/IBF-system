@@ -1,9 +1,7 @@
 <app-ibf-button
   type="button"
-  [title]="'activation-page.' + getEapKey() + '.page-title' | translate"
-  [attr.aria-label]="
-    'activation-page.' + getEapKey() + '.page-title' | translate
-  "
+  [title]="'activation-page.page-title' | translate"
+  [attr.aria-label]="'activation-page.page-title' | translate"
   (click)="goToPage()"
   size="small"
   strong="true"
@@ -12,6 +10,6 @@
   textColor="ibf-black"
 >
   <span class="ion-hide-sm-down">{{
-    'activation-page.' + getEapKey() + '.page-title' | translate
+    'activation-page.page-title' | translate
   }}</span>
 </app-ibf-button>
