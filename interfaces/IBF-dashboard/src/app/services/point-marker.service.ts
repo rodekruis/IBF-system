@@ -129,27 +129,24 @@ export class PointMarkerService {
         e.eventName === markerProperties.stationName, // NOTE: this assumes events to be defined per station, and eventName=stationCode or stationName
     );
     // This reflects to take the trigger leadTime and not the earlier warning leadTime, in case of warning-to-trigger scenario
-    const eventLeadTime = (event?.firstTriggerLeadTime ||
-      event?.firstLeadTime) as LeadTime;
+    const eventLeadTime = event?.firstTriggerLeadTime || event?.firstLeadTime;
 
     const markerTitle = markerProperties.stationName;
+    const eapAlertClass = markerProperties.dynamicData?.eapAlertClass || 'no';
+    const markerClassName = `glofas-station glofas-station-${eapAlertClass}`;
     const markerIcon: IconOptions = {
       ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-      iconUrl: `assets/markers/glofas-station-${
-        markerProperties.dynamicData?.eapAlertClass || 'no'
-      }-trigger.svg`,
-      iconRetinaUrl: `assets/markers/glofas-station-${
-        markerProperties.dynamicData?.eapAlertClass || 'no'
-      }-trigger.svg`,
+      iconUrl: `assets/markers/glofas-station-${eapAlertClass}-trigger.svg`,
+      iconRetinaUrl: `assets/markers/glofas-station-${eapAlertClass}-trigger.svg`,
+      className: markerClassName,
     };
-    const className = `trigger-popup-${
-      markerProperties.dynamicData?.eapAlertClass || 'no'
-    }`;
+    const popupClassName = `trigger-popup-${eapAlertClass}`;
 
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: markerIcon ? icon(markerIcon) : divIcon(),
-      alt: 'Glofas stations',
+      icon: markerIcon
+        ? icon(markerIcon)
+        : divIcon({ className: markerClassName }),
       zIndexOffset: 700,
     });
     markerInstance.bindPopup(
@@ -160,7 +157,7 @@ export class PointMarkerService {
       ),
       {
         minWidth: 350,
-        className,
+        className: popupClassName,
       },
     );
     markerInstance.on(

@@ -1,3 +1,69 @@
+# [0.289.0](https://github.com/rodekruis/IBF-system/compare/v0.288.1...v0.289.0) (2025-02-28)
+
+
+### Bug Fixes
+
+* hide wrongly calculated total exposure if percentage ([e8ae728](https://github.com/rodekruis/IBF-system/commit/e8ae72896af0c5e85940184f924a8506aba1572c))
+
+
+### Features
+
+* replace monthly-forecast-info by forecastSource and align with design ([c7aae3f](https://github.com/rodekruis/IBF-system/commit/c7aae3f5bfd7b921d456329c479393817872e3b1))
+
+
+
+## [0.288.1](https://github.com/rodekruis/IBF-system/compare/v0.288.0...v0.288.1) (2025-02-28)
+
+
+### Bug Fixes
+
+* process alert_threshold rename via migration AB[#33405](https://github.com/rodekruis/IBF-system/issues/33405) ([b57c53f](https://github.com/rodekruis/IBF-system/commit/b57c53fa5682b53a52278883053b5d001a6351c5))
+* process uncovered datamodel changes AB[#33405](https://github.com/rodekruis/IBF-system/issues/33405) ([ccf6110](https://github.com/rodekruis/IBF-system/commit/ccf611065bd91d4bd703133bf392d9c2f91b48f3))
+
+
+
+# [0.288.0](https://github.com/rodekruis/IBF-system/compare/v0.287.0...v0.288.0) (2025-02-28)
+
+
+### Features
+
+* remove covid risk layer AB[#33963](https://github.com/rodekruis/IBF-system/issues/33963) ([f92eaa5](https://github.com/rodekruis/IBF-system/commit/f92eaa55ee68520c8a099f44c86e4b1abd67fe05))
+
+
+
+# [0.287.0](https://github.com/rodekruis/IBF-system/compare/v0.286.0...v0.287.0) (2025-02-27)
+
+
+### Bug Fixes
+
+* build error ([fd02446](https://github.com/rodekruis/IBF-system/commit/fd0244617d6b2edb704474dab3786a26abdda65b))
+* warning-to-trigger scenario ([3721dec](https://github.com/rodekruis/IBF-system/commit/3721deca4dd6d0b9ff1d0d8c3b8810509de01f4e))
+
+
+### Features
+
+* unclickable timelines + refactor AB[#33408](https://github.com/rodekruis/IBF-system/issues/33408) ([0f25bf0](https://github.com/rodekruis/IBF-system/commit/0f25bf0a56d89c2f462dba917439785e8db4777f))
+
+
+
+# [0.286.0](https://github.com/rodekruis/IBF-system/compare/v0.285.0...v0.286.0) (2025-02-25)
+
+
+### Bug Fixes
+
+* basic changes to arrive at working front-end AB[#33407](https://github.com/rodekruis/IBF-system/issues/33407) ([f47e01b](https://github.com/rodekruis/IBF-system/commit/f47e01b42ff9fb460948aeafff6549d9ae4bacd6))
+* bug in getActiveAlertAreas query ([547a4e3](https://github.com/rodekruis/IBF-system/commit/547a4e3c98d61c2e2d09993e31ffd60d4acf51c5))
+* remove app-timestamp properly ([fb37f49](https://github.com/rodekruis/IBF-system/commit/fb37f49099264d7072490e60819b94f988934d86))
+* rename startDate to firstIssuedDate ([40a0e46](https://github.com/rodekruis/IBF-system/commit/40a0e46869c9d0942239bd8d96cae60e43081c62))
+* show exposure for warnings also if available AB[#33407](https://github.com/rodekruis/IBF-system/issues/33407) ([4dc5f72](https://github.com/rodekruis/IBF-system/commit/4dc5f723b6cd4c3a4ed59935249a609f95af2693))
+
+
+### Features
+
+* show first issued date in bottomright of speech bubble ([940e63f](https://github.com/rodekruis/IBF-system/commit/940e63f718d7faba24f47c0767538d39dec416ff))
+
+
+
 # [0.285.0](https://github.com/rodekruis/IBF-system/compare/v0.284.0...v0.285.0) (2025-02-24)
 
 
@@ -71,69 +137,6 @@
 ### Features
 
 * remove endOfMonthPipeline exception AB[#33425](https://github.com/rodekruis/IBF-system/issues/33425) ([d0ec5d8](https://github.com/rodekruis/IBF-system/commit/d0ec5d87483d6155d15cfa92c0a19bbfb6bc7fd0))
-
-
-
-# [0.282.0](https://github.com/rodekruis/IBF-system/compare/v0.281.1...v0.282.0) (2025-02-11)
-
-
-### Bug Fixes
-
-* revert local testing scenario update ([246e5b8](https://github.com/rodekruis/IBF-system/commit/246e5b8538e52eab73cefcc1972716faeece0d4e))
-* tests ([100723c](https://github.com/rodekruis/IBF-system/commit/100723cd3944faddd80a7d24477fb6175287967c))
-
-
-### Features
-
-* add update-user endpoint AB[#33049](https://github.com/rodekruis/IBF-system/issues/33049) ([4b1972c](https://github.com/rodekruis/IBF-system/commit/4b1972c66e1a3fdcaa88e30635e5a3a24629a997))
-
-
-
-## [0.281.1](https://github.com/rodekruis/IBF-system/compare/v0.281.0...v0.281.1) (2025-02-07)
-
-
-### Bug Fixes
-
-* e2e test AB[#33251](https://github.com/rodekruis/IBF-system/issues/33251) ([5afffa3](https://github.com/rodekruis/IBF-system/commit/5afffa343cdff55b5d019a85886799609b6d6bd8))
-* get formatted eventname + refactor note + small typing AB[#33247](https://github.com/rodekruis/IBF-system/issues/33247) ([2fc1fb4](https://github.com/rodekruis/IBF-system/commit/2fc1fb493d59262ff4890a042990333f2d0634ae))
-* remove isEventBased + switch on breadcrumbs drought AB[#33247](https://github.com/rodekruis/IBF-system/issues/33247) ([f6d31eb](https://github.com/rodekruis/IBF-system/commit/f6d31ebd9d988afe8956da7833e5ab736970306c))
-* select earliest possible event on map-click AB[#33247](https://github.com/rodekruis/IBF-system/issues/33247) ([bf15eee](https://github.com/rodekruis/IBF-system/commit/bf15eee50657c55a3891f1fc5988a0ea6bdec316))
-* test whatsapp message on new notification AB[#33243](https://github.com/rodekruis/IBF-system/issues/33243) ([b815a75](https://github.com/rodekruis/IBF-system/commit/b815a7516e46a9b3491ca5cf3fc572539a3d3aa9))
-
-
-
-# [0.281.0](https://github.com/rodekruis/IBF-system/compare/v0.280.0...v0.281.0) (2025-02-05)
-
-
-### Bug Fixes
-
-* area-of-focus e2e test ([02d84e7](https://github.com/rodekruis/IBF-system/commit/02d84e78f1f816059ccec3adb8e54183b0dcb04c))
-* process more PR comments ([e05ff9c](https://github.com/rodekruis/IBF-system/commit/e05ff9cf21b49b65832328a374d371a7d48c2024))
-* seed eap-actions ([9da8f30](https://github.com/rodekruis/IBF-system/commit/9da8f3012c81b8a7cf2cf0f8f03a001b6b298d9c))
-* tests leadtime ([2c9b0d8](https://github.com/rodekruis/IBF-system/commit/2c9b0d816b3194d8cc1b5e90b49c30b3c008af8c))
-
-
-### Features
-
-* create endpoint to add/update disaster ([292560b](https://github.com/rodekruis/IBF-system/commit/292560be7cb3b935876a0e4c6e33b96565c6f6a8))
-
-
-
-# [0.280.0](https://github.com/rodekruis/IBF-system/compare/v0.279.0...v0.280.0) (2025-02-03)
-
-
-### Features
-
-* remove stop propertise from trigger log AB[#32660](https://github.com/rodekruis/IBF-system/issues/32660) ([36bb8db](https://github.com/rodekruis/IBF-system/commit/36bb8db4bf3c03d3b23757358a066e7c1b51ccb0))
-
-
-
-# [0.279.0](https://github.com/rodekruis/IBF-system/compare/v0.278.7...v0.279.0) (2025-01-31)
-
-
-### Features
-
-* set up geoserver for rainfall_forecast and population with dummy data AB[#32769](https://github.com/rodekruis/IBF-system/issues/32769) ([d6047c7](https://github.com/rodekruis/IBF-system/commit/d6047c7135c1ec03353d91333eca68df8090b6d5))
 
 
 

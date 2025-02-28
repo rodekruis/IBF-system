@@ -930,6 +930,7 @@ export class MapService {
           fillOpacity,
           weight,
           color,
+          className: `admin-boundary ${layer.name}`,
         };
       }
     };

@@ -22,7 +22,7 @@
       <ion-list class="ion-no-padding">
         @for (layer of getLayersInOrder(); track layer.name) {
           <ion-row class="ion-justify-content-between ion-nowrap">
-            <ion-item data-testid="matrix-layer-name" lines="none">
+            <ion-item className="matrix-layer {{ layer.name }}" lines="none">
               @if (layer.isLoading) {
                 <ion-spinner class="mx-[0.15rem]"></ion-spinner>
               } @else {

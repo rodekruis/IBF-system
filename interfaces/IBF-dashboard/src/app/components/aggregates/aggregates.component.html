@@ -3,7 +3,6 @@
     <ion-row
       class="component-title"
       style="background: var(--ion-color-ibf-secondary)"
-      data-testid="action-title"
     >
       <ion-col class="ion-no-padding" size-lg="11" size-md="11" size-xs="11">
         <ion-item
@@ -12,14 +11,20 @@
           color="ibf-secondary"
         >
           <ion-col class="ion-no-padding ion-no-margin ion-align-items-center">
-            <ion-label color="ibf-black" class="ion-text-wrap"
+            <ion-label
+              color="ibf-black"
+              class="ion-text-wrap"
+              data-testid="aggregates-header-label"
               ><ion-text
                 ><strong>{{
                   getAggregatesHeader(mapView | async).headerLabel
                 }}</strong></ion-text
               ></ion-label
             >
-            <ion-label color="ibf-black" class="ion-text-wrap"
+            <ion-label
+              color="ibf-black"
+              class="ion-text-wrap"
+              data-testid="aggregates-sub-header-label"
               ><ion-text
                 [innerHTML]="
                   getAggregatesHeader(mapView | async).subHeaderLabel
@@ -32,7 +37,7 @@
       <ion-col size-lg="1" size-md="1" size-xs="1">
         <ion-item
           class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
-          data-testid="aggregates-title-info-icon"
+          data-testid="aggregates-header-info-icon"
           color="transparent"
           lines="none"
         >

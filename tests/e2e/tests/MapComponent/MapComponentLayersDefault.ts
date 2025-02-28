@@ -29,11 +29,11 @@ export default (
 
     await map.clickLayerMenu();
     await map.isLayerMenuOpen({ layerMenuOpen: true });
-    await map.verifyLayerCheckboxCheckedByName({
-      layerName: 'Flood extent',
+    await map.isLayerCheckboxChecked({
+      layerName: 'flood_extent',
     });
-    await map.verifyLayerRadioButtonCheckedByName({
-      layerName: 'Exposed population',
+    await map.isLayerRadioButtonChecked({
+      layerName: 'population_affected',
     });
     // Validate legend
     await map.isLegendOpen({ legendOpen: true });
@@ -44,14 +44,10 @@ export default (
       legendComponentName: 'Exposed population',
     });
     // Validate that the layer checked with radio button is visible on the map in this case 'Exposed population' only one such layer can be checked at a time
-    await map.validateAggregatePaneIsNotEmpty();
+    await map.areAdminBoundariesVisible({ layerName: 'population_affected' });
     // Validate rest of the map
     await map.validateLayerIsVisibleInMapBySrcElement({
       layerName: 'flood_extent',
     });
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
   });
 };

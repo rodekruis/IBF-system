@@ -26,10 +26,6 @@ export default (
     await map.breadCrumbViewIsVisible({ nationalView: true });
     await map.isLegendOpen({ legendOpen: true });
     await map.isLayerMenuOpen({ layerMenuOpen: false });
-    await map.assertAdminBoundariesVisible();
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
+    await map.areAdminBoundariesVisible();
   });
 };

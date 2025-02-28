@@ -27,9 +27,5 @@ export default (pages: Partial<Pages>, components: Partial<Components>) => {
       countryName: NoTriggerDataSet.CountryName,
       disasterName: 'drought',
     });
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
   });
 };

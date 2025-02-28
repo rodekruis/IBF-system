@@ -70,6 +70,10 @@ test.describe('Scenario: No Trigger', () => {
     );
   });
 
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+  });
+
   test.afterAll(async () => {
     await page.close();
   });

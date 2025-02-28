@@ -24,13 +24,9 @@ export default (
     });
 
     // get the number of warning events and aggregated events
-    const aggregatesEventCount = await aggregates.getNumberOfPredictedEvents();
+    const eventCount = await aggregates.getEventCount();
 
     // check if the number of warning events is equal to the number of aggregated events
-    expect(aggregatesEventCount).toBeGreaterThan(0);
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-    await dashboard.page.waitForTimeout(1000);
+    expect(eventCount).toBeGreaterThan(0);
   });
 };
