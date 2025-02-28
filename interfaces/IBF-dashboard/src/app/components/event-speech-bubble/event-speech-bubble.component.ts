@@ -34,8 +34,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()
   public countryCodeISO3: string;
   @Input()
-  public clearOutMessage: string;
-  @Input()
   public areas: AlertArea[];
   @Input()
   public adminAreaLabelPlural: string;
