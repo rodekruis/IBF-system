@@ -1,3 +1,12 @@
+# [0.288.0](https://github.com/rodekruis/IBF-system/compare/v0.287.0...v0.288.0) (2025-02-28)
+
+
+### Features
+
+* remove covid risk layer AB[#33963](https://github.com/rodekruis/IBF-system/issues/33963) ([f92eaa5](https://github.com/rodekruis/IBF-system/commit/f92eaa55ee68520c8a099f44c86e4b1abd67fe05))
+
+
+
 # [0.287.0](https://github.com/rodekruis/IBF-system/compare/v0.286.0...v0.287.0) (2025-02-27)
 
 
@@ -132,23 +141,6 @@
 * remove isEventBased + switch on breadcrumbs drought AB[#33247](https://github.com/rodekruis/IBF-system/issues/33247) ([f6d31eb](https://github.com/rodekruis/IBF-system/commit/f6d31ebd9d988afe8956da7833e5ab736970306c))
 * select earliest possible event on map-click AB[#33247](https://github.com/rodekruis/IBF-system/issues/33247) ([bf15eee](https://github.com/rodekruis/IBF-system/commit/bf15eee50657c55a3891f1fc5988a0ea6bdec316))
 * test whatsapp message on new notification AB[#33243](https://github.com/rodekruis/IBF-system/issues/33243) ([b815a75](https://github.com/rodekruis/IBF-system/commit/b815a7516e46a9b3491ca5cf3fc572539a3d3aa9))
-
-
-
-# [0.281.0](https://github.com/rodekruis/IBF-system/compare/v0.280.0...v0.281.0) (2025-02-05)
-
-
-### Bug Fixes
-
-* area-of-focus e2e test ([02d84e7](https://github.com/rodekruis/IBF-system/commit/02d84e78f1f816059ccec3adb8e54183b0dcb04c))
-* process more PR comments ([e05ff9c](https://github.com/rodekruis/IBF-system/commit/e05ff9cf21b49b65832328a374d371a7d48c2024))
-* seed eap-actions ([9da8f30](https://github.com/rodekruis/IBF-system/commit/9da8f3012c81b8a7cf2cf0f8f03a001b6b298d9c))
-* tests leadtime ([2c9b0d8](https://github.com/rodekruis/IBF-system/commit/2c9b0d816b3194d8cc1b5e90b49c30b3c008af8c))
-
-
-### Features
-
-* create endpoint to add/update disaster ([292560b](https://github.com/rodekruis/IBF-system/commit/292560be7cb3b935876a0e4c6e33b96565c6f6a8))
 
 
 
