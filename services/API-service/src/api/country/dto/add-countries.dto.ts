@@ -73,7 +73,7 @@ export class CountryDisasterSettingsDto {
   public enableEarlyActions?: boolean;
 
   @ApiProperty({ example: {} })
-  public monthlyForecastInfo?: object;
+  public forecastSource?: object;
 
   @ApiProperty({
     example: 'https://docs.google.com',

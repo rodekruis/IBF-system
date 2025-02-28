@@ -587,20 +587,9 @@
           }
         },
         "showMonthlyEapActions": true,
-        "monthlyForecastInfo": {
-          "prefix": "chat-component.drought.active-event.forecast-info",
-          "12": ["below-average-ond"],
-          "1": ["below-average-ond"],
-          "2": ["below-average-ond", "mam-forecast"],
-          "3": [],
-          "4": [],
-          "5": [],
-          "6": ["below-average-mam"],
-          "7": ["below-average-mam", "ond-forecast"],
-          "8": ["below-average-mam", "ond-forecast"],
-          "9": ["below-average-mam", "ond-forecast"],
-          "10": [],
-          "11": []
+        "forecastSource": {
+          "label": "Global ECWMF",
+          "url": "https://www.ecmwf.int/"
         },
         "eapLink": "https://drive.google.com/file/d/129ni2VlAxg5GngqoszmVjlaRFEuLwLph/view"
       }
@@ -1215,6 +1204,10 @@
               "actionMonths": [10, 11, 12, 1, 2, 3]
             }
           }
+        },
+        "forecastSource": {
+          "label": "Global ECWMF",
+          "url": "https://www.ecmwf.int/"
         },
         "enableEarlyActions": false,
         "showMonthlyEapActions": true,

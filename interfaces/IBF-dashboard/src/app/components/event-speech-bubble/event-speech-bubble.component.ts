@@ -2,6 +2,7 @@ import { AfterViewChecked, Component, Input, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { ForecastSource } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { EventService, EventSummary } from 'src/app/services/event.service';
@@ -29,7 +30,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()
   public disasterTypeName: DisasterTypeKey;
   @Input()
-  public forecastInfo: string[];
+  public forecastSource: ForecastSource;
   @Input()
   public countryCodeISO3: string;
   @Input()
@@ -42,8 +43,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   public mainExposureIndicatorLabel: string;
   @Input()
   public mainExposureIndicatorNumberFormat: NumberFormat;
-  @Input()
-  public enableEarlyActions: boolean;
 
   public typhoonLandfallText: string;
   public displayName: string;
@@ -128,7 +127,13 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     const noLandfallYetEvent =
       event.disasterSpecificProperties?.typhoonNoLandfallYet;
 
-    return this.translateService.instant(
+    const warningPrefix = event.forecastTrigger
+      ? ''
+      : (this.translateService.instant(
+          `chat-component.common.alertLevel.warning`,
+        ) as string);
+
+    const landfallInfo = this.translateService.instant(
       `chat-component.typhoon.active-event.${
         ongoingEvent ? 'ongoing-event' : 'upcoming-event'
       }.${
@@ -142,15 +147,12 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
         firstLeadTimeDate: event.firstLeadTimeDate,
       },
     ) as string;
+    return `${warningPrefix} ${landfallInfo}`;
   }
 
   public showFirstWarningDate(): boolean {
-    if (!this.event) {
-      return true;
-    }
-
     if (this.disasterTypeName !== DisasterTypeKey.floods) {
-      return true;
+      return false;
     }
 
     if (this.event.firstLeadTime !== this.event.firstTriggerLeadTime) {
@@ -207,11 +209,5 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       })`,
       borderColor: `var(--ion-color-${this.event.disasterSpecificProperties.eapAlertClass.color})`,
     };
-  }
-
-  public isEventWithForecastClasses(): boolean {
-    if (!this.event?.disasterSpecificProperties?.eapAlertClass) {
-      return false;
-    } else return true;
   }
 }

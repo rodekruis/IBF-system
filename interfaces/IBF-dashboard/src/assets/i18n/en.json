@@ -107,10 +107,11 @@
         "no-actions-admin-level": "Early actions are only available on {{ defaultAdminAreaLabel }} level."
       },
       "alertLevel": {
-        "expected": "expected on",
-        "expected-trigger": "expected to trigger on",
+        "expected": "expected on {{ date }}. ",
+        "warning": "It is currently not predicted to reach trigger thresholds. ",
+        "source": "Forecast source: ",
         "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
-        "no-data": "No population data available"
+        "no-data": "No exposure data available"
       }
     },
     "floods": {
@@ -123,11 +124,7 @@
         "header-ongoing": "{{ eventName }} ongoing",
         "header-below-trigger": "{{ eventName }} on {{firstLeadTimeDate}}",
         "header-ongoing-below-trigger": "{{ eventName }} ongoing",
-        "welcome": "Flood expected to start on {{firstLeadTimeDate}}",
-        "welcome-below-trigger": "",
-        "overview": "",
-        "overview-below-trigger": "",
-        "instruction": "",
+        "first-warning-date": "Flood expected to start on {{firstLeadTimeDate}}",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:"
       },
@@ -145,11 +142,6 @@
         "header": "Trigger: {{ eventName }} on {{firstLeadTimeDate}}",
         "header-ongoing": "Ongoing trigger: {{ eventName }}",
         "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
-        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger in <strong>{{ eventName }}</strong> was issued.",
-        "welcome-below-trigger": "A warning for <strong>{{ disasterTypeLabel }}</strong> in <strong>{{ eventName }}</strong> was issued, but it can currently not be predicted to reach trigger thresholds yet.",
-        "overview": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ mainExposureIndicator}} and are highlighted in the map with a red outline.",
-        "overview-below-trigger": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} exposed. They are listed below in order of {{ mainExposureIndicator}}.",
-        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the preplanned anticipatory actions (if applicable) of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:"
       },
@@ -168,22 +160,8 @@
         "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
         "header-ongoing": "Ongoing trigger: {{eventName}} in {{firstLeadTimeDate}}",
         "header-ongoing-below-trigger": "Ongoing warning: {{eventName}} in {{firstLeadTimeDate}}",
-        "welcome": "A <strong>{{ disasterTypeLabel }}</strong> trigger alert was issued for <strong>{{ firstLeadTimeDate }}</strong> with a remaining duration of <strong>{{ duration }}</strong> month(s).",
-        "welcome-below-trigger": "A <strong>{{ disasterTypeLabel }}</strong> warning alert was issued for <strong>{{ firstLeadTimeDate }}</strong> with a remaining duration of <strong>{{ duration }}</strong> month(s).",
-        "overview": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} triggered. They are listed below in order of {{ mainExposureIndicator}} and are highlighted in the map with a red outline.",
-        "overview-below-trigger": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} warned. They are listed below in order of {{ mainExposureIndicator}}.",
-        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
-        "exposed": "Exposed Population:",
-        "forecast-info": {
-          "opening": "Due to the",
-          "and": "and the ",
-          "below-average-mam": "Below Average MAM",
-          "below-average-ond": "Below Average OND",
-          "mam-forecast": "MAM Forecast",
-          "ond-forecast": "OND Forecast",
-          "actions": "the following <strong>{{ nrActions }}</strong> actions should be taken."
-        }
+        "exposed": "Exposed Population:"
       },
       "clear-out": {
         "regional": {
@@ -210,20 +188,15 @@
         "header-ongoing": "Ongoing trigger: {{ eventName }}",
         "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
         "header-ongoing-below-trigger": "Ongoing warning: {{ eventName }}",
-        "welcome": "A trigger for <strong>{{ eventName }}</strong> was issued.",
-        "welcome-below-trigger": "A warning for <strong>{{ eventName }}</strong> was issued, but it is currently <strong>not predicted to reach trigger thresholds</strong>.",
         "upcoming-event": {
-          "landfall": "It is estimated to <strong>make landfall</strong> on <strong>{{ firstLeadTimeDate }}</strong>.<br><br>",
-          "no-landfall": "It is estimated to reach the point closest to land on <strong>{{ firstLeadTimeDate }}</strong>. It is <strong>not predicted to make landfall</strong>.<br><br>",
-          "no-landfall-yet": "The <strong>landfall time prediction cannot be determined yet</strong>. Keep monitoring the event.<br><br>"
+          "landfall": "It is expected to make landfall on {{ firstLeadTimeDate }}.",
+          "no-landfall": "It is expected to reach the point closest to land on {{ firstLeadTimeDate }}. It is not predicted to make landfall.",
+          "no-landfall-yet": "The landfall time prediction cannot be determined yet. Keep monitoring the event."
         },
         "ongoing-event": {
-          "landfall": "It has <strong>already made landfall</strong>.<br><br>",
-          "no-landfall": "It has already reached the point closest to land. It is <strong>not predicted to make landfall</strong>.<br><br>"
+          "landfall": "It has already made landfall.",
+          "no-landfall": "It has already reached the point closest to land. It is not predicted to make landfall."
         },
-        "overview": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} triggered for typhoon <strong>{{ eventName }}</strong>. They are listed below in order of {{ mainExposureIndicator}} and are highlighted in the map with a red outline.",
-        "overview-below-trigger": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} exposed for typhoon <strong>{{ eventName }}</strong>. They are listed below in order of {{ mainExposureIndicator}}.",
-        "instruction": "Please select an area to monitor by selecting from the list or on the map and manage the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Affected population:"
       },
@@ -240,9 +213,6 @@
       "active-event": {
         "header": "Alert for {{firstLeadTimeDate}}",
         "header-ongoing": "Ongoing alert for {{firstLeadTimeDate}}",
-        "welcome": "An alert for <strong>{{ disasterTypeLabel }}</strong> was issued.",
-        "overview": "There are <strong>{{ nrAlertAreas }}</strong> {{ adminAreaLabelPlural }} above alert threshold. They are listed below in order of {{ mainExposureIndicator}} and are highlighted in the map with a red outline.",
-        "instruction": "You can click on the month tabs above the map to see the predictions for each month. Please select an area to monitor by selecting from the list or on the map and manage the preplanned anticipatory actions of each area.",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Potential cases: up to"
       },
