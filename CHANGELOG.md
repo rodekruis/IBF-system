@@ -1,3 +1,17 @@
+# [0.289.0](https://github.com/rodekruis/IBF-system/compare/v0.288.1...v0.289.0) (2025-02-28)
+
+
+### Bug Fixes
+
+* hide wrongly calculated total exposure if percentage ([e8ae728](https://github.com/rodekruis/IBF-system/commit/e8ae72896af0c5e85940184f924a8506aba1572c))
+
+
+### Features
+
+* replace monthly-forecast-info by forecastSource and align with design ([c7aae3f](https://github.com/rodekruis/IBF-system/commit/c7aae3f5bfd7b921d456329c479393817872e3b1))
+
+
+
 ## [0.288.1](https://github.com/rodekruis/IBF-system/compare/v0.288.0...v0.288.1) (2025-02-28)
 
 
@@ -123,21 +137,6 @@
 ### Features
 
 * remove endOfMonthPipeline exception AB[#33425](https://github.com/rodekruis/IBF-system/issues/33425) ([d0ec5d8](https://github.com/rodekruis/IBF-system/commit/d0ec5d87483d6155d15cfa92c0a19bbfb6bc7fd0))
-
-
-
-# [0.282.0](https://github.com/rodekruis/IBF-system/compare/v0.281.1...v0.282.0) (2025-02-11)
-
-
-### Bug Fixes
-
-* revert local testing scenario update ([246e5b8](https://github.com/rodekruis/IBF-system/commit/246e5b8538e52eab73cefcc1972716faeece0d4e))
-* tests ([100723c](https://github.com/rodekruis/IBF-system/commit/100723cd3944faddd80a7d24477fb6175287967c))
-
-
-### Features
-
-* add update-user endpoint AB[#33049](https://github.com/rodekruis/IBF-system/issues/33049) ([4b1972c](https://github.com/rodekruis/IBF-system/commit/4b1972c66e1a3fdcaa88e30635e5a3a24629a997))
 
 
 
