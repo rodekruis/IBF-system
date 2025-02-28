@@ -1,3 +1,22 @@
+# [0.290.0](https://github.com/rodekruis/IBF-system/compare/v0.289.0...v0.290.0) (2025-02-28)
+
+
+### Bug Fixes
+
+* build error ([49edfd8](https://github.com/rodekruis/IBF-system/commit/49edfd839d4046cf622c2402e63943fc47d8623f))
+* hide wrongly calculated total exposure if percentage ([432700e](https://github.com/rodekruis/IBF-system/commit/432700e87ada39ccd8eca3edfdd291e281206001))
+* rebase error ([b6294f9](https://github.com/rodekruis/IBF-system/commit/b6294f98ade11f0a32be509d56e16f44094e99e4))
+* warning-to-trigger scenario ([f8d4266](https://github.com/rodekruis/IBF-system/commit/f8d426642316bbc76143c8868c75628ec6bc9e66))
+
+
+### Features
+
+* remove hasEap wording distinction AB[#33607](https://github.com/rodekruis/IBF-system/issues/33607) ([af43a38](https://github.com/rodekruis/IBF-system/commit/af43a38a436a20e69e246a2370f2ef0f119b8fbd))
+* replace monthly-forecast-info by forecastSource and align with design ([4210447](https://github.com/rodekruis/IBF-system/commit/42104470a269b68f6f011848424c587c2e0e50ff))
+* unclickable timelines + refactor AB[#33408](https://github.com/rodekruis/IBF-system/issues/33408) ([8842a63](https://github.com/rodekruis/IBF-system/commit/8842a63f60301a2aad3538eb724d5eaaaa4b1adb))
+
+
+
 # [0.289.0](https://github.com/rodekruis/IBF-system/compare/v0.288.1...v0.289.0) (2025-02-28)
 
 
@@ -123,20 +142,6 @@
 ### Bug Fixes
 
 * flaky e2e test ([7df307c](https://github.com/rodekruis/IBF-system/commit/7df307c980aea7d17025069bce5c1f2bf9efd9f3))
-
-
-
-# [0.283.0](https://github.com/rodekruis/IBF-system/compare/v0.282.0...v0.283.0) (2025-02-12)
-
-
-### Bug Fixes
-
-* monthlyForecastInfo KEN ([099612a](https://github.com/rodekruis/IBF-system/commit/099612a6ae99704166283423ee8724da927cd2d5))
-
-
-### Features
-
-* remove endOfMonthPipeline exception AB[#33425](https://github.com/rodekruis/IBF-system/issues/33425) ([d0ec5d8](https://github.com/rodekruis/IBF-system/commit/d0ec5d87483d6155d15cfa92c0a19bbfb6bc7fd0))
 
 
 
