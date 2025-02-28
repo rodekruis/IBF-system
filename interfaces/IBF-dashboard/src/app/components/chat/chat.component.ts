@@ -20,7 +20,7 @@ import { AggregatesService } from 'src/app/services/aggregates.service';
 import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EventService, EventSummary } from 'src/app/services/event.service';
+import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
@@ -28,7 +28,6 @@ import { AlertArea } from 'src/app/types/alert-area';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
-import { LeadTimeTriggerKey } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
 import { environment } from 'src/environments/environment';
 
@@ -363,61 +362,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.placeCodeService.setPlaceCode(this.placeCode);
       this.changedActions = [];
     });
-  }
-
-  public getClearOutMessage(event: EventSummary) {
-    if (!this.countryDisasterSettings?.showMonthlyEapActions) {
-      return;
-    }
-
-    const droughtSeasonRegions =
-      this.countryDisasterSettings?.droughtSeasonRegions;
-    const forecastAreas = Object.keys(droughtSeasonRegions);
-
-    const currentMonth = this.timelineState.today;
-    const nextMonth = currentMonth.plus({
-      months: 1,
-    });
-
-    const forecastMonthNumbers = [];
-    for (const area of forecastAreas) {
-      if (
-        !event?.eventName ||
-        event.eventName.toLowerCase().includes(area.toLowerCase())
-      ) {
-        for (const season of Object.keys(droughtSeasonRegions[area])) {
-          const rainMonths = droughtSeasonRegions[area][season].rainMonths;
-          const finalMonth = rainMonths[rainMonths.length - 1];
-          if (
-            currentMonth.month +
-              Number(LeadTimeTriggerKey[event?.firstLeadTime]) <=
-            finalMonth
-          ) {
-            forecastMonthNumbers.push(finalMonth);
-          }
-        }
-      }
-    }
-
-    let translateKey: string;
-    if (Object.values(forecastAreas).length === 1) {
-      if (forecastMonthNumbers.includes(currentMonth.month - 1)) {
-        translateKey = 'chat-component.drought.clear-out.national.message';
-      } else if (forecastMonthNumbers.includes(nextMonth.month - 1)) {
-        translateKey = 'chat-component.drought.clear-out.national.warning';
-      }
-    } else if (Object.values(forecastAreas).length > 1) {
-      if (forecastMonthNumbers.includes(currentMonth.month - 1)) {
-        translateKey = 'chat-component.drought.clear-out.regional.message';
-      } else if (forecastMonthNumbers.includes(nextMonth.month - 1)) {
-        translateKey = 'chat-component.drought.clear-out.regional.warning';
-      } else {
-        return;
-      }
-    }
-    return translateKey
-      ? (this.translateService.instant(translateKey) as string)
-      : null;
   }
 
   public getRegion = (placeCode: string): string => {

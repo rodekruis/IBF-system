@@ -122,10 +122,6 @@
       }
     </p>
 
-    @if (!!clearOutMessage) {
-      <p class="clear-out-message" [innerHTML]="clearOutMessage"></p>
-    }
-
     <!-- =================================== -->
 
     @if (event.eventName === selectedEvent) {
@@ -172,8 +168,5 @@
               }
       "
     ></p>
-    @if (!!clearOutMessage) {
-      <p class="clear-out-message" [innerHTML]="clearOutMessage"></p>
-    }
   </app-dialogue-turn>
 }
