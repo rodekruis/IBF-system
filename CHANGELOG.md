@@ -1,3 +1,13 @@
+## [0.288.1](https://github.com/rodekruis/IBF-system/compare/v0.288.0...v0.288.1) (2025-02-28)
+
+
+### Bug Fixes
+
+* process alert_threshold rename via migration AB[#33405](https://github.com/rodekruis/IBF-system/issues/33405) ([b57c53f](https://github.com/rodekruis/IBF-system/commit/b57c53fa5682b53a52278883053b5d001a6351c5))
+* process uncovered datamodel changes AB[#33405](https://github.com/rodekruis/IBF-system/issues/33405) ([ccf6110](https://github.com/rodekruis/IBF-system/commit/ccf611065bd91d4bd703133bf392d9c2f91b48f3))
+
+
+
 # [0.288.0](https://github.com/rodekruis/IBF-system/compare/v0.287.0...v0.288.0) (2025-02-28)
 
 
@@ -128,19 +138,6 @@
 ### Features
 
 * add update-user endpoint AB[#33049](https://github.com/rodekruis/IBF-system/issues/33049) ([4b1972c](https://github.com/rodekruis/IBF-system/commit/4b1972c66e1a3fdcaa88e30635e5a3a24629a997))
-
-
-
-## [0.281.1](https://github.com/rodekruis/IBF-system/compare/v0.281.0...v0.281.1) (2025-02-07)
-
-
-### Bug Fixes
-
-* e2e test AB[#33251](https://github.com/rodekruis/IBF-system/issues/33251) ([5afffa3](https://github.com/rodekruis/IBF-system/commit/5afffa343cdff55b5d019a85886799609b6d6bd8))
-* get formatted eventname + refactor note + small typing AB[#33247](https://github.com/rodekruis/IBF-system/issues/33247) ([2fc1fb4](https://github.com/rodekruis/IBF-system/commit/2fc1fb493d59262ff4890a042990333f2d0634ae))
-* remove isEventBased + switch on breadcrumbs drought AB[#33247](https://github.com/rodekruis/IBF-system/issues/33247) ([f6d31eb](https://github.com/rodekruis/IBF-system/commit/f6d31ebd9d988afe8956da7833e5ab736970306c))
-* select earliest possible event on map-click AB[#33247](https://github.com/rodekruis/IBF-system/issues/33247) ([bf15eee](https://github.com/rodekruis/IBF-system/commit/bf15eee50657c55a3891f1fc5988a0ea6bdec316))
-* test whatsapp message on new notification AB[#33243](https://github.com/rodekruis/IBF-system/issues/33243) ([b815a75](https://github.com/rodekruis/IBF-system/commit/b815a7516e46a9b3491ca5cf3fc572539a3d3aa9))
 
 
 
