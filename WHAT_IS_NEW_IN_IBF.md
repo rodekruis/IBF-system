@@ -5,6 +5,10 @@ Find here the latest changes to the IBF-system.
 - Not all changes to the IBF-system are listed here. Only those that result in different functionality or different user experience.
 - This list is meant to explain changes since the last manual. Please open the manual from the dashboard for a full explanation on the IBF-system.
 
+### 03-03-2025 (v0.292.0)
+
+- Typhoon and drought: Timeline is simplified by disabling the buttons and showing duration visually instead of text.
+
 ### 12-02-2025 (v0.282.0)
 
 - IBF Uganda: 'Heavy rainfall' is removed as a 'disaster type' from IBF. The 'community notification' feature is moved to Uganda Floods.
