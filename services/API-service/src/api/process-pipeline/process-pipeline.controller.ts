@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  HttpCode,
   ParseBoolPipe,
   Post,
   Query,
@@ -61,16 +62,32 @@ export class ProcessPipelineController {
       'Process events for given country and disaster-type. Must be run at end of every pipeline.',
   })
   @ApiResponse({
-    status: 201,
+    status: 200,
     description: 'Processed events.',
   })
+  @ApiQuery({
+    name: 'noNotifications',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description: 'If true, returns the notification content without sending it',
+  })
   @Post('events/process')
+  @HttpCode(200)
   public async processEvents(
     @Body() processEventsDto: ProcessEventsDto,
-  ): Promise<void> {
-    await this.processPipelineService.processEvents(
+    @Query(
+      'noNotifications',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    noNotifications: boolean,
+  ): Promise<void | NotificationApiTestResponseDto> {
+    return await this.processPipelineService.processEvents(
       processEventsDto.countryCodeISO3,
       processEventsDto.disasterType,
+      noNotifications,
     );
   }
 

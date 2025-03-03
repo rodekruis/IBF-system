@@ -2,6 +2,7 @@ import * as request from 'supertest';
 import TestAgent from 'supertest/lib/agent';
 
 import { CreateUserDto } from './API-service/dto/create-user.dto';
+import { EventsProcessDto } from './API-service/dto/events-process.dto';
 import { UpdateUserDto } from './API-service/dto/update-user.dto';
 import { CommunityNotificationExternalDto } from './API-service/dto/upload-community-notification.dto';
 import { UploadTyphoonTrackDto } from './API-service/dto/upload-typhoon-track.dto';
@@ -166,6 +167,18 @@ export function getEventsSummary(
   return getServer()
     .get(`/event/${countryCodeISO3}/${disasterType}`)
     .set('Authorization', `Bearer ${accessToken}`);
+}
+
+export function postEventsProcess(
+  eventsProcessDto: EventsProcessDto,
+  noNotifications: boolean,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .post(`/events/process`)
+    .query({ noNotifications })
+    .set('Authorization', `Bearer ${accessToken}`)
+    .send(eventsProcessDto);
 }
 
 export function postCommunityNotification(
