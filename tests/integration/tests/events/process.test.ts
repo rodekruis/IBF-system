@@ -21,49 +21,43 @@ describe('events', () => {
     await resetDB(accessToken);
   });
 
-  describe('process', () => {
-    it('returns notification content if noNotification is true', async () => {
-      // Arrange
-      await mock(
-        FloodsScenario.Trigger,
-        DisasterType.Floods,
-        'UGA',
-        null,
-        accessToken,
-      );
+  it('process returns notification content if noNotification is true', async () => {
+    // Arrange
+    await mock(
+      FloodsScenario.Trigger,
+      DisasterType.Floods,
+      'UGA',
+      null,
+      accessToken,
+    );
 
-      // Act
-      const result = await postEventsProcess(
-        eventsProcessDto,
-        true,
-        accessToken,
-      );
+    // Act
+    const result = await postEventsProcess(eventsProcessDto, true, accessToken);
 
-      // Assert
-      expect(result.status).toBe(200);
-      expect(result.body.activeEvents.email).toBeTruthy();
-    });
+    // Assert
+    expect(result.status).toBe(200);
+    expect(result.body.activeEvents.email).toBeTruthy();
+  });
 
-    it('returns void if noNotification is false', async () => {
-      // Arrange
-      await mock(
-        FloodsScenario.Trigger,
-        DisasterType.Floods,
-        'UGA',
-        null,
-        accessToken,
-      );
+  it('process returns void if noNotification is false', async () => {
+    // Arrange
+    await mock(
+      FloodsScenario.Trigger,
+      DisasterType.Floods,
+      'UGA',
+      null,
+      accessToken,
+    );
 
-      // Act
-      const result = await postEventsProcess(
-        eventsProcessDto,
-        false,
-        accessToken,
-      );
+    // Act
+    const result = await postEventsProcess(
+      eventsProcessDto,
+      false,
+      accessToken,
+    );
 
-      // Assert
-      expect(result.status).toBe(200);
-      expect(result.body).toMatchObject({});
-    });
+    // Assert
+    expect(result.status).toBe(200);
+    expect(result.body).toMatchObject({});
   });
 });
