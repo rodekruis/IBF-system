@@ -1,3 +1,12 @@
+# [0.292.0](https://github.com/rodekruis/IBF-system/compare/v0.291.0...v0.292.0) (2025-03-03)
+
+
+### Features
+
+* add noNotification flag to process events ([6c63fa0](https://github.com/rodekruis/IBF-system/commit/6c63fa0f2b2a5571268f57cdfa76d6e722bf8f10))
+
+
+
 # [0.291.0](https://github.com/rodekruis/IBF-system/compare/v0.290.0...v0.291.0) (2025-02-28)
 
 
@@ -130,18 +139,6 @@
 * change frontend red outline layer + alert_threshold references AB[#33686](https://github.com/rodekruis/IBF-system/issues/33686) ([7fdc119](https://github.com/rodekruis/IBF-system/commit/7fdc119e10c0dea9aed00a1ce9eb69ec513b476d))
 * facilitate transition period for 'trigger' layer ([eb47068](https://github.com/rodekruis/IBF-system/commit/eb4706832dca46138a14c36ac88d82d95b362cf9))
 * process pipeline runs old and new AB[#33398](https://github.com/rodekruis/IBF-system/issues/33398) AB[#33999](https://github.com/rodekruis/IBF-system/issues/33999) ([ff1b91a](https://github.com/rodekruis/IBF-system/commit/ff1b91aa130e47a4a160fe8a35089bd9fb83c794))
-
-
-
-## [0.283.2](https://github.com/rodekruis/IBF-system/compare/v0.283.1...v0.283.2) (2025-02-18)
-
-
-### Bug Fixes
-
-* comment out new indicators AB[#33654](https://github.com/rodekruis/IBF-system/issues/33654) ([758bc09](https://github.com/rodekruis/IBF-system/commit/758bc0950cccecc71d605b4effac4cb0b3d23266))
-* facilitate old and new alert-per-lead-time endpoint/dto AB[#33630](https://github.com/rodekruis/IBF-system/issues/33630) ([a6ef169](https://github.com/rodekruis/IBF-system/commit/a6ef1697950d435dec4f6d7c83644c2dda56a008))
-* integration tests ([9c9ba7c](https://github.com/rodekruis/IBF-system/commit/9c9ba7caab16fc49002d1adf076c3f2a9ce00cde))
-* mock data to new dto AB[#33630](https://github.com/rodekruis/IBF-system/issues/33630) ([04f4335](https://github.com/rodekruis/IBF-system/commit/04f4335b2d40c15c7aba1886692d6d708d7df851))
 
 
 
