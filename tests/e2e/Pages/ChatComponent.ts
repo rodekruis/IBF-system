@@ -2,6 +2,7 @@ import { expect } from '@playwright/test';
 import { format } from 'date-fns';
 import * as os from 'os';
 import { Locator, Page } from 'playwright';
+import { User } from 'testData/types';
 
 import EnglishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
 import { NoTriggerDataSet } from '../testData/testData.enum';
@@ -60,12 +61,10 @@ class ChatComponent extends DashboardPage {
   }
 
   async chatColumnIsVisibleForNoTriggerState({
-    firstName,
-    lastName,
+    user: { firstName, lastName },
     date,
   }: {
-    firstName: string;
-    lastName: string;
+    user: User;
     date: Date;
   }) {
     // String cleaning to remove <strong> tags and replace placeholders with actual values
@@ -96,12 +95,10 @@ class ChatComponent extends DashboardPage {
   }
 
   async chatColumnIsVisibleForTriggerState({
-    firstName,
-    lastName,
+    user: { firstName, lastName },
     date,
   }: {
-    firstName: string;
-    lastName: string;
+    user: User;
     date: Date;
   }) {
     // String cleaning to remove <strong> tags and replace placeholders with actual values

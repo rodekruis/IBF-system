@@ -92,7 +92,7 @@ export class AdminAreaService {
       countryCodeISO3,
       disasterType,
       eventName,
-    );
+    ) ?? {};
     let trigger;
     if (leadTime) {
       trigger = alertsPerLeadTime[leadTime];

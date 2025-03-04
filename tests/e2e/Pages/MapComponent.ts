@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
+import { Indicator } from 'testData/types';
 
 import AggregatesComponent from './AggregatesComponent';
 import DashboardPage from './DashboardPage';
@@ -142,14 +143,14 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async checkLayerCheckbox({ layerName }: { layerName: string }) {
+  async checkLayerCheckbox({ name }: Indicator) {
     // Remove Glofas station from the map (in case the mock is for floods)
     await this.waitForMapToBeLoaded();
 
     await this.layerMenuToggle.click();
 
     const checkbox = this.page
-      .locator(`.matrix-layer.${layerName}`)
+      .locator(`.matrix-layer.${name}`)
       .getByTestId('matrix-checkbox');
 
     await checkbox.click();
@@ -232,10 +233,12 @@ class MapComponent extends DashboardPage {
     // Wait for the page to load
     await this.waitForMapToBeLoaded();
 
-    const adminBoundaries = this.page.locator('.admin-boundary');
+    const adminBoundaries = this.page.locator('.admin-boundary:visible');
+    const adminBoundariesCount = await adminBoundaries.count();
+    const nthSelector = this.getRandomInt(1, adminBoundariesCount) - 1;
 
+    await adminBoundaries.nth(nthSelector).hover({ force: true });
     // Assert that Aggregates title is visible and does not contain the text 'National View'
-    await adminBoundaries.first().hover();
     await expect(aggregates.aggregatesHeaderLabel).not.toContainText(
       'National View',
     );
@@ -285,12 +288,6 @@ class MapComponent extends DashboardPage {
     await expect(this.redCrossMarker.nth(nthSelector)).toBeVisible();
   }
 
-  async isLayerVisible({ layerName }: { layerName: string }) {
-    if (layerName === 'glofas_stations') {
-      await this.glofasMarkersAreVisible();
-    }
-  }
-
   async glofasMarkersAreVisible({
     eapAlertClass = 'no',
     isVisible = true,
@@ -312,13 +309,14 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async validateLayerIsVisibleInMapBySrcElement({
-    layerName,
-  }: {
-    layerName: string;
-  }) {
-    // Select from: "flood_extent"
-    const layer = this.page.locator(`img[src*="${layerName}"]`);
+  async isLayerVisible({ name }: Indicator) {
+    if (name === 'glofas_stations') {
+      await this.glofasMarkersAreVisible();
+    }
+  }
+
+  async validateLayerIsVisibleInMapBySrcElement({ label }: Indicator) {
+    const layer = this.page.locator(`img[src*="${label}"]`);
     const layerCount = await layer.count();
     expect(layerCount).toBeGreaterThan(0);
   }

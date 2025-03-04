@@ -1,23 +1,17 @@
 import test from '@playwright/test';
-import { NoTriggerDataSet } from 'testData/testData.enum';
+import { Dataset } from 'testData/types';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  dataset: Dataset,
   date: Date,
 ) => {
   test('[33012] Dashboard page elements should be visible', async () => {
     const { dashboard } = pages;
-    const {
-      chat,
-      userState,
-      aggregates,
-      map,
-      disasterType: disasterTypeComponent,
-    } = components;
+    const { chat, userState, aggregates, map, disasterType } = components;
 
     if (
       !dashboard ||
@@ -25,22 +19,28 @@ export default (
       !userState ||
       !aggregates ||
       !map ||
-      !disasterTypeComponent
+      !disasterType
     ) {
       throw new Error('pages and components not found');
     }
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(disasterType);
+    await dashboard.navigateToDisasterType(dataset.hazard);
     // Assertions
-    await userState.headerComponentIsVisible({
-      countryName: NoTriggerDataSet.CountryName,
-    });
-    await disasterTypeComponent.topBarComponentIsVisible();
-    await chat.chatColumnIsVisibleForNoTriggerState({
-      firstName: NoTriggerDataSet.firstName,
-      lastName: NoTriggerDataSet.lastName,
-      date,
-    });
+    await userState.headerComponentIsVisible(dataset);
+    await disasterType.topBarComponentIsVisible();
+    if (dataset.scenario === 'trigger') {
+      // REFACTOR
+      await chat.chatColumnIsVisibleForTriggerState({
+        user: dataset.user,
+        date,
+      });
+    } else if (dataset.scenario === 'no-trigger') {
+      // REFACTOR
+      await chat.chatColumnIsVisibleForNoTriggerState({
+        user: dataset.user,
+        date,
+      });
+    }
     await aggregates.aggregateComponentIsVisible();
     await map.mapComponentIsVisible();
   });

@@ -1,11 +1,12 @@
 import test from '@playwright/test';
 
 import { Components, Pages } from '../../helpers/interfaces';
+import { Dataset } from 'testData/types';
 
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  dataset: Dataset,
 ) => {
   test('[33060] Info button(s) should be clickable', async () => {
     const { dashboard } = pages;
@@ -16,7 +17,7 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(disasterType);
+    await dashboard.navigateToDisasterType(dataset.hazard);
     // Assertions
     await aggregates.aggregateComponentIsVisible();
     await aggregates.validatesAggregatesInfoButtons();

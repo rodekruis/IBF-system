@@ -1,12 +1,12 @@
 import test from '@playwright/test';
-import { TriggerDataSet } from 'testData/testData.enum';
+import { Dataset } from 'testData/types';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  dataset: Dataset,
 ) => {
   test('[33067] Info icon is clickable and opens popover in Actions summary', async () => {
     const { dashboard } = pages;
@@ -18,11 +18,9 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(disasterType);
+    await dashboard.navigateToDisasterType(dataset.hazard);
     // Assertions
-    await userState.headerComponentIsVisible({
-      countryName: TriggerDataSet.CountryName,
-    });
+    await userState.headerComponentIsVisible(dataset);
     // Wait for the sharedPage to load
     await dashboard.waitForLoaderToDisappear();
 

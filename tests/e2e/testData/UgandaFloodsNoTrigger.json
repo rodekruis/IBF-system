@@ -1,0 +1,37 @@
+{
+  "country": {
+    "code": "UGA",
+    "name": "Uganda"
+  },
+  "hazard": "floods",
+  "hazards": [
+    "floods",
+    "drought"
+  ],
+  "scenario": "no-trigger",
+  "user": {
+    "email": "uganda@redcross.nl",
+    "password": "password",
+    "firstName": "Uganda",
+    "lastName": "Manager"
+  },
+  "title": "IBF PORTAL",
+  "indicators": [
+    {
+      "name": "red_cross_branches",
+      "label": "Red Cross branches",
+      "legendLabels": [
+        "Red Cross branches"
+      ],
+      "active": false
+    },
+    {
+      "name": "glofas_stations",
+      "label": "Glofas stations",
+      "legendLabels": [
+        "GloFAS No action"
+      ],
+      "active": true
+    }
+  ]
+}

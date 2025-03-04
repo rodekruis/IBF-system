@@ -1,12 +1,12 @@
 import test from '@playwright/test';
-import { NoTriggerDataSet } from 'testData/testData.enum';
+import { Dataset } from 'testData/types';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  dataset: Dataset,
 ) => {
   test('[33054] Action buttons should be clickable', async () => {
     const { dashboard } = pages;
@@ -17,17 +17,15 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(disasterType);
+    await dashboard.navigateToDisasterType(dataset.hazard);
     // Assertions
-    await userState.headerComponentIsVisible({
-      countryName: NoTriggerDataSet.CountryName,
-    });
+    await userState.headerComponentIsVisible(dataset);
     await chat.allDefaultButtonsArePresent();
     await chat.clickAndAssertAboutButton();
     await chat.clickAndAssertGuideButton();
     await chat.clickAndAssertExportViewButton();
     await chat.clickAndAssertTriggerLogButton({
-      url: `/log?countryCodeISO3=${NoTriggerDataSet.CountryCode}&disasterType=${disasterType}`,
+      url: `/log?countryCodeISO3=${dataset.country.code}&disasterType=${dataset.hazard}`,
     });
   });
 };

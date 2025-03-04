@@ -1,12 +1,12 @@
 import test from '@playwright/test';
-import { NoTriggerDataSet } from 'testData/testData.enum';
+import { Dataset } from 'testData/types';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  dataset: Dataset,
 ) => {
   test('[33016] trigger outline layer should be visible', async () => {
     const { dashboard } = pages;
@@ -17,19 +17,19 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(disasterType);
+    await dashboard.navigateToDisasterType(dataset.hazard);
     // Assertions
-    await userState.headerComponentIsVisible({
-      countryName: NoTriggerDataSet.CountryName,
-    });
+    await userState.headerComponentIsVisible(dataset);
     // Wait for the page to load
     await dashboard.waitForLoaderToDisappear();
 
     await map.mapComponentIsVisible();
     await map.isLegendOpen({ legendOpen: true });
     await map.assertLegendElementIsVisible({
-      legendComponentName: 'Area triggered',
+      legendComponentName: 'Area triggered', // REFACTOR
     });
-    await map.assertTriggerOutlines({ visible: false });
+    await map.assertTriggerOutlines({
+      visible: dataset.scenario === 'trigger', // REFACTOR
+    });
   });
 };

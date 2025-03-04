@@ -1,12 +1,12 @@
 import test, { expect } from '@playwright/test';
-import { TriggerDataSet } from 'testData/testData.enum';
+import { Dataset } from 'testData/types';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  dataset: Dataset,
 ) => {
   test('[33061] Number of events should be non-zero', async () => {
     const { dashboard } = pages;
@@ -17,11 +17,9 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(disasterType);
+    await dashboard.navigateToDisasterType(dataset.hazard);
     // Assertions
-    await userState.headerComponentIsVisible({
-      countryName: TriggerDataSet.CountryName,
-    });
+    await userState.headerComponentIsVisible(dataset);
 
     // get the number of warning events and aggregated events
     const eventCount = await aggregates.getEventCount();

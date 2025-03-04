@@ -1,12 +1,12 @@
 import test from '@playwright/test';
-import { NoTriggerDataSet } from 'testData/testData.enum';
+import { Dataset } from 'testData/types';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  dataset: Dataset,
 ) => {
   test('[33013] Map component elements should be visible', async () => {
     const { dashboard } = pages;
@@ -17,11 +17,9 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(disasterType);
+    await dashboard.navigateToDisasterType(dataset.hazard);
     // Assertions
-    await userState.headerComponentIsVisible({
-      countryName: NoTriggerDataSet.CountryName,
-    });
+    await userState.headerComponentIsVisible(dataset);
     await map.mapComponentIsVisible();
     await map.breadCrumbViewIsVisible({ nationalView: true });
     await map.isLegendOpen({ legendOpen: true });

@@ -1,12 +1,12 @@
 import test from '@playwright/test';
-import { TriggerDataSet } from 'testData/testData.enum';
 
 import { Components, Pages } from '../../helpers/interfaces';
+import { Dataset } from 'testData/types';
 
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  dataset: Dataset,
 ) => {
   test(`[33066] Timeline's purple buttons are active or inactive dependent on disaster type`, async () => {
     const { dashboard } = pages;
@@ -17,14 +17,10 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(disasterType);
+    await dashboard.navigateToDisasterType(dataset.hazard);
     // Assertions
-    await userState.headerComponentIsVisible({
-      countryName: TriggerDataSet.CountryName,
-    });
-    await timeline.validateTimelineBasedOnDisasterName({
-      disasterName: TriggerDataSet.DisasterType,
-    });
+    await userState.headerComponentIsVisible(dataset);
+    await timeline.validateTimelineBasedOnDisasterName(dataset.hazard);
     await timeline.validateTimelineDates();
     await timeline.assertPurpleTimelineButtonElements();
   });

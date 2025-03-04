@@ -33,12 +33,8 @@ class TimelineComponent extends DashboardPage {
     }
   }
 
-  async validateTimelineBasedOnDisasterName({
-    disasterName,
-  }: {
-    disasterName: string;
-  }) {
-    if (DISASTER_TYPES_WITH_INACTIVE_TIMELINE.includes(disasterName)) {
+  async validateTimelineBasedOnDisasterName(hazard: string) {
+    if (DISASTER_TYPES_WITH_INACTIVE_TIMELINE.includes(hazard)) {
       await this.timelineIsInactive();
     } else {
       await this.timelineIsActive();
