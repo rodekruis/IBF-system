@@ -43,7 +43,7 @@ export class ProcessPipelineController {
     status: 201,
     description: 'Closed finished events.',
   })
-  @Post('events/close-events')
+  @Post('event/close-events')
   public async closeEvents(
     @Body() closeEventsDto: ProcessEventsDto,
   ): Promise<void> {
