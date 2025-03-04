@@ -24,6 +24,9 @@ export class DisasterTypeDto {
   @ApiProperty({ default: false })
   public showOnlyTriggeredAreas: boolean;
 
+  @ApiProperty({ default: false })
+  public enableSetWarningToTrigger: boolean;
+
   @ApiProperty({ example: LeadTimeUnit.day })
   public leadTimeUnit: LeadTimeUnit;
 
