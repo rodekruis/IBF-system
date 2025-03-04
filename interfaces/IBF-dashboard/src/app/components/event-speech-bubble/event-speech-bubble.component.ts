@@ -2,7 +2,7 @@ import { AfterViewChecked, Component, Input, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
-import { ForecastSource } from 'src/app/models/country.model';
+import { DisasterType, ForecastSource } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { EventService, EventSummary } from 'src/app/services/event.service';
@@ -26,9 +26,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()
   public selectedEvent: string;
   @Input()
-  public disasterTypeLabel: string;
-  @Input()
-  public disasterTypeName: DisasterTypeKey;
+  public disasterType: DisasterType;
   @Input()
   public forecastSource: ForecastSource;
   @Input()
@@ -99,7 +97,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   }
 
   public getHeader(event: EventSummary): string {
-    let headerKey = `chat-component.${this.disasterTypeName}.active-event.header`;
+    let headerKey = `chat-component.${this.disasterType?.disasterType}.active-event.header`;
     if ((LeadTimeTriggerKey[event.firstLeadTime] as string) === '0') {
       headerKey += '-ongoing';
     }
@@ -109,14 +107,14 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     const header = this.translateService.instant(headerKey, {
       firstLeadTimeDate: event.firstLeadTimeDate,
       firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
-      eventName: event.eventName?.split('_')[0] || this.disasterTypeLabel,
-      disasterTypeLabel: this.disasterTypeLabel,
+      eventName: event.eventName?.split('_')[0] || this.disasterType?.label,
+      disasterTypeLabel: this.disasterType?.label,
     }) as string;
     return header;
   }
 
   public showTyphoonLandfallText(event: EventSummary) {
-    if (this.disasterTypeName !== DisasterTypeKey.typhoon || !event) {
+    if (this.disasterType?.disasterType !== DisasterTypeKey.typhoon || !event) {
       return;
     }
 
@@ -149,7 +147,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   }
 
   public showFirstWarningDate(): boolean {
-    if (this.disasterTypeName !== DisasterTypeKey.floods) {
+    if (this.disasterType?.disasterType !== DisasterTypeKey.floods) {
       return false;
     }
 

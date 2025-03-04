@@ -103,6 +103,9 @@
         "source": "Forecast source: ",
         "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
         "no-data": "No exposure data available"
+      },
+      "set-trigger": {
+        "btn-text": "Set trigger"
       }
     },
     "floods": {
