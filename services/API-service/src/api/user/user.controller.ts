@@ -52,7 +52,7 @@ export class UserController {
     return this.userService.create(userData);
   }
 
-  @ApiOperation({ summary: 'Log in existing user' })
+  @ApiOperation({ summary: '[EXTERNALLY USED] Log in existing user' })
   @UsePipes(new ValidationPipe())
   @Post('login')
   @ApiResponse({

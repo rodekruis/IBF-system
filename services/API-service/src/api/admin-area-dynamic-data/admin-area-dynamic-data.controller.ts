@@ -44,7 +44,7 @@ export class AdminAreaDynamicDataController {
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
-      'Upload and process dynamic (exposure) indicator data for given country, disaster-type and lead-time.',
+      '[EXTERNALLY USED - PIPELINE] Upload and process dynamic (exposure) indicator data for given country, disaster-type and lead-time.',
   })
   @ApiResponse({
     status: 201,
@@ -94,7 +94,7 @@ export class AdminAreaDynamicDataController {
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
-      'Upload raster file (.tif) such as a disaster-extent for given disaster-type (used by IBF-pipelines)',
+      '[EXTERNALLY USED - PIPELINE] Upload raster file (.tif) such as a disaster-extent for given disaster-type (used by IBF-pipelines)',
   })
   @ApiConsumes('multipart/form-data')
   @ApiBody(FILE_UPLOAD_API_FORMAT)

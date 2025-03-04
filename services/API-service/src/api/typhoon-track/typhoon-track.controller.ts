@@ -37,7 +37,7 @@ export class TyphoonTrackController {
 
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
-    summary: 'Upload typhoon track data (used by IBF Typhoon pipeline)',
+    summary: '[EXTERNALLY USED - PIPELINE] Upload typhoon track data',
   })
   @ApiResponse({
     status: 201,

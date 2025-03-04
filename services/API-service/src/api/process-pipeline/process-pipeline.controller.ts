@@ -37,7 +37,7 @@ export class ProcessPipelineController {
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
-      'Close events automatically for given country and disaster-type. Must be run at end of every pipeline. As a backup, the same logic is also in /notification/send endpoint.',
+      '[EXTERNALLY USED - PIPELINE] Close events automatically for given country and disaster-type. Must be run at end of every pipeline. As a backup, the same logic is also in /notification/send endpoint.',
   })
   @ApiResponse({
     status: 201,
@@ -59,7 +59,7 @@ export class ProcessPipelineController {
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
-      'Process events for given country and disaster-type. Must be run at end of every pipeline.',
+      '[EXTERNALLY USED - PIPELINE] Process events for given country and disaster-type. Must be run at end of every pipeline.',
   })
   @ApiResponse({
     status: 200,

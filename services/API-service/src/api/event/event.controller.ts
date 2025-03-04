@@ -189,7 +189,8 @@ export class EventController {
   @UseGuards(RolesGuard)
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
-    summary: '[OLD endpoint] Upload alert data per leadtime',
+    summary:
+      '[EXTERNALLY USED - PIPELINE] [OLD endpoint] Upload alert data per leadtime',
   })
   @ApiResponse({
     status: 201,
@@ -207,7 +208,7 @@ export class EventController {
   @UseGuards(RolesGuard)
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
-    summary: 'Upload alert data per lead time',
+    summary: '[EXTERNALLY USED - PIPELINE] Upload alert data per lead time',
   })
   @ApiResponse({
     status: 201,

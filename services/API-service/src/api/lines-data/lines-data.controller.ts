@@ -63,7 +63,10 @@ export class LinesDataController {
   }
 
   @UseGuards(RolesGuard)
-  @ApiOperation({ summary: 'Upload asset exposure status' })
+  @Roles(UserRole.PipelineUser)
+  @ApiOperation({
+    summary: '[EXTERNALLY USED - PIPELINE] Upload asset exposure status',
+  })
   @ApiResponse({
     status: 201,
     description: 'Uploaded asset exposure status.',
