@@ -39,7 +39,6 @@ export class PointDataController {
   public constructor(private readonly pointDataService: PointDataService) {}
 
   @UseGuards(RolesGuard)
-  @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
       '[EXTERNALLY USED - PIPELINE] Get point data locations and attributes for given country and point data layer',
