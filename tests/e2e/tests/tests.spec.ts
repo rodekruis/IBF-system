@@ -156,15 +156,17 @@ datasets.forEach((dataset) => {
       }
     });
 
-    // Do this last, as it logs out the user
-    test.describe('UserStateComponent', () => {
-      UserStateComponentVisible(pages, components, dataset);
-      UserStateComponentLogout(pages, components, dataset);
-
+    test.describe('ActionSummaryComponent', () => {
       if (scenario === 'trigger') {
         // REFACTOR
         ActionSummaryTooltipTest(pages, components, dataset);
       }
+    });
+
+    // Do this last, as it logs out the user
+    test.describe('UserStateComponent', () => {
+      UserStateComponentVisible(pages, components, dataset);
+      UserStateComponentLogout(pages, components, dataset);
     });
   });
 });
