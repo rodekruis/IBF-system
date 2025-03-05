@@ -257,7 +257,7 @@ export class AdminAreaService {
     return this.disasterTypeRepository.findOne({ where: { disasterType } });
   }
 
-  public async getAdminAreasRaw(countryCodeISO3) {
+  public async getAdminAreasRaw(countryCodeISO3: string) {
     return await this.adminAreaRepository.find({
       select: [
         'countryCodeISO3',
@@ -267,9 +267,7 @@ export class AdminAreaService {
         'adminLevel',
         'geom',
       ],
-      where: {
-        countryCodeISO3: countryCodeISO3,
-      },
+      where: { countryCodeISO3 },
     });
   }
 

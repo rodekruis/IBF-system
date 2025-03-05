@@ -41,7 +41,7 @@ export class PointDataController {
   @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
-      'Get point data locations and attributes for given country and point data layer',
+      '[EXTERNALLY USED - PIPELINE] Get point data locations and attributes for given country and point data layer',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'pointDataCategory', required: true, type: 'string' })
@@ -92,7 +92,9 @@ export class PointDataController {
     );
   }
 
-  @ApiOperation({ summary: 'Upload community notification' })
+  @ApiOperation({
+    summary: '[EXTERNALLY USED - KOBO] Upload community notification',
+  })
   @ApiResponse({
     status: 201,
     description: 'Uploaded community notification.',
@@ -124,7 +126,10 @@ export class PointDataController {
   }
 
   @UseGuards(RolesGuard)
-  @ApiOperation({ summary: 'Upload dynamic point data' })
+  @Roles(UserRole.PipelineUser)
+  @ApiOperation({
+    summary: '[EXTERNALLY USED - PIPELINE] Upload dynamic point data',
+  })
   @ApiResponse({
     status: 201,
     description: 'Uploaded dynamic point data.',

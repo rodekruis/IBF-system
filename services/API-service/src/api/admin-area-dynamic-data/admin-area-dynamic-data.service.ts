@@ -179,6 +179,7 @@ export class AdminAreaDynamicDataService {
     return result;
   }
 
+  // REFACTOR: add validation on filename of this endpoint
   public async postRaster(
     data: RasterData,
     disasterType: DisasterType,
