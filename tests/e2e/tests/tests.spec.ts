@@ -12,6 +12,7 @@ import UgandaFloodsNoTrigger from 'testData/UgandaFloodsNoTrigger.json';
 import UgandaFloodsTrigger from 'testData/UgandaFloodsTrigger.json';
 
 import { getAccessToken, mockData, resetDB } from '../helpers/utility.helper';
+import ActionsSummaryComponent from '../Pages/ActionSummaryComponent';
 import LoginPage from '../Pages/LoginPage';
 import ActionSummaryTooltipTest from './ActionSummaryComponent/ActionSummaryTooltipTest';
 import AggregateComponentButtonClick from './AggregatesComponent/AggregateComponentButtonClick';
@@ -73,6 +74,7 @@ datasets.forEach((dataset) => {
       components.chat = new ChatComponent(page);
       components.disasterType = new DisasterTypeComponent(page);
       components.timeline = new TimelineComponent(page);
+      components.actionsSummary = new ActionsSummaryComponent(page);
 
       // Reset the database
       accessToken = await getAccessToken();
