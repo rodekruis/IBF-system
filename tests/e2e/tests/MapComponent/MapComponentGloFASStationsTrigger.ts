@@ -1,12 +1,12 @@
 import test from '@playwright/test';
-import { TriggerDataSet } from 'testData/testData.enum';
+import { Dataset } from 'testData/types';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  dataset: Dataset,
 ) => {
   test('[33023] Trigger GloFAS station(s) should be visible', async () => {
     const { dashboard } = pages;
@@ -17,11 +17,9 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(disasterType);
+    await dashboard.navigateToDisasterType(dataset.disasterType);
     // Assertions
-    await userState.headerComponentIsVisible({
-      countryName: TriggerDataSet.CountryName,
-    });
+    await userState.headerComponentIsVisible(dataset);
     // Wait for the page to load
     await dashboard.waitForLoaderToDisappear();
 
@@ -30,10 +28,10 @@ export default (
     await map.isLayerMenuOpen({ layerMenuOpen: false });
     await map.clickLayerMenu();
     await map.isLayerCheckboxChecked({
-      layerName: 'glofas_stations',
+      layerName: 'glofas_stations', // REFACTOR
     });
     await map.assertLegendElementIsVisible({
-      legendComponentName: 'GloFAS No action',
+      legendComponentName: 'GloFAS No action', // REFACTOR
     });
 
     // Assert that the max warning GloFAS markers are not visible

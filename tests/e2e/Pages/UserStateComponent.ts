@@ -1,5 +1,6 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
+import { Country, Dataset, User } from 'testData/types';
 
 import DashboardPage from './DashboardPage';
 
@@ -19,38 +20,32 @@ class UserStateComponent extends DashboardPage {
     this.logOutButton = this.page.getByTestId('user-state-logout-button');
   }
 
-  async headerComponentIsVisible({ countryName }: { countryName: string }) {
+  async headerComponentIsVisible({ country: { name }, title }: Dataset) {
     const header = this.header.filter({
-      hasText: `IBF PORTAL ${countryName}`,
+      hasText: `${title} ${name}`,
     });
     await expect(header).toBeVisible();
   }
 
   async headerComponentDisplaysCorrectDisasterType({
-    countryName,
-    disasterName,
+    country: { name },
+    disasterType,
+    title,
   }: {
-    disasterName: string;
-    countryName: string;
+    country: Country;
+    disasterType: string;
+    title: string;
   }) {
     const header = this.header.filter({
-      hasText: `IBF PORTAL ${countryName}`,
+      hasText: `${title} ${name}`,
     });
     const headerText = await header.textContent().then((text) => text?.trim());
-    const headerTextTransformed = headerText?.replace('  ', ' ');
+    const headerTextTransformed = headerText?.replace('  ', ' '); // REFACTOR
 
-    expect(headerTextTransformed).toContain(
-      `IBF PORTAL ${countryName} ${disasterName}`,
-    );
+    expect(headerTextTransformed).toContain(`${title} ${name} ${disasterType}`);
   }
 
-  async allUserStateElementsAreVisible({
-    firstName,
-    lastName,
-  }: {
-    firstName: string;
-    lastName: string;
-  }) {
+  async allUserStateElementsAreVisible({ firstName, lastName }: User) {
     const countryLogosCount = await this.countryLogos.count();
     for (let i = 0; i < countryLogosCount; i++) {
       await expect(this.countryLogos.nth(i)).toBeVisible();

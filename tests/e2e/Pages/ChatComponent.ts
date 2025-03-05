@@ -2,19 +2,15 @@ import { expect } from '@playwright/test';
 import { format } from 'date-fns';
 import * as os from 'os';
 import { Locator, Page } from 'playwright';
+import { User } from 'testData/types';
 
-import EnglishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
-import { NoTriggerDataSet } from '../testData/testData.enum';
+import englishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
 import DashboardPage from './DashboardPage';
 
-const chatDialogueContentWelcomeNoTrigger =
-  EnglishTranslations['chat-component'][NoTriggerDataSet.DisasterType][
-    'no-event'
-  ].welcome;
 const chatDialogueWarnLabel =
-  EnglishTranslations['chat-component'].common['warn-label'].message;
+  englishTranslations['chat-component'].common['warn-label'].message;
 const eventTooltipContent =
-  EnglishTranslations['chat-component'].common['event-tooltip'];
+  englishTranslations['chat-component'].common['event-tooltip'];
 
 class ChatComponent extends DashboardPage {
   readonly page: Page;
@@ -60,13 +56,13 @@ class ChatComponent extends DashboardPage {
   }
 
   async chatColumnIsVisibleForNoTriggerState({
-    firstName,
-    lastName,
+    user: { firstName, lastName },
     date,
+    disasterType,
   }: {
-    firstName: string;
-    lastName: string;
+    user: User;
     date: Date;
+    disasterType: string;
   }) {
     // String cleaning to remove <strong> tags and replace placeholders with actual values
     const cleanedString = chatDialogueWarnLabel.replace(/<\/?strong>/g, '');
@@ -80,6 +76,12 @@ class ChatComponent extends DashboardPage {
     const chatDialogueContent = cleanedString
       .replace('{{ name }}', `${firstName} ${lastName}`)
       .replace('{{lastUploadDate}}', lastUploadDate);
+    const englishTranslationsJson = JSON.parse(
+      JSON.stringify(englishTranslations),
+    ); // This is somehow needed to be able to access a dynamic key (disasterType) below
+    const chatDialogueContentWelcomeNoTrigger =
+      englishTranslationsJson['chat-component'][disasterType]['no-event']
+        .welcome;
     const chatDialogueContentNoAlerts =
       chatDialogueContentWelcomeNoTrigger.replace(/<\/?strong>/g, '');
 
@@ -96,12 +98,10 @@ class ChatComponent extends DashboardPage {
   }
 
   async chatColumnIsVisibleForTriggerState({
-    firstName,
-    lastName,
+    user: { firstName, lastName },
     date,
   }: {
-    firstName: string;
-    lastName: string;
+    user: User;
     date: Date;
   }) {
     // String cleaning to remove <strong> tags and replace placeholders with actual values

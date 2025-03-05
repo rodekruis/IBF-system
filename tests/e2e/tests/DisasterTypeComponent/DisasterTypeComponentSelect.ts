@@ -1,9 +1,13 @@
 import test from '@playwright/test';
-import { NoTriggerDataSet } from 'testData/testData.enum';
+import { Dataset } from 'testData/types';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
-export default (pages: Partial<Pages>, components: Partial<Components>) => {
+export default (
+  pages: Partial<Pages>,
+  components: Partial<Components>,
+  dataset: Dataset,
+) => {
   test('[33029] Disaster types should be selectable', async () => {
     const { dashboard } = pages;
     const { userState } = components;
@@ -12,20 +16,15 @@ export default (pages: Partial<Pages>, components: Partial<Components>) => {
       throw new Error('pages and components not found');
     }
 
-    // Navigate between disaster types no matter the mock data
-    await dashboard.navigateToDisasterType('floods');
-    await userState.headerComponentDisplaysCorrectDisasterType({
-      countryName: NoTriggerDataSet.CountryName,
-      disasterName: 'floods',
-    });
-
-    // Reload the page to prepare for next test
-    await dashboard.page.goto('/');
-
-    await dashboard.navigateToDisasterType('drought');
-    await userState.headerComponentDisplaysCorrectDisasterType({
-      countryName: NoTriggerDataSet.CountryName,
-      disasterName: 'drought',
-    });
+    for (const disasterTypeIndex in dataset.country.disasterTypes) {
+      // Navigate between disaster types no matter the mock data
+      const disasterType = dataset.country.disasterTypes[disasterTypeIndex];
+      await dashboard.navigateToDisasterType(disasterType);
+      await userState.headerComponentDisplaysCorrectDisasterType({
+        country: dataset.country,
+        disasterType,
+        title: dataset.title,
+      });
+    }
   });
 };

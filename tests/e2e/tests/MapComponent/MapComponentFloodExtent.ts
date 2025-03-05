@@ -1,12 +1,12 @@
 import test from '@playwright/test';
-import { TriggerDataSet } from 'testData/testData.enum';
+import { Dataset } from 'testData/types';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  dataset: Dataset,
 ) => {
   test('[33021] flood_extent legend should be visible', async () => {
     const { dashboard } = pages;
@@ -17,18 +17,16 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(disasterType);
+    await dashboard.navigateToDisasterType(dataset.disasterType);
     // Assertions
-    await userState.headerComponentIsVisible({
-      countryName: TriggerDataSet.CountryName,
-    });
+    await userState.headerComponentIsVisible(dataset);
     // Wait for the sharedPage to load
     await dashboard.waitForLoaderToDisappear();
 
     await map.mapComponentIsVisible();
     await map.isLegendOpen({ legendOpen: true });
     await map.assertLegendElementIsVisible({
-      legendComponentName: 'Flood extent',
+      legendComponentName: 'Flood extent', // REFACTOR
     });
   });
 };

@@ -1,8 +1,9 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
 import { IbfStyles } from 'testData/styles.enum';
-import { EnglishTranslations } from 'testData/translations.enum';
 
+import englishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
+import { LayerDescriptions } from '../testData/layer-descriptions.enum';
 import DashboardPage from './DashboardPage';
 
 const expectedLayersNames = [
@@ -102,7 +103,7 @@ class AggregatesComponent extends DashboardPage {
     await this.aggreagtesHeaderInfoIcon.click();
     const disclaimerText = await this.approximateDisclaimer.textContent();
     expect(disclaimerText).toContain(
-      EnglishTranslations.ApproximateNumberDisclaimer,
+      englishTranslations['disclaimer-approximate-component'].message,
     );
 
     // wait for popover layer to be laoded and click to remove it
@@ -118,7 +119,7 @@ class AggregatesComponent extends DashboardPage {
     const layerInfoContent = await this.layerInfoPopoverContent.textContent();
     expect(layerInfoTitle).toContain('Exposed population');
     expect(layerInfoContent).toContain(
-      EnglishTranslations.ExposedPopulationInfoButtonDisclaimer,
+      LayerDescriptions.ExposedPopulationInfoButtonDisclaimer,
     );
   }
 

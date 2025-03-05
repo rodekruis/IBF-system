@@ -1,5 +1,5 @@
 import test from '@playwright/test';
-import { NoTriggerDataSet } from 'testData/testData.enum';
+import { Dataset } from 'testData/types';
 
 import { Components, Pages } from '../../helpers/interfaces';
 
@@ -9,7 +9,7 @@ import { Components, Pages } from '../../helpers/interfaces';
 export default (
   pages: Partial<Pages>,
   components: Partial<Components>,
-  disasterType: string,
+  dataset: Dataset,
 ) => {
   test('[33014] Map component should be interactive', async () => {
     const { dashboard } = pages;
@@ -20,11 +20,9 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(disasterType);
+    await dashboard.navigateToDisasterType(dataset.disasterType);
     // Assertions
-    await userState.headerComponentIsVisible({
-      countryName: NoTriggerDataSet.CountryName,
-    });
+    await userState.headerComponentIsVisible(dataset);
     // Wait for the page to load
     await dashboard.waitForLoaderToDisappear();
     await map.mapComponentIsVisible();
@@ -41,7 +39,7 @@ export default (
 
     // Select and deselect the layer
     await map.clickLayerMenu();
-    await map.checkLayerCheckbox({ layerName: 'red_cross_branches' });
+    await map.checkLayerCheckbox(dataset.indicators[0]); // REFACTOR
     await map.isLayerMenuOpen({ layerMenuOpen: true });
 
     // Red Cross branches layer should be visible

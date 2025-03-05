@@ -2,7 +2,6 @@ import { expect } from '@playwright/test';
 import { addDays, format } from 'date-fns';
 import { Locator, Page } from 'playwright';
 
-import { DISASTER_TYPES_WITH_INACTIVE_TIMELINE } from '../testData/testData.enum';
 import DashboardPage from './DashboardPage';
 
 class TimelineComponent extends DashboardPage {
@@ -33,19 +32,7 @@ class TimelineComponent extends DashboardPage {
     }
   }
 
-  async validateTimelineBasedOnDisasterName({
-    disasterName,
-  }: {
-    disasterName: string;
-  }) {
-    if (DISASTER_TYPES_WITH_INACTIVE_TIMELINE.includes(disasterName)) {
-      await this.timelineIsInactive();
-    } else {
-      await this.timelineIsActive();
-    }
-  }
-
-  async timelineIsInactive() {
+  async validateTimelineIsInactive() {
     await this.waitForTimelineToBeLoaded();
 
     const timelinePeriods = this.timeline;
