@@ -1,0 +1,77 @@
+<ion-card class="popover-window-card">
+  <ion-card-header color="ibf-primary">
+    <ion-icon
+      name="close-circle"
+      size="large"
+      (click)="closePopover()"
+      class="popover-close-button"
+    ></ion-icon>
+    <ion-card-title>{{
+      'chat-component.common.set-trigger.popover.header' | translate
+    }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content class="ion-padding-top ion-text-center">
+    <ion-item lines="none" class="ion-margin-bottom">
+      <span
+        [innerHTML]="
+          'chat-component.common.set-trigger.popover.content'
+            | translate
+              : {
+                  eventName: eventName,
+                  forecastSource: forecastSource?.label || 'Unknown',
+                  adminAreaLabelPlural: adminAreaLabelPlural,
+                }
+        "
+      >
+      </span>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>
+        {{
+          'chat-component.common.set-trigger.popover.select-areas'
+            | translate
+              : {
+                  adminAreaLabelPlural: adminAreaLabelPlural,
+                }
+        }}
+      </ion-label>
+    </ion-item>
+    <ion-list class="background-light">
+      @for (area of areas; track area) {
+        <ion-item lines="none" class="ion-no-padding">
+          <ion-checkbox
+            slot="start"
+            color="ibf-primary"
+            [(ngModel)]="selectedAreas[area.name]"
+            name="selectedAreas[{{ area.name }}]"
+          ></ion-checkbox>
+          <ion-label class="ion-text-wrap"
+            >{{ area.name }} ({{ area.placeCode }})
+          </ion-label>
+        </ion-item>
+      }
+    </ion-list>
+    <ion-item lines="none" style="width: 100%">
+      <div style="width: 100%" class="ion-text-end">
+        <ion-button
+          fill="clear"
+          shape="round"
+          color="ibf-trigger-alert-primary"
+          (click)="closePopover()"
+        >
+          {{ 'chat-component.common.set-trigger.popover.back' | translate }}
+        </ion-button>
+        <ion-button
+          fill="solid"
+          shape="round"
+          color="ibf-trigger-alert-primary"
+          [disabled]="isSubmitDisabled()"
+          (click)="openSetTriggerConfirmPopover()"
+          >{{
+            'chat-component.common.set-trigger.popover.continue' | translate
+          }}</ion-button
+        >
+      </div>
+    </ion-item>
+  </ion-card-content>
+</ion-card>
