@@ -35,3 +35,18 @@ ion-checkbox {
   margin-right: 5px;
   margin-top: 3px;
 }
+
+.containerDiv {
+  line-height: 1px;
+  margin: 0px 2px 0px 2px;
+  display: block;
+  text-align: center;
+  padding: 0em 1.4em;
+}
+
+.set-trigger-btn {
+  width: 100%;
+  --background: var(--ion-color-light); /* Invert background color */
+  --color: var(--ion-color-danger); /* Invert text color */
+  --border-color: var(--ion-color-danger); /* Optional: Add border color */
+}

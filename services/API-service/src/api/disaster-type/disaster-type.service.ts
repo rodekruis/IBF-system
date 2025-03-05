@@ -44,6 +44,8 @@ export class DisasterTypeService {
       disasterTypeDto.mainExposureIndicator;
     disasterTypeEntity.showOnlyTriggeredAreas =
       disasterTypeDto.showOnlyTriggeredAreas;
+    disasterTypeEntity.enableSetWarningToTrigger =
+      disasterTypeDto.enableSetWarningToTrigger;
     disasterTypeEntity.leadTimeUnit = disasterTypeDto.leadTimeUnit;
     disasterTypeEntity.minLeadTime = disasterTypeDto.minLeadTime;
     disasterTypeEntity.maxLeadTime = disasterTypeDto.maxLeadTime;

@@ -16,6 +16,7 @@ const disasterTypes: DisasterTypeEntity[] = [
     label: 'Floods',
     mainExposureIndicator: 'population_affected',
     showOnlyTriggeredAreas: false,
+    enableSetWarningToTrigger: false,
     countries: [],
     leadTimeUnit: LeadTimeUnit.day,
     minLeadTime: LeadTime.day1,

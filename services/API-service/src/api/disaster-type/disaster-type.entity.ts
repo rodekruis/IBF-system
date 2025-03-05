@@ -38,6 +38,10 @@ export class DisasterTypeEntity {
   @Column({ default: false })
   public showOnlyTriggeredAreas: boolean;
 
+  @ApiProperty({ example: false })
+  @Column({ default: false })
+  public enableSetWarningToTrigger: boolean;
+
   @ApiProperty({ example: [{ countryCodeISO3: 'UGA' }] })
   @ManyToMany(
     (): typeof CountryEntity => CountryEntity,

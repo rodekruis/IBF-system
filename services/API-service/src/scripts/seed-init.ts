@@ -64,6 +64,8 @@ export class SeedInit implements InterfaceScript {
           disasterType.mainExposureIndicator;
         disasterTypeDto.showOnlyTriggeredAreas =
           disasterType.showOnlyTriggeredAreas;
+        disasterTypeDto.enableSetWarningToTrigger =
+          disasterType.enableSetWarningToTrigger;
         disasterTypeDto.leadTimeUnit =
           disasterType.leadTimeUnit as LeadTimeUnit;
         disasterTypeDto.minLeadTime = disasterType.minLeadTime as LeadTime;

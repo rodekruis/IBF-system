@@ -10,5 +10,6 @@ export const MOCK_DISASTERTYPE: DisasterType = {
   minLeadTime: LeadTime.day0,
   maxLeadTime: LeadTime.day7,
   mainExposureIndicator: IbfLayerName.population_affected,
+  enableSetWarningToTrigger: false,
   activeTrigger: false,
 };

@@ -31,7 +31,7 @@
           <span
             [innerHTML]="
               'chat-component.' +
-                disasterTypeName +
+                disasterType?.disasterType +
                 '.active-event.first-warning-date'
                 | translate
                   : {
@@ -149,6 +149,20 @@
           }
         </ul>
       </div>
+
+      <div class="containerDiv">
+        @if (disasterType.enableSetWarningToTrigger && !event.forecastTrigger) {
+          <ion-button
+            class="set-trigger-btn"
+            shape="round"
+            slot="start"
+            size="small"
+            >{{
+              'chat-component.common.set-trigger.btn-text' | translate
+            }}</ion-button
+          >
+        }
+      </div>
     }
 
     @if (event) {
@@ -161,7 +175,7 @@
   <app-dialogue-turn>
     <p
       [innerHTML]="
-        'chat-component.' + disasterTypeName + '.no-event.welcome'
+        'chat-component.' + disasterType?.disasterType + '.no-event.welcome'
           | translate
             : {
                 name: displayName,
