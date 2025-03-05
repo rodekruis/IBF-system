@@ -20,6 +20,8 @@ export default (
     await dashboard.navigateToDisasterType(dataset.disasterType);
     // Assertions
     await aggregates.aggregateComponentIsVisible();
-    await aggregates.aggregatesAlementsDisplayedInNoTrigger();
+    if (dataset.scenario === 'no-trigger') {
+      await aggregates.aggregatesAlementsDisplayedInNoTrigger();
+    }
   });
 };

@@ -103,7 +103,7 @@ class AggregatesComponent extends DashboardPage {
     await this.aggreagtesHeaderInfoIcon.click();
     const disclaimerText = await this.approximateDisclaimer.textContent();
     expect(disclaimerText).toContain(
-      englishTranslations['disclaimer-approximate-component'],
+      englishTranslations['disclaimer-approximate-component'].message,
     );
 
     // wait for popover layer to be laoded and click to remove it

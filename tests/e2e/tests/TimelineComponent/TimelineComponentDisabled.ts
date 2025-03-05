@@ -20,6 +20,6 @@ export default (
     await dashboard.navigateToDisasterType(dataset.disasterType);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
-    await timeline.timelineIsInactive();
+    await timeline.validateTimelineIsInactive();
   });
 };
