@@ -228,7 +228,8 @@ class ChatComponent extends DashboardPage {
   }
 
   async validateEapList() {
-    await this.page.waitForLoadState('domcontentloaded');
+    // wait for the list to be fully loaded
+    await this.page.waitForTimeout(200);
 
     const eapListWash = this.eapList.getByLabel('WASH').getByText('WASH');
     const eapListShelter = this.eapList
