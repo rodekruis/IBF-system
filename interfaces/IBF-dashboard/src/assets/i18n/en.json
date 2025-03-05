@@ -105,7 +105,23 @@
         "no-data": "No exposure data available"
       },
       "set-trigger": {
-        "btn-text": "Set trigger"
+        "btn-text": "Set trigger",
+        "popover": {
+          "header": "Set trigger",
+          "content": "This <strong>{{ eventName}}</strong> warning is based on the <strong>{{forecastSource}}</strong> forecast. To set this warning as a trigger, select {{adminAreaLabelPlural}} where the Early Action Protocol should be activated.",
+          "select-areas": "Select {{adminAreaLabelPlural}}:",
+          "continue": "Continue",
+          "back": "Back"
+        },
+        "popover-confirm": {
+          "header": "Set trigger - disclaimers",
+          "content": "<strong>Important note:</strong><br><ul><li>{{adminAreaLabelPlural}} that are not selected will remain visible as warning areas, but cannot be added later.</li><li>This actions impacts what is shown in the portal for all users.</li><li>A notification regarding the trigger will be sent to all users.</li></ul>",
+          "understand": "I understand that this action cannot be undone.",
+          "continue": "Set trigger",
+          "back": "Back",
+          "success": "The trigger has been set successfully.",
+          "error": "Something went wrong in setting the trigger. Please try again."
+        }
       }
     },
     "floods": {
