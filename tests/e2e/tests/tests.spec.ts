@@ -44,131 +44,135 @@ import TimelineComponentVisible from './TimelineComponent/TimelineComponentVisib
 import UserStateComponentLogout from './UserStateComponent/UserStateComponentLogout';
 import UserStateComponentVisible from './UserStateComponent/UserStateComponentVisible';
 
-const datasets: Dataset[] = [UgandaFloodsNoTrigger, UgandaFloodsTrigger];
-
-datasets.forEach((dataset) => {
-  const {
-    country: { code },
-    disasterType,
-    scenario,
-    user: { email, password },
-  } = dataset;
-
+test.describe('E2E Tests', () => {
   let accessToken: string;
-  let page: Page;
+  test.beforeAll(async () => {
+    // Reset the database only once
+    accessToken = await getAccessToken();
+    await resetDB(accessToken);
+  });
 
-  const pages: Partial<Pages> = {};
-  const components: Partial<Components> = {};
+  // Run tests for each dataset
+  const datasets: Dataset[] = [UgandaFloodsNoTrigger, UgandaFloodsTrigger];
+  datasets.forEach((dataset) => {
+    const {
+      country: { code },
+      disasterType,
+      scenario,
+      user: { email, password },
+    } = dataset;
 
-  test.describe(`Dataset: ${email} ${code} ${disasterType} ${scenario}`, () => {
-    const date = new Date();
+    let page: Page;
 
-    test.beforeAll(async ({ browser }) => {
-      page = await browser.newPage();
-      // Initialize pages and components after sharedPage is assigned
-      pages.login = new LoginPage(page);
-      pages.dashboard = new DashboardPage(page);
-      components.map = new MapComponent(page);
-      components.userState = new UserStateComponent(page);
-      components.aggregates = new AggregatesComponent(page);
-      components.chat = new ChatComponent(page);
-      components.disasterType = new DisasterTypeComponent(page);
-      components.timeline = new TimelineComponent(page);
-      components.actionsSummary = new ActionsSummaryComponent(page);
+    const pages: Partial<Pages> = {};
+    const components: Partial<Components> = {};
 
-      // Reset the database
-      accessToken = await getAccessToken();
-      await resetDB(accessToken);
+    test.describe(`Dataset: ${email} ${code} ${disasterType} ${scenario}`, () => {
+      const date = new Date();
 
-      // Load a mock scenario
-      await mockData(disasterType, scenario, code, accessToken, date);
+      test.beforeAll(async ({ browser }) => {
+        page = await browser.newPage();
+        // Initialize pages and components after sharedPage is assigned
+        pages.login = new LoginPage(page);
+        pages.dashboard = new DashboardPage(page);
+        components.map = new MapComponent(page);
+        components.userState = new UserStateComponent(page);
+        components.aggregates = new AggregatesComponent(page);
+        components.chat = new ChatComponent(page);
+        components.disasterType = new DisasterTypeComponent(page);
+        components.timeline = new TimelineComponent(page);
+        components.actionsSummary = new ActionsSummaryComponent(page);
 
-      await page.goto('/');
-      // Login into the portal
-      await pages.login.login(email, password);
-    });
+        // Load a mock scenario
+        await mockData(disasterType, scenario, code, accessToken, date);
 
-    test.beforeEach(async ({ page }) => {
-      await page.goto('/');
-    });
+        await page.goto('/');
+        // Login into the portal
+        await pages.login.login(email, password);
+      });
 
-    test.afterAll(async () => {
-      await page.close();
-    });
+      test.beforeEach(async ({ page }) => {
+        await page.goto('/');
+      });
 
-    test.describe('DashboardPage', () => {
-      DashboardPageVisible(pages, components, dataset, date);
-    });
+      test.afterAll(async () => {
+        await page.close();
+      });
 
-    test.describe('MapComponent', () => {
-      MapComponentVisible(pages, components, dataset);
-      MapComponentInteractive(pages, components, dataset);
-      MapComponentInfoPopover(pages, components, dataset);
-      MapComponentLayersVisible(pages, components, dataset);
-      MapComponentTriggerLayer(pages, components, dataset);
-      MapComponentGloFASStations(pages, components, dataset);
+      test.describe('DashboardPage', () => {
+        DashboardPageVisible(pages, components, dataset, date);
+      });
 
-      if (scenario === 'trigger') {
-        // REFACTOR
-        MapComponentLayersDefault(pages, components, dataset);
-        MapComponentFloodExtent(pages, components, dataset);
-        MapComponentGloFASStationsTrigger(pages, components, dataset);
-      } else if (scenario === 'no-trigger') {
-        // REFACTOR
-        MapComponentGloFASStationsWarning(pages, components, dataset);
-      }
-    });
+      test.describe('MapComponent', () => {
+        MapComponentVisible(pages, components, dataset);
+        MapComponentInteractive(pages, components, dataset);
+        MapComponentInfoPopover(pages, components, dataset);
+        MapComponentLayersVisible(pages, components, dataset);
+        MapComponentTriggerLayer(pages, components, dataset);
+        MapComponentGloFASStations(pages, components, dataset);
 
-    test.describe('AggregatesComponent', () => {
-      AggregatesComponentVisible(pages, components, dataset);
-      AggregateComponentTitleHover(pages, components, dataset);
-      AggregateComponentButtonClick(pages, components, dataset);
+        if (scenario === 'trigger') {
+          // REFACTOR
+          MapComponentLayersDefault(pages, components, dataset);
+          MapComponentFloodExtent(pages, components, dataset);
+          MapComponentGloFASStationsTrigger(pages, components, dataset);
+        } else if (scenario === 'no-trigger') {
+          // REFACTOR
+          MapComponentGloFASStationsWarning(pages, components, dataset);
+        }
+      });
 
-      if (scenario === 'trigger') {
-        // REFACTOR
-        AggregateComponentEventCount(pages, components, dataset);
-        AggregateComponentHeaderColour(pages, components, dataset);
-      }
-    });
+      test.describe('AggregatesComponent', () => {
+        AggregatesComponentVisible(pages, components, dataset);
+        AggregateComponentTitleHover(pages, components, dataset);
+        AggregateComponentButtonClick(pages, components, dataset);
 
-    test.describe('ChatComponent', () => {
-      ChatComponentVisible(pages, components, dataset, date);
-      ChatComponentButtonClick(pages, components, dataset);
+        if (scenario === 'trigger') {
+          // REFACTOR
+          AggregateComponentEventCount(pages, components, dataset);
+          AggregateComponentHeaderColour(pages, components, dataset);
+        }
+      });
 
-      if (scenario === 'trigger') {
-        // REFACTOR
-        ChatComponentEventClick(pages, components, dataset, date);
-        ChatComponentEventCount(pages, components, dataset, date);
-        ChatComponentInfoPopover(pages, components, dataset, date);
-      }
-    });
+      test.describe('ChatComponent', () => {
+        ChatComponentVisible(pages, components, dataset, date);
+        ChatComponentButtonClick(pages, components, dataset);
 
-    test.describe('DisasterTypeComponent', () => {
-      DisasterTypeComponentVisible(pages, components, dataset);
-      DisasterTypeComponentSelect(pages, components, dataset);
-    });
+        if (scenario === 'trigger') {
+          // REFACTOR
+          ChatComponentEventClick(pages, components, dataset, date);
+          ChatComponentEventCount(pages, components, dataset, date);
+          ChatComponentInfoPopover(pages, components, dataset, date);
+        }
+      });
 
-    test.describe('TimelineComponent', () => {
-      TimelineComponentVisible(pages, components, dataset);
-      TimelineComponentDisabled(pages, components, dataset);
+      test.describe('DisasterTypeComponent', () => {
+        DisasterTypeComponentVisible(pages, components, dataset);
+        DisasterTypeComponentSelect(pages, components, dataset);
+      });
 
-      if (scenario === 'trigger') {
-        // REFACTOR
-        TimelineComponentNotClickable(pages, components, dataset);
-      }
-    });
+      test.describe('TimelineComponent', () => {
+        TimelineComponentVisible(pages, components, dataset);
+        TimelineComponentDisabled(pages, components, dataset);
 
-    test.describe('ActionSummaryComponent', () => {
-      if (scenario === 'trigger') {
-        // REFACTOR
-        ActionSummaryTooltipTest(pages, components, dataset);
-      }
-    });
+        if (scenario === 'trigger') {
+          // REFACTOR
+          TimelineComponentNotClickable(pages, components, dataset);
+        }
+      });
 
-    // Do this last, as it logs out the user
-    test.describe('UserStateComponent', () => {
-      UserStateComponentVisible(pages, components, dataset);
-      UserStateComponentLogout(pages, components, dataset);
+      test.describe('ActionSummaryComponent', () => {
+        if (scenario === 'trigger') {
+          // REFACTOR
+          ActionSummaryTooltipTest(pages, components, dataset);
+        }
+      });
+
+      // Do this last, as it logs out the user
+      test.describe('UserStateComponent', () => {
+        UserStateComponentVisible(pages, components, dataset);
+        UserStateComponentLogout(pages, components, dataset);
+      });
     });
   });
 });
