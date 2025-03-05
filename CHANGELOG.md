@@ -1,3 +1,12 @@
+## [0.292.2](https://github.com/rodekruis/IBF-system/compare/v0.292.1...v0.292.2) (2025-03-05)
+
+
+### Bug Fixes
+
+* breaking test because GET point-data protected ([fb8d42f](https://github.com/rodekruis/IBF-system/commit/fb8d42fd24b8e4813320a57744fdf045cd631ad4))
+
+
+
 ## [0.292.1](https://github.com/rodekruis/IBF-system/compare/v0.292.0...v0.292.1) (2025-03-04)
 
 
@@ -107,20 +116,6 @@
 ### Features
 
 * show first issued date in bottomright of speech bubble ([940e63f](https://github.com/rodekruis/IBF-system/commit/940e63f718d7faba24f47c0767538d39dec416ff))
-
-
-
-# [0.285.0](https://github.com/rodekruis/IBF-system/compare/v0.284.0...v0.285.0) (2025-02-24)
-
-
-### Bug Fixes
-
-* correctly test on event.startDate in timestamp format AB[#33907](https://github.com/rodekruis/IBF-system/issues/33907) ([4702efe](https://github.com/rodekruis/IBF-system/commit/4702efe0825692a417ce2eaf300d0d348785752f))
-
-
-### Features
-
-* send email on event starting as ongoing AB[#33907](https://github.com/rodekruis/IBF-system/issues/33907) ([26aca8a](https://github.com/rodekruis/IBF-system/commit/26aca8ae4a3680f311e240cd844d91c600b7282e))
 
 
 
