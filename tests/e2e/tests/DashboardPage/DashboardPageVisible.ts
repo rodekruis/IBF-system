@@ -24,7 +24,7 @@ export default (
       throw new Error('pages and components not found');
     }
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.hazard);
+    await dashboard.navigateToDisasterType(dataset.disasterType);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
     await disasterType.topBarComponentIsVisible();
@@ -39,7 +39,7 @@ export default (
       await chat.chatColumnIsVisibleForNoTriggerState({
         user: dataset.user,
         date,
-        disasterType: dataset.hazard,
+        disasterType: dataset.disasterType,
       });
     }
     await aggregates.aggregateComponentIsVisible();

@@ -16,13 +16,13 @@ export default (
       throw new Error('pages and components not found');
     }
 
-    for (const hazardIndex in dataset.hazards) {
+    for (const disasterTypeIndex in dataset.country.disasterTypes) {
       // Navigate between disaster types no matter the mock data
-      const hazard = dataset.hazards[hazardIndex];
-      await dashboard.navigateToDisasterType(hazard);
+      const disasterType = dataset.country.disasterTypes[disasterTypeIndex];
+      await dashboard.navigateToDisasterType(disasterType);
       await userState.headerComponentDisplaysCorrectDisasterType({
         country: dataset.country,
-        hazard,
+        disasterType,
         title: dataset.title,
       });
     }

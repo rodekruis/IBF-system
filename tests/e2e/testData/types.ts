@@ -1,6 +1,7 @@
 export interface Country {
   code: string;
   name: string;
+  disasterTypes: string[];
 }
 
 export interface User {
@@ -19,8 +20,7 @@ export interface Indicator {
 
 export interface Dataset {
   country: Country;
-  hazard: string;
-  hazards: string[];
+  disasterType: string;
   scenario: string;
   user: User;
   title: string;

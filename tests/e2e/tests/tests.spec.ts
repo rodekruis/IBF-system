@@ -48,7 +48,7 @@ const datasets: Dataset[] = [UgandaFloodsNoTrigger, UgandaFloodsTrigger];
 datasets.forEach((dataset) => {
   const {
     country: { code },
-    hazard,
+    disasterType,
     scenario,
     user: { email, password },
   } = dataset;
@@ -59,7 +59,7 @@ datasets.forEach((dataset) => {
   const pages: Partial<Pages> = {};
   const components: Partial<Components> = {};
 
-  test.describe(`Dataset: ${email} ${code} ${hazard} ${scenario}`, () => {
+  test.describe(`Dataset: ${email} ${code} ${disasterType} ${scenario}`, () => {
     const date = new Date();
 
     test.beforeAll(async ({ browser }) => {
@@ -79,7 +79,7 @@ datasets.forEach((dataset) => {
       await resetDB(accessToken);
 
       // Load a mock scenario
-      await mockData(hazard, scenario, code, accessToken, date);
+      await mockData(disasterType, scenario, code, accessToken, date);
 
       await page.goto('/');
       // Login into the portal

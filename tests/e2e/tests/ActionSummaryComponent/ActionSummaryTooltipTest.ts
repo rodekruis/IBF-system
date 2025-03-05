@@ -18,7 +18,7 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.hazard);
+    await dashboard.navigateToDisasterType(dataset.disasterType);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
     // Wait for the sharedPage to load

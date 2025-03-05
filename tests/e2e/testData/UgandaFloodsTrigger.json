@@ -1,13 +1,10 @@
 {
   "country": {
     "code": "UGA",
-    "name": "Uganda"
+    "name": "Uganda",
+    "disasterTypes": ["floods", "drought"]
   },
-  "hazard": "floods",
-  "hazards": [
-    "floods",
-    "drought"
-  ],
+  "disasterType": "floods",
   "scenario": "trigger",
   "user": {
     "email": "uganda@redcross.nl",
@@ -20,17 +17,13 @@
     {
       "name": "red_cross_branches",
       "label": "Red Cross branches",
-      "legendLabels": [
-        "Red Cross branches"
-      ],
+      "legendLabels": ["Red Cross branches"],
       "active": false
     },
     {
       "name": "glofas_stations",
       "label": "Glofas stations",
-      "legendLabels": [
-        "GloFAS No action"
-      ],
+      "legendLabels": ["GloFAS No action"],
       "active": true
     }
   ]

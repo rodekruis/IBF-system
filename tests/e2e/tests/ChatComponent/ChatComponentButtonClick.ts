@@ -17,7 +17,7 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.hazard);
+    await dashboard.navigateToDisasterType(dataset.disasterType);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
     await chat.allDefaultButtonsArePresent();
@@ -25,7 +25,7 @@ export default (
     await chat.clickAndAssertGuideButton();
     await chat.clickAndAssertExportViewButton();
     await chat.clickAndAssertTriggerLogButton({
-      url: `/log?countryCodeISO3=${dataset.country.code}&disasterType=${dataset.hazard}`,
+      url: `/log?countryCodeISO3=${dataset.country.code}&disasterType=${dataset.disasterType}`,
     });
   });
 };

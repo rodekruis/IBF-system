@@ -1,10 +1,10 @@
 {
   "country": {
     "code": "UGA",
-    "name": "Uganda"
+    "name": "Uganda",
+    "disasterTypes": ["floods", "drought"]
   },
-  "hazard": "floods",
-  "hazards": ["floods", "drought"],
+  "disasterType": "floods",
   "scenario": "no-trigger",
   "user": {
     "email": "uganda@redcross.nl",

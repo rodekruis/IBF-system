@@ -1,7 +1,7 @@
 import test from '@playwright/test';
+import { Dataset } from 'testData/types';
 
 import { Components, Pages } from '../../helpers/interfaces';
-import { Dataset } from 'testData/types';
 
 export default (
   pages: Partial<Pages>,
@@ -17,7 +17,7 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.hazard);
+    await dashboard.navigateToDisasterType(dataset.disasterType);
     // Assertions
     await aggregates.aggregateComponentIsVisible();
     await aggregates.validatesAggregatesInfoButtons();

@@ -29,11 +29,11 @@ class UserStateComponent extends DashboardPage {
 
   async headerComponentDisplaysCorrectDisasterType({
     country: { name },
-    hazard,
+    disasterType,
     title,
   }: {
     country: Country;
-    hazard: string;
+    disasterType: string;
     title: string;
   }) {
     const header = this.header.filter({
@@ -42,7 +42,7 @@ class UserStateComponent extends DashboardPage {
     const headerText = await header.textContent().then((text) => text?.trim());
     const headerTextTransformed = headerText?.replace('  ', ' '); // REFACTOR
 
-    expect(headerTextTransformed).toContain(`${title} ${name} ${hazard}`);
+    expect(headerTextTransformed).toContain(`${title} ${name} ${disasterType}`);
   }
 
   async allUserStateElementsAreVisible({ firstName, lastName }: User) {
