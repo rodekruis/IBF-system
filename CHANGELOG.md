@@ -1,3 +1,17 @@
+## [0.293.1](https://github.com/rodekruis/IBF-system/compare/v0.293.0...v0.293.1) (2025-03-05)
+
+
+### Bug Fixes
+
+* actionsummary test ([781f5ed](https://github.com/rodekruis/IBF-system/commit/781f5ed4ec53d4b09237993c39aad6fab62a4c9c))
+* errors ([d7950b1](https://github.com/rodekruis/IBF-system/commit/d7950b148791ab6d276fae146732179f9cfc43f5))
+* move actionsummary test before logout test ([748bf38](https://github.com/rodekruis/IBF-system/commit/748bf38fa074459a5d673b7efbab94f95a47b69d))
+* prettier api-service ([01b2940](https://github.com/rodekruis/IBF-system/commit/01b29401a7d0f6ec60bc34b8b8faa37e8237e933))
+* remove test.only ([687cc25](https://github.com/rodekruis/IBF-system/commit/687cc25415e9b5dfced6db11ac850a069aa4d14a))
+* revert code to fix test ([a325f89](https://github.com/rodekruis/IBF-system/commit/a325f8945db92a94ec30173bdfc0d86dfd945827))
+
+
+
 # [0.293.0](https://github.com/rodekruis/IBF-system/compare/v0.292.2...v0.293.0) (2025-03-05)
 
 
@@ -99,21 +113,6 @@
 ### Features
 
 * remove covid risk layer AB[#33963](https://github.com/rodekruis/IBF-system/issues/33963) ([f92eaa5](https://github.com/rodekruis/IBF-system/commit/f92eaa55ee68520c8a099f44c86e4b1abd67fe05))
-
-
-
-# [0.287.0](https://github.com/rodekruis/IBF-system/compare/v0.286.0...v0.287.0) (2025-02-27)
-
-
-### Bug Fixes
-
-* build error ([fd02446](https://github.com/rodekruis/IBF-system/commit/fd0244617d6b2edb704474dab3786a26abdda65b))
-* warning-to-trigger scenario ([3721dec](https://github.com/rodekruis/IBF-system/commit/3721deca4dd6d0b9ff1d0d8c3b8810509de01f4e))
-
-
-### Features
-
-* unclickable timelines + refactor AB[#33408](https://github.com/rodekruis/IBF-system/issues/33408) ([0f25bf0](https://github.com/rodekruis/IBF-system/commit/0f25bf0a56d89c2f462dba917439785e8db4777f))
 
 
 
