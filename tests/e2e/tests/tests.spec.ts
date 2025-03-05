@@ -8,6 +8,7 @@ import MapComponent from 'Pages/MapComponent';
 import TimelineComponent from 'Pages/TimelineComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { Dataset } from 'testData/types';
+import UgandaDroughtNoTrigger from 'testData/UgandaDroughtNoTrigger.json';
 import UgandaFloodsNoTrigger from 'testData/UgandaFloodsNoTrigger.json';
 import UgandaFloodsTrigger from 'testData/UgandaFloodsTrigger.json';
 
@@ -54,7 +55,11 @@ test.describe('E2E Tests', () => {
   });
 
   // Run tests for each dataset
-  const datasets: Dataset[] = [UgandaFloodsNoTrigger, UgandaFloodsTrigger];
+  const datasets: Dataset[] = [
+    UgandaFloodsNoTrigger,
+    UgandaFloodsTrigger,
+    UgandaDroughtNoTrigger,
+  ];
   datasets.forEach((dataset) => {
     const {
       country: { code },
@@ -68,7 +73,7 @@ test.describe('E2E Tests', () => {
     const pages: Partial<Pages> = {};
     const components: Partial<Components> = {};
 
-    test.describe(`Dataset: ${email} ${code} ${disasterType} ${scenario}`, () => {
+    test.describe(`Dataset: ${email} ${code} ${disasterType.name} ${scenario}`, () => {
       const date = new Date();
 
       test.beforeAll(async ({ browser }) => {
@@ -85,7 +90,7 @@ test.describe('E2E Tests', () => {
         components.actionsSummary = new ActionsSummaryComponent(page);
 
         // Load a mock scenario
-        await mockData(disasterType, scenario, code, accessToken, date);
+        await mockData(disasterType.name, scenario, code, accessToken, date);
 
         await page.goto('/');
         // Login into the portal
