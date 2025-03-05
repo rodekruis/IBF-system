@@ -32,5 +32,13 @@ export default (
     await chat.predictionButtonsAreActive();
     await chat.clickTriggerShowPredictionButton();
     await map.clickOnAdminBoundary();
+    await chat.validateEapList();
+
+    const adminAreaName = await map.getAdminAreaBreadCrumbText();
+    await chat.validateChatTitleAndBreadcrumbs({
+      district: adminAreaName,
+      mainExposureUnit: 'Exposed Population',
+    });
+    await chat.validateEapListButtons();
   });
 };

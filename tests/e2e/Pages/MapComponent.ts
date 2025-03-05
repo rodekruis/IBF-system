@@ -328,5 +328,9 @@ class MapComponent extends DashboardPage {
     const layerCount = await layer.count();
     expect(layerCount).toBeGreaterThan(0);
   }
+
+  async getAdminAreaBreadCrumbText() {
+    return await this.breadCrumbAdminAreaView.innerText();
+  }
 }
 export default MapComponent;
