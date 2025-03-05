@@ -143,6 +143,10 @@ class MapComponent extends DashboardPage {
     }
   }
 
+  async clickOnAdminBoundary() {
+    await this.adminBoundaries.first().click();
+  }
+
   async checkLayerCheckbox({ name }: Indicator) {
     // Remove Glofas station from the map (in case the mock is for floods)
     await this.waitForMapToBeLoaded();
@@ -323,6 +327,10 @@ class MapComponent extends DashboardPage {
     const layer = this.page.locator(`img[src*="${layerName}"]`);
     const layerCount = await layer.count();
     expect(layerCount).toBeGreaterThan(0);
+  }
+
+  async getAdminAreaBreadCrumbText() {
+    return await this.breadCrumbAdminAreaView.innerText();
   }
 }
 export default MapComponent;
