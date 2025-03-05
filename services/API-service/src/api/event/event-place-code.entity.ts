@@ -51,11 +51,11 @@ export class EventPlaceCodeEntity {
   @Check(`"firstIssuedDate" <= "endDate"`)
   public endDate: Date;
 
-  @Column({ type: 'timestamp', nullable: true })
-  public manualStoppedDate: Date;
+  @Column({ type: 'timestamp', nullable: true, default: null })
+  public userTriggerDate: Date;
 
   @Column({ default: false })
-  public stopped: boolean;
+  public userTrigger: boolean;
 
   @Column({ default: false })
   public closed: boolean;
@@ -70,7 +70,7 @@ export class EventPlaceCodeEntity {
 
   @ManyToOne(
     (): typeof UserEntity => UserEntity,
-    (user): EventPlaceCodeEntity[] => user.stoppedTriggers,
+    (user): EventPlaceCodeEntity[] => user.userTriggers,
   )
   public user: UserEntity;
 }
