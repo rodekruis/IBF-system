@@ -29,6 +29,7 @@ class ChatComponent extends DashboardPage {
   readonly linuxOsLink: Locator;
   readonly tooltipButton: Locator;
   readonly backDrop: Locator;
+  readonly eapList: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -53,6 +54,7 @@ class ChatComponent extends DashboardPage {
     this.linuxOsLink = this.page.getByTestId('export-view-linux-os');
     this.tooltipButton = this.page.getByTestId('tooltip-button');
     this.backDrop = page.locator('ion-backdrop').nth(2);
+    this.eapList = this.page.getByRole('list');
   }
 
   async chatColumnIsVisibleForNoTriggerState({
@@ -213,6 +215,14 @@ class ChatComponent extends DashboardPage {
       await this.validatePopOverText({ text: eventTooltipContent });
       await this.backDrop.click();
     }
+  }
+
+  async clickTriggerShowPredictionButton() {
+    const triggerChatDialogue = this.page
+      .getByTestId('dialogue-turn-content')
+      .filter({ hasText: 'Trigger issued' })
+      .getByTestId('event-switch-button');
+    await triggerChatDialogue.click();
   }
 }
 

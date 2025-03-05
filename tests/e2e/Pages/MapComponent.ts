@@ -143,7 +143,11 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async checkLayerCheckbox({ name }: Indicator) {
+  async clickOnAdminBoundary() {
+    await this.adminBoundaries.first().click();
+  }
+
+  async checkLayerCheckbox({ layerName }: { layerName: string }) {
     // Remove Glofas station from the map (in case the mock is for floods)
     await this.waitForMapToBeLoaded();
 

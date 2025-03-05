@@ -41,6 +41,7 @@
       }
       @if (event?.eventName !== selectedEventName) {
         <ion-button
+          data-testid="event-switch-button"
           class="ibf event-switch-button"
           [class.selected]="event?.eventName === selectedEventName"
           shape="round"
