@@ -88,11 +88,12 @@ export class AdminAreaService {
     eventName: string,
     lastUploadDate: LastUploadDateDto,
   ) {
-    const alertsPerLeadTime = await this.eventService.getAlertPerLeadTime(
-      countryCodeISO3,
-      disasterType,
-      eventName,
-    ) ?? {};
+    const alertsPerLeadTime =
+      (await this.eventService.getAlertPerLeadTime(
+        countryCodeISO3,
+        disasterType,
+        eventName,
+      )) ?? {};
     let trigger;
     if (leadTime) {
       trigger = alertsPerLeadTime[leadTime];
