@@ -6,14 +6,6 @@ import englishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i1
 import { LayerDescriptions } from '../testData/layer-descriptions.enum';
 import DashboardPage from './DashboardPage';
 
-const expectedLayersNames = [
-  'Exposed population',
-  'Total Population',
-  'Female-headed household',
-  'Population under 8',
-  'Population over 65',
-];
-
 class AggregatesComponent extends DashboardPage {
   readonly page: Page;
   readonly aggregateSectionColumn: Locator;
@@ -63,7 +55,10 @@ class AggregatesComponent extends DashboardPage {
     await expect(this.aggregateSectionColumn).toContainText('National View');
   }
 
-  async aggregatesAlementsDisplayedInNoTrigger() {
+  async aggregatesElementsDisplayedInNoTrigger(
+    disasterTypeLabel: string,
+    expectedIndicators: string[],
+  ) {
     // Wait for the page to load
     await this.page.waitForSelector('[data-testid="loader"]', {
       state: 'hidden',
@@ -76,15 +71,15 @@ class AggregatesComponent extends DashboardPage {
     );
     const headerText = await this.aggregatesHeaderLabel.textContent();
     const subHeaderText = await this.aggregatesSubHeaderLabel.textContent();
-    const layerCount = await this.aggregatesLayerRow.count();
+    const indicatorCount = await this.aggregatesLayerRow.count();
     const iconLayerCount = await this.aggregatesInfoIcon.count();
 
     // Basic Assertions
     expect(headerText).toBe('National View');
-    expect(subHeaderText).toBe('0 Predicted Flood(s)');
+    expect(subHeaderText).toBe(`0 Predicted ${disasterTypeLabel}(s)`);
     await expect(this.aggreagtesHeaderInfoIcon).toBeVisible();
-    expect(layerCount).toBe(5);
-    expect(iconLayerCount).toBe(5);
+    expect(indicatorCount).toBe(expectedIndicators.length);
+    expect(iconLayerCount).toBe(expectedIndicators.length);
 
     // Loop through the layers and check if they are present with correct data
     for (const affectedNumber of affectedNumbers) {
@@ -92,9 +87,11 @@ class AggregatesComponent extends DashboardPage {
       expect(affectedNumberText).toContain('0');
     }
     // Loop through the layers and check if they are present with correct names
-    for (const layerName of expectedLayersNames) {
-      const layerLocator = this.aggregatesLayerRow.locator(`text=${layerName}`);
-      await expect(layerLocator).toBeVisible();
+    for (const indicatorName of expectedIndicators) {
+      const indicatorLocator = this.aggregatesLayerRow.locator(
+        `text=${indicatorName}`,
+      );
+      await expect(indicatorLocator).toBeVisible();
     }
   }
 

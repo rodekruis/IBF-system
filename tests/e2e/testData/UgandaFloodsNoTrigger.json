@@ -4,7 +4,10 @@
     "name": "Uganda",
     "disasterTypes": ["floods", "drought"]
   },
-  "disasterType": "floods",
+  "disasterType": {
+    "name": "floods",
+    "label": "Flood"
+  },
   "scenario": "no-trigger",
   "user": {
     "email": "uganda@redcross.nl",
@@ -13,6 +16,13 @@
     "lastName": "Manager"
   },
   "title": "IBF PORTAL",
+  "aggregateIndicators": [
+    "Exposed population",
+    "Total Population",
+    "Female-headed household",
+    "Population under 8",
+    "Population over 65"
+  ],
   "indicators": [
     {
       "name": "red_cross_branches",

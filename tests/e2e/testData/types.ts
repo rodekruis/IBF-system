@@ -4,6 +4,11 @@ export interface Country {
   disasterTypes: string[];
 }
 
+export interface DisasterType {
+  name: string;
+  label: string;
+}
+
 export interface User {
   email: string;
   password: string;
@@ -20,9 +25,10 @@ export interface Indicator {
 
 export interface Dataset {
   country: Country;
-  disasterType: string;
+  disasterType: DisasterType;
   scenario: string;
   user: User;
   title: string;
+  aggregateIndicators: string[];
   indicators: Indicator[];
 }
