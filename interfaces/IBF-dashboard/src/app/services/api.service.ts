@@ -409,4 +409,11 @@ export class ApiService {
       false,
     );
   }
+
+  // ##TODO: Align this with actual endpoint path and DTO
+  setTrigger(eventPlaceCodeIds: string[]): Observable<void> {
+    console.log('eventPlaceCodeIds: ', eventPlaceCodeIds);
+    // return of(null); Uncomment to simulate success response.
+    return this.post(`event/set-trigger`, { eventPlaceCodeIds }, false);
+  }
 }
