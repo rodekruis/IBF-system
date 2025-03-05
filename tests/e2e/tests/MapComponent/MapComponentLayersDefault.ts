@@ -44,6 +44,8 @@ export default (
     // Validate that the layer checked with radio button is visible on the map in this case 'Exposed population' only one such layer can be checked at a time
     await map.areAdminBoundariesVisible({ layerName: 'population_affected' }); // REFACTOR
     // Validate rest of the map
-    await map.validateLayerIsVisibleInMapBySrcElement(dataset.indicators[0]);
+    await map.validateLayerIsVisibleInMapBySrcElement({
+      layerName: 'flood_extent',
+    });
   });
 };

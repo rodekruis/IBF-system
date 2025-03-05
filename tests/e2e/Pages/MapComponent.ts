@@ -315,8 +315,12 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async validateLayerIsVisibleInMapBySrcElement({ label }: Indicator) {
-    const layer = this.page.locator(`img[src*="${label}"]`);
+  async validateLayerIsVisibleInMapBySrcElement({
+    layerName,
+  }: {
+    layerName: string;
+  }) {
+    const layer = this.page.locator(`img[src*="${layerName}"]`);
     const layerCount = await layer.count();
     expect(layerCount).toBeGreaterThan(0);
   }
