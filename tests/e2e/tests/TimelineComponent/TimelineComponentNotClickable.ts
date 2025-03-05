@@ -1,7 +1,7 @@
 import test from '@playwright/test';
+import { Dataset } from 'testData/types';
 
 import { Components, Pages } from '../../helpers/interfaces';
-import { Dataset } from 'testData/types';
 
 export default (
   pages: Partial<Pages>,
@@ -20,7 +20,7 @@ export default (
     await dashboard.navigateToDisasterType(dataset.hazard);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
-    await timeline.validateTimelineBasedOnDisasterName(dataset.hazard);
+    await timeline.validateTimelineIsInactive();
     await timeline.validateTimelineDates();
     await timeline.assertPurpleTimelineButtonElements();
   });

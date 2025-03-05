@@ -1,11 +1,11 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
 
-import EnglishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
+import englishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
 import DashboardPage from './DashboardPage';
 
 const welcomeMessageEnglishTranslation =
-  EnglishTranslations['login-page'].welcome;
+  englishTranslations['login-page'].welcome;
 
 class LoginPage extends DashboardPage {
   readonly page: Page;

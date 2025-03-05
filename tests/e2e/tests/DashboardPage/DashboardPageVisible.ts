@@ -39,6 +39,7 @@ export default (
       await chat.chatColumnIsVisibleForNoTriggerState({
         user: dataset.user,
         date,
+        disasterType: dataset.hazard,
       });
     }
     await aggregates.aggregateComponentIsVisible();

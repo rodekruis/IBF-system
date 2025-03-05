@@ -98,7 +98,7 @@ datasets.forEach((dataset) => {
       DashboardPageVisible(pages, components, dataset, date);
     });
 
-    test.describe.only('MapComponent', () => {
+    test.describe('MapComponent', () => {
       MapComponentVisible(pages, components, dataset);
       MapComponentInteractive(pages, components, dataset);
       MapComponentInfoPopover(pages, components, dataset);

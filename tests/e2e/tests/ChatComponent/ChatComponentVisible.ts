@@ -9,7 +9,7 @@ export default (
   dataset: Dataset,
   date: Date,
 ) => {
-  test('[33053] Chat component elements should be visible', async () => {
+  test.only('[33053] Chat component elements should be visible', async () => {
     const { dashboard } = pages;
     const { chat, userState } = components;
 
@@ -20,10 +20,13 @@ export default (
     await dashboard.navigateToDisasterType(dataset.hazard);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
-    await chat.chatColumnIsVisibleForNoTriggerState({
-      user: dataset.user,
-      date,
-    });
+    if (dataset.scenario === 'no-trigger') {
+      await chat.chatColumnIsVisibleForNoTriggerState({
+        user: dataset.user,
+        date,
+        disasterType: dataset.hazard,
+      });
+    }
     await chat.allDefaultButtonsArePresent();
   });
 };
