@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { subDays } from 'date-fns';
@@ -11,6 +11,7 @@ import {
   MoreThanOrEqual,
   Repository,
   SelectQueryBuilder,
+  UpdateResult,
 } from 'typeorm';
 
 import {
@@ -39,7 +40,7 @@ import { AlertPerLeadTimeEntity } from './alert-per-lead-time.entity';
 import { AreaForecastDataDto } from './dto/area-forecast-data.dto';
 import {
   ActivationLogDto,
-  EventPlaceCodeDto,
+  EventPlaceCodesDto,
 } from './dto/event-place-code.dto';
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
 import {
@@ -185,6 +186,7 @@ export class EventService {
         'SUM(CASE WHEN event."forecastSeverity" > 0 THEN 1 ELSE 0 END) AS "nrAlertAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
         'MAX(event."forecastSeverity")::float AS "forecastSeverity"',
         'MAX(event."forecastTrigger"::int)::boolean AS "forecastTrigger"',
+        'MAX(event."userTrigger"::int)::boolean AS "userTrigger"',
         'sum(event."mainExposureValue")::int AS "mainExposureValueSum"', // FIX: this goes wrong in case of percentage indicator (% houses affected typhoon)
       ])
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
@@ -366,9 +368,9 @@ export class EventService {
         'event."forecastSeverity"',
         'event."forecastTrigger"',
         'event."eventPlaceCodeId"',
-        'event."stopped"',
+        'event."userTrigger"',
         'event."firstIssuedDate"',
-        'event."manualStoppedDate" AS "stoppedDate"',
+        'event."userTriggerDate" AS "userTriggerDate"',
         '"user"."firstName" || \' \' || "user"."lastName" AS "displayName"',
         'parent.name AS "nameParent"',
       ])
@@ -433,7 +435,7 @@ export class EventService {
         'area',
         'dynamic."placeCode" = area."placeCode"',
       )
-      // add parent event (for data on 'stopped' areas 1 level deeper than default)
+      // add parent event area
       .leftJoin(
         AdminAreaEntity,
         'parent',
@@ -441,7 +443,7 @@ export class EventService {
       )
       .leftJoin('parent.eventPlaceCodes', 'parentEvent')
       .leftJoin('parentEvent.user', 'parentUser')
-      // add grandparent event (for data on 'stopped' areas 2 levels deeper than default)
+      // add grandparent event area
       .leftJoin(
         AdminAreaEntity,
         'grandparent',
@@ -455,8 +457,8 @@ export class EventService {
         'area."adminLevel" AS "adminLevel"',
         'dynamic.value AS value',
         'COALESCE("parentEvent"."firstIssuedDate","grandparentEvent"."firstIssuedDate") AS "firstIssuedDate"',
-        'COALESCE(parentEvent.stopped,"grandparentEvent".stopped) AS stopped',
-        'COALESCE("parentEvent"."manualStoppedDate","grandparentEvent"."manualStoppedDate") AS "stoppedDate"',
+        'COALESCE(parentEvent.userTrigger,"grandparentEvent".userTrigger) AS userTrigger',
+        'COALESCE("parentEvent"."userTriggerDate","grandparentEvent"."userTriggerDate") AS "userTriggerDate"',
         'COALESCE("parentUser"."firstName","grandparentUser"."firstName") || \' \' || COALESCE("parentUser"."lastName","grandparentUser"."lastName") AS "displayName"',
       ])
       .getRawMany();
@@ -467,9 +469,9 @@ export class EventService {
       nameParent: null,
       mainExposureValue: area.value,
       forecastSeverity: null, // leave empty for now, as we don't show forecastSeverity on deeper levels
-      stopped: area.stopped,
+      userTrigger: area.userTrigger,
       firstIssuedDate: area.firstIssuedDate,
-      stoppedDate: area.stoppedDate,
+      userTriggerDate: area.userTriggerDate,
       displayName: area.displayName,
       eapActions: [],
     }));
@@ -493,11 +495,14 @@ export class EventService {
         'disaster."mainExposureIndicator" as "exposureIndicator"',
         'event."mainExposureValue" as "exposureValue"',
         `CASE
+        WHEN event."userTrigger" = true THEN 'Trigger'
         WHEN event."forecastTrigger" = true THEN 'Trigger'
         WHEN event."forecastSeverity" = 1 THEN 'Warning'
         WHEN event."forecastSeverity" = 0.7 THEN 'Medium warning'
         WHEN event."forecastSeverity" = 0.3 THEN 'Low warning'
         END as "alertClass"`,
+        'event."userTrigger" as "userTrigger"',
+        'event."userTriggerDate" as "userTriggerDate"',
         'event."eventPlaceCodeId" as "databaseId"',
       ])
       .leftJoin('event.adminArea', 'area')
@@ -615,28 +620,18 @@ export class EventService {
     return result;
   }
 
-  public async toggleStoppedTrigger(
+  public async setTrigger(
     userId: string,
-    eventPlaceCodeDto: EventPlaceCodeDto,
-  ): Promise<void> {
-    const user = await this.userRepository.findOne({
-      where: { userId: userId },
-    });
-    if (!user) {
-      const errors = 'User not found';
-      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
-    }
-    const eventPlaceCode = await this.eventPlaceCodeRepo.findOne({
-      where: { eventPlaceCodeId: eventPlaceCodeDto.eventPlaceCodeId },
-    });
-    if (!eventPlaceCode) {
-      const errors = 'Event placeCode not found';
-      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
-    }
-    eventPlaceCode.stopped = !eventPlaceCode.stopped;
-    eventPlaceCode.manualStoppedDate = new Date();
-    eventPlaceCode.user = user;
-    await this.eventPlaceCodeRepo.save(eventPlaceCode);
+    eventPlaceCodesDto: EventPlaceCodesDto,
+  ): Promise<UpdateResult> {
+    return await this.eventPlaceCodeRepo.update(
+      eventPlaceCodesDto.eventPlaceCodeIds,
+      {
+        userTrigger: true,
+        userTriggerDate: new Date(),
+        user: { userId },
+      },
+    );
   }
 
   private async getMainExposureIndicator(
@@ -1075,8 +1070,6 @@ export class EventService {
         eventArea.mainExposureValue = +activeAlertArea.mainExposureValue;
         eventArea.firstIssuedDate = lastUploadDate.timestamp;
         eventArea.endDate = lastUploadDate.timestamp;
-        eventArea.stopped = false;
-        eventArea.manualStoppedDate = null;
         eventArea.disasterType = disasterType;
         newEventAreas.push(eventArea);
       }

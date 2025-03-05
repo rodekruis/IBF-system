@@ -44,13 +44,13 @@ export class AlertArea {
   public forecastSeverity: number;
 
   @ApiProperty({ example: false })
-  public stopped: boolean;
+  public userTrigger: boolean;
 
   @ApiProperty({ example: new Date().toISOString() })
   public firstIssuedDate: string;
 
   @ApiProperty({ example: new Date().toISOString() })
-  public stoppedDate: string;
+  public userTriggerDate: string;
 
   @ApiProperty({ example: 'Henry Dunant' })
   public displayName: string;
@@ -92,6 +92,9 @@ export class EventSummaryCountry {
 
   @ApiProperty({ example: true })
   public forecastTrigger: boolean;
+
+  @ApiProperty({ example: false })
+  public userTrigger: boolean;
 
   @ApiProperty({ example: 'Mock typhoon' })
   public eventName: string;

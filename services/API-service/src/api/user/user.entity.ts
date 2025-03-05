@@ -96,5 +96,5 @@ export class UserEntity {
     (): typeof EventPlaceCodeEntity => EventPlaceCodeEntity,
     (placeCode): UserEntity => placeCode.user,
   )
-  public stoppedTriggers: EventPlaceCodeEntity[];
+  public userTriggers: EventPlaceCodeEntity[];
 }
