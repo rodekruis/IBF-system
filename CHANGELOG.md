@@ -1,3 +1,19 @@
+# [0.293.0](https://github.com/rodekruis/IBF-system/compare/v0.292.2...v0.293.0) (2025-03-05)
+
+
+### Bug Fixes
+
+* missing class property ([0553d90](https://github.com/rodekruis/IBF-system/commit/0553d90814fe858a02c476867ed64278f7628db9))
+* unit test ([0e69951](https://github.com/rodekruis/IBF-system/commit/0e69951da1f3f39bd8f0361fb137caa4fc4c3898))
+
+
+### Features
+
+* add enableSetWarningToTrigger property on disaster-type AB[#34112](https://github.com/rodekruis/IBF-system/issues/34112) ([33499fb](https://github.com/rodekruis/IBF-system/commit/33499fbeeb0689f2dff21a2738cc6ca603f2eaa6))
+* show set trigger btn for drought warnings AB[#34113](https://github.com/rodekruis/IBF-system/issues/34113) ([b6740da](https://github.com/rodekruis/IBF-system/commit/b6740daf194496af8a6c2b039a84825dd0895513))
+
+
+
 ## [0.292.2](https://github.com/rodekruis/IBF-system/compare/v0.292.1...v0.292.2) (2025-03-05)
 
 
@@ -98,24 +114,6 @@
 ### Features
 
 * unclickable timelines + refactor AB[#33408](https://github.com/rodekruis/IBF-system/issues/33408) ([0f25bf0](https://github.com/rodekruis/IBF-system/commit/0f25bf0a56d89c2f462dba917439785e8db4777f))
-
-
-
-# [0.286.0](https://github.com/rodekruis/IBF-system/compare/v0.285.0...v0.286.0) (2025-02-25)
-
-
-### Bug Fixes
-
-* basic changes to arrive at working front-end AB[#33407](https://github.com/rodekruis/IBF-system/issues/33407) ([f47e01b](https://github.com/rodekruis/IBF-system/commit/f47e01b42ff9fb460948aeafff6549d9ae4bacd6))
-* bug in getActiveAlertAreas query ([547a4e3](https://github.com/rodekruis/IBF-system/commit/547a4e3c98d61c2e2d09993e31ffd60d4acf51c5))
-* remove app-timestamp properly ([fb37f49](https://github.com/rodekruis/IBF-system/commit/fb37f49099264d7072490e60819b94f988934d86))
-* rename startDate to firstIssuedDate ([40a0e46](https://github.com/rodekruis/IBF-system/commit/40a0e46869c9d0942239bd8d96cae60e43081c62))
-* show exposure for warnings also if available AB[#33407](https://github.com/rodekruis/IBF-system/issues/33407) ([4dc5f72](https://github.com/rodekruis/IBF-system/commit/4dc5f723b6cd4c3a4ed59935249a609f95af2693))
-
-
-### Features
-
-* show first issued date in bottomright of speech bubble ([940e63f](https://github.com/rodekruis/IBF-system/commit/940e63f718d7faba24f47c0767538d39dec416ff))
 
 
 
