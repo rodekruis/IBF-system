@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { ArrayMinSize, IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
+import { AlertLevel } from '../enum/alert-level.enum';
 
 export class EventPlaceCodesDto {
   @ApiProperty()
@@ -49,6 +50,9 @@ export class ActivationLogDto {
 
   @ApiProperty({ example: 'Maximum alert' })
   public alertClass: string;
+
+  @ApiProperty({ default: AlertLevel.NONE })
+  public alertLevel: AlertLevel;
 
   @ApiProperty({ example: '57084ea4-cac9-4f29-b955-fe9f08beb588' })
   public databaseId: string;
