@@ -169,7 +169,7 @@ export class EventService {
     return rawEvents;
   }
 
-  private getAlertLevel(event: EventSummaryCountry): AlertLevel {
+  public getAlertLevel(event: EventSummaryCountry): AlertLevel {
     if (event.userTrigger || event.forecastTrigger) {
       return AlertLevel.TRIGGER;
     }

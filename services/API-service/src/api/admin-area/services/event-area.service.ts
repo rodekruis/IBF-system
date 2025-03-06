@@ -21,6 +21,7 @@ import {
 import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
+import { AlertLevel } from '../../event/enum/alert-level.enum';
 import { EventService } from '../../event/event.service';
 import { EventAreaEntity } from '../event-area.entity';
 
@@ -108,6 +109,7 @@ export class EventAreaService {
         })
         .getRawOne();
       eventArea[disasterType.mainExposureIndicator] = aggregateValue.value;
+      eventArea['alertLevel'] = event.alertLevel;
       eventAreas.push(eventArea);
     }
 
@@ -126,6 +128,7 @@ export class EventAreaService {
       for await (const eventArea of allEventAreas) {
         eventArea['eventName'] = eventArea.eventAreaName;
         eventArea['placeCode'] = eventArea.eventAreaName;
+        eventArea['alertLevel'] = AlertLevel.NONE;
         eventArea[disasterType.mainExposureIndicator] = 0;
 
         eventAreas.push(eventArea);
