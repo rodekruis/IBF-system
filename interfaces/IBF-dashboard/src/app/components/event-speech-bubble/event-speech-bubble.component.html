@@ -78,12 +78,6 @@
                     event.firstTriggerLeadTimeDate || event.firstLeadTimeDate,
                 }
         }}</span>
-        @if (!event.forecastTrigger) {
-          <span>{{
-            'chat-component.common.alertLevel.warning'
-              | translate: { date: event.firstLeadTimeDate }
-          }}</span>
-        }
       }
     </p>
     @if (forecastSource) {

@@ -126,10 +126,10 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     const noLandfallYetEvent =
       event.disasterSpecificProperties?.typhoonNoLandfallYet;
 
-    const warningPrefix = event.forecastTrigger
+    const warningSuffix = event.forecastTrigger
       ? ''
       : (this.translateService.instant(
-          `chat-component.common.alertLevel.warning`,
+          `chat-component.typhoon.active-event.warning`,
         ) as string);
 
     const landfallInfo = this.translateService.instant(
@@ -146,7 +146,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
         firstLeadTimeDate: event.firstLeadTimeDate,
       },
     ) as string;
-    return `${warningPrefix} ${landfallInfo}`;
+    return `${landfallInfo} ${warningSuffix}`;
   }
 
   public showFirstWarningDate(): boolean {

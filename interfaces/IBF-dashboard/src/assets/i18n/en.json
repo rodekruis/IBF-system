@@ -99,7 +99,6 @@
       },
       "alertLevel": {
         "expected": "expected on {{ date }}. ",
-        "warning": "It is currently not predicted to reach trigger thresholds. ",
         "source": "Forecast source: ",
         "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
         "no-data": "No exposure data available"
@@ -188,6 +187,7 @@
         "header-ongoing": "Ongoing trigger: {{ eventName }}",
         "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
         "header-ongoing-below-trigger": "Ongoing warning: {{ eventName }}",
+        "warning": "It is currently not predicted to reach trigger thresholds.",
         "upcoming-event": {
           "landfall": "It is expected to make landfall on {{ firstLeadTimeDate }}.",
           "no-landfall": "It is expected to reach the point closest to land on {{ firstLeadTimeDate }}. It is not predicted to make landfall.",
