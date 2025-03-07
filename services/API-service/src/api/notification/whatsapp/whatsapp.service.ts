@@ -2,7 +2,6 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { format } from 'date-fns';
-import { AlertLevel } from 'src/api/event/enum/alert-level.enum';
 import { IsNull, Not, Repository } from 'typeorm';
 
 import { EXTERNAL_API } from '../../../config';
@@ -10,6 +9,7 @@ import { EventSummaryCountry } from '../../../shared/data.model';
 import { HelperService } from '../../../shared/helper.service';
 import { CountryEntity } from '../../country/country.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
+import { AlertLevel } from '../../event/enum/alert-level.enum';
 import { EventService } from '../../event/event.service';
 import { UserEntity } from '../../user/user.entity';
 import { LookupService } from '../lookup/lookup.service';
