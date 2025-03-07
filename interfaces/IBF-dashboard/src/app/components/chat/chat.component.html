@@ -184,9 +184,8 @@
         <form (submit)="submitEapAction(area.placeCode)">
           <ion-list class="background-light">
             @for (action of area.eapActions; track action) {
-              <ion-item class="ion-no-padding">
+              <ion-item class="ion-no-padding align-top">
                 <ion-checkbox
-                  mode="ios"
                   slot="start"
                   color="ibf-primary"
                   [checked]="action.checked"
