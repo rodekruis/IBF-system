@@ -18,7 +18,8 @@
             | translate
               : {
                   eventName: eventName,
-                  forecastSource: forecastSource?.label || 'Unknown',
+                  forecastSourceLabel: forecastSource?.label || 'Unknown',
+                  forecastSourceUrl: forecastSource?.url || '#',
                   adminAreaLabelPlural: adminAreaLabelPlural,
                 }
         "
