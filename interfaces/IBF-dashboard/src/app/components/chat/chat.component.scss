@@ -24,3 +24,21 @@ ion-checkbox {
 .align-top {
   align-items: flex-start;
 }
+
+.event-header {
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 0.875rem;
+
+  .event-header--icon-title {
+    align-self: center;
+    flex-grow: 3;
+  }
+}
+
+.alert-icon {
+  float: left;
+  margin-right: 5px;
+  margin-top: 3px;
+}

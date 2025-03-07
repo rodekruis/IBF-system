@@ -1,21 +1,19 @@
 @if (type === 'active') {
   <app-dialogue-turn
-    [isTriggered]="event.forecastTrigger"
-    [isNotTriggered]="!event.forecastTrigger"
     [isSelected]="eventBubbleIsSelected(event.eventName)"
-    [borderColor]="getCardColors().borderColor"
+    [borderColor]="cardColors.borderColor"
     [firstIssuedDate]="event.firstIssuedDate"
   >
     @if (event.forecastTrigger) {
       <div class="event-header">
         <span class="event-header--icon-title">
           <ion-icon
-            [style.color]="getCardColors().iconColor"
-            class="warning-icon"
+            [style.color]="cardColors.iconColor"
+            class="alert-icon"
             src="/assets/icons/Alert_Title.svg"
             slot="start"
           ></ion-icon>
-          <span [style.color]="getCardColors().headerTextColor" class="">
+          <span [style.color]="cardColors.headerTextColor" class="">
             {{ event.header }}
           </span>
         </span>
@@ -45,12 +43,12 @@
       <div class="event-header">
         <span class="event-header--icon-title">
           <ion-icon
-            [style.color]="getCardColors().iconColor"
-            class="warning-icon"
+            [style.color]="cardColors.iconColor"
+            class="alert-icon"
             src="/assets/icons/Alert_Title.svg"
             slot="start"
           ></ion-icon>
-          <span [style.color]="getCardColors().headerTextColor" class="">
+          <span [style.color]="cardColors.headerTextColor" class="">
             {{ event.header }}
           </span>
         </span>
