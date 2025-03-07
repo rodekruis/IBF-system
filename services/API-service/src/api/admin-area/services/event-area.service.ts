@@ -9,7 +9,10 @@ import {
 } from '../../../shared/data.model';
 import { GeoJson } from '../../../shared/geo.model';
 import { HelperService } from '../../../shared/helper.service';
-import { AdminAreaDynamicDataEntity } from '../../admin-area-dynamic-data/admin-area-dynamic-data.entity';
+import {
+  AdminAreaDynamicDataEntity,
+  Indicator,
+} from '../../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from '../../admin-area-dynamic-data/dto/admin-data-return.dto';
 import {
   ALERT_THRESHOLD,
@@ -21,6 +24,7 @@ import {
 import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
+import { AlertLevel } from '../../event/enum/alert-level.enum';
 import { EventService } from '../../event/event.service';
 import { EventAreaEntity } from '../event-area.entity';
 
@@ -108,6 +112,7 @@ export class EventAreaService {
         })
         .getRawOne();
       eventArea[disasterType.mainExposureIndicator] = aggregateValue.value;
+      eventArea['alertLevel'] = event.alertLevel;
       eventAreas.push(eventArea);
     }
 
@@ -126,6 +131,7 @@ export class EventAreaService {
       for await (const eventArea of allEventAreas) {
         eventArea['eventName'] = eventArea.eventAreaName;
         eventArea['placeCode'] = eventArea.eventAreaName;
+        eventArea['alertLevel'] = AlertLevel.NONE;
         eventArea[disasterType.mainExposureIndicator] = 0;
 
         eventAreas.push(eventArea);
@@ -163,69 +169,54 @@ export class EventAreaService {
     }
     return aggregateRecords;
   }
+
   public async getEventAreaDynamicData(
-    countryCodeISO3: string,
+    event: EventSummaryCountry,
     disasterType: DisasterType,
     indicator: DynamicIndicator,
     lastUploadDate: LastUploadDateDto,
-  ): Promise<AdminDataReturnDto[]> {
-    const events = await this.eventService.getEventSummary(
-      countryCodeISO3,
+  ): Promise<AdminDataReturnDto> {
+    const aggregateValues = await this.getEventAreaAggregatesPerIndicator(
       disasterType,
+      lastUploadDate,
+      event,
     );
 
-    const records = [];
-    for await (const event of events) {
-      const aggregateValues = await this.getEventAreaAggregatesPerIndicator(
-        disasterType,
-        lastUploadDate,
-        event,
-      );
-
-      const record = new AdminDataReturnDto();
-      record.placeCode = event.eventName;
-      record.value =
-        indicator === TRIGGER
-          ? this.getCalculatedFieldTriggerValue(aggregateValues)
-          : aggregateValues.find((ind) => ind.indicator === indicator).value;
-      records.push(record);
-    }
-    return records;
+    const adminData = new AdminDataReturnDto();
+    adminData.placeCode = event.eventName;
+    adminData.value = this.getIndicatorValue(indicator, aggregateValues, event);
+    return adminData;
   }
 
-  private getCalculatedFieldTriggerValue(
-    aggregateValues: { indicator: string; value: number }[],
+  private getIndicatorValue(
+    indicatorName: DynamicIndicator,
+    indicators: Indicator[],
+    event: EventSummaryCountry,
   ): number {
-    const forecastTrigger = aggregateValues.find(
-      (ind) => ind.indicator === DynamicIndicator.forecastTrigger,
-    );
-    // if 'forecast_trigger' available, use that ..
-    if (forecastTrigger) {
-      return forecastTrigger.value;
-    } else {
-      const forecastSeverity = aggregateValues.find(
-        (ind) => ind.indicator === DynamicIndicator.forecastSeverity,
+    // REFACTOR: the TRIGGER layer should not be necessary
+    if (indicatorName === TRIGGER) {
+      // return 'alert_threshold' if available otherwise return 1 or 0 based on alert level
+      const alertThreshold = indicators.find(
+        ({ indicator }) => indicator === ALERT_THRESHOLD,
       );
-      // .. if not, then check 'forecast_severity' as 'forecast_trigger' is optional. If found, then 'forecast_trigger' is assumed false ..
-      if (forecastSeverity) {
-        return 0;
+      if (alertThreshold) {
+        return alertThreshold.value;
       } else {
-        const alertThreshold = aggregateValues.find(
-          (ind) => ind.indicator === DynamicIndicator.alertThreshold,
-        );
-        // .. if also not found, then assume old style and look for alert_threshold
-        if (alertThreshold) {
-          return alertThreshold.value;
-        }
+        return Number(event.alertLevel === AlertLevel.TRIGGER);
       }
     }
+
+    const indicator = indicators.find(
+      ({ indicator }) => indicator === indicatorName,
+    );
+    return indicator.value;
   }
 
   private async getEventAreaAggregatesPerIndicator(
     disasterType: DisasterType,
     lastUploadDate: LastUploadDateDto,
     event: EventSummaryCountry,
-  ): Promise<{ indicator: string; value: number }[]> {
+  ): Promise<Indicator[]> {
     const whereFilters = {
       timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
       disasterType,

@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
+import { AlertLevel } from '../api/event/enum/alert-level.enum';
 import { Geometry } from './geo.model';
 
 export class AdminAreaRecord {
@@ -45,6 +46,9 @@ export class AlertArea {
 
   @ApiProperty({ example: false })
   public userTrigger: boolean;
+
+  @ApiProperty({ example: AlertLevel.NONE })
+  public alertLevel: AlertLevel;
 
   @ApiProperty({ example: new Date().toISOString() })
   public firstIssuedDate: string;
@@ -113,4 +117,7 @@ export class EventSummaryCountry {
 
   @ApiProperty({ example: 5 })
   public nrAlertAreas: number;
+
+  @ApiProperty({ example: AlertLevel.NONE })
+  public alertLevel: AlertLevel;
 }
