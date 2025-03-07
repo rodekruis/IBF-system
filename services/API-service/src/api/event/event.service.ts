@@ -1109,19 +1109,20 @@ export class EventService {
       endDate: LessThan(lastUploadDate.timestamp), // If the area was not prolonged earlier, then the endDate is not updated and is therefore less than the lastUploadDate
       adminArea: { countryCodeISO3 },
       disasterType,
+      userTrigger: false, // do not close event triggered by user
       closed: false,
     };
     const expiredEventAreas = await this.eventPlaceCodeRepo.find({ where });
 
     // Warning events are removed from this table after closing to clean up
     const belowThresholdEvents = expiredEventAreas.filter(
-      ({ forecastTrigger: forecastTrigger }) => !forecastTrigger,
+      ({ forecastTrigger }) => !forecastTrigger,
     );
     await this.eventPlaceCodeRepo.remove(belowThresholdEvents);
 
     //For the other ones update 'closed = true'
     const aboveThresholdEvents = expiredEventAreas.filter(
-      ({ forecastTrigger: forecastTrigger }) => forecastTrigger,
+      ({ forecastTrigger }) => forecastTrigger,
     );
     for (const area of aboveThresholdEvents) {
       area.closed = true;
