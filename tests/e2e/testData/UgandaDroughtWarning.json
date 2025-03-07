@@ -8,7 +8,7 @@
     "name": "drought",
     "label": "Drought"
   },
-  "scenario": "trigger",
+  "scenario": "warning",
   "user": {
     "email": "uganda@redcross.nl",
     "password": "password",
