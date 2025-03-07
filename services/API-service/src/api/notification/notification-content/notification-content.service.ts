@@ -166,7 +166,7 @@ export class NotificationContentService {
     data.triggerStatusLabel =
       event.alertLevel === AlertLevel.TRIGGER
         ? AlertStatusLabelEnum.Trigger
-        : AlertStatusLabelEnum.Warning;
+        : AlertStatusLabelEnum.Warning; // REFACTOR: alert level none is not handled
 
     data.eventName = await this.getFormattedEventName(event, disasterType);
     data.disasterSpecificProperties = event.disasterSpecificProperties;

@@ -88,7 +88,7 @@ export class WhatsappService {
       const alertState =
         activeEvents[0].alertLevel === AlertLevel.TRIGGER
           ? 'trigger'
-          : 'warning';
+          : 'warning'; // REFACTOR: alert level none is not handled
       const startTimeEvent =
         await this.notificationContentService.getFirstLeadTimeString(
           activeEvents[0],
@@ -346,7 +346,7 @@ export class WhatsappService {
     ).defaultAdminLevel;
 
     const alertState =
-      event.alertLevel === AlertLevel.TRIGGER ? 'trigger' : 'warning';
+      event.alertLevel === AlertLevel.TRIGGER ? 'trigger' : 'warning'; // REFACTOR: alert level none is not handled
 
     const alertAreas = await this.eventService.getAlertAreas(
       country.countryCodeISO3,
