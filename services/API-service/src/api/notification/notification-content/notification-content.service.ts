@@ -11,6 +11,7 @@ import { CountryEntity } from '../../country/country.entity';
 import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
+import { AlertLevel } from '../../event/enum/alert-level.enum';
 import { EventService } from '../../event/event.service';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../dto/admin-area-notification-info.dto';
@@ -217,12 +218,12 @@ export class NotificationContentService {
   }
 
   private sortEventsByLeadTimeAndAlertState(
-    arr: EventSummaryCountry[],
+    events: EventSummaryCountry[],
   ): EventSummaryCountry[] {
     const leadTimeValue = (leadTime: LeadTime): number =>
       Number(leadTime.split('-')[0]);
 
-    return arr.sort((a, b) => {
+    return events.sort((a, b) => {
       if (leadTimeValue(a.firstLeadTime) < leadTimeValue(b.firstLeadTime)) {
         return -1;
       }
@@ -230,12 +231,14 @@ export class NotificationContentService {
         return 1;
       }
 
-      // sort by forecastTrigger (true first)
-      if (a.forecastTrigger === b.forecastTrigger) {
-        return 0;
-      } else {
-        return a.forecastTrigger ? -1 : 1;
-      }
+      // order by alert level
+      // trigger, warning, warning-medium, warning-low, none
+      const alertLevelSortOrder = Object.values(AlertLevel).reverse();
+
+      return (
+        alertLevelSortOrder.indexOf(a.alertLevel) -
+        alertLevelSortOrder.indexOf(b.alertLevel)
+      );
     });
   }
 
