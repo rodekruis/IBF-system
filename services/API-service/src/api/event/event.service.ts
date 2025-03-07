@@ -347,12 +347,11 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    const alertPlaceCodes = activeAlertAreas.map(({ placeCode }) => placeCode);
 
     if (adminLevel > defaultAdminLevel) {
       // Use this to also return something on deeper levels than default (to show in chat-section)
       return this.getDeeperAlertAreas(
-        alertPlaceCodes,
+        activeAlertAreas,
         disasterType,
         lastUploadDate,
         eventName,
@@ -398,7 +397,7 @@ export class EventService {
 
     for (const eventPlaceCode of eventPlaceCodes) {
       eventPlaceCode.alertLevel = this.getAlertLevel(eventPlaceCode);
-      if (alertPlaceCodes.length === 0) {
+      if (activeAlertAreas.length === 0) {
         eventPlaceCode.eapActions = [];
       } else if (ALERT_LEVEL_WARNINGS.includes(eventPlaceCode.alertLevel)) {
         // Do not show actions for warning events/areas
@@ -418,7 +417,7 @@ export class EventService {
   }
 
   private async getDeeperAlertAreas(
-    alertPlaceCodes: string[],
+    alertAreas: AreaForecastDataDto[],
     disasterType: DisasterType,
     lastUploadDate: LastUploadDateDto,
     eventName?: string,
@@ -427,8 +426,10 @@ export class EventService {
     const mainExposureIndicator =
       await this.getMainExposureIndicator(disasterType);
 
+    const placeCodes = alertAreas.map(({ placeCode }) => placeCode);
+
     const whereFilters = {
-      placeCode: In(alertPlaceCodes),
+      placeCode: In(placeCodes),
       indicator: mainExposureIndicator,
       disasterType,
       timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),

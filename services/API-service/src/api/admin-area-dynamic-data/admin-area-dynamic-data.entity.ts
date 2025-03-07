@@ -12,6 +12,11 @@ import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DynamicIndicator } from './enum/dynamic-indicator.enum';
 import { LeadTime } from './enum/lead-time.enum';
 
+export interface Indicator {
+  indicator: DynamicIndicator;
+  value: number;
+}
+
 @Entity('admin-area-dynamic-data')
 export class AdminAreaDynamicDataEntity {
   @PrimaryGeneratedColumn('uuid')
