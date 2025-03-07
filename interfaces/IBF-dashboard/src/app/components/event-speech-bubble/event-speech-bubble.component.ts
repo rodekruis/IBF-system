@@ -1,7 +1,9 @@
 import { AfterViewChecked, Component, Input, OnDestroy } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { SetTriggerPopoverComponent } from 'src/app/components/set-trigger-popover/set-trigger-popover.component';
 import { DisasterType, ForecastSource } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
@@ -51,6 +53,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     private eventService: EventService,
     private adminLevelService: AdminLevelService,
     private translateService: TranslateService,
+    private popoverController: PopoverController,
   ) {}
 
   ngAfterViewChecked() {
@@ -205,5 +208,23 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       })`,
       borderColor: `var(--ion-color-${this.event.disasterSpecificProperties.eapAlertClass.color})`,
     };
+  }
+
+  public async openSetTriggerPopover(): Promise<void> {
+    const popover = await this.popoverController.create({
+      component: SetTriggerPopoverComponent,
+      animated: true,
+      cssClass: 'ibf-popover ibf-popover-normal',
+      translucent: true,
+      showBackdrop: true,
+      componentProps: {
+        forecastSource: this.forecastSource,
+        eventName: this.event.eventName.split('_')[0],
+        adminAreaLabelPlural: this.adminAreaLabelPlural,
+        areas: this.areas,
+      },
+    });
+
+    await popover.present();
   }
 }
