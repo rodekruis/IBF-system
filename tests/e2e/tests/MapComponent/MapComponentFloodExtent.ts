@@ -16,8 +16,12 @@ export default (
       throw new Error('pages and components not found');
     }
 
+    if (dataset.disasterType.name !== 'floods') {
+      return;
+    }
+
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType);
+    await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
     // Wait for the sharedPage to load
