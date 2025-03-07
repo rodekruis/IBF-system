@@ -21,7 +21,7 @@ export default (
     // Assertions
     await userState.headerComponentIsVisible(dataset);
     await timeline.validateTimelineIsInactive();
-    await timeline.validateTimelineDates();
+    await timeline.validateTimelineDates(dataset.timeline);
     await timeline.assertPurpleTimelineButtonElements();
   });
 };

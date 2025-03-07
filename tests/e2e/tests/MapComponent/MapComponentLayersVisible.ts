@@ -29,11 +29,11 @@ export default (
     await map.clickLayerMenu();
     await map.isLayerMenuOpen({ layerMenuOpen: true });
 
-    // Check if the active indicators are visible
-    const activeIndicators = dataset.indicators.filter(({ active }) => active);
+    // Check if the active mapLayers are visible
+    const activeMapLayers = dataset.mapLayers.filter(({ active }) => active);
 
-    for (const indicator of activeIndicators) {
-      await map.isLayerVisible(indicator);
+    for (const mapPLayer of activeMapLayers) {
+      await map.isLayerVisible(mapPLayer);
     }
   });
 };
