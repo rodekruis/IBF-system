@@ -16,13 +16,18 @@ export interface User {
   lastName: string;
 }
 
-export interface Indicator {
+export interface Layer {
   name: string;
   label: string;
   legendLabels: string[];
   active: boolean;
+  type: string; // 'raster' | 'admin-area' / 'point'
 }
 
+export interface Timeline {
+  dateFormat: string;
+  dateUnit: string; // 'days' | 'months' | 'hours'
+}
 export interface Dataset {
   country: Country;
   disasterType: DisasterType;
@@ -30,5 +35,6 @@ export interface Dataset {
   user: User;
   title: string;
   aggregateIndicators: string[];
-  indicators: Indicator[];
+  mapLayers: Layer[];
+  timeline: Timeline;
 }

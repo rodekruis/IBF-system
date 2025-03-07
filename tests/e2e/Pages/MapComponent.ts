@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
-import { Indicator } from 'testData/types';
+import { Layer } from 'testData/types';
 
 import AggregatesComponent from './AggregatesComponent';
 import DashboardPage from './DashboardPage';
@@ -147,7 +147,7 @@ class MapComponent extends DashboardPage {
     await this.adminBoundaries.first().click();
   }
 
-  async checkLayerCheckbox({ name }: Indicator) {
+  async checkLayerCheckbox({ name }: Layer) {
     // Remove Glofas station from the map (in case the mock is for floods)
     await this.waitForMapToBeLoaded();
 
@@ -313,7 +313,8 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  async isLayerVisible({ name }: Indicator) {
+  // REFACTOR: this method looks like it tests all active layers, but tests only glofas_stations
+  async isLayerVisible({ name }: Layer) {
     if (name === 'glofas_stations') {
       await this.glofasMarkersAreVisible();
     }

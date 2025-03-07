@@ -23,7 +23,7 @@
     "Population under 8",
     "Population over 65"
   ],
-  "indicators": [
+  "mapLayers": [
     {
       "name": "red_cross_branches",
       "label": "Red Cross branches",

@@ -9,6 +9,7 @@ import TimelineComponent from 'Pages/TimelineComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { Dataset } from 'testData/types';
 import UgandaDroughtNoTrigger from 'testData/UgandaDroughtNoTrigger.json';
+import UgandaDroughtTrigger from 'testData/UgandaDroughtTrigger.json';
 import UgandaFloodsNoTrigger from 'testData/UgandaFloodsNoTrigger.json';
 import UgandaFloodsTrigger from 'testData/UgandaFloodsTrigger.json';
 
@@ -59,6 +60,7 @@ test.describe('E2E Tests', () => {
     UgandaFloodsNoTrigger,
     UgandaFloodsTrigger,
     UgandaDroughtNoTrigger,
+    UgandaDroughtTrigger,
   ];
   datasets.forEach((dataset) => {
     const {

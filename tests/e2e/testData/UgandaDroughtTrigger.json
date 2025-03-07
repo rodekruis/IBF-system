@@ -8,7 +8,7 @@
     "name": "drought",
     "label": "Drought"
   },
-  "scenario": "no-trigger",
+  "scenario": "trigger",
   "user": {
     "email": "uganda@redcross.nl",
     "password": "password",
@@ -23,13 +23,6 @@
       "label": "Red Cross branches",
       "legendLabels": ["Red Cross branches"],
       "active": false
-    },
-    {
-      "name": "population_affected",
-      "label": "Exposed population",
-      "legendLabels": ["Exposed population"],
-      "active": true,
-      "type": "admin-area"
     }
   ],
   "timeline": {
