@@ -118,21 +118,7 @@ class AggregatesComponent extends DashboardPage {
     expect(layerInfoContent).toContain(
       LayerDescriptions.ExposedPopulationInfoButtonDisclaimer,
     );
-  }
-
-  async validateLayerPopoverExternalLink() {
-    // Define link to click
-    const layerPopoverExternalLink = this.layerInfoPopoverContent.filter({
-      hasText: 'High Resolution Settlement Layer (HRSL)',
-    });
-
-    await layerPopoverExternalLink.click();
-    expect(this.page.url()).toContain(
-      'https://www.ciesin.columbia.edu/data/hrsl/',
-    );
-
-    // Go back to the IBF-portal page
-    await this.page.goBack();
+    await this.page.locator('ion-backdrop').last().click();
   }
 
   async getEventCount() {

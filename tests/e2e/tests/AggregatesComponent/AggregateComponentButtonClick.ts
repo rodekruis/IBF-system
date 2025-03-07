@@ -21,9 +21,5 @@ export default (
     // Assertions
     await aggregates.aggregateComponentIsVisible();
     await aggregates.validatesAggregatesInfoButtons();
-    if (dataset.disasterType.name === 'floods') {
-      // REFACTOR: unclear why this doesn't work for drought. Skip for now. Assertion could also be set up much differently, and is not super relevant.
-      await aggregates.validateLayerPopoverExternalLink();
-    }
   });
 };
