@@ -163,9 +163,10 @@ export class NotificationContentService {
     disasterType: DisasterType,
   ): Promise<NotificationDataPerEventDto> {
     const data = new NotificationDataPerEventDto();
-    data.triggerStatusLabel = event.forecastTrigger
-      ? AlertStatusLabelEnum.Trigger
-      : AlertStatusLabelEnum.Warning;
+    data.triggerStatusLabel =
+      event.alertLevel === AlertLevel.TRIGGER
+        ? AlertStatusLabelEnum.Trigger
+        : AlertStatusLabelEnum.Warning;
 
     data.eventName = await this.getFormattedEventName(event, disasterType);
     data.disasterSpecificProperties = event.disasterSpecificProperties;
@@ -211,10 +212,22 @@ export class NotificationContentService {
       defaultAdminLevel,
       event.eventName,
     );
-    alertAreas.sort((a, b) =>
-      a.forecastSeverity > b.forecastSeverity ? -1 : 1,
+
+    return alertAreas.sort(this.sortByAlertLevel);
+  }
+
+  private sortByAlertLevel(
+    a: { alertLevel: AlertLevel },
+    b: { alertLevel: AlertLevel },
+  ): number {
+    // sort by alert level
+    // trigger, warning, warning-medium, warning-low, none
+    const alertLevelSortOrder = Object.values(AlertLevel).reverse();
+
+    return (
+      alertLevelSortOrder.indexOf(a.alertLevel) -
+      alertLevelSortOrder.indexOf(b.alertLevel)
     );
-    return alertAreas;
   }
 
   private sortEventsByLeadTimeAndAlertState(
@@ -231,14 +244,7 @@ export class NotificationContentService {
         return 1;
       }
 
-      // order by alert level
-      // trigger, warning, warning-medium, warning-low, none
-      const alertLevelSortOrder = Object.values(AlertLevel).reverse();
-
-      return (
-        alertLevelSortOrder.indexOf(a.alertLevel) -
-        alertLevelSortOrder.indexOf(b.alertLevel)
-      );
+      return this.sortByAlertLevel(a, b);
     });
   }
 

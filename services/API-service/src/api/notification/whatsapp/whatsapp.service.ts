@@ -2,6 +2,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { format } from 'date-fns';
+import { AlertLevel } from 'src/api/event/enum/alert-level.enum';
 import { IsNull, Not, Repository } from 'typeorm';
 
 import { EXTERNAL_API } from '../../../config';
@@ -84,9 +85,10 @@ export class WhatsappService {
         country.notificationInfo.whatsappMessage[disasterType][
           'initial-single-event'
         ];
-      const alertState = activeEvents[0].forecastTrigger
-        ? 'trigger'
-        : 'warning';
+      const alertState =
+        activeEvents[0].alertLevel === AlertLevel.TRIGGER
+          ? 'trigger'
+          : 'warning';
       const startTimeEvent =
         await this.notificationContentService.getFirstLeadTimeString(
           activeEvents[0],
@@ -343,7 +345,8 @@ export class WhatsappService {
       (s) => s.disasterType === disasterType,
     ).defaultAdminLevel;
 
-    const alertState = event.forecastTrigger ? 'trigger' : 'warning';
+    const alertState =
+      event.alertLevel === AlertLevel.TRIGGER ? 'trigger' : 'warning';
 
     const alertAreas = await this.eventService.getAlertAreas(
       country.countryCodeISO3,
