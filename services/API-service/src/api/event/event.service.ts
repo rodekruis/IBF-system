@@ -566,24 +566,22 @@ export class EventService {
       eventName,
     );
     let firstKey = null;
-    if (timesteps) {
-      Object.keys(timesteps)
-        .filter((key) => Object.values(LeadTime).includes(key as LeadTime))
-        .sort((a, b) =>
-          Number(a.split('-')[0]) > Number(b.split('-')[0]) ? 1 : -1,
-        )
-        .forEach((key) => {
-          if (triggeredLeadTime) {
-            if (timesteps[`${key}-forecastTrigger`] === '1') {
-              firstKey = !firstKey ? key : firstKey;
-            }
-          } else {
-            if (timesteps[key] === '1') {
-              firstKey = !firstKey ? key : firstKey;
-            }
+    Object.keys(timesteps)
+      .filter((key) => Object.values(LeadTime).includes(key as LeadTime))
+      .sort((a, b) =>
+        Number(a.split('-')[0]) > Number(b.split('-')[0]) ? 1 : -1,
+      )
+      .forEach((key) => {
+        if (triggeredLeadTime) {
+          if (timesteps[`${key}-forecastTrigger`] === '1') {
+            firstKey = !firstKey ? key : firstKey;
           }
-        });
-    }
+        } else {
+          if (timesteps[key] === '1') {
+            firstKey = !firstKey ? key : firstKey;
+          }
+        }
+      });
     return firstKey;
   }
 
@@ -621,7 +619,7 @@ export class EventService {
       .getRawMany();
 
     if (alertsPerLeadTime.length === 0) {
-      return;
+      return {};
     }
     const result = {
       date: alertsPerLeadTime[0].date,
