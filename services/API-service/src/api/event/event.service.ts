@@ -33,7 +33,6 @@ import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
-import { UserEntity } from '../user/user.entity';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AlertPerLeadTimeEntity } from './alert-per-lead-time.entity';
@@ -62,8 +61,6 @@ export class EventService {
   private readonly alertPerLeadTimeRepository: Repository<AlertPerLeadTimeEntity>;
   @InjectRepository(DisasterTypeEntity)
   private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
-  @InjectRepository(UserEntity)
-  private readonly userRepository: Repository<UserEntity>;
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
 
@@ -473,7 +470,7 @@ export class EventService {
         'area."adminLevel" AS "adminLevel"',
         'dynamic.value AS value',
         'COALESCE("parentEvent"."firstIssuedDate","grandparentEvent"."firstIssuedDate") AS "firstIssuedDate"',
-        'COALESCE(parentEvent.userTrigger,"grandparentEvent".userTrigger) AS userTrigger',
+        'COALESCE("parentEvent"."userTrigger","grandparentEvent"."userTrigger") AS "userTrigger"',
         'COALESCE("parentEvent"."userTriggerDate","grandparentEvent"."userTriggerDate") AS "userTriggerDate"',
         'COALESCE("parentUser"."firstName","grandparentUser"."firstName") || \' \' || COALESCE("parentUser"."lastName","grandparentUser"."lastName") AS "displayName"',
       ])
