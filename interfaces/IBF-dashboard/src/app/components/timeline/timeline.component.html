@@ -12,16 +12,16 @@
   ) {
     <ion-button
       expand="full"
-      disabled="true"
       color="{{
-        timeStepButton.forecastTrigger
-          ? 'ibf-trigger-alert-secondary'
+        timeStepButton.forecastAlert
+          ? 'ibf-trigger-alert-tertiary'
           : 'ibf-no-alert-tertiary'
       }}"
       fill="solid"
       data-testid="timeline-button"
       [class.active]="timeStepButton.active"
-      [class.alert]="timeStepButton.forecastTrigger"
+      [class.alert]="timeStepButton.forecastAlert"
+      class="read-only-button"
     >
       <app-date-button
         [date]="timeStepButton.date"
