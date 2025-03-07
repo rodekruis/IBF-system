@@ -4,13 +4,7 @@
   data-test="chat"
   class="dialogue-turn ion-align-items-start"
   [ngClass]="{
-    'is-pending': animate && !isSpoken,
-    'is-spoken': animate && isSpoken,
-    'is-warn': isWarn,
-    'is-triggered': isTriggered,
-    'is-not-triggered': isNotTriggered,
-    'is-selected': isSelected,
-    'is-opening-bubble': isOpeningBubble,
+    'is-late': isLate,
   }"
 >
   <div class="dialogue-turn--content">
