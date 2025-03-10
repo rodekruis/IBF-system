@@ -961,7 +961,7 @@ export class MapService {
         weight: 5,
       };
     }
-    if (!area.forecastTrigger || !this.eventState?.event?.forecastTrigger) {
+    if (!area.forecastTrigger) {
       return {
         color: this.nonTriggeredAreaColor,
         weight: 5,
