@@ -168,7 +168,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     const popover = await this.popoverController.create({
       component: SetTriggerPopoverComponent,
       animated: true,
-      cssClass: 'ibf-popover ibf-popover-normal',
+      cssClass: 'ibf-popover ibf-popover-large',
       translucent: true,
       showBackdrop: true,
       componentProps: {
@@ -176,6 +176,8 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
         eventName: this.event.eventName.split('_')[0],
         adminAreaLabelPlural: this.adminAreaLabelPlural,
         areas: this.areas,
+        mainExposureIndicatorNumberFormat:
+          this.mainExposureIndicatorNumberFormat,
       },
     });
 
