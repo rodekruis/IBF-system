@@ -29,7 +29,6 @@
         @for (disasterType of allDisasterTypes; track disasterType) {
           <span data-test="disaster-Type" class="container">
             <ion-icon
-              class="ibf"
               [src]="getIconByCountry(disasterType)"
               slot="start"
               class="disaster-type-icon"
