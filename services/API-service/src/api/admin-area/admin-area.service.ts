@@ -13,6 +13,7 @@ import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { EventService } from '../event/event.service';
 import { AdminAreaEntity } from './admin-area.entity';
 import { EventAreaService } from './services/event-area.service';
@@ -304,6 +305,12 @@ export class AdminAreaService {
         'ST_AsGeoJSON(area.geom)::json As geom',
         'area."countryCodeISO3"',
       ])
+      .leftJoin(EventPlaceCodeEntity, 'epc', 'area.id = epc.adminAreaId')
+      .addSelect([
+        'epc."forecastSeverity"',
+        'epc."forecastTrigger"',
+        'epc."userTrigger"',
+      ])
       .where('area."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
       .andWhere('area."adminLevel" = :adminLevel', { adminLevel });
     if (placeCodeParent) {
@@ -334,7 +341,7 @@ export class AdminAreaService {
       .andWhere('timestamp >= :cutoffMoment', {
         cutoffMoment: lastUploadDate.cutoffMoment,
       })
-      .andWhere('"disasterType" = :disasterType', { disasterType })
+      .andWhere('dynamic.disasterType = :disasterType', { disasterType })
       .andWhere('dynamic."indicator" = :indicator', {
         indicator: disasterTypeEntity.mainExposureIndicator,
       })
@@ -366,6 +373,9 @@ export class AdminAreaService {
     }
 
     const adminAreas = await adminAreasScript.getRawMany();
+    adminAreas.forEach((area) => {
+      area.alertLevel = this.eventService.getAlertLevel(area);
+    });
     return this.helperService.toGeojson(adminAreas);
   }
 

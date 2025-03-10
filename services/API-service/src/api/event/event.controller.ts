@@ -16,6 +16,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { UpdateResult } from 'typeorm';
+
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AlertArea, EventSummaryCountry } from '../../shared/data.model';
@@ -174,8 +176,8 @@ export class EventController {
   public async setTrigger(
     @UserDecorator('userId') userId: string,
     @Body() eventPlaceCodesDto: EventPlaceCodesDto,
-  ): Promise<void> {
-    await this.eventService.setTrigger(userId, eventPlaceCodesDto);
+  ): Promise<UpdateResult> {
+    return await this.eventService.setTrigger(userId, eventPlaceCodesDto);
   }
 
   // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-lead-time

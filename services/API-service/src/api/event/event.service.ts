@@ -33,7 +33,6 @@ import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
-import { UserEntity } from '../user/user.entity';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AlertPerLeadTimeEntity } from './alert-per-lead-time.entity';
@@ -47,6 +46,7 @@ import {
   UploadAlertsPerLeadTimeDto,
   UploadTriggerPerLeadTimeDto,
 } from './dto/upload-alerts-per-lead-time.dto';
+import { ALERT_LEVEL_WARNINGS, AlertLevel } from './enum/alert-level.enum';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 
 @Injectable()
@@ -61,8 +61,6 @@ export class EventService {
   private readonly alertPerLeadTimeRepository: Repository<AlertPerLeadTimeEntity>;
   @InjectRepository(DisasterTypeEntity)
   private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
-  @InjectRepository(UserEntity)
-  private readonly userRepository: Repository<UserEntity>;
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
 
@@ -152,6 +150,7 @@ export class EventService {
         event.eventName,
         true,
       );
+      event.alertLevel = this.getAlertLevel(event);
       if (disasterType === DisasterType.Typhoon) {
         event.disasterSpecificProperties =
           await this.typhoonTrackService.getTyphoonSpecificProperties(
@@ -162,13 +161,25 @@ export class EventService {
         event.disasterSpecificProperties = {};
       }
       event.disasterSpecificProperties.eapAlertClass =
-        await this.getEventEapAlertClass(
-          disasterSettings,
-          event.forecastSeverity,
-          event.forecastTrigger,
-        );
+        await this.getEventEapAlertClass(disasterSettings, event.alertLevel);
     }
     return rawEvents;
+  }
+
+  public getAlertLevel(event: EventSummaryCountry): AlertLevel {
+    if (event.userTrigger || event.forecastTrigger) {
+      return AlertLevel.TRIGGER;
+    }
+
+    if (event.forecastSeverity > 0.7) {
+      return AlertLevel.WARNING;
+    } else if (event.forecastSeverity > 0.3) {
+      return AlertLevel.WARNINGMEDIUM;
+    } else if (event.forecastSeverity > 0) {
+      return AlertLevel.WARNINGLOW;
+    }
+
+    return AlertLevel.NONE;
   }
 
   private createEventSummaryQueryBuilder(
@@ -333,12 +344,11 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    const alertPlaceCodes = activeAlertAreas.map(({ placeCode }) => placeCode);
 
     if (adminLevel > defaultAdminLevel) {
       // Use this to also return something on deeper levels than default (to show in chat-section)
       return this.getDeeperAlertAreas(
-        alertPlaceCodes,
+        activeAlertAreas,
         disasterType,
         lastUploadDate,
         eventName,
@@ -355,7 +365,7 @@ export class EventService {
       whereFiltersEvent['eventName'] = eventName;
     }
 
-    const alertAreas = await this.eventPlaceCodeRepo
+    const eventPlaceCodes = await this.eventPlaceCodeRepo
       .createQueryBuilder('event')
       .select([
         'area."placeCode" AS "placeCode"',
@@ -382,27 +392,29 @@ export class EventService {
       .orderBy('event."mainExposureValue"', 'DESC')
       .getRawMany();
 
-    for (const area of alertAreas) {
-      if (alertPlaceCodes.length === 0) {
-        area.eapActions = [];
-      } else if (!area.forecastTrigger) {
+    for (const eventPlaceCode of eventPlaceCodes) {
+      eventPlaceCode.alertLevel = this.getAlertLevel(eventPlaceCode);
+      if (activeAlertAreas.length === 0) {
+        eventPlaceCode.eapActions = [];
+      } else if (ALERT_LEVEL_WARNINGS.includes(eventPlaceCode.alertLevel)) {
         // Do not show actions for warning events/areas
-        area.eapActions = [];
+        eventPlaceCode.eapActions = [];
       } else {
-        area.eapActions = await this.eapActionsService.getActionsWithStatus(
-          countryCodeISO3,
-          disasterType,
-          area.placeCode,
-          eventName,
-        );
+        eventPlaceCode.eapActions =
+          await this.eapActionsService.getActionsWithStatus(
+            countryCodeISO3,
+            disasterType,
+            eventPlaceCode.placeCode,
+            eventName,
+          );
       }
     }
 
-    return alertAreas;
+    return eventPlaceCodes;
   }
 
   private async getDeeperAlertAreas(
-    alertPlaceCodes: string[],
+    alertAreas: AreaForecastDataDto[],
     disasterType: DisasterType,
     lastUploadDate: LastUploadDateDto,
     eventName?: string,
@@ -411,8 +423,10 @@ export class EventService {
     const mainExposureIndicator =
       await this.getMainExposureIndicator(disasterType);
 
+    const placeCodes = alertAreas.map(({ placeCode }) => placeCode);
+
     const whereFilters = {
-      placeCode: In(alertPlaceCodes),
+      placeCode: In(placeCodes),
       indicator: mainExposureIndicator,
       disasterType,
       timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
@@ -454,7 +468,7 @@ export class EventService {
         'area."adminLevel" AS "adminLevel"',
         'dynamic.value AS value',
         'COALESCE("parentEvent"."firstIssuedDate","grandparentEvent"."firstIssuedDate") AS "firstIssuedDate"',
-        'COALESCE(parentEvent.userTrigger,"grandparentEvent".userTrigger) AS userTrigger',
+        'COALESCE("parentEvent"."userTrigger","grandparentEvent"."userTrigger") AS "userTrigger"',
         'COALESCE("parentEvent"."userTriggerDate","grandparentEvent"."userTriggerDate") AS "userTriggerDate"',
         'COALESCE("parentUser"."firstName","grandparentUser"."firstName") || \' \' || COALESCE("parentUser"."lastName","grandparentUser"."lastName") AS "displayName"',
       ])
@@ -471,6 +485,7 @@ export class EventService {
       userTriggerDate: area.userTriggerDate,
       displayName: area.displayName,
       eapActions: [],
+      alertLevel: this.getAlertLevel(area),
     }));
   }
 
@@ -492,12 +507,13 @@ export class EventService {
         'disaster."mainExposureIndicator" as "exposureIndicator"',
         'event."mainExposureValue" as "exposureValue"',
         `CASE
-        WHEN event."userTrigger" = true THEN 'Trigger'
-        WHEN event."forecastTrigger" = true THEN 'Trigger'
-        WHEN event."forecastSeverity" = 1 THEN 'Warning'
-        WHEN event."forecastSeverity" = 0.7 THEN 'Medium warning'
-        WHEN event."forecastSeverity" = 0.3 THEN 'Low warning'
-        END as "alertClass"`,
+        WHEN event."userTrigger" = true THEN 'trigger'
+        WHEN event."forecastTrigger" = true THEN 'trigger'
+        WHEN event."forecastSeverity" > 0.7 THEN 'warning'
+        WHEN event."forecastSeverity" > 0.3 THEN 'warning-medium'
+        WHEN event."forecastSeverity" > 0 THEN 'warning-low'
+        END as "alertLevel"`,
+        'event."userTrigger" as "userTrigger"',
         'event."userTrigger" as "userTrigger"',
         'event."userTriggerDate" as "userTriggerDate"',
         'event."eventPlaceCodeId" as "databaseId"',
@@ -540,24 +556,22 @@ export class EventService {
       eventName,
     );
     let firstKey = null;
-    if (timesteps) {
-      Object.keys(timesteps)
-        .filter((key) => Object.values(LeadTime).includes(key as LeadTime))
-        .sort((a, b) =>
-          Number(a.split('-')[0]) > Number(b.split('-')[0]) ? 1 : -1,
-        )
-        .forEach((key) => {
-          if (triggeredLeadTime) {
-            if (timesteps[`${key}-forecastTrigger`] === '1') {
-              firstKey = !firstKey ? key : firstKey;
-            }
-          } else {
-            if (timesteps[key] === '1') {
-              firstKey = !firstKey ? key : firstKey;
-            }
+    Object.keys(timesteps)
+      .filter((key) => Object.values(LeadTime).includes(key as LeadTime))
+      .sort((a, b) =>
+        Number(a.split('-')[0]) > Number(b.split('-')[0]) ? 1 : -1,
+      )
+      .forEach((key) => {
+        if (triggeredLeadTime) {
+          if (timesteps[`${key}-forecastTrigger`] === '1') {
+            firstKey = !firstKey ? key : firstKey;
           }
-        });
-    }
+        } else {
+          if (timesteps[key] === '1') {
+            firstKey = !firstKey ? key : firstKey;
+          }
+        }
+      });
     return firstKey;
   }
 
@@ -595,7 +609,7 @@ export class EventService {
       .getRawMany();
 
     if (alertsPerLeadTime.length === 0) {
-      return;
+      return {};
     }
     const result = {
       date: alertsPerLeadTime[0].date,
@@ -1089,13 +1103,13 @@ export class EventService {
 
     // Warning events are removed from this table after closing to clean up
     const belowThresholdEvents = expiredEventAreas.filter(
-      ({ forecastTrigger: forecastTrigger }) => !forecastTrigger,
+      ({ forecastTrigger }) => !forecastTrigger,
     );
     await this.eventPlaceCodeRepo.remove(belowThresholdEvents);
 
     //For the other ones update 'closed = true'
     const aboveThresholdEvents = expiredEventAreas.filter(
-      ({ forecastTrigger: forecastTrigger }) => forecastTrigger,
+      ({ forecastTrigger }) => forecastTrigger,
     );
     for (const area of aboveThresholdEvents) {
       area.closed = true;
@@ -1106,29 +1120,35 @@ export class EventService {
   // REFACTOR: this can be set up much better
   private async getEventEapAlertClass(
     disasterSettings: CountryDisasterSettingsEntity,
-    eventForecastSeverity: number,
-    eventForecastTrigger: boolean,
+    alertLevel: AlertLevel,
   ): Promise<EapAlertClass> {
     if (disasterSettings.disasterType === DisasterType.Floods) {
+      const alertLevelToEAPAlertClass = {
+        [AlertLevel.TRIGGER]: EapAlertClassKeyEnum.max,
+        [AlertLevel.WARNING]: EapAlertClassKeyEnum.med,
+        [AlertLevel.WARNINGMEDIUM]: EapAlertClassKeyEnum.med,
+        [AlertLevel.WARNINGLOW]: EapAlertClassKeyEnum.min,
+        [AlertLevel.NONE]: EapAlertClassKeyEnum.no,
+      };
       const eapAlertClasses = JSON.parse(
         JSON.stringify(disasterSettings.eapAlertClasses),
       );
       const alertClassKey = Object.keys(eapAlertClasses).find(
-        (key) => eapAlertClasses[key].value === eventForecastSeverity,
+        (key) => key === alertLevelToEAPAlertClass[alertLevel],
       );
       return {
         key: alertClassKey,
         ...eapAlertClasses[alertClassKey],
       };
     } else {
-      if (eventForecastTrigger) {
+      if (alertLevel === AlertLevel.TRIGGER) {
         return {
           key: EapAlertClassKeyEnum.max,
           label: 'Trigger',
           color: 'ibf-glofas-trigger',
           value: 1,
         };
-      } else if (eventForecastSeverity > 0) {
+      } else if (ALERT_LEVEL_WARNINGS.includes(alertLevel)) {
         return {
           key: EapAlertClassKeyEnum.med,
           label: 'Warning',

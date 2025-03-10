@@ -9,6 +9,7 @@ import { EventSummaryCountry } from '../../../shared/data.model';
 import { HelperService } from '../../../shared/helper.service';
 import { CountryEntity } from '../../country/country.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
+import { AlertLevel } from '../../event/enum/alert-level.enum';
 import { EventService } from '../../event/event.service';
 import { UserEntity } from '../../user/user.entity';
 import { LookupService } from '../lookup/lookup.service';
@@ -84,9 +85,10 @@ export class WhatsappService {
         country.notificationInfo.whatsappMessage[disasterType][
           'initial-single-event'
         ];
-      const alertState = activeEvents[0].forecastTrigger
-        ? 'trigger'
-        : 'warning';
+      const alertState =
+        activeEvents[0].alertLevel === AlertLevel.TRIGGER
+          ? 'trigger'
+          : 'warning'; // REFACTOR: alert level none is not handled
       const startTimeEvent =
         await this.notificationContentService.getFirstLeadTimeString(
           activeEvents[0],
@@ -343,7 +345,8 @@ export class WhatsappService {
       (s) => s.disasterType === disasterType,
     ).defaultAdminLevel;
 
-    const alertState = event.forecastTrigger ? 'trigger' : 'warning';
+    const alertState =
+      event.alertLevel === AlertLevel.TRIGGER ? 'trigger' : 'warning'; // REFACTOR: alert level none is not handled
 
     const alertAreas = await this.eventService.getAlertAreas(
       country.countryCodeISO3,
