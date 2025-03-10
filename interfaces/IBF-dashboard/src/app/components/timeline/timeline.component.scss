@@ -8,30 +8,22 @@ ion-button {
   height: 100% !important;
   text-align: left;
   --box-shadow: none;
-  --margin-inline-end: 0px !important;
 
   &.active {
+    background: var(--ion-color-ibf-trigger-alert-primary);
     border: 1px solid var(--ion-color-ibf-trigger-alert-primary);
     --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
 
   &.alert {
+    background: var(--ion-color-ibf-trigger-alert-tertiary);
     border: 1px solid var(--ion-color-ibf-trigger-alert-tertiary);
     --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
 
   &.alert.active {
+    background: var(--ion-color-ibf-trigger-alert-primary);
     border: 1px solid var(--ion-color-ibf-trigger-alert-primary);
     --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
-}
-
-.read-only-button {
-  pointer-events: none;
-  cursor: default;
-}
-
-.read-only-button:hover {
-  background-color: inherit;
-  color: inherit;
 }
