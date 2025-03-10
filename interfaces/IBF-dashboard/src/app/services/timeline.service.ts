@@ -250,14 +250,18 @@ export class TimelineService {
           `${String(Number(startLeadTimeToUse.split('-')[0]) + i)}-${
             event.firstLeadTime.split('-')[1]
           }` as LeadTime;
+
         if (!visibleLeadTimes.map((lt) => lt.leadTime).includes(leadTime)) {
-          visibleLeadTimes.push({
-            leadTime,
-            eventNames: [event.eventName],
-            forecastAlert: true,
-            forecastTrigger: event.forecastTrigger,
-            undefinedLeadTime: false,
-          });
+          if (leadTime.includes(this.disasterType.leadTimeUnit)) {
+            // insert lead time only if it is of the same unit as the disaster type
+            visibleLeadTimes.push({
+              leadTime,
+              eventNames: [event.eventName],
+              forecastAlert: true,
+              forecastTrigger: event.forecastTrigger,
+              undefinedLeadTime: false,
+            });
+          }
         } else {
           const leadTimeButton = visibleLeadTimes.find(
             (lt) => lt.leadTime === leadTime,

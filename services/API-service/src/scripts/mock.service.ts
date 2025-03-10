@@ -84,17 +84,6 @@ export class MockService {
     useDefaultScenario: boolean,
     noNotifications: boolean,
   ) {
-    if (removeEvents) {
-      await this.removeEvents(countryCodeISO3, disasterType);
-    }
-    date = date || new Date();
-
-    const selectedCountry = countries.find((country) => {
-      if (countryCodeISO3 === country.countryCodeISO3) {
-        return country;
-      }
-    }) as Country;
-
     const scenario = await this.getScenario(
       disasterType,
       countryCodeISO3,
@@ -107,6 +96,17 @@ export class MockService {
       );
       return;
     }
+
+    if (removeEvents) {
+      await this.removeEvents(countryCodeISO3, disasterType);
+    }
+    date = date || new Date();
+
+    const selectedCountry = countries.find((country) => {
+      if (countryCodeISO3 === country.countryCodeISO3) {
+        return country;
+      }
+    }) as Country;
 
     const disasterSettings: CountryDisasterSettingsDto[] | undefined =
       selectedCountry.countryDisasterSettings;

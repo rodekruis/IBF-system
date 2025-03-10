@@ -10,20 +10,20 @@ ion-button {
   --box-shadow: none;
 
   &.active {
-    font-weight: bold;
-    border: 2px solid var(--ion-color-ibf-primary);
-    border-width: 2px;
+    background: var(--ion-color-ibf-trigger-alert-primary);
+    border: 1px solid var(--ion-color-ibf-trigger-alert-primary);
+    --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
 
   &.alert {
-    border: 1px solid var(--ion-color-ibf-outline-red) !important;
-    border-width: 2px;
+    background: var(--ion-color-ibf-trigger-alert-tertiary);
+    border: 1px solid var(--ion-color-ibf-trigger-alert-tertiary);
     --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
 
   &.alert.active {
-    border: 2px solid var(--ion-color-ibf-outline-red) !important;
-    border-width: 2px;
+    background: var(--ion-color-ibf-trigger-alert-primary);
+    border: 1px solid var(--ion-color-ibf-trigger-alert-primary);
     --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
 }
