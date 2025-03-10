@@ -1,3 +1,12 @@
+## [0.294.1](https://github.com/rodekruis/IBF-system/compare/v0.294.0...v0.294.1) (2025-03-10)
+
+
+### Bug Fixes
+
+* rm leadtime filter on deleteDuplicates in alerts-per-lead-time AB[#34304](https://github.com/rodekruis/IBF-system/issues/34304) ([75f1070](https://github.com/rodekruis/IBF-system/commit/75f10701ac303ff6b89e879f7ddea2a2d599065a))
+
+
+
 # [0.294.0](https://github.com/rodekruis/IBF-system/compare/v0.293.1...v0.294.0) (2025-03-10)
 
 
@@ -103,16 +112,6 @@
 ### Features
 
 * replace monthly-forecast-info by forecastSource and align with design ([c7aae3f](https://github.com/rodekruis/IBF-system/commit/c7aae3f5bfd7b921d456329c479393817872e3b1))
-
-
-
-## [0.288.1](https://github.com/rodekruis/IBF-system/compare/v0.288.0...v0.288.1) (2025-02-28)
-
-
-### Bug Fixes
-
-* process alert_threshold rename via migration AB[#33405](https://github.com/rodekruis/IBF-system/issues/33405) ([b57c53f](https://github.com/rodekruis/IBF-system/commit/b57c53fa5682b53a52278883053b5d001a6351c5))
-* process uncovered datamodel changes AB[#33405](https://github.com/rodekruis/IBF-system/issues/33405) ([ccf6110](https://github.com/rodekruis/IBF-system/commit/ccf611065bd91d4bd703133bf392d9c2f91b48f3))
 
 
 
