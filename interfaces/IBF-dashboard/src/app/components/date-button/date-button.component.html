@@ -15,8 +15,12 @@
 </span>
 @if (forecastAlert) {
   <ion-icon
-    class="alert-icon"
-    src="/assets/icons/Alert_Title_Purple.svg"
+    class="warning-icon"
+    [src]="
+      forecastTrigger
+        ? '/assets/icons/Alert_Title_Purple.svg'
+        : '/assets/icons/Alert_Title_Purple_Clear.svg'
+    "
     slot="end"
   ></ion-icon>
 }
