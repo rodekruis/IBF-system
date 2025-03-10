@@ -29,6 +29,8 @@ class ChatComponent extends DashboardPage {
   readonly linuxOsLink: Locator;
   readonly tooltipButton: Locator;
   readonly backDrop: Locator;
+  readonly eapList: Locator;
+  readonly districtChatEapListTitle: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -53,6 +55,8 @@ class ChatComponent extends DashboardPage {
     this.linuxOsLink = this.page.getByTestId('export-view-linux-os');
     this.tooltipButton = this.page.getByTestId('tooltip-button');
     this.backDrop = page.locator('ion-backdrop').nth(2);
+    this.eapList = this.page.getByRole('list');
+    this.districtChatEapListTitle = this.page.locator('app-chat ion-col');
   }
 
   async chatColumnIsVisibleForNoTriggerState({
@@ -213,6 +217,58 @@ class ChatComponent extends DashboardPage {
       await this.validatePopOverText({ text: eventTooltipContent });
       await this.backDrop.click();
     }
+  }
+
+  async clickTriggerShowPredictionButton() {
+    const triggerChatDialogue = this.page
+      .getByTestId('dialogue-turn-content')
+      .filter({ hasText: 'Trigger issued' })
+      .getByTestId('event-switch-button');
+    await triggerChatDialogue.click();
+  }
+
+  async validateEapList() {
+    // wait for the list to be fully loaded
+    await this.page.waitForTimeout(200);
+
+    const eapListWash = this.eapList.getByLabel('WASH').getByText('WASH');
+    const eapListShelter = this.eapList
+      .getByLabel('Shelter')
+      .getByText('Shelter');
+    const eapListLivelihoods = this.eapList
+      .getByLabel('Livelihoods & Basic Needs')
+      .getByText('Livelihoods & Basic Needs');
+
+    const countWashList = await eapListWash.count();
+    const countShelterList = await eapListShelter.count();
+    const countLivelihoodsList = await eapListLivelihoods.count();
+
+    expect(countWashList).toBe(4);
+    expect(countShelterList).toBe(7);
+    expect(countLivelihoodsList).toBe(1);
+  }
+
+  async validateChatTitleAndBreadcrumbs({
+    district,
+    mainExposureUnit,
+  }: {
+    district: string;
+    mainExposureUnit: string;
+  }) {
+    const chatTitle = this.page
+      .locator('app-chat ion-col')
+      .filter({ hasText: 'District' });
+
+    await expect(chatTitle).toContainText(district);
+    await expect(chatTitle).toContainText(mainExposureUnit);
+  }
+
+  async validateEapListButtons() {
+    const backButton = this.page.getByRole('button', { name: 'Back' });
+    const saveButton = this.page.getByRole('button', { name: 'Save' });
+
+    await expect(backButton).toBeEnabled();
+    await expect(saveButton).toBeDisabled();
   }
 }
 
