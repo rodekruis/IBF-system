@@ -1,4 +1,4 @@
-<ion-content scrollY="true">
+<ion-content class="ion-padding-bottom" scrollY="true">
   <app-dialogue-turn [isLate]="isLate">
     <p style="padding-right: 20px">
       <span
@@ -191,7 +191,7 @@
         <form (submit)="submitEapAction(area.placeCode)">
           <ion-list class="background-light">
             @for (action of area.eapActions; track action) {
-              <ion-item class="ion-no-padding align-top">
+              <ion-item class="ion-no-padding">
                 <ion-checkbox
                   slot="start"
                   color="ibf-primary"
