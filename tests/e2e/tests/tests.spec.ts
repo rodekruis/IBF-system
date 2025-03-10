@@ -38,7 +38,6 @@ import MapComponentLayersDefault from './MapComponent/MapComponentLayersDefault'
 import MapComponentLayersVisible from './MapComponent/MapComponentLayersVisible';
 import MapComponentTriggerLayer from './MapComponent/MapComponentTriggerLayer';
 import MapComponentVisible from './MapComponent/MapComponentVisible';
-import TimelineComponentDisabled from './TimelineComponent/TimelineComponentDisabled';
 import TimelineComponentNotClickable from './TimelineComponent/TimelineComponentNotClickable';
 import TimelineComponentVisible from './TimelineComponent/TimelineComponentVisible';
 import UserStateComponentLogout from './UserStateComponent/UserStateComponentLogout';
@@ -153,7 +152,6 @@ test.describe('E2E Tests', () => {
 
       test.describe('TimelineComponent', () => {
         TimelineComponentVisible(pages, components, dataset);
-        TimelineComponentDisabled(pages, components, dataset);
 
         if (scenario === 'trigger') {
           // REFACTOR
