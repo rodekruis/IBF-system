@@ -235,7 +235,7 @@ class MapComponent extends DashboardPage {
     const aggregates = new AggregatesComponent(this.page);
 
     // Wait for the page to load
-    await this.waitForMapToBeLoaded();
+    await this.page.waitForLoadState('domcontentloaded');
 
     const adminBoundaries = this.page.locator('.admin-boundary:visible');
     const adminBoundariesCount = await adminBoundaries.count();
