@@ -1,3 +1,27 @@
+# [0.295.0](https://github.com/rodekruis/IBF-system/compare/v0.294.1...v0.295.0) (2025-03-10)
+
+
+### Bug Fixes
+
+* handle exception ([e4761c9](https://github.com/rodekruis/IBF-system/commit/e4761c9db3f66175ea9957ca17f96beab61e1ee1))
+* import path error ([92588f0](https://github.com/rodekruis/IBF-system/commit/92588f09be5e773f9b9d89048379c82f79943ed0))
+* set-trigger endpoint return updateresult ([15cbbb4](https://github.com/rodekruis/IBF-system/commit/15cbbb4cff21da8a2d7c09a7363d39ddcc9fc5c1))
+* sql syntax error and remove unused code ([9402404](https://github.com/rodekruis/IBF-system/commit/94024049b3e4177012468f89e3e5a91be523e7c7))
+
+
+### Features
+
+* add alert level ([d3131f5](https://github.com/rodekruis/IBF-system/commit/d3131f5f61a282af01708d7bd0f1e313d342f071))
+* admin area dynamic data should return trigger based on alert level ([4d83ee8](https://github.com/rodekruis/IBF-system/commit/4d83ee86e2558cb175186b09c866d56746d1937c))
+* alert level per admin area ([c0f28a0](https://github.com/rodekruis/IBF-system/commit/c0f28a0ad4f0e03a07e758e98539dd03f1363ca5))
+* allow closing events triggered by user ([421222f](https://github.com/rodekruis/IBF-system/commit/421222f1e75559ff6f4b248794ba072b0afc158e))
+* do not close user triggered event areas ([e9c31c7](https://github.com/rodekruis/IBF-system/commit/e9c31c7a5cbb0fedd3d744076f444392d9e941d5))
+* remove alert class from activation log ([ff1cd23](https://github.com/rodekruis/IBF-system/commit/ff1cd23ffcb44249d268fe4d8dccebfdee515934))
+* sort notification content by alert level ([e19452a](https://github.com/rodekruis/IBF-system/commit/e19452ad4d2c54cddc3c755e583e5f0ef3cf7ce7))
+* use alert level in whatsapp notifications ([4d9c27d](https://github.com/rodekruis/IBF-system/commit/4d9c27dda6ed86674b64f74765d387023d4bdbe0))
+
+
+
 ## [0.294.1](https://github.com/rodekruis/IBF-system/compare/v0.294.0...v0.294.1) (2025-03-10)
 
 
@@ -98,20 +122,6 @@
 * remove hasEap wording distinction AB[#33607](https://github.com/rodekruis/IBF-system/issues/33607) ([af43a38](https://github.com/rodekruis/IBF-system/commit/af43a38a436a20e69e246a2370f2ef0f119b8fbd))
 * replace monthly-forecast-info by forecastSource and align with design ([4210447](https://github.com/rodekruis/IBF-system/commit/42104470a269b68f6f011848424c587c2e0e50ff))
 * unclickable timelines + refactor AB[#33408](https://github.com/rodekruis/IBF-system/issues/33408) ([8842a63](https://github.com/rodekruis/IBF-system/commit/8842a63f60301a2aad3538eb724d5eaaaa4b1adb))
-
-
-
-# [0.289.0](https://github.com/rodekruis/IBF-system/compare/v0.288.1...v0.289.0) (2025-02-28)
-
-
-### Bug Fixes
-
-* hide wrongly calculated total exposure if percentage ([e8ae728](https://github.com/rodekruis/IBF-system/commit/e8ae72896af0c5e85940184f924a8506aba1572c))
-
-
-### Features
-
-* replace monthly-forecast-info by forecastSource and align with design ([c7aae3f](https://github.com/rodekruis/IBF-system/commit/c7aae3f5bfd7b921d456329c479393817872e3b1))
 
 
 
