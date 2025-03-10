@@ -119,12 +119,12 @@ test.describe('E2E Tests', () => {
         MapComponentTriggerLayer(pages, components, dataset);
         MapComponentGloFASStations(pages, components, dataset);
 
-        if (scenario === 'trigger') {
+        if (scenario !== 'no-trigger') {
           // REFACTOR
           MapComponentLayersDefault(pages, components, dataset);
           MapComponentFloodExtent(pages, components, dataset);
           MapComponentGloFASStationsTrigger(pages, components, dataset);
-        } else if (scenario === 'no-trigger') {
+        } else {
           // REFACTOR
           MapComponentGloFASStationsWarning(pages, components, dataset);
         }
@@ -135,7 +135,7 @@ test.describe('E2E Tests', () => {
         AggregateComponentTitleHover(pages, components, dataset);
         AggregateComponentButtonClick(pages, components, dataset);
 
-        if (scenario === 'trigger') {
+        if (scenario !== 'no-trigger') {
           // REFACTOR
           AggregateComponentEventCount(pages, components, dataset);
           AggregateComponentHeaderColour(pages, components, dataset);
@@ -146,7 +146,7 @@ test.describe('E2E Tests', () => {
         ChatComponentVisible(pages, components, dataset, date);
         ChatComponentButtonClick(pages, components, dataset);
 
-        if (scenario === 'trigger') {
+        if (scenario !== 'no-trigger') {
           // REFACTOR
           ChatComponentTriggeredAreasList(pages, components, dataset, date);
           ChatComponentEventClick(pages, components, dataset, date);
@@ -164,7 +164,7 @@ test.describe('E2E Tests', () => {
         TimelineComponentVisible(pages, components, dataset);
         TimelineComponentDisabled(pages, components, dataset);
 
-        if (scenario === 'trigger') {
+        if (scenario !== 'no-trigger') {
           // REFACTOR
           TimelineComponentNotClickable(pages, components, dataset);
         }
