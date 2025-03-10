@@ -218,8 +218,8 @@
     --ion-color-ibf-avatar-text: var(--ion-color-ibf-white);
   }
 
-  // Overwrite with trigger if trigger ..
-  .trigger-alert {
+  // Overwrite with alert if alert ..
+  .alert {
     --ion-color-ibf-primary: var(--ion-color-ibf-trigger-alert-primary);
     --ion-color-ibf-primary-rgb: var(--ion-color-ibf-trigger-alert-primary-rgb);
     --ion-color-ibf-primary-contrast: var(

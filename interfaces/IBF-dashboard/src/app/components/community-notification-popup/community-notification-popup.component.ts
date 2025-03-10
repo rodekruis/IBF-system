@@ -43,7 +43,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
       component: CommunityNotificationPhotoPopupComponent,
       animated: true,
       cssClass: `ibf-popover ibf-popover-large ${
-        this.eventService.state.forecastTrigger ? 'trigger-alert' : 'no-alert'
+        this.eventService.state.events?.length ? 'alert' : 'no-alert'
       }`,
       translucent: true,
       showBackdrop: true,

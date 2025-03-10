@@ -15,13 +15,13 @@ ion-button {
     --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
 
-  &.alert {
+  &.forecast-alert {
     background: var(--ion-color-ibf-trigger-alert-tertiary);
     border: 1px solid var(--ion-color-ibf-trigger-alert-tertiary);
     --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
 
-  &.alert.active {
+  &.forecast-alert.active {
     background: var(--ion-color-ibf-trigger-alert-primary);
     border: 1px solid var(--ion-color-ibf-trigger-alert-primary);
     --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);

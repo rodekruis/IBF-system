@@ -127,9 +127,9 @@ export class MapLegendService {
       );
     }
 
-    const colors = this.eventState?.forecastTrigger
-      ? this.mapService.state.colorGradientTriggered
-      : this.mapService.state.colorGradient;
+    const colors = this.eventState?.events?.length
+      ? this.mapService.state.colorGradientAlert
+      : this.mapService.state.colorGradientNoAlert;
 
     const getColor = this.getFeatureColorByColorsAndColorThresholds(
       colors,

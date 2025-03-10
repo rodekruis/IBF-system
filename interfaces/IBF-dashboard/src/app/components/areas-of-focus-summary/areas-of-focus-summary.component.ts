@@ -163,7 +163,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       component: LayerControlInfoPopoverComponent,
       animated: true,
       cssClass: `ibf-popover ibf-popover-normal ${
-        this.eventService.state.forecastTrigger ? 'trigger-alert' : 'no-alert'
+        this.eventService.state.events?.length ? 'alert' : 'no-alert'
       }`,
       translucent: true,
       showBackdrop: true,
