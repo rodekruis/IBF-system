@@ -269,9 +269,6 @@ export class EventService {
       countryCodeISO3: uploadAlertsPerLeadTimeDto.countryCodeISO3,
       disasterType: uploadAlertsPerLeadTimeDto.disasterType,
       timestamp: MoreThanOrEqual(uploadCutoffMoment),
-      leadTime: In(
-        uploadAlertsPerLeadTimeDto.alertsPerLeadTime.map((a) => a.leadTime),
-      ),
     };
     if (uploadAlertsPerLeadTimeDto.eventName) {
       deleteFilters['eventName'] = uploadAlertsPerLeadTimeDto.eventName;
