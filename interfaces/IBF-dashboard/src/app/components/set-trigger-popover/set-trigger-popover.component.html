@@ -69,13 +69,15 @@
     } @else if (popoverStep === 'confirm') {
       <ion-item
         lines="none"
-        class="ion-margin-bottom"
+        [innerHTML]="'set-trigger-component.confirm.note' | translate"
+      >
+      </ion-item>
+      <ion-item
+        lines="none"
+        class="ion-margin-bottom custom-html-content"
         [innerHTML]="
-          'set-trigger-component.confirm.content'
-            | translate
-              : {
-                  adminAreaLabelPlural: adminAreaLabelPlural,
-                }
+          'set-trigger-component.confirm.bullet-list'
+            | translate: { adminAreaLabelPlural }
         "
       >
       </ion-item>
