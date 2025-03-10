@@ -1,3 +1,12 @@
+# [0.294.0](https://github.com/rodekruis/IBF-system/compare/v0.293.1...v0.294.0) (2025-03-10)
+
+
+### Features
+
+* rename stopped to userTrigger ([139296f](https://github.com/rodekruis/IBF-system/commit/139296f708a9dd070897bccb59db6bdce5563fea))
+
+
+
 ## [0.293.1](https://github.com/rodekruis/IBF-system/compare/v0.293.0...v0.293.1) (2025-03-05)
 
 
@@ -104,15 +113,6 @@
 
 * process alert_threshold rename via migration AB[#33405](https://github.com/rodekruis/IBF-system/issues/33405) ([b57c53f](https://github.com/rodekruis/IBF-system/commit/b57c53fa5682b53a52278883053b5d001a6351c5))
 * process uncovered datamodel changes AB[#33405](https://github.com/rodekruis/IBF-system/issues/33405) ([ccf6110](https://github.com/rodekruis/IBF-system/commit/ccf611065bd91d4bd703133bf392d9c2f91b48f3))
-
-
-
-# [0.288.0](https://github.com/rodekruis/IBF-system/compare/v0.287.0...v0.288.0) (2025-02-28)
-
-
-### Features
-
-* remove covid risk layer AB[#33963](https://github.com/rodekruis/IBF-system/issues/33963) ([f92eaa5](https://github.com/rodekruis/IBF-system/commit/f92eaa55ee68520c8a099f44c86e4b1abd67fe05))
 
 
 
