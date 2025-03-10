@@ -103,9 +103,6 @@ class AggregatesComponent extends DashboardPage {
       englishTranslations['disclaimer-approximate-component'].message,
     );
 
-    // wait for popover layer to be laoded and click to remove it
-    await this.popoverLayer.click();
-
     // click on the total exposed population info icon and validate the popover content
     const exposedPopulationLayer = this.aggregatesLayerRow.filter({
       hasText: 'Exposed population',
@@ -118,7 +115,7 @@ class AggregatesComponent extends DashboardPage {
     expect(layerInfoContent).toContain(
       LayerDescriptions.ExposedPopulationInfoButtonDisclaimer,
     );
-    await this.page.locator('ion-backdrop').last().click();
+    await this.page.getByTestId('close-matrix-icon').click();
   }
 
   async getEventCount() {
