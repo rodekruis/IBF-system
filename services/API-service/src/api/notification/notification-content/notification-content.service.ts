@@ -11,6 +11,7 @@ import { CountryEntity } from '../../country/country.entity';
 import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
+import { AlertLevel } from '../../event/enum/alert-level.enum';
 import { EventService } from '../../event/event.service';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../dto/admin-area-notification-info.dto';
@@ -162,9 +163,10 @@ export class NotificationContentService {
     disasterType: DisasterType,
   ): Promise<NotificationDataPerEventDto> {
     const data = new NotificationDataPerEventDto();
-    data.triggerStatusLabel = event.forecastTrigger
-      ? AlertStatusLabelEnum.Trigger
-      : AlertStatusLabelEnum.Warning;
+    data.triggerStatusLabel =
+      event.alertLevel === AlertLevel.TRIGGER
+        ? AlertStatusLabelEnum.Trigger
+        : AlertStatusLabelEnum.Warning; // REFACTOR: alert level none is not handled
 
     data.eventName = await this.getFormattedEventName(event, disasterType);
     data.disasterSpecificProperties = event.disasterSpecificProperties;
@@ -210,19 +212,31 @@ export class NotificationContentService {
       defaultAdminLevel,
       event.eventName,
     );
-    alertAreas.sort((a, b) =>
-      a.forecastSeverity > b.forecastSeverity ? -1 : 1,
+
+    return alertAreas.sort(this.sortByAlertLevel);
+  }
+
+  private sortByAlertLevel(
+    a: { alertLevel: AlertLevel },
+    b: { alertLevel: AlertLevel },
+  ): number {
+    // sort by alert level
+    // trigger, warning, warning-medium, warning-low, none
+    const alertLevelSortOrder = Object.values(AlertLevel).reverse();
+
+    return (
+      alertLevelSortOrder.indexOf(a.alertLevel) -
+      alertLevelSortOrder.indexOf(b.alertLevel)
     );
-    return alertAreas;
   }
 
   private sortEventsByLeadTimeAndAlertState(
-    arr: EventSummaryCountry[],
+    events: EventSummaryCountry[],
   ): EventSummaryCountry[] {
     const leadTimeValue = (leadTime: LeadTime): number =>
       Number(leadTime.split('-')[0]);
 
-    return arr.sort((a, b) => {
+    return events.sort((a, b) => {
       if (leadTimeValue(a.firstLeadTime) < leadTimeValue(b.firstLeadTime)) {
         return -1;
       }
@@ -230,12 +244,7 @@ export class NotificationContentService {
         return 1;
       }
 
-      // sort by forecastTrigger (true first)
-      if (a.forecastTrigger === b.forecastTrigger) {
-        return 0;
-      } else {
-        return a.forecastTrigger ? -1 : 1;
-      }
+      return this.sortByAlertLevel(a, b);
     });
   }
 

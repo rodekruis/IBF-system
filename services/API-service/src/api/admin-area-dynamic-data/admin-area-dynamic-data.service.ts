@@ -15,6 +15,7 @@ import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserv
 import { HelperService } from '../../shared/helper.service';
 import { EventAreaService } from '../admin-area/services/event-area.service';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { AlertLevel } from '../event/enum/alert-level.enum';
 import { EventService } from '../event/event.service';
 import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
@@ -132,26 +133,33 @@ export class AdminAreaDynamicDataService {
 
     // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
     if (disasterType === DisasterType.FlashFloods && !eventName) {
-      return await this.eventAreaService.getEventAreaDynamicData(
+      const events = await this.eventService.getEventSummary(
         countryCodeISO3,
         disasterType,
-        indicator,
-        lastUploadDate,
+      );
+      return await Promise.all(
+        events.map((event) =>
+          this.eventAreaService.getEventAreaDynamicData(
+            event,
+            disasterType,
+            indicator,
+            lastUploadDate,
+          ),
+        ),
       );
     }
 
+    // REFACTOR: the TRIGGER layer should not be necessary
     // NOTE: 'trigger' is a calculated field, and not actually in db. The calculation is done here.
     if (indicator === TRIGGER) {
-      // NOTE: this only gets alert areas, not all, but that is actually fine for the front-end
-      const alertAreas = await this.eventService.getActiveAlertAreas(
+      const alertAreas = await this.eventService.getAlertAreas(
         countryCodeISO3,
         disasterType,
         adminLevel,
-        lastUploadDate,
         eventName,
       );
       return alertAreas.map((area) => ({
-        value: area.forecastTrigger ? 1 : 0,
+        value: Number(area.alertLevel === AlertLevel.TRIGGER),
         placeCode: area.placeCode,
       }));
     }
