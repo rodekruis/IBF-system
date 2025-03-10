@@ -165,10 +165,10 @@ export class EventController {
 
   @UseGuards(RolesGuard)
   @Roles(UserRole.DisasterManager)
-  @ApiOperation({ summary: 'Set trigger for event areas.' })
+  @ApiOperation({ summary: 'Set trigger for event admin-areas.' })
   @ApiResponse({
     status: 201,
-    description: 'Event areas are set to trigger.',
+    description: 'Event admin-areas are set to trigger.',
   })
   @Post('set-trigger')
   public async setTrigger(
