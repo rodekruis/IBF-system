@@ -32,40 +32,6 @@ class TimelineComponent extends DashboardPage {
     }
   }
 
-  async validateTimelineIsInactive() {
-    await this.waitForTimelineToBeLoaded();
-
-    const timelinePeriods = this.timeline;
-    const count = await timelinePeriods.count();
-
-    expect(count).toBeGreaterThan(0);
-    for (let i = 0; i < count; i++) {
-      const button = timelinePeriods.nth(i);
-      await expect(button).toHaveAttribute('disabled', '');
-    }
-  }
-
-  // NOTE: This method is not used in the current tests because the disaster types with active timeline are not yet in scope
-  // But it is kept here for future reference. It was tested briefly with drought and it worked.
-  async timelineIsActive() {
-    await this.waitForTimelineToBeLoaded();
-    await this.page.waitForTimeout(1000);
-
-    const timelinePeriods = this.page.locator(
-      '[data-testid="timeline-button"][color="ibf-trigger-alert-secondary"]',
-    );
-
-    const count = await timelinePeriods.count();
-    expect(count).toBeGreaterThan(0);
-
-    for (let i = 0; i < count; i++) {
-      const button = timelinePeriods.nth(i);
-      const childElement = button.locator('[role="img"]');
-      await expect(childElement).toBeVisible();
-      await expect(button).not.toHaveAttribute('disabled', '');
-    }
-  }
-
   async validateTimelineDates() {
     await this.waitForTimelineToBeLoaded();
 
