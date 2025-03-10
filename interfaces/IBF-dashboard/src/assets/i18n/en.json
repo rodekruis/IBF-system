@@ -90,7 +90,8 @@
     },
     "confirm": {
       "header": "Set trigger - disclaimers",
-      "content": "<strong>Important note:</strong><br><ul><li>{{adminAreaLabelPlural}} that are not selected will remain visible as warning areas, but cannot be added later.</li><li>This actions impacts what is shown in the portal for all users.</li><li>A notification regarding the trigger will be sent to all users.</li></ul>",
+      "note": "<strong>Important note:</strong>",
+      "bullet-list": "<ul><li>The {{adminAreaLabelPlural}} that are not selected will remain visible as warning areas, but cannot be added later.</li><li>This actions impacts what is shown in the portal for all users.</li><li>A notification regarding the trigger will be sent to all users.</li></ul>",
       "understand": "I understand that this action cannot be undone.",
       "continue": "Set trigger",
       "back": "Back",
