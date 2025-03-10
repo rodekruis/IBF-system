@@ -24,7 +24,7 @@ import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
 import {
   ActivationLogDto,
-  EventPlaceCodeDto,
+  EventPlaceCodesDto,
 } from './dto/event-place-code.dto';
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
 import {
@@ -165,24 +165,17 @@ export class EventController {
 
   @UseGuards(RolesGuard)
   @Roles(UserRole.DisasterManager)
-  @ApiOperation({ summary: 'Stop trigger for given admin-area.' })
+  @ApiOperation({ summary: 'Set trigger for event admin-areas.' })
   @ApiResponse({
     status: 201,
-    description: 'Trigger stopped for given admin-area.',
+    description: 'Event admin-areas are set to trigger.',
   })
-  @ApiResponse({
-    status: 404,
-    description: 'No admin-area for this event.',
-  })
-  @Post('toggle-stopped-trigger')
-  public async toggleStoppedTrigger(
+  @Post('set-trigger')
+  public async setTrigger(
     @UserDecorator('userId') userId: string,
-    @Body() eventPlaceCodeDto: EventPlaceCodeDto,
+    @Body() eventPlaceCodesDto: EventPlaceCodesDto,
   ): Promise<void> {
-    return await this.eventService.toggleStoppedTrigger(
-      userId,
-      eventPlaceCodeDto,
-    );
+    await this.eventService.setTrigger(userId, eventPlaceCodesDto);
   }
 
   // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-lead-time

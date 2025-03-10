@@ -1,14 +1,16 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsNotEmpty, IsString } from 'class-validator';
+import { ArrayMinSize, IsArray, IsNotEmpty, IsString } from 'class-validator';
 
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 
-export class EventPlaceCodeDto {
+export class EventPlaceCodesDto {
   @ApiProperty()
-  @IsNotEmpty()
-  @IsString()
-  public eventPlaceCodeId: string;
+  @ArrayMinSize(1)
+  @IsString({ each: true })
+  @IsNotEmpty({ each: true })
+  @IsArray()
+  public eventPlaceCodeIds: string[];
 }
 
 export class ActivationLogDto {
@@ -34,10 +36,10 @@ export class ActivationLogDto {
   public endDate: string;
 
   @ApiProperty({ example: false })
-  public stopped: boolean;
+  public userTrigger: boolean;
 
-  @ApiProperty({ example: false })
-  public manuallyStopped: boolean;
+  @ApiProperty({ example: new Date().toISOString() })
+  public userTriggerDate: string;
 
   @ApiProperty({ example: 'population_affected' })
   public exposureIndicator: string;
@@ -59,8 +61,8 @@ export class ActivationLogDto {
     this.name = null;
     this.firstIssuedDate = null;
     this.endDate = null;
-    this.stopped = null;
-    this.manuallyStopped = null;
+    this.userTrigger = null;
+    this.userTriggerDate = null;
     this.exposureIndicator = null;
     this.exposureValue = null;
     this.alertClass = null;

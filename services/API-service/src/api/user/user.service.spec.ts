@@ -41,7 +41,7 @@ const user: UserEntity = {
     throw new Error('Function not implemented.');
   },
   actions: [],
-  stoppedTriggers: [],
+  userTriggers: [],
 };
 
 describe('UserService', () => {
