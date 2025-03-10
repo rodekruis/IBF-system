@@ -11,6 +11,7 @@ import { ForecastSource } from 'src/app/models/country.model';
 import { ApiService } from 'src/app/services/api.service';
 import { EventService } from 'src/app/services/event.service';
 import { AlertArea } from 'src/app/types/alert-area';
+import { NumberFormat } from 'src/app/types/indicator-group';
 
 @Component({
   selector: 'app-set-trigger-popover',
@@ -27,6 +28,8 @@ export class SetTriggerPopoverComponent {
   public adminAreaLabelPlural: string;
   @Input()
   public areas: AlertArea[];
+  @Input()
+  public mainExposureIndicatorNumberFormat: NumberFormat;
 
   public popoverStep = 'select-areas'; // 'select-areas' | 'confirm'
   public selectedAreas: Record<string, boolean> = {};
@@ -39,6 +42,11 @@ export class SetTriggerPopoverComponent {
     private analyticsService: AnalyticsService,
     private eventService: EventService,
   ) {}
+
+  getCheckedCount(): number {
+    return Object.values(this.selectedAreas).filter((checked) => checked)
+      .length;
+  }
 
   public closePopover(): void {
     void this.popoverController.dismiss(null, 'cancel');
