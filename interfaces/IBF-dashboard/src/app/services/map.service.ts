@@ -51,14 +51,14 @@ export class MapService {
       [-20, -20],
       [20, 20],
     ] as LatLngBoundsLiteral,
-    colorGradient: ['#F2F5FD', '#D6E0FA', '#A0B6EB', '#3D66B4', '#0E357B'],
-    colorGradientTriggered: [
-      '#F3F0FF',
-      '#C8BAF5',
-      '#A38CEC',
-      '#7B59E2',
-      '#4F22D7',
+    colorGradientNoAlert: [
+      '#F2F5FD',
+      '#D6E0FA',
+      '#A0B6EB',
+      '#3D66B4',
+      '#0E357B',
     ],
+    colorGradientAlert: ['#F3F0FF', '#C8BAF5', '#A38CEC', '#7B59E2', '#4F22D7'],
     defaultFillColor: '#A0B6EB',
     strokeColor: '#969696',
     noDataColor: '#d3dae0',
@@ -409,9 +409,9 @@ export class MapService {
       colorProperty: indicator.name,
       colorBreaks: indicator.colorBreaks,
       numberFormatMap: indicator.numberFormatMap,
-      legendColor: this.eventState.forecastTrigger
-        ? this.state.colorGradientTriggered[2]
-        : this.state.colorGradient[2],
+      legendColor: this.eventState.events?.length
+        ? this.state.colorGradientAlert[2]
+        : this.state.colorGradientNoAlert[2],
       group:
         indicator.name === IbfLayerName.trigger
           ? IbfLayerGroup.outline
@@ -739,9 +739,9 @@ export class MapService {
     colorThreshold: { break0: number },
   ): string => {
     let adminRegionFillColor = this.state.defaultFillColor;
-    const currentColorGradient = this.eventState.forecastTrigger
-      ? this.state.colorGradientTriggered
-      : this.state.colorGradient;
+    const currentColorGradient = this.eventState.events?.length
+      ? this.state.colorGradientAlert
+      : this.state.colorGradientNoAlert;
 
     switch (true) {
       case colorPropertyValue === null:
