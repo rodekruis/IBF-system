@@ -510,13 +510,6 @@ export class EventService {
         'disaster."mainExposureIndicator" as "exposureIndicator"',
         'event."mainExposureValue" as "exposureValue"',
         `CASE
-        WHEN event."userTrigger" = true THEN 'Trigger'
-        WHEN event."forecastTrigger" = true THEN 'Trigger'
-        WHEN event."forecastSeverity" = 1 THEN 'Warning'
-        WHEN event."forecastSeverity" = 0.7 THEN 'Medium warning'
-        WHEN event."forecastSeverity" = 0.3 THEN 'Low warning'
-        END as "alertClass"`,
-        `CASE
         WHEN event."userTrigger" = true THEN 'trigger'
         WHEN event."forecastTrigger" = true THEN 'trigger'
         WHEN event."forecastSeverity" > 0.7 THEN 'warning'

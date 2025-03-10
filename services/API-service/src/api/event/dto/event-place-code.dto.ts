@@ -48,9 +48,6 @@ export class ActivationLogDto {
   @ApiProperty({ example: 100 })
   public exposureValue: number;
 
-  @ApiProperty({ example: 'Maximum alert' })
-  public alertClass: string;
-
   @ApiProperty({ default: AlertLevel.NONE })
   public alertLevel: AlertLevel;
 
@@ -69,7 +66,7 @@ export class ActivationLogDto {
     this.userTriggerDate = null;
     this.exposureIndicator = null;
     this.exposureValue = null;
-    this.alertClass = null;
+    this.alertLevel = AlertLevel.NONE;
     this.databaseId = null;
   }
 }
