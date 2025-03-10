@@ -220,6 +220,8 @@ class ChatComponent extends DashboardPage {
   }
 
   async clickTriggerShowPredictionButton() {
+    await this.page.waitForLoadState('domcontentloaded');
+
     const triggerChatDialogue = this.page
       .getByTestId('dialogue-turn-content')
       .filter({ hasText: 'Trigger issued' })

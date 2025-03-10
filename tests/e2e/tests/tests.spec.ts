@@ -8,6 +8,8 @@ import MapComponent from 'Pages/MapComponent';
 import TimelineComponent from 'Pages/TimelineComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { Dataset } from 'testData/types';
+import UgandaDroughtNoTrigger from 'testData/UgandaDroughtNoTrigger.json';
+import UgandaDroughtWarning from 'testData/UgandaDroughtWarning.json';
 import UgandaFloodsNoTrigger from 'testData/UgandaFloodsNoTrigger.json';
 import UgandaFloodsTrigger from 'testData/UgandaFloodsTrigger.json';
 
@@ -54,7 +56,12 @@ test.describe('E2E Tests', () => {
   });
 
   // Run tests for each dataset
-  const datasets: Dataset[] = [UgandaFloodsNoTrigger, UgandaFloodsTrigger];
+  const datasets: Dataset[] = [
+    UgandaFloodsNoTrigger,
+    UgandaFloodsTrigger,
+    UgandaDroughtNoTrigger,
+    UgandaDroughtWarning,
+  ];
   datasets.forEach((dataset) => {
     const {
       country: { code },
@@ -68,7 +75,7 @@ test.describe('E2E Tests', () => {
     const pages: Partial<Pages> = {};
     const components: Partial<Components> = {};
 
-    test.describe(`Dataset: ${email} ${code} ${disasterType} ${scenario}`, () => {
+    test.describe(`Dataset: ${email} ${code} ${disasterType.name} ${scenario}`, () => {
       const date = new Date();
 
       test.beforeAll(async ({ browser }) => {
@@ -85,7 +92,7 @@ test.describe('E2E Tests', () => {
         components.actionsSummary = new ActionsSummaryComponent(page);
 
         // Load a mock scenario
-        await mockData(disasterType, scenario, code, accessToken, date);
+        await mockData(disasterType.name, scenario, code, accessToken, date);
 
         await page.goto('/');
         // Login into the portal
@@ -112,12 +119,12 @@ test.describe('E2E Tests', () => {
         MapComponentTriggerLayer(pages, components, dataset);
         MapComponentGloFASStations(pages, components, dataset);
 
-        if (scenario === 'trigger') {
+        if (scenario !== 'no-trigger') {
           // REFACTOR
           MapComponentLayersDefault(pages, components, dataset);
           MapComponentFloodExtent(pages, components, dataset);
           MapComponentGloFASStationsTrigger(pages, components, dataset);
-        } else if (scenario === 'no-trigger') {
+        } else {
           // REFACTOR
           MapComponentGloFASStationsWarning(pages, components, dataset);
         }
@@ -128,7 +135,7 @@ test.describe('E2E Tests', () => {
         AggregateComponentTitleHover(pages, components, dataset);
         AggregateComponentButtonClick(pages, components, dataset);
 
-        if (scenario === 'trigger') {
+        if (scenario !== 'no-trigger') {
           // REFACTOR
           AggregateComponentEventCount(pages, components, dataset);
           AggregateComponentHeaderColour(pages, components, dataset);
@@ -139,7 +146,7 @@ test.describe('E2E Tests', () => {
         ChatComponentVisible(pages, components, dataset, date);
         ChatComponentButtonClick(pages, components, dataset);
 
-        if (scenario === 'trigger') {
+        if (scenario !== 'no-trigger') {
           // REFACTOR
           ChatComponentTriggeredAreasList(pages, components, dataset, date);
           ChatComponentEventClick(pages, components, dataset, date);
@@ -157,7 +164,7 @@ test.describe('E2E Tests', () => {
         TimelineComponentVisible(pages, components, dataset);
         TimelineComponentDisabled(pages, components, dataset);
 
-        if (scenario === 'trigger') {
+        if (scenario !== 'no-trigger') {
           // REFACTOR
           TimelineComponentNotClickable(pages, components, dataset);
         }

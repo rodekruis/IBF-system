@@ -17,7 +17,7 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType);
+    await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
     // Wait for the sharedPage to load
@@ -27,25 +27,34 @@ export default (
 
     await map.clickLayerMenu();
     await map.isLayerMenuOpen({ layerMenuOpen: true });
-    await map.isLayerCheckboxChecked({
-      layerName: 'flood_extent', // REFACTOR
-    });
-    await map.isLayerRadioButtonChecked({
-      layerName: 'population_affected', // REFACTOR
-    });
-    // Validate legend
     await map.isLegendOpen({ legendOpen: true });
-    await map.assertLegendElementIsVisible({
-      legendComponentName: 'Flood extent', // REFACTOR
-    });
-    await map.assertLegendElementIsVisible({
-      legendComponentName: 'Exposed population', // REFACTOR
-    });
-    // Validate that the layer checked with radio button is visible on the map in this case 'Exposed population' only one such layer can be checked at a time
-    await map.areAdminBoundariesVisible({ layerName: 'population_affected' }); // REFACTOR
-    // Validate rest of the map
-    await map.validateLayerIsVisibleInMapBySrcElement({
-      layerName: 'flood_extent',
-    });
+
+    const activeLayers = dataset.mapLayers.filter(
+      (layer) => layer.active === true,
+    );
+    for (const layer of activeLayers) {
+      if (layer.type === 'raster') {
+        await map.isLayerCheckboxChecked({
+          layerName: layer.name,
+        });
+        await map.assertLegendElementIsVisible({
+          legendComponentName: layer.label,
+        });
+        await map.validateLayerIsVisibleInMapBySrcElement({
+          layerName: layer.name,
+        });
+      } else if (layer.type === 'admin-area') {
+        await map.isLayerRadioButtonChecked({
+          layerName: layer.name,
+        });
+        await map.assertLegendElementIsVisible({
+          legendComponentName: layer.label,
+        });
+        // Validate that the layer checked with radio button is visible on the map in this case 'Exposed population' only one such layer can be checked at a time
+        await map.areAdminBoundariesVisible({
+          layerName: layer.name,
+        });
+      }
+    }
   });
 };

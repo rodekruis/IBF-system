@@ -17,14 +17,14 @@ export default (
       throw new Error('pages and components not found');
     }
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType);
+    await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
     if (dataset.scenario === 'no-trigger') {
       await chat.chatColumnIsVisibleForNoTriggerState({
         user: dataset.user,
         date,
-        disasterType: dataset.disasterType,
+        disasterType: dataset.disasterType.name,
       });
     }
     await chat.allDefaultButtonsArePresent();

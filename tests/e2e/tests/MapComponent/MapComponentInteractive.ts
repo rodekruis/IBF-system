@@ -20,7 +20,7 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType);
+    await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
     // Wait for the page to load
@@ -39,7 +39,7 @@ export default (
 
     // Select and deselect the layer
     await map.clickLayerMenu();
-    await map.checkLayerCheckbox(dataset.indicators[0]); // REFACTOR
+    await map.checkLayerCheckbox(dataset.mapLayers[0]); // REFACTOR
     await map.isLayerMenuOpen({ layerMenuOpen: true });
 
     // Red Cross branches layer should be visible
