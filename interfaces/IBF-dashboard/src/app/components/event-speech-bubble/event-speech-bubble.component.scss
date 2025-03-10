@@ -46,7 +46,10 @@ ion-checkbox {
 
 .set-trigger-btn {
   width: 100%;
-  --background: var(--ion-color-light); /* Invert background color */
-  --color: var(--ion-color-danger); /* Invert text color */
-  --border-color: var(--ion-color-danger); /* Optional: Add border color */
+  --background: var(--ion-color-light);
+  --color: var(--ion-color-danger);
+  --border-color: var(--ion-color-danger);
+  --border-style: solid;
+  --border-width: 1px;
+  --box-shadow: none; /* Remove box-shadow */
 }
