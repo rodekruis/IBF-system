@@ -1100,7 +1100,6 @@ export class EventService {
       endDate: LessThan(lastUploadDate.timestamp), // If the area was not prolonged earlier, then the endDate is not updated and is therefore less than the lastUploadDate
       adminArea: { countryCodeISO3 },
       disasterType,
-      userTrigger: false, // do not close event triggered by user
       closed: false,
     };
     const expiredEventAreas = await this.eventPlaceCodeRepo.find({ where });
