@@ -126,7 +126,8 @@
         "expected": "expected on {{ date }}. ",
         "source": "Forecast source: ",
         "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
-        "no-data": "No exposure data available"
+        "no-data": "No exposure data available",
+        "set-by": "<strong>Set by:</strong> {{ userTriggerName }} on {{ userTriggerDate }}"
       },
       "set-trigger": {
         "btn-text": "Set trigger"

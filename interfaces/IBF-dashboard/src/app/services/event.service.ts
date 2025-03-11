@@ -43,6 +43,9 @@ export class EventSummary {
   nrAlertAreas?: number;
   mainExposureValueSum?: number;
   alertLevel: AlertLevel;
+  userTrigger: boolean;
+  userTriggerDate: string;
+  userTriggerName: string;
 }
 
 export enum AlertLevel {
@@ -217,6 +220,9 @@ export class EventService {
       for (const event of this.state.events) {
         event.firstIssuedDate = DateTime.fromISO(
           event.firstIssuedDate,
+        ).toFormat('cccc, dd LLLL');
+        event.userTriggerDate = DateTime.fromISO(
+          event.userTriggerDate,
         ).toFormat('cccc, dd LLLL');
         event.firstLeadTimeLabel = LeadTimeTriggerKey[event.firstLeadTime];
         event.timeUnit = event.firstLeadTime?.split('-')[1];

@@ -56,12 +56,24 @@
         }}</span>
       }
     </p>
-    @if (forecastSource) {
+    @if (forecastSource && !event.userTrigger) {
       <p>
         <strong
           >{{ 'chat-component.common.alertLevel.source' | translate }} </strong
         ><a href="{{ forecastSource.url }}">{{ forecastSource.label }}</a>
       </p>
+    }
+    @if (event.userTrigger) {
+      <p
+        [innerHTML]="
+          'chat-component.common.alertLevel.set-by'
+            | translate
+              : {
+                  userTriggerName: event.userTriggerName,
+                  userTriggerDate: event.userTriggerDate,
+                }
+        "
+      ></p>
     }
     <p>
       <strong

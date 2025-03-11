@@ -8,7 +8,6 @@ import MapComponent from 'Pages/MapComponent';
 import TimelineComponent from 'Pages/TimelineComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { Dataset } from 'testData/types';
-import UgandaDroughtNoTrigger from 'testData/UgandaDroughtNoTrigger.json';
 import UgandaDroughtWarning from 'testData/UgandaDroughtWarning.json';
 import UgandaFloodsNoTrigger from 'testData/UgandaFloodsNoTrigger.json';
 import UgandaFloodsTrigger from 'testData/UgandaFloodsTrigger.json';
@@ -58,7 +57,7 @@ test.describe('E2E Tests', () => {
   const datasets: Dataset[] = [
     UgandaFloodsNoTrigger,
     UgandaFloodsTrigger,
-    UgandaDroughtNoTrigger,
+    // UgandaDroughtNoTrigger, // Disable until deemed valuable, as it is very similar to floods no-trigger
     UgandaDroughtWarning,
   ];
   datasets.forEach((dataset) => {
