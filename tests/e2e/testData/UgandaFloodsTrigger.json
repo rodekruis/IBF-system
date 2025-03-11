@@ -56,5 +56,8 @@
   "timeline": {
     "dateFormat": "EEE dd MMM yyyy",
     "dateUnit": "days"
+  },
+  "eap": {
+    "active": true
   }
 }

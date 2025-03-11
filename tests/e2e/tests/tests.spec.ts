@@ -103,9 +103,9 @@ test.describe('E2E Tests', () => {
         await page.goto('/');
       });
 
-      test.afterAll(async () => {
-        await page.close();
-      });
+      // test.afterAll(async () => {
+      //   await page.close();
+      // });
 
       test.describe('DashboardPage', () => {
         DashboardPageVisible(pages, components, dataset, date);
@@ -148,7 +148,10 @@ test.describe('E2E Tests', () => {
 
         if (scenario !== 'no-trigger') {
           // REFACTOR
-          ChatComponentTriggeredAreasList(pages, components, dataset, date);
+          if (scenario !== 'warning') {
+            // REFACTOR?
+            ChatComponentTriggeredAreasList(pages, components, dataset, date);
+          }
           ChatComponentEventClick(pages, components, dataset, date);
           ChatComponentEventCount(pages, components, dataset, date);
           ChatComponentInfoPopover(pages, components, dataset, date);

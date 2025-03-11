@@ -37,4 +37,8 @@ export interface Dataset {
   aggregateIndicators: string[];
   mapLayers: Layer[];
   timeline: Timeline;
+  eap: {
+    active: boolean;
+    list: string[];
+  };
 }

@@ -58,7 +58,6 @@ class MapComponent extends DashboardPage {
   }
 
   async waitForMapToBeLoaded() {
-    await this.page.waitForLoadState('networkidle');
     await this.page.waitForLoadState('domcontentloaded');
   }
 

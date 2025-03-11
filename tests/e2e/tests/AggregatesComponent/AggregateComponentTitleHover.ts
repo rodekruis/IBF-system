@@ -20,6 +20,7 @@ export default (
     await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await aggregates.aggregateComponentIsVisible();
+    await map.clickLegendHeader();
     await map.assertAggregateTitleOnHoverOverMap();
   });
 };

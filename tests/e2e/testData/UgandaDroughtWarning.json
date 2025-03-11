@@ -28,5 +28,8 @@
   "timeline": {
     "dateFormat": "MMM yyyy",
     "dateUnit": "months"
+  },
+  "eap": {
+    "active": false
   }
 }
