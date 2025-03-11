@@ -321,14 +321,14 @@ export class EventService {
   }
 
   private setAlertState = () => {
-    const dashboardElement = document.getElementById('ibf-dashboard-interface');
-    if (dashboardElement) {
+    const appElement = document.getElementById('app');
+    if (appElement) {
       if (this.state.events?.length) {
-        dashboardElement.classList.remove('no-alert');
-        dashboardElement.classList.add('alert');
+        appElement.classList.remove('no-alert');
+        appElement.classList.add('alert');
       } else {
-        dashboardElement.classList.remove('alert');
-        dashboardElement.classList.add('no-alert');
+        appElement.classList.remove('alert');
+        appElement.classList.add('no-alert');
       }
     }
   };

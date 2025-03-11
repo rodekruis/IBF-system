@@ -162,9 +162,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
     const popover = await this.popoverController.create({
       component: LayerControlInfoPopoverComponent,
       animated: true,
-      cssClass: `ibf-popover ibf-popover-normal ${
-        this.eventService.state.events?.length ? 'alert' : 'no-alert'
-      }`,
+      cssClass: 'ibf-popover ibf-popover-normal',
       translucent: true,
       showBackdrop: true,
       componentProps: {
@@ -186,7 +184,12 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
   }
 
   public showAreasOfFocusSummary(): boolean {
+    if (!this.eventState?.events?.length) {
+      // areas of focus summary is only shown when there is an event
+      return false;
+    }
     if (!this.countryDisasterSettings.enableEarlyActions) {
+      // areas of focus summary is only shown when early actions are enabled
       return false;
     }
     return true;

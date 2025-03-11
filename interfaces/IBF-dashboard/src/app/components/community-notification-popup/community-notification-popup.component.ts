@@ -6,7 +6,6 @@ import { ActionResultPopoverComponent } from 'src/app/components/action-result-p
 import { CommunityNotificationPhotoPopupComponent } from 'src/app/components/community-notification-photo-popup/community-notification-photo-popup.component';
 import { CommunityNotification } from 'src/app/models/poi.model';
 import { ApiService } from 'src/app/services/api.service';
-import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'app-community-notification-popup',
@@ -28,7 +27,6 @@ export class CommunityNotificationPopupComponent implements OnInit {
     private popoverController: PopoverController,
     private alertController: AlertController,
     private apiService: ApiService,
-    private eventService: EventService,
     private translate: TranslateService,
   ) {}
 
@@ -42,9 +40,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
     const popover = await this.popoverController.create({
       component: CommunityNotificationPhotoPopupComponent,
       animated: true,
-      cssClass: `ibf-popover ibf-popover-large ${
-        this.eventService.state.events?.length ? 'alert' : 'no-alert'
-      }`,
+      cssClass: 'ibf-popover ibf-popover-large',
       translucent: true,
       showBackdrop: true,
       componentProps: {

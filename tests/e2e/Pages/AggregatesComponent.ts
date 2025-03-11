@@ -19,7 +19,7 @@ class AggregatesComponent extends DashboardPage {
   readonly popoverLayer: Locator;
   readonly layerInfoPopoverTitle: Locator;
   readonly layerInfoPopoverContent: Locator;
-  readonly ibfDashboardInterface: Locator;
+  readonly app: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -47,7 +47,7 @@ class AggregatesComponent extends DashboardPage {
     this.popoverLayer = this.page.getByTestId('disclaimer-popover-layer');
     this.layerInfoPopoverTitle = this.page.getByTestId('layer-info-title');
     this.layerInfoPopoverContent = this.page.getByTestId('layer-info-content');
-    this.ibfDashboardInterface = page.getByTestId('ibf-dashboard-interface');
+    this.app = page.getByTestId('app');
   }
 
   async aggregateComponentIsVisible() {
@@ -131,7 +131,7 @@ class AggregatesComponent extends DashboardPage {
   }: {
     isTrigger?: boolean;
   }) {
-    const actionHeaderText = this.ibfDashboardInterface;
+    const actionHeaderText = this.app;
     const headerColour = await actionHeaderText.getAttribute('class');
 
     if (isTrigger) {
