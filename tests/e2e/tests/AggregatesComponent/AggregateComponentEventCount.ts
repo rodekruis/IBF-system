@@ -20,6 +20,7 @@ export default (
     await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
+    await dashboard.waitForLoaderToDisappear();
 
     // get the number of warning events and aggregated events
     const eventCount = await aggregates.getEventCount();

@@ -18,6 +18,7 @@ export default (
 
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToDisasterType(dataset.disasterType.name);
+    await dashboard.waitForLoaderToDisappear();
     // Assertions
     await aggregates.aggregateComponentIsVisible();
     if (dataset.scenario === 'no-trigger') {

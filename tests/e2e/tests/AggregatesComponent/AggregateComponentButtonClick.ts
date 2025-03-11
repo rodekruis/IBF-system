@@ -20,6 +20,7 @@ export default (
     await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await aggregates.aggregateComponentIsVisible();
+    await dashboard.waitForLoaderToDisappear();
     await aggregates.validatesAggregatesInfoButtons();
   });
 };
