@@ -137,6 +137,7 @@
       @if (area.mainExposureValue) {
         <ion-note size="small">
           <span
+            data-testid="main-exposure-indicator"
             [innerHTML]="
               'chat-component.' + disasterTypeName + '.active-event.exposed'
                 | translate

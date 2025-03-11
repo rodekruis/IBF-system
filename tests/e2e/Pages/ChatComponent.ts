@@ -242,12 +242,20 @@ class ChatComponent extends DashboardPage {
     }
   }
 
-  async validateChatTitle({ district }: { district: string }) {
+  async validateChatTitleAndBreadcrumbs({
+    district,
+    mainExposureIndicator,
+  }: {
+    district: string;
+    mainExposureIndicator: string;
+  }) {
     const chatTitle = this.page
       .locator('app-chat ion-col')
       .filter({ hasText: 'District' });
-
     await expect(chatTitle).toContainText(district);
+
+    const exposureText = this.page.getByTestId('main-exposure-indicator');
+    await expect(exposureText).toContainText(mainExposureIndicator);
   }
 
   async validateEapListButtons(eapActions: boolean) {
