@@ -75,7 +75,7 @@
     "autoprefixer": "^10.4.7",
     "esbuild": "^0.25.1",
     "eslint": "^9.19.0",
-    "eslint-config-prettier": "^10.0.1",
+    "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-jasmine": "^4.2.2",
     "eslint-plugin-no-relative-import-paths": "^1.5.5",
     "eslint-plugin-perfectionist": "^4.4.0",
