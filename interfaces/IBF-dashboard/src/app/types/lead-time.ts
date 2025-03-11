@@ -407,7 +407,7 @@ export class LeadTimeButtonInput {
   leadTime: LeadTime;
   eventNames: string[];
   forecastAlert: boolean;
-  forecastTrigger: boolean;
+  trigger: boolean;
   undefinedLeadTime: boolean;
   duration?: number;
 }

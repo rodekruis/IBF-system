@@ -14,7 +14,7 @@ import { DateFormats, MonthFormats } from 'src/app/types/lead-time';
 export class DateButtonComponent implements OnInit, OnDestroy {
   @Input() date = DateTime.now();
   @Input() forecastAlert: boolean;
-  @Input() forecastTrigger: boolean;
+  @Input() trigger: boolean;
 
   private dateFormat = '';
   private monthFormat = '';

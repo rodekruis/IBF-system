@@ -118,9 +118,9 @@ export class TimelineService {
       unit: leadTime.split('-')[1] as LeadTimeUnit,
       value: leadTime,
       forecastAlert,
-      forecastTrigger:
+      trigger:
         forecastAlert &&
-        (leadTimeInput.forecastTrigger ||
+        (leadTimeInput.trigger ||
           this.alertsAllEvents[`${leadTime}-forecastTrigger`] === '1'),
       active: false,
       eventNames: leadTimeInput.eventNames,
@@ -245,31 +245,31 @@ export class TimelineService {
       const startLeadTimeToUse =
         event.firstTriggerLeadTime || event.firstLeadTime;
       for (let i = 0; i < duration; i++) {
-        // .. for events with duration (drought) also push the following lead-times
+        // .. for events with duration (drought) also push the remaing season lead-times
         const leadTime =
           `${String(Number(startLeadTimeToUse.split('-')[0]) + i)}-${
             event.firstLeadTime.split('-')[1]
           }` as LeadTime;
 
         if (!visibleLeadTimes.map((lt) => lt.leadTime).includes(leadTime)) {
+          // if lead time not yet adde, add it ..
           if (leadTime.includes(this.disasterType.leadTimeUnit)) {
-            // insert lead time only if it is of the same unit as the disaster type
             visibleLeadTimes.push({
               leadTime,
               eventNames: [event.eventName],
               forecastAlert: true,
-              forecastTrigger: event.alertLevel === AlertLevel.TRIGGER,
+              trigger: event.alertLevel === AlertLevel.TRIGGER,
               undefinedLeadTime: false,
             });
           }
         } else {
+          // .. otherwise, add the eventName to the existing lead-time
           const leadTimeButton = visibleLeadTimes.find(
             (lt) => lt.leadTime === leadTime,
           );
           leadTimeButton.eventNames.push(event.eventName);
-          leadTimeButton.forecastTrigger =
-            leadTimeButton.forecastTrigger ||
-            event.alertLevel === AlertLevel.TRIGGER;
+          leadTimeButton.trigger =
+            leadTimeButton.trigger || event.alertLevel === AlertLevel.TRIGGER;
         }
       }
     }
@@ -290,7 +290,7 @@ export class TimelineService {
           leadTime,
           eventNames: [],
           forecastAlert: false,
-          forecastTrigger: false,
+          trigger: false,
           undefinedLeadTime: false,
         });
       }
@@ -313,7 +313,7 @@ export class TimelineService {
           leadTime: event.firstLeadTime,
           eventNames: [event.eventName],
           forecastAlert: true,
-          forecastTrigger: event.alertLevel === AlertLevel.TRIGGER,
+          trigger: event.alertLevel === AlertLevel.TRIGGER,
           undefinedLeadTime: true,
         });
       }
