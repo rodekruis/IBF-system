@@ -1,3 +1,21 @@
+# [0.296.0](https://github.com/rodekruis/IBF-system/compare/v0.295.0...v0.296.0) (2025-03-11)
+
+
+### Bug Fixes
+
+* add waitforloadertodisappear in more tests ([b819c73](https://github.com/rodekruis/IBF-system/commit/b819c7305227b572ddd66209c00920bd07f0264d))
+* correctly apply more tests also to warning scenario ([60247ce](https://github.com/rodekruis/IBF-system/commit/60247ce6a48212badd17532fc9299ddff584b823))
+* rm flaky and irrelevant assertion ([4defa59](https://github.com/rodekruis/IBF-system/commit/4defa5979116c84c2e1e9b198a3e3ba79973059b))
+* select-area tests + add waitforloadertodisappear in all tests ([84b9feb](https://github.com/rodekruis/IBF-system/commit/84b9feb1d6a3bfce2b2fe734fdfa25f8f5b81968))
+
+
+### Features
+
+* add drought trigger + fix tests ([3e677c5](https://github.com/rodekruis/IBF-system/commit/3e677c5da7f1dec4b5e2ecd1718645acce7821a0))
+* replace drought trigger by warning scenario ([959db40](https://github.com/rodekruis/IBF-system/commit/959db403c6011652e1f272afb38e931f7cfe1594))
+
+
+
 # [0.295.0](https://github.com/rodekruis/IBF-system/compare/v0.294.1...v0.295.0) (2025-03-10)
 
 
@@ -103,25 +121,6 @@
 ### Features
 
 * remove auto clearout message drought AB[#34049](https://github.com/rodekruis/IBF-system/issues/34049) ([56ec079](https://github.com/rodekruis/IBF-system/commit/56ec0793ea9419876237151fc1a2a487474eceaf))
-
-
-
-# [0.290.0](https://github.com/rodekruis/IBF-system/compare/v0.289.0...v0.290.0) (2025-02-28)
-
-
-### Bug Fixes
-
-* build error ([49edfd8](https://github.com/rodekruis/IBF-system/commit/49edfd839d4046cf622c2402e63943fc47d8623f))
-* hide wrongly calculated total exposure if percentage ([432700e](https://github.com/rodekruis/IBF-system/commit/432700e87ada39ccd8eca3edfdd291e281206001))
-* rebase error ([b6294f9](https://github.com/rodekruis/IBF-system/commit/b6294f98ade11f0a32be509d56e16f44094e99e4))
-* warning-to-trigger scenario ([f8d4266](https://github.com/rodekruis/IBF-system/commit/f8d426642316bbc76143c8868c75628ec6bc9e66))
-
-
-### Features
-
-* remove hasEap wording distinction AB[#33607](https://github.com/rodekruis/IBF-system/issues/33607) ([af43a38](https://github.com/rodekruis/IBF-system/commit/af43a38a436a20e69e246a2370f2ef0f119b8fbd))
-* replace monthly-forecast-info by forecastSource and align with design ([4210447](https://github.com/rodekruis/IBF-system/commit/42104470a269b68f6f011848424c587c2e0e50ff))
-* unclickable timelines + refactor AB[#33408](https://github.com/rodekruis/IBF-system/issues/33408) ([8842a63](https://github.com/rodekruis/IBF-system/commit/8842a63f60301a2aad3538eb724d5eaaaa4b1adb))
 
 
 
