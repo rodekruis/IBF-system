@@ -353,7 +353,7 @@ export class EventService {
     }
   }
 
-  public isLastUploadDateStale = (
+  public isLastUploadDateLate = (
     lastUploadDate: Date,
     disasterType: DisasterType,
   ) => {

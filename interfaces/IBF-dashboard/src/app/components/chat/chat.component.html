@@ -1,5 +1,5 @@
 <ion-content class="ion-padding-bottom" scrollY="true">
-  <app-dialogue-turn [isLate]="isLate">
+  <app-dialogue-turn [isLastUploadDateLate]="isLastUploadDateLate">
     <p style="padding-right: 20px">
       <span
         [innerHTML]="
@@ -11,7 +11,7 @@
                 }
         "
       ></span>
-      @if (isLate) {
+      @if (isLastUploadDateLate) {
         <app-tooltip
           [value]="
             'chat-component.common.warn-label.tooltip'

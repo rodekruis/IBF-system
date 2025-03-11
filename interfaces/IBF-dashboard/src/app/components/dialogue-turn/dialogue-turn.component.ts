@@ -11,7 +11,7 @@ export class DialogueTurnComponent implements OnChanges {
   firstIssuedDate: string;
 
   @Input()
-  isLate = false;
+  isLastUploadDateLate = false;
 
   @Input()
   isSelected = false;
