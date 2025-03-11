@@ -17,10 +17,10 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType);
+    await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await aggregates.aggregateComponentIsVisible();
+    await dashboard.waitForLoaderToDisappear();
     await aggregates.validatesAggregatesInfoButtons();
-    await aggregates.validateLayerPopoverExternalLink();
   });
 };

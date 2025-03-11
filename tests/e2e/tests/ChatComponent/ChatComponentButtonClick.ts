@@ -17,15 +17,16 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType);
+    await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
+    await dashboard.waitForLoaderToDisappear();
     await chat.allDefaultButtonsArePresent();
     await chat.clickAndAssertAboutButton();
     await chat.clickAndAssertGuideButton();
     await chat.clickAndAssertExportViewButton();
     await chat.clickAndAssertTriggerLogButton({
-      url: `/log?countryCodeISO3=${dataset.country.code}&disasterType=${dataset.disasterType}`,
+      url: `/log?countryCodeISO3=${dataset.country.code}&disasterType=${dataset.disasterType.name}`,
     });
   });
 };

@@ -20,6 +20,7 @@ export default (
       // Navigate between disaster types no matter the mock data
       const disasterType = dataset.country.disasterTypes[disasterTypeIndex];
       await dashboard.navigateToDisasterType(disasterType);
+      await dashboard.waitForLoaderToDisappear();
       await userState.headerComponentDisplaysCorrectDisasterType({
         country: dataset.country,
         disasterType,

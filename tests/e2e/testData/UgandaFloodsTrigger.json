@@ -4,7 +4,10 @@
     "name": "Uganda",
     "disasterTypes": ["floods", "drought"]
   },
-  "disasterType": "floods",
+  "disasterType": {
+    "name": "floods",
+    "label": "Flood"
+  },
   "scenario": "trigger",
   "user": {
     "email": "uganda@redcross.nl",
@@ -13,18 +16,48 @@
     "lastName": "Manager"
   },
   "title": "IBF PORTAL",
-  "indicators": [
+  "aggregateIndicators": [
+    "Exposed population",
+    "Total Population",
+    "Female-headed household",
+    "Population under 8",
+    "Population over 65"
+  ],
+  "mapLayers": [
     {
       "name": "red_cross_branches",
       "label": "Red Cross branches",
       "legendLabels": ["Red Cross branches"],
-      "active": false
+      "active": false,
+      "type": "point"
     },
     {
       "name": "glofas_stations",
       "label": "Glofas stations",
       "legendLabels": ["GloFAS No action"],
-      "active": true
+      "active": true,
+      "type": "point"
+    },
+    {
+      "name": "flood_extent",
+      "label": "Flood extent",
+      "legendLabels": ["Flood extent"],
+      "active": true,
+      "type": "raster"
+    },
+    {
+      "name": "population_affected",
+      "label": "Exposed population",
+      "legendLabels": ["Exposed population"],
+      "active": true,
+      "type": "admin-area"
     }
-  ]
+  ],
+  "timeline": {
+    "dateFormat": "EEE dd MMM yyyy",
+    "dateUnit": "days"
+  },
+  "eap": {
+    "actions": true
+  }
 }

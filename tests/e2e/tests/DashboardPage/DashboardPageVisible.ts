@@ -24,9 +24,10 @@ export default (
       throw new Error('pages and components not found');
     }
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType);
+    await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
+    await dashboard.waitForLoaderToDisappear();
     await disasterType.topBarComponentIsVisible();
     if (dataset.scenario === 'trigger') {
       // REFACTOR
@@ -39,7 +40,7 @@ export default (
       await chat.chatColumnIsVisibleForNoTriggerState({
         user: dataset.user,
         date,
-        disasterType: dataset.disasterType,
+        disasterType: dataset.disasterType.name,
       });
     }
     await aggregates.aggregateComponentIsVisible();

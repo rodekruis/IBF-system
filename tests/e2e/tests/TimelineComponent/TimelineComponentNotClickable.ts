@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test(`[33066] Timeline's purple buttons are active or inactive dependent on disaster type`, async () => {
+  test(`[33066] Timeline's purple buttons are inactive and correctly styled`, async () => {
     const { dashboard } = pages;
     const { userState, timeline } = components;
 
@@ -17,11 +17,15 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType);
+    await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
+    await dashboard.waitForLoaderToDisappear();
     await timeline.validateTimelineIsInactive();
-    await timeline.validateTimelineDates();
-    await timeline.assertPurpleTimelineButtonElements();
+    await timeline.validateTimelineDates(dataset.timeline);
+    // NOTE: this if can very seen be removed again, as the timeline will change to purple for both warning and trigger
+    if (dataset.scenario === 'trigger') {
+      await timeline.assertPurpleTimelineButtonElements();
+    }
   });
 };

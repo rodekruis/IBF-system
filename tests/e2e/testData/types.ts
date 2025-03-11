@@ -4,6 +4,11 @@ export interface Country {
   disasterTypes: string[];
 }
 
+export interface DisasterType {
+  name: string;
+  label: string;
+}
+
 export interface User {
   email: string;
   password: string;
@@ -11,18 +16,28 @@ export interface User {
   lastName: string;
 }
 
-export interface Indicator {
+export interface Layer {
   name: string;
   label: string;
   legendLabels: string[];
   active: boolean;
+  type: string; // 'raster' | 'admin-area' / 'point'
 }
 
+export interface Timeline {
+  dateFormat: string;
+  dateUnit: string; // 'days' | 'months' | 'hours'
+}
 export interface Dataset {
   country: Country;
-  disasterType: string;
+  disasterType: DisasterType;
   scenario: string;
   user: User;
   title: string;
-  indicators: Indicator[];
+  aggregateIndicators: string[];
+  mapLayers: Layer[];
+  timeline: Timeline;
+  eap: {
+    actions: boolean;
+  };
 }

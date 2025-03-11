@@ -17,9 +17,12 @@ export default (
     }
 
     // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType);
+    await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
+    // Wait for the page to load
+    await dashboard.waitForLoaderToDisappear();
+
     await map.mapComponentIsVisible();
     await map.breadCrumbViewIsVisible({ nationalView: true });
     await map.isLegendOpen({ legendOpen: true });
