@@ -122,7 +122,11 @@
           fill="solid"
           shape="round"
           color="ibf-trigger-alert-primary"
-          [disabled]="isSubmitDisabled()"
+          [disabled]="
+            popoverStep === 'select-areas'
+              ? isContinueDisabled()
+              : isSubmitDisabled()
+          "
           (click)="
             popoverStep === 'select-areas'
               ? continueToConfirmStep()
