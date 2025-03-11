@@ -9,6 +9,9 @@ const MOCK_EVENT: EventSummary = {
   alertLevel: AlertLevel.TRIGGER,
   eventName: 'National',
   disasterSpecificProperties: {},
+  userTrigger: false,
+  userTriggerDate: null,
+  userTriggerName: null,
 };
 export const MOCK_EVENT_STATE: EventState = {
   events: [MOCK_EVENT, MOCK_EVENT],
