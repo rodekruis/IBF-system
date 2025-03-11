@@ -8,7 +8,11 @@ import { SetTriggerPopoverComponent } from 'src/app/components/set-trigger-popov
 import { DisasterType, ForecastSource } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
-import { EventService, EventSummary } from 'src/app/services/event.service';
+import {
+  AlertLevel,
+  EventService,
+  EventSummary,
+} from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { AlertArea } from 'src/app/types/alert-area';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
@@ -107,7 +111,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     if ((LeadTimeTriggerKey[event.firstLeadTime] as string) === '0') {
       headerKey += '-ongoing';
     }
-    if (!event.forecastTrigger) {
+    if (event.alertLevel !== AlertLevel.TRIGGER) {
       headerKey += '-below-trigger';
     }
     const header = this.translateService.instant(headerKey, {
@@ -129,11 +133,12 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     const noLandfallYetEvent =
       event.disasterSpecificProperties?.typhoonNoLandfallYet;
 
-    const warningSuffix = event.forecastTrigger
-      ? ''
-      : (this.translateService.instant(
-          `chat-component.typhoon.active-event.warning`,
-        ) as string);
+    const warningSuffix =
+      event.alertLevel === AlertLevel.TRIGGER
+        ? ''
+        : (this.translateService.instant(
+            `chat-component.typhoon.active-event.warning`,
+          ) as string);
 
     const landfallInfo = this.translateService.instant(
       `chat-component.typhoon.active-event.${

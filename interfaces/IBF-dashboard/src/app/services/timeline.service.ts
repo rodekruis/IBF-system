@@ -7,7 +7,7 @@ import { Country, DisasterType } from 'src/app/models/country.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EventService } from 'src/app/services/event.service';
+import { AlertLevel, EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
@@ -258,7 +258,7 @@ export class TimelineService {
               leadTime,
               eventNames: [event.eventName],
               forecastAlert: true,
-              forecastTrigger: event.forecastTrigger,
+              forecastTrigger: event.alertLevel === AlertLevel.TRIGGER,
               undefinedLeadTime: false,
             });
           }
@@ -268,7 +268,8 @@ export class TimelineService {
           );
           leadTimeButton.eventNames.push(event.eventName);
           leadTimeButton.forecastTrigger =
-            leadTimeButton.forecastTrigger || event.forecastTrigger;
+            leadTimeButton.forecastTrigger ||
+            event.alertLevel === AlertLevel.TRIGGER;
         }
       }
     }
@@ -312,7 +313,7 @@ export class TimelineService {
           leadTime: event.firstLeadTime,
           eventNames: [event.eventName],
           forecastAlert: true,
-          forecastTrigger: event.forecastTrigger,
+          forecastTrigger: event.alertLevel === AlertLevel.TRIGGER,
           undefinedLeadTime: true,
         });
       }

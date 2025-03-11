@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-enums */
 import { Injectable } from '@angular/core';
 import {
   differenceInDays,
@@ -6,6 +7,7 @@ import {
 } from 'date-fns';
 import { DateTime } from 'luxon';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { BREADCRUMB_DISASTERS } from 'src/app/components/admin-level/admin-level.component';
 import {
   Country,
   CountryDisasterSettings,
@@ -40,6 +42,15 @@ export class EventSummary {
   header?: string;
   nrAlertAreas?: number;
   mainExposureValueSum?: number;
+  alertLevel: AlertLevel;
+}
+
+export enum AlertLevel {
+  NONE = 'none',
+  WARNINGLOW = 'warning-low',
+  WARNINGMEDIUM = 'warning-medium',
+  WARNING = 'warning',
+  TRIGGER = 'trigger',
 }
 
 export class DisasterSpecificProperties {
@@ -172,8 +183,8 @@ export class EventService {
     ) =>
     (events: EventSummary[]) => {
       disasterType.activeTrigger =
-        events.filter((e: EventSummary) => e.forecastTrigger).length > 0 ||
-        false;
+        events.filter((e: EventSummary) => e.alertLevel === AlertLevel.TRIGGER)
+          .length > 0 || false;
       callback(disasterType);
     };
 
@@ -232,7 +243,9 @@ export class EventService {
     if (events.length === 1) {
       this.setEventInitially(events[0]);
     } else if (this.skipNationalView(this.disasterType.disasterType)) {
-      const triggerEvents = events.filter((e) => e.forecastTrigger);
+      const triggerEvents = events.filter(
+        (e) => e.alertLevel === AlertLevel.TRIGGER,
+      );
       const eventToLoad = triggerEvents.length ? triggerEvents[0] : events[0];
       this.setEventInitially(eventToLoad);
     } else {
@@ -243,10 +256,7 @@ export class EventService {
   };
 
   public skipNationalView(disastertype: DisasterTypeKey) {
-    return (
-      disastertype === DisasterTypeKey.typhoon ||
-      disastertype === DisasterTypeKey.malaria
-    );
+    return !BREADCRUMB_DISASTERS.includes(disastertype);
   }
 
   private sortEvents() {

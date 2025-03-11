@@ -16,7 +16,7 @@ import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevelType } from 'src/app/types/admin-level';
-import { AlertArea, AlertLabel } from 'src/app/types/alert-area';
+import { AlertArea } from 'src/app/types/alert-area';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
 import { LeadTime } from 'src/app/types/lead-time';
@@ -146,7 +146,6 @@ export class AlertAreaService {
     if (this.getActiveLeadtime()) {
       this.alertAreas.forEach((area) => {
         this.formatDates(area);
-        this.mapForecastSeverityToAlertLabel(area);
         this.filterEapActionsByMonth(area);
         area.eapActions.forEach((action) => {
           action.aofLabel = AREAS_OF_FOCUS.find(
@@ -182,14 +181,6 @@ export class AlertAreaService {
     alertArea.firstIssuedDate = DateTime.fromISO(
       alertArea.firstIssuedDate,
     ).toFormat('cccc, dd LLLL');
-  };
-
-  private mapForecastSeverityToAlertLabel = (alertArea: AlertArea) => {
-    if (alertArea.forecastTrigger) {
-      alertArea.alertLabel = AlertLabel.trigger;
-    } else if (alertArea.forecastSeverity > 0) {
-      alertArea.alertLabel = AlertLabel.warning;
-    }
   };
 
   private filterEapActionsByMonth = (alertArea: AlertArea) => {

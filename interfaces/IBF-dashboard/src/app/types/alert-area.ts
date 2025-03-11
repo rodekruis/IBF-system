@@ -1,3 +1,4 @@
+import { AlertLevel } from 'src/app/services/event.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { EapAction } from 'src/app/types/eap-action';
 
@@ -14,11 +15,5 @@ export class AlertArea {
   adminLevel: AdminLevel;
   firstIssuedDate: string;
   submitDisabled: boolean;
-  alertLabel?: AlertLabel;
-}
-
-export enum AlertLabel {
-  alert = 'alert', // No-EAP
-  trigger = 'trigger', // EAP trigger
-  warning = 'warning', // EAP below-trigger
+  alertLevel: AlertLevel;
 }
