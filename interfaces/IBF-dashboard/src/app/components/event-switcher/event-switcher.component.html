@@ -17,7 +17,7 @@
     <div class="containerDiv">
       @if (event?.eventName === selectedEventName && showLessButton()) {
         <ion-button
-          class="event-speech-bubble-button"
+          class="max-w-sm"
           [class.selected]="event?.eventName === selectedEventName"
           shape="round"
           slot="start"
@@ -42,7 +42,7 @@
       @if (event?.eventName !== selectedEventName) {
         <ion-button
           data-testid="event-switch-button"
-          class="event-speech-bubble-button"
+          class="max-w-sm"
           [class.selected]="event?.eventName === selectedEventName"
           shape="round"
           slot="start"
