@@ -21,21 +21,24 @@ export default (
     await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
+    // Wait for the page to load
+    await dashboard.waitForLoaderToDisappear();
+
     await chat.chatColumnIsVisibleForTriggerState({
       user: dataset.user,
       date,
     });
-    await map.assertTriggerOutlines({ visible: true });
+    await map.assertTriggerOutlines(dataset.scenario);
     await chat.predictionButtonsAreActive();
-    await chat.clickTriggerShowPredictionButton();
+    await chat.clickShowPredictionButton(dataset.scenario);
     await map.clickOnAdminBoundary();
-    await chat.validateEapList();
+    await chat.validateEapList(dataset.eap.actions);
 
     const adminAreaName = await map.getAdminAreaBreadCrumbText();
     await chat.validateChatTitleAndBreadcrumbs({
       district: adminAreaName,
       mainExposureUnit: 'Exposed Population',
     });
-    await chat.validateEapListButtons();
+    await chat.validateEapListButtons(dataset.eap.actions);
   });
 };

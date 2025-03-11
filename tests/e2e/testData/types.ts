@@ -38,7 +38,6 @@ export interface Dataset {
   mapLayers: Layer[];
   timeline: Timeline;
   eap: {
-    active: boolean;
-    list: string[];
+    actions: boolean;
   };
 }

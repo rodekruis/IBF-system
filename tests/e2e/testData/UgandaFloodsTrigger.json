@@ -58,6 +58,6 @@
     "dateUnit": "days"
   },
   "eap": {
-    "active": true
+    "actions": true
   }
 }

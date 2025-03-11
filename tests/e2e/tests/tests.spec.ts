@@ -148,10 +148,7 @@ test.describe('E2E Tests', () => {
 
         if (scenario !== 'no-trigger') {
           // REFACTOR
-          if (scenario !== 'warning') {
-            // REFACTOR?
-            ChatComponentTriggeredAreasList(pages, components, dataset, date);
-          }
+          ChatComponentTriggeredAreasList(pages, components, dataset, date);
           ChatComponentEventClick(pages, components, dataset, date);
           ChatComponentEventCount(pages, components, dataset, date);
           ChatComponentInfoPopover(pages, components, dataset, date);

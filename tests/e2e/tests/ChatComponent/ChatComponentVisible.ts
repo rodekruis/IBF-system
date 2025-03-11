@@ -20,6 +20,7 @@ export default (
     await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
+    await dashboard.waitForLoaderToDisappear();
     if (dataset.scenario === 'no-trigger') {
       await chat.chatColumnIsVisibleForNoTriggerState({
         user: dataset.user,

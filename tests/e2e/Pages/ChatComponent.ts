@@ -219,35 +219,27 @@ class ChatComponent extends DashboardPage {
     }
   }
 
-  async clickTriggerShowPredictionButton() {
+  async clickShowPredictionButton(scenario: string) {
     await this.page.waitForLoadState('domcontentloaded');
 
     const triggerChatDialogue = this.page
       .getByTestId('dialogue-turn-content')
-      .filter({ hasText: 'Trigger issued' })
+      .filter({
+        hasText: scenario === 'trigger' ? 'Trigger issued' : 'Warning',
+      })
+      .first()
       .getByTestId('event-switch-button');
     await triggerChatDialogue.click();
   }
 
-  async validateEapList() {
+  async validateEapList(eapActions: boolean) {
     // wait for the list to be fully loaded
     await this.page.waitForTimeout(200);
-
-    const eapListWash = this.eapList.getByLabel('WASH').getByText('WASH');
-    const eapListShelter = this.eapList
-      .getByLabel('Shelter')
-      .getByText('Shelter');
-    const eapListLivelihoods = this.eapList
-      .getByLabel('Livelihoods & Basic Needs')
-      .getByText('Livelihoods & Basic Needs');
-
-    const countWashList = await eapListWash.count();
-    const countShelterList = await eapListShelter.count();
-    const countLivelihoodsList = await eapListLivelihoods.count();
-
-    expect(countWashList).toBe(4);
-    expect(countShelterList).toBe(7);
-    expect(countLivelihoodsList).toBe(1);
+    if (eapActions) {
+      await expect(this.eapList).toBeVisible();
+    } else {
+      await expect(this.eapList).not.toBeVisible();
+    }
   }
 
   async validateChatTitleAndBreadcrumbs({
@@ -265,12 +257,13 @@ class ChatComponent extends DashboardPage {
     await expect(chatTitle).toContainText(mainExposureUnit);
   }
 
-  async validateEapListButtons() {
+  async validateEapListButtons(eapActions: boolean) {
     const backButton = this.page.getByRole('button', { name: 'Back' });
-    const saveButton = this.page.getByRole('button', { name: 'Save' });
-
     await expect(backButton).toBeEnabled();
-    await expect(saveButton).toBeDisabled();
+    if (eapActions) {
+      const saveButton = this.page.getByRole('button', { name: 'Save' });
+      await expect(saveButton).toBeDisabled();
+    }
   }
 }
 

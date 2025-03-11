@@ -30,6 +30,6 @@
     "dateUnit": "months"
   },
   "eap": {
-    "active": false
+    "actions": false
   }
 }

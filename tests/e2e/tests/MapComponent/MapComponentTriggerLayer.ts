@@ -20,7 +20,6 @@ export default (
     await dashboard.navigateToDisasterType(dataset.disasterType.name);
     // Assertions
     await userState.headerComponentIsVisible(dataset);
-    // Wait for the page to load
     await dashboard.waitForLoaderToDisappear();
 
     await map.mapComponentIsVisible();
@@ -28,8 +27,6 @@ export default (
     await map.assertLegendElementIsVisible({
       legendComponentName: 'Area triggered', // REFACTOR
     });
-    await map.assertTriggerOutlines({
-      visible: dataset.scenario === 'trigger', // REFACTOR
-    });
+    await map.assertTriggerOutlines(dataset.scenario);
   });
 };
