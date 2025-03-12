@@ -92,7 +92,9 @@ const getMjmlBodyEvent = ({
 
   contentContent.push(
     triggerStatusLabel === AlertStatusLabelEnum.Trigger
-      ? `<strong>Advisory:</strong> Activate <a href="${eapLink}">Early Action Protocol</a>`
+      ? eapLink
+        ? `<strong>Advisory:</strong> Activate <a href="${eapLink}">Protocol</a>` // Not all implemtations have an EAP, so for now defaulting to more generic copy
+        : `<strong>Advisory:</strong> Activate Protocol`
       : `<strong>Advisory:</strong> Inform all potentialy exposed ${defaultAdminAreaLabel}`,
   );
 
