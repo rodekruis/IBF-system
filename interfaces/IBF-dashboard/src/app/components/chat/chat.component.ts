@@ -78,7 +78,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public countryDisasterSettings: CountryDisasterSettings;
   public lastUploadDate: string;
   private lastUploadDateFormat = 'cccc, dd LLLL HH:mm';
-  public isLate = false;
+  public isLastUploadDateLate = false;
   public supportEmailAddress = environment.supportEmailAddress;
   public adminLevel: AdminLevel;
 
@@ -247,7 +247,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.lastUploadDate = lastUploadDate
       ? lastUploadDate.toFormat(this.lastUploadDateFormat)
       : 'unknown';
-    this.isLate = this.eventService.isLastUploadDateStale(
+    this.isLastUploadDateLate = this.eventService.isLastUploadDateLate(
       lastUploadDate.toJSDate(), // TODO: migrate from luxon (DateTime) to date-fns (Date) over time completely
       disasterType,
     );

@@ -42,7 +42,6 @@ import { MapComponent } from 'src/app/components/map/map.component';
 import { MapControlsComponent } from 'src/app/components/map-controls/map-controls.component';
 import { MatrixComponent } from 'src/app/components/matrix/matrix.component';
 import { ScreenOrientationPopoverComponent } from 'src/app/components/screen-orientation-popover/screen-orientation-popover.component';
-import { SetTriggerConfirmPopoverComponent } from 'src/app/components/set-trigger-confirm-popover/set-trigger-confirm-popover.component';
 import { SetTriggerPopoverComponent } from 'src/app/components/set-trigger-popover/set-trigger-popover.component';
 import { TimelineComponent } from 'src/app/components/timeline/timeline.component';
 import { TooltipComponent } from 'src/app/components/tooltip/tooltip.component';
@@ -95,7 +94,6 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     MatrixComponent,
     ScreenOrientationPopoverComponent,
     SetTriggerPopoverComponent,
-    SetTriggerConfirmPopoverComponent,
     TimelineComponent,
     TooltipComponent,
     TooltipPopoverComponent,
@@ -140,7 +138,6 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     MatrixComponent,
     ScreenOrientationPopoverComponent,
     SetTriggerPopoverComponent,
-    SetTriggerConfirmPopoverComponent,
     TimelineComponent,
     TooltipComponent,
     TooltipPopoverComponent,

@@ -103,11 +103,7 @@ export class UserStateComponent implements OnInit {
     const popover = await this.popoverController.create({
       component: ChangePasswordPopoverComponent,
       animated: true,
-      cssClass: `ibf-popover ibf-popover-normal ${
-        this.eventService.state.event?.forecastTrigger
-          ? 'trigger-alert'
-          : 'no-alert'
-      }`,
+      cssClass: 'ibf-popover ibf-popover-normal',
       translucent: true,
       showBackdrop: true,
     });

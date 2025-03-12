@@ -8,22 +8,25 @@ ion-button {
   height: 100% !important;
   text-align: left;
   --box-shadow: none;
+  --border-style: solid;
+  --border-color: transparent;
+
+  &::part(native) {
+    border-width: 0.1rem;
+  }
 
   &.active {
-    background: var(--ion-color-ibf-trigger-alert-primary);
-    border: 1px solid var(--ion-color-ibf-trigger-alert-primary);
+    --border-color: var(--ion-color-ibf-trigger-alert-primary);
     --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
 
-  &.alert {
-    background: var(--ion-color-ibf-trigger-alert-tertiary);
-    border: 1px solid var(--ion-color-ibf-trigger-alert-tertiary);
+  &.forecast-alert {
+    --border-color: var(--ion-color-ibf-trigger-alert-tertiary);
     --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
 
-  &.alert.active {
-    background: var(--ion-color-ibf-trigger-alert-primary);
-    border: 1px solid var(--ion-color-ibf-trigger-alert-primary);
+  &.forecast-alert.active {
+    --border-color: var(--ion-color-ibf-trigger-alert-primary);
     --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
   }
 }

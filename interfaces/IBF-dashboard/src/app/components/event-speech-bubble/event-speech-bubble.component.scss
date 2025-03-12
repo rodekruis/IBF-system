@@ -44,9 +44,11 @@ ion-checkbox {
   padding: 0em 1.4em;
 }
 
-.set-trigger-btn {
-  width: 100%;
-  --background: var(--ion-color-light); /* Invert background color */
-  --color: var(--ion-color-danger); /* Invert text color */
-  --border-color: var(--ion-color-danger); /* Optional: Add border color */
+ion-button {
+  --color: var(--ion-color-fiveten-red-700);
+  --border-color: var(--ion-color-fiveten-red-700);
+  --border-width: 0.125rem;
+  --border-style: solid;
+  --background: var(--ion-color-ibf-white);
+  --box-shadow: none;
 }

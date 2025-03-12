@@ -1,3 +1,6 @@
-ion-label {
-  font-size: 12px;
+.bullet-list::ng-deep {
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
 }

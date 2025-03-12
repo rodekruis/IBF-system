@@ -21,7 +21,6 @@ export default (
     // Assertions
     await userState.headerComponentIsVisible(dataset);
     await dashboard.waitForLoaderToDisappear();
-    await timeline.validateTimelineIsInactive();
     await timeline.validateTimelineDates(dataset.timeline);
     // NOTE: this if can very seen be removed again, as the timeline will change to purple for both warning and trigger
     if (dataset.scenario === 'trigger') {
