@@ -1,3 +1,13 @@
+## [0.297.1](https://github.com/rodekruis/IBF-system/compare/v0.297.0...v0.297.1) (2025-03-12)
+
+
+### Bug Fixes
+
+* disable submit if checkbox not checked ([f3d988c](https://github.com/rodekruis/IBF-system/commit/f3d988cd1c303f7a3e0f132bd8eb2fa77307e94c))
+* update all event.forecastTrigger and alertArea.forecastTrigger references + rm some unused code AB[#34111](https://github.com/rodekruis/IBF-system/issues/34111) ([41b1a30](https://github.com/rodekruis/IBF-system/commit/41b1a3057bd067c44bd5b7c77158bbf219b0ea2b))
+
+
+
 # [0.297.0](https://github.com/rodekruis/IBF-system/compare/v0.296.0...v0.297.0) (2025-03-12)
 
 
@@ -132,15 +142,6 @@
 ### Bug Fixes
 
 * change close-events api path typo AB[#34185](https://github.com/rodekruis/IBF-system/issues/34185) ([c612d0f](https://github.com/rodekruis/IBF-system/commit/c612d0f59fc3d99f3738af621ccf7b748d859414))
-
-
-
-# [0.292.0](https://github.com/rodekruis/IBF-system/compare/v0.291.0...v0.292.0) (2025-03-03)
-
-
-### Features
-
-* add noNotification flag to process events ([6c63fa0](https://github.com/rodekruis/IBF-system/commit/6c63fa0f2b2a5571268f57cdfa76d6e722bf8f10))
 
 
 
