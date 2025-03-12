@@ -744,7 +744,7 @@ export class EventService {
     eventName?: string,
   ): Promise<AreaForecastDataDto[]> {
     const whereFilters = {
-      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment), // REFACTOR: change all these filters to exact lastUploadDate.timestamp equality
       countryCodeISO3,
       adminLevel,
       disasterType,
