@@ -13,7 +13,7 @@ import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EventService } from 'src/app/services/event.service';
+import { AlertLevel, EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
@@ -961,7 +961,7 @@ export class MapService {
         weight: 5,
       };
     }
-    if (!area.forecastTrigger) {
+    if (area.alertLevel !== AlertLevel.TRIGGER) {
       return {
         color: this.nonTriggeredAreaColor,
         weight: 5,

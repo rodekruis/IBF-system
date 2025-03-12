@@ -1,3 +1,4 @@
+import { AlertLevel } from 'src/app/services/event.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { AlertArea } from 'src/app/types/alert-area';
 
@@ -15,6 +16,7 @@ export const MOCK_ALERT_AREAS: AlertArea[] = [
     adminLevel: AdminLevel.adminLevel3,
     firstIssuedDate: '2025-02-21T12:38:48.546Z',
     submitDisabled: false,
+    alertLevel: AlertLevel.TRIGGER,
   },
   {
     mainExposureValue: 1,
@@ -29,5 +31,6 @@ export const MOCK_ALERT_AREAS: AlertArea[] = [
     adminLevel: AdminLevel.adminLevel3,
     firstIssuedDate: '2025-02-21T12:38:48.546Z',
     submitDisabled: false,
+    alertLevel: AlertLevel.TRIGGER,
   },
 ];

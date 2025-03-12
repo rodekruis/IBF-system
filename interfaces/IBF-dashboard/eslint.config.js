@@ -78,7 +78,6 @@ module.exports = tseslint.config(
       '@angular-eslint/prefer-on-push-component-change-detection': 'off',
       '@angular-eslint/component-class-suffix': 'warn',
       '@angular-eslint/no-async-lifecycle-method': 'warn',
-      'perfectionist/sort-enums': 'warn',
       'perfectionist/sort-union-types': 'warn',
       'perfectionist/sort-array-includes': 'warn',
 
@@ -120,7 +119,7 @@ module.exports = tseslint.config(
       '@angular-eslint/use-component-selector': ['error'],
       '@angular-eslint/use-lifecycle-interface': ['error'],
       //'perfectionist/sort-array-includes': ['error'],
-      //'perfectionist/sort-enums': ['error'],
+      'perfectionist/sort-enums': ['error', { type: 'unsorted' }], // allow unsorted enums for domain specific ordering
       'perfectionist/sort-intersection-types': ['error'],
       //'perfectionist/sort-union-types': ['error'],
       //'object-shorthand': 'error',

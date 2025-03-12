@@ -52,8 +52,12 @@ export class SetTriggerPopoverComponent {
     void this.popoverController.dismiss(null, 'cancel');
   }
 
-  public isSubmitDisabled(): boolean {
+  public isContinueDisabled(): boolean {
     return !Object.values(this.selectedAreas).some((value) => value);
+  }
+
+  public isSubmitDisabled(): boolean {
+    return !this.understood;
   }
 
   public continueToConfirmStep(): void {

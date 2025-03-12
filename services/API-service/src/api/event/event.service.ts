@@ -851,7 +851,6 @@ export class EventService {
     uploadAlertPerLeadTimeDto.eventName = eventName;
     uploadAlertPerLeadTimeDto.date = lastUploadDate.timestamp;
     if (activeAlertAreas.length) {
-      // TODO: improve this to not be dependent on first array-element (although in practice this should work as leadTime should be equal for all eventName records)
       uploadAlertPerLeadTimeDto.alertsPerLeadTime = [
         {
           leadTime: activeAlertAreas[0].leadTime,

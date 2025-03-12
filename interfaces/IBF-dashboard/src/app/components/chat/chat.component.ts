@@ -20,7 +20,11 @@ import { AggregatesService } from 'src/app/services/aggregates.service';
 import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EventService, EventSummary } from 'src/app/services/event.service';
+import {
+  AlertLevel,
+  EventService,
+  EventSummary,
+} from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
@@ -425,7 +429,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     if (!event.disasterSpecificProperties) {
-      if (!event.forecastTrigger) {
+      if (event.alertLevel !== AlertLevel.TRIGGER) {
         return defaultColors;
       }
 
@@ -437,7 +441,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     if (!event.disasterSpecificProperties.eapAlertClass) {
-      if (!event.forecastTrigger) {
+      if (event.alertLevel !== AlertLevel.TRIGGER) {
         return defaultColors;
       }
 

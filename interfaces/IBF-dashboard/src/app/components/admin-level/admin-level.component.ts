@@ -29,6 +29,11 @@ import { EventState } from 'src/app/types/event-state';
 import { IbfLayer, IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
 import { MapView } from 'src/app/types/map-view';
 
+export const BREADCRUMB_DISASTERS = [
+  DisasterTypeKey.flashFloods,
+  DisasterTypeKey.floods,
+  DisasterTypeKey.drought,
+];
 @Component({
   selector: 'app-admin-level',
   templateUrl: './admin-level.component.html',
@@ -56,12 +61,6 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
 
   private placeCodeSubscription: Subscription;
   public placeCode: PlaceCode;
-
-  private breadcrumbDisasters = [
-    DisasterTypeKey.flashFloods,
-    DisasterTypeKey.floods,
-    DisasterTypeKey.drought,
-  ];
 
   constructor(
     public adminLevelService: AdminLevelService,
@@ -185,7 +184,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   }
 
   public useBreadcrumbs(disasterType: DisasterType): boolean {
-    return this.breadcrumbDisasters.includes(disasterType?.disasterType);
+    return BREADCRUMB_DISASTERS.includes(disasterType?.disasterType);
   }
 
   public clickBreadcrumbButton(breadCrumb: MapView, selected: boolean) {

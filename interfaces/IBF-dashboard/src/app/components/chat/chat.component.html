@@ -155,7 +155,7 @@
         </ion-note>
       }
       @if (
-        eventState?.event?.forecastTrigger &&
+        eventState?.event?.alertLevel === 'trigger' &&
         countryDisasterSettings.enableEarlyActions &&
         adminLevel > countryDisasterSettings.defaultAdminLevel
       ) {

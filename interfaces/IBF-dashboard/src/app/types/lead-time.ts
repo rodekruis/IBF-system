@@ -1,4 +1,3 @@
-/* eslint-disable perfectionist/sort-enums */
 /* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 
 export enum LeadTime {
@@ -407,7 +406,7 @@ export class LeadTimeButtonInput {
   leadTime: LeadTime;
   eventNames: string[];
   forecastAlert: boolean;
-  forecastTrigger: boolean;
+  trigger: boolean;
   undefinedLeadTime: boolean;
   duration?: number;
 }

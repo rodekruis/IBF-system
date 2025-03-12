@@ -4,62 +4,40 @@
     [borderColor]="cardColors.borderColor"
     [firstIssuedDate]="event.firstIssuedDate"
   >
-    @if (event.forecastTrigger) {
-      <div class="event-header">
-        <span class="event-header--icon-title">
-          <ion-icon
-            [style.color]="cardColors.iconColor"
-            class="alert-icon"
-            src="/assets/icons/Alert_Title.svg"
-            slot="start"
-          ></ion-icon>
-          <span [style.color]="cardColors.headerTextColor" class="">
-            {{ event.header }}
-          </span>
+    <div class="event-header">
+      <span class="event-header--icon-title">
+        <ion-icon
+          [style.color]="cardColors.iconColor"
+          class="alert-icon"
+          src="/assets/icons/Alert_Title.svg"
+          slot="start"
+        ></ion-icon>
+        <span [style.color]="cardColors.headerTextColor" class="">
+          {{ event.header }}
         </span>
-        <app-tooltip
-          data-testid="tooltip-button"
-          class="event-header--tooltip"
-          [value]="'chat-component.common.event-tooltip' | translate"
-          color="ibf-no-alert-primary"
-        ></app-tooltip>
-      </div>
-      <p>
-        @if (showFirstWarningDate()) {
-          <span
-            [innerHTML]="
-              'chat-component.' +
-                disasterType?.disasterType +
-                '.active-event.first-warning-date'
-                | translate
-                  : {
-                      firstLeadTimeDate: event.firstLeadTimeDate,
-                    }
-            "
-          ></span>
-        }
-      </p>
-    } @else {
-      <div class="event-header">
-        <span class="event-header--icon-title">
-          <ion-icon
-            [style.color]="cardColors.iconColor"
-            class="alert-icon"
-            src="/assets/icons/Alert_Title.svg"
-            slot="start"
-          ></ion-icon>
-          <span [style.color]="cardColors.headerTextColor" class="">
-            {{ event.header }}
-          </span>
-        </span>
-        <app-tooltip
-          data-testid="tooltip-button"
-          class="event-header--tooltip"
-          [value]="'chat-component.common.event-tooltip' | translate"
-          color="ibf-no-alert-primary"
-        ></app-tooltip>
-      </div>
-    }
+      </span>
+      <app-tooltip
+        data-testid="tooltip-button"
+        class="event-header--tooltip"
+        [value]="'chat-component.common.event-tooltip' | translate"
+        color="ibf-no-alert-primary"
+      ></app-tooltip>
+    </div>
+    <p>
+      @if (showFirstWarningDate()) {
+        <span
+          [innerHTML]="
+            'chat-component.' +
+              disasterType?.disasterType +
+              '.active-event.first-warning-date'
+              | translate
+                : {
+                    firstLeadTimeDate: event.firstLeadTimeDate,
+                  }
+          "
+        ></span>
+      }
+    </p>
 
     <p>
       <strong
@@ -143,7 +121,10 @@
       </div>
 
       <div class="containerDiv">
-        @if (disasterType.enableSetWarningToTrigger && !event.forecastTrigger) {
+        @if (
+          disasterType.enableSetWarningToTrigger &&
+          event.alertLevel !== 'trigger'
+        ) {
           <ion-button
             class="w-full max-w-sm font-bold"
             shape="round"
