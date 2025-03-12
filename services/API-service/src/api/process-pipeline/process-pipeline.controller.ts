@@ -91,6 +91,45 @@ export class ProcessPipelineController {
     );
   }
 
+  // NOTE: remove after  all pipelines migrated to /event/process
+  @Roles(UserRole.PipelineUser)
+  @ApiOperation({
+    summary:
+      '[EXTERNALLY USED - PIPELINE] Old endpoint to send notification instructions. Runs full /events/process in practice.',
+  })
+  @ApiResponse({
+    status: 201,
+    description:
+      'Notification request sent (actual e-mails/whatsapps sent only if there is an active event)',
+  })
+  @ApiQuery({
+    name: 'noNotifications',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description:
+      'If true, only returns the notification content without sending it',
+  })
+  @Post('notification/send')
+  @ApiConsumes()
+  @UseInterceptors()
+  public async send(
+    @Body() sendNotification: ProcessEventsDto,
+    @Query(
+      'noNotifications',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    noNotifications: boolean,
+  ): Promise<void | NotificationApiTestResponseDto> {
+    return await this.processPipelineService.processEvents(
+      sendNotification.countryCodeISO3,
+      sendNotification.disasterType,
+      noNotifications,
+    );
+  }
+
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
@@ -109,10 +148,10 @@ export class ProcessPipelineController {
     description:
       'If true, only returns the notification content without sending it',
   })
-  @Post('notification/send') // NOTE: Change to /event/notify after all pipelines have migrated
+  @Post('events/notify')
   @ApiConsumes()
   @UseInterceptors()
-  public async send(
+  public async notify(
     @Body() sendNotification: ProcessEventsDto,
     @Query(
       'noNotifications',
@@ -122,7 +161,7 @@ export class ProcessPipelineController {
     )
     noNotifications: boolean,
   ): Promise<void | NotificationApiTestResponseDto> {
-    return await this.processPipelineService.processEvents(
+    return await this.processPipelineService.notify(
       sendNotification.countryCodeISO3,
       sendNotification.disasterType,
       noNotifications,

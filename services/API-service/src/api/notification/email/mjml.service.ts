@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import mjml2html from 'mjml';
 
 import { HelperService } from '../../../shared/helper.service';
-import { ContentEventEmail } from '../dto/content-trigger-email.dto';
+import { ContentEventEmail } from '../dto/content-event-email.dto';
 import {
   BODY_WIDTH,
   EMAIL_HEAD,
@@ -70,7 +70,7 @@ export class MjmlService {
       socialMediaType,
     });
 
-  public getTriggerEmailHtmlOutput({
+  public getActiveEventEmailHtmlOutput({
     emailContent,
     date,
   }: {

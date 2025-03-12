@@ -49,14 +49,14 @@ export class EmailService {
     lastUploadDate: LastUploadDateDto,
   ): Promise<void | string> {
     const emailContent =
-      await this.notificationContentService.getContentTriggerNotification(
+      await this.notificationContentService.getContentActiveEvents(
         country,
         disasterType,
         activeEvents,
       );
     let emailHtml = '';
 
-    emailHtml += this.mjmlService.getTriggerEmailHtmlOutput({
+    emailHtml += this.mjmlService.getActiveEventEmailHtmlOutput({
       emailContent,
       date: lastUploadDate.timestamp,
     });
@@ -92,7 +92,7 @@ export class EmailService {
       await this.notificationContentService.getDisasterTypeLabel(disasterType);
 
     const emailContent =
-      await this.notificationContentService.getContentTriggerNotification(
+      await this.notificationContentService.getContentActiveEvents(
         country,
         disasterType,
         finishedEvents,

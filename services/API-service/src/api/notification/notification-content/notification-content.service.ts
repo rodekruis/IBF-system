@@ -15,7 +15,7 @@ import { AlertLevel } from '../../event/enum/alert-level.enum';
 import { EventService } from '../../event/event.service';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../dto/admin-area-notification-info.dto';
-import { ContentEventEmail } from '../dto/content-trigger-email.dto';
+import { ContentEventEmail } from '../dto/content-event-email.dto';
 import {
   AlertStatusLabelEnum,
   NotificationDataPerEventDto,
@@ -35,7 +35,7 @@ export class NotificationContentService {
     private readonly helperService: HelperService,
   ) {}
 
-  public async getContentTriggerNotification(
+  public async getContentActiveEvents(
     country: CountryEntity,
     disasterType: DisasterType,
     activeEvents: EventSummaryCountry[],
@@ -163,6 +163,7 @@ export class NotificationContentService {
     disasterType: DisasterType,
   ): Promise<NotificationDataPerEventDto> {
     const data = new NotificationDataPerEventDto();
+    data.event = event;
     data.triggerStatusLabel =
       event.alertLevel === AlertLevel.TRIGGER
         ? AlertStatusLabelEnum.Trigger

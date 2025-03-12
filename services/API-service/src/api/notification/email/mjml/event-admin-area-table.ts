@@ -1,7 +1,7 @@
 import { NumberFormat } from '../../../../shared/enums/number-format.enum';
 import { IndicatorMetadataEntity } from '../../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../../dto/admin-area-notification-info.dto';
-import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
+import { ContentEventEmail } from '../../dto/content-event-email.dto';
 import { NotificationDataPerEventDto } from '../../dto/notification-date-per-event.dto';
 import {
   COLOR_WHITE,

@@ -120,4 +120,10 @@ export class EventSummaryCountry {
 
   @ApiProperty({ example: AlertLevel.NONE })
   public alertLevel: AlertLevel;
+
+  @ApiProperty({ example: new Date() })
+  public userTriggerDate: Date;
+
+  @ApiProperty({ example: 'Henry Dunant' })
+  public userTriggerName: string;
 }

@@ -2,10 +2,12 @@ import {
   AlertArea,
   DisasterSpecificProperties,
   EapAlertClass,
+  EventSummaryCountry,
 } from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 
 export class NotificationDataPerEventDto {
+  event: EventSummaryCountry;
   triggerStatusLabel: AlertStatusLabelEnum;
   eventName: string;
   disasterSpecificProperties: DisasterSpecificProperties;
