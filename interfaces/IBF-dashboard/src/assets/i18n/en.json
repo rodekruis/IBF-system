@@ -1,6 +1,8 @@
 {
   "app-name": "IBF-dashboard",
-  "common": { "version": "Version" },
+  "common": {
+    "version": "Version"
+  },
   "activation-page": {
     "activation-report": "Open all triggers",
     "copy-to-clipboard": "Copy to clipboard",
@@ -23,7 +25,10 @@
     "note": "NOTE: This portal works best on desktop or tablet using Chrome, Firefox, Safari and Microsoft Edge.<br>The portal is not compatible with Internet Explorer.<br>The portal is not optimized for mobile phones yet.",
     "forgot-password": "Forgot password?",
     "forgot-password-message": "If you forgot your password please send a request to ",
-    "environment-label": { "production": "Live", "stage": "Demo" }
+    "environment-label": {
+      "production": "Live",
+      "stage": "Demo"
+    }
   },
   "dashboard-page": {
     "dev-menu": {
@@ -83,14 +88,14 @@
     "select-areas": {
       "header": "Set trigger",
       "content": "This <strong>{{ eventName}}</strong> warning is based on: <a href={{forecastSourceUrl}}>{{forecastSourceLabel}}</a>. To set this warning as a trigger, select {{adminAreaLabelPlural}} where the Early Action Protocol should be activated.",
-      "select-areas": "Select {{adminAreaLabelPlural}}:",
+      "select-areas": "Select {{adminAreaLabelPlural}},",
       "checked-count": "{{adminAreaLabelPlural}} selected",
       "continue": "Continue",
       "back": "Cancel"
     },
     "confirm": {
       "header": "Set trigger - disclaimers",
-      "note": "<strong>Important note:</strong>",
+      "note": "Important",
       "bullet-list": "<ul><li>The {{adminAreaLabelPlural}} that are not selected will remain visible as warning areas, but cannot be added later.</li><li>This actions impacts what is shown in the portal for all users.</li><li>A notification regarding the trigger will be sent to all users.</li></ul>",
       "understand": "I understand that this action cannot be undone.",
       "continue": "Set trigger",
