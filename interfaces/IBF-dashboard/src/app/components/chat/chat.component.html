@@ -1,5 +1,5 @@
-<ion-content scrollY="true">
-  <app-dialogue-turn [isWarn]="isWarn" [isOpeningBubble]="true">
+<ion-content class="ion-padding-bottom" scrollY="true">
+  <app-dialogue-turn [isLastUploadDateLate]="isLastUploadDateLate">
     <p style="padding-right: 20px">
       <span
         [innerHTML]="
@@ -11,7 +11,7 @@
                 }
         "
       ></span>
-      @if (isWarn) {
+      @if (isLastUploadDateLate) {
         <app-tooltip
           [value]="
             'chat-component.common.warn-label.tooltip'
@@ -74,13 +74,17 @@
             mainExposureIndicatorNumberFormat
           "
           [forecastSource]="countryDisasterSettings?.forecastSource"
+          [cardColors]="getCardColors(event)"
         ></app-event-speech-bubble>
       }
     }
   }
 
   @for (area of filteredAreas; track area.name; let isFirst = $first) {
-    <app-dialogue-turn [isTriggered]="eventState?.event?.forecastTrigger">
+    <app-dialogue-turn
+      [borderColor]="getCardColors(eventState?.event).borderColor"
+      [isSelected]="true"
+    >
       <ion-row>
         <ion-col
           class="flex flex-row gap-2"
@@ -88,47 +92,30 @@
           size-md="12"
           size-sm="8"
         >
-          <ion-img
-            src="assets/icons/Alert_Chat_Black.svg"
-            class="chat-icon"
-          ></ion-img>
-          <div>
-            <ion-label
-              [innerHTML]="
-                'chat-component.' +
-                  disasterTypeName +
-                  '.active-event.place-name'
-                  | translate
-                    : {
-                        adminAreaLabel,
-                        placeName: area.name,
-                        parentName: getAreaParentString(area),
-                      }
-              "
-            ></ion-label
-            ><br />
-            @if (area.mainExposureValue) {
-              <ion-note size="small">
-                <span
-                  [innerHTML]="
-                    'chat-component.' +
-                      disasterTypeName +
-                      '.active-event.exposed' | translate
-                  "
-                ></span>
-                <strong>
-                  {{
-                    area.mainExposureValue
-                      | compact: mainExposureIndicatorNumberFormat
-                  }}
-                </strong>
-              </ion-note>
-            } @else {
-              <ion-note size="small">
-                <span>{{ 'chat-component.common.no-info' | translate }}</span>
-              </ion-note>
-            }
-            <br />
+          <div class="event-header">
+            <span class="event-header--icon-title">
+              <ion-icon
+                [style.color]="getCardColors(eventState?.event).iconColor"
+                class="alert-icon"
+                src="/assets/icons/Alert_Title.svg"
+                slot="start"
+              ></ion-icon>
+              <span
+                [style.color]="getCardColors(eventState?.event).headerTextColor"
+                [innerHTML]="
+                  'chat-component.' +
+                    disasterTypeName +
+                    '.active-event.place-name'
+                    | translate
+                      : {
+                          adminAreaLabel,
+                          placeName: area.name,
+                          parentName: getAreaParentString(area),
+                        }
+                "
+              >
+              </span>
+            </span>
           </div>
         </ion-col>
         <ion-col size-lg="4" size-md="12" size-sm="4">
@@ -147,88 +134,107 @@
           }
         </ion-col>
       </ion-row>
-      @if (eventState?.event?.forecastTrigger) {
-        @if (countryDisasterSettings.enableEarlyActions) {
-          @if (adminLevel > countryDisasterSettings.defaultAdminLevel) {
-            <ion-item class="background-light">
-              <ion-label class="ion-text-wrap">
-                {{
-                  'chat-component.common.save-actions.no-actions-admin-level'
-                    | translate
-                      : {
-                          defaultAdminAreaLabel:
-                            country.adminRegionLabels[
-                              countryDisasterSettings.defaultAdminLevel
-                            ].singular,
-                        }
-                }}</ion-label
-              ></ion-item
+      @if (area.mainExposureValue) {
+        <ion-note size="small">
+          <span
+            [innerHTML]="
+              'chat-component.' + disasterTypeName + '.active-event.exposed'
+                | translate
+            "
+          ></span>
+          <strong>
+            {{
+              area.mainExposureValue
+                | compact: mainExposureIndicatorNumberFormat
+            }}
+          </strong>
+        </ion-note>
+      } @else {
+        <ion-note size="small">
+          <span>{{ 'chat-component.common.no-info' | translate }}</span>
+        </ion-note>
+      }
+      @if (
+        eventState?.event?.forecastTrigger &&
+        countryDisasterSettings.enableEarlyActions &&
+        adminLevel > countryDisasterSettings.defaultAdminLevel
+      ) {
+        <ion-item class="background-light">
+          <ion-label class="ion-text-wrap">
+            {{
+              'chat-component.common.save-actions.no-actions-admin-level'
+                | translate
+                  : {
+                      defaultAdminAreaLabel:
+                        country.adminRegionLabels[
+                          countryDisasterSettings.defaultAdminLevel
+                        ].singular,
+                    }
+            }}</ion-label
+          ></ion-item
+        >
+      } @else if (
+        !countryDisasterSettings.enableEarlyActions || !area.eapActions.length
+      ) {
+        <ion-item class="background-light">
+          <ion-label class="ion-text-wrap">
+            {{
+              'chat-component.common.save-actions.no-actions'
+                | translate
+                  : {
+                      adminAreaLabelPlural,
+                    }
+            }}</ion-label
+          ></ion-item
+        >
+      } @else if (area.eapActions.length) {
+        <form (submit)="submitEapAction(area.placeCode)">
+          <ion-list class="background-light">
+            @for (action of area.eapActions; track action) {
+              <ion-item class="ion-no-padding">
+                <ion-checkbox
+                  slot="start"
+                  color="ibf-primary"
+                  [checked]="action.checked"
+                  name="action.action"
+                  (ionChange)="
+                    changeAction(
+                      area.placeCode,
+                      action.action,
+                      $event['detail']['checked']
+                    )
+                  "
+                ></ion-checkbox>
+                <ion-label class="action-label ion-text-wrap"
+                  ><strong>{{ action.aofLabel }}: </strong>{{ action.label }}
+                  @if (action.month) {
+                    <span
+                      ><strong>
+                        ({{
+                          action.monthLong[getRegion(area.placeCode)]
+                        }})</strong
+                      ></span
+                    >
+                  }
+                </ion-label>
+              </ion-item>
+            }
+          </ion-list>
+          <ion-row class="ion-nowrap ion-align-items-center ion-margin-top">
+            <app-ibf-button
+              [disabled]="area.submitDisabled"
+              backgroundColor="ibf-primary"
+              type="submit"
+              style="width: 100%"
+              strong="true"
             >
-          }
-          @if (
-            adminLevel === countryDisasterSettings.defaultAdminLevel &&
-            !area.eapActions.length
-          ) {
-            <ion-item class="background-light">
-              <ion-label class="ion-text-wrap">
-                {{
-                  'chat-component.common.save-actions.no-actions' | translate
-                }}</ion-label
-              ></ion-item
-            >
-          }
-          @if (area.eapActions.length) {
-            <form (submit)="submitEapAction(area.placeCode)">
-              <ion-list class="background-light">
-                @for (action of area.eapActions; track action) {
-                  <ion-item class="ion-no-padding">
-                    <ion-checkbox
-                      mode="ios"
-                      slot="start"
-                      color="ibf-primary"
-                      [checked]="action.checked"
-                      name="action.action"
-                      (ionChange)="
-                        changeAction(
-                          area.placeCode,
-                          action.action,
-                          $event['detail']['checked']
-                        )
-                      "
-                    ></ion-checkbox>
-                    <ion-label class="action-label ion-text-wrap"
-                      ><strong>{{ action.aofLabel }}: </strong
-                      >{{ action.label }}
-                      @if (action.month) {
-                        <span
-                          ><strong>
-                            ({{
-                              action.monthLong[getRegion(area.placeCode)]
-                            }})</strong
-                          ></span
-                        >
-                      }
-                    </ion-label>
-                  </ion-item>
-                }
-              </ion-list>
-              <ion-row class="ion-nowrap ion-align-items-center ion-margin-top">
-                <app-ibf-button
-                  [disabled]="area.submitDisabled"
-                  backgroundColor="ibf-primary"
-                  type="submit"
-                  style="width: 100%"
-                  strong="true"
-                >
-                  {{
-                    'chat-component.common.save-actions.submit-button-label'
-                      | translate
-                  }}
-                </app-ibf-button>
-              </ion-row>
-            </form>
-          }
-        }
+              {{
+                'chat-component.common.save-actions.submit-button-label'
+                  | translate
+              }}
+            </app-ibf-button>
+          </ion-row>
+        </form>
       }
     </app-dialogue-turn>
   }

@@ -8,38 +8,18 @@ import { Component, Input, OnChanges } from '@angular/core';
 })
 export class DialogueTurnComponent implements OnChanges {
   @Input()
-  isSpoken = false;
-
-  @Input()
   firstIssuedDate: string;
 
   @Input()
-  isWarn = false;
-
-  @Input()
-  isTriggered = false;
-
-  @Input()
-  isNotTriggered = false;
+  isLastUploadDateLate = false;
 
   @Input()
   isSelected = false;
 
   @Input()
-  isOpeningBubble = false;
-
-  @Input()
   borderColor = null;
 
-  public isSystem: boolean;
-
-  public animate = false;
-
   public mouseOver = false;
-
-  show() {
-    this.isSpoken = true;
-  }
 
   ngOnChanges(): void {
     if (!this.isSelected) {

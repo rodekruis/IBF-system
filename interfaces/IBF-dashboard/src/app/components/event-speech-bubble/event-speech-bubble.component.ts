@@ -1,7 +1,10 @@
 import { AfterViewChecked, Component, Input, OnDestroy } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
+import { CardColors } from 'src/app/components/chat/chat.component';
+import { SetTriggerPopoverComponent } from 'src/app/components/set-trigger-popover/set-trigger-popover.component';
 import { DisasterType, ForecastSource } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
@@ -39,6 +42,8 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   public mainExposureIndicatorLabel: string;
   @Input()
   public mainExposureIndicatorNumberFormat: NumberFormat;
+  @Input()
+  public cardColors: CardColors;
 
   public typhoonLandfallText: string;
   public displayName: string;
@@ -51,6 +56,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     private eventService: EventService,
     private adminLevelService: AdminLevelService,
     private translateService: TranslateService,
+    private popoverController: PopoverController,
   ) {}
 
   ngAfterViewChecked() {
@@ -123,10 +129,10 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     const noLandfallYetEvent =
       event.disasterSpecificProperties?.typhoonNoLandfallYet;
 
-    const warningPrefix = event.forecastTrigger
+    const warningSuffix = event.forecastTrigger
       ? ''
       : (this.translateService.instant(
-          `chat-component.common.alertLevel.warning`,
+          `chat-component.typhoon.active-event.warning`,
         ) as string);
 
     const landfallInfo = this.translateService.instant(
@@ -143,7 +149,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
         firstLeadTimeDate: event.firstLeadTimeDate,
       },
     ) as string;
-    return `${warningPrefix} ${landfallInfo}`;
+    return `${landfallInfo} ${warningSuffix}`;
   }
 
   public showFirstWarningDate(): boolean {
@@ -158,52 +164,23 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     return false;
   }
 
-  public getCardColors(): {
-    iconColor: string;
-    headerTextColor: string;
-    borderColor: string;
-  } {
-    const defaultColors = {
-      iconColor: 'var(--ion-color-ibf-black)',
-      headerTextColor: 'var(--ion-color-ibf-black)',
-      borderColor: null,
-    };
+  public async openSetTriggerPopover(): Promise<void> {
+    const popover = await this.popoverController.create({
+      component: SetTriggerPopoverComponent,
+      animated: true,
+      cssClass: 'ibf-popover ibf-popover-large',
+      translucent: true,
+      showBackdrop: true,
+      componentProps: {
+        forecastSource: this.forecastSource,
+        eventName: this.event.eventName.split('_')[0],
+        adminAreaLabelPlural: this.adminAreaLabelPlural,
+        areas: this.areas,
+        mainExposureIndicatorNumberFormat:
+          this.mainExposureIndicatorNumberFormat,
+      },
+    });
 
-    if (!this.event) {
-      return defaultColors;
-    }
-
-    if (!this.event.disasterSpecificProperties) {
-      if (!this.event.forecastTrigger) {
-        return defaultColors;
-      }
-
-      return {
-        iconColor: 'var(--ion-color-fiveten-red-500)',
-        headerTextColor: 'var(--ion-color-fiveten-red-500)',
-        borderColor: 'var(--ion-color-fiveten-red-500)',
-      };
-    }
-
-    if (!this.event.disasterSpecificProperties.eapAlertClass) {
-      if (!this.event.forecastTrigger) {
-        return defaultColors;
-      }
-
-      return {
-        iconColor: 'var(--ion-color-fiveten-red-500)',
-        headerTextColor: 'var(--ion-color-fiveten-red-500)',
-        borderColor: 'var(--ion-color-fiveten-red-500)',
-      };
-    }
-
-    return {
-      iconColor: `var(--ion-color-${this.event.disasterSpecificProperties.eapAlertClass.color})`,
-      headerTextColor: `var(--ion-color-${
-        this.event.disasterSpecificProperties.eapAlertClass.textColor ||
-        this.event.disasterSpecificProperties.eapAlertClass.color
-      })`,
-      borderColor: `var(--ion-color-${this.event.disasterSpecificProperties.eapAlertClass.color})`,
-    };
+    await popover.present();
   }
 }

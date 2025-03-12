@@ -409,4 +409,8 @@ export class ApiService {
       false,
     );
   }
+
+  setTrigger(eventPlaceCodeIds: string[]): Observable<void> {
+    return this.post(`event/set-trigger`, { eventPlaceCodeIds }, false);
+  }
 }

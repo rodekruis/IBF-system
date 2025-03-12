@@ -208,7 +208,7 @@ describe('AggregatesComponent', () => {
       expect(popoverController.create).toHaveBeenCalledWith({
         component: LayerControlInfoPopoverComponent,
         animated: true,
-        cssClass: 'ibf-popover ibf-popover-normal no-alert',
+        cssClass: 'ibf-popover ibf-popover-normal',
         translucent: true,
         showBackdrop: true,
         componentProps: {

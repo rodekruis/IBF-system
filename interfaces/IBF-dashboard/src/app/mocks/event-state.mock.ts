@@ -12,5 +12,4 @@ const MOCK_EVENT: EventSummary = {
 export const MOCK_EVENT_STATE: EventState = {
   events: [MOCK_EVENT, MOCK_EVENT],
   event: MOCK_EVENT,
-  forecastTrigger: true,
 };

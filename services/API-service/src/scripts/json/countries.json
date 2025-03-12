@@ -683,6 +683,10 @@
           "10-month",
           "11-month"
         ],
+        "forecastSource": {
+          "label": "Global ECWMF",
+          "url": "https://www.ecmwf.int/"
+        },
         "droughtSeasonRegions": {
           "Belg": {
             "Belg MAM": {

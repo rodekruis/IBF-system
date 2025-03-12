@@ -20,7 +20,7 @@ import { AggregatesService } from 'src/app/services/aggregates.service';
 import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EventService } from 'src/app/services/event.service';
+import { EventService, EventSummary } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
@@ -30,6 +30,12 @@ import { EventState } from 'src/app/types/event-state';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { TimelineState } from 'src/app/types/timeline-state';
 import { environment } from 'src/environments/environment';
+
+export interface CardColors {
+  iconColor: string;
+  headerTextColor: string;
+  borderColor: string;
+}
 
 @Component({
   selector: 'app-chat',
@@ -72,7 +78,7 @@ export class ChatComponent implements OnInit, OnDestroy {
   public countryDisasterSettings: CountryDisasterSettings;
   public lastUploadDate: string;
   private lastUploadDateFormat = 'cccc, dd LLLL HH:mm';
-  public isWarn = false;
+  public isLastUploadDateLate = false;
   public supportEmailAddress = environment.supportEmailAddress;
   public adminLevel: AdminLevel;
 
@@ -241,7 +247,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.lastUploadDate = lastUploadDate
       ? lastUploadDate.toFormat(this.lastUploadDateFormat)
       : 'unknown';
-    this.isWarn = this.eventService.isLastUploadDateStale(
+    this.isLastUploadDateLate = this.eventService.isLastUploadDateLate(
       lastUploadDate.toJSDate(), // TODO: migrate from luxon (DateTime) to date-fns (Date) over time completely
       disasterType,
     );
@@ -405,5 +411,50 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
 
     return ` (${area.nameParent})`;
+  }
+
+  public getCardColors(event: EventSummary): CardColors {
+    const defaultColors = {
+      iconColor: 'var(--ion-color-ibf-black)',
+      headerTextColor: 'var(--ion-color-ibf-black)',
+      borderColor: null,
+    };
+
+    if (!event) {
+      return defaultColors;
+    }
+
+    if (!event.disasterSpecificProperties) {
+      if (!event.forecastTrigger) {
+        return defaultColors;
+      }
+
+      return {
+        iconColor: 'var(--ion-color-fiveten-red-500)',
+        headerTextColor: 'var(--ion-color-fiveten-red-500)',
+        borderColor: 'var(--ion-color-fiveten-red-500)',
+      };
+    }
+
+    if (!event.disasterSpecificProperties.eapAlertClass) {
+      if (!event.forecastTrigger) {
+        return defaultColors;
+      }
+
+      return {
+        iconColor: 'var(--ion-color-fiveten-red-500)',
+        headerTextColor: 'var(--ion-color-fiveten-red-500)',
+        borderColor: 'var(--ion-color-fiveten-red-500)',
+      };
+    }
+
+    return {
+      iconColor: `var(--ion-color-${event.disasterSpecificProperties.eapAlertClass.color})`,
+      headerTextColor: `var(--ion-color-${
+        event.disasterSpecificProperties.eapAlertClass.textColor ||
+        event.disasterSpecificProperties.eapAlertClass.color
+      })`,
+      borderColor: `var(--ion-color-${event.disasterSpecificProperties.eapAlertClass.color})`,
+    };
   }
 }

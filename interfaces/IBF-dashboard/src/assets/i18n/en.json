@@ -1,6 +1,8 @@
 {
   "app-name": "IBF-dashboard",
-  "common": { "version": "Version" },
+  "common": {
+    "version": "Version"
+  },
   "activation-page": {
     "activation-report": "Open all triggers",
     "copy-to-clipboard": "Copy to clipboard",
@@ -23,7 +25,10 @@
     "note": "NOTE: This portal works best on desktop or tablet using Chrome, Firefox, Safari and Microsoft Edge.<br>The portal is not compatible with Internet Explorer.<br>The portal is not optimized for mobile phones yet.",
     "forgot-password": "Forgot password?",
     "forgot-password-message": "If you forgot your password please send a request to ",
-    "environment-label": { "production": "Live", "stage": "Demo" }
+    "environment-label": {
+      "production": "Live",
+      "stage": "Demo"
+    }
   },
   "dashboard-page": {
     "dev-menu": {
@@ -79,6 +84,26 @@
     "video-pdf-description": "To get a quick guide on how this dashboard works you can look at either the video guide below or the PDF manual <a href='{{pdfUrl}}' target='_blank'>here</a>.",
     "whats-new-description": "To learn what new features have recently been added to the IBF Portal click <a href='{{whatsNewUrl}}' target='_blank'>here</a>."
   },
+  "set-trigger-component": {
+    "select-areas": {
+      "header": "Set trigger",
+      "content": "This <strong>{{ eventName}}</strong> warning is based on: <a href={{forecastSourceUrl}}>{{forecastSourceLabel}}</a>. To set this warning as a trigger, select {{adminAreaLabelPlural}} where the Early Action Protocol should be activated.",
+      "select-areas": "Select {{adminAreaLabelPlural}},",
+      "checked-count": "{{adminAreaLabelPlural}} selected",
+      "continue": "Continue",
+      "back": "Cancel"
+    },
+    "confirm": {
+      "header": "Set trigger - disclaimers",
+      "note": "Important",
+      "bullet-list": "<ul><li>The {{adminAreaLabelPlural}} that are not selected will remain visible as warning areas, but cannot be added later.</li><li>This actions impacts what is shown in the portal for all users.</li><li>A notification regarding the trigger will be sent to all users.</li></ul>",
+      "understand": "I understand that this action cannot be undone.",
+      "continue": "Set trigger",
+      "back": "Back",
+      "success": "The trigger has been set successfully.",
+      "error": "Something went wrong in setting the trigger. Please try again."
+    }
+  },
   "chat-component": {
     "common": {
       "no-info": "No information available",
@@ -94,12 +119,11 @@
         "update-success": "State of early action(s) successfully updated.",
         "update-failure": "Failed to update state of early action(s).",
         "prompt-button-label": "OK",
-        "no-actions": "There are no early actions in the portal. Please follow the local protocols relevant to the areas affected.",
+        "no-actions": "Advisory: inform all potentially exposed {{ adminAreaLabelPlural }} and follow the local protocols.",
         "no-actions-admin-level": "Early actions are only available on {{ defaultAdminAreaLabel }} level."
       },
       "alertLevel": {
         "expected": "expected on {{ date }}. ",
-        "warning": "It is currently not predicted to reach trigger thresholds. ",
         "source": "Forecast source: ",
         "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
         "no-data": "No exposure data available"
@@ -172,6 +196,7 @@
         "header-ongoing": "Ongoing trigger: {{ eventName }}",
         "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
         "header-ongoing-below-trigger": "Ongoing warning: {{ eventName }}",
+        "warning": "It is currently not predicted to reach trigger thresholds.",
         "upcoming-event": {
           "landfall": "It is expected to make landfall on {{ firstLeadTimeDate }}.",
           "no-landfall": "It is expected to reach the point closest to land on {{ firstLeadTimeDate }}. It is not predicted to make landfall.",

@@ -65,7 +65,6 @@ export class EventService {
   public nullState: EventState = {
     events: null,
     event: null,
-    forecastTrigger: null,
   };
 
   public state = this.nullState;
@@ -120,14 +119,12 @@ export class EventService {
 
   private setEventInitially(event: EventSummary) {
     this.state.event = event;
-    this.state.forecastTrigger = this.setOverallForecasTrigger();
     this.initialEventStateSubject.next(this.state);
     this.setAlertState();
   }
 
   private setEventManually(event: EventSummary) {
     this.state.event = event;
-    this.state.forecastTrigger = this.setOverallForecasTrigger();
     this.manualEventStateSubject.next(this.state);
     this.setAlertState();
   }
@@ -324,14 +321,14 @@ export class EventService {
   }
 
   private setAlertState = () => {
-    const dashboardElement = document.getElementById('ibf-dashboard-interface');
-    if (dashboardElement) {
-      if (this.state.forecastTrigger) {
-        dashboardElement.classList.remove('no-alert');
-        dashboardElement.classList.add('trigger-alert');
+    const appElement = document.getElementById('app');
+    if (appElement) {
+      if (this.state.events?.length) {
+        appElement.classList.remove('no-alert');
+        appElement.classList.add('alert');
       } else {
-        dashboardElement.classList.remove('trigger-alert');
-        dashboardElement.classList.add('no-alert');
+        appElement.classList.remove('alert');
+        appElement.classList.add('no-alert');
       }
     }
   };
@@ -356,14 +353,7 @@ export class EventService {
     }
   }
 
-  private setOverallForecasTrigger() {
-    return this.state.event
-      ? this.state.event.forecastTrigger
-      : this.state.events?.filter((e: EventSummary) => e.forecastTrigger)
-          .length > 0;
-  }
-
-  public isLastUploadDateStale = (
+  public isLastUploadDateLate = (
     lastUploadDate: Date,
     disasterType: DisasterType,
   ) => {

@@ -260,7 +260,7 @@
       cursor: pointer;
       position: absolute;
       right: 10px;
-      top: 10px;
+      top: 25%;
       z-index: 1;
     }
 
@@ -317,4 +317,9 @@ app-tooltip {
 
 .font-size-12 {
   font-size: 12px;
+}
+
+a {
+  color: var(--ion-color-ibf-black);
+  text-decoration: underline;
 }
