@@ -144,12 +144,14 @@ export class EventService {
         event.eventName,
         false,
       );
-      event.firstTriggerLeadTime = await this.getFirstLeadTime(
-        countryCodeISO3,
-        disasterType,
-        event.eventName,
-        true,
-      );
+      event.firstTriggerLeadTime = event.userTrigger
+        ? event.firstLeadTime
+        : await this.getFirstLeadTime(
+            countryCodeISO3,
+            disasterType,
+            event.eventName,
+            true,
+          );
       event.alertLevel = this.getAlertLevel(event);
       if (disasterType === DisasterType.Typhoon) {
         event.disasterSpecificProperties =
