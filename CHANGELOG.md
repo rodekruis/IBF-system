@@ -1,3 +1,32 @@
+# [0.297.0](https://github.com/rodekruis/IBF-system/compare/v0.296.0...v0.297.0) (2025-03-12)
+
+
+### Bug Fixes
+
+* basic setup unit tests ([10737be](https://github.com/rodekruis/IBF-system/commit/10737be903960ce2353285b4ecb628e15226e6e5))
+* build ([ae832d3](https://github.com/rodekruis/IBF-system/commit/ae832d37caf1fdeb104e4711880459658baa3453))
+* bullet list styling ([787b974](https://github.com/rodekruis/IBF-system/commit/787b9744ceba428cf644b5fc03f44068e1c9450d))
+* keep chat section color styling also on area view + rm unused dialogue-turn properties ([74421ca](https://github.com/rodekruis/IBF-system/commit/74421caf0421dd8869992bc30f7db2c9acec1b8d))
+* only load timeline buttons with appropriate lead time unit ([4ec8ced](https://github.com/rodekruis/IBF-system/commit/4ec8ced1c8d21786071e44877c82fd741280aac7))
+* popover changes ([6a0b1e8](https://github.com/rodekruis/IBF-system/commit/6a0b1e8793153fed91905b80dca68e1dc22c14c8))
+* remove custom css class ([f377732](https://github.com/rodekruis/IBF-system/commit/f377732ecc8e59c92a7228b28df5df8e877e970f))
+* remove extra warning message AB[#34118](https://github.com/rodekruis/IBF-system/issues/34118) ([0a4ca40](https://github.com/rodekruis/IBF-system/commit/0a4ca40c8af4f7d094041c121ed4309111b567cf))
+* set-trigger btn border ([d6a4261](https://github.com/rodekruis/IBF-system/commit/d6a426165188cf7b9c85f48f184e6ba20f88cba4))
+* square checkboxes ([b629e55](https://github.com/rodekruis/IBF-system/commit/b629e55172a856d508db15721af252fae80c1b57))
+
+
+### Features
+
+* design changes timeline AB[#34303](https://github.com/rodekruis/IBF-system/issues/34303) ([c64af91](https://github.com/rodekruis/IBF-system/commit/c64af9127f8542b75e9a8f5ac0da825282273746))
+* make forecast source optional + url + styling AB[#34115](https://github.com/rodekruis/IBF-system/issues/34115) ([084c8ff](https://github.com/rodekruis/IBF-system/commit/084c8ffef0e1297dd6a384e9d00f66c25ef45885))
+* popups to set trigger AB[#34114](https://github.com/rodekruis/IBF-system/issues/34114) ([0687cb6](https://github.com/rodekruis/IBF-system/commit/0687cb61970a9c29f8cd33586ac31a23c271662b))
+* set max-width for event-speech-bubble buttons ([904b09d](https://github.com/rodekruis/IBF-system/commit/904b09d31c1464f681ec84bf506548a0201f9a35))
+* show triangle icon outline in timeline for warning ([22657b4](https://github.com/rodekruis/IBF-system/commit/22657b4fdb1c99971324f145d751f99ff4f1bf15))
+* update area-view no-actions message + reorganize AB[#34118](https://github.com/rodekruis/IBF-system/issues/34118) ([65c8a30](https://github.com/rodekruis/IBF-system/commit/65c8a3050108a1e85f26978ed6090a788a11a8d4))
+* use purple also for warnings in map and throughout portal AB[#34313](https://github.com/rodekruis/IBF-system/issues/34313) ([e9fe98f](https://github.com/rodekruis/IBF-system/commit/e9fe98f6074bc1761f1c1248eb7b368651cbb414))
+
+
+
 # [0.296.0](https://github.com/rodekruis/IBF-system/compare/v0.295.0...v0.296.0) (2025-03-11)
 
 
@@ -112,15 +141,6 @@
 ### Features
 
 * add noNotification flag to process events ([6c63fa0](https://github.com/rodekruis/IBF-system/commit/6c63fa0f2b2a5571268f57cdfa76d6e722bf8f10))
-
-
-
-# [0.291.0](https://github.com/rodekruis/IBF-system/compare/v0.290.0...v0.291.0) (2025-02-28)
-
-
-### Features
-
-* remove auto clearout message drought AB[#34049](https://github.com/rodekruis/IBF-system/issues/34049) ([56ec079](https://github.com/rodekruis/IBF-system/commit/56ec0793ea9419876237151fc1a2a487474eceaf))
 
 
 
