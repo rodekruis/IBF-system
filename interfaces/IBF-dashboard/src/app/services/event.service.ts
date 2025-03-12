@@ -1,4 +1,3 @@
-/* eslint-disable perfectionist/sort-enums */
 import { Injectable } from '@angular/core';
 import {
   differenceInDays,
