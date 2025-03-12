@@ -185,9 +185,9 @@ export class EventService {
       callback: (disasterType: DisasterType) => void,
     ) =>
     (events: EventSummary[]) => {
-      disasterType.activeTrigger =
-        events.filter((e: EventSummary) => e.alertLevel === AlertLevel.TRIGGER)
-          .length > 0 || false;
+      disasterType.alertLevel = events.some(
+        ({ alertLevel }) => alertLevel != AlertLevel.NONE,
+      );
       callback(disasterType);
     };
 
