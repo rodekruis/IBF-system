@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { subDays } from 'date-fns';
 import {
   DataSource,
+  Equal,
   In,
   IsNull,
   LessThan,
@@ -595,7 +596,7 @@ export class EventService {
 
     const whereFilters = {
       countryCodeISO3,
-      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
+      timestamp: Equal(lastUploadDate.timestamp),
       disasterType,
     };
     if (eventName) {
