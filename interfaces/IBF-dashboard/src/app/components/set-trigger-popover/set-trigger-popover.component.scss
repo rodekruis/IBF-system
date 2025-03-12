@@ -1,11 +1,4 @@
-.flex-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-::ng-deep .custom-html-content {
+.bullet-list::ng-deep {
   ul {
     list-style-type: disc;
     padding-left: 20px;
