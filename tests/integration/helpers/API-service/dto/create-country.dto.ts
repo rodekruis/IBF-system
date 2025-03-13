@@ -10,6 +10,11 @@ export interface CountryDto {
   disasterTypes: string[];
 }
 
+interface ForecastSource {
+  label: string;
+  url?: string;
+}
+
 export interface CountryDisasterSettingsDto {
   disasterType: string;
   adminLevels: AdminLevel[];
@@ -19,7 +24,7 @@ export interface CountryDisasterSettingsDto {
   showMonthlyEapActions?: boolean;
   enableEarlyActions?: boolean;
   enableStopTrigger?: boolean;
-  forecastSource?: object;
+  forecastSource?: ForecastSource;
   eapLink: string;
   eapAlertClasses?: object;
   droughtRegions?: object;

@@ -1,4 +1,5 @@
 import { LeadTime } from '../../../admin-area-dynamic-data/enum/lead-time.enum';
+import { ForecastSource } from '../../../country/country-disaster.entity';
 import { DisasterType } from '../../../disaster-type/disaster-type.enum';
 import { ContentEventEmail } from '../../dto/content-event-email.dto';
 import {
@@ -53,7 +54,7 @@ const getMjmlBodyEvent = ({
   eapLink: string;
   triggerStatusLabel: string;
   disasterSpecificCopy: string;
-  forecastSource: { label: string; url: string };
+  forecastSource: ForecastSource;
   userTriggerData: { name: string; date: Date };
 }): object => {
   const icon = getInlineImage({ src: triangleIcon, size: 16 });
@@ -94,20 +95,18 @@ const getMjmlBodyEvent = ({
     `<strong>Expected exposed ${defaultAdminAreaLabel}:</strong> ${nrOfAlertAreas} (see list below)`,
   );
 
-  if (forecastSource) {
-    contentContent.push(
-      forecastSource.url
-        ? `<strong>Forecast source:</strong> <a href="${forecastSource.url}">${forecastSource.label}</a>`
-        : `<strong>Forecast source:</strong> ${forecastSource.label}`,
-    );
-  }
-
   if (userTriggerData) {
     contentContent.push(
       `<strong>Set by:</strong> ${userTriggerData.name} on ${dateObjectToDateTimeString(
         userTriggerData.date,
         'UTC',
       )}`,
+    );
+  } else if (forecastSource) {
+    contentContent.push(
+      forecastSource.url
+        ? `<strong>Forecast source:</strong> <a href="${forecastSource.url}">${forecastSource.label}</a>`
+        : `<strong>Forecast source:</strong> ${forecastSource.label}`,
     );
   }
 
@@ -222,12 +221,7 @@ export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
           event.eapAlertClass?.color,
           event.triggerStatusLabel,
         ),
-        forecastSource: event.event.userTrigger // Hide forecast source for "set" triggers
-          ? null
-          : (countryDisasterSettings.forecastSource as unknown as {
-              label: string;
-              url: string;
-            }),
+        forecastSource: countryDisasterSettings.forecastSource,
         userTriggerData: event.event.userTrigger // Hide forecast source for "set" triggers
           ? {
               name: event.event.userTriggerName,
