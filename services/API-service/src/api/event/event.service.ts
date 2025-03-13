@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { subDays } from 'date-fns';
 import {
   DataSource,
+  Equal,
   In,
   IsNull,
   LessThan,
@@ -285,6 +286,9 @@ export class EventService {
       countryCodeISO3: uploadAlertsPerLeadTimeDto.countryCodeISO3,
       disasterType: uploadAlertsPerLeadTimeDto.disasterType,
       timestamp: MoreThanOrEqual(uploadCutoffMoment),
+      leadTime: In(
+        uploadAlertsPerLeadTimeDto.alertsPerLeadTime.map((a) => a.leadTime),
+      ),
     };
     if (uploadAlertsPerLeadTimeDto.eventName) {
       deleteFilters['eventName'] = uploadAlertsPerLeadTimeDto.eventName;
@@ -592,7 +596,7 @@ export class EventService {
 
     const whereFilters = {
       countryCodeISO3,
-      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
+      timestamp: Equal(lastUploadDate.timestamp),
       disasterType,
     };
     if (eventName) {
@@ -740,7 +744,7 @@ export class EventService {
     eventName?: string,
   ): Promise<AreaForecastDataDto[]> {
     const whereFilters = {
-      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment), // REFACTOR: change all these filters to exact lastUploadDate.timestamp equality
       countryCodeISO3,
       adminLevel,
       disasterType,
