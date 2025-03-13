@@ -72,7 +72,9 @@ export class CountryDisasterSettingsDto {
   @ApiProperty({ example: true })
   public enableEarlyActions?: boolean;
 
-  @ApiProperty({ example: {} })
+  @ApiProperty({
+    example: { label: 'Global ECMWF', url: 'https://www.ecmwf.int' },
+  })
   public forecastSource?: object;
 
   @ApiProperty({

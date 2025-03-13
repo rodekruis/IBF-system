@@ -588,8 +588,8 @@
         },
         "showMonthlyEapActions": true,
         "forecastSource": {
-          "label": "Global ECWMF",
-          "url": "https://www.ecmwf.int/"
+          "label": "Global ECMWF",
+          "url": "https://www.ecmwf.int"
         },
         "eapLink": "https://drive.google.com/file/d/129ni2VlAxg5GngqoszmVjlaRFEuLwLph/view"
       }
@@ -684,8 +684,8 @@
           "11-month"
         ],
         "forecastSource": {
-          "label": "Global ECWMF",
-          "url": "https://www.ecmwf.int/"
+          "label": "Global ECMWF",
+          "url": "https://www.ecmwf.int"
         },
         "droughtSeasonRegions": {
           "Belg": {
@@ -1210,8 +1210,8 @@
           }
         },
         "forecastSource": {
-          "label": "Global ECWMF",
-          "url": "https://www.ecmwf.int/"
+          "label": "Global ECMWF",
+          "url": "https://www.ecmwf.int"
         },
         "enableEarlyActions": false,
         "showMonthlyEapActions": true,
