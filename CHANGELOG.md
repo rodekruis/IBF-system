@@ -1,3 +1,25 @@
+# [0.298.0](https://github.com/rodekruis/IBF-system/compare/v0.297.1...v0.298.0) (2025-03-13)
+
+
+### Bug Fixes
+
+* change advisory text to generic 'protocol' ([56a140d](https://github.com/rodekruis/IBF-system/commit/56a140dbea6085bfa246e25bb5caf2fe84db9fe2))
+* e2e tests ([90abaae](https://github.com/rodekruis/IBF-system/commit/90abaaeec9a5773fe074c896ccc61d51688a471a))
+* forecast source typo ([1d779f0](https://github.com/rodekruis/IBF-system/commit/1d779f0614ad59718e8e215d28b861058c99f28a))
+* set firstTriggerLeadTime equal to firstLeadTime if userTrigger AB[#34312](https://github.com/rodekruis/IBF-system/issues/34312) ([e9b9f7b](https://github.com/rodekruis/IBF-system/commit/e9b9f7b4a66248c4d488ec1240b52dc3d49005f9))
+* test ([584b01e](https://github.com/rodekruis/IBF-system/commit/584b01e0459192f4728abecf5e73a5d5a9691a41))
+* unit test ([4dc5033](https://github.com/rodekruis/IBF-system/commit/4dc50337acaa1a3bd763e7e52c0c978a17a540c9))
+
+
+### Features
+
+* add timeline tooltip ([72782c7](https://github.com/rodekruis/IBF-system/commit/72782c728e9b08d0bd74f4d22a14ef3ed8420b20))
+* disaster icon should be purple for warnings ([db391d2](https://github.com/rodekruis/IBF-system/commit/db391d2de9a16cf0b8d4c29afca9c53916ff9eb4))
+* forecast source/set by in email + create test /notify endpoint AB[#34312](https://github.com/rodekruis/IBF-system/issues/34312) ([682b8d8](https://github.com/rodekruis/IBF-system/commit/682b8d85ab7c113422edffec7896d90f816274f6))
+* show 'set by' and 'forecastSource' conditional on userTrigger AB[#34116](https://github.com/rodekruis/IBF-system/issues/34116) AB[#34117](https://github.com/rodekruis/IBF-system/issues/34117) ([a7d7e29](https://github.com/rodekruis/IBF-system/commit/a7d7e29723049ba66f1059f79f7cef065d2ae9cb))
+
+
+
 ## [0.297.1](https://github.com/rodekruis/IBF-system/compare/v0.297.0...v0.297.1) (2025-03-12)
 
 
@@ -133,15 +155,6 @@
 ### Bug Fixes
 
 * breaking test because GET point-data protected ([fb8d42f](https://github.com/rodekruis/IBF-system/commit/fb8d42fd24b8e4813320a57744fdf045cd631ad4))
-
-
-
-## [0.292.1](https://github.com/rodekruis/IBF-system/compare/v0.292.0...v0.292.1) (2025-03-04)
-
-
-### Bug Fixes
-
-* change close-events api path typo AB[#34185](https://github.com/rodekruis/IBF-system/issues/34185) ([c612d0f](https://github.com/rodekruis/IBF-system/commit/c612d0f59fc3d99f3738af621ccf7b748d859414))
 
 
 
