@@ -56,7 +56,13 @@
         }}</span>
       }
     </p>
-    @if (forecastSource) {
+    @if (event.userTrigger) {
+      <p
+        [innerHTML]="
+          'chat-component.common.alertLevel.set-by' | translate: event
+        "
+      ></p>
+    } @else if (forecastSource) {
       <p>
         <strong
           >{{ 'chat-component.common.alertLevel.source' | translate }} </strong

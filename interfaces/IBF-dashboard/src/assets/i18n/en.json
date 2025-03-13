@@ -104,6 +104,9 @@
       "error": "Something went wrong in setting the trigger. Please try again."
     }
   },
+  "timeline-component": {
+    "tooltip": "The timeline displays dates of the predicted events with an outlined alert sign for warning and a filled-in alert sign for trigger. When selecting an event, the corresponding period / start date will be highlighted with a purple outline."
+  },
   "chat-component": {
     "common": {
       "no-info": "No information available",
@@ -126,7 +129,8 @@
         "expected": "expected on {{ date }}. ",
         "source": "Forecast source: ",
         "exposed-areas": "Exposed {{adminAreaLabelPlural}}:",
-        "no-data": "No exposure data available"
+        "no-data": "No exposure data available",
+        "set-by": "<strong>Set by:</strong> {{ userTriggerName }} on {{ userTriggerDate }}"
       },
       "set-trigger": {
         "btn-text": "Set trigger"

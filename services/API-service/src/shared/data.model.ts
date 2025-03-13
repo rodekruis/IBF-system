@@ -92,9 +92,6 @@ export class EventSummaryCountry {
   public endDate: Date;
 
   @ApiProperty({ example: true })
-  public activeTrigger: boolean;
-
-  @ApiProperty({ example: true })
   public forecastTrigger: boolean;
 
   @ApiProperty({ example: false })
@@ -120,4 +117,10 @@ export class EventSummaryCountry {
 
   @ApiProperty({ example: AlertLevel.NONE })
   public alertLevel: AlertLevel;
+
+  @ApiProperty({ example: new Date() })
+  public userTriggerDate: Date;
+
+  @ApiProperty({ example: 'Henry Dunant' })
+  public userTriggerName: string;
 }

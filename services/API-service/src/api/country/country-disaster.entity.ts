@@ -14,6 +14,11 @@ import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { AdminLevel } from './admin-level.enum';
 import { CountryEntity } from './country.entity';
 
+export interface ForecastSource {
+  label: string;
+  url?: string;
+}
+
 @Entity('country-disaster-settings')
 export class CountryDisasterSettingsEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -59,7 +64,7 @@ export class CountryDisasterSettingsEntity {
 
   @ApiProperty()
   @Column('json', { default: null, nullable: true })
-  public forecastSource: JSON;
+  public forecastSource: ForecastSource;
 
   @ApiProperty({
     example: 'https://docs.google.com',

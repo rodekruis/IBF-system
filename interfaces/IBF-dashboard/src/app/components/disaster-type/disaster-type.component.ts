@@ -89,7 +89,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
       this.disasterTypesCounter++;
       if (this.disasterTypesCounter === disasterTypes.length) {
         const activeDisasterType = disasterTypes.find(
-          ({ activeTrigger }) => activeTrigger,
+          ({ alertLevel }) => alertLevel,
         );
 
         const disasterType = activeDisasterType
@@ -107,7 +107,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
     this.selectedDisasterType = disasterType.disasterType;
   }
 
-  public isSelectedDisaster(disasterType: string): boolean {
+  public isSelectedDisaster(disasterType: DisasterTypeKey): boolean {
     return this.selectedDisasterType === disasterType;
   }
 

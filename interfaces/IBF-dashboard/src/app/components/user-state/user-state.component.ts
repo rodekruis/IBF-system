@@ -80,7 +80,7 @@ export class UserStateComponent implements OnInit {
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
     if (this.disasterType) {
-      const yesNode = this.disasterType.activeTrigger ? 'yes' : 'no';
+      const yesNode = this.disasterType.alertLevel ? 'yes' : 'no';
       this.activeTriggerMsg = this.translateService.instant(
         `dashboard-page.triggered-message.${yesNode}`,
       ) as string;

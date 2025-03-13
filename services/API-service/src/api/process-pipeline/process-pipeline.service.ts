@@ -69,4 +69,21 @@ export class ProcessPipelineService {
       lastUploadDate,
     );
   }
+
+  public async notify(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    noNotifications: boolean,
+  ): Promise<void | NotificationApiTestResponseDto> {
+    const lastUploadDate = await this.helperService.getLastUploadDate(
+      countryCodeISO3,
+      disasterType,
+    );
+    return await this.notificationService.send(
+      countryCodeISO3,
+      disasterType,
+      noNotifications,
+      lastUploadDate,
+    );
+  }
 }

@@ -61,7 +61,7 @@ class TimelineComponent extends DashboardPage {
     await this.page.waitForTimeout(1000);
 
     const timelinePeriods = this.page.locator(
-      '[data-testid="timeline-button"][color="ibf-trigger-alert-secondary"]',
+      '[data-testid="timeline-button"][color="ibf-trigger-alert-tertiary"]',
     );
 
     const count = await timelinePeriods.count();

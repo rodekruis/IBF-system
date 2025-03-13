@@ -28,14 +28,17 @@ export default (
       user: dataset.user,
       date,
     });
-    await map.assertTriggerOutlines({ visible: true });
+    await map.assertTriggerOutlines(dataset.scenario);
     await chat.predictionButtonsAreActive();
     await chat.clickShowPredictionButton(dataset.scenario);
     await map.clickOnAdminBoundary();
     await chat.validateEapList(dataset.eap.actions);
 
-    const district = await map.getAdminAreaBreadCrumbText();
-    await chat.validateChatTitle({ district });
+    const adminAreaName = await map.getAdminAreaBreadCrumbText();
+    await chat.validateChatTitleAndBreadcrumbs({
+      adminAreaName,
+      mainExposureIndicator: 'Exposed Population',
+    });
     await chat.validateEapListButtons(dataset.eap.actions);
   });
 };

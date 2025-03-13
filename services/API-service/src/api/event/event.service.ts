@@ -144,12 +144,14 @@ export class EventService {
         event.eventName,
         false,
       );
-      event.firstTriggerLeadTime = await this.getFirstLeadTime(
-        countryCodeISO3,
-        disasterType,
-        event.eventName,
-        true,
-      );
+      event.firstTriggerLeadTime = event.userTrigger
+        ? event.firstLeadTime
+        : await this.getFirstLeadTime(
+            countryCodeISO3,
+            disasterType,
+            event.eventName,
+            true,
+          );
       event.alertLevel = this.getAlertLevel(event);
       if (disasterType === DisasterType.Typhoon) {
         event.disasterSpecificProperties =
@@ -189,6 +191,7 @@ export class EventService {
       .createQueryBuilder('event')
       .select(['area."countryCodeISO3"', 'event."eventName"'])
       .leftJoin('event.adminArea', 'area')
+      .leftJoin('event.user', 'user')
       .groupBy('area."countryCodeISO3"')
       .addGroupBy('event."eventName"')
       .addSelect([
@@ -198,6 +201,8 @@ export class EventService {
         'MAX(event."forecastSeverity")::float AS "forecastSeverity"',
         'MAX(event."forecastTrigger"::int)::boolean AS "forecastTrigger"',
         'MAX(event."userTrigger"::int)::boolean AS "userTrigger"',
+        'MAX(event."userTriggerDate") AS "userTriggerDate"',
+        'MAX("user"."firstName" || \' \' || "user"."lastName") AS "userTriggerName"',
         'sum(event."mainExposureValue")::int AS "mainExposureValueSum"', // FIX: this goes wrong in case of percentage indicator (% houses affected typhoon)
       ])
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {

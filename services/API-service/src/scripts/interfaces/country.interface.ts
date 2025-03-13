@@ -1,5 +1,6 @@
 import { LeadTime } from '../../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminLevel } from '../../api/country/admin-level.enum';
+import { ForecastSource } from '../../api/country/country-disaster.entity';
 import { DisasterType } from '../../api/disaster-type/disaster-type.enum';
 import { DroughtSeasonRegions } from './drought-season-regions.interface';
 
@@ -23,7 +24,7 @@ export interface CountryDisasterSettings {
   eapLink: string;
   showMonthlyEapActions: boolean;
   eapAlertClasses?: EapAlertClasses;
-  forecastSource?: Record<string, string>;
+  forecastSource?: ForecastSource;
   enableEarlyActions?: boolean;
 }
 

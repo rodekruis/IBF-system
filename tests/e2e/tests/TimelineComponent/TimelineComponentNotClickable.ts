@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test(`[33066] Timeline's purple buttons are inactive and correctly styled`, async () => {
+  test(`[33066] Timeline's purple buttons are correctly styled`, async () => {
     const { dashboard } = pages;
     const { userState, timeline } = components;
 

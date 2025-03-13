@@ -9,7 +9,7 @@
         <span data-testid="heading-display-name-span">
           IBF PORTAL
           @if (isLoggedIn) {
-            <strong [ngClass]="{ active: disasterType?.activeTrigger }">
+            <strong [ngClass]="{ active: disasterType?.alertLevel }">
               {{ showCountry ? countryName : '' }}
               {{ disasterType?.disasterType }} {{ activeTriggerMsg }}
             </strong>
@@ -18,7 +18,7 @@
               {{ showEnvironmentLabel(environmentConfiguration) }}
             </strong>
           }
-          @if (isLoggedIn && disasterType?.activeTrigger) {
+          @if (isLoggedIn && disasterType?.alertLevel) {
             <ion-icon
               src="/assets/icons/Alert_Title_Purple.svg"
               slot="start"

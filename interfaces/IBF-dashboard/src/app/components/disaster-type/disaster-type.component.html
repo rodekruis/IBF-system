@@ -4,11 +4,9 @@
       <ion-icon
         (click)="switchDisasterType(disasterType)"
         class="disaster-type-button"
-        [ngClass]="disasterType?.activeTrigger ? 'triggered' : ''"
+        [ngClass]="disasterType?.alertLevel ? 'triggered' : ''"
         [attr.data-testid]="'disaster-type-button-' + disasterType.disasterType"
-        [src]="
-          getButtonSvg(disasterType.disasterType, disasterType.activeTrigger)
-        "
+        [src]="getButtonSvg(disasterType.disasterType, disasterType.alertLevel)"
         slot="start"
         [attr.data-test-selected]="
           isSelectedDisaster(disasterType.disasterType)

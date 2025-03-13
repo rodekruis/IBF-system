@@ -23,7 +23,7 @@ export default (
     await dashboard.waitForLoaderToDisappear();
 
     // Validate that the aggregates header is purple by class
-    if (dataset.scenario === 'trigger') {
+    if (dataset.scenario !== 'no-trigger') {
       await aggregates.validateColorOfAggregatesHeaderByClass({
         isTrigger: true,
       });

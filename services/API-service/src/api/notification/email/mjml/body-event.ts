@@ -1,6 +1,7 @@
 import { LeadTime } from '../../../admin-area-dynamic-data/enum/lead-time.enum';
+import { ForecastSource } from '../../../country/country-disaster.entity';
 import { DisasterType } from '../../../disaster-type/disaster-type.enum';
-import { ContentEventEmail } from '../../dto/content-trigger-email.dto';
+import { ContentEventEmail } from '../../dto/content-event-email.dto';
 import {
   AlertStatusLabelEnum,
   NotificationDataPerEventDto,
@@ -34,6 +35,8 @@ const getMjmlBodyEvent = ({
   eapLink,
   triggerStatusLabel,
   disasterSpecificCopy,
+  forecastSource,
+  userTriggerData,
 }: {
   color: string;
   defaultAdminAreaLabel: string;
@@ -51,6 +54,8 @@ const getMjmlBodyEvent = ({
   eapLink: string;
   triggerStatusLabel: string;
   disasterSpecificCopy: string;
+  forecastSource: ForecastSource;
+  userTriggerData: { name: string; date: Date };
 }): object => {
   const icon = getInlineImage({ src: triangleIcon, size: 16 });
 
@@ -90,9 +95,26 @@ const getMjmlBodyEvent = ({
     `<strong>Expected exposed ${defaultAdminAreaLabel}:</strong> ${nrOfAlertAreas} (see list below)`,
   );
 
+  if (userTriggerData) {
+    contentContent.push(
+      `<strong>Set by:</strong> ${userTriggerData.name} on ${dateObjectToDateTimeString(
+        userTriggerData.date,
+        'UTC',
+      )}`,
+    );
+  } else if (forecastSource) {
+    contentContent.push(
+      forecastSource.url
+        ? `<strong>Forecast source:</strong> <a href="${forecastSource.url}">${forecastSource.label}</a>`
+        : `<strong>Forecast source:</strong> ${forecastSource.label}`,
+    );
+  }
+
   contentContent.push(
     triggerStatusLabel === AlertStatusLabelEnum.Trigger
-      ? `<strong>Advisory:</strong> Activate <a href="${eapLink}">Early Action Protocol</a>`
+      ? eapLink
+        ? `<strong>Advisory:</strong> Activate <a href="${eapLink}">Protocol</a>` // Not all implemtations have an EAP, so for now defaulting to more generic copy
+        : `<strong>Advisory:</strong> Activate Protocol`
       : `<strong>Advisory:</strong> Inform all potentialy exposed ${defaultAdminAreaLabel}`,
   );
 
@@ -156,6 +178,16 @@ export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
       disasterSpecificCopy = getTyphoonSpecificCopy(event);
     }
 
+    const countryDisasterSettings =
+      emailContent.country.countryDisasterSettings.find(
+        ({ disasterType }) => disasterType === emailContent.disasterType,
+      );
+
+    const userTriggerData = {
+      name: event.event.userTriggerName,
+      date: event.event.userTriggerDate,
+    };
+
     eventList.push(
       getMjmlBodyEvent({
         eventName: event.eventName,
@@ -194,7 +226,10 @@ export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
           event.eapAlertClass?.color,
           event.triggerStatusLabel,
         ),
-
+        forecastSource: countryDisasterSettings.forecastSource,
+        userTriggerData: event.event.userTrigger // Hide forecast source for "set" triggers
+          ? userTriggerData
+          : null,
         // Disaster-specific copy
         disasterSpecificCopy,
       }),
