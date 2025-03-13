@@ -243,16 +243,16 @@ class ChatComponent extends DashboardPage {
   }
 
   async validateChatTitleAndBreadcrumbs({
-    district,
+    adminAreaName,
     mainExposureIndicator,
   }: {
-    district: string;
+    adminAreaName: string;
     mainExposureIndicator: string;
   }) {
     const chatTitle = this.page
       .locator('app-chat ion-col')
       .filter({ hasText: 'District' });
-    await expect(chatTitle).toContainText(district);
+    await expect(chatTitle).toContainText(adminAreaName);
 
     const exposureText = this.page.getByTestId('main-exposure-indicator');
     await expect(exposureText).toContainText(mainExposureIndicator);

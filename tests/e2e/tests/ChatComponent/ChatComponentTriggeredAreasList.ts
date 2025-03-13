@@ -36,7 +36,7 @@ export default (
 
     const adminAreaName = await map.getAdminAreaBreadCrumbText();
     await chat.validateChatTitleAndBreadcrumbs({
-      district: adminAreaName,
+      adminAreaName,
       mainExposureIndicator: 'Exposed Population',
     });
     await chat.validateEapListButtons(dataset.eap.actions);
