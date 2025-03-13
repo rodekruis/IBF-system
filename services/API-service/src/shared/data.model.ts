@@ -92,9 +92,6 @@ export class EventSummaryCountry {
   public endDate: Date;
 
   @ApiProperty({ example: true })
-  public activeTrigger: boolean;
-
-  @ApiProperty({ example: true })
   public forecastTrigger: boolean;
 
   @ApiProperty({ example: false })
