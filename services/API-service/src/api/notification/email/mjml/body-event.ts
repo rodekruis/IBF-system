@@ -180,8 +180,13 @@ export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
 
     const countryDisasterSettings =
       emailContent.country.countryDisasterSettings.find(
-        (setting) => setting.disasterType === emailContent.disasterType,
+        ({ disasterType }) => disasterType === emailContent.disasterType,
       );
+
+    const userTriggerData = {
+      name: event.event.userTriggerName,
+      date: event.event.userTriggerDate,
+    };
 
     eventList.push(
       getMjmlBodyEvent({
@@ -223,10 +228,7 @@ export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
         ),
         forecastSource: countryDisasterSettings.forecastSource,
         userTriggerData: event.event.userTrigger // Hide forecast source for "set" triggers
-          ? {
-              name: event.event.userTriggerName,
-              date: event.event.userTriggerDate,
-            }
+          ? userTriggerData
           : null,
         // Disaster-specific copy
         disasterSpecificCopy,
