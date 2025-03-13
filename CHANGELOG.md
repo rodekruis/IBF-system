@@ -1,3 +1,13 @@
+## [0.298.1](https://github.com/rodekruis/IBF-system/compare/v0.298.0...v0.298.1) (2025-03-13)
+
+
+### Bug Fixes
+
+* put back filter on leadTimes in deleteDuplicates alerts-per-lead-time ([00b27d4](https://github.com/rodekruis/IBF-system/commit/00b27d42303a7c116169dd3756c123888c819bcd))
+* query only alert-per-lead-time of exact last pipeline run ([6e3636e](https://github.com/rodekruis/IBF-system/commit/6e3636e68ab1855ecf3faf6b0739e77dfdbddf95))
+
+
+
 # [0.298.0](https://github.com/rodekruis/IBF-system/compare/v0.297.1...v0.298.0) (2025-03-13)
 
 
@@ -146,15 +156,6 @@
 
 * add enableSetWarningToTrigger property on disaster-type AB[#34112](https://github.com/rodekruis/IBF-system/issues/34112) ([33499fb](https://github.com/rodekruis/IBF-system/commit/33499fbeeb0689f2dff21a2738cc6ca603f2eaa6))
 * show set trigger btn for drought warnings AB[#34113](https://github.com/rodekruis/IBF-system/issues/34113) ([b6740da](https://github.com/rodekruis/IBF-system/commit/b6740daf194496af8a6c2b039a84825dd0895513))
-
-
-
-## [0.292.2](https://github.com/rodekruis/IBF-system/compare/v0.292.1...v0.292.2) (2025-03-05)
-
-
-### Bug Fixes
-
-* breaking test because GET point-data protected ([fb8d42f](https://github.com/rodekruis/IBF-system/commit/fb8d42fd24b8e4813320a57744fdf045cd631ad4))
 
 
 
