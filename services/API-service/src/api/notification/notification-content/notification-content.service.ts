@@ -8,12 +8,12 @@ import { NumberFormat } from '../../../shared/enums/number-format.enum';
 import { HelperService } from '../../../shared/helper.service';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../../country/country.entity';
-import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
+import { DisasterTypeService } from '../../disaster-type/disaster-type.service';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
 import { AlertLevel } from '../../event/enum/alert-level.enum';
 import { EventService } from '../../event/event.service';
-import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
+import { MetadataService } from '../../metadata/metadata.service';
 import { AdminAreaLabel } from '../dto/admin-area-notification-info.dto';
 import { ContentEventEmail } from '../dto/content-event-email.dto';
 import {
@@ -25,13 +25,11 @@ import {
 export class NotificationContentService {
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
-  @InjectRepository(IndicatorMetadataEntity)
-  private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
-  @InjectRepository(DisasterTypeEntity)
-  private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
 
   public constructor(
     private readonly eventService: EventService,
+    private readonly disasterTypeService: DisasterTypeService,
+    private readonly metadataService: MetadataService,
     private readonly helperService: HelperService,
   ) {}
 
@@ -54,7 +52,8 @@ export class NotificationContentService {
     );
 
     content.country = country;
-    content.indicatorMetadata = await this.getIndicatorMetadata(disasterType);
+    content.indicatorMetadata =
+      await this.metadataService.getIndicatorMetadata(disasterType);
     content.linkEapSop = this.getLinkEapSop(country, disasterType);
     content.defaultAdminAreaLabel = this.getDefaultAdminAreaLabel(
       country,
@@ -78,14 +77,6 @@ export class NotificationContentService {
     return await this.countryRepository.findOne({
       where: findOneOptions,
       relations: relations,
-    });
-  }
-
-  private async getDisaster(
-    disasterType: DisasterType,
-  ): Promise<DisasterTypeEntity> {
-    return await this.disasterTypeRepository.findOne({
-      where: { disasterType: disasterType },
     });
   }
 
@@ -122,16 +113,6 @@ export class NotificationContentService {
       .join(' ');
   }
 
-  public async getIndicatorMetadata(
-    disasterType: DisasterType,
-  ): Promise<IndicatorMetadataEntity> {
-    return await this.indicatorRepository.findOne({
-      where: {
-        name: (await this.getDisaster(disasterType)).mainExposureIndicator,
-      },
-    });
-  }
-
   public async getFormattedEventName(
     event: EventSummaryCountry,
     disasterType: DisasterType,
@@ -139,7 +120,9 @@ export class NotificationContentService {
     // REFACTOR: make formattedEventName a property of EventSummaryCountry, which also the front-end can draw from
     return event.eventName
       ? `${event.eventName.split('_')[0]}`
-      : (await this.getDisaster(disasterType)).label.toLowerCase();
+      : (
+          await this.disasterTypeService.getDisasterType(disasterType)
+        ).label.toLowerCase();
   }
 
   private async getNotificationDataForEvents(
@@ -192,7 +175,8 @@ export class NotificationContentService {
       disasterType,
     );
 
-    const indicatorMetadata = await this.getIndicatorMetadata(disasterType);
+    const indicatorMetadata =
+      await this.metadataService.getIndicatorMetadata(disasterType);
     data.totalAffectedOfIndicator = this.getTotal(
       data.alertAreas,
       indicatorMetadata.numberFormatMap,
@@ -349,7 +333,7 @@ export class NotificationContentService {
 
   public async getDisasterTypeLabel(disasterType: DisasterType) {
     return this.firstCharOfWordsToUpper(
-      (await this.getDisaster(disasterType)).label,
+      (await this.disasterTypeService.getDisasterType(disasterType)).label,
     );
   }
 

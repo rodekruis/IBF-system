@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { AddIndicatorsDto, IndicatorDto } from './dto/add-indicators.dto';
 import { AddLayersDto, LayerDto } from './dto/add-layers.dto';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
@@ -15,6 +16,21 @@ export class MetadataService {
   private readonly indicatorRepository: Repository<IndicatorMetadataEntity>;
   @InjectRepository(LayerMetadataEntity)
   private readonly layerRepository: Repository<LayerMetadataEntity>;
+
+  public constructor(
+    private readonly disasterTypeService: DisasterTypeService,
+  ) {}
+
+  public async getIndicatorMetadata(
+    disasterType: DisasterType,
+  ): Promise<IndicatorMetadataEntity> {
+    return await this.indicatorRepository.findOne({
+      where: {
+        name: (await this.disasterTypeService.getDisasterType(disasterType))
+          .mainExposureIndicator,
+      },
+    });
+  }
 
   public async addOrUpdateIndicators(
     indicators: AddIndicatorsDto,

@@ -4,7 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { HelperService } from '../../shared/helper.service';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
-import { EventModule } from '../event/event.module';
+import { DisasterTypeModule } from '../disaster-type/disaster-type.module';
 import { UserModule } from '../user/user.module';
 import { CountryModule } from './../country/country.module';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
@@ -22,7 +22,7 @@ import { MetadataService } from './metadata.service';
       DisasterTypeEntity,
     ]),
     CountryModule,
-    EventModule,
+    DisasterTypeModule,
   ],
   providers: [MetadataService, HelperService],
   controllers: [MetadataController],
