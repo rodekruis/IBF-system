@@ -181,6 +181,27 @@ export function postEventsProcess(
     .send(eventsProcessDto);
 }
 
+export function getAlertAreas(
+  countryCodeISO3: string,
+  adminLevel: number,
+  disasterType: DisasterType,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .get(`/event/alert-areas/${countryCodeISO3}/${adminLevel}/${disasterType}`)
+    .set('Authorization', `Bearer ${accessToken}`);
+}
+
+export function postSetTrigger(
+  eventPlaceCodeIds: string[],
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .post(`/event/set-trigger`)
+    .set('Authorization', `Bearer ${accessToken}`)
+    .send({ eventPlaceCodeIds });
+}
+
 export function postCommunityNotification(
   countryCodeISO3: string,
   uploadCommunityNotificationDto: CommunityNotificationExternalDto,
