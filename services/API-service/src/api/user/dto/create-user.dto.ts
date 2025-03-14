@@ -46,7 +46,7 @@ export class CreateUserDto {
   })
   @IsIn(userRoleArray)
   @IsNotEmpty()
-  public role: UserRole;
+  public userRole: UserRole;
 
   @ApiProperty({
     example: countries.map((c) => c.countryCodeISO3),

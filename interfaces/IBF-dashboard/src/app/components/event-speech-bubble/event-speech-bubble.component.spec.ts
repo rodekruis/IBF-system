@@ -65,6 +65,9 @@ describe('EventSpeechBubbleComponent', () => {
   });
 
   it('should open set trigger popover when openSetTriggerPopover is called', async () => {
+    // Arrange
+    const hasSetTriggerPermission = true;
+
     // Act
     await component.openSetTriggerPopover();
 
@@ -77,6 +80,7 @@ describe('EventSpeechBubbleComponent', () => {
           forecastSource: component.forecastSource,
           adminAreaLabelPlural: component.adminAreaLabelPlural,
           areas: component.areas,
+          hasSetTriggerPermission,
         }),
         showBackdrop: true,
       }),

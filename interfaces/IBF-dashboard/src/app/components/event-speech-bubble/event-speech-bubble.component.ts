@@ -7,6 +7,8 @@ import { CardColors } from 'src/app/components/chat/chat.component';
 import { SetTriggerPopoverComponent } from 'src/app/components/set-trigger-popover/set-trigger-popover.component';
 import { DisasterType, ForecastSource } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
+import { User } from 'src/app/models/user/user.model';
+import { UserRole } from 'src/app/models/user/user-role.enum';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import {
   AlertLevel,
@@ -53,6 +55,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   public displayName: string;
   private placeCodeHoverSubscription: Subscription;
   public placeCodeHover: PlaceCode;
+  public userRole: UserRole;
 
   constructor(
     private authService: AuthService,
@@ -71,6 +74,8 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     this.placeCodeHoverSubscription = this.placeCodeService
       .getPlaceCodeHoverSubscription()
       .subscribe(this.onPlaceCodeHoverChange);
+
+    this.authService.getAuthSubscription().subscribe(this.onUserChange);
 
     this.typhoonLandfallText = this.showTyphoonLandfallText(this.event);
 
@@ -98,6 +103,16 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   private onPlaceCodeHoverChange = (placeCodeHover: PlaceCode) => {
     this.placeCodeHover = placeCodeHover;
   };
+
+  private onUserChange = (user: User): void => {
+    if (user) {
+      this.userRole = user.userRole;
+    }
+  };
+
+  public hasSetTriggerPermission(): boolean {
+    return [UserRole.Admin, UserRole.SetTriggerUser].includes(this.userRole);
+  }
 
   public eventBubbleIsSelected(eventName: string) {
     return (
@@ -183,6 +198,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
         areas: this.areas,
         mainExposureIndicatorNumberFormat:
           this.mainExposureIndicatorNumberFormat,
+        hasSetTriggerPermission: this.hasSetTriggerPermission(),
       },
     });
 

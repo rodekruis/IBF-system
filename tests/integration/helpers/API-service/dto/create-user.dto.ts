@@ -5,7 +5,7 @@ export interface CreateUserDto {
   firstName: string;
   middleName?: string;
   lastName: string;
-  role: UserRole;
+  userRole: UserRole;
   countryCodesISO3: string[];
   disasterTypes: string[];
   password: string;

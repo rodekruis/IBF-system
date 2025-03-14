@@ -166,7 +166,7 @@ export class EventController {
   }
 
   @UseGuards(RolesGuard)
-  @Roles(UserRole.DisasterManager)
+  @Roles(UserRole.SetTriggerUser)
   @ApiOperation({ summary: 'Set trigger for event admin-areas.' })
   @ApiResponse({
     status: 201,
