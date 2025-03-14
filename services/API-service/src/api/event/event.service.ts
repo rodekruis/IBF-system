@@ -139,6 +139,11 @@ export class EventService {
       disasterType,
     );
     for (const event of rawEvents) {
+      event.nrAlertAreas = await this.getNrAlertAreas(
+        event,
+        countryCodeISO3,
+        disasterType,
+      );
       event.firstLeadTime = await this.getFirstLeadTime(
         countryCodeISO3,
         disasterType,
@@ -167,6 +172,45 @@ export class EventService {
         await this.getEventEapAlertClass(disasterSettings, event.alertLevel);
     }
     return rawEvents;
+  }
+
+  public async getNrAlertAreas(
+    { eventName, firstIssuedDate }: EventSummaryCountry,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<number> {
+    const triggerAreaCount = await this.eventPlaceCodeRepo.count({
+      where: [
+        {
+          eventName,
+          firstIssuedDate,
+          disasterType,
+          adminArea: { countryCodeISO3 },
+          userTrigger: true,
+        },
+        {
+          eventName,
+          firstIssuedDate,
+          disasterType,
+          adminArea: { countryCodeISO3 },
+          forecastTrigger: true,
+        },
+      ],
+    });
+    if (triggerAreaCount > 0) {
+      return triggerAreaCount;
+    }
+
+    const warningAreaCount = await this.eventPlaceCodeRepo.count({
+      where: {
+        eventName,
+        firstIssuedDate,
+        disasterType,
+        adminArea: { countryCodeISO3 },
+        forecastSeverity: MoreThan(0),
+      },
+    });
+    return warningAreaCount;
   }
 
   public getAlertLevel(event: EventSummaryCountry): AlertLevel {
@@ -198,7 +242,6 @@ export class EventService {
       .addSelect([
         'MIN("firstIssuedDate") AS "firstIssuedDate"',
         'MAX("endDate") AS "endDate"',
-        'SUM(CASE WHEN event."forecastSeverity" > 0 THEN 1 ELSE 0 END) AS "nrAlertAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
         'MAX(event."forecastSeverity")::float AS "forecastSeverity"',
         'MAX(event."forecastTrigger"::int)::boolean AS "forecastTrigger"',
         'MAX(event."userTrigger"::int)::boolean AS "userTrigger"',
