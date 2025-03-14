@@ -597,9 +597,7 @@ export class EventService {
     return areas.filter(({ alertLevel }) => alertLevel === highestAlertLevel);
   }
 
-  private getHighestAlertLevel(
-    areas: { alertLevel: AlertLevel }[],
-  ): AlertLevel {
+  public getHighestAlertLevel(areas: { alertLevel: AlertLevel }[]): AlertLevel {
     return areas.reduce((highest: AlertLevel, area: AlertArea) => {
       return ALERT_LEVEL_RANK[area.alertLevel] > ALERT_LEVEL_RANK[highest]
         ? area.alertLevel
