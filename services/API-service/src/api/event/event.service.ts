@@ -203,7 +203,7 @@ export class EventService {
     const indicator =
       await this.metadataService.getIndicatorMetadata(disasterType);
 
-    const trigger = await this.eventPlaceCodeRepo
+    const epcQuery = this.eventPlaceCodeRepo
       .createQueryBuilder('epc')
       .select([
         'COUNT(epc."eventPlaceCodeId")::int AS "nrAlertAreas"',
@@ -213,7 +213,12 @@ export class EventService {
       .where('epc."eventName" = :eventName', { eventName })
       .andWhere('aa."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
       .andWhere('epc."disasterType" = :disasterType', { disasterType })
-      .andWhere('epc."firstIssuedDate" = :firstIssuedDate', { firstIssuedDate })
+      .andWhere('epc."firstIssuedDate" = :firstIssuedDate', {
+        firstIssuedDate,
+      });
+
+    const trigger = await epcQuery
+      .clone()
       .andWhere(
         new Brackets((qb) => {
           qb.where('epc."forecastTrigger" = TRUE').orWhere(
@@ -228,21 +233,8 @@ export class EventService {
       nrAlertAreasAndMainExposureValueSum.mainExposureValueSum =
         trigger.mainExposureValueSum;
     } else {
-      const warning = await this.eventPlaceCodeRepo
-        .createQueryBuilder('epc')
-        .select([
-          'COUNT(epc."eventPlaceCodeId")::int AS "nrAlertAreas"',
-          'SUM(epc."mainExposureValue") AS "mainExposureValueSum"',
-        ])
-        .leftJoin('epc.adminArea', 'aa', 'epc."adminAreaId" = aa."id"')
-        .where('epc."eventName" = :eventName', { eventName })
-        .andWhere('aa."countryCodeISO3" = :countryCodeISO3', {
-          countryCodeISO3,
-        })
-        .andWhere('epc."disasterType" = :disasterType', { disasterType })
-        .andWhere('epc."firstIssuedDate" = :firstIssuedDate', {
-          firstIssuedDate,
-        })
+      const warning = await epcQuery
+        .clone()
         .andWhere('epc."forecastSeverity" > 0')
         .getRawOne();
 
