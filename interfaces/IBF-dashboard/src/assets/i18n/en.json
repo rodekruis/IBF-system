@@ -105,7 +105,7 @@
     }
   },
   "timeline-component": {
-    "tooltip": "The timeline displays dates of the predicted events with an outlined alert sign for warning and a filled-in alert sign for trigger. When selecting an event, the corresponding period / start date will be highlighted with a purple outline."
+    "tooltip": "The timeline displays dates of the predicted events with a purple background and an alert icon.<ul><li><strong>Warning:</strong> display an outlined alert sign.</li><li><strong>Trigger:</strong> display a filled alert sign.</li></ul>Selecting one event will also highlight the corresponding dates with a purple outline."
   },
   "chat-component": {
     "common": {
