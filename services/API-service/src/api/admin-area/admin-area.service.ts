@@ -372,10 +372,15 @@ export class AdminAreaService {
       );
     }
 
-    const adminAreas = await adminAreasScript.getRawMany();
+    let adminAreas = await adminAreasScript.getRawMany();
     adminAreas.forEach((area) => {
       area.alertLevel = this.eventService.getAlertLevel(area);
     });
+    const highestAlertLevel =
+      this.eventService.getHighestAlertLevel(adminAreas);
+    adminAreas = adminAreas.filter(
+      ({ alertLevel }) => alertLevel === highestAlertLevel,
+    );
     return this.helperService.toGeojson(adminAreas);
   }
 

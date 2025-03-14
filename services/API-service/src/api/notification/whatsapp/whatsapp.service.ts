@@ -11,6 +11,7 @@ import { CountryEntity } from '../../country/country.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { AlertLevel } from '../../event/enum/alert-level.enum';
 import { EventService } from '../../event/event.service';
+import { MetadataService } from '../../metadata/metadata.service';
 import { UserEntity } from '../../user/user.entity';
 import { LookupService } from '../lookup/lookup.service';
 import { NotificationContentService } from '../notification-content/notification-content.service';
@@ -32,6 +33,7 @@ export class WhatsappService {
 
   public constructor(
     private readonly eventService: EventService,
+    private readonly metadataService: MetadataService,
     private readonly lookupService: LookupService,
     private readonly notificationContentService: NotificationContentService,
     private readonly helperService: HelperService,
@@ -358,7 +360,7 @@ export class WhatsappService {
     const adminAreaLabel =
       country.adminRegionLabels[String(adminLevel)]['plural'].toLowerCase();
     const indicatorMetadata =
-      await this.notificationContentService.getIndicatorMetadata(disasterType);
+      await this.metadataService.getIndicatorMetadata(disasterType);
     let areaList = '';
     for (const area of alertAreas) {
       const row = `- *${area.name}${

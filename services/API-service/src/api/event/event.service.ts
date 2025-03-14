@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { subDays } from 'date-fns';
 import {
+  Brackets,
   DataSource,
   Equal,
   In,
@@ -21,6 +22,7 @@ import {
   EapAlertClassKeyEnum,
   EventSummaryCountry,
 } from '../../shared/data.model';
+import { NumberFormat } from '../../shared/enums/number-format.enum';
 import { HelperService } from '../../shared/helper.service';
 import {
   ALERT_THRESHOLD,
@@ -31,8 +33,9 @@ import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
 import { CountryEntity } from '../country/country.entity';
-import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { DisasterTypeService } from '../disaster-type/disaster-type.service';
+import { MetadataService } from '../metadata/metadata.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { EapActionsService } from './../eap-actions/eap-actions.service';
@@ -47,8 +50,17 @@ import {
   UploadAlertsPerLeadTimeDto,
   UploadTriggerPerLeadTimeDto,
 } from './dto/upload-alerts-per-lead-time.dto';
-import { ALERT_LEVEL_WARNINGS, AlertLevel } from './enum/alert-level.enum';
+import {
+  ALERT_LEVEL_RANK,
+  ALERT_LEVEL_WARNINGS,
+  AlertLevel,
+} from './enum/alert-level.enum';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
+
+interface NrAlertAreasMainExposureValueSum {
+  nrAlertAreas: number;
+  mainExposureValueSum: number;
+}
 
 @Injectable()
 export class EventService {
@@ -60,13 +72,13 @@ export class EventService {
   private readonly adminAreaRepository: Repository<AdminAreaEntity>;
   @InjectRepository(AlertPerLeadTimeEntity)
   private readonly alertPerLeadTimeRepository: Repository<AlertPerLeadTimeEntity>;
-  @InjectRepository(DisasterTypeEntity)
-  private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
   @InjectRepository(CountryEntity)
   private readonly countryRepository: Repository<CountryEntity>;
 
   public constructor(
     private eapActionsService: EapActionsService,
+    private disasterTypeService: DisasterTypeService,
+    private metadataService: MetadataService,
     private helperService: HelperService,
     private dataSource: DataSource,
     private typhoonTrackService: TyphoonTrackService,
@@ -139,6 +151,15 @@ export class EventService {
       disasterType,
     );
     for (const event of rawEvents) {
+      const nrAlertAreasAndMainExposureValueSum =
+        await this.getNrAlertAreasMainExposureValueSum(
+          event,
+          countryCodeISO3,
+          disasterType,
+        );
+      event.nrAlertAreas = nrAlertAreasAndMainExposureValueSum.nrAlertAreas;
+      event.mainExposureValueSum =
+        nrAlertAreasAndMainExposureValueSum.mainExposureValueSum;
       event.firstLeadTime = await this.getFirstLeadTime(
         countryCodeISO3,
         disasterType,
@@ -167,6 +188,70 @@ export class EventService {
         await this.getEventEapAlertClass(disasterSettings, event.alertLevel);
     }
     return rawEvents;
+  }
+
+  public async getNrAlertAreasMainExposureValueSum(
+    { eventName, firstIssuedDate }: EventSummaryCountry,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+  ): Promise<NrAlertAreasMainExposureValueSum> {
+    const nrAlertAreasAndMainExposureValueSum = {
+      nrAlertAreas: 0,
+      mainExposureValueSum: 0,
+    };
+
+    const indicator =
+      await this.metadataService.getIndicatorMetadata(disasterType);
+
+    const epcQuery = this.eventPlaceCodeRepo
+      .createQueryBuilder('epc')
+      .select([
+        'COUNT(epc."eventPlaceCodeId")::int AS "nrAlertAreas"',
+        'SUM(epc."mainExposureValue") AS "mainExposureValueSum"',
+      ])
+      .leftJoin('epc.adminArea', 'aa', 'epc."adminAreaId" = aa."id"')
+      .where('epc."eventName" = :eventName', { eventName })
+      .andWhere('aa."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
+      .andWhere('epc."disasterType" = :disasterType', { disasterType })
+      .andWhere('epc."firstIssuedDate" = :firstIssuedDate', {
+        firstIssuedDate,
+      });
+
+    const trigger = await epcQuery
+      .clone()
+      .andWhere(
+        new Brackets((qb) => {
+          qb.where('epc."forecastTrigger" = TRUE').orWhere(
+            'epc."userTrigger" = TRUE',
+          );
+        }),
+      )
+      .getRawOne();
+
+    if (trigger.nrAlertAreas) {
+      nrAlertAreasAndMainExposureValueSum.nrAlertAreas = trigger.nrAlertAreas;
+      nrAlertAreasAndMainExposureValueSum.mainExposureValueSum =
+        trigger.mainExposureValueSum;
+    } else {
+      const warning = await epcQuery
+        .clone()
+        .andWhere('epc."forecastSeverity" > 0')
+        .getRawOne();
+
+      nrAlertAreasAndMainExposureValueSum.nrAlertAreas = warning.nrAlertAreas;
+      nrAlertAreasAndMainExposureValueSum.mainExposureValueSum =
+        warning.mainExposureValueSum;
+    }
+
+    if (indicator.numberFormatMap === NumberFormat.perc) {
+      // return average of percentages for percentage indicator
+      // NOTE: this is a temporary solution, as we should not be summing percentages
+      nrAlertAreasAndMainExposureValueSum.mainExposureValueSum =
+        nrAlertAreasAndMainExposureValueSum.mainExposureValueSum /
+        nrAlertAreasAndMainExposureValueSum.nrAlertAreas;
+    }
+
+    return nrAlertAreasAndMainExposureValueSum;
   }
 
   public getAlertLevel(event: EventSummaryCountry): AlertLevel {
@@ -198,13 +283,11 @@ export class EventService {
       .addSelect([
         'MIN("firstIssuedDate") AS "firstIssuedDate"',
         'MAX("endDate") AS "endDate"',
-        'SUM(CASE WHEN event."forecastSeverity" > 0 THEN 1 ELSE 0 END) AS "nrAlertAreas"', // This count is needed here, because the portal also needs the count of other events when in event view, which it cannot get any more from the triggeredAreas array length, which is then filtered on selected event only
         'MAX(event."forecastSeverity")::float AS "forecastSeverity"',
         'MAX(event."forecastTrigger"::int)::boolean AS "forecastTrigger"',
         'MAX(event."userTrigger"::int)::boolean AS "userTrigger"',
         'MAX(event."userTriggerDate") AS "userTriggerDate"',
         'MAX("user"."firstName" || \' \' || "user"."lastName") AS "userTriggerName"',
-        'sum(event."mainExposureValue")::int AS "mainExposureValueSum"', // FIX: this goes wrong in case of percentage indicator (% houses affected typhoon)
       ])
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3,
@@ -419,7 +502,11 @@ export class EventService {
       }
     }
 
-    return eventPlaceCodes;
+    const highestAlertLevel = this.getHighestAlertLevel(eventPlaceCodes);
+
+    return eventPlaceCodes.filter(
+      ({ alertLevel }) => alertLevel === highestAlertLevel,
+    );
   }
 
   private async getDeeperAlertAreas(
@@ -430,7 +517,7 @@ export class EventService {
     leadTime?: string,
   ): Promise<AlertArea[]> {
     const mainExposureIndicator =
-      await this.getMainExposureIndicator(disasterType);
+      await this.disasterTypeService.getMainExposureIndicator(disasterType);
 
     const placeCodes = alertAreas.map(({ placeCode }) => placeCode);
 
@@ -447,7 +534,7 @@ export class EventService {
       whereFilters['leadTime'] = leadTime;
     }
 
-    const areas = await this.adminAreaDynamicDataRepo
+    let areas = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .where(whereFilters)
       .leftJoinAndSelect(
@@ -483,7 +570,7 @@ export class EventService {
       ])
       .getRawMany();
 
-    return areas.map((area) => ({
+    areas = areas.map((area) => ({
       placeCode: area.placeCode,
       name: area.name,
       nameParent: null,
@@ -496,6 +583,18 @@ export class EventService {
       eapActions: [],
       alertLevel: this.getAlertLevel(area),
     }));
+
+    const highestAlertLevel = this.getHighestAlertLevel(areas);
+
+    return areas.filter(({ alertLevel }) => alertLevel === highestAlertLevel);
+  }
+
+  public getHighestAlertLevel(areas: { alertLevel: AlertLevel }[]): AlertLevel {
+    return areas.reduce((highest: AlertLevel, area: AlertArea) => {
+      return ALERT_LEVEL_RANK[area.alertLevel] > ALERT_LEVEL_RANK[highest]
+        ? area.alertLevel
+        : highest;
+    }, AlertLevel.NONE);
   }
 
   public async getActivationLogData(
@@ -654,17 +753,6 @@ export class EventService {
     );
   }
 
-  private async getMainExposureIndicator(
-    disasterType: DisasterType,
-  ): Promise<string> {
-    return (
-      await this.disasterTypeRepository.findOne({
-        select: ['mainExposureIndicator'],
-        where: { disasterType },
-      })
-    ).mainExposureIndicator;
-  }
-
   public async getActiveEventNames(
     countryCodeISO3: string,
     disasterType: DisasterType,
@@ -755,7 +843,7 @@ export class EventService {
     }
 
     const mainExposureIndicator =
-      await this.getMainExposureIndicator(disasterType);
+      await this.disasterTypeService.getMainExposureIndicator(disasterType);
 
     const areasWithForecastSeverityData = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('severity')

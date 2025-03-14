@@ -6,8 +6,10 @@ import { AdminAreaDataModule } from '../../admin-area-data/admin-area-data.modul
 import { AdminAreaModule } from '../../admin-area/admin-area.module';
 import { CountryEntity } from '../../country/country.entity';
 import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
+import { DisasterTypeModule } from '../../disaster-type/disaster-type.module';
 import { EventModule } from '../../event/event.module';
 import { IndicatorMetadataEntity } from '../../metadata/indicator-metadata.entity';
+import { MetadataModule } from '../../metadata/metadata.module';
 import { NotificationContentService } from './notification-content.service';
 
 @Module({
@@ -20,6 +22,8 @@ import { NotificationContentService } from './notification-content.service';
     EventModule,
     AdminAreaDataModule,
     AdminAreaModule,
+    DisasterTypeModule,
+    MetadataModule,
   ],
   controllers: [],
   providers: [NotificationContentService, HelperService],
