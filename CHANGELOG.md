@@ -1,3 +1,12 @@
+## [0.298.2](https://github.com/rodekruis/IBF-system/compare/v0.298.1...v0.298.2) (2025-03-14)
+
+
+### Bug Fixes
+
+* update timeline-tooltip copy + style bullets AB[#34441](https://github.com/rodekruis/IBF-system/issues/34441) ([93d5eda](https://github.com/rodekruis/IBF-system/commit/93d5eda2a88d9c6cf1b9dc79a8ddf203284f658b))
+
+
+
 ## [0.298.1](https://github.com/rodekruis/IBF-system/compare/v0.298.0...v0.298.1) (2025-03-13)
 
 
@@ -140,22 +149,6 @@
 * prettier api-service ([01b2940](https://github.com/rodekruis/IBF-system/commit/01b29401a7d0f6ec60bc34b8b8faa37e8237e933))
 * remove test.only ([687cc25](https://github.com/rodekruis/IBF-system/commit/687cc25415e9b5dfced6db11ac850a069aa4d14a))
 * revert code to fix test ([a325f89](https://github.com/rodekruis/IBF-system/commit/a325f8945db92a94ec30173bdfc0d86dfd945827))
-
-
-
-# [0.293.0](https://github.com/rodekruis/IBF-system/compare/v0.292.2...v0.293.0) (2025-03-05)
-
-
-### Bug Fixes
-
-* missing class property ([0553d90](https://github.com/rodekruis/IBF-system/commit/0553d90814fe858a02c476867ed64278f7628db9))
-* unit test ([0e69951](https://github.com/rodekruis/IBF-system/commit/0e69951da1f3f39bd8f0361fb137caa4fc4c3898))
-
-
-### Features
-
-* add enableSetWarningToTrigger property on disaster-type AB[#34112](https://github.com/rodekruis/IBF-system/issues/34112) ([33499fb](https://github.com/rodekruis/IBF-system/commit/33499fbeeb0689f2dff21a2738cc6ca603f2eaa6))
-* show set trigger btn for drought warnings AB[#34113](https://github.com/rodekruis/IBF-system/issues/34113) ([b6740da](https://github.com/rodekruis/IBF-system/commit/b6740daf194496af8a6c2b039a84825dd0895513))
 
 
 
