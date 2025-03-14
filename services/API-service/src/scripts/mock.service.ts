@@ -249,7 +249,7 @@ export class MockService {
       this.mockHelpService.mockRasterFile(
         selectedCountry,
         disasterType,
-        !scenario.events,
+        scenario.events?.length > 0,
       );
     }
 

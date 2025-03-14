@@ -126,18 +126,18 @@ export class MockHelperService {
       }
 
       // NOTE: this makes sure mock raster files are uploaded only once. If your intention is to have a different file, comment this out temporarily.
-      // const subfolder =
-      //   DisasterTypeGeoServerMapper.getSubfolderForDisasterType(disasterType);
-      // if (
-      //   fs.existsSync(
-      //     `./geoserver-volume/raster-files/output/${subfolder}/${destFileName}`,
-      //   )
-      // ) {
-      //   console.log(
-      //     `File ${destFileName} already exists in output folder. Skipping.`,
-      //   );
-      //   continue;
-      // }
+      const subfolder =
+        DisasterTypeGeoServerMapper.getSubfolderForDisasterType(disasterType);
+      if (
+        fs.existsSync(
+          `./geoserver-volume/raster-files/output/${subfolder}/${destFileName}`,
+        )
+      ) {
+        console.log(
+          `File ${destFileName} already exists in output folder. Skipping.`,
+        );
+        continue;
+      }
       // END NOTE
 
       let file;
