@@ -11,6 +11,7 @@ import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { EapActionsService } from '../eap-actions/eap-actions.service';
+import { MetadataService } from '../metadata/metadata.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import { AlertPerLeadTimeEntity } from './alert-per-lead-time.entity';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
@@ -30,6 +31,10 @@ describe('EventService', () => {
         },
         {
           provide: DisasterTypeService,
+          useValue: {},
+        },
+        {
+          provide: MetadataService,
           useValue: {},
         },
         {
