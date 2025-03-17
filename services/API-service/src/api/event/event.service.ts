@@ -598,7 +598,10 @@ export class EventService {
 
     areas.forEach((area) => {
       const eventName = area.eventName || 'unknown';
-      const currentHighest = eventAlertLevels[eventName] || AlertLevel.NONE;
+      if (!eventAlertLevels[eventName]) {
+        eventAlertLevels[eventName] = AlertLevel.NONE;
+      }
+      const currentHighest = eventAlertLevels[eventName];
 
       if (
         ALERT_LEVEL_RANK[area.alertLevel] > ALERT_LEVEL_RANK[currentHighest]
