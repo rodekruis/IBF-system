@@ -180,8 +180,8 @@
       "active-event": {
         "header": "Trigger: {{ eventName }} in {{firstLeadTimeDate}}",
         "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
-        "header-ongoing": "Ongoing trigger: {{eventName}} in {{firstLeadTimeDate}}",
-        "header-ongoing-below-trigger": "Ongoing warning: {{eventName}} in {{firstLeadTimeDate}}",
+        "header-ongoing": "Ongoing trigger: {{eventName}}",
+        "header-ongoing-below-trigger": "Ongoing warning: {{eventName}}",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:"
       },
