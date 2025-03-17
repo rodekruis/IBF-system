@@ -42,7 +42,6 @@ export class IbfButtonComponent implements OnInit {
     --border-width: 2px;
     --border-style: solid;
     --color: var(--ion-color-${this.textColor});
-    --box-shadow: none;
     `;
   }
 }
