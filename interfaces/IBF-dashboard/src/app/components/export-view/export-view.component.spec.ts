@@ -7,6 +7,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { ExportViewComponent } from 'src/app/components/export-view/export-view.component';
 
 describe('ExportViewComponent', () => {
@@ -17,7 +18,11 @@ describe('ExportViewComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ExportViewComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [IonicModule, RouterModule.forRoot([])],
+      imports: [
+        IonicModule,
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot(),
+      ],
       providers: [
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
