@@ -75,7 +75,10 @@
             color="ibf-white"
           >
             <ion-thumbnail slot="start" class="areas-of-focus-item-thumbnail">
-              <ion-img src="assets/icons/{{ areaOfFocus.icon }}"></ion-img>
+              <ion-img
+                class="object-contain"
+                src="assets/icons/{{ areaOfFocus.icon }}"
+              ></ion-img>
             </ion-thumbnail>
             <ion-label class="areas-of-focus-item-label">
               {{ areaOfFocus.label }}
