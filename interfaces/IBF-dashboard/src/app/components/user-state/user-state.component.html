@@ -18,13 +18,15 @@
               {{ showEnvironmentLabel(environmentConfiguration) }}
             </strong>
           }
-          @if (isLoggedIn && disasterType?.alertLevel) {
+        </span>
+        @if (isLoggedIn && disasterType?.alertLevel) {
+          <div class="inline-block align-middle">
             <ion-icon
               src="/assets/icons/Alert_Title_Purple.svg"
               slot="start"
             ></ion-icon>
-          }
-        </span>
+          </div>
+        }
       </ion-title>
     </div>
     <div class="ion-align-items-center">
