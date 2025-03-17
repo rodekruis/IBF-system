@@ -156,7 +156,7 @@ class ChatComponent extends DashboardPage {
       await this.chatIbfGuidePopOverTitle.innerText();
     const ibfGuidePopOverIframe =
       this.chatIbfGuidePopOverContent.locator('iframe');
-    expect(ibfGuidePopOverTitle).toContain('IBF Guide');
+    expect(ibfGuidePopOverTitle).toContain('IBF guide');
     await expect(this.chatIbfGuidePopOverContent).toBeVisible();
     await expect(ibfGuidePopOverIframe).toBeVisible();
 
