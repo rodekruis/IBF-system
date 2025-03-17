@@ -1,11 +1,9 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PlaceCode } from 'src/app/models/place-code.model';
-import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
-import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { TimelineState } from 'src/app/types/timeline-state';
 
 @Component({
@@ -24,7 +22,6 @@ export class TimelineComponent implements OnInit, OnDestroy {
   constructor(
     public timelineService: TimelineService,
     private eventService: EventService,
-    private disasterTypeService: DisasterTypeService,
     private placeCodeService: PlaceCodeService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {}
@@ -50,11 +47,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
   };
 
   private onPlaceCodeHoverChange = (placeCode: PlaceCode) => {
-    if (
-      !this.eventService.state.event &&
-      this.disasterTypeService?.disasterType?.disasterType !==
-        DisasterTypeKey.flashFloods
-    ) {
+    if (!this.eventService.state.event) {
       this.placeCodeHover = placeCode;
       if (this.placeCodeHover) {
         const btns = this.timelineState?.timeStepButtons?.filter((t) =>
