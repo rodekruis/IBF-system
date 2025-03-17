@@ -5,7 +5,7 @@ export const userData = {
   firstName: 'Henry',
   middleName: 'string',
   lastName: 'Dunant',
-  role: UserRole.DisasterManager,
+  userRole: UserRole.DisasterManager,
   countryCodesISO3: ['UGA', 'ZMB', 'MWI', 'SSD', 'KEN', 'ETH', 'PHL', 'ZWE'],
   disasterTypes: ['floods', 'malaria', 'drought', 'typhoon', 'flash-floods'],
   password: 'password',
