@@ -10,8 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EventSpeechBubbleComponent } from 'src/app/components/event-speech-bubble/event-speech-bubble.component';
 import { MOCK_ALERT_AREAS } from 'src/app/mocks/alert-areas.mock';
 import { MOCK_EVENT_STATE } from 'src/app/mocks/event-state.mock';
+import { UserRole } from 'src/app/models/user/user-role.enum';
 
-describe('EventSpeechBubbleComponent', () => {
+fdescribe('EventSpeechBubbleComponent', () => {
   let component: EventSpeechBubbleComponent;
   let fixture: ComponentFixture<EventSpeechBubbleComponent>;
   let popoverControllerSpy: jasmine.SpyObj<PopoverController>;
@@ -58,7 +59,7 @@ describe('EventSpeechBubbleComponent', () => {
     component.areas = MOCK_ALERT_AREAS;
 
     // Spy on the hasSetTriggerPermission method
-    spyOn(component, 'hasSetTriggerPermission').and.returnValue(true);
+    // spyOn(component, 'hasSetTriggerPermission').and.returnValue(true);
 
     fixture.detectChanges();
   }));
@@ -67,26 +68,67 @@ describe('EventSpeechBubbleComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should open set trigger popover when openSetTriggerPopover is called', async () => {
-    // Arrange
-    const hasSetTriggerPermission = true;
+  describe('hasSetTriggerPermission', () => {
+    it('return true for right userRole', async () => {
+      component.userRole = UserRole.SetTriggerUser;
+      const result = component.hasSetTriggerPermission();
+      expect(result).toBeTrue();
+    });
 
-    // Act
-    await component.openSetTriggerPopover();
+    it('return false for wrong userRole', async () => {
+      component.userRole = UserRole.DisasterManager;
+      const result = component.hasSetTriggerPermission();
+      expect(result).toBeFalse();
+    });
+  });
 
-    // Assert - Using jasmine.objectContaining to match partial object
-    expect(popoverControllerSpy.create).toHaveBeenCalledWith(
-      jasmine.objectContaining({
-        component: jasmine.any(Function),
-        componentProps: jasmine.objectContaining({
-          eventName: component.event.eventName,
-          forecastSource: component.forecastSource,
-          adminAreaLabelPlural: component.adminAreaLabelPlural,
-          areas: component.areas,
-          hasSetTriggerPermission,
+  describe('openSetTriggerPopover', () => {
+    it('should open set trigger popover when openSetTriggerPopover is called', async () => {
+      // Arrange
+      component.userRole = UserRole.SetTriggerUser;
+      const expectedHasSetTriggerPermission = true;
+
+      // Act
+      await component.openSetTriggerPopover();
+
+      // Assert - Using jasmine.objectContaining to match partial object
+      expect(popoverControllerSpy.create).toHaveBeenCalledWith(
+        jasmine.objectContaining({
+          component: jasmine.any(Function),
+          componentProps: jasmine.objectContaining({
+            eventName: component.event.eventName,
+            forecastSource: component.forecastSource,
+            adminAreaLabelPlural: component.adminAreaLabelPlural,
+            areas: component.areas,
+            hasSetTriggerPermission: expectedHasSetTriggerPermission,
+          }),
+          showBackdrop: true,
         }),
-        showBackdrop: true,
-      }),
-    );
+      );
+    });
+
+    it('should open no-access set trigger popover when openSetTriggerPopover is called without right userRole', async () => {
+      // Arrange
+      component.userRole = UserRole.DisasterManager;
+      const expectedHasSetTriggerPermission = false;
+
+      // Act
+      await component.openSetTriggerPopover();
+
+      // Assert - Using jasmine.objectContaining to match partial object
+      expect(popoverControllerSpy.create).toHaveBeenCalledWith(
+        jasmine.objectContaining({
+          component: jasmine.any(Function),
+          componentProps: jasmine.objectContaining({
+            eventName: component.event.eventName,
+            forecastSource: component.forecastSource,
+            adminAreaLabelPlural: component.adminAreaLabelPlural,
+            areas: component.areas,
+            hasSetTriggerPermission: expectedHasSetTriggerPermission,
+          }),
+          showBackdrop: true,
+        }),
+      );
+    });
   });
 });
