@@ -76,11 +76,29 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
 
     if (this.event) {
       this.event.header = this.getHeader(this.event);
+      this.event.mainExposureValueSum = this.getEventMainExposureValue(
+        this.event,
+        this.mainExposureIndicatorNumberFormat,
+      );
     }
   }
 
   ngOnDestroy() {
     this.placeCodeHoverSubscription.unsubscribe();
+  }
+
+  private getEventMainExposureValue(
+    event: EventSummary,
+    mainExposureIndicatorNumberFormat: NumberFormat,
+  ) {
+    const sum = event.alertAreas.reduce(
+      (acc, alertArea) => acc + alertArea.mainExposureValue,
+      0,
+    );
+    if (mainExposureIndicatorNumberFormat === NumberFormat.perc) {
+      return sum / event.alertAreas.length;
+    }
+    return sum;
   }
 
   public selectArea(area: AlertArea) {

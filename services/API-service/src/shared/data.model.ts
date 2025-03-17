@@ -112,9 +112,6 @@ export class EventSummaryCountry {
   @ApiProperty({ example: 100 })
   public forecastSeverity: number;
 
-  @ApiProperty({ example: 5 })
-  public nrAlertAreas: number;
-
   @ApiProperty({ example: AlertLevel.NONE })
   public alertLevel: AlertLevel;
 
@@ -123,4 +120,7 @@ export class EventSummaryCountry {
 
   @ApiProperty({ example: 'Henry Dunant' })
   public userTriggerName: string;
+
+  @ApiProperty({ example: [] })
+  public alertAreas?: AlertArea[];
 }

@@ -117,20 +117,17 @@ export class AlertAreaService {
       this.timelineState &&
       this.eventState
     ) {
-      // This makes sure that if placeCode is set, that adminLevel is used below (which affects e.g. the chat-section) ..
-      // .. which is 1 adminLevel highr than the one used in the map ..
-      // .. if not set yet (so on highest adminLevel), then the chat-section uses the same level as the map (namely the defaultAdminLevel)
-      const adminLevelToUse =
-        this.placeCode?.adminLevel ||
-        this.countryDisasterSettings.defaultAdminLevel;
-      this.apiService
-        .getAlertAreas(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-          adminLevelToUse,
-          this.eventState.event?.eventName,
-        )
-        .subscribe(this.onAlertAreas);
+      if (this.eventState?.event) {
+        this.onAlertAreas(this.eventState.event.alertAreas);
+      } else if (this.eventState?.events.length) {
+        // Multiple events case - concatenate all alertAreas arrays
+        const allAlertAreas = this.eventState.events.flatMap(
+          (event) => event.alertAreas || [],
+        );
+        this.onAlertAreas(allAlertAreas);
+      } else {
+        this.onAlertAreas([]);
+      }
     }
   }
 
