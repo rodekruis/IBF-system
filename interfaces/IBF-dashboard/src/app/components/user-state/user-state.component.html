@@ -33,19 +33,20 @@
         <ion-item lines="none">
           <ion-col class="ion-no-padding">
             @if (isLoggedIn) {
-              <ion-title size="small" class="ion-no-padding"
-                >Logged In As:</ion-title
+              <ion-title
+                size="small"
+                class="ion-no-padding"
+                (click)="presentPopover()"
               >
+                {{ 'user-state.logged-in-as' | translate }}
+              </ion-title>
               <ion-title
                 size="small"
                 data-testid="user-display-name"
-                class="ion-no-padding"
+                class="ion-no-padding cursor-pointer font-bold hover:underline"
+                (click)="presentPopover()"
               >
-                <strong
-                  (click)="presentPopover()"
-                  style="cursor: pointer; text-decoration: underline"
-                  >{{ authService.displayName }}</strong
-                >
+                {{ authService.displayName }}
               </ion-title>
             }
           </ion-col>

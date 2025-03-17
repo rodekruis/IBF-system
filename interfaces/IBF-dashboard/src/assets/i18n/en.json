@@ -40,6 +40,7 @@
     }
   },
   "user-state": {
+    "logged-in-as": "Logged in as:",
     "log-out": "Log out",
     "password-change": "Change password",
     "password-new": "New password",
