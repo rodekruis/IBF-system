@@ -373,10 +373,11 @@ export class AdminAreaService {
     adminAreas.forEach((area) => {
       area.alertLevel = this.eventService.getAlertLevel(area);
     });
-    const highestAlertLevel =
-      this.eventService.getHighestAlertLevel(adminAreas);
+    const highestAlertLevels =
+      this.eventService.getHighestAlertLevelPerEvent(adminAreas);
     adminAreas = adminAreas.filter(
-      ({ alertLevel }) => alertLevel === highestAlertLevel,
+      (area) =>
+        area.alertLevel === highestAlertLevels[area.eventName || 'unknown'],
     );
     return this.helperService.toGeojson(adminAreas);
   }

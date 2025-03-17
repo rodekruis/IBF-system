@@ -501,10 +501,11 @@ export class EventService {
       }
     }
 
-    const highestAlertLevel = this.getHighestAlertLevel(eventPlaceCodes);
-
+    const highestAlertLevels =
+      this.getHighestAlertLevelPerEvent(eventPlaceCodes);
     return eventPlaceCodes.filter(
-      ({ alertLevel }) => alertLevel === highestAlertLevel,
+      (area) =>
+        area.alertLevel === highestAlertLevels[area.eventName || 'unknown'],
     );
   }
 
@@ -583,17 +584,30 @@ export class EventService {
       alertLevel: this.getAlertLevel(area),
     }));
 
-    const highestAlertLevel = this.getHighestAlertLevel(areas);
-
-    return areas.filter(({ alertLevel }) => alertLevel === highestAlertLevel);
+    const highestAlertLevels = this.getHighestAlertLevelPerEvent(areas);
+    return areas.filter(
+      (area) =>
+        area.alertLevel === highestAlertLevels[area.eventName || 'unknown'],
+    );
   }
 
-  public getHighestAlertLevel(areas: { alertLevel: AlertLevel }[]): AlertLevel {
-    return areas.reduce((highest: AlertLevel, area: AlertArea) => {
-      return ALERT_LEVEL_RANK[area.alertLevel] > ALERT_LEVEL_RANK[highest]
-        ? area.alertLevel
-        : highest;
-    }, AlertLevel.NONE);
+  public getHighestAlertLevelPerEvent(
+    areas: { alertLevel: AlertLevel; eventName: string }[],
+  ): Record<string, AlertLevel> {
+    const eventAlertLevels: Record<string, AlertLevel> = {};
+
+    areas.forEach((area) => {
+      const eventName = area.eventName || 'unknown';
+      const currentHighest = eventAlertLevels[eventName] || AlertLevel.NONE;
+
+      if (
+        ALERT_LEVEL_RANK[area.alertLevel] > ALERT_LEVEL_RANK[currentHighest]
+      ) {
+        eventAlertLevels[eventName] = area.alertLevel;
+      }
+    });
+
+    return eventAlertLevels;
   }
 
   public async getActivationLogData(
