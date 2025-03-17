@@ -17,7 +17,7 @@ class LoginPage extends DashboardPage {
   constructor(page: Page) {
     super(page);
     this.page = page;
-    this.emailInput = this.page.getByLabel('E-mail');
+    this.emailInput = this.page.getByLabel('Email');
     this.passwordInput = this.page.locator('input[type="password"]');
     this.loginButton = this.page.getByRole('button', { name: 'Log in' });
     this.welcomeMessage = this.page.getByTestId('login-welcome-message');

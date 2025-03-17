@@ -37,15 +37,16 @@
   "
 ></div>
 @if (markerProperties?.photoUrl) {
-  <app-ibf-button
-    class="community-notification-button"
+  <ion-button
     [disabled]="!markerProperties?.photoUrl"
     type="button"
-    backgroundColor="ibf-primary"
+    color="ibf-primary"
+    shape="round"
+    expand="full"
     (click)="openPhotoPopup(markerProperties?.photoUrl)"
     >{{ 'map-popups.community-notification.photo' | translate }}
     <ion-icon slot="start" name="image"></ion-icon>
-  </app-ibf-button>
+  </ion-button>
 } @else {
   <div class="community-notification-info">
     <strong>{{
@@ -53,12 +54,12 @@
     }}</strong>
   </div>
 }
-<app-ibf-button
-  class="community-notification-button"
+<ion-button
   type="button"
-  backgroundColor="ibf-white"
-  borderColor="ibf-primary"
-  textColor="ibf-primary"
+  color="ibf-primary"
+  shape="round"
+  expand="full"
+  fill="outline"
   (click)="dismissCommunityNotification(markerProperties?.pointDataId)"
-  >{{ 'map-popups.community-notification.delete' | translate }}</app-ibf-button
+  >{{ 'map-popups.community-notification.delete' | translate }}</ion-button
 >

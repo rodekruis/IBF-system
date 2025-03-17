@@ -100,7 +100,7 @@ export class ProcessPipelineController {
   @ApiResponse({
     status: 201,
     description:
-      'Notification request sent (actual e-mails/whatsapps sent only if there is an active event)',
+      'Notification request sent (actual emails/whatsapps sent only if there is an active event)',
   })
   @ApiQuery({
     name: 'noNotifications',
@@ -133,12 +133,12 @@ export class ProcessPipelineController {
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
-      '[DEV/TEST/DEMO only] Send test notification (e-mail and/or whatsapp) about events to recipients for given country and disaster-type.',
+      '[DEV/TEST/DEMO only] Send test notification (email and/or whatsapp) about events to recipients for given country and disaster-type.',
   })
   @ApiResponse({
     status: 201,
     description:
-      'Notification request sent (actual e-mails/whatsapps sent only if there is an active event)',
+      'Notification request sent (actual emails/whatsapps sent only if there is an active event)',
   })
   @ApiQuery({
     name: 'noNotifications',

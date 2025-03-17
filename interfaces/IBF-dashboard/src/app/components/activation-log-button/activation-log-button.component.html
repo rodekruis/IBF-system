@@ -1,15 +1,13 @@
-<app-ibf-button
-  type="button"
-  [title]="'activation-page.page-title' | translate"
-  [attr.aria-label]="'activation-page.page-title' | translate"
+<ion-button
   (click)="goToPage()"
+  class="activation-log-button"
+  data-testid="activation-log-button"
   size="small"
   strong="true"
-  backgroundColor="ibf-white"
-  borderColor="ibf-no-alert-secondary"
-  textColor="ibf-black"
+  expand="full"
+  shape="round"
+  fill="outline"
+  color="fiveten-neutral-900"
 >
-  <span class="ion-hide-sm-down">{{
-    'activation-page.page-title' | translate
-  }}</span>
-</app-ibf-button>
+  {{ 'activation-page.page-title' | translate }}
+</ion-button>

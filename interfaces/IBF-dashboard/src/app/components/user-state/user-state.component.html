@@ -51,18 +51,19 @@
           </ion-col>
         </ion-item>
         @if (isLoggedIn) {
-          <app-ibf-button
+          <ion-button
             data-testid="user-state-logout-button"
-            [title]="'Log Out'"
-            [attr.aria-label]="'Log Out'"
+            class="user-state-log-out-button"
             size="small"
-            backgroundColor="ibf-primary"
+            shape="round"
+            fill="outline"
+            strong="true"
+            color="fiveten-navy-900"
             (click)="doLogout()"
             data-test="logout-button"
           >
-            <span class="ion-hide-sm-down">Log Out</span>
-            <ion-icon name="log-out" slot="end"></ion-icon>
-          </app-ibf-button>
+            {{ 'user-state.log-out' | translate }}
+          </ion-button>
         }
       </ion-row>
     </div>

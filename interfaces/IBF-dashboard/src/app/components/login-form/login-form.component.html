@@ -6,7 +6,9 @@
   /><!-- Include hidden submit-button to enable "enter"-key to trigger ngSubmit -->
 
   <ion-item>
-    <ion-label position="stacked">E-mail</ion-label>
+    <ion-label position="stacked">{{
+      'login-page.email' | translate
+    }}</ion-label>
     <ion-input
       [ngModel]="model.email"
       (ngModelChange)="model.email = $event"
@@ -21,7 +23,9 @@
     ></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label position="stacked">Password</ion-label>
+    <ion-label position="stacked">{{
+      'login-page.password' | translate
+    }}</ion-label>
     <div style="display: flex; width: 100%" class="ion-align-items-center">
       <ion-input
         [ngModel]="model.password"
@@ -57,16 +61,15 @@
     </div>
   </ion-item>
 
-  <app-ibf-button
+  <ion-button
     type="submit"
-    [disabled]="!loginForm.form.valid"
+    shape="round"
+    color="fiveten-navy-900"
+    expand="full"
     data-test="login-button"
-    backgroundColor="ibf-no-alert-primary"
-    textColor="ibf-white"
+    [disabled]="!loginForm.form.valid"
+    >{{ 'login-page.title' | translate }}</ion-button
   >
-    Log In
-    <ion-icon slot="end" name="enter"></ion-icon>
-  </app-ibf-button>
   <div
     (click)="presentPopover()"
     (keydown.enter)="presentPopover()"
