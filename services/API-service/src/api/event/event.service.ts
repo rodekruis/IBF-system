@@ -200,8 +200,8 @@ export class EventService {
       mainExposureValueSum: 0,
     };
 
-    const indicator =
-      await this.metadataService.getIndicatorMetadata(disasterType);
+    const mainExposureIndicatorMetadata =
+      await this.metadataService.getMainExposureIndicatorMetadata(disasterType);
 
     const epcQuery = this.eventPlaceCodeRepo
       .createQueryBuilder('epc')
@@ -243,9 +243,8 @@ export class EventService {
         warning.mainExposureValueSum;
     }
 
-    if (indicator.numberFormatMap === NumberFormat.perc) {
-      // return average of percentages for percentage indicator
-      // NOTE: this is a temporary solution, as we should not be summing percentages
+    if (mainExposureIndicatorMetadata.numberFormatMap === NumberFormat.perc) {
+      // NOTE: return average of percentages for percentage indicator. This is a temporary solution, as it should actually be weighed average. At least better than sum though.
       nrAlertAreasAndMainExposureValueSum.mainExposureValueSum =
         nrAlertAreasAndMainExposureValueSum.mainExposureValueSum /
         nrAlertAreasAndMainExposureValueSum.nrAlertAreas;

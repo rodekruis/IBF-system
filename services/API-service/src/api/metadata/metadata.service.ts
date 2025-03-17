@@ -21,7 +21,7 @@ export class MetadataService {
     private readonly disasterTypeService: DisasterTypeService,
   ) {}
 
-  public async getIndicatorMetadata(
+  public async getMainExposureIndicatorMetadata(
     disasterType: DisasterType,
   ): Promise<IndicatorMetadataEntity> {
     return await this.indicatorRepository.findOne({

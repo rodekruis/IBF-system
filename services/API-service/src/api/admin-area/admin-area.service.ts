@@ -12,6 +12,7 @@ import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indica
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { EventService } from '../event/event.service';
@@ -31,6 +32,7 @@ export class AdminAreaService {
     private helperService: HelperService,
     private eventService: EventService,
     private eventAreaService: EventAreaService,
+    private disasterTypeService: DisasterTypeService,
   ) {}
 
   public async addOrUpdateAdminAreas(
@@ -253,12 +255,6 @@ export class AdminAreaService {
     return staticIndicators.concat(dynamicIndicators);
   }
 
-  private async getDisasterType(
-    disasterType: DisasterType,
-  ): Promise<DisasterTypeEntity> {
-    return this.disasterTypeRepository.findOne({ where: { disasterType } });
-  }
-
   public async getAdminAreasRaw(countryCodeISO3: string) {
     return await this.adminAreaRepository.find({
       select: [
@@ -281,7 +277,8 @@ export class AdminAreaService {
     eventName: string,
     placeCodeParent?: string,
   ): Promise<GeoJson> {
-    const disasterTypeEntity = await this.getDisasterType(disasterType);
+    const disasterTypeEntity =
+      await this.disasterTypeService.getDisasterType(disasterType);
     const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,

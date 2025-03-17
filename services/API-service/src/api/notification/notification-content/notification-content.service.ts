@@ -52,8 +52,8 @@ export class NotificationContentService {
     );
 
     content.country = country;
-    content.indicatorMetadata =
-      await this.metadataService.getIndicatorMetadata(disasterType);
+    content.mainExposureIndicatorMetadata =
+      await this.metadataService.getMainExposureIndicatorMetadata(disasterType);
     content.linkEapSop = this.getLinkEapSop(country, disasterType);
     content.defaultAdminAreaLabel = this.getDefaultAdminAreaLabel(
       country,
@@ -175,11 +175,11 @@ export class NotificationContentService {
       disasterType,
     );
 
-    const indicatorMetadata =
-      await this.metadataService.getIndicatorMetadata(disasterType);
+    const mainExposureIndicatorMetadata =
+      await this.metadataService.getMainExposureIndicatorMetadata(disasterType);
     data.totalAffectedOfIndicator = this.getTotal(
       data.alertAreas,
-      indicatorMetadata.numberFormatMap,
+      mainExposureIndicatorMetadata.numberFormatMap,
     );
     data.eapAlertClass = event.disasterSpecificProperties?.eapAlertClass;
     return data;

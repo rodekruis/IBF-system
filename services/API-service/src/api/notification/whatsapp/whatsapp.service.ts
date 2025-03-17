@@ -359,15 +359,15 @@ export class WhatsappService {
 
     const adminAreaLabel =
       country.adminRegionLabels[String(adminLevel)]['plural'].toLowerCase();
-    const indicatorMetadata =
-      await this.metadataService.getIndicatorMetadata(disasterType);
+    const mainExposureIndicatorMetadata =
+      await this.metadataService.getMainExposureIndicatorMetadata(disasterType);
     let areaList = '';
     for (const area of alertAreas) {
       const row = `- *${area.name}${
         area.nameParent ? ' (' + area.nameParent + ')' : ''
       } - ${this.helperService.toCompactNumber(
         area.mainExposureValue,
-        indicatorMetadata.numberFormatMap,
+        mainExposureIndicatorMetadata.numberFormatMap,
       )}*\n`;
       areaList += row;
     }

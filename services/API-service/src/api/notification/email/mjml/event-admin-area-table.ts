@@ -133,7 +133,7 @@ export const getMjmlAdminAreaTableList = (
         ),
         defaultAdminAreaLabel: emailContent.defaultAdminAreaLabel,
         defaultAdminAreaParentLabel: adminAreaParentLabel,
-        indicatorMetadata: emailContent.indicatorMetadata,
+        indicatorMetadata: emailContent.mainExposureIndicatorMetadata,
         event,
         triangleIcon: getTriangleIcon(
           event.eapAlertClass?.key,
