@@ -33,7 +33,8 @@
           },
           "med": {
             "label": "Medium warning issued",
-            "color": "ibf-orange",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
             "value": 0.7
           },
           "max": {
