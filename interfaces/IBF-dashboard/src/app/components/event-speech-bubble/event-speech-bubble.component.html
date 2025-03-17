@@ -132,10 +132,13 @@
           event.alertLevel !== 'trigger'
         ) {
           <ion-button
-            class="w-full max-w-sm font-bold"
+            class="set-trigger-button"
             shape="round"
             slot="start"
             size="small"
+            expand="full"
+            fill="outline"
+            color="fiveten-red-700"
             (click)="openSetTriggerPopover()"
             >{{
               'chat-component.common.set-trigger.btn-text' | translate

@@ -44,10 +44,11 @@ ion-checkbox {
   padding: 0em 1.4em;
 }
 
-ion-button {
-  --color: var(--ion-color-fiveten-red-700);
-  --border-color: var(--ion-color-fiveten-red-700);
-  --border-width: 0.125rem;
-  --border-style: solid;
-  --background: var(--ion-color-ibf-white);
+.set-trigger-button {
+  font-weight: bold;
+
+  &::part(native) {
+    background: var(--ion-color-ibf-white);
+    border-color: var(--ion-color-fiveten-red-500);
+  }
 }
