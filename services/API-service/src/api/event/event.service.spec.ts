@@ -9,6 +9,7 @@ import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-are
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
+import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { EapActionsService } from '../eap-actions/eap-actions.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import { AlertPerLeadTimeEntity } from './alert-per-lead-time.entity';
@@ -25,34 +26,23 @@ describe('EventService', () => {
         EventService,
         {
           provide: EapActionsService,
-          useValue: {
-            // Mock methods of EapActionsService that are used in EventService
-          },
+          useValue: {},
+        },
+        {
+          provide: DisasterTypeService,
+          useValue: {},
         },
         {
           provide: HelperService,
-          useValue: {
-            // Mock methods of HelperService that are used in EventService
-          },
+          useValue: {},
         },
         {
           provide: TyphoonTrackService,
-          useValue: {
-            // Mock methods of TyphoonTrackService that are used in EventService
-          },
+          useValue: {},
         },
         {
           provide: DataSource,
-          useValue: {
-            // Mock DataSource methods if they are used in EventService
-            // createQueryRunner: jest.fn().mockReturnValue({
-            //   connect: jest.fn(),
-            //   startTransaction: jest.fn(),
-            //   commitTransaction: jest.fn(),
-            //   rollbackTransaction: jest.fn(),
-            //   release: jest.fn(),
-            // }),
-          },
+          useValue: {},
         },
         {
           provide: getRepositoryToken(EventPlaceCodeEntity),
