@@ -57,6 +57,9 @@ describe('EventSpeechBubbleComponent', () => {
     component.adminAreaLabelPlural = 'Districts';
     component.areas = MOCK_ALERT_AREAS;
 
+    // Spy on the hasSetTriggerPermission method
+    spyOn(component, 'hasSetTriggerPermission').and.returnValue(true);
+
     fixture.detectChanges();
   }));
 
