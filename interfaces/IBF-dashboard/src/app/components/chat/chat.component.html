@@ -136,15 +136,14 @@
       </ion-row>
       @if (area.mainExposureValue) {
         <ion-note size="small">
-          <strong
-            ><span
-              data-testid="main-exposure-indicator"
-              [innerHTML]="
-                'chat-component.' + disasterTypeName + '.active-event.exposed'
-                  | translate
-              "
-            ></span>
-          </strong>
+          <span
+            class="semi-bold"
+            data-testid="main-exposure-indicator"
+            [innerHTML]="
+              'chat-component.' + disasterTypeName + '.active-event.exposed'
+                | translate
+            "
+          ></span>
           {{
             area.mainExposureValue | compact: mainExposureIndicatorNumberFormat
           }}
