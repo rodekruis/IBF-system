@@ -21,7 +21,7 @@ export class TooltipComponent {
     const popover = await this.popoverController.create({
       component: TooltipPopoverComponent,
       componentProps: { value: this.value },
-      cssClass: 'tooltip--container',
+      cssClass: 'tooltip--container leading-tight',
       event: e,
       showBackdrop: false,
     });
