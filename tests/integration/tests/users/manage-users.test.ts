@@ -32,7 +32,7 @@ describe('manage users', () => {
 
       // Assert
       expect(createResult.status).toBe(201);
-      expect(createResult.body.user.userRole).toBe(UserRole.DisasterManager);
+      expect(createResult.body.user.userRole).toBe(UserRole.Operator);
 
       expect(loginResult.status).toBe(201);
     });

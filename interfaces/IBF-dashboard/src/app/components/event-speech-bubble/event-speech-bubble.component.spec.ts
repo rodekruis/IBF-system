@@ -70,13 +70,13 @@ fdescribe('EventSpeechBubbleComponent', () => {
 
   describe('hasSetTriggerPermission', () => {
     it('return true for right userRole', async () => {
-      component.userRole = UserRole.SetTriggerUser;
+      component.userRole = UserRole.LocalAdmin;
       const result = component.hasSetTriggerPermission();
       expect(result).toBeTrue();
     });
 
     it('return false for wrong userRole', async () => {
-      component.userRole = UserRole.DisasterManager;
+      component.userRole = UserRole.Operator;
       const result = component.hasSetTriggerPermission();
       expect(result).toBeFalse();
     });
@@ -85,7 +85,7 @@ fdescribe('EventSpeechBubbleComponent', () => {
   describe('openSetTriggerPopover', () => {
     it('should open set trigger popover when openSetTriggerPopover is called', async () => {
       // Arrange
-      component.userRole = UserRole.SetTriggerUser;
+      component.userRole = UserRole.LocalAdmin;
       const expectedHasSetTriggerPermission = true;
 
       // Act
@@ -109,7 +109,7 @@ fdescribe('EventSpeechBubbleComponent', () => {
 
     it('should open no-access set trigger popover when openSetTriggerPopover is called without right userRole', async () => {
       // Arrange
-      component.userRole = UserRole.DisasterManager;
+      component.userRole = UserRole.Operator;
       const expectedHasSetTriggerPermission = false;
 
       // Act

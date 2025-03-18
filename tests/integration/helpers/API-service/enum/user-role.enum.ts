@@ -1,7 +1,7 @@
 export enum UserRole {
   Admin = 'admin',
-  SetTriggerUser = 'set-trigger-user',
-  DisasterManager = 'disaster-manager',
+  LocalAdmin = 'local-admin',
+  Operator = 'operator',
   PipelineUser = 'pipeline-user',
-  Guest = 'guest',
+  Viewer = 'viewer',
 }

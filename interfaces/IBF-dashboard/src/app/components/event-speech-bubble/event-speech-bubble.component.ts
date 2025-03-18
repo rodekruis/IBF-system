@@ -111,7 +111,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   };
 
   public hasSetTriggerPermission(): boolean {
-    return [UserRole.Admin, UserRole.SetTriggerUser].includes(this.userRole);
+    return [UserRole.Admin, UserRole.LocalAdmin].includes(this.userRole);
   }
 
   public eventBubbleIsSelected(eventName: string) {

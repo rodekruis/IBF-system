@@ -28,7 +28,7 @@ export class UserData {
   @ApiProperty({ example: 'Dunant' })
   public lastName: string;
 
-  @ApiProperty({ example: UserRole.DisasterManager })
+  @ApiProperty({ example: UserRole.Operator })
   public userRole: UserRole;
 
   @ApiProperty({ example: '+31600000000' })

@@ -44,7 +44,7 @@ export class EapActionsController {
   }
 
   @UseGuards(RolesGuard)
-  @Roles(UserRole.DisasterManager)
+  @Roles(UserRole.Operator)
   @ApiOperation({ summary: 'Toggle status of EAP-action' })
   @ApiResponse({
     status: 201,
