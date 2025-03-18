@@ -89,14 +89,14 @@
       "header": "Set trigger",
       "content": "To set this warning as a trigger, please review {{setTriggerSource}}, and select the {{adminAreaLabelPlural}} where the <a href={{eapLink}}>Early Action Protocol</a> should be activated.",
       "content-no-source": "To set this warning as a trigger, select the {{adminAreaLabelPlural}} where the <a href={{eapLink}}>Early Action Protocol</a> should be activated.",
-      "select-areas": "Select {{adminAreaLabelPlural}},",
+      "select-areas": "Select {{adminAreaLabelPlural}}:",
       "checked-count": "{{adminAreaLabelPlural}} selected",
       "continue": "Continue",
       "back": "Cancel"
     },
     "confirm": {
       "header": "Set trigger - disclaimers",
-      "note": "Important",
+      "note": "Important note:",
       "bullet-list": "<ul><li>The {{adminAreaLabelPlural}} that are not selected will remain visible as warning areas, but cannot be added later.</li><li>This actions impacts what is shown in the portal for all users.</li><li>A notification regarding the trigger will be sent to all users.</li></ul>",
       "understand": "I understand that this action cannot be undone.",
       "continue": "Set trigger",
