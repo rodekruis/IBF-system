@@ -2,11 +2,11 @@
   {
     "scenarioName": "trigger",
     "defaultScenario": true,
-    "events": [{ "eventName": "OND_National" }]
+    "events": [{ "eventName": "Drought_National" }]
   },
   {
     "scenarioName": "warning",
-    "events": [{ "eventName": "OND_National" }]
+    "events": [{ "eventName": "Drought_National" }]
   },
   {
     "scenarioName": "no-trigger"

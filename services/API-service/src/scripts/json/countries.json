@@ -1203,7 +1203,7 @@
         ],
         "droughtSeasonRegions": {
           "National": {
-            "OND": {
+            "Drought": {
               "rainMonths": [10, 11, 12, 1, 2, 3],
               "actionMonths": [10, 11, 12, 1, 2, 3]
             }
