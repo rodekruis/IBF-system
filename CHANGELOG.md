@@ -1,3 +1,12 @@
+# [0.299.0](https://github.com/rodekruis/IBF-system/compare/v0.298.2...v0.299.0) (2025-03-18)
+
+
+### Features
+
+* hazard icon hover and change password popup ([e0855eb](https://github.com/rodekruis/IBF-system/commit/e0855ebc77ecc3783287dc0da5f2eadd95bcf819))
+
+
+
 ## [0.298.2](https://github.com/rodekruis/IBF-system/compare/v0.298.1...v0.298.2) (2025-03-14)
 
 
@@ -135,20 +144,6 @@
 ### Features
 
 * rename stopped to userTrigger ([139296f](https://github.com/rodekruis/IBF-system/commit/139296f708a9dd070897bccb59db6bdce5563fea))
-
-
-
-## [0.293.1](https://github.com/rodekruis/IBF-system/compare/v0.293.0...v0.293.1) (2025-03-05)
-
-
-### Bug Fixes
-
-* actionsummary test ([781f5ed](https://github.com/rodekruis/IBF-system/commit/781f5ed4ec53d4b09237993c39aad6fab62a4c9c))
-* errors ([d7950b1](https://github.com/rodekruis/IBF-system/commit/d7950b148791ab6d276fae146732179f9cfc43f5))
-* move actionsummary test before logout test ([748bf38](https://github.com/rodekruis/IBF-system/commit/748bf38fa074459a5d673b7efbab94f95a47b69d))
-* prettier api-service ([01b2940](https://github.com/rodekruis/IBF-system/commit/01b29401a7d0f6ec60bc34b8b8faa37e8237e933))
-* remove test.only ([687cc25](https://github.com/rodekruis/IBF-system/commit/687cc25415e9b5dfced6db11ac850a069aa4d14a))
-* revert code to fix test ([a325f89](https://github.com/rodekruis/IBF-system/commit/a325f8945db92a94ec30173bdfc0d86dfd945827))
 
 
 
