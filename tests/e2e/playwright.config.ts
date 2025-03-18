@@ -2,36 +2,37 @@ import { AzureReporterOptions } from '@alex_neo/playwright-azure-reporter/dist/p
 import { defineConfig } from '@playwright/test';
 import dotenv from 'dotenv';
 import path from 'path';
+import { Dataset } from 'testData/types';
+import UgandaDroughtWarning from 'testData/UgandaDroughtWarning.json';
+import UgandaFloodsNoTrigger from 'testData/UgandaFloodsNoTrigger.json';
+import UgandaFloodsTrigger from 'testData/UgandaFloodsTrigger.json';
 
-interface TestCaseWithTitle {
-  title: string;
-}
+const datasets: Dataset[] = [
+  UgandaFloodsNoTrigger,
+  UgandaFloodsTrigger,
+  UgandaDroughtWarning,
+];
 
 const envPath = path.resolve(__dirname, '../../.env');
 dotenv.config({ path: envPath });
 
-const configurationIds = process.env.CONFIGURATION_IDS
-  ? process.env.CONFIGURATION_IDS.split(',').map(Number)
-  : [72];
-
-// Function to extract test case ID from the title, with the configuration ID added
-const extractTestCaseId = (testTitle: string, configId: number): string => {
-  const regex = /\[(\d+)\]/;
-  const match = regex.exec(testTitle);
-  return match
-    ? `[${match[1]}] Config-${configId}`
-    : `Unknown Config-${configId}`;
-};
-
-// Debug log to ensure the configuration IDs are being read correctly
-console.log('Using configuration IDs:', configurationIds);
+// Extract configuration IDs from all datasets
+const configurationIds = datasets.map((dataset) =>
+  typeof dataset.configurationId === 'string'
+    ? parseInt(dataset.configurationId, 10)
+    : dataset.configurationId,
+);
+console.log('Using configuration IDs from datasets:', configurationIds);
 
 export default defineConfig({
   testDir: './tests',
   snapshotPathTemplate: '{testDir}/__screenshots__/{testFilePath}/{arg}{ext}',
+  /* Run tests in files in parallel */
   fullyParallel: false,
+  /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: process.env.NODE_ENV !== 'development',
   retries: 0,
+  /* Opt out of parallel tests on CI. */
   reporter: [
     ['list'],
     [
@@ -52,18 +53,7 @@ export default defineConfig({
             displayName: 'Krajewski, Piotr',
           },
           comment: 'Playwright Test Suite',
-          configurationIds, // Uses parsed array from .env
-          testPointMapper: (testCase: TestCaseWithTitle, configId: number) => {
-            // Log the mapping of test case to configuration ID
-            const testCaseId = extractTestCaseId(testCase.title, configId);
-            console.log(
-              `Mapping test case ${testCaseId} to config ${configId}`,
-            );
-            return {
-              testCaseId,
-              configurationId: configId,
-            };
-          },
+          configurationIds,
         },
       } as AzureReporterOptions,
     ],
@@ -87,13 +77,12 @@ export default defineConfig({
     bypassCSP: true,
     trace: 'on-first-retry',
   },
-  projects: configurationIds.map((configId) => ({
-    name: `chromium-${configId}`,
-    use: {
-      channel: 'chromium',
-      extraHTTPHeaders: {
-        'x-config-id': String(configId),
+  projects: [
+    {
+      name: 'chromium',
+      use: {
+        channel: 'chromium',
       },
     },
-  })),
+  ],
 });
