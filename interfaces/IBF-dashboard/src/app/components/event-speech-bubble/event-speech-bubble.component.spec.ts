@@ -12,7 +12,7 @@ import { MOCK_ALERT_AREAS } from 'src/app/mocks/alert-areas.mock';
 import { MOCK_EVENT_STATE } from 'src/app/mocks/event-state.mock';
 import { CountryDisasterSettings } from 'src/app/models/country.model';
 
-fdescribe('EventSpeechBubbleComponent', () => {
+describe('EventSpeechBubbleComponent', () => {
   let component: EventSpeechBubbleComponent;
   let fixture: ComponentFixture<EventSpeechBubbleComponent>;
   let popoverControllerSpy: jasmine.SpyObj<PopoverController>;
