@@ -40,4 +40,5 @@ export interface Dataset {
   eap: {
     actions: boolean;
   };
+  configurationId: number;
 }

@@ -31,5 +31,6 @@
   },
   "eap": {
     "actions": false
-  }
+  },
+  "configurationId": "74"
 }

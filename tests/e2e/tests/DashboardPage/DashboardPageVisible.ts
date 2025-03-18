@@ -9,7 +9,15 @@ export default (
   dataset: Dataset,
   date: Date,
 ) => {
-  test('[33012] Dashboard page elements should be visible', async () => {
+  test(`[33012] Dashboard page elements should be visible - Config: ${dataset.configurationId}`, async () => {
+    if (!dataset.configurationId) {
+      throw new Error(
+        `Missing configurationId for dataset: ${dataset.scenario}`,
+      );
+    }
+    console.log(
+      `Executing test with configurationId: ${dataset.configurationId}`,
+    );
     const { dashboard } = pages;
     const { chat, userState, aggregates, map, disasterType } = components;
 
@@ -40,7 +48,7 @@ export default (
       await chat.chatColumnIsVisibleForNoTriggerState({
         user: dataset.user,
         date,
-        disasterType: dataset.disasterType.name,
+        disasterType: 'dataset.disasterType.name',
       });
     }
     await aggregates.aggregateComponentIsVisible();
