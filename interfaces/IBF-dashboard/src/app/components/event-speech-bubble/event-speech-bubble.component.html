@@ -62,11 +62,13 @@
           'chat-component.common.alertLevel.set-by' | translate: event
         "
       ></p>
-    } @else if (forecastSource) {
+    } @else if (countryDisasterSettings?.forecastSource) {
       <p>
         <strong
           >{{ 'chat-component.common.alertLevel.source' | translate }} </strong
-        ><a href="{{ forecastSource.url }}">{{ forecastSource.label }}</a>
+        ><a href="{{ countryDisasterSettings?.forecastSource.url }}">{{
+          countryDisasterSettings?.forecastSource.label
+        }}</a>
       </p>
     }
     <p>

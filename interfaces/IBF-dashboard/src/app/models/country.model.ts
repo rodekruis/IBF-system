@@ -2,6 +2,7 @@ import { AdminLevel } from 'src/app/types/admin-level';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { LeadTime, LeadTimeUnit } from 'src/app/types/lead-time';
+
 export class Country {
   countryCodeISO3: string;
   countryDisasterSettings: CountryDisasterSettings[];
@@ -29,6 +30,7 @@ export class CountryDisasterSettings {
 export interface ForecastSource {
   label: string;
   url?: string;
+  setTriggerSource?: string;
 }
 
 export interface DroughtSeason {

@@ -87,7 +87,8 @@
   "set-trigger-component": {
     "select-areas": {
       "header": "Set trigger",
-      "content": "This <strong>{{ eventName}}</strong> warning is based on: <a href={{forecastSourceUrl}}>{{forecastSourceLabel}}</a>. To set this warning as a trigger, select {{adminAreaLabelPlural}} where the Early Action Protocol should be activated.",
+      "content": "To set this warning as a trigger, please review {{setTriggerSource}}, and select the {{adminAreaLabelPlural}} where the <a href={{eapLink}}>Early Action Protocol</a> should be activated.",
+      "content-no-source": "To set this warning as a trigger, select the {{adminAreaLabelPlural}} where the <a href={{eapLink}}>Early Action Protocol</a> should be activated.",
       "select-areas": "Select {{adminAreaLabelPlural}},",
       "checked-count": "{{adminAreaLabelPlural}} selected",
       "continue": "Continue",

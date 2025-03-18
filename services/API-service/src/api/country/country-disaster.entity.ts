@@ -17,6 +17,7 @@ import { CountryEntity } from './country.entity';
 export interface ForecastSource {
   label: string;
   url?: string;
+  setTriggerSource?: string;
 }
 
 @Entity('country-disaster-settings')
