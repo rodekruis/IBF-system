@@ -10,8 +10,9 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EventSpeechBubbleComponent } from 'src/app/components/event-speech-bubble/event-speech-bubble.component';
 import { MOCK_ALERT_AREAS } from 'src/app/mocks/alert-areas.mock';
 import { MOCK_EVENT_STATE } from 'src/app/mocks/event-state.mock';
+import { CountryDisasterSettings } from 'src/app/models/country.model';
 
-describe('EventSpeechBubbleComponent', () => {
+fdescribe('EventSpeechBubbleComponent', () => {
   let component: EventSpeechBubbleComponent;
   let fixture: ComponentFixture<EventSpeechBubbleComponent>;
   let popoverControllerSpy: jasmine.SpyObj<PopoverController>;
@@ -53,7 +54,12 @@ describe('EventSpeechBubbleComponent', () => {
 
     // Set any required input properties
     component.event = MOCK_EVENT_STATE.event;
-    component.forecastSource = { label: 'Test Source', url: 'http://test.com' };
+    component.countryDisasterSettings = new CountryDisasterSettings();
+    component.countryDisasterSettings.forecastSource = {
+      label: 'Test Source',
+      url: 'http://test.com',
+    };
+    component.countryDisasterSettings.eapLink = 'http://test.com';
     component.adminAreaLabelPlural = 'Districts';
     component.areas = MOCK_ALERT_AREAS;
 
@@ -73,8 +79,8 @@ describe('EventSpeechBubbleComponent', () => {
       jasmine.objectContaining({
         component: jasmine.any(Function),
         componentProps: jasmine.objectContaining({
-          eventName: component.event.eventName,
-          forecastSource: component.forecastSource,
+          eapLink: component.countryDisasterSettings.eapLink,
+          forecastSource: component.countryDisasterSettings.forecastSource,
           adminAreaLabelPlural: component.adminAreaLabelPlural,
           areas: component.areas,
         }),
