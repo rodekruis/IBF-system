@@ -91,12 +91,13 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     event: EventSummary,
     mainExposureIndicatorNumberFormat: NumberFormat,
   ) {
-    const sum = event.alertAreas.reduce(
+    const sum = event.alertAreas?.reduce(
       (acc, alertArea) => acc + alertArea.mainExposureValue,
       0,
     );
+    // NOTE: this is a temporary solution, as this actually needs a weighted average. At least this is better than sum.
     if (mainExposureIndicatorNumberFormat === NumberFormat.perc) {
-      return sum / event.alertAreas.length;
+      return sum / event.alertAreas?.length || 1;
     }
     return sum;
   }
