@@ -24,10 +24,11 @@ export class MetadataService {
   public async getMainExposureIndicatorMetadata(
     disasterType: DisasterType,
   ): Promise<IndicatorMetadataEntity> {
+    const mainExposureIndicator =
+      await this.disasterTypeService.getMainExposureIndicator(disasterType);
     return await this.indicatorRepository.findOne({
       where: {
-        name: (await this.disasterTypeService.getDisasterType(disasterType))
-          .mainExposureIndicator,
+        name: mainExposureIndicator,
       },
     });
   }
