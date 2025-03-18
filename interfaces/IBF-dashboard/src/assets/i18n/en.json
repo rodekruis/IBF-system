@@ -3,6 +3,13 @@
   "common": {
     "version": "Version"
   },
+  "export-view": {
+    "title": "Export view",
+    "instruction": "In order to export the current view of the IBF-dashboard, you will need to take a screenshot.",
+    "instruction-windows": "Instructions to take a screenshot on the Windows Operation System",
+    "instruction-mac": "Instructions to take a screenshot on the Mac Operation System",
+    "instruction-linux": "Instructions to take a screenshot on the Linux Operation System"
+  },
   "activation-page": {
     "activation-report": "Open all triggers",
     "copy-to-clipboard": "Copy to clipboard",
@@ -18,10 +25,12 @@
     "no-data": "No data"
   },
   "login-page": {
-    "title": "Login",
+    "title": "Log in",
+    "email": "Email",
+    "password": "Password",
     "welcome": "Hello! Welcome to IBF.",
     "instruction": "This chat will guide you through the system. You will find it to the left of the screen. Please login below.",
-    "video": "Click for the IBF Guide.",
+    "video": "Click for the IBF guide.",
     "note": "NOTE: This portal works best on desktop or tablet using Chrome, Firefox, Safari and Microsoft Edge.<br>The portal is not compatible with Internet Explorer.<br>The portal is not optimized for mobile phones yet.",
     "forgot-password": "Forgot password?",
     "forgot-password-message": "If you forgot your password please send a request to ",
@@ -29,6 +38,14 @@
       "production": "Live",
       "stage": "Demo"
     }
+  },
+  "user-state": {
+    "logged-in-as": "Logged in as:",
+    "log-out": "Log out",
+    "password-change": "Change password",
+    "password-new": "New password",
+    "password-confirm": "Confirm password",
+    "password-error": "Passwords do not match"
   },
   "dashboard-page": {
     "dev-menu": {
@@ -80,7 +97,7 @@
     "not-applicable": "N/A"
   },
   "ibf-guide-component": {
-    "title": "IBF Guide",
+    "title": "IBF guide",
     "video-pdf-description": "To get a quick guide on how this dashboard works you can look at either the video guide below or the PDF manual <a href='{{pdfUrl}}' target='_blank'>here</a>.",
     "whats-new-description": "To learn what new features have recently been added to the IBF Portal click <a href='{{whatsNewUrl}}' target='_blank'>here</a>."
   },
@@ -115,7 +132,7 @@
         "tooltip": "The forecast presented on the portal might not be up to date as the model did not run successfully. Contact {{supportEmailAddress}} for further information."
       },
       "event-tooltip": "Select an area from this list or the map to monitor and manage the preplanned anticipatory actions (if applicable).",
-      "revert-selection": "Back",
+      "back": "Back",
       "save-actions": {
         "submit-button-label": "Save",
         "header": "Result",
@@ -137,7 +154,7 @@
       }
     },
     "floods": {
-      "about-button-label": "About Trigger",
+      "about-button-label": "About trigger",
       "no-event": {
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
       },
@@ -156,7 +173,7 @@
       }
     },
     "flash-floods": {
-      "about-button-label": "About Trigger",
+      "about-button-label": "About trigger",
       "no-event": {
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
       },
@@ -173,7 +190,7 @@
       }
     },
     "drought": {
-      "about-button-label": "About Trigger",
+      "about-button-label": "About trigger",
       "no-event": {
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
       },
@@ -191,7 +208,7 @@
       }
     },
     "typhoon": {
-      "about-button-label": "About Trigger",
+      "about-button-label": "About trigger",
       "no-event": {
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
       },
@@ -219,7 +236,7 @@
       }
     },
     "malaria": {
-      "about-button-label": "About Trigger",
+      "about-button-label": "About trigger",
       "no-event": {
         "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for malaria issued."
       },

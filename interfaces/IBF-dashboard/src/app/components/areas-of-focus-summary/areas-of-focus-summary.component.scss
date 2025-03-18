@@ -4,11 +4,11 @@
     height: 48px;
 
     .areas-of-focus--title {
-      margin-top: 5px;
+      margin-top: 4px;
     }
 
     .areas-of-focus--subtitle {
-      margin-bottom: 5px;
+      margin-bottom: 0px;
     }
 
     .component-title-thumbnail {
@@ -21,8 +21,8 @@
 .areas-of-focus-item,
 .areas-of-focus-item-value,
 .areas-of-focus-item-information-icon {
-  --min-height: 2rem;
-  height: 2rem;
+  --min-height: 2.5rem;
+  height: 2.5rem;
 }
 
 .areas-of-focus-item {
@@ -31,15 +31,11 @@
   .areas-of-focus-item-thumbnail {
     background: var(--ion-color-fiveten-neutral-100);
     border: 0.2rem solid var(--ion-color-fiveten-neutral-100);
-    width: 2rem;
-    height: 2rem;
+    width: 2.5rem;
+    height: 2.5rem;
     align-self: start;
     margin: 0px !important;
-    padding: 2px;
-
-    ion-img {
-      object-fit: contain;
-    }
+    padding: 4px;
   }
 
   .areas-of-focus-item-label {
@@ -52,7 +48,7 @@
 }
 
 .areas-of-focus-item-value {
-  --background: var(--ion-color-fiveten-neutral-100);
+  --background: var(--ion-color-fiveten-neutral-0);
 
   ion-label {
     margin: 0px !important;

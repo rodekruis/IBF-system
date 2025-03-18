@@ -8,6 +8,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ChangePasswordPopoverComponent } from 'src/app/components/change-password-popover/change-password-popover.component';
 
@@ -19,7 +20,12 @@ describe('ChangePasswordPopoverComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ChangePasswordPopoverComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [IonicModule.forRoot(), FormsModule, RouterModule.forRoot([])],
+      imports: [
+        IonicModule.forRoot(),
+        FormsModule,
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot(),
+      ],
       providers: [
         { provide: AuthService },
         provideHttpClient(withInterceptorsFromDi()),

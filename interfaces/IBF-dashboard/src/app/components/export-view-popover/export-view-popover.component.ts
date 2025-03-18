@@ -4,7 +4,6 @@ import { PopoverController } from '@ionic/angular';
 @Component({
   selector: 'app-export-view-popover',
   templateUrl: './export-view-popover.component.html',
-  styleUrls: ['./export-view-popover.component.scss'],
   standalone: false,
 })
 export class ExportViewPopoverComponent {

@@ -1,19 +1,12 @@
-ion-row,
-ion-spinner {
-  background-color: #fff;
-}
-
-ion-icon {
-  cursor: pointer;
-}
-
-ion-spinner {
-  cursor: default;
-}
-
 .disaster-type-button {
+  cursor: pointer;
   display: block;
   margin: 0px 2px 0px 2px;
   height: 32px;
   width: 32px;
+
+  &:hover {
+    opacity: 0.85;
+    transition: 0.3s;
+  }
 }

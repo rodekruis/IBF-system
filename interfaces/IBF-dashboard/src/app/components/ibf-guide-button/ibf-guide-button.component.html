@@ -1,11 +1,13 @@
-<app-ibf-button
-  data-testid="ibf-guide-button"
+<ion-button
   (click)="presentPopover()"
+  class="ibf-guide-button"
+  data-testid="ibf-guide-button"
   size="small"
   strong="true"
-  backgroundColor="ibf-white"
-  borderColor="ibf-no-alert-secondary"
-  textColor="ibf-black"
+  expand="full"
+  shape="round"
+  fill="outline"
+  color="fiveten-neutral-900"
 >
   {{ 'ibf-guide-component.title' | translate }}
-</app-ibf-button>
+</ion-button>

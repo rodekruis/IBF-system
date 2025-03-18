@@ -1,0 +1,6 @@
+.about-btn-button {
+  &::part(native) {
+    background: var(--ion-color-fiveten-neutral-0);
+    border-color: var(--ion-color-fiveten-navy-300);
+  }
+}
