@@ -101,7 +101,6 @@
       "understand": "I understand that this action cannot be undone.",
       "continue": "Set trigger",
       "back": "Back",
-      "success": "The trigger has been set successfully.",
       "error": "Something went wrong in setting the trigger. Please try again."
     }
   },
