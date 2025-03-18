@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test('[33022] flood_extent and exposed_population should be active by default', async () => {
+  test(`[33022] flood_extent and exposed_population should be active by default - Config: ${dataset.configurationId}`, async () => {
     const { dashboard } = pages;
     const { userState, map } = components;
 

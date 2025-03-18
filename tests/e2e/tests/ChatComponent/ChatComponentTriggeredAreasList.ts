@@ -9,7 +9,7 @@ export default (
   dataset: Dataset,
   date: Date,
 ) => {
-  test('[33717] Click on area in triggered areas list in chat', async () => {
+  test(`[33717] Click on area in triggered areas list in chat - Config: ${dataset.configurationId}`, async () => {
     const { dashboard } = pages;
     const { chat, userState, aggregates, map } = components;
 

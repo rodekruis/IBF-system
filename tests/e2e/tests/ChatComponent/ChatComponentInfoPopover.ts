@@ -9,7 +9,7 @@ export default (
   dataset: Dataset,
   date: Date,
 ) => {
-  test('[33057] Info icon should open popover on click', async () => {
+  test(`[33057] Info icon should open popover on click - Config: ${dataset.configurationId}`, async () => {
     const { dashboard } = pages;
     const { chat, userState } = components;
 

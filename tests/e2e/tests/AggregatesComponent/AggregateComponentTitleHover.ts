@@ -9,7 +9,7 @@ export default (
   dataset: Dataset,
 ) => {
   // REFACTOR: this test keeps being flaky, it should be refactored to be more stable
-  test.skip('[33059] Title should change based on hovered map district', async () => {
+  test.skip(`[33059] Title should change based on hovered map district - Config: ${dataset.configurationId}`, async () => {
     const { dashboard } = pages;
     const { aggregates, map } = components;
 

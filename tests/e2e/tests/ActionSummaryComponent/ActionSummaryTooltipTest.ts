@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test('[33067] Info icon is clickable and opens popover in Actions summary', async () => {
+  test(`[33067] Info icon is clickable and opens popover in Actions summary - Config: ${dataset.configurationId}`, async () => {
     const { dashboard } = pages;
     const { userState, actionsSummary } = components;
 

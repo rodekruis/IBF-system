@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test('[33028] Disaster type component elements should be visible', async () => {
+  test(`[33028] Disaster type component elements should be visible - Config: ${dataset.configurationId}`, async () => {
     const { dashboard } = pages;
     const { userState, disasterType: disasterTypeComponent } = components;
 

@@ -11,7 +11,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test('[33014] Map component should be interactive', async () => {
+  test(`[33014] Map component should be interactive - Config: ${dataset.configurationId}`, async () => {
     const { dashboard } = pages;
     const { userState, map } = components;
 

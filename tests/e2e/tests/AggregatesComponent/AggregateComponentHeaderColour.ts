@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test('[33062] Header colour should be purple', async () => {
+  test(`[33062] Header colour should be purple - Config: ${dataset.configurationId}`, async () => {
     const { dashboard } = pages;
     const { aggregates, userState } = components;
 

@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test('[33013] Map component elements should be visible', async () => {
+  test(`[33013] Map component elements should be visible - Config: ${dataset.configurationId}`, async () => {
     const { dashboard } = pages;
     const { userState, map } = components;
 

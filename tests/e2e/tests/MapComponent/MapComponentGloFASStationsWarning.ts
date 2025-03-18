@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test('[33019] Trigger GloFAS station(s) should not be visible', async () => {
+  test(`[33019] Trigger GloFAS station(s) should not be visible - Config: ${dataset.configurationId}`, async () => {
     const { dashboard } = pages;
     const { userState, map } = components;
 

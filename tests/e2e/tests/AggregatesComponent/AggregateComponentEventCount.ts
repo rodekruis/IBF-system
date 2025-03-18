@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test('[33061] Number of events should be non-zero', async () => {
+  test(`[33061] Number of events should be non-zero - Config: ${dataset.configurationId}`, async () => {
     const { dashboard } = pages;
     const { aggregates, userState } = components;
 
