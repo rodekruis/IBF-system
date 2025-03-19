@@ -11,6 +11,7 @@ import { ForecastSource } from 'src/app/models/country.model';
 import { ApiService } from 'src/app/services/api.service';
 import { EventService } from 'src/app/services/event.service';
 import { AlertArea } from 'src/app/types/alert-area';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { environment } from 'src/environments/environment';
 
@@ -33,6 +34,10 @@ export class SetTriggerPopoverComponent {
   public mainExposureIndicatorNumberFormat: NumberFormat;
   @Input()
   public hasSetTriggerPermission: boolean;
+  @Input()
+  public countryCodeISO3: string;
+  @Input()
+  public disasterType: DisasterTypeKey;
 
   public popoverStep = 'select-areas'; // 'select-areas' | 'confirm'
   public selectedAreas: Record<string, boolean> = {};
@@ -83,17 +88,25 @@ export class SetTriggerPopoverComponent {
       component: this.constructor.name,
     });
 
-    this.apiService.setTrigger(eventPlaceCodeIds).subscribe({
-      next: () => {
-        window.location.reload();
-      },
-      error: () =>
-        this.actionResult(
-          this.translateService.instant(
-            `set-trigger-component.confirm.error`,
-          ) as string,
-        ),
-    });
+    const noNotifications = false; // ##TODO
+    this.apiService
+      .setTrigger(
+        eventPlaceCodeIds,
+        this.countryCodeISO3,
+        this.disasterType,
+        noNotifications,
+      )
+      .subscribe({
+        next: () => {
+          window.location.reload();
+        },
+        error: () =>
+          this.actionResult(
+            this.translateService.instant(
+              `set-trigger-component.confirm.error`,
+            ) as string,
+          ),
+      });
   }
 
   private async actionResult(resultMessage: string): Promise<void> {

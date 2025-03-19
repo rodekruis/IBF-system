@@ -183,12 +183,20 @@ export function postEventsProcess(
 
 export function postSetTrigger(
   eventPlaceCodeIds: string[],
+  countryCodeISO3: string,
+  disasterType: DisasterType,
+  noNotifications = true,
   accessToken: string,
 ): Promise<request.Response> {
   return getServer()
-    .post(`/event/set-trigger`)
+    .post(`/events/set-trigger`)
     .set('Authorization', `Bearer ${accessToken}`)
-    .send({ eventPlaceCodeIds });
+    .send({
+      eventPlaceCodeIds,
+      countryCodeISO3,
+      disasterType,
+      noNotifications,
+    });
 }
 
 export function postCommunityNotification(

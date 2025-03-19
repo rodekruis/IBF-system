@@ -1,13 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { Repository, UpdateResult } from 'typeorm';
 
 import { HelperService } from '../../shared/helper.service';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { SetTriggerDto } from '../event/dto/event-place-code.dto';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { EventService } from '../event/event.service';
 import { NotificationApiTestResponseDto } from '../notification/dto/notification-api-test-response.dto';
 import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
-export class ProcessPipelineService {
+export class ProcessEventsService {
+  @InjectRepository(EventPlaceCodeEntity)
+  private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
   public constructor(
     private eventService: EventService,
     private helperService: HelperService,
@@ -85,5 +92,27 @@ export class ProcessPipelineService {
       noNotifications,
       lastUploadDate,
     );
+  }
+
+  public async setTrigger(
+    userId: string,
+    setTriggerDto: SetTriggerDto,
+  ): Promise<UpdateResult> {
+    const updateResult = await this.eventPlaceCodeRepo.update(
+      setTriggerDto.eventPlaceCodeIds,
+      {
+        userTrigger: true,
+        userTriggerDate: new Date(),
+        user: { userId },
+      },
+    );
+
+    await this.notify(
+      setTriggerDto.countryCodeISO3,
+      setTriggerDto.disasterType,
+      setTriggerDto.noNotifications,
+    );
+
+    return updateResult;
   }
 }

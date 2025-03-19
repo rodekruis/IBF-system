@@ -19,7 +19,7 @@ import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { EventService } from '../api/event/event.service';
 import { MetadataService } from '../api/metadata/metadata.service';
 import { PointDataService } from '../api/point-data/point-data.service';
-import { ProcessPipelineService } from '../api/process-pipeline/process-pipeline.service';
+import { ProcessEventsService } from '../api/process-events/process-events.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { DEBUG, MOCK_USE_OLD_PIPELINE_UPLOAD } from '../config';
 import { MockInputDto } from './dto/mock-input.dto';
@@ -62,7 +62,7 @@ export class MockService {
     private metadataService: MetadataService,
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private eventService: EventService,
-    private processPipelineService: ProcessPipelineService,
+    private processEventsService: ProcessEventsService,
     private pointDataService: PointDataService,
     private adminAreaService: AdminAreaService,
     private typhoonTrackService: TyphoonTrackService,
@@ -273,7 +273,7 @@ export class MockService {
     }
 
     // Process events
-    await this.processPipelineService.processEvents(
+    await this.processEventsService.processEvents(
       selectedCountry.countryCodeISO3,
       disasterType,
       noNotifications,

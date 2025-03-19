@@ -12,7 +12,6 @@ import {
   MoreThanOrEqual,
   Repository,
   SelectQueryBuilder,
-  UpdateResult,
 } from 'typeorm';
 
 import {
@@ -33,16 +32,12 @@ import { CountryDisasterSettingsEntity } from '../country/country-disaster.entit
 import { CountryEntity } from '../country/country.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
-import { MetadataService } from '../metadata/metadata.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { EapActionsService } from './../eap-actions/eap-actions.service';
 import { AlertPerLeadTimeEntity } from './alert-per-lead-time.entity';
 import { AreaForecastDataDto } from './dto/area-forecast-data.dto';
-import {
-  ActivationLogDto,
-  EventPlaceCodesDto,
-} from './dto/event-place-code.dto';
+import { ActivationLogDto } from './dto/event-place-code.dto';
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
 import {
   UploadAlertsPerLeadTimeDto,
@@ -71,7 +66,6 @@ export class EventService {
   public constructor(
     private eapActionsService: EapActionsService,
     private disasterTypeService: DisasterTypeService,
-    private metadataService: MetadataService,
     private helperService: HelperService,
     private dataSource: DataSource,
     private typhoonTrackService: TyphoonTrackService,
@@ -680,20 +674,6 @@ export class EventService {
       }
     }
     return result;
-  }
-
-  public async setTrigger(
-    userId: string,
-    eventPlaceCodesDto: EventPlaceCodesDto,
-  ): Promise<UpdateResult> {
-    return await this.eventPlaceCodeRepo.update(
-      eventPlaceCodesDto.eventPlaceCodeIds,
-      {
-        userTrigger: true,
-        userTriggerDate: new Date(),
-        user: { userId },
-      },
-    );
   }
 
   public async getActiveEventNames(

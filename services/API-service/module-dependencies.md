@@ -26,9 +26,9 @@ graph LR
   AdminAreaDynamicDataModule-->EventModule
   AdminAreaDynamicDataModule-->CountryModule
   AdminAreaDynamicDataModule-->AdminAreaModule
-  ProcessPipelineModule-->UserModule
-  ProcessPipelineModule-->EventModule
-  ProcessPipelineModule-->NotificationModule
+  ProcessEventsModule-->UserModule
+  ProcessEventsModule-->EventModule
+  ProcessEventsModule-->NotificationModule
   NotificationModule-->UserModule
   NotificationModule-->EventModule
   NotificationModule-->WhatsappModule

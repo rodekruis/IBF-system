@@ -5,13 +5,17 @@ import { ArrayMinSize, IsArray, IsNotEmpty, IsString } from 'class-validator';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { AlertLevel } from '../enum/alert-level.enum';
 
-export class EventPlaceCodesDto {
+export class SetTriggerDto {
   @ApiProperty()
   @ArrayMinSize(1)
   @IsString({ each: true })
   @IsNotEmpty({ each: true })
   @IsArray()
   public eventPlaceCodeIds: string[];
+
+  public countryCodeISO3: string;
+  public disasterType: DisasterType;
+  public noNotifications: boolean;
 }
 
 export class ActivationLogDto {

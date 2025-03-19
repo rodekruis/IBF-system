@@ -392,7 +392,16 @@ export class ApiService {
     );
   }
 
-  setTrigger(eventPlaceCodeIds: string[]): Observable<void> {
-    return this.post(`event/set-trigger`, { eventPlaceCodeIds }, false);
+  setTrigger(
+    eventPlaceCodeIds: string[],
+    countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
+    noNotifications: boolean,
+  ): Observable<void> {
+    return this.post(
+      `events/set-trigger`,
+      { eventPlaceCodeIds, countryCodeISO3, disasterType, noNotifications },
+      false,
+    );
   }
 }
