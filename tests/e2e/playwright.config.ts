@@ -19,11 +19,7 @@ const envPath = path.resolve(__dirname, '../../.env');
 dotenv.config({ path: envPath });
 
 // Extract configuration IDs from all datasets
-const configurationIds = datasets.map((dataset) =>
-  typeof dataset.configurationId === 'string'
-    ? parseInt(dataset.configurationId, 10)
-    : dataset.configurationId,
-);
+const configurationIds = datasets.map(({ configurationId }) => configurationId);
 
 export default defineConfig({
   testDir: './tests',
