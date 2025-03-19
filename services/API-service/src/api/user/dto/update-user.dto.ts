@@ -27,7 +27,7 @@ export class UpdateUserDto {
   })
   @IsIn(userRoleArray)
   @IsOptional()
-  public role?: UserRole;
+  public userRole?: UserRole;
 
   @ApiProperty({ example: '+31600000000' })
   @IsString()

@@ -119,6 +119,12 @@
       "continue": "Set trigger",
       "back": "Back",
       "error": "Something went wrong in setting the trigger. Please try again."
+    },
+    "no-access": {
+      "header": "Set trigger - access restricted",
+      "content": "<strong>Only IBF focal point users are authorized to set a trigger from a warning.</strong><br>If you require permissions, please contact the current IBF focal point in your organization or {{ supportEmailAddress }}.",
+      "about": "<strong>What is this about?</strong>",
+      "please-note": "Please note:"
     }
   },
   "timeline-component": {

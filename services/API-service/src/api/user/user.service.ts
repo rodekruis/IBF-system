@@ -76,7 +76,7 @@ export class UserService {
     newUser.firstName = dto.firstName;
     newUser.middleName = dto.middleName;
     newUser.lastName = dto.lastName;
-    newUser.userRole = dto.role;
+    newUser.userRole = dto.userRole;
     newUser.whatsappNumber = dto.whatsappNumber;
     newUser.countries = await this.countryRepository.find({
       where: { countryCodeISO3: In(dto.countryCodesISO3) },

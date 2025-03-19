@@ -6,26 +6,68 @@
       (click)="closePopover()"
       class="popover-close-button"
     ></ion-icon>
-    @if (popoverStep === 'select-areas') {
-      <ion-card-title class="font-[Montserrat] font-semibold">
-        <div class="inline-block align-middle">
-          <ion-icon name="warning"></ion-icon>
-        </div>
-        {{
-          'set-trigger-component.select-areas.header' | translate
-        }}</ion-card-title
-      >
-    } @else if (popoverStep === 'confirm') {
-      <ion-card-title class="font-[Montserrat] font-semibold">
-        <div class="inline-block align-middle">
-          <ion-icon name="warning"></ion-icon>
-        </div>
-        {{ 'set-trigger-component.confirm.header' | translate }}</ion-card-title
-      >
-    }
+    <ion-card-title class="font-[Montserrat] font-semibold">
+      <div class="inline-block align-middle">
+        <ion-icon name="warning"></ion-icon>
+      </div>
+      @if (!hasSetTriggerPermission) {
+        {{ 'set-trigger-component.no-access.header' | translate }}
+      } @else if (popoverStep === 'select-areas') {
+        {{ 'set-trigger-component.select-areas.header' | translate }}
+      } @else {
+        {{ 'set-trigger-component.confirm.header' | translate }}
+      }
+    </ion-card-title>
   </ion-card-header>
   <ion-card-content class="ion-padding-top ion-text-center">
-    @if (popoverStep === 'select-areas') {
+    @if (!hasSetTriggerPermission) {
+      <ion-item lines="none">
+        <span
+          [innerHTML]="
+            'set-trigger-component.no-access.content'
+              | translate: { supportEmailAddress }
+          "
+        >
+        </span>
+      </ion-item>
+      <br />
+      <ion-item lines="none">
+        <span [innerHTML]="'set-trigger-component.no-access.about' | translate">
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <span
+          [innerHTML]="
+            'set-trigger-component.select-areas.content'
+              | translate
+                : {
+                    forecastSourceLabel: forecastSource?.label || 'Unknown',
+                    forecastSourceUrl: forecastSource?.url || '#',
+                    adminAreaLabelPlural: adminAreaLabelPlural,
+                  }
+          "
+        >
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <span
+          [innerHTML]="
+            'set-trigger-component.no-access.please-note' | translate
+          "
+        >
+        </span>
+      </ion-item>
+      <ion-item lines="none">
+        <span
+          class="bullet-list"
+          [innerHTML]="
+            'set-trigger-component.confirm.bullet-list'
+              | translate: { adminAreaLabelPlural }
+          "
+        >
+        </span>
+      </ion-item>
+    } @else if (popoverStep === 'select-areas') {
       <ion-item lines="none">
         @if (forecastSource?.setTriggerSource) {
           <span
@@ -114,55 +156,58 @@
         </ion-label>
       </ion-item>
     }
-    <ion-item lines="none" class="ion-margin-top">
-      <ion-label>
-        {{ getCheckedCount() }}
-        {{
-          'set-trigger-component.select-areas.checked-count'
-            | translate: { adminAreaLabelPlural }
-        }}
-      </ion-label>
-      <div class="space-x-2">
-        <ion-button
-          size="default"
-          fill="clear"
-          shape="round"
-          color="dark"
-          (click)="
-            popoverStep === 'select-areas'
-              ? closePopover()
-              : backToSelectAreasStep()
-          "
-        >
-          @if (popoverStep === 'select-areas') {
-            {{ 'set-trigger-component.select-areas.back' | translate }}
-          } @else if (popoverStep === 'confirm') {
-            {{ 'set-trigger-component.confirm.back' | translate }}
-          }
-        </ion-button>
-        <ion-button
-          size="default"
-          fill="solid"
-          shape="round"
-          color="ibf-trigger-alert-primary"
-          [disabled]="
-            popoverStep === 'select-areas'
-              ? isContinueDisabled()
-              : isSubmitDisabled()
-          "
-          (click)="
-            popoverStep === 'select-areas'
-              ? continueToConfirmStep()
-              : submitSetTriggerAreas()
-          "
-        >
-          @if (popoverStep === 'select-areas') {
-            {{ 'set-trigger-component.select-areas.continue' | translate }}
-          } @else if (popoverStep === 'confirm') {
-            {{ 'set-trigger-component.confirm.continue' | translate }}
-          }
-        </ion-button>
-      </div>
-    </ion-item>
+
+    @if (hasSetTriggerPermission) {
+      <ion-item lines="none" class="ion-margin-top">
+        <ion-label>
+          {{ getCheckedCount() }}
+          {{
+            'set-trigger-component.select-areas.checked-count'
+              | translate: { adminAreaLabelPlural }
+          }}
+        </ion-label>
+        <div class="space-x-2">
+          <ion-button
+            size="default"
+            fill="clear"
+            shape="round"
+            color="dark"
+            (click)="
+              popoverStep === 'select-areas'
+                ? closePopover()
+                : backToSelectAreasStep()
+            "
+          >
+            @if (popoverStep === 'select-areas') {
+              {{ 'set-trigger-component.select-areas.back' | translate }}
+            } @else if (popoverStep === 'confirm') {
+              {{ 'set-trigger-component.confirm.back' | translate }}
+            }
+          </ion-button>
+          <ion-button
+            size="default"
+            fill="solid"
+            shape="round"
+            color="ibf-trigger-alert-primary"
+            [disabled]="
+              popoverStep === 'select-areas'
+                ? isContinueDisabled()
+                : isSubmitDisabled()
+            "
+            (click)="
+              popoverStep === 'select-areas'
+                ? continueToConfirmStep()
+                : submitSetTriggerAreas()
+            "
+          >
+            @if (popoverStep === 'select-areas') {
+              {{ 'set-trigger-component.select-areas.continue' | translate }}
+            } @else if (popoverStep === 'confirm') {
+              {{ 'set-trigger-component.confirm.continue' | translate }}
+            }
+          </ion-button>
+        </div>
+      </ion-item>
+    }
   </ion-card-content>
 </ion-card>

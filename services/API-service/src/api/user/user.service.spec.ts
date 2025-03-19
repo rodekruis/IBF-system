@@ -32,7 +32,7 @@ const user: UserEntity = {
   firstName: 'Test',
   middleName: 'User',
   lastName: 'Example',
-  userRole: UserRole.DisasterManager,
+  userRole: UserRole.Operator,
   countries: [],
   disasterTypes: disasterTypes, // NOTE: if this is passed as empty array, a mock for disasterRepository.find() is needed
   password: '',

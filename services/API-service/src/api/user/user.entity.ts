@@ -38,7 +38,7 @@ export class UserEntity {
   @Column()
   public lastName: string;
 
-  @Column({ default: UserRole.Guest })
+  @Column({ default: UserRole.Viewer })
   public userRole: UserRole;
 
   @ManyToMany(

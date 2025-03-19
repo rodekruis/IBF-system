@@ -12,6 +12,7 @@ import { ApiService } from 'src/app/services/api.service';
 import { EventService } from 'src/app/services/event.service';
 import { AlertArea } from 'src/app/types/alert-area';
 import { NumberFormat } from 'src/app/types/indicator-group';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-set-trigger-popover',
@@ -30,10 +31,13 @@ export class SetTriggerPopoverComponent {
   public areas: AlertArea[];
   @Input()
   public mainExposureIndicatorNumberFormat: NumberFormat;
+  @Input()
+  public hasSetTriggerPermission: boolean;
 
   public popoverStep = 'select-areas'; // 'select-areas' | 'confirm'
   public selectedAreas: Record<string, boolean> = {};
   public understood = false;
+  public supportEmailAddress = environment.supportEmailAddress;
 
   constructor(
     private popoverController: PopoverController,

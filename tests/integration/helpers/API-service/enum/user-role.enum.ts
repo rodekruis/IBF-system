@@ -1,6 +1,7 @@
 export enum UserRole {
   Admin = 'admin',
-  DisasterManager = 'disaster-manager',
+  LocalAdmin = 'local-admin',
+  Operator = 'operator',
   PipelineUser = 'pipeline-user',
-  Guest = 'guest',
+  Viewer = 'viewer',
 }

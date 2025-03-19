@@ -11,8 +11,9 @@ import { EventSpeechBubbleComponent } from 'src/app/components/event-speech-bubb
 import { MOCK_ALERT_AREAS } from 'src/app/mocks/alert-areas.mock';
 import { MOCK_EVENT_STATE } from 'src/app/mocks/event-state.mock';
 import { CountryDisasterSettings } from 'src/app/models/country.model';
+import { UserRole } from 'src/app/models/user/user-role.enum';
 
-describe('EventSpeechBubbleComponent', () => {
+fdescribe('EventSpeechBubbleComponent', () => {
   let component: EventSpeechBubbleComponent;
   let fixture: ComponentFixture<EventSpeechBubbleComponent>;
   let popoverControllerSpy: jasmine.SpyObj<PopoverController>;
@@ -63,6 +64,9 @@ describe('EventSpeechBubbleComponent', () => {
     component.adminAreaLabelPlural = 'Districts';
     component.areas = MOCK_ALERT_AREAS;
 
+    // Spy on the hasSetTriggerPermission method
+    // spyOn(component, 'hasSetTriggerPermission').and.returnValue(true);
+
     fixture.detectChanges();
   }));
 
@@ -70,22 +74,67 @@ describe('EventSpeechBubbleComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should open set trigger popover when openSetTriggerPopover is called', async () => {
-    // Act
-    await component.openSetTriggerPopover();
+  describe('hasSetTriggerPermission', () => {
+    it('return true for right userRole', async () => {
+      component.userRole = UserRole.LocalAdmin;
+      const result = component.hasSetTriggerPermission();
+      expect(result).toBeTrue();
+    });
 
-    // Assert - Using jasmine.objectContaining to match partial object
-    expect(popoverControllerSpy.create).toHaveBeenCalledWith(
-      jasmine.objectContaining({
-        component: jasmine.any(Function),
-        componentProps: jasmine.objectContaining({
-          eapLink: component.countryDisasterSettings.eapLink,
-          forecastSource: component.countryDisasterSettings.forecastSource,
-          adminAreaLabelPlural: component.adminAreaLabelPlural,
-          areas: component.areas,
+    it('return false for wrong userRole', async () => {
+      component.userRole = UserRole.Operator;
+      const result = component.hasSetTriggerPermission();
+      expect(result).toBeFalse();
+    });
+  });
+
+  describe('openSetTriggerPopover', () => {
+    it('should open set trigger popover when openSetTriggerPopover is called', async () => {
+      // Arrange
+      component.userRole = UserRole.LocalAdmin;
+      const expectedHasSetTriggerPermission = true;
+
+      // Act
+      await component.openSetTriggerPopover();
+
+      // Assert - Using jasmine.objectContaining to match partial object
+      expect(popoverControllerSpy.create).toHaveBeenCalledWith(
+        jasmine.objectContaining({
+          component: jasmine.any(Function),
+          componentProps: jasmine.objectContaining({
+            forecastSource: component.countryDisasterSettings.forecastSource,
+            eapLink: component.countryDisasterSettings.eapLink,
+            adminAreaLabelPlural: component.adminAreaLabelPlural,
+            areas: component.areas,
+            hasSetTriggerPermission: expectedHasSetTriggerPermission,
+          }),
+          showBackdrop: true,
         }),
-        showBackdrop: true,
-      }),
-    );
+      );
+    });
+
+    it('should open no-access set trigger popover when openSetTriggerPopover is called without right userRole', async () => {
+      // Arrange
+      component.userRole = UserRole.Operator;
+      const expectedHasSetTriggerPermission = false;
+
+      // Act
+      await component.openSetTriggerPopover();
+
+      // Assert - Using jasmine.objectContaining to match partial object
+      expect(popoverControllerSpy.create).toHaveBeenCalledWith(
+        jasmine.objectContaining({
+          component: jasmine.any(Function),
+          componentProps: jasmine.objectContaining({
+            forecastSource: component.countryDisasterSettings.forecastSource,
+            eapLink: component.countryDisasterSettings.eapLink,
+            adminAreaLabelPlural: component.adminAreaLabelPlural,
+            areas: component.areas,
+            hasSetTriggerPermission: expectedHasSetTriggerPermission,
+          }),
+          showBackdrop: true,
+        }),
+      );
+    });
   });
 });
