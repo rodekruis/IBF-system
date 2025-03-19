@@ -78,8 +78,9 @@ jobs:
   ibf-integration:
     needs: detect-changes
     if: ${{
-      needs.detect-changes.outputs.ibf-api-service == 'true' ||
-      needs.detect-changes.outputs.ibf-integration == 'true'
+      (needs.detect-changes.outputs.ibf-api-service == 'true'
+      || needs.detect-changes.outputs.ibf-integration == 'true')
+      && !github.event.pull_request.draft
       }}
 
     runs-on: ubuntu-latest
@@ -96,9 +97,10 @@ jobs:
   ibf-e2e:
     needs: detect-changes
     if: ${{
-      needs.detect-changes.outputs.ibf-api-service == 'true' ||
-      needs.detect-changes.outputs.ibf-dashboard == 'true' ||
-      needs.detect-changes.outputs.ibf-e2e == 'true'
+      (needs.detect-changes.outputs.ibf-api-service == 'true'
+      || needs.detect-changes.outputs.ibf-dashboard == 'true'
+      || needs.detect-changes.outputs.ibf-e2e == 'true')
+      && !github.event.pull_request.draft
       }}
 
     runs-on: ubuntu-latest
