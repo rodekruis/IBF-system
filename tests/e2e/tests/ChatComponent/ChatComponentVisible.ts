@@ -9,7 +9,7 @@ export default (
   dataset: Dataset,
   date: Date,
 ) => {
-  test(`[33053] Chat component elements should be visible - Config: ${dataset.configurationId}`, async () => {
+  test('[33053] Chat component elements should be visible', async () => {
     const { dashboard } = pages;
     const { chat, userState } = components;
 

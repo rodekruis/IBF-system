@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test(`[33026] Logout should load login page - Config: ${dataset.configurationId}`, async () => {
+  test('[33026] Logout should load login page', async () => {
     const { login, dashboard } = pages;
     const { userState } = components;
 

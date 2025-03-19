@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test(`[33021] flood_extent legend should be visible - Config: ${dataset.configurationId}`, async () => {
+  test('[33021] flood_extent legend should be visible', async () => {
     const { dashboard } = pages;
     const { userState, map } = components;
 

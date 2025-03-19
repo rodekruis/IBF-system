@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test(`[33029] Disaster types should be selectable - Config: ${dataset.configurationId}`, async () => {
+  test('[33029] Disaster types should be selectable', async () => {
     const { dashboard } = pages;
     const { userState } = components;
 

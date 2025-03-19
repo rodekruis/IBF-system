@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test(`[33054] Action buttons should be clickable - Config: ${dataset.configurationId}`, async () => {
+  test('[33054] Action buttons should be clickable', async () => {
     const { dashboard } = pages;
     const { chat, userState } = components;
 

@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test(`[33064] Timeline component elements should be visible - Config: ${dataset.configurationId}`, async () => {
+  test('[33064] Timeline component elements should be visible', async () => {
     const { dashboard } = pages;
     const { userState, timeline } = components;
 

@@ -9,7 +9,7 @@ export default (
   dataset: Dataset,
   date: Date,
 ) => {
-  test(`[33055] Show prediction button should be clickable - Config: ${dataset.configurationId}`, async () => {
+  test('[33055] Show prediction button should be clickable', async () => {
     const { dashboard } = pages;
     const { chat, userState } = components;
 

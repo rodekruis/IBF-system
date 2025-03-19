@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test(`[33016] trigger outline layer should be visible - Config: ${dataset.configurationId}`, async () => {
+  test('[33016] trigger outline layer should be visible', async () => {
     const { dashboard } = pages;
     const { userState, map } = components;
 

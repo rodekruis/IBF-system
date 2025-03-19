@@ -9,7 +9,7 @@ export default (
   dataset: Dataset,
   date: Date,
 ) => {
-  test(`[33056] Number of events should match the number of events in aggregates component - Config: ${dataset.configurationId}`, async () => {
+  test('[33056] Number of events should match the number of events in aggregates component', async () => {
     const { dashboard } = pages;
     const { chat, userState, aggregates } = components;
 

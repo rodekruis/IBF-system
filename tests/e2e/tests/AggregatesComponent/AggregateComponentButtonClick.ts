@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test(`[33060] Info button(s) should be clickable - Config: ${dataset.configurationId}`, async () => {
+  test('[33060] Info button(s) should be clickable', async () => {
     const { dashboard } = pages;
     const { aggregates } = components;
 

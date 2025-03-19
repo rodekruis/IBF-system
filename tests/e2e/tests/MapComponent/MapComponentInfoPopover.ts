@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test(`[33020] Info icon should open popover on click - Config: ${dataset.configurationId}`, async () => {
+  test('[33020] Info icon should open popover on click', async () => {
     const { dashboard } = pages;
     const { userState, map } = components;
 
