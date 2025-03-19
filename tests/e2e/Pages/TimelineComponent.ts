@@ -17,7 +17,6 @@ class TimelineComponent extends DashboardPage {
 
   async waitForTimelineToBeLoaded() {
     await this.page.waitForLoadState('domcontentloaded');
-    // await this.page.waitForLoadState('networkidle');
     await this.page.waitForSelector('[data-testid="timeline-button"]');
   }
 
