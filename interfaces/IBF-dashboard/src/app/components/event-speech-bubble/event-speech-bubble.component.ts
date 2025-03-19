@@ -76,11 +76,30 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
 
     if (this.event) {
       this.event.header = this.getHeader(this.event);
+      this.event.mainExposureValueSum = this.getEventMainExposureValue(
+        this.event,
+        this.mainExposureIndicatorNumberFormat,
+      );
     }
   }
 
   ngOnDestroy() {
     this.placeCodeHoverSubscription.unsubscribe();
+  }
+
+  private getEventMainExposureValue(
+    event: EventSummary,
+    mainExposureIndicatorNumberFormat: NumberFormat,
+  ) {
+    const sum = event.alertAreas?.reduce(
+      (acc, alertArea) => acc + alertArea.mainExposureValue,
+      0,
+    );
+    // NOTE: this is a temporary solution, as this actually needs a weighted average. At least this is better than sum.
+    if (mainExposureIndicatorNumberFormat === NumberFormat.perc) {
+      return sum / event.alertAreas?.length || 1;
+    }
+    return sum;
   }
 
   public selectArea(area: AlertArea) {

@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { subDays } from 'date-fns';
 import {
-  Brackets,
   DataSource,
   Equal,
   In,
@@ -22,7 +21,6 @@ import {
   EapAlertClassKeyEnum,
   EventSummaryCountry,
 } from '../../shared/data.model';
-import { NumberFormat } from '../../shared/enums/number-format.enum';
 import { HelperService } from '../../shared/helper.service';
 import {
   ALERT_THRESHOLD,
@@ -56,11 +54,6 @@ import {
   AlertLevel,
 } from './enum/alert-level.enum';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
-
-interface NrAlertAreasMainExposureValueSum {
-  nrAlertAreas: number;
-  mainExposureValueSum: number;
-}
 
 @Injectable()
 export class EventService {
@@ -151,15 +144,12 @@ export class EventService {
       disasterType,
     );
     for (const event of rawEvents) {
-      const nrAlertAreasAndMainExposureValueSum =
-        await this.getNrAlertAreasMainExposureValueSum(
-          event,
-          countryCodeISO3,
-          disasterType,
-        );
-      event.nrAlertAreas = nrAlertAreasAndMainExposureValueSum.nrAlertAreas;
-      event.mainExposureValueSum =
-        nrAlertAreasAndMainExposureValueSum.mainExposureValueSum;
+      event.alertAreas = await this.getAlertAreas(
+        countryCodeISO3,
+        disasterType,
+        disasterSettings.defaultAdminLevel,
+        event.eventName,
+      );
       event.firstLeadTime = await this.getFirstLeadTime(
         countryCodeISO3,
         disasterType,
@@ -188,69 +178,6 @@ export class EventService {
         await this.getEventEapAlertClass(disasterSettings, event.alertLevel);
     }
     return rawEvents;
-  }
-
-  public async getNrAlertAreasMainExposureValueSum(
-    { eventName, firstIssuedDate }: EventSummaryCountry,
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-  ): Promise<NrAlertAreasMainExposureValueSum> {
-    const nrAlertAreasAndMainExposureValueSum = {
-      nrAlertAreas: 0,
-      mainExposureValueSum: 0,
-    };
-
-    const mainExposureIndicatorMetadata =
-      await this.metadataService.getMainExposureIndicatorMetadata(disasterType);
-
-    const epcQuery = this.eventPlaceCodeRepo
-      .createQueryBuilder('epc')
-      .select([
-        'COUNT(epc."eventPlaceCodeId")::int AS "nrAlertAreas"',
-        'SUM(epc."mainExposureValue") AS "mainExposureValueSum"',
-      ])
-      .leftJoin('epc.adminArea', 'aa', 'epc."adminAreaId" = aa."id"')
-      .where('epc."eventName" = :eventName', { eventName })
-      .andWhere('aa."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
-      .andWhere('epc."disasterType" = :disasterType', { disasterType })
-      .andWhere('epc."firstIssuedDate" = :firstIssuedDate', {
-        firstIssuedDate,
-      });
-
-    const trigger = await epcQuery
-      .clone()
-      .andWhere(
-        new Brackets((qb) => {
-          qb.where('epc."forecastTrigger" = TRUE').orWhere(
-            'epc."userTrigger" = TRUE',
-          );
-        }),
-      )
-      .getRawOne();
-
-    if (trigger.nrAlertAreas) {
-      nrAlertAreasAndMainExposureValueSum.nrAlertAreas = trigger.nrAlertAreas;
-      nrAlertAreasAndMainExposureValueSum.mainExposureValueSum =
-        trigger.mainExposureValueSum;
-    } else {
-      const warning = await epcQuery
-        .clone()
-        .andWhere('epc."forecastSeverity" > 0')
-        .getRawOne();
-
-      nrAlertAreasAndMainExposureValueSum.nrAlertAreas = warning.nrAlertAreas;
-      nrAlertAreasAndMainExposureValueSum.mainExposureValueSum =
-        warning.mainExposureValueSum;
-    }
-
-    if (mainExposureIndicatorMetadata.numberFormatMap === NumberFormat.perc) {
-      // NOTE: return average of percentages for percentage indicator. This is a temporary solution, as it should actually be weighed average. At least better than sum though.
-      nrAlertAreasAndMainExposureValueSum.mainExposureValueSum =
-        nrAlertAreasAndMainExposureValueSum.mainExposureValueSum /
-        nrAlertAreasAndMainExposureValueSum.nrAlertAreas;
-    }
-
-    return nrAlertAreasAndMainExposureValueSum;
   }
 
   public getAlertLevel(event: EventSummaryCountry): AlertLevel {
