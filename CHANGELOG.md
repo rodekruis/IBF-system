@@ -1,3 +1,18 @@
+## [0.299.1](https://github.com/rodekruis/IBF-system/compare/v0.299.0...v0.299.1) (2025-03-19)
+
+
+### Bug Fixes
+
+* add set-trigger-source in popover ([02a4827](https://github.com/rodekruis/IBF-system/commit/02a48272c7e062cee42a6d412c333afa831ba60f))
+* align all headers to format ([a8af678](https://github.com/rodekruis/IBF-system/commit/a8af6787d5390892638e9fa8be7ebfa6640201d3))
+* change bold styling of area view text ([5385167](https://github.com/rodekruis/IBF-system/commit/5385167d0fd3879ce0f88272f06068fc25b7466d))
+* darker orange for text ([9c9ed02](https://github.com/rodekruis/IBF-system/commit/9c9ed02c1635486f51ad4bbd521db666b3df5997))
+* rm box-shadow on buttons ([51e31cc](https://github.com/rodekruis/IBF-system/commit/51e31cc3d9ddc349eb04f47142c41d17b02e4e00))
+* unit test ([e170e2e](https://github.com/rodekruis/IBF-system/commit/e170e2eb297957b86efc01a7cc925572e0b43eac))
+* use semi-bold class for labels ([fc49b64](https://github.com/rodekruis/IBF-system/commit/fc49b64d06142735ebda1c7a9c39ca61a1ee416e))
+
+
+
 # [0.299.0](https://github.com/rodekruis/IBF-system/compare/v0.298.2...v0.299.0) (2025-03-18)
 
 
@@ -135,15 +150,6 @@
 ### Bug Fixes
 
 * rm leadtime filter on deleteDuplicates in alerts-per-lead-time AB[#34304](https://github.com/rodekruis/IBF-system/issues/34304) ([75f1070](https://github.com/rodekruis/IBF-system/commit/75f10701ac303ff6b89e879f7ddea2a2d599065a))
-
-
-
-# [0.294.0](https://github.com/rodekruis/IBF-system/compare/v0.293.1...v0.294.0) (2025-03-10)
-
-
-### Features
-
-* rename stopped to userTrigger ([139296f](https://github.com/rodekruis/IBF-system/commit/139296f708a9dd070897bccb59db6bdce5563fea))
 
 
 
