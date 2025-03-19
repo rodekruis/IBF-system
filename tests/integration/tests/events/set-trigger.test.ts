@@ -3,14 +3,13 @@ import { DisasterType } from '../../helpers/API-service/enum/disaster-type.enum'
 import { DroughtScenario } from '../../helpers/API-service/enum/mock-scenario.enum';
 import {
   getAccessToken,
-  getAlertAreas,
+  getEventsSummary,
   mock,
   postSetTrigger,
   resetDB,
 } from '../../helpers/utility.helper';
 
 const countryCodeISO3 = 'UGA';
-const adminLevel = 2;
 const disasterType = DisasterType.Drought;
 
 describe('set trigger', () => {
@@ -32,18 +31,20 @@ describe('set trigger', () => {
       accessToken,
     );
 
-    const getAlertAreasBeforeResult = await getAlertAreas(
+    const getEventsBeforeResult = await getEventsSummary(
       countryCodeISO3,
-      adminLevel,
       disasterType,
       accessToken,
+    );
+    const alertAreasBefore = getEventsBeforeResult.body.flatMap(
+      (event) => event.alertAreas || [],
+    );
+    const eventPlaceCodeIdsToSetTrigger = alertAreasBefore.map(
+      (alertArea) => alertArea.eventPlaceCodeId,
     );
 
     // Act
     // NOTE: this sets all areas across multiple events at once, which is not a front-end use case, but does not matter for testing the functionality
-    const eventPlaceCodeIdsToSetTrigger = getAlertAreasBeforeResult.body.map(
-      (alertArea) => alertArea.eventPlaceCodeId,
-    );
     const setTriggerResult = await postSetTrigger(
       eventPlaceCodeIdsToSetTrigger,
       accessToken,
@@ -55,16 +56,18 @@ describe('set trigger', () => {
       eventPlaceCodeIdsToSetTrigger.length,
     );
 
-    const getAlertAreasAfterResult = await getAlertAreas(
+    const getEventsAfterResult = await getEventsSummary(
       countryCodeISO3,
-      adminLevel,
       disasterType,
       accessToken,
     );
-    for (const area of getAlertAreasBeforeResult.body) {
+    const alertAreasAfter = getEventsAfterResult.body.flatMap(
+      (event) => event.alertAreas || [],
+    );
+    for (const area of alertAreasBefore) {
       expect(area.alertLevel).toBe(AlertLevel.WARNING);
     }
-    for (const area of getAlertAreasAfterResult.body) {
+    for (const area of alertAreasAfter) {
       expect(area.alertLevel).toBe(AlertLevel.TRIGGER);
     }
   });
