@@ -21,7 +21,7 @@ import { NumberFormat } from 'src/app/types/indicator-group';
 })
 export class SetTriggerPopoverComponent {
   @Input()
-  public eventName: string;
+  public eapLink: string;
   @Input()
   public forecastSource: ForecastSource;
   @Input()

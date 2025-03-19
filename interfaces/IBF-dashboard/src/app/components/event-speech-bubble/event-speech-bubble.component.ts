@@ -5,7 +5,10 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { CardColors } from 'src/app/components/chat/chat.component';
 import { SetTriggerPopoverComponent } from 'src/app/components/set-trigger-popover/set-trigger-popover.component';
-import { DisasterType, ForecastSource } from 'src/app/models/country.model';
+import {
+  CountryDisasterSettings,
+  DisasterType,
+} from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import {
@@ -35,7 +38,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()
   public disasterType: DisasterType;
   @Input()
-  public forecastSource: ForecastSource;
+  public countryDisasterSettings: CountryDisasterSettings;
   @Input()
   public countryCodeISO3: string;
   @Input()
@@ -177,8 +180,8 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       translucent: true,
       showBackdrop: true,
       componentProps: {
-        forecastSource: this.forecastSource,
-        eventName: this.event.eventName.split('_')[0],
+        forecastSource: this.countryDisasterSettings?.forecastSource,
+        eapLink: this.countryDisasterSettings?.eapLink,
         adminAreaLabelPlural: this.adminAreaLabelPlural,
         areas: this.areas,
         mainExposureIndicatorNumberFormat:

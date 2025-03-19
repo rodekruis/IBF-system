@@ -40,9 +40,9 @@
     </p>
 
     <p>
-      <strong
+      <span class="semi-bold"
         >{{ event.disasterSpecificProperties.eapAlertClass.label }}:
-      </strong>
+      </span>
       @if (typhoonLandfallText) {
         <span [innerHTML]="typhoonLandfallText"></span>
       } @else {
@@ -62,20 +62,22 @@
           'chat-component.common.alertLevel.set-by' | translate: event
         "
       ></p>
-    } @else if (forecastSource) {
+    } @else if (countryDisasterSettings?.forecastSource) {
       <p>
-        <strong
-          >{{ 'chat-component.common.alertLevel.source' | translate }} </strong
-        ><a href="{{ forecastSource.url }}">{{ forecastSource.label }}</a>
+        <span class="semi-bold"
+          >{{ 'chat-component.common.alertLevel.source' | translate }} </span
+        ><a href="{{ countryDisasterSettings?.forecastSource.url }}">{{
+          countryDisasterSettings?.forecastSource.label
+        }}</a>
       </p>
     }
     <p>
-      <strong
+      <span class="semi-bold"
         >{{
           'chat-component.common.alertLevel.exposed-areas'
             | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
         }}
-      </strong>
+      </span>
       <span>{{ event.nrAlertAreas + ' ' }}</span>
       @if (mainExposureIndicatorNumberFormat !== 'perc') {
         @if (event.mainExposureValueSum) {

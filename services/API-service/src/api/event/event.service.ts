@@ -1160,7 +1160,8 @@ export class EventService {
         return {
           key: EapAlertClassKeyEnum.med,
           label: 'Warning',
-          color: 'ibf-orange',
+          color: 'fiveten-orange-500',
+          textColor: 'fiveten-orange-700',
           value: 1,
         };
       } else {

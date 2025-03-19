@@ -73,7 +73,7 @@
           [mainExposureIndicatorNumberFormat]="
             mainExposureIndicatorNumberFormat
           "
-          [forecastSource]="countryDisasterSettings?.forecastSource"
+          [countryDisasterSettings]="countryDisasterSettings"
           [cardColors]="getCardColors(event)"
         ></app-event-speech-bubble>
       }
@@ -132,18 +132,16 @@
       @if (area.mainExposureValue) {
         <ion-note size="small">
           <span
+            class="semi-bold"
             data-testid="main-exposure-indicator"
             [innerHTML]="
               'chat-component.' + disasterTypeName + '.active-event.exposed'
                 | translate
             "
           ></span>
-          <strong>
-            {{
-              area.mainExposureValue
-                | compact: mainExposureIndicatorNumberFormat
-            }}
-          </strong>
+          {{
+            area.mainExposureValue | compact: mainExposureIndicatorNumberFormat
+          }}
         </ion-note>
       } @else {
         <ion-note size="small">
@@ -173,16 +171,17 @@
         !countryDisasterSettings.enableEarlyActions || !area.eapActions.length
       ) {
         <ion-item class="background-light">
-          <ion-label class="ion-text-wrap">
-            {{
+          <ion-label
+            class="ion-text-wrap"
+            [innerHTML]="
               'chat-component.common.save-actions.no-actions'
                 | translate
                   : {
                       adminAreaLabelPlural,
                     }
-            }}</ion-label
-          ></ion-item
-        >
+            "
+          ></ion-label
+        ></ion-item>
       } @else if (area.eapActions.length) {
         <form (submit)="submitEapAction(area.placeCode)">
           <ion-list class="background-light">

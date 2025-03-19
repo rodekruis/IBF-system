@@ -19,19 +19,32 @@
   <ion-card-content class="ion-padding-top ion-text-center">
     @if (popoverStep === 'select-areas') {
       <ion-item lines="none">
-        <span
-          [innerHTML]="
-            'set-trigger-component.select-areas.content'
-              | translate
-                : {
-                    eventName: eventName,
-                    forecastSourceLabel: forecastSource?.label || 'Unknown',
-                    forecastSourceUrl: forecastSource?.url || '#',
-                    adminAreaLabelPlural: adminAreaLabelPlural,
-                  }
-          "
-        >
-        </span>
+        @if (forecastSource?.setTriggerSource) {
+          <span
+            [innerHTML]="
+              'set-trigger-component.select-areas.content'
+                | translate
+                  : {
+                      setTriggerSource: forecastSource?.setTriggerSource,
+                      adminAreaLabelPlural,
+                      eapLink,
+                    }
+            "
+          >
+          </span>
+        } @else {
+          <span
+            [innerHTML]="
+              'set-trigger-component.select-areas.content-no-source'
+                | translate
+                  : {
+                      adminAreaLabelPlural,
+                      eapLink,
+                    }
+            "
+          >
+          </span>
+        }
       </ion-item>
       <ion-item lines="none">
         <ion-label>
