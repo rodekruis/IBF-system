@@ -74,7 +74,7 @@ test.describe('E2E Tests', () => {
     const pages: Partial<Pages> = {};
     const components: Partial<Components> = {};
 
-    test.describe(`Dataset: ${email} ${code} ${disasterType.name} ${scenario}`, () => {
+    test.describe(`Dataset ${dataset.configurationId}: ${email} ${code} ${disasterType.name} ${scenario}`, () => {
       const date = new Date();
 
       test.beforeAll(async ({ browser }) => {
@@ -99,9 +99,6 @@ test.describe('E2E Tests', () => {
       });
 
       test.beforeEach(async ({ page }) => {
-        console.log(
-          `Running tests for configurationId: ${dataset.configurationId}`,
-        );
         await page.goto('/');
       });
 

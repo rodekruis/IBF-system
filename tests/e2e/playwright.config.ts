@@ -1,5 +1,7 @@
 import { AzureReporterOptions } from '@alex_neo/playwright-azure-reporter/dist/playwright-azure-reporter';
 import { defineConfig } from '@playwright/test';
+import { TestCase } from '@playwright/test/reporter';
+import { TestPoint } from 'azure-devops-node-api/interfaces/TestInterfaces';
 import dotenv from 'dotenv';
 import path from 'path';
 import { Dataset } from 'testData/types';
@@ -22,7 +24,6 @@ const configurationIds = datasets.map((dataset) =>
     ? parseInt(dataset.configurationId, 10)
     : dataset.configurationId,
 );
-console.log('Using configuration IDs from datasets:', configurationIds);
 
 export default defineConfig({
   testDir: './tests',
@@ -55,6 +56,12 @@ export default defineConfig({
           comment: 'Playwright Test Suite',
           configurationIds,
         },
+        testPointMapper: async (testCase: TestCase, testPoints: TestPoint[]) =>
+          testPoints.filter((testPoint) =>
+            testCase.parent.parent?.title.includes(
+              testPoint.configuration.id ?? '510',
+            ),
+          ),
       } as AzureReporterOptions,
     ],
   ],

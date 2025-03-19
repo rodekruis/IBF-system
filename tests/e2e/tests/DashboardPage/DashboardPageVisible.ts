@@ -9,15 +9,7 @@ export default (
   dataset: Dataset,
   date: Date,
 ) => {
-  test(`[33012] Dashboard page elements should be visible - Config: ${dataset.configurationId}`, async () => {
-    if (!dataset.configurationId) {
-      throw new Error(
-        `Missing configurationId for dataset: ${dataset.scenario}`,
-      );
-    }
-    console.log(
-      `Executing test with configurationId: ${dataset.configurationId}`,
-    );
+  test('[33012] Dashboard page elements should be visible', async () => {
     const { dashboard } = pages;
     const { chat, userState, aggregates, map, disasterType } = components;
 
