@@ -1,3 +1,17 @@
+# [0.300.0](https://github.com/rodekruis/IBF-system/compare/v0.299.1...v0.300.0) (2025-03-19)
+
+
+### Bug Fixes
+
+* align semibold use ([e32a3ee](https://github.com/rodekruis/IBF-system/commit/e32a3ee02356e9a097dc929b1ff78205d04a297c))
+
+
+### Features
+
+* remove set trigger success popover ([1e775cd](https://github.com/rodekruis/IBF-system/commit/1e775cd9b66e10842198b63c36e3930243c2df69))
+
+
+
 ## [0.299.1](https://github.com/rodekruis/IBF-system/compare/v0.299.0...v0.299.1) (2025-03-19)
 
 
@@ -141,15 +155,6 @@
 * remove alert class from activation log ([ff1cd23](https://github.com/rodekruis/IBF-system/commit/ff1cd23ffcb44249d268fe4d8dccebfdee515934))
 * sort notification content by alert level ([e19452a](https://github.com/rodekruis/IBF-system/commit/e19452ad4d2c54cddc3c755e583e5f0ef3cf7ce7))
 * use alert level in whatsapp notifications ([4d9c27d](https://github.com/rodekruis/IBF-system/commit/4d9c27dda6ed86674b64f74765d387023d4bdbe0))
-
-
-
-## [0.294.1](https://github.com/rodekruis/IBF-system/compare/v0.294.0...v0.294.1) (2025-03-10)
-
-
-### Bug Fixes
-
-* rm leadtime filter on deleteDuplicates in alerts-per-lead-time AB[#34304](https://github.com/rodekruis/IBF-system/issues/34304) ([75f1070](https://github.com/rodekruis/IBF-system/commit/75f10701ac303ff6b89e879f7ddea2a2d599065a))
 
 
 
