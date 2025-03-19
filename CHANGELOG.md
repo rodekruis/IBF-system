@@ -1,3 +1,30 @@
+# [0.301.0](https://github.com/rodekruis/IBF-system/compare/v0.300.0...v0.301.0) (2025-03-19)
+
+
+### Bug Fixes
+
+* apply filter also on aggregates data ([f6c89eb](https://github.com/rodekruis/IBF-system/commit/f6c89eb2569d706698a48aec93619caa1431a10b))
+* integration test + some renaming ([fb3c850](https://github.com/rodekruis/IBF-system/commit/fb3c850bf4dc30ea008151afd8f7f90d9a424273))
+* make highestAlertLevel filter event-specific AB[#34119](https://github.com/rodekruis/IBF-system/issues/34119) ([9a2fcc7](https://github.com/rodekruis/IBF-system/commit/9a2fcc7b07fda934329a76eef5187bfe275cb485))
+* no-trigger case ([f60ed4c](https://github.com/rodekruis/IBF-system/commit/f60ed4cdb192e04996f8fcef9a51d405c06e9cd6))
+* process PR comments ([6b073bf](https://github.com/rodekruis/IBF-system/commit/6b073bfb0f93dd81097b6b55cb8a7d713a32c4e7))
+* remove startDate from header ongoing event AB[#34527](https://github.com/rodekruis/IBF-system/issues/34527) ([8720d82](https://github.com/rodekruis/IBF-system/commit/8720d821eca4aa937b684d63810097073e96dc5c))
+* rm flash-floods exception to not highlight timeline on map hover AB[#34528](https://github.com/rodekruis/IBF-system/issues/34528) ([a989cb7](https://github.com/rodekruis/IBF-system/commit/a989cb787d9b617302b3b77daf85981e2bf40ff8))
+* small improvements AB[#34119](https://github.com/rodekruis/IBF-system/issues/34119) ([ea40146](https://github.com/rodekruis/IBF-system/commit/ea40146aa032fa63a6b00a739d42731d2662f70f))
+* unhide perc aggregate in frontend ([fae915f](https://github.com/rodekruis/IBF-system/commit/fae915f63412028a3c177825cb5e0303c40c7111))
+* unit test ([a537565](https://github.com/rodekruis/IBF-system/commit/a5375651c0893651dceb75d409498c0a951618e6))
+* unit test ([5d188a5](https://github.com/rodekruis/IBF-system/commit/5d188a54276117016c586387defbd947a512514c))
+* unit test ([0e31440](https://github.com/rodekruis/IBF-system/commit/0e3144074b11a42f25c8b10d35e6996f602804f2))
+
+
+### Features
+
+* admin areas ([61d8e4f](https://github.com/rodekruis/IBF-system/commit/61d8e4f2578b5548044d580f7ad4527293ef9f3e))
+* main exposure value sum and highest alert level ([25b50df](https://github.com/rodekruis/IBF-system/commit/25b50df92016cb4f0ee9c037dd81c8f4394c7893))
+* nr alert areas ([6afbdc4](https://github.com/rodekruis/IBF-system/commit/6afbdc4a29536b3dbc1eaeec864a21690154fad4))
+
+
+
 # [0.300.0](https://github.com/rodekruis/IBF-system/compare/v0.299.1...v0.300.0) (2025-03-19)
 
 
@@ -131,30 +158,6 @@
 
 * add drought trigger + fix tests ([3e677c5](https://github.com/rodekruis/IBF-system/commit/3e677c5da7f1dec4b5e2ecd1718645acce7821a0))
 * replace drought trigger by warning scenario ([959db40](https://github.com/rodekruis/IBF-system/commit/959db403c6011652e1f272afb38e931f7cfe1594))
-
-
-
-# [0.295.0](https://github.com/rodekruis/IBF-system/compare/v0.294.1...v0.295.0) (2025-03-10)
-
-
-### Bug Fixes
-
-* handle exception ([e4761c9](https://github.com/rodekruis/IBF-system/commit/e4761c9db3f66175ea9957ca17f96beab61e1ee1))
-* import path error ([92588f0](https://github.com/rodekruis/IBF-system/commit/92588f09be5e773f9b9d89048379c82f79943ed0))
-* set-trigger endpoint return updateresult ([15cbbb4](https://github.com/rodekruis/IBF-system/commit/15cbbb4cff21da8a2d7c09a7363d39ddcc9fc5c1))
-* sql syntax error and remove unused code ([9402404](https://github.com/rodekruis/IBF-system/commit/94024049b3e4177012468f89e3e5a91be523e7c7))
-
-
-### Features
-
-* add alert level ([d3131f5](https://github.com/rodekruis/IBF-system/commit/d3131f5f61a282af01708d7bd0f1e313d342f071))
-* admin area dynamic data should return trigger based on alert level ([4d83ee8](https://github.com/rodekruis/IBF-system/commit/4d83ee86e2558cb175186b09c866d56746d1937c))
-* alert level per admin area ([c0f28a0](https://github.com/rodekruis/IBF-system/commit/c0f28a0ad4f0e03a07e758e98539dd03f1363ca5))
-* allow closing events triggered by user ([421222f](https://github.com/rodekruis/IBF-system/commit/421222f1e75559ff6f4b248794ba072b0afc158e))
-* do not close user triggered event areas ([e9c31c7](https://github.com/rodekruis/IBF-system/commit/e9c31c7a5cbb0fedd3d744076f444392d9e941d5))
-* remove alert class from activation log ([ff1cd23](https://github.com/rodekruis/IBF-system/commit/ff1cd23ffcb44249d268fe4d8dccebfdee515934))
-* sort notification content by alert level ([e19452a](https://github.com/rodekruis/IBF-system/commit/e19452ad4d2c54cddc3c755e583e5f0ef3cf7ce7))
-* use alert level in whatsapp notifications ([4d9c27d](https://github.com/rodekruis/IBF-system/commit/4d9c27dda6ed86674b64f74765d387023d4bdbe0))
 
 
 
