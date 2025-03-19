@@ -6,6 +6,8 @@ import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-are
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
+import { DisasterTypeModule } from '../disaster-type/disaster-type.module';
+import { MetadataModule } from '../metadata/metadata.module';
 import { TyphoonTrackModule } from '../typhoon-track/typhoon-track.module';
 import { UserEntity } from '../user/user.entity';
 import { CountryModule } from './../country/country.module';
@@ -22,6 +24,8 @@ import { EventService } from './event.service';
     CountryModule,
     EapActionsModule,
     TyphoonTrackModule,
+    DisasterTypeModule,
+    MetadataModule,
     TypeOrmModule.forFeature([
       EventPlaceCodeEntity,
       AlertPerLeadTimeEntity,

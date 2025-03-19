@@ -1,6 +1,7 @@
 .debug-container {
   outline: 1px dashed hotpink;
 }
+
 .debug-placeholder {
   display: flex;
 
@@ -61,7 +62,6 @@ app-export-view {
           --inner-padding-end: 0px;
 
           ion-button {
-            --box-shadow: none;
             text-transform: uppercase;
             opacity: 1;
             padding-inline-start: 0px;

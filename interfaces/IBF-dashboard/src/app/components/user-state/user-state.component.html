@@ -2,7 +2,7 @@
   <ion-row class="ion-justify-content-between ion-align-items-center">
     <div>
       <ion-title
-        class="uppercase-text"
+        class="uppercase-text font-[Montserrat]"
         size="medium"
         data-testid="heading-display-name-label"
       >
@@ -18,13 +18,15 @@
               {{ showEnvironmentLabel(environmentConfiguration) }}
             </strong>
           }
-          @if (isLoggedIn && disasterType?.alertLevel) {
+        </span>
+        @if (isLoggedIn && disasterType?.alertLevel) {
+          <div class="inline-block align-middle">
             <ion-icon
               src="/assets/icons/Alert_Title_Purple.svg"
               slot="start"
             ></ion-icon>
-          }
-        </span>
+          </div>
+        }
       </ion-title>
     </div>
     <div class="ion-align-items-center">
@@ -33,36 +35,38 @@
         <ion-item lines="none">
           <ion-col class="ion-no-padding">
             @if (isLoggedIn) {
-              <ion-title size="small" class="ion-no-padding"
-                >Logged In As:</ion-title
+              <ion-title
+                size="small"
+                class="ion-no-padding"
+                (click)="presentPopover()"
               >
+                {{ 'user-state.logged-in-as' | translate }}
+              </ion-title>
               <ion-title
                 size="small"
                 data-testid="user-display-name"
-                class="ion-no-padding"
+                class="ion-no-padding cursor-pointer font-bold hover:underline"
+                (click)="presentPopover()"
               >
-                <strong
-                  (click)="presentPopover()"
-                  style="cursor: pointer; text-decoration: underline"
-                  >{{ authService.displayName }}</strong
-                >
+                {{ authService.displayName }}
               </ion-title>
             }
           </ion-col>
         </ion-item>
         @if (isLoggedIn) {
-          <app-ibf-button
+          <ion-button
             data-testid="user-state-logout-button"
-            [title]="'Log Out'"
-            [attr.aria-label]="'Log Out'"
+            class="user-state-log-out-button"
             size="small"
-            backgroundColor="ibf-primary"
+            shape="round"
+            fill="outline"
+            strong="true"
+            color="fiveten-navy-900"
             (click)="doLogout()"
             data-test="logout-button"
           >
-            <span class="ion-hide-sm-down">Log Out</span>
-            <ion-icon name="log-out" slot="end"></ion-icon>
-          </app-ibf-button>
+            {{ 'user-state.log-out' | translate }}
+          </ion-button>
         }
       </ion-row>
     </div>

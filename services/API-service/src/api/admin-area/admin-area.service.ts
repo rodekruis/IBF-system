@@ -12,6 +12,7 @@ import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indica
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { EventService } from '../event/event.service';
@@ -31,6 +32,7 @@ export class AdminAreaService {
     private helperService: HelperService,
     private eventService: EventService,
     private eventAreaService: EventAreaService,
+    private disasterTypeService: DisasterTypeService,
   ) {}
 
   public async addOrUpdateAdminAreas(
@@ -193,8 +195,7 @@ export class AdminAreaService {
       .select(['area."placeCode"', 'area."placeCodeParent"'])
       .leftJoin(AdminAreaDataEntity, 'data', 'area.placeCode = data.placeCode')
       .addSelect(['data."indicator"', 'data."value"'])
-      .where('area."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
-      .andWhere('area."adminLevel" = :adminLevel', { adminLevel });
+      .where({ countryCodeISO3, adminLevel });
 
     if (placeCodeParent) {
       staticIndicatorsScript.andWhere(
@@ -208,7 +209,7 @@ export class AdminAreaService {
         { placeCodes },
       );
     }
-    const staticIndicators = await staticIndicatorsScript.getRawMany();
+    const areasWithStaticIndicators = await staticIndicatorsScript.getRawMany();
 
     let dynamicIndicatorsScript = this.adminAreaRepository
       .createQueryBuilder('area')
@@ -219,12 +220,20 @@ export class AdminAreaService {
         'area.placeCode = dynamic.placeCode',
       )
       .addSelect(['dynamic."indicator"', 'dynamic."value"'])
-      .where('area."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
-      .andWhere('timestamp >= :cutoffMoment', {
-        cutoffMoment: lastUploadDate.cutoffMoment,
+      .leftJoin(EventPlaceCodeEntity, 'epc', 'area.id = epc.adminAreaId')
+      .addSelect([
+        'epc."forecastSeverity"',
+        'epc."forecastTrigger"',
+        'epc."userTrigger"',
+      ])
+      .where({
+        countryCodeISO3,
+        adminLevel,
       })
-      .andWhere('"disasterType" = :disasterType', { disasterType })
-      .andWhere('area."adminLevel" = :adminLevel', { adminLevel });
+      .andWhere('dynamic."disasterType" = :disasterType', { disasterType })
+      .andWhere('dynamic.timestamp >= :cutoffMoment', {
+        cutoffMoment: lastUploadDate.cutoffMoment,
+      });
 
     if (placeCodeParent) {
       dynamicIndicatorsScript.andWhere(
@@ -249,14 +258,20 @@ export class AdminAreaService {
       );
     }
 
-    const dynamicIndicators = await dynamicIndicatorsScript.getRawMany();
-    return staticIndicators.concat(dynamicIndicators);
-  }
+    let areasWithDynamicIndicators = await dynamicIndicatorsScript.getRawMany();
+    areasWithDynamicIndicators.forEach((area) => {
+      area.alertLevel = this.eventService.getAlertLevel(area);
+    });
+    const highestAlertLevels = this.eventService.getHighestAlertLevelPerEvent(
+      areasWithDynamicIndicators,
+    );
+    areasWithDynamicIndicators = areasWithDynamicIndicators.filter(
+      (area) =>
+        area.alertLevel === highestAlertLevels[area.eventName || 'unknown'],
+    );
 
-  private async getDisasterType(
-    disasterType: DisasterType,
-  ): Promise<DisasterTypeEntity> {
-    return this.disasterTypeRepository.findOne({ where: { disasterType } });
+    // REFACTOR: the returned records still include forecastTrigger etc, which were needed to get alertLevel, but no need to return them also. This whole method is unnecessarily complex, so better to refactor as a whole.
+    return areasWithStaticIndicators.concat(areasWithDynamicIndicators);
   }
 
   public async getAdminAreasRaw(countryCodeISO3: string) {
@@ -281,7 +296,8 @@ export class AdminAreaService {
     eventName: string,
     placeCodeParent?: string,
   ): Promise<GeoJson> {
-    const disasterTypeEntity = await this.getDisasterType(disasterType);
+    const disasterTypeEntity =
+      await this.disasterTypeService.getDisasterType(disasterType);
     const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
@@ -372,10 +388,16 @@ export class AdminAreaService {
       );
     }
 
-    const adminAreas = await adminAreasScript.getRawMany();
+    let adminAreas = await adminAreasScript.getRawMany();
     adminAreas.forEach((area) => {
       area.alertLevel = this.eventService.getAlertLevel(area);
     });
+    const highestAlertLevels =
+      this.eventService.getHighestAlertLevelPerEvent(adminAreas);
+    adminAreas = adminAreas.filter(
+      (area) =>
+        area.alertLevel === highestAlertLevels[area.eventName || 'unknown'],
+    );
     return this.helperService.toGeojson(adminAreas);
   }
 

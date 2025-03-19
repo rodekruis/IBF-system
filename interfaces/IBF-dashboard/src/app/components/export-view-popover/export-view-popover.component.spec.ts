@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { ExportViewPopoverComponent } from 'src/app/components/export-view-popover/export-view-popover.component';
 
 describe('ExportViewPopoverComponent', () => {
@@ -9,7 +10,7 @@ describe('ExportViewPopoverComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ExportViewPopoverComponent],
-      imports: [IonicModule],
+      imports: [IonicModule, TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExportViewPopoverComponent);

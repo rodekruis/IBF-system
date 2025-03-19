@@ -15,6 +15,7 @@ import {
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { AlertArea } from 'src/app/types/alert-area';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
 import { LastUploadDate } from 'src/app/types/last-upload-date';
@@ -39,6 +40,7 @@ export class EventSummary {
   duration?: number;
   disasterSpecificProperties: DisasterSpecificProperties;
   header?: string;
+  alertAreas?: AlertArea[];
   nrAlertAreas?: number;
   mainExposureValueSum?: number;
   alertLevel: AlertLevel;
@@ -240,6 +242,7 @@ export class EventService {
           : null;
 
         event.duration = this.getEventDuration(event);
+        event.nrAlertAreas = event.alertAreas?.length;
       }
     }
 

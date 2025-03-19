@@ -6,19 +6,18 @@
       (click)="closePopover()"
       class="popover-close-button"
     ></ion-icon>
-    @if (!hasSetTriggerPermission) {
-      <ion-card-title>{{
-        'set-trigger-component.no-access.header' | translate
-      }}</ion-card-title>
-    } @else if (popoverStep === 'select-areas') {
-      <ion-card-title>{{
-        'set-trigger-component.select-areas.header' | translate
-      }}</ion-card-title>
-    } @else if (popoverStep === 'confirm') {
-      <ion-card-title>{{
-        'set-trigger-component.confirm.header' | translate
-      }}</ion-card-title>
-    }
+    <ion-card-title class="font-[Montserrat] font-semibold">
+      <div class="inline-block align-middle">
+        <ion-icon name="warning"></ion-icon>
+      </div>
+      @if (!hasSetTriggerPermission) {
+        {{ 'set-trigger-component.no-access.header' | translate }}
+      } @else if (popoverStep === 'select-areas') {
+        {{ 'set-trigger-component.select-areas.header' | translate }}
+      } @else {
+        {{ 'set-trigger-component.confirm.header' | translate }}
+      }
+    </ion-card-title>
   </ion-card-header>
   <ion-card-content class="ion-padding-top ion-text-center">
     @if (!hasSetTriggerPermission) {
@@ -42,7 +41,6 @@
             'set-trigger-component.select-areas.content'
               | translate
                 : {
-                    eventName: eventName,
                     forecastSourceLabel: forecastSource?.label || 'Unknown',
                     forecastSourceUrl: forecastSource?.url || '#',
                     adminAreaLabelPlural: adminAreaLabelPlural,
@@ -71,22 +69,35 @@
       </ion-item>
     } @else if (popoverStep === 'select-areas') {
       <ion-item lines="none">
-        <span
-          [innerHTML]="
-            'set-trigger-component.select-areas.content'
-              | translate
-                : {
-                    eventName: eventName,
-                    forecastSourceLabel: forecastSource?.label || 'Unknown',
-                    forecastSourceUrl: forecastSource?.url || '#',
-                    adminAreaLabelPlural: adminAreaLabelPlural,
-                  }
-          "
-        >
-        </span>
+        @if (forecastSource?.setTriggerSource) {
+          <span
+            [innerHTML]="
+              'set-trigger-component.select-areas.content'
+                | translate
+                  : {
+                      setTriggerSource: forecastSource?.setTriggerSource,
+                      adminAreaLabelPlural,
+                      eapLink,
+                    }
+            "
+          >
+          </span>
+        } @else {
+          <span
+            [innerHTML]="
+              'set-trigger-component.select-areas.content-no-source'
+                | translate
+                  : {
+                      adminAreaLabelPlural,
+                      eapLink,
+                    }
+            "
+          >
+          </span>
+        }
       </ion-item>
       <ion-item lines="none">
-        <ion-label>
+        <ion-label class="mb-0 font-[Montserrat] font-semibold">
           {{
             'set-trigger-component.select-areas.select-areas'
               | translate: { adminAreaLabelPlural }
@@ -95,14 +106,15 @@
       </ion-item>
       <ion-list class="background-light ion-no-padding">
         @for (area of areas; track area) {
-          <ion-item lines="none">
+          <ion-item lines="none" class="area-item">
             <ion-checkbox
               slot="start"
               color="ibf-primary"
               [(ngModel)]="selectedAreas[area.name]"
               name="selectedAreas[{{ area.name }}]"
+              class="m-2"
             ></ion-checkbox>
-            <ion-label class="ion-text-wrap"
+            <ion-label class="ion-text-wrap m-0"
               >{{ area.name }}
               @if (area.mainExposureValue && area.mainExposureValue > 0) {
                 {{ ' - ' }}
@@ -118,7 +130,7 @@
     } @else if (popoverStep === 'confirm') {
       <ion-item
         lines="none"
-        class="font-bold"
+        class="font-[Montserrat] font-semibold"
         [innerHTML]="'set-trigger-component.confirm.note' | translate"
       >
       </ion-item>
@@ -137,6 +149,7 @@
           color="ibf-primary"
           [(ngModel)]="understood"
           name="understood"
+          class="mr-2"
         ></ion-checkbox>
         <ion-label class="ion-text-wrap"
           >{{ 'set-trigger-component.confirm.understand' | translate }}

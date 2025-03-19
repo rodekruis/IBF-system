@@ -5,7 +5,10 @@ import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { CardColors } from 'src/app/components/chat/chat.component';
 import { SetTriggerPopoverComponent } from 'src/app/components/set-trigger-popover/set-trigger-popover.component';
-import { DisasterType, ForecastSource } from 'src/app/models/country.model';
+import {
+  CountryDisasterSettings,
+  DisasterType,
+} from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { User } from 'src/app/models/user/user.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
@@ -37,7 +40,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()
   public disasterType: DisasterType;
   @Input()
-  public forecastSource: ForecastSource;
+  public countryDisasterSettings: CountryDisasterSettings;
   @Input()
   public countryCodeISO3: string;
   @Input()
@@ -81,11 +84,30 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
 
     if (this.event) {
       this.event.header = this.getHeader(this.event);
+      this.event.mainExposureValueSum = this.getEventMainExposureValue(
+        this.event,
+        this.mainExposureIndicatorNumberFormat,
+      );
     }
   }
 
   ngOnDestroy() {
     this.placeCodeHoverSubscription.unsubscribe();
+  }
+
+  private getEventMainExposureValue(
+    event: EventSummary,
+    mainExposureIndicatorNumberFormat: NumberFormat,
+  ) {
+    const sum = event.alertAreas?.reduce(
+      (acc, alertArea) => acc + alertArea.mainExposureValue,
+      0,
+    );
+    // NOTE: this is a temporary solution, as this actually needs a weighted average. At least this is better than sum.
+    if (mainExposureIndicatorNumberFormat === NumberFormat.perc) {
+      return sum / event.alertAreas?.length || 1;
+    }
+    return sum;
   }
 
   public selectArea(area: AlertArea) {
@@ -192,8 +214,8 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       translucent: true,
       showBackdrop: true,
       componentProps: {
-        forecastSource: this.forecastSource,
-        eventName: this.event.eventName.split('_')[0],
+        forecastSource: this.countryDisasterSettings?.forecastSource,
+        eapLink: this.countryDisasterSettings?.eapLink,
         adminAreaLabelPlural: this.adminAreaLabelPlural,
         areas: this.areas,
         mainExposureIndicatorNumberFormat:

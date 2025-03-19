@@ -73,7 +73,7 @@
           [mainExposureIndicatorNumberFormat]="
             mainExposureIndicatorNumberFormat
           "
-          [forecastSource]="countryDisasterSettings?.forecastSource"
+          [countryDisasterSettings]="countryDisasterSettings"
           [cardColors]="getCardColors(event)"
         ></app-event-speech-bubble>
       }
@@ -86,12 +86,7 @@
       [isSelected]="true"
     >
       <ion-row>
-        <ion-col
-          class="flex flex-row gap-2"
-          size-lg="8"
-          size-md="12"
-          size-sm="8"
-        >
+        <ion-col class="flex flex-row gap-2">
           <div class="event-header">
             <span class="event-header--icon-title">
               <ion-icon
@@ -118,37 +113,35 @@
             </span>
           </div>
         </ion-col>
-        <ion-col size-lg="4" size-md="12" size-sm="4">
+        <ion-col size-lg="auto" size-md="auto" size-sm="auto">
           @if (placeCode) {
-            <app-ibf-button
+            <ion-button
               (click)="revertAreaSelection()"
-              backgroundColor="ibf-primary"
+              color="ibf-primary"
               size="small"
-              class="ion-float-right"
+              shape="round"
             >
               <span class="ion-hide-sm-down">{{
-                'chat-component.common.revert-selection' | translate
+                'chat-component.common.back' | translate
               }}</span>
               <ion-icon name="arrow-back" slot="start"></ion-icon>
-            </app-ibf-button>
+            </ion-button>
           }
         </ion-col>
       </ion-row>
       @if (area.mainExposureValue) {
         <ion-note size="small">
           <span
+            class="font-semibold"
             data-testid="main-exposure-indicator"
             [innerHTML]="
               'chat-component.' + disasterTypeName + '.active-event.exposed'
                 | translate
             "
           ></span>
-          <strong>
-            {{
-              area.mainExposureValue
-                | compact: mainExposureIndicatorNumberFormat
-            }}
-          </strong>
+          {{
+            area.mainExposureValue | compact: mainExposureIndicatorNumberFormat
+          }}
         </ion-note>
       } @else {
         <ion-note size="small">
@@ -178,16 +171,17 @@
         !countryDisasterSettings.enableEarlyActions || !area.eapActions.length
       ) {
         <ion-item class="background-light">
-          <ion-label class="ion-text-wrap">
-            {{
+          <ion-label
+            class="ion-text-wrap"
+            [innerHTML]="
               'chat-component.common.save-actions.no-actions'
                 | translate
                   : {
                       adminAreaLabelPlural,
                     }
-            }}</ion-label
-          ></ion-item
-        >
+            "
+          ></ion-label
+        ></ion-item>
       } @else if (area.eapActions.length) {
         <form (submit)="submitEapAction(area.placeCode)">
           <ion-list class="background-light">
@@ -222,18 +216,21 @@
             }
           </ion-list>
           <ion-row class="ion-nowrap ion-align-items-center ion-margin-top">
-            <app-ibf-button
-              [disabled]="area.submitDisabled"
-              backgroundColor="ibf-primary"
-              type="submit"
-              style="width: 100%"
-              strong="true"
-            >
-              {{
-                'chat-component.common.save-actions.submit-button-label'
-                  | translate
-              }}
-            </app-ibf-button>
+            <ion-col>
+              <ion-button
+                [disabled]="area.submitDisabled"
+                color="ibf-primary"
+                type="submit"
+                expand="full"
+                strong="true"
+                shape="round"
+              >
+                {{
+                  'chat-component.common.save-actions.submit-button-label'
+                    | translate
+                }}
+              </ion-button>
+            </ion-col>
           </ion-row>
         </form>
       }

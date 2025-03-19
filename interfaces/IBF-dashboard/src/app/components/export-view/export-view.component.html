@@ -1,13 +1,13 @@
-<app-ibf-button
-  [title]="'Export View'"
-  [attr.aria-label]="'Export View'"
+<ion-button
   (click)="presentPopover()"
+  class="export-view-button"
   data-testid="export-view-button"
   size="small"
   strong="true"
-  backgroundColor="ibf-white"
-  borderColor="ibf-no-alert-secondary"
-  textColor="ibf-black"
+  expand="full"
+  shape="round"
+  fill="outline"
+  color="fiveten-neutral-900"
 >
-  <span class="ion-hide-sm-down">Export View</span>
-</app-ibf-button>
+  {{ 'export-view.title' | translate }}
+</ion-button>

@@ -22,7 +22,7 @@ import { environment } from 'src/environments/environment';
 })
 export class SetTriggerPopoverComponent {
   @Input()
-  public eventName: string;
+  public eapLink: string;
   @Input()
   public forecastSource: ForecastSource;
   @Input()
@@ -84,12 +84,9 @@ export class SetTriggerPopoverComponent {
     });
 
     this.apiService.setTrigger(eventPlaceCodeIds).subscribe({
-      next: () =>
-        this.actionResult(
-          this.translateService.instant(
-            `set-trigger-component.confirm.success`,
-          ) as string,
-        ),
+      next: () => {
+        window.location.reload();
+      },
       error: () =>
         this.actionResult(
           this.translateService.instant(

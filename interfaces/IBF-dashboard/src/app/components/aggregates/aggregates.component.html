@@ -4,7 +4,14 @@
       class="component-title"
       style="background: var(--ion-color-ibf-secondary)"
     >
-      <ion-col class="ion-no-padding" size-lg="11" size-md="11" size-xs="11">
+      <ion-col
+        class="ion-no-padding"
+        size-xl="10"
+        size-lg="9"
+        size-md="12"
+        size-sm="11"
+        size-xs="11"
+      >
         <ion-item
           lines="none"
           class="component-title-item"
@@ -34,25 +41,23 @@
           </ion-col>
         </ion-item>
       </ion-col>
-      <ion-col size-lg="1" size-md="1" size-xs="1">
+      <ion-col size-xl="2" size-lg="3" size-md="0" size-sm="1" size-xs="1">
         <ion-item
           class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
           data-testid="aggregates-header-info-icon"
           color="transparent"
           lines="none"
         >
-          <ion-label>
-            <app-disclaimer-approximate
-              data-testid="aggregates-disclaimer"
-            ></app-disclaimer-approximate>
-          </ion-label>
+          <app-disclaimer-approximate
+            data-testid="aggregates-disclaimer"
+          ></app-disclaimer-approximate>
         </ion-item>
       </ion-col>
     </ion-row>
     <div data-testid="aggregate-list">
       @for (indicator of indicators; track indicator.name) {
         <ion-row data-testid="aggregates-row" class="ion-no-padding">
-          <ion-col size-lg="7" size-md="7" size-xs="7">
+          <ion-col size-xl="6" size-lg="5" size-md="8" size-sm="9" size-xs="9">
             <ion-item
               class="aggregate-item ion-no-padding font-size-12"
               color="ibf-white"
@@ -77,9 +82,11 @@
           </ion-col>
           <ion-col
             data-testid="aggregates-affected-number"
+            size-xl="4"
             size-lg="4"
             size-md="4"
-            size-xs="4"
+            size-sm="2"
+            size-xs="2"
           >
             <ion-item
               class="aggregate-item-value ion-no-padding font-size-12"
@@ -110,8 +117,10 @@
             </ion-item>
           </ion-col>
           <ion-col
-            size-lg="1"
-            size-md="1"
+            size-xl="2"
+            size-lg="3"
+            size-md="0"
+            size-sm="1"
             size-xs="1"
             [title]="'aggregates-component.more-information' | translate"
           >
@@ -120,16 +129,20 @@
               data-testid="aggregates-info-icon"
               color="ibf-white"
             >
-              <ion-label>
-                <img
-                  alt="More information"
-                  class="mx-auto my-0 w-5"
-                  src="assets/icons/source-info.svg"
-                  (click)="moreInfo(indicator)"
-                  (keydown.enter)="moreInfo(indicator)"
-                  tabindex="0"
-                />
-              </ion-label>
+              <ion-button
+                class="m-auto"
+                fill="clear"
+                shape="round"
+                size="small"
+                (click)="moreInfo(indicator)"
+                (keydown.enter)="moreInfo(indicator)"
+              >
+                <ion-icon
+                  color="fiveten-navy-900"
+                  icon="information-circle-outline"
+                  slot="icon-only"
+                ></ion-icon>
+              </ion-button>
             </ion-item>
           </ion-col>
         </ion-row>

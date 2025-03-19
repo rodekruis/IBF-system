@@ -20,7 +20,7 @@ import { UpdateResult } from 'typeorm';
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
-import { AlertArea, EventSummaryCountry } from '../../shared/data.model';
+import { EventSummaryCountry } from '../../shared/data.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
@@ -110,34 +110,6 @@ export class EventController {
     return await this.eventService.getAlertPerLeadTime(
       params.countryCodeISO3,
       params.disasterType,
-      query.eventName,
-    );
-  }
-
-  @UseGuards(RolesGuard)
-  @ApiOperation({
-    summary:
-      'Get alerted admin-areas for given country, disaster-type, admin-level (and event-name).',
-  })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
-  @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiQuery({ name: 'eventName', required: false, type: 'string' })
-  @ApiResponse({
-    status: 200,
-    description:
-      'Alerted admin-areas for given country, disaster-type, admin-level (and event-name).',
-    type: [AlertArea],
-  })
-  @Get('alert-areas/:countryCodeISO3/:adminLevel/:disasterType')
-  public async getAlertAreas(
-    @Param() params,
-    @Query() query,
-  ): Promise<AlertArea[]> {
-    return await this.eventService.getAlertAreas(
-      params.countryCodeISO3,
-      params.disasterType,
-      params.adminLevel,
       query.eventName,
     );
   }

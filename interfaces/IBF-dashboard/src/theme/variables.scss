@@ -11,9 +11,10 @@
 
 // custom font
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap');
 
 :root {
-  --ion-font-family: 'Montserrat', sans-serif;
+  --ion-font-family: 'Open Sans', sans-serif;
 
   --ion-color-ibf-primary: var(--ion-color-ibf-trigger-alert-primary);
   --ion-color-ibf-primary-rgb: var(--ion-color-ibf-trigger-alert-primary-rgb);
@@ -297,6 +298,7 @@
 
   ion-button {
     text-transform: none;
+    --box-shadow: none;
   }
 
   --breadcrumb-height: 24px;

@@ -10,6 +10,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { EventSpeechBubbleComponent } from 'src/app/components/event-speech-bubble/event-speech-bubble.component';
 import { MOCK_ALERT_AREAS } from 'src/app/mocks/alert-areas.mock';
 import { MOCK_EVENT_STATE } from 'src/app/mocks/event-state.mock';
+import { CountryDisasterSettings } from 'src/app/models/country.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 
 fdescribe('EventSpeechBubbleComponent', () => {
@@ -54,7 +55,12 @@ fdescribe('EventSpeechBubbleComponent', () => {
 
     // Set any required input properties
     component.event = MOCK_EVENT_STATE.event;
-    component.forecastSource = { label: 'Test Source', url: 'http://test.com' };
+    component.countryDisasterSettings = new CountryDisasterSettings();
+    component.countryDisasterSettings.forecastSource = {
+      label: 'Test Source',
+      url: 'http://test.com',
+    };
+    component.countryDisasterSettings.eapLink = 'http://test.com';
     component.adminAreaLabelPlural = 'Districts';
     component.areas = MOCK_ALERT_AREAS;
 
@@ -96,8 +102,8 @@ fdescribe('EventSpeechBubbleComponent', () => {
         jasmine.objectContaining({
           component: jasmine.any(Function),
           componentProps: jasmine.objectContaining({
-            eventName: component.event.eventName,
-            forecastSource: component.forecastSource,
+            forecastSource: component.countryDisasterSettings.forecastSource,
+            eapLink: component.countryDisasterSettings.eapLink,
             adminAreaLabelPlural: component.adminAreaLabelPlural,
             areas: component.areas,
             hasSetTriggerPermission: expectedHasSetTriggerPermission,
@@ -120,8 +126,8 @@ fdescribe('EventSpeechBubbleComponent', () => {
         jasmine.objectContaining({
           component: jasmine.any(Function),
           componentProps: jasmine.objectContaining({
-            eventName: component.event.eventName,
-            forecastSource: component.forecastSource,
+            forecastSource: component.countryDisasterSettings.forecastSource,
+            eapLink: component.countryDisasterSettings.eapLink,
             adminAreaLabelPlural: component.adminAreaLabelPlural,
             areas: component.areas,
             hasSetTriggerPermission: expectedHasSetTriggerPermission,

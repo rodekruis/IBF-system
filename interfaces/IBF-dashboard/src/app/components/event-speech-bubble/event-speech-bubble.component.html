@@ -40,9 +40,9 @@
     </p>
 
     <p>
-      <strong
+      <span class="font-semibold"
         >{{ event.disasterSpecificProperties.eapAlertClass.label }}:
-      </strong>
+      </span>
       @if (typhoonLandfallText) {
         <span [innerHTML]="typhoonLandfallText"></span>
       } @else {
@@ -62,39 +62,38 @@
           'chat-component.common.alertLevel.set-by' | translate: event
         "
       ></p>
-    } @else if (forecastSource) {
+    } @else if (countryDisasterSettings?.forecastSource) {
       <p>
-        <strong
-          >{{ 'chat-component.common.alertLevel.source' | translate }} </strong
-        ><a href="{{ forecastSource.url }}">{{ forecastSource.label }}</a>
+        <span class="font-semibold"
+          >{{ 'chat-component.common.alertLevel.source' | translate }} </span
+        ><a href="{{ countryDisasterSettings?.forecastSource.url }}">{{
+          countryDisasterSettings?.forecastSource.label
+        }}</a>
       </p>
     }
     <p>
-      <strong
+      <span class="font-semibold"
         >{{
           'chat-component.common.alertLevel.exposed-areas'
             | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
         }}
-      </strong>
+      </span>
       <span>{{ event.nrAlertAreas + ' ' }}</span>
-      @if (mainExposureIndicatorNumberFormat !== 'perc') {
-        @if (event.mainExposureValueSum) {
-          <span>{{
-            '(' +
-              (mainExposureIndicatorLabel | titlecase) +
-              ' ' +
-              (event.mainExposureValueSum | compact) +
-              ')'
-          }}</span>
-        } @else {
-          <span>
-            {{
-              '(' +
-                ('chat-component.common.alertLevel.no-data' | translate) +
-                ')'
-            }}
-          </span>
-        }
+      @if (event.mainExposureValueSum) {
+        <span>{{
+          '(' +
+            (mainExposureIndicatorLabel | titlecase) +
+            ' ' +
+            (event.mainExposureValueSum
+              | compact: mainExposureIndicatorNumberFormat) +
+            ')'
+        }}</span>
+      } @else {
+        <span>
+          {{
+            '(' + ('chat-component.common.alertLevel.no-data' | translate) + ')'
+          }}
+        </span>
       }
     </p>
 
@@ -132,10 +131,14 @@
           event.alertLevel !== 'trigger'
         ) {
           <ion-button
-            class="w-full max-w-sm font-bold"
+            class="set-trigger-button"
             shape="round"
             slot="start"
             size="small"
+            strong="true"
+            expand="full"
+            fill="outline"
+            color="fiveten-red-700"
             (click)="openSetTriggerPopover()"
             >{{
               'chat-component.common.set-trigger.btn-text' | translate

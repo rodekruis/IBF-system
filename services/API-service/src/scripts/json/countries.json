@@ -33,7 +33,8 @@
           },
           "med": {
             "label": "Medium warning issued",
-            "color": "ibf-orange",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
             "value": 0.7
           },
           "max": {
@@ -1211,7 +1212,8 @@
         },
         "forecastSource": {
           "label": "Global ECMWF",
-          "url": "https://www.ecmwf.int"
+          "url": "https://www.ecmwf.int",
+          "setTriggerSource": "the Lesotho Methodological Services OND season rainfall observation and Food Insecurity Index (LVAC)"
         },
         "enableEarlyActions": false,
         "showMonthlyEapActions": true,

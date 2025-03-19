@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
 import { DisasterTypeEntity } from './disaster-type.entity';
+import { DisasterType } from './disaster-type.enum';
 import {
   AddDisasterTypesDto,
   DisasterTypeDto,
@@ -13,6 +14,25 @@ import {
 export class DisasterTypeService {
   @InjectRepository(DisasterTypeEntity)
   private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
+
+  public async getDisasterType(
+    disasterType: DisasterType,
+  ): Promise<DisasterTypeEntity> {
+    return await this.disasterTypeRepository.findOne({
+      where: { disasterType },
+    });
+  }
+
+  public async getMainExposureIndicator(
+    disasterType: DisasterType,
+  ): Promise<string> {
+    return (
+      await this.disasterTypeRepository.findOne({
+        select: ['mainExposureIndicator'],
+        where: { disasterType },
+      })
+    ).mainExposureIndicator;
+  }
 
   public async addOrUpdateDisasterTypes(
     disasterTypes: AddDisasterTypesDto,
