@@ -7,7 +7,7 @@ import { NotificationDataPerEventDto } from './notification-date-per-event.dto';
 export class ContentEventEmail {
   public disasterType: DisasterType;
   public disasterTypeLabel: string;
-  public indicatorMetadata: IndicatorMetadataEntity;
+  public mainExposureIndicatorMetadata: IndicatorMetadataEntity;
   public linkEapSop: string;
   public dataPerEvent: NotificationDataPerEventDto[];
   public defaultAdminLevel: number;

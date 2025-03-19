@@ -14,12 +14,18 @@ graph LR
   EventModule-->EapActionsModule
   EventModule-->TyphoonTrackModule
   TyphoonTrackModule-->UserModule
+  EventModule-->DisasterTypeModule
+  DisasterTypeModule-->UserModule
+  EventModule-->MetadataModule
+  MetadataModule-->UserModule
+  MetadataModule-->CountryModule
+  MetadataModule-->DisasterTypeModule
   AdminAreaModule-->CountryModule
+  AdminAreaModule-->DisasterTypeModule
   AdminAreaDynamicDataModule-->UserModule
   AdminAreaDynamicDataModule-->EventModule
   AdminAreaDynamicDataModule-->CountryModule
   AdminAreaDynamicDataModule-->AdminAreaModule
-  DisasterTypeModule-->UserModule
   ProcessPipelineModule-->UserModule
   ProcessPipelineModule-->EventModule
   ProcessPipelineModule-->NotificationModule
@@ -33,11 +39,11 @@ graph LR
   NotificationContentModule-->AdminAreaDataModule
   AdminAreaDataModule-->UserModule
   NotificationContentModule-->AdminAreaModule
+  NotificationContentModule-->DisasterTypeModule
+  NotificationContentModule-->MetadataModule
+  WhatsappModule-->MetadataModule
   NotificationModule-->NotificationContentModule
   NotificationModule-->TyphoonTrackModule
-  MetadataModule-->UserModule
-  MetadataModule-->CountryModule
-  MetadataModule-->EventModule
   PointDataModule-->UserModule
   PointDataModule-->WhatsappModule
   LinesDataModule-->UserModule

@@ -98,43 +98,40 @@ export class AlertAreaService {
         this.placeCode,
       );
       if (adminLevelType !== AdminLevelType.higher) {
-        this.getAlertAreasApi();
+        this.loadAlertAreas();
       }
     } else {
-      this.getAlertAreasApi();
+      this.loadAlertAreas();
     }
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode) => {
     this.placeCode = placeCode;
-    this.getAlertAreasApi();
+    this.loadAlertAreas();
   };
 
-  private getAlertAreasApi() {
+  private loadAlertAreas() {
     if (
       this.country &&
       this.disasterType &&
       this.timelineState &&
       this.eventState
     ) {
-      // This makes sure that if placeCode is set, that adminLevel is used below (which affects e.g. the chat-section) ..
-      // .. which is 1 adminLevel highr than the one used in the map ..
-      // .. if not set yet (so on highest adminLevel), then the chat-section uses the same level as the map (namely the defaultAdminLevel)
-      const adminLevelToUse =
-        this.placeCode?.adminLevel ||
-        this.countryDisasterSettings.defaultAdminLevel;
-      this.apiService
-        .getAlertAreas(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-          adminLevelToUse,
-          this.eventState.event?.eventName,
-        )
-        .subscribe(this.onAlertAreas);
+      if (this.eventState?.event) {
+        this.processAlertAreas(this.eventState.event.alertAreas);
+      } else if (this.eventState?.events.length) {
+        // Multiple events case - concatenate all alertAreas arrays
+        const allAlertAreas = this.eventState.events.flatMap(
+          (event) => event.alertAreas || [],
+        );
+        this.processAlertAreas(allAlertAreas);
+      } else {
+        this.processAlertAreas([]);
+      }
     }
   }
 
-  private onAlertAreas = (alertAreas: AlertArea[]) => {
+  private processAlertAreas = (alertAreas: AlertArea[]) => {
     this.alertAreas = alertAreas;
     this.alertAreas.sort((a, b) => {
       if (a.forecastSeverity === b.forecastSeverity) {
@@ -170,6 +167,7 @@ export class AlertAreaService {
         });
       });
     }
+    // REFACTOR: there is no longer need for a subscription here, as this data is not retrieved from API here, but already earlier known. Clean up the subscription chain.
     this.alertAreaSubject.next(this.alertAreas);
   };
 

@@ -79,24 +79,21 @@
         }}
       </span>
       <span>{{ event.nrAlertAreas + ' ' }}</span>
-      @if (mainExposureIndicatorNumberFormat !== 'perc') {
-        @if (event.mainExposureValueSum) {
-          <span>{{
-            '(' +
-              (mainExposureIndicatorLabel | titlecase) +
-              ' ' +
-              (event.mainExposureValueSum | compact) +
-              ')'
-          }}</span>
-        } @else {
-          <span>
-            {{
-              '(' +
-                ('chat-component.common.alertLevel.no-data' | translate) +
-                ')'
-            }}
-          </span>
-        }
+      @if (event.mainExposureValueSum) {
+        <span>{{
+          '(' +
+            (mainExposureIndicatorLabel | titlecase) +
+            ' ' +
+            (event.mainExposureValueSum
+              | compact: mainExposureIndicatorNumberFormat) +
+            ')'
+        }}</span>
+      } @else {
+        <span>
+          {{
+            '(' + ('chat-component.common.alertLevel.no-data' | translate) + ')'
+          }}
+        </span>
       }
     </p>
 
