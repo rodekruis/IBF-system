@@ -122,7 +122,7 @@
         "update-success": "State of early action(s) successfully updated.",
         "update-failure": "Failed to update state of early action(s).",
         "prompt-button-label": "OK",
-        "no-actions": "<span class='semi-bold'>Advisory:</span> inform all potentially exposed {{ adminAreaLabelPlural }} and follow the local protocols.",
+        "no-actions": "<span class='font-semibold'>Advisory:</span> inform all potentially exposed {{ adminAreaLabelPlural }} and follow the local protocols.",
         "no-actions-admin-level": "Early actions are only available on {{ defaultAdminAreaLabel }} level."
       },
       "alertLevel": {
