@@ -43,7 +43,7 @@ export default defineConfig({
         token: process.env.AZURE_DEVOPS_TOKEN,
         planId: 31870,
         projectName: 'IBF',
-        environment: 'AQA',
+        environment: 'CI',
         logging: true,
         testRunTitle: 'Playwright Test Suite',
         publishTestResultsMode: 'testRun',
@@ -51,7 +51,7 @@ export default defineConfig({
         attachmentsType: ['screenshot', 'video', 'trace'],
         testRunConfig: {
           owner: {
-            displayName: 'Krajewski, Piotr',
+            displayName: process.env.AZURE_TEST_OWNER,
           },
           comment: 'Playwright Test Suite',
           configurationIds,
