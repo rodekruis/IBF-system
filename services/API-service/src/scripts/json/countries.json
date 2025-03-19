@@ -1213,7 +1213,7 @@
         "forecastSource": {
           "label": "Global ECMWF",
           "url": "https://www.ecmwf.int",
-          "setTriggerSource": "the Lesotho Methodological Services OND season rainfall observation and Food Insecurity Index (LVAC)"
+          "setTriggerSource": "the Lesotho Methodological Services seasonal forecast"
         },
         "enableEarlyActions": false,
         "showMonthlyEapActions": true,
