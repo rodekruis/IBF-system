@@ -7,13 +7,21 @@
       class="popover-close-button"
     ></ion-icon>
     @if (popoverStep === 'select-areas') {
-      <ion-card-title>{{
-        'set-trigger-component.select-areas.header' | translate
-      }}</ion-card-title>
+      <ion-card-title class="font-[Montserrat] font-semibold">
+        <div class="inline-block align-middle">
+          <ion-icon name="warning"></ion-icon>
+        </div>
+        {{
+          'set-trigger-component.select-areas.header' | translate
+        }}</ion-card-title
+      >
     } @else if (popoverStep === 'confirm') {
-      <ion-card-title>{{
-        'set-trigger-component.confirm.header' | translate
-      }}</ion-card-title>
+      <ion-card-title class="font-[Montserrat] font-semibold">
+        <div class="inline-block align-middle">
+          <ion-icon name="warning"></ion-icon>
+        </div>
+        {{ 'set-trigger-component.confirm.header' | translate }}</ion-card-title
+      >
     }
   </ion-card-header>
   <ion-card-content class="ion-padding-top ion-text-center">
@@ -47,7 +55,7 @@
         }
       </ion-item>
       <ion-item lines="none">
-        <ion-label>
+        <ion-label class="mb-0 font-[Montserrat] font-semibold">
           {{
             'set-trigger-component.select-areas.select-areas'
               | translate: { adminAreaLabelPlural }
@@ -56,14 +64,15 @@
       </ion-item>
       <ion-list class="background-light ion-no-padding">
         @for (area of areas; track area) {
-          <ion-item lines="none">
+          <ion-item lines="none" class="area-item">
             <ion-checkbox
               slot="start"
               color="ibf-primary"
               [(ngModel)]="selectedAreas[area.name]"
               name="selectedAreas[{{ area.name }}]"
+              class="m-2"
             ></ion-checkbox>
-            <ion-label class="ion-text-wrap"
+            <ion-label class="ion-text-wrap m-0"
               >{{ area.name }}
               @if (area.mainExposureValue && area.mainExposureValue > 0) {
                 {{ ' - ' }}
@@ -79,7 +88,7 @@
     } @else if (popoverStep === 'confirm') {
       <ion-item
         lines="none"
-        class="font-bold"
+        class="font-[Montserrat] font-semibold"
         [innerHTML]="'set-trigger-component.confirm.note' | translate"
       >
       </ion-item>
@@ -98,6 +107,7 @@
           color="ibf-primary"
           [(ngModel)]="understood"
           name="understood"
+          class="mr-2"
         ></ion-checkbox>
         <ion-label class="ion-text-wrap"
           >{{ 'set-trigger-component.confirm.understand' | translate }}
