@@ -1,4 +1,5 @@
 {
+  "configurationId": 74,
   "country": {
     "code": "UGA",
     "name": "Uganda",
@@ -22,7 +23,8 @@
       "name": "red_cross_branches",
       "label": "Red Cross branches",
       "legendLabels": ["Red Cross branches"],
-      "active": false
+      "active": false,
+      "type": "point"
     }
   ],
   "timeline": {
@@ -31,6 +33,5 @@
   },
   "eap": {
     "actions": false
-  },
-  "configurationId": 74
+  }
 }

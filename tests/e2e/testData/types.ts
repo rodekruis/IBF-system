@@ -21,7 +21,7 @@ export interface Layer {
   label: string;
   legendLabels: string[];
   active: boolean;
-  type: string; // 'raster' | 'admin-area' / 'point'
+  type: string; // 'raster' | 'admin-area' | 'point'
 }
 
 export interface Timeline {
