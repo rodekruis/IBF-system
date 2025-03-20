@@ -1,6 +1,7 @@
 // import * as fs from 'fs';
 import { Injectable } from '@nestjs/common';
 
+// import { formatISO } from 'date-fns';
 import Mailchimp from 'mailchimp-api-v3';
 
 import { EventSummaryCountry } from '../../../shared/data.model';
@@ -64,14 +65,14 @@ export class EmailService {
     if (noNotifications) {
       // NOTE: use this to test the email output instead of using Mailchimp
       // fs.writeFileSync(
-      //   `email-${country.countryCodeISO3}-${disasterType}-${new Date()}.html`,
+      //   `email-${country.countryCodeISO3}-${disasterType}-${formatISO(new Date())}.html`,
       //   emailHtml,
       // );
       return emailHtml;
     }
     let emailSubject = `IBF ${emailContent.disasterTypeLabel} alert`;
     if (process.env.NODE_ENV !== 'production') {
-      emailSubject += ` - NON-PRODUCTION`;
+      emailSubject += ` - ${process.env.NODE_ENV.toUpperCase()}`;
     }
     this.sendEmail(
       emailSubject,
