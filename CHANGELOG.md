@@ -1,3 +1,19 @@
+# [0.303.0](https://github.com/rodekruis/IBF-system/compare/v0.302.2...v0.303.0) (2025-03-20)
+
+
+### Bug Fixes
+
+* event speech bubble style changes ([e5cf5bd](https://github.com/rodekruis/IBF-system/commit/e5cf5bdbcc83da34dc668b552533dac319531717))
+* padding for event speech bubble text ([46f055e](https://github.com/rodekruis/IBF-system/commit/46f055e9e3ce47fbc88e7cd1ee35445603610753))
+* use dashboard colours in emails ([416cf6c](https://github.com/rodekruis/IBF-system/commit/416cf6c2dfd7ec955b565f1d0a5cdeece8050858))
+
+
+### Features
+
+* notify on set-trigger AB[#34600](https://github.com/rodekruis/IBF-system/issues/34600) ([da70627](https://github.com/rodekruis/IBF-system/commit/da706271bb05793134dd64d667e8b4551d1284b3))
+
+
+
 ## [0.302.2](https://github.com/rodekruis/IBF-system/compare/v0.302.1...v0.302.2) (2025-03-20)
 
 
@@ -114,28 +130,6 @@
 
 * put back filter on leadTimes in deleteDuplicates alerts-per-lead-time ([00b27d4](https://github.com/rodekruis/IBF-system/commit/00b27d42303a7c116169dd3756c123888c819bcd))
 * query only alert-per-lead-time of exact last pipeline run ([6e3636e](https://github.com/rodekruis/IBF-system/commit/6e3636e68ab1855ecf3faf6b0739e77dfdbddf95))
-
-
-
-# [0.298.0](https://github.com/rodekruis/IBF-system/compare/v0.297.1...v0.298.0) (2025-03-13)
-
-
-### Bug Fixes
-
-* change advisory text to generic 'protocol' ([56a140d](https://github.com/rodekruis/IBF-system/commit/56a140dbea6085bfa246e25bb5caf2fe84db9fe2))
-* e2e tests ([90abaae](https://github.com/rodekruis/IBF-system/commit/90abaaeec9a5773fe074c896ccc61d51688a471a))
-* forecast source typo ([1d779f0](https://github.com/rodekruis/IBF-system/commit/1d779f0614ad59718e8e215d28b861058c99f28a))
-* set firstTriggerLeadTime equal to firstLeadTime if userTrigger AB[#34312](https://github.com/rodekruis/IBF-system/issues/34312) ([e9b9f7b](https://github.com/rodekruis/IBF-system/commit/e9b9f7b4a66248c4d488ec1240b52dc3d49005f9))
-* test ([584b01e](https://github.com/rodekruis/IBF-system/commit/584b01e0459192f4728abecf5e73a5d5a9691a41))
-* unit test ([4dc5033](https://github.com/rodekruis/IBF-system/commit/4dc50337acaa1a3bd763e7e52c0c978a17a540c9))
-
-
-### Features
-
-* add timeline tooltip ([72782c7](https://github.com/rodekruis/IBF-system/commit/72782c728e9b08d0bd74f4d22a14ef3ed8420b20))
-* disaster icon should be purple for warnings ([db391d2](https://github.com/rodekruis/IBF-system/commit/db391d2de9a16cf0b8d4c29afca9c53916ff9eb4))
-* forecast source/set by in email + create test /notify endpoint AB[#34312](https://github.com/rodekruis/IBF-system/issues/34312) ([682b8d8](https://github.com/rodekruis/IBF-system/commit/682b8d85ab7c113422edffec7896d90f816274f6))
-* show 'set by' and 'forecastSource' conditional on userTrigger AB[#34116](https://github.com/rodekruis/IBF-system/issues/34116) AB[#34117](https://github.com/rodekruis/IBF-system/issues/34117) ([a7d7e29](https://github.com/rodekruis/IBF-system/commit/a7d7e29723049ba66f1059f79f7cef065d2ae9cb))
 
 
 
