@@ -1,12 +1,12 @@
 @if (multipleActiveEvents()) {
   @if (event?.eventName === selectedEventName && !showLessButton()) {
-    <p class="text-center italic">
+    <div class="mt-2 text-center italic">
       {{
         'chat-component.' +
           disasterTypeName +
           '.event-switcher.current-event-message' | translate
       }}
-    </p>
+    </div>
   }
   @if (event?.eventName === selectedEventName && showLessButton()) {
     <ion-button
