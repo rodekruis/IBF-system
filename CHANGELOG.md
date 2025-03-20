@@ -1,3 +1,12 @@
+## [0.302.2](https://github.com/rodekruis/IBF-system/compare/v0.302.1...v0.302.2) (2025-03-20)
+
+
+### Reverts
+
+* Revert "Update test descriptions" ([f54fc85](https://github.com/rodekruis/IBF-system/commit/f54fc854f4487b527b66898133b729cd5df8978e))
+
+
+
 ## [0.302.1](https://github.com/rodekruis/IBF-system/compare/v0.302.0...v0.302.1) (2025-03-19)
 
 
@@ -127,16 +136,6 @@
 * disaster icon should be purple for warnings ([db391d2](https://github.com/rodekruis/IBF-system/commit/db391d2de9a16cf0b8d4c29afca9c53916ff9eb4))
 * forecast source/set by in email + create test /notify endpoint AB[#34312](https://github.com/rodekruis/IBF-system/issues/34312) ([682b8d8](https://github.com/rodekruis/IBF-system/commit/682b8d85ab7c113422edffec7896d90f816274f6))
 * show 'set by' and 'forecastSource' conditional on userTrigger AB[#34116](https://github.com/rodekruis/IBF-system/issues/34116) AB[#34117](https://github.com/rodekruis/IBF-system/issues/34117) ([a7d7e29](https://github.com/rodekruis/IBF-system/commit/a7d7e29723049ba66f1059f79f7cef065d2ae9cb))
-
-
-
-## [0.297.1](https://github.com/rodekruis/IBF-system/compare/v0.297.0...v0.297.1) (2025-03-12)
-
-
-### Bug Fixes
-
-* disable submit if checkbox not checked ([f3d988c](https://github.com/rodekruis/IBF-system/commit/f3d988cd1c303f7a3e0f132bd8eb2fa77307e94c))
-* update all event.forecastTrigger and alertArea.forecastTrigger references + rm some unused code AB[#34111](https://github.com/rodekruis/IBF-system/issues/34111) ([41b1a30](https://github.com/rodekruis/IBF-system/commit/41b1a3057bd067c44bd5b7c77158bbf219b0ea2b))
 
 
 
