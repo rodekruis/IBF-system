@@ -5,6 +5,15 @@ inputs:
   mailchimp-api-key:
     description: 'Mailchimp API key'
     required: true
+  azure-dev-url:
+    description: 'Azure DevOps URL'
+    required: true
+  azure-devops-token:
+    description: 'Azure DevOps token'
+    required: true
+  azure-test-owner:
+    description: 'Azure test owner'
+    required: true
 
 runs:
   using: composite
@@ -70,6 +79,9 @@ runs:
       working-directory: ./tests/e2e
       env:
         DASHBOARD_URL: http://localhost:4200
+        AZURE_DEV_URL: ${{ inputs.azure-dev-url }}
+        AZURE_DEVOPS_TOKEN: ${{ inputs.azure-devops-token }}
+        AZURE_TEST_OWNER: ${{ inputs.azure-test-owner }}
       run: npm test
 
     - uses: actions/upload-artifact@v4

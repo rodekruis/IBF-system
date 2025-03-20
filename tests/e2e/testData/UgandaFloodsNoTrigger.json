@@ -1,4 +1,5 @@
 {
+  "configurationId": 72,
   "country": {
     "code": "UGA",
     "name": "Uganda",
@@ -28,13 +29,22 @@
       "name": "red_cross_branches",
       "label": "Red Cross branches",
       "legendLabels": ["Red Cross branches"],
-      "active": false
+      "active": false,
+      "type": "point"
     },
     {
       "name": "glofas_stations",
       "label": "Glofas stations",
       "legendLabels": ["GloFAS No action"],
-      "active": true
+      "active": true,
+      "type": "point"
     }
-  ]
+  ],
+  "timeline": {
+    "dateFormat": "ccc dd",
+    "dateUnit": "days"
+  },
+  "eap": {
+    "actions": false
+  }
 }

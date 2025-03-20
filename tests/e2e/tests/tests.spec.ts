@@ -60,6 +60,7 @@ test.describe('E2E Tests', () => {
     // UgandaDroughtNoTrigger, // Disable until deemed valuable, as it is very similar to floods no-trigger
     UgandaDroughtWarning,
   ];
+
   datasets.forEach((dataset) => {
     const {
       country: { code },
@@ -73,7 +74,7 @@ test.describe('E2E Tests', () => {
     const pages: Partial<Pages> = {};
     const components: Partial<Components> = {};
 
-    test.describe(`Dataset: ${email} ${code} ${disasterType.name} ${scenario}`, () => {
+    test.describe(`Dataset ${dataset.configurationId}: ${email} ${code} ${disasterType.name} ${scenario}`, () => {
       const date = new Date();
 
       test.beforeAll(async ({ browser }) => {
