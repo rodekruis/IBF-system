@@ -234,7 +234,7 @@
           "no-landfall": "It has already reached the point closest to land. It is not predicted to make landfall."
         },
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
-        "exposed": "Affected population:"
+        "exposed": "Exposed population:"
       },
       "event-switcher": {
         "current-event-message": "The portal is currently showing this event.",
@@ -250,7 +250,7 @@
         "header": "Trigger for {{firstLeadTimeDate}}",
         "header-ongoing": "Trigger, ongoing",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
-        "exposed": "Potential cases: up to"
+        "exposed": "Potential cases:"
       },
       "event-switcher": {
         "current-event-message": "The portal is currently showing this event.",

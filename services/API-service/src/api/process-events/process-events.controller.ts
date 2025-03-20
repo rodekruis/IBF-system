@@ -17,19 +17,23 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { UpdateResult } from 'typeorm';
+
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
+import { SetTriggerDto } from '../event/dto/event-place-code.dto';
 import { NotificationApiTestResponseDto } from '../notification/dto/notification-api-test-response.dto';
 import { UserRole } from '../user/user-role.enum';
+import { UserDecorator } from '../user/user.decorator';
 import { ProcessEventsDto } from './dto/process-events.dto';
-import { ProcessPipelineService } from './process-pipeline.service';
+import { ProcessEventsService } from './process-events.service';
 
 @ApiBearerAuth()
 @ApiTags('event')
 @Controller()
-export class ProcessPipelineController {
+export class ProcessEventsController {
   public constructor(
-    private readonly processPipelineService: ProcessPipelineService,
+    private readonly processEventsService: ProcessEventsService,
   ) {}
 
   // NOTE: remove after  all pipelines migrated to /event/process
@@ -48,7 +52,7 @@ export class ProcessPipelineController {
     @Body() closeEventsDto: ProcessEventsDto,
   ): Promise<void> {
     // NOTE: this old endpoint will also point to this new method already
-    await this.processPipelineService.processEvents(
+    await this.processEventsService.processEvents(
       closeEventsDto.countryCodeISO3,
       closeEventsDto.disasterType,
       true, // Make sure to only send notifications once in transition period for pipelines that currently have /close-events & /notification/send
@@ -84,7 +88,7 @@ export class ProcessPipelineController {
     )
     noNotifications: boolean,
   ): Promise<void | NotificationApiTestResponseDto> {
-    return await this.processPipelineService.processEvents(
+    return await this.processEventsService.processEvents(
       processEventsDto.countryCodeISO3,
       processEventsDto.disasterType,
       noNotifications,
@@ -114,7 +118,7 @@ export class ProcessPipelineController {
   @ApiConsumes()
   @UseInterceptors()
   public async send(
-    @Body() sendNotification: ProcessEventsDto,
+    @Body() processEventsDto: ProcessEventsDto,
     @Query(
       'noNotifications',
       new ParseBoolPipe({
@@ -123,9 +127,9 @@ export class ProcessPipelineController {
     )
     noNotifications: boolean,
   ): Promise<void | NotificationApiTestResponseDto> {
-    return await this.processPipelineService.processEvents(
-      sendNotification.countryCodeISO3,
-      sendNotification.disasterType,
+    return await this.processEventsService.processEvents(
+      processEventsDto.countryCodeISO3,
+      processEventsDto.disasterType,
       noNotifications,
     );
   }
@@ -152,7 +156,7 @@ export class ProcessPipelineController {
   @ApiConsumes()
   @UseInterceptors()
   public async notify(
-    @Body() sendNotification: ProcessEventsDto,
+    @Body() processEventsDto: ProcessEventsDto,
     @Query(
       'noNotifications',
       new ParseBoolPipe({
@@ -161,10 +165,28 @@ export class ProcessPipelineController {
     )
     noNotifications: boolean,
   ): Promise<void | NotificationApiTestResponseDto> {
-    return await this.processPipelineService.notify(
-      sendNotification.countryCodeISO3,
-      sendNotification.disasterType,
+    return await this.processEventsService.notify(
+      processEventsDto.countryCodeISO3,
+      processEventsDto.disasterType,
       noNotifications,
     );
+  }
+
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.LocalAdmin)
+  @ApiOperation({
+    summary: 'Set trigger for event admin-areas and send notifications.',
+  })
+  @ApiResponse({
+    status: 201,
+    description:
+      'Event admin-areas are set to trigger and notifications are sent.',
+  })
+  @Post('events/set-trigger')
+  public async setTrigger(
+    @UserDecorator('userId') userId: string,
+    @Body() setTriggerDto: SetTriggerDto,
+  ): Promise<UpdateResult> {
+    return await this.processEventsService.setTrigger(userId, setTriggerDto);
   }
 }

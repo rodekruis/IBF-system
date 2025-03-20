@@ -16,18 +16,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { UpdateResult } from 'typeorm';
-
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { EventSummaryCountry } from '../../shared/data.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
-import { UserDecorator } from '../user/user.decorator';
-import {
-  ActivationLogDto,
-  EventPlaceCodesDto,
-} from './dto/event-place-code.dto';
+import { ActivationLogDto } from './dto/event-place-code.dto';
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
 import {
   UploadAlertsPerLeadTimeDto,
@@ -135,21 +129,6 @@ export class EventController {
       query.countryCodeISO3,
       query.disasterType,
     );
-  }
-
-  @UseGuards(RolesGuard)
-  @Roles(UserRole.LocalAdmin)
-  @ApiOperation({ summary: 'Set trigger for event admin-areas.' })
-  @ApiResponse({
-    status: 201,
-    description: 'Event admin-areas are set to trigger.',
-  })
-  @Post('set-trigger')
-  public async setTrigger(
-    @UserDecorator('userId') userId: string,
-    @Body() eventPlaceCodesDto: EventPlaceCodesDto,
-  ): Promise<UpdateResult> {
-    return await this.eventService.setTrigger(userId, eventPlaceCodesDto);
   }
 
   // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-lead-time

@@ -13,14 +13,14 @@ interface AdminArea {
 }
 
 export const BODY_WIDTH = '768px';
-export const COLOR_PRIMARY = '#4f22d7';
+export const COLOR_PRIMARY = '#4f22d7'; // fiveten-purple-700
 export const COLOR_TERTIARY = '#cfbfff';
-export const COLOR_WHITE = '#ffffff';
+export const COLOR_WHITE = '#ffffff'; // fiveten-neutral-0
 export const COLOR_GREY = '#f4f5f8';
 export const COLOR_BROWN = '#241C15';
-const COLOR_WARNING_ORANGE = '#aa6009';
-const COLOR_WARNING_YELLOW = '#665606';
-const COLOR_TRIGGER_RED = '#8a0f32';
+const COLOR_WARNING_ORANGE = '#7a2d00'; // fiveten-orange-700
+const COLOR_WARNING_YELLOW = '#665606'; // fiveten-yellow-700
+const COLOR_TRIGGER_RED = '#c70000'; // fiveten-red-500
 
 const emailFolder = './src/api/notification/email';
 const emailIconFolder = `${emailFolder}/icons`;
@@ -341,6 +341,8 @@ export const getIbfHexColor = (
   if (color) {
     // TODO: Define in a place where FrontEnd and Backend can share this
     switch (color) {
+      case 'fiveten-orange-500':
+        return COLOR_WARNING_ORANGE;
       case 'ibf-orange':
         return COLOR_WARNING_ORANGE;
       case 'fiveten-yellow-500':

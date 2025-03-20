@@ -36,14 +36,6 @@ ion-checkbox {
   margin-top: 3px;
 }
 
-.containerDiv {
-  line-height: 1px;
-  margin: 0px 2px 0px 2px;
-  display: block;
-  text-align: center;
-  padding: 0em 1.4em;
-}
-
 .set-trigger-button {
   &::part(native) {
     background: var(--ion-color-ibf-white);

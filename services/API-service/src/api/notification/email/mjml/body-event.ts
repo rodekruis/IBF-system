@@ -19,7 +19,7 @@ import {
 } from '../../helpers/mjml.helper';
 
 const getMjmlBodyEvent = ({
-  color,
+  textColour,
   defaultAdminAreaLabel,
   disasterIssuedLabel,
   disasterTypeLabel,
@@ -38,7 +38,7 @@ const getMjmlBodyEvent = ({
   forecastSource,
   userTriggerData,
 }: {
-  color: string;
+  textColour: string;
   defaultAdminAreaLabel: string;
   disasterIssuedLabel: string;
   disasterTypeLabel: string;
@@ -60,7 +60,7 @@ const getMjmlBodyEvent = ({
   const icon = getInlineImage({ src: triangleIcon, size: 16 });
 
   const eventNameElement = getTextElement({
-    attributes: { color },
+    attributes: { color: textColour },
     content: `${icon} <strong data-testid="event-name">${disasterTypeLabel}: ${eventName}</strong>`,
   });
 
@@ -222,7 +222,7 @@ export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
           event.eapAlertClass?.label,
           event.triggerStatusLabel,
         ),
-        color: getIbfHexColor(
+        textColour: getIbfHexColor(
           event.eapAlertClass?.color,
           event.triggerStatusLabel,
         ),

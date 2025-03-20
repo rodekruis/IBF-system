@@ -125,27 +125,24 @@
         </ul>
       </div>
 
-      <div class="containerDiv">
-        @if (
-          disasterType.enableSetWarningToTrigger &&
-          event.alertLevel !== 'trigger'
-        ) {
-          <ion-button
-            class="set-trigger-button"
-            shape="round"
-            slot="start"
-            size="small"
-            strong="true"
-            expand="full"
-            fill="outline"
-            color="fiveten-red-700"
-            (click)="openSetTriggerPopover()"
-            >{{
-              'chat-component.common.set-trigger.btn-text' | translate
-            }}</ion-button
-          >
-        }
-      </div>
+      @if (
+        disasterType.enableSetWarningToTrigger && event.alertLevel !== 'trigger'
+      ) {
+        <ion-button
+          class="set-trigger-button"
+          shape="round"
+          slot="start"
+          size="small"
+          strong="true"
+          expand="full"
+          fill="outline"
+          color="fiveten-red-700"
+          (click)="openSetTriggerPopover()"
+          >{{
+            'chat-component.common.set-trigger.btn-text' | translate
+          }}</ion-button
+        >
+      }
     }
 
     @if (event) {

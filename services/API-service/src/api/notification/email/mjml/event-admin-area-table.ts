@@ -16,7 +16,7 @@ import {
 
 const getMjmlEventAdminAreaTable = ({
   disasterTypeLabel,
-  color,
+  textColour,
   defaultAdminAreaLabel,
   defaultAdminAreaParentLabel,
   indicatorMetadata,
@@ -25,7 +25,7 @@ const getMjmlEventAdminAreaTable = ({
   toCompactNumber,
 }: {
   disasterTypeLabel: string;
-  color: string;
+  textColour: string;
   defaultAdminAreaLabel: AdminAreaLabel;
   defaultAdminAreaParentLabel: AdminAreaLabel;
   indicatorMetadata: IndicatorMetadataEntity;
@@ -40,7 +40,7 @@ const getMjmlEventAdminAreaTable = ({
   const titleElement = getTextElement({
     content: `${icon} <strong>${severityLabel} ${event.triggerStatusLabel} ${disasterTypeLabel}: ${event.eventName}</strong>`,
     attributes: {
-      color,
+      color: textColour,
       'container-background-color': COLOR_WHITE,
       align: 'center',
       padding: '8px 24px',
@@ -127,7 +127,7 @@ export const getMjmlAdminAreaTableList = (
     adminAreaTableList.push(
       getMjmlEventAdminAreaTable({
         disasterTypeLabel: emailContent.disasterTypeLabel,
-        color: getIbfHexColor(
+        textColour: getIbfHexColor(
           event.eapAlertClass?.color,
           event.triggerStatusLabel,
         ),

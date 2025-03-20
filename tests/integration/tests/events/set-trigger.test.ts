@@ -47,6 +47,9 @@ describe('set trigger', () => {
     // NOTE: this sets all areas across multiple events at once, which is not a front-end use case, but does not matter for testing the functionality
     const setTriggerResult = await postSetTrigger(
       eventPlaceCodeIdsToSetTrigger,
+      countryCodeISO3,
+      disasterType,
+      true,
       accessToken,
     );
 
