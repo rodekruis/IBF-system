@@ -130,7 +130,7 @@
         </ion-col>
       </ion-row>
       @if (area.mainExposureValue) {
-        <ion-note size="small">
+        <ion-note size="small" color="ibf-black">
           <span
             class="font-semibold"
             data-testid="main-exposure-indicator"
@@ -153,7 +153,7 @@
         countryDisasterSettings.enableEarlyActions &&
         adminLevel > countryDisasterSettings.defaultAdminLevel
       ) {
-        <ion-item class="background-light">
+        <ion-item lines="none" class="background-light">
           <ion-label class="ion-text-wrap">
             {{
               'chat-component.common.save-actions.no-actions-admin-level'
@@ -170,15 +170,12 @@
       } @else if (
         !countryDisasterSettings.enableEarlyActions || !area.eapActions.length
       ) {
-        <ion-item class="background-light">
+        <ion-item lines="none" class="background-light">
           <ion-label
             class="ion-text-wrap"
             [innerHTML]="
               'chat-component.common.save-actions.no-actions'
-                | translate
-                  : {
-                      adminAreaLabelPlural,
-                    }
+                | translate: { adminAreaLabelPlural }
             "
           ></ion-label
         ></ion-item>
@@ -186,7 +183,7 @@
         <form (submit)="submitEapAction(area.placeCode)">
           <ion-list class="background-light">
             @for (action of area.eapActions; track action) {
-              <ion-item class="ion-no-padding">
+              <ion-item lines="full" class="p-0">
                 <ion-checkbox
                   slot="start"
                   color="ibf-primary"
@@ -215,13 +212,14 @@
               </ion-item>
             }
           </ion-list>
-          <ion-row class="ion-nowrap ion-align-items-center ion-margin-top">
+          <ion-row class="ion-nowrap ion-align-items-center">
             <ion-col>
               <ion-button
                 [disabled]="area.submitDisabled"
                 color="ibf-primary"
                 type="submit"
                 expand="full"
+                size="small"
                 strong="true"
                 shape="round"
               >

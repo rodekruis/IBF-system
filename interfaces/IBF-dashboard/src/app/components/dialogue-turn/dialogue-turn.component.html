@@ -3,9 +3,7 @@
 <div
   data-test="chat"
   class="dialogue-turn ion-align-items-start"
-  [ngClass]="{
-    'is-late': isLastUploadDateLate,
-  }"
+  [class.is-late]="isLastUploadDateLate"
 >
   <div class="dialogue-turn--content">
     <ion-card
@@ -18,11 +16,9 @@
       <ion-card-content data-testid="dialogue-turn-content" class="space-y-2">
         <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
         @if (firstIssuedDate) {
-          <small>
-            <ion-text class="ion-float-end">
-              First issued: {{ firstIssuedDate }}
-            </ion-text>
-          </small>
+          <ion-text class="float-right text-[10px]">
+            First issued: {{ firstIssuedDate }}
+          </ion-text>
         }
       </ion-card-content>
     </ion-card>

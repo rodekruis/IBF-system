@@ -1,65 +1,51 @@
 @if (multipleActiveEvents()) {
-  <div>
-    @if (event?.eventName === selectedEventName && !showLessButton()) {
-      <div>
-        <br />
-        <p>
-          <strong
-            [innerHtml]="
-              'chat-component.' +
-                disasterTypeName +
-                '.event-switcher.current-event-message' | translate
-            "
-          ></strong>
-        </p>
-      </div>
-    }
-    <div class="containerDiv">
-      @if (event?.eventName === selectedEventName && showLessButton()) {
-        <ion-button
-          class="max-w-sm"
-          [class.selected]="event?.eventName === selectedEventName"
-          shape="round"
-          slot="start"
-          color="ibf-trigger-alert-primary"
-          size="small"
-          (click)="switchEvent(event)"
-        >
-          <span
-            [innerHtml]="
-              'chat-component.' +
-                disasterTypeName +
-                '.event-switcher.current-event-message'
-                | translate
-                  : {
-                      eventName: event?.eventName,
-                    }
-            "
-          ></span>
-          <ion-icon name="arrow-back" slot="start"></ion-icon>
-        </ion-button>
-      }
-      @if (event?.eventName !== selectedEventName) {
-        <ion-button
-          data-testid="event-switch-button"
-          class="max-w-sm"
-          [class.selected]="event?.eventName === selectedEventName"
-          shape="round"
-          slot="start"
-          color="ibf-trigger-alert-primary"
-          size="small"
-          (click)="switchEvent(event)"
-        >
-          <span
-            [innerHtml]="
-              'chat-component.' +
-                disasterTypeName +
-                '.event-switcher.switch-event-button' | translate
-            "
-          ></span>
-          <ion-icon name="arrow-forward" slot="end"></ion-icon>
-        </ion-button>
-      }
-    </div>
-  </div>
+  @if (event?.eventName === selectedEventName && !showLessButton()) {
+    <p class="text-center italic">
+      {{
+        'chat-component.' +
+          disasterTypeName +
+          '.event-switcher.current-event-message' | translate
+      }}
+    </p>
+  }
+  @if (event?.eventName === selectedEventName && showLessButton()) {
+    <ion-button
+      [class.font-bold]="event?.eventName === selectedEventName"
+      shape="round"
+      slot="start"
+      color="ibf-trigger-alert-primary"
+      size="small"
+      expand="full"
+      (click)="switchEvent(event)"
+      class="mt-2"
+    >
+      {{
+        'chat-component.' +
+          disasterTypeName +
+          '.event-switcher.current-event-message' | translate: event
+      }}
+      <ion-icon name="arrow-back" slot="start"></ion-icon>
+    </ion-button>
+  }
+  @if (event?.eventName !== selectedEventName) {
+    <ion-button
+      data-testid="event-switch-button"
+      [class.font-bold]="event?.eventName === selectedEventName"
+      shape="round"
+      slot="start"
+      color="ibf-trigger-alert-primary"
+      size="small"
+      strong="true"
+      expand="full"
+      (click)="switchEvent(event)"
+      class="mt-2"
+    >
+      {{
+        'chat-component.' +
+          disasterTypeName +
+          '.event-switcher.switch-event-button' | translate
+      }}
+      <ion-icon name="arrow-forward" slot="end"></ion-icon>
+    </ion-button>
+  }
 }
