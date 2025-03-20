@@ -118,7 +118,7 @@ export class ProcessEventsController {
   @ApiConsumes()
   @UseInterceptors()
   public async send(
-    @Body() sendNotification: ProcessEventsDto,
+    @Body() processEventsDto: ProcessEventsDto,
     @Query(
       'noNotifications',
       new ParseBoolPipe({
@@ -128,8 +128,8 @@ export class ProcessEventsController {
     noNotifications: boolean,
   ): Promise<void | NotificationApiTestResponseDto> {
     return await this.processEventsService.processEvents(
-      sendNotification.countryCodeISO3,
-      sendNotification.disasterType,
+      processEventsDto.countryCodeISO3,
+      processEventsDto.disasterType,
       noNotifications,
     );
   }
@@ -156,7 +156,7 @@ export class ProcessEventsController {
   @ApiConsumes()
   @UseInterceptors()
   public async notify(
-    @Body() sendNotification: ProcessEventsDto,
+    @Body() processEventsDto: ProcessEventsDto,
     @Query(
       'noNotifications',
       new ParseBoolPipe({
@@ -166,8 +166,8 @@ export class ProcessEventsController {
     noNotifications: boolean,
   ): Promise<void | NotificationApiTestResponseDto> {
     return await this.processEventsService.notify(
-      sendNotification.countryCodeISO3,
-      sendNotification.disasterType,
+      processEventsDto.countryCodeISO3,
+      processEventsDto.disasterType,
       noNotifications,
     );
   }
