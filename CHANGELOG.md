@@ -1,3 +1,14 @@
+## [0.304.1](https://github.com/rodekruis/IBF-system/compare/v0.304.0...v0.304.1) (2025-03-21)
+
+
+### Bug Fixes
+
+* clean up copy ([aadb8e7](https://github.com/rodekruis/IBF-system/commit/aadb8e7881d2b481eab757d7ab0f2791517d7523))
+* final feedback restrict-access AB[#34596](https://github.com/rodekruis/IBF-system/issues/34596) ([c857ddd](https://github.com/rodekruis/IBF-system/commit/c857ddd10499e60e314b9cda5f612b3c4f43b35b))
+* geoserver styles ([e4dfc1a](https://github.com/rodekruis/IBF-system/commit/e4dfc1a19fb59bbcee515e85af02cd1c25ce38f9))
+
+
+
 # [0.304.0](https://github.com/rodekruis/IBF-system/compare/v0.303.0...v0.304.0) (2025-03-21)
 
 
@@ -129,15 +140,6 @@
 ### Features
 
 * hazard icon hover and change password popup ([e0855eb](https://github.com/rodekruis/IBF-system/commit/e0855ebc77ecc3783287dc0da5f2eadd95bcf819))
-
-
-
-## [0.298.2](https://github.com/rodekruis/IBF-system/compare/v0.298.1...v0.298.2) (2025-03-14)
-
-
-### Bug Fixes
-
-* update timeline-tooltip copy + style bullets AB[#34441](https://github.com/rodekruis/IBF-system/issues/34441) ([93d5eda](https://github.com/rodekruis/IBF-system/commit/93d5eda2a88d9c6cf1b9dc79a8ddf203284f658b))
 
 
 
