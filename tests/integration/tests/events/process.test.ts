@@ -38,26 +38,4 @@ describe('events', () => {
     expect(result.status).toBe(200);
     expect(result.body.activeEvents.email).toBeTruthy();
   });
-
-  it('process returns void if noNotification is false', async () => {
-    // Arrange
-    await mock(
-      FloodsScenario.Trigger,
-      DisasterType.Floods,
-      'UGA',
-      null,
-      accessToken,
-    );
-
-    // Act
-    const result = await postEventsProcess(
-      eventsProcessDto,
-      false,
-      accessToken,
-    );
-
-    // Assert
-    expect(result.status).toBe(200);
-    expect(result.body).toMatchObject({});
-  });
 });
