@@ -41,18 +41,20 @@
           </ion-col>
         </ion-item>
       </ion-col>
-      <ion-col size-xl="2" size-lg="3" size-md="0" size-sm="1" size-xs="1">
-        <ion-item
-          class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
-          data-testid="aggregates-header-info-icon"
-          color="transparent"
-          lines="none"
-        >
-          <app-disclaimer-approximate
-            data-testid="aggregates-disclaimer"
-          ></app-disclaimer-approximate>
-        </ion-item>
-      </ion-col>
+      @if (indicators.length) {
+        <ion-col size-xl="2" size-lg="3" size-md="0" size-sm="1" size-xs="1">
+          <ion-item
+            class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
+            data-testid="aggregates-header-info-icon"
+            color="transparent"
+            lines="none"
+          >
+            <app-disclaimer-approximate
+              data-testid="aggregates-disclaimer"
+            ></app-disclaimer-approximate>
+          </ion-item>
+        </ion-col>
+      }
     </ion-row>
     <div data-testid="aggregate-list">
       @for (indicator of indicators; track indicator.name) {

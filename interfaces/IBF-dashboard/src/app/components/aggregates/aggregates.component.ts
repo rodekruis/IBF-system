@@ -203,8 +203,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   public getAggregatesHeader(mapView: MapView) {
     if (!this.disasterType) {
       return {
-        headerLabel: mapView,
-        subHeaderLabel: mapView,
+        headerLabel: '',
+        subHeaderLabel: '',
       };
     }
 
