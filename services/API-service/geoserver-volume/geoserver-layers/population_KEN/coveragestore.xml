@@ -1,5 +1,5 @@
 <coverageStore>
-  <id>CoverageStoreInfoImpl--62f77a62:1762deea0b3:-7fef</id>
+  <id>CoverageStoreInfoImpl-14f5fc4c:195b7a6cf20:-7ff9</id>
   <name>population_KEN</name>
   <description>population_KEN</description>
   <type>GeoTIFF</type>
@@ -8,6 +8,7 @@
     <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
   </workspace>
   <__default>false</__default>
-  <dateCreated>2020-12-04 13:33:56.69 UTC</dateCreated>
-  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/hrsl_ken_pop_resized_100.tif</url>
+  <dateCreated>2025-03-21 07:46:28.861 UTC</dateCreated>
+  <disableOnConnFailure>false</disableOnConnFailure>
+  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/ken_population_2020.tif</url>
 </coverageStore>

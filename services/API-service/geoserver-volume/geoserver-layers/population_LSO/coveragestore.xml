@@ -1,12 +1,14 @@
 <coverageStore>
-  <id>CoverageStoreInfoImpl-6856175f:194734aebb7:-7f0b</id>
+  <id>CoverageStoreInfoImpl-14f5fc4c:195b7a6cf20:-7ffc</id>
   <name>population_LSO</name>
+  <description>population_LSO</description>
   <type>GeoTIFF</type>
   <enabled>true</enabled>
   <workspace>
     <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
   </workspace>
   <__default>false</__default>
-  <dateCreated>2025-01-17 15:07:27.87 UTC</dateCreated>
-  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/population_LSO.tif</url>
+  <dateCreated>2025-03-21 07:45:48.29 UTC</dateCreated>
+  <disableOnConnFailure>false</disableOnConnFailure>
+  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/lso_population_2020.tif</url>
 </coverageStore>

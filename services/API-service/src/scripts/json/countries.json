@@ -1204,7 +1204,7 @@
         ],
         "droughtSeasonRegions": {
           "National": {
-            "OND": {
+            "Drought": {
               "rainMonths": [10, 11, 12, 1, 2, 3],
               "actionMonths": [10, 11, 12, 1, 2, 3]
             }
@@ -1216,8 +1216,7 @@
           "setTriggerSource": "the Lesotho Methodological Services seasonal forecast"
         },
         "enableEarlyActions": false,
-        "showMonthlyEapActions": true,
-        "eapLink": "https://docs.google.com/document/d/1JcMDw4GKxZalnQeMNWB7ddaJjSbdP1y4/edit?usp=sharing&ouid=107924095834134705356&rtpof=true&sd=true"
+        "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=617501"
       }
     ],
     "adminRegionLabels": {
@@ -1235,7 +1234,7 @@
       }
     },
     "countryLogos": {
-      "drought": ["ZWE-ZRCS.png"]
+      "drought": ["LSO-LRCS.png"]
     },
     "countryBoundingBox": {
       "type": "Polygon",
