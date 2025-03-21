@@ -104,8 +104,8 @@
   "set-trigger-component": {
     "select-areas": {
       "header": "Set trigger",
-      "content": "This {{ eventName }} warning is based on the <a href='{{forecastSourceUrl}}'>{{ forecastSourceLabel }}</a> forecast. To set this warning as a trigger, please review {{setTriggerSource}}, and select the {{adminAreaLabelPlural}} where the <a href={{eapLink}}>Early Action Protocol</a> should be activated.",
-      "content-no-source": "This {{ eventName }} warning is based on the <a href='{{forecastSourceUrl}}'>{{ forecastSourceLabel }}</a> forecast. To set this warning as a trigger, select the {{adminAreaLabelPlural}} where the <a href={{eapLink}}>Early Action Protocol</a> should be activated.",
+      "content": "This {{ eventName }} warning is based on the <a href='{{forecastSourceUrl}}' target='_blank'>{{ forecastSourceLabel }}</a> forecast. To set this warning as a trigger, please review {{setTriggerSource}}, and select the {{adminAreaLabelPlural}} where the <a href={{eapLink}} target='_blank'>Early Action Protocol</a> should be activated.",
+      "content-no-source": "This {{ eventName }} warning is based on the <a href='{{forecastSourceUrl}}' target='_blank'>{{ forecastSourceLabel }}</a> forecast. To set this warning as a trigger, select the {{adminAreaLabelPlural}} where the <a href={{eapLink}} target='_blank'>Early Action Protocol</a> should be activated.",
       "select-areas": "Select {{adminAreaLabelPlural}}:",
       "checked-count": "{{adminAreaLabelPlural}} selected",
       "continue": "Continue",
