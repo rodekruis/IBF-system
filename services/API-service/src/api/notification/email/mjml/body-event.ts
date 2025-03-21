@@ -119,7 +119,7 @@ const getMjmlBodyEvent = ({
         ? `<strong>Advisory:</strong> Activate <a href="${eapLink}">Protocol</a>` // Not all implemtations have an EAP, so for now defaulting to more generic copy
         : `<strong>Advisory:</strong> Activate Protocol`
       : enableSetWarningToTrigger
-        ? `An IBF focal point user can set this warning as a trigger${forecastSource?.setTriggerSource ? ` based on ${forecastSource.setTriggerSource}` : ''}.`
+        ? `<strong>Advisory:</strong> An IBF focal point user can set this warning as a trigger${forecastSource?.setTriggerSource ? ` based on ${forecastSource.setTriggerSource}` : ''}.`
         : `<strong>Advisory:</strong> Inform all potentialy exposed ${defaultAdminAreaLabel}`,
   );
 
