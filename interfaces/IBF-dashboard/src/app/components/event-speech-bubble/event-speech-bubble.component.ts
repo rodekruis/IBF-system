@@ -55,7 +55,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   public cardColors: CardColors;
 
   public typhoonLandfallText: string;
-  public displayName: string;
   private placeCodeHoverSubscription: Subscription;
   public placeCodeHover: PlaceCode;
   public userRole: UserRole;
@@ -70,10 +69,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   ) {}
 
   ngAfterViewChecked() {
-    if (this.authService.displayName) {
-      this.displayName = this.authService.displayName;
-    }
-
     this.placeCodeHoverSubscription = this.placeCodeService
       .getPlaceCodeHoverSubscription()
       .subscribe(this.onPlaceCodeHoverChange);
