@@ -25,26 +25,26 @@
         ></app-tooltip>
       }
     </p>
-
-    <ion-col>
+    @if (lastUploadDate) {
       <ion-row>
-        <app-about-btn
-          style="width: 50%"
-          [btnLabel]="
-            'chat-component.' + disasterTypeName + '.about-button-label'
-              | translate
-          "
-        ></app-about-btn>
-        <app-ibf-guide-button style="width: 50%"></app-ibf-guide-button>
+        <ion-col size="6" size-md="12" size-lg="6">
+          <app-about-btn
+            [btnLabel]="'chat-component.common.about-button-label' | translate"
+          ></app-about-btn>
+        </ion-col>
+        <ion-col size="6" size-md="12" size-lg="6">
+          <app-activation-log-button
+            data-testid="trigger-log-button"
+          ></app-activation-log-button>
+        </ion-col>
+        <ion-col size="6" size-md="12" size-lg="6">
+          <app-ibf-guide-button></app-ibf-guide-button>
+        </ion-col>
+        <ion-col size="6" size-md="12" size-lg="6">
+          <app-export-view></app-export-view>
+        </ion-col>
       </ion-row>
-      <ion-row>
-        <app-activation-log-button
-          data-testid="trigger-log-button"
-          style="width: 50%"
-        ></app-activation-log-button>
-        <app-export-view style="width: 50%"></app-export-view>
-      </ion-row>
-    </ion-col>
+    }
   </app-dialogue-turn>
 
   @if (!eventState?.events?.length) {
