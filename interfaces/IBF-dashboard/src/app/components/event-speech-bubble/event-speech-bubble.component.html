@@ -12,9 +12,9 @@
           src="/assets/icons/Alert_Title.svg"
           slot="start"
         ></ion-icon>
-        <span [style.color]="cardColors.headerTextColor" class="">
-          {{ event.header }}
-        </span>
+        <span [style.color]="cardColors.headerTextColor">{{
+          event.header
+        }}</span>
       </span>
       <app-tooltip
         data-testid="tooltip-button"
@@ -68,19 +68,17 @@
           >{{ 'chat-component.common.alertLevel.source' | translate }} </span
         ><a
           target="_blank"
-          href="{{ countryDisasterSettings?.forecastSource.url }}"
+          [href]="countryDisasterSettings?.forecastSource.url"
           >{{ countryDisasterSettings?.forecastSource.label }}</a
         >
       </p>
     }
     <p>
-      <span class="font-semibold"
-        >{{
-          'chat-component.common.alertLevel.exposed-areas'
-            | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
-        }}
-      </span>
-      <span>{{ event.nrAlertAreas + ' ' }}</span>
+      <span class="font-semibold">{{
+        'chat-component.common.alertLevel.exposed-areas'
+          | translate: { adminAreaLabelPlural: adminAreaLabelPlural }
+      }}</span
+      >&nbsp;<span>{{ event.nrAlertAreas + ' ' }}</span>
       @if (event.mainExposureValueSum) {
         <span>{{
           '(' +
@@ -91,11 +89,9 @@
             ')'
         }}</span>
       } @else {
-        <span>
-          {{
-            '(' + ('chat-component.common.alertLevel.no-data' | translate) + ')'
-          }}
-        </span>
+        <span>{{
+          '(' + ('chat-component.common.alertLevel.no-data' | translate) + ')'
+        }}</span>
       }
     </p>
 
