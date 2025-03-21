@@ -1,39 +1,42 @@
 <ion-item lines="none" class="ion-no-padding">
-  @if (timelineState.timeStepButtons.length < 1) {
+  @if (timelineService.isLoading | async) {
     <ion-progress-bar
       type="indeterminate"
       color="ibf-grey"
       class="ion-margin"
     ></ion-progress-bar>
+  } @else {
+    @for (
+      timeStepButton of timelineState.timeStepButtons;
+      track timeStepButton.value
+    ) {
+      <ion-button
+        expand="full"
+        color="{{
+          timeStepButton.forecastAlert
+            ? 'ibf-trigger-alert-tertiary'
+            : 'ibf-no-alert-tertiary'
+        }}"
+        fill="solid"
+        data-testid="timeline-button"
+        [class.active]="timeStepButton.active"
+        [class.forecast-alert]="timeStepButton.forecastAlert"
+        class="pointer-events-none first:ml-0"
+      >
+        <app-date-button
+          [date]="timeStepButton.date"
+          [forecastAlert]="timeStepButton.forecastAlert"
+          [trigger]="timeStepButton.trigger"
+        ></app-date-button>
+      </ion-button>
+    }
+    @if (timelineState.timeStepButtons.length > 0) {
+      <app-tooltip
+        data-testid="tooltip-button"
+        class="event-header--tooltip"
+        [value]="'timeline-component.tooltip' | translate"
+        color="ibf-no-alert-primary"
+      ></app-tooltip>
+    }
   }
-  @for (
-    timeStepButton of timelineState.timeStepButtons;
-    track timeStepButton.value
-  ) {
-    <ion-button
-      expand="full"
-      color="{{
-        timeStepButton.forecastAlert
-          ? 'ibf-trigger-alert-tertiary'
-          : 'ibf-no-alert-tertiary'
-      }}"
-      fill="solid"
-      data-testid="timeline-button"
-      [class.active]="timeStepButton.active"
-      [class.forecast-alert]="timeStepButton.forecastAlert"
-      class="pointer-events-none first:ml-0"
-    >
-      <app-date-button
-        [date]="timeStepButton.date"
-        [forecastAlert]="timeStepButton.forecastAlert"
-        [trigger]="timeStepButton.trigger"
-      ></app-date-button>
-    </ion-button>
-  }
-  <app-tooltip
-    data-testid="tooltip-button"
-    class="event-header--tooltip"
-    [value]="'timeline-component.tooltip' | translate"
-    color="ibf-no-alert-primary"
-  ></app-tooltip>
 </ion-item>
