@@ -38,6 +38,8 @@ export class SetTriggerPopoverComponent {
   public countryCodeISO3: string;
   @Input()
   public disasterType: DisasterTypeKey;
+  @Input()
+  public eventName: string;
 
   public popoverStep = 'select-areas'; // 'select-areas' | 'confirm'
   public selectedAreas: Record<string, boolean> = {};
@@ -88,7 +90,7 @@ export class SetTriggerPopoverComponent {
       component: this.constructor.name,
     });
 
-    const noNotifications = false; // ##TODO
+    const noNotifications = false;
     this.apiService
       .setTrigger(
         eventPlaceCodeIds,
