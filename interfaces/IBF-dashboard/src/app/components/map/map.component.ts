@@ -287,7 +287,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.legend = new Control();
     this.legend.setPosition('bottomleft');
     this.legend.onAdd = () => {
-      this.legendDiv = DomUtil.create('div', 'info legend');
+      this.legendDiv = DomUtil.create('div', 'info legend invisible');
       this.legendDiv.innerHTML += this.mapLegendService.getLegendTitle();
       return this.legendDiv;
     };
@@ -298,6 +298,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private updateLegend() {
     if (!this.legendDiv) {
       return;
+    }
+
+    // show zoom control and legend when layers are shown
+    if (!this.map.options.zoomControl) {
+      this.map.options.zoomControl = true;
+      this.map.addControl(new Control.Zoom());
+      this.legendDiv.classList.remove('invisible');
     }
 
     const layersToShow = this.layers
