@@ -104,8 +104,8 @@
   "set-trigger-component": {
     "select-areas": {
       "header": "Set trigger",
-      "content": "To set this warning as a trigger, please review {{setTriggerSource}}, and select the {{adminAreaLabelPlural}} where the <a href={{eapLink}}>Early Action Protocol</a> should be activated.",
-      "content-no-source": "To set this warning as a trigger, select the {{adminAreaLabelPlural}} where the <a href={{eapLink}}>Early Action Protocol</a> should be activated.",
+      "content": "This {{ eventName }} warning is based on the <a href='{{forecastSourceUrl}}'>{{ forecastSourceLabel }}</a> forecast. To set this warning as a trigger, please review {{setTriggerSource}}, and select the {{adminAreaLabelPlural}} where the <a href={{eapLink}}>Early Action Protocol</a> should be activated.",
+      "content-no-source": "This {{ eventName }} warning is based on the <a href='{{forecastSourceUrl}}'>{{ forecastSourceLabel }}</a> forecast. To set this warning as a trigger, select the {{adminAreaLabelPlural}} where the <a href={{eapLink}}>Early Action Protocol</a> should be activated.",
       "select-areas": "Select {{adminAreaLabelPlural}}:",
       "checked-count": "{{adminAreaLabelPlural}} selected",
       "continue": "Continue",
@@ -114,7 +114,7 @@
     "confirm": {
       "header": "Set trigger - disclaimers",
       "note": "Important note:",
-      "bullet-list": "<ul><li>The {{adminAreaLabelPlural}} that are not included in the trigger will no longer appear in the portal.</li><li>This action cannot be undone.</li><li>This actions impacts what is shown in the portal for all users.</li><li>A notification regarding the trigger will be sent to all users.</li></ul>",
+      "bullet-list": "<ul><li>The {{adminAreaLabelPlural}} that are not included in the trigger will no longer appear in the portal.</li><li>This action cannot be undone.</li><li>This actions impacts what is shown in the portal for all users.</li><li>A notification regarding the trigger will be sent to all users once the IBF focal point decides to set a trigger.</li></ul>",
       "understand": "I understand that this action cannot be undone.",
       "continue": "Set trigger",
       "back": "Back",
@@ -166,9 +166,9 @@
       },
       "active-event": {
         "header": "Trigger: {{ eventName }} on {{firstTriggerLeadTimeDate}}",
-        "header-ongoing": "Trigger: {{ eventName }}, ongoing",
+        "header-ongoing": "Trigger: {{ eventName }} ongoing",
         "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
-        "header-ongoing-below-trigger": "Warning: {{ eventName }}, ongoing",
+        "header-ongoing-below-trigger": "Warning: {{ eventName }} ongoing",
         "first-warning-date": "Flood expected to start on {{firstLeadTimeDate}}",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:"
@@ -185,7 +185,7 @@
       },
       "active-event": {
         "header": "Trigger: {{ eventName }} on {{firstLeadTimeDate}}",
-        "header-ongoing": "Trigger: {{ eventName }}, ongoing",
+        "header-ongoing": "Trigger: {{ eventName }} ongoing",
         "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:"
@@ -203,8 +203,8 @@
       "active-event": {
         "header": "Trigger: {{ eventName }} in {{firstLeadTimeDate}}",
         "header-below-trigger": "Warning: {{ eventName }} on {{firstLeadTimeDate}}",
-        "header-ongoing": "Trigger: {{eventName}}, ongoing",
-        "header-ongoing-below-trigger": "Warning: {{eventName}}, ongoing",
+        "header-ongoing": "Trigger: {{eventName}} ongoing",
+        "header-ongoing-below-trigger": "Warning: {{eventName}} ongoing",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Exposed Population:"
       },
@@ -220,9 +220,9 @@
       },
       "active-event": {
         "header": "Trigger: {{ eventName }} at {{firstLeadTimeDate}}",
-        "header-ongoing": "Trigger: {{ eventName }}, ongoing",
+        "header-ongoing": "Trigger: {{ eventName }} ongoing",
         "header-below-trigger": "Warning: {{ eventName }} at {{firstLeadTimeDate}}",
-        "header-ongoing-below-trigger": "Warning: {{ eventName }}, ongoing",
+        "header-ongoing-below-trigger": "Warning: {{ eventName }} ongoing",
         "warning": "It is currently not predicted to reach trigger thresholds.",
         "upcoming-event": {
           "landfall": "It is expected to make landfall on {{ firstLeadTimeDate }}.",
@@ -248,7 +248,7 @@
       },
       "active-event": {
         "header": "Trigger for {{firstLeadTimeDate}}",
-        "header-ongoing": "Trigger, ongoing",
+        "header-ongoing": "Trigger ongoing",
         "place-name": "{{ adminAreaLabel }}: <strong>{{ placeName }}</strong>{{ parentName }}",
         "exposed": "Potential cases:"
       },

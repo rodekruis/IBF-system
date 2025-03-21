@@ -43,6 +43,9 @@
                 | translate
                   : {
                       setTriggerSource: forecastSource?.setTriggerSource,
+                      forecastSourceLabel: forecastSource?.label || 'Unkown',
+                      forecastSourceUrl: forecastSource?.url || '#',
+                      eventName,
                       adminAreaLabelPlural,
                       eapLink,
                     }
@@ -55,6 +58,9 @@
               'set-trigger-component.select-areas.content-no-source'
                 | translate
                   : {
+                      forecastSourceLabel: forecastSource?.label || 'Unkown',
+                      forecastSourceUrl: forecastSource?.url || '#',
+                      eventName,
                       adminAreaLabelPlural,
                       eapLink,
                     }
@@ -91,6 +97,9 @@
                 | translate
                   : {
                       setTriggerSource: forecastSource?.setTriggerSource,
+                      forecastSourceLabel: forecastSource?.label || 'Unkown',
+                      forecastSourceUrl: forecastSource?.url || '#',
+                      eventName,
                       adminAreaLabelPlural,
                       eapLink,
                     }
@@ -103,6 +112,9 @@
               'set-trigger-component.select-areas.content-no-source'
                 | translate
                   : {
+                      forecastSourceLabel: forecastSource?.label || 'Unkown',
+                      forecastSourceUrl: forecastSource?.url || '#',
+                      eventName,
                       adminAreaLabelPlural,
                       eapLink,
                     }

@@ -121,6 +121,7 @@ fdescribe('EventSpeechBubbleComponent', () => {
             hasSetTriggerPermission: component.hasSetTriggerPermission(),
             countryCodeISO3: component.countryCodeISO3,
             disasterType: component.disasterType.disasterType,
+            eventName: component.event.eventName,
           }),
           showBackdrop: true,
         }),

@@ -223,6 +223,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
         hasSetTriggerPermission: this.hasSetTriggerPermission(),
         countryCodeISO3: this.countryCodeISO3,
         disasterType: this.disasterType.disasterType,
+        eventName: this.event?.eventName?.split('_')[0],
       },
     });
 
