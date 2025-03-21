@@ -1,5 +1,5 @@
 <coverage>
-  <id>CoverageInfoImpl--62f77a62:1762deea0b3:-7feb</id>
+  <id>CoverageInfoImpl-2de945eb:195b79fd118:-7ff9</id>
   <name>population_ETH</name>
   <nativeName>population_ETH</nativeName>
   <namespace>
@@ -8,7 +8,7 @@
   <title>population_ETH</title>
   <description>Generated from GeoTIFF</description>
   <keywords>
-    <string>worldpop_eth</string>
+    <string>eth_population_2020</string>
     <string>WCS</string>
     <string>GeoTIFF</string>
   </keywords>
@@ -23,17 +23,17 @@
   AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</nativeCRS>
   <srs>EPSG:4326</srs>
   <nativeBoundingBox>
-    <minx>32.99945959089501</minx>
-    <maxx>47.96136109089501</maxx>
-    <miny>3.40052428902033</miny>
-    <maxy>14.852566189020331</maxy>
+    <minx>32.999583216</minx>
+    <maxx>47.985416489</maxx>
+    <miny>3.3220835209999997</miny>
+    <maxy>14.899583475</maxy>
     <crs>EPSG:4326</crs>
   </nativeBoundingBox>
   <latLonBoundingBox>
-    <minx>32.99945959089501</minx>
-    <maxx>47.96136109089501</maxx>
-    <miny>3.40052428902033</miny>
-    <maxy>14.852566189020331</maxy>
+    <minx>32.999583216</minx>
+    <maxx>47.985416489</maxx>
+    <miny>3.3220835209999997</miny>
+    <maxy>14.899583475</maxy>
     <crs>EPSG:4326</crs>
   </latLonBoundingBox>
   <projectionPolicy>REPROJECT_TO_DECLARED</projectionPolicy>
@@ -46,26 +46,28 @@
       </directDownloadSettings>
     </entry>
     <entry key="cachingEnabled">false</entry>
-    <entry key="dirName">population_ETH_worldpop_eth</entry>
+    <entry key="dirName">population_ETH_eth_population_2020</entry>
   </metadata>
   <store class="coverageStore">
-    <id>CoverageStoreInfoImpl--62f77a62:1762deea0b3:-7fec</id>
+    <id>CoverageStoreInfoImpl-2de945eb:195b79fd118:-7ffb</id>
   </store>
   <serviceConfiguration>false</serviceConfiguration>
   <simpleConversionEnabled>false</simpleConversionEnabled>
+  <internationalTitle/>
+  <internationalAbstract/>
   <nativeFormat>GeoTIFF</nativeFormat>
   <grid dimension="2">
     <range>
       <low>0 0</low>
-      <high>17955 13743</high>
+      <high>17983 13893</high>
     </range>
     <transform>
-      <scaleX>8.333000000000001E-4</scaleX>
-      <scaleY>-8.333E-4</scaleY>
+      <scaleX>8.333333299783131E-4</scaleX>
+      <scaleY>-8.333333300223134E-4</scaleY>
       <shearX>0.0</shearX>
       <shearY>0.0</shearY>
-      <translateX>32.999876240895006</translateX>
-      <translateY>14.852149539020331</translateY>
+      <translateX>32.99999988266499</translateX>
+      <translateY>14.89916680833499</translateY>
     </transform>
     <crs>EPSG:4326</crs>
   </grid>
@@ -91,7 +93,7 @@
         <max>inf</max>
       </range>
       <nullValues>
-        <double>-3.4028234663852886E38</double>
+        <double>-99999.0</double>
       </nullValues>
       <dimensionType>
         <name>REAL_32BITS</name>
@@ -114,9 +116,13 @@
       <string>512,512</string>
     </entry>
     <entry>
+      <string>Bands</string>
+      <null/>
+    </entry>
+    <entry>
       <string>RescalePixels</string>
       <boolean>true</boolean>
     </entry>
   </parameters>
-  <nativeCoverageName>worldpop_eth</nativeCoverageName>
+  <nativeCoverageName>eth_population_2020</nativeCoverageName>
 </coverage>

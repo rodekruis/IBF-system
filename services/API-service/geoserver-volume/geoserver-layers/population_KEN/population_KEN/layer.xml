@@ -1,16 +1,16 @@
 <layer>
   <name>population_KEN</name>
-  <id>LayerInfoImpl--62f77a62:1762deea0b3:-7fed</id>
+  <id>LayerInfoImpl-14f5fc4c:195b7a6cf20:-7ff7</id>
   <type>RASTER</type>
   <defaultStyle>
-    <id>StyleInfoImpl-48cab08a:175ace47603:-7ff4</id>
+    <id>StyleInfoImpl-11bc48ba:194b1e0762e:-7ffd</id>
   </defaultStyle>
   <resource class="coverage">
-    <id>CoverageInfoImpl--62f77a62:1762deea0b3:-7fee</id>
+    <id>CoverageInfoImpl-14f5fc4c:195b7a6cf20:-7ff8</id>
   </resource>
   <attribution>
     <logoWidth>0</logoWidth>
     <logoHeight>0</logoHeight>
   </attribution>
-  <dateCreated>2020-12-04 13:37:17.215 UTC</dateCreated>
+  <dateCreated>2025-03-21 07:46:45.36 UTC</dateCreated>
 </layer>
