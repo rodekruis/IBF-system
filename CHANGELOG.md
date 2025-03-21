@@ -1,3 +1,21 @@
+# [0.304.0](https://github.com/rodekruis/IBF-system/compare/v0.303.0...v0.304.0) (2025-03-21)
+
+
+### Bug Fixes
+
+* change LSO season name AB[#34473](https://github.com/rodekruis/IBF-system/issues/34473) ([0689225](https://github.com/rodekruis/IBF-system/commit/0689225974013c4357115eea7ebea78495380346))
+* update population data ([c4114f4](https://github.com/rodekruis/IBF-system/commit/c4114f4975415236f69db4688a62a60909096f6c))
+* update trigger statement AB[#34474](https://github.com/rodekruis/IBF-system/issues/34474) ([7e2cb40](https://github.com/rodekruis/IBF-system/commit/7e2cb4063091e0a1326f4832872d1ef60b7a18b0))
+
+
+### Features
+
+* disable waterpoins layer LSO AB[#34472](https://github.com/rodekruis/IBF-system/issues/34472) ([6687eba](https://github.com/rodekruis/IBF-system/commit/6687ebad990073ca08329e412815a18101dcfabc))
+* process LSO logo portal + email ([743519b](https://github.com/rodekruis/IBF-system/commit/743519b50328d492a08c0c0f9f8c4c4dc0e076fc))
+* update LSO mock data AB[#34440](https://github.com/rodekruis/IBF-system/issues/34440) ([770d344](https://github.com/rodekruis/IBF-system/commit/770d344077ef699a4075f8207425cc666c440400))
+
+
+
 # [0.303.0](https://github.com/rodekruis/IBF-system/compare/v0.302.2...v0.303.0) (2025-03-20)
 
 
@@ -120,16 +138,6 @@
 ### Bug Fixes
 
 * update timeline-tooltip copy + style bullets AB[#34441](https://github.com/rodekruis/IBF-system/issues/34441) ([93d5eda](https://github.com/rodekruis/IBF-system/commit/93d5eda2a88d9c6cf1b9dc79a8ddf203284f658b))
-
-
-
-## [0.298.1](https://github.com/rodekruis/IBF-system/compare/v0.298.0...v0.298.1) (2025-03-13)
-
-
-### Bug Fixes
-
-* put back filter on leadTimes in deleteDuplicates alerts-per-lead-time ([00b27d4](https://github.com/rodekruis/IBF-system/commit/00b27d42303a7c116169dd3756c123888c819bcd))
-* query only alert-per-lead-time of exact last pipeline run ([6e3636e](https://github.com/rodekruis/IBF-system/commit/6e3636e68ab1855ecf3faf6b0739e77dfdbddf95))
 
 
 
