@@ -25,7 +25,6 @@
           version
         }}"
         lines="full"
-        rel="noopener noreferrer"
         target="_blank"
       >
         <ion-label [translate]="'common.version'"></ion-label>
@@ -40,24 +39,14 @@
       ></app-backend-mock-scenario>
     </ion-list>
     <ion-list class="ion-no-padding" [class.ion-hide]="!isDev">
-      <ion-item
-        href="/log"
-        lines="full"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
+      <ion-item href="/log" lines="full" target="_blank">
         <ion-label
           [translate]="'activation-page.activation-report'"
         ></ion-label>
       </ion-item>
     </ion-list>
     <ion-list class="ion-no-padding" [class.ion-hide]="!isDev">
-      <ion-item
-        href="/status-report"
-        lines="full"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
+      <ion-item href="/status-report" lines="full" target="_blank">
         <ion-label [translate]="'status-report-page.dev-menu-link'"></ion-label>
       </ion-item>
     </ion-list>

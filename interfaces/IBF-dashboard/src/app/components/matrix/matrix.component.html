@@ -1,77 +1,81 @@
-<div
-  id="layer-menu-container"
-  [ngStyle]="{ height: getLayerMenuContainerHeightInRem() + 'rem' }"
->
-  <ion-button
-    class="ion-no-margin ion-justify-content-between"
-    color="ibf-no-alert-primary "
-    data-testid="layer-menu-toggle-button"
-    id="layer-menu-toggle-button"
-    data-testid="layer-menu-toggle-button"
-    (click)="toggleLayerMenu()"
+@if (layers.length) {
+  <div
+    id="layer-menu-container"
+    [ngStyle]="{ height: getLayerMenuContainerHeightInRem() + 'rem' }"
   >
-    <div>
-      <ion-text> {{ 'layers-menu.menu-toggle-label' | translate }}</ion-text
-      ><ion-icon
-        [name]="isLayerMenuOpen ? 'chevron-down-outline' : 'chevron-up-outline'"
-      ></ion-icon>
-    </div>
-  </ion-button>
-  @if (isLayerMenuOpen) {
-    <div data-testid="layer-menu" id="layer-menu">
-      <ion-list class="ion-no-padding">
-        @for (layer of getLayersInOrder(); track layer.name) {
-          <ion-row class="ion-justify-content-between ion-nowrap">
-            <ion-item className="matrix-layer {{ layer.name }}" lines="none">
-              @if (layer.isLoading) {
-                <ion-spinner class="mx-[0.15rem]"></ion-spinner>
-              } @else {
-                @if (isCheckBox(layer.group)) {
-                  <ion-icon
-                    data-testid="matrix-checkbox"
-                    [name]="layer.active ? 'checkbox' : 'square-outline'"
-                    (click)="toggleLayer(layer)"
-                    class="single-layer-toggler"
-                  ></ion-icon>
+    <ion-button
+      class="ion-no-margin ion-justify-content-between"
+      color="ibf-no-alert-primary "
+      data-testid="layer-menu-toggle-button"
+      id="layer-menu-toggle-button"
+      data-testid="layer-menu-toggle-button"
+      (click)="toggleLayerMenu()"
+    >
+      <div>
+        <ion-text> {{ 'layers-menu.menu-toggle-label' | translate }}</ion-text
+        ><ion-icon
+          [name]="
+            isLayerMenuOpen ? 'chevron-down-outline' : 'chevron-up-outline'
+          "
+        ></ion-icon>
+      </div>
+    </ion-button>
+    @if (isLayerMenuOpen) {
+      <div data-testid="layer-menu" id="layer-menu">
+        <ion-list class="ion-no-padding">
+          @for (layer of getLayersInOrder(); track layer.name) {
+            <ion-row class="ion-justify-content-between ion-nowrap">
+              <ion-item className="matrix-layer {{ layer.name }}" lines="none">
+                @if (layer.isLoading) {
+                  <ion-spinner class="mx-[0.15rem]"></ion-spinner>
+                } @else {
+                  @if (isCheckBox(layer.group)) {
+                    <ion-icon
+                      data-testid="matrix-checkbox"
+                      [name]="layer.active ? 'checkbox' : 'square-outline'"
+                      (click)="toggleLayer(layer)"
+                      class="single-layer-toggler"
+                    ></ion-icon>
+                  }
+                  @if (isRadioButton(layer.group)) {
+                    <ion-icon
+                      data-testid="matrix-radio-button"
+                      [name]="
+                        layer.active
+                          ? 'radio-button-on-outline'
+                          : 'radio-button-off-outline'
+                      "
+                      (click)="toggleLayer(layer)"
+                      class="single-layer-toggler"
+                    ></ion-icon>
+                  }
                 }
-                @if (isRadioButton(layer.group)) {
+                <ion-label
+                  class="ion-text-wrap ion-no-margin"
+                  [title]="layer.label"
+                  style="margin-left: 8px"
+                >
+                  {{ layer.label }}
+                </ion-label>
+                <ion-button
+                  slot="end"
+                  fill="clear"
+                  class="ion-no-margin info-button"
+                  (click)="presentPopover($event, layer)"
+                  [title]="'aggregates-component.more-information' | translate"
+                >
                   <ion-icon
-                    data-testid="matrix-radio-button"
-                    [name]="
-                      layer.active
-                        ? 'radio-button-on-outline'
-                        : 'radio-button-off-outline'
-                    "
-                    (click)="toggleLayer(layer)"
-                    class="single-layer-toggler"
+                    color="ibf-no-alert-primary"
+                    name="information-circle-outline"
+                    data-test="matrix-icon"
+                    class="info-icon"
                   ></ion-icon>
-                }
-              }
-              <ion-label
-                class="ion-text-wrap ion-no-margin"
-                [title]="layer.label"
-                style="margin-left: 8px"
-              >
-                {{ layer.label }}
-              </ion-label>
-              <ion-button
-                slot="end"
-                fill="clear"
-                class="ion-no-margin info-button"
-                (click)="presentPopover($event, layer)"
-                [title]="'aggregates-component.more-information' | translate"
-              >
-                <ion-icon
-                  color="ibf-no-alert-primary"
-                  name="information-circle-outline"
-                  data-test="matrix-icon"
-                  class="info-icon"
-                ></ion-icon>
-              </ion-button>
-            </ion-item>
-          </ion-row>
-        }
-      </ion-list>
-    </div>
-  }
-</div>
+                </ion-button>
+              </ion-item>
+            </ion-row>
+          }
+        </ion-list>
+      </div>
+    }
+  </div>
+}

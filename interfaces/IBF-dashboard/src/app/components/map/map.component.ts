@@ -52,7 +52,6 @@ import {
   WaterpointInternal,
 } from 'src/app/models/poi.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
-import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService, EventSummary } from 'src/app/services/event.service';
@@ -70,7 +69,6 @@ import {
   IbfLayerType,
   LeafletPane,
 } from 'src/app/types/ibf-layer';
-import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
 
@@ -125,7 +123,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
     private analyticsService: AnalyticsService,
-    private apiService: ApiService,
     private pointMarkerService: PointMarkerService,
     private mapLegendService: MapLegendService,
     private adminLevelService: AdminLevelService,
@@ -286,35 +283,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     window.setTimeout(() => window.dispatchEvent(new UIEvent('resize')), 200);
   };
 
-  private numberFormat(d, layer) {
-    if (d === null) {
-      return null;
-    } else if (layer.numberFormatMap === NumberFormat.perc) {
-      return Math.round(d * 100).toLocaleString() + '%';
-    } else if (layer.numberFormatMap === NumberFormat.decimal2) {
-      return (Math.round(d * 100) / 100).toLocaleString();
-    } else if (layer.numberFormatMap === NumberFormat.decimal0) {
-      if (d > 10000000) {
-        return Math.round(d / 1000000).toLocaleString() + 'M';
-      } else if (d > 1000000) {
-        return (Math.round(d / 100000) / 10).toLocaleString() + 'M';
-      } else if (d > 10000) {
-        return Math.round(d / 1000).toLocaleString() + 'k';
-      } else if (d > 1000) {
-        return (Math.round(d / 100) / 10).toLocaleString() + 'k';
-      } else {
-        return Math.round(d).toLocaleString();
-      }
-    } else {
-      return Math.round(d).toLocaleString();
-    }
-  }
-
   private initLegend() {
     this.legend = new Control();
     this.legend.setPosition('bottomleft');
     this.legend.onAdd = () => {
-      this.legendDiv = DomUtil.create('div', 'info legend');
+      this.legendDiv = DomUtil.create('div', 'info legend invisible');
       this.legendDiv.innerHTML += this.mapLegendService.getLegendTitle();
       return this.legendDiv;
     };
@@ -325,6 +298,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private updateLegend() {
     if (!this.legendDiv) {
       return;
+    }
+
+    // show zoom control and legend when layers are shown
+    if (!this.map.options.zoomControl) {
+      this.map.options.zoomControl = true;
+      this.map.addControl(new Control.Zoom());
+      this.legendDiv.classList.remove('invisible');
     }
 
     const layersToShow = this.layers
@@ -338,7 +318,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     <ion-icon class="icon-down" name="chevron-down-outline"></ion-icon>
     <ion-icon class="icon-up" name="chevron-up-outline"></ion-icon></div>
     </summary>`;
-    for (const layer of layersToShow.sort(this.sortLayers)) {
+    const sortedLayersToShow = layersToShow.sort((a, b) => a.order - b.order);
+    for (const layer of sortedLayersToShow) {
       const elements = [];
       switch (layer.type) {
         case IbfLayerType.point:
@@ -822,7 +803,4 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     this.closestPointToTyphoon = Math.max.apply(null, dates);
   }
-
-  private sortLayers = (a: IbfLayer, b: IbfLayer) =>
-    a.order > b.order ? 1 : a.order === b.order ? 0 : -1;
 }

@@ -20,11 +20,10 @@
       [class.ion-hide]="getOperatingSystem() !== 'Windows'"
     >
       <a
+        class="no-underline hover:underline"
         href="https://support.microsoft.com/en-us/windows/open-snipping-tool-and-take-a-screenshot-a35ac9ff-4a58-24c9-3253-f12bac9f9d44"
         [title]="'export-view.instruction-windows' | translate"
         target="_blank"
-        rel="noopener"
-        class="no-underline hover:underline"
       >
         {{ 'export-view.instruction-windows' | translate }}
       </a>
@@ -34,11 +33,10 @@
       [class.ion-hide]="getOperatingSystem() !== 'MacOS'"
     >
       <a
+        class="no-underline hover:underline"
         href="https://support.apple.com/en-us/HT201361"
         title="'export-view.instruction-mac' | translate"
         target="_blank"
-        rel="noopener"
-        class="no-underline hover:underline"
       >
         {{ 'export-view.instruction-mac' | translate }}
       </a>
@@ -48,11 +46,10 @@
       [class.ion-hide]="getOperatingSystem() !== 'Linux'"
     >
       <a
+        class="no-underline hover:underline"
         href="https://help.ubuntu.com/stable/ubuntu-help/screen-shot-record.html"
         title="'export-view.instruction-linux' | translate"
         target="_blank"
-        rel="noopener"
-        class="no-underline hover:underline"
       >
         {{ 'export-view.instruction-linux' | translate }}
       </a>

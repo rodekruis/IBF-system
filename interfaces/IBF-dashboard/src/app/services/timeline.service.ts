@@ -1,7 +1,7 @@
-/* eslint-disable perfectionist/sort-array-includes */
 import { Injectable } from '@angular/core';
 import { DateTime } from 'luxon';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, debounceTime, Observable } from 'rxjs';
+import { DEBOUNCE_TIME_LOADER } from 'src/app/config';
 import { AlertPerLeadTime } from 'src/app/models/alert-per-lead-time.model';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { ApiService } from 'src/app/services/api.service';
@@ -37,6 +37,10 @@ export class TimelineService {
   private country: Country;
   private disasterType: DisasterType;
   private eventState: EventState;
+  public isLoadingSubject = new BehaviorSubject<boolean>(false);
+  public isLoading = this.isLoadingSubject
+    .asObservable()
+    .pipe(debounceTime(DEBOUNCE_TIME_LOADER));
 
   constructor(
     private countryService: CountryService,
@@ -170,6 +174,7 @@ export class TimelineService {
     // });
 
     // First get triggers per day across all events for timeline
+    this.isLoadingSubject.next(true);
     this.apiService
       .getAlertPerLeadTime(
         this.country.countryCodeISO3,
@@ -207,6 +212,7 @@ export class TimelineService {
     }
 
     this.timelineStateSubject.next(this.state);
+    this.isLoadingSubject.next(false);
   }
 
   private getLeadTimeDate(

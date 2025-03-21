@@ -79,7 +79,6 @@ module.exports = tseslint.config(
       '@angular-eslint/component-class-suffix': 'warn',
       '@angular-eslint/no-async-lifecycle-method': 'warn',
       'perfectionist/sort-union-types': 'warn',
-      'perfectionist/sort-array-includes': 'warn',
 
       //'no-relative-import-paths/no-relative-import-paths': [
       //  'error',
@@ -118,7 +117,7 @@ module.exports = tseslint.config(
       '@angular-eslint/sort-lifecycle-methods': ['error'],
       '@angular-eslint/use-component-selector': ['error'],
       '@angular-eslint/use-lifecycle-interface': ['error'],
-      //'perfectionist/sort-array-includes': ['error'],
+      'perfectionist/sort-array-includes': 'off', // allow unsorted arrays for domain specific ordering
       'perfectionist/sort-enums': ['error', { type: 'unsorted' }], // allow unsorted enums for domain specific ordering
       'perfectionist/sort-intersection-types': ['error'],
       //'perfectionist/sort-union-types': ['error'],

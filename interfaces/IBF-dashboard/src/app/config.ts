@@ -87,6 +87,7 @@ export const LEAFLET_MARKER_ICON_OPTIONS_RIVER_GAUGE: IconOptions = {
 
 export const LEAFLET_MAP_OPTIONS: MapOptions = {
   zoom: 5,
+  zoomControl: false,
   layers: [],
 };
 

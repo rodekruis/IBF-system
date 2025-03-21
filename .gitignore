@@ -11,6 +11,7 @@ inspect.docker-compose.config
 nginx/letsencrypt/*
 !nginx/letsencrypt/README.md
 push-test.sh
+.secrets
 
 # R specific:
 .Rproj.user
