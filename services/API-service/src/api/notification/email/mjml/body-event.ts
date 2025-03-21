@@ -1,3 +1,4 @@
+import { firstCharOfWordsToUpper } from '../../../../shared/utils';
 import { LeadTime } from '../../../admin-area-dynamic-data/enum/lead-time.enum';
 import { ForecastSource } from '../../../country/country-disaster.entity';
 import { DisasterType } from '../../../disaster-type/disaster-type.enum';
@@ -23,6 +24,7 @@ const getMjmlBodyEvent = ({
   defaultAdminAreaLabel,
   disasterIssuedLabel,
   disasterTypeLabel,
+  enableSetWarningToTrigger,
   eventName,
   firstLeadTimeFromNow,
   firstLeadTimeString,
@@ -42,6 +44,7 @@ const getMjmlBodyEvent = ({
   defaultAdminAreaLabel: string;
   disasterIssuedLabel: string;
   disasterTypeLabel: string;
+  enableSetWarningToTrigger: boolean;
   eventName: string;
   firstLeadTimeFromNow: string;
   firstLeadTimeString: string;
@@ -115,7 +118,9 @@ const getMjmlBodyEvent = ({
       ? eapLink
         ? `<strong>Advisory:</strong> Activate <a href="${eapLink}">Protocol</a>` // Not all implemtations have an EAP, so for now defaulting to more generic copy
         : `<strong>Advisory:</strong> Activate Protocol`
-      : `<strong>Advisory:</strong> Inform all potentialy exposed ${defaultAdminAreaLabel}`,
+      : enableSetWarningToTrigger
+        ? `An IBF focal point user can set this warning as a trigger${forecastSource?.setTriggerSource ? ` based on ${forecastSource.setTriggerSource}` : ''}.`
+        : `<strong>Advisory:</strong> Inform all potentialy exposed ${defaultAdminAreaLabel}`,
   );
 
   const contentElement = getTextElement({
@@ -174,13 +179,14 @@ export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
 
   for (const event of emailContent.dataPerEvent) {
     let disasterSpecificCopy: string;
-    if (emailContent.disasterType === DisasterType.Typhoon) {
+    if (emailContent.disasterType.disasterType === DisasterType.Typhoon) {
       disasterSpecificCopy = getTyphoonSpecificCopy(event);
     }
 
     const countryDisasterSettings =
       emailContent.country.countryDisasterSettings.find(
-        ({ disasterType }) => disasterType === emailContent.disasterType,
+        ({ disasterType }) =>
+          disasterType === emailContent.disasterType.disasterType,
       );
 
     const userTriggerData = {
@@ -192,7 +198,11 @@ export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
       getMjmlBodyEvent({
         eventName: event.eventName,
 
-        disasterTypeLabel: emailContent.disasterTypeLabel,
+        disasterTypeLabel: firstCharOfWordsToUpper(
+          emailContent.disasterType.label,
+        ),
+        enableSetWarningToTrigger:
+          emailContent.disasterType.enableSetWarningToTrigger,
         triggerStatusLabel: event.triggerStatusLabel,
         issuedDate: dateObjectToDateTimeString(
           event.issuedDate,

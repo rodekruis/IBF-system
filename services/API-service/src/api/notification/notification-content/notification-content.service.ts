@@ -6,6 +6,7 @@ import { Repository } from 'typeorm';
 import { AlertArea, EventSummaryCountry } from '../../../shared/data.model';
 import { NumberFormat } from '../../../shared/enums/number-format.enum';
 import { HelperService } from '../../../shared/helper.service';
+import { firstCharOfWordsToUpper } from '../../../shared/utils';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../../country/country.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
@@ -39,8 +40,8 @@ export class NotificationContentService {
     activeEvents: EventSummaryCountry[],
   ): Promise<ContentEventEmail> {
     const content = new ContentEventEmail();
-    content.disasterType = disasterType;
-    content.disasterTypeLabel = await this.getDisasterTypeLabel(disasterType);
+    content.disasterType =
+      await this.disasterTypeService.getDisasterType(disasterType);
     content.dataPerEvent = await this.getNotificationDataForEvents(
       activeEvents,
       country,
@@ -103,14 +104,6 @@ export class NotificationContentService {
     adminAreaDefaultLevel: number,
   ): AdminAreaLabel {
     return country.adminRegionLabels[String(adminAreaDefaultLevel)];
-  }
-
-  private firstCharOfWordsToUpper(input: string): string {
-    return input
-      .toLowerCase()
-      .split(' ')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
   }
 
   public async getFormattedEventName(
@@ -332,7 +325,7 @@ export class NotificationContentService {
   }
 
   public async getDisasterTypeLabel(disasterType: DisasterType) {
-    return this.firstCharOfWordsToUpper(
+    return firstCharOfWordsToUpper(
       (await this.disasterTypeService.getDisasterType(disasterType)).label,
     );
   }

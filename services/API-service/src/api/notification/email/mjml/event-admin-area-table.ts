@@ -1,4 +1,5 @@
 import { NumberFormat } from '../../../../shared/enums/number-format.enum';
+import { firstCharOfWordsToUpper } from '../../../../shared/utils';
 import { IndicatorMetadataEntity } from '../../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../../dto/admin-area-notification-info.dto';
 import { ContentEventEmail } from '../../dto/content-event-email.dto';
@@ -126,7 +127,9 @@ export const getMjmlAdminAreaTableList = (
   for (const event of emailContent.dataPerEvent) {
     adminAreaTableList.push(
       getMjmlEventAdminAreaTable({
-        disasterTypeLabel: emailContent.disasterTypeLabel,
+        disasterTypeLabel: firstCharOfWordsToUpper(
+          emailContent.disasterType.label,
+        ),
         textColour: getIbfHexColor(
           event.eapAlertClass?.color,
           event.triggerStatusLabel,
