@@ -133,8 +133,10 @@
   "chat-component": {
     "common": {
       "no-info": "No information available",
+      "about-button-label": "About trigger",
       "warn-label": {
-        "message": "Hello {{ name }}. The information in this portal is based on the model last run on <strong>{{lastUploadDate}}</strong>.",
+        "hello": "Hello <strong>{{ displayName }}</strong>.",
+        "message": "The information in this portal is based on the model last run on <strong>{{lastUploadDate}}</strong>.",
         "tooltip": "The forecast presented on the portal might not be up to date as the model did not run successfully. Contact {{supportEmailAddress}} for further information."
       },
       "event-tooltip": "Select an area from this list or the map to monitor and manage the preplanned anticipatory actions (if applicable).",

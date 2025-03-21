@@ -3,14 +3,17 @@
     <p style="padding-right: 20px">
       <span
         [innerHTML]="
-          'chat-component.common.warn-label.message'
-            | translate
-              : {
-                  lastUploadDate,
-                  name: authService.displayName,
-                }
+          'chat-component.common.warn-label.hello' | translate: authService
         "
       ></span>
+      @if (lastUploadDate) {
+        <span
+          [innerHTML]="
+            'chat-component.common.warn-label.message'
+              | translate: { lastUploadDate }
+          "
+        ></span>
+      }
       @if (isLastUploadDateLate) {
         <app-tooltip
           [value]="
