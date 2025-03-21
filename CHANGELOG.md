@@ -1,3 +1,24 @@
+# [0.305.0](https://github.com/rodekruis/IBF-system/compare/v0.304.2...v0.305.0) (2025-03-21)
+
+
+### Bug Fixes
+
+* add target=_blank in new <a> cases ([38d35ea](https://github.com/rodekruis/IBF-system/commit/38d35ea50f7fb2efb90f38f55537e4fffe6e8e2d))
+* aggregates component header ([94ff751](https://github.com/rodekruis/IBF-system/commit/94ff751d0d38e21cbb47fa27ab1277742c066088))
+* chat component broken strings ([916380e](https://github.com/rodekruis/IBF-system/commit/916380e31d76837f900986ba73ef6e998bbe4c10))
+* chat component button spacing ([2b695f8](https://github.com/rodekruis/IBF-system/commit/2b695f88784a4c6ffd8740c0de2d43e03bba394d))
+* event speech bubble ([8989012](https://github.com/rodekruis/IBF-system/commit/898901240910f48da3fe82348d6f01548205f7b0))
+* map component ([dd5cb70](https://github.com/rodekruis/IBF-system/commit/dd5cb707465d8326d2f973f01d746a0cc348f945))
+* remove unused code and simplify sort ([f65d2a7](https://github.com/rodekruis/IBF-system/commit/f65d2a75465e4e18788964078a611fc4158f89e2))
+* timeline loader ([296540f](https://github.com/rodekruis/IBF-system/commit/296540f0934ce056acba93491a9bd0e4bb1c9329))
+
+
+### Features
+
+* links should open in new tab ([f0eda39](https://github.com/rodekruis/IBF-system/commit/f0eda392d2b4d85dcc3dc1eb6b297d4083f33844))
+
+
+
 ## [0.304.2](https://github.com/rodekruis/IBF-system/compare/v0.304.1...v0.304.2) (2025-03-21)
 
 
@@ -125,21 +146,6 @@
 ### Features
 
 * remove set trigger success popover ([1e775cd](https://github.com/rodekruis/IBF-system/commit/1e775cd9b66e10842198b63c36e3930243c2df69))
-
-
-
-## [0.299.1](https://github.com/rodekruis/IBF-system/compare/v0.299.0...v0.299.1) (2025-03-19)
-
-
-### Bug Fixes
-
-* add set-trigger-source in popover ([02a4827](https://github.com/rodekruis/IBF-system/commit/02a48272c7e062cee42a6d412c333afa831ba60f))
-* align all headers to format ([a8af678](https://github.com/rodekruis/IBF-system/commit/a8af6787d5390892638e9fa8be7ebfa6640201d3))
-* change bold styling of area view text ([5385167](https://github.com/rodekruis/IBF-system/commit/5385167d0fd3879ce0f88272f06068fc25b7466d))
-* darker orange for text ([9c9ed02](https://github.com/rodekruis/IBF-system/commit/9c9ed02c1635486f51ad4bbd521db666b3df5997))
-* rm box-shadow on buttons ([51e31cc](https://github.com/rodekruis/IBF-system/commit/51e31cc3d9ddc349eb04f47142c41d17b02e4e00))
-* unit test ([e170e2e](https://github.com/rodekruis/IBF-system/commit/e170e2eb297957b86efc01a7cc925572e0b43eac))
-* use semi-bold class for labels ([fc49b64](https://github.com/rodekruis/IBF-system/commit/fc49b64d06142735ebda1c7a9c39ca61a1ee416e))
 
 
 
