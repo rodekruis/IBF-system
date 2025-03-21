@@ -70,7 +70,7 @@ export class EmailService {
       // );
       return emailHtml;
     }
-    let emailSubject = `IBF ${emailContent.disasterTypeLabel} alert`;
+    let emailSubject = `IBF ${emailContent.disasterType.disasterType} alert`;
     if (process.env.NODE_ENV !== 'production') {
       emailSubject += ` - ${process.env.NODE_ENV.toUpperCase()}`;
     }

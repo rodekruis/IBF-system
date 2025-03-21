@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import mjml2html from 'mjml';
 
 import { HelperService } from '../../../shared/helper.service';
+import { firstCharOfWordsToUpper } from '../../../shared/utils';
 import { ContentEventEmail } from '../dto/content-event-email.dto';
 import {
   BODY_WIDTH,
@@ -40,11 +41,15 @@ export class MjmlService {
     date: Date;
   }) =>
     getMjmlHeader({
-      disasterTypeLabel: emailContent.disasterTypeLabel,
+      disasterTypeLabel: firstCharOfWordsToUpper(
+        emailContent.disasterType.label,
+      ),
       nrOfEvents: emailContent.dataPerEvent.length,
       sentOnDate: getFormattedDate({ date }),
       logosSrc:
-        emailContent.country.notificationInfo.logo[emailContent.disasterType],
+        emailContent.country.notificationInfo.logo[
+          emailContent.disasterType.disasterType
+        ],
     });
 
   private footer = ({ countryName }: { countryName: string }) => [
@@ -100,7 +105,7 @@ export class MjmlService {
       getMjmlTriggerStatement({
         triggerStatement:
           emailContent.country.notificationInfo.triggerStatement[
-            emailContent.disasterType
+            emailContent.disasterType.disasterType
           ],
       }),
     );
@@ -148,7 +153,7 @@ export class MjmlService {
 
     children.push(
       ...getMjmlFinishedEvents({
-        disasterType: emailContent.disasterTypeLabel,
+        disasterType: emailContent.disasterType.disasterType,
         dataPerEvent: emailContent.dataPerEvent,
         timezone: getTimezoneDisplay(emailContent.country.countryCodeISO3),
       }),
