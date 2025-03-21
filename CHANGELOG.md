@@ -1,3 +1,12 @@
+## [0.304.2](https://github.com/rodekruis/IBF-system/compare/v0.304.1...v0.304.2) (2025-03-21)
+
+
+### Bug Fixes
+
+* only run tests on PRs to master ([39f9895](https://github.com/rodekruis/IBF-system/commit/39f98951bb6782dce8e370c37f9b2e84770190dc))
+
+
+
 ## [0.304.1](https://github.com/rodekruis/IBF-system/compare/v0.304.0...v0.304.1) (2025-03-21)
 
 
@@ -131,15 +140,6 @@
 * rm box-shadow on buttons ([51e31cc](https://github.com/rodekruis/IBF-system/commit/51e31cc3d9ddc349eb04f47142c41d17b02e4e00))
 * unit test ([e170e2e](https://github.com/rodekruis/IBF-system/commit/e170e2eb297957b86efc01a7cc925572e0b43eac))
 * use semi-bold class for labels ([fc49b64](https://github.com/rodekruis/IBF-system/commit/fc49b64d06142735ebda1c7a9c39ca61a1ee416e))
-
-
-
-# [0.299.0](https://github.com/rodekruis/IBF-system/compare/v0.298.2...v0.299.0) (2025-03-18)
-
-
-### Features
-
-* hazard icon hover and change password popup ([e0855eb](https://github.com/rodekruis/IBF-system/commit/e0855ebc77ecc3783287dc0da5f2eadd95bcf819))
 
 
 
