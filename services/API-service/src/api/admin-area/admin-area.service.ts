@@ -223,7 +223,8 @@ export class AdminAreaService {
       .leftJoin(
         EventPlaceCodeEntity,
         'epc',
-        'area.id = epc.adminAreaId AND epc.closed = false',
+        'area.id = epc.adminAreaId AND epc.closed = false AND epc."disasterType" = :disasterType',
+        { disasterType },
       )
       .addSelect([
         'epc."forecastSeverity"',
@@ -328,7 +329,8 @@ export class AdminAreaService {
       .leftJoin(
         EventPlaceCodeEntity,
         'epc',
-        'area.id = epc.adminAreaId AND epc.closed = false',
+        'area.id = epc.adminAreaId AND epc.closed = false AND epc."disasterType" = :disasterType',
+        { disasterType },
       )
       .addSelect([
         'epc."forecastSeverity"',
@@ -397,6 +399,7 @@ export class AdminAreaService {
     }
 
     let adminAreas = await adminAreasScript.getRawMany();
+    console.log('adminAreasScript: ', adminAreasScript.getQueryAndParameters());
     adminAreas.forEach((area) => {
       area.alertLevel = this.eventService.getAlertLevel(area);
     });
