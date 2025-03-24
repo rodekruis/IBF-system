@@ -1,3 +1,12 @@
+# [0.306.0](https://github.com/rodekruis/IBF-system/compare/v0.305.2...v0.306.0) (2025-03-24)
+
+
+### Features
+
+* show different advisory for set-trigger warning in email ([d046fee](https://github.com/rodekruis/IBF-system/commit/d046fee9cf12f7ed556b8dbec0c55b4d80d70a5f))
+
+
+
 ## [0.305.2](https://github.com/rodekruis/IBF-system/compare/v0.305.1...v0.305.2) (2025-03-24)
 
 
@@ -106,23 +115,6 @@
 ### Bug Fixes
 
 * process feedback AB[#34596](https://github.com/rodekruis/IBF-system/issues/34596) ([81a2b74](https://github.com/rodekruis/IBF-system/commit/81a2b7461dc5522c6ea082d5dfe72abb8af768b5))
-
-
-
-# [0.302.0](https://github.com/rodekruis/IBF-system/compare/v0.301.0...v0.302.0) (2025-03-19)
-
-
-### Bug Fixes
-
-* integration test ([61903e0](https://github.com/rodekruis/IBF-system/commit/61903e060212ff753dc4c00c4619413c1a33ffc4))
-* unit test ([0b4b3a6](https://github.com/rodekruis/IBF-system/commit/0b4b3a6961ee1838c848ddc52aa7afd327324af3))
-* update role names ([3307014](https://github.com/rodekruis/IBF-system/commit/3307014f21b2429c4f86e947058b93d4790598e6))
-* use generic text for focal point user ([2dfa44a](https://github.com/rodekruis/IBF-system/commit/2dfa44aa85a892ae629559967c63653cb8d33084))
-
-
-### Features
-
-* different popover content based on userRole AB[#34478](https://github.com/rodekruis/IBF-system/issues/34478) ([3f92588](https://github.com/rodekruis/IBF-system/commit/3f925885b0e57cb50e925581d5f3180d1cd4b17f))
 
 
 
