@@ -399,7 +399,6 @@ export class AdminAreaService {
     }
 
     let adminAreas = await adminAreasScript.getRawMany();
-    console.log('adminAreasScript: ', adminAreasScript.getQueryAndParameters());
     adminAreas.forEach((area) => {
       area.alertLevel = this.eventService.getAlertLevel(area);
     });
