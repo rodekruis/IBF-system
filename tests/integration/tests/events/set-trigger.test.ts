@@ -7,6 +7,7 @@ import {
   mock,
   postSetTrigger,
   resetDB,
+  sendNotification,
 } from '../../helpers/utility.helper';
 
 const countryCodeISO3 = 'UGA';
@@ -20,7 +21,7 @@ describe('set trigger', () => {
     await resetDB(accessToken);
   });
 
-  it('should successfully set trigger and change alertLevel from warning to trigger', async () => {
+  it('should successfully set trigger and change alertLevel from warning to trigger and send email', async () => {
     // Arrange
     const dateJanuary = new Date(new Date().getFullYear(), 0, 2);
     await mock(
@@ -53,6 +54,12 @@ describe('set trigger', () => {
       accessToken,
     );
 
+    const sendNotificationResult = await sendNotification(
+      countryCodeISO3,
+      disasterType,
+      accessToken,
+    );
+
     // Assert
     expect(setTriggerResult.status).toBe(201);
     expect(setTriggerResult.body.affected).toBe(
@@ -73,5 +80,10 @@ describe('set trigger', () => {
     for (const area of alertAreasAfter) {
       expect(area.alertLevel).toBe(AlertLevel.TRIGGER);
     }
+
+    // assert email
+    const emailContent = sendNotificationResult.body.activeEvents.email;
+    expect(emailContent).toContain('Set by:');
+    expect(emailContent).not.toContain('Forecast source:');
   });
 });

@@ -91,7 +91,7 @@ export function sendNotification(
   noNotifications = true,
 ): Promise<request.Response> {
   return getServer()
-    .post('/notification/send')
+    .post('/events/notify')
     .set('Authorization', `Bearer ${accessToken}`)
     .query({ noNotifications })
     .send({
