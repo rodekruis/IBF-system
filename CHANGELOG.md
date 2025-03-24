@@ -1,3 +1,12 @@
+# [0.307.0](https://github.com/rodekruis/IBF-system/compare/v0.306.0...v0.307.0) (2025-03-24)
+
+
+### Features
+
+* lso red cross data + info popups ([7db6fcb](https://github.com/rodekruis/IBF-system/commit/7db6fcb10099cafc05f2aafa5ad66fbcd2b3d313))
+
+
+
 # [0.306.0](https://github.com/rodekruis/IBF-system/compare/v0.305.2...v0.306.0) (2025-03-24)
 
 
@@ -106,15 +115,6 @@
 ### Reverts
 
 * Revert "Update test descriptions" ([f54fc85](https://github.com/rodekruis/IBF-system/commit/f54fc854f4487b527b66898133b729cd5df8978e))
-
-
-
-## [0.302.1](https://github.com/rodekruis/IBF-system/compare/v0.302.0...v0.302.1) (2025-03-19)
-
-
-### Bug Fixes
-
-* process feedback AB[#34596](https://github.com/rodekruis/IBF-system/issues/34596) ([81a2b74](https://github.com/rodekruis/IBF-system/commit/81a2b7461dc5522c6ea082d5dfe72abb8af768b5))
 
 
 
