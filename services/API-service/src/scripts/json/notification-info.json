@@ -102,7 +102,7 @@
       "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/94f95087-8ede-e83b-04dc-eaf6630661ba.png"
     },
     "triggerStatement": {
-      "drought": "The first trigger can be set once Lesotho Meteorological Services (LMS) issues the seasonal outlook in September with below normal rainfall. This will initiate the dissemination of early warning messaging."
+      "drought": "The first trigger can be set once Lesotho Meteorological Services (LMS) issues the seasonal outlook with below normal rainfall. This will initiate the dissemination of early warning messaging."
     },
     "linkSocialMediaType": null,
     "linkSocialMediaUrl": null,

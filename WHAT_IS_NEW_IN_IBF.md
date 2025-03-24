@@ -5,6 +5,13 @@ Find here the latest changes to the IBF-system.
 - Not all changes to the IBF-system are listed here. Only those that result in different functionality or different user experience.
 - This list is meant to explain changes since the last manual. Please open the manual from the dashboard for a full explanation on the IBF-system.
 
+### 24-03-2025 (v0.305.0)
+
+- All IBF: Purple theme is used throughout IBF Portal also for warning events, instead of just for trigger events.
+- All IBF: Information in event 'bubble' is simplified and aligned across all disaster types.
+- All IBF: Timeline is further simplified and aligned across all disaster types.
+- All IBF: All links to external websites open in a separate browser tab.
+
 ### 03-03-2025 (v0.292.0)
 
 - Typhoon and drought: Timeline is simplified by disabling the buttons and showing duration visually instead of text.

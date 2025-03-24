@@ -220,7 +220,11 @@ export class AdminAreaService {
         'area.placeCode = dynamic.placeCode',
       )
       .addSelect(['dynamic."indicator"', 'dynamic."value"'])
-      .leftJoin(EventPlaceCodeEntity, 'epc', 'area.id = epc.adminAreaId')
+      .leftJoin(
+        EventPlaceCodeEntity,
+        'epc',
+        'area.id = epc.adminAreaId AND epc.closed = false',
+      )
       .addSelect([
         'epc."forecastSeverity"',
         'epc."forecastTrigger"',
@@ -321,7 +325,11 @@ export class AdminAreaService {
         'ST_AsGeoJSON(area.geom)::json As geom',
         'area."countryCodeISO3"',
       ])
-      .leftJoin(EventPlaceCodeEntity, 'epc', 'area.id = epc.adminAreaId')
+      .leftJoin(
+        EventPlaceCodeEntity,
+        'epc',
+        'area.id = epc.adminAreaId AND epc.closed = false',
+      )
       .addSelect([
         'epc."forecastSeverity"',
         'epc."forecastTrigger"',
