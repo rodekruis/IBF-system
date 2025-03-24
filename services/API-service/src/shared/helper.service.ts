@@ -5,10 +5,7 @@ import { DataSource } from 'typeorm';
 import { Readable } from 'typeorm/platform/PlatformTools';
 
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
-import {
-  LeadTime,
-  LeadTimeUnit,
-} from '../api/admin-area-dynamic-data/enum/lead-time.enum';
+import { LeadTimeUnit } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../api/event/dto/last-upload-date.dto';
 import { NumberFormat } from './enums/number-format.enum';
@@ -63,9 +60,9 @@ export class HelperService {
     return lastInterval;
   }
 
-  public setDayToLastDayOfMonth(date: Date, leadTime: LeadTime): Date {
+  public setDayToLastDayOfMonth(date: Date, leadTimeUnit: LeadTimeUnit): Date {
     date = date ? new Date(date) : new Date();
-    if (date && leadTime.split('-')[1] === LeadTimeUnit.month) {
+    if (date && leadTimeUnit === LeadTimeUnit.month) {
       if (date.getMonth() !== new Date().getMonth()) {
         // if month-of-upload is different (typically larger) than month, set day to last day of month
         date = new Date(date.getFullYear(), date.getMonth() + 1, 0, 0, 0, 0);

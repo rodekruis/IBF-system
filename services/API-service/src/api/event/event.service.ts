@@ -26,7 +26,10 @@ import {
   FORECAST_SEVERITY,
   FORECAST_TRIGGER,
 } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import {
+  LeadTime,
+  LeadTimeUnit,
+} from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
 import { CountryEntity } from '../country/country.entity';
@@ -250,7 +253,9 @@ export class EventService {
   ): Promise<AlertPerLeadTimeEntity[]> {
     uploadAlertsPerLeadTimeDto.date = this.helperService.setDayToLastDayOfMonth(
       uploadAlertsPerLeadTimeDto.date,
-      uploadAlertsPerLeadTimeDto.alertsPerLeadTime[0].leadTime,
+      uploadAlertsPerLeadTimeDto.alertsPerLeadTime[0].leadTime.split(
+        '-',
+      )[1] as LeadTimeUnit,
     );
     const alertsPerLeadTime: AlertPerLeadTimeEntity[] = [];
     const timestamp = uploadAlertsPerLeadTimeDto.date || new Date();
@@ -727,13 +732,20 @@ export class EventService {
       lastUploadDate,
     );
 
+    const endDate = await this.getEndDate(
+      lastUploadDate.timestamp,
+      disasterType,
+      countryCodeISO3,
+      eventName,
+    );
+
     // update existing event areas + update population and end_date
     await this.updateExistingEventAreas(
       countryCodeISO3,
       disasterType,
       eventName,
       activeAlertAreas,
-      lastUploadDate,
+      endDate,
     );
 
     // add new event areas
@@ -743,6 +755,7 @@ export class EventService {
       eventName,
       activeAlertAreas,
       lastUploadDate,
+      endDate,
     );
   }
 
@@ -970,7 +983,7 @@ export class EventService {
     disasterType: DisasterType,
     eventName: string,
     activeAlertAreas: AreaForecastDataDto[],
-    lastUploadDate: LastUploadDateDto,
+    endDate: Date,
   ): Promise<void> {
     const activeEventAreas = await this.eventPlaceCodeRepo.find({
       where: {
@@ -1012,7 +1025,6 @@ export class EventService {
       }
     });
 
-    const endDate = lastUploadDate.timestamp;
     // NOTE this split in 3 updates is to optimize performance. Combine all bulk (same value) updates as much as possible in one query, to avoid separate query per area.
     // 1. first fire one query to update all rows that need forecastTrigger = true (and pass endDate)
     await this.updateBulkEventData(triggerAreaIdsToUpdate, true, endDate);
@@ -1071,6 +1083,7 @@ export class EventService {
     eventName: string,
     activeAlertAreas: AreaForecastDataDto[],
     lastUploadDate: LastUploadDateDto,
+    endDate: Date,
   ): Promise<void> {
     const activeEventAreaPlaceCodes = (
       await this.eventPlaceCodeRepo.find({
@@ -1099,12 +1112,49 @@ export class EventService {
         eventArea.forecastSeverity = activeAlertArea.forecastSeverity;
         eventArea.mainExposureValue = +activeAlertArea.mainExposureValue;
         eventArea.firstIssuedDate = lastUploadDate.timestamp;
-        eventArea.endDate = lastUploadDate.timestamp;
+        eventArea.endDate = endDate;
         eventArea.disasterType = disasterType;
         newEventAreas.push(eventArea);
       }
     }
     await this.eventPlaceCodeRepo.save(newEventAreas);
+  }
+
+  private async getEndDate(
+    lastUploadTimestamp: Date,
+    disasterType: DisasterType,
+    countryCodeISO3: string,
+    eventName: string,
+  ): Promise<Date> {
+    if (disasterType !== DisasterType.Drought) {
+      return lastUploadTimestamp;
+    }
+
+    const countryDisasterSettings = await this.getCountryDisasterSettings(
+      countryCodeISO3,
+      disasterType,
+    );
+    const regionName = eventName.split('_')[1];
+    const seasonName = eventName.split('_')[0];
+    const season =
+      countryDisasterSettings.droughtSeasonRegions[regionName][seasonName]
+        .rainMonths;
+    const endOfSeasonMonth = season[season.length - 1];
+    console.log('endOfSeasonMonth: ', endOfSeasonMonth);
+    const currentMonth = new Date(lastUploadTimestamp).getUTCMonth() + 1;
+    console.log('currentMonth: ', currentMonth);
+    const endOfSeasonDate = new Date(lastUploadTimestamp);
+    console.log('endOfSeasonDate: ', endOfSeasonDate);
+    endOfSeasonDate.setUTCDate(1); // temp set to 1st of month to avoid issues with varying number of days per month
+    endOfSeasonDate.setUTCMonth(endOfSeasonMonth - 1);
+    if (currentMonth > endOfSeasonMonth) {
+      endOfSeasonDate.setUTCFullYear(endOfSeasonDate.getUTCFullYear() + 1);
+    }
+    console.log('endOfSeasonDate: ', endOfSeasonDate);
+    return this.helperService.setDayToLastDayOfMonth(
+      endOfSeasonDate,
+      LeadTimeUnit.month,
+    );
   }
 
   public async closeEventsAutomatic(

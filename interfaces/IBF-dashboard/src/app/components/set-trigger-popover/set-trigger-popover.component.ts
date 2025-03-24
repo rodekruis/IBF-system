@@ -90,7 +90,8 @@ export class SetTriggerPopoverComponent {
       component: this.constructor.name,
     });
 
-    const noNotifications = false;
+    const noNotifications =
+      environment.configuration === 'development' ? true : false;
     this.apiService
       .setTrigger(
         eventPlaceCodeIds,
