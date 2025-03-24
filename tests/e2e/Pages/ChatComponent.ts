@@ -225,6 +225,8 @@ class ChatComponent extends DashboardPage {
     const triggerChatDialogue = this.page
       .getByTestId('dialogue-turn-content')
       .filter({
+        // This filtering does not work for ethiopia malaria scenario because the text is dependent on the months
+        // Also with the mock we use triggered areas are already shown by default
         hasText: scenario === 'trigger' ? 'Trigger issued' : 'Warning',
       })
       .first()

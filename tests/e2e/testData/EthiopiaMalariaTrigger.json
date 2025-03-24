@@ -1,19 +1,19 @@
 {
-  "configurationId": 74,
+  "configurationId": 75,
   "country": {
-    "code": "UGA",
-    "name": "Uganda",
-    "disasterTypes": ["floods", "drought"]
+    "code": "ETH",
+    "name": "Ethiopia",
+    "disasterTypes": ["floods", "drought", "malaria"]
   },
   "disasterType": {
-    "name": "drought",
-    "label": "Drought"
+    "name": "malaria",
+    "label": "Malaria"
   },
-  "scenario": "warning",
+  "scenario": "trigger",
   "user": {
-    "email": "uganda@redcross.nl",
+    "email": "ethiopia@redcross.nl",
     "password": "password",
-    "firstName": "Uganda",
+    "firstName": "Ethiopia",
     "lastName": "Manager"
   },
   "title": "IBF PORTAL",
@@ -27,9 +27,9 @@
       "type": "point"
     },
     {
-      "name": "population_affected",
-      "label": "Exposed population",
-      "legendLabels": ["Exposed population"],
+      "name": "potential_cases",
+      "label": "Potential Cases",
+      "legendLabels": ["Potential Cases"],
       "active": true,
       "type": "admin-area"
     }

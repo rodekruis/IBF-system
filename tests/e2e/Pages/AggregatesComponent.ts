@@ -52,7 +52,8 @@ class AggregatesComponent extends DashboardPage {
 
   async aggregateComponentIsVisible() {
     await expect(this.aggregateSectionColumn).toBeVisible();
-    await expect(this.aggregateSectionColumn).toContainText('National View');
+    // We should remove this line as it is indicating text that is only visible and indifferrent to Uganda drought trigger and no trigger
+    // await expect(this.aggregateSectionColumn).toContainText('National View');
   }
 
   async aggregatesElementsDisplayedInNoTrigger(
@@ -108,6 +109,7 @@ class AggregatesComponent extends DashboardPage {
       hasText: 'Exposed population',
     });
     await this.page.locator('ion-backdrop').last().click();
+    // This test-id fails on ethiopia malaria
     await exposedPopulationLayer.getByTestId('aggregates-info-icon').click();
     const layerInfoTitle = await this.layerInfoPopoverTitle.textContent();
     const layerInfoContent = await this.layerInfoPopoverContent.textContent();

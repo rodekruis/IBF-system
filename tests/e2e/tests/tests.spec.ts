@@ -7,6 +7,8 @@ import DisasterTypeComponent from 'Pages/DisasterTypeComponent';
 import MapComponent from 'Pages/MapComponent';
 import TimelineComponent from 'Pages/TimelineComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
+import EthiopiaMalariaTrigger from 'testData/EthiopiaMalariaTrigger.json';
+import PhilippinesTyphoonTrigger from 'testData/PhilippinesTyphoonTrigger.json';
 import { Dataset } from 'testData/types';
 import UgandaDroughtWarning from 'testData/UgandaDroughtWarning.json';
 import UgandaFloodsNoTrigger from 'testData/UgandaFloodsNoTrigger.json';
@@ -30,6 +32,7 @@ import ChatComponentVisible from './ChatComponent/ChatComponentVisible';
 import DashboardPageVisible from './DashboardPage/DashboardPageVisible';
 import DisasterTypeComponentSelect from './DisasterTypeComponent/DisasterTypeComponentSelect';
 import DisasterTypeComponentVisible from './DisasterTypeComponent/DisasterTypeComponentVisible';
+import Exposed_populationLegendWarning from './MapComponent/Exposed_populationLegendWarning';
 import MapComponentFloodExtent from './MapComponent/MapComponentFloodExtent';
 import MapComponentGloFASStations from './MapComponent/MapComponentGloFASStations';
 import MapComponentGloFASStationsTrigger from './MapComponent/MapComponentGloFASStationsTrigger';
@@ -59,6 +62,8 @@ test.describe('E2E Tests', () => {
     UgandaFloodsTrigger,
     // UgandaDroughtNoTrigger, // Disable until deemed valuable, as it is very similar to floods no-trigger
     UgandaDroughtWarning,
+    EthiopiaMalariaTrigger,
+    PhilippinesTyphoonTrigger,
   ];
 
   datasets.forEach((dataset) => {
@@ -102,15 +107,16 @@ test.describe('E2E Tests', () => {
         await page.goto('/');
       });
 
-      test.afterAll(async () => {
-        await page.close();
-      });
+      // test.afterAll(async () => {
+      //   await page.close();
+      // });
 
       test.describe('DashboardPage', () => {
         DashboardPageVisible(pages, components, dataset, date);
       });
 
       test.describe('MapComponent', () => {
+        Exposed_populationLegendWarning(pages, components, dataset);
         MapComponentVisible(pages, components, dataset);
         MapComponentInteractive(pages, components, dataset);
         MapComponentInfoPopover(pages, components, dataset);

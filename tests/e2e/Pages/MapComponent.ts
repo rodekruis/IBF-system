@@ -143,6 +143,7 @@ class MapComponent extends DashboardPage {
   }
 
   async clickOnAdminBoundary() {
+    // fails for ethiopia malaria
     await this.adminBoundaries.first().click();
   }
 

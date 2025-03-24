@@ -5,6 +5,8 @@ class DashboardPage {
   readonly page: Page;
   readonly floodIcon: Locator;
   readonly droughtIcon: Locator;
+  readonly malariaIcon: Locator;
+  readonly typhoonIcon: Locator;
   readonly dashboardDevControlButton: Locator;
   readonly dashboardHomeButton: Locator;
   readonly countrySwitcherDropdown: Locator;
@@ -18,6 +20,8 @@ class DashboardPage {
     this.page = page;
     this.floodIcon = this.page.getByTestId('disaster-type-button-floods');
     this.droughtIcon = this.page.getByTestId('disaster-type-button-drought');
+    this.malariaIcon = this.page.getByTestId('disaster-type-button-malaria');
+    this.typhoonIcon = this.page.getByTestId('disaster-type-button-typhoon');
     this.dashboardDevControlButton = this.page.getByTestId(
       'dashboard-dev-control-button',
     );
@@ -50,6 +54,12 @@ class DashboardPage {
         break;
       case 'drought':
         await this.droughtIcon.click();
+        break;
+      case 'malaria':
+        await this.malariaIcon.click();
+        break;
+      case 'typhoon':
+        await this.typhoonIcon.click();
         break;
       default:
         console.log('Invalid disaster type');

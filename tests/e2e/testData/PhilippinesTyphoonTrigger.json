@@ -1,0 +1,37 @@
+{
+  "configurationId": 76,
+  "country": {
+    "code": "PHL",
+    "name": "Philippines",
+    "disasterTypes": ["floods", "typhoon"]
+  },
+  "disasterType": {
+    "name": "typhoon",
+    "label": "Typhoon"
+  },
+  "scenario": "trigger",
+  "user": {
+    "email": "philippines@redcross.nl",
+    "password": "password",
+    "firstName": "Philippines",
+    "lastName": "Manager"
+  },
+  "title": "IBF PORTAL",
+  "aggregateIndicators": ["Exposed population", "% of houses exposed"],
+  "mapLayers": [
+    {
+      "name": "houses_affected",
+      "label": "% of houses exposed",
+      "legendLabels": ["% of houses exposed"],
+      "active": true,
+      "type": "admin-area"
+    }
+  ],
+  "timeline": {
+    "dateFormat": "EEE dd MMM yyyy",
+    "dateUnit": "days"
+  },
+  "eap": {
+    "actions": true
+  }
+}

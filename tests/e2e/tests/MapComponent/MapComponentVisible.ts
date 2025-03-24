@@ -24,6 +24,7 @@ export default (
     await dashboard.waitForLoaderToDisappear();
 
     await map.mapComponentIsVisible();
+    // we should make it dataSet dependent because ethiopia and philippines have different default layers
     await map.breadCrumbViewIsVisible({ nationalView: true });
     await map.isLegendOpen({ legendOpen: true });
     await map.isLayerMenuOpen({ layerMenuOpen: false });

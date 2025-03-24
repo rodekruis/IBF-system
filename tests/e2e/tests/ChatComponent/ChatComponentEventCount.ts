@@ -29,6 +29,8 @@ export default (
     await chat.allDefaultButtonsArePresent();
 
     // get the number of warning events and aggregated events
+    // IN ETHIOPIA MALARIA TRIGGER ONE BUTTON IS DISABLED BECAUSE THE TRIGGERED ARE IS ALREADY PRESENT
+    // AND THAT IS WHY THE COUNT IS 1 LESS AND THE TEST FAILS
     const chatEventCount = await chat.predictionButtonsAreActive();
     const aggregatesEventCount = await aggregates.getEventCount();
 
