@@ -1,3 +1,12 @@
+## [0.305.2](https://github.com/rodekruis/IBF-system/compare/v0.305.1...v0.305.2) (2025-03-24)
+
+
+### Bug Fixes
+
+* only join event data of correct disaster-type AB[#34736](https://github.com/rodekruis/IBF-system/issues/34736) ([0d5634d](https://github.com/rodekruis/IBF-system/commit/0d5634d65529ab6f7c243365831bff015e336fef))
+
+
+
 ## [0.305.1](https://github.com/rodekruis/IBF-system/compare/v0.305.0...v0.305.1) (2025-03-24)
 
 
@@ -114,33 +123,6 @@
 ### Features
 
 * different popover content based on userRole AB[#34478](https://github.com/rodekruis/IBF-system/issues/34478) ([3f92588](https://github.com/rodekruis/IBF-system/commit/3f925885b0e57cb50e925581d5f3180d1cd4b17f))
-
-
-
-# [0.301.0](https://github.com/rodekruis/IBF-system/compare/v0.300.0...v0.301.0) (2025-03-19)
-
-
-### Bug Fixes
-
-* apply filter also on aggregates data ([f6c89eb](https://github.com/rodekruis/IBF-system/commit/f6c89eb2569d706698a48aec93619caa1431a10b))
-* integration test + some renaming ([fb3c850](https://github.com/rodekruis/IBF-system/commit/fb3c850bf4dc30ea008151afd8f7f90d9a424273))
-* make highestAlertLevel filter event-specific AB[#34119](https://github.com/rodekruis/IBF-system/issues/34119) ([9a2fcc7](https://github.com/rodekruis/IBF-system/commit/9a2fcc7b07fda934329a76eef5187bfe275cb485))
-* no-trigger case ([f60ed4c](https://github.com/rodekruis/IBF-system/commit/f60ed4cdb192e04996f8fcef9a51d405c06e9cd6))
-* process PR comments ([6b073bf](https://github.com/rodekruis/IBF-system/commit/6b073bfb0f93dd81097b6b55cb8a7d713a32c4e7))
-* remove startDate from header ongoing event AB[#34527](https://github.com/rodekruis/IBF-system/issues/34527) ([8720d82](https://github.com/rodekruis/IBF-system/commit/8720d821eca4aa937b684d63810097073e96dc5c))
-* rm flash-floods exception to not highlight timeline on map hover AB[#34528](https://github.com/rodekruis/IBF-system/issues/34528) ([a989cb7](https://github.com/rodekruis/IBF-system/commit/a989cb787d9b617302b3b77daf85981e2bf40ff8))
-* small improvements AB[#34119](https://github.com/rodekruis/IBF-system/issues/34119) ([ea40146](https://github.com/rodekruis/IBF-system/commit/ea40146aa032fa63a6b00a739d42731d2662f70f))
-* unhide perc aggregate in frontend ([fae915f](https://github.com/rodekruis/IBF-system/commit/fae915f63412028a3c177825cb5e0303c40c7111))
-* unit test ([a537565](https://github.com/rodekruis/IBF-system/commit/a5375651c0893651dceb75d409498c0a951618e6))
-* unit test ([5d188a5](https://github.com/rodekruis/IBF-system/commit/5d188a54276117016c586387defbd947a512514c))
-* unit test ([0e31440](https://github.com/rodekruis/IBF-system/commit/0e3144074b11a42f25c8b10d35e6996f602804f2))
-
-
-### Features
-
-* admin areas ([61d8e4f](https://github.com/rodekruis/IBF-system/commit/61d8e4f2578b5548044d580f7ad4527293ef9f3e))
-* main exposure value sum and highest alert level ([25b50df](https://github.com/rodekruis/IBF-system/commit/25b50df92016cb4f0ee9c037dd81c8f4394c7893))
-* nr alert areas ([6afbdc4](https://github.com/rodekruis/IBF-system/commit/6afbdc4a29536b3dbc1eaeec864a21690154fad4))
 
 
 
