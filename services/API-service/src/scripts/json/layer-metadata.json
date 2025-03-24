@@ -79,16 +79,16 @@
     "active": "no",
     "description": {
       "ETH": {
-        "drought": "This map layer shows the probability that precipitation for the given season falls within the lower tercile (lowest third) of the 30-year climatological distribution."
+        "drought": "This layer displays the probability that seasonal precipitation will fall within the lowest third (lower tercile) of the 30-year climatological distribution."
       },
       "KEN": {
-        "drought": "This map layer shows the probability that precipitation for the given season falls within the lower tercile (lowest third) of the 30-year climatological distribution."
+        "drought": "This layer displays the probability that seasonal precipitation will fall within the lowest third (lower tercile) of the 30-year climatological distribution."
       },
       "LSO": {
-        "drought": "This map layer shows the probability that precipitation for the given season falls within the lower tercile (lowest third) of the 30-year climatological distribution."
+        "drought": "This layer displays the probability that seasonal precipitation will fall within the lowest third (lower tercile) of the 30-year climatological distribution."
       },
       "UGA": {
-        "drought": "This map layer shows the probability that precipitation for the given season falls within the lower tercile (lowest third) of the 30-year climatological distribution."
+        "drought": "This layer displays the probability that seasonal precipitation will fall within the lowest third (lower tercile) of the 30-year climatological distribution."
       }
     }
   },
