@@ -1,3 +1,12 @@
+## [0.305.1](https://github.com/rodekruis/IBF-system/compare/v0.305.0...v0.305.1) (2025-03-24)
+
+
+### Bug Fixes
+
+* area filtering bug AB[#34732](https://github.com/rodekruis/IBF-system/issues/34732) ([a0fae5e](https://github.com/rodekruis/IBF-system/commit/a0fae5e91299a570278993f2e9058ee1b8f7dcf4))
+
+
+
 # [0.305.0](https://github.com/rodekruis/IBF-system/compare/v0.304.2...v0.305.0) (2025-03-21)
 
 
@@ -132,20 +141,6 @@
 * admin areas ([61d8e4f](https://github.com/rodekruis/IBF-system/commit/61d8e4f2578b5548044d580f7ad4527293ef9f3e))
 * main exposure value sum and highest alert level ([25b50df](https://github.com/rodekruis/IBF-system/commit/25b50df92016cb4f0ee9c037dd81c8f4394c7893))
 * nr alert areas ([6afbdc4](https://github.com/rodekruis/IBF-system/commit/6afbdc4a29536b3dbc1eaeec864a21690154fad4))
-
-
-
-# [0.300.0](https://github.com/rodekruis/IBF-system/compare/v0.299.1...v0.300.0) (2025-03-19)
-
-
-### Bug Fixes
-
-* align semibold use ([e32a3ee](https://github.com/rodekruis/IBF-system/commit/e32a3ee02356e9a097dc929b1ff78205d04a297c))
-
-
-### Features
-
-* remove set trigger success popover ([1e775cd](https://github.com/rodekruis/IBF-system/commit/1e775cd9b66e10842198b63c36e3930243c2df69))
 
 
 
