@@ -63,10 +63,7 @@ export class HelperService {
   public setDayToLastDayOfMonth(date: Date, leadTimeUnit: LeadTimeUnit): Date {
     date = date ? new Date(date) : new Date();
     if (date && leadTimeUnit === LeadTimeUnit.month) {
-      if (date.getMonth() !== new Date().getMonth()) {
-        // if month-of-upload is different (typically larger) than month, set day to last day of month
-        date = new Date(date.getFullYear(), date.getMonth() + 1, 0, 0, 0, 0);
-      }
+      date = new Date(date.getFullYear(), date.getMonth() + 1, 0, 0, 0, 0); // Setting day=0 gives last day of previous month
     }
     return date;
   }
