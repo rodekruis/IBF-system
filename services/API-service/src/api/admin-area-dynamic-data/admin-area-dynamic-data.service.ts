@@ -21,7 +21,7 @@ import { AdminAreaDynamicDataEntity } from './admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from './dto/admin-data-return.dto';
 import { UploadAdminAreaDynamicDataDto } from './dto/upload-admin-area-dynamic-data.dto';
 import { DynamicIndicator, TRIGGER } from './enum/dynamic-indicator.enum';
-import { LeadTime } from './enum/lead-time.enum';
+import { LeadTime, LeadTimeUnit } from './enum/lead-time.enum';
 
 interface RasterData {
   originalname: string;
@@ -45,7 +45,7 @@ export class AdminAreaDynamicDataService {
   ): Promise<void> {
     uploadExposure.date = this.helperService.setDayToLastDayOfMonth(
       uploadExposure.date,
-      uploadExposure.leadTime,
+      uploadExposure.leadTime.split('-')[1] as LeadTimeUnit,
     );
 
     // NOTE: Temporary exception. This should be changed in pipeline, but this achieves the same result as long as that did not happen

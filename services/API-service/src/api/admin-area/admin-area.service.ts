@@ -215,12 +215,6 @@ export class AdminAreaService {
       .createQueryBuilder('area')
       .select(['area."placeCode", area."placeCodeParent"'])
       .leftJoin(
-        AdminAreaDynamicDataEntity,
-        'dynamic',
-        'area.placeCode = dynamic.placeCode',
-      )
-      .addSelect(['dynamic."indicator"', 'dynamic."value"'])
-      .leftJoin(
         EventPlaceCodeEntity,
         'epc',
         'area.id = epc.adminAreaId AND epc.closed = false AND epc."disasterType" = :disasterType',
@@ -230,26 +224,26 @@ export class AdminAreaService {
         'epc."forecastSeverity"',
         'epc."forecastTrigger"',
         'epc."userTrigger"',
+        'epc."pipelineUpdateTimestamp"',
       ])
+      .leftJoin(
+        AdminAreaDynamicDataEntity,
+        'dynamic',
+        'area.placeCode = dynamic.placeCode AND dynamic.timestamp = COALESCE(epc."pipelineUpdateTimestamp",:uploadTimestamp)',
+        { uploadTimestamp: lastUploadDate.timestamp },
+      )
+      .addSelect(['dynamic."indicator"', 'dynamic."value"'])
       .where({
         countryCodeISO3,
         adminLevel,
       })
-      .andWhere('dynamic."disasterType" = :disasterType', { disasterType })
-      .andWhere('dynamic.timestamp >= :cutoffMoment', {
-        cutoffMoment: lastUploadDate.cutoffMoment,
-      });
+      .andWhere('dynamic."disasterType" = :disasterType', { disasterType });
 
     if (placeCodeParent) {
       dynamicIndicatorsScript.andWhere(
         'area."placeCodeParent" = :placeCodeParent',
         { placeCodeParent },
       );
-    }
-    if (leadTime) {
-      dynamicIndicatorsScript.andWhere('dynamic."leadTime" = :leadTime', {
-        leadTime,
-      });
     }
     if (eventName) {
       dynamicIndicatorsScript.andWhere('dynamic."eventName" = :eventName', {
@@ -336,20 +330,13 @@ export class AdminAreaService {
         'epc."forecastSeverity"',
         'epc."forecastTrigger"',
         'epc."userTrigger"',
+        'epc."pipelineUpdateTimestamp"',
       ])
-      .where('area."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
-      .andWhere('area."adminLevel" = :adminLevel', { adminLevel });
-    if (placeCodeParent) {
-      adminAreasScript.andWhere('area."placeCodeParent" = :placeCodeParent', {
-        placeCodeParent,
-      });
-    }
-
-    adminAreasScript = adminAreasScript
       .leftJoin(
         AdminAreaDynamicDataEntity,
         'dynamic',
-        'area.placeCode = dynamic.placeCode',
+        'area.placeCode = dynamic.placeCode AND dynamic.timestamp = COALESCE(epc."pipelineUpdateTimestamp",:uploadTimestamp)',
+        { uploadTimestamp: lastUploadDate.timestamp },
       )
       .leftJoin(
         AdminAreaEntity,
@@ -364,17 +351,18 @@ export class AdminAreaService {
         'parent."placeCode" as "placeCodeParent"',
         'dynamic."eventName"',
       ])
-      .andWhere('timestamp >= :cutoffMoment', {
-        cutoffMoment: lastUploadDate.cutoffMoment,
-      })
+      .where('area."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
+      .andWhere('area."adminLevel" = :adminLevel', { adminLevel })
       .andWhere('dynamic.disasterType = :disasterType', { disasterType })
       .andWhere('dynamic."indicator" = :indicator', {
         indicator: disasterTypeEntity.mainExposureIndicator,
       })
       .orderBy('dynamic."leadTime"', 'DESC'); // This makes sure that if an area is part of 2 events, the earlier event is first and therefore on "top" in the map, so that on clicking the area in the map the earliest event is selected.
 
-    if (leadTime) {
-      adminAreasScript.andWhere('dynamic."leadTime" = :leadTime', { leadTime });
+    if (placeCodeParent) {
+      adminAreasScript.andWhere('area."placeCodeParent" = :placeCodeParent', {
+        placeCodeParent,
+      });
     }
     if (eventName) {
       adminAreasScript.andWhere('dynamic."eventName" = :eventName', {

@@ -26,7 +26,10 @@ import {
   FORECAST_SEVERITY,
   FORECAST_TRIGGER,
 } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import {
+  LeadTime,
+  LeadTimeUnit,
+} from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
 import { CountryEntity } from '../country/country.entity';
@@ -90,6 +93,7 @@ export class EventService {
       eventSummaryQueryBuilder,
       countryCodeISO3,
       disasterType,
+      lastUploadDate.timestamp,
     );
   }
 
@@ -97,6 +101,10 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<EventSummaryCountry[]> {
+    const lastUploadDate = await this.getLastUploadDate(
+      countryCodeISO3,
+      disasterType,
+    );
     const sixDaysAgo = subDays(new Date(), 6); // NOTE: this 7-day rule is no longer applicable. Fix this when re-enabling this feature.
     const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
       countryCodeISO3,
@@ -110,6 +118,7 @@ export class EventService {
       eventSummaryQueryBuilder,
       countryCodeISO3,
       disasterType,
+      lastUploadDate.timestamp,
     );
   }
 
@@ -117,12 +126,14 @@ export class EventService {
     qb: SelectQueryBuilder<EventPlaceCodeEntity>,
     countryCodeISO3: string,
     disasterType: DisasterType,
+    lastUploadTimestamp: Date,
   ): Promise<EventSummaryCountry[]> {
     const rawEventSummary = await qb.getRawMany();
     const eventSummary = await this.populateEventsDetails(
       rawEventSummary,
       countryCodeISO3,
       disasterType,
+      lastUploadTimestamp,
     );
     return eventSummary;
   }
@@ -132,6 +143,7 @@ export class EventService {
     rawEvents: any[],
     countryCodeISO3: string,
     disasterType: DisasterType,
+    lastUploadTimestamp: Date,
   ): Promise<EventSummaryCountry[]> {
     const disasterSettings = await this.getCountryDisasterSettings(
       countryCodeISO3,
@@ -145,18 +157,16 @@ export class EventService {
         event.eventName,
       );
       event.firstLeadTime = await this.getFirstLeadTime(
-        countryCodeISO3,
         disasterType,
-        event.eventName,
-        false,
+        event.eventStartDate,
+        lastUploadTimestamp,
       );
       event.firstTriggerLeadTime = event.userTrigger
         ? event.firstLeadTime
         : await this.getFirstLeadTime(
-            countryCodeISO3,
             disasterType,
-            event.eventName,
-            true,
+            event.eventTriggerStartDate,
+            lastUploadTimestamp,
           );
       event.alertLevel = this.getAlertLevel(event);
       if (disasterType === DisasterType.Typhoon) {
@@ -202,6 +212,8 @@ export class EventService {
       .addGroupBy('event."eventName"')
       .addSelect([
         'MIN("firstIssuedDate") AS "firstIssuedDate"',
+        'MIN("eventStartDate") AS "eventStartDate"',
+        'MIN("eventTriggerStartDate") AS "eventTriggerStartDate"',
         'MAX("endDate") AS "endDate"',
         'MAX(event."forecastSeverity")::float AS "forecastSeverity"',
         'MAX(event."forecastTrigger"::int)::boolean AS "forecastTrigger"',
@@ -250,7 +262,9 @@ export class EventService {
   ): Promise<AlertPerLeadTimeEntity[]> {
     uploadAlertsPerLeadTimeDto.date = this.helperService.setDayToLastDayOfMonth(
       uploadAlertsPerLeadTimeDto.date,
-      uploadAlertsPerLeadTimeDto.alertsPerLeadTime[0].leadTime,
+      uploadAlertsPerLeadTimeDto.alertsPerLeadTime[0].leadTime.split(
+        '-',
+      )[1] as LeadTimeUnit,
     );
     const alertsPerLeadTime: AlertPerLeadTimeEntity[] = [];
     const timestamp = uploadAlertsPerLeadTimeDto.date || new Date();
@@ -590,34 +604,31 @@ export class EventService {
   }
 
   private async getFirstLeadTime(
-    countryCodeISO3: string,
     disasterType: DisasterType,
-    eventName: string,
-    triggeredLeadTime: boolean,
-  ) {
-    const timesteps = await this.getAlertPerLeadTime(
-      countryCodeISO3,
-      disasterType,
-      eventName,
-    );
-    let firstKey = null;
-    Object.keys(timesteps)
-      .filter((key) => Object.values(LeadTime).includes(key as LeadTime))
-      .sort((a, b) =>
-        Number(a.split('-')[0]) > Number(b.split('-')[0]) ? 1 : -1,
-      )
-      .forEach((key) => {
-        if (triggeredLeadTime) {
-          if (timesteps[`${key}-forecastTrigger`] === '1') {
-            firstKey = !firstKey ? key : firstKey;
-          }
-        } else {
-          if (timesteps[key] === '1') {
-            firstKey = !firstKey ? key : firstKey;
-          }
-        }
-      });
-    return firstKey;
+    eventStartDate: Date,
+    lastUploadTimestamp: Date,
+  ): Promise<LeadTime> {
+    if (!eventStartDate) {
+      return null;
+    }
+    const diffMs = eventStartDate.getTime() - lastUploadTimestamp.getTime();
+    const leadTimeUnit = (
+      await this.disasterTypeService.getDisasterType(disasterType)
+    ).leadTimeUnit;
+    switch (leadTimeUnit) {
+      case LeadTimeUnit.month:
+        const diffMonths =
+          (eventStartDate.getFullYear() - lastUploadTimestamp.getFullYear()) *
+            12 +
+          (eventStartDate.getMonth() - lastUploadTimestamp.getMonth());
+        return `${diffMonths}-month` as LeadTime;
+      case LeadTimeUnit.day:
+        const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24));
+        return `${diffDays}-day` as LeadTime;
+      case LeadTimeUnit.hour:
+        const diffHours = Math.round(diffMs / (1000 * 60 * 60));
+        return `${diffHours}-hour` as LeadTime;
+    }
   }
 
   public async getAlertPerLeadTime(
@@ -727,13 +738,39 @@ export class EventService {
       lastUploadDate,
     );
 
+    const endDate = await this.getEndDate(
+      lastUploadDate.timestamp,
+      disasterType,
+      countryCodeISO3,
+      eventName,
+    );
+
+    const eventStartDate = await this.getEventStartTriggerDate(
+      countryCodeISO3,
+      disasterType,
+      eventName,
+      false,
+      lastUploadDate.timestamp,
+    );
+
+    const eventTriggerStartDate = await this.getEventStartTriggerDate(
+      countryCodeISO3,
+      disasterType,
+      eventName,
+      true,
+      lastUploadDate.timestamp,
+    );
+
     // update existing event areas + update population and end_date
     await this.updateExistingEventAreas(
       countryCodeISO3,
       disasterType,
       eventName,
       activeAlertAreas,
-      lastUploadDate,
+      lastUploadDate.timestamp,
+      endDate,
+      eventStartDate,
+      eventTriggerStartDate,
     );
 
     // add new event areas
@@ -742,7 +779,10 @@ export class EventService {
       disasterType,
       eventName,
       activeAlertAreas,
-      lastUploadDate,
+      lastUploadDate.timestamp,
+      endDate,
+      eventStartDate,
+      eventTriggerStartDate,
     );
   }
 
@@ -970,7 +1010,10 @@ export class EventService {
     disasterType: DisasterType,
     eventName: string,
     activeAlertAreas: AreaForecastDataDto[],
-    lastUploadDate: LastUploadDateDto,
+    lastUploadTimestamp: Date,
+    endDate: Date,
+    eventStartDate: Date,
+    eventTriggerStartDate: Date,
   ): Promise<void> {
     const activeEventAreas = await this.eventPlaceCodeRepo.find({
       where: {
@@ -1012,13 +1055,26 @@ export class EventService {
       }
     });
 
-    const endDate = lastUploadDate.timestamp;
     // NOTE this split in 3 updates is to optimize performance. Combine all bulk (same value) updates as much as possible in one query, to avoid separate query per area.
     // 1. first fire one query to update all rows that need forecastTrigger = true (and pass endDate)
-    await this.updateBulkEventData(triggerAreaIdsToUpdate, true, endDate);
+    await this.updateBulkEventData(
+      triggerAreaIdsToUpdate,
+      true,
+      endDate,
+      eventStartDate,
+      eventTriggerStartDate,
+      lastUploadTimestamp,
+    );
 
     // 2. then fire one query to update all rows that need forecastTrigger = false
-    await this.updateBulkEventData(warningAreaIdsToUpdate, false, endDate);
+    await this.updateBulkEventData(
+      warningAreaIdsToUpdate,
+      false,
+      endDate,
+      eventStartDate,
+      eventTriggerStartDate,
+      lastUploadTimestamp,
+    );
 
     // .. lastly we update those records where mainExposureValue or forecastSeverity changed
     await this.updateOtherEventData(areasToUpdate);
@@ -1028,6 +1084,9 @@ export class EventService {
     eventPlaceCodeIds: string[],
     forecastTrigger: boolean,
     endDate: Date,
+    eventStartDate: Date,
+    eventTriggerStartDate: Date,
+    lastUploadTimestamp: Date,
   ) {
     if (!eventPlaceCodeIds.length) {
       return;
@@ -1036,7 +1095,13 @@ export class EventService {
     await this.eventPlaceCodeRepo
       .createQueryBuilder()
       .update()
-      .set({ forecastTrigger, endDate })
+      .set({
+        forecastTrigger,
+        endDate,
+        eventStartDate,
+        eventTriggerStartDate,
+        pipelineUpdateTimestamp: lastUploadTimestamp,
+      })
       .where({ eventPlaceCodeId: In(eventPlaceCodeIds) })
       .execute();
   }
@@ -1070,7 +1135,10 @@ export class EventService {
     disasterType: DisasterType,
     eventName: string,
     activeAlertAreas: AreaForecastDataDto[],
-    lastUploadDate: LastUploadDateDto,
+    lastUploadTimestamp: Date,
+    endDate: Date,
+    eventStartDate: Date,
+    eventTriggerStartDate: Date,
   ): Promise<void> {
     const activeEventAreaPlaceCodes = (
       await this.eventPlaceCodeRepo.find({
@@ -1098,13 +1166,102 @@ export class EventService {
         eventArea.forecastTrigger = activeAlertArea.forecastTrigger;
         eventArea.forecastSeverity = activeAlertArea.forecastSeverity;
         eventArea.mainExposureValue = +activeAlertArea.mainExposureValue;
-        eventArea.firstIssuedDate = lastUploadDate.timestamp;
-        eventArea.endDate = lastUploadDate.timestamp;
+        eventArea.firstIssuedDate = lastUploadTimestamp;
+        eventArea.eventStartDate = eventStartDate;
+        eventArea.eventTriggerStartDate = eventTriggerStartDate;
+        eventArea.pipelineUpdateTimestamp = lastUploadTimestamp;
+        eventArea.endDate = endDate;
         eventArea.disasterType = disasterType;
         newEventAreas.push(eventArea);
       }
     }
     await this.eventPlaceCodeRepo.save(newEventAreas);
+  }
+
+  private getEventStartDate(
+    lastUploadTimestamp: Date,
+    leadTime: LeadTime,
+  ): Date {
+    const timeUnitsInFuture = Number(leadTime.split('-')[0]);
+    const timeUnit = leadTime.split('-')[1] as LeadTimeUnit;
+
+    const eventStartDate = new Date(lastUploadTimestamp);
+    if (timeUnit === LeadTimeUnit.month) {
+      eventStartDate.setMonth(eventStartDate.getMonth() + timeUnitsInFuture);
+    } else if (timeUnit === LeadTimeUnit.day) {
+      eventStartDate.setDate(eventStartDate.getDate() + timeUnitsInFuture);
+    } else if (timeUnit === LeadTimeUnit.hour) {
+      eventStartDate.setHours(eventStartDate.getHours() + timeUnitsInFuture);
+    }
+    return eventStartDate;
+  }
+
+  private async getEventStartTriggerDate(
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    eventName: string,
+    triggeredLeadTime: boolean,
+    lastUploadTimestamp: Date,
+  ): Promise<Date> {
+    const alertsPerLeadTime = await this.getAlertPerLeadTime(
+      countryCodeISO3,
+      disasterType,
+      eventName,
+    );
+    let firstKey = null;
+    Object.keys(alertsPerLeadTime)
+      .filter((key) => Object.values(LeadTime).includes(key as LeadTime))
+      .sort((a, b) =>
+        Number(a.split('-')[0]) > Number(b.split('-')[0]) ? 1 : -1,
+      )
+      .forEach((key) => {
+        if (triggeredLeadTime) {
+          if (alertsPerLeadTime[`${key}-forecastTrigger`] === '1') {
+            firstKey = !firstKey ? key : firstKey;
+          }
+        } else {
+          if (alertsPerLeadTime[key] === '1') {
+            firstKey = !firstKey ? key : firstKey;
+          }
+        }
+      });
+    const leadTime = firstKey as LeadTime;
+    return leadTime
+      ? this.getEventStartDate(lastUploadTimestamp, leadTime)
+      : null;
+  }
+
+  private async getEndDate(
+    lastUploadTimestamp: Date,
+    disasterType: DisasterType,
+    countryCodeISO3: string,
+    eventName: string,
+  ): Promise<Date> {
+    if (disasterType !== DisasterType.Drought) {
+      return lastUploadTimestamp;
+    }
+
+    const countryDisasterSettings = await this.getCountryDisasterSettings(
+      countryCodeISO3,
+      disasterType,
+    );
+    const regionName = eventName.split('_')[1];
+    const seasonName = eventName.split('_')[0];
+    const season =
+      countryDisasterSettings.droughtSeasonRegions[regionName][seasonName]
+        .rainMonths;
+    const endOfSeasonMonth = season[season.length - 1];
+    const currentMonth = new Date(lastUploadTimestamp).getUTCMonth() + 1;
+    const endOfSeasonDate = new Date(lastUploadTimestamp);
+    endOfSeasonDate.setUTCDate(1); // temp set to 1st of month to avoid issues with varying number of days per month
+    endOfSeasonDate.setUTCMonth(endOfSeasonMonth - 1);
+    if (currentMonth > endOfSeasonMonth) {
+      endOfSeasonDate.setUTCFullYear(endOfSeasonDate.getUTCFullYear() + 1);
+    }
+    return this.helperService.setDayToLastDayOfMonth(
+      endOfSeasonDate,
+      LeadTimeUnit.month,
+    );
   }
 
   public async closeEventsAutomatic(

@@ -41,6 +41,15 @@ export class EventPlaceCodeEntity {
   @Column({ type: 'timestamp' })
   public firstIssuedDate: Date;
 
+  @Column({ type: 'timestamp', nullable: true })
+  public eventStartDate: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  public eventTriggerStartDate: Date;
+
+  @Column({ type: 'timestamp', nullable: true })
+  public pipelineUpdateTimestamp: Date;
+
   @Column({ type: 'float8', nullable: true })
   public forecastSeverity: number;
 
