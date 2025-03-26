@@ -1,3 +1,21 @@
+# [0.308.0](https://github.com/rodekruis/IBF-system/compare/v0.307.0...v0.308.0) (2025-03-26)
+
+
+### Bug Fixes
+
+* email headers ([1ce690a](https://github.com/rodekruis/IBF-system/commit/1ce690a9665856b9a33bd8990f1dde187cd31682))
+* integration tests ([5390877](https://github.com/rodekruis/IBF-system/commit/53908770aa25352bb9f8b64c4acf199ef0340a7f))
+* rainfall raster style ([171855f](https://github.com/rodekruis/IBF-system/commit/171855fe5f8690f4913fa4a09ed52909d967bc77))
+
+
+### Features
+
+* hide socialmedia btn if no link ([cdb328f](https://github.com/rodekruis/IBF-system/commit/cdb328f30ab54676dd975e9c3a5e9ee2aef4b166))
+* hide video if not available ([230ebd2](https://github.com/rodekruis/IBF-system/commit/230ebd20e8a289c7d4ef85f204099fc001f9cc1e))
+* update LSO mock data ([64ffc43](https://github.com/rodekruis/IBF-system/commit/64ffc43c95fa96603bb23695a382eac3d30a54af))
+
+
+
 # [0.307.0](https://github.com/rodekruis/IBF-system/compare/v0.306.0...v0.307.0) (2025-03-24)
 
 
@@ -106,15 +124,6 @@
 ### Features
 
 * notify on set-trigger AB[#34600](https://github.com/rodekruis/IBF-system/issues/34600) ([da70627](https://github.com/rodekruis/IBF-system/commit/da706271bb05793134dd64d667e8b4551d1284b3))
-
-
-
-## [0.302.2](https://github.com/rodekruis/IBF-system/compare/v0.302.1...v0.302.2) (2025-03-20)
-
-
-### Reverts
-
-* Revert "Update test descriptions" ([f54fc85](https://github.com/rodekruis/IBF-system/commit/f54fc854f4487b527b66898133b729cd5df8978e))
 
 
 

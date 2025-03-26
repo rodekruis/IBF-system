@@ -1,6 +1,6 @@
 {
   "name": "IBF-system",
-  "version": "0.307.0",
+  "version": "0.308.0",
   "private": true,
   "scripts": {
     "start:services": "docker compose up -d",
