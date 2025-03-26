@@ -65,15 +65,7 @@
     "type": "wms",
     "legendColor": {
       "type": "gradient",
-      "value": [
-        "#ffff7f",
-        "#ffe200",
-        "#ffaa00",
-        "#ff8d00",
-        "#ff7100",
-        "#ff3800",
-        "#ff0000"
-      ]
+      "value": ["#ffe200", "#ffaa00", "#ff8d00", "#ff0000"]
     },
     "leadTimeDependent": true,
     "active": "no",
