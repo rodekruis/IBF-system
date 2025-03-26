@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PopoverController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -14,19 +15,26 @@ export class IbfGuidePopoverComponent implements OnInit {
   public videoUrl: string;
   public safeVideoUrl: SafeResourceUrl;
   public whatsNewUrl: string = environment.whatsNewUrl;
+  public videoInsert: string;
 
   constructor(
     private popoverController: PopoverController,
     private domSanitizer: DomSanitizer,
+    private translateService: TranslateService,
   ) {}
 
   ngOnInit() {
     this.safeVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
       this.videoUrl,
     );
+    this.videoInsert = this.videoUrl
+      ? (this.translateService.instant(
+          'ibf-guide-component.video-insert',
+        ) as string)
+      : '';
   }
 
   public closePopover(): void {
-    this.popoverController.dismiss();
+    void this.popoverController.dismiss();
   }
 }

@@ -98,7 +98,8 @@
   },
   "ibf-guide-component": {
     "title": "IBF guide",
-    "video-pdf-description": "To get a quick guide on how this dashboard works you can look at either the video guide below or the PDF manual <a href='{{pdfUrl}}' target='_blank'>here</a>.",
+    "video-pdf-description": "To get a quick guide on how this dashboard works you can look at {{ videoInsert }} the PDF manual <a href='{{pdfUrl}}' target='_blank'>here</a>.",
+    "video-insert": "either the video guide below or",
     "whats-new-description": "To learn what new features have recently been added to the IBF Portal click <a href='{{whatsNewUrl}}' target='_blank'>here</a>."
   },
   "set-trigger-component": {

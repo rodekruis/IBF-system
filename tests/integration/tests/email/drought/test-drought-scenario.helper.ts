@@ -2,11 +2,7 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { DroughtScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import {
-  getEventTitle,
-  mock,
-  sendNotification,
-} from '../../../helpers/utility.helper';
+import { mock, sendNotification } from '../../../helpers/utility.helper';
 
 export async function testDroughtScenario(
   scenario: DroughtScenario,
@@ -57,9 +53,8 @@ export async function testDroughtScenario(
 
   // Check if each expected event name is included in at least one title
   for (const expectedEventName of expectedEventNames) {
-    const eventTitle = getEventTitle(DisasterType.Drought, expectedEventName);
     const hasEvent = eventNamesInEmail.some((eventNameInEmail) =>
-      eventNameInEmail.includes(eventTitle),
+      eventNameInEmail.includes(expectedEventName.toLowerCase()),
     );
     expect(hasEvent).toBe(true);
   }

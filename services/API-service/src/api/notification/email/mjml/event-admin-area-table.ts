@@ -1,5 +1,4 @@
 import { NumberFormat } from '../../../../shared/enums/number-format.enum';
-import { firstCharOfWordsToUpper } from '../../../../shared/utils';
 import { IndicatorMetadataEntity } from '../../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../../dto/admin-area-notification-info.dto';
 import { ContentEventEmail } from '../../dto/content-event-email.dto';
@@ -16,7 +15,6 @@ import {
 } from '../../helpers/mjml.helper';
 
 const getMjmlEventAdminAreaTable = ({
-  disasterTypeLabel,
   textColour,
   defaultAdminAreaLabel,
   defaultAdminAreaParentLabel,
@@ -25,7 +23,6 @@ const getMjmlEventAdminAreaTable = ({
   triangleIcon,
   toCompactNumber,
 }: {
-  disasterTypeLabel: string;
   textColour: string;
   defaultAdminAreaLabel: AdminAreaLabel;
   defaultAdminAreaParentLabel: AdminAreaLabel;
@@ -39,7 +36,7 @@ const getMjmlEventAdminAreaTable = ({
   const severityLabel = getEventSeverityLabel(event.eapAlertClass?.key);
 
   const titleElement = getTextElement({
-    content: `${icon} <strong>${severityLabel} ${event.triggerStatusLabel} ${disasterTypeLabel}: ${event.eventName}</strong>`,
+    content: `${icon} <strong>${severityLabel} ${event.triggerStatusLabel}: ${event.eventName}</strong>`,
     attributes: {
       color: textColour,
       'container-background-color': COLOR_WHITE,
@@ -127,9 +124,6 @@ export const getMjmlAdminAreaTableList = (
   for (const event of emailContent.dataPerEvent) {
     adminAreaTableList.push(
       getMjmlEventAdminAreaTable({
-        disasterTypeLabel: firstCharOfWordsToUpper(
-          emailContent.disasterType.label,
-        ),
         textColour: getIbfHexColor(
           event.eapAlertClass?.color,
           event.triggerStatusLabel,
