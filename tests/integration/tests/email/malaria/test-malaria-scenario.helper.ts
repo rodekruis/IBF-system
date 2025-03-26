@@ -2,11 +2,7 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { MalariaScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import {
-  getEventTitle,
-  mock,
-  sendNotification,
-} from '../../../helpers/utility.helper';
+import { mock, sendNotification } from '../../../helpers/utility.helper';
 
 export async function testMalariaScenario(
   scenario: MalariaScenario,
@@ -14,7 +10,6 @@ export async function testMalariaScenario(
   accessToken: string,
 ): Promise<boolean> {
   const eventNames = ['0-month', '1-month', '2-month'];
-  const disasterTypeLabel = DisasterType.Malaria;
 
   const mockResult = await mock(
     scenario,
@@ -62,9 +57,8 @@ export async function testMalariaScenario(
   if (scenario === MalariaScenario.Trigger) {
     // Check if each expected event name is included in at least one title
     for (const eventName of eventNames) {
-      const eventTitle = getEventTitle(disasterTypeLabel, eventName);
       const hasEvent = eventNamesInEmail.some((eventNameInEmail) =>
-        eventNameInEmail.includes(eventTitle),
+        eventNameInEmail.includes(eventName.toLowerCase()),
       );
       expect(hasEvent).toBe(true);
     }

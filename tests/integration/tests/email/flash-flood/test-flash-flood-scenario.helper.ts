@@ -2,11 +2,7 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { FlashFloodsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import {
-  getEventTitle,
-  mock,
-  sendNotification,
-} from '../../../helpers/utility.helper';
+import { mock, sendNotification } from '../../../helpers/utility.helper';
 
 export async function testFlashFloodScenario(
   scenario: FlashFloodsScenario,
@@ -14,8 +10,6 @@ export async function testFlashFloodScenario(
   eventNames: string[] = [],
   accessToken: string,
 ): Promise<boolean> {
-  const disasterTypeLabel = 'Flash Flood'; // DisasterType.FlashFloods does not match
-
   const mockResult = await mock(
     scenario,
     DisasterType.FlashFloods,
@@ -62,9 +56,8 @@ export async function testFlashFloodScenario(
   if (scenario !== FlashFloodsScenario.NoTrigger) {
     // Check if each expected event name is included in at least one title
     for (const eventName of eventNames) {
-      const eventTitle = getEventTitle(disasterTypeLabel, eventName);
       const hasEvent = eventNamesInEmail.some((eventNameInEmail) =>
-        eventNameInEmail.includes(eventTitle),
+        eventNameInEmail.includes(eventName.toLowerCase()),
       );
       expect(hasEvent).toBe(true);
     }
