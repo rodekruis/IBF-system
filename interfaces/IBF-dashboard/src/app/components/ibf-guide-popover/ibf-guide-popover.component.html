@@ -17,6 +17,7 @@
         'ibf-guide-component.video-pdf-description'
           | translate
             : {
+                videoInsert,
                 pdfUrl: pdfUrl,
               }
       "
@@ -31,16 +32,18 @@
               }
       "
     ></p>
-    <br />
-    <div>
-      <iframe
-        width="560"
-        height="315"
-        [src]="safeVideoUrl"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen
-      ></iframe>
-    </div>
+    @if (videoUrl) {
+      <br />
+      <div>
+        <iframe
+          width="560"
+          height="315"
+          [src]="safeVideoUrl"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    }
   </ion-card-content>
 </ion-card>
