@@ -103,9 +103,9 @@ test.describe('E2E Tests', () => {
         await page.goto('/');
       });
 
-      test.afterAll(async () => {
-        await page.close();
-      });
+      // test.afterAll(async () => {
+      //   await page.close();
+      // });
 
       test.describe('DashboardPage', () => {
         DashboardPageVisible(pages, components, dataset, date);

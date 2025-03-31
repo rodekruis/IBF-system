@@ -14,20 +14,15 @@ export default (
   test('[34458] Set trigger (from warning)', async () => {
     const accessToken = await getAccessToken();
     const { dashboard, login } = pages;
-    const { chat, userState, aggregates } = components;
+    const { chat, userState, aggregates, map } = components;
 
-    if (!dashboard || !chat || !userState || !aggregates || !login) {
+    if (!dashboard || !chat || !userState || !aggregates || !login || !map) {
       throw new Error('pages and components not found');
     }
     const localAdminRole = UserRole.LocalAdmin;
     const updatedData = { userRole: localAdminRole };
 
-    const userUpdate = await updateUser(
-      dataset.user.email,
-      updatedData,
-      accessToken,
-    );
-    console.log(userUpdate.body);
+    await updateUser(dataset.user.email, updatedData, accessToken);
 
     await userState.logOut();
     await login.login(dataset.user.email, dataset.user.password);
@@ -43,6 +38,7 @@ export default (
     });
     await chat.allDefaultButtonsArePresent();
     // Set trigger
-    await chat.setTrigger('Warning');
+    await chat.setTrigger(dataset.scenario);
+    await map.assertTriggerOutlines('trigger');
   });
 };
