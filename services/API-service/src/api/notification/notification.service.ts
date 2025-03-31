@@ -42,6 +42,7 @@ export class NotificationService {
     }
 
     // NOTE: the finished event email is currently broken. It needs to be fixed. See AB#31766.
+    // When fixing this, also fix w.r.t. new Twilio Content API. See AB#34878.
     // if (disasterType === DisasterType.Floods) {
     //   // Sending finished events is now for floods only
     //   const finishedEventsResponse = await this.sendNotificationsFinishedEvents(

@@ -45,16 +45,20 @@ export class WhatsappService {
   ): Promise<void> {
     const validatedPhoneNumber =
       await this.lookupService.lookupAndCorrect(recipientPhoneNr);
-    await this.sendWhatsapp(message, validatedPhoneNumber);
+    await this.sendWhatsapp(message, null, null, validatedPhoneNumber);
   }
 
   private async sendWhatsapp(
     message: string,
+    contentSid: string,
+    contentVariables: object,
     recipientPhoneNr: string,
     mediaUrl?: string,
   ) {
     const payload = {
-      body: message,
+      body: contentSid ? undefined : message,
+      contentSid,
+      contentVariables,
       messagingServiceSid: process.env.TWILIO_MESSAGING_SID,
       from: 'whatsapp:' + process.env.TWILIO_WHATSAPP_NUMBER,
       statusCallback: EXTERNAL_API.whatsAppStatus,
@@ -79,14 +83,18 @@ export class WhatsappService {
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
     disasterType: DisasterType,
-  ): Promise<string> {
+  ): Promise<{ contentSid: string; contentVariables: object }> {
     activeEvents.sort((a, b) => (a.firstLeadTime > b.firstLeadTime ? 1 : -1));
 
     if (activeEvents.length === 1) {
-      const baseMessage =
+      // const baseMessage =
+      //   country.notificationInfo.whatsappMessage[disasterType][
+      //     'initial-single-event'
+      //   ];
+      const contentSid =
         country.notificationInfo.whatsappMessage[disasterType][
           'initial-single-event'
-        ];
+        ].contentSid;
       const alertState =
         activeEvents[0].alertLevel === AlertLevel.TRIGGER
           ? 'trigger'
@@ -97,16 +105,38 @@ export class WhatsappService {
           country.countryCodeISO3,
           disasterType,
         );
+      let contentVariables;
+      // REFACTOR: this is extremely hacky, but born out of lack of time
+      if (disasterType === DisasterType.FlashFloods) {
+        contentVariables = {
+          '1': alertState,
+          '2': alertState,
+          '3': activeEvents[0].eventName,
+          '4': startTimeEvent,
+        };
+      } else if (disasterType === DisasterType.Floods) {
+        contentVariables = {
+          '1': startTimeEvent,
+        };
+      }
+      return {
+        contentSid,
+        contentVariables,
+      };
 
-      return baseMessage
-        .replace(/\[alertState\]/g, alertState)
-        .replace('[eventName]', activeEvents[0].eventName)
-        .replace('[startTimeEvent]', startTimeEvent);
+      // return baseMessage
+      //   .replace(/\[alertState\]/g, alertState)
+      //   .replace('[eventName]', activeEvents[0].eventName)
+      //   .replace('[startTimeEvent]', startTimeEvent);
     } else if (activeEvents.length > 1) {
-      const baseMessage =
+      // const baseMessage =
+      //   country.notificationInfo.whatsappMessage[disasterType][
+      //     'initial-multi-event'
+      //   ];
+      const contentSid =
         country.notificationInfo.whatsappMessage[disasterType][
           'initial-multi-event'
-        ];
+        ].contentSid;
 
       const startTimeFirstEvent =
         await this.notificationContentService.getFirstLeadTimeString(
@@ -114,11 +144,23 @@ export class WhatsappService {
           country.countryCodeISO3,
           disasterType,
         );
+      let contentVariables;
+      // REFACTOR: this is extremely hacky, but born out of lack of time
+      if (disasterType === DisasterType.FlashFloods) {
+        contentVariables = {
+          '1': activeEvents.length,
+          '2': startTimeFirstEvent,
+        };
+      }
+      return {
+        contentSid,
+        contentVariables,
+      };
 
       // This code now assumes certain parameters in data. This is not right.
-      return baseMessage
-        .replace('[nrEvents]', activeEvents.length)
-        .replace('[startTimeFirstEvent]', startTimeFirstEvent);
+      // return baseMessage
+      //   .replace('[nrEvents]', activeEvents.length)
+      //   .replace('[startTimeFirstEvent]', startTimeFirstEvent);
     }
   }
 
@@ -127,36 +169,44 @@ export class WhatsappService {
     activeEvents: EventSummaryCountry[],
     disasterType: DisasterType,
   ) {
-    const message = await this.configureInitialMessage(
+    const { contentSid, contentVariables } = await this.configureInitialMessage(
       country,
       activeEvents,
       disasterType,
     );
 
-    await this.sendToUsers(country, disasterType, message);
+    await this.sendToUsers(
+      country,
+      disasterType,
+      null,
+      contentSid,
+      contentVariables,
+    );
 
     // Add small delay to ensure the order in which messages are received
     await new Promise((resolve) => setTimeout(resolve, 1000));
   }
 
-  public async sendEventFinishedWhatsapp(
-    country: CountryEntity,
-    finishedEvent: EventSummaryCountry,
-    disasterType: DisasterType,
-  ) {
-    const message = this.configureTriggerFinishedMessage(
-      country,
-      finishedEvent,
-      disasterType,
-    );
+  // public async sendEventFinishedWhatsapp(
+  //   country: CountryEntity,
+  //   finishedEvent: EventSummaryCountry,
+  //   disasterType: DisasterType,
+  // ) {
+  //   const message = this.configureTriggerFinishedMessage(
+  //     country,
+  //     finishedEvent,
+  //     disasterType,
+  //   );
 
-    await this.sendToUsers(country, disasterType, message);
-  }
+  //   await this.sendToUsers(country, disasterType, message);
+  // }
 
   private async sendToUsers(
     country: CountryEntity,
     disasterType: DisasterType,
     message: string,
+    contentSid: string,
+    contentVariables: object,
   ) {
     const users = await this.userRepository.find({
       where: { whatsappNumber: Not(IsNull()) },
@@ -171,7 +221,12 @@ export class WhatsappService {
         continue;
       }
 
-      await this.sendWhatsapp(message, user.whatsappNumber);
+      await this.sendWhatsapp(
+        message,
+        contentSid,
+        contentVariables,
+        user.whatsappNumber,
+      );
     }
   }
 
@@ -259,7 +314,12 @@ export class WhatsappService {
             events,
             disasterType.disasterType,
           );
-          return await this.sendWhatsapp(noTriggerMessage, fromNumber);
+          return await this.sendWhatsapp(
+            noTriggerMessage,
+            null,
+            null,
+            fromNumber,
+          );
         }
 
         for (const event of sortedEvents) {
@@ -269,7 +329,7 @@ export class WhatsappService {
             event,
           );
 
-          await this.sendWhatsapp(triggerMessage, fromNumber);
+          await this.sendWhatsapp(triggerMessage, null, null, fromNumber);
           // Add small delay to ensure the order in which messages are received
           await new Promise((resolve) => setTimeout(resolve, 2000));
         }
@@ -278,7 +338,7 @@ export class WhatsappService {
           country,
           disasterType.disasterType,
         );
-        await this.sendWhatsapp(whatsappGroupMessage, fromNumber);
+        await this.sendWhatsapp(whatsappGroupMessage, null, null, fromNumber);
       }
     }
   }
@@ -292,13 +352,13 @@ export class WhatsappService {
     if (events.length > 0) {
       message += country.notificationInfo.whatsappMessage[disasterType][
         'no-trigger-old-event'
-      ].replace(
+      ].text.replace(
         '[firstIssuedDate]',
         format(events[0].firstIssuedDate, 'yyyy-MM-dd'),
       );
     }
     message +=
-      country.notificationInfo.whatsappMessage[disasterType]['no-trigger'];
+      country.notificationInfo.whatsappMessage[disasterType]['no-trigger'].text;
     return message;
   }
 
@@ -407,17 +467,17 @@ export class WhatsappService {
       relations: ['notificationInfo'],
     });
 
-    let message: string;
-
+    let contentSid: string;
     try {
-      message =
-        country.notificationInfo.whatsappMessage[disasterType][messageKey];
+      contentSid =
+        country.notificationInfo.whatsappMessage[disasterType][messageKey]
+          .contentSid;
     } catch (error) {
       console.log('Message not found in notificationInfo.', error);
       return;
     }
 
-    this.sendToUsers(country, disasterType, message);
+    this.sendToUsers(country, disasterType, null, contentSid, null);
   }
 
   private isCountryEnabledForUser(
