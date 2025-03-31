@@ -56,9 +56,15 @@ export class WhatsappService {
     mediaUrl?: string,
   ) {
     const payload = {
-      body: contentSid ? undefined : message,
-      contentSid,
-      contentVariables,
+      body:
+        process.env.NODE_ENV === 'production' && contentSid
+          ? undefined
+          : message,
+      contentSid: process.env.NODE_ENV === 'production' ? contentSid : null,
+      contentVariables:
+        process.env.NODE_ENV === 'production' && contentVariables
+          ? JSON.stringify(contentVariables)
+          : undefined,
       messagingServiceSid: process.env.TWILIO_MESSAGING_SID,
       from: 'whatsapp:' + process.env.TWILIO_WHATSAPP_NUMBER,
       statusCallback: EXTERNAL_API.whatsAppStatus,
@@ -83,15 +89,21 @@ export class WhatsappService {
     country: CountryEntity,
     activeEvents: EventSummaryCountry[],
     disasterType: DisasterType,
-  ): Promise<{ contentSid: string; contentVariables: object }> {
+  ): Promise<{
+    message: string;
+    contentSid: string;
+    contentVariables: object;
+  }> {
     activeEvents.sort((a, b) => (a.firstLeadTime > b.firstLeadTime ? 1 : -1));
-
+    let message: string;
+    let contentSid: string;
+    let contentVariables: object;
     if (activeEvents.length === 1) {
-      // const baseMessage =
-      //   country.notificationInfo.whatsappMessage[disasterType][
-      //     'initial-single-event'
-      //   ];
-      const contentSid =
+      const baseMessage =
+        country.notificationInfo.whatsappMessage[disasterType][
+          'initial-single-event'
+        ].text;
+      contentSid =
         country.notificationInfo.whatsappMessage[disasterType][
           'initial-single-event'
         ].contentSid;
@@ -105,35 +117,31 @@ export class WhatsappService {
           country.countryCodeISO3,
           disasterType,
         );
-      let contentVariables;
+
+      message = baseMessage
+        .replace(/\[alertState\]/g, alertState)
+        .replace('[eventName]', activeEvents[0].eventName)
+        .replace('[startTimeEvent]', startTimeEvent);
+
       // REFACTOR: this is extremely hacky, but born out of lack of time
       if (disasterType === DisasterType.FlashFloods) {
         contentVariables = {
-          '1': alertState,
-          '2': alertState,
-          '3': activeEvents[0].eventName,
-          '4': startTimeEvent,
+          1: alertState,
+          2: alertState,
+          3: activeEvents[0].eventName,
+          4: startTimeEvent,
         };
       } else if (disasterType === DisasterType.Floods) {
         contentVariables = {
-          '1': startTimeEvent,
+          1: startTimeEvent,
         };
       }
-      return {
-        contentSid,
-        contentVariables,
-      };
-
-      // return baseMessage
-      //   .replace(/\[alertState\]/g, alertState)
-      //   .replace('[eventName]', activeEvents[0].eventName)
-      //   .replace('[startTimeEvent]', startTimeEvent);
     } else if (activeEvents.length > 1) {
-      // const baseMessage =
-      //   country.notificationInfo.whatsappMessage[disasterType][
-      //     'initial-multi-event'
-      //   ];
-      const contentSid =
+      const baseMessage =
+        country.notificationInfo.whatsappMessage[disasterType][
+          'initial-multi-event'
+        ].text;
+      contentSid =
         country.notificationInfo.whatsappMessage[disasterType][
           'initial-multi-event'
         ].contentSid;
@@ -144,24 +152,25 @@ export class WhatsappService {
           country.countryCodeISO3,
           disasterType,
         );
-      let contentVariables;
+
+      message = baseMessage
+        .replace('[nrEvents]', activeEvents.length)
+        .replace('[startTimeFirstEvent]', startTimeFirstEvent);
+
       // REFACTOR: this is extremely hacky, but born out of lack of time
       if (disasterType === DisasterType.FlashFloods) {
         contentVariables = {
-          '1': activeEvents.length,
-          '2': startTimeFirstEvent,
+          1: activeEvents.length.toString(),
+          2: startTimeFirstEvent,
         };
       }
-      return {
-        contentSid,
-        contentVariables,
-      };
-
-      // This code now assumes certain parameters in data. This is not right.
-      // return baseMessage
-      //   .replace('[nrEvents]', activeEvents.length)
-      //   .replace('[startTimeFirstEvent]', startTimeFirstEvent);
     }
+
+    return {
+      message,
+      contentSid,
+      contentVariables,
+    };
   }
 
   public async sendActiveEventsWhatsapp(
@@ -169,16 +178,13 @@ export class WhatsappService {
     activeEvents: EventSummaryCountry[],
     disasterType: DisasterType,
   ) {
-    const { contentSid, contentVariables } = await this.configureInitialMessage(
-      country,
-      activeEvents,
-      disasterType,
-    );
+    const { message, contentSid, contentVariables } =
+      await this.configureInitialMessage(country, activeEvents, disasterType);
 
     await this.sendToUsers(
       country,
       disasterType,
-      null,
+      message,
       contentSid,
       contentVariables,
     );
@@ -284,7 +290,6 @@ export class WhatsappService {
         'countries',
         'countries.disasterTypes',
         'countries.countryDisasterSettings',
-        'countries.countryDisasterSettings.activeLeadTimes',
         'countries.notificationInfo',
         'disasterTypes',
       ],
@@ -388,7 +393,8 @@ export class WhatsappService {
     disasterType: DisasterType,
   ): string {
     const baseWhatsappGroupMessage =
-      country.notificationInfo.whatsappMessage[disasterType]['whatsapp-group'];
+      country.notificationInfo.whatsappMessage[disasterType]['whatsapp-group']
+        .text;
     const whatsappGroupLink = country.notificationInfo.linkSocialMediaUrl;
     const externalActionsForm =
       country.notificationInfo.externalEarlyActionForm;
@@ -440,7 +446,7 @@ export class WhatsappService {
       );
 
     const followUpMessage =
-      country.notificationInfo.whatsappMessage[disasterType]['follow-up'];
+      country.notificationInfo.whatsappMessage[disasterType]['follow-up'].text;
     const message = followUpMessage
       .replace(/\[alertState\]/g, alertState)
       .replace('[eventName]', event.eventName)
@@ -467,8 +473,11 @@ export class WhatsappService {
       relations: ['notificationInfo'],
     });
 
+    let message: string;
     let contentSid: string;
     try {
+      message =
+        country.notificationInfo.whatsappMessage[disasterType][messageKey].text;
       contentSid =
         country.notificationInfo.whatsappMessage[disasterType][messageKey]
           .contentSid;
@@ -477,7 +486,7 @@ export class WhatsappService {
       return;
     }
 
-    this.sendToUsers(country, disasterType, null, contentSid, null);
+    this.sendToUsers(country, disasterType, message, contentSid, null);
   }
 
   private isCountryEnabledForUser(
