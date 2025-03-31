@@ -17,7 +17,10 @@
     },
     "whatsappMessage": {
       "floods": {
-        "community-notification": "A new community notification has been received. Go to the IBF portal to see the details of the notification."
+        "community-notification": {
+          "text": "A new community notification has been received. Go to the IBF portal to see the details of the notification.",
+          "contentSid": "HX4422dba7c015ada10a48a05eff73595e"
+        }
       }
     },
     "linkVideo": "https://bit.ly/IBF-video-Uganda",
@@ -129,12 +132,31 @@
     },
     "whatsappMessage": {
       "flash-floods": {
-        "initial-single-event": "*IBF [alertState] notification*\n\nA [alertState] for flash floods is forecasted in *[eventName]* for: *[startTimeEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
-        "initial-multi-event": "*IBF notification*\n\nThere are *[nrEvents]* notifications issued for flash floods. The first notification is forecasted for: *[startTimeFirstEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
-        "follow-up": "*IBF [alertState] notification*\n\nA [alertState] for flash floods is forecasted in *[eventName]*: *[startTimeEvent]*.\n\nThere are *[nrAlertAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this [alertState].",
-        "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this trigger.",
-        "no-trigger-old-event": "The trigger warning formerly activated on *[firstIssuedDate]* is now below trigger threshold.\n\n",
-        "no-trigger": "There is *no trigger* currently."
+        "initial-single-event": {
+          "text": "*IBF [alertState] notification*\n\nA [alertState] for flash floods is forecasted in *[eventName]* for: *[startTimeEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
+          "contentSid": "HX5c065ccd3c2dc477d112a6cba2210604"
+        },
+        "initial-multi-event": {
+          "text": "*IBF notification*\n\nThere are *[nrEvents]* notifications issued for flash floods. The first notification is forecasted for: *[startTimeFirstEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
+          "contentSid": "HXece584b5d067e7915446b736ac2a15ae"
+        },
+        "no-trigger-old-event": {
+          "text": "The trigger warning formerly activated on *[firstIssuedDate]* is now below trigger threshold.\n\n",
+          "contentSid": "HXa3470bfc8e0f576f00c14d8011c28518"
+        },
+        "trigger-finished": {
+          "text": "The trigger warning formerly activated on *[firstIssuedDate]* is now below trigger threshold.\n\n",
+          "contentSid": "HXa3470bfc8e0f576f00c14d8011c28518"
+        },
+        "follow-up": {
+          "text": "*IBF [alertState] notification*\n\nA [alertState] for flash floods is forecasted in *[eventName]*: *[startTimeEvent]*.\n\nThere are *[nrAlertAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this [alertState]."
+        },
+        "whatsapp-group": {
+          "text": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this trigger."
+        },
+        "no-trigger": {
+          "text": "There is *no trigger* currently"
+        }
       }
     }
   },
@@ -153,12 +175,26 @@
     },
     "whatsappMessage": {
       "floods": {
-        "initial-single-event": "*IBF trigger notification*\n\nA trigger for floods is forecasted for: *[startTimeEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
-        "follow-up": "*IBF trigger notification*\n\nA triggger for floods is forecasted for: *[startTimeEvent]*.\n\nThere are *[nrAlertAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this trigger.",
-        "whatsapp-group": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this trigger.\n\nUpdate the early actions that have been done in this form: [externalActionsForm]. Please note that through this form you can only check off actions, but you cannot see which actions have been done already.",
-        "no-trigger-old-event": "The trigger warning formerly activated on *[firstIssuedDate]* is now below trigger threshold.\n\n",
-        "no-trigger": "There is *no trigger* currently.",
-        "trigger-finished": "The event will close in the IBF-portal when the forecast stays below trigger threshold for 7 days in a row. Until that time, anticipatory actions can still be managed in the IBF-portal."
+        "initial-single-event": {
+          "text": "*IBF trigger notification*\n\nA trigger for floods is forecasted for: *[startTimeEvent]*.\n\nTo receive more detailed information reply 'yes' to this message.",
+          "contentSid": "HX4cd09d90c4c3f3c4c3bc5ab08caa9ad5"
+        },
+        "trigger-finished": {
+          "text": "The trigger warning formerly activated on *[firstIssuedDate]* is now below trigger threshold.\n\nThe event will close in the IBF-portal when the forecast stays below trigger threshold for 7 days in a row. Until that time, anticipatory actions can still be managed in the IBF-portal.",
+          "contentSid": "HXa5a2e73578b57e5fb6cca419893c26cd"
+        },
+        "follow-up": {
+          "text": "*IBF trigger notification*\n\nA triggger for floods is forecasted for: *[startTimeEvent]*.\n\nThere are *[nrAlertAreas]* [adminAreaLabel] listed below in order of potentially exposed population.\n[areaList]\nOpen the IBF Portal on a computer to get more information about this trigger."
+        },
+        "whatsapp-group": {
+          "text": "Please use the designated WhatsApp group ([whatsappGroupLink]) to communicate about this trigger.\n\nUpdate the early actions that have been done in this form: [externalActionsForm]. Please note that through this form you can only check off actions, but you cannot see which actions have been done already."
+        },
+        "no-trigger-old-event": {
+          "text": "The trigger warning formerly activated on *[firstIssuedDate]* is now below trigger threshold.\n\n"
+        },
+        "no-trigger": {
+          "text": "There is *no trigger* currently"
+        }
       }
     },
     "externalEarlyActionForm": "https://eenew.ifrc.org/x/o3VEUuQG",
