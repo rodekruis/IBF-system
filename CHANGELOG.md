@@ -1,3 +1,13 @@
+## [0.308.1](https://github.com/rodekruis/IBF-system/compare/v0.308.0...v0.308.1) (2025-03-31)
+
+
+### Bug Fixes
+
+* fixes after testing both prod and local ([5c78573](https://github.com/rodekruis/IBF-system/commit/5c7857366fb1fff8a486a3ad26f5cee7fb2907d1))
+* refactor whatsapp code to use contentSid instead of messag for templates AB[#34885](https://github.com/rodekruis/IBF-system/issues/34885) ([4829753](https://github.com/rodekruis/IBF-system/commit/48297530c932c1a135298df485b44478b7166f6c))
+
+
+
 # [0.308.0](https://github.com/rodekruis/IBF-system/compare/v0.307.0...v0.308.0) (2025-03-26)
 
 
@@ -108,22 +118,6 @@
 * disable waterpoins layer LSO AB[#34472](https://github.com/rodekruis/IBF-system/issues/34472) ([6687eba](https://github.com/rodekruis/IBF-system/commit/6687ebad990073ca08329e412815a18101dcfabc))
 * process LSO logo portal + email ([743519b](https://github.com/rodekruis/IBF-system/commit/743519b50328d492a08c0c0f9f8c4c4dc0e076fc))
 * update LSO mock data AB[#34440](https://github.com/rodekruis/IBF-system/issues/34440) ([770d344](https://github.com/rodekruis/IBF-system/commit/770d344077ef699a4075f8207425cc666c440400))
-
-
-
-# [0.303.0](https://github.com/rodekruis/IBF-system/compare/v0.302.2...v0.303.0) (2025-03-20)
-
-
-### Bug Fixes
-
-* event speech bubble style changes ([e5cf5bd](https://github.com/rodekruis/IBF-system/commit/e5cf5bdbcc83da34dc668b552533dac319531717))
-* padding for event speech bubble text ([46f055e](https://github.com/rodekruis/IBF-system/commit/46f055e9e3ce47fbc88e7cd1ee35445603610753))
-* use dashboard colours in emails ([416cf6c](https://github.com/rodekruis/IBF-system/commit/416cf6c2dfd7ec955b565f1d0a5cdeece8050858))
-
-
-### Features
-
-* notify on set-trigger AB[#34600](https://github.com/rodekruis/IBF-system/issues/34600) ([da70627](https://github.com/rodekruis/IBF-system/commit/da706271bb05793134dd64d667e8b4551d1284b3))
 
 
 
