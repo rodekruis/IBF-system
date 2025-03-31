@@ -2,6 +2,7 @@ import * as request from 'supertest';
 import TestAgent from 'supertest/lib/agent';
 
 import users from '../../../services/API-service/src/scripts/json/users.json';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 export async function getAccessToken(): Promise<string> {
   const admin = users.find(
@@ -61,4 +62,16 @@ export function mockData(
       removeEvents: true,
       date: date ?? new Date(),
     });
+}
+
+export function updateUser(
+  email: string,
+  updateUserData: UpdateUserDto,
+  accessToken: string,
+): Promise<request.Response> {
+  return getServer()
+    .patch('/user')
+    .set('Authorization', `Bearer ${accessToken}`)
+    .query({ email })
+    .send(updateUserData);
 }

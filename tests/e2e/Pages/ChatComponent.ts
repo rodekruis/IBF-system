@@ -31,6 +31,7 @@ class ChatComponent extends DashboardPage {
   readonly backDrop: Locator;
   readonly eapList: Locator;
   readonly districtChatEapListTitle: Locator;
+  readonly setTriggerButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -57,6 +58,7 @@ class ChatComponent extends DashboardPage {
     this.backDrop = page.locator('ion-backdrop').nth(2);
     this.eapList = this.page.getByRole('list');
     this.districtChatEapListTitle = this.page.locator('app-chat ion-col');
+    this.setTriggerButton = this.page.getByTestId('set-trigger-button');
   }
 
   async chatColumnIsVisibleForNoTriggerState({
@@ -230,6 +232,12 @@ class ChatComponent extends DashboardPage {
       .first()
       .getByTestId('event-switch-button');
     await triggerChatDialogue.click();
+  }
+
+  async setTrigger(scenario: string) {
+    // unveil the trigger button
+    await this.clickShowPredictionButton(scenario);
+    await this.setTriggerButton.click();
   }
 
   async validateEapList(eapActions: boolean) {

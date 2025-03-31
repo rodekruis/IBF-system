@@ -25,6 +25,7 @@ import ChatComponentButtonClick from './ChatComponent/ChatComponentButtonClick';
 import ChatComponentEventClick from './ChatComponent/ChatComponentEventClick';
 import ChatComponentEventCount from './ChatComponent/ChatComponentEventCount';
 import ChatComponentInfoPopover from './ChatComponent/ChatComponentInfoPopover';
+import ChatComponentSetTrigger from './ChatComponent/ChatComponentSetTrigger';
 import ChatComponentTriggeredAreasList from './ChatComponent/ChatComponentTriggeredAreasList';
 import ChatComponentVisible from './ChatComponent/ChatComponentVisible';
 import DashboardPageVisible from './DashboardPage/DashboardPageVisible';
@@ -144,6 +145,10 @@ test.describe('E2E Tests', () => {
       test.describe('ChatComponent', () => {
         ChatComponentVisible(pages, components, dataset, date);
         ChatComponentButtonClick(pages, components, dataset);
+
+        if (scenario == 'warning') {
+          ChatComponentSetTrigger(pages, components, dataset, date);
+        }
 
         if (scenario !== 'no-trigger') {
           // REFACTOR
