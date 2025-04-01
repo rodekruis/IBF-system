@@ -142,23 +142,6 @@ test.describe('E2E Tests', () => {
         }
       });
 
-      test.describe('ChatComponent', () => {
-        ChatComponentVisible(pages, components, dataset, date);
-        ChatComponentButtonClick(pages, components, dataset);
-
-        if (scenario == 'warning') {
-          ChatComponentSetTrigger(pages, components, dataset, date);
-        }
-
-        if (scenario !== 'no-trigger') {
-          // REFACTOR
-          ChatComponentTriggeredAreasList(pages, components, dataset, date);
-          ChatComponentEventClick(pages, components, dataset, date);
-          ChatComponentEventCount(pages, components, dataset, date);
-          ChatComponentInfoPopover(pages, components, dataset, date);
-        }
-      });
-
       test.describe('DisasterTypeComponent', () => {
         DisasterTypeComponentVisible(pages, components, dataset);
         DisasterTypeComponentSelect(pages, components, dataset);
@@ -177,6 +160,23 @@ test.describe('E2E Tests', () => {
         if (scenario === 'trigger') {
           // REFACTOR
           ActionSummaryTooltipTest(pages, components, dataset);
+        }
+      });
+
+      test.describe('ChatComponent', () => {
+        ChatComponentVisible(pages, components, dataset, date);
+        ChatComponentButtonClick(pages, components, dataset);
+
+        if (scenario !== 'no-trigger') {
+          // REFACTOR
+          ChatComponentTriggeredAreasList(pages, components, dataset, date);
+          ChatComponentEventClick(pages, components, dataset, date);
+          ChatComponentEventCount(pages, components, dataset, date);
+          ChatComponentInfoPopover(pages, components, dataset, date);
+        }
+
+        if (scenario == 'warning') {
+          ChatComponentSetTrigger(pages, components, dataset, date);
         }
       });
 
