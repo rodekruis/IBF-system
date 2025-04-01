@@ -1,38 +1,11 @@
 [
-  {
-    "placeCode": "ET0103",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0201",
-    "amount": 1200
-  },
-  {
-    "placeCode": "ET0202",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0203",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0204",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0205",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0501",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET1501",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET1502",
-    "amount": 0
-  }
+  { "placeCode": "ET0103", "amount": 1158582 },
+  { "placeCode": "ET1501", "amount": 356379 },
+  { "placeCode": "ET0202", "amount": 536443 },
+  { "placeCode": "ET0501", "amount": 879123 },
+  { "placeCode": "ET0201", "amount": 590394 },
+  { "placeCode": "ET1502", "amount": 179217 },
+  { "placeCode": "ET0205", "amount": 281427 },
+  { "placeCode": "ET0204", "amount": 357146 },
+  { "placeCode": "ET0203", "amount": 272026 }
 ]

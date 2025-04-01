@@ -1,0 +1,16 @@
+<layer>
+  <name>rainfall_forecast_1-month_KEN</name>
+  <id>LayerInfoImpl-5e38cfa3:195eb1b6cab:-7edc</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-5253576a:183547efa37:-7f65</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-5e38cfa3:195eb1b6cab:-7edd</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+  <dateCreated>2025-04-01 12:22:12.92 UTC</dateCreated>
+</layer>
