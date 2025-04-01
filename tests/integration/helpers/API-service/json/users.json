@@ -10,7 +10,7 @@
     "email": "uganda@redcross.nl",
     "firstName": "Uganda",
     "lastName": "Manager",
-    "userRole": "operator",
+    "userRole": "local-admin",
     "password": "password",
     "countries": ["UGA"]
   },
@@ -18,7 +18,7 @@
     "email": "zambia@redcross.nl",
     "firstName": "Zambia",
     "lastName": "Manager",
-    "userRole": "operator",
+    "userRole": "local-admin",
     "password": "password",
     "countries": ["ZMB"]
   },
@@ -26,7 +26,7 @@
     "email": "zimbabwe@redcross.nl",
     "firstName": "Zimbabwe",
     "lastName": "Manager",
-    "userRole": "operator",
+    "userRole": "local-admin",
     "password": "password",
     "countries": ["ZWE"]
   },
@@ -34,7 +34,7 @@
     "email": "kenya@redcross.nl",
     "firstName": "Kenya",
     "lastName": "Manager",
-    "userRole": "operator",
+    "userRole": "local-admin",
     "password": "password",
     "countries": ["KEN"]
   },
@@ -42,7 +42,7 @@
     "email": "ethiopia@redcross.nl",
     "firstName": "Ethiopia",
     "lastName": "Manager",
-    "userRole": "operator",
+    "userRole": "local-admin",
     "password": "password",
     "countries": ["ETH"]
   },
@@ -50,7 +50,7 @@
     "email": "philippines@redcross.nl",
     "firstName": "Philippines",
     "lastName": "Manager",
-    "userRole": "operator",
+    "userRole": "local-admin",
     "password": "password",
     "countries": ["PHL"]
   },
@@ -58,7 +58,7 @@
     "email": "malawi@redcross.nl",
     "firstName": "Malawi",
     "lastName": "Manager",
-    "userRole": "operator",
+    "userRole": "local-admin",
     "password": "password",
     "countries": ["MWI"]
   },
@@ -67,7 +67,7 @@
     "firstName": "Malawi",
     "middleName": "Flash Floods",
     "lastName": "Manager",
-    "userRole": "operator",
+    "userRole": "local-admin",
     "password": "password",
     "countries": ["MWI"],
     "disasterTypes": ["flash-floods"]
@@ -76,7 +76,7 @@
     "email": "southsudan@redcross.nl",
     "firstName": "South Sudan",
     "lastName": "Manager",
-    "userRole": "operator",
+    "userRole": "local-admin",
     "password": "password",
     "countries": ["SSD"]
   },
@@ -84,7 +84,7 @@
     "email": "demo-user@redcross.nl",
     "firstName": "Demo",
     "lastName": "User",
-    "userRole": "operator",
+    "userRole": "local-admin",
     "password": "ibf-portal"
   }
 ]
