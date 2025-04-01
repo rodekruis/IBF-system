@@ -2,11 +2,7 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { FloodsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import {
-  getEventTitle,
-  mock,
-  sendNotification,
-} from '../../../helpers/utility.helper';
+import { mock, sendNotification } from '../../../helpers/utility.helper';
 
 interface Event {
   eventName: string;
@@ -24,7 +20,6 @@ export async function testFloodScenario(
   params: TestFloodScenarioDto,
 ): Promise<boolean> {
   const { events, countryCodeISO3, accessToken } = params;
-  const disasterTypeLabel = 'Flood';
 
   const mockResult = await mock(
     scenario,
@@ -66,9 +61,8 @@ export async function testFloodScenario(
 
   // Check if there are elements with the desired text content
   for (const event of events) {
-    const eventTitle = getEventTitle(disasterTypeLabel, event.eventName);
     const hasEvent = eventNamesInEmail.some((eventName) =>
-      eventName.includes(eventTitle),
+      eventName.includes(event.eventName.toLowerCase()),
     );
     expect(hasEvent).toBe(true);
   }

@@ -21,13 +21,17 @@ export const getMjmlNotificationAction = ({
       'Find more information about the potentially exposed areas, view the map and manage anticipatory actions.',
     primary: true,
   });
+  const childrenEls = [ibfPortalRow];
 
-  const socialMediaRow = getNotificationActionsSection({
-    buttonText: `Join ${socialMediaType}`,
-    buttonLink: socialMediaLink,
-    description: 'Communicate with relevant others about the trigger.',
-    primary: false,
-  });
+  if (socialMediaLink) {
+    const socialMediaRow = getNotificationActionsSection({
+      buttonText: `Join ${socialMediaType}`,
+      buttonLink: socialMediaLink,
+      description: 'Communicate with relevant others about the trigger.',
+      primary: false,
+    });
+    childrenEls.push(socialMediaRow);
+  }
 
   const aboutTriggerRow = getNotificationActionsSection({
     buttonText: `About Trigger`,
@@ -36,8 +40,9 @@ export const getMjmlNotificationAction = ({
       'Read about the trigger methodology and the anticipatory actions.',
     primary: false,
   });
+  childrenEls.push(aboutTriggerRow);
 
   return getSectionElement({
-    childrenEls: [ibfPortalRow, socialMediaRow, aboutTriggerRow],
+    childrenEls,
   });
 };

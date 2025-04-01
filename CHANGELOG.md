@@ -1,3 +1,46 @@
+# [0.309.0](https://github.com/rodekruis/IBF-system/compare/v0.308.1...v0.309.0) (2025-04-01)
+
+
+### Bug Fixes
+
+* mistake mock data LSO ([92134df](https://github.com/rodekruis/IBF-system/commit/92134df745489d1b956568fb8a32f96769be1b72))
+
+
+### Features
+
+* KEN mock data + geoserver layers ([58f6ad3](https://github.com/rodekruis/IBF-system/commit/58f6ad3244f8d511c5426a8cf8ce1c4331814dc0))
+* update ETH mock data ([246a6a4](https://github.com/rodekruis/IBF-system/commit/246a6a493e7019e09983ffae020eba3feb3c4126))
+
+
+
+## [0.308.1](https://github.com/rodekruis/IBF-system/compare/v0.308.0...v0.308.1) (2025-03-31)
+
+
+### Bug Fixes
+
+* fixes after testing both prod and local ([5c78573](https://github.com/rodekruis/IBF-system/commit/5c7857366fb1fff8a486a3ad26f5cee7fb2907d1))
+* refactor whatsapp code to use contentSid instead of messag for templates AB[#34885](https://github.com/rodekruis/IBF-system/issues/34885) ([4829753](https://github.com/rodekruis/IBF-system/commit/48297530c932c1a135298df485b44478b7166f6c))
+
+
+
+# [0.308.0](https://github.com/rodekruis/IBF-system/compare/v0.307.0...v0.308.0) (2025-03-26)
+
+
+### Bug Fixes
+
+* email headers ([1ce690a](https://github.com/rodekruis/IBF-system/commit/1ce690a9665856b9a33bd8990f1dde187cd31682))
+* integration tests ([5390877](https://github.com/rodekruis/IBF-system/commit/53908770aa25352bb9f8b64c4acf199ef0340a7f))
+* rainfall raster style ([171855f](https://github.com/rodekruis/IBF-system/commit/171855fe5f8690f4913fa4a09ed52909d967bc77))
+
+
+### Features
+
+* hide socialmedia btn if no link ([cdb328f](https://github.com/rodekruis/IBF-system/commit/cdb328f30ab54676dd975e9c3a5e9ee2aef4b166))
+* hide video if not available ([230ebd2](https://github.com/rodekruis/IBF-system/commit/230ebd20e8a289c7d4ef85f204099fc001f9cc1e))
+* update LSO mock data ([64ffc43](https://github.com/rodekruis/IBF-system/commit/64ffc43c95fa96603bb23695a382eac3d30a54af))
+
+
+
 # [0.307.0](https://github.com/rodekruis/IBF-system/compare/v0.306.0...v0.307.0) (2025-03-24)
 
 
@@ -72,49 +115,6 @@
 * clean up copy ([aadb8e7](https://github.com/rodekruis/IBF-system/commit/aadb8e7881d2b481eab757d7ab0f2791517d7523))
 * final feedback restrict-access AB[#34596](https://github.com/rodekruis/IBF-system/issues/34596) ([c857ddd](https://github.com/rodekruis/IBF-system/commit/c857ddd10499e60e314b9cda5f612b3c4f43b35b))
 * geoserver styles ([e4dfc1a](https://github.com/rodekruis/IBF-system/commit/e4dfc1a19fb59bbcee515e85af02cd1c25ce38f9))
-
-
-
-# [0.304.0](https://github.com/rodekruis/IBF-system/compare/v0.303.0...v0.304.0) (2025-03-21)
-
-
-### Bug Fixes
-
-* change LSO season name AB[#34473](https://github.com/rodekruis/IBF-system/issues/34473) ([0689225](https://github.com/rodekruis/IBF-system/commit/0689225974013c4357115eea7ebea78495380346))
-* update population data ([c4114f4](https://github.com/rodekruis/IBF-system/commit/c4114f4975415236f69db4688a62a60909096f6c))
-* update trigger statement AB[#34474](https://github.com/rodekruis/IBF-system/issues/34474) ([7e2cb40](https://github.com/rodekruis/IBF-system/commit/7e2cb4063091e0a1326f4832872d1ef60b7a18b0))
-
-
-### Features
-
-* disable waterpoins layer LSO AB[#34472](https://github.com/rodekruis/IBF-system/issues/34472) ([6687eba](https://github.com/rodekruis/IBF-system/commit/6687ebad990073ca08329e412815a18101dcfabc))
-* process LSO logo portal + email ([743519b](https://github.com/rodekruis/IBF-system/commit/743519b50328d492a08c0c0f9f8c4c4dc0e076fc))
-* update LSO mock data AB[#34440](https://github.com/rodekruis/IBF-system/issues/34440) ([770d344](https://github.com/rodekruis/IBF-system/commit/770d344077ef699a4075f8207425cc666c440400))
-
-
-
-# [0.303.0](https://github.com/rodekruis/IBF-system/compare/v0.302.2...v0.303.0) (2025-03-20)
-
-
-### Bug Fixes
-
-* event speech bubble style changes ([e5cf5bd](https://github.com/rodekruis/IBF-system/commit/e5cf5bdbcc83da34dc668b552533dac319531717))
-* padding for event speech bubble text ([46f055e](https://github.com/rodekruis/IBF-system/commit/46f055e9e3ce47fbc88e7cd1ee35445603610753))
-* use dashboard colours in emails ([416cf6c](https://github.com/rodekruis/IBF-system/commit/416cf6c2dfd7ec955b565f1d0a5cdeece8050858))
-
-
-### Features
-
-* notify on set-trigger AB[#34600](https://github.com/rodekruis/IBF-system/issues/34600) ([da70627](https://github.com/rodekruis/IBF-system/commit/da706271bb05793134dd64d667e8b4551d1284b3))
-
-
-
-## [0.302.2](https://github.com/rodekruis/IBF-system/compare/v0.302.1...v0.302.2) (2025-03-20)
-
-
-### Reverts
-
-* Revert "Update test descriptions" ([f54fc85](https://github.com/rodekruis/IBF-system/commit/f54fc854f4487b527b66898133b729cd5df8978e))
 
 
 

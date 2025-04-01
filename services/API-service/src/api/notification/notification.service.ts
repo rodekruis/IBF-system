@@ -42,6 +42,7 @@ export class NotificationService {
     }
 
     // NOTE: the finished event email is currently broken. It needs to be fixed. See AB#31766.
+    // When fixing this, also fix w.r.t. new Twilio Content API. See AB#34878.
     // if (disasterType === DisasterType.Floods) {
     //   // Sending finished events is now for floods only
     //   const finishedEventsResponse = await this.sendNotificationsFinishedEvents(
@@ -101,7 +102,10 @@ export class NotificationService {
       if (noNotifications && emailContent) {
         response.email = emailContent;
       }
-      if (country.notificationInfo.useWhatsapp[disasterType]) {
+      if (
+        !noNotifications &&
+        country.notificationInfo.useWhatsapp[disasterType]
+      ) {
         this.whatsappService.sendActiveEventsWhatsapp(
           country,
           activeNotifiableEvents,
@@ -114,51 +118,51 @@ export class NotificationService {
     }
   }
 
-  private async sendNotificationsFinishedEvents(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    noNotifications: boolean,
-    lastUploadDate: LastUploadDateDto,
-  ): Promise<void | NotificationApiTestResponseChannelDto> {
-    const response = new NotificationApiTestResponseChannelDto();
-    const finishedNotifiableEvents =
-      await this.eventService.getEventsSummaryTriggerFinishedMail(
-        countryCodeISO3,
-        disasterType,
-      );
+  // private async sendNotificationsFinishedEvents(
+  //   countryCodeISO3: string,
+  //   disasterType: DisasterType,
+  //   noNotifications: boolean,
+  //   lastUploadDate: LastUploadDateDto,
+  // ): Promise<void | NotificationApiTestResponseChannelDto> {
+  //   const response = new NotificationApiTestResponseChannelDto();
+  //   const finishedNotifiableEvents =
+  //     await this.eventService.getEventsSummaryTriggerFinishedMail(
+  //       countryCodeISO3,
+  //       disasterType,
+  //     );
 
-    if (finishedNotifiableEvents.length > 0) {
-      const country =
-        await this.notificationContentService.getCountryNotificationInfo(
-          countryCodeISO3,
-        );
+  //   if (finishedNotifiableEvents.length > 0) {
+  //     const country =
+  //       await this.notificationContentService.getCountryNotificationInfo(
+  //         countryCodeISO3,
+  //       );
 
-      const emailFinishedContent =
-        await this.emailService.sendEventFinishedEmail(
-          country,
-          disasterType,
-          finishedNotifiableEvents,
-          noNotifications,
-          lastUploadDate,
-        );
-      if (noNotifications && emailFinishedContent) {
-        response.email = emailFinishedContent;
-      }
+  //     const emailFinishedContent =
+  //       await this.emailService.sendEventFinishedEmail(
+  //         country,
+  //         disasterType,
+  //         finishedNotifiableEvents,
+  //         noNotifications,
+  //         lastUploadDate,
+  //       );
+  //     if (noNotifications && emailFinishedContent) {
+  //       response.email = emailFinishedContent;
+  //     }
 
-      if (country.notificationInfo.useWhatsapp[disasterType]) {
-        for (const event of finishedNotifiableEvents) {
-          await this.whatsappService.sendEventFinishedWhatsapp(
-            country,
-            event,
-            disasterType,
-          );
-        }
-      }
-      if (noNotifications) {
-        return response;
-      }
-    }
-  }
+  //     if (!noNotifications && country.notificationInfo.useWhatsapp[disasterType]) {
+  //       for (const event of finishedNotifiableEvents) {
+  //         await this.whatsappService.sendEventFinishedWhatsapp(
+  //           country,
+  //           event,
+  //           disasterType,
+  //         );
+  //       }
+  //     }
+  //     if (noNotifications) {
+  //       return response;
+  //     }
+  //   }
+  // }
 
   private async isNotifiableActiveEvent(
     event: EventSummaryCountry,

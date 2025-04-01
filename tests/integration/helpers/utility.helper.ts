@@ -41,10 +41,6 @@ export function getHostname(): string | undefined {
   return process.env.API_SERVICE_URL;
 }
 
-export function getEventTitle(disasterType: string, eventName: string) {
-  return `${disasterType}: ${eventName}`.toLowerCase();
-}
-
 export function getServer(): TestAgent<request.Test> {
   return request.agent(getHostname());
 }
