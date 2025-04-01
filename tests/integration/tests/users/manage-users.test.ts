@@ -54,7 +54,7 @@ describe('manage users', () => {
       // Arrange
       const email = userData.email;
       const newFirstName = 'new-first-name';
-      const newUserRole = UserRole.LocalAdmin; // Don't actually change the role, to not mess up other tests, but at least test that it is possible
+      const newUserRole = UserRole.Operator; // Don't actually change the role, to not mess up other tests, but at least test that it is possible
       const updatedData = { firstName: newFirstName, role: newUserRole };
 
       // Act
