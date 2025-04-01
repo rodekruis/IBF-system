@@ -1,3 +1,18 @@
+# [0.309.0](https://github.com/rodekruis/IBF-system/compare/v0.308.1...v0.309.0) (2025-04-01)
+
+
+### Bug Fixes
+
+* mistake mock data LSO ([92134df](https://github.com/rodekruis/IBF-system/commit/92134df745489d1b956568fb8a32f96769be1b72))
+
+
+### Features
+
+* KEN mock data + geoserver layers ([58f6ad3](https://github.com/rodekruis/IBF-system/commit/58f6ad3244f8d511c5426a8cf8ce1c4331814dc0))
+* update ETH mock data ([246a6a4](https://github.com/rodekruis/IBF-system/commit/246a6a493e7019e09983ffae020eba3feb3c4126))
+
+
+
 ## [0.308.1](https://github.com/rodekruis/IBF-system/compare/v0.308.0...v0.308.1) (2025-03-31)
 
 
@@ -100,24 +115,6 @@
 * clean up copy ([aadb8e7](https://github.com/rodekruis/IBF-system/commit/aadb8e7881d2b481eab757d7ab0f2791517d7523))
 * final feedback restrict-access AB[#34596](https://github.com/rodekruis/IBF-system/issues/34596) ([c857ddd](https://github.com/rodekruis/IBF-system/commit/c857ddd10499e60e314b9cda5f612b3c4f43b35b))
 * geoserver styles ([e4dfc1a](https://github.com/rodekruis/IBF-system/commit/e4dfc1a19fb59bbcee515e85af02cd1c25ce38f9))
-
-
-
-# [0.304.0](https://github.com/rodekruis/IBF-system/compare/v0.303.0...v0.304.0) (2025-03-21)
-
-
-### Bug Fixes
-
-* change LSO season name AB[#34473](https://github.com/rodekruis/IBF-system/issues/34473) ([0689225](https://github.com/rodekruis/IBF-system/commit/0689225974013c4357115eea7ebea78495380346))
-* update population data ([c4114f4](https://github.com/rodekruis/IBF-system/commit/c4114f4975415236f69db4688a62a60909096f6c))
-* update trigger statement AB[#34474](https://github.com/rodekruis/IBF-system/issues/34474) ([7e2cb40](https://github.com/rodekruis/IBF-system/commit/7e2cb4063091e0a1326f4832872d1ef60b7a18b0))
-
-
-### Features
-
-* disable waterpoins layer LSO AB[#34472](https://github.com/rodekruis/IBF-system/issues/34472) ([6687eba](https://github.com/rodekruis/IBF-system/commit/6687ebad990073ca08329e412815a18101dcfabc))
-* process LSO logo portal + email ([743519b](https://github.com/rodekruis/IBF-system/commit/743519b50328d492a08c0c0f9f8c4c4dc0e076fc))
-* update LSO mock data AB[#34440](https://github.com/rodekruis/IBF-system/issues/34440) ([770d344](https://github.com/rodekruis/IBF-system/commit/770d344077ef699a4075f8207425cc666c440400))
 
 
 
