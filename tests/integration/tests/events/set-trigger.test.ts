@@ -24,7 +24,6 @@ describe('set trigger', () => {
   it('should successfully set trigger and change alertLevel from warning to trigger and send email', async () => {
     // Arrange
     const dateAugust = new Date(new Date().getFullYear(), 7, 2);
-    console.log('dateAugust: ', dateAugust);
     await mock(
       DroughtScenario.Warning,
       disasterType,
@@ -38,7 +37,6 @@ describe('set trigger', () => {
       disasterType,
       accessToken,
     );
-    console.log('getEventsBeforeResult: ', getEventsBeforeResult.body);
     const alertAreasBefore = getEventsBeforeResult.body[0].alertAreas;
     const eventPlaceCodeIdsToSetTrigger = alertAreasBefore.map(
       (alertArea) => alertArea.eventPlaceCodeId,
