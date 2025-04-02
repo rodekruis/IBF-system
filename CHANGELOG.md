@@ -1,3 +1,16 @@
+## [0.309.1](https://github.com/rodekruis/IBF-system/compare/v0.309.0...v0.309.1) (2025-04-02)
+
+
+### Bug Fixes
+
+* change all country-users to local-admin ([b23a6ef](https://github.com/rodekruis/IBF-system/commit/b23a6efc6631857ac6be4e2f9dc75030e7b51e72))
+* integration test ([ce92f5a](https://github.com/rodekruis/IBF-system/commit/ce92f5a31cc37e48b4bd7e38ea33092d06c3a74b))
+* order of tests ([fc9ba4e](https://github.com/rodekruis/IBF-system/commit/fc9ba4ee25c6b1d5c2fe0dae2a3281b1b2aae780))
+* revert order of tests ([69c53c2](https://github.com/rodekruis/IBF-system/commit/69c53c293b7033eb884fa0f0a832cc5e327a9074))
+* wait for loader to disappear after reload ([3f67f62](https://github.com/rodekruis/IBF-system/commit/3f67f623f4f2a5851b2e301aad1165c2f0e43033))
+
+
+
 # [0.309.0](https://github.com/rodekruis/IBF-system/compare/v0.308.1...v0.309.0) (2025-04-01)
 
 
@@ -104,17 +117,6 @@
 ### Bug Fixes
 
 * only run tests on PRs to master ([39f9895](https://github.com/rodekruis/IBF-system/commit/39f98951bb6782dce8e370c37f9b2e84770190dc))
-
-
-
-## [0.304.1](https://github.com/rodekruis/IBF-system/compare/v0.304.0...v0.304.1) (2025-03-21)
-
-
-### Bug Fixes
-
-* clean up copy ([aadb8e7](https://github.com/rodekruis/IBF-system/commit/aadb8e7881d2b481eab757d7ab0f2791517d7523))
-* final feedback restrict-access AB[#34596](https://github.com/rodekruis/IBF-system/issues/34596) ([c857ddd](https://github.com/rodekruis/IBF-system/commit/c857ddd10499e60e314b9cda5f612b3c4f43b35b))
-* geoserver styles ([e4dfc1a](https://github.com/rodekruis/IBF-system/commit/e4dfc1a19fb59bbcee515e85af02cd1c25ce38f9))
 
 
 
