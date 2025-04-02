@@ -55,6 +55,37 @@ function generateModuleDependencyGraph(app: INestApplication): void {
   });
 }
 
+interface SwaggerLoginResponse {
+  url: string;
+  body: { user: { token: string } };
+}
+
+const responseInterceptor = (response: SwaggerLoginResponse) => {
+  if (!response.url.endsWith('/api/user/login')) {
+    return response;
+  }
+
+  const token = response.body.user.token;
+  if (token) {
+    // manually authorize for current session
+    // this step throws a console error but it does what we need
+    window.eval('ui').preauthorizeApiKey('bearer', token);
+    // store token in localStorage for future sessions
+    localStorage.setItem(
+      'authorized',
+      JSON.stringify({
+        bearer: {
+          name: 'bearer',
+          schema: { scheme: 'bearer', bearerFormat: 'JWT', type: 'http' },
+          value: token,
+        },
+      }),
+    );
+  }
+
+  return response;
+};
+
 async function bootstrap(): Promise<void> {
   const appOptions = { cors: true };
   const app = await NestFactory.create(ApplicationModule, appOptions);
@@ -86,6 +117,7 @@ async function bootstrap(): Promise<void> {
       persistAuthorization: true,
       tagsSorter: 'alpha',
       operationsSorter: 'alpha',
+      responseInterceptor,
     },
     customCss: '.swagger-ui .topbar { display: none }',
     customSiteTitle: apiDocumentationTitle,
