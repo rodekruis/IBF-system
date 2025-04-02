@@ -1119,21 +1119,10 @@ export class EventService {
       closed: false,
     };
     const expiredEventAreas = await this.eventPlaceCodeRepo.find({ where });
-
-    // Warning events are removed from this table after closing to clean up
-    const belowThresholdEvents = expiredEventAreas.filter(
-      ({ forecastTrigger }) => !forecastTrigger,
-    );
-    await this.eventPlaceCodeRepo.remove(belowThresholdEvents);
-
-    //For the other ones update 'closed = true'
-    const aboveThresholdEvents = expiredEventAreas.filter(
-      ({ forecastTrigger }) => forecastTrigger,
-    );
-    for (const area of aboveThresholdEvents) {
+    for (const area of expiredEventAreas) {
       area.closed = true;
     }
-    await this.eventPlaceCodeRepo.save(aboveThresholdEvents);
+    await this.eventPlaceCodeRepo.save(expiredEventAreas);
   }
 
   // REFACTOR: this can be set up much better
