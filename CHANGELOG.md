@@ -1,3 +1,13 @@
+## [0.310.1](https://github.com/rodekruis/IBF-system/compare/v0.310.0...v0.310.1) (2025-04-02)
+
+
+### Bug Fixes
+
+* copy for rainfall layer AB[#35037](https://github.com/rodekruis/IBF-system/issues/35037) ([505887e](https://github.com/rodekruis/IBF-system/commit/505887eb6c0bb8ccab5f75ff21acfd33e334cfea))
+* weird quotes in string ([9a43f1d](https://github.com/rodekruis/IBF-system/commit/9a43f1d5ecf40f0670a84a4e36a623a108fdaf4e))
+
+
+
 # [0.310.0](https://github.com/rodekruis/IBF-system/compare/v0.309.1...v0.310.0) (2025-04-02)
 
 
@@ -102,27 +112,6 @@
 ### Bug Fixes
 
 * area filtering bug AB[#34732](https://github.com/rodekruis/IBF-system/issues/34732) ([a0fae5e](https://github.com/rodekruis/IBF-system/commit/a0fae5e91299a570278993f2e9058ee1b8f7dcf4))
-
-
-
-# [0.305.0](https://github.com/rodekruis/IBF-system/compare/v0.304.2...v0.305.0) (2025-03-21)
-
-
-### Bug Fixes
-
-* add target=_blank in new <a> cases ([38d35ea](https://github.com/rodekruis/IBF-system/commit/38d35ea50f7fb2efb90f38f55537e4fffe6e8e2d))
-* aggregates component header ([94ff751](https://github.com/rodekruis/IBF-system/commit/94ff751d0d38e21cbb47fa27ab1277742c066088))
-* chat component broken strings ([916380e](https://github.com/rodekruis/IBF-system/commit/916380e31d76837f900986ba73ef6e998bbe4c10))
-* chat component button spacing ([2b695f8](https://github.com/rodekruis/IBF-system/commit/2b695f88784a4c6ffd8740c0de2d43e03bba394d))
-* event speech bubble ([8989012](https://github.com/rodekruis/IBF-system/commit/898901240910f48da3fe82348d6f01548205f7b0))
-* map component ([dd5cb70](https://github.com/rodekruis/IBF-system/commit/dd5cb707465d8326d2f973f01d746a0cc348f945))
-* remove unused code and simplify sort ([f65d2a7](https://github.com/rodekruis/IBF-system/commit/f65d2a75465e4e18788964078a611fc4158f89e2))
-* timeline loader ([296540f](https://github.com/rodekruis/IBF-system/commit/296540f0934ce056acba93491a9bd0e4bb1c9329))
-
-
-### Features
-
-* links should open in new tab ([f0eda39](https://github.com/rodekruis/IBF-system/commit/f0eda392d2b4d85dcc3dc1eb6b297d4083f33844))
 
 
 
