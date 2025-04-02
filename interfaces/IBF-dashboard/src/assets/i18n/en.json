@@ -115,7 +115,7 @@
     "confirm": {
       "header": "Set trigger - disclaimers",
       "note": "Important note:",
-      "bullet-list": "<ul><li>The {{adminAreaLabelPlural}} that are not included in the trigger will no longer appear in the portal.</li><li>This action cannot be undone.</li><li>This actions impacts what is shown in the portal for all users.</li><li>A notification regarding the trigger will be sent to all users once the IBF focal point decides to set a trigger.</li></ul>",
+      "bullet-list": "<ul><li>The {{adminAreaLabelPlural}} that are not included in the trigger will no longer appear in the portal.</li><li>This action cannot be undone, the event will only reset at the end of the drought season.</li><li>This actions impacts what is shown in the portal for all users.</li><li>A notification regarding the trigger will be sent to all users once the IBF focal point decides to set a trigger.</li></ul>",
       "understand": "I understand that this action cannot be undone.",
       "continue": "Set trigger",
       "back": "Back",
