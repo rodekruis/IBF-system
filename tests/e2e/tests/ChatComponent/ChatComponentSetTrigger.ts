@@ -19,7 +19,6 @@ export default (
 
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    // Assertions
     await userState.headerComponentIsVisible(dataset);
     await dashboard.waitForLoaderToDisappear();
     await chat.chatColumnIsVisibleForTriggerState({
@@ -27,8 +26,12 @@ export default (
       date,
     });
     await chat.allDefaultButtonsArePresent();
+
     // Set trigger
     await chat.setTrigger(dataset.scenario);
+    await dashboard.waitForLoaderToDisappear();
+
+    // Assertions
     await map.assertTriggerOutlines('trigger');
   });
 };
