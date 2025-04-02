@@ -37,9 +37,7 @@ describe('set trigger', () => {
       disasterType,
       accessToken,
     );
-    const alertAreasBefore = getEventsBeforeResult.body.flatMap(
-      (event) => event.alertAreas || [],
-    );
+    const alertAreasBefore = getEventsBeforeResult.body[0].alertAreas;
     const eventPlaceCodeIdsToSetTrigger = alertAreasBefore.map(
       (alertArea) => alertArea.eventPlaceCodeId,
     );
