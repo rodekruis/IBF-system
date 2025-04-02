@@ -9,36 +9,29 @@ export default (
   dataset: Dataset,
   date: Date,
 ) => {
-  test('[33717] Click on area in triggered areas list in chat', async () => {
-    const { dashboard } = pages;
+  test('[34458] Set trigger (from warning)', async () => {
+    const { dashboard, login } = pages;
     const { chat, userState, aggregates, map } = components;
 
-    if (!dashboard || !chat || !userState || !aggregates || !map) {
+    if (!dashboard || !chat || !userState || !aggregates || !login || !map) {
       throw new Error('pages and components not found');
     }
 
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToDisasterType(dataset.disasterType.name);
     await userState.headerComponentIsVisible(dataset);
-    // Wait for the page to load
     await dashboard.waitForLoaderToDisappear();
-
     await chat.chatColumnIsVisibleForTriggerState({
       user: dataset.user,
       date,
     });
-    await map.assertTriggerOutlines(dataset.scenario);
-    await chat.predictionButtonsAreActive();
-    await chat.clickShowPredictionButton(dataset.scenario);
-    await map.clickOnAdminBoundary();
+    await chat.allDefaultButtonsArePresent();
+
+    // Set trigger
+    await chat.setTrigger(dataset.scenario);
+    await dashboard.waitForLoaderToDisappear(); // This is needed because the setTrigger comes with a page reload. Otherwise the next test will fail.
 
     // Assertions
-    await chat.validateEapList(dataset.eap.actions);
-    const adminAreaName = await map.getAdminAreaBreadCrumbText();
-    await chat.validateChatTitleAndBreadcrumbs({
-      adminAreaName,
-      mainExposureIndicator: 'Exposed Population',
-    });
-    await chat.validateEapListButtons(dataset.eap.actions);
+    await map.assertTriggerOutlines('trigger');
   });
 };
