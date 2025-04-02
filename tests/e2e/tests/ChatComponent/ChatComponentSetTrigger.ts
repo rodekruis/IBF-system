@@ -29,7 +29,7 @@ export default (
 
     // Set trigger
     await chat.setTrigger(dataset.scenario);
-    await dashboard.waitForLoaderToDisappear();
+    await dashboard.waitForLoaderToDisappear(); // This is needed because the setTrigger comes with a page reload. Otherwise the next test will fail.
 
     // Assertions
     await map.assertTriggerOutlines('trigger');
