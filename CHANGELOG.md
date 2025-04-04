@@ -1,3 +1,12 @@
+# [0.311.0](https://github.com/rodekruis/IBF-system/compare/v0.310.1...v0.311.0) (2025-04-04)
+
+
+### Features
+
+* swagger auth ([a2f2376](https://github.com/rodekruis/IBF-system/commit/a2f2376d9a877a1dd65901c213a63ecea59cfd5b))
+
+
+
 ## [0.310.1](https://github.com/rodekruis/IBF-system/compare/v0.310.0...v0.310.1) (2025-04-02)
 
 
@@ -103,15 +112,6 @@
 ### Bug Fixes
 
 * only join event data of correct disaster-type AB[#34736](https://github.com/rodekruis/IBF-system/issues/34736) ([0d5634d](https://github.com/rodekruis/IBF-system/commit/0d5634d65529ab6f7c243365831bff015e336fef))
-
-
-
-## [0.305.1](https://github.com/rodekruis/IBF-system/compare/v0.305.0...v0.305.1) (2025-03-24)
-
-
-### Bug Fixes
-
-* area filtering bug AB[#34732](https://github.com/rodekruis/IBF-system/issues/34732) ([a0fae5e](https://github.com/rodekruis/IBF-system/commit/a0fae5e91299a570278993f2e9058ee1b8f7dcf4))
 
 
 
