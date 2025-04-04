@@ -1,3 +1,12 @@
+# [0.312.0](https://github.com/rodekruis/IBF-system/compare/v0.311.0...v0.312.0) (2025-04-04)
+
+
+### Features
+
+* make no email on ongoing generic ([3b33792](https://github.com/rodekruis/IBF-system/commit/3b337923ed63b906e85ca876dbbb3eb204d8a4b8))
+
+
+
 # [0.311.0](https://github.com/rodekruis/IBF-system/compare/v0.310.1...v0.311.0) (2025-04-04)
 
 
@@ -103,15 +112,6 @@
 ### Features
 
 * show different advisory for set-trigger warning in email ([d046fee](https://github.com/rodekruis/IBF-system/commit/d046fee9cf12f7ed556b8dbec0c55b4d80d70a5f))
-
-
-
-## [0.305.2](https://github.com/rodekruis/IBF-system/compare/v0.305.1...v0.305.2) (2025-03-24)
-
-
-### Bug Fixes
-
-* only join event data of correct disaster-type AB[#34736](https://github.com/rodekruis/IBF-system/issues/34736) ([0d5634d](https://github.com/rodekruis/IBF-system/commit/0d5634d65529ab6f7c243365831bff015e336fef))
 
 
 
