@@ -2,7 +2,7 @@
   {
     "countryCodeISO3": "UGA",
     "countryName": "Uganda",
-    "disasterTypes": ["floods"],
+    "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -256,7 +256,7 @@
   {
     "countryCodeISO3": "ZMB",
     "countryName": "Zambia",
-    "disasterTypes": ["floods"],
+    "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -629,7 +629,7 @@
   {
     "countryCodeISO3": "ETH",
     "countryName": "Ethiopia",
-    "disasterTypes": ["floods", "drought"],
+    "disasterTypes": ["floods", "malaria", "drought"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
