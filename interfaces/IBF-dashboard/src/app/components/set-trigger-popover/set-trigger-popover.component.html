@@ -133,13 +133,18 @@
       </ion-item>
       <ion-list class="background-light ion-no-padding">
         @for (area of areas; track area) {
-          <ion-item lines="none" class="area-item">
+          <ion-item
+            lines="none"
+            class="area-item"
+            (click)="selectedAreas[area.name] = !selectedAreas[area.name]"
+          >
             <ion-checkbox
               slot="start"
               color="ibf-primary"
               [(ngModel)]="selectedAreas[area.name]"
               name="selectedAreas[{{ area.name }}]"
               class="m-2"
+              (click)="$event.stopPropagation()"
             ></ion-checkbox>
             <ion-label class="ion-text-wrap m-0"
               >{{ area.name }}
@@ -170,13 +175,14 @@
         "
       >
       </ion-item>
-      <ion-item lines="none">
+      <ion-item lines="none" (click)="understood = !understood">
         <ion-checkbox
           slot="start"
           color="ibf-primary"
           [(ngModel)]="understood"
           name="understood"
           class="mr-2"
+          (click)="$event.stopPropagation()"
         ></ion-checkbox>
         <ion-label class="ion-text-wrap"
           >{{ 'set-trigger-component.confirm.understand' | translate }}
