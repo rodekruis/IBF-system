@@ -268,6 +268,10 @@ class MapComponent extends DashboardPage {
 
   async assertTriggerOutlines(scenario: string) {
     if (scenario === 'trigger') {
+      // Wait for locator to load when setTrigger is clicked
+      await this.page.waitForSelector(
+        '[stroke="var(--ion-color-ibf-outline-red)"]',
+      );
       const triggerAreaOutlinesCount = await this.triggerAreaOutlines.count();
       const nthSelector = this.getRandomInt(1, triggerAreaOutlinesCount) - 1;
       // Assert that the number of red outlines is greater than 0 and randomly select one to be visible

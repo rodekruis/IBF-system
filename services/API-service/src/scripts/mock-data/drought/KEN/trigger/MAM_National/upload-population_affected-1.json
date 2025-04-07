@@ -1,190 +1,49 @@
 [
-  {
-    "placeCode": "KE001",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE002",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE003",
-    "amount": 1271200.0
-  },
-  {
-    "placeCode": "KE004",
-    "amount": 323426.0
-  },
-  {
-    "placeCode": "KE005",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE006",
-    "amount": 332265.0
-  },
-  {
-    "placeCode": "KE007",
-    "amount": 953817.0
-  },
-  {
-    "placeCode": "KE008",
-    "amount": 1100550.0
-  },
-  {
-    "placeCode": "KE009",
-    "amount": 1703340.0
-  },
-  {
-    "placeCode": "KE010",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE011",
-    "amount": 179140.0
-  },
-  {
-    "placeCode": "KE012",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE013",
-    "amount": 398430.0
-  },
-  {
-    "placeCode": "KE014",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE015",
-    "amount": 1131310.0
-  },
-  {
-    "placeCode": "KE016",
-    "amount": 1201380.0
-  },
-  {
-    "placeCode": "KE017",
-    "amount": 999623.0
-  },
-  {
-    "placeCode": "KE018",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE019",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE020",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE021",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE022",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE023",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE024",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE025",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE026",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE027",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE028",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE029",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE030",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE031",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE032",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE033",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE034",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE035",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE036",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE037",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE038",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE039",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE040",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE041",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE042",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE043",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE044",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE045",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE046",
-    "amount": 0.0
-  },
-  {
-    "placeCode": "KE047",
-    "amount": 0.0
-  }
+  { "placeCode": "KE012", "amount": 0 },
+  { "placeCode": "KE025", "amount": 0 },
+  { "placeCode": "KE045", "amount": 1423059 },
+  { "placeCode": "KE009", "amount": 0 },
+  { "placeCode": "KE044", "amount": 1128473 },
+  { "placeCode": "KE014", "amount": 390256 },
+  { "placeCode": "KE030", "amount": 438378 },
+  { "placeCode": "KE035", "amount": 1098190 },
+  { "placeCode": "KE039", "amount": 705783 },
+  { "placeCode": "KE022", "amount": 1903825 },
+  { "placeCode": "KE010", "amount": 0 },
+  { "placeCode": "KE036", "amount": 1070363 },
+  { "placeCode": "KE016", "amount": 1340187 },
+  { "placeCode": "KE026", "amount": 0 },
+  { "placeCode": "KE005", "amount": 61896 },
+  { "placeCode": "KE013", "amount": 0 },
+  { "placeCode": "KE029", "amount": 1098782 },
+  { "placeCode": "KE008", "amount": 1029106 },
+  { "placeCode": "KE037", "amount": 1783703 },
+  { "placeCode": "KE007", "amount": 1198025 },
+  { "placeCode": "KE031", "amount": 293952 },
+  { "placeCode": "KE027", "amount": 688770 },
+  { "placeCode": "KE019", "amount": 336693 },
+  { "placeCode": "KE023", "amount": 243964 },
+  { "placeCode": "KE015", "amount": 1165973 },
+  { "placeCode": "KE046", "amount": 755588 },
+  { "placeCode": "KE020", "amount": 503052 },
+  { "placeCode": "KE032", "amount": 2325734 },
+  { "placeCode": "KE021", "amount": 1104762 },
+  { "placeCode": "KE038", "amount": 712767 },
+  { "placeCode": "KE028", "amount": 158291 },
+  { "placeCode": "KE040", "amount": 795179 },
+  { "placeCode": "KE041", "amount": 1050976 },
+  { "placeCode": "KE017", "amount": 1092717 },
+  { "placeCode": "KE006", "amount": 339326 },
+  { "placeCode": "KE033", "amount": 1249536 },
+  { "placeCode": "KE034", "amount": 982322 },
+  { "placeCode": "KE011", "amount": 0 },
+  { "placeCode": "KE004", "amount": 322985 },
+  { "placeCode": "KE018", "amount": 690193 },
+  { "placeCode": "KE024", "amount": 258879 },
+  { "placeCode": "KE043", "amount": 1177474 },
+  { "placeCode": "KE001", "amount": 1072095 },
+  { "placeCode": "KE047", "amount": 4675548 },
+  { "placeCode": "KE002", "amount": 785429 },
+  { "placeCode": "KE003", "amount": 1207910 },
+  { "placeCode": "KE042", "amount": 1212084 }
 ]

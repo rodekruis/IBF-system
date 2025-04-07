@@ -1,0 +1,14 @@
+<coverageStore>
+  <id>CoverageStoreInfoImpl-5e38cfa3:195eb1b6cab:-7ed5</id>
+  <name>rainfall_forecast_4-month_KEN</name>
+  <description>rainfall_forecast_4-month_KEN</description>
+  <type>GeoTIFF</type>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-48cab08a:175ace47603:-7ffb</id>
+  </workspace>
+  <__default>false</__default>
+  <dateCreated>2025-04-01 12:24:18.264 UTC</dateCreated>
+  <disableOnConnFailure>false</disableOnConnFailure>
+  <url>file:workspaces/ibf-system/ibf-pipeline/output/rainfall_extents/rain_rp_4-month_KEN.tif</url>
+</coverageStore>

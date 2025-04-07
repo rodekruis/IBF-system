@@ -1,146 +1,38 @@
 [
-  {
-    "placeCode": "ET0101",
-    "amount": 1300
-  },
-  {
-    "placeCode": "ET0102",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0105",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0301",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0302",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0306",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0307",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0308",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0309",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0311",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0312",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0401",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0402",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0403",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0404",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0405",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0413",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0416",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0418",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0419",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0420",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0602",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0603",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0604",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0605",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0708",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0709",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0711",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0716",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0718",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET0719",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET1201",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET1202",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET1203",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET1204",
-    "amount": 0
-  },
-  {
-    "placeCode": "ET1401",
-    "amount": 0
-  }
+  { "placeCode": "ET1202", "amount": 208579 },
+  { "placeCode": "ET0418", "amount": 1327969 },
+  { "placeCode": "ET1203", "amount": 124352 },
+  { "placeCode": "ET0708", "amount": 326244 },
+  { "placeCode": "ET0718", "amount": 0 },
+  { "placeCode": "ET0307", "amount": 3331200 },
+  { "placeCode": "ET0311", "amount": 2929271 },
+  { "placeCode": "ET0312", "amount": 332615 },
+  { "placeCode": "ET0716", "amount": 0 },
+  { "placeCode": "ET0711", "amount": 738705 },
+  { "placeCode": "ET1201", "amount": 0 },
+  { "placeCode": "ET0603", "amount": 504459 },
+  { "placeCode": "ET0604", "amount": 163549 },
+  { "placeCode": "ET0102", "amount": 1767395 },
+  { "placeCode": "ET0402", "amount": 1948545 },
+  { "placeCode": "ET0306", "amount": 3111672 },
+  { "placeCode": "ET0420", "amount": 1110724 },
+  { "placeCode": "ET0709", "amount": 1386776 },
+  { "placeCode": "ET0301", "amount": 933526 },
+  { "placeCode": "ET0309", "amount": 1424912 },
+  { "placeCode": "ET0302", "amount": 2928803 },
+  { "placeCode": "ET0401", "amount": 2146752 },
+  { "placeCode": "ET0605", "amount": 0 },
+  { "placeCode": "ET0719", "amount": 152515 },
+  { "placeCode": "ET1204", "amount": 0 },
+  { "placeCode": "ET0416", "amount": 957383 },
+  { "placeCode": "ET0308", "amount": 613416 },
+  { "placeCode": "ET0404", "amount": 4246890 },
+  { "placeCode": "ET1401", "amount": 3938120 },
+  { "placeCode": "ET0101", "amount": 1097778 },
+  { "placeCode": "ET0105", "amount": 540992 },
+  { "placeCode": "ET0419", "amount": 938372 },
+  { "placeCode": "ET0403", "amount": 1155732 },
+  { "placeCode": "ET0413", "amount": 1525617 },
+  { "placeCode": "ET0405", "amount": 3119831 },
+  { "placeCode": "ET0602", "amount": 517669 }
 ]
