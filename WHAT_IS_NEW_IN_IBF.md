@@ -5,6 +5,10 @@ Find here the latest changes to the IBF-system.
 - Not all changes to the IBF-system are listed here. Only those that result in different functionality or different user experience.
 - This list is meant to explain changes since the last manual. Please open the manual from the dashboard for a full explanation on the IBF-system.
 
+### 07-04-2025 (v0.312.0)
+
+- IBF Lesotho: Lesotho added as new country with disaster-type Drought.
+
 ### 24-03-2025 (v0.305.0)
 
 - All IBF: Purple theme is used throughout IBF Portal also for warning events, instead of just for trigger events.

@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
 import { EventSummaryCountry } from '../../shared/data.model';
-import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
 import { EventService } from '../event/event.service';
@@ -170,22 +169,22 @@ export class NotificationService {
     countryCodeISO3: string,
     lastUploadDate: LastUploadDateDto,
   ): Promise<boolean> {
-    let send = true;
+    // For ongoing events (except if events starts as ongoing) do not send notifications
+    if (Number(event.firstLeadTime.split('-')[0]) === 0) {
+      if (
+        event.firstIssuedDate.getTime() !== lastUploadDate.timestamp.getTime()
+      ) {
+        return false;
+      }
+    }
+
     if (disasterType === DisasterType.Typhoon) {
-      send = await this.typhoonTrackService.shouldSendNotification(
+      return await this.typhoonTrackService.shouldSendNotification(
         countryCodeISO3,
         event.eventName,
       );
-    } else if (disasterType === DisasterType.FlashFloods) {
-      if (event.firstLeadTime === LeadTime.hour0) {
-        // For ongoing events only send an email - once - if the event starts as ongoing
-        if (
-          event.firstIssuedDate.getTime() !== lastUploadDate.timestamp.getTime()
-        ) {
-          send = false;
-        }
-      }
     }
-    return send;
+
+    return true;
   }
 }

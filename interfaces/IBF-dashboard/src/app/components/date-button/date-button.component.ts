@@ -18,7 +18,7 @@ export class DateButtonComponent implements OnInit, OnDestroy {
 
   private dateFormat = '';
   private monthFormat = '';
-  private hourFormat = 'HH:00 a';
+  private hourFormat = 'HH:00';
   public firstLine: string;
   public secondLine: string;
   public thirdLine: string;

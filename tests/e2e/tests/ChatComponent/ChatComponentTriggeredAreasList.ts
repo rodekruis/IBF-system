@@ -19,7 +19,6 @@ export default (
 
     // Navigate to disaster type the data was mocked for
     await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    // Assertions
     await userState.headerComponentIsVisible(dataset);
     // Wait for the page to load
     await dashboard.waitForLoaderToDisappear();
@@ -32,8 +31,9 @@ export default (
     await chat.predictionButtonsAreActive();
     await chat.clickShowPredictionButton(dataset.scenario);
     await map.clickOnAdminBoundary();
-    await chat.validateEapList(dataset.eap.actions);
 
+    // Assertions
+    await chat.validateEapList(dataset.eap.actions);
     const adminAreaName = await map.getAdminAreaBreadCrumbText();
     await chat.validateChatTitleAndBreadcrumbs({
       adminAreaName,

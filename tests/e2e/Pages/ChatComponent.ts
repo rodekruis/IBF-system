@@ -31,6 +31,8 @@ class ChatComponent extends DashboardPage {
   readonly backDrop: Locator;
   readonly eapList: Locator;
   readonly districtChatEapListTitle: Locator;
+  readonly setTriggerButton: Locator;
+  readonly checkbox: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -57,6 +59,8 @@ class ChatComponent extends DashboardPage {
     this.backDrop = page.locator('ion-backdrop').nth(2);
     this.eapList = this.page.getByRole('list');
     this.districtChatEapListTitle = this.page.locator('app-chat ion-col');
+    this.setTriggerButton = this.page.getByTestId('set-trigger-button');
+    this.checkbox = this.page.getByRole('checkbox');
   }
 
   async chatColumnIsVisibleForNoTriggerState({
@@ -230,6 +234,19 @@ class ChatComponent extends DashboardPage {
       .first()
       .getByTestId('event-switch-button');
     await triggerChatDialogue.click();
+  }
+
+  async setTrigger(scenario: string) {
+    // click on the show prediction button in chat section
+    await this.clickShowPredictionButton(scenario);
+    await this.setTriggerButton.click();
+    // continue in the popover
+    // select first checkbox with a region
+    await this.checkbox.first().click();
+    await this.page.getByRole('button', { name: 'Continue' }).click();
+    // accept the terms and conditions checkbox
+    await this.checkbox.first().click();
+    await this.page.getByRole('button', { name: 'Set trigger' }).click();
   }
 
   async validateEapList(eapActions: boolean) {
