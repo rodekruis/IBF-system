@@ -1,3 +1,12 @@
+## [0.312.1](https://github.com/rodekruis/IBF-system/compare/v0.312.0...v0.312.1) (2025-04-07)
+
+
+### Bug Fixes
+
+* put back disaster-types ([1913e01](https://github.com/rodekruis/IBF-system/commit/1913e017bb65df161e9fb3f6964ff642a2c97e80))
+
+
+
 # [0.312.0](https://github.com/rodekruis/IBF-system/compare/v0.311.0...v0.312.0) (2025-04-04)
 
 
@@ -103,15 +112,6 @@
 ### Features
 
 * lso red cross data + info popups ([7db6fcb](https://github.com/rodekruis/IBF-system/commit/7db6fcb10099cafc05f2aafa5ad66fbcd2b3d313))
-
-
-
-# [0.306.0](https://github.com/rodekruis/IBF-system/compare/v0.305.2...v0.306.0) (2025-03-24)
-
-
-### Features
-
-* show different advisory for set-trigger warning in email ([d046fee](https://github.com/rodekruis/IBF-system/commit/d046fee9cf12f7ed556b8dbec0c55b4d80d70a5f))
 
 
 
