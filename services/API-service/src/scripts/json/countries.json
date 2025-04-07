@@ -2,7 +2,7 @@
   {
     "countryCodeISO3": "UGA",
     "countryName": "Uganda",
-    "disasterTypes": ["floods", "drought"],
+    "disasterTypes": ["floods"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -256,7 +256,7 @@
   {
     "countryCodeISO3": "ZMB",
     "countryName": "Zambia",
-    "disasterTypes": ["floods", "drought"],
+    "disasterTypes": ["floods"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -589,7 +589,7 @@
         },
         "showMonthlyEapActions": true,
         "forecastSource": {
-          "label": "Global ECMWF",
+          "label": "ECMWF seasonal forecast monthly statistics",
           "url": "https://www.ecmwf.int"
         },
         "eapLink": "https://drive.google.com/file/d/129ni2VlAxg5GngqoszmVjlaRFEuLwLph/view"
@@ -629,7 +629,7 @@
   {
     "countryCodeISO3": "ETH",
     "countryName": "Ethiopia",
-    "disasterTypes": ["floods", "malaria", "drought"],
+    "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -685,7 +685,7 @@
           "11-month"
         ],
         "forecastSource": {
-          "label": "Global ECMWF",
+          "label": "ECMWF seasonal forecast monthly statistics",
           "url": "https://www.ecmwf.int"
         },
         "droughtSeasonRegions": {
@@ -1211,7 +1211,7 @@
           }
         },
         "forecastSource": {
-          "label": "Global ECMWF",
+          "label": "ECMWF seasonal forecast monthly statistics",
           "url": "https://www.ecmwf.int",
           "setTriggerSource": "the Lesotho Methodological Services seasonal forecast"
         },
