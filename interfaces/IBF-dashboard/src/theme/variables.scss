@@ -1,8 +1,8 @@
-@use 'tailwindcss/base';
-@use 'tailwindcss/components';
-@use 'tailwindcss/utilities';
-
 @use 'ibf-colors';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
