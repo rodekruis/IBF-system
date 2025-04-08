@@ -107,7 +107,7 @@
         "floods": "This layer shows the estimated rounded number of people potentially exposed per geographic area. The estimate is calculated by determining the population living in the potentially flooded area. <br/><br/>Source (Population Data): See population layer."
       },
       "LSO": {
-        "drought": "This layer shows the estimated rounded number of people potentially exposed per geographic area. The estimate is calculated by determining the population living in the potential drought extent area.<br/><br/>Source (Population Data): See population layer."
+        "drought": "This layer shows the estimated, rounded number of people potentially exposed to drought in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted drought-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
       },
       "MWI": {
         "flash-floods": "This layer shows the estimated rounded number of people potentially exposed per geographic area. The estimate is calculated by determining the population living in the potentially flooded area.<br/><br/>Source (Population Data): <a target='_blank' href='https://data.humdata.org/dataset/highresolutionpopulationdensitymaps-mwi'>High Resolution Population Density Maps</a>",
@@ -246,7 +246,7 @@
         "floods": "Population data aggregated per administrative area.<br/><br/>Source (Population Data): See population layer."
       },
       "LSO": {
-        "drought": "Population data aggregated per administrative area.<br/><br/>Source (Population Data): See population layer."
+        "drought": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
       },
       "MWI": {
         "floods": "Population data aggregated per administrative area.<br/><br/>Source (Population Data): <a target='_blank' href='https://apps.worldpop.org/peanutButter'>peanutButter: An R package to produce rapid-response gridded population estimates from building footprints, version 1.0.0 version 1.0.0. Accessed 15-08-2022. WorldPop, University of Southampton. 2021.</a>"

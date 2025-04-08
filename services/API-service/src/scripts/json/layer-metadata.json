@@ -101,7 +101,7 @@
         "floods": "This layer shows the population. It is visualised in grey on the map.<br><br>Source: WorldPop<br>Resolution: 100m<br>Year of data: 2020<br>Date of production: 2020-09-12<br>Reference: Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683"
       },
       "LSO": {
-        "drought": "This layer shows the population. It is visualised in grey on the map.<br><br>Source: WorldPop<br>Resolution: 100m<br>Year of data: 2020<br>Date of production: 2020-09-12<br>Reference: Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683"
+        "drought": "This layer shows the estimated population distribution. Areas with <b>darker grey indicate higher population density</b>. Useful for identifying communities at risk during droughts or other hazards.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a><br/><b>Spatial resolution:</b> 100m - allows for detailed analysis at local (village or community) level<br/><b>Data year:</b> 2020<br/><b>Date of production:</b> 2020-09-12<br/><b>Methodology:</b> Population estimates are disaggregated from census data using satellite-derived building footprints. The figures are then adjusted to align with the United Nations Population Division (UNPD) 2020 estimates.<br/><b>Reference:</b> Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683"
       },
       "MWI": {
         "floods": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> peanutButter: An R package to produce rapid-response gridded population estimates from building footprints, version 1.0.0 version 1.0.0. Accessed 15-08-2022. WorldPop, University of Southampton. 2021. &nbsp;<a href='https://apps.worldpop.org/peanutButter/'>https://apps.worldpop.org/peanutButter/</a></p>"
@@ -253,7 +253,7 @@
         "floods": "<p>This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.</p><p><strong>Source link:</strong> Kenya Red Cross Society (KRCS).&nbsp;</p><p><strong>Latest updated:</strong> 2020.</p>"
       },
       "LSO": {
-        "drought": "This layer represents the locations of the local branches."
+        "drought": "This layer represents the locations of the local Lesotho Red Cross branches."
       },
       "MWI": { "floods": "Data not available yet" },
       "PHL": { "floods": "Data not available yet" },
