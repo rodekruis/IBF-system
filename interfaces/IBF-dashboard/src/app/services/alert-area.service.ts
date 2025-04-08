@@ -149,17 +149,13 @@ export class AlertAreaService {
             (aof) => aof.id === action.aof,
           ).label;
           if (Object.keys(action.month).length) {
-            Object.defineProperty(action, 'monthLong', {
-              value: {},
-            });
+            action.monthLong = {} as JSON;
             for (const region of Object.keys(action.month)) {
-              Object.defineProperty(action.monthLong, region, {
-                value: DateTime.utc(
-                  2022, // year does not matter, this is just about converting month-number to month-name
-                  action.month[region][this.currentRainSeasonName],
-                  1,
-                ).monthLong,
-              });
+              action.monthLong[region] = DateTime.utc(
+                2022,
+                action.month[region][this.currentRainSeasonName],
+                1,
+              ).monthLong;
             }
           } else {
             action.month = null;
