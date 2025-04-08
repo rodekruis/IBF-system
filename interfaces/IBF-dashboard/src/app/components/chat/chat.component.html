@@ -186,7 +186,13 @@
         <form (submit)="submitEapAction(area.placeCode)">
           <ion-list class="background-light">
             @for (action of area.eapActions; track action) {
-              <ion-item lines="full" class="p-0">
+              <ion-item
+                lines="full"
+                class="p-0"
+                (click)="
+                  changeAction(area.placeCode, action.action, !action.checked)
+                "
+              >
                 <ion-checkbox
                   slot="start"
                   color="ibf-primary"
@@ -199,6 +205,7 @@
                       $event['detail']['checked']
                     )
                   "
+                  (click)="$event.stopPropagation()"
                 ></ion-checkbox>
                 <ion-label class="action-label ion-text-wrap"
                   ><strong>{{ action.aofLabel }}: </strong>{{ action.label }}
