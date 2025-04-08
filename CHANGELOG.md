@@ -1,3 +1,16 @@
+## [0.312.2](https://github.com/rodekruis/IBF-system/compare/v0.312.1...v0.312.2) (2025-04-08)
+
+
+### Bug Fixes
+
+* checkbox behaviour ([e1f598e](https://github.com/rodekruis/IBF-system/commit/e1f598edc2a61828098eed5a0f613128af65c947))
+* click checkbox ([d42abc7](https://github.com/rodekruis/IBF-system/commit/d42abc715c1a6cae2819ceee816e142039bba91f))
+* e2e test > get email element by type ([0006ea5](https://github.com/rodekruis/IBF-system/commit/0006ea58a1477606f59e884a321219a1fb0d778c))
+* one more size="default" case ([83ec346](https://github.com/rodekruis/IBF-system/commit/83ec346e6239018c09b9730bad618b6ed0339f7a))
+* UI differences afger upgrade ([01bf02d](https://github.com/rodekruis/IBF-system/commit/01bf02da015396a6c22a6a3621b7daa10955c6b9))
+
+
+
 ## [0.312.1](https://github.com/rodekruis/IBF-system/compare/v0.312.0...v0.312.1) (2025-04-07)
 
 
@@ -103,15 +116,6 @@
 * hide socialmedia btn if no link ([cdb328f](https://github.com/rodekruis/IBF-system/commit/cdb328f30ab54676dd975e9c3a5e9ee2aef4b166))
 * hide video if not available ([230ebd2](https://github.com/rodekruis/IBF-system/commit/230ebd20e8a289c7d4ef85f204099fc001f9cc1e))
 * update LSO mock data ([64ffc43](https://github.com/rodekruis/IBF-system/commit/64ffc43c95fa96603bb23695a382eac3d30a54af))
-
-
-
-# [0.307.0](https://github.com/rodekruis/IBF-system/compare/v0.306.0...v0.307.0) (2025-03-24)
-
-
-### Features
-
-* lso red cross data + info popups ([7db6fcb](https://github.com/rodekruis/IBF-system/commit/7db6fcb10099cafc05f2aafa5ad66fbcd2b3d313))
 
 
 
