@@ -1,3 +1,12 @@
+## [0.312.3](https://github.com/rodekruis/IBF-system/compare/v0.312.2...v0.312.3) (2025-04-09)
+
+
+### Bug Fixes
+
+* seed lines-data optionally AB[#35203](https://github.com/rodekruis/IBF-system/issues/35203) ([43830bf](https://github.com/rodekruis/IBF-system/commit/43830bf6378de5f0a62f1d99044f7a966f844b19))
+
+
+
 ## [0.312.2](https://github.com/rodekruis/IBF-system/compare/v0.312.1...v0.312.2) (2025-04-08)
 
 
@@ -98,24 +107,6 @@
 
 * fixes after testing both prod and local ([5c78573](https://github.com/rodekruis/IBF-system/commit/5c7857366fb1fff8a486a3ad26f5cee7fb2907d1))
 * refactor whatsapp code to use contentSid instead of messag for templates AB[#34885](https://github.com/rodekruis/IBF-system/issues/34885) ([4829753](https://github.com/rodekruis/IBF-system/commit/48297530c932c1a135298df485b44478b7166f6c))
-
-
-
-# [0.308.0](https://github.com/rodekruis/IBF-system/compare/v0.307.0...v0.308.0) (2025-03-26)
-
-
-### Bug Fixes
-
-* email headers ([1ce690a](https://github.com/rodekruis/IBF-system/commit/1ce690a9665856b9a33bd8990f1dde187cd31682))
-* integration tests ([5390877](https://github.com/rodekruis/IBF-system/commit/53908770aa25352bb9f8b64c4acf199ef0340a7f))
-* rainfall raster style ([171855f](https://github.com/rodekruis/IBF-system/commit/171855fe5f8690f4913fa4a09ed52909d967bc77))
-
-
-### Features
-
-* hide socialmedia btn if no link ([cdb328f](https://github.com/rodekruis/IBF-system/commit/cdb328f30ab54676dd975e9c3a5e9ee2aef4b166))
-* hide video if not available ([230ebd2](https://github.com/rodekruis/IBF-system/commit/230ebd20e8a289c7d4ef85f204099fc001f9cc1e))
-* update LSO mock data ([64ffc43](https://github.com/rodekruis/IBF-system/commit/64ffc43c95fa96603bb23695a382eac3d30a54af))
 
 
 
