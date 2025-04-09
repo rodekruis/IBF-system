@@ -39,6 +39,7 @@ module.exports = [
           endOfLine: 'auto',
         },
       ],
+      'jest/no-focused-tests': 'error',
     },
   },
   ...compat.extends('plugin:@typescript-eslint/recommended'),
