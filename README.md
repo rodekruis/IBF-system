@@ -93,70 +93,9 @@ These commands will install the IBF-system with listeners at,
 2. Seed database: docker compose exec ibf-api-service npm run seed
 3. Run all mock scenarios via Swagger: api/scripts/mock-all
 
-### Troubleshoot installation issues
-
-Please read the troubleshoot guidlelines to support the installation of IBF in the
-[TROUBLESHOOT.md](/docs/TROUBLESHOOT.md)
-
-## Releases
-
-See notable changes and the currently released version in
-
-- [CHANGELOG](CHANGELOG.md), which is automatically created based on commit messages
-- [What's new in IBF](./WHAT_IS_NEW_IN_IBF.md), which is manually created at every release (see also release checklist below)
-
-### Release Checklist
-
-- [ ] Pick a tag to release. Generally this is the latest tag in [tags](https://github.com/rodekruis/IBF-system/tags).
-- [ ] Click the 'Create release' button.
-- [ ] Enter as release title the tag-name (e.g. v0.128.5).
-- [ ] **IMPORTANT**: Before actually doing the release (and thus releasing to `staging`), check if any .ENV-variables on the server need to be updated. Do that by SSH'ing into the server and making the required changes. This will make sure the new release will use the updated .ENV-variables immediately.
-- [ ] Click the 'Publish Release' button.
-- [ ] **IMPORTANT**: Add changes relevant to the end-user in [What's new in IBF](./WHAT_IS_NEW_IN_IBF.md)
-
-The above steps should trigger the
-[release webhook](https://github.com/rodekruis/IBF-system/settings/hooks/240449523)
-which updates the [staging environment](https://ibf-demo.510.global/login) to the
-published release.
-
-## Deployment
-
-### To "test" environment
-
-- Make sure to verify if the environment-settings are appropriately set on the
-  test VM before merging the PR.
-- Merging a PR to master will lead to creation of a new tag (e.g. v0.128.5), but ONLY if the PR includes at least 1 commit with a commit message starting with 'feat: ' or 'fix: ' (following [Conventional Commit](https://conventionalcommits.org/))
-- The tag creation in turn will lead to an automatic deploy to the test-server (via [webhook](tools/webhook.service), see:
-  [/tools#GitHub-webhook](tools/README.md#github-webhook))
-- Wait until deploy is ready (by checking when the new version-number has appeared on the login-page of IBF-dashboard)
-- Run seed-script
-- Run 'mock-all' endpoint
-
-### To "stage/demo" environment
-
-- Make sure to verify if the environment-settings are appropriately set on the
-  stage VM before publishing the release.
-- When a [release](#release-checklist) is published, it is automatically
-  deployed to the demo-server, via the webhook.
-- Wait until deploy is ready (by checking when the new version-number has appeared on the login-page of IBF-dashboard)
-- Note that the deployment logs can be followed in `/var/tmp/ibf-<yyyy-mm-dd>.stdout.log`
-- Run seed-script
-- Run 'mock-all' endpoint
-
-### To "production" environment
-
-- SSH into the production server
-- Make sure to verify if the [environment variables](./example.env) are
-  appropriately set on the VM.
-- It might be needed to run the deploy-script as `azureuser` (same user with which the webhook runs the deploy-script on ibf-test and ibf-demo), by running `sudo su - azureuser` first. (As otherwise you would be running it with the personal user-account you logged in with.)
-- Manually run the [deploy script](./tools/deploy.sh) with the release which
-  should be deployed for the specific country, through `. ./tools/deploy.sh <release-id>`
-- Sometimes npm packages are not all automatically correctly installed. In case of issues with the api-service restart after deployment has finished, check the [this section](/docs/TROUBLESHOOT.md#install-packages-in-api-service) of the TROUBLESHOOT guide
-
 ## Contributing to IBF
 
-Please read the contributing guidlelines in the
-[CONTRIBUTING.md](docs/CONTRIBUTING.md)
+Read our [CONTRIBUTING](docs/CONTRIBUTING.md) guide.
 
 ## Glossary
 
