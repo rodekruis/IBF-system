@@ -242,10 +242,10 @@ class ChatComponent extends DashboardPage {
     await this.setTriggerButton.click();
     // continue in the popover
     // select first checkbox with a region
-    await this.checkbox.first().click();
+    await this.checkbox.first().click({ force: true });
     await this.page.getByRole('button', { name: 'Continue' }).click();
     // accept the terms and conditions checkbox
-    await this.checkbox.first().click();
+    await this.checkbox.first().click({ force: true });
     await this.page.getByRole('button', { name: 'Set trigger' }).click();
   }
 
