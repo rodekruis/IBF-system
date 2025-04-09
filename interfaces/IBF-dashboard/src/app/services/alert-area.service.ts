@@ -19,6 +19,7 @@ import { AdminLevelType } from 'src/app/types/admin-level';
 import { AlertArea } from 'src/app/types/alert-area';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
+import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
 
 @Injectable({
@@ -139,27 +140,29 @@ export class AlertAreaService {
         return a.forecastSeverity > b.forecastSeverity ? -1 : 1;
       }
     });
-    this.alertAreas.forEach((area) => {
-      this.formatDates(area);
-      this.filterEapActionsByMonth(area);
-      area.eapActions.forEach((action) => {
-        action.aofLabel = AREAS_OF_FOCUS.find(
-          (aof) => aof.id === action.aof,
-        ).label;
-        if (Object.keys(action.month).length) {
-          action.monthLong = {} as JSON;
-          for (const region of Object.keys(action.month)) {
-            action.monthLong[region] = DateTime.utc(
-              2022,
-              action.month[region][this.currentRainSeasonName],
-              1,
-            ).monthLong;
+    if (this.getActiveLeadtime()) {
+      this.alertAreas.forEach((area) => {
+        this.formatDates(area);
+        this.filterEapActionsByMonth(area);
+        area.eapActions.forEach((action) => {
+          action.aofLabel = AREAS_OF_FOCUS.find(
+            (aof) => aof.id === action.aof,
+          ).label;
+          if (Object.keys(action.month).length) {
+            action.monthLong = {} as JSON;
+            for (const region of Object.keys(action.month)) {
+              action.monthLong[region] = DateTime.utc(
+                2022,
+                action.month[region][this.currentRainSeasonName],
+                1,
+              ).monthLong;
+            }
+          } else {
+            action.month = null;
           }
-        } else {
-          action.month = null;
-        }
+        });
       });
-    });
+    }
     // REFACTOR: there is no longer need for a subscription here, as this data is not retrieved from API here, but already earlier known. Clean up the subscription chain.
     this.alertAreaSubject.next(this.alertAreas);
   };
@@ -255,5 +258,9 @@ export class AlertAreaService {
 
   private getCurrentMonth(): number {
     return this.timelineState.today.month;
+  }
+
+  private getActiveLeadtime(): LeadTime {
+    return this.timelineState.activeLeadTime;
   }
 }
