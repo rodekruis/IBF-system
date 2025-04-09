@@ -1,6 +1,6 @@
-# Contributing to IBF
+# Contributing
 
-:+1: Thank you for taking the time to contribute! First, read our [CODE OF CONDUCT](./CODE_OF_CONDUCT.md).
+:+1: Thank you for taking the time to contribute! First, read our [Code of Conduct](./CODE_OF_CONDUCT.md).
 
 ## Got a question?
 
