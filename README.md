@@ -85,6 +85,14 @@ These commands will install the IBF-system with listeners at,
 2. \*development only - [localhost:4200](http://localhost:4200) for the web
    interface
 
+### Load base data
+
+1. Load Geoserver source data
+   - Download raster-files.zip
+   - Unzip the files using apt install unzip and unzip raster-files.zip, into services/API-service/geoserver-volume/raster-files/
+2. Seed database: docker compose exec ibf-api-service npm run seed
+3. Run all mock scenarios via Swagger: api/scripts/mock-all
+
 ### Troubleshoot installation issues
 
 Please read the troubleshoot guidlelines to support the installation of IBF in the
