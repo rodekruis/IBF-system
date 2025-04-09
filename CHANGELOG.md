@@ -1,3 +1,17 @@
+## [0.312.4](https://github.com/rodekruis/IBF-system/compare/v0.312.3...v0.312.4) (2025-04-09)
+
+
+### Bug Fixes
+
+* filter actions by month bug ([dce4fe5](https://github.com/rodekruis/IBF-system/commit/dce4fe56b51d14a27b03ad1b02ef3b60ddf28c03))
+* redefine monthLong bug AB[#35178](https://github.com/rodekruis/IBF-system/issues/35178) ([4575dc6](https://github.com/rodekruis/IBF-system/commit/4575dc622009f2c2f8da9d7b2bc4571f53a55fa0))
+* revert fdescribe ([9fa48cb](https://github.com/rodekruis/IBF-system/commit/9fa48cb025e21bc82227a57f187cdfd6713a4b1b))
+* revert minor refactor change to fix e2e test ([60a14f2](https://github.com/rodekruis/IBF-system/commit/60a14f2007a802be49d228992d962c2d83e15c3c))
+* test ([6c76b21](https://github.com/rodekruis/IBF-system/commit/6c76b21e21e9e774d857aacadb3e6614aeb36e3d))
+* unit tests ([b0c6150](https://github.com/rodekruis/IBF-system/commit/b0c6150712f1bc46e85a50b5eac708bcc344a012))
+
+
+
 ## [0.312.3](https://github.com/rodekruis/IBF-system/compare/v0.312.2...v0.312.3) (2025-04-09)
 
 
@@ -97,16 +111,6 @@
 
 * KEN mock data + geoserver layers ([58f6ad3](https://github.com/rodekruis/IBF-system/commit/58f6ad3244f8d511c5426a8cf8ce1c4331814dc0))
 * update ETH mock data ([246a6a4](https://github.com/rodekruis/IBF-system/commit/246a6a493e7019e09983ffae020eba3feb3c4126))
-
-
-
-## [0.308.1](https://github.com/rodekruis/IBF-system/compare/v0.308.0...v0.308.1) (2025-03-31)
-
-
-### Bug Fixes
-
-* fixes after testing both prod and local ([5c78573](https://github.com/rodekruis/IBF-system/commit/5c7857366fb1fff8a486a3ad26f5cee7fb2907d1))
-* refactor whatsapp code to use contentSid instead of messag for templates AB[#34885](https://github.com/rodekruis/IBF-system/issues/34885) ([4829753](https://github.com/rodekruis/IBF-system/commit/48297530c932c1a135298df485b44478b7166f6c))
 
 
 
