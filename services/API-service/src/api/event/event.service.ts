@@ -383,6 +383,7 @@ export class EventService {
         'area."placeCode" AS "placeCode"',
         'area.name AS name',
         'area."adminLevel" AS "adminLevel"',
+        'event."eventName" AS "eventName"',
         'event."mainExposureValue"',
         'event."forecastSeverity"',
         'event."forecastTrigger"',
