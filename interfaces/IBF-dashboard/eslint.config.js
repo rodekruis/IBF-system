@@ -151,6 +151,7 @@ module.exports = tseslint.config(
       '@typescript-eslint/unbound-method': 'off',
       '@typescript-eslint/no-floating-promises': 'off',
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
+      'jasmine/no-focused-tests': 'error',
     },
   },
   {

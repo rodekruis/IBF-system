@@ -16,4 +16,5 @@ export class AlertArea {
   firstIssuedDate: string;
   submitDisabled: boolean;
   alertLevel: AlertLevel;
+  eventName: string;
 }

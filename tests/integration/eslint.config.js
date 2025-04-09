@@ -6,6 +6,7 @@ const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommen
 const eslintPluginSimpleSort = require('eslint-plugin-simple-import-sort');
 const typescriptEslintParser = require('@typescript-eslint/parser');
 const eslintPluginPrettier = require('eslint-plugin-prettier');
+const eslintPluginJest = require('eslint-plugin-jest');
 
 module.exports = tseslint.config(
   {
@@ -21,7 +22,9 @@ module.exports = tseslint.config(
       'simple-import-sort': eslintPluginSimpleSort,
     },
     extends: [eslintPluginPrettierRecommended],
-    rules: {},
+    rules: {
+      'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    },
   },
   {
     files: ['**/*.ts'],
@@ -40,6 +43,7 @@ module.exports = tseslint.config(
     plugins: {
       eslintPluginPrettier,
       'simple-import-sort': eslintPluginSimpleSort,
+      jest: eslintPluginJest,
     },
     extends: [
       // eslint.configs.recommended,
@@ -71,6 +75,7 @@ module.exports = tseslint.config(
       'simple-import-sort/imports': ['error'],
       'simple-import-sort/exports': 'error',
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
+      'jest/no-focused-tests': 'error',
     },
   },
 );

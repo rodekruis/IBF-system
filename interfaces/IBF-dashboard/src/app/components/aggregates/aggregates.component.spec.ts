@@ -7,6 +7,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { IonicModule, PopoverController } from '@ionic/angular';
+import { provideIonicAngular } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   AnalyticsEvent,
@@ -62,6 +63,7 @@ describe('AggregatesComponent', () => {
         { provide: TranslateService, useClass: MockTranslateService },
         { provide: PopoverController },
         { provide: AnalyticsService },
+        provideIonicAngular(),
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],

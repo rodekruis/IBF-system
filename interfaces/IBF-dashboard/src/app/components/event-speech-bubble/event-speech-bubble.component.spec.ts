@@ -17,7 +17,7 @@ import { MOCK_INDICATOR } from 'src/app/mocks/indicator.mock';
 import { CountryDisasterSettings } from 'src/app/models/country.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 
-fdescribe('EventSpeechBubbleComponent', () => {
+describe('EventSpeechBubbleComponent', () => {
   let component: EventSpeechBubbleComponent;
   let fixture: ComponentFixture<EventSpeechBubbleComponent>;
   let popoverControllerSpy: jasmine.SpyObj<PopoverController>;

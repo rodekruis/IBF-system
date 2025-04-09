@@ -6,6 +6,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { provideIonicAngular } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
 import { LoginPage } from 'src/app/pages/login/login.page';
 import { SharedModule } from 'src/app/shared.module';
@@ -24,6 +25,7 @@ describe('LoginPage', () => {
         TranslateModule.forRoot(),
       ],
       providers: [
+        provideIonicAngular(),
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],

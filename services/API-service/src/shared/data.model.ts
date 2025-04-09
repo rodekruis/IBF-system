@@ -38,6 +38,9 @@ export class AlertArea {
   @ApiProperty({ example: 'Agago' })
   public nameParent: string;
 
+  @ApiProperty({ example: 'Event name' })
+  public eventName: string;
+
   @ApiProperty({ example: 100 })
   public mainExposureValue: number;
 

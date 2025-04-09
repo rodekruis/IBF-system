@@ -149,17 +149,13 @@ export class AlertAreaService {
             (aof) => aof.id === action.aof,
           ).label;
           if (Object.keys(action.month).length) {
-            Object.defineProperty(action, 'monthLong', {
-              value: {},
-            });
+            action.monthLong = {} as JSON;
             for (const region of Object.keys(action.month)) {
-              Object.defineProperty(action.monthLong, region, {
-                value: DateTime.utc(
-                  2022, // year does not matter, this is just about converting month-number to month-name
-                  action.month[region][this.currentRainSeasonName],
-                  1,
-                ).monthLong,
-              });
+              action.monthLong[region] = DateTime.utc(
+                2022,
+                action.month[region][this.currentRainSeasonName],
+                1,
+              ).monthLong;
             }
           } else {
             action.month = null;
@@ -187,18 +183,7 @@ export class AlertAreaService {
     }
 
     const region = this.getRegion(alertArea);
-
-    let monthOfSelectedLeadTime =
-      this.getCurrentMonth() + Number(this.getActiveLeadtime().split('-')[0]);
-    monthOfSelectedLeadTime =
-      monthOfSelectedLeadTime > 12
-        ? monthOfSelectedLeadTime - 12
-        : monthOfSelectedLeadTime;
-
-    this.currentRainSeasonName = this.getCurrentRainSeasonName(
-      region,
-      monthOfSelectedLeadTime,
-    );
+    this.currentRainSeasonName = alertArea.eventName.split('_')[0];
 
     const currentActionSeasonMonths = this.currentRainSeasonName
       ? this.countryDisasterSettings.droughtSeasonRegions[region][
@@ -251,18 +236,6 @@ export class AlertAreaService {
     for (const droughtRegion of droughtRegions) {
       if (isAlertAreaInDroughtRegion(droughtRegion)) {
         return droughtRegion;
-      }
-    }
-  }
-
-  private getCurrentRainSeasonName(
-    region: string,
-    monthOfSelectedLeadTime: number,
-  ): string {
-    const seasons = this.countryDisasterSettings.droughtSeasonRegions[region];
-    for (const season of Object.keys(seasons)) {
-      if (seasons[season].rainMonths.includes(monthOfSelectedLeadTime)) {
-        return season;
       }
     }
   }

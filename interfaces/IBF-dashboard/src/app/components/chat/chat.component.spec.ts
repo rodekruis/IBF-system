@@ -7,6 +7,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { provideIonicAngular } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
 import { ChatComponent } from 'src/app/components/chat/chat.component';
 
@@ -24,6 +25,7 @@ describe('ChatComponent', () => {
         TranslateModule.forRoot(),
       ],
       providers: [
+        provideIonicAngular(),
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],

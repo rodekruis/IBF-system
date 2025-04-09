@@ -6,6 +6,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { provideIonicAngular } from '@ionic/angular/standalone';
 import { AreasOfFocusSummaryComponent } from 'src/app/components/areas-of-focus-summary/areas-of-focus-summary.component';
 
 describe('AreasOfFocusSummaryComponent', () => {
@@ -17,6 +18,7 @@ describe('AreasOfFocusSummaryComponent', () => {
       declarations: [AreasOfFocusSummaryComponent],
       imports: [IonicModule, RouterModule.forRoot([])],
       providers: [
+        provideIonicAngular(),
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],

@@ -6,6 +6,7 @@ import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { provideIonicAngular } from '@ionic/angular/standalone';
 import { EventSwitcherComponent } from 'src/app/components/event-switcher/event-switcher.component';
 
 describe('EventSwitcherComponent', () => {
@@ -17,6 +18,7 @@ describe('EventSwitcherComponent', () => {
       declarations: [EventSwitcherComponent],
       imports: [IonicModule, RouterModule.forRoot([])],
       providers: [
+        provideIonicAngular(),
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],

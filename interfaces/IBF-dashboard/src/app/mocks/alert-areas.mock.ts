@@ -17,6 +17,7 @@ export const MOCK_ALERT_AREAS: AlertArea[] = [
     firstIssuedDate: '2025-02-21T12:38:48.546Z',
     submitDisabled: false,
     alertLevel: AlertLevel.TRIGGER,
+    eventName: 'Flood',
   },
   {
     mainExposureValue: 1,
@@ -32,5 +33,6 @@ export const MOCK_ALERT_AREAS: AlertArea[] = [
     firstIssuedDate: '2025-02-21T12:38:48.546Z',
     submitDisabled: false,
     alertLevel: AlertLevel.TRIGGER,
+    eventName: 'Flood',
   },
 ];
