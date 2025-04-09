@@ -7,6 +7,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
+import { provideIonicAngular } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
 import { DashboardPage } from 'src/app/pages/dashboard/dashboard.page';
 import { MapService } from 'src/app/services/map.service';
@@ -28,6 +29,7 @@ describe('DashboardPage', () => {
       ],
       providers: [
         { provide: MapService },
+        provideIonicAngular(),
         provideHttpClient(withInterceptorsFromDi()),
         provideHttpClientTesting(),
       ],
