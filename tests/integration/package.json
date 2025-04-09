@@ -4,7 +4,7 @@
   "scripts": {
     "lint": "eslint \"**/*.{ts,js}\"",
     "fix": "npm run lint -- --fix",
-    "test": "node --expose-gc ./node_modules/jest/bin/jest.js --config=jest.api.config.js --runInBand --detectOpenHandles --logHeapUsage",
+    "test": "node --expose-gc ./node_modules/jest/bin/jest.js --config=jest.api.config.js --runInBand --detectOpenHandles --logHeapUsage all.test.ts",
     "test:watch": "npm run test -- --watchAll"
   },
   "devDependencies": {

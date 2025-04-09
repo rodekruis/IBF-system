@@ -38,6 +38,7 @@ export function resetDB(accessToken: string): Promise<request.Response> {
   return getServer()
     .post('/scripts/reset')
     .set('Authorization', `Bearer ${accessToken}`)
+    .query({ includeLinesData: false })
     .send({
       secret: process.env.RESET_SECRET,
     });

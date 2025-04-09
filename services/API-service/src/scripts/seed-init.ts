@@ -48,8 +48,7 @@ export class SeedInit implements InterfaceScript {
   ) {
     this.seedHelper = new SeedHelper(dataSource);
   }
-
-  public async run(): Promise<void> {
+  public async run(_argv: object, includeLinesData: boolean): Promise<void> {
     await this.seedHelper.truncateAll();
 
     // ***** CREATE DISASTER *****
@@ -215,8 +214,9 @@ export class SeedInit implements InterfaceScript {
     await this.seedPointData.run();
 
     // ***** SEED LINE DATA *****
-    console.log('Seed line data...');
-    await this.seedLineData.run();
+    if (includeLinesData) {
+      await this.seedLineData.run();
+    }
 
     // ***** SEED INDICATOR DATA PER ADMIN AREA *****
     console.log('Seed Indicator data per admin-area...');

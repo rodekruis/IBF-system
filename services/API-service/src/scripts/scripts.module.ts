@@ -75,5 +75,5 @@ import SeedProd from './seed-prod';
 export class ScriptsModule {}
 
 export interface InterfaceScript {
-  run(argv: Arguments): Promise<void>;
+  run(argv: Arguments, includeLinesData?: boolean): Promise<void>;
 }

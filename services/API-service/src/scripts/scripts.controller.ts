@@ -41,13 +41,30 @@ export class ScriptsController {
     status: 202,
     description: 'Database reset with original seed data.',
   })
+  @ApiQuery({
+    name: 'includeLinesData',
+    required: false,
+    schema: { default: true, type: 'boolean' },
+    type: 'boolean',
+    description: 'Set to false to exclude (large) lines data, e.g. for testing',
+  })
   @Post('/reset')
-  public async resetDb(@Body() body: ResetDto, @Res() res): Promise<string> {
+  public async resetDb(
+    @Body() body: ResetDto,
+    @Res() res,
+    @Query(
+      'includeLinesData',
+      new ParseBoolPipe({
+        optional: true,
+      }),
+    )
+    includeLinesData: boolean,
+  ): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
 
-    await this.seedInit.run();
+    await this.seedInit.run(null, includeLinesData);
     return res
       .status(HttpStatus.ACCEPTED)
       .send('Database reset with original seed data.');
