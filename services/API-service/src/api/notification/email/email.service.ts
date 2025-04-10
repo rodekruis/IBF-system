@@ -104,7 +104,7 @@ export class EmailService {
       date: lastUploadDate.timestamp,
     });
 
-    if (noNotifications) {
+    if (noNotifications || process.env.NODE_ENV === 'ci') {
       return emailHtml;
     }
     const emailSubject = `IBF ${disasterTypeLabel} ended`;
