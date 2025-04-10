@@ -62,7 +62,7 @@ export class EmailService {
       date: lastUploadDate.timestamp,
     });
 
-    if (noNotifications) {
+    if (noNotifications || process.env.NODE_ENV === 'ci') {
       // NOTE: use this to test the email output instead of using Mailchimp
       // fs.writeFileSync(
       //   `email-${country.countryCodeISO3}-${disasterType}-${formatISO(new Date())}.html`,
