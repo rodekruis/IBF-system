@@ -17,14 +17,36 @@
     "lastName": "Manager"
   },
   "title": "IBF PORTAL",
-  "aggregateIndicators": ["Exposed population", "Total Population"],
+  "aggregates": {
+    "disclaimer": "All numbers are approximate and meant to be used as guidance."
+  },
   "mapLayers": [
     {
       "name": "red_cross_branches",
       "label": "Red Cross branches",
+      "description": "This layer represents the locations of the local Uganda Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data",
       "legendLabels": ["Red Cross branches"],
       "active": false,
-      "type": "point"
+      "type": "point",
+      "aggregate": false
+    },
+    {
+      "name": "population_affected",
+      "label": "Exposed population",
+      "description": "This layer shows the estimated, rounded number of people potentially exposed to drought in each geographic area. The shaded polygons represent administrative areas, with darker purple indicating higher numbers of exposed people.Estimates are calculated using population data overlaid with predicted drought-affected zones.This layer supports prioritizing early actions and allocating resources by highlighting where the most people are at risk.Source: ECMWF rainfall forecast",
+      "legendLabels": ["Exposed population"],
+      "active": true,
+      "type": "admin-area",
+      "aggregate": true
+    },
+    {
+      "name": "populationTotal",
+      "label": "Total Population",
+      "description": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with darker purple indicating higher population totals.Population figures are aggregated using gridded population data matched to administrative boundaries.This layer provides a baseline for understanding the overall population distribution across the country.Source: HRSL",
+      "legendLabels": ["Total Population"],
+      "active": false,
+      "type": "admin-area",
+      "aggregate": true
     }
   ],
   "timeline": {

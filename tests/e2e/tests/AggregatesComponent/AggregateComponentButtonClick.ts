@@ -21,6 +21,9 @@ export default (
     // Assertions
     await aggregates.aggregateComponentIsVisible();
     await dashboard.waitForLoaderToDisappear();
-    await aggregates.validatesAggregatesInfoButtons();
+    await aggregates.validatesAggregatesInfoButtons(
+      dataset.mapLayers,
+      dataset.aggregates.disclaimer,
+    );
   });
 };
