@@ -71,16 +71,16 @@
     "active": "no",
     "description": {
       "ETH": {
-        "drought": "This layer displays the probability that seasonal precipitation will fall within the lowest third (lower tercile) of the 30-year climatological distribution."
+        "drought": "This layer displays the <b>probability that seasonal precipitation</b> will fall within the lower third range of the 30-year climatological distribution.<br/><br/>The high/low rainfall forecast for the current period does not directly determine the number of people exposed to or affected by the forecasted drought, but can be determined by comparing the forecasted rainfall with what is expected based on the last 30 years of climatology for each area.<br/><br/><b>Source:</b> <a target='_blank' href='https://charts.ecmwf.int/products/seasonal_system5_standard_rain?area=GLOB&base_time=202503010000&stats=tsum&valid_time=202504010000'>European Centre for Medium-Range Weather Forecasts (ECMWF)</a>"
       },
       "KEN": {
-        "drought": "This layer displays the probability that seasonal precipitation will fall within the lowest third (lower tercile) of the 30-year climatological distribution."
+        "drought": "This layer displays the <b>probability that seasonal precipitation</b> will fall within the lower third range of the 30-year climatological distribution.<br/><br/>The high/low rainfall forecast for the current period does not directly determine the number of people exposed to or affected by the forecasted drought, but can be determined by comparing the forecasted rainfall with what is expected based on the last 30 years of climatology for each area.<br/><br/><b>Source:</b> <a target='_blank' href='https://charts.ecmwf.int/products/seasonal_system5_standard_rain?area=GLOB&base_time=202503010000&stats=tsum&valid_time=202504010000'>European Centre for Medium-Range Weather Forecasts (ECMWF)</a>"
       },
       "LSO": {
         "drought": "This layer displays the probability that seasonal precipitation will fall within the lowest third range of the 30-year climatological distribution.<br/><br/>The high/low rainfall forecast for the current period does not directly determine the number of people exposed to or affected by the forecasted drought but can be determined by comparing the forecasted rainfall with what is expected based on the last 30 years of climatology for each area.<br/><br/>Source: <a target='_blank' href='https://charts.ecmwf.int/products/seasonal_system5_standard_rain?area=GLOB&base_time=202503010000&stats=tsum&valid_time=202504010000'>European Centre for Medium-Range Weather Forecasts (ECMWF)</a>"
       },
       "UGA": {
-        "drought": "This layer displays the probability that seasonal precipitation will fall within the lowest third (lower tercile) of the 30-year climatological distribution."
+        "drought": "This layer displays the <b>probability that seasonal precipitation</b> will fall within the lower third range of the 30-year climatological distribution.<br/><br/>The high/low rainfall forecast for the current period does not directly determine the number of people exposed to or affected by the forecasted drought, but can be determined by comparing the forecasted rainfall with what is expected based on the last 30 years of climatology for each area.<br/><br/><b>Source:</b> <a target='_blank' href='https://charts.ecmwf.int/products/seasonal_system5_standard_rain?area=GLOB&base_time=202503010000&stats=tsum&valid_time=202504010000'>European Centre for Medium-Range Weather Forecasts (ECMWF)</a>"
       }
     }
   },
@@ -93,15 +93,15 @@
     "active": "no",
     "description": {
       "ETH": {
-        "drought": "This layer shows the population. It is visualised in grey on the map.<br><br>Source: WorldPop<br>Resolution: 100m<br>Year of data: 2020<br>Date of production: 2020-09-12<br>Reference: Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683",
-        "floods": "This layer shows the population. It is visualised in grey on the map.<br><br>Source: WorldPop<br>Resolution: 100m<br>Year of data: 2020<br>Date of production: 2020-09-12<br>Reference: Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683"
+        "floods": "This layer shows the estimated population distribution. Areas with darker grey indicate higher population density. Useful for identifying communities at risk during droughts or other hazards.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a><br/><b>Spatial resolution:</b> 100m - allows for detailed analysis at local (village or community) level<br/><b>Data year:</b> 2020<br/><b>Date of production:</b> 2020-09-12<br/><b>Methodology:</b> Population estimates are disaggregated from census data using satellite-derived building footprints. The figures are then adjusted to align with the United Nations Population Division (UNPD) 2020 estimates.<br/><b>Reference:</b> Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683",
+        "drought": "This layer shows the estimated population distribution. Areas with darker grey indicate higher population density. Useful for identifying communities at risk during droughts or other hazards.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a><br/><b>Spatial resolution:</b> 100m - allows for detailed analysis at local (village or community) level<br/><b>Data year:</b> 2020<br/><b>Date of production:</b> 2020-09-12<br/><b>Methodology:</b> Population estimates are disaggregated from census data using satellite-derived building footprints. The figures are then adjusted to align with the United Nations Population Division (UNPD) 2020 estimates.<br/><b>Reference:</b> Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683"
       },
       "KEN": {
-        "drought": "This layer shows the population. It is visualised in grey on the map.<br><br>Source: WorldPop<br>Resolution: 100m<br>Year of data: 2020<br>Date of production: 2020-09-12<br>Reference: Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683",
-        "floods": "This layer shows the population. It is visualised in grey on the map.<br><br>Source: WorldPop<br>Resolution: 100m<br>Year of data: 2020<br>Date of production: 2020-09-12<br>Reference: Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683"
+        "floods": "This layer shows the estimated population distribution. Areas with darker grey indicate higher population density. Useful for identifying communities at risk during droughts or other hazards.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a><br/><b>Spatial resolution:</b> 100m - allows for detailed analysis at local (village or community) level<br/><b>Data year:</b> 2020<br/><b>Date of production:</b> 2020-09-12<br/><b>Methodology:</b> Population estimates are disaggregated from census data using satellite-derived building footprints. The figures are then adjusted to align with the United Nations Population Division (UNPD) 2020 estimates.<br/><b>Reference:</b> Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683",
+        "drought": "This layer shows the estimated population distribution. Areas with darker grey indicate higher population density. Useful for identifying communities at risk during droughts or other hazards.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a><br/><b>Spatial resolution:</b> 100m - allows for detailed analysis at local (village or community) level<br/><b>Data year:</b> 2020<br/><b>Date of production:</b> 2020-09-12<br/><b>Methodology:</b> Population estimates are disaggregated from census data using satellite-derived building footprints. The figures are then adjusted to align with the United Nations Population Division (UNPD) 2020 estimates.<br/><b>Reference:</b> Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683"
       },
       "LSO": {
-        "drought": "This layer shows the estimated population distribution. Areas with <b>darker grey indicate higher population density</b>. Useful for identifying communities at risk during droughts or other hazards.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a><br/><b>Spatial resolution:</b> 100m - allows for detailed analysis at local (village or community) level<br/><b>Data year:</b> 2020<br/><b>Date of production:</b> 2020-09-12<br/><b>Methodology:</b> Population estimates are disaggregated from census data using satellite-derived building footprints. The figures are then adjusted to align with the United Nations Population Division (UNPD) 2020 estimates.<br/><b>Reference:</b> Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683"
+        "drought": "This layer shows the estimated population distribution. Areas with darker grey indicate higher population density. Useful for identifying communities at risk during droughts or other hazards.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a><br/><b>Spatial resolution:</b> 100m - allows for detailed analysis at local (village or community) level<br/><b>Data year:</b> 2020<br/><b>Date of production:</b> 2020-09-12<br/><b>Methodology:</b> Population estimates are disaggregated from census data using satellite-derived building footprints. The figures are then adjusted to align with the United Nations Population Division (UNPD) 2020 estimates.<br/><b>Reference:</b> Bondarenko M., Kerr D., Sorichetta A., and Tatem, A.J. 2020. Census/projection-disaggregated gridded population datasets, adjusted to match the corresponding UNPD 2020 estimates, for 51 countries across sub-Saharan Africa using building footprints. WorldPop, University of Southampton, UK. doi:10.5258/SOTON/WP00683"
       },
       "MWI": {
         "floods": "<p>Population data aggregated per administrative area.</p><p><strong>Source link:</strong> peanutButter: An R package to produce rapid-response gridded population estimates from building footprints, version 1.0.0 version 1.0.0. Accessed 15-08-2022. WorldPop, University of Southampton. 2021. &nbsp;<a href='https://apps.worldpop.org/peanutButter/'>https://apps.worldpop.org/peanutButter/</a></p>"
@@ -244,32 +244,36 @@
     "active": "no",
     "description": {
       "ETH": {
-        "drought": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Ethiopia Red Cross Society (ERCS). Year: 2020.",
-        "floods": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Ethiopia Red Cross Society (ERCS). Year: 2020.",
-        "malaria": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Ethiopia Red Cross Society (ERCS). Year: 2020."
+        "floods": "This layer represents the locations of the local Ethiopia Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data",
+        "drought": "This layer represents the locations of the local Ethiopia Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data",
+        "malaria": "This layer represents the locations of the local Ethiopia Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
       "KEN": {
-        "drought": "<p>This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.</p><p><strong>Source link:</strong> Kenya Red Cross Society (KRCS).&nbsp;</p><p><strong>Latest updated:</strong> 2020.</p>",
-        "floods": "<p>This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.</p><p><strong>Source link:</strong> Kenya Red Cross Society (KRCS).&nbsp;</p><p><strong>Latest updated:</strong> 2020.</p>"
+        "floods": "This layer represents the locations of the local Kenya Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data",
+        "drought": "This layer represents the locations of the local Kenya Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
       "LSO": {
-        "drought": "This layer represents the locations of the local Lesotho Red Cross branches."
+        "drought": "This layer represents the locations of the local Lesotho Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
-      "MWI": { "floods": "Data not available yet" },
-      "PHL": { "floods": "Data not available yet" },
+      "MWI": {
+        "floods": "This layer represents the locations of the local Malawi Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
+      },
+      "PHL": {
+        "floods": "This layer represents the locations of the local Philippine Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
+      },
       "SSD": {
-        "floods": "This layer is not available as the data is not available yet. When available, this layer will show the locations of the South Sudan Red Cross Society branches."
+        "floods": "This layer represents the locations of the local South Sudan Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
       "UGA": {
-        "drought": "This layer represents the locations of the local branches. It is visualised as drop pins with a Red Cross icon. The source of this data comes from the National Society and may need updating.<br/><br/>Source link: Uganda Red Cross Society (URCS). Year: 2020.",
-        "floods": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Uganda Red Cross Society (URCS). Year: 2020."
+        "floods": "This layer represents the locations of the local Uganda Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data",
+        "drought": "This layer represents the locations of the local Uganda Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
       "ZMB": {
-        "drought": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Zambia Red Cross Society (ZRCS). Year: 2020.",
-        "floods": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link: Zambia Red Cross Society (ZRCS). Year: 2020."
+        "floods": "This layer represents the locations of the local Zambia Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data",
+        "drought": "This layer represents the locations of the local Zambia Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
       "ZWE": {
-        "drought": "This layer represents the locations of the local branches, the source of this data comes from the National Society and may need updating.<br/><br/>Source link Zimbabwe: ZRCS last updated July 2021 at provincial level."
+        "drought": "This layer represents the locations of the local Zimbabwe Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       }
     }
   },
