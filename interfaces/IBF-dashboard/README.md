@@ -1,6 +1,6 @@
 # IBF-dashboard: Web interface of the IBF-system
 
-The [dashboard](https://ibf.510.global) visuzalizes data from [IBF API](https://ibf.510.global/docs). It is the IBF portal's web interface. Users can see forecasted hazards on a map in their web browser.
+The [dashboard](https://ibf.510.global) visualizes data from [IBF API](https://ibf.510.global/docs). It is the IBF portal's web interface. Users can see forecasted hazards on a map in their web browser.
 
 ## Getting Started
 
