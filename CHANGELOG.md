@@ -1,3 +1,13 @@
+## [0.312.5](https://github.com/rodekruis/IBF-system/compare/v0.312.4...v0.312.5) (2025-04-11)
+
+
+### Bug Fixes
+
+* update LSO drought popup info copy AB[#35037](https://github.com/rodekruis/IBF-system/issues/35037) ([622b07b](https://github.com/rodekruis/IBF-system/commit/622b07b15cc40ca83cf1868ed224eb2d4b5b34d7))
+* update seed data based on design review ([f25c1ac](https://github.com/rodekruis/IBF-system/commit/f25c1ac98a6c7f5f9304da6c50a91791be04ae25))
+
+
+
 ## [0.312.4](https://github.com/rodekruis/IBF-system/compare/v0.312.3...v0.312.4) (2025-04-09)
 
 
@@ -96,21 +106,6 @@
 * order of tests ([fc9ba4e](https://github.com/rodekruis/IBF-system/commit/fc9ba4ee25c6b1d5c2fe0dae2a3281b1b2aae780))
 * revert order of tests ([69c53c2](https://github.com/rodekruis/IBF-system/commit/69c53c293b7033eb884fa0f0a832cc5e327a9074))
 * wait for loader to disappear after reload ([3f67f62](https://github.com/rodekruis/IBF-system/commit/3f67f623f4f2a5851b2e301aad1165c2f0e43033))
-
-
-
-# [0.309.0](https://github.com/rodekruis/IBF-system/compare/v0.308.1...v0.309.0) (2025-04-01)
-
-
-### Bug Fixes
-
-* mistake mock data LSO ([92134df](https://github.com/rodekruis/IBF-system/commit/92134df745489d1b956568fb8a32f96769be1b72))
-
-
-### Features
-
-* KEN mock data + geoserver layers ([58f6ad3](https://github.com/rodekruis/IBF-system/commit/58f6ad3244f8d511c5426a8cf8ce1c4331814dc0))
-* update ETH mock data ([246a6a4](https://github.com/rodekruis/IBF-system/commit/246a6a493e7019e09983ffae020eba3feb3c4126))
 
 
 
