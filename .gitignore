@@ -36,8 +36,5 @@ $RECYCLE.BIN/
 node_modules
 # package-lock.json
 
-# db-dumps
-tools/db-dumps/*.dump
-
 # Qase
 /logs/
