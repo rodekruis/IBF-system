@@ -1,9 +1,8 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
 import { IbfStyles } from 'testData/styles.enum';
+import { Layer } from 'testData/types';
 
-import englishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
-import { LayerDescriptions } from '../testData/layer-descriptions.enum';
 import DashboardPage from './DashboardPage';
 
 class AggregatesComponent extends DashboardPage {
@@ -57,7 +56,7 @@ class AggregatesComponent extends DashboardPage {
 
   async aggregatesElementsDisplayedInNoTrigger(
     disasterTypeLabel: string,
-    expectedIndicators: string[],
+    mapLayers: Layer[],
   ) {
     // Wait for the page to load
     await this.page.waitForSelector('[data-testid="loader"]', {
@@ -74,12 +73,14 @@ class AggregatesComponent extends DashboardPage {
     const indicatorCount = await this.aggregatesLayerRow.count();
     const iconLayerCount = await this.aggregatesInfoIcon.count();
 
+    const aggregates = mapLayers.filter(({ aggregate }) => aggregate);
+
     // Basic Assertions
     expect(headerText).toBe('National View');
     expect(subHeaderText).toBe(`0 Predicted ${disasterTypeLabel}(s)`);
     await expect(this.aggreagtesHeaderInfoIcon).toBeVisible();
-    expect(indicatorCount).toBe(expectedIndicators.length);
-    expect(iconLayerCount).toBe(expectedIndicators.length);
+    expect(indicatorCount).toBe(aggregates.length);
+    expect(iconLayerCount).toBe(aggregates.length);
 
     // Loop through the layers and check if they are present with correct data
     for (const affectedNumber of affectedNumbers) {
@@ -87,35 +88,36 @@ class AggregatesComponent extends DashboardPage {
       expect(affectedNumberText).toContain('0');
     }
     // Loop through the layers and check if they are present with correct names
-    for (const indicatorName of expectedIndicators) {
+    for (const aggregate of aggregates) {
       const indicatorLocator = this.aggregatesLayerRow.locator(
-        `text=${indicatorName}`,
+        `text=${aggregate.label}`,
       );
       await expect(indicatorLocator).toBeVisible();
     }
   }
 
-  async validatesAggregatesInfoButtons() {
+  async validatesAggregatesInfoButtons(mapLayers: Layer[], disclaimer: string) {
     // click on the first info icon and validate the popover content
     await this.aggreagtesHeaderInfoIcon.click();
     const disclaimerText = await this.approximateDisclaimer.textContent();
-    expect(disclaimerText).toContain(
-      englishTranslations['disclaimer-approximate-component'].message,
-    );
-
-    // click on the total exposed population info icon and validate the popover content
-    const exposedPopulationLayer = this.aggregatesLayerRow.filter({
-      hasText: 'Exposed population',
-    });
+    expect(disclaimerText).toContain(disclaimer);
     await this.page.locator('ion-backdrop').last().click();
-    await exposedPopulationLayer.getByTestId('aggregates-info-icon').click();
-    const layerInfoTitle = await this.layerInfoPopoverTitle.textContent();
-    const layerInfoContent = await this.layerInfoPopoverContent.textContent();
-    expect(layerInfoTitle).toContain('Exposed population');
-    expect(layerInfoContent).toContain(
-      LayerDescriptions.ExposedPopulationInfoButtonDisclaimer,
-    );
-    await this.page.getByTestId('close-matrix-icon').click();
+
+    const aggregates = mapLayers.filter(({ aggregate }) => aggregate);
+
+    for (const { label, description } of aggregates) {
+      // click on the total exposed population info icon and validate the popover content
+      const aggregatesLayerRow = this.aggregatesLayerRow.filter({
+        hasText: label,
+      });
+      await aggregatesLayerRow.getByTestId('aggregates-info-icon').click();
+      const layerInfoTitle = await this.layerInfoPopoverTitle.textContent();
+      const layerInfoContent = await this.layerInfoPopoverContent.textContent();
+      expect(layerInfoTitle).toContain(label);
+      expect(layerInfoContent).toContain(description);
+      await this.page.getByTestId('close-matrix-icon').click();
+      await expect(this.layerInfoPopoverTitle).toBeHidden();
+    }
   }
 
   async getEventCount() {

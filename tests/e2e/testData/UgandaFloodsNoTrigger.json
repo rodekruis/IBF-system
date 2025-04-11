@@ -17,27 +17,72 @@
     "lastName": "Manager"
   },
   "title": "IBF PORTAL",
-  "aggregateIndicators": [
-    "Exposed population",
-    "Total Population",
-    "Female-headed household",
-    "Population under 8",
-    "Population over 65"
-  ],
+  "aggregates": {
+    "disclaimer": "All numbers are approximate and meant to be used as guidance."
+  },
   "mapLayers": [
     {
       "name": "red_cross_branches",
       "label": "Red Cross branches",
+      "description": "This layer represents the locations of the local Uganda Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data",
       "legendLabels": ["Red Cross branches"],
       "active": false,
-      "type": "point"
+      "type": "point",
+      "aggregate": false
     },
     {
       "name": "glofas_stations",
       "label": "Glofas stations",
+      "description": "This layer shows the locations of the Global Flood Awareness System (GloFAS) stations. These stations are shown as drop pins with a trigger hazard icon on the map. The drop pins can be shown in <strong>navy</strong> for below trigger threshold or <strong>purple</strong> for above trigger threshold depending on the level of river discharge measured.<br/>The GloFAS forecast is used for the trigger. These forecasts are often used by the National Governmental Meteorological Services.<br/><br/>GloFAS version 3.1 is a global integrated hydro-meteorological forecast- and monitoring system that delivers global ensemble river discharge forecasts (limited up to 5 days ahead in this layer) for the large river basins (greater than 1000 km2). The GloFAS 3.1 is based on the LISFLOOD hydrological model.<br/><br/>Methodology presenting the GloFAS probability levels: Methodology presenting the GloFAS probability levels: The ECMWF-ENS meteorological forecast data contains a 51-member ensemble. The 60% trigger-threshold discharge levels are presented as 'trigger-alert' levels agreed on in the EAP. The probability is the percentage of the 51 ensemble members that predicts that the discharge is above the threshold. The administrative areas in the corresponding country are mapped to a specific GloFAS Station, and as such it is determined which areas are triggered when the station exceeds the trigger threshold value (for more informatie see the EAP).<br/><br/>Source Link: <a href='https://www.globalfloods.eu/'>https://www.globalfloods.eu/</a>",
       "legendLabels": ["GloFAS No action"],
       "active": true,
-      "type": "point"
+      "type": "point",
+      "aggregate": false
+    },
+    {
+      "name": "population_affected",
+      "label": "Exposed population",
+      "description": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with darker purple indicating higher numbers of exposed people.Estimates are calculated using population data overlaid with predicted flood-affected zones.This layer supports prioritizing early actions and allocating resources by highlighting where the most people are at risk.Source: flood extent + HRSL population data",
+      "legendLabels": ["Exposed population"],
+      "active": true,
+      "type": "admin-area",
+      "aggregate": true
+    },
+    {
+      "name": "populationTotal",
+      "label": "Total Population",
+      "description": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with darker purple indicating higher population totals.Population figures are aggregated using gridded population data matched to administrative boundaries.This layer provides a baseline for understanding the overall population distribution across the country.Source: HRSL",
+      "legendLabels": ["Total Population"],
+      "active": false,
+      "type": "admin-area",
+      "aggregate": true
+    },
+    {
+      "name": "female_headed_households",
+      "label": "Female-headed household",
+      "description": "Percentage of people living in female headed households.Source (Population Data): National Population and Housing Census 2014",
+      "legendLabels": ["Female-headed household"],
+      "active": false,
+      "type": "admin-area",
+      "aggregate": true
+    },
+    {
+      "name": "population_under_eight",
+      "label": "Population under 8",
+      "description": "Percentage of people under 8 years old.Source (Population Data): National Population and Housing Census 2014",
+      "legendLabels": ["Population under 8"],
+      "active": false,
+      "type": "admin-area",
+      "aggregate": true
+    },
+    {
+      "name": "population_over_sixtyfive",
+      "label": "Population over 65",
+      "description": "Percentage of people over 65 years old.Source (Population Data): National Population and Housing Census 2014",
+      "legendLabels": ["Population over 65"],
+      "active": false,
+      "type": "admin-area",
+      "aggregate": true
     }
   ],
   "timeline": {

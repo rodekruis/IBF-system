@@ -24,7 +24,7 @@ export default (
     if (dataset.scenario === 'no-trigger') {
       await aggregates.aggregatesElementsDisplayedInNoTrigger(
         dataset.disasterType.label,
-        dataset.aggregateIndicators,
+        dataset.mapLayers,
       );
     }
   });

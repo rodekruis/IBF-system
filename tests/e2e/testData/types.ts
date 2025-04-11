@@ -19,22 +19,29 @@ export interface User {
 export interface Layer {
   name: string;
   label: string;
+  description: string;
   legendLabels: string[];
   active: boolean;
   type: string; // 'raster' | 'admin-area' | 'point'
+  aggregate: boolean;
 }
 
 export interface Timeline {
   dateFormat: string;
   dateUnit: string; // 'days' | 'months' | 'hours'
 }
+
+export interface Aggregates {
+  disclaimer: string;
+}
+
 export interface Dataset {
   country: Country;
   disasterType: DisasterType;
   scenario: string;
   user: User;
   title: string;
-  aggregateIndicators: string[];
+  aggregates: Aggregates;
   mapLayers: Layer[];
   timeline: Timeline;
   eap: {
