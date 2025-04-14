@@ -4,7 +4,7 @@ The [IBF API](https://ibf.510.global/docs) is the REST API of the IBF-system, wh
 
 ## Getting Started
 
-- See [main README] (https://github.com/rodekruis/IBF-system/blob/master/README.md)
+- See [main README](https://github.com/rodekruis/IBF-system/blob/master/README.md)
 - Access Swagger API via `http://localhost:3000/docs`
 
 ## Frameworks
