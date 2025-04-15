@@ -11,6 +11,7 @@ import { Event } from 'src/app/services/event.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { AggregateRecord } from 'src/app/types/aggregate';
+import { AlertArea } from 'src/app/types/alert-area';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { IbfLayerMetadata, IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator } from 'src/app/types/indicator-group';
@@ -223,6 +224,23 @@ export class ApiService {
     disasterType: DisasterTypeKey,
   ): Observable<Event[]> {
     return this.get(`event/${countryCodeISO3}/${disasterType}`, false);
+  }
+
+  getAlertAreas(
+    countryCodeISO3: string,
+    disasterType: DisasterTypeKey,
+    adminLevel: number,
+    eventName: string,
+  ): Observable<AlertArea[]> {
+    let params = new HttpParams();
+    if (eventName) {
+      params = params.append('eventName', eventName);
+    }
+    return this.get(
+      `event/alert-areas/${countryCodeISO3}/${adminLevel.toString()}/${disasterType}`,
+      false,
+      params,
+    );
   }
 
   getAdminRegions(
