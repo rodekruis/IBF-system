@@ -7,7 +7,8 @@ import emailSsdFloodsTests from './email/floods/email-ssd-floods.test';
 import emailUgaFloodsTests from './email/floods/email-uga-floods.test';
 import emailEthMalariaTests from './email/malaria/email-eth-malaria.test';
 import emailPhlTyphoonTests from './email/typhoon/email-phl-typhoon.test';
-import processEventsTests from './events/process.test';
+import getEventsTests from './events/get-events.test';
+import processEventsTests from './events/process-events.test';
 import setTriggerTests from './events/set-trigger.test';
 import typhoonTrackTests from './typhoon-track/typhoon-track.test';
 import manageUsersTests from './users/manage-users.test';
@@ -44,6 +45,7 @@ describe('API Integration Tests', () => {
   });
 
   describe('Events', () => {
+    getEventsTests();
     processEventsTests();
     setTriggerTests(); // Putting this test last. If not, seems to make the subsequent test flaky.
   });
