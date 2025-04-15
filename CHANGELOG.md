@@ -1,3 +1,12 @@
+## [0.312.6](https://github.com/rodekruis/IBF-system/compare/v0.312.5...v0.312.6) (2025-04-15)
+
+
+### Bug Fixes
+
+* copy change AB[#35298](https://github.com/rodekruis/IBF-system/issues/35298) ([cd172dc](https://github.com/rodekruis/IBF-system/commit/cd172dc7cca39f59479233617adac3ea282be718))
+
+
+
 ## [0.312.5](https://github.com/rodekruis/IBF-system/compare/v0.312.4...v0.312.5) (2025-04-11)
 
 
@@ -93,19 +102,6 @@
 ### Features
 
 * process copy feedback blaise ([e098165](https://github.com/rodekruis/IBF-system/commit/e098165cc33ce323755c0c7408abe64052ece06a))
-
-
-
-## [0.309.1](https://github.com/rodekruis/IBF-system/compare/v0.309.0...v0.309.1) (2025-04-02)
-
-
-### Bug Fixes
-
-* change all country-users to local-admin ([b23a6ef](https://github.com/rodekruis/IBF-system/commit/b23a6efc6631857ac6be4e2f9dc75030e7b51e72))
-* integration test ([ce92f5a](https://github.com/rodekruis/IBF-system/commit/ce92f5a31cc37e48b4bd7e38ea33092d06c3a74b))
-* order of tests ([fc9ba4e](https://github.com/rodekruis/IBF-system/commit/fc9ba4ee25c6b1d5c2fe0dae2a3281b1b2aae780))
-* revert order of tests ([69c53c2](https://github.com/rodekruis/IBF-system/commit/69c53c293b7033eb884fa0f0a832cc5e327a9074))
-* wait for loader to disappear after reload ([3f67f62](https://github.com/rodekruis/IBF-system/commit/3f67f623f4f2a5851b2e301aad1165c2f0e43033))
 
 
 
