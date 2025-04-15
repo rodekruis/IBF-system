@@ -7,7 +7,7 @@ import { LeadTime } from '../../helpers/API-service/enum/lead-time.enum';
 import { TyphoonScenario } from '../../helpers/API-service/enum/mock-scenario.enum';
 import {
   getAccessToken,
-  getEventsSummary,
+  getEvents,
   getTyphoonTrack,
   mock,
   postTyphoonTrack,
@@ -94,7 +94,7 @@ export default function typhoonTrackTests() {
         );
 
         // Act
-        const eventsResult = await getEventsSummary(
+        const eventsResult = await getEvents(
           countryCodeISO3,
           DisasterType.Typhoon,
           accessToken,

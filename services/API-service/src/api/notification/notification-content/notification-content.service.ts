@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
 
-import { AlertArea, EventSummaryCountry } from '../../../shared/data.model';
+import { AlertArea, Event } from '../../../shared/data.model';
 import { NumberFormat } from '../../../shared/enums/number-format.enum';
 import { HelperService } from '../../../shared/helper.service';
 import { firstCharOfWordsToUpper } from '../../../shared/utils';
@@ -37,7 +37,7 @@ export class NotificationContentService {
   public async getContentActiveEvents(
     country: CountryEntity,
     disasterType: DisasterType,
-    activeEvents: EventSummaryCountry[],
+    activeEvents: Event[],
   ): Promise<ContentEventEmail> {
     const content = new ContentEventEmail();
     content.disasterType =
@@ -106,11 +106,8 @@ export class NotificationContentService {
     return country.adminRegionLabels[String(adminAreaDefaultLevel)];
   }
 
-  public async getFormattedEventName(
-    event: EventSummaryCountry,
-    disasterType: DisasterType,
-  ) {
-    // REFACTOR: make formattedEventName a property of EventSummaryCountry, which also the front-end can draw from
+  public async getFormattedEventName(event: Event, disasterType: DisasterType) {
+    // REFACTOR: make formattedEventName an event-property, which also the front-end can draw from
     return event.eventName
       ? `${event.eventName.split('_')[0]}`
       : (
@@ -119,7 +116,7 @@ export class NotificationContentService {
   }
 
   private async getNotificationDataForEvents(
-    activeEvents: EventSummaryCountry[],
+    activeEvents: Event[],
     country: CountryEntity,
     disasterType: DisasterType,
   ): Promise<NotificationDataPerEventDto[]> {
@@ -134,7 +131,7 @@ export class NotificationContentService {
   }
 
   private async getNotificationDataForEvent(
-    event: EventSummaryCountry,
+    event: Event,
     country: CountryEntity,
     disasterType: DisasterType,
   ): Promise<NotificationDataPerEventDto> {
@@ -181,7 +178,7 @@ export class NotificationContentService {
   private async getSortedAlertAreas(
     country: CountryEntity,
     disasterType: DisasterType,
-    event: EventSummaryCountry,
+    event: Event,
   ): Promise<AlertArea[]> {
     const defaultAdminLevel = this.getDefaultAdminLevel(country, disasterType);
     const alertAreas = await this.eventService.getAlertAreas(
@@ -208,9 +205,7 @@ export class NotificationContentService {
     );
   }
 
-  private sortEventsByLeadTimeAndAlertState(
-    events: EventSummaryCountry[],
-  ): EventSummaryCountry[] {
+  private sortEventsByLeadTimeAndAlertState(events: Event[]): Event[] {
     const leadTimeValue = (leadTime: LeadTime): number =>
       Number(leadTime.split('-')[0]);
 
@@ -266,7 +261,7 @@ export class NotificationContentService {
   }
 
   public async getFirstLeadTimeString(
-    event: EventSummaryCountry,
+    event: Event,
     countryCodeISO3: string,
     disasterType: DisasterType,
     date?: Date,
@@ -280,7 +275,7 @@ export class NotificationContentService {
   }
 
   public async getFirstTriggerLeadTimeString(
-    event: EventSummaryCountry,
+    event: Event,
     countryCodeISO3: string,
     disasterType: DisasterType,
     date?: Date,

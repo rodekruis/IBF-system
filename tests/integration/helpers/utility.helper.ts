@@ -156,7 +156,7 @@ export function postTyphoonTrack(
     .send(uploadTyphoonTrackDto);
 }
 
-export function getEventsSummary(
+export function getEvents(
   countryCodeISO3: string,
   disasterType: DisasterType,
   accessToken: string,

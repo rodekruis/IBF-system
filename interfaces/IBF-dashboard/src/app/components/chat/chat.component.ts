@@ -22,8 +22,8 @@ import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import {
   AlertLevel,
+  Event,
   EventService,
-  EventSummary,
 } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
@@ -417,7 +417,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     return ` (${area.nameParent})`;
   }
 
-  public getCardColors(event: EventSummary): CardColors {
+  public getCardColors(event: Event): CardColors {
     const defaultColors = {
       iconColor: 'var(--ion-color-ibf-black)',
       headerTextColor: 'var(--ion-color-ibf-black)',

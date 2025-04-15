@@ -3,10 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
 
-import {
-  AggregateDataRecord,
-  EventSummaryCountry,
-} from '../../../shared/data.model';
+import { AggregateDataRecord, Event } from '../../../shared/data.model';
 import { GeoJson } from '../../../shared/geo.model';
 import { HelperService } from '../../../shared/helper.service';
 import {
@@ -80,7 +77,7 @@ export class EventAreaService {
   ): Promise<GeoJson> {
     const eventAreas = [];
 
-    const events = await this.eventService.getEventSummary(
+    const events = await this.eventService.getEvents(
       countryCodeISO3,
       disasterType.disasterType,
     );
@@ -146,7 +143,7 @@ export class EventAreaService {
     disasterType: DisasterType,
     lastUploadDate: LastUploadDateDto,
   ): Promise<AggregateDataRecord[]> {
-    const events = await this.eventService.getEventSummary(
+    const events = await this.eventService.getEvents(
       countryCodeISO3,
       disasterType,
     );
@@ -171,7 +168,7 @@ export class EventAreaService {
   }
 
   public async getEventAreaDynamicData(
-    event: EventSummaryCountry,
+    event: Event,
     disasterType: DisasterType,
     indicator: DynamicIndicator,
     lastUploadDate: LastUploadDateDto,
@@ -191,7 +188,7 @@ export class EventAreaService {
   private getIndicatorValue(
     indicatorName: DynamicIndicator,
     indicators: Indicator[],
-    event: EventSummaryCountry,
+    event: Event,
   ): number {
     // REFACTOR: the TRIGGER layer should not be necessary
     if (indicatorName === TRIGGER) {
@@ -215,7 +212,7 @@ export class EventAreaService {
   private async getEventAreaAggregatesPerIndicator(
     disasterType: DisasterType,
     lastUploadDate: LastUploadDateDto,
-    event: EventSummaryCountry,
+    event: Event,
   ): Promise<Indicator[]> {
     const whereFilters = {
       timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),

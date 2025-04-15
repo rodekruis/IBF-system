@@ -15,8 +15,8 @@ import { UserRole } from 'src/app/models/user/user-role.enum';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import {
   AlertLevel,
+  Event,
   EventService,
-  EventSummary,
 } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { AlertArea } from 'src/app/types/alert-area';
@@ -34,7 +34,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()
   public type: string;
   @Input()
-  public event: EventSummary;
+  public event: Event;
   @Input()
   public selectedEvent: string;
   @Input()
@@ -91,7 +91,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   }
 
   private getEventMainExposureValue(
-    event: EventSummary,
+    event: Event,
     mainExposureIndicatorNumberFormat: NumberFormat,
   ) {
     const sum = event.alertAreas?.reduce(
@@ -138,7 +138,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     );
   }
 
-  public getHeader(event: EventSummary): string {
+  public getHeader(event: Event): string {
     let headerKey = `chat-component.${this.disasterType?.disasterType}.active-event.header`;
     if ((LeadTimeTriggerKey[event.firstLeadTime] as string) === '0') {
       headerKey += '-ongoing';
@@ -155,7 +155,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     return header;
   }
 
-  public showTyphoonLandfallText(event: EventSummary) {
+  public showTyphoonLandfallText(event: Event) {
     if (this.disasterType?.disasterType !== DisasterTypeKey.typhoon || !event) {
       return;
     }

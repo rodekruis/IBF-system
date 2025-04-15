@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DisasterType } from 'src/app/models/country.model';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EventService, EventSummary } from 'src/app/services/event.service';
+import { Event, EventService } from 'src/app/services/event.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
@@ -25,7 +25,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   private timelineStateSubscription: Subscription;
 
   @Input()
-  public event: EventSummary;
+  public event: Event;
 
   constructor(
     private disasterTypeService: DisasterTypeService,
@@ -81,7 +81,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
     );
   }
 
-  public switchEvent(event: EventSummary): void {
+  public switchEvent(event: Event): void {
     if (this.selectedEventName === event.eventName) {
       this.eventService.resetEvents();
       return;

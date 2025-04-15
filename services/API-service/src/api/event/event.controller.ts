@@ -18,7 +18,7 @@ import {
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
-import { EventSummaryCountry } from '../../shared/data.model';
+import { Event } from '../../shared/data.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { ActivationLogDto } from './dto/event-place-code.dto';
@@ -50,13 +50,11 @@ export class EventController {
     status: 200,
     description:
       'Summary of active events - if any - for given country and disaster-type.',
-    type: EventSummaryCountry,
+    type: Event,
   })
   @Get(':countryCodeISO3/:disasterType')
-  public async getEventSummaryCountry(
-    @Param() params,
-  ): Promise<EventSummaryCountry[]> {
-    return await this.eventService.getEventSummary(
+  public async getEvents(@Param() params): Promise<Event[]> {
+    return await this.eventService.getEvents(
       params.countryCodeISO3,
       params.disasterType,
     );

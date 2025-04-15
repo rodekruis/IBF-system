@@ -7,7 +7,7 @@ import { AlertPerLeadTime } from 'src/app/models/alert-per-lead-time.model';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
 import { ActivationLogRecord } from 'src/app/pages/dashboard/activation-log/activation.log.page';
-import { EventSummary } from 'src/app/services/event.service';
+import { Event } from 'src/app/services/event.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { AggregateRecord } from 'src/app/types/aggregate';
@@ -218,10 +218,10 @@ export class ApiService {
     );
   }
 
-  getEventsSummary(
+  getEvents(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
-  ): Observable<EventSummary[]> {
+  ): Observable<Event[]> {
     return this.get(`event/${countryCodeISO3}/${disasterType}`, false);
   }
 

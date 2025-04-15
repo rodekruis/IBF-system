@@ -3,7 +3,7 @@ import { DisasterType } from '../../helpers/API-service/enum/disaster-type.enum'
 import { DroughtScenario } from '../../helpers/API-service/enum/mock-scenario.enum';
 import {
   getAccessToken,
-  getEventsSummary,
+  getEvents,
   mock,
   postSetTrigger,
   sendNotification,
@@ -31,7 +31,7 @@ export default function setTriggerTests() {
         accessToken,
       );
 
-      const getEventsBeforeResult = await getEventsSummary(
+      const getEventsBeforeResult = await getEvents(
         countryCodeISO3,
         disasterType,
         accessToken,
@@ -63,7 +63,7 @@ export default function setTriggerTests() {
         eventPlaceCodeIdsToSetTrigger.length,
       );
 
-      const getEventsAfterResult = await getEventsSummary(
+      const getEventsAfterResult = await getEvents(
         countryCodeISO3,
         disasterType,
         accessToken,
@@ -96,7 +96,7 @@ export default function setTriggerTests() {
         accessToken,
         removeEvents,
       );
-      const eventsJuly = await getEventsSummary(
+      const eventsJuly = await getEvents(
         countryCodeISO3,
         disasterType,
         accessToken,
@@ -114,7 +114,7 @@ export default function setTriggerTests() {
         accessToken,
         removeEvents,
       );
-      const eventsAug = await getEventsSummary(
+      const eventsAug = await getEvents(
         countryCodeISO3,
         disasterType,
         accessToken,
@@ -131,7 +131,7 @@ export default function setTriggerTests() {
         accessToken,
         removeEvents,
       );
-      const eventsSeptBefore = await getEventsSummary(
+      const eventsSeptBefore = await getEvents(
         countryCodeISO3,
         disasterType,
         accessToken,
@@ -145,7 +145,7 @@ export default function setTriggerTests() {
         true,
         accessToken,
       );
-      const eventsSeptAfter = await getEventsSummary(
+      const eventsSeptAfter = await getEvents(
         countryCodeISO3,
         disasterType,
         accessToken,
@@ -162,7 +162,7 @@ export default function setTriggerTests() {
         accessToken,
         removeEvents,
       );
-      const eventsOct = await getEventsSummary(
+      const eventsOct = await getEvents(
         countryCodeISO3,
         disasterType,
         accessToken,
@@ -179,7 +179,7 @@ export default function setTriggerTests() {
         accessToken,
         removeEvents,
       );
-      const eventsApr = await getEventsSummary(
+      const eventsApr = await getEvents(
         countryCodeISO3,
         disasterType,
         accessToken,

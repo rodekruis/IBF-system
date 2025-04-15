@@ -18,7 +18,7 @@ import {
   AlertArea,
   EapAlertClass,
   EapAlertClassKeyEnum,
-  EventSummaryCountry,
+  Event,
 } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';
 import {
@@ -71,34 +71,34 @@ export class EventService {
     private typhoonTrackService: TyphoonTrackService,
   ) {}
 
-  public async getEventSummary(
+  public async getEvents(
     countryCodeISO3: string,
     disasterType: DisasterType,
-  ): Promise<EventSummaryCountry[]> {
+  ): Promise<Event[]> {
     const lastUploadDate = await this.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
-    const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
+    const getEventsQueryBuilder = this.createGetEventsQueryBuilder(
       countryCodeISO3,
     ).andWhere({
       closed: false,
       endDate: MoreThanOrEqual(lastUploadDate.date),
       disasterType,
     });
-    return this.queryAndMapEventSummary(
-      eventSummaryQueryBuilder,
+    return this.queryAndMapEvents(
+      getEventsQueryBuilder,
       countryCodeISO3,
       disasterType,
     );
   }
 
-  public async getEventsSummaryTriggerFinishedMail(
+  public async getEventsTriggerFinishedMail(
     countryCodeISO3: string,
     disasterType: DisasterType,
-  ): Promise<EventSummaryCountry[]> {
+  ): Promise<Event[]> {
     const sixDaysAgo = subDays(new Date(), 6); // NOTE: this 7-day rule is no longer applicable. Fix this when re-enabling this feature.
-    const eventSummaryQueryBuilder = this.createEventSummaryQueryBuilder(
+    const getEventsQueryBuilder = this.createGetEventsQueryBuilder(
       countryCodeISO3,
     )
       .andWhere('event.endDate > :endDate', { endDate: sixDaysAgo })
@@ -106,25 +106,25 @@ export class EventService {
       .andWhere('event.disasterType = :disasterType', { disasterType })
       .andWhere('event.closed = :closed', { closed: true });
 
-    return this.queryAndMapEventSummary(
-      eventSummaryQueryBuilder,
+    return this.queryAndMapEvents(
+      getEventsQueryBuilder,
       countryCodeISO3,
       disasterType,
     );
   }
 
-  private async queryAndMapEventSummary(
+  private async queryAndMapEvents(
     qb: SelectQueryBuilder<EventPlaceCodeEntity>,
     countryCodeISO3: string,
     disasterType: DisasterType,
-  ): Promise<EventSummaryCountry[]> {
-    const rawEventSummary = await qb.getRawMany();
-    const eventSummary = await this.populateEventsDetails(
-      rawEventSummary,
+  ): Promise<Event[]> {
+    const rawEvents = await qb.getRawMany();
+    const events = await this.populateEventsDetails(
+      rawEvents,
       countryCodeISO3,
       disasterType,
     );
-    return eventSummary;
+    return events;
   }
 
   private async populateEventsDetails(
@@ -132,7 +132,7 @@ export class EventService {
     rawEvents: any[],
     countryCodeISO3: string,
     disasterType: DisasterType,
-  ): Promise<EventSummaryCountry[]> {
+  ): Promise<Event[]> {
     const disasterSettings = await this.getCountryDisasterSettings(
       countryCodeISO3,
       disasterType,
@@ -174,7 +174,7 @@ export class EventService {
     return rawEvents;
   }
 
-  public getAlertLevel(event: EventSummaryCountry): AlertLevel {
+  public getAlertLevel(event: Event): AlertLevel {
     if (event.userTrigger || event.forecastTrigger) {
       return AlertLevel.TRIGGER;
     }
@@ -190,7 +190,7 @@ export class EventService {
     return AlertLevel.NONE;
   }
 
-  private createEventSummaryQueryBuilder(
+  private createGetEventsQueryBuilder(
     countryCodeISO3: string,
   ): SelectQueryBuilder<EventPlaceCodeEntity> {
     return this.eventPlaceCodeRepo

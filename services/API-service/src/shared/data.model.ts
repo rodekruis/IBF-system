@@ -84,7 +84,7 @@ export class DisasterSpecificProperties {
   eapAlertClass?: EapAlertClass;
 }
 
-export class EventSummaryCountry {
+export class Event {
   @ApiProperty({ example: 'UGA' })
   public countryCodeISO3: string;
 

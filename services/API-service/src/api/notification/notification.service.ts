@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { EventSummaryCountry } from '../../shared/data.model';
+import { Event } from '../../shared/data.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
 import { EventService } from '../event/event.service';
@@ -68,11 +68,11 @@ export class NotificationService {
   ): Promise<void | NotificationApiTestResponseChannelDto> {
     const response = new NotificationApiTestResponseChannelDto();
 
-    const events = await this.eventService.getEventSummary(
+    const events = await this.eventService.getEvents(
       countryCodeISO3,
       disasterType,
     );
-    const activeNotifiableEvents: EventSummaryCountry[] = [];
+    const activeNotifiableEvents: Event[] = [];
     for await (const event of events) {
       if (
         await this.isNotifiableActiveEvent(
@@ -125,7 +125,7 @@ export class NotificationService {
   // ): Promise<void | NotificationApiTestResponseChannelDto> {
   //   const response = new NotificationApiTestResponseChannelDto();
   //   const finishedNotifiableEvents =
-  //     await this.eventService.getEventsSummaryTriggerFinishedMail(
+  //     await this.eventService.getEventsTriggerFinishedMail(
   //       countryCodeISO3,
   //       disasterType,
   //     );
@@ -164,7 +164,7 @@ export class NotificationService {
   // }
 
   private async isNotifiableActiveEvent(
-    event: EventSummaryCountry,
+    event: Event,
     disasterType: DisasterType,
     countryCodeISO3: string,
     lastUploadDate: LastUploadDateDto,
