@@ -117,7 +117,19 @@ export class AlertAreaService {
       this.timelineState &&
       this.eventState
     ) {
-      if (this.eventState?.event) {
+      const adminLevelToUse =
+        this.placeCode?.adminLevel ||
+        this.countryDisasterSettings.defaultAdminLevel;
+      if (adminLevelToUse > this.countryDisasterSettings.defaultAdminLevel) {
+        this.apiService
+          .getAlertAreas(
+            this.country.countryCodeISO3,
+            this.disasterType.disasterType,
+            adminLevelToUse,
+            this.eventState.event?.eventName,
+          )
+          .subscribe(this.processAlertAreas);
+      } else if (this.eventState?.event) {
         this.processAlertAreas(this.eventState.event.alertAreas);
       } else if (this.eventState?.events.length) {
         // Multiple events case - concatenate all alertAreas arrays
@@ -148,7 +160,7 @@ export class AlertAreaService {
           action.aofLabel = AREAS_OF_FOCUS.find(
             (aof) => aof.id === action.aof,
           ).label;
-          if (Object.keys(action.month).length) {
+          if (action?.month && Object.keys(action.month).length) {
             action.monthLong = {} as JSON;
             for (const region of Object.keys(action.month)) {
               action.monthLong[region] = DateTime.utc(
