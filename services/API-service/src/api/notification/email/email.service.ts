@@ -4,7 +4,7 @@ import { Injectable } from '@nestjs/common';
 // import { formatISO } from 'date-fns';
 import Mailchimp from 'mailchimp-api-v3';
 
-import { EventSummaryCountry } from '../../../shared/data.model';
+import { Event } from '../../../shared/data.model';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
 import { CountryEntity } from './../../country/country.entity';
@@ -45,7 +45,7 @@ export class EmailService {
   public async sendActiveEventsEmail(
     country: CountryEntity,
     disasterType: DisasterType,
-    activeEvents: EventSummaryCountry[],
+    activeEvents: Event[],
     noNotifications: boolean,
     lastUploadDate: LastUploadDateDto,
   ): Promise<void | string> {
@@ -85,7 +85,7 @@ export class EmailService {
   public async sendEventFinishedEmail(
     country: CountryEntity,
     disasterType: DisasterType,
-    finishedEvents: EventSummaryCountry[],
+    finishedEvents: Event[],
     noNotifications: boolean,
     lastUploadDate: LastUploadDateDto,
   ): Promise<void | string> {

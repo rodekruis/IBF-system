@@ -44,7 +44,7 @@ import {
   Waterpoint,
   WaterpointInternal,
 } from 'src/app/models/poi.model';
-import { EventService, EventSummary } from 'src/app/services/event.service';
+import { Event, EventService } from 'src/app/services/event.service';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { LeadTime } from 'src/app/types/lead-time';
 
@@ -121,7 +121,7 @@ export class PointMarkerService {
     markerProperties: Station,
     markerLatLng: LatLng,
     countryDisasterSettings: CountryDisasterSettings,
-    events: EventSummary[],
+    events: Event[],
   ): Marker {
     const event = events.find(
       (e) =>

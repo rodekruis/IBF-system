@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import { IsNull, Not, Repository } from 'typeorm';
 
 import { EXTERNAL_API } from '../../../config';
-import { EventSummaryCountry } from '../../../shared/data.model';
+import { Event } from '../../../shared/data.model';
 import { HelperService } from '../../../shared/helper.service';
 import { CountryEntity } from '../../country/country.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
@@ -87,7 +87,7 @@ export class WhatsappService {
 
   private async configureInitialMessage(
     country: CountryEntity,
-    activeEvents: EventSummaryCountry[],
+    activeEvents: Event[],
     disasterType: DisasterType,
   ): Promise<{
     message: string;
@@ -175,7 +175,7 @@ export class WhatsappService {
 
   public async sendActiveEventsWhatsapp(
     country: CountryEntity,
-    activeEvents: EventSummaryCountry[],
+    activeEvents: Event[],
     disasterType: DisasterType,
   ) {
     const { message, contentSid, contentVariables } =
@@ -195,7 +195,7 @@ export class WhatsappService {
 
   // public async sendEventFinishedWhatsapp(
   //   country: CountryEntity,
-  //   finishedEvent: EventSummaryCountry,
+  //   finishedEvent: Event,
   //   disasterType: DisasterType,
   // ) {
   //   const message = this.configureTriggerFinishedMessage(
@@ -306,7 +306,7 @@ export class WhatsappService {
       for await (const disasterType of user.disasterTypes.filter(
         (d) => country.notificationInfo.useWhatsapp[d.disasterType],
       )) {
-        const events = await this.eventService.getEventSummary(
+        const events = await this.eventService.getEvents(
           country.countryCodeISO3,
           disasterType.disasterType,
         );
@@ -350,7 +350,7 @@ export class WhatsappService {
 
   private configureNoTriggerMessage(
     country: CountryEntity,
-    events: EventSummaryCountry[],
+    events: Event[],
     disasterType: DisasterType,
   ): string {
     let message = '';
@@ -369,7 +369,7 @@ export class WhatsappService {
 
   private configureTriggerFinishedMessage(
     country: CountryEntity,
-    event: EventSummaryCountry,
+    event: Event,
     disasterType: DisasterType,
   ): string {
     let message = '';
@@ -407,7 +407,7 @@ export class WhatsappService {
   private async configureFollowUpMessage(
     country: CountryEntity,
     disasterType: DisasterType,
-    event: EventSummaryCountry,
+    event: Event,
   ): Promise<string> {
     const adminLevel = country.countryDisasterSettings.find(
       (s) => s.disasterType === disasterType,

@@ -54,7 +54,7 @@ import {
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EventService, EventSummary } from 'src/app/services/event.service';
+import { Event, EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { MapLegendService } from 'src/app/services/map-legend.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
@@ -763,7 +763,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       ? [this.eventState.event]
       : this.eventState.events.length > 0
         ? this.eventState.events
-        : [new EventSummary()];
+        : [new Event()];
 
     for (const event of events) {
       const leadTime = !layer.wms.leadTimeDependent

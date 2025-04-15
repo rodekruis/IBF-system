@@ -25,7 +25,7 @@ import {
   LeadTimeUnit,
 } from 'src/app/types/lead-time';
 
-export class EventSummary {
+export class Event {
   countryCodeISO3: string;
   firstIssuedDate: string;
   endDate: string;
@@ -132,13 +132,13 @@ export class EventService {
     this.setEventInitially(null);
   }
 
-  private setEventInitially(event: EventSummary) {
+  private setEventInitially(event: Event) {
     this.state.event = event;
     this.initialEventStateSubject.next(this.state);
     this.setAlertState();
   }
 
-  private setEventManually(event: EventSummary) {
+  private setEventManually(event: Event) {
     this.state.event = event;
     this.manualEventStateSubject.next(this.state);
     this.setAlertState();
@@ -160,10 +160,7 @@ export class EventService {
   public getEvents() {
     if (this.country && this.disasterType) {
       this.apiService
-        .getEventsSummary(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-        )
+        .getEvents(this.country.countryCodeISO3, this.disasterType.disasterType)
         .subscribe(this.onEvents);
     }
   }
@@ -175,7 +172,7 @@ export class EventService {
   ) {
     if (countryCountryISO3 && disasterType) {
       this.apiService
-        .getEventsSummary(countryCountryISO3, disasterType.disasterType)
+        .getEvents(countryCountryISO3, disasterType.disasterType)
         .subscribe(this.onGetDisasterTypeEvent(disasterType, callback));
     }
   }
@@ -185,14 +182,14 @@ export class EventService {
       disasterType: DisasterType,
       callback: (disasterType: DisasterType) => void,
     ) =>
-    (events: EventSummary[]) => {
+    (events: Event[]) => {
       disasterType.alertLevel = events.some(
         ({ alertLevel }) => alertLevel != AlertLevel.NONE,
       );
       callback(disasterType);
     };
 
-  private onEvents = (events: EventSummary[]) => {
+  private onEvents = (events: Event[]) => {
     this.apiService
       .getLastUploadDate(
         this.country.countryCodeISO3,
@@ -205,7 +202,7 @@ export class EventService {
 
   private onLastUploadDate = (
     lastUploadDate: LastUploadDate,
-    events: EventSummary[],
+    events: Event[],
   ) => {
     if (lastUploadDate.timestamp || lastUploadDate.date) {
       this.today = DateTime.fromISO(
@@ -313,7 +310,7 @@ export class EventService {
     return Number(leadTime?.split('-')[0]);
   }
 
-  private getEventDuration(event: EventSummary) {
+  private getEventDuration(event: Event) {
     if (this.disasterType.disasterType !== DisasterTypeKey.drought) {
       return;
     }

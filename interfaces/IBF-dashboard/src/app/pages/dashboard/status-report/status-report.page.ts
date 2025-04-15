@@ -7,8 +7,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import {
   AlertLevel,
+  Event,
   EventService,
-  EventSummary,
 } from 'src/app/services/event.service';
 import { LastUploadDate } from 'src/app/types/last-upload-date';
 
@@ -80,20 +80,20 @@ export class StatusReportPage implements OnInit {
         : true;
 
     this.apiService
-      .getEventsSummary(countryCodeISO3, disasterType.disasterType)
+      .getEvents(countryCodeISO3, disasterType.disasterType)
       .subscribe((events) => {
         this.onGetEvents(events, countryCodeISO3, disasterType);
       });
   };
 
   private onGetEvents = (
-    events: EventSummary[],
+    events: Event[],
     countryCodeISO3: string,
     disasterType: DisasterType,
   ) => {
     this.statusData[countryCodeISO3][disasterType.disasterType].imgSrc =
-      events.filter((e: EventSummary) => e.alertLevel === AlertLevel.TRIGGER)
-        .length > 0
+      events.filter((e: Event) => e.alertLevel === AlertLevel.TRIGGER).length >
+      0
         ? DISASTER_TYPES_SVG_MAP[disasterType.disasterType].selectedTriggered
         : DISASTER_TYPES_SVG_MAP[disasterType.disasterType]
             .selectedNonTriggered;
