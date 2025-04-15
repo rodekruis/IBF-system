@@ -43,16 +43,16 @@ export default function adminAreaTests() {
 
       // Assert
       expect(adminAreas.status).toBe(200);
-      expect(adminAreas.body.features.length).toBe(23);
+      expect(adminAreas.body.features.length).toBe(23); // we expect 23 features from the mock data
 
-      const feature = adminAreas.body.features[0];
+      const feature = adminAreas.body.features[0]; // test the first feature
       expect(feature.geometry.type).toBe('MultiPolygon');
-      expect(feature.geometry.coordinates[0][0].length).toBeGreaterThan(0);
-      expect(feature.geometry.coordinates[0][0][0].length).toBe(2);
-      expect(feature.properties.placeCode).toMatch(/^UG/);
-      expect(feature.properties.name).toBeTruthy();
-      expect(feature.properties.adminLevel).toBe(adminLevel);
-      expect(feature.properties.countryCodeISO3).toBe(countryCodeISO3);
+      expect(feature.geometry.coordinates[0][0].length).toBeGreaterThan(0); // the coordinates array should not be empty
+      expect(feature.geometry.coordinates[0][0][0].length).toBe(2); // the coordinates should be in [longitude, latitude] format
+      expect(feature.properties.placeCode).toMatch(/^UG/); // placeCode should start with 'UG' for Uganda
+      expect(feature.properties.name).toBeTruthy(); // the name should not be empty
+      expect(feature.properties.adminLevel).toBe(adminLevel); // request and response admin levels should match
+      expect(feature.properties.countryCodeISO3).toBe(countryCodeISO3); // request and response country codes should match
     });
   });
 }

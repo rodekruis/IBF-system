@@ -45,11 +45,11 @@ export default function adminAreaAggregatesTests() {
 
       // Assert
       expect(adminAreaAggregates.status).toBe(200);
-      expect(adminAreaAggregates.body.length).toBe(138);
+      expect(adminAreaAggregates.body.length).toBe(138); // we expect 138 aggregates from the mock data
 
-      const adminAreaAggregate = adminAreaAggregates.body[0];
-      expect(adminAreaAggregate.placeCode).toMatch(/^UG/);
-      expect(adminAreaAggregate.indicator).toBeTruthy();
+      const adminAreaAggregate = adminAreaAggregates.body[0]; // test the first aggregate
+      expect(adminAreaAggregate.placeCode).toMatch(/^UG/); // placeCode should start with 'UG' for Uganda
+      expect(adminAreaAggregate.indicator).toBeTruthy(); // the indicator should not be empty
       expect(adminAreaAggregate.value).toEqual(expect.any(Number));
     });
   });
