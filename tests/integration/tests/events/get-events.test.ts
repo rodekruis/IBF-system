@@ -39,9 +39,9 @@ export default function getEventsTests() {
         expect(event.firstLeadTime).not.toBeNull();
         for (const alertArea of event.alertAreas) {
           expect(alertArea.alertLevel).toBe(event.alertLevel);
-        }
-        if (event.alertLevel !== AlertLevel.TRIGGER) {
-          expect(event.eapActions.length).toBe(0);
+          if (event.alertLevel !== AlertLevel.TRIGGER) {
+            expect(alertArea.eapActions.length).toBe(0);
+          }
         }
       }
     });
