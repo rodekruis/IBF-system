@@ -1,3 +1,12 @@
+## [0.312.7](https://github.com/rodekruis/IBF-system/compare/v0.312.6...v0.312.7) (2025-04-15)
+
+
+### Bug Fixes
+
+* bring back GET /alert-areas to use for deeper admin-levels AB[#35406](https://github.com/rodekruis/IBF-system/issues/35406) ([120997b](https://github.com/rodekruis/IBF-system/commit/120997b05595819b2a874746613318c047669654))
+
+
+
 ## [0.312.6](https://github.com/rodekruis/IBF-system/compare/v0.312.5...v0.312.6) (2025-04-15)
 
 
@@ -87,21 +96,6 @@
 
 * copy for rainfall layer AB[#35037](https://github.com/rodekruis/IBF-system/issues/35037) ([505887e](https://github.com/rodekruis/IBF-system/commit/505887eb6c0bb8ccab5f75ff21acfd33e334cfea))
 * weird quotes in string ([9a43f1d](https://github.com/rodekruis/IBF-system/commit/9a43f1d5ecf40f0670a84a4e36a623a108fdaf4e))
-
-
-
-# [0.310.0](https://github.com/rodekruis/IBF-system/compare/v0.309.1...v0.310.0) (2025-04-02)
-
-
-### Bug Fixes
-
-* do not remove warning events instead of close AB[#34924](https://github.com/rodekruis/IBF-system/issues/34924) ([cd8c41d](https://github.com/rodekruis/IBF-system/commit/cd8c41d78942bbaa1097558a55c0b89f7ae89542))
-* remove am/pm identifier from already 24h time ([0caf237](https://github.com/rodekruis/IBF-system/commit/0caf2372177b8729c6a71ebf64908fcee8a575bd))
-
-
-### Features
-
-* process copy feedback blaise ([e098165](https://github.com/rodekruis/IBF-system/commit/e098165cc33ce323755c0c7408abe64052ece06a))
 
 
 
