@@ -6,7 +6,7 @@ import { StatusReportPage } from 'src/app/pages/dashboard/status-report/status-r
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'dashboard/:countryCodeISO3',
     component: DashboardPage,
   },
   {
@@ -16,6 +16,11 @@ const routes: Routes = [
   {
     path: 'status-report',
     component: StatusReportPage,
+  },
+  {
+    // XXX: figure out if we should do this
+    path: '**',
+    redirectTo: 'dashboard/italy',
   },
 ];
 

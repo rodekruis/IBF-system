@@ -28,6 +28,13 @@ export class CountryService {
         this.authService.getAuthSubscription().subscribe(this.onUserChange);
       }
     });
+
+    // XXX: make this work
+    this.activatedRoute.params.subscribe((params) => {
+      if (params?.['countryCodeISO3']) {
+        this.selectCountry(params?.['countryCodeISO3']);
+      }
+    });
   }
 
   private onUserChange = (user: User) => {

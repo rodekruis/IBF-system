@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, input, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -37,6 +37,8 @@ export class UserStateComponent implements OnInit {
   public disasterTypeSubscription: Subscription;
   public disasterType: DisasterType;
   public activeTriggerMsg: string;
+
+  public countryCodeISO3 = input.required<string>();
 
   constructor(
     public authService: AuthService,

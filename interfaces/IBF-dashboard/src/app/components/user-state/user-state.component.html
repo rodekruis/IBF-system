@@ -10,7 +10,8 @@
           IBF PORTAL
           @if (isLoggedIn) {
             <strong [ngClass]="{ active: disasterType?.alertLevel }">
-              {{ showCountry ? countryName : '' }}
+              <!-- XXX: actually use countryName -->
+              {{ showCountry ? countryCodeISO3() : '' }}
               {{ disasterType?.disasterType }} {{ activeTriggerMsg }}
             </strong>
           } @else {

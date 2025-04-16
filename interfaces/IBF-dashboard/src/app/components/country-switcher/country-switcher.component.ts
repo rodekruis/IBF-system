@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Country } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
@@ -13,7 +14,10 @@ export class CountrySwitcherComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
   public country: Country;
 
-  constructor(public countryService: CountryService) {}
+  constructor(
+    public countryService: CountryService,
+    public router: Router,
+  ) {}
 
   ngOnInit() {
     this.countrySubscription = this.countryService
@@ -30,6 +34,6 @@ export class CountrySwitcherComponent implements OnInit, OnDestroy {
   };
 
   public handleCountryChange($event) {
-    this.countryService.selectCountry($event.detail.value);
+    this.router.navigate(['dashboard', $event.detail.value]);
   }
 }

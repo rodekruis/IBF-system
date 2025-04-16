@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { PopoverController } from '@ionic/angular';
 import { DateTime } from 'luxon';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
@@ -22,8 +23,12 @@ export class DashboardPage implements OnInit {
   private readonly adminRole = UserRole.Admin;
   public environmentConfiguration = environment.configuration;
 
+  // XXX: make this a signal somehow
+  public countryCodeISO3 = this.route.snapshot.params['countryCodeISO3'];
+
   constructor(
     private authService: AuthService,
+    private route: ActivatedRoute,
     private analyticsService: AnalyticsService,
     private popoverController: PopoverController,
   ) {
