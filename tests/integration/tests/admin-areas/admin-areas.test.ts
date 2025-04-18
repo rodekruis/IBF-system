@@ -291,6 +291,7 @@ export default function adminAreaTests() {
             return;
           }
           // REFACTOR: find out why MWI flash-flood responds differently, fix it, and remove this conditional assertion
+          // MWI flash flood returns event areas and not admin areas
           expect(feature.properties.name).toBeTruthy(); // the name should not be empty
           expect(feature.properties.adminLevel).toBe(adminLevel); // request and response admin levels should match
           expect(feature.properties.countryCodeISO3).toBe(countryCodeISO3); // request and response country codes should match
