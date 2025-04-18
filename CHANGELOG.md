@@ -1,3 +1,12 @@
+## [0.312.10](https://github.com/rodekruis/IBF-system/compare/v0.312.9...v0.312.10) (2025-04-18)
+
+
+### Bug Fixes
+
+* align event-area response format ([2833a1c](https://github.com/rodekruis/IBF-system/commit/2833a1c1f3a90f7e9fed6b1a2c2e3976cab6b9cc))
+
+
+
 ## [0.312.9](https://github.com/rodekruis/IBF-system/compare/v0.312.8...v0.312.9) (2025-04-18)
 
 
@@ -86,15 +95,6 @@
 ### Bug Fixes
 
 * put back disaster-types ([1913e01](https://github.com/rodekruis/IBF-system/commit/1913e017bb65df161e9fb3f6964ff642a2c97e80))
-
-
-
-# [0.312.0](https://github.com/rodekruis/IBF-system/compare/v0.311.0...v0.312.0) (2025-04-04)
-
-
-### Features
-
-* make no email on ongoing generic ([3b33792](https://github.com/rodekruis/IBF-system/commit/3b337923ed63b906e85ca876dbbb3eb204d8a4b8))
 
 
 
