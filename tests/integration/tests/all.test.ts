@@ -1,4 +1,6 @@
 import { getAccessToken, resetDB } from '../helpers/utility.helper';
+import adminAreaTests from './admin-areas/admin-areas.test';
+import adminAreaAggregatesTests from './admin-areas/aggregates.test';
 import communityNotificationTests from './community-notification/community-notification.test';
 import createCountryTests from './country/create-country.test';
 import emailUgaDroughtTests from './email/drought/email-uga-drought.test';
@@ -34,6 +36,11 @@ describe('API Integration Tests', () => {
     emailPhlTyphoonTests();
     emailSsdFloodsTests();
     emailUgaFloodsTests();
+  });
+
+  describe('Admin areas', () => {
+    adminAreaTests();
+    adminAreaAggregatesTests();
   });
 
   describe('Typhoon track', () => {

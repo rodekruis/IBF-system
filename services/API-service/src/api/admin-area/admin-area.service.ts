@@ -370,9 +370,7 @@ export class AdminAreaService {
       .andWhere('dynamic.disasterType = :disasterType', { disasterType })
       .andWhere('dynamic."indicator" = :indicator', {
         indicator: disasterTypeEntity.mainExposureIndicator,
-      })
-      .orderBy('dynamic."leadTime"', 'DESC'); // This makes sure that if an area is part of 2 events, the earlier event is first and therefore on "top" in the map, so that on clicking the area in the map the earliest event is selected.
-
+      });
     if (leadTime) {
       adminAreasScript.andWhere('dynamic."leadTime" = :leadTime', { leadTime });
     }
@@ -397,6 +395,11 @@ export class AdminAreaService {
         { placeCodes },
       );
     }
+
+    // order orderBy
+    adminAreasScript = adminAreasScript
+      .orderBy('dynamic."leadTime"', 'DESC') // This makes sure that if an area is part of 2 events, the earlier event is first and therefore on "top" in the map, so that on clicking the area in the map the earliest event is selected.
+      .addOrderBy('area."placeCode"');
 
     let adminAreas = await adminAreasScript.getRawMany();
     adminAreas.forEach((area) => {
