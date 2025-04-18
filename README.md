@@ -14,7 +14,7 @@ IBF will not show meaningful information without [forecast data](https://github.
 4. Download and extract [raster-data.zip](https://510ibfsystem.blob.core.windows.net/rasters/raster-files.zip) into `services/API-service/geoserver-volume/raster-files`
 5. Setup env variables `cp example.env .env`
 6. Start API-service `npm run start:services`
-   - Open [https://localhost:3000/api](https://localhost:3000/api) in a web browser to check if the API-service is running
+   - Open [http://localhost:3000/api](http://localhost:3000/api) in a web browser to check if the API-service is running
    - Open [http://localhost:3000/docs](http://localhost:3000/docs) in a web browser to access the API-service documentation
 7. Start IBF-dashboard `npm run install:interface`
    - Open [http://localhost:4200](http://localhost:4200) in a web browser to check if the IBF-dashboard is running
