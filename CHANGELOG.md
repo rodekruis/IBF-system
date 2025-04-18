@@ -1,3 +1,12 @@
+## [0.312.8](https://github.com/rodekruis/IBF-system/compare/v0.312.7...v0.312.8) (2025-04-18)
+
+
+### Bug Fixes
+
+* test ([ff0e896](https://github.com/rodekruis/IBF-system/commit/ff0e8963ffd9a13ea55e5fe9d9e9400867289684))
+
+
+
 ## [0.312.7](https://github.com/rodekruis/IBF-system/compare/v0.312.6...v0.312.7) (2025-04-15)
 
 
@@ -86,16 +95,6 @@
 ### Features
 
 * swagger auth ([a2f2376](https://github.com/rodekruis/IBF-system/commit/a2f2376d9a877a1dd65901c213a63ecea59cfd5b))
-
-
-
-## [0.310.1](https://github.com/rodekruis/IBF-system/compare/v0.310.0...v0.310.1) (2025-04-02)
-
-
-### Bug Fixes
-
-* copy for rainfall layer AB[#35037](https://github.com/rodekruis/IBF-system/issues/35037) ([505887e](https://github.com/rodekruis/IBF-system/commit/505887eb6c0bb8ccab5f75ff21acfd33e334cfea))
-* weird quotes in string ([9a43f1d](https://github.com/rodekruis/IBF-system/commit/9a43f1d5ecf40f0670a84a4e36a623a108fdaf4e))
 
 
 
