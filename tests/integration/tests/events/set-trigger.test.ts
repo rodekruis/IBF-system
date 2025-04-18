@@ -17,7 +17,7 @@ export default function setTriggerTests() {
     let accessToken: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken(); // It should be possible to pass this from all.test.ts instead of getting it here again
+      accessToken = await getAccessToken(); // REFACTOR: It should be possible to pass this from all.test.ts instead of getting it here again
     });
 
     it('should successfully set trigger and change alertLevel from warning to trigger and send email', async () => {
