@@ -1,3 +1,12 @@
+## [0.312.9](https://github.com/rodekruis/IBF-system/compare/v0.312.8...v0.312.9) (2025-04-18)
+
+
+### Bug Fixes
+
+* rainfall layer name+description AB[#35298](https://github.com/rodekruis/IBF-system/issues/35298) ([14ad95b](https://github.com/rodekruis/IBF-system/commit/14ad95b102b24297c07aa56d8f2f04d2c4a58e11))
+
+
+
 ## [0.312.8](https://github.com/rodekruis/IBF-system/compare/v0.312.7...v0.312.8) (2025-04-18)
 
 
@@ -86,15 +95,6 @@
 ### Features
 
 * make no email on ongoing generic ([3b33792](https://github.com/rodekruis/IBF-system/commit/3b337923ed63b906e85ca876dbbb3eb204d8a4b8))
-
-
-
-# [0.311.0](https://github.com/rodekruis/IBF-system/compare/v0.310.1...v0.311.0) (2025-04-04)
-
-
-### Features
-
-* swagger auth ([a2f2376](https://github.com/rodekruis/IBF-system/commit/a2f2376d9a877a1dd65901c213a63ecea59cfd5b))
 
 
 
