@@ -95,6 +95,15 @@ const assertions: Assertion[] = [
     placeCodeRegex: /^(?:MW|Karonga|Blantyre City|Rumphi)/, // REFACTOR: set to /^MW/ after data is fixed
   },
   {
+    countryCodeISO3: 'MWI',
+    disasterType: DisasterType.FlashFloods,
+    adminLevel: AdminLevel.adminLevel3,
+    scenario: FloodsScenario.Trigger,
+    eventName: 'Karonga',
+    featureCount: 7,
+    placeCodeRegex: /^(?:MW|Karonga|Blantyre City|Rumphi)/, // REFACTOR: set to /^MW/ after data is fixed
+  },
+  {
     countryCodeISO3: 'SSD',
     disasterType: DisasterType.Floods,
     adminLevel: AdminLevel.adminLevel3,
@@ -284,17 +293,14 @@ export default function adminAreaTests() {
               ),
             ).toBeTruthy(); // all features should have the same alert level
           }
-          if (
-            countryCodeISO3 === 'MWI' &&
-            disasterType === DisasterType.FlashFloods
-          ) {
+          expect(feature.properties.name).toBeTruthy(); // the name should not be empty
+          expect(feature.properties.countryCodeISO3).toBe(countryCodeISO3); // request and response country codes should match
+
+          // REFACTOR: flash floods national View returns event-areas instead of admin-areas, which do not have an adminLevel. Align response formats better in future.
+          if (disasterType === DisasterType.FlashFloods && !eventName) {
             return;
           }
-          // REFACTOR: find out why MWI flash-flood responds differently, fix it, and remove this conditional assertion
-          // MWI flash flood returns event areas and not admin areas
-          expect(feature.properties.name).toBeTruthy(); // the name should not be empty
           expect(feature.properties.adminLevel).toBe(adminLevel); // request and response admin levels should match
-          expect(feature.properties.countryCodeISO3).toBe(countryCodeISO3); // request and response country codes should match
         });
       },
     );

@@ -94,7 +94,8 @@ export class EventAreaService {
           eventAreaName: event.eventName,
         })
         .select([
-          'area."eventAreaName" as "eventAreaName"',
+          'area."eventAreaName" as "name"',
+          'area."countryCodeISO3" as "countryCodeISO3"',
           'ST_AsGeoJSON(area.geom)::json As geom',
         ])
         .getRawOne();
@@ -124,13 +125,14 @@ export class EventAreaService {
           disasterType: disasterType.disasterType,
         })
         .select([
-          'area."eventAreaName" as "eventAreaName"',
+          'area."eventAreaName" as "name"',
+          'area."countryCodeISO3" as "countryCodeISO3"',
           'ST_AsGeoJSON(area.geom)::json As geom',
         ])
         .getRawMany();
       for await (const eventArea of allEventAreas) {
-        eventArea['eventName'] = eventArea.eventAreaName;
-        eventArea['placeCode'] = eventArea.eventAreaName;
+        eventArea['eventName'] = eventArea.name;
+        eventArea['placeCode'] = eventArea.name;
         eventArea['alertLevel'] = AlertLevel.NONE;
         eventArea[disasterType.mainExposureIndicator] = 0;
 
