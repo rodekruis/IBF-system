@@ -275,16 +275,15 @@ export default function adminAreaTests() {
           expect(feature.geometry.coordinates[0][0].length).toBeGreaterThan(0); // the coordinates array should not be empty
           expect(feature.geometry.coordinates[0][0][0].length).toBe(2); // the coordinates should be in [longitude, latitude] format
           expect(feature.properties.placeCode).toMatch(placeCodeRegex); // placeCode should match regex per country
-          // REFACTOR: assertions fails for
-          // UGA / floods / 2 / Trigger
-          // MWI / flash-floods / 3 / trigger
-          // uncomment next assertion after fix
-          //expect(
-          //  adminAreas.body.features.every(
-          //    ({ properties: { alertLevel } }) =>
-          //      alertLevel === feature.properties.alertLevel,
-          //  ),
-          //).toBeTruthy(); // all features should have the same alert level
+          if (eventName) {
+            // all admin areas in an event should have the same alert level
+            expect(
+              adminAreas.body.features.every(
+                ({ properties: { alertLevel } }) =>
+                  alertLevel === feature.properties.alertLevel,
+              ),
+            ).toBeTruthy(); // all features should have the same alert level
+          }
           if (
             countryCodeISO3 === 'MWI' &&
             disasterType === DisasterType.FlashFloods
