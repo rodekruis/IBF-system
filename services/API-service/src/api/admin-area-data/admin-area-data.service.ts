@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { validate } from 'class-validator';
@@ -15,6 +15,8 @@ import {
 
 @Injectable()
 export class AdminAreaDataService {
+  private logger = new Logger('AdminAreaDataService');
+
   @InjectRepository(AdminAreaDataEntity)
   private readonly adminAreaDataRepository: Repository<AdminAreaDataEntity>;
 
@@ -45,7 +47,7 @@ export class AdminAreaDataService {
       data.value = row.value ? parseFloat(row.value) : null;
       const result = await validate(data);
       if (result.length > 0) {
-        console.log('result: ', result);
+        this.logger.log(`Validation error in row ${_i + 1}. Result: ${result}`);
         throw new HttpException(result, HttpStatus.BAD_REQUEST);
       }
       validatatedArray.push(data);
