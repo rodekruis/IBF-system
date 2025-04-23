@@ -1,9 +1,11 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 
 import { twilioClient } from '../whatsapp/twilio.client';
 
 @Injectable()
 export class LookupService {
+  private logger = new Logger('LookupService');
+
   public constructor() {}
 
   public async lookupAndCorrect(phoneNumber: string): Promise<string> {
@@ -14,8 +16,8 @@ export class LookupService {
         .phoneNumbers(updatedPhone)
         .fetch({ type: ['carrier'] });
       return lookupResponse.phoneNumber.replace(/\D/g, '');
-    } catch (e) {
-      console.log('e: ', e);
+    } catch (error: unknown) {
+      this.logger.log(`Twilio lookup failed. Error: ${error}`);
       const errors = `Provided whatsappNumber is not a valid phone number`;
       throw new HttpException(errors, HttpStatus.BAD_REQUEST);
     }
