@@ -1,6 +1,6 @@
 import fs from 'fs';
 import { HttpService } from '@nestjs/axios';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 
 import { firstValueFrom } from 'rxjs';
 
@@ -19,6 +19,8 @@ class ResourceNameObject {
 
 @Injectable()
 export class GeoserverSyncService {
+  private logger = new Logger('GeoserverSyncService');
+
   constructor(private httpService: HttpService) {}
 
   public async sync(
@@ -129,10 +131,8 @@ export class GeoserverSyncService {
         },
       };
       const result = await this.post(url, body);
-      console.log(
-        'Updated geoserver with ',
-        result,
-        'please commit the resulting config changes of geoserver to git.',
+      this.logger.log(
+        `Updated geoserver with ${result} please commit the resulting config changes of geoserver to git.`,
       );
     }
   }
