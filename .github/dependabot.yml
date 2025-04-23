@@ -43,6 +43,9 @@ updates:
     schedule:
       interval: 'weekly'
     groups:
+      typescript:
+        patterns:
+          - 'typescript*'
       angular:
         patterns:
           - '@angular*'
