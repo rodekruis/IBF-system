@@ -113,7 +113,9 @@ export class MockService {
     const disasterSettings: CountryDisasterSettingsDto[] | undefined =
       selectedCountry.countryDisasterSettings;
     if (!disasterSettings) {
-      console.error('Disaster settings not found for country.');
+      this.logger.error(
+        `Disaster settings not found for country: ${countryCodeISO3} and disaster type: ${disasterType}`,
+      );
     }
     const adminLevels = disasterSettings.find(
       (s) => s.disasterType === disasterType,
@@ -171,7 +173,7 @@ export class MockService {
             );
 
             if (!exposurePlaceCodes) {
-              console.error('NO FILE!!!', indicator);
+              this.logger.error(`No data found for indicator: ${indicator}`);
               continue;
             }
 
