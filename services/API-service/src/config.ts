@@ -1,5 +1,5 @@
 export const DEBUG =
-  ['production', 'test', 'ci'].indexOf(process.env.NODE_ENV) < 0; // true if environment is not in list
+  ['production', 'test', 'ci'].indexOf(process.env.NODE_ENV) < 0; // true if NODE_ENV is not in list
 export const PORT = 3000;
 
 // Configure Internal and External API URL's
