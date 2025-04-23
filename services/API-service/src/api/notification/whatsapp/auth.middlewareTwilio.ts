@@ -1,4 +1,4 @@
-import { HttpStatus, Injectable, NestMiddleware } from '@nestjs/common';
+import { HttpStatus, Injectable, Logger, NestMiddleware } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 
 import { NextFunction, Request, Response } from 'express';
@@ -8,13 +8,15 @@ import { twilio } from './twilio.client';
 
 @Injectable()
 export class AuthMiddlewareTwilio implements NestMiddleware {
+  private logger = new Logger('AuthMiddlewareTwilio');
+
   public constructor() {}
 
   public async use(req: Request, res: Response, next: NextFunction) {
     const twilioSignature = req.headers['x-twilio-signature'];
 
     if (DEBUG) {
-      console.info(
+      this.logger.debug(
         'AuthMiddlewareTwilio: Skipped request validation in DEBUG-mode for:',
         req.path,
       );

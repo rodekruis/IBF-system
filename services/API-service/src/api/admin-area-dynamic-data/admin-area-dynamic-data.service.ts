@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import {
@@ -30,6 +30,8 @@ interface RasterData {
 
 @Injectable()
 export class AdminAreaDynamicDataService {
+  private logger = new Logger('AdminAreaDynamicDataService');
+
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
 
@@ -210,9 +212,12 @@ export class AdminAreaDynamicDataService {
         throw new Error('Invalid file path');
       }
       fs.writeFileSync(filePath, data.buffer);
-    } catch (e) {
-      console.error(e);
-      throw new HttpException('File not written: ' + e, HttpStatus.NOT_FOUND);
+    } catch (error: unknown) {
+      this.logger.error(`File not written: ${error}`);
+      throw new HttpException(
+        `File not written: ${error}`,
+        HttpStatus.NOT_FOUND,
+      );
     }
   }
 
