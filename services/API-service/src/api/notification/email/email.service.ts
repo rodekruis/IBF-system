@@ -3,8 +3,8 @@ import { Injectable, Logger } from '@nestjs/common';
 
 import { formatISO } from 'date-fns';
 import Mailchimp from 'mailchimp-api-v3';
-import { DEBUG } from 'src/config';
 
+import { DEBUG } from '../../../config';
 import { Event } from '../../../shared/data.model';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
