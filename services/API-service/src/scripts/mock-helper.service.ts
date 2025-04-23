@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
@@ -19,6 +19,8 @@ import { Event } from './mock.service';
 
 @Injectable()
 export class MockHelperService {
+  private logger = new Logger('MockHelperService');
+
   constructor(
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
     private linesDataService: LinesDataService,
@@ -100,7 +102,7 @@ export class MockHelperService {
       (s) => s.disasterType === disasterType,
     ).activeLeadTimes;
     for await (const leadTime of leadTimes) {
-      console.log(
+      this.logger.log(
         `Seeding disaster extent raster file for country: ${selectedCountry.countryCodeISO3} for leadtime: ${leadTime}`,
       );
       const sourceFileName = this.getMockRasterSourceFileName(
@@ -116,7 +118,7 @@ export class MockHelperService {
       );
 
       if (!sourceFileName) {
-        console.log(
+        this.logger.log(
           'Mock raster file not found' +
             ` for country: ${selectedCountry.countryCodeISO3}` +
             ` for disasterType: ${disasterType}` +
@@ -133,7 +135,7 @@ export class MockHelperService {
           `./geoserver-volume/raster-files/output/${subfolder}/${destFileName}`,
         )
       ) {
-        console.log(
+        this.logger.log(
           `File ${destFileName} already exists in output folder. Skipping.`,
         );
         continue;
@@ -146,7 +148,7 @@ export class MockHelperService {
           `./geoserver-volume/raster-files/mock-output/${sourceFileName}`,
         );
       } catch {
-        console.log(`ERROR: ${sourceFileName} not found.`);
+        this.logger.log(`Raster file not found: ${sourceFileName}`);
         return;
       }
 
@@ -173,7 +175,7 @@ export class MockHelperService {
       disasterType === DisasterType.FlashFloods ? leadTime : leadTimeUnit;
 
     if (!fs.existsSync(directoryPath)) {
-      console.log(`Directory ${directoryPath} does not exist.`);
+      this.logger.log(`Directory does not exist: ${directoryPath}`);
       return null;
     }
 
@@ -203,7 +205,7 @@ export class MockHelperService {
       );
       // if no files are found, return null
       if (closestFiles.length === 0) {
-        console.log(
+        this.logger.log(
           'No closest files found for the given lead time',
           layerStorePrefix,
           leadTimeUnit,
