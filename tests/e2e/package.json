@@ -9,7 +9,7 @@
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^9.24.0",
-    "@playwright/test": "^1.51.0",
+    "@playwright/test": "^1.52.0",
     "@types/node": "^22.14.0",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.24.0",
