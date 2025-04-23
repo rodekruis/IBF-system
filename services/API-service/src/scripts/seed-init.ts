@@ -36,7 +36,7 @@ import SeedPointData from './seed-point-data';
 @Injectable()
 export class SeedInit implements InterfaceScript {
   private readonly seedHelper: SeedHelper;
-  private logger = new Logger('Seed');
+  private logger = new Logger('SeedInit');
 
   public constructor(
     private dataSource: DataSource,
