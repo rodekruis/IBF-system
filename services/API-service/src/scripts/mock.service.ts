@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { Repository } from 'typeorm';
@@ -47,6 +47,8 @@ export class Event {
 
 @Injectable()
 export class MockService {
+  private logger = new Logger('MockService');
+
   @InjectRepository(EventPlaceCodeEntity)
   private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
   @InjectRepository(AlertPerLeadTimeEntity)
@@ -91,7 +93,7 @@ export class MockService {
       useDefaultScenario,
     );
     if (!scenario) {
-      console.log(
+      this.logger.log(
         `Scenario ${scenarioName} not found for country ${countryCodeISO3} and disasterType ${disasterType}`,
       );
       return;
@@ -356,8 +358,8 @@ export class MockService {
     let file = null;
     try {
       file = fs.readFileSync(fileName, 'utf8');
-    } catch (err) {
-      console.log('err: ', err);
+    } catch (error) {
+      this.logger.log(`Failed to read file: ${fileName}. Error: ${error}`);
       return null;
     }
     return JSON.parse(file);
@@ -430,7 +432,7 @@ export class MockService {
       leadTime = LeadTime.day7; // last available leadTime across all floods countries;
     }
 
-    console.log(
+    this.logger.log(
       `Seeding Glofas stations for country: ${selectedCountry.countryCodeISO3} for leadtime: ${leadTime}`,
     );
     await this.pointDataService.reformatAndUploadOldGlofasStationData({
@@ -520,8 +522,8 @@ export class MockService {
         (dt) => dt.disasterType,
       );
       if (disasterType && !countryDisasterTypes.includes(disasterType)) {
-        console.log(
-          `Provided disaster type ${disasterType} not found for country ${countryCodeISO3}`,
+        this.logger.log(
+          `Disaster type ${disasterType} not found for country ${countryCodeISO3}`,
         );
         continue;
       }
