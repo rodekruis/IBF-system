@@ -1,8 +1,9 @@
-// import * as fs from 'fs';
-import { Injectable } from '@nestjs/common';
+import * as fs from 'fs';
+import { Injectable, Logger } from '@nestjs/common';
 
-// import { formatISO } from 'date-fns';
+import { formatISO } from 'date-fns';
 import Mailchimp from 'mailchimp-api-v3';
+import { DEBUG } from 'src/config';
 
 import { Event } from '../../../shared/data.model';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
@@ -13,6 +14,7 @@ import { MjmlService } from './mjml.service';
 
 @Injectable()
 export class EmailService {
+  private logger = new Logger('EmailService');
   private fromEmail = process.env.SUPPORT_EMAIL_ADDRESS;
   private fromEmailName = 'IBF portal';
 
@@ -55,30 +57,23 @@ export class EmailService {
         disasterType,
         activeEvents,
       );
-    let emailHtml = '';
 
-    emailHtml += this.mjmlService.getActiveEventEmailHtmlOutput({
+    const emailHtml = this.mjmlService.getActiveEventEmailHtmlOutput({
       emailContent,
       date: lastUploadDate.timestamp,
     });
 
-    if (noNotifications || process.env.NODE_ENV === 'ci') {
-      // NOTE: use this to test the email output instead of using Mailchimp
-      // fs.writeFileSync(
-      //   `email-${country.countryCodeISO3}-${disasterType}-${formatISO(new Date())}.html`,
-      //   emailHtml,
-      // );
-      return emailHtml;
-    }
     let emailSubject = `IBF ${emailContent.disasterType.disasterType} alert`;
     if (process.env.NODE_ENV !== 'production') {
       emailSubject += ` - ${process.env.NODE_ENV.toUpperCase()}`;
     }
-    this.sendEmail(
+
+    return this.sendEmail(
       emailSubject,
       emailHtml,
       country.countryCodeISO3,
       disasterType,
+      noNotifications,
     );
   }
 
@@ -104,19 +99,48 @@ export class EmailService {
       date: lastUploadDate.timestamp,
     });
 
-    if (noNotifications || process.env.NODE_ENV === 'ci') {
-      return emailHtml;
-    }
     const emailSubject = `IBF ${disasterTypeLabel} ended`;
-    this.sendEmail(
+
+    return this.sendEmail(
       emailSubject,
       emailHtml,
       country.countryCodeISO3,
       disasterType,
+      noNotifications,
     );
   }
 
-  private async sendEmail(
+  private sendEmail(
+    subject: string,
+    emailHtml: string,
+    countryCodeISO3: string,
+    disasterType: DisasterType,
+    noNotifications: boolean,
+  ) {
+    // NOTE: use this to test the email output instead of using Mailchimp
+    if (DEBUG) {
+      fs.writeFileSync(
+        `email-${countryCodeISO3}-${disasterType}-${subject}-${formatISO(new Date())}.html`,
+        emailHtml,
+      );
+    }
+
+    if (noNotifications || process.env.NODE_ENV === 'ci') {
+      this.logger.log(
+        `Email not sent for ${countryCodeISO3} - ${disasterType} - ${subject}`,
+      );
+      return emailHtml;
+    }
+
+    this.sendMailchimpCampaign(
+      subject,
+      emailHtml,
+      countryCodeISO3,
+      disasterType,
+    );
+  }
+
+  private async sendMailchimpCampaign(
     subject: string,
     emailHtml: string,
     countryCodeISO3: string,
@@ -141,15 +165,28 @@ export class EmailService {
       },
       type: 'regular',
     };
-    const createResult = await this.mailchimp.post('/campaigns', campaignBody);
+    const createResult = await this.mailchimp
+      .post('/campaigns', campaignBody)
+      .catch((error: unknown) => {
+        this.logger.error(
+          `Failed to create Mailchimp campagin. Error: ${error}`,
+        );
+      });
 
     const updateBody = {
       html: emailHtml,
     };
-    await this.mailchimp.put(
-      `/campaigns/${createResult.id}/content`,
-      updateBody,
-    );
-    await this.mailchimp.post(`/campaigns/${createResult.id}/actions/send`);
+    await this.mailchimp
+      .put(`/campaigns/${createResult.id}/content`, updateBody)
+      .catch((error: unknown) => {
+        this.logger.error(
+          `Failed to update Mailchimp campagin content. Error: ${error}`,
+        );
+      });
+    await this.mailchimp
+      .post(`/campaigns/${createResult.id}/actions/send`)
+      .catch((error: unknown) => {
+        this.logger.error(`Failed to send Mailchimp campagin. Error: ${error}`);
+      });
   }
 }
