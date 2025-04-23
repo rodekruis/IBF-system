@@ -165,28 +165,20 @@ export class EmailService {
       },
       type: 'regular',
     };
-    const createResult = await this.mailchimp
-      .post('/campaigns', campaignBody)
-      .catch((error: unknown) => {
-        this.logger.error(
-          `Failed to create Mailchimp campagin. Error: ${error}`,
-        );
+
+    try {
+      const createResult = await this.mailchimp.post(
+        '/campaigns',
+        campaignBody,
+      );
+
+      await this.mailchimp.put(`/campaigns/${createResult.id}/content`, {
+        html: emailHtml,
       });
 
-    const updateBody = {
-      html: emailHtml,
-    };
-    await this.mailchimp
-      .put(`/campaigns/${createResult.id}/content`, updateBody)
-      .catch((error: unknown) => {
-        this.logger.error(
-          `Failed to update Mailchimp campagin content. Error: ${error}`,
-        );
-      });
-    await this.mailchimp
-      .post(`/campaigns/${createResult.id}/actions/send`)
-      .catch((error: unknown) => {
-        this.logger.error(`Failed to send Mailchimp campagin. Error: ${error}`);
-      });
+      await this.mailchimp.post(`/campaigns/${createResult.id}/actions/send`);
+    } catch (error: unknown) {
+      this.logger.error(`Failed to send Mailchimp campaign. Error: ${error}`);
+    }
   }
 }
