@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { format } from 'date-fns';
@@ -24,6 +24,8 @@ import { NotificationType, TwilioMessageEntity } from './twilio.entity';
 
 @Injectable()
 export class WhatsappService {
+  private logger = new Logger('WhatsappService');
+
   @InjectRepository(TwilioMessageEntity)
   private readonly twilioMessageRepository: Repository<TwilioMessageEntity>;
   @InjectRepository(UserEntity)
@@ -79,9 +81,9 @@ export class WhatsappService {
         this.storeSendWhatsapp(message, mediaUrl);
         return message.sid;
       })
-      .catch((err) => {
-        console.log('Error from Twilio:', err);
-        throw err;
+      .catch((error: unknown) => {
+        this.logger.log(`Failed to create Twilio message. Error: ${error}`);
+        throw error;
       });
   }
 
@@ -481,8 +483,8 @@ export class WhatsappService {
       contentSid =
         country.notificationInfo.whatsappMessage[disasterType][messageKey]
           .contentSid;
-    } catch (error) {
-      console.log('Message not found in notificationInfo.', error);
+    } catch (error: unknown) {
+      this.logger.log(`Message not found in notificationInfo. Error: ${error}`);
       return;
     }
 

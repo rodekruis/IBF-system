@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 import { AdminLevel } from 'src/api/country/admin-level.enum';
 import { DataSource } from 'typeorm';
@@ -17,6 +17,7 @@ interface AdminAreaDataRecord {
 @Injectable()
 export class SeedAdminAreaData implements InterfaceScript {
   private readonly seedHelper: SeedHelper;
+  private logger = new Logger('SeedAdminAreaData');
 
   public constructor(
     private adminAreaDataService: AdminAreaDataService,
@@ -43,7 +44,7 @@ export class SeedAdminAreaData implements InterfaceScript {
           ),
         );
       } catch {
-        console.error(`Skip Indicator: Population - ${countryCodeISO3}`);
+        this.logger.error(`Skip Indicator: Population - ${countryCodeISO3}`);
       }
     });
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 import { DataSource } from 'typeorm';
 
@@ -36,6 +36,7 @@ import SeedPointData from './seed-point-data';
 @Injectable()
 export class SeedInit implements InterfaceScript {
   private readonly seedHelper: SeedHelper;
+  private logger = new Logger('SeedInit');
 
   public constructor(
     private dataSource: DataSource,
@@ -52,7 +53,7 @@ export class SeedInit implements InterfaceScript {
     await this.seedHelper.truncateAll();
 
     // ***** CREATE DISASTER *****
-    console.log('Seed Disaster types...');
+    this.logger.log('Seed Disaster Types...');
     const disasterTypeDtos = disasterTypes.map(
       (disasterType): DisasterTypeDto => {
         const disasterTypeDto = new DisasterTypeDto();
@@ -77,7 +78,7 @@ export class SeedInit implements InterfaceScript {
     });
 
     // ***** CREATE COUNTRIES *****
-    console.log(`Seed Countries... ${process.env.COUNTRIES}`);
+    this.logger.log(`Seed Countries... ${process.env.COUNTRIES}`);
     const envCountries = process.env.COUNTRIES.split(',');
     const selectedCountries = countries.filter((country): boolean => {
       return envCountries.includes(country.countryCodeISO3);
@@ -115,11 +116,11 @@ export class SeedInit implements InterfaceScript {
     await countryRepository.save(countryEntities);
 
     // ***** SEED ADMIN-AREA DATA *****
-    console.log('Seed Admin Areas...');
+    this.logger.log('Seed Admin Areas...');
     await this.seedAdminArea.run();
 
     // ***** CREATE USERS *****
-    console.log('Seed Users...');
+    this.logger.log('Seed Users...');
     const userRepository = this.dataSource.getRepository(UserEntity);
 
     const dunantEmail = 'dunant@redcross.nl';
@@ -177,7 +178,7 @@ export class SeedInit implements InterfaceScript {
     await userRepository.save(userEntities);
 
     // ***** CREATE EAP ACTIONS *****
-    console.log('Seed EAP Actions...');
+    this.logger.log('Seed EAP Actions...');
     const filteredActions: EapActionEntity[] = eapActions
       .map((action): EapActionEntity => {
         const eapActionEntity = new EapActionEntity();
@@ -196,7 +197,7 @@ export class SeedInit implements InterfaceScript {
     await eapActionRepository.save(filteredActions);
 
     // ***** CREATE INDICATOR METADATA *****
-    console.log('Seed Indicators...');
+    this.logger.log('Seed Indicators...');
     const indicatorRepository = this.dataSource.getRepository(
       IndicatorMetadataEntity,
     );
@@ -205,12 +206,12 @@ export class SeedInit implements InterfaceScript {
     );
 
     // ***** CREATE LAYER METADATA *****
-    console.log('Seed Layers...');
+    this.logger.log('Seed Layers...');
     const layerRepository = this.dataSource.getRepository(LayerMetadataEntity);
     await layerRepository.save(JSON.parse(JSON.stringify(layerMetadata)));
 
     // ***** SEED POINT DATA *****
-    console.log('Seed point data...');
+    this.logger.log('Seed Point data...');
     await this.seedPointData.run();
 
     // ***** SEED LINE DATA *****
@@ -219,7 +220,7 @@ export class SeedInit implements InterfaceScript {
     }
 
     // ***** SEED INDICATOR DATA PER ADMIN AREA *****
-    console.log('Seed Indicator data per admin-area...');
+    this.logger.log('Seed Indicator data per admin-area...');
     await this.seedAdminAreaData.run();
   }
 }

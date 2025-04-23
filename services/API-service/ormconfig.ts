@@ -1,6 +1,9 @@
 import * as fs from 'fs';
+import { Logger } from '@nestjs/common';
 
 import { DataSourceOptions } from 'typeorm';
+
+import { TypeOrmLoggerContainer } from './src/typeorm.logger';
 
 export const ORMConfig: DataSourceOptions = {
   type: 'postgres',
@@ -14,11 +17,11 @@ export const ORMConfig: DataSourceOptions = {
   dropSchema: false,
   synchronize: false,
   logging: ['error'],
-  logger: 'advanced-console',
+  logger: new TypeOrmLoggerContainer(new Logger('TypeORM'), ['error', 'log']),
   maxQueryExecutionTime: 1000,
   migrations: ['migration/*.ts'],
   ssl:
-    process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'ci'
+    ['development', 'ci'].indexOf(process.env.NODE_ENV) >= 0
       ? null
       : {
           ca: fs.readFileSync('cert/DigiCertGlobalRootCA.crt.pem').toString(),
