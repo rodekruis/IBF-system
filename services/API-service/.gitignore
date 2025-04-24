@@ -13,6 +13,7 @@ src/secrets.ts
 dist
 coverage
 www
+email-*.html
 
 
 # External code

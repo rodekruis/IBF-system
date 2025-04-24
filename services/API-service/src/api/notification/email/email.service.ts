@@ -178,7 +178,7 @@ export class EmailService {
 
       await this.mailchimp.post(`/campaigns/${createResult.id}/actions/send`);
     } catch (error: unknown) {
-      this.logger.error(`Failed to send Mailchimp campaign. Error: ${error}`);
+      this.logger.error(`Failed to send Mailchimp campaign. ${error}`);
     }
   }
 }
