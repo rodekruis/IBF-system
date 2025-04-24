@@ -1,3 +1,12 @@
+# [0.314.0](https://github.com/rodekruis/IBF-system/compare/v0.313.0...v0.314.0) (2025-04-24)
+
+
+### Features
+
+* log on request start ([2cc6295](https://github.com/rodekruis/IBF-system/commit/2cc62958d6d2c4958e7dadec9ff845601a613d41))
+
+
+
 # [0.313.0](https://github.com/rodekruis/IBF-system/compare/v0.312.10...v0.313.0) (2025-04-23)
 
 
@@ -99,19 +108,6 @@
 ### Bug Fixes
 
 * seed lines-data optionally AB[#35203](https://github.com/rodekruis/IBF-system/issues/35203) ([43830bf](https://github.com/rodekruis/IBF-system/commit/43830bf6378de5f0a62f1d99044f7a966f844b19))
-
-
-
-## [0.312.2](https://github.com/rodekruis/IBF-system/compare/v0.312.1...v0.312.2) (2025-04-08)
-
-
-### Bug Fixes
-
-* checkbox behaviour ([e1f598e](https://github.com/rodekruis/IBF-system/commit/e1f598edc2a61828098eed5a0f613128af65c947))
-* click checkbox ([d42abc7](https://github.com/rodekruis/IBF-system/commit/d42abc715c1a6cae2819ceee816e142039bba91f))
-* e2e test > get email element by type ([0006ea5](https://github.com/rodekruis/IBF-system/commit/0006ea58a1477606f59e884a321219a1fb0d778c))
-* one more size="default" case ([83ec346](https://github.com/rodekruis/IBF-system/commit/83ec346e6239018c09b9730bad618b6ed0339f7a))
-* UI differences afger upgrade ([01bf02d](https://github.com/rodekruis/IBF-system/commit/01bf02da015396a6c22a6a3621b7daa10955c6b9))
 
 
 
