@@ -48,9 +48,7 @@ import { Event, EventService } from 'src/app/services/event.service';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { LeadTime } from 'src/app/types/lead-time';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class PointMarkerService {
   private TYPHOON_TRACK_NORMAL_POINT_SIZE = 15;
   private TYPHOON_TRACK_LATEST_POINT_SIZE = 26;
@@ -155,10 +153,7 @@ export class PointMarkerService {
         countryDisasterSettings,
         eventLeadTime,
       ),
-      {
-        minWidth: 350,
-        className: popupClassName,
-      },
+      { minWidth: 350, className: popupClassName },
     );
     markerInstance.on(
       'click',
@@ -221,10 +216,7 @@ export class PointMarkerService {
         markerLatLng,
         !isAfter(markerDateTime, lastUploadDate),
       ),
-      {
-        minWidth: 350,
-        className: 'typhoon-track-popup',
-      },
+      { minWidth: 350, className: 'typhoon-track-popup' },
     );
     markerInstance.on(
       'click',
@@ -400,10 +392,7 @@ export class PointMarkerService {
     });
     markerInstance.bindPopup(
       this.createMarkerRiverGaugePopup(markerProperties),
-      {
-        minWidth: 350,
-        className: 'river-gauge-popup',
-      },
+      { minWidth: 350, className: 'river-gauge-popup' },
     );
     markerInstance.on(
       'click',

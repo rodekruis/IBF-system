@@ -180,10 +180,7 @@ describe('AggregatesComponent', () => {
       component.placeCode = placeCode; // Admin-area View implies placeCode is set
       component.placeCodeHover = placeCode;
 
-      const expected = {
-        headerLabel: 'Guba',
-        subHeaderLabel: '',
-      };
+      const expected = { headerLabel: 'Guba', subHeaderLabel: '' };
 
       expect(component.getAggregatesHeader(mapView)).toEqual(expected);
     });
@@ -213,12 +210,7 @@ describe('AggregatesComponent', () => {
         cssClass: 'ibf-popover ibf-popover-normal',
         translucent: true,
         showBackdrop: true,
-        componentProps: {
-          layer: {
-            label: indicator.label,
-            description: '',
-          },
-        },
+        componentProps: { layer: { label: indicator.label, description: '' } },
       });
       expect(popoverSpy.present).toHaveBeenCalled();
       expect(analyticsService.logEvent).toHaveBeenCalledWith(

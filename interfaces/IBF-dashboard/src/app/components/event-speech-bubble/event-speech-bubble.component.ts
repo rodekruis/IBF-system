@@ -182,9 +182,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
             ? 'landfall'
             : 'no-landfall'
       }`,
-      {
-        firstLeadTimeDate: event.firstLeadTimeDate,
-      },
+      { firstLeadTimeDate: event.firstLeadTimeDate },
     ) as string;
     return `${landfallInfo} ${warningSuffix}`;
   }

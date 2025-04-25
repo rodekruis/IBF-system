@@ -34,10 +34,7 @@ export class DynamicPointPopupComponent implements OnInit {
     eapAlertClasses: EapAlertClasses;
   };
 
-  public typhoonData: {
-    timestamp: string;
-    category: string;
-  };
+  public typhoonData: { timestamp: string; category: string };
 
   public ibfLayerName = IbfLayerName;
 

@@ -6,9 +6,7 @@ import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
 import { ApiService } from 'src/app/services/api.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class CountryService {
   private countrySubject = new BehaviorSubject<Country>(null);
   public countries: Country[] = [];

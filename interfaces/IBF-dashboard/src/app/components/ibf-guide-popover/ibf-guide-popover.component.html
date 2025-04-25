@@ -15,21 +15,14 @@
     <p
       [innerHTML]="
         'ibf-guide-component.video-pdf-description'
-          | translate
-            : {
-                videoInsert,
-                pdfUrl: pdfUrl,
-              }
+          | translate: { videoInsert, pdfUrl: pdfUrl }
       "
     ></p>
     <br />
     <p
       [innerHTML]="
         'ibf-guide-component.whats-new-description'
-          | translate
-            : {
-                whatsNewUrl: whatsNewUrl,
-              }
+          | translate: { whatsNewUrl: whatsNewUrl }
       "
     ></p>
     @if (videoUrl) {

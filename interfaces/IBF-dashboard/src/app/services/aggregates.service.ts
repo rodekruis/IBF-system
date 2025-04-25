@@ -27,9 +27,7 @@ export enum AreaStatus {
   Alert = 'alert',
   NoAlert = 'no-alert',
 }
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AggregatesService {
   private indicatorSubject = new BehaviorSubject<Indicator[]>([]);
   public indicators: Indicator[] = [];

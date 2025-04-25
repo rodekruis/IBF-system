@@ -17,10 +17,7 @@ export class ChangePasswordPopoverComponent {
 
   public showDifferentPasswordMessage = false;
 
-  public model = {
-    newPassword: '',
-    confirmPassword: '',
-  };
+  public model = { newPassword: '', confirmPassword: '' };
 
   constructor(
     private authService: AuthService,

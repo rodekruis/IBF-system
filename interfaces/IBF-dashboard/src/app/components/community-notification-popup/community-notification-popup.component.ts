@@ -18,10 +18,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
 
   public formattedDate: string;
 
-  private alertDismissRole = {
-    cancel: 'cancel',
-    confirm: 'confirm',
-  };
+  private alertDismissRole = { cancel: 'cancel', confirm: 'confirm' };
 
   constructor(
     private popoverController: PopoverController,
@@ -43,9 +40,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
       cssClass: 'ibf-popover ibf-popover-large',
       translucent: true,
       showBackdrop: true,
-      componentProps: {
-        url,
-      },
+      componentProps: { url },
     });
 
     void popover.present();
@@ -83,20 +78,22 @@ export class CommunityNotificationPopupComponent implements OnInit {
       return;
     }
 
-    this.apiService.dismissCommunityNotification(pointDataId).subscribe({
-      next: () =>
-        this.actionResult(
-          this.translate.instant(
-            'map-popups.community-notification.delete-successs',
-          ) as string,
-        ),
-      error: () =>
-        this.actionResult(
-          this.translate.instant(
-            'map-popups.community-notification.delete-fail',
-          ) as string,
-        ),
-    });
+    this.apiService
+      .dismissCommunityNotification(pointDataId)
+      .subscribe({
+        next: () =>
+          this.actionResult(
+            this.translate.instant(
+              'map-popups.community-notification.delete-successs',
+            ) as string,
+          ),
+        error: () =>
+          this.actionResult(
+            this.translate.instant(
+              'map-popups.community-notification.delete-fail',
+            ) as string,
+          ),
+      });
   }
 
   private async actionResult(resultMessage: string): Promise<void> {
@@ -106,9 +103,7 @@ export class CommunityNotificationPopupComponent implements OnInit {
       cssClass: 'ibf-popover ibf-popover-normal',
       translucent: true,
       showBackdrop: true,
-      componentProps: {
-        message: resultMessage,
-      },
+      componentProps: { message: resultMessage },
     });
 
     await popover.present();

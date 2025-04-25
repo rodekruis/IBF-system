@@ -6,9 +6,7 @@ import {
   DisasterType,
 } from 'src/app/models/country.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class DisasterTypeService {
   private disasterTypeSubject = new BehaviorSubject<DisasterType>(null);
   public disasterType: DisasterType;

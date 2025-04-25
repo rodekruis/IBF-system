@@ -10,10 +10,7 @@ import { DateTime } from 'luxon';
 })
 export class TyphoonTrackpointPopupContentComponent implements OnInit {
   @Input()
-  public data: {
-    timestamp: string;
-    category: string;
-  };
+  public data: { timestamp: string; category: string };
 
   public dateAndTime: string;
   public category: string;

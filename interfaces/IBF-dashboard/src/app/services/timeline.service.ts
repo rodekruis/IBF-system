@@ -20,9 +20,7 @@ import {
 } from 'src/app/types/lead-time';
 import { TimelineState, TimeStepButton } from 'src/app/types/timeline-state';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class TimelineService {
   private startingState: TimelineState = {
     today: DateTime.now(),

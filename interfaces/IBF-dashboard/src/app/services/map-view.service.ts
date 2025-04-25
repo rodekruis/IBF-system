@@ -13,9 +13,7 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EventState } from 'src/app/types/event-state';
 import { MapView } from 'src/app/types/map-view';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class MapViewService {
   private breadcrumbsMapViewSubject = new BehaviorSubject<MapView>(null);
   private breadcrumbsMapView: MapView;

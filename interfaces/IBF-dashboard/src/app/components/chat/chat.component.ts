@@ -361,9 +361,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       cssClass: 'ibf-popover ibf-popover-normal',
       translucent: true,
       showBackdrop: true,
-      componentProps: {
-        message: resultMessage,
-      },
+      componentProps: { message: resultMessage },
     });
 
     await popover.present();

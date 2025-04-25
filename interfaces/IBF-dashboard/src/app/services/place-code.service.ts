@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { PlaceCode } from 'src/app/models/place-code.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class PlaceCodeService {
   private placeCodeSubject = new BehaviorSubject<PlaceCode>(null);
   private placeCodeHoverSubject = new BehaviorSubject<PlaceCode>(null);

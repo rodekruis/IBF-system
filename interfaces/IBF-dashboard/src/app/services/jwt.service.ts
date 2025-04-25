@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from 'src/app/models/user/user.model';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class JwtService {
   private tokenKey = 'jwt';
   private jwtHelper = new JwtHelperService();

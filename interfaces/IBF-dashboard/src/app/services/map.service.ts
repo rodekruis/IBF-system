@@ -36,9 +36,7 @@ import { TimelineState } from 'src/app/types/timeline-state';
 import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
   public layers = [] as IbfLayer[];
@@ -845,9 +843,7 @@ export class MapService {
     colorBreaks: ColorBreaks,
   ): { break0: number } => {
     if (colorBreaks) {
-      const colorThresholdWithBreaks = {
-        break0: 0,
-      };
+      const colorThresholdWithBreaks = { break0: 0 };
       Object.keys(colorBreaks).forEach((colorBreak) => {
         if (colorBreaks[String(Number(colorBreak) + 1)]) {
           colorThresholdWithBreaks[`break${colorBreak}`] =
@@ -892,12 +888,7 @@ export class MapService {
         area,
       );
 
-      return {
-        opacity: 1,
-        color,
-        fillOpacity: 0,
-        weight,
-      };
+      return { opacity: 1, color, fillOpacity: 0, weight };
     };
   };
 
@@ -962,14 +953,8 @@ export class MapService {
       };
     }
     if (area.alertLevel !== AlertLevel.TRIGGER) {
-      return {
-        color: this.nonTriggeredAreaColor,
-        weight: 5,
-      };
+      return { color: this.nonTriggeredAreaColor, weight: 5 };
     }
-    return {
-      color: this.triggeredAreaColor,
-      weight: 5,
-    };
+    return { color: this.triggeredAreaColor, weight: 5 };
   };
 }

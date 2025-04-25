@@ -47,10 +47,7 @@ export class IbfGuideButtonComponent implements OnDestroy {
   async presentPopover(): Promise<void> {
     const popover = await this.popoverController.create({
       component: IbfGuidePopoverComponent,
-      componentProps: {
-        videoUrl: this.videoUrl,
-        pdfUrl: this.pdfUrl,
-      },
+      componentProps: { videoUrl: this.videoUrl, pdfUrl: this.pdfUrl },
       animated: true,
       cssClass: 'ibf-popover ibf-popover-large',
       translucent: true,

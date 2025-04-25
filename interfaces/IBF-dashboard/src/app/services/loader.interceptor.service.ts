@@ -10,9 +10,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { LoaderService } from 'src/app/services/loader.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class LoaderInterceptorService implements HttpInterceptor {
   private requestsToSkip: string[] = ['waterpoints'];
 

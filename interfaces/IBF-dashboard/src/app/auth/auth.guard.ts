@@ -8,9 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AuthGuard {
   constructor(
     private router: Router,
