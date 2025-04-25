@@ -17,11 +17,7 @@ export function getAdminAreas(
 ): Promise<request.Response> {
   return getServer()
     .get(`/admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel}`)
-    .query({
-      leadTime,
-      eventName,
-      placeCodeParent,
-    })
+    .query({ leadTime, eventName, placeCodeParent })
     .set('Authorization', `Bearer ${accessToken}`);
 }
 

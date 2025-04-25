@@ -34,9 +34,7 @@ export default (
     );
     for (const layer of activeLayers) {
       if (layer.type === 'raster') {
-        await map.isLayerCheckboxChecked({
-          layerName: layer.name,
-        });
+        await map.isLayerCheckboxChecked({ layerName: layer.name });
         await map.assertLegendElementIsVisible({
           legendComponentName: layer.label,
         });
@@ -44,16 +42,12 @@ export default (
           layerName: layer.name,
         });
       } else if (layer.type === 'admin-area') {
-        await map.isLayerRadioButtonChecked({
-          layerName: layer.name,
-        });
+        await map.isLayerRadioButtonChecked({ layerName: layer.name });
         await map.assertLegendElementIsVisible({
           legendComponentName: layer.label,
         });
         // Validate that the layer checked with radio button is visible on the map in this case 'Exposed population' only one such layer can be checked at a time
-        await map.areAdminBoundariesVisible({
-          layerName: layer.name,
-        });
+        await map.areAdminBoundariesVisible({ layerName: layer.name });
       }
     }
   });

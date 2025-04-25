@@ -74,7 +74,10 @@ module.exports = tseslint.config(
       // 'promise/valid-params': 'error',
       'simple-import-sort/imports': ['error'],
       'simple-import-sort/exports': 'error',
-      'prettier/prettier': ['error', { endOfLine: 'auto' }],
+      'prettier/prettier': [
+        'error',
+        { endOfLine: 'auto', objectWrap: 'collapse' },
+      ],
       'jest/no-focused-tests': 'error',
     },
   },

@@ -20,10 +20,7 @@ export const notificationInfoData: CreateNotificationInfoDto[] = [
     linkVideo: 'https://bit.ly/IBF-video-Malawi',
     linkPdf:
       'https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-Malawi-Published.pdf',
-    useWhatsapp: {
-      'flash-floods': true,
-      floods: false,
-    },
+    useWhatsapp: { 'flash-floods': true, floods: false },
     whatsappMessage: {
       'flash-floods': {
         'initial-single-event':

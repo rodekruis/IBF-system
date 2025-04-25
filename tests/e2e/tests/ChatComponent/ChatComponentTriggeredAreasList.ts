@@ -23,10 +23,7 @@ export default (
     // Wait for the page to load
     await dashboard.waitForLoaderToDisappear();
 
-    await chat.chatColumnIsVisibleForTriggerState({
-      user: dataset.user,
-      date,
-    });
+    await chat.chatColumnIsVisibleForTriggerState({ user: dataset.user, date });
     await map.assertTriggerOutlines(dataset.scenario);
     await chat.predictionButtonsAreActive();
     await chat.clickShowPredictionButton(dataset.scenario);

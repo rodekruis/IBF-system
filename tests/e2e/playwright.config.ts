@@ -46,9 +46,7 @@ export default defineConfig({
         uploadAttachments: true,
         attachmentsType: ['screenshot', 'video', 'trace'],
         testRunConfig: {
-          owner: {
-            displayName: process.env.AZURE_TEST_OWNER,
-          },
+          owner: { displayName: process.env.AZURE_TEST_OWNER },
           comment: 'Playwright Test Suite',
           configurationIds,
         },
@@ -80,12 +78,5 @@ export default defineConfig({
     bypassCSP: true,
     trace: 'on-first-retry',
   },
-  projects: [
-    {
-      name: 'chromium',
-      use: {
-        channel: 'chromium',
-      },
-    },
-  ],
+  projects: [{ name: 'chromium', use: { channel: 'chromium' } }],
 });

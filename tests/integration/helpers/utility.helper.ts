@@ -31,10 +31,7 @@ export function loginUser(
   email: string,
   password?: string,
 ): Promise<request.Response> {
-  return getServer().post(`/user/login`).send({
-    email,
-    password,
-  });
+  return getServer().post(`/user/login`).send({ email, password });
 }
 
 export function getHostname(): string | undefined {
@@ -50,9 +47,7 @@ export function resetDB(accessToken: string): Promise<request.Response> {
     .post('/scripts/reset')
     .set('Authorization', `Bearer ${accessToken}`)
     .query({ includeLinesData: false })
-    .send({
-      secret: process.env.RESET_SECRET,
-    });
+    .send({ secret: process.env.RESET_SECRET });
 }
 
 export function mock(
@@ -91,10 +86,7 @@ export function sendNotification(
     .post('/events/notify')
     .set('Authorization', `Bearer ${accessToken}`)
     .query({ noNotifications })
-    .send({
-      countryCodeISO3,
-      disasterType,
-    });
+    .send({ countryCodeISO3, disasterType });
 }
 
 export function createUser(
