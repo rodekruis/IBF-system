@@ -40,7 +40,6 @@ module.exports = tseslint.config(
     processor: angular.processInlineTemplates,
     rules: {
       // REFACTOR
-      'no-relative-import-paths/no-relative-import-paths': 'warn',
       'regexp/no-unused-capturing-group': 'warn',
       '@typescript-eslint/prefer-nullish-coalescing': 'warn',
       '@typescript-eslint/no-unnecessary-condition': 'off',
@@ -76,13 +75,7 @@ module.exports = tseslint.config(
       '@angular-eslint/no-async-lifecycle-method': 'warn',
       'perfectionist/sort-union-types': 'warn',
 
-      //'no-relative-import-paths/no-relative-import-paths': [
-      //  'error',
-      //  {
-      //    prefix: '~',
-      //    rootDir: './src/app',
-      //  },
-      //],
+      'no-relative-import-paths/no-relative-import-paths': 'error',
       //'@typescript-eslint/no-extraneous-class': [
       //  'error',
       //  {
