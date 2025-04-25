@@ -1,8 +1,8 @@
 import { ViewEntity } from 'typeorm';
 
 import { AppDataSource } from '../../../appdatasource';
-import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
 import { LinesDataEntity, LinesDataEnum } from './lines-data.entity';
+import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
 
 const getViewQuery = (type: LinesDataEnum) => {
   return () =>
@@ -49,12 +49,8 @@ const getViewQuery = (type: LinesDataEnum) => {
         'COALESCE(status.exposed,FALSE) as "exposed"',
       ]);
 };
-@ViewEntity({
-  expression: getViewQuery(LinesDataEnum.buildings),
-})
+@ViewEntity({ expression: getViewQuery(LinesDataEnum.buildings) })
 export class BuildingsExposurePerLeadTime {}
 
-@ViewEntity({
-  expression: getViewQuery(LinesDataEnum.roads),
-})
+@ViewEntity({ expression: getViewQuery(LinesDataEnum.roads) })
 export class RoadsExposurePerLeadTime {}

@@ -48,9 +48,7 @@ export class TwilioIncomingCallbackDto {
   @IsOptional()
   public WaId: string;
 
-  @ApiProperty({
-    example: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}`,
-  })
+  @ApiProperty({ example: `whatsapp:${process.env.TWILIO_WHATSAPP_NUMBER}` })
   @IsString()
   @IsOptional()
   public To: string;

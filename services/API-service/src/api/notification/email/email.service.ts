@@ -1,7 +1,7 @@
-import * as fs from 'fs';
 import { Injectable, Logger } from '@nestjs/common';
 
 import { formatISO } from 'date-fns';
+import * as fs from 'fs';
 import Mailchimp from 'mailchimp-api-v3';
 
 import { DEBUG } from '../../../config';
@@ -29,12 +29,11 @@ export class EmailService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<number> {
-    const segments: {
-      [countryDisaster: string]: string;
-    } = process.env.MC_SEGMENTS.split(',').reduce((prev, curr) => {
-      const segment = curr.split(':');
-      return { ...prev, [segment[0]]: Number(segment[1]) };
-    }, {});
+    const segments: { [countryDisaster: string]: string } =
+      process.env.MC_SEGMENTS.split(',').reduce((prev, curr) => {
+        const segment = curr.split(':');
+        return { ...prev, [segment[0]]: Number(segment[1]) };
+      }, {});
 
     const countryDisaster = `${countryCodeISO3}_${disasterType}`;
     if (!segments || !segments[countryDisaster]) {

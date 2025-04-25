@@ -27,9 +27,7 @@ export function createTranslateLoader(http: HttpClient) {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   imports: [
     BrowserModule,
-    IonicModule.forRoot({
-      mode: 'md',
-    }),
+    IonicModule.forRoot({ mode: 'md' }),
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled:

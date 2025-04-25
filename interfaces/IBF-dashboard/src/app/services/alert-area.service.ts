@@ -22,9 +22,7 @@ import { EventState } from 'src/app/types/event-state';
 import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AlertAreaService {
   private alertAreaSubject = new BehaviorSubject<AlertArea[]>([]);
   public alertAreas: AlertArea[];

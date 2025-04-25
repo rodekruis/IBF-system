@@ -111,11 +111,7 @@ export class AdminAreaDataService {
   ): Promise<AdminDataReturnDto[]> {
     const result = await this.adminAreaDataRepository
       .createQueryBuilder('admin-area-data')
-      .where({
-        countryCodeISO3: countryCodeISO3,
-        adminLevel: Number(adminLevel),
-        indicator: indicator,
-      })
+      .where({ countryCodeISO3, adminLevel: Number(adminLevel), indicator })
       .select([
         'admin-area-data.value AS value',
         'admin-area-data.placeCode AS "placeCode"',

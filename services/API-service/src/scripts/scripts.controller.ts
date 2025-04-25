@@ -52,12 +52,7 @@ export class ScriptsController {
   public async resetDb(
     @Body() body: ResetDto,
     @Res() res,
-    @Query(
-      'includeLinesData',
-      new ParseBoolPipe({
-        optional: true,
-      }),
-    )
+    @Query('includeLinesData', new ParseBoolPipe({ optional: true }))
     includeLinesData: boolean,
   ): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {
@@ -80,15 +75,8 @@ export class ScriptsController {
     description:
       'Uploaded mock data for specified country, disasterType and scenario, if matching mock data found',
   })
-  @ApiQuery({
-    name: 'disasterType',
-    required: false,
-    enum: DisasterType,
-  })
-  @ApiQuery({
-    name: 'countryCodeISO3',
-    required: false,
-  })
+  @ApiQuery({ name: 'disasterType', required: false, enum: DisasterType })
+  @ApiQuery({ name: 'countryCodeISO3', required: false })
   @ApiQuery({
     name: 'noNotifications',
     required: false,
@@ -102,12 +90,7 @@ export class ScriptsController {
     @Query('countryCodeISO3') countryCodeISO3: string,
     @Body() body: MockInputDto,
     @Res() res,
-    @Query(
-      'noNotifications',
-      new ParseBoolPipe({
-        optional: true,
-      }),
-    )
+    @Query('noNotifications', new ParseBoolPipe({ optional: true }))
     noNotifications: boolean,
   ): Promise<string> {
     if (body.secret !== process.env.RESET_SECRET) {

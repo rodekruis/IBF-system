@@ -67,10 +67,7 @@ export class LinesDataController {
   @ApiOperation({
     summary: '[EXTERNALLY USED - PIPELINE] Upload asset exposure status',
   })
-  @ApiResponse({
-    status: 201,
-    description: 'Uploaded asset exposure status.',
-  })
+  @ApiResponse({ status: 201, description: 'Uploaded asset exposure status.' })
   @Post('exposure-status')
   public async uploadAssetExposureStatus(
     @Body() assetFids: UploadLinesExposureStatusDto,

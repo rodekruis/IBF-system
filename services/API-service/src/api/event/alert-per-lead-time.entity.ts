@@ -31,10 +31,7 @@ export class AlertPerLeadTimeEntity {
   public countryCodeISO3: string;
 
   @ManyToOne((): typeof DisasterTypeEntity => DisasterTypeEntity)
-  @JoinColumn({
-    name: 'disasterType',
-    referencedColumnName: 'disasterType',
-  })
+  @JoinColumn({ name: 'disasterType', referencedColumnName: 'disasterType' })
   public disasterType: string;
 
   @Column()

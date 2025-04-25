@@ -19,9 +19,7 @@ import { LastUploadDate } from 'src/app/types/last-upload-date';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class ApiService {
   private log = DEBUG_LOG ? console.log : () => undefined;
 
@@ -64,10 +62,7 @@ export class ApiService {
     this.log(`ApiService GET: ${security} ${url}`);
 
     return this.http
-      .get<T>(url, {
-        headers: this.createHeaders(anonymous),
-        params,
-      })
+      .get<T>(url, { headers: this.createHeaders(anonymous), params })
       .pipe(
         tap((response) => {
           this.log(
@@ -85,9 +80,7 @@ export class ApiService {
     this.log(`ApiService POST: ${security} ${url}`, body);
 
     return this.http
-      .post<T>(url, body, {
-        headers: this.createHeaders(anonymous),
-      })
+      .post<T>(url, body, { headers: this.createHeaders(anonymous) })
       .pipe(
         tap((response) => {
           this.log(
@@ -106,9 +99,7 @@ export class ApiService {
     this.log(`ApiService PUT: ${security} ${url}`, body);
 
     return this.http
-      .put<T>(url, body, {
-        headers: this.createHeaders(anonymous),
-      })
+      .put<T>(url, body, { headers: this.createHeaders(anonymous) })
       .pipe(
         tap((response) => {
           this.log(
@@ -128,21 +119,12 @@ export class ApiService {
   login(email: string, password: string): Observable<{ user: User }> {
     this.log('ApiService : login()');
 
-    return this.post(
-      'user/login',
-      {
-        email,
-        password,
-      },
-      true,
-    );
+    return this.post('user/login', { email, password }, true);
   }
 
   changePassword(password: string): Observable<User> {
     this.log('ApiService : changePassword()');
-    return this.post('user/change-password', {
-      password,
-    });
+    return this.post('user/change-password', { password });
   }
 
   getCountries(

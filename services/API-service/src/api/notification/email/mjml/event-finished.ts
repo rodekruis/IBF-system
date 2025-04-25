@@ -55,7 +55,7 @@ export const getMjmlFinishedEvents = ({
         disasterTypeLabel: disasterType,
         eventName: event.eventName,
         issuedDate: getFormattedDate({ date: event.issuedDate }),
-        timezone: timezone,
+        timezone,
       }),
     );
   }

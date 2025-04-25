@@ -21,9 +21,7 @@ class UserStateComponent extends DashboardPage {
   }
 
   async headerComponentIsVisible({ country: { name }, title }: Dataset) {
-    const header = this.header.filter({
-      hasText: `${title} ${name}`,
-    });
+    const header = this.header.filter({ hasText: `${title} ${name}` });
     await expect(header).toBeVisible();
   }
 
@@ -36,9 +34,7 @@ class UserStateComponent extends DashboardPage {
     disasterType: string;
     title: string;
   }) {
-    const header = this.header.filter({
-      hasText: `${title} ${name}`,
-    });
+    const header = this.header.filter({ hasText: `${title} ${name}` });
     const headerText = await header.textContent().then((text) => text?.trim());
     const headerTextTransformed = headerText?.replace('  ', ' '); // REFACTOR
 

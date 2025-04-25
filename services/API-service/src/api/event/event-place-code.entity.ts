@@ -26,10 +26,7 @@ export class EventPlaceCodeEntity {
   public adminArea: AdminAreaEntity;
 
   @ManyToOne((): typeof DisasterTypeEntity => DisasterTypeEntity)
-  @JoinColumn({
-    name: 'disasterType',
-    referencedColumnName: 'disasterType',
-  })
+  @JoinColumn({ name: 'disasterType', referencedColumnName: 'disasterType' })
   public disasterType: string;
 
   @Column({ nullable: true })

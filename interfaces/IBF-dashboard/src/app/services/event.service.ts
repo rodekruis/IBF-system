@@ -69,18 +69,13 @@ export class DisasterSpecificProperties {
   };
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class EventService {
   private country: Country;
   private disasterType: DisasterType;
   private countryDisasterSettings: CountryDisasterSettings;
 
-  public nullState: EventState = {
-    events: null,
-    event: null,
-  };
+  public nullState: EventState = { events: null, event: null };
 
   public state = this.nullState;
   public today: DateTime;

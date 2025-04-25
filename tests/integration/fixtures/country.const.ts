@@ -23,11 +23,7 @@ export const countryData: CountryDto[] = [
         eapLink:
           'https://510ibfsystem.blob.core.windows.net/about-trigger/MWI-EAP-document.pdf',
         eapAlertClasses: {
-          no: {
-            label: 'No action',
-            color: 'ibf-no-alert-primary',
-            value: 0,
-          },
+          no: { label: 'No action', color: 'ibf-no-alert-primary', value: 0 },
           max: {
             label: 'Trigger issued',
             color: 'ibf-glofas-trigger',
@@ -66,14 +62,8 @@ export const countryData: CountryDto[] = [
       },
     ],
     adminRegionLabels: {
-      '1': {
-        singular: 'Region',
-        plural: 'Regions',
-      },
-      '2': {
-        singular: 'District',
-        plural: 'Districts',
-      },
+      '1': { singular: 'Region', plural: 'Regions' },
+      '2': { singular: 'District', plural: 'Districts' },
       '3': {
         singular: 'Traditional Authority',
         plural: 'Traditional Authorities',

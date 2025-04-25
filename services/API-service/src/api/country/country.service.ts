@@ -8,8 +8,8 @@ import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { AdminLevel } from './admin-level.enum';
-import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import { CountryEntity } from './country.entity';
+import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import {
   AddCountriesDto,
   CountryDisasterSettingsDto,
@@ -57,9 +57,7 @@ export class CountryService {
   ): Promise<void> {
     for await (const country of countries.countries) {
       const existingCountry = await this.countryRepository.findOne({
-        where: {
-          countryCodeISO3: country.countryCodeISO3,
-        },
+        where: { countryCodeISO3: country.countryCodeISO3 },
         relations: ['countryDisasterSettings'],
       });
       if (existingCountry) {

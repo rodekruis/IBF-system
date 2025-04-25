@@ -17,8 +17,8 @@ import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
 import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
-import { UserRole } from '../api/user/user-role.enum';
 import { UserEntity } from '../api/user/user.entity';
+import { UserRole } from '../api/user/user-role.enum';
 import countries from './json/countries.json';
 import disasterTypes from './json/disaster-types.json';
 import eapActions from './json/EAP-actions.json';
@@ -86,9 +86,7 @@ export class SeedInit implements InterfaceScript {
 
     const envDisasterTypes = process.env.DISASTER_TYPES.split(',');
     await this.countryService.addOrUpdateCountries(
-      {
-        countries: selectedCountries,
-      },
+      { countries: selectedCountries },
       envDisasterTypes,
     );
 
@@ -156,18 +154,14 @@ export class SeedInit implements InterfaceScript {
           ? await countryRepository.find()
           : await countryRepository.find({
               where: user.countries.map((countryCodeISO3: string): object => {
-                return {
-                  countryCodeISO3: countryCodeISO3,
-                };
+                return { countryCodeISO3 };
               }),
             });
         userEntity.disasterTypes = !user.disasterTypes
           ? []
           : await disasterTypeRepository.find({
               where: user.disasterTypes.map((disasterType: string): object => {
-                return {
-                  disasterType: disasterType,
-                };
+                return { disasterType };
               }),
             });
         userEntity.password = user.password;

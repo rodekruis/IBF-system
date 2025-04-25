@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 
-import { QueryRunner, Logger as TypeOrmLogger } from 'typeorm';
+import { Logger as TypeOrmLogger, QueryRunner } from 'typeorm';
 import { LoggerOptions as TypeOrmLoggerOptions } from 'typeorm/logger/LoggerOptions';
 
 /**

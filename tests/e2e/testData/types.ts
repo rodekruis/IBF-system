@@ -44,8 +44,6 @@ export interface Dataset {
   aggregates: Aggregates;
   mapLayers: Layer[];
   timeline: Timeline;
-  eap: {
-    actions: boolean;
-  };
+  eap: { actions: boolean };
   configurationId: number;
 }

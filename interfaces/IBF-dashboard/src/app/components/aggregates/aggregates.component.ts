@@ -202,10 +202,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   public getAggregatesHeader(mapView: MapView) {
     if (!this.disasterType) {
-      return {
-        headerLabel: '',
-        subHeaderLabel: '',
-      };
+      return { headerLabel: '', subHeaderLabel: '' };
     }
 
     if (mapView === MapView.national) {
@@ -268,10 +265,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
           };
     }
 
-    return {
-      headerLabel: mapView,
-      subHeaderLabel: mapView,
-    };
+    return { headerLabel: mapView, subHeaderLabel: mapView };
   }
 
   private getEventNameString(): string {

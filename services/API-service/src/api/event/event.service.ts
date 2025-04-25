@@ -21,15 +21,15 @@ import {
   Event,
 } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import {
   ALERT_THRESHOLD,
   FORECAST_SEVERITY,
   FORECAST_TRIGGER,
 } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { AdminAreaEntity } from '../admin-area/admin-area.entity';
-import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
 import { CountryEntity } from '../country/country.entity';
+import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
@@ -369,7 +369,7 @@ export class EventService {
 
     const whereFiltersEvent = {
       closed: false,
-      disasterType: disasterType,
+      disasterType,
       adminArea: { countryCodeISO3 },
       forecastSeverity: MoreThan(0),
     };
@@ -574,11 +574,9 @@ export class EventService {
 
     if (countryCodeISO3 && disasterType) {
       baseQuery = baseQuery
-        .andWhere('event."disasterType" = :disasterType', {
-          disasterType: disasterType,
-        })
+        .andWhere('event."disasterType" = :disasterType', { disasterType })
         .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
-          countryCodeISO3: countryCodeISO3,
+          countryCodeISO3,
         });
     }
     const activationLogData = await baseQuery.getRawMany();
@@ -657,9 +655,7 @@ export class EventService {
     if (alertsPerLeadTime.length === 0) {
       return {};
     }
-    const result = {
-      date: alertsPerLeadTime[0].date,
-    };
+    const result = { date: alertsPerLeadTime[0].date };
     for (const leadTimeKey in LeadTime) {
       const leadTimeUnit = LeadTime[leadTimeKey];
       const leadTimeIsAlerted = alertsPerLeadTime.find(
@@ -837,10 +833,7 @@ export class EventService {
         AND exposure.indicator = :indicator`,
           { indicator: mainExposureIndicator },
         )
-        .where({
-          ...whereFilters,
-          indicator: ALERT_THRESHOLD,
-        })
+        .where({ ...whereFilters, indicator: ALERT_THRESHOLD })
         .andWhere(
           `(alert.value > 0 OR (alert."disasterType" IN ('typhoon','flash-floods')))`, // This reflects the current functionality where alert_threshold=0 for warnings in typhoon and flash-floods
         )
@@ -1145,10 +1138,7 @@ export class EventService {
       const alertClassKey = Object.keys(eapAlertClasses).find(
         (key) => key === alertLevelToEAPAlertClass[alertLevel],
       );
-      return {
-        key: alertClassKey,
-        ...eapAlertClasses[alertClassKey],
-      };
+      return { key: alertClassKey, ...eapAlertClasses[alertClassKey] };
     } else {
       if (alertLevel === AlertLevel.TRIGGER) {
         return {

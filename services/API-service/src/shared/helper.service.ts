@@ -19,10 +19,7 @@ export class HelperService {
   public constructor(private dataSource: DataSource) {}
 
   public toGeojson(rawResult): GeoJson {
-    const geoJson: GeoJson = {
-      type: 'FeatureCollection',
-      features: [],
-    };
+    const geoJson: GeoJson = { type: 'FeatureCollection', features: [] };
     rawResult.forEach((i): void => {
       const feature: GeoJsonFeature = {
         type: 'Feature',
@@ -98,7 +95,7 @@ export class HelperService {
       AdminAreaDynamicDataEntity,
     );
     const result = await adminAreaDynamicDataRepository.findOne({
-      where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
+      where: { countryCodeISO3, disasterType },
       order: { timestamp: 'DESC' },
     });
     if (result) {
@@ -111,11 +108,7 @@ export class HelperService {
         ),
       };
     } else {
-      return {
-        date: null,
-        timestamp: null,
-        cutoffMoment: null,
-      };
+      return { date: null, timestamp: null, cutoffMoment: null };
     }
   }
 

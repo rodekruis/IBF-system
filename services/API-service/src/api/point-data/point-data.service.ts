@@ -16,8 +16,8 @@ import {
 import { DamSiteDto } from './dto/upload-dam-sites.dto';
 import { EvacuationCenterDto } from './dto/upload-evacuation-centers.dto';
 import { GaugeDto } from './dto/upload-gauge.dto';
-import { UploadGlofasStationDynamicOldFormatDto } from './dto/upload-glofas-station-old-format';
 import { GlofasStationDto } from './dto/upload-glofas-station.dto';
+import { UploadGlofasStationDynamicOldFormatDto } from './dto/upload-glofas-station-old-format';
 import { HealthSiteDto } from './dto/upload-health-sites.dto';
 import { RedCrossBranchDto } from './dto/upload-red-cross-branch.dto';
 import { SchoolDto } from './dto/upload-schools.dto';
@@ -80,11 +80,7 @@ export class PointDataService {
     const pointDataQuery = this.pointDataRepository
       .createQueryBuilder('point')
       .select(selectColumns)
-      .where({
-        pointDataCategory: pointDataCategory,
-        countryCodeISO3: countryCodeISO3,
-        active: true,
-      })
+      .where({ pointDataCategory, countryCodeISO3, active: true })
       .leftJoin(
         (subquery) => {
           return subquery
@@ -149,10 +145,7 @@ export class PointDataService {
     // Deactivate existing entries
     if (deactivateExisting) {
       await this.pointDataRepository.update(
-        {
-          countryCodeISO3: countryCodeISO3,
-          pointDataCategory: pointDataCategory,
-        },
+        { countryCodeISO3, pointDataCategory },
         { active: false },
       );
     }
@@ -162,9 +155,9 @@ export class PointDataService {
       delete pointAttributes['lat'];
       delete pointAttributes['lon'];
       return {
-        countryCodeISO3: countryCodeISO3,
+        countryCodeISO3,
         referenceId: point.fid || null,
-        pointDataCategory: pointDataCategory,
+        pointDataCategory,
         attributes: JSON.parse(JSON.stringify(pointAttributes)),
         active: true,
         geom: (): string =>
@@ -222,7 +215,7 @@ export class PointDataService {
 
   public async dismissCommunityNotification(pointDataId: string) {
     const notification = await this.pointDataRepository.findOne({
-      where: { pointDataId: pointDataId },
+      where: { pointDataId },
     });
     if (!notification) {
       throw new HttpException(

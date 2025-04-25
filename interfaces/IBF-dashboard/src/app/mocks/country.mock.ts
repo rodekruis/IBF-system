@@ -7,23 +7,11 @@ export const MOCK_COUNTRY: Country = {
   countryDisasterSettings: [MOCK_COUNTRYDISASTERSETTINGS],
   countryName: 'Kenya',
   adminRegionLabels: {
-    '1': {
-      singular: 'County',
-      plural: 'Counties',
-    },
-    '2': {
-      singular: 'Subcounty',
-      plural: 'Subcounties',
-    },
-    '3': {
-      singular: 'Ward',
-      plural: 'Wards',
-    },
+    '1': { singular: 'County', plural: 'Counties' },
+    '2': { singular: 'Subcounty', plural: 'Subcounties' },
+    '3': { singular: 'Ward', plural: 'Wards' },
   },
-  countryLogos: {
-    floods: ['KEN-krcs.png'],
-    drought: ['KEN-krcs.png'],
-  },
+  countryLogos: { floods: ['KEN-krcs.png'], drought: ['KEN-krcs.png'] },
   disasterTypes: [MOCK_DISASTERTYPE],
   notificationInfo: {
     linkPdf: 'https://example.com',

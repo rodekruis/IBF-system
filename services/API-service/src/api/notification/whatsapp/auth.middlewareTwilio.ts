@@ -28,9 +28,7 @@ export class AuthMiddlewareTwilio implements NestMiddleware {
       twilioSignature,
       EXTERNAL_API.whatsAppStatus,
       req.body,
-      {
-        accountSid: process.env.TWILIO_SID,
-      },
+      { accountSid: process.env.TWILIO_SID },
     );
     if (validWhatsAppStatus) {
       return next();
@@ -41,9 +39,7 @@ export class AuthMiddlewareTwilio implements NestMiddleware {
       twilioSignature,
       EXTERNAL_API.whatsAppIncoming,
       req.body,
-      {
-        accountSid: process.env.TWILIO_SID,
-      },
+      { accountSid: process.env.TWILIO_SID },
     );
     if (validWhatsAppIncoming) {
       return next();

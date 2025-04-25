@@ -14,8 +14,8 @@ import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
-import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { EventService } from '../event/event.service';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { AdminAreaEntity } from './admin-area.entity';
 import { EventAreaService } from './services/event-area.service';
 
@@ -41,10 +41,7 @@ export class AdminAreaService {
     adminAreasGeoJson: GeoJson,
   ) {
     //delete existing entries for country & adminlevel first
-    await this.adminAreaRepository.delete({
-      countryCodeISO3: countryCodeISO3,
-      adminLevel: adminLevel,
-    });
+    await this.adminAreaRepository.delete({ countryCodeISO3, adminLevel });
 
     const adminAreas = this.processPreUploadExceptions(adminAreasGeoJson);
 
@@ -55,8 +52,8 @@ export class AdminAreaService {
           .createQueryBuilder()
           .insert()
           .values({
-            countryCodeISO3: countryCodeISO3,
-            adminLevel: adminLevel,
+            countryCodeISO3,
+            adminLevel,
             name: area.properties[`ADM${adminLevel}_EN`],
             placeCode: area.properties[`ADM${adminLevel}_PCODE`],
             placeCodeParent:
@@ -136,7 +133,7 @@ export class AdminAreaService {
     lastUploadDate: LastUploadDateDto,
   ) {
     const disasterTypeEntity = await this.disasterTypeRepository.findOne({
-      where: { disasterType: disasterType },
+      where: { disasterType },
     });
     // REFACTOR: exact working if this property and code very unclear
     if (disasterTypeEntity.showOnlyTriggeredAreas) {
@@ -231,10 +228,7 @@ export class AdminAreaService {
         'epc."forecastTrigger"',
         'epc."userTrigger"',
       ])
-      .where({
-        countryCodeISO3,
-        adminLevel,
-      })
+      .where({ countryCodeISO3, adminLevel })
       .andWhere('dynamic."disasterType" = :disasterType', { disasterType })
       .andWhere('dynamic.timestamp >= :cutoffMoment', {
         cutoffMoment: lastUploadDate.cutoffMoment,

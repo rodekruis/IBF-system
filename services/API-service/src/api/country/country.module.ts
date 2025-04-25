@@ -5,10 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { UserModule } from '../user/user.module';
-import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import { CountryController } from './country.controller';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
+import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 
 @Module({
   imports: [

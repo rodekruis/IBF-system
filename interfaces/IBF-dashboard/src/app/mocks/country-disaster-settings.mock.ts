@@ -19,16 +19,8 @@ export const MOCK_COUNTRYDISASTERSETTINGS: CountryDisasterSettings = {
   eapLink:
     'https://kenyaredcross-my.sharepoint.com/:w:/g/personal/saado_halima_redcross_or_ke/ETp6Vml__etKk-C2KAqH4XIBrIJmAMT58mqA_iQlCZtuKw?rtime=FJll0Rbn2Ug',
   eapAlertClasses: {
-    no: {
-      label: 'No action',
-      color: 'ibf-no-alert-primary',
-      value: 0,
-    },
-    max: {
-      label: 'Trigger issued',
-      color: 'ibf-glofas-trigger',
-      value: 1,
-    },
+    no: { label: 'No action', color: 'ibf-no-alert-primary', value: 0 },
+    max: { label: 'Trigger issued', color: 'ibf-glofas-trigger', value: 1 },
   },
   droughtSeasonRegions: null,
   droughtRegions: {},

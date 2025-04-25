@@ -167,9 +167,6 @@ export class TyphoonTrackService {
         maxTimestamp.getTime() === closestToLandTimestamp.getTime();
     }
 
-    return {
-      typhoonLandfall,
-      typhoonNoLandfallYet,
-    };
+    return { typhoonLandfall, typhoonNoLandfallYet };
   }
 }

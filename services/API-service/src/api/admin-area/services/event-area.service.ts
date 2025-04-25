@@ -43,9 +43,7 @@ export class EventAreaService {
     eventAreasGeoJson: GeoJson,
   ) {
     //delete existing entries for country & adminlevel first
-    await this.eventAreaRepository.delete({
-      countryCodeISO3: countryCodeISO3,
-    });
+    await this.eventAreaRepository.delete({ countryCodeISO3 });
 
     // then upload new admin-areas
     await Promise.all(
@@ -54,8 +52,8 @@ export class EventAreaService {
           .createQueryBuilder()
           .insert()
           .values({
-            countryCodeISO3: countryCodeISO3,
-            disasterType: disasterType,
+            countryCodeISO3,
+            disasterType,
             eventAreaName: area.properties[`name`],
             geom: (): string => this.geomFunction(area.geometry.coordinates),
           })
@@ -117,10 +115,7 @@ export class EventAreaService {
     if (eventAreas.length === 0) {
       const allEventAreas = await this.eventAreaRepository
         .createQueryBuilder('area')
-        .where({
-          countryCodeISO3: countryCodeISO3,
-          disasterType: disasterType.disasterType,
-        })
+        .where({ countryCodeISO3, disasterType: disasterType.disasterType })
         .select([
           'area."eventAreaName" as "name"',
           'area."countryCodeISO3" as "countryCodeISO3"',

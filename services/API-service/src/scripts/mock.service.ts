@@ -1,22 +1,22 @@
-import fs from 'fs';
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import fs from 'fs';
 import { Repository } from 'typeorm';
 
+import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
-import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { AdminLevel } from '../api/country/admin-level.enum';
 import { CountryEntity } from '../api/country/country.entity';
 import { CountryDisasterSettingsDto } from '../api/country/dto/add-countries.dto';
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
 import { AlertPerLeadTimeEntity } from '../api/event/alert-per-lead-time.entity';
-import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { EventService } from '../api/event/event.service';
+import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
 import { MetadataService } from '../api/metadata/metadata.service';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { ProcessEventsService } from '../api/process-events/process-events.service';
@@ -178,7 +178,7 @@ export class MockService {
             }
 
             await this.adminAreaDynamicDataService.exposure({
-              countryCodeISO3: countryCodeISO3,
+              countryCodeISO3,
               exposurePlaceCodes,
               leadTime,
               dynamicIndicator: indicator,
@@ -316,7 +316,7 @@ export class MockService {
         for (const leadTime of leadTimesForNoEvents) {
           await this.adminAreaDynamicDataService.exposure({
             countryCodeISO3: selectedCountry.countryCodeISO3,
-            exposurePlaceCodes: exposurePlaceCodes,
+            exposurePlaceCodes,
             leadTime: leadTime as LeadTime,
             dynamicIndicator: indicator,
             adminLevel,
@@ -451,15 +451,9 @@ export class MockService {
   ) {
     const allCountryEvents = await this.eventPlaceCodeRepo.find({
       relations: ['eapActionStatuses', 'adminArea'],
-      where: {
-        adminArea: { countryCodeISO3 },
-        disasterType,
-      },
+      where: { adminArea: { countryCodeISO3 }, disasterType },
     });
-    await this.alertPerLeadTimeRepo.delete({
-      countryCodeISO3,
-      disasterType,
-    });
+    await this.alertPerLeadTimeRepo.delete({ countryCodeISO3, disasterType });
     await this.adminAreaDynamicDataRepo.delete({
       countryCodeISO3,
       disasterType,
@@ -517,7 +511,7 @@ export class MockService {
 
     for await (const countryCodeISO3 of countryCodes) {
       const country = await this.countryRepo.findOne({
-        where: { countryCodeISO3: countryCodeISO3 },
+        where: { countryCodeISO3 },
         relations: ['disasterTypes'],
       });
       const countryDisasterTypes = country.disasterTypes.map(

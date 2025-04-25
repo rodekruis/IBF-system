@@ -5,10 +5,10 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Arguments } from 'yargs';
 
 import { ORMConfig } from '../../ormconfig';
-import { AdminAreaDataModule } from '../api/admin-area-data/admin-area-data.module';
-import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { AdminAreaModule } from '../api/admin-area/admin-area.module';
+import { AdminAreaDataModule } from '../api/admin-area-data/admin-area-data.module';
+import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { CountryEntity } from '../api/country/country.entity';
 import { CountryModule } from '../api/country/country.module';
 import { DisasterTypeModule } from '../api/disaster-type/disaster-type.module';
@@ -24,8 +24,8 @@ import { AdminAreaDynamicDataModule } from './../api/admin-area-dynamic-data/adm
 import { EapActionStatusEntity } from './../api/eap-actions/eap-action-status.entity';
 import { EventPlaceCodeEntity } from './../api/event/event-place-code.entity';
 import { GeoserverSyncService } from './geoserver-sync.service';
-import { MockHelperService } from './mock-helper.service';
 import { MockService } from './mock.service';
+import { MockHelperService } from './mock-helper.service';
 import { ScriptsController } from './scripts.controller';
 import SeedAdminArea from './seed-admin-area';
 import SeedAdminAreaData from './seed-admin-area-data';

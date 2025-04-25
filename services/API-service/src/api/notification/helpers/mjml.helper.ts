@@ -1,6 +1,5 @@
-import * as fs from 'fs';
-
 import { format } from 'date-fns';
+import * as fs from 'fs';
 
 import { EapAlertClassKeyEnum } from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
@@ -29,14 +28,8 @@ const emailLogoFolder = `${emailFolder}/logos`;
 const HEAD_ATTRIBUTES = {
   tagName: 'mj-attributes',
   children: [
-    {
-      tagName: 'mj-all',
-      attributes: { 'font-family': 'Arial, sans-serif' },
-    },
-    {
-      tagName: 'mj-text',
-      attributes: { 'font-size': '16px' },
-    },
+    { tagName: 'mj-all', attributes: { 'font-family': 'Arial, sans-serif' } },
+    { tagName: 'mj-text', attributes: { 'font-size': '16px' } },
   ],
 };
 
@@ -44,10 +37,7 @@ export const EMAIL_HEAD = {
   tagName: 'mj-head',
   children: [
     HEAD_ATTRIBUTES,
-    {
-      tagName: 'mj-breakpoint',
-      attributes: { width: '520px' },
-    },
+    { tagName: 'mj-breakpoint', attributes: { width: '520px' } },
   ],
 };
 
@@ -62,12 +52,7 @@ export const getSectionElement = ({
 }) => {
   return {
     tagName: 'mj-section',
-    children: [
-      {
-        tagName: 'mj-column',
-        children: childrenEls,
-      },
-    ],
+    children: [{ tagName: 'mj-column', children: childrenEls }],
     attributes: {
       'full-width': 'full-width',
       padding: '16px',
@@ -87,11 +72,7 @@ export const getTextElement = ({
   return {
     tagName: 'mj-text',
     content,
-    attributes: {
-      'line-height': '1.5',
-      padding: '0',
-      ...attributes,
-    },
+    attributes: { 'line-height': '1.5', padding: '0', ...attributes },
   };
 };
 
@@ -108,10 +89,7 @@ export const getNotificationActionsSection = ({
 }): object => {
   return {
     tagName: 'mj-section',
-    attributes: {
-      padding: '0',
-      'text-align': 'left',
-    },
+    attributes: { padding: '0', 'text-align': 'left' },
     children: [
       {
         tagName: 'mj-column',
@@ -169,11 +147,7 @@ export const getNotificationActionsSection = ({
           'vertical-align': 'middle',
           padding: '4px',
         },
-        children: [
-          getTextElement({
-            content: description,
-          }),
-        ],
+        children: [getTextElement({ content: description })],
       },
     ],
   };
@@ -238,10 +212,7 @@ export const getImageElement = ({
   src: string;
   attributes?: object;
 }): object => {
-  return {
-    tagName: 'mj-image',
-    attributes: { src, ...attributes },
-  };
+  return { tagName: 'mj-image', attributes: { src, ...attributes } };
 };
 
 export const dateObjectToDateTimeString = (
@@ -256,7 +227,7 @@ export const dateObjectToDateTimeString = (
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
-    timeZone: timeZone,
+    timeZone,
   };
   return date.toLocaleString('default', options);
 };

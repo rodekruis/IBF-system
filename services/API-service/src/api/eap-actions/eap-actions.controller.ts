@@ -10,12 +10,12 @@ import {
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
-import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
+import { UserRole } from '../user/user-role.enum';
 import { CheckEapActionDto } from './dto/check-eap-action.dto';
 import { AddEapActionsDto } from './dto/eap-action.dto';
-import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionEntity } from './eap-action.entity';
+import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapAction, EapActionsService } from './eap-actions.service';
 
 @ApiBearerAuth()
@@ -59,9 +59,7 @@ export class EapActionsController {
     return await this.eapActionsService.checkAction(userId, eapAction);
   }
 
-  @ApiOperation({
-    summary: '[EXTERNALLY USED - KOBO] Check off early action',
-  })
+  @ApiOperation({ summary: '[EXTERNALLY USED - KOBO] Check off early action' })
   @ApiResponse({
     status: 201,
     description: 'Checked off early action.',

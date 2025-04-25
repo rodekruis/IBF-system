@@ -165,12 +165,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       cssClass: 'ibf-popover ibf-popover-normal',
       translucent: true,
       showBackdrop: true,
-      componentProps: {
-        layer: {
-          label,
-          description,
-        },
-      },
+      componentProps: { layer: { label, description } },
     });
 
     this.analyticsService.logEvent(AnalyticsEvent.aggregateInformation, {

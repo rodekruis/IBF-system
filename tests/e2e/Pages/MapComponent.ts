@@ -301,10 +301,7 @@ class MapComponent extends DashboardPage {
   async glofasMarkersAreVisible({
     eapAlertClass = 'no',
     isVisible = true,
-  }: {
-    eapAlertClass?: string;
-    isVisible?: boolean;
-  } = {}) {
+  }: { eapAlertClass?: string; isVisible?: boolean } = {}) {
     const markers = this.page.locator(`.glofas-station-${eapAlertClass}`);
 
     const count = await markers.count();

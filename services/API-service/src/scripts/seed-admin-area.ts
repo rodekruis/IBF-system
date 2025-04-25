@@ -1,5 +1,6 @@
-import fs from 'fs';
 import { Injectable } from '@nestjs/common';
+
+import fs from 'fs';
 
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { EventAreaService } from '../api/admin-area/services/event-area.service';

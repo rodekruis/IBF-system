@@ -9,8 +9,8 @@ import { UserModule } from '../user/user.module';
 import { EmailService } from './email/email.service';
 import { MjmlService } from './email/mjml.service';
 import { NotificationInfoEntity } from './notifcation-info.entity';
-import { NotificationContentModule } from './notification-content/notification-content.module';
 import { NotificationService } from './notification.service';
+import { NotificationContentModule } from './notification-content/notification-content.module';
 import { WhatsappModule } from './whatsapp/whatsapp.module';
 
 @Module({

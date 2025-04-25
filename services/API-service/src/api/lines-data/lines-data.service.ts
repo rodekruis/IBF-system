@@ -7,8 +7,8 @@ import { HelperService } from '../../shared/helper.service';
 import { UploadLinesExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
 import { BuildingDto } from './dto/upload-buildings.dto';
 import { RoadDto } from './dto/upload-roads.dto';
-import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
 import { LinesDataEntity, LinesDataEnum } from './lines-data.entity';
+import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
 
 @Injectable()
 export class LinesDataService {
@@ -43,10 +43,7 @@ export class LinesDataService {
     // Delete existing entries
     if (deactivateExisting) {
       await this.linesDataRepository.update(
-        {
-          countryCodeISO3: countryCodeISO3,
-          linesDataCategory: linesDataCategory,
-        },
+        { countryCodeISO3, linesDataCategory },
         { active: false },
       );
     }
@@ -55,9 +52,9 @@ export class LinesDataService {
       const pointAttributes = JSON.parse(JSON.stringify(line)); // hack: clone without referencing
       delete pointAttributes['wkt'];
       return {
-        countryCodeISO3: countryCodeISO3,
+        countryCodeISO3,
         referenceId: line.fid || null,
-        linesDataCategory: linesDataCategory,
+        linesDataCategory,
         attributes: JSON.parse(JSON.stringify(pointAttributes)),
         active: true,
         geom: (): string => `st_geomfromtext(

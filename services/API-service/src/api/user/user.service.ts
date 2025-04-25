@@ -1,9 +1,9 @@
-import crypto from 'crypto';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { validate } from 'class-validator';
+import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import { In, Repository } from 'typeorm';
 
@@ -12,9 +12,9 @@ import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { LookupService } from '../notification/lookup/lookup.service';
 import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserRole } from './user-role.enum';
 import { UserEntity } from './user.entity';
 import { UserData, UserResponseObject } from './user.model';
+import { UserRole } from './user-role.enum';
 
 @Injectable()
 export class UserService {
@@ -30,9 +30,7 @@ export class UserService {
   public constructor(private readonly lookupService: LookupService) {}
 
   public async findAll(): Promise<UserEntity[]> {
-    return await this.userRepository.find({
-      relations: this.relations,
-    });
+    return await this.userRepository.find({ relations: this.relations });
   }
 
   public async findOne(loginUserDto: LoginUserDto): Promise<UserEntity> {
@@ -51,9 +49,7 @@ export class UserService {
 
   public async create(dto: CreateUserDto): Promise<UserResponseObject> {
     const email = dto.email.toLowerCase();
-    const user = await this.userRepository.findOne({
-      where: { email },
-    });
+    const user = await this.userRepository.findOne({ where: { email } });
 
     if (user) {
       const errors = { errors: 'Email must be unique.' };
@@ -100,7 +96,7 @@ export class UserService {
 
   public async findById(userId: string): Promise<UserResponseObject> {
     const user = await this.userRepository.findOne({
-      where: { userId: userId },
+      where: { userId },
       relations: this.relations,
     });
     if (!user) {
@@ -146,10 +142,7 @@ export class UserService {
       updateUser = loggedInUser;
     }
     const password = crypto.createHmac('sha256', dto.password).digest('hex');
-    await this.userRepository.save({
-      userId: updateUser.userId,
-      password,
-    });
+    await this.userRepository.save({ userId: updateUser.userId, password });
     return this.buildUserRO(updateUser);
   }
 
@@ -157,9 +150,7 @@ export class UserService {
     email: string,
     updateUserData: UpdateUserDto,
   ): Promise<UserResponseObject> {
-    const user = await this.userRepository.findOne({
-      where: { email },
-    });
+    const user = await this.userRepository.findOne({ where: { email } });
     if (!user) {
       const errors = { User: 'Not found' };
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);

@@ -3,9 +3,9 @@ import { Reflector } from '@nestjs/core';
 
 import * as jwt from 'jsonwebtoken';
 
-import { UserRole } from './api/user/user-role.enum';
 import { User } from './api/user/user.model';
 import { UserService } from './api/user/user.service';
+import { UserRole } from './api/user/user-role.enum';
 
 @Injectable()
 export class RolesGuard implements CanActivate {

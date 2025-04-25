@@ -1,6 +1,5 @@
-import crypto from 'crypto';
-
 import { IsEmail } from 'class-validator';
+import crypto from 'crypto';
 import {
   BeforeInsert,
   Column,
@@ -47,10 +46,7 @@ export class UserEntity {
   )
   @JoinTable({
     name: 'user_countries',
-    joinColumn: {
-      name: 'user',
-      referencedColumnName: 'email',
-    },
+    joinColumn: { name: 'user', referencedColumnName: 'email' },
     inverseJoinColumn: {
       name: 'country',
       referencedColumnName: 'countryCodeISO3',
@@ -64,10 +60,7 @@ export class UserEntity {
   )
   @JoinTable({
     name: 'user_disaster_types',
-    joinColumn: {
-      name: 'user',
-      referencedColumnName: 'email',
-    },
+    joinColumn: { name: 'user', referencedColumnName: 'email' },
     inverseJoinColumn: {
       name: 'disasterType',
       referencedColumnName: 'disasterType',

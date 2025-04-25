@@ -42,10 +42,7 @@ export class AdminAreaDataController {
   @ApiOperation({
     summary: 'Upload (and overwrite) static admin-area data via CSV',
   })
-  @ApiResponse({
-    status: 201,
-    description: 'Uploaded static admin-area data',
-  })
+  @ApiResponse({ status: 201, description: 'Uploaded static admin-area data' })
   @ApiResponse({
     status: 400,
     description: 'Validation errors in content of CSV',
@@ -62,10 +59,7 @@ export class AdminAreaDataController {
   @ApiOperation({
     summary: 'Upload (and overwrite) static admin-area data via JSON',
   })
-  @ApiResponse({
-    status: 201,
-    description: 'Uploaded static admin-area data',
-  })
+  @ApiResponse({ status: 201, description: 'Uploaded static admin-area data' })
   @Post('upload/json')
   @ApiConsumes()
   @UseInterceptors()

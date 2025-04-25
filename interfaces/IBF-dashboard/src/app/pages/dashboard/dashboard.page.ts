@@ -70,9 +70,7 @@ export class DashboardPage implements OnInit {
       cssClass: `ibf-popover ${this.isTablet() ? 'ibf-popover-normal' : ''}`,
       translucent: true,
       showBackdrop: true,
-      componentProps: {
-        device: this.isPhone() ? 'mobile' : 'tablet',
-      },
+      componentProps: { device: this.isPhone() ? 'mobile' : 'tablet' },
     });
 
     await popover.present();

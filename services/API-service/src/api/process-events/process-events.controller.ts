@@ -23,8 +23,8 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { SetTriggerDto } from '../event/dto/event-place-code.dto';
 import { NotificationApiTestResponseDto } from '../notification/dto/notification-api-test-response.dto';
-import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
+import { UserRole } from '../user/user-role.enum';
 import { ProcessEventsDto } from './dto/process-events.dto';
 import { ProcessEventsService } from './process-events.service';
 
@@ -43,10 +43,7 @@ export class ProcessEventsController {
     summary:
       '[EXTERNALLY USED - PIPELINE] Close events automatically for given country and disaster-type. Must be run at end of every pipeline. As a backup, the same logic is also in /notification/send endpoint.',
   })
-  @ApiResponse({
-    status: 201,
-    description: 'Closed finished events.',
-  })
+  @ApiResponse({ status: 201, description: 'Closed finished events.' })
   @Post('event/close-events')
   public async closeEvents(
     @Body() closeEventsDto: ProcessEventsDto,
@@ -65,10 +62,7 @@ export class ProcessEventsController {
     summary:
       '[EXTERNALLY USED - PIPELINE] Process events for given country and disaster-type. Must be run at end of every pipeline.',
   })
-  @ApiResponse({
-    status: 200,
-    description: 'Processed events.',
-  })
+  @ApiResponse({ status: 200, description: 'Processed events.' })
   @ApiQuery({
     name: 'noNotifications',
     required: false,
@@ -80,12 +74,7 @@ export class ProcessEventsController {
   @HttpCode(200)
   public async processEvents(
     @Body() processEventsDto: ProcessEventsDto,
-    @Query(
-      'noNotifications',
-      new ParseBoolPipe({
-        optional: true,
-      }),
-    )
+    @Query('noNotifications', new ParseBoolPipe({ optional: true }))
     noNotifications: boolean,
   ): Promise<void | NotificationApiTestResponseDto> {
     return await this.processEventsService.processEvents(
@@ -119,12 +108,7 @@ export class ProcessEventsController {
   @UseInterceptors()
   public async send(
     @Body() processEventsDto: ProcessEventsDto,
-    @Query(
-      'noNotifications',
-      new ParseBoolPipe({
-        optional: true,
-      }),
-    )
+    @Query('noNotifications', new ParseBoolPipe({ optional: true }))
     noNotifications: boolean,
   ): Promise<void | NotificationApiTestResponseDto> {
     return await this.processEventsService.processEvents(
@@ -157,12 +141,7 @@ export class ProcessEventsController {
   @UseInterceptors()
   public async notify(
     @Body() processEventsDto: ProcessEventsDto,
-    @Query(
-      'noNotifications',
-      new ParseBoolPipe({
-        optional: true,
-      }),
-    )
+    @Query('noNotifications', new ParseBoolPipe({ optional: true }))
     noNotifications: boolean,
   ): Promise<void | NotificationApiTestResponseDto> {
     return await this.processEventsService.notify(

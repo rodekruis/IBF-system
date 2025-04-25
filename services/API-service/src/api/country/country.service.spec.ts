@@ -7,9 +7,9 @@ import countries from '../../scripts/json/countries.json';
 import notificationInfos from '../../scripts/json/notification-info.json';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
-import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
+import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 import { CountryDisasterSettingsDto } from './dto/add-countries.dto';
 import { NotificationInfoDto } from './dto/notification-info.dto';
 
@@ -30,10 +30,7 @@ describe('CountryService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         CountryService,
-        {
-          provide: getRepositoryToken(CountryEntity),
-          useClass: Repository,
-        },
+        { provide: getRepositoryToken(CountryEntity), useClass: Repository },
         {
           provide: getRepositoryToken(DisasterTypeEntity),
           useClass: Repository,

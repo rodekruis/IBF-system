@@ -22,10 +22,7 @@ export default (
     // Assertions
     await userState.headerComponentIsVisible(dataset);
     await dashboard.waitForLoaderToDisappear();
-    await chat.chatColumnIsVisibleForTriggerState({
-      user: dataset.user,
-      date,
-    });
+    await chat.chatColumnIsVisibleForTriggerState({ user: dataset.user, date });
     await chat.validateEventsInfoButtonsAreClickable();
   });
 };

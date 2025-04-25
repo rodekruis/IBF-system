@@ -21,9 +21,7 @@ enum SingleRowLegendType {
   outlineSquare = 'outline-square',
   pin = 'pin',
 }
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class MapLegendService {
   private legendDivTitle = `<div><strong>Map Legend</strong></div>`;
 

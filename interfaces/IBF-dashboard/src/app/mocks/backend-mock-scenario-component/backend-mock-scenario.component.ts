@@ -124,10 +124,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
         },
       ],
       buttons: [
-        {
-          text: this.alertButtonCancelLabel,
-          role: 'cancel',
-        },
+        { text: this.alertButtonCancelLabel, role: 'cancel' },
         {
           text: this.alertButtonNoTriggerLabel,
           cssClass: 'no-trigger-scenario-button',

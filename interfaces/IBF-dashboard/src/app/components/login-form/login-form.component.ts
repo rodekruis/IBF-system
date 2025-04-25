@@ -16,10 +16,7 @@ export class LoginFormComponent {
   @ViewChild('loginForm')
   public loginForm: NgForm;
 
-  public model = {
-    email: '',
-    password: '',
-  };
+  public model = { email: '', password: '' };
 
   public inputType: 'password' | 'text' = 'password';
   public labelShow = 'Show password';

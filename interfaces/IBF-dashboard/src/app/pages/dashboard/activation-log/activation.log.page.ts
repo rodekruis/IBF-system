@@ -22,10 +22,7 @@ export class ActivationLogPage implements OnInit, OnDestroy {
   private disasterType: DisasterTypeKey;
   private activationLogSubscription: Subscription;
   public activationLogs:
-    | {
-        headerData: string[];
-        rowsData: (boolean | number | string)[][];
-      }
+    | { headerData: string[]; rowsData: (boolean | number | string)[][] }
     | string;
 
   constructor(

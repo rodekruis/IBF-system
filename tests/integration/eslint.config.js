@@ -72,9 +72,20 @@ module.exports = tseslint.config(
       // 'promise/prefer-await-to-callbacks': 'error',
       // 'promise/prefer-await-to-then': 'error',
       // 'promise/valid-params': 'error',
-      'simple-import-sort/imports': ['error'],
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
+            ['^@?\\w'], // start with a letter (or digit or underscore), or `@` followed by a letter.
+            ['^~'], // starts with a tilde
+          ],
+        },
+      ],
       'simple-import-sort/exports': 'error',
-      'prettier/prettier': ['error', { endOfLine: 'auto' }],
+      'prettier/prettier': [
+        'error',
+        { endOfLine: 'auto', objectWrap: 'collapse' },
+      ],
       'jest/no-focused-tests': 'error',
     },
   },

@@ -136,10 +136,7 @@ export class EventController {
     summary:
       '[EXTERNALLY USED - PIPELINE] [OLD endpoint] Upload alert data per leadtime',
   })
-  @ApiResponse({
-    status: 201,
-    description: 'Uploaded alert data per leadtime',
-  })
+  @ApiResponse({ status: 201, description: 'Uploaded alert data per leadtime' })
   @Post('triggers-per-leadtime')
   public async uploadTriggerPerLeadTime(
     @Body() uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,

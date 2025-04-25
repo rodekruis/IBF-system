@@ -1,10 +1,7 @@
 import { Inject, LOCALE_ID, Pipe, PipeTransform } from '@angular/core';
 import { NumberFormat } from 'src/app/types/indicator-group';
 
-@Pipe({
-  standalone: true,
-  name: 'compact',
-})
+@Pipe({ standalone: true, name: 'compact' })
 export class CompactPipe implements PipeTransform {
   constructor(@Inject(LOCALE_ID) private locale: string) {}
 

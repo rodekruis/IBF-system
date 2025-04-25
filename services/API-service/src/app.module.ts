@@ -1,9 +1,9 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 
+import { AdminAreaModule } from './api/admin-area/admin-area.module';
 import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.module';
 import { AdminAreaDynamicDataModule } from './api/admin-area-dynamic-data/admin-area-dynamic-data.module';
-import { AdminAreaModule } from './api/admin-area/admin-area.module';
 import { CountryModule } from './api/country/country.module';
 import { DisasterTypeModule } from './api/disaster-type/disaster-type.module';
 import { EapActionsModule } from './api/eap-actions/eap-actions.module';

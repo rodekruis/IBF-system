@@ -5,9 +5,9 @@ import {
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { LookupService } from '../notification/lookup/lookup.service';
-import { UserRole } from './user-role.enum';
 import { UserEntity } from './user.entity';
 import { UserService } from './user.service';
+import { UserRole } from './user-role.enum';
 
 const disasterTypes: DisasterTypeEntity[] = [
   {
@@ -34,10 +34,10 @@ const user: UserEntity = {
   lastName: 'Example',
   userRole: UserRole.Operator,
   countries: [],
-  disasterTypes: disasterTypes, // NOTE: if this is passed as empty array, a mock for disasterRepository.find() is needed
+  disasterTypes, // NOTE: if this is passed as empty array, a mock for disasterRepository.find() is needed
   password: '',
   created: new Date(),
-  hashPassword: function (): void {
+  hashPassword(): void {
     throw new Error('Function not implemented.');
   },
   actions: [],

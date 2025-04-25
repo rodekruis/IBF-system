@@ -1,7 +1,6 @@
+import csv from 'csv-parser';
 import fs from 'fs';
 import { Readable } from 'stream';
-
-import csv from 'csv-parser';
 import { DataSource } from 'typeorm';
 
 export class SeedHelper {
@@ -23,7 +22,7 @@ export class SeedHelper {
     const parsedData = [];
     return await new Promise((resolve, reject): void => {
       stream
-        .pipe(csv({ separator: separator }))
+        .pipe(csv({ separator }))
         .on('error', (error): void => reject(error))
         .on('data', (row): number => {
           Object.keys(row).forEach((key) =>

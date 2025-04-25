@@ -66,9 +66,7 @@ export class NotificationContentService {
   public async getCountryNotificationInfo(
     countryCodeISO3: string,
   ): Promise<CountryEntity> {
-    const findOneOptions = {
-      countryCodeISO3: countryCodeISO3,
-    };
+    const findOneOptions = { countryCodeISO3 };
     const relations = [
       'disasterTypes',
       'notificationInfo',
@@ -77,7 +75,7 @@ export class NotificationContentService {
 
     return await this.countryRepository.findOne({
       where: findOneOptions,
-      relations: relations,
+      relations,
     });
   }
 
@@ -331,14 +329,8 @@ export class NotificationContentService {
     lastUploadDate: LastUploadDateDto,
   ): Promise<string> {
     const timeZone = {
-      PHL: {
-        label: 'PHT',
-        difference: 8,
-      },
-      MWI: {
-        label: 'CAT',
-        difference: 2,
-      },
+      PHL: { label: 'PHT', difference: 8 },
+      MWI: { label: 'CAT', difference: 2 },
     };
 
     if (!Object.keys(timeZone).includes(countryCodeISO3)) {

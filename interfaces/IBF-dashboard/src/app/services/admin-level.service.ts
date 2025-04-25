@@ -26,9 +26,7 @@ export class AdminLevelButton {
   buttonTypeClass: string;
 }
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AdminLevelService {
   private adminLevelSubject = new BehaviorSubject<AdminLevel>(
     AdminLevel.adminLevel1,

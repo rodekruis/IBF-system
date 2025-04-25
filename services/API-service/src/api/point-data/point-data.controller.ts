@@ -95,10 +95,7 @@ export class PointDataController {
   @ApiOperation({
     summary: '[EXTERNALLY USED - KOBO] Upload community notification',
   })
-  @ApiResponse({
-    status: 201,
-    description: 'Uploaded community notification.',
-  })
+  @ApiResponse({ status: 201, description: 'Uploaded community notification.' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @Post('community-notification/:countryCodeISO3')
   public async uploadCommunityNotification(
@@ -130,10 +127,7 @@ export class PointDataController {
   @ApiOperation({
     summary: '[EXTERNALLY USED - PIPELINE] Upload dynamic point data',
   })
-  @ApiResponse({
-    status: 201,
-    description: 'Uploaded dynamic point data.',
-  })
+  @ApiResponse({ status: 201, description: 'Uploaded dynamic point data.' })
   @Post('dynamic')
   public async uploadDynamicPointData(
     @Body() dynamicPointData: UploadDynamicPointDataDto,

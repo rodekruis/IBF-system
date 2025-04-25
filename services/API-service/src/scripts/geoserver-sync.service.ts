@@ -1,7 +1,7 @@
-import fs from 'fs';
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 
+import fs from 'fs';
 import { firstValueFrom } from 'rxjs';
 
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
@@ -83,7 +83,7 @@ export class GeoserverSyncService {
             );
           const resourceName = `${disasterTypeStorePrefix}_${leadTime}_${countryCode}`;
           resourceNameObjects.push({
-            resourceName: resourceName,
+            resourceName,
             disasterType: disasterSetting.disasterType,
             countryCodeISO3: countryCode,
           });
@@ -173,11 +173,7 @@ export class GeoserverSyncService {
         );
       const styleUrl = `layers/${resourceNameObject.resourceName}`;
       const body = {
-        layer: {
-          defaultStyle: {
-            name: `${workspaceName}:${styleName}`,
-          },
-        },
+        layer: { defaultStyle: { name: `${workspaceName}:${styleName}` } },
       };
       await this.put(styleUrl, body);
     }

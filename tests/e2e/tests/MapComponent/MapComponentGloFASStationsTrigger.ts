@@ -39,8 +39,6 @@ export default (
     });
 
     // Assert that the max warning GloFAS markers are not visible
-    await map.glofasMarkersAreVisible({
-      eapAlertClass: 'max',
-    });
+    await map.glofasMarkersAreVisible({ eapAlertClass: 'max' });
   });
 };

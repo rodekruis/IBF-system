@@ -9,9 +9,7 @@ import { Country } from 'src/app/models/country.model';
 import { CountryService } from 'src/app/services/country.service';
 import { environment } from 'src/environments/environment';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable({ providedIn: 'root' })
 export class AnalyticsService {
   private log = DEBUG_LOG ? console.log : () => undefined;
 
@@ -83,10 +81,7 @@ export class AnalyticsService {
 
   logException(exception: Error, severityLevel?: SeverityLevel) {
     if (this.isApplicationInsightsEnabled) {
-      this.applicationInsights.trackException({
-        exception,
-        severityLevel,
-      });
+      this.applicationInsights.trackException({ exception, severityLevel });
     } else {
       this.displayOnConsole(exception, severityLevel);
     }

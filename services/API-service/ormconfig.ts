@@ -1,6 +1,6 @@
-import * as fs from 'fs';
 import { Logger } from '@nestjs/common';
 
+import * as fs from 'fs';
 import { DataSourceOptions } from 'typeorm';
 
 import { TypeOrmLoggerContainer } from './src/typeorm.logger';
@@ -23,7 +23,5 @@ export const ORMConfig: DataSourceOptions = {
   ssl:
     ['development', 'ci'].indexOf(process.env.NODE_ENV) >= 0
       ? null
-      : {
-          ca: fs.readFileSync('cert/DigiCertGlobalRootCA.crt.pem').toString(),
-        },
+      : { ca: fs.readFileSync('cert/DigiCertGlobalRootCA.crt.pem').toString() },
 };
