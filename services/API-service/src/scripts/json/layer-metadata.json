@@ -61,7 +61,7 @@
   },
   {
     "name": "rainfall_forecast",
-    "label": "Low rainfall probability",
+    "label": "Below-normal rainfall probability",
     "type": "wms",
     "legendColor": {
       "type": "gradient",
