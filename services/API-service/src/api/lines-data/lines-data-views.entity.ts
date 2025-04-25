@@ -1,8 +1,8 @@
 import { ViewEntity } from 'typeorm';
 
 import { AppDataSource } from '../../../appdatasource';
-import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
 import { LinesDataEntity, LinesDataEnum } from './lines-data.entity';
+import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
 
 const getViewQuery = (type: LinesDataEnum) => {
   return () =>

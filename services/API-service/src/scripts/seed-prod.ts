@@ -2,8 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 
 import { DataSource } from 'typeorm';
 
-import { UserRole } from '../api/user/user-role.enum';
 import { UserEntity } from '../api/user/user.entity';
+import { UserRole } from '../api/user/user-role.enum';
 import users from './json/users.json';
 import { InterfaceScript } from './scripts.module';
 

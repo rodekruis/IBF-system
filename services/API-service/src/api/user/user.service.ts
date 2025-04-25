@@ -1,9 +1,9 @@
-import crypto from 'crypto';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { validate } from 'class-validator';
+import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
 import { In, Repository } from 'typeorm';
 
@@ -12,9 +12,9 @@ import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { LookupService } from '../notification/lookup/lookup.service';
 import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserRole } from './user-role.enum';
 import { UserEntity } from './user.entity';
 import { UserData, UserResponseObject } from './user.model';
+import { UserRole } from './user-role.enum';
 
 @Injectable()
 export class UserService {

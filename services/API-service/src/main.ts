@@ -1,4 +1,3 @@
-import fs from 'fs';
 import {
   BadRequestException,
   INestApplication,
@@ -13,6 +12,7 @@ import {
 } from '@nestjs/swagger';
 
 import * as bodyParser from 'body-parser';
+import fs from 'fs';
 import { SpelunkerModule } from 'nestjs-spelunker';
 
 import { ApplicationModule } from './app.module';

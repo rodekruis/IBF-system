@@ -14,8 +14,8 @@ import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
-import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { EventService } from '../event/event.service';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { AdminAreaEntity } from './admin-area.entity';
 import { EventAreaService } from './services/event-area.service';
 

@@ -21,15 +21,15 @@ import {
   Event,
 } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';
+import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import {
   ALERT_THRESHOLD,
   FORECAST_SEVERITY,
   FORECAST_TRIGGER,
 } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { AdminAreaEntity } from '../admin-area/admin-area.entity';
-import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
 import { CountryEntity } from '../country/country.entity';
+import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';

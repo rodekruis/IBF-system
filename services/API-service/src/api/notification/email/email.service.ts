@@ -1,7 +1,7 @@
-import * as fs from 'fs';
 import { Injectable, Logger } from '@nestjs/common';
 
 import { formatISO } from 'date-fns';
+import * as fs from 'fs';
 import Mailchimp from 'mailchimp-api-v3';
 
 import { DEBUG } from '../../../config';

@@ -1,7 +1,7 @@
-import fs from 'fs';
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 
+import fs from 'fs';
 import { firstValueFrom } from 'rxjs';
 
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';

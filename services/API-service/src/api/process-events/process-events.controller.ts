@@ -23,8 +23,8 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { SetTriggerDto } from '../event/dto/event-place-code.dto';
 import { NotificationApiTestResponseDto } from '../notification/dto/notification-api-test-response.dto';
-import { UserRole } from '../user/user-role.enum';
 import { UserDecorator } from '../user/user.decorator';
+import { UserRole } from '../user/user-role.enum';
 import { ProcessEventsDto } from './dto/process-events.dto';
 import { ProcessEventsService } from './process-events.service';
 

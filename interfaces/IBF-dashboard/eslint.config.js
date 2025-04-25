@@ -40,7 +40,6 @@ module.exports = tseslint.config(
     processor: angular.processInlineTemplates,
     rules: {
       // REFACTOR
-      'simple-import-sort/imports': 'warn',
       'no-relative-import-paths/no-relative-import-paths': 'warn',
       'regexp/no-unused-capturing-group': 'warn',
       '@typescript-eslint/prefer-nullish-coalescing': 'warn',
@@ -111,23 +110,16 @@ module.exports = tseslint.config(
       'perfectionist/sort-intersection-types': ['error'],
       //'perfectionist/sort-union-types': ['error'],
       'object-shorthand': 'error',
-      //'simple-import-sort/imports': [
-      //  'error',
-      //  {
-      //    groups: [
-      //      // Angular packages.
-      //      ['^@angular'],
-      //      // Packages.
-      //      // Things that start with a letter (or digit or underscore), or `@` followed by a letter.
-      //      ['^@?\\w'],
-      //      // Alias imports
-      //      ['^@API-service'],
-      //      // Local imports
-      //      // Anything that starts with a tilde.
-      //      ['^~'],
-      //    ],
-      //  },
-      //],
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
+            ['^@?\\w'], // start with a letter (or digit or underscore), or `@` followed by a letter.
+            ['^@API-service'], // alias imports
+            ['^~'], // starts with a tilde
+          ],
+        },
+      ],
       'simple-import-sort/exports': 'error',
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
     },

@@ -1,6 +1,5 @@
-import crypto from 'crypto';
-
 import { IsEmail } from 'class-validator';
+import crypto from 'crypto';
 import {
   BeforeInsert,
   Column,

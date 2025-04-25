@@ -22,10 +22,10 @@ import { RolesGuard } from '../../roles.guard';
 import { ValidationPipe } from '../../shared/pipes/validation.pipe';
 import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserRole } from './user-role.enum';
 import { UserDecorator } from './user.decorator';
 import { UserResponseObject } from './user.model';
 import { UserService } from './user.service';
+import { UserRole } from './user-role.enum';
 
 @ApiTags('-- user --')
 @Controller('user')

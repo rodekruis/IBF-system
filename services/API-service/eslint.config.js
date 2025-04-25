@@ -4,6 +4,7 @@ const typescriptEslintParser = require('@typescript-eslint/parser');
 const eslintPluginPrettier = require('eslint-plugin-prettier');
 const eslintPluginJest = require('eslint-plugin-jest');
 const tsEslintPlugin = require('@typescript-eslint/eslint-plugin');
+const eslintPluginSimpleSort = require('eslint-plugin-simple-import-sort');
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -21,6 +22,7 @@ module.exports = [
       '@typescript-eslint': tsEslintPlugin,
       prettier: eslintPluginPrettier,
       jest: eslintPluginJest,
+      'simple-import-sort': eslintPluginSimpleSort,
     },
     rules: {
       '@typescript-eslint/no-empty-function': 'off',
@@ -42,6 +44,16 @@ module.exports = [
       ],
       'jest/no-focused-tests': 'error',
       'object-shorthand': 'error',
+      'simple-import-sort/imports': [
+        'error',
+        {
+          groups: [
+            ['^@nestjs'], // NestJS imports
+            ['^@?\\w'], // start with a letter (or digit or underscore), or `@` followed by a letter.
+            ['^~'], // starts with a tilde
+          ],
+        },
+      ],
     },
   },
   ...compat.extends('plugin:@typescript-eslint/recommended'),

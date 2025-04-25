@@ -9,8 +9,8 @@ import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { UserEntity } from '../user/user.entity';
 import { CheckEapActionDto } from './dto/check-eap-action.dto';
 import { AddEapActionsDto } from './dto/eap-action.dto';
-import { EapActionStatusEntity } from './eap-action-status.entity';
 import { EapActionEntity } from './eap-action.entity';
+import { EapActionStatusEntity } from './eap-action-status.entity';
 
 export interface EapAction {
   Early_action: string;

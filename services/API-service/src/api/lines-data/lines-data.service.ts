@@ -7,8 +7,8 @@ import { HelperService } from '../../shared/helper.service';
 import { UploadLinesExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
 import { BuildingDto } from './dto/upload-buildings.dto';
 import { RoadDto } from './dto/upload-roads.dto';
-import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
 import { LinesDataEntity, LinesDataEnum } from './lines-data.entity';
+import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
 
 @Injectable()
 export class LinesDataService {

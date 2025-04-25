@@ -7,8 +7,8 @@ import { Repository } from 'typeorm';
 
 import { HelperService } from '../../shared/helper.service';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
-import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { EventService } from '../event/event.service';
+import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { NotificationService } from '../notification/notification.service';
 import { ProcessEventsService } from '../process-events/process-events.service';
 

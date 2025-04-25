@@ -1,6 +1,6 @@
-import * as fs from 'fs';
 import { Logger } from '@nestjs/common';
 
+import * as fs from 'fs';
 import { DataSourceOptions } from 'typeorm';
 
 import { TypeOrmLoggerContainer } from './src/typeorm.logger';

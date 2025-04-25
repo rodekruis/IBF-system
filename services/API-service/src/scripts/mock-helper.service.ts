@@ -1,6 +1,7 @@
+import { Injectable, Logger } from '@nestjs/common';
+
 import fs from 'fs';
 import path from 'path';
-import { Injectable, Logger } from '@nestjs/common';
 
 import { AdminAreaDynamicDataService } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.service';
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';

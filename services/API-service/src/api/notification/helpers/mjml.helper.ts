@@ -1,6 +1,5 @@
-import * as fs from 'fs';
-
 import { format } from 'date-fns';
+import * as fs from 'fs';
 
 import { EapAlertClassKeyEnum } from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
