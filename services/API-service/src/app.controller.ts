@@ -25,14 +25,8 @@ export class AppController {
   @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Check if API authentication is working' })
   @Get('authentication')
-  @ApiResponse({
-    status: 200,
-    description: 'API authentication working',
-  })
-  @ApiResponse({
-    status: 403,
-    description: 'API authentication NOT working',
-  })
+  @ApiResponse({ status: 200, description: 'API authentication working' })
+  @ApiResponse({ status: 403, description: 'API authentication NOT working' })
   public checkAuthentication(): string {
     return 'API authentication working';
   }

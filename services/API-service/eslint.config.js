@@ -37,6 +37,7 @@ module.exports = [
         'error',
         {
           endOfLine: 'auto',
+          objectWrap: 'collapse',
         },
       ],
       'jest/no-focused-tests': 'error',

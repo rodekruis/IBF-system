@@ -30,9 +30,7 @@ export class UserService {
   public constructor(private readonly lookupService: LookupService) {}
 
   public async findAll(): Promise<UserEntity[]> {
-    return await this.userRepository.find({
-      relations: this.relations,
-    });
+    return await this.userRepository.find({ relations: this.relations });
   }
 
   public async findOne(loginUserDto: LoginUserDto): Promise<UserEntity> {
@@ -51,9 +49,7 @@ export class UserService {
 
   public async create(dto: CreateUserDto): Promise<UserResponseObject> {
     const email = dto.email.toLowerCase();
-    const user = await this.userRepository.findOne({
-      where: { email },
-    });
+    const user = await this.userRepository.findOne({ where: { email } });
 
     if (user) {
       const errors = { errors: 'Email must be unique.' };
@@ -146,10 +142,7 @@ export class UserService {
       updateUser = loggedInUser;
     }
     const password = crypto.createHmac('sha256', dto.password).digest('hex');
-    await this.userRepository.save({
-      userId: updateUser.userId,
-      password,
-    });
+    await this.userRepository.save({ userId: updateUser.userId, password });
     return this.buildUserRO(updateUser);
   }
 
@@ -157,9 +150,7 @@ export class UserService {
     email: string,
     updateUserData: UpdateUserDto,
   ): Promise<UserResponseObject> {
-    const user = await this.userRepository.findOne({
-      where: { email },
-    });
+    const user = await this.userRepository.findOne({ where: { email } });
     if (!user) {
       const errors = { User: 'Not found' };
       throw new HttpException({ errors }, HttpStatus.NOT_FOUND);

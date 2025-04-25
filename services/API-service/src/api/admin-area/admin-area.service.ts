@@ -231,10 +231,7 @@ export class AdminAreaService {
         'epc."forecastTrigger"',
         'epc."userTrigger"',
       ])
-      .where({
-        countryCodeISO3,
-        adminLevel,
-      })
+      .where({ countryCodeISO3, adminLevel })
       .andWhere('dynamic."disasterType" = :disasterType', { disasterType })
       .andWhere('dynamic.timestamp >= :cutoffMoment', {
         cutoffMoment: lastUploadDate.cutoffMoment,

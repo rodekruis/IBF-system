@@ -25,14 +25,7 @@ export class LayerDto {
   @IsIn(['wms', 'poi', 'shape'])
   public type: string;
 
-  @ApiProperty({
-    example: {
-      UGA: {
-        type: 'square',
-        value: ['#d7301f'],
-      },
-    },
-  })
+  @ApiProperty({ example: { UGA: { type: 'square', value: ['#d7301f'] } } })
   public legendColor: JSON;
 
   @ApiProperty({ example: false })
@@ -43,20 +36,12 @@ export class LayerDto {
   @IsIn(['no', 'yes', 'if-trigger'])
   public active: string;
 
-  @ApiProperty({
-    example: {
-      UGA: {
-        floods: 'description',
-      },
-    },
-  })
+  @ApiProperty({ example: { UGA: { floods: 'description' } } })
   public description: JSON;
 }
 
 export class AddLayersDto {
-  @ApiProperty({
-    example: [{}],
-  })
+  @ApiProperty({ example: [{}] })
   @IsNotEmpty()
   public layers: LayerDto[];
 }

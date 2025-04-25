@@ -57,9 +57,7 @@ export class CountryService {
   ): Promise<void> {
     for await (const country of countries.countries) {
       const existingCountry = await this.countryRepository.findOne({
-        where: {
-          countryCodeISO3: country.countryCodeISO3,
-        },
+        where: { countryCodeISO3: country.countryCodeISO3 },
         relations: ['countryDisasterSettings'],
       });
       if (existingCountry) {

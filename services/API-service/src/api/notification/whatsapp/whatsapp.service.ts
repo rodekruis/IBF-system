@@ -134,9 +134,7 @@ export class WhatsappService {
           4: startTimeEvent,
         };
       } else if (disasterType === DisasterType.Floods) {
-        contentVariables = {
-          1: startTimeEvent,
-        };
+        contentVariables = { 1: startTimeEvent };
       }
     } else if (activeEvents.length > 1) {
       const baseMessage =
@@ -168,11 +166,7 @@ export class WhatsappService {
       }
     }
 
-    return {
-      message,
-      contentSid,
-      contentVariables,
-    };
+    return { message, contentSid, contentVariables };
   }
 
   public async sendActiveEventsWhatsapp(
@@ -253,9 +247,7 @@ export class WhatsappService {
   }
 
   public async findOne(sid: string): Promise<TwilioMessageEntity> {
-    const findOneOptions = {
-      sid: sid,
-    };
+    const findOneOptions = { sid: sid };
     return await this.twilioMessageRepository.findOne({
       where: findOneOptions,
     });

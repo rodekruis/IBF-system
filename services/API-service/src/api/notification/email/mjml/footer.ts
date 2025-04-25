@@ -41,9 +41,7 @@ export const getIbfFooter = ({
     attributes: { padding: '0 8px' },
   };
 
-  return getSectionElement({
-    childrenEls: [twoColumnSectionElement],
-  });
+  return getSectionElement({ childrenEls: [twoColumnSectionElement] });
 };
 
 export const getMailchimpFooter = (): object => {
@@ -58,20 +56,13 @@ export const getMailchimpFooter = (): object => {
       </p>
       <p style="margin: 0">*|IF:REWARDS|* *|HTML:REWARDS|* *|END:IF|*</p>
     `,
-    attributes: {
-      color: COLOR_WHITE,
-      align: 'center',
-      'font-size': '12px',
-    },
+    attributes: { color: COLOR_WHITE, align: 'center', 'font-size': '12px' },
   });
 
   const mailchimpColumn = {
     tagName: 'mj-column',
     children: [mailchimpFooter],
-    attributes: {
-      padding: '0 8px',
-      width: '100%',
-    },
+    attributes: { padding: '0 8px', width: '100%' },
   };
 
   return getSectionElement({

@@ -42,7 +42,5 @@ export const getMjmlNotificationAction = ({
   });
   childrenEls.push(aboutTriggerRow);
 
-  return getSectionElement({
-    childrenEls,
-  });
+  return getSectionElement({ childrenEls });
 };

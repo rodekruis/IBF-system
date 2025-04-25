@@ -34,17 +34,12 @@ export class CountryDisasterSettingsEntity {
 
   @ApiProperty({ example: DisasterType.Floods })
   @ManyToOne((): typeof DisasterTypeEntity => DisasterTypeEntity)
-  @JoinColumn({
-    name: 'disasterType',
-    referencedColumnName: 'disasterType',
-  })
+  @JoinColumn({ name: 'disasterType', referencedColumnName: 'disasterType' })
   @Column()
   public disasterType: DisasterType;
 
   @ApiProperty({ example: [1, 2, 3, 4] })
-  @Column('int', {
-    array: true,
-  })
+  @Column('int', { array: true })
   public adminLevels: AdminLevel[];
 
   @ApiProperty({ example: AdminLevel.adminLevel1 })
@@ -67,19 +62,13 @@ export class CountryDisasterSettingsEntity {
   @Column('json', { default: null, nullable: true })
   public forecastSource: ForecastSource;
 
-  @ApiProperty({
-    example: 'https://docs.google.com',
-  })
+  @ApiProperty({ example: 'https://docs.google.com' })
   @Column({ default: '' })
   public eapLink: string;
 
   @ApiProperty({
     example: {
-      no: {
-        label: 'No action',
-        color: 'ibf-gray',
-        value: 0,
-      },
+      no: { label: 'No action', color: 'ibf-gray', value: 0 },
       max: {
         label: 'Activate EAP',
         color: 'ibf-trigger-alert-primary',

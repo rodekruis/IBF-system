@@ -18,14 +18,8 @@ export class CountryDto {
 
   @ApiProperty({
     example: {
-      '1': {
-        singular: 'Region',
-        plural: 'Regions',
-      },
-      '2': {
-        singular: 'District',
-        plural: 'Districts',
-      },
+      '1': { singular: 'Region', plural: 'Regions' },
+      '2': { singular: 'District', plural: 'Districts' },
     },
   })
   public adminRegionLabels: object;
@@ -38,12 +32,7 @@ export class CountryDto {
   })
   public countryLogos: object;
 
-  @ApiProperty({
-    example: {
-      type: 'Polygon',
-      coordinates: [],
-    },
-  })
+  @ApiProperty({ example: { type: 'Polygon', coordinates: [] } })
   public countryBoundingBox: BoundingBox;
 
   @ApiProperty()
@@ -77,18 +66,12 @@ export class CountryDisasterSettingsDto {
   })
   public forecastSource?: object;
 
-  @ApiProperty({
-    example: 'https://docs.google.com',
-  })
+  @ApiProperty({ example: 'https://docs.google.com' })
   public eapLink: string;
 
   @ApiProperty({
     example: {
-      no: {
-        label: 'No action',
-        color: 'ibf-gray',
-        value: 0,
-      },
+      no: { label: 'No action', color: 'ibf-gray', value: 0 },
       max: {
         label: 'Activate EAP',
         color: 'ibf-trigger-alert-primary',
@@ -103,9 +86,7 @@ export class CountryDisasterSettingsDto {
 }
 
 export class AddCountriesDto {
-  @ApiProperty({
-    example: [{}],
-  })
+  @ApiProperty({ example: [{}] })
   @IsNotEmpty()
   public countries: CountryDto[];
 }

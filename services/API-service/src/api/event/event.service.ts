@@ -657,9 +657,7 @@ export class EventService {
     if (alertsPerLeadTime.length === 0) {
       return {};
     }
-    const result = {
-      date: alertsPerLeadTime[0].date,
-    };
+    const result = { date: alertsPerLeadTime[0].date };
     for (const leadTimeKey in LeadTime) {
       const leadTimeUnit = LeadTime[leadTimeKey];
       const leadTimeIsAlerted = alertsPerLeadTime.find(
@@ -837,10 +835,7 @@ export class EventService {
         AND exposure.indicator = :indicator`,
           { indicator: mainExposureIndicator },
         )
-        .where({
-          ...whereFilters,
-          indicator: ALERT_THRESHOLD,
-        })
+        .where({ ...whereFilters, indicator: ALERT_THRESHOLD })
         .andWhere(
           `(alert.value > 0 OR (alert."disasterType" IN ('typhoon','flash-floods')))`, // This reflects the current functionality where alert_threshold=0 for warnings in typhoon and flash-floods
         )
@@ -1145,10 +1140,7 @@ export class EventService {
       const alertClassKey = Object.keys(eapAlertClasses).find(
         (key) => key === alertLevelToEAPAlertClass[alertLevel],
       );
-      return {
-        key: alertClassKey,
-        ...eapAlertClasses[alertClassKey],
-      };
+      return { key: alertClassKey, ...eapAlertClasses[alertClassKey] };
     } else {
       if (alertLevel === AlertLevel.TRIGGER) {
         return {

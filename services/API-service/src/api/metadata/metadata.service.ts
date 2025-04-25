@@ -27,9 +27,7 @@ export class MetadataService {
     const mainExposureIndicator =
       await this.disasterTypeService.getMainExposureIndicator(disasterType);
     return await this.indicatorRepository.findOne({
-      where: {
-        name: mainExposureIndicator,
-      },
+      where: { name: mainExposureIndicator },
     });
   }
 
@@ -39,9 +37,7 @@ export class MetadataService {
     const indicatorsToSave = [];
     for await (const indicator of indicators.indicators) {
       let existingIndicator = await this.indicatorRepository.findOne({
-        where: {
-          name: indicator.name,
-        },
+        where: { name: indicator.name },
       });
       if (existingIndicator) {
         existingIndicator = await this.addOrUpdateIndicator(
@@ -94,9 +90,7 @@ export class MetadataService {
     const layersToSave = [];
     for await (const layer of layers.layers) {
       let existingLayer = await this.layerRepository.findOne({
-        where: {
-          name: layer.name,
-        },
+        where: { name: layer.name },
       });
       if (existingLayer) {
         existingLayer = await this.addOrUpdateLayer(existingLayer, layer);

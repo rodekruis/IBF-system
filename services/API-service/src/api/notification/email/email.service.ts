@@ -29,12 +29,11 @@ export class EmailService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<number> {
-    const segments: {
-      [countryDisaster: string]: string;
-    } = process.env.MC_SEGMENTS.split(',').reduce((prev, curr) => {
-      const segment = curr.split(':');
-      return { ...prev, [segment[0]]: Number(segment[1]) };
-    }, {});
+    const segments: { [countryDisaster: string]: string } =
+      process.env.MC_SEGMENTS.split(',').reduce((prev, curr) => {
+        const segment = curr.split(':');
+        return { ...prev, [segment[0]]: Number(segment[1]) };
+      }, {});
 
     const countryDisaster = `${countryCodeISO3}_${disasterType}`;
     if (!segments || !segments[countryDisaster]) {

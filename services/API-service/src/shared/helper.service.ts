@@ -19,10 +19,7 @@ export class HelperService {
   public constructor(private dataSource: DataSource) {}
 
   public toGeojson(rawResult): GeoJson {
-    const geoJson: GeoJson = {
-      type: 'FeatureCollection',
-      features: [],
-    };
+    const geoJson: GeoJson = { type: 'FeatureCollection', features: [] };
     rawResult.forEach((i): void => {
       const feature: GeoJsonFeature = {
         type: 'Feature',
@@ -111,11 +108,7 @@ export class HelperService {
         ),
       };
     } else {
-      return {
-        date: null,
-        timestamp: null,
-        cutoffMoment: null,
-      };
+      return { date: null, timestamp: null, cutoffMoment: null };
     }
   }
 

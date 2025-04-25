@@ -22,22 +22,9 @@ describe('ProcessEventsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         ProcessEventsService,
-        {
-          provide: EventService,
-          useValue: {},
-        },
-        {
-          provide: HelperService,
-          useValue: {
-            getLastUploadDate: jest.fn(),
-          },
-        },
-        {
-          provide: NotificationService,
-          useValue: {
-            send: jest.fn(),
-          },
-        },
+        { provide: EventService, useValue: {} },
+        { provide: HelperService, useValue: { getLastUploadDate: jest.fn() } },
+        { provide: NotificationService, useValue: { send: jest.fn() } },
         {
           provide: getRepositoryToken(EventPlaceCodeEntity),
           useClass: Repository,
@@ -60,11 +47,7 @@ describe('ProcessEventsService', () => {
   describe('setTrigger', () => {
     it('should set trigger', async () => {
       // Arrange
-      const updateResult = {
-        generatedMaps: [],
-        raw: [],
-        affected: 0,
-      };
+      const updateResult = { generatedMaps: [], raw: [], affected: 0 };
       const getLastUploadDateResult = {
         timestamp: new Date(),
         date: formatISO(new Date()),
@@ -92,10 +75,7 @@ describe('ProcessEventsService', () => {
       // Assert
       expect(eventPlaceCodeRepository.update).toHaveBeenCalledWith(
         expect.arrayContaining(setTriggerDto.eventPlaceCodeIds),
-        expect.objectContaining({
-          userTrigger: true,
-          user: { userId },
-        }),
+        expect.objectContaining({ userTrigger: true, user: { userId } }),
       );
 
       expect(helperService.getLastUploadDate).toHaveBeenCalledWith(

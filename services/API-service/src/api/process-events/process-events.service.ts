@@ -100,11 +100,7 @@ export class ProcessEventsService {
   ): Promise<UpdateResult> {
     const updateResult = await this.eventPlaceCodeRepo.update(
       setTriggerDto.eventPlaceCodeIds,
-      {
-        userTrigger: true,
-        userTriggerDate: new Date(),
-        user: { userId },
-      },
+      { userTrigger: true, userTriggerDate: new Date(), user: { userId } },
     );
 
     await this.notify(

@@ -59,9 +59,7 @@ export class EapActionsController {
     return await this.eapActionsService.checkAction(userId, eapAction);
   }
 
-  @ApiOperation({
-    summary: '[EXTERNALLY USED - KOBO] Check off early action',
-  })
+  @ApiOperation({ summary: '[EXTERNALLY USED - KOBO] Check off early action' })
   @ApiResponse({
     status: 201,
     description: 'Checked off early action.',
