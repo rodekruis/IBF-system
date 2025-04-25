@@ -1,3 +1,12 @@
+## [0.314.1](https://github.com/rodekruis/IBF-system/compare/v0.314.0...v0.314.1) (2025-04-25)
+
+
+### Bug Fixes
+
+* rename low rainfall probability to below-normal rainfall probability AB[#35566](https://github.com/rodekruis/IBF-system/issues/35566) ([6508989](https://github.com/rodekruis/IBF-system/commit/6508989943afad47e6500c29f5abb3ace8c0aa37))
+
+
+
 # [0.314.0](https://github.com/rodekruis/IBF-system/compare/v0.313.0...v0.314.0) (2025-04-24)
 
 
@@ -99,15 +108,6 @@
 * revert minor refactor change to fix e2e test ([60a14f2](https://github.com/rodekruis/IBF-system/commit/60a14f2007a802be49d228992d962c2d83e15c3c))
 * test ([6c76b21](https://github.com/rodekruis/IBF-system/commit/6c76b21e21e9e774d857aacadb3e6614aeb36e3d))
 * unit tests ([b0c6150](https://github.com/rodekruis/IBF-system/commit/b0c6150712f1bc46e85a50b5eac708bcc344a012))
-
-
-
-## [0.312.3](https://github.com/rodekruis/IBF-system/compare/v0.312.2...v0.312.3) (2025-04-09)
-
-
-### Bug Fixes
-
-* seed lines-data optionally AB[#35203](https://github.com/rodekruis/IBF-system/issues/35203) ([43830bf](https://github.com/rodekruis/IBF-system/commit/43830bf6378de5f0a62f1d99044f7a966f844b19))
 
 
 
