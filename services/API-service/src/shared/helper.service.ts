@@ -95,7 +95,7 @@ export class HelperService {
       AdminAreaDynamicDataEntity,
     );
     const result = await adminAreaDynamicDataRepository.findOne({
-      where: { countryCodeISO3: countryCodeISO3, disasterType: disasterType },
+      where: { countryCodeISO3, disasterType },
       order: { timestamp: 'DESC' },
     });
     if (result) {

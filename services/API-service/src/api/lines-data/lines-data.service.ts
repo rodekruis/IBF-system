@@ -43,10 +43,7 @@ export class LinesDataService {
     // Delete existing entries
     if (deactivateExisting) {
       await this.linesDataRepository.update(
-        {
-          countryCodeISO3: countryCodeISO3,
-          linesDataCategory: linesDataCategory,
-        },
+        { countryCodeISO3, linesDataCategory },
         { active: false },
       );
     }
@@ -55,9 +52,9 @@ export class LinesDataService {
       const pointAttributes = JSON.parse(JSON.stringify(line)); // hack: clone without referencing
       delete pointAttributes['wkt'];
       return {
-        countryCodeISO3: countryCodeISO3,
+        countryCodeISO3,
         referenceId: line.fid || null,
-        linesDataCategory: linesDataCategory,
+        linesDataCategory,
         attributes: JSON.parse(JSON.stringify(pointAttributes)),
         active: true,
         geom: (): string => `st_geomfromtext(

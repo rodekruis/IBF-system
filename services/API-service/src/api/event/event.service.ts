@@ -369,7 +369,7 @@ export class EventService {
 
     const whereFiltersEvent = {
       closed: false,
-      disasterType: disasterType,
+      disasterType,
       adminArea: { countryCodeISO3 },
       forecastSeverity: MoreThan(0),
     };
@@ -574,11 +574,9 @@ export class EventService {
 
     if (countryCodeISO3 && disasterType) {
       baseQuery = baseQuery
-        .andWhere('event."disasterType" = :disasterType', {
-          disasterType: disasterType,
-        })
+        .andWhere('event."disasterType" = :disasterType', { disasterType })
         .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
-          countryCodeISO3: countryCodeISO3,
+          countryCodeISO3,
         });
     }
     const activationLogData = await baseQuery.getRawMany();

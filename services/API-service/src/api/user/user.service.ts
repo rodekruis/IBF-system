@@ -96,7 +96,7 @@ export class UserService {
 
   public async findById(userId: string): Promise<UserResponseObject> {
     const user = await this.userRepository.findOne({
-      where: { userId: userId },
+      where: { userId },
       relations: this.relations,
     });
     if (!user) {

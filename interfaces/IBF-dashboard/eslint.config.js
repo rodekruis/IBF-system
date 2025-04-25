@@ -15,9 +15,7 @@ module.exports = tseslint.config(
   {
     languageOptions: {
       globals: { ...globals.browser, ...globals.jasmine },
-      parserOptions: {
-        project: './tsconfig.json',
-      },
+      parserOptions: { project: './tsconfig.json' },
     },
   },
   {
@@ -42,7 +40,6 @@ module.exports = tseslint.config(
     processor: angular.processInlineTemplates,
     rules: {
       // REFACTOR
-      'object-shorthand': 'warn',
       'simple-import-sort/imports': 'warn',
       'no-relative-import-paths/no-relative-import-paths': 'warn',
       'regexp/no-unused-capturing-group': 'warn',
@@ -95,19 +92,11 @@ module.exports = tseslint.config(
       //],
       '@angular-eslint/component-selector': [
         'error',
-        {
-          type: 'element',
-          prefix: 'app',
-          style: 'kebab-case',
-        },
+        { type: 'element', prefix: 'app', style: 'kebab-case' },
       ],
       '@angular-eslint/directive-selector': [
         'error',
-        {
-          type: 'attribute',
-          prefix: 'app',
-          style: 'camelCase',
-        },
+        { type: 'attribute', prefix: 'app', style: 'camelCase' },
       ],
       //'@angular-eslint/no-async-lifecycle-method': ['error'],
       '@angular-eslint/no-conflicting-lifecycle': ['error'],
@@ -121,7 +110,7 @@ module.exports = tseslint.config(
       'perfectionist/sort-enums': ['error', { type: 'unsorted' }], // allow unsorted enums for domain specific ordering
       'perfectionist/sort-intersection-types': ['error'],
       //'perfectionist/sort-union-types': ['error'],
-      //'object-shorthand': 'error',
+      'object-shorthand': 'error',
       //'simple-import-sort/imports': [
       //  'error',
       //  {
@@ -203,20 +192,12 @@ module.exports = tseslint.config(
       //    ],
       //  },
       //],
-      'prettier/prettier': [
-        'error',
-        {
-          parser: 'angular',
-          endOfLine: 'auto',
-        },
-      ],
+      'prettier/prettier': ['error', { parser: 'angular', endOfLine: 'auto' }],
     },
   },
   {
     files: ['**/*.js'],
     extends: [eslintPluginPrettierRecommended],
-    rules: {
-      'prettier/prettier': ['error', { endOfLine: 'auto' }],
-    },
+    rules: { 'prettier/prettier': ['error', { endOfLine: 'auto' }] },
   },
 );

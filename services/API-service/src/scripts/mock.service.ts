@@ -178,7 +178,7 @@ export class MockService {
             }
 
             await this.adminAreaDynamicDataService.exposure({
-              countryCodeISO3: countryCodeISO3,
+              countryCodeISO3,
               exposurePlaceCodes,
               leadTime,
               dynamicIndicator: indicator,
@@ -316,7 +316,7 @@ export class MockService {
         for (const leadTime of leadTimesForNoEvents) {
           await this.adminAreaDynamicDataService.exposure({
             countryCodeISO3: selectedCountry.countryCodeISO3,
-            exposurePlaceCodes: exposurePlaceCodes,
+            exposurePlaceCodes,
             leadTime: leadTime as LeadTime,
             dynamicIndicator: indicator,
             adminLevel,
@@ -511,7 +511,7 @@ export class MockService {
 
     for await (const countryCodeISO3 of countryCodes) {
       const country = await this.countryRepo.findOne({
-        where: { countryCodeISO3: countryCodeISO3 },
+        where: { countryCodeISO3 },
         relations: ['disasterTypes'],
       });
       const countryDisasterTypes = country.disasterTypes.map(

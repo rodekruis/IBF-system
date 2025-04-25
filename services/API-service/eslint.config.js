@@ -41,6 +41,7 @@ module.exports = [
         },
       ],
       'jest/no-focused-tests': 'error',
+      'object-shorthand': 'error',
     },
   },
   ...compat.extends('plugin:@typescript-eslint/recommended'),

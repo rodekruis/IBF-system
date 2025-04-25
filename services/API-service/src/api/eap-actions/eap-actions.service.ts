@@ -104,9 +104,7 @@ export class EapActionsService {
     action.actionChecked = actionId;
 
     // If no user, take default user for now
-    const user = await this.userRepository.findOne({
-      where: { userId: userId },
-    });
+    const user = await this.userRepository.findOne({ where: { userId } });
     action.user = user;
 
     const newAction = await this.eapActionStatusRepository.save(action);
@@ -120,11 +118,7 @@ export class EapActionsService {
   ): Promise<void> {
     const eapActionIds = eapActions['Early_action'].split(' ');
     const actionIds = await this.eapActionRepository.find({
-      where: {
-        countryCodeISO3: countryCodeISO3,
-        disasterType: disasterType,
-        action: In(eapActionIds),
-      },
+      where: { countryCodeISO3, disasterType, action: In(eapActionIds) },
     });
     if (!actionIds.length) {
       const errors = 'No actions found';
@@ -139,11 +133,7 @@ export class EapActionsService {
 
     // note: the below will not be able to distinguish between different active events (= typhoon only)
     const eventPlaceCode = await this.eventPlaceCodeRepository.findOne({
-      where: {
-        closed: false,
-        disasterType: disasterType,
-        adminArea: { id: adminArea.id },
-      },
+      where: { closed: false, disasterType, adminArea: { id: adminArea.id } },
     });
 
     if (!eventPlaceCode) {
@@ -179,7 +169,7 @@ export class EapActionsService {
       .addSelect(['MAX(status.timestamp) AS "max_timestamp"']);
     if (eventName) {
       mostRecentStatePerAction.andWhere('event."eventName" = :eventName', {
-        eventName: eventName,
+        eventName,
       });
     }
 
@@ -201,7 +191,7 @@ export class EapActionsService {
       .andWhere('event.closed = false');
     if (eventName) {
       eapActionsStates.andWhere('event."eventName" = :eventName', {
-        eventName: eventName,
+        eventName,
       });
     }
 
@@ -226,12 +216,8 @@ export class EapActionsService {
         { placeCode },
       )
       .setParameters(eapActionsStates.getParameters())
-      .where('action."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3: countryCodeISO3,
-      })
-      .andWhere('action."disasterType" = :disasterType', {
-        disasterType: disasterType,
-      })
+      .where('action."countryCodeISO3" = :countryCodeISO3', { countryCodeISO3 })
+      .andWhere('action."disasterType" = :disasterType', { disasterType })
       .getRawMany();
 
     return eapActions;

@@ -83,7 +83,7 @@ export class GeoserverSyncService {
             );
           const resourceName = `${disasterTypeStorePrefix}_${leadTime}_${countryCode}`;
           resourceNameObjects.push({
-            resourceName: resourceName,
+            resourceName,
             disasterType: disasterSetting.disasterType,
             countryCodeISO3: countryCode,
           });

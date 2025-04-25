@@ -228,7 +228,7 @@ export const dateObjectToDateTimeString = (
     year: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
-    timeZone: timeZone,
+    timeZone,
   };
   return date.toLocaleString('default', options);
 };

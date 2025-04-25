@@ -41,10 +41,7 @@ export class AdminAreaService {
     adminAreasGeoJson: GeoJson,
   ) {
     //delete existing entries for country & adminlevel first
-    await this.adminAreaRepository.delete({
-      countryCodeISO3: countryCodeISO3,
-      adminLevel: adminLevel,
-    });
+    await this.adminAreaRepository.delete({ countryCodeISO3, adminLevel });
 
     const adminAreas = this.processPreUploadExceptions(adminAreasGeoJson);
 
@@ -55,8 +52,8 @@ export class AdminAreaService {
           .createQueryBuilder()
           .insert()
           .values({
-            countryCodeISO3: countryCodeISO3,
-            adminLevel: adminLevel,
+            countryCodeISO3,
+            adminLevel,
             name: area.properties[`ADM${adminLevel}_EN`],
             placeCode: area.properties[`ADM${adminLevel}_PCODE`],
             placeCodeParent:
@@ -136,7 +133,7 @@ export class AdminAreaService {
     lastUploadDate: LastUploadDateDto,
   ) {
     const disasterTypeEntity = await this.disasterTypeRepository.findOne({
-      where: { disasterType: disasterType },
+      where: { disasterType },
     });
     // REFACTOR: exact working if this property and code very unclear
     if (disasterTypeEntity.showOnlyTriggeredAreas) {

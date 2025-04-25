@@ -247,7 +247,7 @@ export class WhatsappService {
   }
 
   public async findOne(sid: string): Promise<TwilioMessageEntity> {
-    const findOneOptions = { sid: sid };
+    const findOneOptions = { sid };
     return await this.twilioMessageRepository.findOne({
       where: findOneOptions,
     });
@@ -463,7 +463,7 @@ export class WhatsappService {
     const messageKey = 'community-notification';
 
     const country = await this.countryRepository.findOne({
-      where: { countryCodeISO3: countryCodeISO3 },
+      where: { countryCodeISO3 },
       relations: ['notificationInfo'],
     });
 

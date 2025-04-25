@@ -34,10 +34,10 @@ const user: UserEntity = {
   lastName: 'Example',
   userRole: UserRole.Operator,
   countries: [],
-  disasterTypes: disasterTypes, // NOTE: if this is passed as empty array, a mock for disasterRepository.find() is needed
+  disasterTypes, // NOTE: if this is passed as empty array, a mock for disasterRepository.find() is needed
   password: '',
   created: new Date(),
-  hashPassword: function (): void {
+  hashPassword(): void {
     throw new Error('Function not implemented.');
   },
   actions: [],
