@@ -1,3 +1,12 @@
+## [0.314.2](https://github.com/rodekruis/IBF-system/compare/v0.314.1...v0.314.2) (2025-04-28)
+
+
+### Bug Fixes
+
+* self-signed certificate ([d118da9](https://github.com/rodekruis/IBF-system/commit/d118da96b8671f2230c0c46f96182bc197df6ac2))
+
+
+
 ## [0.314.1](https://github.com/rodekruis/IBF-system/compare/v0.314.0...v0.314.1) (2025-04-25)
 
 
@@ -94,20 +103,6 @@
 
 * update LSO drought popup info copy AB[#35037](https://github.com/rodekruis/IBF-system/issues/35037) ([622b07b](https://github.com/rodekruis/IBF-system/commit/622b07b15cc40ca83cf1868ed224eb2d4b5b34d7))
 * update seed data based on design review ([f25c1ac](https://github.com/rodekruis/IBF-system/commit/f25c1ac98a6c7f5f9304da6c50a91791be04ae25))
-
-
-
-## [0.312.4](https://github.com/rodekruis/IBF-system/compare/v0.312.3...v0.312.4) (2025-04-09)
-
-
-### Bug Fixes
-
-* filter actions by month bug ([dce4fe5](https://github.com/rodekruis/IBF-system/commit/dce4fe56b51d14a27b03ad1b02ef3b60ddf28c03))
-* redefine monthLong bug AB[#35178](https://github.com/rodekruis/IBF-system/issues/35178) ([4575dc6](https://github.com/rodekruis/IBF-system/commit/4575dc622009f2c2f8da9d7b2bc4571f53a55fa0))
-* revert fdescribe ([9fa48cb](https://github.com/rodekruis/IBF-system/commit/9fa48cb025e21bc82227a57f187cdfd6713a4b1b))
-* revert minor refactor change to fix e2e test ([60a14f2](https://github.com/rodekruis/IBF-system/commit/60a14f2007a802be49d228992d962c2d83e15c3c))
-* test ([6c76b21](https://github.com/rodekruis/IBF-system/commit/6c76b21e21e9e774d857aacadb3e6614aeb36e3d))
-* unit tests ([b0c6150](https://github.com/rodekruis/IBF-system/commit/b0c6150712f1bc46e85a50b5eac708bcc344a012))
 
 
 
