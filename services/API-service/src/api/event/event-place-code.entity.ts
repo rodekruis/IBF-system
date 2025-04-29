@@ -22,6 +22,7 @@ export class EventPlaceCodeEntity {
   @ManyToOne(
     (): typeof AdminAreaEntity => AdminAreaEntity,
     (adminArea): EventPlaceCodeEntity[] => adminArea.eventPlaceCodes,
+    { onDelete: 'CASCADE' },
   )
   public adminArea: AdminAreaEntity;
 
