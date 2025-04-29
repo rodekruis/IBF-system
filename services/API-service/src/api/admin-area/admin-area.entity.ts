@@ -56,6 +56,7 @@ export class AdminAreaEntity {
   @OneToMany(
     (): typeof EventPlaceCodeEntity => EventPlaceCodeEntity,
     (eventPlaceCode): AdminAreaEntity => eventPlaceCode.adminArea,
+    { cascade: true },
   )
   public eventPlaceCodes: EventPlaceCodeEntity[];
 }
