@@ -49,7 +49,10 @@ export class SeedInit implements InterfaceScript {
   ) {
     this.seedHelper = new SeedHelper(dataSource);
   }
-  public async run(_argv: object, includeLinesData: boolean): Promise<void> {
+  public async run(
+    _argv: object,
+    includeLinesData: boolean = process.env.NODE_ENV === 'development',
+  ): Promise<void> {
     await this.seedHelper.truncateAll();
 
     // ***** CREATE DISASTER *****
@@ -205,11 +208,12 @@ export class SeedInit implements InterfaceScript {
     await layerRepository.save(JSON.parse(JSON.stringify(layerMetadata)));
 
     // ***** SEED POINT DATA *****
-    this.logger.log('Seed Point data...');
+    this.logger.log('Seed Points...');
     await this.seedPointData.run();
 
     // ***** SEED LINE DATA *****
     if (includeLinesData) {
+      this.logger.log('Seed Lines...');
       await this.seedLineData.run();
     }
 
