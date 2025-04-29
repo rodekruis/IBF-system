@@ -83,7 +83,7 @@
     "eslint-plugin-regexp": "^2.6.0",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "globals": "^16.0.0",
-    "jasmine-core": "^5.1.2",
+    "jasmine-core": "^5.7.0",
     "karma": "^6.4.3",
     "karma-chrome-launcher": "^3.2.0",
     "karma-coverage-istanbul-reporter": "^3.0.3",
