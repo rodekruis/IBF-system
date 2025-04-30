@@ -14,7 +14,7 @@ export class SeedProd implements InterfaceScript {
   public constructor(private dataSource: DataSource) {}
 
   public async run(): Promise<void> {
-    this.logger.log('Seeding production data...');
+    this.logger.log('Seed admin user...');
     const userRepository = this.dataSource.getRepository(UserEntity);
     if ((await userRepository.find({ take: 1 })).length === 0) {
       const user = users.filter((user): boolean => {
@@ -33,9 +33,7 @@ export class SeedProd implements InterfaceScript {
 
       await userRepository.save(adminUser);
     } else {
-      this.logger.log(
-        '----------------NOTE: Users were found in database already, so admin-user not added------------------',
-      );
+      this.logger.log('Users already exist, skip seed admin user.');
     }
   }
 }
