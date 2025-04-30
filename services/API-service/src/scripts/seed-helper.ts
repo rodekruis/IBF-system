@@ -3,6 +3,8 @@ import fs from 'fs';
 import { Readable } from 'stream';
 import { DataSource } from 'typeorm';
 
+import { DUNANT_EMAIL } from '../config';
+
 export class SeedHelper {
   public constructor(private dataSource: DataSource) {}
 
@@ -47,7 +49,7 @@ export class SeedHelper {
         ) {
           let q;
           if (entity.tableName === 'user') {
-            q = `DELETE FROM \"${repository.metadata.schema}\".\"${entity.tableName}\" WHERE email <> 'dunant@redcross.nl'`;
+            q = `DELETE FROM \"${repository.metadata.schema}\".\"${entity.tableName}\" WHERE email <> '${DUNANT_EMAIL}';`;
           } else {
             q = `TRUNCATE TABLE \"${repository.metadata.schema}\".\"${entity.tableName}\" CASCADE;`;
           }

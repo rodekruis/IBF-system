@@ -19,6 +19,7 @@ import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
 import { UserEntity } from '../api/user/user.entity';
 import { UserRole } from '../api/user/user-role.enum';
+import { DUNANT_EMAIL } from '../config';
 import countries from './json/countries.json';
 import disasterTypes from './json/disaster-types.json';
 import eapActions from './json/EAP-actions.json';
@@ -55,9 +56,8 @@ export class SeedInit implements InterfaceScript {
     truncate: boolean = false,
   ): Promise<void> {
     const userRepository = this.dataSource.getRepository(UserEntity);
-    const dunantEmail = 'dunant@redcross.nl';
     const dunantUser = await userRepository.findOne({
-      where: { email: dunantEmail },
+      where: { email: DUNANT_EMAIL },
     });
 
     if (truncate) {
@@ -143,7 +143,7 @@ export class SeedInit implements InterfaceScript {
       selectedUsers[0].password = process.env.ADMIN_PASSWORD;
     } else {
       if (dunantUser) {
-        selectedUsers = users.filter((user) => user.email !== dunantEmail);
+        selectedUsers = users.filter((user) => user.email !== DUNANT_EMAIL);
         dunantUser.countries = await countryRepository.find();
         await userRepository.save(dunantUser);
       } else {
