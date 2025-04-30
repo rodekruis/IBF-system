@@ -40,7 +40,7 @@ const assertions: Assertion[] = [
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
     featureCount: 16,
-    placeCodeRegex: /^(UG|21UGA)/, // REFACTOR: set to /^UG/ after data is fixed
+    placeCodeRegex: /^UG/,
   },
   {
     countryCodeISO3: 'UGA',
@@ -48,7 +48,7 @@ const assertions: Assertion[] = [
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Warning,
     featureCount: 2,
-    placeCodeRegex: /^(UG|21UGA)/, // REFACTOR: set to /^UG/ after data is fixed
+    placeCodeRegex: /^UG/,
   },
   {
     countryCodeISO3: 'UGA',
@@ -56,7 +56,7 @@ const assertions: Assertion[] = [
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
     featureCount: 4,
-    placeCodeRegex: /^(UG|21UGA)/, // REFACTOR: set to /^UG/ after data is fixed
+    placeCodeRegex: /^UG/,
   },
   {
     countryCodeISO3: 'ZMB',
@@ -184,8 +184,8 @@ const assertions: Assertion[] = [
     disasterType: DisasterType.Floods,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.NoTrigger,
-    featureCount: 128,
-    placeCodeRegex: /^(UG|21UGA)/, // REFACTOR: set to /^UG/ after data is fixed
+    featureCount: 135,
+    placeCodeRegex: /^UG/,
   },
   {
     countryCodeISO3: 'UGA',
@@ -195,7 +195,7 @@ const assertions: Assertion[] = [
     leadTime: LeadTime.day4,
     eventName: 'G5220',
     featureCount: 6,
-    placeCodeRegex: /^(UG|21UGA)/, // REFACTOR: set to /^UG/ after data is fixed
+    placeCodeRegex: /^UG/,
   },
   {
     countryCodeISO3: 'UGA',
@@ -205,7 +205,7 @@ const assertions: Assertion[] = [
     leadTime: LeadTime.day0,
     eventName: 'G5075',
     featureCount: 8,
-    placeCodeRegex: /^(UG|21UGA)/, // REFACTOR: set to /^UG/ after data is fixed
+    placeCodeRegex: /^UG/,
   },
   {
     countryCodeISO3: 'UGA',
@@ -214,9 +214,9 @@ const assertions: Assertion[] = [
     scenario: FloodsScenario.Trigger,
     leadTime: LeadTime.day0,
     eventName: 'G5075',
-    placeCodeParent: '21UGA003004',
-    featureCount: 2,
-    placeCodeRegex: /^(UG|21UGA)/, // REFACTOR: set to /^UG/ after data is fixed
+    placeCodeParent: 'UG2037',
+    featureCount: 1,
+    placeCodeRegex: /^UG/,
   },
 ];
 
