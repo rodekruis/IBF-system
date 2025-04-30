@@ -52,8 +52,21 @@ export class SeedInit implements InterfaceScript {
   public async run(
     _argv: object,
     includeLinesData: boolean = process.env.NODE_ENV === 'development',
+    truncate: boolean = false,
   ): Promise<void> {
-    await this.seedHelper.truncateAll();
+    const userRepository = this.dataSource.getRepository(UserEntity);
+    const dunantEmail = 'dunant@redcross.nl';
+    const dunantUser = await userRepository.findOne({
+      where: { email: dunantEmail },
+    });
+
+    if (truncate) {
+      // clear database if called via /api/scripts/reset
+      await this.seedHelper.truncateAll();
+    } else if (dunantUser) {
+      // no need to seed if called via prestart:dev and admin user exists
+      return;
+    }
 
     // ***** CREATE DISASTER *****
     this.logger.log('Seed Disaster Types...');
@@ -122,9 +135,6 @@ export class SeedInit implements InterfaceScript {
 
     // ***** CREATE USERS *****
     this.logger.log('Seed Users...');
-    const userRepository = this.dataSource.getRepository(UserEntity);
-
-    const dunantEmail = 'dunant@redcross.nl';
     let selectedUsers;
     if (process.env.PRODUCTION_DATA_SERVER === 'yes') {
       selectedUsers = users.filter((user): boolean => {
@@ -132,9 +142,6 @@ export class SeedInit implements InterfaceScript {
       });
       selectedUsers[0].password = process.env.ADMIN_PASSWORD;
     } else {
-      const dunantUser = await userRepository.findOne({
-        where: { email: dunantEmail },
-      });
       if (dunantUser) {
         selectedUsers = users.filter((user) => user.email !== dunantEmail);
         dunantUser.countries = await countryRepository.find();

@@ -59,7 +59,7 @@ export class ScriptsController {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
 
-    await this.seedInit.run(null, includeLinesData);
+    await this.seedInit.run(null, includeLinesData, true);
     return res
       .status(HttpStatus.ACCEPTED)
       .send('Database reset with original seed data.');
