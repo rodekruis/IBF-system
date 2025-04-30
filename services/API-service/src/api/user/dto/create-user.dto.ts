@@ -11,6 +11,7 @@ import {
   MinLength,
 } from 'class-validator';
 
+import { DUNANT_EMAIL } from '../../../config';
 import countries from '../../../scripts/json/countries.json';
 import disasterTypes from '../../../scripts/json/disaster-types.json';
 import { UserRole } from '../user-role.enum';
@@ -20,7 +21,7 @@ export const userRoleArray = Object.values(UserRole).map((item) =>
 );
 
 export class CreateUserDto {
-  @ApiProperty({ example: 'dunant@redcross.nl' })
+  @ApiProperty({ example: DUNANT_EMAIL })
   @IsEmail()
   @IsNotEmpty()
   public email: string;

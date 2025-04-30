@@ -1,6 +1,7 @@
 export const DEBUG =
   ['production', 'test', 'ci'].indexOf(process.env.NODE_ENV) < 0; // true if NODE_ENV is not in list
 export const PORT = 3000;
+export const DUNANT_EMAIL = 'dunant@redcross.nl';
 
 // Configure Internal and External API URL's
 // ---------------------------------------------------------------------------

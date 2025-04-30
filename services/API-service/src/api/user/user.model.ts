@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { DUNANT_EMAIL } from '../../config';
 import { UserRole } from './user-role.enum';
 
 export class User {
@@ -16,7 +17,7 @@ export class User {
 }
 
 export class UserData {
-  @ApiProperty({ example: 'dunant@redcross.nl' })
+  @ApiProperty({ example: DUNANT_EMAIL })
   public email: string;
 
   @ApiProperty({ example: 'Henry' })
