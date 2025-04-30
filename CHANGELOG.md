@@ -1,3 +1,13 @@
+## [0.314.3](https://github.com/rodekruis/IBF-system/compare/v0.314.2...v0.314.3) (2025-04-30)
+
+
+### Bug Fixes
+
+* add truncate flag in seed init ([1c69efe](https://github.com/rodekruis/IBF-system/commit/1c69efebd06a5353a681f074f5c4ec68d329666e))
+* clearer log message in seed prod ([652e1fd](https://github.com/rodekruis/IBF-system/commit/652e1fdd78196d2f7fb83104b519edb760faa26a))
+
+
+
 ## [0.314.2](https://github.com/rodekruis/IBF-system/compare/v0.314.1...v0.314.2) (2025-04-28)
 
 
@@ -93,16 +103,6 @@
 ### Bug Fixes
 
 * copy change AB[#35298](https://github.com/rodekruis/IBF-system/issues/35298) ([cd172dc](https://github.com/rodekruis/IBF-system/commit/cd172dc7cca39f59479233617adac3ea282be718))
-
-
-
-## [0.312.5](https://github.com/rodekruis/IBF-system/compare/v0.312.4...v0.312.5) (2025-04-11)
-
-
-### Bug Fixes
-
-* update LSO drought popup info copy AB[#35037](https://github.com/rodekruis/IBF-system/issues/35037) ([622b07b](https://github.com/rodekruis/IBF-system/commit/622b07b15cc40ca83cf1868ed224eb2d4b5b34d7))
-* update seed data based on design review ([f25c1ac](https://github.com/rodekruis/IBF-system/commit/f25c1ac98a6c7f5f9304da6c50a91791be04ae25))
 
 
 
