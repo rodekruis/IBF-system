@@ -1,6 +1,5 @@
 import { DisasterType } from '../../helpers/API-service/enum/disaster-type.enum';
-import { getToken } from '../../helpers/utility.helper';
-import { mock } from '../../helpers/utility.helper';
+import { getToken, mock } from '../../helpers/utility.helper';
 import { getAdminAreas } from './admin-areas.api';
 import { assertions } from './admin-areas.assertions';
 
