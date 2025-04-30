@@ -23,7 +23,8 @@ export default function adminAreaTests() {
         eventName,
         placeCodeParent,
       }) => {
-        let title = `${countryCodeISO3} / ${disasterType} / ${adminLevel} / ${scenario}`;
+        let title = 'should return list of admin areas on GET';
+        title += ` ${countryCodeISO3} / ${disasterType} / ${adminLevel} / ${scenario}`;
         if (leadTime) {
           title += ` / ${leadTime}`;
         }
