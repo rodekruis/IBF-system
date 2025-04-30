@@ -37,7 +37,7 @@ export class EapActionStatusEntity {
   )
   public eventPlaceCode: EventPlaceCodeEntity;
 
-  @ApiProperty({ example: '21UGA001001' })
+  @ApiProperty({ example: 'UG3066' })
   @Index()
   @Column()
   public placeCode: string;

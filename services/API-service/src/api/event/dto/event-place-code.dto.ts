@@ -28,7 +28,7 @@ export class ActivationLogDto {
   @ApiProperty({ example: 'Event A' })
   public eventName: string;
 
-  @ApiProperty({ example: '21UGA001001' })
+  @ApiProperty({ example: 'UG3066' })
   public placeCode: string;
 
   @ApiProperty({ example: 'Agago' })

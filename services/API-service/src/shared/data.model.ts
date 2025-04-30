@@ -15,10 +15,10 @@ export class AdminAreaRecord {
 }
 
 export class AggregateDataRecord {
-  @ApiProperty({ example: '21UGA001001' })
+  @ApiProperty({ example: 'UG3066' })
   public placeCode: string;
 
-  @ApiProperty({ example: '21UGA001' })
+  @ApiProperty({ example: 'UG3' })
   public placeCodeParent: string;
 
   @ApiProperty({ example: 'population_affected' })
@@ -29,7 +29,7 @@ export class AggregateDataRecord {
 }
 
 export class AlertArea {
-  @ApiProperty({ example: '21UGA001001' })
+  @ApiProperty({ example: 'UG3066' })
   public placeCode: string;
 
   @ApiProperty({ example: 'Agago' })
