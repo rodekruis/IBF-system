@@ -18,7 +18,7 @@ export default function processEventsTests() {
       date: new Date(),
     };
 
-    it('process returns notification content if noNotification is true', async () => {
+    it('should return notification content if noNotification is true', async () => {
       // Arrange
       await mock(
         FloodsScenario.Trigger,
@@ -36,7 +36,7 @@ export default function processEventsTests() {
       expect(result.body.activeEvents.email).toBeTruthy();
     });
 
-    it('process returns void if noNotification is false', async () => {
+    it('should return void if noNotification is false', async () => {
       // Arrange
       await mock(
         FloodsScenario.Trigger,

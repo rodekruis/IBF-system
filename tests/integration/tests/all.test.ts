@@ -3,56 +3,32 @@ import adminAreaTests from './admin-areas/admin-areas.test';
 import adminAreaAggregatesTests from './admin-areas/aggregates.test';
 import communityNotificationTests from './community-notification/community-notification.test';
 import createCountryTests from './country/create-country.test';
-import emailUgaDroughtTests from './email/drought/email-uga-drought.test';
-import emailMwiFlashFloodTests from './email/flash-flood/email-mwi-flash-flood.test';
-import emailSsdFloodsTests from './email/floods/email-ssd-floods.test';
-import emailUgaFloodsTests from './email/floods/email-uga-floods.test';
-import emailEthMalariaTests from './email/malaria/email-eth-malaria.test';
-import emailPhlTyphoonTests from './email/typhoon/email-phl-typhoon.test';
+import emailTests from './email/emails.test';
 import getEventsTests from './events/get-events.test';
 import processEventsTests from './events/process-events.test';
 import setTriggerTests from './events/set-trigger.test';
 import typhoonTrackTests from './typhoon-track/typhoon-track.test';
 import usersTests from './users/users.test';
 
-describe('API Integration Tests', () => {
+describe('integration tests', () => {
   beforeAll(async () => {
     await reset();
   });
 
-  describe('Community notification', () => {
-    communityNotificationTests();
-  });
+  communityNotificationTests();
 
-  describe('Country', () => {
-    createCountryTests();
-  });
+  createCountryTests();
 
-  describe('Email', () => {
-    emailUgaDroughtTests();
-    emailEthMalariaTests();
-    emailMwiFlashFloodTests();
-    emailPhlTyphoonTests();
-    emailSsdFloodsTests();
-    emailUgaFloodsTests();
-  });
+  emailTests();
 
-  describe('Admin areas', () => {
-    adminAreaTests();
-    adminAreaAggregatesTests();
-  });
+  adminAreaTests();
+  adminAreaAggregatesTests();
 
-  describe('Typhoon track', () => {
-    typhoonTrackTests();
-  });
+  typhoonTrackTests();
 
-  describe('Manage users', () => {
-    usersTests();
-  });
+  usersTests();
 
-  describe('Events', () => {
-    getEventsTests();
-    processEventsTests();
-    setTriggerTests(); // Putting this test last. If not, seems to make the subsequent test flaky.
-  });
+  getEventsTests();
+  processEventsTests();
+  setTriggerTests(); // Putting this test last. If not, seems to make the subsequent test flaky.
 });

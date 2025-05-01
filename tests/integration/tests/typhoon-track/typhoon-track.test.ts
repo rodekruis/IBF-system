@@ -47,7 +47,7 @@ export default function typhoonTrackTests() {
       date: new Date(),
     };
 
-    it('upload successfully and return expected result on GET', async () => {
+    it('should upload successfully', async () => {
       // Arrange
       await mock(
         TyphoonScenario.Trigger,

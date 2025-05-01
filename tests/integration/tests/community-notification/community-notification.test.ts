@@ -10,14 +10,14 @@ import {
 } from './community-notification.api';
 
 export default function communityNotificationTests() {
-  describe('community notifications', () => {
+  describe('community-notifications', () => {
     let token: string;
 
     beforeAll(async () => {
       token = await getToken();
     });
 
-    it('should successfully post and get and dismiss a community notification', async () => {
+    it('should post, get, and dismiss a community notification', async () => {
       // Arrange
       const countryCodeISO3 = 'UGA';
       const disasterType = DisasterType.Floods;
