@@ -2,12 +2,12 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { MalariaScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import { mock, sendNotification } from '../../../helpers/utility.helper';
+import { mock, notify } from '../../../helpers/utility.helper';
 
 export async function testMalariaScenario(
   scenario: MalariaScenario,
   countryCodeISO3: string,
-  accessToken: string,
+  token: string,
 ): Promise<boolean> {
   const eventNames = ['0-month', '1-month', '2-month'];
 
@@ -16,14 +16,10 @@ export async function testMalariaScenario(
     DisasterType.Malaria,
     countryCodeISO3,
     null,
-    accessToken,
+    token,
   );
   // Act
-  const response = await sendNotification(
-    countryCodeISO3,
-    DisasterType.Malaria,
-    accessToken,
-  );
+  const response = await notify(countryCodeISO3, DisasterType.Malaria, token);
   // Assert
   // Also checking the status of the mockResult here as I think it also breaks often
   expect(mockResult.status).toBe(202);

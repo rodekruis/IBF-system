@@ -1,18 +1,18 @@
 import { countryData } from '../../fixtures/country.const';
 import { notificationInfoData } from '../../fixtures/notification-info.const';
+import { getToken } from '../../helpers/utility.helper';
 import {
   addOrUpdateCountries,
   addOrUpdateNotificationInfo,
   getCountries,
-} from '../../helpers/country.helper';
-import { getAccessToken } from '../../helpers/utility.helper';
+} from './country.api';
 
 export default function createCountryTests() {
   describe('create or update country and notification info', () => {
-    let accessToken: string;
+    let token: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken();
+      token = await getToken();
     });
 
     it('should update existing country and notification-info successfully', async () => {
@@ -29,14 +29,14 @@ export default function createCountryTests() {
       // Act
       const postCountryResult = await addOrUpdateCountries(
         { countries: newCountryData },
-        accessToken,
+        token,
       );
       const postNotificationInfoResult = await addOrUpdateNotificationInfo(
         newNotificationInfoData,
-        accessToken,
+        token,
       );
 
-      const getResult = await getCountries([countryCodeISO3], accessToken);
+      const getResult = await getCountries([countryCodeISO3], token);
 
       // Assert
       expect(postCountryResult.status).toBe(201);
@@ -60,13 +60,13 @@ export default function createCountryTests() {
       // Act
       const postCountryResult = await addOrUpdateCountries(
         { countries: newCountryData },
-        accessToken,
+        token,
       );
       const postNotificationInfoResult = await addOrUpdateNotificationInfo(
         newNotificationInfoData,
-        accessToken,
+        token,
       );
-      const getResult = await getCountries([newCountryCodeISO3], accessToken);
+      const getResult = await getCountries([newCountryCodeISO3], token);
 
       // Assert
       expect(postCountryResult.status).toBe(201);
@@ -83,7 +83,7 @@ export default function createCountryTests() {
       // Act
       const postResult = await addOrUpdateNotificationInfo(
         newNotificationInfoData,
-        accessToken,
+        token,
       );
 
       // Assert

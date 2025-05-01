@@ -1,24 +1,20 @@
 import { AlertLevel } from '../../helpers/API-service/enum/alert-level.enum';
 import { DisasterType } from '../../helpers/API-service/enum/disaster-type.enum';
 import { DroughtScenario } from '../../helpers/API-service/enum/mock-scenario.enum';
-import {
-  getAccessToken,
-  getEvents,
-  mock,
-  postSetTrigger,
-  sendNotification,
-} from '../../helpers/utility.helper';
-
-const countryCodeISO3 = 'LSO';
-const disasterType = DisasterType.Drought;
+import { getToken } from '../../helpers/utility.helper';
+import { mock, notify } from '../../helpers/utility.helper';
+import { getEvents, postSetTrigger } from './events.api';
 
 export default function setTriggerTests() {
   describe('set trigger', () => {
-    let accessToken: string;
+    let token: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken(); // REFACTOR: It should be possible to pass this from all.test.ts instead of getting it here again
+      token = await getToken();
     });
+
+    const countryCodeISO3 = 'LSO';
+    const disasterType = DisasterType.Drought;
 
     it('should successfully set trigger and change alertLevel from warning to trigger and send email', async () => {
       // Arrange
@@ -28,17 +24,17 @@ export default function setTriggerTests() {
         disasterType,
         countryCodeISO3,
         dateAugust,
-        accessToken,
+        token,
       );
 
       const getEventsBeforeResult = await getEvents(
         countryCodeISO3,
         disasterType,
-        accessToken,
+        token,
       );
       const alertAreasBefore = getEventsBeforeResult.body[0].alertAreas;
       const eventPlaceCodeIdsToSetTrigger = alertAreasBefore.map(
-        (alertArea) => alertArea.eventPlaceCodeId,
+        ({ eventPlaceCodeId }) => eventPlaceCodeId,
       );
 
       // Act
@@ -48,13 +44,13 @@ export default function setTriggerTests() {
         countryCodeISO3,
         disasterType,
         true,
-        accessToken,
+        token,
       );
 
-      const sendNotificationResult = await sendNotification(
+      const sendNotificationResult = await notify(
         countryCodeISO3,
         disasterType,
-        accessToken,
+        token,
       );
 
       // Assert
@@ -66,10 +62,10 @@ export default function setTriggerTests() {
       const getEventsAfterResult = await getEvents(
         countryCodeISO3,
         disasterType,
-        accessToken,
+        token,
       );
       const alertAreasAfter = getEventsAfterResult.body.flatMap(
-        (event) => event.alertAreas || [],
+        ({ alertAreas }) => alertAreas || [],
       );
       for (const area of alertAreasBefore) {
         expect(area.alertLevel).toBe(AlertLevel.WARNING);
@@ -93,14 +89,10 @@ export default function setTriggerTests() {
         disasterType,
         countryCodeISO3,
         dateJuly,
-        accessToken,
+        token,
         removeEvents,
       );
-      const eventsJuly = await getEvents(
-        countryCodeISO3,
-        disasterType,
-        accessToken,
-      );
+      const eventsJuly = await getEvents(countryCodeISO3, disasterType, token);
       expect(eventsJuly.body[0].alertLevel).toBe(AlertLevel.WARNING);
 
       // august no-alert 2-month > assert downgrade to no-alert
@@ -111,14 +103,10 @@ export default function setTriggerTests() {
         disasterType,
         countryCodeISO3,
         dateAugust,
-        accessToken,
+        token,
         removeEvents,
       );
-      const eventsAug = await getEvents(
-        countryCodeISO3,
-        disasterType,
-        accessToken,
-      );
+      const eventsAug = await getEvents(countryCodeISO3, disasterType, token);
       expect(eventsAug.body.length).toBe(0);
 
       // september warning 1-month > bring back to warning and test set-trigger
@@ -128,27 +116,27 @@ export default function setTriggerTests() {
         disasterType,
         countryCodeISO3,
         dateSept,
-        accessToken,
+        token,
         removeEvents,
       );
       const eventsSeptBefore = await getEvents(
         countryCodeISO3,
         disasterType,
-        accessToken,
+        token,
       );
       await postSetTrigger(
         eventsSeptBefore.body[0].alertAreas.map(
-          (area) => area.eventPlaceCodeId,
+          ({ eventPlaceCodeId }) => eventPlaceCodeId,
         ),
         countryCodeISO3,
         disasterType,
         true,
-        accessToken,
+        token,
       );
       const eventsSeptAfter = await getEvents(
         countryCodeISO3,
         disasterType,
-        accessToken,
+        token,
       );
       expect(eventsSeptAfter.body[0].alertLevel).toBe(AlertLevel.TRIGGER);
 
@@ -159,14 +147,10 @@ export default function setTriggerTests() {
         disasterType,
         countryCodeISO3,
         dateOct,
-        accessToken,
+        token,
         removeEvents,
       );
-      const eventsOct = await getEvents(
-        countryCodeISO3,
-        disasterType,
-        accessToken,
-      );
+      const eventsOct = await getEvents(countryCodeISO3, disasterType, token);
       expect(eventsOct.body[0].alertLevel).toBe(AlertLevel.TRIGGER);
 
       // april no-alert 6-month > assert reset to no alert at end of season
@@ -176,14 +160,10 @@ export default function setTriggerTests() {
         disasterType,
         countryCodeISO3,
         dateApril,
-        accessToken,
+        token,
         removeEvents,
       );
-      const eventsApr = await getEvents(
-        countryCodeISO3,
-        disasterType,
-        accessToken,
-      );
+      const eventsApr = await getEvents(countryCodeISO3, disasterType, token);
       expect(eventsApr.body.length).toBe(0);
     });
   });

@@ -1,15 +1,16 @@
 import { DroughtScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import { getAccessToken } from '../../../helpers/utility.helper';
+import { getToken } from '../../../helpers/utility.helper';
 import { testDroughtScenario } from './test-drought-scenario.helper';
 
 export default function emailUgaDroughtTests() {
-  describe('Should send an email for UGA drought', () => {
-    let accessToken: string;
-    const countryCodeISO3 = 'UGA';
+  describe('should send an email for UGA drought', () => {
+    let token: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken();
+      token = await getToken();
     });
+
+    const countryCodeISO3 = 'UGA';
 
     it('triggers in january', async () => {
       const dateJanuary = new Date(new Date().getFullYear(), 0, 2); // Use 2nd of January to avoid timezone issues
@@ -19,7 +20,7 @@ export default function emailUgaDroughtTests() {
         countryCodeISO3,
         dateJanuary,
         expectedEventNames,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });
@@ -32,7 +33,7 @@ export default function emailUgaDroughtTests() {
         countryCodeISO3,
         dateJanuary,
         expectedEventNames,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });
@@ -46,7 +47,7 @@ export default function emailUgaDroughtTests() {
         countryCodeISO3,
         currentDate,
         expectedEventNames,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });

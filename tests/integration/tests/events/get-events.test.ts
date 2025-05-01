@@ -1,18 +1,20 @@
 import { AlertLevel } from '../../helpers/API-service/enum/alert-level.enum';
 import { DisasterType } from '../../helpers/API-service/enum/disaster-type.enum';
 import { FloodsScenario } from '../../helpers/API-service/enum/mock-scenario.enum';
-import { getAccessToken, getEvents, mock } from '../../helpers/utility.helper';
-
-const countryCodeISO3 = 'UGA';
-const disasterType = DisasterType.Floods;
+import { getToken } from '../../helpers/utility.helper';
+import { mock } from '../../helpers/utility.helper';
+import { getEvents } from './events.api';
 
 export default function getEventsTests() {
   describe('get events', () => {
-    let accessToken: string;
+    let token: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken();
+      token = await getToken();
     });
+
+    const countryCodeISO3 = 'UGA';
+    const disasterType = DisasterType.Floods;
 
     it('should successfully get events', async () => {
       // Arrange
@@ -21,14 +23,14 @@ export default function getEventsTests() {
         disasterType,
         countryCodeISO3,
         new Date(),
-        accessToken,
+        token,
       );
 
       // Act
       const getEventsResult = await getEvents(
         countryCodeISO3,
         disasterType,
-        accessToken,
+        token,
       );
       const events = getEventsResult.body;
 

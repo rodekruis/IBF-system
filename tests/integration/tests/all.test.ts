@@ -1,4 +1,4 @@
-import { getAccessToken, resetDB } from '../helpers/utility.helper';
+import { reset } from '../helpers/utility.helper';
 import adminAreaTests from './admin-areas/admin-areas.test';
 import adminAreaAggregatesTests from './admin-areas/aggregates.test';
 import communityNotificationTests from './community-notification/community-notification.test';
@@ -13,12 +13,11 @@ import getEventsTests from './events/get-events.test';
 import processEventsTests from './events/process-events.test';
 import setTriggerTests from './events/set-trigger.test';
 import typhoonTrackTests from './typhoon-track/typhoon-track.test';
-import manageUsersTests from './users/manage-users.test';
+import usersTests from './users/users.test';
 
 describe('API Integration Tests', () => {
   beforeAll(async () => {
-    const accessToken = await getAccessToken();
-    await resetDB(accessToken);
+    await reset();
   });
 
   describe('Community notification', () => {
@@ -48,7 +47,7 @@ describe('API Integration Tests', () => {
   });
 
   describe('Manage users', () => {
-    manageUsersTests();
+    usersTests();
   });
 
   describe('Events', () => {

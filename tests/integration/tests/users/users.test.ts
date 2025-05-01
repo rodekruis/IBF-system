@@ -1,19 +1,14 @@
 import { userData } from '../../fixtures/users.const';
 import { UserRole } from '../../helpers/API-service/enum/user-role.enum';
-import {
-  changePassword,
-  createUser,
-  getAccessToken,
-  loginUser,
-  updateUser,
-} from '../../helpers/utility.helper';
+import { getToken } from '../../helpers/utility.helper';
+import { changePassword, createUser, login, updateUser } from './users.api';
 
 export default function manageUsersTests() {
-  describe('manage users', () => {
-    let accessToken: string;
+  describe('users', () => {
+    let token: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken();
+      token = await getToken();
     });
 
     describe('create user', () => {
@@ -23,8 +18,8 @@ export default function manageUsersTests() {
         newUserData.email = 'new-user@redcross.nl';
 
         // Act
-        const createResult = await createUser(newUserData, accessToken);
-        const loginResult = await loginUser(
+        const createResult = await createUser(newUserData, token);
+        const loginResult = await login(
           createResult.body.user.email,
           newUserData.password,
         );
@@ -41,7 +36,7 @@ export default function manageUsersTests() {
         const existingUserData = structuredClone(userData);
 
         // Act
-        const createResult = await createUser(existingUserData, accessToken);
+        const createResult = await createUser(existingUserData, token);
 
         // Assert
         expect(createResult.status).toBe(400);
@@ -57,11 +52,7 @@ export default function manageUsersTests() {
         const updatedData = { firstName: newFirstName, role: newUserRole };
 
         // Act
-        const updateUserResult = await updateUser(
-          email,
-          updatedData,
-          accessToken,
-        );
+        const updateUserResult = await updateUser(email, updatedData, token);
 
         // Assert
         expect(updateUserResult.status).toBe(200);
@@ -74,11 +65,7 @@ export default function manageUsersTests() {
         const updatedData = { firstName: 'new-first-name' };
 
         // Act
-        const updateUserResult = await updateUser(
-          email,
-          updatedData,
-          accessToken,
-        );
+        const updateUserResult = await updateUser(email, updatedData, token);
 
         // Assert
         expect(updateUserResult.status).toBe(404);
@@ -90,11 +77,7 @@ export default function manageUsersTests() {
         const updatedData = {};
 
         // Act
-        const updateUserResult = await updateUser(
-          email,
-          updatedData,
-          accessToken,
-        );
+        const updateUserResult = await updateUser(email, updatedData, token);
 
         // Assert
         expect(updateUserResult.status).toBe(400);
@@ -111,7 +94,7 @@ export default function manageUsersTests() {
         const changePasswordResult = await changePassword(
           email,
           newPassword,
-          accessToken,
+          token,
         );
 
         // Assert
@@ -127,9 +110,9 @@ export default function manageUsersTests() {
         const changePasswordResult = await changePassword(
           userData.email,
           newPassword,
-          accessToken,
+          token,
         );
-        const loginResult = await loginUser(userData.email, newPassword);
+        const loginResult = await login(userData.email, newPassword);
 
         // Assert
         expect(changePasswordResult.status).toBe(201);
@@ -140,7 +123,7 @@ export default function manageUsersTests() {
         const changePasswordBackResult = await changePassword(
           userData.email,
           userData.password,
-          accessToken,
+          token,
         );
         expect(changePasswordBackResult.status).toBe(201);
       });

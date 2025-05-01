@@ -1,15 +1,16 @@
 import { FlashFloodsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import { getAccessToken } from '../../../helpers/utility.helper';
+import { getToken } from '../../../helpers/utility.helper';
 import { testFlashFloodScenario } from './test-flash-flood-scenario.helper';
 
 export default function emailMwiFlashFloodTests() {
-  const countryCodeISO3 = 'MWI';
-  describe('Should send an email for mwi flash flood', () => {
-    let accessToken: string;
+  describe('should send an email for mwi flash flood', () => {
+    let token: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken();
+      token = await getToken();
     });
+
+    const countryCodeISO3 = 'MWI';
 
     it('trigger', async () => {
       const eventNames = ['Blantyre City', 'Karonga', 'Rumphi'];
@@ -17,7 +18,7 @@ export default function emailMwiFlashFloodTests() {
         FlashFloodsScenario.Trigger,
         countryCodeISO3,
         eventNames,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });
@@ -28,7 +29,7 @@ export default function emailMwiFlashFloodTests() {
         FlashFloodsScenario.TriggerBlantyre,
         countryCodeISO3,
         eventNames,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });
@@ -39,7 +40,7 @@ export default function emailMwiFlashFloodTests() {
         FlashFloodsScenario.WarningKaronga,
         countryCodeISO3,
         eventNames,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });
@@ -50,7 +51,7 @@ export default function emailMwiFlashFloodTests() {
         FlashFloodsScenario.TriggerOngoingRumphi,
         countryCodeISO3,
         eventNames,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });
@@ -60,7 +61,7 @@ export default function emailMwiFlashFloodTests() {
         FlashFloodsScenario.NoTrigger,
         countryCodeISO3,
         [],
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });

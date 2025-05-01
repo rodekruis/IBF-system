@@ -2,14 +2,14 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { DroughtScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import { mock, sendNotification } from '../../../helpers/utility.helper';
+import { mock, notify } from '../../../helpers/utility.helper';
 
 export async function testDroughtScenario(
   scenario: DroughtScenario,
   countryCodeISO3: string,
   date: Date,
   expectedEventNames: string[] = [],
-  accessToken: string,
+  token: string,
 ): Promise<boolean> {
   const nrOfEvents = expectedEventNames.length;
   const mockResult = await mock(
@@ -17,13 +17,9 @@ export async function testDroughtScenario(
     DisasterType.Drought,
     countryCodeISO3,
     date,
-    accessToken,
+    token,
   );
-  const response = await sendNotification(
-    countryCodeISO3,
-    DisasterType.Drought,
-    accessToken,
-  );
+  const response = await notify(countryCodeISO3, DisasterType.Drought, token);
 
   // Assert
   // Also checking the status of the mockResult here as I think it also breaks often

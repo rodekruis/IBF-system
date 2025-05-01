@@ -2,12 +2,12 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { TyphoonScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import { mock, sendNotification } from '../../../helpers/utility.helper';
+import { mock, notify } from '../../../helpers/utility.helper';
 
 export async function testTyphoonScenario(
   scenario: TyphoonScenario,
   countryCodeISO3: string,
-  accessToken: string,
+  token: string,
 ): Promise<boolean> {
   const nrOfEvents = 1;
 
@@ -16,14 +16,10 @@ export async function testTyphoonScenario(
     DisasterType.Typhoon,
     countryCodeISO3,
     null,
-    accessToken,
+    token,
   );
   // Act
-  const response = await sendNotification(
-    countryCodeISO3,
-    DisasterType.Typhoon,
-    accessToken,
-  );
+  const response = await notify(countryCodeISO3, DisasterType.Typhoon, token);
 
   // Assert
   // Also checking the status of the mockResult here as I think it also breaks often

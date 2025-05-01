@@ -1,24 +1,22 @@
 import { DisasterType } from '../../helpers/API-service/enum/disaster-type.enum';
 import { FloodsScenario } from '../../helpers/API-service/enum/mock-scenario.enum';
-import {
-  getAccessToken,
-  mock,
-  postEventsProcess,
-} from '../../helpers/utility.helper';
-
-const eventsProcessDto = {
-  countryCodeISO3: 'UGA',
-  disasterType: DisasterType.Floods,
-  date: new Date(),
-};
+import { getToken } from '../../helpers/utility.helper';
+import { mock } from '../../helpers/utility.helper';
+import { postEventsProcess } from './events.api';
 
 export default function processEventsTests() {
   describe('process events', () => {
-    let accessToken: string;
+    let token: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken();
+      token = await getToken();
     });
+
+    const eventsProcessDto = {
+      countryCodeISO3: 'UGA',
+      disasterType: DisasterType.Floods,
+      date: new Date(),
+    };
 
     it('process returns notification content if noNotification is true', async () => {
       // Arrange
@@ -27,15 +25,11 @@ export default function processEventsTests() {
         DisasterType.Floods,
         'UGA',
         null,
-        accessToken,
+        token,
       );
 
       // Act
-      const result = await postEventsProcess(
-        eventsProcessDto,
-        true,
-        accessToken,
-      );
+      const result = await postEventsProcess(eventsProcessDto, true, token);
 
       // Assert
       expect(result.status).toBe(200);
@@ -49,15 +43,11 @@ export default function processEventsTests() {
         DisasterType.Floods,
         'UGA',
         null,
-        accessToken,
+        token,
       );
 
       // Act
-      const result = await postEventsProcess(
-        eventsProcessDto,
-        false,
-        accessToken,
-      );
+      const result = await postEventsProcess(eventsProcessDto, false, token);
 
       // Assert
       expect(result.status).toBe(200);
