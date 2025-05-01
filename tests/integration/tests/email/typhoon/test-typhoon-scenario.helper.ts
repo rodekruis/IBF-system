@@ -12,14 +12,14 @@ export async function testTyphoonScenario(
   const nrOfEvents = 1;
 
   const mockResult = await mock(
+    token,
     scenario,
     DisasterType.Typhoon,
     countryCodeISO3,
     null,
-    token,
   );
   // Act
-  const response = await notify(countryCodeISO3, DisasterType.Typhoon, token);
+  const response = await notify(token, countryCodeISO3, DisasterType.Typhoon);
 
   // Assert
   // Also checking the status of the mockResult here as I think it also breaks often

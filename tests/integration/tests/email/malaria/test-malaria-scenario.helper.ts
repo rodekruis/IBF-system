@@ -12,14 +12,14 @@ export async function testMalariaScenario(
   const eventNames = ['0-month', '1-month', '2-month'];
 
   const mockResult = await mock(
+    token,
     scenario,
     DisasterType.Malaria,
     countryCodeISO3,
     null,
-    token,
   );
   // Act
-  const response = await notify(countryCodeISO3, DisasterType.Malaria, token);
+  const response = await notify(token, countryCodeISO3, DisasterType.Malaria);
   // Assert
   // Also checking the status of the mockResult here as I think it also breaks often
   expect(mockResult.status).toBe(202);

@@ -41,16 +41,16 @@ export async function reset() {
 }
 
 export function mock(
-  scenario:
+  token: string,
+  scenario?:
     | FloodsScenario
     | FlashFloodsScenario
     | TyphoonScenario
     | MalariaScenario
     | DroughtScenario,
-  disasterType: DisasterType,
-  countryCodeISO3: string,
-  date: Date | null,
-  token: string,
+  disasterType?: DisasterType,
+  countryCodeISO3?: string,
+  date?: Date | null,
   removeEvents = true,
   noNotifications = true,
 ) {
@@ -66,9 +66,9 @@ export function mock(
 }
 
 export function notify(
+  token: string,
   countryCodeISO3: string,
   disasterType: DisasterType,
-  token: string,
   noNotifications = true,
 ) {
   return api(token)

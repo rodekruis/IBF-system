@@ -50,11 +50,11 @@ export default function typhoonTrackTests() {
     it('should upload successfully', async () => {
       // Arrange
       await mock(
+        token,
         TyphoonScenario.Trigger,
         DisasterType.Typhoon,
         countryCodeISO3,
         null,
-        token,
       );
 
       // Act
@@ -75,11 +75,11 @@ export default function typhoonTrackTests() {
     it('should yield typhoonLandfall=true for scenario Trigger', async () => {
       // Arrange
       await mock(
+        token,
         TyphoonScenario.Trigger,
         DisasterType.Typhoon,
         countryCodeISO3,
         null,
-        token,
       );
 
       // Act
