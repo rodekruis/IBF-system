@@ -1,15 +1,16 @@
 import { FloodsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import { getAccessToken } from '../../../helpers/utility.helper';
+import { getToken } from '../../../helpers/utility.helper';
 import { testFloodScenario } from './test-flood-scenario.helper';
 
 export default function emailSsdFloodsTests() {
-  const countryCodeISO3 = 'SSD';
-  describe('Should send an email for ssd floods', () => {
-    let accessToken: string;
+  describe('should send an email for ssd floods', () => {
+    let token: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken();
+      token = await getToken();
     });
+
+    const countryCodeISO3 = 'SSD';
 
     // Unskip when there is a need to test SSD in addition to UGA again
     it.skip('trigger', async () => {
@@ -17,7 +18,7 @@ export default function emailSsdFloodsTests() {
       const result = await testFloodScenario(FloodsScenario.Trigger, {
         events,
         countryCodeISO3,
-        accessToken,
+        token,
       });
       expect(result).toBeTruthy();
     });
@@ -27,7 +28,7 @@ export default function emailSsdFloodsTests() {
       const result = await testFloodScenario(FloodsScenario.NoTrigger, {
         events,
         countryCodeISO3,
-        accessToken,
+        token,
       });
       expect(result).toBeTruthy();
     });

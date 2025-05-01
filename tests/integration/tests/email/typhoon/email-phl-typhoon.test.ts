@@ -1,21 +1,22 @@
 import { TyphoonScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import { getAccessToken } from '../../../helpers/utility.helper';
+import { getToken } from '../../../helpers/utility.helper';
 import { testTyphoonScenario } from './test-typhoon-scenario.helper';
 
 export default function emailPhlTyphoonTests() {
-  const countryCodeISO3 = 'PHL';
-  describe('Should send an email for phl typhoon', () => {
-    let accessToken: string;
+  describe('should send an email for phl typhoon', () => {
+    let token: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken();
+      token = await getToken();
     });
+
+    const countryCodeISO3 = 'PHL';
 
     it('trigger', async () => {
       const result = await testTyphoonScenario(
         TyphoonScenario.Trigger,
         countryCodeISO3,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });
@@ -24,7 +25,7 @@ export default function emailPhlTyphoonTests() {
       const result = await testTyphoonScenario(
         TyphoonScenario.Warning,
         countryCodeISO3,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });
@@ -33,7 +34,7 @@ export default function emailPhlTyphoonTests() {
       const result = await testTyphoonScenario(
         TyphoonScenario.NoLandfallTrigger,
         countryCodeISO3,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });
@@ -42,7 +43,7 @@ export default function emailPhlTyphoonTests() {
       const result = await testTyphoonScenario(
         TyphoonScenario.NoLandfallYetWarning,
         countryCodeISO3,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });
@@ -51,7 +52,7 @@ export default function emailPhlTyphoonTests() {
       const result = await testTyphoonScenario(
         TyphoonScenario.OngoingTrigger,
         countryCodeISO3,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });

@@ -2,23 +2,22 @@ import { CommunityNotificationExternalDto } from '../../helpers/API-service/dto/
 import { DisasterType } from '../../helpers/API-service/enum/disaster-type.enum';
 import { FloodsScenario } from '../../helpers/API-service/enum/mock-scenario.enum';
 import { PointDataEnum } from '../../helpers/API-service/enum/point-data.enum';
+import { getToken, mock } from '../../helpers/utility.helper';
 import {
   dismissCommunityNotification,
-  getAccessToken,
   getPointData,
-  mock,
   postCommunityNotification,
-} from '../../helpers/utility.helper';
+} from './community-notification.api';
 
 export default function communityNotificationTests() {
-  describe('community notifications', () => {
-    let accessToken: string;
+  describe('community-notifications', () => {
+    let token: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken();
+      token = await getToken();
     });
 
-    it('should successfully post and get and dismiss a community notification', async () => {
+    it('should post, get, and dismiss a community notification', async () => {
       // Arrange
       const countryCodeISO3 = 'UGA';
       const disasterType = DisasterType.Floods;
@@ -27,7 +26,7 @@ export default function communityNotificationTests() {
         DisasterType.Floods,
         countryCodeISO3,
         null,
-        accessToken,
+        token,
       );
 
       const mockCommunityNotification: CommunityNotificationExternalDto = {
@@ -49,7 +48,7 @@ export default function communityNotificationTests() {
       const postResult = await postCommunityNotification(
         countryCodeISO3,
         mockCommunityNotification,
-        accessToken,
+        token,
       );
       // TODO: also test the whatsapp message upon posting a new notification
 
@@ -57,13 +56,13 @@ export default function communityNotificationTests() {
         countryCodeISO3,
         PointDataEnum.communityNotifications,
         disasterType,
-        accessToken,
+        token,
       );
 
       const pointDataId = getResult.body.features[0].properties.pointDataId;
       const dismissResult = await dismissCommunityNotification(
         pointDataId,
-        accessToken,
+        token,
       );
 
       // Assert

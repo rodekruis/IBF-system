@@ -2,7 +2,7 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { FloodsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import { mock, sendNotification } from '../../../helpers/utility.helper';
+import { mock, notify } from '../../../helpers/utility.helper';
 
 interface Event {
   eventName: string;
@@ -12,28 +12,24 @@ interface Event {
 export interface TestFloodScenarioDto {
   events: Event[];
   countryCodeISO3: string;
-  accessToken: string;
+  token: string;
 }
 
 export async function testFloodScenario(
   scenario: FloodsScenario,
   params: TestFloodScenarioDto,
 ): Promise<boolean> {
-  const { events, countryCodeISO3, accessToken } = params;
+  const { events, countryCodeISO3, token } = params;
 
   const mockResult = await mock(
     scenario,
     DisasterType.Floods,
     countryCodeISO3,
     null,
-    accessToken,
+    token,
   );
   // Act
-  const response = await sendNotification(
-    countryCodeISO3,
-    DisasterType.Floods,
-    accessToken,
-  );
+  const response = await notify(countryCodeISO3, DisasterType.Floods, token);
 
   // Assert
   // Also checking the status of the mockResult here as I think it also breaks often

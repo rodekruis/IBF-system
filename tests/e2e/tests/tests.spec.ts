@@ -12,7 +12,7 @@ import UgandaDroughtWarning from 'testData/UgandaDroughtWarning.json';
 import UgandaFloodsNoTrigger from 'testData/UgandaFloodsNoTrigger.json';
 import UgandaFloodsTrigger from 'testData/UgandaFloodsTrigger.json';
 
-import { getAccessToken, mockData, resetDB } from '../helpers/utility.helper';
+import { getToken, mock, reset } from '../helpers/utility.helper';
 import ActionsSummaryComponent from '../Pages/ActionSummaryComponent';
 import LoginPage from '../Pages/LoginPage';
 import ActionSummaryTooltipTest from './ActionSummaryComponent/ActionSummaryTooltipTest';
@@ -46,12 +46,9 @@ import TimelineComponentVisible from './TimelineComponent/TimelineComponentVisib
 import UserStateComponentLogout from './UserStateComponent/UserStateComponentLogout';
 import UserStateComponentVisible from './UserStateComponent/UserStateComponentVisible';
 
-test.describe('E2E Tests', () => {
-  let accessToken: string;
+test.describe('e2e tests', () => {
   test.beforeAll(async () => {
-    // Reset the database only once
-    accessToken = await getAccessToken();
-    await resetDB(accessToken);
+    await reset();
   });
 
   // Run tests for each dataset
@@ -92,7 +89,8 @@ test.describe('E2E Tests', () => {
         components.actionsSummary = new ActionsSummaryComponent(page);
 
         // Load a mock scenario
-        await mockData(disasterType.name, scenario, code, accessToken, date);
+        const token = await getToken();
+        await mock(disasterType.name, scenario, code, token, date);
 
         await page.goto('/');
         // Login into the portal

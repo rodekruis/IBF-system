@@ -1,22 +1,23 @@
 import { MalariaScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import { getAccessToken } from '../../../helpers/utility.helper';
+import { getToken } from '../../../helpers/utility.helper';
 import { testMalariaScenario } from './test-malaria-scenario.helper';
 
 export default function emailEthMalariaTests() {
-  const countryCodeISO3 = 'ETH';
-  describe('Should send an email for eth malaria', () => {
-    let accessToken: string;
+  describe('should send an email for eth malaria', () => {
+    let token: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken();
+      token = await getToken();
     });
+
+    const countryCodeISO3 = 'ETH';
 
     // Unskip when malaria is switched on again
     it.skip('trigger', async () => {
       const result = await testMalariaScenario(
         MalariaScenario.Trigger,
         countryCodeISO3,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });
@@ -25,7 +26,7 @@ export default function emailEthMalariaTests() {
       const result = await testMalariaScenario(
         MalariaScenario.NoTrigger,
         countryCodeISO3,
-        accessToken,
+        token,
       );
       expect(result).toBeTruthy();
     });

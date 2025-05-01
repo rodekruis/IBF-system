@@ -1,15 +1,16 @@
 import { FloodsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import { getAccessToken } from '../../../helpers/utility.helper';
+import { getToken } from '../../../helpers/utility.helper';
 import { testFloodScenario } from './test-flood-scenario.helper';
 
 export default function emailUgaFloodsTests() {
-  const countryCodeISO3 = 'UGA';
-  describe('Should send an email for uga floods', () => {
-    let accessToken: string;
+  describe('should send an email for uga floods', () => {
+    let token: string;
 
     beforeAll(async () => {
-      accessToken = await getAccessToken();
+      token = await getToken();
     });
+
+    const countryCodeISO3 = 'UGA';
 
     it('trigger', async () => {
       const events = [
@@ -20,7 +21,7 @@ export default function emailUgaFloodsTests() {
       const result = await testFloodScenario(FloodsScenario.Trigger, {
         events,
         countryCodeISO3,
-        accessToken,
+        token,
       });
       expect(result).toBeTruthy();
     });
@@ -30,7 +31,7 @@ export default function emailUgaFloodsTests() {
       const result = await testFloodScenario(FloodsScenario.Warning, {
         events,
         countryCodeISO3,
-        accessToken,
+        token,
       });
       expect(result).toBeTruthy();
     });
@@ -40,7 +41,7 @@ export default function emailUgaFloodsTests() {
       const result = await testFloodScenario(FloodsScenario.WarningToTrigger, {
         events,
         countryCodeISO3,
-        accessToken,
+        token,
       });
       expect(result).toBeTruthy();
     });
@@ -50,7 +51,7 @@ export default function emailUgaFloodsTests() {
       const result = await testFloodScenario(FloodsScenario.NoTrigger, {
         events,
         countryCodeISO3,
-        accessToken,
+        token,
       });
       expect(result).toBeTruthy();
     });

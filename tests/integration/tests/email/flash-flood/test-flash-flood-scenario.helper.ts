@@ -2,26 +2,26 @@ import { JSDOM } from 'jsdom';
 
 import { DisasterType } from '../../../helpers/API-service/enum/disaster-type.enum';
 import { FlashFloodsScenario } from '../../../helpers/API-service/enum/mock-scenario.enum';
-import { mock, sendNotification } from '../../../helpers/utility.helper';
+import { mock, notify } from '../../../helpers/utility.helper';
 
 export async function testFlashFloodScenario(
   scenario: FlashFloodsScenario,
   countryCodeISO3: string,
   eventNames: string[] = [],
-  accessToken: string,
+  token: string,
 ): Promise<boolean> {
   const mockResult = await mock(
     scenario,
     DisasterType.FlashFloods,
     countryCodeISO3,
     null,
-    accessToken,
+    token,
   );
   // Act
-  const response = await sendNotification(
+  const response = await notify(
     countryCodeISO3,
     DisasterType.FlashFloods,
-    accessToken,
+    token,
   );
   // Assert
   // Also checking the status of the mockResult here as I think it also breaks often
@@ -76,14 +76,14 @@ export async function testFlashFloodScenario(
     DisasterType.FlashFloods,
     countryCodeISO3,
     tomorrowDate,
-    accessToken,
+    token,
     removeEvents,
   );
   // Act
-  const secondPipelineRunEmailResponse = await sendNotification(
+  const secondPipelineRunEmailResponse = await notify(
     countryCodeISO3,
     DisasterType.FlashFloods,
-    accessToken,
+    token,
   );
   expect(
     secondPipelineRunEmailResponse.body.activeEvents.email,

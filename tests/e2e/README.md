@@ -131,28 +131,21 @@ Here is a simple example of writing a test using the POM structure:
 
 ```ts
 import { test } from '@playwright/test';
-
-import users from '../../../services/API-service/src/scripts/json/users.json';
-import {
-  getAccessToken,
-  resetDB,
-} from '../../../services/API-service/test/helpers/utility.helper';
 import LoginPage from '../../Pages/LoginPage';
 
-let accessToken: string;
-const admin = users.find((user) => user.userRole === 'admin');
-
-test.beforeEach(async () => {
-  accessToken = await getAccessToken();
-  await resetDB(accessToken);
-});
-
-test('Successfully Login', async ({ page }) => {
-  // Login
+test('should login', async ({ page }) => {
+  // arrange
   const loginPage = new LoginPage(page);
+  const user = {
+    email: 'dunant@redcross.nl',
+    password: 'password',
+  };
 
-  await page.goto('/');
-  await loginPage.login(admin?.email, admin?.password);
+  // act
+  await page.goto('/login');
+  const loginResponse = await loginPage.login(user.email, user.password);
+
+  // assert
   await page.waitForURL((url) => url.pathname === '/');
 });
 ```
