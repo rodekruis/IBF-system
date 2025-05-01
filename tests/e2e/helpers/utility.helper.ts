@@ -1,55 +1,46 @@
-import * as request from 'supertest';
-import TestAgent from 'supertest/lib/agent';
+import { agent } from 'supertest';
 
-import users from '../../../services/API-service/src/scripts/json/users.json';
+function api(token?: string) {
+  const request = agent(process.env.API_SERVICE_URL);
 
-export async function getAccessToken(): Promise<string> {
-  const admin = users.find(
-    (user: { userRole: string }) => user.userRole === 'admin',
-  );
-  if (!admin) throw new Error('Admin not found');
+  if (token) {
+    request.set('Authorization', `Bearer ${token}`);
+  }
 
-  const login = await loginApi(admin?.email, admin?.password);
-  const accessToken = login.body.user.token;
-  return accessToken;
+  return request;
 }
 
-export function loginApi(
-  email: string,
-  password?: string,
-): Promise<request.Response> {
-  return getServer().post(`/user/login`).send({ email, password });
+export async function getToken() {
+  const admin = { email: 'dunant@redcross.nl', password: 'password' };
+
+  const {
+    body: {
+      user: { token },
+    },
+  } = await api().post(`/user/login`).send(admin);
+
+  return token;
 }
 
-export function getHostname(): string | undefined {
-  // Use here the port the API-service is exposed to on the host, as the e2e tests are run on the host
+export async function reset() {
+  const token = await getToken();
 
-  return process.env.API_SERVICE_URL;
-}
-
-export function getServer(): TestAgent<request.Test> {
-  return request.agent(getHostname());
-}
-
-export function resetDB(accessToken: string): Promise<request.Response> {
-  return getServer()
+  return api(token)
     .post('/scripts/reset')
-    .set('Authorization', `Bearer ${accessToken}`)
     .query({ includeLinesData: false })
     .send({ secret: process.env.RESET_SECRET });
 }
 
-export function mockData(
+export function mock(
   disasterType: string,
   scenario: string,
   countryCodeISO3: string,
-  accessToken: string,
+  token: string,
   date?: Date,
   noNotifications = true,
-): Promise<request.Response> {
-  return getServer()
+) {
+  return api(token)
     .post(`/scripts/mock`)
-    .set('Authorization', `Bearer ${accessToken}`)
     .query({ disasterType, countryCodeISO3, noNotifications })
     .send({
       scenario,
