@@ -22,11 +22,11 @@ export default function communityNotificationTests() {
       const countryCodeISO3 = 'UGA';
       const disasterType = DisasterType.Floods;
       await mock(
+        token,
         FloodsScenario.Trigger,
         DisasterType.Floods,
         countryCodeISO3,
         null,
-        token,
       );
 
       const mockCommunityNotification: CommunityNotificationExternalDto = {

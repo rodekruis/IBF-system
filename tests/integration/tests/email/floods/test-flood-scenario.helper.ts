@@ -22,14 +22,14 @@ export async function testFloodScenario(
   const { events, countryCodeISO3, token } = params;
 
   const mockResult = await mock(
+    token,
     scenario,
     DisasterType.Floods,
     countryCodeISO3,
     null,
-    token,
   );
   // Act
-  const response = await notify(countryCodeISO3, DisasterType.Floods, token);
+  const response = await notify(token, countryCodeISO3, DisasterType.Floods);
 
   // Assert
   // Also checking the status of the mockResult here as I think it also breaks often

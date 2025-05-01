@@ -11,17 +11,17 @@ export async function testFlashFloodScenario(
   token: string,
 ): Promise<boolean> {
   const mockResult = await mock(
+    token,
     scenario,
     DisasterType.FlashFloods,
     countryCodeISO3,
     null,
-    token,
   );
   // Act
   const response = await notify(
+    token,
     countryCodeISO3,
     DisasterType.FlashFloods,
-    token,
   );
   // Assert
   // Also checking the status of the mockResult here as I think it also breaks often
@@ -72,18 +72,18 @@ export async function testFlashFloodScenario(
   tomorrowDate.setDate(tomorrowDate.getDate() + 1);
   const removeEvents = false;
   await mock(
+    token,
     scenario,
     DisasterType.FlashFloods,
     countryCodeISO3,
     tomorrowDate,
-    token,
     removeEvents,
   );
   // Act
   const secondPipelineRunEmailResponse = await notify(
+    token,
     countryCodeISO3,
     DisasterType.FlashFloods,
-    token,
   );
   expect(
     secondPipelineRunEmailResponse.body.activeEvents.email,

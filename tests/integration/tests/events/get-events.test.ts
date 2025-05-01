@@ -19,11 +19,11 @@ export default function getEventsTests() {
     it('should successfully get events', async () => {
       // Arrange
       await mock(
+        token,
         FloodsScenario.Trigger,
         disasterType,
         countryCodeISO3,
         new Date(),
-        token,
       );
 
       // Act

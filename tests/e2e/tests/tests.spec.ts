@@ -90,7 +90,7 @@ test.describe('e2e tests', () => {
 
         // Load a mock scenario
         const token = await getToken();
-        await mock(disasterType.name, scenario, code, token, date);
+        await mock(token, disasterType.name, scenario, code, date);
 
         await page.goto('/');
         // Login into the portal

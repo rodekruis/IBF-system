@@ -20,7 +20,7 @@ export default function adminAreaAggregatesTests() {
 
     it('should return list of admin area aggregates on GET', async () => {
       // Arrange
-      await mock(scenario, disasterType, countryCodeISO3, null, token);
+      await mock(token, scenario, disasterType, countryCodeISO3, null);
 
       // Act
       const adminAreaAggregates = await getAdminAreaAggregates(

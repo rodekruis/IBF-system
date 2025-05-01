@@ -37,7 +37,7 @@ export default function adminAreaTests() {
 
         it(title, async () => {
           // Arrange
-          await mock(scenario, disasterType, countryCodeISO3, null, token);
+          await mock(token, scenario, disasterType, countryCodeISO3, null);
 
           // Act
           const adminAreas = await getAdminAreas(

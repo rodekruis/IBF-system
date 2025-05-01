@@ -32,10 +32,10 @@ export async function reset() {
 }
 
 export function mock(
-  disasterType: string,
-  scenario: string,
-  countryCodeISO3: string,
   token: string,
+  disasterType?: string,
+  scenario?: string,
+  countryCodeISO3?: string,
   date?: Date,
   noNotifications = true,
 ) {

@@ -13,13 +13,13 @@ export async function testDroughtScenario(
 ): Promise<boolean> {
   const nrOfEvents = expectedEventNames.length;
   const mockResult = await mock(
+    token,
     scenario,
     DisasterType.Drought,
     countryCodeISO3,
     date,
-    token,
   );
-  const response = await notify(countryCodeISO3, DisasterType.Drought, token);
+  const response = await notify(token, countryCodeISO3, DisasterType.Drought);
 
   // Assert
   // Also checking the status of the mockResult here as I think it also breaks often

@@ -21,11 +21,11 @@ export default function processEventsTests() {
     it('should return notification content if noNotification is true', async () => {
       // Arrange
       await mock(
+        token,
         FloodsScenario.Trigger,
         DisasterType.Floods,
         'UGA',
         null,
-        token,
       );
 
       // Act
@@ -39,11 +39,11 @@ export default function processEventsTests() {
     it('should return void if noNotification is false', async () => {
       // Arrange
       await mock(
+        token,
         FloodsScenario.Trigger,
         DisasterType.Floods,
         'UGA',
         null,
-        token,
       );
 
       // Act

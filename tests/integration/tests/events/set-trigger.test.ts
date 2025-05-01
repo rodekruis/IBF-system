@@ -20,11 +20,11 @@ export default function setTriggerTests() {
       // Arrange
       const dateAugust = new Date(new Date().getFullYear(), 7, 2);
       await mock(
+        token,
         DroughtScenario.Warning,
         disasterType,
         countryCodeISO3,
         dateAugust,
-        token,
       );
 
       const getEventsBeforeResult = await getEvents(
@@ -48,9 +48,9 @@ export default function setTriggerTests() {
       );
 
       const sendNotificationResult = await notify(
+        token,
         countryCodeISO3,
         disasterType,
-        token,
       );
 
       // Assert
@@ -85,11 +85,11 @@ export default function setTriggerTests() {
       let removeEvents = true; // set to true only for first mock to reset from previous test
       const dateJuly = new Date(new Date().getFullYear(), 6, 2);
       await mock(
+        token,
         DroughtScenario.Warning,
         disasterType,
         countryCodeISO3,
         dateJuly,
-        token,
         removeEvents,
       );
       const eventsJuly = await getEvents(countryCodeISO3, disasterType, token);
@@ -99,11 +99,11 @@ export default function setTriggerTests() {
       removeEvents = false; // from now on do not overwrite events
       const dateAugust = new Date(new Date().getFullYear(), 7, 2);
       await mock(
+        token,
         DroughtScenario.NoTrigger,
         disasterType,
         countryCodeISO3,
         dateAugust,
-        token,
         removeEvents,
       );
       const eventsAug = await getEvents(countryCodeISO3, disasterType, token);
@@ -112,11 +112,11 @@ export default function setTriggerTests() {
       // september warning 1-month > bring back to warning and test set-trigger
       const dateSept = new Date(new Date().getFullYear(), 8, 2);
       await mock(
+        token,
         DroughtScenario.Warning,
         disasterType,
         countryCodeISO3,
         dateSept,
-        token,
         removeEvents,
       );
       const eventsSeptBefore = await getEvents(
@@ -143,11 +143,11 @@ export default function setTriggerTests() {
       // october warning 0-month > assert "set" trigger remains trigger despite warning pipeline forecast
       const dateOct = new Date(new Date().getFullYear(), 9, 2);
       await mock(
+        token,
         DroughtScenario.Warning, // This must be warning, according to the requirement of no update during season
         disasterType,
         countryCodeISO3,
         dateOct,
-        token,
         removeEvents,
       );
       const eventsOct = await getEvents(countryCodeISO3, disasterType, token);
@@ -156,11 +156,11 @@ export default function setTriggerTests() {
       // april no-alert 6-month > assert reset to no alert at end of season
       const dateApril = new Date(new Date().getFullYear() + 1, 3, 2);
       await mock(
+        token,
         DroughtScenario.NoTrigger,
         disasterType,
         countryCodeISO3,
         dateApril,
-        token,
         removeEvents,
       );
       const eventsApr = await getEvents(countryCodeISO3, disasterType, token);
