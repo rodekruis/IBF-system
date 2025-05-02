@@ -55,24 +55,38 @@ export class AdminAreaDataService {
     return validatatedArray;
   }
 
-  public async prepareAndUpload(validatedArray: UploadAdminAreaDataDto[]) {
-    for (const adminLevel of [1, 2, 3, 4]) {
-      const fileredByAdminLevel = validatedArray.filter(
-        (r) => r.adminLevel === adminLevel,
-      );
-      if (fileredByAdminLevel.length === 0) {
-        continue;
-      }
-      const dataByIndicator = this.groupBy(fileredByAdminLevel, 'indicator');
-      for (const indicator of Object.keys(dataByIndicator)) {
-        const dto = new UploadAdminAreaDataJsonDto();
-        dto.indicator = indicator as UpdateableStaticIndicator;
-        dto.countryCodeISO3 = dataByIndicator[indicator][0].countryCodeISO3;
-        dto.adminLevel = dataByIndicator[indicator][0].adminLevel;
-        dto.dataPlaceCode = dataByIndicator[indicator].map((record) => {
-          return { placeCode: record.placeCode, amount: record.value };
-        });
-        await this.uploadJson(dto);
+  public async prepareAndUpload(adminAreaData: UploadAdminAreaDataDto[]) {
+    const dataByCountryCodeISO3 = this.groupBy(
+      adminAreaData,
+      'countryCodeISO3',
+    );
+
+    for (const countryCodeISO3 of Object.keys(dataByCountryCodeISO3)) {
+      const countryAdminAreaData = dataByCountryCodeISO3[countryCodeISO3];
+
+      const dataByAdminLevel = this.groupBy(countryAdminAreaData, 'adminLevel');
+
+      for (const adminLevel of Object.keys(dataByAdminLevel)) {
+        const adminLevelAdminAreaData = dataByAdminLevel[adminLevel];
+
+        const dataByIndicator = this.groupBy(
+          adminLevelAdminAreaData,
+          'indicator',
+        );
+
+        for (const indicator of Object.keys(dataByIndicator)) {
+          const indicatorAdminAreaData = dataByIndicator[indicator];
+
+          const dto = new UploadAdminAreaDataJsonDto();
+          dto.indicator = indicator as UpdateableStaticIndicator;
+          dto.countryCodeISO3 = countryCodeISO3;
+          dto.adminLevel = Number(adminLevel);
+          dto.dataPlaceCode = indicatorAdminAreaData.map(
+            ({ placeCode, value: amount }) => ({ placeCode, amount }),
+          );
+
+          await this.uploadJson(dto);
+        }
       }
     }
   }

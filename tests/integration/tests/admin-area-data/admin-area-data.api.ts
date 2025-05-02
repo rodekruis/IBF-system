@@ -12,3 +12,9 @@ export function getAdminAreaData(
     `/admin-area-data/${countryCodeISO3}/${adminLevel}/${indicator}`,
   );
 }
+
+export function postAdminAreaDataUploadCsv(token: string, filePath: string) {
+  return api(token)
+    .post('/admin-area-data/upload/csv')
+    .attach('file', filePath);
+}
