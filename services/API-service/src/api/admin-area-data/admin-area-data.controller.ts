@@ -25,7 +25,7 @@ import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaDataService } from './admin-area-data.service';
-import { UploadAdminAreaDataJsonDto } from './dto/upload-admin-area-data.dto';
+import { AdminAreaDataJsonDto } from './dto/admin-area-data.dto';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
@@ -51,8 +51,8 @@ export class AdminAreaDataController {
   @ApiConsumes('multipart/form-data')
   @ApiBody(FILE_UPLOAD_API_FORMAT)
   @UseInterceptors(FileInterceptor('file'))
-  public async uploadCsv(@UploadedFile() adminAreaData): Promise<void> {
-    await this.adminAreaDataService.uploadCsv(adminAreaData);
+  public async uploadCsv(@UploadedFile() csvFile: Express.Multer.File) {
+    await this.adminAreaDataService.uploadCsv(csvFile);
   }
 
   @Roles(UserRole.Admin)
@@ -63,10 +63,8 @@ export class AdminAreaDataController {
   @Post('upload/json')
   @ApiConsumes()
   @UseInterceptors()
-  public async uploadJson(
-    @Body() dataPlaceCode: UploadAdminAreaDataJsonDto,
-  ): Promise<void> {
-    await this.adminAreaDataService.uploadJson(dataPlaceCode);
+  public async uploadJson(@Body() adminAreaDataJsonDto: AdminAreaDataJsonDto) {
+    await this.adminAreaDataService.uploadJson(adminAreaDataJsonDto);
   }
 
   @ApiOperation({
@@ -82,9 +80,7 @@ export class AdminAreaDataController {
     type: [AdminDataReturnDto],
   })
   @Get(':countryCodeISO3/:adminLevel/:indicator')
-  public async getAdminAreaData(
-    @Param() params,
-  ): Promise<AdminDataReturnDto[]> {
+  public async getAdminAreaData(@Param() params) {
     return await this.adminAreaDataService.getAdminAreaData(
       params.countryCodeISO3,
       params.adminLevel,

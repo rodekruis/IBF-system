@@ -18,7 +18,7 @@ import { UpdateableStaticIndicator } from '../../admin-area-dynamic-data/enum/dy
 import { AdminLevel } from '../../country/admin-level.enum';
 import { CountryEntity } from '../../country/country.entity';
 
-export class UploadAdminAreaDataDto {
+export class AdminAreaDataDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -45,7 +45,7 @@ export class UploadAdminAreaDataDto {
   public value: number;
 }
 
-export class UploadAdminAreaDataJsonDto {
+export class AdminAreaDataJsonDto {
   @ApiProperty({ example: 'ETH' })
   @IsNotEmpty()
   @IsString()

@@ -2,6 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 
 import { DataSource } from 'typeorm';
 
+import 'multer';
 import {
   LeadTime,
   LeadTimeUnit,

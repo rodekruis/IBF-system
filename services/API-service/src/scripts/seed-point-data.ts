@@ -2,8 +2,11 @@ import { Injectable } from '@nestjs/common';
 
 import { DataSource } from 'typeorm';
 
-import { PointDataEnum } from '../api/point-data/point-data.entity';
-import { PointDataService } from '../api/point-data/point-data.service';
+import { PointDataCategory } from '../api/point-data/point-data.entity';
+import {
+  PointDataService,
+  PointDto,
+} from '../api/point-data/point-data.service';
 import countries from './json/countries.json';
 import { InterfaceScript } from './scripts.module';
 import { SeedHelper } from './seed-helper';
@@ -19,20 +22,29 @@ export class SeedPointData implements InterfaceScript {
     this.seedHelper = new SeedHelper(dataSource);
   }
 
-  public async run(): Promise<void> {
+  public async run() {
     const envCountries = process.env.COUNTRIES.split(',');
 
     await Promise.all(
-      countries.map((country): Promise<void> => {
-        if (envCountries.includes(country.countryCodeISO3)) {
-          this.seedPointData(PointDataEnum.redCrossBranches, country);
-          this.seedPointData(PointDataEnum.healthSites, country);
-          this.seedPointData(PointDataEnum.evacuationCenters, country);
-          this.seedPointData(PointDataEnum.dams, country);
-          this.seedPointData(PointDataEnum.schools, country);
-          this.seedPointData(PointDataEnum.waterpointsInternal, country);
-          this.seedPointData(PointDataEnum.gauges, country);
-          this.seedPointData(PointDataEnum.glofasStations, country);
+      countries.map(({ countryCodeISO3 }): Promise<void> => {
+        if (envCountries.includes(countryCodeISO3)) {
+          this.seedPointData(
+            PointDataCategory.redCrossBranches,
+            countryCodeISO3,
+          );
+          this.seedPointData(PointDataCategory.healthSites, countryCodeISO3);
+          this.seedPointData(
+            PointDataCategory.evacuationCenters,
+            countryCodeISO3,
+          );
+          this.seedPointData(PointDataCategory.dams, countryCodeISO3);
+          this.seedPointData(PointDataCategory.schools, countryCodeISO3);
+          this.seedPointData(
+            PointDataCategory.waterpointsInternal,
+            countryCodeISO3,
+          );
+          this.seedPointData(PointDataCategory.gauges, countryCodeISO3);
+          this.seedPointData(PointDataCategory.glofasStations, countryCodeISO3);
           return;
         } else {
           return Promise.resolve();
@@ -42,29 +54,26 @@ export class SeedPointData implements InterfaceScript {
   }
 
   private async seedPointData(
-    pointDataCategory: PointDataEnum,
-    country,
-  ): Promise<void> {
-    const filename = `./src/scripts/git-lfs/point-layers/${pointDataCategory}_${country.countryCodeISO3}.csv`;
-    let data;
-    try {
-      data = await this.seedHelper.getCsvData(filename);
-    } catch {
-      return Promise.resolve();
-    }
+    pointDataCategory: PointDataCategory,
+    countryCodeISO3: string,
+  ) {
+    const filename = `./src/scripts/git-lfs/point-layers/${pointDataCategory}_${countryCodeISO3}.csv`;
 
     try {
-      const validatedData = await this.pointDataService.validateArray(
+      const pointCsv = await this.seedHelper.getCsvData<PointDto>(filename);
+
+      const pointDtos = await this.pointDataService.getPointDtos(
         pointDataCategory,
-        data,
+        pointCsv,
       );
+
       await this.pointDataService.uploadJson(
         pointDataCategory,
-        country.countryCodeISO3,
-        validatedData,
+        countryCodeISO3,
+        pointDtos,
       );
-    } catch (error) {
-      throw error;
+    } catch {
+      return Promise.resolve();
     }
   }
 }

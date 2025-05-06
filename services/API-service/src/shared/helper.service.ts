@@ -71,19 +71,16 @@ export class HelperService {
     return date;
   }
 
-  public async csvBufferToArray(buffer): Promise<object[]> {
-    const stream = new Readable();
-    stream.push(buffer.toString());
-    stream.push(null);
-    const parsedData = [];
-    return await new Promise(function (resolve, reject) {
+  public async getCsvData<T>({ buffer }: Express.Multer.File): Promise<T[]> {
+    const stream = Readable.from(buffer.toString());
+    const data: Array<T> = [];
+
+    return new Promise(function (resolve, reject) {
       stream
         .pipe(csv())
         .on('error', (error) => reject(error))
-        .on('data', (row) => parsedData.push(row))
-        .on('end', () => {
-          resolve(parsedData);
-        });
+        .on('data', (row) => data.push(row))
+        .on('end', () => resolve(data));
     });
   }
 

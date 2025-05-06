@@ -23,7 +23,18 @@ import { RedCrossBranchDto } from './dto/upload-red-cross-branch.dto';
 import { SchoolDto } from './dto/upload-schools.dto';
 import { WaterpointDto } from './dto/upload-waterpoint.dto';
 import { DynamicPointDataEntity } from './dynamic-point-data.entity';
-import { PointDataEntity, PointDataEnum } from './point-data.entity';
+import { PointDataCategory, PointDataEntity } from './point-data.entity';
+
+export interface PointDto
+  extends DamSiteDto,
+    EvacuationCenterDto,
+    HealthSiteDto,
+    RedCrossBranchDto,
+    CommunityNotificationDto,
+    SchoolDto,
+    WaterpointDto,
+    GaugeDto,
+    GlofasStationDto {}
 
 @Injectable()
 export class PointDataService {
@@ -38,14 +49,16 @@ export class PointDataService {
   ) {}
 
   public async getPointDataByCountry(
-    pointDataCategory: PointDataEnum,
+    pointDataCategory: PointDataCategory,
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<GeoJson> {
     const attributes = [];
-    const dto = this.getDtoPerPointDataCategory(pointDataCategory);
-    for (const attribute in dto) {
-      if (dto.hasOwnProperty(attribute)) {
+    const pointDto = this.getPointDto(pointDataCategory);
+
+    // TODO: figure out why the for-loop is needed, its purpose is unclear
+    for (const attribute in pointDto) {
+      if (pointDto.hasOwnProperty(attribute)) {
         attributes.push(attribute);
       }
     }
@@ -104,28 +117,29 @@ export class PointDataService {
       .addSelect('dynamic."dynamicData" as "dynamicData"');
 
     const pointData = await pointDataQuery.getRawMany();
+
     return this.helperService.toGeojson(pointData);
   }
 
-  private getDtoPerPointDataCategory(pointDataCategory: PointDataEnum) {
+  private getPointDto(pointDataCategory: PointDataCategory) {
     switch (pointDataCategory) {
-      case PointDataEnum.dams:
+      case PointDataCategory.dams:
         return new DamSiteDto();
-      case PointDataEnum.evacuationCenters:
+      case PointDataCategory.evacuationCenters:
         return new EvacuationCenterDto();
-      case PointDataEnum.healthSites:
+      case PointDataCategory.healthSites:
         return new HealthSiteDto();
-      case PointDataEnum.redCrossBranches:
+      case PointDataCategory.redCrossBranches:
         return new RedCrossBranchDto();
-      case PointDataEnum.communityNotifications:
+      case PointDataCategory.communityNotifications:
         return new CommunityNotificationDto();
-      case PointDataEnum.schools:
+      case PointDataCategory.schools:
         return new SchoolDto();
-      case PointDataEnum.waterpointsInternal:
+      case PointDataCategory.waterpointsInternal:
         return new WaterpointDto();
-      case PointDataEnum.gauges:
+      case PointDataCategory.gauges:
         return new GaugeDto();
-      case PointDataEnum.glofasStations:
+      case PointDataCategory.glofasStations:
         return new GlofasStationDto();
       default:
         throw new HttpException(
@@ -136,10 +150,10 @@ export class PointDataService {
   }
 
   public async uploadJson(
-    pointDataCategory: PointDataEnum,
+    pointDataCategory: PointDataCategory,
     countryCodeISO3: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    validatedObjArray: any,
+    pointDtos: any, // REFACTOR: PointDto[],
     deactivateExisting = true,
   ) {
     // Deactivate existing entries
@@ -150,67 +164,72 @@ export class PointDataService {
       );
     }
 
-    const dataArray = validatedObjArray.map((point) => {
-      const pointAttributes = JSON.parse(JSON.stringify(point)); // hack: clone without referencing
+    const pointDataEntities = pointDtos.map((pointDto: PointDto) => {
+      const pointAttributes = JSON.parse(JSON.stringify(pointDto));
       delete pointAttributes['lat'];
       delete pointAttributes['lon'];
+
       return {
         countryCodeISO3,
-        referenceId: point.fid || null,
+        referenceId: pointDto.fid || null,
         pointDataCategory,
         attributes: JSON.parse(JSON.stringify(pointAttributes)),
         active: true,
         geom: (): string =>
-          `st_asgeojson(st_MakePoint(${point.lon}, ${point.lat}))::json`,
+          `st_asgeojson(st_MakePoint(${pointDto.lon}, ${pointDto.lat}))::json`,
       };
     });
-    await this.pointDataRepository.save(dataArray, { chunk: 100 });
+
+    await this.pointDataRepository.save(pointDataEntities, { chunk: 100 });
   }
 
   public async uploadCsv(
-    data,
-    pointDataCategory: PointDataEnum,
+    file: Express.Multer.File,
+    pointDataCategory: PointDataCategory,
     countryCodeISO3: string,
   ): Promise<void> {
-    const objArray = await this.helperService.csvBufferToArray(data.buffer);
-    const validatedObjArray = await this.validateArray(
-      pointDataCategory,
-      objArray,
-    );
+    const pointCsv = await this.helperService.getCsvData<PointDto>(file);
 
-    await this.uploadJson(
-      pointDataCategory,
-      countryCodeISO3,
-      validatedObjArray,
-    );
+    const pointDtos = await this.getPointDtos(pointDataCategory, pointCsv);
+
+    await this.uploadJson(pointDataCategory, countryCodeISO3, pointDtos);
   }
 
-  public async validateArray(
-    pointDataCategory: PointDataEnum,
-    csvArray,
-  ): Promise<object[]> {
-    const errors = [];
-    const validatedArray = [];
-    for (const [i, row] of csvArray.entries()) {
-      const dto = this.getDtoPerPointDataCategory(pointDataCategory);
-      for (const attribute in dto) {
-        if (dto.hasOwnProperty(attribute)) {
-          dto[attribute] = row[attribute];
+  // NOTE: point data category are individual types of point data
+  // see PointDataCategory enum for the supported categories
+  public async getPointDtos(
+    pointDataCategory: PointDataCategory,
+    pointCsv: PointDto[], // REFACTOR: create PointCsv to avoid this mismatch
+  ) {
+    const validationErrors = [];
+    const pointDtos = [];
+
+    for (const [i, point] of pointCsv.entries()) {
+      const pointDto = this.getPointDto(pointDataCategory);
+
+      // TODO: figure out why the for-loop is needed, its purpose is unclear
+      for (const attribute in pointDto) {
+        if (pointDto.hasOwnProperty(attribute)) {
+          pointDto[attribute] = point[attribute];
         }
       }
-      dto.lat = row.lat;
-      dto.lon = row.lon;
-      const result = await validate(dto);
-      if (result.length > 0) {
-        const errorObj = { lineNumber: i + 1, validationError: result };
-        errors.push(errorObj);
+
+      pointDto.lat = point.lat;
+      pointDto.lon = point.lon;
+
+      const validationError = await validate(pointDto);
+      if (validationError.length > 0) {
+        validationErrors.push({ lineNumber: i + 1, validationError });
       }
-      validatedArray.push(dto);
+
+      pointDtos.push(pointDto);
     }
-    if (errors.length > 0) {
-      throw new HttpException(errors, HttpStatus.BAD_REQUEST);
+
+    if (validationErrors.length > 0) {
+      throw new HttpException(validationErrors, HttpStatus.BAD_REQUEST);
     }
-    return validatedArray;
+
+    return pointDtos;
   }
 
   public async dismissCommunityNotification(pointDataId: string) {
@@ -247,7 +266,7 @@ export class PointDataService {
     notification.lon = communityNotification._geolocation[1];
 
     await this.uploadJson(
-      PointDataEnum.communityNotifications,
+      PointDataCategory.communityNotifications,
       countryCodeISO3,
       [notification],
       false,
@@ -256,70 +275,77 @@ export class PointDataService {
     await this.whatsappService.sendCommunityNotification(countryCodeISO3);
   }
 
-  async uploadDynamicPointData(dynamicPointData: UploadDynamicPointDataDto) {
+  async uploadDynamicPointData({
+    disasterType,
+    leadTime,
+    date,
+    key,
+    dynamicPointData,
+    pointDataCategory,
+  }: UploadDynamicPointDataDto) {
     const dynamicPointDataArray: DynamicPointDataEntity[] = [];
 
-    for (const point of dynamicPointData.dynamicPointData) {
+    for (const { fid, value } of dynamicPointData) {
       const asset = await this.pointDataRepository.findOne({
-        where: {
-          referenceId: point.fid,
-          pointDataCategory: dynamicPointData.pointDataCategory,
-          active: true,
-        },
+        where: { referenceId: fid, pointDataCategory, active: true },
       });
       if (!asset) {
         continue;
       }
 
       const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
-        dynamicPointData.disasterType,
-        dynamicPointData.date || new Date(),
+        disasterType,
+        date || new Date(),
       );
 
       // Delete existing entries
       await this.dynamicPointDataRepository.delete({
         point: { pointDataId: asset.pointDataId },
-        leadTime: dynamicPointData.leadTime || IsNull(), // For Glofas stations, we should overwrite irregardless of lead time, but I'm not sure about other uses, so instead solving this in GET endpoint query, by making sure we only use the most recent timestam per point
-        key: dynamicPointData.key,
+        leadTime: leadTime || IsNull(), // For Glofas stations, we should overwrite irregardless of lead time, but I'm not sure about other uses, so instead solving this in GET endpoint query, by making sure we only use the most recent timestam per point
+        key,
         timestamp: MoreThanOrEqual(uploadCutoffMoment),
       });
 
       const dynamicPoint = new DynamicPointDataEntity();
-      dynamicPoint.key = dynamicPointData.key;
-      dynamicPoint.leadTime = dynamicPointData.leadTime;
-      dynamicPoint.timestamp = dynamicPointData.date || new Date();
-      dynamicPoint.value = point.value;
+
+      dynamicPoint.key = key;
+      dynamicPoint.leadTime = leadTime;
+      dynamicPoint.timestamp = date || new Date();
+      dynamicPoint.value = value;
       dynamicPoint.point = asset;
+
       dynamicPointDataArray.push(dynamicPoint);
     }
 
     return this.dynamicPointDataRepository.save(dynamicPointDataArray);
   }
 
-  // Refactor: This function is used to map Glofas station dynamic mock data, which is still in format of old endpoint, to format of new endpoint
+  // REFACTOR: This function is used to map Glofas station dynamic mock data, which is still in format of old endpoint, to format of new endpoint
   // The mock data should be updated to the new format, and then this function can be removed
-  public async reformatAndUploadOldGlofasStationData(
-    uploadTriggerPerStation: UploadGlofasStationDynamicOldFormatDto,
-  ): Promise<void> {
+  public async reformatAndUploadOldGlofasStationData({
+    date,
+    leadTime,
+    stationForecasts,
+  }: UploadGlofasStationDynamicOldFormatDto) {
     const keys = [
       'forecastLevel',
       'forecastReturnPeriod',
       'triggerLevel',
       'eapAlertClass',
     ];
-    const date = uploadTriggerPerStation.date || new Date();
-    for await (const key of keys) {
-      const payload = new UploadDynamicPointDataDto();
-      payload.key = key;
-      payload.leadTime = uploadTriggerPerStation.leadTime;
-      payload.date = date;
-      payload.disasterType = DisasterType.Floods;
-      payload.dynamicPointData = uploadTriggerPerStation.stationForecasts.map(
-        (f) => {
-          return { fid: f.stationCode, value: f[key] };
-        },
+
+    for (const key of keys) {
+      const uploadDynamicPointDataDto = new UploadDynamicPointDataDto();
+
+      uploadDynamicPointDataDto.key = key;
+      uploadDynamicPointDataDto.leadTime = leadTime;
+      uploadDynamicPointDataDto.date = date || new Date();
+      uploadDynamicPointDataDto.disasterType = DisasterType.Floods;
+      uploadDynamicPointDataDto.dynamicPointData = stationForecasts.map(
+        ({ stationCode: fid, ...rest }) => ({ fid, value: rest[key] }),
       );
-      await this.uploadDynamicPointData(payload);
+
+      await this.uploadDynamicPointData(uploadDynamicPointDataDto);
     }
   }
 }

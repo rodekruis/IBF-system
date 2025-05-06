@@ -9,9 +9,9 @@ import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-re
 import { UpdateableStaticIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { AdminAreaDataEntity } from './admin-area-data.entity';
 import {
-  UploadAdminAreaDataDto,
-  UploadAdminAreaDataJsonDto,
-} from './dto/upload-admin-area-data.dto';
+  AdminAreaDataDto,
+  AdminAreaDataJsonDto,
+} from './dto/admin-area-data.dto';
 
 @Injectable()
 export class AdminAreaDataService {
@@ -22,42 +22,44 @@ export class AdminAreaDataService {
 
   public constructor(private readonly helperService: HelperService) {}
 
-  public async uploadCsv(data): Promise<void> {
-    const objArray = await this.helperService.csvBufferToArray(data.buffer);
-    const validatedObjArray = await this.validateArray(objArray);
+  public async uploadCsv(csvFile: Express.Multer.File) {
+    const adminAreaDataCsv =
+      await this.helperService.getCsvData<AdminAreaDataDto>(csvFile);
 
-    await this.prepareAndUpload(validatedObjArray);
+    await this.validate(adminAreaDataCsv);
+
+    await this.prepareAndUpload(adminAreaDataCsv);
   }
 
-  private groupBy = function (xs, key) {
-    return xs.reduce(function (rv, x) {
-      (rv[x[key]] = rv[x[key]] || []).push(x);
-      return rv;
-    }, {});
-  };
+  private groupBy<T>(items: T[], key: keyof T): Record<string, T[]> {
+    return items.reduce(
+      (result, item) => {
+        const groupKey = String(item[key]);
+        if (!result[groupKey]) {
+          result[groupKey] = [];
+        }
+        result[groupKey].push(item);
+        return result;
+      },
+      {} as Record<string, T[]>,
+    );
+  }
 
-  public async validateArray(csvArray): Promise<UploadAdminAreaDataDto[]> {
-    const validatatedArray = [];
-    for (const [_i, row] of csvArray.entries()) {
-      const data = new UploadAdminAreaDataDto();
-      data.countryCodeISO3 = row.countryCodeISO3;
-      data.adminLevel = parseInt(row.adminLevel);
-      data.placeCode = row.placeCode;
-      data.indicator = row.indicator;
-      data.value = row.value ? parseFloat(row.value) : null;
-      const result = await validate(data);
-      if (result.length > 0) {
-        this.logger.log(`Validation error in row ${_i + 1}. Result: ${result}`);
-        throw new HttpException(result, HttpStatus.BAD_REQUEST);
+  public async validate(adminAreaDataDtos: AdminAreaDataDto[]) {
+    for (const [i, adminAreaDataDto] of adminAreaDataDtos.entries()) {
+      const validationErrors = await validate(adminAreaDataDto);
+      if (validationErrors.length > 0) {
+        this.logger.log(
+          `Validation error in row ${i + 1}. Result: ${validationErrors}`,
+        );
+        throw new HttpException(validationErrors, HttpStatus.BAD_REQUEST);
       }
-      validatatedArray.push(data);
     }
-    return validatatedArray;
   }
 
-  public async prepareAndUpload(adminAreaData: UploadAdminAreaDataDto[]) {
+  public async prepareAndUpload(adminAreaDataDtos: AdminAreaDataDto[]) {
     const dataByCountryCodeISO3 = this.groupBy(
-      adminAreaData,
+      adminAreaDataDtos,
       'countryCodeISO3',
     );
 
@@ -77,60 +79,56 @@ export class AdminAreaDataService {
         for (const indicator of Object.keys(dataByIndicator)) {
           const indicatorAdminAreaData = dataByIndicator[indicator];
 
-          const dto = new UploadAdminAreaDataJsonDto();
-          dto.indicator = indicator as UpdateableStaticIndicator;
-          dto.countryCodeISO3 = countryCodeISO3;
-          dto.adminLevel = Number(adminLevel);
-          dto.dataPlaceCode = indicatorAdminAreaData.map(
+          const adminAreaDataJsonDto = new AdminAreaDataJsonDto();
+          adminAreaDataJsonDto.indicator =
+            indicator as UpdateableStaticIndicator;
+          adminAreaDataJsonDto.countryCodeISO3 = countryCodeISO3;
+          adminAreaDataJsonDto.adminLevel = Number(adminLevel);
+          adminAreaDataJsonDto.dataPlaceCode = indicatorAdminAreaData.map(
             ({ placeCode, value: amount }) => ({ placeCode, amount }),
           );
 
-          await this.uploadJson(dto);
+          await this.uploadJson(adminAreaDataJsonDto);
         }
       }
     }
   }
 
-  public async uploadJson(
-    indicatorData: UploadAdminAreaDataJsonDto,
-  ): Promise<void> {
-    await this.deleteExistingEntries(indicatorData);
-    const areas = [];
-    for (const placeCode of indicatorData.dataPlaceCode) {
-      const area = new AdminAreaDataEntity();
-      area.indicator = indicatorData.indicator;
-      area.value = placeCode.amount;
-      area.adminLevel = indicatorData.adminLevel;
-      area.placeCode = placeCode.placeCode;
-      area.countryCodeISO3 = indicatorData.countryCodeISO3;
-      areas.push(area);
-    }
-    this.adminAreaDataRepository.save(areas);
-  }
-
-  private async deleteExistingEntries(
-    indicatorData: UploadAdminAreaDataJsonDto,
-  ): Promise<void> {
+  public async uploadJson({
+    indicator,
+    adminLevel,
+    countryCodeISO3,
+    dataPlaceCode,
+  }: AdminAreaDataJsonDto) {
     await this.adminAreaDataRepository.delete({
-      indicator: indicatorData.indicator,
-      adminLevel: indicatorData.adminLevel,
-      countryCodeISO3: indicatorData.countryCodeISO3,
+      indicator,
+      adminLevel,
+      countryCodeISO3,
     });
+
+    const adminAreaData = dataPlaceCode.map(({ placeCode, amount: value }) => {
+      const adminAreaDataEntity = new AdminAreaDataEntity();
+
+      adminAreaDataEntity.countryCodeISO3 = countryCodeISO3;
+      adminAreaDataEntity.adminLevel = adminLevel;
+      adminAreaDataEntity.indicator = indicator;
+      adminAreaDataEntity.placeCode = placeCode;
+      adminAreaDataEntity.value = value;
+
+      return adminAreaDataEntity;
+    });
+
+    this.adminAreaDataRepository.save(adminAreaData);
   }
 
   public async getAdminAreaData(
     countryCodeISO3: string,
-    adminLevel: string,
+    adminLevel: number,
     indicator: string,
   ): Promise<AdminDataReturnDto[]> {
-    const result = await this.adminAreaDataRepository
-      .createQueryBuilder('admin-area-data')
-      .where({ countryCodeISO3, adminLevel: Number(adminLevel), indicator })
-      .select([
-        'admin-area-data.value AS value',
-        'admin-area-data.placeCode AS "placeCode"',
-      ])
-      .execute();
-    return result;
+    return this.adminAreaDataRepository.find({
+      select: ['value', 'placeCode'],
+      where: { countryCodeISO3, adminLevel, indicator },
+    });
   }
 }
