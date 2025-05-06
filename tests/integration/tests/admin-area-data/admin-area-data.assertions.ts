@@ -196,3 +196,13 @@ export const postAdminAreaDataUploadJsonAssertions: PostAdminAreaDataAssertion[]
       value: 505,
     },
   ];
+
+export const postAdminAreaDataAssertions: PostAdminAreaDataAssertion[] = [
+  {
+    countryCodeISO3: 'ETH',
+    adminLevel: AdminLevel.adminLevel1,
+    indicator: AdminAreaDataIndicator.populationTotal,
+    placeCode: 'ET14',
+    value: 42,
+  },
+];

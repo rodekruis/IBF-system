@@ -14,7 +14,7 @@ import { JoinColumn, ManyToOne } from 'typeorm';
 
 import indicatorData from '../../../scripts/mock-data/drought/ETH/trigger/Belg JAS_Belg/upload-forecast_trigger-2.json';
 import { DynamicDataPlaceCodeDto } from '../../admin-area-dynamic-data/dto/dynamic-data-place-code.dto';
-import { UpdateableStaticIndicator } from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
+import { StaticIndicator } from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { AdminLevel } from '../../country/admin-level.enum';
 import { CountryEntity } from '../../country/country.entity';
 
@@ -63,13 +63,19 @@ export class AdminAreaDataJsonDto {
 
   @ApiProperty({ example: 'Hotspot_General' })
   @IsNotEmpty()
-  @IsEnum(UpdateableStaticIndicator)
+  @IsEnum(StaticIndicator)
   @IsString()
-  public indicator: UpdateableStaticIndicator;
+  public indicator: StaticIndicator;
 
   @ApiProperty({ example: indicatorData })
   @IsArray()
   @ValidateNested()
   @Type(() => DynamicDataPlaceCodeDto)
   public dataPlaceCode: DynamicDataPlaceCodeDto[];
+}
+
+export interface AdminAreaDataParams {
+  countryCodeISO3: string;
+  adminLevel: AdminLevel;
+  indicator: StaticIndicator;
 }

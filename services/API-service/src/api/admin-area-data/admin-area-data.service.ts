@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 
 import { HelperService } from '../../shared/helper.service';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
-import { UpdateableStaticIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
+import { StaticIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { AdminAreaDataEntity } from './admin-area-data.entity';
 import {
   AdminAreaDataDto,
@@ -80,8 +80,7 @@ export class AdminAreaDataService {
           const indicatorAdminAreaData = dataByIndicator[indicator];
 
           const adminAreaDataJsonDto = new AdminAreaDataJsonDto();
-          adminAreaDataJsonDto.indicator =
-            indicator as UpdateableStaticIndicator;
+          adminAreaDataJsonDto.indicator = indicator as StaticIndicator; // REFACTOR: use StaticIndicator enum
           adminAreaDataJsonDto.countryCodeISO3 = countryCodeISO3;
           adminAreaDataJsonDto.adminLevel = Number(adminLevel);
           adminAreaDataJsonDto.dataPlaceCode = indicatorAdminAreaData.map(

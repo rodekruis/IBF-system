@@ -30,14 +30,14 @@ export enum DynamicIndicator {
   damageEstimation = 'damage_estimation',
 }
 
-export enum UpdateableStaticIndicator {
+export enum StaticIndicator {
   ipcForecastShort = 'IPC_forecast_short',
   ipcForecastLong = 'IPC_forecast_long',
   hotspotGeneral = 'Hotspot_General',
   hotspotWater = 'Hotspot_Water',
   hotspotHealth = 'Hotspot_Health',
   hotspotNutrition = 'Hotspot_Nutrition',
-  populationTotal = 'populationTotal',
+  populationTotal = 'populationTotal', // TODO: add missing static indicators
 }
 
 export const ALERT_THRESHOLD = DynamicIndicator.alertThreshold;
