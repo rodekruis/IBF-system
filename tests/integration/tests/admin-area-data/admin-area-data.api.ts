@@ -1,3 +1,5 @@
+import { readFileSync } from 'fs';
+
 import { AdminAreaDataIndicator } from '../../fixtures/indicators.enum';
 import { AdminLevel } from '../../helpers/API-service/enum/admin-level.enum';
 import { api } from '../../helpers/utility.helper';
@@ -19,8 +21,20 @@ export function postAdminAreaDataUploadCsv(token: string, filePath: string) {
     .attach('file', filePath);
 }
 
-export function postAdminAreaDataUploadJson(token: string, json: object) {
-  return api(token)
-    .post('/admin-area-data/upload/json')
-    .attach('file', JSON.stringify(json));
+export function postAdminAreaDataUploadJson(token: string, filePath: string) {
+  const json = readFileSync(filePath, 'utf8');
+  if (!json || json.length === 0) {
+    throw new Error(`Invalid file: ${filePath}`);
+  }
+
+  // parse the JSON string into a JSON object
+  let parsedJson: JSON;
+
+  try {
+    parsedJson = JSON.parse(json);
+  } catch (error) {
+    throw new Error(`Error parsing JSON from file: ${filePath}`);
+  }
+
+  return api(token).post('/admin-area-data/upload/json').send(parsedJson);
 }

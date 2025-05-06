@@ -37,6 +37,7 @@ export enum UpdateableStaticIndicator {
   hotspotWater = 'Hotspot_Water',
   hotspotHealth = 'Hotspot_Health',
   hotspotNutrition = 'Hotspot_Nutrition',
+  populationTotal = 'populationTotal',
 }
 
 export const ALERT_THRESHOLD = DynamicIndicator.alertThreshold;

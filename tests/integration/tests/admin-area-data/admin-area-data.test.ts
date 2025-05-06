@@ -5,10 +5,12 @@ import { mock } from '../../helpers/utility.helper';
 import {
   getAdminAreaData,
   postAdminAreaDataUploadCsv,
+  postAdminAreaDataUploadJson,
 } from './admin-area-data.api';
 import {
   getAdminAreaDataAssertions,
   postAdminAreaDataUploadCsvAssertions,
+  postAdminAreaDataUploadJsonAssertions,
 } from './admin-area-data.assertions';
 
 export default function adminAreaDataTests() {
@@ -67,6 +69,43 @@ export default function adminAreaDataTests() {
       for (const assertionIndex in postAdminAreaDataUploadCsvAssertions) {
         const { countryCodeISO3, adminLevel, indicator, placeCode, value } =
           postAdminAreaDataUploadCsvAssertions[assertionIndex];
+
+        const adminAreaData = await getAdminAreaData(
+          countryCodeISO3,
+          adminLevel,
+          indicator,
+          token,
+        );
+
+        expect(adminAreaData.status).toBe(200);
+
+        const adminAreaDataItem = adminAreaData.body.find(
+          (item: { placeCode: string; value: number }) =>
+            item.placeCode === placeCode,
+        );
+        expect(adminAreaDataItem.value).toBe(value);
+      }
+    });
+
+    it('should upload admin area data from JSON', async () => {
+      // arrange
+      const filePath = path.join(
+        __dirname,
+        '..',
+        '..',
+        'fixtures',
+        'admin-area-data.json',
+      );
+
+      // act
+      const response = await postAdminAreaDataUploadJson(token, filePath);
+
+      // assert
+      expect(response.status).toBe(201);
+
+      for (const assertionIndex in postAdminAreaDataUploadJsonAssertions) {
+        const { countryCodeISO3, adminLevel, indicator, placeCode, value } =
+          postAdminAreaDataUploadJsonAssertions[assertionIndex];
 
         const adminAreaData = await getAdminAreaData(
           countryCodeISO3,
