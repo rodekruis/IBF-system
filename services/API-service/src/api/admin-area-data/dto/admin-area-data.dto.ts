@@ -61,7 +61,7 @@ export class AdminAreaDataJsonDto {
   @IsNumber()
   public adminLevel: AdminLevel;
 
-  @ApiProperty({ example: 'Hotspot_General' })
+  @ApiProperty({ example: StaticIndicator.hotspotGeneral })
   @IsNotEmpty()
   @IsEnum(StaticIndicator)
   @IsString()
