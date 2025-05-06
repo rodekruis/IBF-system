@@ -18,3 +18,9 @@ export function postAdminAreaDataUploadCsv(token: string, filePath: string) {
     .post('/admin-area-data/upload/csv')
     .attach('file', filePath);
 }
+
+export function postAdminAreaDataUploadJson(token: string, json: object) {
+  return api(token)
+    .post('/admin-area-data/upload/json')
+    .attach('file', JSON.stringify(json));
+}
