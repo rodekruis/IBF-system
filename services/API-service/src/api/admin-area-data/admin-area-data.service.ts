@@ -87,13 +87,13 @@ export class AdminAreaDataService {
             ({ placeCode, value: amount }) => ({ placeCode, amount }),
           );
 
-          await this.uploadJson(adminAreaDataJsonDto);
+          await this.upload(adminAreaDataJsonDto);
         }
       }
     }
   }
 
-  public async uploadJson({
+  public async upload({
     indicator,
     adminLevel,
     countryCodeISO3,

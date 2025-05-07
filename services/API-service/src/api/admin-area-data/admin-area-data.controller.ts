@@ -61,18 +61,6 @@ export class AdminAreaDataController {
     await this.adminAreaDataService.uploadCsv(csvFile);
   }
 
-  @Roles(UserRole.Admin)
-  @ApiOperation({
-    summary: 'Upload (and overwrite) static admin-area data via JSON',
-  })
-  @ApiResponse({ status: 201, description: 'Uploaded static admin-area data' })
-  @Post('upload/json')
-  @ApiConsumes()
-  @UseInterceptors()
-  public async uploadJson(@Body() adminAreaDataJsonDto: AdminAreaDataJsonDto) {
-    await this.adminAreaDataService.uploadJson(adminAreaDataJsonDto);
-  }
-
   @ApiOperation({
     summary:
       'Get static indicator data per admin-area for given indicator and country.',
@@ -123,6 +111,6 @@ export class AdminAreaDataController {
     adminAreaDataJsonDto.indicator = params.indicator;
     adminAreaDataJsonDto.dataPlaceCode = dynamicDataPlaceCodeDtos;
 
-    await this.adminAreaDataService.uploadJson(adminAreaDataJsonDto);
+    await this.adminAreaDataService.upload(adminAreaDataJsonDto);
   }
 }
