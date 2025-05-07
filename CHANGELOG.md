@@ -1,3 +1,18 @@
+# [0.315.0](https://github.com/rodekruis/IBF-system/compare/v0.314.4...v0.315.0) (2025-05-07)
+
+
+### Bug Fixes
+
+* csv should not write to other countries based on first record ([5b11973](https://github.com/rodekruis/IBF-system/commit/5b119735d2e5d34a3263dba7ac3d2ad62b607b1b))
+* rm test on removed endpoint ([e5ecc4c](https://github.com/rodekruis/IBF-system/commit/e5ecc4c6eca0996d2a032047cadc58ed5e34a15d))
+
+
+### Features
+
+* add POST admin-area-data ([98edc75](https://github.com/rodekruis/IBF-system/commit/98edc75290ce81ce0ef27e7d773c4467fe1ca3e3))
+
+
+
 ## [0.314.4](https://github.com/rodekruis/IBF-system/compare/v0.314.3...v0.314.4) (2025-05-07)
 
 
@@ -97,15 +112,6 @@
 ### Bug Fixes
 
 * test ([ff0e896](https://github.com/rodekruis/IBF-system/commit/ff0e8963ffd9a13ea55e5fe9d9e9400867289684))
-
-
-
-## [0.312.7](https://github.com/rodekruis/IBF-system/compare/v0.312.6...v0.312.7) (2025-04-15)
-
-
-### Bug Fixes
-
-* bring back GET /alert-areas to use for deeper admin-levels AB[#35406](https://github.com/rodekruis/IBF-system/issues/35406) ([120997b](https://github.com/rodekruis/IBF-system/commit/120997b05595819b2a874746613318c047669654))
 
 
 
