@@ -32,7 +32,7 @@ export class AdminAreaEntity {
   @Column()
   public adminLevel: number;
 
-  @ApiProperty({ example: '21UGA001001' })
+  @ApiProperty({ example: 'UG3066' })
   @Index()
   @Column({ unique: true })
   public placeCode: string;
@@ -41,7 +41,7 @@ export class AdminAreaEntity {
   @Column({ nullable: true })
   public name: string;
 
-  @ApiProperty({ example: '21UGA001' })
+  @ApiProperty({ example: 'UG3' })
   @Column({ nullable: true })
   public placeCodeParent: string;
 
@@ -56,6 +56,7 @@ export class AdminAreaEntity {
   @OneToMany(
     (): typeof EventPlaceCodeEntity => EventPlaceCodeEntity,
     (eventPlaceCode): AdminAreaEntity => eventPlaceCode.adminArea,
+    { cascade: true },
   )
   public eventPlaceCodes: EventPlaceCodeEntity[];
 }
