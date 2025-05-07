@@ -1,0 +1,11 @@
+countryCodeISO3,adminLevel,placeCode,indicator,value
+ETH,1,ET14,populationTotal,1000
+KEN,1,KE036,populationTotal,1001
+LSO,1,LSC,populationTotal,1011
+MWI,2,MW310,populationTotal,2000
+PHL,3,PH012813000,populationTotal,3003
+PHL,3,PH012814000,populationTotal,3333
+SSD,3,SS010109,populationTotal,3033
+UGA,2,UG2033,populationTotal,2002
+ZMB,2,ZM8005,populationTotal,2022
+ZWE,1,ZW17,populationTotal,1111

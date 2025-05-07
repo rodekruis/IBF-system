@@ -1,4 +1,5 @@
 import { reset } from '../helpers/utility.helper';
+import adminAreaDataTests from './admin-area-data/admin-area-data.test';
 import adminAreaTests from './admin-areas/admin-areas.test';
 import adminAreaAggregatesTests from './admin-areas/aggregates.test';
 import communityNotificationTests from './community-notification/community-notification.test';
@@ -20,6 +21,8 @@ describe('integration tests', () => {
   createCountryTests();
 
   emailTests();
+
+  adminAreaDataTests();
 
   adminAreaTests();
   adminAreaAggregatesTests();

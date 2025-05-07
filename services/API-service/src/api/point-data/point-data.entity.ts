@@ -2,7 +2,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { DynamicPointDataEntity } from './dynamic-point-data.entity';
 
-export enum PointDataEnum {
+export enum PointDataCategory {
   evacuationCenters = 'evacuation_centers',
   dams = 'dams',
   healthSites = 'health_sites',
@@ -23,7 +23,7 @@ export class PointDataEntity {
   public countryCodeISO3: string;
 
   @Column()
-  public pointDataCategory: PointDataEnum;
+  public pointDataCategory: PointDataCategory;
 
   @Column({ nullable: true })
   public referenceId: string;

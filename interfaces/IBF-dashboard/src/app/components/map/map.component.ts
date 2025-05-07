@@ -590,7 +590,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     if (
       layer.name === IbfLayerName.healthSites &&
-      layer.data.features.length > 1000 // TO DO: ugly filter to differentiate between countries
+      layer.data.features.length > 1000 // TODO: ugly filter to differentiate between countries
     ) {
       const healthSiteClusterLayer = markerClusterGroup({
         iconCreateFunction: this.getIconCreateFunction,

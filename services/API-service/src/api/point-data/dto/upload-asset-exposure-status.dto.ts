@@ -12,7 +12,7 @@ import {
 
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
-import { PointDataEnum } from '../point-data.entity';
+import { PointDataCategory } from '../point-data.entity';
 
 export class UploadAssetExposureStatusDto {
   @ApiProperty({ example: ['123', '234'] })
@@ -39,10 +39,10 @@ export class UploadAssetExposureStatusDto {
   @IsEnum(DisasterType)
   public disasterType: DisasterType;
 
-  @ApiProperty({ example: PointDataEnum.healthSites })
+  @ApiProperty({ example: PointDataCategory.healthSites })
   @IsNotEmpty()
-  @IsEnum(PointDataEnum)
-  public pointDataCategory: PointDataEnum;
+  @IsEnum(PointDataCategory)
+  public pointDataCategory: PointDataCategory;
 }
 
 export class UploadDynamicPointDataDto {
@@ -61,8 +61,8 @@ export class UploadDynamicPointDataDto {
   @IsEnum(DisasterType)
   public disasterType: DisasterType;
 
-  @ApiProperty({ example: PointDataEnum.gauges })
-  public pointDataCategory: PointDataEnum;
+  @ApiProperty({ example: PointDataCategory.gauges })
+  public pointDataCategory: PointDataCategory;
 
   @ApiProperty({ example: 'water-level' })
   public key: string;

@@ -1,14 +1,17 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { validate } from 'class-validator';
 import { In, MoreThanOrEqual, Repository } from 'typeorm';
 
 import { HelperService } from '../../shared/helper.service';
 import { UploadLinesExposureStatusDto } from './dto/upload-asset-exposure-status.dto';
 import { BuildingDto } from './dto/upload-buildings.dto';
 import { RoadDto } from './dto/upload-roads.dto';
-import { LinesDataEntity, LinesDataEnum } from './lines-data.entity';
+import { LinesDataCategory, LinesDataEntity } from './lines-data.entity';
 import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
+
+export interface LinesDto extends RoadDto, BuildingDto {}
 
 @Injectable()
 export class LinesDataService {
@@ -19,11 +22,11 @@ export class LinesDataService {
 
   public constructor(private readonly helperService: HelperService) {}
 
-  private getDtoPerLinesDataCategory(linesDataCategory: LinesDataEnum) {
+  private getLinesDto(linesDataCategory: LinesDataCategory) {
     switch (linesDataCategory) {
-      case LinesDataEnum.roads:
+      case LinesDataCategory.roads:
         return new RoadDto();
-      case LinesDataEnum.buildings:
+      case LinesDataCategory.buildings:
         return new BuildingDto();
       default:
         throw new HttpException(
@@ -34,10 +37,10 @@ export class LinesDataService {
   }
 
   public async uploadJson(
-    linesDataCategory: LinesDataEnum,
+    linesDataCategory: LinesDataCategory,
     countryCodeISO3: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    validatedObjArray: any,
+    linesDtos: any, // REFACTOR: LinesDto[],
     deactivateExisting = true,
   ) {
     // Delete existing entries
@@ -48,101 +51,112 @@ export class LinesDataService {
       );
     }
 
-    const dataArray = validatedObjArray.map((line) => {
-      const pointAttributes = JSON.parse(JSON.stringify(line)); // hack: clone without referencing
-      delete pointAttributes['wkt'];
+    const linesDataEntities = linesDtos.map((linesDto: LinesDto) => {
+      const linesAttributes = JSON.parse(JSON.stringify(linesDto));
+      delete linesAttributes['wkt'];
+
       return {
         countryCodeISO3,
-        referenceId: line.fid || null,
+        referenceId: linesDto.fid || null,
         linesDataCategory,
-        attributes: JSON.parse(JSON.stringify(pointAttributes)),
+        attributes: JSON.parse(JSON.stringify(linesAttributes)),
         active: true,
         geom: (): string => `st_geomfromtext(
-          'GEOMETRYCOLLECTION(${line.wkt})')`,
+          'GEOMETRYCOLLECTION(${linesDto.wkt})')`,
       };
     });
-    await this.linesDataRepository.save(dataArray, { chunk: 100 });
+
+    await this.linesDataRepository.save(linesDataEntities, { chunk: 100 });
   }
 
   public async uploadCsv(
-    data,
-    linesDataCategory: LinesDataEnum,
+    file: Express.Multer.File,
+    linesDataCategory: LinesDataCategory,
     countryCodeISO3: string,
-  ): Promise<void> {
-    const objArray = await this.helperService.csvBufferToArray(data.buffer);
-    const validatedObjArray = await this.validateArray(
-      linesDataCategory,
-      objArray,
-    );
+  ) {
+    const linesCsv = await this.helperService.getCsvData<LinesDto>(file);
 
-    await this.uploadJson(
-      linesDataCategory,
-      countryCodeISO3,
-      validatedObjArray,
-    );
+    const linesDtos = await this.getLinesDtos(linesDataCategory, linesCsv);
+
+    await this.uploadJson(linesDataCategory, countryCodeISO3, linesDtos);
   }
 
-  public async validateArray(
-    linesDataCategory: LinesDataEnum,
-    csvArray,
-  ): Promise<object[]> {
-    const errors = [];
-    const validatatedArray = [];
-    for (const [_i, row] of csvArray.entries()) {
-      const dto = this.getDtoPerLinesDataCategory(linesDataCategory);
-      for (const attribute in dto) {
-        if (dto.hasOwnProperty(attribute)) {
-          dto[attribute] = row[attribute];
+  // NOTE: lines dtos are individual types of lines data
+  // see LinesDataCategory enum for the supported categories
+  public async getLinesDtos(
+    linesDataCategory: LinesDataCategory,
+    linesCsv: LinesDto[], // REFACTOR: create LinesCsv to avoid this mismatch
+  ) {
+    const validationErrors = [];
+    const linesDtos = [];
+
+    for (const [i, line] of linesCsv.entries()) {
+      const linesDto = this.getLinesDto(linesDataCategory);
+
+      // TODO: figure out why the for-loop is needed, its purpose is unclear
+      for (const attribute in linesDto) {
+        if (linesDto.hasOwnProperty(attribute)) {
+          linesDto[attribute] = line[attribute];
         }
       }
-      // TO DO: this validate-step makes the upload super-slow, commented out for now
-      // const result = await validate(dto);
-      // if (result.length > 0) {
-      //   const errorObj = { lineNumber: i + 1, validationError: result };
-      //   errors.push(errorObj);
-      // }
-      validatatedArray.push(dto);
+
+      const validationError = await validate(linesDto);
+      if (validationError.length > 0) {
+        validationErrors.push({ lineNumber: i + 1, validationError });
+      }
+
+      linesDtos.push(linesDto);
     }
-    if (errors.length > 0) {
-      throw new HttpException(errors, HttpStatus.BAD_REQUEST);
+
+    if (validationErrors.length > 0) {
+      throw new HttpException(validationErrors, HttpStatus.BAD_REQUEST);
     }
-    return validatatedArray;
+
+    return linesDtos;
   }
 
-  public async uploadAssetExposureStatus(
-    assetFids: UploadLinesExposureStatusDto,
-  ) {
-    // Make sure all assets within one upload have the same timestamp, to make sure the asset exposure views work correctly
-    assetFids.date = assetFids.date || new Date();
+  public async uploadAssetExposureStatus({
+    countryCodeISO3,
+    disasterType,
+    leadTime,
+    linesDataCategory,
+    date,
+    exposedFids,
+  }: UploadLinesExposureStatusDto) {
+    // all assets within one upload should have the same timestamp
+    // to make sure the asset exposure views work correctly
+    date = date || new Date();
 
     const assets = await this.linesDataRepository.find({
       where: {
-        referenceId: In(assetFids.exposedFids),
-        linesDataCategory: assetFids.linesDataCategory,
-        countryCodeISO3: assetFids.countryCodeISO3,
+        referenceId: In(exposedFids),
+        linesDataCategory,
+        countryCodeISO3,
         active: true,
       },
     });
 
-    const linesDataIds = assets.map((asset) => asset.linesDataId);
+    const linesDataIds = assets.map(({ linesDataId }) => linesDataId);
 
     const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
-      assetFids.disasterType,
-      assetFids.date,
+      disasterType,
+      date,
     );
 
     await this.linesDataDynamicStatusRepo.delete({
       linesData: { linesDataId: In(linesDataIds) },
-      leadTime: assetFids.leadTime,
+      leadTime,
       timestamp: MoreThanOrEqual(uploadCutoffMoment),
     });
 
     const linesDataDynamicStatuses = assets.map((asset) => {
       const linesDataDynamicStatus = new LinesDataDynamicStatusEntity();
+
       linesDataDynamicStatus.linesData = asset;
-      linesDataDynamicStatus.leadTime = assetFids.leadTime;
-      linesDataDynamicStatus.timestamp = assetFids.date;
+      linesDataDynamicStatus.leadTime = leadTime;
+      linesDataDynamicStatus.timestamp = date;
       linesDataDynamicStatus.exposed = true;
+
       return linesDataDynamicStatus;
     });
 

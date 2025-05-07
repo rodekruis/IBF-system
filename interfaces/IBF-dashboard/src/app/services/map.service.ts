@@ -702,7 +702,7 @@ export class MapService {
       );
     }
     // Get the geometry from the admin region (this should re-use the cache if that is already loaded)
-    // TO DO: I'm convinced this is not working as intended and does not re-use cache and does unneeded /admin-area calls
+    // TODO: I'm convinced this is not working as intended and does not re-use cache and does unneeded /admin-area calls
     const adminRegionsLayer = new IbfLayer();
     adminRegionsLayer.name = IbfLayerName.adminRegions;
     const adminRegionsObs = this.getLayerData(adminRegionsLayer);

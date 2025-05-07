@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-export enum LinesDataEnum {
+export enum LinesDataCategory {
   roads = 'roads',
   buildings = 'buildings',
 }
@@ -20,7 +20,7 @@ export class LinesDataEntity {
   public countryCodeISO3: string;
 
   @Column()
-  public linesDataCategory: LinesDataEnum;
+  public linesDataCategory: LinesDataCategory;
 
   @Column({ nullable: true })
   public referenceId: number;

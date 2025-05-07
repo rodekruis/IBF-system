@@ -1,15 +1,15 @@
 import { ViewEntity } from 'typeorm';
 
 import { AppDataSource } from '../../../appdatasource';
-import { LinesDataEntity, LinesDataEnum } from './lines-data.entity';
+import { LinesDataCategory, LinesDataEntity } from './lines-data.entity';
 import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
 
-const getViewQuery = (type: LinesDataEnum) => {
+const getViewQuery = (type: LinesDataCategory) => {
   return () =>
     AppDataSource.createQueryBuilder()
       .select([
         `line."referenceId",line.geom${
-          type === LinesDataEnum.roads
+          type === LinesDataCategory.roads
             ? `,line.attributes->>'highway' as "highway"`
             : ''
         }`,
@@ -49,8 +49,8 @@ const getViewQuery = (type: LinesDataEnum) => {
         'COALESCE(status.exposed,FALSE) as "exposed"',
       ]);
 };
-@ViewEntity({ expression: getViewQuery(LinesDataEnum.buildings) })
+@ViewEntity({ expression: getViewQuery(LinesDataCategory.buildings) })
 export class BuildingsExposurePerLeadTime {}
 
-@ViewEntity({ expression: getViewQuery(LinesDataEnum.roads) })
+@ViewEntity({ expression: getViewQuery(LinesDataCategory.roads) })
 export class RoadsExposurePerLeadTime {}

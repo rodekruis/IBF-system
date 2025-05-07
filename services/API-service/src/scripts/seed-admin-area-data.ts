@@ -1,9 +1,10 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import { AdminLevel } from 'src/api/country/admin-level.enum';
 import { DataSource } from 'typeorm';
 
 import { AdminAreaDataService } from '../api/admin-area-data/admin-area-data.service';
+import { AdminAreaDataDto } from '../api/admin-area-data/dto/admin-area-data.dto';
+import { AdminLevel } from '../api/country/admin-level.enum';
 import { InterfaceScript } from './scripts.module';
 import { SeedHelper } from './seed-helper';
 
@@ -31,17 +32,17 @@ export class SeedAdminAreaData implements InterfaceScript {
 
     envCountries.forEach(async (countryCodeISO3: string) => {
       const populationFilename = `./src/scripts/git-lfs/admin-area-data/population_${countryCodeISO3}.csv`;
-      try {
-        const populationData =
-          await this.seedHelper.getCsvData(populationFilename);
 
-        const validatedData =
-          await this.adminAreaDataService.validateArray(populationData);
+      try {
+        const populationCsv =
+          await this.seedHelper.getCsvData<AdminAreaDataDto>(
+            populationFilename,
+          );
+
+        await this.adminAreaDataService.validate(populationCsv);
+
         await this.adminAreaDataService.prepareAndUpload(
-          validatedData.filter(
-            (populationRecord: AdminAreaDataRecord) =>
-              populationRecord.value >= 0,
-          ),
+          populationCsv.filter(({ value }: AdminAreaDataRecord) => value >= 0),
         );
       } catch {
         this.logger.error(`Skip Indicator: Population - ${countryCodeISO3}`);
@@ -111,10 +112,13 @@ export class SeedAdminAreaData implements InterfaceScript {
   private async uploadFiles(fileNames: string[]) {
     for await (const fileName of fileNames) {
       const path = `./src/scripts/git-lfs/admin-area-data/${fileName}`;
-      const adminAreaData = await this.seedHelper.getCsvData(path);
-      const validatedData =
-        await this.adminAreaDataService.validateArray(adminAreaData);
-      await this.adminAreaDataService.prepareAndUpload(validatedData);
+
+      const adminAreaDataCsv =
+        await this.seedHelper.getCsvData<AdminAreaDataDto>(path);
+
+      await this.adminAreaDataService.validate(adminAreaDataCsv);
+
+      await this.adminAreaDataService.prepareAndUpload(adminAreaDataCsv);
     }
   }
 }

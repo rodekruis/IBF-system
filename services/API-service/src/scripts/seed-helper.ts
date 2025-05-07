@@ -8,33 +8,32 @@ import { DUNANT_EMAIL } from '../config';
 export class SeedHelper {
   public constructor(private dataSource: DataSource) {}
 
-  public async getCsvData(source: string): Promise<object[]> {
+  public async getCsvData<T>(source: string): Promise<T[]> {
     const buffer = fs.readFileSync(source);
-    let data = await this.csvBufferToArray(buffer, ',');
+    let data = await this.csvBufferToArray<T>(buffer, ',');
     if (Object.keys(data[0]).length === 1) {
-      data = await this.csvBufferToArray(buffer, ';');
+      data = await this.csvBufferToArray<T>(buffer, ';');
     }
     return data;
   }
 
-  private async csvBufferToArray(buffer, separator): Promise<object[]> {
-    const stream = new Readable();
-    stream.push(buffer.toString());
-    stream.push(null);
-    const parsedData = [];
+  private async csvBufferToArray<T>(
+    buffer: Buffer,
+    separator: string,
+  ): Promise<T[]> {
+    const stream = Readable.from(buffer.toString());
+    const data = [];
     return await new Promise((resolve, reject): void => {
       stream
         .pipe(csv({ separator }))
-        .on('error', (error): void => reject(error))
-        .on('data', (row): number => {
+        .on('error', (error) => reject(error))
+        .on('data', (row) => {
           Object.keys(row).forEach((key) =>
             row[key] === '' ? (row[key] = null) : row[key],
           );
-          return parsedData.push(row);
+          return data.push(row);
         })
-        .on('end', (): void => {
-          resolve(parsedData);
-        });
+        .on('end', () => resolve(data));
     });
   }
 

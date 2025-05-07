@@ -144,7 +144,6 @@ export class AuthService implements OnDestroy {
   };
 
   changePassword(password: string) {
-    console.log('authService changePassword');
     return this.apiService
       .changePassword(password)
       .subscribe(this.onPasswordChanged, this.onChangePasswordError);

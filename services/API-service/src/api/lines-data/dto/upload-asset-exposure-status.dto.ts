@@ -10,7 +10,7 @@ import {
 
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
-import { LinesDataEnum } from '../lines-data.entity';
+import { LinesDataCategory } from '../lines-data.entity';
 
 export class UploadLinesExposureStatusDto {
   @ApiProperty({ example: ['123', '234'] })
@@ -37,8 +37,8 @@ export class UploadLinesExposureStatusDto {
   @IsEnum(DisasterType)
   public disasterType: DisasterType;
 
-  @ApiProperty({ example: LinesDataEnum.roads })
+  @ApiProperty({ example: LinesDataCategory.roads })
   @IsNotEmpty()
-  @IsEnum(LinesDataEnum)
-  public linesDataCategory: LinesDataEnum;
+  @IsEnum(LinesDataCategory)
+  public linesDataCategory: LinesDataCategory;
 }

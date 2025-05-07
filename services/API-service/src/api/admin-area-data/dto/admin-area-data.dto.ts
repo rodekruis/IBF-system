@@ -14,11 +14,11 @@ import { JoinColumn, ManyToOne } from 'typeorm';
 
 import indicatorData from '../../../scripts/mock-data/drought/ETH/trigger/Belg JAS_Belg/upload-forecast_trigger-2.json';
 import { DynamicDataPlaceCodeDto } from '../../admin-area-dynamic-data/dto/dynamic-data-place-code.dto';
-import { UpdateableStaticIndicator } from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
+import { StaticIndicator } from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { AdminLevel } from '../../country/admin-level.enum';
 import { CountryEntity } from '../../country/country.entity';
 
-export class UploadAdminAreaDataDto {
+export class AdminAreaDataDto {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -45,7 +45,7 @@ export class UploadAdminAreaDataDto {
   public value: number;
 }
 
-export class UploadAdminAreaDataJsonDto {
+export class AdminAreaDataJsonDto {
   @ApiProperty({ example: 'ETH' })
   @IsNotEmpty()
   @IsString()
@@ -61,15 +61,21 @@ export class UploadAdminAreaDataJsonDto {
   @IsNumber()
   public adminLevel: AdminLevel;
 
-  @ApiProperty({ example: 'Hotspot_General' })
+  @ApiProperty({ example: StaticIndicator.hotspotGeneral })
   @IsNotEmpty()
-  @IsEnum(UpdateableStaticIndicator)
+  @IsEnum(StaticIndicator)
   @IsString()
-  public indicator: UpdateableStaticIndicator;
+  public indicator: StaticIndicator;
 
   @ApiProperty({ example: indicatorData })
   @IsArray()
   @ValidateNested()
   @Type(() => DynamicDataPlaceCodeDto)
   public dataPlaceCode: DynamicDataPlaceCodeDto[];
+}
+
+export interface AdminAreaDataParams {
+  countryCodeISO3: string;
+  adminLevel: AdminLevel;
+  indicator: StaticIndicator;
 }
