@@ -1,0 +1,15 @@
+<layer>
+  <name>flood_extent_15-hour_ETH</name>
+  <id>LayerInfoImpl-d606d0bb:89772284:-4805</id>
+  <type>RASTER</type>
+  <defaultStyle>
+    <id>StyleInfoImpl-671146cb:189bf732cb3:-7e1e</id>
+  </defaultStyle>
+  <resource class="coverage">
+    <id>CoverageInfoImpl-bb0eeef3:36f53066:-4658</id>
+  </resource>
+  <attribution>
+    <logoWidth>0</logoWidth>
+    <logoHeight>0</logoHeight>
+  </attribution>
+</layer>

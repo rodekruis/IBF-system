@@ -1,7 +1,12 @@
 [
   {
     "countryDisasterTypes": {
-      "ETH": { "drought": ["map"], "floods": ["map"], "malaria": ["map"] },
+      "ETH": {
+        "drought": ["map"],
+        "floods": ["map"],
+        "flash-floods": ["map"],
+        "malaria": ["map"]
+      },
       "KEN": { "drought": ["map"], "floods": ["map"] },
       "MWI": { "flash-floods": ["map"], "floods": ["map"] },
       "PHL": { "floods": ["map"], "typhoon": ["map"] },
@@ -27,6 +32,7 @@
       "ETH": {
         "drought": "Rainfall forecast based on NMA/ICPAC will be used as the primary trigger mechanism before the start of the season. This trigger will provide information with a lead time of up to 1 months. The trigger values for this trigger are for more than 50% of the geographical area of a zone(Admin level 2) a Drier than normal conditions(SPI3< -1) are predicted based on the 1 month Standard precipitation index (SPI3). The SPI3 values will be based on seasonal rainfall forecast issued by NMA/ICPAC. In addition to the above requirement the probability of below normal rain should be at 45% based on probabilistic forecast information provided by NMA/ICPAC.",
         "floods": "The ERCS will act based on the developed trigger table when the Global Floods awareness system forecast indicates a level of river discharge greater or equal to a level of 10 years return period with a probability of at least 75% forecast uncertainty within 7 days lead time period.",
+        "flash-floods": "TBD",
         "malaria": "An alert is released when two conditions are simultaneously the relative number of malaria cases is anomalous accordance to WHO guidelines, by comparing it to its monthly averages, the second condition is that the absolute number of malaria cases is high and thus likely to require humanitarian intervention."
       },
       "KEN": {
@@ -62,6 +68,7 @@
     "countryDisasterTypes": {
       "ETH": {
         "drought": ["map", "aggregate"],
+        "flash-floods": ["map", "aggregate"],
         "floods": ["map", "aggregate"]
       },
       "KEN": {
@@ -100,6 +107,7 @@
     "description": {
       "ETH": {
         "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)",
+        "flash-floods": "TBD",
         "drought": "This layer shows the estimated, rounded number of people potentially exposed to drought in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted drought-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
       },
       "KEN": {

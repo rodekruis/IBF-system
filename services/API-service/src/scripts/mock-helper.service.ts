@@ -9,6 +9,7 @@ import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { UploadLinesExposureStatusDto } from '../api/lines-data/dto/upload-asset-exposure-status.dto';
 import { LinesDataCategory } from '../api/lines-data/lines-data.entity';
 import { LinesDataService } from '../api/lines-data/lines-data.service';
+import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { UploadDynamicPointDataDto } from '../api/point-data/dto/upload-asset-exposure-status.dto';
 import { PointDataCategory } from '../api/point-data/point-data.entity';
 import { PointDataService } from '../api/point-data/point-data.service';
@@ -34,10 +35,14 @@ export class MockHelperService {
     date: Date,
     scenarioName: string,
     { leadTime, eventName }: Event,
+    layers: LayerMetadataEntity[],
   ) {
     for (const linesDataCategory of Object.keys(LinesDataCategory)) {
-      const uploadLinesExposureStatusDto = new UploadLinesExposureStatusDto();
+      if (!layers.map((l) => l.name).includes(linesDataCategory)) {
+        continue;
+      }
 
+      const uploadLinesExposureStatusDto = new UploadLinesExposureStatusDto();
       uploadLinesExposureStatusDto.countryCodeISO3 = countryCodeISO3;
       uploadLinesExposureStatusDto.disasterType = DisasterType.FlashFloods;
       uploadLinesExposureStatusDto.linesDataCategory =
@@ -62,8 +67,11 @@ export class MockHelperService {
     ];
 
     for (const pointDataCategory of pointDataCategories) {
-      const uploadDynamicPointDataDto = new UploadDynamicPointDataDto();
+      if (!layers.map((l) => l.name).includes(pointDataCategory)) {
+        continue;
+      }
 
+      const uploadDynamicPointDataDto = new UploadDynamicPointDataDto();
       uploadDynamicPointDataDto.disasterType = DisasterType.FlashFloods;
       uploadDynamicPointDataDto.key = 'exposure';
       uploadDynamicPointDataDto.leadTime = leadTime;
@@ -80,7 +88,7 @@ export class MockHelperService {
     }
   }
 
-  public async mockDynamicPointData(
+  public async mockRiverGaugeData(
     countryCodeISO3: string,
     disasterType: DisasterType,
     scenarioName: string,
@@ -228,7 +236,7 @@ export class MockHelperService {
       );
       // from the numbers, find the closest number to the leadTimeNumber
       let closestNumber = numbersFromClosestFiles[0];
-      let index: number;
+      let index = 0;
       for (let i = 0; i < numbersFromClosestFiles.length; i++) {
         if (
           Math.abs(numbersFromClosestFiles[i] - leadTimeNumber) <

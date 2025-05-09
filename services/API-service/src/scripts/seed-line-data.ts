@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { HttpException } from '@nestjs/common';
+import { HttpStatus } from '@nestjs/common';
 
 import { DataSource } from 'typeorm';
 
@@ -43,10 +45,15 @@ export class SeedLineData implements InterfaceScript {
     countryCodeISO3: string,
   ) {
     const filename = `./src/scripts/git-lfs/lines-layers/${lineDataCategory}_${countryCodeISO3}.csv`;
+    let linesCsv;
+    try {
+      linesCsv = await this.seedHelper.getCsvData<LinesDto>(filename);
+    } catch {
+      // If file missing for some countries, this is expected, so we just return
+      return Promise.resolve();
+    }
 
     try {
-      const linesCsv = await this.seedHelper.getCsvData<LinesDto>(filename);
-
       const linesDtos = await this.lineDataService.getLinesDtos(
         lineDataCategory,
         linesCsv,
@@ -57,8 +64,13 @@ export class SeedLineData implements InterfaceScript {
         countryCodeISO3,
         linesDtos,
       );
-    } catch {
-      return Promise.resolve();
+    } catch (error) {
+      // If validation or upload fails, then log and throw error
+      console.error('Error seeding line data:', error);
+      throw new HttpException(
+        `Error seeding line data for ${lineDataCategory} in ${countryCodeISO3}`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }
