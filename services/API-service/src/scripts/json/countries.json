@@ -630,7 +630,7 @@
   {
     "countryCodeISO3": "ETH",
     "countryName": "Ethiopia",
-    "disasterTypes": ["floods", "malaria", "drought"],
+    "disasterTypes": ["floods", "drought", "flash-floods", "malaria"],
     "countryDisasterSettings": [
       {
         "disasterType": "floods",
@@ -666,6 +666,33 @@
         "defaultAdminLevel": 3,
         "activeLeadTimes": ["0-month", "1-month", "2-month"],
         "eapLink": "https://docs.google.com/document/d/1v7FNVaYIS1_5zTn-KDWe3gZmjvRxljsXR9EutAF0wuk/edit?usp=sharing"
+      },
+      {
+        "disasterType": "flash-floods",
+        "adminLevels": [3],
+        "defaultAdminLevel": 3,
+        "activeLeadTimes": [
+          "0-hour",
+          "1-hour",
+          "2-hour",
+          "3-hour",
+          "4-hour",
+          "5-hour",
+          "6-hour",
+          "7-hour",
+          "8-hour",
+          "9-hour",
+          "10-hour",
+          "11-hour",
+          "12-hour",
+          "15-hour",
+          "18-hour",
+          "21-hour",
+          "24-hour",
+          "48-hour"
+        ],
+        "eapLink": "https://510ibfsystem.blob.core.windows.net/about-trigger/MWI-flashfloods-about.pdf",
+        "enableEarlyActions": false
       },
       {
         "disasterType": "drought",
