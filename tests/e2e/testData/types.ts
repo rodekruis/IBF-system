@@ -23,6 +23,7 @@ export interface Layer {
   legendLabels: string[];
   active: boolean;
   type: string; // 'raster' | 'admin-area' | 'point'
+  map: boolean;
   aggregate: boolean;
 }
 
@@ -42,7 +43,7 @@ export interface Dataset {
   user: User;
   title: string;
   aggregates: Aggregates;
-  mapLayers: Layer[];
+  layers: Layer[];
   timeline: Timeline;
   eap: { actions: boolean };
   configurationId: number;

@@ -20,7 +20,7 @@
   "aggregates": {
     "disclaimer": "All numbers are approximate and meant to be used as guidance."
   },
-  "mapLayers": [
+  "layers": [
     {
       "name": "red_cross_branches",
       "label": "Red Cross branches",
@@ -28,6 +28,7 @@
       "legendLabels": ["Red Cross branches"],
       "active": false,
       "type": "point",
+      "map": true,
       "aggregate": false
     },
     {
@@ -37,6 +38,7 @@
       "legendLabels": ["GloFAS No action"],
       "active": true,
       "type": "point",
+      "map": true,
       "aggregate": false
     },
     {
@@ -46,6 +48,7 @@
       "legendLabels": ["Flood extent"],
       "active": true,
       "type": "raster",
+      "map": true,
       "aggregate": false
     },
     {
@@ -55,6 +58,7 @@
       "legendLabels": ["Exposed population"],
       "active": true,
       "type": "admin-area",
+      "map": true,
       "aggregate": true
     },
     {
@@ -64,6 +68,7 @@
       "legendLabels": ["Total Population"],
       "active": false,
       "type": "admin-area",
+      "map": true,
       "aggregate": true
     },
     {
@@ -73,6 +78,7 @@
       "legendLabels": ["Female-headed household"],
       "active": false,
       "type": "admin-area",
+      "map": true,
       "aggregate": true
     },
     {
@@ -82,6 +88,7 @@
       "legendLabels": ["Population under 8"],
       "active": false,
       "type": "admin-area",
+      "map": true,
       "aggregate": true
     },
     {
@@ -91,6 +98,7 @@
       "legendLabels": ["Population over 65"],
       "active": false,
       "type": "admin-area",
+      "map": true,
       "aggregate": true
     }
   ],

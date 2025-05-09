@@ -22,7 +22,7 @@ export default (
     await aggregates.aggregateComponentIsVisible();
     await dashboard.waitForLoaderToDisappear();
     await aggregates.validatesAggregatesInfoButtons(
-      dataset.mapLayers,
+      dataset.layers,
       dataset.aggregates.disclaimer,
     );
   });
