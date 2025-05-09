@@ -238,7 +238,12 @@ export class MockService {
           );
         }
 
-        if (this.shouldMockExposedAssets(disasterType)) {
+        if (
+          this.shouldMockExposedAssets(
+            disasterType,
+            selectedCountry.countryCodeISO3,
+          )
+        ) {
           await this.mockHelpService.mockExposedAssets(
             selectedCountry.countryCodeISO3,
             date,
@@ -267,7 +272,13 @@ export class MockService {
       );
     }
 
-    if (this.shouldMockDynamicPointData(disasterType, scenario.scenarioName)) {
+    if (
+      this.shouldMockDynamicPointData(
+        disasterType,
+        selectedCountry.countryCodeISO3,
+        scenario.scenarioName,
+      )
+    ) {
       await this.mockHelpService.mockDynamicPointData(
         selectedCountry.countryCodeISO3,
         disasterType,
@@ -481,16 +492,23 @@ export class MockService {
     ].includes(disasterType);
   }
 
-  private shouldMockExposedAssets(disasterType: DisasterType): boolean {
-    return disasterType === DisasterType.FlashFloods;
+  private shouldMockExposedAssets(
+    disasterType: DisasterType,
+    countryCodeISO3: string,
+  ): boolean {
+    return (
+      disasterType === DisasterType.FlashFloods && countryCodeISO3 === 'MWI' // TODO: make this conditional based on layers (e.g. roads) being configured for the country/disaster-type
+    );
   }
 
   private shouldMockDynamicPointData(
     disasterType: DisasterType,
+    countryCodeISO3: string,
     scenarioName: string,
   ): boolean {
     return (
       disasterType === DisasterType.FlashFloods &&
+      countryCodeISO3 === 'MWI' && // TODO: make this conditional based on layers (e.g. roads) being configured for the country/disaster-type
       scenarioName !== FlashFloodsScenario.NoTrigger
     );
   }
