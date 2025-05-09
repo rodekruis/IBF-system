@@ -181,6 +181,7 @@ function createGeoServerLayer(filename, outputDir = './') {
 </layer>`;
 
   // Create coveragestore.xml
+  const subFolder = 'flood_extents'; // FILL IN: RIGHT SUBFOLDER NAME (flood_extents, rainfall_extents)
   const coverageStoreXml = `<coverageStore>
   <id>${storeId}</id>
   <name>${layerName}</name>
@@ -191,7 +192,7 @@ function createGeoServerLayer(filename, outputDir = './') {
     <id>${workspaceId}</id>
   </workspace>
   <__default>false</__default>
-  <url>file:workspaces/ibf-system/ibf-pipeline/output/flood_extents/${filename}</url>
+  <url>file:workspaces/ibf-system/ibf-pipeline/output/${subFolder}/${filename}</url>
 </coverageStore>`;
 
   // Write files
