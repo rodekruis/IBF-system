@@ -228,7 +228,7 @@ export class MockHelperService {
       );
       // from the numbers, find the closest number to the leadTimeNumber
       let closestNumber = numbersFromClosestFiles[0];
-      let index: number;
+      let index = 0;
       for (let i = 0; i < numbersFromClosestFiles.length; i++) {
         if (
           Math.abs(numbersFromClosestFiles[i] - leadTimeNumber) <
