@@ -8,7 +8,6 @@ export class RoadDto {
   public highway: string = undefined;
 
   @ApiProperty({ example: 'surface' })
-  @IsString()
   public surface: string = undefined;
 
   @ApiProperty({ example: 1234 })
