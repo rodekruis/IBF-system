@@ -3,8 +3,6 @@ import { Locator, Page } from 'playwright';
 
 class DashboardPage {
   readonly page: Page;
-  readonly floodIcon: Locator;
-  readonly droughtIcon: Locator;
   readonly dashboardDevControlButton: Locator;
   readonly dashboardHomeButton: Locator;
   readonly countrySwitcherDropdown: Locator;
@@ -16,8 +14,6 @@ class DashboardPage {
 
   constructor(page: Page) {
     this.page = page;
-    this.floodIcon = this.page.getByTestId('disaster-type-button-floods');
-    this.droughtIcon = this.page.getByTestId('disaster-type-button-drought');
     this.dashboardDevControlButton = this.page.getByTestId(
       'dashboard-dev-control-button',
     );
@@ -44,17 +40,10 @@ class DashboardPage {
     await this.page.waitForSelector(
       `[data-testid=disaster-type-button-${disasterType}]`,
     );
-    switch (disasterType) {
-      case 'floods':
-        await this.floodIcon.click();
-        break;
-      case 'drought':
-        await this.droughtIcon.click();
-        break;
-      default:
-        console.log('Invalid disaster type');
-        break;
-    }
+    const disasterTypeIcon = this.page.getByTestId(
+      `disaster-type-button-${disasterType}`,
+    );
+    await disasterTypeIcon.click();
   }
 
   async waitForLoaderToDisappear() {

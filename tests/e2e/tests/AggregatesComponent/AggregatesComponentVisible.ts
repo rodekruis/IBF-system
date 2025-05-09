@@ -23,8 +23,8 @@ export default (
     await aggregates.aggregateComponentIsVisible();
     if (dataset.scenario === 'no-trigger') {
       await aggregates.aggregatesElementsDisplayedInNoTrigger(
-        dataset.disasterType.label,
-        dataset.mapLayers,
+        dataset.disasterType,
+        dataset.layers,
       );
     }
   });

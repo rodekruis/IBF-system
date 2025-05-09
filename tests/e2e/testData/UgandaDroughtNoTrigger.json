@@ -19,13 +19,14 @@
   "aggregates": {
     "disclaimer": "All numbers are approximate and meant to be used as guidance."
   },
-  "mapLayers": [
+  "layers": [
     {
       "name": "red_cross_branches",
       "label": "Red Cross branches",
       "description": "This layer represents the locations of the local Uganda Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data",
       "legendLabels": ["Red Cross branches"],
       "active": false,
+      "map": true,
       "aggregate": false
     },
     {
@@ -35,6 +36,7 @@
       "legendLabels": ["Exposed population"],
       "active": true,
       "type": "admin-area",
+      "map": true,
       "aggregate": true
     },
     {
@@ -44,6 +46,7 @@
       "legendLabels": ["Total Population"],
       "active": false,
       "type": "admin-area",
+      "map": true,
       "aggregate": true
     }
   ],

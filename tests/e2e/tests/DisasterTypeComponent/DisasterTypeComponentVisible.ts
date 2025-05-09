@@ -22,6 +22,8 @@ export default (
     await userState.headerComponentIsVisible(dataset);
     await dashboard.waitForLoaderToDisappear();
     await disasterTypeComponent.topBarComponentIsVisible();
-    await disasterTypeComponent.allDisasterTypeElementsArePresent();
+    await disasterTypeComponent.allDisasterTypeElementsArePresent(
+      dataset.country.disasterTypes,
+    );
   });
 };

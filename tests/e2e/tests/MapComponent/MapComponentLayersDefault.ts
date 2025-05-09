@@ -29,8 +29,8 @@ export default (
     await map.isLayerMenuOpen({ layerMenuOpen: true });
     await map.isLegendOpen({ legendOpen: true });
 
-    const activeLayers = dataset.mapLayers.filter(
-      (layer) => layer.active === true,
+    const activeLayers = dataset.layers.filter(
+      (layer) => layer.map && layer.active,
     );
     for (const layer of activeLayers) {
       if (layer.type === 'raster') {

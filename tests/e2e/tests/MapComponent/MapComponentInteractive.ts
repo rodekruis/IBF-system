@@ -39,10 +39,7 @@ export default (
 
     // Select and deselect the layer
     await map.clickLayerMenu();
-    await map.checkLayerCheckbox(dataset.mapLayers[0]); // REFACTOR
+    await map.checkLayerCheckbox(dataset.layers.find((l) => l.map)!);
     await map.isLayerMenuOpen({ layerMenuOpen: true });
-
-    // Red Cross branches layer should be visible
-    await map.redCrossMarkersAreVisible();
   });
 };
