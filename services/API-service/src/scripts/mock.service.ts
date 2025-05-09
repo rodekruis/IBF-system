@@ -17,7 +17,9 @@ import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.enti
 import { AlertPerLeadTimeEntity } from '../api/event/alert-per-lead-time.entity';
 import { EventService } from '../api/event/event.service';
 import { EventPlaceCodeEntity } from '../api/event/event-place-code.entity';
+import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { MetadataService } from '../api/metadata/metadata.service';
+import { PointDataCategory } from '../api/point-data/point-data.entity';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { ProcessEventsService } from '../api/process-events/process-events.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
@@ -122,6 +124,10 @@ export class MockService {
     ).adminLevels;
 
     const indicators = await this.getIndicators(countryCodeISO3, disasterType);
+    const layers = await this.metadataService.getLayersByCountryAndDisaster(
+      countryCodeISO3,
+      disasterType,
+    );
 
     if (!scenario.events) {
       // No events scenario
@@ -249,6 +255,7 @@ export class MockService {
             date,
             scenario.scenarioName,
             event,
+            layers,
           );
         }
       }
@@ -272,14 +279,12 @@ export class MockService {
       );
     }
 
-    if (
-      this.shouldMockDynamicPointData(
-        disasterType,
-        selectedCountry.countryCodeISO3,
-        scenario.scenarioName,
-      )
-    ) {
-      await this.mockHelpService.mockDynamicPointData(
+    console.log(
+      'this.shouldMockRiverGaugeData(layers, scenario.scenarioName): ',
+      this.shouldMockRiverGaugeData(layers, scenario.scenarioName),
+    );
+    if (await this.shouldMockRiverGaugeData(layers, scenario.scenarioName)) {
+      await this.mockHelpService.mockRiverGaugeData(
         selectedCountry.countryCodeISO3,
         disasterType,
         scenario.scenarioName,
@@ -501,16 +506,16 @@ export class MockService {
     );
   }
 
-  private shouldMockDynamicPointData(
-    disasterType: DisasterType,
-    countryCodeISO3: string,
+  private async shouldMockRiverGaugeData(
+    layers: LayerMetadataEntity[],
     scenarioName: string,
-  ): boolean {
-    return (
-      disasterType === DisasterType.FlashFloods &&
-      countryCodeISO3 === 'MWI' && // TODO: make this conditional based on layers (e.g. roads) being configured for the country/disaster-type
-      scenarioName !== FlashFloodsScenario.NoTrigger
-    );
+  ): Promise<boolean> {
+    console.log('layers: ', layers);
+    const hasRiverGaugeLayer = layers
+      .map((layer) => layer.name)
+      .includes(PointDataCategory.gauges);
+    console.log('hasRiverGaugeLayer: ', hasRiverGaugeLayer);
+    return hasRiverGaugeLayer && scenarioName !== FlashFloodsScenario.NoTrigger;
   }
 
   private shouldMockTyphoonTrack(disasterType: DisasterType): boolean {
