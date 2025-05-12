@@ -34,6 +34,7 @@ export class EapActionStatusEntity {
     (): typeof EventPlaceCodeEntity => EventPlaceCodeEntity,
     (eventPlaceCode): EapActionStatusEntity[] =>
       eventPlaceCode.eapActionStatuses,
+    { onDelete: 'CASCADE' },
   )
   public eventPlaceCode: EventPlaceCodeEntity;
 
