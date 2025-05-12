@@ -173,7 +173,8 @@
     }
   ],
   "timeline": {
-    "dateFormat": "EEE dd MMM HH:00",
+    "dateFormat": "EEE dd MMM",
+    "dateFormatAlert": "EEE dd MMM HH:00",
     "dateUnit": "days"
   },
   "eap": {

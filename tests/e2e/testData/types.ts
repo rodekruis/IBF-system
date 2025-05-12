@@ -30,6 +30,7 @@ export interface Layer {
 
 export interface Timeline {
   dateFormat: string;
+  dateFormatAlert?: string;
   dateUnit: string; // 'days' | 'months' | 'hours'
 }
 

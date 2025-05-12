@@ -94,7 +94,7 @@
     }
   ],
   "timeline": {
-    "dateFormat": "ccc dd",
+    "dateFormat": "EEE dd MMM yyyy",
     "dateUnit": "days"
   },
   "eap": {
