@@ -1,3 +1,12 @@
+## [0.315.1](https://github.com/rodekruis/IBF-system/compare/v0.315.0...v0.315.1) (2025-05-12)
+
+
+### Bug Fixes
+
+* event place code and eap action status foreign key delete cascade ([7017f27](https://github.com/rodekruis/IBF-system/commit/7017f270185bf8bc624d4c0d1adc976a45a17125))
+
+
+
 # [0.315.0](https://github.com/rodekruis/IBF-system/compare/v0.314.4...v0.315.0) (2025-05-07)
 
 
@@ -103,15 +112,6 @@
 ### Bug Fixes
 
 * rainfall layer name+description AB[#35298](https://github.com/rodekruis/IBF-system/issues/35298) ([14ad95b](https://github.com/rodekruis/IBF-system/commit/14ad95b102b24297c07aa56d8f2f04d2c4a58e11))
-
-
-
-## [0.312.8](https://github.com/rodekruis/IBF-system/compare/v0.312.7...v0.312.8) (2025-04-18)
-
-
-### Bug Fixes
-
-* test ([ff0e896](https://github.com/rodekruis/IBF-system/commit/ff0e8963ffd9a13ea55e5fe9d9e9400867289684))
 
 
 
