@@ -1,7 +1,14 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
+import {
+  In,
+  InsertResult,
+  MoreThanOrEqual,
+  Not,
+  Repository,
+  UpdateResult,
+} from 'typeorm';
 
 import { AggregateDataRecord } from '../../shared/data.model';
 import { GeoJson } from '../../shared/geo.model';
@@ -39,30 +46,75 @@ export class AdminAreaService {
     countryCodeISO3: string,
     adminLevel: number,
     adminAreasGeoJson: GeoJson,
-  ) {
-    //delete existing entries for country & adminlevel first
-    await this.adminAreaRepository.delete({ countryCodeISO3, adminLevel });
+    reset = false,
+  ): Promise<{ updated: number; inserted: number; untouched: number }> {
+    let updated = 0;
+    let inserted = 0;
+    let untouched = 0;
+
+    if (reset) {
+      //delete existing entries for country & adminlevel first
+      await this.adminAreaRepository.delete({ countryCodeISO3, adminLevel });
+    }
 
     const adminAreas = this.processPreUploadExceptions(adminAreasGeoJson);
+    const processedPlaceCodes = adminAreas.features.map(
+      (area) => area.properties[`ADM${adminLevel}_PCODE`],
+    );
 
-    // then upload new admin-areas
     await Promise.all(
-      adminAreas.features.map((area): Promise<InsertResult> => {
-        return this.adminAreaRepository
-          .createQueryBuilder()
-          .insert()
-          .values({
+      adminAreas.features.map(
+        async (area): Promise<InsertResult | UpdateResult> => {
+          const placeCode = area.properties[`ADM${adminLevel}_PCODE`];
+
+          const existingArea = await this.adminAreaRepository.findOne({
+            where: { countryCodeISO3, adminLevel, placeCode },
+          });
+
+          const areaValues = {
             countryCodeISO3,
             adminLevel,
             name: area.properties[`ADM${adminLevel}_EN`],
-            placeCode: area.properties[`ADM${adminLevel}_PCODE`],
+            placeCode,
             placeCodeParent:
               area.properties[`ADM${adminLevel - 1}_PCODE`] || null,
             geom: (): string => this.geomFunction(area.geometry.coordinates),
-          })
-          .execute();
-      }),
+          };
+
+          if (existingArea) {
+            updated++;
+            return this.adminAreaRepository.update(existingArea.id, areaValues);
+          } else {
+            inserted++;
+            return this.adminAreaRepository
+              .createQueryBuilder()
+              .insert()
+              .values(areaValues)
+              .execute();
+          }
+        },
+      ),
     );
+
+    if (!reset) {
+      const untouchedAdminAreas = await this.adminAreaRepository.find({
+        where: {
+          countryCodeISO3,
+          adminLevel,
+          placeCode: Not(In(processedPlaceCodes)),
+        },
+        select: ['id', 'placeCode'],
+      });
+      untouched = untouchedAdminAreas.length;
+
+      if (untouchedAdminAreas.length > 0) {
+        console.log(
+          `Found ${untouchedAdminAreas.length} untouched admin areas that weren't updated:`,
+          untouchedAdminAreas.map((a) => a.placeCode).join(', '),
+        );
+      }
+    }
+    return { updated, inserted, untouched };
   }
 
   private processPreUploadExceptions(adminAreasGeoJson: GeoJson) {
@@ -78,6 +130,38 @@ export class AdminAreaService {
     return `ST_GeomFromGeoJSON( '{ "type": "MultiPolygon", "coordinates": ${JSON.stringify(
       coordinates,
     )} }' )`;
+  }
+
+  public async updateAdminAreaByPlaceCode(
+    countryCodeISO3: string,
+    adminLevel: number,
+    placeCode: string,
+    adminAreaGeoJson: GeoJson,
+  ): Promise<UpdateResult> {
+    const adminArea = await this.adminAreaRepository.findOne({
+      where: { countryCodeISO3, adminLevel, placeCode },
+    });
+    if (!adminArea) {
+      throw new HttpException(
+        `Admin area with placeCode ${placeCode} not found`,
+        HttpStatus.NOT_FOUND,
+      );
+    }
+    const updatedAdminArea = {
+      ...adminArea,
+      name: adminAreaGeoJson.features[0].properties[`ADM${adminLevel}_EN`],
+      placeCode:
+        adminAreaGeoJson.features[0].properties[`ADM${adminLevel}_PCODE`],
+      placeCodeParent:
+        adminAreaGeoJson.features[0].properties[`ADM${adminLevel - 1}_PCODE`] ||
+        null,
+      geom: (): string =>
+        this.geomFunction(adminAreaGeoJson.features[0].geometry.coordinates),
+    };
+    return await this.adminAreaRepository.update(
+      adminArea.id,
+      updatedAdminArea,
+    );
   }
 
   private async getTriggeredPlaceCodes(

@@ -2,9 +2,13 @@ import {
   Body,
   Controller,
   Get,
+  HttpStatus,
   Param,
+  ParseBoolPipe,
+  Patch,
   Post,
   Query,
+  Res,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
@@ -25,6 +29,7 @@ import { GeoJson } from '../../shared/geo.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaService } from './admin-area.service';
+import { AdminAreaUploadDto } from './dto/upload-admin-areas.dto';
 import { EventAreaService } from './services/event-area.service';
 
 @ApiBearerAuth()
@@ -41,6 +46,14 @@ export class AdminAreaController {
   @ApiOperation({ summary: 'Adds or updates (if existing) admin-areas' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiQuery({
+    name: 'reset',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description:
+      'IMPORTANT: Set to true to remove all existing admin-areas for this country and admin-level before adding new ones. USE WITH CARE: This may come with removal of event data.',
+  })
   @ApiResponse({
     status: 201,
     description: 'Added and/or Updated admin-areas.',
@@ -50,11 +63,45 @@ export class AdminAreaController {
   @UseInterceptors()
   public async addOrUpdateAdminAreas(
     @Param() params,
-    @Body() adminAreaGeoJson: GeoJson,
-  ): Promise<void> {
-    await this.adminAreaService.addOrUpdateAdminAreas(
+    @Body() body: AdminAreaUploadDto,
+    @Query('reset', new ParseBoolPipe({ optional: true }))
+    reset: boolean,
+    @Res() res,
+  ): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+    const result = await this.adminAreaService.addOrUpdateAdminAreas(
       params.countryCodeISO3,
       params.adminLevel,
+      body.adminAreaGeoJson,
+      reset,
+    );
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary:
+      'Updates properties of existing admin-area identified by placeCode',
+  })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiParam({ name: 'placeCode', required: true, type: 'number' })
+  @ApiResponse({ status: 201, description: 'Updated admin-area' })
+  @ApiResponse({ status: 404, description: 'PlaceCode not found' })
+  @Patch(':countryCodeISO3/:adminLevel/:placeCode')
+  @ApiConsumes()
+  @UseInterceptors()
+  public async updateAdminAreaByPlaceCode(
+    @Param() params,
+    @Body() adminAreaGeoJson: GeoJson,
+  ): Promise<void> {
+    await this.adminAreaService.updateAdminAreaByPlaceCode(
+      params.countryCodeISO3,
+      params.adminLevel,
+      params.placeCode,
       adminAreaGeoJson,
     );
   }
