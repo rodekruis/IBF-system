@@ -8,6 +8,7 @@ import MapComponent from 'Pages/MapComponent';
 import TimelineComponent from 'Pages/TimelineComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
 import MalawiFlashFloodsNoTrigger from 'testData/MalawiFlashFloodsNoTrigger.json';
+import MalawiFlashFloodsTrigger from 'testData/MalawiFlashFloodsTrigger.json';
 import { Dataset } from 'testData/types';
 import UgandaDroughtWarning from 'testData/UgandaDroughtWarning.json';
 import UgandaFloodsNoTrigger from 'testData/UgandaFloodsNoTrigger.json';
@@ -22,12 +23,12 @@ import AggregateComponentEventCount from './AggregatesComponent/AggregateCompone
 import AggregateComponentHeaderColour from './AggregatesComponent/AggregateComponentHeaderColour';
 import AggregateComponentTitleHover from './AggregatesComponent/AggregateComponentTitleHover';
 import AggregatesComponentVisible from './AggregatesComponent/AggregatesComponentVisible';
+import ChatComponentAffectedAreasList from './ChatComponent/ChatComponentAffectedAreasList';
 import ChatComponentButtonClick from './ChatComponent/ChatComponentButtonClick';
 import ChatComponentEventClick from './ChatComponent/ChatComponentEventClick';
 import ChatComponentEventCount from './ChatComponent/ChatComponentEventCount';
 import ChatComponentInfoPopover from './ChatComponent/ChatComponentInfoPopover';
 import ChatComponentSetTrigger from './ChatComponent/ChatComponentSetTrigger';
-import ChatComponentTriggeredAreasList from './ChatComponent/ChatComponentTriggeredAreasList';
 import ChatComponentVisible from './ChatComponent/ChatComponentVisible';
 import DashboardPageVisible from './DashboardPage/DashboardPageVisible';
 import DisasterTypeComponentSelect from './DisasterTypeComponent/DisasterTypeComponentSelect';
@@ -59,6 +60,7 @@ test.describe('e2e tests', () => {
     // UgandaDroughtNoTrigger, // Disable until deemed valuable, as it is very similar to floods no-trigger
     UgandaDroughtWarning,
     MalawiFlashFloodsNoTrigger,
+    MalawiFlashFloodsTrigger,
   ];
 
   datasets.forEach((dataset) => {
@@ -148,7 +150,7 @@ test.describe('e2e tests', () => {
 
         if (scenario !== 'no-trigger') {
           // REFACTOR
-          ChatComponentTriggeredAreasList(pages, components, dataset, date);
+          ChatComponentAffectedAreasList(pages, components, dataset, date);
           ChatComponentEventClick(pages, components, dataset, date);
           ChatComponentEventCount(pages, components, dataset, date);
           ChatComponentInfoPopover(pages, components, dataset, date);

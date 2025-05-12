@@ -3,7 +3,8 @@
   "country": {
     "code": "MWI",
     "name": "Malawi",
-    "disasterTypes": ["flash-floods", "floods"]
+    "disasterTypes": ["flash-floods", "floods"],
+    "defaultAdminAreaLabelSingular": "Traditional Authority"
   },
   "disasterType": {
     "name": "flash-floods",

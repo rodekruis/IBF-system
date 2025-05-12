@@ -9,7 +9,7 @@ export default (
   dataset: Dataset,
   date: Date,
 ) => {
-  test('[33717] Click on area in triggered areas list in chat', async () => {
+  test('[33717] Click on area in affected areas list in chat', async () => {
     const { dashboard } = pages;
     const { chat, userState, aggregates, map } = components;
 
@@ -35,6 +35,8 @@ export default (
     await chat.validateChatTitleAndBreadcrumbs({
       adminAreaName,
       mainExposureIndicator: 'Exposed Population',
+      defaultAdminAreaLabelSingular:
+        dataset.country.defaultAdminAreaLabelSingular,
     });
     await chat.validateEapListButtons(dataset.eap.actions);
   });

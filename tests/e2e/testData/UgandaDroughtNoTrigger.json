@@ -2,7 +2,8 @@
   "country": {
     "code": "UGA",
     "name": "Uganda",
-    "disasterTypes": ["floods", "drought"]
+    "disasterTypes": ["floods", "drought"],
+    "defaultAdminAreaLabelSingular": "District"
   },
   "disasterType": {
     "name": "drought",

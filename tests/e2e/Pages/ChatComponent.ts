@@ -225,12 +225,9 @@ class ChatComponent extends DashboardPage {
 
   async clickShowPredictionButton(scenario: string) {
     await this.page.waitForLoadState('domcontentloaded');
-
     const triggerChatDialogue = this.page
       .getByTestId('dialogue-turn-content')
-      .filter({
-        hasText: scenario === 'trigger' ? 'Trigger issued' : 'Warning',
-      })
+      .filter({ hasText: scenario === 'trigger' ? 'Trigger:' : 'Warning:' }) // REFACTOR: the ':' is needed here. Fix better.
       .first()
       .getByTestId('event-switch-button');
     await triggerChatDialogue.click();
@@ -262,13 +259,15 @@ class ChatComponent extends DashboardPage {
   async validateChatTitleAndBreadcrumbs({
     adminAreaName,
     mainExposureIndicator,
+    defaultAdminAreaLabelSingular,
   }: {
     adminAreaName: string;
     mainExposureIndicator: string;
+    defaultAdminAreaLabelSingular: string;
   }) {
     const chatTitle = this.page
       .locator('app-chat ion-col')
-      .filter({ hasText: 'District' });
+      .filter({ hasText: defaultAdminAreaLabelSingular });
     await expect(chatTitle).toContainText(adminAreaName);
 
     const exposureText = this.page.getByTestId('main-exposure-indicator');

@@ -2,6 +2,7 @@ export interface Country {
   code: string;
   name: string;
   disasterTypes: string[];
+  defaultAdminAreaLabelSingular: string;
 }
 
 export interface DisasterType {

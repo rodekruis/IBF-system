@@ -3,7 +3,8 @@
   "country": {
     "code": "MWI",
     "name": "Malawi",
-    "disasterTypes": ["flash-floods", "floods"]
+    "disasterTypes": ["flash-floods", "floods"],
+    "defaultAdminAreaLabelSingular": "Traditional Authority"
   },
   "disasterType": {
     "name": "flash-floods",
@@ -66,7 +67,7 @@
       "label": "Flood extent",
       "description": "...",
       "legendLabels": ["Flood extent"],
-      "active": false,
+      "active": true,
       "type": "raster",
       "map": true,
       "aggregate": false
@@ -105,7 +106,7 @@
       "label": "Exposed population",
       "description": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with darker purple indicating higher numbers of exposed people.Estimates are calculated using population data overlaid with predicted flood-affected zones.This layer supports prioritizing early actions and allocating resources by highlighting where the most people are at risk.Source: peanutButter R package, various global/local flood models",
       "legendLabels": ["Exposed population"],
-      "active": false,
+      "active": true,
       "type": "admin-area",
       "map": true,
       "aggregate": true
@@ -172,7 +173,7 @@
     }
   ],
   "timeline": {
-    "dateFormat": "EEE dd MMM yyyy",
+    "dateFormat": "EEE dd MMM HH:00",
     "dateUnit": "days"
   },
   "eap": {
