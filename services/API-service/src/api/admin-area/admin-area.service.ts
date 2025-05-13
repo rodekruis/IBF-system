@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import {
@@ -130,38 +130,6 @@ export class AdminAreaService {
     return `ST_GeomFromGeoJSON( '{ "type": "MultiPolygon", "coordinates": ${JSON.stringify(
       coordinates,
     )} }' )`;
-  }
-
-  public async updateAdminAreaByPlaceCode(
-    countryCodeISO3: string,
-    adminLevel: number,
-    placeCode: string,
-    adminAreaGeoJson: GeoJson,
-  ): Promise<UpdateResult> {
-    const adminArea = await this.adminAreaRepository.findOne({
-      where: { countryCodeISO3, adminLevel, placeCode },
-    });
-    if (!adminArea) {
-      throw new HttpException(
-        `Admin area with placeCode ${placeCode} not found`,
-        HttpStatus.NOT_FOUND,
-      );
-    }
-    const updatedAdminArea = {
-      ...adminArea,
-      name: adminAreaGeoJson.features[0].properties[`ADM${adminLevel}_EN`],
-      placeCode:
-        adminAreaGeoJson.features[0].properties[`ADM${adminLevel}_PCODE`],
-      placeCodeParent:
-        adminAreaGeoJson.features[0].properties[`ADM${adminLevel - 1}_PCODE`] ||
-        null,
-      geom: (): string =>
-        this.geomFunction(adminAreaGeoJson.features[0].geometry.coordinates),
-    };
-    return await this.adminAreaRepository.update(
-      adminArea.id,
-      updatedAdminArea,
-    );
   }
 
   private async getTriggeredPlaceCodes(

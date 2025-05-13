@@ -5,7 +5,6 @@ import {
   HttpStatus,
   Param,
   ParseBoolPipe,
-  Patch,
   Post,
   Query,
   Res,
@@ -58,7 +57,7 @@ export class AdminAreaController {
     status: 201,
     description: 'Added and/or Updated admin-areas.',
   })
-  @Post('geojson/:countryCodeISO3/:adminLevel')
+  @Post(':countryCodeISO3/:adminLevel')
   @ApiConsumes()
   @UseInterceptors()
   public async addOrUpdateAdminAreas(
@@ -79,31 +78,6 @@ export class AdminAreaController {
     );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
-  }
-
-  @Roles(UserRole.Admin)
-  @ApiOperation({
-    summary:
-      'Updates properties of existing admin-area identified by placeCode',
-  })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
-  @ApiParam({ name: 'placeCode', required: true, type: 'number' })
-  @ApiResponse({ status: 201, description: 'Updated admin-area' })
-  @ApiResponse({ status: 404, description: 'PlaceCode not found' })
-  @Patch(':countryCodeISO3/:adminLevel/:placeCode')
-  @ApiConsumes()
-  @UseInterceptors()
-  public async updateAdminAreaByPlaceCode(
-    @Param() params,
-    @Body() adminAreaGeoJson: GeoJson,
-  ): Promise<void> {
-    await this.adminAreaService.updateAdminAreaByPlaceCode(
-      params.countryCodeISO3,
-      params.adminLevel,
-      params.placeCode,
-      adminAreaGeoJson,
-    );
   }
 
   @Roles(UserRole.Admin)
