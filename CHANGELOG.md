@@ -1,3 +1,23 @@
+# [0.316.0](https://github.com/rodekruis/IBF-system/compare/v0.315.1...v0.316.0) (2025-05-13)
+
+
+### Bug Fixes
+
+* make mocking of assets/gauges dependent on layer config AB[#35905](https://github.com/rodekruis/IBF-system/issues/35905) ([c4c3474](https://github.com/rodekruis/IBF-system/commit/c4c34740d8c4f5867945af9e552dee3494bfc17a))
+* review comments AB[#35843](https://github.com/rodekruis/IBF-system/issues/35843) ([3b8e19e](https://github.com/rodekruis/IBF-system/commit/3b8e19e519d99b0f28a0238b39e0048fa33c523b))
+* roads seed validation AB[#35926](https://github.com/rodekruis/IBF-system/issues/35926) ([9c08a50](https://github.com/rodekruis/IBF-system/commit/9c08a50c0a51bb0b4f96d094929a60d0a5e07fee))
+* small change script ([77d6475](https://github.com/rodekruis/IBF-system/commit/77d6475c65c434fb20622017d7a512872ff646f9))
+* use unsimplified boundaries for project areas AB[#35904](https://github.com/rodekruis/IBF-system/issues/35904) ([5062bf6](https://github.com/rodekruis/IBF-system/commit/5062bf6d81cebb67f3e1a7ec52ac48d114ba719d))
+
+
+### Features
+
+* add disaster-type, basic layers and event-areas AB[#35843](https://github.com/rodekruis/IBF-system/issues/35843) ([f256778](https://github.com/rodekruis/IBF-system/commit/f2567780dedd994df332cf97b9d26cbe5f4abc10))
+* basic mock data AB[#35843](https://github.com/rodekruis/IBF-system/issues/35843) ([9508fb8](https://github.com/rodekruis/IBF-system/commit/9508fb89d871e59ecb36fa98cc9204c5d8ef2205))
+* script to generate geoserver layers ([679fb2c](https://github.com/rodekruis/IBF-system/commit/679fb2cbf3200835bc4af484d9cada48edd28b9b))
+
+
+
 ## [0.315.1](https://github.com/rodekruis/IBF-system/compare/v0.315.0...v0.315.1) (2025-05-12)
 
 
@@ -103,15 +123,6 @@
 ### Bug Fixes
 
 * align event-area response format ([2833a1c](https://github.com/rodekruis/IBF-system/commit/2833a1c1f3a90f7e9fed6b1a2c2e3976cab6b9cc))
-
-
-
-## [0.312.9](https://github.com/rodekruis/IBF-system/compare/v0.312.8...v0.312.9) (2025-04-18)
-
-
-### Bug Fixes
-
-* rainfall layer name+description AB[#35298](https://github.com/rodekruis/IBF-system/issues/35298) ([14ad95b](https://github.com/rodekruis/IBF-system/commit/14ad95b102b24297c07aa56d8f2f04d2c4a58e11))
 
 
 
