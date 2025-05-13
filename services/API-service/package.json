@@ -36,7 +36,7 @@
     "axios": "^1.8.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
-    "csv-parser": "^3.0.0",
+    "csv-parser": "^3.2.0",
     "date-fns": "^4.1.0",
     "ejs": "^3.1.10",
     "jsonwebtoken": "^9.0.2",
