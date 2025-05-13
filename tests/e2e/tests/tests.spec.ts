@@ -22,7 +22,7 @@ import AggregateComponentEventCount from './AggregatesComponent/AggregateCompone
 import AggregateComponentHeaderColour from './AggregatesComponent/AggregateComponentHeaderColour';
 import AggregateComponentTitleHover from './AggregatesComponent/AggregateComponentTitleHover';
 import AggregatesComponentVisible from './AggregatesComponent/AggregatesComponentVisible';
-import ChatComponentAffectedAreasList from './ChatComponent/ChatComponentAffectedAreasList';
+import ChatComponentAlertAreasList from './ChatComponent/ChatComponentAlertAreasList';
 import ChatComponentButtonClick from './ChatComponent/ChatComponentButtonClick';
 import ChatComponentEventClick from './ChatComponent/ChatComponentEventClick';
 import ChatComponentEventCount from './ChatComponent/ChatComponentEventCount';
@@ -149,7 +149,7 @@ test.describe('e2e tests', () => {
 
         if (scenario !== 'no-trigger') {
           // REFACTOR
-          ChatComponentAffectedAreasList(pages, components, dataset, date);
+          ChatComponentAlertAreasList(pages, components, dataset, date);
           ChatComponentEventClick(pages, components, dataset, date);
           ChatComponentEventCount(pages, components, dataset, date);
           ChatComponentInfoPopover(pages, components, dataset, date);
