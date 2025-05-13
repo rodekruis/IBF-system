@@ -4,7 +4,22 @@
     "label": "Flood extent",
     "type": "wms",
     "legendColor": {
-      "ETH": { "floods": { "type": "square", "value": ["#d7301f"] } },
+      "ETH": {
+        "floods": { "type": "square", "value": ["#d7301f"] },
+        "flash-floods": {
+          "type": "gradient",
+          "value": [
+            "#ffff00",
+            "#ffe200",
+            "#ffc500",
+            "#ffa900",
+            "#fc8c00",
+            "#f36f00",
+            "#e65113",
+            "#d7301f"
+          ]
+        }
+      },
       "KEN": { "floods": { "type": "square", "value": ["#d7301f"] } },
       "MWI": {
         "floods": { "type": "square", "value": ["#d7301f"] },
@@ -36,6 +51,7 @@
     "active": "if-trigger",
     "description": {
       "ETH": {
+        "flash-floods": "TBD",
         "floods": "The flood extent layer indicates the inundated area of recurring floods within a return period depending on the EAP (for example 20-years) based on a global hydrological model.<br/><br/>Source link: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
       },
       "KEN": {
