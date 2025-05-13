@@ -1,3 +1,12 @@
+## [0.316.1](https://github.com/rodekruis/IBF-system/compare/v0.316.0...v0.316.1) (2025-05-13)
+
+
+### Bug Fixes
+
+* upgrade angular further to get to vite 6.2.6 ([ab6611b](https://github.com/rodekruis/IBF-system/commit/ab6611b28ba31b7cf33bc5f9d4849c58f8d9640d))
+
+
+
 # [0.316.0](https://github.com/rodekruis/IBF-system/compare/v0.315.1...v0.316.0) (2025-05-13)
 
 
@@ -114,15 +123,6 @@
 * rename seed init logger ([e776104](https://github.com/rodekruis/IBF-system/commit/e776104d3531c06d3722a2b46e3ff02bce2f7af8))
 * use custom typeorm logger ([f46c0f1](https://github.com/rodekruis/IBF-system/commit/f46c0f15dcf69bc19f3af45c3132fd53fb4adfc2))
 * use logger for error logs ([3c8d67d](https://github.com/rodekruis/IBF-system/commit/3c8d67ddc6ecc77e1ad792fe1b49e346381b4f33))
-
-
-
-## [0.312.10](https://github.com/rodekruis/IBF-system/compare/v0.312.9...v0.312.10) (2025-04-18)
-
-
-### Bug Fixes
-
-* align event-area response format ([2833a1c](https://github.com/rodekruis/IBF-system/commit/2833a1c1f3a90f7e9fed6b1a2c2e3976cab6b9cc))
 
 
 
