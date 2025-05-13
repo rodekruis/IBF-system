@@ -279,10 +279,6 @@ export class MockService {
       );
     }
 
-    console.log(
-      'this.shouldMockRiverGaugeData(layers, scenario.scenarioName): ',
-      this.shouldMockRiverGaugeData(layers, scenario.scenarioName),
-    );
     if (await this.shouldMockRiverGaugeData(layers, scenario.scenarioName)) {
       await this.mockHelpService.mockRiverGaugeData(
         selectedCountry.countryCodeISO3,
@@ -510,11 +506,9 @@ export class MockService {
     layers: LayerMetadataEntity[],
     scenarioName: string,
   ): Promise<boolean> {
-    console.log('layers: ', layers);
     const hasRiverGaugeLayer = layers
       .map((layer) => layer.name)
       .includes(PointDataCategory.gauges);
-    console.log('hasRiverGaugeLayer: ', hasRiverGaugeLayer);
     return hasRiverGaugeLayer && scenarioName !== FlashFloodsScenario.NoTrigger;
   }
 
