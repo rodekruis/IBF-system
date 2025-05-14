@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import {
+  DeleteResult,
   In,
   InsertResult,
   MoreThanOrEqual,
@@ -47,14 +48,24 @@ export class AdminAreaService {
     adminLevel: number,
     adminAreasGeoJson: GeoJson,
     reset = false,
-  ): Promise<{ updated: number; inserted: number; untouched: number }> {
+  ): Promise<{
+    updated: number;
+    inserted: number;
+    untouched: number;
+    deleted: number;
+  }> {
     let updated = 0;
     let inserted = 0;
     let untouched = 0;
+    let deleted = 0;
 
     if (reset) {
       //delete existing entries for country & adminlevel first
-      await this.adminAreaRepository.delete({ countryCodeISO3, adminLevel });
+      const deleteResult = await this.deleteAdminAreas(
+        countryCodeISO3,
+        adminLevel,
+      );
+      deleted = deleteResult.affected || 0;
     }
 
     const adminAreas = this.processPreUploadExceptions(adminAreasGeoJson);
@@ -114,7 +125,7 @@ export class AdminAreaService {
         );
       }
     }
-    return { updated, inserted, untouched };
+    return { updated, inserted, untouched, deleted };
   }
 
   private processPreUploadExceptions(adminAreasGeoJson: GeoJson) {
@@ -130,6 +141,47 @@ export class AdminAreaService {
     return `ST_GeomFromGeoJSON( '{ "type": "MultiPolygon", "coordinates": ${JSON.stringify(
       coordinates,
     )} }' )`;
+  }
+
+  public async deleteAdminAreas(
+    countryCodeISO3: string,
+    adminLevel: number,
+    placeCodes?: string[],
+  ): Promise<DeleteResult> {
+    // First, check if any of these admin areas have active events
+    const whereFilters = { countryCodeISO3, adminLevel };
+    if (placeCodes && placeCodes.length > 0) {
+      whereFilters['placeCode'] = In(placeCodes);
+    }
+    console.log('whereFilters: ', whereFilters);
+    const adminAreasWithActiveEvents = await this.adminAreaRepository
+      .createQueryBuilder('area')
+      .innerJoin(
+        EventPlaceCodeEntity,
+        'epc',
+        'area.id = epc.adminAreaId AND epc.closed = false',
+      )
+      .where(whereFilters)
+      .getMany();
+    console.log('adminAreasWithActiveEvents: ', adminAreasWithActiveEvents);
+
+    // If any active events found, throw ForbiddenException to protect data
+    if (adminAreasWithActiveEvents.length > 0) {
+      const activePlaceCodes = adminAreasWithActiveEvents.map(
+        (area) => area.placeCode,
+      );
+      throw new ForbiddenException(
+        `Cannot delete admin areas with active events. Found ${adminAreasWithActiveEvents.length} areas with active events: ${activePlaceCodes.join(', ')}`,
+      );
+    }
+
+    // If no active events are found, proceed with deletion
+    return await this.adminAreaRepository
+      .createQueryBuilder()
+      .delete()
+      .from(AdminAreaEntity)
+      .where(whereFilters)
+      .execute();
   }
 
   private async getTriggeredPlaceCodes(

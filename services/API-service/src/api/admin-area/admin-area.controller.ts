@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpStatus,
   Param,
@@ -28,6 +29,7 @@ import { GeoJson } from '../../shared/geo.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaService } from './admin-area.service';
+import { DeleteAdminAreasDto } from './dto/delete-admin-areas.dto';
 import { AdminAreaUploadDto } from './dto/upload-admin-areas.dto';
 import { EventAreaService } from './services/event-area.service';
 
@@ -53,10 +55,6 @@ export class AdminAreaController {
     description:
       'IMPORTANT: Set to true to remove all existing admin-areas for this country and admin-level before adding new ones. USE WITH CARE: This may come with removal of event data.',
   })
-  @ApiResponse({
-    status: 201,
-    description: 'Added and/or Updated admin-areas.',
-  })
   @Post(':countryCodeISO3/:adminLevel')
   @ApiConsumes()
   @UseInterceptors()
@@ -75,6 +73,33 @@ export class AdminAreaController {
       params.adminLevel,
       body.adminAreaGeoJson,
       reset,
+    );
+
+    return res.status(HttpStatus.ACCEPTED).send(result);
+  }
+
+  @Roles(UserRole.Admin)
+  @ApiOperation({
+    summary:
+      'Delete set of admin-areas. USE WITH CARE: This may come with removal of event data.',
+  })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @Delete(':countryCodeISO3/:adminLevel')
+  @ApiConsumes()
+  @UseInterceptors()
+  public async deleteAdminAreas(
+    @Param() params,
+    @Body() body: DeleteAdminAreasDto,
+    @Res() res,
+  ): Promise<string> {
+    if (body.secret !== process.env.RESET_SECRET) {
+      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+    }
+    const result = await this.adminAreaService.deleteAdminAreas(
+      params.countryCodeISO3,
+      params.adminLevel,
+      body.placeCodes,
     );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
