@@ -21,6 +21,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { Response } from 'express';
+
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AggregateDataRecord } from '../../shared/data.model';
@@ -62,11 +64,12 @@ export class AdminAreaController {
     @Body() body: AdminAreaUploadDto,
     @Query('reset', new ParseBoolPipe({ optional: true }))
     reset: boolean,
-    @Res() res,
-  ): Promise<string> {
+    @Res() res: Response,
+  ) {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
+
     const result = await this.adminAreaService.addOrUpdateAdminAreas(
       params.countryCodeISO3,
       params.adminLevel,
@@ -89,11 +92,12 @@ export class AdminAreaController {
   public async deleteAdminAreas(
     @Param() params: AdminAreaParams,
     @Body() body: DeleteAdminAreasDto,
-    @Res() res,
-  ): Promise<string> {
+    @Res() res: Response,
+  ) {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
+
     const result = await this.adminAreaService.deleteAdminAreas(
       params.countryCodeISO3,
       params.adminLevel,
