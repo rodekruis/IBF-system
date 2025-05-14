@@ -14,7 +14,7 @@ export class DeleteAdminAreasDto {
   secret: string;
 
   @ApiProperty({
-    description: 'Array of placeCodes to be deleted',
+    description: 'Array of place codes to delete',
     example: ['UG123', 'UG456'],
   })
   placeCodes: string[];
