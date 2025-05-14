@@ -2,6 +2,7 @@ export interface Country {
   code: string;
   name: string;
   disasterTypes: string[];
+  defaultAdminAreaLabelSingular: string;
 }
 
 export interface DisasterType {
@@ -23,11 +24,13 @@ export interface Layer {
   legendLabels: string[];
   active: boolean;
   type: string; // 'raster' | 'admin-area' | 'point'
+  map: boolean;
   aggregate: boolean;
 }
 
 export interface Timeline {
   dateFormat: string;
+  dateFormatAlert?: string;
   dateUnit: string; // 'days' | 'months' | 'hours'
 }
 
@@ -42,7 +45,7 @@ export interface Dataset {
   user: User;
   title: string;
   aggregates: Aggregates;
-  mapLayers: Layer[];
+  layers: Layer[];
   timeline: Timeline;
   eap: { actions: boolean };
   configurationId: number;

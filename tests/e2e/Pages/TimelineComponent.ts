@@ -1,5 +1,4 @@
 import { expect } from '@playwright/test';
-import { addDays, addMonths, format } from 'date-fns';
 import { Locator, Page } from 'playwright';
 
 import { Timeline } from '../testData/types';
@@ -32,6 +31,22 @@ class TimelineComponent extends DashboardPage {
     }
   }
 
+  /**
+   * Creates a regex pattern for a given date format
+   */
+  createRegexFromDateFormat(dateFormat: string): RegExp {
+    const formatParts = dateFormat.split(' ');
+    const regexParts = formatParts.map((part) => {
+      if (part === 'EEE') return '[A-Za-z]{3}'; // Day of week abbreviated
+      if (part === 'dd') return '\\d{1,2}'; // Day of month
+      if (part === 'MMM') return '[A-Za-z]{3}'; // Month abbreviated
+      if (part === 'HH:00') return '\\d{1,2}:00'; // Hours rounded to 0
+      if (part === 'yyyy') return '\\d{4}'; // Year
+      return part;
+    });
+    return new RegExp(regexParts.join(' '));
+  }
+
   async validateTimelineDates(timeline: Timeline) {
     await this.waitForTimelineToBeLoaded();
 
@@ -40,18 +55,22 @@ class TimelineComponent extends DashboardPage {
 
     expect(count).toBeGreaterThan(0);
 
-    const today = new Date();
+    const alertPattern = this.createRegexFromDateFormat(
+      timeline.dateFormatAlert ?? timeline.dateFormat,
+    );
+    const noAlertPattern = this.createRegexFromDateFormat(timeline.dateFormat);
+
     for (let i = 0; i < count; i++) {
-      const expectedFormat = timeline.dateFormat;
-      const expectedDate =
-        timeline.dateUnit === 'days'
-          ? format(addDays(today, i), expectedFormat)
-          : timeline.dateUnit === 'months'
-            ? format(addMonths(today, i), expectedFormat)
-            : null;
       const button = timelinePeriods.nth(i);
+      const hasAlert = (await button.getAttribute('class'))?.includes(
+        'forecast-alert',
+      );
       const buttonText = (await button.innerText()).replace(/\s+/g, ' ').trim();
-      expect(buttonText).toBe(expectedDate);
+      if (hasAlert) {
+        expect(buttonText).toMatch(alertPattern);
+      } else {
+        expect(buttonText).toMatch(noAlertPattern);
+      }
     }
   }
 

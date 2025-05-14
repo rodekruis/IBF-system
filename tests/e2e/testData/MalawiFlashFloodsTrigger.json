@@ -1,0 +1,183 @@
+{
+  "configurationId": 75,
+  "country": {
+    "code": "MWI",
+    "name": "Malawi",
+    "disasterTypes": ["flash-floods", "floods"],
+    "defaultAdminAreaLabelSingular": "Traditional Authority"
+  },
+  "disasterType": {
+    "name": "flash-floods",
+    "label": "Flash Flood"
+  },
+  "scenario": "trigger",
+  "user": {
+    "email": "malawi@redcross.nl",
+    "password": "password",
+    "firstName": "Malawi",
+    "lastName": "Manager"
+  },
+  "title": "IBF PORTAL",
+  "aggregates": {
+    "disclaimer": "All numbers are approximate and meant to be used as guidance."
+  },
+  "layers": [
+    {
+      "name": "health_sites",
+      "label": "Health sites",
+      "description": "...",
+      "legendLabels": ["Health sites"],
+      "active": false,
+      "type": "point",
+      "map": true,
+      "aggregate": false
+    },
+    {
+      "name": "schools",
+      "label": "Schools",
+      "description": "...",
+      "legendLabels": ["Schools"],
+      "active": false,
+      "type": "point",
+      "map": true,
+      "aggregate": false
+    },
+    {
+      "name": "waterpoints_internal",
+      "label": "Waterpoints",
+      "description": "...",
+      "legendLabels": ["Waterpoints"],
+      "active": false,
+      "type": "point",
+      "map": true,
+      "aggregate": false
+    },
+    {
+      "name": "gauges",
+      "label": "River gauges",
+      "description": "...",
+      "legendLabels": ["River gauges"],
+      "active": false,
+      "type": "point",
+      "map": true,
+      "aggregate": false
+    },
+    {
+      "name": "flood_extent",
+      "label": "Flood extent",
+      "description": "...",
+      "legendLabels": ["Flood extent"],
+      "active": true,
+      "type": "raster",
+      "map": true,
+      "aggregate": false
+    },
+    {
+      "name": "roads",
+      "label": "Roads",
+      "description": "...",
+      "legendLabels": ["Roads"],
+      "active": false,
+      "type": "line",
+      "aggregate": false
+    },
+    {
+      "name": "buildings",
+      "label": "Buildings",
+      "description": "...",
+      "legendLabels": ["Buildings"],
+      "active": false,
+      "type": "line",
+      "map": true,
+      "aggregate": false
+    },
+    {
+      "name": "rivers",
+      "label": "Rivers",
+      "description": "...",
+      "legendLabels": ["Rivers"],
+      "active": false,
+      "type": "line",
+      "map": true,
+      "aggregate": false
+    },
+    {
+      "name": "population_affected",
+      "label": "Exposed population",
+      "description": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with darker purple indicating higher numbers of exposed people.Estimates are calculated using population data overlaid with predicted flood-affected zones.This layer supports prioritizing early actions and allocating resources by highlighting where the most people are at risk.Source: peanutButter R package, various global/local flood models",
+      "legendLabels": ["Exposed population"],
+      "active": true,
+      "type": "admin-area",
+      "map": true,
+      "aggregate": true
+    },
+    {
+      "name": "damage_estimation",
+      "label": "Damage estimation",
+      "description": "This indicator estimates potential economic damage based on global depth-damage functions provided by the JRC (Joint Research Centre). The assessment considers water depth and land use, specifically using urban and agricultural land use classes from the ESA (European Space Agency) WorldCover 2020 dataset. The monetary value is converted from Euro to Malawi Kwacha using a fixed exchange rate.For more information, refer to the JRC publication here and the ESA WorldCover 2020 dataset here.",
+      "legendLabels": ["Damage estimation"],
+      "active": false,
+      "type": "admin-area",
+      "map": true,
+      "aggregate": true
+    },
+    {
+      "name": "nr_affected_clinics",
+      "label": "Exposed health sites",
+      "description": "This indicator shows the total number of exposed health sites in the potentially flooded area, calculated based on the selected area.Source health sites: Malawi's Ministry of Health, publicly available at https://zipatala.health.gov.mw/facilities.",
+      "legendLabels": null,
+      "active": false,
+      "type": "point",
+      "map": false,
+      "aggregate": true
+    },
+    {
+      "name": "nr_affected_schools",
+      "label": "Exposed schools",
+      "description": "This indicator shows the total number of school buildings in the potentially flooded area, calculated based on the selected area.Source schools: Provided by Unicef Malawi.",
+      "legendLabels": null,
+      "active": false,
+      "type": "point",
+      "map": false,
+      "aggregate": true
+    },
+    {
+      "name": "nr_affected_waterpoints",
+      "label": "Exposed waterpoints",
+      "description": "This indicator shows the total number of exposed water points in the potentially flooded area, calculated based on the selected area.Source: mWater",
+      "legendLabels": null,
+      "active": false,
+      "type": "point",
+      "map": false,
+      "aggregate": true
+    },
+    {
+      "name": "nr_affected_roads",
+      "label": "Exposed roads",
+      "description": "This indicator shows the total length of exposed roads (in kilometers) in the potentially flooded area, calculated based on the selected area. The calculation includes all road types, which may exceed what is shown on the map layer.Source: OpenStreetMap",
+      "legendLabels": null,
+      "active": false,
+      "type": "point",
+      "map": false,
+      "aggregate": true
+    },
+    {
+      "name": "nr_affected_buildings",
+      "label": "Exposed buildings",
+      "description": "This indicator shows the total number of exposed buildings in the potentially flooded area, calculated based on the selected area.Source: OpenStreetMap",
+      "legendLabels": null,
+      "active": false,
+      "type": "point",
+      "map": false,
+      "aggregate": true
+    }
+  ],
+  "timeline": {
+    "dateFormat": "EEE dd MMM",
+    "dateFormatAlert": "EEE dd MMM HH:00",
+    "dateUnit": "days"
+  },
+  "eap": {
+    "actions": false
+  }
+}

@@ -21,14 +21,18 @@ class DisasterTypeComponent extends DashboardPage {
     await expect(topBar).toBeVisible();
   }
 
-  async allDisasterTypeElementsArePresent() {
+  async allDisasterTypeElementsArePresent(disasterTypes: string[]) {
     const date = new Date();
     const formattedDate = format(date, 'd MMM yyyyEEEE,');
     // const formattedTime = format(date, 'HH:mm ');
     const currentDateTime = `${formattedDate}`; // ${formattedTime}`; // Including the time makes the test flaky, omit for now
 
-    await expect(this.floodIcon).toBeVisible();
-    await expect(this.droughtIcon).toBeVisible();
+    for (const disasterType of disasterTypes) {
+      const disasterTypeIcon = this.page.getByTestId(
+        `disaster-type-button-${disasterType}`,
+      );
+      await expect(disasterTypeIcon).toBeVisible();
+    }
     await expect(this.topBar).toContainText(currentDateTime);
   }
 }
