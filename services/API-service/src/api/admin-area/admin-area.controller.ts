@@ -14,7 +14,6 @@ import {
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
-  ApiConsumes,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -56,7 +55,6 @@ export class AdminAreaController {
       'IMPORTANT: Set to true to remove all existing admin-areas for this country and admin-level before adding new ones. USE WITH CARE: This may come with removal of event data.',
   })
   @Post(':countryCodeISO3/:adminLevel')
-  @ApiConsumes()
   @UseInterceptors()
   public async addOrUpdateAdminAreas(
     @Param() params,
@@ -86,7 +84,6 @@ export class AdminAreaController {
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
   @Delete(':countryCodeISO3/:adminLevel')
-  @ApiConsumes()
   @UseInterceptors()
   public async deleteAdminAreas(
     @Param() params,
@@ -117,7 +114,6 @@ export class AdminAreaController {
     description: 'Added and/or Updated admin-areas.',
   })
   @Post('event-areas/:countryCodeISO3/:disasterType')
-  @ApiConsumes()
   @UseInterceptors()
   public async addOrUpdateEventAreas(
     @Param() params,
