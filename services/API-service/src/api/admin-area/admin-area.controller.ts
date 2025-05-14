@@ -28,6 +28,7 @@ import { GeoJson } from '../../shared/geo.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaService } from './admin-area.service';
+import { AdminAreaParams } from './dto/admin-area.dto';
 import { DeleteAdminAreasDto } from './dto/delete-admin-areas.dto';
 import { AdminAreaUploadDto } from './dto/upload-admin-areas.dto';
 import { EventAreaService } from './services/event-area.service';
@@ -57,7 +58,7 @@ export class AdminAreaController {
   @Post(':countryCodeISO3/:adminLevel')
   @UseInterceptors()
   public async addOrUpdateAdminAreas(
-    @Param() params,
+    @Param() params: AdminAreaParams,
     @Body() body: AdminAreaUploadDto,
     @Query('reset', new ParseBoolPipe({ optional: true }))
     reset: boolean,
@@ -86,7 +87,7 @@ export class AdminAreaController {
   @Delete(':countryCodeISO3/:adminLevel')
   @UseInterceptors()
   public async deleteAdminAreas(
-    @Param() params,
+    @Param() params: AdminAreaParams,
     @Body() body: DeleteAdminAreasDto,
     @Res() res,
   ): Promise<string> {
