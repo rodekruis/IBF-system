@@ -22,10 +22,11 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { FeatureCollection } from 'typeorm';
+
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { FILE_UPLOAD_API_FORMAT } from '../../shared/file-upload-api-format';
-import { GeoJson } from '../../shared/geo.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { UploadDynamicPointDataDto } from './dto/upload-asset-exposure-status.dto';
@@ -50,10 +51,12 @@ export class PointDataController {
     status: 200,
     description:
       'Retrieved point data locations and attributes for given country and point data layer',
-    type: GeoJson,
   })
   @Get(':pointDataCategory/:countryCodeISO3')
-  public async getPointData(@Param() params, @Query() query): Promise<GeoJson> {
+  public async getPointData(
+    @Param() params,
+    @Query() query,
+  ): Promise<FeatureCollection> {
     return await this.pointDataService.getPointDataByCountry(
       params.pointDataCategory,
       params.countryCodeISO3,

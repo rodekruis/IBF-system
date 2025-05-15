@@ -5,7 +5,6 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  MultiPolygon,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -38,5 +37,5 @@ export class EventAreaEntity {
 
   @ApiProperty()
   @Column('geometry', { spatialFeatureType: 'MultiPolygon', srid: 4326 })
-  public geom: MultiPolygon;
+  public geom: () => string;
 }

@@ -14,7 +14,6 @@ import {
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
-  ApiConsumes,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -22,13 +21,17 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { Response } from 'express';
+import { FeatureCollection } from 'typeorm';
+
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AggregateDataRecord } from '../../shared/data.model';
-import { GeoJson } from '../../shared/geo.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaService } from './admin-area.service';
+import { AdminAreaParams } from './dto/admin-area.dto';
+import { AdminAreaUpdateResult } from './dto/admin-area.dto';
 import { DeleteAdminAreasDto } from './dto/delete-admin-areas.dto';
 import { AdminAreaUploadDto } from './dto/upload-admin-areas.dto';
 import { EventAreaService } from './services/event-area.service';
@@ -53,21 +56,26 @@ export class AdminAreaController {
     schema: { default: false, type: 'boolean' },
     type: 'boolean',
     description:
-      'IMPORTANT: Set to true to remove all existing admin-areas for this country and admin-level before adding new ones. USE WITH CARE: This may come with removal of event data.',
+      'IMPORTANT: Set to true to remove all existing admin-areas for this country and admin-level before adding new ones. WARNING: This may remove event data.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Summary of admin area changes',
+    type: [AdminAreaUpdateResult],
   })
   @Post(':countryCodeISO3/:adminLevel')
-  @ApiConsumes()
   @UseInterceptors()
   public async addOrUpdateAdminAreas(
-    @Param() params,
+    @Param() params: AdminAreaParams,
     @Body() body: AdminAreaUploadDto,
     @Query('reset', new ParseBoolPipe({ optional: true }))
     reset: boolean,
-    @Res() res,
-  ): Promise<string> {
+    @Res() res: Response,
+  ) {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
+
     const result = await this.adminAreaService.addOrUpdateAdminAreas(
       params.countryCodeISO3,
       params.adminLevel,
@@ -80,22 +88,22 @@ export class AdminAreaController {
 
   @Roles(UserRole.Admin)
   @ApiOperation({
-    summary:
-      'Delete set of admin-areas. USE WITH CARE: This may come with removal of event data.',
+    summary: 'Delete set of admin-areas. WARNING: This may remove event data.',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiResponse({ status: 200, description: 'Admin areas deleted' })
   @Delete(':countryCodeISO3/:adminLevel')
-  @ApiConsumes()
   @UseInterceptors()
   public async deleteAdminAreas(
-    @Param() params,
+    @Param() params: AdminAreaParams,
     @Body() body: DeleteAdminAreasDto,
-    @Res() res,
-  ): Promise<string> {
+    @Res() res: Response,
+  ) {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
+
     const result = await this.adminAreaService.deleteAdminAreas(
       params.countryCodeISO3,
       params.adminLevel,
@@ -112,16 +120,12 @@ export class AdminAreaController {
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
-  @ApiResponse({
-    status: 201,
-    description: 'Added and/or Updated admin-areas.',
-  })
+  @ApiResponse({ status: 201, description: 'Saved admin areas' })
   @Post('event-areas/:countryCodeISO3/:disasterType')
-  @ApiConsumes()
   @UseInterceptors()
   public async addOrUpdateEventAreas(
     @Param() params,
-    @Body() adminAreaGeoJson: GeoJson,
+    @Body() adminAreaGeoJson: FeatureCollection,
   ): Promise<void> {
     await this.eventAreaService.addOrUpdateEventAreas(
       params.countryCodeISO3,
@@ -144,13 +148,12 @@ export class AdminAreaController {
     status: 200,
     description:
       '(Relevant) admin-areas boundaries and attributes for given country, disater-type and lead-time',
-    type: GeoJson,
   })
   @Get(':countryCodeISO3/:disasterType/:adminLevel')
   public async getAdminAreas(
     @Param() params,
     @Query() query,
-  ): Promise<GeoJson> {
+  ): Promise<FeatureCollection> {
     return await this.adminAreaService.getAdminAreas(
       params.countryCodeISO3,
       params.disasterType,

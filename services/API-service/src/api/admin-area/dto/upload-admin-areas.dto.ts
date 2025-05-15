@@ -1,13 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsNotEmpty, IsString } from 'class-validator';
+import { FeatureCollection } from 'typeorm';
 
-import { GeoJson } from '../../../shared/geo.model';
+import { PLACEHOLDER_SECRET } from '../../../config';
 
 export class AdminAreaUploadDto {
   @ApiProperty({
     description: 'Secret key for authorization',
-    example: 'fill_in_secret',
+    example: PLACEHOLDER_SECRET,
   })
   @IsString()
   @IsNotEmpty()
@@ -42,5 +43,5 @@ export class AdminAreaUploadDto {
       ],
     },
   })
-  adminAreaGeoJson: GeoJson;
+  adminAreaGeoJson: FeatureCollection;
 }

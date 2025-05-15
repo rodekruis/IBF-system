@@ -3,16 +3,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import {
   DeleteResult,
+  FeatureCollection,
+  Geometry,
+  GeometryCollection,
   In,
-  InsertResult,
   MoreThanOrEqual,
   Not,
   Repository,
-  UpdateResult,
 } from 'typeorm';
 
 import { AggregateDataRecord } from '../../shared/data.model';
-import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
@@ -25,6 +25,7 @@ import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
 import { EventService } from '../event/event.service';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { AdminAreaEntity } from './admin-area.entity';
+import { AdminAreaUpdateResult } from './dto/admin-area.dto';
 import { EventAreaService } from './services/event-area.service';
 
 @Injectable()
@@ -46,89 +47,71 @@ export class AdminAreaService {
   public async addOrUpdateAdminAreas(
     countryCodeISO3: string,
     adminLevel: number,
-    adminAreasGeoJson: GeoJson,
+    adminAreasGeoJson: FeatureCollection,
     reset = false,
-  ): Promise<{
-    updated: number;
-    inserted: number;
-    untouched: number;
-    deleted: number;
-  }> {
-    let updated = 0;
-    let inserted = 0;
-    let untouched = 0;
-    let deleted = 0;
+  ): Promise<AdminAreaUpdateResult> {
+    const adminAreaUpdateResult = new AdminAreaUpdateResult();
 
     if (reset) {
-      //delete existing entries for country & adminlevel first
       const deleteResult = await this.deleteAdminAreas(
         countryCodeISO3,
         adminLevel,
       );
-      deleted = deleteResult.affected || 0;
+
+      adminAreaUpdateResult.deleted = deleteResult.affected;
     }
 
-    const adminAreas = this.processPreUploadExceptions(adminAreasGeoJson);
-    const processedPlaceCodes = adminAreas.features.map(
-      (area) => area.properties[`ADM${adminLevel}_PCODE`],
+    const adminAreas = this.processPreUploadExceptions(adminAreasGeoJson); // REFACTOR: remove this exception by fixing in the data, overwriting data in the code like this will confuse the API user
+
+    const upsertAdminAreas = adminAreas.features.map(
+      ({ properties, geometry }) => {
+        const adminArea = new AdminAreaEntity();
+
+        adminArea.countryCodeISO3 = countryCodeISO3;
+        adminArea.adminLevel = adminLevel;
+        adminArea.name = properties[`ADM${adminLevel}_EN`];
+        adminArea.placeCode = properties[`ADM${adminLevel}_PCODE`];
+        adminArea.placeCodeParent =
+          properties[`ADM${adminLevel - 1}_PCODE`] ?? null;
+        adminArea.geom = () =>
+          this.geomFunction(
+            (geometry as Exclude<Geometry, GeometryCollection>).coordinates, // REFACTOR: remove typecast
+          );
+
+        return adminArea;
+      },
     );
 
-    await Promise.all(
-      adminAreas.features.map(
-        async (area): Promise<InsertResult | UpdateResult> => {
-          const placeCode = area.properties[`ADM${adminLevel}_PCODE`];
-
-          const existingArea = await this.adminAreaRepository.findOne({
-            where: { countryCodeISO3, adminLevel, placeCode },
-          });
-
-          const areaValues = {
-            countryCodeISO3,
-            adminLevel,
-            name: area.properties[`ADM${adminLevel}_EN`],
-            placeCode,
-            placeCodeParent:
-              area.properties[`ADM${adminLevel - 1}_PCODE`] || null,
-            geom: (): string => this.geomFunction(area.geometry.coordinates),
-          };
-
-          if (existingArea) {
-            updated++;
-            return this.adminAreaRepository.update(existingArea.id, areaValues);
-          } else {
-            inserted++;
-            return this.adminAreaRepository
-              .createQueryBuilder()
-              .insert()
-              .values(areaValues)
-              .execute();
-          }
-        },
-      ),
+    const upsertResult = await this.adminAreaRepository.upsert(
+      upsertAdminAreas,
+      ['placeCode'],
     );
+    adminAreaUpdateResult.upserted = upsertResult.identifiers.length;
 
     if (!reset) {
       const untouchedAdminAreas = await this.adminAreaRepository.find({
         where: {
+          id: Not(In(upsertResult.identifiers)),
           countryCodeISO3,
           adminLevel,
-          placeCode: Not(In(processedPlaceCodes)),
         },
-        select: ['id', 'placeCode'],
+        select: ['placeCode'],
       });
-      untouched = untouchedAdminAreas.length;
+
+      adminAreaUpdateResult.untouched = untouchedAdminAreas.length;
 
       if (untouchedAdminAreas.length > 0) {
         console.log(
-          `Found ${untouchedAdminAreas.length} untouched admin areas that weren't updated:`,
-          untouchedAdminAreas.map((a) => a.placeCode).join(', '),
+          `${untouchedAdminAreas.length} admin areas were untouched:`,
+          untouchedAdminAreas.map(({ placeCode }) => placeCode).join(', '),
         );
       }
     }
-    return { updated, inserted, untouched, deleted };
+
+    return adminAreaUpdateResult;
   }
 
-  private processPreUploadExceptions(adminAreasGeoJson: GeoJson) {
+  private processPreUploadExceptions(adminAreasGeoJson: FeatureCollection) {
     for (const adminArea of adminAreasGeoJson.features) {
       if (adminArea.properties['ADM2_PCODE'] === 'SS0303') {
         adminArea.properties['ADM2_EN'] = 'Bor South County';
@@ -137,7 +120,9 @@ export class AdminAreaService {
     return adminAreasGeoJson;
   }
 
-  private geomFunction(coordinates): string {
+  private geomFunction(
+    coordinates: Exclude<Geometry, GeometryCollection>['coordinates'],
+  ): string {
     return `ST_GeomFromGeoJSON( '{ "type": "MultiPolygon", "coordinates": ${JSON.stringify(
       coordinates,
     )} }' )`;
@@ -153,7 +138,6 @@ export class AdminAreaService {
     if (placeCodes && placeCodes.length > 0) {
       whereFilters['placeCode'] = In(placeCodes);
     }
-    console.log('whereFilters: ', whereFilters);
     const adminAreasWithActiveEvents = await this.adminAreaRepository
       .createQueryBuilder('area')
       .innerJoin(
@@ -163,12 +147,11 @@ export class AdminAreaService {
       )
       .where(whereFilters)
       .getMany();
-    console.log('adminAreasWithActiveEvents: ', adminAreasWithActiveEvents);
 
     // If any active events found, throw ForbiddenException to protect data
     if (adminAreasWithActiveEvents.length > 0) {
       const activePlaceCodes = adminAreasWithActiveEvents.map(
-        (area) => area.placeCode,
+        ({ placeCode }) => placeCode,
       );
       throw new ForbiddenException(
         `Cannot delete admin areas with active events. Found ${adminAreasWithActiveEvents.length} areas with active events: ${activePlaceCodes.join(', ')}`,
@@ -398,7 +381,7 @@ export class AdminAreaService {
     leadTime: string,
     eventName: string,
     placeCodeParent?: string,
-  ): Promise<GeoJson> {
+  ): Promise<FeatureCollection> {
     const disasterTypeEntity =
       await this.disasterTypeService.getDisasterType(disasterType);
     const lastUploadDate = await this.helperService.getLastUploadDate(
@@ -509,7 +492,8 @@ export class AdminAreaService {
       (area) =>
         area.alertLevel === highestAlertLevels[area.eventName || 'unknown'],
     );
-    return this.helperService.toGeojson(adminAreas);
+
+    return this.helperService.getFeatureCollection(adminAreas);
   }
 
   private async getPlaceCodesToShow(

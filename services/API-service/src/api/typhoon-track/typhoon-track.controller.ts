@@ -16,9 +16,10 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { FeatureCollection } from 'typeorm';
+
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
-import { GeoJson } from '../../shared/geo.model';
 import { UserRole } from '../user/user-role.enum';
 import { UploadTyphoonTrackDto } from './dto/upload-typhoon-track';
 import { TyphoonTrackEntity } from './typhoon-track.entity';
@@ -62,13 +63,12 @@ export class TyphoonTrackController {
     status: 200,
     description:
       'Typhoon track data for given country and leadtime in GEOJSON format.',
-    type: GeoJson,
   })
   @Get(':countryCodeISO3')
   public async getTyphoonTrack(
     @Param() params,
     @Query() query,
-  ): Promise<GeoJson> {
+  ): Promise<FeatureCollection> {
     return await this.typhoonTrackService.getTyphoonTrack(
       params.countryCodeISO3,
       query.eventName,
