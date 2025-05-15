@@ -1,9 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsNotEmpty, IsString } from 'class-validator';
+import { FeatureCollection } from 'typeorm';
 
 import { PLACEHOLDER_SECRET } from '../../../config';
-import { GeoJson } from '../../../shared/geo.model';
 
 export class AdminAreaUploadDto {
   @ApiProperty({
@@ -43,5 +43,5 @@ export class AdminAreaUploadDto {
       ],
     },
   })
-  adminAreaGeoJson: GeoJson;
+  adminAreaGeoJson: FeatureCollection;
 }

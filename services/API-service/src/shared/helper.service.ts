@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
 import csv from 'csv-parser';
-import { DataSource } from 'typeorm';
+import { DataSource, Geometry } from 'typeorm';
+import { FeatureCollection } from 'typeorm';
 import { Readable } from 'typeorm/platform/PlatformTools';
 
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
@@ -12,27 +13,21 @@ import {
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../api/event/dto/last-upload-date.dto';
 import { NumberFormat } from './enums/number-format.enum';
-import { GeoJson, GeoJsonFeature } from './geo.model';
 
 @Injectable()
 export class HelperService {
   public constructor(private dataSource: DataSource) {}
 
-  public toGeojson(rawResult): GeoJson {
-    const geoJson: GeoJson = { type: 'FeatureCollection', features: [] };
-    rawResult.forEach((i): void => {
-      const feature: GeoJsonFeature = {
-        type: 'Feature',
-        geometry: i.geom,
-        properties: {},
-      };
-      delete i.geom;
-      feature.properties = i;
-      geoJson.features.push(feature);
-    });
-
-    return geoJson;
-  }
+  public getFeatureCollection = (
+    features: { geom: Geometry }[],
+  ): FeatureCollection => ({
+    type: 'FeatureCollection',
+    features: features.map(({ geom: geometry, ...properties }) => ({
+      type: 'Feature',
+      geometry,
+      properties,
+    })),
+  });
 
   public getUploadCutoffMoment(disasterType: DisasterType, date: Date): Date {
     const lastInterval = new Date(date);

@@ -3,6 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import {
   DeleteResult,
+  FeatureCollection,
+  Geometry,
+  GeometryCollection,
   In,
   InsertResult,
   MoreThanOrEqual,
@@ -12,7 +15,6 @@ import {
 } from 'typeorm';
 
 import { AggregateDataRecord } from '../../shared/data.model';
-import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
@@ -46,7 +48,7 @@ export class AdminAreaService {
   public async addOrUpdateAdminAreas(
     countryCodeISO3: string,
     adminLevel: number,
-    adminAreasGeoJson: GeoJson,
+    adminAreasGeoJson: FeatureCollection,
     reset = false,
   ): Promise<{
     updated: number;
@@ -128,7 +130,7 @@ export class AdminAreaService {
     return { updated, inserted, untouched, deleted };
   }
 
-  private processPreUploadExceptions(adminAreasGeoJson: GeoJson) {
+  private processPreUploadExceptions(adminAreasGeoJson: FeatureCollection) {
     for (const adminArea of adminAreasGeoJson.features) {
       if (adminArea.properties['ADM2_PCODE'] === 'SS0303') {
         adminArea.properties['ADM2_EN'] = 'Bor South County';
@@ -137,7 +139,9 @@ export class AdminAreaService {
     return adminAreasGeoJson;
   }
 
-  private geomFunction(coordinates): string {
+  private geomFunction(
+    coordinates: Exclude<Geometry, GeometryCollection>['coordinates'],
+  ): string {
     return `ST_GeomFromGeoJSON( '{ "type": "MultiPolygon", "coordinates": ${JSON.stringify(
       coordinates,
     )} }' )`;
@@ -398,7 +402,7 @@ export class AdminAreaService {
     leadTime: string,
     eventName: string,
     placeCodeParent?: string,
-  ): Promise<GeoJson> {
+  ): Promise<FeatureCollection> {
     const disasterTypeEntity =
       await this.disasterTypeService.getDisasterType(disasterType);
     const lastUploadDate = await this.helperService.getLastUploadDate(
@@ -509,7 +513,8 @@ export class AdminAreaService {
       (area) =>
         area.alertLevel === highestAlertLevels[area.eventName || 'unknown'],
     );
-    return this.helperService.toGeojson(adminAreas);
+
+    return this.helperService.getFeatureCollection(adminAreas);
   }
 
   private async getPlaceCodesToShow(

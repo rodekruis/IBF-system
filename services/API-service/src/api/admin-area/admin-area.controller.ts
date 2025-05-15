@@ -22,11 +22,11 @@ import {
 } from '@nestjs/swagger';
 
 import { Response } from 'express';
+import { FeatureCollection } from 'typeorm';
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AggregateDataRecord } from '../../shared/data.model';
-import { GeoJson } from '../../shared/geo.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaService } from './admin-area.service';
@@ -118,7 +118,7 @@ export class AdminAreaController {
   @UseInterceptors()
   public async addOrUpdateEventAreas(
     @Param() params,
-    @Body() adminAreaGeoJson: GeoJson,
+    @Body() adminAreaGeoJson: FeatureCollection,
   ): Promise<void> {
     await this.eventAreaService.addOrUpdateEventAreas(
       params.countryCodeISO3,
@@ -141,13 +141,12 @@ export class AdminAreaController {
     status: 200,
     description:
       '(Relevant) admin-areas boundaries and attributes for given country, disater-type and lead-time',
-    type: GeoJson,
   })
   @Get(':countryCodeISO3/:disasterType/:adminLevel')
   public async getAdminAreas(
     @Param() params,
     @Query() query,
-  ): Promise<GeoJson> {
+  ): Promise<FeatureCollection> {
     return await this.adminAreaService.getAdminAreas(
       params.countryCodeISO3,
       params.disasterType,
