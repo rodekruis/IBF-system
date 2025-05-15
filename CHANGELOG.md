@@ -1,3 +1,18 @@
+# [0.317.0](https://github.com/rodekruis/IBF-system/compare/v0.316.2...v0.317.0) (2025-05-15)
+
+
+### Bug Fixes
+
+* add name to admin areas ([f077bd8](https://github.com/rodekruis/IBF-system/commit/f077bd84e1dc95b7ec62b73171f955f5c1880a03))
+
+
+### Features
+
+* allow partial admin-area updates AB[#35977](https://github.com/rodekruis/IBF-system/issues/35977) ([2c7c923](https://github.com/rodekruis/IBF-system/commit/2c7c923b8a57632af1818b9c72d8f59787a9cae0))
+* delete admin-areas AB[#35977](https://github.com/rodekruis/IBF-system/issues/35977) ([cfc0dd5](https://github.com/rodekruis/IBF-system/commit/cfc0dd5d88fbaa343ab1bc87010735f531f9dc0d))
+
+
+
 ## [0.316.2](https://github.com/rodekruis/IBF-system/compare/v0.316.1...v0.316.2) (2025-05-14)
 
 
@@ -98,15 +113,6 @@
 ### Bug Fixes
 
 * rename low rainfall probability to below-normal rainfall probability AB[#35566](https://github.com/rodekruis/IBF-system/issues/35566) ([6508989](https://github.com/rodekruis/IBF-system/commit/6508989943afad47e6500c29f5abb3ace8c0aa37))
-
-
-
-# [0.314.0](https://github.com/rodekruis/IBF-system/compare/v0.313.0...v0.314.0) (2025-04-24)
-
-
-### Features
-
-* log on request start ([2cc6295](https://github.com/rodekruis/IBF-system/commit/2cc62958d6d2c4958e7dadec9ff845601a613d41))
 
 
 
