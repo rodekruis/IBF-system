@@ -69,6 +69,7 @@ export class AdminAreaService {
 
         adminArea.countryCodeISO3 = countryCodeISO3;
         adminArea.adminLevel = adminLevel;
+        adminArea.name = properties[`ADM${adminLevel}_EN`];
         adminArea.placeCode = properties[`ADM${adminLevel}_PCODE`];
         adminArea.placeCodeParent =
           properties[`ADM${adminLevel - 1}_PCODE`] ?? null;
