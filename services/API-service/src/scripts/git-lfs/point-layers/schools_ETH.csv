@@ -1,0 +1,956 @@
+country_code,fid,name,education_level,school_year,source,school_id,amenity,lat,lon,depth,vulnerability
+ETH,1,Brightside International Academy - Highschool,,,,,,8.934,38.657,0,no risk
+ETH,2,Mizan-Aman Health Science College Meeting hall,,,,,,6.948,35.547,0,no risk
+ETH,3,,,,,,,7.071,37.711,0,no risk
+ETH,4,,,,,,,7.069,37.709,0,no risk
+ETH,5,Repi primary school,,,,,,8.977,38.675,0,no risk
+ETH,6,ቅድስቲ ሉችያ ቀዳማይ ብርኪ ቤት ት/ቲ,,,,,,14.28,39.468,0,no risk
+ETH,7,ፅንሰታ ለማርያም ላዕለዋይ 2ይ ብርኪ ቤት ት/ቲ,,,,,,14.278,39.467,0,no risk
+ETH,8,Texas School of English and Computer,,,,,,9.015,38.784,0,no risk
+ETH,9,,,,,,,7.069,37.692,0,no risk
+ETH,10,,,,,,,7.082,37.706,0,no risk
+ETH,11,,,,,,,7.08,37.705,0,no risk
+ETH,12,,,,,,,7.088,37.705,0,no risk
+ETH,13,ኒው ሚሊንየም ኮሌጅ New Millenium Collage,,,,,,14.284,39.458,0,no risk
+ETH,14,Japan primary school,,,,,,8.977,38.674,0,no risk
+ETH,15,Repi secondary school,,,,,,8.978,38.676,0,no risk
+ETH,16,ኢትዮ-ኢሜጅ ቀዳማይ ብርኪ ቤት ት/ቲ,,,,,,14.278,39.466,0,no risk
+ETH,17,,,,,,,9.022,36.674,0,no risk
+ETH,18,,,,,,,10.793,38.076,0,no risk
+ETH,19,,,,,,,10.877,38.195,0,no risk
+ETH,20,,,,,,,10.684,36.828,0,no risk
+ETH,21,Dagmawi tewedrose 2nd and preparatory school,,,,,,11.854,38.019,0,no risk
+ETH,22,Enjibara University,,,,,,10.954,36.913,0,no risk
+ETH,23,,,,,,,11.852,38.032,0,no risk
+ETH,24,,,,,,,11.852,38.018,0,no risk
+ETH,25,,,,,,,11.852,38.018,0,no risk
+ETH,26,,,,,,,11.852,38.031,0,no risk
+ETH,27,,,,,,,11.852,38.031,0,no risk
+ETH,28,,,,,,,6.065,37.562,0,no risk
+ETH,29,Bahir Dar Academy,,,,,,11.599,37.368,0,no risk
+ETH,30,,,,,,,13.048,38.328,0,no risk
+ETH,31,,,,,,,9.784,38.736,0,no risk
+ETH,32,,,,,,,6.054,37.56,0,no risk
+ETH,33,,,,,,,6.034,37.56,0,no risk
+ETH,34,,,,,,,7.993,37.912,0,no risk
+ETH,35,,,,,,,10.318,37.728,0,no risk
+ETH,36,,,,,,,10.813,37.648,0,no risk
+ETH,37,,,,,,,10.848,37.605,0,no risk
+ETH,38,,,,,,,10.849,37.599,0,no risk
+ETH,39,,,,,,,10.771,37.646,0,no risk
+ETH,40,,,,,,,10.36,37.611,0,no risk
+ETH,41,Eshet Academy,,,,,,11.587,37.376,0,no risk
+ETH,42,Bahirdar University peda campus main gate,,,,,,11.576,37.395,0,no risk
+ETH,43,BGMCS,,,,,,11.608,37.361,0,no risk
+ETH,44,Tuji,,,,,,11.06,37.057,0,no risk
+ETH,45,Bahir Dar Academy,,,,,,11.598,37.367,0,no risk
+ETH,46,ADM school,,,,,,11.603,37.365,0,no risk
+ETH,47,ADM school,,,,,,11.603,37.365,0,no risk
+ETH,48,,,,,,,11.039,37.416,0,no risk
+ETH,49,,,,,,,10.747,37.396,0,no risk
+ETH,50,,,,,,,11.188,38.465,0,no risk
+ETH,51,,,,,,,11.207,38.456,0,no risk
+ETH,52,,,,,,,5.999,37.544,0,no risk
+ETH,53,,,,,,,6.032,37.552,0,no risk
+ETH,54,Unity University,,,,,,11.599,37.375,0,no risk
+ETH,55,,,,,,,11.598,37.396,0,no risk
+ETH,56,,,,,,,6.015,37.551,0,no risk
+ETH,57,,,,,,,10.581,38.983,0,no risk
+ETH,58,,,,,,,7.927,37.874,0,no risk
+ETH,59,,,,,,,7.974,37.803,0,no risk
+ETH,60,,,,,,,7.945,38.073,0,no risk
+ETH,61,,,,,,,10.815,38.023,0,no risk
+ETH,62,Donbosco primary school,,,,,,6.421,38.298,0,no risk
+ETH,63,Wachemo University Main Gate,,,,,,7.559,37.885,0,no risk
+ETH,64,,,,,,,12.996,38.364,0,no risk
+ETH,65,preparatory school,,,,,,7.341,37.858,0,no risk
+ETH,66,Jaba Traning school,,,,,,9.171,38.756,0,no risk
+ETH,67,,,,,,,9.135,38.753,0,no risk
+ETH,68,Adventist school,,,,,,7.245,37.907,0,no risk
+ETH,69,Alage Farming College (Enterance),,,,,,7.626,38.432,0,no risk
+ETH,70,,,,,,,9.033,36.575,0,no risk
+ETH,71,,,,,,,9.779,38.524,0,no risk
+ETH,72,,,,,,,6.901,37.015,0,no risk
+ETH,73,,,,,,,6.996,36.996,0,no risk
+ETH,74,Atse Yohannes Preparatory Secondary School ኣፄ ዮውሃንስ መሰናድኦ ካልኣይ ብርኪ ቤት ትምህርቲ,,,,,,13.489,39.475,0,no risk
+ETH,75,Atse Yohannes Elementary School ኣፄ ዮውሃንስ ቀዳማይ ብርኪ ቤት ትምህርቲ,,,,,,13.49,39.475,0,no risk
+ETH,76,,,,,,,13.484,39.459,0,no risk
+ETH,77,Gereb Tsedo Elementary School ገረብ ፀዶ ቀዳማይ ብርኪ ቤት ትምህርቲ,,,,,,13.503,39.465,0,no risk
+ETH,78,Kaleb Academy ካሌብ ኣካደሚ,,,,,,13.487,39.452,0,no risk
+ETH,79,Soddo Comprehensive High School,,,,,,6.859,37.759,0,no risk
+ETH,80,,,,,,,13.488,39.455,0,no risk
+ETH,81,,,,,,,13.475,39.448,0,no risk
+ETH,82,Yechilla Preparatory School,,,,,,13.283,38.986,0,no risk
+ETH,83,Beteseb Academy,,,,,,7.683,36.835,0,no risk
+ETH,84,Seto Semero High School,,,,,,7.686,36.835,0,no risk
+ETH,85,Hiwane Secondary School,,,,,,13.118,39.499,0,no risk
+ETH,86,Kobo preparatory school,,,,,,12.151,39.63,0,no risk
+ETH,87,Addis alem elementary school,,,,,,12.15,39.625,0,no risk
+ETH,88,,,,,,,6.152,35.412,0,no risk
+ETH,89,Jimma University,,,,,,7.676,36.852,0,no risk
+ETH,90,Beteseb Academy,,,,,,7.684,36.835,0,no risk
+ETH,91,,,,,,,6.077,35.438,0,no risk
+ETH,92,,,,,,,7.686,36.861,0,no risk
+ETH,93,"Royal Kindergarten, Dessie",,,,,,11.125,39.633,0,no risk
+ETH,94,,,,,,,11.59,41.449,0,no risk
+ETH,95,Real Vision Academy,,,,,,8.87,38.772,0,no risk
+ETH,96,Woldiya university,,,,,,11.663,39.668,0,no risk
+ETH,97,Asheten primary school,,,,,,12.021,39.064,0,no risk
+ETH,98,,,,,,,12.107,39.125,0,no risk
+ETH,99,baso high school,,,,,,9.662,39.518,0,no risk
+ETH,100,Aleltu Primary School,,,,,,9.194,39.149,0,no risk
+ETH,101,,,,,,,9.526,39.858,0,no risk
+ETH,102,,,,,,,8.84,44.488,0,no risk
+ETH,103,,,,,,,10.671,39.161,0,no risk
+ETH,104,,,,,,,11.595,39.22,0,no risk
+ETH,105,,,,,,,9.348,39.491,0,no risk
+ETH,106,Woldia University,,,,,,11.803,39.601,0,no risk
+ETH,107,Hachalu H. Memorial Primary School (ሃጫሉ ሁ. መታሰቢያ ፩ ደረጃ ትም/ት ቤት,,,,,,8.88,38.764,0,no risk
+ETH,108,,,,,,,9.669,39.522,0,no risk
+ETH,109,,,,,,,10.659,39.158,0,no risk
+ETH,110,Butajira Poli Technic college,,,,,,8.127,38.391,0,no risk
+ETH,111,Etege Taytu Bitul Elementary School,,,,,,11.832,39.602,0,no risk
+ETH,112,ቀዳማይ ሀይለስላሴ ት/ቤት,,,,,,9.58,41.859,0,no risk
+ETH,113,Wonji poli technic college,,,,,,8.436,39.214,0,no risk
+ETH,114,National College Mexico Branch,,,,,,9.007,38.746,0,no risk
+ETH,115,,,,,,,13.489,39.468,0,no risk
+ETH,116,Gelfand Family preparatory school,,,,,,13.93,38.997,0,no risk
+ETH,117,Wukro Megabit Selasa Secondary School,,,,,,13.799,39.6,0,no risk
+ETH,118,ሂልቶፕስ አካዳሚ Hilltops Academy,,,,,,9.02,38.718,0,no risk
+ETH,119,ቤት ትምህርቲ ዒላላ - Elala primarily & junior secondary school,,,,,,13.511,39.481,0,no risk
+ETH,120,Mekelle University: Veterinary Campus,,,,,,13.46,39.467,0,no risk
+ETH,121,AMU Nechsar campus,,,,,,6.025,37.552,0,no risk
+ETH,122,Gebeya Computer Training,,,,,,8.99,38.782,0,no risk
+ETH,123,Junior school,,,,,,7.535,39.254,0,no risk
+ETH,124,Arsi Universty Bekoji Campus,,,,,,7.525,39.247,0,no risk
+ETH,125,Bekoji  Sinior Secondary school,,,,,,7.542,39.254,0,no risk
+ETH,126,,,,,,,12.012,38.004,0,no risk
+ETH,127,,,,,,,11.121,39.631,0,no risk
+ETH,128,,,,,,,11.567,39.618,0,no risk
+ETH,129,,,,,,,11.564,39.643,0,no risk
+ETH,130,,,,,,,11.523,39.579,0,no risk
+ETH,131,,,,,,,11.569,39.433,0,no risk
+ETH,132,,,,,,,11.617,39.38,0,no risk
+ETH,133,,,,,,,11.576,39.246,0,no risk
+ETH,134,,,,,,,11.554,39.542,0,no risk
+ETH,135,,,,,,,11.561,39.6,0,no risk
+ETH,136,,,,,,,11.581,39.358,0,no risk
+ETH,137,,,,,,,13.291,37.606,0,no risk
+ETH,138,Hawas Prepararory School,,,,,,8.499,39.286,0,no risk
+ETH,139,ቅዱስ ያቆብ 1ይ ብርኪ ቤት ት/ቲ St. Jacob primary school,,,,,,14.285,39.489,0,no risk
+ETH,140,,,,,,,4.182,42.057,0,no risk
+ETH,141,Ligaba School,,,,,,6.862,37.761,0,no risk
+ETH,142,,,,,,,9.034,38.764,0,no risk
+ETH,143,Asayita teachers training college,,,,,,11.577,41.433,0,no risk
+ETH,144,,,,,,,9.065,38.735,0,no risk
+ETH,145,Zebenay Kindergaten,,,,,,7.533,39.25,0,no risk
+ETH,146,,,,,,,12.596,37.449,0,no risk
+ETH,147,ECF Children's Fund,,,,,,9.191,39.15,0,no risk
+ETH,148,Aleltu Primary School,,,,,,9.194,39.149,0,no risk
+ETH,149,Bekoji TVET,,,,,,7.544,39.264,0,no risk
+ETH,150,ECF Children's Fund,,,,,,9.191,39.15,0,no risk
+ETH,151,,,,,,,9.093,43.178,0,no risk
+ETH,152,,,,,,,13.875,39.564,0,no risk
+ETH,153,Del Ber high school,,,,,,9.057,38.742,0,no risk
+ETH,154,,,,,,,13.615,39.0,0,no risk
+ETH,155,,,,,,,13.624,39.006,0,no risk
+ETH,156,,,,,,,7.26,36.244,0,no risk
+ETH,157,,,,,,,8.301,34.242,0,no risk
+ETH,158,,,,,,,8.287,34.255,0,no risk
+ETH,159,,,,,,,11.592,41.447,0,no risk
+ETH,160,Azeb Acadamy and Kindergarten ኣዜብ ኣካምን መዋእለ ህፃናትን,,,,,,14.28,39.454,0,no risk
+ETH,161,,,,,,,8.982,38.748,0,no risk
+ETH,162,,,,,,,8.294,34.255,0,no risk
+ETH,163,,,,,,,8.301,34.254,0,no risk
+ETH,164,,,,,,,8.303,34.231,0,no risk
+ETH,165,,,,,,,8.302,34.23,0,no risk
+ETH,166,,,,,,,8.298,34.252,0,no risk
+ETH,167,,,,,,,8.289,34.259,0,no risk
+ETH,168,Unity University Dessie Campus,,,,,,11.129,39.634,0,no risk
+ETH,169,tigat primary school,,,,,,8.98,38.699,0,no risk
+ETH,170,,,,,,,5.787,36.562,0,no risk
+ETH,171,,,,,,,5.784,36.568,0,no risk
+ETH,172,Issac school,,,,,,7.243,37.902,0,no risk
+ETH,173,,,,,,,9.037,38.752,0,no risk
+ETH,174,,,,,,,8.302,34.24,0,no risk
+ETH,175,,,,,,,8.301,34.241,0,no risk
+ETH,176,,,,,,,8.288,34.254,0,no risk
+ETH,177,Senafe Secondary School,,,,,,14.091,39.689,0,no risk
+ETH,178,,,,,,,9.666,39.525,0,no risk
+ETH,179,LG KOICA HOPE TVET COLLEGE,,,,,,8.986,38.861,0,no risk
+ETH,180,Safari Academy,,,,,,9.013,38.846,0,no risk
+ETH,181,Wachemo Comprehensive High School,,,,,,7.564,37.856,0,no risk
+ETH,182,Bobicho Kale Hiwot Bible College,,,,,,7.578,37.842,0,no risk
+ETH,183,Don Bosco Technical college  - ኮሌጅ ቴክኒክ ዶን ቦስኮ,,,,,,13.511,39.486,0,no risk
+ETH,184,Hosaina Teachers Education College,,,,,,7.573,37.857,0,no risk
+ETH,185,Cordova Academy,,,,,,8.981,38.747,0,no risk
+ETH,186,,,,,,,9.669,39.532,0,no risk
+ETH,187,,,,,,,7.551,37.856,0,no risk
+ETH,188,,,,,,,13.458,39.487,0,no risk
+ETH,189,Yekatit,,,,,,7.545,37.85,0,no risk
+ETH,190,wachemo,,,,,,7.561,37.857,0,no risk
+ETH,191,,,,,,,7.55,37.849,0,no risk
+ETH,192,Kutir sost,,,,,,7.552,37.86,0,no risk
+ETH,193,,,,,,,7.55,37.846,0,no risk
+ETH,194,kutir and,,,,,,7.547,37.844,0,no risk
+ETH,195,,,,,,,8.963,38.759,0,no risk
+ETH,196,,,,,,,7.148,35.815,0,no risk
+ETH,197,,,,,,,7.17,35.85,0,no risk
+ETH,198,,,,,,,7.171,35.814,0,no risk
+ETH,199,,,,,,,7.173,35.741,0,no risk
+ETH,200,,,,,,,7.18,36.234,0,no risk
+ETH,201,,,,,,,7.189,36.081,0,no risk
+ETH,202,,,,,,,7.193,35.852,0,no risk
+ETH,203,,,,,,,7.199,35.775,0,no risk
+ETH,204,,,,,,,7.2,36.044,0,no risk
+ETH,205,,,,,,,7.207,36.139,0,no risk
+ETH,206,,,,,,,7.222,35.875,0,no risk
+ETH,207,,,,,,,7.234,36.224,0,no risk
+ETH,208,,,,,,,7.241,35.878,0,no risk
+ETH,209,,,,,,,7.258,36.256,0,no risk
+ETH,210,,,,,,,7.259,35.886,0,no risk
+ETH,211,,,,,,,7.267,36.258,0,no risk
+ETH,212,,,,,,,7.268,35.61,0,no risk
+ETH,213,,,,,,,7.27,36.331,0,no risk
+ETH,214,,,,,,,7.278,36.241,0,no risk
+ETH,215,,,,,,,7.282,35.74,0,no risk
+ETH,216,,,,,,,7.284,36.236,0,no risk
+ETH,217,,,,,,,7.288,36.41,0,no risk
+ETH,218,,,,,,,7.292,35.987,0,no risk
+ETH,219,,,,,,,7.295,35.51,0,no risk
+ETH,220,,,,,,,7.301,36.144,0,no risk
+ETH,221,,,,,,,7.314,35.739,0,no risk
+ETH,222,,,,,,,7.32,36.041,0,no risk
+ETH,223,,,,,,,7.331,36.119,0,no risk
+ETH,224,,,,,,,7.352,36.454,0,no risk
+ETH,225,,,,,,,7.364,35.832,0,no risk
+ETH,226,,,,,,,7.383,36.286,0,no risk
+ETH,227,,,,,,,7.388,36.08,0,no risk
+ETH,228,,,,,,,7.395,35.755,0,no risk
+ETH,229,,,,,,,7.046,35.857,0,no risk
+ETH,230,,,,,,,7.066,35.776,0,no risk
+ETH,231,,,,,,,7.106,35.819,0,no risk
+ETH,232,,,,,,,7.128,36.191,0,no risk
+ETH,233,,,,,,,7.129,35.768,0,no risk
+ETH,234,,,,,,,7.411,36.443,0,no risk
+ETH,235,,,,,,,7.42,36.224,0,no risk
+ETH,236,,,,,,,7.423,36.052,0,no risk
+ETH,237,,,,,,,7.443,36.214,0,no risk
+ETH,238,,,,,,,7.473,36.121,0,no risk
+ETH,239,,,,,,,7.491,36.07,0,no risk
+ETH,240,,,,,,,7.496,35.898,0,no risk
+ETH,241,,,,,,,7.504,35.583,0,no risk
+ETH,242,,,,,,,7.528,35.677,0,no risk
+ETH,243,,,,,,,7.533,36.07,0,no risk
+ETH,244,,,,,,,7.539,35.857,0,no risk
+ETH,245,,,,,,,7.544,35.609,0,no risk
+ETH,246,,,,,,,7.565,35.857,0,no risk
+ETH,247,,,,,,,7.569,35.657,0,no risk
+ETH,248,,,,,,,7.579,36.039,0,no risk
+ETH,249,,,,,,,7.591,35.948,0,no risk
+ETH,250,,,,,,,7.597,35.763,0,no risk
+ETH,251,,,,,,,7.606,35.857,0,no risk
+ETH,252,,,,,,,7.607,36.005,0,no risk
+ETH,253,,,,,,,7.61,35.69,0,no risk
+ETH,254,,,,,,,7.627,35.787,0,no risk
+ETH,255,,,,,,,7.655,35.762,0,no risk
+ETH,256,,,,,,,7.661,35.632,0,no risk
+ETH,257,,,,,,,7.682,35.927,0,no risk
+ETH,258,,,,,,,7.684,35.971,0,no risk
+ETH,259,,,,,,,7.71,35.746,0,no risk
+ETH,260,,,,,,,7.732,35.996,0,no risk
+ETH,261,,,,,,,7.764,35.724,0,no risk
+ETH,262,,,,,,,7.772,35.674,0,no risk
+ETH,263,,,,,,,7.771,35.795,0,no risk
+ETH,264,,,,,,,7.777,35.753,0,no risk
+ETH,265,,,,,,,7.549,37.847,0,no risk
+ETH,266,,,,,,,9.309,42.123,0,no risk
+ETH,267,,,,,,,7.396,36.224,0,no risk
+ETH,268,,,,,,,7.398,36.325,0,no risk
+ETH,269,,,,,,,7.4,35.889,0,no risk
+ETH,270,,,,,,,7.407,36.296,0,no risk
+ETH,271,,,,,,,7.41,36.374,0,no risk
+ETH,272,,,,,,,7.41,35.714,0,no risk
+ETH,273,,,,,,,7.803,35.738,0,no risk
+ETH,274,,,,,,,7.826,35.658,0,no risk
+ETH,275,,,,,,,7.833,35.823,0,no risk
+ETH,276,,,,,,,7.899,35.81,0,no risk
+ETH,277,,,,,,,9.342,41.296,0,no risk
+ETH,278,,,,,,,11.614,37.423,0,no risk
+ETH,279,,,,,,,8.999,38.767,0,no risk
+ETH,280,,,,,,,9.359,42.393,0,no risk
+ETH,281,,,,,,,13.182,37.972,0,no risk
+ETH,282,Danu Hospital,,,,,,9.03,38.762,0,no risk
+ETH,283,,,,,,,8.115,37.932,0,no risk
+ETH,284,,,,,,,9.09,36.557,0,no risk
+ETH,285,,,,,,,8.318,35.559,0,no risk
+ETH,286,,,,,,,6.541,38.741,0,no risk
+ETH,287,,,,,,,7.707,37.855,0,no risk
+ETH,288,,,,,,,9.459,39.609,0,no risk
+ETH,289,,,,,,,8.775,35.648,0,no risk
+ETH,290,,,,,,,9.615,38.067,0,no risk
+ETH,291,,,,,,,9.646,38.126,0,no risk
+ETH,292,,,,,,,9.671,37.9,0,no risk
+ETH,293,,,,,,,12.605,39.517,0,no risk
+ETH,294,Safari Academy,,,,,,8.986,38.862,0,no risk
+ETH,295,,,,,,,8.985,38.861,0,no risk
+ETH,296,,,,,,,8.993,38.858,0,no risk
+ETH,297,,,,,,,8.989,38.861,0,no risk
+ETH,298,,,,,,,10.587,39.004,0,no risk
+ETH,299,Teddy language and computer academy,,,,,,11.085,39.738,0,no risk
+ETH,300,,,,,,,5.878,36.631,0,no risk
+ETH,301,,,,,,,9.426,42.038,0,no risk
+ETH,302,,,,,,,9.025,38.715,0,no risk
+ETH,303,,,,,,,10.333,39.779,0,no risk
+ETH,304,,,,,,,3.715,37.962,0,no risk
+ETH,305,,,,,,,10.285,39.802,0,no risk
+ETH,306,,,,,,,6.06,37.559,0,no risk
+ETH,307,Kukufto Secondary School,,,,,,12.627,39.648,0,no risk
+ETH,308,,,,,,,9.341,42.788,0,no risk
+ETH,309,,,,,,,9.364,42.794,0,no risk
+ETH,310,,,,,,,9.364,42.794,0,no risk
+ETH,311,,,,,,,13.568,39.258,0,no risk
+ETH,312,Jijiga secondary and preparatory school,,,,,,9.351,42.794,0,no risk
+ETH,313,Wilwal junior school,,,,,,9.351,42.793,0,no risk
+ETH,314,The School of Excellence,,,,,,9.6,41.867,0,no risk
+ETH,315,"Ambo University, Hachalu Hundessa campus.",,,,,,8.97,37.89,0,no risk
+ETH,316,,,,,,,10.589,39.007,0,no risk
+ETH,317,,,,,,,9.321,42.09,0,no risk
+ETH,318,Hasedela campus Dilla university,,,,,,6.385,38.308,0,no risk
+ETH,319,Unity University college Adama special campus,,,,,,8.54,39.25,0,no risk
+ETH,320,Horn International University Collage,,,,,,9.356,42.791,0,no risk
+ETH,321,Sheba University College: TVET Campus,,,,,,13.487,39.472,0,no risk
+ETH,322,,,,,,,9.422,42.037,0,no risk
+ETH,323,,,,,,,6.478,37.466,0,no risk
+ETH,324,,,,,,,6.015,37.544,0,no risk
+ETH,325,,,,,,,9.36,42.392,0,no risk
+ETH,326,,,,,,,9.097,43.175,0,no risk
+ETH,327,,,,,,,9.096,43.176,0,no risk
+ETH,328,,,,,,,9.093,43.174,0,no risk
+ETH,329,,,,,,,9.088,43.186,0,no risk
+ETH,330,,,,,,,9.084,43.189,0,no risk
+ETH,331,,,,,,,9.098,43.175,0,no risk
+ETH,332,,,,,,,9.097,43.175,0,no risk
+ETH,333,,,,,,,9.59,41.86,0,no risk
+ETH,334,Sabiayan High School,,,,,,9.605,41.847,0,no risk
+ETH,335,Warabaysa Primary School,,,,,,9.89,42.212,0,no risk
+ETH,336,,,,,,,9.821,42.141,0,no risk
+ETH,337,Harmukale primary school,,,,,,9.818,42.143,0,no risk
+ETH,338,,,,,,,9.436,41.94,0,no risk
+ETH,339,,,,,,,9.359,42.399,0,no risk
+ETH,340,ክርስቶስ ት/ቤት,,,,,,9.59,41.869,0,no risk
+ETH,341,,,,,,,9.474,41.501,0,no risk
+ETH,342,,,,,,,8.385,41.879,0,no risk
+ETH,343,,,,,,,9.096,43.181,0,no risk
+ETH,344,,,,,,,9.094,43.183,0,no risk
+ETH,345,,,,,,,9.092,43.18,0,no risk
+ETH,346,,,,,,,9.095,43.176,0,no risk
+ETH,347,,,,,,,9.081,43.189,0,no risk
+ETH,348,,,,,,,9.106,43.173,0,no risk
+ETH,349,,,,,,,11.591,41.448,0,no risk
+ETH,350,,,,,,,4.174,42.036,0,no risk
+ETH,351,CCT,,,,,,9.346,42.818,0,no risk
+ETH,352,,,,,,,9.357,42.824,0,no risk
+ETH,353,Jijiga University (School of Graduate Studies),,,,,,9.358,42.828,0,no risk
+ETH,354,,,,,,,9.366,42.799,0,no risk
+ETH,355,Melese zenawi t.v.e.t college,,,,,,9.6,41.852,0,no risk
+ETH,356,,,,,,,8.231,43.558,0,no risk
+ETH,357,,,,,,,7.221,38.626,0,no risk
+ETH,358,,,,,,,7.085,39.065,0,no risk
+ETH,359,,,,,,,7.557,37.866,0,no risk
+ETH,360,,,,,,,11.008,38.202,0,no risk
+ETH,361,,,,,,,10.961,38.046,0,no risk
+ETH,362,,,,,,,10.949,38.185,0,no risk
+ETH,363,,,,,,,11.933,36.874,0,no risk
+ETH,364,,,,,,,7.202,38.601,0,no risk
+ETH,365,,,,,,,6.976,39.189,0,no risk
+ETH,366,,,,,,,7.748,35.804,0,no risk
+ETH,367,,,,,,,7.207,38.608,0,no risk
+ETH,368,,,,,,,10.877,38.37,0,no risk
+ETH,369,,,,,,,7.364,38.678,0,no risk
+ETH,370,UoG Tewodros campus computer Lab,,,,,,12.588,37.442,0,no risk
+ETH,371,,,,,,,10.807,38.746,0,no risk
+ETH,372,,,,,,,10.724,39.025,0,no risk
+ETH,373,,,,,,,7.059,38.472,0,no risk
+ETH,374,Gondar TVET,,,,,,12.597,37.45,0,no risk
+ETH,375,,,,,,,10.972,38.929,0,no risk
+ETH,376,,,,,,,10.776,38.87,0,no risk
+ETH,377,,,,,,,10.932,38.651,0,no risk
+ETH,378,Siket elementary school,,,,,,6.425,38.291,0,no risk
+ETH,379,,,,,,,9.903,38.051,0,no risk
+ETH,380,Primary school,,,,,,6.411,38.298,0,no risk
+ETH,381,,,,,,,7.286,38.652,0,no risk
+ETH,382,,,,,,,12.59,37.441,0,no risk
+ETH,383,Wondo Genet College of Forestry and Natural Resources,,,,,,7.101,38.627,0,no risk
+ETH,384,Addis Ababa University College of Health Science Ziway Campus,,,,,,7.936,38.719,0,no risk
+ETH,385,,,,,,,8.043,38.001,0,no risk
+ETH,386,,,,,,,7.489,38.729,0,no risk
+ETH,387,,,,,,,8.06,38.47,0,no risk
+ETH,388,,,,,,,7.519,39.253,0,no risk
+ETH,389,,,,,,,8.995,38.726,0,no risk
+ETH,390,School of Tomorrow  (Bisrat Branch),,,,,,8.993,38.729,0,no risk
+ETH,391,,,,,,,8.982,38.73,0,no risk
+ETH,392,,,,,,,8.995,38.707,0,no risk
+ETH,393,Meserete edget school,,,,,,9.025,38.715,0,no risk
+ETH,394,Mandela Distance Education Academy,,,,,,9.004,38.755,0,no risk
+ETH,395,,,,,,,8.957,38.774,0,no risk
+ETH,396,El-Bethel School,,,,,,8.958,38.775,0,no risk
+ETH,397,,,,,,,8.975,36.467,0,no risk
+ETH,398,Bingham Academy,,,,,,9.041,38.717,0,no risk
+ETH,399,Berhan Ber,,,,,,9.041,38.716,0,no risk
+ETH,400,Fasil Primary School,,,,,,9.061,38.719,0,no risk
+ETH,401,Jemmo primary school,,,,,,8.998,38.681,0,no risk
+ETH,402,ICSAddis,,,,,,8.997,38.729,0,no risk
+ETH,403,Rahel Kindergaten,,,,,,7.533,39.248,0,no risk
+ETH,404,,,,,,,8.988,38.758,0,no risk
+ETH,405,,,,,,,7.525,39.245,0,no risk
+ETH,406,,,,,,,9.004,38.753,0,no risk
+ETH,407,,,,,,,9.043,38.72,0,no risk
+ETH,408,,,,,,,9.047,38.72,0,no risk
+ETH,409,Enat Medical College,,,,,,9.058,38.718,0,no risk
+ETH,410,,,,,,,9.002,38.801,0,no risk
+ETH,411,,,,,,,9.0,38.804,0,no risk
+ETH,412,,,,,,,9.003,38.806,0,no risk
+ETH,413,,,,,,,8.997,38.81,0,no risk
+ETH,414,,,,,,,6.536,38.709,0,no risk
+ETH,415,Tigel fre elemantary school,,,,,,7.53,39.258,0,no risk
+ETH,416,Genis land College,,,,,,8.548,39.255,0,no risk
+ETH,417,Adama No. 3 School,,,,,,8.547,39.259,0,no risk
+ETH,418,Goro Secondary School,,,,,,8.557,39.262,0,no risk
+ETH,419,,,,,,,8.558,39.282,0,no risk
+ETH,420,,,,,,,8.555,39.284,0,no risk
+ETH,421,Adama No.4 School,,,,,,8.54,39.279,0,no risk
+ETH,422,,,,,,,8.548,39.281,0,no risk
+ETH,423,Adama No.2 School,,,,,,8.555,39.274,0,no risk
+ETH,424,Ethio National School,,,,,,8.893,38.773,0,no risk
+ETH,425,,,,,,,8.994,38.727,0,no risk
+ETH,426,,,,,,,9.014,38.718,0,no risk
+ETH,427,Gibson Youth Academy,,,,,,8.989,38.785,0,no risk
+ETH,428,Southwest Academy lafto-58 Branch,,,,,,8.945,38.751,0,no risk
+ETH,429,Unity Academy,,,,,,9.004,38.806,0,no risk
+ETH,430,,,,,,,8.995,38.793,0,no risk
+ETH,431,,,,,,,8.54,39.218,0,no risk
+ETH,432,Rift Valley University,,,,,,8.909,38.766,0,no risk
+ETH,433,Red Cross Society Traning Center,,,,,,8.958,38.76,0,no risk
+ETH,434,Abadir School,,,,,,8.986,38.739,0,no risk
+ETH,435,Gybson youth academy,,,,,,8.973,38.728,0,no risk
+ETH,436,Netsanet Chora,,,,,,8.979,38.75,0,no risk
+ETH,437,Queens College,,,,,,8.946,38.735,0,no risk
+ETH,438,SouthWest Academy,,,,,,8.951,38.74,0,no risk
+ETH,439,Addis ababa unversity veternery campus,,,,,,8.761,39.0,0,no risk
+ETH,440,,,,,,,8.991,38.74,0,no risk
+ETH,441,Don Bosco Catholic School,,,,,,8.973,38.723,0,no risk
+ETH,442,Hawas Preparatory School,,,,,,8.499,39.287,0,no risk
+ETH,443,Hawas Preparatory School,,,,,,8.499,39.286,0,no risk
+ETH,444,Gibson Youth Academy,,,,,,8.973,38.728,0,no risk
+ETH,445,Bizrate Gebriel Gofa,,,,,,8.969,38.75,0,no risk
+ETH,446,,,,,,,8.97,38.732,0,no risk
+ETH,447,Southwest Academy,,,,,,8.947,38.743,0,no risk
+ETH,448,,,,,,,8.943,38.749,0,no risk
+ETH,449,Gibson Youth Academy,,,,,,8.944,38.749,0,no risk
+ETH,450,,,,,,,8.195,34.265,0,no risk
+ETH,451,Metu university,,,,,,8.309,35.568,0,no risk
+ETH,452,,,,,,,8.765,39.0,0,no risk
+ETH,453,Dandii Boru school,,,,,,8.993,38.772,0,no risk
+ETH,454,School Of Tomorrow Cmc Branch,,,,,,9.021,38.857,0,no risk
+ETH,455,Safari Academy,,,,,,9.022,38.85,0,no risk
+ETH,456,Diamond Academy,,,,,,9.024,38.848,0,no risk
+ETH,457,Vision School,,,,,,9.01,38.849,0,no risk
+ETH,458,Bole TVT Institute,,,,,,9.02,38.809,0,no risk
+ETH,459,Rift Valley University Abichu Campus,,,,,,9.019,38.807,0,no risk
+ETH,460,,,,,,,9.016,38.797,0,no risk
+ETH,461,Admas,,,,,,9.018,38.797,0,no risk
+ETH,462,Fountain of knowledge school,,,,,,9.017,38.838,0,no risk
+ETH,463,Young Roots International School,,,,,,9.01,38.85,0,no risk
+ETH,464,Safari Academy,,,,,,9.009,38.845,0,no risk
+ETH,465,Gibson School Systems,,,,,,9.022,38.836,0,no risk
+ETH,466,,,,,,,9.023,38.833,0,no risk
+ETH,467,ECSU,,,,,,9.023,38.831,0,no risk
+ETH,468,yelbe fana elementary school,,,,,,9.019,38.771,0,no risk
+ETH,469,,,,,,,9.021,38.773,0,no risk
+ETH,470,Swedish community school,,,,,,9.02,38.773,0,no risk
+ETH,471,,,,,,,9.033,38.769,0,no risk
+ETH,472,,,,,,,9.035,38.774,0,no risk
+ETH,473,,,,,,,9.027,38.778,0,no risk
+ETH,474,Edget behebret primary school,,,,,,9.013,38.752,0,no risk
+ETH,475,,,,,,,9.023,38.79,0,no risk
+ETH,476,,,,,,,9.021,38.787,0,no risk
+ETH,477,,,,,,,9.021,38.787,0,no risk
+ETH,478,Kids First Academy Kindergarten,,,,,,8.996,38.734,0,no risk
+ETH,479,,,,,,,8.97,38.731,0,no risk
+ETH,480,Admas University College (mekanisa branch ),,,,,,8.967,38.725,0,no risk
+ETH,481,አምቦ ዪንቨርስቲ,,,,,,8.969,37.89,0,no risk
+ETH,482,,,,,,,8.759,38.999,0,no risk
+ETH,483,,,,,,,8.988,38.77,0,no risk
+ETH,484,lunar college,,,,,,9.006,38.768,0,no risk
+ETH,485,Gage college,,,,,,9.016,38.801,0,no risk
+ETH,486,Silicon Valley College,,,,,,9.022,38.802,0,no risk
+ETH,487,Rift Valley University College,,,,,,9.024,38.799,0,no risk
+ETH,488,Cambridge Academy Ethiopia,,,,,,9.003,38.842,0,no risk
+ETH,489,,,,,,,9.034,38.766,0,no risk
+ETH,490,National Aviation College,,,,,,9.018,38.789,0,no risk
+ETH,491,,,,,,,8.769,38.981,0,no risk
+ETH,492,,,,,,,9.032,38.756,0,no risk
+ETH,493,HiLCoE - school of computer science and technology,,,,,,9.03,38.762,0,no risk
+ETH,494,,,,,,,9.029,38.756,0,no risk
+ETH,495,lincon university college,,,,,,9.015,38.807,0,no risk
+ETH,496,Ethio Parents School,,,,,,9.002,38.807,0,no risk
+ETH,497,vision acadamy,,,,,,9.006,38.813,0,no risk
+ETH,498,Beteseb Academy,,,,,,9.005,38.701,0,no risk
+ETH,499,Al afia school,,,,,,9.033,38.695,0,no risk
+ETH,500,Addis college,,,,,,9.025,38.789,0,no risk
+ETH,501,,,,,,,9.029,38.779,0,no risk
+ETH,502,,,,,,,9.027,38.779,0,no risk
+ETH,503,Misraq Technical and Vocational College,,,,,,9.025,38.785,0,no risk
+ETH,504,,,,,,,9.031,38.749,0,no risk
+ETH,505,,,,,,,9.028,38.748,0,no risk
+ETH,506,,,,,,,8.953,38.767,0,no risk
+ETH,507,,,,,,,8.987,38.849,0,no risk
+ETH,508,,,,,,,8.986,38.85,0,no risk
+ETH,509,Aastu registerar,,,,,,8.885,38.81,0,no risk
+ETH,510,Aastu registeral,,,,,,8.889,38.81,0,no risk
+ETH,511,,,,,,,8.353,36.644,0,no risk
+ETH,512,,,,,,,8.411,36.481,0,no risk
+ETH,513,EDGET CHORA SECONDARY SCHOOL,,,,,,9.033,38.879,0,no risk
+ETH,514,,,,,,,8.884,38.816,0,no risk
+ETH,515,AASTU University,,,,,,8.884,38.811,0,no risk
+ETH,516,Hachalu Secondary School,,,,,,8.88,38.765,0,no risk
+ETH,517,Dejazmach Fik'Re Maryam Andenya Dereja School,,,,,,8.8,38.9,0,no risk
+ETH,518,,,,,,,9.038,38.773,0,no risk
+ETH,519,,,,,,,9.038,38.777,0,no risk
+ETH,520,Hillside School,,,,,,9.028,38.833,0,no risk
+ETH,521,,,,,,,8.806,37.893,0,no risk
+ETH,522,Dej. Balcha Abanefso Comprehensive Secondary And Preparatory School,,,,,,9.014,38.733,0,no risk
+ETH,523,,,,,,,9.02,38.73,0,no risk
+ETH,524,Metebaber Primary School,,,,,,9.023,38.729,0,no risk
+ETH,525,School Of Indiana,,,,,,8.869,38.805,0,no risk
+ETH,526,Dej. Wondirad Preparatory School,,,,,,9.034,38.832,0,no risk
+ETH,527,Dejazmach Wondirad Preparatory School,,,,,,9.036,38.832,0,no risk
+ETH,528,,,,,,,9.012,38.808,0,no risk
+ETH,529,Real Vision Academy,,,,,,8.873,38.768,0,no risk
+ETH,530,Kitty,,,,,,9.022,38.73,0,no risk
+ETH,531,Royal University College Piazza,,,,,,9.033,38.754,0,no risk
+ETH,532,,,,,,,9.031,38.762,0,no risk
+ETH,533,ACIPH,,,,,,9.029,38.877,0,no risk
+ETH,534,Damat Hotel And Business collage,,,,,,9.039,38.75,0,no risk
+ETH,535,,,,,,,9.037,38.751,0,no risk
+ETH,536,AAU CBE,,,,,,9.047,38.763,0,no risk
+ETH,537,,,,,,,8.954,38.766,0,no risk
+ETH,538,Gambella university,,,,,,8.24,34.606,0,no risk
+ETH,539,Admas walelegn,,,,,,9.018,38.797,0,no risk
+ETH,540,Yenegew Sew TVET Institute,,,,,,8.865,38.787,0,no risk
+ETH,541,Selam Technical and Vocational College,,,,,,9.045,38.835,0,no risk
+ETH,542,Ethipian Technical University (ETU),,,,,,9.027,38.824,0,no risk
+ETH,543,,,,,,,9.014,38.731,0,no risk
+ETH,544,Kotebe College of Teacher's Education,,,,,,9.039,38.838,0,no risk
+ETH,545,Kotebe Metropolitan University,,,,,,9.038,38.837,0,no risk
+ETH,546,Kotebe University of Education,,,,,,9.038,38.838,0,no risk
+ETH,547,,,,,,,9.037,38.838,0,no risk
+ETH,548,Lebu Bright Academy,,,,,,8.949,38.731,0,no risk
+ETH,549,Rift Valley University,,,,,,8.539,39.264,0,no risk
+ETH,550,Brightside International Academy - Primary,,,,,,8.936,38.655,0,no risk
+ETH,551,,,,,,,8.923,38.652,0,no risk
+ETH,552,Seattle academy 9-12 branch,,,,,,8.897,38.775,0,no risk
+ETH,553,Seattle academy,,,,,,8.897,38.776,0,no risk
+ETH,554,Ethio National School,,,,,,8.894,38.773,0,no risk
+ETH,555,Derartu Tulu School,,,,,,8.888,38.782,0,no risk
+ETH,556,Khulefa'urashidin School,,,,,,8.54,39.276,0,no risk
+ETH,557,Harambe University,,,,,,8.548,39.278,0,no risk
+ETH,558,Adama Vocational College,,,,,,8.555,39.275,0,no risk
+ETH,559,,,,,,,8.952,38.712,0,no risk
+ETH,560,,,,,,,8.955,38.692,0,no risk
+ETH,561,,,,,,,8.958,38.69,0,no risk
+ETH,562,,,,,,,9.005,38.743,0,no risk
+ETH,563,Africa union secondary school,,,,,,9.005,38.737,0,no risk
+ETH,564,,,,,,,9.013,38.73,0,no risk
+ETH,565,School of tomorrow (SOT) KG,,,,,,9.05,38.726,0,no risk
+ETH,566,,,,,,,9.048,38.711,0,no risk
+ETH,567,Ewuket Wogene primary school,,,,,,9.036,38.714,0,no risk
+ETH,568,Nejashi Academy,,,,,,9.042,38.744,0,no risk
+ETH,569,New Era Public Shool,,,,,,9.039,38.751,0,no risk
+ETH,570,አብዲ ኖኖ የመጀመሪያ ደረጃ ት/ቤት Abdi Nono Primary School,,,,,,9.029,38.662,0,no risk
+ETH,571,,,,,,,9.003,38.676,0,no risk
+ETH,572,Alfa,,,,,,9.005,38.673,0,no risk
+ETH,573,,,,,,,9.037,38.673,0,no risk
+ETH,574,,,,,,,9.034,38.705,0,no risk
+ETH,575,Asko Home,,,,,,9.068,38.695,0,no risk
+ETH,576,,,,,,,8.957,38.771,0,no risk
+ETH,577,Rift Valley University,,,,,,8.539,39.264,0,no risk
+ETH,578,Bethel Medical College,,,,,,8.937,38.654,0,no risk
+ETH,579,,,,,,,8.953,38.696,0,no risk
+ETH,580,,,,,,,9.006,38.742,0,no risk
+ETH,581,,,,,,,9.011,38.737,0,no risk
+ETH,582,St Mary College GRE Testing,,,,,,9.008,38.742,0,no risk
+ETH,583,Chair of Housing,,,,,,9.013,38.73,0,no risk
+ETH,584,Admas University And College Akaki Kality Branch,,,,,,8.93,38.768,0,no risk
+ETH,585,Frehiwot Secondary School (no.2),,,,,,8.966,38.765,0,no risk
+ETH,586,,,,,,,8.978,38.761,0,no risk
+ETH,587,FTA,,,,,,8.983,38.766,0,no risk
+ETH,588,Bethlehem School,,,,,,8.748,38.959,0,no risk
+ETH,589,BTVS Preparatory School,,,,,,8.751,38.964,0,no risk
+ETH,590,,,,,,,8.751,38.98,0,no risk
+ETH,591,Bole Arabsa scgool,,,,,,8.98,38.887,0,no risk
+ETH,592,Riftvally Univerisity,,,,,,8.667,39.443,0,no risk
+ETH,593,Chereti Primary School,,,,,,8.808,39.14,0,no risk
+ETH,594,Qiltu primary school,,,,,,8.714,39.144,0,no risk
+ETH,595,Central Baja Primary School 1-4,,,,,,8.737,39.151,0,no risk
+ETH,596,,,,,,,9.022,38.738,0,no risk
+ETH,597,Gelila Primary School,,,,,,9.024,38.728,0,no risk
+ETH,598,sent Joseph Catholic secondary school,,,,,,8.284,37.777,0,no risk
+ETH,599,High School,,,,,,8.319,38.551,0,no risk
+ETH,600,Neway Challenge Academy,,,,,,8.95,38.732,0,no risk
+ETH,601,School of Redemption,,,,,,8.95,38.719,0,no risk
+ETH,602,Sanford School,,,,,,8.95,38.725,0,no risk
+ETH,603,Wudassie Day Care,,,,,,8.977,38.763,0,no risk
+ETH,604,,,,,,,6.956,35.555,0,no risk
+ETH,605,Mizan-Tepi University(Main door),,,,,,6.971,35.57,0,no risk
+ETH,606,Mizan-Aman Health science College Entry,,,,,,6.948,35.549,0,no risk
+ETH,607,Mizan-Aman Health science College,,,,,,6.948,35.548,0,no risk
+ETH,608,Jinka University,,,,,,5.775,36.541,0,no risk
+ETH,609,,,,,,,8.936,38.724,0,no risk
+ETH,610,,,,,,,8.498,38.019,0,no risk
+ETH,611,Nejashi School,,,,,,8.538,39.274,0,no risk
+ETH,612,Nafyad School,,,,,,8.539,39.264,0,no risk
+ETH,613,Nafyad School,,,,,,8.538,39.264,0,no risk
+ETH,614,Intellectual Schools,,,,,,8.929,38.663,0,no risk
+ETH,615,,,,,,,13.112,38.483,0,no risk
+ETH,616,,,,,,,13.393,38.454,0,no risk
+ETH,617,Bekoji preparatory High school,,,,,,7.542,39.256,0,no risk
+ETH,618,,,,,,,7.08,38.486,0,no risk
+ETH,619,Dynamic academy,,,,,,6.413,38.292,0,no risk
+ETH,620,,,,,,,6.524,38.714,0,no risk
+ETH,621,Albert Institute,,,,,,9.033,38.751,0,no risk
+ETH,622,School of Tomorrow (Gofa),,,,,,8.966,38.752,0,no risk
+ETH,623,Shero Meda Technical School,,,,,,9.06,38.76,0,no risk
+ETH,624,Dil Be Tigel Primary school,,,,,,9.061,38.759,0,no risk
+ETH,625,Dil betigl elementary school,,,,,,9.062,38.76,0,no risk
+ETH,626,የካቲት 12 መሰናዶ,,,,,,9.05,38.759,0,no risk
+ETH,627,Genet KG School,,,,,,9.042,38.763,0,no risk
+ETH,628,,,,,,,9.037,38.763,0,no risk
+ETH,629,Dagmawi Minilik School,,,,,,9.036,38.759,0,no risk
+ETH,630,LM international,,,,,,9.038,38.766,0,no risk
+ETH,631,,,,,,,9.039,38.763,0,no risk
+ETH,632,,,,,,,7.082,38.486,0,no risk
+ETH,633,,,,,,,7.341,38.671,0,no risk
+ETH,634,,,,,,,7.068,38.486,0,no risk
+ETH,635,,,,,,,8.043,37.781,0,no risk
+ETH,636,St. Gerorge school,,,,,,6.866,37.755,0,no risk
+ETH,637,,,,,,,8.989,38.753,0,no risk
+ETH,638,"Menen, Yekatit 12 School",,,,,,9.05,38.759,0,no risk
+ETH,639,Ethiopian space science institute,,,,,,9.051,38.762,0,no risk
+ETH,640,Esayam school,,,,,,9.041,38.852,0,no risk
+ETH,641,,,,,,,8.499,38.019,0,no risk
+ETH,642,Dilla university,,,,,,6.427,38.288,0,no risk
+ETH,643,Eshetu Chole Building,,,,,,9.047,38.763,0,no risk
+ETH,644,Old school Of Pharmacy/AAIT office & lounge/,,,,,,9.04,38.762,0,no risk
+ETH,645,,,,,,,7.081,38.486,0,no risk
+ETH,646,Teferi Mekonen college,,,,,,9.051,38.765,0,no risk
+ETH,647,entoto poly technic college,,,,,,9.051,38.765,0,no risk
+ETH,648,Escoffier Hotel training Institute (Branch 3),,,,,,9.051,38.762,0,no risk
+ETH,649,,,,,,,7.057,38.496,0,no risk
+ETH,650,,,,,,,7.07,38.487,0,no risk
+ETH,651,,,,,,,7.52,38.772,0,no risk
+ETH,652,,,,,,,7.535,39.254,0,no risk
+ETH,653,Mark youth Academy,,,,,,8.958,38.713,0,no risk
+ETH,654,,,,,,,6.036,37.548,0,no risk
+ETH,655,Adi Harush NRC Shool,,,,,,13.597,38.131,0,no risk
+ETH,656,,,,,,,11.555,37.389,0,no risk
+ETH,657,St. George’s School,,,,,,12.533,37.44,0,no risk
+ETH,658,,,,,,,9.063,38.695,0,no risk
+ETH,659,Meraf School,,,,,,9.068,38.717,0,no risk
+ETH,660,Asko Home,,,,,,9.068,38.695,0,no risk
+ETH,661,,,,,,,12.26,37.625,0,no risk
+ETH,662,Bahir dar university zenzelma campas,,,,,,11.643,37.46,0,no risk
+ETH,663,,,,,,,9.041,38.711,0,no risk
+ETH,664,Ayer Tena SSS,,,,,,8.984,38.695,0,no risk
+ETH,665,Millinium primary & secondary school,,,,,,9.041,38.711,0,no risk
+ETH,666,,,,,,,13.658,38.153,0,no risk
+ETH,667,,,,,,,7.1,38.624,0,no risk
+ETH,668,,,,,,,9.025,38.734,0,no risk
+ETH,669,vision acadamy,,,,,,9.004,38.811,0,no risk
+ETH,670,Atronus School of Computer,,,,,,9.019,38.822,0,no risk
+ETH,671,Adams Universitiy megenagna campus,,,,,,9.018,38.801,0,no risk
+ETH,672,,,,,,,9.004,38.816,0,no risk
+ETH,673,,,,,,,9.004,38.815,0,no risk
+ETH,674,,,,,,,12.545,37.43,0,no risk
+ETH,675,St. Marry Shool,,,,,,9.058,38.742,0,no risk
+ETH,676,Belay zelke,,,,,,9.064,38.731,0,no risk
+ETH,677,Fitawirari Lakedgh,,,,,,8.978,38.754,0,no risk
+ETH,678,omedla school,,,,,,9.023,38.731,0,no risk
+ETH,679,College of Agriculture and Environmental Sciences,,,,,,11.601,37.434,0,no risk
+ETH,680,,,,,,,10.919,36.698,0,no risk
+ETH,681,,,,,,,13.236,37.649,0,no risk
+ETH,682,,,,,,,13.55,39.54,0,no risk
+ETH,683,ቤት ትምህርቲ ዒላላ - Elala primarily & junior secondary  school,,,,,,13.511,39.483,0,no risk
+ETH,684,Rift Valley University College,,,,,,8.99,38.793,0,no risk
+ETH,685,Don Bosco Technical college  - ኮሌጅ ቴክኒክ ዶን ቦስኮ,,,,,,13.51,39.485,0,no risk
+ETH,686,Don Bosco Technical college  - ኮሌጅ ቴክኒክ ዶን ቦስኮ,,,,,,13.51,39.485,0,no risk
+ETH,687,Zaid kindergarten,,,,,,13.527,39.445,0,no risk
+ETH,688,Agulae High school,,,,,,13.695,39.581,0,no risk
+ETH,689,,,,,,,11.733,38.307,0,no risk
+ETH,690,,,,,,,13.269,38.256,0,no risk
+ETH,691,Tigray Art College ትግራይ ኪነጥበባት ኮሌጅ,,,,,,13.488,39.473,0,no risk
+ETH,692,Mekelle Community School,,,,,,13.461,39.493,0,no risk
+ETH,693,Mekelle University: Veterinary Campus,,,,,,13.465,39.467,0,no risk
+ETH,694,,,,,,,13.583,39.122,0,no risk
+ETH,695,,,,,,,13.684,39.543,0,no risk
+ETH,696,,,,,,,13.749,39.55,0,no risk
+ETH,697,Tsigereda Secondary School,,,,,,13.769,39.347,0,no risk
+ETH,698,,,,,,,13.694,39.321,0,no risk
+ETH,699,,,,,,,13.563,39.298,0,no risk
+ETH,700,,,,,,,12.81,37.416,0,no risk
+ETH,701,Mekelle University Endayesus Campus,,,,,,13.477,39.484,0,no risk
+ETH,702,,,,,,,14.37,38.235,0,no risk
+ETH,703,,,,,,,8.115,37.972,0,no risk
+ETH,704,,,,,,,8.19,37.797,0,no risk
+ETH,705,AdiGedena Primary School,,,,,,14.317,38.241,0,no risk
+ETH,706,School,,,,,,8.172,38.44,0,no risk
+ETH,707,,,,,,,8.06,38.468,0,no risk
+ETH,708,Meja Lalu School,,,,,,8.159,38.719,0,no risk
+ETH,709,Ethiopia tikdem primary school,,,,,,7.054,38.486,0,no risk
+ETH,710,Jido School,,,,,,7.71,38.473,0,no risk
+ETH,711,,,,,,,8.132,37.931,0,no risk
+ETH,712,,,,,,,8.122,37.936,0,no risk
+ETH,713,Hayole primary school,,,,,,7.034,38.489,0,no risk
+ETH,714,Zion College of Technology & Business,,,,,,7.038,38.485,0,no risk
+ETH,715,Lexi Side School,,,,,,7.037,38.493,0,no risk
+ETH,716,South College,,,,,,7.033,38.495,0,no risk
+ETH,717,,,,,,,7.027,38.487,0,no risk
+ETH,718,,,,,,,7.044,38.504,0,no risk
+ETH,719,,,,,,,7.049,38.512,0,no risk
+ETH,720,Masinchi Primary school,,,,,,6.735,38.421,0,no risk
+ETH,721,,,,,,,6.603,38.419,0,no risk
+ETH,722,St. Daniel Comboni secondary and preparatory school,,,,,,7.045,38.469,0,no risk
+ETH,723,Aleph Academy,,,,,,7.062,38.478,0,no risk
+ETH,724,,,,,,,8.209,38.906,0,no risk
+ETH,725,,,,,,,8.197,37.792,0,no risk
+ETH,726,Hosaina Technical & Vocational College,,,,,,7.581,37.857,0,no risk
+ETH,727,Hawassa Agricultural College,,,,,,7.053,38.471,0,no risk
+ETH,728,,,,,,,7.056,38.472,0,no risk
+ETH,729,Mount Olive School,,,,,,7.043,38.476,0,no risk
+ETH,730,,,,,,,7.032,38.476,0,no risk
+ETH,731,,,,,,,6.818,45.087,0,no risk
+ETH,732,Sayid Moh'ed Abdile School,,,,,,5.953,43.544,0,no risk
+ETH,733,,,,,,,5.95,43.554,0,no risk
+ETH,734,,,,,,,5.94,43.561,0,no risk
+ETH,735,,,,,,,5.945,43.551,0,no risk
+ETH,736,,,,,,,7.931,39.132,0,no risk
+ETH,737,Sheraro Comprehensive Primary School,,,,,,14.393,37.777,0,no risk
+ETH,738,,,,,,,14.082,36.57,0,no risk
+ETH,739,Adigrant University,,,,,,14.296,39.465,0,no risk
+ETH,740,የማነ ገብረመስቀል ሙሉእ ቀዳማይ ብርኪ ቤት ት/ቲ Yemane G/Meskel Elementary School,,,,,,14.285,39.463,0,no risk
+ETH,741,,,,,,,7.036,38.475,0,no risk
+ETH,742,Ayder secondary school,,,,,,13.514,39.47,0,no risk
+ETH,743,Weldu Nigusse Preparatory School,,,,,,13.473,39.54,0,no risk
+ETH,744,,,,,,,13.63,38.992,0,no risk
+ETH,745,Assosa High School,,,,,,10.06,34.537,0,no risk
+ETH,746,Asosa University,,,,,,10.067,34.517,0,no risk
+ETH,747,,,,,,,10.895,38.276,0,no risk
+ETH,748,assosa university,,,,,,10.091,34.56,0,no risk
+ETH,749,,,,,,,9.041,35.106,0,no risk
+ETH,750,Lalo Aira secondary and preparatory school,,,,,,9.09,35.392,0,no risk
+ETH,751,Hawassa University Institute of Technology,,,,,,7.048,38.499,0,no risk
+ETH,752,,,,,,,14.171,37.724,0,no risk
+ETH,753,አሶሳ ዪኒቨርሲቲ Assosa University (ASU),,,,,,10.089,34.559,0,no risk
+ETH,754,,,,,,,13.479,39.461,0,no risk
+ETH,755,,,,,,,14.171,37.724,0,no risk
+ETH,756,,,,,,,14.172,37.729,0,no risk
+ETH,757,,,,,,,13.52,39.326,0,no risk
+ETH,758,,,,,,,11.13,39.224,0,no risk
+ETH,759,Gaya Primary School,,,,,,11.0,39.202,0,no risk
+ETH,760,Adi Shuhu Secondary School,,,,,,12.927,39.53,0,no risk
+ETH,761,Islamic school,,,,,,12.63,39.033,0,no risk
+ETH,762,primary school Dimtoo,,,,,,10.584,39.886,0,no risk
+ETH,763,,,,,,,11.123,39.223,0,no risk
+ETH,764,,,,,,,14.212,37.565,0,no risk
+ETH,765,New English Private School (NEPS),,,,,,8.99,38.722,0,no risk
+ETH,766,Wato secondary school,,,,,,8.928,38.656,0,no risk
+ETH,767,Omega primary and secondary school,,,,,,8.999,38.719,0,no risk
+ETH,768,,,,,,,11.575,39.532,0,no risk
+ETH,769,,,,,,,13.145,37.897,0,no risk
+ETH,770,,,,,,,11.063,38.54,0,no risk
+ETH,771,Haik Preparatory and Genera Secondary School,,,,,,11.336,39.675,0,no risk
+ETH,772,,,,,,,11.596,37.402,0,no risk
+ETH,773,,,,,,,13.64,39.141,0,no risk
+ETH,774,Rift Valley University,,,,,,11.601,37.369,0,no risk
+ETH,775,ኣዴና ኣፀደ ህፃናት Adena Kindergarten,,,,,,14.278,39.469,0,no risk
+ETH,776,,,,,,,13.472,37.633,0,no risk
+ETH,777,,,,,,,9.303,39.233,0,no risk
+ETH,778,,,,,,,9.004,38.801,0,no risk
+ETH,779,UoG Maraki Campus square,,,,,,12.587,37.444,0,no risk
+ETH,780,,,,,,,9.021,38.84,0,no risk
+ETH,781,,,,,,,13.875,39.399,0,no risk
+ETH,782,,,,,,,14.183,39.312,0,no risk
+ETH,783,ፅንሰታ ለማርያም ላዕለዋይ 2ይ ብርኪ ቤት ት/ቲ Tsinseta Senior Secondary School,,,,,,14.278,39.467,0,no risk
+ETH,784,ገንፈል ኮሌጅ,,,,,,14.279,39.467,0,no risk
+ETH,785,Adigrat University,,,,,,14.3,39.471,0,no risk
+ETH,786,,,,,,,13.8,39.448,0,no risk
+ETH,787,Gol'a Elementary School,,,,,,14.283,39.482,0,no risk
+ETH,788,Agazi Secondary School ኣግኣዚ ካልኣይ ብርኪ ቤት ትምህርቲ,,,,,,14.271,39.469,0,no risk
+ETH,789,Fnote Birhan High school ፍኖተ-ብርሃን 2ይ ብርኪ ቤት ት/ቲ,,,,,,14.278,39.458,0,no risk
+ETH,790,,,,,,,11.087,39.727,0,no risk
+ETH,791,Saesi Secondary School,,,,,,14.295,39.552,0,no risk
+ETH,792,Kiros Alemayoh High School,,,,,,13.964,39.596,0,no risk
+ETH,793,Flipper International School - Beklobet,,,,,,8.998,38.762,0,no risk
+ETH,794,University of Gondar ICT Office,,,,,,12.589,37.442,0,no risk
+ETH,795,,,,,,,13.782,39.604,0,no risk
+ETH,796,,,,,,,12.544,37.43,0,no risk
+ETH,797,UoG Tewodros Campus Library,,,,,,12.588,37.441,0,no risk
+ETH,798,,,,,,,13.827,39.629,0,no risk
+ETH,799,,,,,,,13.886,39.6,0,no risk
+ETH,800,Negash Secondary School,,,,,,13.89,39.603,0,no risk
+ETH,801,,,,,,,13.568,39.077,0,no risk
+ETH,802,,,,,,,13.654,39.295,0,no risk
+ETH,803,,,,,,,13.63,39.287,0,no risk
+ETH,804,,,,,,,13.782,39.604,0,no risk
+ETH,805,,,,,,,10.351,37.718,0,no risk
+ETH,806,ኢትዮ-ሌንስ ኮሌጅ Ethio-Lens Collage,,,,,,14.283,39.466,0,no risk
+ETH,807,,,,,,,10.782,36.292,0,no risk
+ETH,808,,,,,,,8.765,39.0,0,no risk
+ETH,809,,,,,,,13.662,39.178,0,no risk
+ETH,810,Yedget Chora High School,,,,,,9.033,38.879,0,no risk
+ETH,811,,,,,,,13.649,39.225,0,no risk
+ETH,812,,,,,,,13.568,39.113,0,no risk
+ETH,813,,,,,,,13.601,39.269,0,no risk
+ETH,814,,,,,,,13.601,39.156,0,no risk
+ETH,815,Bahirdar university Zenzelma Campus,,,,,,11.621,37.461,0,no risk
+ETH,816,Forestery College,,,,,,7.107,38.616,0,no risk
+ETH,817,,,,,,,9.421,42.036,0,no risk
+ETH,818,,,,,,,9.013,38.75,0,no risk
+ETH,819,,,,,,,8.936,38.655,0,no risk
+ETH,820,,,,,,,13.61,39.263,0,no risk
+ETH,821,,,,,,,13.613,39.205,0,no risk
+ETH,822,,,,,,,13.642,39.324,0,no risk
+ETH,823,,,,,,,13.722,39.174,0,no risk
+ETH,824,,,,,,,13.647,39.174,0,no risk
+ETH,825,,,,,,,13.631,39.184,0,no risk
+ETH,826,Abyot Ermja Or Mision School,,,,,,9.005,38.771,0,no risk
+ETH,827,Primairy school,,,,,,11.056,37.313,0,no risk
+ETH,828,Cecilia School- Alamura Branch,,,,,,7.023,38.49,0,no risk
+ETH,829,Cecilia School - Menehariya Branch,,,,,,7.046,38.489,0,no risk
+ETH,830,,,,,,,13.878,39.325,0,no risk
+ETH,831,,,,,,,13.88,39.474,0,no risk
+ETH,832,,,,,,,13.853,39.529,0,no risk
+ETH,833,አቤኔዘር አካዳሚ Abenezer academy KG and Primary school,,,,,,8.879,38.767,0,no risk
+ETH,834,B.M.B (Embutoch) Academy እንቡጦቹ አካዳሚ,,,,,,8.882,38.766,0,no risk
+ETH,835,B.M.B (Embutoch) Academy እንቡጦቹ አካዳሚ,,,,,,8.881,38.766,0,no risk
+ETH,836,,,,,,,13.887,39.601,0,no risk
+ETH,837,,,,,,,9.039,38.758,0,no risk
+ETH,838,,,,,,,8.989,38.756,0,no risk
+ETH,839,,,,,,,8.974,38.744,0,no risk
+ETH,840,,,,,,,8.938,38.747,0,no risk
+ETH,841,,,,,,,3.766,39.229,0,no risk
+ETH,842,Dagmawi tewedrose 1st level school,,,,,,11.851,38.016,0,no risk
+ETH,843,Admas University College Kality Campus,,,,,,8.93,38.768,0,no risk
+ETH,844,AASTU College of Biological and Chemical Engineering,,,,,,8.884,38.809,0,no risk
+ETH,845,,,,,,,6.863,37.762,0,no risk
+ETH,846,,,,,,,9.04,38.759,0,no risk
+ETH,847,,,,,,,9.001,38.802,0,no risk
+ETH,848,Engineering Solution Training Center,,,,,,8.954,38.762,0,no risk
+ETH,849,,,,,,,9.037,38.757,0,no risk
+ETH,850,,,,,,,13.492,39.463,0,no risk
+ETH,851,,,,,,,9.597,37.847,0,no risk
+ETH,852,,,,,,,8.982,37.864,0,no risk
+ETH,853,,,,,,,9.598,37.844,0,no risk
+ETH,854,,,,,,,3.46,39.555,0,no risk
+ETH,855,Chora General Secondary School,,,,,,6.86,37.77,0,no risk
+ETH,856,kechene debre selam,,,,,,9.057,38.75,0,no risk
+ETH,857,Berkume Secondary and Preparatory School,,,,,,8.99,40.877,0,no risk
+ETH,858,Eyes School,,,,,,13.577,39.54,0,no risk
+ETH,859,Karamara Primary Public School,,,,,,9.02,38.735,0,no risk
+ETH,860,TTC hawassa,,,,,,7.035,38.475,0,no risk
+ETH,861,Arsema kindergarten,,,,,,6.42,38.297,0,no risk
+ETH,862,Goro primary school,,,,,,8.995,38.827,0,no risk
+ETH,863,Tana Haik High School,,,,,,11.6,37.371,0,no risk
+ETH,864,Donbosco,,,,,,6.423,38.297,0,no risk
+ETH,865,Donbosco,,,,,,6.427,38.297,0,no risk
+ETH,866,,,,,,,9.676,39.545,0,no risk
+ETH,867,Ayder Elementary & Junior school,,,,,,13.513,39.469,0,no risk
+ETH,868,Beseka Secondary School,,,,,,8.88,38.785,0,no risk
+ETH,869,Dilla high school,,,,,,6.407,38.307,0,no risk
+ETH,870,Paradise valley college,,,,,,6.423,38.296,0,no risk
+ETH,871,Sumera campus,,,,,,6.426,38.287,0,no risk
+ETH,872,,,,,,,9.011,38.737,0,no risk
+ETH,873,Assosa Kindergarten,,,,,,10.062,34.538,0,no risk
+ETH,874,Debeli Primary School,,,,,,9.44,39.027,0,no risk
+ETH,875,,,,,,,13.485,39.467,0,no risk
+ETH,876,Shambel  Abebe Bikila Secondary School,,,,,,9.361,38.999,0,no risk
+ETH,877,School,,,,,,5.244,44.731,0,no risk
+ETH,878,UoG main Gate,,,,,,12.591,37.444,0,no risk
+ETH,879,Yechilla Secondary School,,,,,,13.285,38.987,0,no risk
+ETH,880,,,,,,,13.62,39.002,0,no risk
+ETH,881,Assosa Primary School,,,,,,10.062,34.537,0,no risk
+ETH,882,Assosa University,,,,,,10.089,34.56,0,no risk
+ETH,883,Yechilla Public Primary School,,,,,,13.286,38.996,0,no risk
+ETH,884,Flipper International School,,,,,,9.021,38.772,0,no risk
+ETH,885,unity university,,,,,,9.014,38.716,0,no risk
+ETH,886,One Planet International,,,,,,9.016,38.801,0,no risk
+ETH,887,Aba Gebre Micheal school - ቤት ት/ቲ ኣባ ገብረ ሚካኤል,,,,,,13.481,39.463,0,no risk
+ETH,888,,,,,,,9.024,36.449,0,no risk
+ETH,889,,,,,,,8.979,36.439,0,no risk
+ETH,890,,,,,,,10.148,36.533,0,no risk
+ETH,891,,,,,,,10.954,36.787,0,no risk
+ETH,892,,,,,,,10.926,36.757,0,no risk
+ETH,893,,,,,,,10.767,36.559,0,no risk
+ETH,894,,,,,,,10.737,36.642,0,no risk
+ETH,895,,,,,,,11.025,37.444,0,no risk
+ETH,896,,,,,,,11.055,37.43,0,no risk
+ETH,897,,,,,,,10.515,37.619,0,no risk
+ETH,898,,,,,,,10.757,38.085,0,no risk
+ETH,899,,,,,,,10.803,37.989,0,no risk
+ETH,900,,,,,,,10.803,37.937,0,no risk
+ETH,901,,,,,,,10.824,38.26,0,no risk
+ETH,902,,,,,,,11.297,38.405,0,no risk
+ETH,903,,,,,,,10.646,38.142,0,no risk
+ETH,904,,,,,,,10.741,38.075,0,no risk
+ETH,905,,,,,,,10.896,38.004,0,no risk
+ETH,906,,,,,,,10.892,38.273,0,no risk
+ETH,907,,,,,,,9.078,38.757,0,no risk
+ETH,908,,,,,,,13.276,38.273,0,no risk
+ETH,909,Entoto Amba School,,,,,,9.064,38.761,0,no risk
+ETH,910,,,,,,,13.146,38.382,0,no risk
+ETH,911,,,,,,,9.292,36.312,0,no risk
+ETH,912,,,,,,,9.174,36.462,0,no risk
+ETH,913,,,,,,,9.315,36.371,0,no risk
+ETH,914,,,,,,,9.329,36.332,0,no risk
+ETH,915,,,,,,,13.113,38.274,0,no risk
+ETH,916,,,,,,,8.857,35.658,0,no risk
+ETH,917,,,,,,,8.846,35.65,0,no risk
+ETH,918,Shimbet elementary school,,,,,,11.603,37.366,0,no risk
+ETH,919,Bole Kale-Hiwot School,,,,,,8.979,38.775,0,no risk
+ETH,920,Wisdom  Tour,,,,,,11.587,37.395,0,no risk
+ETH,921,Gondar Teachers Teaching College,,,,,,12.607,37.457,0,no risk
+ETH,922,,,,,,,9.013,38.729,0,no risk
+ETH,923,,,,,,,9.183,42.387,0,no risk
+ETH,924,,,,,,,9.325,39.286,0,no risk
+ETH,925,Abune Basilouse primary School,,,,,,8.977,38.707,0,no risk
+ETH,926,,,,,,,9.037,38.773,0,no risk
+ETH,927,,,,,,,14.329,38.11,0,no risk
+ETH,928,gerima teklehaymanot church,,,,,,8.437,38.567,0,no risk
+ETH,929,Qudus Qur'an School,,,,,,8.548,39.263,0,no risk
+ETH,930,Mana Barumsa Biiftuu Baatuu,,,,,,7.938,38.713,0,no risk
+ETH,931,Ethiopia Institute of Technology - Mekelle (EIT-M),,,,,,13.481,39.486,0,no risk
+ETH,932,"Bahir Dar University, BiT",,,,,,11.598,37.396,0,no risk
+ETH,933,Splendor Academy,,,,,,8.743,38.971,0,no risk
+ETH,934,Wisdom Tower,,,,,,11.587,37.396,0,no risk
+ETH,935,Urji Beri School,,,,,,8.939,38.675,0,no risk
+ETH,936,Abiyot Elementary School,,,,,,9.017,38.793,0,no risk
+ETH,937,Addis International Academy,,,,,,8.986,38.799,0,no risk
+ETH,938,Abune Gorgorios School,,,,,,8.951,38.716,0,no risk
+ETH,939,Wachemo University,,,,,,7.554,37.884,0,no risk
+ETH,940,Jigjiga Univerity Department of Anagement,,,,,,9.358,42.83,0,no risk
+ETH,941,"Bahir Dar University, Yibab campus",,,,,,11.571,37.33,0,no risk
+ETH,942,በአዲስ አበባ ዩኒቨርሲቲ የተፈጥሮ ሳይንስ  ት/ክፍል,,,,,,9.034,38.764,0,no risk
+ETH,943,SCHOOL-4 HILAWEYN,,,,,,4.364,41.867,0,no risk
+ETH,944,Primary School-1 Hilaweyn,,,,,,4.365,41.856,0,no risk
+ETH,945,,,,,,,6.957,37.983,0,no risk
+ETH,946,Dibora School,,,,,,9.01,38.849,0,no risk
+ETH,947,SCHOOL OF AYGODA,,,,,,8.955,38.765,0,no risk
+ETH,948,,,,,,,6.831,37.753,0,no risk
+ETH,949,Hotè,,,,,,11.126,39.639,0,no risk
+ETH,950,Don Bosco Sodo,,,,,,6.86,37.747,0,no risk
+ETH,951,,,,,,,9.811,42.611,0,no risk
+ETH,952,,,,,,,8.998,35.191,0,no risk
+ETH,953,,,,,,,8.847,38.81,0,no risk
+ETH,954,Unity University College,,,,,,9.003,38.805,0,no risk
+ETH,955,,,,,,,9.022,38.834,0,no risk
