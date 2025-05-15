@@ -137,7 +137,6 @@ export class AdminAreaService {
     if (placeCodes && placeCodes.length > 0) {
       whereFilters['placeCode'] = In(placeCodes);
     }
-    console.log('whereFilters: ', whereFilters);
     const adminAreasWithActiveEvents = await this.adminAreaRepository
       .createQueryBuilder('area')
       .innerJoin(
@@ -147,12 +146,11 @@ export class AdminAreaService {
       )
       .where(whereFilters)
       .getMany();
-    console.log('adminAreasWithActiveEvents: ', adminAreasWithActiveEvents);
 
     // If any active events found, throw ForbiddenException to protect data
     if (adminAreasWithActiveEvents.length > 0) {
       const activePlaceCodes = adminAreasWithActiveEvents.map(
-        (area) => area.placeCode,
+        ({ placeCode }) => placeCode,
       );
       throw new ForbiddenException(
         `Cannot delete admin areas with active events. Found ${adminAreasWithActiveEvents.length} areas with active events: ${activePlaceCodes.join(', ')}`,
