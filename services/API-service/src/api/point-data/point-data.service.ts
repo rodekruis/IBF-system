@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { validate } from 'class-validator';
 import { IsNull, MoreThanOrEqual, Repository } from 'typeorm';
+import { FeatureCollection } from 'typeorm';
 
-import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { WhatsappService } from '../notification/whatsapp/whatsapp.service';
@@ -52,7 +52,7 @@ export class PointDataService {
     pointDataCategory: PointDataCategory,
     countryCodeISO3: string,
     disasterType: DisasterType,
-  ): Promise<GeoJson> {
+  ): Promise<FeatureCollection> {
     const attributes = [];
     const pointDto = this.getPointDto(pointDataCategory);
 
@@ -118,7 +118,7 @@ export class PointDataService {
 
     const pointData = await pointDataQuery.getRawMany();
 
-    return this.helperService.toGeojson(pointData);
+    return this.helperService.getFeatureCollection(pointData);
   }
 
   private getPointDto(pointDataCategory: PointDataCategory) {

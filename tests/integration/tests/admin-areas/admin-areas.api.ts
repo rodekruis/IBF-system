@@ -27,3 +27,14 @@ export function getAdminAreaAggregates(
     `/admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}`,
   );
 }
+
+export function deleteAdminAreas(
+  countryCodeISO3: string,
+  adminLevel: AdminLevel,
+  token: string,
+  placeCodes: string[],
+) {
+  return api(token)
+    .delete(`/admin-areas/${countryCodeISO3}/${adminLevel}`)
+    .send({ placeCodes, secret: process.env.RESET_SECRET });
+}

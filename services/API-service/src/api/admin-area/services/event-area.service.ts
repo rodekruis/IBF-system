@@ -1,10 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
+import {
+  Geometry,
+  GeometryCollection,
+  InsertResult,
+  MoreThanOrEqual,
+  Repository,
+} from 'typeorm';
+import { FeatureCollection } from 'typeorm';
 
 import { AggregateDataRecord, Event } from '../../../shared/data.model';
-import { GeoJson } from '../../../shared/geo.model';
 import { HelperService } from '../../../shared/helper.service';
 import {
   AdminAreaDynamicDataEntity,
@@ -40,7 +46,7 @@ export class EventAreaService {
   public async addOrUpdateEventAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
-    eventAreasGeoJson: GeoJson,
+    eventAreasGeoJson: FeatureCollection,
   ) {
     //delete existing entries for country & adminlevel first
     await this.eventAreaRepository.delete({ countryCodeISO3 });
@@ -55,7 +61,11 @@ export class EventAreaService {
             countryCodeISO3,
             disasterType,
             eventAreaName: area.properties[`name`],
-            geom: (): string => this.geomFunction(area.geometry.coordinates),
+            geom: (): string =>
+              this.geomFunction(
+                (area.geometry as Exclude<Geometry, GeometryCollection>) // REFACTOR: remove typecast
+                  .coordinates,
+              ),
           })
           .execute();
       }),
@@ -72,7 +82,7 @@ export class EventAreaService {
     countryCodeISO3: string,
     disasterType: DisasterTypeEntity,
     lastUploadDate: LastUploadDateDto,
-  ): Promise<GeoJson> {
+  ): Promise<FeatureCollection> {
     const eventAreas = [];
 
     const events = await this.eventService.getEvents(
@@ -131,8 +141,8 @@ export class EventAreaService {
         eventAreas.push(eventArea);
       }
     }
-    const geoJson = this.helperService.toGeojson(eventAreas);
-    return geoJson;
+
+    return this.helperService.getFeatureCollection(eventAreas);
   }
 
   public async getEventAreaAggregates(

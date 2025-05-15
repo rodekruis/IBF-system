@@ -5,10 +5,11 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  Point,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { GeoJson } from '../../shared/geo.model';
+import { point } from '../../shared/geo.model';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../country/country.entity';
 
@@ -53,7 +54,7 @@ export class TyphoonTrackEntity {
   @Column({ nullable: true })
   public eventName: string;
 
-  @ApiProperty({ example: new GeoJson() })
-  @Column('json', { nullable: true })
-  public geom: JSON;
+  @ApiProperty({ example: point })
+  @Column('json', { nullable: true }) // REFACTOR: convert to Point type
+  public geom: Point;
 }

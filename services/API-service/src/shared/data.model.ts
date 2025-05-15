@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { Geometry } from 'typeorm';
+
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AlertLevel } from '../api/event/enum/alert-level.enum';
-import { Geometry } from './geo.model';
 
 export class AdminAreaRecord {
   public placeCode: string;
