@@ -2,9 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import {
+  Geometry,
+  GeometryCollection,
   InsertResult,
   MoreThanOrEqual,
-  MultiPolygon,
   Repository,
 } from 'typeorm';
 import { FeatureCollection } from 'typeorm';
@@ -61,7 +62,10 @@ export class EventAreaService {
             disasterType,
             eventAreaName: area.properties[`name`],
             geom: (): string =>
-              this.geomFunction((area.geometry as MultiPolygon).coordinates), // REFACTOR: remove typecast
+              this.geomFunction(
+                (area.geometry as Exclude<Geometry, GeometryCollection>) // REFACTOR: remove typecast
+                  .coordinates,
+              ),
           })
           .execute();
       }),

@@ -31,6 +31,7 @@ import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaService } from './admin-area.service';
 import { AdminAreaParams } from './dto/admin-area.dto';
+import { AdminAreaUpdateResult } from './dto/admin-area.dto';
 import { DeleteAdminAreasDto } from './dto/delete-admin-areas.dto';
 import { AdminAreaUploadDto } from './dto/upload-admin-areas.dto';
 import { EventAreaService } from './services/event-area.service';
@@ -56,6 +57,11 @@ export class AdminAreaController {
     type: 'boolean',
     description:
       'IMPORTANT: Set to true to remove all existing admin-areas for this country and admin-level before adding new ones. WARNING: This may remove event data.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Summary of admin area changes',
+    type: [AdminAreaUpdateResult],
   })
   @Post(':countryCodeISO3/:adminLevel')
   @UseInterceptors()
@@ -86,6 +92,7 @@ export class AdminAreaController {
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'adminLevel', required: true, type: 'number' })
+  @ApiResponse({ status: 200, description: 'Admin areas deleted' })
   @Delete(':countryCodeISO3/:adminLevel')
   @UseInterceptors()
   public async deleteAdminAreas(
