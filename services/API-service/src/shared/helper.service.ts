@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
+import { feature, featureCollection } from '@turf/helpers';
 import csv from 'csv-parser';
 import { DataSource, Geometry } from 'typeorm';
-import { FeatureCollection } from 'typeorm';
 import { Readable } from 'typeorm/platform/PlatformTools';
 
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
@@ -18,16 +18,10 @@ import { NumberFormat } from './enums/number-format.enum';
 export class HelperService {
   public constructor(private dataSource: DataSource) {}
 
-  public getFeatureCollection = (
-    features: { geom: Geometry }[],
-  ): FeatureCollection => ({
-    type: 'FeatureCollection',
-    features: features.map(({ geom: geometry, ...properties }) => ({
-      type: 'Feature',
-      geometry,
-      properties,
-    })),
-  });
+  public getFeatureCollection = (features: { geom: Geometry }[]) =>
+    featureCollection(
+      features.map(({ geom, ...properties }) => feature(geom, properties)),
+    );
 
   public getUploadCutoffMoment(disasterType: DisasterType, date: Date): Date {
     const lastInterval = new Date(date);
