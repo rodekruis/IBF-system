@@ -314,6 +314,7 @@
     "description": {
       "ETH": {
         "drought": "This layer shows health sites in areas that are covered by this portal. Health sites are marked with a drop pin with an icon of a house with the letter H, clicking on the drop pin opens a pop up with information about the type of health site and its location..<br/><br/>Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>",
+        "flash-floods": "This layer shows health sites in areas that are covered by this flash floods portal. Health sites that are marked with a blue indicator means that they are outside of the predicted flash flood extent area and are therefore safe. Health sites that are marked with a red indicator means that they are inside of the predicted flash flood extent area and are therefore exposed.<br/><br/>Source: TBD",
         "floods": "This layer shows health sites in areas that are covered by this portal. Health sites are marked with a drop pin with an icon of a house with the letter H, clicking on the drop pin opens a pop up with information about the type of health site and its location.<br/><br/>Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>",
         "malaria": "This layer shows health sites in areas that are covered by this portal. Health sites are marked with a drop pin with an icon of a house with the letter H, clicking on the drop pin opens a pop up with information about the type of health site and its location.<br/><br/>Source: <a href='https://healthsites.io/'>https://healthsites.io/<a/>"
       },
@@ -409,6 +410,9 @@
     "leadTimeDependent": false,
     "active": "no",
     "description": {
+      "ETH": {
+        "flash-floods": "This layer shows schools in areas that are covered in this flash floods portal. Schools that are marked with a blue indicator means that they are outside the predicted flash flood extent area and are therefore safe. Schools that are marked with a red indicator means that they are inside of the predicted flash flood extent area and are therefore exposed.<br/><br/>Source: TBD"
+      },
       "MWI": {
         "flash-floods": "This layer shows schools in areas that are covered in this flash floods portal. Schools that are marked with a blue indicator means that they are outside the predicted flash flood extent area and are therefore safe. Schools that are marked with a red indicator means that they are inside of the predicted flash flood extent area and are therefore exposed.<br/><br/>Source: Provided by Unicef Malawi."
       }
@@ -420,7 +424,10 @@
     "type": "point",
     "leadTimeDependent": false,
     "active": "no",
-    "description": { "MWI": { "flash-floods": "TBD" } }
+    "description": {
+      "ETH": { "flash-floods": "TBD" },
+      "MWI": { "flash-floods": "TBD" }
+    }
   },
   {
     "name": "gauges",
@@ -437,13 +444,16 @@
   {
     "name": "roads",
     "label": "Roads",
-    "type": "wms",
+    "type": "line",
     "leadTimeDependent": false,
     "active": "no",
     "legendColor": {
       "MWI": { "type": "exposure-line", "value": ["#E80C0C", "#33A02C"] }
     },
     "description": {
+      "ETH": {
+        "flash-floods": "This layer shows roads in areas that are covered in this flash floods portal. Each road is marked a line. Roads marked with a green line means it is outside the predicted flash flood extent area and are therefore safe. Roads marked with a red line means it is inside the predicted flash flood extent area and are therefore exposed. This layer only shows the main roads, which is different from the indicator in the middle column.<br/><br/>Source: OpenStreetMap"
+      },
       "MWI": {
         "flash-floods": "This layer shows roads in areas that are covered in this flash floods portal. Each road is marked a line. Roads marked with a green line means it is outside the predicted flash flood extent area and are therefore safe. Roads marked with a red line means it is inside the predicted flash flood extent area and are therefore exposed. This layer only shows the main roads, which is different from the indicator in the middle column.<br/><br/>Source: OpenStreetMap"
       }
@@ -452,13 +462,16 @@
   {
     "name": "buildings",
     "label": "Buildings",
-    "type": "wms",
+    "type": "line",
     "leadTimeDependent": false,
     "active": "no",
     "legendColor": {
       "MWI": { "type": "exposure-square", "value": ["#C70000", "#33A02C"] }
     },
     "description": {
+      "ETH": {
+        "flash-floods": "This layer shows buildings in areas that are covered in this flash floods portal. Each building is outlined. Buildings outlined in green means they are outside the predicted flood extent area and are therefore safe. Buildings outlined in red means it is inside the predicted flood extent area and therefore exposed.<br/><br/>Source: OpenStreetMap"
+      },
       "MWI": {
         "flash-floods": "This layer shows buildings in areas that are covered in this flash floods portal. Each building is outlined. Buildings outlined in green means they are outside the predicted flood extent area and are therefore safe. Buildings outlined in red means it is inside the predicted flood extent area and therefore exposed.<br/><br/>Source: OpenStreetMap"
       }

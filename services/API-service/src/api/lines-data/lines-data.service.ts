@@ -102,6 +102,7 @@ export class LinesDataService {
 
       const validationError = await validate(linesDto);
       if (validationError.length > 0) {
+        console.log('Seed line data validation error: ', validationError);
         validationErrors.push({ lineNumber: i + 1, validationError });
       }
 
