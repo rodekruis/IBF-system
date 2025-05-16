@@ -1,0 +1,38 @@
+[
+  {
+    "placeCode": "ET150109",
+    "amount": 0
+  },
+  {
+    "placeCode": "ET150111",
+    "amount": 1
+  },
+  {
+    "placeCode": "ET150110",
+    "amount": 2
+  },
+  {
+    "placeCode": "ET150113",
+    "amount": 3
+  },
+  {
+    "placeCode": "ET150112",
+    "amount": 4
+  },
+  {
+    "placeCode": "ET150114",
+    "amount": 5
+  },
+  {
+    "placeCode": "ET150104",
+    "amount": 6
+  },
+  {
+    "placeCode": "ET150105",
+    "amount": 7
+  },
+  {
+    "placeCode": "ET150103",
+    "amount": 8
+  }
+]

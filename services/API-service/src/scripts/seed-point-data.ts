@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { DataSource } from 'typeorm';
 
@@ -58,10 +58,15 @@ export class SeedPointData implements InterfaceScript {
     countryCodeISO3: string,
   ) {
     const filename = `./src/scripts/git-lfs/point-layers/${pointDataCategory}_${countryCodeISO3}.csv`;
+    let pointCsv;
+    try {
+      pointCsv = await this.seedHelper.getCsvData<PointDto>(filename);
+    } catch {
+      // If file missing for some countries, this is expected, so we just return
+      return Promise.resolve();
+    }
 
     try {
-      const pointCsv = await this.seedHelper.getCsvData<PointDto>(filename);
-
       const pointDtos = await this.pointDataService.getPointDtos(
         pointDataCategory,
         pointCsv,
@@ -72,8 +77,13 @@ export class SeedPointData implements InterfaceScript {
         countryCodeISO3,
         pointDtos,
       );
-    } catch {
-      return Promise.resolve();
+    } catch (error) {
+      // If validation or upload fails, then log and throw error
+      console.error('Error seeding point data:', error);
+      throw new HttpException(
+        `Error seeding line data for ${pointDataCategory} in ${countryCodeISO3}`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
     }
   }
 }

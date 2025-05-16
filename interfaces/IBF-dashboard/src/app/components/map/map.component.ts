@@ -174,7 +174,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private onLayerChange = (newLayer) => {
     if (newLayer) {
       newLayer =
-        newLayer.data || newLayer.type === IbfLayerType.wms
+        newLayer.data ||
+        [IbfLayerType.wms, IbfLayerType.line].includes(newLayer.type)
           ? this.createLayer(newLayer)
           : newLayer;
 
@@ -351,7 +352,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         case IbfLayerType.shape:
           elements.push(this.mapLegendService.getShapeLegendString(layer));
           break;
-        case IbfLayerType.wms:
+        case IbfLayerType.wms || IbfLayerType.line:
           elements.push(this.mapLegendService.getWmsLegendString(layer));
           break;
         default:
@@ -420,7 +421,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       this.layers.push(layer);
     }
 
-    if (layer.type === IbfLayerType.wms) {
+    if (layer.type === IbfLayerType.wms || layer.type === IbfLayerType.line) {
       layer.leafletLayer = this.createWmsLayer(layer);
       this.layers.push(layer);
     }
@@ -772,9 +773,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           ? event.firstLeadTime
           : this.timelineState.activeLeadTime;
 
-      const name = `ibf-system:${layer.name}_${leadTime ? `${leadTime}_` : ''}${
-        this.country.countryCodeISO3
-      }`;
+      const nameLeadTimePart = leadTime ? `_${leadTime}` : '';
+      const nameCountryPart =
+        layer.type === IbfLayerType.line
+          ? ''
+          : `_${this.country.countryCodeISO3}`;
+      const name = `ibf-system:${layer.name}${nameLeadTimePart}${nameCountryPart}`;
+
       if (!layerNames.includes(name)) {
         layerNames.push(name);
       }
