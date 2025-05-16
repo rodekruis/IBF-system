@@ -42,6 +42,7 @@ export class SeedAdminArea implements InterfaceScript {
         country.countryCodeISO3,
         adminLevel,
         adminJson,
+        true,
       );
     }
 

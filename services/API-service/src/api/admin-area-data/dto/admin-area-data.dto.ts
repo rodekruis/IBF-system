@@ -13,6 +13,7 @@ import {
 import { JoinColumn, ManyToOne } from 'typeorm';
 
 import indicatorData from '../../../scripts/mock-data/drought/ETH/trigger/Belg JAS_Belg/upload-forecast_trigger-2.json';
+import { AdminAreaParams } from '../../admin-area/dto/admin-area.dto';
 import { DynamicDataPlaceCodeDto } from '../../admin-area-dynamic-data/dto/dynamic-data-place-code.dto';
 import { StaticIndicator } from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { AdminLevel } from '../../country/admin-level.enum';
@@ -74,8 +75,6 @@ export class AdminAreaDataJsonDto {
   public dataPlaceCode: DynamicDataPlaceCodeDto[];
 }
 
-export interface AdminAreaDataParams {
-  countryCodeISO3: string;
-  adminLevel: AdminLevel;
+export interface AdminAreaDataParams extends AdminAreaParams {
   indicator: StaticIndicator;
 }

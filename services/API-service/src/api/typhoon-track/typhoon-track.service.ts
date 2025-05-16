@@ -7,9 +7,9 @@ import {
   MoreThanOrEqual,
   Repository,
 } from 'typeorm';
+import { FeatureCollection } from 'typeorm';
 
 import { DisasterSpecificProperties } from '../../shared/data.model';
-import { GeoJson } from '../../shared/geo.model';
 import { HelperService } from '../../shared/helper.service';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { TyphoonCategory } from './dto/trackpoint-details';
@@ -77,7 +77,7 @@ export class TyphoonTrackService {
   public async getTyphoonTrack(
     countryCodeISO3: string,
     eventName: string,
-  ): Promise<GeoJson> {
+  ): Promise<FeatureCollection> {
     const filters = await this.getTrackFilters(countryCodeISO3, eventName);
     const typhoonTrackPoints = await this.typhoonTrackRepository.find({
       select: [
@@ -93,7 +93,7 @@ export class TyphoonTrackService {
       where: filters,
     });
 
-    return this.helperService.toGeojson(typhoonTrackPoints);
+    return this.helperService.getFeatureCollection(typhoonTrackPoints);
   }
 
   public async shouldSendNotification(

@@ -6,7 +6,6 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
-  MultiPolygon,
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -51,7 +50,7 @@ export class AdminAreaEntity {
     srid: 4326,
     nullable: true,
   })
-  public geom: MultiPolygon;
+  public geom: () => string;
 
   @OneToMany(
     (): typeof EventPlaceCodeEntity => EventPlaceCodeEntity,

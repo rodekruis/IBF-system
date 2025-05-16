@@ -2,8 +2,8 @@ import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { AxiosResponse } from 'axios';
+import { FeatureCollection } from 'typeorm';
 
-import { GeoJson } from '../../shared/geo.model';
 import { CountryService } from '../country/country.service';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class WaterpointsService {
 
   public async getWaterpoints(
     countryCodeISO3: string,
-  ): Promise<AxiosResponse<GeoJson>> {
+  ): Promise<AxiosResponse<FeatureCollection>> {
     const country =
       await this.countryService.getBoundingBoxWkt(countryCodeISO3);
     if (!country) {

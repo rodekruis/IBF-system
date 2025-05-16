@@ -8,9 +8,9 @@ import {
 } from '@nestjs/swagger';
 
 import { AxiosResponse } from 'axios';
+import { FeatureCollection } from 'typeorm';
 
 import { RolesGuard } from '../../roles.guard';
-import { GeoJson } from '../../shared/geo.model';
 import { WaterpointsService } from './waterpoints.service';
 
 @ApiBearerAuth()
@@ -36,10 +36,7 @@ export class WaterpointsController {
   @Get(':countryCodeISO3')
   public async getWaterpoints(
     @Param() params,
-  ): Promise<AxiosResponse<GeoJson>> {
-    const result = await this.waterpointsService.getWaterpoints(
-      params.countryCodeISO3,
-    );
-    return result;
+  ): Promise<AxiosResponse<FeatureCollection>> {
+    return this.waterpointsService.getWaterpoints(params.countryCodeISO3);
   }
 }
