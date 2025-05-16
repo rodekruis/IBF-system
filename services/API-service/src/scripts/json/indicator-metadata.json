@@ -1123,7 +1123,10 @@
     }
   },
   {
-    "countryDisasterTypes": { "MWI": { "flash-floods": ["aggregate"] } },
+    "countryDisasterTypes": {
+      "ETH": { "flash-floods": ["aggregate"] },
+      "MWI": { "flash-floods": ["aggregate"] }
+    },
     "name": "nr_affected_roads",
     "label": "Exposed roads",
     "icon": "Roads_affected.svg",
@@ -1139,13 +1142,19 @@
     "unit": "km",
     "aggregateUnit": "km",
     "description": {
+      "ETH": {
+        "flash-floods": "This indicator shows the total length of exposed roads (in kilometers) in the potentially flooded area, calculated based on the selected area. The calculation includes all road types, which may exceed what is shown on the map layer.<br/><br/>Source: OpenStreetMap"
+      },
       "MWI": {
         "flash-floods": "This indicator shows the total length of exposed roads (in kilometers) in the potentially flooded area, calculated based on the selected area. The calculation includes all road types, which may exceed what is shown on the map layer.<br/><br/>Source: OpenStreetMap"
       }
     }
   },
   {
-    "countryDisasterTypes": { "MWI": { "flash-floods": ["aggregate"] } },
+    "countryDisasterTypes": {
+      "ETH": { "flash-floods": ["aggregate"] },
+      "MWI": { "flash-floods": ["aggregate"] }
+    },
     "name": "nr_affected_schools",
     "label": "Exposed schools",
     "icon": "Schools_affected.svg",
@@ -1160,13 +1169,19 @@
     "lazyLoad": true,
     "unit": "schools",
     "description": {
+      "ETH": {
+        "flash-floods": "This indicator shows the total number of school buildings in the potentially flooded area, calculated based on the selected area.<br/><br/>Source schools: TBD"
+      },
       "MWI": {
         "flash-floods": "This indicator shows the total number of school buildings in the potentially flooded area, calculated based on the selected area.<br/><br/>Source schools: Provided by Unicef Malawi."
       }
     }
   },
   {
-    "countryDisasterTypes": { "MWI": { "flash-floods": ["aggregate"] } },
+    "countryDisasterTypes": {
+      "ETH": { "flash-floods": ["aggregate"] },
+      "MWI": { "flash-floods": ["aggregate"] }
+    },
     "name": "nr_affected_clinics",
     "label": "Exposed health sites",
     "icon": "Clinics_affected.svg",
@@ -1181,13 +1196,19 @@
     "lazyLoad": true,
     "unit": "health sites",
     "description": {
+      "ETH": {
+        "flash-floods": "This indicator shows the total number of exposed health sites in the potentially flooded area, calculated based on the selected area.<br/><br/>Source health sites: TBD"
+      },
       "MWI": {
         "flash-floods": "This indicator shows the total number of exposed health sites in the potentially flooded area, calculated based on the selected area.<br/><br/>Source health sites: Malawi's Ministry of Health, publicly available at <a target='_blank' href='https://zipatala.health.gov.mw/facilities'>https://zipatala.health.gov.mw/facilities</a>."
       }
     }
   },
   {
-    "countryDisasterTypes": { "MWI": { "flash-floods": ["aggregate"] } },
+    "countryDisasterTypes": {
+      "ETH": { "flash-floods": ["aggregate"] },
+      "MWI": { "flash-floods": ["aggregate"] }
+    },
     "name": "nr_affected_waterpoints",
     "label": "Exposed waterpoints",
     "icon": "Waterpoints_affected.svg",
@@ -1202,13 +1223,19 @@
     "lazyLoad": true,
     "unit": "waterpoints",
     "description": {
+      "ETH": {
+        "flash-floods": "This indicator shows the total number of exposed water points in the potentially flooded area, calculated based on the selected area.<br/><br/>Source: TBD"
+      },
       "MWI": {
         "flash-floods": "This indicator shows the total number of exposed water points in the potentially flooded area, calculated based on the selected area.<br/><br/>Source: <a target='_blank' href='https://portal.mwater.co'>mWater</a>"
       }
     }
   },
   {
-    "countryDisasterTypes": { "MWI": { "flash-floods": ["aggregate"] } },
+    "countryDisasterTypes": {
+      "ETH": { "flash-floods": ["aggregate"] },
+      "MWI": { "flash-floods": ["aggregate"] }
+    },
     "name": "nr_affected_buildings",
     "label": "Exposed buildings",
     "icon": "Buildings_affected.svg",
@@ -1223,6 +1250,9 @@
     "lazyLoad": true,
     "unit": "buildings",
     "description": {
+      "ETH": {
+        "flash-floods": "This indicator shows the total number of exposed buildings in the potentially flooded area, calculated based on the selected area.<br/><br/>Source: OpenStreetMap"
+      },
       "MWI": {
         "flash-floods": "This indicator shows the total number of exposed buildings in the potentially flooded area, calculated based on the selected area.<br/><br/>Source: OpenStreetMap"
       }
