@@ -1,4 +1,4 @@
-import { Point } from 'typeorm';
+import { Point } from 'geojson';
 
 export class Poi {
   public code: string;

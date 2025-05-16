@@ -1,16 +1,8 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import {
-  DeleteResult,
-  FeatureCollection,
-  Geometry,
-  GeometryCollection,
-  In,
-  MoreThanOrEqual,
-  Not,
-  Repository,
-} from 'typeorm';
+import { FeatureCollection, Geometry, GeometryCollection } from 'geojson';
+import { DeleteResult, In, MoreThanOrEqual, Not, Repository } from 'typeorm';
 
 import { AggregateDataRecord } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';

@@ -22,7 +22,7 @@ import {
 } from '@nestjs/swagger';
 
 import { Response } from 'express';
-import { FeatureCollection } from 'typeorm';
+import { FeatureCollection } from 'geojson';
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';

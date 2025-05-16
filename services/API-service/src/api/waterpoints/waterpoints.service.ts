@@ -2,7 +2,7 @@ import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 import { AxiosResponse } from 'axios';
-import { FeatureCollection } from 'typeorm';
+import { FeatureCollection } from 'geojson';
 
 import { CountryService } from '../country/country.service';
 

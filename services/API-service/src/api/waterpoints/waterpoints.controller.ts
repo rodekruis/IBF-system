@@ -8,7 +8,7 @@ import {
 } from '@nestjs/swagger';
 
 import { AxiosResponse } from 'axios';
-import { FeatureCollection } from 'typeorm';
+import { FeatureCollection } from 'geojson';
 
 import { RolesGuard } from '../../roles.guard';
 import { WaterpointsService } from './waterpoints.service';

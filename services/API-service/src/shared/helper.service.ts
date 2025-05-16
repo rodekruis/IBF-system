@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 
 import { feature, featureCollection } from '@turf/helpers';
 import csv from 'csv-parser';
-import { DataSource, Geometry } from 'typeorm';
+import { Geometry } from 'geojson';
+import { DataSource } from 'typeorm';
 import { Readable } from 'typeorm/platform/PlatformTools';
 
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';

@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { validate } from 'class-validator';
+import { FeatureCollection } from 'geojson';
 import { IsNull, MoreThanOrEqual, Repository } from 'typeorm';
-import { FeatureCollection } from 'typeorm';
 
 import { HelperService } from '../../shared/helper.service';
 import { DisasterType } from '../disaster-type/disaster-type.enum';

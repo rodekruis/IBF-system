@@ -22,7 +22,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { FeatureCollection } from 'typeorm';
+import { FeatureCollection } from 'geojson';
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';

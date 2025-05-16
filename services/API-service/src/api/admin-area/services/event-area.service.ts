@@ -1,14 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import {
-  Geometry,
-  GeometryCollection,
-  InsertResult,
-  MoreThanOrEqual,
-  Repository,
-} from 'typeorm';
-import { FeatureCollection } from 'typeorm';
+import { FeatureCollection, Geometry, GeometryCollection } from 'geojson';
+import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
 
 import { AggregateDataRecord, Event } from '../../../shared/data.model';
 import { HelperService } from '../../../shared/helper.service';
