@@ -161,7 +161,7 @@ export class MapService {
     layers.forEach((layer: IbfLayerMetadata) => {
       const layerActive = this.getActiveState(layer);
 
-      if (layer.type === IbfLayerType.wms) {
+      if (layer.type === IbfLayerType.wms || layer.type === IbfLayerType.line) {
         this.loadWmsLayer(layer, layerActive, layer.leadTimeDependent);
       } else if (layer.name === IbfLayerName.adminRegions1) {
         this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel1);
@@ -436,7 +436,7 @@ export class MapService {
     this.addLayer({
       name: layer.name,
       label: layer.label,
-      type: IbfLayerType.wms,
+      type: layer.type,
       group: IbfLayerGroup.wms,
       description: this.getPopoverText(layer),
       active,
@@ -453,7 +453,7 @@ export class MapService {
         attribution: '510 Global',
         crs: CRS.EPSG4326,
         transparent: true,
-        viewparams: `leadTime:${this.timelineState.activeLeadTime}`,
+        viewparams: `countryCodeISO3:${this.country.countryCodeISO3}`,
       } as IbfLayerWMS,
     });
   }

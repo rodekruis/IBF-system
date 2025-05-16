@@ -8,7 +8,10 @@ const getViewQuery = (type: LinesDataCategory) => {
   return () =>
     AppDataSource.createQueryBuilder()
       .select([
-        `line."referenceId",line.geom${
+        `line."referenceId"
+        ,line."countryCodeISO3"
+        ,line.geom
+        ${
           type === LinesDataCategory.roads
             ? `,line.attributes->>'highway' as "highway"`
             : ''
