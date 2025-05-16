@@ -56,6 +56,7 @@ export enum IbfLayerType {
   point = 'point',
   shape = 'shape',
   wms = 'wms',
+  line = 'line',
 }
 
 export enum IbfLayerName {
@@ -65,6 +66,7 @@ export enum IbfLayerName {
   adminRegions3 = 'adminRegions3',
   adminRegions4 = 'adminRegions4',
   affectedPopulation = 'affected_population',
+  buildings = 'buildings',
   communityNotifications = 'community_notifications',
   cropland = 'cropland',
   damSites = 'dams',
