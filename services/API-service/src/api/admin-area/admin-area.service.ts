@@ -513,14 +513,14 @@ export class AdminAreaService {
       whereFilters['eventName'] = eventName;
     }
 
-    const adminAreasToShow = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder()
-      .where(whereFilters)
-      .getMany();
+    const adminAreasToShow = await this.adminAreaDynamicDataRepo.find({
+      where: whereFilters,
+      select: ['placeCode'],
+    });
 
     // The 'showAdminArea' indicator queried for above is only used in Typhoon. Theoretically it could be used more widespread.
     // If no data found, this will correctly return an empty array.
-    return adminAreasToShow.map((area) => area.placeCode);
+    return adminAreasToShow.map(({ placeCode }) => placeCode);
   }
 
   private getEventAdminAreas = (adminAreas: AdminArea[], indicator: string) => {
