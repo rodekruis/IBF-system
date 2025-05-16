@@ -1,7 +1,15 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { FeatureCollection, Geometry, GeometryCollection } from 'geojson';
+import { feature, featureCollection } from '@turf/helpers';
+import { union } from '@turf/union';
+import {
+  FeatureCollection,
+  Geometry,
+  GeometryCollection,
+  MultiPolygon,
+  Polygon,
+} from 'geojson';
 import { DeleteResult, In, MoreThanOrEqual, Not, Repository } from 'typeorm';
 
 import { AggregateDataRecord } from '../../shared/data.model';
@@ -17,7 +25,7 @@ import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
 import { EventService } from '../event/event.service';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { AdminAreaEntity } from './admin-area.entity';
-import { AdminAreaUpdateResult } from './dto/admin-area.dto';
+import { AdminArea, AdminAreaUpdateResult } from './dto/admin-area.dto';
 import { EventAreaService } from './services/event-area.service';
 
 @Injectable()
@@ -374,21 +382,12 @@ export class AdminAreaService {
     eventName: string,
     placeCodeParent?: string,
   ): Promise<FeatureCollection> {
-    const disasterTypeEntity =
+    const { mainExposureIndicator: indicator } =
       await this.disasterTypeService.getDisasterType(disasterType);
     const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
-
-    // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
-    if (disasterType === DisasterType.FlashFloods && !eventName) {
-      return await this.eventAreaService.getEventAreas(
-        countryCodeISO3,
-        disasterTypeEntity,
-        lastUploadDate,
-      );
-    }
 
     let adminAreasScript = this.adminAreaRepository
       .createQueryBuilder('area')
@@ -430,7 +429,7 @@ export class AdminAreaService {
         'area."placeCodeParent" = parent."placeCode"',
       )
       .addSelect([
-        `dynamic.value AS ${disasterTypeEntity.mainExposureIndicator}`,
+        `dynamic.value AS ${indicator}`,
         'dynamic."leadTime"',
         'dynamic."date"',
         'parent.name AS "nameParent"',
@@ -441,9 +440,7 @@ export class AdminAreaService {
         cutoffMoment: lastUploadDate.cutoffMoment,
       })
       .andWhere('dynamic.disasterType = :disasterType', { disasterType })
-      .andWhere('dynamic."indicator" = :indicator', {
-        indicator: disasterTypeEntity.mainExposureIndicator,
-      });
+      .andWhere('dynamic."indicator" = :indicator', { indicator });
     if (leadTime) {
       adminAreasScript.andWhere('dynamic."leadTime" = :leadTime', { leadTime });
     }
@@ -481,9 +478,14 @@ export class AdminAreaService {
     const highestAlertLevels =
       this.eventService.getHighestAlertLevelPerEvent(adminAreas);
     adminAreas = adminAreas.filter(
-      (area) =>
-        area.alertLevel === highestAlertLevels[area.eventName || 'unknown'],
+      ({ alertLevel, eventName }) =>
+        alertLevel === highestAlertLevels[eventName || 'unknown'],
     );
+
+    if (disasterType === DisasterType.FlashFloods && !eventName) {
+      // TODO: use IF admin level is national view (or less than default admin level ?)
+      return this.getEventAdminAreas(adminAreas, indicator);
+    }
 
     return this.helperService.getFeatureCollection(adminAreas);
   }
@@ -520,4 +522,54 @@ export class AdminAreaService {
     // If no data found, this will correctly return an empty array.
     return adminAreasToShow.map((area) => area.placeCode);
   }
+
+  private getEventAdminAreas = (adminAreas: AdminArea[], indicator: string) => {
+    const eventAreas: Record<string, (Polygon | MultiPolygon)[]> = {};
+
+    // reduce admin areas to events by aggregating indicator value
+    const events = adminAreas.reduce((events, adminArea) => {
+      const { geom, eventName, countryCodeISO3, alertLevel } = adminArea;
+      const indicatorValue = adminArea[indicator];
+
+      // try to find an existing event by eventName
+      const existingEvent = events.find(
+        ({ eventName: eventEventName }) => eventEventName === eventName,
+      );
+
+      if (existingEvent) {
+        // add admin area to event
+        eventAreas[eventName].push(geom);
+
+        // aggregate indicator value
+        existingEvent[indicator] =
+          (existingEvent[indicator] ?? 0) + (indicatorValue ?? 0);
+      } else {
+        // create a new event
+        eventAreas[eventName] = [geom];
+
+        events.push({
+          placeCode: eventName,
+          name: eventName,
+          eventName,
+          countryCodeISO3,
+          [indicator]: indicatorValue ?? 0,
+          alertLevel,
+        });
+      }
+
+      return events;
+    }, []);
+
+    // create event features by merging admin areas
+    const eventFeatures = events.map((event) =>
+      union(
+        featureCollection(
+          eventAreas[event.eventName].map((eventArea) => feature(eventArea)),
+        ),
+        { properties: event },
+      ),
+    );
+
+    return featureCollection(eventFeatures);
+  };
 }
