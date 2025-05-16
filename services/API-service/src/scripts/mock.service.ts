@@ -244,12 +244,7 @@ export class MockService {
           );
         }
 
-        if (
-          this.shouldMockExposedAssets(
-            disasterType,
-            selectedCountry.countryCodeISO3,
-          )
-        ) {
+        if (this.shouldMockExposedAssets(disasterType)) {
           await this.mockHelpService.mockExposedAssets(
             selectedCountry.countryCodeISO3,
             date,
@@ -493,13 +488,8 @@ export class MockService {
     ].includes(disasterType);
   }
 
-  private shouldMockExposedAssets(
-    disasterType: DisasterType,
-    countryCodeISO3: string,
-  ): boolean {
-    return (
-      disasterType === DisasterType.FlashFloods && countryCodeISO3 === 'MWI' // TODO: make this conditional based on layers (e.g. roads) being configured for the country/disaster-type
-    );
+  private shouldMockExposedAssets(disasterType: DisasterType): boolean {
+    return disasterType === DisasterType.FlashFloods;
   }
 
   private async shouldMockRiverGaugeData(
