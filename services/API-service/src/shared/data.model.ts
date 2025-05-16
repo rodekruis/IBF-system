@@ -1,19 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { Geometry } from 'typeorm';
-
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AlertLevel } from '../api/event/enum/alert-level.enum';
-
-export class AdminAreaRecord {
-  public placeCode: string;
-  public name: string;
-  public geom: Geometry;
-  public countryCodeISO3: string;
-  public date: Date;
-  public leadTime: string;
-  public population_affected: number;
-}
 
 export class AggregateDataRecord {
   @ApiProperty({ example: 'UG3066' })
