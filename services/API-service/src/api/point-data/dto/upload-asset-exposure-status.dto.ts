@@ -61,6 +61,11 @@ export class UploadDynamicPointDataDto {
   @IsEnum(DisasterType)
   public disasterType: DisasterType;
 
+  @ApiProperty({ example: 'MWI' })
+  @IsNotEmpty()
+  @IsString()
+  public countryCodeISO3: string;
+
   @ApiProperty({ example: PointDataCategory.gauges })
   public pointDataCategory: PointDataCategory;
 

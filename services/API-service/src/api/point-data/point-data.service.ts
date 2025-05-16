@@ -277,6 +277,7 @@ export class PointDataService {
   }
 
   async uploadDynamicPointData({
+    countryCodeISO3,
     disasterType,
     leadTime,
     date,
@@ -288,7 +289,12 @@ export class PointDataService {
 
     for (const { fid, value } of dynamicPointData) {
       const asset = await this.pointDataRepository.findOne({
-        where: { referenceId: fid, pointDataCategory, active: true },
+        where: {
+          referenceId: fid,
+          countryCodeISO3,
+          pointDataCategory,
+          active: true,
+        },
       });
       if (!asset) {
         continue;
@@ -324,6 +330,7 @@ export class PointDataService {
   // REFACTOR: This function is used to map Glofas station dynamic mock data, which is still in format of old endpoint, to format of new endpoint
   // The mock data should be updated to the new format, and then this function can be removed
   public async reformatAndUploadOldGlofasStationData({
+    countryCodeISO3,
     date,
     leadTime,
     stationForecasts,
@@ -342,6 +349,7 @@ export class PointDataService {
       uploadDynamicPointDataDto.leadTime = leadTime;
       uploadDynamicPointDataDto.date = date || new Date();
       uploadDynamicPointDataDto.disasterType = DisasterType.Floods;
+      uploadDynamicPointDataDto.countryCodeISO3 = countryCodeISO3;
       uploadDynamicPointDataDto.dynamicPointData = stationForecasts.map(
         ({ stationCode: fid, ...rest }) => ({ fid, value: rest[key] }),
       );
