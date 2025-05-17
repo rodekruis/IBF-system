@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { feature, featureCollection } from '@turf/helpers';
 import { union } from '@turf/union';
 import {
+  Feature,
   FeatureCollection,
   Geometry,
   GeometryCollection,
@@ -524,7 +525,7 @@ export class AdminAreaService {
   }
 
   private getEventAdminAreas = (adminAreas: AdminArea[], indicator: string) => {
-    const eventAreas: Record<string, (Polygon | MultiPolygon)[]> = {};
+    const eventAreas: Record<string, Feature<Polygon | MultiPolygon>[]> = {};
 
     // reduce admin areas to events by aggregating indicator value
     const events = adminAreas.reduce((events, adminArea) => {
@@ -533,19 +534,19 @@ export class AdminAreaService {
 
       // try to find an existing event by eventName
       const existingEvent = events.find(
-        ({ eventName: eventEventName }) => eventEventName === eventName,
+        ({ eventName: existingEventName }) => existingEventName === eventName,
       );
 
       if (existingEvent) {
         // add admin area to event
-        eventAreas[eventName].push(geom);
+        eventAreas[eventName].push(feature(geom));
 
         // aggregate indicator value
         existingEvent[indicator] =
           (existingEvent[indicator] ?? 0) + (indicatorValue ?? 0);
       } else {
         // create a new event
-        eventAreas[eventName] = [geom];
+        eventAreas[eventName] = [feature(geom)];
 
         events.push({
           placeCode: eventName,
@@ -561,13 +562,10 @@ export class AdminAreaService {
     }, []);
 
     // create event features by merging admin areas
-    const eventFeatures = events.map((event) =>
-      union(
-        featureCollection(
-          eventAreas[event.eventName].map((eventArea) => feature(eventArea)),
-        ),
-        { properties: event },
-      ),
+    const eventFeatures = events.map((properties) =>
+      union(featureCollection(eventAreas[properties.eventName]), {
+        properties,
+      }),
     );
 
     return featureCollection(eventFeatures);
