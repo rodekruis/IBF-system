@@ -75,7 +75,7 @@
     "swagger-ui-express": "^5.0.1",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "tsc-watch": "^6.2.1",
+    "tsc-watch": "^6.3.1",
     "tsconfig-paths": "^4.2.0",
     "yargs": "^17.0.0"
   }
