@@ -1,16 +1,7 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { feature, featureCollection } from '@turf/helpers';
-import { union } from '@turf/union';
-import {
-  Feature,
-  FeatureCollection,
-  Geometry,
-  GeometryCollection,
-  MultiPolygon,
-  Polygon,
-} from 'geojson';
+import { FeatureCollection, Geometry, GeometryCollection } from 'geojson';
 import { DeleteResult, In, MoreThanOrEqual, Not, Repository } from 'typeorm';
 
 import { AggregateDataRecord } from '../../shared/data.model';
@@ -23,11 +14,10 @@ import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
-import { AlertLevel } from '../event/enum/alert-level.enum';
 import { EventService } from '../event/event.service';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { AdminAreaEntity } from './admin-area.entity';
-import { AdminArea, AdminAreaUpdateResult } from './dto/admin-area.dto';
+import { AdminAreaUpdateResult } from './dto/admin-area.dto';
 import { EventAreaService } from './services/event-area.service';
 
 @Injectable()
@@ -486,7 +476,10 @@ export class AdminAreaService {
 
     if (disasterType === DisasterType.FlashFloods && !eventName) {
       // TODO: use IF admin level is national view (or less than default admin level ?)
-      const eventAdminAreas = this.getEventAdminAreas(adminAreas, indicator);
+      const eventAdminAreas = this.eventAreaService.getEventAdminAreas(
+        adminAreas,
+        indicator,
+      );
 
       if (eventAdminAreas.features.length > 0) {
         return eventAdminAreas;
@@ -528,69 +521,4 @@ export class AdminAreaService {
     // If no data found, this will correctly return an empty array.
     return adminAreasToShow.map(({ placeCode }) => placeCode);
   }
-
-  private getEventAdminAreas = (adminAreas: AdminArea[], indicator: string) => {
-    const eventAdminAreas: Record<string, Feature<Polygon | MultiPolygon>[]> =
-      {};
-
-    // reduce admin areas to events by aggregating indicator value
-    const events = adminAreas.reduce((events, adminArea) => {
-      const { geom, eventName, countryCodeISO3, alertLevel } = adminArea;
-      const indicatorValue = adminArea[indicator];
-
-      // try to find an existing event by eventName
-      const existingEvent = events.find(
-        ({ eventName: existingEventName }) => existingEventName === eventName,
-      );
-
-      if (existingEvent) {
-        // add admin area to event
-        eventAdminAreas[eventName].push(feature(geom));
-
-        // aggregate indicator value
-        existingEvent[indicator] =
-          (existingEvent[indicator] ?? 0) + (indicatorValue ?? 0);
-      } else {
-        // create a new event
-        eventAdminAreas[eventName] = [feature(geom)];
-
-        events.push({
-          placeCode: eventName,
-          name: eventName,
-          eventName,
-          countryCodeISO3,
-          [indicator]: indicatorValue ?? 0,
-          alertLevel,
-        });
-      }
-
-      return events;
-    }, []);
-
-    // create event features by merging admin areas
-    const eventFeatures = events
-      .map((properties) => {
-        const adminAreas = eventAdminAreas[properties.eventName];
-        if (!adminAreas) {
-          return null;
-        }
-
-        if (properties.alertLevel == AlertLevel.NONE) {
-          // return null to exclude no alert events
-          // getAdminAreas will fallback to admin areas if no alert event is found
-          return null;
-        }
-
-        if (adminAreas.length > 1) {
-          return union(featureCollection(adminAreas), { properties });
-        } else if (adminAreas.length === 1) {
-          return feature(adminAreas[0].geometry, properties);
-        }
-
-        return null;
-      })
-      .filter(Boolean);
-
-    return featureCollection(eventFeatures);
-  };
 }

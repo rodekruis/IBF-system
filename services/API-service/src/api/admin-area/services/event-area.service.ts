@@ -1,7 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { FeatureCollection, Geometry, GeometryCollection } from 'geojson';
+import { feature, featureCollection } from '@turf/helpers';
+import { union } from '@turf/union';
+import {
+  Feature,
+  FeatureCollection,
+  Geometry,
+  GeometryCollection,
+} from 'geojson';
 import { InsertResult, MoreThanOrEqual, Repository } from 'typeorm';
 
 import { AggregateDataRecord, Event } from '../../../shared/data.model';
@@ -23,6 +30,7 @@ import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
 import { AlertLevel } from '../../event/enum/alert-level.enum';
 import { EventService } from '../../event/event.service';
+import { AdminArea } from '../dto/admin-area.dto';
 import { EventAreaEntity } from '../event-area.entity';
 
 @Injectable()
@@ -231,4 +239,77 @@ export class EventAreaService {
       .groupBy('dynamic."indicator"')
       .getRawMany();
   }
+
+  public getEventAdminAreas = (adminAreas: AdminArea[], indicator: string) => {
+    const eventAdminAreas: Record<string, Feature<AdminArea['geom']>[]> = {};
+
+    // reduce admin areas to events by aggregating indicator value
+    const events = adminAreas.reduce((events, adminArea) => {
+      const { geom, eventName, countryCodeISO3, alertLevel } = adminArea;
+      const indicatorValue = adminArea[indicator];
+
+      // try to find an existing event by eventName
+      const existingEvent = events.find(
+        ({ eventName: existingEventName }) => existingEventName === eventName,
+      );
+
+      if (existingEvent) {
+        // add admin area to event
+        eventAdminAreas[eventName].push(feature(geom));
+
+        // aggregate indicator value
+        existingEvent[indicator] =
+          (existingEvent[indicator] ?? 0) + (indicatorValue ?? 0);
+      } else {
+        // create a new event
+        eventAdminAreas[eventName] = [feature(geom)];
+
+        events.push({
+          placeCode: eventName,
+          name: eventName,
+          eventName,
+          countryCodeISO3,
+          [indicator]: indicatorValue ?? 0,
+          alertLevel,
+        });
+      }
+
+      return events;
+    }, []);
+
+    // create event features by merging admin areas
+    const eventFeatures = events
+      .map((properties) =>
+        this.getEventAdminArea(
+          eventAdminAreas[properties.eventName],
+          properties,
+        ),
+      )
+      .filter(Boolean); // filter out null values
+
+    return featureCollection(eventFeatures);
+  };
+
+  private getEventAdminArea = (
+    adminAreas: Feature<AdminArea['geom']>[],
+    properties: Omit<AdminArea, 'geom'>,
+  ) => {
+    if (!adminAreas) {
+      return null;
+    }
+
+    if (properties.alertLevel == AlertLevel.NONE) {
+      // return null to exclude no alert events
+      // getAdminAreas will fallback to admin areas if no alert event is found
+      return null;
+    }
+
+    if (adminAreas.length > 1) {
+      return union(featureCollection(adminAreas), { properties });
+    } else if (adminAreas.length === 1) {
+      return feature(adminAreas[0].geometry, properties);
+    }
+
+    return null;
+  };
 }
