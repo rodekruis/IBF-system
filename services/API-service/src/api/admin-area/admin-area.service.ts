@@ -525,7 +525,8 @@ export class AdminAreaService {
   }
 
   private getEventAdminAreas = (adminAreas: AdminArea[], indicator: string) => {
-    const eventAreas: Record<string, Feature<Polygon | MultiPolygon>[]> = {};
+    const eventAdminAreas: Record<string, Feature<Polygon | MultiPolygon>[]> =
+      {};
 
     // reduce admin areas to events by aggregating indicator value
     const events = adminAreas.reduce((events, adminArea) => {
@@ -539,14 +540,14 @@ export class AdminAreaService {
 
       if (existingEvent) {
         // add admin area to event
-        eventAreas[eventName].push(feature(geom));
+        eventAdminAreas[eventName].push(feature(geom));
 
         // aggregate indicator value
         existingEvent[indicator] =
           (existingEvent[indicator] ?? 0) + (indicatorValue ?? 0);
       } else {
         // create a new event
-        eventAreas[eventName] = [feature(geom)];
+        eventAdminAreas[eventName] = [feature(geom)];
 
         events.push({
           placeCode: eventName,
@@ -562,11 +563,22 @@ export class AdminAreaService {
     }, []);
 
     // create event features by merging admin areas
-    const eventFeatures = events.map((properties) =>
-      union(featureCollection(eventAreas[properties.eventName]), {
-        properties,
-      }),
-    );
+    const eventFeatures = events
+      .map((properties) => {
+        const adminAreas = eventAdminAreas[properties.eventName];
+        if (!adminAreas) {
+          return null;
+        }
+
+        if (adminAreas.length > 1) {
+          return union(featureCollection(adminAreas), { properties });
+        } else if (adminAreas.length === 1) {
+          return feature(adminAreas[0].geometry, properties);
+        }
+
+        return null;
+      })
+      .filter(Boolean);
 
     return featureCollection(eventFeatures);
   };
