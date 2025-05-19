@@ -15,12 +15,8 @@ export class DisasterTypeService {
   @InjectRepository(DisasterTypeEntity)
   private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
 
-  public async getDisasterType(
-    disasterType: DisasterType,
-  ): Promise<DisasterTypeEntity> {
-    return await this.disasterTypeRepository.findOne({
-      where: { disasterType },
-    });
+  public getDisasterType(disasterType: DisasterType) {
+    return this.disasterTypeRepository.findOne({ where: { disasterType } });
   }
 
   public async getMainExposureIndicator(
