@@ -23,6 +23,7 @@ import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
+import { AlertLevel } from '../event/enum/alert-level.enum';
 import { EventService } from '../event/event.service';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { AdminAreaEntity } from './admin-area.entity';
@@ -485,7 +486,11 @@ export class AdminAreaService {
 
     if (disasterType === DisasterType.FlashFloods && !eventName) {
       // TODO: use IF admin level is national view (or less than default admin level ?)
-      return this.getEventAdminAreas(adminAreas, indicator);
+      const eventAdminAreas = this.getEventAdminAreas(adminAreas, indicator);
+
+      if (eventAdminAreas.features.length > 0) {
+        return eventAdminAreas;
+      }
     }
 
     return this.helperService.getFeatureCollection(adminAreas);
@@ -567,6 +572,12 @@ export class AdminAreaService {
       .map((properties) => {
         const adminAreas = eventAdminAreas[properties.eventName];
         if (!adminAreas) {
+          return null;
+        }
+
+        if (properties.alertLevel == AlertLevel.NONE) {
+          // return null to exclude no alert events
+          // getAdminAreas will fallback to admin areas if no alert event is found
           return null;
         }
 
