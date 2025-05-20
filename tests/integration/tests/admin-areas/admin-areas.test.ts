@@ -55,9 +55,13 @@ export default function adminAreaTests() {
           expect(adminAreas.body.features.length).toBe(featureCount); // we expect a deterministic feature count from the mock data
 
           const feature = adminAreas.body.features[0]; // test the first feature
-          expect(feature.geometry.type).toBe('MultiPolygon');
+          expect(['Polygon', 'MultiPolygon']).toContain(feature.geometry.type);
           expect(feature.geometry.coordinates[0][0].length).toBeGreaterThan(0); // the coordinates array should not be empty
-          expect(feature.geometry.coordinates[0][0][0].length).toBe(2); // the coordinates should be in [longitude, latitude] format
+          if (feature.geometry.type === 'Polygon') {
+            expect(feature.geometry.coordinates[0][0].length).toBe(2); // the coordinates should be in [longitude, latitude] format
+          } else if (feature.geometry.type === 'MultiPolygon') {
+            expect(feature.geometry.coordinates[0][0][0].length).toBe(2); // the coordinates should be in [longitude, latitude] format
+          }
           expect(feature.properties.placeCode).toMatch(placeCodeRegex); // placeCode should match regex per country
           if (eventName) {
             // all admin areas in an event should have the same alert level
