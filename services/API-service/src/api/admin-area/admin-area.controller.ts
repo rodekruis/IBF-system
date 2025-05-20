@@ -34,17 +34,13 @@ import { AdminAreaParams } from './dto/admin-area.dto';
 import { AdminAreaUpdateResult } from './dto/admin-area.dto';
 import { DeleteAdminAreasDto } from './dto/delete-admin-areas.dto';
 import { AdminAreaUploadDto } from './dto/upload-admin-areas.dto';
-import { EventAreaService } from './services/event-area.service';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
 @ApiTags('admin-areas')
 @Controller('admin-areas')
 export class AdminAreaController {
-  public constructor(
-    private readonly adminAreaService: AdminAreaService,
-    private readonly eventAreaService: EventAreaService,
-  ) {}
+  public constructor(private readonly adminAreaService: AdminAreaService) {}
 
   @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Adds or updates (if existing) admin-areas' })
@@ -111,27 +107,6 @@ export class AdminAreaController {
     );
 
     return res.status(HttpStatus.ACCEPTED).send(result);
-  }
-
-  @Roles(UserRole.Admin)
-  @ApiOperation({
-    summary:
-      'Adds or updates (if existing) event-areas (currently Flash-floods only)',
-  })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
-  @ApiResponse({ status: 201, description: 'Saved admin areas' })
-  @Post('event-areas/:countryCodeISO3/:disasterType')
-  @UseInterceptors()
-  public async addOrUpdateEventAreas(
-    @Param() params,
-    @Body() adminAreaGeoJson: FeatureCollection,
-  ): Promise<void> {
-    await this.eventAreaService.addOrUpdateEventAreas(
-      params.countryCodeISO3,
-      params.disasterType,
-      adminAreaGeoJson,
-    );
   }
 
   @ApiOperation({
