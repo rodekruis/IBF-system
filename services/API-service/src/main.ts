@@ -16,7 +16,7 @@ import fs from 'fs';
 import { SpelunkerModule } from 'nestjs-spelunker';
 
 import { ApplicationModule } from './app.module';
-import { DEBUG, EXTERNAL_API, PORT } from './config';
+import { DEBUG, EXTERNAL_API, forbidUnknownValues, PORT } from './config';
 
 /**
  * A visualization of module dependencies is generated using `nestjs-spelunker`
@@ -131,7 +131,7 @@ async function bootstrap(): Promise<void> {
   SwaggerModule.setup('/docs', app, document, swaggerCustomOptions);
   app.useGlobalPipes(
     new ValidationPipe({
-      forbidUnknownValues: false,
+      forbidUnknownValues,
       exceptionFactory: (errors) => new BadRequestException(errors),
     }),
   );

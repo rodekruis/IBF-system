@@ -3,6 +3,7 @@ export const DEBUG =
 export const PORT = 3000;
 export const DUNANT_EMAIL = 'dunant@redcross.nl';
 export const PLACEHOLDER_SECRET = 'fill_in_secret';
+export const forbidUnknownValues = false; // FIX: set to true after fixing type errors https://stackoverflow.com/a/75127940/1753041
 
 // Configure Internal and External API URL's
 // ---------------------------------------------------------------------------

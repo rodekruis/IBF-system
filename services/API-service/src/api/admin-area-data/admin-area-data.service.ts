@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { validate } from 'class-validator';
 import { Repository } from 'typeorm';
 
+import { forbidUnknownValues } from '../../config';
 import { HelperService } from '../../shared/helper.service';
 import { AdminDataReturnDto } from '../admin-area-dynamic-data/dto/admin-data-return.dto';
 import { StaticIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
@@ -26,7 +27,7 @@ export class AdminAreaDataService {
     const adminAreaDataCsv =
       await this.helperService.getCsvData<AdminAreaDataDto>(csvFile);
 
-    await this.validate(adminAreaDataCsv);
+    await this.validate(adminAreaDataCsv); // TODO: check if this is redundant
 
     await this.prepareAndUpload(adminAreaDataCsv);
   }
@@ -47,7 +48,9 @@ export class AdminAreaDataService {
 
   public async validate(adminAreaDataDtos: AdminAreaDataDto[]) {
     for (const [i, adminAreaDataDto] of adminAreaDataDtos.entries()) {
-      const validationErrors = await validate(adminAreaDataDto);
+      const validationErrors = await validate(adminAreaDataDto, {
+        forbidUnknownValues,
+      });
       if (validationErrors.length > 0) {
         this.logger.log(
           `Validation error in row ${i + 1}. Result: ${validationErrors}`,
