@@ -45,11 +45,11 @@ runs:
       working-directory: ./services/API-service
       run: npm ci --omit=optional --no-fund --no-audit
 
-    - name: Run IBF API-service
+    - name: Run IBF API-service and IBF Geoserver
       shell: bash
       env:
         MC_API: ${{ inputs.mailchimp-api-key }}
-      run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service
+      run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service ibf-geoserver
 
     - name: Start IBF dashboard
       shell: bash
@@ -57,6 +57,7 @@ runs:
       env:
         API_SERVICE_URL: http://localhost:3000/api
         NG_CONFIGURATION: production
+        NG_GEOSERVER_URL: http://localhost:8081/geoserver/ibf-system/wms
       run: |
         npm install
         npm run start:prod > dashboard-logs.txt 2>&1 &

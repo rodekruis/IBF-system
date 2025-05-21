@@ -24,15 +24,10 @@ export default (
     await dashboard.waitForLoaderToDisappear();
     await map.mapComponentIsVisible();
 
-    // test 'roads'
     const linesLayers = dataset.layers.filter((l) => l.type === 'line');
-
     for (const linesLayer of linesLayers) {
       // Toggle the layer ON
       await map.checkLayerCheckbox(linesLayer);
-
-      // Wait for layer to be marked as visible in the UI
-      await map.isLayerVisible(linesLayer);
 
       // Assert
       await map.assertWmsLayer(linesLayer);

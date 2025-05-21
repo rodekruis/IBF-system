@@ -147,7 +147,6 @@ class MapComponent extends DashboardPage {
   }
 
   async checkLayerCheckbox({ name }: Layer) {
-    // Remove Glofas station from the map (in case the mock is for floods)
     await this.waitForMapToBeLoaded();
 
     await this.layerMenuToggle.click();
@@ -338,8 +337,6 @@ class MapComponent extends DashboardPage {
   }
 
   async assertWmsLayer(linesLayer: Layer, timeout = 30000) {
-    console.log(`Testing WMS layer: ${linesLayer.name}`);
-
     // Track all WMS responses for debugging
     const wmsResponses: string[] = [];
 
@@ -387,7 +384,6 @@ class MapComponent extends DashboardPage {
     // Verify the response is valid
     expect(response.status()).toBe(200);
     const contentType = response.headers()['content-type'];
-    console.log('contentType: ', contentType);
     expect(contentType).toContain('image/');
   }
 }

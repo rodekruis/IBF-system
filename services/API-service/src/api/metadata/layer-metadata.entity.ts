@@ -22,7 +22,7 @@ export class LayerMetadataEntity {
 
   @ApiProperty({ example: 'wms' })
   @Column()
-  @IsIn(['wms', 'poi', 'shape'])
+  @IsIn(['wms', 'poi', 'shape', 'line'])
   public type: string;
 
   @ApiProperty()
