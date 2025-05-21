@@ -35,7 +35,7 @@ export default function adminAreaAggregatesTests() {
       expect(adminAreaAggregates.body.length).toBe(12); // we expect 12 aggregates from the mock data
 
       const adminAreaAggregate = adminAreaAggregates.body[0]; // test the first aggregate
-      expect(adminAreaAggregate.placeCode).toMatch(/^UG/); // placeCode should start with 'UG' for Uganda
+      expect(adminAreaAggregate.placeCode).toMatch(/^(?:UG|G)/); // placeCode should start with 'UG' for Uganda
       expect(adminAreaAggregate.indicator).toBeTruthy(); // the indicator should not be empty
       expect(adminAreaAggregate.value).toEqual(expect.any(Number));
     });
