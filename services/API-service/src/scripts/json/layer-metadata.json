@@ -444,7 +444,7 @@
   {
     "name": "roads",
     "label": "Roads",
-    "type": "line",
+    "type": "wms",
     "leadTimeDependent": false,
     "active": "no",
     "legendColor": {
@@ -462,7 +462,7 @@
   {
     "name": "buildings",
     "label": "Buildings",
-    "type": "line",
+    "type": "wms",
     "leadTimeDependent": false,
     "active": "no",
     "legendColor": {

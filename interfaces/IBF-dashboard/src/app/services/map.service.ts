@@ -161,7 +161,7 @@ export class MapService {
     layers.forEach((layer: IbfLayerMetadata) => {
       const layerActive = this.getActiveState(layer);
 
-      if (layer.type === IbfLayerType.wms || layer.type === IbfLayerType.line) {
+      if (layer.type === IbfLayerType.wms) {
         this.loadWmsLayer(layer, layerActive, layer.leadTimeDependent);
       } else if (layer.name === IbfLayerName.adminRegions1) {
         this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel1);

@@ -68,6 +68,7 @@ import {
   IbfLayerName,
   IbfLayerType,
   LeafletPane,
+  NON_COUNTRY_SPECIFIC_WMS_LAYERS,
 } from 'src/app/types/ibf-layer';
 import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
@@ -174,8 +175,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private onLayerChange = (newLayer) => {
     if (newLayer) {
       newLayer =
-        newLayer.data ||
-        [IbfLayerType.wms, IbfLayerType.line].includes(newLayer.type)
+        newLayer.data || newLayer.type === IbfLayerType.wms
           ? this.createLayer(newLayer)
           : newLayer;
 
@@ -352,7 +352,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         case IbfLayerType.shape:
           elements.push(this.mapLegendService.getShapeLegendString(layer));
           break;
-        case IbfLayerType.wms || IbfLayerType.line:
+        case IbfLayerType.wms:
           elements.push(this.mapLegendService.getWmsLegendString(layer));
           break;
         default:
@@ -421,7 +421,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       this.layers.push(layer);
     }
 
-    if (layer.type === IbfLayerType.wms || layer.type === IbfLayerType.line) {
+    if (layer.type === IbfLayerType.wms) {
       layer.leafletLayer = this.createWmsLayer(layer);
       this.layers.push(layer);
     }
@@ -774,10 +774,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           : this.timelineState.activeLeadTime;
 
       const nameLeadTimePart = leadTime ? `_${leadTime}` : '';
-      const nameCountryPart =
-        layer.type === IbfLayerType.line
-          ? ''
-          : `_${this.country.countryCodeISO3}`;
+      // REFACTOR: the direction is to make all wms-layer non-country-specific
+      const nameCountryPart = NON_COUNTRY_SPECIFIC_WMS_LAYERS.includes(
+        layer.name,
+      )
+        ? ''
+        : `_${this.country.countryCodeISO3}`;
       const name = `ibf-system:${layer.name}${nameLeadTimePart}${nameCountryPart}`;
 
       if (!layerNames.includes(name)) {

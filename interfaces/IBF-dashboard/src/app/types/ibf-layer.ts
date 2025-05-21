@@ -56,7 +56,6 @@ export enum IbfLayerType {
   point = 'point',
   shape = 'shape',
   wms = 'wms',
-  line = 'line',
 }
 
 export enum IbfLayerName {
@@ -126,6 +125,11 @@ export enum IbfLayerName {
   waterpointsInternal = 'waterpoints_internal',
   windspeed = 'windspeed',
 }
+
+export const NON_COUNTRY_SPECIFIC_WMS_LAYERS = [
+  IbfLayerName.buildings,
+  IbfLayerName.roads,
+];
 
 export enum IbfLayerLabel {
   adminRegions1 = 'Admin Level 1',
