@@ -21,16 +21,16 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Floods,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
-    featureCount: 16,
-    placeCodeRegex: /^UG/,
+    featureCount: 3,
+    placeCodeRegex: /^(?:UG|G)/,
   },
   {
     countryCodeISO3: 'UGA',
     disasterType: DisasterType.Floods,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Warning,
-    featureCount: 2,
-    placeCodeRegex: /^UG/,
+    featureCount: 1,
+    placeCodeRegex: /^(?:UG|G)/,
   },
   {
     countryCodeISO3: 'UGA',
@@ -45,8 +45,8 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Floods,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
-    featureCount: 14,
-    placeCodeRegex: /^ZM/,
+    featureCount: 2,
+    placeCodeRegex: /^(?:ZM|G)/,
   },
   {
     countryCodeISO3: 'ZMB',
@@ -61,8 +61,8 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Floods,
     adminLevel: AdminLevel.adminLevel3,
     scenario: FloodsScenario.Trigger,
-    featureCount: 4,
-    placeCodeRegex: /^(?:MW|Karonga|Blantyre City|Rumphi)/, // REFACTOR: set to /^MW/ after data is fixed
+    featureCount: 1,
+    placeCodeRegex: /^(?:MW|G)/, // REFACTOR: set to /^MW/ after data is fixed
   },
   {
     countryCodeISO3: 'MWI',
@@ -87,15 +87,15 @@ export const assertions: Assertion[] = [
     adminLevel: AdminLevel.adminLevel3,
     scenario: FloodsScenario.Trigger,
     featureCount: 1,
-    placeCodeRegex: /^SS/,
+    placeCodeRegex: /^(?:SS|G)/,
   },
   {
     countryCodeISO3: 'KEN',
     disasterType: DisasterType.Floods,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
-    featureCount: 4,
-    placeCodeRegex: /^KE/,
+    featureCount: 1,
+    placeCodeRegex: /^(?:KE|G)/,
   },
   {
     countryCodeISO3: 'KEN',
@@ -110,8 +110,8 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Floods,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
-    featureCount: 2,
-    placeCodeRegex: /^ET/,
+    featureCount: 1,
+    placeCodeRegex: /^(?:ET|G)/,
   },
   {
     countryCodeISO3: 'ETH',
@@ -134,8 +134,8 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Floods,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
-    featureCount: 3,
-    placeCodeRegex: /^PH/,
+    featureCount: 2,
+    placeCodeRegex: /^(?:PH|G)/,
   },
   {
     countryCodeISO3: 'PHL',

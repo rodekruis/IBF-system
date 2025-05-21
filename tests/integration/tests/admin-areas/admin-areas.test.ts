@@ -75,8 +75,13 @@ export default function adminAreaTests() {
           expect(feature.properties.name).toBeTruthy(); // the name should not be empty
           expect(feature.properties.countryCodeISO3).toBe(countryCodeISO3); // request and response country codes should match
 
-          // REFACTOR: flash floods national View returns event-areas instead of admin-areas, which do not have an adminLevel. Align response formats better in future.
-          if (disasterType === DisasterType.FlashFloods && !eventName) {
+          // REFACTOR: flash floods & floods in National View returns event-areas instead of admin-areas, which do not have an adminLevel. Align response formats better in future.
+          if (
+            [DisasterType.FlashFloods, DisasterType.Floods].includes(
+              disasterType,
+            ) &&
+            !eventName
+          ) {
             return;
           }
           expect(feature.properties.adminLevel).toBe(adminLevel); // request and response admin levels should match
