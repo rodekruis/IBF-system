@@ -24,7 +24,10 @@ export default (
     await dashboard.waitForLoaderToDisappear();
     await map.mapComponentIsVisible();
 
-    const linesLayers = dataset.layers.filter((l) => l.type === 'line');
+    const NON_COUNTRY_SPECIFIC_WMS_LAYERS = ['buildings', 'roads'];
+    const linesLayers = dataset.layers.filter((l) =>
+      NON_COUNTRY_SPECIFIC_WMS_LAYERS.includes(l.name),
+    );
     for (const linesLayer of linesLayers) {
       // Toggle the layer ON
       await map.checkLayerCheckbox(linesLayer);

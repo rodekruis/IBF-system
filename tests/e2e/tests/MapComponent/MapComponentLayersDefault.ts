@@ -33,7 +33,7 @@ export default (
       (layer) => layer.map && layer.active,
     );
     for (const layer of activeLayers) {
-      if (layer.type === 'raster') {
+      if (layer.type === 'wms') {
         await map.isLayerCheckboxChecked({ layerName: layer.name });
         await map.assertLegendElementIsVisible({
           legendComponentName: layer.label,
