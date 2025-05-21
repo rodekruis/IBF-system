@@ -151,7 +151,7 @@ export class EventAreaService {
 
         events.push({
           placeCode: eventName,
-          name: eventName,
+          name: eventName?.split('_')[0],
           eventName,
           countryCodeISO3,
           [indicator]: indicatorValue ?? 0,
