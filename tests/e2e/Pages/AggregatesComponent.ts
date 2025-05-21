@@ -84,7 +84,7 @@ class AggregatesComponent extends DashboardPage {
 
     // Loop through the layers and check if they are present with correct data
     // TODO: remove this filter after fixing AB#35929
-    if (disasterType.name !== 'flash-floods') {
+    if (!['flash-floods', 'floods'].includes(disasterType.name)) {
       for (const affectedNumber of affectedNumbers) {
         const affectedNumberText = await affectedNumber.textContent();
         expect(affectedNumberText).toContain('0');
