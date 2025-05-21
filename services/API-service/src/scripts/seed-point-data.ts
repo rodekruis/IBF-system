@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 
 import { DataSource } from 'typeorm';
 
@@ -13,6 +13,8 @@ import { SeedHelper } from './seed-helper';
 
 @Injectable()
 export class SeedPointData implements InterfaceScript {
+  private logger = new Logger('SeedPointData');
+
   private readonly seedHelper: SeedHelper;
 
   public constructor(
@@ -79,7 +81,7 @@ export class SeedPointData implements InterfaceScript {
       );
     } catch (error) {
       // If validation or upload fails, then log and throw error
-      console.error('Error seeding point data:', error);
+      this.logger.log('Error seeding point data:', error);
       throw new HttpException(
         `Error seeding line data for ${pointDataCategory} in ${countryCodeISO3}`,
         HttpStatus.INTERNAL_SERVER_ERROR,

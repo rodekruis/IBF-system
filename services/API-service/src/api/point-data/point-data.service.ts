@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { validate } from 'class-validator';
@@ -38,6 +39,8 @@ export interface PointDto
 
 @Injectable()
 export class PointDataService {
+  private logger = new Logger('PointDataService');
+
   @InjectRepository(PointDataEntity)
   private readonly pointDataRepository: Repository<PointDataEntity>;
   @InjectRepository(DynamicPointDataEntity)
@@ -219,7 +222,7 @@ export class PointDataService {
 
       const validationError = await validate(pointDto);
       if (validationError.length > 0) {
-        console.log('Seed point data validation error: ', validationError);
+        this.logger.log('Seed point data validation error: ', validationError);
         validationErrors.push({ lineNumber: i + 1, validationError });
       }
 
