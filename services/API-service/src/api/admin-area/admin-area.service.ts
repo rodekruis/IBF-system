@@ -10,6 +10,7 @@ import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import { EVENT_AREA_DISASTER_TYPES } from '../disaster-type/const/disaster-type.const';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
@@ -250,10 +251,7 @@ export class AdminAreaService {
     );
 
     // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
-    if (
-      [DisasterType.FlashFloods, DisasterType.Floods].includes(disasterType) &&
-      !eventName
-    ) {
+    if (EVENT_AREA_DISASTER_TYPES.includes(disasterType) && !eventName) {
       return await this.eventAreaService.getEventAreaAggregates(
         countryCodeISO3,
         disasterType,
@@ -477,11 +475,7 @@ export class AdminAreaService {
         alertLevel === highestAlertLevels[eventName || 'unknown'],
     );
 
-    if (
-      [DisasterType.FlashFloods, DisasterType.Floods].includes(disasterType) &&
-      !eventName
-    ) {
-      // TODO: make this disaster-type property, instead of repeating logic in 3 places
+    if (EVENT_AREA_DISASTER_TYPES.includes(disasterType) && !eventName) {
       // TODO: use IF admin level is national view (or less than default admin level ?)
       const eventAdminAreas = this.eventAreaService.getEventAdminAreas(
         adminAreas,

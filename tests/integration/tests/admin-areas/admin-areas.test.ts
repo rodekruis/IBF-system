@@ -1,4 +1,4 @@
-import { DisasterType } from '../../helpers/API-service/enum/disaster-type.enum';
+import { EVENT_AREA_DISASTER_TYPES } from '../../helpers/API-service/const/disaster-type.const';
 import { getToken, mock } from '../../helpers/utility.helper';
 import { getAdminAreas } from './admin-areas.api';
 import { assertions } from './admin-areas.assertions';
@@ -76,12 +76,7 @@ export default function adminAreaTests() {
           expect(feature.properties.countryCodeISO3).toBe(countryCodeISO3); // request and response country codes should match
 
           // REFACTOR: flash floods & floods in National View returns event-areas instead of admin-areas, which do not have an adminLevel. Align response formats better in future.
-          if (
-            [DisasterType.FlashFloods, DisasterType.Floods].includes(
-              disasterType,
-            ) &&
-            !eventName
-          ) {
+          if (EVENT_AREA_DISASTER_TYPES.includes(disasterType) && !eventName) {
             return;
           }
           expect(feature.properties.adminLevel).toBe(adminLevel); // request and response admin levels should match
