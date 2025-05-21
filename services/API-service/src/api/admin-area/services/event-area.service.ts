@@ -7,7 +7,6 @@ import { Feature } from 'geojson';
 import { MoreThanOrEqual, Repository } from 'typeorm';
 
 import { AggregateDataRecord, Event } from '../../../shared/data.model';
-import { HelperService } from '../../../shared/helper.service';
 import {
   AdminAreaDynamicDataEntity,
   Indicator,
@@ -31,16 +30,7 @@ export class EventAreaService {
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
 
-  public constructor(
-    private helperService: HelperService,
-    private eventService: EventService,
-  ) {}
-
-  private geomFunction(coordinates): string {
-    return `ST_GeomFromGeoJSON( '{ "type": "MultiPolygon", "coordinates": ${JSON.stringify(
-      coordinates,
-    )} }' )`;
-  }
+  public constructor(private eventService: EventService) {}
 
   public async getEventAreaAggregates(
     countryCodeISO3: string,

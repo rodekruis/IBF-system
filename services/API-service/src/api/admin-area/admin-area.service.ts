@@ -250,7 +250,10 @@ export class AdminAreaService {
     );
 
     // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
-    if (disasterType === DisasterType.FlashFloods && !eventName) {
+    if (
+      [DisasterType.FlashFloods, DisasterType.Floods].includes(disasterType) &&
+      !eventName
+    ) {
       return await this.eventAreaService.getEventAreaAggregates(
         countryCodeISO3,
         disasterType,
@@ -474,7 +477,11 @@ export class AdminAreaService {
         alertLevel === highestAlertLevels[eventName || 'unknown'],
     );
 
-    if (disasterType === DisasterType.FlashFloods && !eventName) {
+    if (
+      [DisasterType.FlashFloods, DisasterType.Floods].includes(disasterType) &&
+      !eventName
+    ) {
+      // TODO: make this disaster-type property, instead of repeating logic in 3 places
       // TODO: use IF admin level is national view (or less than default admin level ?)
       const eventAdminAreas = this.eventAreaService.getEventAdminAreas(
         adminAreas,
