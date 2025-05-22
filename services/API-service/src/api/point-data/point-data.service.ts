@@ -292,10 +292,10 @@ export class PointDataService {
   }: UploadDynamicPointDataDto) {
     const dynamicPointDataArray: DynamicPointDataEntity[] = [];
 
-    for (const { fid, value } of dynamicPointData) {
+    for (const { fid: referenceId, value } of dynamicPointData) {
       const asset = await this.pointDataRepository.findOne({
         where: {
-          referenceId: fid,
+          referenceId,
           countryCodeISO3,
           pointDataCategory,
           active: true,
