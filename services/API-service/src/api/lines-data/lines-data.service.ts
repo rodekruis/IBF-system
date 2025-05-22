@@ -105,7 +105,9 @@ export class LinesDataService {
 
       const validationError = await validate(linesDto);
       if (validationError.length > 0) {
-        this.logger.log('Seed line data validation error: ', validationError);
+        this.logger.error(
+          `Seed line data validation error: ${validationError}`,
+        );
         validationErrors.push({ lineNumber: i + 1, validationError });
       }
 

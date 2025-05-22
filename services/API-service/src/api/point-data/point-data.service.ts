@@ -222,7 +222,9 @@ export class PointDataService {
 
       const validationError = await validate(pointDto);
       if (validationError.length > 0) {
-        this.logger.log('Seed point data validation error: ', validationError);
+        this.logger.error(
+          `Seed point data validation error: ${validationError}`,
+        );
         validationErrors.push({ lineNumber: i + 1, validationError });
       }
 

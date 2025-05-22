@@ -81,7 +81,7 @@ export class SeedPointData implements InterfaceScript {
       );
     } catch (error) {
       // If validation or upload fails, then log and throw error
-      this.logger.log('Error seeding point data:', error);
+      this.logger.error(`Error seeding point data: ${error}`);
       throw new HttpException(
         `Error seeding line data for ${pointDataCategory} in ${countryCodeISO3}`,
         HttpStatus.INTERNAL_SERVER_ERROR,
