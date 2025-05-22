@@ -1,4 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { validate } from 'class-validator';
@@ -15,6 +16,8 @@ export interface LinesDto extends RoadDto, BuildingDto {}
 
 @Injectable()
 export class LinesDataService {
+  private logger = new Logger('LinesDataService');
+
   @InjectRepository(LinesDataEntity)
   private readonly linesDataRepository: Repository<LinesDataEntity>;
   @InjectRepository(LinesDataDynamicStatusEntity)
@@ -102,6 +105,9 @@ export class LinesDataService {
 
       const validationError = await validate(linesDto);
       if (validationError.length > 0) {
+        this.logger.error(
+          `Seed line data validation error: ${validationError}`,
+        );
         validationErrors.push({ lineNumber: i + 1, validationError });
       }
 

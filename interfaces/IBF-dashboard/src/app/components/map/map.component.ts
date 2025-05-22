@@ -68,6 +68,7 @@ import {
   IbfLayerName,
   IbfLayerType,
   LeafletPane,
+  NON_COUNTRY_SPECIFIC_WMS_LAYERS,
 } from 'src/app/types/ibf-layer';
 import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
@@ -766,15 +767,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         : [new Event()];
 
     for (const event of events) {
-      const leadTime = !layer.wms.leadTimeDependent
-        ? null
-        : !this.eventState.event && event.firstLeadTime
-          ? event.firstLeadTime
-          : this.timelineState.activeLeadTime;
+      const name = this.getWmsLayerName(layer, event);
 
-      const name = `ibf-system:${layer.name}_${leadTime ? `${leadTime}_` : ''}${
-        this.country.countryCodeISO3
-      }`;
       if (!layerNames.includes(name)) {
         layerNames.push(name);
       }
@@ -790,6 +784,23 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       viewparams: layer.wms.viewparams,
     };
     return tileLayer.wms(layer.wms.url, wmsOptions);
+  }
+
+  private getWmsLayerName(layer: IbfLayer, event: Event) {
+    const leadTime = !layer.wms.leadTimeDependent
+      ? null
+      : !this.eventState.event && event.firstLeadTime
+        ? event.firstLeadTime
+        : this.timelineState.activeLeadTime;
+
+    const nameLeadTimePart = leadTime ? `_${leadTime}` : '';
+
+    // REFACTOR: the direction is to make all wms-layer non-country-specific
+    const nameCountryPart = NON_COUNTRY_SPECIFIC_WMS_LAYERS.includes(layer.name)
+      ? ''
+      : `_${this.country.countryCodeISO3}`;
+
+    return `ibf-system:${layer.name}${nameLeadTimePart}${nameCountryPart}`;
   }
 
   private calculateClosestPointToTyphoon(layer: IbfLayer) {

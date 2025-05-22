@@ -65,6 +65,7 @@ export enum IbfLayerName {
   adminRegions3 = 'adminRegions3',
   adminRegions4 = 'adminRegions4',
   affectedPopulation = 'affected_population',
+  buildings = 'buildings',
   communityNotifications = 'community_notifications',
   cropland = 'cropland',
   damSites = 'dams',
@@ -124,6 +125,11 @@ export enum IbfLayerName {
   waterpointsInternal = 'waterpoints_internal',
   windspeed = 'windspeed',
 }
+
+export const NON_COUNTRY_SPECIFIC_WMS_LAYERS = [
+  IbfLayerName.buildings,
+  IbfLayerName.roads,
+];
 
 export enum IbfLayerLabel {
   adminRegions1 = 'Admin Level 1',

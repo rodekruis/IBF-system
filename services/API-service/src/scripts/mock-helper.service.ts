@@ -38,7 +38,7 @@ export class MockHelperService {
     layers: LayerMetadataEntity[],
   ) {
     for (const linesDataCategory of Object.keys(LinesDataCategory)) {
-      if (!layers.map((l) => l.name).includes(linesDataCategory)) {
+      if (!layers.some(({ name }) => name === linesDataCategory)) {
         continue;
       }
 
@@ -65,14 +65,15 @@ export class MockHelperService {
       PointDataCategory.schools,
       PointDataCategory.waterpointsInternal,
     ];
-
     for (const pointDataCategory of pointDataCategories) {
-      if (!layers.map((l) => l.name).includes(pointDataCategory)) {
+      if (!layers.some(({ name }) => name === pointDataCategory)) {
         continue;
       }
 
       const uploadDynamicPointDataDto = new UploadDynamicPointDataDto();
       uploadDynamicPointDataDto.disasterType = DisasterType.FlashFloods;
+      uploadDynamicPointDataDto.countryCodeISO3 = countryCodeISO3;
+      uploadDynamicPointDataDto.pointDataCategory = pointDataCategory;
       uploadDynamicPointDataDto.key = 'exposure';
       uploadDynamicPointDataDto.leadTime = leadTime;
       uploadDynamicPointDataDto.date = date;
@@ -105,6 +106,8 @@ export class MockHelperService {
       payload.leadTime = null;
       payload.date = date;
       payload.disasterType = disasterType;
+      payload.countryCodeISO3 = countryCodeISO3;
+      payload.pointDataCategory = PointDataCategory.gauges;
       const filename = `./src/scripts/mock-data/${DisasterType.FlashFloods}/${countryCodeISO3}/${scenarioName}/dynamic-point-data_${key}.json`;
       const dynamicPointData = JSON.parse(fs.readFileSync(filename, 'utf-8'));
       payload.dynamicPointData = dynamicPointData;

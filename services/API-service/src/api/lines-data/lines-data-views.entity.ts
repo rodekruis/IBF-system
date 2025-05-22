@@ -5,15 +5,18 @@ import { LinesDataCategory, LinesDataEntity } from './lines-data.entity';
 import { LinesDataDynamicStatusEntity } from './lines-data-dynamic-status.entity';
 
 const getViewQuery = (type: LinesDataCategory) => {
-  return () =>
-    AppDataSource.createQueryBuilder()
-      .select([
-        `line."referenceId",line.geom${
-          type === LinesDataCategory.roads
-            ? `,line.attributes->>'highway' as "highway"`
-            : ''
-        }`,
-      ])
+  return () => {
+    const select = [
+      'line."referenceId"',
+      'line."countryCodeISO3"',
+      'line.geom',
+    ];
+    if (type === LinesDataCategory.roads) {
+      select.push('line.attributes->>\'highway\' as "highway"');
+    }
+
+    return AppDataSource.createQueryBuilder()
+      .select(select)
       .from(LinesDataEntity, 'line')
       .leftJoin(
         LinesDataDynamicStatusEntity,
@@ -48,6 +51,7 @@ const getViewQuery = (type: LinesDataCategory) => {
         'status."leadTime"',
         'COALESCE(status.exposed,FALSE) as "exposed"',
       ]);
+  };
 };
 @ViewEntity({ expression: getViewQuery(LinesDataCategory.buildings) })
 export class BuildingsExposurePerLeadTime {}
