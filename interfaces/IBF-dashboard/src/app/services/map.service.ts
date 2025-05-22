@@ -436,7 +436,7 @@ export class MapService {
     this.addLayer({
       name: layer.name,
       label: layer.label,
-      type: layer.type,
+      type: IbfLayerType.wms,
       group: IbfLayerGroup.wms,
       description: this.getPopoverText(layer),
       active,
