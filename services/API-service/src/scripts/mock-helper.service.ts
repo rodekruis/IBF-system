@@ -38,7 +38,7 @@ export class MockHelperService {
     layers: LayerMetadataEntity[],
   ) {
     for (const linesDataCategory of Object.keys(LinesDataCategory)) {
-      if (!layers.map((l) => l.name).includes(linesDataCategory)) {
+      if (!layers.some(({ name }) => name === linesDataCategory)) {
         continue;
       }
 
@@ -66,7 +66,7 @@ export class MockHelperService {
       PointDataCategory.waterpointsInternal,
     ];
     for (const pointDataCategory of pointDataCategories) {
-      if (!layers.map((l) => l.name).includes(pointDataCategory)) {
+      if (!layers.some(({ name }) => name === pointDataCategory)) {
         continue;
       }
 
