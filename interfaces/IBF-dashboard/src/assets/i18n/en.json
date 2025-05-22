@@ -1,8 +1,6 @@
 {
   "app-name": "IBF-dashboard",
-  "common": {
-    "version": "Version"
-  },
+  "common": { "version": "Version" },
   "export-view": {
     "title": "Export view",
     "instruction": "In order to export the current view of the IBF-dashboard, you will need to take a screenshot.",
@@ -34,10 +32,7 @@
     "note": "NOTE: This portal works best on desktop or tablet using Chrome, Firefox, Safari and Microsoft Edge.<br>The portal is not compatible with Internet Explorer.<br>The portal is not optimized for mobile phones yet.",
     "forgot-password": "Forgot password?",
     "forgot-password-message": "If you forgot your password please send a request to ",
-    "environment-label": {
-      "production": "Live",
-      "stage": "Demo"
-    }
+    "environment-label": { "production": "Live", "stage": "Demo" }
   },
   "user-state": {
     "logged-in-as": "Logged in as:",
@@ -63,10 +58,7 @@
         "alert-error-no-secret": "Reset secret cannot be empty."
       }
     },
-    "triggered-message": {
-      "yes": "TRIGGERED",
-      "no": "NON-TRIGGERED"
-    },
+    "triggered-message": { "yes": "TRIGGERED", "no": "NON-TRIGGERED" },
     "screen-orientation": {
       "mobile": {
         "title": "IBF Portal - Mobile Phones",
@@ -158,9 +150,7 @@
         "no-data": "No exposure data available",
         "set-by": "<strong>Set by:</strong> {{ userTriggerName }} on {{ userTriggerDate }}"
       },
-      "set-trigger": {
-        "btn-text": "Set trigger"
-      }
+      "set-trigger": { "btn-text": "Set trigger" }
     },
     "floods": {
       "about-button-label": "About trigger",
@@ -288,9 +278,7 @@
       "delete-confirm": "Confirm",
       "delete-successs": "Deleting notification succeeded",
       "delete-fail": "Deleting notification failed",
-      "photo-popup": {
-        "title": "Community notification - photo"
-      }
+      "photo-popup": { "title": "Community notification - photo" }
     },
     "river-gauge": {
       "unit": "m",
@@ -311,10 +299,6 @@
       "threshold-description": "Trigger activation threshold"
     }
   },
-  "breadcrumbs": {
-    "national-view": "National View"
-  },
-  "layers-menu": {
-    "menu-toggle-label": "Layers"
-  }
+  "breadcrumbs": { "national-view": "National View" },
+  "layers-menu": { "menu-toggle-label": "Layers" }
 }
