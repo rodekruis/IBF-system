@@ -1,3 +1,19 @@
+# [0.318.0](https://github.com/rodekruis/IBF-system/compare/v0.317.0...v0.318.0) (2025-05-22)
+
+
+### Bug Fixes
+
+* configure layers and seed all data AB[#36026](https://github.com/rodekruis/IBF-system/issues/36026) ([44a9d3f](https://github.com/rodekruis/IBF-system/commit/44a9d3f50f49ed557480266b0aea9e2fc9ff7681))
+* mock assets data + fixes to make multi-country AB[#36121](https://github.com/rodekruis/IBF-system/issues/36121) ([5e39d61](https://github.com/rodekruis/IBF-system/commit/5e39d618dfba4bff33761ac31d10882eac4db823))
+* use const instead of new layer type ([5194bcc](https://github.com/rodekruis/IBF-system/commit/5194bcc0bcc50e199852913baf6ee7f31870b237))
+
+
+### Features
+
+* configure + mock aggregate layers AB[#36121](https://github.com/rodekruis/IBF-system/issues/36121) ([df53d28](https://github.com/rodekruis/IBF-system/commit/df53d2888c8183b05c3457587d2964dc329795bc))
+
+
+
 # [0.317.0](https://github.com/rodekruis/IBF-system/compare/v0.316.2...v0.317.0) (2025-05-15)
 
 
@@ -104,15 +120,6 @@
 ### Bug Fixes
 
 * self-signed certificate ([d118da9](https://github.com/rodekruis/IBF-system/commit/d118da96b8671f2230c0c46f96182bc197df6ac2))
-
-
-
-## [0.314.1](https://github.com/rodekruis/IBF-system/compare/v0.314.0...v0.314.1) (2025-04-25)
-
-
-### Bug Fixes
-
-* rename low rainfall probability to below-normal rainfall probability AB[#35566](https://github.com/rodekruis/IBF-system/issues/35566) ([6508989](https://github.com/rodekruis/IBF-system/commit/6508989943afad47e6500c29f5abb3ace8c0aa37))
 
 
 
