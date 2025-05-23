@@ -1,3 +1,20 @@
+# [0.319.0](https://github.com/rodekruis/IBF-system/compare/v0.318.1...v0.319.0) (2025-05-23)
+
+
+### Bug Fixes
+
+* GET aggregatest test ([8d4ea85](https://github.com/rodekruis/IBF-system/commit/8d4ea85e1afbef9af466a8c982420692791a9269))
+* no alert events should show admin areas ([b09b6d7](https://github.com/rodekruis/IBF-system/commit/b09b6d7d66599fefffa5477f7fd4da1b884dd7b8))
+* union expects at least 2 features ([d374a8a](https://github.com/rodekruis/IBF-system/commit/d374a8aa267953748ce4f7b5fde583e2a94137f7))
+* workaround validation errors ([3e7c6b5](https://github.com/rodekruis/IBF-system/commit/3e7c6b586d51462ef145584f08aa1bd12bd2dd15))
+
+
+### Features
+
+* use event-areas also for floods ([f77b9a0](https://github.com/rodekruis/IBF-system/commit/f77b9a05d46cc4516d5ed1775b798c0460d822c7))
+
+
+
 ## [0.318.1](https://github.com/rodekruis/IBF-system/compare/v0.318.0...v0.318.1) (2025-05-23)
 
 
@@ -111,16 +128,6 @@
 * set default user role to viewer ([8c0f050](https://github.com/rodekruis/IBF-system/commit/8c0f050a26bf0b0606a1388217d9c7dfc90e2638))
 * use cascade to resolve foreign key constraint ([ed44ed0](https://github.com/rodekruis/IBF-system/commit/ed44ed0240ad17c631adf2c780b8258c19ff3980))
 * use cascade to resolve foreign key constraint ([48ddc16](https://github.com/rodekruis/IBF-system/commit/48ddc16c9e143532048b869bb70a4a12403afbf3))
-
-
-
-## [0.314.3](https://github.com/rodekruis/IBF-system/compare/v0.314.2...v0.314.3) (2025-04-30)
-
-
-### Bug Fixes
-
-* add truncate flag in seed init ([1c69efe](https://github.com/rodekruis/IBF-system/commit/1c69efebd06a5353a681f074f5c4ec68d329666e))
-* clearer log message in seed prod ([652e1fd](https://github.com/rodekruis/IBF-system/commit/652e1fdd78196d2f7fb83104b519edb760faa26a))
 
 
 
