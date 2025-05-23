@@ -40,6 +40,7 @@ import MapComponentInfoPopover from './MapComponent/MapComponentInfoPopover';
 import MapComponentInteractive from './MapComponent/MapComponentInteractive';
 import MapComponentLayersDefault from './MapComponent/MapComponentLayersDefault';
 import MapComponentLayersVisible from './MapComponent/MapComponentLayersVisible';
+import MapComponentLinesLayers from './MapComponent/MapComponentLinesLayers';
 import MapComponentTriggerLayer from './MapComponent/MapComponentTriggerLayer';
 import MapComponentVisible from './MapComponent/MapComponentVisible';
 import TimelineComponentNotClickable from './TimelineComponent/TimelineComponentNotClickable';
@@ -119,6 +120,7 @@ test.describe('e2e tests', () => {
         MapComponentLayersVisible(pages, components, dataset);
         MapComponentTriggerLayer(pages, components, dataset);
         MapComponentGloFASStations(pages, components, dataset);
+        MapComponentLinesLayers(pages, components, dataset);
 
         if (scenario !== 'no-trigger') {
           // REFACTOR

@@ -147,7 +147,6 @@ class MapComponent extends DashboardPage {
   }
 
   async checkLayerCheckbox({ name }: Layer) {
-    // Remove Glofas station from the map (in case the mock is for floods)
     await this.waitForMapToBeLoaded();
 
     await this.layerMenuToggle.click();
@@ -335,6 +334,57 @@ class MapComponent extends DashboardPage {
 
   async getAdminAreaBreadCrumbText() {
     return await this.breadCrumbAdminAreaView.innerText();
+  }
+
+  async assertWmsLayer(linesLayer: Layer, timeout = 30000) {
+    // Track all WMS responses for debugging
+    const wmsResponses: string[] = [];
+
+    // Create a promise that resolves when we find a matching response
+    return new Promise<void>((resolve, reject) => {
+      // Set a timeout to fail the test if we don't find a matching response
+      const timeoutId = setTimeout(() => {
+        reject(
+          new Error(
+            `Timeout waiting for WMS layer "${linesLayer.name}" after ${timeout}ms. Collected ${wmsResponses.length} WMS responses, but none matched the target layer.`,
+          ),
+        );
+      }, timeout);
+
+      // Set up an event listener for all responses
+      const responseListener = (response: any) => {
+        const url = response.url();
+        if (!url.includes('wms') || !url.includes(linesLayer.name)) return;
+        wmsResponses.push(url);
+
+        // Process this response
+        this.processWmsResponse(response)
+          .then(() => {
+            clearTimeout(timeoutId);
+            resolve();
+          })
+          .catch((error) => {
+            clearTimeout(timeoutId);
+            reject(error);
+          });
+      };
+
+      // Register the response listener
+      this.page.on('response', responseListener);
+    });
+  }
+
+  // Helper method to process a WMS response
+  private async processWmsResponse(response: any) {
+    // NOTE: currently this only asserts a 200 response and an image content type.
+    // In fact, in these tests we do not seed lines-data and thus the tiles are actually empty.
+    // So this assertion is checking if the Geoserver store/layer are set up correctly and reachable, but is not asserting any data.
+    // It is hard to assert what is in the image, given we use wms and not wfs.
+
+    // Verify the response is valid
+    expect(response.status()).toBe(200);
+    const contentType = response.headers()['content-type'];
+    expect(contentType).toContain('image/');
   }
 }
 export default MapComponent;

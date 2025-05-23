@@ -23,7 +23,7 @@ export interface Layer {
   description: string;
   legendLabels: string[];
   active: boolean;
-  type: string; // 'raster' | 'admin-area' | 'point'
+  type: string; // 'wms' | 'admin-area' | 'point'
   map: boolean;
   aggregate: boolean;
 }

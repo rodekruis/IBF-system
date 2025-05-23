@@ -48,7 +48,7 @@
       "description": "The flood extent layer indicates the inundated area of recurring floods within a return period depending on the EAP (for example 20-years) based on a global hydrological model.<br/><br/>Source link: The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012].",
       "legendLabels": ["Flood extent"],
       "active": true,
-      "type": "raster",
+      "type": "wms",
       "map": true,
       "aggregate": false
     },

@@ -68,7 +68,7 @@
       "description": "...",
       "legendLabels": ["Flood extent"],
       "active": true,
-      "type": "raster",
+      "type": "wms",
       "map": true,
       "aggregate": false
     },
@@ -78,7 +78,7 @@
       "description": "...",
       "legendLabels": ["Roads"],
       "active": false,
-      "type": "line",
+      "type": "wms",
       "aggregate": false
     },
     {
@@ -87,7 +87,7 @@
       "description": "...",
       "legendLabels": ["Buildings"],
       "active": false,
-      "type": "line",
+      "type": "wms",
       "map": true,
       "aggregate": false
     },
@@ -97,7 +97,7 @@
       "description": "...",
       "legendLabels": ["Rivers"],
       "active": false,
-      "type": "line",
+      "type": "wms",
       "map": true,
       "aggregate": false
     },

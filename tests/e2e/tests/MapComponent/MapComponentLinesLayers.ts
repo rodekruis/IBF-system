@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test('[33018] Map should show active layers', async () => {
+  test('[36134] Map should render lines layers successfully', async () => {
     const { dashboard } = pages;
     const { userState, map } = components;
 
@@ -24,18 +24,19 @@ export default (
     await dashboard.waitForLoaderToDisappear();
     await map.mapComponentIsVisible();
 
-    // Open the layer menu
-    await map.isLayerMenuOpen({ layerMenuOpen: false });
-    await map.clickLayerMenu();
-    await map.isLayerMenuOpen({ layerMenuOpen: true });
-
-    // Check if the active map layers are visible
-    const activeMapLayers = dataset.layers.filter(
-      (layer) => layer.active && layer.map,
+    const NON_COUNTRY_SPECIFIC_WMS_LAYERS = ['buildings', 'roads'];
+    const linesLayers = dataset.layers.filter((l) =>
+      NON_COUNTRY_SPECIFIC_WMS_LAYERS.includes(l.name),
     );
+    for (const linesLayer of linesLayers) {
+      // Toggle the layer ON
+      await map.checkLayerCheckbox(linesLayer);
 
-    for (const mapLayer of activeMapLayers) {
-      await map.isLayerVisible(mapLayer);
+      // Assert
+      await map.assertWmsLayer(linesLayer);
+
+      // collapse layer menu again
+      await map.clickLayerMenu();
     }
   });
 };

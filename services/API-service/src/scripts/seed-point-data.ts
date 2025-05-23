@@ -28,30 +28,27 @@ export class SeedPointData implements InterfaceScript {
     const envCountries = process.env.COUNTRIES.split(',');
 
     await Promise.all(
-      countries.map(({ countryCodeISO3 }): Promise<void> => {
-        if (envCountries.includes(countryCodeISO3)) {
+      countries
+        .filter(({ countryCodeISO3 }) => envCountries.includes(countryCodeISO3))
+        .flatMap(({ countryCodeISO3 }) => [
           this.seedPointData(
             PointDataCategory.redCrossBranches,
             countryCodeISO3,
-          );
-          this.seedPointData(PointDataCategory.healthSites, countryCodeISO3);
+          ),
+          this.seedPointData(PointDataCategory.healthSites, countryCodeISO3),
           this.seedPointData(
             PointDataCategory.evacuationCenters,
             countryCodeISO3,
-          );
-          this.seedPointData(PointDataCategory.dams, countryCodeISO3);
-          this.seedPointData(PointDataCategory.schools, countryCodeISO3);
+          ),
+          this.seedPointData(PointDataCategory.dams, countryCodeISO3),
+          this.seedPointData(PointDataCategory.schools, countryCodeISO3),
           this.seedPointData(
             PointDataCategory.waterpointsInternal,
             countryCodeISO3,
-          );
-          this.seedPointData(PointDataCategory.gauges, countryCodeISO3);
-          this.seedPointData(PointDataCategory.glofasStations, countryCodeISO3);
-          return;
-        } else {
-          return Promise.resolve();
-        }
-      }),
+          ),
+          this.seedPointData(PointDataCategory.gauges, countryCodeISO3),
+          this.seedPointData(PointDataCategory.glofasStations, countryCodeISO3),
+        ]),
     );
   }
 
