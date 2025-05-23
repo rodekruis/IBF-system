@@ -38,8 +38,8 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Drought,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
-    featureCount: 2,
-    placeCodeRegex: /^(?:UG|Karamoja|MAM|OND)/,
+    featureCount: 4,
+    placeCodeRegex: /^UG/,
     uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
@@ -105,8 +105,8 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Drought,
     adminLevel: AdminLevel.adminLevel1,
     scenario: FloodsScenario.Trigger,
-    featureCount: 1,
-    placeCodeRegex: /^(?:KE|MAM|OND)/,
+    featureCount: 40,
+    placeCodeRegex: /^KE/,
     uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
@@ -130,8 +130,8 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Drought,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
-    featureCount: 6,
-    placeCodeRegex: /^(?:ET|Belg|Meher|Northern|Southern)/,
+    featureCount: 190,
+    placeCodeRegex: /^ET/,
     uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
@@ -155,8 +155,8 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Drought,
     adminLevel: AdminLevel.adminLevel1,
     scenario: FloodsScenario.Trigger,
-    featureCount: 1,
-    placeCodeRegex: /^(?:ZW|MAM)/,
+    featureCount: 3,
+    placeCodeRegex: /^ZW/,
     uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
