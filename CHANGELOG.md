@@ -1,3 +1,12 @@
+## [0.319.1](https://github.com/rodekruis/IBF-system/compare/v0.319.0...v0.319.1) (2025-05-23)
+
+
+### Bug Fixes
+
+* use 0 as fallback aggregate value ([6b36aec](https://github.com/rodekruis/IBF-system/commit/6b36aec5815bef600d5e17f62e1d558feba8d65c))
+
+
+
 # [0.319.0](https://github.com/rodekruis/IBF-system/compare/v0.318.1...v0.319.0) (2025-05-23)
 
 
@@ -116,18 +125,6 @@
 ### Features
 
 * add POST admin-area-data ([98edc75](https://github.com/rodekruis/IBF-system/commit/98edc75290ce81ce0ef27e7d773c4467fe1ca3e3))
-
-
-
-## [0.314.4](https://github.com/rodekruis/IBF-system/compare/v0.314.3...v0.314.4) (2025-05-07)
-
-
-### Bug Fixes
-
-* set default user role to viewer ([f8c7ad3](https://github.com/rodekruis/IBF-system/commit/f8c7ad366fcba8273148dda4b6a6b6f0568c99d0))
-* set default user role to viewer ([8c0f050](https://github.com/rodekruis/IBF-system/commit/8c0f050a26bf0b0606a1388217d9c7dfc90e2638))
-* use cascade to resolve foreign key constraint ([ed44ed0](https://github.com/rodekruis/IBF-system/commit/ed44ed0240ad17c631adf2c780b8258c19ff3980))
-* use cascade to resolve foreign key constraint ([48ddc16](https://github.com/rodekruis/IBF-system/commit/48ddc16c9e143532048b869bb70a4a12403afbf3))
 
 
 
