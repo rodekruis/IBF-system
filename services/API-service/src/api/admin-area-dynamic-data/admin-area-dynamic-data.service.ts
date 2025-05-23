@@ -134,7 +134,10 @@ export class AdminAreaDynamicDataService {
     );
 
     // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
-    if (disasterType === DisasterType.FlashFloods && !eventName) {
+    if (
+      [DisasterType.FlashFloods, DisasterType.Floods].includes(disasterType) &&
+      !eventName
+    ) {
       const events = await this.eventService.getEvents(
         countryCodeISO3,
         disasterType,

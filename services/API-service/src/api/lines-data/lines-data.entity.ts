@@ -1,10 +1,5 @@
-import {
-  Column,
-  Entity,
-  Geometry,
-  Index,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Geometry } from 'geojson';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 
 export enum LinesDataCategory {
   roads = 'roads',

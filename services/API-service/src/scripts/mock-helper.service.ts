@@ -225,13 +225,7 @@ export class MockHelperService {
       );
       // if no files are found, return null
       if (closestFiles.length === 0) {
-        this.logger.log(
-          'No closest files found for the given lead time',
-          layerStorePrefix,
-          leadTimeUnit,
-          countryCodeISO3,
-          suffix,
-        );
+        this.logger.log(`No closest files found for filename: ${filename}`);
         return null;
       }
       const numbersFromClosestFiles = closestFiles.map((file) =>

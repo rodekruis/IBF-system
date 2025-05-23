@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import fs from 'fs';
 
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
-import { EventAreaService } from '../api/admin-area/services/event-area.service';
 import countries from './json/countries.json';
 import { InterfaceScript } from './scripts.module';
 
@@ -11,10 +10,7 @@ import { InterfaceScript } from './scripts.module';
 export class SeedAdminArea implements InterfaceScript {
   private ADMIN_LEVELS = [1, 2, 3, 4];
 
-  public constructor(
-    private adminAreaService: AdminAreaService,
-    private eventAreaService: EventAreaService,
-  ) {}
+  public constructor(private adminAreaService: AdminAreaService) {}
 
   public async run(): Promise<void> {
     const envCountries = process.env.COUNTRIES.split(',');
@@ -43,22 +39,6 @@ export class SeedAdminArea implements InterfaceScript {
         adminLevel,
         adminJson,
         true,
-      );
-    }
-
-    // upload event-areas per disaster-type
-    for (const disasterType of country.disasterTypes) {
-      const fileName = `./src/scripts/git-lfs/event-areas/${country.countryCodeISO3}_${disasterType}_event-areas.json`;
-      if (!fs.existsSync(fileName)) {
-        continue;
-      }
-      const adminJsonRaw = fs.readFileSync(fileName, 'utf-8');
-      const adminJson = JSON.parse(adminJsonRaw);
-
-      await this.eventAreaService.addOrUpdateEventAreas(
-        country.countryCodeISO3,
-        disasterType,
-        adminJson,
       );
     }
   }

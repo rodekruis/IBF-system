@@ -1,10 +1,22 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { MultiPolygon, Polygon } from 'geojson';
+
 import { AdminLevel } from '../../country/admin-level.enum';
+import { AlertLevel } from '../../event/enum/alert-level.enum';
 
 export interface AdminAreaParams {
   countryCodeISO3: string;
   adminLevel: AdminLevel;
+}
+
+export interface AdminArea {
+  placeCode: string;
+  eventName: string;
+  countryCodeISO3: string;
+  alertLevel: AlertLevel;
+  geom: Polygon | MultiPolygon;
+  [key: string]: unknown;
 }
 
 export class AdminAreaUpdateResult {

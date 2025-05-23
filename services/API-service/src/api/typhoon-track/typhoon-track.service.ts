@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
+import { FeatureCollection } from 'geojson';
 import {
   DeleteResult,
   InsertResult,
   MoreThanOrEqual,
   Repository,
 } from 'typeorm';
-import { FeatureCollection } from 'typeorm';
 
 import { DisasterSpecificProperties } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';

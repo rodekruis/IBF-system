@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsNotEmpty, IsString } from 'class-validator';
-import { FeatureCollection } from 'typeorm';
+import { FeatureCollection } from 'geojson';
 
 import { PLACEHOLDER_SECRET } from '../../../config';
 

@@ -1,17 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import {
-  Geometry,
-  GeometryCollection,
-  InsertResult,
-  MoreThanOrEqual,
-  Repository,
-} from 'typeorm';
-import { FeatureCollection } from 'typeorm';
+import { feature, featureCollection } from '@turf/helpers';
+import { union } from '@turf/union';
+import { Feature } from 'geojson';
+import { MoreThanOrEqual, Repository } from 'typeorm';
 
 import { AggregateDataRecord, Event } from '../../../shared/data.model';
-import { HelperService } from '../../../shared/helper.service';
 import {
   AdminAreaDynamicDataEntity,
   Indicator,
@@ -24,126 +19,18 @@ import {
   FORECAST_TRIGGER,
   TRIGGER,
 } from '../../admin-area-dynamic-data/enum/dynamic-indicator.enum';
-import { DisasterTypeEntity } from '../../disaster-type/disaster-type.entity';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
 import { AlertLevel } from '../../event/enum/alert-level.enum';
 import { EventService } from '../../event/event.service';
-import { EventAreaEntity } from '../event-area.entity';
+import { AdminArea } from '../dto/admin-area.dto';
 
 @Injectable()
 export class EventAreaService {
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
-  @InjectRepository(EventAreaEntity)
-  private readonly eventAreaRepository: Repository<EventAreaEntity>;
 
-  public constructor(
-    private helperService: HelperService,
-    private eventService: EventService,
-  ) {}
-
-  public async addOrUpdateEventAreas(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-    eventAreasGeoJson: FeatureCollection,
-  ) {
-    //delete existing entries for country & adminlevel first
-    await this.eventAreaRepository.delete({ countryCodeISO3 });
-
-    // then upload new admin-areas
-    await Promise.all(
-      eventAreasGeoJson.features.map((area): Promise<InsertResult> => {
-        return this.eventAreaRepository
-          .createQueryBuilder()
-          .insert()
-          .values({
-            countryCodeISO3,
-            disasterType,
-            eventAreaName: area.properties[`name`],
-            geom: (): string =>
-              this.geomFunction(
-                (area.geometry as Exclude<Geometry, GeometryCollection>) // REFACTOR: remove typecast
-                  .coordinates,
-              ),
-          })
-          .execute();
-      }),
-    );
-  }
-
-  private geomFunction(coordinates): string {
-    return `ST_GeomFromGeoJSON( '{ "type": "MultiPolygon", "coordinates": ${JSON.stringify(
-      coordinates,
-    )} }' )`;
-  }
-
-  public async getEventAreas(
-    countryCodeISO3: string,
-    disasterType: DisasterTypeEntity,
-    lastUploadDate: LastUploadDateDto,
-  ): Promise<FeatureCollection> {
-    const eventAreas = [];
-
-    const events = await this.eventService.getEvents(
-      countryCodeISO3,
-      disasterType.disasterType,
-    );
-
-    for await (const event of events) {
-      const eventArea = await this.eventAreaRepository
-        .createQueryBuilder('area')
-        .where({
-          countryCodeISO3,
-          disasterType: disasterType.disasterType,
-          eventAreaName: event.eventName,
-        })
-        .select([
-          'area."eventAreaName" as "name"',
-          'area."countryCodeISO3" as "countryCodeISO3"',
-          'ST_AsGeoJSON(area.geom)::json As geom',
-        ])
-        .getRawOne();
-
-      eventArea['eventName'] = event.eventName;
-      eventArea['placeCode'] = event.eventName;
-      const aggregateValue = await this.adminAreaDynamicDataRepo
-        .createQueryBuilder('dynamic')
-        .select('SUM(value)', 'value') // TODO: facilitate other aggregate-cases than SUM
-        .where({
-          timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
-          disasterType: disasterType.disasterType,
-          indicator: disasterType.mainExposureIndicator,
-          eventName: event.eventName,
-        })
-        .getRawOne();
-      eventArea[disasterType.mainExposureIndicator] = aggregateValue.value;
-      eventArea['alertLevel'] = event.alertLevel;
-      eventAreas.push(eventArea);
-    }
-
-    if (eventAreas.length === 0) {
-      const allEventAreas = await this.eventAreaRepository
-        .createQueryBuilder('area')
-        .where({ countryCodeISO3, disasterType: disasterType.disasterType })
-        .select([
-          'area."eventAreaName" as "name"',
-          'area."countryCodeISO3" as "countryCodeISO3"',
-          'ST_AsGeoJSON(area.geom)::json As geom',
-        ])
-        .getRawMany();
-      for await (const eventArea of allEventAreas) {
-        eventArea['eventName'] = eventArea.name;
-        eventArea['placeCode'] = eventArea.name;
-        eventArea['alertLevel'] = AlertLevel.NONE;
-        eventArea[disasterType.mainExposureIndicator] = 0;
-
-        eventAreas.push(eventArea);
-      }
-    }
-
-    return this.helperService.getFeatureCollection(eventAreas);
-  }
+  public constructor(private eventService: EventService) {}
 
   public async getEventAreaAggregates(
     countryCodeISO3: string,
@@ -237,4 +124,77 @@ export class EventAreaService {
       .groupBy('dynamic."indicator"')
       .getRawMany();
   }
+
+  public getEventAdminAreas = (adminAreas: AdminArea[], indicator: string) => {
+    const eventAdminAreas: Record<string, Feature<AdminArea['geom']>[]> = {};
+
+    // reduce admin areas to events by aggregating indicator value
+    const events = adminAreas.reduce((events, adminArea) => {
+      const { geom, eventName, countryCodeISO3, alertLevel } = adminArea;
+      const indicatorValue = adminArea[indicator];
+
+      // try to find an existing event by eventName
+      const existingEvent = events.find(
+        ({ eventName: existingEventName }) => existingEventName === eventName,
+      );
+
+      if (existingEvent) {
+        // add admin area to event
+        eventAdminAreas[eventName].push(feature(geom));
+
+        // aggregate indicator value
+        existingEvent[indicator] =
+          (existingEvent[indicator] ?? 0) + (indicatorValue ?? 0);
+      } else {
+        // create a new event
+        eventAdminAreas[eventName] = [feature(geom)];
+
+        events.push({
+          placeCode: eventName,
+          name: eventName,
+          eventName,
+          countryCodeISO3,
+          [indicator]: indicatorValue ?? 0,
+          alertLevel,
+        });
+      }
+
+      return events;
+    }, []);
+
+    // create event features by merging admin areas
+    const eventFeatures = events
+      .map((properties) =>
+        this.getEventAdminArea(
+          eventAdminAreas[properties.eventName],
+          properties,
+        ),
+      )
+      .filter(Boolean); // filter out null values
+
+    return featureCollection(eventFeatures);
+  };
+
+  private getEventAdminArea = (
+    adminAreas: Feature<AdminArea['geom']>[],
+    properties: Omit<AdminArea, 'geom'>,
+  ) => {
+    if (!adminAreas) {
+      return null;
+    }
+
+    if (properties.alertLevel == AlertLevel.NONE) {
+      // return null to exclude no alert events
+      // getAdminAreas will fallback to admin areas if no alert event is found
+      return null;
+    }
+
+    if (adminAreas.length > 1) {
+      return union(featureCollection(adminAreas), { properties });
+    } else if (adminAreas.length === 1) {
+      return feature(adminAreas[0].geometry, properties);
+    }
+
+    return null;
+  };
 }

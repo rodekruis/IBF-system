@@ -1,16 +1,8 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import {
-  DeleteResult,
-  FeatureCollection,
-  Geometry,
-  GeometryCollection,
-  In,
-  MoreThanOrEqual,
-  Not,
-  Repository,
-} from 'typeorm';
+import { FeatureCollection, Geometry, GeometryCollection } from 'geojson';
+import { DeleteResult, In, MoreThanOrEqual, Not, Repository } from 'typeorm';
 
 import { AggregateDataRecord } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';
@@ -258,7 +250,10 @@ export class AdminAreaService {
     );
 
     // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
-    if (disasterType === DisasterType.FlashFloods && !eventName) {
+    if (
+      [DisasterType.FlashFloods, DisasterType.Floods].includes(disasterType) &&
+      !eventName
+    ) {
       return await this.eventAreaService.getEventAreaAggregates(
         countryCodeISO3,
         disasterType,
@@ -382,21 +377,12 @@ export class AdminAreaService {
     eventName: string,
     placeCodeParent?: string,
   ): Promise<FeatureCollection> {
-    const disasterTypeEntity =
+    const { mainExposureIndicator: indicator } =
       await this.disasterTypeService.getDisasterType(disasterType);
     const lastUploadDate = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
     );
-
-    // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
-    if (disasterType === DisasterType.FlashFloods && !eventName) {
-      return await this.eventAreaService.getEventAreas(
-        countryCodeISO3,
-        disasterTypeEntity,
-        lastUploadDate,
-      );
-    }
 
     let adminAreasScript = this.adminAreaRepository
       .createQueryBuilder('area')
@@ -438,7 +424,7 @@ export class AdminAreaService {
         'area."placeCodeParent" = parent."placeCode"',
       )
       .addSelect([
-        `dynamic.value AS ${disasterTypeEntity.mainExposureIndicator}`,
+        `dynamic.value AS ${indicator}`,
         'dynamic."leadTime"',
         'dynamic."date"',
         'parent.name AS "nameParent"',
@@ -449,9 +435,7 @@ export class AdminAreaService {
         cutoffMoment: lastUploadDate.cutoffMoment,
       })
       .andWhere('dynamic.disasterType = :disasterType', { disasterType })
-      .andWhere('dynamic."indicator" = :indicator', {
-        indicator: disasterTypeEntity.mainExposureIndicator,
-      });
+      .andWhere('dynamic."indicator" = :indicator', { indicator });
     if (leadTime) {
       adminAreasScript.andWhere('dynamic."leadTime" = :leadTime', { leadTime });
     }
@@ -489,9 +473,25 @@ export class AdminAreaService {
     const highestAlertLevels =
       this.eventService.getHighestAlertLevelPerEvent(adminAreas);
     adminAreas = adminAreas.filter(
-      (area) =>
-        area.alertLevel === highestAlertLevels[area.eventName || 'unknown'],
+      ({ alertLevel, eventName }) =>
+        alertLevel === highestAlertLevels[eventName || 'unknown'],
     );
+
+    if (
+      [DisasterType.FlashFloods, DisasterType.Floods].includes(disasterType) &&
+      !eventName
+    ) {
+      // TODO: make this disaster-type property, instead of repeating logic in 3 places
+      // TODO: use IF admin level is national view (or less than default admin level ?)
+      const eventAdminAreas = this.eventAreaService.getEventAdminAreas(
+        adminAreas,
+        indicator,
+      );
+
+      if (eventAdminAreas.features.length > 0) {
+        return eventAdminAreas;
+      }
+    }
 
     return this.helperService.getFeatureCollection(adminAreas);
   }
@@ -519,13 +519,13 @@ export class AdminAreaService {
       whereFilters['eventName'] = eventName;
     }
 
-    const adminAreasToShow = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder()
-      .where(whereFilters)
-      .getMany();
+    const adminAreasToShow = await this.adminAreaDynamicDataRepo.find({
+      where: whereFilters,
+      select: ['placeCode'],
+    });
 
     // The 'showAdminArea' indicator queried for above is only used in Typhoon. Theoretically it could be used more widespread.
     // If no data found, this will correctly return an empty array.
-    return adminAreasToShow.map((area) => area.placeCode);
+    return adminAreasToShow.map(({ placeCode }) => placeCode);
   }
 }

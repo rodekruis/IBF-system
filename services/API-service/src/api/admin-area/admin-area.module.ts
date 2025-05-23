@@ -13,7 +13,6 @@ import { CountryModule } from './../country/country.module';
 import { AdminAreaController } from './admin-area.controller';
 import { AdminAreaEntity } from './admin-area.entity';
 import { AdminAreaService } from './admin-area.service';
-import { EventAreaEntity } from './event-area.entity';
 import { EventAreaService } from './services/event-area.service';
 
 @Module({
@@ -25,7 +24,6 @@ import { EventAreaService } from './services/event-area.service';
       CountryEntity,
       DisasterTypeEntity,
       AdminAreaDynamicDataEntity,
-      EventAreaEntity,
     ]),
     EventModule,
     CountryModule,
