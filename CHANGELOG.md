@@ -1,3 +1,13 @@
+## [0.318.1](https://github.com/rodekruis/IBF-system/compare/v0.318.0...v0.318.1) (2025-05-23)
+
+
+### Bug Fixes
+
+* e2e test ([2a1a034](https://github.com/rodekruis/IBF-system/commit/2a1a034a868c789d81bfb21df3242e07f4fcb058))
+* refactor line type setup in e2e ([852b396](https://github.com/rodekruis/IBF-system/commit/852b396ab7b97f39ab94aa4fa866c04b45a558aa))
+
+
+
 # [0.318.0](https://github.com/rodekruis/IBF-system/compare/v0.317.0...v0.318.0) (2025-05-22)
 
 
@@ -111,15 +121,6 @@
 
 * add truncate flag in seed init ([1c69efe](https://github.com/rodekruis/IBF-system/commit/1c69efebd06a5353a681f074f5c4ec68d329666e))
 * clearer log message in seed prod ([652e1fd](https://github.com/rodekruis/IBF-system/commit/652e1fdd78196d2f7fb83104b519edb760faa26a))
-
-
-
-## [0.314.2](https://github.com/rodekruis/IBF-system/compare/v0.314.1...v0.314.2) (2025-04-28)
-
-
-### Bug Fixes
-
-* self-signed certificate ([d118da9](https://github.com/rodekruis/IBF-system/commit/d118da96b8671f2230c0c46f96182bc197df6ac2))
 
 
 
