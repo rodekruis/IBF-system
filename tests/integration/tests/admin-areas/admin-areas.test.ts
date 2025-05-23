@@ -22,6 +22,7 @@ export default function adminAreaTests() {
         leadTime,
         eventName,
         placeCodeParent,
+        uploadDate,
       }) => {
         let title = 'should return list of admin areas on GET';
         title += ` ${countryCodeISO3} / ${disasterType} / ${adminLevel} / ${scenario}`;
@@ -37,7 +38,13 @@ export default function adminAreaTests() {
 
         it(title, async () => {
           // Arrange
-          await mock(token, scenario, disasterType, countryCodeISO3, null);
+          await mock(
+            token,
+            scenario,
+            disasterType,
+            countryCodeISO3,
+            uploadDate,
+          );
 
           // Act
           const adminAreas = await getAdminAreas(

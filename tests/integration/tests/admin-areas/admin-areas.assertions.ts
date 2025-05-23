@@ -13,6 +13,7 @@ interface Assertion {
   leadTime?: LeadTime;
   eventName?: string;
   placeCodeParent?: string;
+  uploadDate?: Date;
 }
 
 export const assertions: Assertion[] = [
@@ -37,8 +38,9 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Drought,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
-    featureCount: 4,
-    placeCodeRegex: /^UG/,
+    featureCount: 2,
+    placeCodeRegex: /^(?:UG|Karamoja|MAM|OND)/,
+    uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
     countryCodeISO3: 'ZMB',
@@ -55,6 +57,7 @@ export const assertions: Assertion[] = [
     scenario: FloodsScenario.Trigger,
     featureCount: 10,
     placeCodeRegex: /^ZM/,
+    uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
     countryCodeISO3: 'MWI',
@@ -102,8 +105,9 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Drought,
     adminLevel: AdminLevel.adminLevel1,
     scenario: FloodsScenario.Trigger,
-    featureCount: 40,
-    placeCodeRegex: /^KE/,
+    featureCount: 1,
+    placeCodeRegex: /^(?:KE|MAM|OND)/,
+    uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
     countryCodeISO3: 'ETH',
@@ -126,8 +130,9 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Drought,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
-    featureCount: 190,
-    placeCodeRegex: /^ET/,
+    featureCount: 6,
+    placeCodeRegex: /^(?:ET|Belg|Meher|Northern|Southern)/,
+    uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
     countryCodeISO3: 'PHL',
@@ -150,8 +155,9 @@ export const assertions: Assertion[] = [
     disasterType: DisasterType.Drought,
     adminLevel: AdminLevel.adminLevel1,
     scenario: FloodsScenario.Trigger,
-    featureCount: 3,
-    placeCodeRegex: /^ZW/,
+    featureCount: 1,
+    placeCodeRegex: /^(?:ZW|MAM)/,
+    uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
     countryCodeISO3: 'LSO',
