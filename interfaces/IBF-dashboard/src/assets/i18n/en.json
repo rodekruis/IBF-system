@@ -77,7 +77,7 @@
     "national-view": "National View",
     "predicted": "Predicted",
     "plural-suffix": "(s)",
-    "not-applicable": "N/A"
+    "default-value": "0"
   },
   "disclaimer-approximate-component": {
     "message": "All numbers are approximate and meant to be used as guidance."
