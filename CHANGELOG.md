@@ -1,3 +1,20 @@
+# [0.320.0](https://github.com/rodekruis/IBF-system/compare/v0.319.1...v0.320.0) (2025-05-23)
+
+
+### Bug Fixes
+
+* drought GET /admin-areas for event-area + stable uploadDate ([723c8a6](https://github.com/rodekruis/IBF-system/commit/723c8a6b360583dce9d0d16c6ce8ca66531be3b7))
+* revert integration test assertion changes on drought ([c342104](https://github.com/rodekruis/IBF-system/commit/c342104ec5db5c24bc762b3776fd34ee89f576f0))
+* show correct eventName on hover in aggregates header AB[#36185](https://github.com/rodekruis/IBF-system/issues/36185) ([8cb6825](https://github.com/rodekruis/IBF-system/commit/8cb682584c29ce56c27ec441a8108f0405862fbd))
+
+
+### Features
+
+* add drought + make const AB[#36185](https://github.com/rodekruis/IBF-system/issues/36185) ([7ac8559](https://github.com/rodekruis/IBF-system/commit/7ac8559386765d6850670140e4d205994e0cbf8b))
+* disable event-areas for drought again AB[#36246](https://github.com/rodekruis/IBF-system/issues/36246) ([122447d](https://github.com/rodekruis/IBF-system/commit/122447da68fe3591a8084f5e905d86f2275abe74))
+
+
+
 ## [0.319.1](https://github.com/rodekruis/IBF-system/compare/v0.319.0...v0.319.1) (2025-05-23)
 
 
@@ -110,21 +127,6 @@
 ### Bug Fixes
 
 * event place code and eap action status foreign key delete cascade ([7017f27](https://github.com/rodekruis/IBF-system/commit/7017f270185bf8bc624d4c0d1adc976a45a17125))
-
-
-
-# [0.315.0](https://github.com/rodekruis/IBF-system/compare/v0.314.4...v0.315.0) (2025-05-07)
-
-
-### Bug Fixes
-
-* csv should not write to other countries based on first record ([5b11973](https://github.com/rodekruis/IBF-system/commit/5b119735d2e5d34a3263dba7ac3d2ad62b607b1b))
-* rm test on removed endpoint ([e5ecc4c](https://github.com/rodekruis/IBF-system/commit/e5ecc4c6eca0996d2a032047cadc58ed5e34a15d))
-
-
-### Features
-
-* add POST admin-area-data ([98edc75](https://github.com/rodekruis/IBF-system/commit/98edc75290ce81ce0ef27e7d773c4467fe1ca3e3))
 
 
 
