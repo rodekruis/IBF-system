@@ -14,6 +14,7 @@ import {
 import { DisasterTypeGeoServerMapper } from '../../scripts/disaster-type-geoserver-file.mapper';
 import { HelperService } from '../../shared/helper.service';
 import { EventAreaService } from '../admin-area/services/event-area.service';
+import { EVENT_AREA_DISASTER_TYPES } from '../disaster-type/const/disaster-type.const';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { AlertLevel } from '../event/enum/alert-level.enum';
 import { EventService } from '../event/event.service';
@@ -134,10 +135,7 @@ export class AdminAreaDynamicDataService {
     );
 
     // This is for now an exception to get event-polygon-level data for flash-floods. Is the intended direction for all disaster-types.
-    if (
-      [DisasterType.FlashFloods, DisasterType.Floods].includes(disasterType) &&
-      !eventName
-    ) {
+    if (EVENT_AREA_DISASTER_TYPES.includes(disasterType) && !eventName) {
       const events = await this.eventService.getEvents(
         countryCodeISO3,
         disasterType,

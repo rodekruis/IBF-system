@@ -13,6 +13,7 @@ interface Assertion {
   leadTime?: LeadTime;
   eventName?: string;
   placeCodeParent?: string;
+  uploadDate?: Date;
 }
 
 export const assertions: Assertion[] = [
@@ -39,6 +40,7 @@ export const assertions: Assertion[] = [
     scenario: FloodsScenario.Trigger,
     featureCount: 4,
     placeCodeRegex: /^UG/,
+    uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
     countryCodeISO3: 'ZMB',
@@ -55,6 +57,7 @@ export const assertions: Assertion[] = [
     scenario: FloodsScenario.Trigger,
     featureCount: 10,
     placeCodeRegex: /^ZM/,
+    uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
     countryCodeISO3: 'MWI',
@@ -104,6 +107,7 @@ export const assertions: Assertion[] = [
     scenario: FloodsScenario.Trigger,
     featureCount: 40,
     placeCodeRegex: /^KE/,
+    uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
     countryCodeISO3: 'ETH',
@@ -128,6 +132,7 @@ export const assertions: Assertion[] = [
     scenario: FloodsScenario.Trigger,
     featureCount: 190,
     placeCodeRegex: /^ET/,
+    uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
     countryCodeISO3: 'PHL',
@@ -152,6 +157,7 @@ export const assertions: Assertion[] = [
     scenario: FloodsScenario.Trigger,
     featureCount: 3,
     placeCodeRegex: /^ZW/,
+    uploadDate: new Date(new Date().getFullYear(), 4, 2), // Fix to date in May for stable response
   },
   {
     countryCodeISO3: 'LSO',
