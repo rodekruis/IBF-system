@@ -13,7 +13,6 @@ import {
 } from '../../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { AdminDataReturnDto } from '../../admin-area-dynamic-data/dto/admin-data-return.dto';
 import {
-  ALERT_THRESHOLD,
   DynamicIndicator,
   FORECAST_SEVERITY,
   FORECAST_TRIGGER,
@@ -86,15 +85,7 @@ export class EventAreaService {
   ): number {
     // REFACTOR: the TRIGGER layer should not be necessary
     if (indicatorName === TRIGGER) {
-      // return 'alert_threshold' if available otherwise return 1 or 0 based on alert level
-      const alertThreshold = indicators.find(
-        ({ indicator }) => indicator === ALERT_THRESHOLD,
-      );
-      if (alertThreshold) {
-        return alertThreshold.value;
-      } else {
-        return Number(event.alertLevel === AlertLevel.TRIGGER);
-      }
+      return Number(event.alertLevel === AlertLevel.TRIGGER);
     }
 
     const indicator = indicators.find(
@@ -118,7 +109,7 @@ export class EventAreaService {
       .createQueryBuilder('dynamic')
       .select('dynamic."indicator"', 'indicator')
       .addSelect(
-        `CASE WHEN dynamic."indicator" IN ('${ALERT_THRESHOLD}','${FORECAST_SEVERITY}','${FORECAST_TRIGGER}') THEN MAX(value) ELSE SUM(value) END as "value"`, // NOTE: remove 'alert_threshold' after flash-floods pipeline migrated
+        `CASE WHEN dynamic."indicator" IN ('${FORECAST_SEVERITY}','${FORECAST_TRIGGER}') THEN MAX(value) ELSE SUM(value) END as "value"`,
       )
       .where(whereFilters)
       .groupBy('dynamic."indicator"')

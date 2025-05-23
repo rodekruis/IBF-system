@@ -23,7 +23,7 @@ import { PointDataCategory } from '../api/point-data/point-data.entity';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { ProcessEventsService } from '../api/process-events/process-events.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
-import { DEBUG, MOCK_USE_OLD_PIPELINE_UPLOAD } from '../config';
+import { DEBUG } from '../config';
 import { MockInputDto } from './dto/mock-input.dto';
 import {
   DroughtScenario,
@@ -197,32 +197,17 @@ export class MockService {
         }
 
         if (this.shouldMockAlertPerLeadTime(disasterType)) {
-          if (MOCK_USE_OLD_PIPELINE_UPLOAD) {
-            // Old endpoint
-            const triggersPerLeadTime = this.getFile(
-              `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-lead-time.json`,
-            );
+          const alertsPerLeadTime = this.getFile(
+            `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-lead-time.json`,
+          );
 
-            await this.eventService.convertOldDtoAndUploadAlertPerLeadTime({
-              countryCodeISO3,
-              triggersPerLeadTime,
-              disasterType: DisasterType.Floods,
-              eventName: event.eventName,
-              date,
-            });
-          } else {
-            const alertsPerLeadTime = this.getFile(
-              `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-lead-time.json`,
-            );
-
-            await this.eventService.uploadAlertsPerLeadTime({
-              countryCodeISO3,
-              alertsPerLeadTime,
-              disasterType: DisasterType.Floods,
-              eventName: event.eventName,
-              date,
-            });
-          }
+          await this.eventService.uploadAlertsPerLeadTime({
+            countryCodeISO3,
+            alertsPerLeadTime,
+            disasterType: DisasterType.Floods,
+            eventName: event.eventName,
+            date,
+          });
         }
 
         if (this.shouldMockTyphoonTrack(disasterType)) {
@@ -391,18 +376,10 @@ export class MockService {
       dynamicIndicators.push(DynamicIndicator.showAdminArea);
     }
 
-    // NOTE: update this when all pipelines migrated to new setup.
-    if (MOCK_USE_OLD_PIPELINE_UPLOAD) {
-      dynamicIndicators.push(DynamicIndicator.alertThreshold);
-    } else {
-      // REFACTOR: these indicators always need to be mocked, but are not user-facing layers and thus not in indicator-metadata.json. Refactor this setup.
-      dynamicIndicators.push(
-        ...[
-          DynamicIndicator.forecastSeverity,
-          DynamicIndicator.forecastTrigger,
-        ],
-      );
-    }
+    // REFACTOR: these indicators always need to be mocked, but are not user-facing layers and thus not in indicator-metadata.json. Refactor this setup.
+    dynamicIndicators.push(
+      ...[DynamicIndicator.forecastSeverity, DynamicIndicator.forecastTrigger],
+    );
 
     return dynamicIndicators;
   }
