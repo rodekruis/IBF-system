@@ -20,6 +20,9 @@ jobs:
       ibf-e2e: ${{ steps.filter.outputs.ibf-e2e }}
       ibf-integration: ${{ steps.filter.outputs.ibf-integration }}
 
+    permissions:
+      contents: read
+
     steps:
       - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
@@ -51,6 +54,9 @@ jobs:
       run:
         working-directory: 'services/API-service'
 
+    permissions:
+      contents: read
+
     steps:
       - uses: actions/checkout@v4
       - name: Setup Node.js version
@@ -70,6 +76,9 @@ jobs:
     defaults:
       run:
         working-directory: 'interfaces/IBF-dashboard'
+
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4
@@ -92,6 +101,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+
     steps:
       - uses: actions/checkout@v4
       - name: Run integration test action
@@ -111,6 +123,9 @@ jobs:
       }}
 
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
 
     steps:
       - uses: actions/checkout@v4

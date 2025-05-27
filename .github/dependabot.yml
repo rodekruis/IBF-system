@@ -50,6 +50,7 @@ updates:
         patterns:
           - '@angular*'
           - '@bluehalo/*'
+          - 'angular-eslint'
           - 'zone.js'
       turf:
         patterns:
