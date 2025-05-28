@@ -1,3 +1,12 @@
+## [0.320.1](https://github.com/rodekruis/IBF-system/compare/v0.320.0...v0.320.1) (2025-05-28)
+
+
+### Bug Fixes
+
+* update simplification perc of ETH adm3 AB[#36189](https://github.com/rodekruis/IBF-system/issues/36189) ([4b0142a](https://github.com/rodekruis/IBF-system/commit/4b0142af3581890bf3926721fcebd7c48e0e77fe))
+
+
+
 # [0.320.0](https://github.com/rodekruis/IBF-system/compare/v0.319.1...v0.320.0) (2025-05-23)
 
 
@@ -118,15 +127,6 @@
 * add disaster-type, basic layers and event-areas AB[#35843](https://github.com/rodekruis/IBF-system/issues/35843) ([f256778](https://github.com/rodekruis/IBF-system/commit/f2567780dedd994df332cf97b9d26cbe5f4abc10))
 * basic mock data AB[#35843](https://github.com/rodekruis/IBF-system/issues/35843) ([9508fb8](https://github.com/rodekruis/IBF-system/commit/9508fb89d871e59ecb36fa98cc9204c5d8ef2205))
 * script to generate geoserver layers ([679fb2c](https://github.com/rodekruis/IBF-system/commit/679fb2cbf3200835bc4af484d9cada48edd28b9b))
-
-
-
-## [0.315.1](https://github.com/rodekruis/IBF-system/compare/v0.315.0...v0.315.1) (2025-05-12)
-
-
-### Bug Fixes
-
-* event place code and eap action status foreign key delete cascade ([7017f27](https://github.com/rodekruis/IBF-system/commit/7017f270185bf8bc624d4c0d1adc976a45a17125))
 
 
 
