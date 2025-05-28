@@ -313,10 +313,10 @@ export class MapService {
     // CONDITION 1: add layer if loading and is not already present
     // CONDITION 2: add layer if not loading and is already present
     // the condition in the if statement is a simplification of the above two conditions
-    if (
-      isLoading !==
-      this.layers.some(({ name }) => name === IbfLayerName.waterpoints)
-    ) {
+    const hasWaterPointsLayer = this.layers.some(
+      ({ name }) => name === IbfLayerName.waterpoints,
+    );
+    if (isLoading !== hasWaterPointsLayer) {
       this.addLayer({
         name: IbfLayerName.waterpoints,
         label: IbfLayerLabel.waterpoints,
