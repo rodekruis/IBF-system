@@ -293,21 +293,46 @@ export class MapService {
     waterPoints: GeoJSON.FeatureCollection,
   ) {
     const isLoading = waterPoints ? false : true;
-    this.addLayer({
-      name: IbfLayerName.waterpoints,
-      label: IbfLayerLabel.waterpoints,
-      type: IbfLayerType.point,
-      group: IbfLayerGroup.point,
-      description: this.getPopoverText(layer),
-      active: this.adminLevelService.activeLayerNames.includes(
-        IbfLayerName.waterpoints,
-      ),
-      show: true,
-      data: waterPoints,
-      viewCenter: false,
-      order: 2,
-      isLoading,
-    });
+
+    // HACK: conditionally add waterpoints layer because it has a loading logic (see loadWaterPointsLayer)
+    // which adds the layer to the map asynchronously in portals where it is not configured
+    // multiple factors are at play here:
+    // 1. waterpoints and waterpoints_internal layers are used to identify the same layer
+    //    which breaks the technical constraint of using unique layer names
+    // 2. loadWaterPointsLayer is calls addWaterPointsLayer 2 times, the second call is async
+    //    - this acts up when the portals are switched quickly
+    //    - user navigation is too slow to be affected by the async call
+    // 3. the subscription hell triggers multiple calls to /metadata/layers
+    //    first with old country and disaster type which starts an async addLayer
+    //    then with new country and disaster type which starts another async addLayer
+    //    the map layers are reset by the time the old async addLayer is resolved
+    //    this causes the waterpoints layer to be added to the layers array
+    //    if the layers shared the same name, the layer would be replaced
+    // Using the knowledge that the waterpoints layer is always in the layers array before we receive waterpoints data
+    // we can restrict calling addLayer to the following conditions:
+    // CONDITION 1: add layer if loading and is not already present
+    // CONDITION 2: add layer if not loading and is already present
+    // the condition in the if statement is a simplification of the above two conditions
+    if (
+      isLoading !==
+      this.layers.some(({ name }) => name === IbfLayerName.waterpoints)
+    ) {
+      this.addLayer({
+        name: IbfLayerName.waterpoints,
+        label: IbfLayerLabel.waterpoints,
+        type: IbfLayerType.point,
+        group: IbfLayerGroup.point,
+        description: this.getPopoverText(layer),
+        active: this.adminLevelService.activeLayerNames.includes(
+          IbfLayerName.waterpoints,
+        ),
+        show: true,
+        data: waterPoints,
+        viewCenter: false,
+        order: 2,
+        isLoading,
+      });
+    }
   }
 
   private loadAdminRegionLayer(layerActive: boolean, adminLevel: AdminLevel) {
