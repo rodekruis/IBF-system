@@ -23,7 +23,6 @@ import {
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import {
-  ALERT_THRESHOLD,
   FORECAST_SEVERITY,
   FORECAST_TRIGGER,
 } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
@@ -39,10 +38,7 @@ import { AlertPerLeadTimeEntity } from './alert-per-lead-time.entity';
 import { AreaForecastDataDto } from './dto/area-forecast-data.dto';
 import { ActivationLogDto } from './dto/event-place-code.dto';
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
-import {
-  UploadAlertsPerLeadTimeDto,
-  UploadTriggerPerLeadTimeDto,
-} from './dto/upload-alerts-per-lead-time.dto';
+import { UploadAlertsPerLeadTimeDto } from './dto/upload-alerts-per-lead-time.dto';
 import {
   ALERT_LEVEL_RANK,
   ALERT_LEVEL_WARNINGS,
@@ -220,29 +216,6 @@ export class EventService {
     disasterType: DisasterType,
   ): Promise<LastUploadDateDto> {
     return this.helperService.getLastUploadDate(countryCodeISO3, disasterType);
-  }
-
-  // NOTE: remove after all pipelines migrated to new endpoint
-  public async convertOldDtoAndUploadAlertPerLeadTime(
-    uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
-  ) {
-    const uploadAlertsPerLeadTimeDto = new UploadAlertsPerLeadTimeDto();
-    uploadAlertsPerLeadTimeDto.countryCodeISO3 =
-      uploadTriggerPerLeadTimeDto.countryCodeISO3;
-    uploadAlertsPerLeadTimeDto.disasterType =
-      uploadTriggerPerLeadTimeDto.disasterType;
-    uploadAlertsPerLeadTimeDto.eventName =
-      uploadTriggerPerLeadTimeDto.eventName;
-    uploadAlertsPerLeadTimeDto.date = uploadAlertsPerLeadTimeDto.date;
-    uploadAlertsPerLeadTimeDto.alertsPerLeadTime =
-      uploadTriggerPerLeadTimeDto.triggersPerLeadTime.map((trigger) => {
-        return {
-          leadTime: trigger.leadTime,
-          forecastAlert: trigger.triggered,
-          forecastTrigger: trigger.thresholdReached,
-        };
-      });
-    await this.uploadAlertsPerLeadTime(uploadAlertsPerLeadTimeDto);
   }
 
   public async uploadAlertsPerLeadTime(
@@ -813,42 +786,8 @@ export class EventService {
         mainExposureValue: area.mainExposureValue,
       }));
     } else {
-      // NOTE: remove after all pipelines migrated to new setup
-      const areasWithAlertThresholdData = await this.adminAreaDynamicDataRepo
-        .createQueryBuilder('alert')
-        .select([
-          'alert.placeCode AS "placeCode"',
-          'alert.leadTime AS "leadTime"',
-          'alert.value AS "alertThresholdValue"',
-          'exposure.value AS "mainExposureValue"',
-        ])
-        .leftJoin(
-          AdminAreaDynamicDataEntity,
-          'exposure',
-          `alert.placeCode = exposure."placeCode"
-        AND alert.timestamp = exposure."timestamp"
-        AND alert.eventName = exposure."eventName"
-        AND alert.disasterType = exposure."disasterType"
-        AND alert.leadTime = exposure."leadTime"
-        AND exposure.indicator = :indicator`,
-          { indicator: mainExposureIndicator },
-        )
-        .where({ ...whereFilters, indicator: ALERT_THRESHOLD })
-        .andWhere(
-          `(alert.value > 0 OR (alert."disasterType" IN ('typhoon','flash-floods')))`, // This reflects the current functionality where alert_threshold=0 for warnings in typhoon and flash-floods
-        )
-        .getRawMany();
-
-      // TODO: handle situations where also this results in empty array?
-
-      return areasWithAlertThresholdData.map((area) => ({
-        placeCode: area.placeCode,
-        leadTime: area.leadTime as LeadTime,
-        forecastSeverity:
-          area.alertThresholdValue > 0 ? area.alertThresholdValue : 1, // This maps 0-values for typhoon/flash-floods to severity of 1 in the new setup.
-        forecastTrigger: area.alertThresholdValue === 1, // This reflects current functionality where trigger is equal to alert_threshold=1
-        mainExposureValue: area.mainExposureValue,
-      }));
+      // TODO: this situation should not happen, but check/handle better
+      return [];
     }
   }
 
