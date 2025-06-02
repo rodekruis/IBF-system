@@ -27,6 +27,7 @@ import { FeatureCollection } from 'geojson';
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AggregateDataRecord } from '../../shared/data.model';
+import { AdminLevel } from '../country/admin-level.enum';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaService } from './admin-area.service';
@@ -41,6 +42,23 @@ import { AdminAreaUploadDto } from './dto/upload-admin-areas.dto';
 @Controller('admin-areas')
 export class AdminAreaController {
   public constructor(private readonly adminAreaService: AdminAreaService) {}
+
+  @ApiOperation({ summary: 'Get admin areas for a country and admin level' })
+  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
+  @ApiParam({ name: 'adminLevel', required: true, enum: AdminLevel })
+  @ApiResponse({
+    status: 200,
+    description: 'Admin areas GeoJSON FeatureCollection',
+  })
+  @Get(':countryCodeISO3/:adminLevel')
+  public async getAdminAreas(
+    @Param() { countryCodeISO3, adminLevel }: AdminAreaParams,
+  ): Promise<FeatureCollection> {
+    return await this.adminAreaService.getAdminAreas(
+      countryCodeISO3,
+      adminLevel,
+    );
+  }
 
   @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Adds or updates (if existing) admin-areas' })
@@ -125,11 +143,11 @@ export class AdminAreaController {
       '(Relevant) admin-areas boundaries and attributes for given country, disater-type and lead-time',
   })
   @Get(':countryCodeISO3/:disasterType/:adminLevel')
-  public async getAdminAreas(
+  public async getDisasterTypeAdminAreas(
     @Param() params,
     @Query() query,
   ): Promise<FeatureCollection> {
-    return await this.adminAreaService.getAdminAreas(
+    return await this.adminAreaService.getDisasterTypeAdminAreas(
       params.countryCodeISO3,
       params.disasterType,
       params.adminLevel,

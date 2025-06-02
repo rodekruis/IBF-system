@@ -10,6 +10,7 @@ import { AdminAreaDataEntity } from '../admin-area-data/admin-area-data.entity';
 import { AdminAreaDynamicDataEntity } from '../admin-area-dynamic-data/admin-area-dynamic-data.entity';
 import { DynamicIndicator } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
+import { AdminLevel } from '../country/admin-level.enum';
 import { EVENT_AREA_DISASTER_TYPES } from '../disaster-type/const/disaster-type.const';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
@@ -367,7 +368,35 @@ export class AdminAreaService {
     });
   }
 
-  public async getAdminAreas(
+  public async getAdminAreas(countryCodeISO3: string, adminLevel: AdminLevel) {
+    let adminAreasQuery = this.adminAreaRepository
+      .createQueryBuilder('aa')
+      .select([
+        `aa."name" AS adm${adminLevel}_en`,
+        `aa."placeCode" AS adm${adminLevel}_pcode`,
+        'ST_AsGeoJSON(aa.geom)::json AS geom',
+      ])
+      .where({ countryCodeISO3, adminLevel });
+
+    if (adminLevel > 1) {
+      adminAreasQuery = adminAreasQuery
+        .leftJoin(
+          AdminAreaEntity,
+          'aa2',
+          'aa."placeCodeParent" = aa2."placeCode"',
+        )
+        .addSelect([
+          `aa2."name" AS adm${adminLevel - 1}_en`,
+          `aa2."placeCode" AS adm${adminLevel - 1}_pcode`,
+        ]);
+    }
+
+    const adminAreas = await adminAreasQuery.getRawMany();
+
+    return this.helperService.getFeatureCollection(adminAreas);
+  }
+
+  public async getDisasterTypeAdminAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
