@@ -1,7 +1,6 @@
-import { EVENT_AREA_DISASTER_TYPES } from '../../helpers/API-service/const/disaster-type.const';
 import { getToken, mock } from '../../helpers/utility.helper';
 import { getAdminAreas } from './admin-areas.api';
-import { assertions } from './admin-areas.assertions';
+import { adminAreasAssertions } from './admin-areas.assertions';
 
 export default function adminAreaTests() {
   describe('admin areas', () => {
@@ -9,55 +8,24 @@ export default function adminAreaTests() {
 
     beforeAll(async () => {
       token = await getToken();
+
+      await mock(token);
     });
 
-    assertions.forEach(
-      ({
-        countryCodeISO3,
-        disasterType,
-        adminLevel,
-        scenario,
-        featureCount,
-        placeCodeRegex,
-        leadTime,
-        eventName,
-        placeCodeParent,
-        uploadDate,
-      }) => {
+    adminAreasAssertions.forEach(
+      ({ countryCodeISO3, adminLevel, featureCount, placeCodeRegex }) => {
         let title = 'should return list of admin areas on GET';
-        title += ` ${countryCodeISO3} / ${disasterType} / ${adminLevel} / ${scenario}`;
-        if (leadTime) {
-          title += ` / ${leadTime}`;
-        }
-        if (eventName) {
-          title += ` / ${eventName}`;
-        }
-        if (placeCodeParent) {
-          title += ` / ${placeCodeParent}`;
-        }
+        title += ` /admin-areas/${countryCodeISO3}/${adminLevel}`;
 
         it(title, async () => {
-          // Arrange
-          await mock(
-            token,
-            scenario,
-            disasterType,
-            countryCodeISO3,
-            uploadDate,
-          );
-
-          // Act
+          // act
           const adminAreas = await getAdminAreas(
             countryCodeISO3,
-            disasterType,
             adminLevel,
             token,
-            leadTime,
-            eventName,
-            placeCodeParent,
           );
 
-          // Assert
+          // assert
           expect(adminAreas.status).toBe(200);
           expect(adminAreas.body.features.length).toBe(featureCount); // we expect a deterministic feature count from the mock data
 
@@ -69,24 +37,24 @@ export default function adminAreaTests() {
           } else if (feature.geometry.type === 'MultiPolygon') {
             expect(feature.geometry.coordinates[0][0][0].length).toBe(2); // the coordinates should be in [longitude, latitude] format
           }
-          expect(feature.properties.placeCode).toMatch(placeCodeRegex); // placeCode should match regex per country
-          if (eventName) {
-            // all admin areas in an event should have the same alert level
-            expect(
-              adminAreas.body.features.every(
-                ({ properties: { alertLevel } }) =>
-                  alertLevel === feature.properties.alertLevel,
-              ),
-            ).toBeTruthy(); // all features should have the same alert level
-          }
-          expect(feature.properties.name).toBeTruthy(); // the name should not be empty
-          expect(feature.properties.countryCodeISO3).toBe(countryCodeISO3); // request and response country codes should match
+          expect(feature.properties[`adm${adminLevel}_pcode`]).toMatch(
+            placeCodeRegex,
+          ); // pcode should match regex per country
+          expect(feature.properties[`adm${adminLevel}_en`]).toBeTruthy(); // en should not be an empty name
 
-          // REFACTOR: flash floods & floods in National View returns event-areas instead of admin-areas, which do not have an adminLevel. Align response formats better in future.
-          if (EVENT_AREA_DISASTER_TYPES.includes(disasterType) && !eventName) {
-            return;
+          if (adminLevel > 1) {
+            expect(feature.properties[`adm${adminLevel - 1}_pcode`]).toMatch(
+              placeCodeRegex,
+            ); // parent pcode should match regex per country
+            expect(feature.properties[`adm${adminLevel - 1}_en`]).toBeTruthy(); // parent en should not be an empty name
+          } else {
+            expect(feature.properties[`adm${adminLevel - 1}_pcode`]).toBe(
+              undefined,
+            ); // parent pcode should not exist for adminLevel 1
+            expect(feature.properties[`adm${adminLevel - 1}_en`]).toBe(
+              undefined,
+            ); // parent en should not exist for adminLevel 1
           }
-          expect(feature.properties.adminLevel).toBe(adminLevel); // request and response admin levels should match
         });
       },
     );
