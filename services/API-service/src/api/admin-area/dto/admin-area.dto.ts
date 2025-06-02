@@ -3,11 +3,22 @@ import { ApiProperty } from '@nestjs/swagger';
 import { MultiPolygon, Polygon } from 'geojson';
 
 import { AdminLevel } from '../../country/admin-level.enum';
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { AlertLevel } from '../../event/enum/alert-level.enum';
 
 export interface AdminAreaParams {
   countryCodeISO3: string;
   adminLevel: AdminLevel;
+}
+
+export interface EventAdminAreaParams extends AdminAreaParams {
+  disasterType: DisasterType;
+}
+
+export interface EventAdminAreaQuery {
+  leadTime: string;
+  eventName: string;
+  placeCodeParent: string;
 }
 
 export interface AdminArea {

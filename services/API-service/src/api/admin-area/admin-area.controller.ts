@@ -31,7 +31,11 @@ import { AdminLevel } from '../country/admin-level.enum';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { AdminAreaService } from './admin-area.service';
-import { AdminAreaParams } from './dto/admin-area.dto';
+import {
+  AdminAreaParams,
+  EventAdminAreaParams,
+  EventAdminAreaQuery,
+} from './dto/admin-area.dto';
 import { AdminAreaUpdateResult } from './dto/admin-area.dto';
 import { DeleteAdminAreasDto } from './dto/delete-admin-areas.dto';
 import { AdminAreaUploadDto } from './dto/upload-admin-areas.dto';
@@ -129,7 +133,7 @@ export class AdminAreaController {
 
   @ApiOperation({
     summary:
-      'Get (relevant) admin-areas boundaries and attributes for given country, disater-type and lead-time (as GeoJSON)',
+      'Get event admin areas for a country, disaster type, and admin level',
   })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
@@ -139,15 +143,14 @@ export class AdminAreaController {
   @ApiQuery({ name: 'placeCodeParent', required: false, type: 'string' })
   @ApiResponse({
     status: 200,
-    description:
-      '(Relevant) admin-areas boundaries and attributes for given country, disater-type and lead-time',
+    description: 'Event admin areas GeoJSON FeatureCollection',
   })
   @Get(':countryCodeISO3/:disasterType/:adminLevel')
-  public async getDisasterTypeAdminAreas(
-    @Param() params,
-    @Query() query,
+  public async getEventAdminAreas(
+    @Param() params: EventAdminAreaParams,
+    @Query() query: Partial<EventAdminAreaQuery>,
   ): Promise<FeatureCollection> {
-    return await this.adminAreaService.getDisasterTypeAdminAreas(
+    return await this.adminAreaService.getEventAdminAreas(
       params.countryCodeISO3,
       params.disasterType,
       params.adminLevel,
@@ -175,8 +178,8 @@ export class AdminAreaController {
   })
   @Get('aggregates/:countryCodeISO3/:disasterType/:adminLevel')
   public async getAggregatesData(
-    @Param() params,
-    @Query() query,
+    @Param() params: EventAdminAreaParams,
+    @Query() query: Partial<EventAdminAreaQuery>,
   ): Promise<AggregateDataRecord[]> {
     return await this.adminAreaService.getAggregatesData(
       params.countryCodeISO3,

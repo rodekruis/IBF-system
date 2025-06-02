@@ -396,7 +396,7 @@ export class AdminAreaService {
     return this.helperService.getFeatureCollection(adminAreas);
   }
 
-  public async getDisasterTypeAdminAreas(
+  public async getEventAdminAreas(
     countryCodeISO3: string,
     disasterType: DisasterType,
     adminLevel: number,
