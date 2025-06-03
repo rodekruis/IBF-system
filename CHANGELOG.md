@@ -1,3 +1,13 @@
+## [0.320.4](https://github.com/rodekruis/IBF-system/compare/v0.320.2...v0.320.4) (2025-06-03)
+
+
+### Bug Fixes
+
+* align IBF version-nr ([a623bb8](https://github.com/rodekruis/IBF-system/commit/a623bb85cebef3ae6d4ada0da0780174db019b69))
+* hack to avoid duplicate waterpoints layers ([be1dd89](https://github.com/rodekruis/IBF-system/commit/be1dd896c9f94fd7219a45574f68b0ce899379b5))
+
+
+
 ## [0.320.2](https://github.com/rodekruis/IBF-system/compare/v0.320.1...v0.320.2) (2025-06-02)
 
 
@@ -107,15 +117,6 @@
 
 * change timeline date assertion to format only + split alert/no-alert ([deb510f](https://github.com/rodekruis/IBF-system/commit/deb510f3fd472e5bb28a57753c781179c4042782))
 * PR comments ([8629f8e](https://github.com/rodekruis/IBF-system/commit/8629f8e1c93935c471811751d170cd5a16767be9))
-
-
-
-## [0.316.1](https://github.com/rodekruis/IBF-system/compare/v0.316.0...v0.316.1) (2025-05-13)
-
-
-### Bug Fixes
-
-* upgrade angular further to get to vite 6.2.6 ([ab6611b](https://github.com/rodekruis/IBF-system/commit/ab6611b28ba31b7cf33bc5f9d4849c58f8d9640d))
 
 
 
