@@ -295,27 +295,31 @@ export class MapService {
     const isLoading = waterPoints ? false : true;
 
     // HACK: conditionally add waterpoints layer because it has a loading logic (see loadWaterPointsLayer)
-    // which adds the layer to the map asynchronously in portals where it is not configured
-    // multiple factors are at play here:
-    // 1. waterpoints and waterpoints_internal layers are used to identify the same layer
-    //    which breaks the technical constraint of using unique layer names
-    // 2. loadWaterPointsLayer is calls addWaterPointsLayer 2 times, the second call is async
-    //    - this acts up when the portals are switched quickly
-    //    - user navigation is too slow to be affected by the async call
-    // 3. the subscription hell triggers multiple calls to /metadata/layers
+    // which adds the layer to the map asynchronously in disaster types where it is not configured
+    // there are a couple of factors are at play here:
+    // 1. loadWaterPointsLayer is calls addWaterPointsLayer 2 times, the second call is async
+    //    - this acts up when the disaster types are switched quickly
+    //    - user navigation is usually too slow to be affected by the async call
+    // 2. the subscription hell triggers multiple calls to /metadata/layers
     //    first with old country and disaster type which starts an async addLayer
     //    then with new country and disaster type which starts another async addLayer
     //    the map layers are reset by the time the old async addLayer is resolved
     //    this causes the waterpoints layer to be added to the layers array
     //    if the layers shared the same name, the layer would be replaced
-    // Using the knowledge that the waterpoints layer is always in the layers array before we receive waterpoints data
-    // we can restrict calling addLayer to the following conditions:
-    // CONDITION 1: add layer if loading and is not already present
-    // CONDITION 2: add layer if not loading and is already present
-    // the condition in the if statement is a simplification of the above two conditions
+    //    but if the layers array does not contain the waterpoints layer it will
+    //    be added again by the second async call to addLayer
+    //    to fix the bug - it is sufficient to check if the layer is already present
     const hasWaterPointsLayer = this.layers.some(
       ({ name }) => name === IbfLayerName.waterpoints,
     );
+    // PERF: as addLayer is an expensive function we avoid unnecessary calls to addLayer
+    // Using the knowledge that the waterpoints layer is always in the layers array before we receive waterpoints data
+    // we can restrict calling addLayer to the following conditions:
+    // CONDITION 1: add layer if loading and is not already present
+    // CONDITION 2: do not add layer if loading and is already present
+    // CONDITION 3: add layer if not loading and is already present
+    // CONDITION 4: do not add layer if not loading and is not already present
+    // the below if condition applies the above conditions
     if (isLoading !== hasWaterPointsLayer) {
       this.addLayer({
         name: IbfLayerName.waterpoints,
