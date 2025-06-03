@@ -5,6 +5,10 @@ Find here the latest changes to the IBF-system.
 - Not all changes to the IBF-system are listed here. Only those that result in different functionality or different user experience.
 - This list is meant to explain changes since the last manual. Please open the manual from the dashboard for a full explanation on the IBF-system.
 
+### 03-06-2025 (v0.321.0)
+
+- IBF Floods: Multiple events in the National View are now shown in the map as one larger "event area" per event, instead of showing all "admin areas" of all events at once. This was already the case for 'IBF Flash floods'.
+
 ### 07-04-2025 (v0.312.0)
 
 - IBF Lesotho: Lesotho added as new country with disaster-type Drought.
