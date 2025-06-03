@@ -5,6 +5,14 @@ import { api } from '../../helpers/utility.helper';
 
 export function getAdminAreas(
   countryCodeISO3: string,
+  adminLevel: AdminLevel,
+  token: string,
+) {
+  return api(token).get(`/admin-areas/${countryCodeISO3}/${adminLevel}`);
+}
+
+export function getEventAdminAreas(
+  countryCodeISO3: string,
   disasterType: DisasterType,
   adminLevel: AdminLevel,
   token: string,

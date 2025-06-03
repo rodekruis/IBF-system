@@ -6,7 +6,7 @@ import { getToken } from '../../helpers/utility.helper';
 import { getAdminAreaAggregates } from './admin-areas.api';
 
 export default function adminAreaAggregatesTests() {
-  describe('admin areas', () => {
+  describe('admin area aggregates', () => {
     let token: string;
 
     beforeAll(async () => {

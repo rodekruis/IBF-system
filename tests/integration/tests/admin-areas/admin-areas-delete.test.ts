@@ -3,12 +3,8 @@ import { FloodsScenario } from '../../helpers/API-service/enum/mock-scenario.enu
 import { getToken, mock } from '../../helpers/utility.helper';
 import { deleteAdminAreas } from './admin-areas.api';
 
-/**
- * Integration tests for the admin area deletion functionality
- * Following Azure best practices for testing security-critical operations
- */
 export function adminAreaDeleteTests() {
-  describe('DELETE /admin-areas', () => {
+  describe('admin areas delete', () => {
     let token: string;
 
     beforeAll(async () => {
@@ -18,8 +14,8 @@ export function adminAreaDeleteTests() {
     const countryCodeISO3 = 'UGA';
     const adminLevel = 2;
 
-    it('should return 403 Forbidden when trying to delete admin areas with active events', async () => {
-      // Arrange
+    it('should forbid on DELETE /admin-areas with active events', async () => {
+      // arrange
       const placeCodesToDelete = ['UG2037'];
       await mock(
         token,
@@ -28,7 +24,7 @@ export function adminAreaDeleteTests() {
         countryCodeISO3,
       );
 
-      // Act
+      // act
       const result = await deleteAdminAreas(
         countryCodeISO3,
         adminLevel,
@@ -36,17 +32,16 @@ export function adminAreaDeleteTests() {
         placeCodesToDelete,
       );
 
-      // Assert
-      expect(result.status).toBe(403); // Should be forbidden
+      // assert
+      expect(result.status).toBe(403); // should be forbidden
       expect(result.body.message).toContain(
         'Cannot delete admin areas with active events',
       );
-      expect(result.body.message).toContain(placeCodesToDelete[0]); // Should mention the problematic placeCode
+      expect(result.body.message).toContain(placeCodesToDelete[0]); // should mention the problematic placeCode
     });
 
-    // describe('Scenario: Successful admin area deletion', () => {
-    it('should successfully delete admin areas with no active events', async () => {
-      // Arrange
+    it('should allow DELETE /admin-areas with no active events', async () => {
+      // arrange
       const placeCodesToDelete = ['UG1001'];
       await mock(
         token,
@@ -55,7 +50,7 @@ export function adminAreaDeleteTests() {
         countryCodeISO3,
       );
 
-      // Act
+      // act
       const result = await deleteAdminAreas(
         countryCodeISO3,
         adminLevel,
@@ -63,7 +58,7 @@ export function adminAreaDeleteTests() {
         placeCodesToDelete,
       );
 
-      // Assert
+      // assert
       expect(result.status).toBe(202);
       expect(result.body.affected).toBe(placeCodesToDelete.length);
     });
