@@ -52,7 +52,8 @@ export class AdminAreaController {
   @ApiParam({ name: 'adminLevel', required: true, enum: AdminLevel })
   @ApiResponse({
     status: 200,
-    description: 'Admin areas GeoJSON FeatureCollection',
+    description:
+      '[EXTERNALLY USED - PIPELINE] Admin areas GeoJSON FeatureCollection',
   })
   @Get(':countryCodeISO3/:adminLevel')
   public async getAdminAreas(
