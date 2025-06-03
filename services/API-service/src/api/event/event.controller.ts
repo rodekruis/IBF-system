@@ -23,10 +23,7 @@ import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { ActivationLogDto } from './dto/event-place-code.dto';
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
-import {
-  UploadAlertsPerLeadTimeDto,
-  UploadTriggerPerLeadTimeDto,
-} from './dto/upload-alerts-per-lead-time.dto';
+import { UploadAlertsPerLeadTimeDto } from './dto/upload-alerts-per-lead-time.dto';
 import { EventService } from './event.service';
 
 @ApiBearerAuth()
@@ -126,23 +123,6 @@ export class EventController {
     return await this.eventService.getActivationLogData(
       query.countryCodeISO3,
       query.disasterType,
-    );
-  }
-
-  // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-lead-time
-  @UseGuards(RolesGuard)
-  @Roles(UserRole.PipelineUser)
-  @ApiOperation({
-    summary:
-      '[EXTERNALLY USED - PIPELINE] [OLD endpoint] Upload alert data per leadtime',
-  })
-  @ApiResponse({ status: 201, description: 'Uploaded alert data per leadtime' })
-  @Post('triggers-per-leadtime')
-  public async uploadTriggerPerLeadTime(
-    @Body() uploadTriggerPerLeadTimeDto: UploadTriggerPerLeadTimeDto,
-  ): Promise<void> {
-    await this.eventService.convertOldDtoAndUploadAlertPerLeadTime(
-      uploadTriggerPerLeadTimeDto,
     );
   }
 
