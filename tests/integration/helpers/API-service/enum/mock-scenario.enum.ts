@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-enums */
 export enum FloodsScenario {
   Trigger = 'trigger',
   Warning = 'warning',

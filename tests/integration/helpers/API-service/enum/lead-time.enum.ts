@@ -1,3 +1,4 @@
+/* eslint-disable perfectionist/sort-enums */
 export enum LeadTime {
   day0 = '0-day',
   day1 = '1-day',

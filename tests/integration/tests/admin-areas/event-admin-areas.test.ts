@@ -1,4 +1,4 @@
-import { EVENT_AREA_DISASTER_TYPES } from '../../helpers/API-service/const/disaster-type.const';
+import { EVENT_AREA_DISASTER_TYPES } from '../../helpers/API-service/enum/disaster-type.enum';
 import { getToken, mock } from '../../helpers/utility.helper';
 import { getEventAdminAreas } from './admin-areas.api';
 import { eventAdminAreasAssertions } from './event-admin-areas.assertions';
