@@ -100,5 +100,6 @@
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-musl": "^4.44.0"
-  }
+  },
+  "type": "module"
 }
