@@ -91,6 +91,13 @@ updates:
     schedule:
       interval: 'weekly'
     groups:
+      integration-jest:
+        dependency-type: 'development'
+        patterns:
+          - '@types/jest'
+          - 'eslint-plugin-jest'
+          - 'jest'
+          - 'ts-jest'
       integration-development:
         dependency-type: 'development'
         patterns:
