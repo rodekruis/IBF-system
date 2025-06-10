@@ -16,6 +16,11 @@ updates:
     open-pull-requests-limit: 3
     schedule:
       interval: 'weekly'
+    groups:
+      root:
+        dependency-type: 'development'
+        patterns:
+          - '*'
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-patch']
@@ -26,13 +31,20 @@ updates:
     schedule:
       interval: 'weekly'
     groups:
-      development:
+      backend-development:
+        dependency-type: 'development'
         patterns:
           - '@types/*'
           - '*eslint*'
           - '*prettier*'
-      nestjs:
-        patterns: ['@nestjs/*']
+      backend-nestjs:
+        dependency-type: 'production'
+        patterns:
+          - '@nestjs/*'
+      backend:
+        dependency-type: 'production'
+        patterns:
+          - '*'
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-patch']
@@ -43,18 +55,32 @@ updates:
     schedule:
       interval: 'weekly'
     groups:
-      typescript:
+      frontend-development:
+        dependency-type: 'development'
+        patterns:
+          - '@types/*'
+          - '*eslint*'
+          - '*prettier*'
+      frontend-typescript:
+        dependency-type: 'production'
         patterns:
           - 'typescript*'
-      angular:
+      frontend-angular:
+        dependency-type: 'production'
         patterns:
-          - '@angular*'
+          - '@angular/*'
           - '@bluehalo/*'
-          - 'angular-eslint'
+          - '@angular-eslint/*'
+          - '@angular-devkit/*'
           - 'zone.js'
-      turf:
+      frontend-turf:
+        dependency-type: 'production'
         patterns:
           - '@turf*'
+      frontend:
+        dependency-type: 'production'
+        patterns:
+          - '*'
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-patch']
@@ -65,11 +91,16 @@ updates:
     schedule:
       interval: 'weekly'
     groups:
-      development:
+      integration-development:
+        dependency-type: 'development'
         patterns:
           - '@types/*'
           - '*eslint*'
           - '*prettier*'
+      integration:
+        dependency-type: 'development'
+        patterns:
+          - '*'
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-patch']
@@ -80,11 +111,16 @@ updates:
     schedule:
       interval: 'weekly'
     groups:
-      development:
+      e2e-development:
+        dependency-type: 'development'
         patterns:
           - '@types/*'
           - '*eslint*'
           - '*prettier*'
+      e2e:
+        dependency-type: 'development'
+        patterns:
+          - '*'
     ignore:
       - dependency-name: '*'
         update-types: ['version-update:semver-patch']
