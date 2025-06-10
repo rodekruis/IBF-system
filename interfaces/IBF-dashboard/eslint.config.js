@@ -1,17 +1,16 @@
-// @ts-check
-const globals = require('globals');
-const eslint = require('@eslint/js');
-const tseslint = require('typescript-eslint');
-const angular = require('angular-eslint');
-const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
-const eslintPluginNoRelativePaths = require('eslint-plugin-no-relative-import-paths');
-const eslintPluginQuery = require('@tanstack/eslint-plugin-query');
-const eslintPluginPerfectionist = require('eslint-plugin-perfectionist');
-const eslintPluginRegexp = require('eslint-plugin-regexp');
-const eslintPluginSimpleSort = require('eslint-plugin-simple-import-sort');
-const eslintPluginJasmine = require('eslint-plugin-jasmine');
+import globals from 'globals';
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import angular from 'angular-eslint';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import eslintPluginNoRelativePaths from 'eslint-plugin-no-relative-import-paths';
+import eslintPluginQuery from '@tanstack/eslint-plugin-query';
+import eslintPluginPerfectionist from 'eslint-plugin-perfectionist';
+import eslintPluginRegexp from 'eslint-plugin-regexp';
+import eslintPluginSimpleSort from 'eslint-plugin-simple-import-sort';
+import eslintPluginJasmine from 'eslint-plugin-jasmine';
 
-module.exports = tseslint.config(
+export default tseslint.config(
   {
     languageOptions: {
       globals: { ...globals.browser, ...globals.jasmine },
