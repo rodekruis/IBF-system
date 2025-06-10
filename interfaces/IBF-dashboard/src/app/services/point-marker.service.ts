@@ -167,11 +167,11 @@ export class PointMarkerService {
     markerProperties: TyphoonTrackPoint,
     markerLatLng: LatLng,
     lastUploadDateString: string,
-    closestPointToTyphoon: number,
+    closestPointToTyphoon: Date,
   ): Marker {
     const markerDateTime = parseISO(markerProperties.timestampOfTrackpoint);
     const lastUploadDate = parseISO(lastUploadDateString);
-    const isLatest = isEqual(markerDateTime, new Date(closestPointToTyphoon));
+    const isLatest = isEqual(markerDateTime, closestPointToTyphoon);
     const titleFormat = 'ccc, dd LLLL, HH:mm';
 
     let className = 'typhoon-track-icon';
