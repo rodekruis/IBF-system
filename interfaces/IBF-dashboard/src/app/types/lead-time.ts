@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values, perfectionist/sort-enums */
 
 export enum LeadTime {
   day0 = '0-day',
