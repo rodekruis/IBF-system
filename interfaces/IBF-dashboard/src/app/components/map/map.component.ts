@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnDestroy } from '@angular/core';
 import { LeafletControlLayersConfig } from '@bluehalo/ngx-leaflet';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
+import { isAfter, max, parseISO } from 'date-fns';
 import {
   Control,
   divIcon,
@@ -20,7 +21,6 @@ import {
   point,
   tileLayer,
 } from 'leaflet';
-import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
@@ -89,7 +89,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   public lastUploadDate: string;
   public eventState: EventState;
   public timelineState: TimelineState;
-  private closestPointToTyphoon: number;
+  private closestPointToTyphoon: Date;
 
   public legend: Control;
   private legendDiv: HTMLElement;
@@ -804,14 +804,25 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   private calculateClosestPointToTyphoon(layer: IbfLayer) {
-    const dates = layer.data?.features
-      .filter(
-        (f) =>
-          DateTime.fromISO(f.properties?.['timestampOfTrackpoint']) <=
-          DateTime.fromISO(this.lastUploadDate),
-      )
-      .map((t) => DateTime.fromISO(t.properties?.['timestampOfTrackpoint']));
+    if (!layer.data?.features?.length) {
+      this.closestPointToTyphoon = undefined;
+      return;
+    }
 
-    this.closestPointToTyphoon = Math.max.apply(null, dates);
+    const lastUploadDate = parseISO(this.lastUploadDate);
+
+    const validTimestamps = layer.data.features
+      .map(({ properties }) =>
+        parseISO(String(properties['timestampOfTrackpoint'])),
+      )
+      .filter((date) => !isAfter(date, lastUploadDate));
+
+    if (validTimestamps.length === 0) {
+      this.closestPointToTyphoon = undefined;
+      return;
+    }
+
+    const closestDate = max(validTimestamps);
+    this.closestPointToTyphoon = closestDate;
   }
 }
