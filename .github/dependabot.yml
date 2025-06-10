@@ -31,16 +31,16 @@ updates:
     schedule:
       interval: 'weekly'
     groups:
+      backend-nestjs:
+        dependency-type: 'production'
+        patterns:
+          - '@nestjs/*'
       backend-development:
         dependency-type: 'development'
         patterns:
           - '@types/*'
           - '*eslint*'
           - '*prettier*'
-      backend-nestjs:
-        dependency-type: 'production'
-        patterns:
-          - '@nestjs/*'
       backend:
         dependency-type: 'production'
         patterns:
@@ -55,16 +55,6 @@ updates:
     schedule:
       interval: 'weekly'
     groups:
-      frontend-development:
-        dependency-type: 'development'
-        patterns:
-          - '@types/*'
-          - '*eslint*'
-          - '*prettier*'
-      frontend-typescript:
-        dependency-type: 'production'
-        patterns:
-          - 'typescript*'
       frontend-angular:
         dependency-type: 'production'
         patterns:
@@ -77,6 +67,16 @@ updates:
         dependency-type: 'production'
         patterns:
           - '@turf*'
+      frontend-typescript:
+        dependency-type: 'production'
+        patterns:
+          - 'typescript*'
+      frontend-development:
+        dependency-type: 'development'
+        patterns:
+          - '@types/*'
+          - '*eslint*'
+          - '*prettier*'
       frontend:
         dependency-type: 'production'
         patterns:
@@ -94,10 +94,7 @@ updates:
       integration-jest:
         dependency-type: 'development'
         patterns:
-          - '@types/jest'
-          - 'eslint-plugin-jest'
-          - 'jest'
-          - 'ts-jest'
+          - '*jest*'
       integration-development:
         dependency-type: 'development'
         patterns:
