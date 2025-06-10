@@ -22,7 +22,6 @@ module.exports = tseslint.config(
     files: ['**/*.ts'],
     plugins: {
       'no-relative-import-paths': eslintPluginNoRelativePaths,
-      // @ts-ignore-next-line - `perfectionist` package does have correct shape; maybe not correct type definition.
       perfectionist: eslintPluginPerfectionist,
       regexp: eslintPluginRegexp,
       'simple-import-sort': eslintPluginSimpleSort,
@@ -99,7 +98,7 @@ module.exports = tseslint.config(
       '@angular-eslint/use-component-selector': ['error'],
       '@angular-eslint/use-lifecycle-interface': ['error'],
       'perfectionist/sort-array-includes': 'off', // allow unsorted arrays for domain specific ordering
-      'perfectionist/sort-enums': ['error', { type: 'unsorted' }], // allow unsorted enums for domain specific ordering
+      'perfectionist/sort-enums': ['error'],
       'perfectionist/sort-intersection-types': ['error'],
       //'perfectionist/sort-union-types': ['error'],
       'object-shorthand': 'error',
