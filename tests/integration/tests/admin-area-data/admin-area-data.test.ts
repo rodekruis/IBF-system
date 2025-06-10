@@ -5,6 +5,7 @@ import { AdminLevel } from '../../helpers/API-service/enum/admin-level.enum';
 import { getToken } from '../../helpers/utility.helper';
 import { mock } from '../../helpers/utility.helper';
 import {
+  AdminAreaDatum,
   getAdminAreaData,
   postAdminAreaData,
   postAdminAreaDataUploadCsv,
@@ -84,11 +85,11 @@ export default function adminAreaDataTests() {
 
         expect(adminAreaData.status).toBe(200);
 
-        const adminAreaDataItem = adminAreaData.body.find(
-          (item: { placeCode: string; value: number }) =>
-            item.placeCode === placeCode,
+        const adminAreaDatum = adminAreaData.body.find(
+          (adminAreaDatum: AdminAreaDatum) =>
+            adminAreaDatum.placeCode === placeCode,
         );
-        expect(adminAreaDataItem.value).toBe(value);
+        expect(adminAreaDatum.value).toBe(value);
       }
     });
 
@@ -121,11 +122,10 @@ export default function adminAreaDataTests() {
 
         expect(adminAreaData.status).toBe(200);
 
-        const adminAreaDataItem = adminAreaData.body.find(
-          (item: { placeCode: string; value: number }) =>
-            item.placeCode === placeCode,
+        const adminAreaDatum = adminAreaData.body.find(
+          (item: AdminAreaDatum) => item.placeCode === placeCode,
         );
-        expect(adminAreaDataItem.value).toBe(value);
+        expect(adminAreaDatum.value).toBe(value);
       }
     });
   });

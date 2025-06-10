@@ -1,5 +1,6 @@
 import { AdminAreaDataIndicator } from '../../fixtures/indicators.enum';
 import { AdminLevel } from '../../helpers/API-service/enum/admin-level.enum';
+import { AdminAreaDatum } from './admin-area-data.api';
 
 interface GetAdminAreaDataAssertion {
   countryCodeISO3: string;
@@ -103,12 +104,10 @@ export const getAdminAreaDataAssertions: GetAdminAreaDataAssertion[] = [
   },
 ];
 
-interface PostAdminAreaDataAssertion {
+interface PostAdminAreaDataAssertion extends AdminAreaDatum {
   countryCodeISO3: string;
   adminLevel: AdminLevel;
   indicator: AdminAreaDataIndicator;
-  placeCode: string;
-  value: number;
 }
 
 // assertions based on fixtures/admin-area-data.csv

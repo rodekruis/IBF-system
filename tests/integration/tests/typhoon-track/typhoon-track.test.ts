@@ -28,7 +28,7 @@ export default function typhoonTrackTests() {
         {
           timestampOfTrackpoint: new Date('2024-12-09T06:00:00.000Z'),
           windspeed: 120,
-          category: TyphoonCategory.STS,
+          category: TyphoonCategory.SevereTropicalStorm,
           firstLandfall: true,
           closestToLand: false,
           lat: 12.0,
@@ -37,7 +37,7 @@ export default function typhoonTrackTests() {
         {
           timestampOfTrackpoint: new Date('2024-12-09T09:00:00.000Z'), // 3 hours later
           windspeed: 110,
-          category: TyphoonCategory.STS,
+          category: TyphoonCategory.SevereTropicalStorm,
           firstLandfall: false,
           closestToLand: true,
           lat: 12.0,

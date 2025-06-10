@@ -13,7 +13,13 @@ export function getAdminAreaData(
   );
 }
 
-interface AdminAreaDatum {
+export interface AdminAreaDatum {
+  placeCode: string;
+  value: number;
+}
+
+interface AdminAreaDataItem {
+  // REFACTOR: use AdminAreaDatum
   placeCode: string;
   amount: number;
 }
@@ -23,7 +29,7 @@ export function postAdminAreaData(
   countryCodeISO3: string,
   adminLevel: AdminLevel,
   indicator: AdminAreaDataIndicator,
-  adminAreaData: AdminAreaDatum[],
+  adminAreaData: AdminAreaDataItem[],
 ) {
   return api(token)
     .post(`/admin-area-data/${countryCodeISO3}/${adminLevel}/${indicator}`)
