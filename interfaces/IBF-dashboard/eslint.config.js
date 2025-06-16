@@ -30,7 +30,6 @@ export default tseslint.config(
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
       ...angular.configs.tsRecommended,
-      // @ts-ignore-next-line - `configs` DOES exist.
       ...eslintPluginQuery.configs['flat/recommended'],
       eslintPluginRegexp.configs['flat/recommended'],
       eslintPluginPrettierRecommended,
@@ -62,7 +61,6 @@ export default tseslint.config(
       '@typescript-eslint/no-misused-promises': 'warn',
       '@typescript-eslint/no-unnecessary-type-assertion': 'warn',
       '@typescript-eslint/no-inferrable-types': 'warn',
-      '@typescript-eslint/no-extraneous-class': 'warn',
       '@typescript-eslint/consistent-type-definitions': 'warn',
       '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'warn',
       // Put this to 'off' for now because it automatically tries to fix this in code on save
@@ -74,12 +72,10 @@ export default tseslint.config(
       'perfectionist/sort-union-types': 'warn',
 
       'no-relative-import-paths/no-relative-import-paths': 'error',
-      //'@typescript-eslint/no-extraneous-class': [
-      //  'error',
-      //  {
-      //    allowWithDecorator: true,
-      //  },
-      //],
+      '@typescript-eslint/no-extraneous-class': [
+        'error',
+        { allowWithDecorator: true },
+      ],
       '@angular-eslint/component-selector': [
         'error',
         { type: 'element', prefix: 'app', style: 'kebab-case' },
@@ -118,8 +114,8 @@ export default tseslint.config(
   {
     files: ['**/*.spec.ts'],
     plugins: { jasmine: eslintPluginJasmine },
+    extends: [eslintPluginJasmine.configs.recommended],
     rules: {
-      ...eslintPluginJasmine.rules.recommended,
       '@typescript-eslint/unbound-method': 'off',
       '@typescript-eslint/no-floating-promises': 'off',
       'prettier/prettier': ['error', { endOfLine: 'auto' }],

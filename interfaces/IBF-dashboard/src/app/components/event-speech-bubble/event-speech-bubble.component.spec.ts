@@ -29,16 +29,12 @@ describe('EventSpeechBubbleComponent', () => {
     ]);
 
     // Mock the create method to return a popover with present method
-    popoverControllerSpy.create.and.returnValue(
-      Promise.resolve({
-        present: jasmine
-          .createSpy('present')
-          .and.returnValue(Promise.resolve()),
-        onDidDismiss: jasmine
-          .createSpy('onDidDismiss')
-          .and.returnValue(Promise.resolve({ data: null })),
-      } as unknown as HTMLIonPopoverElement),
-    );
+    popoverControllerSpy.create.and.resolveTo({
+      present: jasmine.createSpy('present').and.resolveTo(),
+      onDidDismiss: jasmine
+        .createSpy('onDidDismiss')
+        .and.resolveTo({ data: null }),
+    } as unknown as HTMLIonPopoverElement);
 
     TestBed.configureTestingModule({
       declarations: [EventSpeechBubbleComponent],
@@ -89,12 +85,14 @@ describe('EventSpeechBubbleComponent', () => {
     it('return true for right userRole', () => {
       component.userRole = UserRole.LocalAdmin;
       const result = component.hasSetTriggerPermission();
+
       expect(result).toBeTrue();
     });
 
     it('return false for wrong userRole', () => {
       component.userRole = UserRole.Operator;
       const result = component.hasSetTriggerPermission();
+
       expect(result).toBeFalse();
     });
   });

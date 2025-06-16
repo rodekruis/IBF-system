@@ -212,6 +212,7 @@ describe('AggregatesComponent', () => {
         showBackdrop: true,
         componentProps: { layer: { label: indicator.label, description: '' } },
       });
+
       expect(popoverSpy.present).toHaveBeenCalled();
       expect(analyticsService.logEvent).toHaveBeenCalledWith(
         AnalyticsEvent.aggregateInformation,
