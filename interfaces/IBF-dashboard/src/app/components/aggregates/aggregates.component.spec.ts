@@ -168,7 +168,7 @@ describe('AggregatesComponent', () => {
       );
 
       const expected = {
-        headerLabel: placeCode.placeCodeName, //'Guba'
+        headerLabel: placeCode.placeCodeName, // 'Guba'
         subHeaderLabel: `${mockNrAlertAreas.toString()} exposed ${mockAdminAreaLabel}`,
       };
 

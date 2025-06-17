@@ -410,13 +410,19 @@ export class MapService {
     }
   }
 
-  private getActiveState(indicatorOrLayer: IbfLayerMetadata | Indicator) {
-    return indicatorOrLayer.active === LayerActivation.yes
-      ? true
-      : indicatorOrLayer.active === LayerActivation.ifTrigger &&
-          this.eventState?.events?.length > 0
-        ? true
-        : false;
+  private getActiveState(
+    indicatorOrLayer: IbfLayerMetadata | Indicator,
+  ): boolean {
+    if (indicatorOrLayer.active === LayerActivation.yes) {
+      return true;
+    }
+    if (
+      indicatorOrLayer.active === LayerActivation.ifTrigger &&
+      this.eventState?.events?.length > 0
+    ) {
+      return true;
+    }
+    return false;
   }
 
   private addAggregateLayer(

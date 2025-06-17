@@ -31,12 +31,14 @@ export class AdminLevelService {
   private adminLevelSubject = new BehaviorSubject<AdminLevel>(
     AdminLevel.adminLevel1,
   );
+
   public oldAdminLevel: AdminLevel = null;
   public adminLevel: AdminLevel;
   private allCountryAdminLevels: AdminLevel[];
   private adminLevelButtonsSubject = new BehaviorSubject<AdminLevelButton[]>(
     [],
   );
+
   private adminLevelButtons: AdminLevelButton[];
   public adminLevelLabel: AdminLevelLabel = new AdminLevelLabel();
   public activeLayerNames: IbfLayerName[] = [];

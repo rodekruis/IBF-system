@@ -195,11 +195,13 @@ export class AlertAreaService {
     const region = this.getRegion(alertArea);
     this.currentRainSeasonName = alertArea.eventName.split('_')[0];
 
-    const currentActionSeasonMonths = this.currentRainSeasonName
-      ? this.countryDisasterSettings.droughtSeasonRegions[region][
+    let currentActionSeasonMonths = [];
+    if (this.currentRainSeasonName) {
+      currentActionSeasonMonths =
+        this.countryDisasterSettings.droughtSeasonRegions[region][
           this.currentRainSeasonName
-        ].actionMonths
-      : [];
+        ].actionMonths;
+    }
 
     const actionMonthInCurrentActionSeasonMonths = (action: EapAction) =>
       currentActionSeasonMonths.includes(
@@ -217,16 +219,14 @@ export class AlertAreaService {
           actionMonthInCurrentActionSeasonMonths(action) &&
           actionMonthBeforeCurrentMonth(action),
       )
-      .sort(
-        (a, b) =>
-          a.month[region] &&
-          currentActionSeasonMonths.indexOf(
-            a.month[region][this.currentRainSeasonName],
-          ) -
-            currentActionSeasonMonths.indexOf(
-              b.month[region][this.currentRainSeasonName],
-            ),
-      );
+      .sort((a: EapAction, b: EapAction) => {
+        const aMonth = a.month?.[region]?.[this.currentRainSeasonName];
+        const bMonth = b.month?.[region]?.[this.currentRainSeasonName];
+        return (
+          currentActionSeasonMonths.indexOf(aMonth) -
+          currentActionSeasonMonths.indexOf(bMonth)
+        );
+      });
   };
 
   private getRegion(alertArea: AlertArea): string {

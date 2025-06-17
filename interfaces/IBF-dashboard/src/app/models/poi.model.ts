@@ -84,5 +84,6 @@ export class RiverGauge {
     'water-level-previous': string;
     'water-level-reference': string;
   };
+
   pointDataId: string;
 }

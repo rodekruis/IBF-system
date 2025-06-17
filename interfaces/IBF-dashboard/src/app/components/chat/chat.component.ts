@@ -234,10 +234,10 @@ export class ChatComponent implements OnInit, OnDestroy {
         mainExposureIndicator?.numberFormatMap;
 
       this.updateSuccessMessage = this.translateService.instant(
-        `chat-component.common.save-actions.update-success`,
+        'chat-component.common.save-actions.update-success',
       ) as string;
       this.updateFailureMessage = this.translateService.instant(
-        `chat-component.common.save-actions.update-failure`,
+        'chat-component.common.save-actions.update-failure',
       ) as string;
 
       this.setLastModelRunDate(this.disasterType);

@@ -148,9 +148,11 @@ export class AggregatesService {
     return this.indicatorSubject.asObservable();
   }
 
-  private onEachIndicatorByFeatureAndAggregate =
-    (feature: AggregateByPlaceCode, aggregate: Aggregate) =>
-    (indicator: Indicator) => {
+  private onEachIndicatorByFeatureAndAggregate = (
+    feature: AggregateByPlaceCode,
+    aggregate: Aggregate,
+  ) => {
+    return (indicator: Indicator) => {
       const foundIndicator = feature.records.find(
         (a) => a.indicator === indicator.name,
       );
@@ -159,14 +161,21 @@ export class AggregatesService {
         aggregate[indicator.name] = foundIndicator.value;
       }
 
-      aggregate.areaStatus =
-        Number(aggregate[IbfLayerName.trigger]) === 1
-          ? AreaStatus.Alert
-          : Number(aggregate[this.disasterType.mainExposureIndicator]) > 0 &&
-              this.eventState.events?.length > 0
-            ? AreaStatus.Alert
-            : AreaStatus.NoAlert; // Refactor: What is this needed for?
+      const triggerValue = Number(aggregate[IbfLayerName.trigger]);
+      const exposureValue = Number(
+        aggregate[this.disasterType.mainExposureIndicator],
+      );
+      const hasEvents = this.eventState.events.length > 0;
+
+      if (triggerValue === 1) {
+        aggregate.areaStatus = AreaStatus.Alert;
+      } else if (exposureValue > 0 && hasEvents) {
+        aggregate.areaStatus = AreaStatus.Alert;
+      } else {
+        aggregate.areaStatus = AreaStatus.NoAlert;
+      }
     };
+  };
 
   private onEachPlaceCode = (feature: AggregateByPlaceCode) => {
     const aggregate: Aggregate = {
@@ -268,14 +277,13 @@ export class AggregatesService {
     return aggregateValue;
   }
 
-  private aggregateReducer =
-    (
-      weightedAverage: boolean,
-      indicator: IbfLayerName,
-      weighingIndicator: IbfLayerName,
-      placeCode: string,
-    ) =>
-    (accumulator: number, aggregate: Aggregate) => {
+  private aggregateReducer = (
+    weightedAverage: boolean,
+    indicator: IbfLayerName,
+    weighingIndicator: IbfLayerName,
+    placeCode: string,
+  ) => {
+    return (accumulator: number, aggregate: Aggregate) => {
       let indicatorValue = 0;
 
       if (placeCode === null || placeCode === aggregate.placeCode) {
@@ -288,6 +296,7 @@ export class AggregatesService {
 
       return accumulator + indicatorValue;
     };
+  };
 
   public isAggregateNan(
     indicator: IbfLayerName,

@@ -33,24 +33,34 @@ import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
 export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   @Input()
   public type: string;
+
   @Input()
   public event: Event;
+
   @Input()
   public selectedEvent: string;
+
   @Input()
   public disasterType: DisasterType;
+
   @Input()
   public countryDisasterSettings: CountryDisasterSettings;
+
   @Input()
   public countryCodeISO3: string;
+
   @Input()
   public areas: AlertArea[];
+
   @Input()
   public adminAreaLabelPlural: string;
+
   @Input()
   public mainExposureIndicatorLabel: string;
+
   @Input()
   public mainExposureIndicatorNumberFormat: NumberFormat;
+
   @Input()
   public cardColors: CardColors;
 
@@ -169,7 +179,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       event.alertLevel === AlertLevel.TRIGGER
         ? ''
         : (this.translateService.instant(
-            `chat-component.typhoon.active-event.warning`,
+            'chat-component.typhoon.active-event.warning',
           ) as string);
 
     const landfallInfo = this.translateService.instant(

@@ -371,17 +371,11 @@ export class ApiService {
     countryCodeISO3?: string,
     disasterType?: DisasterTypeKey,
   ): Observable<ActivationLogRecord[]> {
-    return this.get(
-      `event/activation-log${
-        countryCodeISO3 && disasterType
-          ? '?countryCodeISO3=' +
-            countryCodeISO3 +
-            '&disasterType=' +
-            disasterType
-          : ''
-      }`,
-      false,
-    );
+    const params =
+      countryCodeISO3 && disasterType
+        ? `?countryCodeISO3=${encodeURIComponent(countryCodeISO3)}&disasterType=${encodeURIComponent(disasterType)}`
+        : '';
+    return this.get(`event/activation-log${params}`, false);
   }
 
   dismissCommunityNotification(pointDataId: string): Observable<void> {
@@ -399,7 +393,7 @@ export class ApiService {
     noNotifications: boolean,
   ): Observable<void> {
     return this.post(
-      `events/set-trigger`,
+      'events/set-trigger',
       { eventPlaceCodeIds, countryCodeISO3, disasterType, noNotifications },
       false,
     );
