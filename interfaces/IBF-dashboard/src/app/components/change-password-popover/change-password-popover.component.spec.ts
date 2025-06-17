@@ -34,7 +34,9 @@ describe('ChangePasswordPopoverComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ChangePasswordPopoverComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

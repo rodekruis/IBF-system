@@ -12,6 +12,7 @@ export class LoaderService {
 
   updateQueue(item: string, done: boolean): void {
     const queuePosition = this.queue.indexOf(item);
+
     if (done) {
       if (queuePosition >= 0) {
         this.queue.splice(queuePosition, 1);

@@ -7,7 +7,9 @@ describe('TooltipPopoverComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TooltipPopoverComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 

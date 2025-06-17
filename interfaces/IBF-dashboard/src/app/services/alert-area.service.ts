@@ -74,6 +74,7 @@ export class AlertAreaService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+
     this.countryDisasterSettings =
       this.disasterTypeService.getCountryDisasterTypeSettings(
         this.country,
@@ -95,6 +96,7 @@ export class AlertAreaService {
       const adminLevelType = this.adminLevelService.getAdminLevelType(
         this.placeCode,
       );
+
       if (adminLevelType !== AdminLevelType.higher) {
         this.loadAlertAreas();
       }
@@ -118,6 +120,7 @@ export class AlertAreaService {
       const adminLevelToUse =
         this.placeCode?.adminLevel ||
         this.countryDisasterSettings.defaultAdminLevel;
+
       if (adminLevelToUse > this.countryDisasterSettings.defaultAdminLevel) {
         this.apiService
           .getAlertAreas(
@@ -134,6 +137,7 @@ export class AlertAreaService {
         const allAlertAreas = this.eventState.events.flatMap(
           (event) => event.alertAreas || [],
         );
+
         this.processAlertAreas(allAlertAreas);
       } else {
         this.processAlertAreas([]);
@@ -143,6 +147,7 @@ export class AlertAreaService {
 
   private processAlertAreas = (alertAreas: AlertArea[]) => {
     this.alertAreas = alertAreas;
+
     this.alertAreas.sort((a, b) => {
       if (a.forecastSeverity === b.forecastSeverity) {
         return a.mainExposureValue > b.mainExposureValue ? -1 : 1;
@@ -154,6 +159,7 @@ export class AlertAreaService {
       this.alertAreas.forEach((area) => {
         this.formatDates(area);
         this.filterEapActionsByMonth(area);
+
         area.eapActions.forEach((action) => {
           action.aofLabel = AREAS_OF_FOCUS.find(
             (aof) => aof.id === action.aof,
@@ -193,9 +199,11 @@ export class AlertAreaService {
     }
 
     const region = this.getRegion(alertArea);
+
     this.currentRainSeasonName = alertArea.eventName.split('_')[0];
 
     let currentActionSeasonMonths = [];
+
     if (this.currentRainSeasonName) {
       currentActionSeasonMonths =
         this.countryDisasterSettings.droughtSeasonRegions[region][
@@ -207,7 +215,6 @@ export class AlertAreaService {
       currentActionSeasonMonths.includes(
         action.month[region][this.currentRainSeasonName],
       );
-
     const actionMonthBeforeCurrentMonth = (action: EapAction) =>
       currentActionSeasonMonths.indexOf(
         action.month[region][this.currentRainSeasonName],
@@ -222,6 +229,7 @@ export class AlertAreaService {
       .sort((a: EapAction, b: EapAction) => {
         const aMonth = a.month?.[region]?.[this.currentRainSeasonName];
         const bMonth = b.month?.[region]?.[this.currentRainSeasonName];
+
         return (
           currentActionSeasonMonths.indexOf(aMonth) -
           currentActionSeasonMonths.indexOf(bMonth)
@@ -243,6 +251,7 @@ export class AlertAreaService {
       this.countryDisasterSettings.droughtRegions[droughtRegion].includes(
         alertArea.placeCode,
       );
+
     for (const droughtRegion of droughtRegions) {
       if (isAlertAreaInDroughtRegion(droughtRegion)) {
         return droughtRegion;

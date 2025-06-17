@@ -84,11 +84,11 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       .subscribe(this.onPlaceCodeHoverChange);
 
     this.authService.getAuthSubscription().subscribe(this.onUserChange);
-
     this.typhoonLandfallText = this.showTyphoonLandfallText(this.event);
 
     if (this.event) {
       this.event.header = this.getHeader(this.event);
+
       this.event.mainExposureValueSum = this.getEventMainExposureValue(
         this.event,
         this.mainExposureIndicatorNumberFormat,
@@ -108,15 +108,18 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       (acc, alertArea) => acc + alertArea.mainExposureValue,
       0,
     );
+
     // NOTE: this is a temporary solution, as this actually needs a weighted average. At least this is better than sum.
     if (mainExposureIndicatorNumberFormat === NumberFormat.perc) {
       return sum / event.alertAreas?.length || 1;
     }
+
     return sum;
   }
 
   public selectArea(area: AlertArea) {
     this.adminLevelService.zoomInAdminLevel();
+
     this.placeCodeService.setPlaceCode({
       countryCodeISO3: this.countryCodeISO3,
       placeCodeName: area.name,
@@ -150,18 +153,22 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
 
   public getHeader(event: Event): string {
     let headerKey = `chat-component.${this.disasterType?.disasterType}.active-event.header`;
+
     if ((LeadTimeTriggerKey[event.firstLeadTime] as string) === '0') {
       headerKey += '-ongoing';
     }
+
     if (event.alertLevel !== AlertLevel.TRIGGER) {
       headerKey += '-below-trigger';
     }
+
     const header = this.translateService.instant(headerKey, {
       firstLeadTimeDate: event.firstLeadTimeDate,
       firstTriggerLeadTimeDate: event.firstTriggerLeadTimeDate,
       eventName: event.eventName?.split('_')[0] || this.disasterType?.label,
       disasterTypeLabel: this.disasterType?.label,
     }) as string;
+
     return header;
   }
 
@@ -174,14 +181,12 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     const landfallEvent = event.disasterSpecificProperties?.typhoonLandfall;
     const noLandfallYetEvent =
       event.disasterSpecificProperties?.typhoonNoLandfallYet;
-
     const warningSuffix =
       event.alertLevel === AlertLevel.TRIGGER
         ? ''
         : (this.translateService.instant(
             'chat-component.typhoon.active-event.warning',
           ) as string);
-
     const landfallInfo = this.translateService.instant(
       `chat-component.typhoon.active-event.${
         ongoingEvent ? 'ongoing-event' : 'upcoming-event'
@@ -194,6 +199,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       }`,
       { firstLeadTimeDate: event.firstLeadTimeDate },
     ) as string;
+
     return `${landfallInfo} ${warningSuffix}`;
   }
 

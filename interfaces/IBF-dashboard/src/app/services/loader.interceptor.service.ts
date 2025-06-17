@@ -24,6 +24,7 @@ export class LoaderInterceptorService implements HttpInterceptor {
     const skipRequest = this.requestsToSkip.some((toSkip) =>
       requestPath.includes(toSkip),
     );
+
     if (skipRequest) {
       return next.handle(request).pipe(
         tap(

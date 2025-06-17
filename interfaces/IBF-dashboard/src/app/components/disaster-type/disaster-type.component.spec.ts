@@ -28,7 +28,9 @@ describe('DisasterTypeComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(DisasterTypeComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

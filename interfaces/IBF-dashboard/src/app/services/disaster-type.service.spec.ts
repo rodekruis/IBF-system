@@ -18,6 +18,7 @@ describe('DisasterTypeService', () => {
         provideHttpClientTesting(),
       ],
     });
+
     service = TestBed.inject(DisasterTypeService);
   });
 

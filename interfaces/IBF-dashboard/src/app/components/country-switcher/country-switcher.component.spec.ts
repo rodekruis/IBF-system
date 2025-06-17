@@ -25,7 +25,9 @@ describe('CountrySwitcherComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(CountrySwitcherComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

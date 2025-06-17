@@ -25,6 +25,7 @@ export class ActivationLogButtonComponent implements OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
+
     this.disasterTypeSubscription = this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
@@ -52,6 +53,7 @@ export class ActivationLogButtonComponent implements OnDestroy {
         },
       }),
     );
+
     window.open(url, '_blank');
   }
 }

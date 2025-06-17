@@ -18,6 +18,7 @@ describe('AuthService', () => {
         provideHttpClientTesting(),
       ],
     });
+
     service = TestBed.inject(AuthService);
   });
 

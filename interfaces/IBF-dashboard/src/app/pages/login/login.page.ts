@@ -35,7 +35,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.analyticsService.logPageView(AnalyticsPage.login);
-
     this.allDisasterTypes = Object.keys(DISASTER_TYPES_SVG_MAP);
     this.countryService.getAllCountries().subscribe(this.onGetAllCountries);
   }
@@ -54,6 +53,7 @@ export class LoginPage implements OnInit {
         const isExist = this.envDisasterTypes.find(
           (item) => item === disasterType.disasterType,
         );
+
         if (!isExist) {
           this.envDisasterTypes.push(disasterType.disasterType);
         }

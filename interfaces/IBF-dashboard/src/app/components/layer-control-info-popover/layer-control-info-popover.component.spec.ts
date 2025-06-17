@@ -15,7 +15,9 @@ describe('LayerControlInfoPopoverComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(LayerControlInfoPopoverComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

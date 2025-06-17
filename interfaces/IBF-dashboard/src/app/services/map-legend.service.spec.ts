@@ -18,6 +18,7 @@ describe('MapLegendService', () => {
         provideHttpClientTesting(),
       ],
     });
+
     service = TestBed.inject(MapLegendService);
   });
 

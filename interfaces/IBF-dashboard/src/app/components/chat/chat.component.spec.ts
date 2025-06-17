@@ -32,7 +32,9 @@ describe('ChatComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ChatComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

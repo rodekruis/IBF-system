@@ -10,6 +10,7 @@ describe('AppComponent', () => {
 
   beforeEach(waitForAsync(() => {
     platformReadySpy = Promise.resolve();
+
     platformSpy = jasmine.createSpyObj('Platform', { ready: platformReadySpy });
 
     TestBed.configureTestingModule({
@@ -31,6 +32,7 @@ describe('AppComponent', () => {
     TestBed.createComponent(AppComponent);
 
     expect(platformSpy.ready).toHaveBeenCalled();
+
     await platformReadySpy;
   });
 });

@@ -47,13 +47,16 @@ export class StatusReportPage implements OnInit {
   private onGetAllCountries = (countries: Country[]) => {
     for (const country of countries) {
       this.statusData[country.countryCodeISO3] = {};
+
       const disasterTypes = country.disasterTypes;
+
       for (const disasterType of disasterTypes) {
         this.statusData[country.countryCodeISO3][disasterType.disasterType] = {
           imgSrc: '',
           date: '',
           isStale: true,
         };
+
         this.apiService
           .getLastUploadDate(country.countryCodeISO3, disasterType.disasterType)
           .subscribe((date) => {
@@ -72,6 +75,7 @@ export class StatusReportPage implements OnInit {
       lastUploadDate?.timestamp
         ? format(parseISO(lastUploadDate?.timestamp), 'yyyy-MM-dd HH:mm')
         : (this.translate.instant('status-report-page.no-data') as string);
+
     this.statusData[countryCodeISO3][disasterType.disasterType].isStale =
       lastUploadDate?.timestamp
         ? this.eventService.isLastUploadDateLate(
@@ -95,6 +99,7 @@ export class StatusReportPage implements OnInit {
     const isTriggered = events.some(
       ({ alertLevel }) => alertLevel === AlertLevel.TRIGGER,
     );
+
     this.statusData[countryCodeISO3][disasterTypeKey].imgSrc = isTriggered
       ? DISASTER_TYPES_SVG_MAP[disasterTypeKey].selectedTriggered
       : DISASTER_TYPES_SVG_MAP[disasterTypeKey].selectedNonTriggered;

@@ -100,6 +100,7 @@ export class SetTriggerPopoverComponent {
     });
 
     const noNotifications = false;
+
     this.apiService
       .setTrigger(
         eventPlaceCodeIds,

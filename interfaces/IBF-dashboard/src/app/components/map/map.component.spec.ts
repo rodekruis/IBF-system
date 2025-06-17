@@ -32,7 +32,9 @@ describe('MapComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(MapComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

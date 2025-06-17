@@ -187,9 +187,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       this.layers = [];
     }
     this.addToLayersControl();
-
     this.triggerWindowResize();
-
     this.updateLegend();
   };
 
@@ -199,6 +197,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+
     this.countryDisasterSettings =
       this.disasterTypeService.getCountryDisasterTypeSettings(
         this.country,
@@ -208,7 +207,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
-
     this.lastUploadDate = this.timelineState?.today.toUTC().toString();
   };
 
@@ -242,10 +240,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           layer.name ===
           `${IbfLayerGroup.adminRegions}${this.mapService.adminLevel}`,
       );
+
       if (adminRegionsLayer) {
         const adminRegionsFiltered = JSON.parse(
           JSON.stringify(adminRegionsLayer.data),
         );
+
         if (this.placeCode) {
           adminRegionsFiltered.features =
             adminRegionsLayer.data?.features.filter((area) => {
@@ -254,16 +254,19 @@ export class MapComponent implements AfterViewInit, OnDestroy {
               const isPlaceCodeParent =
                 area?.properties?.['placeCodeParent'] ===
                 this.placeCode.placeCodeParent;
+
               return isPlaceCode || isPlaceCodeParent;
             });
         } else {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features;
         }
+
         if (adminRegionsFiltered.features.length) {
           const layerBounds = bbox(adminRegionsFiltered);
           const layerWidth = layerBounds[2] - layerBounds[0];
           const layerHeight = layerBounds[3] - layerBounds[1];
           const zoomExtraOffset = 0.1; // 10% margin of height and width on all sides
+
           this.mapService.state.bounds = containsNumber(layerBounds)
             ? ([
                 [
@@ -276,6 +279,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
                 ],
               ] as LatLngBoundsLiteral)
             : this.mapService.state.bounds;
+
           this.map.fitBounds(this.mapService.state.bounds);
         }
       }
@@ -290,9 +294,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private initLegend() {
     this.legend = new Control();
     this.legend.setPosition('bottomleft');
+
     this.legend.onAdd = () => {
       this.legendDiv = DomUtil.create('div', 'info legend invisible');
       this.legendDiv.innerHTML += this.mapLegendService.getLegendTitle();
+
       return this.legendDiv;
     };
 
@@ -317,14 +323,15 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         (value, index, self) =>
           index === self.findIndex((t) => t.name === value.name),
       ); // deduplicate based on name (for e.g. waterpoints_internal)
-
     let detailsString = `<details data-testid="map-legend" open><summary><div data-testid="map-legend-header" class="legend-header">${this.mapLegendService.getLegendTitle()}
     <ion-icon class="icon-down" name="chevron-down-outline"></ion-icon>
     <ion-icon class="icon-up" name="chevron-up-outline"></ion-icon></div>
     </summary>`;
     const sortedLayersToShow = layersToShow.sort((a, b) => a.order - b.order);
+
     for (const layer of sortedLayersToShow) {
       const elements = [];
+
       switch (layer.type) {
         case IbfLayerType.point:
           if (this.isMultiLinePointLayer(layer.name)) {
@@ -333,6 +340,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
                 layer,
                 exposed,
               );
+
               elements.push(element);
             }
           } else if (layer.name === IbfLayerName.glofasStations) {
@@ -342,6 +350,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
                 `-${glofasState.key}-trigger`,
                 glofasState.label,
               );
+
               elements.push(element);
             }
           } else {
@@ -349,6 +358,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
               layer,
               false,
             );
+
             elements.push(element);
           }
           break;
@@ -368,7 +378,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       }
     }
     detailsString += '</details>';
-
     this.legendDiv.innerHTML = detailsString;
   }
 
@@ -386,6 +395,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private getGlofasStationStates() {
     const classes = [];
+
     for (const [key, value] of Object.entries(
       this.countryDisasterSettings?.eapAlertClasses,
     )) {
@@ -394,6 +404,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     classes.sort((e1, e2) => {
       return e2.value - e1.value;
     });
+
     return classes;
   }
 
@@ -414,6 +425,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
       for (const pointLayer of pointLayers) {
         const extraLayer = Object.assign({}, layer);
+
         extraLayer.leafletLayer = pointLayer;
         this.layers.push(extraLayer);
       }
@@ -509,15 +521,14 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private getIconCreateFunction = (cluster: MarkerCluster) => {
     const clusterSize = cluster.getChildCount();
-
     const exposedClass = cluster
       .getAllChildMarkers()
       .some((marker) => marker.feature.properties.dynamicData?.exposure)
       ? ' exposed'
       : '';
-
     let size: number;
     let className: string;
+
     switch (true) {
       case clusterSize <= 10:
         size = 30;
@@ -536,6 +547,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         className = `waterpoint-cluster-10000${exposedClass}`;
         break;
     }
+
     return divIcon({
       html: '<b>' + String(clusterSize) + '</b>',
       className,
@@ -551,6 +563,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     if (layer.name === IbfLayerName.typhoonTrack) {
       this.calculateClosestPointToTyphoon(layer);
     }
+
     const mapLayer = geoJSON(layer.data, {
       pointToLayer: this.getPointToLayerByLayer(layer.name),
     });
@@ -566,12 +579,15 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         maxClusterRadius: 50,
       });
       const exposedLayerData = JSON.parse(JSON.stringify(layer.data));
+
       exposedLayerData.features = exposedLayerData.features.filter(
         (f) => f.properties.dynamicData?.exposure,
       );
+
       const mapLayerExposed = geoJSON(exposedLayerData, {
         pointToLayer: this.getPointToLayerByLayer(layer.name),
       });
+
       exposedWaterPointClusterLayer.addLayer(mapLayerExposed);
 
       // construct not-exposed marker clusters
@@ -580,12 +596,15 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         maxClusterRadius: 50,
       });
       const nonExposedLayerData = JSON.parse(JSON.stringify(layer.data));
+
       nonExposedLayerData.features = nonExposedLayerData.features.filter(
         (f) => !f.properties.dynamicData?.exposure,
       );
+
       const mapLayerNotExposed = geoJSON(nonExposedLayerData, {
         pointToLayer: this.getPointToLayerByLayer(layer.name),
       });
+
       notExposedWaterPointClusterLayer.addLayer(mapLayerNotExposed);
 
       // return both
@@ -600,9 +619,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         iconCreateFunction: this.getIconCreateFunction,
         maxClusterRadius: 10,
       });
+
       healthSiteClusterLayer.addLayer(mapLayer);
+
       return [healthSiteClusterLayer];
     }
+
     return [mapLayer];
   }
 
@@ -614,6 +636,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           feature.properties.placeCodeParent,
         ),
       );
+
       this.placeCodeService.setPlaceCodeHover({
         countryCodeISO3: feature.properties.countryCodeISO3,
         placeCode: feature.properties.placeCode,
@@ -644,7 +667,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           const event = this.eventState?.events?.find(
             (e) => e.eventName === feature.properties.eventName,
           );
+
           this.eventService.switchEvent(feature.properties.eventName);
+
           this.timelineService.setTimelineState(
             event?.firstTriggerLeadTime || event?.firstLeadTime,
             event?.eventName,
@@ -655,6 +680,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         if (placeCode !== this.placeCode?.placeCode) {
           // only zoom-in when actually zooming in (instead of selecting a peer-area on the same level)
           const zoomIn = adminLevel > (Number(this.placeCode?.adminLevel) || 0);
+
           if (zoomIn) {
             this.adminLevelService.zoomInAdminLevel();
           }
@@ -675,6 +701,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private getAdminRegionLayerPane(layer: IbfLayer): LeafletPane {
     let adminRegionLayerPane = LeafletPane.overlayPane;
+
     switch (layer.group) {
       case IbfLayerGroup.aggregates:
         adminRegionLayerPane = LeafletPane.aggregatePane;
@@ -686,6 +713,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         adminRegionLayerPane = LeafletPane.overlayPane;
         break;
     }
+
     return adminRegionLayerPane;
   }
 
@@ -702,11 +730,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       ? 'var(--ion-color-ibf-trigger-alert-primary-contrast)'
       : 'var(--ion-color-ibf-no-alert-primary-contrast)';
     const title = feature.properties.name;
-
     const lastAvailableLeadTime: LeadTime = leadTimes[leadTimes.length - 1];
-
     const timeUnit = lastAvailableLeadTime.split('-')[1];
-
     const subtitle = `${layer.label} for current ${timeUnit} selected`;
     const eapStatusColor = featureTriggered
       ? 'var(--ion-color-ibf-trigger-alert-primary)'
@@ -732,7 +757,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     if (!layer.data) {
       return;
     }
+
     let adminRegionsLayer: GeoJSON;
+
     if (layer.group === IbfLayerGroup.outline) {
       adminRegionsLayer = geoJSON(layer.data, {
         pane: LeafletPane.outline,
@@ -745,10 +772,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         style: this.mapService.setAdminRegionStyle(layer),
         onEachFeature: (feature, element): void => {
           element.on('mouseover', this.onAdminRegionMouseOver(feature));
+
           element.on('mouseout', (): void => {
             adminRegionsLayer.resetStyle();
             this.placeCodeService.clearPlaceCodeHover();
           });
+
           element.on(
             'click',
             this.onAdminRegionClickByLayerAndFeatureAndElement(feature),
@@ -756,6 +785,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         },
       });
     }
+
     return adminRegionsLayer;
   }
 
@@ -763,6 +793,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     if (!layer.wms) {
       return;
     }
+
     const layerNames = [];
     const events = this.eventState.event
       ? [this.eventState.event]
@@ -777,6 +808,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         layerNames.push(name);
       }
     }
+
     const wmsOptions = {
       pane: LeafletPane.wmsPane,
       layers: layerNames.join(','),
@@ -787,11 +819,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       transparent: layer.wms.transparent,
       viewparams: layer.wms.viewparams,
     };
+
     return tileLayer.wms(layer.wms.url, wmsOptions);
   }
 
   private getWmsLayerName(layer: IbfLayer, event: Event) {
     let leadTime: LeadTime;
+
     if (layer.wms.leadTimeDependent) {
       if (!this.eventState.event && event.firstLeadTime) {
         leadTime = event.firstLeadTime;
@@ -801,7 +835,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     }
 
     const nameLeadTimePart = leadTime ? `_${leadTime}` : '';
-
     // REFACTOR: the direction is to make all wms-layer non-country-specific
     const nameCountryPart = NON_COUNTRY_SPECIFIC_WMS_LAYERS.includes(layer.name)
       ? ''
@@ -813,11 +846,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private calculateClosestPointToTyphoon(layer: IbfLayer) {
     if (!layer.data?.features?.length) {
       this.closestPointToTyphoon = undefined;
+
       return;
     }
 
     const lastUploadDate = parseISO(this.lastUploadDate);
-
     const validTimestamps = layer.data.features
       .map(({ properties }) =>
         parseISO(String(properties['timestampOfTrackpoint'])),
@@ -826,10 +859,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
     if (validTimestamps.length === 0) {
       this.closestPointToTyphoon = undefined;
+
       return;
     }
 
     const closestDate = max(validTimestamps);
+
     this.closestPointToTyphoon = closestDate;
   }
 }

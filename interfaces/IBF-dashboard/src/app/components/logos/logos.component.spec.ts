@@ -23,7 +23,9 @@ describe('LogosComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(LogosComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

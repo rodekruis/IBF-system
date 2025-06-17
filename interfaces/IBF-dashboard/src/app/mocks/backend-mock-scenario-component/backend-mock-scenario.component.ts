@@ -77,6 +77,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
   private onTranslate = (translatedStrings: Record<string, string>) => {
     this.alertHeaderLabel = translatedStrings[this.alertHeaderLabelNode];
     this.alertSubHeaderLabel = translatedStrings[this.alertSubHeaderLabelNode];
+
     this.alertMessage = this.translateService.instant(
       `${this.backendMockScenarioComponentTranslateNode}.${this.alertMessageNode}`,
       {
@@ -84,14 +85,19 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
         disasterTypeLabel: this.disasterType.disasterType,
       },
     ) as string;
+
     this.alertInputSecretPlaceholder =
       translatedStrings[this.alertInputSecretPlaceholderNode];
+
     this.alertButtonCancelLabel =
       translatedStrings[this.alertButtonCancelLabelNode];
+
     this.alertButtonNoTriggerLabel =
       translatedStrings[this.alertButtonNoTriggerLabelNode];
+
     this.alertButtonTriggerLabel =
       translatedStrings[this.alertButtonTriggerLabelNode];
+
     this.alertErrorApiError = translatedStrings[this.alertErrorApiErrorNode];
     this.alertErrorNoSecret = translatedStrings[this.alertErrorNoSecretNode];
     void this.handleBackendMockScenarioChange();
@@ -102,6 +108,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
       message,
       duration: 2000,
     });
+
     void toast.present();
   }
 
@@ -131,6 +138,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           cssClass: 'no-trigger-scenario-button',
           handler: (data) => {
             this.mockApiRefresh(data.secret, false, true, alert);
+
             return false;
           },
         },
@@ -139,11 +147,13 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
           cssClass: 'trigger-scenario-button',
           handler: (data) => {
             this.mockApiRefresh(data.secret, true, true, alert);
+
             return false;
           },
         },
       ],
     });
+
     alert.present();
   }
 

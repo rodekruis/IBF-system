@@ -14,7 +14,9 @@ describe('ScreenOrientationPopoverComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ScreenOrientationPopoverComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

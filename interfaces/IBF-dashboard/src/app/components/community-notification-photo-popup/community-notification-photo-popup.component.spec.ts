@@ -30,7 +30,9 @@ describe('CommunityNotificationPhotoPopupComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(CommunityNotificationPhotoPopupComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

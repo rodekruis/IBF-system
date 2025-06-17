@@ -32,7 +32,9 @@ describe('IbfGuideButtonComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(IbfGuideButtonComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

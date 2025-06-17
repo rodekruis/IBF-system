@@ -136,11 +136,12 @@ export class AggregatesService {
   private onIndicatorChange = (indicators: Indicator[]) => {
     this.indicators = indicators;
     this.mapService.removeAggregateLayers();
+
     this.indicators.forEach((indicator) => {
       this.mapService.loadAggregateLayer(indicator);
     });
-    this.indicatorSubject.next(this.indicators);
 
+    this.indicatorSubject.next(this.indicators);
     this.loadAggregateInformation();
   };
 
@@ -182,6 +183,7 @@ export class AggregatesService {
       placeCode: feature.placeCode,
       placeCodeParent: feature.placeCodeParent,
     };
+
     this.indicators.forEach(
       this.onEachIndicatorByFeatureAndAggregate(feature, aggregate),
     );
@@ -212,7 +214,9 @@ export class AggregatesService {
 
   private onAggregateData = (records: AggregateRecord[]) => {
     const groupsByPlaceCode = this.aggregateOnPlaceCode(records);
+
     this.aggregates = groupsByPlaceCode.map(this.onEachPlaceCode);
+
     this.nrAlertAreas = this.aggregates.filter(
       (a) => a.areaStatus === AreaStatus.Alert,
     ).length;
@@ -222,6 +226,7 @@ export class AggregatesService {
     array: AggregateRecord[],
   ): AggregateByPlaceCode[] {
     const groupsByPlaceCode: AggregateByPlaceCode[] = [];
+
     array.forEach((record) => {
       if (
         groupsByPlaceCode.map((i) => i.placeCode).includes(record.placeCode)
@@ -237,6 +242,7 @@ export class AggregatesService {
         });
       }
     });
+
     return groupsByPlaceCode;
   }
 
@@ -247,6 +253,7 @@ export class AggregatesService {
     numberFormat: NumberFormat,
   ): number {
     let weighingIndicatorName: IbfLayerName;
+
     if (this.disasterType) {
       weighingIndicatorName = this.getWeighingIndicatorName(indicator);
     }
@@ -262,18 +269,20 @@ export class AggregatesService {
         ),
         0,
       );
-
     let aggregateValue: number;
+
     if (numberFormat === NumberFormat.perc) {
       const sumOfWeights: number = this.aggregates.reduce(
         this.aggregateReducer(false, weighingIndicatorName, null, placeCode),
         0,
       );
+
       aggregateValue =
         sumOfWeights === 0 ? weighedSum : weighedSum / sumOfWeights;
     } else {
       aggregateValue = weighedSum;
     }
+
     return aggregateValue;
   }
 
@@ -304,6 +313,7 @@ export class AggregatesService {
     weightedAverage: boolean,
   ): boolean {
     let aggregates = this.aggregates;
+
     if (placeCode) {
       aggregates = this.aggregates.filter((a) => a.placeCode === placeCode);
     }
@@ -319,6 +329,7 @@ export class AggregatesService {
     let weighingIndicatorName = this.indicators.find(
       (i) => i.name === indicator,
     ).weightVar;
+
     if (!weighingIndicatorName) {
       weighingIndicatorName = this.indicators.find(
         (i) => i.name === this.disasterType.mainExposureIndicator,

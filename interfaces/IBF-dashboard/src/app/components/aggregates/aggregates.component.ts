@@ -117,6 +117,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+
     this.countryDisasterSettings =
       this.disasterTypeService.getCountryDisasterTypeSettings(
         this.country,
@@ -182,6 +183,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         this.disasterType.disasterType
       ];
     }
+
     return '';
   }
 
@@ -289,6 +291,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     }
     singularPlural =
       singularPlural || (this.getAreaCount() === 1 ? 'singular' : 'plural');
+
     return this.country.adminRegionLabels[this.adminLevelService.adminLevel][
       singularPlural
     ];

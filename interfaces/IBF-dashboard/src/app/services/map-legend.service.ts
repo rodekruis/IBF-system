@@ -21,6 +21,7 @@ enum SingleRowLegendType {
   outlineSquare = 'outline-square',
   pin = 'pin',
 }
+
 @Injectable({ providedIn: 'root' })
 export class MapLegendService {
   private legendDivTitle = '<div><strong>Map Legend</strong></div>';
@@ -73,16 +74,17 @@ export class MapLegendService {
 
   public getPointLegendString(layer: IbfLayer, exposed: boolean): string {
     const iconName = String(this.layerIcon[layer.name]);
+
     if (!iconName) {
       throw new Error(`Icon not found for layer: ${layer.name}`);
     }
+
     const exposedSuffix = exposed ? '-exposed' : '';
     const iconUrl =
       this.layerIconURLPrefix +
       iconName.slice(0, -4) +
       exposedSuffix +
       iconName.slice(-4);
-
     const label = exposed ? `Exposed ${layer.label}` : layer.label;
 
     return this.singleRowLegend(SingleRowLegendType.pin, iconUrl, label);
@@ -94,9 +96,11 @@ export class MapLegendService {
     label: string,
   ): string {
     const iconName = String(this.layerIcon[layer.name]);
+
     if (!iconName) {
       throw new Error(`Icon not found for layer: ${layer.name}`);
     }
+
     const iconUrl =
       this.layerIconURLPrefix +
       iconName.slice(0, -4) +
@@ -128,9 +132,9 @@ export class MapLegendService {
       layer.colorProperty,
       layer.colorBreaks,
     );
-
     const grades = Object.values(colorThreshold);
     let labels;
+
     if (layer.colorBreaks) {
       labels = Object.values(layer.colorBreaks).map(
         (colorBreak) => colorBreak.label,
@@ -140,20 +144,19 @@ export class MapLegendService {
     const colors = this.eventState?.events?.length
       ? this.mapService.state.colorGradientAlert
       : this.mapService.state.colorGradientNoAlert;
-
     const getColor = this.getFeatureColorByColorsAndColorThresholds(
       colors,
       colorThreshold,
     );
-
     const getLabel = this.getLabel(grades, layer, labels);
-
     let element = '<div>';
+
     element += this.layerTitle(layer.label, layer.unit);
 
     const noDataEntryFound = layer.data?.features.find(
       (f) => f.properties?.['indicators'][layer.name] === null,
     );
+
     element += "<div style='margin-top: 8px'>";
     if (noDataEntryFound) {
       element += this.singleRowLegend(
@@ -193,11 +196,13 @@ export class MapLegendService {
     switch (legendType) {
       case wmsLegendType.exposureLine:
         element += this.layerTitle(layer.label);
+
         element += this.singleRowLegend(
           SingleRowLegendType.line,
           value[0],
           'Exposed ' + layer.label,
         );
+
         element += this.singleRowLegend(
           SingleRowLegendType.line,
           value[1],
@@ -206,11 +211,13 @@ export class MapLegendService {
         break;
       case wmsLegendType.exposureSquare:
         element += this.layerTitle(layer.label);
+
         element += this.singleRowLegend(
           SingleRowLegendType.fullSquare,
           value[0],
           'Exposed ' + layer.label,
         );
+
         element += this.singleRowLegend(
           SingleRowLegendType.fullSquare,
           value[1],
@@ -219,12 +226,12 @@ export class MapLegendService {
         break;
       case wmsLegendType.gradient:
         element += this.layerTitle(layer.label, layer.unit);
-
         element += '<ion-row>';
         for (const color of value) {
           element += `<div style="width: 14px; height: 14px; background:${color}"></div>`;
         }
         element += '</ion-row>';
+
         element += `<ion-row style="margin-top: 4px"><ion-label>Low</ion-label><ion-label style="margin-left: ${this.getWmsGradientCaptionMargin(
           value.length,
         )}px;">High</ion-label></ion-row>`;
@@ -247,6 +254,7 @@ export class MapLegendService {
         break;
     }
     element += '</div>';
+
     return element;
   }
 
@@ -267,33 +275,39 @@ export class MapLegendService {
       ) {
         return colors[0];
       }
+
       if (
         !colorThreshold[breakKey.break2] ||
         feature <= colorThreshold[breakKey.break2]
       ) {
         return colors[1];
       }
+
       if (
         !colorThreshold[breakKey.break3] ||
         feature <= colorThreshold[breakKey.break3]
       ) {
         return colors[2];
       }
+
       if (
         !colorThreshold[breakKey.break4] ||
         feature <= colorThreshold[breakKey.break4]
       ) {
         return colors[3];
       }
+
       return colors[4];
     };
   }
 
   private getLabel = (grades, layer, labels) => (i) => {
     const label = labels ? '  -  ' + labels[i] : '';
+
     if (layer.colorBreaks) {
       const valueLow = layer.colorBreaks?.[i + 1]?.valueLow;
       const valueHigh = layer.colorBreaks?.[i + 1]?.valueHigh;
+
       if (valueLow === valueHigh) {
         return this.numberFormat(valueHigh, layer) + label + '<br/>';
       } else {
@@ -308,6 +322,7 @@ export class MapLegendService {
     } else {
       const number1 = this.numberFormat(grades[i], layer);
       const number2 = this.numberFormat(grades[i + 1], layer);
+
       return (
         number1 +
         (typeof grades[i + 1] !== 'undefined' ? '&ndash;' + number2 : '+') +
@@ -362,13 +377,11 @@ export class MapLegendService {
       type === SingleRowLegendType.fullSquareGradient
         ? 'style="margin-bottom: 0px; margin-top: 0px; height: 14px;"'
         : 'style="margin-bottom: 8px; margin-top: 8px;"';
-
     const identifierHeight = type === SingleRowLegendType.pin ? 18 : 14;
-
     const pinImg =
       type === SingleRowLegendType.pin ? `<img src="${identifier}" />` : '';
-
     let divStyle = `height: ${identifierHeight}px; width: 14px; margin-right: 4px; `;
+
     switch (type) {
       case SingleRowLegendType.fullSquare:
       case SingleRowLegendType.fullSquareGradient:

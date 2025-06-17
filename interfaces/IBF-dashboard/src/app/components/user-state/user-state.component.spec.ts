@@ -32,7 +32,9 @@ describe('UserStateComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(UserStateComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 
