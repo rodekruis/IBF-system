@@ -110,16 +110,19 @@ export class EventService {
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.resetState();
     this.disasterType = disasterType;
+
     this.countryDisasterSettings =
       this.disasterTypeService.getCountryDisasterTypeSettings(
         this.country,
         this.disasterType,
       );
+
     this.getEvents();
   };
 
   public switchEvent(eventName: string) {
     const event = this.state.events.find((e) => e.eventName === eventName);
+
     // Trigger a different 'event' subject in this case ..
     // .. so that timelineService can distinguish between initial event switch and manual event switch
     this.setEventManually(event);
@@ -182,6 +185,7 @@ export class EventService {
       disasterType.alertLevel = events.some(
         ({ alertLevel }) => alertLevel != AlertLevel.NONE,
       );
+
       callback(disasterType);
     };
   };
@@ -216,9 +220,11 @@ export class EventService {
         event.firstIssuedDate = DateTime.fromISO(
           event.firstIssuedDate,
         ).toFormat('cccc, dd LLLL');
+
         event.userTriggerDate = DateTime.fromISO(
           event.userTriggerDate,
         ).toFormat('cccc, dd LLLL');
+
         event.firstLeadTimeLabel = LeadTimeTriggerKey[event.firstLeadTime];
         event.timeUnit = event.firstLeadTime?.split('-')[1];
 
@@ -228,6 +234,7 @@ export class EventService {
               event.timeUnit as LeadTimeUnit,
             )
           : null;
+
         event.firstTriggerLeadTimeDate = event.firstTriggerLeadTime
           ? this.getFirstLeadTimeDate(
               event.firstTriggerLeadTime,
@@ -249,6 +256,7 @@ export class EventService {
         (e) => e.alertLevel === AlertLevel.TRIGGER,
       );
       const eventToLoad = triggerEvents.length ? triggerEvents[0] : events[0];
+
       this.setEventInitially(eventToLoad);
     } else {
       this.setEventInitially(null);
@@ -269,6 +277,7 @@ export class EventService {
       const bNoLandfallYet = b.disasterSpecificProperties?.typhoonNoLandfallYet
         ? 1
         : 0;
+
       if (aNoLandfallYet !== bNoLandfallYet) {
         return aNoLandfallYet - bNoLandfallYet;
       } else if (
@@ -311,16 +320,21 @@ export class EventService {
     if (this.disasterType.disasterType !== DisasterTypeKey.drought) {
       return;
     }
+
     const seasonRegions = this.countryDisasterSettings?.droughtSeasonRegions;
+
     for (const seasonRegion of Object.keys(seasonRegions)) {
       if (event.eventName?.toLowerCase().includes(seasonRegion.toLowerCase())) {
         const leadTimeMonth = DateTime.fromISO(event.endDate).plus({
           months: Number(LeadTimeTriggerKey[event.firstLeadTime]),
         }).month;
+
         for (const season of Object.values(seasonRegions[seasonRegion])) {
           const seasonMonths = season.rainMonths;
+
           if (seasonMonths.includes(leadTimeMonth)) {
             const endMonth = seasonMonths[seasonMonths.length - 1];
+
             if (endMonth >= leadTimeMonth) {
               return endMonth - leadTimeMonth + 1;
             } else {
@@ -334,6 +348,7 @@ export class EventService {
 
   private setAlertState = () => {
     const appElement = document.getElementById('app');
+
     if (appElement) {
       if (this.state.events?.length) {
         appElement.classList.remove('no-alert');
@@ -370,7 +385,6 @@ export class EventService {
     disasterType: DisasterType,
   ) => {
     const percentageOvertimeAllowed = 0.1; // 10%
-
     const durationUnit =
       disasterType.leadTimeUnit === LeadTimeUnit.day
         ? 'days'
@@ -383,7 +397,6 @@ export class EventService {
       disasterType.leadTimeUnit === LeadTimeUnit.hour
         ? 6 // all "hour" pipelines are 6-hourly
         : 1; // in all other cases it is 1-daily/1-monthly;
-
     const nowDate = Date.now();
     const diff =
       durationUnit === 'hours'

@@ -31,6 +31,7 @@ export class ChangePasswordPopoverComponent {
 
     if (this.model.confirmPassword !== this.model.newPassword) {
       this.showDifferentPasswordMessage = true;
+
       return;
     }
 

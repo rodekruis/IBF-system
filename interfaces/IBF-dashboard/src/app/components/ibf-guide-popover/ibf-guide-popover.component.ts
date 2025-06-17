@@ -27,6 +27,7 @@ export class IbfGuidePopoverComponent implements OnInit {
     this.safeVideoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
       this.videoUrl,
     );
+
     this.videoInsert = this.videoUrl
       ? (this.translateService.instant(
           'ibf-guide-component.video-insert',

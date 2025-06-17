@@ -154,6 +154,7 @@ export class MapService {
         this.disasterType.disasterType
       ];
     }
+
     return '';
   }
 
@@ -281,6 +282,7 @@ export class MapService {
 
   private loadWaterPointsLayer = (layer: IbfLayerMetadata) => {
     this.addWaterPointsLayer(layer, null);
+
     this.apiService
       .getWaterPoints(this.country.countryCodeISO3)
       .subscribe((waterPoints) => {
@@ -293,7 +295,6 @@ export class MapService {
     waterPoints: GeoJSON.FeatureCollection,
   ) {
     const isLoading = waterPoints ? false : true;
-
     // HACK: conditionally add waterpoints layer because it has a loading logic (see loadWaterPointsLayer)
     // which adds the layer to the map asynchronously in disaster types where it is not configured
     // there are a couple of factors are at play here:
@@ -312,6 +313,7 @@ export class MapService {
     const hasWaterPointsLayer = this.layers.some(
       ({ name }) => name === IbfLayerName.waterpoints,
     );
+
     // PERF: as addLayer is an expensive function we avoid unnecessary calls to addLayer
     // Using the knowledge that the waterpoints layer is always in the layers array before we receive waterpoints data
     // we can restrict calling addLayer to the following conditions:
@@ -416,12 +418,14 @@ export class MapService {
     if (indicatorOrLayer.active === LayerActivation.yes) {
       return true;
     }
+
     if (
       indicatorOrLayer.active === LayerActivation.ifTrigger &&
       this.eventState?.events?.length > 0
     ) {
       return true;
     }
+
     return false;
   }
 
@@ -497,11 +501,14 @@ export class MapService {
     const { name, viewCenter, data } = layer;
     // cache the data if available
     const layerDataCacheKey = this.getLayerDataCacheKey(layer.name);
+
     if (data) {
       this.layerDataCache[layerDataCacheKey] = data;
     }
+
     if (viewCenter && data?.features?.length) {
       const layerBounds = bbox(data);
+
       this.state.bounds = containsNumber(layerBounds)
         ? ([
             [layerBounds[1], layerBounds[0]],
@@ -510,7 +517,9 @@ export class MapService {
         : this.state.bounds;
     }
     this.layerSubject.next(layer);
+
     const layerIndex = this.getLayerIndexByName(name);
+
     if (layerIndex >= 0) {
       this.layers.splice(layerIndex, 1, layer);
     } else {
@@ -538,10 +547,10 @@ export class MapService {
     ) {
       return true;
     }
+
     const isActiveDefined = interactedLayer.active != null;
     const isInteractedLayer = layer.name === interactedLayer.name;
     const isInteractedLayerGroup = layer.group === interactedLayer.group;
-
     let isActive = layer.active;
 
     if (isActiveDefined && isInteractedLayerGroup) {
@@ -616,11 +625,13 @@ export class MapService {
         layer.group === IbfLayerGroup.outline
       ) {
         const layerDataCacheKey = this.getLayerDataCacheKey(layer.name);
+
         layer.active = this.isLayerActive(layer, newLayer);
         layer.show = this.isLayerShown(layer, newLayer);
         if (this.layerDataCache[layerDataCacheKey]) {
           const layerData: GeoJSON.FeatureCollection =
             this.layerDataCache[layerDataCacheKey];
+
           this.updateLayer(layer)(layerData);
         } else if (layer.active) {
           this.getLayerData(layer).subscribe((layerDataResponse) => {
@@ -636,6 +647,7 @@ export class MapService {
     layer: IbfLayer,
   ): Observable<GeoJSON.FeatureCollection> => {
     let layerData: Observable<GeoJSON.FeatureCollection>;
+
     if (layer.name === IbfLayerName.waterpoints) {
       layerData = this.apiService
         .getWaterPoints(this.country.countryCodeISO3)
@@ -669,6 +681,7 @@ export class MapService {
         .pipe(shareReplay(1));
     } else if (layer.group === IbfLayerGroup.adminRegions) {
       const adminLevel = Number(layer.name.slice(-1)) as AdminLevel;
+
       layerData = this.apiService
         .getAdminRegions(
           this.country.countryCodeISO3,
@@ -695,11 +708,13 @@ export class MapService {
     } else {
       layerData = of(null);
     }
+
     return layerData;
   };
 
   public getPlaceCodeParent(placeCode?: PlaceCode): string {
     placeCode = placeCode || this.placeCode;
+
     const adminLevelType = this.adminLevelService.getAdminLevelType(placeCode);
 
     return adminLevelType === AdminLevelType.single
@@ -720,6 +735,7 @@ export class MapService {
   ): Observable<GeoJSON.FeatureCollection> {
     // Do api request to get data layer
     let admDynamicDataObs: Observable<{ value: number; placeCode: string }[]>;
+
     if (dynamic) {
       admDynamicDataObs = this.apiService.getAdminAreaDynamicData(
         countryCodeISO3,
@@ -736,16 +752,20 @@ export class MapService {
         layerName,
       );
     }
+
     // Get the geometry from the admin region (this should re-use the cache if that is already loaded)
     // TODO: I'm convinced this is not working as intended and does not re-use cache and does unneeded /admin-area calls
     const adminRegionsLayer = new IbfLayer();
+
     adminRegionsLayer.name = IbfLayerName.adminRegions;
+
     const adminRegionsObs = this.getLayerData(adminRegionsLayer);
 
     // Combine results
     return zip(admDynamicDataObs, adminRegionsObs).pipe(
       map(([admDynamicData, adminRegions]) => {
         const updatedFeatures = [];
+
         for (const area of adminRegions?.features || []) {
           const foundAdmDynamicEntry = admDynamicData.find(
             (admDynamicEntry): number => {
@@ -756,12 +776,16 @@ export class MapService {
               }
             },
           );
+
           area.properties['indicators'] = {};
+
           area.properties['indicators'][layerName] = foundAdmDynamicEntry
             ? foundAdmDynamicEntry.value
             : null;
+
           updatedFeatures.push(area);
         }
+
         return adminRegions;
       }),
     );
@@ -813,6 +837,7 @@ export class MapService {
     area: AlertArea,
   ) {
     let weight = colorPropertyValue === 1 ? 3 : 0.33;
+
     if (this.placeCode) {
       if (
         ![placeCode, placeCodeParent].includes(this.placeCode.placeCode) &&
@@ -821,6 +846,7 @@ export class MapService {
         weight = weight / 3; // Decrease weight of unselected triggered areas
       }
     }
+
     return weight;
   }
 
@@ -854,6 +880,7 @@ export class MapService {
       const areaState = this.alertAreas.find(
         (area) => area.placeCode === placeCode,
       );
+
       if (this.placeCode.placeCode === placeCode && !areaState) {
         weight = 3; // Give weight of selected non-triggered area of 3 (from nothing)
       }
@@ -879,14 +906,17 @@ export class MapService {
   ): { break0: number } => {
     if (colorBreaks) {
       const colorThresholdWithBreaks = { break0: 0 };
+
       Object.keys(colorBreaks).forEach((colorBreak) => {
         if (colorBreaks[String(Number(colorBreak) + 1)]) {
           colorThresholdWithBreaks[`break${colorBreak}`] =
             colorBreaks[colorBreak].valueHigh;
         }
       });
+
       return colorThresholdWithBreaks;
     }
+
     const colorPropertyValues: number[] = adminRegions.features
       .map((feature) =>
         typeof feature.properties[colorProperty] !== 'undefined'
@@ -894,7 +924,6 @@ export class MapService {
           : feature.properties['indicators']?.[colorProperty],
       )
       .filter((v, i, a) => a.indexOf(v) === i);
-
     const colorThreshold = {
       break0: quantile(colorPropertyValues, 0.0),
       break1: quantile(colorPropertyValues, 0.2),
@@ -902,11 +931,13 @@ export class MapService {
       break3: quantile(colorPropertyValues, 0.6),
       break4: quantile(colorPropertyValues, 0.8),
     };
+
     return colorThreshold;
   };
 
   public setOutlineLayerStyle = (layer: IbfLayer) => {
     const colorProperty = layer.colorProperty;
+
     return (adminRegion) => {
       const placeCode: string = adminRegion?.properties?.placeCode;
       const placeCodeParent: string = adminRegion?.properties?.placeCodeParent;
@@ -943,6 +974,7 @@ export class MapService {
           : typeof adminRegion.properties.indicators !== 'undefined'
             ? adminRegion.properties.indicators[colorProperty]
             : 'undefined';
+
       if (colorPropertyValue !== 'undefined') {
         const fillColor = this.getAdminRegionFillColor(
           colorPropertyValue,
@@ -951,6 +983,7 @@ export class MapService {
         const fillOpacity = this.getAdminRegionFillOpacity(layer);
         const weight = this.getAdminRegionWeight(layer, placeCode);
         const color = this.getAdminRegionColor(layer);
+
         return {
           fillColor,
           fillOpacity,
@@ -977,19 +1010,23 @@ export class MapService {
     placeCodeParent: string,
   ) => {
     const area = this.getAreaByPlaceCode(placeCode, placeCodeParent);
+
     if (!area) {
       const layer = this.layers.find((l) => l.name === IbfLayerName.trigger);
       const triggered = layer.data.features.find(
         (f) => f.properties['placeCode'] === placeCode,
       ).properties['indicators'][IbfLayerName.trigger];
+
       return {
         color: triggered ? this.triggeredAreaColor : this.nonTriggeredAreaColor,
         weight: 5,
       };
     }
+
     if (area.alertLevel !== AlertLevel.TRIGGER) {
       return { color: this.nonTriggeredAreaColor, weight: 5 };
     }
+
     return { color: this.triggeredAreaColor, weight: 5 };
   };
 }

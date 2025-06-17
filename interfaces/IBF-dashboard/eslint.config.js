@@ -11,6 +11,9 @@ import eslintPluginSimpleSort from 'eslint-plugin-simple-import-sort';
 import eslintPluginJasmine from 'eslint-plugin-jasmine';
 import stylistic from '@stylistic/eslint-plugin';
 
+const declarativeStatements = ['const', 'let', 'var'];
+const controlFlowStatements = ['if', 'for', 'while', 'do', 'switch'];
+
 export default tseslint.config(
   {
     languageOptions: {
@@ -139,6 +142,55 @@ export default tseslint.config(
       '@stylistic/quote-props': ['error', 'as-needed'],
       '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
       '@stylistic/semi': ['error', 'always'],
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        {
+          blankLine: 'never',
+          prev: declarativeStatements,
+          next: declarativeStatements,
+        },
+        { blankLine: 'never', prev: 'expression', next: 'expression' },
+        {
+          blankLine: 'always',
+          prev: 'expression',
+          next: 'multiline-expression',
+        },
+        {
+          blankLine: 'always',
+          prev: 'multiline-expression',
+          next: 'expression',
+        },
+        {
+          blankLine: 'always',
+          prev: 'multiline-expression',
+          next: 'multiline-expression',
+        },
+        {
+          blankLine: 'always',
+          prev: ['expression', ...controlFlowStatements],
+          next: declarativeStatements,
+        },
+        { blankLine: 'always', prev: declarativeStatements, next: 'return' },
+        {
+          blankLine: 'always',
+          prev: declarativeStatements,
+          next: ['expression', ...controlFlowStatements],
+        },
+        {
+          blankLine: 'always',
+          prev: controlFlowStatements,
+          next: controlFlowStatements,
+        },
+        {
+          blankLine: 'always',
+          prev: ['expression', ...controlFlowStatements],
+          next: 'return',
+        },
+        { blankLine: 'always', prev: '*', next: 'block' },
+        { blankLine: 'always', prev: 'block', next: '*' },
+        { blankLine: 'always', prev: '*', next: ['enum', 'interface', 'type'] },
+        { blankLine: 'always', prev: ['enum', 'interface', 'type'], next: '*' },
+      ],
 
       // prettier
       'prettier/prettier': [
@@ -156,6 +208,10 @@ export default tseslint.config(
       '@typescript-eslint/no-floating-promises': 'off',
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
       'jasmine/no-focused-tests': 'error',
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: 'expression', next: 'expression' },
+      ],
     },
   },
   {

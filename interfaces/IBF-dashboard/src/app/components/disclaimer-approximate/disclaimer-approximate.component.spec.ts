@@ -14,7 +14,9 @@ describe('DisclaimerApproximateComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(DisclaimerApproximateComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 

@@ -25,8 +25,8 @@ export class TooltipComponent {
       event: e,
       showBackdrop: false,
     });
-    await popover.present();
 
+    await popover.present();
     await popover.onDidDismiss();
   }
 }

@@ -30,7 +30,9 @@ describe('ActivationLogButtonComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ActivationLogButtonComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

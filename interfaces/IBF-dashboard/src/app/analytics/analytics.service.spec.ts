@@ -19,6 +19,7 @@ describe('AnalyticsService', () => {
         provideHttpClientTesting(),
       ],
     });
+
     service = TestBed.inject(AnalyticsService);
   });
 

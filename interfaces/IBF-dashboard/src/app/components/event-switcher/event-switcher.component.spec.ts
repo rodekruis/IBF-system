@@ -25,7 +25,9 @@ describe('EventSwitcherComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(EventSwitcherComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

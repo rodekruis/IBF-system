@@ -15,6 +15,7 @@ export class PlaceCodeService {
     this.getPlaceCodeSubscription().subscribe(
       this.onPlaceCodeChangeByPlaceCode,
     );
+
     this.placeCodeSubject.next(newPlaceCode);
   };
 
@@ -40,6 +41,7 @@ export class PlaceCodeService {
     this.getPlaceCodeHoverSubscription().subscribe(
       this.onPlaceCodeHoverChangeByPlaceCode,
     );
+
     this.placeCodeHoverSubject.next(newPlaceCode);
   };
 

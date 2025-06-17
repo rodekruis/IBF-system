@@ -25,7 +25,9 @@ describe('IbfGuidePopoverComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(IbfGuidePopoverComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

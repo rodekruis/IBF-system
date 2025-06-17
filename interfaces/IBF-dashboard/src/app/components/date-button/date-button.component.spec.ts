@@ -23,7 +23,9 @@ describe('DateButtonComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(DateButtonComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

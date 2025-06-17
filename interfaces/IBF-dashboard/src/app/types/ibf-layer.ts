@@ -6,13 +6,14 @@ import {
   Marker,
   MarkerClusterGroup,
 } from 'leaflet';
+import { LayerActivation } from 'src/app/models/layer-activation.enum';
 import { NumberFormat } from 'src/app/types/indicator-group';
 
 export class IbfLayerMetadata {
   name: IbfLayerName;
   label: IbfLayerLabel;
   type: IbfLayerType;
-  active: string;
+  active: LayerActivation;
   legendColor: JSON;
   leadTimeDependent: boolean;
   description: JSON;

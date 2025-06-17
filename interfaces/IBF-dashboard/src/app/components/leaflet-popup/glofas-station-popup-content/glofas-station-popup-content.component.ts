@@ -40,7 +40,6 @@ export class GlofasStationPopupContentComponent implements OnInit {
       this.data.station.dynamicData?.triggerLevel ?? 0,
     );
     const tooClose = Math.abs(difference) / triggerLevel < closeMargin;
-
     const forecastLevel = Number(
       this.data.station.dynamicData?.forecastLevel ?? 0,
     );
@@ -69,6 +68,7 @@ export class GlofasStationPopupContentComponent implements OnInit {
       this.defautEapAlertClass;
 
     this.barBackgroundColor = `var(--ion-color-${this.eapAlertClass.color})`;
+
     this.barTextColor = `var(--ion-color-${
       this.eapAlertClass.textColor || 'ibf-white'
     })`;

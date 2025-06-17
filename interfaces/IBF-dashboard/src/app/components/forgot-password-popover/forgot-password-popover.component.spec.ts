@@ -14,7 +14,9 @@ describe('ForgotPasswordPopoverComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ForgotPasswordPopoverComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

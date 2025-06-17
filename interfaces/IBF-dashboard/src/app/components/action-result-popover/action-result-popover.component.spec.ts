@@ -14,7 +14,9 @@ describe('ActionResultPopoverComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ActionResultPopoverComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

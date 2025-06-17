@@ -53,6 +53,7 @@ export class TimelineComponent implements OnInit, OnDestroy {
         const btns = this.timelineState?.timeStepButtons?.filter((t) =>
           t.eventNames.includes(placeCode.eventName),
         );
+
         for (const btn of btns) {
           btn.active = true;
         }

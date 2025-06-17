@@ -36,7 +36,9 @@ describe('DashboardPage', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardPage);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

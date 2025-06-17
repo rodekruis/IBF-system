@@ -51,22 +51,31 @@ describe('EventSpeechBubbleComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(EventSpeechBubbleComponent);
+
     component = fixture.componentInstance;
 
     // Set any required input properties
     component.event = MOCK_EVENT_STATE.event;
+
     component.countryDisasterSettings = new CountryDisasterSettings();
+
     component.countryDisasterSettings.forecastSource = {
       label: 'Test Source',
       url: 'http://test.com',
     };
+
     component.countryDisasterSettings.eapLink =
       MOCK_COUNTRYDISASTERSETTINGS.eapLink;
+
     component.adminAreaLabelPlural = MOCK_COUNTRY.adminRegionLabels['2'].plural;
+
     component.areas = MOCK_ALERT_AREAS;
+
     component.mainExposureIndicatorNumberFormat =
       MOCK_INDICATOR.numberFormatMap;
+
     component.countryCodeISO3 = MOCK_COUNTRY.countryCodeISO3;
+
     component.disasterType = MOCK_DISASTERTYPE;
 
     // Spy on the hasSetTriggerPermission method
@@ -84,6 +93,7 @@ describe('EventSpeechBubbleComponent', () => {
   describe('hasSetTriggerPermission', () => {
     it('return true for right userRole', () => {
       component.userRole = UserRole.LocalAdmin;
+
       const result = component.hasSetTriggerPermission();
 
       expect(result).toBeTrue();
@@ -91,6 +101,7 @@ describe('EventSpeechBubbleComponent', () => {
 
     it('return false for wrong userRole', () => {
       component.userRole = UserRole.Operator;
+
       const result = component.hasSetTriggerPermission();
 
       expect(result).toBeFalse();

@@ -25,6 +25,7 @@ export class AuthService implements OnDestroy {
     private toastController: ToastController,
   ) {
     this.checkLoggedInState();
+
     this.authSubscription = this.getAuthSubscription().subscribe(
       this.setDisplayName,
     );
@@ -68,6 +69,7 @@ export class AuthService implements OnDestroy {
     }
 
     const isExpired: boolean = this.jwtService.checkExpiry(rawToken);
+
     if (isExpired) {
       return null;
     }
@@ -83,6 +85,7 @@ export class AuthService implements OnDestroy {
       countries: decodedToken.countries,
       disasterTypes: decodedToken.disasterTypes,
     };
+
     this.userRole = user.userRole;
 
     return user;
@@ -104,13 +107,13 @@ export class AuthService implements OnDestroy {
     const user = this.getUserFromToken();
 
     this.authSubject.next(user);
-
     this.loggedIn = true;
     this.userRole = user.userRole;
 
     if (this.redirectUrl) {
       this.router.navigate([this.redirectUrl]);
       this.redirectUrl = null;
+
       return;
     }
 
@@ -124,6 +127,7 @@ export class AuthService implements OnDestroy {
       message: `Authentication Failed: ${message}`,
       duration: 5000,
     });
+
     void toast.present();
     console.error('AuthService error: ', error);
   };
@@ -139,6 +143,7 @@ export class AuthService implements OnDestroy {
     const displayName = [user.firstName, user.middleName, user.lastName]
       .filter(Boolean)
       .join(' ');
+
     this.displayName = displayName;
   };
 
@@ -153,6 +158,7 @@ export class AuthService implements OnDestroy {
       message: 'Password changed successfully',
       duration: 5000,
     });
+
     void toast.present();
   };
 
@@ -163,6 +169,7 @@ export class AuthService implements OnDestroy {
       message: `Authentication Failed: ${message}`,
       duration: 5000,
     });
+
     void toast.present();
     console.error('AuthService error: ', error);
   };

@@ -134,17 +134,20 @@ export class TimelineService {
 
   private onAlertPerLeadTime = (alertsPerLeadTime: AlertPerLeadTime) => {
     this.alertsAllEvents = alertsPerLeadTime;
-
     this.state.timeStepButtons = [];
+
     const visibleLeadTimes = this.getVisibleLeadTimes();
+
     visibleLeadTimes.map(this.leadTimeToLeadTimeButton);
 
     let leadTime: LeadTime;
     let eventName: string;
+
     if (this.eventState.event) {
       leadTime =
         this.eventState.event.firstTriggerLeadTime ??
         this.eventState.event.firstLeadTime;
+
       eventName = this.eventState.event.eventName;
     } else {
       if (this.eventState.events?.length == 0) {
@@ -183,6 +186,7 @@ export class TimelineService {
 
     // First get triggers per day across all events for timeline
     this.isLoadingSubject.next(true);
+
     this.apiService
       .getAlertPerLeadTime(
         this.country.countryCodeISO3,
@@ -209,12 +213,13 @@ export class TimelineService {
   public setTimelineState(timeStepButtonValue: LeadTime, eventName: string) {
     this.placeCodeService.clearPlaceCode();
     this.placeCodeService.clearPlaceCodeHover();
-
     this.state.activeLeadTime = timeStepButtonValue;
     this.state.timeStepButtons.forEach(this.deactivateLeadTimeButton);
+
     const btnsToActivate = this.state.timeStepButtons.filter(
       (btn) => btn.eventNames.includes(eventName) && btn.forecastAlert,
     );
+
     for (const btnToActivate of btnsToActivate) {
       btnToActivate.active = true;
     }
@@ -231,6 +236,7 @@ export class TimelineService {
     if (leadTimeUndefined) {
       return;
     }
+
     if (leadTime.includes(LeadTimeUnit.day)) {
       return this.state.today.plus({ days: Number(triggerKey) });
     } else if (leadTime.includes(LeadTimeUnit.hour)) {
@@ -245,8 +251,10 @@ export class TimelineService {
     const disasterLeadTimes: LeadTime[] = [];
     let disasterLeadTime = this.disasterType.minLeadTime;
     const maxLeadTime = Number(this.disasterType.maxLeadTime.split('-')[0]);
+
     while (Number(disasterLeadTime.split('-')[0]) <= maxLeadTime) {
       disasterLeadTimes.push(disasterLeadTime);
+
       disasterLeadTime = disasterLeadTime.replace(
         disasterLeadTime.split('-')[0],
         String(Number(disasterLeadTime.split('-')[0]) + 1),
@@ -258,6 +266,7 @@ export class TimelineService {
       const duration = event.duration || 1;
       const startLeadTimeToUse =
         event.firstTriggerLeadTime || event.firstLeadTime;
+
       for (let i = 0; i < duration; i++) {
         // .. for events with duration (drought) also push the remaing season lead-times
         const leadTime =
@@ -281,7 +290,9 @@ export class TimelineService {
           const leadTimeButton = visibleLeadTimes.find(
             (lt) => lt.leadTime === leadTime,
           );
+
           leadTimeButton.eventNames.push(event.eventName);
+
           leadTimeButton.trigger =
             leadTimeButton.trigger || event.alertLevel === AlertLevel.TRIGGER;
         }
@@ -321,6 +332,7 @@ export class TimelineService {
     const undefinedLeadTimeEvents = this.eventState?.events.filter(
       (e) => e.disasterSpecificProperties?.typhoonNoLandfallYet,
     );
+
     if (undefinedLeadTimeEvents) {
       for (const event of undefinedLeadTimeEvents) {
         visibleLeadTimes.push({

@@ -19,6 +19,7 @@ describe('AggregatesService', () => {
         provideHttpClientTesting(),
       ],
     });
+
     service = TestBed.inject(AggregatesService);
   });
 

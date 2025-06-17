@@ -16,6 +16,7 @@ export class ActionResultPopoverComponent implements OnInit {
   ngOnInit() {
     setTimeout(async () => {
       const popover = await this.popoverController.getTop();
+
       if (popover) {
         this.closePopover();
       }

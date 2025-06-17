@@ -49,6 +49,7 @@ describe('AggregatesComponent', () => {
   let fixture: ComponentFixture<AggregatesComponent>;
   let popoverController: PopoverController;
   let analyticsService: AnalyticsService;
+
   beforeEach(waitForAsync(async () => {
     await TestBed.configureTestingModule({
       declarations: [AggregatesComponent],
@@ -70,10 +71,15 @@ describe('AggregatesComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(AggregatesComponent);
+
     component = fixture.componentInstance;
+
     adminLevelService = TestBed.inject(AdminLevelService);
+
     fixture.detectChanges();
+
     popoverController = TestBed.inject(PopoverController);
+
     analyticsService = TestBed.inject(AnalyticsService);
 
     component.disasterType = MOCK_DISASTERTYPE;
@@ -86,9 +92,13 @@ describe('AggregatesComponent', () => {
   describe('getAggregatesHeader', () => {
     it('should return expected header in National View', () => {
       const mapView = MapView.national;
+
       component.placeCodeHover = null;
+
       component.eventState = MOCK_EVENT_STATE;
+
       component.countryDisasterSettings = MOCK_COUNTRYDISASTERSETTINGS;
+
       component.disasterType = MOCK_DISASTERTYPE;
 
       const expected = {
@@ -101,8 +111,11 @@ describe('AggregatesComponent', () => {
 
     it('should return expected header in National View while hovering over map area', () => {
       const mapView = MapView.national;
+
       component.placeCodeHover = placeCode; // this is set when hovering on map area
+
       component.countryDisasterSettings = MOCK_COUNTRYDISASTERSETTINGS;
+
       component.disasterType = MOCK_DISASTERTYPE;
 
       const expected = {
@@ -115,15 +128,21 @@ describe('AggregatesComponent', () => {
 
     it('should return expected header in Event View', () => {
       const mapView = MapView.event;
+
       component.placeCodeHover = null;
+
       component.countryDisasterSettings = MOCK_COUNTRYDISASTERSETTINGS;
+
       component.disasterType = MOCK_DISASTERTYPE;
+
       component.eventState = MOCK_EVENT_STATE;
 
       const mockNrAlertAreas = 5;
       const mockAdminAreaLabel = 'Subcounties';
+
       // spying this method, which uses a global from aggregates.service
       spyOn(component as any, 'getAreaCount').and.returnValue(mockNrAlertAreas);
+
       // spying this method because it uses this.country, which is private
       spyOn(component as any, 'getAdminAreaLabel').and.returnValue(
         mockAdminAreaLabel,
@@ -139,8 +158,11 @@ describe('AggregatesComponent', () => {
 
     it('should return expected header in Event View while hovering over map area', () => {
       const mapView = MapView.event;
+
       component.placeCodeHover = placeCode; // this is set when hovering on map area
+
       component.countryDisasterSettings = MOCK_COUNTRYDISASTERSETTINGS;
+
       component.disasterType = MOCK_DISASTERTYPE;
 
       const expected = {
@@ -153,15 +175,21 @@ describe('AggregatesComponent', () => {
 
     it('should return expected header in Admin-area View', () => {
       const mapView = MapView.adminArea2;
+
       component.placeCode = placeCode; // Admin-area View implies placeCode is set
+
       component.placeCodeHover = null;
+
       spyOn(adminLevelService as any, 'getAdminLevelType').and.returnValue(
         AdminLevelType.higher,
       );
+
       const mockNrAlertAreas = 3;
       const mockAdminAreaLabel = 'Wards';
+
       // spying this method, which uses a global from aggregates.service
       spyOn(component as any, 'getAreaCount').and.returnValue(mockNrAlertAreas);
+
       // spying this method because it uses this.country, which is private
       spyOn(component as any, 'getAdminAreaLabel').and.returnValue(
         mockAdminAreaLabel,
@@ -177,7 +205,9 @@ describe('AggregatesComponent', () => {
 
     it('should return expected header in Admin-area View while hovering over map area', () => {
       const mapView = MapView.adminArea2;
+
       component.placeCode = placeCode; // Admin-area View implies placeCode is set
+
       component.placeCodeHover = placeCode;
 
       const expected = { headerLabel: 'Guba', subHeaderLabel: '' };
@@ -190,14 +220,18 @@ describe('AggregatesComponent', () => {
     it('should create popover and log analytics event', async () => {
       // Arrange
       const indicator: Indicator = MOCK_INDICATOR;
+
       component.eventState = MOCK_EVENT_STATE;
 
       const popoverSpy: HTMLIonPopoverElement = jasmine.createSpyObj(
         'HTMLIonPopoverElement',
         ['present'],
       );
+
       spyOn(popoverController as any, 'create').and.returnValue(popoverSpy);
+
       spyOn(analyticsService as any, 'logEvent');
+
       spyOn(component as any, 'getPopoverText').and.returnValue('');
 
       // Act
@@ -214,6 +248,7 @@ describe('AggregatesComponent', () => {
       });
 
       expect(popoverSpy.present).toHaveBeenCalled();
+
       expect(analyticsService.logEvent).toHaveBeenCalledWith(
         AnalyticsEvent.aggregateInformation,
         {

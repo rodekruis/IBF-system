@@ -84,6 +84,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   public switchEvent(event: Event): void {
     if (this.selectedEventName === event.eventName) {
       this.eventService.resetEvents();
+
       return;
     }
 

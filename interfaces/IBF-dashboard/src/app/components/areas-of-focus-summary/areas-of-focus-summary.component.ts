@@ -98,6 +98,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+
     this.countryDisasterSettings =
       this.disasterTypeService.getCountryDisasterTypeSettings(
         this.country,
@@ -137,6 +138,7 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
         (a) => a.placeCode === this.placeCode?.placeCode,
       );
     }
+
     const onEachAreaOfFocus = (areaOfFocus: AreaOfFocus) => {
       areaOfFocus.count = 0;
       areaOfFocus.countChecked = 0;
@@ -158,7 +160,6 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
 
   public async moreInfo(areaOfFocus: AreaOfFocus): Promise<void> {
     const { id, label, description } = areaOfFocus;
-
     const popover = await this.popoverController.create({
       component: LayerControlInfoPopoverComponent,
       animated: true,
@@ -183,10 +184,12 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       // areas of focus summary is only shown when there is an event
       return false;
     }
+
     if (!this.countryDisasterSettings.enableEarlyActions) {
       // areas of focus summary is only shown when early actions are enabled
       return false;
     }
+
     return true;
   }
 }
