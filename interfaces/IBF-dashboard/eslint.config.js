@@ -9,6 +9,7 @@ import eslintPluginPerfectionist from 'eslint-plugin-perfectionist';
 import eslintPluginRegexp from 'eslint-plugin-regexp';
 import eslintPluginSimpleSort from 'eslint-plugin-simple-import-sort';
 import eslintPluginJasmine from 'eslint-plugin-jasmine';
+import stylistic from '@stylistic/eslint-plugin';
 
 export default tseslint.config(
   {
@@ -24,6 +25,7 @@ export default tseslint.config(
       perfectionist: eslintPluginPerfectionist,
       regexp: eslintPluginRegexp,
       'simple-import-sort': eslintPluginSimpleSort,
+      '@stylistic': stylistic,
     },
     extends: [
       eslint.configs.recommended,
@@ -36,7 +38,7 @@ export default tseslint.config(
     ],
     processor: angular.processInlineTemplates,
     rules: {
-      // REFACTOR
+      // TODO: set these to either 'error' or 'off'
       'regexp/no-unused-capturing-group': 'warn',
       '@typescript-eslint/prefer-nullish-coalescing': 'warn',
       '@typescript-eslint/no-unnecessary-condition': 'off',
@@ -108,7 +110,41 @@ export default tseslint.config(
         },
       ],
       'simple-import-sort/exports': 'error',
-      'prettier/prettier': ['error', { endOfLine: 'auto' }],
+
+      // stylistic
+      ...stylistic.configs.recommended.rules,
+      '@stylistic/arrow-parens': ['error', 'always'],
+      '@stylistic/brace-style': ['error', '1tbs'],
+      '@stylistic/indent': [
+        'error',
+        2,
+        { offsetTernaryExpressions: true, SwitchCase: 1 },
+      ],
+      '@stylistic/member-delimiter-style': [
+        'error',
+        {
+          multiline: { delimiter: 'semi', requireLast: true },
+          multilineDetection: 'brackets',
+          overrides: {
+            interface: { multiline: { delimiter: 'semi', requireLast: true } },
+          },
+          singleline: { delimiter: 'semi' },
+        },
+      ],
+      '@stylistic/operator-linebreak': [
+        'error',
+        'after',
+        { overrides: { '?': 'before', ':': 'before' } },
+      ],
+      '@stylistic/quote-props': ['error', 'as-needed'],
+      '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
+      '@stylistic/semi': ['error', 'always'],
+
+      // prettier
+      'prettier/prettier': [
+        'error',
+        { endOfLine: 'auto', quoteProps: 'as-needed', singleQuote: true },
+      ],
     },
   },
   {

@@ -22,6 +22,7 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
 
   private backendMockScenarioComponentTranslateNode =
     'dashboard-page.dev-menu.mock-scenario';
+
   private alertHeaderLabel: string;
   private alertHeaderLabelNode = 'alert-header';
   private alertSubHeaderLabel: string;

@@ -84,6 +84,7 @@ export class EventService {
   public initialEventStateSubject = new BehaviorSubject<EventState>(
     this.nullState,
   );
+
   public manualEventStateSubject = new BehaviorSubject<EventState>(
     this.nullState,
   );
@@ -173,17 +174,17 @@ export class EventService {
     }
   }
 
-  private onGetDisasterTypeEvent =
-    (
-      disasterType: DisasterType,
-      callback: (disasterType: DisasterType) => void,
-    ) =>
-    (events: Event[]) => {
+  private onGetDisasterTypeEvent = (
+    disasterType: DisasterType,
+    callback: (disasterType: DisasterType) => void,
+  ) => {
+    return (events: Event[]) => {
       disasterType.alertLevel = events.some(
         ({ alertLevel }) => alertLevel != AlertLevel.NONE,
       );
       callback(disasterType);
     };
+  };
 
   private onEvents = (events: Event[]) => {
     this.apiService

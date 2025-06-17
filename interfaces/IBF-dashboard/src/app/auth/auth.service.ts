@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { DEFAULT_USER } from 'src/app/config';
 import { User } from 'src/app/models/user/user.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 import { ApiService } from 'src/app/services/api.service';
@@ -134,13 +135,11 @@ export class AuthService implements OnDestroy {
     this.router.navigate(['/login']);
   }
 
-  setDisplayName = (user: User) => {
-    this.displayName = user
-      ? user.firstName +
-        (user.middleName ? ' ' + user.middleName : '') +
-        ' ' +
-        user.lastName
-      : '';
+  setDisplayName = (user: User = DEFAULT_USER) => {
+    const displayName = [user.firstName, user.middleName, user.lastName]
+      .filter(Boolean)
+      .join(' ');
+    this.displayName = displayName;
   };
 
   changePassword(password: string) {
@@ -151,7 +150,7 @@ export class AuthService implements OnDestroy {
 
   private onPasswordChanged = async () => {
     const toast = await this.toastController.create({
-      message: `Password changed successfully`,
+      message: 'Password changed successfully',
       duration: 5000,
     });
     void toast.present();

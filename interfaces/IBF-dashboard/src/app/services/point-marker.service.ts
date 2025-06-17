@@ -505,48 +505,32 @@ export class PointMarkerService {
   }
 
   private createMarkerRedCrossPopup(markerProperties: RedCrossBranch): string {
-    const branchInfoPopup = (
-      '<div style="margin-bottom: 5px">' +
-      '<strong>Branch: ' +
-      markerProperties.branchName +
-      '</strong>' +
-      '</div>'
-    ).concat(
-      '<div style="margin-bottom: 5px">' +
-        'Nr. of volunteers: ' +
-        (markerProperties.numberOfVolunteers || '') +
-        '</div>',
-      '<div style="margin-bottom: 5px">' +
-        'Contact person: ' +
-        (markerProperties.contactPerson || '') +
-        '</div>',
-      '<div style="margin-bottom: 5px">' +
-        'Contact address: ' +
-        (markerProperties.contactAddress || '') +
-        '</div>',
-      '<div style="margin-bottom: 5px">' +
-        'Contact number: ' +
-        (markerProperties.contactNumber || '') +
-        '</div>',
-    );
-    return branchInfoPopup;
+    const unknown = 'UNKNOWN';
+
+    return `
+      <div style="margin-bottom: 5px"><strong>Branch: ${markerProperties.branchName}</strong></div>
+      <div style="margin-bottom: 5px">Nr. of volunteers: ${String(markerProperties.numberOfVolunteers ?? unknown)}</div>
+      <div style="margin-bottom: 5px">Contact person: ${markerProperties.contactPerson ?? unknown}</div>
+      <div style="margin-bottom: 5px">Contact address: ${markerProperties.contactAddress ?? unknown}</div>
+      <div style="margin-bottom: 5px">Contact number: ${markerProperties.contactNumber ?? unknown}</div>
+    `.trim();
   }
 
   private createMarkerDamPopup(markerProperties: DamSite): string {
-    const branchInfoPopup = (
-      '<div style="margin-bottom: 5px">' +
-      '<strong>Dam: ' +
-      markerProperties.damName +
-      '</strong>' +
-      '</div>'
-    ).concat(
-      '<div style="margin-bottom: 5px">' +
-        'Full Supply Capacity: ' +
-        (Math.round(markerProperties.fullSupplyCapacity).toLocaleString() ||
-          '') +
-        ' million m<sup>3</sup></div>',
-    );
-    return branchInfoPopup;
+    const damName = markerProperties.damName ?? '';
+    const fullSupplyCapacity =
+      markerProperties.fullSupplyCapacity != null
+        ? Math.round(markerProperties.fullSupplyCapacity).toLocaleString()
+        : '';
+
+    return `
+      <div style="margin-bottom: 5px">
+        <strong>Dam: ${damName}</strong>
+      </div>
+      <div style="margin-bottom: 5px">
+        Full Supply Capacity: ${fullSupplyCapacity} million m<sup>3</sup>
+      </div>
+    `.trim();
   }
 
   private createMarkerEvacuationCenterPopup(
@@ -586,19 +570,17 @@ export class PointMarkerService {
   }
 
   private createHealthSitePopup(markerProperties: HealthSite): string {
-    const branchInfoPopup = (
-      '<div style="margin-bottom: 5px">' +
-      '<strong>Name: ' +
-      markerProperties.name +
-      '</strong>' +
-      '</div>'
-    ).concat(
-      '<div style="margin-bottom: 5px">' +
-        'Type: ' +
-        (markerProperties.type || '') +
-        '</div>',
-    );
-    return branchInfoPopup;
+    const name = markerProperties.name ?? '';
+    const type = markerProperties.type ?? '';
+
+    return `
+      <div style="margin-bottom: 5px">
+        <strong>Name: ${name}</strong>
+      </div>
+      <div style="margin-bottom: 5px">
+        Type: ${type}
+      </div>
+    `.trim();
   }
 
   private createMarkerWaterpointPopup(
@@ -684,6 +666,7 @@ export class PointMarkerService {
             white-space: nowrap;
             min-width: 20%;
             width:${barWidth}%">${barValue}
+
           </div>
         </div>
       </div>

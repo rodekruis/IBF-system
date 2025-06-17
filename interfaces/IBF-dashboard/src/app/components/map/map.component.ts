@@ -156,6 +156,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       .getTimelineStateSubscription()
       .subscribe(this.onTimelineStateChange);
   }
+
   ngAfterViewInit(): void {
     if (this.map) {
       this.initLegend();
@@ -247,12 +248,14 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         );
         if (this.placeCode) {
           adminRegionsFiltered.features =
-            adminRegionsLayer.data?.features.filter(
-              (area) =>
-                area?.properties?.['placeCode'] === this.placeCode.placeCode ||
+            adminRegionsLayer.data?.features.filter((area) => {
+              const isPlaceCode =
+                area?.properties?.['placeCode'] === this.placeCode.placeCode;
+              const isPlaceCodeParent =
                 area?.properties?.['placeCodeParent'] ===
-                  this.placeCode.placeCode,
-            );
+                this.placeCode.placeCodeParent;
+              return isPlaceCode || isPlaceCodeParent;
+            });
         } else {
           adminRegionsFiltered.features = adminRegionsLayer.data?.features;
         }
@@ -260,7 +263,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           const layerBounds = bbox(adminRegionsFiltered);
           const layerWidth = layerBounds[2] - layerBounds[0];
           const layerHeight = layerBounds[3] - layerBounds[1];
-          const zoomExtraOffset = 0.1; //10% margin of height and width on all sides
+          const zoomExtraOffset = 0.1; // 10% margin of height and width on all sides
           this.mapService.state.bounds = containsNumber(layerBounds)
             ? ([
                 [
@@ -435,9 +438,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  private getPointToLayerByLayer =
-    (layerName) =>
-    (geoJsonPoint: GeoJSON.Feature, latlng: LatLng): Marker => {
+  private getPointToLayerByLayer = (layerName) => {
+    return (geoJsonPoint: GeoJSON.Feature, latlng: LatLng): Marker => {
       switch (layerName) {
         case IbfLayerName.glofasStations: {
           return this.pointMarkerService.createMarkerStation(
@@ -503,6 +505,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
           return this.pointMarkerService.createMarkerDefault(latlng);
       }
     };
+  };
 
   private getIconCreateFunction = (cluster: MarkerCluster) => {
     const clusterSize = cluster.getChildCount();
@@ -603,9 +606,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     return [mapLayer];
   }
 
-  private onAdminRegionMouseOver =
-    (feature) =>
-    (event): void => {
+  private onAdminRegionMouseOver = (feature) => {
+    return (event): void => {
       event.target.setStyle(
         this.mapService.setAdminRegionMouseOverStyle(
           feature.properties.placeCode,
@@ -621,6 +623,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         adminLevel: feature.properties.adminLevel,
       });
     };
+  };
 
   private onAdminRegionClickByLayerAndFeatureAndElement =
     (feature) => (): void => {
@@ -669,6 +672,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         }
       }
     };
+
   private getAdminRegionLayerPane(layer: IbfLayer): LeafletPane {
     let adminRegionLayerPane = LeafletPane.overlayPane;
     switch (layer.group) {
@@ -787,11 +791,14 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   private getWmsLayerName(layer: IbfLayer, event: Event) {
-    const leadTime = !layer.wms.leadTimeDependent
-      ? null
-      : !this.eventState.event && event.firstLeadTime
-        ? event.firstLeadTime
-        : this.timelineState.activeLeadTime;
+    let leadTime: LeadTime;
+    if (layer.wms.leadTimeDependent) {
+      if (!this.eventState.event && event.firstLeadTime) {
+        leadTime = event.firstLeadTime;
+      } else {
+        leadTime = this.timelineState.activeLeadTime;
+      }
+    }
 
     const nameLeadTimePart = leadTime ? `_${leadTime}` : '';
 

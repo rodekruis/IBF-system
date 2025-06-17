@@ -10,6 +10,7 @@ import {
   Event,
   EventService,
 } from 'src/app/services/event.service';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { LastUploadDate } from 'src/app/types/last-upload-date';
 
 interface DisasterStatus {
@@ -82,20 +83,20 @@ export class StatusReportPage implements OnInit {
     this.apiService
       .getEvents(countryCodeISO3, disasterType.disasterType)
       .subscribe((events) => {
-        this.onGetEvents(events, countryCodeISO3, disasterType);
+        this.onGetEvents(events, countryCodeISO3, disasterType.disasterType);
       });
   };
 
   private onGetEvents = (
     events: Event[],
     countryCodeISO3: string,
-    disasterType: DisasterType,
+    disasterTypeKey: DisasterTypeKey,
   ) => {
-    this.statusData[countryCodeISO3][disasterType.disasterType].imgSrc =
-      events.filter((e: Event) => e.alertLevel === AlertLevel.TRIGGER).length >
-      0
-        ? DISASTER_TYPES_SVG_MAP[disasterType.disasterType].selectedTriggered
-        : DISASTER_TYPES_SVG_MAP[disasterType.disasterType]
-            .selectedNonTriggered;
+    const isTriggered = events.some(
+      ({ alertLevel }) => alertLevel === AlertLevel.TRIGGER,
+    );
+    this.statusData[countryCodeISO3][disasterTypeKey].imgSrc = isTriggered
+      ? DISASTER_TYPES_SVG_MAP[disasterTypeKey].selectedTriggered
+      : DISASTER_TYPES_SVG_MAP[disasterTypeKey].selectedNonTriggered;
   };
 }

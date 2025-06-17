@@ -99,6 +99,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     this.adminLevelButtons =
       this.adminLevelService.getAdminLevelButtonsSubscription();
   }
+
   ngOnDestroy(): void {
     this.mapViewSubscription.unsubscribe();
     this.eventStateSubscription.unsubscribe();
@@ -170,7 +171,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
 
   public getAdminLevelLabel(adminLevel: AdminLevel): string {
     return this.adminLevelService.adminLevelLabel
-      ? this.adminLevelService.adminLevelLabel[AdminLevel[adminLevel]]
+      ? String(this.adminLevelService.adminLevelLabel[AdminLevel[adminLevel]])
       : `Admin Level ${AdminLevel[adminLevel]}`;
   }
 

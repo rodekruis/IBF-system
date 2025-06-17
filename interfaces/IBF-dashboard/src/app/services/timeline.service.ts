@@ -27,10 +27,12 @@ export class TimelineService {
     timeStepButtons: [],
     activeLeadTime: null,
   };
+
   public state = this.startingState;
   private timelineStateSubject = new BehaviorSubject<TimelineState>(
     this.startingState,
   );
+
   private alertsAllEvents: AlertPerLeadTime;
   private country: Country;
   private disasterType: DisasterType;
@@ -105,11 +107,12 @@ export class TimelineService {
       .map((e) => e.firstLeadTime)
       .includes(leadTime);
     const triggerKey = LeadTimeTriggerKey[leadTime];
-    const forecastAlert =
-      (this.alertsAllEvents?.[leadTime] === '1' ||
-        leadTimeInput.forecastAlert) &&
-      (!isUndefinedLeadTime ||
-        (isUndefinedLeadTime && leadTimeInput.undefinedLeadTime));
+    const forecastAlertTrigger =
+      this.alertsAllEvents?.[leadTime] === '1' || leadTimeInput.forecastAlert;
+    const forecastAlertUndefined =
+      !isUndefinedLeadTime ||
+      (isUndefinedLeadTime && leadTimeInput.undefinedLeadTime);
+    const forecastAlert = forecastAlertTrigger && forecastAlertUndefined;
 
     this.state.timeStepButtons[index] = {
       date: this.getLeadTimeDate(
@@ -136,15 +139,22 @@ export class TimelineService {
     const visibleLeadTimes = this.getVisibleLeadTimes();
     visibleLeadTimes.map(this.leadTimeToLeadTimeButton);
 
-    this.setTimelineState(
-      this.eventState.event
-        ? this.eventState.event.firstTriggerLeadTime ||
-            this.eventState.event.firstLeadTime
-        : this.eventState.events?.length > 0
-          ? null
-          : this.getFallbackNoTriggerLeadTime(this.disasterType.disasterType),
-      this.eventState.event ? this.eventState.event.eventName : null,
-    );
+    let leadTime: LeadTime;
+    let eventName: string;
+    if (this.eventState.event) {
+      leadTime =
+        this.eventState.event.firstTriggerLeadTime ??
+        this.eventState.event.firstLeadTime;
+      eventName = this.eventState.event.eventName;
+    } else {
+      if (this.eventState.events?.length == 0) {
+        leadTime = this.getFallbackNoTriggerLeadTime(
+          this.disasterType.disasterType,
+        );
+      }
+    }
+
+    this.setTimelineState(leadTime, eventName);
   };
 
   private getFallbackNoTriggerLeadTime(disasterType: DisasterTypeKey) {

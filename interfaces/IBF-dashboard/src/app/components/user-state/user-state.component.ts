@@ -26,6 +26,7 @@ import { environment } from 'src/environments/environment';
 export class UserStateComponent implements OnInit {
   @Input()
   public isLoggedIn: boolean;
+
   @Input()
   public showCountry = true;
 

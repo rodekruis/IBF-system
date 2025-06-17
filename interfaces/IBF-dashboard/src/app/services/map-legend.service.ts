@@ -23,7 +23,7 @@ enum SingleRowLegendType {
 }
 @Injectable({ providedIn: 'root' })
 export class MapLegendService {
-  private legendDivTitle = `<div><strong>Map Legend</strong></div>`;
+  private legendDivTitle = '<div><strong>Map Legend</strong></div>';
 
   public eventState: EventState;
   private country: Country;
@@ -72,15 +72,20 @@ export class MapLegendService {
   }
 
   public getPointLegendString(layer: IbfLayer, exposed: boolean): string {
-    const exposedString = exposed ? '-exposed' : '';
-    return this.singleRowLegend(
-      SingleRowLegendType.pin,
+    const iconName = String(this.layerIcon[layer.name]);
+    if (!iconName) {
+      throw new Error(`Icon not found for layer: ${layer.name}`);
+    }
+    const exposedSuffix = exposed ? '-exposed' : '';
+    const iconUrl =
       this.layerIconURLPrefix +
-        this.layerIcon[layer.name].slice(0, -4) +
-        exposedString +
-        this.layerIcon[layer.name].slice(-4),
-      `${exposed ? 'Exposed ' : ''}${layer.label}`,
-    );
+      iconName.slice(0, -4) +
+      exposedSuffix +
+      iconName.slice(-4);
+
+    const label = exposed ? `Exposed ${layer.label}` : layer.label;
+
+    return this.singleRowLegend(SingleRowLegendType.pin, iconUrl, label);
   }
 
   public getGlofasPointLegendString(
@@ -88,12 +93,19 @@ export class MapLegendService {
     glofasState: string,
     label: string,
   ): string {
+    const iconName = String(this.layerIcon[layer.name]);
+    if (!iconName) {
+      throw new Error(`Icon not found for layer: ${layer.name}`);
+    }
+    const iconUrl =
+      this.layerIconURLPrefix +
+      iconName.slice(0, -4) +
+      glofasState +
+      iconName.slice(-4);
+
     return this.singleRowLegend(
       SingleRowLegendType.pin,
-      this.layerIconURLPrefix +
-        this.layerIcon[layer.name].slice(0, -4) +
-        glofasState +
-        this.layerIcon[layer.name].slice(-4),
+      iconUrl,
       `GloFAS ${label}`,
     );
   }
@@ -142,7 +154,7 @@ export class MapLegendService {
     const noDataEntryFound = layer.data?.features.find(
       (f) => f.properties?.['indicators'][layer.name] === null,
     );
-    element += `<div style='margin-top: 8px'>`;
+    element += "<div style='margin-top: 8px'>";
     if (noDataEntryFound) {
       element += this.singleRowLegend(
         SingleRowLegendType.fullSquareGradient,
@@ -160,7 +172,7 @@ export class MapLegendService {
         );
       }
     }
-    element += `</div></div>`;
+    element += '</div></div>';
 
     return element;
   }
@@ -244,22 +256,38 @@ export class MapLegendService {
       : 7 + (gradientLength - 4) * 14;
   }
 
-  private getFeatureColorByColorsAndColorThresholds =
-    (colors, colorThreshold) => (feature) => {
-      return feature <= colorThreshold[breakKey.break1] ||
-        !colorThreshold[breakKey.break1]
-        ? colors[0]
-        : feature <= colorThreshold[breakKey.break2] ||
-            !colorThreshold[breakKey.break2]
-          ? colors[1]
-          : feature <= colorThreshold[breakKey.break3] ||
-              !colorThreshold[breakKey.break3]
-            ? colors[2]
-            : feature <= colorThreshold[breakKey.break4] ||
-                !colorThreshold[breakKey.break4]
-              ? colors[3]
-              : colors[4];
+  private getFeatureColorByColorsAndColorThresholds(
+    colors: string[],
+    colorThreshold: Record<string, number>,
+  ): (feature: number) => string {
+    return (feature: number): string => {
+      if (
+        !colorThreshold[breakKey.break1] ||
+        feature <= colorThreshold[breakKey.break1]
+      ) {
+        return colors[0];
+      }
+      if (
+        !colorThreshold[breakKey.break2] ||
+        feature <= colorThreshold[breakKey.break2]
+      ) {
+        return colors[1];
+      }
+      if (
+        !colorThreshold[breakKey.break3] ||
+        feature <= colorThreshold[breakKey.break3]
+      ) {
+        return colors[2];
+      }
+      if (
+        !colorThreshold[breakKey.break4] ||
+        feature <= colorThreshold[breakKey.break4]
+      ) {
+        return colors[3];
+      }
+      return colors[4];
     };
+  }
 
   private getLabel = (grades, layer, labels) => (i) => {
     const label = labels ? '  -  ' + labels[i] : '';

@@ -45,7 +45,7 @@ export class ActivationLogButtonComponent implements OnDestroy {
 
   public goToPage() {
     const url = this.router.serializeUrl(
-      this.router.createUrlTree([`/log`], {
+      this.router.createUrlTree(['/log'], {
         queryParams: {
           countryCodeISO3: this.country.countryCodeISO3,
           disasterType: this.disasterType.disasterType,
