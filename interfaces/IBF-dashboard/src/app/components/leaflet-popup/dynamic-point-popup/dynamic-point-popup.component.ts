@@ -9,7 +9,6 @@ import { LeadTime } from 'src/app/types/lead-time';
 @Component({
   selector: 'app-dynamic-point-popup',
   templateUrl: './dynamic-point-popup.component.html',
-  styleUrls: ['./dynamic-point-popup.component.scss'],
   standalone: false,
 })
 export class DynamicPointPopupComponent implements OnInit {
@@ -82,65 +81,76 @@ export class DynamicPointPopupComponent implements OnInit {
       this.eapAlertClass =
         this.glofasData.eapAlertClasses[
           this.glofasData.station.dynamicData?.eapAlertClass
-        ] || this.defautEapAlertClass;
+        ] ?? this.defautEapAlertClass;
     }
 
     this.title = this.getTitle();
     this.footerContent = this.getFooterContent();
 
-    this.glofasHeaderStyle =
-      this.layerName === IbfLayerName.glofasStations
-        ? `background: var(--ion-color-${
-            this.eapAlertClass.color
-          });color: var(--ion-color-${
-            this.eapAlertClass.textColor || 'ibf-white'
-          });`
-        : '';
-
-    this.glofasFooterStyle =
-      this.layerName === IbfLayerName.glofasStations
-        ? `color: var(--ion-color-${
-            this.eapAlertClass.textColor || this.eapAlertClass.color
-          });`
-        : '';
+    switch (this.layerName) {
+      case IbfLayerName.glofasStations:
+        this.glofasHeaderStyle =
+          `background: var(--ion-color-${this.eapAlertClass.color});` +
+          `color: var(--ion-color-${this.eapAlertClass.textColor || 'ibf-white'});`;
+        this.glofasFooterStyle = `color: var(--ion-color-${
+          this.eapAlertClass.textColor || this.eapAlertClass.color
+        });`;
+        break;
+      case IbfLayerName.gauges:
+        this.glofasHeaderStyle =
+          'background: var(--ion-color-ibf-no-alert-primary);';
+        break;
+      case IbfLayerName.typhoonTrack:
+        this.glofasHeaderStyle = 'background: var(--ion-color-ibf-primary);';
+        break;
+      default:
+        this.glofasHeaderStyle = '';
+        this.glofasFooterStyle = '';
+    }
   }
 
   private getTitle(): string {
-    if (this.layerName === IbfLayerName.gauges) {
-      return `${this.translate.instant('map-popups.river-gauge.header') as string} ${
-        this.riverGauge.fid
-      } ${this.riverGauge.name}`;
+    switch (this.layerName) {
+      case IbfLayerName.gauges: {
+        const header = String(
+          this.translate.instant('map-popups.river-gauge.header'),
+        );
+        return `${header} ${this.riverGauge.fid} ${this.riverGauge.name}`;
+      }
+      case IbfLayerName.typhoonTrack: {
+        const hasPassedSuffix = this.typhoonTrackPoint.passed
+          ? ' (passed)'
+          : '';
+        return `Typhoon track${hasPassedSuffix}`;
+      }
+      case IbfLayerName.glofasStations:
+        return `${this.glofasData.station.stationCode} STATION: ${this.glofasData.station.stationName}`;
+      default:
+        return '';
     }
-
-    if (this.layerName === IbfLayerName.typhoonTrack) {
-      return `Typhoon track${this.typhoonTrackPoint.passed ? ' (passed)' : ''}`;
-    }
-
-    if (this.layerName === IbfLayerName.glofasStations) {
-      return `${this.glofasData.station.stationCode} STATION: ${this.glofasData.station.stationName}`;
-    }
-
-    return '';
   }
 
   private getFooterContent(): string {
     if (this.layerName === IbfLayerName.gauges) {
-      return !this.riverGauge.dynamicData?.['water-level']
-        ? ''
-        : this.riverGauge.dynamicData?.['water-level'] <=
-            this.riverGauge.dynamicData?.['water-level-reference']
-          ? (this.translate.instant('map-popups.river-gauge.below') as string)
-          : (this.translate.instant('map-popups.river-gauge.above') as string);
+      const waterLevel = this.riverGauge.dynamicData?.['water-level'];
+      const reference = this.riverGauge.dynamicData?.['water-level-reference'];
+      if (waterLevel == null) return '';
+      const below = String(
+        this.translate.instant('map-popups.river-gauge.below'),
+      );
+      const above = String(
+        this.translate.instant('map-popups.river-gauge.above'),
+      );
+      return waterLevel <= reference ? below : above;
     }
 
     if (this.layerName === IbfLayerName.typhoonTrack) {
-      const lat = `${Math.abs(this.typhoonTrackPoint.markerLatLng.lat).toFixed(
-        4,
-      )}° ${this.typhoonTrackPoint.markerLatLng.lat > 0 ? 'N' : 'S'}`;
-      const lng = `${Math.abs(this.typhoonTrackPoint.markerLatLng.lng).toFixed(
-        4,
-      )}° ${this.typhoonTrackPoint.markerLatLng.lng > 0 ? 'E' : 'W'}`;
-      return `${lat}, ${lng}`;
+      const { lat, lng } = this.typhoonTrackPoint.markerLatLng;
+      const latAbs = Math.abs(lat).toFixed(4);
+      const lngAbs = Math.abs(lng).toFixed(4);
+      const latDir = lat > 0 ? 'N' : 'S';
+      const lngDir = lng > 0 ? 'E' : 'W';
+      return `${latAbs}° ${latDir}, ${lngAbs}° ${lngDir}`;
     }
 
     if (this.layerName === IbfLayerName.glofasStations) {

@@ -1,11 +1,10 @@
 <div
-  class="leaflet--dynamic-point-popup--header"
-  [ngClass]="layerName"
+  [class]="'rounded-t-lg p-2 text-white ' + layerName"
   [style]="glofasHeaderStyle"
 >
   <strong>{{ title }}</strong>
 </div>
-<div class="leaflet--dynamic-point-popup--content">
+<div class="p-2" [class.rounded-b-lg]="!footerContent">
   @switch (layerName) {
     @case (ibfLayerName.gauges) {
       <app-river-gauge-popup-content
@@ -24,8 +23,11 @@
     }
   }
 </div>
-<div class="leaflet--dynamic-point-popup--footer" [style]="glofasFooterStyle">
-  <div>
-    <strong>{{ footerContent }}</strong>
+@if (footerContent) {
+  <div
+    class="rounded-b-lg border-t px-2 py-1 text-center font-semibold"
+    [style]="glofasFooterStyle"
+  >
+    {{ footerContent }}
   </div>
-</div>
+}
