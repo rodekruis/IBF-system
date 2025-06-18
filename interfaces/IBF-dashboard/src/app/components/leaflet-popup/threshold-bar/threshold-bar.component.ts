@@ -73,7 +73,7 @@ export class ThresholdBarComponent implements OnInit {
       color:${this.textColor};
       text-align:center;
       white-space: nowrap;
-      min-width: 15%;
+      min-width: 20%;
       width:${this.barWidth}%
     `;
   }
@@ -98,8 +98,7 @@ export class ThresholdBarComponent implements OnInit {
     margin-left: ${this.thresholdPosition + 1}%;
     text-align: left;
     width: 20%;
-    padding-top: 5px;
-    margin-bottom:10px
+    padding-top: 5px
     `;
   }
 }

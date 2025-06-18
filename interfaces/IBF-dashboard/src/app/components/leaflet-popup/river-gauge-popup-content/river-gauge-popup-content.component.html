@@ -3,7 +3,6 @@
     <div>
       <ion-label class="pr-2">
         <span class="text-lg font-semibold">{{ currentString }}</span>
-        {{ 'map-popups.river-gauge.unit' | translate }}
         {{ 'map-popups.river-gauge.sea-level' | translate }}
       </ion-label>
       <ion-label class="mr-1" [color]="difference <= 0 ? 'success' : 'danger'">
@@ -28,10 +27,11 @@
     backgroundColor="var(--ion-color-ibf-no-alert-primary)"
     textColor="var(--ion-color-ibf-white)"
     [barWidth]="triggerWidth"
-    [barValue]="current + ('map-popups.river-gauge.unit' | translate)"
+    [barValue]="current.toString()"
     [thresholdDescription]="'map-popups.river-gauge.normal' | translate"
-    [thresholdValue]="reference + ('map-popups.river-gauge.unit' | translate)"
+    [thresholdValue]="reference"
     [thresholdPosition]="80"
+    [unit]="'map-popups.river-gauge.unit' | translate"
   ></app-threshold-bar>
 } @else {
   <ion-label class="pb-1 pr-2 text-gray-500">
