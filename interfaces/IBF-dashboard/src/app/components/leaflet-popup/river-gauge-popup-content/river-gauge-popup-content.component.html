@@ -1,19 +1,12 @@
 @if (current) {
-  <div
-    style="margin-bottom: 4px; display: flex; justify-content: space-between"
-  >
+  <div class="mb-1 flex justify-between">
     <div>
-      <ion-label style="padding-right: 8px">
-        <span style="font-size: 18px"
-          ><strong>{{ currentString }}</strong></span
-        >
+      <ion-label class="pr-2">
+        <span class="text-lg font-semibold">{{ currentString }}</span>
         {{ 'map-popups.river-gauge.unit' | translate }}
         {{ 'map-popups.river-gauge.sea-level' | translate }}
       </ion-label>
-      <ion-label
-        style="margin-right: 4px"
-        [color]="difference <= 0 ? 'success' : 'danger'"
-      >
+      <ion-label class="mr-1" [color]="difference <= 0 ? 'success' : 'danger'">
         <ion-icon
           [name]="difference <= 0 ? 'caret-down-outline' : 'caret-up-outline'"
         ></ion-icon
@@ -26,12 +19,10 @@
       color="ibf-no-alert-primary"
     ></app-tooltip>
   </div>
-  <div style="margin-bottom: 4px">
-    <ion-label
-      ><strong>{{
-        'map-popups.river-gauge.current' | translate
-      }}</strong></ion-label
-    >
+  <div class="mb-1">
+    <ion-label class="font-semibold">{{
+      'map-popups.river-gauge.current' | translate
+    }}</ion-label>
   </div>
   <app-threshold-bar
     backgroundColor="var(--ion-color-ibf-no-alert-primary)"
@@ -43,11 +34,9 @@
     [thresholdPosition]="80"
   ></app-threshold-bar>
 } @else {
-  <div
-    style="margin-bottom: 4px; display: flex; justify-content: space-between"
-  >
+  <div class="mb-1 flex justify-between">
     <div>
-      <ion-label style="font-size: 18px; padding-right: 8px">
+      <ion-label class="pr-2 text-gray-500">
         {{ 'map-popups.river-gauge.no-data' | translate }}
       </ion-label>
     </div>
