@@ -5,40 +5,53 @@ import { RiverGauge } from 'src/app/models/poi.model';
 @Component({
   selector: 'app-river-gauge-popup-content',
   templateUrl: './river-gauge-popup-content.component.html',
-  styleUrls: ['./river-gauge-popup-content.component.scss'],
   standalone: false,
 })
 export class RiverGaugePopupContentComponent implements OnInit {
   @Input()
-  data: RiverGauge;
+  data!: RiverGauge;
 
-  public current: number;
-  public currentString: string;
-  public previous: number;
-  public reference: number;
-  public difference: number;
-  public differenceAbsolute: number;
-  public triggerWidth: number;
+  public current = 0;
+  public currentString = '';
+  public previous = 0;
+  public reference = 0;
+  public difference = 0;
+  public differenceAbsolute = 0;
+  public triggerWidth = 0;
 
   constructor(public translate: TranslateService) {}
+
   ngOnInit(): void {
-    if (!this.data) {
+    if (!this.data?.dynamicData) {
       return;
     }
 
-    this.current =
-      Math.round(Number(this.data.dynamicData?.['water-level']) * 100) / 100; // 2 decimals
+    const dynamicData = this.data.dynamicData;
+    this.current = this.roundTo(Number(dynamicData['water-level']), 2);
     this.currentString = isNaN(this.current) ? '' : String(this.current);
-    this.previous = Number(this.data.dynamicData?.['water-level-previous']);
-    this.reference = Math.round(
-      Number(this.data.dynamicData?.['water-level-reference']),
-    ); // 0 decimals
-    this.difference = Math.round((this.current - this.previous) * 100) / 100; // 2 decimals
-    this.differenceAbsolute = Math.abs(this.difference);
-
-    this.triggerWidth = Math.max(
-      Math.min(Math.round((this.current / this.reference) * 100), 115),
+    this.previous = Number(dynamicData['water-level-previous']);
+    this.reference = this.roundTo(
+      Number(dynamicData['water-level-reference']),
       0,
     );
+    this.difference = this.roundTo(this.current - this.previous, 2);
+    this.differenceAbsolute = Math.abs(this.difference);
+
+    this.triggerWidth = this.calculateTriggerWidth(
+      this.current,
+      this.reference,
+    );
+  }
+
+  private roundTo(value: number, decimals: number): number {
+    if (isNaN(value)) return 0;
+    const factor = Math.pow(10, decimals);
+    return Math.round(value * factor) / factor;
+  }
+
+  private calculateTriggerWidth(current: number, reference: number): number {
+    if (reference === 0) return 0;
+    const width = Math.round((current / reference) * 100);
+    return Math.max(Math.min(width, 115), 0);
   }
 }
