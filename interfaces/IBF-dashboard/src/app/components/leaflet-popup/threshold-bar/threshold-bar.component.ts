@@ -10,7 +10,7 @@ export class ThresholdBarComponent implements OnInit {
   @Input() public backgroundColor: string;
   @Input() public textColor: string;
   @Input() public barWidth: number;
-  @Input() public barValue: string;
+  @Input() public barValue: number;
   @Input() public thresholdDescription: string;
   @Input() public thresholdValue: number;
   @Input() public unit?: string;
@@ -101,4 +101,6 @@ export class ThresholdBarComponent implements OnInit {
     padding-top: 5px
     `;
   }
+
+  public addComma = (n) => Math.round(n).toLocaleString('en-US'); // TODO: check if en-US can be removed
 }
