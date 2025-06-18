@@ -34,11 +34,7 @@
     [thresholdPosition]="80"
   ></app-threshold-bar>
 } @else {
-  <div class="mb-1 flex justify-between">
-    <div>
-      <ion-label class="pr-2 text-gray-500">
-        {{ 'map-popups.river-gauge.no-data' | translate }}
-      </ion-label>
-    </div>
-  </div>
+  <ion-label class="pb-1 pr-2 text-gray-500">
+    {{ 'map-popups.river-gauge.no-data' | translate }}
+  </ion-label>
 }
