@@ -282,7 +282,7 @@
     },
     "river-gauge": {
       "unit": "m",
-      "sea-level": "MSL",
+      "sea-level": "meters above sea level",
       "header": "River gauge:",
       "current": "Current water level",
       "normal": "Reference water level",

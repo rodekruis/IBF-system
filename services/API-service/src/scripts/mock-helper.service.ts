@@ -22,6 +22,7 @@ import { Event } from './mock.service';
 @Injectable()
 export class MockHelperService {
   private logger = new Logger('MockHelperService');
+  private rootDir = './src/scripts/mock-data';
 
   constructor(
     private adminAreaDynamicDataService: AdminAreaDynamicDataService,
@@ -29,6 +30,16 @@ export class MockHelperService {
     private pointDataService: PointDataService,
     private typhoonTrackService: TyphoonTrackService,
   ) {}
+
+  public getFile(fileName: string) {
+    try {
+      const fileContent = fs.readFileSync(fileName, 'utf8');
+      return JSON.parse(fileContent);
+    } catch (error) {
+      this.logger.warn(`Failed to read file: ${fileName}. ${error}`);
+      return null;
+    }
+  }
 
   public async mockExposedAssets(
     countryCodeISO3: string,
@@ -42,6 +53,24 @@ export class MockHelperService {
         continue;
       }
 
+      const filePath = path.join(
+        this.rootDir,
+        DisasterType.FlashFloods,
+        countryCodeISO3,
+        scenarioName,
+        eventName,
+        'lines-data',
+        `${linesDataCategory}.json`,
+      );
+      const exposedFids = this.getFile(filePath);
+
+      if (!exposedFids) {
+        this.logger.warn(
+          `Exposed assets file not found: ${filePath}. Skipping.`,
+        );
+        continue;
+      }
+
       const uploadLinesExposureStatusDto = new UploadLinesExposureStatusDto();
       uploadLinesExposureStatusDto.countryCodeISO3 = countryCodeISO3;
       uploadLinesExposureStatusDto.disasterType = DisasterType.FlashFloods;
@@ -49,10 +78,6 @@ export class MockHelperService {
         linesDataCategory as LinesDataCategory;
       uploadLinesExposureStatusDto.leadTime = leadTime;
       uploadLinesExposureStatusDto.date = date;
-
-      const filename = `./src/scripts/mock-data/${DisasterType.FlashFloods}/${countryCodeISO3}/${scenarioName}/${eventName}/lines-data/${linesDataCategory}.json`;
-      const exposedFids = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-
       uploadLinesExposureStatusDto.exposedFids = exposedFids;
 
       await this.linesDataService.uploadAssetExposureStatus(
@@ -70,6 +95,24 @@ export class MockHelperService {
         continue;
       }
 
+      const filePath = path.join(
+        this.rootDir,
+        DisasterType.FlashFloods,
+        countryCodeISO3,
+        scenarioName,
+        eventName,
+        'point-data',
+        `${pointDataCategory}.json`,
+      );
+      const dynamicPointData = this.getFile(filePath);
+
+      if (!dynamicPointData) {
+        this.logger.warn(
+          `Dynamic point data file not found: ${filePath}. Skipping.`,
+        );
+        continue;
+      }
+
       const uploadDynamicPointDataDto = new UploadDynamicPointDataDto();
       uploadDynamicPointDataDto.disasterType = DisasterType.FlashFloods;
       uploadDynamicPointDataDto.countryCodeISO3 = countryCodeISO3;
@@ -77,10 +120,6 @@ export class MockHelperService {
       uploadDynamicPointDataDto.key = 'exposure';
       uploadDynamicPointDataDto.leadTime = leadTime;
       uploadDynamicPointDataDto.date = date;
-
-      const filename = `./src/scripts/mock-data/${DisasterType.FlashFloods}/${countryCodeISO3}/${scenarioName}/${eventName}/point-data/${pointDataCategory}.json`;
-      const dynamicPointData = JSON.parse(fs.readFileSync(filename, 'utf-8'));
-
       uploadDynamicPointDataDto.dynamicPointData = dynamicPointData;
 
       await this.pointDataService.uploadDynamicPointData(
@@ -100,7 +139,24 @@ export class MockHelperService {
       'water-level-reference',
       'water-level-previous',
     ];
+
     for (const key of keys) {
+      const filePath = path.join(
+        this.rootDir,
+        DisasterType.FlashFloods,
+        countryCodeISO3,
+        scenarioName,
+        `dynamic-point-data_${key}.json`,
+      );
+      const dynamicPointData = this.getFile(filePath);
+
+      if (!dynamicPointData) {
+        this.logger.warn(
+          `Dynamic point data file not found: ${filePath}. Skipping.`,
+        );
+        continue;
+      }
+
       const payload = new UploadDynamicPointDataDto();
       payload.key = key;
       payload.leadTime = null;
@@ -108,8 +164,6 @@ export class MockHelperService {
       payload.disasterType = disasterType;
       payload.countryCodeISO3 = countryCodeISO3;
       payload.pointDataCategory = PointDataCategory.gauges;
-      const filename = `./src/scripts/mock-data/${DisasterType.FlashFloods}/${countryCodeISO3}/${scenarioName}/dynamic-point-data_${key}.json`;
-      const dynamicPointData = JSON.parse(fs.readFileSync(filename, 'utf-8'));
       payload.dynamicPointData = dynamicPointData;
 
       await this.pointDataService.uploadDynamicPointData(payload);
@@ -313,16 +367,20 @@ export class MockHelperService {
     event: Event,
     date: Date,
   ) {
-    const ROOT_DIR = path.resolve('./src/scripts/mock-data');
-    const filePath = path.resolve(
-      ROOT_DIR,
-      `${DisasterType.Typhoon}/${countryCodeISO3}/${scenarioName}/${event.eventName}/typhoon-track.json`,
+    const filePath = path.join(
+      this.rootDir,
+      DisasterType.Typhoon,
+      countryCodeISO3,
+      scenarioName,
+      event.eventName,
+      'typhoon-track.json',
     );
-    if (!filePath.startsWith(ROOT_DIR)) {
-      throw new Error('Invalid file path');
+    const track = this.getFile(filePath);
+
+    if (!track) {
+      this.logger.warn(`Typhoon track file not found: ${filePath}. Skipping.`);
+      return;
     }
-    const trackRaw = fs.readFileSync(filePath, 'utf-8');
-    const track = JSON.parse(trackRaw);
 
     // Overwrite timestamps of trackpoints to align with today's date
     // Make sure that the moment of landfall lies just ahead

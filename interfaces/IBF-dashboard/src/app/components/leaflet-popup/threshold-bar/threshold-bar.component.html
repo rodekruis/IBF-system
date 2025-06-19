@@ -2,9 +2,9 @@
   <div [style]="barBackgroundStyle">
     <div [style]="barThresholdStyle">
       <div [style]="barLevelStyle">
-        <strong>{{ barValue }}</strong>
+        <strong>{{ addComma(barValue) }}</strong>
         @if (unit) {
-          <sup>{{ unit }}</sup>
+          {{ unit }}
         }
       </div>
     </div>
@@ -14,6 +14,6 @@
 <div [style]="valueStyle">
   <strong>{{ thresholdValue }}</strong>
   @if (unit) {
-    <sup>{{ unit }}</sup>
+    {{ unit }}
   }
 </div>

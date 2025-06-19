@@ -10,7 +10,7 @@ export class ThresholdBarComponent implements OnInit {
   @Input() public backgroundColor: string;
   @Input() public textColor: string;
   @Input() public barWidth: number;
-  @Input() public barValue: string;
+  @Input() public barValue: number;
   @Input() public thresholdDescription: string;
   @Input() public thresholdValue: number;
   @Input() public unit?: string;
@@ -73,7 +73,7 @@ export class ThresholdBarComponent implements OnInit {
       color:${this.textColor};
       text-align:center;
       white-space: nowrap;
-      min-width: 15%;
+      min-width: 20%;
       width:${this.barWidth}%
     `;
   }
@@ -98,8 +98,9 @@ export class ThresholdBarComponent implements OnInit {
     margin-left: ${this.thresholdPosition + 1}%;
     text-align: left;
     width: 20%;
-    padding-top: 5px;
-    margin-bottom:10px
+    padding-top: 5px
     `;
   }
+
+  public addComma = (n) => Math.round(n).toLocaleString('en-US'); // TODO: check if en-US can be removed
 }

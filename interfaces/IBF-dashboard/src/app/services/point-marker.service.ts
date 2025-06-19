@@ -682,7 +682,7 @@ export class PointMarkerService {
             color:${textColor};
             text-align:center;
             white-space: nowrap;
-            min-width: 15%;
+            min-width: 20%;
             width:${barWidth}%">${barValue}
           </div>
         </div>
