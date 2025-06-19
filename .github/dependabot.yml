@@ -39,8 +39,8 @@ updates:
         dependency-type: 'development'
         patterns:
           - '@types/*'
-          - '*eslint*'
-          - '*prettier*'
+          - 'eslint*'
+          - 'prettier*'
       backend:
         dependency-type: 'production'
         patterns:
@@ -60,6 +60,7 @@ updates:
         patterns:
           - '@angular/*'
           - '@bluehalo/*'
+          - 'angular-eslint'
           - '@angular-eslint/*'
           - '@angular-devkit/*'
           - 'zone.js'
@@ -75,8 +76,8 @@ updates:
         dependency-type: 'development'
         patterns:
           - '@types/*'
-          - '*eslint*'
-          - '*prettier*'
+          - 'eslint*'
+          - 'prettier*'
       frontend:
         dependency-type: 'production'
         patterns:
@@ -99,8 +100,8 @@ updates:
         dependency-type: 'development'
         patterns:
           - '@types/*'
-          - '*eslint*'
-          - '*prettier*'
+          - 'eslint*'
+          - 'prettier*'
       integration:
         dependency-type: 'development'
         patterns:
@@ -119,8 +120,8 @@ updates:
         dependency-type: 'development'
         patterns:
           - '@types/*'
-          - '*eslint*'
-          - '*prettier*'
+          - 'eslint*'
+          - 'prettier*'
       e2e:
         dependency-type: 'development'
         patterns:
