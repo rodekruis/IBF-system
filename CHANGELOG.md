@@ -1,3 +1,14 @@
+## [0.321.1](https://github.com/rodekruis/IBF-system/compare/v0.321.0...v0.321.1) (2025-06-19)
+
+
+### Bug Fixes
+
+* add mock gauge data ([22eb854](https://github.com/rodekruis/IBF-system/commit/22eb854d9843eb8273f3bde5b7a24a179d294757))
+* show warning when file missing in mock scenarios ([b6c5cd3](https://github.com/rodekruis/IBF-system/commit/b6c5cd3b5bbca2621f7b3ac7acedc0754fabb6da))
+* use tailwind classes ([68d1c1c](https://github.com/rodekruis/IBF-system/commit/68d1c1cc4729cee578e631c38e30361982514123))
+
+
+
 # [0.321.0](https://github.com/rodekruis/IBF-system/compare/v0.320.4...v0.321.0) (2025-06-03)
 
 
@@ -101,21 +112,6 @@
 ### Features
 
 * configure + mock aggregate layers AB[#36121](https://github.com/rodekruis/IBF-system/issues/36121) ([df53d28](https://github.com/rodekruis/IBF-system/commit/df53d2888c8183b05c3457587d2964dc329795bc))
-
-
-
-# [0.317.0](https://github.com/rodekruis/IBF-system/compare/v0.316.2...v0.317.0) (2025-05-15)
-
-
-### Bug Fixes
-
-* add name to admin areas ([f077bd8](https://github.com/rodekruis/IBF-system/commit/f077bd84e1dc95b7ec62b73171f955f5c1880a03))
-
-
-### Features
-
-* allow partial admin-area updates AB[#35977](https://github.com/rodekruis/IBF-system/issues/35977) ([2c7c923](https://github.com/rodekruis/IBF-system/commit/2c7c923b8a57632af1818b9c72d8f59787a9cae0))
-* delete admin-areas AB[#35977](https://github.com/rodekruis/IBF-system/issues/35977) ([cfc0dd5](https://github.com/rodekruis/IBF-system/commit/cfc0dd5d88fbaa343ab1bc87010735f531f9dc0d))
 
 
 
