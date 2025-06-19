@@ -1,7 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import fs from 'fs';
 import { Repository } from 'typeorm';
 
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
@@ -70,7 +69,7 @@ export class MockService {
     private pointDataService: PointDataService,
     private adminAreaService: AdminAreaService,
     private typhoonTrackService: TyphoonTrackService,
-    private mockHelpService: MockHelperService,
+    private mockHelperService: MockHelperService,
     private geoServerSyncService: GeoserverSyncService,
   ) {}
 
@@ -141,7 +140,7 @@ export class MockService {
     } else {
       let eventsSkipped = 0;
       for (const event of scenario.events) {
-        const leadTime = this.mockHelpService.getLeadTime(
+        const leadTime = this.mockHelperService.getLeadTime(
           disasterType,
           selectedCountry,
           event.eventName,
@@ -149,7 +148,7 @@ export class MockService {
           date,
         );
 
-        if (this.mockHelpService.skipLeadTime(disasterType, leadTime)) {
+        if (this.mockHelperService.skipLeadTime(disasterType, leadTime)) {
           eventsSkipped += 1;
           if (eventsSkipped < scenario.events.length) {
             // if not yet all events are skipped, then just skip this one and continue to the next event
@@ -199,7 +198,7 @@ export class MockService {
         if (this.shouldMockAlertPerLeadTime(disasterType)) {
           if (MOCK_USE_OLD_PIPELINE_UPLOAD) {
             // Old endpoint
-            const triggersPerLeadTime = this.getFile(
+            const triggersPerLeadTime = this.mockHelperService.getFile(
               `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/triggers-per-lead-time.json`,
             );
 
@@ -211,7 +210,7 @@ export class MockService {
               date,
             });
           } else {
-            const alertsPerLeadTime = this.getFile(
+            const alertsPerLeadTime = this.mockHelperService.getFile(
               `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenario.scenarioName}/${event.eventName}/alerts-per-lead-time.json`,
             );
 
@@ -226,7 +225,7 @@ export class MockService {
         }
 
         if (this.shouldMockTyphoonTrack(disasterType)) {
-          await this.mockHelpService.mockTyphoonTrack(
+          await this.mockHelperService.mockTyphoonTrack(
             countryCodeISO3,
             scenario.scenarioName,
             event,
@@ -245,7 +244,7 @@ export class MockService {
         }
 
         if (this.shouldMockExposedAssets(disasterType)) {
-          await this.mockHelpService.mockExposedAssets(
+          await this.mockHelperService.mockExposedAssets(
             selectedCountry.countryCodeISO3,
             date,
             scenario.scenarioName,
@@ -257,7 +256,7 @@ export class MockService {
     }
 
     if (this.shouldMockRasterFile(disasterType)) {
-      this.mockHelpService.mockRasterFile(
+      this.mockHelperService.mockRasterFile(
         selectedCountry,
         disasterType,
         scenario.events?.length > 0,
@@ -275,7 +274,7 @@ export class MockService {
     }
 
     if (await this.shouldMockRiverGaugeData(layers, scenario.scenarioName)) {
-      await this.mockHelpService.mockRiverGaugeData(
+      await this.mockHelperService.mockRiverGaugeData(
         selectedCountry.countryCodeISO3,
         disasterType,
         scenario.scenarioName,
@@ -352,7 +351,7 @@ export class MockService {
     scenarioName: string,
     defaultScenario = false,
   ): Promise<Scenario> {
-    const scenarios: Scenario[] = this.getFile(
+    const scenarios: Scenario[] = this.mockHelperService.getFile(
       `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/scenarios.json`,
     );
 
@@ -361,17 +360,6 @@ export class MockService {
     }
 
     return scenarios.find((scenario) => scenario.scenarioName === scenarioName);
-  }
-
-  private getFile(fileName: string) {
-    let file = null;
-    try {
-      file = fs.readFileSync(fileName, 'utf8');
-    } catch (error) {
-      this.logger.log(`Failed to read file: ${fileName}. Error: ${error}`);
-      return null;
-    }
-    return JSON.parse(file);
   }
 
   private async getIndicators(
@@ -415,7 +403,7 @@ export class MockService {
     indicator: DynamicIndicator,
     adminLevel: AdminLevel,
   ) {
-    return this.getFile(
+    return this.mockHelperService.getFile(
       `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenarioName}/${eventName}/upload-${indicator}-${adminLevel}.json`,
     );
   }
@@ -430,12 +418,12 @@ export class MockService {
     let stationForecasts;
     let leadTime;
     if (event) {
-      stationForecasts = this.getFile(
+      stationForecasts = this.mockHelperService.getFile(
         `./src/scripts/mock-data/${disasterType}/${selectedCountry.countryCodeISO3}/${scenarioName}/${event.eventName}/glofas-station.json`,
       );
       leadTime = event.leadTime;
     } else {
-      stationForecasts = this.getFile(
+      stationForecasts = this.mockHelperService.getFile(
         `./src/scripts/mock-data/${disasterType}/${selectedCountry.countryCodeISO3}/${scenarioName}/glofas-stations-no-alert.json`,
       );
       leadTime = LeadTime.day7; // last available leadTime across all floods countries;
