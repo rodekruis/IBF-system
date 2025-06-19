@@ -27,7 +27,7 @@
         lines="full"
         target="_blank"
       >
-        <ion-label [translate]="'common.version'"></ion-label>
+        <ion-label>{{ 'common.version' | translate }}</ion-label>
         <ion-text>{{ version }}</ion-text>
       </ion-item>
       <app-country-switcher
@@ -39,16 +39,21 @@
       ></app-backend-mock-scenario>
     </ion-list>
     <ion-list class="ion-no-padding" [class.ion-hide]="!isDev">
-      <ion-item href="/log" lines="full" target="_blank">
-        <ion-label
-          [translate]="'activation-page.activation-report'"
-        ></ion-label>
+      <ion-item
+        href="/log"
+        lines="full"
+        target="_blank"
+        [translate]="'activation-page.activation-report'"
+      >
       </ion-item>
     </ion-list>
     <ion-list class="ion-no-padding" [class.ion-hide]="!isDev">
-      <ion-item href="/status-report" lines="full" target="_blank">
-        <ion-label [translate]="'status-report-page.dev-menu-link'"></ion-label>
-      </ion-item>
+      <ion-item
+        href="/status-report"
+        lines="full"
+        target="_blank"
+        [translate]="'status-report-page.dev-menu-link'"
+      ></ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
