@@ -1,7 +1,4 @@
-<div
-  [class]="'rounded-t-lg p-2 text-white ' + layerName"
-  [style]="glofasHeaderStyle"
->
+<div [ngClass]="headerClass">
   <strong>{{ title }}</strong>
 </div>
 <div class="p-2" [class.rounded-b-lg]="!footerContent">
@@ -24,10 +21,7 @@
   }
 </div>
 @if (footerContent) {
-  <div
-    class="rounded-b-lg border-t px-2 py-1 text-center font-semibold"
-    [style]="glofasFooterStyle"
-  >
+  <div [ngClass]="footerClass">
     {{ footerContent }}
   </div>
 }

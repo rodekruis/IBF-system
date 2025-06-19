@@ -40,14 +40,16 @@ export class DynamicPointPopupComponent implements OnInit {
   public title: string;
   public footerContent: string;
 
-  public glofasHeaderStyle: string;
-  public glofasFooterStyle: string;
-
   public eapAlertClass: EapAlertClass;
   private defautEapAlertClass: EapAlertClass = {
     label: 'No action',
     color: 'ibf-no-alert-primary',
     value: 0,
+  };
+
+  public headerClass = { 'rounded-t-lg p-2 text-white': true };
+  public footerClass = {
+    'rounded-b-lg border-t px-2 py-1 text-center font-semibold': true,
   };
 
   private allowedLayers = [
@@ -72,6 +74,11 @@ export class DynamicPointPopupComponent implements OnInit {
         timestamp: this.typhoonTrackPoint.timestamp,
         category: this.typhoonTrackPoint.category,
       };
+      this.headerClass['bg-ibf-primary'] = true;
+    }
+
+    if (this.layerName === IbfLayerName.gauges) {
+      this.headerClass['bg-ibf-no-alert-primary'] = true;
     }
 
     if (
@@ -82,52 +89,39 @@ export class DynamicPointPopupComponent implements OnInit {
         this.glofasData.eapAlertClasses[
           this.glofasData.station.dynamicData?.eapAlertClass
         ] ?? this.defautEapAlertClass;
+
+      this.headerClass['bg-' + this.eapAlertClass.color] = true;
+      this.headerClass['text-' + this.eapAlertClass.textColor] =
+        !!this.eapAlertClass.textColor;
+      this.headerClass['text-ibf-white'] = !this.eapAlertClass.textColor;
+
+      this.footerClass[
+        'text-' + this.eapAlertClass.textColor || this.eapAlertClass.color
+      ] = true;
     }
 
     this.title = this.getTitle();
     this.footerContent = this.getFooterContent();
-
-    switch (this.layerName) {
-      case IbfLayerName.glofasStations:
-        this.glofasHeaderStyle =
-          `background: var(--ion-color-${this.eapAlertClass.color});` +
-          `color: var(--ion-color-${this.eapAlertClass.textColor || 'ibf-white'});`;
-        this.glofasFooterStyle = `color: var(--ion-color-${
-          this.eapAlertClass.textColor || this.eapAlertClass.color
-        });`;
-        break;
-      case IbfLayerName.gauges:
-        this.glofasHeaderStyle =
-          'background: var(--ion-color-ibf-no-alert-primary);';
-        break;
-      case IbfLayerName.typhoonTrack:
-        this.glofasHeaderStyle = 'background: var(--ion-color-ibf-primary);';
-        break;
-      default:
-        this.glofasHeaderStyle = '';
-        this.glofasFooterStyle = '';
-    }
   }
 
   private getTitle(): string {
-    switch (this.layerName) {
-      case IbfLayerName.gauges: {
-        const header = String(
-          this.translate.instant('map-popups.river-gauge.header'),
-        );
-        return `${header} ${this.riverGauge.fid} ${this.riverGauge.name}`;
-      }
-      case IbfLayerName.typhoonTrack: {
-        const hasPassedSuffix = this.typhoonTrackPoint.passed
-          ? ' (passed)'
-          : '';
-        return `Typhoon track${hasPassedSuffix}`;
-      }
-      case IbfLayerName.glofasStations:
-        return `${this.glofasData.station.stationCode} STATION: ${this.glofasData.station.stationName}`;
-      default:
-        return '';
+    if (this.layerName === IbfLayerName.gauges) {
+      const header = String(
+        this.translate.instant('map-popups.river-gauge.header'),
+      );
+      return `${header} ${this.riverGauge.fid} ${this.riverGauge.name}`;
     }
+
+    if (this.layerName === IbfLayerName.typhoonTrack) {
+      const hasPassedSuffix = this.typhoonTrackPoint.passed ? ' (passed)' : '';
+      return `Typhoon track${hasPassedSuffix}`;
+    }
+
+    if (this.layerName === IbfLayerName.glofasStations) {
+      return `${this.glofasData.station.stationCode} STATION: ${this.glofasData.station.stationName}`;
+    }
+
+    return '';
   }
 
   private getFooterContent(): string {
