@@ -1,3 +1,12 @@
+## [0.321.2](https://github.com/rodekruis/IBF-system/compare/v0.321.1...v0.321.2) (2025-06-19)
+
+
+### Bug Fixes
+
+* ionic translate error ([c3f4130](https://github.com/rodekruis/IBF-system/commit/c3f41304a03f1fa7e5d0f4731d96b25cf2aa7ea4))
+
+
+
 ## [0.321.1](https://github.com/rodekruis/IBF-system/compare/v0.321.0...v0.321.1) (2025-06-19)
 
 
@@ -96,22 +105,6 @@
 
 * e2e test ([2a1a034](https://github.com/rodekruis/IBF-system/commit/2a1a034a868c789d81bfb21df3242e07f4fcb058))
 * refactor line type setup in e2e ([852b396](https://github.com/rodekruis/IBF-system/commit/852b396ab7b97f39ab94aa4fa866c04b45a558aa))
-
-
-
-# [0.318.0](https://github.com/rodekruis/IBF-system/compare/v0.317.0...v0.318.0) (2025-05-22)
-
-
-### Bug Fixes
-
-* configure layers and seed all data AB[#36026](https://github.com/rodekruis/IBF-system/issues/36026) ([44a9d3f](https://github.com/rodekruis/IBF-system/commit/44a9d3f50f49ed557480266b0aea9e2fc9ff7681))
-* mock assets data + fixes to make multi-country AB[#36121](https://github.com/rodekruis/IBF-system/issues/36121) ([5e39d61](https://github.com/rodekruis/IBF-system/commit/5e39d618dfba4bff33761ac31d10882eac4db823))
-* use const instead of new layer type ([5194bcc](https://github.com/rodekruis/IBF-system/commit/5194bcc0bcc50e199852913baf6ee7f31870b237))
-
-
-### Features
-
-* configure + mock aggregate layers AB[#36121](https://github.com/rodekruis/IBF-system/issues/36121) ([df53d28](https://github.com/rodekruis/IBF-system/commit/df53d2888c8183b05c3457587d2964dc329795bc))
 
 
 
