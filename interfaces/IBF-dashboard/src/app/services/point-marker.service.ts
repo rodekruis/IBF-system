@@ -42,7 +42,6 @@ import {
   Station,
   TyphoonTrackPoint,
   Waterpoint,
-  WaterpointInternal,
 } from 'src/app/models/poi.model';
 import { Event, EventService } from 'src/app/services/event.service';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
@@ -262,7 +261,7 @@ export class PointMarkerService {
     });
 
     markerInstance.bindPopup(this.createMarkerDamPopup(markerProperties));
-    markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.damSite));
+    markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.dam));
 
     return markerInstance;
   }
@@ -297,10 +296,14 @@ export class PointMarkerService {
     markerProperties: Waterpoint,
     markerLatLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.wpdxId;
+    const markerTitle = markerProperties.fid;
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT),
+      icon: icon(
+        markerProperties.dynamicData?.exposure
+          ? LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT_EXPOSED
+          : LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
+      ),
     });
 
     markerInstance.bindPopup(
@@ -355,36 +358,7 @@ export class PointMarkerService {
       this.createMarkerSchoolPopup(markerProperties, markerLatLng),
     );
 
-    markerInstance.on(
-      'click',
-      this.onMapMarkerClick(AnalyticsEvent.evacuationCenter),
-    );
-
-    return markerInstance;
-  }
-
-  public createMarkerWaterpointInternal(
-    markerProperties: WaterpointInternal,
-    markerLatLng: LatLng,
-  ): Marker {
-    const markerTitle = markerProperties.name;
-    const markerInstance = marker(markerLatLng, {
-      title: markerTitle,
-      icon: icon(
-        markerProperties.dynamicData?.exposure
-          ? LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT_EXPOSED
-          : LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
-      ),
-    });
-
-    markerInstance.bindPopup(
-      this.createMarkerWaterpointInternalPopup(markerProperties, markerLatLng),
-    );
-
-    markerInstance.on(
-      'click',
-      this.onMapMarkerClick(AnalyticsEvent.evacuationCenter),
-    );
+    markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.school));
 
     return markerInstance;
   }
@@ -406,7 +380,7 @@ export class PointMarkerService {
 
     markerInstance.on(
       'click',
-      this.onMapMarkerClick(AnalyticsEvent.redCrossBranch),
+      this.onMapMarkerClick(AnalyticsEvent.riverGauge),
     );
 
     return markerInstance;
@@ -567,18 +541,6 @@ export class PointMarkerService {
     </div>`;
   }
 
-  private createMarkerWaterpointInternalPopup(
-    markerProperties: WaterpointInternal,
-    markerLatLng: LatLng,
-  ): string {
-    return `<div style="margin-bottom: 5px"><strong>Name: ${
-      markerProperties.name
-    }</strong></div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
-      markerLatLng,
-    )}
-    </div>`;
-  }
-
   private createHealthSitePopup(markerProperties: HealthSite): string {
     const name = markerProperties.name ?? '';
     const type = markerProperties.type ?? '';
@@ -597,16 +559,12 @@ export class PointMarkerService {
     markerProperties: Waterpoint,
     markerLatLng: LatLng,
   ): string {
-    return `<div style="margin-bottom: 5px"><strong>ID: ${
-      markerProperties.wpdxId
-    }</strong></div><div style="margin-bottom: 5px">Waterpoint type: ${
-      markerProperties.type || 'unknown'
-    }</div><div style="margin-bottom: 5px">Report date: ${
-      markerProperties.reportDate
-    }</div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
-      markerLatLng,
-    )}
-    </div>`;
+    return `
+      <div style="margin-bottom: 5px"><strong>Name: ${markerProperties.name}</strong></div>
+      ${markerProperties.type ? `<div style="margin-bottom: 5px">Type: ${markerProperties.type}</div>` : ''}
+      ${markerProperties.report_date ? `<div style="margin-bottom: 5px">Report date: ${markerProperties.report_date}</div>` : ''}
+      <div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(markerLatLng)}</div>
+    `;
   }
 
   public createMarkerDefault(markerLatLng: LatLng): Marker {

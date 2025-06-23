@@ -38,7 +38,6 @@ export class IbfLayer {
   legendColor?: JSON | string;
   group?: IbfLayerGroup;
   dynamic?: boolean;
-  isLoading?: boolean;
 }
 
 export enum wmsLegendType {
@@ -123,7 +122,6 @@ export enum IbfLayerName {
   walkingTravelTimeToHealth = 'walking_travel_time_to_health',
   wall_type = 'wall_type',
   waterpoints = 'waterpoints',
-  waterpointsInternal = 'waterpoints_internal',
   windspeed = 'windspeed',
 }
 

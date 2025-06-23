@@ -138,7 +138,7 @@ export class PointDataService {
         return new CommunityNotificationDto();
       case PointDataCategory.schools:
         return new SchoolDto();
-      case PointDataCategory.waterpointsInternal:
+      case PointDataCategory.waterpoints:
         return new WaterpointDto();
       case PointDataCategory.gauges:
         return new GaugeDto();

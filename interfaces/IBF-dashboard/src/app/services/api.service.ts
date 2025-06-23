@@ -180,12 +180,6 @@ export class ApiService {
     );
   }
 
-  getWaterPoints(
-    countryCodeISO3: string,
-  ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`waterpoints/${countryCodeISO3}`, false);
-  }
-
   getLastUploadDate(
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,

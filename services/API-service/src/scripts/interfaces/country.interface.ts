@@ -1,3 +1,5 @@
+import { Polygon } from 'geojson';
+
 import { LeadTime } from '../../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminLevel } from '../../api/country/admin-level.enum';
 import { ForecastSource } from '../../api/country/country-disaster.entity';
@@ -12,6 +14,7 @@ export interface Country {
   countryLogos: Record<string, string[]>;
   disasterTypes: DisasterType[];
   notificationInfo?: NotificationInfo;
+  countryBoundingBox: Polygon;
 }
 
 export interface CountryDisasterSettings {

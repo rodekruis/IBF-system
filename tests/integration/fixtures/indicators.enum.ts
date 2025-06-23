@@ -48,7 +48,7 @@ export enum PointIndicator {
   healthSites = 'health_sites',
   redCrossBranches = 'red_cross_branches',
   schools = 'schools',
-  waterpointsInternal = 'waterpoints_internal',
+  waterpoints = 'waterpoints',
 }
 
 export enum LineIndicator {

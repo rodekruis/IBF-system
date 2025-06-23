@@ -45,13 +45,8 @@ export class SeedLineData implements InterfaceScript {
     countryCodeISO3: string,
   ) {
     const filename = `./src/scripts/git-lfs/lines-layers/${lineDataCategory}_${countryCodeISO3}.csv`;
-    let linesCsv;
-    try {
-      linesCsv = await this.seedHelper.getCsvData<LinesDto>(filename);
-    } catch {
-      // If file missing for some countries, this is expected, so we just return
-      return Promise.resolve();
-    }
+    const linesCsv = await this.seedHelper.getCsvData<LinesDto>(filename);
+    if (!linesCsv) return;
 
     try {
       const linesDtos = await this.lineDataService.getLinesDtos(

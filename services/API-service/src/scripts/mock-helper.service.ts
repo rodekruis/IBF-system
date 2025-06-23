@@ -31,12 +31,12 @@ export class MockHelperService {
     private typhoonTrackService: TyphoonTrackService,
   ) {}
 
-  public getFile(fileName: string) {
+  public getFile(filePath: string) {
     try {
-      const fileContent = fs.readFileSync(fileName, 'utf8');
+      const fileContent = fs.readFileSync(filePath, 'utf8');
       return JSON.parse(fileContent);
     } catch (error) {
-      this.logger.warn(`Failed to read file: ${fileName}. ${error}`);
+      this.logger.warn(`Failed to read file: ${filePath}. ${error}`);
       return null;
     }
   }
@@ -88,7 +88,7 @@ export class MockHelperService {
     const pointDataCategories = [
       PointDataCategory.healthSites,
       PointDataCategory.schools,
-      PointDataCategory.waterpointsInternal,
+      PointDataCategory.waterpoints,
     ];
     for (const pointDataCategory of pointDataCategories) {
       if (!layers.some(({ name }) => name === pointDataCategory)) {

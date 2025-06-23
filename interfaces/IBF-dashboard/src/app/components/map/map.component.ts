@@ -49,7 +49,6 @@ import {
   Station,
   TyphoonTrackPoint,
   Waterpoint,
-  WaterpointInternal,
 } from 'src/app/models/poi.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -386,7 +385,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       [
         IbfLayerName.healthSites,
         IbfLayerName.schools,
-        IbfLayerName.waterpointsInternal,
+        IbfLayerName.waterpoints,
       ].includes(layerName) &&
       this.disasterType.disasterType === DisasterTypeKey.flashFloods &&
       this.eventState.events?.length > 0
@@ -498,11 +497,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
             geoJsonPoint.properties as School,
             latlng,
           );
-        case IbfLayerName.waterpointsInternal:
-          return this.pointMarkerService.createMarkerWaterpointInternal(
-            geoJsonPoint.properties as WaterpointInternal,
-            latlng,
-          );
         case IbfLayerName.communityNotifications:
           return this.pointMarkerService.createMarkerCommunityNotification(
             geoJsonPoint.properties as CommunityNotification,
@@ -568,11 +562,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       pointToLayer: this.getPointToLayerByLayer(layer.name),
     });
 
-    if (
-      [IbfLayerName.waterpoints, IbfLayerName.waterpointsInternal].includes(
-        layer.name,
-      )
-    ) {
+    if (layer.name === IbfLayerName.waterpoints) {
       // construct exposed marker clusters
       const exposedWaterPointClusterLayer = markerClusterGroup({
         iconCreateFunction: this.getIconCreateFunction,

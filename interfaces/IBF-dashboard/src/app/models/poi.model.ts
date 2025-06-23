@@ -27,10 +27,11 @@ export class RedCrossBranch {
 }
 
 export class Waterpoint {
-  wpdxId: string;
-  activityId: string;
+  fid: string;
+  name: string;
   type: string;
-  reportDate: string;
+  report_date: string;
+  dynamicData?: { exposure: string };
 }
 
 export class HealthSite {
@@ -60,11 +61,6 @@ export class School {
   dynamicData?: { exposure: string };
 }
 
-export class WaterpointInternal {
-  name: string;
-  type: string;
-  dynamicData?: { exposure: string };
-}
 export class CommunityNotification {
   public nameVolunteer: string;
   public nameVillage: string;

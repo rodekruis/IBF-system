@@ -16,7 +16,6 @@ import { PointDataModule } from './api/point-data/point-data.module';
 import { ProcessEventsModule } from './api/process-events/process-events.module';
 import { TyphoonTrackModule } from './api/typhoon-track/typhoon-track.module';
 import { UserModule } from './api/user/user.module';
-import { WaterpointsModule } from './api/waterpoints/waterpoints.module';
 import { AppController } from './app.controller';
 import { CronjobModule } from './cronjob/cronjob.module';
 import { HealthModule } from './health.module';
@@ -28,7 +27,6 @@ import { TypeOrmModule } from './typeorm.module';
   imports: [
     TypeOrmModule,
     EapActionsModule,
-    WaterpointsModule,
     ScriptsModule,
     HealthModule,
     CountryModule,

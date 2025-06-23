@@ -37,7 +37,6 @@ export class MapLegendService {
     [IbfLayerName.redCrossBranches]: 'red-cross-marker.svg',
     [IbfLayerName.damSites]: 'dam-marker.svg',
     [IbfLayerName.waterpoints]: 'water-point-marker.svg',
-    [IbfLayerName.waterpointsInternal]: 'water-point-marker.svg',
     [IbfLayerName.healthSites]: 'health-center-marker.svg',
     [IbfLayerName.evacuationCenters]: 'evacuation-center-marker.svg',
     [IbfLayerName.schools]: 'school-marker.svg',

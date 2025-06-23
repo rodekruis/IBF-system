@@ -1,8 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsNotEmpty } from 'class-validator';
+import { Polygon } from 'geojson';
 
-import { BoundingBox } from '../../../shared/geo.model';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { AdminLevel } from '../admin-level.enum';
 
@@ -33,7 +33,7 @@ export class CountryDto {
   public countryLogos: object;
 
   @ApiProperty({ example: { type: 'Polygon', coordinates: [] } })
-  public countryBoundingBox: BoundingBox;
+  public countryBoundingBox: Polygon;
 
   @ApiProperty()
   public disasterTypes: string[];

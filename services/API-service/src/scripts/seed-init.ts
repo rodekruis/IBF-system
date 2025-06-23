@@ -21,6 +21,7 @@ import { NotificationInfoEntity } from '../api/notification/notifcation-info.ent
 import { UserEntity } from '../api/user/user.entity';
 import { UserRole } from '../api/user/user-role.enum';
 import { DUNANT_EMAIL } from '../config';
+import { Country } from './interfaces/country.interface';
 import countries from './json/countries.json';
 import disasterTypes from './json/disaster-types.json';
 import eapActions from './json/EAP-actions.json';
@@ -97,9 +98,9 @@ export class SeedInit implements InterfaceScript {
     // ***** CREATE COUNTRIES *****
     this.logger.log(`Seed Countries... ${process.env.COUNTRIES}`);
     const envCountries = process.env.COUNTRIES.split(',');
-    const selectedCountries = countries.filter((country): boolean => {
-      return envCountries.includes(country.countryCodeISO3);
-    });
+    const selectedCountries = (countries as Country[]).filter(
+      ({ countryCodeISO3 }) => envCountries.includes(countryCodeISO3),
+    );
 
     const envDisasterTypes = process.env.DISASTER_TYPES.split(',');
     await this.countryService.addOrUpdateCountries(

@@ -351,12 +351,25 @@
     "active": "no",
     "description": {
       "ETH": {
+        "drought": "Waterpoints data was collected from the Ethiopian Red Cross Society (ERCS)",
+        "flash-floods": "Waterpoints data was collected from the Ethiopian Red Cross Society (ERCS)",
+        "floods": "Waterpoints data was collected from the Ethiopian Red Cross Society (ERCS)",
+        "malaria": "Waterpoints data was collected from the Ethiopian Red Cross Society (ERCS)"
+      },
+      "KEN": {
         "drought": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
         "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
       },
-      "KEN": {
-        "drought": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source Link: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
-        "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source Link: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
+      "MWI": {
+        "flash-floods": "Waterpoints data was collected from the Malawi Red Cross Society (MRCS)",
+        "floods": "Waterpoints data was collected from the Malawi Red Cross Society (MRCS)"
+      },
+      "SSD": {
+        "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
+      },
+      "UGA": {
+        "drought": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
+        "floods": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>"
       },
       "ZMB": {
         "drought": "Number and location of functioning waterpoints accessible for people (Borehole, Protected Spring, Protected Shallow Well, Rainwater Harvesting, Sand or Sub-surface Dam, Spring, Surface Water, Undefined Shallow Well, Undefined Well, Unprotected Shallow Well).<br/><br/>Source: <a href='https://www.waterpointdata.org/water-point-data'>https://www.waterpointdata.org/water-point-data</a>",
@@ -416,17 +429,6 @@
       "MWI": {
         "flash-floods": "This layer shows schools in areas that are covered in this flash floods portal. Schools that are marked with a blue indicator means that they are outside the predicted flash flood extent area and are therefore safe. Schools that are marked with a red indicator means that they are inside of the predicted flash flood extent area and are therefore exposed.<br/><br/>Source: Provided by Unicef Malawi."
       }
-    }
-  },
-  {
-    "name": "waterpoints_internal",
-    "label": "Waterpoints",
-    "type": "point",
-    "leadTimeDependent": false,
-    "active": "no",
-    "description": {
-      "ETH": { "flash-floods": "TBD" },
-      "MWI": { "flash-floods": "TBD" }
     }
   },
   {

@@ -30,7 +30,7 @@ export default function getPointDataTests() {
       const pointAssetLayers = [
         PointIndicator.schools,
         PointIndicator.healthSites,
-        PointIndicator.waterpointsInternal,
+        PointIndicator.waterpoints,
       ];
 
       for (const pointDataLayer of pointAssetLayers) {
