@@ -139,7 +139,9 @@ export class AuthService implements OnDestroy {
     this.router.navigate(['/login']);
   }
 
-  setDisplayName = (user: User = DEFAULT_USER) => {
+  setDisplayName = (user: User) => {
+    user = user ?? DEFAULT_USER;
+
     const displayName = [user.firstName, user.middleName, user.lastName]
       .filter(Boolean)
       .join(' ');
