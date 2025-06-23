@@ -50,7 +50,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private disasterTypeSubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private placeCodeHoverSubscription: Subscription;
-  private translateSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
 
@@ -106,7 +105,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.disasterTypeSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.placeCodeHoverSubscription.unsubscribe();
-    this.translateSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
   }
