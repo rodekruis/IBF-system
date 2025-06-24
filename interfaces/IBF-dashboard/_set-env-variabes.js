@@ -1,7 +1,7 @@
 import { writeFile, readFileSync } from 'fs';
 import { config } from 'dotenv';
 
-config();
+config({ path: '../../.env' });
 
 const templatePath = './src/environments/environment.template.ts';
 const targetPath = `./src/environments/environment.${process.env.NG_CONFIGURATION}.ts`;
