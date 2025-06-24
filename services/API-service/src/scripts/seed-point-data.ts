@@ -136,12 +136,10 @@ export class SeedPointData implements InterfaceScript {
       ` AND within_polygon(geocoded_column, '${wkt}')` +
       `&$limit=200000` +
       `&status_id=Yes` +
-      `&country_id=${countryCodeISO3}`;
-
-    const headers = { 'X-App-Token': process.env.WATERPOINTDATA_TOKEN };
+      `&clean_country_id=${countryCodeISO3}`;
 
     return new Promise((resolve, reject) => {
-      this.httpService.get(path, { headers }).subscribe({
+      this.httpService.get(path).subscribe({
         next: (response) => {
           const rows: WaterpointDto[] = [];
 
