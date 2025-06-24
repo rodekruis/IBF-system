@@ -80,7 +80,7 @@ export class SeedPointData implements InterfaceScript {
     let pointCsv = await this.seedHelper.getCsvData<PointDto>(filePath);
 
     if (!pointCsv) {
-      if (pointDataCategory === PointDataCategory.waterpoints) {
+      if (!CI && pointDataCategory === PointDataCategory.waterpoints) {
         this.logger.log(
           `Fetching ${countryCodeISO3} from Water Point Data Exchange`,
         );
@@ -129,7 +129,7 @@ export class SeedPointData implements InterfaceScript {
     countryBoundingBox: Polygon,
   ): Promise<WaterpointDto[]> {
     const wkt = stringify(countryBoundingBox as GeoJSONPolygon);
-    const limit = CI ? 20 : 200000;
+    const limit = 200000;
     const path =
       `https://data.waterpointdata.org/resource/jfkt-jmqa.geojson` +
       `?$where=water_source is not null` +
