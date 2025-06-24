@@ -22,7 +22,7 @@ import { PointDataCategory } from '../api/point-data/point-data.entity';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { ProcessEventsService } from '../api/process-events/process-events.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
-import { DEBUG, MOCK_USE_OLD_PIPELINE_UPLOAD } from '../config';
+import { DEV, MOCK_USE_OLD_PIPELINE_UPLOAD } from '../config';
 import { MockInputDto } from './dto/mock-input.dto';
 import {
   DroughtScenario,
@@ -291,7 +291,7 @@ export class MockService {
 
     // Add the needed stores and layers to geoserver, only do this in debug mode
     // The resulting XML files should be commited to git and will end up on the servers that way
-    if (DEBUG && !noNotifications) {
+    if (DEV && !noNotifications) {
       await this.geoServerSyncService.sync(
         selectedCountry.countryCodeISO3,
         disasterType,

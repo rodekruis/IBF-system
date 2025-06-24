@@ -20,7 +20,7 @@ import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
 import { UserEntity } from '../api/user/user.entity';
 import { UserRole } from '../api/user/user-role.enum';
-import { DUNANT_EMAIL } from '../config';
+import { CI, DUNANT_EMAIL } from '../config';
 import { Country } from './interfaces/country.interface';
 import countries from './json/countries.json';
 import disasterTypes from './json/disaster-types.json';
@@ -52,11 +52,7 @@ export class SeedInit implements InterfaceScript {
   ) {
     this.seedHelper = new SeedHelper(dataSource);
   }
-  public async run(
-    _argv: object,
-    includeLinesData: boolean = process.env.NODE_ENV === 'development',
-    truncate: boolean = false,
-  ): Promise<void> {
+  public async run(_argv: object, truncate: boolean = false): Promise<void> {
     const userRepository = this.dataSource.getRepository(UserEntity);
     const dunantUser = await userRepository.findOne({
       where: { email: DUNANT_EMAIL },
@@ -221,7 +217,9 @@ export class SeedInit implements InterfaceScript {
     await this.seedPointData.run();
 
     // ***** SEED LINE DATA *****
-    if (includeLinesData) {
+    if (CI) {
+      this.logger.warn('Skip seed line data in CI environment');
+    } else {
       this.logger.log('Seed Lines...');
       await this.seedLineData.run();
     }

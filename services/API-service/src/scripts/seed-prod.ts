@@ -16,11 +16,14 @@ export class SeedProd implements InterfaceScript {
 
   public async run(): Promise<void> {
     this.logger.log('Seed admin user...');
+
     const userRepository = this.dataSource.getRepository(UserEntity);
+
     if ((await userRepository.find({ take: 1 })).length === 0) {
       const user = users.filter((user): boolean => {
         return user.userRole === UserRole.Admin;
       })[0];
+
       if (process.env.PRODUCTION_DATA_SERVER === 'yes') {
         user.password = process.env.ADMIN_PASSWORD;
       }

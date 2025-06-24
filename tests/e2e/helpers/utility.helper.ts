@@ -27,7 +27,6 @@ export async function reset() {
 
   return api(token)
     .post('/scripts/reset')
-    .query({ includeLinesData: false })
     .send({ secret: process.env.RESET_SECRET });
 }
 

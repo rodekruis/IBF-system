@@ -11,6 +11,7 @@ import {
   PointDataService,
   PointDto,
 } from '../api/point-data/point-data.service';
+import { CI } from '../config';
 import { Country } from './interfaces/country.interface';
 import countries from './json/countries.json';
 import { InterfaceScript } from './scripts.module';
@@ -128,13 +129,13 @@ export class SeedPointData implements InterfaceScript {
     countryBoundingBox: Polygon,
   ): Promise<WaterpointDto[]> {
     const wkt = stringify(countryBoundingBox as GeoJSONPolygon);
-
+    const limit = CI ? 20 : 200000;
     const path =
       `https://data.waterpointdata.org/resource/jfkt-jmqa.geojson` +
       `?$where=water_source is not null` +
       ` AND water_source !='Lake'` +
       ` AND within_polygon(geocoded_column, '${wkt}')` +
-      `&$limit=200000` +
+      `&$limit=${limit}` +
       `&status_id=Yes` +
       `&clean_country_id=${countryCodeISO3}`;
 

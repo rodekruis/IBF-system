@@ -16,7 +16,7 @@ import fs from 'fs';
 import { SpelunkerModule } from 'nestjs-spelunker';
 
 import { ApplicationModule } from './app.module';
-import { DEBUG, EXTERNAL_API, forbidUnknownValues, PORT } from './config';
+import { DEV, EXTERNAL_API, forbidUnknownValues, PORT } from './config';
 
 /**
  * A visualization of module dependencies is generated using `nestjs-spelunker`
@@ -138,7 +138,7 @@ async function bootstrap(): Promise<void> {
   app.use(bodyParser.json({ limit: '25mb' }));
   app.use(bodyParser.urlencoded({ limit: '25mb', extended: true }));
 
-  if (DEBUG) {
+  if (DEV) {
     generateModuleDependencyGraph(app);
   }
 

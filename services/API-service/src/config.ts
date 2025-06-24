@@ -1,5 +1,11 @@
-export const DEBUG =
-  ['production', 'test', 'ci'].indexOf(process.env.NODE_ENV) < 0; // true if NODE_ENV is not in list
+export const ENV = process.env.NODE_ENV || 'development';
+
+export const DEV = ENV === 'development';
+export const CI = ENV === 'ci';
+export const TEST = ENV === 'test';
+export const DEMO = ENV === 'staging';
+export const PROD = ENV === 'production';
+
 export const PORT = 3000;
 export const DUNANT_EMAIL = 'dunant@redcross.nl';
 export const PLACEHOLDER_SECRET = 'fill_in_secret';
@@ -13,10 +19,9 @@ export const API_PATHS = {
   whatsAppIncoming: 'notification/whatsapp/incoming',
 };
 const baseApiUrl = process.env.EXTERNAL_API_SERVICE_URL + 'api/';
-const rootUrl =
-  process.env.NODE_ENV === 'development'
-    ? `http://localhost:${process.env.LOCAL_PORT_IBF_SERVICE}/`
-    : process.env.EXTERNAL_API_SERVICE_URL;
+const rootUrl = DEV
+  ? `http://localhost:${process.env.LOCAL_PORT_IBF_SERVICE}/`
+  : process.env.EXTERNAL_API_SERVICE_URL;
 export const INTERNAL_GEOSERVER_API_URL =
   'http://ibf-geoserver:8080/geoserver/rest';
 export const EXTERNAL_API = {

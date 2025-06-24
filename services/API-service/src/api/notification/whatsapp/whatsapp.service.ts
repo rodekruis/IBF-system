@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { format } from 'date-fns';
 import { IsNull, Not, Repository } from 'typeorm';
 
-import { EXTERNAL_API } from '../../../config';
+import { EXTERNAL_API, PROD } from '../../../config';
 import { Event } from '../../../shared/data.model';
 import { HelperService } from '../../../shared/helper.service';
 import { CountryEntity } from '../../country/country.entity';
@@ -58,15 +58,10 @@ export class WhatsappService {
     mediaUrl?: string,
   ) {
     const payload = {
-      body:
-        process.env.NODE_ENV === 'production' && contentSid
-          ? undefined
-          : message,
-      contentSid: process.env.NODE_ENV === 'production' ? contentSid : null,
+      body: PROD && contentSid ? undefined : message,
+      contentSid: PROD ? contentSid : null,
       contentVariables:
-        process.env.NODE_ENV === 'production' && contentVariables
-          ? JSON.stringify(contentVariables)
-          : undefined,
+        PROD && contentVariables ? JSON.stringify(contentVariables) : undefined,
       messagingServiceSid: process.env.TWILIO_MESSAGING_SID,
       from: 'whatsapp:' + process.env.TWILIO_WHATSAPP_NUMBER,
       statusCallback: EXTERNAL_API.whatsAppStatus,

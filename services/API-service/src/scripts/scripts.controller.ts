@@ -16,6 +16,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { Response } from 'express';
+
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { UserRole } from '../api/user/user-role.enum';
 import { Roles } from '../roles.decorator';
@@ -39,27 +41,16 @@ export class ScriptsController {
   @ApiOperation({ summary: 'Reset database with original seed data' })
   @ApiResponse({
     status: 202,
-    description: 'Database reset with original seed data.',
-  })
-  @ApiQuery({
-    name: 'includeLinesData',
-    required: false,
-    schema: { default: true, type: 'boolean' },
-    type: 'boolean',
-    description: 'Set to false to exclude (large) lines data, e.g. for testing',
+    description: 'Database reset with original seed data',
   })
   @Post('/reset')
-  public async resetDb(
-    @Body() body: ResetDto,
-    @Res() res,
-    @Query('includeLinesData', new ParseBoolPipe({ optional: true }))
-    includeLinesData: boolean,
-  ): Promise<string> {
+  public async resetDb(@Body() body: ResetDto, @Res() res: Response) {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
 
-    await this.seedInit.run(null, includeLinesData, true);
+    await this.seedInit.run(null, true);
+
     return res
       .status(HttpStatus.ACCEPTED)
       .send('Database reset with original seed data.');
@@ -89,10 +80,10 @@ export class ScriptsController {
     @Query('disasterType') disasterType: DisasterType,
     @Query('countryCodeISO3') countryCodeISO3: string,
     @Body() body: MockInputDto,
-    @Res() res,
+    @Res() res: Response,
     @Query('noNotifications', new ParseBoolPipe({ optional: true }))
     noNotifications: boolean,
-  ): Promise<string> {
+  ) {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
