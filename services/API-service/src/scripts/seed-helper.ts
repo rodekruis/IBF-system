@@ -47,7 +47,7 @@ export class SeedHelper {
     });
   }
 
-  public async truncateAll(): Promise<void> {
+  public async reset(): Promise<void> {
     const entities = this.dataSource.entityMetadatas;
     try {
       for (const entity of entities) {
@@ -56,7 +56,7 @@ export class SeedHelper {
           repository.metadata.schema === 'IBF-app' &&
           entity.tableType !== 'view'
         ) {
-          let q;
+          let q: string;
           if (entity.tableName === 'user') {
             q = `DELETE FROM \"${repository.metadata.schema}\".\"${entity.tableName}\" WHERE email <> '${DUNANT_EMAIL}';`;
           } else {

@@ -34,9 +34,7 @@ export async function getToken() {
 export async function reset() {
   const token = await getToken();
 
-  return api(token)
-    .post('/scripts/reset')
-    .send({ secret: process.env.RESET_SECRET });
+  return api(token).post('/seed').send({ secret: process.env.RESET_SECRET });
 }
 
 export function mock(
@@ -54,7 +52,7 @@ export function mock(
   noNotifications = true,
 ) {
   return api(token)
-    .post('/scripts/mock')
+    .post('/mock')
     .query({ disasterType, countryCodeISO3, noNotifications })
     .send({
       scenario,

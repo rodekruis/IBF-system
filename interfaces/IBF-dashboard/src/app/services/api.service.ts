@@ -383,7 +383,7 @@ export class ApiService {
       date: new Date(),
       scenario: triggered ? 'trigger' : 'no-trigger',
     };
-    const apiPath = `scripts/mock?disasterType=${disasterType.disasterType}&countryCodeISO3=${country.countryCodeISO3}`;
+    const apiPath = `mock?disasterType=${disasterType.disasterType}&countryCodeISO3=${country.countryCodeISO3}`;
 
     return this.post(apiPath, body, false);
   }

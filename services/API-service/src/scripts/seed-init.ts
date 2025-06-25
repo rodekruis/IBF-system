@@ -52,15 +52,15 @@ export class SeedInit implements InterfaceScript {
   ) {
     this.seedHelper = new SeedHelper(dataSource);
   }
-  public async run(_argv: object, truncate: boolean = false): Promise<void> {
+  public async run(_argv: object, reset: boolean = false): Promise<void> {
     const userRepository = this.dataSource.getRepository(UserEntity);
     const dunantUser = await userRepository.findOne({
       where: { email: DUNANT_EMAIL },
     });
 
-    if (truncate) {
-      // clear database if called via /api/scripts/reset
-      await this.seedHelper.truncateAll();
+    if (reset) {
+      // reset database if called via /api/seed?reset=true
+      await this.seedHelper.reset();
     } else if (dunantUser) {
       // no need to seed if called via prestart:dev and admin user exists
       return;

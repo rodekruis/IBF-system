@@ -29,8 +29,8 @@ import { SeedInit } from './seed-init';
 
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
-@ApiTags('--scripts--')
-@Controller('scripts')
+@ApiTags('--app--')
+@Controller()
 export class ScriptsController {
   public constructor(
     private seedInit: SeedInit,
@@ -39,21 +39,30 @@ export class ScriptsController {
 
   @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Reset database with original seed data' })
-  @ApiResponse({
-    status: 202,
-    description: 'Database reset with original seed data',
+  @ApiQuery({
+    name: 'reset',
+    required: false,
+    schema: { default: false, type: 'boolean' },
+    type: 'boolean',
+    description:
+      'Clear database before adding seed data. WARNING: Lost data is not recoverable.',
   })
-  @Post('/reset')
-  public async resetDb(@Body() body: ResetDto, @Res() res: Response) {
+  @ApiResponse({ status: 202, description: 'Seed database' })
+  @Post('/seed')
+  public async seed(
+    @Body() body: ResetDto,
+    @Query('reset', new ParseBoolPipe({ optional: true })) reset = true,
+    @Res() res: Response,
+  ) {
     if (body.secret !== process.env.RESET_SECRET) {
       return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
     }
 
-    await this.seedInit.run(null, true);
+    await this.seedInit.run(null, reset);
 
     return res
       .status(HttpStatus.ACCEPTED)
-      .send('Database reset with original seed data.');
+      .send('Seed data inserted into the database');
   }
 
   @Roles(UserRole.Admin)
