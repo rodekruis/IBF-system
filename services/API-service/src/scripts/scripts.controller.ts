@@ -27,10 +27,10 @@ import { ResetDto } from './dto/reset.dto';
 import { MockService } from './mock.service';
 import { SeedInit } from './seed-init';
 
-@Controller('scripts')
-@ApiTags('--- mock/seed data ---')
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
+@ApiTags('--scripts--')
+@Controller('scripts')
 export class ScriptsController {
   public constructor(
     private seedInit: SeedInit,

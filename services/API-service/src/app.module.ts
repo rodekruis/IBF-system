@@ -1,5 +1,6 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
+import { TerminusModule } from '@nestjs/terminus';
 
 import { AdminAreaModule } from './api/admin-area/admin-area.module';
 import { AdminAreaDataModule } from './api/admin-area-data/admin-area-data.module';
@@ -18,17 +19,16 @@ import { TyphoonTrackModule } from './api/typhoon-track/typhoon-track.module';
 import { UserModule } from './api/user/user.module';
 import { AppController } from './app.controller';
 import { CronjobModule } from './cronjob/cronjob.module';
-import { HealthModule } from './health.module';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { ScriptsModule } from './scripts/scripts.module';
 import { TypeOrmModule } from './typeorm.module';
 
 @Module({
   imports: [
+    TerminusModule,
     TypeOrmModule,
     EapActionsModule,
     ScriptsModule,
-    HealthModule,
     CountryModule,
     EventModule,
     ProcessEventsModule,
