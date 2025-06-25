@@ -29,8 +29,6 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
   private alertSubHeaderLabelNode = 'alert-sub-header';
   private alertMessage: string;
   private alertMessageNode = 'alert-message';
-  private alertInputSecretPlaceholder: string;
-  private alertInputSecretPlaceholderNode = 'alert-input-secret-placeholder';
   private alertButtonCancelLabel: string;
   private alertButtonCancelLabelNode = 'alert-button-cancel';
   private alertButtonNoTriggerLabel: string;
@@ -39,8 +37,6 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
   private alertButtonTriggerLabelNode = 'alert-button-trigger';
   private alertErrorApiError: string;
   private alertErrorApiErrorNode = 'alert-error-api-error';
-  private alertErrorNoSecret: string;
-  private alertErrorNoSecretNode = 'alert-error-no-secret';
 
   constructor(
     public countryService: CountryService,
@@ -86,9 +82,6 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
       },
     ) as string;
 
-    this.alertInputSecretPlaceholder =
-      translatedStrings[this.alertInputSecretPlaceholderNode];
-
     this.alertButtonCancelLabel =
       translatedStrings[this.alertButtonCancelLabelNode];
 
@@ -99,7 +92,6 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
       translatedStrings[this.alertButtonTriggerLabelNode];
 
     this.alertErrorApiError = translatedStrings[this.alertErrorApiErrorNode];
-    this.alertErrorNoSecret = translatedStrings[this.alertErrorNoSecretNode];
     void this.handleBackendMockScenarioChange();
   };
 
@@ -124,20 +116,13 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
       header: this.alertHeaderLabel,
       subHeader: this.alertSubHeaderLabel,
       message: this.alertMessage,
-      inputs: [
-        {
-          name: 'secret',
-          type: 'text',
-          placeholder: this.alertInputSecretPlaceholder,
-        },
-      ],
       buttons: [
         { text: this.alertButtonCancelLabel, role: 'cancel' },
         {
           text: this.alertButtonNoTriggerLabel,
           cssClass: 'no-trigger-scenario-button',
-          handler: (data) => {
-            this.mockApiRefresh(data.secret, false, true, alert);
+          handler: () => {
+            this.mockApiRefresh(false, true, alert);
 
             return false;
           },
@@ -145,8 +130,8 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
         {
           text: this.alertButtonTriggerLabel,
           cssClass: 'trigger-scenario-button',
-          handler: (data) => {
-            this.mockApiRefresh(data.secret, true, true, alert);
+          handler: () => {
+            this.mockApiRefresh(true, true, alert);
 
             return false;
           },
@@ -158,37 +143,25 @@ export class BackendMockScenarioComponent implements OnInit, OnDestroy {
   }
 
   private mockApiRefresh(
-    secret: string,
     triggered: boolean,
     removeEvents: boolean,
     alert: HTMLIonAlertElement,
   ) {
-    if (secret) {
-      this.apiService
-        .mockDynamicData(
-          secret,
-          this.country,
-          triggered,
-          removeEvents,
-          this.disasterType,
-        )
-        .subscribe({
-          next: () => {
+    this.apiService
+      .mock(this.country, triggered, removeEvents, this.disasterType)
+      .subscribe({
+        next: () => {
+          this.processMockSuccess(alert);
+        },
+        error: (response) => {
+          // Somehow the endpoint returns an error together with the 202 status.. Ignore.
+          if (response.status === 202) {
             this.processMockSuccess(alert);
-          },
-          error: (response) => {
-            // Somehow the endpoint returns an error together with the 202 status.. Ignore.
-            if (response.status === 202) {
-              this.processMockSuccess(alert);
-            } else {
-              console.log('response: ', response);
-              void this.presentToast(this.alertErrorApiError);
-            }
-          },
-        });
-    } else {
-      void this.presentToast(this.alertErrorNoSecret);
-    }
+          } else {
+            void this.presentToast(this.alertErrorApiError);
+          }
+        },
+      });
   }
 
   private processMockSuccess(alert) {

@@ -22,8 +22,8 @@ import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { UserRole } from '../api/user/user-role.enum';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
-import { MockInputDto } from './dto/mock-input.dto';
-import { ResetDto } from './dto/reset.dto';
+import { MockDto } from './dto/mock.dto';
+import { SeedDto } from './dto/seed.dto';
 import { MockService } from './mock.service';
 import { SeedInit } from './seed-init';
 
@@ -38,27 +38,23 @@ export class ScriptsController {
   ) {}
 
   @Roles(UserRole.Admin)
-  @ApiOperation({ summary: 'Reset database with original seed data' })
+  @ApiOperation({ summary: 'Seed database' })
   @ApiQuery({
     name: 'reset',
     required: false,
-    schema: { default: false, type: 'boolean' },
+    schema: { default: true, type: 'boolean' },
     type: 'boolean',
     description:
-      'Clear database before adding seed data. WARNING: Lost data is not recoverable.',
+      'Truncate database tables before inserting seed data. WARNING: Lost data is not recoverable.',
   })
   @ApiResponse({ status: 202, description: 'Seed database' })
   @Post('/seed')
   public async seed(
-    @Body() body: ResetDto,
+    @Body() seed: SeedDto,
     @Query('reset', new ParseBoolPipe({ optional: true })) reset = true,
     @Res() res: Response,
   ) {
-    if (body.secret !== process.env.RESET_SECRET) {
-      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
-    }
-
-    await this.seedInit.run(null, reset);
+    await this.seedInit.seed({ reset, seed });
 
     return res
       .status(HttpStatus.ACCEPTED)
@@ -88,15 +84,11 @@ export class ScriptsController {
   public async mock(
     @Query('disasterType') disasterType: DisasterType,
     @Query('countryCodeISO3') countryCodeISO3: string,
-    @Body() body: MockInputDto,
+    @Body() body: MockDto,
     @Res() res: Response,
     @Query('noNotifications', new ParseBoolPipe({ optional: true }))
     noNotifications: boolean,
   ) {
-    if (body.secret !== process.env.RESET_SECRET) {
-      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
-    }
-
     const result = await this.mockService.mock(
       body,
       disasterType,

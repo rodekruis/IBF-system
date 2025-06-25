@@ -91,10 +91,6 @@ export class AdminAreaController {
     reset: boolean,
     @Res() res: Response,
   ) {
-    if (body.secret !== process.env.RESET_SECRET) {
-      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
-    }
-
     const result = await this.adminAreaService.addOrUpdateAdminAreas(
       params.countryCodeISO3,
       params.adminLevel,
@@ -119,10 +115,6 @@ export class AdminAreaController {
     @Body() body: DeleteAdminAreasDto,
     @Res() res: Response,
   ) {
-    if (body.secret !== process.env.RESET_SECRET) {
-      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
-    }
-
     const result = await this.adminAreaService.deleteAdminAreas(
       params.countryCodeISO3,
       params.adminLevel,

@@ -75,14 +75,19 @@ export class ApiService {
       );
   }
 
-  post<T>(path: string, body: object, anonymous = false): Observable<T> {
+  post<T>(
+    path: string,
+    body: object,
+    anonymous = false,
+    params: HttpParams = null,
+  ): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
 
     this.log(`ApiService POST: ${security} ${url}`, body);
 
     return this.http
-      .post<T>(url, body, { headers: this.createHeaders(anonymous) })
+      .post<T>(url, body, { headers: this.createHeaders(anonymous), params })
       .pipe(
         tap((response) => {
           this.log(
@@ -95,14 +100,19 @@ export class ApiService {
       );
   }
 
-  put<T>(path: string, body: object, anonymous = false): Observable<T> {
+  put<T>(
+    path: string,
+    body: object,
+    anonymous = false,
+    params: HttpParams = null,
+  ): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
 
     this.log(`ApiService PUT: ${security} ${url}`, body);
 
     return this.http
-      .put<T>(url, body, { headers: this.createHeaders(anonymous) })
+      .put<T>(url, body, { headers: this.createHeaders(anonymous), params })
       .pipe(
         tap((response) => {
           this.log(
@@ -370,34 +380,40 @@ export class ApiService {
     );
   }
 
-  mockDynamicData(
-    secret: string,
-    country: Country,
+  mock(
+    { countryCodeISO3 }: Country,
     triggered: boolean,
     removeEvents: boolean,
-    disasterType: DisasterType,
+    { disasterType }: DisasterType,
   ) {
     const body = {
-      secret,
       removeEvents,
       date: new Date(),
       scenario: triggered ? 'trigger' : 'no-trigger',
     };
-    const apiPath = `mock?disasterType=${disasterType.disasterType}&countryCodeISO3=${country.countryCodeISO3}`;
+    let params = new HttpParams();
 
-    return this.post(apiPath, body, false);
+    params = params.append('countryCodeISO3', countryCodeISO3);
+    params = params.append('disasterType', disasterType);
+
+    return this.post('mock', body, false, params);
   }
 
   getActivationLogs(
     countryCodeISO3?: string,
     disasterType?: DisasterTypeKey,
   ): Observable<ActivationLogRecord[]> {
-    const params =
-      countryCodeISO3 && disasterType
-        ? `?countryCodeISO3=${encodeURIComponent(countryCodeISO3)}&disasterType=${encodeURIComponent(disasterType)}`
-        : '';
+    let params = new HttpParams();
 
-    return this.get(`event/activation-log${params}`, false);
+    if (countryCodeISO3) {
+      params = params.append('countryCodeISO3', countryCodeISO3);
+    }
+
+    if (disasterType) {
+      params = params.append('disasterType', disasterType);
+    }
+
+    return this.get('event/activation-log', false, params);
   }
 
   dismissCommunityNotification(pointDataId: string): Observable<void> {

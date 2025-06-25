@@ -46,7 +46,7 @@ export class AuthMiddlewareTwilio implements NestMiddleware {
     }
 
     throw new HttpException(
-      'Could not validate Twilio request',
+      'Failed to validate Twilio request',
       HttpStatus.UNAUTHORIZED,
     );
   }

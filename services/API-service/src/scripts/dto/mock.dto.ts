@@ -1,8 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { IsNotEmpty, IsOptional } from 'class-validator';
 
-import { PLACEHOLDER_SECRET } from '../../config';
 import {
   DroughtScenario,
   FlashFloodsScenario,
@@ -22,12 +21,7 @@ const deduplicatedScenarios = Array.from(new Set(combinedScenarios)).join(
   ' | ',
 );
 
-export class MockInputDto {
-  @ApiProperty({ example: PLACEHOLDER_SECRET })
-  @IsNotEmpty()
-  @IsString()
-  public readonly secret: string;
-
+export class MockDto {
   @ApiProperty({ example: true })
   @IsNotEmpty()
   public readonly removeEvents: boolean;

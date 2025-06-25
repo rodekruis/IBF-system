@@ -12,10 +12,14 @@ import {
   PointDto,
 } from '../api/point-data/point-data.service';
 import { CI, DEV } from '../config';
-import { Country } from './interfaces/country.interface';
-import countries from './json/countries.json';
 import { InterfaceScript } from './scripts.module';
 import { SeedHelper } from './seed-helper';
+
+interface SeedPointDataParams {
+  pointDataCategory: PointDataCategory;
+  countryCodeISO3: string;
+  countryBoundingBox?: Polygon;
+}
 
 interface WaterPointProperties {
   row_id: string;
@@ -24,7 +28,7 @@ interface WaterPointProperties {
 }
 
 @Injectable()
-export class SeedPointData implements InterfaceScript {
+export class SeedPointData implements InterfaceScript<SeedPointDataParams> {
   private logger = new Logger('SeedPointData');
 
   private readonly seedHelper: SeedHelper;
@@ -39,53 +43,24 @@ export class SeedPointData implements InterfaceScript {
     this.seedHelper = new SeedHelper(dataSource);
   }
 
-  public async run() {
-    const envCountries = process.env.COUNTRIES.split(',');
+  public async seed({
+    pointDataCategory,
+    countryCodeISO3,
+    countryBoundingBox,
+  }) {
+    this.logger.log(`Seed ${countryCodeISO3} ${pointDataCategory}`);
 
-    await Promise.all(
-      (countries as Country[])
-        .filter(({ countryCodeISO3 }) => envCountries.includes(countryCodeISO3))
-        .flatMap(({ countryCodeISO3, countryBoundingBox }) => [
-          this.seedPointData(
-            PointDataCategory.redCrossBranches,
-            countryCodeISO3,
-          ),
-          this.seedPointData(PointDataCategory.healthSites, countryCodeISO3),
-          this.seedPointData(
-            PointDataCategory.evacuationCenters,
-            countryCodeISO3,
-          ),
-          this.seedPointData(PointDataCategory.dams, countryCodeISO3),
-          this.seedPointData(PointDataCategory.schools, countryCodeISO3),
-          this.seedPointData(
-            PointDataCategory.waterpoints,
-            countryCodeISO3,
-            countryBoundingBox,
-          ),
-          this.seedPointData(PointDataCategory.gauges, countryCodeISO3),
-          this.seedPointData(PointDataCategory.glofasStations, countryCodeISO3),
-        ]),
-    );
-  }
-
-  private async seedPointData(
-    pointDataCategory: PointDataCategory,
-    countryCodeISO3: string,
-    countryBoundingBox?: Polygon,
-  ) {
     const filePath = `./src/scripts/git-lfs/point-layers/${pointDataCategory}_${countryCodeISO3}.csv`;
-
-    this.logger.log(`Seeding point data from ${filePath}`);
 
     let pointCsv = await this.seedHelper.getCsvData<PointDto>(filePath);
 
     if (!pointCsv && !CI && !DEV) {
       // if no local file, seed from external source
       // do not fetch from external source in CI or DEV environments
-      // this is to prevent unnecessary API calls during development or testing
+      // to prevent unnecessary API calls during development or testing
       if (pointDataCategory === PointDataCategory.waterpoints) {
         this.logger.log(
-          `Fetching ${countryCodeISO3} from Water Point Data Exchange`,
+          `Fetch ${countryCodeISO3} from Water Point Data Exchange`,
         );
 
         try {
@@ -98,7 +73,7 @@ export class SeedPointData implements InterfaceScript {
           );
         } catch (error) {
           this.logger.error(
-            `Error fetching water points for ${countryCodeISO3}: ${error}`,
+            `Failed to fetch water points for ${countryCodeISO3}: ${error}`,
           );
         }
       }

@@ -14,7 +14,7 @@ export class SeedProd implements InterfaceScript {
 
   public constructor(private dataSource: DataSource) {}
 
-  public async run(): Promise<void> {
+  public async seed() {
     this.logger.log('Seed admin user...');
 
     const userRepository = this.dataSource.getRepository(UserEntity);

@@ -2,8 +2,6 @@ import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
-import { Arguments } from 'yargs';
-
 import { ORMConfig } from '../../ormconfig';
 import { AdminAreaEntity } from '../api/admin-area/admin-area.entity';
 import { AdminAreaModule } from '../api/admin-area/admin-area.module';
@@ -28,7 +26,7 @@ import { MockService } from './mock.service';
 import { MockHelperService } from './mock-helper.service';
 import { ScriptsController } from './scripts.controller';
 import SeedAdminArea from './seed-admin-area';
-import SeedAdminAreaData from './seed-admin-area-data';
+import SeedIndicators from './seed-indicators';
 import { SeedInit } from './seed-init';
 import SeedLineData from './seed-line-data';
 import SeedPointData from './seed-point-data';
@@ -63,7 +61,7 @@ import SeedProd from './seed-prod';
     SeedInit,
     SeedProd,
     SeedAdminArea,
-    SeedAdminAreaData,
+    SeedIndicators,
     SeedPointData,
     SeedLineData,
     MockService,
@@ -74,6 +72,6 @@ import SeedProd from './seed-prod';
 })
 export class ScriptsModule {}
 
-export interface InterfaceScript {
-  run(argv: Arguments): Promise<void>;
+export interface InterfaceScript<T = unknown> {
+  seed(argv: T): Promise<void>;
 }

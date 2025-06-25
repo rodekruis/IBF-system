@@ -22,7 +22,7 @@ export class SeedHelper {
 
       return data;
     } catch (error) {
-      this.logger.warn(`Could not read CSV file at ${filePath}. ${error}`);
+      this.logger.warn(`Failed to read CSV file ${error}`);
       return null;
     }
   }

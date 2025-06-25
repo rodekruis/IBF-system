@@ -23,7 +23,7 @@ import { PointDataService } from '../api/point-data/point-data.service';
 import { ProcessEventsService } from '../api/process-events/process-events.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
 import { DEV, MOCK_USE_OLD_PIPELINE_UPLOAD } from '../config';
-import { MockInputDto } from './dto/mock-input.dto';
+import { MockDto } from './dto/mock.dto';
 import {
   DroughtScenario,
   FlashFloodsScenario,
@@ -495,7 +495,7 @@ export class MockService {
   }
 
   public async mock(
-    mockInput: MockInputDto,
+    mockInput: MockDto,
     disasterType?: DisasterType,
     countryCodeISO3?: string,
     noNotifications = false,

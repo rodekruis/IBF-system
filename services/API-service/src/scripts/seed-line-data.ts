@@ -7,12 +7,16 @@ import {
   LinesDataService,
   LinesDto,
 } from '../api/lines-data/lines-data.service';
-import countries from './json/countries.json';
 import { InterfaceScript } from './scripts.module';
 import { SeedHelper } from './seed-helper';
 
+interface SeedLineDataParams {
+  lineDataCategory: LinesDataCategory;
+  countryCodeISO3: string;
+}
+
 @Injectable()
-export class SeedLineData implements InterfaceScript {
+export class SeedLineData implements InterfaceScript<SeedLineDataParams> {
   private logger = new Logger('SeedLineData');
 
   private readonly seedHelper: SeedHelper;
@@ -24,26 +28,7 @@ export class SeedLineData implements InterfaceScript {
     this.seedHelper = new SeedHelper(dataSource);
   }
 
-  public async run() {
-    const envCountries = process.env.COUNTRIES.split(',');
-
-    await Promise.all(
-      countries.map(({ countryCodeISO3 }) => {
-        if (envCountries.includes(countryCodeISO3)) {
-          this.seedLineData(LinesDataCategory.roads, countryCodeISO3);
-          this.seedLineData(LinesDataCategory.buildings, countryCodeISO3);
-          return;
-        } else {
-          return Promise.resolve();
-        }
-      }),
-    );
-  }
-
-  private async seedLineData(
-    lineDataCategory: LinesDataCategory,
-    countryCodeISO3: string,
-  ) {
+  public async seed({ lineDataCategory, countryCodeISO3 }) {
     const filename = `./src/scripts/git-lfs/lines-layers/${lineDataCategory}_${countryCodeISO3}.csv`;
     const linesCsv = await this.seedHelper.getCsvData<LinesDto>(filename);
     if (!linesCsv) return;
