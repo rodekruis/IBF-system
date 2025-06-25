@@ -70,6 +70,8 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
     if (reset) {
       // reset database if called via /api/seed?reset=true
       await this.seedHelper.reset();
+      this.logger.log('Use default seed...');
+      seed = defaultSeed;
     } else if (!dunantUser) {
       // seed db if dunant user not found
       // this is useful for local development
