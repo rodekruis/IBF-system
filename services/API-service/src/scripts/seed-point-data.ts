@@ -11,7 +11,7 @@ import {
   PointDataService,
   PointDto,
 } from '../api/point-data/point-data.service';
-import { CI } from '../config';
+import { CI, DEV } from '../config';
 import { Country } from './interfaces/country.interface';
 import countries from './json/countries.json';
 import { InterfaceScript } from './scripts.module';
@@ -79,8 +79,11 @@ export class SeedPointData implements InterfaceScript {
 
     let pointCsv = await this.seedHelper.getCsvData<PointDto>(filePath);
 
-    if (!pointCsv) {
-      if (!CI && pointDataCategory === PointDataCategory.waterpoints) {
+    if (!pointCsv && !CI && !DEV) {
+      // if no local file, seed from external source
+      // do not fetch from external source in CI or DEV environments
+      // this is to prevent unnecessary API calls during development or testing
+      if (pointDataCategory === PointDataCategory.waterpoints) {
         this.logger.log(
           `Fetching ${countryCodeISO3} from Water Point Data Exchange`,
         );
