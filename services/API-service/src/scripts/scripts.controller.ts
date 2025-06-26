@@ -23,7 +23,7 @@ import { UserRole } from '../api/user/user-role.enum';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
 import { MockDto } from './dto/mock.dto';
-import { SeedDto } from './dto/seed.dto';
+import { defaultSeed, SeedDto } from './dto/seed.dto';
 import { MockService } from './mock.service';
 import { SeedInit } from './seed-init';
 
@@ -42,18 +42,23 @@ export class ScriptsController {
   @ApiQuery({
     name: 'reset',
     required: false,
-    schema: { default: true, type: 'boolean' },
+    schema: { default: false, type: 'boolean' },
     type: 'boolean',
     description:
-      'Truncate database tables before inserting seed data. WARNING: Lost data is not recoverable.',
+      'Truncate database tables before inserting seed data. Request body is ignored if reset is true. WARNING: Data loss cannot be undone.',
   })
   @ApiResponse({ status: 202, description: 'Seed database' })
   @Post('/seed')
   public async seed(
-    @Body() seed: SeedDto,
-    @Query('reset', new ParseBoolPipe({ optional: true })) reset = true,
+    @Body() seed: SeedDto = defaultSeed,
+    @Query('reset', new ParseBoolPipe({ optional: true })) reset = false,
     @Res() res: Response,
   ) {
+    if (reset) {
+      // NOTE: if reset truncates all tables so we must seed all tables
+      seed = defaultSeed;
+    }
+
     await this.seedInit.seed({ reset, seed });
 
     return res
