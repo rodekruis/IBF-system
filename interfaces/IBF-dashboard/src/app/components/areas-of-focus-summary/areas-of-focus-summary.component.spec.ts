@@ -25,7 +25,9 @@ describe('AreasOfFocusSummaryComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(AreasOfFocusSummaryComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

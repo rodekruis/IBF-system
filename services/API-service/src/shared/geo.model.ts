@@ -22,8 +22,3 @@ export class RedCrossBranch extends Poi {
 }
 
 export const point: Point = { type: 'Point', coordinates: [] };
-
-export class BoundingBox {
-  public type: string;
-  public coordinates: number[][][];
-}

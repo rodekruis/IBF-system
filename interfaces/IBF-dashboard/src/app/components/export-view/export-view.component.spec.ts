@@ -32,7 +32,9 @@ describe('ExportViewComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExportViewComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

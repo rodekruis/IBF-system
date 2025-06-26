@@ -42,7 +42,6 @@ import {
   Station,
   TyphoonTrackPoint,
   Waterpoint,
-  WaterpointInternal,
 } from 'src/app/models/poi.model';
 import { Event, EventService } from 'src/app/services/event.service';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
@@ -68,16 +67,18 @@ export class PointMarkerService {
     if (markerProperties.dismissed) {
       return;
     }
-    const markerTitle = markerProperties.nameVillage;
 
+    const markerTitle = markerProperties.nameVillage;
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_COMMUNITY_NOTIFICATION),
       alt: 'Community notifications',
     });
+
     markerInstance.bindPopup(this.renderPopUpHTML(markerProperties), {
       minWidth: 220,
     });
+
     markerInstance.on(
       'click',
       this.onMapMarkerClick(AnalyticsEvent.communityNotification),
@@ -92,8 +93,10 @@ export class PointMarkerService {
       CommunityNotificationPopupComponent,
     );
     const popupComponentRef = factory.create(this.injector, [], popup);
+
     this.applicationRef.attachView(popupComponentRef.hostView);
     popupComponentRef.instance.markerProperties = popupData;
+
     return popup;
   }
 
@@ -104,6 +107,7 @@ export class PointMarkerService {
     const lng = `${Math.abs(markerLatLng.lng).toFixed(4)}° ${
       markerLatLng.lng > 0 ? 'E' : 'W'
     }`;
+
     return `${lat}, ${lng}`;
   }
 
@@ -128,7 +132,6 @@ export class PointMarkerService {
     );
     // This reflects to take the trigger leadTime and not the earlier warning leadTime, in case of warning-to-trigger scenario
     const eventLeadTime = event?.firstTriggerLeadTime || event?.firstLeadTime;
-
     const markerTitle = markerProperties.stationName;
     const eapAlertClass = markerProperties.dynamicData?.eapAlertClass || 'no';
     const markerClassName = `glofas-station glofas-station-${eapAlertClass}`;
@@ -139,7 +142,6 @@ export class PointMarkerService {
       className: markerClassName,
     };
     const popupClassName = `trigger-popup-${eapAlertClass}`;
-
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: markerIcon
@@ -147,6 +149,7 @@ export class PointMarkerService {
         : divIcon({ className: markerClassName }),
       zIndexOffset: 700,
     });
+
     markerInstance.bindPopup(
       this.createMarkerStationPopup(
         markerProperties,
@@ -155,6 +158,7 @@ export class PointMarkerService {
       ),
       { minWidth: 350, className: popupClassName },
     );
+
     markerInstance.on(
       'click',
       this.onMapMarkerClick(AnalyticsEvent.glofasStation),
@@ -167,13 +171,12 @@ export class PointMarkerService {
     markerProperties: TyphoonTrackPoint,
     markerLatLng: LatLng,
     lastUploadDateString: string,
-    closestPointToTyphoon: number,
+    closestPointToTyphoon: Date,
   ): Marker {
     const markerDateTime = parseISO(markerProperties.timestampOfTrackpoint);
     const lastUploadDate = parseISO(lastUploadDateString);
-    const isLatest = isEqual(markerDateTime, new Date(closestPointToTyphoon));
+    const isLatest = isEqual(markerDateTime, closestPointToTyphoon);
     const titleFormat = 'ccc, dd LLLL, HH:mm';
-
     let className = 'typhoon-track-icon';
 
     if (isBefore(lastUploadDate, markerDateTime)) {
@@ -191,7 +194,6 @@ export class PointMarkerService {
     }
 
     const title = format(markerDateTime, titleFormat);
-
     const markerInstance = marker(markerLatLng, {
       title,
       icon: divIcon({
@@ -218,6 +220,7 @@ export class PointMarkerService {
       ),
       { minWidth: 350, className: 'typhoon-track-popup' },
     );
+
     markerInstance.on(
       'click',
       this.onMapMarkerClick(AnalyticsEvent.typhoonTrack),
@@ -231,13 +234,14 @@ export class PointMarkerService {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.branchName;
-
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH),
       alt: 'Red Cross branches',
     });
+
     markerInstance.bindPopup(this.createMarkerRedCrossPopup(markerProperties));
+
     markerInstance.on(
       'click',
       this.onMapMarkerClick(AnalyticsEvent.redCrossBranch),
@@ -251,13 +255,13 @@ export class PointMarkerService {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.damName;
-
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_DAM),
     });
+
     markerInstance.bindPopup(this.createMarkerDamPopup(markerProperties));
-    markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.damSite));
+    markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.dam));
 
     return markerInstance;
   }
@@ -267,7 +271,6 @@ export class PointMarkerService {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.name;
-
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(
@@ -279,6 +282,7 @@ export class PointMarkerService {
 
     if (markerInstance) {
       markerInstance.bindPopup(this.createHealthSitePopup(markerProperties));
+
       markerInstance.on(
         'click',
         this.onMapMarkerClick(AnalyticsEvent.healthSite),
@@ -292,15 +296,20 @@ export class PointMarkerService {
     markerProperties: Waterpoint,
     markerLatLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.wpdxId;
-
+    const markerTitle = markerProperties.fid;
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
-      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT),
+      icon: icon(
+        markerProperties.dynamicData?.exposure
+          ? LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT_EXPOSED
+          : LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
+      ),
     });
+
     markerInstance.bindPopup(
       this.createMarkerWaterpointPopup(markerProperties, markerLatLng),
     );
+
     markerInstance.on(
       'click',
       this.onMapMarkerClick(AnalyticsEvent.waterPoint),
@@ -314,14 +323,15 @@ export class PointMarkerService {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.evacuationCenterName;
-
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER),
     });
+
     markerInstance.bindPopup(
       this.createMarkerEvacuationCenterPopup(markerProperties, markerLatLng),
     );
+
     markerInstance.on(
       'click',
       this.onMapMarkerClick(AnalyticsEvent.evacuationCenter),
@@ -335,7 +345,6 @@ export class PointMarkerService {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties.name;
-
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: icon(
@@ -344,38 +353,12 @@ export class PointMarkerService {
           : LEAFLET_MARKER_ICON_OPTIONS_SCHOOL,
       ),
     });
+
     markerInstance.bindPopup(
       this.createMarkerSchoolPopup(markerProperties, markerLatLng),
     );
-    markerInstance.on(
-      'click',
-      this.onMapMarkerClick(AnalyticsEvent.evacuationCenter),
-    );
 
-    return markerInstance;
-  }
-
-  public createMarkerWaterpointInternal(
-    markerProperties: WaterpointInternal,
-    markerLatLng: LatLng,
-  ): Marker {
-    const markerTitle = markerProperties.name;
-
-    const markerInstance = marker(markerLatLng, {
-      title: markerTitle,
-      icon: icon(
-        markerProperties.dynamicData?.exposure
-          ? LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT_EXPOSED
-          : LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
-      ),
-    });
-    markerInstance.bindPopup(
-      this.createMarkerWaterpointInternalPopup(markerProperties, markerLatLng),
-    );
-    markerInstance.on(
-      'click',
-      this.onMapMarkerClick(AnalyticsEvent.evacuationCenter),
-    );
+    markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.school));
 
     return markerInstance;
   }
@@ -385,18 +368,19 @@ export class PointMarkerService {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties;
-
     const markerInstance = marker(markerLatLng, {
       title: markerTitle.name,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RIVER_GAUGE),
     });
+
     markerInstance.bindPopup(
       this.createMarkerRiverGaugePopup(markerProperties),
       { minWidth: 350, className: 'river-gauge-popup' },
     );
+
     markerInstance.on(
       'click',
-      this.onMapMarkerClick(AnalyticsEvent.redCrossBranch),
+      this.onMapMarkerClick(AnalyticsEvent.riverGauge),
     );
 
     return markerInstance;
@@ -415,21 +399,16 @@ export class PointMarkerService {
     const difference = forecastValue - thresholdValue;
     const closeMargin = 0.05;
     const tooClose = Math.abs(difference) / thresholdValue < closeMargin;
-
     const barValue =
       difference === 0 || !tooClose
         ? forecastValue
         : thresholdValue + Math.sign(difference) * thresholdValue * closeMargin;
-
     const triggerWidth = Math.max(
       Math.min(Math.round((barValue / thresholdValue) * 100), 115),
       0,
     );
-
     const addComma = (n: number) => Math.round(n).toLocaleString('en-US');
-
     const headerContent = `<strong>${title}</strong>`;
-
     const thresholdBar = this.createThresholdBar(
       eapStatusColor,
       eapStatusColorText,
@@ -439,7 +418,6 @@ export class PointMarkerService {
       addComma(thresholdValue),
       80,
     );
-
     const middleContent = `
     <div style="margin-bottom:5px">
       ${subtitle}
@@ -467,20 +445,22 @@ export class PointMarkerService {
   ) {
     const lastAvailableLeadTime: LeadTime = LeadTime.day7; // Agreed with pipeline that untriggered station will always show day 7
     const leadTime = eventLeadTime || lastAvailableLeadTime;
-
     const eapAlertClasses =
       countryDisasterSettings?.eapAlertClasses || ({} as EapAlertClasses);
-
     const component = this.componentFactoryResolver
       .resolveComponentFactory(DynamicPointPopupComponent)
       .create(this.injector);
+
     component.instance.layerName = IbfLayerName.glofasStations;
+
     component.instance.glofasData = {
       station: markerProperties,
       leadTime,
       eapAlertClasses,
     };
+
     component.changeDetectorRef.detectChanges();
+
     return component.location.nativeElement;
   }
 
@@ -493,60 +473,48 @@ export class PointMarkerService {
     const component = this.componentFactoryResolver
       .resolveComponentFactory(DynamicPointPopupComponent)
       .create(this.injector);
+
     component.instance.layerName = IbfLayerName.typhoonTrack;
+
     component.instance.typhoonTrackPoint = {
       timestamp,
       category,
       markerLatLng,
       passed,
     };
+
     component.changeDetectorRef.detectChanges();
+
     return component.location.nativeElement;
   }
 
   private createMarkerRedCrossPopup(markerProperties: RedCrossBranch): string {
-    const branchInfoPopup = (
-      '<div style="margin-bottom: 5px">' +
-      '<strong>Branch: ' +
-      markerProperties.branchName +
-      '</strong>' +
-      '</div>'
-    ).concat(
-      '<div style="margin-bottom: 5px">' +
-        'Nr. of volunteers: ' +
-        (markerProperties.numberOfVolunteers || '') +
-        '</div>',
-      '<div style="margin-bottom: 5px">' +
-        'Contact person: ' +
-        (markerProperties.contactPerson || '') +
-        '</div>',
-      '<div style="margin-bottom: 5px">' +
-        'Contact address: ' +
-        (markerProperties.contactAddress || '') +
-        '</div>',
-      '<div style="margin-bottom: 5px">' +
-        'Contact number: ' +
-        (markerProperties.contactNumber || '') +
-        '</div>',
-    );
-    return branchInfoPopup;
+    const unknown = 'UNKNOWN';
+
+    return `
+      <div style="margin-bottom: 5px"><strong>Branch: ${markerProperties.branchName}</strong></div>
+      <div style="margin-bottom: 5px">Nr. of volunteers: ${String(markerProperties.numberOfVolunteers ?? unknown)}</div>
+      <div style="margin-bottom: 5px">Contact person: ${markerProperties.contactPerson ?? unknown}</div>
+      <div style="margin-bottom: 5px">Contact address: ${markerProperties.contactAddress ?? unknown}</div>
+      <div style="margin-bottom: 5px">Contact number: ${markerProperties.contactNumber ?? unknown}</div>
+    `.trim();
   }
 
   private createMarkerDamPopup(markerProperties: DamSite): string {
-    const branchInfoPopup = (
-      '<div style="margin-bottom: 5px">' +
-      '<strong>Dam: ' +
-      markerProperties.damName +
-      '</strong>' +
-      '</div>'
-    ).concat(
-      '<div style="margin-bottom: 5px">' +
-        'Full Supply Capacity: ' +
-        (Math.round(markerProperties.fullSupplyCapacity).toLocaleString() ||
-          '') +
-        ' million m<sup>3</sup></div>',
-    );
-    return branchInfoPopup;
+    const damName = markerProperties.damName ?? '';
+    const fullSupplyCapacity =
+      markerProperties.fullSupplyCapacity != null
+        ? Math.round(markerProperties.fullSupplyCapacity).toLocaleString()
+        : '';
+
+    return `
+      <div style="margin-bottom: 5px">
+        <strong>Dam: ${damName}</strong>
+      </div>
+      <div style="margin-bottom: 5px">
+        Full Supply Capacity: ${fullSupplyCapacity} million m<sup>3</sup>
+      </div>
+    `.trim();
   }
 
   private createMarkerEvacuationCenterPopup(
@@ -573,48 +541,30 @@ export class PointMarkerService {
     </div>`;
   }
 
-  private createMarkerWaterpointInternalPopup(
-    markerProperties: WaterpointInternal,
-    markerLatLng: LatLng,
-  ): string {
-    return `<div style="margin-bottom: 5px"><strong>Name: ${
-      markerProperties.name
-    }</strong></div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
-      markerLatLng,
-    )}
-    </div>`;
-  }
-
   private createHealthSitePopup(markerProperties: HealthSite): string {
-    const branchInfoPopup = (
-      '<div style="margin-bottom: 5px">' +
-      '<strong>Name: ' +
-      markerProperties.name +
-      '</strong>' +
-      '</div>'
-    ).concat(
-      '<div style="margin-bottom: 5px">' +
-        'Type: ' +
-        (markerProperties.type || '') +
-        '</div>',
-    );
-    return branchInfoPopup;
+    const name = markerProperties.name ?? '';
+    const type = markerProperties.type ?? '';
+
+    return `
+      <div style="margin-bottom: 5px">
+        <strong>Name: ${name}</strong>
+      </div>
+      <div style="margin-bottom: 5px">
+        Type: ${type}
+      </div>
+    `.trim();
   }
 
   private createMarkerWaterpointPopup(
     markerProperties: Waterpoint,
     markerLatLng: LatLng,
   ): string {
-    return `<div style="margin-bottom: 5px"><strong>ID: ${
-      markerProperties.wpdxId
-    }</strong></div><div style="margin-bottom: 5px">Waterpoint type: ${
-      markerProperties.type || 'unknown'
-    }</div><div style="margin-bottom: 5px">Report date: ${
-      markerProperties.reportDate
-    }</div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
-      markerLatLng,
-    )}
-    </div>`;
+    return `
+      <div style="margin-bottom: 5px"><strong>Name: ${markerProperties.name}</strong></div>
+      ${markerProperties.type ? `<div style="margin-bottom: 5px">Type: ${markerProperties.type}</div>` : ''}
+      ${markerProperties.report_date ? `<div style="margin-bottom: 5px">Report date: ${markerProperties.report_date}</div>` : ''}
+      <div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(markerLatLng)}</div>
+    `;
   }
 
   public createMarkerDefault(markerLatLng: LatLng): Marker {
@@ -631,9 +581,11 @@ export class PointMarkerService {
     const component = this.componentFactoryResolver
       .resolveComponentFactory(DynamicPointPopupComponent)
       .create(this.injector);
+
     component.instance.layerName = IbfLayerName.gauges;
     component.instance.riverGauge = markerProperties;
     component.changeDetectorRef.detectChanges();
+
     return component.location.nativeElement;
   }
 
@@ -684,6 +636,7 @@ export class PointMarkerService {
             white-space: nowrap;
             min-width: 20%;
             width:${barWidth}%">${barValue}
+
           </div>
         </div>
       </div>

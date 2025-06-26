@@ -15,15 +15,19 @@ export class ExportViewPopoverComponent {
 
   public getOperatingSystem() {
     let operatingSystemName = 'Unknown';
+
     if (navigator.appVersion.includes('Win')) {
       operatingSystemName = 'Windows';
     }
+
     if (navigator.appVersion.includes('Mac')) {
       operatingSystemName = 'MacOS';
     }
+
     if (navigator.appVersion.includes('Linux')) {
       operatingSystemName = 'Linux';
     }
+
     return operatingSystemName;
   }
 }

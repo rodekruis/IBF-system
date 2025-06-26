@@ -29,6 +29,7 @@ import {
 } from './dto/upload-alerts-per-lead-time.dto';
 import { EventService } from './event.service';
 
+@UseGuards(RolesGuard)
 @ApiBearerAuth()
 @ApiTags('event')
 @Controller('event')
@@ -39,17 +40,12 @@ export class EventController {
     this.eventService = eventService;
   }
 
-  @UseGuards(RolesGuard)
-  @ApiOperation({
-    summary:
-      'Get summary of active events - if any - for given country and disaster-type',
-  })
+  @ApiOperation({ summary: 'Get active events' })
   @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
   @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
   @ApiResponse({
     status: 200,
-    description:
-      'Summary of active events - if any - for given country and disaster-type.',
+    description: 'List of active events',
     type: Event,
   })
   @Get(':countryCodeISO3/:disasterType')
@@ -60,7 +56,6 @@ export class EventController {
     );
   }
 
-  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get date of last (pipeline) upload for given country and disaster-type.',
@@ -81,7 +76,6 @@ export class EventController {
     );
   }
 
-  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get alert data per lead-time for given country, disaster-type, event.',
@@ -106,7 +100,6 @@ export class EventController {
     );
   }
 
-  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get past and current trigger activation data per admin-area and disaster-type.',
@@ -130,7 +123,6 @@ export class EventController {
   }
 
   // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-lead-time
-  @UseGuards(RolesGuard)
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary:
@@ -146,7 +138,6 @@ export class EventController {
     );
   }
 
-  @UseGuards(RolesGuard)
   @Roles(UserRole.PipelineUser)
   @ApiOperation({
     summary: '[EXTERNALLY USED - PIPELINE] Upload alert data per lead time',
@@ -162,7 +153,6 @@ export class EventController {
     await this.eventService.uploadAlertsPerLeadTime(uploadAlertsPerLeadTimeDto);
   }
 
-  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get alerted admin-areas for given country, disaster-type, admin-level (and event-name).',

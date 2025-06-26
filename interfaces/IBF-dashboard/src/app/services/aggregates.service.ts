@@ -136,11 +136,12 @@ export class AggregatesService {
   private onIndicatorChange = (indicators: Indicator[]) => {
     this.indicators = indicators;
     this.mapService.removeAggregateLayers();
+
     this.indicators.forEach((indicator) => {
       this.mapService.loadAggregateLayer(indicator);
     });
-    this.indicatorSubject.next(this.indicators);
 
+    this.indicatorSubject.next(this.indicators);
     this.loadAggregateInformation();
   };
 
@@ -148,9 +149,11 @@ export class AggregatesService {
     return this.indicatorSubject.asObservable();
   }
 
-  private onEachIndicatorByFeatureAndAggregate =
-    (feature: AggregateByPlaceCode, aggregate: Aggregate) =>
-    (indicator: Indicator) => {
+  private onEachIndicatorByFeatureAndAggregate = (
+    feature: AggregateByPlaceCode,
+    aggregate: Aggregate,
+  ) => {
+    return (indicator: Indicator) => {
       const foundIndicator = feature.records.find(
         (a) => a.indicator === indicator.name,
       );
@@ -159,20 +162,28 @@ export class AggregatesService {
         aggregate[indicator.name] = foundIndicator.value;
       }
 
-      aggregate.areaStatus =
-        Number(aggregate[IbfLayerName.trigger]) === 1
-          ? AreaStatus.Alert
-          : Number(aggregate[this.disasterType.mainExposureIndicator]) > 0 &&
-              this.eventState.events?.length > 0
-            ? AreaStatus.Alert
-            : AreaStatus.NoAlert; // Refactor: What is this needed for?
+      const triggerValue = Number(aggregate[IbfLayerName.trigger]);
+      const exposureValue = Number(
+        aggregate[this.disasterType.mainExposureIndicator],
+      );
+      const hasEvents = this.eventState.events.length > 0;
+
+      if (triggerValue === 1) {
+        aggregate.areaStatus = AreaStatus.Alert;
+      } else if (exposureValue > 0 && hasEvents) {
+        aggregate.areaStatus = AreaStatus.Alert;
+      } else {
+        aggregate.areaStatus = AreaStatus.NoAlert;
+      }
     };
+  };
 
   private onEachPlaceCode = (feature: AggregateByPlaceCode) => {
     const aggregate: Aggregate = {
       placeCode: feature.placeCode,
       placeCodeParent: feature.placeCodeParent,
     };
+
     this.indicators.forEach(
       this.onEachIndicatorByFeatureAndAggregate(feature, aggregate),
     );
@@ -203,7 +214,9 @@ export class AggregatesService {
 
   private onAggregateData = (records: AggregateRecord[]) => {
     const groupsByPlaceCode = this.aggregateOnPlaceCode(records);
+
     this.aggregates = groupsByPlaceCode.map(this.onEachPlaceCode);
+
     this.nrAlertAreas = this.aggregates.filter(
       (a) => a.areaStatus === AreaStatus.Alert,
     ).length;
@@ -213,6 +226,7 @@ export class AggregatesService {
     array: AggregateRecord[],
   ): AggregateByPlaceCode[] {
     const groupsByPlaceCode: AggregateByPlaceCode[] = [];
+
     array.forEach((record) => {
       if (
         groupsByPlaceCode.map((i) => i.placeCode).includes(record.placeCode)
@@ -228,6 +242,7 @@ export class AggregatesService {
         });
       }
     });
+
     return groupsByPlaceCode;
   }
 
@@ -238,6 +253,7 @@ export class AggregatesService {
     numberFormat: NumberFormat,
   ): number {
     let weighingIndicatorName: IbfLayerName;
+
     if (this.disasterType) {
       weighingIndicatorName = this.getWeighingIndicatorName(indicator);
     }
@@ -253,29 +269,30 @@ export class AggregatesService {
         ),
         0,
       );
-
     let aggregateValue: number;
+
     if (numberFormat === NumberFormat.perc) {
       const sumOfWeights: number = this.aggregates.reduce(
         this.aggregateReducer(false, weighingIndicatorName, null, placeCode),
         0,
       );
+
       aggregateValue =
         sumOfWeights === 0 ? weighedSum : weighedSum / sumOfWeights;
     } else {
       aggregateValue = weighedSum;
     }
+
     return aggregateValue;
   }
 
-  private aggregateReducer =
-    (
-      weightedAverage: boolean,
-      indicator: IbfLayerName,
-      weighingIndicator: IbfLayerName,
-      placeCode: string,
-    ) =>
-    (accumulator: number, aggregate: Aggregate) => {
+  private aggregateReducer = (
+    weightedAverage: boolean,
+    indicator: IbfLayerName,
+    weighingIndicator: IbfLayerName,
+    placeCode: string,
+  ) => {
+    return (accumulator: number, aggregate: Aggregate) => {
       let indicatorValue = 0;
 
       if (placeCode === null || placeCode === aggregate.placeCode) {
@@ -288,6 +305,7 @@ export class AggregatesService {
 
       return accumulator + indicatorValue;
     };
+  };
 
   public isAggregateNan(
     indicator: IbfLayerName,
@@ -295,6 +313,7 @@ export class AggregatesService {
     weightedAverage: boolean,
   ): boolean {
     let aggregates = this.aggregates;
+
     if (placeCode) {
       aggregates = this.aggregates.filter((a) => a.placeCode === placeCode);
     }
@@ -310,6 +329,7 @@ export class AggregatesService {
     let weighingIndicatorName = this.indicators.find(
       (i) => i.name === indicator,
     ).weightVar;
+
     if (!weighingIndicatorName) {
       weighingIndicatorName = this.indicators.find(
         (i) => i.name === this.disasterType.mainExposureIndicator,

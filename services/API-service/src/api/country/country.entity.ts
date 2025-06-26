@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
+import { Polygon } from 'geojson';
 import {
   Column,
   Entity,
@@ -10,7 +11,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { BoundingBox } from '../../shared/geo.model';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { NotificationInfoEntity } from '../notification/notifcation-info.entity';
 import { UserEntity } from '../user/user.entity';
@@ -56,7 +56,7 @@ export class CountryEntity {
 
   @ApiProperty({ example: { type: 'Polygon', coordinates: [] } })
   @Column('geometry', { spatialFeatureType: 'Polygon', srid: 4326 })
-  public countryBoundingBox: BoundingBox;
+  public countryBoundingBox: Polygon;
 
   @ApiProperty({ example: new Date() })
   @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })

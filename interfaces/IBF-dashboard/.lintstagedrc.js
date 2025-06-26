@@ -1,6 +1,3 @@
-const baseConfig = require('../../.lintstagedrc.js');
+import baseConfig from '../../.lintstagedrc.js';
 
-module.exports = {
-  ...baseConfig,
-  '*.{ts,js,html}': ['eslint --fix', 'node build-prod.js'],
-};
+export default { ...baseConfig, '*.{ts,js,html}': ['eslint --fix'] };

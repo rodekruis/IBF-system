@@ -1,7 +1,7 @@
+import { PointIndicator } from '../../fixtures/indicators.enum';
 import { CommunityNotificationExternalDto } from '../../helpers/API-service/dto/upload-community-notification.dto';
 import { DisasterType } from '../../helpers/API-service/enum/disaster-type.enum';
 import { FloodsScenario } from '../../helpers/API-service/enum/mock-scenario.enum';
-import { PointDataEnum } from '../../helpers/API-service/enum/point-data.enum';
 import { getToken, mock } from '../../helpers/utility.helper';
 import { getPointData } from '../point-data/point-data.api';
 import {
@@ -54,7 +54,7 @@ export default function communityNotificationTests() {
 
       const getResult = await getPointData(
         countryCodeISO3,
-        PointDataEnum.communityNotifications,
+        PointIndicator.communityNotifications,
         disasterType,
         token,
       );

@@ -15,7 +15,9 @@ describe('DialogueTurnComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DialogueTurnComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 

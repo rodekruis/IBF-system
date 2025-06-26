@@ -1,7 +1,12 @@
 export enum DisasterType {
+  Drought = 'drought',
+  FlashFloods = 'flash-floods',
   Floods = 'floods',
   Malaria = 'malaria',
-  Drought = 'drought',
   Typhoon = 'typhoon',
-  FlashFloods = 'flash-floods',
 }
+
+export const EVENT_AREA_DISASTER_TYPES = [
+  DisasterType.Floods,
+  DisasterType.FlashFloods,
+];

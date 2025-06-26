@@ -43,7 +43,7 @@
       "aggregate": false
     },
     {
-      "name": "waterpoints_internal",
+      "name": "waterpoints",
       "label": "Waterpoints",
       "description": "...",
       "legendLabels": ["Waterpoints"],

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -8,13 +8,13 @@ import {
 } from '@nestjs/swagger';
 
 import { Roles } from '../../roles.decorator';
+import { RolesGuard } from '../../roles.guard';
 import { UserRole } from '../user/user-role.enum';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
 import { AddCountriesDto } from './dto/add-countries.dto';
 import { NotificationInfoDto } from './dto/notification-info.dto';
 
-@ApiBearerAuth()
 @ApiTags('country')
 @Controller('country')
 export class CountryController {
@@ -24,6 +24,8 @@ export class CountryController {
     this.countryService = countryService;
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Adds or updates (if existing) country' })
   @ApiResponse({
@@ -37,6 +39,8 @@ export class CountryController {
     await this.countryService.addOrUpdateCountries(countries);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Add/update notification info for given countries' })
   @ApiResponse({

@@ -30,7 +30,9 @@ describe('TimelineComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(TimelineComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

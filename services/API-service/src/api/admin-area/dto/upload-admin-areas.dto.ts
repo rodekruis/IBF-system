@@ -1,19 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsNotEmpty, IsString } from 'class-validator';
 import { FeatureCollection } from 'geojson';
 
-import { PLACEHOLDER_SECRET } from '../../../config';
-
 export class AdminAreaUploadDto {
-  @ApiProperty({
-    description: 'Secret key for authorization',
-    example: PLACEHOLDER_SECRET,
-  })
-  @IsString()
-  @IsNotEmpty()
-  secret: string;
-
   @ApiProperty({
     description: 'GeoJSON data containing admin area boundaries',
     example: {

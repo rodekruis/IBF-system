@@ -44,5 +44,5 @@ export function deleteAdminAreas(
 ) {
   return api(token)
     .delete(`/admin-areas/${countryCodeISO3}/${adminLevel}`)
-    .send({ placeCodes, secret: process.env.RESET_SECRET });
+    .send({ placeCodes });
 }

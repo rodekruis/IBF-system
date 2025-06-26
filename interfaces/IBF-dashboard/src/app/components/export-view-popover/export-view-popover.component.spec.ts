@@ -16,7 +16,9 @@ describe('ExportViewPopoverComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(ExportViewPopoverComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

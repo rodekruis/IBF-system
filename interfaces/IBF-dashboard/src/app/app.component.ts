@@ -21,6 +21,7 @@ export class AppComponent implements OnDestroy {
     private translateService: TranslateService,
   ) {
     this.initializeApp();
+
     this.loaderSubscription = this.loaderService
       .getLoaderSubscription()
       .subscribe(this.onLoaderChange);

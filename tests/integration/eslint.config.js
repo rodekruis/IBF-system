@@ -1,9 +1,9 @@
 // @ts-check
 const globals = require('globals');
-const eslint = require('@eslint/js');
 const tseslint = require('typescript-eslint');
 const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
 const eslintPluginSimpleSort = require('eslint-plugin-simple-import-sort');
+const eslintPluginPerfectionist = require('eslint-plugin-perfectionist');
 const typescriptEslintParser = require('@typescript-eslint/parser');
 const eslintPluginPrettier = require('eslint-plugin-prettier');
 const eslintPluginJest = require('eslint-plugin-jest');
@@ -41,12 +41,12 @@ module.exports = tseslint.config(
       },
     },
     plugins: {
+      perfectionist: eslintPluginPerfectionist,
       eslintPluginPrettier,
       'simple-import-sort': eslintPluginSimpleSort,
       jest: eslintPluginJest,
     },
     extends: [
-      // eslint.configs.recommended,
       tseslint.configs.eslintRecommended,
       ...tseslint.configs.stylisticTypeChecked,
       eslintPluginPrettierRecommended,
@@ -72,6 +72,7 @@ module.exports = tseslint.config(
       // 'promise/prefer-await-to-callbacks': 'error',
       // 'promise/prefer-await-to-then': 'error',
       // 'promise/valid-params': 'error',
+      'perfectionist/sort-enums': ['error'],
       'simple-import-sort/imports': [
         'error',
         {

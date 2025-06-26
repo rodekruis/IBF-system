@@ -1,3 +1,5 @@
+import { Logger } from '@nestjs/common';
+
 import csv from 'csv-parser';
 import fs from 'fs';
 import { Readable } from 'stream';
@@ -6,15 +8,23 @@ import { DataSource } from 'typeorm';
 import { DUNANT_EMAIL } from '../config';
 
 export class SeedHelper {
+  private logger = new Logger('SeedHelper');
   public constructor(private dataSource: DataSource) {}
 
-  public async getCsvData<T>(source: string): Promise<T[]> {
-    const buffer = fs.readFileSync(source);
-    let data = await this.csvBufferToArray<T>(buffer, ',');
-    if (Object.keys(data[0]).length === 1) {
-      data = await this.csvBufferToArray<T>(buffer, ';');
+  public async getCsvData<T>(filePath: string): Promise<T[]> {
+    try {
+      const buffer = fs.readFileSync(filePath);
+      let data = await this.csvBufferToArray<T>(buffer, ',');
+
+      if (Object.keys(data[0]).length === 1) {
+        data = await this.csvBufferToArray<T>(buffer, ';');
+      }
+
+      return data;
+    } catch (error) {
+      this.logger.warn(`Failed to read CSV file ${error}`);
+      return null;
     }
-    return data;
   }
 
   private async csvBufferToArray<T>(
@@ -37,7 +47,7 @@ export class SeedHelper {
     });
   }
 
-  public async truncateAll(): Promise<void> {
+  public async reset(): Promise<void> {
     const entities = this.dataSource.entityMetadatas;
     try {
       for (const entity of entities) {
@@ -46,7 +56,7 @@ export class SeedHelper {
           repository.metadata.schema === 'IBF-app' &&
           entity.tableType !== 'view'
         ) {
-          let q;
+          let q: string;
           if (entity.tableName === 'user') {
             q = `DELETE FROM \"${repository.metadata.schema}\".\"${entity.tableName}\" WHERE email <> '${DUNANT_EMAIL}';`;
           } else {

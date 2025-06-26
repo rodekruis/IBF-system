@@ -60,6 +60,7 @@ export class MatrixComponent implements OnDestroy {
       const newLayerIndex = this.layers.findIndex(
         (layer) => layer.name === newLayer.name,
       );
+
       if (newLayerIndex >= 0) {
         this.layers.splice(newLayerIndex, 1, newLayer);
       } else {
@@ -141,6 +142,7 @@ export class MatrixComponent implements OnDestroy {
     if (!this.isLayerMenuOpen) {
       return this.BUTTON_HEIGHT;
     }
+
     return (
       (this.getLayersInOrder().length + 1) * this.LINE_HEIGHT +
       this.BUTTON_HEIGHT

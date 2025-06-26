@@ -1,17 +1,28 @@
-import { CreateUserDto } from '../../helpers/API-service/dto/create-user.dto';
-import { UpdateUserDto } from '../../helpers/API-service/dto/update-user.dto';
+import { UserRole } from '../../helpers/API-service/enum/user-role.enum';
 import { api } from '../../helpers/utility.helper';
 
-export function createUser(userData: CreateUserDto, token: string) {
+interface UserData {
+  email: string;
+  firstName: string;
+  middleName?: string;
+  lastName: string;
+  userRole: UserRole;
+  countryCodesISO3: string[];
+  disasterTypes: string[];
+  password: string;
+  whatsappNumber?: string;
+}
+
+export function createUser(userData: UserData, token: string) {
   return api(token).post('/user').send(userData);
 }
 
 export function updateUser(
   email: string,
-  updateUserData: UpdateUserDto,
+  userData: Partial<UserData>,
   token: string,
 ) {
-  return api(token).patch('/user').query({ email }).send(updateUserData);
+  return api(token).patch('/user').query({ email }).send(userData);
 }
 
 export function changePassword(email: string, password: string, token: string) {

@@ -9,7 +9,7 @@ export enum PointDataCategory {
   redCrossBranches = 'red_cross_branches',
   communityNotifications = 'community_notifications',
   schools = 'schools',
-  waterpointsInternal = 'waterpoints_internal',
+  waterpoints = 'waterpoints',
   gauges = 'gauges',
   glofasStations = 'glofas_stations',
 }

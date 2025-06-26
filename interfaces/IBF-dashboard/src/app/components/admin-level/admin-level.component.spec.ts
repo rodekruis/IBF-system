@@ -28,7 +28,9 @@ describe('AdminLevelComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(AdminLevelComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

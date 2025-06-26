@@ -26,6 +26,7 @@ import { environment } from 'src/environments/environment';
 export class UserStateComponent implements OnInit {
   @Input()
   public isLoggedIn: boolean;
+
   @Input()
   public showCountry = true;
 
@@ -54,6 +55,7 @@ export class UserStateComponent implements OnInit {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
+
     this.disasterTypeSubscription = this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
@@ -81,6 +83,7 @@ export class UserStateComponent implements OnInit {
     this.disasterType = disasterType;
     if (this.disasterType) {
       const yesNode = this.disasterType.alertLevel ? 'yes' : 'no';
+
       this.activeTriggerMsg = this.translateService.instant(
         `dashboard-page.triggered-message.${yesNode}`,
       ) as string;

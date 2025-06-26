@@ -20,7 +20,9 @@ describe('TooltipComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(TooltipComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

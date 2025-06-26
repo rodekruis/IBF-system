@@ -3,6 +3,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 
 import { In, Repository } from 'typeorm';
 
+import { Country } from '../../scripts/interfaces/country.interface';
 import countries from '../../scripts/json/countries.json';
 import notificationInfos from '../../scripts/json/notification-info.json';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
@@ -75,8 +76,8 @@ describe('CountryService', () => {
     });
 
     it('should return an array of countries with specific country codes', async () => {
-      const countryCodes = countries
-        .map((country) => country.countryCodeISO3)
+      const countryCodes = (countries as Country[])
+        .map(({ countryCodeISO3 }) => countryCodeISO3)
         .join(',');
       const result = [new CountryEntity()];
       jest.spyOn(countryRepository, 'find').mockResolvedValue(result);
@@ -109,7 +110,7 @@ describe('CountryService', () => {
         .mockResolvedValue(new CountryDisasterSettingsEntity());
 
       // Act
-      await service.addOrUpdateCountries({ countries });
+      await service.addOrUpdateCountries({ countries: countries as Country[] });
 
       // Assert
       for (const country of countries) {

@@ -99,6 +99,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     this.adminLevelButtons =
       this.adminLevelService.getAdminLevelButtonsSubscription();
   }
+
   ngOnDestroy(): void {
     this.mapViewSubscription.unsubscribe();
     this.eventStateSubscription.unsubscribe();
@@ -113,6 +114,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+
     this.countryDisasterSettings =
       this.disasterTypeService.getCountryDisasterTypeSettings(
         this.country,
@@ -141,6 +143,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
       this.adminLevelService.activeLayerNames = this.mapService.layers
         .filter((l) => l.active && l.group !== IbfLayerGroup.adminRegions)
         .map((l) => l.name);
+
       this.placeCodeService.clearPlaceCode();
       this.adminLevelService.setAdminLevel(adminLevel);
 
@@ -161,6 +164,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     disabled: boolean,
   ): boolean => {
     const layer = this.getAdminLevelLayer(adminLevel);
+
     if (!layer) {
       return false;
     }
@@ -170,7 +174,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
 
   public getAdminLevelLabel(adminLevel: AdminLevel): string {
     return this.adminLevelService.adminLevelLabel
-      ? this.adminLevelService.adminLevelLabel[AdminLevel[adminLevel]]
+      ? String(this.adminLevelService.adminLevelLabel[AdminLevel[adminLevel]])
       : `Admin Level ${AdminLevel[adminLevel]}`;
   }
 
@@ -180,6 +184,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
 
   public getAdminLevelLayer(adminLevel: AdminLevel): IbfLayer {
     const layerName = this.getAdminLevelLayerName(adminLevel);
+
     return this.mapService.getLayerByName(layerName);
   }
 
@@ -210,6 +215,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     if (breadCrumb === MapView.adminArea) {
       if (this.currentMapView === MapView.adminArea3) {
         this.adminLevelService.zoomOutAdminLevel();
+
         this.placeCodeService.setPlaceCode(
           this.placeCode.placeCodeParent.placeCodeParent,
         );
@@ -227,11 +233,13 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     if (breadCrumb === MapView.event) {
       this.adminLevelService.zoomToDefaultAdminLevel();
       this.placeCodeService?.clearPlaceCode();
+
       return;
     }
 
     if (breadCrumb === MapView.national) {
       this.eventService?.resetEvents();
+
       return;
     }
   }

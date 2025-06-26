@@ -13,7 +13,9 @@ describe('DisclaimerToolbarComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(DisclaimerToolbarComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

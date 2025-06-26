@@ -31,13 +31,28 @@ export enum DynamicIndicator {
 }
 
 export enum StaticIndicator {
+  population = 'population',
   ipcForecastShort = 'IPC_forecast_short',
   ipcForecastLong = 'IPC_forecast_long',
   hotspotGeneral = 'Hotspot_General',
   hotspotWater = 'Hotspot_Water',
   hotspotHealth = 'Hotspot_Health',
   hotspotNutrition = 'Hotspot_Nutrition',
-  populationTotal = 'populationTotal', // TODO: add missing static indicators
+  populationTotal = 'populationTotal',
+  vulnerableGroups = 'vulnerable_groups',
+  vulnerableHousing = 'vulnerable_housing',
+  totalHouses = 'total_houses',
+  floodVulnerability = 'flood_vulnerability',
+  droughtVulnerability = 'drought_vulnerability',
+  malariaRisk = 'malaria_risk',
+  malariaSuitableTemperature = 'malaria_suitable_temperature',
+  totalIDPs = 'total_idps',
+  travelTimeHealthMotorized = 'travel_time_health_motorized',
+  travelTimeHealthWalking = 'travel_time_health_walking',
+  travelTimeCities = 'travel_time_cities',
+  populationUnderFive = 'population_u5',
+  ruminants = 'ruminants',
+  cattle = 'cattle',
 }
 
 export const ALERT_THRESHOLD = DynamicIndicator.alertThreshold;

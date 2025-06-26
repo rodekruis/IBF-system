@@ -16,19 +16,21 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { Response } from 'express';
+
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { UserRole } from '../api/user/user-role.enum';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
-import { MockInputDto } from './dto/mock-input.dto';
-import { ResetDto } from './dto/reset.dto';
+import { MockDto } from './dto/mock.dto';
+import { defaultSeed, SeedDto } from './dto/seed.dto';
 import { MockService } from './mock.service';
 import { SeedInit } from './seed-init';
 
-@Controller('scripts')
-@ApiTags('--- mock/seed data ---')
 @ApiBearerAuth()
 @UseGuards(RolesGuard)
+@ApiTags('--app--')
+@Controller()
 export class ScriptsController {
   public constructor(
     private seedInit: SeedInit,
@@ -36,33 +38,32 @@ export class ScriptsController {
   ) {}
 
   @Roles(UserRole.Admin)
-  @ApiOperation({ summary: 'Reset database with original seed data' })
-  @ApiResponse({
-    status: 202,
-    description: 'Database reset with original seed data.',
-  })
+  @ApiOperation({ summary: 'Seed database' })
   @ApiQuery({
-    name: 'includeLinesData',
+    name: 'reset',
     required: false,
-    schema: { default: true, type: 'boolean' },
+    schema: { default: false, type: 'boolean' },
     type: 'boolean',
-    description: 'Set to false to exclude (large) lines data, e.g. for testing',
+    description:
+      'Truncate database tables before inserting seed data. Request body is ignored if reset is true. WARNING: Data loss cannot be undone.',
   })
-  @Post('/reset')
-  public async resetDb(
-    @Body() body: ResetDto,
-    @Res() res,
-    @Query('includeLinesData', new ParseBoolPipe({ optional: true }))
-    includeLinesData: boolean,
-  ): Promise<string> {
-    if (body.secret !== process.env.RESET_SECRET) {
-      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
+  @ApiResponse({ status: 202, description: 'Seed database' })
+  @Post('/seed')
+  public async seed(
+    @Body() seed: SeedDto = defaultSeed,
+    @Query('reset', new ParseBoolPipe({ optional: true })) reset = false,
+    @Res() res: Response,
+  ) {
+    if (reset) {
+      // NOTE: if reset truncates all tables so we must seed all tables
+      seed = defaultSeed;
     }
 
-    await this.seedInit.run(null, includeLinesData, true);
+    await this.seedInit.seed({ reset, seed });
+
     return res
       .status(HttpStatus.ACCEPTED)
-      .send('Database reset with original seed data.');
+      .send('Seed data inserted into the database');
   }
 
   @Roles(UserRole.Admin)
@@ -88,15 +89,11 @@ export class ScriptsController {
   public async mock(
     @Query('disasterType') disasterType: DisasterType,
     @Query('countryCodeISO3') countryCodeISO3: string,
-    @Body() body: MockInputDto,
-    @Res() res,
+    @Body() body: MockDto,
+    @Res() res: Response,
     @Query('noNotifications', new ParseBoolPipe({ optional: true }))
     noNotifications: boolean,
-  ): Promise<string> {
-    if (body.secret !== process.env.RESET_SECRET) {
-      return res.status(HttpStatus.FORBIDDEN).send('Not allowed');
-    }
-
+  ) {
     const result = await this.mockService.mock(
       body,
       disasterType,

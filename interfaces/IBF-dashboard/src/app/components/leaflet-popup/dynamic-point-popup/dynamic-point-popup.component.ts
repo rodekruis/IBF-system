@@ -74,6 +74,7 @@ export class DynamicPointPopupComponent implements OnInit {
         timestamp: this.typhoonTrackPoint.timestamp,
         category: this.typhoonTrackPoint.category,
       };
+
       this.headerClass['bg-ibf-primary'] = true;
     }
 
@@ -91,8 +92,10 @@ export class DynamicPointPopupComponent implements OnInit {
         ] ?? this.defautEapAlertClass;
 
       this.headerClass['bg-' + this.eapAlertClass.color] = true;
+
       this.headerClass['text-' + this.eapAlertClass.textColor] =
         !!this.eapAlertClass.textColor;
+
       this.headerClass['text-ibf-white'] = !this.eapAlertClass.textColor;
 
       this.footerClass[
@@ -109,11 +112,13 @@ export class DynamicPointPopupComponent implements OnInit {
       const header = String(
         this.translate.instant('map-popups.river-gauge.header'),
       );
+
       return `${header} ${this.riverGauge.fid} ${this.riverGauge.name}`;
     }
 
     if (this.layerName === IbfLayerName.typhoonTrack) {
       const hasPassedSuffix = this.typhoonTrackPoint.passed ? ' (passed)' : '';
+
       return `Typhoon track${hasPassedSuffix}`;
     }
 
@@ -128,13 +133,16 @@ export class DynamicPointPopupComponent implements OnInit {
     if (this.layerName === IbfLayerName.gauges) {
       const waterLevel = this.riverGauge.dynamicData?.['water-level'];
       const reference = this.riverGauge.dynamicData?.['water-level-reference'];
+
       if (waterLevel == null) return '';
+
       const below = String(
         this.translate.instant('map-popups.river-gauge.below'),
       );
       const above = String(
         this.translate.instant('map-popups.river-gauge.above'),
       );
+
       return waterLevel <= reference ? below : above;
     }
 
@@ -144,6 +152,7 @@ export class DynamicPointPopupComponent implements OnInit {
       const lngAbs = Math.abs(lng).toFixed(4);
       const latDir = lat > 0 ? 'N' : 'S';
       const lngDir = lng > 0 ? 'E' : 'W';
+
       return `${latAbs}° ${latDir}, ${lngAbs}° ${lngDir}`;
     }
 

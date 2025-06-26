@@ -32,7 +32,9 @@ describe('MatrixComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(MatrixComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

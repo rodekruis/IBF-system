@@ -18,6 +18,7 @@ describe('MapViewService', () => {
         provideHttpClientTesting(),
       ],
     });
+
     service = TestBed.inject(MapViewService);
   });
 

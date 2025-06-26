@@ -27,7 +27,7 @@ import { UserResponseObject } from './user.model';
 import { UserService } from './user.service';
 import { UserRole } from './user-role.enum';
 
-@ApiTags('-- user --')
+@ApiTags('--user--')
 @Controller('user')
 export class UserController {
   private readonly userService: UserService;
@@ -54,7 +54,6 @@ export class UserController {
 
   @ApiOperation({ summary: '[EXTERNALLY USED] Log in existing user' })
   @UsePipes(new ValidationPipe())
-  @Post('login')
   @ApiResponse({
     status: 201,
     description:
@@ -65,6 +64,7 @@ export class UserController {
     status: 403,
     description: 'A user with these credentials is not found.',
   })
+  @Post('login')
   public async login(
     @Body() loginUserDto: LoginUserDto,
   ): Promise<UserResponseObject> {
@@ -86,9 +86,9 @@ export class UserController {
     return this.userService.updatePassword(loggedInUserId, userData);
   }
 
-  @Roles(UserRole.Admin)
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
+  @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Update user properties' })
   @ApiQuery({ name: 'email', required: true, type: 'string' })
   @Patch()

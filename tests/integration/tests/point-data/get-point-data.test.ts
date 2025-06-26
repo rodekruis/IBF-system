@@ -1,6 +1,8 @@
+import { Feature } from 'geojson';
+
+import { PointIndicator } from '../../fixtures/indicators.enum';
 import { DisasterType } from '../../helpers/API-service/enum/disaster-type.enum';
 import { FlashFloodsScenario } from '../../helpers/API-service/enum/mock-scenario.enum';
-import { PointDataEnum } from '../../helpers/API-service/enum/point-data.enum';
 import { getToken } from '../../helpers/utility.helper';
 import { mock } from '../../helpers/utility.helper';
 import { getPointData } from './point-data.api';
@@ -26,13 +28,13 @@ export default function getPointDataTests() {
         new Date(),
       );
       const pointAssetLayers = [
-        PointDataEnum.schools,
-        PointDataEnum.healthSites,
-        PointDataEnum.waterpointsInternal,
+        PointIndicator.schools,
+        PointIndicator.healthSites,
+        PointIndicator.waterpoints,
       ];
 
       for (const pointDataLayer of pointAssetLayers) {
-        // Act
+        // act
         const pointDataResult = await getPointData(
           countryCodeISO3,
           pointDataLayer,
@@ -41,14 +43,14 @@ export default function getPointDataTests() {
         );
         const pointData = pointDataResult.body;
 
-        // Assert
+        // assert
         expect(pointDataResult.status).toBe(200);
         expect(pointData.type).toBe('FeatureCollection');
         expect(pointData.features.length).toBeGreaterThan(0);
         expect(pointData.features[0].geometry.type).toBe('Point');
-        // Test if there is at least one exposed asset.
+        // test if there is at least one exposed asset
         const hasExposedFeature = pointData.features.some(
-          (feature) =>
+          (feature: Feature) =>
             feature.properties &&
             feature.properties.dynamicData?.exposure === 'true',
         );

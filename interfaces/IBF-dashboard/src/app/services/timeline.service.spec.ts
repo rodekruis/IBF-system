@@ -18,6 +18,7 @@ describe('TimelineService', () => {
         provideHttpClientTesting(),
       ],
     });
+
     service = TestBed.inject(TimelineService);
   });
 

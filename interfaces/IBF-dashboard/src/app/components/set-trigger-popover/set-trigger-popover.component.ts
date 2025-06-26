@@ -24,20 +24,28 @@ import { environment } from 'src/environments/environment';
 export class SetTriggerPopoverComponent {
   @Input()
   public eapLink: string;
+
   @Input()
   public forecastSource: ForecastSource;
+
   @Input()
   public adminAreaLabelPlural: string;
+
   @Input()
   public areas: AlertArea[];
+
   @Input()
   public mainExposureIndicatorNumberFormat: NumberFormat;
+
   @Input()
   public hasSetTriggerPermission: boolean;
+
   @Input()
   public countryCodeISO3: string;
+
   @Input()
   public disasterType: DisasterTypeKey;
+
   @Input()
   public eventName: string;
 
@@ -74,6 +82,7 @@ export class SetTriggerPopoverComponent {
   public continueToConfirmStep(): void {
     this.popoverStep = 'confirm';
   }
+
   public backToSelectAreasStep(): void {
     this.popoverStep = 'select-areas';
   }
@@ -91,6 +100,7 @@ export class SetTriggerPopoverComponent {
     });
 
     const noNotifications = false;
+
     this.apiService
       .setTrigger(
         eventPlaceCodeIds,
@@ -105,7 +115,7 @@ export class SetTriggerPopoverComponent {
         error: () =>
           this.actionResult(
             this.translateService.instant(
-              `set-trigger-component.confirm.error`,
+              'set-trigger-component.confirm.error',
             ) as string,
           ),
       });

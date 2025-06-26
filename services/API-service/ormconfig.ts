@@ -3,6 +3,7 @@ import { Logger } from '@nestjs/common';
 import * as fs from 'fs';
 import { DataSourceOptions } from 'typeorm';
 
+import { CI, DEV } from './src/config';
 import { TypeOrmLoggerContainer } from './src/typeorm.logger';
 
 export const ORMConfig: DataSourceOptions = {
@@ -21,7 +22,7 @@ export const ORMConfig: DataSourceOptions = {
   maxQueryExecutionTime: 1000,
   migrations: ['migration/*.ts'],
   ssl:
-    ['development', 'ci'].indexOf(process.env.NODE_ENV) >= 0
+    DEV || CI
       ? null
       : {
           rejectUnauthorized: false, // https://node-postgres.com/features/ssl#self-signed-cert

@@ -40,12 +40,15 @@ export class MapViewService {
     this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
+
     this.eventService
       .getInitialEventStateSubscription()
       .subscribe(this.onEventStateChange);
+
     this.eventService
       .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
+
     this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlacecodeChange);
@@ -57,6 +60,7 @@ export class MapViewService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+
     this.countryDisasterSettings =
       this.disasterTypeService.getCountryDisasterTypeSettings(
         this.country,
@@ -79,31 +83,37 @@ export class MapViewService {
     // TODO: is this option still possible after removing isEventBased?
     if (!this.eventState?.event && this.placeCode) {
       this.setAggregatesMapView(MapView.adminArea);
+
       return;
     }
 
     if (!this.eventState?.event) {
       this.setBreadcrumbsMapView(MapView.national);
+
       return;
     }
 
     if (this.eventState.event && !this.placeCode) {
       this.setBreadcrumbsMapView(MapView.event);
+
       return;
     }
 
     if (this.placeCode?.placeCodeParent?.placeCodeParent) {
       this.setBreadcrumbsMapView(MapView.adminArea3);
+
       return;
     }
 
     if (this.placeCode?.placeCodeParent) {
       this.setBreadcrumbsMapView(MapView.adminArea2);
+
       return;
     }
 
     if (this.placeCode) {
       this.setBreadcrumbsMapView(MapView.adminArea);
+
       return;
     }
 

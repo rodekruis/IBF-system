@@ -25,7 +25,9 @@ describe('AboutBtnComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(AboutBtnComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

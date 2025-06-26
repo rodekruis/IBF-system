@@ -9,5 +9,4 @@ export const userData = {
   countryCodesISO3: ['UGA', 'ZMB', 'MWI', 'SSD', 'KEN', 'ETH', 'PHL', 'ZWE'],
   disasterTypes: ['floods', 'malaria', 'drought', 'typhoon', 'flash-floods'],
   password: 'password',
-  whatsappNumber: '+31612345678',
 };
