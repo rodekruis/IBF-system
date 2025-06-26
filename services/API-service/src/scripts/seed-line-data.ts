@@ -7,6 +7,7 @@ import {
   LinesDataService,
   LinesDto,
 } from '../api/lines-data/lines-data.service';
+import { DEV } from '../config';
 import { InterfaceScript } from './scripts.module';
 import { SeedHelper } from './seed-helper';
 
@@ -34,10 +35,14 @@ export class SeedLineData implements InterfaceScript<SeedLineDataParams> {
     if (!linesCsv) return;
 
     try {
-      const linesDtos = await this.lineDataService.getLinesDtos(
+      let linesDtos = await this.lineDataService.getLinesDtos(
         lineDataCategory,
         linesCsv,
       );
+
+      if (DEV) {
+        linesDtos = linesDtos.slice(0, 1000);
+      }
 
       await this.lineDataService.uploadJson(
         lineDataCategory,

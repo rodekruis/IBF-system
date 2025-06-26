@@ -1,3 +1,5 @@
+import { Feature } from 'geojson';
+
 import { PointIndicator } from '../../fixtures/indicators.enum';
 import { DisasterType } from '../../helpers/API-service/enum/disaster-type.enum';
 import { FlashFloodsScenario } from '../../helpers/API-service/enum/mock-scenario.enum';
@@ -44,16 +46,15 @@ export default function getPointDataTests() {
         // assert
         expect(pointDataResult.status).toBe(200);
         expect(pointData.type).toBe('FeatureCollection');
-        expect(pointData.features.length).toBeGreaterThanOrEqual(0);
-        // REFACTOR: add assertions to match available data in the db
-        // expect(pointData.features[0].geometry.type).toBe('Point');
+        expect(pointData.features.length).toBeGreaterThan(0);
+        expect(pointData.features[0].geometry.type).toBe('Point');
         // test if there is at least one exposed asset
-        // const hasExposedFeature = pointData.features.some(
-        //   (feature: Feature) =>
-        //     feature.properties &&
-        //     feature.properties.dynamicData?.exposure === 'true',
-        // );
-        // expect(hasExposedFeature).toBe(true);
+        const hasExposedFeature = pointData.features.some(
+          (feature: Feature) =>
+            feature.properties &&
+            feature.properties.dynamicData?.exposure === 'true',
+        );
+        expect(hasExposedFeature).toBe(true);
       }
     });
   });

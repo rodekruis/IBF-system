@@ -3,7 +3,6 @@ import { Injectable, Logger } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
 import 'multer';
-import { StaticIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import {
   LeadTime,
   LeadTimeUnit,
@@ -16,11 +15,9 @@ import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../api/disaster-type/disaster-type.service';
 import { DisasterTypeDto } from '../api/disaster-type/dto/add-disaster-type.dto';
 import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
-import { LinesDataCategory } from '../api/lines-data/lines-data.entity';
 import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
-import { PointDataCategory } from '../api/point-data/point-data.entity';
 import { UserEntity } from '../api/user/user.entity';
 import { UserRole } from '../api/user/user-role.enum';
 import { DUNANT_EMAIL } from '../config';
@@ -244,44 +241,35 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
       await layerRepository.save(JSON.parse(JSON.stringify(layerMetadata)));
     }
 
-    selectedCountries.flatMap(
-      async ({ countryCodeISO3, countryBoundingBox }) => {
-        // ***** SEED POINT DATA *****
-        if (seed.pointData) {
-          seed.pointData.forEach(
-            async (pointDataCategory: PointDataCategory) => {
-              this.logger.log(
-                `Seed ${countryCodeISO3} ${pointDataCategory}...`,
-              );
-              await this.seedPointData.seed({
-                pointDataCategory,
-                countryCodeISO3,
-                countryBoundingBox,
-              });
-            },
-          );
-        }
-
-        // ***** SEED LINE DATA *****
-        if (seed.lineData) {
-          seed.lineData.forEach(async (lineDataCategory: LinesDataCategory) => {
-            this.logger.log(`Seed ${countryCodeISO3} ${lineDataCategory}...`);
-            await this.seedLineData.seed({ lineDataCategory, countryCodeISO3 });
+    for (const { countryCodeISO3, countryBoundingBox } of selectedCountries) {
+      // ***** SEED POINT DATA *****
+      if (seed.pointData) {
+        for (const pointDataCategory of seed.pointData) {
+          this.logger.log(`Seed ${countryCodeISO3} ${pointDataCategory}...`);
+          await this.seedPointData.seed({
+            pointDataCategory,
+            countryCodeISO3,
+            countryBoundingBox,
           });
         }
+      }
 
-        // ***** SEED INDICATORS *****
-        if (seed.indicators) {
-          seed.indicators.forEach(async (staticIndicator: StaticIndicator) => {
-            this.logger.log(`Seed ${countryCodeISO3} ${staticIndicator}...`);
-            await this.seedIndicators.seed({
-              staticIndicator,
-              countryCodeISO3,
-            });
-          });
+      // ***** SEED LINE DATA *****
+      if (seed.lineData) {
+        for (const lineDataCategory of seed.lineData) {
+          this.logger.log(`Seed ${countryCodeISO3} ${lineDataCategory}...`);
+          await this.seedLineData.seed({ lineDataCategory, countryCodeISO3 });
         }
-      },
-    );
+      }
+
+      // ***** SEED INDICATORS *****
+      if (seed.indicators) {
+        for (const staticIndicator of seed.indicators) {
+          this.logger.log(`Seed ${countryCodeISO3} ${staticIndicator}...`);
+          await this.seedIndicators.seed({ staticIndicator, countryCodeISO3 });
+        }
+      }
+    }
   }
 }
 

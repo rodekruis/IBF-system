@@ -17,6 +17,13 @@ module.exports = [
       ecmaVersion: 2018, // Allows for the parsing of modern ECMAScript features
       sourceType: 'module', // Allows for the use of imports
       parser: typescriptEslintParser,
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        ecmaVersion: 2022, // Allows for the parsing of modern ECMAScript features
+        sourceType: 'module', // Allows for the use of imports
+        project: true,
+        tsconfigRootDir: __dirname,
+      },
     },
     plugins: {
       '@typescript-eslint': tsEslintPlugin,
@@ -25,6 +32,8 @@ module.exports = [
       'simple-import-sort': eslintPluginSimpleSort,
     },
     rules: {
+      '@typescript-eslint/no-floating-promises': 'error',
+      '@typescript-eslint/no-misused-promises': 'error',
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/no-var-requires': 'off',
       '@typescript-eslint/no-unused-vars': [

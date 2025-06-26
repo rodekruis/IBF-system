@@ -150,4 +150,4 @@ async function bootstrap(): Promise<void> {
 
   await app.listen(process.env.PORT || PORT);
 }
-bootstrap();
+void bootstrap();

@@ -54,7 +54,7 @@ export class SeedPointData implements InterfaceScript<SeedPointDataParams> {
 
     let pointCsv = await this.seedHelper.getCsvData<PointDto>(filePath);
 
-    if (!pointCsv && !CI && !DEV) {
+    if (!pointCsv && !CI) {
       // if no local file, seed from external source
       // do not fetch from external source in CI or DEV environments
       // to prevent unnecessary API calls during development or testing
@@ -107,7 +107,7 @@ export class SeedPointData implements InterfaceScript<SeedPointDataParams> {
     countryBoundingBox: Polygon,
   ): Promise<WaterpointDto[]> {
     const wkt = stringify(countryBoundingBox as GeoJSONPolygon);
-    const limit = 200000;
+    const limit = DEV ? 200 : 200000;
     const path =
       `https://data.waterpointdata.org/resource/jfkt-jmqa.geojson` +
       `?$where=water_source is not null` +
