@@ -17,11 +17,10 @@ import { SpelunkerModule } from 'nestjs-spelunker';
 
 import { ApplicationModule } from './app.module';
 import {
-  apiPath,
+  API_SERVICE_URL,
+  DEFAULT_PORT,
   DEV,
-  EXTERNAL_API,
   forbidUnknownValues,
-  PORT,
 } from './config';
 
 /**
@@ -102,13 +101,13 @@ async function bootstrap(): Promise<void> {
   const apiDocumentationDescription =
     'This page serves as the documentation of IBF API endpoints, and can also be used for executing API-calls.<br>To get access:<ul><li>If you have an account:<ul><li>use the `/api/user/login` endpoint below</li><li>click `Try it out`, fill in your email and password, and click `Execute`</li></ul></li><li>If you do not have an account, contact the IBF Development Team.</li><li>You can verify your access by using the `check API` endpoints below:<ul><li>`/api` works (also without authenticaition) as long as the API itself works</li><li>`/api/authentication` only works if you have successfully authorized</li></ul></li></ul>';
 
-  app.setGlobalPrefix(apiPath);
+  app.setGlobalPrefix('api'); // should match path in API_SERVICE_URL
 
   const config = new DocumentBuilder()
     .setTitle(apiDocumentationTitle)
     .setDescription(apiDocumentationDescription)
     .setVersion(apiVersion)
-    .addServer(EXTERNAL_API.apiUrl)
+    .addServer(API_SERVICE_URL)
     .addBearerAuth()
     .build();
   const swaggerDocumentOptions: SwaggerDocumentOptions = {
@@ -148,6 +147,6 @@ async function bootstrap(): Promise<void> {
     generateModuleDependencyGraph(app);
   }
 
-  await app.listen(process.env.PORT || PORT);
+  await app.listen(process.env.PORT || DEFAULT_PORT);
 }
 void bootstrap();

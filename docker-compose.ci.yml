@@ -14,10 +14,9 @@ services:
     command: ['npm', 'run', 'start']
     environment:
       - NODE_ENV=ci
-      - LOCAL_PORT_IBF_SERVICE=${LOCAL_PORT_IBF_SERVICE}
       - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD}
     ports:
-      - ${LOCAL_PORT_IBF_SERVICE}:3000
+      - 3000:3000
     volumes: !override
       - ibf-api-service-node-modules:/home/ibf/api-service/node_modules
     depends_on:

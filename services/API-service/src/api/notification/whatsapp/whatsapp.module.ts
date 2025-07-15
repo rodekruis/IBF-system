@@ -6,7 +6,10 @@ import {
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
-import { API_PATHS } from '../../../config';
+import {
+  WHATSAPP_INCOMING_API_PATH,
+  WHATSAPP_STATUS_API_PATH,
+} from '../../../config';
 import { HelperService } from '../../../shared/helper.service';
 import { CountryEntity } from '../../country/country.entity';
 import { EventModule } from '../../event/event.module';
@@ -36,8 +39,8 @@ export class WhatsappModule implements NestModule {
     consumer
       .apply(AuthMiddlewareTwilio)
       .forRoutes(
-        { path: API_PATHS.whatsAppStatus, method: RequestMethod.POST },
-        { path: API_PATHS.whatsAppIncoming, method: RequestMethod.POST },
+        { path: WHATSAPP_STATUS_API_PATH, method: RequestMethod.POST },
+        { path: WHATSAPP_INCOMING_API_PATH, method: RequestMethod.POST },
       );
   }
 }
