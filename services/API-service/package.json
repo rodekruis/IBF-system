@@ -64,7 +64,7 @@
     "@types/node": "^24.0.0",
     "@types/wellknown": "^0.5.8",
     "@typescript-eslint/eslint-plugin": "^8.34.0",
-    "@typescript-eslint/parser": "^8.32.0",
+    "@typescript-eslint/parser": "^8.37.0",
     "atob": ">=2.1.0",
     "deep-extend": ">=0.5.1",
     "eslint": "^9.29.0",
