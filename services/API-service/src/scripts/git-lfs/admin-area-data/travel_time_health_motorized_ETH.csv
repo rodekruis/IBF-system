@@ -1,1039 +1,1083 @@
-﻿ADM3_EN,placeCode,value,countryCodeISO3,indicator,adminLevel
-Addis Ketema (AA),ET140108,0,ETH,motorized_travel_time_to_health,3
-Arada,ET140109,0,ETH,motorized_travel_time_to_health,3
-Kirkos,ET140106,0,ETH,motorized_travel_time_to_health,3
-Mehale Meda town,ET030597,0,ETH,motorized_travel_time_to_health,3
-Lideta,ET140105,0.062476814,ETH,motorized_travel_time_to_health,3
-Atsbi town,ET010315,0.395666957,ETH,motorized_travel_time_to_health,3
-Zala Anbesa town,ET010318,0.455063184,ETH,motorized_travel_time_to_health,3
-Gimbichu town,ET070213,0.492799044,ETH,motorized_travel_time_to_health,3
-Yirgachefe town,ET070512,0.556348681,ETH,motorized_travel_time_to_health,3
-Merawi town,ET030797,0.557900459,ETH,motorized_travel_time_to_health,3
-Bekoji town,ET040894,0.571186831,ETH,motorized_travel_time_to_health,3
-Bedesa,ET040914,0.582124233,ETH,motorized_travel_time_to_health,3
-Aykel town,ET031199,0.584967181,ETH,motorized_travel_time_to_health,3
-Babile town,ET041000,0.58813338,ETH,motorized_travel_time_to_health,3
-Karat town,ET071301,0.593529602,ETH,motorized_travel_time_to_health,3
-Abadir,ET130109,0.641709963,ETH,motorized_travel_time_to_health,3
-Chencha,ET071010,0.661392701,ETH,motorized_travel_time_to_health,3
-Shambu town,ET041902,0.661439121,ETH,motorized_travel_time_to_health,3
-Chelelektu town,ET070508,0.677999755,ETH,motorized_travel_time_to_health,3
-Chuko town,ET160035,0.69118765,ETH,motorized_travel_time_to_health,3
-Masha town,ET070805,0.697346866,ETH,motorized_travel_time_to_health,3
-Bati Town,ET031099,0.699441731,ETH,motorized_travel_time_to_health,3
-Sendafa town,ET042018,0.708640969,ETH,motorized_travel_time_to_health,3
-Gununo Hamus town,ET070618,0.73222816,ETH,motorized_travel_time_to_health,3
-Shashemene town,ET041711,0.748433928,ETH,motorized_travel_time_to_health,3
-Gulele,ET140110,0.793026953,ETH,motorized_travel_time_to_health,3
-Dabat town,ET030106,0.796893215,ETH,motorized_travel_time_to_health,3
-Lalibela town,ET030398,0.803627387,ETH,motorized_travel_time_to_health,3
-Hagere Selam town,ET010605,0.80581935,ETH,motorized_travel_time_to_health,3
-Hike town,ET030499,0.826849431,ETH,motorized_travel_time_to_health,3
-Adisezemen town,ET030299,0.827559841,ETH,motorized_travel_time_to_health,3
-May Tsebri town,ET010116,0.829392776,ETH,motorized_travel_time_to_health,3
-Selamber town,ET071003,0.8498815,ETH,motorized_travel_time_to_health,3
-Agaro town,ET040417,0.852629805,ETH,motorized_travel_time_to_health,3
-Bule Hora town,ET041587,0.861876106,ETH,motorized_travel_time_to_health,3
-Bonga town,ET070911,0.872629877,ETH,motorized_travel_time_to_health,3
-Zigem,ET030997,0.875957012,ETH,motorized_travel_time_to_health,3
-Bui town,ET070117,0.876031017,ETH,motorized_travel_time_to_health,3
-Dila town,ET070507,0.900048725,ETH,motorized_travel_time_to_health,3
-Size town,ET071108,0.931254123,ETH,motorized_travel_time_to_health,3
-Addis Ketema (DD),ET150109,0.939618754,ETH,motorized_travel_time_to_health,3
-Bedele town,ET041621,0.945426762,ETH,motorized_travel_time_to_health,3
-Maichew town,ET010409,0.946124554,ETH,motorized_travel_time_to_health,3
-Woreta town,ET030293,0.95009927,ETH,motorized_travel_time_to_health,3
-Dejen town,ET030698,0.952943891,ETH,motorized_travel_time_to_health,3
-Hafat Issa,ET150112,0.980084062,ETH,motorized_travel_time_to_health,3
-Bechena Town,ET030699,1.001396632,ETH,motorized_travel_time_to_health,3
-Indasilassie town,ET010108,1.020461883,ETH,motorized_travel_time_to_health,3
-Axum town,ET010213,1.033299311,ETH,motorized_travel_time_to_health,3
-Mekhoni town,ET010412,1.087122068,ETH,motorized_travel_time_to_health,3
-Wereilu town,ET030423,1.116439998,ETH,motorized_travel_time_to_health,3
-Nefas Silk,ET140102,1.117655153,ETH,motorized_travel_time_to_health,3
-Mota Town,ET030694,1.188614094,ETH,motorized_travel_time_to_health,3
-Leku town,ET160022,1.191410169,ETH,motorized_travel_time_to_health,3
-Daye town,ET160030,1.192009866,ETH,motorized_travel_time_to_health,3
-Kolfe - Keran,ET140103,1.20902116,ETH,motorized_travel_time_to_health,3
-Jajura town,ET070214,1.22376287,ETH,motorized_travel_time_to_health,3
-Aleta Wondo town,ET160021,1.260877798,ETH,motorized_travel_time_to_health,3
-Adigrat town,ET010308,1.278433698,ETH,motorized_travel_time_to_health,3
-Dangila town,ET030998,1.304011153,ETH,motorized_travel_time_to_health,3
-Haromaya town,ET041019,1.311679482,ETH,motorized_travel_time_to_health,3
-Shinshincho town,ET070310,1.329878134,ETH,motorized_travel_time_to_health,3
-Freweyni town,ET010313,1.335098669,ETH,motorized_travel_time_to_health,3
-Metehara town,ET040799,1.381547779,ETH,motorized_travel_time_to_health,3
-Aboker,ET130108,1.385001558,ETH,motorized_travel_time_to_health,3
-Denbecha town,ET030717,1.419321615,ETH,motorized_travel_time_to_health,3
-Denbi Dollo town,ET041806,1.509640183,ETH,motorized_travel_time_to_health,3
-Yeka,ET140107,1.51308938,ETH,motorized_travel_time_to_health,3
-Gimbi town,ET040193,1.51386276,ETH,motorized_travel_time_to_health,3
-Woliso town,ET041311,1.519877533,ETH,motorized_travel_time_to_health,3
-Durame town,ET070308,1.553036574,ETH,motorized_travel_time_to_health,3
-Debark town,ET030198,1.560030508,ETH,motorized_travel_time_to_health,3
-Dodola town,ET041700,1.585676789,ETH,motorized_travel_time_to_health,3
-Endabaguna town,ET010114,1.615766923,ETH,motorized_travel_time_to_health,3
-Tercha town,ET071711,1.621061397,ETH,motorized_travel_time_to_health,3
-Fiche town,ET040613,1.635398421,ETH,motorized_travel_time_to_health,3
-Negele town,ET041414,1.64416378,ETH,motorized_travel_time_to_health,3
-Butajira town,ET070115,1.654706707,ETH,motorized_travel_time_to_health,3
-Holeta town,ET042020,1.685737967,ETH,motorized_travel_time_to_health,3
-Welkite town,ET070114,1.696138769,ETH,motorized_travel_time_to_health,3
-Adola town,ET041492,1.724489657,ETH,motorized_travel_time_to_health,3
-Sodo Town,ET070613,1.734357263,ETH,motorized_travel_time_to_health,3
-Kemisie town,ET031006,1.736753774,ETH,motorized_travel_time_to_health,3
-Yirgalem town,ET160020,1.757455341,ETH,motorized_travel_time_to_health,3
-Legehare,ET150105,1.765205145,ETH,motorized_travel_time_to_health,3
-Jinka town,ET070709,1.82350213,ETH,motorized_travel_time_to_health,3
-Areka town,ET070614,1.84406393,ETH,motorized_travel_time_to_health,3
-Metu town,ET040320,1.937109944,ETH,motorized_travel_time_to_health,3
-Wondo-Genet town,ET160036,1.980147958,ETH,motorized_travel_time_to_health,3
-Jinela,ET130103,2.013733035,ETH,motorized_travel_time_to_health,3
-Tepi,ET070804,2.145639645,ETH,motorized_travel_time_to_health,3
-Bole,ET140104,2.256422753,ETH,motorized_travel_time_to_health,3
-Kebribayah town,ET050296,2.313017591,ETH,motorized_travel_time_to_health,3
-Bure town,ET030798,2.351353701,ETH,motorized_travel_time_to_health,3
-Awash town,ET020396,2.360739159,ETH,motorized_travel_time_to_health,3
-Hawzen town,ET010312,2.409119534,ETH,motorized_travel_time_to_health,3
-Adwa town,ET010212,2.43701812,ETH,motorized_travel_time_to_health,3
-Asela town,ET040825,2.516215786,ETH,motorized_travel_time_to_health,3
-Arba Minch town,ET071021,2.548495077,ETH,motorized_travel_time_to_health,3
-Hawela,ET160023,2.593454539,ETH,motorized_travel_time_to_health,3
-Hosaena town,ET070211,2.649339437,ETH,motorized_travel_time_to_health,3
-Tora town,ET072009,2.711219104,ETH,motorized_travel_time_to_health,3
-Akaki - Kalit,ET140101,2.714597961,ETH,motorized_travel_time_to_health,3
-Lege Tafo-Lege Dadi town,ET042004,2.717435561,ETH,motorized_travel_time_to_health,3
-Yabelo town,ET041296,2.758452332,ETH,motorized_travel_time_to_health,3
-Adete town,ET030799,2.834340155,ETH,motorized_travel_time_to_health,3
-Gesuba town,ET070617,2.856943771,ETH,motorized_travel_time_to_health,3
-Alamata town,ET010411,2.871272279,ETH,motorized_travel_time_to_health,3
-Sabian,ET150103,2.926118652,ETH,motorized_travel_time_to_health,3
-Shenkor,ET130102,3.014735945,ETH,motorized_travel_time_to_health,3
-Hakim,ET130104,3.121345992,ETH,motorized_travel_time_to_health,3
-Dire Teyara,ET130106,3.122826036,ETH,motorized_travel_time_to_health,3
-Mizan Aman town,ET071107,3.167568858,ETH,motorized_travel_time_to_health,3
-Chiro town,ET040905,3.189610176,ETH,motorized_travel_time_to_health,3
-Nejo town,ET040199,3.227720372,ETH,motorized_travel_time_to_health,3
-Gendawuha town,ET031292,3.242942328,ETH,motorized_travel_time_to_health,3
-Wacha,ET070914,3.517306374,ETH,motorized_travel_time_to_health,3
-Sawla town,ET071507,3.616488592,ETH,motorized_travel_time_to_health,3
-Mojo Town,ET040797,3.807778451,ETH,motorized_travel_time_to_health,3
-Hadero town,ET070312,3.826119521,ETH,motorized_travel_time_to_health,3
-Deder town,ET041097,3.845674753,ETH,motorized_travel_time_to_health,3
-Boricha,ET160010,3.942955969,ETH,motorized_travel_time_to_health,3
-Chagni town,ET030999,4.00241686,ETH,motorized_travel_time_to_health,3
-Korem town,ET010410,4.086396952,ETH,motorized_travel_time_to_health,3
-Kazira,ET150113,4.146169092,ETH,motorized_travel_time_to_health,3
-Goba town,ET041120,4.358604311,ETH,motorized_travel_time_to_health,3
-Misirak Silti,ET072013,4.552311758,ETH,motorized_travel_time_to_health,3
-Lanfero,ET072003,4.608556503,ETH,motorized_travel_time_to_health,3
-Adama town,ET040714,4.636132816,ETH,motorized_travel_time_to_health,3
-Aleme Ketma,ET030599,4.695310295,ETH,motorized_travel_time_to_health,3
-Bishoftu town,ET040709,4.746014296,ETH,motorized_travel_time_to_health,3
-Abi Adi town,ET010211,4.818103885,ETH,motorized_travel_time_to_health,3
-Hawasa town,ET160018,4.828359906,ETH,motorized_travel_time_to_health,3
-Malga,ET160012,4.864622101,ETH,motorized_travel_time_to_health,3
-Burayu,ET042001,4.878671176,ETH,motorized_travel_time_to_health,3
-Misrak Meskan,ET070118,4.951845525,ETH,motorized_travel_time_to_health,3
-Arsi Negele town,ET041799,5.026920605,ETH,motorized_travel_time_to_health,3
-Alicho Woriro,ET072001,5.170561631,ETH,motorized_travel_time_to_health,3
-Emdebir town,ET070116,5.210323393,ETH,motorized_travel_time_to_health,3
-Mierab Azenet Berbere,ET072004,5.286202188,ETH,motorized_travel_time_to_health,3
-Mersa town,ET030397,5.479135895,ETH,motorized_travel_time_to_health,3
-Gedeb town,ET070511,5.49353215,ETH,motorized_travel_time_to_health,3
-Boditi town,ET070615,5.586537067,ETH,motorized_travel_time_to_health,3
-Ambo town,ET040515,5.652549751,ETH,motorized_travel_time_to_health,3
-Dubti town,ET020107,5.718909502,ETH,motorized_travel_time_to_health,3
-Wenago,ET070501,5.850766151,ETH,motorized_travel_time_to_health,3
-Wukro town,ET010309,5.924123956,ETH,motorized_travel_time_to_health,3
-Homa,ET040117,5.999688108,ETH,motorized_travel_time_to_health,3
-Edaga Hamus town,ET010311,6.081462542,ETH,motorized_travel_time_to_health,3
-Endiguagn,ET070108,6.090889433,ETH,motorized_travel_time_to_health,3
-Sofi,ET130101,6.191688329,ETH,motorized_travel_time_to_health,3
-Godey town,ET050696,6.211084541,ETH,motorized_travel_time_to_health,3
-Malka Jabti /M.Jebdu),ET150104,6.226935325,ETH,motorized_travel_time_to_health,3
-Yirgachefe,ET070502,6.270002069,ETH,motorized_travel_time_to_health,3
-Jimma town,ET040418,6.348089881,ETH,motorized_travel_time_to_health,3
-Shebe Dino,ET160001,6.349205818,ETH,motorized_travel_time_to_health,3
-Debre Markos town,ET030615,6.620438801,ETH,motorized_travel_time_to_health,3
-Shone Town,ET070212,6.694458697,ETH,motorized_travel_time_to_health,3
-Mareko,ET070107,6.716041394,ETH,motorized_travel_time_to_health,3
-Gumer,ET070109,6.813065626,ETH,motorized_travel_time_to_health,3
-Adigudom,ET010607,6.883356762,ETH,motorized_travel_time_to_health,3
-Bursa,ET160015,6.920513258,ETH,motorized_travel_time_to_health,3
-Gorche,ET160011,6.929692419,ETH,motorized_travel_time_to_health,3
-Wondo-Genet,ET160019,6.949129604,ETH,motorized_travel_time_to_health,3
-Damboya,ET070307,7.036583202,ETH,motorized_travel_time_to_health,3
-Bishan Guracha,ET041798,7.116260141,ETH,motorized_travel_time_to_health,3
-Kulito town,ET071401,7.135394057,ETH,motorized_travel_time_to_health,3
-Kemba town,ET071012,7.144792438,ETH,motorized_travel_time_to_health,3
-Misha,ET070201,7.24641708,ETH,motorized_travel_time_to_health,3
-Ezha,ET070103,7.296115365,ETH,motorized_travel_time_to_health,3
-Nekemte town,ET040297,7.329558127,ETH,motorized_travel_time_to_health,3
-Ginir town,ET042107,7.362442027,ETH,motorized_travel_time_to_health,3
-Erer (HR),ET130105,7.588694784,ETH,motorized_travel_time_to_health,3
-Kibet town,ET072011,7.626415672,ETH,motorized_travel_time_to_health,3
-Aweday town,ET041099,7.757036089,ETH,motorized_travel_time_to_health,3
-Robe Town,ET041119,7.862084778,ETH,motorized_travel_time_to_health,3
-Sankura,ET072006,8.022903889,ETH,motorized_travel_time_to_health,3
-Silti,ET072002,8.04165017,ETH,motorized_travel_time_to_health,3
-Mito,ET072012,8.186082358,ETH,motorized_travel_time_to_health,3
-Injibara town,ET030996,8.630976645,ETH,motorized_travel_time_to_health,3
-Police Maret,ET150114,8.640033007,ETH,motorized_travel_time_to_health,3
-Amir Nur,ET130107,8.646811279,ETH,motorized_travel_time_to_health,3
-Kobo town,ET030399,8.75388662,ETH,motorized_travel_time_to_health,3
-Wondo,ET041797,8.775442386,ETH,motorized_travel_time_to_health,3
-Siraro Badawacho,ET070216,9.127020343,ETH,motorized_travel_time_to_health,3
-Misrak Badawacho,ET070205,9.175946154,ETH,motorized_travel_time_to_health,3
-Sodo,ET070105,9.212584839,ETH,motorized_travel_time_to_health,3
-Woldiya town,ET030309,9.42616822,ETH,motorized_travel_time_to_health,3
-Geta,ET070113,9.46635612,ETH,motorized_travel_time_to_health,3
-Angacha,ET070302,9.510611375,ETH,motorized_travel_time_to_health,3
-Worabe town,ET072010,9.575777565,ETH,motorized_travel_time_to_health,3
-Shashemene Zuria,ET041712,9.650645578,ETH,motorized_travel_time_to_health,3
-Dale,ET160004,9.682370282,ETH,motorized_travel_time_to_health,3
-Teticha,ET160026,9.812833153,ETH,motorized_travel_time_to_health,3
-Bulike town,ET071508,10.03901851,ETH,motorized_travel_time_to_health,3
-Dalocha,ET072005,10.07415124,ETH,motorized_travel_time_to_health,3
-Sululta town,ET042005,10.30172319,ETH,motorized_travel_time_to_health,3
-Hawassa Zuria,ET160002,10.38078254,ETH,motorized_travel_time_to_health,3
-Nefas Mewicha town,ET030215,10.403825,ETH,motorized_travel_time_to_health,3
-Damot Pullasa,ET070611,10.41552628,ETH,motorized_travel_time_to_health,3
-Kediada Gambela,ET070303,10.45331239,ETH,motorized_travel_time_to_health,3
-Lalo Asabi,ET040104,10.47639982,ETH,motorized_travel_time_to_health,3
-Setit Humera,ET010504,10.53622009,ETH,motorized_travel_time_to_health,3
-Sire,ET040820,10.58493023,ETH,motorized_travel_time_to_health,3
-Doyogena,ET070306,10.61258429,ETH,motorized_travel_time_to_health,3
-Ada'a,ET040706,10.63469501,ETH,motorized_travel_time_to_health,3
-Aleta Wendo,ET160005,10.67262385,ETH,motorized_travel_time_to_health,3
-Lemmo,ET070203,10.71863416,ETH,motorized_travel_time_to_health,3
-Gelana (Finfine),ET042098,10.74866415,ETH,motorized_travel_time_to_health,3
-Kebridehar town,ET050592,10.75929245,ETH,motorized_travel_time_to_health,3
-Yubdo,ET040112,10.76214248,ETH,motorized_travel_time_to_health,3
-Mekelle,ET010701,10.83524448,ETH,motorized_travel_time_to_health,3
-Enticho town,ET010220,10.92134132,ETH,motorized_travel_time_to_health,3
-Guagusa Shikudad,ET030907,10.94529964,ETH,motorized_travel_time_to_health,3
-Finote Selam town,ET030714,11.04211391,ETH,motorized_travel_time_to_health,3
-Kochere,ET070503,11.13238346,ETH,motorized_travel_time_to_health,3
-Dara,ET160006,11.18649502,ETH,motorized_travel_time_to_health,3
-Akaki,ET042012,11.29690663,ETH,motorized_travel_time_to_health,3
-Meskan,ET070106,11.42190576,ETH,motorized_travel_time_to_health,3
-Ataye town,ET030598,11.6395817,ETH,motorized_travel_time_to_health,3
-Gedeb,ET070506,11.73582784,ETH,motorized_travel_time_to_health,3
-Diksis,ET040822,11.78195622,ETH,motorized_travel_time_to_health,3
-Wonosho,ET160013,11.90314493,ETH,motorized_travel_time_to_health,3
-Debre Tabor town,ET030210,11.90868039,ETH,motorized_travel_time_to_health,3
-Gaji,ET040113,11.91759477,ETH,motorized_travel_time_to_health,3
-Pawe,ET060206,11.96666205,ETH,motorized_travel_time_to_health,3
-Jeju,ET040804,11.9795667,ETH,motorized_travel_time_to_health,3
-Dessie town,ET030418,12.03665135,ETH,motorized_travel_time_to_health,3
-Jigjiga town,ET050293,12.23352475,ETH,motorized_travel_time_to_health,3
-Damot Sore,ET070609,12.24097018,ETH,motorized_travel_time_to_health,3
-Boloso Sore,ET070601,12.25691801,ETH,motorized_travel_time_to_health,3
-Mekane Selame,ET030498,12.33663293,ETH,motorized_travel_time_to_health,3
-Gibe,ET070210,12.36928182,ETH,motorized_travel_time_to_health,3
-Kurfa Chele,ET041007,12.56977074,ETH,motorized_travel_time_to_health,3
-Atote Ulo,ET071403,12.59923168,ETH,motorized_travel_time_to_health,3
-Shoa Robit,ET030595,12.60280843,ETH,motorized_travel_time_to_health,3
-Rape,ET070509,12.63150152,ETH,motorized_travel_time_to_health,3
-Shafamo,ET160028,12.71252691,ETH,motorized_travel_time_to_health,3
-Debub Sodo,ET070119,12.7774218,ETH,motorized_travel_time_to_health,3
-Kombolcha,ET041001,12.78735916,ETH,motorized_travel_time_to_health,3
-Dila Zuria,ET070505,12.78757707,ETH,motorized_travel_time_to_health,3
-Cheha,ET070110,12.81324065,ETH,motorized_travel_time_to_health,3
-Mirab Badowach,ET070209,12.96498559,ETH,motorized_travel_time_to_health,3
-Siraro,ET041701,13.00987618,ETH,motorized_travel_time_to_health,3
-Dara Otilicho,ET160025,13.1090993,ETH,motorized_travel_time_to_health,3
-Sheraro town,ET010107,13.25032114,ETH,motorized_travel_time_to_health,3
-Meta,ET041009,13.32660662,ETH,motorized_travel_time_to_health,3
-Dugda,ET040707,13.35740521,ETH,motorized_travel_time_to_health,3
-Degua Temben,ET010604,13.37600566,ETH,motorized_travel_time_to_health,3
-Dodota,ET040805,13.46093355,ETH,motorized_travel_time_to_health,3
-Kersa (East Hararge),ET041008,13.7109391,ETH,motorized_travel_time_to_health,3
-Kofele,ET041704,13.76657602,ETH,motorized_travel_time_to_health,3
-Wera,ET071402,13.88376668,ETH,motorized_travel_time_to_health,3
-Sodo Zuria,ET070605,14.00925938,ETH,motorized_travel_time_to_health,3
-Asayita town,ET020111,14.15999545,ETH,motorized_travel_time_to_health,3
-Sodo Daci,ET041314,14.21764123,ETH,motorized_travel_time_to_health,3
-Kacha Bira,ET070304,14.37393044,ETH,motorized_travel_time_to_health,3
-Kombolcha town,ET030417,14.54620853,ETH,motorized_travel_time_to_health,3
-Shashogo,ET070204,14.61546025,ETH,motorized_travel_time_to_health,3
-Liben Chukala,ET040711,14.67250595,ETH,motorized_travel_time_to_health,3
-Goma,ET040407,14.67831898,ETH,motorized_travel_time_to_health,3
-Dama,ET041408,14.6875381,ETH,motorized_travel_time_to_health,3
-Churso,ET070510,14.73265839,ETH,motorized_travel_time_to_health,3
-Bora (OR),ET040710,14.76380132,ETH,motorized_travel_time_to_health,3
-Muhur Na Aklil,ET070112,15.35646221,ETH,motorized_travel_time_to_health,3
-Aseliso,ET150201,15.3631248,ETH,motorized_travel_time_to_health,3
-Samera Logiya town,ET020198,15.50394129,ETH,motorized_travel_time_to_health,3
-Haro Maya,ET041006,15.51750503,ETH,motorized_travel_time_to_health,3
-Bule,ET070504,15.63075304,ETH,motorized_travel_time_to_health,3
-Ameka,ET070215,15.97552376,ETH,motorized_travel_time_to_health,3
-Bahir Dar town,ET030712,16.01996736,ETH,motorized_travel_time_to_health,3
-Gidi Bench,ET071106,16.22714943,ETH,motorized_travel_time_to_health,3
-Boko Dawula,ET070710,16.24820194,ETH,motorized_travel_time_to_health,3
-Shakiso town,ET041499,16.28207852,ETH,motorized_travel_time_to_health,3
-Sinana,ET041109,16.36520253,ETH,motorized_travel_time_to_health,3
-Sebeta town,ET042009,16.62618919,ETH,motorized_travel_time_to_health,3
-Hulla,ET160007,16.65409982,ETH,motorized_travel_time_to_health,3
-Dano,ET040507,16.66740453,ETH,motorized_travel_time_to_health,3
-Tiyo,ET040816,16.73880816,ETH,motorized_travel_time_to_health,3
-Tebela town,ET070616,16.80535698,ETH,motorized_travel_time_to_health,3
-Boset,ET040702,16.93325379,ETH,motorized_travel_time_to_health,3
-Kindo Koyesha,ET070606,16.97702797,ETH,motorized_travel_time_to_health,3
-Adama,ET040703,17.05408178,ETH,motorized_travel_time_to_health,3
-Bore,ET041402,17.09117821,ETH,motorized_travel_time_to_health,3
-Bensa,ET160008,17.14687349,ETH,motorized_travel_time_to_health,3
-Inkolo Wabe,ET040824,17.39354075,ETH,motorized_travel_time_to_health,3
-Loma,ET071703,17.51021499,ETH,motorized_travel_time_to_health,3
-Damot Gale,ET070602,17.60395881,ETH,motorized_travel_time_to_health,3
-Biyoawale,ET150208,17.61852335,ETH,motorized_travel_time_to_health,3
-Wahil,ET150207,17.95304962,ETH,motorized_travel_time_to_health,3
-Tercha Zuriya,ET071707,18.03912023,ETH,motorized_travel_time_to_health,3
-Bona Zuria,ET160017,18.05570231,ETH,motorized_travel_time_to_health,3
-Sekota town,ET030807,18.1018848,ETH,motorized_travel_time_to_health,3
-Bayera Koisha,ET070622,18.21912066,ETH,motorized_travel_time_to_health,3
-Gulo Mekeda,ET010301,18.38810912,ETH,motorized_travel_time_to_health,3
-Gimbichu,ET040705,18.56394795,ETH,motorized_travel_time_to_health,3
-Arbegona,ET160003,18.68510961,ETH,motorized_travel_time_to_health,3
-Adama Tulu Jido Kombolcha,ET040708,18.70904957,ETH,motorized_travel_time_to_health,3
-Lome (OR),ET040704,18.78421829,ETH,motorized_travel_time_to_health,3
-Hawzen,ET010305,19.05083593,ETH,motorized_travel_time_to_health,3
-Mena (Jimma),ET040406,19.08363417,ETH,motorized_travel_time_to_health,3
-Boji Chekorsa,ET040110,19.1442937,ETH,motorized_travel_time_to_health,3
-Kelete Awelallo,ET010306,19.29622017,ETH,motorized_travel_time_to_health,3
-Misrak Azenet Berbere,ET072007,19.41916984,ETH,motorized_travel_time_to_health,3
-Bilate Zuria,ET160032,19.51268579,ETH,motorized_travel_time_to_health,3
-Welmera,ET042014,19.59251794,ETH,motorized_travel_time_to_health,3
-Fagta Lakoma,ET030905,19.61913609,ETH,motorized_travel_time_to_health,3
-Metema Yohanes town,ET031224,19.63432199,ETH,motorized_travel_time_to_health,3
-Goro Muti,ET041089,19.6619386,ETH,motorized_travel_time_to_health,3
-Goro Gutu,ET041010,19.83415974,ETH,motorized_travel_time_to_health,3
-Debre Berhan town,ET030520,19.88253092,ETH,motorized_travel_time_to_health,3
-Boneya Boshe,ET040205,19.98735022,ETH,motorized_travel_time_to_health,3
-Wajale town,ET050295,20.01462252,ETH,motorized_travel_time_to_health,3
-Adilo,ET070309,20.11096099,ETH,motorized_travel_time_to_health,3
-Kindo Daddaye,ET070610,20.86343365,ETH,motorized_travel_time_to_health,3
-Borecha,ET041607,20.90060936,ETH,motorized_travel_time_to_health,3
-Karat Zuria,ET071303,21.2337347,ETH,motorized_travel_time_to_health,3
-Nono,ET040508,21.35326998,ETH,motorized_travel_time_to_health,3
-Ziway Dugda,ET040806,21.41768585,ETH,motorized_travel_time_to_health,3
-Gobu Seyo,ET040208,21.67424262,ETH,motorized_travel_time_to_health,3
-Analemmo,ET070208,21.77329991,ETH,motorized_travel_time_to_health,3
-Ejere /Addis Alem,ET040511,21.98549605,ETH,motorized_travel_time_to_health,3
-Sedi Chenka,ET041812,22.01797017,ETH,motorized_travel_time_to_health,3
-Chirone,ET160027,22.068422,ETH,motorized_travel_time_to_health,3
-Jimma Rare,ET041907,22.29890525,ETH,motorized_travel_time_to_health,3
-Aleta Chuko,ET160016,22.30145166,ETH,motorized_travel_time_to_health,3
-Shay Bench,ET071104,22.52323567,ETH,motorized_travel_time_to_health,3
-Damot Woide,ET070603,22.52421393,ETH,motorized_travel_time_to_health,3
-Midre Genet,ET031223,22.52818783,ETH,motorized_travel_time_to_health,3
-Kore,ET041705,22.57886793,ETH,motorized_travel_time_to_health,3
-Lalo Kile,ET041811,22.68194449,ETH,motorized_travel_time_to_health,3
-Banja,ET030902,22.76791075,ETH,motorized_travel_time_to_health,3
-Kawo Koisha,ET070620,22.8946069,ETH,motorized_travel_time_to_health,3
-Debre Libanos,ET040607,22.97636654,ETH,motorized_travel_time_to_health,3
-Lude Hitosa,ET040821,23.04101551,ETH,motorized_travel_time_to_health,3
-Bonke,ET071014,23.09057643,ETH,motorized_travel_time_to_health,3
-Nole Kaba,ET040115,23.19355947,ETH,motorized_travel_time_to_health,3
-Kersana Malima,ET041307,23.23462745,ETH,motorized_travel_time_to_health,3
-Gonder town,ET031118,23.44538209,ETH,motorized_travel_time_to_health,3
-Gedeb Asasa,ET041706,23.51382155,ETH,motorized_travel_time_to_health,3
-Mari Mansa,ET071708,23.5782279,ETH,motorized_travel_time_to_health,3
-Emba Sieneti,ET010219,23.64335033,ETH,motorized_travel_time_to_health,3
-Bura,ET160024,23.68751072,ETH,motorized_travel_time_to_health,3
-Sasiga,ET040211,23.71169118,ETH,motorized_travel_time_to_health,3
-Daramalo,ET071009,23.75266921,ETH,motorized_travel_time_to_health,3
-Shala,ET041702,23.75569397,ETH,motorized_travel_time_to_health,3
-May Gaba,ET010509,23.80877426,ETH,motorized_travel_time_to_health,3
-Ayira,ET040107,23.85426371,ETH,motorized_travel_time_to_health,3
-Deder,ET041011,23.9354823,ETH,motorized_travel_time_to_health,3
-Haru,ET040114,23.95147925,ETH,motorized_travel_time_to_health,3
-Bako Tibe,ET040506,23.95746133,ETH,motorized_travel_time_to_health,3
-Kemba,ET071011,24.15128938,ETH,motorized_travel_time_to_health,3
-Duna,ET070207,24.15332895,ETH,motorized_travel_time_to_health,3
-Adwa,ET010204,24.33661986,ETH,motorized_travel_time_to_health,3
-Gursum (OR),ET041003,24.34656654,ETH,motorized_travel_time_to_health,3
-Michakel,ET030609,24.34941425,ETH,motorized_travel_time_to_health,3
-Wera Djo,ET071404,24.35173616,ETH,motorized_travel_time_to_health,3
-Boji Dirmeji,ET040106,24.36149065,ETH,motorized_travel_time_to_health,3
-Guna,ET040819,24.42175218,ETH,motorized_travel_time_to_health,3
-Degeluna Tijo,ET040815,24.57893309,ETH,motorized_travel_time_to_health,3
-Boloso Bombe,ET070608,24.59881805,ETH,motorized_travel_time_to_health,3
-Thehulederie,ET030405,24.68121087,ETH,motorized_travel_time_to_health,3
-Zala,ET071503,24.79002045,ETH,motorized_travel_time_to_health,3
-Derashe Special,ET072304,24.97772593,ETH,motorized_travel_time_to_health,3
-Ofa,ET070607,25.07617201,ETH,motorized_travel_time_to_health,3
-Ilu,ET041305,25.10569838,ETH,motorized_travel_time_to_health,3
-Bedeno,ET041013,25.12892339,ETH,motorized_travel_time_to_health,3
-Hokko,ET160031,25.1397814,ETH,motorized_travel_time_to_health,3
-Ganta Afeshum,ET010304,25.18842882,ETH,motorized_travel_time_to_health,3
-Chabe Gambeltu,ET160029,25.27018088,ETH,motorized_travel_time_to_health,3
-Jarso (West Wellega),ET040108,25.39554433,ETH,motorized_travel_time_to_health,3
-Hulbareg,ET072008,25.40091743,ETH,motorized_travel_time_to_health,3
-Semen Bench,ET071105,25.44991307,ETH,motorized_travel_time_to_health,3
-Badele Zuria,ET041622,25.4838516,ETH,motorized_travel_time_to_health,3
-Gursum (SM),ET050202,25.58196478,ETH,motorized_travel_time_to_health,3
-Sayo Nole,ET040118,25.71590424,ETH,motorized_travel_time_to_health,3
-Leta Sibu,ET040197,25.71786685,ETH,motorized_travel_time_to_health,3
-Wayu Tuka,ET040206,25.72258807,ETH,motorized_travel_time_to_health,3
-Kokosa,ET041708,25.7629855,ETH,motorized_travel_time_to_health,3
-Mareka,ET071702,25.83249796,ETH,motorized_travel_time_to_health,3
-Guliso,ET040119,25.91010675,ETH,motorized_travel_time_to_health,3
-Abay Chomen,ET041905,26.03904687,ETH,motorized_travel_time_to_health,3
-Gambela town,ET120206,26.33297701,ETH,motorized_travel_time_to_health,3
-Kena,ET071304,26.43437398,ETH,motorized_travel_time_to_health,3
-Bereh,ET042011,26.44964616,ETH,motorized_travel_time_to_health,3
-Mendi town,ET040198,26.52878925,ETH,motorized_travel_time_to_health,3
-Seden Sodo,ET041310,26.56016313,ETH,motorized_travel_time_to_health,3
-Haro Walabu,ET041490,26.67007374,ETH,motorized_travel_time_to_health,3
-Wenchi,ET041302,26.80410108,ETH,motorized_travel_time_to_health,3
-Habro,ET040908,26.90639474,ETH,motorized_travel_time_to_health,3
-Hitosa,ET040807,26.9661447,ETH,motorized_travel_time_to_health,3
-Alge Sachi,ET040302,27.36278192,ETH,motorized_travel_time_to_health,3
-Tikur Enchini,ET040509,27.39168518,ETH,motorized_travel_time_to_health,3
-Kercha,ET041502,27.39606016,ETH,motorized_travel_time_to_health,3
-Tulo (OR),ET040903,27.53132264,ETH,motorized_travel_time_to_health,3
-Abaala town,ET020209,27.53495267,ETH,motorized_travel_time_to_health,3
-Waliso,ET041303,27.6732101,ETH,motorized_travel_time_to_health,3
-Gesha,ET070902,27.72274768,ETH,motorized_travel_time_to_health,3
-Duguna Fango,ET070612,27.95095305,ETH,motorized_travel_time_to_health,3
-Sekoru,ET040403,27.96126409,ETH,motorized_travel_time_to_health,3
-Geraleta,ET010317,27.96942154,ETH,motorized_travel_time_to_health,3
-Illu Galan,ET040500,28.10211471,ETH,motorized_travel_time_to_health,3
-Degahabur town,ET050307,28.18292806,ETH,motorized_travel_time_to_health,3
-Gechi,ET041606,28.18770786,ETH,motorized_travel_time_to_health,3
-Merti,ET040801,28.40988857,ETH,motorized_travel_time_to_health,3
-Boreda,ET071004,28.48168956,ETH,motorized_travel_time_to_health,3
-Fentale,ET040701,28.51320937,ETH,motorized_travel_time_to_health,3
-Tanqua Melashe,ET010222,28.52026861,ETH,motorized_travel_time_to_health,3
-Abeshege,ET070102,28.69438758,ETH,motorized_travel_time_to_health,3
-Darara,ET160033,28.85801601,ETH,motorized_travel_time_to_health,3
-Dale Sadi,ET041808,28.90203332,ETH,motorized_travel_time_to_health,3
-West Dembiya,ET031125,28.92934097,ETH,motorized_travel_time_to_health,3
-Dangila,ET030901,29.03158056,ETH,motorized_travel_time_to_health,3
-Goba Koricha,ET040907,29.04949954,ETH,motorized_travel_time_to_health,3
-Dega,ET041604,29.05669355,ETH,motorized_travel_time_to_health,3
-Bule Hora,ET041501,29.11916975,ETH,motorized_travel_time_to_health,3
-Chiro Zuria,ET040913,29.14549637,ETH,motorized_travel_time_to_health,3
-Limu Bilbilo,ET040818,29.1493144,ETH,motorized_travel_time_to_health,3
-Wama Hagalo,ET040216,29.16072161,ETH,motorized_travel_time_to_health,3
-Dendi,ET040510,29.17787288,ETH,motorized_travel_time_to_health,3
-Dawo,ET041304,29.2689266,ETH,motorized_travel_time_to_health,3
-Yama Logi Welel,ET041802,29.36811445,ETH,motorized_travel_time_to_health,3
-Mecha,ET030704,29.41570767,ETH,motorized_travel_time_to_health,3
-Tuliguled,ET050283,29.5027876,ETH,motorized_travel_time_to_health,3
-Kebena,ET070101,29.74790493,ETH,motorized_travel_time_to_health,3
-Bizet,ET010310,29.94950267,ETH,motorized_travel_time_to_health,3
-Gombora,ET070202,30.06190431,ETH,motorized_travel_time_to_health,3
-Egela,ET010216,30.09282146,ETH,motorized_travel_time_to_health,3
-Omo Nada,ET040411,30.182147,ETH,motorized_travel_time_to_health,3
-Sebeta Hawas,ET042006,30.63119045,ETH,motorized_travel_time_to_health,3
-Enemor Ener,ET070111,30.68353453,ETH,motorized_travel_time_to_health,3
-Tembaro,ET070301,30.7536142,ETH,motorized_travel_time_to_health,3
-Debub Bench,ET071103,31.04684019,ETH,motorized_travel_time_to_health,3
-Minjar Shenkora,ET030518,31.12035533,ETH,motorized_travel_time_to_health,3
-Aheferom,ET010202,31.49298817,ETH,motorized_travel_time_to_health,3
-Dewa Harewa,ET031005,31.51003068,ETH,motorized_travel_time_to_health,3
-Limu Seka,ET040401,31.51466851,ETH,motorized_travel_time_to_health,3
-Guto Gida,ET040213,31.72693531,ETH,motorized_travel_time_to_health,3
-O'yida,ET071506,31.77178338,ETH,motorized_travel_time_to_health,3
-Tiro Afeta,ET040404,31.93597572,ETH,motorized_travel_time_to_health,3
-Fedis,ET041005,31.98243633,ETH,motorized_travel_time_to_health,3
-Rama,ET010214,32.0168464,ETH,motorized_travel_time_to_health,3
-Gerese,ET071013,32.02350111,ETH,motorized_travel_time_to_health,3
-Lare,ET120102,32.24805039,ETH,motorized_travel_time_to_health,3
-Arsi Negele,ET041703,32.4784612,ETH,motorized_travel_time_to_health,3
-Girawa,ET041016,32.60822212,ETH,motorized_travel_time_to_health,3
-Nono Benja,ET040499,32.77603034,ETH,motorized_travel_time_to_health,3
-Amibara,ET020301,33.04689667,ETH,motorized_travel_time_to_health,3
-Sekela,ET030705,33.68854468,ETH,motorized_travel_time_to_health,3
-Keyhe tekli,ET010221,33.71298306,ETH,motorized_travel_time_to_health,3
-Aleltu,ET040617,33.78248841,ETH,motorized_travel_time_to_health,3
-Jabi Tehnan,ET030709,33.95611538,ETH,motorized_travel_time_to_health,3
-Robe,ET040812,34.00438301,ETH,motorized_travel_time_to_health,3
-Dembecha,ET030708,34.37105262,ETH,motorized_travel_time_to_health,3
-Nejo,ET040102,34.37912121,ETH,motorized_travel_time_to_health,3
-Birbirsa Kojowa,ET041596,34.55474773,ETH,motorized_travel_time_to_health,3
-Laelay Maychew,ET010205,34.77378461,ETH,motorized_travel_time_to_health,3
-Edaga arbi,ET010203,35.05064473,ETH,motorized_travel_time_to_health,3
-Diga,ET040210,35.15844316,ETH,motorized_travel_time_to_health,3
-Hambela Wamena,ET041509,35.16636659,ETH,motorized_travel_time_to_health,3
-Kersa (Jimma),ET040405,35.17720923,ETH,motorized_travel_time_to_health,3
-Ayehu Guwagusa,ET030908,35.63213495,ETH,motorized_travel_time_to_health,3
-Debub Mecha,ET030715,35.64142056,ETH,motorized_travel_time_to_health,3
-Ankasha,ET030903,35.80634919,ETH,motorized_travel_time_to_health,3
-Ameya,ET041301,36.0144256,ETH,motorized_travel_time_to_health,3
-Gimbi,ET040103,36.1878277,ETH,motorized_travel_time_to_health,3
-Bilo Nopha,ET040315,36.25148669,ETH,motorized_travel_time_to_health,3
-Seyemti Adyabo,ET010110,36.40604779,ETH,motorized_travel_time_to_health,3
-Sude,ET040808,36.4777452,ETH,motorized_travel_time_to_health,3
-Nunu Kumba,ET040215,36.543582,ETH,motorized_travel_time_to_health,3
-Bahirdar Zuria,ET030702,36.71122704,ETH,motorized_travel_time_to_health,3
-Dedesa,ET041608,36.90970003,ETH,motorized_travel_time_to_health,3
-Bure (AM),ET030710,36.99381196,ETH,motorized_travel_time_to_health,3
-Horo Buluk,ET041912,37.0009173,ETH,motorized_travel_time_to_health,3
-Sibu Sire,ET040209,37.1227665,ETH,motorized_travel_time_to_health,3
-Undulu,ET060308,37.19339533,ETH,motorized_travel_time_to_health,3
-Goro (SW Shewa),ET041312,37.25634701,ETH,motorized_travel_time_to_health,3
-Bibugn,ET030601,37.36822509,ETH,motorized_travel_time_to_health,3
-Munessa,ET040817,37.4668017,ETH,motorized_travel_time_to_health,3
-Goncha Siso Enebse,ET030603,37.54901324,ETH,motorized_travel_time_to_health,3
-Dessie Zuria,ET030409,37.84550828,ETH,motorized_travel_time_to_health,3
-Chole,ET040809,37.90612058,ETH,motorized_travel_time_to_health,3
-Bele Gesgar,ET040823,37.9514943,ETH,motorized_travel_time_to_health,3
-Kiltu Kara,ET040105,38.06115256,ETH,motorized_travel_time_to_health,3
-Ejersa Lafo,ET040590,38.08269839,ETH,motorized_travel_time_to_health,3
-Hadero Tunto,ET070305,38.12138875,ETH,motorized_travel_time_to_health,3
-Legambo,ET030410,38.21733649,ETH,motorized_travel_time_to_health,3
-Chencha Zuriya,ET071006,38.37887933,ETH,motorized_travel_time_to_health,3
-Farta,ET030204,38.44196396,ETH,motorized_travel_time_to_health,3
-Gemechis,ET040912,38.62653454,ETH,motorized_travel_time_to_health,3
-Kimbibit,ET040610,38.6400409,ETH,motorized_travel_time_to_health,3
-Jimma Horo,ET041810,38.65949364,ETH,motorized_travel_time_to_health,3
-Doba,ET040902,38.83328686,ETH,motorized_travel_time_to_health,3
-Enderta,ET010602,38.90491477,ETH,motorized_travel_time_to_health,3
-Dubluk,ET041291,38.95732156,ETH,motorized_travel_time_to_health,3
-Debay Telatgen,ET030607,39.17561635,ETH,motorized_travel_time_to_health,3
-Hahayle,ET010217,39.20592957,ETH,motorized_travel_time_to_health,3
-Awash,ET020302,39.31581708,ETH,motorized_travel_time_to_health,3
-Legehida,ET030420,39.41430263,ETH,motorized_travel_time_to_health,3
-Artuma Fursi,ET031004,39.64528097,ETH,motorized_travel_time_to_health,3
-Basketo SP Woreda,ET071601,39.65739255,ETH,motorized_travel_time_to_health,3
-Guchi,ET041290,39.76264289,ETH,motorized_travel_time_to_health,3
-Gida Ayana,ET040203,39.78944596,ETH,motorized_travel_time_to_health,3
-Enor Ener,ET070120,39.83942927,ETH,motorized_travel_time_to_health,3
-Debub Achefer,ET030713,39.99726506,ETH,motorized_travel_time_to_health,3
-Chena,ET070909,40.01701142,ETH,motorized_travel_time_to_health,3
-Dabo Hana,ET041605,40.01870155,ETH,motorized_travel_time_to_health,3
-Uraga,ET041401,40.03727517,ETH,motorized_travel_time_to_health,3
-East Dembia,ET031111,40.03748182,ETH,motorized_travel_time_to_health,3
-Gimbo,ET070904,40.08118423,ETH,motorized_travel_time_to_health,3
-Bambasi,ET060305,40.2347765,ETH,motorized_travel_time_to_health,3
-Leka Dulecha,ET040212,40.28988727,ETH,motorized_travel_time_to_health,3
-Halu /Huka,ET040319,40.32000656,ETH,motorized_travel_time_to_health,3
-Goro (Bale),ET041116,40.45048106,ETH,motorized_travel_time_to_health,3
-Bora (TG),ET010402,40.46297559,ETH,motorized_travel_time_to_health,3
-Ezo /Kogota,ET071007,40.53616911,ETH,motorized_travel_time_to_health,3
-Mirab Abaya,ET071005,40.6359847,ETH,motorized_travel_time_to_health,3
-Albuko,ET030408,40.65819362,ETH,motorized_travel_time_to_health,3
-Adola,ET041403,40.74169127,ETH,motorized_travel_time_to_health,3
-Jibat,ET040518,40.80591434,ETH,motorized_travel_time_to_health,3
-Zata,ET010413,40.81109702,ETH,motorized_travel_time_to_health,3
-Dewa Cheffa,ET031001,40.8125945,ETH,motorized_travel_time_to_health,3
-Mesela,ET040904,40.82523939,ETH,motorized_travel_time_to_health,3
-Jimma Arjo,ET040214,41.11656025,ETH,motorized_travel_time_to_health,3
-Darimu,ET040301,41.49732613,ETH,motorized_travel_time_to_health,3
-Senan,ET030616,41.67128959,ETH,motorized_travel_time_to_health,3
-Abela Abaya,ET070621,41.7333539,ETH,motorized_travel_time_to_health,3
-Were Ilu,ET030415,41.75895904,ETH,motorized_travel_time_to_health,3
-Chire,ET160014,41.8808793,ETH,motorized_travel_time_to_health,3
-Yem SP Woreda,ET072401,41.91214958,ETH,motorized_travel_time_to_health,3
-Abergele (TG),ET010210,41.91861476,ETH,motorized_travel_time_to_health,3
-Ahsea,ET010215,41.93360808,ETH,motorized_travel_time_to_health,3
-Homosha,ET060307,42.131287,ETH,motorized_travel_time_to_health,3
-Selekleka,ET010109,42.35744032,ETH,motorized_travel_time_to_health,3
-Daella,ET160034,42.49481278,ETH,motorized_travel_time_to_health,3
-Toke Kutaye,ET040517,42.73829461,ETH,motorized_travel_time_to_health,3
-Wadera,ET041404,42.74433887,ETH,motorized_travel_time_to_health,3
-Ginir,ET042103,42.88812939,ETH,motorized_travel_time_to_health,3
-Aw-Bare,ET050205,42.89707069,ETH,motorized_travel_time_to_health,3
-Haroreys,ET050298,42.91622368,ETH,motorized_travel_time_to_health,3
-Arba Minch Zuria,ET071015,43.01793139,ETH,motorized_travel_time_to_health,3
-Yabelo,ET041207,43.18195131,ETH,motorized_travel_time_to_health,3
-Enemay,ET030606,43.24924012,ETH,motorized_travel_time_to_health,3
-Abichugna Gne'a,ET040609,43.26308916,ETH,motorized_travel_time_to_health,3
-Horo,ET041901,43.42958975,ETH,motorized_travel_time_to_health,3
-Tole,ET041308,43.49064697,ETH,motorized_travel_time_to_health,3
-Jimma Genete,ET041906,43.591275,ETH,motorized_travel_time_to_health,3
-Limu Kosa,ET040402,43.63662054,ETH,motorized_travel_time_to_health,3
-Odo Shakiso,ET041405,43.73018873,ETH,motorized_travel_time_to_health,3
-Dinsho,ET041122,43.73974022,ETH,motorized_travel_time_to_health,3
-Jarso (East Hararghe),ET041002,44.16086104,ETH,motorized_travel_time_to_health,3
-Soro,ET070206,44.31068277,ETH,motorized_travel_time_to_health,3
-Dale Wabera,ET041803,44.43811911,ETH,motorized_travel_time_to_health,3
-Becho (SW Shewa),ET041309,44.44212012,ETH,motorized_travel_time_to_health,3
-Naeder,ET010209,44.63198621,ETH,motorized_travel_time_to_health,3
-Gazo,ET030312,44.69681056,ETH,motorized_travel_time_to_health,3
-Saharti,ET010601,44.69823442,ETH,motorized_travel_time_to_health,3
-Yilmana Densa,ET030703,44.9949305,ETH,motorized_travel_time_to_health,3
-Mana Sibu,ET040101,45.00268895,ETH,motorized_travel_time_to_health,3
-Cheliya,ET040505,45.01587591,ETH,motorized_travel_time_to_health,3
-Semen Achefer,ET030701,45.0698469,ETH,motorized_travel_time_to_health,3
-Zabagazo,ET071710,45.19007091,ETH,motorized_travel_time_to_health,3
-Gacho Baba,ET071016,45.2868549,ETH,motorized_travel_time_to_health,3
-Limu (OR),ET040201,45.38242461,ETH,motorized_travel_time_to_health,3
-Korarit,ET010508,45.54835889,ETH,motorized_travel_time_to_health,3
-Siya Debirna Wayu,ET030523,45.6386513,ETH,motorized_travel_time_to_health,3
-Heban Arsi,ET041783,45.64518773,ETH,motorized_travel_time_to_health,3
-Dorani,ET040324,46.02937047,ETH,motorized_travel_time_to_health,3
-Tullo,ET070906,46.07340459,ETH,motorized_travel_time_to_health,3
-Adi Daero,ET010111,46.20232354,ETH,motorized_travel_time_to_health,3
-Gololcha Bale,ET042101,46.4883104,ETH,motorized_travel_time_to_health,3
-Hobicha Abaya,ET070619,46.86486905,ETH,motorized_travel_time_to_health,3
-Gedebano Gutazer Welene,ET070104,47.02538707,ETH,motorized_travel_time_to_health,3
-Tahtay Mayechew,ET010206,47.04895533,ETH,motorized_travel_time_to_health,3
-Boke,ET040910,47.08656447,ETH,motorized_travel_time_to_health,3
-Begi,ET040116,47.12108123,ETH,motorized_travel_time_to_health,3
-Abe Dongoro,ET041910,47.42503689,ETH,motorized_travel_time_to_health,3
-Mulo,ET042016,47.87115542,ETH,motorized_travel_time_to_health,3
-Tocha,ET071701,48.03061625,ETH,motorized_travel_time_to_health,3
-Endamehoni,ET010405,48.29315061,ETH,motorized_travel_time_to_health,3
-Meta Robi,ET040514,48.41218592,ETH,motorized_travel_time_to_health,3
-Daro Lebu,ET040909,48.56001007,ETH,motorized_travel_time_to_health,3
-Quarit,ET030706,48.79603589,ETH,motorized_travel_time_to_health,3
-Chora (Buno Bedele),ET041603,48.83040517,ETH,motorized_travel_time_to_health,3
-Raya Alamata,ET010407,49.05577659,ETH,motorized_travel_time_to_health,3
-Bero,ET071805,49.2232699,ETH,motorized_travel_time_to_health,3
-Ana Sora,ET041411,49.2573448,ETH,motorized_travel_time_to_health,3
-Anchar,ET040906,49.55906224,ETH,motorized_travel_time_to_health,3
-Atsbi,ET010307,49.57459244,ETH,motorized_travel_time_to_health,3
-Dodola,ET041707,49.66572503,ETH,motorized_travel_time_to_health,3
-Agarfa,ET041104,49.75542592,ETH,motorized_travel_time_to_health,3
-Jikawo,ET120103,49.81728099,ETH,motorized_travel_time_to_health,3
-Adi Hageray,ET010112,49.82363805,ETH,motorized_travel_time_to_health,3
-Mirab Soro,ET070217,49.84106965,ETH,motorized_travel_time_to_health,3
-Habru,ET030308,49.98965961,ETH,motorized_travel_time_to_health,3
-Ambo Zuria,ET040503,50.07483439,ETH,motorized_travel_time_to_health,3
-Seru,ET040811,50.2264971,ETH,motorized_travel_time_to_health,3
-Guduru,ET041903,50.36588769,ETH,motorized_travel_time_to_health,3
-Mekan Eyesuse,ET030298,50.45175301,ETH,motorized_travel_time_to_health,3
-Chora (Jimma),ET040415,50.68077497,ETH,motorized_travel_time_to_health,3
-Shirka,ET040814,50.74170918,ETH,motorized_travel_time_to_health,3
-Gasera,ET041106,50.80977503,ETH,motorized_travel_time_to_health,3
-Humbo,ET070604,50.93298906,ETH,motorized_travel_time_to_health,3
-Dhas,ET041220,51.02795543,ETH,motorized_travel_time_to_health,3
-Fogera,ET030203,51.11429917,ETH,motorized_travel_time_to_health,3
-Tena,ET040813,51.13548236,ETH,motorized_travel_time_to_health,3
-Gerar Jarso,ET040606,51.13821718,ETH,motorized_travel_time_to_health,3
-Suro Berguda,ET041594,51.33698022,ETH,motorized_travel_time_to_health,3
-Kalu,ET030407,51.49291931,ETH,motorized_travel_time_to_health,3
-Yeki,ET070803,51.6582988,ETH,motorized_travel_time_to_health,3
-Tsaeda Emba,ET010314,51.69389709,ETH,motorized_travel_time_to_health,3
-Dedo,ET040410,51.87460427,ETH,motorized_travel_time_to_health,3
-Sayo,ET041805,52.24091155,ETH,motorized_travel_time_to_health,3
-Chila,ET010201,52.30280392,ETH,motorized_travel_time_to_health,3
-Hidabu Abote,ET040603,52.45945407,ETH,motorized_travel_time_to_health,3
-Sululta,ET042013,52.67451356,ETH,motorized_travel_time_to_health,3
-Meko,ET041618,52.70443507,ETH,motorized_travel_time_to_health,3
-Dugda Dawa,ET041515,52.74885531,ETH,motorized_travel_time_to_health,3
-Worebabu,ET030422,53.10587038,ETH,motorized_travel_time_to_health,3
-Menge,ET060301,53.14676086,ETH,motorized_travel_time_to_health,3
-Guba Lafto,ET030307,53.19009777,ETH,motorized_travel_time_to_health,3
-Tahtay Adiyabo,ET010101,53.28294572,ETH,motorized_travel_time_to_health,3
-Garda Marta,ET071018,53.45868977,ETH,motorized_travel_time_to_health,3
-Yaya Gulele,ET040614,53.50125135,ETH,motorized_travel_time_to_health,3
-Bilidigilu,ET060306,53.51985987,ETH,motorized_travel_time_to_health,3
-Jeldu,ET040502,53.91838823,ETH,motorized_travel_time_to_health,3
-Wadla,ET030305,54.25883449,ETH,motorized_travel_time_to_health,3
-Kutaber,ET030403,54.37913977,ETH,motorized_travel_time_to_health,3
-Adet,ET010207,54.67389539,ETH,motorized_travel_time_to_health,3
-Malie,ET070707,54.68815595,ETH,motorized_travel_time_to_health,3
-Gonder Zuria,ET031110,54.86252808,ETH,motorized_travel_time_to_health,3
-Chinaksen,ET041015,54.9050208,ETH,motorized_travel_time_to_health,3
-Makuey,ET120105,54.96615094,ETH,motorized_travel_time_to_health,3
-Gewata,ET070903,55.59173135,ETH,motorized_travel_time_to_health,3
-Jeldessa,ET150206,55.70674834,ETH,motorized_travel_time_to_health,3
-Aroresa,ET160009,56.05093095,ETH,motorized_travel_time_to_health,3
-Choman Guduru,ET041911,56.37858116,ETH,motorized_travel_time_to_health,3
-Borena /Debresina,ET030412,56.53869193,ETH,motorized_travel_time_to_health,3
-Guzamn,ET030610,57.11548653,ETH,motorized_travel_time_to_health,3
-Tahtay Koraro,ET010104,57.12520738,ETH,motorized_travel_time_to_health,3
-Abaya,ET041513,57.51261774,ETH,motorized_travel_time_to_health,3
-Chwaka,ET041623,57.55295175,ETH,motorized_travel_time_to_health,3
-Ensaro,ET030503,57.63238987,ETH,motorized_travel_time_to_health,3
-Endafelasi,ET010218,58.1659157,ETH,motorized_travel_time_to_health,3
-Zana,ET010103,58.29244586,ETH,motorized_travel_time_to_health,3
-Kucha,ET071019,58.31411016,ETH,motorized_travel_time_to_health,3
-Hulet Ej Enese,ET030602,58.3884837,ETH,motorized_travel_time_to_health,3
-Burji Special,ET072203,58.43518667,ETH,motorized_travel_time_to_health,3
-Sheko,ET071101,58.48099527,ETH,motorized_travel_time_to_health,3
-Sekota,ET030802,58.48156329,ETH,motorized_travel_time_to_health,3
-Miyo,ET041216,58.53346519,ETH,motorized_travel_time_to_health,3
-Kurmuk,ET060302,58.68416668,ETH,motorized_travel_time_to_health,3
-Gomole,ET041223,58.68969086,ETH,motorized_travel_time_to_health,3
-Segen Zuria,ET071302,58.73261236,ETH,motorized_travel_time_to_health,3
-Chilga 1,ET031106,58.94679107,ETH,motorized_travel_time_to_health,3
-Raya Azebo,ET010406,59.09768774,ETH,motorized_travel_time_to_health,3
-Gumbi Bordede,ET040991,59.11252338,ETH,motorized_travel_time_to_health,3
-Dabat,ET030105,59.2730381,ETH,motorized_travel_time_to_health,3
-Moyale (OR),ET041210,59.41184571,ETH,motorized_travel_time_to_health,3
-East Esite,ET030208,59.52790184,ETH,motorized_travel_time_to_health,3
-Dera (AM),ET030209,59.7740152,ETH,motorized_travel_time_to_health,3
-Kebridehar,ET050502,60.05335078,ETH,motorized_travel_time_to_health,3
-Assosa,ET060303,60.32919037,ETH,motorized_travel_time_to_health,3
-Ofla,ET010408,60.54015421,ETH,motorized_travel_time_to_health,3
-Saesie,ET010303,60.55683231,ETH,motorized_travel_time_to_health,3
-Gudetu Kondole,ET040109,60.61767515,ETH,motorized_travel_time_to_health,3
-Lay Armacho,ET031108,60.68659586,ETH,motorized_travel_time_to_health,3
-Mizyiga,ET060405,60.77515852,ETH,motorized_travel_time_to_health,3
-Uba Debre Tsehay,ET071504,60.83683601,ETH,motorized_travel_time_to_health,3
-Angot,ET030313,60.88610496,ETH,motorized_travel_time_to_health,3
-Daratole,ET050788,60.9397382,ETH,motorized_travel_time_to_health,3
-Emba Alaje,ET010404,60.9970265,ETH,motorized_travel_time_to_health,3
-Agulae,ET010316,61.13194669,ETH,motorized_travel_time_to_health,3
-Antsokiya,ET030507,61.40614514,ETH,motorized_travel_time_to_health,3
-Gora Dola,ET041413,61.44310615,ETH,motorized_travel_time_to_health,3
-Samre,ET010606,61.48173816,ETH,motorized_travel_time_to_health,3
-Alfa,ET031115,61.82056883,ETH,motorized_travel_time_to_health,3
-Adda Berga,ET040513,61.86848578,ETH,motorized_travel_time_to_health,3
-Jarte Jardega,ET041908,62.00805504,ETH,motorized_travel_time_to_health,3
-Hawa Galan,ET041801,62.15825134,ETH,motorized_travel_time_to_health,3
-Kola Temben,ET010208,62.30163348,ETH,motorized_travel_time_to_health,3
-Chercher,ET010414,62.41116028,ETH,motorized_travel_time_to_health,3
-Amaro,ET072102,62.7164841,ETH,motorized_travel_time_to_health,3
-Liben,ET041407,63.12556773,ETH,motorized_travel_time_to_health,3
-Raya Kobo,ET030302,63.43456039,ETH,motorized_travel_time_to_health,3
-Wuchale,ET040608,63.55780337,ETH,motorized_travel_time_to_health,3
-Libokemekem,ET030202,63.67180038,ETH,motorized_travel_time_to_health,3
-Bati,ET031002,63.70969096,ETH,motorized_travel_time_to_health,3
-Bila Seyo,ET040207,63.72134176,ETH,motorized_travel_time_to_health,3
-Danan,ET050603,63.77149845,ETH,motorized_travel_time_to_health,3
-Dega Damot,ET030707,64.02863529,ETH,motorized_travel_time_to_health,3
-Tenta,ET030402,64.23449109,ETH,motorized_travel_time_to_health,3
-Gachit,ET071801,64.23516138,ETH,motorized_travel_time_to_health,3
-Degem,ET040605,64.32884255,ETH,motorized_travel_time_to_health,3
-Melka Soda,ET041518,64.56889408,ETH,motorized_travel_time_to_health,3
-North Ari,ET070703,64.7414187,ETH,motorized_travel_time_to_health,3
-Shisho Ande,ET070913,64.8237843,ETH,motorized_travel_time_to_health,3
-Ibantu,ET040202,65.00125163,ETH,motorized_travel_time_to_health,3
-Laelay Adiabo,ET010102,65.00606578,ETH,motorized_travel_time_to_health,3
-Melka Balo,ET041012,65.18600927,ETH,motorized_travel_time_to_health,3
-Dansha town,ET010506,65.28022976,ETH,motorized_travel_time_to_health,3
-Dita,ET071008,65.42124525,ETH,motorized_travel_time_to_health,3
-Metu Zuria,ET040310,65.44277748,ETH,motorized_travel_time_to_health,3
-Kuni /Oda Bultum,ET040911,65.49831604,ETH,motorized_travel_time_to_health,3
-Midhaga Tola,ET041014,65.78513888,ETH,motorized_travel_time_to_health,3
-Liban Jawi,ET040597,65.79147451,ETH,motorized_travel_time_to_health,3
-Jama,ET030414,65.91530137,ETH,motorized_travel_time_to_health,3
-Babo,ET040111,66.16034311,ETH,motorized_travel_time_to_health,3
-West Esite,ET030211,66.208095,ETH,motorized_travel_time_to_health,3
-Awra (TG),ET010507,66.30369938,ETH,motorized_travel_time_to_health,3
-Gonje,ET030718,66.3326797,ETH,motorized_travel_time_to_health,3
-Lasta,ET030310,66.48381525,ETH,motorized_travel_time_to_health,3
-Elwaya,ET041295,66.74708427,ETH,motorized_travel_time_to_health,3
-Amuru,ET041909,66.74904458,ETH,motorized_travel_time_to_health,3
-Gumay,ET040416,66.98961699,ETH,motorized_travel_time_to_health,3
-Tsimbla,ET010113,67.22248847,ETH,motorized_travel_time_to_health,3
-Kache,ET071706,67.50302583,ETH,motorized_travel_time_to_health,3
-Angolelana Tera,ET030513,68.09488941,ETH,motorized_travel_time_to_health,3
-Basona Worena,ET030519,68.13829608,ETH,motorized_travel_time_to_health,3
-Seka Chekorsa,ET040409,68.48779324,ETH,motorized_travel_time_to_health,3
-Kamashi,ET060403,68.5750078,ETH,motorized_travel_time_to_health,3
-Wantawo,ET120104,68.71204526,ETH,motorized_travel_time_to_health,3
-Kucha Alpha,ET071017,68.7304101,ETH,motorized_travel_time_to_health,3
-Guangua,ET030904,68.7326589,ETH,motorized_travel_time_to_health,3
-Jida,ET040615,68.89865747,ETH,motorized_travel_time_to_health,3
-Dire,ET041211,68.99202902,ETH,motorized_travel_time_to_health,3
-Tach Armacho,ET031120,69.11257104,ETH,motorized_travel_time_to_health,3
-Gena,ET071704,69.22308573,ETH,motorized_travel_time_to_health,3
-Aseko,ET040802,69.22674715,ETH,motorized_travel_time_to_health,3
-Ale,ET040311,69.44829494,ETH,motorized_travel_time_to_health,3
-Gulina,ET020405,69.45644013,ETH,motorized_travel_time_to_health,3
-Neqsege,ET010403,69.60694868,ETH,motorized_travel_time_to_health,3
-Bena Tsemay,ET070705,69.64912631,ETH,motorized_travel_time_to_health,3
-Mirab Armacho,ET031206,69.99646084,ETH,motorized_travel_time_to_health,3
-Assagirt,ET030514,70.02971322,ETH,motorized_travel_time_to_health,3
-Dejen,ET030613,70.27828413,ETH,motorized_travel_time_to_health,3
-Mojan Wedera,ET030511,70.53515647,ETH,motorized_travel_time_to_health,3
-Dima (TG),ET010115,70.5501924,ETH,motorized_travel_time_to_health,3
-Wachile,ET041298,70.57765273,ETH,motorized_travel_time_to_health,3
-Moretna Jiru,ET030504,70.59954508,ETH,motorized_travel_time_to_health,3
-Golo Oda,ET041017,70.6514468,ETH,motorized_travel_time_to_health,3
-Eferatana Gidem,ET030508,70.80889886,ETH,motorized_travel_time_to_health,3
-Wegera,ET031109,70.89645521,ETH,motorized_travel_time_to_health,3
-Kunneba,ET020202,71.24148308,ETH,motorized_travel_time_to_health,3
-Nyngatom,ET070708,71.2973597,ETH,motorized_travel_time_to_health,3
-Aga Wayu,ET041482,71.70841886,ETH,motorized_travel_time_to_health,3
-Asgede,ET010105,71.9762652,ETH,motorized_travel_time_to_health,3
-Awabel,ET030612,71.98406852,ETH,motorized_travel_time_to_health,3
-Kewet,ET030512,72.05030051,ETH,motorized_travel_time_to_health,3
-Loka Abaya,ET160037,72.24374333,ETH,motorized_travel_time_to_health,3
-Tsegede (AM),ET031107,72.27687482,ETH,motorized_travel_time_to_health,3
-Hintalo,ET010603,72.32096367,ETH,motorized_travel_time_to_health,3
-Kafta Humera,ET010501,72.34039606,ETH,motorized_travel_time_to_health,3
-Arero,ET041208,72.5278772,ETH,motorized_travel_time_to_health,3
-Kebribeyah,ET050206,73.56312772,ETH,motorized_travel_time_to_health,3
-Madira,ET060204,74.05388616,ETH,motorized_travel_time_to_health,3
-Dasenech /Kuraz,ET070706,74.05588877,ETH,motorized_travel_time_to_health,3
-Tach Gayint,ET030206,74.18205718,ETH,motorized_travel_time_to_health,3
-Sherkole,ET060304,74.28401491,ETH,motorized_travel_time_to_health,3
-Amigna,ET040810,74.43609652,ETH,motorized_travel_time_to_health,3
-Botor Tolay,ET040495,75.38360742,ETH,motorized_travel_time_to_health,3
-Gawo Kebe,ET041804,75.65635488,ETH,motorized_travel_time_to_health,3
-South Ari,ET070702,75.66151294,ETH,motorized_travel_time_to_health,3
-Kelela,ET030413,76.04736169,ETH,motorized_travel_time_to_health,3
-Menze Mama Midir,ET030509,76.09298901,ETH,motorized_travel_time_to_health,3
-Gidan,ET030303,76.14665173,ETH,motorized_travel_time_to_health,3
-Argoba,ET030401,76.42443517,ETH,motorized_travel_time_to_health,3
-Melekoza,ET071501,76.54123506,ETH,motorized_travel_time_to_health,3
-Shanan Kolu,ET040893,76.71943724,ETH,motorized_travel_time_to_health,3
-Mancho,ET040490,77.05659893,ETH,motorized_travel_time_to_health,3
-Bokh,ET050702,78.37337428,ETH,motorized_travel_time_to_health,3
-Aneded,ET030617,78.57583116,ETH,motorized_travel_time_to_health,3
-Addi Arekay,ET030101,78.72789942,ETH,motorized_travel_time_to_health,3
-Ababo,ET041904,78.82372074,ETH,motorized_travel_time_to_health,3
-Enarj Enawga,ET030605,79.08413937,ETH,motorized_travel_time_to_health,3
-Disa,ET071709,79.82847939,ETH,motorized_travel_time_to_health,3
-Itang,ET120407,79.98487896,ETH,motorized_travel_time_to_health,3
-Menze Gera Midir,ET030505,80.43043472,ETH,motorized_travel_time_to_health,3
-Haro Limu,ET040204,80.636325,ETH,motorized_travel_time_to_health,3
-Bure (OR),ET040312,80.71659821,ETH,motorized_travel_time_to_health,3
-Hamer,ET070704,80.77874081,ETH,motorized_travel_time_to_health,3
-Gog,ET120203,81.12044722,ETH,motorized_travel_time_to_health,3
-Ifata,ET040519,81.43512992,ETH,motorized_travel_time_to_health,3
-Baso Liben,ET030611,81.53745215,ETH,motorized_travel_time_to_health,3
-Berehet,ET030517,81.56926965,ETH,motorized_travel_time_to_health,3
-Wajirat,ET010608,81.92944661,ETH,motorized_travel_time_to_health,3
-Mida Woremo,ET030501,82.10040227,ETH,motorized_travel_time_to_health,3
-Setema,ET040413,82.30028842,ETH,motorized_travel_time_to_health,3
-Wegde,ET030416,82.8028109,ETH,motorized_travel_time_to_health,3
-Tarema Ber,ET030510,83.28056281,ETH,motorized_travel_time_to_health,3
-Selewa,ET010401,83.3388153,ETH,motorized_travel_time_to_health,3
-Raso,ET050809,83.42068479,ETH,motorized_travel_time_to_health,3
-Dulecha,ET020304,83.48912633,ETH,motorized_travel_time_to_health,3
-Guna Begemider,ET030212,83.53783977,ETH,motorized_travel_time_to_health,3
-Dawunt,ET030311,83.56294375,ETH,motorized_travel_time_to_health,3
-Merhabete,ET030502,83.7317741,ETH,motorized_travel_time_to_health,3
-Delanta,ET030406,83.84702879,ETH,motorized_travel_time_to_health,3
-Kuyu,ET040604,84.79061807,ETH,motorized_travel_time_to_health,3
-Bita,ET070910,85.00600913,ETH,motorized_travel_time_to_health,3
-Shebe Sambo,ET040414,85.17774169,ETH,motorized_travel_time_to_health,3
-Metema,ET031213,85.21817177,ETH,motorized_travel_time_to_health,3
-Alle Special,ET071205,85.24019886,ETH,motorized_travel_time_to_health,3
-Debre Elias,ET030608,85.80068094,ETH,motorized_travel_time_to_health,3
-Decha,ET070908,86.01991995,ETH,motorized_travel_time_to_health,3
-Dera (OR),ET040602,86.58202079,ETH,motorized_travel_time_to_health,3
-Samurobi,ET020502,86.8147957,ETH,motorized_travel_time_to_health,3
-Adiyio,ET070905,86.86674644,ETH,motorized_travel_time_to_health,3
-Mieso,ET040901,87.34087815,ETH,motorized_travel_time_to_health,3
-Jilye Tumuga,ET031003,88.14375277,ETH,motorized_travel_time_to_health,3
-Gelana (West Guji),ET041517,88.65614139,ETH,motorized_travel_time_to_health,3
-Dawe,ET020503,89.10182491,ETH,motorized_travel_time_to_health,3
-Wara Jarso,ET040601,89.21258411,ETH,motorized_travel_time_to_health,3
-Ferfer,ET050607,90.10137163,ETH,motorized_travel_time_to_health,3
-Ebenat,ET030201,90.20520585,ETH,motorized_travel_time_to_health,3
-Meket,ET030304,90.23872205,ETH,motorized_travel_time_to_health,3
-Tsegede (TG),ET010503,90.42249906,ETH,motorized_travel_time_to_health,3
-Gumi Idalo,ET041497,90.42908166,ETH,motorized_travel_time_to_health,3
-May Kadra,ET010505,90.68386661,ETH,motorized_travel_time_to_health,3
-Wub Ari,ET070711,90.90738545,ETH,motorized_travel_time_to_health,3
-Hagere Mariam,ET030516,90.96420236,ETH,motorized_travel_time_to_health,3
-Sedal,ET060402,91.12098592,ETH,motorized_travel_time_to_health,3
-Goba (OR),ET041110,91.1227218,ETH,motorized_travel_time_to_health,3
-Harawo,ET050299,92.18944131,ETH,motorized_travel_time_to_health,3
-East Belesa,ET031117,92.35850801,ETH,motorized_travel_time_to_health,3
-Mida Kegn,ET040504,93.36956985,ETH,motorized_travel_time_to_health,3
-Gode,ET050604,93.57504989,ETH,motorized_travel_time_to_health,3
-Saba Boru,ET041412,94.00628698,ETH,motorized_travel_time_to_health,3
-Janamora,ET030103,94.43803003,ETH,motorized_travel_time_to_health,3
-Golocha,ET040803,95.22531177,ETH,motorized_travel_time_to_health,3
-Semada,ET030207,95.31245193,ETH,motorized_travel_time_to_health,3
-Galadi,ET050703,95.32192268,ETH,motorized_travel_time_to_health,3
-Menit Goldiye,ET071802,95.6202238,ETH,motorized_travel_time_to_health,3
-Debark,ET030104,95.79492925,ETH,motorized_travel_time_to_health,3
-Arguba,ET020306,95.84129067,ETH,motorized_travel_time_to_health,3
-Kiremu,ET040217,96.19826657,ETH,motorized_travel_time_to_health,3
-Meta Walkite,ET040594,96.35442309,ETH,motorized_travel_time_to_health,3
-Chilga 2,ET031112,96.79870538,ETH,motorized_travel_time_to_health,3
-Guba,ET060202,96.88994509,ETH,motorized_travel_time_to_health,3
-Anderacha,ET070801,97.53823197,ETH,motorized_travel_time_to_health,3
-Menze Lalo Midir,ET030522,97.69235504,ETH,motorized_travel_time_to_health,3
-Sede Muja,ET030214,97.98017247,ETH,motorized_travel_time_to_health,3
-Dilo,ET041219,98.15226197,ETH,motorized_travel_time_to_health,3
-Ambasel,ET030404,98.2046319,ETH,motorized_travel_time_to_health,3
-Goglo,ET050595,99.25050738,ETH,motorized_travel_time_to_health,3
-Dembel,ET050102,99.46015432,ETH,motorized_travel_time_to_health,3
-Yalo,ET020404,99.79373033,ETH,motorized_travel_time_to_health,3
-Chifra,ET020106,100.101392,ETH,motorized_travel_time_to_health,3
-Miesso,ET050107,100.1907951,ETH,motorized_travel_time_to_health,3
-Meyu Muleke,ET041018,100.7363759,ETH,motorized_travel_time_to_health,3
-West Belesa,ET031116,101.1951908,ETH,motorized_travel_time_to_health,3
-Gambela National Park,ET120200,101.2347645,ETH,motorized_travel_time_to_health,3
-Godere,ET120301,101.2858419,ETH,motorized_travel_time_to_health,3
-Lehel-Yucub,ET050798,102.179776,ETH,motorized_travel_time_to_health,3
-Mehal Sayint,ET030419,102.5301604,ETH,motorized_travel_time_to_health,3
-Lay Gayint,ET030205,103.2691513,ETH,motorized_travel_time_to_health,3
-Gishe Rabel,ET030506,103.8271988,ETH,motorized_travel_time_to_health,3
-Cobi,ET040592,104.225576,ETH,motorized_travel_time_to_health,3
-Dawe Ketchen,ET042106,104.4120809,ETH,motorized_travel_time_to_health,3
-Dig,ET050399,104.7502537,ETH,motorized_travel_time_to_health,3
-East Imi,ET050601,104.7676454,ETH,motorized_travel_time_to_health,3
-Enebse Sarmder,ET030604,105.7484665,ETH,motorized_travel_time_to_health,3
-Ginde Beret,ET040501,105.8662548,ETH,motorized_travel_time_to_health,3
-Becho (Ilu Aba Bora),ET040314,105.8941067,ETH,motorized_travel_time_to_health,3
-Didu,ET040317,105.9127695,ETH,motorized_travel_time_to_health,3
-Bulen,ET060207,106.6178921,ETH,motorized_travel_time_to_health,3
-Abaala,ET020203,106.7240302,ETH,motorized_travel_time_to_health,3
-Ankober,ET030515,107.0731957,ETH,motorized_travel_time_to_health,3
-Dolobay,ET050808,107.402851,ETH,motorized_travel_time_to_health,3
-Omo Beyam,ET040491,107.7355606,ETH,motorized_travel_time_to_health,3
-Jawi,ET030906,107.8926643,ETH,motorized_travel_time_to_health,3
-Berocano,ET050608,108.2978123,ETH,motorized_travel_time_to_health,3
-Galhamur,ET050799,108.5325336,ETH,motorized_travel_time_to_health,3
-Debeweyin,ET050504,108.7087398,ETH,motorized_travel_time_to_health,3
-Konta,ET071901,109.0340386,ETH,motorized_travel_time_to_health,3
-Mile,ET020105,110.3211144,ETH,motorized_travel_time_to_health,3
-Qada Duma,ET051198,110.7196714,ETH,motorized_travel_time_to_health,3
-Degehabur,ET050302,110.7952117,ETH,motorized_travel_time_to_health,3
-Mustahil,ET050606,111.4242171,ETH,motorized_travel_time_to_health,3
-Yocale,ET050382,111.6896034,ETH,motorized_travel_time_to_health,3
-Dembi,ET060404,111.7223073,ETH,motorized_travel_time_to_health,3
-Adar,ET020109,113.0269017,ETH,motorized_travel_time_to_health,3
-Salamago,ET070701,113.0582838,ETH,motorized_travel_time_to_health,3
-Dihun,ET051006,113.133369,ETH,motorized_travel_time_to_health,3
-Debati,ET060205,113.1936639,ETH,motorized_travel_time_to_health,3
-Abuna Ginde Beret,ET040516,114.1952781,ETH,motorized_travel_time_to_health,3
-Sayint,ET030411,114.4885909,ETH,motorized_travel_time_to_health,3
-Ararso,ET050395,114.6076482,ETH,motorized_travel_time_to_health,3
-Berbere,ET041114,114.9902641,ETH,motorized_travel_time_to_health,3
-Wangey,ET050499,115.8397892,ETH,motorized_travel_time_to_health,3
-Dangura,ET060201,116.0161514,ETH,motorized_travel_time_to_health,3
-Welkait,ET010502,116.5453292,ETH,motorized_travel_time_to_health,3
-Dalefage,ET020504,116.5849158,ETH,motorized_travel_time_to_health,3
-Takusa,ET031121,117.0435366,ETH,motorized_travel_time_to_health,3
-Moyale (SM),ET051103,117.4473445,ETH,motorized_travel_time_to_health,3
-Warder,ET050704,117.6655804,ETH,motorized_travel_time_to_health,3
-Hanruka,ET020307,118.1349619,ETH,motorized_travel_time_to_health,3
-Marsin,ET050586,118.2114174,ETH,motorized_travel_time_to_health,3
-Abobo,ET120201,118.8661584,ETH,motorized_travel_time_to_health,3
-Gori Gesha,ET071803,119.4402269,ETH,motorized_travel_time_to_health,3
-Menze Keya Gabriel,ET030521,119.5392429,ETH,motorized_travel_time_to_health,3
-Denba Gofa,ET071502,119.5653743,ETH,motorized_travel_time_to_health,3
-Menit Shasha,ET071804,119.6254263,ETH,motorized_travel_time_to_health,3
-Lege Hida,ET042102,119.7880259,ETH,motorized_travel_time_to_health,3
-Dalol,ET020206,121.1923692,ETH,motorized_travel_time_to_health,3
-Kelafo,ET050605,121.2527096,ETH,motorized_travel_time_to_health,3
-Gera,ET040408,121.3597103,ETH,motorized_travel_time_to_health,3
-Sagag,ET051005,121.6745226,ETH,motorized_travel_time_to_health,3
-Maji,ET071807,122.0377665,ETH,motorized_travel_time_to_health,3
-Shaygosh,ET050501,122.1077961,ETH,motorized_travel_time_to_health,3
-Tsagbeji,ET030808,122.693566,ETH,motorized_travel_time_to_health,3
-Abergele (AM),ET030805,122.8536984,ETH,motorized_travel_time_to_health,3
-Shabeeley,ET050204,122.9562181,ETH,motorized_travel_time_to_health,3
-Gezei Gofa,ET071505,123.318161,ETH,motorized_travel_time_to_health,3
-Berahile,ET020205,123.5174783,ETH,motorized_travel_time_to_health,3
-Adaba,ET041710,124.0068816,ETH,motorized_travel_time_to_health,3
-Higloley,ET050597,124.2076521,ETH,motorized_travel_time_to_health,3
-El-Ogaden,ET050598,124.5472439,ETH,motorized_travel_time_to_health,3
-Mekdela,ET030421,124.8916732,ETH,motorized_travel_time_to_health,3
-Telemt,ET030119,126.4357065,ETH,motorized_travel_time_to_health,3
-Bokolmayo,ET050999,126.4844498,ETH,motorized_travel_time_to_health,3
-"Hawi Gudina
-",ET040915,126.7101608,ETH,motorized_travel_time_to_health,3
-Gelalu,ET020305,126.7944547,ETH,motorized_travel_time_to_health,3
-Burqua Dhintu,ET040998,126.9923768,ETH,motorized_travel_time_to_health,3
-Tselemti,ET010106,127.9775515,ETH,motorized_travel_time_to_health,3
-Wemberma,ET030711,129.5239943,ETH,motorized_travel_time_to_health,3
-Danod,ET050701,129.9313359,ETH,motorized_travel_time_to_health,3
-Shebel Bernta,ET030614,130.022061,ETH,motorized_travel_time_to_health,3
-Gota-Biki,ET050198,131.4503319,ETH,motorized_travel_time_to_health,3
-Barey,ET050807,133.1389949,ETH,motorized_travel_time_to_health,3
-Isara,ET071705,134.3328568,ETH,motorized_travel_time_to_health,3
-Sedae,ET030619,134.4459313,ETH,motorized_travel_time_to_health,3
-Shilabo,ET050503,134.5452455,ETH,motorized_travel_time_to_health,3
-Ayisha,ET050101,134.5779379,ETH,motorized_travel_time_to_health,3
-Salahad,ET051004,135.0173276,ETH,motorized_travel_time_to_health,3
-Elidar,ET020102,135.7036789,ETH,motorized_travel_time_to_health,3
-Aware,ET050303,136.1172173,ETH,motorized_travel_time_to_health,3
-Nenesebo,ET041709,136.648512,ETH,motorized_travel_time_to_health,3
-Zequala,ET030801,136.9323973,ETH,motorized_travel_time_to_health,3
-Hamero,ET050404,137.438203,ETH,motorized_travel_time_to_health,3
-Hadhagala,ET050106,137.869977,ETH,motorized_travel_time_to_health,3
-Anfilo,ET041807,137.9614387,ETH,motorized_travel_time_to_health,3
-Shinile,ET050103,138.5642372,ETH,motorized_travel_time_to_health,3
-Asayita,ET020103,139.9547741,ETH,motorized_travel_time_to_health,3
-Gaz Gibla,ET030804,140.0697087,ETH,motorized_travel_time_to_health,3
-Erer (SM),ET050104,140.1227794,ETH,motorized_travel_time_to_health,3
-Meyumuluka,ET050408,140.4842324,ETH,motorized_travel_time_to_health,3
-Gashamo,ET050304,141.2879936,ETH,motorized_travel_time_to_health,3
-Dolo Odo,ET050902,141.8894333,ETH,motorized_travel_time_to_health,3
-Goro Baqaqsa,ET050903,142.4994774,ETH,motorized_travel_time_to_health,3
-Goba (SP),ET070912,142.557384,ETH,motorized_travel_time_to_health,3
-Fik,ET050402,142.6428073,ETH,motorized_travel_time_to_health,3
-Gambela Zuria,ET120202,144.8102818,ETH,motorized_travel_time_to_health,3
-Harshin,ET050207,144.9960194,ETH,motorized_travel_time_to_health,3
-Degehamedo,ET050301,145.0009493,ETH,motorized_travel_time_to_health,3
-Kohle /Qoxle,ET050898,145.46216,ETH,motorized_travel_time_to_health,3
-Elkare /Serer,ET050804,145.6193914,ETH,motorized_travel_time_to_health,3
-Beyeda,ET030102,146.0730451,ETH,motorized_travel_time_to_health,3
-Erob,ET010302,146.1540133,ETH,motorized_travel_time_to_health,3
-Quara,ET031214,146.2197338,ETH,motorized_travel_time_to_health,3
-Hudet,ET051104,147.4568125,ETH,motorized_travel_time_to_health,3
-Babile (SM),ET050203,148.6945427,ETH,motorized_travel_time_to_health,3
-Sigmo,ET040412,149.0316862,ETH,motorized_travel_time_to_health,3
-Babile (OR),ET041004,149.1292291,ETH,motorized_travel_time_to_health,3
-Gurafereda,ET071102,149.8242193,ETH,motorized_travel_time_to_health,3
-Saylem,ET070901,150.1021896,ETH,motorized_travel_time_to_health,3
-Kinfaz,ET031122,151.1116872,ETH,motorized_travel_time_to_health,3
-Zayi,ET060401,153.8266353,ETH,motorized_travel_time_to_health,3
-Mena Meketewa,ET030213,155.4239139,ETH,motorized_travel_time_to_health,3
-Girja /Harenfema,ET041410,157.2483094,ETH,motorized_travel_time_to_health,3
-Daror,ET050392,157.8360155,ETH,motorized_travel_time_to_health,3
-Teltale,ET041212,158.8318202,ETH,motorized_travel_time_to_health,3
-Dehana,ET030803,160.0242715,ETH,motorized_travel_time_to_health,3
-Seweyna,ET042105,162.5765305,ETH,motorized_travel_time_to_health,3
-Ayun,ET051001,163.044917,ETH,motorized_travel_time_to_health,3
-God-God,ET050899,164.35755,ETH,motorized_travel_time_to_health,3
-Charati,ET050802,164.6793099,ETH,motorized_travel_time_to_health,3
-Bugna,ET030301,165.3554416,ETH,motorized_travel_time_to_health,3
-Filtu,ET050901,168.027762,ETH,motorized_travel_time_to_health,3
-Harena Buluk,ET041111,168.5969468,ETH,motorized_travel_time_to_health,3
-Kumbi,ET041098,169.3795115,ETH,motorized_travel_time_to_health,3
-Rayitu,ET042104,171.1216132,ETH,motorized_travel_time_to_health,3
-Cheta,ET070907,171.3226042,ETH,motorized_travel_time_to_health,3
-Wenbera,ET060203,171.5496239,ETH,motorized_travel_time_to_health,3
-Elale,ET050698,172.0224401,ETH,motorized_travel_time_to_health,3
-Hargele,ET050806,172.8080323,ETH,motorized_travel_time_to_health,3
-Akobo,ET120101,173.0109934,ETH,motorized_travel_time_to_health,3
-West Imi,ET050805,174.0875002,ETH,motorized_travel_time_to_health,3
-Hadelela,ET020505,174.6669035,ETH,motorized_travel_time_to_health,3
-Lasdhankayre,ET050596,174.9312708,ETH,motorized_travel_time_to_health,3
-Deka Suftu,ET050991,175.5245522,ETH,motorized_travel_time_to_health,3
-Hurumu,ET040316,175.8140883,ETH,motorized_travel_time_to_health,3
-Gunagado,ET050305,176.1561459,ETH,motorized_travel_time_to_health,3
-Burqod,ET050394,179.5899317,ETH,motorized_travel_time_to_health,3
-Dubti,ET020101,180.7622264,ETH,motorized_travel_time_to_health,3
-Adadle,ET050602,184.0422404,ETH,motorized_travel_time_to_health,3
-Telalek,ET020501,190.4116897,ETH,motorized_travel_time_to_health,3
-Goljano,ET050290,194.7035213,ETH,motorized_travel_time_to_health,3
-Yayu,ET040309,196.5602639,ETH,motorized_travel_time_to_health,3
-Jore,ET120204,199.2626026,ETH,motorized_travel_time_to_health,3
-Sahila,ET030806,200.5465949,ETH,motorized_travel_time_to_health,3
-Mubarek,ET051187,200.7825358,ETH,motorized_travel_time_to_health,3
-Lagahida,ET050407,201.4127868,ETH,motorized_travel_time_to_health,3
-Gewane,ET020303,203.5254808,ETH,motorized_travel_time_to_health,3
-Bodaley,ET050599,206.554566,ETH,motorized_travel_time_to_health,3
-Gidami,ET041809,207.1811793,ETH,motorized_travel_time_to_health,3
-Awra (AF),ET020401,207.9078051,ETH,motorized_travel_time_to_health,3
-Euwa,ET020402,210.177544,ETH,motorized_travel_time_to_health,3
-Garbo,ET051003,212.738957,ETH,motorized_travel_time_to_health,3
-Megale,ET020204,218.9532312,ETH,motorized_travel_time_to_health,3
-Afdem,ET050105,222.2592105,ETH,motorized_travel_time_to_health,3
-Aba-Korow,ET050699,225.3422267,ETH,motorized_travel_time_to_health,3
-Maokomo Special,ET060508,227.5925449,ETH,motorized_travel_time_to_health,3
-Horshagah,ET051095,228.7764676,ETH,motorized_travel_time_to_health,3
-Mengesh,ET120308,229.6157686,ETH,motorized_travel_time_to_health,3
-Hararey,ET051096,234.0010002,ETH,motorized_travel_time_to_health,3
-Erebti,ET020201,236.0957839,ETH,motorized_travel_time_to_health,3
-Dima (GM),ET120205,237.2498091,ETH,motorized_travel_time_to_health,3
-Kori,ET020108,244.1191729,ETH,motorized_travel_time_to_health,3
-Meda Welabu,ET041113,248.1778992,ETH,motorized_travel_time_to_health,3
-Surma,ET071806,251.460168,ETH,motorized_travel_time_to_health,3
-Afambo,ET020104,253.5962725,ETH,motorized_travel_time_to_health,3
-Bidu,ET020208,267.0394372,ETH,motorized_travel_time_to_health,3
-Afdera,ET020207,267.6267164,ETH,motorized_travel_time_to_health,3
-Guradamole,ET050904,267.7509809,ETH,motorized_travel_time_to_health,3
-Koran /Mulla,ET050297,269.7524213,ETH,motorized_travel_time_to_health,3
-Bilcil-Bur,ET050306,274.9264289,ETH,motorized_travel_time_to_health,3
-Mena (Bale),ET041112,276.3369211,ETH,motorized_travel_time_to_health,3
-Melo Gada,ET071509,280.4544087,ETH,motorized_travel_time_to_health,3
-Gerani,ET020110,304.0655084,ETH,motorized_travel_time_to_health,3
-Masha,ET070802,309.0647589,ETH,motorized_travel_time_to_health,3
-Teru,ET020403,309.5182408,ETH,motorized_travel_time_to_health,3
-Qubi,ET050497,312.0409366,ETH,motorized_travel_time_to_health,3
-Elwayne,ET051002,320.1527762,ETH,motorized_travel_time_to_health,3
-Sale Nono,ET040313,332.6005346,ETH,motorized_travel_time_to_health,3
-Yahob,ET050498,379.6239235,ETH,motorized_travel_time_to_health,3
-Gablalu,ET050199,408.6617035,ETH,motorized_travel_time_to_health,3
-Gura Damole,ET041115,448.9640425,ETH,motorized_travel_time_to_health,3
+id,placeCode,value,countryCodeISO3,indicator,adminLevel
+1,ET010101,64,ETH,motorized_travel_time_to_health,3
+2,ET010102,65,ETH,motorized_travel_time_to_health,3
+3,ET010103,58,ETH,motorized_travel_time_to_health,3
+4,ET010104,58,ETH,motorized_travel_time_to_health,3
+5,ET010105,72,ETH,motorized_travel_time_to_health,3
+6,ET010106,128,ETH,motorized_travel_time_to_health,3
+7,ET010107,13,ETH,motorized_travel_time_to_health,3
+8,ET010108,1,ETH,motorized_travel_time_to_health,3
+9,ET010109,42,ETH,motorized_travel_time_to_health,3
+10,ET010110,36,ETH,motorized_travel_time_to_health,3
+11,ET010111,46,ETH,motorized_travel_time_to_health,3
+12,ET010112,50,ETH,motorized_travel_time_to_health,3
+13,ET010113,67,ETH,motorized_travel_time_to_health,3
+14,ET010114,2,ETH,motorized_travel_time_to_health,3
+15,ET010115,71,ETH,motorized_travel_time_to_health,3
+16,ET010116,1,ETH,motorized_travel_time_to_health,3
+17,ET010201,54,ETH,motorized_travel_time_to_health,3
+18,ET010202,32,ETH,motorized_travel_time_to_health,3
+19,ET010203,35,ETH,motorized_travel_time_to_health,3
+20,ET010204,24,ETH,motorized_travel_time_to_health,3
+21,ET010205,35,ETH,motorized_travel_time_to_health,3
+22,ET010206,47,ETH,motorized_travel_time_to_health,3
+23,ET010207,55,ETH,motorized_travel_time_to_health,3
+24,ET010208,62,ETH,motorized_travel_time_to_health,3
+25,ET010209,44,ETH,motorized_travel_time_to_health,3
+26,ET010210,42,ETH,motorized_travel_time_to_health,3
+27,ET010211,5,ETH,motorized_travel_time_to_health,3
+28,ET010212,2,ETH,motorized_travel_time_to_health,3
+29,ET010213,1,ETH,motorized_travel_time_to_health,3
+30,ET010214,33,ETH,motorized_travel_time_to_health,3
+31,ET010215,42,ETH,motorized_travel_time_to_health,3
+32,ET010216,31,ETH,motorized_travel_time_to_health,3
+33,ET010217,39,ETH,motorized_travel_time_to_health,3
+34,ET010218,58,ETH,motorized_travel_time_to_health,3
+35,ET010219,23,ETH,motorized_travel_time_to_health,3
+36,ET010220,11,ETH,motorized_travel_time_to_health,3
+37,ET010221,34,ETH,motorized_travel_time_to_health,3
+38,ET010222,29,ETH,motorized_travel_time_to_health,3
+39,ET010301,22,ETH,motorized_travel_time_to_health,3
+40,ET010302,132,ETH,motorized_travel_time_to_health,3
+41,ET010303,61,ETH,motorized_travel_time_to_health,3
+42,ET010304,25,ETH,motorized_travel_time_to_health,3
+43,ET010305,19,ETH,motorized_travel_time_to_health,3
+44,ET010306,19,ETH,motorized_travel_time_to_health,3
+45,ET010307,50,ETH,motorized_travel_time_to_health,3
+46,ET010308,1,ETH,motorized_travel_time_to_health,3
+47,ET010309,6,ETH,motorized_travel_time_to_health,3
+48,ET010310,30,ETH,motorized_travel_time_to_health,3
+49,ET010311,6,ETH,motorized_travel_time_to_health,3
+50,ET010312,2,ETH,motorized_travel_time_to_health,3
+51,ET010313,1,ETH,motorized_travel_time_to_health,3
+52,ET010314,52,ETH,motorized_travel_time_to_health,3
+53,ET010315,0,ETH,motorized_travel_time_to_health,3
+54,ET010316,61,ETH,motorized_travel_time_to_health,3
+55,ET010317,28,ETH,motorized_travel_time_to_health,3
+56,ET010318,0,ETH,motorized_travel_time_to_health,3
+57,ET010401,83,ETH,motorized_travel_time_to_health,3
+58,ET010402,40,ETH,motorized_travel_time_to_health,3
+59,ET010403,70,ETH,motorized_travel_time_to_health,3
+60,ET010404,61,ETH,motorized_travel_time_to_health,3
+61,ET010405,48,ETH,motorized_travel_time_to_health,3
+62,ET010406,59,ETH,motorized_travel_time_to_health,3
+63,ET010407,49,ETH,motorized_travel_time_to_health,3
+64,ET010408,61,ETH,motorized_travel_time_to_health,3
+65,ET010409,1,ETH,motorized_travel_time_to_health,3
+66,ET010410,4,ETH,motorized_travel_time_to_health,3
+67,ET010411,3,ETH,motorized_travel_time_to_health,3
+68,ET010412,1,ETH,motorized_travel_time_to_health,3
+69,ET010413,41,ETH,motorized_travel_time_to_health,3
+70,ET010414,62,ETH,motorized_travel_time_to_health,3
+71,ET010501,73,ETH,motorized_travel_time_to_health,3
+72,ET010502,116,ETH,motorized_travel_time_to_health,3
+73,ET010503,91,ETH,motorized_travel_time_to_health,3
+74,ET010504,24,ETH,motorized_travel_time_to_health,3
+75,ET010505,92,ETH,motorized_travel_time_to_health,3
+76,ET010506,65,ETH,motorized_travel_time_to_health,3
+77,ET010507,66,ETH,motorized_travel_time_to_health,3
+78,ET010508,46,ETH,motorized_travel_time_to_health,3
+79,ET010509,24,ETH,motorized_travel_time_to_health,3
+80,ET010601,45,ETH,motorized_travel_time_to_health,3
+81,ET010602,39,ETH,motorized_travel_time_to_health,3
+82,ET010603,72,ETH,motorized_travel_time_to_health,3
+83,ET010604,13,ETH,motorized_travel_time_to_health,3
+84,ET010605,1,ETH,motorized_travel_time_to_health,3
+85,ET010606,61,ETH,motorized_travel_time_to_health,3
+86,ET010607,7,ETH,motorized_travel_time_to_health,3
+87,ET010608,82,ETH,motorized_travel_time_to_health,3
+88,ET010701,11,ETH,motorized_travel_time_to_health,3
+89,ET020101,181,ETH,motorized_travel_time_to_health,3
+90,ET020102,136,ETH,motorized_travel_time_to_health,3
+91,ET020103,140,ETH,motorized_travel_time_to_health,3
+92,ET020104,254,ETH,motorized_travel_time_to_health,3
+93,ET020105,110,ETH,motorized_travel_time_to_health,3
+94,ET020106,100,ETH,motorized_travel_time_to_health,3
+95,ET020107,6,ETH,motorized_travel_time_to_health,3
+96,ET020108,244,ETH,motorized_travel_time_to_health,3
+97,ET020109,113,ETH,motorized_travel_time_to_health,3
+98,ET020110,304,ETH,motorized_travel_time_to_health,3
+99,ET020111,14,ETH,motorized_travel_time_to_health,3
+100,ET020198,16,ETH,motorized_travel_time_to_health,3
+101,ET020201,236,ETH,motorized_travel_time_to_health,3
+102,ET020202,71,ETH,motorized_travel_time_to_health,3
+103,ET020203,107,ETH,motorized_travel_time_to_health,3
+104,ET020204,219,ETH,motorized_travel_time_to_health,3
+105,ET020205,127,ETH,motorized_travel_time_to_health,3
+106,ET020206,132,ETH,motorized_travel_time_to_health,3
+107,ET020207,271,ETH,motorized_travel_time_to_health,3
+108,ET020208,268,ETH,motorized_travel_time_to_health,3
+109,ET020209,27,ETH,motorized_travel_time_to_health,3
+110,ET020301,33,ETH,motorized_travel_time_to_health,3
+111,ET020302,39,ETH,motorized_travel_time_to_health,3
+112,ET020303,204,ETH,motorized_travel_time_to_health,3
+113,ET020304,84,ETH,motorized_travel_time_to_health,3
+114,ET020305,127,ETH,motorized_travel_time_to_health,3
+115,ET020306,95,ETH,motorized_travel_time_to_health,3
+116,ET020307,118,ETH,motorized_travel_time_to_health,3
+117,ET020396,2,ETH,motorized_travel_time_to_health,3
+118,ET020401,208,ETH,motorized_travel_time_to_health,3
+119,ET020402,210,ETH,motorized_travel_time_to_health,3
+120,ET020403,310,ETH,motorized_travel_time_to_health,3
+121,ET020404,100,ETH,motorized_travel_time_to_health,3
+122,ET020405,69,ETH,motorized_travel_time_to_health,3
+123,ET020501,190,ETH,motorized_travel_time_to_health,3
+124,ET020502,87,ETH,motorized_travel_time_to_health,3
+125,ET020503,89,ETH,motorized_travel_time_to_health,3
+126,ET020504,117,ETH,motorized_travel_time_to_health,3
+127,ET020505,175,ETH,motorized_travel_time_to_health,3
+128,ET030101,79,ETH,motorized_travel_time_to_health,3
+129,ET030102,146,ETH,motorized_travel_time_to_health,3
+130,ET030103,95,ETH,motorized_travel_time_to_health,3
+131,ET030104,96,ETH,motorized_travel_time_to_health,3
+132,ET030105,59,ETH,motorized_travel_time_to_health,3
+133,ET030106,1,ETH,motorized_travel_time_to_health,3
+134,ET030119,126,ETH,motorized_travel_time_to_health,3
+135,ET030198,2,ETH,motorized_travel_time_to_health,3
+136,ET030201,90,ETH,motorized_travel_time_to_health,3
+137,ET030202,64,ETH,motorized_travel_time_to_health,3
+138,ET030203,51,ETH,motorized_travel_time_to_health,3
+139,ET030204,38,ETH,motorized_travel_time_to_health,3
+140,ET030205,103,ETH,motorized_travel_time_to_health,3
+141,ET030206,74,ETH,motorized_travel_time_to_health,3
+142,ET030207,96,ETH,motorized_travel_time_to_health,3
+143,ET030208,60,ETH,motorized_travel_time_to_health,3
+144,ET030209,60,ETH,motorized_travel_time_to_health,3
+145,ET030210,11,ETH,motorized_travel_time_to_health,3
+146,ET030211,66,ETH,motorized_travel_time_to_health,3
+147,ET030212,84,ETH,motorized_travel_time_to_health,3
+148,ET030213,155,ETH,motorized_travel_time_to_health,3
+149,ET030214,98,ETH,motorized_travel_time_to_health,3
+150,ET030215,10,ETH,motorized_travel_time_to_health,3
+151,ET030216,3,ETH,motorized_travel_time_to_health,3
+152,ET030217,1,ETH,motorized_travel_time_to_health,3
+153,ET030218,1,ETH,motorized_travel_time_to_health,3
+154,ET030293,1,ETH,motorized_travel_time_to_health,3
+155,ET030298,52,ETH,motorized_travel_time_to_health,3
+156,ET030299,1,ETH,motorized_travel_time_to_health,3
+157,ET030301,165,ETH,motorized_travel_time_to_health,3
+158,ET030302,63,ETH,motorized_travel_time_to_health,3
+159,ET030303,76,ETH,motorized_travel_time_to_health,3
+160,ET030304,91,ETH,motorized_travel_time_to_health,3
+161,ET030305,56,ETH,motorized_travel_time_to_health,3
+162,ET030306,11,ETH,motorized_travel_time_to_health,3
+163,ET030307,54,ETH,motorized_travel_time_to_health,3
+164,ET030308,50,ETH,motorized_travel_time_to_health,3
+165,ET030309,9,ETH,motorized_travel_time_to_health,3
+166,ET030310,67,ETH,motorized_travel_time_to_health,3
+167,ET030311,84,ETH,motorized_travel_time_to_health,3
+168,ET030312,45,ETH,motorized_travel_time_to_health,3
+169,ET030313,61,ETH,motorized_travel_time_to_health,3
+170,ET030314,12,ETH,motorized_travel_time_to_health,3
+171,ET030315,8,ETH,motorized_travel_time_to_health,3
+172,ET030397,5,ETH,motorized_travel_time_to_health,3
+173,ET030398,1,ETH,motorized_travel_time_to_health,3
+174,ET030399,9,ETH,motorized_travel_time_to_health,3
+175,ET030401,76,ETH,motorized_travel_time_to_health,3
+176,ET030402,64,ETH,motorized_travel_time_to_health,3
+177,ET030403,54,ETH,motorized_travel_time_to_health,3
+178,ET030404,98,ETH,motorized_travel_time_to_health,3
+179,ET030405,25,ETH,motorized_travel_time_to_health,3
+180,ET030406,84,ETH,motorized_travel_time_to_health,3
+181,ET030407,52,ETH,motorized_travel_time_to_health,3
+182,ET030408,41,ETH,motorized_travel_time_to_health,3
+183,ET030409,38,ETH,motorized_travel_time_to_health,3
+184,ET030410,38,ETH,motorized_travel_time_to_health,3
+185,ET030411,115,ETH,motorized_travel_time_to_health,3
+186,ET030412,57,ETH,motorized_travel_time_to_health,3
+187,ET030413,76,ETH,motorized_travel_time_to_health,3
+188,ET030414,66,ETH,motorized_travel_time_to_health,3
+189,ET030415,42,ETH,motorized_travel_time_to_health,3
+190,ET030416,83,ETH,motorized_travel_time_to_health,3
+191,ET030417,15,ETH,motorized_travel_time_to_health,3
+192,ET030418,12,ETH,motorized_travel_time_to_health,3
+193,ET030419,103,ETH,motorized_travel_time_to_health,3
+194,ET030420,39,ETH,motorized_travel_time_to_health,3
+195,ET030421,125,ETH,motorized_travel_time_to_health,3
+196,ET030422,53,ETH,motorized_travel_time_to_health,3
+197,ET030423,1,ETH,motorized_travel_time_to_health,3
+198,ET030424,5,ETH,motorized_travel_time_to_health,3
+199,ET030425,1,ETH,motorized_travel_time_to_health,3
+200,ET030426,1,ETH,motorized_travel_time_to_health,3
+201,ET030427,16,ETH,motorized_travel_time_to_health,3
+202,ET030428,3,ETH,motorized_travel_time_to_health,3
+203,ET030429,1,ETH,motorized_travel_time_to_health,3
+204,ET030498,12,ETH,motorized_travel_time_to_health,3
+205,ET030499,1,ETH,motorized_travel_time_to_health,3
+206,ET030501,82,ETH,motorized_travel_time_to_health,3
+207,ET030502,84,ETH,motorized_travel_time_to_health,3
+208,ET030503,57,ETH,motorized_travel_time_to_health,3
+209,ET030504,71,ETH,motorized_travel_time_to_health,3
+210,ET030505,81,ETH,motorized_travel_time_to_health,3
+211,ET030506,104,ETH,motorized_travel_time_to_health,3
+212,ET030507,61,ETH,motorized_travel_time_to_health,3
+213,ET030508,71,ETH,motorized_travel_time_to_health,3
+214,ET030509,76,ETH,motorized_travel_time_to_health,3
+215,ET030510,84,ETH,motorized_travel_time_to_health,3
+216,ET030511,71,ETH,motorized_travel_time_to_health,3
+217,ET030512,72,ETH,motorized_travel_time_to_health,3
+218,ET030513,68,ETH,motorized_travel_time_to_health,3
+219,ET030514,70,ETH,motorized_travel_time_to_health,3
+220,ET030515,107,ETH,motorized_travel_time_to_health,3
+221,ET030516,94,ETH,motorized_travel_time_to_health,3
+222,ET030517,82,ETH,motorized_travel_time_to_health,3
+223,ET030518,31,ETH,motorized_travel_time_to_health,3
+224,ET030519,68,ETH,motorized_travel_time_to_health,3
+225,ET030520,20,ETH,motorized_travel_time_to_health,3
+226,ET030521,120,ETH,motorized_travel_time_to_health,3
+227,ET030522,98,ETH,motorized_travel_time_to_health,3
+228,ET030523,46,ETH,motorized_travel_time_to_health,3
+229,ET030524,62,ETH,motorized_travel_time_to_health,3
+230,ET030525,12,ETH,motorized_travel_time_to_health,3
+231,ET030526,1,ETH,motorized_travel_time_to_health,3
+232,ET030527,1,ETH,motorized_travel_time_to_health,3
+233,ET030595,13,ETH,motorized_travel_time_to_health,3
+234,ET030597,0,ETH,motorized_travel_time_to_health,3
+235,ET030598,12,ETH,motorized_travel_time_to_health,3
+236,ET030599,5,ETH,motorized_travel_time_to_health,3
+237,ET030601,37,ETH,motorized_travel_time_to_health,3
+238,ET030602,58,ETH,motorized_travel_time_to_health,3
+239,ET030603,38,ETH,motorized_travel_time_to_health,3
+240,ET030604,107,ETH,motorized_travel_time_to_health,3
+241,ET030605,79,ETH,motorized_travel_time_to_health,3
+242,ET030606,43,ETH,motorized_travel_time_to_health,3
+243,ET030607,39,ETH,motorized_travel_time_to_health,3
+244,ET030608,86,ETH,motorized_travel_time_to_health,3
+245,ET030609,24,ETH,motorized_travel_time_to_health,3
+246,ET030610,57,ETH,motorized_travel_time_to_health,3
+247,ET030611,82,ETH,motorized_travel_time_to_health,3
+248,ET030612,72,ETH,motorized_travel_time_to_health,3
+249,ET030613,70,ETH,motorized_travel_time_to_health,3
+250,ET030614,130,ETH,motorized_travel_time_to_health,3
+251,ET030615,6,ETH,motorized_travel_time_to_health,3
+252,ET030616,42,ETH,motorized_travel_time_to_health,3
+253,ET030617,79,ETH,motorized_travel_time_to_health,3
+254,ET030618,1,ETH,motorized_travel_time_to_health,3
+255,ET030619,134,ETH,motorized_travel_time_to_health,3
+256,ET030620,1,ETH,motorized_travel_time_to_health,3
+257,ET030621,1,ETH,motorized_travel_time_to_health,3
+258,ET030622,1,ETH,motorized_travel_time_to_health,3
+259,ET030623,3,ETH,motorized_travel_time_to_health,3
+260,ET030694,1,ETH,motorized_travel_time_to_health,3
+261,ET030698,1,ETH,motorized_travel_time_to_health,3
+262,ET030699,1,ETH,motorized_travel_time_to_health,3
+263,ET030701,45,ETH,motorized_travel_time_to_health,3
+264,ET030702,37,ETH,motorized_travel_time_to_health,3
+265,ET030703,45,ETH,motorized_travel_time_to_health,3
+266,ET030704,29,ETH,motorized_travel_time_to_health,3
+267,ET030705,34,ETH,motorized_travel_time_to_health,3
+268,ET030706,49,ETH,motorized_travel_time_to_health,3
+269,ET030707,64,ETH,motorized_travel_time_to_health,3
+270,ET030708,34,ETH,motorized_travel_time_to_health,3
+271,ET030709,34,ETH,motorized_travel_time_to_health,3
+272,ET030710,37,ETH,motorized_travel_time_to_health,3
+273,ET030711,130,ETH,motorized_travel_time_to_health,3
+274,ET030712,16,ETH,motorized_travel_time_to_health,3
+275,ET030713,40,ETH,motorized_travel_time_to_health,3
+276,ET030714,11,ETH,motorized_travel_time_to_health,3
+277,ET030715,36,ETH,motorized_travel_time_to_health,3
+278,ET030716,1,ETH,motorized_travel_time_to_health,3
+279,ET030717,1,ETH,motorized_travel_time_to_health,3
+280,ET030718,66,ETH,motorized_travel_time_to_health,3
+281,ET030719,0,ETH,motorized_travel_time_to_health,3
+282,ET030720,1,ETH,motorized_travel_time_to_health,3
+283,ET030797,1,ETH,motorized_travel_time_to_health,3
+284,ET030798,2,ETH,motorized_travel_time_to_health,3
+285,ET030799,3,ETH,motorized_travel_time_to_health,3
+286,ET030801,137,ETH,motorized_travel_time_to_health,3
+287,ET030802,58,ETH,motorized_travel_time_to_health,3
+288,ET030803,160,ETH,motorized_travel_time_to_health,3
+289,ET030804,140,ETH,motorized_travel_time_to_health,3
+290,ET030805,123,ETH,motorized_travel_time_to_health,3
+291,ET030806,201,ETH,motorized_travel_time_to_health,3
+292,ET030807,18,ETH,motorized_travel_time_to_health,3
+293,ET030808,123,ETH,motorized_travel_time_to_health,3
+294,ET030809,2,ETH,motorized_travel_time_to_health,3
+295,ET030901,29,ETH,motorized_travel_time_to_health,3
+296,ET030902,23,ETH,motorized_travel_time_to_health,3
+297,ET030903,36,ETH,motorized_travel_time_to_health,3
+298,ET030904,69,ETH,motorized_travel_time_to_health,3
+299,ET030905,20,ETH,motorized_travel_time_to_health,3
+300,ET030906,108,ETH,motorized_travel_time_to_health,3
+301,ET030907,11,ETH,motorized_travel_time_to_health,3
+302,ET030908,35,ETH,motorized_travel_time_to_health,3
+303,ET030909,1,ETH,motorized_travel_time_to_health,3
+304,ET030910,2,ETH,motorized_travel_time_to_health,3
+305,ET030911,1,ETH,motorized_travel_time_to_health,3
+306,ET030912,1,ETH,motorized_travel_time_to_health,3
+307,ET030996,9,ETH,motorized_travel_time_to_health,3
+308,ET030997,1,ETH,motorized_travel_time_to_health,3
+309,ET030998,1,ETH,motorized_travel_time_to_health,3
+310,ET030999,4,ETH,motorized_travel_time_to_health,3
+311,ET031001,41,ETH,motorized_travel_time_to_health,3
+312,ET031002,64,ETH,motorized_travel_time_to_health,3
+313,ET031003,88,ETH,motorized_travel_time_to_health,3
+314,ET031004,40,ETH,motorized_travel_time_to_health,3
+315,ET031005,31,ETH,motorized_travel_time_to_health,3
+316,ET031006,2,ETH,motorized_travel_time_to_health,3
+317,ET031007,1,ETH,motorized_travel_time_to_health,3
+318,ET031008,20,ETH,motorized_travel_time_to_health,3
+319,ET031099,1,ETH,motorized_travel_time_to_health,3
+320,ET031103,3,ETH,motorized_travel_time_to_health,3
+321,ET031104,1,ETH,motorized_travel_time_to_health,3
+322,ET031105,1,ETH,motorized_travel_time_to_health,3
+323,ET031106,59,ETH,motorized_travel_time_to_health,3
+324,ET031107,72,ETH,motorized_travel_time_to_health,3
+325,ET031108,61,ETH,motorized_travel_time_to_health,3
+326,ET031109,71,ETH,motorized_travel_time_to_health,3
+327,ET031110,55,ETH,motorized_travel_time_to_health,3
+328,ET031111,40,ETH,motorized_travel_time_to_health,3
+329,ET031112,86,ETH,motorized_travel_time_to_health,3
+330,ET031115,62,ETH,motorized_travel_time_to_health,3
+331,ET031116,101,ETH,motorized_travel_time_to_health,3
+332,ET031117,92,ETH,motorized_travel_time_to_health,3
+333,ET031118,24,ETH,motorized_travel_time_to_health,3
+334,ET031119,73,ETH,motorized_travel_time_to_health,3
+335,ET031120,66,ETH,motorized_travel_time_to_health,3
+336,ET031121,117,ETH,motorized_travel_time_to_health,3
+337,ET031122,151,ETH,motorized_travel_time_to_health,3
+338,ET031125,29,ETH,motorized_travel_time_to_health,3
+339,ET031199,1,ETH,motorized_travel_time_to_health,3
+340,ET031205,101,ETH,motorized_travel_time_to_health,3
+341,ET031206,77,ETH,motorized_travel_time_to_health,3
+342,ET031213,88,ETH,motorized_travel_time_to_health,3
+343,ET031214,147,ETH,motorized_travel_time_to_health,3
+344,ET031223,23,ETH,motorized_travel_time_to_health,3
+345,ET031224,22,ETH,motorized_travel_time_to_health,3
+346,ET031292,3,ETH,motorized_travel_time_to_health,3
+347,ET040101,45,ETH,motorized_travel_time_to_health,3
+348,ET040102,34,ETH,motorized_travel_time_to_health,3
+349,ET040103,36,ETH,motorized_travel_time_to_health,3
+350,ET040104,10,ETH,motorized_travel_time_to_health,3
+351,ET040105,38,ETH,motorized_travel_time_to_health,3
+352,ET040106,24,ETH,motorized_travel_time_to_health,3
+353,ET040107,24,ETH,motorized_travel_time_to_health,3
+354,ET040108,25,ETH,motorized_travel_time_to_health,3
+355,ET040109,61,ETH,motorized_travel_time_to_health,3
+356,ET040110,19,ETH,motorized_travel_time_to_health,3
+357,ET040111,66,ETH,motorized_travel_time_to_health,3
+358,ET040112,11,ETH,motorized_travel_time_to_health,3
+359,ET040113,12,ETH,motorized_travel_time_to_health,3
+360,ET040114,24,ETH,motorized_travel_time_to_health,3
+361,ET040115,23,ETH,motorized_travel_time_to_health,3
+362,ET040116,47,ETH,motorized_travel_time_to_health,3
+363,ET040117,6,ETH,motorized_travel_time_to_health,3
+364,ET040118,26,ETH,motorized_travel_time_to_health,3
+365,ET040119,26,ETH,motorized_travel_time_to_health,3
+366,ET040193,2,ETH,motorized_travel_time_to_health,3
+367,ET040197,26,ETH,motorized_travel_time_to_health,3
+368,ET040198,27,ETH,motorized_travel_time_to_health,3
+369,ET040199,3,ETH,motorized_travel_time_to_health,3
+370,ET040201,45,ETH,motorized_travel_time_to_health,3
+371,ET040202,65,ETH,motorized_travel_time_to_health,3
+372,ET040203,40,ETH,motorized_travel_time_to_health,3
+373,ET040204,81,ETH,motorized_travel_time_to_health,3
+374,ET040205,20,ETH,motorized_travel_time_to_health,3
+375,ET040206,26,ETH,motorized_travel_time_to_health,3
+376,ET040207,64,ETH,motorized_travel_time_to_health,3
+377,ET040208,22,ETH,motorized_travel_time_to_health,3
+378,ET040209,37,ETH,motorized_travel_time_to_health,3
+379,ET040210,35,ETH,motorized_travel_time_to_health,3
+380,ET040211,24,ETH,motorized_travel_time_to_health,3
+381,ET040212,40,ETH,motorized_travel_time_to_health,3
+382,ET040213,32,ETH,motorized_travel_time_to_health,3
+383,ET040214,41,ETH,motorized_travel_time_to_health,3
+384,ET040215,37,ETH,motorized_travel_time_to_health,3
+385,ET040216,29,ETH,motorized_travel_time_to_health,3
+386,ET040217,96,ETH,motorized_travel_time_to_health,3
+387,ET040297,7,ETH,motorized_travel_time_to_health,3
+388,ET040301,42,ETH,motorized_travel_time_to_health,3
+389,ET040302,27,ETH,motorized_travel_time_to_health,3
+390,ET040309,197,ETH,motorized_travel_time_to_health,3
+391,ET040310,65,ETH,motorized_travel_time_to_health,3
+392,ET040311,69,ETH,motorized_travel_time_to_health,3
+393,ET040312,81,ETH,motorized_travel_time_to_health,3
+394,ET040313,333,ETH,motorized_travel_time_to_health,3
+395,ET040314,106,ETH,motorized_travel_time_to_health,3
+396,ET040315,36,ETH,motorized_travel_time_to_health,3
+397,ET040316,176,ETH,motorized_travel_time_to_health,3
+398,ET040317,106,ETH,motorized_travel_time_to_health,3
+399,ET040319,41,ETH,motorized_travel_time_to_health,3
+400,ET040320,2,ETH,motorized_travel_time_to_health,3
+401,ET040324,46,ETH,motorized_travel_time_to_health,3
+402,ET040401,31,ETH,motorized_travel_time_to_health,3
+403,ET040402,44,ETH,motorized_travel_time_to_health,3
+404,ET040403,28,ETH,motorized_travel_time_to_health,3
+405,ET040404,32,ETH,motorized_travel_time_to_health,3
+406,ET040405,35,ETH,motorized_travel_time_to_health,3
+407,ET040406,19,ETH,motorized_travel_time_to_health,3
+408,ET040407,15,ETH,motorized_travel_time_to_health,3
+409,ET040408,121,ETH,motorized_travel_time_to_health,3
+410,ET040409,69,ETH,motorized_travel_time_to_health,3
+411,ET040410,52,ETH,motorized_travel_time_to_health,3
+412,ET040411,30,ETH,motorized_travel_time_to_health,3
+413,ET040412,149,ETH,motorized_travel_time_to_health,3
+414,ET040413,82,ETH,motorized_travel_time_to_health,3
+415,ET040414,85,ETH,motorized_travel_time_to_health,3
+416,ET040415,51,ETH,motorized_travel_time_to_health,3
+417,ET040416,67,ETH,motorized_travel_time_to_health,3
+418,ET040417,1,ETH,motorized_travel_time_to_health,3
+419,ET040418,6,ETH,motorized_travel_time_to_health,3
+420,ET040490,77,ETH,motorized_travel_time_to_health,3
+421,ET040491,108,ETH,motorized_travel_time_to_health,3
+422,ET040495,75,ETH,motorized_travel_time_to_health,3
+423,ET040499,33,ETH,motorized_travel_time_to_health,3
+424,ET040500,28,ETH,motorized_travel_time_to_health,3
+425,ET040501,106,ETH,motorized_travel_time_to_health,3
+426,ET040502,54,ETH,motorized_travel_time_to_health,3
+427,ET040503,50,ETH,motorized_travel_time_to_health,3
+428,ET040504,93,ETH,motorized_travel_time_to_health,3
+429,ET040505,45,ETH,motorized_travel_time_to_health,3
+430,ET040506,24,ETH,motorized_travel_time_to_health,3
+431,ET040507,17,ETH,motorized_travel_time_to_health,3
+432,ET040508,21,ETH,motorized_travel_time_to_health,3
+433,ET040509,27,ETH,motorized_travel_time_to_health,3
+434,ET040510,29,ETH,motorized_travel_time_to_health,3
+435,ET040511,22,ETH,motorized_travel_time_to_health,3
+436,ET040513,62,ETH,motorized_travel_time_to_health,3
+437,ET040514,48,ETH,motorized_travel_time_to_health,3
+438,ET040515,6,ETH,motorized_travel_time_to_health,3
+439,ET040516,114,ETH,motorized_travel_time_to_health,3
+440,ET040517,43,ETH,motorized_travel_time_to_health,3
+441,ET040518,41,ETH,motorized_travel_time_to_health,3
+442,ET040519,81,ETH,motorized_travel_time_to_health,3
+443,ET040590,38,ETH,motorized_travel_time_to_health,3
+444,ET040592,104,ETH,motorized_travel_time_to_health,3
+445,ET040594,97,ETH,motorized_travel_time_to_health,3
+446,ET040597,66,ETH,motorized_travel_time_to_health,3
+447,ET040601,89,ETH,motorized_travel_time_to_health,3
+448,ET040602,87,ETH,motorized_travel_time_to_health,3
+449,ET040603,52,ETH,motorized_travel_time_to_health,3
+450,ET040604,85,ETH,motorized_travel_time_to_health,3
+451,ET040605,64,ETH,motorized_travel_time_to_health,3
+452,ET040606,51,ETH,motorized_travel_time_to_health,3
+453,ET040607,23,ETH,motorized_travel_time_to_health,3
+454,ET040608,63,ETH,motorized_travel_time_to_health,3
+455,ET040609,44,ETH,motorized_travel_time_to_health,3
+456,ET040610,39,ETH,motorized_travel_time_to_health,3
+457,ET040613,2,ETH,motorized_travel_time_to_health,3
+458,ET040614,54,ETH,motorized_travel_time_to_health,3
+459,ET040615,69,ETH,motorized_travel_time_to_health,3
+460,ET040617,34,ETH,motorized_travel_time_to_health,3
+461,ET040701,29,ETH,motorized_travel_time_to_health,3
+462,ET040702,17,ETH,motorized_travel_time_to_health,3
+463,ET040703,17,ETH,motorized_travel_time_to_health,3
+464,ET040704,19,ETH,motorized_travel_time_to_health,3
+465,ET040705,19,ETH,motorized_travel_time_to_health,3
+466,ET040706,11,ETH,motorized_travel_time_to_health,3
+467,ET040707,13,ETH,motorized_travel_time_to_health,3
+468,ET040708,18,ETH,motorized_travel_time_to_health,3
+469,ET040709,5,ETH,motorized_travel_time_to_health,3
+470,ET040710,15,ETH,motorized_travel_time_to_health,3
+471,ET040711,15,ETH,motorized_travel_time_to_health,3
+472,ET040714,5,ETH,motorized_travel_time_to_health,3
+473,ET040797,4,ETH,motorized_travel_time_to_health,3
+474,ET040799,1,ETH,motorized_travel_time_to_health,3
+475,ET040801,28,ETH,motorized_travel_time_to_health,3
+476,ET040802,69,ETH,motorized_travel_time_to_health,3
+477,ET040803,95,ETH,motorized_travel_time_to_health,3
+478,ET040804,12,ETH,motorized_travel_time_to_health,3
+479,ET040805,13,ETH,motorized_travel_time_to_health,3
+480,ET040806,21,ETH,motorized_travel_time_to_health,3
+481,ET040807,27,ETH,motorized_travel_time_to_health,3
+482,ET040808,37,ETH,motorized_travel_time_to_health,3
+483,ET040809,38,ETH,motorized_travel_time_to_health,3
+484,ET040810,74,ETH,motorized_travel_time_to_health,3
+485,ET040811,50,ETH,motorized_travel_time_to_health,3
+486,ET040812,34,ETH,motorized_travel_time_to_health,3
+487,ET040813,51,ETH,motorized_travel_time_to_health,3
+488,ET040814,51,ETH,motorized_travel_time_to_health,3
+489,ET040815,25,ETH,motorized_travel_time_to_health,3
+490,ET040816,17,ETH,motorized_travel_time_to_health,3
+491,ET040817,38,ETH,motorized_travel_time_to_health,3
+492,ET040818,29,ETH,motorized_travel_time_to_health,3
+493,ET040819,24,ETH,motorized_travel_time_to_health,3
+494,ET040820,11,ETH,motorized_travel_time_to_health,3
+495,ET040821,23,ETH,motorized_travel_time_to_health,3
+496,ET040822,12,ETH,motorized_travel_time_to_health,3
+497,ET040823,38,ETH,motorized_travel_time_to_health,3
+498,ET040824,17,ETH,motorized_travel_time_to_health,3
+499,ET040825,3,ETH,motorized_travel_time_to_health,3
+500,ET040893,77,ETH,motorized_travel_time_to_health,3
+501,ET040894,1,ETH,motorized_travel_time_to_health,3
+502,ET040901,87,ETH,motorized_travel_time_to_health,3
+503,ET040902,39,ETH,motorized_travel_time_to_health,3
+504,ET040903,28,ETH,motorized_travel_time_to_health,3
+505,ET040904,41,ETH,motorized_travel_time_to_health,3
+506,ET040905,3,ETH,motorized_travel_time_to_health,3
+507,ET040906,50,ETH,motorized_travel_time_to_health,3
+508,ET040907,29,ETH,motorized_travel_time_to_health,3
+509,ET040908,27,ETH,motorized_travel_time_to_health,3
+510,ET040909,49,ETH,motorized_travel_time_to_health,3
+511,ET040910,47,ETH,motorized_travel_time_to_health,3
+512,ET040911,65,ETH,motorized_travel_time_to_health,3
+513,ET040912,39,ETH,motorized_travel_time_to_health,3
+514,ET040913,29,ETH,motorized_travel_time_to_health,3
+515,ET040914,1,ETH,motorized_travel_time_to_health,3
+516,ET040915,127,ETH,motorized_travel_time_to_health,3
+517,ET040991,59,ETH,motorized_travel_time_to_health,3
+518,ET040998,127,ETH,motorized_travel_time_to_health,3
+519,ET041000,1,ETH,motorized_travel_time_to_health,3
+520,ET041001,13,ETH,motorized_travel_time_to_health,3
+521,ET041002,44,ETH,motorized_travel_time_to_health,3
+522,ET041003,24,ETH,motorized_travel_time_to_health,3
+523,ET041004,149,ETH,motorized_travel_time_to_health,3
+524,ET041005,32,ETH,motorized_travel_time_to_health,3
+525,ET041006,16,ETH,motorized_travel_time_to_health,3
+526,ET041007,13,ETH,motorized_travel_time_to_health,3
+527,ET041008,14,ETH,motorized_travel_time_to_health,3
+528,ET041009,13,ETH,motorized_travel_time_to_health,3
+529,ET041010,20,ETH,motorized_travel_time_to_health,3
+530,ET041011,24,ETH,motorized_travel_time_to_health,3
+531,ET041012,65,ETH,motorized_travel_time_to_health,3
+532,ET041013,25,ETH,motorized_travel_time_to_health,3
+533,ET041014,66,ETH,motorized_travel_time_to_health,3
+534,ET041015,55,ETH,motorized_travel_time_to_health,3
+535,ET041016,33,ETH,motorized_travel_time_to_health,3
+536,ET041017,71,ETH,motorized_travel_time_to_health,3
+537,ET041018,101,ETH,motorized_travel_time_to_health,3
+538,ET041019,2,ETH,motorized_travel_time_to_health,3
+539,ET041089,20,ETH,motorized_travel_time_to_health,3
+540,ET041097,3,ETH,motorized_travel_time_to_health,3
+541,ET041098,169,ETH,motorized_travel_time_to_health,3
+542,ET041099,8,ETH,motorized_travel_time_to_health,3
+543,ET041104,50,ETH,motorized_travel_time_to_health,3
+544,ET041106,51,ETH,motorized_travel_time_to_health,3
+545,ET041109,16,ETH,motorized_travel_time_to_health,3
+546,ET041110,91,ETH,motorized_travel_time_to_health,3
+547,ET041111,168,ETH,motorized_travel_time_to_health,3
+548,ET041112,277,ETH,motorized_travel_time_to_health,3
+549,ET041113,248,ETH,motorized_travel_time_to_health,3
+550,ET041114,115,ETH,motorized_travel_time_to_health,3
+551,ET041115,449,ETH,motorized_travel_time_to_health,3
+552,ET041116,40,ETH,motorized_travel_time_to_health,3
+553,ET041119,8,ETH,motorized_travel_time_to_health,3
+554,ET041120,4,ETH,motorized_travel_time_to_health,3
+555,ET041122,44,ETH,motorized_travel_time_to_health,3
+556,ET041207,43,ETH,motorized_travel_time_to_health,3
+557,ET041208,73,ETH,motorized_travel_time_to_health,3
+558,ET041210,59,ETH,motorized_travel_time_to_health,3
+559,ET041211,69,ETH,motorized_travel_time_to_health,3
+560,ET041212,159,ETH,motorized_travel_time_to_health,3
+561,ET041216,58,ETH,motorized_travel_time_to_health,3
+562,ET041219,98,ETH,motorized_travel_time_to_health,3
+563,ET041220,51,ETH,motorized_travel_time_to_health,3
+564,ET041223,59,ETH,motorized_travel_time_to_health,3
+565,ET041290,40,ETH,motorized_travel_time_to_health,3
+566,ET041291,39,ETH,motorized_travel_time_to_health,3
+567,ET041295,67,ETH,motorized_travel_time_to_health,3
+568,ET041296,3,ETH,motorized_travel_time_to_health,3
+569,ET041298,71,ETH,motorized_travel_time_to_health,3
+570,ET041301,36,ETH,motorized_travel_time_to_health,3
+571,ET041302,27,ETH,motorized_travel_time_to_health,3
+572,ET041303,28,ETH,motorized_travel_time_to_health,3
+573,ET041304,29,ETH,motorized_travel_time_to_health,3
+574,ET041305,25,ETH,motorized_travel_time_to_health,3
+575,ET041307,23,ETH,motorized_travel_time_to_health,3
+576,ET041308,43,ETH,motorized_travel_time_to_health,3
+577,ET041309,44,ETH,motorized_travel_time_to_health,3
+578,ET041310,27,ETH,motorized_travel_time_to_health,3
+579,ET041311,2,ETH,motorized_travel_time_to_health,3
+580,ET041312,37,ETH,motorized_travel_time_to_health,3
+581,ET041314,14,ETH,motorized_travel_time_to_health,3
+582,ET041401,40,ETH,motorized_travel_time_to_health,3
+583,ET041402,17,ETH,motorized_travel_time_to_health,3
+584,ET041403,41,ETH,motorized_travel_time_to_health,3
+585,ET041404,43,ETH,motorized_travel_time_to_health,3
+586,ET041405,44,ETH,motorized_travel_time_to_health,3
+587,ET041407,63,ETH,motorized_travel_time_to_health,3
+588,ET041408,15,ETH,motorized_travel_time_to_health,3
+589,ET041409,69,ETH,motorized_travel_time_to_health,3
+590,ET041410,157,ETH,motorized_travel_time_to_health,3
+591,ET041411,36,ETH,motorized_travel_time_to_health,3
+592,ET041412,94,ETH,motorized_travel_time_to_health,3
+593,ET041413,61,ETH,motorized_travel_time_to_health,3
+594,ET041414,2,ETH,motorized_travel_time_to_health,3
+595,ET041482,72,ETH,motorized_travel_time_to_health,3
+596,ET041490,27,ETH,motorized_travel_time_to_health,3
+597,ET041492,2,ETH,motorized_travel_time_to_health,3
+598,ET041497,90,ETH,motorized_travel_time_to_health,3
+599,ET041499,16,ETH,motorized_travel_time_to_health,3
+600,ET041501,29,ETH,motorized_travel_time_to_health,3
+601,ET041502,27,ETH,motorized_travel_time_to_health,3
+602,ET041509,35,ETH,motorized_travel_time_to_health,3
+603,ET041513,57,ETH,motorized_travel_time_to_health,3
+604,ET041515,53,ETH,motorized_travel_time_to_health,3
+605,ET041517,89,ETH,motorized_travel_time_to_health,3
+606,ET041518,65,ETH,motorized_travel_time_to_health,3
+607,ET041587,1,ETH,motorized_travel_time_to_health,3
+608,ET041594,51,ETH,motorized_travel_time_to_health,3
+609,ET041596,35,ETH,motorized_travel_time_to_health,3
+610,ET041603,49,ETH,motorized_travel_time_to_health,3
+611,ET041604,29,ETH,motorized_travel_time_to_health,3
+612,ET041605,40,ETH,motorized_travel_time_to_health,3
+613,ET041606,28,ETH,motorized_travel_time_to_health,3
+614,ET041607,21,ETH,motorized_travel_time_to_health,3
+615,ET041608,37,ETH,motorized_travel_time_to_health,3
+616,ET041618,53,ETH,motorized_travel_time_to_health,3
+617,ET041621,1,ETH,motorized_travel_time_to_health,3
+618,ET041622,25,ETH,motorized_travel_time_to_health,3
+619,ET041623,58,ETH,motorized_travel_time_to_health,3
+620,ET041700,2,ETH,motorized_travel_time_to_health,3
+621,ET041701,13,ETH,motorized_travel_time_to_health,3
+622,ET041702,24,ETH,motorized_travel_time_to_health,3
+623,ET041703,32,ETH,motorized_travel_time_to_health,3
+624,ET041704,14,ETH,motorized_travel_time_to_health,3
+625,ET041705,23,ETH,motorized_travel_time_to_health,3
+626,ET041706,24,ETH,motorized_travel_time_to_health,3
+627,ET041707,50,ETH,motorized_travel_time_to_health,3
+628,ET041708,26,ETH,motorized_travel_time_to_health,3
+629,ET041709,137,ETH,motorized_travel_time_to_health,3
+630,ET041710,124,ETH,motorized_travel_time_to_health,3
+631,ET041711,1,ETH,motorized_travel_time_to_health,3
+632,ET041712,9,ETH,motorized_travel_time_to_health,3
+633,ET041783,46,ETH,motorized_travel_time_to_health,3
+634,ET041797,10,ETH,motorized_travel_time_to_health,3
+635,ET041798,7,ETH,motorized_travel_time_to_health,3
+636,ET041799,5,ETH,motorized_travel_time_to_health,3
+637,ET041801,62,ETH,motorized_travel_time_to_health,3
+638,ET041802,29,ETH,motorized_travel_time_to_health,3
+639,ET041803,45,ETH,motorized_travel_time_to_health,3
+640,ET041804,76,ETH,motorized_travel_time_to_health,3
+641,ET041805,52,ETH,motorized_travel_time_to_health,3
+642,ET041806,2,ETH,motorized_travel_time_to_health,3
+643,ET041807,138,ETH,motorized_travel_time_to_health,3
+644,ET041808,29,ETH,motorized_travel_time_to_health,3
+645,ET041809,206,ETH,motorized_travel_time_to_health,3
+646,ET041810,39,ETH,motorized_travel_time_to_health,3
+647,ET041811,23,ETH,motorized_travel_time_to_health,3
+648,ET041812,22,ETH,motorized_travel_time_to_health,3
+649,ET041901,43,ETH,motorized_travel_time_to_health,3
+650,ET041902,1,ETH,motorized_travel_time_to_health,3
+651,ET041903,50,ETH,motorized_travel_time_to_health,3
+652,ET041904,79,ETH,motorized_travel_time_to_health,3
+653,ET041905,26,ETH,motorized_travel_time_to_health,3
+654,ET041906,44,ETH,motorized_travel_time_to_health,3
+655,ET041907,22,ETH,motorized_travel_time_to_health,3
+656,ET041908,62,ETH,motorized_travel_time_to_health,3
+657,ET041909,67,ETH,motorized_travel_time_to_health,3
+658,ET041910,47,ETH,motorized_travel_time_to_health,3
+659,ET041911,56,ETH,motorized_travel_time_to_health,3
+660,ET041912,37,ETH,motorized_travel_time_to_health,3
+661,ET042001,5,ETH,motorized_travel_time_to_health,3
+662,ET042004,3,ETH,motorized_travel_time_to_health,3
+663,ET042005,10,ETH,motorized_travel_time_to_health,3
+664,ET042006,31,ETH,motorized_travel_time_to_health,3
+665,ET042008,1,ETH,motorized_travel_time_to_health,3
+666,ET042009,17,ETH,motorized_travel_time_to_health,3
+667,ET042011,26,ETH,motorized_travel_time_to_health,3
+668,ET042012,11,ETH,motorized_travel_time_to_health,3
+669,ET042013,53,ETH,motorized_travel_time_to_health,3
+670,ET042014,19,ETH,motorized_travel_time_to_health,3
+671,ET042016,48,ETH,motorized_travel_time_to_health,3
+672,ET042018,1,ETH,motorized_travel_time_to_health,3
+673,ET042020,2,ETH,motorized_travel_time_to_health,3
+674,ET042098,11,ETH,motorized_travel_time_to_health,3
+675,ET042101,47,ETH,motorized_travel_time_to_health,3
+676,ET042102,120,ETH,motorized_travel_time_to_health,3
+677,ET042103,43,ETH,motorized_travel_time_to_health,3
+678,ET042104,171,ETH,motorized_travel_time_to_health,3
+679,ET042105,163,ETH,motorized_travel_time_to_health,3
+680,ET042106,104,ETH,motorized_travel_time_to_health,3
+681,ET042107,8,ETH,motorized_travel_time_to_health,3
+682,ET050101,135,ETH,motorized_travel_time_to_health,3
+683,ET050102,99,ETH,motorized_travel_time_to_health,3
+684,ET050103,139,ETH,motorized_travel_time_to_health,3
+685,ET050104,140,ETH,motorized_travel_time_to_health,3
+686,ET050105,222,ETH,motorized_travel_time_to_health,3
+687,ET050106,138,ETH,motorized_travel_time_to_health,3
+688,ET050107,100,ETH,motorized_travel_time_to_health,3
+689,ET050198,131,ETH,motorized_travel_time_to_health,3
+690,ET050199,409,ETH,motorized_travel_time_to_health,3
+691,ET050202,26,ETH,motorized_travel_time_to_health,3
+692,ET050203,149,ETH,motorized_travel_time_to_health,3
+693,ET050204,123,ETH,motorized_travel_time_to_health,3
+694,ET050205,43,ETH,motorized_travel_time_to_health,3
+695,ET050206,74,ETH,motorized_travel_time_to_health,3
+696,ET050207,144,ETH,motorized_travel_time_to_health,3
+697,ET050283,30,ETH,motorized_travel_time_to_health,3
+698,ET050290,195,ETH,motorized_travel_time_to_health,3
+699,ET050293,12,ETH,motorized_travel_time_to_health,3
+700,ET050295,21,ETH,motorized_travel_time_to_health,3
+701,ET050296,2,ETH,motorized_travel_time_to_health,3
+702,ET050297,270,ETH,motorized_travel_time_to_health,3
+703,ET050298,43,ETH,motorized_travel_time_to_health,3
+704,ET050299,91,ETH,motorized_travel_time_to_health,3
+705,ET050301,145,ETH,motorized_travel_time_to_health,3
+706,ET050302,111,ETH,motorized_travel_time_to_health,3
+707,ET050303,136,ETH,motorized_travel_time_to_health,3
+708,ET050304,140,ETH,motorized_travel_time_to_health,3
+709,ET050305,176,ETH,motorized_travel_time_to_health,3
+710,ET050306,275,ETH,motorized_travel_time_to_health,3
+711,ET050307,28,ETH,motorized_travel_time_to_health,3
+712,ET050382,112,ETH,motorized_travel_time_to_health,3
+713,ET050392,157,ETH,motorized_travel_time_to_health,3
+714,ET050394,180,ETH,motorized_travel_time_to_health,3
+715,ET050395,115,ETH,motorized_travel_time_to_health,3
+716,ET050399,105,ETH,motorized_travel_time_to_health,3
+717,ET050402,143,ETH,motorized_travel_time_to_health,3
+718,ET050403,135,ETH,motorized_travel_time_to_health,3
+719,ET050404,137,ETH,motorized_travel_time_to_health,3
+720,ET050407,201,ETH,motorized_travel_time_to_health,3
+721,ET050408,140,ETH,motorized_travel_time_to_health,3
+722,ET050497,312,ETH,motorized_travel_time_to_health,3
+723,ET050498,380,ETH,motorized_travel_time_to_health,3
+724,ET050499,116,ETH,motorized_travel_time_to_health,3
+725,ET050501,122,ETH,motorized_travel_time_to_health,3
+726,ET050502,60,ETH,motorized_travel_time_to_health,3
+727,ET050503,135,ETH,motorized_travel_time_to_health,3
+728,ET050504,109,ETH,motorized_travel_time_to_health,3
+729,ET050586,118,ETH,motorized_travel_time_to_health,3
+730,ET050592,11,ETH,motorized_travel_time_to_health,3
+731,ET050595,99,ETH,motorized_travel_time_to_health,3
+732,ET050596,175,ETH,motorized_travel_time_to_health,3
+733,ET050597,124,ETH,motorized_travel_time_to_health,3
+734,ET050598,125,ETH,motorized_travel_time_to_health,3
+735,ET050599,207,ETH,motorized_travel_time_to_health,3
+736,ET050601,105,ETH,motorized_travel_time_to_health,3
+737,ET050602,182,ETH,motorized_travel_time_to_health,3
+738,ET050603,64,ETH,motorized_travel_time_to_health,3
+739,ET050604,94,ETH,motorized_travel_time_to_health,3
+740,ET050605,121,ETH,motorized_travel_time_to_health,3
+741,ET050606,111,ETH,motorized_travel_time_to_health,3
+742,ET050607,90,ETH,motorized_travel_time_to_health,3
+743,ET050608,108,ETH,motorized_travel_time_to_health,3
+744,ET050696,6,ETH,motorized_travel_time_to_health,3
+745,ET050698,172,ETH,motorized_travel_time_to_health,3
+746,ET050699,225,ETH,motorized_travel_time_to_health,3
+747,ET050701,130,ETH,motorized_travel_time_to_health,3
+748,ET050702,79,ETH,motorized_travel_time_to_health,3
+749,ET050703,95,ETH,motorized_travel_time_to_health,3
+750,ET050704,118,ETH,motorized_travel_time_to_health,3
+751,ET050788,61,ETH,motorized_travel_time_to_health,3
+752,ET050798,102,ETH,motorized_travel_time_to_health,3
+753,ET050799,108,ETH,motorized_travel_time_to_health,3
+754,ET050802,165,ETH,motorized_travel_time_to_health,3
+755,ET050804,146,ETH,motorized_travel_time_to_health,3
+756,ET050805,174,ETH,motorized_travel_time_to_health,3
+757,ET050806,173,ETH,motorized_travel_time_to_health,3
+758,ET050807,133,ETH,motorized_travel_time_to_health,3
+759,ET050808,107,ETH,motorized_travel_time_to_health,3
+760,ET050809,83,ETH,motorized_travel_time_to_health,3
+761,ET050898,145,ETH,motorized_travel_time_to_health,3
+762,ET050899,164,ETH,motorized_travel_time_to_health,3
+763,ET050901,168,ETH,motorized_travel_time_to_health,3
+764,ET050902,142,ETH,motorized_travel_time_to_health,3
+765,ET050903,142,ETH,motorized_travel_time_to_health,3
+766,ET050904,268,ETH,motorized_travel_time_to_health,3
+767,ET050991,176,ETH,motorized_travel_time_to_health,3
+768,ET050999,126,ETH,motorized_travel_time_to_health,3
+769,ET051001,163,ETH,motorized_travel_time_to_health,3
+770,ET051002,320,ETH,motorized_travel_time_to_health,3
+771,ET051003,213,ETH,motorized_travel_time_to_health,3
+772,ET051005,122,ETH,motorized_travel_time_to_health,3
+773,ET051006,113,ETH,motorized_travel_time_to_health,3
+774,ET051095,229,ETH,motorized_travel_time_to_health,3
+775,ET051096,234,ETH,motorized_travel_time_to_health,3
+776,ET051103,117,ETH,motorized_travel_time_to_health,3
+777,ET051104,147,ETH,motorized_travel_time_to_health,3
+778,ET051187,200,ETH,motorized_travel_time_to_health,3
+779,ET051198,111,ETH,motorized_travel_time_to_health,3
+780,ET060200,1,ETH,motorized_travel_time_to_health,3
+781,ET060201,116,ETH,motorized_travel_time_to_health,3
+782,ET060202,97,ETH,motorized_travel_time_to_health,3
+783,ET060203,172,ETH,motorized_travel_time_to_health,3
+784,ET060204,74,ETH,motorized_travel_time_to_health,3
+785,ET060205,113,ETH,motorized_travel_time_to_health,3
+786,ET060206,12,ETH,motorized_travel_time_to_health,3
+787,ET060207,107,ETH,motorized_travel_time_to_health,3
+788,ET060301,53,ETH,motorized_travel_time_to_health,3
+789,ET060302,60,ETH,motorized_travel_time_to_health,3
+790,ET060303,62,ETH,motorized_travel_time_to_health,3
+791,ET060304,74,ETH,motorized_travel_time_to_health,3
+792,ET060305,40,ETH,motorized_travel_time_to_health,3
+793,ET060306,54,ETH,motorized_travel_time_to_health,3
+794,ET060307,42,ETH,motorized_travel_time_to_health,3
+795,ET060308,37,ETH,motorized_travel_time_to_health,3
+796,ET060309,1,ETH,motorized_travel_time_to_health,3
+797,ET060400,9,ETH,motorized_travel_time_to_health,3
+798,ET060401,154,ETH,motorized_travel_time_to_health,3
+799,ET060402,92,ETH,motorized_travel_time_to_health,3
+800,ET060403,70,ETH,motorized_travel_time_to_health,3
+801,ET060404,112,ETH,motorized_travel_time_to_health,3
+802,ET060405,61,ETH,motorized_travel_time_to_health,3
+803,ET060508,231,ETH,motorized_travel_time_to_health,3
+804,ET070101,30,ETH,motorized_travel_time_to_health,3
+805,ET070102,29,ETH,motorized_travel_time_to_health,3
+806,ET070103,7,ETH,motorized_travel_time_to_health,3
+807,ET070104,47,ETH,motorized_travel_time_to_health,3
+808,ET070105,9,ETH,motorized_travel_time_to_health,3
+809,ET070106,11,ETH,motorized_travel_time_to_health,3
+810,ET070107,7,ETH,motorized_travel_time_to_health,3
+811,ET070108,6,ETH,motorized_travel_time_to_health,3
+812,ET070109,7,ETH,motorized_travel_time_to_health,3
+813,ET070110,13,ETH,motorized_travel_time_to_health,3
+814,ET070111,31,ETH,motorized_travel_time_to_health,3
+815,ET070112,15,ETH,motorized_travel_time_to_health,3
+816,ET070113,10,ETH,motorized_travel_time_to_health,3
+817,ET070114,2,ETH,motorized_travel_time_to_health,3
+818,ET070115,2,ETH,motorized_travel_time_to_health,3
+819,ET070116,5,ETH,motorized_travel_time_to_health,3
+820,ET070117,1,ETH,motorized_travel_time_to_health,3
+821,ET070118,5,ETH,motorized_travel_time_to_health,3
+822,ET070119,13,ETH,motorized_travel_time_to_health,3
+823,ET070120,40,ETH,motorized_travel_time_to_health,3
+824,ET070201,7,ETH,motorized_travel_time_to_health,3
+825,ET070202,30,ETH,motorized_travel_time_to_health,3
+826,ET070203,11,ETH,motorized_travel_time_to_health,3
+827,ET070204,15,ETH,motorized_travel_time_to_health,3
+828,ET070205,9,ETH,motorized_travel_time_to_health,3
+829,ET070206,44,ETH,motorized_travel_time_to_health,3
+830,ET070207,24,ETH,motorized_travel_time_to_health,3
+831,ET070208,22,ETH,motorized_travel_time_to_health,3
+832,ET070209,13,ETH,motorized_travel_time_to_health,3
+833,ET070210,12,ETH,motorized_travel_time_to_health,3
+834,ET070211,3,ETH,motorized_travel_time_to_health,3
+835,ET070212,7,ETH,motorized_travel_time_to_health,3
+836,ET070213,0,ETH,motorized_travel_time_to_health,3
+837,ET070214,1,ETH,motorized_travel_time_to_health,3
+838,ET070215,16,ETH,motorized_travel_time_to_health,3
+839,ET070216,9,ETH,motorized_travel_time_to_health,3
+840,ET070217,50,ETH,motorized_travel_time_to_health,3
+841,ET070301,31,ETH,motorized_travel_time_to_health,3
+842,ET070302,9,ETH,motorized_travel_time_to_health,3
+843,ET070303,10,ETH,motorized_travel_time_to_health,3
+844,ET070304,14,ETH,motorized_travel_time_to_health,3
+845,ET070305,38,ETH,motorized_travel_time_to_health,3
+846,ET070306,11,ETH,motorized_travel_time_to_health,3
+847,ET070307,7,ETH,motorized_travel_time_to_health,3
+848,ET070308,2,ETH,motorized_travel_time_to_health,3
+849,ET070309,20,ETH,motorized_travel_time_to_health,3
+850,ET070310,1,ETH,motorized_travel_time_to_health,3
+851,ET070312,4,ETH,motorized_travel_time_to_health,3
+852,ET070501,6,ETH,motorized_travel_time_to_health,3
+853,ET070502,6,ETH,motorized_travel_time_to_health,3
+854,ET070503,11,ETH,motorized_travel_time_to_health,3
+855,ET070504,15,ETH,motorized_travel_time_to_health,3
+856,ET070505,13,ETH,motorized_travel_time_to_health,3
+857,ET070506,12,ETH,motorized_travel_time_to_health,3
+858,ET070507,1,ETH,motorized_travel_time_to_health,3
+859,ET070508,1,ETH,motorized_travel_time_to_health,3
+860,ET070509,13,ETH,motorized_travel_time_to_health,3
+861,ET070510,15,ETH,motorized_travel_time_to_health,3
+862,ET070511,5,ETH,motorized_travel_time_to_health,3
+863,ET070512,1,ETH,motorized_travel_time_to_health,3
+864,ET070601,12,ETH,motorized_travel_time_to_health,3
+865,ET070602,18,ETH,motorized_travel_time_to_health,3
+866,ET070603,22,ETH,motorized_travel_time_to_health,3
+867,ET070604,51,ETH,motorized_travel_time_to_health,3
+868,ET070605,14,ETH,motorized_travel_time_to_health,3
+869,ET070606,17,ETH,motorized_travel_time_to_health,3
+870,ET070607,25,ETH,motorized_travel_time_to_health,3
+871,ET070608,25,ETH,motorized_travel_time_to_health,3
+872,ET070609,12,ETH,motorized_travel_time_to_health,3
+873,ET070610,21,ETH,motorized_travel_time_to_health,3
+874,ET070611,10,ETH,motorized_travel_time_to_health,3
+875,ET070612,28,ETH,motorized_travel_time_to_health,3
+876,ET070613,2,ETH,motorized_travel_time_to_health,3
+877,ET070614,2,ETH,motorized_travel_time_to_health,3
+878,ET070615,6,ETH,motorized_travel_time_to_health,3
+879,ET070616,17,ETH,motorized_travel_time_to_health,3
+880,ET070617,3,ETH,motorized_travel_time_to_health,3
+881,ET070618,1,ETH,motorized_travel_time_to_health,3
+882,ET070619,47,ETH,motorized_travel_time_to_health,3
+883,ET070620,23,ETH,motorized_travel_time_to_health,3
+884,ET070621,42,ETH,motorized_travel_time_to_health,3
+885,ET070622,18,ETH,motorized_travel_time_to_health,3
+886,ET070701,113,ETH,motorized_travel_time_to_health,3
+887,ET070702,75,ETH,motorized_travel_time_to_health,3
+888,ET070703,65,ETH,motorized_travel_time_to_health,3
+889,ET070704,81,ETH,motorized_travel_time_to_health,3
+890,ET070705,70,ETH,motorized_travel_time_to_health,3
+891,ET070706,78,ETH,motorized_travel_time_to_health,3
+892,ET070707,55,ETH,motorized_travel_time_to_health,3
+893,ET070708,72,ETH,motorized_travel_time_to_health,3
+894,ET070709,2,ETH,motorized_travel_time_to_health,3
+895,ET070710,16,ETH,motorized_travel_time_to_health,3
+896,ET070711,91,ETH,motorized_travel_time_to_health,3
+897,ET071003,1,ETH,motorized_travel_time_to_health,3
+898,ET071004,28,ETH,motorized_travel_time_to_health,3
+899,ET071005,41,ETH,motorized_travel_time_to_health,3
+900,ET071006,38,ETH,motorized_travel_time_to_health,3
+901,ET071007,41,ETH,motorized_travel_time_to_health,3
+902,ET071008,66,ETH,motorized_travel_time_to_health,3
+903,ET071009,24,ETH,motorized_travel_time_to_health,3
+904,ET071010,1,ETH,motorized_travel_time_to_health,3
+905,ET071011,24,ETH,motorized_travel_time_to_health,3
+906,ET071012,7,ETH,motorized_travel_time_to_health,3
+907,ET071013,32,ETH,motorized_travel_time_to_health,3
+908,ET071014,23,ETH,motorized_travel_time_to_health,3
+909,ET071015,43,ETH,motorized_travel_time_to_health,3
+910,ET071016,46,ETH,motorized_travel_time_to_health,3
+911,ET071017,69,ETH,motorized_travel_time_to_health,3
+912,ET071018,53,ETH,motorized_travel_time_to_health,3
+913,ET071019,58,ETH,motorized_travel_time_to_health,3
+914,ET071021,3,ETH,motorized_travel_time_to_health,3
+915,ET071205,85,ETH,motorized_travel_time_to_health,3
+916,ET071301,1,ETH,motorized_travel_time_to_health,3
+917,ET071302,59,ETH,motorized_travel_time_to_health,3
+918,ET071303,21,ETH,motorized_travel_time_to_health,3
+919,ET071304,26,ETH,motorized_travel_time_to_health,3
+920,ET071401,7,ETH,motorized_travel_time_to_health,3
+921,ET071402,14,ETH,motorized_travel_time_to_health,3
+922,ET071403,13,ETH,motorized_travel_time_to_health,3
+923,ET071404,24,ETH,motorized_travel_time_to_health,3
+924,ET071501,77,ETH,motorized_travel_time_to_health,3
+925,ET071502,120,ETH,motorized_travel_time_to_health,3
+926,ET071503,25,ETH,motorized_travel_time_to_health,3
+927,ET071504,61,ETH,motorized_travel_time_to_health,3
+928,ET071505,123,ETH,motorized_travel_time_to_health,3
+929,ET071506,32,ETH,motorized_travel_time_to_health,3
+930,ET071507,4,ETH,motorized_travel_time_to_health,3
+931,ET071508,10,ETH,motorized_travel_time_to_health,3
+932,ET071509,281,ETH,motorized_travel_time_to_health,3
+933,ET071601,39,ETH,motorized_travel_time_to_health,3
+934,ET072001,5,ETH,motorized_travel_time_to_health,3
+935,ET072002,8,ETH,motorized_travel_time_to_health,3
+936,ET072003,5,ETH,motorized_travel_time_to_health,3
+937,ET072004,5,ETH,motorized_travel_time_to_health,3
+938,ET072005,10,ETH,motorized_travel_time_to_health,3
+939,ET072006,8,ETH,motorized_travel_time_to_health,3
+940,ET072007,19,ETH,motorized_travel_time_to_health,3
+941,ET072008,25,ETH,motorized_travel_time_to_health,3
+942,ET072009,3,ETH,motorized_travel_time_to_health,3
+943,ET072010,10,ETH,motorized_travel_time_to_health,3
+944,ET072011,8,ETH,motorized_travel_time_to_health,3
+945,ET072012,8,ETH,motorized_travel_time_to_health,3
+946,ET072013,5,ETH,motorized_travel_time_to_health,3
+947,ET072102,63,ETH,motorized_travel_time_to_health,3
+948,ET072203,58,ETH,motorized_travel_time_to_health,3
+949,ET072304,25,ETH,motorized_travel_time_to_health,3
+950,ET072401,42,ETH,motorized_travel_time_to_health,3
+951,ET110101,97,ETH,motorized_travel_time_to_health,3
+952,ET110102,309,ETH,motorized_travel_time_to_health,3
+953,ET110103,52,ETH,motorized_travel_time_to_health,3
+954,ET110104,2,ETH,motorized_travel_time_to_health,3
+955,ET110105,1,ETH,motorized_travel_time_to_health,3
+956,ET110201,150,ETH,motorized_travel_time_to_health,3
+957,ET110202,28,ETH,motorized_travel_time_to_health,3
+958,ET110203,56,ETH,motorized_travel_time_to_health,3
+959,ET110204,40,ETH,motorized_travel_time_to_health,3
+960,ET110205,87,ETH,motorized_travel_time_to_health,3
+961,ET110206,46,ETH,motorized_travel_time_to_health,3
+962,ET110207,172,ETH,motorized_travel_time_to_health,3
+963,ET110208,86,ETH,motorized_travel_time_to_health,3
+964,ET110209,40,ETH,motorized_travel_time_to_health,3
+965,ET110210,85,ETH,motorized_travel_time_to_health,3
+966,ET110211,1,ETH,motorized_travel_time_to_health,3
+967,ET110212,142,ETH,motorized_travel_time_to_health,3
+968,ET110213,65,ETH,motorized_travel_time_to_health,3
+969,ET110214,4,ETH,motorized_travel_time_to_health,3
+970,ET110301,58,ETH,motorized_travel_time_to_health,3
+971,ET110302,150,ETH,motorized_travel_time_to_health,3
+972,ET110303,31,ETH,motorized_travel_time_to_health,3
+973,ET110304,22,ETH,motorized_travel_time_to_health,3
+974,ET110305,26,ETH,motorized_travel_time_to_health,3
+975,ET110306,16,ETH,motorized_travel_time_to_health,3
+976,ET110307,3,ETH,motorized_travel_time_to_health,3
+977,ET110308,1,ETH,motorized_travel_time_to_health,3
+978,ET110401,48,ETH,motorized_travel_time_to_health,3
+979,ET110402,25,ETH,motorized_travel_time_to_health,3
+980,ET110403,17,ETH,motorized_travel_time_to_health,3
+981,ET110404,69,ETH,motorized_travel_time_to_health,3
+982,ET110405,134,ETH,motorized_travel_time_to_health,3
+983,ET110406,67,ETH,motorized_travel_time_to_health,3
+984,ET110407,18,ETH,motorized_travel_time_to_health,3
+985,ET110408,24,ETH,motorized_travel_time_to_health,3
+986,ET110409,80,ETH,motorized_travel_time_to_health,3
+987,ET110410,45,ETH,motorized_travel_time_to_health,3
+988,ET110411,2,ETH,motorized_travel_time_to_health,3
+989,ET110412,8,ETH,motorized_travel_time_to_health,3
+990,ET110501,64,ETH,motorized_travel_time_to_health,3
+991,ET110502,96,ETH,motorized_travel_time_to_health,3
+992,ET110503,120,ETH,motorized_travel_time_to_health,3
+993,ET110504,120,ETH,motorized_travel_time_to_health,3
+994,ET110505,49,ETH,motorized_travel_time_to_health,3
+995,ET110506,257,ETH,motorized_travel_time_to_health,3
+996,ET110507,122,ETH,motorized_travel_time_to_health,3
+997,ET110601,109,ETH,motorized_travel_time_to_health,3
+998,ET120101,172,ETH,motorized_travel_time_to_health,3
+999,ET120102,32,ETH,motorized_travel_time_to_health,3
+1000,ET120103,55,ETH,motorized_travel_time_to_health,3
+1001,ET120104,72,ETH,motorized_travel_time_to_health,3
+1002,ET120105,55,ETH,motorized_travel_time_to_health,3
+1003,ET120200,101,ETH,motorized_travel_time_to_health,3
+1004,ET120201,119,ETH,motorized_travel_time_to_health,3
+1005,ET120202,145,ETH,motorized_travel_time_to_health,3
+1006,ET120203,81,ETH,motorized_travel_time_to_health,3
+1007,ET120204,199,ETH,motorized_travel_time_to_health,3
+1008,ET120205,236,ETH,motorized_travel_time_to_health,3
+1009,ET120206,26,ETH,motorized_travel_time_to_health,3
+1010,ET120301,101,ETH,motorized_travel_time_to_health,3
+1011,ET120308,229,ETH,motorized_travel_time_to_health,3
+1012,ET120407,80,ETH,motorized_travel_time_to_health,3
+1013,ET130101,6,ETH,motorized_travel_time_to_health,3
+1014,ET130102,3,ETH,motorized_travel_time_to_health,3
+1015,ET130103,2,ETH,motorized_travel_time_to_health,3
+1016,ET130104,3,ETH,motorized_travel_time_to_health,3
+1017,ET130105,8,ETH,motorized_travel_time_to_health,3
+1018,ET130106,3,ETH,motorized_travel_time_to_health,3
+1019,ET130107,9,ETH,motorized_travel_time_to_health,3
+1020,ET130108,1,ETH,motorized_travel_time_to_health,3
+1021,ET130109,1,ETH,motorized_travel_time_to_health,3
+1022,ET140101,3,ETH,motorized_travel_time_to_health,3
+1023,ET140102,1,ETH,motorized_travel_time_to_health,3
+1024,ET140103,1,ETH,motorized_travel_time_to_health,3
+1025,ET140104,1,ETH,motorized_travel_time_to_health,3
+1026,ET140105,0,ETH,motorized_travel_time_to_health,3
+1027,ET140106,0,ETH,motorized_travel_time_to_health,3
+1028,ET140107,1,ETH,motorized_travel_time_to_health,3
+1029,ET140108,1,ETH,motorized_travel_time_to_health,3
+1030,ET140109,0,ETH,motorized_travel_time_to_health,3
+1031,ET140110,1,ETH,motorized_travel_time_to_health,3
+1032,ET140111,3,ETH,motorized_travel_time_to_health,3
+1033,ET150103,3,ETH,motorized_travel_time_to_health,3
+1034,ET150104,6,ETH,motorized_travel_time_to_health,3
+1035,ET150105,2,ETH,motorized_travel_time_to_health,3
+1036,ET150109,1,ETH,motorized_travel_time_to_health,3
+1037,ET150110,1,ETH,motorized_travel_time_to_health,3
+1038,ET150111,1,ETH,motorized_travel_time_to_health,3
+1039,ET150112,1,ETH,motorized_travel_time_to_health,3
+1040,ET150113,4,ETH,motorized_travel_time_to_health,3
+1041,ET150114,9,ETH,motorized_travel_time_to_health,3
+1042,ET150201,15,ETH,motorized_travel_time_to_health,3
+1043,ET150206,56,ETH,motorized_travel_time_to_health,3
+1044,ET150207,18,ETH,motorized_travel_time_to_health,3
+1045,ET150208,18,ETH,motorized_travel_time_to_health,3
+1046,ET160001,6,ETH,motorized_travel_time_to_health,3
+1047,ET160002,10,ETH,motorized_travel_time_to_health,3
+1048,ET160003,19,ETH,motorized_travel_time_to_health,3
+1049,ET160004,10,ETH,motorized_travel_time_to_health,3
+1050,ET160005,11,ETH,motorized_travel_time_to_health,3
+1051,ET160006,11,ETH,motorized_travel_time_to_health,3
+1052,ET160007,17,ETH,motorized_travel_time_to_health,3
+1053,ET160008,17,ETH,motorized_travel_time_to_health,3
+1054,ET160009,56,ETH,motorized_travel_time_to_health,3
+1055,ET160010,4,ETH,motorized_travel_time_to_health,3
+1056,ET160011,7,ETH,motorized_travel_time_to_health,3
+1057,ET160012,5,ETH,motorized_travel_time_to_health,3
+1058,ET160013,12,ETH,motorized_travel_time_to_health,3
+1059,ET160014,43,ETH,motorized_travel_time_to_health,3
+1060,ET160015,7,ETH,motorized_travel_time_to_health,3
+1061,ET160016,22,ETH,motorized_travel_time_to_health,3
+1062,ET160017,18,ETH,motorized_travel_time_to_health,3
+1063,ET160018,5,ETH,motorized_travel_time_to_health,3
+1064,ET160019,7,ETH,motorized_travel_time_to_health,3
+1065,ET160020,2,ETH,motorized_travel_time_to_health,3
+1066,ET160021,1,ETH,motorized_travel_time_to_health,3
+1067,ET160022,1,ETH,motorized_travel_time_to_health,3
+1068,ET160023,3,ETH,motorized_travel_time_to_health,3
+1069,ET160024,24,ETH,motorized_travel_time_to_health,3
+1070,ET160025,13,ETH,motorized_travel_time_to_health,3
+1071,ET160026,10,ETH,motorized_travel_time_to_health,3
+1072,ET160027,22,ETH,motorized_travel_time_to_health,3
+1073,ET160028,13,ETH,motorized_travel_time_to_health,3
+1074,ET160029,26,ETH,motorized_travel_time_to_health,3
+1075,ET160030,1,ETH,motorized_travel_time_to_health,3
+1076,ET160031,25,ETH,motorized_travel_time_to_health,3
+1077,ET160032,20,ETH,motorized_travel_time_to_health,3
+1078,ET160033,29,ETH,motorized_travel_time_to_health,3
+1079,ET160034,42,ETH,motorized_travel_time_to_health,3
+1080,ET160035,1,ETH,motorized_travel_time_to_health,3
+1081,ET160036,2,ETH,motorized_travel_time_to_health,3
+1082,ET160037,72,ETH,motorized_travel_time_to_health,3
