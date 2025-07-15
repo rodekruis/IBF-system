@@ -325,7 +325,7 @@ export class MapService {
     if (
       indicator.countryDisasterTypes[this.country.countryCodeISO3][
         this.disasterType.disasterType
-      ].includes('map')
+      ]?.includes('map')
     ) {
       const layerActive = this.adminLevelService.activeLayerNames.length
         ? this.adminLevelService.activeLayerNames.includes(indicator.name)
