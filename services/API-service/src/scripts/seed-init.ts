@@ -20,9 +20,10 @@ import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
 import { UserEntity } from '../api/user/user.entity';
 import { UserRole } from '../api/user/user-role.enum';
-import { DUNANT_EMAIL } from '../config';
+import { DUNANT_EMAIL, PROD } from '../config';
 import { defaultSeed, emptySeed, SeedDto } from './dto/seed.dto';
 import { Country } from './interfaces/country.interface';
+import { User } from './interfaces/user.interface';
 import countries from './json/countries.json';
 import disasterTypes from './json/disaster-types.json';
 import eapActions from './json/EAP-actions.json';
@@ -151,19 +152,33 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
     // ***** CREATE USERS *****
     if (seed.users) {
       this.logger.log('Seed Users...');
-      let selectedUsers;
-      if (process.env.PRODUCTION_DATA_SERVER === 'yes') {
-        selectedUsers = users.filter((user): boolean => {
-          return user.userRole === UserRole.Admin;
-        });
-        selectedUsers[0].password = process.env.ADMIN_PASSWORD;
+      let selectedUsers: User[];
+      if (PROD) {
+        selectedUsers = (users as User[]).filter(
+          ({ email }) => email === DUNANT_EMAIL,
+        );
+
+        if (selectedUsers[0]) {
+          selectedUsers[0].password = process.env.DUNANT_PASSWORD;
+        }
       } else {
         if (dunantUser) {
-          selectedUsers = users.filter((user) => user.email !== DUNANT_EMAIL);
+          // if dunant user exists, remove it from the list of users
+          selectedUsers = (users as User[]).filter(
+            ({ email }) => email !== DUNANT_EMAIL,
+          );
+          // grant dunant user access to new countries
           dunantUser.countries = await countryRepository.find();
           await userRepository.save(dunantUser);
         } else {
-          selectedUsers = users;
+          // use DUNANT_PASSWORD from env
+          selectedUsers = (users as User[]).map((user) => {
+            if (user.email === DUNANT_EMAIL) {
+              return { ...user, password: process.env.DUNANT_PASSWORD };
+            }
+
+            return user;
+          });
         }
       }
 

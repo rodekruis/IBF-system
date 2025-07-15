@@ -24,16 +24,12 @@ export class SeedProd implements InterfaceScript {
         return user.userRole === UserRole.Admin;
       })[0];
 
-      if (process.env.PRODUCTION_DATA_SERVER === 'yes') {
-        user.password = process.env.ADMIN_PASSWORD;
-      }
-
       const adminUser = new UserEntity();
       adminUser.email = user.email;
       adminUser.firstName = user.firstName;
       adminUser.lastName = user.lastName;
       adminUser.userRole = user.userRole as UserRole;
-      adminUser.password = user.password;
+      adminUser.password = process.env.DUNANT_PASSWORD || user.password;
 
       await userRepository.save(adminUser);
     } else {
