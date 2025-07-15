@@ -25,6 +25,7 @@ export class ActivationLogButtonComponent implements OnDestroy {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
+
     this.disasterTypeSubscription = this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
@@ -45,13 +46,14 @@ export class ActivationLogButtonComponent implements OnDestroy {
 
   public goToPage() {
     const url = this.router.serializeUrl(
-      this.router.createUrlTree([`/log`], {
+      this.router.createUrlTree(['/log'], {
         queryParams: {
           countryCodeISO3: this.country.countryCodeISO3,
           disasterType: this.disasterType.disasterType,
         },
       }),
     );
+
     window.open(url, '_blank');
   }
 }

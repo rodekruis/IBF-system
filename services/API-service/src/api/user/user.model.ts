@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { DUNANT_EMAIL } from '../../config';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from './user-role.enum';
 
 export class User {
@@ -11,7 +12,7 @@ export class User {
   public lastName: string;
   public userRole: UserRole;
   public countries: string[];
-  public disasterTypes: string[];
+  public disasterTypes: DisasterType[];
   public exp: number;
   public iat: number;
 }

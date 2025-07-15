@@ -8,9 +8,9 @@ import {
 export const MOCK_LAYERS: IbfLayer[] = [
   {
     type: IbfLayerType.point,
-    name: IbfLayerName.waterpointsInternal,
+    name: IbfLayerName.waterpoints,
     label: IbfLayerLabel.waterpoints,
-    description: 'waterpointsInternal',
+    description: 'waterpoints',
     active: true,
     show: true,
     viewCenter: false,

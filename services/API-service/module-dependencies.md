@@ -4,13 +4,11 @@
 graph LR
   EapActionsModule-->UserModule
   UserModule-->LookupModule
-  WaterpointsModule-->UserModule
-  WaterpointsModule-->CountryModule
-  CountryModule-->UserModule
   AdminAreaModule-->UserModule
   AdminAreaModule-->EventModule
   EventModule-->UserModule
   EventModule-->CountryModule
+  CountryModule-->UserModule
   EventModule-->EapActionsModule
   EventModule-->TyphoonTrackModule
   TyphoonTrackModule-->UserModule

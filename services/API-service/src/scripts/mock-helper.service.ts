@@ -31,12 +31,12 @@ export class MockHelperService {
     private typhoonTrackService: TyphoonTrackService,
   ) {}
 
-  public getFile(fileName: string) {
+  public getFile(filePath: string) {
     try {
-      const fileContent = fs.readFileSync(fileName, 'utf8');
+      const fileContent = fs.readFileSync(filePath, 'utf8');
       return JSON.parse(fileContent);
     } catch (error) {
-      this.logger.warn(`Failed to read file: ${fileName}. ${error}`);
+      this.logger.warn(`Failed to read file: ${filePath}. ${error}`);
       return null;
     }
   }
@@ -88,7 +88,7 @@ export class MockHelperService {
     const pointDataCategories = [
       PointDataCategory.healthSites,
       PointDataCategory.schools,
-      PointDataCategory.waterpointsInternal,
+      PointDataCategory.waterpoints,
     ];
     for (const pointDataCategory of pointDataCategories) {
       if (!layers.some(({ name }) => name === pointDataCategory)) {
@@ -171,35 +171,32 @@ export class MockHelperService {
   }
 
   public async mockRasterFile(
-    selectedCountry,
+    { countryCodeISO3, countryDisasterSettings }: Country,
     disasterType: DisasterType,
     triggered: boolean,
   ) {
-    const leadTimes = selectedCountry.countryDisasterSettings.find(
+    const leadTimes = countryDisasterSettings.find(
       (s) => s.disasterType === disasterType,
     ).activeLeadTimes;
     for await (const leadTime of leadTimes) {
       this.logger.log(
-        `Seeding disaster extent raster file for country: ${selectedCountry.countryCodeISO3} for leadtime: ${leadTime}`,
+        `Mock ${countryCodeISO3} ${leadTime} disaster extent raster`,
       );
       const sourceFileName = this.getMockRasterSourceFileName(
         disasterType,
-        selectedCountry.countryCodeISO3,
+        countryCodeISO3,
         leadTime,
         triggered,
       );
       const destFileName = this.getMockRasterDestFileName(
         disasterType,
         leadTime,
-        selectedCountry.countryCodeISO3,
+        countryCodeISO3,
       );
 
       if (!sourceFileName) {
         this.logger.log(
-          'Mock raster file not found' +
-            ` for country: ${selectedCountry.countryCodeISO3}` +
-            ` for disasterType: ${disasterType}` +
-            ` for leadtime: ${leadTime}. Skipping.`,
+          `Mock ${countryCodeISO3} ${disasterType} ${leadTime} raster file not found. Skipping.`,
         );
         return;
       }

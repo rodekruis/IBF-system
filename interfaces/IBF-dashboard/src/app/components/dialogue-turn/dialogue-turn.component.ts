@@ -30,6 +30,7 @@ export class DialogueTurnComponent implements OnChanges {
   public onMouseOver() {
     this.mouseOver = true;
   }
+
   public onMouseOut() {
     this.mouseOver = false;
   }

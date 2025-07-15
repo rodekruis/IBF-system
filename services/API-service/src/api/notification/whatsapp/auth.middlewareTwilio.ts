@@ -3,7 +3,7 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 
 import { NextFunction, Request, Response } from 'express';
 
-import { DEBUG, EXTERNAL_API } from '../../../config';
+import { DEV, EXTERNAL_API } from '../../../config';
 import { twilio } from './twilio.client';
 
 @Injectable()
@@ -15,9 +15,9 @@ export class AuthMiddlewareTwilio implements NestMiddleware {
   public async use(req: Request, res: Response, next: NextFunction) {
     const twilioSignature = req.headers['x-twilio-signature'];
 
-    if (DEBUG) {
+    if (DEV) {
       this.logger.debug(
-        'AuthMiddlewareTwilio: Skipped request validation in DEBUG-mode for:',
+        'AuthMiddlewareTwilio: Skipped request validation in DEV env for:',
         req.path,
       );
       return next();
@@ -46,7 +46,7 @@ export class AuthMiddlewareTwilio implements NestMiddleware {
     }
 
     throw new HttpException(
-      'Could not validate Twilio request',
+      'Failed to validate Twilio request',
       HttpStatus.UNAUTHORIZED,
     );
   }

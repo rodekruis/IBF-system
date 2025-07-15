@@ -68,12 +68,15 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
   private setupDisasterTypes = (user: User, country: Country) => {
     if (country) {
       this.disasterTypesCounter = 0;
+
       this.disasterTypes = country.disasterTypes.filter((d) =>
         user.disasterTypes.includes(d.disasterType),
       );
+
       this.disasterTypes.sort((a, b) =>
         a.disasterType > b.disasterType ? 1 : -1,
       );
+
       this.disasterTypes.forEach((disasterType) => {
         this.eventService.getTriggerByDisasterType(
           country.countryCodeISO3,
@@ -91,10 +94,10 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
         const activeDisasterType = disasterTypes.find(
           ({ alertLevel }) => alertLevel,
         );
-
         const disasterType = activeDisasterType
           ? activeDisasterType
           : this.disasterTypes[0];
+
         this.selectedDisasterType = disasterType.disasterType;
         this.disasterTypeService.setDisasterType(disasterType);
       }
@@ -118,6 +121,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
     const buttonStatus = `${
       this.isSelectedDisaster(disasterType) ? 'selected' : 'nonSelected'
     }${triggered ? '' : 'Non'}Triggered`;
+
     return DISASTER_TYPES_SVG_MAP[disasterType][buttonStatus];
   }
 }

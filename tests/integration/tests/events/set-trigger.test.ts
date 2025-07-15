@@ -65,7 +65,7 @@ export default function setTriggerTests() {
         token,
       );
       const alertAreasAfter = getEventsAfterResult.body.flatMap(
-        ({ alertAreas }) => alertAreas || [],
+        ({ alertAreas }) => alertAreas ?? [],
       );
       for (const area of alertAreasBefore) {
         expect(area.alertLevel).toBe(AlertLevel.WARNING);

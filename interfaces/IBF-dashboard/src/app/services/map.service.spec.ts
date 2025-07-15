@@ -40,7 +40,9 @@ describe('MapService', () => {
         provideHttpClientTesting(),
       ],
     });
+
     service = TestBed.inject(MapService);
+
     adminLevelService = TestBed.inject(AdminLevelService);
   });
 
@@ -54,8 +56,7 @@ describe('MapService', () => {
     });
 
     it('should get a layer from its name', () => {
-      const layerName = IbfLayerName.waterpointsInternal;
-
+      const layerName = IbfLayerName.waterpoints;
       const expected = MOCK_LAYERS[0];
 
       expect(service.getLayerByName(layerName)).toEqual(expected);

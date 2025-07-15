@@ -27,8 +27,11 @@ describe('SetTriggerPopoverComponent', () => {
         provideHttpClientTesting(),
       ],
     }).compileComponents();
+
     fixture = TestBed.createComponent(SetTriggerPopoverComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 

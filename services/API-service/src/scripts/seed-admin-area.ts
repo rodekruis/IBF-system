@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import fs from 'fs';
 
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
+import { Country } from './interfaces/country.interface';
 import countries from './json/countries.json';
 import { InterfaceScript } from './scripts.module';
 
@@ -12,10 +13,10 @@ export class SeedAdminArea implements InterfaceScript {
 
   public constructor(private adminAreaService: AdminAreaService) {}
 
-  public async run(): Promise<void> {
+  public async seed() {
     const envCountries = process.env.COUNTRIES.split(',');
     await Promise.all(
-      countries.map((country): Promise<void> => {
+      (countries as Country[]).map((country) => {
         if (envCountries.includes(country.countryCodeISO3)) {
           return this.seedCountryAdminAreas(country);
         } else {
@@ -25,7 +26,7 @@ export class SeedAdminArea implements InterfaceScript {
     );
   }
 
-  private async seedCountryAdminAreas(country): Promise<void> {
+  private async seedCountryAdminAreas(country: Country) {
     for (const adminLevel of this.ADMIN_LEVELS) {
       const fileName = `./src/scripts/git-lfs/admin-boundaries/${country.countryCodeISO3}_adm${adminLevel}.json`;
       if (!fs.existsSync(fileName)) {

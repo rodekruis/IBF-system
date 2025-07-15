@@ -31,12 +31,14 @@ export class AdminLevelService {
   private adminLevelSubject = new BehaviorSubject<AdminLevel>(
     AdminLevel.adminLevel1,
   );
+
   public oldAdminLevel: AdminLevel = null;
   public adminLevel: AdminLevel;
   private allCountryAdminLevels: AdminLevel[];
   private adminLevelButtonsSubject = new BehaviorSubject<AdminLevelButton[]>(
     [],
   );
+
   private adminLevelButtons: AdminLevelButton[];
   public adminLevelLabel: AdminLevelLabel = new AdminLevelLabel();
   public activeLayerNames: IbfLayerName[] = [];
@@ -58,12 +60,15 @@ export class AdminLevelService {
     if (country.adminRegionLabels[1]) {
       adminLevelLabels.adminLevel1 = country.adminRegionLabels[1].plural;
     }
+
     if (country.adminRegionLabels[2]) {
       adminLevelLabels.adminLevel2 = country.adminRegionLabels[2].plural;
     }
+
     if (country.adminRegionLabels[3]) {
       adminLevelLabels.adminLevel3 = country.adminRegionLabels[3].plural;
     }
+
     if (country.adminRegionLabels[4]) {
       adminLevelLabels.adminLevel4 = country.adminRegionLabels[4].plural;
     }
@@ -100,11 +105,13 @@ export class AdminLevelService {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+
     this.countryDisasterSettings =
       this.disasterTypeService.getCountryDisasterTypeSettings(
         this.country,
         this.disasterType,
       );
+
     this.activeLayerNames = [];
   };
 
@@ -131,7 +138,6 @@ export class AdminLevelService {
     ).map((k) => Number(k));
 
     this.setAdminLevel(this.countryDisasterSettings.defaultAdminLevel);
-
     this.adminLevelLabel = AdminLevelService.loadAdminLevelLabels(this.country);
 
     this.adminLevelButtons = this.allCountryAdminLevels.map((level) => {
@@ -161,6 +167,7 @@ export class AdminLevelService {
 
   public zoomInAdminLevel() {
     const adminLevels = this.countryDisasterSettings.adminLevels;
+
     if (this.adminLevel < adminLevels[adminLevels.length - 1]) {
       this.adminLevel = this.adminLevel + 1;
       this.adminLevelSubject.next(this.adminLevel);
@@ -182,12 +189,15 @@ export class AdminLevelService {
   private getButtonTypeClass(adminLevel: AdminLevel): string {
     const prefix = 'breadcrumb-';
     const length = this.allCountryAdminLevels?.length;
+
     if (length === 1) {
       return `${prefix}alone`;
     }
+
     if (adminLevel === AdminLevel.adminLevel1) {
       return `${prefix}start`;
     }
+
     if (Number(adminLevel) === length) {
       return `${prefix}end`;
     }

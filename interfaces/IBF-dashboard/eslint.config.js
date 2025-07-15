@@ -1,17 +1,20 @@
-// @ts-check
-const globals = require('globals');
-const eslint = require('@eslint/js');
-const tseslint = require('typescript-eslint');
-const angular = require('angular-eslint');
-const eslintPluginPrettierRecommended = require('eslint-plugin-prettier/recommended');
-const eslintPluginNoRelativePaths = require('eslint-plugin-no-relative-import-paths');
-const eslintPluginQuery = require('@tanstack/eslint-plugin-query');
-const eslintPluginPerfectionist = require('eslint-plugin-perfectionist');
-const eslintPluginRegexp = require('eslint-plugin-regexp');
-const eslintPluginSimpleSort = require('eslint-plugin-simple-import-sort');
-const eslintPluginJasmine = require('eslint-plugin-jasmine');
+import globals from 'globals';
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import angular from 'angular-eslint';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
+import eslintPluginNoRelativePaths from 'eslint-plugin-no-relative-import-paths';
+import eslintPluginQuery from '@tanstack/eslint-plugin-query';
+import eslintPluginPerfectionist from 'eslint-plugin-perfectionist';
+import eslintPluginRegexp from 'eslint-plugin-regexp';
+import eslintPluginSimpleSort from 'eslint-plugin-simple-import-sort';
+import eslintPluginJasmine from 'eslint-plugin-jasmine';
+import stylistic from '@stylistic/eslint-plugin';
 
-module.exports = tseslint.config(
+const declarativeStatements = ['const', 'let', 'var'];
+const controlFlowStatements = ['if', 'for', 'while', 'do', 'switch'];
+
+export default tseslint.config(
   {
     languageOptions: {
       globals: { ...globals.browser, ...globals.jasmine },
@@ -22,24 +25,23 @@ module.exports = tseslint.config(
     files: ['**/*.ts'],
     plugins: {
       'no-relative-import-paths': eslintPluginNoRelativePaths,
-      // @ts-ignore-next-line - `perfectionist` package does have correct shape; maybe not correct type definition.
       perfectionist: eslintPluginPerfectionist,
       regexp: eslintPluginRegexp,
       'simple-import-sort': eslintPluginSimpleSort,
+      '@stylistic': stylistic,
     },
     extends: [
       eslint.configs.recommended,
       ...tseslint.configs.strictTypeChecked,
       ...tseslint.configs.stylisticTypeChecked,
       ...angular.configs.tsRecommended,
-      // @ts-ignore-next-line - `configs` DOES exist.
       ...eslintPluginQuery.configs['flat/recommended'],
       eslintPluginRegexp.configs['flat/recommended'],
       eslintPluginPrettierRecommended,
     ],
     processor: angular.processInlineTemplates,
     rules: {
-      // REFACTOR
+      // TODO: set these to either 'error' or 'off'
       'regexp/no-unused-capturing-group': 'warn',
       '@typescript-eslint/prefer-nullish-coalescing': 'warn',
       '@typescript-eslint/no-unnecessary-condition': 'off',
@@ -64,7 +66,6 @@ module.exports = tseslint.config(
       '@typescript-eslint/no-misused-promises': 'warn',
       '@typescript-eslint/no-unnecessary-type-assertion': 'warn',
       '@typescript-eslint/no-inferrable-types': 'warn',
-      '@typescript-eslint/no-extraneous-class': 'warn',
       '@typescript-eslint/consistent-type-definitions': 'warn',
       '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'warn',
       // Put this to 'off' for now because it automatically tries to fix this in code on save
@@ -76,12 +77,10 @@ module.exports = tseslint.config(
       'perfectionist/sort-union-types': 'warn',
 
       'no-relative-import-paths/no-relative-import-paths': 'error',
-      //'@typescript-eslint/no-extraneous-class': [
-      //  'error',
-      //  {
-      //    allowWithDecorator: true,
-      //  },
-      //],
+      '@typescript-eslint/no-extraneous-class': [
+        'error',
+        { allowWithDecorator: true },
+      ],
       '@angular-eslint/component-selector': [
         'error',
         { type: 'element', prefix: 'app', style: 'kebab-case' },
@@ -99,7 +98,7 @@ module.exports = tseslint.config(
       '@angular-eslint/use-component-selector': ['error'],
       '@angular-eslint/use-lifecycle-interface': ['error'],
       'perfectionist/sort-array-includes': 'off', // allow unsorted arrays for domain specific ordering
-      'perfectionist/sort-enums': ['error', { type: 'unsorted' }], // allow unsorted enums for domain specific ordering
+      'perfectionist/sort-enums': ['error'],
       'perfectionist/sort-intersection-types': ['error'],
       //'perfectionist/sort-union-types': ['error'],
       'object-shorthand': 'error',
@@ -114,18 +113,105 @@ module.exports = tseslint.config(
         },
       ],
       'simple-import-sort/exports': 'error',
-      'prettier/prettier': ['error', { endOfLine: 'auto' }],
+
+      // stylistic
+      ...stylistic.configs.recommended.rules,
+      '@stylistic/arrow-parens': ['error', 'always'],
+      '@stylistic/brace-style': ['error', '1tbs'],
+      '@stylistic/indent': [
+        'error',
+        2,
+        { offsetTernaryExpressions: true, SwitchCase: 1 },
+      ],
+      '@stylistic/member-delimiter-style': [
+        'error',
+        {
+          multiline: { delimiter: 'semi', requireLast: true },
+          multilineDetection: 'brackets',
+          overrides: {
+            interface: { multiline: { delimiter: 'semi', requireLast: true } },
+          },
+          singleline: { delimiter: 'semi' },
+        },
+      ],
+      '@stylistic/operator-linebreak': [
+        'error',
+        'after',
+        { overrides: { '?': 'before', ':': 'before' } },
+      ],
+      '@stylistic/quote-props': ['error', 'as-needed'],
+      '@stylistic/quotes': ['error', 'single', { avoidEscape: true }],
+      '@stylistic/semi': ['error', 'always'],
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        {
+          blankLine: 'never',
+          prev: declarativeStatements,
+          next: declarativeStatements,
+        },
+        { blankLine: 'never', prev: 'expression', next: 'expression' },
+        {
+          blankLine: 'always',
+          prev: 'expression',
+          next: 'multiline-expression',
+        },
+        {
+          blankLine: 'always',
+          prev: 'multiline-expression',
+          next: 'expression',
+        },
+        {
+          blankLine: 'always',
+          prev: 'multiline-expression',
+          next: 'multiline-expression',
+        },
+        {
+          blankLine: 'always',
+          prev: ['expression', ...controlFlowStatements],
+          next: declarativeStatements,
+        },
+        { blankLine: 'always', prev: declarativeStatements, next: 'return' },
+        {
+          blankLine: 'always',
+          prev: declarativeStatements,
+          next: ['expression', ...controlFlowStatements],
+        },
+        {
+          blankLine: 'always',
+          prev: controlFlowStatements,
+          next: controlFlowStatements,
+        },
+        {
+          blankLine: 'always',
+          prev: ['expression', ...controlFlowStatements],
+          next: 'return',
+        },
+        { blankLine: 'always', prev: '*', next: 'block' },
+        { blankLine: 'always', prev: 'block', next: '*' },
+        { blankLine: 'always', prev: '*', next: ['enum', 'interface', 'type'] },
+        { blankLine: 'always', prev: ['enum', 'interface', 'type'], next: '*' },
+      ],
+
+      // prettier
+      'prettier/prettier': [
+        'error',
+        { endOfLine: 'auto', quoteProps: 'as-needed', singleQuote: true },
+      ],
     },
   },
   {
     files: ['**/*.spec.ts'],
     plugins: { jasmine: eslintPluginJasmine },
+    extends: [eslintPluginJasmine.configs.recommended],
     rules: {
-      ...eslintPluginJasmine.rules.recommended,
       '@typescript-eslint/unbound-method': 'off',
       '@typescript-eslint/no-floating-promises': 'off',
       'prettier/prettier': ['error', { endOfLine: 'auto' }],
       'jasmine/no-focused-tests': 'error',
+      '@stylistic/padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: 'expression', next: 'expression' },
+      ],
     },
   },
   {

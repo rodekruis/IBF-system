@@ -21,9 +21,9 @@ IBF will not show meaningful information without [forecast data](https://github.
 
 ### Load data
 
-- Login via [/api/user/login](http://localhost:3000/docs#/--%20user%20--/UserController_login)
-- Load seed data via [/api/scripts/reset](http://localhost:3000/docs#/---%20mock%2Fseed%20data%20---/ScriptsController_resetDb)
-- Load mock data via [/api/scripts/mock](http://localhost:3000/docs#/---%20mock%2Fseed%20data%20---/ScriptsController_mock)
+- Login via [/api/user/login](http://localhost:3000/docs#/--user--/UserController_login)
+- Load seed data via [/api/seed](http://localhost:3000/docs#/--app--/ScriptsController_seed)
+- Load mock data via [/api/mock](http://localhost:3000/docs#/--app--/ScriptsController_mock)
 - You can load data via the various [IBF-API](http://localhost:3000/docs) endpoints. Read [API for pipelines](https://github.com/rodekruis/IBF-system/wiki/API-for-pipelines) for details.
 
 ### What next?

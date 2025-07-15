@@ -153,6 +153,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+
     this.countryDisasterSettings =
       this.disasterTypeService.getCountryDisasterTypeSettings(
         this.country,
@@ -181,9 +182,11 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onAlertAreasChange = (alertAreas: AlertArea[]) => {
     this.alertAreas = alertAreas;
+
     this.alertAreas.forEach((area) => {
       this.disableSubmitButtonForArea(area);
     });
+
     this.onPlaceCodeChange(this.placeCode);
   };
 
@@ -193,9 +196,11 @@ export class ChatComponent implements OnInit, OnDestroy {
     const activeLeadTime = this.timelineState?.timeStepButtons.find(
       (t) => t.value === this.timelineState?.activeLeadTime,
     );
+
     if (placeCode && (!activeLeadTime || activeLeadTime.forecastAlert)) {
       const filterAreasByPlaceCode = (alertArea: AlertArea) =>
         alertArea.placeCode === placeCode.placeCode;
+
       this.filteredAreas = this.alertAreas.filter(filterAreasByPlaceCode);
     } else {
       this.setDefaultFilteredAreas();
@@ -217,40 +222,47 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.adminLevel =
         this.placeCode?.adminLevel ||
         this.countryDisasterSettings.defaultAdminLevel;
+
       this.adminAreaLabel =
         this.country.adminRegionLabels[this.adminLevel].singular;
+
       this.adminAreaLabelPlural =
         this.country.adminRegionLabels[this.adminLevel].plural.toLowerCase();
-      this.changeDetectorRef.detectChanges();
 
+      this.changeDetectorRef.detectChanges();
       this.disasterTypeLabel = this.disasterType.label;
       this.disasterTypeName = this.disasterType.disasterType;
+
       const mainExposureIndicator = this.indicators.find((indicator) => {
         return indicator.name === this.disasterType.mainExposureIndicator;
       });
+
       this.mainExposureIndicatorLabel =
         mainExposureIndicator?.label.toLowerCase();
+
       this.mainExposureIndicatorNumberFormat =
         mainExposureIndicator?.numberFormatMap;
 
       this.updateSuccessMessage = this.translateService.instant(
-        `chat-component.common.save-actions.update-success`,
+        'chat-component.common.save-actions.update-success',
       ) as string;
+
       this.updateFailureMessage = this.translateService.instant(
-        `chat-component.common.save-actions.update-failure`,
+        'chat-component.common.save-actions.update-failure',
       ) as string;
 
       this.setLastModelRunDate(this.disasterType);
-
       this.changeDetectorRef.detectChanges();
     }
   };
 
   private setLastModelRunDate = (disasterType: DisasterType) => {
     const lastUploadDate = this.timelineState.today;
+
     this.lastUploadDate = lastUploadDate
       ? lastUploadDate.toFormat(this.lastUploadDateFormat)
       : 'unknown';
+
     this.isLastUploadDateLate = this.eventService.isLastUploadDateLate(
       lastUploadDate.toJSDate(), // TODO: migrate from luxon (DateTime) to date-fns (Date) over time completely
       disasterType,
@@ -291,7 +303,6 @@ export class ChatComponent implements OnInit, OnDestroy {
     });
 
     const filterAreaByPlaceCode = this.filterAreaByPlaceCode(placeCode);
-
     const alertArea = this.alertAreas.find(filterAreaByPlaceCode);
     const changedAction = alertArea.eapActions.find(
       this.filterEAPActionByEAPAction(action),
@@ -307,6 +318,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     }
     this.alertAreas.find(filterAreaByPlaceCode).submitDisabled =
       this.changedActions.length === 0;
+
     this.changeDetectorRef.detectChanges();
   }
 
@@ -347,6 +359,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     const alertArea = this.alertAreas.find(
       (area) => area.placeCode === this.changedActions[0].placeCode,
     );
+
     for (const action of alertArea.eapActions) {
       if (this.changedActions.includes(action)) {
         action.checked = !action.checked;
@@ -399,6 +412,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     ) {
       this.adminLevelService.zoomOutAdminLevel();
     }
+
     // if not on highest level, then set placeCode to parent
     if (this.placeCode.placeCodeParent) {
       this.placeCodeService.setPlaceCode(this.placeCode.placeCodeParent);

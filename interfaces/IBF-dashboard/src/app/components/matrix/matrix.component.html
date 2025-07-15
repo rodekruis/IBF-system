@@ -25,29 +25,25 @@
           @for (layer of getLayersInOrder(); track layer.name) {
             <ion-row class="ion-justify-content-between ion-nowrap">
               <ion-item className="matrix-layer {{ layer.name }}" lines="none">
-                @if (layer.isLoading) {
-                  <ion-spinner class="mx-[0.15rem]"></ion-spinner>
-                } @else {
-                  @if (isCheckBox(layer.group)) {
-                    <ion-icon
-                      data-testid="matrix-checkbox"
-                      [name]="layer.active ? 'checkbox' : 'square-outline'"
-                      (click)="toggleLayer(layer)"
-                      class="single-layer-toggler"
-                    ></ion-icon>
-                  }
-                  @if (isRadioButton(layer.group)) {
-                    <ion-icon
-                      data-testid="matrix-radio-button"
-                      [name]="
-                        layer.active
-                          ? 'radio-button-on-outline'
-                          : 'radio-button-off-outline'
-                      "
-                      (click)="toggleLayer(layer)"
-                      class="single-layer-toggler"
-                    ></ion-icon>
-                  }
+                @if (isCheckBox(layer.group)) {
+                  <ion-icon
+                    data-testid="matrix-checkbox"
+                    [name]="layer.active ? 'checkbox' : 'square-outline'"
+                    (click)="toggleLayer(layer)"
+                    class="single-layer-toggler"
+                  ></ion-icon>
+                }
+                @if (isRadioButton(layer.group)) {
+                  <ion-icon
+                    data-testid="matrix-radio-button"
+                    [name]="
+                      layer.active
+                        ? 'radio-button-on-outline'
+                        : 'radio-button-off-outline'
+                    "
+                    (click)="toggleLayer(layer)"
+                    class="single-layer-toggler"
+                  ></ion-icon>
                 }
                 <ion-label
                   class="ion-text-wrap ion-no-margin"

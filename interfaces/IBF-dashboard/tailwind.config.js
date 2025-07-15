@@ -1,3 +1,6 @@
+import aspectRatio from '@tailwindcss/aspect-ratio';
+import forms from '@tailwindcss/forms';
+
 export default {
   content: ['./src/**/*.{html,ts}'],
   theme: {
@@ -17,10 +20,7 @@ export default {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/forms'),
-  ],
+  plugins: [aspectRatio, forms],
   safelist: [
     { pattern: /(bg|text)-fiveten-(yellow|orange)-(500|700)/ },
     { pattern: /(bg|text)-ibf-glofas-trigger/ },

@@ -28,7 +28,9 @@ describe('MockScenarioComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(BackendMockScenarioComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

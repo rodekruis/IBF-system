@@ -18,7 +18,6 @@ updates:
       interval: 'weekly'
     groups:
       root:
-        dependency-type: 'development'
         patterns:
           - '*'
     ignore:
@@ -32,17 +31,14 @@ updates:
       interval: 'weekly'
     groups:
       backend-nestjs:
-        dependency-type: 'production'
         patterns:
           - '@nestjs/*'
       backend-development:
-        dependency-type: 'development'
         patterns:
           - '@types/*'
           - 'eslint*'
           - 'prettier*'
       backend:
-        dependency-type: 'production'
         patterns:
           - '*'
     ignore:
@@ -56,7 +52,6 @@ updates:
       interval: 'weekly'
     groups:
       frontend-angular:
-        dependency-type: 'production'
         patterns:
           - '@angular/*'
           - '@bluehalo/*'
@@ -65,21 +60,17 @@ updates:
           - '@angular-devkit/*'
           - 'zone.js'
       frontend-turf:
-        dependency-type: 'production'
         patterns:
           - '@turf*'
       frontend-typescript:
-        dependency-type: 'production'
         patterns:
           - 'typescript*'
       frontend-development:
-        dependency-type: 'development'
         patterns:
           - '@types/*'
           - 'eslint*'
           - 'prettier*'
       frontend:
-        dependency-type: 'production'
         patterns:
           - '*'
     ignore:
@@ -93,17 +84,14 @@ updates:
       interval: 'weekly'
     groups:
       integration-jest:
-        dependency-type: 'development'
         patterns:
           - '*jest*'
       integration-development:
-        dependency-type: 'development'
         patterns:
           - '@types/*'
           - 'eslint*'
           - 'prettier*'
       integration:
-        dependency-type: 'development'
         patterns:
           - '*'
     ignore:
@@ -117,13 +105,11 @@ updates:
       interval: 'weekly'
     groups:
       e2e-development:
-        dependency-type: 'development'
         patterns:
           - '@types/*'
           - 'eslint*'
           - 'prettier*'
       e2e:
-        dependency-type: 'development'
         patterns:
           - '*'
     ignore:

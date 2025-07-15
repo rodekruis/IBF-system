@@ -22,8 +22,8 @@ import { PointDataCategory } from '../api/point-data/point-data.entity';
 import { PointDataService } from '../api/point-data/point-data.service';
 import { ProcessEventsService } from '../api/process-events/process-events.service';
 import { TyphoonTrackService } from '../api/typhoon-track/typhoon-track.service';
-import { DEBUG, MOCK_USE_OLD_PIPELINE_UPLOAD } from '../config';
-import { MockInputDto } from './dto/mock-input.dto';
+import { DEV, MOCK_USE_OLD_PIPELINE_UPLOAD } from '../config';
+import { MockDto } from './dto/mock.dto';
 import {
   DroughtScenario,
   FlashFloodsScenario,
@@ -256,7 +256,7 @@ export class MockService {
     }
 
     if (this.shouldMockRasterFile(disasterType)) {
-      this.mockHelperService.mockRasterFile(
+      await this.mockHelperService.mockRasterFile(
         selectedCountry,
         disasterType,
         scenario.events?.length > 0,
@@ -291,7 +291,7 @@ export class MockService {
 
     // Add the needed stores and layers to geoserver, only do this in debug mode
     // The resulting XML files should be commited to git and will end up on the servers that way
-    if (DEBUG && !noNotifications) {
+    if (DEV && !noNotifications) {
       await this.geoServerSyncService.sync(
         selectedCountry.countryCodeISO3,
         disasterType,
@@ -409,7 +409,7 @@ export class MockService {
   }
 
   private async mockGlofasStations(
-    selectedCountry,
+    { countryCodeISO3 }: Country,
     disasterType: DisasterType,
     date: Date,
     scenarioName: string,
@@ -419,21 +419,19 @@ export class MockService {
     let leadTime;
     if (event) {
       stationForecasts = this.mockHelperService.getFile(
-        `./src/scripts/mock-data/${disasterType}/${selectedCountry.countryCodeISO3}/${scenarioName}/${event.eventName}/glofas-station.json`,
+        `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenarioName}/${event.eventName}/glofas-station.json`,
       );
       leadTime = event.leadTime;
     } else {
       stationForecasts = this.mockHelperService.getFile(
-        `./src/scripts/mock-data/${disasterType}/${selectedCountry.countryCodeISO3}/${scenarioName}/glofas-stations-no-alert.json`,
+        `./src/scripts/mock-data/${disasterType}/${countryCodeISO3}/${scenarioName}/glofas-stations-no-alert.json`,
       );
       leadTime = LeadTime.day7; // last available leadTime across all floods countries;
     }
 
-    this.logger.log(
-      `Seeding Glofas stations for country: ${selectedCountry.countryCodeISO3} for leadtime: ${leadTime}`,
-    );
+    this.logger.log(`Mock ${countryCodeISO3} ${leadTime} glofas stations`);
     await this.pointDataService.reformatAndUploadOldGlofasStationData({
-      countryCodeISO3: selectedCountry.countryCodeISO3,
+      countryCodeISO3,
       stationForecasts,
       leadTime,
       date,
@@ -495,7 +493,7 @@ export class MockService {
   }
 
   public async mock(
-    mockInput: MockInputDto,
+    mockInput: MockDto,
     disasterType?: DisasterType,
     countryCodeISO3?: string,
     noNotifications = false,

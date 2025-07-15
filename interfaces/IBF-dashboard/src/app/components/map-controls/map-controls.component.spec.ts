@@ -15,7 +15,9 @@ describe('MapControlsComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(MapControlsComponent);
+
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   }));
 

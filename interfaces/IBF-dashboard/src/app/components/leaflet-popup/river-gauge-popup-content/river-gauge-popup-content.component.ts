@@ -27,13 +27,16 @@ export class RiverGaugePopupContentComponent implements OnInit {
     }
 
     const dynamicData = this.data.dynamicData;
+
     this.current = this.roundTo(Number(dynamicData['water-level']), 2);
     this.currentString = isNaN(this.current) ? '' : String(this.current);
     this.previous = Number(dynamicData['water-level-previous']);
+
     this.reference = this.roundTo(
       Number(dynamicData['water-level-reference']),
       0,
     );
+
     this.difference = this.roundTo(this.current - this.previous, 2);
     this.differenceAbsolute = Math.abs(this.difference);
 
@@ -45,13 +48,17 @@ export class RiverGaugePopupContentComponent implements OnInit {
 
   private roundTo(value: number, decimals: number): number {
     if (isNaN(value)) return 0;
+
     const factor = Math.pow(10, decimals);
+
     return Math.round(value * factor) / factor;
   }
 
   private calculateTriggerWidth(current: number, reference: number): number {
     if (reference === 0) return 0;
+
     const width = Math.round((current / reference) * 100);
+
     return Math.max(Math.min(width, 115), 0);
   }
 }

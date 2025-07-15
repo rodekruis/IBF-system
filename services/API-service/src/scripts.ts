@@ -19,10 +19,10 @@ async function main(): Promise<void> {
     if (!script) {
       throw new TypeError(`Cannot create instance of ${Module.name}`);
     }
-    await script.run(argv);
+    await script.seed(argv);
   } catch (error) {
     throw error;
   }
 }
 
-main();
+void main();

@@ -1,3 +1,5 @@
+import { Polygon } from 'geojson';
+
 import { LeadTime } from '../../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminLevel } from '../../api/country/admin-level.enum';
 import { ForecastSource } from '../../api/country/country-disaster.entity';
@@ -8,10 +10,11 @@ export interface Country {
   countryCodeISO3: string;
   countryDisasterSettings: CountryDisasterSettings[];
   countryName: string;
-  adminRegionLabels: AdminRegionLabels;
-  countryLogos: Record<string, string[]>;
+  adminRegionLabels: Partial<AdminRegionLabels>;
+  countryLogos: Partial<Record<DisasterType, string[]>>;
   disasterTypes: DisasterType[];
   notificationInfo?: NotificationInfo;
+  countryBoundingBox: Polygon;
 }
 
 export interface CountryDisasterSettings {
@@ -20,9 +23,9 @@ export interface CountryDisasterSettings {
   defaultAdminLevel: AdminLevel;
   activeLeadTimes: LeadTime[];
   droughtSeasonRegions: DroughtSeasonRegions;
-  droughtRegions: Record<string, string[]>;
+  droughtRegions?: Record<string, string[]>;
   eapLink: string;
-  showMonthlyEapActions: boolean;
+  showMonthlyEapActions?: boolean;
   eapAlertClasses?: EapAlertClasses;
   forecastSource?: ForecastSource;
   enableEarlyActions?: boolean;

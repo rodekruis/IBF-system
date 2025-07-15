@@ -50,7 +50,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private disasterTypeSubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private placeCodeHoverSubscription: Subscription;
-  private translateSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
 
@@ -106,7 +105,6 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.disasterTypeSubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
     this.placeCodeHoverSubscription.unsubscribe();
-    this.translateSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
   }
@@ -117,6 +115,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+
     this.countryDisasterSettings =
       this.disasterTypeService.getCountryDisasterTypeSettings(
         this.country,
@@ -182,6 +181,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
         this.disasterType.disasterType
       ];
     }
+
     return '';
   }
 
@@ -289,6 +289,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     }
     singularPlural =
       singularPlural || (this.getAreaCount() === 1 ? 'singular' : 'plural');
+
     return this.country.adminRegionLabels[this.adminLevelService.adminLevel][
       singularPlural
     ];

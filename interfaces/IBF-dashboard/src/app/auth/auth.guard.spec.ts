@@ -18,6 +18,7 @@ describe('AuthGuard', () => {
         provideHttpClientTesting(),
       ],
     });
+
     guard = TestBed.inject(AuthGuard);
   });
 

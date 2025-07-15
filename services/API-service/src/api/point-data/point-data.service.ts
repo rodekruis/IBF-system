@@ -71,14 +71,9 @@ export class PointDataService {
     selectColumns.push('geom');
     selectColumns.push('"pointDataId"');
 
-    const lastUploadDate = await this.helperService.getLastUploadDate(
+    const { cutoffMoment } = await this.helperService.getLastUploadDate(
       countryCodeISO3,
       disasterType,
-    );
-
-    const uploadCutoffMoment = this.helperService.getUploadCutoffMoment(
-      disasterType,
-      lastUploadDate.timestamp,
     );
 
     // Subquery to get the max timestamp for each point, to be able to only get the most recent data ..
@@ -90,7 +85,7 @@ export class PointDataService {
         'sub."pointPointDataId"',
         `MAX(sub.timestamp || '_' || COALESCE(sub."leadTime",'0')) as maxTimestampLeadTime`,
       ])
-      .where('sub.timestamp >= :uploadCutoffMoment', { uploadCutoffMoment })
+      .where('sub.timestamp >= :cutoffMoment', { cutoffMoment })
       .groupBy('sub."pointPointDataId"');
 
     const pointDataQuery = this.pointDataRepository
@@ -138,7 +133,7 @@ export class PointDataService {
         return new CommunityNotificationDto();
       case PointDataCategory.schools:
         return new SchoolDto();
-      case PointDataCategory.waterpointsInternal:
+      case PointDataCategory.waterpoints:
         return new WaterpointDto();
       case PointDataCategory.gauges:
         return new GaugeDto();

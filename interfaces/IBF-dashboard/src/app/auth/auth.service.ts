@@ -2,6 +2,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { DEFAULT_USER } from 'src/app/config';
 import { User } from 'src/app/models/user/user.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 import { ApiService } from 'src/app/services/api.service';
@@ -24,6 +25,7 @@ export class AuthService implements OnDestroy {
     private toastController: ToastController,
   ) {
     this.checkLoggedInState();
+
     this.authSubscription = this.getAuthSubscription().subscribe(
       this.setDisplayName,
     );
@@ -67,6 +69,7 @@ export class AuthService implements OnDestroy {
     }
 
     const isExpired: boolean = this.jwtService.checkExpiry(rawToken);
+
     if (isExpired) {
       return null;
     }
@@ -82,6 +85,7 @@ export class AuthService implements OnDestroy {
       countries: decodedToken.countries,
       disasterTypes: decodedToken.disasterTypes,
     };
+
     this.userRole = user.userRole;
 
     return user;
@@ -103,13 +107,13 @@ export class AuthService implements OnDestroy {
     const user = this.getUserFromToken();
 
     this.authSubject.next(user);
-
     this.loggedIn = true;
     this.userRole = user.userRole;
 
     if (this.redirectUrl) {
       this.router.navigate([this.redirectUrl]);
       this.redirectUrl = null;
+
       return;
     }
 
@@ -123,6 +127,7 @@ export class AuthService implements OnDestroy {
       message: `Authentication Failed: ${message}`,
       duration: 5000,
     });
+
     void toast.present();
     console.error('AuthService error: ', error);
   };
@@ -135,12 +140,13 @@ export class AuthService implements OnDestroy {
   }
 
   setDisplayName = (user: User) => {
-    this.displayName = user
-      ? user.firstName +
-        (user.middleName ? ' ' + user.middleName : '') +
-        ' ' +
-        user.lastName
-      : '';
+    user = user ?? DEFAULT_USER;
+
+    const displayName = [user.firstName, user.middleName, user.lastName]
+      .filter(Boolean)
+      .join(' ');
+
+    this.displayName = displayName;
   };
 
   changePassword(password: string) {
@@ -151,9 +157,10 @@ export class AuthService implements OnDestroy {
 
   private onPasswordChanged = async () => {
     const toast = await this.toastController.create({
-      message: `Password changed successfully`,
+      message: 'Password changed successfully',
       duration: 5000,
     });
+
     void toast.present();
   };
 
@@ -164,6 +171,7 @@ export class AuthService implements OnDestroy {
       message: `Authentication Failed: ${message}`,
       duration: 5000,
     });
+
     void toast.present();
     console.error('AuthService error: ', error);
   };

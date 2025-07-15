@@ -57,24 +57,35 @@ describe('LoginFormComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginFormComponent);
+
     component = fixture.componentInstance;
+
     authService = TestBed.inject(AuthService);
+
     popoverController = TestBed.inject(PopoverController);
+
     fixture.detectChanges();
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
+
     expect(component.model.email).toBe('');
+
     expect(component.model.password).toBe('');
+
     expect(component.inputType).toBe('password');
+
     expect(component.labelShow).toBe('Show password');
+
     expect(component.labelHide).toBe('Hide password');
   });
 
   it('should call authService.login on onSubmit', () => {
     component.model.email = 'dunant@redcross.nl';
+
     component.model.password = 'password';
+
     component.onSubmit();
 
     expect(authService.login).toHaveBeenCalledWith(
@@ -87,8 +98,11 @@ describe('LoginFormComponent', () => {
     component.loginForm = {
       resetForm: jasmine.createSpy('resetForm') as () => void,
     } as NgForm;
+
     component.model.email = 'dunant@redcross.nl';
+
     component.model.password = 'password';
+
     component.onSubmit();
 
     expect(component.loginForm.resetForm).toHaveBeenCalledWith();
@@ -96,9 +110,11 @@ describe('LoginFormComponent', () => {
 
   it('should toggle inputType on toggleInputType', () => {
     component.inputType = 'password';
+
     component.toggleInputType();
 
     expect(component.inputType).toBe('text');
+
     component.toggleInputType();
 
     expect(component.inputType).toBe('password');
@@ -106,6 +122,7 @@ describe('LoginFormComponent', () => {
 
   it('should present popover on presentPopover', async () => {
     await component.presentPopover();
+
     const popoverOptions = {
       component: ForgotPasswordPopoverComponent,
       animated: true,

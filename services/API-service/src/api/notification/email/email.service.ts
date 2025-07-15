@@ -4,7 +4,7 @@ import { formatISO } from 'date-fns';
 import * as fs from 'fs';
 import Mailchimp from 'mailchimp-api-v3';
 
-import { DEBUG } from '../../../config';
+import { CI, DEV, PROD } from '../../../config';
 import { Event } from '../../../shared/data.model';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
@@ -63,7 +63,7 @@ export class EmailService {
     });
 
     let emailSubject = `IBF ${emailContent.disasterType.disasterType} alert`;
-    if (process.env.NODE_ENV !== 'production') {
+    if (!PROD) {
       emailSubject += ` - ${process.env.NODE_ENV.toUpperCase()}`;
     }
 
@@ -117,14 +117,14 @@ export class EmailService {
     noNotifications: boolean,
   ) {
     // NOTE: use this to test the email output instead of using Mailchimp
-    if (DEBUG) {
+    if (DEV) {
       fs.writeFileSync(
         `email-${countryCodeISO3}-${disasterType}-${subject}-${formatISO(new Date())}.html`,
         emailHtml,
       );
     }
 
-    if (noNotifications || process.env.NODE_ENV === 'ci') {
+    if (noNotifications || CI) {
       this.logger.log(
         `Email not sent for ${countryCodeISO3} - ${disasterType} - ${subject}`,
       );

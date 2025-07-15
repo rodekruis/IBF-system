@@ -1,8 +1,9 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { IsNotEmpty } from 'class-validator';
+import { Polygon } from 'geojson';
 
-import { BoundingBox } from '../../../shared/geo.model';
+import { AdminRegionLabels } from '../../../scripts/interfaces/country.interface';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { AdminLevel } from '../admin-level.enum';
 
@@ -22,7 +23,7 @@ export class CountryDto {
       '2': { singular: 'District', plural: 'Districts' },
     },
   })
-  public adminRegionLabels: object;
+  public adminRegionLabels: Partial<AdminRegionLabels>;
 
   @ApiProperty({
     example: {
@@ -30,10 +31,10 @@ export class CountryDto {
       floods: ['logo3.svg', 'logo4.png'],
     },
   })
-  public countryLogos: object;
+  public countryLogos: Partial<Record<DisasterType, string[]>>;
 
   @ApiProperty({ example: { type: 'Polygon', coordinates: [] } })
-  public countryBoundingBox: BoundingBox;
+  public countryBoundingBox: Polygon;
 
   @ApiProperty()
   public disasterTypes: string[];

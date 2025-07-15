@@ -35,6 +35,7 @@ export class AuthGuard {
 
     this.authService.redirectUrl = url;
     this.router.navigate(['/login']);
+
     return false;
   }
 }

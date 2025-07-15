@@ -18,6 +18,7 @@ describe('AdminLevelService', () => {
         provideHttpClientTesting(),
       ],
     });
+
     service = TestBed.inject(AdminLevelService);
   });
 

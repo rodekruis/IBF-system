@@ -41,6 +41,7 @@ export class ActivationLogPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.analyticsService.logPageView(AnalyticsPage.activationLog);
+
     this.activationLogSubscription = this.apiService
       .getActivationLogs(this.countryCodeISO3, this.disasterType)
       .subscribe(this.onFetchActivationLogs);
@@ -64,7 +65,6 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     }
 
     const headerData = Object.keys(items[0]);
-
     const rowsData = items.map((rowData) =>
       headerData.map((fieldName) => rowData[fieldName]),
     );
@@ -76,6 +76,7 @@ export class ActivationLogPage implements OnInit, OnDestroy {
     const HEADER_KEY = 'headerData';
     const ROWS_KEY = 'rowsData';
     let tsvContent = this.activationLogs[HEADER_KEY].join('\t') + '\n';
+
     for (const row of this.activationLogs[ROWS_KEY]) {
       tsvContent += row.join('\t') + '\n';
     }

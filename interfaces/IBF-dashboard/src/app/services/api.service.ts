@@ -59,6 +59,7 @@ export class ApiService {
   ): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
+
     this.log(`ApiService GET: ${security} ${url}`);
 
     return this.http
@@ -74,13 +75,19 @@ export class ApiService {
       );
   }
 
-  post<T>(path: string, body: object, anonymous = false): Observable<T> {
+  post<T>(
+    path: string,
+    body: object,
+    anonymous = false,
+    params: HttpParams = null,
+  ): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
+
     this.log(`ApiService POST: ${security} ${url}`, body);
 
     return this.http
-      .post<T>(url, body, { headers: this.createHeaders(anonymous) })
+      .post<T>(url, body, { headers: this.createHeaders(anonymous), params })
       .pipe(
         tap((response) => {
           this.log(
@@ -93,13 +100,19 @@ export class ApiService {
       );
   }
 
-  put<T>(path: string, body: object, anonymous = false): Observable<T> {
+  put<T>(
+    path: string,
+    body: object,
+    anonymous = false,
+    params: HttpParams = null,
+  ): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
     const security = this.showSecurity(anonymous);
+
     this.log(`ApiService PUT: ${security} ${url}`, body);
 
     return this.http
-      .put<T>(url, body, { headers: this.createHeaders(anonymous) })
+      .put<T>(url, body, { headers: this.createHeaders(anonymous), params })
       .pipe(
         tap((response) => {
           this.log(
@@ -124,6 +137,7 @@ export class ApiService {
 
   changePassword(password: string): Observable<User> {
     this.log('ApiService : changePassword()');
+
     return this.post('user/change-password', { password });
   }
 
@@ -133,12 +147,15 @@ export class ApiService {
   ): Observable<Country[]> {
     const path = 'country';
     let params = new HttpParams();
+
     if (countryCodesISO3) {
       params = params.append('countryCodesISO3', countryCodesISO3);
     }
+
     if (minimalInfo) {
       params = params.append('minimalInfo', String(minimalInfo));
     }
+
     return this.get(path, false, params);
   }
 
@@ -147,9 +164,11 @@ export class ApiService {
     eventName: string,
   ): Observable<GeoJSON.FeatureCollection> {
     let params = new HttpParams();
+
     if (eventName) {
       params = params.append('eventName', eventName);
     }
+
     return this.get(`typhoon-track/${countryCodeISO3}`, false, params);
   }
 
@@ -159,20 +178,16 @@ export class ApiService {
     disasterType: DisasterTypeKey,
   ): Observable<GeoJSON.FeatureCollection> {
     let params = new HttpParams();
+
     if (disasterType) {
       params = params.append('disasterType', disasterType);
     }
+
     return this.get(
       `point-data/${layerName}/${countryCodeISO3}`,
       false,
       params,
     );
-  }
-
-  getWaterPoints(
-    countryCodeISO3: string,
-  ): Observable<GeoJSON.FeatureCollection> {
-    return this.get(`waterpoints/${countryCodeISO3}`, false);
   }
 
   getLastUploadDate(
@@ -191,9 +206,11 @@ export class ApiService {
     eventName: string,
   ): Observable<AlertPerLeadTime> {
     let params = new HttpParams();
+
     if (eventName) {
       params = params.append('eventName', eventName);
     }
+
     return this.get(
       `event/alerts/${countryCodeISO3}/${disasterType}`,
       false,
@@ -215,9 +232,11 @@ export class ApiService {
     eventName: string,
   ): Observable<AlertArea[]> {
     let params = new HttpParams();
+
     if (eventName) {
       params = params.append('eventName', eventName);
     }
+
     return this.get(
       `event/alert-areas/${countryCodeISO3}/${adminLevel.toString()}/${disasterType}`,
       false,
@@ -234,15 +253,19 @@ export class ApiService {
     placeCodeParent?: string,
   ): Observable<GeoJSON.FeatureCollection> {
     let params = new HttpParams();
+
     if (eventName) {
       params = params.append('eventName', eventName);
     }
+
     if (leadTime) {
       params = params.append('leadTime', leadTime);
     }
+
     if (placeCodeParent) {
       params = params.append('placeCodeParent', placeCodeParent);
     }
+
     return this.get(
       `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel.toString()}`,
       false,
@@ -259,15 +282,19 @@ export class ApiService {
     placeCodeParent?: string,
   ): Observable<AggregateRecord[]> {
     let params = new HttpParams();
+
     if (eventName) {
       params = params.append('eventName', eventName);
     }
+
     if (leadTime) {
       params = params.append('leadTime', leadTime);
     }
+
     if (placeCodeParent) {
       params = params.append('placeCodeParent', placeCodeParent);
     }
+
     return this.get(
       `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel.toString()}`,
       false,
@@ -305,12 +332,15 @@ export class ApiService {
     eventName: string,
   ): Observable<{ value: number; placeCode: string }[]> {
     let params = new HttpParams();
+
     if (eventName) {
       params = params.append('eventName', eventName);
     }
+
     if (leadTime) {
       params = params.append('leadTime', leadTime);
     }
+
     return this.get(
       `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel.toString()}/${indicator}/${disasterType}`,
       false,
@@ -350,38 +380,40 @@ export class ApiService {
     );
   }
 
-  mockDynamicData(
-    secret: string,
-    country: Country,
+  mock(
+    { countryCodeISO3 }: Country,
     triggered: boolean,
     removeEvents: boolean,
-    disasterType: DisasterType,
+    { disasterType }: DisasterType,
   ) {
     const body = {
-      secret,
       removeEvents,
       date: new Date(),
       scenario: triggered ? 'trigger' : 'no-trigger',
     };
-    const apiPath = `scripts/mock?disasterType=${disasterType.disasterType}&countryCodeISO3=${country.countryCodeISO3}`;
-    return this.post(apiPath, body, false);
+    let params = new HttpParams();
+
+    params = params.append('countryCodeISO3', countryCodeISO3);
+    params = params.append('disasterType', disasterType);
+
+    return this.post('mock', body, false, params);
   }
 
   getActivationLogs(
     countryCodeISO3?: string,
     disasterType?: DisasterTypeKey,
   ): Observable<ActivationLogRecord[]> {
-    return this.get(
-      `event/activation-log${
-        countryCodeISO3 && disasterType
-          ? '?countryCodeISO3=' +
-            countryCodeISO3 +
-            '&disasterType=' +
-            disasterType
-          : ''
-      }`,
-      false,
-    );
+    let params = new HttpParams();
+
+    if (countryCodeISO3) {
+      params = params.append('countryCodeISO3', countryCodeISO3);
+    }
+
+    if (disasterType) {
+      params = params.append('disasterType', disasterType);
+    }
+
+    return this.get('event/activation-log', false, params);
   }
 
   dismissCommunityNotification(pointDataId: string): Observable<void> {
@@ -399,7 +431,7 @@ export class ApiService {
     noNotifications: boolean,
   ): Observable<void> {
     return this.post(
-      `events/set-trigger`,
+      'events/set-trigger',
       { eventPlaceCodeIds, countryCodeISO3, disasterType, noNotifications },
       false,
     );

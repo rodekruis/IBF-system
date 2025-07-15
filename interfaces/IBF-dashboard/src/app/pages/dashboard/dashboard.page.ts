@@ -52,13 +52,13 @@ export class DashboardPage implements OnInit {
   };
 
   private isTablet(): boolean {
-    return /(ipad|tablet|(android(?!.*mobile))|(windows(?!.*phone)(.*touch))|kindle|playbook|silk|(puffin(?!.*(IP|AP|WP))))/.test(
+    return /ipad|tablet|android(?!.*mobile)|windows(?!.*phone).*touch|kindle|playbook|silk|puffin(?!.*(?:IP|AP|WP))/.test(
       navigator.userAgent.toLowerCase(),
     );
   }
 
   private isPhone(): boolean {
-    return /android.+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(
+    return /android.+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(?:hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(?:ob|in)i|palm(?: os)?|phone|p(?:ixi|re)\/|plucker|pocket|psp|symbian|treo|up\.(?:browser|link)|vodafone|wap|windows (?:ce|phone)|xda|xiino/i.test(
       navigator.userAgent.toLowerCase(),
     );
   }
