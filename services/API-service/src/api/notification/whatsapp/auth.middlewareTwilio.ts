@@ -3,7 +3,11 @@ import { HttpException } from '@nestjs/common/exceptions/http.exception';
 
 import { NextFunction, Request, Response } from 'express';
 
-import { DEV, EXTERNAL_API } from '../../../config';
+import {
+  DEV,
+  WHATSAPP_INCOMING_API_URL,
+  WHATSAPP_STATUS_API_URL,
+} from '../../../config';
 import { twilio } from './twilio.client';
 
 @Injectable()
@@ -26,7 +30,7 @@ export class AuthMiddlewareTwilio implements NestMiddleware {
     const validWhatsAppStatus = twilio.validateRequest(
       process.env.TWILIO_AUTHTOKEN,
       twilioSignature,
-      EXTERNAL_API.whatsAppStatus,
+      WHATSAPP_STATUS_API_URL,
       req.body,
       { accountSid: process.env.TWILIO_SID },
     );
@@ -37,7 +41,7 @@ export class AuthMiddlewareTwilio implements NestMiddleware {
     const validWhatsAppIncoming = twilio.validateRequest(
       process.env.TWILIO_AUTHTOKEN,
       twilioSignature,
-      EXTERNAL_API.whatsAppIncoming,
+      WHATSAPP_INCOMING_API_URL,
       req.body,
       { accountSid: process.env.TWILIO_SID },
     );
