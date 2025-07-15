@@ -1,3 +1,20 @@
+## [0.321.3](https://github.com/rodekruis/IBF-system/compare/v0.321.2...v0.321.3) (2025-07-15)
+
+
+### Bug Fixes
+
+* add eslint rule and fixes to await seed ([a893a6b](https://github.com/rodekruis/IBF-system/commit/a893a6b53830d231595bb0f22f96b3f74c642707))
+* adjust country interface to accept partial configs ([4941a35](https://github.com/rodekruis/IBF-system/commit/4941a3557cb9c9482e5f20fe19e696b9ea2d0acd))
+* fallback to DEFAULT_USER on null ([71ce901](https://github.com/rodekruis/IBF-system/commit/71ce901b31b42921dade0cef93d58a534838377c))
+* guard POST country ([92b3bcd](https://github.com/rodekruis/IBF-system/commit/92b3bcde0b4b2116429d72e4fa53845a6204f985))
+* remove unnecessary waterpoint data token and use correct query param ([be166eb](https://github.com/rodekruis/IBF-system/commit/be166ebe76a1c1a73e4ce215cecee87a1e9e55eb))
+* remove waterpoints internal ([e9e0cf0](https://github.com/rodekruis/IBF-system/commit/e9e0cf01e67a29bcc34d2aac855e1a78308c9415))
+* reset should default to false ([652f4b0](https://github.com/rodekruis/IBF-system/commit/652f4b036162931ec8d74de7cbed5c1a0c9cac43))
+* update mock data waterpoints internal ([8c35770](https://github.com/rodekruis/IBF-system/commit/8c357700ef10df0e9731b0dfb66baaf7657f2418))
+* use default seed on reset ([481950d](https://github.com/rodekruis/IBF-system/commit/481950daffce7c5732b248957a9012763949f202))
+
+
+
 ## [0.321.2](https://github.com/rodekruis/IBF-system/compare/v0.321.1...v0.321.2) (2025-06-19)
 
 
@@ -95,16 +112,6 @@
 ### Features
 
 * use event-areas also for floods ([f77b9a0](https://github.com/rodekruis/IBF-system/commit/f77b9a05d46cc4516d5ed1775b798c0460d822c7))
-
-
-
-## [0.318.1](https://github.com/rodekruis/IBF-system/compare/v0.318.0...v0.318.1) (2025-05-23)
-
-
-### Bug Fixes
-
-* e2e test ([2a1a034](https://github.com/rodekruis/IBF-system/commit/2a1a034a868c789d81bfb21df3242e07f4fcb058))
-* refactor line type setup in e2e ([852b396](https://github.com/rodekruis/IBF-system/commit/852b396ab7b97f39ab94aa4fa866c04b45a558aa))
 
 
 
