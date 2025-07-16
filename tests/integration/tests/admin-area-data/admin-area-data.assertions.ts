@@ -71,7 +71,7 @@ export const getAdminAreaDataAssertions: GetAdminAreaDataAssertion[] = [
     countryCodeISO3: 'ETH',
     adminLevel: AdminLevel.adminLevel3,
     indicator: AdminAreaDataIndicator.populationTotal,
-    count: 1040,
+    count: 1082,
     placeCodeRegex: /^ET/,
   },
   {

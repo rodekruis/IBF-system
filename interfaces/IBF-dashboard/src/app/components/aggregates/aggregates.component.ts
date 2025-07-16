@@ -141,7 +141,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     const filterAggregateIndicators = (indicator: Indicator) =>
       indicator.countryDisasterTypes[this.country.countryCodeISO3][
         this.disasterType.disasterType
-      ].includes('aggregate');
+      ]?.includes('aggregate');
 
     this.indicators = newIndicators.filter(filterAggregateIndicators);
   };
