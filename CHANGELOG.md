@@ -1,3 +1,12 @@
+## [0.321.4](https://github.com/rodekruis/IBF-system/compare/v0.321.3...v0.321.4) (2025-07-16)
+
+
+### Bug Fixes
+
+* use optional chaining when accessing nested properties ([207b482](https://github.com/rodekruis/IBF-system/commit/207b4823ead6bc506e53fdaa8687be94abef1e8c))
+
+
+
 ## [0.321.3](https://github.com/rodekruis/IBF-system/compare/v0.321.2...v0.321.3) (2025-07-15)
 
 
@@ -95,23 +104,6 @@
 ### Bug Fixes
 
 * use 0 as fallback aggregate value ([6b36aec](https://github.com/rodekruis/IBF-system/commit/6b36aec5815bef600d5e17f62e1d558feba8d65c))
-
-
-
-# [0.319.0](https://github.com/rodekruis/IBF-system/compare/v0.318.1...v0.319.0) (2025-05-23)
-
-
-### Bug Fixes
-
-* GET aggregatest test ([8d4ea85](https://github.com/rodekruis/IBF-system/commit/8d4ea85e1afbef9af466a8c982420692791a9269))
-* no alert events should show admin areas ([b09b6d7](https://github.com/rodekruis/IBF-system/commit/b09b6d7d66599fefffa5477f7fd4da1b884dd7b8))
-* union expects at least 2 features ([d374a8a](https://github.com/rodekruis/IBF-system/commit/d374a8aa267953748ce4f7b5fde583e2a94137f7))
-* workaround validation errors ([3e7c6b5](https://github.com/rodekruis/IBF-system/commit/3e7c6b586d51462ef145584f08aa1bd12bd2dd15))
-
-
-### Features
-
-* use event-areas also for floods ([f77b9a0](https://github.com/rodekruis/IBF-system/commit/f77b9a05d46cc4516d5ed1775b798c0460d822c7))
 
 
 
