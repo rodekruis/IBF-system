@@ -1,0 +1,17 @@
+# Azure Developer CLI (azd) configuration file for IBF Svelte Dashboard
+name: ibf-svelte-dashboard
+metadata:
+  template: ibf-svelte-dashboard@0.0.1-beta
+
+# Infrastructure configuration
+infra:
+  provider: bicep
+
+# Services configuration
+services:
+  # Main Svelte application deployed to Azure Static Web Apps
+  ibf-svelte-dashboard:
+    # Project metadata
+    project: .
+    language: js
+    host: staticwebapp

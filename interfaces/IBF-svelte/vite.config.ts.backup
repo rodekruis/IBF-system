@@ -1,0 +1,36 @@
+import { svelte } from '@sveltejs/vite-plugin-svelte';
+import { defineConfig } from 'vite';
+
+export default defineConfig(({ mode }) => ({
+  plugins: [svelte()],
+  
+  build: {
+    target: 'es2020',
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['svelte'],
+          leaflet: ['leaflet']
+        }
+      }
+    }
+  },
+
+  optimizeDeps: {
+    include: ['leaflet']
+  },
+
+  define: {
+    __EMBED_MODE__: mode === 'embed'
+  },
+
+  server: {
+    port: 5173,
+    strictPort: false,
+    headers: {
+      'X-Frame-Options': 'SAMEORIGIN',
+      'Content-Security-Policy': "frame-ancestors 'self' https://*.espocrm.com https://localhost:*"
+    }
+  }
+}));
