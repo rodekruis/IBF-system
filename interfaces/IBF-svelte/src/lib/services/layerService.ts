@@ -1,5 +1,6 @@
 // Layer Service - Manages map layers and point data for IBF Dashboard
 import { ibfApiService } from './ibfApi';
+import { config } from '../config';
 
 // Layer types based on IBF Dashboard
 export enum LayerType {
@@ -45,6 +46,21 @@ export interface IBFLayer {
   order?: number;
   leadTimeDependent?: boolean;
   dynamic?: boolean;
+  wms?: WMSLayerConfig; // WMS configuration
+  legendColor?: any; // Legend color information
+}
+
+// WMS Layer Configuration (based on IBF Dashboard)
+export interface WMSLayerConfig {
+  url: string;
+  name: string;
+  format: string;
+  version: string;
+  attribution: string;
+  crs?: any; // Leaflet CRS
+  transparent: boolean;
+  viewparams?: string;
+  leadTimeDependent: boolean;
 }
 
 // Point data types based on IBF Dashboard
@@ -177,6 +193,7 @@ export const MARKER_ICON_CONFIG = {
 class LayerService {
   private layers: IBFLayer[] = [];
   private layerCache = new Map<string, any>();
+  private currentCountryCode: string | null = null;
 
   /**
    * Get available layers for a country and disaster type
@@ -184,6 +201,9 @@ class LayerService {
   async getLayersForCountry(countryCodeISO3: string, disasterType: string): Promise<IBFLayer[]> {
     try {
       console.log(`🗺️ Loading layers for ${countryCodeISO3} - ${disasterType}`);
+      
+      // Store current country code for WMS layer configuration
+      this.currentCountryCode = countryCodeISO3;
       
       const response = await ibfApiService.getLayers(countryCodeISO3, disasterType);
       
@@ -461,7 +481,7 @@ class LayerService {
    * Transform layer metadata from API to IBFLayer format
    */
   private transformLayerMetadata(layerMeta: any): IBFLayer {
-    return {
+    const layer: IBFLayer = {
       name: layerMeta.name,
       label: layerMeta.label || layerMeta.name,
       type: layerMeta.type as LayerType,
@@ -471,8 +491,25 @@ class LayerService {
       description: layerMeta.description ? JSON.stringify(layerMeta.description) : '',
       leadTimeDependent: layerMeta.leadTimeDependent || false,
       dynamic: layerMeta.dynamic || false,
-      order: layerMeta.order || 10
+      order: layerMeta.order || 10,
+      legendColor: layerMeta.legendColor
     };
+
+    // Add WMS configuration for WMS layers
+    if (layerMeta.type === LayerType.wms) {
+      layer.wms = {
+        url: config.geoserverUrl,
+        name: layerMeta.name, // WMS layer name
+        format: 'image/png',
+        version: '1.1.0',
+        attribution: '510 Global',
+        transparent: true,
+        leadTimeDependent: layerMeta.leadTimeDependent || false,
+        viewparams: `countryCodeISO3:${this.currentCountryCode || ''}`
+      };
+    }
+
+    return layer;
   }
 
   /**

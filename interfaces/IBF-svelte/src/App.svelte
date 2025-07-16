@@ -332,15 +332,13 @@
     }
   }
 
-  // Admin area hover handlers
+  // Admin area hover handlers (optimized for performance)
   function handleAdminAreaHover(event: { detail: { area: any, countryCode: string } }) {
-    console.log('🎯 Admin area hovered in App:', event.detail.area.properties.adm2_en);
     hoveredAdminArea = event.detail.area;
     hoveredCountryCode = event.detail.countryCode;
   }
 
   function handleAdminAreaHoverClear() {
-    console.log('🔄 Admin area hover cleared in App');
     hoveredAdminArea = null;
     hoveredCountryCode = '';
   }
@@ -628,48 +626,11 @@
         <div class="main-content-columns">
           <!-- National View Section (Middle Column) -->
           <div class="national-view-column">
-            {#if hoveredAdminArea}
-              <!-- Admin Area View when hovering -->
-              <AdminAreaInfo 
-                selectedArea={hoveredAdminArea}
-                countryCode={hoveredCountryCode}
-              />
-            {:else}
-              <!-- Default National View -->
-              <div class="national-view-header">
-                <h3>National View</h3>
-                <h4>Predicted Drought</h4>
-              </div>
-              
-              <div class="national-view-stats">
-                <div class="stat-item">
-                  <div class="stat-icon">
-                    <!-- People icon for exposed population -->
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-                    </svg>
-                  </div>
-                  <div class="stat-info">
-                    <div class="stat-label">Exposed population</div>
-                    <div class="stat-value">0</div>
-                  </div>
-                  <button class="stat-info-btn">ℹ️</button>
-                </div>
-                <div class="stat-item">
-                  <div class="stat-icon">
-                    <!-- Group icon for total population -->
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M16 4c0-1.11.89-2 2-2s2 .89 2 2-.89 2-2 2-2-.89-2-2zm4 18v-6h2.5l-2.54-7.63A3.002 3.002 0 0 0 17.09 7c-.6 0-1.13.27-1.49.69L14.5 9.5l1.41 1.41L17 9.83V22h3zM12.5 11.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5S11 9.17 11 10s.67 1.5 1.5 1.5zm1.5 1h-3C9.57 12.5 8.5 13.57 8.5 15v7h7v-7c0-1.43-1.07-2.5-2.5-2.5zM5.5 6c1.11 0 2-.89 2-2s-.89-2-2-2-2 .89-2 2 .89 2 2 2zm2 16v-7H9V9.5C9 8.57 8.43 8 7.5 8S6 8.57 6 9.5V15H7.5v7h0z"/>
-                    </svg>
-                  </div>
-                  <div class="stat-info">
-                    <div class="stat-label">Total Population</div>
-                    <div class="stat-value">0</div>
-                  </div>
-                  <button class="stat-info-btn">ℹ️</button>
-                </div>
-              </div>
-            {/if}
+            <!-- Always render AdminAreaInfo - it will handle both states -->
+            <AdminAreaInfo 
+              selectedArea={hoveredAdminArea}
+              countryCode={hoveredCountryCode}
+            />
           </div>
 
           <!-- Map Container (Right Column) -->

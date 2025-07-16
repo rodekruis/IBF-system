@@ -118,7 +118,8 @@ class IBFApiService {
   private async request<T>(
     endpoint: string,
     options: RequestInit = {},
-    cacheTTL: number = 10 * 60 * 1000 // 10 minutes default cache
+    cacheTTL: number = 10 * 60 * 1000, // 10 minutes default cache
+    showGlobalLoading: boolean = true // Whether to show global loading spinner
   ): Promise<IBFApiResponse<T>> {
     const url = `${IBF_API_BASE_URL}${endpoint}`;
     const cacheKey = `${url}:${JSON.stringify(options)}`;
@@ -140,7 +141,9 @@ class IBFApiService {
     } : {};
 
     try {
-      setLoading(true);
+      if (showGlobalLoading) {
+        setLoading(true);
+      }
       
       // Get IBF authentication token
       const token = await this.getIbfToken();
@@ -243,9 +246,7 @@ class IBFApiService {
         const preview = lines.slice(0, 100).join('\n');
         const truncated = lines.length > 100;
         
-        console.log(`📋 Response Preview (${truncated ? `first 100 of ${lines.length}` : lines.length} lines):`);
-        console.log(preview);
-        
+      
         if (truncated) {
           console.log(`... [${lines.length - 100} more lines truncated]`);
         }
@@ -267,7 +268,9 @@ class IBFApiService {
       setError(message);
       return { error: message, status: 0 };
     } finally {
-      setLoading(false);
+      if (showGlobalLoading) {
+        setLoading(false);
+      }
     }
   }
 
@@ -770,7 +773,7 @@ class IBFApiService {
       
       for (const endpoint of endpoints) {
         try {
-          const result = await this.request<any>(endpoint);
+          const result = await this.request<any>(endpoint, {}, 10 * 60 * 1000, false); // Disable global loading for hover requests
           if (result.data && !result.error) {
             console.log(`✅ Got aggregated data from ${endpoint}`);
             return result;

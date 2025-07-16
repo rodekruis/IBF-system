@@ -4,12 +4,16 @@
 interface AppConfig {
   // API Configuration
   apiUrl: string;
+  geoserverUrl: string;
   useMockData: boolean;
   useIbfApi: boolean; // New flag for IBF API integration
   
   // IBF API Configuration - SECURITY WARNING
   ibfApiEmail: string;
   ibfApiPassword: string;
+  
+  // EspoCRM Integration
+  espoCrmApiUrl: string;
   
   // Authentication Configuration
   disableAuthentication: boolean;
@@ -52,12 +56,16 @@ function warnAboutCredentials() {
 export const config: AppConfig = {
   // API Configuration
   apiUrl: getEnvVar('VITE_API_URL', 'http://localhost:3000/api'),
+  geoserverUrl: getEnvVar('VITE_GEOSERVER_URL', 'https://ibf.510.global/geoserver/ibf-system/wms'),
   useMockData: getEnvBoolean('VITE_USE_MOCK_DATA', true),
   useIbfApi: getEnvBoolean('VITE_USE_IBF_API', false), // New flag for IBF API
   
   // IBF API Configuration - CREDENTIALS SHOULD NOT BE HERE
   ibfApiEmail: getEnvVar('VITE_IBF_API_EMAIL', ''),
   ibfApiPassword: getEnvVar('VITE_IBF_API_PASSWORD', ''),
+  
+  // EspoCRM Integration
+  espoCrmApiUrl: getEnvVar('VITE_ESPOCRM_API_URL', 'https://crm.510.global/api/v1'),
   
   // Authentication Configuration - DISABLED BY DEFAULT
   disableAuthentication: getEnvBoolean('VITE_DISABLE_AUTHENTICATION', true),

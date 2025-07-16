@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { ibfApiService } from '../services/ibfApi';
   import { cacheService, CacheService } from '../services/cacheService';
 
@@ -7,7 +7,6 @@
   export let countryCode: string = '';
 
   let populationData: any = null;
-  let isLoading = false;
   let error: string | null = null;
 
   // Local loading promises to prevent duplicate requests
@@ -26,11 +25,7 @@
     
     // Only trigger if we have valid data and the admin code actually changed
     if (selectedArea && countryCode && adminCode && adminCode !== currentAdminCode) {
-      console.log('🔄 AdminAreaInfo: New area detected, loading data...', { 
-        areaName: selectedArea.properties?.adm2_en, 
-        countryCode,
-        adminCode 
-      });
+      // Optimized for performance - reduced logging during hover events
       currentAdminCode = adminCode;
       loadAreaDataWithCacheAndDebounce();
     } else if (!selectedArea || !countryCode) {
@@ -41,7 +36,6 @@
       }
       currentAdminCode = null;
       populationData = null;
-      console.log('❌ AdminAreaInfo: Cleared selection');
     }
   }
 
@@ -73,14 +67,13 @@
     // Check if we already have this data cached
     const cachedData = cacheService.get(cacheKey);
     if (cachedData) {
-      console.log('🗄️ Using cached data for:', cacheKey);
+      // Optimized: reduced cache logging for performance during hover
       populationData = cachedData;
       return;
     }
     
     // Check if we're already loading this data
     if (loadingPromises.has(cacheKey)) {
-      console.log('⏳ Already loading data for:', cacheKey);
       try {
         populationData = await loadingPromises.get(cacheKey);
         return;
@@ -99,7 +92,7 @@
       // Cache the successful result
       if (data) {
         cacheService.set(cacheKey, data, 10 * 60 * 1000); // Cache for 10 minutes
-        console.log('💾 Cached data for:', cacheKey, 'Cache stats:', cacheService.getStats());
+        // Optimized: reduced cache stats logging for performance
       }
       populationData = data;
     } catch (err) {
@@ -113,7 +106,8 @@
   async function loadAreaData(adminCode: string) {
     if (!selectedArea || !countryCode || !adminCode) return null;
     
-    isLoading = true;
+    // NO LOADING STATE during hover events to prevent flicker
+    // The component will show the last data or "No data available" instead
     error = null;
     
     try {
@@ -131,14 +125,14 @@
       let resultData;
       if (response.data) {
         resultData = response.data;
-        console.log('✅ Population data loaded:', resultData);
+        // Optimized: reduced success logging for performance during hover
       } else {
         // Fallback to some basic population data if available
         resultData = {
           exposedPopulation: selectedArea.properties.population || 0,
           totalPopulation: selectedArea.properties.population || 0
         };
-        console.log('📋 Using fallback population data:', resultData);
+        // Optimized: reduced fallback logging for performance during hover
       }
       
       return resultData;
@@ -154,8 +148,6 @@
       };
       
       return fallbackData;
-    } finally {
-      isLoading = false;
     }
   }
   
@@ -165,6 +157,14 @@
     if (isNaN(num)) return 'N/A';
     return num.toLocaleString();
   }
+
+  // Cleanup timeouts on component destruction
+  onDestroy(() => {
+    if (loadTimeout) {
+      clearTimeout(loadTimeout);
+      loadTimeout = null;
+    }
+  });
 
   // Component lifecycle
   onMount(() => {
@@ -181,11 +181,7 @@
   </div>
   
   <div class="national-view-stats">
-    {#if isLoading}
-      <div class="loading-message">Loading population data...</div>
-    {:else if error}
-      <div class="error-message">Error loading data</div>
-    {:else if populationData}
+    {#if populationData}
       <div class="stat-item">
         <div class="stat-icon">
           <!-- People icon for exposed population -->
@@ -212,8 +208,10 @@
         </div>
         <button class="stat-info-btn">ℹ️</button>
       </div>
+    {:else if error}
+      <div class="error-message">Error loading data</div>
     {:else}
-      <div class="no-data-message">No data available for this area</div>
+      <div class="no-data-message">Loading area data...</div>
     {/if}
   </div>
 {:else}

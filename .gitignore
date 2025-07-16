@@ -36,6 +36,20 @@ $RECYCLE.BIN/
 node_modules
 # package-lock.json
 
+# Build outputs
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Vite
+.vite/
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+
+# Svelte
+.svelte-kit/
+
 # Qase
 /logs/
 

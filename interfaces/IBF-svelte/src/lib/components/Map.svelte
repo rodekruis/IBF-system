@@ -33,6 +33,10 @@
   let availableLayers: IBFLayer[] = [];
   let activeLayers: Set<string> = new Set();
   
+  // Global hover management to prevent flicker between polygons
+  let currentHoveredLayer: any = null;
+  let hoverClearTimeout: NodeJS.Timeout | null = null;
+  
   // Component lifecycle
   onMount(async () => {
     if (browser) {
@@ -77,6 +81,9 @@
   onDestroy(() => {
     if (updateTimeout) {
       clearTimeout(updateTimeout);
+    }
+    if (hoverClearTimeout) {
+      clearTimeout(hoverClearTimeout);
     }
     if (map) {
       console.log('✅ Leaflet map being destroyed');
@@ -265,15 +272,22 @@
           </div>
         `);
         
-        // Add hover effects
+        // Simple hover effects without complex timeout management
         layer.on('mouseover', function() {
+          // Clear any pending hover clear timeout
+          if (hoverClearTimeout) {
+            clearTimeout(hoverClearTimeout);
+            hoverClearTimeout = null;
+          }
+          
+          // Set current layer as hovered
+          currentHoveredLayer = this;
           this.setStyle({
             weight: 3,
             fillOpacity: 0.5
           });
           
           // Dispatch hover event to parent
-          console.log('🔄 Admin area hovered:', feature.properties.adm2_en);
           dispatch('admin-area-hover', {
             area: feature,
             countryCode: currentCountryCode
@@ -281,14 +295,28 @@
         });
         
         layer.on('mouseout', function() {
+          // Reset style
           this.setStyle({
             weight: 2,
             fillOpacity: 0.2
           });
           
-          // Dispatch hover clear event to parent
-          console.log('🔄 Admin area hover cleared');
-          dispatch('admin-area-hover-clear');
+          // Clear current hovered layer if it's this layer
+          if (currentHoveredLayer === this) {
+            currentHoveredLayer = null;
+          }
+          
+          // Simple timeout to clear hover state
+          if (hoverClearTimeout) {
+            clearTimeout(hoverClearTimeout);
+          }
+          hoverClearTimeout = setTimeout(() => {
+            // Only dispatch clear if no polygon is currently hovered
+            if (!currentHoveredLayer) {
+              dispatch('admin-area-hover-clear');
+            }
+            hoverClearTimeout = null;
+          }, 100); // Short timeout, long enough to move between adjacent polygons
         });
       }
     });
@@ -370,7 +398,7 @@
    */
   async function loadAndDisplayLayer(layer: IBFLayer, countryCodeISO3: string, disasterType: string, eventName?: string) {
     try {
-      console.log(`🗺️ Loading layer data: ${layer.name}`);
+      console.log(`🗺️ Loading layer: ${layer.name} (${layer.type})`);
       
       // Remove existing layer if present
       if (pointLayers.has(layer.name)) {
@@ -378,35 +406,100 @@
         pointLayers.delete(layer.name);
       }
       
-      // Load layer data
-      const layerData = await layerService.loadLayerData(layer, countryCodeISO3, disasterType, eventName);
-      
-      if (!layerData || !layerData.features) {
-        console.log(`⚠️ No data available for layer: ${layer.name}`);
-        return;
-      }
-      
-      // Create layer group for points
-      const layerGroup = L.layerGroup();
-      
-      // Add points to the layer group
-      layerData.features.forEach((feature: any) => {
-        if (feature.geometry.type === 'Point') {
-          const marker = layerService.createPointMarker(feature, layer.name, L);
-          marker.options.pane = 'leaflet-ibf-point-pane';
-          layerGroup.addLayer(marker);
+      // Handle different layer types
+      if (layer.type === 'wms') {
+        // Create WMS layer
+        const wmsLayer = createWMSLayer(layer, countryCodeISO3);
+        if (wmsLayer) {
+          wmsLayer.addTo(map);
+          pointLayers.set(layer.name, wmsLayer);
+          console.log(`✅ Displayed WMS layer: ${layer.name}`);
         }
-      });
-      
-      // Add layer group to map and store reference
-      layerGroup.addTo(map);
-      pointLayers.set(layer.name, layerGroup);
-      
-      console.log(`✅ Displayed ${layerData.features.length} points for layer: ${layer.name}`);
+      } else {
+        // Handle point/shape layers
+        const layerData = await layerService.loadLayerData(layer, countryCodeISO3, disasterType, eventName);
+        
+        if (!layerData || !layerData.features) {
+          console.log(`⚠️ No data available for layer: ${layer.name}`);
+          return;
+        }
+        
+        // Create layer group for points
+        const layerGroup = L.layerGroup();
+        
+        // Add points to the layer group
+        layerData.features.forEach((feature: any) => {
+          if (feature.geometry.type === 'Point') {
+            const marker = layerService.createPointMarker(feature, layer.name, L);
+            marker.options.pane = 'leaflet-ibf-point-pane';
+            layerGroup.addLayer(marker);
+          }
+        });
+        
+        // Add layer group to map and store reference
+        layerGroup.addTo(map);
+        pointLayers.set(layer.name, layerGroup);
+        
+        console.log(`✅ Displayed ${layerData.features.length} points for layer: ${layer.name}`);
+      }
       
     } catch (error) {
       console.error(`❌ Error loading layer ${layer.name}:`, error);
     }
+  }
+
+  /**
+   * Create a WMS layer based on IBF Dashboard implementation
+   */
+  function createWMSLayer(layer: IBFLayer, countryCodeISO3: string): any {
+    if (!layer.wms) {
+      console.error(`❌ No WMS configuration for layer: ${layer.name}`);
+      return null;
+    }
+
+    try {
+      // Build layer name with country-specific prefix if needed
+      const layerNames = [getWMSLayerName(layer, countryCodeISO3)];
+      
+      const wmsOptions = {
+        pane: 'leaflet-ibf-wms-pane', // Use WMS pane for proper layering
+        layers: layerNames.join(','),
+        format: layer.wms.format,
+        version: layer.wms.version,
+        attribution: layer.wms.attribution,
+        transparent: layer.wms.transparent,
+        viewparams: layer.wms.viewparams
+      };
+
+      console.log(`🗺️ Creating WMS layer:`, {
+        url: layer.wms.url,
+        options: wmsOptions
+      });
+
+      return L.tileLayer.wms(layer.wms.url, wmsOptions);
+    } catch (error) {
+      console.error(`❌ Error creating WMS layer ${layer.name}:`, error);
+      return null;
+    }
+  }
+
+  /**
+   * Get WMS layer name with proper formatting (based on production format)
+   */
+  function getWMSLayerName(layer: IBFLayer, countryCodeISO3: string): string {
+    // Production format: ibf-system:layername_COUNTRYCODE
+    // Example: ibf-system:population_ETH
+    
+    let layerName = layer.name;
+    
+    // For country-specific layers, add country suffix
+    const countrySpecificLayers = ['flood_extent', 'population', 'rainfall'];
+    if (countrySpecificLayers.includes(layer.name)) {
+      layerName = `${layer.name}_${countryCodeISO3}`;
+    }
+    
+    // Add workspace prefix for all layers
+    return `ibf-system:${layerName}`;
   }
 
   /**

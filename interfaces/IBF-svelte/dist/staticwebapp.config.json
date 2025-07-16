@@ -22,14 +22,6 @@
       "redirect": "/.auth/logout"
     },
     {
-      "route": "/*",
-      "allowedRoles": ["authenticated"],
-      "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "X-Frame-Options": "ALLOWALL"
-      }
-    },
-    {
       "route": "/assets/*",
       "allowedRoles": ["anonymous", "authenticated"],
       "headers": {
@@ -40,6 +32,14 @@
     {
       "route": "/api/*",
       "allowedRoles": ["authenticated"]
+    },
+    {
+      "route": "/*",
+      "allowedRoles": ["authenticated"],
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "X-Frame-Options": "ALLOWALL"
+      }
     }
   ],
   "globalHeaders": {
