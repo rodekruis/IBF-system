@@ -5,6 +5,7 @@ import { adminAreaDeleteTests } from './admin-areas/admin-areas-delete.test';
 import adminAreaAggregatesTests from './admin-areas/aggregates.test';
 import eventAdminAreaTests from './admin-areas/event-admin-areas.test';
 import communityNotificationTests from './community-notification/community-notification.test';
+import countryAdminAccessTests from './country/country-admin-access.test';
 import createCountryTests from './country/create-country.test';
 import emailTests from './email/emails.test';
 import getEventsTests from './events/get-events.test';
@@ -22,6 +23,7 @@ describe('integration tests', () => {
   communityNotificationTests();
 
   createCountryTests();
+  countryAdminAccessTests();
 
   emailTests();
 
