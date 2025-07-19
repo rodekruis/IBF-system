@@ -5,6 +5,7 @@ import { DataSource } from 'typeorm';
 import 'multer';
 import { UserEntity } from '../api/user/user.entity';
 import { UserRole } from '../api/user/user-role.enum';
+import { DUNANT_EMAIL } from '../config';
 import users from './json/users.json';
 import { InterfaceScript } from './scripts.module';
 
@@ -39,19 +40,15 @@ export class SeedProd implements InterfaceScript {
 
       // Always update dunant user password from env if it exists
       if (process.env.DUNANT_PASSWORD) {
-        const user = users.filter((user): boolean => {
-          return user.userRole === UserRole.Admin;
-        })[0];
-
         const adminUser = await userRepository.findOne({
-          where: { email: user.email },
+          where: { email: DUNANT_EMAIL },
         });
 
         if (adminUser) {
           adminUser.password = process.env.DUNANT_PASSWORD;
           await userRepository.save(adminUser);
           this.logger.log(
-            'Admin user password updated from DUNANT_PASSWORD env variable.',
+            'Updated existing DUNANT user password from env variable',
           );
         }
       }
