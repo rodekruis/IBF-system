@@ -8,6 +8,7 @@ import {
   MalariaScenario,
   TyphoonScenario,
 } from './API-service/enum/mock-scenario.enum';
+import { UserRole } from './API-service/enum/user-role.enum';
 
 export function api(token?: string) {
   const request = agent(process.env.API_SERVICE_URL);
@@ -39,7 +40,7 @@ export async function getNonAdminToken() {
     email: 'operator@redcross.nl',
     firstName: 'Test',
     lastName: 'Operator',
-    userRole: 'operator',
+    userRole: UserRole.Operator,
     countryCodesISO3: ['UGA'],
     disasterTypes: ['floods'],
     password: 'password',
