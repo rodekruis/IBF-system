@@ -31,6 +31,39 @@ export async function getToken() {
   return token;
 }
 
+export async function getNonAdminToken() {
+  // First get admin token to create a non-admin user
+  const adminToken = await getToken();
+
+  const nonAdminUser = {
+    email: 'operator@redcross.nl',
+    firstName: 'Test',
+    lastName: 'Operator',
+    userRole: 'operator',
+    countryCodesISO3: ['UGA'],
+    disasterTypes: ['floods'],
+    password: 'password',
+  };
+
+  // Try to create the user (will fail if it already exists, which is fine)
+  try {
+    await api(adminToken).post('/user').send(nonAdminUser);
+  } catch (error) {
+    // User already exists, continue
+  }
+
+  // Login with the non-admin user
+  const {
+    body: {
+      user: { token },
+    },
+  } = await api()
+    .post(`/user/login`)
+    .send({ email: nonAdminUser.email, password: nonAdminUser.password });
+
+  return token;
+}
+
 export async function reset() {
   const token = await getToken();
 
