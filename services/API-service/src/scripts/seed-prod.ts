@@ -33,7 +33,28 @@ export class SeedProd implements InterfaceScript {
 
       await userRepository.save(adminUser);
     } else {
-      this.logger.log('Users already exist, skip seed admin user.');
+      this.logger.log(
+        'Users already exist, updating admin user password from env...',
+      );
+
+      // Always update dunant user password from env if it exists
+      if (process.env.DUNANT_PASSWORD) {
+        const user = users.filter((user): boolean => {
+          return user.userRole === UserRole.Admin;
+        })[0];
+
+        const adminUser = await userRepository.findOne({
+          where: { email: user.email },
+        });
+
+        if (adminUser) {
+          adminUser.password = process.env.DUNANT_PASSWORD;
+          await userRepository.save(adminUser);
+          this.logger.log(
+            'Admin user password updated from DUNANT_PASSWORD env variable.',
+          );
+        }
+      }
     }
   }
 }

@@ -169,6 +169,13 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           );
           // grant dunant user access to new countries
           dunantUser.countries = await countryRepository.find();
+          // Always update password from env if available
+          if (process.env.DUNANT_PASSWORD) {
+            dunantUser.password = process.env.DUNANT_PASSWORD;
+            this.logger.log(
+              'Updated existing DUNANT user password from env variable',
+            );
+          }
           await userRepository.save(dunantUser);
         } else {
           // use DUNANT_PASSWORD from env
