@@ -1,7 +1,7 @@
 // IBF API Service - Real API integration for disaster forecasting data
 import { setError, setLoading } from '../stores/app';
 import config from '../config';
-import { authService } from './auth';
+import { authService } from './authService';
 
 // IBF API Base URL - Use proxy in development to avoid CORS issues
 const IBF_API_BASE_URL = import.meta.env.DEV ? '/api/ibf' : 'https://ibf-test.510.global/api';

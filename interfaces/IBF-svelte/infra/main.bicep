@@ -10,14 +10,43 @@ param location string = resourceGroup().location
 @description('Resource group name')
 param resourceGroupName string
 
-// Generate unique resource token based on environment, subscription and resource group
+// Generate unique resource token for resources that need to be globally unique
 var resourceToken = toLower(uniqueString(subscription().id, resourceGroup().id, environmentName))
 
-// Resource names using the pattern {resourcePrefix}-{resourceToken}
-var appInsightsName = 'ai-${resourceToken}'
-var logAnalyticsName = 'law-${resourceToken}'
-var staticWebAppName = 'swa-${resourceToken}'
-var keyVaultName = 'kv-${resourceToken}'
+// Environment-specific resource names
+var environmentResourceMap = {
+  production: {
+    staticWebAppName: 'ibf-dashboard-production'
+    appInsightsName: 'ai-ibf-dashboard-production'
+    logAnalyticsName: 'law-ibf-dashboard-production'
+    keyVaultName: 'kv-ibf-prod-${take(resourceToken, 8)}' // KeyVault names must be globally unique
+  }
+  test: {
+    staticWebAppName: 'ibf-dashboard-test'
+    appInsightsName: 'ai-ibf-dashboard-test'
+    logAnalyticsName: 'law-ibf-dashboard-test'
+    keyVaultName: 'kv-ibf-test-${take(resourceToken, 8)}' // KeyVault names must be globally unique
+  }
+  dev: {
+    staticWebAppName: 'ibf-dashboard-dev'
+    appInsightsName: 'ai-ibf-dashboard-dev'
+    logAnalyticsName: 'law-ibf-dashboard-dev'
+    keyVaultName: 'kv-ibf-dev-${take(resourceToken, 8)}' // KeyVault names must be globally unique
+  }
+}
+
+// Use environment-specific names if available, otherwise fall back to token-based names
+var currentEnvMap = contains(environmentResourceMap, environmentName) ? environmentResourceMap[environmentName] : {
+  staticWebAppName: 'swa-${resourceToken}'
+  appInsightsName: 'ai-${resourceToken}'
+  logAnalyticsName: 'law-${resourceToken}'
+  keyVaultName: 'kv-${resourceToken}'
+}
+
+var appInsightsName = currentEnvMap.appInsightsName
+var logAnalyticsName = currentEnvMap.logAnalyticsName
+var staticWebAppName = currentEnvMap.staticWebAppName
+var keyVaultName = currentEnvMap.keyVaultName
 
 // Log Analytics Workspace
 resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {
@@ -107,24 +136,10 @@ resource staticWebAppDiagnostics 'Microsoft.Insights/diagnosticSettings@2021-05-
   name: 'default'
   properties: {
     workspaceId: logAnalyticsWorkspace.id
-    logs: [
-      {
-        category: 'SWAFunction'
-        enabled: true
-        retentionPolicy: {
-          enabled: true
-          days: 30
-        }
-      }
-    ]
     metrics: [
       {
         category: 'AllMetrics'
         enabled: true
-        retentionPolicy: {
-          enabled: true
-          days: 30
-        }
       }
     ]
   }

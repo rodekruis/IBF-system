@@ -1,0 +1,90 @@
+name: Deploy IBF Svelte Dashboard to Named Environments
+
+on:
+  push:
+    branches:
+      - main          # Deploy to production
+      - ibf-svelte    # Deploy to test
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened, closed]
+
+jobs:
+  build_and_deploy:
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
+    runs-on: ubuntu-latest
+    name: Build and Deploy Job
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+          lfs: false
+
+      - name: Determine environment
+        id: env
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "environment=production" >> $GITHUB_OUTPUT
+            echo "resource_group=rg-ibf-svelte-dashboard" >> $GITHUB_OUTPUT
+            echo "swa_name=ibf-dashboard-production" >> $GITHUB_OUTPUT
+            echo "deployment_token=${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PRODUCTION }}" >> $GITHUB_OUTPUT
+          elif [[ "${{ github.ref }}" == "refs/heads/ibf-svelte" ]] || [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            echo "environment=test" >> $GITHUB_OUTPUT
+            echo "resource_group=rg-ibf-svelte-dashboard" >> $GITHUB_OUTPUT
+            echo "swa_name=ibf-dashboard-test" >> $GITHUB_OUTPUT
+            echo "deployment_token=${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_TEST }}" >> $GITHUB_OUTPUT
+          else
+            echo "environment=test" >> $GITHUB_OUTPUT
+            echo "resource_group=rg-ibf-svelte-dashboard" >> $GITHUB_OUTPUT
+            echo "swa_name=ibf-dashboard-test" >> $GITHUB_OUTPUT
+            echo "deployment_token=${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_TEST }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+          cache-dependency-path: './interfaces/IBF-svelte/package-lock.json'
+
+      - name: Install dependencies
+        run: |
+          cd ./interfaces/IBF-svelte
+          npm ci
+
+      - name: Build application
+        run: |
+          cd ./interfaces/IBF-svelte
+          npm run build
+        env:
+          VITE_ESPOCRM_API_URL: https://ibf-pivot-crm.510.global/api/v1
+
+      - name: Deploy to Azure Static Web Apps
+        id: builddeploy
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ steps.env.outputs.deployment_token }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          action: "upload"
+          app_location: "./interfaces/IBF-svelte"
+          output_location: "dist"
+          skip_api_build: true
+
+      - name: Display deployment info
+        run: |
+          echo "🚀 Deployed to ${{ steps.env.outputs.environment }} environment"
+          echo "📦 Static Web App: ${{ steps.env.outputs.swa_name }}"
+          echo "🌍 Resource Group: ${{ steps.env.outputs.resource_group }}"
+
+  close_pull_request:
+    if: github.event_name == 'pull_request' && github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    name: Close Pull Request Job
+    steps:
+      - name: Close Pull Request
+        id: closepullrequest
+        uses: Azure/static-web-apps-deploy@v1
+        with:
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_TEST }}
+          action: "close"

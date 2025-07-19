@@ -6,9 +6,10 @@
   import CountrySelector from './lib/components/CountrySelector.svelte';
   import LoginPopup from './lib/components/LoginPopup.svelte';
   import AdminAreaInfo from './lib/components/AdminAreaInfo.svelte';
+  import FullscreenButton from './lib/components/FullscreenButton.svelte';
   import { config } from './lib/config';
   import { ibfApiService } from './lib/services/ibfApi';
-  import { authService, isAuthenticated as authStoreAuthenticated, currentUser } from './lib/services/auth';
+  import { authService, isAuthenticated as authStoreAuthenticated, currentUser } from './lib/services/authService';
   import type { Country } from './lib/stores/app';
   
   // Check if we're in browser environment
@@ -58,7 +59,7 @@
     currentCountryName = selectedCountryValue?.name || 'LOADING';
     countriesList = countriesValue || [];
     currentSelectedCountry = selectedCountryValue;
-    currentUserName = currentUserValue?.name || 'User';
+    currentUserName = currentUserValue?.claims?.name || currentUserValue?.userDetails || 'User';
   }
   
   onMount(async () => {
@@ -90,15 +91,16 @@
     try {
       authLoading = true;
       
-      // If authentication is disabled, skip auth checks
-      if (config.disableAuthentication) {
-        // Mock user for development
-        updateLocalVariables();
+      // Initialize authentication service - this will handle URL-based EspoCRM auth
+      const user = await authService.getCurrentUser();
+      if (user) {
+        console.log('✅ Authentication successful, user:', user.userDetails);
+        // Update stores with authenticated user
+        currentUser.set(user);
       } else {
-        // Initialize authentication service
-        await authService.initializeFromParent();
-        updateLocalVariables();
+        console.log('❌ Authentication failed or not found');
       }
+      updateLocalVariables();
 
       // Load initial data after authentication
       await loadInitialData();
@@ -427,7 +429,7 @@
   </div>
 
 <!-- Login Required -->
-{:else if !isAuthenticated && !config.disableAuthentication}
+{:else if !isAuthenticated}
   <div class="auth-container">
     <div class="auth-card">
       <div class="auth-header">
@@ -1512,4 +1514,9 @@
     on:login-success={handleLoginSuccess}
     on:close={handleLoginClose}
   />
+{/if}
+
+<!-- Fullscreen Button (always visible when authenticated) -->
+{#if isAuthenticated}
+  <FullscreenButton />
 {/if}

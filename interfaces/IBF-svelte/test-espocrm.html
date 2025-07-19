@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EspoCRM API Test</title>
+</head>
+<body>
+    <h1>EspoCRM API Test</h1>
+    <div id="status">Testing...</div>
+    <div id="results"></div>
+
+    <script>
+        async function testEspoCRMEndpoint() {
+            const statusDiv = document.getElementById('status');
+            const resultsDiv = document.getElementById('results');
+
+            try {
+                statusDiv.innerHTML = 'Testing EspoCRM connection...';
+                
+                // Test the proxy endpoint first
+                console.log('Testing proxy endpoint...');
+                const proxyResponse = await fetch('/api/espocrm/IbfAuth/action/test', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (proxyResponse.ok) {
+                    const proxyData = await proxyResponse.json();
+                    console.log('Proxy test successful:', proxyData);
+                    statusDiv.innerHTML = 'Proxy endpoint working! Testing validation...';
+                    
+                    // Now test the validation endpoint
+                    const testToken = '9c30cf5dea4f1a3fe69c9b8ea2e43497';
+                    const testUserId = '66fe448b2c3367c85';
+                    
+                    const validationResponse = await fetch('/api/espocrm/IbfAuth/action/validateToken', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            token: testToken,
+                            userId: testUserId
+                        })
+                    });
+                    
+                    const validationData = await validationResponse.json();
+                    
+                    statusDiv.innerHTML = `Validation response: ${validationResponse.status}`;
+                    resultsDiv.innerHTML = `<pre>${JSON.stringify(validationData, null, 2)}</pre>`;
+                    
+                } else {
+                    statusDiv.innerHTML = `Proxy test failed: ${proxyResponse.status}`;
+                    resultsDiv.innerHTML = await proxyResponse.text();
+                }
+                
+            } catch (error) {
+                statusDiv.innerHTML = 'Error occurred!';
+                resultsDiv.innerHTML = `<pre>Error: ${error.message}</pre>`;
+                console.error('Test error:', error);
+            }
+        }
+
+        // Run test when page loads
+        window.onload = testEspoCRMEndpoint;
+    </script>
+</body>
+</html>

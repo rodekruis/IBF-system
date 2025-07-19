@@ -8,19 +8,8 @@ interface AppConfig {
   useMockData: boolean;
   useIbfApi: boolean; // New flag for IBF API integration
   
-  // IBF API Configuration - SECURITY WARNING
-  ibfApiEmail: string;
-  ibfApiPassword: string;
-  
   // EspoCRM Integration
   espoCrmApiUrl: string;
-  
-  // Authentication Configuration
-  disableAuthentication: boolean;
-  azureClientId: string;
-  azureTenantId: string;
-  azureRedirectUri: string;
-  azureScopes: string[];
   
   // Development Settings
   isDevelopment: boolean;
@@ -39,19 +28,6 @@ function getEnvBoolean(name: keyof ImportMetaEnv, defaultValue: boolean = false)
   return value === 'true' || value === '1';
 }
 
-// Security warning for credentials
-function warnAboutCredentials() {
-  const email = getEnvVar('VITE_IBF_API_EMAIL', '');
-  const password = getEnvVar('VITE_IBF_API_PASSWORD', '');
-  
-  if (email || password) {
-    console.error('🚨 SECURITY WARNING: IBF API credentials detected in frontend!');
-    console.error('❌ Frontend credentials are visible to all users');
-    console.error('✅ Use backend proxy or OAuth flow instead');
-    console.error('📖 See SECURITY_ALERT.md for details');
-  }
-}
-
 // Application configuration with safe defaults
 export const config: AppConfig = {
   // API Configuration
@@ -60,24 +36,13 @@ export const config: AppConfig = {
   useMockData: getEnvBoolean('VITE_USE_MOCK_DATA', true),
   useIbfApi: getEnvBoolean('VITE_USE_IBF_API', false), // New flag for IBF API
   
-  // IBF API Configuration - CREDENTIALS SHOULD NOT BE HERE
-  ibfApiEmail: getEnvVar('VITE_IBF_API_EMAIL', ''),
-  ibfApiPassword: getEnvVar('VITE_IBF_API_PASSWORD', ''),
-  
   // EspoCRM Integration
   espoCrmApiUrl: getEnvVar('VITE_ESPOCRM_API_URL', 'https://crm.510.global/api/v1'),
   
-  // Authentication Configuration - DISABLED BY DEFAULT
-  disableAuthentication: getEnvBoolean('VITE_DISABLE_AUTHENTICATION', true),
-  azureClientId: getEnvVar('VITE_AZURE_CLIENT_ID', ''),
-  azureTenantId: getEnvVar('VITE_AZURE_TENANT_ID', ''),
-  azureRedirectUri: getEnvVar('VITE_AZURE_REDIRECT_URI', 'http://localhost:5173/auth/callback'),
-  azureScopes: getEnvVar('VITE_AZURE_SCOPES', 'openid profile email').split(' '),
-  
-  // Development Settings
-  isDevelopment: import.meta.env.DEV || getEnvBoolean('VITE_IS_DEVELOPMENT', true),
-  debugMode: getEnvBoolean('VITE_DEBUG_MODE', true),
-  showDebugPanel: getEnvBoolean('VITE_SHOW_DEBUG_PANEL', true),
+  // Development Settings - Force production mode when deployed
+  isDevelopment: import.meta.env.DEV && !window.location.hostname.includes('510.global'),
+  debugMode: getEnvBoolean('VITE_DEBUG_MODE', import.meta.env.DEV),
+  showDebugPanel: getEnvBoolean('VITE_SHOW_DEBUG_PANEL', import.meta.env.DEV),
   disableApiCache: getEnvBoolean('VITE_DISABLE_API_CACHE', false)
 };
 
@@ -86,14 +51,36 @@ if (config.debugMode) {
   console.log('🔧 IBF Dashboard Configuration:', {
     useMockData: config.useMockData,
     useIbfApi: config.useIbfApi,
-    disableAuthentication: config.disableAuthentication,
     isDevelopment: config.isDevelopment,
     debugMode: config.debugMode,
     showDebugPanel: config.showDebugPanel
   });
-  
-  // Security check
-  warnAboutCredentials();
 }
 
 export default config;
+
+/**
+ * Get the appropriate EspoCRM API URL based on environment
+ * In development, use proxy to avoid CORS issues
+ * In production, use the full URL directly
+ */
+export function getEspoCrmApiUrl(): string {
+  const isDev = config.isDevelopment;
+  const hostname = window.location.hostname;
+  
+  console.log('🔧 getEspoCrmApiUrl() debug:', {
+    isDevelopment: isDev,
+    hostname: hostname,
+    importMetaEnvDev: import.meta.env.DEV,
+    configEspoCrmApiUrl: config.espoCrmApiUrl
+  });
+  
+  if (isDev) {
+    // Use proxy during development to avoid CORS
+    console.log('🔧 Using development proxy: /api/espocrm');
+    return '/api/espocrm';
+  }
+  // In production, use the full EspoCRM API URL directly
+  console.log('🔧 Using production URL:', config.espoCrmApiUrl);
+  return config.espoCrmApiUrl;
+}

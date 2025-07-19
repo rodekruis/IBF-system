@@ -11,21 +11,6 @@ export const isLoading = writable<boolean>(true);
 export async function initAuth() {
   isLoading.set(true);
   
-  // If authentication is disabled, set as authenticated immediately
-  if (config.disableAuthentication) {
-    console.log('🔓 Authentication disabled - skipping auth check');
-    user.set({
-      identityProvider: 'mock',
-      userId: 'dev-user',
-      userDetails: 'Development User',
-      userRoles: ['user'],
-      claims: {}
-    });
-    isAuthenticated.set(true);
-    isLoading.set(false);
-    return;
-  }
-  
   try {
     const userInfo = await authService.getCurrentUser();
     user.set(userInfo);

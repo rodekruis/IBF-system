@@ -4,7 +4,7 @@
   import { get } from 'svelte/store';
   import { ibfApiService } from '../services/ibfApi';
   import { layerService, type IBFLayer } from '../services/layerService';
-  import { authService, isAuthenticated } from '../services/auth';
+  import { authService, isAuthenticated } from '../services/authService';
   import { config } from '../config';
   import LayersControl from './LayersControl.svelte';
   import type { Country } from '../stores/app';
@@ -182,7 +182,7 @@
         }
         
         // Load admin areas from IBF API if enabled and authenticated
-        if (config.useIbfApi && (config.disableAuthentication || get(isAuthenticated))) {
+        if (config.useIbfApi && get(isAuthenticated)) {
           await loadAdminAreas(country.countryCodeISO3, country);
           
           // Load available layers for this country

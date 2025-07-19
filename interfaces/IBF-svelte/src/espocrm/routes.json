@@ -1,0 +1,20 @@
+[
+    {
+        "route": "/IbfAuth/action/validateToken",
+        "method": "GET",
+        "params": {
+            "controller": "IbfAuth",
+            "action": "validateToken"
+        },
+        "noAuth": true
+    },
+    {
+        "route": "/IbfAuth/action/validateToken",
+        "method": "POST", 
+        "params": {
+            "controller": "IbfAuth",
+            "action": "validateToken"
+        },
+        "noAuth": true
+    }
+]

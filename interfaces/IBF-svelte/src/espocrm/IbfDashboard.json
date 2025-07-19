@@ -1,0 +1,28 @@
+{
+    "view": "custom:views/dashlets/ibf-dashboard",
+    "aclScope": "User",
+    "entityType": "User",
+    "options": {
+        "fields": {
+            "title": {
+                "type": "varchar",
+                "required": true
+            },
+            "autorefreshInterval": {
+                "type": "enumFloat",
+                "options": [0, 0.5, 1, 2, 5, 10]
+            }
+        },
+        "defaults": {
+            "title": "IBF Dashboard"
+        },
+        "layout": [
+            {
+                "rows": [
+                    [{"name": "title"}],
+                    [{"name": "autorefreshInterval"}]
+                ]
+            }
+        ]
+    }
+}

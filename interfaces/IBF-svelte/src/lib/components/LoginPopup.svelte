@@ -1,6 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { authService, isLoggingIn, authError } from '../services/auth';
+  import { authService, isLoggingIn, authError } from '../services/authService';
   
   const dispatch = createEventDispatcher();
   
