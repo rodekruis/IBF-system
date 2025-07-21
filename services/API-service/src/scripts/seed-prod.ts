@@ -3,6 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
 import 'multer';
+import { CountryEntity } from '../api/country/country.entity';
 import { UserEntity } from '../api/user/user.entity';
 import { UserRole } from '../api/user/user-role.enum';
 import { DUNANT_EMAIL } from '../config';
@@ -19,10 +20,11 @@ export class SeedProd implements InterfaceScript {
     this.logger.log('Seed admin user...');
 
     const userRepository = this.dataSource.getRepository(UserEntity);
+    const countryRepository = this.dataSource.getRepository(CountryEntity);
 
     if ((await userRepository.find({ take: 1 })).length === 0) {
       const user = users.filter((user): boolean => {
-        return user.userRole === UserRole.Admin;
+        return user.email === DUNANT_EMAIL;
       })[0];
 
       const adminUser = new UserEntity();
@@ -38,19 +40,24 @@ export class SeedProd implements InterfaceScript {
         'Users already exist, updating admin user password from env...',
       );
 
-      // Always update dunant user password from env if it exists
-      if (process.env.DUNANT_PASSWORD) {
-        const adminUser = await userRepository.findOne({
-          where: { email: DUNANT_EMAIL },
-        });
+      // Always update dunant user password and countries from env if it exists
+      const dunantUser = await userRepository.findOne({
+        where: { email: DUNANT_EMAIL },
+      });
 
-        if (adminUser) {
-          adminUser.password = process.env.DUNANT_PASSWORD;
-          await userRepository.save(adminUser);
+      if (dunantUser) {
+        // Update countries similar to seed-init
+        dunantUser.countries = await countryRepository.find();
+        
+        // Update password from env if available
+        if (process.env.DUNANT_PASSWORD) {
+          dunantUser.password = process.env.DUNANT_PASSWORD;
           this.logger.log(
             'Updated existing DUNANT user password from env variable',
           );
         }
+        
+        await userRepository.save(dunantUser);
       }
     }
   }
