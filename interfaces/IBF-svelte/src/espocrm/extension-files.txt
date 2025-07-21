@@ -1,0 +1,17 @@
+# IBF Dashboard Extension File Manifest
+# This file lists all files that belong to this extension
+# Used for safe cleanup during updates
+
+# Client-side files
+client/custom/res/templates/ibf-dashboard.tpl
+client/custom/src/controllers/ibf-dashboard.js
+client/custom/src/views/ibf-dashboard.js
+client/custom/src/views/dashlets/ibf-dashboard.js
+
+# Server-side files  
+custom/Espo/Custom/Controllers/ibfAuth.php
+custom/Espo/Custom/Controllers/IBFDashboard.php
+custom/Espo/Custom/Resources/routes.json
+custom/Espo/Custom/Resources/metadata/app/clientRoutes.json
+custom/Espo/Custom/Resources/metadata/clientDefs/IBFDashboard.json
+custom/Espo/Custom/Resources/metadata/dashlets/IbfDashboard.json

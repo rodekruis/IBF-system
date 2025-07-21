@@ -1,5 +1,5 @@
 {
-    "view": "custom:views/dashlets/ibf-dashboard",
+    "view": "ibf-dashboard:views/dashlets/ibf-dashboard",
     "aclScope": "User",
     "entityType": "User",
     "options": {

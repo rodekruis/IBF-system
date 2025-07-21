@@ -1,0 +1,11 @@
+{
+    "controller": "ibf-dashboard:controllers/ibfdashboard",
+    "createDisabled": true,
+    "searchPanelDisabled": true,
+    "exportDisabled": true,
+    "massUpdateDisabled": true,
+    "massRemoveDisabled": true,
+    "views": {
+        "list": "ibf-dashboard:views/ibfdashboard"
+    }
+}

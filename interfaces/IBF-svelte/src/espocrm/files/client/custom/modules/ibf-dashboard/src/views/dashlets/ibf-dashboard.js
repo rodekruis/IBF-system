@@ -1,4 +1,4 @@
-define('custom:views/dashlets/ibf-dashboard', ['views/dashlets/abstract/base'], function (Dep) {
+define('ibf-dashboard:views/dashlets/ibf-dashboard', ['views/dashlets/abstract/base'], function (Dep) {
     
     return Dep.extend({
 
@@ -6,22 +6,26 @@ define('custom:views/dashlets/ibf-dashboard', ['views/dashlets/abstract/base'], 
 
         templateContent: `
             <style>
+                /* Keep EspoCRM header but optimize dashlet spacing */
                 .dashlet-container,
                 .dashlet,
                 .dashlet-body {
-                    height: 100%;
+                    height: calc(100vh - 150px) !important;
+                    width: 100%;
                     display: flex;
                     flex-direction: column;
+                    overflow: hidden;
                 }
 
-                .dashlet-body {
-                    position: relative;
-                }
-
-                .dashlet-body iframe {
-                    flex: 1;
-                    width: 100%;
+                /* Remove dashlet panel styling to maximize space */
+                #dashlet-{{id}} .panel {
+                    margin: 0;
                     border: none;
+                    box-shadow: none;
+                }
+
+                #dashlet-{{id}} .panel-body {
+                    padding: 0;
                 }
 
                 #dashlet-{{id}} .panel-heading {
@@ -30,14 +34,20 @@ define('custom:views/dashlets/ibf-dashboard', ['views/dashlets/abstract/base'], 
 
                 #dashlet-{{id}} .dashlet-body {
                     height: 100%;
+                    width: 100%;
                     display: flex;
                     flex-direction: column;
+                    padding: 0;
+                    margin: 0;
+                    overflow: hidden;
                 }
 
                 #dashlet-{{id}} .dashlet-body iframe {
                     flex: 1;
                     width: 100%;
+                    height: 100%;
                     border: none;
+                    overflow: hidden;
                 }
 
                 .fullscreen-button {
@@ -68,12 +78,14 @@ define('custom:views/dashlets/ibf-dashboard', ['views/dashlets/abstract/base'], 
                     background: white;
                     z-index: 9999;
                     display: none;
+                    overflow: hidden;
                 }
 
                 .fullscreen-overlay iframe {
                     width: 100%;
                     height: 100%;
                     border: none;
+                    overflow: hidden;
                 }
 
                 .fullscreen-overlay .close-button {
@@ -102,8 +114,9 @@ define('custom:views/dashlets/ibf-dashboard', ['views/dashlets/abstract/base'], 
                 <iframe 
                     id="ibf-dashboard-frame" 
                     src="{{iframeUrl}}" 
-                    style="width: 100%; height: 100%; border: none;"
+                    style="width: 100%; height: 100%; border: none; overflow: hidden;"
                     frameborder="0"
+                    scrolling="no"
                     allowfullscreen 
                     allow="fullscreen">
                 </iframe>
@@ -115,8 +128,9 @@ define('custom:views/dashlets/ibf-dashboard', ['views/dashlets/abstract/base'], 
                 </button>
                 <iframe 
                     id="fullscreen-frame-{{id}}"
-                    style="width: 100%; height: 100%; border: none;"
+                    style="width: 100%; height: 100%; border: none; overflow: hidden;"
                     frameborder="0"
+                    scrolling="no"
                     allowfullscreen 
                     allow="fullscreen">
                 </iframe>
@@ -156,7 +170,9 @@ define('custom:views/dashlets/ibf-dashboard', ['views/dashlets/abstract/base'], 
                 // Use the production URL for the IBF dashboard
                 const dashboardUrl = 'https://ibf-pivot.510.global';
                 const userId = this.getUser().id;
-                const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}`;
+                
+                // Add parameters to hide header and optimize for iframe embedding
+                const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&hideHeader=true&fullWidth=true&fullscreenButton=true&loginOffset=60`;
                 
                 console.log('🔗 Loading IBF Dashboard with EspoCRM auth:', {
                     url: iframeUrl,

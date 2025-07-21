@@ -16,5 +16,13 @@
             "action": "validateToken"
         },
         "noAuth": true
+    },
+    {
+        "route": "/IBFDashboard",
+        "method": "get",
+        "params": {
+            "controller": "IBFDashboard",
+            "action": "index"
+        }
     }
 ]

@@ -1,6 +1,6 @@
 <?php
 
-namespace Espo\Custom\Controllers;
+namespace Espo\Modules\IBFDashboard\Controllers;
 
 use Espo\Core\Controllers\Base;
 use Espo\Core\Api\Request;

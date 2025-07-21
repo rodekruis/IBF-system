@@ -1,0 +1,8 @@
+{
+    "IBFDashboard": {
+        "params": {
+            "controller": "ibf-dashboard:controllers/ibfdashboard",
+            "action": "index"
+        }
+    }
+}

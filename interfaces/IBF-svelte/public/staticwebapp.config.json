@@ -1,29 +1,8 @@
 {
-  "auth": {
-    "rolesSource": "/api/GetRoles",
-    "identityProviders": {
-      "azureActiveDirectory": {
-        "userDetailsClaim": "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name",
-        "registration": {
-          "openIdIssuer": "https://login.microsoftonline.com/263b9973-edb2-430f-bb5b-beaad24ebbe4/v2.0",
-          "clientIdSettingName": "AZURE_CLIENT_ID",
-          "clientSecretSettingName": "AZURE_CLIENT_SECRET"
-        }
-      }
-    }
-  },
   "routes": [
     {
-      "route": "/login",
-      "redirect": "/.auth/login/aad"
-    },
-    {
-      "route": "/logout",
-      "redirect": "/.auth/logout"
-    },
-    {
       "route": "/assets/*",
-      "allowedRoles": ["anonymous", "authenticated"],
+      "allowedRoles": ["anonymous"],
       "headers": {
         "Access-Control-Allow-Origin": "*",
         "Cache-Control": "public, max-age=31536000, immutable"
@@ -31,11 +10,11 @@
     },
     {
       "route": "/api/*",
-      "allowedRoles": ["authenticated"]
+      "allowedRoles": ["anonymous"]
     },
     {
       "route": "/*",
-      "allowedRoles": ["authenticated"],
+      "allowedRoles": ["anonymous"],
       "headers": {
         "Access-Control-Allow-Origin": "*",
         "X-Frame-Options": "ALLOWALL"
