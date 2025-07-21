@@ -167,15 +167,14 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           selectedUsers = (users as User[]).filter(
             ({ email }) => email !== DUNANT_EMAIL,
           );
-          // grant dunant user access to new countries
+
+          // grant dunant user access to all countries
           dunantUser.countries = await countryRepository.find();
-          // Always update password from env if available
-          if (process.env.DUNANT_PASSWORD) {
-            dunantUser.password = process.env.DUNANT_PASSWORD;
-            this.logger.log(
-              'Updated existing DUNANT user password from env variable',
-            );
-          }
+
+          // update password from env
+          dunantUser.password = process.env.DUNANT_PASSWORD;
+
+          this.logger.log('Update DUNANT user...');
           await userRepository.save(dunantUser);
         } else {
           // use DUNANT_PASSWORD from env
@@ -201,19 +200,15 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           userEntity.countries = !user.countries
             ? await countryRepository.find()
             : await countryRepository.find({
-                where: user.countries.map((countryCodeISO3: string): object => {
-                  return { countryCodeISO3 };
-                }),
-              });
+              where: user.countries.map((countryCodeISO3: string) => { countryCodeISO3 }),
+            });
           userEntity.disasterTypes = !user.disasterTypes
             ? []
             : await disasterTypeRepository.find({
-                where: user.disasterTypes.map(
-                  (disasterType: string): object => {
-                    return { disasterType };
-                  },
-                ),
-              });
+              where: user.disasterTypes.map(
+                (disasterType: string) => { disasterType }
+              ),
+            });
           userEntity.password = user.password;
           return userEntity;
         }),
