@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import { DataSource } from 'typeorm';
+import { DataSource, In } from 'typeorm';
 
 import 'multer';
 import {
@@ -200,14 +200,12 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           userEntity.countries = !user.countries
             ? await countryRepository.find()
             : await countryRepository.find({
-              where: user.countries.map((countryCodeISO3: string) => { countryCodeISO3 }),
+              where: { countryCodeISO3: In(user.countries) },
             });
           userEntity.disasterTypes = !user.disasterTypes
             ? []
             : await disasterTypeRepository.find({
-              where: user.disasterTypes.map(
-                (disasterType: string) => { disasterType }
-              ),
+              where: { disasterType: In(user.disasterTypes) },
             });
           userEntity.password = user.password;
           return userEntity;
