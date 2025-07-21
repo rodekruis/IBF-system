@@ -200,13 +200,13 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           userEntity.countries = !user.countries
             ? await countryRepository.find()
             : await countryRepository.find({
-              where: { countryCodeISO3: In(user.countries) },
-            });
+                where: { countryCodeISO3: In(user.countries) },
+              });
           userEntity.disasterTypes = !user.disasterTypes
             ? []
             : await disasterTypeRepository.find({
-              where: { disasterType: In(user.disasterTypes) },
-            });
+                where: { disasterType: In(user.disasterTypes) },
+              });
           userEntity.password = user.password;
           return userEntity;
         }),
