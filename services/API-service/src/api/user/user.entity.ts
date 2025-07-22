@@ -76,17 +76,9 @@ export class UserEntity {
   public created: Date;
 
   @BeforeInsert()
+  @BeforeUpdate()
   public hashPassword(): void {
     this.password = crypto.createHmac('sha256', this.password).digest('hex');
-  }
-
-  @BeforeUpdate()
-  public hashPasswordOnUpdate(): void {
-    // Only hash if password doesn't look like it's already hashed
-    // Hashed passwords are exactly 64 characters (SHA256 hex)
-    if (this.password && this.password.length !== 64) {
-      this.password = crypto.createHmac('sha256', this.password).digest('hex');
-    }
   }
 
   @OneToMany(
