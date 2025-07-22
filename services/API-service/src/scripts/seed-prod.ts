@@ -42,12 +42,15 @@ export class SeedProd implements InterfaceScript {
       });
 
       if (dunantUser && process.env.DUNANT_PASSWORD) {
-        // update password from env using UserEntity method
+        // Set password directly - @BeforeUpdate will hash it automatically
         const newPassword = process.env.DUNANT_PASSWORD;
         if (newPassword) {
-          dunantUser.setPassword(newPassword);
+          dunantUser.password = newPassword;
+          dunantUser.countries = await countryRepository.find();
 
-          this.logger.log('Updated existing DUNANT user password from env variable');
+          this.logger.log(
+            'Updated existing DUNANT user password from env variable',
+          );
           await userRepository.save(dunantUser);
         }
       }

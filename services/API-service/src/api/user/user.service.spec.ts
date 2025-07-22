@@ -40,6 +40,9 @@ const user: UserEntity = {
   hashPassword(): void {
     throw new Error('Function not implemented.');
   },
+  hashPasswordOnUpdate(): void {
+    throw new Error('Function not implemented.');
+  },
   actions: [],
   userTriggers: [],
 };

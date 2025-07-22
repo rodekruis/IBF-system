@@ -170,11 +170,13 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
             ({ email }) => email !== DUNANT_EMAIL,
           );
 
-          // update password from env using UserEntity method
+          // Set password directly - @BeforeUpdate will hash it automatically
           if (process.env.DUNANT_PASSWORD) {
-            dunantUser.setPassword(process.env.DUNANT_PASSWORD);
+            dunantUser.password = process.env.DUNANT_PASSWORD;
 
-            this.logger.log('Updated existing DUNANT user password from env variable');
+            this.logger.log(
+              'Updated existing DUNANT user password from env variable',
+            );
             await userRepository.save(dunantUser);
           }
         } else {
