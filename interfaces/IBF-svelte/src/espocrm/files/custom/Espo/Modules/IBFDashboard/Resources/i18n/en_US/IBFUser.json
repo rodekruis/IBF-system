@@ -1,0 +1,29 @@
+{
+    "IBFUser": {
+        "labels": {
+            "IBF Users": "IBF Users",
+            "Create IBFUser": "Create IBF User",
+            "autoCreated": "Auto Created"
+        },
+        "presetFilters": {
+            "active": "Active",
+            "inactive": "Inactive", 
+            "autoCreated": "Auto Created"
+        },
+        "fields": {
+            "name": "Name",
+            "user": "EspoCRM User",
+            "email": "IBF Email",
+            "password": "IBF Password",
+            "allowedCountries": "Allowed Countries",
+            "allowedDisasterTypes": "Allowed Disaster Types",
+            "isActive": "Is Active",
+            "lastIbfLogin": "Last IBF Login",
+            "ibfToken": "IBF Token",
+            "autoCreated": "Auto Created"
+        },
+        "links": {
+            "user": "EspoCRM User"
+        }
+    }
+}

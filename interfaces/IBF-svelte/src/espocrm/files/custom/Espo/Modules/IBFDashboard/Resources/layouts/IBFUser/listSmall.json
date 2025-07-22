@@ -1,0 +1,6 @@
+[
+    {"name": "name"},
+    {"name": "user"},
+    {"name": "email"},
+    {"name": "isActive"}
+]

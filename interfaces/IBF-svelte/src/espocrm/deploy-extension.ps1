@@ -1,8 +1,34 @@
 # EspoCRM Extension Deployment - Simplified and Robust
 param(
-    [string]$VMHost = "52.232.40.194",
-    [string]$VMUser = "mali-espocrm-admin"
+    [string]$Environment = "test"  # Options: "dev" or "test"
 )
+
+# Environment configuration
+$Environments = @{
+    "dev" = @{
+        "Host" = "134.149.202.254"
+        "User" = "crmadmin"
+        "Name" = "Development"
+    }
+    "test" = @{
+        "Host" = "52.232.40.194"
+        "User" = "mali-espocrm-admin"  
+        "Name" = "Test"
+    }
+}
+
+# Validate environment
+if (-not $Environments.ContainsKey($Environment.ToLower())) {
+    Write-Host "Invalid environment '$Environment'. Use 'dev' or 'test'." -ForegroundColor Red
+    Write-Host "Usage: .\deploy-extension.ps1 -Environment dev" -ForegroundColor Yellow
+    Write-Host "       .\deploy-extension.ps1 -Environment test" -ForegroundColor Yellow
+    exit 1
+}
+
+$SelectedEnv = $Environments[$Environment.ToLower()]
+$VMHost = $SelectedEnv.Host
+$VMUser = $SelectedEnv.User
+$EnvName = $SelectedEnv.Name
 
 $EXTENSION_NAME = "ibf-dashboard-extension"  
 $VERSION = (Get-Content manifest.json | ConvertFrom-Json).version
@@ -10,6 +36,7 @@ $PACKAGE_FILE = "$EXTENSION_NAME-v$VERSION.zip"
 
 Write-Host "EspoCRM Extension Deployment" -ForegroundColor Green
 Write-Host "============================" -ForegroundColor Green
+Write-Host "Environment: $EnvName ($Environment)" -ForegroundColor Cyan
 Write-Host "Target: $VMUser@$VMHost" -ForegroundColor Cyan
 Write-Host "Package: $PACKAGE_FILE" -ForegroundColor Cyan
 Write-Host ""
@@ -24,7 +51,7 @@ if (-not (Test-Path $PACKAGE_FILE)) {
 }
 
 # Step 2: Transfer to VM
-Write-Host "2. Transferring to VM..." -ForegroundColor Yellow
+Write-Host "2. Transferring package to VM..." -ForegroundColor Yellow
 & scp $PACKAGE_FILE "$VMUser@$VMHost`:~/"
 
 if ($LASTEXITCODE -ne 0) {

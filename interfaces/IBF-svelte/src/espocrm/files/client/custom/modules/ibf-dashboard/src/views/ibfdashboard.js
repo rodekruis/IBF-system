@@ -47,36 +47,48 @@ define(['view'], (View) => {
                     width: 100%;
                     height: 100%;
                     border: none;
+                    opacity: 0;
+                    transition: opacity 0.3s ease-in-out;
                 }
 
-                /* Add message to iframe via data attribute for login styling */
-                #content::before {
-                    content: "";
+                #content iframe.loaded {
+                    opacity: 1;
+                }
+
+                .loading-message {
                     position: absolute;
                     top: 0;
-                    right: 60px; /* Reserve space for fullscreen button */
-                    width: 200px;
-                    height: 50px;
-                    z-index: -1; /* Behind iframe but available for CSS detection */
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 18px;
+                    color: #666;
+                    background: white;
+                    z-index: 100;
+                    transition: opacity 0.3s ease-in-out;
+                }
+
+                .loading-message.hidden {
+                    opacity: 0;
                     pointer-events: none;
                 }
 
-                #footer {
-                    display: none !important;
-                }
-
+                /* Fullscreen button - positioned absolutely */
                 .fullscreen-button {
-                    position: absolute;
-                    top: 10px;
-                    right: 10px; /* Back to far right */
-                    z-index: 1001; /* Higher than iframe content */
-                    background: rgba(0, 0, 0, 0.8);
+                    position: fixed;
+                    top: 70px; /* Below header */
+                    right: 15px;
+                    z-index: 10000;
+                    background: rgba(0, 0, 0, 0.7);
                     color: white;
                     border: none;
-                    padding: 8px 10px;
                     border-radius: 4px;
                     cursor: pointer;
-                    font-size: 16px;
+                    font-size: 14px;
+                    padding: 8px 12px;
                     transition: background-color 0.3s;
                     min-width: 36px;
                     height: 36px;
@@ -116,66 +128,43 @@ define(['view'], (View) => {
                     width: 100%;
                     height: 100%;
                     border: none;
+                    opacity: 1; /* Fullscreen iframe should be immediately visible */
                 }
 
-                .fullscreen-overlay .close-button {
+                .fullscreen-close {
                     position: absolute;
                     top: 10px;
                     right: 10px;
-                    z-index: 100000 !important; /* Even higher to stay on top of iframe */
-                    background: rgba(0, 0, 0, 0.7);
+                    z-index: 100000;
+                    background: rgba(255, 0, 0, 0.8);
                     color: white;
                     border: none;
-                    padding: 8px 10px; /* Consistent with fullscreen button */
-                    border-radius: 4px;
+                    border-radius: 50%;
                     cursor: pointer;
-                    font-size: 16px; /* Match fullscreen button */
-                    min-width: 36px; /* Consistent size */
-                    height: 36px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                .fullscreen-overlay .close-button:hover {
-                    background: rgba(0, 0, 0, 0.9);
-                }
-
-                .loading-message {
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    height: 100%;
                     font-size: 16px;
-                    color: #666;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-weight: bold;
+                }
+
+                .fullscreen-close:hover {
+                    background: rgba(255, 0, 0, 1);
                 }
             </style>
-
+            
             <div id="content">
-                <button class="fullscreen-button" data-action="openFullscreen" title="Fullscreen">
-                    ⛶
-                </button>
                 <div class="loading-message">Loading IBF Dashboard...</div>
-                <iframe 
-                    id="ibf-dashboard-main-frame" 
-                    style="width: 100%; height: 100%; border: none; display: none;"
-                    frameborder="0"
-                    allowfullscreen 
-                    allow="fullscreen">
-                </iframe>
+                <iframe id="ibf-dashboard-main-frame"></iframe>
+                <button class="fullscreen-button" data-action="openFullscreen" title="Open in fullscreen">⛶</button>
             </div>
-
-            <div class="fullscreen-overlay" id="fullscreen-overlay-main">
-                <button class="close-button" data-action="closeFullscreen" title="Close Fullscreen">
-                    ✕
-                </button>
-                <iframe 
-                    id="fullscreen-frame-main"
-                    style="width: 100%; height: 100%; border: none;"
-                    frameborder="0"
-                    allowfullscreen 
-                    allow="fullscreen">
-                </iframe>
+            
+            <!-- Fullscreen overlay -->
+            <div id="fullscreen-overlay-main" class="fullscreen-overlay">
+                <iframe id="fullscreen-frame-main"></iframe>
+                <button class="fullscreen-close" data-action="closeFullscreen" title="Close fullscreen">×</button>
             </div>
         `
 
@@ -193,10 +182,7 @@ define(['view'], (View) => {
             console.log('IBF Dashboard: Full-page view rendered');
             
             this.loadDashboard();
-            this.setupEventListeners();
-        }
-
-        setupEventListeners() {
+            
             // Add event listeners for fullscreen buttons
             this.$el.find('[data-action="openFullscreen"]').on('click', () => {
                 this.openFullscreen();
@@ -208,17 +194,69 @@ define(['view'], (View) => {
         }
 
         loadDashboard() {
-            // Get user token and user ID (same logic as dashlet)
+            // First get the server configuration to get the correct dashboard URL
+            Espo.Ajax.getRequest('IBFDashboard').then(serverResponse => {
+                // Use the dashboard URL from server configuration
+                const dashboardUrl = serverResponse.dashboardUrl || 'https://ibf-pivot.510.global';
+                
+                console.log('🔗 Using configured dashboard URL:', dashboardUrl);
+                
+                // Get user token and user ID
+                this.getUserToken().then(token => {
+                    const userId = this.getUser().id;
+                    const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&fullscreenButton=true&loginOffset=60&espoAuth=true`;
+                    
+                    console.log('🔗 Loading IBF Dashboard (full-page) with EspoCRM auth:', {
+                        url: iframeUrl,
+                        token: token.substring(0, 10) + '...',
+                        userId: userId,
+                        espoAuth: true
+                    });
+                    
+                    // Update iframe src and show it
+                    const iframe = this.$el.find('#ibf-dashboard-main-frame');
+                    const loadingMessage = this.$el.find('.loading-message');
+                    
+                    iframe.attr('src', iframeUrl);
+                    
+                    iframe.on('load', () => {
+                        // Hide loading message and show iframe
+                        loadingMessage.addClass('hidden');
+                        iframe.addClass('loaded');
+                        console.log('✅ IBF Dashboard (full-page) loaded successfully');
+                    });
+                    
+                    iframe.on('error', () => {
+                        console.error('❌ Failed to load IBF Dashboard iframe (full-page)');
+                        loadingMessage.html('Failed to load dashboard - please try refreshing the page');
+                    });
+                }).catch(error => {
+                    console.error('Failed to get user token for IBF Dashboard:', error);
+                    this.$el.find('#content').html('<div class="loading-message">Authentication failed</div>');
+                });
+                
+            }).catch(error => {
+                console.error('Failed to load IBF Dashboard configuration:', error);
+                // Fall back to hardcoded URL if config fails
+                this.loadDashboardFallback();
+            });
+        }
+
+        loadDashboardFallback() {
+            console.log('🔄 Loading IBF Dashboard with fallback URL');
+            
+            // Get user token and user ID
             this.getUserToken().then(token => {
-                // Use the same production URL as the dashlet
+                // Use fallback URL
                 const dashboardUrl = 'https://ibf-pivot.510.global';
                 const userId = this.getUser().id;
-                const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&fullscreenButton=true&loginOffset=60`;
+                const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&fullscreenButton=true&loginOffset=60&espoAuth=true`;
                 
-                console.log('🔗 Loading IBF Dashboard (full-page) with EspoCRM auth:', {
+                console.log('🔗 Loading IBF Dashboard (fallback) with EspoCRM auth:', {
                     url: iframeUrl,
                     token: token.substring(0, 10) + '...',
-                    userId: userId
+                    userId: userId,
+                    espoAuth: true
                 });
                 
                 // Update iframe src and show it
@@ -227,15 +265,21 @@ define(['view'], (View) => {
                 
                 iframe.attr('src', iframeUrl);
                 
-                // Show iframe and hide loading message once loaded
                 iframe.on('load', () => {
-                    loadingMessage.hide();
-                    iframe.show();
+                    // Hide loading message and show iframe
+                    loadingMessage.addClass('hidden');
+                    iframe.addClass('loaded');
+                    console.log('✅ IBF Dashboard (fallback) loaded successfully');
+                });
+                
+                iframe.on('error', () => {
+                    console.error('❌ Failed to load IBF Dashboard iframe (fallback)');
+                    loadingMessage.html('Failed to load dashboard - please try refreshing the page');
                 });
                 
             }).catch(error => {
-                console.error('Failed to load IBF Dashboard (full-page):', error);
-                this.$el.find('#content').html('<div class="loading-message">Failed to load dashboard</div>');
+                console.error('Failed to get user token for IBF Dashboard fallback:', error);
+                this.$el.find('#content').html('<div class="loading-message">Authentication failed</div>');
             });
         }
 
@@ -262,26 +306,26 @@ define(['view'], (View) => {
 
         openFullscreen() {
             try {
-                // Get current iframe src
                 const iframe = this.$el.find('#ibf-dashboard-main-frame');
-                const iframeSrc = iframe.attr('src');
-                
-                if (!iframeSrc) {
-                    console.error('IBF Dashboard (full-page): No iframe source found');
-                    return;
-                }
-                
-                // Get fullscreen elements
                 const overlay = document.getElementById('fullscreen-overlay-main');
                 const fullscreenFrame = document.getElementById('fullscreen-frame-main');
                 
-                if (!overlay || !fullscreenFrame) {
-                    console.error('IBF Dashboard (full-page): Fullscreen elements not found');
+                if (!iframe.length || !overlay || !fullscreenFrame) {
+                    console.error('IBF Dashboard (full-page): Required elements not found for fullscreen');
                     return;
                 }
                 
-                // Copy iframe src to fullscreen iframe
+                const iframeSrc = iframe.attr('src');
+                console.log('IBF Dashboard: Fullscreen - Original iframe src:', iframeSrc);
+                
+                if (!iframeSrc || iframeSrc === 'about:blank' || iframeSrc === '') {
+                    console.error('IBF Dashboard (full-page): No iframe source available for fullscreen');
+                    return;
+                }
+                
+                // Copy iframe src to fullscreen iframe and ensure it's visible
                 fullscreenFrame.src = iframeSrc;
+                fullscreenFrame.style.opacity = '1';
                 
                 // Show overlay and add body class
                 overlay.style.display = 'block';
@@ -299,7 +343,7 @@ define(['view'], (View) => {
                 };
                 document.addEventListener('keydown', this.escapeHandler);
                 
-                console.log('IBF Dashboard (full-page): Fullscreen mode activated');
+                console.log('IBF Dashboard (full-page): Fullscreen mode activated with src:', iframeSrc);
             } catch (error) {
                 console.error('IBF Dashboard (full-page): Error in openFullscreen:', error);
             }

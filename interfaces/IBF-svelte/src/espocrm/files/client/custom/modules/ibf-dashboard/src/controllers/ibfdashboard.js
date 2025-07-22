@@ -10,5 +10,12 @@ define(['controller'], (Controller) => {
                 title: 'IBF Dashboard'
             });
         }
+
+        actionAdmin() {
+            // This renders the admin settings page
+            this.main('ibf-dashboard:views/admin/ibf', {
+                title: 'IBF Settings'
+            });
+        }
     }
 });

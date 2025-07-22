@@ -1,0 +1,10 @@
+[
+    {
+        "route": "Admin/ibf-settings",
+        "method": "get",
+        "params": {
+            "controller": "Admin",
+            "action": "ibfSettings"
+        }
+    }
+]

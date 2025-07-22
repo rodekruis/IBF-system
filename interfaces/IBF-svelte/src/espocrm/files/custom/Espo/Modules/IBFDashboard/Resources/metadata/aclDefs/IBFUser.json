@@ -1,0 +1,16 @@
+{
+    "mandatory": {
+        "admin": {
+            "create": "yes",
+            "read": "yes", 
+            "edit": "yes",
+            "delete": "yes"
+        }
+    },
+    "fields": {
+        "password": {
+            "read": "no",
+            "edit": "no"
+        }
+    }
+}

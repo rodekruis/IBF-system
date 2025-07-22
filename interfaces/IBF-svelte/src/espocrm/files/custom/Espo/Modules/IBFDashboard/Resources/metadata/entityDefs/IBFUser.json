@@ -1,0 +1,127 @@
+{
+    "fields": {
+        "name": {
+            "type": "varchar",
+            "required": true,
+            "maxLength": 100,
+            "tooltip": "Display name for this IBF user"
+        },
+        "user": {
+            "type": "link",
+            "required": true,
+            "unique": true,
+            "view": "views/fields/link-one",
+            "tooltip": "EspoCRM user this IBF user is linked to"
+        },
+        "email": {
+            "type": "varchar",
+            "required": true,
+            "maxLength": 100,
+            "tooltip": "IBF system email address"
+        },
+        "password": {
+            "type": "password",
+            "required": true,
+            "maxLength": 150,
+            "tooltip": "IBF system password (encrypted)"
+        },
+        "allowedCountries": {
+            "type": "multiEnum",
+            "required": false,
+            "default": [],
+            "options": [
+                "ETH",
+                "UGA", 
+                "ZMB",
+                "KEN",
+                "MWI",
+                "SSD",
+                "PHL",
+                "ZWE",
+                "LSO"
+            ],
+            "optionsReference": "Global.ibfCountries",
+            "tooltip": "Countries this user can access in IBF Dashboard"
+        },
+        "allowedDisasterTypes": {
+            "type": "multiEnum",
+            "required": false,
+            "default": [],
+            "options": [
+                "drought",
+                "floods", 
+                "heavy-rainfall",
+                "typhoon",
+                "malaria",
+                "flash-floods"
+            ],
+            "optionsReference": "Global.ibfDisasterTypes",
+            "tooltip": "Disaster types this user can access in IBF Dashboard"
+        },
+        "isActive": {
+            "type": "bool",
+            "default": true,
+            "tooltip": "Whether this IBF user account is active"
+        },
+        "lastIbfLogin": {
+            "type": "datetime",
+            "readOnly": true,
+            "tooltip": "Last successful login to IBF system"
+        },
+        "ibfToken": {
+            "type": "text",
+            "readOnly": true,
+            "tooltip": "Current IBF authentication token"
+        },
+        "autoCreated": {
+            "type": "bool",
+            "default": false,
+            "readOnly": true,
+            "tooltip": "Whether this record was automatically created"
+        },
+        "createdAt": {
+            "type": "datetime",
+            "readOnly": true
+        },
+        "modifiedAt": {
+            "type": "datetime",
+            "readOnly": true
+        },
+        "createdBy": {
+            "type": "link",
+            "readOnly": true
+        },
+        "modifiedBy": {
+            "type": "link",
+            "readOnly": true
+        }
+    },
+    "links": {
+        "user": {
+            "type": "belongsTo",
+            "entity": "User",
+            "foreign": "ibfUser"
+        },
+        "createdBy": {
+            "type": "belongsTo",
+            "entity": "User"
+        },
+        "modifiedBy": {
+            "type": "belongsTo", 
+            "entity": "User"
+        }
+    },
+    "collection": {
+        "orderBy": "createdAt",
+        "order": "desc"
+    },
+    "indexes": {
+        "user": {
+            "unique": true,
+            "columns": ["userId"]
+        },
+        "email": {
+            "columns": ["email"]
+        }
+    }
+}

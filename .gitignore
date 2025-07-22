@@ -54,3 +54,7 @@ vite.config.ts.timestamp-*
 /logs/
 
 .taskkey
+
+
+interfaces/IBF-svelte/src/espocrm/*.zip
+interfaces/IBF-svelte/src/espocrm/advanced-pack-temp

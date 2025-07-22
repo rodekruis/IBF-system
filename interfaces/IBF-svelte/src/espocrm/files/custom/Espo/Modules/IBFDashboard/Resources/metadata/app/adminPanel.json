@@ -1,0 +1,14 @@
+{
+    "anticipatoryAction": {
+        "label": "Anticipatory Action",
+        "itemList": [
+            {
+                "url": "#IBFDashboard/admin",
+                "label": "IBF Settings",
+                "iconClass": "fas fa-globe-africa",
+                "description": "Configure Impact-Based Forecasting dashboard settings, countries, and user management options"
+            }
+        ],
+        "order": 25
+    }
+}

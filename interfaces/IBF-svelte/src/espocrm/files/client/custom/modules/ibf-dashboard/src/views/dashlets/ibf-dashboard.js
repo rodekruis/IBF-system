@@ -165,26 +165,66 @@ define('ibf-dashboard:views/dashlets/ibf-dashboard', ['views/dashlets/abstract/b
         },
 
         loadDashboard: function () {
+            // First get the server configuration to get the correct dashboard URL
+            Espo.Ajax.getRequest('IBFDashboard').then(serverResponse => {
+                // Use the dashboard URL from server configuration
+                const dashboardUrl = serverResponse.dashboardUrl || 'https://ibf-pivot.510.global';
+                
+                console.log('🔗 Using configured dashboard URL in dashlet:', dashboardUrl);
+                
+                // Get user token and user ID
+                this.getUserToken().then(token => {
+                    const userId = this.getUser().id;
+                    
+                    // Add parameters to hide header and optimize for iframe embedding
+                    const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&hideHeader=true&fullWidth=true&fullscreenButton=true&loginOffset=60&espoAuth=true`;
+                    
+                    console.log('🔗 Loading IBF Dashboard with EspoCRM auth:', {
+                        url: iframeUrl,
+                        token: token.substring(0, 10) + '...',
+                        userId: userId,
+                        espoAuth: true
+                    });
+                    
+                    // Update iframe src
+                    const iframe = this.$el.find('#ibf-dashboard-frame');
+                    iframe.attr('src', iframeUrl);
+                }).catch(error => {
+                    console.error('Failed to get user token for IBF Dashboard:', error);
+                    this.$el.find('.dashlet-body').html('<p>Authentication failed</p>');
+                });
+                
+            }).catch(error => {
+                console.error('Failed to load IBF Dashboard configuration:', error);
+                // Fall back to hardcoded URL if config fails
+                this.loadDashboardFallback();
+            });
+        },
+
+        loadDashboardFallback: function () {
+            console.log('🔄 Loading IBF Dashboard with fallback URL');
+            
             // Get user token and user ID
             this.getUserToken().then(token => {
-                // Use the production URL for the IBF dashboard
+                // Use fallback URL
                 const dashboardUrl = 'https://ibf-pivot.510.global';
                 const userId = this.getUser().id;
                 
                 // Add parameters to hide header and optimize for iframe embedding
-                const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&hideHeader=true&fullWidth=true&fullscreenButton=true&loginOffset=60`;
+                const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&hideHeader=true&fullWidth=true&fullscreenButton=true&loginOffset=60&espoAuth=true`;
                 
-                console.log('🔗 Loading IBF Dashboard with EspoCRM auth:', {
+                console.log('🔗 Loading IBF Dashboard (fallback) with EspoCRM auth:', {
                     url: iframeUrl,
                     token: token.substring(0, 10) + '...',
-                    userId: userId
+                    userId: userId,
+                    espoAuth: true
                 });
                 
                 // Update iframe src
                 const iframe = this.$el.find('#ibf-dashboard-frame');
                 iframe.attr('src', iframeUrl);
             }).catch(error => {
-                console.error('Failed to load IBF Dashboard:', error);
+                console.error('Failed to load IBF Dashboard fallback:', error);
                 this.$el.find('.dashlet-body').html('<p>Failed to load dashboard</p>');
             });
         },

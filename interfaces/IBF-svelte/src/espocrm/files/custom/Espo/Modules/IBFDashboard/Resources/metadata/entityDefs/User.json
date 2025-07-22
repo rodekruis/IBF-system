@@ -1,0 +1,9 @@
+{
+    "links": {
+        "ibfUser": {
+            "type": "hasOne",
+            "entity": "IBFUser",
+            "foreign": "user"
+        }
+    }
+}

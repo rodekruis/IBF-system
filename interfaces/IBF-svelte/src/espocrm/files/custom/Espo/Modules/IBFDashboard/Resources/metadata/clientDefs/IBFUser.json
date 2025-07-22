@@ -1,0 +1,5 @@
+{
+    "controller": "controllers/record",
+    "iconClass": "fas fa-user-cog",
+    "color": "#6fa8dc"
+}

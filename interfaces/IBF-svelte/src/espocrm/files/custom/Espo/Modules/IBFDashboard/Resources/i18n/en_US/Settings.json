@@ -1,0 +1,20 @@
+{
+    "fields": {
+        "ibfDashboardUrl": "IBF Dashboard URL",
+        "ibfApiUrl": "IBF API URL",
+        "ibfEnabledCountries": "Enabled Countries",
+        "ibfDefaultCountry": "Default Country",
+        "ibfDisasterTypes": "Disaster Types",
+        "ibfAutoCreateUsers": "Auto-create Users",
+        "ibfRequireUserMapping": "Require User Mapping"
+    },
+    "tooltips": {
+        "ibfDashboardUrl": "The main URL of the Impact-Based Forecasting dashboard",
+        "ibfApiUrl": "The API endpoint URL for IBF data retrieval",
+        "ibfEnabledCountries": "Select which countries are available for IBF forecasting",
+        "ibfDefaultCountry": "The default country to display when opening the IBF dashboard",
+        "ibfDisasterTypes": "Select which disaster types to monitor and display",
+        "ibfAutoCreateUsers": "Automatically create user accounts when they access IBF features",
+        "ibfRequireUserMapping": "Require explicit user mapping between EspoCRM and IBF systems"
+    }
+}

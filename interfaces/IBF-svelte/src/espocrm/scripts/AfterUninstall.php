@@ -11,6 +11,9 @@ class AfterUninstall
         // Remove IBF Dashboard tab from navbar
         $this->removeIBFDashboardTab();
         
+        // Remove administration section
+        $this->removeAdministrationSection();
+        
         // Clear cache to ensure changes take effect
         $this->clearCache();
     }
@@ -30,16 +33,20 @@ class AfterUninstall
                 if ($tab === 'IBFDashboard') {
                     continue;
                 }
-                // Also check for array format with URL
-                if (is_array($tab) && isset($tab['url']) && $tab['url'] === 'https://ibf-pivot-crm.510.global/#IBFDashboard') {
-                    continue;
-                }
                 $updatedTabList[] = $tab;
             }
             
             // Update the configuration if changes were made
             if (count($updatedTabList) !== count($tabList)) {
-                $configWriter = $this->container->get('configWriter');
+                // Try to get configWriter, fallback to creating it if not available
+                try {
+                    $configWriter = $this->container->get('configWriter');
+                } catch (\Exception $e) {
+                    // Use injectableFactory to create configWriter
+                    $injectableFactory = $this->container->get('injectableFactory');
+                    $configWriter = $injectableFactory->create('Espo\\Core\\Utils\\Config\\ConfigWriter');
+                }
+                
                 $configWriter->set('tabList', $updatedTabList);
                 $configWriter->save();
                 
@@ -59,20 +66,42 @@ class AfterUninstall
             $language = $this->container->get('language');
             $defaultLanguage = $this->container->get('defaultLanguage');
             
-            // Remove label from default language
-            $labelData = $defaultLanguage->get('Global', 'scopeNames') ?: [];
-            unset($labelData['IBFDashboard']);
-            $defaultLanguage->set('Global', 'scopeNames', $labelData);
+            // Remove label from default language by setting it to null
+            // Language::set(scope, category, name, value)
+            $defaultLanguage->set('Global', 'scopeNames', 'IBFDashboard', null);
+            $defaultLanguage->save();
             
             // Remove label from current language if different
-            if ($language !== $defaultLanguage) {
-                $labelData = $language->get('Global', 'scopeNames') ?: [];
-                unset($labelData['IBFDashboard']);
-                $language->set('Global', 'scopeNames', $labelData);
+            if ($language->getLanguage() !== $defaultLanguage->getLanguage()) {
+                $language->set('Global', 'scopeNames', 'IBFDashboard', null);
+                $language->save();
             }
             
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Failed to remove tab label: ' . $e->getMessage());
+        }
+    }
+
+    protected function removeAdministrationSection()
+    {
+        try {
+            $config = $this->container->get('config');
+            
+            // Try to get configWriter, fallback to creating it if not available
+            try {
+                $configWriter = $this->container->get('configWriter');
+            } catch (\Exception $e) {
+                // Use injectableFactory to create configWriter
+                $injectableFactory = $this->container->get('injectableFactory');
+                $configWriter = $injectableFactory->create('Espo\\Core\\Utils\\Config\\ConfigWriter');
+            }
+            
+            // Since we're using adminPanel.json metadata, there's no manual admin items to remove
+            // The administration section will be automatically removed when the module is uninstalled
+            // Just clear the cache to ensure proper cleanup
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Failed to remove administration section: ' . $e->getMessage());
         }
     }
 

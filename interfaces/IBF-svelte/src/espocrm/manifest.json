@@ -5,11 +5,11 @@
     "php":  [
                 "\u003e=7.4.0"
             ],
-    "version":  "1.0.16",
+    "version":  "1.0.72",
     "acceptableVersions":  [
                                "\u003e=7.0.0"
                            ],
-    "releaseDate":  "2025-07-21",
+    "releaseDate":  "2025-07-22",
     "license":  "MIT",
     "checkVersionUrl":  "",
     "tags":  [

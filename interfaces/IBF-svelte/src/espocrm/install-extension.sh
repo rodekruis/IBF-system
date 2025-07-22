@@ -22,16 +22,16 @@ EXTENSION_NAME="ibf-dashboard-extension"
 # Function to list available versions
 list_versions() {
     echo "📋 Available extension versions:"
-    ls ${EXTENSION_NAME}-v*.zip 2>/dev/null | sed 's/.*-v\(.*\)\.zip/\1/' | sort -V || {
-        echo "❌ No extension packages found (${EXTENSION_NAME}-v*.zip)"
+    ls ./${EXTENSION_NAME}-v*.zip 2>/dev/null | sed 's/.*-v\(.*\)\.zip/\1/' | sort -V || {
+        echo "❌ No extension packages found (${EXTENSION_NAME}-v*.zip) in current directory"
         exit 1
     }
 }
 
 # Function to get latest version
 get_latest_version() {
-    ls ${EXTENSION_NAME}-v*.zip 2>/dev/null | sed 's/.*-v\(.*\)\.zip/\1/' | sort -V | tail -n1 || {
-        echo "❌ No extension packages found"
+    ls ./${EXTENSION_NAME}-v*.zip 2>/dev/null | sed 's/.*-v\(.*\)\.zip/\1/' | sort -V | tail -n1 || {
+        echo "❌ No extension packages found in current directory"
         exit 1
     }
 }
@@ -76,7 +76,8 @@ echo "🔧 Creating extensions directory..."
 sudo mkdir -p /var/www/espocrm/data/espocrm/extensions
 
 echo "📦 Moving package to extensions directory..."
-sudo mv /home/mali-espocrm-admin/$PACKAGE_FILE /var/www/espocrm/data/espocrm/extensions/
+# Use current working directory (script location) - works when run as any user
+sudo mv ./$PACKAGE_FILE /var/www/espocrm/data/espocrm/extensions/
 
 echo "🔍 Verifying file paths..."
 echo "   Host extensions directory:"
@@ -145,24 +146,28 @@ sudo docker exec espocrm tail -n 20 /var/www/html/data/logs/espo-${LOG_DATE}.log
 echo "📋 Installing extension with detailed output..."
 echo "   Using container path: /var/www/html/extensions/$PACKAGE_FILE"
 
+# Fix permissions before installation
+echo "🔧 Fixing permissions before installation..."
+sudo docker exec espocrm chown -R www-data:www-data /var/www/html/data/
+sudo docker exec espocrm chmod -R 755 /var/www/html/data/
+sudo docker exec espocrm-db chown -R mysql:mysql /var/lib/mysql/ 2>/dev/null || true
+
 # Check if the extension is already installed and needs to be uninstalled first
 echo "   Checking for existing extension installation..."
 EXISTING_EXT=$(sudo docker exec espocrm php command.php extension --list 2>/dev/null | grep -i "ibf dashboard" || true)
 if [ -n "$EXISTING_EXT" ]; then
     echo "   ⚠️  Found existing extension: $EXISTING_EXT"
     echo "   Uninstalling previous version first..."
-    EXT_ID=$(echo "$EXISTING_EXT" | awk -F"'" '{print $(NF-1)}')
-    if [ -n "$EXT_ID" ]; then
-        echo "   Uninstalling extension ID: $EXT_ID"
-        sudo docker exec espocrm php command.php extension --uninstall --id="$EXT_ID" 2>&1 || echo "   (Uninstall may have failed)"
-        echo "   Clearing cache after uninstall..."
-        sudo docker exec espocrm php command.php clear-cache 2>/dev/null || true
-        sleep 2
-    fi
+    # Use the extension name directly since the ID parsing is problematic
+    echo "   Uninstalling by name: IBF Dashboard"
+    sudo docker exec espocrm php command.php extension --uninstall --name="IBF Dashboard" 2>&1 || echo "   (Uninstall may have failed)"
+    echo "   Clearing cache after uninstall..."
+    sudo docker exec espocrm php command.php clear-cache 2>/dev/null || true
+    sleep 2
 fi
 
 echo "   Installing extension..."
-sudo docker exec espocrm php command.php extension --file="/var/www/html/extensions/$PACKAGE_FILE" 2>&1 | tee /tmp/espo-install.log
+sudo docker exec espocrm php command.php extension --file="/var/www/html/extensions/$PACKAGE_FILE" 2>&1
 
 # Check if installation failed
 if [ ${PIPESTATUS[0]} -ne 0 ]; then
