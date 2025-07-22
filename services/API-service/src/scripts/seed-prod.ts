@@ -1,6 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import crypto from 'crypto';
 import { DataSource } from 'typeorm';
 
 import 'multer';
@@ -43,12 +42,10 @@ export class SeedProd implements InterfaceScript {
       });
 
       if (dunantUser && process.env.DUNANT_PASSWORD) {
-        // update password from env (hash it like @BeforeInsert does)
+        // update password from env using UserEntity method
         const newPassword = process.env.DUNANT_PASSWORD;
         if (newPassword) {
-          dunantUser.password = crypto
-            .createHmac('sha256', newPassword)
-            .digest('hex');
+          dunantUser.setPassword(newPassword);
 
           this.logger.log('Updated existing DUNANT user password from env variable');
           await userRepository.save(dunantUser);

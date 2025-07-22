@@ -79,6 +79,10 @@ export class UserEntity {
     this.password = crypto.createHmac('sha256', this.password).digest('hex');
   }
 
+  public setPassword(plainPassword: string): void {
+    this.password = crypto.createHmac('sha256', plainPassword).digest('hex');
+  }
+
   @OneToMany(
     (): typeof EapActionStatusEntity => EapActionStatusEntity,
     (action): UserEntity => action.user,

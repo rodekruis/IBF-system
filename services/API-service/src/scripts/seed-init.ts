@@ -1,6 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import crypto from 'crypto';
 import { DataSource, In } from 'typeorm';
 
 import 'multer';
@@ -161,9 +160,8 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
         );
 
         if (selectedUsers[0] && process.env.DUNANT_PASSWORD) {
-          selectedUsers[0].password = crypto
-            .createHmac('sha256', process.env.DUNANT_PASSWORD)
-            .digest('hex');
+          // Password will be hashed by UserEntity.setPassword() method later
+          selectedUsers[0].password = process.env.DUNANT_PASSWORD;
         }
       } else {
         if (dunantUser) {
@@ -172,11 +170,9 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
             ({ email }) => email !== DUNANT_EMAIL,
           );
 
-          // update password from env (hash it like @BeforeInsert does)
+          // update password from env using UserEntity method
           if (process.env.DUNANT_PASSWORD) {
-            dunantUser.password = crypto
-              .createHmac('sha256', process.env.DUNANT_PASSWORD)
-              .digest('hex');
+            dunantUser.setPassword(process.env.DUNANT_PASSWORD);
 
             this.logger.log('Updated existing DUNANT user password from env variable');
             await userRepository.save(dunantUser);
@@ -187,9 +183,8 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
             if (user.email === DUNANT_EMAIL && process.env.DUNANT_PASSWORD) {
               return {
                 ...user,
-                password: crypto
-                  .createHmac('sha256', process.env.DUNANT_PASSWORD)
-                  .digest('hex'),
+                // Password will be hashed by UserEntity.@BeforeInsert() method
+                password: process.env.DUNANT_PASSWORD,
               };
             }
 
