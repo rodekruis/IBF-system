@@ -116,7 +116,6 @@ export class UserService {
     let updateUser: UserEntity;
     const loggedInUser = await this.userRepository.findOne({
       where: { userId: loggedInUserId },
-      relations: this.relations,
     });
     if (!loggedInUser) {
       const errors = { user: 'No logged in user found' };
@@ -132,7 +131,6 @@ export class UserService {
       }
       updateUser = await this.userRepository.findOne({
         where: { email: dto.email },
-        relations: this.relations,
       });
       if (!updateUser) {
         const errors = { email: dto.email + ' not found' };
@@ -141,9 +139,9 @@ export class UserService {
     } else {
       updateUser = loggedInUser;
     }
-    const password = crypto.createHmac('sha256', dto.password).digest('hex');
-    await this.userRepository.save({ userId: updateUser.userId, password });
-    return this.buildUserRO(updateUser);
+    updateUser.password = dto.password;
+    await this.userRepository.save(updateUser);
+    return this.findById(updateUser.userId);
   }
 
   public async updateUser(
@@ -190,11 +188,9 @@ export class UserService {
           (countryEntity): string => countryEntity.countryCodeISO3,
         ),
         disasterTypes: user.disasterTypes.length
-          ? user.disasterTypes.map(
-              (disasterTypeEntity): string => disasterTypeEntity.disasterType,
-            )
+          ? user.disasterTypes.map(({ disasterType }) => disasterType)
           : (await this.disasterTypeRepository.find()).map(
-              (d) => d.disasterType,
+              ({ disasterType }) => disasterType,
             ),
         exp: exp.getTime() / 1000,
       },
