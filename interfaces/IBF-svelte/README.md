@@ -1,6 +1,6 @@
 # IBF Svelte Dashboard
 
-A lightweight, embeddable frontend for the IBF (Impact-Based Forecasting) system built with Svelte, TypeScript, and Vite. This dashboard provides a modern, high-performance alternative to the original Angular frontend with 90% smaller bundle size and superior performance.
+A lightweight, embeddable frontend for the IBF (Impact-Based Forecasting) system built with Svelte, TypeScript, and Vite. This dashboard provides real-time disaster monitoring and forecasting with seamless EspoCRM integration.
 
 ## 📋 Table of Contents
 
@@ -13,34 +13,40 @@ A lightweight, embeddable frontend for the IBF (Impact-Based Forecasting) system
 7. [Deployment](#deployment)
 8. [Configuration](#configuration)
 9. [Development](#development)
-10. [Performance](#performance)
-11. [Security](#security)
-12. [Integration](#integration)
-13. [Troubleshooting](#troubleshooting)
-14. [API Integration](#api-integration)
+10. [EspoCRM Integration](#espocrm-integration)
+11. [Troubleshooting](#troubleshooting)
+12. [API Reference](#api-reference)
 
 ## 🎯 Overview
 
-The IBF Svelte Dashboard is a complete rewrite of the IBF frontend, optimized for embedding in CRM systems like EspoCRM while maintaining full functionality as a standalone application.
+The IBF Svelte Dashboard is a modern, lightweight frontend for the IBF (Impact-Based Forecasting) system, specifically designed for seamless integration with CRM systems like EspoCRM. Built with Svelte and TypeScript, it provides real-time disaster monitoring and forecasting capabilities.
 
-### Key Improvements
-- ✅ **90% smaller bundle** (~500KB vs 5MB)
-- ✅ **75% faster build times** (30s vs 2-3min)
-- ✅ **40% better runtime performance**
-- ✅ **Seamless EspoCRM integration**
-- ✅ **Enterprise-grade security**
-- ✅ **Modern development experience**
+### Key Features
+- ✅ **Real-time Disaster Data**: Live data from IBF API (https://ibf-test.510.global/api)
+- ✅ **Interactive Maps**: Leaflet-based maps with admin boundaries and disaster layers
+- ✅ **Multi-Country Support**: Ethiopia, Uganda, Zambia, and other IBF countries
+- ✅ **Disaster Types**: Drought, floods, heavy rainfall, typhoons, dengue monitoring
+- ✅ **EspoCRM Integration**: Full iframe embedding with token-based authentication
+- ✅ **Lightweight**: ~500KB bundle vs 5MB+ Angular version
+- ✅ **Responsive Design**: Works on desktop, tablet, and mobile devices
 
-### Comparison with Original
-
-| Aspect | Original Angular | New Svelte | Improvement |
-|--------|-----------------|------------|-------------|
-| **Bundle Size** | ~5MB | ~500KB | **90% reduction** |
-| **Dependencies** | 50+ packages | 15 packages | **70% reduction** |
-| **Build Time** | 2-3 minutes | 30 seconds | **75% faster** |
-| **Runtime Performance** | Good | Excellent | **40% faster** |
-| **Maintenance Effort** | High complexity | Low complexity | **90% easier** |
-| **Security** | Basic | Enterprise | **Complete** |
+### Current Architecture
+```
+┌─────────────────────────────────────────────────────────┐
+│                    Browser/Client                        │
+├─────────────────────────────────────────────────────────┤
+│  Svelte Frontend                                        │
+│  ├── Authentication Service (EspoCRM + IBF tokens)      │
+│  ├── Map Component (Leaflet + GeoJSON layers)           │
+│  ├── IBF API Service (Real disaster data)               │
+│  └── State Management (Svelte stores)                   │
+├─────────────────────────────────────────────────────────┤
+│  Data Sources                                           │
+│  ├── IBF API (https://ibf-test.510.global/api)          │
+│  ├── Mock Data (Development/Testing)                    │
+│  └── EspoCRM Authentication Validation                  │
+└─────────────────────────────────────────────────────────┘
+```
 
 ## ✨ Features
 
@@ -162,43 +168,35 @@ src/
 
 ## 🌍 Data Sources
 
-### 1. IBF API Integration (Production)
+### Current Data Sources
 
-Connect to the real IBF system for live disaster data:
+#### 1. **IBF API (Production)**
+The dashboard connects to the live IBF system for real disaster forecasting data:
 
+- **API Base URL**: `https://ibf-test.510.global/api`
+- **Proxy URL (Dev)**: `/api/ibf` (proxied through Vite dev server)
+- **Authentication**: Email/password credentials stored in environment variables
+- **Supported Countries**: Ethiopia (ETH), Uganda (UGA), Zambia (ZMB), Kenya (KEN)
+- **Data Types**: Countries, admin boundaries, disaster settings, forecast data
+
+**Configuration:**
 ```bash
-# Environment configuration
+# Environment variables for IBF API
 VITE_USE_IBF_API=true
-VITE_IBF_API_BASE_URL=https://api.ibf-system.org
 VITE_IBF_API_EMAIL=your-email@domain.com
 VITE_IBF_API_PASSWORD=your-password
+VITE_API_URL=https://ibf-test.510.global/api
 ```
 
-**Supported Data Types:**
-- Countries and regions
-- Disaster types (drought, floods, typhoons)
-- Admin boundaries and population data
-- Forecast models and triggers
-- Historical event data
+#### 2. **Mock Data (Development)**
+For development and testing when IBF API is unavailable:
 
-### 2. Mock Data (Development)
+- **Usage**: Fallback when IBF API fails or for offline development
+- **Data**: Realistic sample data for Ethiopia, Uganda, Zambia
+- **Configuration**: `VITE_USE_MOCK_DATA=true`
 
-Perfect for development, testing, and demos:
-
-```bash
-VITE_USE_MOCK_DATA=true
-VITE_USE_IBF_API=false
-```
-
-**Mock Data Includes:**
-- Ethiopia, Uganda, Zambia country data
-- Drought and flood scenarios
-- Realistic forecast data
-- Sample admin boundaries
-
-### 3. Hybrid Mode
-
-Use IBF API with mock fallbacks:
+#### 3. **Hybrid Mode**
+Best of both worlds - use IBF API with mock fallback:
 
 ```bash
 VITE_USE_IBF_API=true
@@ -207,42 +205,73 @@ VITE_USE_MOCK_DATA=true  # Fallback when API fails
 
 ## � Authentication
 
-### 1. Azure AD OAuth2 (Production)
+## 🔐 Authentication
 
-Enterprise authentication with Azure Active Directory:
+The dashboard supports multiple authentication modes depending on the deployment context:
 
-```bash
-VITE_AZURE_CLIENT_ID=your-client-id
-VITE_AZURE_TENANT_ID=your-tenant-id
-VITE_AZURE_REDIRECT_URI=https://your-domain.com/auth/callback
-VITE_AZURE_SCOPES=openid profile email
-```
-
-### 2. EspoCRM Integration
-
-Seamless authentication when embedded in EspoCRM:
+### 1. **EspoCRM Integration (Production)**
+When embedded in EspoCRM, authentication is handled automatically:
 
 ```bash
-VITE_ESPOCRM_API_URL=https://your-crm.domain.com/api/v1
-VITE_ENABLE_ESPOCRM_AUTH=true
+# URL parameters passed by EspoCRM
+?espoToken={token}&espoUserId={userId}&embedded=true&espoAuth=true
 ```
 
 **Authentication Flow:**
-1. EspoCRM user navigates to IBF Dashboard
-2. EspoCRM generates authentication token
-3. Dashboard receives token via URL parameters
-4. Token validated against EspoCRM API
-5. User granted appropriate access level
+1. EspoCRM user navigates to IBF Dashboard page
+2. EspoCRM extension passes authentication token via URL parameters
+3. Dashboard validates token with EspoCRM API: `/api/v1/IbfAuth/action/validateToken`
+4. EspoCRM returns IBF API credentials for the user
+5. Dashboard authenticates with IBF API using user's credentials
+6. User gains access with appropriate country/disaster permissions
 
-### 3. Development Mode
+**EspoCRM API Validation:**
+```typescript
+// Token validation response
+interface EspoCRMTokenValidationResponse {
+  valid: boolean;
+  user?: {
+    id: string;
+    userName: string;
+    firstName?: string;
+    lastName?: string;
+    emailAddress?: string;
+  };
+  ibfToken?: string; // IBF API token for data access
+}
+```
 
-Simplified authentication for development:
+### 2. **Development Mode**
+For local development, authentication can be bypassed:
 
 ```bash
-VITE_DISABLE_AUTHENTICATION=true  # Skip auth in development
-VITE_DEV_USER_EMAIL=dev@example.com
-VITE_DEV_USER_NAME=Developer
+# Disable authentication
+VITE_DISABLE_AUTHENTICATION=true
 ```
+
+### 3. **Direct IBF API Mode**
+For standalone deployments, direct IBF API authentication:
+
+```bash
+# IBF API credentials
+VITE_IBF_API_EMAIL=user@domain.com
+VITE_IBF_API_PASSWORD=secure-password
+```
+
+### Authentication Service Architecture
+
+```typescript
+// Main authentication service
+class AuthService {
+  // Check EspoCRM context via URL parameters
+  isInEspoCRMContext(): boolean
+  
+  // Validate EspoCRM token and get IBF credentials
+  validateEspoCRMToken(token: string): Promise<EspoCRMTokenValidationResponse>
+  
+  // Get current authenticated user
+  getCurrentUser(): Promise<UserInfo | null>
+}
 
 ## 🌐 Deployment
 
@@ -302,64 +331,87 @@ VITE_AZURE_CLIENT_ID=staging-client-id
 
 ## ⚙️ Configuration
 
+## ⚙️ Configuration
+
 ### Environment Variables
 
 ```bash
-# API Configuration
-VITE_IBF_API_BASE_URL=https://api.ibf-system.org
-VITE_USE_IBF_API=true
-VITE_USE_MOCK_DATA=false
-VITE_API_TIMEOUT=10000
+# Data Source Configuration
+VITE_USE_IBF_API=true                    # Enable IBF API integration
+VITE_USE_MOCK_DATA=false                 # Enable mock data fallback
+VITE_API_URL=https://ibf-test.510.global/api  # IBF API base URL
+VITE_GEOSERVER_URL=https://ibf.510.global/geoserver/ibf-system/wms
 
-# Authentication
-VITE_AZURE_CLIENT_ID=your-client-id
-VITE_AZURE_TENANT_ID=your-tenant-id
-VITE_DISABLE_AUTHENTICATION=false
+# IBF API Authentication
+VITE_IBF_API_EMAIL=your-email@domain.com # IBF API user email
+VITE_IBF_API_PASSWORD=your-secure-password # IBF API user password
 
 # EspoCRM Integration
-VITE_ESPOCRM_API_URL=https://your-crm.com/api/v1
-VITE_ENABLE_ESPOCRM_AUTH=true
+VITE_ESPOCRM_API_URL=https://your-crm.com/api/v1  # EspoCRM API endpoint
+VITE_DISABLE_AUTHENTICATION=false       # Disable auth for development
 
-# Security
-VITE_ALLOWED_ORIGINS=https://your-crm.com,https://your-domain.com
-VITE_ENABLE_CSP=true
-VITE_FORCE_HTTPS=true
-
-# Performance
-VITE_ENABLE_SERVICE_WORKER=true
-VITE_CACHE_DURATION=300000
-VITE_LAZY_LOAD_MAPS=true
-
-# Development
-VITE_DEBUG_MODE=false
-VITE_SHOW_DEBUG_PANEL=false
+# Development Settings
+VITE_DEBUG_MODE=true                     # Enable debug logging
+VITE_SHOW_DEBUG_PANEL=true              # Show debug UI panels
+VITE_DISABLE_API_CACHE=false            # Disable API response caching
 ```
 
 ### Runtime Configuration
 
-```javascript
+The dashboard uses a centralized configuration system:
+
+```typescript
 // src/lib/config.ts
-export const config = {
-  api: {
-    baseUrl: import.meta.env.VITE_IBF_API_BASE_URL,
-    timeout: 10000,
-    retries: 3
-  },
-  auth: {
-    provider: 'azure', // 'azure' | 'espocrm' | 'none'
-    redirectUri: window.location.origin + '/auth/callback'
-  },
-  map: {
-    defaultCenter: [9.0, 40.0], // Ethiopia
-    defaultZoom: 6,
-    maxZoom: 18
-  },
-  features: {
-    offlineMode: true,
-    realTimeUpdates: true,
-    advancedAnalytics: false
+interface AppConfig {
+  // API Configuration
+  apiUrl: string;                    // IBF API base URL
+  geoserverUrl: string;             // Geoserver WMS endpoint
+  useMockData: boolean;             // Use mock data
+  useIbfApi: boolean;               // Use IBF API
+  
+  // EspoCRM Integration
+  espoCrmApiUrl: string;            // EspoCRM API URL
+  
+  // Development Settings
+  isDevelopment: boolean;           // Development mode
+  debugMode: boolean;               // Debug logging
+  showDebugPanel: boolean;          // Debug UI panels
+  disableApiCache: boolean;         // API caching
+}
+```
+
+### Development vs Production
+
+**Development Mode:**
+- Uses Vite dev server with proxy for CORS-free API access
+- Proxy configuration: `/api/ibf` → `https://ibf-test.510.global/api`
+- Debug panels and logging enabled
+- Authentication can be disabled for testing
+
+**Production Mode:**
+- Direct API calls to configured endpoints
+- Optimized bundle with lazy loading
+- Authentication required
+- Debug features disabled
+
+### Proxy Configuration
+
+The Vite dev server includes proxy configuration for development:
+
+```typescript
+// vite.config.ts
+export default defineConfig({
+  server: {
+    proxy: {
+      '/api/ibf': {
+        target: 'https://ibf-test.510.global',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/ibf/, '/api'),
+        secure: true
+      }
+    }
   }
-};
+})
 ```
 
 ## 👨‍💻 Development
@@ -584,27 +636,82 @@ const tokenStorage = {
 
 ## 🔌 Integration
 
-### EspoCRM Extension
+## 🔌 EspoCRM Integration
 
-Complete integration with EspoCRM for seamless user experience:
+The dashboard is specifically designed for seamless integration with EspoCRM through a comprehensive extension.
 
-```html
-<!-- EspoCRM iframe embedding -->
-<iframe 
-  src="https://ibf-dashboard.domain.com?token={authToken}&embedded=true"
-  width="100%" 
-  height="600px"
-  sandbox="allow-scripts allow-same-origin allow-forms">
-</iframe>
+### Integration Architecture
+
+```
+EspoCRM Extension
+├── IBFDashboard Controller (PHP)
+│   ├── User Authentication & Token Validation
+│   ├── IBF API Token Management
+│   └── Dashboard Configuration
+├── Client-Side JavaScript
+│   ├── Full-page Dashboard View (ibfdashboard.js)
+│   ├── Dashlet Widget (ibf-dashboard.js)
+│   └── User Token Retrieval
+├── IBFUser Entity
+│   ├── IBF Credentials Management
+│   ├── Country/Disaster Permissions
+│   └── Auto-user Creation
+└── Navigation Integration
+    ├── Main Menu Tab
+    └── Admin Configuration
 ```
 
-**Features:**
-- ✅ Single Sign-On (SSO) with EspoCRM authentication
-- ✅ User role and permission synchronization
-- ✅ Seamless iframe embedding with responsive design
-- ✅ Real-time data synchronization
-- ✅ Custom field mapping and data integration
-- ✅ Automated user provisioning and management
+### Key Integration Features
+
+**1. Full-Page Dashboard**
+- Native EspoCRM navigation tab
+- Complete iframe integration
+- Responsive design within EspoCRM UI
+- Fullscreen mode support
+
+**2. Authentication Flow**
+```javascript
+// EspoCRM passes authentication via URL
+const dashboardUrl = `${baseUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&espoAuth=true`;
+
+// Dashboard validates with EspoCRM API
+fetch(`${espoCrmUrl}/api/v1/IbfAuth/action/validateToken?token=${token}&userId=${userId}`)
+```
+
+**3. User Management**
+- **IBFUser Entity**: Dedicated entity for IBF-specific user data
+- **Auto-Creation**: Automatic user provisioning from EspoCRM users
+- **Permission Control**: Country and disaster-type access control
+- **Credential Management**: Secure storage of IBF API credentials
+
+### URL Parameters
+
+| Parameter | Description | Example |
+|-----------|-------------|---------|
+| `espoToken` | EspoCRM authentication token | `abc123def456...` |
+| `espoUserId` | EspoCRM user ID | `user123` |
+| `embedded` | Enable iframe mode | `true` |
+| `espoAuth` | Use EspoCRM authentication | `true` |
+| `fullscreenButton` | Show fullscreen toggle | `true` |
+| `loginOffset` | Adjust for header height | `60` |
+
+### Configuration
+
+**EspoCRM Settings:**
+```php
+// EspoCRM configuration (data/config.php)
+'ibfDashboardUrl' => 'https://ibf-dashboard.azurestaticapps.net',
+'ibfApiUrl' => 'https://ibf-test.510.global/api',
+'ibfAutoCreateUsers' => true,
+'ibfDefaultCountries' => ['ETH', 'UGA', 'ZMB']
+```
+
+**Extension Files:**
+- **Extension Package**: Complete `.zip` package for easy installation
+- **Manual Installation**: Individual file deployment option
+- **Automated Deployment**: PowerShell scripts for server deployment
+
+For detailed EspoCRM integration setup, see the [EspoCRM Extension README](src/espocrm/README.md).
 
 ### API Integration Patterns
 
