@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import { DataSource } from 'typeorm';
+import { DataSource, In } from 'typeorm';
 
 import 'multer';
 import {
@@ -63,6 +63,7 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
     const userRepository = this.dataSource.getRepository(UserEntity);
     const dunantUser = await userRepository.findOne({
       where: { email: DUNANT_EMAIL },
+      relations: ['countries'],
     });
 
     if (reset) {
@@ -158,7 +159,8 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           ({ email }) => email === DUNANT_EMAIL,
         );
 
-        if (selectedUsers[0]) {
+        if (selectedUsers[0] && process.env.DUNANT_PASSWORD) {
+          // Password will be hashed by UserEntity.setPassword() method later
           selectedUsers[0].password = process.env.DUNANT_PASSWORD;
         }
       } else {
@@ -167,14 +169,25 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           selectedUsers = (users as User[]).filter(
             ({ email }) => email !== DUNANT_EMAIL,
           );
-          // grant dunant user access to new countries
-          dunantUser.countries = await countryRepository.find();
-          await userRepository.save(dunantUser);
+
+          // Set password directly - @BeforeUpdate will hash it automatically
+          if (process.env.DUNANT_PASSWORD) {
+            dunantUser.password = process.env.DUNANT_PASSWORD;
+
+            this.logger.log(
+              'Updated existing DUNANT user password from env variable',
+            );
+            await userRepository.save(dunantUser);
+          }
         } else {
           // use DUNANT_PASSWORD from env
           selectedUsers = (users as User[]).map((user) => {
-            if (user.email === DUNANT_EMAIL) {
-              return { ...user, password: process.env.DUNANT_PASSWORD };
+            if (user.email === DUNANT_EMAIL && process.env.DUNANT_PASSWORD) {
+              return {
+                ...user,
+                // Password will be hashed by UserEntity.@BeforeInsert() method
+                password: process.env.DUNANT_PASSWORD,
+              };
             }
 
             return user;
@@ -194,18 +207,12 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           userEntity.countries = !user.countries
             ? await countryRepository.find()
             : await countryRepository.find({
-                where: user.countries.map((countryCodeISO3: string): object => {
-                  return { countryCodeISO3 };
-                }),
+                where: { countryCodeISO3: In(user.countries) },
               });
           userEntity.disasterTypes = !user.disasterTypes
             ? []
             : await disasterTypeRepository.find({
-                where: user.disasterTypes.map(
-                  (disasterType: string): object => {
-                    return { disasterType };
-                  },
-                ),
+                where: { disasterType: In(user.disasterTypes) },
               });
           userEntity.password = user.password;
           return userEntity;

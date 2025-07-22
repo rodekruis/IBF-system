@@ -2,6 +2,7 @@ import { IsEmail } from 'class-validator';
 import crypto from 'crypto';
 import {
   BeforeInsert,
+  BeforeUpdate,
   Column,
   Entity,
   JoinTable,
@@ -75,6 +76,7 @@ export class UserEntity {
   public created: Date;
 
   @BeforeInsert()
+  @BeforeUpdate()
   public hashPassword(): void {
     this.password = crypto.createHmac('sha256', this.password).digest('hex');
   }

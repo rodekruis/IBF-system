@@ -3,8 +3,10 @@ import { Injectable, Logger } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
 import 'multer';
+import { CountryEntity } from '../api/country/country.entity';
 import { UserEntity } from '../api/user/user.entity';
 import { UserRole } from '../api/user/user-role.enum';
+import { DUNANT_EMAIL } from '../config';
 import users from './json/users.json';
 import { InterfaceScript } from './scripts.module';
 
@@ -18,22 +20,40 @@ export class SeedProd implements InterfaceScript {
     this.logger.log('Seed admin user...');
 
     const userRepository = this.dataSource.getRepository(UserEntity);
+    const countryRepository = this.dataSource.getRepository(CountryEntity);
 
     if ((await userRepository.find({ take: 1 })).length === 0) {
-      const user = users.filter((user): boolean => {
-        return user.userRole === UserRole.Admin;
-      })[0];
+      const user = users.filter(({ email }) => email === DUNANT_EMAIL)[0];
 
-      const adminUser = new UserEntity();
-      adminUser.email = user.email;
-      adminUser.firstName = user.firstName;
-      adminUser.lastName = user.lastName;
-      adminUser.userRole = user.userRole as UserRole;
-      adminUser.password = process.env.DUNANT_PASSWORD || user.password;
+      const dunantUser = new UserEntity();
+      dunantUser.email = user.email;
+      dunantUser.firstName = user.firstName;
+      dunantUser.lastName = user.lastName;
+      dunantUser.userRole = user.userRole as UserRole;
+      dunantUser.password = process.env.DUNANT_PASSWORD || user.password;
 
-      await userRepository.save(adminUser);
+      this.logger.log('Create DUNANT user...');
+      await userRepository.save(dunantUser);
     } else {
-      this.logger.log('Users already exist, skip seed admin user.');
+      this.logger.log('Users found in the database.');
+
+      const dunantUser = await userRepository.findOne({
+        where: { email: DUNANT_EMAIL },
+      });
+
+      if (dunantUser && process.env.DUNANT_PASSWORD) {
+        // Set password directly - @BeforeUpdate will hash it automatically
+        const newPassword = process.env.DUNANT_PASSWORD;
+        if (newPassword) {
+          dunantUser.password = newPassword;
+          dunantUser.countries = await countryRepository.find();
+
+          this.logger.log(
+            'Updated existing DUNANT user password from env variable',
+          );
+          await userRepository.save(dunantUser);
+        }
+      }
     }
   }
 }
