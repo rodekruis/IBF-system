@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 
+import crypto from 'crypto';
 import { DataSource, In } from 'typeorm';
 
 import 'multer';
@@ -63,6 +64,7 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
     const userRepository = this.dataSource.getRepository(UserEntity);
     const dunantUser = await userRepository.findOne({
       where: { email: DUNANT_EMAIL },
+      relations: ['countries'],
     });
 
     if (reset) {
@@ -158,8 +160,10 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           ({ email }) => email === DUNANT_EMAIL,
         );
 
-        if (selectedUsers[0]) {
-          selectedUsers[0].password = process.env.DUNANT_PASSWORD;
+        if (selectedUsers[0] && process.env.DUNANT_PASSWORD) {
+          selectedUsers[0].password = crypto
+            .createHmac('sha256', process.env.DUNANT_PASSWORD)
+            .digest('hex');
         }
       } else {
         if (dunantUser) {
@@ -168,19 +172,25 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
             ({ email }) => email !== DUNANT_EMAIL,
           );
 
-          // grant dunant user access to all countries
-          dunantUser.countries = await countryRepository.find();
+          // update password from env (hash it like @BeforeInsert does)
+          if (process.env.DUNANT_PASSWORD) {
+            dunantUser.password = crypto
+              .createHmac('sha256', process.env.DUNANT_PASSWORD)
+              .digest('hex');
 
-          // update password from env
-          dunantUser.password = process.env.DUNANT_PASSWORD;
-
-          this.logger.log('Update DUNANT user...');
-          await userRepository.save(dunantUser);
+            this.logger.log('Updated existing DUNANT user password from env variable');
+            await userRepository.save(dunantUser);
+          }
         } else {
           // use DUNANT_PASSWORD from env
           selectedUsers = (users as User[]).map((user) => {
-            if (user.email === DUNANT_EMAIL) {
-              return { ...user, password: process.env.DUNANT_PASSWORD };
+            if (user.email === DUNANT_EMAIL && process.env.DUNANT_PASSWORD) {
+              return {
+                ...user,
+                password: crypto
+                  .createHmac('sha256', process.env.DUNANT_PASSWORD)
+                  .digest('hex'),
+              };
             }
 
             return user;

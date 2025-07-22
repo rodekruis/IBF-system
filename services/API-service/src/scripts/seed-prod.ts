@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 
+import crypto from 'crypto';
 import { DataSource } from 'typeorm';
 
 import 'multer';
@@ -41,15 +42,17 @@ export class SeedProd implements InterfaceScript {
         where: { email: DUNANT_EMAIL },
       });
 
-      if (dunantUser) {
-        // grant dunant user access to all countries
-        dunantUser.countries = await countryRepository.find();
+      if (dunantUser && process.env.DUNANT_PASSWORD) {
+        // update password from env (hash it like @BeforeInsert does)
+        const newPassword = process.env.DUNANT_PASSWORD;
+        if (newPassword) {
+          dunantUser.password = crypto
+            .createHmac('sha256', newPassword)
+            .digest('hex');
 
-        // update password from env
-        dunantUser.password = process.env.DUNANT_PASSWORD;
-
-        this.logger.log('Update DUNANT user...');
-        await userRepository.save(dunantUser);
+          this.logger.log('Updated existing DUNANT user password from env variable');
+          await userRepository.save(dunantUser);
+        }
       }
     }
   }
