@@ -167,15 +167,8 @@ if [ ! -f "package.json" ]; then
     exit 1
 fi
 
-# Check for web component build
-if [ ! -f "dist/web-component/browser/main.js" ]; then
-    echo -e "\033[33mBuilding web component first...\033[0m"
-    npx ng run app:build-web-component
-    if [ $? -ne 0 ]; then
-        echo -e "\033[31mWeb component build failed!\033[0m"
-        exit 1
-    fi
-fi
+# Check for web component build - Always build in separate window
+echo -e "\033[33mBuilding web component in separate terminal...\033[0m"
 
 echo ""
 echo -e "\033[32mURLs will be available at:\033[0m"
@@ -225,8 +218,26 @@ open_terminal() {
 
 # Create temporary script files
 temp_dir=$(mktemp -d)
+build_script="$temp_dir/build-web-component.sh"
 angular_script="$temp_dir/angular-server.sh"
 web_script="$temp_dir/web-server.sh"
+
+# Create Web component build script
+cat > "$build_script" << EOF
+#!/bin/bash
+cd "$current_dir"
+echo -e "\033[36mWeb Component Build Starting...\033[0m"
+echo -e "\033[33mBuilding web component - this may take a moment...\033[0m"
+echo "================================================"
+npx ng run app:build-web-component
+if [ \$? -eq 0 ]; then
+    echo -e "\033[32mWeb component build completed successfully!\033[0m"
+else
+    echo -e "\033[31mWeb component build failed!\033[0m"
+fi
+echo "Press Enter to close..."
+read
+EOF
 
 # Create Angular server script
 cat > "$angular_script" << EOF
@@ -257,8 +268,21 @@ read
 EOF
 
 # Make scripts executable
+chmod +x "$build_script"
 chmod +x "$angular_script"
 chmod +x "$web_script"
+
+# Start web component build in new terminal
+echo -e "\033[36mStarting web component build in new terminal...\033[0m"
+if ! open_terminal "Web Component Build" "$build_script"; then
+    # Fallback to foreground process if terminal opening fails
+    echo -e "\033[33mRunning web component build in current terminal...\033[0m"
+    npx ng run app:build-web-component
+    if [ $? -ne 0 ]; then
+        echo -e "\033[31mWeb component build failed!\033[0m"
+        exit 1
+    fi
+fi
 
 # Start Angular dev server in new terminal
 echo -e "\033[34mStarting Angular dev server in new terminal...\033[0m"
