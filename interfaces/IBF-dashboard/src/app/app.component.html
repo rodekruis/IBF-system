@@ -1,10 +1,11 @@
 <ion-app id="app" data-testid="app" [class.embedded]="isEmbedded">
+  <!-- Always render router-outlet to prevent infinite recreation loops -->
+  <router-outlet></router-outlet>
+  
+  <!-- Show loader overlay when loading, without destroying router-outlet -->
   @if (loading) {
     <div class="loader" data-testid="loader">
       <ion-spinner color="light"></ion-spinner>
     </div>
-  } @else {
-    <!-- Use regular router outlet for web components with Angular Elements -->
-    <router-outlet></router-outlet>
   }
 </ion-app>

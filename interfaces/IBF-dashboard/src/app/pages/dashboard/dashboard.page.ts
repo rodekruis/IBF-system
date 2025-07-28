@@ -47,19 +47,10 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
       console.error(`🚨 CRITICAL: Multiple DashboardPage instances created! Current count: ${DashboardPage.instanceCount}`);
       console.error('🚨 This indicates a routing or component lifecycle issue');
     }
-    
-    this.authSubscription = this.authService.getAuthSubscription().subscribe(this.onUserChange);
 
     // Add navigation tracking
     console.log('🧭 DashboardPage: Constructor - Current URL:', window.location.href);
     console.log('🧭 DashboardPage: Constructor - Timestamp:', new Date().toISOString());
-
-    // Force change detection immediately
-    setTimeout(() => {
-      this.templateRendered = true;
-      this.cdr.detectChanges();
-      console.log('🔄 DashboardPage: Forced initial change detection');
-    }, 0);
 
     if (!this.isPhone() && !this.isTablet()) {
       return;
@@ -73,15 +64,25 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
+    // Set up auth subscription in ngOnInit to avoid change detection issues during constructor
+    this.authSubscription = this.authService.getAuthSubscription().subscribe(this.onUserChange);
+    
     this.debugService.logComponentInit('DashboardPage', {
       isDev: this.isDev,
       isMultiCountry: this.isMultiCountry,
       version: this.version
     });
+    
+    // Schedule initial template rendering with proper timing
+    setTimeout(() => {
+      this.templateRendered = true;
+      this.cdr.markForCheck(); // Use markForCheck instead of detectChanges
+      console.log('🔄 DashboardPage: Initial template rendering scheduled');
+    }, 0);
     this.analyticsService.logPageView(AnalyticsPage.dashboard);
     
-    // Force change detection after component initialization
-    this.cdr.detectChanges();
+    // Mark for check after component initialization instead of forcing detection
+    this.cdr.markForCheck();
     
     // Add immediate DOM check
     console.log('🔍 DashboardPage ngOnInit - DOM check immediately:');
@@ -93,17 +94,17 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
     // Check DOM state after a short delay
     setTimeout(() => {
       this.debugService.logDOMState();
-      this.cdr.detectChanges(); // Force another change detection
+      this.cdr.markForCheck(); // Use markForCheck instead of detectChanges
     }, 100);
     
-    // Force multiple change detection cycles to ensure template renders
+    // Schedule multiple change detection cycles to ensure template renders
     setTimeout(() => {
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
       console.log('🔄 DashboardPage: Additional change detection at 250ms');
     }, 250);
     
     setTimeout(() => {
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
       console.log('🔄 DashboardPage: Additional change detection at 500ms');
       this.debugService.logDOMState();
     }, 500);
@@ -112,8 +113,8 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.debugService.logComponentAfterViewInit('DashboardPage');
     
-    // Force change detection in AfterViewInit
-    this.cdr.detectChanges();
+    // Mark for check in AfterViewInit instead of forcing detection
+    this.cdr.markForCheck();
     
     // Check DOM state again after view init
     setTimeout(() => {
@@ -122,13 +123,12 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
       this.debugService.logCSSStyles('DashboardPage', '.ibf-dashboard-right-column');
       this.debugService.logCSSStyles('DashboardPage', 'app-chat');
       this.debugService.logCSSStyles('DashboardPage', 'app-map');
-      this.cdr.detectChanges(); // Force change detection after checks
+      this.cdr.markForCheck(); // Use markForCheck after checks
     }, 500);
     
-    // Check again after longer delay with more aggressive change detection
+    // Check again after longer delay with more conservative change detection
     setTimeout(() => {
       this.cdr.markForCheck(); // Mark component and ancestors for check
-      this.cdr.detectChanges(); // Force immediate check
       this.debugService.logDOMState();
       
       // If DOM still empty, try to diagnose template issues
@@ -142,10 +142,9 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
           version: this.version
         });
         
-        // Try one more aggressive change detection
+        // Try one more conservative change detection
         this.templateRendered = true;
         this.cdr.markForCheck();
-        this.cdr.detectChanges();
         
         setTimeout(() => {
           this.debugService.logDOMState();
@@ -170,9 +169,9 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
       this.isDev = user.userRole === this.adminRole;
       this.isMultiCountry = user.countries.length > 1;
       
-      // Force change detection when user data changes
-      this.cdr.detectChanges();
-      console.log('🔄 DashboardPage: Change detection triggered by user change', {
+      // Mark for check instead of forcing immediate detection to avoid assertion errors
+      this.cdr.markForCheck();
+      console.log('🔄 DashboardPage: Component marked for check by user change', {
         isDev: this.isDev,
         isMultiCountry: this.isMultiCountry
       });
