@@ -5,6 +5,8 @@ import fs from 'fs';
 import { Readable } from 'stream';
 import { DataSource } from 'typeorm';
 
+import { CountryEntity } from '../api/country/country.entity';
+import { UserEntity } from '../api/user/user.entity';
 import { DUNANT_EMAIL } from '../config';
 
 export class SeedHelper {
@@ -68,5 +70,23 @@ export class SeedHelper {
     } catch (error) {
       throw new Error(`ERROR: Cleaning test db: ${error}`);
     }
+  }
+
+  public async updateDunantUser(dunantUser: UserEntity) {
+    const userRepository = this.dataSource.getRepository(UserEntity);
+    const countryRepository = this.dataSource.getRepository(CountryEntity);
+
+    // remove existing countries to avoid duplication errors
+    dunantUser.countries = [];
+
+    // update password from env
+    dunantUser.password = process.env.DUNANT_PASSWORD;
+
+    this.logger.log('Update DUNANT user...');
+    await userRepository.save(dunantUser);
+
+    // grant dunant user access to all countries
+    dunantUser.countries = await countryRepository.find();
+    await userRepository.save(dunantUser);
   }
 }
