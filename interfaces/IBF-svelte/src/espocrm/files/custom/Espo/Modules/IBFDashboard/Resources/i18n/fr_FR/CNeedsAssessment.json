@@ -1,0 +1,97 @@
+{
+    "labels": {
+        "Create CNeedsAssessment": "Créer une évaluation des besoins"
+    },
+    "fields": {
+        "breedingStatus": "État de l'élevage",
+        "cultureStatus": "État de la culture",
+        "deseaseOther": "Maladie (autre)",
+        "disease": "Maladie",
+        "enumerator": "Énumérateur",
+        "firstName": "Prénom",
+        "flood": "Inondation",
+        "gpsLatitude": "Position GPS - Latitude",
+        "gpsLongitude": "Position GPS - Longitude",
+        "householdSize": "Taille du foyer",
+        "houseStatus": "État de l'habitation",
+        "lastName": "Nom",
+        "latrineStatus": "État des latrines",
+        "locality": "Localité",
+        "numberChildrenU5": "Nombre d'enfants de moins de 5 ans",
+        "numberDeaths": "Nombre de décès",
+        "numberDisappeared": "Nombre de personnes disparues",
+        "numberFemales": "Nombre de femmes",
+        "numberMales": "Nombre d'hommes",
+        "numberPregnants": "Nombre de femmes enceintes",
+        "numberSpouses": "Nombre de conjoints",
+        "region": "Région",
+        "statusOtherObservation": "Status (autre observation)",
+        "town": "Ville",
+        "waterPointStatus": "État du point d'eau",
+        "workEquipmentStatus": "Etat de l'équipement de travail",
+        "createdAt": "Créé le"
+    },
+    "links": {
+        "flood": "Inondation",
+        "photo": "Photo"
+    },
+    "options": {
+        "breedingStatus": {
+            "totalement_detruit": "Totalement détruit",
+            "partiellement_detruit": "Partiellement détruit",
+            "bon_etat": "Bon état",
+            "": ""
+        },
+        "cultureStatus": {
+            "totalement_detruit": "Totalement détruit",
+            "partiellement_detruit": "Partiellement détruit",
+            "bon_etat": "Bon état",
+            "": ""
+        },
+        "disease": {
+            "paludisme": "Paludisme",
+            "tuberculose": "Tuberculose",
+            "tetanos": "Tétanos",
+            "hepatite": "Hépatite",
+            "rougeole": "Rougeole",
+            "fievre": "Fièvre",
+            "pneumonie": "Pneumonie",
+            "diarrhee": "Diarrhée",
+            "diphterie": "Diphtérie",
+            "autre": "Autre",
+            "aucune": "Aucune",
+            "": ""
+        },
+        "houseStatus": {
+            "totalement_detruit": "Totalement détruit",
+            "partiellement_detruit": "Partiellement détruit",
+            "bon_etat": "Bon état",
+            "": ""
+        },
+        "latrineStatus": {
+            "totalement_detruit": "Totalement détruit",
+            "partiellement_detruit": "Partiellement détruit",
+            "bon_etat": "Bon état",
+            "": ""
+        },
+        "waterPointStatus": {
+            "totalement_detruit": "Totalement détruit",
+            "partiellement_detruit": "Partiellement détruit",
+            "bon_etat": "Bon état",
+            "": ""
+        },
+        "workEquipmentStatus": {
+            "totalement_detruit": "Totalement détruit",
+            "partiellement_detruit": "Partiellement détruit",
+            "bon_etat": "Bon état",
+            "": ""
+        },
+        "status": {
+            "marie": "Marié(e)",
+            "celibataire": "Célibataire",
+            "divorce_e": "Divorcé(e)",
+            "veuf_ve": "Veuf(ve)",
+            "": ""
+        }
+    }
+}

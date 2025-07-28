@@ -1,0 +1,16 @@
+[
+    {
+        "name": "riverStation",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "dischargeLevel"
+    },
+    {
+        "name": "thresholdComparison"
+    },
+    {
+        "name": "alertLevel"
+    }
+]

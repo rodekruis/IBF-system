@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { DateTime } from 'luxon';
-import { BehaviorSubject, debounceTime, Observable } from 'rxjs';
+import { BehaviorSubject, debounceTime, Observable, Subscription } from 'rxjs';
 import { DEBOUNCE_TIME_LOADER } from 'src/app/config';
 import { AlertPerLeadTime } from 'src/app/models/alert-per-lead-time.model';
 import { Country, DisasterType } from 'src/app/models/country.model';
@@ -21,7 +21,7 @@ import {
 import { TimelineState, TimeStepButton } from 'src/app/types/timeline-state';
 
 @Injectable({ providedIn: 'root' })
-export class TimelineService {
+export class TimelineService implements OnDestroy {
   private startingState: TimelineState = {
     today: DateTime.now(),
     timeStepButtons: [],
@@ -42,6 +42,13 @@ export class TimelineService {
     .asObservable()
     .pipe(debounceTime(DEBOUNCE_TIME_LOADER));
 
+  // Subscription management
+  private countrySubscription: Subscription;
+  private disasterTypeSubscription: Subscription;
+  private initialEventStateSubscription: Subscription;
+  private manualEventStateSubscription: Subscription;
+  private isInitialized = false;
+
   constructor(
     private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
@@ -49,21 +56,45 @@ export class TimelineService {
     private apiService: ApiService,
     private placeCodeService: PlaceCodeService,
   ) {
-    this.countryService
+    // Prevent multiple initialization of subscriptions
+    if (this.isInitialized) {
+      console.warn('⚠️ TimelineService: Attempted multiple initialization - skipping');
+      return;
+    }
+    
+    console.log('🔄 TimelineService: Initializing subscriptions');
+    this.isInitialized = true;
+
+    this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
 
-    this.disasterTypeService
+    this.disasterTypeSubscription = this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
 
-    this.eventService
+    this.initialEventStateSubscription = this.eventService
       .getInitialEventStateSubscription()
       .subscribe(this.onInitialEventStateChange);
 
-    this.eventService
+    this.manualEventStateSubscription = this.eventService
       .getManualEventStateSubscription()
       .subscribe(this.onManualEventStateChange);
+  }
+
+  ngOnDestroy() {
+    if (this.countrySubscription) {
+      this.countrySubscription.unsubscribe();
+    }
+    if (this.disasterTypeSubscription) {
+      this.disasterTypeSubscription.unsubscribe();
+    }
+    if (this.initialEventStateSubscription) {
+      this.initialEventStateSubscription.unsubscribe();
+    }
+    if (this.manualEventStateSubscription) {
+      this.manualEventStateSubscription.unsubscribe();
+    }
   }
 
   private onCountryChange = (country: Country) => {

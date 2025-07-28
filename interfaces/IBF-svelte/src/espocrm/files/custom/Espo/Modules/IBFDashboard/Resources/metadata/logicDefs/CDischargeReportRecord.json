@@ -1,0 +1,15 @@
+{
+    "fields": {
+        "alertLevel": {
+            "visible": {
+                "conditionGroup": [
+                    {
+                        "type": "greaterThan",
+                        "attribute": "thresholdComparison",
+                        "value": 0
+                    }
+                ]
+            }
+        }
+    }
+}

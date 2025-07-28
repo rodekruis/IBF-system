@@ -1,0 +1,82 @@
+{
+    "fields": {
+        "address": "Address",
+        "addressStreet": "Street and number",
+        "addressCity": "City",
+        "addressState": "Address State",
+        "addressCountry": "Address Country",
+        "addressPostalCode": "Postal Code",
+        "addressMap": "Address Map",
+        "numberOfVolunteers": "Number of volunteers",
+        "trainingCenter": "Training center",
+        "healthCenter": "Health center",
+        "warehouse": "Warehouse",
+        "emergencyOperatingCentre": "Emergency Operating Centre (EOC)",
+        "vehicles": "Vehicles",
+        "contacts": "Contacts",
+        "program": "Programs and Projects",
+        "descriptionEmergencyCenter": "Description Emergency Center",
+        "centers": "Centers",
+        "stocks": "Stocks",
+        "totalNumberOfStaff": "Number of staff",
+        "warehouses": "Serviced by",
+        "cWarehouses": "Warehouses hosted",
+        "communes": "Communes",
+        "droughts": "Droughts",
+        "cercleses": "Cercles",
+        "region": "Region",
+        "epidemics": "Epidemics",
+        "floods": "Floods",
+        "assignedUser": "Branch Manager",
+        "branchPhoneNumber": "Branch Phone Number",
+        "needsAssessments": "Needs Assessments",
+        "brigadeUrgences": "Brigades d&#039;Urgence"
+    },
+    "links": {
+        "meetings": "Meetings",
+        "calls": "Calls",
+        "tasks": "Tasks",
+        "contacts": "Contacts",
+        "program": "Programs and Projects",
+        "centers": "Centers",
+        "stocks": "Stocks",
+        "cWarehouses": "Warehouses hosted",
+        "warehouses": "Serviced by",
+        "communes": "Communes",
+        "droughts": "Droughts",
+        "cercleses": "Cercles",
+        "region": "Region",
+        "epidemics": "Epidemics",
+        "floods": "Floods",
+        "needsAssessments": "Needs Assessments",
+        "brigadeUrgences": "Brigades d&#039;Urgence"
+    },
+    "labels": {
+        "Create CBranch": "Create Branch"
+    },
+    "options": {
+        "branchTeams": {
+            "Branch response": "Branch response",
+            "Community Based Health First Aid (CBHFA)": "Community Based Health First Aid (CBHFA)",
+            "Community Based Surveillance (CBS)": "Community Based Surveillance (CBS)",
+            "Cash & Voucher Assistance": "Cash & Voucher Assistance (CVA)",
+            "First aid": "First aid",
+            "National disaster preparedness team": "National disaster preparedness team",
+            "Shelter": "Shelter"
+        }
+    },
+    "tooltips": {
+        "users": "The staff assigned to this branch.",
+        "assignedUser": "The manager of the branch. Needs to be a user in the system. Mandatory field.",
+        "name": "Name of the branch. Mandatory field.",
+        "region": "Region where the branch is located.",
+        "addressStreet": "Street and street number where the branch is located.",
+        "addressCity": "City where the branch is located.",
+        "addressPostalCode": "Postal code of the branch.",
+        "branchPhoneNumber": "Phone number of the branch. Mandatory field.",
+        "address": "Address of the branch. ",
+        "addressMap": "A map showing the location of the branch.",
+        "totalNumberOfStaff": "The number of Mali Red Cross staff in the branch.",
+        "numberOfVolunteers": "The number of Mali Red Cross volunteers in the branch."
+    }
+}

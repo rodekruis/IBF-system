@@ -1,0 +1,18 @@
+[
+    "name",
+    "floodName",
+    "createdBy",
+    "regions",
+    "cercles",
+    "communes",
+    "branches",
+    "numberOfAffectedBuildings",
+    "affectedInfrastructures",
+    "numberOfDeaths",
+    "numberOfPeopleInjured",
+    "numberOfDisplacedPeople",
+    "numberOfPeopleAffectedOther",
+    "startDate",
+    "endDate",
+    "source"
+]

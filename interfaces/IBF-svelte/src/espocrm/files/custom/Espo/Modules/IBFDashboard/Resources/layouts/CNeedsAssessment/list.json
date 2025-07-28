@@ -1,0 +1,23 @@
+[
+    {
+        "name": "nameNeedsAssessment",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "date"
+    },
+    {
+        "name": "createdAt"
+    },
+    {
+        "name": "createdBy"
+    },
+    {
+        "name": "branch"
+    },
+    {
+        "name": "regions",
+        "notSortable": true
+    }
+]

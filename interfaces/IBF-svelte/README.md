@@ -335,19 +335,21 @@ VITE_AZURE_CLIENT_ID=staging-client-id
 
 ### Environment Variables
 
+**Note**: Since version 1.x, most URL configurations are managed through the EspoCRM admin interface rather than environment variables. The dashboard automatically receives configuration via URL parameters when accessed through EspoCRM.
+
 ```bash
 # Data Source Configuration
 VITE_USE_IBF_API=true                    # Enable IBF API integration
 VITE_USE_MOCK_DATA=false                 # Enable mock data fallback
-VITE_API_URL=https://ibf-test.510.global/api  # IBF API base URL
-VITE_GEOSERVER_URL=https://ibf.510.global/geoserver/ibf-system/wms
+
+# URLs are now configured in EspoCRM admin settings:
+# - IBF API URL: Set in EspoCRM admin > IBF Settings > IBF Backend API URL
+# - Geoserver URL: Set in EspoCRM admin > IBF Settings > IBF Geoserver URL
+# - EspoCRM API URL: Set in EspoCRM admin > IBF Settings > EspoCRM API URL
 
 # IBF API Authentication
 VITE_IBF_API_EMAIL=your-email@domain.com # IBF API user email
 VITE_IBF_API_PASSWORD=your-secure-password # IBF API user password
-
-# EspoCRM Integration
-VITE_ESPOCRM_API_URL=https://your-crm.com/api/v1  # EspoCRM API endpoint
 VITE_DISABLE_AUTHENTICATION=false       # Disable auth for development
 
 # Development Settings
@@ -638,7 +640,7 @@ const tokenStorage = {
 
 ## 🔌 EspoCRM Integration
 
-The dashboard is specifically designed for seamless integration with EspoCRM through a comprehensive extension.
+The dashboard is specifically designed for seamless integration with EspoCRM through a comprehensive extension with **automatic EspoCRM URL detection**.
 
 ### Integration Architecture
 
@@ -651,7 +653,8 @@ EspoCRM Extension
 ├── Client-Side JavaScript
 │   ├── Full-page Dashboard View (ibfdashboard.js)
 │   ├── Dashlet Widget (ibf-dashboard.js)
-│   └── User Token Retrieval
+│   ├── User Token Retrieval
+│   └── Parent URL Detection & Passing
 ├── IBFUser Entity
 │   ├── IBF Credentials Management
 │   ├── Country/Disaster Permissions
@@ -661,6 +664,52 @@ EspoCRM Extension
     └── Admin Configuration
 ```
 
+### 🎯 Automatic URL Detection
+
+**New Feature**: The IBF Svelte app now automatically detects the parent EspoCRM instance URL when embedded in an iframe, eliminating the need for manual API URL configuration.
+
+**The Consistent Approach - Priority Hierarchy:**
+
+The system uses a **4-level priority hierarchy** to determine the correct EspoCRM API URL:
+
+```javascript
+// PRIORITY 1: URL Parameters (Primary Method - Most Reliable)
+// Passed by EspoCRM extension - recommended approach
+const parentUrl = encodeURIComponent(window.location.origin);
+const iframeUrl = `${dashboardUrl}?parentUrl=${parentUrl}&espoToken=${token}`;
+
+// PRIORITY 2: Browser Detection (Fallback Method - For Legacy)
+// Only attempted when in iframe and no URL parameter provided
+// Uses window.parent.location or document.referrer
+
+// PRIORITY 3: Auto-Conversion to API URL
+// https://ibf-pivot-crm-dev.510.global → https://ibf-pivot-crm-dev.510.global/api/v1
+
+// PRIORITY 4: Configuration Fallback
+// Uses VITE_ESPOCRM_API_URL when all detection methods fail
+```
+
+**Detection Methods (in priority order):**
+1. **🎯 URL Parameters** (`parentUrl`, `espoCrmUrl`, `baseUrl`) - **Most Reliable**
+   - Explicitly passed by EspoCRM extension
+   - Works across all browsers and CORS policies
+   - **Recommended primary approach**
+
+2. **🔍 Browser Detection** - **Fallback Only**
+   - `window.parent.location` (often blocked by CORS)
+   - `document.referrer` (less reliable but cross-origin safe)
+   - Only attempted when no URL parameter provided
+
+3. **⚙️ Auto-Conversion** - Detected URLs converted to API endpoints
+
+4. **🔧 Configuration** - Fallback to `VITE_ESPOCRM_API_URL`
+**Benefits:**
+- ✅ **🎯 Primary Method (URL Parameters)**: Most reliable - works across all browsers and CORS policies
+- ✅ **🔍 Graceful Fallback (Browser Detection)**: Handles legacy scenarios where parameters weren't passed  
+- ✅ **🌐 Multi-Instance Support**: Same app deployment works across different EspoCRM instances
+- ✅ **⚡ Zero Configuration**: No manual API URL setup needed per instance
+- ✅ **🛡️ Cross-Origin Safe**: Primary method works even with strict security policies
+
 ### Key Integration Features
 
 **1. Full-Page Dashboard**
@@ -669,13 +718,14 @@ EspoCRM Extension
 - Responsive design within EspoCRM UI
 - Fullscreen mode support
 
-**2. Authentication Flow**
+**2. Smart Authentication Flow**
 ```javascript
-// EspoCRM passes authentication via URL
-const dashboardUrl = `${baseUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&espoAuth=true`;
+// EspoCRM passes authentication AND parent URL
+const dashboardUrl = `${baseUrl}?espoToken=${token}&espoUserId=${userId}&parentUrl=${parentUrl}&espoAuth=true`;
 
-// Dashboard validates with EspoCRM API
-fetch(`${espoCrmUrl}/api/v1/IbfAuth/action/validateToken?token=${token}&userId=${userId}`)
+// Dashboard auto-detects API URL and validates
+const detectedApiUrl = getEspoCrmApiUrl(); // Auto-detection magic happens here
+fetch(`${detectedApiUrl}/IbfAuth/action/validateToken?token=${token}&userId=${userId}`)
 ```
 
 **3. User Management**
@@ -1004,9 +1054,8 @@ window.addEventListener('message', (event) => {
 Create `.env.local` for local development:
 
 ```bash
-# API Configuration
-VITE_API_URL=http://localhost:3000/api
-VITE_GEOSERVER_URL=http://localhost:8080/geoserver
+# Development URLs (production URLs are configured in EspoCRM admin settings)
+VITE_API_URL=http://localhost:3000/api    # Local IBF API for development
 
 # App Configuration
 VITE_APP_TITLE=IBF Dashboard
@@ -1015,6 +1064,8 @@ VITE_DEBUG=true
 # Security
 VITE_EMBED_ALLOWED_ORIGINS=https://your-espocrm.com,https://other-domain.com
 ```
+
+**Note**: In development mode, Geoserver requests are proxied to avoid CORS issues. Production Geoserver URL is configured through EspoCRM admin settings.
 
 ### Build Configuration
 

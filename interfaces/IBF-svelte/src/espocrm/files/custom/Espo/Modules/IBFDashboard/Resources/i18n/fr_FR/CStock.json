@@ -1,0 +1,45 @@
+{
+    "labels": {
+        "Create CStock": "Créer un Stock"
+    },
+    "fields": {
+        "activities": "Activités",
+        "amount": "Quantité à la réception",
+        "branch": "Branche",
+        "category": "Categorie",
+        "currentQuantity": "Quantité actuelle",
+        "currentQuantityUpdatedAt": "Quantité Mise à jour le",
+        "item": "Article",
+        "program": "Programme",
+        "warehouse": "Entrepôt",
+        "receivedAt": "Reçu le"
+    },
+    "links": {
+        "activities": "Activités",
+        "branch": "Branche",
+        "calls": "Appels",
+        "item": "Objet",
+        "program": "Programme",
+        "warehouse": "Entrepôt"
+    },
+    "options": {
+        "category": {
+            "wash": "WASH",
+            "shelter": "Shelter",
+            "food": "Alimentation",
+            "nonfood": "Produits non alimentaires"
+        }
+    },
+    "tooltips": {
+        "amount": "Quantité initiale de l'article reçu. Champ obligatoire.",
+        "branch": "La succursale qui utilise le stock. Champ obligatoire.",
+        "createdAt": "La date et l'heure de la création de cette entrée en stock.",
+        "currentQuantity": "La quantité actuelle de l'article.",
+        "currentQuantityUpdatedAt": "Dernière mise à jour de la quantité de l'article.",
+        "item": "L'article enregistré dans le stock. A sélectionner dans la base de données des articles. Champ obligatoire.",
+        "modifiedAt": "Date et heure de la dernière modification de l'entrée en stock.",
+        "program": "Le programme qui a financé l'action. Champ obligatoire.",
+        "receivedAt": "Date de réception des articles. Champ obligatoire.",
+        "warehouse": "L'entrepôt où le stock est stocké. Champ obligatoire."
+    }
+}

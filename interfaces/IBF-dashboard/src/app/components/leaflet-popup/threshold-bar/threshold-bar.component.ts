@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-threshold-bar',
@@ -6,7 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./threshold-bar.component.scss'],
   standalone: false,
 })
-export class ThresholdBarComponent implements OnInit {
+export class ThresholdBarComponent implements OnInit, OnChanges {
   @Input() public backgroundColor: string;
   @Input() public textColor: string;
   @Input() public barWidth: number;
@@ -23,6 +23,15 @@ export class ThresholdBarComponent implements OnInit {
   public valueStyle: string;
 
   ngOnInit(): void {
+    this.updateStyles();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    this.updateStyles();
+  }
+
+  private updateStyles(): void {
     if (
       !this.backgroundColor ||
       !this.textColor ||

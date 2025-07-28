@@ -1,0 +1,6 @@
+{
+    "controller": "ibf-dashboard:controllers/contact",
+    "recordViews": {
+        "list": "ibf-dashboard:views/list/contact-map-view"
+    }
+}

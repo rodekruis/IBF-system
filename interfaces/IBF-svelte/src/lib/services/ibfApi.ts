@@ -1,10 +1,15 @@
 // IBF API Service - Real API integration for disaster forecasting data
 import { setError, setLoading } from '../stores/app';
 import config from '../config';
-import { authService } from './authService';
 
 // IBF API Base URL - Use proxy in development to avoid CORS issues
 const IBF_API_BASE_URL = import.meta.env.DEV ? '/api/ibf' : 'https://ibf-test.510.global/api';
+
+console.log('🔧 IBF API Configuration:', {
+  'import.meta.env.DEV': import.meta.env.DEV,
+  'import.meta.env.MODE': import.meta.env.MODE,
+  'IBF_API_BASE_URL': IBF_API_BASE_URL
+});
 
 // Type definitions for IBF API responses
 export interface IBFCountry {
@@ -84,6 +89,8 @@ interface IBFApiResponse<T> {
 
 class IBFApiService {
   private cache = new Map<string, { data: any; timestamp: number; ttl: number }>();
+  private ibfToken: string | null = null;
+  private tokenExpiry: number = 0;
   private currentToken: string | null = null;
 
   constructor() {
@@ -92,34 +99,53 @@ class IBFApiService {
   }
 
   /**
+   * Set IBF API token (from EspoCRM integration or user login)
+   */
+  setToken(token: string, expiryHours: number = 24): void {
+    this.ibfToken = token;
+    this.tokenExpiry = Date.now() + (expiryHours * 60 * 60 * 1000);
+    console.log('🔑 IBF API token set, expires in', expiryHours, 'hours');
+  }
+
+  /**
    * Set a manual token for testing (bypasses login)
    */
   setManualToken(token: string): void {
-    this.currentToken = token;
+    this.setToken(token, 24);
     console.log('🔑 Manual token set for testing');
   }
 
   /**
+   * Clear the stored token
+   */
+  clearToken(): void {
+    this.ibfToken = null;
+    this.tokenExpiry = 0;
+    console.log('🔓 IBF API token cleared');
+  }
+
+  /**
    * Get or refresh IBF authentication token
+   * Token should be provided by either EspoCRM integration or user login
    */
   private async getIbfToken(): Promise<string | null> {
-    // Get token from the main authentication service
-    const token = authService.getAuthToken();
-    
-    if (token) {
-      console.log('✅ Using token from auth service');
-      return token;
+    // Check if we have a valid token
+    if (this.ibfToken && Date.now() < this.tokenExpiry) {
+      return this.ibfToken;
     }
+
+    // Token should be set externally via setToken() or setManualToken()
+    // No automatic login should happen here
+    console.log('❌ No valid IBF API token available');
+    console.log('💡 Token should be provided via EspoCRM integration or user login form');
     
-    console.log('❌ No token available from auth service');
     return null;
   }
 
   private async request<T>(
     endpoint: string,
     options: RequestInit = {},
-    cacheTTL: number = 10 * 60 * 1000, // 10 minutes default cache
-    showGlobalLoading: boolean = true // Whether to show global loading spinner
+    cacheTTL: number = 10 * 60 * 1000 // 10 minutes default cache
   ): Promise<IBFApiResponse<T>> {
     const url = `${IBF_API_BASE_URL}${endpoint}`;
     const cacheKey = `${url}:${JSON.stringify(options)}`;
@@ -141,9 +167,7 @@ class IBFApiService {
     } : {};
 
     try {
-      if (showGlobalLoading) {
-        setLoading(true);
-      }
+      setLoading(true);
       
       // Get IBF authentication token
       const token = await this.getIbfToken();
@@ -191,7 +215,8 @@ class IBFApiService {
         // If we get 401/403, try to refresh the token
         if (response.status === 401 || response.status === 403) {
           console.log('🔄 Authentication failed, trying to refresh token...');
-          this.currentToken = null;
+          this.ibfToken = null;
+          this.tokenExpiry = 0;
           const newToken = await this.getIbfToken();
           
           if (newToken) {
@@ -246,7 +271,9 @@ class IBFApiService {
         const preview = lines.slice(0, 100).join('\n');
         const truncated = lines.length > 100;
         
-      
+        console.log(`📋 Response Preview (${truncated ? `first 100 of ${lines.length}` : lines.length} lines):`);
+        console.log(preview);
+        
         if (truncated) {
           console.log(`... [${lines.length - 100} more lines truncated]`);
         }
@@ -268,9 +295,7 @@ class IBFApiService {
       setError(message);
       return { error: message, status: 0 };
     } finally {
-      if (showGlobalLoading) {
-        setLoading(false);
-      }
+      setLoading(false);
     }
   }
 
@@ -469,7 +494,162 @@ class IBFApiService {
     );
   }
 
+  // ============= Layers & Map Data =============
+
+  /**
+   * Get available layers for a country and disaster type
+   */
+  async getLayers(
+    countryCodeISO3: string,
+    disasterType: string
+  ): Promise<IBFApiResponse<any[]>> {
+    return this.request<any[]>(
+      `/metadata/layers/${countryCodeISO3}/${disasterType}`,
+      {},
+      15 * 60 * 1000 // Cache for 15 minutes
+    );
+  }
+
+  /**
+   * Get point data for various layer types
+   */
+  async getPointData(
+    countryCodeISO3: string,
+    pointDataCategory: string,
+    disasterType?: string
+  ): Promise<IBFApiResponse<any>> {
+    return this.request<any>(
+      `/point-data/${pointDataCategory}/${countryCodeISO3}`,
+      {},
+      10 * 60 * 1000 // Cache for 10 minutes
+    );
+  }
+
+  /**
+   * Get waterpoints data for a country
+   */
+  async getWaterpoints(countryCodeISO3: string): Promise<IBFApiResponse<any>> {
+    return this.request<any>(
+      `/point-data/waterpoints/${countryCodeISO3}`,
+      {},
+      20 * 60 * 1000 // Cache for 20 minutes
+    );
+  }
+
+  /**
+   * Get typhoon track data
+   */
+  async getTyphoonTrack(
+    countryCodeISO3: string,
+    eventName?: string
+  ): Promise<IBFApiResponse<any>> {
+    return this.request<any>(
+      `/typhoon-track/${countryCodeISO3}`,
+      {},
+      5 * 60 * 1000 // Cache for 5 minutes
+    );
+  }
+
   // ============= Authentication =============
+
+  /**
+   * Login to IBF API with username/password (for direct user login)
+   */
+  async login(email: string, password: string): Promise<IBFApiResponse<{ token: string; user: any }>> {
+    if (!email || !password) {
+      return {
+        error: 'Email and password are required',
+        status: 400
+      };
+    }
+
+    const credentials = { email, password };
+    const loginUrl = `${IBF_API_BASE_URL}/user/login`;
+
+    console.group('🔐 IBF API User Login - Debug');
+    console.log(`📍 IBF_API_BASE_URL: ${IBF_API_BASE_URL}`);
+    console.log(`📍 Constructed URL: ${loginUrl}`);
+    console.log(`📧 Email: ${email}`);
+    console.log(`🌍 Environment - DEV: ${import.meta.env.DEV}`);
+    console.log(`🌍 Environment - MODE: ${import.meta.env.MODE}`);
+    console.log(`🌍 Window hostname: ${window.location.hostname}`);
+    console.groupEnd();
+
+    try {
+      const response = await fetch(loginUrl, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json; charset=utf-8',
+          'User-Agent': 'VRC'
+        },
+        body: JSON.stringify(credentials)
+      });
+
+      let data;
+      try {
+        data = await response.json();
+      } catch (e) {
+        console.log('❌ Failed to parse JSON response');
+        return {
+          error: 'Invalid response format from login API',
+          status: response.status
+        };
+      }
+
+      if (!response.ok) {
+        console.group('❌ IBF API Login Error');
+        console.log(`📊 Status: ${response.status} ${response.statusText}`);
+        console.log(`📄 Error Response:`, data);
+        console.groupEnd();
+        return {
+          error: data.message || `Login Error: ${response.status}`,
+          status: response.status
+        };
+      }
+
+      // Extract token from response
+      let token: string | null = null;
+      
+      if (data.token && typeof data.token === 'string') {
+        token = data.token;
+      } else if (data.user && data.user.token && typeof data.user.token === 'string') {
+        token = data.user.token;
+      } else if (data.data && data.data.token && typeof data.data.token === 'string') {
+        token = data.data.token;
+      }
+
+      if (token) {
+        // Store the token for API calls
+        this.setToken(token, 24); // Set token with 24-hour expiry
+        console.log('✅ IBF API login successful, token stored');
+      } else {
+        console.log('❌ No token found in login response');
+      }
+
+      console.group('✅ IBF API Login Success');
+      console.log(`👤 User:`, { 
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        userRole: data.userRole
+      });
+      console.groupEnd();
+
+      return { 
+        data: { ...data, token }, 
+        status: response.status 
+      };
+
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Login network error';
+      console.error('❌ IBF API login failed:', error);
+      return {
+        error: message,
+        status: 0
+      };
+    }
+  }
 
   /**
    * Get user profile (requires authentication)
@@ -714,146 +894,6 @@ class IBFApiService {
       leadTimeValue: setting.leadTimeValue,
       leadTimeUnit: setting.leadTimeUnit
     }));
-  }
-
-  // ============= Layer Data Methods =============
-
-  /**
-   * Get layer metadata for a specific country and disaster type
-   */
-  async getLayers(
-    countryCodeISO3: string,
-    disasterType: string
-  ): Promise<IBFApiResponse<any[]>> {
-    try {
-      console.log(`🗂️ Getting layers for ${countryCodeISO3} - ${disasterType}`);
-      return await this.request<any[]>(`/metadata/layers/${countryCodeISO3}/${disasterType}`);
-    } catch (error) {
-      console.error('❌ Error fetching layers:', error);
-      return { error: error.message, status: 500 };
-    }
-  }
-
-  /**
-   * Get point data for a specific layer
-   */
-  async getPointData(
-    countryCodeISO3: string,
-    layerName: string,
-    disasterType: string
-  ): Promise<IBFApiResponse<GeoJSONFeatureCollection>> {
-    try {
-      console.log(`📍 Getting point data for ${layerName} in ${countryCodeISO3}`);
-      const endpoint = `/point-data/${layerName}/${countryCodeISO3}?disasterType=${disasterType}`;
-      return await this.request<GeoJSONFeatureCollection>(endpoint);
-    } catch (error) {
-      console.error('❌ Error fetching point data:', error);
-      return { error: error.message, status: 500 };
-    }
-  }
-
-  /**
-   * Get aggregated data (including population) for a specific admin area
-   */
-  async getAggregatedData(
-    countryCodeISO3: string,
-    disasterType: string,
-    placeCode: string,
-    adminLevel: number
-  ): Promise<IBFApiResponse<any>> {
-    try {
-      console.log(`📊 Getting aggregated data for area ${placeCode} in ${countryCodeISO3}`);
-      
-      // Try multiple endpoints to get population data
-      const endpoints = [
-        `/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel}?placeCode=${placeCode}`,
-        `/admin-areas/${countryCodeISO3}/${adminLevel}?placeCode=${placeCode}`,
-        `/indicators/${countryCodeISO3}/${disasterType}/${adminLevel}?placeCode=${placeCode}`
-      ];
-      
-      for (const endpoint of endpoints) {
-        try {
-          const result = await this.request<any>(endpoint, {}, 10 * 60 * 1000, false); // Disable global loading for hover requests
-          if (result.data && !result.error) {
-            console.log(`✅ Got aggregated data from ${endpoint}`);
-            return result;
-          }
-        } catch (err) {
-          console.log(`⚠️ Endpoint ${endpoint} failed:`, err.message);
-        }
-      }
-      
-      console.log('❌ No aggregated data available from any endpoint');
-      return { error: 'No aggregated data available', status: 404 };
-      
-    } catch (error) {
-      console.error('❌ Error fetching aggregated data:', error);
-      return { error: error.message, status: 500 };
-    }
-  }
-
-  /**
-   * Get waterpoints data for a specific country
-   */
-  async getWaterpoints(
-    countryCodeISO3: string
-  ): Promise<IBFApiResponse<GeoJSONFeatureCollection>> {
-    try {
-      console.log(`💧 Getting waterpoints for ${countryCodeISO3}`);
-      return await this.request<GeoJSONFeatureCollection>(`/waterpoints/${countryCodeISO3}`);
-    } catch (error) {
-      console.error('❌ Error fetching waterpoints:', error);
-      return { error: error.message, status: 500 };
-    }
-  }
-
-  /**
-   * Get typhoon track data for a specific country and event
-   */
-  async getTyphoonTrack(
-    countryCodeISO3: string,
-    eventName?: string
-  ): Promise<IBFApiResponse<GeoJSONFeatureCollection>> {
-    try {
-      console.log(`🌀 Getting typhoon track for ${countryCodeISO3}${eventName ? ` - ${eventName}` : ''}`);
-      const endpoint = `/typhoon-track/${countryCodeISO3}${eventName ? `?eventName=${eventName}` : ''}`;
-      return await this.request<GeoJSONFeatureCollection>(endpoint);
-    } catch (error) {
-      console.error('❌ Error fetching typhoon track:', error);
-      return { error: error.message, status: 500 };
-    }
-  }
-
-  /**
-   * Get indicators data for a specific country and disaster type
-   */
-  async getIndicators(
-    countryCodeISO3: string,
-    disasterType: string
-  ): Promise<IBFApiResponse<any[]>> {
-    try {
-      console.log(`📊 Getting indicators for ${countryCodeISO3} - ${disasterType}`);
-      return await this.request<any[]>(`/metadata/indicators/${countryCodeISO3}/${disasterType}`);
-    } catch (error) {
-      console.error('❌ Error fetching indicators:', error);
-      return { error: error.message, status: 500 };
-    }
-  }
-
-  /**
-   * Get last upload date for a specific country and disaster type
-   */
-  async getLastUploadDate(
-    countryCodeISO3: string,
-    disasterType: string
-  ): Promise<IBFApiResponse<{ timestamp: string; cutoffMoment: string }>> {
-    try {
-      console.log(`📅 Getting last upload date for ${countryCodeISO3} - ${disasterType}`);
-      return await this.request<{ timestamp: string; cutoffMoment: string }>(`/event/last-upload-date/${countryCodeISO3}/${disasterType}`);
-    } catch (error) {
-      console.error('❌ Error fetching last upload date:', error);
-      return { error: error.message, status: 500 };
-    }
   }
 }
 

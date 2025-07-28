@@ -7,6 +7,8 @@ import { User } from 'src/app/models/user/user.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 import { ApiService } from 'src/app/services/api.service';
 import { JwtService } from 'src/app/services/jwt.service';
+import { PlatformDetectionService } from 'src/app/services/platform-detection.service';
+import { environment } from 'src/environments/environment';
 
 const HTTP_STATUS_MESSAGE_MAP = { 401: 'Email and/or password unknown' };
 @Injectable({ providedIn: 'root' })
@@ -23,6 +25,7 @@ export class AuthService implements OnDestroy {
     private jwtService: JwtService,
     private router: Router,
     private toastController: ToastController,
+    private platformDetectionService: PlatformDetectionService,
   ) {
     this.checkLoggedInState();
 
@@ -40,12 +43,55 @@ export class AuthService implements OnDestroy {
   };
 
   checkLoggedInState() {
-    const user = this.getUserFromToken();
+    // In embedded mode, provide a default user
+    if (this.platformDetectionService.isEmbeddedMode()) {
+      const defaultUser: User = {
+        ...DEFAULT_USER,
+        countries: ['PHL', 'UGA', 'KEN'], // Add some default countries for embedded mode
+        disasterTypes: ['typhoon', 'floods', 'drought'], // Add default disaster types
+        userRole: UserRole.Viewer, // Set as viewer for embedded mode
+      };
+      this.authSubject.next(defaultUser);
+      return;
+    }
 
+    // Check if we have an environment token
+    if (environment.apiToken) {
+      try {
+        // If environment token exists, save it to JWT service and auto-authenticate
+        this.jwtService.saveToken(environment.apiToken);
+        const user = this.getUserFromToken();
+        if (user) {
+          this.authSubject.next(user);
+          this.loggedIn = true;
+          this.userRole = user.userRole;
+          
+          // Auto-navigate to dashboard if currently on login page
+          if (this.router.url === '/login') {
+            this.router.navigate(['/']);
+          }
+          return;
+        }
+      } catch (error) {
+        console.warn('Environment token is invalid:', error);
+      }
+    }
+    
+    const user = this.getUserFromToken();
     this.authSubject.next(user);
   }
 
   public isLoggedIn(): boolean {
+    // Bypass authentication in embedded mode
+    if (this.platformDetectionService.isEmbeddedMode()) {
+      return true;
+    }
+
+    // Check if environment token is available
+    if (environment.apiToken) {
+      return true;
+    }
+    
     this.loggedIn = this.getUserFromToken() !== null;
 
     return this.loggedIn;

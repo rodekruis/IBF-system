@@ -62,6 +62,12 @@
     currentUserName = currentUserValue?.claims?.name || currentUserValue?.userDetails || 'User';
   }
   
+  // Check if user is logged in through EspoCRM
+  function isEspoCRMUser(): boolean {
+    const currentUserValue = get(currentUser);
+    return currentUserValue?.isEspoCRMUser === true;
+  }
+  
   onMount(async () => {
     if (browser) {
       await initializeApp();
@@ -97,13 +103,14 @@
         console.log('✅ Authentication successful, user:', user.userDetails);
         // Update stores with authenticated user
         currentUser.set(user);
+        updateLocalVariables();
+        
+        // Only load data if authentication is successful
+        await loadInitialData();
       } else {
-        console.log('❌ Authentication failed or not found');
+        console.log('❌ Authentication failed or not found - skipping data loading');
+        console.log('🔐 User needs to authenticate before loading IBF data');
       }
-      updateLocalVariables();
-
-      // Load initial data after authentication
-      await loadInitialData();
     } catch (error) {
       console.error('Error initializing app:', error);
     } finally {
@@ -481,11 +488,14 @@
         <div class="red-cross-logo">
           <div class="red-cross-icon">+</div>
         </div>
-        <div class="user-section">
-          <span class="user-label">Logged in as:</span>
-          <span class="user-name">{currentUserName}</span>
-          <button class="logout-btn" on:click={handleLogout}>Log out</button>
-        </div>
+        <!-- Only show user login section if not logged in through EspoCRM -->
+        {#if !isEspoCRMUser()}
+          <div class="user-section">
+            <span class="user-label">Logged in as:</span>
+            <span class="user-name">{currentUserName}</span>
+            <button class="logout-btn" on:click={handleLogout}>Log out</button>
+          </div>
+        {/if}
       </div>
     </header>
 

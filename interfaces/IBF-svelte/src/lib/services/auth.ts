@@ -1,5 +1,6 @@
 // Authentication service for IBF dashboard - supports both Azure AD and IBF API
 import { writable, get } from 'svelte/store';
+import { ibfApiService } from './ibfApi';
 
 // Authentication state
 export const isAuthenticated = writable(false);
@@ -312,6 +313,12 @@ class AuthService {
         country: payload.countries?.[0]
       };
 
+      // Set the token in IBF API service for making API calls
+      const expiryHours = payload.exp 
+        ? Math.max(1, Math.floor((payload.exp * 1000 - Date.now()) / (1000 * 60 * 60)))
+        : 24;
+      ibfApiService.setToken(token, expiryHours);
+
       return { valid: true, user };
     } catch (error) {
       console.error('IBF token validation failed:', error);
@@ -428,49 +435,36 @@ class AuthService {
 
       console.log('🔐 Attempting login to IBF API...');
 
-      // Get API URL from environment
-      const apiUrl = import.meta.env.VITE_API_URL || 'https://ibf-test.510.global/api';
-      console.log('🌐 Using API URL:', apiUrl);
-      
-      const response = await fetch(`${apiUrl}/user/login`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({ email, password })
-      });
+      // Use the IBF API service for authentication
+      const loginResponse = await ibfApiService.login(email, password);
 
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ message: 'Login failed' }));
-        throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
+      if (loginResponse.error || !loginResponse.data?.token) {
+        throw new Error(loginResponse.error || 'Login failed - no token received');
       }
 
-      const data = await response.json();
-
-      if (!data.user || !data.user.token) {
-        throw new Error('Invalid response from authentication server');
-      }
+      const data: any = loginResponse.data;
+      const userData = data.user || data; // Handle different response structures
 
       // Map IBF user to our User interface
       const user: User = {
-        id: data.user.email,
-        email: data.user.email,
-        name: `${data.user.firstName} ${data.user.middleName || ''} ${data.user.lastName}`.trim(),
-        roles: [data.user.userRole],
-        permissions: this.mapIBFRoleToPermissions(data.user.userRole),
-        country: data.user.countries?.[0] // Use first country if available
+        id: userData.email || data.email,
+        email: userData.email || data.email,
+        name: `${userData.firstName || data.firstName} ${userData.middleName || data.middleName || ''} ${userData.lastName || data.lastName}`.trim(),
+        roles: [userData.userRole || data.userRole || 'user'],
+        permissions: this.mapIBFRoleToPermissions(userData.userRole || data.userRole || 'user'),
+        country: userData.countries?.[0] || data.countries?.[0] // Use first country if available
       };
 
       // Store authentication data
-      authToken.set(data.user.token);
+      authToken.set(data.token);
       currentUser.set(user);
       isAuthenticated.set(true);
       authError.set(null);
       
       // Store token securely
-      this.storeTokenSecurely(data.user.token);
+      this.storeTokenSecurely(data.token);
 
+      // The IBF API service already has the token from the login call
       console.log('✅ IBF login successful');
       return true;
 
@@ -519,6 +513,9 @@ class AuthService {
     currentUser.set(null);
     isAuthenticated.set(false);
     authError.set(null);
+    
+    // Clear IBF API token
+    ibfApiService.clearToken();
     
     // Notify parent window of logout
     if (window.parent !== window) {

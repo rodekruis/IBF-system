@@ -1,0 +1,3 @@
+{
+    "beforeSaveCustomScript": "totalBudgetRemaining=totalBudget-totalBudgetSpent;"
+}

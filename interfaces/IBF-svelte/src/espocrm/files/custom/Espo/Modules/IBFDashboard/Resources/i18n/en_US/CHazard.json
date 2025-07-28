@@ -1,0 +1,15 @@
+{
+    "fields": {
+        "droughts": "Droughts",
+        "epidemies": "Épidémies",
+        "floods": "Floods"
+    },
+    "links": {
+        "droughts": "Droughts",
+        "epidemies": "Épidémies",
+        "floods": "Floods"
+    },
+    "labels": {
+        "Create CHazard": "Create Hazards"
+    }
+}

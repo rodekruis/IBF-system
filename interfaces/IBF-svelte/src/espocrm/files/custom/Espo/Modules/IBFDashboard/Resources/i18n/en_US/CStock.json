@@ -1,0 +1,57 @@
+{
+    "fields": {
+        "category": "Category",
+        "amount": "Quantity upon receipt",
+        "program": "Program",
+        "warehouse": "Warehouse",
+        "branch": "Branch",
+        "receivedAt": "Reçu le",
+        "removedBy": "Removed By",
+        "quantityEnd": "Quantity upon removal",
+        "status": "Status",
+        "currentQuantityUpdatedAt": "Quantity Updated on",
+        "currentQuantity": "Current Quantity",
+        "item": "Item",
+        "activities": "Activities"
+    },
+    "links": {
+        "meetings": "Meetings",
+        "calls": "Calls",
+        "tasks": "Tasks",
+        "program": "Program",
+        "warehouse": "Warehouse",
+        "branch": "Branch",
+        "item": "Item",
+        "activities": "Activities"
+    },
+    "labels": {
+        "Create CStock": "Create Stock"
+    },
+    "options": {
+        "category": {
+            "wash": "WASH",
+            "shelter": "Shelter",
+            "food": "Food",
+            "nonfood": "Non-food"
+        },
+        "status": {
+            "": "",
+            "inStock": "In Stock",
+            "almostDepleted": "Almost Depleted",
+            "outOfStock": "Out of stock",
+            "removed": "Removed"
+        }
+    },
+    "tooltips": {
+        "amount": "The initial quantity of the item that was received. Mandatory field.",
+        "receivedAt": "Date de réception des articles. Champ obligatoire.",
+        "currentQuantity": "The current quantity of the item.",
+        "currentQuantityUpdatedAt": "The last time the item quantity was updated.",
+        "item": "The item registered in the stock. Select from the items database. Mandatory field.",
+        "warehouse": "The warehouse where the stock is stored. Mandatory field.",
+        "branch": "The branch using the stock. Mandatory field.",
+        "program": "The program that funded the stock. Mandatory field.",
+        "createdAt": "The date and time this stock entry was created.",
+        "modifiedAt": "The date and time this stock entry was last modified."
+    }
+}

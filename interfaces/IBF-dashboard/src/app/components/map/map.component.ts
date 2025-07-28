@@ -59,6 +59,7 @@ import { MapLegendService } from 'src/app/services/map-legend.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { PointMarkerService } from 'src/app/services/point-marker.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import { DebugService } from 'src/app/services/debug.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
 import {
@@ -126,7 +127,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     private pointMarkerService: PointMarkerService,
     private mapLegendService: MapLegendService,
     private adminLevelService: AdminLevelService,
+    private debugService: DebugService,
   ) {
+    this.debugService.logComponentInit('MapComponent', 'Constructor called');
+    
     this.layerSubscription = this.mapService
       .getLayerSubscription()
       .subscribe(this.onLayerChange);
@@ -157,9 +161,21 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
+    this.debugService.logComponentAfterViewInit('MapComponent', { 
+      mapExists: !!this.map,
+      leafletOptions: this.leafletOptions 
+    });
+    
     if (this.map) {
       this.initLegend();
     }
+    
+    // Check map DOM state
+    setTimeout(() => {
+      this.debugService.logElementVisibility('MapComponent', '.leaflet--map');
+      this.debugService.logElementVisibility('MapComponent', '[data-testid="dashboard-map-componenet"]');
+      this.debugService.logCSSStyles('MapComponent', '.leaflet--map');
+    }, 100);
   }
 
   ngOnDestroy() {
@@ -192,6 +208,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private onCountryChange = (country: Country) => {
     this.country = country;
+    
+    // Set map view when country changes if map is ready
+    if (this.map && this.country) {
+      this.setInitialMapView();
+    }
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
@@ -408,12 +429,104 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   onMapReady(map: Map) {
+    this.debugService.logData('MapComponent', 'onMapReady called', { 
+      mapReceived: !!map,
+      mapSize: map ? map.getSize() : null 
+    });
+    
     this.map = map;
     this.map.createPane(LeafletPane.wmsPane);
     this.map.createPane(LeafletPane.adminBoundaryPane);
     this.map.createPane(LeafletPane.outline);
     this.map.createPane(LeafletPane.aggregatePane);
     this.triggerWindowResize();
+    
+    // Always ensure map has a valid center and zoom to prevent interaction errors
+    this.ensureMapViewIsSet();
+    
+    this.debugService.logData('MapComponent', 'Map panes created and window resized', {
+      mapContainer: this.map.getContainer(),
+      mapSize: this.map.getSize(),
+      countryAvailable: !!this.country
+    });
+  }
+
+  private setInitialMapView(): void {
+    if (!this.map || !this.country) {
+      return;
+    }
+
+    // Get country-specific coordinates and zoom
+    const countryCoords = this.getCountryCoordinates();
+    const countryZoom = this.getCountryDefaultZoom();
+    
+    if (countryCoords) {
+      this.map.setView([countryCoords.lat, countryCoords.lng], countryZoom);
+      this.debugService.logData('MapComponent', 'Initial map view set', {
+        country: this.country.countryCodeISO3,
+        coordinates: countryCoords,
+        zoom: countryZoom
+      });
+    }
+  }
+
+  private ensureMapViewIsSet(): void {
+    if (!this.map) {
+      return;
+    }
+
+    // Check if map already has a valid center and zoom
+    const center = this.map.getCenter();
+    const zoom = this.map.getZoom();
+    
+    if (!center || zoom === undefined || zoom === null) {
+      // Set default fallback view if no view is set
+      const defaultCenter: [number, number] = [9.0, 40.0]; // Ethiopia coordinates
+      const defaultZoom = 5;
+      this.map.setView(defaultCenter, defaultZoom);
+      this.debugService.logData('MapComponent', 'Fallback map view set', {
+        center: defaultCenter,
+        zoom: defaultZoom,
+        reason: 'Map had no valid center/zoom'
+      });
+    } else if (this.country) {
+      // If country data is available, set country-specific view
+      this.setInitialMapView();
+    }
+  }
+
+  private getCountryCoordinates(): { lat: number; lng: number } | null {
+    if (!this.country) return null;
+    
+    // Ethiopia coordinates and other country mappings
+    const countryCoords: Record<string, { lat: number; lng: number }> = {
+      'ETH': { lat: 9.1450, lng: 40.4897 },
+      'UGA': { lat: 1.3733, lng: 32.2903 },
+      'KEN': { lat: -0.0236, lng: 37.9062 },
+      'ZMB': { lat: -13.1339, lng: 27.8493 },
+      'MWI': { lat: -13.2543, lng: 34.3015 },
+      'PHL': { lat: 12.8797, lng: 121.7740 },
+      'BGD': { lat: 23.6850, lng: 90.3563 }
+    };
+
+    return countryCoords[this.country.countryCodeISO3] || null;
+  }
+
+  private getCountryDefaultZoom(): number {
+    if (!this.country) return 5;
+    
+    // Country-specific default zoom levels
+    const countryZooms: Record<string, number> = {
+      'ETH': 6,
+      'UGA': 7,
+      'KEN': 6,
+      'ZMB': 6,
+      'MWI': 7,
+      'PHL': 6,
+      'BGD': 7
+    };
+
+    return countryZooms[this.country.countryCodeISO3] || 6;
   }
 
   private createLayer(layer: IbfLayer): IbfLayer {

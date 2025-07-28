@@ -1,5 +1,11 @@
 {
     "links": {
+        "cActivitieses": {
+            "type": "hasMany",
+            "relationName": "cActivitiesUser",
+            "foreign": "users",
+            "entity": "CActivities"
+        },
         "ibfUser": {
             "type": "hasOne",
             "entity": "IBFUser",

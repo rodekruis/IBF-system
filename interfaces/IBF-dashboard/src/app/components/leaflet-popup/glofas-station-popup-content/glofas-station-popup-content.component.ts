@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { EapAlertClass, EapAlertClasses } from 'src/app/models/country.model';
 import { Station } from 'src/app/models/poi.model';
 import { LeadTime } from 'src/app/types/lead-time';
@@ -8,7 +8,7 @@ import { LeadTime } from 'src/app/types/lead-time';
   templateUrl: './glofas-station-popup-content.component.html',
   standalone: false,
 })
-export class GlofasStationPopupContentComponent implements OnInit {
+export class GlofasStationPopupContentComponent implements OnInit, OnChanges {
   @Input()
   public data: {
     station: Station;
@@ -28,6 +28,17 @@ export class GlofasStationPopupContentComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.updateContent();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    if (changes['data']) {
+      this.updateContent();
+    }
+  }
+
+  private updateContent(): void {
     if (!this.data) {
       return;
     }

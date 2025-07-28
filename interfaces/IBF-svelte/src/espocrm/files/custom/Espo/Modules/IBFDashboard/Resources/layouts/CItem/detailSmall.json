@@ -1,0 +1,33 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "itemCode"
+                },
+                {
+                    "name": "category"
+                }
+            ],
+            [
+                {
+                    "name": "description"
+                }
+            ],
+            [
+                {
+                    "name": "unitPrice"
+                },
+                {
+                    "name": "unitOfMeasure"
+                },
+                false
+            ]
+        ],
+        "style": "default",
+        "label": ""
+    }
+]

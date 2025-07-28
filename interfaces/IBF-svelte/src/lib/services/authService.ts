@@ -1,6 +1,7 @@
 // Azure Static Web Apps authentication service
 import { config, getEspoCrmApiUrl } from '../config';
 import { writable } from 'svelte/store';
+import { ibfApiService } from './ibfApi';
 
 // Authentication state stores
 export const isAuthenticated = writable(false);
@@ -94,6 +95,9 @@ export class AuthService {
             currentUser.set(this.userInfo);
             if (espoCRMUser.ibfToken) {
               authToken.set(espoCRMUser.ibfToken);
+              // Set the IBF token in the API service for actual API calls
+              ibfApiService.setToken(espoCRMUser.ibfToken, 24);
+              console.log('🔗 IBF token set in API service for EspoCRM user');
             }
             authError.set(null);
             
@@ -103,6 +107,9 @@ export class AuthService {
             this.espoCRMToken = null;
             this.ibfApiToken = null;
             this.userInfo = null;
+            
+            // Clear the IBF token from the API service
+            ibfApiService.clearToken();
             
             // Update stores
             isAuthenticated.set(false);
@@ -148,6 +155,9 @@ export class AuthService {
             
             this.userInfo = userInfo;
             this.ibfApiToken = storedToken;
+            
+            // Set the IBF token in the API service for actual API calls
+            ibfApiService.setToken(storedToken, 24);
             
             // Update stores
             isAuthenticated.set(true);
@@ -268,10 +278,13 @@ export class AuthService {
           // Store the IBF token for API calls
           if (validationData.ibfToken) {
             this.ibfApiToken = validationData.ibfToken;
+            // Set the IBF token in the API service for actual API calls
+            ibfApiService.setToken(validationData.ibfToken, 24);
             console.log('🔑 IBF API token received from EspoCRM:', {
               hasToken: !!validationData.ibfToken,
               tokenLength: validationData.ibfToken?.length || 0
             });
+            console.log('🔗 IBF token set in API service for subsequent requests');
           } else {
             console.warn('⚠️ No IBF token received in validation response');
           }
@@ -368,6 +381,9 @@ export class AuthService {
     this.espoCRMToken = null;
     this.ibfApiToken = null;
     
+    // Clear the IBF token from the API service
+    ibfApiService.clearToken();
+    
     // Clear localStorage
     localStorage.removeItem('ibf-auth-token');
     localStorage.removeItem('ibf-user-info');
@@ -443,99 +459,74 @@ export class AuthService {
       return false;
     }
     
-    // Perform IBF backend authentication
-    console.log('🔐 Attempting IBF backend authentication with corrected endpoint...');
+    // Perform IBF backend authentication using the IBF API service
+    console.log('🔐 Attempting IBF backend authentication via ibfApiService...');
     
     try {
       isLoggingIn.set(true);
       authError.set(null);
       
-      // Call IBF backend login API
-      const response = await fetch('/api/ibf/user/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: email,
-          password: password
-        })
-      });
+      // Use the IBF API service for authentication (handles correct URL construction)
+      const loginResponse = await ibfApiService.login(email, password);
 
-      if (response.ok) {
-        const authData = await response.json();
+      if (loginResponse.error || !loginResponse.data?.token) {
+        throw new Error(loginResponse.error || 'Login failed - no token received');
+      }
+
+      const authData = loginResponse.data;
+      
+      if (authData.token) {
+        console.log('✅ IBF backend authentication successful');
         
-        if (authData.user && authData.user.token) {
-          console.log('✅ IBF backend authentication successful');
+        // Store authentication data
+        this.ibfApiToken = authData.token;
+        
+        // The IBF API service already has the token from the login call
           
-          // Store authentication data
-          this.ibfApiToken = authData.user.token;
-          this.userInfo = {
-            identityProvider: 'IBF',
-            userId: authData.user.email || email, // IBF uses email as userId
-            userDetails: `${authData.user.firstName || ''} ${authData.user.lastName || ''}`.trim() || authData.user.email || email,
-            userRoles: [authData.user.userRole || 'user'],
-            claims: {
-              name: `${authData.user.firstName || ''} ${authData.user.lastName || ''}`.trim() || authData.user.email || email,
-              email: authData.user.email || email,
-              userName: authData.user.email || email,
-              firstName: authData.user.firstName || '',
-              lastName: authData.user.lastName || '',
-              userRole: authData.user.userRole || 'user',
-              whatsappNumber: authData.user.whatsappNumber || ''
-            },
-            isEspoCRMUser: false
-          };
-          
-          // Store in localStorage for persistence
-          if (this.ibfApiToken) {
-            localStorage.setItem('ibf-auth-token', this.ibfApiToken);
-            localStorage.setItem('ibf-user-info', JSON.stringify(this.userInfo));
-          }
-          
-          // Update stores
-          isAuthenticated.set(true);
-          currentUser.set(this.userInfo);
-          authToken.set(this.ibfApiToken);
-          authError.set(null);
-          isLoggingIn.set(false);
-          
-          return true;
-        } else {
-          console.error('❌ IBF backend authentication failed: Invalid response format');
-          authError.set('Invalid response from authentication server');
-          isLoggingIn.set(false);
-          return false;
+        // Handle different response structures - authData contains user properties at top level
+        this.userInfo = {
+          identityProvider: 'IBF',
+          userId: (authData as any).email || email,
+          userDetails: `${(authData as any).firstName || ''} ${(authData as any).lastName || ''}`.trim() || (authData as any).email || email,
+          userRoles: [(authData as any).userRole || 'user'],
+          claims: {
+            name: `${(authData as any).firstName || ''} ${(authData as any).lastName || ''}`.trim() || (authData as any).email || email,
+            email: (authData as any).email || email,
+            userName: (authData as any).email || email,
+            firstName: (authData as any).firstName || '',
+            lastName: (authData as any).lastName || '',
+            userRole: (authData as any).userRole || 'user',
+            whatsappNumber: (authData as any).whatsappNumber || ''
+          },
+          isEspoCRMUser: false
+        };
+        
+        // Store in localStorage for persistence
+        if (this.ibfApiToken) {
+          localStorage.setItem('ibf-auth-token', this.ibfApiToken);
+          localStorage.setItem('ibf-user-info', JSON.stringify(this.userInfo));
         }
+        
+        // Update stores
+        isAuthenticated.set(true);
+        currentUser.set(this.userInfo);
+        authToken.set(this.ibfApiToken);
+        authError.set(null);
+        isLoggingIn.set(false);
+        
+        return true;
       } else {
-        const errorData = await response.json().catch(() => ({ message: 'Authentication failed' }));
-        console.error('❌ IBF backend authentication failed:', response.status, errorData);
-        
-        let errorMessage = 'Authentication failed';
-        if (response.status === 401) {
-          errorMessage = 'Invalid email or password';
-        } else if (response.status === 403) {
-          errorMessage = 'Account access denied';
-        } else if (response.status === 429) {
-          errorMessage = 'Too many login attempts. Please try again later';
-        } else if (errorData.message) {
-          errorMessage = errorData.message;
-        }
-        
-        authError.set(errorMessage);
+        console.error('❌ IBF backend authentication failed: Invalid response format');
+        authError.set('Invalid response from authentication server');
         isLoggingIn.set(false);
         return false;
       }
     } catch (error) {
       console.error('❌ IBF backend authentication error:', error);
       
-      let errorMessage = 'Network error - please check your connection';
+      let errorMessage = 'Authentication failed';
       if (error instanceof Error) {
-        if (error.message.includes('Failed to fetch')) {
-          errorMessage = 'Cannot connect to authentication server';
-        } else {
-          errorMessage = error.message;
-        }
+        errorMessage = error.message;
       }
       
       authError.set(errorMessage);

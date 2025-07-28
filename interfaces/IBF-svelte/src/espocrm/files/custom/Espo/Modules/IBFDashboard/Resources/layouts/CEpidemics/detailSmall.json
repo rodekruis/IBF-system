@@ -1,0 +1,73 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "epidemicType"
+                },
+                false,
+                false,
+                false
+            ],
+            [
+                {
+                    "name": "startDate"
+                },
+                {
+                    "name": "endDate"
+                },
+                false,
+                false
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "customLabel": "Event date"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "regions"
+                },
+                {
+                    "name": "cercles"
+                },
+                {
+                    "name": "communes"
+                },
+                {
+                    "name": "branches"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Location"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "totalCases"
+                },
+                false
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Epidemic impact (2nd source)"
+    }
+]

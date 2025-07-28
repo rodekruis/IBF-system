@@ -1,0 +1,21 @@
+[
+    {
+        "name": "branch"
+    },
+    {
+        "name": "name",
+        "link": true
+    },
+    {
+        "name": "nrDeSecouristes"
+    },
+    {
+        "name": "communes"
+    },
+    {
+        "name": "cercles"
+    },
+    {
+        "name": "region"
+    }
+]

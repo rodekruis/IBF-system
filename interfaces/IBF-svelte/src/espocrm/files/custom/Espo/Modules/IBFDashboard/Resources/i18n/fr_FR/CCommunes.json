@@ -1,0 +1,31 @@
+{
+    "labels": {
+        "Create CCommunes": "Créer une commune"
+    },
+    "fields": {
+        "activities": "Activités",
+        "branch": "Branche",
+        "communePcode": "Code postal de la commune",
+        "drought": "Sécheresse",
+        "flood": "Inondation",
+        "region": "Région",
+        "riverStation": "Gare maritime",
+        "createdAt": "Créé le",
+        "droughts": "Sécheresses",
+        "epidemics": "Épidémies",
+        "floods": "Inondations",
+        "programs": "Programmes"
+    },
+    "links": {
+        "activities": "Activités",
+        "branch": "Branche",
+        "flood": "Inondation",
+        "region": "Région",
+        "riverStation": "Gare maritime",
+        "drought": "Sècheresse",
+        "droughts": "Sècheresses",
+        "epidemics": "Épidémies",
+        "floods": "Inondations",
+        "programs": "Programmes"
+    }
+}

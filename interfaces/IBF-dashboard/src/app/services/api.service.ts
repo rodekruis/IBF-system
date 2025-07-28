@@ -43,10 +43,11 @@ export class ApiService {
     });
 
     if (!anonymous) {
-      return headers.set(
-        'Authorization',
-        `Token ${this.jwtService.getToken()}`,
-      );
+      // Use environment token if available, otherwise fallback to JWT service
+      const token = environment.apiToken || this.jwtService.getToken();
+      if (token) {
+        return headers.set('Authorization', `Token ${token}`);
+      }
     }
 
     return headers;

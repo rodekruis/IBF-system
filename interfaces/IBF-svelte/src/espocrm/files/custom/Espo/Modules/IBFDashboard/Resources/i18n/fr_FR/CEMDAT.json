@@ -1,0 +1,83 @@
+{
+    "labels": {
+        "Create CEMDAT": "Créer un EM-DAT"
+    },
+    "fields": {
+        "appeal": "Recours",
+        "declaration": "Déclaration",
+        "disasterGroup": "Groupe",
+        "disasterNo": "Non",
+        "disasterSubGroup": "Sous groupe",
+        "disasterSubtype": "Sous type",
+        "disasterType": "Type",
+        "endDate": "Date de fin",
+        "location": "Lieu",
+        "noAffected": "Nombre de personnes concernées",
+        "noHomeless": "Nombre de sans-abri",
+        "noInjured": "Nombre de blessés",
+        "oFDABHAResponse": "Réponse de l'OFDA/BHA",
+        "origin": "Origine",
+        "regions": "Région(s)",
+        "startDate": "Date de début",
+        "totalAffected": "Total des personnes concernées",
+        "totalDeaths": "Nombre total de décès",
+        "createdAt": "Créé le"
+    },
+    "links": {
+        "regions": "Région(s)"
+    },
+    "options": {
+        "appeal": {
+            "Yes": "Oui",
+            "No": "Non",
+            "": ""
+        },
+        "declaration": {
+            "Yes": "Oui",
+            "No": "Non",
+            "": ""
+        },
+        "disasterGroup": {
+            "Natural": "Naturel",
+            "Technological": "Technologique",
+            "": ""
+        },
+        "disasterSubGroup": {
+            "Biological": "Biologique",
+            "Hydrological": "Hydrologique",
+            "Industrial accident": "Accident industriel",
+            "Miscellaneous accident": "Accidents divers",
+            "Transport": "Transport",
+            "": ""
+        },
+        "disasterSubtype": {
+            "Air": "Air",
+            "Bacterial disease": "Maladie bactérienne",
+            "Collapse (Industrial)": "Effondrement (industriel)",
+            "Fire": "Feu",
+            "Flash flood": "Inondation soudaine",
+            "Miscellaneous accident (General)": "Accident divers (général)",
+            "Riverine flood": "Inondation fluviale",
+            "Road": "Route",
+            "Viral disease": "Maladie virale",
+            "Water": "Eau",
+            "": ""
+        },
+        "disasterType": {
+            "Epidemic": "Épidémie",
+            "Flood": "Inondation",
+            "Collapse (Industrial)": "Effondrement (industriel)",
+            "Fire": "Feu",
+            "Miscellaneous accident (General)": "Accident divers (général)",
+            "Road": "Route",
+            "Water": "Eau",
+            "Air": "Air",
+            "": ""
+        },
+        "oFDABHAResponse": {
+            "Yes": "Oui",
+            "No": "Non",
+            "": ""
+        }
+    }
+}

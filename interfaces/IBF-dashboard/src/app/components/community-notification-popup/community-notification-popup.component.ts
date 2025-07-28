@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { AlertController, PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
@@ -13,7 +13,7 @@ import { ApiService } from 'src/app/services/api.service';
   styleUrls: ['./community-notification-popup.component.scss'],
   standalone: false,
 })
-export class CommunityNotificationPopupComponent implements OnInit {
+export class CommunityNotificationPopupComponent implements OnInit, OnChanges {
   @Input() markerProperties: CommunityNotification;
 
   public formattedDate: string;
@@ -28,8 +28,23 @@ export class CommunityNotificationPopupComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.updateContent();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    if (changes['markerProperties']) {
+      this.updateContent();
+    }
+  }
+
+  private updateContent(): void {
+    if (!this.markerProperties?.uploadTime) {
+      return;
+    }
+    
     this.formattedDate = DateTime.fromISO(
-      this.markerProperties?.uploadTime,
+      this.markerProperties.uploadTime,
     ).toFormat('d LLLL y, HH:mm');
   }
 

@@ -1,0 +1,89 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "sidePanels": {
+        "detail": [
+            {
+                "name": "activities",
+                "label": "Activities",
+                "view": "crm:views/record/panels/activities",
+                "aclScope": "Activities"
+            },
+            {
+                "name": "history",
+                "label": "History",
+                "view": "crm:views/record/panels/history",
+                "aclScope": "Activities"
+            },
+            {
+                "name": "tasks",
+                "label": "Tasks",
+                "view": "crm:views/record/panels/tasks",
+                "aclScope": "Task"
+            }
+        ]
+    },
+    "kanbanViewMode": false,
+    "color": null,
+    "iconClass": "fas fa-building",
+    "relationshipPanels": {
+        "contacts": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "program": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "centers": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "stocks": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "warehouses": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "cWarehouses": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "communes": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "droughts": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "cercleses": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "region": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "epidemics": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "floods": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "needsAssessments": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "brigadeUrgences": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

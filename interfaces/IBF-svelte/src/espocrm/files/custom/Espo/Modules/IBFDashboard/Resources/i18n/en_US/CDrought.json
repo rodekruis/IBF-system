@@ -1,0 +1,43 @@
+{
+    "fields": {
+        "start": "Start",
+        "end": "End",
+        "source": "Source",
+        "deaths": "Deaths",
+        "displaced": "Displaced",
+        "indirectlyAffected": "Indirectly Affected",
+        "directlyAffected": "Directly Affected",
+        "branchs": "Branches",
+        "regions": "Regions",
+        "needsAssessments": "Needs Assessments",
+        "year": "Year",
+        "activities": "Activities",
+        "cercles": "Cercles",
+        "communes": "Communes",
+        "rapportEvaluationRapide": "Rapport d&#039;Evaluation Rapide",
+        "hazard": "Hazard"
+    },
+    "links": {
+        "meetings": "Meetings",
+        "calls": "Calls",
+        "tasks": "Tasks",
+        "branchs": "Branches",
+        "regions": "Regions",
+        "needsAssessments": "Needs Assessments",
+        "activities": "Activities",
+        "cercles": "Cercles",
+        "communes": "Communes",
+        "rapportEvaluationRapide": "Rapport d&#039;Evaluation Rapide",
+        "hazard": "Hazard"
+    },
+    "labels": {
+        "Create CDrought": "Create Drought"
+    },
+    "tooltips": {
+        "start": "The start date of the drought.",
+        "end": "The end date of the drought.",
+        "communeses": "The commune(s) affected by the drought. Mandatory field.",
+        "regions": "The region(s) affected by the drought. Is automatically filled in once the commune is selected.",
+        "cercleses": "The cercle(s) affected by the drought. Is automatically filled in once the commune is selected."
+    }
+}

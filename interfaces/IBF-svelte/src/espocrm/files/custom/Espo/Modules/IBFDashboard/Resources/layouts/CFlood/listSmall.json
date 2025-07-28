@@ -1,0 +1,13 @@
+[
+    {
+        "name": "floodType",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "startDate"
+    },
+    {
+        "name": "endDate"
+    }
+]

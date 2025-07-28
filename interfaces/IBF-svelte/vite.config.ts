@@ -6,33 +6,17 @@ export default defineConfig({
   server: {
     port: 5173,
     proxy: {
-      // Proxy EspoCRM API calls to avoid CORS issues during development
-      '/api/espocrm': {
-        target: 'https://ibf-pivot-crm.510.global/api/v1',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/espocrm/, ''),
-        secure: true,
-        configure: (proxy, options) => {
-          proxy.on('proxyReq', (proxyReq, req, res) => {
-            console.log('🔄 Proxying EspoCRM request:', req.method, req.url);
-          });
-          proxy.on('proxyRes', (proxyRes, req, res) => {
-            console.log('✅ EspoCRM proxy response:', proxyRes.statusCode);
-          });
-        }
-      },
-      // Proxy IBF API calls to avoid CORS issues during development
       '/api/ibf': {
-        target: 'https://ibf-test.510.global/api',
+        target: 'https://ibf-test.510.global',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/ibf/, ''),
+        rewrite: (path) => path.replace(/^\/api\/ibf/, '/api'),
         secure: true,
-        configure: (proxy, options) => {
-          proxy.on('proxyReq', (proxyReq, req, res) => {
-            console.log('🌐 Proxying IBF API request:', req.method, req.url);
+        configure: (proxy, _options) => {
+          proxy.on('error', (err, _req, _res) => {
+            console.log('Proxy error:', err);
           });
-          proxy.on('proxyRes', (proxyRes, req, res) => {
-            console.log('✅ IBF API proxy response:', proxyRes.statusCode);
+          proxy.on('proxyReq', (proxyReq, req, _res) => {
+            console.log('Proxying request:', req.method, req.url, 'to target:', proxyReq.getHeader('host'));
           });
         }
       }

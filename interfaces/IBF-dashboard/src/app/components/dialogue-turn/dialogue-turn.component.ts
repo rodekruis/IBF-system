@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-dialogue-turn',
@@ -21,8 +21,9 @@ export class DialogueTurnComponent implements OnChanges {
 
   public mouseOver = false;
 
-  ngOnChanges(): void {
-    if (!this.isSelected) {
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    if (changes['isSelected'] && !this.isSelected) {
       this.mouseOver = false;
     }
   }

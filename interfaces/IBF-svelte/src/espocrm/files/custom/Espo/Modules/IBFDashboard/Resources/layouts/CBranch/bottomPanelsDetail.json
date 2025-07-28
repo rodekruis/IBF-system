@@ -1,0 +1,48 @@
+{
+    "_delimiter_": {
+        "disabled": true
+    },
+    "brigadeUrgences": {
+        "index": 0
+    },
+    "stocks": {
+        "index": 1
+    },
+    "program": {
+        "dynamicLogicVisible": null,
+        "style": "info",
+        "dynamicLogicStyled": null,
+        "sticked": false,
+        "index": 2
+    },
+    "centers": {
+        "index": 3
+    },
+    "cWarehouses": {
+        "index": 4
+    },
+    "warehouses": {
+        "index": 5
+    },
+    "floods": {
+        "dynamicLogicVisible": null,
+        "style": "success",
+        "dynamicLogicStyled": null,
+        "sticked": false,
+        "index": 6
+    },
+    "droughts": {
+        "dynamicLogicVisible": null,
+        "style": "success",
+        "dynamicLogicStyled": null,
+        "sticked": false,
+        "index": 7
+    },
+    "epidemics": {
+        "dynamicLogicVisible": null,
+        "style": "success",
+        "dynamicLogicStyled": null,
+        "sticked": false,
+        "index": 8
+    }
+}

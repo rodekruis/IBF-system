@@ -1,6 +1,6 @@
 // Layer Service - Manages map layers and point data for IBF Dashboard
 import { ibfApiService } from './ibfApi';
-import { config } from '../config';
+import config, { getGeoserverUrl } from '../config';
 
 // Layer types based on IBF Dashboard
 export enum LayerType {
@@ -269,7 +269,7 @@ class LayerService {
         case LayerName.communityNotifications:
         case LayerName.gauges:
           console.log(`📍 Loading point data for ${layer.name} in ${countryCodeISO3}`);
-          const pointDataResponse = await ibfApiService.getPointData(countryCodeISO3, layer.name, disasterType);
+          const pointDataResponse = await ibfApiService.getPointData(countryCodeISO3, layer.name);
           layerData = pointDataResponse.data || null;
           break;
 
@@ -498,7 +498,7 @@ class LayerService {
     // Add WMS configuration for WMS layers
     if (layerMeta.type === LayerType.wms) {
       layer.wms = {
-        url: config.geoserverUrl,
+        url: getGeoserverUrl(),
         name: layerMeta.name, // WMS layer name
         format: 'image/png',
         version: '1.1.0',

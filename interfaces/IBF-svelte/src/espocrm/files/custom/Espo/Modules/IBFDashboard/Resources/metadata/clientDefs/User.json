@@ -1,0 +1,20 @@
+{
+    "relationshipPanels": {
+        "programs": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "activitieses": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "branch": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "center": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

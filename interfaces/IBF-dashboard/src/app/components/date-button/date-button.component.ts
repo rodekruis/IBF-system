@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { DateTime } from 'luxon';
 import { Subscription } from 'rxjs';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
@@ -11,7 +11,7 @@ import { DateFormats, MonthFormats } from 'src/app/types/lead-time';
   styleUrls: ['./date-button.component.scss'],
   standalone: false,
 })
-export class DateButtonComponent implements OnInit, OnDestroy {
+export class DateButtonComponent implements OnInit, OnDestroy, OnChanges {
   @Input() date = DateTime.now();
   @Input() forecastAlert: boolean;
   @Input() trigger: boolean;
@@ -34,6 +34,13 @@ export class DateButtonComponent implements OnInit, OnDestroy {
     this.timelineStateSubscription = this.timelineService
       .getTimelineStateSubscription()
       .subscribe(this.onTimelineStateChange);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    if (changes['date'] || changes['forecastAlert'] || changes['trigger']) {
+      this.onTimelineStateChange();
+    }
   }
 
   ngOnDestroy() {

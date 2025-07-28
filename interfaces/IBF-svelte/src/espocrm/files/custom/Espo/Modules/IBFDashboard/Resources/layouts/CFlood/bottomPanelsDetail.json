@@ -1,0 +1,17 @@
+{
+    "_delimiter_": {
+        "disabled": true
+    },
+    "needsAssessments": {
+        "index": 0
+    },
+    "floodResponseActivities": {
+        "index": 1
+    },
+    "floodWarnings": {
+        "index": 2
+    },
+    "activities": {
+        "index": 3
+    }
+}

@@ -149,9 +149,10 @@ sequenceDiagram
     participant I as IBF API
 
     U->>E: Navigate to IBF Dashboard
-    E->>E: Get user token
-    E->>S: Load iframe with espoToken & userId
-    S->>E: Validate token (IbfAuth/validateToken)
+    E->>E: Get user token & parent URL
+    E->>S: Load iframe with espoToken, userId & parentUrl
+    S->>S: Auto-detect EspoCRM API URL from parentUrl
+    S->>E: Validate token (auto-detected API/IbfAuth/validateToken)
     E->>E: Check/Create IBFUser
     E->>I: Login with IBF credentials
     I->>E: Return IBF token
@@ -160,6 +161,32 @@ sequenceDiagram
     I->>S: Return disaster data
     S->>U: Display dashboard
 ```
+
+### 🎯 Automatic EspoCRM URL Detection
+
+**New Feature**: The extension now passes the parent EspoCRM URL to the IBF Svelte dashboard, enabling automatic API endpoint detection without manual configuration.
+
+**How it works:**
+1. **EspoCRM Extension**: Automatically detects and passes the current EspoCRM base URL
+2. **IBF Dashboard**: Receives parent URL and converts it to API endpoint
+3. **Zero Configuration**: Works with any EspoCRM instance without setup
+
+**Enhanced iframe URL construction:**
+```javascript
+// Extension automatically includes parent URL
+const parentUrl = encodeURIComponent(window.location.origin + window.location.pathname);
+const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&parentUrl=${parentUrl}`;
+
+// Examples of automatic conversion:
+// https://ibf-pivot-crm-dev.510.global/#IBFDashboard → https://ibf-pivot-crm-dev.510.global/api/v1
+// https://espocrm.company.com/admin#Users → https://espocrm.company.com/api/v1
+```
+
+**Benefits:**
+- ✅ **Multi-Instance Support**: Same dashboard deployment works across different EspoCRM instances
+- ✅ **Zero Configuration**: No need to configure API URLs per environment
+- ✅ **Dynamic Discovery**: Automatically adapts to dev, staging, and production environments
+- ✅ **Future-Proof**: Supports white-label and custom EspoCRM deployments
 
 ### Configuration Architecture
 
@@ -1177,6 +1204,20 @@ After installation, configure user permissions:
    - **Create/Edit/Delete**: Not applicable for this extension
 
 ## Troubleshooting
+
+### Installation Issues
+
+#### EspoCRM Stuck in Maintenance Mode
+If EspoCRM remains in maintenance mode after installing the extension, see [INSTALLATION_TROUBLESHOOTING.md](INSTALLATION_TROUBLESHOOTING.md) for detailed recovery steps.
+
+Quick recovery:
+1. Delete `data/.maintenance` file from EspoCRM root directory
+2. Clear cache: Delete contents of `data/cache/` directory  
+3. Run Administration > Data Manager > Rebuild from admin panel
+
+You can also use the provided recovery scripts:
+- **Linux/Mac**: Run `./recovery-maintenance-mode.sh` from EspoCRM root directory
+- **Windows**: Run `recovery-maintenance-mode.bat` from EspoCRM root directory
 
 ### Dashboard not loading
 - **Check browser console** for authentication or loading errors

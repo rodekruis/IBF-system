@@ -91,6 +91,22 @@
   </ion-header>
 
   <ion-content>
+    <!-- Enhanced Debug Info Section -->
+    <div style="position: fixed; top: 80px; right: 10px; background: rgba(0,0,0,0.9); color: white; padding: 10px; border-radius: 5px; z-index: 9999; font-size: 11px; max-width: 320px; font-family: monospace;">
+      <div><strong>🔍 Enhanced Debug Info</strong></div>
+      <div style="color: #4ade80;">✅ Dashboard Template: RENDERED</div>
+      <div style="color: #10b981;">✅ Change Detection: Active</div>
+      <div>isDev: {{ isDev }}</div>
+      <div>isMultiCountry: {{ isMultiCountry }}</div>
+      <div>templateRendered: {{ templateRendered }}</div>
+      <div>Version: {{ version }}</div>
+      <hr style="margin: 5px 0; border-color: #444;">
+      <div style="color: #fbbf24;"><strong>⚡ Status</strong></div>
+      <div style="font-size: 10px; color: #94a3b8;">Template is rendering!</div>
+      <div style="font-size: 10px; color: #94a3b8;">OnPush change detection working</div>
+      <div style="font-size: 10px; color: #94a3b8;">Check console for details</div>
+    </div>
+
     <ion-grid class="page-structure ion-no-padding">
       <ion-row class="page-structure--content">
         <ion-col

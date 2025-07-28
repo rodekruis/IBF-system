@@ -1,0 +1,61 @@
+{
+    "fields": {
+        "startDate": "Start",
+        "endDate": "End",
+        "numberOfDeaths": "Deaths",
+        "numberOfPeopleInjured": "Injured",
+        "numberOfDisplacedPeople": "Displaced",
+        "numberOfAffectedBuildings": "Houses",
+        "needsAssessments": "Needs Assessments",
+        "floodType": "Flood Type",
+        "activities": "Activities",
+        "source": "Source",
+        "numberOfPeopleAffectedOther": "Others Affected",
+        "affectedInfrastructures": "Infrastructure",
+        "regions": "Regions",
+        "floodName": "Flood Name",
+        "cercles": "Cercles",
+        "communes": "Communes",
+        "branches": "Branches",
+        "rapportEvaluationRapide": "Rapport d&#039;Evaluation Rapide",
+        "hazard": "Hazard"
+    },
+    "links": {
+        "needsAssessments": "Needs Assessments",
+        "activities": "Activities",
+        "regions": "Regions",
+        "cercles": "Cercles",
+        "communes": "Communes",
+        "branches": "Branches",
+        "rapportEvaluationRapide": "Rapport d&#039;Evaluation Rapide",
+        "hazard": "Hazard"
+    },
+    "labels": {
+        "Create CFlood": "Create Floods"
+    },
+    "options": {
+        "floodType": {
+            "Riverine Floods": "Riverine Floods",
+            "Flash Floods": "Flash Floods",
+            "Coastal Floods": "Coastal Floods",
+            "": "",
+            "Pluvial Floods": "Pluvial Floods"
+        }
+    },
+    "tooltips": {
+        "numberOfDeaths": "Number of human deaths",
+        "numberOfDisplacedPeople": "Number of displaced people",
+        "numberOfPeopleInjured": "Number of injured people",
+        "numberOfAffectedBuildings": "Number of affected houses",
+        "floodResponseActivities": "Flood Response Activities",
+        "affectedInfrastructures": "Number of affected infrastructure such as schools, water points, latrines, stores and agricultural produce",
+        "branches": "Select the branch(es) which are undertaking the activity.",
+        "floodName": "Add the name of the flood.",
+        "floodType": "Select the type of flood.",
+        "communes": "Commune(s) touchée(s) par l'inondation.",
+        "regions": "Région(s) touchée(s) par l'inondation.",
+        "cercles": "The cercle(s) affected by the flood. Is automatically filled in once the commune is selected.",
+        "startDate": "Select the start date of the flood.",
+        "endDate": "Select the end date of the flood."
+    }
+}

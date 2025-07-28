@@ -1,0 +1,10 @@
+[
+    {
+        "name": "dischargeReportNumber",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "reportingDate"
+    }
+]

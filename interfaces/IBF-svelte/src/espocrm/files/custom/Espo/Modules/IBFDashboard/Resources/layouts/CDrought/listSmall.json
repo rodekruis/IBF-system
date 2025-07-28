@@ -1,0 +1,38 @@
+[
+    {
+        "name": "name",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "year",
+        "width": 15,
+        "align": "left"
+    },
+    {
+        "name": "deaths",
+        "width": 10,
+        "align": "left"
+    },
+    {
+        "name": "displaced",
+        "width": 10,
+        "align": "left"
+    },
+    {
+        "name": "directlyAffected",
+        "width": 20,
+        "align": "left"
+    },
+    {
+        "name": "indirectlyAffected",
+        "width": 20,
+        "align": "left"
+    },
+    {
+        "name": "needsAssessments",
+        "width": 25,
+        "notSortable": true,
+        "align": "left"
+    }
+]

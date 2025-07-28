@@ -1,0 +1,16 @@
+{
+    "fields": {
+        "cBranch": {
+            "type": "link"
+        }
+    },
+    "links": {
+        "cBranch": {
+            "type": "belongsTo",
+            "foreign": "contacts",
+            "entity": "CBranch",
+            "audited": false,
+            "isCustom": true
+        }
+    }
+}

@@ -1,0 +1,30 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "item"
+                },
+                false
+            ],
+            [
+                {
+                    "name": "receivedAt"
+                },
+                {
+                    "name": "currentQuantityUpdatedAt"
+                }
+            ],
+            [
+                {
+                    "name": "amount"
+                },
+                {
+                    "name": "currentQuantity"
+                }
+            ]
+        ],
+        "style": "default",
+        "label": "Overview"
+    }
+]

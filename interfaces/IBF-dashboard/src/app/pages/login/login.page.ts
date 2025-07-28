@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -18,7 +19,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./login.page.scss'],
   standalone: false,
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
   public version: string = environment.ibfSystemVersion;
   public country: Country;
   public countrySubscription: Subscription;
@@ -26,6 +27,9 @@ export class LoginPage implements OnInit {
   public allDisasterTypes: string[] = [];
   public disasterTypeMap = DISASTER_TYPES_SVG_MAP;
   public environmentConfiguration = environment.configuration;
+  
+  private countriesSubscription: Subscription;
+  private analyticsLogged = false; // Prevent multiple analytics calls
 
   constructor(
     private popoverController: PopoverController,
@@ -34,9 +38,28 @@ export class LoginPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.analyticsService.logPageView(AnalyticsPage.login);
+    // Only log analytics once to prevent infinite loops
+    if (!this.analyticsLogged) {
+      this.analyticsService.logPageView(AnalyticsPage.login);
+      this.analyticsLogged = true;
+    }
+    
     this.allDisasterTypes = Object.keys(DISASTER_TYPES_SVG_MAP);
-    this.countryService.getAllCountries().subscribe(this.onGetAllCountries);
+    
+    // Use take(1) to prevent repeated subscriptions and API calls
+    this.countriesSubscription = this.countryService.getAllCountries()
+      .pipe(take(1))
+      .subscribe(this.onGetAllCountries);
+  }
+
+  ngOnDestroy() {
+    // Clean up subscriptions to prevent memory leaks
+    if (this.countriesSubscription) {
+      this.countriesSubscription.unsubscribe();
+    }
+    if (this.countrySubscription) {
+      this.countrySubscription.unsubscribe();
+    }
   }
 
   public getIconByCountry = (disasterType: string) => {

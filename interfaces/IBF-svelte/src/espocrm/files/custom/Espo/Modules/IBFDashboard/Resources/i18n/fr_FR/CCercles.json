@@ -1,0 +1,32 @@
+{
+    "labels": {
+        "Create CCercles": "Créer de cercles"
+    },
+    "fields": {
+        "activities": "Activités",
+        "branchs": "Branches",
+        "drought": "Sécheresse",
+        "flood": "Inondation",
+        "region": "Région",
+        "regionCercleFilter": "Filtre régional du cercle",
+        "cerclesPcode": "Code postal des cercles",
+        "createdAt": "Créé le",
+        "branch": "Branche",
+        "droughts": "Sécheresses",
+        "epidemics": "Épidémies",
+        "floods": "Inondations",
+        "programs": "Programmes"
+    },
+    "links": {
+        "activities": "Activités",
+        "branchs": "Branches",
+        "drought": "Sécheresse",
+        "flood": "Inondation",
+        "region": "Région",
+        "branch": "Branche",
+        "floods": "Inondations",
+        "droughts": "Sécheresses",
+        "epidemics": "Épidémies",
+        "programs": "Programmes"
+    }
+}

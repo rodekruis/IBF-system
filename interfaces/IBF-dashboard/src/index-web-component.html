@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>IBF Dashboard Web Component</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    /* Minimal base styles for web component */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    /* Loading indicator */
+    .ibf-loading {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #f8f9fa;
+    }
+    
+    .ibf-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #e9ecef;
+      border-top: 4px solid #007bff;
+      border-radius: 50%;
+      animation: ibf-spin 1s linear infinite;
+    }
+    
+    @keyframes ibf-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    /* Embedded mode styles */
+    .ibf-embedded-mode .login-section {
+      display: none !important;
+    }
+    
+    /* Ensure web component fills container */
+    ibf-dashboard {
+      display: block;
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading indicator while web component initializes -->
+  <div id="ibf-loading" class="ibf-loading">
+    <div class="ibf-spinner"></div>
+  </div>
+  
+  <script>
+    console.log('📱 IBF Dashboard Web Component loader ready');
+    
+    // Hide loading indicator when component is ready
+    window.addEventListener('ibf-dashboard-ready', function(event) {
+      console.log('✅ IBF Dashboard component ready:', event.detail);
+      const loading = document.getElementById('ibf-loading');
+      if (loading) {
+        loading.style.display = 'none';
+      }
+    });
+    
+    // Handle component errors
+    window.addEventListener('ibf-dashboard-error', function(event) {
+      console.error('❌ IBF Dashboard component error:', event.detail);
+      const loading = document.getElementById('ibf-loading');
+      if (loading) {
+        loading.innerHTML = '<div style="color: #dc3545; text-align: center;"><h3>Failed to Load IBF Dashboard</h3><p>Please check the console for details.</p></div>';
+      }
+    });
+    
+    // Auto-hide loading after 10 seconds as fallback
+    setTimeout(function() {
+      const loading = document.getElementById('ibf-loading');
+      if (loading && loading.style.display !== 'none') {
+        console.warn('⚠️ Auto-hiding loading indicator after timeout');
+        loading.style.display = 'none';
+      }
+    }, 10000);
+  </script>
+</body>
+</html>

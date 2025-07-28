@@ -27,6 +27,7 @@ import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { MapView } from 'src/app/types/map-view';
 import { firstCharOfWordsToUpper } from 'src/shared/utils';
+import { DebugService } from 'src/app/services/debug.service';
 @Component({
   selector: 'app-aggregates',
   templateUrl: './aggregates.component.html',
@@ -65,7 +66,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private analyticsService: AnalyticsService,
     private mapViewService: MapViewService,
+    private debugService: DebugService,
   ) {
+    this.debugService.logComponentInit('AggregatesComponent', 'Constructor called');
+    
     this.initialEventStateSubscription = this.eventService
       .getInitialEventStateSubscription()
       .subscribe(this.onEventStateChange);
@@ -76,6 +80,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.debugService.logComponentInit('AggregatesComponent', 'ngOnInit called');
+    
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);

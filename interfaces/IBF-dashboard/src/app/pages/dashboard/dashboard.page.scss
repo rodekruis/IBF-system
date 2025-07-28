@@ -10,8 +10,32 @@
   }
 }
 
+
+
 #ibf-dashboard-map {
   pointer-events: all !important;
+  
+  // Ensure map container has proper dimensions in web component context
+  &:host-context(ibf-dashboard) {
+    min-height: 400px;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+// Web component specific styling
+:host-context(ibf-dashboard) .ibf-dashboard-interface {
+  min-height: 500px;
+  height: 100%;
+}
+
+:host-context(ibf-dashboard) .page-structure--content {
+  min-height: 400px;
+}
+
+:host-context(ibf-dashboard) app-map {
+  min-height: 400px;
+  height: 100%;
 }
 
 .ibf-dashboard-interface {
@@ -46,13 +70,29 @@ app-export-view {
   display: flex;
   flex-flow: column nowrap;
 
+  // Web component embedded mode fixes
+  :host-context(.embedded) & {
+    min-height: 600px !important;
+    height: 100% !important;
+  }
+
   // The `ion-row` that should fill the height of the page/screen:
   .page-structure--content {
     flex-grow: 1;
 
+    // Web component embedded mode fixes
+    :host-context(.embedded) & {
+      min-height: 500px !important;
+    }
+
     .ibf-dashboard-left-column {
       display: flex;
       flex-direction: column;
+
+      // Web component embedded mode fixes  
+      :host-context(.embedded) & {
+        min-height: 500px !important;
+      }
 
       .component-title {
         .component-title-item {

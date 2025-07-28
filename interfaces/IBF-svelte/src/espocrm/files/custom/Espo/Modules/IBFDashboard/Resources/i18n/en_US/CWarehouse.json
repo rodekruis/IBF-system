@@ -1,0 +1,22 @@
+{
+    "fields": {
+        "stocks": "Stocks",
+        "hostBranch": "Host Branch",
+        "branchesServed": "Branches served",
+        "assignedUser": "Warehouse manager"
+    },
+    "links": {
+        "stocks": "Stocks",
+        "hostBranch": "Host Branch",
+        "branchesServed": "Branches served"
+    },
+    "labels": {
+        "Create CWarehouse": "Create Warehouse"
+    },
+    "tooltips": {
+        "branchesServed": "The branches that are served by the warehouse.",
+        "hostBranch": "The branch hosting the warehouse.",
+        "name": "Name of the warehouse.",
+        "assignedUser": "The Mali Red Cross staff responsible for the warehouse."
+    }
+}

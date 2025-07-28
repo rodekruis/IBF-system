@@ -1,0 +1,32 @@
+{
+    "links": {
+        "cercles": "Cercles",
+        "commune": "Communes",
+        "activities": "Activities",
+        "floods": "Floods",
+        "eMDATs": "E MDATs",
+        "droughts": "Droughts",
+        "programs": "Programs",
+        "branch": "Branch",
+        "epidemics": "Epidemics",
+        "needsAssessments": "Needs Assessments",
+        "brigadeUrgences": "Brigades d&#039;Urgence"
+    },
+    "labels": {
+        "Create CRegion": "Create Region"
+    },
+    "fields": {
+        "pCode": "Region Pcode",
+        "cercles": "Cercles",
+        "commune": "Communes",
+        "activities": "Activities",
+        "floods": "Floods",
+        "eMDATs": "E MDATs",
+        "droughts": "Droughts",
+        "programs": "Programs",
+        "branch": "Branch",
+        "epidemics": "Epidemics",
+        "needsAssessments": "Needs Assessments",
+        "brigadeUrgences": "Brigades d&#039;Urgence"
+    }
+}

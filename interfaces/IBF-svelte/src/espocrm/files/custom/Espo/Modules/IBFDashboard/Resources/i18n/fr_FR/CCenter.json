@@ -1,0 +1,35 @@
+{
+    "labels": {
+        "Create CCenter": "Créer un centre"
+    },
+    "fields": {
+        "branch": "Branche",
+        "nrStaff": "Nombre d'employés",
+        "nrVolunteers": "Nombre de volontaires",
+        "createdAt": "Créé le",
+        "assignedUser": "Responsable du centre",
+        "name": "Nom du centre",
+        "users": "Le personnel du centre"
+    },
+    "links": {
+        "branch": "Branche"
+    },
+    "options": {
+        "type": {
+            "eoc": "Centre opérationnel d'urgence (EOC)",
+            "health": "Centre de santé",
+            "training": "Centre de formation",
+            "": ""
+        }
+    },
+    "tooltips": {
+        "assignedUser": "Le responsable du centre (centre de santé, d'opérations d'urgence ou de formation).",
+        "branch": "La branche à laquelle le centre appartient.",
+        "description": "Description du centre.",
+        "name": "Nom du centre.",
+        "nrStaff": "Le nombre d'employés de la Croix-Rouge malienne dans le centre.",
+        "nrVolunteers": "Le nombre de volontaires de la Croix-Rouge malienne dans le centre.",
+        "type": "Le type de centre.",
+        "users": "Le personnel affecté à cette branche. Doit être un utilisateur dans ce système."
+    }
+}

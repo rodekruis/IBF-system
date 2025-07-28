@@ -88,6 +88,7 @@ export const LEAFLET_MARKER_ICON_OPTIONS_RIVER_GAUGE: IconOptions = {
 };
 
 export const LEAFLET_MAP_OPTIONS: MapOptions = {
+  center: [9.0, 40.0], // Default center (Ethiopia) - provides fallback for web component mode
   zoom: 5,
   zoomControl: false,
   layers: [],

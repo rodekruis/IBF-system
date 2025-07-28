@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { RiverGauge } from 'src/app/models/poi.model';
 
@@ -7,7 +7,7 @@ import { RiverGauge } from 'src/app/models/poi.model';
   templateUrl: './river-gauge-popup-content.component.html',
   standalone: false,
 })
-export class RiverGaugePopupContentComponent implements OnInit {
+export class RiverGaugePopupContentComponent implements OnInit, OnChanges {
   @Input()
   data!: RiverGauge;
 
@@ -22,6 +22,17 @@ export class RiverGaugePopupContentComponent implements OnInit {
   constructor(public translate: TranslateService) {}
 
   ngOnInit(): void {
+    this.updateContent();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    if (changes['data']) {
+      this.updateContent();
+    }
+  }
+
+  private updateContent(): void {
     if (!this.data?.dynamicData) {
       return;
     }

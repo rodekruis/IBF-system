@@ -1,0 +1,48 @@
+[
+    {
+        "name": "name",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "startDate",
+        "width": 9,
+        "align": "left"
+    },
+    {
+        "name": "endDate",
+        "width": 9,
+        "align": "left"
+    },
+    {
+        "name": "regions",
+        "notSortable": true
+    },
+    {
+        "name": "numberOfDeaths",
+        "width": 7,
+        "align": "left"
+    },
+    {
+        "name": "numberOfPeopleInjured"
+    },
+    {
+        "name": "numberOfDisplacedPeople",
+        "width": 7,
+        "align": "left"
+    },
+    {
+        "name": "numberOfPeopleAffectedOther"
+    },
+    {
+        "name": "affectedInfrastructures"
+    },
+    {
+        "name": "numberOfAffectedBuildings",
+        "width": 7,
+        "align": "left"
+    },
+    {
+        "name": "source"
+    }
+]

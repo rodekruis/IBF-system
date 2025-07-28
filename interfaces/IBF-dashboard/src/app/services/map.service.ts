@@ -471,8 +471,10 @@ export class MapService {
   private getLayerIndexByName = (name: IbfLayerName): number =>
     this.layers.findIndex((layer: IbfLayer) => layer.name === name);
 
-  public getLayerByName = (layerName: IbfLayerName): IbfLayer =>
-    this.layers[this.getLayerIndexByName(layerName)];
+  public getLayerByName = (layerName: IbfLayerName): IbfLayer | null => {
+    const index = this.getLayerIndexByName(layerName);
+    return index !== -1 ? this.layers[index] : null;
+  };
 
   private isLayerActive = (
     layer: IbfLayer,
@@ -541,6 +543,11 @@ export class MapService {
     };
 
   public toggleLayer = (layer: IbfLayer): void => {
+    if (!layer) {
+      console.warn('toggleLayer called with undefined/null layer');
+      return;
+    }
+    
     layer.active = !layer.active;
     this.adminLevelService.activeLayerNames = [];
     this.updateLayers(layer);

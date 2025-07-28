@@ -1,0 +1,3 @@
+{
+    "beforeSaveCustomScript": " nameNeedsAssessment = string\\concatenate(enumerator, \" \", date, \" - \", region);\n \n numberDeaths = hommesMorts + femmesMortes;\n numberDisappeared = nombreDeFemmesDisparus\t+ nombreDeHommesDisparus;\n householdSize = numberChildrenU5 + numberFemales + numberMales;"
+}

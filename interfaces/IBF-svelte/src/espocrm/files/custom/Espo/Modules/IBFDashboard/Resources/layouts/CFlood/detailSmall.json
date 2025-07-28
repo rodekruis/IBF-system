@@ -1,0 +1,87 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "floodType"
+                },
+                false
+            ],
+            [
+                {
+                    "name": "startDate"
+                },
+                {
+                    "name": "endDate"
+                }
+            ]
+        ],
+        "style": "default",
+        "label": ""
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "regions"
+                },
+                {
+                    "name": "cercles"
+                },
+                {
+                    "name": "communes"
+                },
+                {
+                    "name": "branches"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Location"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "source"
+                }
+            ],
+            [
+                {
+                    "name": "numberOfDeaths"
+                },
+                {
+                    "name": "numberOfDisplacedPeople"
+                }
+            ],
+            [
+                {
+                    "name": "numberOfPeopleInjured"
+                },
+                {
+                    "name": "numberOfPeopleAffectedOther"
+                }
+            ],
+            [
+                {
+                    "name": "numberOfAffectedBuildings"
+                },
+                {
+                    "name": "affectedInfrastructures"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Flood impact (2nd source)"
+    }
+]

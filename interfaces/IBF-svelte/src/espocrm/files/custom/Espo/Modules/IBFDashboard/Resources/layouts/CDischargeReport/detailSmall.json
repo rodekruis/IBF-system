@@ -1,0 +1,16 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "dischargeReportNumber"
+                },
+                {
+                    "name": "reportingDate"
+                }
+            ]
+        ],
+        "style": "default",
+        "label": ""
+    }
+]

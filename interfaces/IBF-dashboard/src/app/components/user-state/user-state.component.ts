@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -23,7 +23,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./user-state.component.scss'],
   standalone: false,
 })
-export class UserStateComponent implements OnInit {
+export class UserStateComponent implements OnInit, OnChanges {
   @Input()
   public isLoggedIn: boolean;
 
@@ -59,6 +59,11 @@ export class UserStateComponent implements OnInit {
     this.disasterTypeSubscription = this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    // No specific logic needed for isLoggedIn and showCountry changes
   }
 
   private onCountryChange = (country: Country) => {

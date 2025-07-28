@@ -1,0 +1,18 @@
+{
+    "stream": {
+        "disabled": true
+    },
+    "_delimiter_": {
+        "disabled": true
+    },
+    "needsAssessments": {
+        "index": 0
+    },
+    "activitieses": {
+        "dynamicLogicVisible": null,
+        "style": "danger",
+        "dynamicLogicStyled": null,
+        "sticked": false,
+        "index": 1
+    }
+}

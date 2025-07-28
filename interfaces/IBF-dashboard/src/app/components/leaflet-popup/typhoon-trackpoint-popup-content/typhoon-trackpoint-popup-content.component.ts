@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { DateTime } from 'luxon';
 
@@ -8,7 +8,7 @@ import { DateTime } from 'luxon';
   styleUrls: ['./typhoon-trackpoint-popup-content.component.scss'],
   standalone: false,
 })
-export class TyphoonTrackpointPopupContentComponent implements OnInit {
+export class TyphoonTrackpointPopupContentComponent implements OnInit, OnChanges {
   @Input()
   public data: { timestamp: string; category: string };
 
@@ -19,6 +19,17 @@ export class TyphoonTrackpointPopupContentComponent implements OnInit {
   constructor(public translate: TranslateService) {}
 
   ngOnInit(): void {
+    this.updateContent();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    if (changes['data']) {
+      this.updateContent();
+    }
+  }
+
+  private updateContent(): void {
     if (!this.data) {
       return;
     }

@@ -1,0 +1,18 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "iconClass": "fas fa-bacon",
+    "relationshipPanels": {
+        "communes": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "dischargeReportRecords": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    },
+    "kanbanViewMode": false
+}

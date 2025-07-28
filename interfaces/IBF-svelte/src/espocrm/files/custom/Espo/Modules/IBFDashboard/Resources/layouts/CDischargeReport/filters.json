@@ -1,0 +1,8 @@
+[
+    "name",
+    "createdAt",
+    "dischargeReportNumber",
+    "reportingDate",
+    "dischargeReportRecords",
+    "description"
+]

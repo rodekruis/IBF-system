@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, Input, OnDestroy } from '@angular/core';
+import { AfterViewChecked, Component, Input, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
@@ -30,7 +30,7 @@ import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
   styleUrls: ['./event-speech-bubble.component.scss'],
   standalone: false,
 })
-export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
+export class EventSpeechBubbleComponent implements AfterViewChecked, OnChanges, OnDestroy {
   @Input()
   public type: string;
 
@@ -77,6 +77,18 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
     private translateService: TranslateService,
     private popoverController: PopoverController,
   ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    if (changes['event'] && this.event) {
+      this.typhoonLandfallText = this.showTyphoonLandfallText(this.event);
+      this.event.header = this.getHeader(this.event);
+      this.event.mainExposureValueSum = this.getEventMainExposureValue(
+        this.event,
+        this.mainExposureIndicatorNumberFormat,
+      );
+    }
+  }
 
   ngAfterViewChecked() {
     this.placeCodeHoverSubscription = this.placeCodeService

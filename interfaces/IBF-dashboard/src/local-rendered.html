@@ -1,0 +1,633 @@
+<html lang="en" class="plt-mobile plt-mobileweb md" mode="md" data-ibf-mode="standalone" style="--ibf-mode: standalone; --ibf-app-height: 100vh;"><head>
+    <script type="module" src="/@vite/client"></script>
+
+    <meta charset="utf-8"><style>html.plt-mobile ion-app{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}html.plt-mobile ion-app [contenteditable]{-webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text}ion-app.force-statusbar-padding{--ion-safe-area-top:20px}</style><style data-styles="">slot-fb{display:contents}slot-fb[hidden]{display:none}ion-route,ion-route-redirect,ion-router,ion-router-link{visibility:hidden}.hydrated{visibility:inherit}</style>
+    <title>IBF-portal</title>
+
+    <base href="/">
+
+    <meta name="color-scheme" content="light dark">
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="theme-color" content="#1976d2">
+    <link rel="icon" type="image/png" href="assets/icons/favicon.png">
+    <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css"><link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&amp;display=swap" as="style"><link rel="preload" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&amp;display=swap" as="style"><style>
+
+.loader[_ngcontent-ng-c2693132568] {
+  z-index: 99999;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.75);
+}
+ion-spinner[_ngcontent-ng-c2693132568] {
+  width: 128px;
+  height: 128px;
+}
+[_nghost-ng-c2693132568] {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+.embedded[_nghost-ng-c2693132568] {
+  height: 100% !important;
+  min-height: 600px;
+}
+.embedded[_nghost-ng-c2693132568]   ion-app[_ngcontent-ng-c2693132568] {
+  height: 100% !important;
+  position: relative !important;
+}
+.embedded[_nghost-ng-c2693132568]   ion-content[_ngcontent-ng-c2693132568] {
+  height: 100% !important;
+}
+.embedded[_nghost-ng-c2693132568]   .page-structure[_ngcontent-ng-c2693132568] {
+  height: 100% !important;
+  min-height: 600px !important;
+}
+.embedded[_nghost-ng-c2693132568]   .ibf-dashboard-left-column[_ngcontent-ng-c2693132568], 
+.embedded[_nghost-ng-c2693132568]   .ibf-dashboard-right-column[_ngcontent-ng-c2693132568] {
+  min-height: 500px !important;
+}
+.embedded[_nghost-ng-c2693132568]   .leaflet--map[_ngcontent-ng-c2693132568] {
+  height: 400px !important;
+  min-height: 400px !important;
+}
+.embedded[_nghost-ng-c2693132568]   #ibf-dashboard-map[_ngcontent-ng-c2693132568] {
+  height: 400px !important;
+  min-height: 400px !important;
+}
+/*# sourceMappingURL=/app.component.css.map */</style><style>
+
+.debug-container[_ngcontent-ng-c3497108979] {
+  outline: 1px dashed hotpink;
+}
+.debug-placeholder[_ngcontent-ng-c3497108979] {
+  display: flex;
+}
+.debug-placeholder[_ngcontent-ng-c3497108979]    > *[_ngcontent-ng-c3497108979] {
+  margin: auto;
+}
+.ibf-dashboard-interface[_ngcontent-ng-c3497108979] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+}
+.ibf-dashboard-left-column[_ngcontent-ng-c3497108979] {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-height: 100px !important;
+}
+.ibf-dashboard-right-column[_ngcontent-ng-c3497108979] {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  min-height: 100px !important;
+}
+app-chat[_ngcontent-ng-c3497108979], 
+app-timeline[_ngcontent-ng-c3497108979], 
+app-aggregates[_ngcontent-ng-c3497108979], 
+app-matrix[_ngcontent-ng-c3497108979], 
+app-map[_ngcontent-ng-c3497108979] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+#ibf-dashboard-map[_ngcontent-ng-c3497108979] {
+  pointer-events: all !important;
+}
+.ibf-dashboard-interface[_ngcontent-ng-c3497108979] {
+  height: 100%;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+ion-menu[_ngcontent-ng-c3497108979]   ion-menu-toggle[_ngcontent-ng-c3497108979] {
+  cursor: pointer;
+}
+app-export-view[_ngcontent-ng-c3497108979] {
+  display: flex;
+  height: 100%;
+}
+.today-date[_ngcontent-ng-c3497108979] {
+  height: 40px;
+  margin-top: 0;
+  margin-bottom: 0px;
+  margin-left: 0;
+  padding-left: 0;
+}
+.page-structure[_ngcontent-ng-c3497108979] {
+  min-height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.embedded[_nghost-ng-c3497108979]   .page-structure[_ngcontent-ng-c3497108979], .embedded   [_nghost-ng-c3497108979]   .page-structure[_ngcontent-ng-c3497108979] {
+  min-height: 600px !important;
+  height: 100% !important;
+}
+.page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979] {
+  flex-grow: 1;
+}
+.embedded[_nghost-ng-c3497108979]   .page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979], .embedded   [_nghost-ng-c3497108979]   .page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979] {
+  min-height: 500px !important;
+}
+.page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-left-column[_ngcontent-ng-c3497108979] {
+  display: flex;
+  flex-direction: column;
+}
+.embedded[_nghost-ng-c3497108979]   .page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-left-column[_ngcontent-ng-c3497108979], .embedded   [_nghost-ng-c3497108979]   .page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-left-column[_ngcontent-ng-c3497108979] {
+  min-height: 500px !important;
+}
+.page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-left-column[_ngcontent-ng-c3497108979]   .component-title[_ngcontent-ng-c3497108979]   .component-title-item[_ngcontent-ng-c3497108979] {
+  --background: transparent;
+  --height: 40px;
+  --min-height: 40px;
+  --inner-padding-end: 0px;
+}
+.page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-left-column[_ngcontent-ng-c3497108979]   .component-title[_ngcontent-ng-c3497108979]   .component-title-item[_ngcontent-ng-c3497108979]   ion-button[_ngcontent-ng-c3497108979] {
+  text-transform: uppercase;
+  opacity: 1;
+  padding-inline-start: 0px;
+  height: 60%;
+  margin: 0;
+}
+.page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-left-column[_ngcontent-ng-c3497108979]   .component-title[_ngcontent-ng-c3497108979]   .component-title-item[_ngcontent-ng-c3497108979]   ion-button[_ngcontent-ng-c3497108979]   app-date-button[_ngcontent-ng-c3497108979] {
+  background-color: var(--ion-color-ibf-primary);
+  color: var(--ion-color-ibf-primary-contrast);
+  border: var(--ion-color-ibf-primary-contrast);
+  height: 38px;
+  width: 70px;
+  font-weight: 700;
+  padding: 5px;
+  padding-top: 5px;
+}
+.page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-left-column[_ngcontent-ng-c3497108979]   .component-title[_ngcontent-ng-c3497108979]   .component-title-item[_ngcontent-ng-c3497108979]   ion-button[_ngcontent-ng-c3497108979]   .button-border-line[_ngcontent-ng-c3497108979] {
+  border-bottom-color: 2px solid var(--ion-color-ibf-primary);
+  border-bottom: var(--ion-color-ibf-primary);
+  border-bottom: solid rgb(83, 7, 224);
+  border-width: 2px;
+  background-color: var(--ion-color-ibf-primary-contrast);
+}
+.page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-left-column[_ngcontent-ng-c3497108979]   .component-title[_ngcontent-ng-c3497108979]   .component-title-item[_ngcontent-ng-c3497108979]   .component-title-thumbnail[_ngcontent-ng-c3497108979] {
+  height: 24px;
+  width: 24px;
+  display: none;
+}
+.page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-left-column[_ngcontent-ng-c3497108979]   .component-content[_ngcontent-ng-c3497108979] {
+  flex-grow: 1;
+}
+.page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-right-column[_ngcontent-ng-c3497108979] {
+  display: flex;
+  flex-direction: column;
+}
+.page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-right-column[_ngcontent-ng-c3497108979]   .component-content[_ngcontent-ng-c3497108979] {
+  flex-grow: 1;
+  overflow: hidden;
+}
+.page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-right-column[_ngcontent-ng-c3497108979]   .component-content[_ngcontent-ng-c3497108979]   .ibf-dashboard-right-column-left-sub-column[_ngcontent-ng-c3497108979] {
+  display: flex;
+  --ion-background-color: var(--ion-color-fiveten-neutral-100);
+}
+.page-structure[_ngcontent-ng-c3497108979]   .page-structure--content[_ngcontent-ng-c3497108979]   .ibf-dashboard-right-column[_ngcontent-ng-c3497108979]   .component-content[_ngcontent-ng-c3497108979]   .ibf-dashboard-right-column-left-sub-column[_ngcontent-ng-c3497108979]   ion-content[_ngcontent-ng-c3497108979]   .ibf-dashboard-right-column-left-sub-column-grid[_ngcontent-ng-c3497108979] {
+  display: flex;
+  flex-flow: column nowrap;
+  overflow: auto;
+  height: 100%;
+}
+/*# sourceMappingURL=/dashboard.page.css.map */</style><style>
+
+/*# sourceMappingURL=/country-switcher.component.css.map */</style><style>
+
+/*# sourceMappingURL=/backend-mock-scenario.component.css.map */</style><style>
+
+.top-bar-button[_ngcontent-ng-c464652503] {
+  height: 40px;
+  margin-top: 0;
+  margin-bottom: 0px;
+  margin-left: 0;
+  padding-left: 0;
+}
+.active[_ngcontent-ng-c464652503] {
+  background-color: var(--ion-color-ibf-primary-contrast);
+  color: var(--ion-color-ibf-primary);
+}
+.user-state-log-out-button[_ngcontent-ng-c464652503]::part(native) {
+  border-color: var(--ion-color-fiveten-navy-300);
+}
+/*# sourceMappingURL=/user-state.component.css.map */</style><style>
+
+.disclaimer-toolbar[_ngcontent-ng-c2283834333] {
+  --min-height: 36px;
+}
+.disclaimer-toolbar[_ngcontent-ng-c2283834333]   ion-title[_ngcontent-ng-c2283834333] {
+  font-weight: bold;
+}
+/*# sourceMappingURL=/disclaimer-toolbar.component.css.map */</style><style>
+
+.disaster-type-button[_ngcontent-ng-c2656919070] {
+  cursor: pointer;
+  display: block;
+  margin: 0px 2px 0px 2px;
+  height: 32px;
+  width: 32px;
+}
+.disaster-type-button[_ngcontent-ng-c2656919070]:hover {
+  opacity: 0.85;
+  transition: 0.3s;
+}
+/*# sourceMappingURL=/disaster-type.component.css.map */</style><style>
+
+ion-content[_ngcontent-ng-c3519241892]   p[_ngcontent-ng-c3519241892], 
+ion-content[_ngcontent-ng-c3519241892]   ion-label[_ngcontent-ng-c3519241892], 
+ion-content[_ngcontent-ng-c3519241892]   ion-note[_ngcontent-ng-c3519241892] {
+  font-size: 12px;
+}
+ion-content[_ngcontent-ng-c3519241892]   .background-light[_ngcontent-ng-c3519241892]   ion-item[_ngcontent-ng-c3519241892] {
+  --background: none;
+}
+ion-content[_ngcontent-ng-c3519241892]   .chat-icon[_ngcontent-ng-c3519241892] {
+  width: 1.5rem;
+  padding: 1px;
+}
+ion-checkbox[_ngcontent-ng-c3519241892] {
+  margin-inline-end: 8px !important;
+}
+.event-header[_ngcontent-ng-c3519241892] {
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+.event-header[_ngcontent-ng-c3519241892]   .event-header--icon-title[_ngcontent-ng-c3519241892] {
+  align-self: center;
+  flex-grow: 3;
+}
+.alert-icon[_ngcontent-ng-c3519241892] {
+  float: left;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+/*# sourceMappingURL=/chat.component.css.map */</style><style>
+
+ion-item[_ngcontent-ng-c697969611] {
+  --inner-padding-end: 0;
+  --height: 40px;
+  --min-height: 40px;
+}
+ion-button[_ngcontent-ng-c697969611] {
+  height: 100% !important;
+  text-align: left;
+  --border-style: solid;
+  --border-color: transparent;
+}
+ion-button[_ngcontent-ng-c697969611]::part(native) {
+  border-width: 0.1rem;
+}
+ion-button.active[_ngcontent-ng-c697969611] {
+  --border-color: var(--ion-color-ibf-trigger-alert-primary);
+  --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
+}
+ion-button.forecast-alert[_ngcontent-ng-c697969611] {
+  --border-color: var(--ion-color-ibf-trigger-alert-tertiary);
+  --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
+}
+ion-button.forecast-alert.active[_ngcontent-ng-c697969611] {
+  --border-color: var(--ion-color-ibf-trigger-alert-primary);
+  --ion-color-contrast: var(--ion-color-ibf-trigger-alert-primary);
+}
+/*# sourceMappingURL=/timeline.component.css.map */</style><style>
+
+.component-title[_ngcontent-ng-c3066227207]   .component-title-item[_ngcontent-ng-c3066227207] {
+  --inner-padding-end: 0;
+  margin: 4px;
+}
+.component-title[_ngcontent-ng-c3066227207]   .aggregate--title[_ngcontent-ng-c3066227207] {
+  width: 100%;
+  display: contents;
+}
+.place-code-reset-button[_ngcontent-ng-c3066227207] {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.aggregate-item[_ngcontent-ng-c3066227207], 
+.aggregate-item-value[_ngcontent-ng-c3066227207], 
+.aggregate-item-information-icon[_ngcontent-ng-c3066227207] {
+  --min-height: 2rem;
+}
+.aggregate-item[_ngcontent-ng-c3066227207], 
+.aggregate-item[_ngcontent-ng-c3066227207]::part(native), 
+.aggregate-item-value[_ngcontent-ng-c3066227207], 
+.aggregate-item-value[_ngcontent-ng-c3066227207]::part(native), 
+.aggregate-item-information-icon[_ngcontent-ng-c3066227207], 
+.aggregate-item-information-icon[_ngcontent-ng-c3066227207]::part(native) {
+  height: 100%;
+}
+.aggregate-item[_ngcontent-ng-c3066227207] {
+  --inner-padding-end: 0;
+}
+.aggregate-item[_ngcontent-ng-c3066227207]   .aggregate-item-label[_ngcontent-ng-c3066227207] {
+  line-height: 1.2;
+  white-space: normal;
+  padding: 0 4px;
+}
+.aggregate-item-information-icon[_ngcontent-ng-c3066227207] {
+  --inner-padding-end: 0;
+}
+/*# sourceMappingURL=/aggregates.component.css.map */</style><style>
+
+.component-title[_ngcontent-ng-c3128352279]   .component-title-item[_ngcontent-ng-c3128352279] {
+  --inner-padding-end: 0;
+  height: 48px;
+}
+.component-title[_ngcontent-ng-c3128352279]   .component-title-item[_ngcontent-ng-c3128352279]   .areas-of-focus--title[_ngcontent-ng-c3128352279] {
+  margin-top: 4px;
+}
+.component-title[_ngcontent-ng-c3128352279]   .component-title-item[_ngcontent-ng-c3128352279]   .areas-of-focus--subtitle[_ngcontent-ng-c3128352279] {
+  margin-bottom: 0px;
+}
+.component-title[_ngcontent-ng-c3128352279]   .component-title-item[_ngcontent-ng-c3128352279]   .component-title-thumbnail[_ngcontent-ng-c3128352279] {
+  height: 24px;
+  width: 24px;
+}
+.areas-of-focus-item[_ngcontent-ng-c3128352279], 
+.areas-of-focus-item-value[_ngcontent-ng-c3128352279], 
+.areas-of-focus-item-information-icon[_ngcontent-ng-c3128352279] {
+  --min-height: 2.5rem;
+  height: 2.5rem;
+}
+.areas-of-focus-item[_ngcontent-ng-c3128352279] {
+  --inner-padding-end: 0;
+}
+.areas-of-focus-item[_ngcontent-ng-c3128352279]   .areas-of-focus-item-thumbnail[_ngcontent-ng-c3128352279] {
+  background: var(--ion-color-fiveten-neutral-100);
+  border: 0.2rem solid var(--ion-color-fiveten-neutral-100);
+  width: 2.5rem;
+  height: 2.5rem;
+  align-self: start;
+  margin: 0px !important;
+  padding: 4px;
+}
+.areas-of-focus-item[_ngcontent-ng-c3128352279]   .areas-of-focus-item-label[_ngcontent-ng-c3128352279] {
+  line-height: 1.2;
+  font-size: 12px;
+  margin: 0px !important;
+  white-space: normal !important;
+  padding: 0px 4px !important;
+}
+.areas-of-focus-item-value[_ngcontent-ng-c3128352279] {
+  --background: var(--ion-color-fiveten-neutral-0);
+}
+.areas-of-focus-item-value[_ngcontent-ng-c3128352279]   ion-label[_ngcontent-ng-c3128352279] {
+  margin: 0px !important;
+  font-size: 12px;
+  white-space: normal !important;
+}
+.areas-of-focus-item-information-icon[_ngcontent-ng-c3128352279]   ion-label[_ngcontent-ng-c3128352279] {
+  margin: 0px auto !important;
+  padding-top: 0.2em;
+  max-width: 20px;
+}
+.areas-of-focus-item-information-icon[_ngcontent-ng-c3128352279] {
+  --inner-padding-end: 0.2rem;
+  cursor: pointer;
+}
+.actions-not-applicable[_ngcontent-ng-c3128352279] {
+  color: var(--ion-color-ibf-grey);
+}
+/*# sourceMappingURL=/areas-of-focus-summary.component.css.map */</style><style>
+
+#layer-menu-container[_ngcontent-ng-c142104364] {
+  position: fixed;
+  z-index: 900;
+  bottom: 1.5rem;
+  right: 0;
+  width: 13vw;
+  height: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  max-height: 17.26rem;
+}
+@media (max-width: 1280px) {
+  #layer-menu-container[_ngcontent-ng-c142104364] {
+    width: 16vw;
+  }
+}
+#layer-menu-container[_ngcontent-ng-c142104364]   #layer-menu-toggle-button[_ngcontent-ng-c142104364] {
+  width: 100%;
+  height: 2.26rem;
+  min-height: 2.26rem;
+  --border-radius: 0.25rem 0 0 0;
+}
+#layer-menu-container[_ngcontent-ng-c142104364]   #layer-menu-toggle-button[_ngcontent-ng-c142104364]   div[_ngcontent-ng-c142104364] {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+#layer-menu-container[_ngcontent-ng-c142104364]   #layer-menu-toggle-button[_ngcontent-ng-c142104364]   div[_ngcontent-ng-c142104364]   ion-icon[_ngcontent-ng-c142104364] {
+  font-size: 1rem;
+}
+#layer-menu-container[_ngcontent-ng-c142104364]   #layer-menu[_ngcontent-ng-c142104364] {
+  bottom: 0px;
+  overflow-y: auto;
+}
+#layer-menu-container[_ngcontent-ng-c142104364]   #layer-menu[_ngcontent-ng-c142104364]   ion-row[_ngcontent-ng-c142104364] {
+  min-height: 1.5rem;
+  border: 1px solid var(--ion-color-ibf-no-alert-primary);
+  border-top: none;
+}
+#layer-menu-container[_ngcontent-ng-c142104364]   #layer-menu[_ngcontent-ng-c142104364]   ion-item[_ngcontent-ng-c142104364] {
+  width: 98%;
+  --min-height: $line-height;
+  --padding-bottom: 0;
+  --padding-top: 0;
+  --padding-start: 0.25rem;
+  --padding-end: 0.25rem;
+  --inner-padding-start: 0;
+  --inner-padding-end: 0;
+}
+#layer-menu-container[_ngcontent-ng-c142104364]   #layer-menu[_ngcontent-ng-c142104364]   ion-item[_ngcontent-ng-c142104364]   ion-spinner[_ngcontent-ng-c142104364] {
+  width: 1rem;
+  height: 1rem;
+}
+#layer-menu-container[_ngcontent-ng-c142104364]   #layer-menu[_ngcontent-ng-c142104364]   ion-item[_ngcontent-ng-c142104364]   .single-layer-toggler[_ngcontent-ng-c142104364] {
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: var(--ion-color-ibf-no-alert-primary);
+}
+#layer-menu-container[_ngcontent-ng-c142104364]   #layer-menu[_ngcontent-ng-c142104364]   ion-item[_ngcontent-ng-c142104364]   ion-label[_ngcontent-ng-c142104364] {
+  width: 80%;
+  font-size: 0.75rem;
+}
+#layer-menu-container[_ngcontent-ng-c142104364]   #layer-menu[_ngcontent-ng-c142104364]   ion-item[_ngcontent-ng-c142104364]   .info-button[_ngcontent-ng-c142104364] {
+  --background-hover: #fff;
+  --ripple-color: #fff;
+}
+#layer-menu-container[_ngcontent-ng-c142104364]   #layer-menu[_ngcontent-ng-c142104364]   ion-item[_ngcontent-ng-c142104364]   .info-icon[_ngcontent-ng-c142104364] {
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+/*# sourceMappingURL=/matrix.component.css.map */</style><style>
+
+app-admin-level[_ngcontent-ng-c1123888448] {
+  position: absolute;
+  top: -10px;
+  left: 45px;
+  z-index: 500;
+}
+/*# sourceMappingURL=/map-controls.component.css.map */</style><style>
+
+.leaflet--map[_ngcontent-ng-c592724139] {
+  width: 100%;
+  height: 100%;
+}
+/*# sourceMappingURL=/map.component.css.map */</style><style>
+
+[_nghost-ng-c392705538] {
+  display: flex;
+}
+img[_ngcontent-ng-c392705538] {
+  height: 3rem;
+  padding: 2px;
+}
+/*# sourceMappingURL=/logos.component.css.map */</style><style>
+
+.dialogue-turn[_ngcontent-ng-c97535111] {
+  display: flex;
+}
+.dialogue-turn[_ngcontent-ng-c97535111]   ion-card[_ngcontent-ng-c97535111] {
+  box-shadow: none;
+  background-color: var(--ion-color-fiveten-neutral-100);
+  color: var(--ion-color-ibf-black);
+  border: 0.125rem solid var(--ion-color-fiveten-neutral-100);
+}
+.dialogue-turn--content[_ngcontent-ng-c97535111] {
+  position: relative;
+  order: 2;
+  transform-origin: top left;
+  width: 100%;
+}
+.dialogue-turn--content[_ngcontent-ng-c97535111]   ion-card[_ngcontent-ng-c97535111] {
+  margin-bottom: 0;
+}
+.dialogue-turn--content[_ngcontent-ng-c97535111]   ion-card-content[_ngcontent-ng-c97535111] {
+  -webkit-inline-start: 8px !important;
+  padding-inline-start: 8px !important;
+  -webkit-inline-end: 8px !important;
+  padding-inline-end: 8px !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
+}
+.dialogue-turn.is-late[_ngcontent-ng-c97535111]   .dialogue-turn--content[_ngcontent-ng-c97535111]   ion-card-content[_ngcontent-ng-c97535111] {
+  color: var(--ion-color-danger);
+}
+.dialogue-turn.is-late[_ngcontent-ng-c97535111]   .dialogue-turn--content[_ngcontent-ng-c97535111]   ion-card-content[_ngcontent-ng-c97535111]   ion-text[_ngcontent-ng-c97535111] {
+  color: var(--ion-color-ibf-primary);
+}
+.dialogue-turn[_ngcontent-ng-c97535111]   .dialogue-turn--content[_ngcontent-ng-c97535111] {
+  animation-name: _ngcontent-ng-c97535111_speak;
+  animation-duration: 0.3s;
+  animation-direction: forwards;
+  animation-iteration-count: 1;
+}
+@keyframes _ngcontent-ng-c97535111_speak {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  95% {
+    transform: scale(1.06);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/*# sourceMappingURL=/dialogue-turn.component.css.map */</style><style>
+
+.breadcrumbs-container[_ngcontent-ng-c576870524] {
+  margin-top: 20px;
+}
+.breadcrumb[_ngcontent-ng-c576870524] {
+  font-size: 12px;
+  margin: 0;
+  --background: var(--ion-color-ibf-white);
+  --border-color: var(--ion-color-ibf-no-alert-primary);
+  --border-width: 2px;
+  --border-style: solid;
+  --color: var(--ion-color-ibf-no-alert-primary);
+}
+.breadcrumb.selected[_ngcontent-ng-c576870524] {
+  --background: var(--ion-color-ibf-no-alert-primary);
+  --color: var(--ion-color-ibf-white);
+}
+.breadcrumb-start[_ngcontent-ng-c576870524] {
+  --border-width: 2px 0px 2px 2px;
+  --border-radius: var(--breadcrumb-radius) 0 0 var(--breadcrumb-radius);
+}
+.breadcrumb-middle[_ngcontent-ng-c576870524] {
+  --border-radius: 0;
+  --border-width: 2px 0px 2px 2px;
+}
+.breadcrumb-end[_ngcontent-ng-c576870524] {
+  --border-radius: 0 var(--breadcrumb-radius) var(--breadcrumb-radius) 0;
+}
+.breadcrumb-alone[_ngcontent-ng-c576870524] {
+  --border-radius: var(--breadcrumb-radius);
+}
+/*# sourceMappingURL=/admin-level.component.css.map */</style><style>
+
+app-dialogue-turn[_ngcontent-ng-c3179703078]   p[_ngcontent-ng-c3179703078], 
+app-dialogue-turn[_ngcontent-ng-c3179703078]   ion-label[_ngcontent-ng-c3179703078], 
+app-dialogue-turn[_ngcontent-ng-c3179703078]   ion-note[_ngcontent-ng-c3179703078] {
+  font-size: 12px;
+}
+.action-label[_ngcontent-ng-c3179703078] {
+  font-size: small;
+}
+ion-checkbox[_ngcontent-ng-c3179703078] {
+  margin-inline-end: 8px !important;
+}
+.event-header[_ngcontent-ng-c3179703078] {
+  display: flex;
+  flex-direction: row;
+  font-weight: bold;
+  font-size: 0.875rem;
+}
+.event-header[_ngcontent-ng-c3179703078]   .event-header--icon-title[_ngcontent-ng-c3179703078] {
+  align-self: center;
+  flex-grow: 3;
+}
+.event-header[_ngcontent-ng-c3179703078]   .event-header--tooltip[_ngcontent-ng-c3179703078] {
+  align-self: start;
+}
+.alert-icon[_ngcontent-ng-c3179703078] {
+  float: left;
+  margin-right: 5px;
+  margin-top: 3px;
+}
+.set-trigger-button[_ngcontent-ng-c3179703078]::part(native) {
+  background: var(--ion-color-ibf-white);
+  border-color: var(--ion-color-fiveten-red-500);
+}
+/*# sourceMappingURL=/event-speech-bubble.component.css.map */</style></head>
+
+  <body>
+    <app-root ng-version="19.2.8" _nghost-ng-c2693132568=""><ion-app _ngcontent-ng-c2693132568="" id="app" data-testid="app" class="ion-page hydrated md no-alert"><div _ngcontent-ng-c2693132568="" style="position: fixed; top: 10px; left: 10px; background: rgba(0,0,0,0.9); color: white; padding: 8px; border-radius: 4px; z-index: 10000; font-size: 10px; font-family: monospace;"><div _ngcontent-ng-c2693132568=""><strong _ngcontent-ng-c2693132568="">🔄 App Loading State</strong></div><div _ngcontent-ng-c2693132568="" style="color: rgb(16, 185, 129);">Loading: FALSE (overlay hidden)</div><div _ngcontent-ng-c2693132568="" style="font-size: 9px; color: #94a3b8;">Embedded: false</div><div _ngcontent-ng-c2693132568="" style="font-size: 9px; color: #94a3b8;">Platform: standalone</div></div><router-outlet _ngcontent-ng-c2693132568=""></router-outlet><app-dashboard _nghost-ng-c3497108979=""><ion-menu _ngcontent-ng-c3497108979="" side="start" type="push" contentid="ibf-dashboard-interface" menuid="dev-control" ng-reflect-side="start" ng-reflect-type="push" ng-reflect-content-id="ibf-dashboard-interface" ng-reflect-menu-id="dev-control" role="navigation" aria-label="menu" class="undefined menu-type-push menu-enabled menu-side-start hydrated" content-id="ibf-dashboard-interface" menu-id="dev-control"><ion-menu-toggle _ngcontent-ng-c3497108979="" menu="dev-control" ng-reflect-menu="dev-control" class="undefined hydrated"><ion-header _ngcontent-ng-c3497108979="" role="none" class="undefined header-undefined header-collapse-none hydrated"><!----><ion-toolbar _ngcontent-ng-c3497108979="" class="toolbar-title-default undefined in-toolbar hydrated"><ion-buttons _ngcontent-ng-c3497108979="" data-testid="dashboard-dev-control-close-button" slot="start" class="buttons-first-slot sc-ion-buttons-h undefined sc-ion-buttons-s hydrated"><!----><ion-icon _ngcontent-ng-c3497108979="" name="chevron-back-outline" ng-reflect-name="chevron-back-outline" role="img" class="md flip-rtl hydrated"></ion-icon></ion-buttons><ion-title _ngcontent-ng-c3497108979="" ng-reflect-translate="dashboard-page.dev-menu.title" class="undefined title-default hydrated">Dev Mode</ion-title></ion-toolbar></ion-header></ion-menu-toggle><ion-content _ngcontent-ng-c3497108979="" class="undefined content-ltr hydrated" style="--offset-top: 0px; --offset-bottom: 0px;"><ion-list _ngcontent-ng-c3497108979="" class="ion-no-padding undefined list-undefined hydrated" role="list"><ion-item _ngcontent-ng-c3497108979="" lines="full" target="_blank" ng-reflect-lines="full" ng-reflect-target="_blank" class="ion-hide item undefined item-lines-full in-list ion-activatable ion-focusable hydrated item-label" ng-reflect-href="https://github.com/rodekruis/I" role="listitem"><ion-label _ngcontent-ng-c3497108979="" class="sc-ion-label-h undefined sc-ion-label-s hydrated"><!---->Version</ion-label><ion-text _ngcontent-ng-c3497108979="" class="undefined hydrated">v0.321.4</ion-text></ion-item><app-country-switcher _ngcontent-ng-c3497108979="" class="ion-align-items-center" _nghost-ng-c1097923881=""><ion-item _ngcontent-ng-c1097923881="" class="item undefined item-lines-default item-control-needs-pointer-cursor in-list ion-activatable ion-focusable hydrated" role="listitem"><ion-select _ngcontent-ng-c1097923881="" label="Country" placeholder="Select Country" data-testid="country-switcher-dropdown" interface="popover" ng-reflect-label="Country" ng-reflect-placeholder="Select Country" ng-reflect-interface="popover" ng-reflect-value="ETH" class="undefined in-item has-value has-placeholder ion-focusable select-ltr select-label-placement-start hydrated"><ion-select-option _ngcontent-ng-c1097923881="" ng-reflect-value="ETH" role="option" id="ion-selopt-0" class="hydrated"> Ethiopia </ion-select-option><ion-select-option _ngcontent-ng-c1097923881="" ng-reflect-value="KEN" role="option" id="ion-selopt-1" class="hydrated"> Kenya </ion-select-option><ion-select-option _ngcontent-ng-c1097923881="" ng-reflect-value="LSO" role="option" id="ion-selopt-2" class="hydrated"> Lesotho </ion-select-option><ion-select-option _ngcontent-ng-c1097923881="" ng-reflect-value="MWI" role="option" id="ion-selopt-3" class="hydrated"> Malawi </ion-select-option><ion-select-option _ngcontent-ng-c1097923881="" ng-reflect-value="PHL" role="option" id="ion-selopt-4" class="hydrated"> Philippines </ion-select-option><ion-select-option _ngcontent-ng-c1097923881="" ng-reflect-value="SSD" role="option" id="ion-selopt-5" class="hydrated"> South Sudan </ion-select-option><ion-select-option _ngcontent-ng-c1097923881="" ng-reflect-value="UGA" role="option" id="ion-selopt-6" class="hydrated"> Uganda </ion-select-option><ion-select-option _ngcontent-ng-c1097923881="" ng-reflect-value="ZMB" role="option" id="ion-selopt-7" class="hydrated"> Zambia </ion-select-option><ion-select-option _ngcontent-ng-c1097923881="" ng-reflect-value="ZWE" role="option" id="ion-selopt-8" class="hydrated"> Zimbabwe </ion-select-option><!--container--><input type="hidden" class="aux-input" name="ion-sel-0" value="ETH"></ion-select></ion-item><!--container--></app-country-switcher><app-backend-mock-scenario _ngcontent-ng-c3497108979="" class="ion-align-items-center ion-hide" _nghost-ng-c1311600135=""><ion-item _ngcontent-ng-c1311600135="" button="true" ng-reflect-button="true" ng-reflect-translate="dashboard-page.dev-menu.mock-s" class="item undefined item-lines-default in-list ion-activatable ion-focusable hydrated" role="listitem">Load Mock Scenario</ion-item><!--ng-container--></app-backend-mock-scenario></ion-list><ion-list _ngcontent-ng-c3497108979="" class="ion-no-padding ion-hide undefined list-undefined hydrated" role="list"><ion-item _ngcontent-ng-c3497108979="" href="/log" lines="full" target="_blank" ng-reflect-href="/log" ng-reflect-lines="full" ng-reflect-target="_blank" ng-reflect-translate="activation-page.activation-rep" class="item undefined item-lines-full in-list ion-activatable ion-focusable hydrated" role="listitem">Open all triggers</ion-item></ion-list><ion-list _ngcontent-ng-c3497108979="" class="ion-no-padding ion-hide undefined list-undefined hydrated" role="list"><ion-item _ngcontent-ng-c3497108979="" href="/status-report" lines="full" target="_blank" ng-reflect-href="/status-report" ng-reflect-lines="full" ng-reflect-target="_blank" ng-reflect-translate="status-report-page.dev-menu-li" class="item undefined item-lines-full in-list ion-activatable ion-focusable hydrated" role="listitem">Open status report page</ion-item></ion-list></ion-content></ion-menu><div _ngcontent-ng-c3497108979="" id="ibf-dashboard-interface" data-testid="ibf-dashboard-interface" class="ibf-dashboard-interface menu-content menu-content-push"><ion-header _ngcontent-ng-c3497108979="" class="ion-no-border undefined header-undefined header-collapse-none hydrated" style="border-bottom: 1px solid var(--ion-color-ibf-no-alert-primary);" role="banner"><!----><ion-toolbar _ngcontent-ng-c3497108979="" class="toolbar-title-medium undefined in-toolbar hydrated"><ion-buttons _ngcontent-ng-c3497108979="" slot="start" class="buttons-first-slot sc-ion-buttons-h undefined sc-ion-buttons-s hydrated"><!----><ion-button _ngcontent-ng-c3497108979="" data-testid="dashboard-home-button" title="Home" class="ion-hide undefined button button-clear in-toolbar in-buttons button-has-icon-only ion-activatable ion-focusable hydrated"><ion-icon _ngcontent-ng-c3497108979="" name="apps" slot="icon-only" ng-reflect-name="apps" role="img" class="md hydrated"></ion-icon></ion-button><ion-menu-toggle _ngcontent-ng-c3497108979="" menu="dev-control" ng-reflect-menu="dev-control" class="undefined hydrated"><ion-button _ngcontent-ng-c3497108979="" data-testid="dashboard-dev-control-button" class="undefined button button-clear in-toolbar in-buttons button-has-icon-only ion-activatable ion-focusable hydrated"><ion-icon _ngcontent-ng-c3497108979="" name="apps" slot="icon-only" ng-reflect-name="apps" role="img" class="md hydrated"></ion-icon></ion-button></ion-menu-toggle></ion-buttons><app-user-state _ngcontent-ng-c3497108979="" _nghost-ng-c464652503="" ng-reflect-is-logged-in="true"><ion-grid _ngcontent-ng-c464652503="" class="undefined hydrated"><ion-row _ngcontent-ng-c464652503="" class="ion-justify-content-between ion-align-items-center hydrated"><div _ngcontent-ng-c464652503=""><ion-title _ngcontent-ng-c464652503="" size="medium" data-testid="heading-display-name-label" class="font-[Montserrat] uppercase undefined title-medium hydrated" ng-reflect-size="medium"><span _ngcontent-ng-c464652503="" data-testid="heading-display-name-span"> IBF PORTAL <strong _ngcontent-ng-c464652503="" ng-reflect-ng-class="[object Object]"> Ethiopia   </strong><!--container--><!--container--></span><!--container--></ion-title></div><div _ngcontent-ng-c464652503="" class="ion-align-items-center"><ion-row _ngcontent-ng-c464652503="" class="ion-align-items-center hydrated"><app-logos _ngcontent-ng-c464652503="" _nghost-ng-c392705538=""><!--container--></app-logos><ion-item _ngcontent-ng-c464652503="" lines="none" ng-reflect-lines="none" class="item-title-small item undefined item-lines-none hydrated"><ion-col _ngcontent-ng-c464652503="" class="ion-no-padding undefined hydrated"><ion-title _ngcontent-ng-c464652503="" size="small" class="ion-no-padding undefined title-small hydrated" ng-reflect-size="small"> Logged in as: </ion-title><ion-title _ngcontent-ng-c464652503="" size="small" data-testid="user-display-name" class="ion-no-padding cursor-pointer font-bold hover:underline undefined title-small hydrated" ng-reflect-size="small"> EspoCRM Admin </ion-title><!--container--></ion-col></ion-item><ion-button _ngcontent-ng-c464652503="" data-testid="user-state-logout-button" size="small" shape="round" fill="outline" strong="true" color="fiveten-navy-900" data-test="logout-button" class="user-state-log-out-button ion-color ion-color-fiveten-navy-900 undefined button button-small button-round button-outline button-strong in-toolbar ion-activatable ion-focusable hydrated" ng-reflect-size="small" ng-reflect-shape="round" ng-reflect-fill="outline" ng-reflect-strong="true" ng-reflect-color="fiveten-navy-900"> Log out </ion-button><!--container--></ion-row></div></ion-row></ion-grid></app-user-state></ion-toolbar><app-disclaimer-toolbar _ngcontent-ng-c3497108979="" _nghost-ng-c2283834333=""><!--container--></app-disclaimer-toolbar></ion-header><ion-content _ngcontent-ng-c3497108979="" role="main" class="undefined content-ltr hydrated" style="--offset-top: 0px; --offset-bottom: 0px;"><div _ngcontent-ng-c3497108979="" style="position: fixed; top: 80px; right: 10px; background: rgba(0,0,0,0.9); color: white; padding: 10px; border-radius: 5px; z-index: 9999; font-size: 11px; max-width: 320px; font-family: monospace;"><div _ngcontent-ng-c3497108979=""><strong _ngcontent-ng-c3497108979="">🔍 Enhanced Debug Info</strong></div><div _ngcontent-ng-c3497108979="" style="color: #4ade80;">✅ Dashboard Template: RENDERED</div><div _ngcontent-ng-c3497108979="" style="color: #10b981;">✅ Change Detection: Active</div><div _ngcontent-ng-c3497108979="">isDev: false</div><div _ngcontent-ng-c3497108979="">isMultiCountry: true</div><div _ngcontent-ng-c3497108979="">templateRendered: true</div><div _ngcontent-ng-c3497108979="">Version: v0.321.4</div><hr _ngcontent-ng-c3497108979="" style="margin: 5px 0; border-color: #444;"><div _ngcontent-ng-c3497108979="" style="color: #fbbf24;"><strong _ngcontent-ng-c3497108979="">⚡ Status</strong></div><div _ngcontent-ng-c3497108979="" style="font-size: 10px; color: #94a3b8;">Template is rendering!</div><div _ngcontent-ng-c3497108979="" style="font-size: 10px; color: #94a3b8;">OnPush change detection working</div><div _ngcontent-ng-c3497108979="" style="font-size: 10px; color: #94a3b8;">Check console for details</div></div><ion-grid _ngcontent-ng-c3497108979="" class="page-structure ion-no-padding undefined hydrated"><ion-row _ngcontent-ng-c3497108979="" class="page-structure--content hydrated"><ion-col _ngcontent-ng-c3497108979="" sizexs="12" sizemd="3" sizelg="3" sizexl="3" class="ibf-dashboard-left-column ion-no-padding undefined hydrated" ng-reflect-size-xs="12" ng-reflect-size-md="3" ng-reflect-size-lg="3" ng-reflect-size-xl="3" style="flex: 0 0 calc(calc(3 / var(--ion-grid-columns, 12)) * 100%); width: calc(calc(3 / var(--ion-grid-columns, 12)) * 100%); max-width: calc(calc(3 / var(--ion-grid-columns, 12)) * 100%);"><ion-row _ngcontent-ng-c3497108979="" data-testid="dashboard-top-bar" class="component-title ion-justify-content-start ion-align-items-center hydrated"><div _ngcontent-ng-c3497108979="" style="margin-left: 8px;"><app-disaster-type _ngcontent-ng-c3497108979="" _nghost-ng-c2656919070=""><ion-row _ngcontent-ng-c2656919070="" class="hydrated"><div _ngcontent-ng-c2656919070=""><ion-icon _ngcontent-ng-c2656919070="" slot="start" class="disaster-type-button md hydrated" ng-reflect-ng-class="" ng-reflect-src="/assets/icons/Drought_Not Sele" data-testid="disaster-type-button-drought" data-test-selected="" role="img"></ion-icon></div><div _ngcontent-ng-c2656919070=""><ion-icon _ngcontent-ng-c2656919070="" slot="start" class="disaster-type-button md hydrated" ng-reflect-ng-class="" ng-reflect-src="/assets/icons/Flash Floods_Not" data-testid="disaster-type-button-flash-floods" data-test-selected="" role="img"></ion-icon></div><div _ngcontent-ng-c2656919070=""><ion-icon _ngcontent-ng-c2656919070="" slot="start" class="disaster-type-button md hydrated" ng-reflect-ng-class="" ng-reflect-src="/assets/icons/Flood_Not Select" data-testid="disaster-type-button-floods" data-test-selected="" role="img"></ion-icon></div><div _ngcontent-ng-c2656919070=""><ion-icon _ngcontent-ng-c2656919070="" slot="start" class="disaster-type-button md hydrated" ng-reflect-ng-class="" ng-reflect-src="/assets/icons/Malaria_Not Sele" data-testid="disaster-type-button-malaria" data-test-selected="" role="img"></ion-icon></div><!--container--></ion-row></app-disaster-type></div><div _ngcontent-ng-c3497108979="" style="margin-left: 8px; display: flex; flex-direction: column; align-items: flex-start;"><ion-text _ngcontent-ng-c3497108979="" style="font-size: 18px;" class="undefined hydrated"><strong _ngcontent-ng-c3497108979="">28 Jul 2025</strong></ion-text><ion-text _ngcontent-ng-c3497108979="" style="font-size: 12px;" class="undefined hydrated">Monday, 16:29 GMT+2</ion-text></div></ion-row><ion-row _ngcontent-ng-c3497108979="" class="component-content hydrated"><ion-col _ngcontent-ng-c3497108979="" class="ion-no-padding undefined hydrated"><app-chat _ngcontent-ng-c3497108979="" _nghost-ng-c3519241892=""><ion-content _ngcontent-ng-c3519241892="" scrolly="true" class="ion-padding-bottom undefined content-ltr hydrated" ng-reflect-scroll-y="true" role="main" style="--offset-top: 0px; --offset-bottom: 0px;"><app-dialogue-turn _ngcontent-ng-c3519241892="" _nghost-ng-c97535111="" ng-reflect-is-last-upload-date-late="false"><!--container--><div _ngcontent-ng-c97535111="" data-test="chat" class="dialogue-turn ion-align-items-start"><div _ngcontent-ng-c97535111="" class="dialogue-turn--content"><ion-card _ngcontent-ng-c97535111="" class="undefined hydrated"><ion-card-content _ngcontent-ng-c97535111="" data-testid="dialogue-turn-content" class="space-y-2 undefined card-content-undefined hydrated"><p _ngcontent-ng-c3519241892="" style="padding-right: 20px;"><span _ngcontent-ng-c3519241892="">Hello <strong>EspoCRM Admin</strong>.</span><!--container--><!--container--></p><!--container--><!--bindings={
+  "ng-reflect-ng-template-outlet": "[object Object]"
+}--><!--container--></ion-card-content></ion-card></div></div></app-dialogue-turn><app-event-speech-bubble _ngcontent-ng-c3519241892="" _nghost-ng-c3179703078="" ng-reflect-type="no-event" ng-reflect-areas="" ng-reflect-country-code-i-s-o3="ETH"><!--container--><!--container--></app-event-speech-bubble><!--container--><!--container--><!--container--></ion-content></app-chat></ion-col></ion-row></ion-col><ion-col _ngcontent-ng-c3497108979="" sizexs="12" sizemd="9" sizelg="9" sizexl="9" class="ibf-dashboard-right-column ion-no-padding undefined hydrated" ng-reflect-size-xs="12" ng-reflect-size-md="9" ng-reflect-size-lg="9" ng-reflect-size-xl="9" style="flex: 0 0 calc(calc(9 / var(--ion-grid-columns, 12)) * 100%); width: calc(calc(9 / var(--ion-grid-columns, 12)) * 100%); max-width: calc(calc(9 / var(--ion-grid-columns, 12)) * 100%);"><ion-row _ngcontent-ng-c3497108979="" class="hydrated"><ion-col _ngcontent-ng-c3497108979="" class="undefined hydrated"><app-timeline _ngcontent-ng-c3497108979="" class="button-border-line" _nghost-ng-c697969611=""><ion-item _ngcontent-ng-c697969611="" lines="none" class="ion-no-padding item undefined item-lines-none hydrated" ng-reflect-lines="none"><!--container--><!--container--><!--container--><!--container--></ion-item></app-timeline></ion-col></ion-row><ion-row _ngcontent-ng-c3497108979="" class="component-content hydrated"><ion-col _ngcontent-ng-c3497108979="" data-testid="dashboard-aggregate-section" sizexs="12" sizemd="3" sizelg="3" sizexl="3" class="ibf-dashboard-right-column-left-sub-column undefined hydrated" ng-reflect-size-xs="12" ng-reflect-size-md="3" ng-reflect-size-lg="3" ng-reflect-size-xl="3" style="flex: 0 0 calc(calc(3 / var(--ion-grid-columns, 12)) * 100%); width: calc(calc(3 / var(--ion-grid-columns, 12)) * 100%); max-width: calc(calc(3 / var(--ion-grid-columns, 12)) * 100%);"><ion-content _ngcontent-ng-c3497108979="" role="main" class="undefined content-ltr hydrated" style="--offset-top: 0px; --offset-bottom: 0px;"><ion-grid _ngcontent-ng-c3497108979="" class="ibf-dashboard-right-column-left-sub-column-grid ion-no-padding undefined hydrated"><ion-row _ngcontent-ng-c3497108979="" class="hydrated"><ion-col _ngcontent-ng-c3497108979="" class="undefined hydrated"><app-aggregates _ngcontent-ng-c3497108979="" _nghost-ng-c3066227207=""><div _ngcontent-ng-c3066227207=""><ion-grid _ngcontent-ng-c3066227207="" class="ion-no-padding undefined hydrated"><ion-row _ngcontent-ng-c3066227207="" class="component-title hydrated" style="background: var(--ion-color-ibf-secondary);"><ion-col _ngcontent-ng-c3066227207="" size-xl="10" size-lg="9" size-md="12" size-sm="11" size-xs="11" class="ion-no-padding undefined hydrated" style="flex: 0 0 calc(calc(10 / var(--ion-grid-columns, 12)) * 100%); width: calc(calc(10 / var(--ion-grid-columns, 12)) * 100%); max-width: calc(calc(10 / var(--ion-grid-columns, 12)) * 100%);"><ion-item _ngcontent-ng-c3066227207="" lines="none" color="ibf-secondary" class="component-title-item ion-color ion-color-ibf-secondary item undefined item-lines-none hydrated item-label" ng-reflect-lines="none" ng-reflect-color="ibf-secondary"><ion-col _ngcontent-ng-c3066227207="" class="ion-no-padding ion-no-margin ion-align-items-center undefined hydrated"><ion-label _ngcontent-ng-c3066227207="" color="ibf-black" data-testid="aggregates-header-label" class="ion-text-wrap sc-ion-label-h ion-color ion-color-ibf-black undefined in-item-color sc-ion-label-s hydrated" ng-reflect-color="ibf-black"><!----><ion-text _ngcontent-ng-c3066227207="" class="undefined hydrated"><strong _ngcontent-ng-c3066227207=""></strong></ion-text></ion-label><ion-label _ngcontent-ng-c3066227207="" color="ibf-black" data-testid="aggregates-sub-header-label" class="ion-text-wrap sc-ion-label-h ion-color ion-color-ibf-black undefined in-item-color sc-ion-label-s hydrated" ng-reflect-color="ibf-black"><!----><ion-text _ngcontent-ng-c3066227207="" class="undefined hydrated"></ion-text></ion-label></ion-col></ion-item></ion-col><!--container--></ion-row><div _ngcontent-ng-c3066227207="" data-testid="aggregate-list"><!--container--></div></ion-grid></div></app-aggregates></ion-col></ion-row><ion-row _ngcontent-ng-c3497108979="" class="margin-top-auto hydrated"><ion-col _ngcontent-ng-c3497108979="" class="undefined hydrated"><app-areas-of-focus-summary _ngcontent-ng-c3497108979="" _nghost-ng-c3128352279=""><!--container--></app-areas-of-focus-summary></ion-col></ion-row></ion-grid></ion-content></ion-col><ion-col _ngcontent-ng-c3497108979="" sizexs="12" sizemd="9" sizelg="9" sizexl="9" ng-reflect-size-xs="12" ng-reflect-size-md="9" ng-reflect-size-lg="9" ng-reflect-size-xl="9" class="undefined hydrated" style="flex: 0 0 calc(calc(9 / var(--ion-grid-columns, 12)) * 100%); width: calc(calc(9 / var(--ion-grid-columns, 12)) * 100%); max-width: calc(calc(9 / var(--ion-grid-columns, 12)) * 100%);"><app-matrix _ngcontent-ng-c3497108979="" _nghost-ng-c142104364=""><!--container--></app-matrix><ion-content _ngcontent-ng-c3497108979="" id="ibf-dashboard-map" role="main" class="undefined content-ltr hydrated" style="--offset-top: 0px; --offset-bottom: 0px;"><app-map-controls _ngcontent-ng-c3497108979="" _nghost-ng-c1123888448=""><app-admin-level _ngcontent-ng-c1123888448="" _nghost-ng-c576870524=""><!--container--><div _ngcontent-ng-c576870524="" class="ion-margin-start breadcrumbs-container"><!--container--></div><!--container--></app-admin-level></app-map-controls><app-map _ngcontent-ng-c3497108979="" data-testid="dashboard-map-componenet" _nghost-ng-c592724139=""><div _ngcontent-ng-c592724139="" leaflet="" data-test="leaflet-map" class="leaflet--map leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" ng-reflect-options="[object Object]" tabindex="0" style="position: relative;"><!--container--><div class="leaflet-pane leaflet-map-pane" style="transform: translate3d(363px, 0px, 0px);"><div class="leaflet-pane leaflet-tile-pane"><div class="leaflet-layer " style="z-index: 1; opacity: 1;"><div class="leaflet-tile-container leaflet-zoom-animated" style="z-index: 18; transform: translate3d(0px, 0px, 0px) scale(1);"><img alt="" src="https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/6/39/30.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-51px, -94px, 0px); opacity: 1;"><img alt="" src="https://cartodb-basemaps-c.global.ssl.fastly.net/light_all/6/38/30.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-307px, -94px, 0px); opacity: 1;"><img alt="" src="https://cartodb-basemaps-b.global.ssl.fastly.net/light_all/6/37/30.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(-563px, -94px, 0px); opacity: 1;"><img alt="" src="https://cartodb-basemaps-b.global.ssl.fastly.net/light_all/6/40/30.png" class="leaflet-tile leaflet-tile-loaded" style="width: 256px; height: 256px; transform: translate3d(205px, -94px, 0px); opacity: 1;"></div></div></div><div class="leaflet-pane leaflet-overlay-pane"></div><div class="leaflet-pane leaflet-shadow-pane"></div><div class="leaflet-pane leaflet-marker-pane"></div><div class="leaflet-pane leaflet-tooltip-pane"></div><div class="leaflet-pane leaflet-popup-pane"></div><div class="leaflet-proxy leaflet-zoom-animated" style="transform: translate3d(10034.5px, 7774px, 0px) scale(32);"></div><div class="leaflet-pane leaflet-ibf-wms-pane"></div><div class="leaflet-pane leaflet-ibf-admin-boundaries-pane"></div><div class="leaflet-pane leaflet-outline-pane"></div><div class="leaflet-pane leaflet-ibf-aggregate-pane"></div></div><div class="leaflet-control-container"><div class="leaflet-top leaflet-left"></div><div class="leaflet-top leaflet-right"></div><div class="leaflet-bottom leaflet-left"><div class="info legend invisible leaflet-control"><div><strong>Map Legend</strong></div></div></div><div class="leaflet-bottom leaflet-right"><div class="leaflet-control-attribution leaflet-control"><a href="https://leafletjs.com" title="A JavaScript library for interactive maps"><svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8" class="leaflet-attribution-flag"><path fill="#4C7BE1" d="M0 0h12v4H0z"></path><path fill="#FFD500" d="M0 4h12v3H0z"></path><path fill="#E0BC00" d="M0 7h12v1H0z"></path></svg> Leaflet</a> <span aria-hidden="true">|</span> © <a target="_blank" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> © <a target="_blank" href="https://carto.com/attributions">Carto</a></div></div></div></div></app-map></ion-content></ion-col></ion-row></ion-col></ion-row></ion-grid></ion-content></div></app-dashboard><!--container--><!--container--></ion-app></app-root>
+    <noscript>JavaScript is required to use this application.</noscript>
+  <link rel="modulepreload" href="chunk-KQEJHESJ.js"><link rel="modulepreload" href="chunk-FBYTC5U3.js"><link rel="modulepreload" href="chunk-LHYYZWFK.js"><link rel="modulepreload" href="chunk-WMICZ6Q4.js"><link rel="modulepreload" href="chunk-PWUDMNGE.js"><link rel="modulepreload" href="chunk-TAAPDZZ4.js"><link rel="modulepreload" href="chunk-6MIWJNFP.js"><link rel="modulepreload" href="chunk-H7W7X3R4.js"><link rel="modulepreload" href="chunk-3M5S6TB6.js"><link rel="modulepreload" href="chunk-X35KCA2L.js"><script src="polyfills.js" type="module"></script><script src="main.js" type="module"></script>
+
+</body></html>

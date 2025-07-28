@@ -1,0 +1,18 @@
+{
+    "_delimiter_": {
+        "disabled": true
+    },
+    "branches": {
+        "index": 0
+    },
+    "activities": {
+        "dynamicLogicVisible": null,
+        "style": "danger",
+        "dynamicLogicStyled": null,
+        "sticked": false,
+        "index": 1
+    },
+    "needsAssessments": {
+        "index": 2
+    }
+}

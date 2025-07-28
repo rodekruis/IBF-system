@@ -1,0 +1,26 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "relationshipPanels": {
+        "needsAssessments": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "flood": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "drought": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "epidemics": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    },
+    "kanbanViewMode": false,
+    "iconClass": null
+}

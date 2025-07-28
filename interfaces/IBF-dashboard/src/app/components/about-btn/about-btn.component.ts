@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
@@ -20,7 +20,7 @@ import { EventService } from 'src/app/services/event.service';
   styleUrls: ['./about-btn.component.scss'],
   standalone: false,
 })
-export class AboutBtnComponent implements OnDestroy {
+export class AboutBtnComponent implements OnDestroy, OnChanges {
   @Input()
   public btnLabel: string;
 
@@ -48,6 +48,11 @@ export class AboutBtnComponent implements OnDestroy {
   ngOnDestroy() {
     this.countrySubscription.unsubscribe();
     this.disasterTypeSubscription.unsubscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    // No specific logic needed for btnLabel changes
   }
 
   private onCountryChange = (country: Country) => {

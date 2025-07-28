@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 
 @Component({
@@ -7,7 +7,7 @@ import { PopoverController } from '@ionic/angular';
   styleUrls: ['./action-result-popover.component.scss'],
   standalone: false,
 })
-export class ActionResultPopoverComponent implements OnInit {
+export class ActionResultPopoverComponent implements OnInit, OnChanges {
   @Input()
   public message: string;
 
@@ -21,6 +21,11 @@ export class ActionResultPopoverComponent implements OnInit {
         this.closePopover();
       }
     }, 10000);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    // No specific logic needed for action result popover
   }
 
   public closePopover(): void {

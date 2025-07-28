@@ -1,0 +1,270 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "enumerator"
+                },
+                {
+                    "name": "date"
+                },
+                {
+                    "name": "branch"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "customLabel": "Informations sur la collecte des données"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "regions"
+                },
+                {
+                    "name": "cercles"
+                },
+                {
+                    "name": "communes"
+                }
+            ],
+            [
+                {
+                    "name": "town"
+                },
+                {
+                    "name": "neighborhood"
+                },
+                false
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "success",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Location"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "lastName"
+                },
+                {
+                    "name": "phoneNumber"
+                }
+            ],
+            [
+                {
+                    "name": "age"
+                },
+                {
+                    "name": "status"
+                },
+                false
+            ],
+            [
+                {
+                    "name": "numroDeTlphoneEnCasDurgence"
+                },
+                {
+                    "name": "connexionChefDeMnage"
+                },
+                false
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "info",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Identification du chef de ménage"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "householdSize"
+                },
+                {
+                    "name": "nombreDpouse"
+                },
+                false
+            ],
+            [
+                {
+                    "name": "numberMales"
+                },
+                {
+                    "name": "numberFemales"
+                },
+                {
+                    "name": "numberChildrenU5"
+                }
+            ],
+            [
+                {
+                    "name": "personnesHandicapes"
+                },
+                {
+                    "name": "personnesAges"
+                },
+                {
+                    "name": "numberPregnants"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "warning",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Informations sur le ménage"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "numberDeaths"
+                },
+                {
+                    "name": "femmesMortes"
+                },
+                {
+                    "name": "hommesMorts"
+                }
+            ],
+            [
+                {
+                    "name": "numberDisappeared"
+                },
+                {
+                    "name": "nombreDeFemmesDisparus"
+                },
+                {
+                    "name": "nombreDeHommesDisparus"
+                }
+            ],
+            [
+                {
+                    "name": "personnesAffectes"
+                },
+                {
+                    "name": "typeDaffectation"
+                },
+                false
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "danger",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Affectation du ménage"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "maladie"
+                },
+                {
+                    "name": "prciserUneAutreMaladie"
+                },
+                {
+                    "name": "besoinUrgent"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "danger",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Maladie"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "houseStatus"
+                },
+                {
+                    "name": "waterPointStatus"
+                },
+                {
+                    "name": "latrineStatus"
+                }
+            ],
+            [
+                {
+                    "name": "cultureStatus"
+                },
+                {
+                    "name": "breedingStatus"
+                },
+                {
+                    "name": "workEquipmentStatus"
+                }
+            ],
+            [
+                {
+                    "name": "photoUrl"
+                },
+                {
+                    "name": "photo"
+                },
+                false
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "danger",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Dégats"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "statusOtherObservation"
+                },
+                false,
+                false
+            ]
+        ],
+        "style": "default",
+        "tabBreak": null,
+        "tabLabel": null,
+        "hidden": null,
+        "noteText": null,
+        "noteStyle": "info",
+        "label": ""
+    }
+]

@@ -1,0 +1,13 @@
+[
+    "name",
+    "twoyearReturnPeriod",
+    "fiveyearReturnPeriod",
+    "tenyearReturnPeriod",
+    "twentyyearReturnPeriod",
+    "communes",
+    "subBasin",
+    "altitude",
+    "areaOfWatershed",
+    "latitude",
+    "longitude"
+]

@@ -1,0 +1,50 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "relationshipPanels": {
+        "region": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "communes": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "activities": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "programs": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "branch": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "epidemics": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "floods": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "needsAssessments": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "brigadeUrgences": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "droughts": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    },
+    "kanbanViewMode": false,
+    "iconClass": "fas fa-angle-right"
+}

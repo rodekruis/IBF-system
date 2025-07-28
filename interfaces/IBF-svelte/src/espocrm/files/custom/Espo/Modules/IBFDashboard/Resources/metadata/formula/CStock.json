@@ -1,0 +1,3 @@
+{
+    "beforeSaveCustomScript": "// if (warehouse) {\n//     branchId = warehouse.branchId\n// }"
+}

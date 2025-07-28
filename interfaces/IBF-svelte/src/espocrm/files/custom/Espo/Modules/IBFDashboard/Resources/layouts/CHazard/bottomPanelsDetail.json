@@ -1,0 +1,14 @@
+{
+    "_delimiter_": {
+        "disabled": true
+    },
+    "floods": {
+        "index": 0
+    },
+    "epidemies": {
+        "index": 1
+    },
+    "droughts": {
+        "index": 2
+    }
+}

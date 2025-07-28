@@ -1,0 +1,35 @@
+[
+    {
+        "name": "name",
+        "width": 10,
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "subBasin",
+        "width": 10,
+        "align": "left"
+    },
+    {
+        "name": "communes",
+        "width": 10,
+        "notSortable": true,
+        "align": "left"
+    },
+    {
+        "name": "twoyearReturnPeriod",
+        "width": 15,
+        "align": "left"
+    },
+    {
+        "name": "fiveyearReturnPeriod",
+        "width": 15,
+        "align": "left"
+    },
+    {
+        "name": "tenyearReturnPeriod"
+    },
+    {
+        "name": "twentyyearReturnPeriod"
+    }
+]

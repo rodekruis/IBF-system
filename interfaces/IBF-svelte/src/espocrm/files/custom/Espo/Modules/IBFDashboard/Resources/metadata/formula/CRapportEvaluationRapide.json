@@ -1,0 +1,3 @@
+{
+    "beforeSaveCustomScript": "name = string\\concatenate(flood.name, \" Rapport d'Evaluation Rapide\", dateDeRapport);\n\npersonnesAffectes = entity\\sumRelated(\"needAssessments\", \"householdSize\");"
+}

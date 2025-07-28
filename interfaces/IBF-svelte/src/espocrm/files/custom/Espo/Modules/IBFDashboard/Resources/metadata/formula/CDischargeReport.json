@@ -1,0 +1,3 @@
+{
+    "beforeSaveCustomScript": "name = string\\concatenate(\"Rapport de débit \",reportingDate);"
+}

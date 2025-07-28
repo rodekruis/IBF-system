@@ -1,0 +1,107 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "startDate"
+                },
+                {
+                    "name": "endDate"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Event date"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "disasterGroup"
+                },
+                {
+                    "name": "disasterSubGroup"
+                }
+            ],
+            [
+                {
+                    "name": "disasterType"
+                },
+                {
+                    "name": "disasterSubtype"
+                }
+            ],
+            [
+                {
+                    "name": "location"
+                },
+                {
+                    "name": "regions"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "customLabel": "Event details"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "totalAffected"
+                },
+                {
+                    "name": "totalDeaths"
+                }
+            ],
+            [
+                {
+                    "name": "noHomeless"
+                },
+                {
+                    "name": "noInjured"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Impact"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "oFDABHAResponse"
+                },
+                {
+                    "name": "appeal"
+                },
+                {
+                    "name": "declaration"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Appeal"
+    }
+]

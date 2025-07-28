@@ -1,0 +1,16 @@
+{
+    "labels": {
+        "Create CHazard": "Créer un risque"
+    },
+    "fields": {
+        "createdAt": "Créé le",
+        "droughts": "Droughts",
+        "epidemies": "Épidémies",
+        "floods": "Floods"
+    },
+    "links": {
+        "droughts": "Droughts",
+        "epidemies": "Épidémies",
+        "floods": "Floods"
+    }
+}

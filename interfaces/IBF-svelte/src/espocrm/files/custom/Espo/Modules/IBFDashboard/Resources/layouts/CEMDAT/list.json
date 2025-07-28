@@ -1,0 +1,34 @@
+[
+    {
+        "name": "disasterNo",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "startDate"
+    },
+    {
+        "name": "endDate"
+    },
+    {
+        "name": "disasterGroup"
+    },
+    {
+        "name": "disasterSubGroup"
+    },
+    {
+        "name": "disasterType"
+    },
+    {
+        "name": "disasterSubtype"
+    },
+    {
+        "name": "totalAffected"
+    },
+    {
+        "name": "totalDeaths"
+    },
+    {
+        "name": "noInjured"
+    }
+]

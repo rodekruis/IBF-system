@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
@@ -28,7 +28,7 @@ export enum AreaStatus {
   NoAlert = 'no-alert',
 }
 @Injectable({ providedIn: 'root' })
-export class AggregatesService {
+export class AggregatesService implements OnDestroy {
   private indicatorSubject = new BehaviorSubject<Indicator[]>([]);
   public indicators: Indicator[] = [];
   private aggregates: Aggregate[] = [];
@@ -41,6 +41,17 @@ export class AggregatesService {
   public alertAreas: AlertArea[];
   private placeCode: PlaceCode;
 
+  // Subscription management
+  private countrySubscription: Subscription;
+  private timelineSubscription: Subscription;
+  private disasterTypeSubscription: Subscription;
+  private adminLevelSubscription: Subscription;
+  private initialEventStateSubscription: Subscription;
+  private manualEventStateSubscription: Subscription;
+  private alertAreasSubscription: Subscription;
+  private placeCodeSubscription: Subscription;
+  private isInitialized = false;
+
   constructor(
     private countryService: CountryService,
     private adminLevelService: AdminLevelService,
@@ -52,35 +63,71 @@ export class AggregatesService {
     private alertAreaService: AlertAreaService,
     private placeCodeService: PlaceCodeService,
   ) {
-    this.countryService
+    // Prevent multiple initialization of subscriptions
+    if (this.isInitialized) {
+      console.warn('⚠️ AggregatesService: Attempted multiple initialization - skipping');
+      return;
+    }
+    
+    console.log('🔄 AggregatesService: Initializing subscriptions');
+    this.isInitialized = true;
+
+    this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
 
-    this.timelineService
+    this.timelineSubscription = this.timelineService
       .getTimelineStateSubscription()
       .subscribe(this.onTimelineStateChange);
 
-    this.disasterTypeService
+    this.disasterTypeSubscription = this.disasterTypeService
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
 
-    this.adminLevelService
+    this.adminLevelSubscription = this.adminLevelService
       .getAdminLevelSubscription()
       .subscribe(this.onAdminLevelChange);
 
-    this.eventService
+    this.initialEventStateSubscription = this.eventService
       .getInitialEventStateSubscription()
       .subscribe(this.onEventStateChange);
 
-    this.eventService
+    this.manualEventStateSubscription = this.eventService
       .getManualEventStateSubscription()
       .subscribe(this.onEventStateChange);
 
-    this.alertAreaService.getAlertAreas().subscribe(this.onAlertAreasChange);
+    this.alertAreasSubscription = this.alertAreaService.getAlertAreas().subscribe(this.onAlertAreasChange);
 
-    this.placeCodeService
+    this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
+  }
+
+  ngOnDestroy() {
+    if (this.countrySubscription) {
+      this.countrySubscription.unsubscribe();
+    }
+    if (this.timelineSubscription) {
+      this.timelineSubscription.unsubscribe();
+    }
+    if (this.disasterTypeSubscription) {
+      this.disasterTypeSubscription.unsubscribe();
+    }
+    if (this.adminLevelSubscription) {
+      this.adminLevelSubscription.unsubscribe();
+    }
+    if (this.initialEventStateSubscription) {
+      this.initialEventStateSubscription.unsubscribe();
+    }
+    if (this.manualEventStateSubscription) {
+      this.manualEventStateSubscription.unsubscribe();
+    }
+    if (this.alertAreasSubscription) {
+      this.alertAreasSubscription.unsubscribe();
+    }
+    if (this.placeCodeSubscription) {
+      this.placeCodeSubscription.unsubscribe();
+    }
   }
 
   private onCountryChange = (country: Country) => {

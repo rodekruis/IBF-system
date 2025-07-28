@@ -1,0 +1,16 @@
+[
+    "name",
+    "status",
+    "assignedUser",
+    "users",
+    "totalBudget",
+    "fundingSource",
+    "startDate",
+    "endDate",
+    "branch",
+    "sector",
+    "activities",
+    "regions",
+    "cercleses",
+    "communeses"
+]

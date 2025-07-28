@@ -1,0 +1,4 @@
+{
+    "beforeSaveCustomScript": "name = string\\concatenate(floodType, \" \", startDate)",
+    "beforeSaveApiScript": "name = string\\concatenate(floodType, \" \", startDate)"
+}

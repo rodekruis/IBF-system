@@ -12,3 +12,44 @@ ion-spinner {
   width: 128px;
   height: 128px;
 }
+
+/* Web Component Embedding Fixes */
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+  
+  &.embedded {
+    height: 100% !important;
+    min-height: 600px;
+    
+    ion-app {
+      height: 100% !important;
+      position: relative !important;
+    }
+    
+    ion-content {
+      height: 100% !important;
+    }
+    
+    .page-structure {
+      height: 100% !important;
+      min-height: 600px !important;
+    }
+    
+    .ibf-dashboard-left-column,
+    .ibf-dashboard-right-column {
+      min-height: 500px !important;
+    }
+    
+    .leaflet--map {
+      height: 400px !important;
+      min-height: 400px !important;
+    }
+    
+    #ibf-dashboard-map {
+      height: 400px !important;
+      min-height: 400px !important;
+    }
+  }
+}

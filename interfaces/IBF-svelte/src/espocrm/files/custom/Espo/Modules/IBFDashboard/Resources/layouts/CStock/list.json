@@ -1,0 +1,22 @@
+[
+    {
+        "name": "item",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "amount"
+    },
+    {
+        "name": "currentQuantity"
+    },
+    {
+        "name": "branch"
+    },
+    {
+        "name": "program"
+    },
+    {
+        "name": "warehouse"
+    }
+]

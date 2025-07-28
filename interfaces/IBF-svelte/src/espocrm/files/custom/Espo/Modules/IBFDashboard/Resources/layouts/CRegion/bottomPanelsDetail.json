@@ -1,0 +1,20 @@
+{
+    "_delimiter_": {
+        "disabled": true
+    },
+    "cercles": {
+        "index": 0
+    },
+    "programs": {
+        "index": 1
+    },
+    "activities": {
+        "index": 2
+    },
+    "floods": {
+        "index": 3
+    },
+    "droughts": {
+        "index": 4
+    }
+}

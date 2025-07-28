@@ -1,0 +1,13 @@
+{
+    "fields": {
+        "attachments": "Attachments",
+        "reportingDate": "Reporting Date",
+        "dischargeReportRecords": "Discharge Report Records"
+    },
+    "links": {
+        "dischargeReportRecords": "Discharge Report Records"
+    },
+    "labels": {
+        "Create CDischargeReport": "Create Discharge Report"
+    }
+}

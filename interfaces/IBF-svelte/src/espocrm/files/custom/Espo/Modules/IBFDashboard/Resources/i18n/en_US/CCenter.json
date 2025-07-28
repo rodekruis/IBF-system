@@ -1,0 +1,36 @@
+{
+    "fields": {
+        "type": "Type",
+        "nrStaff": "Number of staff",
+        "nrVolunteers": "Number volunteers",
+        "branch": "Branch",
+        "assignedUser": "Manager of center",
+        "users": "Staff center",
+        "name": "Name center"
+    },
+    "links": {
+        "branch": "Branch",
+        "users": "Users"
+    },
+    "labels": {
+        "Create CCenter": "Create Center"
+    },
+    "options": {
+        "type": {
+            "eoc": "Emergency Operating Centre (EOC)",
+            "health": "Health Center",
+            "training": "Training Center",
+            "": ""
+        }
+    },
+    "tooltips": {
+        "assignedUser": "The manager of the center (health, emergency operations or training center).",
+        "users": "The staff assigned to this branch. Needs to be a user in the system.",
+        "name": "Name of the center.",
+        "branch": "Branch to which the center belongs.",
+        "type": "The type of center.",
+        "description": "Description of the center.",
+        "nrStaff": "The number of Mali Red Cross staff in the center.",
+        "nrVolunteers": "The number of Mali Red Cross volunteers in the center."
+    }
+}

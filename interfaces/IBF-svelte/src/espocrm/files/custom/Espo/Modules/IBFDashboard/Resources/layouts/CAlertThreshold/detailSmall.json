@@ -1,0 +1,28 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "type"
+                },
+                false
+            ],
+            [
+                {
+                    "name": "station"
+                },
+                {
+                    "name": "maxRiverDischarge"
+                }
+            ],
+            [
+                {
+                    "name": "description"
+                },
+                false
+            ]
+        ],
+        "style": "default",
+        "label": ""
+    }
+]

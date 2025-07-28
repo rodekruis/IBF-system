@@ -1,0 +1,32 @@
+{
+    "_delimiter_": {
+        "disabled": true
+    },
+    "programs": {
+        "index": 0
+    },
+    "activities": {
+        "index": 1
+    },
+    "floods": {
+        "dynamicLogicVisible": null,
+        "style": "success",
+        "dynamicLogicStyled": null,
+        "sticked": false,
+        "index": 2
+    },
+    "droughts": {
+        "dynamicLogicVisible": null,
+        "style": "success",
+        "dynamicLogicStyled": null,
+        "sticked": false,
+        "index": 3
+    },
+    "epidemics": {
+        "dynamicLogicVisible": null,
+        "style": "success",
+        "dynamicLogicStyled": null,
+        "sticked": false,
+        "index": 4
+    }
+}

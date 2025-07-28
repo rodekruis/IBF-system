@@ -1,0 +1,43 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "kanbanViewMode": false,
+    "color": null,
+    "iconClass": "fas fa-water",
+    "relationshipPanels": {
+        "needsAssessments": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "activities": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "regions": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "cercles": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "communes": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "branches": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "rapportEvaluationRapide": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "hazard": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

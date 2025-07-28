@@ -1,0 +1,36 @@
+{
+    "labels": {
+        "Create CDrought": "Créer une sécheresse"
+    },
+    "fields": {
+        "regions": "Régions",
+        "createdAt": "Créé le",
+        "directlyAffected": "Directement affectées",
+        "displaced": "Déplacés",
+        "end": "Fin",
+        "indirectlyAffected": "Indirectement affectées",
+        "needsAssessments": "Évaluations des besoins",
+        "start": "Début",
+        "year": "Année",
+        "deaths": "Décès",
+        "activitieses": "Activités",
+        "activities": "Activités",
+        "hazard": "Hazard"
+    },
+    "links": {
+        "calls": "Appels",
+        "meetings": "Réunion",
+        "regions": "Régions",
+        "tasks": "Tâches",
+        "activitieses": "Activités",
+        "needsAssessments": "Évaluations des besoins",
+        "hazard": "Hazard"
+    },
+    "tooltips": {
+        "cercleses": "Le(s) cercle(s) touché(s) par la sécheresse. Se remplit automatiquement une fois la commune sélectionnée.",
+        "communeses": "Commune(s) touchée(s) par la sécheresse. Champ obligatoire.",
+        "end": "La date de fin de la sécheresse.",
+        "regions": "Région(s) touchée(s) par la sécheresse. Se remplit automatiquement une fois la commune sélectionnée.",
+        "start": "La date de début de la sécheresse."
+    }
+}

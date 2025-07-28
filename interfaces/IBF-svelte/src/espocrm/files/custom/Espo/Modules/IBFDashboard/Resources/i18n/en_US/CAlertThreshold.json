@@ -1,0 +1,26 @@
+{
+    "fields": {
+        "maxRiverDischarge": "Max River Discharge (m3/s)",
+        "type": "Alert Level"
+    },
+    "links": {
+        "meetings": "Meetings",
+        "calls": "Calls",
+        "tasks": "Tasks"
+    },
+    "labels": {
+        "Create CAlertThreshold": "Create River Discharge"
+    },
+    "options": {
+        "type": {
+            "red": "Red",
+            "yellow": "Yellow",
+            "green": "Green",
+            "": "",
+            "Red": "Red",
+            "Yellow": "Yellow",
+            "Green": "Green",
+            "Orange": "Orange"
+        }
+    }
+}

@@ -1,0 +1,30 @@
+{
+    "labels": {
+        "Create CDischargeReportRecord": "Créer un rapport de décharge"
+    },
+    "fields": {
+        "alertLevel": "Niveau d'alerte",
+        "dischargeLevel": "Niveau de débit (en cm)",
+        "dischargeReport": "Rapport de débit",
+        "reportingDate": "Date du rapport",
+        "riverStation": "Station fluviale",
+        "thresholdComparison": "Comparaison avec seuil de période de retour de 5 ans",
+        "createdAt": "Créé le"
+    },
+    "links": {
+        "dischargeReport": "Rapport de décharge",
+        "riverStation": "Gare maritime"
+    },
+    "options": {
+        "alertLevel": {
+            "Red": "Rouge",
+            "Orange": "Orange",
+            "Yellow": "Yellow",
+            "Green": "Green",
+            "": ""
+        }
+    },
+    "tooltips": {
+        "thresholdComparison": "Différence entre le niveau de décharge et le seuil de la période de retour"
+    }
+}

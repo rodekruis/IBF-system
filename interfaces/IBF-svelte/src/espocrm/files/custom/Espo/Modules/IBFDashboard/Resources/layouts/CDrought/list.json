@@ -1,0 +1,28 @@
+[
+    {
+        "name": "name",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "year",
+        "align": "left"
+    },
+    {
+        "name": "regions",
+        "notSortable": true
+    },
+    {
+        "name": "branchs",
+        "notSortable": true
+    },
+    {
+        "name": "directlyAffected"
+    },
+    {
+        "name": "indirectlyAffected"
+    },
+    {
+        "name": "source"
+    }
+]

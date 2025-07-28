@@ -1,0 +1,9 @@
+[
+    "epidemicType",
+    "branches",
+    "regions",
+    "communes",
+    "startDate",
+    "endDate",
+    "totalCases"
+]

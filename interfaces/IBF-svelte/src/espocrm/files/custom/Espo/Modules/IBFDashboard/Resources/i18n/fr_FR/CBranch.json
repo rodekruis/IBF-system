@@ -1,0 +1,75 @@
+{
+    "labels": {
+        "Create CBranch": "Créer une branche"
+    },
+    "tooltips": {
+        "address": "Adresse de la branche.",
+        "addressMap": "Une carte indiquant l'emplacement de la branche.",
+        "assignedUser": "Le directeur de la branche. Doit être un utilisateur du système. Champ obligatoire.",
+        "branchPhoneNumber": "Numéro de téléphone de la branche. Champ obligatoire.d.",
+        "name": "Nom de la branche. Champ obligatoire.",
+        "numberOfVolunteers": "Le nombre de volontaires de la Croix-Rouge malienne dans la branche.",
+        "totalNumberOfStaff": "Le nombre d'employés de la Croix-Rouge malienne dans la branche.",
+        "users": "Le personnel affecté à cette branche. Il doit y avoir des utilisateurs dans le système pour l'ajout.",
+        "addressCity": "Ville où se trouve la branche.",
+        "addressPostalCode": "Code postal de la branche.",
+        "addressStreet": "Rue et numéro de la rue où se trouve la branche.",
+        "region": "Région où se trouve la branche."
+    },
+    "options": {
+        "branchTeams": {
+            "Branch response": "Réponse de la branche",
+            "Community Based Health First Aid (CBHFA)": "Premiers Secours à Base Communautaire",
+            "Community Based Surveillance (CBS)": "Surveillance à Base Communautaire (SBC)",
+            "Cash & Voucher Assistance": "Cash & Voucher Assistance (CVA)",
+            "First aid": "Premiers secours",
+            "National disaster preparedness team": "Équipe nationale de préparation aux catastrophes",
+            "Shelter": "Shelter"
+        }
+    },
+    "fields": {
+        "activities": "Activités",
+        "address": "Addresse",
+        "addressCity": "Ville",
+        "addressCountry": "Addresse Pays",
+        "addressMap": "Addresse Carte",
+        "addressPostalCode": "Code Postale",
+        "addressState": "Addresse Région",
+        "addressStreet": "Rue",
+        "assignedUser": "Gestionnaire de branche",
+        "branchPhoneNumber": "Branche numéro de téléphone",
+        "branchTeams": "Équipes de branches",
+        "centers": "Centres",
+        "cWarehouses": "Entrepôts hébergés",
+        "descriptionEmergencyCenter": "Description Centre d'Urgence",
+        "droughts": "Sécheresses",
+        "emergencyOperatingCentre": "Centre d'Opérations d'Urgence (COU)",
+        "epidemics": "Épidémies",
+        "floods": "Inondations",
+        "healthCenter": "Centre de Santé",
+        "numberOfVolunteers": "Nombre de volontaires",
+        "program": "Programmes et Projets",
+        "totalNumberOfStaff": "Nombre de staff",
+        "trainingCenter": "Centre de formation",
+        "users": "Staff de branche",
+        "vehicles": "Vehicules",
+        "warehouse": "Entrepôt",
+        "warehouses": "Desservi par",
+        "brigadeUrgences": "Brigades d&#039;Urgence"
+    },
+    "links": {
+        "branchTeams": "Équipes de branche",
+        "calls": "Appels",
+        "centers": "Centres",
+        "cWarehouses": "Entrepôts hébergés",
+        "droughts": "Sécheresses",
+        "epidemics": "Épidémies",
+        "floods": "Inondations",
+        "meetings": "Réunions",
+        "program": "Programmes et Projets",
+        "tasks": "Tâches",
+        "users": "Utilisateurs",
+        "warehouses": "Desservi par",
+        "brigadeUrgences": "Brigades d&#039;Urgence"
+    }
+}

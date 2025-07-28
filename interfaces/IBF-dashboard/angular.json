@@ -163,10 +163,17 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "options": { "buildTarget": "app:build" },
+          "options": { 
+            "buildTarget": "app:build",
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": { "buildTarget": "app:build:production" },
-            "ci": {}
+            "ci": {},
+            "development": {
+              "buildTarget": "app:build:development",
+              "proxyConfig": "proxy.conf.json"
+            }
           }
         },
         "extract-i18n": {
@@ -194,7 +201,64 @@
           },
           "configurations": { "ci": { "progress": false, "watch": false } }
         },
+        "build-web-component": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": { "base": "dist/web-component" },
+            "index": "src/index-web-component.html",
+            "browser": "src/main-angular-web-component.ts",
+            "polyfills": ["src/polyfills-web-component.ts"],
+            "tsConfig": "tsconfig.web-component.json",
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets",
+                "ignore": ["icons/stage/*", "icons/test/*"]
+              },
+              {
+                "glob": "**/*.svg",
+                "input": "node_modules/ionicons/dist/ionicons/svg",
+                "output": "./svg"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/leaflet/dist/images",
+                "output": "assets/leaflet"
+              },
+              "src/manifest.webmanifest"
+            ],
+            "styles": [
+              { "input": "src/theme/variables.scss" },
+              { "input": "./node_modules/leaflet/dist/leaflet.css" },
+              { "input": "src/global.scss" }
+            ],
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+              "@turf/invariant",
+              "@turf/bbox",
+              "@turf/meta"
+            ],
+            "aot": true,
+            "extractLicenses": false,
+            "sourceMap": false,
+            "optimization": true,
+            "namedChunks": false,
+            "outputHashing": "none"
+          }
+        },
+        "serve-web-component": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "app:build-web-component"
+          }
+        },
         "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "app:serve"
+          },
           "configurations": {
             "production": { "devServerTarget": "app:serve:production" }
           }

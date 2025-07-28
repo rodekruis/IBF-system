@@ -1,0 +1,18 @@
+[
+    "name",
+    "startDate",
+    "endDate",
+    "origin",
+    "disasterGroup",
+    "disasterSubGroup",
+    "disasterType",
+    "disasterSubtype",
+    "totalAffected",
+    "totalDeaths",
+    "noInjured",
+    "noHomeless",
+    "noAffected",
+    "regions",
+    "location",
+    "oFDABHAResponse"
+]

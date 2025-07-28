@@ -1,0 +1,21 @@
+{
+    "labels": {
+        "Create CWarehouse": "Créer un entrepôt"
+    },
+    "fields": {
+        "branchesServed": "Branches desservies",
+        "hostBranch": "Branche hôte",
+        "createdAt": "Créé le",
+        "assignedUser": "Responsable d'entrepôt"
+    },
+    "links": {
+        "branchesServed": "Branches desservies",
+        "hostBranch": "Branche hôte"
+    },
+    "tooltips": {
+        "assignedUser": "Le personnel de la Croix-Rouge malienne responsable de l'entrepôt.",
+        "branchesServed": "Les branches desservies par l'entrepôt.",
+        "hostBranch": "La branche qui héberge l'entrepôt.",
+        "name": "Nom de l'entrepôt."
+    }
+}

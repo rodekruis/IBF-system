@@ -1,0 +1,29 @@
+{
+    "labels": {
+        "Create CItem": "Créer une base de données des articles"
+    },
+    "fields": {
+        "category": "Catégorie",
+        "itemCode": "Code article",
+        "unitOfMeasure": "Unité de mesure",
+        "unitPrice": "Prix unitaire",
+        "unitPriceConverted": "Prix unitaire (converti)",
+        "unitPriceCurrency": "Prix unitaire (devise)",
+        "createdAt": "Créé le"
+    },
+    "options": {
+        "category": {
+            "": "",
+            "category1": "catégorie 1",
+            "category2": "catégorie 2",
+            "category3": "catégorie 3"
+        }
+    },
+    "tooltips": {
+        "description": "Description de l'article.",
+        "itemCode": "Code utilisé pour l'inventaire de cet article.",
+        "name": "Nom de l'article.",
+        "unitOfMeasure": "L'unité utilisée pour mesurer l'article, par exemple les litres, les kilogrammes, etc.",
+        "unitPrice": "Prix pour 1 unité de l'article."
+    }
+}

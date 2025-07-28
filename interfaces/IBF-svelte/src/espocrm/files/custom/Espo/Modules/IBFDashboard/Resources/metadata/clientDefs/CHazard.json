@@ -1,0 +1,23 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "relationshipPanels": {
+        "droughts": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "epidemies": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "floods": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "parent": {
+            "layout": null
+        }
+    }
+}

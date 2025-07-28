@@ -1,0 +1,30 @@
+{
+    "fields": {
+        "dischargeLevel": "Niveau de débit (en cm)",
+        "thresholdComparison": "Comparaison avec seuil de période de retour de 5 ans",
+        "dischargeReport": "Discharge Report",
+        "riverStation": "River Station",
+        "alertLevel": "Alert level",
+        "reportingDate": "Reporting Date"
+    },
+    "links": {
+        "dischargeReport": "Discharge Report",
+        "riverStation": "River Station"
+    },
+    "labels": {
+        "Create CDischargeReportRecord": "Create Discharge Report Record"
+    },
+    "tooltips": {
+        "thresholdComparison": "Difference between discharge level and return period threshold"
+    },
+    "options": {
+        "alertLevel": {
+            "Red": "Rouge",
+            "Orange": "Orange",
+            "Yellow": "Yellow",
+            "Green": "Green",
+            "": "",
+            "test": "test"
+        }
+    }
+}

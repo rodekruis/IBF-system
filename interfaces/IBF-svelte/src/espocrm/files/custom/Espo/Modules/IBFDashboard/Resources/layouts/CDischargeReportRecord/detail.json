@@ -1,0 +1,30 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "reportingDate"
+                },
+                {
+                    "name": "dischargeReport"
+                },
+                {
+                    "name": "riverStation"
+                }
+            ],
+            [
+                {
+                    "name": "dischargeLevel"
+                },
+                {
+                    "name": "thresholdComparison"
+                },
+                {
+                    "name": "alertLevel"
+                }
+            ]
+        ],
+        "style": "default",
+        "label": "Overview"
+    }
+]

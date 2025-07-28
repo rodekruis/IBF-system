@@ -1,0 +1,34 @@
+{
+    "fields": {
+        "cerclesPcode": "Cercles Pcode",
+        "region": "Region",
+        "communes": "Communes",
+        "regionCercleFilter": "RegionCercleFilter",
+        "activities": "Activities",
+        "programs": "Programs",
+        "branch": "Branch",
+        "epidemics": "Epidemics",
+        "floods": "Floods",
+        "needsAssessments": "Needs Assessments",
+        "brigadeUrgences": "Brigades d&amp;#039;Urgence",
+        "droughts": "Droughts"
+    },
+    "links": {
+        "region": "Region",
+        "communes": "Communes",
+        "activities": "Activities",
+        "programs": "Programs",
+        "branch": "Branch",
+        "epidemics": "Epidemics",
+        "floods": "Floods",
+        "needsAssessments": "Needs Assessments",
+        "brigadeUrgences": "Brigades d&amp;#039;Urgence",
+        "droughts": "Droughts"
+    },
+    "labels": {
+        "Create CCercles": "Create Cercles"
+    },
+    "options": {
+        "regionCercleFilter": []
+    }
+}

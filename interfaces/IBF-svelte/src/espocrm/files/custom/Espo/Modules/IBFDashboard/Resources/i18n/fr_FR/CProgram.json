@@ -1,0 +1,115 @@
+{
+    "labels": {
+        "Create CProgram": "Créer un programme"
+    },
+    "fields": {
+        "activities": "Activités",
+        "branch": "Branche",
+        "collaboratingWith": "Collaborer avec",
+        "currency": "Devise",
+        "endDate": "Date de fin",
+        "fundingSource": "Source de financement",
+        "pNSStaffInvolved": "Personnel PNS impliqué",
+        "sector": "Secteur",
+        "staffInvolved": "Personnel impliqué",
+        "startDate": "Date de début",
+        "totalBudget": "Budget total",
+        "totalBudgetRemaining": "Budget restant",
+        "totalBudgetSpent": "Budget dépensé",
+        "volunteersInvolved": "Volontaires impliqués",
+        "createdAt": "Créé le",
+        "users": "Personnel et volontaires de la Croix-Rouge du Mali impliqués",
+        "otherImplicatedActors": "Autres acteurs impliqués",
+        "implicatedStateService": "Service de l'état impliqué"
+    },
+    "links": {
+        "activities": "Activités",
+        "branch": "Branche",
+        "calls": "Appels",
+        "meetings": "Réunions",
+        "tasks": "Tâches"
+    },
+    "options": {
+        "currency": {
+            "USD": "USD",
+            "Euro": "Euro",
+            "GBP": "GBP",
+            "West African CFA Franc (XOF)": "Franc CFA d'Afrique de l'Ouest (XOF)"
+        },
+        "fundingSource": {
+            "IFRC": "FICR",
+            "NLRC": "NLRC",
+            "Own funding": "Financement propre",
+            "UN agency": "Agence des Nations Unies",
+            "Government": "Gouvernement",
+            "": "",
+            "Belgian RC": "CR Belge",
+            "Danish RC": "CR Danoise",
+            "Netherlands RC": "CR Néerlandaise",
+            "ECHO": "ECHO"
+        },
+        "sector": {
+            "WASH": "WASH",
+            "PGI": "PGI",
+            "CEA": "CEA",
+            "Food security": "Sécurité alimentaire",
+            "Shelter": "Refuge",
+            "Health": "Santé",
+            "Nutrition": "Nutrition",
+            "Restoring family links": "Rétablissement des liens familiaux",
+            "": "",
+            "Digital transformation": "Transformation numérique",
+            "Financial sustainability": "Durabilité financière"
+        },
+        "status": {
+            "Planning": "Planification",
+            "In progress": "In progress",
+            "Completed": "Terminé",
+            "Paused": "En pause",
+            "Cancelled": "Annulé",
+            "": "",
+            "Running": "En cours d'exécution"
+        },
+        "implicatedStateService": {
+            "Direction Nationale de l'Hydraulique": "Direction Nationale de l'Hydraulique",
+            "Direction National de la Santé": "Direction Nationale de la Santé",
+            "Mali Météo": "Mali Météo",
+            "Centre National d'Alerte Précoce": "Centre National d'Alerte Précoce",
+            "Développement Social": "Développement Social",
+            "Direction Générale de la Protection Civile": "Direction Générale de la Protection Civile"
+        },
+        "otherImplicatedActors": {
+            "Netherlands Red Cross": "Croix Rouge Néerlandaise",
+            "Danish Red Cross": "Croix Rouge Danoise",
+            "Spanish Red Cross": "Croix Rouge Espagnole",
+            "ICRC": "CICR",
+            "Luxembourgish Red Cross": "Croix Rouge Luxembourgeoise",
+            "UNHCR": "UNHCR",
+            "UNOCHA": "UNOCHA",
+            "WFP": "PAM"
+        }
+    },
+    "tooltips": {
+        "assignedUser": "Le personnel de la Croix-Rouge du Mali qui gère le programme ou le projet. Champ obligatoire.",
+        "branch": "Branche(s) chargée(s) de la mise en œuvre du programme ou du projet. Champ obligatoire.",
+        "cercleses": "Le(s) cercle(s) dans le(s)quel(s) le programme ou le projet est mis en œuvre. Se remplit automatiquement une fois que la commune est sélectionnée.",
+        "collaboratingWith": "Les collaborateurs de ce projet ou programme. Tapez le nom du collaborateur et appuyez sur ENTER. Plusieurs collaborateurs sont possibles.",
+        "communeses": "La (les) commune(s) dans laquelle (lesquelles) l'activité est mise en œuvre. Vous pouvez sélectionner plusieurs communes. Champ obligatoire.",
+        "currency": "La devise utilisée pour le budget de ce projet ou programme. Champ obligatoire.",
+        "description": "Description du projet. Maximum de 1 000 caractères.",
+        "endDate": "Date de fin du projet ou du programme. Champ obligatoire.",
+        "fundingSource": "La source de financement du programme ou du projet. Il peut s'agir de plusieurs sources de financement. Champ obligatoire.",
+        "name": "Nom du projet. Champ obligatoire.",
+        "pNSStaffInvolved": "Le nombre d'employés des Sociétés nationales partenaires qui soutiennent la mise en œuvre du programme ou du projet.",
+        "regions": "Région(s) dans laquelle/lesquelles le programme ou le projet est mis en œuvre. Se remplit automatiquement une fois que la commune est sélectionnée.",
+        "sector": "Le(s) secteur(s) couvert(s) par le projet. Il peut s'agir de plusieurs secteurs. Champ obligatoire.",
+        "staffInvolved": "Le nombre d'employés de la Croix-Rouge malienne qui mettent en œuvre le programme ou le projet.",
+        "startDate": "Date de début du programme ou du projet. Champ obligatoire.",
+        "status": "Le statut du projet. Champ obligatoire.",
+        "totalBudget": "Le budget total de l'activité. Champ obligatoire.",
+        "totalBudgetRemaining": "Le budget total restant dans le programme ou le projet. Il est calculé automatiquement en soustrayant le budget dépensé du budget total. Non modifiable.",
+        "totalBudgetSpent": "Le budget dépensé jusqu'à aujourd'hui pour l'activité. Champ obligatoire.",
+        "users": "Le personnel et les volontaires de la Croix-Rouge malienne impliqués dans ce projet ou programme.",
+        "volunteersInvolved": "Le personnel et les volontaires de la Croix-Rouge malienne impliqués dans ce projet ou programme."
+    }
+}

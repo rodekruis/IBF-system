@@ -1,0 +1,18 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "kanbanViewMode": false,
+    "iconClass": null,
+    "relationshipPanels": {
+        "dischargeReport": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "riverStation": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

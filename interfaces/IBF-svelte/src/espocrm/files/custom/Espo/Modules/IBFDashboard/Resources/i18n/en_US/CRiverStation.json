@@ -1,0 +1,39 @@
+{
+    "fields": {
+        "subBasin": "Sub-Basin",
+        "latitude": "Latitude",
+        "longitude": "Longitude",
+        "altitude": "Altitude (m)",
+        "areaOfWatershed": "Area of Watershed (km2)",
+        "creationDate": "Creation date",
+        "twoyearReturnPeriod": "2-year return period (water level in cm)",
+        "fiveyearReturnPeriod": "5-year return period (water levels in cm)",
+        "tenyearReturnPeriod": "10-year return period (water levels in cm)",
+        "twentyyearReturnPeriod": "20-year return period (water levels in cm)",
+        "communes": "Communes in proximity",
+        "dischargeReportRecords": "Discharge Report Records"
+    },
+    "links": {
+        "communes": "Communes in proximity",
+        "dischargeReportRecords": "Discharge Report Records"
+    },
+    "labels": {
+        "Create CRiverStation": "Create River Station"
+    },
+    "options": {
+        "subBasin": {
+            "Sankarani": "Sankarani",
+            "Niger Supérieur": "Niger Supérieur",
+            "Delta du Niger": "Delta du Niger",
+            "Niger Moyen": "Niger Moyen",
+            "Bani": "Bani",
+            "Baoulé": "Baoulé",
+            "Banifing": "Banifing",
+            "Bagoé": "Bagoé",
+            "": ""
+        }
+    },
+    "tooltips": {
+        "creationDate": "Year that the station came into operation"
+    }
+}

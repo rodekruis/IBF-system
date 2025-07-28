@@ -1,0 +1,24 @@
+{
+    "labels": {
+        "Create CRiverStation": "Créer une station fluviale"
+    },
+    "fields": {
+        "areaOfWatershed": "Superficie du bassin versant (km2)",
+        "communes": "Communes à proximité",
+        "creationDate": "Date de création",
+        "createdAt": "Créé le",
+        "dischargeReportRecords": "Rapport de débit",
+        "fiveyearReturnPeriod": "Période de retour sur 5 ans (niveaux d'eau en cm)",
+        "subBasin": "Sous-bassin",
+        "tenyearReturnPeriod": "Période de retour sur 10 ans (niveaux d'eau en cm)",
+        "twentyyearReturnPeriod": "Période de retour sur 20 ans (niveaux d'eau en cm)",
+        "twoyearReturnPeriod": "Période de retour sur 2 ans (niveaux d'eau en cm)"
+    },
+    "links": {
+        "communes": "Communes à proximité",
+        "dischargeReportRecords": "Rapport de débit"
+    },
+    "tooltips": {
+        "creationDate": "Année de mise en service de la station"
+    }
+}

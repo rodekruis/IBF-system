@@ -21,6 +21,12 @@ var environmentResourceMap = {
     logAnalyticsName: 'law-ibf-dashboard-production'
     keyVaultName: 'kv-ibf-prod-${take(resourceToken, 8)}' // KeyVault names must be globally unique
   }
+  development: {
+    staticWebAppName: 'ibf-dashboard-development'
+    appInsightsName: 'ai-ibf-dashboard-development'
+    logAnalyticsName: 'law-ibf-dashboard-development'
+    keyVaultName: 'kv-ibf-dev-${take(resourceToken, 8)}' // KeyVault names must be globally unique
+  }
   test: {
     staticWebAppName: 'ibf-dashboard-test'
     appInsightsName: 'ai-ibf-dashboard-test'
@@ -36,7 +42,7 @@ var environmentResourceMap = {
 }
 
 // Use environment-specific names if available, otherwise fall back to token-based names
-var currentEnvMap = contains(environmentResourceMap, environmentName) ? environmentResourceMap[environmentName] : {
+var currentEnvMap = environmentResourceMap[?environmentName] ?? {
   staticWebAppName: 'swa-${resourceToken}'
   appInsightsName: 'ai-${resourceToken}'
   logAnalyticsName: 'law-${resourceToken}'

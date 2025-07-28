@@ -1,0 +1,82 @@
+{
+    "fields": {
+        "startDate": "Start date",
+        "endDate": "End date",
+        "disasterGroup": "Disaster Group",
+        "disasterSubGroup": "Disaster Sub-Group",
+        "disasterType": "Disaster Type",
+        "disasterSubtype": "Disaster Subtype",
+        "location": "Location",
+        "origin": "Origin",
+        "oFDABHAResponse": "OFDA/BHA Response",
+        "appeal": "Appeal",
+        "declaration": "Declaration",
+        "totalDeaths": "Total deaths",
+        "noInjured": "No. Injured",
+        "noHomeless": "No. Homeless",
+        "totalAffected": "Total affected",
+        "noAffected": "No. Affected",
+        "disasterNo": "Disaster. No",
+        "regions": "Region(s)"
+    },
+    "labels": {
+        "Create CEMDAT": "Create EM-DAT"
+    },
+    "options": {
+        "disasterGroup": {
+            "Natural": "Natural",
+            "Technological": "Technological",
+            "": ""
+        },
+        "disasterSubGroup": {
+            "Biological": "Biological",
+            "Hydrological": "Hydrological",
+            "Industrial accident": "Industrial accident",
+            "Miscellaneous accident": "Miscellaneous accident",
+            "Transport": "Transport",
+            "": ""
+        },
+        "disasterType": {
+            "Epidemic": "Epidemic",
+            "Flood": "Flood",
+            "Collapse (Industrial)": "Collapse (Industrial)",
+            "Fire": "Fire",
+            "Miscellaneous accident (General)": "Miscellaneous accident (General)",
+            "Road": "Road",
+            "Water": "Water",
+            "Air": "Air",
+            "": ""
+        },
+        "disasterSubtype": {
+            "Air": "Air",
+            "Bacterial disease": "Bacterial disease",
+            "Collapse (Industrial)": "Collapse (Industrial)",
+            "Fire": "Fire",
+            "Flash flood": "Flash flood",
+            "Miscellaneous accident (General)": "Miscellaneous accident (General)",
+            "Riverine flood": "Riverine flood",
+            "Road": "Road",
+            "Viral disease": "Viral disease",
+            "Water": "Water",
+            "": ""
+        },
+        "oFDABHAResponse": {
+            "Yes": "Yes",
+            "No": "No",
+            "": ""
+        },
+        "appeal": {
+            "Yes": "Yes",
+            "No": "No",
+            "": ""
+        },
+        "declaration": {
+            "Yes": "Yes",
+            "No": "No",
+            "": ""
+        }
+    },
+    "links": {
+        "regions": "Region(s)"
+    }
+}

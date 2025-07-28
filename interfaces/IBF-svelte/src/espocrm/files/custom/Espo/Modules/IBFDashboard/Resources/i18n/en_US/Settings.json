@@ -10,7 +10,7 @@
     },
     "tooltips": {
         "ibfDashboardUrl": "The main URL of the Impact-Based Forecasting dashboard",
-        "ibfApiUrl": "The API endpoint URL for IBF data retrieval",
+        "ibfApiUrl": "Automatically detected from the current EspoCRM instance - no configuration needed",
         "ibfEnabledCountries": "Select which countries are available for IBF forecasting",
         "ibfDefaultCountry": "The default country to display when opening the IBF dashboard",
         "ibfDisasterTypes": "Select which disaster types to monitor and display",

@@ -137,7 +137,8 @@ foreach ($file in $rootFiles) {
 
 Write-Host "Creating zip package with Linux-compatible paths..." -ForegroundColor Yellow
 
-# Create ZIP manually with correct Unix paths using .NET System.IO.Compression
+# Load the required .NET assemblies for ZIP compression
+Add-Type -AssemblyName System.IO.Compression
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 
 try {
@@ -146,8 +147,8 @@ try {
         Remove-Item $OUTPUT_FILE -Force
     }
     
-    # Create new ZIP archive
-    $zip = [System.IO.Compression.ZipFile]::Open($OUTPUT_FILE, [System.IO.Compression.ZipArchiveMode]::Create)
+    # Create new ZIP archive using the proper enum value
+    $zip = [System.IO.Compression.ZipFile]::Open($OUTPUT_FILE, 'Create')
     
     # Add all files from temp directory with Unix paths
     $fullTempPath = (Resolve-Path $TEMP_DIR).Path

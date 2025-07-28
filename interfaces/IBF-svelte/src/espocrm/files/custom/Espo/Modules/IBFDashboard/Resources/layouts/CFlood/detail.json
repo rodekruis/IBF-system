@@ -1,0 +1,96 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "name"
+                }
+            ],
+            [
+                {
+                    "name": "floodType"
+                },
+                {
+                    "name": "startDate"
+                },
+                {
+                    "name": "endDate"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "customLabel": "Event date"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "regions"
+                },
+                {
+                    "name": "cercles"
+                },
+                {
+                    "name": "communes"
+                },
+                {
+                    "name": "branches"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Location"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "source"
+                }
+            ],
+            [
+                {
+                    "name": "numberOfDeaths"
+                },
+                {
+                    "name": "numberOfDisplacedPeople"
+                }
+            ],
+            [
+                {
+                    "name": "numberOfPeopleInjured"
+                },
+                {
+                    "name": "numberOfPeopleAffectedOther"
+                }
+            ],
+            [
+                {
+                    "name": "numberOfAffectedBuildings"
+                },
+                {
+                    "name": "affectedInfrastructures"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Impact de l'inondation"
+    }
+]

@@ -1,0 +1,112 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "dateDeRapport"
+                },
+                false
+            ],
+            [
+                {
+                    "name": "description"
+                },
+                {
+                    "name": "rapport"
+                }
+            ],
+            [
+                {
+                    "name": "personnesEvaluees"
+                },
+                {
+                    "name": "personnesAffectes"
+                },
+                false
+            ],
+            [
+                {
+                    "name": "flood"
+                },
+                {
+                    "name": "drought"
+                },
+                {
+                    "name": "epidemics"
+                }
+            ]
+        ],
+        "style": "default",
+        "label": "Overview"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "nombreDhommes"
+                },
+                {
+                    "name": "nombreDeFemmes"
+                },
+                {
+                    "name": "nombreDenfantsDeMoinsDe5Ans"
+                }
+            ],
+            [
+                {
+                    "name": "personnesHandicapes"
+                },
+                {
+                    "name": "personnesGes60Ans"
+                },
+                {
+                    "name": "nombreDeFemmesEnceintes"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Informations sur les personnes évaluées"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "nombreDeDcs"
+                },
+                {
+                    "name": "femmesMortes"
+                },
+                {
+                    "name": "hommesMorts"
+                }
+            ],
+            [
+                {
+                    "name": "nombreDePersonnesDisparues"
+                },
+                {
+                    "name": "femmesDisparues"
+                },
+                {
+                    "name": "hommesDisparus"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Informations sur les personnes affectées"
+    }
+]

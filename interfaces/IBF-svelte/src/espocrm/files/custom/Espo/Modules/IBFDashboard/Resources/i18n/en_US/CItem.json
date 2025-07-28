@@ -1,0 +1,32 @@
+{
+    "fields": {
+        "stocks": "Stocks",
+        "category": "Category",
+        "unitOfMeasure": "Unit of Measure",
+        "unitPrice": "Unit Price",
+        "unitPriceCurrency": "Unit Price (Currency)",
+        "unitPriceConverted": "Unit Price (Converted)",
+        "itemCode": "Item Code"
+    },
+    "links": {
+        "stocks": "Stocks"
+    },
+    "labels": {
+        "Create CItem": "Create Item database"
+    },
+    "options": {
+        "category": {
+            "": "",
+            "category1": "category1",
+            "category2": "category2",
+            "category3": "category3"
+        }
+    },
+    "tooltips": {
+        "name": "Name of the item.",
+        "itemCode": "Code used for the inventory for this item.",
+        "description": "Description of the item.",
+        "unitPrice": "Price for 1 unit of the item.",
+        "unitOfMeasure": "The unit used to measure the item e.g. liters, kilograms, etc."
+    }
+}

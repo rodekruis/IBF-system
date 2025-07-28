@@ -1,0 +1,437 @@
+{
+    "fields": {
+        "name": {
+            "type": "varchar",
+            "required": true,
+            "pattern": "$noBadCharacters",
+            "options": [],
+            "tooltip": true
+        },
+        "description": {
+            "type": "text",
+            "tooltip": true,
+            "maxLength": 1000
+        },
+        "createdAt": {
+            "type": "datetime",
+            "readOnly": true
+        },
+        "modifiedAt": {
+            "type": "datetime",
+            "readOnly": true
+        },
+        "createdBy": {
+            "type": "link",
+            "readOnly": true,
+            "view": "views/fields/user"
+        },
+        "modifiedBy": {
+            "type": "link",
+            "readOnly": true,
+            "view": "views/fields/user"
+        },
+        "assignedUser": {
+            "type": "link",
+            "required": true,
+            "view": "views/fields/assigned-user",
+            "tooltip": true
+        },
+        "teams": {
+            "type": "linkMultiple",
+            "view": "views/fields/teams"
+        },
+        "status": {
+            "type": "enum",
+            "style": {
+                "Planning": "primary",
+                "Running": "success",
+                "Paused": null,
+                "Completed": "info",
+                "Cancelled": "danger",
+                "": null
+            },
+            "maxLength": 100,
+            "isCustom": true,
+            "options": [
+                "Planning",
+                "Running",
+                "Paused",
+                "Completed",
+                "Cancelled",
+                ""
+            ],
+            "required": true,
+            "tooltip": true
+        },
+        "startDate": {
+            "notNull": false,
+            "type": "date",
+            "isCustom": true,
+            "useNumericFormat": true,
+            "required": true,
+            "tooltip": true
+        },
+        "endDate": {
+            "notNull": false,
+            "type": "date",
+            "isCustom": true,
+            "useNumericFormat": true,
+            "required": true,
+            "tooltip": true
+        },
+        "branch": {
+            "type": "linkMultiple",
+            "layoutDetailDisabled": false,
+            "layoutMassUpdateDisabled": false,
+            "layoutListDisabled": false,
+            "noLoad": false,
+            "importDisabled": false,
+            "exportDisabled": false,
+            "customizationDisabled": false,
+            "isCustom": true,
+            "required": false,
+            "tooltip": true,
+            "readOnly": true
+        },
+        "stocks": {
+            "type": "linkMultiple",
+            "layoutDetailDisabled": false,
+            "layoutMassUpdateDisabled": false,
+            "layoutListDisabled": false,
+            "noLoad": false,
+            "importDisabled": false,
+            "exportDisabled": false,
+            "customizationDisabled": false,
+            "isCustom": true
+        },
+        "sector": {
+            "type": "multiEnum",
+            "storeArrayValues": true,
+            "options": [
+                "CEA",
+                "Digital transformation",
+                "Financial sustainability",
+                "Food security",
+                "Health",
+                "Nutrition",
+                "PGI",
+                "Restoring family links",
+                "Shelter",
+                "WASH",
+                "Emergency Preparedness",
+                ""
+            ],
+            "default": [],
+            "style": {
+                "CEA": null,
+                "Digital transformation": null,
+                "Financial sustainability": null,
+                "Food security": null,
+                "Health": null,
+                "Nutrition": null,
+                "PGI": null,
+                "Restoring family links": null,
+                "Shelter": null,
+                "WASH": null,
+                "Emergency Preparedness": null,
+                "": null
+            },
+            "isCustom": true,
+            "required": true,
+            "tooltip": true,
+            "allowCustomOptions": true
+        },
+        "totalBudgetSpent": {
+            "notNull": false,
+            "type": "float",
+            "isCustom": true,
+            "required": true,
+            "tooltip": true,
+            "audited": true
+        },
+        "totalBudgetRemaining": {
+            "notNull": false,
+            "type": "float",
+            "isCustom": true,
+            "readOnly": true,
+            "tooltip": true
+        },
+        "totalBudget": {
+            "notNull": false,
+            "type": "float",
+            "isCustom": true,
+            "required": true,
+            "tooltip": true,
+            "audited": true
+        },
+        "currency": {
+            "type": "enum",
+            "options": [
+                "West African CFA Franc (XOF)"
+            ],
+            "style": {
+                "West African CFA Franc (XOF)": null
+            },
+            "default": "West African CFA Franc (XOF)",
+            "maxLength": 100,
+            "isCustom": true,
+            "required": true,
+            "tooltip": true,
+            "readOnly": true
+        },
+        "fundingSource": {
+            "type": "multiEnum",
+            "storeArrayValues": true,
+            "options": [
+                "Belgian RC",
+                "Danish RC",
+                "Netherlands RC",
+                "IFRC",
+                "ECHO",
+                "UN agency",
+                "Government",
+                "Own funding",
+                ""
+            ],
+            "default": [],
+            "style": {
+                "Belgian RC": null,
+                "Danish RC": null,
+                "Netherlands RC": null,
+                "IFRC": null,
+                "ECHO": null,
+                "UN agency": null,
+                "Government": null,
+                "Own funding": null,
+                "": null
+            },
+            "isCustom": true,
+            "tooltip": true
+        },
+        "activities": {
+            "type": "linkMultiple",
+            "layoutDetailDisabled": true,
+            "layoutMassUpdateDisabled": true,
+            "layoutListDisabled": true,
+            "noLoad": true,
+            "importDisabled": true,
+            "exportDisabled": true,
+            "customizationDisabled": true,
+            "isCustom": true
+        },
+        "regions": {
+            "type": "linkMultiple",
+            "layoutDetailDisabled": false,
+            "layoutMassUpdateDisabled": false,
+            "layoutListDisabled": false,
+            "noLoad": false,
+            "importDisabled": false,
+            "exportDisabled": false,
+            "customizationDisabled": false,
+            "isCustom": true,
+            "readOnly": true,
+            "tooltip": true,
+            "required": false
+        },
+        "cercleses": {
+            "type": "linkMultiple",
+            "layoutDetailDisabled": false,
+            "layoutMassUpdateDisabled": false,
+            "layoutListDisabled": false,
+            "noLoad": false,
+            "importDisabled": false,
+            "exportDisabled": false,
+            "customizationDisabled": false,
+            "isCustom": true,
+            "readOnly": true,
+            "tooltip": true
+        },
+        "communeses": {
+            "type": "linkMultiple",
+            "layoutDetailDisabled": false,
+            "layoutMassUpdateDisabled": false,
+            "layoutListDisabled": false,
+            "noLoad": false,
+            "importDisabled": false,
+            "exportDisabled": false,
+            "customizationDisabled": false,
+            "isCustom": true,
+            "required": false,
+            "tooltip": true
+        },
+        "otherImplicatedActors": {
+            "type": "multiEnum",
+            "storeArrayValues": true,
+            "options": [
+                "Netherlands Red Cross",
+                "Danish Red Cross",
+                "Spanish Red Cross",
+                "ICRC",
+                "Luxembourgish Red Cross",
+                "UNHCR",
+                "UNOCHA",
+                "WFP"
+            ],
+            "default": [],
+            "style": {
+                "Netherlands Red Cross": null,
+                "Danish Red Cross": null,
+                "Spanish Red Cross": null,
+                "ICRC": null,
+                "Luxembourgish Red Cross": null,
+                "UNHCR": null,
+                "UNOCHA": null,
+                "WFP": null
+            },
+            "isCustom": true
+        },
+        "implicatedStateService": {
+            "type": "multiEnum",
+            "storeArrayValues": true,
+            "options": [
+                "Direction Nationale de l'Hydraulique",
+                "Direction National de la Santé",
+                "Mali Météo",
+                "Centre National d'Alerte Précoce",
+                "Développement Social",
+                "Direction Générale de la Protection Civile"
+            ],
+            "default": [],
+            "style": {
+                "Direction Nationale de l'Hydraulique": null,
+                "Direction National de la Santé": null,
+                "Mali Météo": null,
+                "Centre National d'Alerte Précoce": null,
+                "Développement Social": null,
+                "Direction Générale de la Protection Civile": null
+            },
+            "isCustom": true
+        }
+    },
+    "links": {
+        "createdBy": {
+            "type": "belongsTo",
+            "entity": "User"
+        },
+        "modifiedBy": {
+            "type": "belongsTo",
+            "entity": "User"
+        },
+        "assignedUser": {
+            "type": "belongsTo",
+            "entity": "User"
+        },
+        "teams": {
+            "type": "hasMany",
+            "entity": "Team",
+            "relationName": "entityTeam",
+            "layoutRelationshipsDisabled": true
+        },
+        "meetings": {
+            "type": "hasMany",
+            "entity": "Meeting",
+            "foreign": "parent",
+            "layoutRelationshipsDisabled": true
+        },
+        "calls": {
+            "type": "hasMany",
+            "entity": "Call",
+            "foreign": "parent",
+            "layoutRelationshipsDisabled": true
+        },
+        "tasks": {
+            "type": "hasChildren",
+            "entity": "Task",
+            "foreign": "parent",
+            "layoutRelationshipsDisabled": true
+        },
+        "emails": {
+            "type": "hasChildren",
+            "entity": "Email",
+            "foreign": "parent",
+            "layoutRelationshipsDisabled": true
+        },
+        "branch": {
+            "type": "hasMany",
+            "relationName": "cBranchProgram",
+            "foreign": "program",
+            "entity": "CBranch",
+            "audited": false,
+            "isCustom": true
+        },
+        "stocks": {
+            "type": "hasMany",
+            "foreign": "program",
+            "entity": "CStock",
+            "audited": false,
+            "isCustom": true
+        },
+        "activities": {
+            "type": "hasMany",
+            "foreign": "program",
+            "entity": "CActivities",
+            "audited": false,
+            "isCustom": true
+        },
+        "regions": {
+            "type": "hasMany",
+            "relationName": "cProgramRegion",
+            "foreign": "programs",
+            "entity": "CRegion",
+            "audited": false,
+            "isCustom": true
+        },
+        "cercleses": {
+            "type": "hasMany",
+            "relationName": "cProgramCercles",
+            "foreign": "programs",
+            "entity": "CCercles",
+            "audited": false,
+            "isCustom": true
+        },
+        "communeses": {
+            "type": "hasMany",
+            "relationName": "cProgramCommunes",
+            "foreign": "programs",
+            "entity": "CCommunes",
+            "audited": false,
+            "isCustom": true
+        }
+    },
+    "collection": {
+        "orderBy": "status",
+        "order": "asc",
+        "textFilterFields": [
+            "name"
+        ],
+        "fullTextSearch": false,
+        "countDisabled": false
+    },
+    "indexes": {
+        "name": {
+            "columns": [
+                "name",
+                "deleted"
+            ]
+        },
+        "assignedUser": {
+            "columns": [
+                "assignedUserId",
+                "deleted"
+            ]
+        },
+        "createdAt": {
+            "columns": [
+                "createdAt"
+            ]
+        },
+        "createdAtId": {
+            "unique": true,
+            "columns": [
+                "createdAt",
+                "id"
+            ]
+        }
+    },
+    "optimisticConcurrencyControl": false
+}

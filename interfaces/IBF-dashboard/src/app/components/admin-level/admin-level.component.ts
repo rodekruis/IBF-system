@@ -139,6 +139,11 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
   public clickAdminLevelButton(adminLevel: AdminLevel): void {
     const layer = this.getAdminLevelLayer(adminLevel);
 
+    if (!layer) {
+      console.warn(`No layer found for admin level: ${adminLevel}`);
+      return;
+    }
+
     if (adminLevel !== this.adminLevelService.adminLevel) {
       this.adminLevelService.activeLayerNames = this.mapService.layers
         .filter((l) => l.active && l.group !== IbfLayerGroup.adminRegions)
@@ -182,7 +187,7 @@ export class AdminLevelComponent implements OnInit, OnDestroy {
     return `${IbfLayerGroup.adminRegions}${AdminLevel[adminLevel]}` as IbfLayerName;
   }
 
-  public getAdminLevelLayer(adminLevel: AdminLevel): IbfLayer {
+  public getAdminLevelLayer(adminLevel: AdminLevel): IbfLayer | null {
     const layerName = this.getAdminLevelLayerName(adminLevel);
 
     return this.mapService.getLayerByName(layerName);

@@ -1,0 +1,142 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "status"
+                },
+                {
+                    "name": "sector"
+                },
+                false
+            ],
+            [
+                {
+                    "name": "description"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "info",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "customLabel": "Détails du programme\/projet"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "startDate"
+                },
+                {
+                    "name": "endDate"
+                },
+                false,
+                false
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Chronogramme"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "branch"
+                },
+                {
+                    "name": "regions"
+                },
+                {
+                    "name": "cercleses"
+                },
+                {
+                    "name": "communeses"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Zone de mise en œuvre"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "totalBudget"
+                },
+                {
+                    "name": "totalBudgetSpent"
+                },
+                {
+                    "name": "totalBudgetRemaining"
+                },
+                {
+                    "name": "currency"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Budget"
+    },
+    {
+        "rows": [
+            [
+                false
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "warning",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Ressources humaines"
+    },
+    {
+        "rows": [
+            [
+                false,
+                {
+                    "name": "implicatedStateService"
+                },
+                {
+                    "name": "otherImplicatedActors"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Collaborateurs"
+    }
+]

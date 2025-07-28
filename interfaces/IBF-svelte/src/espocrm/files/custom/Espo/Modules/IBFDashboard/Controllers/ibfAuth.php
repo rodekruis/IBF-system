@@ -100,9 +100,24 @@ class IbfAuth extends Base
             }
             
             if ($log) $log->info("[IBF-AUTH] User found: " . $user->get('emailAddress') . " (" . $user->get('userName') . ")");
-            if ($log) $log->debug("[IBF-AUTH] Attempting to get IBF API token...");
             
-            $ibfToken = $this->getIbfApiToken($user, $log);
+            // Look up the corresponding IBFUser record by userId
+            if ($log) $log->debug("[IBF-AUTH] Looking up IBFUser record for userId: " . $userId);
+            $ibfUser = $this->entityManager
+                ->getRDBRepository('IBFUser')
+                ->where([
+                    'userId' => $userId
+                ])
+                ->findOne();
+                
+            if (!$ibfUser) {
+                if ($log) $log->warning("[IBF-AUTH] No IBFUser record found for userId: " . $userId);
+                if ($log) $log->info("[IBF-AUTH] Creating new IBF user...");
+                $ibfToken = $this->createIbfUserAndGetToken($user, $log);
+            } else {
+                if ($log) $log->info("[IBF-AUTH] Found IBFUser record, attempting to get IBF token...");
+                $ibfToken = $this->getIbfApiTokenFromIbfUser($ibfUser, $log);
+            }
             if (!$ibfToken) {
                 if ($log) $log->error("[IBF-AUTH] Failed to retrieve IBF API token");
                 return [
@@ -131,18 +146,32 @@ class IbfAuth extends Base
     private function getIbfApiToken($user, $log = null): ?string
     {
         try {
-            if ($log) $log->debug("[IBF-AUTH] Checking for existing IBF credentials...");
-            $ibfEmail = $user->get('cIbfEmail');
-            $ibfPassword = $user->get('cIBFpassword');
+            if ($log) $log->debug("[IBF-AUTH] Checking for existing IBF credentials in IBFUser entity...");
+            
+            // Look up the IBFUser record for this user
+            $ibfUser = $this->entityManager
+                ->getRDBRepository('IBFUser')
+                ->where([
+                    'userId' => $user->getId()
+                ])
+                ->findOne();
+                
+            if (!$ibfUser) {
+                if ($log) $log->info("[IBF-AUTH] No IBFUser record found, creating new IBF user...");
+                return $this->createIbfUserAndGetToken($user, $log);
+            }
+            
+            $ibfEmail = $ibfUser->get('email');
+            $ibfPassword = $ibfUser->get('password');
 
             if ($log) $log->info("[IBF-AUTH] IBF credentials check - Email: " . ($ibfEmail ? 'exists' : 'missing') . ", Password: " . ($ibfPassword ? 'exists' : 'missing'));
             
             if (!$ibfEmail || !$ibfPassword) {
-                if ($log) $log->info("[IBF-AUTH] No existing IBF credentials found, creating new IBF user...");
+                if ($log) $log->info("[IBF-AUTH] IBFUser record missing credentials, creating new IBF user...");
                 return $this->createIbfUserAndGetToken($user, $log);
             }
             
-            if ($log) $log->info("[IBF-AUTH] Found existing IBF credentials, attempting login...");
+            if ($log) $log->info("[IBF-AUTH] Found existing IBF credentials in IBFUser, attempting login...");
             return $this->loginIbfUserAndGetToken($ibfEmail, $ibfPassword, $log);
         } catch (\Exception $e) {
             if ($log) $log->error("[IBF-AUTH] Exception in getIbfApiToken: " . $e->getMessage());
@@ -150,46 +179,86 @@ class IbfAuth extends Base
         }
     }
 
+    private function getIbfApiTokenFromIbfUser($ibfUser, $log = null): ?string
+    {
+        try {
+            if ($log) $log->debug("[IBF-AUTH] Getting IBF API token from IBFUser record...");
+            
+            $ibfEmail = $ibfUser->get('email');
+            $ibfPassword = $ibfUser->get('password');
+            
+            if ($log) $log->info("[IBF-AUTH] IBFUser credentials check - Email: " . ($ibfEmail ? 'exists' : 'missing') . ", Password: " . ($ibfPassword ? 'exists' : 'missing'));
+            
+            if (!$ibfEmail || !$ibfPassword) {
+                if ($log) $log->warning("[IBF-AUTH] IBFUser record missing credentials - Email: " . ($ibfEmail ?: 'missing') . ", Password: " . ($ibfPassword ? 'exists' : 'missing'));
+                return null;
+            }
+            
+            if ($log) $log->info("[IBF-AUTH] Found IBFUser credentials, attempting login...");
+            return $this->loginIbfUserAndGetToken($ibfEmail, $ibfPassword, $log);
+        } catch (\Exception $e) {
+            if ($log) $log->error("[IBF-AUTH] Exception in getIbfApiTokenFromIbfUser: " . $e->getMessage());
+            return null;
+        }
+    }
+
     private function getAdminUserCredentialsInIBF($log = null): ?string
     {
         try {
-            if ($log) $log->debug("[IBF-AUTH] Getting admin user credentials from IBF...");
+            if ($log) $log->debug("[IBF-AUTH] Getting admin user credentials from IBFUser record...");
             
-            // Use the SecretProvider service to get decrypted values
-            try {
-                $secretProvider = $this->injectableFactory->create('Espo\\Tools\\AppSecret\\SecretProvider');
-            } catch (\Exception $e) {
-                if ($log) $log->error("[IBF-AUTH] Failed to get SecretProvider: " . $e->getMessage());
+            // Get the admin user ID from IBF settings
+            $config = $this->injectableFactory->create('Espo\\Core\\Utils\\Config');
+            $adminUserId = $config->get('ibfAdminUserId');
+            
+            if (!$adminUserId) {
+                if ($log) $log->error("[IBF-AUTH] No admin user configured in IBF settings");
                 return null;
             }
+            
+            if ($log) $log->debug("[IBF-AUTH] Looking up IBFUser record for admin userId: " . $adminUserId);
+            
+            // Look up the IBFUser record for the admin user
+            $ibfUser = $this->entityManager
+                ->getRDBRepository('IBFUser')
+                ->where([
+                    'userId' => $adminUserId
+                ])
+                ->findOne();
+                
+            if (!$ibfUser) {
+                if ($log) $log->error("[IBF-AUTH] No IBFUser record found for admin userId: " . $adminUserId);
+                return null;
+            }
+            
+            $ibfEmail = $ibfUser->get('email');
+            $ibfPassword = $ibfUser->get('password');
 
-            $ibfUser = $secretProvider->get('ibfUser');
-            $ibfPassword = $secretProvider->get('ibfToken');
-
-            if (!$ibfUser || !$ibfPassword) {
+            if (!$ibfEmail || !$ibfPassword) {
                 if ($log) {
-                    $log->error("[IBF-AUTH] IBF admin credentials not found in EspoCRM AppSecret");
-                    if (!$ibfUser) $log->error("[IBF-AUTH] Missing secret: 'ibfUser'");
-                    if (!$ibfPassword) $log->error("[IBF-AUTH] Missing secret: 'ibfToken'");
+                    $log->error("[IBF-AUTH] IBF admin credentials missing in IBFUser record");
+                    if (!$ibfEmail) $log->error("[IBF-AUTH] Missing email in IBFUser record");
+                    if (!$ibfPassword) $log->error("[IBF-AUTH] Missing password in IBFUser record");
                 }
                 return null;
             }
 
-            if ($log) $log->debug("[IBF-AUTH] Retrieved admin credentials, attempting login...");
-            if ($log) $log->debug("[IBF-AUTH] Admin email: " . $ibfUser);
+            if ($log) $log->debug("[IBF-AUTH] Retrieved admin credentials from IBFUser, attempting login...");
+            if ($log) $log->debug("[IBF-AUTH] Admin email: " . $ibfEmail);
 
-            // Login to IBF API
-            $ibfApiUrl = 'https://ibf-test.510.global/api/user/login';
+            // Login to IBF backend API - use configurable URL
+            $ibfBackendApiUrl = $config->get('ibfBackendApiUrl');
+            $loginUrl = $ibfBackendApiUrl . '/user/login';
             $loginData = [
-                'email' => $ibfUser,
+                'email' => $ibfEmail,
                 'password' => $ibfPassword
             ];
             $postData = json_encode($loginData);
             
-            if ($log) $log->debug("[IBF-AUTH] Sending login request to: " . $ibfApiUrl);
-            if ($log) $log->debug("[IBF-AUTH] Login payload: " . json_encode(['email' => $ibfUser, 'password' => '[REDACTED]']));
+            if ($log) $log->debug("[IBF-AUTH] Sending login request to: " . $loginUrl);
+            if ($log) $log->debug("[IBF-AUTH] Login payload: " . json_encode(['email' => $ibfEmail, 'password' => '[REDACTED]']));
             
-            $curl = curl_init($ibfApiUrl);
+            $curl = curl_init($loginUrl);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_HTTPHEADER, [
@@ -241,7 +310,7 @@ class IbfAuth extends Base
                 return null;
             }
 
-            if ($log) $log->debug("[IBF-AUTH] Successfully retrieved IBF token for admin user: " . $ibfUser);
+            if ($log) $log->debug("[IBF-AUTH] Successfully retrieved IBF token for admin user: " . $ibfEmail);
             return $ibfToken;
 
         } catch (\Exception $e) {
@@ -275,7 +344,10 @@ class IbfAuth extends Base
                 return null;
             }
             
-            $ibfApiUrl = 'https://ibf-test.510.global/api/user';
+            // Use configurable IBF backend API URL for user operations
+            $config = $this->injectableFactory->create('Espo\\Core\\Utils\\Config');
+            $ibfBackendApiUrl = $config->get('ibfBackendApiUrl');
+            $createUserUrl = $ibfBackendApiUrl . '/user';
             $postData = json_encode([
                 'email' => $ibfEmail,
                 'firstName' => $user->get('firstName') ?: 'EspoCRM',
@@ -318,7 +390,7 @@ class IbfAuth extends Base
             ]));
             
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $ibfApiUrl);
+            curl_setopt($ch, CURLOPT_URL, $createUserUrl);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -382,17 +454,20 @@ class IbfAuth extends Base
         try {
             if ($log) $log->info("[IBF-AUTH] Attempting to update password for existing IBF user: " . $ibfEmail);
             
-            $ibfApiUrl = 'https://ibf-test.510.global/api/user/change-password';
+            // Use configurable IBF backend API URL for user operations
+            $config = $this->injectableFactory->create('Espo\\Core\\Utils\\Config');
+            $ibfBackendApiUrl = $config->get('ibfBackendApiUrl');
+            $changePasswordUrl = $ibfBackendApiUrl . '/user/change-password';
             $postData = json_encode([
                 'email' => $ibfEmail,
                 'password' => $ibfPassword
             ]);
             
-            if ($log) $log->debug("[IBF-AUTH] Sending password update request to IBF API: " . $ibfApiUrl);
+            if ($log) $log->debug("[IBF-AUTH] Sending password update request to IBF API: " . $changePasswordUrl);
             if ($log) $log->debug("[IBF-AUTH] Password update payload: " . json_encode(['email' => $ibfEmail, 'password' => '[REDACTED]']));
             
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $ibfApiUrl);
+            curl_setopt($ch, CURLOPT_URL, $changePasswordUrl);
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -449,16 +524,19 @@ class IbfAuth extends Base
         try {
             if ($log) $log->info("[IBF-AUTH] Starting IBF user login process for email: " . $ibfEmail);
             
-            $ibfApiUrl = 'https://ibf-test.510.global/api/user/login';
+            // Use configurable IBF backend API URL for authentication
+            $config = $this->injectableFactory->create('Espo\\Core\\Utils\\Config');
+            $ibfBackendApiUrl = $config->get('ibfBackendApiUrl');
+            $loginUrl = $ibfBackendApiUrl . '/user/login';
             $postData = json_encode([
                 'email' => $ibfEmail,
                 'password' => $ibfPassword
             ]);
             
-            if ($log) $log->debug("[IBF-AUTH] Sending login request to IBF API: " . $ibfApiUrl);
+            if ($log) $log->debug("[IBF-AUTH] Sending login request to IBF API: " . $loginUrl);
             
             $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $ibfApiUrl);
+            curl_setopt($ch, CURLOPT_URL, $loginUrl);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -606,29 +684,28 @@ class IbfAuth extends Base
 
 
     /**
-     * Set CORS headers to allow cross-origin requests from different domains
+     * Set CORS headers to allow cross-origin requests from the configured IBF Dashboard URL
      */
     private function setCorsHeaders(): void
     {
         // Get the origin from the request
-        $origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
+        $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
         
-        // List of allowed origins
-        $allowedOrigins = [
-            'https://ibf-pivot.510.global',
-            'http://localhost:3000',
-            'http://localhost:5173',
-            'http://localhost:5174',
-            'http://localhost:5175',
-            'http://localhost:5176',
-            'http://localhost:8080'
-        ];
+        // Get the configured IBF Dashboard URL from settings
+        $config = $this->injectableFactory->create('Espo\\Core\\Utils\\Config');
+        $configuredDashboardUrl = $config->get('ibfDashboardUrl');
         
-        // Check if the origin is allowed
-        if (in_array($origin, $allowedOrigins) || $origin === '*') {
+        // Only allow the configured IBF Dashboard URL
+        if ($configuredDashboardUrl && $origin === rtrim($configuredDashboardUrl, '/')) {
+            // Allow the configured IBF Dashboard URL
             header('Access-Control-Allow-Origin: ' . $origin);
+        } elseif ($configuredDashboardUrl) {
+            // Origin doesn't match - use configured URL as fallback
+            header('Access-Control-Allow-Origin: ' . rtrim($configuredDashboardUrl, '/'));
         } else {
-            header('Access-Control-Allow-Origin: https://ibf-pivot.510.global');
+            // No configured dashboard URL - deny request
+            header('Access-Control-Allow-Origin: null');
+            return;
         }
         
         // Allow specific HTTP methods

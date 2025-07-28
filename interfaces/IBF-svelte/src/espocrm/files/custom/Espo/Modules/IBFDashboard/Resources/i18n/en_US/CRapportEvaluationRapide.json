@@ -1,0 +1,33 @@
+{
+    "fields": {
+        "needsAssessments": "Needs Assessments",
+        "flood": "Flood",
+        "drought": "Drought",
+        "epidemics": "Epidemics",
+        "rapport": "Rapport",
+        "personnesAffectes": "Personnes Affectées",
+        "nombreDhommes": "Nombre d'hommes",
+        "nombreDeFemmes": "Nombre de femmes",
+        "nombreDenfantsDeMoinsDe5Ans": "Nombre d'enfants de moins de 5 ans",
+        "personnesHandicapes": "Personnes handicapées",
+        "personnesGes60Ans": "Personnes âgées (>60 ans)",
+        "nombreDeFemmesEnceintes": "Nombre de femmes enceintes",
+        "nombreDeDcs": "Nombre de décès",
+        "femmesMortes": "Femmes mortes",
+        "hommesMorts": "Hommes morts",
+        "nombreDePersonnesDisparues": "Nombre de personnes disparues",
+        "femmesDisparues": "Femmes disparues",
+        "hommesDisparus": "Hommes disparus",
+        "personnesEvaluees": "Personnes Evaluées",
+        "dateDeRapport": "Date de rapport"
+    },
+    "links": {
+        "needsAssessments": "Needs Assessments",
+        "flood": "Flood",
+        "drought": "Drought",
+        "epidemics": "Epidemics"
+    },
+    "labels": {
+        "Create CRapportEvaluationRapide": "Create Evaluation Report"
+    }
+}

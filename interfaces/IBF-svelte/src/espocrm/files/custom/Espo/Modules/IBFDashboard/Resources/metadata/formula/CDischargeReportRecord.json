@@ -1,0 +1,3 @@
+{
+    "beforeSaveCustomScript": "name = riverStation.name;\n\n// Calculate the 'thresholdComparison' field\nthresholdComparison = dischargeLevel - riverStation.fiveyearReturnPeriod;\n\n//auto fill reporting date if linked to Discharge report\nreportingDate = dischargeReport.reportingDate;\n\nif (thresholdComparison > 0) {\n    alertLevel = \"Red\";\n} else {\n    alertLevel = null;\n}\n"
+}

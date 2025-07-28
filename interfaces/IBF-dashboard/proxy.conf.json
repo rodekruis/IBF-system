@@ -1,0 +1,12 @@
+{
+  "/api/*": {
+    "target": "https://ibf-test.510.global",
+    "secure": true,
+    "changeOrigin": true,
+    "logLevel": "debug",
+    "headers": {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  }
+}

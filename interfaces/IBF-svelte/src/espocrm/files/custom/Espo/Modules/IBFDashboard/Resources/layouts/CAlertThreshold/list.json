@@ -1,0 +1,16 @@
+[
+    {
+        "name": "type",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "station"
+    },
+    {
+        "name": "maxRiverDischarge"
+    },
+    {
+        "name": "modifiedAt"
+    }
+]

@@ -1,0 +1,19 @@
+[
+    {
+        "name": "type",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "branch"
+    },
+    {
+        "name": "assignedUser"
+    },
+    {
+        "name": "nrStaff"
+    },
+    {
+        "name": "nrVolunteers"
+    }
+]

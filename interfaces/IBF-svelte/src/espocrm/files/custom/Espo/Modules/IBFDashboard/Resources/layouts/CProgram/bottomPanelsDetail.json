@@ -1,0 +1,16 @@
+{
+    "_delimiter_": {
+        "disabled": true
+    },
+    "activities": {
+        "dynamicLogicVisible": null,
+        "style": "danger",
+        "dynamicLogicStyled": null,
+        "sticked": false,
+        "index": 0
+    },
+    "stream": {
+        "sticked": true,
+        "index": 1
+    }
+}

@@ -1,0 +1,24 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "relationshipPanels": {
+        "branch": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "communes": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "cercles": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "region": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

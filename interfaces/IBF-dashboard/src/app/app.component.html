@@ -1,8 +1,10 @@
-<ion-app id="app" data-testid="app">
+<ion-app id="app" data-testid="app" [class.embedded]="isEmbedded">
   @if (loading) {
     <div class="loader" data-testid="loader">
       <ion-spinner color="light"></ion-spinner>
     </div>
+  } @else {
+    <!-- Use regular router outlet for web components with Angular Elements -->
+    <router-outlet></router-outlet>
   }
-  <ion-router-outlet></ion-router-outlet>
 </ion-app>

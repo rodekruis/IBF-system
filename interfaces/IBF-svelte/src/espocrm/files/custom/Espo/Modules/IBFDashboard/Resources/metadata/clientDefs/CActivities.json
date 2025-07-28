@@ -1,0 +1,68 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "sidePanels": {
+        "detail": [
+            {
+                "name": "activities",
+                "label": "Activities",
+                "view": "crm:views/record/panels/activities",
+                "aclScope": "Activities"
+            },
+            {
+                "name": "history",
+                "label": "History",
+                "view": "crm:views/record/panels/history",
+                "aclScope": "Activities"
+            },
+            {
+                "name": "tasks",
+                "label": "Tasks",
+                "view": "crm:views/record/panels/tasks",
+                "aclScope": "Task"
+            }
+        ]
+    },
+    "kanbanViewMode": false,
+    "iconClass": "fas fa-users-cog",
+    "relationshipPanels": {
+        "flood": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "regions": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "cercles": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "communes": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "stocks": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "program": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "epidemics": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "users": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "drought": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

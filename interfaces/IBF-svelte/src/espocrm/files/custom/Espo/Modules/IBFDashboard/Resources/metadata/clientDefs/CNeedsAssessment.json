@@ -1,0 +1,44 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "iconClass": "fas fa-clipboard-check",
+    "relationshipPanels": {
+        "flood": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "drought": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "epidemics": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "cercles": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "communes": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "regions": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "branch": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "parent": {
+            "layout": null
+        },
+        "rapportEvaluationRapide": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

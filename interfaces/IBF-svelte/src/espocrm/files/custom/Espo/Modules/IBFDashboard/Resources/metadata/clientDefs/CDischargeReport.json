@@ -1,0 +1,13 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "iconClass": "fas fa-book",
+    "relationshipPanels": {
+        "dischargeReportRecords": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

@@ -1,0 +1,16 @@
+[
+    {
+        "name": "name",
+        "link": true
+    },
+    {
+        "name": "hostBranch"
+    },
+    {
+        "name": "branchesServed",
+        "notSortable": true
+    },
+    {
+        "name": "assignedUser"
+    }
+]

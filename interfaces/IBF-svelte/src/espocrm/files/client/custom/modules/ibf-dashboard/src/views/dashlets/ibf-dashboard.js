@@ -176,13 +176,26 @@ define('ibf-dashboard:views/dashlets/ibf-dashboard', ['views/dashlets/abstract/b
                 this.getUserToken().then(token => {
                     const userId = this.getUser().id;
                     
-                    // Add parameters to hide header and optimize for iframe embedding
-                    const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&hideHeader=true&fullWidth=true&fullscreenButton=true&loginOffset=60&espoAuth=true`;
+                    // Add configuration URLs from EspoCRM settings
+                    const configParams = [];
+                    if (serverResponse.ibfBackendApiUrl) {
+                        configParams.push(`ibfBackendApiUrl=${encodeURIComponent(serverResponse.ibfBackendApiUrl)}`);
+                    }
+                    if (serverResponse.ibfGeoserverUrl) {
+                        configParams.push(`ibfGeoserverUrl=${encodeURIComponent(serverResponse.ibfGeoserverUrl)}`);
+                    }
                     
-                    console.log('🔗 Loading IBF Dashboard with EspoCRM auth:', {
+                    const configString = configParams.length > 0 ? '&' + configParams.join('&') : '';
+                    
+                    // Add parameters to hide header and optimize for iframe embedding
+                    const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&hideHeader=true&fullWidth=true&fullscreenButton=true&loginOffset=60&espoAuth=true${configString}`;
+                    
+                    console.log('🔗 Loading IBF Dashboard with EspoCRM auth and configuration:', {
                         url: iframeUrl,
                         token: token.substring(0, 10) + '...',
                         userId: userId,
+                        ibfBackendApiUrl: serverResponse.ibfBackendApiUrl,
+                        ibfGeoserverUrl: serverResponse.ibfGeoserverUrl,
                         espoAuth: true
                     });
                     
@@ -210,10 +223,18 @@ define('ibf-dashboard:views/dashlets/ibf-dashboard', ['views/dashlets/abstract/b
                 const dashboardUrl = 'https://ibf-pivot.510.global';
                 const userId = this.getUser().id;
                 
-                // Add parameters to hide header and optimize for iframe embedding
-                const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&hideHeader=true&fullWidth=true&fullscreenButton=true&loginOffset=60&espoAuth=true`;
+                // Add fallback configuration URLs
+                const configParams = [
+                    `ibfBackendApiUrl=${encodeURIComponent('https://ibf-test.510.global/api')}`,
+                    `ibfGeoserverUrl=${encodeURIComponent('https://ibf.510.global/geoserver/ibf-system/wms')}`
+                ];
                 
-                console.log('🔗 Loading IBF Dashboard (fallback) with EspoCRM auth:', {
+                const configString = '&' + configParams.join('&');
+                
+                // Add parameters to hide header and optimize for iframe embedding
+                const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&hideHeader=true&fullWidth=true&fullscreenButton=true&loginOffset=60&espoAuth=true${configString}`;
+                
+                console.log('🔗 Loading IBF Dashboard (fallback) with EspoCRM auth and fallback configuration:', {
                     url: iframeUrl,
                     token: token.substring(0, 10) + '...',
                     userId: userId,

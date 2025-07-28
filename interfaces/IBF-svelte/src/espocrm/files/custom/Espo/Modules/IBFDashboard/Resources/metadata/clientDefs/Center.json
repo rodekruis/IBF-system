@@ -1,0 +1,6 @@
+{
+    "controller": "ibf-dashboard:controllers/center",
+    "recordViews": {
+        "list": "ibf-dashboard:views/list/center-map-view"
+    }
+}

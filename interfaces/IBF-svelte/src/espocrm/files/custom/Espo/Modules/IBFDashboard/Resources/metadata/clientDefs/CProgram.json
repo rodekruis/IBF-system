@@ -1,0 +1,57 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "sidePanels": {
+        "detail": [
+            {
+                "name": "activities",
+                "label": "Activities",
+                "view": "crm:views/record/panels/activities",
+                "aclScope": "Activities"
+            },
+            {
+                "name": "history",
+                "label": "History",
+                "view": "crm:views/record/panels/history",
+                "aclScope": "Activities"
+            },
+            {
+                "name": "tasks",
+                "label": "Tasks",
+                "view": "crm:views/record/panels/tasks",
+                "aclScope": "Task"
+            }
+        ]
+    },
+    "kanbanViewMode": false,
+    "color": null,
+    "iconClass": "fas fa-project-diagram",
+    "relationshipPanels": {
+        "branch": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "stocks": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "activities": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "regions": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "cercleses": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "communeses": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

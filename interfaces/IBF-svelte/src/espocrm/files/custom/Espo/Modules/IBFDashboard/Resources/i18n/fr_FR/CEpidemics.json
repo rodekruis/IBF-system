@@ -1,0 +1,39 @@
+{
+    "labels": {
+        "Create CEpidemics": "Créer une épidémie"
+    },
+    "links": {
+        "calls": "Appels",
+        "meetings": "Réunions",
+        "tasks": "Tâches",
+        "activities": "Activités",
+        "hazard": "Hazard"
+    },
+    "fields": {
+        "createdAt": "Créé le",
+        "endDate": "Fin",
+        "epidemicType": "Type d'épidémie",
+        "needsAssessments": "Évaluations des besoins",
+        "startDate": "Début",
+        "totalCases": "Nombre total de cas",
+        "hazard": "Hazard"
+    },
+    "options": {
+        "epidemicType": {
+            "Cholera": "Choléra",
+            "Dengue": "Dengue",
+            "Malaria": "Malaria",
+            "Yellow fever": "Fièvre jaune"
+        }
+    },
+    "tooltips": {
+        "branches": "Branches impliquées dans des activités liées à l'épidémie.",
+        "cercles": "Le(s) cercle(s) touché(s) par l'épidémie. Se remplit automatiquement une fois la commune sélectionnée.",
+        "communes": "La ou les communes touchées par l'épidémie. Vous pouvez sélectionner plusieurs communes. Champ obligatoire.",
+        "endDate": "Date de fin de l'épidémie.",
+        "epidemicType": "Choisissez le type d'épidémie dans la liste déroulante.",
+        "regions": "Région(s) touchée(s) par l'épidémie. Se remplit automatiquement une fois la commune sélectionnée.",
+        "startDate": "La date du début de l'épidémie (premier cas détecté).",
+        "totalCases": "Le nombre total de cas signalés."
+    }
+}

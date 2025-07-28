@@ -16,7 +16,14 @@ class AfterUpgrade
     {
         try {
             $entityManager = $this->container->get('entityManager');
-            $schemaManager = $this->container->get('schemaManager');
+            
+            // Try to get schema manager, but handle gracefully if not available
+            try {
+                $schemaManager = $this->container->get('schemaManager');
+            } catch (\Exception $e) {
+                error_log('IBF Dashboard: Schema manager not available during upgrade, skipping table check: ' . $e->getMessage());
+                return;
+            }
             
             // Check if IBFUser table exists
             if (!$schemaManager->hasTable('i_b_f_user')) {

@@ -1,0 +1,50 @@
+{
+    "fields": {
+        "activities": "Activities",
+        "regions": "Regions",
+        "needsAssessments": "Needs Assessments",
+        "epidemicType": "Epidemic type",
+        "startDate": "Start",
+        "endDate": "End",
+        "totalCases": "Total cases",
+        "cercles": "Cercles",
+        "communes": "Communes",
+        "branches": "Branches",
+        "rapportEvaluationRapide": "Rapport d&#039;Evaluation Rapide",
+        "hazard": "Hazard"
+    },
+    "links": {
+        "meetings": "Meetings",
+        "calls": "Calls",
+        "tasks": "Tasks",
+        "activities": "Activities",
+        "regions": "Regions",
+        "needsAssessments": "Needs Assessments",
+        "cercles": "Cercles",
+        "communes": "Communes",
+        "branches": "Branches",
+        "rapportEvaluationRapide": "Rapport d&#039;Evaluation Rapide",
+        "hazard": "Hazard"
+    },
+    "labels": {
+        "Create CEpidemics": "Create Epidemics"
+    },
+    "tooltips": {
+        "epidemicType": "Choose the type of epidemic from the drop-down list.",
+        "totalCases": "The total number of reported cases.",
+        "cercles": "The cercle(s) in which the epidemic occured. Is automatically filled in once the commune is selected.",
+        "regions": "The region(s) in which the epidemic occured. Is automatically filled in once the commune is selected.",
+        "communes": "The commune(s) in which the epidemic occurred. You can select more than one commune. Mandatory field.",
+        "startDate": "The date the epidemic started (first case detected).",
+        "endDate": "The date the epidemic ended.",
+        "branches": "Branches involved in activities for the epidemic."
+    },
+    "options": {
+        "epidemicType": {
+            "Cholera": "Cholera",
+            "Dengue": "Dengue",
+            "Malaria": "Malaria",
+            "Yellow fever": "Yellow fever"
+        }
+    }
+}

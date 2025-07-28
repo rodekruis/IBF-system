@@ -1,0 +1,24 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "name"
+                }
+            ],
+            [
+                {
+                    "name": "flood"
+                },
+                {
+                    "name": "drought"
+                },
+                {
+                    "name": "epidemics"
+                }
+            ]
+        ],
+        "style": "default",
+        "label": ""
+    }
+]

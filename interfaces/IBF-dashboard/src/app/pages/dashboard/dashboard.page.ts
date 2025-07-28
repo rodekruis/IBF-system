@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { DateTime } from 'luxon';
+import { Subscription } from 'rxjs';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -8,26 +9,57 @@ import { ScreenOrientationPopoverComponent } from 'src/app/components/screen-ori
 import { User } from 'src/app/models/user/user.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 import { environment } from 'src/environments/environment';
+import { DebugService } from 'src/app/services/debug.service';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.page.html',
   styleUrls: ['./dashboard.page.scss'],
   standalone: false,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardPage implements OnInit {
+export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   public version: string = environment.ibfSystemVersion;
   public isDev = false;
   public isMultiCountry = false;
+  public templateRendered = false; // Add explicit template state tracking
   private readonly adminRole = UserRole.Admin;
   public environmentConfiguration = environment.configuration;
+  private authSubscription: Subscription;
+  private static instanceCount = 0;
+  private instanceId: number;
 
   constructor(
     private authService: AuthService,
     private analyticsService: AnalyticsService,
     private popoverController: PopoverController,
+    private debugService: DebugService,
+    private cdr: ChangeDetectorRef, // Add ChangeDetectorRef for manual change detection
   ) {
-    this.authService.getAuthSubscription().subscribe(this.onUserChange);
+    // Track multiple instances
+    DashboardPage.instanceCount++;
+    this.instanceId = DashboardPage.instanceCount;
+    
+    this.debugService.logComponentInit('DashboardPage', `Constructor called - Instance #${this.instanceId}`);
+    
+    // Warn if multiple instances are being created
+    if (DashboardPage.instanceCount > 1) {
+      console.error(`🚨 CRITICAL: Multiple DashboardPage instances created! Current count: ${DashboardPage.instanceCount}`);
+      console.error('🚨 This indicates a routing or component lifecycle issue');
+    }
+    
+    this.authSubscription = this.authService.getAuthSubscription().subscribe(this.onUserChange);
+
+    // Add navigation tracking
+    console.log('🧭 DashboardPage: Constructor - Current URL:', window.location.href);
+    console.log('🧭 DashboardPage: Constructor - Timestamp:', new Date().toISOString());
+
+    // Force change detection immediately
+    setTimeout(() => {
+      this.templateRendered = true;
+      this.cdr.detectChanges();
+      console.log('🔄 DashboardPage: Forced initial change detection');
+    }, 0);
 
     if (!this.isPhone() && !this.isTablet()) {
       return;
@@ -41,13 +73,109 @@ export class DashboardPage implements OnInit {
   }
 
   ngOnInit() {
+    this.debugService.logComponentInit('DashboardPage', {
+      isDev: this.isDev,
+      isMultiCountry: this.isMultiCountry,
+      version: this.version
+    });
     this.analyticsService.logPageView(AnalyticsPage.dashboard);
+    
+    // Force change detection after component initialization
+    this.cdr.detectChanges();
+    
+    // Add immediate DOM check
+    console.log('🔍 DashboardPage ngOnInit - DOM check immediately:');
+    console.log('🔍 Dashboard element exists:', !!document.querySelector('[data-testid="ibf-dashboard-interface"]'));
+    console.log('🔍 App root exists:', !!document.querySelector('#app'));
+    console.log('🔍 Router outlet exists:', !!document.querySelector('router-outlet'));
+    console.log('🔍 Total DOM elements:', document.querySelectorAll('*').length);
+    
+    // Check DOM state after a short delay
+    setTimeout(() => {
+      this.debugService.logDOMState();
+      this.cdr.detectChanges(); // Force another change detection
+    }, 100);
+    
+    // Force multiple change detection cycles to ensure template renders
+    setTimeout(() => {
+      this.cdr.detectChanges();
+      console.log('🔄 DashboardPage: Additional change detection at 250ms');
+    }, 250);
+    
+    setTimeout(() => {
+      this.cdr.detectChanges();
+      console.log('🔄 DashboardPage: Additional change detection at 500ms');
+      this.debugService.logDOMState();
+    }, 500);
+  }
+
+  ngAfterViewInit() {
+    this.debugService.logComponentAfterViewInit('DashboardPage');
+    
+    // Force change detection in AfterViewInit
+    this.cdr.detectChanges();
+    
+    // Check DOM state again after view init
+    setTimeout(() => {
+      this.debugService.logDOMState();
+      this.debugService.logCSSStyles('DashboardPage', '.ibf-dashboard-left-column');
+      this.debugService.logCSSStyles('DashboardPage', '.ibf-dashboard-right-column');
+      this.debugService.logCSSStyles('DashboardPage', 'app-chat');
+      this.debugService.logCSSStyles('DashboardPage', 'app-map');
+      this.cdr.detectChanges(); // Force change detection after checks
+    }, 500);
+    
+    // Check again after longer delay with more aggressive change detection
+    setTimeout(() => {
+      this.cdr.markForCheck(); // Mark component and ancestors for check
+      this.cdr.detectChanges(); // Force immediate check
+      this.debugService.logDOMState();
+      
+      // If DOM still empty, try to diagnose template issues
+      const dashboardElement = document.querySelector('[data-testid="ibf-dashboard-interface"]');
+      if (!dashboardElement) {
+        console.error('🚨 CRITICAL: Dashboard template still not rendered after 2 seconds');
+        console.error('🚨 Component state:', {
+          isDev: this.isDev,
+          isMultiCountry: this.isMultiCountry,
+          templateRendered: this.templateRendered,
+          version: this.version
+        });
+        
+        // Try one more aggressive change detection
+        this.templateRendered = true;
+        this.cdr.markForCheck();
+        this.cdr.detectChanges();
+        
+        setTimeout(() => {
+          this.debugService.logDOMState();
+          console.log('🔄 Final change detection attempt complete');
+        }, 100);
+      }
+    }, 2000);
+  }
+
+  ngOnDestroy() {
+    // Track instance destruction
+    DashboardPage.instanceCount--;
+    console.log(`💀 DashboardPage: Instance #${this.instanceId} destroyed. Remaining: ${DashboardPage.instanceCount}`);
+    
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
 
   private onUserChange = (user: User): void => {
     if (user) {
       this.isDev = user.userRole === this.adminRole;
       this.isMultiCountry = user.countries.length > 1;
+      
+      // Force change detection when user data changes
+      this.cdr.detectChanges();
+      console.log('🔄 DashboardPage: Change detection triggered by user change', {
+        isDev: this.isDev,
+        isMultiCountry: this.isMultiCountry
+      });
     }
   };
 

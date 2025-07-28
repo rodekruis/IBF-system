@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBF Dashboard Web Component Host Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        
+        .debug-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .host-container {
+            border: 5px solid #ff0000;
+            background: #ffcccc;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 200px;
+        }
+        
+        ibf-dashboard {
+            border: 3px solid #0000ff !important;
+            background: #ccccff !important;
+            display: block !important;
+            width: 100% !important;
+            min-height: 400px !important;
+            position: relative !important;
+        }
+        
+        .log-container {
+            background: #000;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>🔍 IBF Dashboard Web Component Host Debug</h1>
+        <p>This page tests the web component host element directly</p>
+        
+        <div>
+            <button onclick="analyzeHost()">🔍 Analyze Host Element</button>
+            <button onclick="inspectShadowDOM()">🌑 Inspect Shadow DOM</button>
+            <button onclick="forceVisibility()">👁️ Force Visibility</button>
+            <button onclick="clearLogs()">🗑️ Clear Logs</button>
+        </div>
+    </div>
+
+    <div class="debug-container">
+        <h2>📊 Live Analysis</h2>
+        <div id="analysis-output">
+            <p><strong>Host Element:</strong> <span id="host-info">Not found</span></p>
+            <p><strong>Host Dimensions:</strong> <span id="host-dimensions">0x0</span></p>
+            <p><strong>Host Styles:</strong> <span id="host-styles">N/A</span></p>
+            <p><strong>Shadow DOM:</strong> <span id="shadow-info">N/A</span></p>
+            <p><strong>Children Count:</strong> <span id="children-count">0</span></p>
+            <p><strong>Last Update:</strong> <span id="last-update">Never</span></p>
+        </div>
+    </div>
+
+    <div class="host-container">
+        <h2>🎯 Web Component Container</h2>
+        <p>The web component should appear below:</p>
+        
+        <!-- Web Component Instance -->
+        <ibf-dashboard country="PHL" embedded="true"></ibf-dashboard>
+    </div>
+
+    <div class="debug-container">
+        <h2>📋 Debug Logs</h2>
+        <div id="debug-logs" class="log-container"></div>
+    </div>
+
+    <!-- Load the web component bundle -->
+    <script src="dist/ibf-dashboard-web-component/main.js"></script>
+    
+    <script>
+        let logContainer;
+        
+        function log(message) {
+            if (!logContainer) {
+                logContainer = document.getElementById('debug-logs');
+            }
+            const timestamp = new Date().toLocaleTimeString();
+            logContainer.innerHTML += `[${timestamp}] ${message}\n`;
+            logContainer.scrollTop = logContainer.scrollHeight;
+            console.log(`[DEBUG] ${message}`);
+        }
+        
+        function clearLogs() {
+            const logContainer = document.getElementById('debug-logs');
+            logContainer.innerHTML = '';
+        }
+        
+        function analyzeHost() {
+            log('🔍 Starting host element analysis...');
+            
+            const hostElement = document.querySelector('ibf-dashboard');
+            if (!hostElement) {
+                log('❌ Host element not found!');
+                return;
+            }
+            
+            log('✅ Host element found: ' + hostElement.tagName);
+            
+            // Basic properties
+            log(`📊 Host element details:`);
+            log(`  - Tag: ${hostElement.tagName}`);
+            log(`  - ID: ${hostElement.id || 'none'}`);
+            log(`  - Classes: ${hostElement.className || 'none'}`);
+            log(`  - Attributes: ${Array.from(hostElement.attributes).map(a => `${a.name}="${a.value}"`).join(', ')}`);
+            log(`  - Is connected: ${hostElement.isConnected}`);
+            
+            // Dimensions
+            const rect = hostElement.getBoundingClientRect();
+            log(`📏 Host dimensions: ${rect.width}x${rect.height} at (${rect.left}, ${rect.top})`);
+            log(`📏 Offset dimensions: ${hostElement.offsetWidth}x${hostElement.offsetHeight}`);
+            log(`📏 Client dimensions: ${hostElement.clientWidth}x${hostElement.clientHeight}`);
+            log(`📏 Scroll dimensions: ${hostElement.scrollWidth}x${hostElement.scrollHeight}`);
+            
+            // Computed styles
+            const computed = window.getComputedStyle(hostElement);
+            log(`🎨 Host computed styles:`);
+            log(`  - display: ${computed.display}`);
+            log(`  - visibility: ${computed.visibility}`);
+            log(`  - opacity: ${computed.opacity}`);
+            log(`  - position: ${computed.position}`);
+            log(`  - z-index: ${computed.zIndex}`);
+            log(`  - background: ${computed.background}`);
+            log(`  - border: ${computed.border}`);
+            log(`  - overflow: ${computed.overflow}`);
+            
+            // Update UI
+            document.getElementById('host-info').textContent = hostElement.tagName;
+            document.getElementById('host-dimensions').textContent = `${rect.width}x${rect.height}`;
+            document.getElementById('host-styles').textContent = `display: ${computed.display}, visibility: ${computed.visibility}`;
+            document.getElementById('children-count').textContent = hostElement.children.length;
+            document.getElementById('last-update').textContent = new Date().toLocaleTimeString();
+        }
+        
+        function inspectShadowDOM() {
+            log('🌑 Inspecting Shadow DOM...');
+            
+            const hostElement = document.querySelector('ibf-dashboard');
+            if (!hostElement) {
+                log('❌ Host element not found!');
+                return;
+            }
+            
+            if (hostElement.shadowRoot) {
+                log('✅ Shadow DOM found!');
+                log(`🌑 Shadow root mode: ${hostElement.shadowRoot.mode}`);
+                log(`🌑 Shadow root children: ${hostElement.shadowRoot.children.length}`);
+                
+                // Analyze shadow root content
+                const shadowChildren = Array.from(hostElement.shadowRoot.children);
+                shadowChildren.forEach((child, index) => {
+                    log(`🌑 Shadow child ${index}: ${child.tagName} (${child.className || 'no class'})`);
+                    
+                    if (child.tagName === 'APP-ROOT') {
+                        log(`🎯 Found Angular app-root in shadow DOM`);
+                        const appRect = child.getBoundingClientRect();
+                        log(`🎯 App-root dimensions: ${appRect.width}x${appRect.height}`);
+                        const appStyles = window.getComputedStyle(child);
+                        log(`🎯 App-root display: ${appStyles.display}, visibility: ${appStyles.visibility}`);
+                    }
+                });
+                
+                document.getElementById('shadow-info').textContent = `Found (${hostElement.shadowRoot.children.length} children)`;
+            } else {
+                log('❌ No Shadow DOM found on host element');
+                document.getElementById('shadow-info').textContent = 'Not found';
+            }
+        }
+        
+        function forceVisibility() {
+            log('👁️ Forcing visibility on all elements...');
+            
+            const hostElement = document.querySelector('ibf-dashboard');
+            if (!hostElement) {
+                log('❌ Host element not found!');
+                return;
+            }
+            
+            // Force host visibility
+            hostElement.style.cssText += `
+                display: block !important;
+                visibility: visible !important;
+                opacity: 1 !important;
+                width: 100% !important;
+                min-height: 400px !important;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+                border: 5px solid red !important;
+                position: relative !important;
+                z-index: 1000 !important;
+            `;
+            
+            log('✅ Applied forced styles to host element');
+            
+            // If shadow DOM exists, force visibility there too
+            if (hostElement.shadowRoot) {
+                const shadowChildren = Array.from(hostElement.shadowRoot.children);
+                shadowChildren.forEach((child) => {
+                    child.style.cssText += `
+                        display: block !important;
+                        visibility: visible !important;
+                        opacity: 1 !important;
+                        width: 100% !important;
+                        min-height: 200px !important;
+                    `;
+                });
+                log('✅ Applied forced styles to shadow DOM children');
+            }
+            
+            setTimeout(() => {
+                analyzeHost();
+            }, 100);
+        }
+        
+        // Auto-analyze every 5 seconds
+        setInterval(() => {
+            analyzeHost();
+            inspectShadowDOM();
+        }, 5000);
+        
+        // Initial analysis after a short delay
+        setTimeout(() => {
+            log('🚀 Starting initial analysis...');
+            analyzeHost();
+            inspectShadowDOM();
+        }, 2000);
+        
+        // Listen for web component ready event
+        document.addEventListener('DOMContentLoaded', () => {
+            log('📄 DOM Content Loaded');
+        });
+        
+        window.addEventListener('load', () => {
+            log('🌐 Window loaded, starting analysis...');
+            setTimeout(() => {
+                analyzeHost();
+                inspectShadowDOM();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

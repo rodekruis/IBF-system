@@ -1,0 +1,115 @@
+{
+    "fields": {
+        "status": "Status",
+        "startDate": "Start date",
+        "endDate": "End date",
+        "branch": "Branches",
+        "stocks": "Stocks",
+        "sector": "Sector",
+        "totalBudgetSpent": "Budget spent",
+        "totalBudgetRemaining": "Budget remaining",
+        "totalBudget": "Total budget",
+        "currency": "Currency",
+        "fundingSource": "Funding Source",
+        "activities": "Activities",
+        "regions": "Regions",
+        "cercleses": "Cercles",
+        "communeses": "Communes",
+        "otherImplicatedActors": "Other implicated actors",
+        "implicatedStateService": "Implicated state service"
+    },
+    "links": {
+        "meetings": "Meetings",
+        "calls": "Calls",
+        "tasks": "Tasks",
+        "branch": "Branches",
+        "stocks": "Stocks",
+        "activities": "Activities",
+        "regions": "Regions",
+        "cercleses": "Cercles",
+        "communeses": "Communes"
+    },
+    "labels": {
+        "Create CProgram": "Create Program & Project"
+    },
+    "options": {
+        "status": {
+            "Planning": "Planning",
+            "In progress": "In progress",
+            "Completed": "Completed",
+            "Paused": "Paused",
+            "Cancelled": "Cancelled",
+            "": "",
+            "Running": "Running"
+        },
+        "sector": {
+            "WASH": "WASH",
+            "PGI": "PGI",
+            "CEA": "CEA",
+            "Food security": "Food security",
+            "Shelter": "Shelter",
+            "Health": "Health",
+            "Nutrition": "Nutrition",
+            "Restoring family links": "Restoring Family Links",
+            "": "",
+            "Digital transformation": "Digital transformation",
+            "Financial sustainability": "Financial sustainability",
+            "Emergency Preparedness": "Emergency Preparedness"
+        },
+        "currency": {
+            "USD": "USD",
+            "Euro": "Euro",
+            "GBP": "GBP",
+            "West African CFA Franc (XOF)": "West African CFA Franc (XOF)"
+        },
+        "fundingSource": {
+            "IFRC": "IFRC",
+            "NLRC": "NLRC",
+            "Own funding": "Own funding",
+            "UN agency": "UN agency",
+            "Government": "Government",
+            "": "",
+            "Belgian RC": "Belgian RC",
+            "Danish RC": "Danish RC",
+            "Netherlands RC": "Netherlands RC",
+            "ECHO": "ECHO"
+        },
+        "otherImplicatedActors": {
+            "Netherlands Red Cross": "Netherlands Red Cross",
+            "Danish Red Cross": "Danish Red Cross",
+            "Spanish Red Cross": "Spanish Red Cross",
+            "ICRC": "ICRC",
+            "Luxembourgish Red Cross": "Luxembourgish Red Cross",
+            "UNHCR": "UNHCR",
+            "UNOCHA": "UNOCHA",
+            "WFP": "WFP"
+        },
+        "implicatedStateService": {
+            "Direction Nationale de l'Hydraulique": "Direction Nationale de l'Hydraulique",
+            "Direction National de la Santé": "Direction National de la Santé",
+            "Mali Météo": "Mali Météo",
+            "Centre National d'Alerte Précoce": "Centre National d'Alerte Précoce",
+            "Développement Social": "Développement Social",
+            "Direction Générale de la Protection Civile": "Direction Générale de la Protection Civile"
+        }
+    },
+    "tooltips": {
+        "totalBudgetRemaining": "The total remaining budget in the program or project. Is automatically calculated by subtracting the budget spent from the total budget. Not editable.",
+        "name": "Name of the project. Mandatory field.",
+        "description": "Description of the project. Maximum of 1,000 characters.",
+        "sector": "The sector(s) covered by the project. Can be more than one. Mandatory field. If a sector is not available in the list, a custom sector can be written and added to the list.",
+        "status": "The status of the project. Mandatory field.",
+        "totalBudget": "The total budget for the activity. Mandatory field.",
+        "totalBudgetSpent": "The budget spent until today on the activity. Mandatory field.",
+        "currency": "La devise utilisée pour le budget de ce projet ou programme.",
+        "startDate": "The start date of the program or project. Mandatory field.",
+        "endDate": "The end date of the project or program. Mandatory field.",
+        "communeses": "The commune(s) in which the activity is implemented. You can select more than one commune. Mandatory field.",
+        "regions": "The region(s) in which the program or project is implemented. Is automatically filled in once the commune is selected.",
+        "cercleses": "The cercle(s) in which the program or project is implemented. Is automatically filled in once the commune is selected.",
+        "fundingSource": "The funding source of the program or project. Can be more than one funding source. Mandatory field.",
+        "branch": "The branch(es) implementing the program or project. Mandatory field.",
+        "users": "The staff and volunteers of the Mali Red Cross involved in this project or program.",
+        "assignedUser": "The Mali Red Cross staff that manages the program or project. Mandatory field."
+    }
+}

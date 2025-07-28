@@ -1,0 +1,260 @@
+{
+    "fields": {
+        "name": {
+            "type": "varchar",
+            "required": false,
+            "pattern": "$noBadCharacters",
+            "options": []
+        },
+        "description": {
+            "type": "text"
+        },
+        "createdAt": {
+            "notNull": false,
+            "type": "datetime",
+            "readOnly": true,
+            "minuteStep": 30,
+            "tooltip": true
+        },
+        "modifiedAt": {
+            "notNull": false,
+            "type": "datetime",
+            "readOnly": true,
+            "minuteStep": 30,
+            "tooltip": true
+        },
+        "createdBy": {
+            "type": "link",
+            "readOnly": true,
+            "view": "views/fields/user"
+        },
+        "modifiedBy": {
+            "type": "link",
+            "readOnly": true,
+            "view": "views/fields/user"
+        },
+        "assignedUser": {
+            "type": "link",
+            "required": false,
+            "view": "views/fields/assigned-user"
+        },
+        "teams": {
+            "type": "linkMultiple",
+            "view": "views/fields/teams"
+        },
+        "category": {
+            "type": "enum",
+            "style": {
+                "wash": null,
+                "shelter": null,
+                "food": null,
+                "nonfood": null
+            },
+            "maxLength": 100,
+            "isCustom": true,
+            "options": [
+                "wash",
+                "shelter",
+                "food",
+                "nonfood"
+            ],
+            "default": "wash"
+        },
+        "amount": {
+            "type": "int",
+            "isCustom": true,
+            "required": true,
+            "tooltip": true
+        },
+        "program": {
+            "type": "link",
+            "autocompleteOnEmpty": true,
+            "tooltip": true,
+            "required": true
+        },
+        "warehouse": {
+            "type": "link",
+            "required": true,
+            "tooltip": true
+        },
+        "branch": {
+            "type": "link",
+            "tooltip": true,
+            "required": true
+        },
+        "receivedAt": {
+            "notNull": false,
+            "type": "date",
+            "default": null,
+            "isCustom": true,
+            "required": true,
+            "tooltip": true
+        },
+        "removedBy": {
+            "notNull": false,
+            "type": "date",
+            "isCustom": true
+        },
+        "quantityEnd": {
+            "type": "int",
+            "isCustom": true
+        },
+        "status": {
+            "type": "enum",
+            "options": [
+                "",
+                "inStock",
+                "almostDepleted",
+                "outOfStock",
+                "removed"
+            ],
+            "style": {
+                "": null,
+                "inStock": "success",
+                "almostDepleted": "warning",
+                "outOfStock": "danger",
+                "removed": null
+            },
+            "maxLength": 100,
+            "isCustom": true,
+            "displayAsLabel": true,
+            "labelType": null
+        },
+        "currentQuantityUpdatedAt": {
+            "notNull": false,
+            "type": "date",
+            "after": "receivedAt",
+            "isCustom": true,
+            "tooltip": true
+        },
+        "currentQuantity": {
+            "type": "int",
+            "isCustom": true,
+            "required": true,
+            "tooltip": true
+        },
+        "item": {
+            "type": "link",
+            "required": true,
+            "tooltip": true
+        },
+        "activities": {
+            "type": "link"
+        }
+    },
+    "links": {
+        "createdBy": {
+            "type": "belongsTo",
+            "entity": "User"
+        },
+        "modifiedBy": {
+            "type": "belongsTo",
+            "entity": "User"
+        },
+        "assignedUser": {
+            "type": "belongsTo",
+            "entity": "User"
+        },
+        "teams": {
+            "type": "hasMany",
+            "entity": "Team",
+            "relationName": "entityTeam",
+            "layoutRelationshipsDisabled": true
+        },
+        "meetings": {
+            "type": "hasMany",
+            "entity": "Meeting",
+            "foreign": "parent",
+            "layoutRelationshipsDisabled": true
+        },
+        "calls": {
+            "type": "hasMany",
+            "entity": "Call",
+            "foreign": "parent",
+            "layoutRelationshipsDisabled": true
+        },
+        "tasks": {
+            "type": "hasChildren",
+            "entity": "Task",
+            "foreign": "parent",
+            "layoutRelationshipsDisabled": true
+        },
+        "emails": {
+            "type": "hasChildren",
+            "entity": "Email",
+            "foreign": "parent",
+            "layoutRelationshipsDisabled": true
+        },
+        "program": {
+            "type": "belongsTo",
+            "foreign": "stocks",
+            "entity": "CProgram",
+            "audited": false,
+            "isCustom": true
+        },
+        "warehouse": {
+            "type": "belongsTo",
+            "foreign": "stocks",
+            "entity": "CWarehouse",
+            "audited": false,
+            "isCustom": true
+        },
+        "branch": {
+            "type": "belongsTo",
+            "foreign": "stocks",
+            "entity": "CBranch",
+            "audited": false,
+            "isCustom": true
+        },
+        "item": {
+            "type": "belongsTo",
+            "foreign": "stocks",
+            "entity": "CItem",
+            "audited": false,
+            "isCustom": true
+        },
+        "activities": {
+            "type": "belongsTo",
+            "foreign": "stocks",
+            "entity": "CActivities",
+            "audited": false,
+            "isCustom": true
+        }
+    },
+    "collection": {
+        "orderBy": "item",
+        "order": "asc",
+        "textFilterFields": [
+            "name"
+        ],
+        "fullTextSearch": false,
+        "countDisabled": false
+    },
+    "indexes": {
+        "name": {
+            "columns": [
+                "name",
+                "deleted"
+            ]
+        },
+        "assignedUser": {
+            "columns": [
+                "assignedUserId",
+                "deleted"
+            ]
+        },
+        "createdAt": {
+            "columns": [
+                "createdAt"
+            ]
+        },
+        "createdAtId": {
+            "unique": true,
+            "columns": [
+                "createdAt",
+                "id"
+            ]
+        }
+    },
+    "optimisticConcurrencyControl": false
+}

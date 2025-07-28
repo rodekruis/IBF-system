@@ -28,6 +28,7 @@ import {
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
+import { DebugService } from 'src/app/services/debug.service';
 import { AlertArea } from 'src/app/types/alert-area';
 import { EapAction } from 'src/app/types/eap-action';
 import { EventState } from 'src/app/types/event-state';
@@ -100,9 +101,14 @@ export class ChatComponent implements OnInit, OnDestroy {
     private analyticsService: AnalyticsService,
     private popoverController: PopoverController,
     private adminLevelService: AdminLevelService,
-  ) {}
+    private debugService: DebugService,
+  ) {
+    this.debugService.logComponentInit('ChatComponent', 'Constructor called');
+  }
 
   ngOnInit() {
+    this.debugService.logComponentInit('ChatComponent', 'ngOnInit called');
+    
     this.countrySubscription = this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);

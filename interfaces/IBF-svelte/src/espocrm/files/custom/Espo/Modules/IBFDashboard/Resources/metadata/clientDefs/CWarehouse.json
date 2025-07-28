@@ -1,0 +1,21 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "iconClass": "fas fa-warehouse",
+    "relationshipPanels": {
+        "stocks": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "hostBranch": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        },
+        "branchesServed": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

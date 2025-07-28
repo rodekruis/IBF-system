@@ -204,12 +204,29 @@ define(['view'], (View) => {
                 // Get user token and user ID
                 this.getUserToken().then(token => {
                     const userId = this.getUser().id;
-                    const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&fullscreenButton=true&loginOffset=60&espoAuth=true`;
                     
-                    console.log('🔗 Loading IBF Dashboard (full-page) with EspoCRM auth:', {
+                    // Get current EspoCRM base URL for auto-detection
+                    const parentUrl = encodeURIComponent(window.location.origin + window.location.pathname);
+                    
+                    // Add configuration URLs from EspoCRM settings
+                    const configParams = [];
+                    if (serverResponse.ibfBackendApiUrl) {
+                        configParams.push(`ibfBackendApiUrl=${encodeURIComponent(serverResponse.ibfBackendApiUrl)}`);
+                    }
+                    if (serverResponse.ibfGeoserverUrl) {
+                        configParams.push(`ibfGeoserverUrl=${encodeURIComponent(serverResponse.ibfGeoserverUrl)}`);
+                    }
+                    
+                    const configString = configParams.length > 0 ? '&' + configParams.join('&') : '';
+                    const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&fullscreenButton=true&loginOffset=60&espoAuth=true&parentUrl=${parentUrl}${configString}`;
+                    
+                    console.log('🔗 Loading IBF Dashboard (full-page) with EspoCRM auth and configuration:', {
                         url: iframeUrl,
                         token: token.substring(0, 10) + '...',
                         userId: userId,
+                        parentUrl: decodeURIComponent(parentUrl),
+                        ibfBackendApiUrl: serverResponse.ibfBackendApiUrl,
+                        ibfGeoserverUrl: serverResponse.ibfGeoserverUrl,
                         espoAuth: true
                     });
                     
@@ -250,12 +267,24 @@ define(['view'], (View) => {
                 // Use fallback URL
                 const dashboardUrl = 'https://ibf-pivot.510.global';
                 const userId = this.getUser().id;
-                const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&fullscreenButton=true&loginOffset=60&espoAuth=true`;
                 
-                console.log('🔗 Loading IBF Dashboard (fallback) with EspoCRM auth:', {
+                // Get current EspoCRM base URL for auto-detection
+                const parentUrl = encodeURIComponent(window.location.origin + window.location.pathname);
+                
+                // Add fallback configuration URLs
+                const configParams = [
+                    `ibfBackendApiUrl=${encodeURIComponent('https://ibf-test.510.global/api')}`,
+                    `ibfGeoserverUrl=${encodeURIComponent('https://ibf.510.global/geoserver/ibf-system/wms')}`
+                ];
+                
+                const configString = '&' + configParams.join('&');
+                const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&embedded=true&fullscreenButton=true&loginOffset=60&espoAuth=true&parentUrl=${parentUrl}${configString}`;
+                
+                console.log('🔗 Loading IBF Dashboard (fallback) with EspoCRM auth and fallback configuration:', {
                     url: iframeUrl,
                     token: token.substring(0, 10) + '...',
                     userId: userId,
+                    parentUrl: decodeURIComponent(parentUrl),
                     espoAuth: true
                 });
                 
@@ -286,8 +315,7 @@ define(['view'], (View) => {
         getUserToken() {
             return new Promise((resolve, reject) => {
                 const authToken = this.getUser().get('token') || 
-                                 this.getStorage().get('user', 'auth-token') ||
-                                 this.getCookie('auth-token');
+                                 this.getStorage().get('user', 'auth-token');
                 
                 if (authToken) {
                     resolve(authToken);

@@ -1,0 +1,15 @@
+[
+    {
+        "name": "name",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "cercles",
+        "notSortable": true
+    },
+    {
+        "name": "commune",
+        "notSortable": true
+    }
+]

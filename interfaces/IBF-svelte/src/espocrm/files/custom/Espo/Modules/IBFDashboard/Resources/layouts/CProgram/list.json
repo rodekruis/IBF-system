@@ -1,0 +1,29 @@
+[
+    {
+        "name": "name",
+        "width": 25,
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "status",
+        "width": 15,
+        "align": "left"
+    },
+    {
+        "name": "startDate",
+        "width": 15,
+        "align": "left"
+    },
+    {
+        "name": "endDate",
+        "width": 15,
+        "align": "left"
+    },
+    {
+        "name": "branch",
+        "width": 30,
+        "notSortable": true,
+        "align": "left"
+    }
+]

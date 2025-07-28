@@ -1,8 +1,19 @@
 {
     "labels": {
         "Connection Settings": "Connection Settings",
-        "Configuration": "Configuration",
+        "Configuration": "Configuration", 
         "User Management": "User Management",
-        "IBF Settings": "IBF Settings"
+        "IBF Settings": "IBF Settings",
+        "IBF User Status": "IBF User Status",
+        "IBF User Record": "IBF User Record",
+        "Exists": "Exists",
+        "Password Set": "Password Set",
+        "Yes": "Yes",
+        "Missing": "Missing",
+        "View IBF User Record": "View IBF User Record",
+        "Please set the IBF password for this user": "Please set the IBF password for this user",
+        "No IBF user record found": "No IBF user record found",
+        "Create IBF User Record": "Create IBF User Record",
+        "Please select an admin user first": "Please select an admin user first"
     }
 }

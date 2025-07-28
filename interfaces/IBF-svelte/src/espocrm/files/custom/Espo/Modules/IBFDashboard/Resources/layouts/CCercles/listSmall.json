@@ -1,0 +1,13 @@
+[
+    {
+        "name": "name",
+        "link": true
+    },
+    {
+        "name": "cerclesPcode"
+    },
+    {
+        "name": "communes",
+        "notSortable": true
+    }
+]

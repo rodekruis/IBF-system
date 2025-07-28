@@ -1,0 +1,32 @@
+{
+    "fields": {
+        "itemsdistributed": {
+            "visible": {
+                "conditionGroup": [
+                    {
+                        "type": "equals",
+                        "attribute": "typeOfActivity",
+                        "value": "Distribution"
+                    }
+                ]
+            }
+        },
+        "reasonForCancellation": {
+            "visible": {
+                "conditionGroup": [
+                    {
+                        "type": "equals",
+                        "attribute": "status",
+                        "value": "Cancelled"
+                    }
+                ]
+            }
+        },
+        "activityEndDate": {
+            "invalid": null
+        },
+        "drought": {
+            "readOnly": null
+        }
+    }
+}

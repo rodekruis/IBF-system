@@ -1,0 +1,10 @@
+[
+    {
+        "name": "name",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "reportingDate"
+    }
+]

@@ -1,0 +1,17 @@
+{
+    "_delimiter_": {
+        "disabled": true
+    },
+    "communes": {
+        "index": 0
+    },
+    "droughts": {
+        "index": 1
+    },
+    "programs": {
+        "index": 2
+    },
+    "activities": {
+        "index": 3
+    }
+}

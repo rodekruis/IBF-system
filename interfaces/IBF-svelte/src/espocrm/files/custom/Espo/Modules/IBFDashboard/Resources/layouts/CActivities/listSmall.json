@@ -1,0 +1,23 @@
+[
+    {
+        "name": "name",
+        "width": 40,
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "status",
+        "width": 20,
+        "align": "left"
+    },
+    {
+        "name": "activityStartDate",
+        "width": 20,
+        "align": "left"
+    },
+    {
+        "name": "activityEndDate",
+        "width": 20,
+        "align": "left"
+    }
+]

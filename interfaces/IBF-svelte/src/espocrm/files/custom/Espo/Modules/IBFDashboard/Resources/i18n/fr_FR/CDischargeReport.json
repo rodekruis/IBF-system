@@ -1,0 +1,15 @@
+{
+    "labels": {
+        "Create CDischargeReport": "Créer un rapport de décharge"
+    },
+    "fields": {
+        "attachments": "Pièces jointes",
+        "dischargeReportRecords": "Rapport de décharge",
+        "reportingDate": "Date du rapport",
+        "createdAt": "Créé le"
+    },
+    "links": {
+        "attachments": "Pièces jointes",
+        "dischargeReportRecords": "Rapport de décharge"
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "fields": {
+        "parent": {
+            "entityList": [
+                "Account",
+                "Lead",
+                "Contact",
+                "Opportunity",
+                "Case",
+                "CFloodWarning",
+                "CAlertThreshold",
+                "CBranch",
+                "CProgram",
+                "CStock"
+            ]
+        }
+    }
+}

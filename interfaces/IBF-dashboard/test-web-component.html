@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBF Dashboard Web Component Test</title>
+    
+    <!-- Load the web component CSS -->
+    <link rel="stylesheet" href="dist/web-component/browser/styles.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #c8102e;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .test-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #c8102e;
+            padding-bottom: 10px;
+        }
+        
+        .dashboard-container {
+            height: 600px;
+            border: 2px solid #c8102e;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        ibf-dashboard {
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>IBF Dashboard Web Component Test</h1>
+        
+        <div class="test-section">
+            <h2>Generic Embedding Mode</h2>
+            <p>Testing the dashboard in generic embedding mode. Use Chrome DevTools (F12) for debugging.</p>
+            
+            <div class="dashboard-container">
+                <ibf-dashboard 
+                    id="test-dashboard"
+                    platform="generic"
+                    country-code="ETH"
+                    disaster-type="drought"
+                    theme="auto"
+                    language="en"
+                    features='["maps", "alerts", "indicators"]'>
+                </ibf-dashboard>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load the web component bundle -->
+    <script>
+        console.log('Loading IBF Dashboard Web Component...');
+        
+        // Simple component initialization
+        function initializeComponent() {
+            const dashboard = document.getElementById('test-dashboard');
+            
+            if (dashboard) {
+                dashboard.addEventListener('dashboardReady', (event) => {
+                    console.log('Dashboard ready:', event.detail);
+                });
+                
+                dashboard.addEventListener('error', (event) => {
+                    console.error('Dashboard error:', event.detail);
+                });
+                
+                dashboard.addEventListener('componentLoaded', (event) => {
+                    console.log('Component loaded:', event.detail);
+                });
+            }
+        }
+        
+        // Load the web component module
+        function loadWebComponent() {
+            const script = document.createElement('script');
+            script.src = 'dist/web-component/browser/main.js';
+            script.type = 'module';
+            
+            script.onload = function() {
+                console.log('Web component module loaded successfully');
+                initializeComponent();
+            };
+            
+            script.onerror = function(error) {
+                console.error('Failed to load web component module:', error);
+            };
+            
+            document.head.appendChild(script);
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('load', function() {
+            console.log('Page loaded, initializing web component...');
+            loadWebComponent();
+        });
+        
+        // Global error handling
+        window.addEventListener('error', function(event) {
+            console.error('Global error:', event.error);
+        });
+        
+    </script>
+</body>
+</html>

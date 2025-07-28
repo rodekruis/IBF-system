@@ -1,0 +1,18 @@
+{
+    "fields": {
+        "nrDeSecouristes": "Nº de secouristes",
+        "branch": "Branch",
+        "communes": "Communes",
+        "cercles": "Cercles",
+        "region": "Region"
+    },
+    "links": {
+        "branch": "Branch",
+        "communes": "Communes",
+        "cercles": "Cercles",
+        "region": "Region"
+    },
+    "labels": {
+        "Create CBrigadeUrgence": "Create Brigade d'Urgence"
+    }
+}

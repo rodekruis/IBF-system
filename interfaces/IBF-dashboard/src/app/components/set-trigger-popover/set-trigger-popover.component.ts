@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./set-trigger-popover.component.scss'],
   standalone: false,
 })
-export class SetTriggerPopoverComponent {
+export class SetTriggerPopoverComponent implements OnChanges {
   @Input()
   public eapLink: string;
 
@@ -61,6 +61,14 @@ export class SetTriggerPopoverComponent {
     private analyticsService: AnalyticsService,
     private eventService: EventService,
   ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    if (changes['areas']) {
+      // Reset selected areas when areas input changes
+      this.selectedAreas = {};
+    }
+  }
 
   getCheckedCount(): number {
     return Object.values(this.selectedAreas).filter((checked) => checked)

@@ -1,0 +1,26 @@
+{
+    "fields": {
+        "prciserUneAutreMaladie": {
+            "visible": {
+                "conditionGroup": [
+                    {
+                        "type": "has",
+                        "attribute": "maladie",
+                        "value": "Autre"
+                    }
+                ]
+            }
+        },
+        "typeDaffectation": {
+            "visible": {
+                "conditionGroup": [
+                    {
+                        "type": "greaterThan",
+                        "attribute": "personnesAffectes",
+                        "value": 0
+                    }
+                ]
+            }
+        }
+    }
+}

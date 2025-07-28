@@ -1,0 +1,32 @@
+[
+    {
+        "name": "name",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "epidemicType",
+        "align": "left"
+    },
+    {
+        "name": "branches",
+        "notSortable": true
+    },
+    {
+        "name": "regions",
+        "notSortable": true
+    },
+    {
+        "name": "cercles",
+        "notSortable": true
+    },
+    {
+        "name": "startDate"
+    },
+    {
+        "name": "endDate"
+    },
+    {
+        "name": "totalCases"
+    }
+]

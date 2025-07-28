@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LatLng } from 'leaflet';
 import { EapAlertClass, EapAlertClasses } from 'src/app/models/country.model';
@@ -11,7 +11,7 @@ import { LeadTime } from 'src/app/types/lead-time';
   templateUrl: './dynamic-point-popup.component.html',
   standalone: false,
 })
-export class DynamicPointPopupComponent implements OnInit {
+export class DynamicPointPopupComponent implements OnInit, OnChanges {
   @Input()
   public layerName: IbfLayerName;
 
@@ -61,6 +61,17 @@ export class DynamicPointPopupComponent implements OnInit {
   constructor(private translate: TranslateService) {}
 
   ngOnInit(): void {
+    this.initializeComponent();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Handle input property changes for web component compatibility
+    if (changes['layerName'] || changes['riverGauge'] || changes['typhoonTrackPoint'] || changes['glofasData']) {
+      this.initializeComponent();
+    }
+  }
+
+  private initializeComponent(): void {
     if (!this.layerName || !this.allowedLayers.includes(this.layerName)) {
       return;
     }

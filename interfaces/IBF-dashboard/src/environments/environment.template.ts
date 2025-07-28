@@ -1,6 +1,7 @@
 export const environment = {
   configuration: process.env['NG_CONFIGURATION'],
   apiUrl: process.env['API_SERVICE_URL'], // API
+  apiToken: process.env['API_TOKEN'], // API authentication token
   useServiceWorker: process.env['NG_USE_SERVICE_WORKER'], // feature-flags
   geoserverUrl: process.env['NG_GEOSERVER_URL'], // geoserver
   ibfSystemVersion: process.env['NG_IBF_SYSTEM_VERSION'], // version

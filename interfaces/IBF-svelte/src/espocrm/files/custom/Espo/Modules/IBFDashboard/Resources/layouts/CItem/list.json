@@ -1,0 +1,24 @@
+[
+    {
+        "name": "name",
+        "link": true
+    },
+    {
+        "name": "category"
+    },
+    {
+        "name": "itemCode"
+    },
+    {
+        "name": "unitPrice"
+    },
+    {
+        "name": "unitOfMeasure"
+    },
+    {
+        "name": "createdAt"
+    },
+    {
+        "name": "modifiedAt"
+    }
+]

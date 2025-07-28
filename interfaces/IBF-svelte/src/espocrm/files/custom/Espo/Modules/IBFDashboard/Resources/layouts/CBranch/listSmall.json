@@ -1,0 +1,19 @@
+[
+    {
+        "name": "name",
+        "link": true
+    },
+    {
+        "name": "region"
+    },
+    {
+        "name": "totalNumberOfStaff"
+    },
+    {
+        "name": "numberOfVolunteers"
+    },
+    {
+        "name": "warehouses",
+        "notSortable": true
+    }
+]

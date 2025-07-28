@@ -1,0 +1,17 @@
+[
+    {
+        "name": "item"
+    },
+    {
+        "name": "receivedAt"
+    },
+    {
+        "name": "amount"
+    },
+    {
+        "name": "currentQuantity"
+    },
+    {
+        "name": "warehouse"
+    }
+]

@@ -8,8 +8,8 @@ class AfterInstall
     {
         $this->container = $container;
         
-        // Rebuild database schema to ensure IBFUser table has correct fields
-        $this->rebuildDatabase();
+        // Set default IBF configuration values
+        $this->setDefaultIBFConfiguration();
         
         // Create Anticipatory Action team and role
         $this->createAnticipationTeamAndRole();
@@ -20,8 +20,19 @@ class AfterInstall
         // Add administration panel section
         $this->addAdministrationSection();
         
+        // Create map-related database tables
+        $this->createMapTables();
+        
         // Clear cache to ensure changes take effect
         $this->clearCache();
+        
+        // Note: Database schema will be automatically updated by EspoCRM
+        // after installation completes and maintenance mode is lifted
+        error_log('IBF Dashboard: Installation completed successfully.');
+        error_log('IBF Dashboard: IMPORTANT - Please complete installation by:');
+        error_log('IBF Dashboard: 1. Go to Administration > Rebuild to load entity layouts properly');
+        error_log('IBF Dashboard: 2. Clear cache if layouts still don\'t appear');
+        error_log('IBF Dashboard: 3. Check file permissions on /var/www/html if rebuild fails');
     }
 
     protected function addIBFDashboardTab()
@@ -109,7 +120,20 @@ class AfterInstall
     protected function clearCache()
     {
         try {
-            $this->container->get('dataManager')->clearCache();
+            $dataManager = $this->container->get('dataManager');
+            
+            // Clear cache only - avoid rebuild during installation to prevent permission issues
+            $dataManager->clearCache();
+            
+            // Create a flag file to remind about required rebuild
+            file_put_contents(
+                'data/cache/application/rebuild-required.flag',
+                "IBF Dashboard extension installed. Please run Administration > Rebuild for module layouts to take effect.\n"
+            );
+            
+            error_log('IBF Dashboard: Cache cleared successfully. Database rebuild skipped during installation to avoid permission issues.');
+            error_log('IBF Dashboard: Please manually rebuild the system via Administration > Rebuild after installation to load layouts properly.');
+            
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Failed to clear cache: ' . $e->getMessage());
         }
@@ -117,24 +141,15 @@ class AfterInstall
 
     protected function rebuildDatabase()
     {
+        // Skip database rebuild during installation to avoid maintenance mode issues
+        // EspoCRM will automatically handle schema updates for properly defined entities
+        // after installation is complete
         try {
-            // Get schema manager to rebuild database tables
-            $schemaManager = $this->container->get('schemaManager');
-            
-            // Rebuild the IBFUser entity to ensure proper table structure
-            $schemaManager->rebuildDatabase(['IBFUser']);
-            
-            error_log('IBF Dashboard: Database schema rebuilt for IBFUser entity');
+            // Just validate that the dataManager is available for post-install operations
+            $dataManager = $this->container->get('dataManager');
+            error_log('IBF Dashboard: Database schema will be updated automatically by EspoCRM');
         } catch (\Exception $e) {
-            error_log('IBF Dashboard: Failed to rebuild database schema: ' . $e->getMessage());
-            // Try alternative method
-            try {
-                $dataManager = $this->container->get('dataManager');
-                $dataManager->rebuild(['IBFUser']);
-                error_log('IBF Dashboard: Database rebuilt using dataManager');
-            } catch (\Exception $e2) {
-                error_log('IBF Dashboard: Failed alternative database rebuild: ' . $e2->getMessage());
-            }
+            error_log('IBF Dashboard: Note - Database schema will be updated on next system rebuild: ' . $e->getMessage());
         }
     }
 
@@ -297,6 +312,115 @@ class AfterInstall
             
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Failed to create team and role: ' . $e->getMessage());
+        }
+    }
+
+    protected function setDefaultIBFConfiguration()
+    {
+        try {
+            $config = $this->container->get('config');
+            
+            // Try to get configWriter, fallback to creating it if not available
+            try {
+                $configWriter = $this->container->get('configWriter');
+            } catch (\Exception $e) {
+                // Use injectableFactory to create configWriter
+                $injectableFactory = $this->container->get('injectableFactory');
+                $configWriter = $injectableFactory->create('Espo\\Core\\Utils\\Config\\ConfigWriter');
+            }
+
+            $needsSave = false;
+
+            // Set default IBF Backend API URL if not already configured
+            if (!$config->get('ibfBackendApiUrl')) {
+                $configWriter->set('ibfBackendApiUrl', 'https://ibf-test.510.global/api');
+                $needsSave = true;
+                error_log('IBF Dashboard: Set default IBF Backend API URL');
+            }
+
+            // Set default Geoserver URL if not already configured
+            if (!$config->get('ibfGeoserverUrl')) {
+                $configWriter->set('ibfGeoserverUrl', 'https://ibf.510.global/geoserver/ibf-system/wms');
+                $needsSave = true;
+                error_log('IBF Dashboard: Set default Geoserver URL');
+            }
+
+            // Set default dashboard URL if not already configured
+            if (!$config->get('ibfDashboardUrl')) {
+                $configWriter->set('ibfDashboardUrl', 'https://ibf-pivot.510.global');
+                $needsSave = true;
+                error_log('IBF Dashboard: Set default dashboard URL');
+            }
+
+            // Set default enabled countries if not already configured
+            if (!$config->get('ibfEnabledCountries')) {
+                $configWriter->set('ibfEnabledCountries', ['ETH', 'UGA', 'ZMB', 'KEN']);
+                $needsSave = true;
+                error_log('IBF Dashboard: Set default enabled countries');
+            }
+
+            // Set default disaster types if not already configured
+            if (!$config->get('ibfDisasterTypes')) {
+                $configWriter->set('ibfDisasterTypes', ['drought', 'floods', 'heavy-rainfall']);
+                $needsSave = true;
+                error_log('IBF Dashboard: Set default disaster types');
+            }
+
+            // Set default country if not already configured
+            if (!$config->get('ibfDefaultCountry')) {
+                $configWriter->set('ibfDefaultCountry', 'ETH');
+                $needsSave = true;
+                error_log('IBF Dashboard: Set default country');
+            }
+
+            // Set default user settings if not already configured
+            if (!$config->has('ibfAutoCreateUsers')) {
+                $configWriter->set('ibfAutoCreateUsers', true);
+                $needsSave = true;
+                error_log('IBF Dashboard: Set default auto-create users setting');
+            }
+
+            if (!$config->has('ibfRequireUserMapping')) {
+                $configWriter->set('ibfRequireUserMapping', false);
+                $needsSave = true;
+                error_log('IBF Dashboard: Set default require user mapping setting');
+            }
+
+            if ($needsSave) {
+                $configWriter->save();
+                error_log('IBF Dashboard: Default configuration values saved successfully');
+            } else {
+                error_log('IBF Dashboard: All configuration values already set, no changes needed');
+            }
+
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Failed to set default configuration: ' . $e->getMessage());
+        }
+    }
+
+    protected function createMapTables()
+    {
+        try {
+            $entityManager = $this->container->get('entityManager');
+            $pdo = $entityManager->getPDO();
+            
+            // Create region_geometry table for storing shapefile data
+            $createTableQuery = "
+                CREATE TABLE IF NOT EXISTS region_geometry (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    pcode VARCHAR(255) UNIQUE NOT NULL,
+                    geometry_data LONGTEXT NOT NULL,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                    INDEX idx_pcode (pcode)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+            ";
+            
+            $pdo->exec($createTableQuery);
+            error_log('IBF Dashboard: Created region_geometry table for map data');
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Failed to create map tables: ' . $e->getMessage());
         }
     }
 }

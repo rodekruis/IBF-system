@@ -1,0 +1,25 @@
+{
+    "labels": {
+        "Create CRegion": "Créer une région"
+    },
+    "fields": {
+        "activities": "Activités",
+        "branch": "Branche",
+        "drought": "Sécheresse",
+        "floods": "Inondations",
+        "pCode": "Code postal de la région",
+        "createdAt": "Créé le",
+        "droughts": "Sécheresse",
+        "epidemics": "Épidémies",
+        "programs": "Programmes"
+    },
+    "links": {
+        "activities": "Activités",
+        "branch": "Branche",
+        "drought": "Sècheresse",
+        "floods": "Inondations",
+        "epidemics": "Épidémies",
+        "droughts": "Sècheresses",
+        "programs": "Programmes"
+    }
+}

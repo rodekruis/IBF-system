@@ -1,0 +1,29 @@
+[
+    {
+        "name": "name",
+        "width": 20,
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "sector",
+        "width": 15,
+        "align": "left"
+    },
+    {
+        "name": "status"
+    },
+    {
+        "name": "activityStartDate"
+    },
+    {
+        "name": "activityEndDate"
+    },
+    {
+        "name": "nrHouseholdsAssisted"
+    },
+    {
+        "name": "regions",
+        "notSortable": true
+    }
+]

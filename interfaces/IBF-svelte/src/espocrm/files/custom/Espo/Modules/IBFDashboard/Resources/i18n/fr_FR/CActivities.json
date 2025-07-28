@@ -1,0 +1,135 @@
+{
+    "labels": {
+        "Create CActivities": "Créer une activité"
+    },
+    "fields": {
+        "activityEndDate": "Date de fin d'activité",
+        "activityStartDate": "Date de début d'activité",
+        "branchs": "Branches",
+        "collaborators": "Collaborateurs",
+        "currency": "Devise",
+        "flood": "Inondation",
+        "itemsdistributed": "Articles distribués",
+        "numberOfPNSStaffInvolved": "Personnel SNP impliqués",
+        "numberOfStaffInvolved": "Personnel payées impliqués",
+        "numberOfVolunteersInvolved": "Volontaires impliqués",
+        "programs": "Programmes",
+        "reasonForCancellation": "Motif de l'annulation",
+        "regions": "Régions",
+        "sector": "Secteur",
+        "totalBudget": "Budget total",
+        "totalBudgetSpent": "Budget dépensé",
+        "totalRemainingBudget": "Budget restant",
+        "typeOfActivity": "Type d'activité",
+        "createdAt": "Créé le",
+        "program": "Projet",
+        "users": "Personnel de la Croix-Rouge du Mali",
+        "nrHouseholdsAssisted": "Ménages assistés",
+        "drought": "Sécheresses",
+        "epidemics": "Épidémies",
+        "teams": "Équipe",
+        "chargementDuRapportDactivit": "Chargement du rapport d'activité"
+    },
+    "links": {
+        "branchs": "Branchess",
+        "calls": "Appels",
+        "flood": "Innondation",
+        "meetings": "Réunions",
+        "programs": "Programmes",
+        "regions": "Régions",
+        "tasks": "Tâches",
+        "program": "Programme",
+        "epidemics": "Epidémies",
+        "drought": "Sécheresses"
+    },
+    "options": {
+        "collaborators": {
+            "ICRC": "ICRC",
+            "OCHA": "OCHA"
+        },
+        "currency": {
+            "USD": "USD",
+            "EUR": "EUR",
+            "GBP": "GBP",
+            "West African CFA Franc (XOF)": "Franc CFA d'Afrique de l'Ouest (XOF)",
+            "": ""
+        },
+        "itemsdistributed": {
+            "Food": "Alimentation",
+            "Shelter Kit": "Kit d'abri",
+            "Jerry cans": "Jerrican",
+            "Latrine kits": "Kits de latrines",
+            "": ""
+        },
+        "phase": {
+            "Preparedness": "Préparation",
+            "Anticipatory Action": "Action anticipée",
+            "Response": "Réponse",
+            "": ""
+        },
+        "sector": {
+            "WASH": "WASH",
+            "PGI": "PGI",
+            "CEA": "CEA",
+            "Food Security": "Sécurité alimentaire",
+            "Shelter": "Abri",
+            "Health": "Santé",
+            "Nutrition": "Nutrition",
+            "Restoring Family Links": "Rétablir les liens familiaux",
+            "CVA": "CVA",
+            "Emergency Preparedness": "Préparation d'urgence"
+        },
+        "status": {
+            "Started": "Commencé",
+            "Ongoing": "En cours",
+            "Completed": "Terminé",
+            "Cancelled": "Annulé",
+            "": "",
+            "In preparation": "In preparation",
+            "Paused": "Paused",
+            "Planned": "Planifié"
+        },
+        "typeOfActivity": {
+            "Registration": "Inscription",
+            "Validation": "Validation",
+            "Distribution": "Distribution",
+            "Procurement": "Approvisionnement",
+            "Transportation": "Transport",
+            "Training": "Formation",
+            "Workshop": "Atelier",
+            "Meeting": "Réunion",
+            "Sensitization": "Sensibilisation",
+            "": ""
+        }
+    },
+    "tooltips": {
+        "activityEndDate": "Choisissez la date de fin de l'activité. Champ obligatoire.",
+        "activityStartDate": "La date de début de l'activité. Champ obligatoire.",
+        "assignedUser": "La date deaLe membre du personnel de la Croix-Rouge malienne responsable de l'activité. Le membre du personnel doit être un utilisateur existant dans le système.",
+        "branchs": "Branche(s) mettant en œuvre l'activité. Champ obligatoire.",
+        "cercles": "Le(s) cercle(s) dans le(s)quel(s) l'activité est mise en œuvre.",
+        "communes": "La (les) commune(s) dans laquelle (lesquelles) l'activité est mise en œuvre. Vous pouvez sélectionner plusieurs communes. ",
+        "currency": "La devise utilisée pour le budget de cette activité. Champ obligatoire.",
+        "drought": "Effectuez une recherche dans la base de données et sélectionnez l'événement de sécheresses pour lequel cette activité est mise en œuvre.",
+        "epidemics": "Effectuez une recherche dans la base de données et sélectionnez l'événement épidémique pour lequel cette activité est mise en œuvre.",
+        "flood": "Effectuez une recherche dans la base de données et sélectionnez l'événement d'inondation pour lequel cette activité est mise en œuvre.",
+        "itemsdistributed": "Choisissez le type d'article distribué. Vous pouvez choisir plus d'un élément. Champ obligatoire.",
+        "name": "Nom de l'activité. Champ obligatoire.",
+        "numberOfPNSStaffInvolved": "Le nombre d'employés des Sociétés nationales partenaires qui soutiennent la mise en œuvre de l'activité.",
+        "numberOfStaffInvolved": "Le nombre d'employés de la Croix-Rouge du Mali qui mettent en œuvre l'activité.",
+        "numberOfVolunteersInvolved": "Le nombre de volontaires de la Croix-Rouge malienne qui mettent en œuvre l'activité.",
+        "program": "Sélectionnez le projet qui finance les activités. Champ obligatoire.",
+        "reasonForCancellation": "Saisissez la raison de l'annulation de cette activité. Champ obligatoire uniquement si le statut de l'activité = annulé.",
+        "regions": "La ou les régions dans lesquelles l'activité est mise en œuvre.",
+        "sector": "Sélectionnez le secteur dont relèvent les activités.",
+        "status": "Statut actuel de l'activité. Champ obligatoire.",
+        "teams": "L'équipe ou les équipes qui exécutent l'activité. Il peut s'agir de plusieurs équipes.",
+        "totalBudget": "Le budget total de l'activité. Champ obligatoire.",
+        "totalBudgetSpent": "Le budget dépensé jusqu'à aujourd'hui pour l'activité. Champ obligatoire.",
+        "totalRemainingBudget": "Le budget total restant de l'activité. Il est calculé automatiquement en soustrayant le budget dépensé du budget total. Non modifiable.",
+        "typeOfActivity": "Sélectionnez le type d'activité. Champ obligatoire.",
+        "users": "Le personnel de la Croix-Rouge malienne impliqués dans ce projet ou programme.",
+        "nrHouseholdsAssisted": "Nombre de ménages assistés",
+        "chargementDuRapportDactivit": "Charger le rapport d'activité"
+    }
+}

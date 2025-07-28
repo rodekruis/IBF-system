@@ -1,0 +1,28 @@
+[
+    {
+        "name": "nameNeedsAssessment",
+        "link": true,
+        "align": "left"
+    },
+    {
+        "name": "date"
+    },
+    {
+        "name": "enumerator"
+    },
+    {
+        "name": "branch"
+    },
+    {
+        "name": "regions",
+        "notSortable": true
+    },
+    {
+        "name": "cercles",
+        "notSortable": true
+    },
+    {
+        "name": "communes",
+        "notSortable": true
+    }
+]

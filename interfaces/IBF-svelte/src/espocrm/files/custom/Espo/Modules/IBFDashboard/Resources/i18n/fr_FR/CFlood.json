@@ -1,0 +1,53 @@
+{
+    "labels": {
+        "Create CFlood": "Créer une inondation"
+    },
+    "fields": {
+        "activities": "Activités",
+        "endDate": "Date de fin",
+        "floodName": "Nom de l'inondation",
+        "floodType": "Type d'inondation",
+        "needsAssessments": "Évaluations des besoins",
+        "numberOfAffectedBuildings": "Bâtiments touchés",
+        "numberOfDeaths": "Décès",
+        "numberOfDisplacedPeople": "Personnes déplacées",
+        "numberOfPeopleAffectedOther": "Autres personnes touchées",
+        "numberOfPeopleInjured": "Blessés",
+        "regions": "Régions",
+        "startDate": "Date de début",
+        "affectedInfrastructures": "Infrastructures concernées",
+        "createdAt": "Créé le",
+        "hazard": "Hazard"
+    },
+    "links": {
+        "activities": "Activités",
+        "needsAssessments": "Évaluations des besoins",
+        "regions": "Régions",
+        "hazard": "Hazard"
+    },
+    "options": {
+        "floodType": {
+            "Riverine Floods": "Inondations fluviales",
+            "Flash Floods": "Inondations soudaines",
+            "Coastal Floods": "Inondations côtières",
+            "": "",
+            "Pluvial Floods": "Inondations pluviales"
+        }
+    },
+    "tooltips": {
+        "affectedInfrastructures": "Nombre d'infrastructures touchées (écoles, points d'eau, latrines, magasins et produits agricoles)",
+        "floodResponseActivities": "Activités de lutte contre les inondations",
+        "numberOfAffectedBuildings": "Nombre d'habitations touchées",
+        "numberOfDeaths": "Nombre de décès",
+        "numberOfDisplacedPeople": "Nombre de personnes déplacées",
+        "numberOfPeopleInjured": "Nombre de blessés",
+        "branches": "Sélectionnez la ou les branches qui entreprennent l'activité.",
+        "cercles": "Le(s) cercle(s) touché(s) par l'inondation. Se remplit automatiquement une fois la commune sélectionnée.",
+        "communes": "Commune(s) touchée(s) par l'inondation.",
+        "endDate": "La date de fin de l'inondation.",
+        "floodName": "Le nom de l'inondation.",
+        "floodType": "Sélectionnez le type d'inondation.",
+        "regions": "Région(s) touchée(s) par l'inondation.",
+        "startDate": "Sélectionnez la date de début de l'inondation."
+    }
+}

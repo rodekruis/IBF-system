@@ -1,0 +1,37 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "branch"
+                },
+                {
+                    "name": "name"
+                }
+            ],
+            [
+                {
+                    "name": "description"
+                }
+            ],
+            [
+                {
+                    "name": "nrDeSecouristes"
+                }
+            ],
+            [
+                {
+                    "name": "communes"
+                },
+                {
+                    "name": "cercles"
+                },
+                {
+                    "name": "region"
+                }
+            ]
+        ],
+        "style": "default",
+        "label": ""
+    }
+]

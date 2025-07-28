@@ -1,0 +1,122 @@
+{
+    "fields": {
+        "status": "Statut",
+        "flood": "Floods",
+        "regions": "Regions",
+        "cercles": "Cercles",
+        "communes": "Communes",
+        "stocks": "Stocks",
+        "collaborators": "Collaborators",
+        "numberOfStaffInvolved": "Number of staff",
+        "numberOfVolunteersInvolved": "Number of volunteers",
+        "numberOfPNSStaffInvolved": "Number of PNS staff",
+        "activityStartDate": "Start Date",
+        "activityEndDate": "End Date",
+        "sector": "Sector",
+        "itemsdistributed": "Items distributed",
+        "typeOfActivity": "Type of Activity",
+        "reasonForCancellation": "Reason for cancellation",
+        "program": "Project",
+        "epidemics": "Epidemics",
+        "users": "Mali Red Cross staff and volunteers",
+        "nrHouseholdsAssisted": "Ménages assistés",
+        "drought": "Drought",
+        "chargementDuRapportDactivit": "Chargement du rapport d'activité"
+    },
+    "links": {
+        "meetings": "Meetings",
+        "calls": "Calls",
+        "tasks": "Tasks",
+        "flood": "Floods",
+        "regions": "Regions",
+        "cercles": "Cercles",
+        "communes": "Communes",
+        "stocks": "Stocks",
+        "program": "Project",
+        "epidemics": "Epidemics",
+        "users": "Users",
+        "drought": "Drought"
+    },
+    "labels": {
+        "Create CActivities": "Create Activities"
+    },
+    "options": {
+        "status": {
+            "Started": "Planning",
+            "Ongoing": "En cours",
+            "Completed": "Terminé",
+            "Cancelled": "Annulé",
+            "": "",
+            "Paused": "Paused",
+            "In preparation": "In preparation",
+            "Planned": "Planifié"
+        },
+        "collaborators": {
+            "ICRC": "ICRC",
+            "OCHA": "OCHA"
+        },
+        "sector": {
+            "WASH": "WASH",
+            "PGI": "PGI",
+            "CEA": "CEA",
+            "Food Security": "Food Security",
+            "Shelter": "Shelter",
+            "Health": "Health",
+            "Nutrition": "Nutrition",
+            "Restoring Family Links": "Restoring Family Links",
+            "CVA": "CVA",
+            "Emergency Preparedness": "Emergency Preparedness",
+            "": "",
+            "Other": "Other"
+        },
+        "itemsdistributed": {
+            "Food": "Food",
+            "Shelter Kit": "Shelter Kit",
+            "Jerry cans": "Jerry cans",
+            "Latrine kits": "Latrine kits",
+            "": "",
+            "Sanitary kits": "Sanitary kits",
+            "Hygiene kits": "Hygiene kits",
+            "Seeds": "Seeds"
+        },
+        "typeOfActivity": {
+            "Registration": "Registration",
+            "Validation": "Validation",
+            "Distribution": "Distribution",
+            "Procurement": "Procurement",
+            "Transportation": "Transportation",
+            "Training": "Training",
+            "Workshop": "Workshop",
+            "Meeting": "Meeting",
+            "Sensitization": "Sensitization",
+            "": "",
+            "CVA": "CVA"
+        }
+    },
+    "tooltips": {
+        "itemsdistributed": "Choose the kind of distributed item. You can choose more than one item. Mandatory field.",
+        "activityStartDate": "The start date of the activity. Mandatory field.",
+        "activityEndDate": "Choose the end date of the activity. Mandatory field.",
+        "sector": "Select the sector under which the activities fall. If a sector is not available in the list, a custom sector can be written and added to the list.",
+        "program": "Select the program that finances the activities. Mandatory field.",
+        "name": "Name the activity. Mandatory field.",
+        "status": "The current status of the activity. Mandatory field.",
+        "typeOfActivity": "Select the type of activity. Mandatory field.",
+        "branchs": "The branch(es) implementing the activity. Mandatory field.",
+        "numberOfStaffInvolved": "The number of Mali Red Cross staff implementing the activity.",
+        "numberOfVolunteersInvolved": "The number of Mali Red Cross volunteers implementing the activity.",
+        "numberOfPNSStaffInvolved": "The number of staff from partner National Societies supporting the implementation of the activity.",
+        "regions": "La ou les régions dans lesquelles l'activité est mise en œuvre.",
+        "cercles": "Le(s) cercle(s) dans le(s)quel(s) l'activité est mise en œuvre.",
+        "communes": "La (les) commune(s) dans laquelle (lesquelles) l'activité est mise en œuvre. Vous pouvez sélectionner plusieurs communes. ",
+        "assignedUser": "The Mali Red Cross staff member responsible for the activity. Staff member must be an existing user in the system. Mandatory field. ",
+        "teams": "The team(s) executing the activity. Can be more than one team. Mandatory field.",
+        "flood": "Search the database and select the flood event for which this activity is implemented. ",
+        "epidemics": "Search the database and select the epidemics event for which this activity is implemented. ",
+        "drought": "Search the database and select the flood event for which this activity is implemented. ",
+        "reasonForCancellation": "Enter the reason for the cancellation of this activity. Field mandatory only if status of activity = cancelled.",
+        "users": "The staff and volunteers of the Mali Red Cross involved in this project or program.",
+        "nrHouseholdsAssisted": "Nombre de ménages assistés",
+        "chargementDuRapportDactivit": "Charger le rapport d'activité"
+    }
+}

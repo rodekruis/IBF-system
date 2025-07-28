@@ -1,0 +1,32 @@
+{
+    "fields": {
+        "communePcode": "Commune Pcode",
+        "cercles": "Cercles",
+        "region": "Region",
+        "activities": "Activities",
+        "riverStation": "River Station",
+        "branch": "Branch",
+        "programs": "Programs",
+        "epidemics": "Epidemics",
+        "floods": "Floods",
+        "needsAssessments": "Needs Assessments",
+        "brigadeUrgences": "Brigades d&#039;Urgence",
+        "droughts": "Droughts"
+    },
+    "links": {
+        "cercles": "Cercles",
+        "region": "Region",
+        "activities": "Activities",
+        "riverStation": "River Station",
+        "branch": "Branch",
+        "programs": "Programs",
+        "epidemics": "Epidemics",
+        "floods": "Floods",
+        "needsAssessments": "Needs Assessments",
+        "brigadeUrgences": "Brigades d&#039;Urgence",
+        "droughts": "Droughts"
+    },
+    "labels": {
+        "Create CCommunes": "Create Communes"
+    }
+}

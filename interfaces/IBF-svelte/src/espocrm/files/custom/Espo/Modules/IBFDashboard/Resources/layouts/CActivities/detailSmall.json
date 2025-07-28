@@ -1,0 +1,174 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "status"
+                },
+                {
+                    "name": "reasonForCancellation"
+                }
+            ],
+            [
+                {
+                    "name": "sector"
+                },
+                {
+                    "name": "typeOfActivity"
+                },
+                {
+                    "name": "itemsdistributed"
+                }
+            ],
+            [
+                {
+                    "name": "program"
+                },
+                {
+                    "name": "chargementDuRapportDactivit"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "info",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "hidden": false,
+        "noteText": null,
+        "customLabel": "Activity details"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "totalBudget"
+                },
+                {
+                    "name": "totalBudgetSpent"
+                }
+            ],
+            [
+                {
+                    "name": "totalRemainingBudget"
+                },
+                {
+                    "name": "currency"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Budget"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "activityStartDate"
+                },
+                {
+                    "name": "activityEndDate"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Timeline"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "regions"
+                },
+                {
+                    "name": "cercles"
+                },
+                {
+                    "name": "communes"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "default",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Location"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "numberOfStaffInvolved"
+                },
+                {
+                    "name": "numberOfVolunteersInvolved"
+                }
+            ],
+            [
+                {
+                    "name": "branchs"
+                },
+                {
+                    "name": "users"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "warning",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Human resources"
+    },
+    {
+        "rows": [
+            [
+                {
+                    "name": "flood"
+                }
+            ],
+            [
+                {
+                    "name": "drought"
+                }
+            ],
+            [
+                {
+                    "name": "epidemics"
+                }
+            ]
+        ],
+        "dynamicLogicVisible": null,
+        "style": "success",
+        "dynamicLogicStyled": null,
+        "tabBreak": false,
+        "tabLabel": null,
+        "hidden": false,
+        "noteText": null,
+        "noteStyle": "info",
+        "customLabel": "Information sur les réponses"
+    }
+]

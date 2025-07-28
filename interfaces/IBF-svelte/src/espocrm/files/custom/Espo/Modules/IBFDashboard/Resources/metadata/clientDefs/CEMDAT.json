@@ -1,0 +1,14 @@
+{
+    "controller": "controllers/record",
+    "boolFilterList": [
+        "onlyMy"
+    ],
+    "iconClass": "fas fa-database",
+    "kanbanViewMode": false,
+    "relationshipPanels": {
+        "regions": {
+            "layout": null,
+            "selectPrimaryFilterName": null
+        }
+    }
+}

@@ -1,0 +1,24 @@
+[
+    {
+        "rows": [
+            [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "communePcode"
+                }
+            ],
+            [
+                {
+                    "name": "cercles"
+                },
+                {
+                    "name": "region"
+                }
+            ]
+        ],
+        "style": "default",
+        "label": "Overview"
+    }
+]

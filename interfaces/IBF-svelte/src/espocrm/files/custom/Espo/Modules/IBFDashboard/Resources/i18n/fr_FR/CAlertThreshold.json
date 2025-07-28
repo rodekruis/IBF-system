@@ -1,0 +1,27 @@
+{
+    "labels": {
+        "Create CAlertThreshold": "Créer un seuil d'alerte"
+    },
+    "fields": {
+        "maxRiverDischarge": "Débit maximal de la rivière (m3/s)",
+        "type": "Niveau d'alerte",
+        "createdAt": "Créé le"
+    },
+    "links": {
+        "calls": "Appels",
+        "meetings": "Réunions",
+        "tasks": "Tâches"
+    },
+    "options": {
+        "type": {
+            "red": "Red",
+            "yellow": "Yellow",
+            "green": "Green",
+            "": "",
+            "Red": "Rouge",
+            "Yellow": "Jaune",
+            "Green": "Vert",
+            "Orange": "Orange"
+        }
+    }
+}

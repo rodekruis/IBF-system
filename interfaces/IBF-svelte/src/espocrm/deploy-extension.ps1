@@ -1,6 +1,6 @@
 # EspoCRM Extension Deployment - Simplified and Robust
 param(
-    [string]$Environment = "test"  # Options: "dev" or "test"
+    [string]$Environment
 )
 
 # Environment configuration
@@ -17,6 +17,33 @@ $Environments = @{
     }
 }
 
+# If no environment specified, show menu
+if (-not $Environment) {
+    Write-Host ""
+    Write-Host "EspoCRM Extension Deployment" -ForegroundColor Green
+    Write-Host "============================" -ForegroundColor Green
+    Write-Host ""
+    Write-Host "Available environments:" -ForegroundColor Cyan
+    Write-Host "1. Development (dev)" -ForegroundColor Gray
+    Write-Host "2. Test (test)" -ForegroundColor Gray
+    Write-Host ""
+    
+    do {
+        $choice = Read-Host "Select environment to deploy to (1-2, or type name)"
+        
+        switch ($choice) {
+            "1" { $Environment = "dev"; break }
+            "2" { $Environment = "test"; break }
+            { $_ -in @("dev", "test") } { 
+                $Environment = $_.ToLower(); break 
+            }
+            default { 
+                Write-Host "Invalid selection. Please choose 1-2 or type: dev, test" -ForegroundColor Red
+            }
+        }
+    } while (-not $Environment)
+}
+
 # Validate environment
 if (-not $Environments.ContainsKey($Environment.ToLower())) {
     Write-Host "Invalid environment '$Environment'. Use 'dev' or 'test'." -ForegroundColor Red
@@ -30,20 +57,23 @@ $VMHost = $SelectedEnv.Host
 $VMUser = $SelectedEnv.User
 $EnvName = $SelectedEnv.Name
 
-$EXTENSION_NAME = "ibf-dashboard-extension"  
-$VERSION = (Get-Content manifest.json | ConvertFrom-Json).version
-$PACKAGE_FILE = "$EXTENSION_NAME-v$VERSION.zip"
+$EXTENSION_NAME = "ibf-dashboard-extension"
 
 Write-Host "EspoCRM Extension Deployment" -ForegroundColor Green
 Write-Host "============================" -ForegroundColor Green
 Write-Host "Environment: $EnvName ($Environment)" -ForegroundColor Cyan
 Write-Host "Target: $VMUser@$VMHost" -ForegroundColor Cyan
-Write-Host "Package: $PACKAGE_FILE" -ForegroundColor Cyan
 Write-Host ""
 
 # Step 1: Build extension
 Write-Host "1. Building extension..." -ForegroundColor Yellow
-& .\create-extension.ps1
+& .\create-extension.ps1 -patch
+
+# Step 2: Determine the actual package filename after build (version may have been incremented)
+$VERSION = (Get-Content manifest.json | ConvertFrom-Json).version
+$PACKAGE_FILE = "$EXTENSION_NAME-v$VERSION.zip"
+
+Write-Host "Package created: $PACKAGE_FILE" -ForegroundColor Green
 
 if (-not (Test-Path $PACKAGE_FILE)) {
     Write-Host "Failed to create package!" -ForegroundColor Red
