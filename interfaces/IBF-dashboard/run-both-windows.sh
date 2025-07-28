@@ -258,6 +258,7 @@ cat > "$web_script" << EOF
 #!/bin/bash
 cd "$current_dir"
 echo -e "\033[35mWeb Component Server Starting...\033[0m"
+echo -e "\033[33mNote: Web component is being built in a separate window\033[0m"
 echo -e "\033[32mURL: http://localhost:8080/test-web-component.html\033[0m"
 echo -e "\033[33mPress Ctrl+C to stop this server\033[0m"
 echo "=========================================="
@@ -295,7 +296,8 @@ if ! open_terminal "Angular Server" "$angular_script"; then
 fi
 
 # Wait a moment then start web component server
-sleep 2
+echo -e "\033[33mWaiting for web component build to start...\033[0m"
+sleep 3
 
 echo -e "\033[35mStarting web component server in new terminal...\033[0m"
 
