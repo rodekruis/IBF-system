@@ -1,3 +1,13 @@
+## [0.321.6](https://github.com/rodekruis/IBF-system/compare/v0.321.5...v0.321.6) (2025-07-28)
+
+
+### Bug Fixes
+
+* avoid rehashing passwords ([e9d7ef2](https://github.com/rodekruis/IBF-system/commit/e9d7ef2a805677ed90636444dddb739e0a9537b0))
+* remove countries before update to avoid duplication errors ([b1787d1](https://github.com/rodekruis/IBF-system/commit/b1787d18a07a23d9dcc60e6b7f60e912a7e32464))
+
+
+
 ## [0.321.5](https://github.com/rodekruis/IBF-system/compare/v0.321.4...v0.321.5) (2025-07-28)
 
 
@@ -87,23 +97,6 @@
 ### Bug Fixes
 
 * update simplification perc of ETH adm3 AB[#36189](https://github.com/rodekruis/IBF-system/issues/36189) ([4b0142a](https://github.com/rodekruis/IBF-system/commit/4b0142af3581890bf3926721fcebd7c48e0e77fe))
-
-
-
-# [0.320.0](https://github.com/rodekruis/IBF-system/compare/v0.319.1...v0.320.0) (2025-05-23)
-
-
-### Bug Fixes
-
-* drought GET /admin-areas for event-area + stable uploadDate ([723c8a6](https://github.com/rodekruis/IBF-system/commit/723c8a6b360583dce9d0d16c6ce8ca66531be3b7))
-* revert integration test assertion changes on drought ([c342104](https://github.com/rodekruis/IBF-system/commit/c342104ec5db5c24bc762b3776fd34ee89f576f0))
-* show correct eventName on hover in aggregates header AB[#36185](https://github.com/rodekruis/IBF-system/issues/36185) ([8cb6825](https://github.com/rodekruis/IBF-system/commit/8cb682584c29ce56c27ec441a8108f0405862fbd))
-
-
-### Features
-
-* add drought + make const AB[#36185](https://github.com/rodekruis/IBF-system/issues/36185) ([7ac8559](https://github.com/rodekruis/IBF-system/commit/7ac8559386765d6850670140e4d205994e0cbf8b))
-* disable event-areas for drought again AB[#36246](https://github.com/rodekruis/IBF-system/issues/36246) ([122447d](https://github.com/rodekruis/IBF-system/commit/122447da68fe3591a8084f5e905d86f2275abe74))
 
 
 
