@@ -53,16 +53,20 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     private router: Router,
     private cdr: ChangeDetectorRef,
   ) {
-    // Subscribe to loader state and get initial value
-    this.loaderSubscription = this.loaderService
-      .getLoaderSubscription()
-      .subscribe(this.onLoaderChange);
-      
-    // Get initial loader state immediately (BehaviorSubject emits current value)
-    console.log('🔄 AppComponent: Subscribing to LoaderService for initial state');
+    // Initialize loader subscription but don't start it in constructor for web components
+    console.log('🔄 AppComponent: Constructor initialized');
   }
 
   ngOnInit() {
+    // Set up loader subscription first to avoid context issues
+    this.loaderSubscription = this.loaderService
+      .getLoaderSubscription()
+      .subscribe((loading: boolean) => {
+        console.log(`🔄 AppComponent: Loader state changed to: ${loading ? 'LOADING' : 'READY'}`);
+        this.loading = loading;
+        this.cdr.markForCheck();
+      });
+    
     // Force embedded mode detection for web components
     const isWebComponent = this.isRunningAsWebComponent();
     
@@ -154,17 +158,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     // Trigger change detection after handling input changes
     this.cdr.markForCheck();
   }
-
-  private onLoaderChange = (loading: boolean) => {
-    console.log(`🔄 AppComponent: Loader state changed to: ${loading ? 'LOADING' : 'READY'}`);
-    this.loading = loading;
-    this.cdr.markForCheck();
-    
-    // Log current queue state for debugging
-    setTimeout(() => {
-      console.log('🔄 AppComponent: Loading state after change detection:', this.loading);
-    }, 0);
-  };
 
   initializeApp() {
     // Use provided language or default
