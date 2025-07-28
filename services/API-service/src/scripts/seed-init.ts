@@ -168,14 +168,7 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
             ({ email }) => email !== DUNANT_EMAIL,
           );
 
-          // grant dunant user access to all countries
-          dunantUser.countries = await countryRepository.find();
-
-          // update password from env
-          dunantUser.password = process.env.DUNANT_PASSWORD;
-
-          this.logger.log('Update DUNANT user...');
-          await userRepository.save(dunantUser);
+          this.seedHelper.updateDunantUser(dunantUser);
         } else {
           // use DUNANT_PASSWORD from env
           selectedUsers = (users as User[]).map((user) => {

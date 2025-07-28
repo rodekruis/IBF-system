@@ -3,24 +3,26 @@ import { Injectable, Logger } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
 import 'multer';
-import { CountryEntity } from '../api/country/country.entity';
 import { UserEntity } from '../api/user/user.entity';
 import { UserRole } from '../api/user/user-role.enum';
 import { DUNANT_EMAIL } from '../config';
 import users from './json/users.json';
 import { InterfaceScript } from './scripts.module';
+import { SeedHelper } from './seed-helper';
 
 @Injectable()
 export class SeedProd implements InterfaceScript {
+  private readonly seedHelper: SeedHelper;
   private logger = new Logger('SeedProd');
 
-  public constructor(private dataSource: DataSource) {}
+  public constructor(private dataSource: DataSource) {
+    this.seedHelper = new SeedHelper(dataSource);
+  }
 
   public async seed() {
     this.logger.log('Seed admin user...');
 
     const userRepository = this.dataSource.getRepository(UserEntity);
-    const countryRepository = this.dataSource.getRepository(CountryEntity);
 
     if ((await userRepository.find({ take: 1 })).length === 0) {
       const user = users.filter(({ email }) => email === DUNANT_EMAIL)[0];
@@ -42,14 +44,7 @@ export class SeedProd implements InterfaceScript {
       });
 
       if (dunantUser) {
-        // grant dunant user access to all countries
-        dunantUser.countries = await countryRepository.find();
-
-        // update password from env
-        dunantUser.password = process.env.DUNANT_PASSWORD;
-
-        this.logger.log('Update DUNANT user...');
-        await userRepository.save(dunantUser);
+        this.seedHelper.updateDunantUser(dunantUser);
       }
     }
   }
