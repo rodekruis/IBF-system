@@ -5,8 +5,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { LoaderService } from 'src/app/services/loader.service';
 import { PlatformDetectionService } from 'src/app/services/platform-detection.service';
-import { IonApp, IonSpinner } from '@ionic/angular/standalone';
-import { RouterOutlet } from '@angular/router';
+import { IonApp, IonSpinner, IonRouterOutlet } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -15,7 +14,7 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['app.component.scss'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [IonApp, IonSpinner, RouterOutlet, TranslateModule, CommonModule],
+  imports: [IonApp, IonSpinner, IonRouterOutlet, TranslateModule, CommonModule],
 })
 export class AppComponent implements OnInit, OnChanges, OnDestroy {
   // Web component inputs for external configuration

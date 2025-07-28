@@ -170,7 +170,7 @@ fi
 # Check for web component build
 if [ ! -f "dist/web-component/browser/main.js" ]; then
     echo -e "\033[33mBuilding web component first...\033[0m"
-    npx ng build --configuration=web-component
+    npx ng run app:build-web-component
     if [ $? -ne 0 ]; then
         echo -e "\033[31mWeb component build failed!\033[0m"
         exit 1
