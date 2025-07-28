@@ -78,7 +78,9 @@ export class UserEntity {
   @BeforeInsert()
   @BeforeUpdate()
   public hashPassword(): void {
-    if (this.password) {
+    if (this.password && this.password.length != 64) {
+      // HACK: we use SHA-256 hash length to avoid rehashing
+      // we should use a verifable hash instead of hmac
       this.password = crypto.createHmac('sha256', this.password).digest('hex');
     }
   }
