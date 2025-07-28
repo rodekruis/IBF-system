@@ -53,7 +53,9 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     private router: Router,
     private cdr: ChangeDetectorRef,
   ) {
-    // Initialize loader subscription but don't start it in constructor for web components
+    // Bind methods to avoid context issues in web components
+    this.ngOnChanges = this.ngOnChanges.bind(this);
+    
     console.log('🔄 AppComponent: Constructor initialized');
   }
 
@@ -143,20 +145,31 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Handle input property changes for web component compatibility
-    if (changes['language'] && this.language) {
-      this.translateService.setDefaultLang(this.language);
-      this.translateService.use(this.language);
+    // Defensive check to ensure we're in a valid context
+    if (!changes || typeof changes !== 'object') {
+      console.warn('⚠️ ngOnChanges called with invalid changes object:', changes);
+      return;
     }
-    
-    if (changes['embedPlatform'] || changes['countryCode'] || changes['disasterType']) {
-      // Re-configure if platform or core settings change
-      console.log('🔄 App configuration changed, updating...');
-      this.setCSSMode(this.isRunningAsWebComponent());
+
+    try {
+      // Handle input property changes for web component compatibility
+      if (changes['language'] && this.language) {
+        this.translateService.setDefaultLang(this.language);
+        this.translateService.use(this.language);
+      }
+      
+      if (changes['embedPlatform'] || changes['countryCode'] || changes['disasterType']) {
+        // Re-configure if platform or core settings change
+        console.log('🔄 App configuration changed, updating...');
+        this.setCSSMode(this.isRunningAsWebComponent());
+      }
+      
+      // Trigger change detection after handling input changes
+      this.cdr.markForCheck();
+    } catch (error) {
+      console.error('🚨 Error in ngOnChanges:', error);
+      // Continue execution even if there's an error
     }
-    
-    // Trigger change detection after handling input changes
-    this.cdr.markForCheck();
   }
 
   initializeApp() {

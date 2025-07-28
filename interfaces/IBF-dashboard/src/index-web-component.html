@@ -1,91 +1,162 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>IBF Dashboard Web Component</title>
-  <base href="/">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <style>
-    /* Minimal base styles for web component */
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    }
-    
-    /* Loading indicator */
-    .ibf-loading {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background: #f8f9fa;
-    }
-    
-    .ibf-spinner {
-      width: 40px;
-      height: 40px;
-      border: 4px solid #e9ecef;
-      border-top: 4px solid #007bff;
-      border-radius: 50%;
-      animation: ibf-spin 1s linear infinite;
-    }
-    
-    @keyframes ibf-spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    /* Embedded mode styles */
-    .ibf-embedded-mode .login-section {
-      display: none !important;
-    }
-    
-    /* Ensure web component fills container */
-    ibf-dashboard {
-      display: block;
-      width: 100%;
-      height: 100%;
-      min-height: 400px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBF Dashboard Web Component Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #c8102e;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .test-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #c8102e;
+            padding-bottom: 10px;
+        }
+        
+        .dashboard-container {
+            height: 600px;
+            border: 2px solid #c8102e;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        ibf-dashboard {
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+        
+        /* Loading indicator */
+        .ibf-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #f8f9fa;
+        }
+        
+        .ibf-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #e9ecef;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            animation: ibf-spin 1s linear infinite;
+        }
+        
+        @keyframes ibf-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Embedded mode styles */
+        .ibf-embedded-mode .login-section {
+            display: none !important;
+        }
+    </style>
 </head>
 <body>
-  <!-- Loading indicator while web component initializes -->
-  <div id="ibf-loading" class="ibf-loading">
-    <div class="ibf-spinner"></div>
-  </div>
+    <div class="container">
+        <h1>IBF Dashboard Web Component Test</h1>
+        
+        <div class="test-section">
+            <h2>Generic Embedding Mode</h2>
+            <p>Testing the dashboard in generic embedding mode. Use Chrome DevTools (F12) for debugging.</p>
+            
+            <div class="dashboard-container">
+                <ibf-dashboard 
+                    id="test-dashboard"
+                    platform="generic"
+                    country-code="ETH"
+                    disaster-type="drought"
+                    theme="auto"
+                    language="en"
+                    features='["maps", "alerts", "indicators"]'>
+                </ibf-dashboard>
+            </div>
+        </div>
+    </div>
   
-  <script>
-    console.log('📱 IBF Dashboard Web Component loader ready');
-    
-    // Hide loading indicator when component is ready
-    window.addEventListener('ibf-dashboard-ready', function(event) {
-      console.log('✅ IBF Dashboard component ready:', event.detail);
-      const loading = document.getElementById('ibf-loading');
-      if (loading) {
-        loading.style.display = 'none';
-      }
-    });
-    
-    // Handle component errors
-    window.addEventListener('ibf-dashboard-error', function(event) {
-      console.error('❌ IBF Dashboard component error:', event.detail);
-      const loading = document.getElementById('ibf-loading');
-      if (loading) {
-        loading.innerHTML = '<div style="color: #dc3545; text-align: center;"><h3>Failed to Load IBF Dashboard</h3><p>Please check the console for details.</p></div>';
-      }
-    });
-    
-    // Auto-hide loading after 10 seconds as fallback
-    setTimeout(function() {
-      const loading = document.getElementById('ibf-loading');
-      if (loading && loading.style.display !== 'none') {
-        console.warn('⚠️ Auto-hiding loading indicator after timeout');
-        loading.style.display = 'none';
-      }
-    }, 10000);
-  </script>
+    <script>
+        console.log('📱 IBF Dashboard Web Component Test loading...');
+        
+        // Simple component initialization
+        function initializeComponent() {
+            const dashboard = document.getElementById('test-dashboard');
+            
+            if (dashboard) {
+                dashboard.addEventListener('dashboardReady', (event) => {
+                    console.log('✅ Dashboard ready:', event.detail);
+                });
+                
+                dashboard.addEventListener('error', (event) => {
+                    console.error('❌ Dashboard error:', event.detail);
+                });
+                
+                dashboard.addEventListener('componentLoaded', (event) => {
+                    console.log('📦 Component loaded:', event.detail);
+                });
+                
+                dashboard.addEventListener('alertTriggered', (event) => {
+                    console.log('🚨 Alert triggered:', event.detail);
+                });
+                
+                dashboard.addEventListener('userAction', (event) => {
+                    console.log('👤 User action:', event.detail);
+                });
+            }
+        }
+        
+        // Initialize component when ready
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 DOM loaded, initializing web component...');
+            initializeComponent();
+        });
+        
+        // Handle IBF Dashboard specific events
+        window.addEventListener('ibf-dashboard-ready', function(event) {
+            console.log('✅ IBF Dashboard component ready:', event.detail);
+        });
+        
+        window.addEventListener('ibf-dashboard-error', function(event) {
+            console.error('❌ IBF Dashboard component error:', event.detail);
+        });
+        
+        // Global error handling
+        window.addEventListener('error', function(event) {
+            console.error('🚨 Global error:', event.error);
+        });
+        
+        // Global unhandled promise rejection handling
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('🚨 Unhandled promise rejection:', event.reason);
+        });
+    </script>
 </body>
 </html>
