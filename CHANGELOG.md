@@ -1,3 +1,12 @@
+## [0.321.5](https://github.com/rodekruis/IBF-system/compare/v0.321.4...v0.321.5) (2025-07-28)
+
+
+### Bug Fixes
+
+* hash password before update in user entity ([3a78fba](https://github.com/rodekruis/IBF-system/commit/3a78fbac841c6b3af68dcc0bb2a00e44f6d5b57d))
+
+
+
 ## [0.321.4](https://github.com/rodekruis/IBF-system/compare/v0.321.3...v0.321.4) (2025-07-16)
 
 
@@ -95,15 +104,6 @@
 
 * add drought + make const AB[#36185](https://github.com/rodekruis/IBF-system/issues/36185) ([7ac8559](https://github.com/rodekruis/IBF-system/commit/7ac8559386765d6850670140e4d205994e0cbf8b))
 * disable event-areas for drought again AB[#36246](https://github.com/rodekruis/IBF-system/issues/36246) ([122447d](https://github.com/rodekruis/IBF-system/commit/122447da68fe3591a8084f5e905d86f2275abe74))
-
-
-
-## [0.319.1](https://github.com/rodekruis/IBF-system/compare/v0.319.0...v0.319.1) (2025-05-23)
-
-
-### Bug Fixes
-
-* use 0 as fallback aggregate value ([6b36aec](https://github.com/rodekruis/IBF-system/commit/6b36aec5815bef600d5e17f62e1d558feba8d65c))
 
 
 
