@@ -245,13 +245,36 @@
             "optimization": true,
             "namedChunks": false,
             "outputHashing": "none"
+          },
+          "configurations": {
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ],
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false
+            }
           }
         },
         "serve-web-component": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "app:build-web-component"
-          }
+            "buildTarget": "app:build-web-component",
+            "port": 8080,
+            "host": "localhost",
+            "proxyConfig": "proxy.conf.json"
+          },
+          "configurations": {
+            "development": {
+              "buildTarget": "app:build-web-component:development",
+              "proxyConfig": "proxy.conf.json"
+            }
+          },
+          "defaultConfiguration": "development"
         },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
