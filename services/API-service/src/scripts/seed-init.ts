@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import { DataSource } from 'typeorm';
+import { DataSource, In } from 'typeorm';
 
 import 'multer';
 import {
@@ -167,8 +167,14 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           selectedUsers = (users as User[]).filter(
             ({ email }) => email !== DUNANT_EMAIL,
           );
-          // grant dunant user access to new countries
+
+          // grant dunant user access to all countries
           dunantUser.countries = await countryRepository.find();
+
+          // update password from env
+          dunantUser.password = process.env.DUNANT_PASSWORD;
+
+          this.logger.log('Update DUNANT user...');
           await userRepository.save(dunantUser);
         } else {
           // use DUNANT_PASSWORD from env
@@ -194,18 +200,12 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           userEntity.countries = !user.countries
             ? await countryRepository.find()
             : await countryRepository.find({
-                where: user.countries.map((countryCodeISO3: string): object => {
-                  return { countryCodeISO3 };
-                }),
+                where: { countryCodeISO3: In(user.countries) },
               });
           userEntity.disasterTypes = !user.disasterTypes
             ? []
             : await disasterTypeRepository.find({
-                where: user.disasterTypes.map(
-                  (disasterType: string): object => {
-                    return { disasterType };
-                  },
-                ),
+                where: { disasterType: In(user.disasterTypes) },
               });
           userEntity.password = user.password;
           return userEntity;
