@@ -1242,7 +1242,7 @@
         "forecastSource": {
           "label": "ECMWF seasonal forecast monthly statistics",
           "url": "https://www.ecmwf.int",
-          "setTriggerSource": "the Lesotho Methodological Services seasonal forecast"
+          "setTriggerSource": "the Lesotho Meteorological Services seasonal forecast"
         },
         "enableEarlyActions": false,
         "eapLink": "https://adore.ifrc.org/Download.aspx?FileId=617501"
