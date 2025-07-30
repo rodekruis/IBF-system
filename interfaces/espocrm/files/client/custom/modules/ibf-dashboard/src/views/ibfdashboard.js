@@ -4,7 +4,7 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
 
         // Use inline template content instead of external template file
         templateContent: `
-            <div class="ibf-dashboard-fullscreen">
+            <div class="ibf-dashboard-container">
                 <div class="loading-container" id="loading-container">
                     <div class="loading-spinner"></div>
                     <div class="loading-message">Loading IBF Dashboard...</div>
@@ -19,7 +19,9 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                         theme="auto"
                         language="en"
                         api-base-url="https://ibf-api.rodekruis.nl"
-                        features='["maps", "alerts", "indicators"]'>
+                        features='["maps", "alerts", "indicators"]'
+                        disable-routing="true"
+                        embedded-mode="true">
                     </ibf-dashboard>
                 </div>
                 
@@ -31,22 +33,59 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
             </div>
 
             <style>
-            /* Fullscreen container that fills the entire content area */
-            .ibf-dashboard-fullscreen {
-                position: relative; /* Changed from absolute to relative to fit within EspoCRM content flow */
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                padding: 0;
-                margin: 0;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-                background: white;
+            /* Override EspoCRM layout constraints for full width/height */
+            body {
+                overflow: hidden !important;
             }
 
-            /* Web Component Styling */
+            #header {
+                position: relative !important;
+                z-index: 1000;
+            }
+
+            .container.content {
+                max-width: none !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                height: calc(100vh - 60px) !important;
+                position: fixed !important;
+                top: 60px !important;
+                left: 0 !important;
+                overflow: hidden !important;
+            }
+
+            #main {
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 100% !important;
+                height: 100% !important;
+            }
+
+            #content {
+                height: 100% !important;
+                width: 100% !important;
+                position: relative;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .ibf-dashboard-container {
+                position: fixed !important;
+                top: 60px !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                padding: 0;
+                margin: 0;
+                width: 100% !important;
+                height: calc(100vh - 60px) !important;
+                overflow: hidden;
+                background: white;
+                z-index: 10 !important;
+            }
+
             .web-component-container {
                 height: 100%;
                 width: 100%;
@@ -66,7 +105,6 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                 opacity: 1;
             }
 
-            /* Loading container */
             .loading-container {
                 position: absolute;
                 top: 0;
@@ -107,7 +145,6 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                 color: #666;
             }
 
-            /* Error message styling */
             .error-container {
                 position: absolute;
                 top: 0;
@@ -142,111 +179,7 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
             }
 
             .error-container button:hover {
-                background: #a00e26;
-            }
-
-            /* Override any EspoCRM content padding/margins */
-            .page[data-scope="IBFDashboard"] .page-content {
-                padding: 0 !important;
-                margin: 0 !important;
-                overflow: hidden;
-            }
-
-            .page[data-scope="IBFDashboard"] .content {
-                padding: 0 !important;
-                margin: 0 !important;
-                height: calc(100vh - 60px) !important; /* Subtract header height */
-                overflow: hidden;
-            }
-
-            /* Ensure the main container takes full space */
-            .page[data-scope="IBFDashboard"] {
-                height: 100vh;
-            }
-
-            /* Force full height on EspoCRM content containers when displaying IBF Dashboard */
-            body[data-view-cid] #content.container.content {
-                height: calc(100vh - 60px) !important; /* Override EspoCRM's fixed/inline height */
-                min-height: calc(100vh - 60px) !important;
-                max-height: none !important;
-            }
-
-            body[data-view-cid] #main[data-view-cid] {
-                height: 100% !important;
-                min-height: 100% !important;
-                max-height: none !important;
-            }
-
-            /* Force IBF Dashboard web component to take full available height - override inline styles */
-            body[data-view-cid] ibf-dashboard[platform="espocrm"][id="ibf-dashboard-component"] {
-                height: 100% !important;
-                min-height: calc(100vh - 60px) !important;
-                max-height: none !important;
-            }
-
-            /* Ensure the fullscreen container fills all available space within EspoCRM content area */
-            body[data-view-cid] .ibf-dashboard-fullscreen {
-                position: relative !important; /* Stay within document flow */
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                width: 100% !important;
-                height: 100% !important;
-                min-height: calc(100vh - 60px) !important;
-            }
-
-            /* Ensure web component container takes full height */
-            body[data-view-cid] .web-component-container {
-                height: 100% !important;
-                min-height: calc(100vh - 60px) !important;
-            }
-
-            /* Fix ion-app display block shading issues */
-            body[data-view-cid] ibf-dashboard[platform="espocrm"] ion-app[id="app"] {
-                /* Remove any box shadows or backdrop filters that cause shading */
-                box-shadow: none !important;
-                -webkit-box-shadow: none !important;
-                backdrop-filter: none !important;
-                -webkit-backdrop-filter: none !important;
-                
-                /* Ensure clean background without shading effects */
-                background: var(--ion-background-color, #ffffff) !important;
-                
-                /* Remove any border styling that might cause visual artifacts */
-                border: none !important;
-                outline: none !important;
-                
-                /* Ensure proper display without transparency issues */
-                opacity: 1 !important;
-                
-                /* Remove any transforms that might cause rendering issues */
-                transform: none !important;
-                -webkit-transform: none !important;
-                
-                /* Ensure consistent positioning */
-                position: relative !important;
-                
-                /* Remove any filters that might cause shading */
-                filter: none !important;
-                -webkit-filter: none !important;
-            }
-
-            /* Ensure IBF Dashboard menus and overlays appear properly within the content area */
-            body[data-view-cid] ibf-dashboard[platform="espocrm"] ion-menu {
-                z-index: 100 !important; /* Lower z-index since we're now in normal document flow */
-            }
-
-            body[data-view-cid] ibf-dashboard[platform="espocrm"] ion-popover,
-            body[data-view-cid] ibf-dashboard[platform="espocrm"] ion-modal,
-            body[data-view-cid] ibf-dashboard[platform="espocrm"] ion-alert {
-                z-index: 200 !important;
-            }
-
-            /* Ensure any dropdowns or tooltips appear above other IBF Dashboard elements */
-            body[data-view-cid] ibf-dashboard[platform="espocrm"] .dropdown-menu,
-            body[data-view-cid] ibf-dashboard[platform="espocrm"] .tooltip {
-                z-index: 300 !important;
+                background: #a00d25;
             }
             </style>
         `,
@@ -416,6 +349,9 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
         initializeDashboard: function() {
             console.log('🔗 Initializing IBF Dashboard web component...');
 
+            // Prevent Angular routing from interfering with EspoCRM navigation
+            this.preventAngularRoutingInterference();
+
             // Hide loading and show dashboard
             const loadingContainer = this.$el.find('#loading-container');
             const dashboardContainer = this.$el.find('#dashboard-container');
@@ -462,6 +398,60 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                 console.error('❌ Dashboard web component element not found');
                 this.showError('Dashboard component element not found');
             }
+        },
+
+        preventAngularRoutingInterference: function() {
+            // Store the current EspoCRM URL to restore it if Angular changes it
+            this.originalUrl = window.location.href;
+            
+            // Override history.pushState and replaceState to prevent Angular from changing the URL
+            if (!window._ibfOriginalPushState) {
+                window._ibfOriginalPushState = window.history.pushState;
+                window._ibfOriginalReplaceState = window.history.replaceState;
+                
+                const self = this;
+                
+                window.history.pushState = function(state, title, url) {
+                    // Only allow URL changes that don't interfere with EspoCRM routing
+                    if (url && typeof url === 'string') {
+                        // If the URL looks like an Angular route change, prevent it
+                        if (url.includes('/client/custom/modules/ibf-dashboard/') && !url.includes('#IBFDashboard')) {
+                            console.log('🚫 Prevented Angular router from changing URL to:', url);
+                            return;
+                        }
+                    }
+                    // Allow other URL changes
+                    return window._ibfOriginalPushState.call(this, state, title, url);
+                };
+                
+                window.history.replaceState = function(state, title, url) {
+                    // Only allow URL changes that don't interfere with EspoCRM routing
+                    if (url && typeof url === 'string') {
+                        // If the URL looks like an Angular route change, prevent it
+                        if (url.includes('/client/custom/modules/ibf-dashboard/') && !url.includes('#IBFDashboard')) {
+                            console.log('🚫 Prevented Angular router from replacing URL with:', url);
+                            return;
+                        }
+                    }
+                    // Allow other URL changes
+                    return window._ibfOriginalReplaceState.call(this, state, title, url);
+                };
+                
+                console.log('🔧 Set up Angular routing interference prevention');
+            }
+            
+            // Monitor for URL changes and restore if needed
+            this.urlMonitor = setInterval(() => {
+                const currentUrl = window.location.href;
+                // If the URL has been changed by Angular and doesn't contain the EspoCRM hash
+                if (currentUrl !== this.originalUrl && 
+                    currentUrl.includes('/client/custom/modules/ibf-dashboard/') && 
+                    !currentUrl.includes('#IBFDashboard')) {
+                    
+                    console.log('🔄 Restoring EspoCRM URL from:', currentUrl, 'to:', this.originalUrl);
+                    window.history.replaceState({}, '', this.originalUrl);
+                }
+            }, 1000);
         },
 
         ensureFullHeight: function() {
@@ -581,7 +571,119 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
         onRemove: function() {
             // Clean up base href when view is destroyed
             this.restoreBaseHref();
+            
+            // Clean up URL monitor
+            if (this.urlMonitor) {
+                clearInterval(this.urlMonitor);
+                this.urlMonitor = null;
+            }
+            
+            // Restore original history methods
+            if (window._ibfOriginalPushState) {
+                window.history.pushState = window._ibfOriginalPushState;
+                window.history.replaceState = window._ibfOriginalReplaceState;
+                delete window._ibfOriginalPushState;
+                delete window._ibfOriginalReplaceState;
+                console.log('🔧 Restored original history methods');
+            }
+            
+            // Restore original URL if it was changed
+            if (this.originalUrl && window.location.href !== this.originalUrl) {
+                window.history.replaceState({}, '', this.originalUrl);
+                console.log('🔄 Restored original URL on cleanup');
+            }
+            
             Dep.prototype.onRemove.call(this);
+        },
+
+        openFullscreen: function() {
+            try {
+                console.log('IBF Dashboard: Opening fullscreen mode for web component');
+                
+                const mainComponent = this.$el.find('#ibf-dashboard-component')[0];
+                const overlay = document.getElementById('fullscreen-overlay');
+                const fullscreenComponent = document.getElementById('ibf-dashboard-fullscreen-component');
+                
+                if (!mainComponent || !overlay || !fullscreenComponent) {
+                    console.error('IBF Dashboard: Required elements not found for fullscreen');
+                    return;
+                }
+                
+                // Copy all attributes from main component to fullscreen component
+                Array.from(mainComponent.attributes).forEach(attr => {
+                    fullscreenComponent.setAttribute(attr.name, attr.value);
+                });
+                
+                // Ensure fullscreen component has full height before showing
+                fullscreenComponent.style.height = '100vh';
+                fullscreenComponent.style.width = '100vw';
+                fullscreenComponent.style.minHeight = '100vh';
+                fullscreenComponent.style.maxHeight = 'none';
+                fullscreenComponent.style.position = 'relative';
+                
+                // Show fullscreen component and overlay
+                fullscreenComponent.style.display = 'block';
+                overlay.style.display = 'block';
+                overlay.classList.add('active');
+                document.body.classList.add('fullscreen-active');
+                
+                // Prevent body scrolling
+                document.body.style.overflow = 'hidden';
+                
+                // Force a reflow to ensure the height is applied
+                setTimeout(() => {
+                    if (fullscreenComponent) {
+                        fullscreenComponent.style.height = '100vh';
+                        fullscreenComponent.style.minHeight = '100vh';
+                        console.log('🔧 Fullscreen component height set to 100vh');
+                    }
+                }, 50);
+                
+                // Add escape key listener
+                this.escapeHandler = (e) => {
+                    if (e.key === 'Escape') {
+                        this.closeFullscreen();
+                    }
+                };
+                document.addEventListener('keydown', this.escapeHandler);
+                
+                console.log('IBF Dashboard: Fullscreen mode activated for web component');
+            } catch (error) {
+                console.error('IBF Dashboard: Error in openFullscreen:', error);
+            }
+        },
+
+        closeFullscreen: function() {
+            try {
+                console.log('IBF Dashboard: Closing fullscreen mode');
+                
+                const overlay = document.getElementById('fullscreen-overlay');
+                const fullscreenComponent = document.getElementById('ibf-dashboard-fullscreen-component');
+                
+                if (overlay) {
+                    overlay.style.display = 'none';
+                    overlay.classList.remove('active');
+                }
+                
+                // Hide fullscreen component
+                if (fullscreenComponent) {
+                    fullscreenComponent.style.display = 'none';
+                }
+                
+                // Restore body scrolling and remove fullscreen class
+                document.body.style.overflow = '';
+                document.body.classList.remove('fullscreen-active');
+                
+                // Remove escape key listener
+                if (this.escapeHandler) {
+                    document.removeEventListener('keydown', this.escapeHandler);
+                    this.escapeHandler = null;
+                }
+                
+                console.log('IBF Dashboard: Fullscreen mode deactivated');
+            } catch (error) {
+                console.error('IBF Dashboard: Error in closeFullscreen:', error);
+            }
         }
 
     });

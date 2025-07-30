@@ -18,7 +18,7 @@ fi
 if [ -n "$1" ]; then
     ESPOCRM_SVG_DIR="$1"
 else
-    ESPOCRM_SVG_DIR="c:/Users/MaartenvV/OneDrive - Rode Kruis/Documenten/GitHub/IBF-system/interfaces/espocrm/custom/Espo/Modules/IBFDashboard/client/modules/ibfdashboard/svg"
+    ESPOCRM_SVG_DIR="c:/Users/MaartenvV/OneDrive - Rode Kruis/Documenten/GitHub/IBF-system/interfaces/espocrm/files/client/custom/modules/ibf-dashboard/svg"
 fi
 
 echo "🔍 Analyzing SVG icon usage in IBF Dashboard web component..."
