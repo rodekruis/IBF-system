@@ -53,9 +53,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     private router: Router,
     private cdr: ChangeDetectorRef,
   ) {
-    // Bind methods to avoid context issues in web components
-    this.ngOnChanges = this.ngOnChanges.bind(this);
-    
     console.log('🔄 AppComponent: Constructor initialized');
   }
 
@@ -104,14 +101,9 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       console.log(`🔧 Configuring for embedded mode...`);
       this.configureForEmbedding();
       
-      // Force navigation to dashboard in embedded mode
-      console.log('🧭 Forcing navigation to /dashboard for embedded mode');
-      console.log('🧭 Router available, navigating to /dashboard');
-      this.router.navigate(['/dashboard']).then(success => {
-        console.log('🧭 Navigation result:', success);
-      }).catch(error => {
-        console.error('🧭 Navigation failed:', error);
-      });
+      // For embedded mode, let the custom LocationStrategy handle navigation
+      console.log('🧭 Embedded mode - letting LocationStrategy handle navigation');
+      // Don't force navigation here - let the router pick up the route from the URL
     } else {
       this.configureForStandaloneMode();
     }
@@ -218,6 +210,28 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     if (this.apiBaseUrl) {
       this.updateApiConfiguration();
     }
+    
+    // Set up EspoCRM-compatible routing
+    this.setupEspoCRMRouting();
+  }
+  
+  private setupEspoCRMRouting() {
+    console.log('🧭 Setting up EspoCRM-compatible routing with EmbeddedLocationStrategy');
+    
+    // The EmbeddedLocationStrategy handles URL management automatically
+    // Navigate to empty string to avoid adding any route segments
+    setTimeout(() => {
+      this.router.navigate(['']).then(success => {
+        if (success) {
+          console.log('✅ Successfully navigated to root (empty) path via EmbeddedLocationStrategy');
+          console.log('🔗 URL should be: https://ibf-pivot-crm-dev.510.global/#IBFDashboard');
+        } else {
+          console.warn('⚠️ Navigation to empty path failed');
+        }
+      }).catch(error => {
+        console.error('❌ Error navigating to empty path:', error);
+      });
+    }, 100); // Small delay to ensure LocationStrategy is fully initialized
   }
   
   private configureForDHIS2() {

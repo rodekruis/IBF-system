@@ -1,6 +1,6 @@
 {
   "name": "ibf-dashboard",
-  "version": "0.321.10",
+  "version": "0.321.36",
   "description": "Web interface for the dashboard of the IBF-system.",
   "license": "UNLICENSED",
   "private": true,
@@ -8,6 +8,7 @@
     "build": "ng build",
     "build:prod": "npm run build -- --configuration production",
     "build:web-component": "powershell -ExecutionPolicy Bypass -File build-web-component.ps1",
+    "build:web-component:espocrm": "ng run app:build-web-component:espocrm",
     "build:web-component:versioned": "powershell -ExecutionPolicy Bypass -File build-web-component-versioned.ps1",
     "build:web-component:pure": "powershell -ExecutionPolicy Bypass -File build-pure-web-component.ps1",
     "build:web-component:dev": "ng build --project=app --configuration=build-web-component --watch",

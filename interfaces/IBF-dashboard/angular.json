@@ -209,6 +209,8 @@
             "browser": "src/main-angular-web-component.ts",
             "polyfills": ["src/polyfills-web-component.ts"],
             "tsConfig": "tsconfig.web-component.json",
+            "baseHref": "./",
+            "deployUrl": "./",
             "assets": [
               {
                 "glob": "**/*",
@@ -262,6 +264,33 @@
                 "sourceMap": false, 
                 "extractLicenses": false,
                 "outputHashing": "none"
+              },
+              "espocrm": {
+                "baseHref": "/client/custom/modules/ibf-dashboard/",
+                "deployUrl": "/client/custom/modules/ibf-dashboard/",
+                "optimization": true,
+                "sourceMap": false,
+                "extractLicenses": false,
+                "outputHashing": "none",
+                "assets": [
+                  {
+                    "glob": "**/*",
+                    "input": "src/assets",
+                    "output": "client/custom/modules/ibf-dashboard/assets/",
+                    "ignore": ["icons/stage/*", "icons/test/*"]
+                  },
+                  {
+                    "glob": "**/*.svg",
+                    "input": "node_modules/ionicons/dist/ionicons/svg",
+                    "output": "client/custom/modules/ibf-dashboard/svg/"
+                  },
+                  {
+                    "glob": "**/*",
+                    "input": "./node_modules/leaflet/dist/images",
+                    "output": "client/custom/modules/ibf-dashboard/assets/leaflet/"
+                  },
+                  "src/manifest.webmanifest"
+                ]
               }
           }
         },

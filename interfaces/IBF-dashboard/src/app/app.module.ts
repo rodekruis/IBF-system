@@ -15,6 +15,7 @@ import { AppComponent } from 'src/app/app.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { AuthInterceptorService } from 'src/app/services/auth.interceptor.service';
 import { LoaderInterceptorService } from 'src/app/services/loader.interceptor.service';
+// import { AssetPathInterceptorService } from 'src/app/services/asset-path.interceptor.service';
 import { environment } from 'src/environments/environment';
 
 export function createTranslateLoader(http: HttpClient) {
@@ -44,6 +45,12 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    // Temporarily disabled asset path interceptor
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AssetPathInterceptorService,
+    //   multi: true,
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptorService,

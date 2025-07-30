@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBF Dashboard Web Component - Simple Test</title>
+    
+    <!-- Load the web component CSS -->
+    <link rel="stylesheet" href="web-component/browser/styles.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .header {
+            background: #c8102e;
+            color: white;
+            padding: 15px;
+            margin: -20px -20px 20px -20px;
+            text-align: center;
+        }
+        
+        ibf-dashboard {
+            display: block;
+            height: 600px;
+            width: 100%;
+            border: 2px solid #c8102e;
+            border-radius: 8px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .status {
+            text-align: center;
+            padding: 20px;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .loading {
+            color: #ffc107;
+        }
+        
+        .success {
+            color: #28a745;
+        }
+        
+        .error {
+            color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌪️ IBF Dashboard Web Component - Simple Test</h1>
+            <p>Testing OnChanges fixes | Version: v0.321.4 | Port: 8080</p>
+        </div>
+        
+        <div id="status" class="status loading">
+            <h3>⏳ Loading Web Component...</h3>
+            <p>Initializing IBF Dashboard...</p>
+        </div>
+        
+        <!-- IBF Dashboard Web Component -->
+        <ibf-dashboard 
+            id="test-dashboard"
+            country-code="ETH"
+            disaster-type="drought"
+            platform="generic">
+        </ibf-dashboard>
+    </div>
+
+    <script>
+        console.log('🔍 Starting IBF Dashboard Web Component test...');
+        
+        function updateStatus(type, title, message) {
+            const statusEl = document.getElementById('status');
+            statusEl.className = `status ${type}`;
+            statusEl.innerHTML = `<h3>${title}</h3><p>${message}</p>`;
+        }
+        
+        function loadWebComponent() {
+            updateStatus('loading', '⏳ Loading Module...', 'Loading IBF Dashboard web component module...');
+            
+            // Load the ES module (same as working test file)
+            const script = document.createElement('script');
+            script.src = 'web-component/browser/main.js';
+            script.type = 'module';
+            
+            script.onload = function() {
+                console.log('✅ Web component module loaded successfully');
+                updateStatus('success', '✅ Component Ready!', 'IBF Dashboard web component is loaded and ready. You can now test admin area clicking.');
+                
+                // Set up dashboard event listeners
+                const dashboard = document.getElementById('test-dashboard');
+                if (dashboard) {
+                    dashboard.addEventListener('dashboardReady', (event) => {
+                        console.log('📊 Dashboard ready event received:', event.detail);
+                    });
+                    
+                    dashboard.addEventListener('error', (event) => {
+                        console.error('❌ Dashboard error:', event.detail);
+                        updateStatus('error', '❌ Dashboard Error', `Error: ${event.detail}`);
+                    });
+                }
+            };
+            
+            script.onerror = function() {
+                console.error('❌ Failed to load web component module');
+                updateStatus('error', '❌ Module Load Failed', 'Could not load web-component/browser/main.js. Check browser console for details.');
+            };
+            
+            document.head.appendChild(script);
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('load', function() {
+            console.log('📄 Page loaded, starting web component initialization...');
+            loadWebComponent();
+        });
+        
+        // Global error handling
+        window.addEventListener('error', function(event) {
+            console.error('🚨 Global error:', event.error);
+            updateStatus('error', '❌ JavaScript Error', event.message);
+        });
+        
+        window.addEventListener('unhandledrejection', function(event) {
+            console.error('🚨 Unhandled promise rejection:', event.reason);
+        });
+    </script>
+</body>
+</html>

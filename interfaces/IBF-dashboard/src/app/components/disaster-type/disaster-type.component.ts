@@ -8,6 +8,7 @@ import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
+import { AssetUrlService } from 'src/app/services/asset-url.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 
 @Component({
@@ -33,6 +34,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
     public eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private authService: AuthService,
+    private assetUrlService: AssetUrlService,
   ) {}
 
   ngOnInit() {
@@ -122,6 +124,7 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
       this.isSelectedDisaster(disasterType) ? 'selected' : 'nonSelected'
     }${triggered ? '' : 'Non'}Triggered`;
 
-    return DISASTER_TYPES_SVG_MAP[disasterType][buttonStatus];
+    const assetPath = DISASTER_TYPES_SVG_MAP[disasterType][buttonStatus];
+    return this.assetUrlService.getAssetUrl(assetPath);
   }
 }

@@ -20,7 +20,6 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                         language="en"
                         api-base-url="https://ibf-api.rodekruis.nl"
                         features='["maps", "alerts", "indicators"]'
-                        disable-routing="true"
                         embedded-mode="true">
                     </ibf-dashboard>
                 </div>
@@ -217,10 +216,7 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
 
         afterRender: function () {
             Dep.prototype.afterRender.call(this);
-            console.log('IBF Dashboard: View rendered, setting up base href and initializing web component...');
-            
-            // Set base href immediately when view renders, before loading any assets
-            this.setBaseHrefForAssets();
+            console.log('IBF Dashboard: View rendered, initializing web component...');
             
             // Ensure full height utilization
             setTimeout(() => {
@@ -237,7 +233,6 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
             console.log('📦 Loading IBF Dashboard web component assets (modular)...');
             
             const assetsBase = '/client/custom/modules/ibf-dashboard/assets';
-            const jsBase = `${assetsBase}/javascript`;
             
             // Check if assets are already loaded
             if (window.customElements && window.customElements.get('ibf-dashboard')) {
@@ -247,11 +242,11 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
             }
 
             // Load CSS first
-            this.loadCSS(`${assetsBase}/ibf-dashboard.css`)
+            this.loadCSS(`${assetsBase}/styles.css`)
                 .then(() => {
                     console.log('✅ CSS loaded successfully');
                     // Load main.js with ES6 module support (chunks and polyfills are handled automatically)
-                    return self.loadJSModule(`${jsBase}/main.js`);
+                    return self.loadJSModule(`${assetsBase}/main.js`);
                 })
                 .then(() => {
                     console.log('✅ Main module loaded successfully');
@@ -313,9 +308,6 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                     return;
                 }
 
-                // Ensure base href is set (it should already be set in afterRender)
-                this.setBaseHrefForAssets();
-
                 const script = document.createElement('script');
                 script.src = url;
                 script.type = 'module'; // Enable ES6 module support for main.js and dynamic imports
@@ -349,9 +341,6 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
         initializeDashboard: function() {
             console.log('🔗 Initializing IBF Dashboard web component...');
 
-            // Prevent Angular routing from interfering with EspoCRM navigation
-            this.preventAngularRoutingInterference();
-
             // Hide loading and show dashboard
             const loadingContainer = this.$el.find('#loading-container');
             const dashboardContainer = this.$el.find('#dashboard-container');
@@ -373,7 +362,8 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                 dashboardElement.setAttribute('country-code', this.countryCode);
                 
                 // Set up event listeners
-                dashboardElement.addEventListener('dashboardReady', (event) => {
+                var self = this;
+                dashboardElement.addEventListener('dashboardReady', function(event) {
                     console.log('✅ IBF Dashboard web component ready:', event.detail);
                     if (loadingContainer.length) loadingContainer.addClass('hidden');
                     dashboard.addClass('loaded');
@@ -383,7 +373,7 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                     dashboardElement.style.removeProperty('max-height');
                     
                     // Force recalculation of heights and ensure full viewport usage
-                    this.ensureFullHeight();
+                    self.ensureFullHeight();
                     
                     console.log('🔧 Re-ensured IBF Dashboard component has full height after ready event');
                 });
@@ -394,64 +384,11 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                 });
                 
                 console.log('✅ IBF Dashboard web component initialized for country:', this.countryCode);
+                console.log('🧭 Angular routing will use EmbeddedLocationStrategy for EspoCRM compatibility');
             } else {
                 console.error('❌ Dashboard web component element not found');
                 this.showError('Dashboard component element not found');
             }
-        },
-
-        preventAngularRoutingInterference: function() {
-            // Store the current EspoCRM URL to restore it if Angular changes it
-            this.originalUrl = window.location.href;
-            
-            // Override history.pushState and replaceState to prevent Angular from changing the URL
-            if (!window._ibfOriginalPushState) {
-                window._ibfOriginalPushState = window.history.pushState;
-                window._ibfOriginalReplaceState = window.history.replaceState;
-                
-                const self = this;
-                
-                window.history.pushState = function(state, title, url) {
-                    // Only allow URL changes that don't interfere with EspoCRM routing
-                    if (url && typeof url === 'string') {
-                        // If the URL looks like an Angular route change, prevent it
-                        if (url.includes('/client/custom/modules/ibf-dashboard/') && !url.includes('#IBFDashboard')) {
-                            console.log('🚫 Prevented Angular router from changing URL to:', url);
-                            return;
-                        }
-                    }
-                    // Allow other URL changes
-                    return window._ibfOriginalPushState.call(this, state, title, url);
-                };
-                
-                window.history.replaceState = function(state, title, url) {
-                    // Only allow URL changes that don't interfere with EspoCRM routing
-                    if (url && typeof url === 'string') {
-                        // If the URL looks like an Angular route change, prevent it
-                        if (url.includes('/client/custom/modules/ibf-dashboard/') && !url.includes('#IBFDashboard')) {
-                            console.log('🚫 Prevented Angular router from replacing URL with:', url);
-                            return;
-                        }
-                    }
-                    // Allow other URL changes
-                    return window._ibfOriginalReplaceState.call(this, state, title, url);
-                };
-                
-                console.log('🔧 Set up Angular routing interference prevention');
-            }
-            
-            // Monitor for URL changes and restore if needed
-            this.urlMonitor = setInterval(() => {
-                const currentUrl = window.location.href;
-                // If the URL has been changed by Angular and doesn't contain the EspoCRM hash
-                if (currentUrl !== this.originalUrl && 
-                    currentUrl.includes('/client/custom/modules/ibf-dashboard/') && 
-                    !currentUrl.includes('#IBFDashboard')) {
-                    
-                    console.log('🔄 Restoring EspoCRM URL from:', currentUrl, 'to:', this.originalUrl);
-                    window.history.replaceState({}, '', this.originalUrl);
-                }
-            }, 1000);
         },
 
         ensureFullHeight: function() {
@@ -466,7 +403,11 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                 const availableHeight = window.innerHeight - headerHeight - footerHeight;
                 content.style.height = `${availableHeight}px`;
                 content.style.minHeight = `${availableHeight}px`;
+                
+                // Set the CSS variable for the web component to use
+                document.documentElement.style.setProperty('--ibf-app-height', `${availableHeight}px`);
                 console.log('🔧 Set content height to:', availableHeight + 'px');
+                console.log('🔧 Set --ibf-app-height CSS variable to:', availableHeight + 'px');
             }
             
             if (main) {
@@ -478,6 +419,9 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                 dashboardElement.style.height = '100%';
                 dashboardElement.style.minHeight = '100%';
                 dashboardElement.style.removeProperty('max-height');
+                
+                // Don't set the height attribute - it's causing issues with Angular Elements
+                // The component will use CSS height styling instead
             }
             
             // Also ensure our containers take full height
@@ -499,57 +443,6 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
             }
         },
 
-        setBaseHrefForAssets: function() {
-            // Skip if we've already set the base href for this view
-            if (this.baseHrefSet) {
-                console.log('🔧 Base href already set, skipping...');
-                return;
-            }
-            
-            // Store the original base href so we can restore it later
-            this.originalBaseHref = document.querySelector('base')?.getAttribute('href') || null;
-            
-            // Create or update base href for Angular asset resolution
-            let baseTag = document.querySelector('base');
-            if (!baseTag) {
-                baseTag = document.createElement('base');
-                baseTag.setAttribute('data-ibf-created', 'true');
-                document.head.appendChild(baseTag);
-            }
-            
-            // Set base href to the module directory so Angular can find assets/ subdirectory
-            // Angular adds 'assets/' prefix, so we point to the module root, not the assets directory
-            const moduleBase = '/client/custom/modules/ibf-dashboard/';
-            baseTag.setAttribute('href', moduleBase);
-            
-            // Mark that we've set the base href
-            this.baseHrefSet = true;
-            
-            console.log('🔧 Set base href for IBF Dashboard module:', moduleBase);
-            console.log('🔧 Angular will look for assets at:', moduleBase + 'assets/i18n/en.json');
-            console.log('🔧 Angular will look for icons at:', moduleBase + 'assets/icons/');
-            
-            // Schedule restoration of original base href after Angular loads its assets
-            setTimeout(() => {
-                this.restoreBaseHref();
-            }, 30000); // Give Angular even more time to load all assets including icons
-        },
-
-        restoreBaseHref: function() {
-            const baseTag = document.querySelector('base');
-            if (baseTag) {
-                if (this.originalBaseHref) {
-                    baseTag.setAttribute('href', this.originalBaseHref);
-                    console.log('🔧 Restored original base href:', this.originalBaseHref);
-                } else if (baseTag.getAttribute('data-ibf-created')) {
-                    baseTag.remove();
-                    console.log('🔧 Removed IBF Dashboard base tag');
-                }
-            }
-            // Reset the flag so base href can be set again if needed
-            this.baseHrefSet = false;
-        },
-
         showError: function(message) {
             console.error('IBF Dashboard Error:', message);
             const loadingContainer = this.$el.find('#loading-container');
@@ -569,29 +462,13 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
         },
 
         onRemove: function() {
-            // Clean up base href when view is destroyed
-            this.restoreBaseHref();
-            
-            // Clean up URL monitor
-            if (this.urlMonitor) {
-                clearInterval(this.urlMonitor);
-                this.urlMonitor = null;
+            // Remove window resize listener
+            if (this.resizeHandler) {
+                window.removeEventListener('resize', this.resizeHandler);
             }
             
-            // Restore original history methods
-            if (window._ibfOriginalPushState) {
-                window.history.pushState = window._ibfOriginalPushState;
-                window.history.replaceState = window._ibfOriginalReplaceState;
-                delete window._ibfOriginalPushState;
-                delete window._ibfOriginalReplaceState;
-                console.log('🔧 Restored original history methods');
-            }
-            
-            // Restore original URL if it was changed
-            if (this.originalUrl && window.location.href !== this.originalUrl) {
-                window.history.replaceState({}, '', this.originalUrl);
-                console.log('🔄 Restored original URL on cleanup');
-            }
+            // Clean up CSS variable
+            document.documentElement.style.removeProperty('--ibf-app-height');
             
             Dep.prototype.onRemove.call(this);
         },

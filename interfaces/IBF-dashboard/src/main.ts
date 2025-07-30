@@ -12,6 +12,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AuthInterceptorService } from 'src/app/services/auth.interceptor.service';
 import { LoaderInterceptorService } from 'src/app/services/loader.interceptor.service';
+// import { AssetPathInterceptorService } from 'src/app/services/asset-path.interceptor.service';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { addIcons } from 'ionicons';
 import { 
@@ -74,6 +75,12 @@ bootstrapApplication(AppComponent, {
       })
     ),
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    // Temporarily disabled asset path interceptor
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: AssetPathInterceptorService,
+    //   multi: true,
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptorService,

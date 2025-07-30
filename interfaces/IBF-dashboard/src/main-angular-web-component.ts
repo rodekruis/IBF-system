@@ -9,11 +9,16 @@ import { environment } from './environments/environment';
 // Import all providers we need
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
+import { LocationStrategy } from '@angular/common';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+import { EmbeddedLocationStrategy } from './app/services/embedded-location-strategy.service';
+// import { AssetPathInterceptorService } from './app/services/asset-path.interceptor.service';
+import { LoaderInterceptorService } from './app/services/loader.interceptor.service';
+import { AuthInterceptorService } from './app/services/auth.interceptor.service';
 
 // Factory functions
 export function HttpLoaderFactory(http: HttpClient) {
@@ -24,10 +29,37 @@ export function tokenGetter() {
   return localStorage.getItem('IBF-API-TOKEN');
 }
 
+// Helper function to detect if we're running in embedded mode
+function isEmbeddedMode(): boolean {
+  // Check multiple indicators for embedded mode
+  const hasCustomElement = document.querySelector('ibf-dashboard') !== null;
+  const hasEmbeddedHash = window.location.hash.includes('#IBFDashboard') || window.location.hash.includes('IBFDashboard');
+  const hasEmbeddedParam = window.location.search.includes('embedded=true');
+  const hasEmbeddedDataAttribute = document.documentElement.hasAttribute('data-ibf-mode');
+  
+  const isEmbedded = hasCustomElement || hasEmbeddedHash || hasEmbeddedParam || hasEmbeddedDataAttribute;
+  
+  console.log('🔍 Embedded mode detection:', {
+    hasCustomElement,
+    hasEmbeddedHash,
+    hasEmbeddedParam,
+    hasEmbeddedDataAttribute,
+    finalResult: isEmbedded,
+    currentHash: window.location.hash,
+    currentSearch: window.location.search
+  });
+  
+  return isEmbedded;
+}
+
 // Bootstrap using modern Angular Elements approach for web components
 (async () => {
   try {
     console.log('🚀 Initializing IBF Dashboard Web Component (Angular Elements + zone.js)...');
+    
+    // Detect if we're in embedded mode
+    const isEmbedded = isEmbeddedMode();
+    console.log('🔍 Embedded mode detected:', isEmbedded);
     
     // Create application with all necessary providers for Angular Elements
     const app = await createApplication({
@@ -109,7 +141,28 @@ export function tokenGetter() {
             }
           })
         ),
-        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        // HTTP Interceptors (order matters - asset interceptor first)
+        // Temporarily disabled asset path interceptor
+        // {
+        //   provide: HTTP_INTERCEPTORS,
+        //   useClass: AssetPathInterceptorService,
+        //   multi: true,
+        // },
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: LoaderInterceptorService,
+          multi: true,
+        },
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: AuthInterceptorService,
+          multi: true,
+        },
+        // Enable HTTP client with interceptors
+        provideHttpClient(withInterceptorsFromDi()),
+        // Conditionally provide embedded LocationStrategy for EspoCRM compatibility
+        ...(isEmbedded ? [{ provide: LocationStrategy, useClass: EmbeddedLocationStrategy }] : [])
       ]
     });
     

@@ -178,6 +178,45 @@ increment_version() {
     fi
 }
 
+# Function to update environment files with new version
+update_environment_files() {
+    local new_version="$1"
+    local version_with_v="v$new_version"
+    
+    echo -e "\e[33mUpdating environment files with version $version_with_v...\e[0m"
+    
+    # List of environment files to update
+    local env_files=(
+        "src/environments/environment.ts"
+        "src/environments/environment.development.ts"
+        "src/environments/environment.production.ts"
+        "src/environments/environment.stage.ts"
+        "src/environments/environment.test.ts"
+        "src/environments/environment.ci.ts"
+    )
+    
+    local updated_count=0
+    
+    for env_file in "${env_files[@]}"; do
+        if [ -f "$env_file" ]; then
+            # Update ibfSystemVersion in the environment file
+            if sed -i.bak "s/ibfSystemVersion: *'v[^']*'/ibfSystemVersion: '$version_with_v'/g" "$env_file" 2>/dev/null; then
+                # Remove backup file if sed succeeded
+                rm -f "$env_file.bak" 2>/dev/null
+                echo -e "   \e[32m✅ Updated $env_file\e[0m"
+                updated_count=$((updated_count + 1))
+            else
+                echo -e "   \e[33m⚠️  Could not update $env_file (file may not exist or no permission)\e[0m"
+            fi
+        else
+            echo -e "   \e[90m⏭️  Skipped $env_file (file does not exist)\e[0m"
+        fi
+    done
+    
+    echo -e "   \e[36mUpdated $updated_count environment files\e[0m"
+    return 0
+}
+
 # Get version from package.json
 VERSION=$(get_package_version)
 echo -e "\e[36mCurrent version: $VERSION\e[0m"
@@ -189,6 +228,7 @@ elif [ -n "$VERSION_INCREMENT" ]; then
     # User specified explicit increment type
     if increment_version "$VERSION_INCREMENT"; then
         VERSION=$(get_package_version)
+        update_environment_files "$VERSION"
     else
         echo -e "\e[31m❌ Failed to increment version. Exiting.\e[0m"
         exit 1
@@ -198,6 +238,7 @@ else
     echo -e "\e[90mAuto-incrementing patch version...\e[0m"
     if increment_version "patch"; then
         VERSION=$(get_package_version)
+        update_environment_files "$VERSION"
     else
         echo -e "\e[31m❌ Failed to increment version. Exiting.\e[0m"
         exit 1
@@ -243,8 +284,8 @@ if [ "$ZIP_MODE" = true ]; then
 fi
 
 # Build the web component
-echo -e "\e[33mBuilding web component...\e[0m"
-npx ng run app:build-web-component
+echo -e "\e[33mBuilding web component with EspoCRM configuration...\e[0m"
+npm run build:web-component:espocrm
 
 # Check if build was successful
 if [ $? -eq 0 ]; then
@@ -393,36 +434,38 @@ EOF
         
         # Copy files to EspoCRM extension directory
         echo -e "\e[33mCopying files to EspoCRM extension...\e[0m"
-        ESPOCRM_ASSETS_DIR="../espocrm/files/client/custom/modules/ibf-dashboard/assets"
-        ESPOCRM_JS_DIR="$ESPOCRM_ASSETS_DIR/javascript"
+        ESPOCRM_MODULE_DIR="../espocrm/files/client/custom/modules/ibf-dashboard"
+        ESPOCRM_ASSETS_DIR="$ESPOCRM_MODULE_DIR/assets"
         ESPOCRM_VIEW_DIR="../espocrm/files/client/custom/modules/ibf-dashboard/src/views"
         ESPOCRM_MANIFEST="../espocrm/manifest.json"
         
-        if [ -d "$ESPOCRM_ASSETS_DIR" ]; then
-            # Create javascript subdirectory for modular files
-            mkdir -p "$ESPOCRM_JS_DIR"
+        if [ -d "$ESPOCRM_MODULE_DIR" ]; then
+            # Create necessary directories
+            mkdir -p "$ESPOCRM_ASSETS_DIR"
             
-            # Copy modular web component files (main.js + chunks)
-            echo -e "   \e[90mCopying modular web component files...\e[0m"
-            cp "$BROWSER_PATH/main.js" "$ESPOCRM_JS_DIR/"
-            cp "$BROWSER_PATH/polyfills.js" "$ESPOCRM_JS_DIR/"
-            cp "$BROWSER_PATH"/chunk-*.js "$ESPOCRM_JS_DIR/" 2>/dev/null || echo -e "   \e[90mNo chunk files to copy\e[0m"
+            # Copy main JS files to assets directory (matches deployUrl/)
+            echo -e "   \e[90mCopying main JS files to assets directory...\e[0m"
+            cp "$BROWSER_PATH/main.js" "$ESPOCRM_ASSETS_DIR/"
+            cp "$BROWSER_PATH/polyfills.js" "$ESPOCRM_ASSETS_DIR/"
+            cp "$BROWSER_PATH"/chunk-*.js "$ESPOCRM_ASSETS_DIR/" 2>/dev/null || echo -e "   \e[90mNo chunk files to copy\e[0m"
             
-            # Copy CSS file if it exists
+            # Copy CSS file to assets directory (matches deployUrl/)
             if [ -f "$BROWSER_PATH/styles.css" ]; then
-                echo -e "   \e[90mCopying CSS file...\e[0m"
-                cp "$BROWSER_PATH/styles.css" "$ESPOCRM_ASSETS_DIR/ibf-dashboard.css"
+                echo -e "   \e[90mCopying CSS file to assets directory...\e[0m"
+                cp "$BROWSER_PATH/styles.css" "$ESPOCRM_ASSETS_DIR/styles.css"
             fi
             
-            # Copy assets directory if it exists
+            # Copy assets directory contents to match deployUrl structure
             if [ -d "$BROWSER_PATH/assets" ]; then
-                echo -e "   \e[90mCopying assets directory...\e[0m"
+                echo -e "   \e[90mCopying assets to match deployUrl structure...\e[0m"
+                # Copy assets to /assets/ subdirectory (matches deployUrl/assets/)
                 cp -r "$BROWSER_PATH/assets"/* "$ESPOCRM_ASSETS_DIR/" 2>/dev/null || echo -e "   \e[90mNo additional assets to copy\e[0m"
             fi
             
-            # Optimize and copy SVG icons if they exist
+            # Copy SVG icons to match deployUrl structure  
             if [ -d "$BROWSER_PATH/svg" ]; then
-                echo -e "   \e[90mOptimizing and copying SVG icons...\e[0m"
+                echo -e "   \e[90mCopying SVG icons to match deployUrl structure...\e[0m"
+                # Copy SVG to /assets/svg/ (matches deployUrl/svg/)
                 mkdir -p "$ESPOCRM_ASSETS_DIR/svg"
                 
                 # Run SVG optimization script
@@ -452,7 +495,7 @@ EOF
             echo -e "   \e[32mSuccessfully copied files to EspoCRM extension\e[0m"
             echo -e "   \e[36mEspoCRM extension files updated (manifest version preserved)\e[0m"
         else
-            echo -e "   \e[33mWarning: EspoCRM extension directory not found at $ESPOCRM_ASSETS_DIR\e[0m"
+            echo -e "   \e[33mWarning: EspoCRM extension directory not found at $ESPOCRM_MODULE_DIR\e[0m"
             echo -e "   \e[33mSkipping EspoCRM file copy (this is normal if not working with EspoCRM)\e[0m"
         fi
 
