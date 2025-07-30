@@ -1,3 +1,12 @@
+## [0.321.8](https://github.com/rodekruis/IBF-system/compare/v0.321.7...v0.321.8) (2025-07-30)
+
+
+### Bug Fixes
+
+* remove dunant user countries before update ([5b07cab](https://github.com/rodekruis/IBF-system/commit/5b07cabe857cd12c56b32367dbc637be15b26802))
+
+
+
 ## [0.321.7](https://github.com/rodekruis/IBF-system/compare/v0.321.6...v0.321.7) (2025-07-30)
 
 
@@ -88,15 +97,6 @@
 
 * align IBF version-nr ([a623bb8](https://github.com/rodekruis/IBF-system/commit/a623bb85cebef3ae6d4ada0da0780174db019b69))
 * hack to avoid duplicate waterpoints layers ([be1dd89](https://github.com/rodekruis/IBF-system/commit/be1dd896c9f94fd7219a45574f68b0ce899379b5))
-
-
-
-## [0.320.2](https://github.com/rodekruis/IBF-system/compare/v0.320.1...v0.320.2) (2025-06-02)
-
-
-### Bug Fixes
-
-* geoserver remote login AB[#36431](https://github.com/rodekruis/IBF-system/issues/36431) ([26924ec](https://github.com/rodekruis/IBF-system/commit/26924ec5b1a5ddd202ed8ca2976fa57d11ae43bd))
 
 
 
