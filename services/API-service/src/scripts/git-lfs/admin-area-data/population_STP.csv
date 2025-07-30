@@ -1,0 +1,10 @@
+countryCodeISO3,adminLevel,placeCode,indicator,value
+STP,1,ST01,populationTotal,9476
+STP,1,ST02,populationTotal,217903
+STP,2,ST0101,populationTotal,9476
+STP,2,ST0201,populationTotal,87294
+STP,2,ST0202,populationTotal,21805
+STP,2,ST0203,populationTotal,8125
+STP,2,ST0204,populationTotal,18276
+STP,2,ST0205,populationTotal,25246
+STP,2,ST0206,populationTotal,57157
