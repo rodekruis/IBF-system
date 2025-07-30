@@ -1,3 +1,12 @@
+## [0.321.9](https://github.com/rodekruis/IBF-system/compare/v0.321.8...v0.321.9) (2025-07-30)
+
+
+### Bug Fixes
+
+* typo in lesotho forecast source ([03059ff](https://github.com/rodekruis/IBF-system/commit/03059ff9a63176c98d61a9679f99cbdca9a0de3e))
+
+
+
 ## [0.321.8](https://github.com/rodekruis/IBF-system/compare/v0.321.7...v0.321.8) (2025-07-30)
 
 
@@ -87,16 +96,6 @@
 ### Features
 
 * GET admin areas for country and admin level ([4e26a9e](https://github.com/rodekruis/IBF-system/commit/4e26a9ef46b879d9050785e6b0ff34b938e7e03e))
-
-
-
-## [0.320.4](https://github.com/rodekruis/IBF-system/compare/v0.320.2...v0.320.4) (2025-06-03)
-
-
-### Bug Fixes
-
-* align IBF version-nr ([a623bb8](https://github.com/rodekruis/IBF-system/commit/a623bb85cebef3ae6d4ada0da0780174db019b69))
-* hack to avoid duplicate waterpoints layers ([be1dd89](https://github.com/rodekruis/IBF-system/commit/be1dd896c9f94fd7219a45574f68b0ce899379b5))
 
 
 
