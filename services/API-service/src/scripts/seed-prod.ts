@@ -41,6 +41,7 @@ export class SeedProd implements InterfaceScript {
 
       const dunantUser = await userRepository.findOne({
         where: { email: DUNANT_EMAIL },
+        relations: ['countries'],
       });
 
       if (dunantUser) {

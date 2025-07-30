@@ -63,6 +63,7 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
     const userRepository = this.dataSource.getRepository(UserEntity);
     const dunantUser = await userRepository.findOne({
       where: { email: DUNANT_EMAIL },
+      relations: ['countries'],
     });
 
     if (reset) {
