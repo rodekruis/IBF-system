@@ -73,20 +73,24 @@ export class SeedHelper {
   }
 
   public async updateDunantUser(dunantUser: UserEntity) {
+    this.logger.log('Update DUNANT user...');
+
     const userRepository = this.dataSource.getRepository(UserEntity);
     const countryRepository = this.dataSource.getRepository(CountryEntity);
 
     // remove existing countries to avoid duplication errors
-    dunantUser.countries = [];
+    await userRepository
+      .createQueryBuilder('user')
+      .relation(UserEntity, 'countries')
+      .of(dunantUser)
+      .remove(dunantUser.countries);
+
+    // grant dunant user access to all countries
+    dunantUser.countries = await countryRepository.find();
 
     // update password from env
     dunantUser.password = process.env.DUNANT_PASSWORD;
 
-    this.logger.log('Update DUNANT user...');
-    await userRepository.save(dunantUser);
-
-    // grant dunant user access to all countries
-    dunantUser.countries = await countryRepository.find();
     await userRepository.save(dunantUser);
   }
 }
