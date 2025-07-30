@@ -1,0 +1,50 @@
+[
+    {
+        "label": "Connection Settings",
+        "rows": [
+            [
+                {
+                    "name": "ibfDashboardUrl"
+                }
+            ],
+            [
+                {
+                    "name": "ibfApiUrl"
+                }
+            ]
+        ]
+    },
+    {
+        "label": "Configuration",
+        "rows": [
+            [
+                {
+                    "name": "ibfEnabledCountries"
+                }
+            ],
+            [
+                {
+                    "name": "ibfDefaultCountry"
+                }
+            ],
+            [
+                {
+                    "name": "ibfDisasterTypes"
+                }
+            ]
+        ]
+    },
+    {
+        "label": "User Management",
+        "rows": [
+            [
+                {
+                    "name": "ibfAutoCreateUsers"
+                },
+                {
+                    "name": "ibfRequireUserMapping"
+                }
+            ]
+        ]
+    }
+]

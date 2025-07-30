@@ -1,0 +1,69 @@
+[
+    {
+        "route": "/IbfAuth/action/validateToken",
+        "method": "GET",
+        "params": {
+            "controller": "IbfAuth",
+            "action": "validateToken"
+        },
+        "noAuth": true
+    },
+    {
+        "route": "/IbfAuth/action/validateToken",
+        "method": "POST", 
+        "params": {
+            "controller": "IbfAuth",
+            "action": "validateToken"
+        },
+        "noAuth": true
+    },
+    {
+        "route": "/IbfAuth/action/validateToken",
+        "method": "OPTIONS", 
+        "params": {
+            "controller": "IbfAuth",
+            "action": "validateToken"
+        },
+        "noAuth": true
+    },
+    {
+        "route": "/IBFDashboard",
+        "method": "get",
+        "params": {
+            "controller": "IBFDashboard",
+            "action": "index"
+        }
+    },
+    {
+        "route": "/IBFDashboard/admin",
+        "method": "GET",
+        "params": {
+            "controller": "IBFDashboard",
+            "action": "admin"
+        }
+    },
+    {
+        "route": "/IBFDashboard/action/getUserToken",
+        "method": "GET",
+        "params": {
+            "controller": "IBFDashboard",
+            "action": "getUserToken"
+        }
+    },
+    {
+        "route": "/IBFDashboard/action/getSettings",
+        "method": "GET",
+        "params": {
+            "controller": "IBFDashboard",
+            "action": "getSettings"
+        }
+    },
+    {
+        "route": "/IBFDashboard/action/saveSettings",
+        "method": "POST",
+        "params": {
+            "controller": "IBFDashboard",
+            "action": "saveSettings"
+        }
+    }
+]

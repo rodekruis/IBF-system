@@ -1,0 +1,26 @@
+[
+    {
+        "rows": [
+            [
+                {"name": "name"},
+                {"name": "user"}
+            ],
+            [
+                {"name": "email"},
+                {"name": "password"}
+            ],
+            [
+                {"name": "allowedCountries"},
+                {"name": "allowedDisasterTypes"}
+            ],
+            [
+                {"name": "isActive"},
+                {"name": "autoCreated"}
+            ],
+            [
+                {"name": "lastIbfLogin"},
+                false
+            ]
+        ]
+    }
+]

@@ -1,0 +1,20 @@
+# IBF Dashboard Optimized SVG Icons
+# Generated on Tue Jul 29 22:05:36 CEST 2025
+# Only includes icons actually used by the web component
+
+apps-outline.svg
+arrow-back-outline.svg
+arrow-forward-outline.svg
+checkbox-outline.svg
+chevron-back-outline.svg
+chevron-down-outline.svg
+chevron-up-outline.svg
+close-circle-outline.svg
+eye-off-outline.svg
+eye-outline.svg
+information-circle-outline.svg
+person-outline.svg
+radio-button-off-outline.svg
+radio-button-on-outline.svg
+square-outline.svg
+warning-outline.svg

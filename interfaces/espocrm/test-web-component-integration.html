@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EspoCRM IBF Dashboard Extension - Web Component Test</title>
+    
+    <!-- Load the web component CSS -->
+    <link rel="stylesheet" href="files/client/custom/modules/ibf-dashboard/assets/ibf-dashboard.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8f9fa;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: #c8102e;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .test-section {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        h2 {
+            color: #333;
+            border-bottom: 2px solid #c8102e;
+            padding-bottom: 10px;
+        }
+        
+        .dashboard-container {
+            height: 600px;
+            background: white;
+            position: relative;
+        }
+        
+        ibf-dashboard {
+            display: block;
+            height: 100%;
+            width: 100%;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .feature-list li:before {
+            content: "✅ ";
+            margin-right: 8px;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>EspoCRM IBF Dashboard Extension</h1>
+        <h2>Web Component Integration Test</h2>
+        
+        <div class="test-section">
+            <h2>🎯 Features</h2>
+            <ul class="feature-list">
+                <li>Native Web Component Integration (no iframe)</li>
+                <li>Full-screen dashboard under EspoCRM header</li>
+                <li>Token-based authentication with EspoCRM</li>
+                <li>Cross-platform compatible extension packaging</li>
+                <li>Versioned web component assets</li>
+            </ul>
+        </div>
+        
+        <div class="test-section">
+            <h2>📦 Package Contents</h2>
+            <div class="code-block">
+Extension Structure:
+├── files/
+│   ├── client/custom/modules/ibf-dashboard/
+│   │   ├── assets/
+│   │   │   ├── ibf-dashboard-bundle.js (181KB)
+│   │   │   └── ibf-dashboard.css (123KB)
+│   │   ├── src/views/ibfdashboard.js
+│   │   └── ...
+│   └── custom/Espo/Modules/IBFDashboard/
+│       └── Controllers/ (27 PHP files)
+├── scripts/ (3 script files)
+└── manifest.json
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🔧 Web Component Usage</h2>
+            <p>The extension now uses the native IBF Dashboard web component:</p>
+            <div class="code-block">
+&lt;ibf-dashboard 
+    id="ibf-dashboard-component"
+    platform="espocrm"
+    country-code="ETH"
+    disaster-type="drought"
+    theme="auto"
+    language="en"
+    features='["maps", "alerts", "indicators"]'
+    espo-token="[EspoCRM Token]"
+    espo-user-id="[User ID]"&gt;
+&lt;/ibf-dashboard&gt;
+            </div>
+        </div>
+        
+        <div class="test-section">
+            <h2>🚀 Web Component Demo</h2>
+            <p>Web component would be loaded here in a real EspoCRM environment with proper authentication.</p>
+            
+            <div class="dashboard-container">
+                <ibf-dashboard 
+                    id="demo-dashboard"
+                    platform="espocrm"
+                    country-code="ETH"
+                    disaster-type="drought"
+                    theme="auto"
+                    language="en"
+                    features='["maps", "alerts", "indicators"]'>
+                    <div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #666; font-size: 18px;">
+                        IBF Dashboard Web Component<br>
+                        <small>(Authentication required for full functionality)</small>
+                    </div>
+                </ibf-dashboard>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load the web component bundle -->
+    <script src="files/client/custom/modules/ibf-dashboard/assets/ibf-dashboard-bundle.js"></script>
+    
+    <script>
+        console.log('IBF Dashboard Web Component Test Loaded');
+        
+        // Component initialization would happen here in real EspoCRM environment
+        document.addEventListener('DOMContentLoaded', function() {
+            const dashboard = document.getElementById('demo-dashboard');
+            
+            if (dashboard) {
+                dashboard.addEventListener('dashboardReady', (event) => {
+                    console.log('Dashboard ready:', event.detail);
+                });
+                
+                dashboard.addEventListener('error', (event) => {
+                    console.log('Dashboard error:', event.detail);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

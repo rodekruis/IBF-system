@@ -1,0 +1,69 @@
+{
+    "fields": {
+        "ibfDashboardUrl": {
+            "type": "url",
+            "required": true,
+            "maxLength": 500,
+            "default": "https://ibf-pivot.510.global"
+        },
+        "ibfApiUrl": {
+            "type": "url",
+            "required": false,
+            "maxLength": 500,
+            "default": "https://ibf-pivot.510.global/api"
+        },
+        "ibfEnabledCountries": {
+            "type": "multiEnum",
+            "options": ["ETH", "UGA", "ZMB", "KEN", "MWI", "SSD", "PHL", "ZWE", "LSO"],
+            "optionsLabels": {
+                "ETH": "Ethiopia",
+                "UGA": "Uganda", 
+                "ZMB": "Zambia",
+                "KEN": "Kenya",
+                "MWI": "Malawi",
+                "SSD": "South Sudan",
+                "PHL": "Philippines",
+                "ZWE": "Zimbabwe",
+                "LSO": "Lesotho"
+            },
+            "default": ["ETH", "UGA", "ZMB", "KEN"]
+        },
+        "ibfDefaultCountry": {
+            "type": "enum",
+            "options": ["ETH", "UGA", "ZMB", "KEN", "MWI", "SSD", "PHL", "ZWE", "LSO"],
+            "optionsLabels": {
+                "ETH": "Ethiopia",
+                "UGA": "Uganda", 
+                "ZMB": "Zambia",
+                "KEN": "Kenya",
+                "MWI": "Malawi",
+                "SSD": "South Sudan",
+                "PHL": "Philippines",
+                "ZWE": "Zimbabwe",
+                "LSO": "Lesotho"
+            },
+            "default": "ETH"
+        },
+        "ibfDisasterTypes": {
+            "type": "multiEnum",
+            "options": ["drought", "floods", "heavy-rainfall", "typhoon", "malaria", "flash-floods"],
+            "optionsLabels": {
+                "drought": "Drought",
+                "floods": "Floods",
+                "heavy-rainfall": "Heavy Rainfall", 
+                "typhoon": "Typhoon",
+                "malaria": "Malaria",
+                "flash-floods": "Flash Floods"
+            },
+            "default": ["drought", "floods", "heavy-rainfall"]
+        },
+        "ibfAutoCreateUsers": {
+            "type": "bool",
+            "default": true
+        },
+        "ibfRequireUserMapping": {
+            "type": "bool",
+            "default": false
+        }
+    }
+}

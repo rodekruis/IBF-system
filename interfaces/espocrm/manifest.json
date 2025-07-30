@@ -1,0 +1,21 @@
+{
+    "name":  "IBF Dashboard",
+    "description":  "Full-page IBF (Impact-based Forecasting) Dashboard integration for EspoCRM. Provides a dedicated navigation tab with native web component integration and EspoCRM authentication.",
+    "author":  "510 Global",
+    "php":  [
+                "\u003e=7.4.0"
+            ],
+    "version": "1.0.157",
+    "acceptableVersions":  [
+                               "\u003e=7.0.0"
+                           ],
+    "releaseDate": "2025-07-30",
+    "license":  "MIT",
+    "checkVersionUrl":  "",
+    "tags":  [
+                 "dashboard",
+                 "web-component",
+                 "integration",
+                 "navigation"
+             ]
+}

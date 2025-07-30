@@ -247,17 +247,22 @@
             "outputHashing": "none"
           },
           "configurations": {
-            "development": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.development.ts"
-                }
-              ],
-              "optimization": false,
-              "sourceMap": true,
-              "extractLicenses": false
-            }
+              "development": {
+                "fileReplacements": [
+                  {
+                    "replace": "src/environments/environment.ts",
+                    "with": "src/environments/environment.development.ts"
+                  }
+                ],
+                "optimization": {
+                  "scripts": false,
+                  "styles": true, 
+                  "fonts": true
+                },
+                "sourceMap": false, 
+                "extractLicenses": false,
+                "outputHashing": "none"
+              }
           }
         },
         "serve-web-component": {

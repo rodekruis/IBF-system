@@ -1,0 +1,22 @@
+[
+    {
+        "rows": [
+            [
+                {"name": "name"},
+                {"name": "user"}
+            ],
+            [
+                {"name": "email"},
+                {"name": "password"}
+            ],
+            [
+                {"name": "allowedCountries"},
+                {"name": "allowedDisasterTypes"}
+            ],
+            [
+                {"name": "isActive"},
+                false
+            ]
+        ]
+    }
+]

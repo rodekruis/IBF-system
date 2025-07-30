@@ -229,7 +229,7 @@ echo -e "\033[34mAngular Dev Server Starting...\033[0m"
 echo -e "\033[32mURL: http://localhost:4200\033[0m"
 echo -e "\033[33mPress Ctrl+C to stop this server\033[0m"
 echo "================================"
-npx ng serve --port 4200 --host localhost --disable-host-check
+npx ng serve --port 4200 --host localhost --disable-host-check --configuration=development
 echo -e "\033[31mAngular server stopped!\033[0m"
 echo "Press Enter to close..."
 read
@@ -239,11 +239,25 @@ EOF
 cat > "$web_script" << EOF
 #!/bin/bash
 cd "$current_dir"
-echo -e "\033[35mWeb Component Server Starting...\033[0m"
-echo -e "\033[32mURL: http://localhost:8080/test-web-component.html\033[0m"
-echo -e "\033[33mPress Ctrl+C to stop this server\033[0m"
-echo "=========================================="
-npx http-server -p 8080 --cors -c-1
+echo -e "\033[35mWeb Component Build & Server Starting...\033[0m"
+echo -e "\033[33mFirst building web component using build-web-component.sh - this may take a moment...\033[0m"
+echo "================================================"
+
+# Build the web component using the build script
+bash build-web-component.sh
+if [ \$? -eq 0 ]; then
+    echo -e "\033[32mWeb component build completed successfully!\033[0m"
+    echo ""
+    echo -e "\033[35mStarting web component server...\033[0m"
+    echo -e "\033[32mURL: http://localhost:8080\033[0m"
+    echo -e "\033[33mPress Ctrl+C to stop this server\033[0m"
+    echo "=========================================="
+    npx http-server dist/web-component/browser -p 8080 --cors -c-1
+else
+    echo -e "\033[31mWeb component build failed!\033[0m"
+    echo "Press Enter to close..."
+    read
+fi
 echo -e "\033[31mWeb component server stopped!\033[0m"
 echo "Press Enter to close..."
 read

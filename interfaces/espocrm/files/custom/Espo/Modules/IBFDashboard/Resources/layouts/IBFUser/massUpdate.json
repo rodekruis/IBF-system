@@ -1,0 +1,14 @@
+[
+    {
+        "rows": [
+            [
+                {"name": "allowedCountries"},
+                {"name": "allowedDisasterTypes"}
+            ],
+            [
+                {"name": "isActive"},
+                false
+            ]
+        ]
+    }
+]
