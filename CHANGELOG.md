@@ -1,3 +1,12 @@
+## [0.321.7](https://github.com/rodekruis/IBF-system/compare/v0.321.6...v0.321.7) (2025-07-30)
+
+
+### Bug Fixes
+
+* update lesotho red cross branches ([cc5ebe8](https://github.com/rodekruis/IBF-system/commit/cc5ebe87127af40621cef4b8e147534ba0e3843b))
+
+
+
 ## [0.321.6](https://github.com/rodekruis/IBF-system/compare/v0.321.5...v0.321.6) (2025-07-28)
 
 
@@ -88,15 +97,6 @@
 ### Bug Fixes
 
 * geoserver remote login AB[#36431](https://github.com/rodekruis/IBF-system/issues/36431) ([26924ec](https://github.com/rodekruis/IBF-system/commit/26924ec5b1a5ddd202ed8ca2976fa57d11ae43bd))
-
-
-
-## [0.320.1](https://github.com/rodekruis/IBF-system/compare/v0.320.0...v0.320.1) (2025-05-28)
-
-
-### Bug Fixes
-
-* update simplification perc of ETH adm3 AB[#36189](https://github.com/rodekruis/IBF-system/issues/36189) ([4b0142a](https://github.com/rodekruis/IBF-system/commit/4b0142af3581890bf3926721fcebd7c48e0e77fe))
 
 
 
