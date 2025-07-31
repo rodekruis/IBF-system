@@ -1,6 +1,6 @@
 {
   "name": "ibf-dashboard",
-  "version": "0.321.36",
+  "version": "0.321.40",
   "description": "Web interface for the dashboard of the IBF-system.",
   "license": "UNLICENSED",
   "private": true,

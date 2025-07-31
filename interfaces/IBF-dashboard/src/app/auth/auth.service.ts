@@ -8,6 +8,7 @@ import { UserRole } from 'src/app/models/user/user-role.enum';
 import { ApiService } from 'src/app/services/api.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { PlatformDetectionService } from 'src/app/services/platform-detection.service';
+import { EspoCrmAuthService } from 'src/app/services/espocrm-auth.service';
 import { environment } from 'src/environments/environment';
 
 const HTTP_STATUS_MESSAGE_MAP = { 401: 'Email and/or password unknown' };
@@ -26,6 +27,7 @@ export class AuthService implements OnDestroy {
     private router: Router,
     private toastController: ToastController,
     private platformDetectionService: PlatformDetectionService,
+    private espoCrmAuth: EspoCrmAuthService,
   ) {
     this.checkLoggedInState();
 
@@ -43,6 +45,28 @@ export class AuthService implements OnDestroy {
   };
 
   checkLoggedInState() {
+    // Check for EspoCRM with IBF backend token first
+    if (this.espoCrmAuth.isEmbeddedInEspoCrm() && this.espoCrmAuth.isAuthenticated()) {
+      console.log('🔐 EspoCRM detected with IBF backend token, setting up default user');
+      const ibfBackendToken = this.espoCrmAuth.getToken();
+      if (ibfBackendToken) {
+        // Save the IBF backend token to JWT service for API calls
+        this.jwtService.saveToken(ibfBackendToken);
+        
+        // Create a default user for EspoCRM mode
+        const defaultUser: User = {
+          ...DEFAULT_USER,
+          countries: ['PHL', 'UGA', 'KEN', 'ETH'], // Add default countries for EspoCRM mode
+          disasterTypes: ['typhoon', 'floods', 'drought'], // Add default disaster types
+          userRole: UserRole.Viewer, // Set as viewer for EspoCRM mode
+        };
+        this.authSubject.next(defaultUser);
+        this.loggedIn = true;
+        this.userRole = defaultUser.userRole;
+        return;
+      }
+    }
+
     // In embedded mode, provide a default user
     if (this.platformDetectionService.isEmbeddedMode()) {
       const defaultUser: User = {
@@ -55,8 +79,8 @@ export class AuthService implements OnDestroy {
       return;
     }
 
-    // Check if we have an environment token
-    if (environment.apiToken) {
+    // Check if we have an environment token (disabled in EspoCRM embedded mode for security)
+    if (environment.apiToken && !this.espoCrmAuth.isEmbeddedInEspoCrm()) {
       try {
         // If environment token exists, save it to JWT service and auto-authenticate
         this.jwtService.saveToken(environment.apiToken);
@@ -75,6 +99,8 @@ export class AuthService implements OnDestroy {
       } catch (error) {
         console.warn('Environment token is invalid:', error);
       }
+    } else if (environment.apiToken && this.espoCrmAuth.isEmbeddedInEspoCrm()) {
+      console.log('🔒 Environment token disabled in EspoCRM embedded mode for security');
     }
     
     const user = this.getUserFromToken();
@@ -82,13 +108,18 @@ export class AuthService implements OnDestroy {
   }
 
   public isLoggedIn(): boolean {
+    // Check for EspoCRM with IBF backend token first
+    if (this.espoCrmAuth.isEmbeddedInEspoCrm() && this.espoCrmAuth.isAuthenticated()) {
+      return true;
+    }
+
     // Bypass authentication in embedded mode
     if (this.platformDetectionService.isEmbeddedMode()) {
       return true;
     }
 
-    // Check if environment token is available
-    if (environment.apiToken) {
+    // Check if environment token is available (disabled in EspoCRM embedded mode for security)
+    if (environment.apiToken && !this.espoCrmAuth.isEmbeddedInEspoCrm()) {
       return true;
     }
     

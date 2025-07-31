@@ -5,6 +5,7 @@ import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { LoaderService } from 'src/app/services/loader.service';
 import { PlatformDetectionService } from 'src/app/services/platform-detection.service';
+import { EspoCrmAuthService } from 'src/app/services/espocrm-auth.service';
 import { IonApp, IonSpinner, IonRouterOutlet } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 
@@ -52,6 +53,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     private platformDetectionService: PlatformDetectionService,
     private router: Router,
     private cdr: ChangeDetectorRef,
+    private espoCrmAuth: EspoCrmAuthService,
   ) {
     console.log('🔄 AppComponent: Constructor initialized');
   }
@@ -66,6 +68,12 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
         this.cdr.markForCheck();
       });
     
+    // Handle EspoCRM authentication if provided via input
+    if (this.authToken) {
+      console.log('🔐 Setting IBF token from input property');
+      this.espoCrmAuth.setToken(this.authToken);
+    }
+    
     // Force embedded mode detection for web components
     const isWebComponent = this.isRunningAsWebComponent();
     
@@ -79,6 +87,12 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       console.log('🔧 Force setting platform to generic for web component');
     }
     
+    // Override platform if EspoCRM embedded mode is detected
+    if (this.espoCrmAuth.isEmbeddedInEspoCrm()) {
+      this.embedPlatform = 'espocrm';
+      console.log('🔧 EspoCRM embedded mode detected, setting platform to espocrm');
+    }
+    
     this.isEmbedded = this.embedPlatform !== 'standalone';
     
     // Set CSS mode for context-aware styling
@@ -89,6 +103,10 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     console.log(`🌐 Platform: ${this.embedPlatform}`);
     console.log(`🎯 Country: ${this.countryCode}`);
     console.log(`🔧 Is web component: ${isWebComponent}`);
+    console.log(`🔐 EspoCRM auth available: ${this.espoCrmAuth.isAuthenticated()}`);
+    
+    // Set up EspoCRM authentication handling
+    this.setupEspoCrmAuthentication();
     
     // Log platform detection info
     this.platformDetectionService.logPlatformInfo();
@@ -148,6 +166,17 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       if (changes['language'] && this.language) {
         this.translateService.setDefaultLang(this.language);
         this.translateService.use(this.language);
+        console.log('🌐 Language changed to:', this.language);
+      }
+
+      if (changes['authToken'] && this.authToken) {
+        console.log('🔐 Auth token changed via input property');
+        this.espoCrmAuth.setToken(this.authToken);
+      }
+
+      if (changes['embedPlatform'] && this.embedPlatform) {
+        console.log('🌐 Platform changed to:', this.embedPlatform);
+        this.isEmbedded = this.embedPlatform !== 'standalone';
       }
       
       if (changes['embedPlatform'] || changes['countryCode'] || changes['disasterType']) {
@@ -331,6 +360,41 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   
   public reportError(error: any) {
     this.error.emit(error);
+  }
+
+  private setupEspoCrmAuthentication(): void {
+    if (this.embedPlatform !== 'espocrm') {
+      return;
+    }
+
+    console.log('🔐 Setting up EspoCRM backend authentication...');
+
+    // Subscribe to authentication state changes
+    this.espoCrmAuth.isAuthenticated$.subscribe(isAuthenticated => {
+      console.log('🔐 IBF backend authentication state changed:', isAuthenticated);
+      
+      if (isAuthenticated && this.espoCrmAuth.getToken()) {
+        // Authentication successful - proceed to dashboard
+        if (this.router.url === '/login' || this.router.url === '/') {
+          console.log('🔐 IBF backend authenticated, navigating to dashboard');
+          this.router.navigate(['/dashboard']).catch(err => {
+            console.error('🔐 Navigation to dashboard failed:', err);
+          });
+        }
+      }
+    });
+
+    // Check if already authenticated with IBF backend token
+    if (this.espoCrmAuth.isAuthenticated()) {
+      console.log('🔐 Already authenticated with IBF backend, skipping login');
+      
+      // Skip login screen if we're on login route
+      if (this.router.url === '/login' || this.router.url === '/') {
+        this.router.navigate(['/dashboard']).catch(err => {
+          console.error('🔐 Navigation to dashboard failed:', err);
+        });
+      }
+    }
   }
 
   ngOnDestroy() {

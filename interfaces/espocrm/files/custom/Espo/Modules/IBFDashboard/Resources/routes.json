@@ -1,32 +1,5 @@
 [
     {
-        "route": "/IbfAuth/action/validateToken",
-        "method": "GET",
-        "params": {
-            "controller": "IbfAuth",
-            "action": "validateToken"
-        },
-        "noAuth": true
-    },
-    {
-        "route": "/IbfAuth/action/validateToken",
-        "method": "POST", 
-        "params": {
-            "controller": "IbfAuth",
-            "action": "validateToken"
-        },
-        "noAuth": true
-    },
-    {
-        "route": "/IbfAuth/action/validateToken",
-        "method": "OPTIONS", 
-        "params": {
-            "controller": "IbfAuth",
-            "action": "validateToken"
-        },
-        "noAuth": true
-    },
-    {
         "route": "/IBFDashboard",
         "method": "get",
         "params": {
@@ -64,6 +37,22 @@
         "params": {
             "controller": "IBFDashboard",
             "action": "saveSettings"
+        }
+    },
+    {
+        "route": "/IBFDashboard/IbfAuth/getToken",
+        "method": "GET",
+        "params": {
+            "controller": "IbfAuth",
+            "action": "getToken"
+        }
+    },
+    {
+        "route": "/IBFDashboard/IbfAuth/test",
+        "method": "GET",
+        "params": {
+            "controller": "IbfAuth",
+            "action": "test"
         }
     }
 ]

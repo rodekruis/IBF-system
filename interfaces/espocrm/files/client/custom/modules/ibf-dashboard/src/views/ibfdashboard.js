@@ -1,4 +1,19 @@
-define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
+define('ibf-dashboard:views/ibfdashboard', ['view', 'ibf-dashboard:services/ibf-auth'], function (Dep, IbfAuth) {
+    
+    console.log('🚀 IBF Dashboard module loading started');
+    console.log('📦 Dependencies loaded:', { Dep: !!Dep, IbfAuth: !!IbfAuth });
+    
+    if (!Dep) {
+        console.error('❌ Failed to load Dep (view) dependency');
+        return null;
+    }
+    
+    if (!IbfAuth) {
+        console.error('❌ Failed to load IbfAuth service dependency');
+        return null;
+    }
+    
+    console.log('✅ All dependencies loaded successfully, creating view class');
 
     return Dep.extend({
 
@@ -18,9 +33,11 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                         disaster-type="drought"
                         theme="auto"
                         language="en"
-                        api-base-url="https://ibf-api.rodekruis.nl"
+                        api-base-url="https://ibf-test.510.global"
                         features='["maps", "alerts", "indicators"]'
-                        embedded-mode="true">
+                        embedded-mode="true"
+                        espo-auth="true"
+                        skip-login="true">
                     </ibf-dashboard>
                 </div>
                 
@@ -196,6 +213,10 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
             Dep.prototype.setup.call(this);
             console.log('IBF Dashboard: View setup started');
             
+            // Initialize IBF authentication service with view context
+            this.ibfAuth = new IbfAuth(this);
+            console.log('🔑 IBF Authentication service initialized with view context');
+            
             // Get country code from options or URL parameters
             this.countryCode = this.options.countryCode || this.getRouterParam('country') || 'ETH';
         },
@@ -361,27 +382,20 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                 // Set dynamic country code
                 dashboardElement.setAttribute('country-code', this.countryCode);
                 
-                // Set up event listeners
-                var self = this;
-                dashboardElement.addEventListener('dashboardReady', function(event) {
-                    console.log('✅ IBF Dashboard web component ready:', event.detail);
-                    if (loadingContainer.length) loadingContainer.addClass('hidden');
-                    dashboard.addClass('loaded');
-                    
-                    // Ensure height is still unrestricted after component is ready
-                    dashboardElement.style.removeProperty('height');
-                    dashboardElement.style.removeProperty('max-height');
-                    
-                    // Force recalculation of heights and ensure full viewport usage
-                    self.ensureFullHeight();
-                    
-                    console.log('🔧 Re-ensured IBF Dashboard component has full height after ready event');
-                });
-                
-                dashboardElement.addEventListener('error', (event) => {
-                    console.error('❌ IBF Dashboard web component error:', event.detail);
-                    this.showError('Dashboard failed to initialize: ' + (event.detail?.message || 'Unknown error'));
-                });
+                // Authenticate the dashboard before setting up other listeners
+                this.ibfAuth.authenticateIbfDashboard(dashboardElement).then(function(success) {
+                    if (success) {
+                        console.log('✅ IBF Dashboard authentication successful');
+                        // Set up dashboard event listeners after authentication
+                        this.setupDashboardEventListeners(dashboardElement, loadingContainer, dashboard);
+                    } else {
+                        console.error('❌ IBF Dashboard authentication failed');
+                        this.showError('Authentication failed. Please check your IBF credentials and try again.');
+                    }
+                }.bind(this)).catch(function(error) {
+                    console.error('❌ IBF Dashboard authentication error:', error);
+                    this.showError('Authentication error: ' + (error.message || 'Unknown error'));
+                }.bind(this));
                 
                 console.log('✅ IBF Dashboard web component initialized for country:', this.countryCode);
                 console.log('🧭 Angular routing will use EmbeddedLocationStrategy for EspoCRM compatibility');
@@ -389,6 +403,54 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
                 console.error('❌ Dashboard web component element not found');
                 this.showError('Dashboard component element not found');
             }
+        },
+
+        setupDashboardEventListeners: function(dashboardElement, loadingContainer, dashboard) {
+            var self = this;
+            
+            // Set up event listeners
+            dashboardElement.addEventListener('dashboardReady', function(event) {
+                console.log('✅ IBF Dashboard web component ready:', event.detail);
+                if (loadingContainer.length) loadingContainer.addClass('hidden');
+                dashboard.addClass('loaded');
+                
+                // Ensure height is still unrestricted after component is ready
+                dashboardElement.style.removeProperty('height');
+                dashboardElement.style.removeProperty('max-height');
+                
+                // Force recalculation of heights and ensure full viewport usage
+                self.ensureFullHeight();
+                
+                console.log('🔧 Re-ensured IBF Dashboard component has full height after ready event');
+            });
+            
+            dashboardElement.addEventListener('error', function(event) {
+                console.error('❌ IBF Dashboard web component error:', event.detail);
+                self.showError('Dashboard failed to initialize: ' + (event.detail?.message || 'Unknown error'));
+            });
+            
+            // Listen for authentication events
+            dashboardElement.addEventListener('ibf-auth-ready', function(event) {
+                console.log('✅ IBF authentication ready event received:', event.detail);
+            });
+            
+            dashboardElement.addEventListener('ibf-auth-failed', function(event) {
+                console.error('❌ IBF authentication failed event received:', event.detail);
+                self.showError('Authentication failed: ' + (event.detail?.error || 'Unknown error'));
+            });
+            
+            // Listen for token refresh requests
+            dashboardElement.addEventListener('ibf-auth-refresh', function(event) {
+                console.log('🔄 IBF token refresh requested');
+                self.ibfAuth.refreshToken().then(function(token) {
+                    dashboardElement.setAttribute('auth-token', token);
+                    dashboardElement.authToken = token;
+                    console.log('✅ IBF token refreshed successfully');
+                }).catch(function(error) {
+                    console.error('❌ IBF token refresh failed:', error);
+                    self.showError('Token refresh failed: ' + (error.message || 'Unknown error'));
+                });
+            });
         },
 
         ensureFullHeight: function() {
@@ -454,6 +516,41 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
             if (dashboardContainer.length) dashboardContainer.hide();
             if (errorContainer.length) errorContainer.show();
             if (errorMessage.length) errorMessage.text(message);
+        },
+
+        showAuthError: function(message) {
+            console.error('IBF Authentication Error:', message);
+            const errorContainer = this.$el.find('#error-container');
+            const errorMessage = this.$el.find('#error-message');
+            
+            if (errorContainer.length) {
+                errorContainer.show();
+                if (errorMessage.length) {
+                    errorMessage.html(`
+                        <strong>Authentication Error</strong><br>
+                        ${message}<br><br>
+                        <button onclick="window.location.reload()">Retry Authentication</button>
+                        <button onclick="this.ibfAuth.clearTokenCache(); window.location.reload()">Clear Cache & Retry</button>
+                    `);
+                }
+            }
+        },
+
+        retryAuthentication: function() {
+            console.log('🔄 Retrying IBF authentication...');
+            const dashboardElement = this.$el.find('#ibf-dashboard-component')[0];
+            if (dashboardElement) {
+                this.ibfAuth.clearTokenCache();
+                this.ibfAuth.authenticateIbfDashboard(dashboardElement).then(function(success) {
+                    if (success) {
+                        console.log('✅ Retry authentication successful');
+                        window.location.reload(); // Reload to restart the dashboard
+                    } else {
+                        console.error('❌ Retry authentication failed');
+                        this.showAuthError('Retry authentication failed. Please check your credentials.');
+                    }
+                }.bind(this));
+            }
         },
 
         getHeader: function () {
@@ -564,5 +661,14 @@ define('ibf-dashboard:views/ibfdashboard', ['view'], function (Dep) {
         }
 
     });
-
+    
+    console.log('✅ IBF Dashboard view class created successfully');
+    
+}, function (error) {
+    console.error('❌ Failed to load IBF Dashboard dependencies:', error);
+    console.error('❌ Module loading error details:', {
+        message: error?.message,
+        stack: error?.stack,
+        timestamp: new Date().toISOString()
+    });
 });

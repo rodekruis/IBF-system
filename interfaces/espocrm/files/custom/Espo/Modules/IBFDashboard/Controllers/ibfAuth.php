@@ -5,142 +5,104 @@ namespace Espo\Modules\IBFDashboard\Controllers;
 use Espo\Core\Controllers\Base;
 use Espo\Core\Api\Request;
 use Espo\Core\ORM\EntityManager;
-use Espo\Core\Utils\Log;
 use Espo\Core\InjectableFactory;
+use Espo\Entities\User;
 
 class IbfAuth extends Base
 {
-    private EntityManager $entityManager;
-    private InjectableFactory $injectableFactory;
-
-    public function __construct(EntityManager $entityManager, InjectableFactory $injectableFactory)
+    protected function getEntityManager(): EntityManager
     {
-        $this->entityManager = $entityManager;
-        $this->injectableFactory = $injectableFactory;
+        return $this->getContainer()->getByClass(EntityManager::class);
     }
 
-    public function actionTest(): array
+    protected function getInjectableFactory(): InjectableFactory
     {
-        // Set CORS headers to allow cross-origin requests
-        $this->setCorsHeaders();
-        
-        $log = $GLOBALS['log'] ?? null;
-        if ($log) {
-            $log->info("[IBF-AUTH] Test endpoint called at " . date('Y-m-d H:i:s'));
-        }
-        return ['status' => 'Route working', 'timestamp' => date('Y-m-d H:i:s')];
+        return $this->getContainer()->getByClass(InjectableFactory::class);
     }
 
-    public function actionValidateToken(Request $request): array
+    public function actionGetToken(Request $request): array
     {
-        // Set CORS headers to allow cross-origin requests
-        $this->setCorsHeaders();
-        
-        // Handle preflight OPTIONS request
-        if ($request->getMethod() === 'OPTIONS') {
-            return ['status' => 'ok'];
-        }
-        
         $log = $GLOBALS['log'] ?? null;
         if ($log) {
-            $log->info("[IBF-AUTH] === Starting token validation process ===");
-            $log->debug("[IBF-AUTH] Request method: " . $request->getMethod());
+            $log->info("[IBF-AUTH] === Starting IBF token request ===");
         }
+        
         try {
-            // Handle both GET and POST safely
-            if ($request->getMethod() === 'POST') {
-                if ($log) $log->debug("[IBF-AUTH] Processing POST request");
-                $rawData = $request->getParsedBody();
-                $token = $rawData->token ?? null;
-                $userId = $rawData->userId ?? null;
-            } else {
-                if ($log) $log->debug("[IBF-AUTH] Processing GET request");
-                $token = $request->getQueryParam('token');
-                $userId = $request->getQueryParam('userId');
-            }
+            // Get current user from EspoCRM Base controller
+            $user = $this->getUser();
             
-            if ($log) $log->debug("[IBF-AUTH] Received parameters - Token: " . ($token ? substr($token, 0, 10) . '...' : 'null') . ", UserId: " . ($userId ?? 'null'));
-            
-            if (!$token || !$userId) {
-                if ($log) $log->warning("[IBF-AUTH] Missing required parameters - token: " . ($token ? 'provided' : 'missing') . ", userId: " . ($userId ? 'provided' : 'missing'));
-                return [
-                    'valid' => false,
-                    'error' => 'Token and userId are required'
-                ];
-            }
-            
-            if ($log) $log->debug("[IBF-AUTH] Validating EspoCRM token in database...");
-            $authToken = $this->entityManager
-                ->getRDBRepository('AuthToken')
-                ->where([
-                    'token' => $token,
-                    'userId' => $userId,
-                    'isActive' => true
-                ])
-                ->findOne();
-                
-            if (!$authToken) {
-                if ($log) $log->warning("[IBF-AUTH] EspoCRM token validation failed - token not found, inactive, or doesn't belong to user");
-                return [
-                    'valid' => false,
-                    'error' => 'Invalid token or token does not belong to specified user'
-                ];
-            }
-            
-            if ($log) $log->info("[IBF-AUTH] EspoCRM token validation successful");
-            if ($log) $log->debug("[IBF-AUTH] Fetching user record for userId: " . $userId);
-            
-            $user = $this->entityManager->getEntity('User', $userId);
             if (!$user) {
-                if ($log) $log->error("[IBF-AUTH] User not found in database for userId: " . $userId);
+                if ($log) $log->error("[IBF-AUTH] No authenticated user found in EspoCRM context");
                 return [
-                    'valid' => false,
-                    'error' => 'User not found'
+                    'success' => false,
+                    'error' => 'No authenticated user'
                 ];
             }
             
-            if ($log) $log->info("[IBF-AUTH] User found: " . $user->get('emailAddress') . " (" . $user->get('userName') . ")");
+            if ($log) $log->info("[IBF-AUTH] Getting IBF token for user: " . $user->get('emailAddress') . " (" . $user->get('userName') . ")");
             
-            // Look up the corresponding IBFUser record by userId
-            if ($log) $log->debug("[IBF-AUTH] Looking up IBFUser record for userId: " . $userId);
-            $ibfUser = $this->entityManager
-                ->getRDBRepository('IBFUser')
-                ->where([
-                    'userId' => $userId
-                ])
-                ->findOne();
-                
-            if (!$ibfUser) {
-                if ($log) $log->warning("[IBF-AUTH] No IBFUser record found for userId: " . $userId);
-                if ($log) $log->info("[IBF-AUTH] Creating new IBF user...");
-                $ibfToken = $this->createIbfUserAndGetToken($user, $log);
-            } else {
-                if ($log) $log->info("[IBF-AUTH] Found IBFUser record, attempting to get IBF token...");
-                $ibfToken = $this->getIbfApiTokenFromIbfUser($ibfUser, $log);
-            }
+            // Get IBF token for this user
+            $ibfToken = $this->getIbfApiToken($user, $log);
+            
             if (!$ibfToken) {
                 if ($log) $log->error("[IBF-AUTH] Failed to retrieve IBF API token");
                 return [
-                    'valid' => false,
+                    'success' => false,
                     'error' => 'Failed to retrieve IBF API token'
                 ];
             }
             
             if ($log) $log->info("[IBF-AUTH] IBF API token retrieved successfully");
-            if ($log) $log->info("[IBF-AUTH] === Token validation process completed successfully ===");
+            if ($log) $log->info("[IBF-AUTH] === IBF token request completed successfully ===");
             
             return [
-                'valid' => true,
-                'ibfToken' => $ibfToken
+                'success' => true,
+                'token' => $ibfToken
             ];
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-AUTH] Exception in actionValidateToken: " . $e->getMessage());
+            if ($log) $log->error("[IBF-AUTH] Exception in actionGetToken: " . $e->getMessage());
             if ($log) $log->error("[IBF-AUTH] Stack trace: " . $e->getTraceAsString());
             return [
-                'valid' => false,
-                'error' => 'Validation failed: ' . $e->getMessage()
+                'success' => false,
+                'error' => 'Token request failed: ' . $e->getMessage()
             ];
         }
+    }
+
+    public function actionTest(Request $request): array
+    {
+        $log = $GLOBALS['log'] ?? null;
+        if ($log) {
+            $log->info("[IBF-AUTH] Test endpoint called at " . date('Y-m-d H:i:s'));
+        }
+        
+        // Test user context
+        $user = $this->getUser();
+        $userInfo = 'No user';
+        if ($user) {
+            $userInfo = [
+                'id' => $user->getId(),
+                'email' => $user->get('emailAddress'),
+                'username' => $user->get('userName'),
+                'isAdmin' => $user->isAdmin()
+            ];
+        }
+        
+        return [
+            'status' => 'Route working', 
+            'timestamp' => date('Y-m-d H:i:s'),
+            'user' => $userInfo,
+            'requestMethod' => $request->getMethod(),
+            'hasSession' => !empty(session_id())
+        ];
+    }
+
+    private function getIbfUserForUser(string $userId)
+    {
+        return $this->getEntityManager()
+            ->getRDBRepository('IBFUser')
+            ->where(['userId' => $userId])
+            ->findOne();
     }
 
     private function getIbfApiToken($user, $log = null): ?string
@@ -149,7 +111,7 @@ class IbfAuth extends Base
             if ($log) $log->debug("[IBF-AUTH] Checking for existing IBF credentials in IBFUser entity...");
             
             // Look up the IBFUser record for this user
-            $ibfUser = $this->entityManager
+            $ibfUser = $this->getEntityManager()
                 ->getRDBRepository('IBFUser')
                 ->where([
                     'userId' => $user->getId()
@@ -162,17 +124,33 @@ class IbfAuth extends Base
             }
             
             $ibfEmail = $ibfUser->get('email');
-            $ibfPassword = $ibfUser->get('password');
+            $hashedPassword = $ibfUser->get('password');
 
-            if ($log) $log->info("[IBF-AUTH] IBF credentials check - Email: " . ($ibfEmail ? 'exists' : 'missing') . ", Password: " . ($ibfPassword ? 'exists' : 'missing'));
+            if ($log) $log->info("[IBF-AUTH] IBF credentials check - Email: " . ($ibfEmail ? 'exists' : 'missing') . ", Password: " . ($hashedPassword ? 'exists (hashed)' : 'missing'));
             
-            if (!$ibfEmail || !$ibfPassword) {
+            if (!$ibfEmail || !$hashedPassword) {
                 if ($log) $log->info("[IBF-AUTH] IBFUser record missing credentials, creating new IBF user...");
                 return $this->createIbfUserAndGetToken($user, $log);
             }
             
-            if ($log) $log->info("[IBF-AUTH] Found existing IBF credentials in IBFUser, attempting login...");
-            return $this->loginIbfUserAndGetToken($ibfEmail, $ibfPassword, $log);
+            // Check if password is already hashed (new format) or plain text (legacy)
+            if (password_get_info($hashedPassword)['algo'] !== null) {
+                // Password is hashed - need to regenerate for IBF API
+                if ($log) $log->info("[IBF-AUTH] Found hashed password, regenerating for IBF login...");
+                return $this->createIbfUserAndGetToken($user, $log);
+            } else {
+                // Legacy plain text password - use directly but upgrade to hashed storage
+                if ($log) $log->info("[IBF-AUTH] Found legacy plain text password, using for login and upgrading storage...");
+                $ibfPassword = $hashedPassword; // Actually plain text in legacy format
+                
+                // Try login first
+                $token = $this->loginIbfUserAndGetToken($ibfEmail, $ibfPassword, $log);
+                if ($token) {
+                    // Upgrade to hashed password storage
+                    $this->saveIbfCredentialsToUser($user, $ibfEmail, $ibfPassword, $log);
+                }
+                return $token;
+            }
         } catch (\Exception $e) {
             if ($log) $log->error("[IBF-AUTH] Exception in getIbfApiToken: " . $e->getMessage());
             return null;
@@ -208,7 +186,7 @@ class IbfAuth extends Base
             if ($log) $log->debug("[IBF-AUTH] Getting admin user credentials from IBFUser record...");
             
             // Get the admin user ID from IBF settings
-            $config = $this->injectableFactory->create('Espo\\Core\\Utils\\Config');
+            $config = $this->getInjectableFactory()->create('Espo\\Core\\Utils\\Config');
             $adminUserId = $config->get('ibfAdminUserId');
             
             if (!$adminUserId) {
@@ -219,7 +197,7 @@ class IbfAuth extends Base
             if ($log) $log->debug("[IBF-AUTH] Looking up IBFUser record for admin userId: " . $adminUserId);
             
             // Look up the IBFUser record for the admin user
-            $ibfUser = $this->entityManager
+            $ibfUser = $this->getEntityManager()
                 ->getRDBRepository('IBFUser')
                 ->where([
                     'userId' => $adminUserId
@@ -345,7 +323,7 @@ class IbfAuth extends Base
             }
             
             // Use configurable IBF backend API URL for user operations
-            $config = $this->injectableFactory->create('Espo\\Core\\Utils\\Config');
+            $config = $this->getInjectableFactory()->create('Espo\\Core\\Utils\\Config');
             $ibfBackendApiUrl = $config->get('ibfBackendApiUrl');
             $createUserUrl = $ibfBackendApiUrl . '/user';
             $postData = json_encode([
@@ -376,7 +354,7 @@ class IbfAuth extends Base
                 'whatsappNumber' => $whatsappNumber
             ]);
             
-            if ($log) $log->debug("[IBF-AUTH] Sending user creation request to IBF API: " . $ibfApiUrl);
+            if ($log) $log->debug("[IBF-AUTH] Sending user creation request to IBF API: " . $createUserUrl);
             if ($log) $log->debug("[IBF-AUTH] User creation payload: " . json_encode([
                 'email' => $ibfEmail,
                 'firstName' => $user->get('firstName') ?: 'EspoCRM',
@@ -455,7 +433,7 @@ class IbfAuth extends Base
             if ($log) $log->info("[IBF-AUTH] Attempting to update password for existing IBF user: " . $ibfEmail);
             
             // Use configurable IBF backend API URL for user operations
-            $config = $this->injectableFactory->create('Espo\\Core\\Utils\\Config');
+            $config = $this->getInjectableFactory()->create('Espo\\Core\\Utils\\Config');
             $ibfBackendApiUrl = $config->get('ibfBackendApiUrl');
             $changePasswordUrl = $ibfBackendApiUrl . '/user/change-password';
             $postData = json_encode([
@@ -525,7 +503,7 @@ class IbfAuth extends Base
             if ($log) $log->info("[IBF-AUTH] Starting IBF user login process for email: " . $ibfEmail);
             
             // Use configurable IBF backend API URL for authentication
-            $config = $this->injectableFactory->create('Espo\\Core\\Utils\\Config');
+            $config = $this->getInjectableFactory()->create('Espo\\Core\\Utils\\Config');
             $ibfBackendApiUrl = $config->get('ibfBackendApiUrl');
             $loginUrl = $ibfBackendApiUrl . '/user/login';
             $postData = json_encode([
@@ -666,61 +644,30 @@ class IbfAuth extends Base
     private function saveIbfCredentialsToUser($user, $ibfEmail, $ibfPassword, $log = null): bool
     {
         try {
-            if ($log) $log->debug("[IBF-AUTH] Attempting to save IBF credentials to user record...");
+            if ($log) $log->debug("[IBF-AUTH] Attempting to save IBF credentials to IBFUser entity...");
 
-            $user->set('cIbfEmail', $ibfEmail);
-            $user->set('cIBFpassword', $ibfPassword);
-            $this->entityManager->saveEntity($user);
+            // Create or update IBFUser record (dedicated entity for IBF credentials)
+            $ibfUser = $this->getEntityManager()
+                ->getRDBRepository('IBFUser')
+                ->where(['userId' => $user->getId()])
+                ->findOne();
+                
+            if (!$ibfUser) {
+                $ibfUser = $this->getEntityManager()->create('IBFUser');
+                $ibfUser->set('userId', $user->getId());
+            }
+            
+            $ibfUser->set('email', $ibfEmail);
+            // Hash the password before storing (security improvement)
+            $ibfUser->set('password', password_hash($ibfPassword, PASSWORD_ARGON2ID));
+            $this->getEntityManager()->saveEntity($ibfUser);
 
-            if ($log) $log->info("[IBF-AUTH] IBF credentials saved successfully for user: " . $user->get('id'));
+            if ($log) $log->info("[IBF-AUTH] IBF credentials saved securely to IBFUser entity for user: " . $user->get('id'));
             return true;
         } catch (Exception $e) {
             if ($log) $log->error("[IBF-AUTH] Exception in saveIbfCredentialsToUser: " . $e->getMessage());
             if ($log) $log->error("[IBF-AUTH] Stack trace: " . $e->getTraceAsString());
             return false;
         }
-    }
-
-
-
-    /**
-     * Set CORS headers to allow cross-origin requests from the configured IBF Dashboard URL
-     */
-    private function setCorsHeaders(): void
-    {
-        // Get the origin from the request
-        $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-        
-        // Get the configured IBF Dashboard URL from settings
-        $config = $this->injectableFactory->create('Espo\\Core\\Utils\\Config');
-        $configuredDashboardUrl = $config->get('ibfDashboardUrl');
-        
-        // Only allow the configured IBF Dashboard URL
-        if ($configuredDashboardUrl && $origin === rtrim($configuredDashboardUrl, '/')) {
-            // Allow the configured IBF Dashboard URL
-            header('Access-Control-Allow-Origin: ' . $origin);
-        } elseif ($configuredDashboardUrl) {
-            // Origin doesn't match - use configured URL as fallback
-            header('Access-Control-Allow-Origin: ' . rtrim($configuredDashboardUrl, '/'));
-        } else {
-            // No configured dashboard URL - deny request
-            header('Access-Control-Allow-Origin: null');
-            return;
-        }
-        
-        // Allow specific HTTP methods
-        header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-        
-        // Allow specific headers
-        header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept');
-        
-        // Allow credentials
-        header('Access-Control-Allow-Credentials: true');
-        
-        // Set max age for preflight cache
-        header('Access-Control-Max-Age: 86400'); // 24 hours
-        
-        // Set content type for JSON responses
-        header('Content-Type: application/json');
     }
 }

@@ -26,7 +26,16 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 export function tokenGetter() {
-  return localStorage.getItem('IBF-API-TOKEN');
+  console.log('🔍 DEBUG: tokenGetter() called for HTTP client');
+  const token = localStorage.getItem('IBF-API-TOKEN');
+  console.log('🔍 DEBUG: Token found in localStorage[IBF-API-TOKEN]:', !!token);
+  if (token) {
+    console.log('🔍 DEBUG: Token length:', token.length);
+    console.log('🔍 DEBUG: Token preview:', token.substring(0, 20) + '...');
+  } else {
+    console.log('⚠️ DEBUG: No token found - HTTP requests will not be authenticated');
+  }
+  return token;
 }
 
 // Helper function to detect if we're running in embedded mode
