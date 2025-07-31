@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 import fs from 'fs';
 
@@ -9,6 +9,7 @@ import { InterfaceScript } from './scripts.module';
 
 @Injectable()
 export class SeedAdminArea implements InterfaceScript {
+  private logger = new Logger('SeedAdminArea');
   private ADMIN_LEVELS = [1, 2, 3, 4];
 
   public constructor(private adminAreaService: AdminAreaService) {}
@@ -35,12 +36,19 @@ export class SeedAdminArea implements InterfaceScript {
       const adminJsonRaw = fs.readFileSync(fileName, 'utf-8');
       const adminJson = JSON.parse(adminJsonRaw);
 
-      await this.adminAreaService.addOrUpdateAdminAreas(
-        country.countryCodeISO3,
-        adminLevel,
-        adminJson,
-        true,
+      this.logger.log(
+        `Seed ${country.countryCodeISO3} admin areas level ${adminLevel}`,
       );
+      try {
+        await this.adminAreaService.addOrUpdateAdminAreas(
+          country.countryCodeISO3,
+          adminLevel,
+          adminJson,
+          true,
+        );
+      } catch (error) {
+        this.logger.warn(`Failed to seed file ${fileName}: ${error}`);
+      }
     }
   }
 }
