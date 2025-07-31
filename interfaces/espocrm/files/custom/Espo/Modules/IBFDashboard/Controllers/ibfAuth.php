@@ -22,36 +22,84 @@ class IbfAuth extends Base
 
     public function actionGetToken(Request $request): array
     {
+        // Enhanced logging - use both global log and error_log for debugging
         $log = $GLOBALS['log'] ?? null;
+        
+        // Always log to error_log for debugging when regular logging fails
+        error_log("[IBF-AUTH] === Starting IBF token request ===");
         if ($log) {
             $log->info("[IBF-AUTH] === Starting IBF token request ===");
         }
         
         try {
+            // Check configuration first
+            $config = $this->getInjectableFactory()->create('Espo\\Core\\Utils\\Config');
+            $ibfBackendApiUrl = $config->get('ibfBackendApiUrl');
+            $ibfAdminUserId = $config->get('ibfAdminUserId');
+            
+            error_log("[IBF-AUTH] Configuration check:");
+            error_log("[IBF-AUTH] - ibfBackendApiUrl: " . ($ibfBackendApiUrl ?: 'NOT SET'));
+            error_log("[IBF-AUTH] - ibfAdminUserId: " . ($ibfAdminUserId ?: 'NOT SET'));
+            
+            if ($log) {
+                $log->info("[IBF-AUTH] Configuration check:");
+                $log->info("[IBF-AUTH] - ibfBackendApiUrl: " . ($ibfBackendApiUrl ?: 'NOT SET'));
+                $log->info("[IBF-AUTH] - ibfAdminUserId: " . ($ibfAdminUserId ?: 'NOT SET'));
+            }
+            
+            if (!$ibfBackendApiUrl) {
+                $errorMsg = "[IBF-AUTH] IBF Backend API URL not configured - please set 'ibfBackendApiUrl' in EspoCRM configuration";
+                error_log($errorMsg);
+                if ($log) $log->error($errorMsg);
+                return [
+                    'success' => false,
+                    'error' => 'IBF Backend API URL not configured'
+                ];
+            }
+            
+            if (!$ibfAdminUserId) {
+                $errorMsg = "[IBF-AUTH] IBF Admin User ID not configured - please set 'ibfAdminUserId' in EspoCRM configuration";
+                error_log($errorMsg);
+                if ($log) $log->error($errorMsg);
+                return [
+                    'success' => false,
+                    'error' => 'IBF Admin User ID not configured'
+                ];
+            }
+            
             // Get current user from EspoCRM Base controller
             $user = $this->getUser();
             
             if (!$user) {
-                if ($log) $log->error("[IBF-AUTH] No authenticated user found in EspoCRM context");
+                $errorMsg = "[IBF-AUTH] No authenticated user found in EspoCRM context";
+                error_log($errorMsg);
+                if ($log) $log->error($errorMsg);
                 return [
                     'success' => false,
                     'error' => 'No authenticated user'
                 ];
             }
             
-            if ($log) $log->info("[IBF-AUTH] Getting IBF token for user: " . $user->get('emailAddress') . " (" . $user->get('userName') . ")");
+            $userEmail = $user->get('emailAddress');
+            $userName = $user->get('userName');
+            error_log("[IBF-AUTH] Getting IBF token for user: " . $userEmail . " (" . $userName . ")");
+            if ($log) $log->info("[IBF-AUTH] Getting IBF token for user: " . $userEmail . " (" . $userName . ")");
             
             // Get IBF token for this user
             $ibfToken = $this->getIbfApiToken($user, $log);
             
             if (!$ibfToken) {
-                if ($log) $log->error("[IBF-AUTH] Failed to retrieve IBF API token");
+                $errorMsg = "[IBF-AUTH] Failed to retrieve IBF API token - check getIbfApiToken method";
+                error_log($errorMsg);
+                if ($log) $log->error($errorMsg);
                 return [
                     'success' => false,
                     'error' => 'Failed to retrieve IBF API token'
                 ];
             }
             
+            error_log("[IBF-AUTH] IBF API token retrieved successfully");
+            error_log("[IBF-AUTH] === IBF token request completed successfully ===");
             if ($log) $log->info("[IBF-AUTH] IBF API token retrieved successfully");
             if ($log) $log->info("[IBF-AUTH] === IBF token request completed successfully ===");
             
@@ -60,8 +108,12 @@ class IbfAuth extends Base
                 'token' => $ibfToken
             ];
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-AUTH] Exception in actionGetToken: " . $e->getMessage());
-            if ($log) $log->error("[IBF-AUTH] Stack trace: " . $e->getTraceAsString());
+            $errorMsg = "[IBF-AUTH] Exception in actionGetToken: " . $e->getMessage();
+            $traceMsg = "[IBF-AUTH] Stack trace: " . $e->getTraceAsString();
+            error_log($errorMsg);
+            error_log($traceMsg);
+            if ($log) $log->error($errorMsg);
+            if ($log) $log->error($traceMsg);
             return [
                 'success' => false,
                 'error' => 'Token request failed: ' . $e->getMessage()
@@ -108,6 +160,7 @@ class IbfAuth extends Base
     private function getIbfApiToken($user, $log = null): ?string
     {
         try {
+            error_log("[IBF-AUTH] Starting getIbfApiToken for user: " . $user->getId());
             if ($log) $log->debug("[IBF-AUTH] Checking for existing IBF credentials in IBFUser entity...");
             
             // Look up the IBFUser record for this user
@@ -119,6 +172,7 @@ class IbfAuth extends Base
                 ->findOne();
                 
             if (!$ibfUser) {
+                error_log("[IBF-AUTH] No IBFUser record found, creating new IBF user...");
                 if ($log) $log->info("[IBF-AUTH] No IBFUser record found, creating new IBF user...");
                 return $this->createIbfUserAndGetToken($user, $log);
             }
@@ -126,9 +180,11 @@ class IbfAuth extends Base
             $ibfEmail = $ibfUser->get('email');
             $hashedPassword = $ibfUser->get('password');
 
+            error_log("[IBF-AUTH] IBF credentials check - Email: " . ($ibfEmail ? 'exists' : 'missing') . ", Password: " . ($hashedPassword ? 'exists (hashed)' : 'missing'));
             if ($log) $log->info("[IBF-AUTH] IBF credentials check - Email: " . ($ibfEmail ? 'exists' : 'missing') . ", Password: " . ($hashedPassword ? 'exists (hashed)' : 'missing'));
             
             if (!$ibfEmail || !$hashedPassword) {
+                error_log("[IBF-AUTH] IBFUser record missing credentials, creating new IBF user...");
                 if ($log) $log->info("[IBF-AUTH] IBFUser record missing credentials, creating new IBF user...");
                 return $this->createIbfUserAndGetToken($user, $log);
             }
@@ -136,10 +192,12 @@ class IbfAuth extends Base
             // Check if password is already hashed (new format) or plain text (legacy)
             if (password_get_info($hashedPassword)['algo'] !== null) {
                 // Password is hashed - need to regenerate for IBF API
+                error_log("[IBF-AUTH] Found hashed password, regenerating for IBF login...");
                 if ($log) $log->info("[IBF-AUTH] Found hashed password, regenerating for IBF login...");
                 return $this->createIbfUserAndGetToken($user, $log);
             } else {
                 // Legacy plain text password - use directly but upgrade to hashed storage
+                error_log("[IBF-AUTH] Found legacy plain text password, using for login and upgrading storage...");
                 if ($log) $log->info("[IBF-AUTH] Found legacy plain text password, using for login and upgrading storage...");
                 $ibfPassword = $hashedPassword; // Actually plain text in legacy format
                 
@@ -152,6 +210,8 @@ class IbfAuth extends Base
                 return $token;
             }
         } catch (\Exception $e) {
+            error_log("[IBF-AUTH] Exception in getIbfApiToken: " . $e->getMessage());
+            error_log("[IBF-AUTH] Stack trace: " . $e->getTraceAsString());
             if ($log) $log->error("[IBF-AUTH] Exception in getIbfApiToken: " . $e->getMessage());
             return null;
         }
@@ -183,6 +243,7 @@ class IbfAuth extends Base
     private function getAdminUserCredentialsInIBF($log = null): ?string
     {
         try {
+            error_log("[IBF-AUTH] Getting admin user credentials from IBFUser record...");
             if ($log) $log->debug("[IBF-AUTH] Getting admin user credentials from IBFUser record...");
             
             // Get the admin user ID from IBF settings
@@ -190,10 +251,12 @@ class IbfAuth extends Base
             $adminUserId = $config->get('ibfAdminUserId');
             
             if (!$adminUserId) {
+                error_log("[IBF-AUTH] No admin user configured in IBF settings");
                 if ($log) $log->error("[IBF-AUTH] No admin user configured in IBF settings");
                 return null;
             }
             
+            error_log("[IBF-AUTH] Looking up IBFUser record for admin userId: " . $adminUserId);
             if ($log) $log->debug("[IBF-AUTH] Looking up IBFUser record for admin userId: " . $adminUserId);
             
             // Look up the IBFUser record for the admin user
@@ -205,6 +268,7 @@ class IbfAuth extends Base
                 ->findOne();
                 
             if (!$ibfUser) {
+                error_log("[IBF-AUTH] No IBFUser record found for admin userId: " . $adminUserId);
                 if ($log) $log->error("[IBF-AUTH] No IBFUser record found for admin userId: " . $adminUserId);
                 return null;
             }
@@ -213,6 +277,10 @@ class IbfAuth extends Base
             $ibfPassword = $ibfUser->get('password');
 
             if (!$ibfEmail || !$ibfPassword) {
+                error_log("[IBF-AUTH] IBF admin credentials missing in IBFUser record");
+                if (!$ibfEmail) error_log("[IBF-AUTH] Missing email in IBFUser record");
+                if (!$ibfPassword) error_log("[IBF-AUTH] Missing password in IBFUser record");
+                
                 if ($log) {
                     $log->error("[IBF-AUTH] IBF admin credentials missing in IBFUser record");
                     if (!$ibfEmail) $log->error("[IBF-AUTH] Missing email in IBFUser record");
@@ -221,6 +289,35 @@ class IbfAuth extends Base
                 return null;
             }
 
+            // Check if password is hashed (new format) or plain text (legacy)
+            $passwordInfo = password_get_info($ibfPassword);
+            if ($passwordInfo['algo'] !== null) {
+                // Password is hashed - we can't use it for API login
+                error_log("[IBF-AUTH] Admin password is hashed and cannot be used for API login");
+                error_log("[IBF-AUTH] SOLUTION: Please reset the admin user's IBF password to plain text in the IBFUser entity");
+                error_log("[IBF-AUTH] Admin email: " . $ibfEmail . " (userId: " . $adminUserId . ")");
+                
+                if ($log) {
+                    $log->error("[IBF-AUTH] Admin password is hashed and cannot be used for API login");
+                    $log->error("[IBF-AUTH] SOLUTION: Please reset the admin user's IBF password to plain text in the IBFUser entity");
+                    $log->error("[IBF-AUTH] Admin email: " . $ibfEmail . " (userId: " . $adminUserId . ")");
+                }
+                
+                // Try to use a fallback approach - check if there's a plain text admin password in config
+                $adminPassword = $config->get('ibfAdminPassword');
+                if ($adminPassword) {
+                    error_log("[IBF-AUTH] Found fallback admin password in config, attempting login...");
+                    if ($log) $log->info("[IBF-AUTH] Found fallback admin password in config, attempting login...");
+                    $ibfPassword = $adminPassword;
+                } else {
+                    error_log("[IBF-AUTH] No fallback admin password found in config (ibfAdminPassword)");
+                    if ($log) $log->error("[IBF-AUTH] No fallback admin password found in config (ibfAdminPassword)");
+                    return null;
+                }
+            }
+
+            error_log("[IBF-AUTH] Retrieved admin credentials from IBFUser, attempting login...");
+            error_log("[IBF-AUTH] Admin email: " . $ibfEmail);
             if ($log) $log->debug("[IBF-AUTH] Retrieved admin credentials from IBFUser, attempting login...");
             if ($log) $log->debug("[IBF-AUTH] Admin email: " . $ibfEmail);
 
@@ -233,6 +330,7 @@ class IbfAuth extends Base
             ];
             $postData = json_encode($loginData);
             
+            error_log("[IBF-AUTH] Sending login request to: " . $loginUrl);
             if ($log) $log->debug("[IBF-AUTH] Sending login request to: " . $loginUrl);
             if ($log) $log->debug("[IBF-AUTH] Login payload: " . json_encode(['email' => $ibfEmail, 'password' => '[REDACTED]']));
             
@@ -252,15 +350,41 @@ class IbfAuth extends Base
             $curlError = curl_error($curl);
             curl_close($curl);
 
+            error_log("[IBF-AUTH] Admin login response - HTTP Code: " . $httpCode);
             if ($log) $log->debug("[IBF-AUTH] Admin login response - HTTP Code: " . $httpCode);
-            if ($curlError && $log) {
-                $log->error("[IBF-AUTH] CURL Error during admin login: " . $curlError);
+            if ($curlError) {
+                error_log("[IBF-AUTH] CURL Error during admin login: " . $curlError);
+                if ($log) $log->error("[IBF-AUTH] CURL Error during admin login: " . $curlError);
             }
-            if ($response && $log) {
-                $log->debug("[IBF-AUTH] Admin login response body: " . $response);
+            if ($response) {
+                error_log("[IBF-AUTH] Admin login response body: " . $response);
+                if ($log) $log->debug("[IBF-AUTH] Admin login response body: " . $response);
             }
 
             if (($httpCode !== 200 && $httpCode !== 201) || !$response) {
+                error_log("[IBF-AUTH] Failed to get admin credentials from IBF API - HTTP Code: " . $httpCode);
+                if ($response) {
+                    error_log("[IBF-AUTH] Error response body: " . $response);
+                    // Try to parse error response for more details
+                    $errorData = json_decode($response, true);
+                    if ($errorData && isset($errorData['message'])) {
+                        error_log("[IBF-AUTH] IBF API Error: " . $errorData['message']);
+                    }
+                } else {
+                    error_log("[IBF-AUTH] No response body received");
+                }
+                if ($curlError) {
+                    error_log("[IBF-AUTH] cURL Error: " . $curlError);
+                }
+                
+                // Provide specific troubleshooting based on error code
+                if ($httpCode === 401) {
+                    error_log("[IBF-AUTH] ==> TROUBLESHOOTING: HTTP 401 Unauthorized means the admin credentials are invalid");
+                    error_log("[IBF-AUTH] ==> SOLUTION 1: Update the IBFUser record for userId " . $adminUserId . " with correct plain text password");
+                    error_log("[IBF-AUTH] ==> SOLUTION 2: Add 'ibfAdminPassword' configuration with correct password");
+                    error_log("[IBF-AUTH] ==> SOLUTION 3: Reset password for admin user " . $ibfEmail . " in IBF backend");
+                }
+                
                 if ($log) {
                     $log->error("[IBF-AUTH] Failed to get admin credentials from IBF API - HTTP Code: " . $httpCode);
                     if ($response) {
@@ -284,14 +408,18 @@ class IbfAuth extends Base
             $ibfToken = $responseData['user']['token'] ?? null;
 
             if (!$ibfToken) {
+                error_log("[IBF-AUTH] No token received from IBF API admin login");
                 if ($log) $log->error("[IBF-AUTH] No token received from IBF API admin login");
                 return null;
             }
 
+            error_log("[IBF-AUTH] Successfully retrieved IBF token for admin user: " . $ibfEmail);
             if ($log) $log->debug("[IBF-AUTH] Successfully retrieved IBF token for admin user: " . $ibfEmail);
             return $ibfToken;
 
         } catch (\Exception $e) {
+            error_log("[IBF-AUTH] Exception in getAdminUserCredentialsInIBF: " . $e->getMessage());
+            error_log("[IBF-AUTH] Stack trace: " . $e->getTraceAsString());
             if ($log) $log->error("[IBF-AUTH] Exception in getAdminUserCredentialsInIBF: " . $e->getMessage());
             return null;
         }
@@ -300,27 +428,37 @@ class IbfAuth extends Base
     private function createIbfUserAndGetToken($user, $log = null): ?string
     {
         try {
+            error_log("[IBF-AUTH] Starting IBF user creation process...");
             if ($log) $log->info("[IBF-AUTH] Starting IBF user creation process...");
             
             $ibfEmail = $user->get('emailAddress');
             if (!$ibfEmail) {
-                if ($log) $log->error("[IBF-AUTH] User has no email address, cannot create IBF account for user: " . $user->get('id'));
+                $errorMsg = "[IBF-AUTH] User has no email address, cannot create IBF account for user: " . $user->get('id');
+                error_log($errorMsg);
+                if ($log) $log->error($errorMsg);
                 return null;
             }
             
+            error_log("[IBF-AUTH] Creating IBF user with email: " . $ibfEmail);
             if ($log) $log->info("[IBF-AUTH] Creating IBF user with email: " . $ibfEmail);
             $ibfPassword = $this->generateSecurePassword(20);
+            error_log("[IBF-AUTH] Generated secure password for IBF user");
             if ($log) $log->debug("[IBF-AUTH] Generated secure password for IBF user");
             
             // Extract WhatsApp number from phone data
             $whatsappNumber = $this->extractWhatsAppNumber($user, $log);
             
             // Get admin token for user creation
+            error_log("[IBF-AUTH] Getting admin token for user creation...");
             $adminToken = $this->getAdminUserCredentialsInIBF($log);
             if (!$adminToken) {
-                if ($log) $log->error("[IBF-AUTH] Failed to get admin token for user creation");
+                $errorMsg = "[IBF-AUTH] Failed to get admin token for user creation";
+                error_log($errorMsg);
+                if ($log) $log->error($errorMsg);
                 return null;
             }
+            
+            error_log("[IBF-AUTH] Admin token acquired successfully");
             
             // Use configurable IBF backend API URL for user operations
             $config = $this->getInjectableFactory()->create('Espo\\Core\\Utils\\Config');
@@ -354,6 +492,7 @@ class IbfAuth extends Base
                 'whatsappNumber' => $whatsappNumber
             ]);
             
+            error_log("[IBF-AUTH] Sending user creation request to IBF API: " . $createUserUrl);
             if ($log) $log->debug("[IBF-AUTH] Sending user creation request to IBF API: " . $createUserUrl);
             if ($log) $log->debug("[IBF-AUTH] User creation payload: " . json_encode([
                 'email' => $ibfEmail,
@@ -385,16 +524,20 @@ class IbfAuth extends Base
             $curlError = curl_error($ch);
             curl_close($ch);
             
+            error_log("[IBF-AUTH] IBF API user creation response - HTTP Code: " . $httpCode);
             if ($log) $log->info("[IBF-AUTH] IBF API user creation response - HTTP Code: " . $httpCode);
-            if ($curlError && $log) {
-                $log->error("[IBF-AUTH] CURL Error: " . $curlError);
+            if ($curlError) {
+                error_log("[IBF-AUTH] CURL Error: " . $curlError);
+                if ($log) $log->error("[IBF-AUTH] CURL Error: " . $curlError);
             }
             
             if ($httpCode !== 201) {
+                error_log("[IBF-AUTH] IBF API user creation failed with HTTP code: " . $httpCode . " Response: " . $response);
                 if ($log) $log->error("[IBF-AUTH] IBF API user creation failed with HTTP code: " . $httpCode . " Response: " . $response);
                 
                 // Check if user already exists (HTTP 409 or similar error)
                 if ($httpCode === 409 || ($response && (strpos($response, 'Email must be unique') !== false || strpos($response, 'duplicate') !== false))) {
+                    error_log("[IBF-AUTH] User already exists in IBF, attempting to update password...");
                     if ($log) $log->info("[IBF-AUTH] User already exists in IBF, attempting to update password...");
                     return $this->updateExistingIbfUserPassword($user, $ibfEmail, $ibfPassword, $adminToken, $log);
                 }
@@ -402,25 +545,32 @@ class IbfAuth extends Base
                 return null;
             }
             
+            error_log("[IBF-AUTH] IBF API user creation successful, parsing response...");
             if ($log) $log->debug("[IBF-AUTH] IBF API user creation successful, parsing response...");
             $responseData = json_decode($response, true);
             
             if (!$responseData || !isset($responseData['user']['token'])) {
+                error_log("[IBF-AUTH] IBF API user creation response missing token: " . $response);
                 if ($log) $log->error("[IBF-AUTH] IBF API user creation response missing token: " . $response);
                 return null;
             }
             
+            error_log("[IBF-AUTH] IBF token received from user creation, saving credentials to EspoCRM...");
             if ($log) $log->info("[IBF-AUTH] IBF token received from user creation, saving credentials to EspoCRM...");
             $saveResult = $this->saveIbfCredentialsToUser($user, $ibfEmail, $ibfPassword, $log);
             
-            if (!$saveResult && $log) {
-                $log->warning("[IBF-AUTH] Failed to save IBF credentials, but continuing with token");
+            if (!$saveResult) {
+                error_log("[IBF-AUTH] Failed to save IBF credentials, but continuing with token");
+                if ($log) $log->warning("[IBF-AUTH] Failed to save IBF credentials, but continuing with token");
             }
             
+            error_log("[IBF-AUTH] IBF user creation process completed successfully");
             if ($log) $log->info("[IBF-AUTH] IBF user creation process completed successfully");
             return $responseData['user']['token'];
             
         } catch (\Exception $e) {
+            error_log("[IBF-AUTH] Exception in createIbfUserAndGetToken: " . $e->getMessage());
+            error_log("[IBF-AUTH] Stack trace: " . $e->getTraceAsString());
             if ($log) $log->error("[IBF-AUTH] Exception in createIbfUserAndGetToken: " . $e->getMessage());
             if ($log) $log->error("[IBF-AUTH] Stack trace: " . $e->getTraceAsString());
             return null;

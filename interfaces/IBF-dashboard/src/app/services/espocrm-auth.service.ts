@@ -158,4 +158,20 @@ export class EspoCrmAuthService {
       console.log('❌ Notified EspoCRM of auth failure:', error);
     }
   }
+
+  notifyTokenRequired(): void {
+    // Notify EspoCRM that a proper JWT token is required
+    const dashboardElement = document.querySelector('ibf-dashboard');
+    if (dashboardElement) {
+      const event = new CustomEvent('ibf-jwt-token-required', {
+        detail: { 
+          message: 'EspoCRM must provide a valid JWT token from IBF backend API for proper authentication',
+          currentTokenType: 'base64',
+          requiredTokenType: 'jwt'
+        }
+      });
+      dashboardElement.dispatchEvent(event);
+      console.log('🚨 Notified EspoCRM that JWT token is required for proper functionality');
+    }
+  }
 }

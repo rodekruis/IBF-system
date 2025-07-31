@@ -8,6 +8,7 @@ import {
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { PlatformDetectionService } from 'src/app/services/platform-detection.service';
+import { EspoCrmAuthService } from 'src/app/services/espocrm-auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthGuard {
@@ -15,6 +16,7 @@ export class AuthGuard {
     private router: Router,
     private authService: AuthService,
     private platformDetectionService: PlatformDetectionService,
+    private espoCrmAuth: EspoCrmAuthService,
   ) {}
 
   canActivate(
@@ -30,8 +32,21 @@ export class AuthGuard {
     return this.checkLogin(url);
   }
 
-  checkLogin(url: string): boolean {
-    // Bypass authentication in embedded mode
+  checkLogin(url: string): boolean | Observable<boolean> {
+    // For EspoCRM embedded mode, wait for authentication to complete
+    if (this.espoCrmAuth.isEmbeddedInEspoCrm()) {
+      console.log('🔐 AuthGuard: EspoCRM mode detected, checking authentication state');
+      if (this.espoCrmAuth.isAuthenticated()) {
+        console.log('🔐 AuthGuard: EspoCRM authenticated, allowing access');
+        return true;
+      } else {
+        console.log('🔐 AuthGuard: EspoCRM not yet authenticated, waiting...');
+        // Return observable that resolves when authentication is ready
+        return this.espoCrmAuth.isAuthenticated$;
+      }
+    }
+
+    // Bypass authentication in other embedded modes
     if (this.platformDetectionService.isEmbeddedMode()) {
       return true;
     }

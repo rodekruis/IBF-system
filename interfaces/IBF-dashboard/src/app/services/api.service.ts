@@ -9,6 +9,7 @@ import { User } from 'src/app/models/user/user.model';
 import { ActivationLogRecord } from 'src/app/pages/dashboard/activation-log/activation.log.page';
 import { Event } from 'src/app/services/event.service';
 import { JwtService } from 'src/app/services/jwt.service';
+import { EspoCrmAuthService } from 'src/app/services/espocrm-auth.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { AggregateRecord } from 'src/app/types/aggregate';
 import { AlertArea } from 'src/app/types/alert-area';
@@ -26,6 +27,7 @@ export class ApiService {
   constructor(
     private jwtService: JwtService,
     private http: HttpClient,
+    private espoCrmAuth: EspoCrmAuthService,
   ) {}
 
   private showSecurity(anonymous: boolean) {
@@ -43,10 +45,45 @@ export class ApiService {
     });
 
     if (!anonymous) {
-      // Use environment token if available, otherwise fallback to JWT service
-      const token = environment.apiToken || this.jwtService.getToken();
+      // Priority order for token selection:
+      // 1. Environment token (if not in EspoCRM embedded mode)
+      // 2. EspoCRM provided JWT token 
+      // 3. JWT service token
+      
+      let token = null;
+      
+      // Use environment token if available and not in EspoCRM embedded mode (for security)
+      if (environment.apiToken && !this.espoCrmAuth.isEmbeddedInEspoCrm()) {
+        token = environment.apiToken;
+        console.log('🔐 Using environment token for API calls');
+      }
+      // Check for EspoCRM provided token first
+      else if (this.espoCrmAuth.isEmbeddedInEspoCrm() && this.espoCrmAuth.isAuthenticated()) {
+        const espoCrmToken = this.espoCrmAuth.getToken();
+        if (espoCrmToken && espoCrmToken.split('.').length === 3) {
+          token = espoCrmToken;
+          console.log('🔐 Using EspoCRM provided JWT token for API calls');
+        } else {
+          console.warn('⚠️ EspoCRM token is not a valid JWT, falling back to JWT service');
+          token = this.jwtService.getToken();
+        }
+      }
+      // Fallback to JWT service token
+      else {
+        token = this.jwtService.getToken();
+        if (token) {
+          console.log('🔐 Using JWT service token for API calls');
+        }
+      }
+      
       if (token) {
         return headers.set('Authorization', `Bearer ${token}`);
+      } else {
+        console.warn('⚠️ No valid authentication token available for API call');
+        if (this.espoCrmAuth.isEmbeddedInEspoCrm()) {
+          console.warn('⚠️ EspoCRM embedded mode detected but no valid JWT token available');
+          console.warn('🚨 API calls will likely fail - EspoCRM must provide a valid JWT token from IBF backend');
+        }
       }
     }
 

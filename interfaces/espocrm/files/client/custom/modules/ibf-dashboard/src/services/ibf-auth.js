@@ -49,12 +49,8 @@ define('ibf-dashboard:services/ibf-auth', ['ajax'], function (Ajax) {
                             resolve(token);
                         })
                         .catch(function(error) {
-                            console.warn('⚠️ Failed to acquire IBF token from EspoCRM controller:', error.message);
-                            // For development/testing, create a temporary token
-                            // This should be removed in production
-                            var tempToken = self.createTemporaryToken(user);
-                            console.log('🔄 Using temporary token for testing');
-                            resolve(tempToken);
+                            console.error('❌ Failed to acquire IBF token from EspoCRM controller:', error.message);
+                            reject(error);
                         });
                     
                 } catch (error) {
@@ -91,24 +87,6 @@ define('ibf-dashboard:services/ibf-auth', ['ajax'], function (Ajax) {
                         reject(error);
                     });
             });
-        },
-
-        /**
-         * Create a temporary token for testing (should be removed in production)
-         */
-        createTemporaryToken: function(user) {
-            var tokenData = {
-                platform: 'espocrm',
-                userId: user.id,
-                userName: user.get('userName') || user.get('name'),
-                email: user.get('emailAddress'),
-                timestamp: Date.now(),
-                expires: Date.now() + this.tokenExpiration
-            };
-            
-            var tempToken = btoa(JSON.stringify(tokenData));
-            console.log('🔧 Created temporary token:', tempToken.substring(0, 20) + '...');
-            return tempToken;
         },
 
         /**
