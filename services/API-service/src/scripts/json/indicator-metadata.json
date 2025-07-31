@@ -13,8 +13,54 @@
       "SSD": { "floods": ["map"] },
       "UGA": { "drought": ["map"], "floods": ["map"] },
       "ZMB": { "drought": ["map"], "floods": ["map"] },
-      "ZWE": { "drought": ["map"] },
-      "LSO": { "drought": ["map"] }
+      "ZWE": { "floods": ["map"], "drought": ["map"] },
+      "LSO": { "floods": ["map"], "drought": ["map"] },
+      "AGO": { "floods": ["map"] },
+      "BDI": { "floods": ["map"] },
+      "BEN": { "floods": ["map"] },
+      "BFA": { "floods": ["map"] },
+      "BWA": { "floods": ["map"] },
+      "CAF": { "floods": ["map"] },
+      "CIV": { "floods": ["map"] },
+      "CMR": { "floods": ["map"] },
+      "COD": { "floods": ["map"] },
+      "COG": { "floods": ["map"] },
+      "COM": { "floods": ["map"] },
+      "CPV": { "floods": ["map"] },
+      "DJI": { "floods": ["map"] },
+      "DZA": { "floods": ["map"] },
+      "EGY": { "floods": ["map"] },
+      "ERI": { "floods": ["map"] },
+      "GAB": { "floods": ["map"] },
+      "GHA": { "floods": ["map"] },
+      "GIN": { "floods": ["map"] },
+      "GMB": { "floods": ["map"] },
+      "GNB": { "floods": ["map"] },
+      "GNQ": { "floods": ["map"] },
+      "LBR": { "floods": ["map"] },
+      "LBY": { "floods": ["map"] },
+      "MAR": { "floods": ["map"] },
+      "MDG": { "floods": ["map"] },
+      "MLI": { "floods": ["map"] },
+      "MOZ": { "floods": ["map"] },
+      "MRT": { "floods": ["map"] },
+      "MUS": { "floods": ["map"] },
+      "NAM": { "floods": ["map"] },
+      "NER": { "floods": ["map"] },
+      "NGA": { "floods": ["map"] },
+      "RWA": { "floods": ["map"] },
+      "SDN": { "floods": ["map"] },
+      "SEN": { "floods": ["map"] },
+      "SLE": { "floods": ["map"] },
+      "SOM": { "floods": ["map"] },
+      "STP": { "floods": ["map"] },
+      "SWZ": { "floods": ["map"] },
+      "SYC": { "floods": ["map"] },
+      "TCD": { "floods": ["map"] },
+      "TGO": { "floods": ["map"] },
+      "TUN": { "floods": ["map"] },
+      "TZA": { "floods": ["map"] },
+      "ZAF": { "floods": ["map"] }
     },
     "name": "trigger",
     "label": "Area triggered",
@@ -39,7 +85,10 @@
         "drought": "The layer shows each county within the Northern and Eastern Livelihood zones trigged based on two parameters; the 3-month average Vegetation Condition Index (VCI3M) and the 3-month Standardised Precipitation Index (SPI3). An alert is given, if the VCI value drops below 30% with at least a 33% chance of exceedance. VCI is supplemented by the SPI Forecast from KMD with a threshold value below -0.98 and a 30% probability of exceedance. The lead-time of the forecast is up to 12 weeks.<br/><br/>Source: Kenya Meteorological Department (KMD), Regional Centre for Mapping of Resources for Development (RCMRD), and TAMSAT ALERT (University of Reading)",
         "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
       },
-      "LSO": { "drought": "TBD" },
+      "LSO": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>",
+        "drought": "TBD"
+      },
       "MWI": {
         "flash-floods": "No information available.",
         "floods": "The layer shows each administrative area triggered based on two parameters from the 6-days GloFAS forecast on a daily basis at 10:35 CET: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 60% probability of occurrence of a 5 year return period flood within the next 6 days. The GloFAS flood forecast triggers except in the Traditional Areas where the False Alarm Ratio (FAR) exceeds the predetermined maximum value which is 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
@@ -60,7 +109,146 @@
         "floods": "The trigger is activated if the daily issued GLOFAS forecast reports a water discharge that exceeds the threshold corresponding to a 10y return period flood in one or more GLOFAS stations. The EAP will be triggered with a lead time of 7 days."
       },
       "ZWE": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>",
         "drought": "The layer shows each province in the country with a drought risk at the end of the growing season (April), and as such determine which provinces are triggered when at least one of their districts is expected to face a +/- 6 year return period drought.<br/><br/>The drought model is to assess a drought prediction skill of the 3-month running average Ni&ntilde;o 3.4 values and initiates a drought risk when there is a potential negative crop yield anomaly predicted. The model is developed based on the XGBoost algorithm tested and trained with historical ENSO: Seasonal ERSSTv5 and CHIRPS Rainfall data in relation to historical negative crop yield anomalies in April, which is used as drought impact proxy. Loss of crops, livestock loss, and child malnutrition and stunting are indicated by the ZRCS DRM working group and representatives from IFRC, PNS, and Red Cross Climate Centre (RCCC) as targeted drought impact.<br/><br/>Source: <a target='_blank' href='https://www.cpc.ncep.noaa.gov/data/indices/3mth.nino34.91-20.ascii.txt'>ENSO: Seasonal ERSSTv5 (1991-2020 base period) 3-month running average in Ni&ntilde;o 3.4 (5oNorth-5oSouth) (170-120oWest))</a><br/><br/><a target='_blank' href='https://www.chc.ucsb.edu/data/chirps'>CHIRPS: Rainfall Estimates from Rain Gauge and Satellite Observations | Climate Hazards Center - UC Santa Barbara.</a><br/><br/>Source (Crop Yield Data): <a target='_blank' href='https://doi.org/10.1594/PANGAEA.909132'>Izumi, Toshichika (2019): Global dataset of historical yields v1.2 and v1.3 aligned version. PANGAEA</a>, Supplement to <a target='_blank' href='https://doi.org/10.1038/s41597-020-0433-7'>Iizumi, Toshichika; Sakai, T (2020): The global dataset of historical yields for major crops 1981&ndash;2016. Scientific Data, 7(1)</a>"
+      },
+      "AGO": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "BDI": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "BEN": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "BFA": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "BWA": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "CAF": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "CIV": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "CMR": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "COD": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "COG": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "COM": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "CPV": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "DJI": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "DZA": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "EGY": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "ERI": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "GAB": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "GHA": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "GIN": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "GMB": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "GNB": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "GNQ": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "LBR": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "LBY": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "MAR": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "MDG": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "MLI": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "MOZ": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "MRT": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "MUS": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "NAM": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "NER": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "NGA": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "RWA": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "SDN": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "SEN": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "SLE": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "SOM": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "STP": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "SWZ": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "SYC": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "TCD": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "TGO": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "TUN": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "TZA": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
+      },
+      "ZAF": {
+        "floods": "The layer shows each county triggered based on two parameters from the 7-days GLOFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 85% probability of occurrence of a 5 year return period flood within the next 7 days. The GLOFAS flood forecast triggers except in the wards where the False Alarm Ratio (RAR) > 0.5.<br/><br/>Source: <a target='_blank' href='https://www.globalfloods.eu'>Global Foods</a>"
       }
     }
   },
@@ -89,8 +277,60 @@
         "drought": ["map", "aggregate"],
         "floods": ["map", "aggregate"]
       },
-      "ZWE": { "drought": ["map", "aggregate"] },
-      "LSO": { "drought": ["map", "aggregate"] }
+      "ZWE": {
+        "floods": ["map", "aggregate"],
+        "drought": ["map", "aggregate"]
+      },
+      "LSO": {
+        "floods": ["map", "aggregate"],
+        "drought": ["map", "aggregate"]
+      },
+      "AGO": { "floods": ["map", "aggregate"] },
+      "BDI": { "floods": ["map", "aggregate"] },
+      "BEN": { "floods": ["map", "aggregate"] },
+      "BFA": { "floods": ["map", "aggregate"] },
+      "BWA": { "floods": ["map", "aggregate"] },
+      "CAF": { "floods": ["map", "aggregate"] },
+      "CIV": { "floods": ["map", "aggregate"] },
+      "CMR": { "floods": ["map", "aggregate"] },
+      "COD": { "floods": ["map", "aggregate"] },
+      "COG": { "floods": ["map", "aggregate"] },
+      "COM": { "floods": ["map", "aggregate"] },
+      "CPV": { "floods": ["map", "aggregate"] },
+      "DJI": { "floods": ["map", "aggregate"] },
+      "DZA": { "floods": ["map", "aggregate"] },
+      "EGY": { "floods": ["map", "aggregate"] },
+      "ERI": { "floods": ["map", "aggregate"] },
+      "GAB": { "floods": ["map", "aggregate"] },
+      "GHA": { "floods": ["map", "aggregate"] },
+      "GIN": { "floods": ["map", "aggregate"] },
+      "GMB": { "floods": ["map", "aggregate"] },
+      "GNB": { "floods": ["map", "aggregate"] },
+      "GNQ": { "floods": ["map", "aggregate"] },
+      "LBR": { "floods": ["map", "aggregate"] },
+      "LBY": { "floods": ["map", "aggregate"] },
+      "MAR": { "floods": ["map", "aggregate"] },
+      "MDG": { "floods": ["map", "aggregate"] },
+      "MLI": { "floods": ["map", "aggregate"] },
+      "MOZ": { "floods": ["map", "aggregate"] },
+      "MRT": { "floods": ["map", "aggregate"] },
+      "MUS": { "floods": ["map", "aggregate"] },
+      "NAM": { "floods": ["map", "aggregate"] },
+      "NER": { "floods": ["map", "aggregate"] },
+      "NGA": { "floods": ["map", "aggregate"] },
+      "RWA": { "floods": ["map", "aggregate"] },
+      "SDN": { "floods": ["map", "aggregate"] },
+      "SEN": { "floods": ["map", "aggregate"] },
+      "SLE": { "floods": ["map", "aggregate"] },
+      "SOM": { "floods": ["map", "aggregate"] },
+      "STP": { "floods": ["map", "aggregate"] },
+      "SWZ": { "floods": ["map", "aggregate"] },
+      "SYC": { "floods": ["map", "aggregate"] },
+      "TCD": { "floods": ["map", "aggregate"] },
+      "TGO": { "floods": ["map", "aggregate"] },
+      "TUN": { "floods": ["map", "aggregate"] },
+      "TZA": { "floods": ["map", "aggregate"] },
+      "ZAF": { "floods": ["map", "aggregate"] }
     },
     "name": "population_affected",
     "label": "Exposed population",
@@ -115,6 +355,7 @@
         "drought": "This layer shows the estimated, rounded number of people potentially exposed to drought in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted drought-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
       },
       "LSO": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)",
         "drought": "This layer shows the estimated, rounded number of people potentially exposed to drought in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted drought-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
       },
       "MWI": {
@@ -136,7 +377,146 @@
         "drought": "This layer shows the estimated, rounded number of people potentially exposed to drought in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted drought-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>HRSL population data</a>"
       },
       "ZWE": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)",
         "drought": "This layer shows the estimated, rounded number of people potentially exposed to drought in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted drought-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> + <a target='_blank' href='https://www.cpc.ncep.noaa.gov/data/indices/3mth.nino34.91-20.ascii.txt'>ENSO</a>/<a target='_blank' href='https://www.chc.ucsb.edu/data/chirps'>CHIRPS</a>/<a target='_blank' href='https://doi.pangaea.de/10.1594/PANGAEA.909132'>crop yield sources</a>"
+      },
+      "AGO": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "BDI": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "BEN": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "BFA": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "BWA": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "CAF": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "CIV": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "CMR": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "COD": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "COG": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "COM": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "CPV": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "DJI": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "DZA": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "EGY": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "ERI": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "GAB": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "GHA": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "GIN": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "GMB": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "GNB": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "GNQ": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "LBR": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "LBY": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "MAR": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "MDG": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "MLI": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "MOZ": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "MRT": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "MUS": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "NAM": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "NER": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "NGA": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "RWA": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "SDN": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "SEN": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "SLE": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "SOM": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "STP": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "SWZ": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "SYC": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "TCD": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "TGO": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "TUN": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "TZA": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "ZAF": {
+        "floods": "This layer shows the estimated, rounded number of people potentially exposed to flood in each geographic area. The shaded polygons represent administrative areas, with <b>darker purple indicating higher numbers of exposed people</b>.<br/><br/>Estimates are calculated using population data overlaid with predicted flood-affected zones.<br/>This layer supports <b>prioritizing early actions and allocating resources</b> by highlighting where the most people are at risk.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
       }
     }
   },
@@ -168,7 +548,55 @@
       "PHL": { "floods": ["map"] },
       "SSD": { "floods": ["map"] },
       "UGA": { "floods": ["map"] },
-      "ZMB": { "floods": ["map"] }
+      "ZMB": { "floods": ["map"] },
+      "AGO": { "floods": ["map"] },
+      "BDI": { "floods": ["map"] },
+      "BEN": { "floods": ["map"] },
+      "BFA": { "floods": ["map"] },
+      "BWA": { "floods": ["map"] },
+      "CAF": { "floods": ["map"] },
+      "CIV": { "floods": ["map"] },
+      "CMR": { "floods": ["map"] },
+      "COD": { "floods": ["map"] },
+      "COG": { "floods": ["map"] },
+      "COM": { "floods": ["map"] },
+      "CPV": { "floods": ["map"] },
+      "DJI": { "floods": ["map"] },
+      "DZA": { "floods": ["map"] },
+      "EGY": { "floods": ["map"] },
+      "ERI": { "floods": ["map"] },
+      "GAB": { "floods": ["map"] },
+      "GHA": { "floods": ["map"] },
+      "GIN": { "floods": ["map"] },
+      "GMB": { "floods": ["map"] },
+      "GNB": { "floods": ["map"] },
+      "GNQ": { "floods": ["map"] },
+      "LBR": { "floods": ["map"] },
+      "LBY": { "floods": ["map"] },
+      "LSO": { "floods": ["map"] },
+      "MAR": { "floods": ["map"] },
+      "MDG": { "floods": ["map"] },
+      "MLI": { "floods": ["map"] },
+      "MOZ": { "floods": ["map"] },
+      "MRT": { "floods": ["map"] },
+      "MUS": { "floods": ["map"] },
+      "NAM": { "floods": ["map"] },
+      "NER": { "floods": ["map"] },
+      "NGA": { "floods": ["map"] },
+      "RWA": { "floods": ["map"] },
+      "SDN": { "floods": ["map"] },
+      "SEN": { "floods": ["map"] },
+      "SLE": { "floods": ["map"] },
+      "SOM": { "floods": ["map"] },
+      "STP": { "floods": ["map"] },
+      "SWZ": { "floods": ["map"] },
+      "SYC": { "floods": ["map"] },
+      "TCD": { "floods": ["map"] },
+      "TGO": { "floods": ["map"] },
+      "TUN": { "floods": ["map"] },
+      "TZA": { "floods": ["map"] },
+      "ZAF": { "floods": ["map"] },
+      "ZWE": { "floods": ["map"] }
     },
     "name": "population_affected_percentage",
     "label": "% of Total Population",
@@ -203,6 +631,150 @@
       },
       "ZMB": {
         "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "AGO": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "BDI": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "BEN": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "BFA": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "BWA": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "CAF": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "CIV": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "CMR": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "COD": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "COG": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "COM": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "CPV": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "DJI": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "DZA": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "EGY": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "ERI": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "GAB": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "GHA": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "GIN": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "GMB": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "GNB": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "GNQ": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "LBR": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "LBY": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "LSO": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "MAR": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "MDG": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "MLI": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "MOZ": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "MRT": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "MUS": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "NAM": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "NER": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "NGA": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "RWA": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "SDN": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "SEN": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "SLE": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "SOM": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "STP": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "SWZ": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "SYC": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "TCD": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "TGO": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "TUN": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "TZA": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "ZAF": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
+      },
+      "ZWE": {
+        "floods": "Percentage of people exposed is calculated by the population living in the flood extent area within the districts currently triggered. The number of people and the flood extent are derived from the below sources.<br/><br/>Source (Population Data): <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>High Resolution Settlement Layer (HRSL). Source imagery for HRSL &copy; 2016 DigitalGlobe. Accessed 01-01-2020. Facebook Connectivity Lab and Center for International Earth Science Information Network - CIESIN - Columbia University. 2016.</a><br/><br/>Source (Flood Extent): The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
       }
     }
   },
@@ -228,8 +800,60 @@
         "drought": ["map", "aggregate"],
         "floods": ["map", "aggregate"]
       },
-      "ZWE": { "drought": ["map", "aggregate"] },
-      "LSO": { "drought": ["map", "aggregate"] }
+      "ZWE": {
+        "floods": ["map", "aggregate"],
+        "drought": ["map", "aggregate"]
+      },
+      "LSO": {
+        "floods": ["map", "aggregate"],
+        "drought": ["map", "aggregate"]
+      },
+      "AGO": { "floods": ["map", "aggregate"] },
+      "BDI": { "floods": ["map", "aggregate"] },
+      "BEN": { "floods": ["map", "aggregate"] },
+      "BFA": { "floods": ["map", "aggregate"] },
+      "BWA": { "floods": ["map", "aggregate"] },
+      "CAF": { "floods": ["map", "aggregate"] },
+      "CIV": { "floods": ["map", "aggregate"] },
+      "CMR": { "floods": ["map", "aggregate"] },
+      "COD": { "floods": ["map", "aggregate"] },
+      "COG": { "floods": ["map", "aggregate"] },
+      "COM": { "floods": ["map", "aggregate"] },
+      "CPV": { "floods": ["map", "aggregate"] },
+      "DJI": { "floods": ["map", "aggregate"] },
+      "DZA": { "floods": ["map", "aggregate"] },
+      "EGY": { "floods": ["map", "aggregate"] },
+      "ERI": { "floods": ["map", "aggregate"] },
+      "GAB": { "floods": ["map", "aggregate"] },
+      "GHA": { "floods": ["map", "aggregate"] },
+      "GIN": { "floods": ["map", "aggregate"] },
+      "GMB": { "floods": ["map", "aggregate"] },
+      "GNB": { "floods": ["map", "aggregate"] },
+      "GNQ": { "floods": ["map", "aggregate"] },
+      "LBR": { "floods": ["map", "aggregate"] },
+      "LBY": { "floods": ["map", "aggregate"] },
+      "MAR": { "floods": ["map", "aggregate"] },
+      "MDG": { "floods": ["map", "aggregate"] },
+      "MLI": { "floods": ["map", "aggregate"] },
+      "MOZ": { "floods": ["map", "aggregate"] },
+      "MRT": { "floods": ["map", "aggregate"] },
+      "MUS": { "floods": ["map", "aggregate"] },
+      "NAM": { "floods": ["map", "aggregate"] },
+      "NER": { "floods": ["map", "aggregate"] },
+      "NGA": { "floods": ["map", "aggregate"] },
+      "RWA": { "floods": ["map", "aggregate"] },
+      "SDN": { "floods": ["map", "aggregate"] },
+      "SEN": { "floods": ["map", "aggregate"] },
+      "SLE": { "floods": ["map", "aggregate"] },
+      "SOM": { "floods": ["map", "aggregate"] },
+      "STP": { "floods": ["map", "aggregate"] },
+      "SWZ": { "floods": ["map", "aggregate"] },
+      "SYC": { "floods": ["map", "aggregate"] },
+      "TCD": { "floods": ["map", "aggregate"] },
+      "TGO": { "floods": ["map", "aggregate"] },
+      "TUN": { "floods": ["map", "aggregate"] },
+      "TZA": { "floods": ["map", "aggregate"] },
+      "ZAF": { "floods": ["map", "aggregate"] }
     },
     "name": "populationTotal",
     "label": "Total Population",
@@ -254,6 +878,7 @@
         "drought": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
       },
       "LSO": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)",
         "drought": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
       },
       "MWI": {
@@ -274,7 +899,146 @@
         "drought": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.ciesin.columbia.edu/data/hrsl'>HRSL</a>"
       },
       "ZWE": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)",
         "drought": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a>, age/gender included"
+      },
+      "AGO": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "BDI": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "BEN": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "BFA": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "BWA": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "CAF": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "CIV": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "CMR": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "COD": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "COG": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "COM": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "CPV": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "DJI": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "DZA": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "EGY": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "ERI": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "GAB": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "GHA": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "GIN": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "GMB": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "GNB": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "GNQ": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "LBR": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "LBY": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "MAR": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "MDG": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "MLI": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "MOZ": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "MRT": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "MUS": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "NAM": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "NER": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "NGA": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "RWA": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "SDN": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "SEN": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "SLE": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "SOM": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "STP": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "SWZ": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "SYC": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "TCD": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "TGO": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "TUN": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "TZA": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
+      },
+      "ZAF": {
+        "floods": "This layer shows the estimated, rounded number of people living in each administrative area. The shaded polygons represent administrative zones, with <b>darker purple indicating higher population totals</b>.<br/><br/>Population figures are aggregated using gridded population data matched to administrative boundaries.<br/>This layer provides a baseline for understanding the overall population distribution across the country.<br/><br/><b>Source:</b> <a target='_blank' href='https://www.worldpop.org'>WorldPop</a> (Same as Population layer)"
       }
     }
   },

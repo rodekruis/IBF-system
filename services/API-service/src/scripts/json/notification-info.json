@@ -89,9 +89,11 @@
   {
     "countryCodeISO3": "ZWE",
     "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png",
       "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/71256230-3d58-35b8-b48a-4497c85ce32c.png"
     },
     "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory.",
       "drought": "When the ENSO-based September forecast of the 510 Impact-based Forecast model anticipates a once-in-six year drought event, a first set of early actions addressing crop losses and livestock deaths is activated. In March, FEWSNET forecast of IPC 4 and above will trigger further actions devoted to reducing the impacts of livestock deaths and food insecurity."
     },
     "linkSocialMediaType": "WhatsApp",
@@ -102,9 +104,11 @@
   {
     "countryCodeISO3": "LSO",
     "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png",
       "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/94f95087-8ede-e83b-04dc-eaf6630661ba.png"
     },
     "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory.",
       "drought": "The first trigger can be set once Lesotho Meteorological Services (LMS) issues the seasonal outlook with below normal rainfall. This will initiate the dissemination of early warning messaging."
     },
     "linkSocialMediaType": null,
@@ -200,5 +204,603 @@
     "externalEarlyActionForm": "https://eenew.ifrc.org/x/o3VEUuQG",
     "linkVideo": "https://bit.ly/IBF-video-SouthSudan",
     "linkPdf": "https://510ibfsystem.blob.core.windows.net/manuals/IBF%20Manual-South%20Sudan-Published.pdf"
+  },
+  {
+    "countryCodeISO3": "AGO",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "BDI",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "BEN",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "BFA",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "BWA",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "CAF",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "CIV",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "CMR",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "COD",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "COG",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "COM",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "CPV",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "DJI",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "DZA",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "EGY",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "ERI",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "GAB",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "GHA",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "GIN",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "GMB",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "GNB",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "GNQ",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "LBR",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "LBY",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "MAR",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "MDG",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "MLI",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "MOZ",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "MRT",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "MUS",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "NAM",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "NER",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "NGA",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "RWA",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "SDN",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "SEN",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "SLE",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "SOM",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "STP",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "SWZ",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "SYC",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "TCD",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "TGO",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "TUN",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "TZA",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
+  },
+  {
+    "countryCodeISO3": "ZAF",
+    "logo": {
+      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
+    },
+    "triggerStatement": {
+      "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
+    },
+    "linkSocialMediaType": null,
+    "linkSocialMediaUrl": null,
+    "linkVideo": null,
+    "linkPdf": null
   }
 ]
