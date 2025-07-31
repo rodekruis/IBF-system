@@ -413,9 +413,6 @@
       "BFA": {
         "floods": "This layer represents the locations of the local Burkina Faso Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
-      "BWA": {
-        "floods": "This layer represents the locations of the local Botswana Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
-      },
       "CAF": {
         "floods": "This layer represents the locations of the local Central African Republic Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
@@ -437,17 +434,11 @@
       "CPV": {
         "floods": "This layer represents the locations of the local Cape Verde Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
-      "DJI": {
-        "floods": "This layer represents the locations of the local Djibouti Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
-      },
       "DZA": {
         "floods": "This layer represents the locations of the local Algeria Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
       "EGY": {
         "floods": "This layer represents the locations of the local Egypt Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
-      },
-      "ERI": {
-        "floods": "This layer represents the locations of the local Eritrea Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
       "GAB": {
         "floods": "This layer represents the locations of the local Gabon Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
@@ -460,9 +451,6 @@
       },
       "GMB": {
         "floods": "This layer represents the locations of the local Gambia Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
-      },
-      "GNB": {
-        "floods": "This layer represents the locations of the local Guinea-Bissau Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
       "GNQ": {
         "floods": "This layer represents the locations of the local Equatorial Guinea Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
@@ -482,17 +470,8 @@
       "MLI": {
         "floods": "This layer represents the locations of the local Mali Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
-      "MOZ": {
-        "floods": "This layer represents the locations of the local Mozambique Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
-      },
-      "MRT": {
-        "floods": "This layer represents the locations of the local Mauritania Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
-      },
       "MUS": {
         "floods": "This layer represents the locations of the local Mauritius Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
-      },
-      "NAM": {
-        "floods": "This layer represents the locations of the local Namibia Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
       "NER": {
         "floods": "This layer represents the locations of the local Niger Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
@@ -506,17 +485,8 @@
       "SDN": {
         "floods": "This layer represents the locations of the local Sudan Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
-      "SEN": {
-        "floods": "This layer represents the locations of the local Senegal Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
-      },
-      "SLE": {
-        "floods": "This layer represents the locations of the local Sierra Leone Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
-      },
       "SOM": {
         "floods": "This layer represents the locations of the local Somalia Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
-      },
-      "STP": {
-        "floods": "This layer represents the locations of the local S\u00e3o Tom\u00e9 and Pr\u00edncipe Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
       "SWZ": {
         "floods": "This layer represents the locations of the local Eswatini Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
@@ -530,14 +500,8 @@
       "TGO": {
         "floods": "This layer represents the locations of the local Togo Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       },
-      "TUN": {
-        "floods": "This layer represents the locations of the local Tunisia Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
-      },
       "TZA": {
         "floods": "This layer represents the locations of the local Tanzania Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
-      },
-      "ZAF": {
-        "floods": "This layer represents the locations of the local South Africa Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data"
       }
     }
   },
