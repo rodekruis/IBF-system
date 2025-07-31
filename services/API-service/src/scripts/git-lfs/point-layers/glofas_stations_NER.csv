@@ -1,4 +1,4 @@
-StationCode,stationName,lat,lon,fid
+stationCode,stationName,lat,lon,fid
 G0990,Alcongui,14.75,0.6,G0990
 G1028,W,12.5833,2.6167,G1028
 G4639,Gorouol At Dolbel,14.62,0.3,G4639

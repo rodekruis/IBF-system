@@ -1,4 +1,4 @@
-StationCode,stationName,lat,lon,fid
+stationCode,stationName,lat,lon,fid
 G1680,Great Letaba River At Kruger National Park,-23.7025,31.21422,G1680
 G1637,Vaal River At Annie S Rust,-26.85347,28.12139,G1637
 G1614,Orange River At Kakamas South Neusberg,-28.77466,20.72243,G1614

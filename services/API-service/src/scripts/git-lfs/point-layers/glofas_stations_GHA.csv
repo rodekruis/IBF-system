@@ -1,4 +1,4 @@
-StationCode,stationName,lat,lon,fid
+stationCode,stationName,lat,lon,fid
 G3033,NABOGO a NABOGO,9.725,-0.825,G3033
 G1059,Pwalagu,10.5833,-0.85,G1059
 G1108,Daboasi,5.1667,-1.6333,G1108
