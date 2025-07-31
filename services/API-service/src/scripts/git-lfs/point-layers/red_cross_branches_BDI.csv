@@ -1,4 +1,4 @@
 branchName,lat,lon,numberOfVolunteers,contactPerson,contactNumber,contactAddress
-Centre de santé de la Croix-Rouge Rutana,29.99299584,-3.92905525,,NKURIKIYE Martine,25779284628,"Commune Rutana, Province Rutana"
-Centre médical de la Croix-Rouge Kinindo,29.348173,-3.41503,,Martine NKURIKIYE,25779284628,"District sanitaire sud, commune Muha, Zone Kinindo, quatrier kibenga"
-Centre Médical de la Croix-Rouge Mwaro,29.11297445,-3.530912354,,NKURIKIYE Martine,25779284628,"Kibumbu, Commune Kayokwe, Province Mwaro"
+Centre de santé de la Croix-Rouge Rutana,-3.92905525,29.99299584,,NKURIKIYE Martine,25779284628,"Commune Rutana, Province Rutana"
+Centre médical de la Croix-Rouge Kinindo,-3.41503,29.348173,,Martine NKURIKIYE,25779284628,"District sanitaire sud, commune Muha, Zone Kinindo, quatrier kibenga"
+Centre Médical de la Croix-Rouge Mwaro,-3.530912354,29.11297445,,NKURIKIYE Martine,25779284628,"Kibumbu, Commune Kayokwe, Province Mwaro"

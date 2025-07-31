@@ -1,13 +1,24 @@
-lon,lat,ADM2_EN,ADM2_PCODE,ADM1_EN,ADM1_PCODE,ADM0_EN,ADM0_PCODE,branchName,rc_type,zrcs_branchesdate,zrcs_branchesvalidOn
-31.0321121,-17.7875747,Harare,ZW1921,Harare,ZW19,Zimbabwe,ZW,Zimbabwe Red Cross Society (Head Office),Head Office,31 08 2018,11 09 2018
-32.6378126,-19.0000113,Mutare Urban,ZW1121,Manicaland,ZW11,Zimbabwe,ZW,"Zimbabwe Red Cross, Manicaland",,31 08 2018,11 09 2018
-31.0532573,-17.8236949,Harare,ZW1921,Harare,ZW19,Zimbabwe,ZW,Zimbabwe Red Cross Society Training Centre,Training centre,31 08 2018,11 09 2018
-30.9853407,-17.8890283,Harare,ZW1921,Harare,ZW19,Zimbabwe,ZW,Zimbabwe Red Cross Society,,31 08 2018,11 09 2018
-29.0143528,-20.9404569,Gwanda Urban,ZW1621,Matabeleland South,ZW16,Zimbabwe,ZW,Zimbabwe Red Cross Society,,31 08 2018,11 09 2018
-29.0057792,-20.9412098,Gwanda Urban,ZW1621,Matabeleland South,ZW16,Zimbabwe,ZW,Zimbabwe Red Cross Society,,31 08 2018,11 09 2018
-30.8144649,-20.078862,Masvingo Urban,ZW1821,Masvingo,ZW18,Zimbabwe,ZW,"Zimbabwe Red Cross Society, Masvingo Provincial Office",Provincial Office,31 08 2018,11 09 2018
-31.0440675,-17.8326983,Harare,ZW1921,Harare,ZW19,Zimbabwe,ZW,Red Cross Clinic,Clinic,31 08 2018,11 09 2018
-30.9937765,-17.8838133,Harare,ZW1921,Harare,ZW19,Zimbabwe,ZW,"Zimbabwe Red Cross Society, Mash Central Provincial Office",Provincial Office,31 08 2018,11 09 2018
-30.2039622,-17.3558581,Chinhoyi,ZW1421,Mashonaland West,ZW14,Zimbabwe,ZW,"Zimbabwe Red Cross Society, Provincial Office",Provincial Office,31 08 2018,11 09 2018
-29.803857,-19.4611316,Gweru,ZW1704,Midlands,ZW17,Zimbabwe,ZW,"Zimbabwe Red Cross Society, Provincial Office",Provincial Office,,
-28.5767047,-20.1465275,Bulawayo,ZW1021,Bulawayo,ZW10,Zimbabwe,ZW,"Zimbabwe Red Cross Society, Provincial Office",Provincial Office,,
+branchName,lat,lon,numberOfVolunteers,contactPerson,contactNumber,contactAddress
+Zimbabwe Red Cross Society Head Office,-17.787687,31.032,,Elias Hwenga,00263242 333158,"10 St Annes, Avondale, Harare Zimbabwe"
+Manicaland Office,-18.99997,32.637864,,Munyaradzi Chikukwa,00263772 911531,12 Chimanimani Road Sakubva Mutare
+Mashonaland East Office,-18.181113,31.565915,,Thulani Sibanda,00263772 389112,"Mbuya Nehambo, Chikomo Drive, Dombotombo, Marondera"
+Mashonaland Central Office,-17.893015,30.988224,,Vongai Masara,00263772 947006,"7433 Jabavu Drive, Old Highfield, Harare"
+Masvingo Office,-20.079475,30.814205,,Mable Zinange Chabururuka,00263772 760931,Makuva Street Mucheke Masvingo
+Mashonaland West Office,-17.355428,30.204572,,Amon Choba,00263772 912897,5390 MAGAMBA Way Chinhoyi
+Midlands Office,-19.461936,29.808442,,Mathias Begede,00263773 217888,"9051 Gymkhana Grounds, Gweru"
+Matebeleland South Office,-20.940761,29.010885,,Johnson Sibanda,00263773 048935,"Stand L53 Jahunda Township, Gwanda"
+Matebeleland North Office,-20.146843,28.577934,,Thembelihle Valo,00263772 972437,"Basch street and 3rd avenue, Bulawayo"
+Chimanimani Office,-19.806282,32.873903,,Munyaradzi Chikukwa,00263773 394513,Stand 179 Village Chimaninani
+Chipinge Office,-20.195618,32.619596,,Munyaradzi Chikukwa,00263772 531368,Room 213 Government Complex Chipinge
+Nyanga Office,-18.19989464,32.74451684,,Munyaradzi Chikukwa,,Mangondoza Township 
+Buhera Office,-19.27075218,31.64707427,,Munyaradzi Chikukwa,00263772911531,Stand 79 Murambinda G/P
+Bindura Office,-17.322745,31.334073,,Lucy Mtata,00263772 694607,"743 Artherstone, Chipindura, Bindura, Zimbabwe"
+Muzarabani Office,-16.39188,30.993798,,Vongai Masara,00263773 063490,"Stand Number 213, Muzarabani Business Center, Muzarabani"
+Neshuro Office,-20.941379,30.637869,,Alfred Chabinduka,00263771 583086,Neshuro Township Mwenezi
+Beitbridge Office,-22.203749,29.988647,,Ndabezinhle Ncube,00263776 483104,"Beitbridge District Hospital P O Box 57, Beitbridge"
+Plumtree Office,-20.492078,27.802768,,Johnson Sibanda,00263782 116696,"514 Medium Density, Plumtree"
+Binga Office,-17.621888,27.360236,,Siphiwe Nyathi,00263778 484885,Kulima Mbobumi Training Centre P. Bag 5716 Binga
+Tongogara Office,-20.346739,32.308901,,Tichaona Nduna,00263776 987477,Red Cross kiosk Tongogara Camp
+Chitungwiza Office,-18.017218,31.063569,,Memory Batani,00263734 400734,Chitungwiza (Close to Chitungwiza General Hospital)
+KAROI RED CROSS CLINIC,-16.809746,29.69223,,Dr Joel Tapi,778074144,KAROI
+REDCROSS CLINIC,-17.833395,31.060589,,Dr Joel Tapi,778074144,HARARE

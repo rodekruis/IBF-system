@@ -1,8 +1,8 @@
 branchName,lat,lon,numberOfVolunteers,contactPerson,contactNumber,contactAddress
-Emergency medical and First aid training center,30.07626688,-1.929035804,,Dr. Prosper kwihangana,250788801487,Kigali city
-Kibilizi Hospital - RC Ambulance Station,29.78325959,-2.6482154,,Dr. KWIHANGANA Prosper,250788801487,Huye District
-Kiziba Refugee Camp - RC Ambulance,29.34964407,-2.132670829,,Dr. KWIHANGANA Prosper,250788801487,Karongi District
-Mahama Refugee Camp - RC Ambulance,30.8424188,-2.310325801,,Dr. KWIHANGANA Prosper,250788801487,Kirehe district
-Nyabiheke Refugee Camp - RC Ambulance,30.25965894,-1.59521415,,Dr. KWIHANGANA Prosper,250788801487,Gatsibo District
-Nyamata Hospital - RRC Ambulance station,30.07918634,-2.137477056,,Dr. KWIHANGANA Prosper,250788801487,Bugesera District
-Rwandan RC HQ - Ambulance station,30.07626688,-1.929035804,,Dr. KWIHANGANA Prosper,250788801487,Kigali
+Emergency medical and First aid training center,-1.929035804,30.07626688,,Dr. Prosper kwihangana,250788801487,Kigali city
+Kibilizi Hospital - RC Ambulance Station,-2.6482154,29.78325959,,Dr. KWIHANGANA Prosper,250788801487,Huye District
+Kiziba Refugee Camp - RC Ambulance,-2.132670829,29.34964407,,Dr. KWIHANGANA Prosper,250788801487,Karongi District
+Mahama Refugee Camp - RC Ambulance,-2.310325801,30.8424188,,Dr. KWIHANGANA Prosper,250788801487,Kirehe district
+Nyabiheke Refugee Camp - RC Ambulance,-1.59521415,30.25965894,,Dr. KWIHANGANA Prosper,250788801487,Gatsibo District
+Nyamata Hospital - RRC Ambulance station,-2.137477056,30.07918634,,Dr. KWIHANGANA Prosper,250788801487,Bugesera District
+Rwandan RC HQ - Ambulance station,-1.929035804,30.07626688,,Dr. KWIHANGANA Prosper,250788801487,Kigali

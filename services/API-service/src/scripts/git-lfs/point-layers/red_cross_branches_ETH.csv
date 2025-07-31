@@ -1,58 +1,227 @@
-branchName,BranchLevel,Town,Zone,Region,lat,lon,contactNumber,contactPerson,contactAddress,YearOfestablishment,numberOfBDRT,numberOfVolunteers,HumanResource,Targetpoulation
-ERCS HQ,Head Quarter ,Addis Ababa,Addis Ababa,Federal city,9.015023,38.756177,962-05-96-55,Getachew Ta'a,getachew.ta'a@redcrosseth.org,1935,,47000,,
-Addis Ababa,Regional Branch ,Addis Ababa,Addis Ababa,Oromia,9.039416,38.753197,911-07-34-59,Esrael gesese,esrael.gesese@redcrosseth,1973,,,,3041002
-Oromia,Regional Branch ,Addis Ababa,Addis Ababa,Oromia,9.011663,38.747045,911-84-22-46,Mohammed Jemal,mohammed.jemal@redcrosseth.org ,1993,53,127905,702,31738956
-Arsi Branch,Zonal Branch,Assela,Arsi,Oromia,7.96405,39.133757,911-53-61-05,Wagi Degafa,wagi.degafa@redcrosseth.org, 1973,6,11394,58,3572336
-Borena Branch,Zonal Branch,Yabelo,Borana,Oromia,4.893069,38.092013,913-41-53-49,Aisha Muhamad,Aisha.muhamad@dcrosseth.org, 2006,1,1186,8,534257
-Illubabor Branch,Zonal Branch,Mattu,Illubabor,Oromia,8.295953,35.583974,977-36-48-92,Feyisa Abdu,feyisa.abdu@redcrosseth.org, 1973,0,7676,30,987191
-Jimma Branch,Zonal Branch,Jimma,Jimma,Oromia,7.672136,36.846886,917-82-10-64,Aisha Rago,aisha.rago@redcrosseth.org, 1973,14,7576,67,3500000
-S/W/ Shoa Branch,Zonal Branch,Woliso,Southwest showa,Oromia,8.542781,37.973512,911-95-44-29,Alemayehu Mamo,alemayehu.mamo@redcrosseth.org, 1983,2,14467,44,1101129
-West Shoa Branch,Zonal Branch,Ambo,West Shoa Branch,Oromia,8.982603,37.870036,911-89-41-40,Workneh Mekonnen,workneh.mekonnen@redcrosseth.org, 1995,3,17095,34,2058676
-East  Shoa Branch,Zonal Branch,Adama,East  Shoa ,Oromia,8.543512,39.27937,916-04-78-20,Buseri Bunda,buseri.bunda@redcrosseth.org, 1973,3,8393,69,2192459
-West Arsi Branch,Zonal Branch,Shashamane,West Arsi ,Oromia,7.196143,38.608494,945-59-35-98,Kemal Abdella,kemal.abdella@redcrosseth.org, 1999,2,6072,68,2807429
-East Wollega Branch,Zonal Branch,Nekemte,East Wollega ,Oromia,9.091265,36.547086,909-76-64-05,Firew Hailu,firew.hailu@redcrosseth.org, 1973,3,1510,63,332128
-West Wollega Branch,Zonal Branch,Gimbi,West Wollega ,Oromia,9.167002,35.839021,911-05-32-05,Mengistu Senbeta,mengistu.senbeta@redcrosseth.org, 1997,3,454,35,1823270
-West Harerghe Branch,Zonal Branch,Chiro,West Harerghe ,Oromia,9.079527,40.865219,915-73-47-25,Mohammed Seid,mohamed.abdulhamid@redcrosseth.org, 1982,3,6306,42,2723850
-East Haraghe Branch,Zonal Branch,Harer,East Haraghe ,Oromia,9.292036,42.144227,933-44-60-00,Ketema Habtamu,ketema.habtamu@redcrosseth.org,2009,3,11205,19,3699252
-Guji Branch,Zonal Branch,Negele Borena,Guji ,Oromia,5.334136,39.581791,913-41-53-49,Yohannes Feyisa,yohannes.feyisa@redcrosseth.org, 1982,2,10226,18,1434110
-Finfine Special Zone ,Zonal Branch,Sabeta,Finfine Special Zone,Oromia,8.911231,38.626765,917-77-75-51,Gezaheng Desalenge,gezahegne.desalegne@redcrosseth.org,2009,2,14687,28,1021615
-Kelem Wellega Branch,coordination office,Dambi dolo,Kelem Wellega ,Oromia,8.535663,34.799437,912-74-07-27,Teferi Teso,teferi.teso@redcrosseth.org,2009,0,2242,22,1061361
-West Guji ,coordination office,Bule Hora,West Guji ,Oromia,5.633134,38.238865,917-81-42-52,Doktor Bogale,doktor.bogale@redcrosseth.org,2009,0,417,8,1198631
-North shoa ,coordination office,Fiche,North shoa ,Oromia,9.77122,38.739395,939-7130-09,Mengistu Belachew,mengistu.belachew@redcrosseth.org,2010,0,1200,13,1561000
-Buno Beddele cordination office,coordination office,Beddle,Buno Beddele zone,Oromia,8.45261,36.355588,963-38-68-44,Bacha Birhanu,bacha.birhanu@redcrosseth.org,2010,1,2226,23,73009
-Horoguduru wollega,coordination office,Shambu,Horoguduru wollega,Oromia,9.568043,37.10137,912-37-82-57,Tadele Dheresa,tadele.dheresa@redcrosseth.org,2012,0,206,4,803582
-Amhara,Regional Branch ,Bahir Dar,Bahir Dar,Amhara,11.588249,37.385806,918-72-85-27,Shambel Wale,shambel.wale@redcrosseth.org,2005,,42,,311724
-East Gojjam,Zonal Branch,Debremarkos,East Gojjam,Amhara,10.337215,37.731744,918-27-02-71,Berhanu Temesgen,berhanu.temesgen@redcrosse.org,1978,,1722,,2539491
-W/Gojjam,Zonal Branch,Fenote selam ,W/Gojjam,Amhara,10.680354,37.259324,918-05-88-08,Yazachew Yemane,yazachew.yemane@redcrosseth.org,1973,,1271,,3780447
-S/ Gondar,Zonal Branch,Debre tabor,S/ Gondar,Amhara,11.857381,38.00729,967-77-03-83,Abebaw Brihanu,abebaw.brihanu@redcrosseth,1985,,316,,2435345
-N/Gondar,Zonal Branch,Gondar,N/Gondar,Amhara,12.609925,37.465206,918-70-84-333,Atalel Tarekegn,atalel.tarekegn@redcrosseth.org,1973,,606,,3704740
-N/Wollo,Zonal Branch,weldiya,N/Wollo+ Waghimra,Amhara,11.826216,39.592513,921-63-68-98,Leulseged Sisay,leulseged.sisay@redcrosseth.org,1984,,369,,2211555
-S/Wollo,Zonal Branch,Dessie ,S/Wollo+Oromia,Amhara,11.118184,39.632496,911-03-73-17,Melaku chekol,melaku.chekol@redcrosseth.org,1968,,1103,,3634801
-N/Shoa,Zonal Branch,Debre Berhan ,N/Shoa,Amhara,9.677914,39.533397,,Demitew Emishaw,damitew.emishaw@redcrosseth.org ,1978,,1177,,2151896
-SNNPR,Regional Branch ,Hawasa ,Hawasa ,SNNPE,7.050375,38.485269,462-208516,Ibrahim Temam,ibrahim.temam@redcrosseth.org,,,,,
-Welaita,Zonal Branch,Sodo,Welaita,SNNPE,6.82292,37.75026,911-73-21-64,Seifu Worku,seifu.worku@redcrosseth.org,1976,,612,,1641922
-Hadiya,Zonal Branch,Hossana,Hadiya,SNNPE,7.549685,37.855545,912-30-21-78,Kefyalew Kassa,kefyalew.kassa@redcrosseth.org,1979,,,,1711091
-Kembata Tambaro,Zonal Branch,Durame,Kembata Tambaro,SNNPE,7.245017,37.906837,911-53-36-78,Abebe Dotamo,abebe.dotamo@redcrosseth.org,1985,,497,,895570
-South Omo,Zonal Branch,Jinkaa,South Omo,SNNPE,5.790951,36.569262,916-71-16-21,Akna Akata,akna.akata@redcrosseth.org,1982,,667,,790798
-Gurage,Zonal Branch,Wolkite,Gurage,SNNPE,8.29355,37.78532,913-25-64-84,mussie bekele,mussie.bekele@redcrosseth.org,1998,,1998,,1500000
-Bench Maji ,Zonal Branch,Mizan Tefar,Bench Maji ,SNNPE,6.997347,35.589919,913-01-10-02,Fikadu Ejeta,fikadu.ejeta@redcrosseth.org,1982,,1982,,652531
-Gamugofa,Zonal Branch,Arba Minch,Gamugofa,SNNPE,6.03576,37.55903,913-28-90-76,Sileshi Sisay,sileshi.sisay@redcrosseth.org,1969,,1969,,1736236
-Siltie Zone,Zonal Branch,Werabe,Siltie Zone,SNNPE,7.853674,38.187753,911-57-07-44,Muhaba Hussen,muhaba.hussen@redcrosseth.org,2003,,2003,,852253
-Halaba Sp. Woreda,Zonal Branch,Kulito,Halaba Special zone,SNNPE,7.312235,38.091075,926-99-34-06,Neima Mohammed,neima.mohammed@redcrosseth.org,2002,,172,,500000
-Gedeo Zone,Zonal Branch,Dilla,Gedeo Zone,SNNPE,6.414358,38.311997,916428457,Wondwosen Daka,Wondwosen.Daka@redcrosseth.org,1976,,1976,,1000000
-Basketo,Zonal Branch,lesaka,Basketo,SNNPE,6.300979,36.625883,916-70-49-66,Dandao Gebremichael,dandao.gebremichael@redcrosseth.org,,,0,,56689
-Keffa,Zonal Branch,Bonga,Keffa,SNNPE,7.267499,36.246225,912-18-52-59,Alemayehu Kebede,alemayehu.kebede@redcrosseth.org,,,0,,1206004
-Segen ,Zonal Branch,Konso,Segen ,SNNPE,5.339743,37.441509,912-15-28-04,Shakayto Roba,shakayto.roba@redcrosseth.org,,,,,
-Tigray,Regional Branch ,Mekelle ,Mekelle ,Tigray,13.488703,39.467862,914-70-18-70,Berhanu Mekonnen,berhanu.mekonnen@redcrosseth.org,,,160,,350000
-Central Tig.,Zonal Branch,Axum,Central Tig.,Tigray,14.116202,38.738561,914-74-41-99,Roman Zemichael,roman.zemichael@redcrosseth.org,2005,,3350,,1380920
-Eastern Tig.,Zonal Branch,Adigrat,Eastern Tig.,Tigray,14.280581,39.4631,914 72-39-34,Berhane Alemu,berhane.alemu@redcrosseth.org,2005,,567,,958650
-North West ,Zonal Branch,Shire E/sillase,North West ,Tigray,14.105801,38.288917,914-77-89-31,Tewodros Mulaw,tewodros.mulaw@redcrosseth.org,2005,,777,,950000
-Southern Tig,Zonal Branch,Maychew,Southern Tig,Tigray,12.781153,39.536963,914-78-53-43,Belay Gebru,belay.gebru@redcrosseth.org,2005,,177,,1193401
-Sidama ,Regional Branch ,Hawasa,Sidama ,Sidama ,6.7372,38.4008,916-02-03-47,Kibru Tilahune,kibru.tilahune@redcrosseth.org,2012,,529,,6484000
-Moyale,Coordination office,Moyale ,Moyale,Oromia,3.5657,39.04264,911-77-25-69,Tsegaye Desta,tsegaye.desta@redcrosseth.org,2006,,1100,,375000
-Benshangul,Regional Branch ,Asosa,Benshangul,Benshangul,10.059766,34.548199,989425639,Shebabew Assegea,shebabew.assegae@redcrosseth.org,1990,,2239,,1066001
-Dire Dawa,Regional Branch ,Dire Dawa,Dire Dawa,Federal city,9.600875,41.850142,915-76-04-42,Bahar Adem,bahar.adem@redcrosseth.org,1975,1,963,,445000
-Gambella,Regional Branch ,Gambella,Gambella,Gambella,8.24719,34.591597,911-11 71 54,Changkuoth David,changkuoth.david@redcrosseth.org,1982,1,202,22,446500
-Harari,Regional Branch ,Harar,Harari,Harari,9.313202,42.117176,910-60-16-44,Asfaw Senbeto,asfaw.senbeto@redcrosseth.org,1974,6,120,16,270031
-Afar Regional Branch,Regional Branch ,Samera,Afar Regional ,Afar Regional ,11.794974,41.009941,910-14-12-70,Ali Sualih,ali.sualih@redcrosseth.org,1985 E.C ,7,1200,23,2153000
-Somali ,Regional Branch ,Jigjiga,Fafen,Somali,9.353105,42.800911,0911-97-73-95,Ahmed Abdi,ahmed.abdi@redcrosseth.org,1977,24,200,32,5148989
+branchName,lat,lon,numberOfVolunteers,contactPerson,contactNumber,contactAddress
+  Hasasa  Pharmacy,7.105991706,39.20195442,,Lula Mohamed,911853144,"Hasasa, West Arsi"
+ Adaba Pharmacy,7.00341304,39.39147671,,Lula Mohamed,911853144,"Adaba, West Arsi"
+ Ambo  Pharmacy,8.958258979,37.93223524,,Lula Mohamed,911853144,"Ambo, West Shewa"
+ Arsi negele pharmacy,7.359782908,38.67101504,,Lula Mohamed,911853144,"Arsi negele, West Arsi"
+ Bedela  Pharmacy,8.456225549,36.35536797,,Lula Mohamed,911853144,"Bedele,  Buno Zone"
+ Dodola Pharmacy,6.977242251,39.18291061,,Lula Mohamed,911853144,"Dodola, West Arsi"
+ Shambu Pharmacy,9.56766231,37.10581942,,Lula Mohamed,911853144,"Shambu, Horo Guduru Wallaga"
+ Shashemane kutur 1 pharmacy,7.202969608,38.60946491,,Lula Mohamed,911853144,"Shashemane, West Arsi"
+ Shashemane kutur 2 pharmacy,7.202969608,38.60946491,,Lula Mohamed,911853144,"Shashemane, West Arsi"
+"Aballala ambulance station, SNNP",7.698553601,35.34910882,,Tesfaye Dunda,911458831,Wolaita
+Abomsa Ambulance Station,8.48734009,39.82938827,,Lula Mohamed,911853189,Abomsa
+Adaba   Ambulance Station,7.004350132,39.39199169,,Lula Mohamed,911853184,Adaba
+Adama  Pharmacy,8.527485053,39.25928142,,Lula Mohamed,911853144,"Adama, East Shewa"
+Adami Tulu Jido Kombolcha Ambulance Station,8.5933261,40.6075475,,Lula Mohamed,911853214,Adami Tulu Jido Kombolcha
+Adea Ambulance Station,11.658465,38.384924,,Lula Mohamed,911853215,Adea
+Agaro Ambulance Station,7.856578928,36.5829273,,Lula Mohamed,911853196,Agaro
+Agaro Pharmacy,7.675009343,36.83728531,,Lula Mohamed,911853144,"Agaro, Jimma"
+Ale Woreda Ambulance Station,8.151552598,35.53580692,,Lula Mohamed,911853154,Ale Woreda
+"Aletawondu Station, Sidama",6.6057831,38.408764,,Tamirat Alemu,904767956,Sidama
+Alge Sachi Woreda Ambulance Station,8.591427845,35.73396339,,Lula Mohamed,911853151,Alge Sachi Woreda
+Ambomsa Pharmacy,8.490418589,39.83267017,,Lula Mohamed,911853144,"Abomsa, Arsi"
+"Arba Minch branch, SNNP",6.031349374,37.55328547,,Tesfaye Dunda,911458831,Gamo
+Arsi Negelle Ambulance Station,7.360123402,38.66844012,,Lula Mohamed,911853185,Arsi Negelle
+Arsi Robe pharmacy,9.6082647,39.13552632,,Lula Mohamed,911853144,"Arsi Robe, Arsi"
+Asela Pharmacy,7.957128651,39.13078853,,Lula Mohamed,911853144,"Asela , Arsi"
+Asella Ambulance Station,7.956278607,39.13147518,,Lula Mohamed,911853187,Asella
+"Awash 7 Station, Afar",9.0017805,40.1120232,,Fikadu Mulugeta,,Afar
+Axum Pharmacy,14.1326684,38.72091535,,Weldegebriel,914199979,Axum
+B CHOKORSA Ambulance Station,9.3086918,35.5737684,,Lula Mohamed,911853224,B CHOKORSA
+Babile Ambulance Station,9.221901588,42.32958153,,Lula Mohamed,911853206,Babile
+Babile Pharmacy,9.222155752,42.32966736,,Lula Mohamed,911853144,"Babile, East Harerge"
+"Basketo Station, SNNP",6.232641121,36.57976962,,Tesfaye Dunda,911458831,Basketo
+Batu  Pharmacy,7.931224093,38.71586283,,Lula Mohamed,911853144,"Batu, East Shewa"
+Bedele Ambulance Station,8.451053293,36.34054176,,Lula Mohamed,911853158,Bedele
+BEGI  Ambulance Station,9.345414,34.5537832,,Lula Mohamed,911853227,BEGI
+"Bench Sheko Branch, Ethiopia",5.779865023,36.56445798,,Tesfaye Dunda,911458831,Ethiopia Region
+"Bench Sheko Branch, Ethiopia",5.779865023,36.56445798,,Tesfaye Dunda,911458831,Ethiopia Region
+Bishoftu  Pharmacy,8.737162591,39.01227936,,Lula Mohamed,911853144,"Bishoftu, East Shewa"
+"Bobicho ambulance station, SNNP",7.570229174,37.84859617,,Tesfaye Dunda,911458831,Wolaita
+"Boditi ambulance station, SNNP",6.949090347,37.8568267,,Tesfaye Dunda,911458831,Wolaita
+Bokoji Ambulance Station,7.530246806,39.24899276,,Lula Mohamed,911853190,Bokoji
+Boneya Boshe Ambulance Station,8.936329386,37.04435632,,Lula Mohamed,911853169,Boneya Boshe
+"Bonga ambulance station, SNNP",7.267073957,36.24960237,,Tesfaye Dunda,911458831,Keffa
+"Borecha station, Sidama",7.0642886,37.9052073,,Tamirat Alemu,904767956,Sidama
+"Bursa station, Sidama",8.9969105,38.7602879,,Tamirat Alemu,904767956,Sidama
+Butajira ambulance station,8.120454787,38.37880611,,Tesfaye Dunda,911458831,Gurage
+CANQA TOWN Ambulance Station,8.533533303,34.80138336,,Lula Mohamed,911853200,CANQA TOWN
+"Chebe Station, Sidama",6.4405544,38.855414,,Tamirat Alemu,904767956,Sidama
+"Chencha ambulance station, SNNP",6.258564069,37.57319917,,Tesfaye Dunda,911458831,Gamo Gofa
+Chiro Town Ambulance Station,9.079867594,40.86437868,,Lula Mohamed,911853208,Chiro Town
+"Ciro Clinic, Oromia",9.079495863,40.86489454,,Lula Mohamed,911853144,"Ciro, West Harerge, Oromia"
+Ciro Pharmacy,9.079394643,40.86729832,,Lula Mohamed,911853144,"Ciro town, West Harerge"
+Dambi Ambulance Station,10.15874355,36.7238707,,Lula Mohamed,911853155,Dambi
+"Damot ambulance station, SNNP",6.857072199,37.75127972,,Tesfaye Dunda,911458831,Wolaita
+Dano   Ambulance Station,8.667472922,37.33701325,,Lula Mohamed,911853177,Dano
+"Debub south akaki station, Addis Ababa",9.019112074,38.79836765,,Amanuel,994985296,Addis Ababa
+Deder Ambulance Station,9.322023906,41.44609406,,Lula Mohamed,911853203,Deder
+Delo Mena Ambulance Station,9.0167781,38.805597,,Lula Mohamed,911853217,Delo Mena
+"Demba Station, SNNP",6.291891291,36.86492566,,Tesfaye Dunda,911458831,Gamo Gofa
+DEMBI DOLLO   Ambulance Station,8.535419405,34.79674652,,Lula Mohamed,911853199,DEMBI DOLLO
+Didu Woreda Ambulance Station,8.42404841,35.94153019,,Lula Mohamed,911853152,Didu Woreda
+Diga Ambulance Station,8.585237148,36.11150959,,Lula Mohamed,911853159,Diga
+"Dire Dawa  Station, Diredawa",9.6007856,41.8406059,,Addis Assefa,,Diredawa
+"Dire Dawa  Station, Diredawa",9.6007856,41.8406059,,Addis Assefa,,Diredawa
+Dodola   Ambulance Station,6.977583031,39.18248146,,Lula Mohamed,911853182,Dodola
+Doran Woreda Ambulance Station,8.554581857,35.7396132,,Lula Mohamed,911853149,Doran Woreda
+"Duki Station, Afar",8.9869932,38.7432165,,Fikadu Mulugeta,,Afar
+"Durame ambulance station, SNNP",7.257284655,37.90532111,,Tesfaye Dunda,911458831,Kembata
+East Shoa  Ambulance Station,8.7865836,39.3640505,,Lula Mohamed,911853212,East Shoa
+Ebantu Ambulance Station,9.97602124,36.45324743,,Lula Mohamed,911853164,Ebantu
+Eteya Ambulance Station,8.139731882,39.23938119,,Lula Mohamed,911853193,Eteya
+"Ethiopian Red Cross society,  Shire",14.10130352,38.28356063,,Weldegebriel,914199979,Shire
+"Ethiopian Red Cross society,  Tigray Region",13.49145514,39.47164045,,Weldegebriel,914199979,Tigray
+"Gachane Station, Afar",9.5531742,39.8624776,,Fikadu Mulugeta,,Afar
+"Gadare Ware District Station, Gambela",8.252109666,34.5933724,,Zelalem  Enyehu,,Gambela
+"Gadare Ware District Station, Gambela",8.252109666,34.5933724,,Zelalem  Enyehu,,Gambela
+"Galma Station, SNNP",6.239755502,37.04685272,,Tesfaye Dunda,911458831,Gamo Gofa
+"Gambela Branch, Gambela",8.256102973,34.57586296,,Zelalem  Enyehu,,Gambela
+"Gambela Branch, Gambela",8.256102973,34.57586296,,Zelalem  Enyehu,,Gambela
+"Gamo Chincha Station, SNNP",11.31091035,38.98262744,,Tesfaye Dunda,911458831,Gamo
+"Gamo Deramalo Station, SNNP",6.302197981,37.28858745,,Tesfaye Dunda,911458831,Gamo
+"Gamo Dita Station, SNNP",7.232767066,37.23426319,,Tesfaye Dunda,911458831,Gamo
+"Gamo Gerese Station, SNNP",5.930014187,37.30486692,,Tesfaye Dunda,911458831,Gamo
+"Gamo Guria Station, SNNP",6.062901536,37.53449169,,Tesfaye Dunda,911458831,Gamo
+"Gamo Tokko Station, SNNP",9.32881628,37.39773144,,Tesfaye Dunda,911458831,Gamo
+GANJI Ambulance Station,9.0412579,35.6395217,,Lula Mohamed,911853221,GANJI
+"Gedeo Branch, Gedeo",6.398297413,38.31027006,,Tesfaye Dunda,911458831,Gedo
+"Gedeo Branch, Gedeo",6.398297413,38.31027006,,Tesfaye Dunda,911458831,Gedo
+"Gedeo station, Gedeo",6.398297413,38.31027006,,Tesfaye Dunda,911458831,South Ethiopia Regional State
+Gelan Ambulance Station,8.8368225,38.8657396,,Lula Mohamed,911853232,Gelan
+Gera Ambulance Station,7.532684706,36.39631016,,Lula Mohamed,911853197,Gera
+"Geze Station, SNNP",6.405673419,38.28868188,,Tesfaye Dunda,911458831,Gamo Gofa
+"Gidole Station, SNNP",5.649426116,37.35986713,,Tesfaye Dunda,911458831,Dirashe
+GIMBI Ambulance Station,9.1828084,35.8745254,,Lula Mohamed,911853225,GIMBI
+Gimbi Pharmacy,9.177216099,35.8353838,,Lula Mohamed,911853144,"Gimbi, West Wellega"
+"Gimbichu ambulance station, SNNP",7.448416186,37.62173921,,Tesfaye Dunda,911458831,Hadiya
+Ginir Town Ambulance Station,7.1356334,40.8131027,,Lula Mohamed,911853239,Ginir Town
+Girawa Ambulance Station,8.919192324,41.66395136,,Lula Mohamed,911853205,Girawa
+Goba Ambulance Station,9.030782,38.9228634,,Lula Mohamed,911853216,Goba
+"Goba pharmacy, Bale",7.016790276,39.97624352,,Lula Mohamed,911853144,Bale
+Gobu Sayo Ambulance Station,9.53616213,37.33645928,,Lula Mohamed,911853166,Gobu Sayo
+Gudya Bila Ambulance Station,9.089202209,36.55517936,,Lula Mohamed,911853168,Gudya Bila
+Guliso Ambulance Station,10.2173759,40.4099343,,Lula Mohamed,911853229,Guliso
+"Gurage Branch, Gurage",8.304522311,37.78463742,,Tesfaye Dunda,911458831,Ethiopia Region
+"Gurage Branch, Gurage",8.304522311,37.78463742,,Tesfaye Dunda,911458831,Ethiopia Region
+"Gurage Enmor station, SNNP",8.142053875,38.35719651,,Tesfaye Dunda,911458831,Gurage
+Guto Gida Ambulance Station,9.091697795,36.56451923,,Lula Mohamed,911853160,Guto Gida
+Halaba Branch. Halaba,7.315042115,38.08718263,,Tesfaye Dunda,911458831,Central Regional State
+Halaba Branch. Halaba,7.315042115,38.08718263,,Tesfaye Dunda,911458831,Central Regional State
+Harar Ambulance Station,8.918047881,41.66416576,,Lula Mohamed,911853207,Harar
+Harer Pharmacy,9.32419982,42.12002116,,Dereje  Niguse,,Harari
+Harer Station,9.315063999,42.11973028,,Dereje  Niguse,,Harari
+Haro Limu Ambulance Station,9.94713169,36.18146781,,Lula Mohamed,911853165,Haro Limu
+HARU Ambulance Station,4.7246796,39.67363,,Lula Mohamed,911853220,HARU
+Hasasa   Ambulance Station,8.523071174,39.25550487,,Lula Mohamed,911853181,Hasasa
+"Hawassa Pharmacy, Sidama",7.053002,38.3534346,,Tamirat Alemu,904767956,Sidama
+Helath  station Ambulance Station,8.970051691,39.12093134,,Lula Mohamed,911853204,Helath  station
+Holeta Ambulance Station,9.0647114,38.5715472,,Lula Mohamed,911853231,Holeta
+HOMA Ambulance Station,8.9780554,38.9321285,,Lula Mohamed,911853223,HOMA
+"Hosanna ambulance station, SNNP",7.565991614,37.84649845,,Tesfaye Dunda,911458831,Hadiya
+Humera Special Branch,14.4066119,36.1937394,,Yirgalem Assefa,251917591500,Humera
+Huruta Ambulance Station,8.15239982,39.35195287,,Lula Mohamed,911853194,Huruta
+Ilu Harer Ambulance Station,8.914311687,36.15377231,,Lula Mohamed,911853157,Ilu Harer
+"Irapt Station, Afar",11.685204,38.385512,,Fikadu Mulugeta,,Afar
+JARSO Ambulance Station,9.5180522,35.4564663,,Lula Mohamed,911853222,JARSO
+Jeldu  Ambulance Station,9.382274717,38.02376172,,Lula Mohamed,911853176,Jeldu
+"Jemo Station, SNNP",7.812141426,39.28768504,,Tesfaye Dunda,911458831,Oromia
+Jibat  Station Ambulance Station,8.995767197,38.85279496,,Lula Mohamed,911853178,Jibat  Station
+Jimma Ambulance Station,7.676540452,36.83762863,,Lula Mohamed,911853195,Jimma
+Jimma pharamcy,7.675009343,36.83728531,,Lula Mohamed,911853144,"Jimma, Jimma Zone"
+"Jinka station, SNNP",5.781778358,36.56339342,,Tesfaye Dunda,911458831,South Omo
+"Karat Station, SNNP",5.339793691,37.44069428,,Tesfaye Dunda,911458831,Konso
+"Kembata Branch, Ethiopia",7.240702911,37.898541,,Tesfaye Dunda,911458831,Ethiopia Region
+"Kembata Branch, Ethiopia",7.240702911,37.898541,,Tesfaye Dunda,911458831,Ethiopia Region
+"Kido ambulance station, SNNP",6.885986363,37.7422327,,Tesfaye Dunda,911458831,Wolaita
+Kimbibit Ambulance Station,9.0275236,38.8031056,,Lula Mohamed,911853238,Kimbibit
+Kolobo Ambulance Station,8.9878313,36.6275643,,Lula Mohamed,911853233,Kolobo
+KONDALA Ambulance Station,9.0167772,38.805597,,Lula Mohamed,911853219,KONDALA
+"Kulito station, SNNP",7.3179367,38.09142929,,Tesfaye Dunda,911458831,Halaba
+Kura Jida Ambulance Station,8.8632165,38.8788731,,Lula Mohamed,911853235,Kura Jida
+Lata Sibu Ambulance Station,8.1558053,40.3766531,,Lula Mohamed,911853228,Lata Sibu
+Lega Tafo Ambulance Station,10.213166,40.4099897,,Lula Mohamed,911853230,Lega Tafo
+Leka Dullacha Ambulance Station,8.905162294,36.48395922,,Lula Mohamed,911853167,Leka Dullacha
+Limmu Genet Ambulance Station,8.08829024,36.9492619,,Lula Mohamed,911853198,Limmu Genet
+Limu Ambulance Station,9.84174903,36.31264429,,Lula Mohamed,911853162,Limu
+Limu Genet pharmacy,7.675009343,36.83728531,,Lula Mohamed,911853144,"Limmu Genet, Jimma"
+Lume Ambulance Station,8.5957761,39.6856003,,Lula Mohamed,911853213,Lume
+"Maje Station, SNNP",9.429246564,42.80011012,,Tesfaye Dunda,911458831,West Omo
+"Maskel Square Pharmacy, Addis Ababa",9.010060119,38.76136157,,Tesfaye,911374745,Addis Ababa
+Mekele  Pharmacy,13.49380077,39.46670359,,Weldegebriel,914199979,Mekele
+Melka Belo Ambulance Station,8.855691445,41.3161023,,Lula Mohamed,911853201,Melka Belo
+"Melokoza Station, SNNP",6.261670846,36.77739877,,Tesfaye Dunda,911458831,Gamo Gofa
+Mesela   Ambulance Station,9.0342688,45.8009248,,Lula Mohamed,911853209,Mesela
+Meta Ambulance Station,9.255278951,41.42415778,,Lula Mohamed,911853202,Meta
+Metu Pharmacy,8.296280504,35.58177097,,Lula Mohamed,911853144,"Metu, IluAba Bor"
+Metu town Ambulance Station,8.298076529,35.57976254,,Lula Mohamed,911853148,Metu town
+"Mirab East Branch, Addis Ababa",9.015065285,38.75557639,,Amanuel,994985296,Addis Ababa
+"Mirab North Branch, Addis Ababa",9.015065285,38.75557639,,Amanuel,994985296,Addis Ababa
+"Misrak East Kirkos station, Addis Ababa",9.023830245,38.78505691,,Amanuel,994985296,Addis Ababa
+"Misrak East Megenagna station, Addis Ababa",9.024995808,38.78454192,,Amanuel,994985296,Addis Ababa
+"Mizan aman ambulance station, SNNP",6.628697327,35.56594614,,Tesfaye Dunda,911458831,Bench Sheko
+Mojo pharmacy,8.587947916,39.1229414,,Lula Mohamed,911853144,"Mojo, East Shewa"
+"Moyale Branch, Oromia",3.554570441,39.03425174,,Keno Banjawu,917591500,Oromia
+"Moyale Branch, Oromia",3.554570441,39.03425174,,Keno Banjawu,917591500,Oromia
+Negele Ambulance Station,5.333684524,39.57775353,,Lula Mohamed,911853147,Negele
+Nekemt(adisu) Ambulance Station,9.083791608,36.55070402,,Lula Mohamed,911853174,Nekemt(adisu)
+Nekemte Ambulance Station,9.083788004,36.55258631,,Lula Mohamed,911853163,Nekemte
+"Nekemte Clinic, Oromia",9.164364211,40.50886015,,Lula Mohamed,911853144,"Nekemte, East Welega, Oromia"
+Nekemte Pharmacy,9.091076219,36.55644735,,Lula Mohamed,911853144,"Nekemt , East Wellega"
+Nole KABA Ambulance Station,9.0167775,38.805597,,Lula Mohamed,911853218,Nole KABA
+Nono Ambulance Station,8.539132289,37.43061404,,Lula Mohamed,911853175,Nono
+Nono sale Wereda Ambulance Station,7.87950985,35.18968447,,Lula Mohamed,911853150,Nono sale Wereda
+North Shewa Ambulance Station,9.0275238,38.8031056,,Lula Mohamed,911853237,North Shewa
+Nunu Kumba Ambulance Station,8.707922612,36.66558247,,Lula Mohamed,911853172,Nunu Kumba
+Oda Bultum Ambulance Station,8.3055358,39.7331303,,Lula Mohamed,911853210,Oda Bultum
+"Offa ambulance station, SNNP",6.751611394,37.50017803,,Tesfaye Dunda,911458831,Wolaita
+"Oyida Station, SNNP",6.3609074,37.1258593,,Tesfaye Dunda,911458831,Gamo Gofa
+"Piazza Pharmacy, Addis Ababa",9.037078659,38.75488145,,Tesfaye,911374745,Addis Ababa
+Robe Ambulance Station,7.119414707,40.00572511,,Lula Mohamed,911853188,Robe
+Robe pharmacy,7.12128842,40.00692674,,Lula Mohamed,911853144,Bale
+Sagure Ambulance Station,7.751921459,39.15690371,,Lula Mohamed,911853191,Sagure
+"Sarise Pharmacy, Addis Ababa",8.961093961,38.77166362,,Tesfaye,911374745,Addis Ababa
+Sasiga Ambulance Station,9.173074881,36.4668427,,Lula Mohamed,911853170,Sasiga
+"Saula Station, SNNP",6.299857111,36.87728405,,Tesfaye Dunda,911458831,Gamo Gofa
+SAYO NOLE Ambulance Station,8.7702568,37.2609935,,Lula Mohamed,911853226,SAYO NOLE
+Sebeta Ambulance Station,8.8633489,38.8788711,,Lula Mohamed,911853234,Sebeta
+"Semera Station , Afar",13.4790775,38.710421,,Fikadu Mulugeta,,Afar
+Shambu Ambulance Station,9.57781441,37.12142943,,Lula Mohamed,911853146,Shambu
+Shashemene Ambulance Station,7.201436845,38.60706165,,Lula Mohamed,911853183,Shashemene
+"Shey bench ambulance station, SNNP",6.955290654,35.7848741,,Tesfaye Dunda,911458831,Bench Sheko
+Sibu Sire Ambulance Station,9.040402488,36.86791202,,Lula Mohamed,911853173,Sibu Sire
+Sirka Ambulance Station,7.619331473,39.48626871,,Lula Mohamed,911853186,Sirka
+"Soddo ambulance station, SNNP",6.85943036,37.76228189,,Tesfaye Dunda,911458831,Wolaita
+"Sodo Station, SNNP",6.857896464,37.77610063,,Tesfaye Dunda,911458831,Gurage
+"South Omo Selamago, Station",5.781026753,36.56676832,,Tesfaye Dunda,911458831,South Omo
+Sude Ambulance Station,7.901853391,39.73842511,,Lula Mohamed,911853192,Sude
+"Telalaki  Station,Afar",8.9944163,38.7688368,,Fikadu Mulugeta,,Afar
+"Teppi ambulance station, SNNP",7.200234606,35.43919058,,Tesfaye Dunda,911458831,Bench Sheko
+"Tercha ambulance station, SNNP",7.147546613,37.1668793,,Tesfaye Dunda,911458831,Dawro
+Tigray Ambulance Station - Eastern Zone,13.79030384,39.63164185,,Weldegebriel,914199979,Tigray - Eastern Zone
+Tigray Ambulance Station - Eastern Zone,13.79030384,39.63164185,,Weldegebriel,914199979,Tigray - Eastern Zone
+Tigray Ambulance Station - Mekele,13.49150727,39.47189792,,Weldegebriel,914199979,Tigray - Mekele
+Tigray Ambulance Station - Mekele,13.49150727,39.47189792,,Weldegebriel,914199979,Tigray - Mekele
+Tigray Ambulance Station - North West,14.39640876,40.24536246,,Weldegebriel,914199979,Tigray - North West
+Tigray Ambulance Station - North West,14.39640876,40.24536246,,Weldegebriel,914199979,Tigray - North West
+Tigray Ambulance Station - South East Zone,12.23925231,38.76756823,,Weldegebriel,914199979,Tigray - South East Zone
+Tigray Ambulance Station - South East Zone,12.23925231,38.76756823,,Weldegebriel,914199979,Tigray - South East Zone
+Tigray Ambulance Station - Southern Zone,12.82422519,39.5352821,,Weldegebriel,914199979,Tigray - Southern Zone
+Tigray Ambulance Station - Southern Zone,12.82422519,39.5352821,,Weldegebriel,914199979,Tigray - Southern Zone
+Toke Kutaye  Ambulance Station,9.061075432,38.02994465,,Lula Mohamed,911853179,Toke Kutaye
+Tullu Bollo Pharmacy,8.66386566,38.21364609,,Lula Mohamed,911853144,"Tullu Bollo, SW Shewa"
+Tulo   Ambulance Station,9.1215917,35.198323,,Lula Mohamed,911853211,Tulo
+W GUJI Ambulance Station,9.027524,38.7953807,,Lula Mohamed,911853236,W GUJI
+Waliso Ambulance Station,8.539304219,37.97209691,,Lula Mohamed,911853145,Waliso
+Wama Hagelo Ambulance Station,8.822843727,36.92223776,,Lula Mohamed,911853161,Wama Hagelo
+wayu Tuka Ambulance Station,9.032083942,36.67048929,,Lula Mohamed,911853171,wayu Tuka
+Weliso Pharmacy,8.53892479,37.97267435,,Lula Mohamed,911853144,"Weliso Station, SW Shewa"
+Wokuro Pharmacy,13.78629268,39.60267967,,Weldegebriel,914199979,Wokuro
+"Wolaita Branch, Wolaita",6.848417208,37.77120153,,Tesfaye Dunda,911458831,Wolaita
+"Wolaita Branch, Wolaita",6.848417208,37.77120153,,Tesfaye Dunda,911458831,Wolaita
+"Wolkite ambulance station, SNNP",8.29066887,37.78587214,,Tesfaye Dunda,911458831,Gurage
+"Worabe station, SNNP",7.835575857,38.1801331,,Tesfaye Dunda,911458831,Silte
+Yanfa Ambulance Station,8.24501286,36.60189009,,Lula Mohamed,911853156,Yanfa
+Yayo Wereda Ambulance Station,8.350255457,35.86505371,,Lula Mohamed,911853153,Yayo Wereda
+"Yirg Alem station, Sidama",6.7247056,38.2956816,,Tamirat Alemu,904767956,Sidama
+Zone Office  Ambulance Station,9.003391898,38.72766495,,Lula Mohamed,911853180,Zone Office

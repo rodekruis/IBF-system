@@ -1,18 +1,18 @@
 branchName,lat,lon,numberOfVolunteers,contactPerson,contactNumber,contactAddress
-Centre de Santé - Les Volontaires d'abord,15.37381791,-4.402670136,,Lambert Boteya,,Kinshasa
-Centre de Santé - Lisalisi,15.30370038,-4.342436335,,Lambert Boteya,,Kinshasa
-Centre de Santé Bumbu,15.29419131,-4.372864122,,Lambert Boteya,,Kinshasa
-Centre de Santé Croix Rouge - Lisalisi,15.26358049,-4.338984613,,Lambert Boteya,,Kinshasa
-Centre de Santé Croix Rouge - Ngiringiri,15.29904524,-4.35610923,,Lambert Boteya,,Kinshasa
-Centre de Santé Croix Rouge - Port fluvial de Kinkole,15.50562142,-4.320860375,,Lambert Boteya,,Kinshasa
-Centre de Santé Croix Rouge Makala,15.30834256,-4.374604934,,Lambert Boteya,,Kinshasa
-Centre de Santé Croix Rouge Matadi,13.45807004,-5.822836562,,Lambert Boteya,,Kongo Central
-Centre de Santé Croix Rouge Mbandaka,18.152304,0.03352692,,Lambert Boteya,,Equateur
-Centre de Santé Croix Rouge Solférino Boma,13.06267192,-5.837669521,,Lambert Boteya,,Kongo Central
-Centre de santé de la Croix Rouge de Kimbemba,14.08677247,-4.624775494,,Lambert Boteya,,Kongo Central
-Centre de santé de Luozi,14.13283298,-4.942882816,,Lambert Boteya,,Kongo Central
-Centre Médical Croix Rouge de Nkamuna,13.92070963,-5.762462461,,Lambert Boteya,,Kongo Central
-Centre Médical Croix Rouge Kimpese,14.431809,-5.5599613,,Lambert Boteya,00242 05 472 24 99,Kongo Central
-Polyclinique croix rouge Rdc,15.314655,-4.320132,,Dr Dadin Mateso Mindele,243899150984,Province ville de kinshasa
-Poste de santé Croix Rouge de Kiemba,13.62715708,-5.809399994,,Lambert Boteya,,Kongo Central
-Poste de santé Croix Rouge Nkenge,13.62709271,-5.809421342,,Lambert Boteya,,Kongo Central
+Centre de Santé - Les Volontaires d'abord,-4.402670136,15.37381791,,Lambert Boteya,,Kinshasa
+Centre de Santé - Lisalisi,-4.342436335,15.30370038,,Lambert Boteya,,Kinshasa
+Centre de Santé Bumbu,-4.372864122,15.29419131,,Lambert Boteya,,Kinshasa
+Centre de Santé Croix Rouge - Lisalisi,-4.338984613,15.26358049,,Lambert Boteya,,Kinshasa
+Centre de Santé Croix Rouge - Ngiringiri,-4.35610923,15.29904524,,Lambert Boteya,,Kinshasa
+Centre de Santé Croix Rouge - Port fluvial de Kinkole,-4.320860375,15.50562142,,Lambert Boteya,,Kinshasa
+Centre de Santé Croix Rouge Makala,-4.374604934,15.30834256,,Lambert Boteya,,Kinshasa
+Centre de Santé Croix Rouge Matadi,-5.822836562,13.45807004,,Lambert Boteya,,Kongo Central
+Centre de Santé Croix Rouge Mbandaka,0.03352692,18.152304,,Lambert Boteya,,Equateur
+Centre de Santé Croix Rouge Solférino Boma,-5.837669521,13.06267192,,Lambert Boteya,,Kongo Central
+Centre de santé de la Croix Rouge de Kimbemba,-4.624775494,14.08677247,,Lambert Boteya,,Kongo Central
+Centre de santé de Luozi,-4.942882816,14.13283298,,Lambert Boteya,,Kongo Central
+Centre Médical Croix Rouge de Nkamuna,-5.762462461,13.92070963,,Lambert Boteya,,Kongo Central
+Centre Médical Croix Rouge Kimpese,-5.5599613,14.431809,,Lambert Boteya,00242 05 472 24 99,Kongo Central
+Polyclinique croix rouge Rdc,-4.320132,15.314655,,Dr Dadin Mateso Mindele,243899150984,Province ville de kinshasa
+Poste de santé Croix Rouge de Kiemba,-5.809399994,13.62715708,,Lambert Boteya,,Kongo Central
+Poste de santé Croix Rouge Nkenge,-5.809421342,13.62709271,,Lambert Boteya,,Kongo Central
