@@ -90,23 +90,13 @@ define('ibf-dashboard:services/ibf-auth', ['ajax'], function (Ajax) {
         },
 
         /**
-         * Send token to IBF Dashboard web component using sessionStorage
+         * Send token to IBF Dashboard web component using localStorage
          */
         sendTokenToIbfDashboard: function(token) {
-            // Store token in sessionStorage for IBF Dashboard to pick up
-            sessionStorage.setItem('ibf-backend-token', token);
+            // Store token in localStorage for IBF Dashboard to pick up (same as non-embedded mode)
+            localStorage.setItem('IBF-API-TOKEN', token);
             
-            // Dispatch event to notify IBF Dashboard that authentication is ready
-            var event = new CustomEvent('ibf-auth-ready', {
-                detail: { 
-                    token: token,
-                    platform: 'espocrm',
-                    source: 'espocrm-session'
-                }
-            });
-            window.dispatchEvent(event);
-            
-            console.log('✅ Token sent to IBF Dashboard via sessionStorage and event');
+            console.log('✅ Token sent to IBF Dashboard via localStorage');
         },
 
         /**
@@ -121,15 +111,9 @@ define('ibf-dashboard:services/ibf-auth', ['ajax'], function (Ajax) {
                 self.sendTokenToIbfDashboard(token);
                 
                 // Set dashboard attributes for embedded mode
-                var user = self.view.getUser();
-                var userId = user ? user.id : 'unknown';
-                var userName = user ? (user.get('userName') || user.get('name') || 'unknown') : 'unknown';
-                
                 dashboardElement.setAttribute('platform', 'espocrm');
                 dashboardElement.setAttribute('embedded-mode', 'true');
                 dashboardElement.setAttribute('skip-login', 'true');
-                dashboardElement.setAttribute('espo-user-id', userId);
-                dashboardElement.setAttribute('espo-user-name', userName);
                 
                 console.log('✅ IBF Dashboard authenticated successfully');
                 return true;
@@ -153,7 +137,7 @@ define('ibf-dashboard:services/ibf-auth', ['ajax'], function (Ajax) {
          * Clear cached authentication data
          */
         clearAuth: function() {
-            sessionStorage.removeItem('ibf-backend-token');
+            localStorage.removeItem('IBF-API-TOKEN');
             console.log('🧹 IBF authentication data cleared');
         }
     });

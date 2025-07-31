@@ -7,17 +7,13 @@ export class LoaderService {
   private queue = [];
 
   constructor() {
-    console.log('🔄 LoaderService: Initialized with loading state: false');
-    
-    // Ensure initial state is properly emitted
+    // Initialize with loading state false
     setTimeout(() => {
-      console.log('🔄 LoaderService: Forcing initial state emission');
       this.loaderSubject.next(false);
     }, 0);
   }
 
   getLoaderSubscription(): Observable<boolean> {
-    console.log('🔄 LoaderService: New subscription created, current loading state:', this.loaderSubject.value);
     return this.loaderSubject.asObservable();
   }
 
@@ -39,12 +35,7 @@ export class LoaderService {
     this.updateQueue(item, done);
     const isLoading = this.queue.length > 0;
     
-    // Debug logging to track loader state
-    console.log(`🔄 LoaderService: ${done ? 'FINISHED' : 'STARTED'} request "${item}"`);
-    console.log(`📊 Current queue (${this.queue.length} items):`, [...this.queue]);
-    console.log(`🎯 Setting loader to: ${isLoading ? 'LOADING' : 'READY'}`);
-    
-    // Detect potential infinite loop
+    // Only log potential issues to avoid console clutter
     if (this.queue.length > 10) {
       console.warn(`⚠️ LoaderService: Queue getting large (${this.queue.length} items) - possible infinite loop`);
     }

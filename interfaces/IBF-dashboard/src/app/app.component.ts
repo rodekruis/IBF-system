@@ -63,7 +63,6 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     this.loaderSubscription = this.loaderService
       .getLoaderSubscription()
       .subscribe((loading: boolean) => {
-        console.log(`🔄 AppComponent: Loader state changed to: ${loading ? 'LOADING' : 'READY'}`);
         this.loading = loading;
         this.cdr.markForCheck();
       });

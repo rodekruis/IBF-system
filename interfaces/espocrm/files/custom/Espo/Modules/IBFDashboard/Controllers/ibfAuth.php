@@ -121,34 +121,6 @@ class IbfAuth extends Base
         }
     }
 
-    public function actionTest(Request $request): array
-    {
-        $log = $GLOBALS['log'] ?? null;
-        if ($log) {
-            $log->info("[IBF-AUTH] Test endpoint called at " . date('Y-m-d H:i:s'));
-        }
-        
-        // Test user context
-        $user = $this->getUser();
-        $userInfo = 'No user';
-        if ($user) {
-            $userInfo = [
-                'id' => $user->getId(),
-                'email' => $user->get('emailAddress'),
-                'username' => $user->get('userName'),
-                'isAdmin' => $user->isAdmin()
-            ];
-        }
-        
-        return [
-            'status' => 'Route working', 
-            'timestamp' => date('Y-m-d H:i:s'),
-            'user' => $userInfo,
-            'requestMethod' => $request->getMethod(),
-            'hasSession' => !empty(session_id())
-        ];
-    }
-
     private function getIbfUserForUser(string $userId)
     {
         return $this->getEntityManager()
@@ -178,37 +150,21 @@ class IbfAuth extends Base
             }
             
             $ibfEmail = $ibfUser->get('email');
-            $hashedPassword = $ibfUser->get('password');
+            $ibfPassword = $ibfUser->get('password');
 
-            error_log("[IBF-AUTH] IBF credentials check - Email: " . ($ibfEmail ? 'exists' : 'missing') . ", Password: " . ($hashedPassword ? 'exists (hashed)' : 'missing'));
-            if ($log) $log->info("[IBF-AUTH] IBF credentials check - Email: " . ($ibfEmail ? 'exists' : 'missing') . ", Password: " . ($hashedPassword ? 'exists (hashed)' : 'missing'));
+            error_log("[IBF-AUTH] IBF credentials check - Email: " . ($ibfEmail ? 'exists' : 'missing') . ", Password: " . ($ibfPassword ? 'exists' : 'missing'));
+            if ($log) $log->info("[IBF-AUTH] IBF credentials check - Email: " . ($ibfEmail ? 'exists' : 'missing') . ", Password: " . ($ibfPassword ? 'exists' : 'missing'));
             
-            if (!$ibfEmail || !$hashedPassword) {
+            if (!$ibfEmail || !$ibfPassword) {
                 error_log("[IBF-AUTH] IBFUser record missing credentials, creating new IBF user...");
                 if ($log) $log->info("[IBF-AUTH] IBFUser record missing credentials, creating new IBF user...");
                 return $this->createIbfUserAndGetToken($user, $log);
             }
             
-            // Check if password is already hashed (new format) or plain text (legacy)
-            if (password_get_info($hashedPassword)['algo'] !== null) {
-                // Password is hashed - need to regenerate for IBF API
-                error_log("[IBF-AUTH] Found hashed password, regenerating for IBF login...");
-                if ($log) $log->info("[IBF-AUTH] Found hashed password, regenerating for IBF login...");
-                return $this->createIbfUserAndGetToken($user, $log);
-            } else {
-                // Legacy plain text password - use directly but upgrade to hashed storage
-                error_log("[IBF-AUTH] Found legacy plain text password, using for login and upgrading storage...");
-                if ($log) $log->info("[IBF-AUTH] Found legacy plain text password, using for login and upgrading storage...");
-                $ibfPassword = $hashedPassword; // Actually plain text in legacy format
-                
-                // Try login first
-                $token = $this->loginIbfUserAndGetToken($ibfEmail, $ibfPassword, $log);
-                if ($token) {
-                    // Upgrade to hashed password storage
-                    $this->saveIbfCredentialsToUser($user, $ibfEmail, $ibfPassword, $log);
-                }
-                return $token;
-            }
+            // Use the stored credentials to login
+            error_log("[IBF-AUTH] Found IBF credentials, attempting login...");
+            if ($log) $log->info("[IBF-AUTH] Found IBF credentials, attempting login...");
+            return $this->loginIbfUserAndGetToken($ibfEmail, $ibfPassword, $log);
         } catch (\Exception $e) {
             error_log("[IBF-AUTH] Exception in getIbfApiToken: " . $e->getMessage());
             error_log("[IBF-AUTH] Stack trace: " . $e->getTraceAsString());
@@ -287,33 +243,6 @@ class IbfAuth extends Base
                     if (!$ibfPassword) $log->error("[IBF-AUTH] Missing password in IBFUser record");
                 }
                 return null;
-            }
-
-            // Check if password is hashed (new format) or plain text (legacy)
-            $passwordInfo = password_get_info($ibfPassword);
-            if ($passwordInfo['algo'] !== null) {
-                // Password is hashed - we can't use it for API login
-                error_log("[IBF-AUTH] Admin password is hashed and cannot be used for API login");
-                error_log("[IBF-AUTH] SOLUTION: Please reset the admin user's IBF password to plain text in the IBFUser entity");
-                error_log("[IBF-AUTH] Admin email: " . $ibfEmail . " (userId: " . $adminUserId . ")");
-                
-                if ($log) {
-                    $log->error("[IBF-AUTH] Admin password is hashed and cannot be used for API login");
-                    $log->error("[IBF-AUTH] SOLUTION: Please reset the admin user's IBF password to plain text in the IBFUser entity");
-                    $log->error("[IBF-AUTH] Admin email: " . $ibfEmail . " (userId: " . $adminUserId . ")");
-                }
-                
-                // Try to use a fallback approach - check if there's a plain text admin password in config
-                $adminPassword = $config->get('ibfAdminPassword');
-                if ($adminPassword) {
-                    error_log("[IBF-AUTH] Found fallback admin password in config, attempting login...");
-                    if ($log) $log->info("[IBF-AUTH] Found fallback admin password in config, attempting login...");
-                    $ibfPassword = $adminPassword;
-                } else {
-                    error_log("[IBF-AUTH] No fallback admin password found in config (ibfAdminPassword)");
-                    if ($log) $log->error("[IBF-AUTH] No fallback admin password found in config (ibfAdminPassword)");
-                    return null;
-                }
             }
 
             error_log("[IBF-AUTH] Retrieved admin credentials from IBFUser, attempting login...");
@@ -803,18 +732,26 @@ class IbfAuth extends Base
                 ->findOne();
                 
             if (!$ibfUser) {
-                $ibfUser = $this->getEntityManager()->create('IBFUser');
-                $ibfUser->set('userId', $user->getId());
+                // Use createEntity method which is more standard in EspoCRM
+                $ibfUser = $this->getEntityManager()->createEntity('IBFUser', [
+                    'userId' => $user->getId(),
+                    'email' => $ibfEmail,
+                    'password' => $ibfPassword,
+                    'name' => $user->get('firstName') . ' ' . $user->get('lastName') . ' (IBF)'
+                ]);
+                
+                if ($log) $log->info("[IBF-AUTH] IBF credentials saved to new IBFUser entity for user: " . $user->get('id'));
+                return $ibfUser ? true : false;
+            } else {
+                // Update existing IBFUser record
+                $ibfUser->set('email', $ibfEmail);
+                $ibfUser->set('password', $ibfPassword);
+                $this->getEntityManager()->saveEntity($ibfUser);
+                
+                if ($log) $log->info("[IBF-AUTH] IBF credentials updated in existing IBFUser entity for user: " . $user->get('id'));
+                return true;
             }
-            
-            $ibfUser->set('email', $ibfEmail);
-            // Hash the password before storing (security improvement)
-            $ibfUser->set('password', password_hash($ibfPassword, PASSWORD_ARGON2ID));
-            $this->getEntityManager()->saveEntity($ibfUser);
-
-            if ($log) $log->info("[IBF-AUTH] IBF credentials saved securely to IBFUser entity for user: " . $user->get('id'));
-            return true;
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             if ($log) $log->error("[IBF-AUTH] Exception in saveIbfCredentialsToUser: " . $e->getMessage());
             if ($log) $log->error("[IBF-AUTH] Stack trace: " . $e->getTraceAsString());
             return false;

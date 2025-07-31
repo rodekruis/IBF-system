@@ -280,14 +280,11 @@ export class MapService {
 
   private loadAdminRegionLayer(layerActive: boolean, adminLevel: AdminLevel) {
     if (layerActive && adminLevel === this.adminLevel) {
+      // Use basic admin areas for boundary display instead of disaster-specific filtering
       this.apiService
-        .getAdminRegions(
+        .getBasicAdminAreas(
           this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-          this.timelineState.activeLeadTime,
           adminLevel,
-          this.eventState?.event?.eventName,
-          this.getPlaceCodeParent(),
         )
         .subscribe((adminRegions) => {
           this.addAdminRegionLayer(adminRegions, adminLevel);

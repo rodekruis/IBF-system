@@ -12,105 +12,74 @@ export class EspoCrmAuthService {
   public isAuthenticated$ = this.authenticatedSubject.asObservable();
 
   constructor() {
-    this.setupTokenListeners();
+    // In embedded mode, periodically check for token until found
+    if (this.isEmbeddedInEspoCrm()) {
+      this.setupTokenPolling();
+    }
   }
 
-  private setupTokenListeners(): void {
-    // Listen for IBF backend auth token from EspoCRM
-    window.addEventListener('ibf-auth-ready', (event: any) => {
-      console.log('🔍 DEBUG: ibf-auth-ready event received', event);
-      console.log('🔍 DEBUG: Event detail:', event.detail);
-      const token = event.detail?.token;
-      if (token) {
-        console.log('🔐 Received IBF backend token from EspoCRM via event');
-        console.log('🔍 DEBUG: Token length:', token.length);
-        console.log('🔍 DEBUG: Token preview:', token.substring(0, 20) + '...');
-        this.setToken(token);
-      } else {
-        console.warn('⚠️ ibf-auth-ready event received but no token found in event.detail');
-      }
-    });
-
-    // Watch for attribute changes on the custom element
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'auth-token') {
-          const target = mutation.target as HTMLElement;
-          const token = target.getAttribute('auth-token');
-          if (token && token !== this.tokenSubject.value) {
-            console.log('🔐 Received IBF backend token from EspoCRM via attribute');
-            this.setToken(token);
-          }
-        }
-      });
-    });
-
-    // Start observing when the element exists
-    setTimeout(() => {
-      const dashboardElement = document.querySelector('ibf-dashboard');
-      if (dashboardElement) {
-        observer.observe(dashboardElement, {
-          attributes: true,
-          attributeFilter: ['auth-token']
-        });
-        
-        // Check if token is already set
-        const existingToken = dashboardElement.getAttribute('auth-token');
-        if (existingToken) {
-          this.setToken(existingToken);
-        }
+  private setupTokenPolling(): void {
+    // Check immediately
+    this.checkForToken();
+    
+    // Then check every 100ms until token is found
+    const tokenCheckInterval = setInterval(() => {
+      if (this.checkForToken()) {
+        clearInterval(tokenCheckInterval);
       }
     }, 100);
+    
+    // Stop checking after 10 seconds to avoid infinite polling
+    setTimeout(() => {
+      clearInterval(tokenCheckInterval);
+    }, 10000);
+  }
+
+  private checkForToken(): boolean {
+    const token = localStorage.getItem('IBF-API-TOKEN');
+    if (token && !this.tokenSubject.value) {
+      console.log('🔐 EspoCRM token detected in localStorage, initializing authentication');
+      this.setToken(token);
+      return true;
+    }
+    return false;
   }
 
   setToken(token: string): void {
     console.log('💾 Setting IBF backend token in storage');
-    console.log('🔍 DEBUG: Token to store length:', token.length);
-    console.log('🔍 DEBUG: Token to store preview:', token.substring(0, 20) + '...');
     
     this.tokenSubject.next(token);
     this.authenticatedSubject.next(true);
     
-    // Store for persistence within the EspoCRM session
-    sessionStorage.setItem('ibf-backend-token', token);
-    sessionStorage.setItem('ibf-backend-timestamp', Date.now().toString());
+    // Use same localStorage key as non-embedded mode for consistency
+    localStorage.setItem('IBF-API-TOKEN', token);
+    localStorage.setItem('ibf-backend-timestamp', Date.now().toString());
     
     console.log('✅ IBF backend token set successfully');
-    console.log('✅ Token stored in sessionStorage with key: ibf-backend-token');
   }
 
   getToken(): string | null {
-    console.log('🔍 DEBUG: getToken() called');
-    
     const currentToken = this.tokenSubject.value;
     if (currentToken) {
-      console.log('🔍 DEBUG: Found token in memory, length:', currentToken.length);
       return currentToken;
     }
 
-    // Check sessionStorage (use session storage since we're embedded in EspoCRM)
-    const storedToken = sessionStorage.getItem('ibf-backend-token');
-    const timestamp = sessionStorage.getItem('ibf-backend-timestamp');
-    
-    console.log('🔍 DEBUG: Checking sessionStorage for token...');
-    console.log('🔍 DEBUG: StoredToken exists:', !!storedToken);
-    console.log('🔍 DEBUG: Timestamp exists:', !!timestamp);
+    // Check localStorage (same as non-embedded mode for consistency)
+    const storedToken = localStorage.getItem('IBF-API-TOKEN');
+    const timestamp = localStorage.getItem('ibf-backend-timestamp');
     
     if (storedToken && timestamp) {
       const age = Date.now() - parseInt(timestamp);
-      console.log('🔍 DEBUG: Token age in minutes:', Math.round(age / 60000));
       
       if (age < 3600000) { // 1 hour
-        console.log('🔍 DEBUG: Token is valid, restoring from storage');
         this.setToken(storedToken);
         return storedToken;
       } else {
-        console.log('⚠️ DEBUG: Token expired, clearing');
+        console.log('⚠️ Token expired, clearing');
         this.clearToken();
       }
     }
 
-    console.log('🔍 DEBUG: No valid token found, returning null');
     return null;
   }
 
@@ -121,8 +90,8 @@ export class EspoCrmAuthService {
   clearToken(): void {
     this.tokenSubject.next(null);
     this.authenticatedSubject.next(false);
-    sessionStorage.removeItem('ibf-backend-token');
-    sessionStorage.removeItem('ibf-backend-timestamp');
+    localStorage.removeItem('IBF-API-TOKEN');
+    localStorage.removeItem('ibf-backend-timestamp');
     
     console.log('🧹 IBF backend token cleared');
   }
