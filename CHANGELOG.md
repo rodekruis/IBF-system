@@ -1,3 +1,13 @@
+# [0.322.0](https://github.com/rodekruis/IBF-system/compare/v0.321.10...v0.322.0) (2025-08-01)
+
+
+### Features
+
+* download and upload point data from dashboard ([09e068d](https://github.com/rodekruis/IBF-system/commit/09e068d58b5892d3f5f5bababdfcc5228870e9bf))
+* show max alert level on status page ([51698b7](https://github.com/rodekruis/IBF-system/commit/51698b7e840ca4a795d8018118903b238aacb5eb))
+
+
+
 ## [0.321.10](https://github.com/rodekruis/IBF-system/compare/v0.321.9...v0.321.10) (2025-08-01)
 
 
@@ -87,17 +97,6 @@
 ### Bug Fixes
 
 * ionic translate error ([c3f4130](https://github.com/rodekruis/IBF-system/commit/c3f41304a03f1fa7e5d0f4731d96b25cf2aa7ea4))
-
-
-
-## [0.321.1](https://github.com/rodekruis/IBF-system/compare/v0.321.0...v0.321.1) (2025-06-19)
-
-
-### Bug Fixes
-
-* add mock gauge data ([22eb854](https://github.com/rodekruis/IBF-system/commit/22eb854d9843eb8273f3bde5b7a24a179d294757))
-* show warning when file missing in mock scenarios ([b6c5cd3](https://github.com/rodekruis/IBF-system/commit/b6c5cd3b5bbca2621f7b3ac7acedc0754fabb6da))
-* use tailwind classes ([68d1c1c](https://github.com/rodekruis/IBF-system/commit/68d1c1cc4729cee578e631c38e30361982514123))
 
 
 
