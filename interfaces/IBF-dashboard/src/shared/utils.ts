@@ -21,3 +21,22 @@ export const firstCharOfWordsToUpper = (input: string) => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 };
+
+export const downloadFile = (
+  fileName: string,
+  content: string,
+  type: string,
+) => {
+  const blob = new Blob([content], { type });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const now = new Date();
+  const dateStr = now.toISOString().replace(/[:.]/g, '-').slice(0, 19);
+
+  a.href = url;
+  a.download = dateStr + fileName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  window.URL.revokeObjectURL(url);
+};

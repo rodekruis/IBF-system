@@ -28,7 +28,7 @@ class MapComponent extends DashboardPage {
   constructor(page: Page) {
     super(page);
     this.page = page;
-    this.mapComponent = this.page.getByTestId('dashboard-map-componenet');
+    this.mapComponent = this.page.getByTestId('dashboard-map-component');
     this.breadCrumbNationalView = this.page.getByTestId(
       'breadcrumb-national-view',
     );

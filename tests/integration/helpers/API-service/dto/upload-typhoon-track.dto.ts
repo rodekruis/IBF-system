@@ -8,7 +8,8 @@ export interface UploadTyphoonTrackDto {
   readonly date: Date;
 }
 
-export enum TyphoonCategory { // https://www.pagasa.dost.gov.ph/information/about-tropical-cyclone
+export enum TyphoonCategory {
+  // https://www.pagasa.dost.gov.ph/information/about-tropical-cyclone
   TropicalDepression = 'TD', // a tropical cyclone with maximum sustained winds of up to 62 kilometers per hour (kph) or less than 34 nautical miles per hour (knots)
   TropicalStorm = 'TS', // a tropical cyclone with maximum wind speed of 62 to 88 kph or 34 - 47 knots
   // eslint-disable-next-line perfectionist/sort-enums

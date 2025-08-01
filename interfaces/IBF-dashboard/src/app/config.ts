@@ -150,3 +150,6 @@ export const DEFAULT_USER: User = {
   countries: [],
   disasterTypes: [],
 };
+
+export const TOAST_DURATION = 3000;
+export const TOAST_POSITION = 'top';

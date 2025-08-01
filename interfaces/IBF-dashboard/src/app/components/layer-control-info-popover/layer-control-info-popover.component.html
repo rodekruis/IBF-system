@@ -1,16 +1,49 @@
 <ion-card class="popover-window-card">
-  <ion-card-header color="ibf-primary">
-    <ion-icon
-      class="ibf-layer-control-popover-icon"
-      name="close-circle"
-      size="large"
-      (click)="closePopover()"
-      data-testid="close-matrix-icon"
-      class="popover-close-button"
-    ></ion-icon>
+  <ion-card-header
+    color="ibf-primary flex flex-row items-center justify-between py-2"
+  >
     <ion-card-title data-testid="layer-info-title">
       {{ layer.label }}
     </ion-card-title>
+    <div>
+      @if (layer.type === ibfLayerTypePoint) {
+        @if (
+          userRole === UserRole.Admin ||
+          userRole === UserRole.LocalAdmin ||
+          userRole === UserRole.Operator
+        ) {
+          <ion-button fill="clear" color="ibf-white" (click)="upload()">
+            <ion-icon
+              data-testid="close-matrix-icon"
+              slot="icon-only"
+              name="cloud-upload"
+            ></ion-icon>
+            <input
+              type="file"
+              class="hidden"
+              (change)="onFileChange($event)"
+              #uploader
+            />
+          </ion-button>
+        }
+
+        <ion-button fill="clear" color="ibf-white" (click)="download()">
+          <ion-icon
+            data-testid="close-matrix-icon"
+            slot="icon-only"
+            name="cloud-download"
+          ></ion-icon>
+        </ion-button>
+      }
+      <ion-button fill="clear" color="ibf-white" (click)="closePopover()">
+        <ion-icon
+          data-testid="close-matrix-icon"
+          slot="icon-only"
+          size="large"
+          name="close-circle"
+        ></ion-icon>
+      </ion-button>
+    </div>
   </ion-card-header>
   <ion-card-content
     data-testid="layer-info-content"

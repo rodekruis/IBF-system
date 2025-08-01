@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { LeafletControlLayersConfig } from '@bluehalo/ngx-leaflet';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
@@ -51,8 +51,6 @@ import {
   Waterpoint,
 } from 'src/app/models/poi.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
-import { CountryService } from 'src/app/services/country.service';
-import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { Event, EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { MapLegendService } from 'src/app/services/map-legend.service';
@@ -79,12 +77,13 @@ import { TimelineState } from 'src/app/types/timeline-state';
   standalone: false,
 })
 export class MapComponent implements AfterViewInit, OnDestroy {
+  @Input() country: Country;
+  @Input() disasterType: DisasterType;
+  @Input() countryDisasterSettings: CountryDisasterSettings;
+
   private map: Map;
   public layers: IbfLayer[] = [];
   private placeCode: PlaceCode;
-  private country: Country;
-  private disasterType: DisasterType;
-  private countryDisasterSettings: CountryDisasterSettings;
   public lastUploadDate: string;
   public eventState: EventState;
   public timelineState: TimelineState;
@@ -94,8 +93,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private legendDiv: HTMLElement;
 
   private layerSubscription: Subscription;
-  private countrySubscription: Subscription;
-  private disasterTypeSubscription: Subscription;
   private placeCodeSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
@@ -116,8 +113,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   };
 
   constructor(
-    private countryService: CountryService,
-    private disasterTypeService: DisasterTypeService,
     private timelineService: TimelineService,
     private mapService: MapService,
     private placeCodeService: PlaceCodeService,
@@ -130,14 +125,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.layerSubscription = this.mapService
       .getLayerSubscription()
       .subscribe(this.onLayerChange);
-
-    this.countrySubscription = this.countryService
-      .getCountrySubscription()
-      .subscribe(this.onCountryChange);
-
-    this.disasterTypeSubscription = this.disasterTypeService
-      .getDisasterTypeSubscription()
-      .subscribe(this.onDisasterTypeChange);
 
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
@@ -164,9 +151,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.layerSubscription.unsubscribe();
-    this.countrySubscription.unsubscribe();
     this.placeCodeSubscription.unsubscribe();
-    this.disasterTypeSubscription.unsubscribe();
     this.initialEventStateSubscription.unsubscribe();
     this.manualEventStateSubscription.unsubscribe();
     this.timelineStateSubscription.unsubscribe();
@@ -188,20 +173,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.addToLayersControl();
     this.triggerWindowResize();
     this.updateLegend();
-  };
-
-  private onCountryChange = (country: Country) => {
-    this.country = country;
-  };
-
-  private onDisasterTypeChange = (disasterType: DisasterType) => {
-    this.disasterType = disasterType;
-
-    this.countryDisasterSettings =
-      this.disasterTypeService.getCountryDisasterTypeSettings(
-        this.country,
-        this.disasterType,
-      );
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
@@ -387,13 +358,17 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         IbfLayerName.schools,
         IbfLayerName.waterpoints,
       ].includes(layerName) &&
-      this.disasterType.disasterType === DisasterTypeKey.flashFloods &&
+      this.disasterType?.disasterType === DisasterTypeKey.flashFloods &&
       this.eventState.events?.length > 0
     );
   }
 
   private getGlofasStationStates() {
     const classes = [];
+
+    if (!this.countryDisasterSettings?.eapAlertClasses) {
+      return classes;
+    }
 
     for (const [key, value] of Object.entries(
       this.countryDisasterSettings?.eapAlertClasses,
@@ -828,7 +803,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     // REFACTOR: the direction is to make all wms-layer non-country-specific
     const nameCountryPart = NON_COUNTRY_SPECIFIC_WMS_LAYERS.includes(layer.name)
       ? ''
-      : `_${this.country.countryCodeISO3}`;
+      : `_${this.country?.countryCodeISO3}`;
 
     return `ibf-system:${layer.name}${nameLeadTimePart}${nameCountryPart}`;
   }

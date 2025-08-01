@@ -34,7 +34,6 @@ export class ApiService {
 
   private createHeaders(anonymous = false): HttpHeaders {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
       Accept: 'application/json',
       'Cache-Control':
         'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
@@ -187,6 +186,19 @@ export class ApiService {
       `point-data/${layerName}/${countryCodeISO3}`,
       false,
       params,
+    );
+  }
+
+  postPointData(
+    countryCodeISO3: string,
+    layerName: IbfLayerName,
+    body: object,
+  ) {
+    return this.post(
+      `point-data/upload-csv/${layerName}/${countryCodeISO3}`,
+      body,
+      false,
+      null,
     );
   }
 
