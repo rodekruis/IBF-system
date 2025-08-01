@@ -1,62 +1,74 @@
-lon,lat,branchName
-40.816648,-2.193886108,KRCS HINDI BRANCH
-40.69717422,-2.386691796,KRCS MPEKETONI BRANCH
-34.48012199,-1.073264734,KRCS Migori
-34.47297354,-1.069503756,KRCS Migori Tree Nursery
-36.68948206,-1.280113105,KRCS Nairobi KLB Field Office
-36.82701577,-1.260668739,KRCS Nairobi Parklands Field Office( City Park)
-36.83047533,-1.28730371,KRCS Nairobi East Field Office
-36.81843161,-1.287150865,KRCS Nairobi Branch (Nyayo Hse)
-35.72080151,-0.239111728,KRCS Molo
-36.06465724,-0.294365827,KRCS Nakuru
-36.43695329,-0.723249252,KRCS Naivasha
-35.26498301,0.46182542,Kenya Red Cross Uasin Gishu Branch & NorthRift Region Office
-34.28972159,0.059673103,KRCS Siaya County Branch
-35.013925,1.017536661,KRCS Trans-Nzoia Branch
-35.21415385,0.981111884,KRCS CHERANGANY
-34.74991056,0.282061098,KRCS Kakamega County Branch Offices
-34.75270318,0.278909942,KRCS Kakamega Operation Office at Kakamega Fire station
-40.0268591,-1.503049466,Kenya Red Cross Society Tana River Hola
-40.02675618,-1.502627517,Kenya Red Cross Society Hola Warehouses
-40.01613762,-1.500298009,Krcs Branch Warehouses
-40.11252173,-2.269997847,Kenya Red Cross Society Tana Delta
-40.09910826,-2.295104803,Krcs Emergency Operation Centre Garsen
-36.9608277,-0.44202198,Boma hotel Nyeri
-35.74539512,0.492060776,KRCS Kabarnet
-35.98119572,0.473373806,KRCS Marigat
-34.55240509,0.5947861,KRCS Bungoma
-35.51132111,0.667893814,KRCS Elgeiyo Marakwet
-40.11439121,-3.198434069,KRCS_kilifi_Branch
-34.78090313,-0.681783518,KRCS kisii
-34.7726574,-0.090877085,KRCS Kisumu
-39.54717931,-4.318024538,KRCS Kwale
-37.64943554,0.045244558,KRCS Meru
-35.11481543,0.202166106,KRCS Nandi
-35.58788826,3.119136841,Turkana branch
-35.34462698,-0.781827218,KRCS Bomet
-37.26158094,-1.516903832,KRCS Machakos
-36.37515569,-0.272900813,KRCS Nyandarua
-38.55797611,-3.390611425,Taita taveta Branch
-37.07877189,-1.036410389,KRCS Kiambu
-37.99246943,2.330424136,KRCS Marsabit
-35.8676981,-1.087621798,KRCS Narok
-34.72422817,0.079743996,KRCS Vihiga
-35.11838584,1.241204238,KRCS West Pokot (Current Branch Office)
-37.28036265,-0.498625706,krcs kirinyaga branch
-39.65597688,-0.440305034,KRCS Garissa
-37.57290075,0.329832975,KRCS Isiolo
-37.62256589,-1.788218009,KRCS Makueni
-34.11189639,0.445108803,KRCS Branch Busia County
-39.66546172,-4.061073582,KRCS Mombasa
-37.06884411,0.015673375,KRCS Laikipia
-41.86312781,3.944108216,KRCS Mandera
-40.05026507,1.7377162,KRCS Wajir
-37.45317425,-0.533309873,KRCS Embu office
-34.47189213,-0.578448125,KRCS Homabay
-38.0163906,-1.363297306,KRCS Kitui Office
-37.16901504,-0.721226004,KRCS Muranga Office
-36.69290394,1.094316528,KRCS Samburu
-37.64522145,-0.33260399,KRCS Tharaka Nithi
-36.78125195,-1.851704824,KRCS Kajiado
-35.28499991,-0.368545193,KRCS kericho
-34.93349642,-0.559249562,Nyamira office
+branchName,lat,lon,numberOfVolunteers,contactPerson,contactNumber,contactAddress
+Kenya Red Cross Society Head Office,-1.32371091,36.83351956,,,(254)(20) 395 0000,"Red Cross, Nairobi, Kenya"
+Nairobi Branch Office,-1.287107342,36.81813296,,,717898330,Nyayo House 18Th Flr
+Nairobi Satelite office,-1.287338,36.830486,,,710306892,"Racecourse Rd, Nairobi"
+Parklands Satelite office,-1.260646,36.827336,,,719258515,City Park Hockey Stadium
+Karen Lang'Ata Satelite office,-1.321969,36.706952,,,725851918,"Dagoretti Rd, Nairobi"
+Mandera Branch Office,3.936999,41.855543,,,720059344,Along Suftu Road Behind County Commissioner'S Resident Adjacent To Mandera County Referral Hospital. 
+Lamu Branch Office,-2.194408575,40.81718809,,,700482906,Lamu Rehabilitation Center
+Mpeketoni Satelite office,-2.390678,40.696449,,,759535954,"Mpeketoni, Opposite Law Courts "
+Garissa Branch Office,-0.440582127,39.6562823,,,720891593,Location Next To Minsitry Of Works.
+Ijara Satelite office,-1.546658,40.43391,,,724830185,Masarani
+Wajir Branch Office,1.748958,40.055809,,,724474194,Next To Wajir Stadium
+Hola Branch Office,-1.497575,40.029545,,,722303634,In Hola Near  Catholic Mission
+Kilifi Branch Office,-3.198295326,40.11443339,,,721681730, Next To St. Thomas Primary School
+Kilifi Satelite office,-3.629753,39.862239,,,717017184, Next To St. Thomas Primary School
+Mombasa Branch Office,-4.052733,39.664716,,,721664435,"Off Moi Avenue Along Aghakhan Road,Opposite Uon Mombasa Campus Next To Lions Eye Center At Koblenz Hall."
+Kwale Branch Office,-4.293933,39.56342,,,726125953,Along Likoni Lunga Lunga Road Next To Biashara Centre
+Samburu Branch Office,-3.779323,39.2789,,,716435148,Maralal
+Voi-Taita Taveta Branch Office,-3.396689,38.557334,,,728730717,"Along Kcb Bank, Off Moi Referal Hospital Road, Vawug Building"
+Kitui Branch Office,-1.374231,37.995647,,,728386346,Kitui- Kwa Ngindu Road (Next To The County Commissioners Residence)
+Mwingi satelite Office,-0.919583,38.06237,,,728386346,Mwingi At Education Office
+Ikutha Satelite Office,-1.36333582,38.0163728,,,728386346,Ikutha -Kitui  South
+Marsabit Branch Office,2.333284,37.984071,,,727566057,Located In The Compound Of St. Stephen Training Center Same Compound With Fh. About 300 M East Of Marsabit Market
+Meru Branch Office,0.052829,37.645941,,,734350144,"North Imenti Cdf Building -Off Mwendantu Road,  100 Meters From Tuskys Meru."
+Isiolo Branch Office,0.309993,37.576513,,,720920743,Off The Isiolo-Meru Road Opposite Oil Libya Petrol Station 2Kms From Isiolo Town
+Embu Branch Office,-0.538107,37.458865,,,725117268,Embu Town Off Mama Ngina Street Along Kws Road..500Metres From Kws Offices Next To Embu Urban Primary And Secondary School
+Kirinyaga Branch Office,-0.150507,37.316127,,,727820120,Kerugoya Municiple Council Office Grounds
+Machakos Branch Office,-1.516955,37.261527,,,722722151,Red Cross Complex Building. (Next To A.C.K All- Soul’S Cathedral)
+Muranga Branch Office,-0.718776,37.163326,,,716179761,"Next To Juvenile Home, Murang'A Town"
+Maragua Satelite Office,-0.793951,37.131214,,,716179761,Murang'A
+Laikipia Branch Office,0.015613,37.068775,,,721672593,"Majengo, Stadium Road Opposite Deb Primary"
+Nyeri Branch Office,-0.415631,36.949554,,,722774693,Next To Boma Inn. Opposite Ruringu Stadium
+Kiambu Branch Office,-1.173721,36.841486,,,722543487,Kiambu
+Thika Satelite office,-1.037032,37.084007,,,795718063,"Thika, Kiambu"
+Limuru Satelite office,-1.194872,36.727601,,,712168119,Limuru
+Kajiado Branch Office,-1.849995,36.787572,,,718166905,Nairobi- Namanga Road (Opposite Maasai Technical Institute)
+Kajiado South Satelite office,-1.852476317,36.77917449,,,728121845,Kajiado South Unit
+Kajiado East  Satelite office,-1.852476317,36.77917449,,,740813782,Kajiado East Unit
+Elgeyo Marakwet Branch Office,-1.291049,36.77885,,,720903030,Iten Vocatopnal Training College
+Nakuru Branch Office,-0.294318,36.064366,,,727540883,Ronald Ngala Road Next To Mama Ngina Primary School.
+Naivasha Satelite office,-0.712314,36.433812,,,727303465,"Naivasha, Nakuru"
+Molo Satelite office,-0.239073342,35.72083932,,,728855876,Molo
+Turkana Branch Office,3.672238,36.378179,,,720248626,Located Along Lodwar Lorugum Road In Nakwamekwi Area
+Nyandarua Branch Office,-0.271996,36.377492,,,721297550,Olkalou Town Housed By Cdf Olkalou Constituency
+Baringo Branch Office,0.492011115,35.7454058,,,700387323,Along Nakuru- Loruk Road Adjacent To Ministry Of Health Lab Next To Marigat Pri.And Aic Fellowship Church
+Koibatek Satelite office,0.101398,36.034598,,,722267309,Baringo
+East Pokot Satelite office,1.927222,35.274181,,,712029622,West Pokot
+West Pokot Branch Office,2.024093,35.258247,,,726743594,Next To Kenya Police Head Quarters Kapenguria Division
+Narok Branch Office,-1.086626,35.866086,,,718023341,Naivas C57
+Kericho Branch Office,-0.36849,35.286745,,,729373867,"Along Law Court. Via Moi Road, Temple Road Kericho, Ministry Of Information Building."
+Uasin Gishu Branch Office,0.524296,35.249212,,,711133268,In Chinese Race Course Along Eldoret International Airport Route
+Bomet Branch Office,-0.781711183,35.34467076,,,723690733,Office Located Along Narok Kaplong Highway Inside The Bomet County Assembly Offices
+Nandi Branch Office,0.203151814,35.10603743,,,722227131,Tinderet/Kapsabet
+Kisumu Branch Office,-0.090825,34.772627,,,723573420,The Branch Is Located At Behind Jaramogi Oginga Odinga Refferral Hospital Next To Mortuary
+Nyando Branch Office,-0.165503,35.080032,,,,"B1, Kisumu"
+Trans Nzoia Branch Office,1.024903,34.999624,,,722530639,"Kitale, Trans Nzoia"
+Nyamira Branch Office,-0.566677,34.935268,,,705725034,Next To The Governor'S Office Opposite Kcb Bank Nyamira
+Kisii Branch Office,-0.781765,34.762931,,,725781411,Hosted By Katc Premises Next To Kisii School On Your Way To Nairobi
+Kakamega Branch Office,0.276771,34.757341,,,711927217,Housed With County Govt Ministry Of Environment Kotecha Plaza 5Th Floor
+Vihiga Branch Office,0.088511,34.723066,,,740702038,At The County Comissioners Office 4Th Floor Room 422
+Bungoma Branch Office,0.570185,34.561443,,,721222703,Along Kanduyi-Malaba Road Opposite Bungoma Stadium
+Migori Branch Office,-1.066342,34.46703,,,728990838,Next To The Governor'S Residence Opposite Former Bat
+Homabay Branch Office,-0.535275,34.451516,,,702049149,Kabunde Along Homabay Rongo Road 6Km From Homabay Town
+Siaya Branch Office,0.058365,34.286957,,,720462268,Along Hospital Road Behind The County Commisioners Office
+Busia Branch Office,0.444663,34.111347,,,714309912,"Busia- Mayenje Ward, Along Busia Mundika Road, Through Busia Referral Hospital Adjusent To Farmview Hotel."
+Tharaka Nithi Branch Office,-0.332783601,37.64542725,,,704509695,"Chuka Town, Next To Huduma Centre"
+Makueni Branch Office,-1.788103884,37.62257017,,,704058992,Wote- Makindu Highway (Opposite The Office Of The Governor)
+1- Iran Healthcenter Ngongroad branch(Iran medical center gong road branch ),-1.300452,36.778144,,Mahmoud Reza Faghihi Sereshki,254 111 597928,Adams Arcade Ngongroad Nairobi kenya
+Emergency plus medical services,-1.32047,36.83746,,Kevin Ngereso,0720 823 679,Region
+IRAN MEDICAL CLINIC  Parkroad Branch,-1.273655,36.831965,,Mahmoud Reza Faghihi Sereshki,00254 111 597928,Ngara parkroad  kinshasa road
+Lamu rehabilitation center,-1.328569,36.77227,,Dr Ahmed Salat,722131967,"lamu county, hindi ward"
+Lamu Rehabilitation Centre,-2.175795,40.858419,,Dr. George Bagwasi,254720386325,Hindi
+Naragae Dispensary,3.755119,34.750342,,Kevin Ngereso,720823679,"Turkana county ,Turkana West sub county, Kalobeyei Refugee Settlement"
+Natukobenyo health center,3.774412,34.730866,,Kevin Ngereso,720823679,"Turkana County, Turkana west sub county, Kalobeyei Refugee Settlement"

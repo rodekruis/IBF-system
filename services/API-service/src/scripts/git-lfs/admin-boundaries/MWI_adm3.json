@@ -758,7 +758,7 @@
       },
       "properties": {
         "Shape_Leng": 0.02750721301,
-        "Shape_Area": 0.00004089716,
+        "Shape_Area": 4.089716e-5,
         "ADM3_EN": "Area 11",
         "ADM3_PCODE": "MW21041",
         "ADM3_REF": null,
@@ -835,7 +835,7 @@
       },
       "properties": {
         "Shape_Leng": 0.04138362451,
-        "Shape_Area": 0.00007830649,
+        "Shape_Area": 7.830649e-5,
         "ADM3_EN": "Area 13",
         "ADM3_PCODE": "MW21043",
         "ADM3_REF": null,
@@ -917,7 +917,7 @@
       },
       "properties": {
         "Shape_Leng": 0.03933601378,
-        "Shape_Area": 0.00008400975,
+        "Shape_Area": 8.400975e-5,
         "ADM3_EN": "Area 15",
         "ADM3_PCODE": "MW21045",
         "ADM3_REF": null,
@@ -952,7 +952,7 @@
       },
       "properties": {
         "Shape_Leng": 0.01967929314,
-        "Shape_Area": 0.00002278832,
+        "Shape_Area": 2.278832e-5,
         "ADM3_EN": "Area 16",
         "ADM3_PCODE": "MW21046",
         "ADM3_REF": null,
@@ -1071,7 +1071,7 @@
       },
       "properties": {
         "Shape_Leng": 0.02075390693,
-        "Shape_Area": 0.00002650873,
+        "Shape_Area": 2.650873e-5,
         "ADM3_EN": "Area 19",
         "ADM3_PCODE": "MW21049",
         "ADM3_REF": null,
@@ -1151,7 +1151,7 @@
       },
       "properties": {
         "Shape_Leng": 0.042765308,
-        "Shape_Area": 0.00009389238,
+        "Shape_Area": 9.389238e-5,
         "ADM3_EN": "Area 20",
         "ADM3_PCODE": "MW21050",
         "ADM3_REF": null,
@@ -1692,7 +1692,7 @@
       },
       "properties": {
         "Shape_Leng": 0.03161505369,
-        "Shape_Area": 0.00004998298,
+        "Shape_Area": 4.998298e-5,
         "ADM3_EN": "Area 31",
         "ADM3_PCODE": "MW21061",
         "ADM3_REF": null,
@@ -2133,7 +2133,7 @@
       },
       "properties": {
         "Shape_Leng": 0.02914920018,
-        "Shape_Area": 0.00003248009,
+        "Shape_Area": 3.248009e-5,
         "ADM3_EN": "Area 40",
         "ADM3_PCODE": "MW21070",
         "ADM3_REF": null,
@@ -2211,7 +2211,7 @@
       },
       "properties": {
         "Shape_Leng": 0.02196423156,
-        "Shape_Area": 0.00002687415,
+        "Shape_Area": 2.687415e-5,
         "ADM3_EN": "Area 42",
         "ADM3_PCODE": "MW21072",
         "ADM3_REF": null,
@@ -2563,7 +2563,7 @@
       },
       "properties": {
         "Shape_Leng": 0.04406930248,
-        "Shape_Area": 0.00009393734,
+        "Shape_Area": 9.393734e-5,
         "ADM3_EN": "Area 48",
         "ADM3_PCODE": "MW21078",
         "ADM3_REF": null,
@@ -2660,7 +2660,7 @@
       },
       "properties": {
         "Shape_Leng": 0.03997698042,
-        "Shape_Area": 0.00006168702,
+        "Shape_Area": 6.168702e-5,
         "ADM3_EN": "Area 5",
         "ADM3_PCODE": "MW21035",
         "ADM3_REF": null,
@@ -3468,7 +3468,7 @@
       },
       "properties": {
         "Shape_Leng": 0.04651037922,
-        "Shape_Area": 0.0000938754,
+        "Shape_Area": 9.38754e-5,
         "ADM3_EN": "Chasefu Ward",
         "ADM3_PCODE": "MW10740",
         "ADM3_REF": null,
@@ -4052,7 +4052,7 @@
       },
       "properties": {
         "Shape_Leng": 0.0365326624,
-        "Shape_Area": 0.00007177407,
+        "Shape_Area": 7.177407e-5,
         "ADM3_EN": "Jombo Ward",
         "ADM3_PCODE": "MW10738",
         "ADM3_REF": null,
@@ -4635,7 +4635,7 @@
       },
       "properties": {
         "Shape_Leng": 0.03971919709,
-        "Shape_Area": 0.00005960704,
+        "Shape_Area": 5.960704e-5,
         "ADM3_EN": "Katawa Ward",
         "ADM3_PCODE": "MW10741",
         "ADM3_REF": null,
@@ -6001,7 +6001,7 @@
       },
       "properties": {
         "Shape_Leng": 0.04575598797,
-        "Shape_Area": 0.00008702436,
+        "Shape_Area": 8.702436e-5,
         "ADM3_EN": "Likangala Ward",
         "ADM3_PCODE": "MW31438",
         "ADM3_REF": null,
@@ -7479,7 +7479,7 @@
       },
       "properties": {
         "Shape_Leng": 0.03851981223,
-        "Shape_Area": 0.00006825209,
+        "Shape_Area": 6.825209e-5,
         "ADM3_EN": "Muzilawayingwe Ward",
         "ADM3_PCODE": "MW10739",
         "ADM3_REF": null,
@@ -8491,7 +8491,6 @@
         "validTo": null
       }
     },
-
     {
       "type": "Feature",
       "geometry": {
@@ -20714,7 +20713,6 @@
         "validTo": null
       }
     },
-
     {
       "type": "Feature",
       "geometry": {
@@ -48954,7 +48952,7 @@
       },
       "properties": {
         "Shape_Leng": 0.03824940044,
-        "Shape_Area": 0.00007308281,
+        "Shape_Area": 7.308281e-5,
         "ADM3_EN": "Zomba Central Ward",
         "ADM3_PCODE": "MW31440",
         "ADM3_REF": null,

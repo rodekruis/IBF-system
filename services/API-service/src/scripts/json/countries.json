@@ -1142,8 +1142,48 @@
   {
     "countryCodeISO3": "ZWE",
     "countryName": "Zimbabwe",
-    "disasterTypes": ["drought"],
+    "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      },
       {
         "disasterType": "drought",
         "adminLevels": [1],
@@ -1211,8 +1251,48 @@
   {
     "countryCodeISO3": "LSO",
     "countryName": "Lesotho",
-    "disasterTypes": ["drought"],
+    "disasterTypes": ["floods", "drought"],
     "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      },
       {
         "disasterType": "drought",
         "adminLevels": [1],
@@ -1274,6 +1354,3406 @@
           [26.9992619158, -28.6475017229],
           [26.9992619158, -30.6451058896],
           [29.3251664568, -30.6451058896]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "AGO",
+    "countryName": "Angola",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [11.6727269, -18.039104],
+          [11.6727269, -4.3880634],
+          [24.0878856, -4.3880634],
+          [24.0878856, -18.039104],
+          [11.6727269, -18.039104]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "BDI",
+    "countryName": "Burundi",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [29.002491, -4.46898],
+          [29.002491, -2.3097302],
+          [30.84954, -2.3097302],
+          [30.84954, -4.46898],
+          [29.002491, -4.46898]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "BEN",
+    "countryName": "Benin",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [0.7754123, 6.23518791],
+          [0.7754123, 12.408611],
+          [3.842007, 12.408611],
+          [3.842007, 6.23518791],
+          [0.7754123, 6.23518791]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "BFA",
+    "countryName": "Burkina Faso",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-5.5132365, 9.4104718],
+          [-5.5132365, 15.0840335],
+          [2.4042717, 15.0840335],
+          [2.4042717, 9.4104718],
+          [-5.5132365, 9.4104718]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "BWA",
+    "countryName": "Botswana",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [19.999108, -26.907545],
+          [19.999108, -17.778254],
+          [29.375304, -17.778254],
+          [29.375304, -26.907545],
+          [19.999108, -26.907545]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "CAF",
+    "countryName": "Central African Republic",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [14.415684, 2.223053],
+          [14.415684, 11.017953],
+          [27.456583, 11.017953],
+          [27.456583, 2.223053],
+          [14.415684, 2.223053]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "CIV",
+    "countryName": "C\u00f4te d'Ivoire",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-8.59882, 4.3612198],
+          [-8.59882, 10.7410946],
+          [-2.493031, 10.7410946],
+          [-2.493031, 4.3612198],
+          [-8.59882, 4.3612198]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "CMR",
+    "countryName": "Cameroon",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [8.4986681, 1.656778],
+          [8.4986681, 13.083333],
+          [16.194408, 13.083333],
+          [16.194408, 1.656778],
+          [8.4986681, 1.656778]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "COD",
+    "countryName": "Democratic Republic of the Congo",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [12.202478222, -13.459035],
+          [12.202478222, 5.391931],
+          [31.314612, 5.391931],
+          [31.314612, -13.459035],
+          [12.202478222, -13.459035]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "COG",
+    "countryName": "Republic of the Congo",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [11.153039556, -5.040241953],
+          [11.153039556, 3.707791],
+          [18.6501832, 3.707791],
+          [18.6501832, -5.040241953],
+          [11.153039556, -5.040241953]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "COM",
+    "countryName": "Comoros",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [43.2291768, -12.4226037],
+          [43.2291768, -11.3722573],
+          [44.5406407, -11.3722573],
+          [44.5406407, -12.4226037],
+          [43.2291768, -12.4226037]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "CPV",
+    "countryName": "Cape Verde",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-25.360937, 14.8032153],
+          [-25.360937, 17.2052533],
+          [-22.6582238, 17.2052533],
+          [-22.6582238, 14.8032153],
+          [-25.360937, 14.8032153]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "DJI",
+    "countryName": "Djibouti",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [41.770846, 10.912953],
+          [41.770846, 12.7136192],
+          [43.4530527, 12.7136192],
+          [43.4530527, 10.912953],
+          [41.770846, 10.912953]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "DZA",
+    "countryName": "Algeria",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-8.6676111, 18.968147],
+          [-8.6676111, 37.0946643],
+          [11.9984999, 37.0946643],
+          [11.9984999, 18.968147],
+          [-8.6676111, 18.968147]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "EGY",
+    "countryName": "Egypt",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [24.696775, 22.0],
+          [24.696775, 31.6701722],
+          [36.2481478, 31.6701722],
+          [36.2481478, 22.0],
+          [24.696775, 22.0]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "ERI",
+    "countryName": "Eritrea",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [36.433348, 12.354723],
+          [36.433348, 18.020304623],
+          [43.136941686, 18.020304623],
+          [43.136941686, 12.354723],
+          [36.433348, 12.354723]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "GAB",
+    "countryName": "Gabon",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [8.5639597, -3.96032132],
+          [8.5639597, 2.317751],
+          [14.526877, 2.317751],
+          [14.526877, -3.96032132],
+          [8.5639597, -3.96032132]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "GHA",
+    "countryName": "Ghana",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-3.260786, 4.739343],
+          [-3.260786, 11.1749529],
+          [1.199642605, 11.1749529],
+          [1.199642605, 4.739343],
+          [-3.260786, 4.739343]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "GIN",
+    "countryName": "Guinea",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-15.3667188, 7.1906045],
+          [-15.3667188, 12.6748613],
+          [-7.63825, 12.6748613],
+          [-7.63825, 7.1906045],
+          [-15.3667188, 7.1906045]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "GMB",
+    "countryName": "Gambia",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-16.8238792, 13.063916923],
+          [-16.8238792, 13.82549281],
+          [-13.792842263, 13.82549281],
+          [-13.792842263, 13.063916923],
+          [-16.8238792, 13.063916923]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "GNB",
+    "countryName": "Guinea-Bissau",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-16.71537869, 10.864883],
+          [-16.71537869, 12.68687],
+          [-13.626523, 12.68687],
+          [-13.626523, 10.864883],
+          [-16.71537869, 10.864883]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "GNQ",
+    "countryName": "Equatorial Guinea",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [5.6169077, -1.4886793],
+          [5.6169077, 3.7882348],
+          [11.3333, 3.7882348],
+          [11.3333, -1.4886793],
+          [5.6169077, -1.4886793]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "LBR",
+    "countryName": "Liberia",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-11.499052873, 4.3539078],
+          [-11.499052873, 8.5529974],
+          [-7.36975, 8.5529974],
+          [-7.36975, 4.3539078],
+          [-11.499052873, 4.3539078]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "LBY",
+    "countryName": "Libya",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [9.3914663, 19.5],
+          [9.3914663, 33.166388419],
+          [25.149341273, 33.166388419],
+          [25.149341273, 19.5],
+          [9.3914663, 19.5]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "MAR",
+    "countryName": "Morocco",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-13.172114814, 27.667269475],
+          [-13.172114814, 35.922454],
+          [-0.9995606, 35.922454],
+          [-0.9995606, 27.667269475],
+          [-13.172114814, 27.667269475]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "MDG",
+    "countryName": "Madagascar",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [43.1870507, -25.6035398],
+          [43.1870507, -11.9498718],
+          [50.4934028, -11.9498718],
+          [50.4934028, -25.6035398],
+          [43.1870507, -25.6035398]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "MLI",
+    "countryName": "Mali",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-12.2399593, 10.1447843],
+          [-12.2399593, 25.0006611],
+          [4.2666679, 25.0006611],
+          [4.2666679, 10.1447843],
+          [-12.2399593, 10.1447843]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "MOZ",
+    "countryName": "Mozambique",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [30.215605, -26.864213004],
+          [30.215605, -10.470715499],
+          [40.8393032, -10.470715499],
+          [40.8393032, -26.864213004],
+          [30.215605, -26.864213004]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "MRT",
+    "countryName": "Mauritania",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-17.0687276, 14.721273],
+          [-17.0687276, 27.3158917],
+          [-4.8341333, 27.3158917],
+          [-4.8341333, 14.721273],
+          [-17.0687276, 14.721273]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "MUS",
+    "countryName": "Mauritius",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [56.5889937, -20.5255313],
+          [56.5889937, -10.3370519],
+          [63.500872, -10.3370519],
+          [63.500872, -20.5255313],
+          [56.5889937, -20.5255313]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "NAM",
+    "countryName": "Namibia",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [11.7367163, -28.97038],
+          [11.7367163, -16.963522],
+          [25.261752, -16.963522],
+          [25.261752, -28.97038],
+          [11.7367163, -28.97038]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "NER",
+    "countryName": "Niger",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [0.1617178, 11.693756],
+          [0.1617178, 23.515],
+          [16.0000001, 23.515],
+          [16.0000001, 11.693756],
+          [0.1617178, 11.693756]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "NGA",
+    "countryName": "Nigeria",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [2.6635613, 4.2702629],
+          [2.6635613, 13.885645],
+          [14.6748704, 13.885645],
+          [14.6748704, 4.2702629],
+          [2.6635613, 4.2702629]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "RWA",
+    "countryName": "Rwanda",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [28.861809, -2.8379294],
+          [28.861809, -1.0527231],
+          [30.899118, -1.0527231],
+          [30.899118, -2.8379294],
+          [28.861809, -2.8379294]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "SDN",
+    "countryName": "Sudan",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [21.8146995, 8.682455],
+          [21.8146995, 22.224918],
+          [38.8467818, 22.224918],
+          [38.8467818, 8.682455],
+          [21.8146995, 8.682455]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "SEN",
+    "countryName": "Senegal",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-17.5442861, 12.3072891],
+          [-17.5442861, 16.6929392],
+          [-11.3459268, 16.6929392],
+          [-11.3459268, 12.3072891],
+          [-17.5442861, 12.3072891]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "SLE",
+    "countryName": "Sierra Leone",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-13.2968447, 6.921729],
+          [-13.2968447, 9.999973],
+          [-10.271735, 9.999973],
+          [-10.271735, 6.921729],
+          [-13.2968447, 6.921729]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "SOM",
+    "countryName": "Somalia",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [40.9924761, -1.662123705],
+          [40.9924761, 11.9879871],
+          [51.4150339, 11.9879871],
+          [51.4150339, -1.662123705],
+          [40.9924761, -1.662123705]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "STP",
+    "countryName": "S\u00e3o Tom\u00e9 and Pr\u00edncipe",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [6.4601915, -0.0129184],
+          [6.4601915, 1.7259114],
+          [7.4699736, 1.7259114],
+          [7.4699736, -0.0129184],
+          [6.4601915, -0.0129184]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "SWZ",
+    "countryName": "Eswatini",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [30.790661, -27.317402],
+          [30.790661, -25.71792],
+          [32.1349067, -25.71792],
+          [32.1349067, -27.317402],
+          [30.790661, -27.317402]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "SYC",
+    "countryName": "Seychelles",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [46.2072247, -10.2260168],
+          [46.2072247, -3.7102989],
+          [56.2940238, -3.7102989],
+          [56.2940238, -10.2260168],
+          [46.2072247, -10.2260168]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "TCD",
+    "countryName": "Chad",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [13.470559, 7.442975],
+          [13.470559, 23.4523611],
+          [24.0, 23.4523611],
+          [24.0, 7.442975],
+          [13.470559, 7.442975]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "TGO",
+    "countryName": "Togo",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [-0.143206, 6.112364544],
+          [-0.143206, 11.139617],
+          [1.8089072, 11.139617],
+          [1.8089072, 6.112364544],
+          [-0.143206, 6.112364544]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "TUN",
+    "countryName": "Tunisia",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [7.522311, 30.228034],
+          [7.522311, 37.560954],
+          [11.599217, 37.560954],
+          [11.599217, 30.228034],
+          [7.522311, 30.228034]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "TZA",
+    "countryName": "Tanzania",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [29.341944, -11.7612536],
+          [29.341944, -0.984397],
+          [40.4445902, -0.984397],
+          [40.4445902, -11.7612536],
+          [29.341944, -11.7612536]
+        ]
+      ]
+    }
+  },
+  {
+    "countryCodeISO3": "ZAF",
+    "countryName": "South Africa",
+    "disasterTypes": ["floods"],
+    "countryDisasterSettings": [
+      {
+        "disasterType": "floods",
+        "adminLevels": [1, 2, 3],
+        "defaultAdminLevel": 1,
+        "activeLeadTimes": [
+          "0-day",
+          "1-day",
+          "2-day",
+          "3-day",
+          "4-day",
+          "5-day",
+          "6-day",
+          "7-day"
+        ],
+        "eapLink": "",
+        "eapAlertClasses": {
+          "no": {
+            "label": "No action",
+            "color": "ibf-no-alert-primary",
+            "value": 0
+          },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
+          "max": {
+            "label": "Trigger issued",
+            "color": "ibf-glofas-trigger",
+            "value": 1
+          }
+        }
+      }
+    ],
+    "adminRegionLabels": {
+      "1": {
+        "singular": "Province",
+        "plural": "Provinces"
+      },
+      "2": {
+        "singular": "District",
+        "plural": "Districts"
+      },
+      "3": {
+        "singular": "Ward",
+        "plural": "Wards"
+      }
+    },
+    "countryLogos": {
+      "floods": []
+    },
+    "countryBoundingBox": {
+      "type": "Polygon",
+      "coordinates": [
+        [
+          [16.45404943, -34.8331014],
+          [16.45404943, -22.125438],
+          [32.891151672, -22.125438],
+          [32.891151672, -34.8331014],
+          [16.45404943, -34.8331014]
         ]
       ]
     }
