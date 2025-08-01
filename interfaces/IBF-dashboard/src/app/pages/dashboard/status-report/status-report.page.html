@@ -25,7 +25,18 @@
               class="disaster"
               [id]="'country--' + country.key + '--' + disaster.key"
             >
-              <img class="disaster--logo" [src]="disaster.value.imgSrc" />
+              <img
+                class="disaster--logo rounded-md border-2"
+                [class.border-red-500]="
+                  disaster.value.alertLevel === AlertLevel.TRIGGER
+                "
+                [class.border-amber-500]="
+                  disaster.value.alertLevel === AlertLevel.WARNING ||
+                  disaster.value.alertLevel === AlertLevel.WARNINGMEDIUM ||
+                  disaster.value.alertLevel === AlertLevel.WARNINGLOW
+                "
+                [src]="disaster.value.imgSrc"
+              />
               <span
                 class="disaster--date"
                 [class.danger]="disaster.value.isStale"
