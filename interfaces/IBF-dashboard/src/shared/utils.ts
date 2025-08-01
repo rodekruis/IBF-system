@@ -31,7 +31,9 @@ export const downloadFile = (
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement('a');
   const now = new Date();
-  const dateStr = now.toISOString().replace(/[:.]/g, '-').slice(0, 19);
+  // Format date as YYYY-MM-DD_HH-MM-SS for filename clarity
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  const dateStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}_`;
 
   a.href = url;
   a.download = dateStr + fileName;
