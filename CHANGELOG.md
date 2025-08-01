@@ -1,3 +1,14 @@
+## [0.321.10](https://github.com/rodekruis/IBF-system/compare/v0.321.9...v0.321.10) (2025-08-01)
+
+
+### Bug Fixes
+
+* add logs to seed admin areas ([6d36a83](https://github.com/rodekruis/IBF-system/commit/6d36a831a96f0930e5c53691e222845791f3345b))
+* add mock scenarios ([9fd1768](https://github.com/rodekruis/IBF-system/commit/9fd1768fbe039469f0338d6997b52eb71408a844))
+* remove red cross branch layer for countries with no data ([3a9f5ba](https://github.com/rodekruis/IBF-system/commit/3a9f5ba99629214d527f5f2544148d266ce18b7f))
+
+
+
 ## [0.321.9](https://github.com/rodekruis/IBF-system/compare/v0.321.8...v0.321.9) (2025-07-30)
 
 
@@ -87,15 +98,6 @@
 * add mock gauge data ([22eb854](https://github.com/rodekruis/IBF-system/commit/22eb854d9843eb8273f3bde5b7a24a179d294757))
 * show warning when file missing in mock scenarios ([b6c5cd3](https://github.com/rodekruis/IBF-system/commit/b6c5cd3b5bbca2621f7b3ac7acedc0754fabb6da))
 * use tailwind classes ([68d1c1c](https://github.com/rodekruis/IBF-system/commit/68d1c1cc4729cee578e631c38e30361982514123))
-
-
-
-# [0.321.0](https://github.com/rodekruis/IBF-system/compare/v0.320.4...v0.321.0) (2025-06-03)
-
-
-### Features
-
-* GET admin areas for country and admin level ([4e26a9e](https://github.com/rodekruis/IBF-system/commit/4e26a9ef46b879d9050785e6b0ff34b938e7e03e))
 
 
 
