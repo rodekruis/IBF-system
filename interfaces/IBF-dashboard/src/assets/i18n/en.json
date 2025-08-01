@@ -1,6 +1,9 @@
 {
   "app-name": "IBF-dashboard",
-  "common": { "version": "Version" },
+  "common": {
+    "version": "Version",
+    "error": { "present-toast": "Error presenting toast" }
+  },
   "export-view": {
     "title": "Export view",
     "instruction": "In order to export the current view of the IBF-dashboard, you will need to take a screenshot.",
@@ -298,5 +301,6 @@
     }
   },
   "breadcrumbs": { "national-view": "National View" },
-  "layers-menu": { "menu-toggle-label": "Layers" }
+  "layers-menu": { "menu-toggle-label": "Layers" },
+  "layer-control-info-popover": { "upload-error": "Error uploading file" }
 }

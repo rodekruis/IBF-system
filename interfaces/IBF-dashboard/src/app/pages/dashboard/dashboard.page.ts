@@ -1,12 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { DateTime } from 'luxon';
+import { Subscription } from 'rxjs';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ScreenOrientationPopoverComponent } from 'src/app/components/screen-orientation-popover/screen-orientation-popover.component';
+import {
+  Country,
+  CountryDisasterSettings,
+  DisasterType,
+} from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
+import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -15,15 +23,24 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./dashboard.page.scss'],
   standalone: false,
 })
-export class DashboardPage implements OnInit {
+export class DashboardPage implements OnInit, OnDestroy {
   public version: string = environment.ibfSystemVersion;
   public isDev = false;
   public isMultiCountry = false;
   private readonly adminRole = UserRole.Admin;
   public environmentConfiguration = environment.configuration;
+  public userRole: UserRole;
+  public country: Country;
+  public disasterType: DisasterType;
+  public countryDisasterSettings: CountryDisasterSettings;
+
+  private countrySubscription: Subscription;
+  private disasterTypeSubscription: Subscription;
 
   constructor(
     private authService: AuthService,
+    private countryService: CountryService,
+    private disasterTypeService: DisasterTypeService,
     private analyticsService: AnalyticsService,
     private popoverController: PopoverController,
   ) {
@@ -42,13 +59,41 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     this.analyticsService.logPageView(AnalyticsPage.dashboard);
+
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .subscribe(this.onCountryChange);
+
+    this.disasterTypeSubscription = this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .subscribe(this.onDisasterTypeChange);
+  }
+
+  ngOnDestroy() {
+    this.countrySubscription.unsubscribe();
+    this.disasterTypeSubscription.unsubscribe();
   }
 
   private onUserChange = (user: User): void => {
     if (user) {
       this.isDev = user.userRole === this.adminRole;
       this.isMultiCountry = user.countries.length > 1;
+      this.userRole = user.userRole;
     }
+  };
+
+  private onCountryChange = (country: Country) => {
+    this.country = country;
+  };
+
+  private onDisasterTypeChange = (disasterType: DisasterType) => {
+    this.disasterType = disasterType;
+
+    this.countryDisasterSettings =
+      this.disasterTypeService.getCountryDisasterTypeSettings(
+        this.country,
+        this.disasterType,
+      );
   };
 
   private isTablet(): boolean {

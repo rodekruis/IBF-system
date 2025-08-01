@@ -65,7 +65,7 @@ export class PointDataController {
   }
 
   @UseGuards(RolesGuard)
-  @Roles(UserRole.Admin)
+  @Roles(UserRole.Admin, UserRole.LocalAdmin, UserRole.Operator)
   @ApiOperation({
     summary:
       'Upload (and overwrite) via CSV point data locations and attributes for given country and point data layer',

@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { MenuController, PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import {
@@ -7,6 +7,8 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
+import { Country, DisasterType } from 'src/app/models/country.model';
+import { UserRole } from 'src/app/models/user/user-role.enum';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import {
@@ -23,6 +25,10 @@ import {
   standalone: false,
 })
 export class MatrixComponent implements OnDestroy {
+  @Input() userRole: UserRole;
+  @Input() country: Country;
+  @Input() disasterType: DisasterType;
+
   private layerSubscription: Subscription;
   public layers: IbfLayer[] = [];
   public IbfLayerType = IbfLayerType;
@@ -83,7 +89,12 @@ export class MatrixComponent implements OnDestroy {
       cssClass: 'ibf-popover ibf-popover-normal',
       translucent: true,
       showBackdrop: true,
-      componentProps: { layer },
+      componentProps: {
+        layer,
+        userRole: this.userRole,
+        country: this.country,
+        disasterType: this.disasterType,
+      },
     });
 
     this.analyticsService.logEvent(AnalyticsEvent.mapLayerInformation, {

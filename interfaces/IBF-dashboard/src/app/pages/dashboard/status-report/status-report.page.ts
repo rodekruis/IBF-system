@@ -6,6 +6,7 @@ import { Country, DisasterType } from 'src/app/models/country.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import {
+  ALERT_LEVEL_RANK,
   AlertLevel,
   Event,
   EventService,
@@ -14,6 +15,7 @@ import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { LastUploadDate } from 'src/app/types/last-upload-date';
 
 interface DisasterStatus {
+  alertLevel: AlertLevel;
   imgSrc: string;
   date: string;
   isStale: boolean;
@@ -31,6 +33,8 @@ type StatusData = Record<string, CountryStatus>;
 })
 export class StatusReportPage implements OnInit {
   public statusData: StatusData = {};
+  public AlertLevel = AlertLevel;
+
   constructor(
     private apiService: ApiService,
     private countryService: CountryService,
@@ -38,7 +42,7 @@ export class StatusReportPage implements OnInit {
     private translate: TranslateService,
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     this.countryService.getAllCountries().subscribe((countries) => {
       this.onGetAllCountries(countries);
     });
@@ -52,6 +56,7 @@ export class StatusReportPage implements OnInit {
 
       for (const disasterType of disasterTypes) {
         this.statusData[country.countryCodeISO3][disasterType.disasterType] = {
+          alertLevel: AlertLevel.NONE,
           imgSrc: '',
           date: '',
           isStale: true,
@@ -96,12 +101,19 @@ export class StatusReportPage implements OnInit {
     countryCodeISO3: string,
     disasterTypeKey: DisasterTypeKey,
   ) => {
-    const isTriggered = events.some(
-      ({ alertLevel }) => alertLevel === AlertLevel.TRIGGER,
+    const alertLevel = events.reduce(
+      (prev, curr) =>
+        ALERT_LEVEL_RANK[curr.alertLevel] > ALERT_LEVEL_RANK[prev]
+          ? curr.alertLevel
+          : prev,
+      AlertLevel.NONE,
     );
 
-    this.statusData[countryCodeISO3][disasterTypeKey].imgSrc = isTriggered
-      ? DISASTER_TYPES_SVG_MAP[disasterTypeKey].selectedTriggered
-      : DISASTER_TYPES_SVG_MAP[disasterTypeKey].selectedNonTriggered;
+    this.statusData[countryCodeISO3][disasterTypeKey].alertLevel = alertLevel;
+
+    this.statusData[countryCodeISO3][disasterTypeKey].imgSrc =
+      alertLevel === AlertLevel.TRIGGER
+        ? DISASTER_TYPES_SVG_MAP[disasterTypeKey].selectedTriggered
+        : DISASTER_TYPES_SVG_MAP[disasterTypeKey].selectedNonTriggered;
   };
 }

@@ -171,10 +171,19 @@
               </ion-content>
             </ion-col>
             <ion-col sizeXs="12" sizeMd="9" sizeLg="9" sizeXl="9">
-              <app-matrix></app-matrix>
+              <app-matrix
+                [userRole]="userRole"
+                [country]="country"
+                [disasterType]="disasterType"
+              ></app-matrix>
               <ion-content id="ibf-dashboard-map">
                 <app-map-controls></app-map-controls>
-                <app-map data-testid="dashboard-map-componenet"></app-map>
+                <app-map
+                  [country]="country"
+                  [disasterType]="disasterType"
+                  [countryDisasterSettings]="countryDisasterSettings"
+                  data-testid="dashboard-map-component"
+                ></app-map>
               </ion-content>
             </ion-col>
           </ion-row>

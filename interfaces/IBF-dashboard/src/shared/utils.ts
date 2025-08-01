@@ -21,3 +21,24 @@ export const firstCharOfWordsToUpper = (input: string) => {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(' ');
 };
+
+export const downloadFile = (
+  fileName: string,
+  content: string,
+  type: string,
+) => {
+  const blob = new Blob([content], { type });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const now = new Date();
+  // Format date as YYYY-MM-DD_HH-MM-SS for filename clarity
+  const pad = (n: number) => n.toString().padStart(2, '0');
+  const dateStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}_`;
+
+  a.href = url;
+  a.download = dateStr + fileName;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  window.URL.revokeObjectURL(url);
+};

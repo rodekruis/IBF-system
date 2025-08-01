@@ -19,6 +19,11 @@ import { LastUploadDate } from 'src/app/types/last-upload-date';
 import { LeadTime } from 'src/app/types/lead-time';
 import { environment } from 'src/environments/environment';
 
+export interface Headers {
+  anonymous: boolean;
+  contentType: string;
+}
+
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private log = DEBUG_LOG ? console.log : () => undefined;
@@ -32,9 +37,12 @@ export class ApiService {
     return anonymous ? '🌐' : '🔐';
   }
 
-  private createHeaders(anonymous = false): HttpHeaders {
+  private createHeaders({
+    anonymous = false,
+    contentType = 'application/json',
+  }: Partial<Headers>): HttpHeaders {
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
+      'Content-Type': contentType,
       Accept: 'application/json',
       'Cache-Control':
         'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
@@ -54,7 +62,7 @@ export class ApiService {
 
   get<T>(
     path: string,
-    anonymous = true,
+    { anonymous }: Partial<Headers> = { anonymous: true },
     params: HttpParams = null,
   ): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
@@ -63,7 +71,7 @@ export class ApiService {
     this.log(`ApiService GET: ${security} ${url}`);
 
     return this.http
-      .get<T>(url, { headers: this.createHeaders(anonymous), params })
+      .get<T>(url, { headers: this.createHeaders({ anonymous }), params })
       .pipe(
         tap((response) => {
           this.log(
@@ -78,7 +86,7 @@ export class ApiService {
   post<T>(
     path: string,
     body: object,
-    anonymous = false,
+    { anonymous }: Partial<Headers> = { anonymous: false },
     params: HttpParams = null,
   ): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
@@ -87,7 +95,10 @@ export class ApiService {
     this.log(`ApiService POST: ${security} ${url}`, body);
 
     return this.http
-      .post<T>(url, body, { headers: this.createHeaders(anonymous), params })
+      .post<T>(url, body, {
+        headers: this.createHeaders({ anonymous }),
+        params,
+      })
       .pipe(
         tap((response) => {
           this.log(
@@ -103,7 +114,7 @@ export class ApiService {
   put<T>(
     path: string,
     body: object,
-    anonymous = false,
+    { anonymous }: Partial<Headers> = { anonymous: false },
     params: HttpParams = null,
   ): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
@@ -112,7 +123,7 @@ export class ApiService {
     this.log(`ApiService PUT: ${security} ${url}`, body);
 
     return this.http
-      .put<T>(url, body, { headers: this.createHeaders(anonymous), params })
+      .put<T>(url, body, { headers: this.createHeaders({ anonymous }), params })
       .pipe(
         tap((response) => {
           this.log(
@@ -132,7 +143,7 @@ export class ApiService {
   login(email: string, password: string): Observable<{ user: User }> {
     this.log('ApiService : login()');
 
-    return this.post('user/login', { email, password }, true);
+    return this.post('user/login', { email, password }, { anonymous: true });
   }
 
   changePassword(password: string): Observable<User> {
@@ -156,7 +167,7 @@ export class ApiService {
       params = params.append('minimalInfo', String(minimalInfo));
     }
 
-    return this.get(path, false, params);
+    return this.get(path, { anonymous: false }, params);
   }
 
   getTyphoonTrack(
@@ -169,7 +180,11 @@ export class ApiService {
       params = params.append('eventName', eventName);
     }
 
-    return this.get(`typhoon-track/${countryCodeISO3}`, false, params);
+    return this.get(
+      `typhoon-track/${countryCodeISO3}`,
+      { anonymous: false },
+      params,
+    );
   }
 
   getPointData(
@@ -185,8 +200,21 @@ export class ApiService {
 
     return this.get(
       `point-data/${layerName}/${countryCodeISO3}`,
-      false,
+      { anonymous: false },
       params,
+    );
+  }
+
+  postPointData(
+    countryCodeISO3: string,
+    layerName: IbfLayerName,
+    body: object,
+  ) {
+    return this.post(
+      `point-data/upload-csv/${layerName}/${countryCodeISO3}`,
+      body,
+      { anonymous: false, contentType: null },
+      null,
     );
   }
 
@@ -196,7 +224,7 @@ export class ApiService {
   ): Observable<LastUploadDate> {
     return this.get(
       `event/last-upload-date/${countryCodeISO3}/${disasterType}`,
-      false,
+      { anonymous: false },
     );
   }
 
@@ -213,7 +241,7 @@ export class ApiService {
 
     return this.get(
       `event/alerts/${countryCodeISO3}/${disasterType}`,
-      false,
+      { anonymous: false },
       params,
     );
   }
@@ -222,7 +250,9 @@ export class ApiService {
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
   ): Observable<Event[]> {
-    return this.get(`event/${countryCodeISO3}/${disasterType}`, false);
+    return this.get(`event/${countryCodeISO3}/${disasterType}`, {
+      anonymous: false,
+    });
   }
 
   getAlertAreas(
@@ -239,7 +269,7 @@ export class ApiService {
 
     return this.get(
       `event/alert-areas/${countryCodeISO3}/${adminLevel.toString()}/${disasterType}`,
-      false,
+      { anonymous: false },
       params,
     );
   }
@@ -268,7 +298,7 @@ export class ApiService {
 
     return this.get(
       `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel.toString()}`,
-      false,
+      { anonymous: false },
       params,
     );
   }
@@ -297,7 +327,7 @@ export class ApiService {
 
     return this.get(
       `admin-areas/aggregates/${countryCodeISO3}/${disasterType}/${adminLevel.toString()}`,
-      false,
+      { anonymous: false },
       params,
     );
   }
@@ -306,10 +336,9 @@ export class ApiService {
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
   ): Observable<Indicator[]> {
-    return this.get(
-      `metadata/indicators/${countryCodeISO3}/${disasterType}`,
-      false,
-    );
+    return this.get(`metadata/indicators/${countryCodeISO3}/${disasterType}`, {
+      anonymous: false,
+    });
   }
 
   getAdminAreaData(
@@ -319,7 +348,7 @@ export class ApiService {
   ): Observable<{ value: number; placeCode: string }[]> {
     return this.get(
       `admin-area-data/${countryCodeISO3}/${adminLevel.toString()}/${indicator}`,
-      false,
+      { anonymous: false },
     );
   }
 
@@ -343,7 +372,7 @@ export class ApiService {
 
     return this.get(
       `admin-area-dynamic-data/${countryCodeISO3}/${adminLevel.toString()}/${indicator}/${disasterType}`,
-      false,
+      { anonymous: false },
       params,
     );
   }
@@ -352,10 +381,9 @@ export class ApiService {
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
   ): Observable<IbfLayerMetadata[]> {
-    return this.get(
-      `metadata/layers/${countryCodeISO3}/${disasterType}`,
-      false,
-    );
+    return this.get(`metadata/layers/${countryCodeISO3}/${disasterType}`, {
+      anonymous: false,
+    });
   }
 
   checkEapAction(
@@ -376,7 +404,7 @@ export class ApiService {
         placeCode,
         eventName: eventName || 'no-name',
       },
-      false,
+      { anonymous: false },
     );
   }
 
@@ -396,7 +424,7 @@ export class ApiService {
     params = params.append('countryCodeISO3', countryCodeISO3);
     params = params.append('disasterType', disasterType);
 
-    return this.post('mock', body, false, params);
+    return this.post('mock', body, { anonymous: false }, params);
   }
 
   getActivationLogs(
@@ -413,14 +441,14 @@ export class ApiService {
       params = params.append('disasterType', disasterType);
     }
 
-    return this.get('event/activation-log', false, params);
+    return this.get('event/activation-log', { anonymous: false }, params);
   }
 
   dismissCommunityNotification(pointDataId: string): Observable<void> {
     return this.put(
       `point-data/community-notification/${pointDataId}`,
       {},
-      false,
+      { anonymous: false },
     );
   }
 
@@ -433,7 +461,7 @@ export class ApiService {
     return this.post(
       'events/set-trigger',
       { eventPlaceCodeIds, countryCodeISO3, disasterType, noNotifications },
-      false,
+      { anonymous: false },
     );
   }
 }
