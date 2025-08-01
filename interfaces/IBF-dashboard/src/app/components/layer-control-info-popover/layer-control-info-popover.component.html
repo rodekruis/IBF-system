@@ -13,11 +13,7 @@
           userRole === UserRole.Operator
         ) {
           <ion-button fill="clear" color="ibf-white" (click)="upload()">
-            <ion-icon
-              data-testid="close-matrix-icon"
-              slot="icon-only"
-              name="cloud-upload"
-            ></ion-icon>
+            <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
             <input
               type="file"
               class="hidden"
@@ -28,20 +24,16 @@
         }
 
         <ion-button fill="clear" color="ibf-white" (click)="download()">
-          <ion-icon
-            data-testid="close-matrix-icon"
-            slot="icon-only"
-            name="cloud-download"
-          ></ion-icon>
+          <ion-icon slot="icon-only" name="cloud-download"></ion-icon>
         </ion-button>
       }
-      <ion-button fill="clear" color="ibf-white" (click)="closePopover()">
-        <ion-icon
-          data-testid="close-matrix-icon"
-          slot="icon-only"
-          size="large"
-          name="close-circle"
-        ></ion-icon>
+      <ion-button
+        fill="clear"
+        color="ibf-white"
+        (click)="closePopover()"
+        data-testid="close-matrix-icon"
+      >
+        <ion-icon slot="icon-only" size="large" name="close-circle"></ion-icon>
       </ion-button>
     </div>
   </ion-card-header>
