@@ -35,6 +35,9 @@
                   disaster.value.alertLevel === AlertLevel.WARNINGMEDIUM ||
                   disaster.value.alertLevel === AlertLevel.WARNINGLOW
                 "
+                [class.border-transparent]="
+                  disaster.value.alertLevel === AlertLevel.NONE
+                "
                 [src]="disaster.value.imgSrc"
               />
               <span

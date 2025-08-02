@@ -1,13 +1,19 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { PopoverController, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
+import { FeatureCollection, Point } from 'geojson';
+import {
+  AnalyticsEvent,
+  AnalyticsPage,
+} from 'src/app/analytics/analytics.enum';
+import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { TOAST_DURATION, TOAST_POSITION } from 'src/app/config';
 import { MOCK_LAYERS } from 'src/app/mocks/ibf-layer.mock';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 import { ApiService } from 'src/app/services/api.service';
 import { IbfLayer, IbfLayerType } from 'src/app/types/ibf-layer';
-import { downloadFile } from 'src/shared/utils';
+import { downloadFile, geojsonToCsv } from 'src/shared/utils';
 
 @Component({
   selector: 'app-layer-control-info-popover',
@@ -30,6 +36,7 @@ export class LayerControlInfoPopoverComponent {
     private toastController: ToastController,
     private apiService: ApiService,
     private translateService: TranslateService,
+    private analyticsService: AnalyticsService,
   ) {}
 
   public closePopover(): void {
@@ -43,16 +50,27 @@ export class LayerControlInfoPopoverComponent {
         this.layer.name,
         this.disasterType.disasterType,
       )
-      .subscribe((content: unknown) => {
-        const fileName = `${this.country.countryCodeISO3}-${this.disasterType.disasterType}-${this.layer.name}.geojson`;
-        const type = 'application/geo+json';
+      .subscribe((content: FeatureCollection<Point>) => {
+        const fileName = `${this.country.countryCodeISO3}-${this.disasterType.disasterType}-${this.layer.name}.csv`;
 
-        downloadFile(fileName, JSON.stringify(content), type);
+        downloadFile(fileName, geojsonToCsv(content), 'text/csv');
       });
+
+    this.analyticsService.logEvent(AnalyticsEvent.download, {
+      mapLayerName: this.layer.name,
+      page: AnalyticsPage.dashboard,
+      component: this.constructor.name,
+    });
   }
 
   public upload() {
     this.uploader.nativeElement.click();
+
+    this.analyticsService.logEvent(AnalyticsEvent.upload, {
+      mapLayerName: this.layer.name,
+      page: AnalyticsPage.dashboard,
+      component: this.constructor.name,
+    });
   }
 
   public onFileChange(event: Event) {
@@ -85,6 +103,12 @@ export class LayerControlInfoPopoverComponent {
           },
         });
     }
+
+    this.analyticsService.logEvent(AnalyticsEvent.uploadFile, {
+      mapLayerName: this.layer.name,
+      page: AnalyticsPage.dashboard,
+      component: this.constructor.name,
+    });
   }
 
   async presentToast(

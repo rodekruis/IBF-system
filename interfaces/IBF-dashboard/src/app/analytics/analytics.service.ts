@@ -4,8 +4,10 @@ import {
   ITelemetryItem,
 } from '@microsoft/applicationinsights-web';
 import { SeverityLevel } from 'src/app/analytics/severity-level.model';
+import { AuthService } from 'src/app/auth/auth.service';
 import { DEBUG_LOG } from 'src/app/config';
 import { Country } from 'src/app/models/country.model';
+import { User } from 'src/app/models/user/user.model';
 import { CountryService } from 'src/app/services/country.service';
 import { environment } from 'src/environments/environment';
 
@@ -17,10 +19,15 @@ export class AnalyticsService {
   isApplicationInsightsEnabled: boolean;
   private country: Country;
 
-  constructor(private countryService: CountryService) {
+  constructor(
+    private countryService: CountryService,
+    private authService: AuthService,
+  ) {
     this.countryService
       .getCountrySubscription()
       .subscribe(this.onCountryChange);
+
+    this.authService.getAuthSubscription().subscribe(this.onUserChange);
 
     if (
       !environment.applicationInsightsInstrumentationKey ||
@@ -44,6 +51,12 @@ export class AnalyticsService {
 
   private onCountryChange = (country: Country) => {
     this.country = country;
+  };
+
+  private onUserChange = (user: User) => {
+    if (this.isApplicationInsightsEnabled && user?.email) {
+      this.applicationInsights.setAuthenticatedUserContext(user.email);
+    }
   };
 
   telemetryInitializer = (item: ITelemetryItem): void => {

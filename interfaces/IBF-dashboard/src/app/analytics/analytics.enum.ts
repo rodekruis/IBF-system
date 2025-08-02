@@ -10,6 +10,7 @@ export enum AnalyticsEvent {
   aggregateInformation = 'aggregate-information',
   communityNotification = 'community-notification',
   dam = 'dam',
+  download = 'download',
   eapAction = 'eap-action',
   eapSubmit = 'eap-submit',
   evacuationCenter = 'evacuation-center',
@@ -27,6 +28,8 @@ export enum AnalyticsEvent {
   school = 'school',
   setTrigger = 'set-trigger',
   typhoonTrack = 'typhoon-track',
+  upload = 'upload',
+  uploadFile = 'upload-file',
   watchIbfGuide = 'watch-ibf-guide',
   waterPoint = 'water-point',
 }
