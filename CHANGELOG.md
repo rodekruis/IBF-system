@@ -1,3 +1,16 @@
+## [0.322.1](https://github.com/rodekruis/IBF-system/compare/v0.322.0...v0.322.1) (2025-08-02)
+
+
+### Bug Fixes
+
+* download csv ([8dae606](https://github.com/rodekruis/IBF-system/commit/8dae6064de580eb93628fe45233d1217adf390ff))
+* track download and upload clicks ([9e85c4d](https://github.com/rodekruis/IBF-system/commit/9e85c4d3517abe4a90aa7dac9db0850265ab09a4))
+* track upload and upload file events ([963f6bb](https://github.com/rodekruis/IBF-system/commit/963f6bb474686d98c13d5fad3b39550bd8fca3d4))
+* track user context ([beff1a8](https://github.com/rodekruis/IBF-system/commit/beff1a8f36755124fa3eacb4685f07e19682a11f))
+* use transparent border to indicate no alert ([9343f50](https://github.com/rodekruis/IBF-system/commit/9343f501dbab07afacf881f5004b4bd09308cf88))
+
+
+
 # [0.322.0](https://github.com/rodekruis/IBF-system/compare/v0.321.10...v0.322.0) (2025-08-01)
 
 
@@ -88,15 +101,6 @@
 * reset should default to false ([652f4b0](https://github.com/rodekruis/IBF-system/commit/652f4b036162931ec8d74de7cbed5c1a0c9cac43))
 * update mock data waterpoints internal ([8c35770](https://github.com/rodekruis/IBF-system/commit/8c357700ef10df0e9731b0dfb66baaf7657f2418))
 * use default seed on reset ([481950d](https://github.com/rodekruis/IBF-system/commit/481950daffce7c5732b248957a9012763949f202))
-
-
-
-## [0.321.2](https://github.com/rodekruis/IBF-system/compare/v0.321.1...v0.321.2) (2025-06-19)
-
-
-### Bug Fixes
-
-* ionic translate error ([c3f4130](https://github.com/rodekruis/IBF-system/commit/c3f41304a03f1fa7e5d0f4731d96b25cf2aa7ea4))
 
 
 
