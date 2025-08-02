@@ -53,9 +53,9 @@ export class AnalyticsService {
     this.country = country;
   };
 
-  private onUserChange = ({ email }: User) => {
-    if (this.isApplicationInsightsEnabled && email) {
-      this.applicationInsights.setAuthenticatedUserContext(email);
+  private onUserChange = (user: User) => {
+    if (this.isApplicationInsightsEnabled && user?.email) {
+      this.applicationInsights.setAuthenticatedUserContext(user.email);
     }
   };
 
