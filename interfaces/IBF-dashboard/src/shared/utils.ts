@@ -1,3 +1,6 @@
+import { format } from 'date-fns';
+import { FeatureCollection, Point } from 'geojson';
+
 // sort array ascending
 const asc = (arr: number[]) => arr.sort((a: number, b: number) => a - b);
 
@@ -30,15 +33,52 @@ export const downloadFile = (
   const blob = new Blob([content], { type });
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement('a');
-  const now = new Date();
-  // Format date as YYYY-MM-DD_HH-MM-SS for filename clarity
-  const pad = (n: number) => n.toString().padStart(2, '0');
-  const dateStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}_`;
+  const dateStr = format(new Date(), 'yyyyMMddHHmmss');
 
   a.href = url;
-  a.download = dateStr + fileName;
+  a.download = `${dateStr}-${fileName}`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);
   window.URL.revokeObjectURL(url);
 };
+
+/**
+ * Converts a GeoJSON FeatureCollection of Point features to a CSV string.
+ * The CSV will include columns for longitude, latitude, and all properties.
+ * @param featureCollection GeoJSON FeatureCollection<Point>
+ * @returns CSV string
+ */
+export function geojsonToCsv({ features }: FeatureCollection<Point>) {
+  if (!features.length) return '';
+
+  // collect all property keys
+  const propertyKeys = Array.from(
+    new Set(
+      features.flatMap(({ properties }) =>
+        properties ? Object.keys(properties) : [],
+      ),
+    ),
+  ).filter((key) => !['pointDataId', 'dynamicData'].includes(key)); // exclude keys
+  // header
+  const header = ['lon', 'lat', ...propertyKeys].join(',');
+  // rows
+  const rows = features.map(({ geometry, properties }) => {
+    const [longitude, latitude] = geometry.coordinates;
+    const props = propertyKeys.map((key) => {
+      if (properties && key in properties) {
+        if (properties[key] === null) {
+          return ''; // return empty string for null values
+        }
+
+        return JSON.stringify(properties[key]); // stringify to handle special characters
+      }
+
+      return ''; // return empty string if property is missing
+    });
+
+    return [longitude, latitude, ...props].join(',');
+  });
+
+  return [header, ...rows].join('\n');
+}
