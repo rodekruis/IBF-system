@@ -4,6 +4,7 @@ import {
 } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { provideIonicAngular } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
@@ -16,7 +17,11 @@ describe('LayerControlInfoPopoverComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [LayerControlInfoPopoverComponent],
-      imports: [IonicModule, TranslateModule.forRoot()],
+      imports: [
+        IonicModule,
+        RouterModule.forRoot([]),
+        TranslateModule.forRoot(),
+      ],
       providers: [
         provideIonicAngular(),
         provideHttpClient(withInterceptorsFromDi()),
