@@ -29,6 +29,7 @@ export enum AnalyticsEvent {
   setTrigger = 'set-trigger',
   typhoonTrack = 'typhoon-track',
   upload = 'upload',
+  uploadFile = 'upload-file',
   watchIbfGuide = 'watch-ibf-guide',
   waterPoint = 'water-point',
 }

@@ -103,6 +103,12 @@ export class LayerControlInfoPopoverComponent {
           },
         });
     }
+
+    this.analyticsService.logEvent(AnalyticsEvent.uploadFile, {
+      mapLayerName: this.layer.name,
+      page: AnalyticsPage.dashboard,
+      component: this.constructor.name,
+    });
   }
 
   async presentToast(
