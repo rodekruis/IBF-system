@@ -1,180 +1,52 @@
-<ion-menu
-  *ngIf="!shouldHideHeader"
-  side="start"
-  type="push"
-  contentId="ibf-dashboard-interface"
-  menuId="dev-control"
->
-  <ion-menu-toggle menu="dev-control">
-    <ion-header>
-      <ion-toolbar>
-        <ion-buttons
-          data-testid="dashboard-dev-control-close-button"
-          slot="start"
-        >
-          <ion-icon name="chevron-back-outline"></ion-icon>
-        </ion-buttons>
-        <ion-title [translate]="'dashboard-page.dev-menu.title'"></ion-title>
-      </ion-toolbar>
-    </ion-header>
-  </ion-menu-toggle>
-  <ion-content>
-    <ion-list class="ion-no-padding">
-      <ion-item
-        [class.ion-hide]="!isDev"
-        href="https://github.com/rodekruis/IBF-system/releases/tag/{{
-          version
-        }}"
-        lines="full"
-        target="_blank"
-      >
-        <ion-label>{{ 'common.version' | translate }}</ion-label>
-        <ion-text>{{ version }}</ion-text>
-      </ion-item>
-      <app-country-switcher
-        class="ion-align-items-center"
-      ></app-country-switcher>
-      <app-backend-mock-scenario
-        [class.ion-hide]="!isDev"
-        class="ion-align-items-center"
-      ></app-backend-mock-scenario>
-    </ion-list>
-    <ion-list class="ion-no-padding" [class.ion-hide]="!isDev">
-      <ion-item
-        href="/log"
-        lines="full"
-        target="_blank"
-        [translate]="'activation-page.activation-report'"
-      >
-      </ion-item>
-    </ion-list>
-    <ion-list class="ion-no-padding" [class.ion-hide]="!isDev">
-      <ion-item
-        href="/status-report"
-        lines="full"
-        target="_blank"
-        [translate]="'status-report-page.dev-menu-link'"
-      ></ion-item>
-    </ion-list>
-  </ion-content>
-</ion-menu>
-
 <div
   id="ibf-dashboard-interface"
   data-testid="ibf-dashboard-interface"
   class="ibf-dashboard-interface"
+  [class.menu-panel-visible]="isMenuPanelOpen"
+  (click)="onBackgroundClick($event)"
 >
-  <ion-header
-    *ngIf="!shouldHideHeader"
-    class="ion-no-border"
-    style="border-bottom: 1px solid var(--ion-color-ibf-no-alert-primary)"
-  >
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-button
-          data-testid="dashboard-home-button"
-          title="Home"
-          [class.ion-hide]="isDev || isMultiCountry"
-        >
-          <ion-icon name="apps" slot="icon-only"></ion-icon>
-        </ion-button>
-        <ion-menu-toggle
-          menu="dev-control"
-          [class.ion-hide]="!isDev && !isMultiCountry"
-        >
-          <ion-button data-testid="dashboard-dev-control-button">
-            <ion-icon name="apps" slot="icon-only"></ion-icon>
-          </ion-button>
-        </ion-menu-toggle>
-      </ion-buttons>
-      <app-user-state [isLoggedIn]="true"></app-user-state>
-    </ion-toolbar>
-    <app-disclaimer-toolbar></app-disclaimer-toolbar>
-  </ion-header>
-
-  <!-- Standard dashboard layout -->
-  <ion-content *ngIf="!shouldHideHeader">
-    <!-- Date/Time at top left -->
-    <div class="date-time-overlay standard">
-      <ion-text style="font-size: 18px; color: var(--ion-color-primary);">
-        <strong>{{ getTodayDate() | date: 'd LLL y' }}</strong>
-      </ion-text>
-      <br>
-      <ion-text style="font-size: 12px; color: var(--ion-color-medium);">
-        {{ getTodayDate() | date: 'EEEE, HH:mm z' }}
-      </ion-text>
-    </div>
-
-    <ion-grid class="page-structure ion-no-padding">
-      <ion-row class="page-structure--content">
-        <!-- Left sidebar for events/warnings (like chat component) -->
-        <ion-col
-          sizeXs="12"
-          sizeMd="3"
-          sizeLg="3"
-          sizeXl="3"
-          class="ibf-dashboard-left-column with-header ion-no-padding"
-        >
-          <ion-content>
-            <app-chat></app-chat>
-          </ion-content>
+  <!-- Header that spans the full width -->
+  <div class="dashboard-header">
+    <ion-grid class="header-structure ion-no-padding">
+      <!-- Header row with date, disaster type, and menu button -->
+      <ion-row class="header-top-row">
+        <ion-col sizeXs="12" sizeMd="2" sizeLg="2" sizeXl="2" class="date-time-section">
+          <div class="date-time-content">
+            {{ getTodayDate() | date: 'd LLL y, HH:mm z' }}
+          </div>
         </ion-col>
-
-        <!-- Main map area with title above -->
-        <ion-col
-          sizeXs="12"
-          sizeMd="9"
-          sizeLg="9"
-          sizeXl="9"
-          class="ion-no-padding map-container"
-        >
-          <!-- Dashboard title above map -->
-          <div class="dashboard-title-bar">
-            <div class="disaster-title-inline">
-              <img [src]="getActiveDisasterTypeIcon()" alt="Disaster type icon" class="disaster-icon-inline">
-              <span class="disaster-type-text">{{ getCurrentDisasterTypeName() }}</span>
-            </div>
-            <ion-title size="large">
-              {{ currentCountry?.countryName || 'Loading...' }}
-            </ion-title>
+        <ion-col sizeXs="12" sizeMd="8" sizeLg="8" sizeXl="8" class="disaster-type-container">
+          <div class="disaster-type-section">
+            <img [src]="getActiveDisasterTypeIcon()" alt="Disaster type icon" class="disaster-icon">
+            <span class="disaster-type-name">{{ getCurrentDisasterTypeName() }}</span>
+            <span class="trigger-status" [class.triggered]="isTriggered()">
+              {{ getTriggeredStateText() }}
+            </span>
           </div>
-
-          <!-- Map controls and map -->
-          <div class="map-content">
-            <app-matrix></app-matrix>
-            <ion-content id="ibf-dashboard-map">
-              <app-map-controls></app-map-controls>
-              <app-map data-testid="dashboard-map-componenet"></app-map>
-            </ion-content>
-          </div>
-
-          <!-- Collapsible admin panel (only visible when triggered) -->
-          <div *ngIf="shouldShowAdminPanel()" class="admin-panel">
-            <div class="admin-panel-header">
-              <ion-title size="small">Admin Information</ion-title>
-              <ion-button 
-                fill="clear" 
-                size="small"
-                (click)="closeAdminPanel()"
-              >
-                <ion-icon name="close"></ion-icon>
-              </ion-button>
-            </div>
-            <ion-content>
-              <app-aggregates></app-aggregates>
-              <app-areas-of-focus-summary></app-areas-of-focus-summary>
-            </ion-content>
+        </ion-col>
+        <ion-col sizeXs="12" sizeMd="2" sizeLg="2" sizeXl="2" class="header-right">
+          <div class="header-right-content">
+            <ion-button 
+              fill="clear" 
+              (click)="toggleMenuPanel()"
+              class="menu-button"
+            >
+              <ion-icon name="apps" slot="icon-only"></ion-icon>
+            </ion-button>
           </div>
         </ion-col>
       </ion-row>
     </ion-grid>
-  </ion-content>
+  </div>
 
-  <!-- Embedded dashboard layout -->
-  <ion-content *ngIf="shouldHideHeader">
+  <!-- Main content area -->
+  <ion-content class="main-content">
+    <!-- Hidden disaster type component for data initialization -->
+    <app-disaster-type style="display: none;"></app-disaster-type>
+    
     <ion-grid class="page-structure ion-no-padding">
       <ion-row class="page-structure--content">
-        <!-- Left sidebar for events/warnings (like in the screenshot) -->
+        <!-- Left column: Events/warnings -->
         <ion-col
           sizeXs="12"
           sizeMd="2"
@@ -182,144 +54,87 @@
           sizeXl="2"
           class="ibf-dashboard-left-column ion-no-padding"
         >
-          <!-- Date and time at the top of left column -->
-          <div class="date-time-header">
-            <ion-text class="date-text">
-              <strong>{{ getTodayDate() | date: 'd LLL y' }}</strong>
-            </ion-text>
-            <br>
-            <ion-text class="time-text">
-              {{ getTodayDate() | date: 'EEEE, HH:mm z' }}
-            </ion-text>
-          </div>
-          
           <ion-content>
-            <app-chat [hideActionButtons]="true"></app-chat>
+            <app-chat></app-chat>
           </ion-content>
         </ion-col>
         
-        <!-- Right section with map and collapsible admin details -->
+        <!-- Right section: Map and overlays -->
         <ion-col 
           sizeXs="12" 
           sizeMd="10" 
           sizeLg="10" 
           sizeXl="10"
           class="ibf-dashboard-right-column ion-no-padding"
+          style="position: relative;"
         >
-          <!-- IMPORTANT: Hidden disaster type component for data initialization -->
-          <app-disaster-type style="display: none;"></app-disaster-type>
+          <!-- Map area -->
+          <app-matrix></app-matrix>
+          <ion-content id="ibf-dashboard-map">
+            <app-map-controls></app-map-controls>
+            <app-map data-testid="dashboard-map-componenet"></app-map>
+          </ion-content>
           
-          <!-- Dashboard title with proper header structure -->
-          <ion-row class="dashboard-header" style="margin-bottom: 8px;">
-            <ion-col>
-              <div class="dashboard-title-section">
-                <!-- Disaster icon inline with disaster type name and triggered state -->
-                <ion-title size="large" class="disaster-info-title">
-                  <div class="disaster-title-inline">
-                    <img [src]="getActiveDisasterTypeIcon()" alt="Disaster type icon" class="disaster-icon-inline">
-                    <span class="disaster-type-text">
-                      {{ getCurrentDisasterTypeName() }}
-                    </span>
-                    <span class="trigger-status" [class.triggered]="isTriggered()">
-                      {{ getTriggeredStateText() }}
-                    </span>
-                  </div>
-                </ion-title>
+          <!-- Admin panel overlay (appears when admin area is selected) -->
+          <div class="admin-panel-overlay" [class.admin-panel-visible]="hasSelectedAdminArea()">
+            <div class="admin-panel-content">
+              <div class="admin-panel-header">
+                <ion-title size="small">Area Details</ion-title>
+                <ion-button 
+                  fill="clear" 
+                  size="small"
+                  (click)="closeAdminPanel()"
+                >
+                  <ion-icon name="close"></ion-icon>
+                </ion-button>
               </div>
-            </ion-col>
-            
-            <!-- Top-right menu -->
-            <ion-col size="auto">
-              <ion-button 
-                fill="clear" 
-                (click)="toggleMenuPanel()"
-                class="menu-button"
-              >
-                <ion-icon name="apps" slot="icon-only"></ion-icon>
-              </ion-button>
-            </ion-col>
-          </ion-row>
+              <div class="admin-panel-body">
+                <app-aggregates *ngIf="hasSelectedAdminArea()"></app-aggregates>
+                <app-areas-of-focus-summary *ngIf="hasSelectedAdminArea()"></app-areas-of-focus-summary>
+              </div>
+            </div>
+          </div>
 
-          <ion-row class="component-content">
-            <!-- Map area (full width) -->
-            <ion-col 
-              [attr.sizeXs]="12"
-              [attr.sizeMd]="12"
-              [attr.sizeLg]="12"
-              [attr.sizeXl]="12"
-              style="position: relative;"
-              (click)="onMapAreaClick($event)"
-            >
-              <app-matrix></app-matrix>
-              <ion-content id="ibf-dashboard-map">
-                <app-map-controls></app-map-controls>
-                <app-map data-testid="dashboard-map-componenet"></app-map>
-              </ion-content>
+          <!-- Menu panel overlay -->
+          <div class="menu-panel-overlay" [class.menu-panel-visible]="isMenuPanelOpen">
+            <div class="menu-panel-content" (click)="$event.stopPropagation()">
+              <div class="menu-panel-header">
+                <div class="disaster-type-switcher">
+                  <app-disaster-type></app-disaster-type>
+                </div>
+                <ion-button 
+                  fill="clear" 
+                  size="small"
+                  (click)="closeMenuPanel()"
+                >
+                  <ion-icon name="close"></ion-icon>
+                </ion-button>
+              </div>
               
-              <!-- Sliding admin panel overlay (appears when admin area is triggered) -->
-              <!-- This uses the existing chat component's placeCode and filteredAreas state -->
-              <div class="admin-panel-overlay" [class.admin-panel-visible]="hasSelectedAdminArea()">
-                <div class="admin-panel-content">
-                  <div class="admin-panel-body">
-                    <!-- Only show aggregates when there's actually a selected admin area -->
-                    <app-aggregates *ngIf="hasSelectedAdminArea()"></app-aggregates>
-                    <app-areas-of-focus-summary *ngIf="hasSelectedAdminArea()"></app-areas-of-focus-summary>
-                  </div>
+              <div class="menu-panel-body">
+                <div class="menu-links">
+                  <a href="https://ibf-test.510.global/about" target="_blank" class="menu-link-item" (click)="closeMenuPanel()">
+                    About IBF
+                  </a>
+                  <a href="https://ibf-test.510.global/guide" target="_blank" class="menu-link-item" (click)="closeMenuPanel()">
+                    IBF guide
+                  </a>
+                  <a href="https://ibf-test.510.global/trigger-info" target="_blank" class="menu-link-item" (click)="closeMenuPanel()">
+                    About trigger
+                  </a>
+                  <a href="https://ibf-test.510.global/alert-log" target="_blank" class="menu-link-item" (click)="closeMenuPanel()">
+                    Trigger log
+                  </a>
                 </div>
               </div>
-
-              <!-- Menu panel overlay (appears when menu is opened) -->
-              <div class="menu-panel-overlay" [class.menu-panel-visible]="isMenuPanelOpen">
-                <div class="menu-panel-content" (click)="$event.stopPropagation()">
-                  <!-- Header with disaster type switcher and close button -->
-                  <div class="menu-panel-header">
-                    <!-- Disaster type switcher using existing component -->
-                    <div class="disaster-type-switcher-header">
-                      <app-disaster-type></app-disaster-type>
-                    </div>
-                    
-                    <!-- Close button on the right -->
-                    <ion-button 
-                      fill="clear" 
-                      size="small"
-                      (click)="closeMenuPanel()"
-                      style="--color: var(--ion-color-medium);"
-                    >
-                      <ion-icon name="close"></ion-icon>
-                    </ion-button>
-                  </div>
-                  
-                  <!-- Menu links - clean design -->
-                  <div class="menu-panel-body">
-                    <div class="menu-links-clean">
-                      <a href="https://ibf-test.510.global/about" target="_blank" class="menu-link-item" (click)="closeMenuPanel()">
-                        About IBF
-                      </a>
-                      
-                      <a href="https://ibf-test.510.global/guide" target="_blank" class="menu-link-item" (click)="closeMenuPanel()">
-                        IBF guide
-                      </a>
-                      
-                      <a href="https://ibf-test.510.global/trigger-info" target="_blank" class="menu-link-item" (click)="closeMenuPanel()">
-                        About trigger
-                      </a>
-                      
-                      <a href="https://ibf-test.510.global/alert-log" target="_blank" class="menu-link-item" (click)="closeMenuPanel()">
-                        Trigger log
-                      </a>
-                    </div>
-                  </div>
-                  
-                  <!-- Logout at bottom -->
-                  <div class="menu-panel-footer">
-                    <div class="logout-link" (click)="logout()">
-                      Log out
-                    </div>
-                  </div>
+              
+              <div class="menu-panel-footer">
+                <div class="logout-link" (click)="logout()">
+                  Log out
                 </div>
               </div>
-            </ion-col>
-          </ion-row>
+            </div>
+          </div>
         </ion-col>
       </ion-row>
     </ion-grid>

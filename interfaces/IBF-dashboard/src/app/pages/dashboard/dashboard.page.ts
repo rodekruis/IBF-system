@@ -7,8 +7,8 @@ import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ScreenOrientationPopoverComponent } from 'src/app/components/screen-orientation-popover/screen-orientation-popover.component';
 import { User } from 'src/app/models/user/user.model';
-import { Country } from 'src/app/models/country.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
+import { Country } from 'src/app/models/country.model';
 import { environment } from 'src/environments/environment';
 import { DebugService } from 'src/app/services/debug.service';
 import { EspoCrmAuthService } from 'src/app/services/espocrm-auth.service';
@@ -44,31 +44,6 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   private disasterTypeSubscription: Subscription;
   private static instanceCount = 0;
   private instanceId: number;
-  
-  // Cache the header visibility state to avoid repeated calculations
-  private _shouldHideHeader: boolean | null = null;
-
-  /**
-   * Determines if the header should be hidden (for EspoCRM embedding)
-   * Cached to avoid performance issues during change detection
-   */
-  get shouldHideHeader(): boolean {
-    if (this._shouldHideHeader === null) {
-      const isPlatformEspocrm = this.platformDetectionService.isEspoCrmMode();
-      const isDomEspocrm = this.espoCrmAuth.isEmbeddedInEspoCrm();
-      this._shouldHideHeader = isPlatformEspocrm || isDomEspocrm;
-      
-      // Log only once when first calculated
-      console.log('🎭 shouldHideHeader calculated:', {
-        isPlatformEspocrm,
-        isDomEspocrm,
-        result: this._shouldHideHeader,
-        timestamp: new Date().toISOString()
-      });
-    }
-    
-    return this._shouldHideHeader;
-  }
 
   constructor(
     private authService: AuthService,
@@ -360,8 +335,8 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
    * Check if admin panel should be shown
    */
   shouldShowAdminPanel(): boolean {
-    // Admin panel is shown in standard layout when there's a selected admin area
-    return !this.shouldHideHeader && this.hasSelectedAdminArea();
+    // Admin panel is shown when there's a selected admin area
+    return this.hasSelectedAdminArea();
   }
 
   /**
@@ -390,24 +365,44 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
+   * Handle background click to close menu panel
+   */
+  onBackgroundClick(event: Event): void {
+    // Only close menu panel if clicking outside menu content
+    if (this.isMenuPanelOpen && 
+        !(event.target as Element).closest('.menu-panel-content') &&
+        !(event.target as Element).closest('.menu-button')) {
+      this.closeMenuPanel();
+    }
+  }
+
+  /**
    * Handle map area click
    */
   onMapAreaClick(event: Event): void {
-    // Close menu panel if clicking outside menu content
-    if (this.isMenuPanelOpen && !(event.target as Element).closest('.menu-panel-content')) {
-      this.closeMenuPanel();
-    }
+    // This method is no longer used as we moved click handling to background
+    // Keeping for potential future use
   }
 
   /**
    * Check if there's a selected admin area
    */
   hasSelectedAdminArea(): boolean {
+    // Only return true if menu panel is closed to prevent auto-opening when menu opens
+    if (this.isMenuPanelOpen) {
+      return false;
+    }
+    
     // Check if there's a selected place code and indicators available
     let hasSelectedPlace = false;
-    this.placeCodeService.getPlaceCodeSubscription().subscribe(placeCode => {
-      hasSelectedPlace = !!placeCode;
-    }).unsubscribe();
+    try {
+      this.placeCodeService.getPlaceCodeSubscription().subscribe(placeCode => {
+        hasSelectedPlace = !!placeCode;
+      }).unsubscribe();
+    } catch (error) {
+      // Fail safe if subscription fails
+      hasSelectedPlace = false;
+    }
     
     const hasIndicators = this.aggregatesService.indicators && this.aggregatesService.indicators.length > 0;
     

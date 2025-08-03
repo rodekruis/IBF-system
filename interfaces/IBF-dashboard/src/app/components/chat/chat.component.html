@@ -1,53 +1,34 @@
 <ion-content class="ion-padding-bottom" scrollY="true">
-  @if (!hideWelcomeContent) {
-    <app-dialogue-turn [isLastUploadDateLate]="isLastUploadDateLate">
-      <p style="padding-right: 20px">
+  <app-dialogue-turn [isLastUploadDateLate]="isLastUploadDateLate">
+    <p style="padding-right: 20px">
+      <span
+        [innerHTML]="
+          'chat-component.common.warn-label.hello' | translate: authService
+        "
+      ></span>
+      @if (lastUploadDate) {
         <span
           [innerHTML]="
-            'chat-component.common.warn-label.hello' | translate: authService
+            'chat-component.common.warn-label.message'
+              | translate: { lastUploadDate }
           "
         ></span>
-        @if (lastUploadDate) {
-          <span
-            [innerHTML]="
-              'chat-component.common.warn-label.message'
-                | translate: { lastUploadDate }
-            "
-          ></span>
-        }
-        @if (isLastUploadDateLate) {
-          <app-tooltip
-            [value]="
-              'chat-component.common.warn-label.tooltip'
-                | translate: { supportEmailAddress }
-            "
-            color="danger"
-            class="absolute"
-          ></app-tooltip>
-        }
-      </p>
-      @if (lastUploadDate && !hideActionButtons) {
-        <ion-row>
-          <ion-col size="6" size-md="12" size-lg="6">
-            <app-about-btn
-              [btnLabel]="'chat-component.common.about-button-label' | translate"
-            ></app-about-btn>
-          </ion-col>
-          <ion-col size="6" size-md="12" size-lg="6">
-            <app-activation-log-button
-              data-testid="trigger-log-button"
-            ></app-activation-log-button>
-          </ion-col>
-          <ion-col size="6" size-md="12" size-lg="6">
-            <app-ibf-guide-button></app-ibf-guide-button>
-          </ion-col>
-          <ion-col size="6" size-md="12" size-lg="6">
-            <app-export-view></app-export-view>
-          </ion-col>
-        </ion-row>
       }
-    </app-dialogue-turn>
-  }
+      @if (isLastUploadDateLate) {
+        <app-tooltip
+          [value]="
+            'chat-component.common.warn-label.tooltip'
+              | translate: { supportEmailAddress }
+          "
+          color="danger"
+          class="absolute"
+        ></app-tooltip>
+      }
+    </p>
+    @if (lastUploadDate) {
+      <!-- Buttons removed for embedded-only layout -->
+    }
+  </app-dialogue-turn>
 
   @if (!eventState?.events?.length) {
     <!-- No event -->
