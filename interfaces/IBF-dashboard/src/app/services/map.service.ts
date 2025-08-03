@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
-import { BehaviorSubject, Observable, of, zip } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
+import { BehaviorSubject, Observable, of, zip, Subject } from 'rxjs';
+import { map, shareReplay, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { LayerActivation } from 'src/app/models/layer-activation.enum';
 import { breakKey } from 'src/app/models/map.model';
@@ -16,6 +16,7 @@ import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { AlertLevel, EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import { DebugService } from 'src/app/services/debug.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
 import { AlertArea } from 'src/app/types/alert-area';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
@@ -37,12 +38,21 @@ import { environment } from 'src/environments/environment';
 import { quantile } from 'src/shared/utils';
 
 @Injectable({ providedIn: 'root' })
-export class MapService {
+export class MapService implements OnDestroy {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
   public layers = [] as IbfLayer[];
   private triggeredAreaColor = 'var(--ion-color-ibf-outline-red)';
   private nonTriggeredAreaColor = 'var(--ion-color-ibf-no-alert-primary)';
   private layerDataCache: Record<string, GeoJSON.FeatureCollection> = {};
+
+  // Circuit breaker properties
+  private loadLayersSubject = new Subject<void>();
+  private destroy$ = new Subject<void>();
+  private loadLayersCallCount = 0;
+  private readonly MAX_LOAD_LAYERS_CALLS = 10;
+  private readonly LOAD_LAYERS_DEBOUNCE_MS = 300;
+  private circuitBreakerTripped = false;
+  private lastLoadLayersParams: string | null = null;
 
   public state = {
     bounds: [
@@ -83,71 +93,187 @@ export class MapService {
     private placeCodeService: PlaceCodeService,
     private disasterTypeService: DisasterTypeService,
     private alertAreaService: AlertAreaService,
+    private debugService: DebugService,
   ) {
+    // Set up debounced loadLayers to prevent cascade calls
+    this.loadLayersSubject
+      .pipe(
+        debounceTime(this.LOAD_LAYERS_DEBOUNCE_MS),
+        distinctUntilChanged(),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        this.performLoadLayers();
+      });
+
+    this.debugService.logComponentInit('MapService');
+
     this.countryService
       .getCountrySubscription()
+      .pipe(takeUntil(this.destroy$))
       .subscribe(this.onCountryChange);
 
     this.adminLevelService
       .getAdminLevelSubscription()
+      .pipe(takeUntil(this.destroy$))
       .subscribe(this.onAdminLevelChange);
 
     this.timelineService
       .getTimelineStateSubscription()
+      .pipe(takeUntil(this.destroy$))
       .subscribe(this.onTimelineStateChange);
 
     this.placeCodeService
       .getPlaceCodeSubscription()
+      .pipe(takeUntil(this.destroy$))
       .subscribe(this.onPlaceCodeChange);
 
     this.disasterTypeService
       .getDisasterTypeSubscription()
+      .pipe(takeUntil(this.destroy$))
       .subscribe(this.onDisasterTypeChange);
 
     this.eventService
       .getInitialEventStateSubscription()
+      .pipe(takeUntil(this.destroy$))
       .subscribe(this.onEventStateChange);
 
     this.eventService
       .getManualEventStateSubscription()
+      .pipe(takeUntil(this.destroy$))
       .subscribe(this.onEventStateChange);
 
-    this.alertAreaService.getAlertAreas().subscribe(this.onAlertAreasChange);
+    this.alertAreaService.getAlertAreas()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(this.onAlertAreasChange);
   }
 
   private onCountryChange = (country: Country): void => {
+    console.log(`🗂️ MapService: Country changed to ${country?.countryCodeISO3}`);
     this.country = country;
-    this.loadLayers(); // Load layers when country changes
+    this.requestLoadLayers('country change');
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
+    console.log(`🗂️ MapService: Disaster type changed to ${disasterType?.disasterType}`);
     this.disasterType = disasterType;
-    this.loadLayers(); // Load layers when disaster type changes
+    this.requestLoadLayers('disaster type change');
   };
 
   private onAdminLevelChange = (adminLevel: AdminLevel) => {
+    console.log(`🗂️ MapService: Admin level changed to ${adminLevel}`);
     this.adminLevel = adminLevel;
-    this.loadLayers(); // Load layers when admin level changes
+    this.requestLoadLayers('admin level change');
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
+    console.log(`🗂️ MapService: Timeline state changed`);
     this.timelineState = timelineState;
-    this.loadLayers(); // Load layers when timeline state changes
+    this.requestLoadLayers('timeline state change');
   };
 
   private onEventStateChange = (eventState: EventState) => {
+    console.log(`🗂️ MapService: Event state changed`);
     this.eventState = eventState;
-    this.loadLayers(); // Load layers when event state changes
+    this.requestLoadLayers('event state change');
   };
 
   private onAlertAreasChange = (alertAreas: AlertArea[]) => {
+    console.log(`🗂️ MapService: Alert areas changed (${alertAreas?.length} areas)`);
     this.alertAreas = alertAreas;
-    this.loadLayers();
+    this.requestLoadLayers('alert areas change');
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode): void => {
     this.placeCode = placeCode;
   };
+
+  /**
+   * Circuit breaker method to prevent excessive loadLayers calls
+   */
+  private requestLoadLayers(reason: string): void {
+    this.loadLayersCallCount++;
+    
+    if (this.circuitBreakerTripped) {
+      console.warn(`🔥 MapService: Circuit breaker ACTIVE - ignoring loadLayers request from ${reason}`);
+      return;
+    }
+
+    if (this.loadLayersCallCount > this.MAX_LOAD_LAYERS_CALLS) {
+      this.circuitBreakerTripped = true;
+      this.debugService.triggerCircuitBreaker(`MapService loadLayers called ${this.loadLayersCallCount} times - circuit breaker TRIPPED!`);
+      console.error(`🚨 MapService: Too many loadLayers calls (${this.loadLayersCallCount})! Circuit breaker ACTIVATED.`);
+      
+      // Reset circuit breaker after 5 seconds
+      setTimeout(() => {
+        console.log('🔄 MapService: Circuit breaker RESET');
+        this.circuitBreakerTripped = false;
+        this.loadLayersCallCount = 0;
+      }, 5000);
+      return;
+    }
+
+    console.log(`🗂️ MapService: Requesting loadLayers (${this.loadLayersCallCount}x) - ${reason}`);
+    this.loadLayersSubject.next();
+  }
+
+  /**
+   * The actual loadLayers implementation with deduplication
+   */
+  private performLoadLayers(): void {
+    // Generate parameters hash for deduplication
+    const params = JSON.stringify({
+      country: this.country?.countryCodeISO3,
+      disasterType: this.disasterType?.disasterType,
+      eventState: !!this.eventState,
+      timelineState: !!this.timelineState,
+      adminLevel: this.adminLevel
+    });
+
+    // Skip if same parameters as last call
+    if (this.lastLoadLayersParams === params) {
+      console.log('🗂️ MapService: Skipping loadLayers - same parameters as last call');
+      return;
+    }
+
+    this.lastLoadLayersParams = params;
+    
+    console.log('🗂️ MapService: Performing actual loadLayers() call');
+    console.log('🗂️ Dependencies:', {
+      country: !!this.country,
+      disasterType: !!this.disasterType,
+      eventState: !!this.eventState,
+      timelineState: !!this.timelineState,
+      adminLevel: !!this.adminLevel
+    });
+
+    this.layers = [];
+    this.layerSubject.next(null);
+
+    if (
+      this.country &&
+      this.disasterType &&
+      this.eventState &&
+      this.timelineState &&
+      this.adminLevel
+    ) {
+      console.log(`🗂️ MapService: Loading layers for ${this.country.countryCodeISO3} - ${this.disasterType.disasterType}`);
+      this.apiService
+        .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(this.onLayerChange);
+    } else {
+      console.log('🗂️ MapService: Not loading layers - missing dependencies');
+    }
+  }
+
+  /**
+   * @deprecated Use requestLoadLayers instead to prevent cascade calls
+   */
+  private loadLayers() {
+    console.warn('🚨 MapService: loadLayers() called directly - this should use requestLoadLayers()');
+    this.requestLoadLayers('direct call (deprecated)');
+  }
 
   private getPopoverText(indicator: IbfLayerMetadata | Indicator): string {
     if (
@@ -188,35 +314,6 @@ export class MapService {
       }
     });
   };
-
-  private loadLayers() {
-    console.log('🗂️ MapService: loadLayers() called');
-    console.log('🗂️ Dependencies:', {
-      country: !!this.country,
-      disasterType: !!this.disasterType,
-      eventState: !!this.eventState,
-      timelineState: !!this.timelineState,
-      adminLevel: !!this.adminLevel
-    });
-
-    this.layers = [];
-    this.layerSubject.next(null);
-
-    if (
-      this.country &&
-      this.disasterType &&
-      this.eventState &&
-      this.timelineState &&
-      this.adminLevel
-    ) {
-      console.log(`🗂️ MapService: Loading layers for ${this.country.countryCodeISO3} - ${this.disasterType.disasterType}`);
-      this.apiService
-        .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)
-        .subscribe(this.onLayerChange);
-    } else {
-      console.log('🗂️ MapService: Not loading layers - missing dependencies');
-    }
-  }
 
   private loadTyphoonTrackLayer(layer: IbfLayerMetadata, layerActive: boolean) {
     if (this.country) {
@@ -1028,4 +1125,10 @@ export class MapService {
 
     return { color: this.triggeredAreaColor, weight: 5 };
   };
+
+  ngOnDestroy(): void {
+    console.log('🗂️ MapService: ngOnDestroy called - cleaning up subscriptions');
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
 }

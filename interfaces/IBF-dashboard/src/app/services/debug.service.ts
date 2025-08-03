@@ -11,18 +11,41 @@ export class DebugService {
     console.log(`${this.debugPrefix} Debug service initialized`);
   }
 
-  logComponentInit(componentName: string, data?: any) {
+  logComponentInit(componentName: string, instanceId?: number) {
     // Track initialization counts to detect infinite loops
+    const key = instanceId ? `${componentName}[${instanceId}]` : componentName;
     const currentCount = this.initCounters.get(componentName) || 0;
     const newCount = currentCount + 1;
     this.initCounters.set(componentName, newCount);
     
     const warning = newCount > 3 ? ' ⚠️ MULTIPLE INITS!' : '';
-    console.log(`${this.debugPrefix} 🚀 ${componentName} - ngOnInit (${newCount}x)${warning}`, data || '');
+    console.log(`${this.debugPrefix} 🚀 ${key} - Initialized (${newCount}x total for ${componentName})${warning}`);
     
     if (newCount > 5) {
       console.error(`${this.debugPrefix} 🚨 INFINITE LOOP DETECTED in ${componentName} - ${newCount} initializations!`);
+      // Optionally trigger a circuit breaker here
+      this.triggerCircuitBreaker(componentName);
     }
+  }
+
+  triggerCircuitBreaker(componentName: string) {
+    console.error(`${this.debugPrefix} 🔒 Circuit breaker triggered for ${componentName}`);
+    // Reset counter to prevent further logging spam
+    this.initCounters.set(componentName, 0);
+    
+    // Emit an error event that the application can handle
+    window.dispatchEvent(new CustomEvent('component-loop-detected', {
+      detail: { componentName, timestamp: Date.now() }
+    }));
+  }
+
+  resetCounters() {
+    console.log(`${this.debugPrefix} 🔄 Resetting all counters`);
+    this.initCounters.clear();
+  }
+
+  getComponentInitCount(componentName: string): number {
+    return this.initCounters.get(componentName) || 0;
   }
 
   logComponentDestroy(componentName: string) {

@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { forkJoin, Subscription } from 'rxjs';
+import { forkJoin, Subscription, Subject } from 'rxjs';
+import { takeUntil, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -69,6 +70,13 @@ export class ChatComponent implements OnInit, OnDestroy {
   private timelineStateSubscription: Subscription;
   private indicatorSubscription: Subscription;
 
+  // Component lifecycle management
+  private static instanceCount = 0;
+  private instanceId: number;
+  private isInitialized = false;
+  private isDestroyed = false;
+  private destroy$ = new Subject<void>();
+
   public eapActions: EapAction[];
   public changedActions: EapAction[] = [];
   public submitDisabled = true;
@@ -103,54 +111,158 @@ export class ChatComponent implements OnInit, OnDestroy {
     private adminLevelService: AdminLevelService,
     private debugService: DebugService,
   ) {
-    this.debugService.logComponentInit('ChatComponent', 'Constructor called');
+    this.instanceId = ++ChatComponent.instanceCount;
+    this.debugService.logComponentInit('ChatComponent', this.instanceId);
   }
 
   ngOnInit() {
-    this.debugService.logComponentInit('ChatComponent', 'ngOnInit called');
-    
+    // Prevent multiple initializations
+    if (this.isInitialized || this.isDestroyed) {
+      console.warn(`⚠️ ChatComponent[${this.instanceId}]: Preventing duplicate initialization`, {
+        isInitialized: this.isInitialized,
+        isDestroyed: this.isDestroyed
+      });
+      return;
+    }
+
+    this.instanceId = ++ChatComponent.instanceCount;
+    this.debugService.logComponentInit('ChatComponent', this.instanceId);
+
+    try {
+      this.initializeSubscriptions();
+      this.isInitialized = true;
+    } catch (error) {
+      console.error(`❌ ChatComponent[${this.instanceId}]: Initialization failed`, error);
+      this.cleanup();
+    }
+  }
+
+  private initializeSubscriptions() {
     this.countrySubscription = this.countryService
       .getCountrySubscription()
-      .subscribe(this.onCountryChange);
+      .pipe(
+        takeUntil(this.destroy$),
+        distinctUntilChanged((prev, curr) => prev?.countryCodeISO3 === curr?.countryCodeISO3),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onCountryChange,
+        error: (error) => console.error('Country subscription error:', error)
+      });
 
     this.eapActionSubscription = this.alertAreaService
       .getAlertAreas()
-      .subscribe(this.onAlertAreasChange);
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onAlertAreasChange,
+        error: (error) => console.error('Alert areas subscription error:', error)
+      });
 
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
-      .subscribe(this.onPlaceCodeChange);
+      .pipe(
+        takeUntil(this.destroy$),
+        distinctUntilChanged(),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onPlaceCodeChange,
+        error: (error) => console.error('Place code subscription error:', error)
+      });
 
     this.disasterTypeSubscription = this.disasterTypeService
       .getDisasterTypeSubscription()
-      .subscribe(this.onDisasterTypeChange);
+      .pipe(
+        takeUntil(this.destroy$),
+        distinctUntilChanged(),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onDisasterTypeChange,
+        error: (error) => console.error('Disaster type subscription error:', error)
+      });
 
     this.initialEventStateSubscription = this.eventService
       .getInitialEventStateSubscription()
-      .subscribe(this.onEventStateChange);
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onEventStateChange,
+        error: (error) => console.error('Initial event state subscription error:', error)
+      });
 
     this.manualEventStateSubscription = this.eventService
       .getManualEventStateSubscription()
-      .subscribe(this.onEventStateChange);
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onEventStateChange,
+        error: (error) => console.error('Manual event state subscription error:', error)
+      });
 
     this.timelineStateSubscription = this.timelineService
       .getTimelineStateSubscription()
-      .subscribe(this.onTimelineStateChange);
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onTimelineStateChange,
+        error: (error) => console.error('Timeline state subscription error:', error)
+      });
 
     this.indicatorSubscription = this.aggregatesService
       .getIndicators()
-      .subscribe(this.onIndicatorChange);
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onIndicatorChange,
+        error: (error) => console.error('Indicator subscription error:', error)
+      });
   }
 
   ngOnDestroy() {
-    this.countrySubscription.unsubscribe();
-    this.eapActionSubscription.unsubscribe();
-    this.placeCodeSubscription.unsubscribe();
-    this.disasterTypeSubscription.unsubscribe();
-    this.initialEventStateSubscription.unsubscribe();
-    this.manualEventStateSubscription.unsubscribe();
-    this.timelineStateSubscription.unsubscribe();
-    this.indicatorSubscription.unsubscribe();
+    this.cleanup();
+  }
+
+  private cleanup() {
+    // Mark as destroyed to prevent further operations
+    this.isDestroyed = true;
+    
+    // Emit destroy signal to complete all observables
+    this.destroy$.next();
+    this.destroy$.complete();
+    
+    // Track instance destruction
+    ChatComponent.instanceCount--;
+    console.log(`💀 ChatComponent: Instance #${this.instanceId} destroyed. Remaining: ${ChatComponent.instanceCount}`);
+    
+    // Manual cleanup for additional safety
+    const subscriptions = [
+      this.countrySubscription,
+      this.eapActionSubscription,
+      this.placeCodeSubscription,
+      this.disasterTypeSubscription,
+      this.initialEventStateSubscription,
+      this.manualEventStateSubscription,
+      this.timelineStateSubscription,
+      this.indicatorSubscription
+    ];
+
+    subscriptions.forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    });
   }
 
   private onCountryChange = (country: Country) => {

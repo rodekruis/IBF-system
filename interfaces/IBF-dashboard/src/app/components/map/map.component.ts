@@ -21,7 +21,8 @@ import {
   point,
   tileLayer,
 } from 'leaflet';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
+import { takeUntil, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -102,6 +103,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private manualEventStateSubscription: Subscription;
   private timelineStateSubscription: Subscription;
 
+  // Component lifecycle management
+  private static instanceCount = 0;
+  private instanceId: number;
+  private isInitialized = false;
+  private isDestroyed = false;
+  private destroy$ = new Subject<void>();
+
   private osmTileLayer = tileLayer(LEAFLET_MAP_URL_TEMPLATE, {
     attribution: LEAFLET_MAP_ATTRIBUTION,
   });
@@ -129,63 +137,152 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     private adminLevelService: AdminLevelService,
     private debugService: DebugService,
   ) {
-    this.debugService.logComponentInit('MapComponent', 'Constructor called');
-    
-    this.layerSubscription = this.mapService
-      .getLayerSubscription()
-      .subscribe(this.onLayerChange);
-
-    this.countrySubscription = this.countryService
-      .getCountrySubscription()
-      .subscribe(this.onCountryChange);
-
-    this.disasterTypeSubscription = this.disasterTypeService
-      .getDisasterTypeSubscription()
-      .subscribe(this.onDisasterTypeChange);
-
-    this.placeCodeSubscription = this.placeCodeService
-      .getPlaceCodeSubscription()
-      .subscribe(this.onPlaceCodeChange);
-
-    this.initialEventStateSubscription = this.eventService
-      .getInitialEventStateSubscription()
-      .subscribe(this.onEventStateChange);
-
-    this.manualEventStateSubscription = this.eventService
-      .getManualEventStateSubscription()
-      .subscribe(this.onEventStateChange);
-
-    this.timelineStateSubscription = this.timelineService
-      .getTimelineStateSubscription()
-      .subscribe(this.onTimelineStateChange);
+    this.instanceId = ++MapComponent.instanceCount;
+    this.debugService.logComponentInit('MapComponent', this.instanceId);
   }
 
   ngAfterViewInit(): void {
-    this.debugService.logComponentAfterViewInit('MapComponent', { 
-      mapExists: !!this.map,
-      leafletOptions: this.leafletOptions 
-    });
-    
-    if (this.map) {
-      this.initLegend();
+    // Prevent multiple initializations
+    if (this.isInitialized || this.isDestroyed) {
+      console.warn(`⚠️ MapComponent[${this.instanceId}]: Preventing duplicate initialization`, {
+        isInitialized: this.isInitialized,
+        isDestroyed: this.isDestroyed
+      });
+      return;
     }
-    
-    // Check map DOM state
-    setTimeout(() => {
-      this.debugService.logElementVisibility('MapComponent', '.leaflet--map');
-      this.debugService.logElementVisibility('MapComponent', '[data-testid="dashboard-map-componenet"]');
-      this.debugService.logCSSStyles('MapComponent', '.leaflet--map');
-    }, 100);
+
+    try {
+      this.initializeSubscriptions();
+      this.isInitialized = true;
+      
+      this.debugService.logComponentAfterViewInit('MapComponent', { 
+        mapExists: !!this.map,
+        leafletOptions: this.leafletOptions 
+      });
+      
+      if (this.map) {
+        this.initLegend();
+      }
+    } catch (error) {
+      console.error(`❌ MapComponent[${this.instanceId}]: Initialization failed`, error);
+      this.cleanup();
+    }
+  }
+
+  private initializeSubscriptions() {
+    this.layerSubscription = this.mapService
+      .getLayerSubscription()
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onLayerChange,
+        error: (error) => console.error('Layer subscription error:', error)
+      });
+
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
+      .pipe(
+        takeUntil(this.destroy$),
+        distinctUntilChanged((prev, curr) => prev?.countryCodeISO3 === curr?.countryCodeISO3),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onCountryChange,
+        error: (error) => console.error('Country subscription error:', error)
+      });
+
+    this.disasterTypeSubscription = this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .pipe(
+        takeUntil(this.destroy$),
+        distinctUntilChanged(),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onDisasterTypeChange,
+        error: (error) => console.error('Disaster type subscription error:', error)
+      });
+
+    this.placeCodeSubscription = this.placeCodeService
+      .getPlaceCodeSubscription()
+      .pipe(
+        takeUntil(this.destroy$),
+        distinctUntilChanged(),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onPlaceCodeChange,
+        error: (error) => console.error('Place code subscription error:', error)
+      });
+
+    this.initialEventStateSubscription = this.eventService
+      .getInitialEventStateSubscription()
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onEventStateChange,
+        error: (error) => console.error('Initial event state subscription error:', error)
+      });
+
+    this.manualEventStateSubscription = this.eventService
+      .getManualEventStateSubscription()
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onEventStateChange,
+        error: (error) => console.error('Manual event state subscription error:', error)
+      });
+
+    this.timelineStateSubscription = this.timelineService
+      .getTimelineStateSubscription()
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onTimelineStateChange,
+        error: (error) => console.error('Timeline state subscription error:', error)
+      });
   }
 
   ngOnDestroy() {
-    this.layerSubscription.unsubscribe();
-    this.countrySubscription.unsubscribe();
-    this.placeCodeSubscription.unsubscribe();
-    this.disasterTypeSubscription.unsubscribe();
-    this.initialEventStateSubscription.unsubscribe();
-    this.manualEventStateSubscription.unsubscribe();
-    this.timelineStateSubscription.unsubscribe();
+    this.cleanup();
+  }
+
+  private cleanup() {
+    // Mark as destroyed to prevent further operations
+    this.isDestroyed = true;
+    
+    // Emit destroy signal to complete all observables
+    this.destroy$.next();
+    this.destroy$.complete();
+    
+    // Track instance destruction
+    MapComponent.instanceCount--;
+    console.log(`💀 MapComponent: Instance #${this.instanceId} destroyed. Remaining: ${MapComponent.instanceCount}`);
+    
+    // Manual cleanup for additional safety
+    const subscriptions = [
+      this.layerSubscription,
+      this.countrySubscription,
+      this.placeCodeSubscription,
+      this.disasterTypeSubscription,
+      this.initialEventStateSubscription,
+      this.manualEventStateSubscription,
+      this.timelineStateSubscription
+    ];
+
+    subscriptions.forEach(sub => {
+      if (sub) {
+        sub.unsubscribe();
+      }
+    });
   }
 
   private onLayerChange = (newLayer) => {

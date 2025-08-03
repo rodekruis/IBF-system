@@ -54,6 +54,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
 
+  // Component lifecycle management
+  private static instanceCount = 0;
+  private instanceId: number;
+
   constructor(
     private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
@@ -68,7 +72,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private mapViewService: MapViewService,
     private debugService: DebugService,
   ) {
-    this.debugService.logComponentInit('AggregatesComponent', 'Constructor called');
+    this.instanceId = ++AggregatesComponent.instanceCount;
+    this.debugService.logComponentInit('AggregatesComponent', this.instanceId);
     
     this.initialEventStateSubscription = this.eventService
       .getInitialEventStateSubscription()
@@ -80,7 +85,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.debugService.logComponentInit('AggregatesComponent', 'ngOnInit called');
+    this.debugService.logComponentInit('AggregatesComponent', this.instanceId);
     
     this.countrySubscription = this.countryService
       .getCountrySubscription()
@@ -106,6 +111,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    // Track instance destruction
+    AggregatesComponent.instanceCount--;
+    console.log(`💀 AggregatesComponent: Instance #${this.instanceId} destroyed. Remaining: ${AggregatesComponent.instanceCount}`);
+    
     this.indicatorSubscription.unsubscribe();
     this.countrySubscription.unsubscribe();
     this.disasterTypeSubscription.unsubscribe();

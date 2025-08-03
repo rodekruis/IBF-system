@@ -45,7 +45,9 @@
             "allowedCommonJsDependencies": [
               "@turf/invariant",
               "@turf/bbox",
-              "@turf/meta"
+              "@turf/meta",
+              "leaflet",
+              "leaflet.markercluster"
             ],
             "aot": false,
             "extractLicenses": false,
@@ -239,7 +241,9 @@
             "allowedCommonJsDependencies": [
               "@turf/invariant",
               "@turf/bbox",
-              "@turf/meta"
+              "@turf/meta",
+              "leaflet",
+              "leaflet.markercluster"
             ],
             "aot": true,
             "extractLicenses": false,

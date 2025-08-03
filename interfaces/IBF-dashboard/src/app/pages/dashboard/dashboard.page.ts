@@ -1,7 +1,8 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { DateTime } from 'luxon';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
+import { takeUntil, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 import { AnalyticsPage } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -32,25 +33,28 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   public version: string = environment.ibfSystemVersion;
   public isDev = false;
   public isMultiCountry = false;
-  public templateRendered = false; // Add explicit template state tracking
-  public currentCountry: Country = null; // Add current country information
-  public isCountryDropdownOpen = false; // Add country dropdown state tracking
-  public isMenuPanelOpen = false; // Add menu panel state tracking
+  public templateRendered = false;
+  public currentCountry: Country | null = null;
+  public isCountryDropdownOpen = false;
+  public isMenuPanelOpen = false;
   
   private readonly adminRole = UserRole.Admin;
   public environmentConfiguration = environment.configuration;
-  private authSubscription: Subscription;
-  private countrySubscription: Subscription;
-  private disasterTypeSubscription: Subscription;
+  private authSubscription?: Subscription;
+  private countrySubscription?: Subscription;
+  private disasterTypeSubscription?: Subscription;
   private static instanceCount = 0;
-  private instanceId: number;
+  private instanceId!: number;
+  private isInitialized = false;
+  private isDestroyed = false;
+  private destroy$ = new Subject<void>();
 
   constructor(
     private authService: AuthService,
     private analyticsService: AnalyticsService,
     private popoverController: PopoverController,
     private debugService: DebugService,
-    private cdr: ChangeDetectorRef, // Add ChangeDetectorRef for manual change detection
+    private cdr: ChangeDetectorRef,
     private espoCrmAuth: EspoCrmAuthService,
     private countryService: CountryService,
     private eventService: EventService,
@@ -60,19 +64,16 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
     private placeCodeService: PlaceCodeService,
     private assetUrlService: AssetUrlService,
   ) {
-    // Track multiple instances
     DashboardPage.instanceCount++;
     this.instanceId = DashboardPage.instanceCount;
     
-    this.debugService.logComponentInit('DashboardPage', `Constructor called - Instance #${this.instanceId}`);
+    this.debugService.logComponentInit('DashboardPage', this.instanceId);
     
-    // Warn if multiple instances are being created
     if (DashboardPage.instanceCount > 1) {
       console.error(`🚨 CRITICAL: Multiple DashboardPage instances created! Current count: ${DashboardPage.instanceCount}`);
       console.error('🚨 This indicates a routing or component lifecycle issue');
     }
 
-    // Add navigation tracking
     console.log('🧭 DashboardPage: Constructor - Current URL:', window.location.href);
     console.log('🧭 DashboardPage: Constructor - Timestamp:', new Date().toISOString());
 
@@ -88,102 +89,43 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Set up auth subscription in ngOnInit to avoid change detection issues during constructor
-    this.authSubscription = this.authService.getAuthSubscription().subscribe(this.onUserChange);
-    
-    // Set up country subscription to track current country
-    this.countrySubscription = this.countryService.getCountrySubscription().subscribe((country: Country) => {
-      this.currentCountry = country;
-      this.cdr.markForCheck();
-      console.log('🎯 DashboardPage: Country updated:', country?.countryName);
-      
-      // Add data loading debugging when country changes
-      if (country) {
-        console.log('📊 Data loading check for country:', country.countryCodeISO3);
-        this.debugDataState();
-      }
-    });
-    
-    // Set up disaster type subscription to track changes
-    this.disasterTypeSubscription = this.disasterTypeService.getDisasterTypeSubscription().subscribe((disasterType) => {
-      console.log('🌪️ DashboardPage: Disaster type updated:', disasterType?.disasterType);
-      this.cdr.markForCheck();
-    });
-    
-    // Add data loading debugging subscriptions
-    this.eventService.getInitialEventStateSubscription().subscribe((eventState) => {
-      console.log('📊 DashboardPage: Event state:', eventState ? 'loaded' : 'empty');
-    });
-    
-    this.aggregatesService.getIndicators().subscribe((indicators) => {
-      console.log('📊 DashboardPage: Indicators data:', indicators ? indicators.length + ' indicators' : 'empty');
-    });
-    
-    this.debugService.logComponentInit('DashboardPage', {
-      isDev: this.isDev,
-      isMultiCountry: this.isMultiCountry,
-      version: this.version
-    });
-    
-    // Schedule initial template rendering with proper timing
-    setTimeout(() => {
-      this.templateRendered = true;
-      this.cdr.markForCheck(); // Use markForCheck instead of detectChanges
-      console.log('🔄 DashboardPage: Initial template rendering scheduled');
-    }, 0);
-    this.analyticsService.logPageView(AnalyticsPage.dashboard);
-    
-    // Mark for check after component initialization instead of forcing detection
-    this.cdr.markForCheck();
-    
-    // Add immediate DOM check
-    console.log('🔍 DashboardPage ngOnInit - DOM check immediately:');
-    console.log('🔍 Dashboard element exists:', !!document.querySelector('[data-testid="ibf-dashboard-interface"]'));
-    console.log('🔍 App root exists:', !!document.querySelector('#app'));
-    console.log('🔍 Router outlet exists:', !!document.querySelector('router-outlet'));
-    console.log('🔍 Total DOM elements:', document.querySelectorAll('*').length);
-    
-    // Check DOM state after a short delay
-    setTimeout(() => {
-      this.debugService.logDOMState();
-      this.cdr.markForCheck(); // Use markForCheck instead of detectChanges
-    }, 100);
-    
-    // Schedule multiple change detection cycles to ensure template renders
-    setTimeout(() => {
-      this.cdr.markForCheck();
-      console.log('🔄 DashboardPage: Additional change detection at 250ms');
-    }, 250);
-    
-    setTimeout(() => {
-      this.cdr.markForCheck();
-      console.log('🔄 DashboardPage: Additional change detection at 500ms');
-      this.debugService.logDOMState();
-    }, 500);
+    if (this.isInitialized || this.isDestroyed) {
+      console.warn(`⚠️ DashboardPage[${this.instanceId}]: Preventing duplicate initialization`, {
+        isInitialized: this.isInitialized,
+        isDestroyed: this.isDestroyed
+      });
+      return;
+    }
+
+    this.debugService.logComponentInit('DashboardPage', this.instanceId);
+
+    try {
+      this.initializeServices();
+      this.isInitialized = true;
+      this.analyticsService.logPageView(AnalyticsPage.dashboard);
+    } catch (error) {
+      console.error(`❌ DashboardPage[${this.instanceId}]: Initialization failed`, error);
+      this.cleanup();
+    }
   }
 
   ngAfterViewInit() {
     this.debugService.logComponentAfterViewInit('DashboardPage');
-    
-    // Mark for check in AfterViewInit instead of forcing detection
     this.cdr.markForCheck();
     
-    // Check DOM state again after view init
     setTimeout(() => {
       this.debugService.logDOMState();
       this.debugService.logCSSStyles('DashboardPage', '.ibf-dashboard-left-column');
       this.debugService.logCSSStyles('DashboardPage', '.ibf-dashboard-right-column');
       this.debugService.logCSSStyles('DashboardPage', 'app-chat');
       this.debugService.logCSSStyles('DashboardPage', 'app-map');
-      this.cdr.markForCheck(); // Use markForCheck after checks
+      this.cdr.markForCheck();
     }, 500);
     
-    // Check again after longer delay with more conservative change detection
     setTimeout(() => {
-      this.cdr.markForCheck(); // Mark component and ancestors for check
+      this.cdr.markForCheck();
       this.debugService.logDOMState();
       
-      // If DOM still empty, try to diagnose template issues
       const dashboardElement = document.querySelector('[data-testid="ibf-dashboard-interface"]');
       if (!dashboardElement) {
         console.error('🚨 CRITICAL: Dashboard template still not rendered after 2 seconds');
@@ -194,7 +136,6 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
           version: this.version
         });
         
-        // Try one more conservative change detection
         this.templateRendered = true;
         this.cdr.markForCheck();
         
@@ -207,40 +148,100 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    // Track instance destruction
-    DashboardPage.instanceCount--;
+    this.cleanup();
+  }
+
+  private initializeServices() {
+    this.authSubscription = this.authService.getAuthSubscription()
+      .pipe(
+        takeUntil(this.destroy$),
+        distinctUntilChanged(),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: this.onUserChange.bind(this),
+        error: (error) => console.error('Auth subscription error:', error)
+      });
+
+    this.countrySubscription = this.countryService.getCountrySubscription()
+      .pipe(
+        takeUntil(this.destroy$),
+        distinctUntilChanged((prev, curr) => prev?.countryCodeISO3 === curr?.countryCodeISO3),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: (country: Country) => {
+          if (!this.isDestroyed) {
+            this.currentCountry = country;
+            this.cdr.markForCheck();
+            console.log('🎯 DashboardPage: Country updated:', country?.countryName);
+          }
+        },
+        error: (error) => console.error('Country subscription error:', error)
+      });
+
+    this.disasterTypeSubscription = this.disasterTypeService.getDisasterTypeSubscription()
+      .pipe(
+        takeUntil(this.destroy$),
+        distinctUntilChanged(),
+        debounceTime(100)
+      )
+      .subscribe({
+        next: (disasterType) => {
+          if (!this.isDestroyed) {
+            console.log('🌪️ DashboardPage: Disaster type updated:', disasterType?.disasterType);
+            this.cdr.markForCheck();
+          }
+        },
+        error: (error) => console.error('Disaster type subscription error:', error)
+      });
+
+    setTimeout(() => {
+      if (!this.isDestroyed) {
+        this.templateRendered = true;
+        this.cdr.markForCheck();
+        console.log('🔄 DashboardPage: Initial template rendering scheduled');
+      }
+    }, 0);
+  }
+
+  private cleanup() {
+    this.isDestroyed = true;
+    
+    this.destroy$.next();
+    this.destroy$.complete();
+    
+    DashboardPage.instanceCount = Math.max(0, DashboardPage.instanceCount - 1);
     console.log(`💀 DashboardPage: Instance #${this.instanceId} destroyed. Remaining: ${DashboardPage.instanceCount}`);
     
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
+      this.authSubscription = undefined;
     }
     
     if (this.countrySubscription) {
       this.countrySubscription.unsubscribe();
+      this.countrySubscription = undefined;
     }
     
     if (this.disasterTypeSubscription) {
       this.disasterTypeSubscription.unsubscribe();
+      this.disasterTypeSubscription = undefined;
     }
   }
 
-  private onUserChange = (user: User): void => {
+  private onUserChange(user: User): void {
     if (user) {
       this.isDev = user.userRole === this.adminRole;
       this.isMultiCountry = user.countries.length > 1;
-      
-      // Mark for check instead of forcing immediate detection to avoid assertion errors
       this.cdr.markForCheck();
       console.log('🔄 DashboardPage: Component marked for check by user change', {
         isDev: this.isDev,
         isMultiCountry: this.isMultiCountry
       });
     }
-  };
+  }
 
-  /**
-   * Debug current data state for troubleshooting empty containers
-   */
   private debugDataState(): void {
     console.log('🔍 DashboardPage - Data State Debug:');
     console.log('🔍 Indicators:', this.aggregatesService.indicators?.length || 0);
@@ -248,7 +249,6 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
     console.log('🔍 Current Country:', this.currentCountry?.countryName || 'none');
     console.log('🔍 Template Rendered:', this.templateRendered);
     
-    // Check DOM elements
     setTimeout(() => {
       console.log('🔍 DOM Check:');
       console.log('🔍 aggregate-list elements:', document.querySelectorAll('app-aggregate-list').length);
@@ -291,84 +291,50 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
     this.cdr.markForCheck();
   }
 
-  // Methods required by the template
-
-  /**
-   * Get the active disaster type icon
-   */
   getActiveDisasterTypeIcon(): string {
     const disasterType = this.disasterTypeService.disasterType;
     if (disasterType?.disasterType && DISASTER_TYPES_SVG_MAP[disasterType.disasterType]) {
-      const buttonStatus = `selectedNonTriggered`; // Default to non-triggered
+      const buttonStatus = `selectedNonTriggered`;
       const assetPath = DISASTER_TYPES_SVG_MAP[disasterType.disasterType][buttonStatus];
       return this.assetUrlService.getAssetUrl(assetPath);
     }
-    // Default icon if no disaster type is selected
     return this.assetUrlService.getAssetUrl('assets/icons/disaster-types/default.svg');
   }
 
-  /**
-   * Get the current disaster type name
-   */
   getCurrentDisasterTypeName(): string {
     const disasterType = this.disasterTypeService.disasterType;
     return disasterType?.label || 'No disaster type';
   }
 
-  /**
-   * Check if the current disaster type is triggered
-   */
   isTriggered(): boolean {
-    // Check if there are any triggered events for the current disaster type
     const eventState = this.eventService.state;
     return eventState?.events?.some(event => event.firstTriggerLeadTime) || false;
   }
 
-  /**
-   * Get the triggered state text
-   */
   getTriggeredStateText(): string {
     return this.isTriggered() ? 'TRIGGERED' : 'NO TRIGGER';
   }
 
-  /**
-   * Check if admin panel should be shown
-   */
   shouldShowAdminPanel(): boolean {
-    // Admin panel is shown when there's a selected admin area
     return this.hasSelectedAdminArea();
   }
 
-  /**
-   * Close the admin panel
-   */
   closeAdminPanel(): void {
-    // Clear the selected place code to hide the admin panel
     this.placeCodeService.clearPlaceCode();
     this.cdr.markForCheck();
   }
 
-  /**
-   * Toggle the menu panel
-   */
   toggleMenuPanel(): void {
     this.isMenuPanelOpen = !this.isMenuPanelOpen;
     this.cdr.markForCheck();
   }
 
-  /**
-   * Close the menu panel
-   */
   closeMenuPanel(): void {
     this.isMenuPanelOpen = false;
     this.cdr.markForCheck();
   }
 
-  /**
-   * Handle background click to close menu panel
-   */
   onBackgroundClick(event: Event): void {
-    // Only close menu panel if clicking outside menu content
     if (this.isMenuPanelOpen && 
         !(event.target as Element).closest('.menu-panel-content') &&
         !(event.target as Element).closest('.menu-button')) {
@@ -376,31 +342,22 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  /**
-   * Handle map area click
-   */
   onMapAreaClick(event: Event): void {
     // This method is no longer used as we moved click handling to background
     // Keeping for potential future use
   }
 
-  /**
-   * Check if there's a selected admin area
-   */
   hasSelectedAdminArea(): boolean {
-    // Only return true if menu panel is closed to prevent auto-opening when menu opens
     if (this.isMenuPanelOpen) {
       return false;
     }
     
-    // Check if there's a selected place code and indicators available
     let hasSelectedPlace = false;
     try {
       this.placeCodeService.getPlaceCodeSubscription().subscribe(placeCode => {
         hasSelectedPlace = !!placeCode;
       }).unsubscribe();
     } catch (error) {
-      // Fail safe if subscription fails
       hasSelectedPlace = false;
     }
     
@@ -409,9 +366,6 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
     return hasSelectedPlace && hasIndicators;
   }
 
-  /**
-   * Logout function
-   */
   logout(): void {
     this.authService.logout();
   }
