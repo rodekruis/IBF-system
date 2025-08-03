@@ -126,13 +126,19 @@ export class AdminLevelService {
       this.country &&
       this.disasterType &&
       this.eventState &&
-      this.timelineState
+      this.timelineState &&
+      this.countryDisasterSettings?.defaultAdminLevel
     ) {
       this.processAdminLevel();
     }
   };
 
   private processAdminLevel() {
+    if (!this.countryDisasterSettings?.defaultAdminLevel) {
+      console.warn('⚠️ AdminLevelService: countryDisasterSettings or defaultAdminLevel not available');
+      return;
+    }
+
     this.allCountryAdminLevels = Object.keys(
       this.country.adminRegionLabels,
     ).map((k) => Number(k));
@@ -175,15 +181,18 @@ export class AdminLevelService {
   }
 
   public zoomOutAdminLevel() {
-    if (this.adminLevel > this.countryDisasterSettings.defaultAdminLevel) {
+    if (this.countryDisasterSettings?.defaultAdminLevel && 
+        this.adminLevel > this.countryDisasterSettings.defaultAdminLevel) {
       this.adminLevel = this.adminLevel - 1;
       this.adminLevelSubject.next(this.adminLevel);
     }
   }
 
   public zoomToDefaultAdminLevel() {
-    this.adminLevel = this.countryDisasterSettings.defaultAdminLevel;
-    this.adminLevelSubject.next(this.adminLevel);
+    if (this.countryDisasterSettings?.defaultAdminLevel) {
+      this.adminLevel = this.countryDisasterSettings.defaultAdminLevel;
+      this.adminLevelSubject.next(this.adminLevel);
+    }
   }
 
   private getButtonTypeClass(adminLevel: AdminLevel): string {

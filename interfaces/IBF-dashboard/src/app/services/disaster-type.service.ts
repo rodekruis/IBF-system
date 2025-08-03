@@ -24,8 +24,11 @@ export class DisasterTypeService {
     country: Country,
     disasterType: DisasterType,
   ): CountryDisasterSettings {
-    return country?.countryDisasterSettings.find(
-      (s) => s.disasterType === disasterType?.disasterType,
+    if (!country?.countryDisasterSettings || !disasterType?.disasterType) {
+      return null;
+    }
+    return country.countryDisasterSettings.find(
+      (s) => s.disasterType === disasterType.disasterType,
     );
   }
 }

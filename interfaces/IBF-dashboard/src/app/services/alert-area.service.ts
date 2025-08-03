@@ -115,7 +115,8 @@ export class AlertAreaService {
       this.country &&
       this.disasterType &&
       this.timelineState &&
-      this.eventState
+      this.eventState &&
+      this.countryDisasterSettings?.defaultAdminLevel
     ) {
       const adminLevelToUse =
         this.placeCode?.adminLevel ||
@@ -132,9 +133,9 @@ export class AlertAreaService {
           .subscribe(this.processAlertAreas);
       } else if (this.eventState?.event) {
         this.processAlertAreas(this.eventState.event.alertAreas);
-      } else if (this.eventState?.events.length) {
+      } else if ((this.eventState?.events || []).length) {
         // Multiple events case - concatenate all alertAreas arrays
-        const allAlertAreas = this.eventState.events.flatMap(
+        const allAlertAreas = (this.eventState?.events || []).flatMap(
           (event) => event.alertAreas || [],
         );
 

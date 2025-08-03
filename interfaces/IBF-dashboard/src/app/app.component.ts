@@ -6,6 +6,9 @@ import { Subscription } from 'rxjs';
 import { LoaderService } from 'src/app/services/loader.service';
 import { PlatformDetectionService } from 'src/app/services/platform-detection.service';
 import { EspoCrmAuthService } from 'src/app/services/espocrm-auth.service';
+import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { IonApp, IonSpinner, IonRouterOutlet } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 
@@ -21,6 +24,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   // Web component inputs for external configuration
   @Input() countryCode: string = 'PHL';
   @Input() disasterType: string = 'typhoon';
+  @Input() defaultAdminLevel: number = 2;
   @Input() apiBaseUrl: string = 'https://ibf-api.rodekruis.nl';
   
   // EspoCRM integration inputs
@@ -45,6 +49,11 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   private loaderSubscription: Subscription;
   public loading = true; // Will be updated by LoaderService subscription
   private defaultLanguage = 'en';
+  
+  // Initialization tracking to prevent duplicate cycles
+  private countryInitialized = false;
+  private disasterTypeInitialized = false;
+  private adminLevelInitialized = false;
 
   constructor(
     private platform: Platform,
@@ -54,6 +63,9 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     private router: Router,
     private cdr: ChangeDetectorRef,
     private espoCrmAuth: EspoCrmAuthService,
+    private countryService: CountryService,
+    private disasterTypeService: DisasterTypeService,
+    private adminLevelService: AdminLevelService,
   ) {
     console.log('🔄 AppComponent: Constructor initialized');
   }
@@ -106,6 +118,30 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     
     // Set up EspoCRM authentication handling
     this.setupEspoCrmAuthentication();
+    
+    // COMMENTED OUT: Programmatic country selection - using user access settings instead
+    // Set up programmatic country selection if embedded mode with country code
+    // if (this.isEmbedded && this.countryCode && !this.countryInitialized) {
+    //   console.log(`🎯 Setting programmatic country: ${this.countryCode} for embedded mode (initial)`);
+    //   this.countryService.setProgrammaticCountry(this.countryCode);
+    //   this.countryInitialized = true;
+    // }
+    
+    // COMMENTED OUT: Programmatic disaster type selection - using user access settings instead
+    // Set up programmatic disaster type selection if embedded mode with disaster type
+    // if (this.isEmbedded && this.disasterType && !this.disasterTypeInitialized) {
+    //   console.log(`🌪️ Setting programmatic disaster type: ${this.disasterType} for embedded mode (initial)`);
+    //   this.setDisasterTypeFromCountry(this.disasterType);
+    //   this.disasterTypeInitialized = true;
+    // }
+    
+    // COMMENTED OUT: Programmatic admin level selection - using country defaults instead
+    // Set up programmatic admin level if embedded mode with admin level
+    // if (this.isEmbedded && this.defaultAdminLevel && !this.adminLevelInitialized) {
+    //   console.log(`📊 Setting programmatic admin level: ${this.defaultAdminLevel} for embedded mode (initial)`);
+    //   this.adminLevelService.setAdminLevel(this.defaultAdminLevel);
+    //   this.adminLevelInitialized = true;
+    // }
     
     // Log platform detection info
     this.platformDetectionService.logPlatformInfo();
@@ -177,6 +213,28 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
         console.log('🌐 Platform changed to:', this.embedPlatform);
         this.isEmbedded = this.embedPlatform !== 'standalone';
       }
+      
+      // COMMENTED OUT: Programmatic country selection - using user access settings instead
+      // if (changes['countryCode'] && this.countryCode && this.isEmbedded && !this.countryInitialized) {
+      //   console.log(`🎯 Country code changed to: ${this.countryCode} (embedded mode)`);
+      //   this.countryService.setProgrammaticCountry(this.countryCode);
+      //   this.countryInitialized = true;
+      // }
+      
+      // COMMENTED OUT: Programmatic disaster type selection - using user access settings instead
+      // if (changes['disasterType'] && this.disasterType && this.isEmbedded && !this.disasterTypeInitialized) {
+      //   console.log(`🌪️ Disaster type changed to: ${this.disasterType} (embedded mode)`);
+      //   this.setDisasterTypeFromCountry(this.disasterType);
+      //   this.disasterTypeInitialized = true;
+      // }
+      
+      // COMMENTED OUT: Programmatic admin level selection - using country defaults instead
+      // if (changes['defaultAdminLevel'] && this.defaultAdminLevel && this.isEmbedded && !this.adminLevelInitialized) {
+      //   console.log(`📊 Default admin level changed to: ${this.defaultAdminLevel} (embedded mode)`);
+      //   // Set the admin level programmatically if provided
+      //   this.adminLevelService.setAdminLevel(this.defaultAdminLevel);
+      //   this.adminLevelInitialized = true;
+      // }
       
       if (changes['embedPlatform'] || changes['countryCode'] || changes['disasterType']) {
         // Re-configure if platform or core settings change
@@ -359,6 +417,49 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   
   public reportError(error: any) {
     this.error.emit(error);
+  }
+
+  private setDisasterTypeFromCountry(disasterTypeKey: string): void {
+    console.log(`🌪️ Setting disaster type: ${disasterTypeKey}`);
+    
+    let isCompleted = false; // Track if the operation completed successfully
+    
+    // Wait for country to be loaded, then select the disaster type from available types
+    const subscription = this.countryService.getCountrySubscription().subscribe(country => {
+      if (country?.disasterTypes && country.disasterTypes.length > 0) {
+        const availableDisasterType = country.disasterTypes.find(
+          dt => dt.disasterType === disasterTypeKey
+        );
+        if (availableDisasterType) {
+          console.log(`✅ Found disaster type ${disasterTypeKey} in country data, setting it`);
+          this.disasterTypeService.setDisasterType(availableDisasterType);
+          isCompleted = true; // Mark as completed
+          subscription.unsubscribe(); // Unsubscribe after successful match
+        } else {
+          console.warn(`⚠️ Disaster type ${disasterTypeKey} not found in country ${country.countryCodeISO3} available types:`, 
+                      country.disasterTypes.map(dt => dt.disasterType));
+          
+          // Try to set a fallback disaster type if the requested one is not available
+          console.log(`🔄 Setting fallback disaster type: ${country.disasterTypes[0].disasterType}`);
+          this.disasterTypeService.setDisasterType(country.disasterTypes[0]);
+          isCompleted = true; // Mark as completed
+          subscription.unsubscribe(); // Unsubscribe after unsuccessful match
+        }
+      } else if (country) {
+        // Country loaded but no disaster types yet - wait a bit more
+        console.log(`⏳ Country ${country.countryCodeISO3} loaded but disaster types not yet available, waiting...`);
+      }
+    });
+    
+    // Add timeout to prevent infinite waiting - only warn if not yet completed
+    setTimeout(() => {
+      if (!isCompleted) {
+        subscription.unsubscribe();
+        console.warn(`⚠️ Timeout waiting for disaster type ${disasterTypeKey} to be set - this may be normal for embedded mode`);
+      } else {
+        console.log(`✅ Disaster type ${disasterTypeKey} was set successfully, timeout cleared`);
+      }
+    }, 15000);
   }
 
   private setupEspoCrmAuthentication(): void {

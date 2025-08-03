@@ -421,6 +421,10 @@ sudo docker exec espocrm php command.php clear-cache
 echo "   EspoCRM extension status:"
 sudo docker exec espocrm php command.php extension --list 2>/dev/null | grep -i ibf && echo "      ✅ Extension registered in EspoCRM" || echo "      ❌ Extension not registered in EspoCRM"
 
+echo " Copy assets to EspoCRM public directory..."
+sudo cp -R /var/www/espocrm/data/espocrm/client/custom/modules/ibf-dashboard/svg/* /var/www/espocrm/data/espocrm/public/svg/
+sudo cp -R /var/www/espocrm/data/espocrm/client/custom/modules/ibf-dashboard/assets/* /var/www/espocrm/data/espocrm/public/assets/
+
 echo ""
 echo "=================================================="
 echo "✅ Extension deployment completed successfully!"

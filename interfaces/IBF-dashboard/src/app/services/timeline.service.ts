@@ -133,7 +133,7 @@ export class TimelineService implements OnDestroy {
     index: number,
   ): void => {
     const leadTime = leadTimeInput.leadTime;
-    const isUndefinedLeadTime = this.eventState.events
+    const isUndefinedLeadTime = (this.eventState?.events || [])
       .filter((e) => e.disasterSpecificProperties?.typhoonNoLandfallYet)
       .map((e) => e.firstLeadTime)
       .includes(leadTime);
@@ -292,7 +292,7 @@ export class TimelineService implements OnDestroy {
       ) as LeadTime;
     }
 
-    for (const event of this.eventState.events) {
+    for (const event of (this.eventState?.events || [])) {
       // Push first event starting lead-times ..
       const duration = event.duration || 1;
       const startLeadTimeToUse =
@@ -360,7 +360,7 @@ export class TimelineService implements OnDestroy {
     );
 
     // Separately add at the end leadtimes that should be conveyed as 'undefined'
-    const undefinedLeadTimeEvents = this.eventState?.events.filter(
+    const undefinedLeadTimeEvents = (this.eventState?.events || []).filter(
       (e) => e.disasterSpecificProperties?.typhoonNoLandfallYet,
     );
 

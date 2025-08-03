@@ -11,6 +11,7 @@ import { CountryService } from 'src/app/services/country.service';
 })
 export class CountrySwitcherComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
+  private lastCountryCode: string | null = null;
   public country: Country;
 
   constructor(public countryService: CountryService) {}
@@ -29,7 +30,26 @@ export class CountrySwitcherComponent implements OnInit, OnDestroy {
     this.country = country;
   };
 
-  public handleCountryChange($event) {
-    this.countryService.selectCountry($event.detail.value);
+  public handleCountryChange(event: any): void {
+    const selectedCountryCode = event.detail.value;
+    
+    // Prevent duplicate calls
+    if (this.lastCountryCode === selectedCountryCode) {
+      console.log('🔄 Country change ignored - same country already selected:', selectedCountryCode);
+      return;
+    }
+
+    console.log('🌍 Country change:', this.lastCountryCode, '->', selectedCountryCode);
+    this.lastCountryCode = selectedCountryCode;
+
+    const selectedCountry = this.countryService.countries.find(
+      (country) => country.countryCodeISO3 === selectedCountryCode,
+    );
+
+    if (selectedCountry) {
+      this.countryService.selectCountry(selectedCountryCode);
+    } else {
+      console.warn('⚠️ Country not found:', selectedCountryCode);
+    }
   }
 }

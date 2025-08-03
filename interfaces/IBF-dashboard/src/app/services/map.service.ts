@@ -117,22 +117,27 @@ export class MapService {
 
   private onCountryChange = (country: Country): void => {
     this.country = country;
+    this.loadLayers(); // Load layers when country changes
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
+    this.loadLayers(); // Load layers when disaster type changes
   };
 
   private onAdminLevelChange = (adminLevel: AdminLevel) => {
     this.adminLevel = adminLevel;
+    this.loadLayers(); // Load layers when admin level changes
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
     this.timelineState = timelineState;
+    this.loadLayers(); // Load layers when timeline state changes
   };
 
   private onEventStateChange = (eventState: EventState) => {
     this.eventState = eventState;
+    this.loadLayers(); // Load layers when event state changes
   };
 
   private onAlertAreasChange = (alertAreas: AlertArea[]) => {
@@ -159,8 +164,11 @@ export class MapService {
   }
 
   private onLayerChange = (layers: IbfLayerMetadata[]): void => {
+    console.log(`🗂️ MapService: onLayerChange called with ${layers.length} layers:`, layers.map(l => l.name));
+    
     layers.forEach((layer: IbfLayerMetadata) => {
       const layerActive = this.getActiveState(layer);
+      console.log(`🗂️ Processing layer: ${layer.name}, active: ${layerActive}, type: ${layer.type}`);
 
       if (layer.type === IbfLayerType.wms) {
         this.loadWmsLayer(layer, layerActive, layer.leadTimeDependent);
@@ -182,6 +190,15 @@ export class MapService {
   };
 
   private loadLayers() {
+    console.log('🗂️ MapService: loadLayers() called');
+    console.log('🗂️ Dependencies:', {
+      country: !!this.country,
+      disasterType: !!this.disasterType,
+      eventState: !!this.eventState,
+      timelineState: !!this.timelineState,
+      adminLevel: !!this.adminLevel
+    });
+
     this.layers = [];
     this.layerSubject.next(null);
 
@@ -192,9 +209,12 @@ export class MapService {
       this.timelineState &&
       this.adminLevel
     ) {
+      console.log(`🗂️ MapService: Loading layers for ${this.country.countryCodeISO3} - ${this.disasterType.disasterType}`);
       this.apiService
         .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)
         .subscribe(this.onLayerChange);
+    } else {
+      console.log('🗂️ MapService: Not loading layers - missing dependencies');
     }
   }
 
@@ -279,17 +299,39 @@ export class MapService {
   };
 
   private loadAdminRegionLayer(layerActive: boolean, adminLevel: AdminLevel) {
+    console.log(`🎯 MapService: loadAdminRegionLayer called - active: ${layerActive}, level: ${adminLevel} (${typeof adminLevel}), currentLevel: ${this.adminLevel} (${typeof this.adminLevel})`);
+    console.log(`🎯 MapService: Comparison result: ${adminLevel === this.adminLevel}, strict equal: ${adminLevel === this.adminLevel}, loose equal: ${adminLevel == this.adminLevel}`);
+    
     if (layerActive && adminLevel === this.adminLevel) {
-      // Use basic admin areas for boundary display instead of disaster-specific filtering
+      // Use disaster-specific admin areas to show only triggered areas
+      const currentEvent = this.eventService.state?.event;
+      const eventName = currentEvent?.eventName || null;
+      
+      console.log(`🎯 MapService: Loading admin regions for event: ${eventName || 'no event'}`);
+      
       this.apiService
-        .getBasicAdminAreas(
+        .getAdminRegions(
           this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+          this.timelineState.activeLeadTime,
           adminLevel,
+          eventName || '', // Use actual event name from EventService
         )
         .subscribe((adminRegions) => {
+          console.log(`🎯 MapService: Received admin regions data:`, adminRegions);
           this.addAdminRegionLayer(adminRegions, adminLevel);
+          const regionsCount = adminRegions?.features?.length || 0;
+          if (eventName && regionsCount > 0) {
+            console.log(`✅ Loaded ${regionsCount} disaster-specific admin regions for event: ${eventName}`);
+          } else if (eventName && regionsCount === 0) {
+            console.log(`⚠️ No triggered areas found for event: ${eventName}`);
+          } else {
+            console.log(`📍 Loaded ${regionsCount} admin regions (no event context)`);
+          }
         });
     } else {
+      console.log(`🎯 MapService: Not loading admin regions - active: ${layerActive}, adminLevel match: ${adminLevel === this.adminLevel}`);
+      console.log(`🎯 MapService: Detailed comparison - adminLevel: ${adminLevel} (${typeof adminLevel}), this.adminLevel: ${this.adminLevel} (${typeof this.adminLevel}), undefined check: ${this.adminLevel === undefined}`);
       this.addAdminRegionLayer(null, adminLevel);
     }
   }
@@ -950,9 +992,29 @@ export class MapService {
 
     if (!area) {
       const layer = this.layers.find((l) => l.name === IbfLayerName.trigger);
-      const triggered = layer.data.features.find(
-        (f) => f.properties['placeCode'] === placeCode,
-      ).properties['indicators'][IbfLayerName.trigger];
+      
+      // Add defensive checks to prevent "Cannot read properties of undefined" error
+      if (!layer || !layer.data || !layer.data.features) {
+        console.warn('⚠️ Layer data not available for mouse over style');
+        return {
+          color: this.nonTriggeredAreaColor,
+          weight: 5,
+        };
+      }
+      
+      const feature = layer.data.features.find(
+        (f) => f && f.properties && f.properties['placeCode'] === placeCode,
+      );
+      
+      if (!feature || !feature.properties || !feature.properties['indicators']) {
+        console.warn('⚠️ Feature or properties not available for placeCode:', placeCode);
+        return {
+          color: this.nonTriggeredAreaColor,
+          weight: 5,
+        };
+      }
+      
+      const triggered = feature.properties['indicators'][IbfLayerName.trigger];
 
       return {
         color: triggered ? this.triggeredAreaColor : this.nonTriggeredAreaColor,

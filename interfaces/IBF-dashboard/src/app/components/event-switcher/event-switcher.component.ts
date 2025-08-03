@@ -64,7 +64,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   };
 
   public multipleActiveEvents() {
-    return this.eventState?.events.length > 1;
+    return this.eventState?.events && Array.isArray(this.eventState.events) && this.eventState.events.length > 1;
   }
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {

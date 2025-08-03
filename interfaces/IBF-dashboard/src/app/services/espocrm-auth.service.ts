@@ -36,7 +36,7 @@ export class EspoCrmAuthService {
   }
 
   private checkForToken(): boolean {
-    const token = localStorage.getItem('IBF-API-TOKEN');
+    const token = localStorage.getItem('jwt');
     if (token && !this.tokenSubject.value) {
       console.log('🔐 EspoCRM token detected in localStorage, initializing authentication');
       this.setToken(token);
@@ -51,8 +51,8 @@ export class EspoCrmAuthService {
     this.tokenSubject.next(token);
     this.authenticatedSubject.next(true);
     
-    // Use same localStorage key as non-embedded mode for consistency
-    localStorage.setItem('IBF-API-TOKEN', token);
+    // Use same localStorage key as JWT service for consistency
+    localStorage.setItem('jwt', token);
     localStorage.setItem('ibf-backend-timestamp', Date.now().toString());
     
     console.log('✅ IBF backend token set successfully');
@@ -64,8 +64,8 @@ export class EspoCrmAuthService {
       return currentToken;
     }
 
-    // Check localStorage (same as non-embedded mode for consistency)
-    const storedToken = localStorage.getItem('IBF-API-TOKEN');
+    // Check localStorage (same as JWT service for consistency)
+    const storedToken = localStorage.getItem('jwt');
     const timestamp = localStorage.getItem('ibf-backend-timestamp');
     
     if (storedToken && timestamp) {
@@ -90,7 +90,7 @@ export class EspoCrmAuthService {
   clearToken(): void {
     this.tokenSubject.next(null);
     this.authenticatedSubject.next(false);
-    localStorage.removeItem('IBF-API-TOKEN');
+    localStorage.removeItem('jwt');
     localStorage.removeItem('ibf-backend-timestamp');
     
     console.log('🧹 IBF backend token cleared');

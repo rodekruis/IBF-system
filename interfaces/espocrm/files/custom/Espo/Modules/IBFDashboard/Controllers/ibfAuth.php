@@ -576,7 +576,7 @@ class IbfAuth extends Base
         }
     }
 
-    private function loginIbfUserAndGetToken($ibfEmail, $ibfPassword, $log = null): ?string
+    private function loginIbfUserAndGetToken($ibfEmail, $ibfPassword, $log = null, $isRetryAfterPasswordReset = false): ?string
     {
         try {
             if ($log) $log->info("[IBF-AUTH] Starting IBF user login process for email: " . $ibfEmail);
@@ -616,6 +616,61 @@ class IbfAuth extends Base
             
             if ($httpCode !== 200 && $httpCode !== 201) {
                 if ($log) $log->error("[IBF-AUTH] IBF API login failed with HTTP code: " . $httpCode . " Response: " . $response);
+                
+                // If login failed with 401, try to reset the user's password (but only if this isn't already a retry)
+                if ($httpCode === 401 && !$isRetryAfterPasswordReset) {
+                    if ($log) $log->info("[IBF-AUTH] Login failed with 401, attempting password reset...");
+                    
+                    // Get admin token to perform password reset
+                    $adminToken = $this->getAdminUserCredentialsInIBF($log);
+                    if ($adminToken) {
+                        if ($log) $log->info("[IBF-AUTH] Got admin token, attempting to reset password for user: " . $ibfEmail);
+                        
+                        // Generate a new password
+                        $newPassword = $this->generateSecurePassword();
+                        
+                        // Try to update the password in IBF backend
+                        $resetResult = $this->updateExistingIbfUserPassword(null, $ibfEmail, $newPassword, $adminToken, $log);
+                        
+                        if ($resetResult) {
+                            if ($log) $log->info("[IBF-AUTH] Password reset successful, updating EspoCRM IBFUser record...");
+                            
+                            // Update the password in the EspoCRM IBFUser record
+                            $this->saveOrUpdateIbfUserCredentials($ibfEmail, $newPassword, null, $log);
+                            
+                            // Try to login again with the new password (mark as retry to prevent infinite recursion)
+                            if ($log) $log->info("[IBF-AUTH] Retrying login with new password...");
+                            return $this->loginIbfUserAndGetToken($ibfEmail, $newPassword, $log, true);
+                        } else {
+                            if ($log) $log->warning("[IBF-AUTH] Password reset failed, user may not exist in IBF backend. Attempting to create user...");
+                            
+                            // Password reset failed, likely because user doesn't exist (404)
+                            // Try to create the user using the existing createIbfUserAndGetToken method
+                            // We need to find the EspoCRM user object for this email
+                            $espoCrmUser = $this->getEntityManager()
+                                ->getRDBRepository('User')
+                                ->where(['emailAddress' => $ibfEmail])
+                                ->findOne();
+                                
+                            if ($espoCrmUser) {
+                                if ($log) $log->info("[IBF-AUTH] Found EspoCRM user, creating IBF user...");
+                                $createResult = $this->createIbfUserAndGetToken($espoCrmUser, $log);
+                                
+                                if ($createResult) {
+                                    if ($log) $log->info("[IBF-AUTH] User creation successful, returning token");
+                                    return $createResult;
+                                } else {
+                                    if ($log) $log->error("[IBF-AUTH] User creation failed");
+                                }
+                            } else {
+                                if ($log) $log->error("[IBF-AUTH] Could not find EspoCRM user for email: " . $ibfEmail);
+                            }
+                        }
+                    } else {
+                        if ($log) $log->error("[IBF-AUTH] Could not get admin token for password reset");
+                    }
+                }
+                
                 return null;
             }
             
@@ -722,17 +777,36 @@ class IbfAuth extends Base
 
     private function saveIbfCredentialsToUser($user, $ibfEmail, $ibfPassword, $log = null): bool
     {
-        try {
-            if ($log) $log->debug("[IBF-AUTH] Attempting to save IBF credentials to IBFUser entity...");
+        // Delegate to the consolidated function
+        return $this->saveOrUpdateIbfUserCredentials($ibfEmail, $ibfPassword, $user, $log);
+    }
 
-            // Create or update IBFUser record (dedicated entity for IBF credentials)
+    private function saveOrUpdateIbfUserCredentials($ibfEmail, $ibfPassword, $user = null, $log = null): bool
+    {
+        try {
+            if ($log) $log->debug("[IBF-AUTH] Saving/updating IBF credentials for email: " . $ibfEmail);
+
+            // Try to find existing IBFUser record by email first
             $ibfUser = $this->getEntityManager()
                 ->getRDBRepository('IBFUser')
-                ->where(['userId' => $user->getId()])
+                ->where(['email' => $ibfEmail])
                 ->findOne();
                 
+            // If not found by email and we have a user object, try by userId
+            if (!$ibfUser && $user) {
+                $ibfUser = $this->getEntityManager()
+                    ->getRDBRepository('IBFUser')
+                    ->where(['userId' => $user->getId()])
+                    ->findOne();
+            }
+                
             if (!$ibfUser) {
-                // Use createEntity method which is more standard in EspoCRM
+                // Create new IBFUser record
+                if (!$user) {
+                    if ($log) $log->error("[IBF-AUTH] Cannot create new IBFUser record without user object");
+                    return false;
+                }
+                
                 $ibfUser = $this->getEntityManager()->createEntity('IBFUser', [
                     'userId' => $user->getId(),
                     'email' => $ibfEmail,
@@ -740,19 +814,26 @@ class IbfAuth extends Base
                     'name' => $user->get('firstName') . ' ' . $user->get('lastName') . ' (IBF)'
                 ]);
                 
-                if ($log) $log->info("[IBF-AUTH] IBF credentials saved to new IBFUser entity for user: " . $user->get('id'));
+                if ($log) $log->info("[IBF-AUTH] Created new IBFUser record for email: " . $ibfEmail);
                 return $ibfUser ? true : false;
             } else {
                 // Update existing IBFUser record
                 $ibfUser->set('email', $ibfEmail);
                 $ibfUser->set('password', $ibfPassword);
+                
+                // Update userId if we have a user object and it's different
+                if ($user && $ibfUser->get('userId') !== $user->getId()) {
+                    $ibfUser->set('userId', $user->getId());
+                    if ($log) $log->debug("[IBF-AUTH] Updated userId in IBFUser record");
+                }
+                
                 $this->getEntityManager()->saveEntity($ibfUser);
                 
-                if ($log) $log->info("[IBF-AUTH] IBF credentials updated in existing IBFUser entity for user: " . $user->get('id'));
+                if ($log) $log->info("[IBF-AUTH] Updated existing IBFUser record for email: " . $ibfEmail);
                 return true;
             }
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-AUTH] Exception in saveIbfCredentialsToUser: " . $e->getMessage());
+            if ($log) $log->error("[IBF-AUTH] Exception in saveOrUpdateIbfUserCredentials: " . $e->getMessage());
             if ($log) $log->error("[IBF-AUTH] Stack trace: " . $e->getTraceAsString());
             return false;
         }

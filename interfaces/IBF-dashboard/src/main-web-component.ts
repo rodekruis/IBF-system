@@ -18,7 +18,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 // Token getter function for JWT
 export function tokenGetter() {
-  return localStorage.getItem('IBF-API-TOKEN');
+  return localStorage.getItem('jwt');
 }
 
 (async () => {

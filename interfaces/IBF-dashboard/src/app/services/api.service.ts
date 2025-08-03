@@ -45,10 +45,9 @@ export class ApiService {
     });
 
     if (!anonymous) {
-      // Priority order for token selection:
-      // 1. Environment token (if not in EspoCRM embedded mode)
-      // 2. EspoCRM provided JWT token 
-      // 3. JWT service token
+      // Priority order for authentication tokens:
+      // 1. Environment token (only in non-EspoCRM mode for security)
+      // 2. JWT service token (unified token storage)
       
       let token = null;
       
@@ -57,22 +56,13 @@ export class ApiService {
         token = environment.apiToken;
         console.log('🔐 Using environment token for API calls');
       }
-      // Check for EspoCRM provided token first
-      else if (this.espoCrmAuth.isEmbeddedInEspoCrm() && this.espoCrmAuth.isAuthenticated()) {
-        const espoCrmToken = this.espoCrmAuth.getToken();
-        if (espoCrmToken && espoCrmToken.split('.').length === 3) {
-          token = espoCrmToken;
-          console.log('🔐 Using EspoCRM provided JWT token for API calls');
-        } else {
-          console.warn('⚠️ EspoCRM token is not a valid JWT, falling back to JWT service');
-          token = this.jwtService.getToken();
-        }
-      }
-      // Fallback to JWT service token
+      // Use JWT service token for all other cases
       else {
         token = this.jwtService.getToken();
         if (token) {
           console.log('🔐 Using JWT service token for API calls');
+        } else {
+          console.warn('⚠️ No JWT token found in service');
         }
       }
       
@@ -308,6 +298,16 @@ export class ApiService {
       `admin-areas/${countryCodeISO3}/${disasterType}/${adminLevel.toString()}`,
       false,
       params,
+    );
+  }
+
+  getBasicAdminAreas(
+    countryCodeISO3: string,
+    adminLevel: AdminLevel = AdminLevel.adminLevel1,
+  ): Observable<GeoJSON.FeatureCollection> {
+    return this.get(
+      `admin-areas/${countryCodeISO3}/${adminLevel.toString()}`,
+      false,
     );
   }
 

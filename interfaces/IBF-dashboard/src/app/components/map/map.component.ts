@@ -900,7 +900,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const layerNames = [];
     const events = this.eventState.event
       ? [this.eventState.event]
-      : this.eventState.events.length > 0
+      : (this.eventState?.events || []).length > 0
         ? this.eventState.events
         : [new Event()];
 

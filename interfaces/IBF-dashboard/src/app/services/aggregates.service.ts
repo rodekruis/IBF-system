@@ -213,7 +213,7 @@ export class AggregatesService implements OnDestroy {
       const exposureValue = Number(
         aggregate[this.disasterType.mainExposureIndicator],
       );
-      const hasEvents = this.eventState.events.length > 0;
+      const hasEvents = (this.eventState?.events || []).length > 0;
 
       if (triggerValue === 1) {
         aggregate.areaStatus = AreaStatus.Alert;

@@ -92,8 +92,34 @@ echo -e "${CYAN}Environment: $ENV_NAME ($ENVIRONMENT)${NC}"
 echo -e "${CYAN}Target: $VM_USER@$VM_HOST${NC}"
 echo ""
 
-# Step 1: Build extension
-echo -e "${YELLOW}1. Building extension...${NC}"
+# Step 1: Build web component
+echo -e "${YELLOW}1. Building web component...${NC}"
+
+# Navigate to IBF-dashboard directory and build web component
+DASHBOARD_DIR="../IBF-dashboard"
+if [[ ! -d "$DASHBOARD_DIR" ]]; then
+    echo -e "${RED}IBF-dashboard directory not found at $DASHBOARD_DIR!${NC}"
+    exit 1
+fi
+
+if [[ ! -f "$DASHBOARD_DIR/build-web-component.sh" ]]; then
+    echo -e "${RED}build-web-component.sh not found in $DASHBOARD_DIR!${NC}"
+    exit 1
+fi
+
+# Execute the web component build script
+echo -e "${GRAY}   Building web component in $DASHBOARD_DIR${NC}"
+(cd "$DASHBOARD_DIR" && ./build-web-component.sh)
+
+if [[ $? -ne 0 ]]; then
+    echo -e "${RED}Failed to build web component!${NC}"
+    exit 1
+fi
+
+echo -e "${GREEN}Web component built successfully!${NC}"
+
+# Step 2: Build extension
+echo -e "${YELLOW}2. Building extension...${NC}"
 ./create-extension.sh --patch
 
 if [[ $? -ne 0 ]]; then
@@ -101,7 +127,7 @@ if [[ $? -ne 0 ]]; then
     exit 1
 fi
 
-# Step 2: Determine the actual package filename after build (version may have been incremented)
+# Step 3: Determine the actual package filename after build (version may have been incremented)
 # Extract version from manifest.json using pure bash
 VERSION=""
 if [[ -f "manifest.json" ]]; then
@@ -138,8 +164,8 @@ fi
 
 echo -e "${GREEN}Package created: $PACKAGE_FILE ($PACKAGE_FORMAT format)${NC}"
 
-# Step 2: Transfer to VM
-echo -e "${YELLOW}2. Transferring package to VM...${NC}"
+# Step 4: Transfer to VM
+echo -e "${YELLOW}4. Transferring package to VM...${NC}"
 
 # Check if sshpass is available for password authentication
 if command -v sshpass &> /dev/null; then
@@ -158,20 +184,45 @@ if [[ $? -ne 0 ]]; then
 fi
 
 echo -e "${GREEN}Package transferred successfully!${NC}"
+
+# Step 5: Execute installation script on remote VM
 echo ""
-echo -e "${CYAN}Installation Instructions:${NC}"
-echo -e "${CYAN}==============================${NC}"
-echo ""
-echo -e "${YELLOW}1. SSH into your VM:${NC}"
-echo -e "${WHITE}   ssh $VM_USER@$VM_HOST${NC}"
-echo ""
-echo -e "${YELLOW}2. Run the installation script:${NC}"
-echo -e "${WHITE}   ./install-extension.sh${NC}"
-echo ""
-echo -e "${GRAY}The script will:${NC}"
-echo -e "${GRAY}   - Move $PACKAGE_FILE to /var/www/espocrm/extensions/${NC}"
-echo -e "${GRAY}   - Install the extension via EspoCRM command (supports both ZIP and TAR.GZ)${NC}"
-echo -e "${GRAY}   - Clear cache${NC}"
-echo -e "${GRAY}   - Clean up the package file${NC}"
-echo ""
-echo -e "${GREEN}After installation, check your EspoCRM instance for the IBF Dashboard!${NC}"
+echo -e "${YELLOW}5. Running installation script on remote VM...${NC}"
+
+if command -v sshpass &> /dev/null && [[ -n "$VM_PASSWORD" ]]; then
+    echo -e "${GRAY}   Executing remote installation with sshpass${NC}"
+    sshpass -p "$VM_PASSWORD" ssh "$VM_USER@$VM_HOST" "cd ~ && chmod +x install-extension.sh && ./install-extension.sh"
+else
+    echo -e "${GRAY}   Executing remote installation with SSH key/interactive auth${NC}"
+    ssh "$VM_USER@$VM_HOST" "cd ~ && chmod +x install-extension.sh && ./install-extension.sh"
+fi
+
+INSTALL_EXIT_CODE=$?
+
+if [[ $INSTALL_EXIT_CODE -eq 0 ]]; then
+    echo ""
+    echo -e "${GREEN}✅ Extension installation completed successfully!${NC}"
+    echo ""
+    echo -e "${GREEN}🎉 Your EspoCRM instance now has the IBF Dashboard extension installed!${NC}"
+    echo -e "${CYAN}You can now access the IBF Dashboard in your EspoCRM interface.${NC}"
+else
+    echo -e "${RED}❌ Installation failed with exit code: $INSTALL_EXIT_CODE${NC}"
+    echo ""
+    echo -e "${YELLOW}Manual installation instructions:${NC}"
+    echo -e "${CYAN}==============================${NC}"
+    echo ""
+    echo -e "${YELLOW}1. SSH into your VM:${NC}"
+    echo -e "${WHITE}   ssh $VM_USER@$VM_HOST${NC}"
+    echo ""
+    echo -e "${YELLOW}2. Run the installation script:${NC}"
+    echo -e "${WHITE}   ./install-extension.sh${NC}"
+    echo ""
+    echo -e "${GRAY}The script will:${NC}"
+    echo -e "${GRAY}   - Move $PACKAGE_FILE to /var/www/espocrm/extensions/${NC}"
+    echo -e "${GRAY}   - Install the extension via EspoCRM command (supports both ZIP and TAR.GZ)${NC}"
+    echo -e "${GRAY}   - Clear cache${NC}"
+    echo -e "${GRAY}   - Clean up the package file${NC}"
+    echo ""
+    echo -e "${GREEN}After installation, check your EspoCRM instance for the IBF Dashboard!${NC}"
+    exit 1
+fi

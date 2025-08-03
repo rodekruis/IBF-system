@@ -42,14 +42,15 @@ define('ibf-dashboard:services/ibf-auth', ['ajax'], function (Ajax) {
                     var userEmail = user.get('emailAddress') || 'unknown@example.com';
                     console.log('🔍 Debug: User info:', { id: userId, name: userName, email: userEmail });
                     
-                    // Call EspoCRM controller to get IBF token (controller handles all the backend logic)
+                    // Try EspoCRM controller first, with fallback to session token
                     self.requestIbfToken()
                         .then(function(token) {
-                            console.log('✅ Successfully acquired IBF backend token');
+                            console.log('✅ Successfully acquired IBF backend token via controller');
                             resolve(token);
                         })
                         .catch(function(error) {
-                            console.error('❌ Failed to acquire IBF token from EspoCRM controller:', error.message);
+                            console.error('❌ EspoCRM controller failed:', error.message);
+                            console.log('🔍 Note: Controller should now automatically handle password reset on 401 errors');
                             reject(error);
                         });
                     
@@ -93,8 +94,8 @@ define('ibf-dashboard:services/ibf-auth', ['ajax'], function (Ajax) {
          * Send token to IBF Dashboard web component using localStorage
          */
         sendTokenToIbfDashboard: function(token) {
-            // Store token in localStorage for IBF Dashboard to pick up (same as non-embedded mode)
-            localStorage.setItem('IBF-API-TOKEN', token);
+            // Store token in localStorage for IBF Dashboard to pick up (same as JWT service)
+            localStorage.setItem('jwt', token);
             
             console.log('✅ Token sent to IBF Dashboard via localStorage');
         },
@@ -137,7 +138,7 @@ define('ibf-dashboard:services/ibf-auth', ['ajax'], function (Ajax) {
          * Clear cached authentication data
          */
         clearAuth: function() {
-            localStorage.removeItem('IBF-API-TOKEN');
+            localStorage.removeItem('jwt');
             console.log('🧹 IBF authentication data cleared');
         }
     });

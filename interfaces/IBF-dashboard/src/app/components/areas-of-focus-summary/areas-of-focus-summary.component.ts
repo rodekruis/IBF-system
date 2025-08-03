@@ -94,17 +94,23 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
 
   private onCountryChange = (country: Country) => {
     this.country = country;
+    this.updateCountryDisasterSettings();
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-
-    this.countryDisasterSettings =
-      this.disasterTypeService.getCountryDisasterTypeSettings(
-        this.country,
-        this.disasterType,
-      );
+    this.updateCountryDisasterSettings();
   };
+
+  private updateCountryDisasterSettings() {
+    if (this.country && this.disasterType) {
+      this.countryDisasterSettings =
+        this.disasterTypeService.getCountryDisasterTypeSettings(
+          this.country,
+          this.disasterType,
+        );
+    }
+  }
 
   private onAlertAreasChange = (alertAreas: AlertArea[]) => {
     this.alertAreas = alertAreas;
@@ -185,8 +191,9 @@ export class AreasOfFocusSummaryComponent implements OnInit, OnDestroy {
       return false;
     }
 
-    if (!this.countryDisasterSettings.enableEarlyActions) {
+    if (!this.countryDisasterSettings?.enableEarlyActions) {
       // areas of focus summary is only shown when early actions are enabled
+      // If countryDisasterSettings is null, don't show the summary
       return false;
     }
 

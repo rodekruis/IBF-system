@@ -80,6 +80,8 @@ export class AuthService implements OnDestroy {
           console.log('✅ Received proper JWT token from EspoCRM');
           // Save the IBF backend token to JWT service for API calls
           this.jwtService.saveToken(ibfBackendToken);
+          console.log('💾 JWT token saved to service, verifying storage...');
+          console.log('🔍 Stored token preview:', this.jwtService.getToken()?.substring(0, 50) + '...');
           
           // Get the actual user data from the JWT token
           const user = this.getUserFromToken();

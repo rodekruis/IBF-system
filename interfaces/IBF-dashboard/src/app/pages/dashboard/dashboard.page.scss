@@ -10,7 +10,348 @@
   }
 }
 
+// Date and time overlay for embedded mode
+.date-time-overlay.embedded {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4px);
+}
 
+// Clean date/time header styling (positioned at top of left column)
+.date-time-header {
+  padding: 16px 16px;  // Increase padding to better match dashboard-header
+  background: transparent;
+  border-bottom: 1px solid var(--ion-color-light);
+  min-height: 72px;  // Increase height to better match the complex dashboard-header
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  
+  .date-text {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--ion-color-primary);
+    display: block;
+    margin-bottom: 4px;
+  }
+  
+  .time-text {
+    font-size: 12px;
+    color: var(--ion-color-medium);
+    display: block;
+  }
+}
+
+// Dashboard title with disaster info aligned properly
+.dashboard-title-section {
+  .disaster-info-title {
+    margin: 0;
+    padding: 8px 16px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--ion-color-dark);
+    text-align: left;
+    
+    .disaster-title-inline {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      
+      .disaster-icon-inline {
+        width: 24px;
+        height: 24px;
+      }
+      
+      .disaster-type-text {
+        font-size: 1.2rem;
+        color: var(--ion-color-primary);
+        text-transform: capitalize;
+        font-weight: 500;
+      }
+      
+      .trigger-status {
+        font-size: 1rem;
+        color: var(--ion-color-medium);
+        padding: 4px 12px;
+        border-radius: 16px;
+        background: var(--ion-color-light);
+        margin-left: 8px;
+        
+        &.triggered {
+          background: var(--ion-color-danger);
+          color: var(--ion-color-danger-contrast);
+          font-weight: 500;
+        }
+      }
+    }
+  }
+}
+
+// Dashboard header with title and menu
+.dashboard-header {
+  padding: 0;
+  border-bottom: 1px solid var(--ion-color-light);
+  
+  .dashboard-title-section {
+    .disaster-info-title {
+      font-weight: bold;
+      color: var(--ion-color-primary);
+      margin: 0;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      
+      .active-disaster-icon {
+        width: 24px;
+        height: 24px;
+        margin-right: 4px;
+      }
+      
+      .disaster-type-text {
+        font-size: 1.2rem;
+        color: var(--ion-color-primary);
+        text-transform: capitalize;
+        font-weight: 500;
+      }
+      
+      .trigger-status {
+        font-size: 0.9rem;
+        padding: 4px 12px;
+        border-radius: 16px;
+        background: var(--ion-color-light);
+        color: var(--ion-color-medium);
+        font-weight: 500;
+        
+        &.triggered {
+          background: var(--ion-color-danger);
+          color: var(--ion-color-danger-contrast);
+        }
+      }
+    }
+    
+    .date-time-inline {
+      margin-top: 4px;
+      
+      .date-text {
+        font-size: 18px;
+        font-weight: bold;
+        color: var(--ion-color-primary);
+        display: block;
+        margin-bottom: 2px;
+      }
+      
+      .time-text {
+        font-size: 12px;
+        color: var(--ion-color-medium);
+        display: block;
+      }
+    }
+  }
+  
+  .menu-button {
+    --color: var(--ion-color-medium);
+    --padding-start: 8px;
+    --padding-end: 8px;
+  }
+}
+
+// Admin panel overlay for triggered admin areas - made wider to accommodate larger columns
+.admin-panel-overlay {
+  position: absolute;
+  top: 0;
+  right: -100%; // Ensure completely hidden off-screen by default
+  width: 20%; // Increased from 14% to accommodate larger layout
+  min-width: 220px; // Increased minimum width 
+  max-width: 320px; // Increased maximum width while preserving map visibility
+  height: 100%;
+  z-index: 999;
+  transition: right 0.3s ease-in-out, opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  opacity: 0; // Start invisible
+  visibility: hidden; // Completely hide when not visible
+  
+  &.admin-panel-visible {
+    right: 0; // Slide in when visible
+    opacity: 1; // Make visible
+    visibility: visible; // Show when visible
+    
+    // If menu panel is also visible, position admin panel to the left of it
+    &:has(~ .menu-panel-overlay.menu-panel-visible) {
+      right: 300px; // Adjusted to match new menu panel width
+    }
+  }
+  
+  .admin-panel-content {
+    height: 100%;
+    background: var(--ion-color-light);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    
+    .admin-panel-body {
+      flex: 1;
+      padding: 0; // Remove padding to allow components full width
+      overflow-y: auto;
+      width: 100%;
+      
+      // Ensure the components take full width and have no extra spacing
+      app-aggregates,
+      app-areas-of-focus-summary {
+        display: block;
+        margin-bottom: 0; // Remove margin between components
+        width: 100%;
+      }
+    }
+  }
+  
+  // Responsive behavior for smaller screens
+  @media (max-width: 768px) {
+    width: 100%;
+    right: -100%;
+    min-width: unset;
+    max-width: unset;
+    
+    &.admin-panel-visible {
+      right: 0;
+    }
+  }
+}
+
+// Menu panel overlay (similar to admin panel but positioned differently when both are open)
+.menu-panel-overlay {
+  position: absolute;
+  top: 0;
+  right: -300px; // Start hidden off-screen - wider width to match larger layout
+  width: 300px; // Increased from 260px to fit content better with larger layout
+  min-width: 280px; // Increased minimum width for usability
+  max-width: 350px; // Increased maximum width
+  height: 100%;
+  z-index: 1000; // Higher z-index than admin panel
+  transition: right 0.3s ease-in-out;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+  
+  &.menu-panel-visible {
+    right: 0; // Slide in when visible
+    
+    // If admin panel is also visible, position menu panel to the left of it
+    &:has(~ .admin-panel-overlay.admin-panel-visible) {
+      right: 220px; // Adjusted for larger admin panel
+    }
+  }
+  
+  .menu-panel-content {
+    height: 100%;
+    background: var(--ion-color-light);
+    display: flex;
+    flex-direction: column;
+    
+    .menu-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px; // Reduced padding for narrower design
+      border-bottom: 1px solid var(--ion-color-light-shade);
+      
+      .disaster-type-switcher-header {
+        display: flex;
+        align-items: center;
+        
+        app-disaster-type {
+          ion-row {
+            display: flex;
+            gap: 3px; // Reduced gap for tighter layout
+            margin: 0;
+            padding: 0;
+            
+            > div {
+              margin: 0;
+              padding: 0;
+              
+              ion-icon.disaster-type-button {
+                height: 28px; // Slightly smaller icons
+                width: 28px;
+                cursor: pointer;
+                border-radius: 4px;
+                transition: all 0.2s ease;
+                
+                &:hover {
+                  background-color: var(--ion-color-light-shade);
+                  opacity: 0.85;
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      ion-button {
+        --padding-start: 6px; // Reduced padding
+        --padding-end: 6px;
+      }
+    }
+    
+    .menu-panel-body {
+      flex: 1;
+      padding: 0 12px; // Reduced padding for narrower design
+      
+      .menu-links-clean {
+        margin-bottom: 24px; // Reduced margin
+        
+        .menu-link-item {
+          display: block;
+          padding: 10px 0; // Slightly reduced padding
+          text-decoration: none;
+          color: var(--ion-color-dark);
+          font-size: 0.95rem; // Slightly smaller font
+          font-weight: 400;
+          border: none;
+          background: none;
+          cursor: pointer;
+          
+          &:hover {
+            color: var(--ion-color-primary);
+          }
+        }
+      }
+    }
+    
+    .menu-panel-footer {
+      padding: 12px; // Reduced padding
+      border-top: 1px solid var(--ion-color-light-shade);
+      
+      .logout-link {
+        color: var(--ion-color-danger);
+        font-weight: 400;
+        cursor: pointer;
+        padding: 6px 0; // Reduced padding
+        font-size: 0.95rem; // Consistent smaller font
+        
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  
+  // Responsive behavior for smaller screens
+  @media (max-width: 768px) {
+    width: 100%;
+    right: -100%;
+    z-index: 1001; // Even higher on mobile to ensure it's on top
+    
+    &.menu-panel-visible {
+      right: 0;
+    }
+  }
+}
 
 #ibf-dashboard-map {
   pointer-events: all !important;
@@ -165,5 +506,155 @@ app-export-view {
         }
       }
     }
+  }
+}
+
+// Admin panel styling
+.admin-panel {
+  position: absolute;
+  right: 16px;
+  top: 80px;
+  width: 300px;
+  z-index: 1000;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  max-height: 400px;
+  
+  .admin-panel-header {
+    background: var(--ion-color-primary);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px 8px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    ion-title {
+      margin: 0;
+      font-size: 14px;
+    }
+    
+    ion-button {
+      color: white;
+      --background: transparent;
+      --box-shadow: none;
+    }
+  }
+  
+  ion-content {
+    max-height: 350px;
+  }
+}
+
+// Date/time overlay styling
+.date-time-overlay {
+  position: absolute;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 8px 12px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  backdrop-filter: blur(5px);
+  
+  &.embedded {
+    top: 8px;
+    left: 8px;
+  }
+  
+  &.standard {
+    top: 72px;
+    left: 8px;
+  }
+}
+
+// Dashboard title bar styling
+.dashboard-title-bar {
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--ion-color-light);
+  background: white;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  min-height: 56px;  // Match date-time-header height for alignment
+  
+  .disaster-title-inline {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    
+    .disaster-icon-inline {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .disaster-type-text {
+      font-size: 1.2rem;
+      color: var(--ion-color-primary);
+      text-transform: capitalize;
+      font-weight: 500;
+    }
+  }
+  
+  ion-title {
+    margin: 0;
+    font-weight: bold;
+    color: var(--ion-color-primary);
+  }
+}
+
+// Web component embedded mode specific styling
+:host-context(.embedded) {
+  // Override EspoCRM CSS conflicts - be more specific and forceful
+  .alert, 
+  ion-alert .alert,
+  .modal .alert {
+    padding: var(--ion-padding, 16px) !important;
+  }
+}
+
+// Global override for EspoCRM CSS conflicts when embedded
+:host-context(ibf-dashboard) {
+  // Override EspoCRM alert padding globally
+  .alert {
+    padding: var(--ion-padding, 16px) !important;
+  }
+}
+
+// Additional global override
+.ibf-dashboard-interface {
+  .alert {
+    padding: var(--ion-padding, 16px) !important;
+  }
+}
+
+// Enhanced left column styling for events/warnings
+.ibf-dashboard-left-column {
+  // For embedded mode, add some spacing from top
+  :host-context(.embedded) & {
+    margin-top: 60px;
+  }
+  
+  // For standard mode with header
+  &.with-header {
+    margin-top: 60px;
+  }
+  
+  ion-content {
+    // Ensure content scrolls properly in left sidebar
+    --overflow: auto;
+  }
+}
+
+// Map area styling improvements
+.map-container {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  
+  .map-content {
+    flex: 1;
   }
 }

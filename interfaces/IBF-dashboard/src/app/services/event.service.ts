@@ -76,7 +76,7 @@ export class EventService {
   private disasterType: DisasterType;
   private countryDisasterSettings: CountryDisasterSettings;
 
-  public nullState: EventState = { events: null, event: null };
+  public nullState: EventState = { events: [], event: null };
 
   public state = this.nullState;
   public today: DateTime;
@@ -213,9 +213,9 @@ export class EventService {
       this.today = DateTime.now();
     }
 
-    this.state.events = events;
+    this.state.events = events || [];
 
-    if (events.length) {
+    if (events && events.length) {
       for (const event of this.state.events) {
         event.firstIssuedDate = DateTime.fromISO(
           event.firstIssuedDate,
@@ -270,7 +270,10 @@ export class EventService {
   }
 
   private sortEvents() {
-    this.state.events?.sort((a, b) => {
+    if (!this.state.events || !Array.isArray(this.state.events)) {
+      return;
+    }
+    this.state.events.sort((a, b) => {
       const aNoLandfallYet = a.disasterSpecificProperties?.typhoonNoLandfallYet
         ? 1
         : 0;
@@ -322,6 +325,12 @@ export class EventService {
     }
 
     const seasonRegions = this.countryDisasterSettings?.droughtSeasonRegions;
+    
+    // Add null safety check for seasonRegions
+    if (!seasonRegions || typeof seasonRegions !== 'object') {
+      console.warn('⚠️ EventService: droughtSeasonRegions not available for event duration calculation');
+      return;
+    }
 
     for (const seasonRegion of Object.keys(seasonRegions)) {
       if (event.eventName?.toLowerCase().includes(seasonRegion.toLowerCase())) {

@@ -53,21 +53,41 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
   }
 
   private onUserChange = (user: User) => {
+    console.log('🚨 DisasterTypeComponent: User changed', user?.email);
     this.user = user;
     if (this.user && this.country) {
+      console.log('🚨 DisasterTypeComponent: Setting up disaster types with user and country');
       this.setupDisasterTypes(this.user, this.country);
+    } else {
+      console.log('🚨 DisasterTypeComponent: Not setting up - missing user or country', {
+        hasUser: !!this.user,
+        hasCountry: !!this.country
+      });
     }
   };
 
   private onCountryChange = (country: Country) => {
+    console.log('🚨 DisasterTypeComponent: Country changed', country?.countryCodeISO3);
     this.country = country;
     if (this.user && this.country) {
+      console.log('🚨 DisasterTypeComponent: Setting up disaster types with user and country');
       this.setupDisasterTypes(this.user, this.country);
+    } else {
+      console.log('🚨 DisasterTypeComponent: Not setting up - missing user or country', {
+        hasUser: !!this.user,
+        hasCountry: !!this.country
+      });
     }
   };
 
   // REFACTOR: this country subscription and setup should be in disaster-type.service instead of here.
   private setupDisasterTypes = (user: User, country: Country) => {
+    console.log('🚨 DisasterTypeComponent: setupDisasterTypes called', {
+      countryCode: country?.countryCodeISO3,
+      userDisasterTypes: user?.disasterTypes,
+      countryDisasterTypes: country?.disasterTypes?.map(d => d.disasterType)
+    });
+
     if (country) {
       this.disasterTypesCounter = 0;
 
@@ -75,11 +95,14 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
         user.disasterTypes.includes(d.disasterType),
       );
 
+      console.log('🚨 DisasterTypeComponent: Filtered disaster types', this.disasterTypes.map(d => d.disasterType));
+
       this.disasterTypes.sort((a, b) =>
         a.disasterType > b.disasterType ? 1 : -1,
       );
 
       this.disasterTypes.forEach((disasterType) => {
+        console.log('🚨 DisasterTypeComponent: Getting trigger for disaster type', disasterType.disasterType);
         this.eventService.getTriggerByDisasterType(
           country.countryCodeISO3,
           disasterType,
@@ -92,6 +115,11 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
   private onGetDisasterTypeActiveTrigger =
     (disasterTypes: DisasterType[]) => () => {
       this.disasterTypesCounter++;
+      console.log('🚨 DisasterTypeComponent: Got trigger response', {
+        counter: this.disasterTypesCounter,
+        totalTypes: disasterTypes.length
+      });
+
       if (this.disasterTypesCounter === disasterTypes.length) {
         const activeDisasterType = disasterTypes.find(
           ({ alertLevel }) => alertLevel,
@@ -99,6 +127,11 @@ export class DisasterTypeComponent implements OnInit, OnDestroy {
         const disasterType = activeDisasterType
           ? activeDisasterType
           : this.disasterTypes[0];
+
+        console.log('🚨 DisasterTypeComponent: Setting disaster type', {
+          selectedType: disasterType?.disasterType,
+          wasActive: !!activeDisasterType
+        });
 
         this.selectedDisasterType = disasterType.disasterType;
         this.disasterTypeService.setDisasterType(disasterType);

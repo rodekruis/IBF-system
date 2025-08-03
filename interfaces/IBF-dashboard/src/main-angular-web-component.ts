@@ -26,7 +26,7 @@ export function HttpLoaderFactory(http: HttpClient) {
 }
 
 export function tokenGetter() {
-  return localStorage.getItem('IBF-API-TOKEN');
+  return localStorage.getItem('jwt');
 }
 
 // Helper function to detect if we're running in embedded mode

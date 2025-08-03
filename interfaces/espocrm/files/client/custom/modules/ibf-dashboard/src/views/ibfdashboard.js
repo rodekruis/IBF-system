@@ -29,8 +29,6 @@ define('ibf-dashboard:views/ibfdashboard', ['view', 'ibf-dashboard:services/ibf-
                     <ibf-dashboard 
                         id="ibf-dashboard-component"
                         platform="espocrm"
-                        country-code="ETH"
-                        disaster-type="drought"
                         theme="auto"
                         language="en"
                         api-base-url="https://ibf-test.510.global"
@@ -197,6 +195,21 @@ define('ibf-dashboard:views/ibfdashboard', ['view', 'ibf-dashboard:services/ibf-
             .error-container button:hover {
                 background: #a00d25;
             }
+
+            /* Override EspoCRM alert padding conflicts */
+            ibf-dashboard .alert,
+            ibf-dashboard .alert-warning,
+            ibf-dashboard .alert-info,
+            ibf-dashboard .alert-success,
+            ibf-dashboard .alert-danger {
+                padding: 0px 0px !important;
+                margin-bottom: 0px !important;
+            }
+
+            /* Prevent EspoCRM from interfering with IBF dashboard styling */
+            ibf-dashboard * {
+                box-sizing: border-box !important;
+            }
             </style>
         `,
 
@@ -239,6 +252,9 @@ define('ibf-dashboard:views/ibfdashboard', ['view', 'ibf-dashboard:services/ibf-
             Dep.prototype.afterRender.call(this);
             console.log('IBF Dashboard: View rendered, initializing web component...');
             
+            // Hide footer when on IBF Dashboard page
+            this.hideFooter();
+            
             // Ensure full height utilization
             setTimeout(() => {
                 this.ensureFullHeight();
@@ -246,6 +262,30 @@ define('ibf-dashboard:views/ibfdashboard', ['view', 'ibf-dashboard:services/ibf-
             
             // Load the web component after the view is rendered
             this.loadWebComponent();
+        },
+
+        hideFooter: function() {
+            console.log('🔧 IBF Dashboard: Hiding EspoCRM footer');
+            
+            // Hide footer immediately
+            const footer = document.querySelector('footer');
+            if (footer) {
+                footer.style.display = 'none';
+                console.log('✅ Footer hidden successfully');
+            } else {
+                console.log('⚠️ Footer not found, will retry...');
+                
+                // Retry after a short delay in case footer loads later
+                setTimeout(() => {
+                    const footerRetry = document.querySelector('footer');
+                    if (footerRetry) {
+                        footerRetry.style.display = 'none';
+                        console.log('✅ Footer hidden on retry');
+                    } else {
+                        console.log('⚠️ Footer still not found after retry');
+                    }
+                }, 500);
+            }
         },
 
         loadWebComponent: function () {
@@ -382,20 +422,24 @@ define('ibf-dashboard:views/ibfdashboard', ['view', 'ibf-dashboard:services/ibf-
                 // Set dynamic country code
                 dashboardElement.setAttribute('country-code', this.countryCode);
                 
-                // Authenticate the dashboard before setting up other listeners
-                this.ibfAuth.authenticateIbfDashboard(dashboardElement).then(function(success) {
-                    if (success) {
-                        console.log('✅ IBF Dashboard authentication successful');
-                        // Set up dashboard event listeners after authentication
-                        this.setupDashboardEventListeners(dashboardElement, loadingContainer, dashboard);
-                    } else {
-                        console.error('❌ IBF Dashboard authentication failed');
-                        this.showError('Authentication failed. Please check your IBF credentials and try again.');
-                    }
-                }.bind(this)).catch(function(error) {
-                    console.error('❌ IBF Dashboard authentication error:', error);
-                    this.showError('Authentication error: ' + (error.message || 'Unknown error'));
-                }.bind(this));
+                // Authenticate IBF Dashboard with JWT token from EspoCRM
+                console.log('🔑 Authenticating IBF Dashboard with EspoCRM JWT token...');
+                this.ibfAuth.authenticateIbfDashboard(dashboardElement)
+                    .then(function(success) {
+                        if (success) {
+                            console.log('✅ IBF Dashboard authentication successful');
+                        } else {
+                            console.error('❌ IBF Dashboard authentication failed');
+                        }
+                    })
+                    .catch(function(error) {
+                        console.error('❌ IBF Dashboard authentication error:', error);
+                    });
+                
+                console.log('✅ IBF Dashboard configured for EspoCRM embedded mode');
+                
+                // Set up dashboard event listeners immediately
+                this.setupDashboardEventListeners(dashboardElement, loadingContainer, dashboard);
                 
                 console.log('✅ IBF Dashboard web component initialized for country:', this.countryCode);
                 console.log('🧭 Angular routing will use EmbeddedLocationStrategy for EspoCRM compatibility');
@@ -538,19 +582,15 @@ define('ibf-dashboard:views/ibfdashboard', ['view', 'ibf-dashboard:services/ibf-
 
         retryAuthentication: function() {
             console.log('🔄 Retrying IBF authentication...');
-            const dashboardElement = this.$el.find('#ibf-dashboard-component')[0];
-            if (dashboardElement) {
-                this.ibfAuth.clearTokenCache();
-                this.ibfAuth.authenticateIbfDashboard(dashboardElement).then(function(success) {
-                    if (success) {
-                        console.log('✅ Retry authentication successful');
-                        window.location.reload(); // Reload to restart the dashboard
-                    } else {
-                        console.error('❌ Retry authentication failed');
-                        this.showAuthError('Retry authentication failed. Please check your credentials.');
-                    }
-                }.bind(this));
+            console.log('🔑 Using simplified authentication - reloading page to restart with fresh JWT token');
+            
+            // Clear any cached auth data and reload
+            if (this.ibfAuth && this.ibfAuth.clearAuth) {
+                this.ibfAuth.clearAuth();
             }
+            
+            // Reload to restart with fresh JWT token from EspoCRM
+            window.location.reload();
         },
 
         getHeader: function () {
@@ -567,7 +607,22 @@ define('ibf-dashboard:views/ibfdashboard', ['view', 'ibf-dashboard:services/ibf-
             // Clean up CSS variable
             document.documentElement.style.removeProperty('--ibf-app-height');
             
+            // Restore footer visibility when leaving IBF Dashboard
+            this.showFooter();
+            
             Dep.prototype.onRemove.call(this);
+        },
+
+        showFooter: function() {
+            console.log('🔧 IBF Dashboard: Restoring EspoCRM footer');
+            
+            const footer = document.querySelector('footer');
+            if (footer) {
+                footer.style.display = '';
+                console.log('✅ Footer restored successfully');
+            } else {
+                console.log('⚠️ Footer not found for restoration');
+            }
         },
 
         openFullscreen: function() {

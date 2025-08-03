@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { forkJoin, Subscription } from 'rxjs';
@@ -49,6 +49,9 @@ export interface CardColors {
   standalone: false,
 })
 export class ChatComponent implements OnInit, OnDestroy {
+  @Input() hideWelcomeContent = false; // Control welcome content visibility
+  @Input() hideActionButtons = false; // Control action buttons visibility
+  
   public alertAreas: AlertArea[];
   public filteredAreas: AlertArea[];
   public activeDisasterType: string;
