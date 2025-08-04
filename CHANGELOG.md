@@ -1,3 +1,13 @@
+## [0.322.3](https://github.com/rodekruis/IBF-system/compare/v0.322.2...v0.322.3) (2025-08-04)
+
+
+### Bug Fixes
+
+* http headers is immutable ([569c30e](https://github.com/rodekruis/IBF-system/commit/569c30e9512049cea0ab3398c244fbc594ea0a0b))
+* upload content type ([258a3ae](https://github.com/rodekruis/IBF-system/commit/258a3aed43b9a02027c47f6432d80b7161da96b8))
+
+
+
 ## [0.322.2](https://github.com/rodekruis/IBF-system/compare/v0.322.1...v0.322.2) (2025-08-04)
 
 
@@ -84,15 +94,6 @@
 ### Bug Fixes
 
 * hash password before update in user entity ([3a78fba](https://github.com/rodekruis/IBF-system/commit/3a78fbac841c6b3af68dcc0bb2a00e44f6d5b57d))
-
-
-
-## [0.321.4](https://github.com/rodekruis/IBF-system/compare/v0.321.3...v0.321.4) (2025-07-16)
-
-
-### Bug Fixes
-
-* use optional chaining when accessing nested properties ([207b482](https://github.com/rodekruis/IBF-system/commit/207b4823ead6bc506e53fdaa8687be94abef1e8c))
 
 
 
