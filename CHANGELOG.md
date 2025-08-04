@@ -1,3 +1,12 @@
+## [0.322.2](https://github.com/rodekruis/IBF-system/compare/v0.322.1...v0.322.2) (2025-08-04)
+
+
+### Bug Fixes
+
+* add titles to upload, download, and close buttons ([c098999](https://github.com/rodekruis/IBF-system/commit/c098999fbb4e1b24c0f504fdfb2c525e28369b5c))
+
+
+
 ## [0.322.1](https://github.com/rodekruis/IBF-system/compare/v0.322.0...v0.322.1) (2025-08-02)
 
 
@@ -84,23 +93,6 @@
 ### Bug Fixes
 
 * use optional chaining when accessing nested properties ([207b482](https://github.com/rodekruis/IBF-system/commit/207b4823ead6bc506e53fdaa8687be94abef1e8c))
-
-
-
-## [0.321.3](https://github.com/rodekruis/IBF-system/compare/v0.321.2...v0.321.3) (2025-07-15)
-
-
-### Bug Fixes
-
-* add eslint rule and fixes to await seed ([a893a6b](https://github.com/rodekruis/IBF-system/commit/a893a6b53830d231595bb0f22f96b3f74c642707))
-* adjust country interface to accept partial configs ([4941a35](https://github.com/rodekruis/IBF-system/commit/4941a3557cb9c9482e5f20fe19e696b9ea2d0acd))
-* fallback to DEFAULT_USER on null ([71ce901](https://github.com/rodekruis/IBF-system/commit/71ce901b31b42921dade0cef93d58a534838377c))
-* guard POST country ([92b3bcd](https://github.com/rodekruis/IBF-system/commit/92b3bcde0b4b2116429d72e4fa53845a6204f985))
-* remove unnecessary waterpoint data token and use correct query param ([be166eb](https://github.com/rodekruis/IBF-system/commit/be166ebe76a1c1a73e4ce215cecee87a1e9e55eb))
-* remove waterpoints internal ([e9e0cf0](https://github.com/rodekruis/IBF-system/commit/e9e0cf01e67a29bcc34d2aac855e1a78308c9415))
-* reset should default to false ([652f4b0](https://github.com/rodekruis/IBF-system/commit/652f4b036162931ec8d74de7cbed5c1a0c9cac43))
-* update mock data waterpoints internal ([8c35770](https://github.com/rodekruis/IBF-system/commit/8c357700ef10df0e9731b0dfb66baaf7657f2418))
-* use default seed on reset ([481950d](https://github.com/rodekruis/IBF-system/commit/481950daffce7c5732b248957a9012763949f202))
 
 
 
