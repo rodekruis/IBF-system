@@ -41,7 +41,7 @@ export class ApiService {
     anonymous = false,
     contentType = 'application/json',
   }: Partial<Headers>): HttpHeaders {
-    const headers = new HttpHeaders({
+    let headers = new HttpHeaders({
       Accept: 'application/json',
       'Cache-Control':
         'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
@@ -49,15 +49,15 @@ export class ApiService {
       Expires: '0',
     });
 
-    if (contentType) {
-      headers = headers.set('Content-Type', contentType);
-    }
-
     if (!anonymous) {
-      return headers.set(
+      headers = headers.set(
         'Authorization',
         `Token ${this.jwtService.getToken()}`,
       );
+    }
+
+    if (contentType) {
+      headers = headers.set('Content-Type', contentType);
     }
 
     return headers;
