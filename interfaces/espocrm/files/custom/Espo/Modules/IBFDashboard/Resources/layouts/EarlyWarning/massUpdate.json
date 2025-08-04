@@ -1,0 +1,5 @@
+[
+    {"name": "status"},
+    {"name": "disasterType"},
+    {"name": "countryCodeISO3"}
+]

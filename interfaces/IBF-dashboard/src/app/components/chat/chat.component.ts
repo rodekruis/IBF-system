@@ -591,4 +591,43 @@ export class ChatComponent implements OnInit, OnDestroy {
       borderColor: `var(--ion-color-${event.disasterSpecificProperties.eapAlertClass.color})`,
     };
   }
+
+  /**
+   * Generate EspoCRM Early Actions URL with filters for placeCode and disasterType
+   */
+  public generateEarlyActionsUrl(placeCode: string): string {
+    // Get the base URL from the current window location
+    // This allows the component to work in any EspoCRM instance
+    const baseUrl = `${window.location.protocol}//${window.location.host}`;
+    
+    // Get disasterType from the component's current disaster type
+    const disasterType = this.disasterType?.disasterType || 'floods';
+    
+    // Create URL parameters for EspoCRM EarlyActions entity
+    const params = new URLSearchParams({
+      maxSize: '30',
+      offset: '0',
+      orderBy: 'lastSyncDate',
+      order: 'desc'
+    });
+
+    // Add filter for placeCode
+    params.append('whereGroup[0][type]', 'equals');
+    params.append('whereGroup[0][attribute]', 'placeCode');
+    params.append('whereGroup[0][value]', placeCode);
+
+    // Add filter for disasterType
+    params.append('whereGroup[1][type]', 'equals');
+    params.append('whereGroup[1][attribute]', 'disasterType');
+    params.append('whereGroup[1][value]', disasterType);
+
+    // Add filter for status
+    params.append('whereGroup[2][type]', 'in');
+    params.append('whereGroup[2][attribute]', 'status');
+    params.append('whereGroup[2][value][]', 'confirmed');
+    params.append('whereGroup[2][value][]', 'in-progress');
+    params.append('whereGroup[2][value][]', 'completed');
+
+    return `${baseUrl}/api/v1/EarlyActions?${params.toString()}`;
+  }
 }

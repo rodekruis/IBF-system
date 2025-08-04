@@ -1,0 +1,58 @@
+[
+    {
+        "label": "Basic Information",
+        "rows": [
+            [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "status"
+                }
+            ],
+            [
+                {
+                    "name": "disasterType"
+                },
+                {
+                    "name": "aof"
+                }
+            ],
+            [
+                {
+                    "name": "placeCode"
+                },
+                {
+                    "name": "countryName"
+                }
+            ],
+            [
+                {
+                    "name": "label",
+                    "fullWidth": true
+                }
+            ]
+        ]
+    },
+    {
+        "label": "Schedule",
+        "rows": [
+            [
+                {
+                    "name": "dateStart"
+                },
+                {
+                    "name": "dateEnd"
+                }
+            ],
+            [
+                {
+                    "name": "dateStartDate"
+                },
+                {
+                    "name": "dateEndDate"
+                }
+            ]
+        ]
+    }
+]

@@ -26,6 +26,9 @@ class AfterInstall
         // Clear cache to ensure changes take effect
         $this->clearCache();
         
+        // Sync Early Actions from IBF API
+        $this->syncEarlyActionsFromIBF();
+        
         // Note: Database schema will be automatically updated by EspoCRM
         // after installation completes and maintenance mode is lifted
         error_log('IBF Dashboard: Installation completed successfully.');
@@ -52,16 +55,24 @@ class AfterInstall
             // Get current tab list from application settings
             $tabList = $config->get('tabList', []);
             
-            // Check if IBF Dashboard tab already exists
-            if (!in_array('IBFDashboard', $tabList)) {
-                // Add the IBF Dashboard tab - EspoCRM will recognize this as a custom controller
-                $tabList[] = 'IBFDashboard';
-                
+            // Add essential entity tabs if they don't exist
+            $entitiesToAdd = ['IBFDashboard', 'EarlyWarning', 'EarlyAction'];
+            $tabsAdded = false;
+            
+            foreach ($entitiesToAdd as $entity) {
+                if (!in_array($entity, $tabList)) {
+                    $tabList[] = $entity;
+                    $tabsAdded = true;
+                    error_log("IBF Dashboard: Added $entity to navigation tabs");
+                }
+            }
+            
+            if ($tabsAdded) {
                 // Update the configuration
                 $configWriter->set('tabList', $tabList);
                 $configWriter->save();
                 
-                // Also set the tab label in language files
+                // Also set the tab labels in language files
                 $this->setTabLabel();
             }
             
@@ -421,6 +432,45 @@ class AfterInstall
             
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Failed to create map tables: ' . $e->getMessage());
+        }
+    }
+    
+    /**
+     * Sync Early Actions from IBF API during installation
+     */
+    protected function syncEarlyActionsFromIBF()
+    {
+        try {
+            error_log('IBF Dashboard: Starting Early Actions sync from IBF API...');
+            
+            // Get required dependencies from container
+            $entityManager = $this->container->get('entityManager');
+            $config = $this->container->get('config');
+            $log = $this->container->get('log');
+            
+            // Manually create the sync service with dependencies
+            $syncService = new \Espo\Modules\IBFDashboard\Services\EarlyActionSync();
+            $syncService->inject('entityManager', $entityManager);
+            $syncService->inject('config', $config);
+            $syncService->inject('log', $log);
+            
+            // Perform the sync
+            $result = $syncService->syncAllEarlyActions();
+            
+            if ($result['success']) {
+                error_log('IBF Dashboard: Early Actions sync completed successfully - ' . $result['message']);
+            } else {
+                error_log('IBF Dashboard: Early Actions sync failed - ' . $result['message']);
+                if (!empty($result['errors'])) {
+                    foreach ($result['errors'] as $error) {
+                        error_log('IBF Dashboard: Sync error - ' . $error);
+                    }
+                }
+            }
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Exception during Early Actions sync: ' . $e->getMessage());
+            error_log('IBF Dashboard: Early Actions sync will be skipped during installation. You can manually trigger it later from the admin panel.');
         }
     }
 }

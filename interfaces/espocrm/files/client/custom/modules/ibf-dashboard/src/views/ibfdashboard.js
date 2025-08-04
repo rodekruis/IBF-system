@@ -541,17 +541,26 @@ define('ibf-dashboard:views/ibfdashboard', ['view', 'ibf-dashboard:services/ibf-
                 
                 // Authenticate IBF Dashboard with JWT token from EspoCRM
                 console.log('🔑 Authenticating IBF Dashboard with EspoCRM JWT token...');
-                
-                var self = this;
                 this.ibfAuth.authenticateIbfDashboard(dashboardElement)
                     .then(function(success) {
                         if (success) {
                             console.log('✅ IBF Dashboard authentication successful');
                             
-                            // Wait a bit for the dashboard to fully initialize, then force country selection
+                            // Immediately after authentication, ensure our country is selected
                             setTimeout(function() {
-                                self.triggerCountrySelection(dashboardElement);
-                            }, 1000); // Give more time for full initialization
+                                console.log('🔧 Post-authentication country check...');
+                                localStorage.setItem('ibf-selected-country', self.countryCode);
+                                
+                                // Try to set the country on the dashboard element if it has the method
+                                if (dashboardElement.setCountry) {
+                                    dashboardElement.setCountry(self.countryCode);
+                                    console.log('🌍 Called setCountry on dashboard element:', self.countryCode);
+                                }
+                                
+                                // Also set country-code attribute again in case it was cleared
+                                dashboardElement.setAttribute('country-code', self.countryCode);
+                                console.log('🌍 Re-set country-code attribute to:', self.countryCode);
+                            }, 500); // Small delay to let authentication complete
                         } else {
                             console.error('❌ IBF Dashboard authentication failed');
                         }
@@ -571,201 +580,6 @@ define('ibf-dashboard:views/ibfdashboard', ['view', 'ibf-dashboard:services/ibf-
                 console.error('❌ Dashboard web component element not found');
                 this.showError('Dashboard component element not found');
             }
-        },
-
-        triggerCountrySelection: function(dashboardElement) {
-            var self = this;
-            console.log('🎯 Triggering proper country selection to:', this.countryCode);
-            
-            // First, wait for the IBF Dashboard to fully load and render
-            this.waitForCountrySwitcher(dashboardElement).then(function() {
-                console.log('✅ Country switcher found, triggering selection');
-                self.selectCountryViaIonSelect(dashboardElement);
-            }).catch(function(error) {
-                console.warn('⚠️ Failed to find country switcher, using fallback methods:', error);
-                self.fallbackCountrySelection(dashboardElement);
-            });
-        },
-
-        waitForCountrySwitcher: function(dashboardElement) {
-            return new Promise(function(resolve, reject) {
-                var attempts = 0;
-                var maxAttempts = 30; // 15 seconds maximum wait
-                
-                function checkForSwitcher() {
-                    attempts++;
-                    
-                    // Look for the ion-select in the country switcher
-                    var ionSelect = dashboardElement.querySelector('ion-select[data-testid="country-switcher-dropdown"]');
-                    
-                    if (ionSelect) {
-                        console.log('🎯 Found country switcher ion-select');
-                        resolve(ionSelect);
-                        return;
-                    }
-                    
-                    if (attempts >= maxAttempts) {
-                        reject(new Error('Country switcher not found after ' + attempts + ' attempts'));
-                        return;
-                    }
-                    
-                    console.log('⏳ Waiting for country switcher... attempt', attempts);
-                    setTimeout(checkForSwitcher, 500);
-                }
-                
-                checkForSwitcher();
-            });
-        },
-
-        selectCountryViaIonSelect: function(dashboardElement) {
-            var self = this;
-            
-            // Find the ion-select element
-            var ionSelect = dashboardElement.querySelector('ion-select[data-testid="country-switcher-dropdown"]');
-            
-            if (!ionSelect) {
-                console.warn('⚠️ ion-select not found');
-                this.fallbackCountrySelection(dashboardElement);
-                return;
-            }
-            
-            console.log('🎯 Found ion-select, current value:', ionSelect.value);
-            
-            // Check if the country is already selected
-            if (ionSelect.value === this.countryCode) {
-                console.log('✅ Country already selected correctly:', this.countryCode);
-                return;
-            }
-            
-            // Set the value and trigger the ionChange event
-            ionSelect.value = this.countryCode;
-            
-            // Create and dispatch the ionChange event that the component expects
-            var ionChangeEvent = new CustomEvent('ionChange', {
-                detail: {
-                    value: this.countryCode
-                },
-                bubbles: true
-            });
-            
-            console.log('📡 Dispatching ionChange event for country:', this.countryCode);
-            ionSelect.dispatchEvent(ionChangeEvent);
-            
-            // Also try triggering a regular change event as backup
-            var changeEvent = new Event('change', { bubbles: true });
-            ionSelect.dispatchEvent(changeEvent);
-            
-            // Verify the selection worked
-            setTimeout(function() {
-                self.verifyCountrySelection(dashboardElement);
-            }, 1000);
-        },
-
-        verifyCountrySelection: function(dashboardElement) {
-            var ionSelect = dashboardElement.querySelector('ion-select[data-testid="country-switcher-dropdown"]');
-            
-            if (ionSelect && ionSelect.value === this.countryCode) {
-                console.log('✅ Country selection verified successfully:', this.countryCode);
-            } else {
-                console.warn('⚠️ Country selection verification failed. Expected:', this.countryCode, 'Actual:', ionSelect ? ionSelect.value : 'ion-select not found');
-                // Try fallback methods if the proper method didn't work
-                this.fallbackCountrySelection(dashboardElement);
-            }
-        },
-
-        fallbackCountrySelection: function(dashboardElement) {
-            console.log('� Using fallback country selection methods');
-            
-            // Set localStorage as a fallback
-            localStorage.setItem('ibf-selected-country', this.countryCode);
-            localStorage.setItem('selectedCountryCode', this.countryCode);
-            console.log('💾 Set localStorage keys for country:', this.countryCode);
-            
-            // Set component attributes
-            dashboardElement.setAttribute('country-code', this.countryCode);
-            dashboardElement.setAttribute('initial-country', this.countryCode);
-            
-            // Try Angular service access as last resort
-            setTimeout(function() {
-                self.tryAngularCountryService(dashboardElement);
-            }, 500);
-        },
-
-        tryAngularCountryService: function(dashboardElement) {
-            console.log('🔍 Attempting to access Angular CountryService...');
-            
-            // Try to access the Angular component instance
-            try {
-                // Method 1: Check if the element has a __ngContext__ property (Ivy renderer)
-                if (dashboardElement.__ngContext__) {
-                    console.log('🔍 Found Angular context, attempting to access services...');
-                    // This is quite advanced and might not work, but worth trying
-                }
-                
-                // Method 2: Try to find Angular services in the global scope
-                if (window.ng && window.ng.getComponent) {
-                    const component = window.ng.getComponent(dashboardElement);
-                    if (component) {
-                        console.log('🔍 Found Angular component:', component);
-                        // Try to call country-related methods on the component
-                        if (component.setCountry) {
-                            component.setCountry(this.countryCode);
-                            console.log('✅ Called component.setCountry()');
-                        }
-                    }
-                }
-                
-                // Method 3: Check for window-level Angular services
-                if (window.ibfServices && window.ibfServices.countryService) {
-                    console.log('🔍 Found global IBF CountryService');
-                    if (window.ibfServices.countryService.setCountry) {
-                        window.ibfServices.countryService.setCountry(this.countryCode);
-                        console.log('✅ Called global countryService.setCountry()');
-                    }
-                }
-                
-                // Method 4: Try to access via injector if available
-                if (window.ibfInjector) {
-                    const countryService = window.ibfInjector.get('CountryService');
-                    if (countryService && countryService.setSelectedCountry) {
-                        countryService.setSelectedCountry(this.countryCode);
-                        console.log('✅ Called injected CountryService.setSelectedCountry()');
-                    }
-                }
-                
-            } catch (error) {
-                console.log('ℹ️ Angular service access not available:', error.message);
-            }
-        },
-
-        setupCountryMonitoring: function() {
-            var self = this;
-            
-            // Monitor localStorage for country changes and correct them
-            this.countryMonitor = setInterval(function() {
-                const currentCountry = localStorage.getItem('ibf-selected-country');
-                const currentCountryAlt = localStorage.getItem('selectedCountryCode');
-                
-                if (currentCountry && currentCountry !== self.countryCode) {
-                    console.warn(`⚠️ Country changed from ${self.countryCode} to ${currentCountry} - correcting...`);
-                    localStorage.setItem('ibf-selected-country', self.countryCode);
-                    localStorage.setItem('selectedCountryCode', self.countryCode);
-                    
-                    // Re-trigger country selection
-                    const dashboardElement = document.getElementById('ibf-dashboard-component');
-                    if (dashboardElement) {
-                        self.triggerCountrySelection(dashboardElement);
-                    }
-                }
-                
-                if (currentCountryAlt && currentCountryAlt !== self.countryCode) {
-                    console.warn(`⚠️ Alt country key changed from ${self.countryCode} to ${currentCountryAlt} - correcting...`);
-                    localStorage.setItem('selectedCountryCode', self.countryCode);
-                    localStorage.setItem('ibf-selected-country', self.countryCode);
-                }
-            }, 2000); // Check every 2 seconds
-            
-            console.log('👁️ Country monitoring started - will prevent unauthorized country changes');
         },
 
         setupDashboardEventListeners: function(dashboardElement, loadingContainer, dashboard) {

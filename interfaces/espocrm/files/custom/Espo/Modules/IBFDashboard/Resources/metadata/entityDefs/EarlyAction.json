@@ -1,0 +1,190 @@
+{
+    "fields": {
+        "name": {
+            "type": "varchar",
+            "required": true,
+            "maxLength": 255,
+            "tooltip": "Early action name/label"
+        },
+        "aof": {
+            "type": "varchar",
+            "required": true,
+            "maxLength": 100,
+            "tooltip": "Area of Focus (e.g., disaster-risk-reduction)"
+        },
+        "action": {
+            "type": "varchar",
+            "required": true,
+            "maxLength": 100,
+            "tooltip": "Action identifier (e.g., disaster-risk-reduction-1)"
+        },
+        "label": {
+            "type": "text",
+            "required": true,
+            "tooltip": "Action description/label"
+        },
+        "disasterType": {
+            "type": "enum",
+            "required": true,
+            "options": [
+                "drought",
+                "floods", 
+                "heavy-rainfall",
+                "typhoon",
+                "malaria",
+                "flash-floods"
+            ],
+            "optionsLabels": {
+                "drought": "Drought",
+                "floods": "Floods",
+                "heavy-rainfall": "Heavy Rainfall",
+                "typhoon": "Typhoon", 
+                "malaria": "Malaria",
+                "flash-floods": "Flash Floods"
+            },
+            "tooltip": "Type of disaster this action is for"
+        },
+        "placeCode": {
+            "type": "varchar",
+            "required": true,
+            "maxLength": 20,
+            "tooltip": "Geographic place code (e.g., ET0203)"
+        },
+        "countryId": {
+            "type": "varchar",
+            "required": false,
+            "maxLength": 3,
+            "tooltip": "Country ISO3 code extracted from placeCode"
+        },
+        "countryName": {
+            "type": "varchar",
+            "required": false,
+            "maxLength": 100,
+            "tooltip": "Country name"
+        },
+        "status": {
+            "type": "enum",
+            "required": false,
+            "options": [
+                "pending",
+                "confirmed",
+                "in-progress", 
+                "completed",
+                "cancelled"
+            ],
+            "optionsLabels": {
+                "pending": "Pending",
+                "confirmed": "Confirmed",
+                "in-progress": "In Progress",
+                "completed": "Completed",
+                "cancelled": "Cancelled"
+            },
+            "default": "pending",
+            "tooltip": "Current status of the early action"
+        },
+        "dateStart": {
+            "type": "datetime",
+            "required": false,
+            "tooltip": "When the early action should start"
+        },
+        "dateStartDate": {
+            "type": "date",
+            "required": false,
+            "tooltip": "Start date (date only)"
+        },
+        "dateEnd": {
+            "type": "datetime",
+            "required": false,
+            "tooltip": "When the early action should end"
+        },
+        "dateEndDate": {
+            "type": "date",
+            "required": false,
+            "tooltip": "End date (date only)"
+        },
+        "month": {
+            "type": "jsonObject",
+            "required": false,
+            "tooltip": "Complex month/season data from IBF API. Contains region-specific timing information for drought seasons (e.g., Belg JAS, Northern MAM, Southern OND). This preserves the complex seasonality requirements for Ethiopian drought forecasting."
+        },
+        "eventName": {
+            "type": "varchar",
+            "required": false,
+            "maxLength": 255,
+            "tooltip": "Name of the event this action belongs to"
+        },
+        "firstIssuedDate": {
+            "type": "datetime",
+            "required": false,
+            "tooltip": "When the event was first issued"
+        },
+        "endDate": {
+            "type": "datetime",
+            "required": false,
+            "tooltip": "When the event ends"
+        },
+        "forecastTrigger": {
+            "type": "bool",
+            "required": false,
+            "default": false,
+            "tooltip": "Whether this is triggered by forecast"
+        },
+        "userTrigger": {
+            "type": "bool",
+            "required": false,
+            "default": false,
+            "tooltip": "Whether this is triggered by user"
+        },
+        "earlyWarningId": {
+            "type": "varchar",
+            "required": false,
+            "maxLength": 24,
+            "tooltip": "ID of the related Early Warning event"
+        },
+        "checked": {
+            "type": "bool",
+            "required": false,
+            "default": false,
+            "tooltip": "Whether this action was checked/selected in IBF"
+        },
+        "ibfDataHash": {
+            "type": "varchar",
+            "required": false,
+            "maxLength": 64,
+            "tooltip": "Hash of IBF data for change detection"
+        },
+        "lastSyncDate": {
+            "type": "datetime",
+            "required": false,
+            "tooltip": "When this record was last synchronized from IBF"
+        }
+    },
+    "links": {
+        "earlyWarning": {
+            "type": "belongsTo",
+            "entity": "EarlyWarning",
+            "foreign": "earlyActions"
+        }
+    },
+    "collection": {
+        "orderBy": "createdAt",
+        "order": "desc"
+    },
+    "indexes": {
+        "placeCodeDisasterType": {
+            "columns": ["placeCode", "disasterType"]
+        },
+        "actionPlaceCode": {
+            "columns": ["action", "placeCode"] 
+        },
+        "status": {
+            "columns": ["status"]
+        },
+        "countryId": {
+            "columns": ["countryId"]
+        },
+        "lastSyncDate": {
+            "columns": ["lastSyncDate"]
+        }
+    }
+}

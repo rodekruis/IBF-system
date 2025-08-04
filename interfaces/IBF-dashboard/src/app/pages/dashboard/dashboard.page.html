@@ -49,22 +49,63 @@
         <!-- Left column: Events/warnings -->
         <ion-col
           sizeXs="12"
-          sizeMd="2"
-          sizeLg="2"
-          sizeXl="2"
+          sizeMd="3"
+          sizeLg="3"
+          sizeXl="3"
           class="ibf-dashboard-left-column ion-no-padding"
+          style="position: relative;"
         >
           <ion-content>
             <app-chat></app-chat>
           </ion-content>
+          
+          <!-- Floating toggle button when admin panel is collapsed -->
+          <div 
+            *ngIf="!isAdminPanelExpanded"
+            class="admin-panel-toggle floating-toggle" 
+            (click)="toggleAdminPanel()"
+            title="Open Area Details"
+          >
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+            <ion-icon name="analytics-outline" class="panel-icon"></ion-icon>
+          </div>
+        </ion-col>
+
+        <!-- Admin panel: Foldable area details -->
+        <ion-col
+          sizeXs="12"
+          [sizeMd]="isAdminPanelExpanded ? '2' : '0'"
+          [sizeLg]="isAdminPanelExpanded ? '2' : '0'"
+          [sizeXl]="isAdminPanelExpanded ? '2' : '0'"
+          class="admin-panel-column ion-no-padding"
+          [class.admin-panel-collapsed]="!isAdminPanelExpanded"
+          [style.display]="isAdminPanelExpanded ? 'block' : 'none'"
+        >
+          <!-- Fold/unfold toggle button -->
+          <div 
+            *ngIf="isAdminPanelExpanded"
+            class="admin-panel-toggle" 
+            (click)="toggleAdminPanel()"
+            title="Close Area Details"
+          >
+            <ion-icon name="chevron-back-outline"></ion-icon>
+            <ion-icon name="close-outline" class="close-icon"></ion-icon>
+          </div>
+          
+          <!-- Admin panel content -->
+          <div class="admin-panel-content" *ngIf="isAdminPanelExpanded">
+            <div class="admin-panel-body">
+              <app-aggregates></app-aggregates>
+            </div>
+          </div>
         </ion-col>
         
         <!-- Right section: Map and overlays -->
         <ion-col 
           sizeXs="12" 
-          sizeMd="10" 
-          sizeLg="10" 
-          sizeXl="10"
+          [sizeMd]="isAdminPanelExpanded ? '7' : '9'"
+          [sizeLg]="isAdminPanelExpanded ? '7' : '9'"
+          [sizeXl]="isAdminPanelExpanded ? '7' : '9'"
           class="ibf-dashboard-right-column ion-no-padding"
           style="position: relative;"
         >
@@ -75,26 +116,6 @@
             <app-map data-testid="dashboard-map-componenet"></app-map>
           </ion-content>
           
-          <!-- Admin panel overlay (appears when admin area is selected) -->
-          <div class="admin-panel-overlay" [class.admin-panel-visible]="hasSelectedAdminArea()">
-            <div class="admin-panel-content">
-              <div class="admin-panel-header">
-                <ion-title size="small">Area Details</ion-title>
-                <ion-button 
-                  fill="clear" 
-                  size="small"
-                  (click)="closeAdminPanel()"
-                >
-                  <ion-icon name="close"></ion-icon>
-                </ion-button>
-              </div>
-              <div class="admin-panel-body">
-                <app-aggregates *ngIf="hasSelectedAdminArea()"></app-aggregates>
-                <app-areas-of-focus-summary *ngIf="hasSelectedAdminArea()"></app-areas-of-focus-summary>
-              </div>
-            </div>
-          </div>
-
           <!-- Menu panel overlay -->
           <div class="menu-panel-overlay" [class.menu-panel-visible]="isMenuPanelOpen">
             <div class="menu-panel-content" (click)="$event.stopPropagation()">

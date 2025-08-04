@@ -1,0 +1,11 @@
+[
+    {"name": "name", "link": true},
+    {"name": "eventName"},
+    {"name": "countryCodeISO3"},
+    {"name": "disasterType"},
+    {"name": "status"},
+    {"name": "firstIssuedDate"},
+    {"name": "endDate"},
+    {"name": "createdAt"},
+    {"name": "modifiedAt"}
+]

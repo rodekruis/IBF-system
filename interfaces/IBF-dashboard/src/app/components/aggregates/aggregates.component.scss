@@ -1,8 +1,36 @@
+// Ensure the aggregates component uses full width of its container
+:host {
+  display: block;
+  width: 100%;
+}
+
+// Ensure the grid uses full width
+ion-grid {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+// Ensure rows and columns use full width
+ion-row {
+  width: 100%;
+  margin: 0;
+}
+
+ion-col {
+  padding: 0 2px; // Reduced horizontal padding
+}
+
 .component-title {
+  width: 100%;
+  
   .component-title-item {
     --inner-padding-end: 0;
-    margin: 4px;
+    margin: 2px; // Reduced margin
+    width: 100%;
   }
+  
   .aggregate--title {
     width: 100%;
     display: contents;
@@ -26,16 +54,71 @@
   }
 }
 
+.aggregate-item-value {
+  --inner-padding-start: 4px;
+  --inner-padding-end: 4px;
+  
+  ion-label {
+    width: 100%;
+    text-align: right;
+  }
+}
+
 .aggregate-item {
   --inner-padding-end: 0;
+  --inner-padding-start: 4px; // Reduced start padding
+  width: 100%; // Ensure full width
 
   .aggregate-item-label {
     line-height: 1.2;
     white-space: normal;
-    padding: 0 4px;
+    padding: 0 2px; // Reduced label padding
+    width: 100%; // Ensure label uses full width
   }
 }
 
 .aggregate-item-information-icon {
   --inner-padding-end: 0;
+  --inner-padding-start: 0; // Remove start padding for info icon
+  
+  ion-button {
+    margin: 0; // Remove button margin
+    --padding-start: 4px;
+    --padding-end: 4px;
+  }
+}
+
+// Hide info icon column in narrow admin panel
+.info-column-hidden {
+  display: none !important;
+  max-width: 0 !important;
+  flex: 0 0 0 !important;
+}
+
+// Force maximum width utilization when inside admin panel
+:host-context(.admin-panel) {
+  ion-grid {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  
+  ion-row {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  
+  ion-col {
+    padding: 0 1px !important; // Minimal horizontal padding
+    margin: 0 !important;
+  }
+  
+  .aggregate-item,
+  .aggregate-item-value {
+    margin: 0 !important;
+    width: 100% !important;
+    --inner-padding-start: 2px !important;
+    --inner-padding-end: 2px !important;
+  }
 }

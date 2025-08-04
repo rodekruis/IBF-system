@@ -11,11 +11,24 @@ class AfterUpgrade
         // Fix IBFUser table schema if needed
         $this->fixIBFUserTableSchema();
         
+        // Ensure EarlyWarning and EarlyAction tables exist and are up to date
+        $this->ensureEarlyWarningTableSchema();
+        $this->ensureEarlyActionTableSchema();
+        
+        // Create backup of existing entity data before major changes
+        $this->backupEntityDataIfNeeded();
+        
         // Update custom entities if schema version changed
         $this->updateCustomEntitiesIfNeeded();
         
         // Force metadata rebuild after updates
         $this->rebuildMetadataAfterUpgrade();
+        
+        // Ensure entity tabs are added to navigation
+        $this->addEntityTabsToNavigation();
+        
+        // Sync Early Actions from IBF API (for new/updated actions)
+        $this->syncEarlyActionsFromIBF();
     }
 
     protected function fixIBFUserTableSchema()
@@ -106,6 +119,94 @@ class AfterUpgrade
         }
     }
     
+    protected function ensureEarlyWarningTableSchema()
+    {
+        try {
+            $entityManager = $this->container->get('entityManager');
+            $connection = $entityManager->getPDO();
+            
+            // Check if EarlyWarning table exists
+            $result = $connection->query("SHOW TABLES LIKE 'early_warning'")->fetchAll();
+            
+            if (empty($result)) {
+                error_log('IBF Dashboard: EarlyWarning table does not exist, will be created by schema rebuild');
+                return;
+            }
+            
+            error_log('IBF Dashboard: EarlyWarning table exists, preserving existing data');
+            
+            // Get existing record count
+            $count = $connection->query("SELECT COUNT(*) FROM early_warning")->fetchColumn();
+            error_log("IBF Dashboard: Found $count existing EarlyWarning records");
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Error checking EarlyWarning table: ' . $e->getMessage());
+        }
+    }
+    
+    protected function ensureEarlyActionTableSchema()
+    {
+        try {
+            $entityManager = $this->container->get('entityManager');
+            $connection = $entityManager->getPDO();
+            
+            // Check if EarlyAction table exists
+            $result = $connection->query("SHOW TABLES LIKE 'early_action'")->fetchAll();
+            
+            if (empty($result)) {
+                error_log('IBF Dashboard: EarlyAction table does not exist, will be created by schema rebuild');
+                return;
+            }
+            
+            error_log('IBF Dashboard: EarlyAction table exists, preserving existing data');
+            
+            // Get existing record count
+            $count = $connection->query("SELECT COUNT(*) FROM early_action")->fetchColumn();
+            error_log("IBF Dashboard: Found $count existing EarlyAction records");
+            
+            // Check for relationship table
+            $relationResult = $connection->query("SHOW TABLES LIKE 'early_warning_early_action'")->fetchAll();
+            if (!empty($relationResult)) {
+                $relationCount = $connection->query("SELECT COUNT(*) FROM early_warning_early_action")->fetchColumn();
+                error_log("IBF Dashboard: Found $relationCount existing EarlyWarning-EarlyAction relationships");
+            }
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Error checking EarlyAction table: ' . $e->getMessage());
+        }
+    }
+    
+    protected function backupEntityDataIfNeeded()
+    {
+        try {
+            $config = $this->container->get('config');
+            $currentVersion = $config->get('ibfEntitySchemaVersion', '0.0.0');
+            
+            // Only create backup if this is a major version change
+            if (version_compare($currentVersion, '1.0.0', '<')) {
+                error_log('IBF Dashboard: Creating backup of existing entity data before upgrade');
+                
+                $entityManager = $this->container->get('entityManager');
+                $connection = $entityManager->getPDO();
+                
+                // Create backup tables for existing data
+                $tables = ['early_warning', 'early_action', 'early_warning_early_action'];
+                
+                foreach ($tables as $table) {
+                    $result = $connection->query("SHOW TABLES LIKE '$table'")->fetchAll();
+                    if (!empty($result)) {
+                        $backupTableName = $table . '_backup_' . date('Y_m_d_H_i_s');
+                        $connection->exec("CREATE TABLE $backupTableName AS SELECT * FROM $table");
+                        error_log("IBF Dashboard: Created backup table: $backupTableName");
+                    }
+                }
+            }
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Error creating entity data backup: ' . $e->getMessage());
+        }
+    }
+    
     protected function updateCustomEntitiesIfNeeded()
     {
         try {
@@ -113,7 +214,7 @@ class AfterUpgrade
             
             // Get current entity schema version
             $currentVersion = $config->get('ibfEntitySchemaVersion', '0.0.0');
-            $targetVersion = '1.0.141'; // Update this when you change entity definitions
+            $targetVersion = '1.1.0'; // Updated for EarlyWarning/EarlyAction entities
             
             if (version_compare($currentVersion, $targetVersion, '<')) {
                 error_log("IBF Dashboard: Updating entity schema from $currentVersion to $targetVersion");
@@ -148,6 +249,65 @@ class AfterUpgrade
             
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Error rebuilding metadata after upgrade: ' . $e->getMessage());
+        }
+    }
+    
+    protected function syncEarlyActionsFromIBF()
+    {
+        try {
+            error_log('IBF Dashboard: Starting Early Action sync during upgrade');
+            
+            // Create an instance of the EarlyActionSync service
+            $syncService = new \Espo\Modules\IBFDashboard\Services\EarlyActionSync();
+            $syncService->setContainer($this->container);
+            
+            // Sync all early actions from IBF API
+            $result = $syncService->syncAllEarlyActions();
+            
+            if ($result && isset($result['success']) && $result['success']) {
+                error_log('IBF Dashboard: Early Action sync completed successfully during upgrade');
+                if (isset($result['stats'])) {
+                    error_log('IBF Dashboard: Sync stats: ' . json_encode($result['stats']));
+                }
+            } else {
+                error_log('IBF Dashboard: Early Action sync failed during upgrade: ' . ($result['error'] ?? 'Unknown error'));
+            }
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Error during Early Action sync: ' . $e->getMessage());
+        }
+    }
+    
+    protected function addEntityTabsToNavigation()
+    {
+        try {
+            $config = $this->container->get('config');
+            $configWriter = $this->container->get('configWriter');
+            
+            // Get current tab list from application settings
+            $tabList = $config->get('tabList', []);
+            
+            // Add essential entity tabs if they don't exist
+            $entitiesToAdd = ['EarlyWarning', 'EarlyAction'];
+            $tabsAdded = false;
+            
+            foreach ($entitiesToAdd as $entity) {
+                if (!in_array($entity, $tabList)) {
+                    $tabList[] = $entity;
+                    $tabsAdded = true;
+                    error_log("IBF Dashboard: Added $entity to navigation tabs during upgrade");
+                }
+            }
+            
+            if ($tabsAdded) {
+                // Update the configuration
+                $configWriter->set('tabList', $tabList);
+                $configWriter->save();
+                error_log('IBF Dashboard: Navigation tabs updated successfully');
+            }
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Error adding entity tabs to navigation: ' . $e->getMessage());
         }
     }
 }

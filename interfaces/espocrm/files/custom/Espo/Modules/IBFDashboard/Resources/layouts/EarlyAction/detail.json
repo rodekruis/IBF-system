@@ -1,0 +1,85 @@
+[
+    {
+        "label": "Basic Information",
+        "rows": [
+            [
+                {
+                    "name": "name"
+                },
+                {
+                    "name": "status"
+                }
+            ],
+            [
+                {
+                    "name": "disasterType"
+                },
+                {
+                    "name": "aof"
+                }
+            ],
+            [
+                {
+                    "name": "placeCode"
+                },
+                {
+                    "name": "countryName"
+                }
+            ],
+            [
+                {
+                    "name": "label",
+                    "fullWidth": true
+                }
+            ]
+        ]
+    },
+    {
+        "label": "Schedule",
+        "rows": [
+            [
+                {
+                    "name": "dateStart"
+                },
+                {
+                    "name": "dateEnd"
+                }
+            ],
+            [
+                {
+                    "name": "dateStartDate"
+                },
+                {
+                    "name": "dateEndDate"
+                }
+            ]
+        ]
+    },
+    {
+        "label": "IBF Data",
+        "rows": [
+            [
+                {
+                    "name": "action"
+                },
+                {
+                    "name": "checked"
+                }
+            ],
+            [
+                {
+                    "name": "lastSyncDate"
+                },
+                {
+                    "name": "ibfDataHash"
+                }
+            ],
+            [
+                {
+                    "name": "month",
+                    "fullWidth": true
+                }
+            ]
+        ]
+    }
+]

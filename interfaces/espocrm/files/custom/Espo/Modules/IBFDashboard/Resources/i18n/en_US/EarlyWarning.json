@@ -1,0 +1,24 @@
+{
+    "options": {
+        "Create EarlyWarning": "Create Early Warning",
+        "EarlyWarning": "Early Warning",
+        "EarlyWarnings": "Early Warnings"
+    },
+    "fields": {
+        "eventName": "Event Name",
+        "countryCodeISO3": "Country Code",
+        "countryName": "Country",
+        "disasterType": "Disaster Type",
+        "firstIssuedDate": "First Issued",
+        "endDate": "End Date",
+        "forecastSeverity": "Forecast Severity",
+        "forecastTrigger": "Forecast Trigger",
+        "userTrigger": "User Trigger",
+        "userTriggerDate": "User Trigger Date",
+        "userTriggerName": "User Trigger Name",
+        "status": "Status",
+        "ibfDataHash": "IBF Data Hash",
+        "lastSyncDate": "Last Sync",
+        "earlyActions": "Early Actions"
+    }
+}

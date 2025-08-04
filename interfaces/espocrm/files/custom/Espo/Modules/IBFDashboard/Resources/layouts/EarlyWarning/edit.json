@@ -1,0 +1,30 @@
+[
+    {
+        "rows": [
+            [
+                {"name": "name"},
+                {"name": "eventName"}
+            ],
+            [
+                {"name": "countryCodeISO3"},
+                {"name": "disasterType"}
+            ],
+            [
+                {"name": "status"},
+                {"name": "forecastSeverity"}
+            ],
+            [
+                {"name": "firstIssuedDate"},
+                {"name": "endDate"}
+            ],
+            [
+                {"name": "forecastTrigger"},
+                {"name": "userTrigger"}
+            ],
+            [
+                {"name": "userTriggerDate"},
+                {"name": "userTriggerName"}
+            ]
+        ]
+    }
+]

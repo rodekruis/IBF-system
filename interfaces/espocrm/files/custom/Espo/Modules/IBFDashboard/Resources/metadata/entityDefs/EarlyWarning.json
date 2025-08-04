@@ -1,0 +1,142 @@
+{
+    "fields": {
+        "name": {
+            "type": "varchar",
+            "required": true,
+            "maxLength": 255,
+            "tooltip": "Early warning event name"
+        },
+        "eventName": {
+            "type": "varchar",
+            "required": true,
+            "maxLength": 255,
+            "tooltip": "Event name from IBF API"
+        },
+        "countryCodeISO3": {
+            "type": "varchar",
+            "required": true,
+            "maxLength": 3,
+            "tooltip": "Country ISO3 code (e.g., ETH)"
+        },
+        "countryName": {
+            "type": "varchar",
+            "required": false,
+            "maxLength": 100,
+            "tooltip": "Country name"
+        },
+        "disasterType": {
+            "type": "enum",
+            "required": true,
+            "options": [
+                "drought",
+                "floods",
+                "heavy-rainfall",
+                "typhoon",
+                "malaria",
+                "flash-floods"
+            ],
+            "optionsLabels": {
+                "drought": "Drought",
+                "floods": "Floods",
+                "heavy-rainfall": "Heavy Rainfall",
+                "typhoon": "Typhoon",
+                "malaria": "Malaria",
+                "flash-floods": "Flash Floods"
+            },
+            "tooltip": "Type of disaster"
+        },
+        "firstIssuedDate": {
+            "type": "datetime",
+            "required": false,
+            "tooltip": "When the event was first issued"
+        },
+        "endDate": {
+            "type": "datetime",
+            "required": false,
+            "tooltip": "When the event ends"
+        },
+        "forecastSeverity": {
+            "type": "int",
+            "required": false,
+            "tooltip": "Forecast severity level"
+        },
+        "forecastTrigger": {
+            "type": "bool",
+            "required": false,
+            "default": false,
+            "tooltip": "Whether this event is triggered by forecast"
+        },
+        "userTrigger": {
+            "type": "bool",
+            "required": false,
+            "default": false,
+            "tooltip": "Whether this event is triggered by user"
+        },
+        "userTriggerDate": {
+            "type": "datetime",
+            "required": false,
+            "tooltip": "When the user trigger was activated"
+        },
+        "userTriggerName": {
+            "type": "varchar",
+            "required": false,
+            "maxLength": 255,
+            "tooltip": "Name of user who triggered"
+        },
+        "status": {
+            "type": "enum",
+            "required": false,
+            "options": [
+                "active",
+                "ended",
+                "cancelled"
+            ],
+            "optionsLabels": {
+                "active": "Active",
+                "ended": "Ended",
+                "cancelled": "Cancelled"
+            },
+            "default": "active",
+            "tooltip": "Current status of the early warning"
+        },
+        "ibfDataHash": {
+            "type": "varchar",
+            "required": false,
+            "maxLength": 64,
+            "tooltip": "Hash of IBF data for change detection"
+        },
+        "lastSyncDate": {
+            "type": "datetime",
+            "required": false,
+            "tooltip": "When this record was last synchronized from IBF"
+        }
+    },
+    "links": {
+        "earlyActions": {
+            "type": "hasMany",
+            "entity": "EarlyAction",
+            "foreign": "earlyWarning"
+        }
+    },
+    "collection": {
+        "orderBy": "firstIssuedDate",
+        "order": "desc"
+    },
+    "indexes": {
+        "countryDisaster": {
+            "columns": ["countryCodeISO3", "disasterType"]
+        },
+        "eventName": {
+            "columns": ["eventName"]
+        },
+        "status": {
+            "columns": ["status"]
+        },
+        "firstIssuedDate": {
+            "columns": ["firstIssuedDate"]
+        },
+        "lastSyncDate": {
+            "columns": ["lastSyncDate"]
+        }
+    }
+}

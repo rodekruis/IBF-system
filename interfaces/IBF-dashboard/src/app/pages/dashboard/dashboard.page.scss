@@ -1,3 +1,11 @@
+// Ensure full height for page host
+:host {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
 // Dashboard Header Styles
 .dashboard-header {
   background: white;
@@ -8,6 +16,7 @@
   width: 100%;
   margin: 0;
   padding: 0;
+  flex-shrink: 0; // Prevent header from shrinking
 
   .header-structure {
     min-height: 64px;
@@ -103,6 +112,8 @@
 .main-content {
   flex: 1;
   --background: transparent;
+  overflow: hidden; // Remove scrollbar from main content
+  height: calc(100vh - 64px); // Set proper height minus header
 }
 
 // Column layout adjustments
@@ -112,48 +123,146 @@
 
 .ibf-dashboard-right-column {
   position: relative;
+  overflow: hidden; // Remove scrollbar from right column
 }
 
-// Admin panel overlay
-.admin-panel-overlay {
-  position: absolute;
-  top: 0;
-  right: -320px;
-  width: 320px;
+// Ensure proper grid layout
+.page-structure {
   height: 100%;
-  background: white;
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
-  transition: right 0.3s ease;
-  z-index: 50;
+  margin: 0;
+  padding: 0;
+}
 
-  &.admin-panel-visible {
-    right: 0;
+.page-structure--content {
+  height: 100%;
+  margin: 0;
+  
+  .ibf-dashboard-left-column,
+  .admin-panel-column,
+  .ibf-dashboard-right-column {
+    height: 100%;
+    min-height: calc(100vh - 64px); // Subtract header height
+    max-height: calc(100vh - 64px); // Ensure no overflow
+  }
+}
+
+// Floating toggle button (when admin panel is collapsed)
+.floating-toggle {
+  position: absolute !important;
+  top: 50% !important;
+  right: -50px !important; // Positioned further out to avoid scroll bar
+  transform: translateY(-50%) !important;
+  z-index: 50 !important;
+  width: 50px !important;
+  height: 100px !important;
+  background: var(--ion-color-primary) !important;
+  border: 1px solid var(--ion-color-primary-shade) !important;
+  border-right: none !important;
+  border-radius: 12px 0 0 12px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1) !important;
+  padding: 8px !important;
+  
+  &:hover {
+    background: var(--ion-color-primary-shade) !important;
+    transform: translateY(-50%) translateX(-5px) !important;
+    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2) !important;
+  }
+
+  ion-icon {
+    font-size: 20px !important;
+    color: white !important;
+    margin: 2px 0 !important;
+    
+    &.panel-icon {
+      font-size: 16px !important;
+      opacity: 0.8 !important;
+    }
+  }
+}
+
+// Admin panel column (between left column and map)
+.admin-panel-column {
+  background: white;
+  border-right: 1px solid var(--ion-color-light-shade);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: visible;
+  height: 100%;
+
+  &.admin-panel-collapsed {
+    max-width: 0 !important;
+    min-width: 0 !important;
+    flex: 0 0 0 !important;
+    width: 0 !important;
+    overflow: hidden;
+    
+    .admin-panel-content {
+      display: none;
+    }
+    
+    .admin-panel-toggle {
+      display: none; // Hide toggle when collapsed since we use floating toggle
+    }
+  }
+
+  .admin-panel-toggle {
+    position: absolute;
+    top: 50%;
+    right: -50px; // Positioned outside to be more visible
+    transform: translateY(-50%);
+    width: 50px;
+    height: 100px;
+    background: var(--ion-color-primary);
+    border: 1px solid var(--ion-color-primary-shade);
+    border-right: none;
+    border-radius: 12px 0 0 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    
+    &:hover {
+      background: var(--ion-color-primary-shade);
+      transform: translateY(-50%) translateX(-5px);
+      box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
+    }
+
+    ion-icon {
+      font-size: 20px;
+      color: white;
+      margin: 2px 0;
+      
+      &.close-icon {
+        font-size: 16px;
+        opacity: 0.8;
+      }
+    }
   }
 
   .admin-panel-content {
     height: 100%;
     display: flex;
     flex-direction: column;
-  }
-
-  .admin-panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 16px;
-    border-bottom: 1px solid var(--ion-color-light-shade);
-    background: var(--ion-color-light);
-
-    ion-title {
-      font-size: 16px;
-      margin: 0;
-    }
+    padding-right: 60px; // Make room for toggle button
   }
 
   .admin-panel-body {
     flex: 1;
     overflow-y: auto;
-    padding: 16px;
+    padding: 4px; // Minimal padding for maximum space utilization
+    width: 100%; // Ensure full width utilization
+    box-sizing: border-box; // Include padding in width calculations
   }
 }
 
@@ -267,12 +376,21 @@
 
 #ibf-dashboard-map {
   pointer-events: all !important;
+  overflow: hidden !important; // Remove scrollbar from map container
+  height: 100% !important;
+  
+  // Target the inner scroll container that's causing the scrollbar
+  .inner.scroll-y {
+    overflow: hidden !important; // Prevent the inner scroll container from showing scrollbars
+    height: 100% !important;
+  }
   
   // Ensure map container has proper dimensions in web component context
   &:host-context(ibf-dashboard) {
     min-height: 400px;
     height: 100%;
     width: 100%;
+    overflow: hidden;
   }
 }
 
@@ -296,9 +414,9 @@
 }
 
 .ibf-dashboard-interface {
-  height: 100%;
+  height: 100vh; // Use full viewport height
   width: 100%;
-  overflow: auto;
+  overflow: hidden; // Remove any scrollbars at the top level
   display: flex;
   flex-direction: column;
   margin: 0;

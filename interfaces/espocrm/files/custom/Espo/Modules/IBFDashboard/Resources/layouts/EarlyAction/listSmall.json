@@ -1,0 +1,8 @@
+[
+    {"name": "name", "link": true},
+    {"name": "status"},
+    {"name": "disasterType"},
+    {"name": "countryName"},
+    {"name": "eventName"},
+    {"name": "createdAt"}
+]

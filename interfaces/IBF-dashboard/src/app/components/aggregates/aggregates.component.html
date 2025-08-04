@@ -6,11 +6,11 @@
     >
       <ion-col
         class="ion-no-padding"
-        size-xl="10"
-        size-lg="9"
+        size-xl="12"
+        size-lg="12"
         size-md="12"
-        size-sm="11"
-        size-xs="11"
+        size-sm="12"
+        size-xs="12"
       >
         <ion-item
           lines="none"
@@ -42,7 +42,7 @@
         </ion-item>
       </ion-col>
       @if (indicators.length) {
-        <ion-col size-xl="2" size-lg="3" size-md="0" size-sm="1" size-xs="1">
+        <ion-col size-xl="0" size-lg="0" size-md="0" size-sm="0" size-xs="0" class="info-column-hidden">
           <ion-item
             class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"
             data-testid="aggregates-header-info-icon"
@@ -59,7 +59,7 @@
     <div data-testid="aggregate-list">
       @for (indicator of indicators; track indicator.name) {
         <ion-row data-testid="aggregates-row" class="ion-no-padding">
-          <ion-col size-xl="6" size-lg="5" size-md="8" size-sm="9" size-xs="9">
+          <ion-col size-xl="8" size-lg="8" size-md="8" size-sm="8" size-xs="8">
             <ion-item
               class="aggregate-item ion-no-padding font-size-12"
               color="ibf-white"
@@ -87,8 +87,8 @@
             size-xl="4"
             size-lg="4"
             size-md="4"
-            size-sm="2"
-            size-xs="2"
+            size-sm="4"
+            size-xs="4"
           >
             <ion-item
               class="aggregate-item-value ion-no-padding font-size-12"
@@ -119,12 +119,13 @@
             </ion-item>
           </ion-col>
           <ion-col
-            size-xl="2"
-            size-lg="3"
+            size-xl="0"
+            size-lg="0"
             size-md="0"
-            size-sm="1"
-            size-xs="1"
+            size-sm="0"
+            size-xs="0"
             [title]="'aggregates-component.more-information' | translate"
+            class="info-column-hidden"
           >
             <ion-item
               class="aggregate-item-information-icon ion-no-padding m-0 cursor-pointer"

@@ -1,0 +1,20 @@
+{
+    "entity": true,
+    "object": true,
+    "layouts": true,
+    "tab": true,
+    "acl": true,
+    "aclActionList": ["create", "read", "edit", "delete"],
+    "aclPortal": false,
+    "module": "IBFDashboard",
+    "customizable": true,
+    "importable": true,
+    "exportable": true,
+    "notifications": false,
+    "stream": false,
+    "disabled": false,
+    "entityManager": {
+        "formula": false,
+        "layouts": true
+    }
+}

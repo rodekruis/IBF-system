@@ -954,4 +954,47 @@ class IBFDashboard extends Base
             return [];
         }
     }
+    
+    /**
+     * Manual sync action for Early Actions from IBF API
+     */
+    public function postActionSyncEarlyActions(Request $request): array
+    {
+        // Check if user has admin access
+        if (!$this->getUser()->isAdmin()) {
+            throw new Forbidden('Access denied. Admin privileges required.');
+        }
+        
+        try {
+            $log = $this->getContainer()->getByClass(Log::class);
+            $log->info('[IBF-DASHBOARD] Manual Early Actions sync requested by user: ' . $this->getUser()->getId());
+            
+            // Create the sync service
+            $injectableFactory = $this->getInjectableFactory();
+            $syncService = $injectableFactory->create('Espo\\Modules\\IBFDashboard\\Services\\EarlyActionSync');
+            
+            // Perform the sync
+            $result = $syncService->manualSync();
+            
+            if ($result['success']) {
+                $log->info('[IBF-DASHBOARD] Manual Early Actions sync completed successfully');
+            } else {
+                $log->warning('[IBF-DASHBOARD] Manual Early Actions sync completed with warnings');
+            }
+            
+            return $result;
+            
+        } catch (\Exception $e) {
+            $this->getContainer()->getByClass(Log::class)->error('[IBF-DASHBOARD] Exception during manual Early Actions sync: ' . $e->getMessage());
+            
+            return [
+                'success' => false,
+                'message' => 'Sync failed: ' . $e->getMessage(),
+                'processed' => 0,
+                'created' => 0,
+                'updated' => 0,
+                'errors' => [$e->getMessage()]
+            ];
+        }
+    }
 }

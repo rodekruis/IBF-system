@@ -1,0 +1,5 @@
+.github
+.husky
+docs
+interfaces/ibf-svelte
+interfaces/espocrm/*.zip

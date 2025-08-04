@@ -1,0 +1,69 @@
+{
+    "labels": {
+        "Create EarlyAction": "Create Early Action",
+        "EarlyAction": "Early Action",
+        "EarlyActions": "Early Actions"
+    },
+    "fields": {
+        "name": "Name",
+        "aof": "Area of Focus", 
+        "action": "Action ID",
+        "label": "Description",
+        "disasterType": "Disaster Type",
+        "placeCode": "Place Code",
+        "countryId": "Country Code",
+        "countryName": "Country",
+        "status": "Status",
+        "dateStart": "Start Date/Time",
+        "dateStartDate": "Start Date",
+        "dateEnd": "End Date/Time", 
+        "dateEndDate": "End Date",
+        "month": "Month Data",
+        "eventName": "Event Name",
+        "firstIssuedDate": "First Issued",
+        "endDate": "End Date",
+        "forecastTrigger": "Forecast Trigger",
+        "userTrigger": "User Trigger",
+        "earlyWarningId": "Early Warning",
+        "earlyWarning": "Early Warning",
+        "checked": "Checked",
+        "ibfDataHash": "IBF Data Hash",
+        "lastSyncDate": "Last Sync Date"
+    },
+    "options": {
+        "status": {
+            "pending": "Pending",
+            "confirmed": "Confirmed", 
+            "in-progress": "In Progress",
+            "completed": "Completed",
+            "cancelled": "Cancelled"
+        },
+        "disasterType": {
+            "drought": "Drought",
+            "floods": "Floods",
+            "heavy-rainfall": "Heavy Rainfall",
+            "typhoon": "Typhoon",
+            "malaria": "Malaria", 
+            "flash-floods": "Flash Floods"
+        }
+    },
+    "tooltips": {
+        "name": "Early action name/label",
+        "aof": "Area of Focus (e.g., disaster-risk-reduction)",
+        "action": "Action identifier (e.g., disaster-risk-reduction-1)",
+        "label": "Action description/label",
+        "disasterType": "Type of disaster this action is for",
+        "placeCode": "Geographic place code (e.g., ET0203)",
+        "countryId": "Country ISO3 code extracted from placeCode",
+        "countryName": "Country name",
+        "status": "Current status of the early action",
+        "dateStart": "When the early action should start",
+        "dateStartDate": "Start date (date only)",
+        "dateEnd": "When the early action should end",
+        "dateEndDate": "End date (date only)",
+        "month": "Month-related data from IBF API",
+        "checked": "Whether this action was checked/selected in IBF",
+        "ibfDataHash": "Hash of IBF data for change detection",
+        "lastSyncDate": "When this record was last synchronized from IBF"
+    }
+}

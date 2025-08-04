@@ -37,6 +37,7 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   public currentCountry: Country | null = null;
   public isCountryDropdownOpen = false;
   public isMenuPanelOpen = false;
+  public isAdminPanelExpanded = false;
   
   private readonly adminRole = UserRole.Admin;
   public environmentConfiguration = environment.configuration;
@@ -326,6 +327,15 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
 
   toggleMenuPanel(): void {
     this.isMenuPanelOpen = !this.isMenuPanelOpen;
+    this.cdr.markForCheck();
+  }
+
+  toggleAdminPanel(): void {
+    if (this.isAdminPanelExpanded) {
+      // When closing, also clear any selected place codes
+      this.closeAdminPanel();
+    }
+    this.isAdminPanelExpanded = !this.isAdminPanelExpanded;
     this.cdr.markForCheck();
   }
 

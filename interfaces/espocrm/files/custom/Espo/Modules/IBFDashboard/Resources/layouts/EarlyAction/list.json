@@ -1,0 +1,30 @@
+[
+    {
+        "name": "name",
+        "link": true
+    },
+    {
+        "name": "status"
+    },
+    {
+        "name": "disasterType"
+    },
+    {
+        "name": "countryName"
+    },
+    {
+        "name": "placeCode"
+    },
+    {
+        "name": "aof"
+    },
+    {
+        "name": "dateStartDate"
+    },
+    {
+        "name": "dateEndDate"
+    },
+    {
+        "name": "lastSyncDate"
+    }
+]
