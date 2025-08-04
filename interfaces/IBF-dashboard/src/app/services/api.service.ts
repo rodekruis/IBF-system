@@ -50,7 +50,7 @@ export class ApiService {
     });
 
     if (contentType) {
-      headers.set('Content-Type', contentType);
+      headers = headers.set('Content-Type', contentType);
     }
 
     if (!anonymous) {
