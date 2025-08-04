@@ -82,7 +82,11 @@ ibf-dashboard-extension-v{version}.zip
 ## 3. Deployment Process
 
 ### Automated Deployment Script
+
+**Location**: Run from `interfaces/espocrm/` directory
+
 ```bash
+cd interfaces/espocrm
 ./deploy-extension.sh [environment]
 ```
 
@@ -243,6 +247,7 @@ For ongoing development:
 
 3. **Build and deploy** to development environment:
    ```bash
+   cd interfaces/espocrm
    ./deploy-extension.sh dev
    ```
 
@@ -250,6 +255,7 @@ For ongoing development:
 
 5. **Deploy to test environment** when ready:
    ```bash
+   cd interfaces/espocrm
    ./deploy-extension.sh test
    ```
 
