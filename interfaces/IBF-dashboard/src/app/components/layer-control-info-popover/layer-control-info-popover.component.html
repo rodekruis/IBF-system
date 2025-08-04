@@ -12,7 +12,12 @@
           userRole === UserRole.LocalAdmin ||
           userRole === UserRole.Operator
         ) {
-          <ion-button fill="clear" color="ibf-white" (click)="upload()">
+          <ion-button
+            fill="clear"
+            color="ibf-white"
+            (click)="upload()"
+            title="Upload data"
+          >
             <ion-icon slot="icon-only" name="cloud-upload"></ion-icon>
             <input
               type="file"
@@ -23,7 +28,12 @@
           </ion-button>
         }
 
-        <ion-button fill="clear" color="ibf-white" (click)="download()">
+        <ion-button
+          fill="clear"
+          color="ibf-white"
+          (click)="download()"
+          title="Download data"
+        >
           <ion-icon slot="icon-only" name="cloud-download"></ion-icon>
         </ion-button>
       }
@@ -32,6 +42,7 @@
         color="ibf-white"
         (click)="closePopover()"
         data-testid="close-matrix-icon"
+        title="Close"
       >
         <ion-icon slot="icon-only" size="large" name="close-circle"></ion-icon>
       </ion-button>
