@@ -24,7 +24,7 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
   // Web component inputs for external configuration
   @Input() countryCode: string = 'PHL';
   @Input() disasterType: string = 'typhoon';
-  @Input() defaultAdminLevel: number = 2;
+  @Input() defaultAdminLevel: number = 1;
   @Input() apiBaseUrl: string = 'https://ibf-api.rodekruis.nl';
   
   // EspoCRM integration inputs

@@ -162,6 +162,9 @@ define(['view'], function (View) {
                 }
             }
             
+            // Specifically check for ibfAdminUserId
+            console.log('IBF Settings: Final ibfAdminUserId value:', settings.ibfAdminUserId);
+            
             // Handle checkboxes that might not be in FormData if unchecked
             const checkboxes = this.$el.find('input[type="checkbox"]');
             checkboxes.each((i, checkbox) => {
@@ -178,6 +181,9 @@ define(['view'], function (View) {
             }).then(() => {
                 console.log('IBF Settings: Save successful');
                 Espo.Ui.success(this.translate('Saved'));
+                
+                // Reload settings to get updated IBF user info after successful save
+                this.loadIBFSettings();
             }).catch((err) => {
                 console.error('IBF Settings: Save failed', err);
                 if (err.status === 403) {
@@ -301,8 +307,13 @@ define(['view'], function (View) {
             this.$el.find('#ibf-admin-user-id').val(userId);
             this.$el.find('#ibf-admin-user-name').val(userName);
             
-            // Re-load settings to get IBF user info for the selected user
-            this.loadIBFSettings();
+            // Store the selected user in our model to prevent it from being overwritten
+            if (!this.settings) this.settings = {};
+            this.settings.ibfAdminUserId = userId;
+            
+            // Note: Don't reload settings here as it would overwrite the user selection
+            // The IBF user info will be loaded after the form is saved
+            console.log('IBF Settings: User selection completed - save the form to persist the change');
         }
 
     };

@@ -352,7 +352,7 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.disasterTypeName = this.disasterType.disasterType;
 
       const mainExposureIndicator = this.indicators.find((indicator) => {
-        return indicator.name === this.disasterType.mainExposureIndicator;
+        return indicator.name === (this.disasterType?.mainExposureIndicator || 'population_affected');
       });
 
       this.mainExposureIndicatorLabel =

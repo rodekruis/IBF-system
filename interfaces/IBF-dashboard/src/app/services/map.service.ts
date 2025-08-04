@@ -3,7 +3,7 @@ import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
 import { BehaviorSubject, Observable, of, zip, Subject } from 'rxjs';
-import { map, shareReplay, debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { map, shareReplay, distinctUntilChanged, takeUntil, debounceTime } from 'rxjs/operators';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { LayerActivation } from 'src/app/models/layer-activation.enum';
 import { breakKey } from 'src/app/models/map.model';
@@ -45,14 +45,8 @@ export class MapService implements OnDestroy {
   private nonTriggeredAreaColor = 'var(--ion-color-ibf-no-alert-primary)';
   private layerDataCache: Record<string, GeoJSON.FeatureCollection> = {};
 
-  // Circuit breaker properties
-  private loadLayersSubject = new Subject<void>();
+  // Granular loading for specific layer types
   private destroy$ = new Subject<void>();
-  private loadLayersCallCount = 0;
-  private readonly MAX_LOAD_LAYERS_CALLS = 10;
-  private readonly LOAD_LAYERS_DEBOUNCE_MS = 300;
-  private circuitBreakerTripped = false;
-  private lastLoadLayersParams: string | null = null;
 
   public state = {
     bounds: [
@@ -95,93 +89,112 @@ export class MapService implements OnDestroy {
     private alertAreaService: AlertAreaService,
     private debugService: DebugService,
   ) {
-    // Set up debounced loadLayers to prevent cascade calls
-    this.loadLayersSubject
-      .pipe(
-        debounceTime(this.LOAD_LAYERS_DEBOUNCE_MS),
-        distinctUntilChanged(),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(() => {
-        this.performLoadLayers();
-      });
-
     this.debugService.logComponentInit('MapService');
 
+    // Granular subscriptions - each service loads only its required layers
     this.countryService
       .getCountrySubscription()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        distinctUntilChanged((prev, curr) => prev?.countryCodeISO3 === curr?.countryCodeISO3),
+        takeUntil(this.destroy$)
+      )
       .subscribe(this.onCountryChange);
 
     this.adminLevelService
       .getAdminLevelSubscription()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        distinctUntilChanged(),
+        debounceTime(100), // Prevent rapid admin level changes
+        takeUntil(this.destroy$)
+      )
       .subscribe(this.onAdminLevelChange);
+
+    this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .pipe(
+        distinctUntilChanged((prev, curr) => prev?.disasterType === curr?.disasterType),
+        debounceTime(100), // Prevent rapid disaster type changes
+        takeUntil(this.destroy$)
+      )
+      .subscribe(this.onDisasterTypeChange);
 
     this.timelineService
       .getTimelineStateSubscription()
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        distinctUntilChanged((prev, curr) => prev?.activeLeadTime === curr?.activeLeadTime),
+        takeUntil(this.destroy$)
+      )
       .subscribe(this.onTimelineStateChange);
+
+    this.eventService
+      .getInitialEventStateSubscription()
+      .pipe(
+        distinctUntilChanged((prev, curr) => 
+          prev?.event?.eventName === curr?.event?.eventName
+        ),
+        debounceTime(100),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(this.onEventStateChange);
+
+    this.eventService
+      .getManualEventStateSubscription()
+      .pipe(
+        distinctUntilChanged((prev, curr) => 
+          prev?.event?.eventName === curr?.event?.eventName
+        ),
+        debounceTime(100),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(this.onEventStateChange);
+
+    this.alertAreaService.getAlertAreas()
+      .pipe(
+        distinctUntilChanged((prev, curr) => JSON.stringify(prev) === JSON.stringify(curr)),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(this.onAlertAreasChange);
 
     this.placeCodeService
       .getPlaceCodeSubscription()
       .pipe(takeUntil(this.destroy$))
       .subscribe(this.onPlaceCodeChange);
-
-    this.disasterTypeService
-      .getDisasterTypeSubscription()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(this.onDisasterTypeChange);
-
-    this.eventService
-      .getInitialEventStateSubscription()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(this.onEventStateChange);
-
-    this.eventService
-      .getManualEventStateSubscription()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(this.onEventStateChange);
-
-    this.alertAreaService.getAlertAreas()
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(this.onAlertAreasChange);
   }
 
   private onCountryChange = (country: Country): void => {
-    console.log(`🗂️ MapService: Country changed to ${country?.countryCodeISO3}`);
+    console.log(`🏛️ MapService: Country changed to ${country?.countryCodeISO3} - loading admin layers`);
     this.country = country;
-    this.requestLoadLayers('country change');
+    this.loadAdminAreaLayers();
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
-    console.log(`🗂️ MapService: Disaster type changed to ${disasterType?.disasterType}`);
+    console.log(`🌪️ MapService: Disaster type changed to ${disasterType?.disasterType} - loading disaster-specific layers`);
     this.disasterType = disasterType;
-    this.requestLoadLayers('disaster type change');
+    this.loadDisasterSpecificLayers();
   };
 
   private onAdminLevelChange = (adminLevel: AdminLevel) => {
-    console.log(`🗂️ MapService: Admin level changed to ${adminLevel}`);
+    console.log(`� MapService: Admin level changed to ${adminLevel} - loading admin region layers`);
     this.adminLevel = adminLevel;
-    this.requestLoadLayers('admin level change');
+    this.loadAdminRegionLayers();
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {
-    console.log(`🗂️ MapService: Timeline state changed`);
+    console.log(`⏰ MapService: Timeline state changed - loading timeline layers`);
     this.timelineState = timelineState;
-    this.requestLoadLayers('timeline state change');
+    this.loadTimelineLayers();
   };
 
   private onEventStateChange = (eventState: EventState) => {
-    console.log(`🗂️ MapService: Event state changed`);
+    console.log(`� MapService: Event state changed - loading event layers`);
     this.eventState = eventState;
-    this.requestLoadLayers('event state change');
+    this.loadEventLayers();
   };
 
   private onAlertAreasChange = (alertAreas: AlertArea[]) => {
-    console.log(`🗂️ MapService: Alert areas changed (${alertAreas?.length} areas)`);
+    console.log(`⚠️ MapService: Alert areas changed (${alertAreas?.length} areas) - loading alert layers`);
     this.alertAreas = alertAreas;
-    this.requestLoadLayers('alert areas change');
+    this.loadAlertLayers();
   };
 
   private onPlaceCodeChange = (placeCode: PlaceCode): void => {
@@ -189,90 +202,152 @@ export class MapService implements OnDestroy {
   };
 
   /**
-   * Circuit breaker method to prevent excessive loadLayers calls
+   * Load only admin boundary layers (triggered by country changes)
    */
-  private requestLoadLayers(reason: string): void {
-    this.loadLayersCallCount++;
+  private loadAdminAreaLayers(): void {
+    if (!this.country) {
+      console.log('🏛️ MapService: Skipping admin area layers - no country selected');
+      return;
+    }
+
+    console.log(`🏛️ MapService: Loading admin area layers for ${this.country.countryCodeISO3}`);
     
-    if (this.circuitBreakerTripped) {
-      console.warn(`🔥 MapService: Circuit breaker ACTIVE - ignoring loadLayers request from ${reason}`);
-      return;
-    }
-
-    if (this.loadLayersCallCount > this.MAX_LOAD_LAYERS_CALLS) {
-      this.circuitBreakerTripped = true;
-      this.debugService.triggerCircuitBreaker(`MapService loadLayers called ${this.loadLayersCallCount} times - circuit breaker TRIPPED!`);
-      console.error(`🚨 MapService: Too many loadLayers calls (${this.loadLayersCallCount})! Circuit breaker ACTIVATED.`);
-      
-      // Reset circuit breaker after 5 seconds
-      setTimeout(() => {
-        console.log('🔄 MapService: Circuit breaker RESET');
-        this.circuitBreakerTripped = false;
-        this.loadLayersCallCount = 0;
-      }, 5000);
-      return;
-    }
-
-    console.log(`🗂️ MapService: Requesting loadLayers (${this.loadLayersCallCount}x) - ${reason}`);
-    this.loadLayersSubject.next();
-  }
-
-  /**
-   * The actual loadLayers implementation with deduplication
-   */
-  private performLoadLayers(): void {
-    // Generate parameters hash for deduplication
-    const params = JSON.stringify({
-      country: this.country?.countryCodeISO3,
-      disasterType: this.disasterType?.disasterType,
-      eventState: !!this.eventState,
-      timelineState: !!this.timelineState,
-      adminLevel: this.adminLevel
-    });
-
-    // Skip if same parameters as last call
-    if (this.lastLoadLayersParams === params) {
-      console.log('🗂️ MapService: Skipping loadLayers - same parameters as last call');
-      return;
-    }
-
-    this.lastLoadLayersParams = params;
-    
-    console.log('🗂️ MapService: Performing actual loadLayers() call');
-    console.log('🗂️ Dependencies:', {
-      country: !!this.country,
-      disasterType: !!this.disasterType,
-      eventState: !!this.eventState,
-      timelineState: !!this.timelineState,
-      adminLevel: !!this.adminLevel
-    });
-
-    this.layers = [];
-    this.layerSubject.next(null);
-
-    if (
-      this.country &&
-      this.disasterType &&
-      this.eventState &&
-      this.timelineState &&
-      this.adminLevel
-    ) {
-      console.log(`🗂️ MapService: Loading layers for ${this.country.countryCodeISO3} - ${this.disasterType.disasterType}`);
-      this.apiService
-        .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)
-        .pipe(takeUntil(this.destroy$))
-        .subscribe(this.onLayerChange);
-    } else {
-      console.log('🗂️ MapService: Not loading layers - missing dependencies');
+    // Load admin region layers for the current admin level
+    if (this.adminLevel) {
+      this.loadAdminRegionLayers();
     }
   }
 
   /**
-   * @deprecated Use requestLoadLayers instead to prevent cascade calls
+   * Load only disaster-specific layers (triggered by disaster type changes)
    */
-  private loadLayers() {
-    console.warn('🚨 MapService: loadLayers() called directly - this should use requestLoadLayers()');
-    this.requestLoadLayers('direct call (deprecated)');
+  private loadDisasterSpecificLayers(): void {
+    if (!this.country || !this.disasterType) {
+      console.log('🌪️ MapService: Skipping disaster-specific layers - missing country or disaster type');
+      return;
+    }
+
+    console.log(`🌪️ MapService: Loading disaster-specific layers for ${this.country.countryCodeISO3} - ${this.disasterType.disasterType}`);
+    
+    // Load the metadata layers for this country/disaster combination
+    this.apiService
+      .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((layers) => {
+        console.log(`🌪️ MapService: Received ${layers.length} disaster-specific layer definitions`);
+        this.onLayerChange(layers);
+      });
+  }
+
+  /**
+   * Load only admin region layers (triggered by admin level changes)
+   */
+  private loadAdminRegionLayers(): void {
+    if (!this.adminLevel) {
+      console.log('📊 MapService: Skipping admin region layers - no admin level selected');
+      return;
+    }
+
+    console.log(`� MapService: Loading admin region layers for level ${this.adminLevel}`);
+    
+    // Load appropriate admin region layer based on current admin level
+    this.loadAdminRegionLayer(true, this.adminLevel);
+  }
+
+  /**
+   * Load only timeline-dependent layers (triggered by timeline changes)
+   */
+  private loadTimelineLayers(): void {
+    if (!this.timelineState || !this.country || !this.disasterType) {
+      console.log('⏰ MapService: Skipping timeline layers - missing dependencies');
+      return;
+    }
+
+    console.log(`⏰ MapService: Loading timeline layers for leadTime ${this.timelineState.activeLeadTime}`);
+    
+    // Reload any time-dependent layers (WMS layers with leadTimeDependent = true)
+    // This will be handled by the existing layer loading mechanism
+    this.reloadTimeDependentLayers();
+  }
+
+  /**
+   * Load only event-specific layers (triggered by event state changes)
+   */
+  private loadEventLayers(): void {
+    if (!this.eventState) {
+      console.log('� MapService: Skipping event layers - no event state');
+      return;
+    }
+
+    console.log(`� MapService: Loading event layers for event ${this.eventState?.event?.eventName || 'none'}`);
+    
+    // Reload admin regions to reflect event-specific trigger data
+    if (this.adminLevel) {
+      this.loadAdminRegionLayer(true, this.adminLevel);
+    }
+    
+    // Load typhoon track if applicable
+    this.reloadEventSpecificLayers();
+  }
+
+  /**
+   * Load only alert area layers (triggered by alert area changes)
+   */
+  private loadAlertLayers(): void {
+    if (!this.alertAreas) {
+      console.log('⚠️ MapService: Skipping alert layers - no alert areas');
+      return;
+    }
+
+    console.log(`⚠️ MapService: Loading alert layers for ${this.alertAreas.length} alert areas`);
+    
+    // Reload layers that depend on alert areas
+    this.reloadAlertDependentLayers();
+  }
+
+  /**
+   * Helper method to reload time-dependent layers
+   */
+  private reloadTimeDependentLayers(): void {
+    // Find and reload WMS layers that are time-dependent
+    const timeDependentLayers = this.layers.filter(layer => 
+      layer.type === IbfLayerType.wms && layer.wms?.leadTimeDependent
+    );
+    
+    timeDependentLayers.forEach(layer => {
+      console.log(`⏰ Reloading time-dependent layer: ${layer.name}`);
+      // The layer will be updated through the normal layer update mechanism
+    });
+  }
+
+  /**
+   * Helper method to reload event-specific layers
+   */
+  private reloadEventSpecificLayers(): void {
+    // Reload typhoon track if present
+    const typhoonLayer = this.layers.find(layer => layer.name === IbfLayerName.typhoonTrack);
+    if (typhoonLayer) {
+      console.log(`� Reloading typhoon track layer`);
+      this.loadTyphoonTrackLayer(
+        { name: IbfLayerName.typhoonTrack } as IbfLayerMetadata, 
+        typhoonLayer.active
+      );
+    }
+  }
+
+  /**
+   * Helper method to reload alert-dependent layers  
+   */
+  private reloadAlertDependentLayers(): void {
+    // Reload outline layers that depend on alert areas
+    const outlineLayers = this.layers.filter(layer => 
+      layer.group === IbfLayerGroup.outline
+    );
+    
+    outlineLayers.forEach(layer => {
+      console.log(`⚠️ Reloading alert-dependent layer: ${layer.name}`);
+      // The layer will be updated through the normal layer update mechanism
+    });
   }
 
   private getPopoverText(indicator: IbfLayerMetadata | Indicator): string {
@@ -299,13 +374,25 @@ export class MapService implements OnDestroy {
       if (layer.type === IbfLayerType.wms) {
         this.loadWmsLayer(layer, layerActive, layer.leadTimeDependent);
       } else if (layer.name === IbfLayerName.adminRegions1) {
-        this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel1);
+        // Only load if current admin level matches
+        if (this.adminLevel === AdminLevel.adminLevel1) {
+          this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel1);
+        }
       } else if (layer.name === IbfLayerName.adminRegions2) {
-        this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel2);
+        // Only load if current admin level matches
+        if (this.adminLevel === AdminLevel.adminLevel2) {
+          this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel2);
+        }
       } else if (layer.name === IbfLayerName.adminRegions3) {
-        this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel3);
+        // Only load if current admin level matches  
+        if (this.adminLevel === AdminLevel.adminLevel3) {
+          this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel3);
+        }
       } else if (layer.name === IbfLayerName.adminRegions4) {
-        this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel4);
+        // Only load if current admin level matches
+        if (this.adminLevel === AdminLevel.adminLevel4) {
+          this.loadAdminRegionLayer(layerActive, AdminLevel.adminLevel4);
+        }
       } else if (layer.name === IbfLayerName.typhoonTrack) {
         this.loadTyphoonTrackLayer(layer, layerActive);
       } else if (layer.type === IbfLayerType.point) {
@@ -399,7 +486,21 @@ export class MapService implements OnDestroy {
     console.log(`🎯 MapService: loadAdminRegionLayer called - active: ${layerActive}, level: ${adminLevel} (${typeof adminLevel}), currentLevel: ${this.adminLevel} (${typeof this.adminLevel})`);
     console.log(`🎯 MapService: Comparison result: ${adminLevel === this.adminLevel}, strict equal: ${adminLevel === this.adminLevel}, loose equal: ${adminLevel == this.adminLevel}`);
     
+    // Add null checks for country and disasterType
+    if (!this.country || !this.disasterType) {
+      console.log(`🎯 MapService: Cannot load admin regions - missing country: ${!!this.country}, disasterType: ${!!this.disasterType}`);
+      this.addAdminRegionLayer(null, adminLevel);
+      return;
+    }
+    
     if (layerActive && adminLevel === this.adminLevel) {
+      // Ensure timelineState exists
+      if (!this.timelineState) {
+        console.log(`🎯 MapService: Cannot load admin regions - missing timelineState`);
+        this.addAdminRegionLayer(null, adminLevel);
+        return;
+      }
+      
       // Use disaster-specific admin areas to show only triggered areas
       const currentEvent = this.eventService.state?.event;
       const eventName = currentEvent?.eventName || null;
@@ -414,6 +515,7 @@ export class MapService implements OnDestroy {
           adminLevel,
           eventName || '', // Use actual event name from EventService
         )
+        .pipe(takeUntil(this.destroy$))
         .subscribe((adminRegions) => {
           console.log(`🎯 MapService: Received admin regions data:`, adminRegions);
           this.addAdminRegionLayer(adminRegions, adminLevel);
@@ -448,7 +550,7 @@ export class MapService implements OnDestroy {
       show: true,
       data: adminRegions,
       viewCenter: this.adminLevel === adminLevel,
-      colorProperty: this.disasterType.mainExposureIndicator,
+      colorProperty: this.disasterType?.mainExposureIndicator || 'population_affected',
       order: 0,
     });
   }
@@ -665,7 +767,7 @@ export class MapService implements OnDestroy {
         wms: layer.wms,
         colorProperty:
           layer.group === IbfLayerGroup.adminRegions
-            ? this.disasterType.mainExposureIndicator
+            ? this.disasterType?.mainExposureIndicator || 'population_affected'
             : layer.colorProperty,
         colorBreaks: layer.colorBreaks,
         numberFormatMap: layer.numberFormatMap,

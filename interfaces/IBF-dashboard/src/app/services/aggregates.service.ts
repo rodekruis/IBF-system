@@ -211,7 +211,7 @@ export class AggregatesService implements OnDestroy {
 
       const triggerValue = Number(aggregate[IbfLayerName.trigger]);
       const exposureValue = Number(
-        aggregate[this.disasterType.mainExposureIndicator],
+        aggregate[this.disasterType?.mainExposureIndicator || 'population_affected'],
       );
       const hasEvents = (this.eventState?.events || []).length > 0;
 
@@ -379,7 +379,7 @@ export class AggregatesService implements OnDestroy {
 
     if (!weighingIndicatorName) {
       weighingIndicatorName = this.indicators.find(
-        (i) => i.name === this.disasterType.mainExposureIndicator,
+        (i) => i.name === (this.disasterType?.mainExposureIndicator || 'population_affected'),
       )?.name;
     }
 

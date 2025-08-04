@@ -83,7 +83,7 @@ class IBFDashboard extends Base
                 if ($log) $log->warning("[IBF-DASHBOARD] No auth token found for user");
             }
 
-            // Get IBF API token using the same logic as ibfAuth.php
+            // Get IBF API token using the same logic as IbfAuth.php
             $ibfToken = $this->getIbfApiToken($user, $log);
             if (!$ibfToken) {
                 if ($log) $log->warning("[IBF-DASHBOARD] Could not retrieve IBF API token, will use client-side auth");
@@ -346,7 +346,7 @@ class IBFDashboard extends Base
     }
 
     /**
-     * Login IBF user and get token (same logic as ibfAuth.php)
+     * Login IBF user and get token (same logic as IbfAuth.php)
      */
     private function loginIbfUserAndGetToken($email, $password, $log = null): ?string
     {
@@ -828,5 +828,130 @@ class IBFDashboard extends Base
         }
         
         return $ibfUserInfo;
+    }
+
+    /**
+     * Get user settings action - accessible to all authenticated users
+     * Returns user-specific settings and countries they have access to
+     */
+    public function getActionGetUserSettings(Request $request): object
+    {
+        $log = $GLOBALS['log'] ?? null;
+        
+        try {
+            // Check if user is authenticated
+            $user = $this->getUser();
+            if (!$user) {
+                throw new Forbidden('User not authenticated');
+            }
+            
+            // Check if user has IBF access
+            $this->checkIBFAccess();
+            
+            if ($log) $log->info("[IBF-DASHBOARD] Loading user settings for user: " . $user->get('userName'));
+            
+            // Get basic settings that all users should have access to
+            $userSettings = [
+                'ibfDefaultCountry' => $this->getConfig()->get('ibfDefaultCountry', 'ETH'),
+                'ibfDashboardUrl' => $this->getConfig()->get('ibfDashboardUrl', 'https://ibf-pivot.510.global'),
+                'ibfBackendApiUrl' => $this->getConfig()->get('ibfBackendApiUrl', 'https://ibf-test.510.global/api'),
+                'ibfGeoserverUrl' => $this->getConfig()->get('ibfGeoserverUrl', 'https://ibf.510.global/geoserver/ibf-system/wms'),
+            ];
+            
+            // Get user's allowed countries from IBFUser record if it exists
+            $userCountries = $this->getUserAllowedCountries($user->getId(), $log);
+            if (!empty($userCountries)) {
+                $userSettings['userCountries'] = $userCountries;
+            } else {
+                // Fallback to system-wide enabled countries
+                $userSettings['userCountries'] = $this->getConfig()->get('ibfEnabledCountries', ['ETH', 'UGA', 'ZMB', 'KEN']);
+            }
+            
+            // Get user's allowed disaster types
+            $userDisasterTypes = $this->getUserAllowedDisasterTypes($user->getId(), $log);
+            if (!empty($userDisasterTypes)) {
+                $userSettings['userDisasterTypes'] = $userDisasterTypes;
+            } else {
+                // Fallback to system-wide disaster types
+                $userSettings['userDisasterTypes'] = $this->getConfig()->get('ibfDisasterTypes', ['drought', 'floods', 'heavy-rainfall']);
+            }
+            
+            if ($log) $log->info("[IBF-DASHBOARD] User settings loaded successfully with " . count($userSettings['userCountries']) . " countries and " . count($userSettings['userDisasterTypes']) . " disaster types");
+
+            return (object) [
+                'success' => true,
+                'settings' => $userSettings
+            ];
+
+        } catch (\Exception $e) {
+            if ($log) $log->error("[IBF-DASHBOARD] Error in getActionGetUserSettings: " . $e->getMessage());
+            throw $e;
+        }
+    }
+
+    /**
+     * Get allowed countries for a user from their IBFUser record
+     */
+    private function getUserAllowedCountries(string $userId, $log = null): array
+    {
+        try {
+            if (!$this->getEntityManager()->hasRepository('IBFUser')) {
+                if ($log) $log->debug("[IBF-DASHBOARD] IBFUser entity not available");
+                return [];
+            }
+            
+            $ibfUser = $this->getEntityManager()
+                ->getRDBRepository('IBFUser')
+                ->where(['userId' => $userId])
+                ->findOne();
+            
+            if ($ibfUser && $ibfUser->get('isActive')) {
+                $allowedCountries = $ibfUser->get('allowedCountries');
+                if (is_array($allowedCountries) && !empty($allowedCountries)) {
+                    if ($log) $log->debug("[IBF-DASHBOARD] User {$userId} has specific allowed countries: " . implode(', ', $allowedCountries));
+                    return $allowedCountries;
+                }
+            }
+            
+            if ($log) $log->debug("[IBF-DASHBOARD] No specific countries found for user {$userId}, will use system defaults");
+            return [];
+            
+        } catch (\Exception $e) {
+            if ($log) $log->error("[IBF-DASHBOARD] Error getting user allowed countries: " . $e->getMessage());
+            return [];
+        }
+    }
+
+    /**
+     * Get allowed disaster types for a user from their IBFUser record
+     */
+    private function getUserAllowedDisasterTypes(string $userId, $log = null): array
+    {
+        try {
+            if (!$this->getEntityManager()->hasRepository('IBFUser')) {
+                if ($log) $log->debug("[IBF-DASHBOARD] IBFUser entity not available");
+                return [];
+            }
+            
+            $ibfUser = $this->getEntityManager()
+                ->getRDBRepository('IBFUser')
+                ->where(['userId' => $userId])
+                ->findOne();
+            
+            if ($ibfUser && $ibfUser->get('isActive')) {
+                $allowedDisasterTypes = $ibfUser->get('allowedDisasterTypes');
+                if (is_array($allowedDisasterTypes) && !empty($allowedDisasterTypes)) {
+                    if ($log) $log->debug("[IBF-DASHBOARD] User {$userId} has specific allowed disaster types: " . implode(', ', $allowedDisasterTypes));
+                    return $allowedDisasterTypes;
+                }
+            }
+            
+            if ($log) $log->debug("[IBF-DASHBOARD] No specific disaster types found for user {$userId}, will use system defaults");
+            return [];
+            
+        } catch (\Exception $e) {
+            if ($log) $log->error("[IBF-DASHBOARD] Error getting user allowed disaster types: " . $e->getMessage());
+            return [];
+        }
     }
 }

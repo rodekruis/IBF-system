@@ -15,9 +15,11 @@ NC='\033[0m' # No Color
 declare -A ENVIRONMENTS
 ENVIRONMENTS["dev,host"]="134.149.202.254"
 ENVIRONMENTS["dev,user"]="crmadmin"
+ENVIRONMENTS["dev,home"]="/home/crmadmin"
 ENVIRONMENTS["dev,name"]="Development"
 ENVIRONMENTS["test,host"]="52.232.40.194"
 ENVIRONMENTS["test,user"]="mali-espocrm-admin"
+ENVIRONMENTS["test,home"]="/home/mali-espocrm-admin"
 ENVIRONMENTS["test,name"]="Test"
 
 ENVIRONMENT=""
@@ -82,6 +84,7 @@ fi
 # Get environment details
 VM_HOST="${ENVIRONMENTS[$ENVIRONMENT,host]}"
 VM_USER="${ENVIRONMENTS[$ENVIRONMENT,user]}"
+VM_HOME="${ENVIRONMENTS[$ENVIRONMENT,home]}"
 ENV_NAME="${ENVIRONMENTS[$ENVIRONMENT,name]}"
 
 EXTENSION_NAME="ibf-dashboard-extension"
@@ -90,6 +93,7 @@ echo -e "${GREEN}EspoCRM Extension Deployment${NC}"
 echo -e "${GREEN}============================${NC}"
 echo -e "${CYAN}Environment: $ENV_NAME ($ENVIRONMENT)${NC}"
 echo -e "${CYAN}Target: $VM_USER@$VM_HOST${NC}"
+echo -e "${CYAN}Home Directory: $VM_HOME${NC}"
 echo ""
 
 # Step 1: Build web component
@@ -172,10 +176,10 @@ if command -v sshpass &> /dev/null; then
     echo -e "${GRAY}   Using sshpass for password authentication${NC}"
     read -s -p "Enter password for $VM_USER@$VM_HOST: " VM_PASSWORD
     echo ""
-    sshpass -p "$VM_PASSWORD" scp "$PACKAGE_FILE" "$VM_USER@$VM_HOST:~/"
+    sshpass -p "$VM_PASSWORD" scp "$PACKAGE_FILE" "$VM_USER@$VM_HOST:$VM_HOME/"
 else
     echo -e "${GRAY}   Using SSH key or interactive password authentication${NC}"
-    scp "$PACKAGE_FILE" "$VM_USER@$VM_HOST:~/"
+    scp "$PACKAGE_FILE" "$VM_USER@$VM_HOST:$VM_HOME/"
 fi
 
 if [[ $? -ne 0 ]]; then
@@ -189,12 +193,28 @@ echo -e "${GREEN}Package transferred successfully!${NC}"
 echo ""
 echo -e "${YELLOW}5. Running installation script on remote VM...${NC}"
 
-if command -v sshpass &> /dev/null && [[ -n "$VM_PASSWORD" ]]; then
-    echo -e "${GRAY}   Executing remote installation with sshpass${NC}"
-    sshpass -p "$VM_PASSWORD" ssh "$VM_USER@$VM_HOST" "cd ~ && chmod +x install-extension.sh && ./install-extension.sh"
+# For test environment, we need to handle sudo password
+if [[ "$ENVIRONMENT" == "test" ]]; then
+    echo -e "${GRAY}   Test environment detected - handling sudo authentication${NC}"
+    read -s -p "Enter sudo password for $VM_USER: " SUDO_PASSWORD
+    echo ""
+    
+    if command -v sshpass &> /dev/null && [[ -n "$VM_PASSWORD" ]]; then
+        echo -e "${GRAY}   Executing remote installation with sshpass and sudo password${NC}"
+        sshpass -p "$VM_PASSWORD" ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && echo '$SUDO_PASSWORD' | sudo -S ./install-extension.sh"
+    else
+        echo -e "${GRAY}   Executing remote installation with SSH key and sudo password${NC}"
+        ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && echo '$SUDO_PASSWORD' | sudo -S ./install-extension.sh"
+    fi
 else
-    echo -e "${GRAY}   Executing remote installation with SSH key/interactive auth${NC}"
-    ssh "$VM_USER@$VM_HOST" "cd ~ && chmod +x install-extension.sh && ./install-extension.sh"
+    # Dev environment with passwordless sudo
+    if command -v sshpass &> /dev/null && [[ -n "$VM_PASSWORD" ]]; then
+        echo -e "${GRAY}   Executing remote installation with sshpass${NC}"
+        sshpass -p "$VM_PASSWORD" ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && ./install-extension.sh"
+    else
+        echo -e "${GRAY}   Executing remote installation with SSH key/interactive auth${NC}"
+        ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && ./install-extension.sh"
+    fi
 fi
 
 INSTALL_EXIT_CODE=$?
@@ -214,7 +234,8 @@ else
     echo -e "${YELLOW}1. SSH into your VM:${NC}"
     echo -e "${WHITE}   ssh $VM_USER@$VM_HOST${NC}"
     echo ""
-    echo -e "${YELLOW}2. Run the installation script:${NC}"
+    echo -e "${YELLOW}2. Navigate to home directory and run the installation script:${NC}"
+    echo -e "${WHITE}   cd $VM_HOME${NC}"
     echo -e "${WHITE}   ./install-extension.sh${NC}"
     echo ""
     echo -e "${GRAY}The script will:${NC}"

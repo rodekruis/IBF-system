@@ -139,6 +139,8 @@ export class AdminLevelService {
       return;
     }
 
+    console.log(`📊 AdminLevelService: Setting admin level to ${this.countryDisasterSettings.defaultAdminLevel} (country disaster settings default)`);
+
     this.allCountryAdminLevels = Object.keys(
       this.country.adminRegionLabels,
     ).map((k) => Number(k));

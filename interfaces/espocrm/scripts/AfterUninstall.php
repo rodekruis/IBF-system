@@ -227,8 +227,11 @@ class AfterUninstall
         try {
             error_log('IBF Dashboard: Removing server-side module files');
             
+            // Get the correct EspoCRM root path using multiple approaches
+            $espoCrmRoot = $this->getEspoCrmRootPath();
+            
             // Path to the IBFDashboard module directory
-            $modulePath = ESPO_ROOT . '/custom/Espo/Modules/IBFDashboard';
+            $modulePath = $espoCrmRoot . '/custom/Espo/Modules/IBFDashboard';
             
             if (is_dir($modulePath)) {
                 $this->removeDirectoryRecursive($modulePath);
@@ -241,6 +244,43 @@ class AfterUninstall
             error_log('IBF Dashboard: Failed to remove module files: ' . $e->getMessage());
             error_log('IBF Dashboard: Stack trace: ' . $e->getTraceAsString());
         }
+    }
+
+    /**
+     * Get EspoCRM root path using container services with fallbacks
+     */
+    protected function getEspoCrmRootPath()
+    {
+        try {
+            // First try: get from config
+            $config = $this->container->get('config');
+            $rootPath = $config->get('applicationPath');
+            if ($rootPath && is_dir($rootPath)) {
+                return rtrim($rootPath, '/');
+            }
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Could not get root path from config: ' . $e->getMessage());
+        }
+
+        // Second try: calculate from current script location
+        // This script is in: /path/to/espocrm/data/cache/extensions/temp/scripts/AfterUninstall.php
+        // So we need to go up several levels to reach EspoCRM root
+        $currentDir = __DIR__;
+        $possibleRoot = dirname(dirname(dirname(dirname($currentDir))));
+        
+        // Verify this is EspoCRM root by checking for key files
+        if (is_file($possibleRoot . '/index.php') && is_file($possibleRoot . '/bootstrap.php')) {
+            return rtrim($possibleRoot, '/');
+        }
+
+        // Third try: use a more generic approach
+        $possibleRoot = dirname(dirname(dirname(dirname(dirname($currentDir)))));
+        if (is_file($possibleRoot . '/index.php') && is_file($possibleRoot . '/bootstrap.php')) {
+            return rtrim($possibleRoot, '/');
+        }
+
+        // Final fallback: use relative path
+        return realpath(dirname(__DIR__) . '/../../../../..');
     }
 
     /**
