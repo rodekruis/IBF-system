@@ -42,13 +42,16 @@ export class ApiService {
     contentType = 'application/json',
   }: Partial<Headers>): HttpHeaders {
     const headers = new HttpHeaders({
-      'Content-Type': contentType,
       Accept: 'application/json',
       'Cache-Control':
         'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
       Pragma: 'no-cache',
       Expires: '0',
     });
+
+    if (contentType) {
+      headers.set('Content-Type', contentType);
+    }
 
     if (!anonymous) {
       return headers.set(
@@ -62,16 +65,16 @@ export class ApiService {
 
   get<T>(
     path: string,
-    { anonymous }: Partial<Headers> = { anonymous: true },
+    headers: Partial<Headers> = { anonymous: true },
     params: HttpParams = null,
   ): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
-    const security = this.showSecurity(anonymous);
+    const security = this.showSecurity(headers.anonymous);
 
     this.log(`ApiService GET: ${security} ${url}`);
 
     return this.http
-      .get<T>(url, { headers: this.createHeaders({ anonymous }), params })
+      .get<T>(url, { headers: this.createHeaders(headers), params })
       .pipe(
         tap((response) => {
           this.log(
@@ -86,19 +89,16 @@ export class ApiService {
   post<T>(
     path: string,
     body: object,
-    { anonymous }: Partial<Headers> = { anonymous: false },
+    headers: Partial<Headers> = { anonymous: false },
     params: HttpParams = null,
   ): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
-    const security = this.showSecurity(anonymous);
+    const security = this.showSecurity(headers.anonymous);
 
     this.log(`ApiService POST: ${security} ${url}`, body);
 
     return this.http
-      .post<T>(url, body, {
-        headers: this.createHeaders({ anonymous }),
-        params,
-      })
+      .post<T>(url, body, { headers: this.createHeaders(headers), params })
       .pipe(
         tap((response) => {
           this.log(
@@ -114,16 +114,16 @@ export class ApiService {
   put<T>(
     path: string,
     body: object,
-    { anonymous }: Partial<Headers> = { anonymous: false },
+    headers: Partial<Headers> = { anonymous: false },
     params: HttpParams = null,
   ): Observable<T> {
     const url = `${environment.apiUrl}/${path}`;
-    const security = this.showSecurity(anonymous);
+    const security = this.showSecurity(headers.anonymous);
 
     this.log(`ApiService PUT: ${security} ${url}`, body);
 
     return this.http
-      .put<T>(url, body, { headers: this.createHeaders({ anonymous }), params })
+      .put<T>(url, body, { headers: this.createHeaders(headers), params })
       .pipe(
         tap((response) => {
           this.log(
