@@ -15,6 +15,12 @@ class AfterUpgrade
         $this->ensureEarlyWarningTableSchema();
         $this->ensureEarlyActionTableSchema();
         
+        // Ensure all IBFUsers are assigned to Anticipatory Action team
+        $this->ensureIBFUsersInAnticipationTeam();
+        
+        // Ensure Anticipatory Action team has proper permissions
+        $this->ensureAnticipationTeamPermissions();
+        
         // Create backup of existing entity data before major changes
         $this->backupEntityDataIfNeeded();
         
@@ -243,9 +249,9 @@ class AfterUpgrade
         try {
             // Force metadata and database schema rebuild
             $dataManager = $this->container->get('dataManager');
-            $dataManager->rebuild(['entityDefs', 'metadata']);
+            $dataManager->rebuild(['entityDefs', 'metadata', 'clientDefs']);
             
-            error_log('IBF Dashboard: Metadata rebuilt after upgrade');
+            error_log('IBF Dashboard: Metadata and client resources rebuilt after upgrade');
             
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Error rebuilding metadata after upgrade: ' . $e->getMessage());
@@ -308,6 +314,199 @@ class AfterUpgrade
             
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Error adding entity tabs to navigation: ' . $e->getMessage());
+        }
+    }
+    
+    protected function ensureIBFUsersInAnticipationTeam()
+    {
+        try {
+            $entityManager = $this->container->get('entityManager');
+            
+            // Get the Anticipatory Action team
+            $anticipationTeam = $entityManager->getRepository('Team')
+                ->where(['name' => 'Anticipatory Action'])
+                ->findOne();
+                
+            if (!$anticipationTeam) {
+                error_log('IBF Dashboard: Anticipatory Action team not found during upgrade');
+                return;
+            }
+            
+            // Get all IBFUser records
+            $ibfUsers = $entityManager->getRepository('IBFUser')->find();
+            
+            if (empty($ibfUsers)) {
+                error_log('IBF Dashboard: No IBFUsers found, nothing to assign to team');
+                return;
+            }
+            
+            $usersAdded = 0;
+            
+            foreach ($ibfUsers as $ibfUser) {
+                $userId = $ibfUser->get('userId');
+                
+                if (!$userId) {
+                    error_log('IBF Dashboard: IBFUser missing userId, skipping: ' . $ibfUser->get('id'));
+                    continue;
+                }
+                
+                // Check if user exists in system
+                $user = $entityManager->getEntityById('User', $userId);
+                if (!$user) {
+                    error_log('IBF Dashboard: User not found for IBFUser: ' . $userId);
+                    continue;
+                }
+                
+                // Check if user is already in the team
+                $existingTeamUser = $entityManager->getRepository('TeamUser')
+                    ->where([
+                        'teamId' => $anticipationTeam->get('id'),
+                        'userId' => $userId
+                    ])
+                    ->findOne();
+                    
+                if (!$existingTeamUser) {
+                    // Add user to team
+                    $teamUser = $entityManager->createEntity('TeamUser', [
+                        'teamId' => $anticipationTeam->get('id'),
+                        'userId' => $userId
+                    ]);
+                    
+                    if ($teamUser) {
+                        $usersAdded++;
+                        error_log('IBF Dashboard: Added user ' . $user->get('emailAddress') . ' to Anticipatory Action team');
+                    }
+                }
+            }
+            
+            if ($usersAdded > 0) {
+                error_log("IBF Dashboard: Added $usersAdded IBFUsers to Anticipatory Action team during upgrade");
+            } else {
+                error_log('IBF Dashboard: All IBFUsers were already in Anticipatory Action team');
+            }
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Failed to ensure IBFUsers in Anticipatory Action team: ' . $e->getMessage());
+        }
+    }
+    
+    protected function ensureAnticipationTeamPermissions()
+    {
+        try {
+            $entityManager = $this->container->get('entityManager');
+            
+            // Get the Anticipatory Action team
+            $anticipationTeam = $entityManager->getRepository('Team')
+                ->where(['name' => 'Anticipatory Action'])
+                ->findOne();
+                
+            if (!$anticipationTeam) {
+                error_log('IBF Dashboard: Anticipatory Action team not found during upgrade');
+                return;
+            }
+            
+            // Get or create the IBF Dashboard Access role
+            $role = $entityManager->getRepository('Role')
+                ->where(['name' => 'IBF Dashboard Access'])
+                ->findOne();
+                
+            if (!$role) {
+                // Create the role with updated permissions
+                $role = $entityManager->createEntity('Role', [
+                    'name' => 'IBF Dashboard Access',
+                    'description' => 'Role granting access to IBF Dashboard and related entities including EarlyWarning and EarlyAction',
+                    'data' => [
+                        // IBF Dashboard scope permissions
+                        'IBFDashboard' => [
+                            'create' => 'no',
+                            'read' => 'yes',
+                            'edit' => 'no',
+                            'delete' => 'no',
+                            'stream' => 'no'
+                        ],
+                        // IBF User management (team level access)
+                        'IBFUser' => [
+                            'create' => 'no',
+                            'read' => 'team',
+                            'edit' => 'no', 
+                            'delete' => 'no',
+                            'stream' => 'no'
+                        ],
+                        // Early Warning entities (read access for team members)
+                        'EarlyWarning' => [
+                            'create' => 'no',
+                            'read' => 'team',
+                            'edit' => 'no',
+                            'delete' => 'no',
+                            'stream' => 'no'
+                        ],
+                        // Early Action entities (read access for team members)
+                        'EarlyAction' => [
+                            'create' => 'no',
+                            'read' => 'team',
+                            'edit' => 'no',
+                            'delete' => 'no',
+                            'stream' => 'no'
+                        ],
+                        // Allow access to own user record
+                        'User' => [
+                            'create' => 'no',
+                            'read' => 'own',
+                            'edit' => 'own',
+                            'delete' => 'no',
+                            'stream' => 'no'
+                        ]
+                    ]
+                ]);
+                
+                error_log('IBF Dashboard: Created IBF Dashboard Access role with EarlyWarning/EarlyAction permissions');
+            } else {
+                // Update existing role to include new permissions
+                $roleData = $role->get('data') ?: [];
+                
+                // Add EarlyWarning permissions if missing
+                if (!isset($roleData['EarlyWarning'])) {
+                    $roleData['EarlyWarning'] = [
+                        'create' => 'no',
+                        'read' => 'team',
+                        'edit' => 'no',
+                        'delete' => 'no',
+                        'stream' => 'no'
+                    ];
+                }
+                
+                // Add EarlyAction permissions if missing
+                if (!isset($roleData['EarlyAction'])) {
+                    $roleData['EarlyAction'] = [
+                        'create' => 'no',
+                        'read' => 'team',
+                        'edit' => 'no',
+                        'delete' => 'no',
+                        'stream' => 'no'
+                    ];
+                }
+                
+                // Update the role
+                $entityManager->saveEntity($role->set('data', $roleData));
+                error_log('IBF Dashboard: Updated IBF Dashboard Access role with EarlyWarning/EarlyAction permissions');
+            }
+            
+            // Ensure the role is assigned to the team
+            $teamRoleRelation = $entityManager->getRepository('Team')
+                ->getRelation($anticipationTeam, 'roles')
+                ->where(['id' => $role->get('id')])
+                ->findOne();
+                
+            if (!$teamRoleRelation) {
+                $entityManager->getRepository('Team')
+                    ->getRelation($anticipationTeam, 'roles')
+                    ->relate($role);
+                    
+                error_log('IBF Dashboard: Assigned updated IBF Dashboard Access role to Anticipatory Action team');
+            }
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Failed to ensure Anticipatory Action team permissions: ' . $e->getMessage());
         }
     }
 }

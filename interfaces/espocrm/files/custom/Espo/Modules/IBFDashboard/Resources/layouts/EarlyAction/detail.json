@@ -12,19 +12,25 @@
             ],
             [
                 {
-                    "name": "disasterType"
+                    "name": "earlyWarning"
                 },
                 {
-                    "name": "aof"
+                    "name": "disasterType"
                 }
             ],
             [
                 {
-                    "name": "placeCode"
+                    "name": "aof"
                 },
                 {
-                    "name": "countryName"
+                    "name": "placeCode"
                 }
+            ],
+            [
+                {
+                    "name": "countryName"
+                },
+                false
             ],
             [
                 {

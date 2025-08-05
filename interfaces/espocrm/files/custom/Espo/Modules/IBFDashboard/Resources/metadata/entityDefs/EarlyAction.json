@@ -6,6 +6,14 @@
             "maxLength": 255,
             "tooltip": "Early action name/label"
         },
+        "createdAt": {
+            "type": "datetime",
+            "readOnly": true
+        },
+        "modifiedAt": {
+            "type": "datetime",
+            "readOnly": true
+        },
         "aof": {
             "type": "varchar",
             "required": true,
@@ -135,12 +143,6 @@
             "default": false,
             "tooltip": "Whether this is triggered by user"
         },
-        "earlyWarningId": {
-            "type": "varchar",
-            "required": false,
-            "maxLength": 24,
-            "tooltip": "ID of the related Early Warning event"
-        },
         "checked": {
             "type": "bool",
             "required": false,
@@ -157,6 +159,11 @@
             "type": "datetime",
             "required": false,
             "tooltip": "When this record was last synchronized from IBF"
+        },
+        "earlyWarning": {
+            "type": "link",
+            "entity": "EarlyWarning",
+            "tooltip": "Related Early Warning event"
         }
     },
     "links": {
@@ -167,7 +174,7 @@
         }
     },
     "collection": {
-        "orderBy": "createdAt",
+        "orderBy": "lastSyncDate",
         "order": "desc"
     },
     "indexes": {

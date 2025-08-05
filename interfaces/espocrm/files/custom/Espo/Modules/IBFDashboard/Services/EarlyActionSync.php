@@ -261,6 +261,11 @@ class EarlyActionSync
         $entity->set('userTrigger', $eapAction['userTrigger'] ?? false);
         $entity->set('earlyWarningId', $eapAction['earlyWarningId'] ?? null);
         
+        // Set the relationship link to the EarlyWarning entity
+        if (!empty($eapAction['earlyWarningId'])) {
+            $entity->set('earlyWarningId', $eapAction['earlyWarningId']);
+        }
+        
         $entity->set('ibfDataHash', $dataHash);
         $entity->set('lastSyncDate', date('Y-m-d H:i:s'));
         

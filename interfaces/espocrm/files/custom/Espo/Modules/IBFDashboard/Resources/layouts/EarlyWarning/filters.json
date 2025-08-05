@@ -2,5 +2,11 @@
     {"name": "status"},
     {"name": "disasterType"},
     {"name": "countryCodeISO3"},
-    {"name": "eventName"}
+    {"name": "eventName"},
+    {"name": "forecastTrigger"},
+    {"name": "userTrigger"},
+    {"name": "firstIssuedDate"},
+    {"name": "endDate"},
+    {"name": "lastSyncDate"},
+    {"name": "createdAt"}
 ]

@@ -1,0 +1,46 @@
+[
+    {
+        "name": "name",
+        "type": "varchar"
+    },
+    {
+        "name": "status",
+        "type": "enum"
+    },
+    {
+        "name": "disasterType", 
+        "type": "enum"
+    },
+    {
+        "name": "placeCode",
+        "type": "varchar"
+    },
+    {
+        "name": "countryName",
+        "type": "varchar"
+    },
+    {
+        "name": "aof",
+        "type": "varchar"
+    },
+    {
+        "name": "action",
+        "type": "varchar"
+    },
+    {
+        "name": "checked",
+        "type": "bool"
+    },
+    {
+        "name": "eventName",
+        "type": "varchar"
+    },
+    {
+        "name": "lastSyncDate",
+        "type": "datetime"
+    },
+    {
+        "name": "createdAt",
+        "type": "datetime"
+    }
+]

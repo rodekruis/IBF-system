@@ -26,5 +26,11 @@
     },
     {
         "name": "lastSyncDate"
+    },
+    {
+        "name": "createdAt"
+    },
+    {
+        "name": "modifiedAt"
     }
 ]

@@ -6,6 +6,14 @@
             "maxLength": 255,
             "tooltip": "Early warning event name"
         },
+        "createdAt": {
+            "type": "datetime",
+            "readOnly": true
+        },
+        "modifiedAt": {
+            "type": "datetime",
+            "readOnly": true
+        },
         "eventName": {
             "type": "varchar",
             "required": true,
@@ -109,6 +117,11 @@
             "type": "datetime",
             "required": false,
             "tooltip": "When this record was last synchronized from IBF"
+        },
+        "earlyActions": {
+            "type": "linkMultiple",
+            "entity": "EarlyAction",
+            "tooltip": "Related Early Actions for this warning"
         }
     },
     "links": {
@@ -119,7 +132,7 @@
         }
     },
     "collection": {
-        "orderBy": "firstIssuedDate",
+        "orderBy": "createdAt",
         "order": "desc"
     },
     "indexes": {

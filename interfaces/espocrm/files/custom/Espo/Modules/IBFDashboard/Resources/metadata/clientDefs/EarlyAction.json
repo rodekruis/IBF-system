@@ -1,5 +1,52 @@
 {
     "controller": "controllers/record",
     "iconClass": "fas fa-tasks",
-    "color": "#e69138"
+    "color": "#e69138",
+    "views": {
+        "list": "modules/ibf-dashboard/views/early-action/list",
+        "detail": "views/detail"
+    },
+    "recordViews": {
+        "list": "views/record/list",
+        "detail": "views/record/detail"
+    },
+    "filterList": [
+        "all",
+        "active",
+        "confirmed",
+        "in-progress",
+        "completed"
+    ],
+    "boolFilterList": [
+        "onlyMy",
+        "active"
+    ],
+    "selectDefaultFilters": {
+        "filter": "active"
+    },
+    "searchFilters": {
+        "textFilter": "name",
+        "primaryFilter": "all"
+    },
+    "dynamicLogic": {
+        "fields": {
+            "status": {
+                "visible": {
+                    "conditionGroup": [
+                        {
+                            "type": "isNotEmpty",
+                            "attribute": "name"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "relationshipPanels": {
+        "earlyWarning": {
+            "select": false,
+            "create": false,
+            "view": "views/record/panels/relationship"
+        }
+    }
 }

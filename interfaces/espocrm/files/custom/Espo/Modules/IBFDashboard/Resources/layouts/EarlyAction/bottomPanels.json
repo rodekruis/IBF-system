@@ -1,0 +1,12 @@
+[
+    {
+        "name": "earlyWarning",
+        "link": "earlyWarning",
+        "label": "Early Warning",
+        "view": "views/record/panels/relationship",
+        "recordListView": "views/record/list",
+        "select": false,
+        "create": false,
+        "layout": "listSmall"
+    }
+]

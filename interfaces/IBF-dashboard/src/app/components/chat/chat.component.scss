@@ -43,8 +43,16 @@ ion-checkbox {
   color: var(--ion-color-ibf-primary);
   text-decoration: none;
   font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   
   &:hover {
     text-decoration: underline;
+    opacity: 0.8;
+  }
+  
+  &:active {
+    opacity: 0.6;
   }
 }

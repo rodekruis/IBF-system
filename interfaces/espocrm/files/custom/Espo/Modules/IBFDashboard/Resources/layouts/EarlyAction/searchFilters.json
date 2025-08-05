@@ -1,0 +1,12 @@
+[
+    {"name": "name"},
+    {"name": "status"},
+    {"name": "disasterType"},
+    {"name": "placeCode"},
+    {"name": "countryName"},
+    {"name": "aof"},
+    {"name": "action"},
+    {"name": "checked"},
+    {"name": "eventName"},
+    {"name": "lastSyncDate"}
+]

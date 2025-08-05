@@ -1,0 +1,12 @@
+[
+    {"name": "name"},
+    {"name": "eventName"},
+    {"name": "status"},
+    {"name": "disasterType"},
+    {"name": "countryCodeISO3"},
+    {"name": "forecastTrigger"},
+    {"name": "userTrigger"},
+    {"name": "firstIssuedDate"},
+    {"name": "endDate"},
+    {"name": "lastSyncDate"}
+]

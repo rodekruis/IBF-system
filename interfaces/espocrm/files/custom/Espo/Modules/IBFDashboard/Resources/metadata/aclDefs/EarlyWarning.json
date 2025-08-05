@@ -1,0 +1,14 @@
+{
+    "mandatory": {
+        "admin": {
+            "create": "yes",
+            "read": "yes", 
+            "edit": "yes",
+            "delete": "yes"
+        }
+    },
+    "scopeLevel": {
+        "team": ["read"]
+    },
+    "fieldLevel": {}
+}

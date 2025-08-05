@@ -29,6 +29,9 @@ class AfterInstall
         // Sync Early Actions from IBF API
         $this->syncEarlyActionsFromIBF();
         
+        // Rebuild client resources to include custom views
+        $this->rebuildClientResources();
+        
         // Note: Database schema will be automatically updated by EspoCRM
         // after installation completes and maintenance mode is lifted
         error_log('IBF Dashboard: Installation completed successfully.');
@@ -229,6 +232,22 @@ class AfterInstall
                             'delete' => 'no',
                             'stream' => 'no'
                         ],
+                        // Early Warning entities (read access for team members)
+                        'EarlyWarning' => [
+                            'create' => 'no',
+                            'read' => 'team',
+                            'edit' => 'no',
+                            'delete' => 'no',
+                            'stream' => 'no'
+                        ],
+                        // Early Action entities (read access for team members)
+                        'EarlyAction' => [
+                            'create' => 'no',
+                            'read' => 'team',
+                            'edit' => 'no',
+                            'delete' => 'no',
+                            'stream' => 'no'
+                        ],
                         // Allow access to own user record
                         'User' => [
                             'create' => 'no',
@@ -269,6 +288,22 @@ class AfterInstall
                             'create' => 'yes',
                             'read' => 'all',
                             'edit' => 'all', 
+                            'delete' => 'yes',
+                            'stream' => 'yes'
+                        ],
+                        // Early Warning entities (full CRUD access for moderators)
+                        'EarlyWarning' => [
+                            'create' => 'yes',
+                            'read' => 'all',
+                            'edit' => 'all',
+                            'delete' => 'yes',
+                            'stream' => 'yes'
+                        ],
+                        // Early Action entities (full CRUD access for moderators)
+                        'EarlyAction' => [
+                            'create' => 'yes',
+                            'read' => 'all',
+                            'edit' => 'all',
                             'delete' => 'yes',
                             'stream' => 'yes'
                         ],
@@ -471,6 +506,27 @@ class AfterInstall
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Exception during Early Actions sync: ' . $e->getMessage());
             error_log('IBF Dashboard: Early Actions sync will be skipped during installation. You can manually trigger it later from the admin panel.');
+        }
+    }
+    
+    /**
+     * Rebuild client resources to include custom views
+     */
+    protected function rebuildClientResources()
+    {
+        try {
+            error_log('IBF Dashboard: Rebuilding client resources for custom views...');
+            
+            $dataManager = $this->container->get('dataManager');
+            
+            // Clear and rebuild client cache to include our custom JavaScript files
+            $dataManager->clearCache();
+            $dataManager->rebuild(['clientDefs', 'metadata']);
+            
+            error_log('IBF Dashboard: Client resources rebuilt successfully');
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Failed to rebuild client resources: ' . $e->getMessage());
         }
     }
 }
