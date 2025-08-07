@@ -998,40 +998,4 @@ class IBFDashboard extends Base
         }
     }
 
-    /**
-     * Manual sync action for Activation Logs from IBF API
-     */
-    public function postActionSyncActivationLogs(Request $request): array
-    {
-        try {
-            $injectableFactory = $this->getContainer()->getByClass('Espo\\Core\\InjectableFactory');
-            $log = $this->getContainer()->getByClass(Log::class);
-            
-            $log->info('[IBF-DASHBOARD] Manual Activation Logs sync requested by user: ' . $this->getUser()->getId());
-            
-            // Create and run sync service
-            $syncService = $injectableFactory->create('Espo\\Modules\\IBFDashboard\\Services\\ActivationLogSync');
-            $result = $syncService->syncAllActivationLogs();
-            
-            if ($result['success']) {
-                $log->info('[IBF-DASHBOARD] Manual Activation Logs sync completed successfully');
-            } else {
-                $log->warning('[IBF-DASHBOARD] Manual Activation Logs sync completed with warnings');
-            }
-            
-            return $result;
-            
-        } catch (\Exception $e) {
-            $this->getContainer()->getByClass(Log::class)->error('[IBF-DASHBOARD] Exception during manual Activation Logs sync: ' . $e->getMessage());
-            
-            return [
-                'success' => false,
-                'message' => 'Sync failed: ' . $e->getMessage(),
-                'processed' => 0,
-                'created' => 0,
-                'updated' => 0,
-                'errors' => [$e->getMessage()]
-            ];
-        }
-    }
 }

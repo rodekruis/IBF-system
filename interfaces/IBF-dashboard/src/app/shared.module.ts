@@ -8,7 +8,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { AnalyticsModule } from 'src/app/analytics/analytics.module';
 import { AboutBtnComponent } from 'src/app/components/about-btn/about-btn.component';
 import { ActionResultPopoverComponent } from 'src/app/components/action-result-popover/action-result-popover.component';
-import { ActivationLogButtonComponent } from 'src/app/components/activation-log-button/activation-log-button.component';
 import { AdminLevelComponent } from 'src/app/components/admin-level/admin-level.component';
 import { AggregatesComponent } from 'src/app/components/aggregates/aggregates.component';
 import { AreasOfFocusSummaryComponent } from 'src/app/components/areas-of-focus-summary/areas-of-focus-summary.component';
@@ -63,7 +62,6 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
   declarations: [
     AboutBtnComponent,
     ActionResultPopoverComponent,
-    ActivationLogButtonComponent,
     AdminLevelComponent,
     AggregatesComponent,
     AreasOfFocusSummaryComponent,
@@ -106,7 +104,6 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
   exports: [
     AboutBtnComponent,
     ActionResultPopoverComponent,
-    ActivationLogButtonComponent,
     AdminLevelComponent,
     AggregatesComponent,
     AreasOfFocusSummaryComponent,

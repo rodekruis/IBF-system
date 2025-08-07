@@ -377,19 +377,19 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   /**
-   * Generate EspoCRM ActivationLog URL with client-side filters for countryCodeISO3 and disasterType
+   * Generate EspoCRM EarlyWarning URL with client-side filters for countryCodeISO3 and disasterType
    */
-  public generateActivationLogUrl(): string {
+  public generateEarlyWarningUrl(): string {
     // Get the base URL from the current window location
     // This allows the component to work in any EspoCRM instance
     const baseUrl = `${window.location.protocol}//${window.location.host}`;
     
     // Get current country and disaster type from services
-    const countryCodeISO3 = this.countryService.selectedCountry?.countryCodeISO3 || 'ETH';
-    const disasterType = this.disasterTypeService.selectedDisasterType?.disasterType || 'drought';
+    const countryCodeISO3 = this.currentCountry?.countryCodeISO3 || 'ETH';
+    const disasterType = this.disasterTypeService.disasterType?.disasterType || 'drought';
     
     // Create URL parameters for client-side filtering
-    // These will be processed by our custom ActivationLog list view
+    // These will be processed by our custom EarlyWarning list view
     const params = new URLSearchParams({
       countryCodeISO3: countryCodeISO3,
       disasterType: disasterType
@@ -397,14 +397,14 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
 
     // Return URL to EspoCRM web interface with filter parameters
     // Our custom list view will read these parameters and apply filters client-side
-    return `${baseUrl}/#ActivationLog?${params.toString()}`;
+    return `${baseUrl}/#EarlyWarning?${params.toString()}`;
   }
 
   /**
-   * Open ActivationLog in EspoCRM interface in a new tab
+   * Open EarlyWarning in EspoCRM interface in a new tab
    */
-  public openActivationLog(): void {
-    const url = this.generateActivationLogUrl();
+  public openEarlyWarning(): void {
+    const url = this.generateEarlyWarningUrl();
     window.open(url, '_blank', 'noopener,noreferrer');
   }
 

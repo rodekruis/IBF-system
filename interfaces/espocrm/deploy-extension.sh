@@ -136,17 +136,8 @@ if [[ $? -ne 0 ]]; then
 fi
 
 # Step 3: Determine the actual package filename after build (version may have been incremented)
-# Extract version from manifest.json using pure bash
-VERSION=""
-if [[ -f "manifest.json" ]]; then
-    while IFS= read -r line; do
-        # Look for version line and extract value
-        if [[ $line =~ \"version\"[[:space:]]*:[[:space:]]*\"([^\"]+)\" ]]; then
-            VERSION="${BASH_REMATCH[1]}"
-            break
-        fi
-    done < "manifest.json"
-fi
+# Extract version from manifest.json using cross-platform compatible method
+VERSION=$(grep -o '"version"[[:space:]]*:[[:space:]]*"[^"]*"' manifest.json | head -1 | sed 's/.*: *"\([^"]*\)".*/\1/')
 
 if [[ -z "$VERSION" ]]; then
     echo -e "${RED}Error: Could not find version in manifest.json${NC}"
@@ -176,7 +167,7 @@ echo -e "${GREEN}Package created: $PACKAGE_FILE ($PACKAGE_FORMAT format)${NC}"
 echo -e "${YELLOW}4. Transferring package to VM...${NC}"
 
 # Check if sshpass is available for password authentication
-if command -v sshpass &> /dev/null; then
+if command -v sshpass >/dev/null 2>&1; then
     echo -e "${GRAY}   Using sshpass for password authentication${NC}"
     echo -n "Enter password for $VM_USER@$VM_HOST: "
     read -s VM_PASSWORD
@@ -205,7 +196,7 @@ if [[ "$ENVIRONMENT" == "test" ]]; then
     read -s SUDO_PASSWORD
     echo ""
     
-    if command -v sshpass &> /dev/null && [[ -n "$VM_PASSWORD" ]]; then
+    if command -v sshpass >/dev/null 2>&1 && [[ -n "$VM_PASSWORD" ]]; then
         echo -e "${GRAY}   Executing remote installation with sshpass and sudo password${NC}"
         sshpass -p "$VM_PASSWORD" ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && echo '$SUDO_PASSWORD' | sudo -S ./install-extension.sh"
     else
@@ -214,7 +205,7 @@ if [[ "$ENVIRONMENT" == "test" ]]; then
     fi
 else
     # Dev environment with passwordless sudo
-    if command -v sshpass &> /dev/null && [[ -n "$VM_PASSWORD" ]]; then
+    if command -v sshpass >/dev/null 2>&1 && [[ -n "$VM_PASSWORD" ]]; then
         echo -e "${GRAY}   Executing remote installation with sshpass${NC}"
         sshpass -p "$VM_PASSWORD" ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && ./install-extension.sh"
     else

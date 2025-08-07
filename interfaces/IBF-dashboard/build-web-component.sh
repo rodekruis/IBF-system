@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# IBF Dashboard Web Component Builder for Unix/Linux/macOS
-# This script implements identical functionality to build-web-component.ps1
+# IBF Dashboard Web Component Builder
+# Compatible with Unix/Linux/macOS/WSL
 
 # Default values
 ZIP_MODE=false
@@ -80,21 +80,21 @@ else
     echo -e "\e[33mZIP packaging: DISABLED (use --zip flag to enable)\e[0m"
 fi
 
-# Function to get version from package.json
+# Function to get version from package.json (cross-platform compatible)
 get_package_version() {
     if [ -f "package.json" ]; then
-        # Try to parse version using various tools
-        if command -v jq &> /dev/null; then
+        # Try to parse version using various tools in order of preference
+        if command -v jq >/dev/null 2>&1; then
             jq -r '.version' package.json 2>/dev/null || echo "0.0.0"
-        elif command -v node &> /dev/null; then
+        elif command -v node >/dev/null 2>&1; then
             node -pe "JSON.parse(require('fs').readFileSync('package.json', 'utf8')).version" 2>/dev/null || echo "0.0.0"
-        elif command -v python3 &> /dev/null; then
+        elif command -v python3 >/dev/null 2>&1; then
             python3 -c "import json; print(json.load(open('package.json'))['version'])" 2>/dev/null || echo "0.0.0"
-        elif command -v python &> /dev/null; then
+        elif command -v python >/dev/null 2>&1; then
             python -c "import json; print(json.load(open('package.json'))['version'])" 2>/dev/null || echo "0.0.0"
         else
-            # Fallback to grep/sed
-            grep '"version"' package.json | sed 's/.*"version": *"\([^"]*\)".*/\1/' 2>/dev/null || echo "0.0.0"
+            # Fallback to grep/sed (most portable but less reliable)
+            grep -o '"version"[[:space:]]*:[[:space:]]*"[^"]*"' package.json | head -1 | sed 's/.*: *"\([^"]*\)".*/\1/' 2>/dev/null || echo "0.0.0"
         fi
     else
         echo "0.0.0"
@@ -137,7 +137,7 @@ increment_version() {
         local new_version="${major}.${minor}.${patch}"
         echo -e "   New version: $new_version"
         
-        # Update package.json using multiple methods for reliability
+        # Update package.json using multiple methods for cross-platform reliability
         if command -v jq >/dev/null 2>&1; then
             # Method 1: Using jq (most reliable)
             jq ".version = \"$new_version\"" package.json > package.json.tmp && mv package.json.tmp package.json
@@ -153,7 +153,7 @@ increment_version() {
             echo -e "   \e[90mUpdated via node\e[0m"
         else
             # Method 3: Using sed (fallback) - create temp file to avoid permission issues
-            sed "s/\"version\": *\"[^\"]*\"/\"version\": \"$new_version\"/" package.json > package.json.tmp
+            sed "s/\"version\"[[:space:]]*:[[:space:]]*\"[^\"]*\"/\"version\": \"$new_version\"/" package.json > package.json.tmp
             if [ -f package.json.tmp ]; then
                 mv package.json.tmp package.json
                 echo -e "   \e[90mUpdated via sed\e[0m"
@@ -199,14 +199,19 @@ update_environment_files() {
     
     for env_file in "${env_files[@]}"; do
         if [ -f "$env_file" ]; then
-            # Update ibfSystemVersion in the environment file
-            if sed -i.bak "s/ibfSystemVersion: *'v[^']*'/ibfSystemVersion: '$version_with_v'/g" "$env_file" 2>/dev/null; then
-                # Remove backup file if sed succeeded
-                rm -f "$env_file.bak" 2>/dev/null
-                echo -e "   \e[32m✅ Updated $env_file\e[0m"
-                updated_count=$((updated_count + 1))
+            # Update ibfSystemVersion in the environment file using cross-platform sed
+            # Create a temp file to handle different sed behaviors
+            if sed "s/ibfSystemVersion:[[:space:]]*'v[^']*'/ibfSystemVersion: '$version_with_v'/g" "$env_file" > "$env_file.tmp" 2>/dev/null; then
+                if mv "$env_file.tmp" "$env_file" 2>/dev/null; then
+                    echo -e "   \e[32m✅ Updated $env_file\e[0m"
+                    updated_count=$((updated_count + 1))
+                else
+                    echo -e "   \e[33m⚠️  Could not update $env_file (permission issue)\e[0m"
+                    rm -f "$env_file.tmp" 2>/dev/null
+                fi
             else
-                echo -e "   \e[33m⚠️  Could not update $env_file (file may not exist or no permission)\e[0m"
+                echo -e "   \e[33m⚠️  Could not update $env_file (sed failed)\e[0m"
+                rm -f "$env_file.tmp" 2>/dev/null
             fi
         else
             echo -e "   \e[90m⏭️  Skipped $env_file (file does not exist)\e[0m"
@@ -318,7 +323,18 @@ if [ $? -eq 0 ]; then
         fi
         
         # Create a README file with usage instructions
-        CURRENT_DATE=$(date '+%Y-%m-%d %H:%M:%S')
+        if command -v date >/dev/null 2>&1; then
+            if [[ "$OSTYPE" == "darwin"* ]]; then
+                # macOS date command
+                CURRENT_DATE=$(date '+%Y-%m-%d %H:%M:%S')
+            else
+                # Linux/GNU date command
+                CURRENT_DATE=$(date '+%Y-%m-%d %H:%M:%S')
+            fi
+        else
+            # Fallback if date command is not available
+            CURRENT_DATE="Unknown"
+        fi
         cat > "dist/README.md" << EOF
 # IBF Dashboard Web Component v$VERSION
 
@@ -405,14 +421,32 @@ EOF
             fi
             
             # Create ZIP using available zip command
-            if command -v zip &> /dev/null; then
-                if zip -r "dist/$ZIP_FILE_NAME" "${FILES_TO_ZIP[@]}" > /dev/null 2>&1; then
+            if command -v zip >/dev/null 2>&1; then
+                if zip -r "dist/$ZIP_FILE_NAME" "${FILES_TO_ZIP[@]}" >/dev/null 2>&1; then
                     echo -e "   \e[32mZIP package created: $ZIP_FILE_NAME\e[0m"
                     ZIP_MESSAGE="ZIP package: dist/$ZIP_FILE_NAME"
                     if [ -f "dist/$ZIP_FILE_NAME" ]; then
-                        ZIP_SIZE_KB=$(du -k "dist/$ZIP_FILE_NAME" | cut -f1)
-                        ZIP_SIZE_MB=$(echo "scale=2; $ZIP_SIZE_KB/1024" | bc 2>/dev/null || echo "scale=2; $ZIP_SIZE_KB/1024" | awk '{printf "%.2f", $1/1024}')
-                        ZIP_SIZE_MESSAGE="ZIP size: ${ZIP_SIZE_MB} MB"
+                        # Get file size in a cross-platform way
+                        if command -v stat >/dev/null 2>&1; then
+                            if [[ "$OSTYPE" == "darwin"* ]]; then
+                                # macOS stat command
+                                ZIP_SIZE_KB=$(stat -f %z "dist/$ZIP_FILE_NAME" 2>/dev/null | awk '{print int($1/1024)}')
+                            else
+                                # Linux/GNU stat command  
+                                ZIP_SIZE_KB=$(stat -c %s "dist/$ZIP_FILE_NAME" 2>/dev/null | awk '{print int($1/1024)}')
+                            fi
+                        else
+                            # Fallback to du command
+                            ZIP_SIZE_KB=$(du -k "dist/$ZIP_FILE_NAME" 2>/dev/null | cut -f1)
+                        fi
+                        
+                        if [ -n "$ZIP_SIZE_KB" ] && [ "$ZIP_SIZE_KB" != "0" ]; then
+                            # Calculate MB using awk for better cross-platform compatibility
+                            ZIP_SIZE_MB=$(awk "BEGIN {printf \"%.2f\", $ZIP_SIZE_KB/1024}")
+                            ZIP_SIZE_MESSAGE="ZIP size: ${ZIP_SIZE_MB} MB"
+                        else
+                            ZIP_SIZE_MESSAGE="ZIP size: N/A"
+                        fi
                     else
                         ZIP_SIZE_MESSAGE="ZIP size: N/A"
                     fi
@@ -489,11 +523,29 @@ EOF
             # Update EspoCRM view with current version
             if [ -f "$ESPOCRM_VIEW_DIR/ibfdashboard.js" ]; then
                 echo -e "   \e[90mUpdating EspoCRM view with version $VERSION...\e[0m"
-                # Use temp files to avoid permission issues on Windows/WSL
-                sed "s/this\.extensionVersion = '[^']*'/this.extensionVersion = '$VERSION'/g" "$ESPOCRM_VIEW_DIR/ibfdashboard.js" > "$ESPOCRM_VIEW_DIR/ibfdashboard.js.tmp"
-                sed "s/this\.extensionBuildDate = '[^']*'/this.extensionBuildDate = '$(date '+%Y-%m-%d')'/g" "$ESPOCRM_VIEW_DIR/ibfdashboard.js.tmp" > "$ESPOCRM_VIEW_DIR/ibfdashboard.js.tmp2"
-                mv "$ESPOCRM_VIEW_DIR/ibfdashboard.js.tmp2" "$ESPOCRM_VIEW_DIR/ibfdashboard.js"
-                rm -f "$ESPOCRM_VIEW_DIR/ibfdashboard.js.tmp" 2>/dev/null
+                # Use cross-platform sed with temp files to avoid permission issues
+                if sed "s/this\.extensionVersion = '[^']*'/this.extensionVersion = '$VERSION'/g" "$ESPOCRM_VIEW_DIR/ibfdashboard.js" > "$ESPOCRM_VIEW_DIR/ibfdashboard.js.tmp1"; then
+                    # Get current date in cross-platform way
+                    if [[ "$OSTYPE" == "darwin"* ]]; then
+                        BUILD_DATE=$(date '+%Y-%m-%d')
+                    else
+                        BUILD_DATE=$(date '+%Y-%m-%d')
+                    fi
+                    
+                    if sed "s/this\.extensionBuildDate = '[^']*'/this.extensionBuildDate = '$BUILD_DATE'/g" "$ESPOCRM_VIEW_DIR/ibfdashboard.js.tmp1" > "$ESPOCRM_VIEW_DIR/ibfdashboard.js.tmp2"; then
+                        if mv "$ESPOCRM_VIEW_DIR/ibfdashboard.js.tmp2" "$ESPOCRM_VIEW_DIR/ibfdashboard.js"; then
+                            echo -e "   \e[32m✅ Updated EspoCRM view with version and build date\e[0m"
+                        else
+                            echo -e "   \e[33m⚠️  Could not move updated file\e[0m"
+                        fi
+                    else
+                        echo -e "   \e[33m⚠️  Could not update build date\e[0m"
+                    fi
+                    # Clean up temp files
+                    rm -f "$ESPOCRM_VIEW_DIR/ibfdashboard.js.tmp1" "$ESPOCRM_VIEW_DIR/ibfdashboard.js.tmp2" 2>/dev/null
+                else
+                    echo -e "   \e[33m⚠️  Could not update version\e[0m"
+                fi
             fi
             
             # Note: EspoCRM manifest version is managed separately and should not be auto-updated
@@ -515,15 +567,33 @@ EOF
         
         # Get modular files sizes
         if [ -f "$BROWSER_PATH/main.js" ]; then
-            MAIN_SIZE_KB=$(du -k "$BROWSER_PATH/main.js" | cut -f1)
-            MAIN_SIZE_MB=$(echo "scale=2; $MAIN_SIZE_KB/1024" | bc 2>/dev/null || awk "BEGIN {printf \"%.2f\", $MAIN_SIZE_KB/1024}")
-            echo -e "\e[36mMain.js size: ${MAIN_SIZE_MB} MB\e[0m"
+            # Get file size in a cross-platform way
+            if command -v stat >/dev/null 2>&1; then
+                if [[ "$OSTYPE" == "darwin"* ]]; then
+                    # macOS stat command
+                    MAIN_SIZE_KB=$(stat -f %z "$BROWSER_PATH/main.js" 2>/dev/null | awk '{print int($1/1024)}')
+                else
+                    # Linux/GNU stat command
+                    MAIN_SIZE_KB=$(stat -c %s "$BROWSER_PATH/main.js" 2>/dev/null | awk '{print int($1/1024)}')
+                fi
+            else
+                # Fallback to du command
+                MAIN_SIZE_KB=$(du -k "$BROWSER_PATH/main.js" 2>/dev/null | cut -f1)
+            fi
+            
+            if [ -n "$MAIN_SIZE_KB" ] && [ "$MAIN_SIZE_KB" != "0" ]; then
+                # Calculate MB using awk for better cross-platform compatibility
+                MAIN_SIZE_MB=$(awk "BEGIN {printf \"%.2f\", $MAIN_SIZE_KB/1024}")
+                echo -e "\e[36mMain.js size: ${MAIN_SIZE_MB} MB\e[0m"
+            fi
         fi
         
-        # Count chunk files
-        CHUNK_COUNT=$(find "$BROWSER_PATH" -name "chunk-*.js" | wc -l)
-        if [ "$CHUNK_COUNT" -gt 0 ]; then
-            echo -e "\e[36mChunk files: ${CHUNK_COUNT} files\e[0m"
+        # Count chunk files in a cross-platform way
+        if [ -d "$BROWSER_PATH" ]; then
+            CHUNK_COUNT=$(find "$BROWSER_PATH" -name "chunk-*.js" 2>/dev/null | wc -l | tr -d ' ')
+            if [ "$CHUNK_COUNT" -gt 0 ]; then
+                echo -e "\e[36mChunk files: ${CHUNK_COUNT} files\e[0m"
+            fi
         fi
         
         if [ -n "$ZIP_SIZE_MESSAGE" ]; then

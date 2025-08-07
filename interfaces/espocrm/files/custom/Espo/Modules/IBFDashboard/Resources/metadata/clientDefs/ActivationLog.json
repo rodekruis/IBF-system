@@ -1,6 +1,0 @@
-{
-    "controller": "controllers/record",
-    "views": {
-        "list": "custom:views/activation-log/list"
-    }
-}

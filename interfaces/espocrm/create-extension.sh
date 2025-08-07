@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # EspoCRM IBF Dashboard Extension Packager (Bash)
 # This script creates a zip package that can be uploaded to EspoCRM as an extension
+# Compatible with macOS, Linux, and WSL
 #
 # Usage:
 #   ./create-extension.sh           # Use current version from manifest.json
@@ -55,15 +56,8 @@ fi
 
 echo -e "${GRAY}Using pure bash for JSON processing${NC}"
 
-# Get current version using pure bash JSON parsing
-CURRENT_VERSION=""
-while IFS= read -r line; do
-    # Look for version line and extract value
-    if [[ $line =~ \"version\"[[:space:]]*:[[:space:]]*\"([^\"]+)\" ]]; then
-        CURRENT_VERSION="${BASH_REMATCH[1]}"
-        break
-    fi
-done < "manifest.json"
+# Get current version using cross-platform compatible method
+CURRENT_VERSION=$(grep -o '"version"[[:space:]]*:[[:space:]]*"[^"]*"' manifest.json | head -1 | sed 's/.*: *"\([^"]*\)".*/\1/')
 
 if [[ -z "$CURRENT_VERSION" ]]; then
     echo -e "${RED}Error: Could not find version in manifest.json${NC}"
@@ -94,21 +88,29 @@ if [[ "$PATCH" == true ]] || [[ "$MINOR" == true ]] || [[ "$MAJOR" == true ]]; t
         echo -e "${CYAN}Auto-incrementing PATCH version: $CURRENT_VERSION -> $NEW_VERSION${NC}"
     fi
     
-    # Update manifest with new version using pure bash
+    # Update manifest with new version using cross-platform sed
     RELEASE_DATE=$(date +%Y-%m-%d)
     
-    # Create updated manifest content
-    {
-        while IFS= read -r line; do
-            if [[ $line =~ ^([[:space:]]*)\"version\"[[:space:]]*:[[:space:]]*\"[^\"]+\"(.*)$ ]]; then
-                echo "${BASH_REMATCH[1]}\"version\": \"$NEW_VERSION\"${BASH_REMATCH[2]}"
-            elif [[ $line =~ ^([[:space:]]*)\"releaseDate\"[[:space:]]*:[[:space:]]*\"[^\"]+\"(.*)$ ]]; then
-                echo "${BASH_REMATCH[1]}\"releaseDate\": \"$RELEASE_DATE\"${BASH_REMATCH[2]}"
-            else
-                echo "$line"
-            fi
-        done < "manifest.json"
-    } > "manifest.json.tmp" && mv "manifest.json.tmp" "manifest.json"
+    # Create updated manifest content using a more reliable approach
+    if command -v awk >/dev/null 2>&1; then
+        # Method 1: Using awk (most portable)
+        awk -v version="$NEW_VERSION" -v date="$RELEASE_DATE" '
+        {
+            if ($0 ~ /"version"[[:space:]]*:[[:space:]]*"[^"]*"/) {
+                gsub(/"version"[[:space:]]*:[[:space:]]*"[^"]*"/, "\"version\": \"" version "\"")
+            }
+            if ($0 ~ /"releaseDate"[[:space:]]*:[[:space:]]*"[^"]*"/) {
+                gsub(/"releaseDate"[[:space:]]*:[[:space:]]*"[^"]*"/, "\"releaseDate\": \"" date "\"")
+            }
+            print
+        }' manifest.json > manifest.json.tmp && mv manifest.json.tmp manifest.json
+    else
+        # Method 2: Using sed with temp file (compatible with macOS and Linux)
+        sed 's/"version"[[:space:]]*:[[:space:]]*"[^"]*"/"version": "'"$NEW_VERSION"'"/g' manifest.json > manifest.json.tmp
+        sed 's/"releaseDate"[[:space:]]*:[[:space:]]*"[^"]*"/"releaseDate": "'"$RELEASE_DATE"'"/g' manifest.json.tmp > manifest.json.tmp2
+        mv manifest.json.tmp2 manifest.json
+        rm -f manifest.json.tmp
+    fi
     
     echo -e "${GREEN}Updated manifest.json with new version and release date${NC}"
     echo ""
@@ -152,8 +154,8 @@ cp manifest.json "$TEMP_DIR/"
 echo -e "${YELLOW}Copying extension files...${NC}"
 
 # Define files and directories to include in the extension package
-INCLUDE_DIRS=("files")
-INCLUDE_FILES=("manifest.json")
+INCLUDE_DIRS=("files" "scripts")
+INCLUDE_FILES=("manifest.json" "README.md")
 
 echo -e "${GRAY}   Including directories: ${INCLUDE_DIRS[*]}${NC}"
 echo -e "${GRAY}   Including files: ${INCLUDE_FILES[*]}${NC}"
@@ -212,9 +214,9 @@ done
 ZIP_CREATED=false
 
 # Method 1: Try native zip command (available on most Unix systems)
-if command -v zip &> /dev/null; then
+if command -v zip >/dev/null 2>&1; then
     echo -e "${GRAY}   Using native zip command...${NC}"
-    zip -r "../$(basename "$OUTPUT_FILE")" . -x "*.DS_Store*" "*.git*" "*ibf-dashboard-extension-v*.zip" "*.sh" "*.md"
+    zip -r "../$(basename "$OUTPUT_FILE")" . -x "*.DS_Store*" "*.git*" >/dev/null 2>&1
     ZIP_EXIT_CODE=$?
     if [[ $ZIP_EXIT_CODE -eq 0 ]]; then
         ZIP_CREATED=true
@@ -223,13 +225,11 @@ if command -v zip &> /dev/null; then
 fi
 
 # Method 2: Try using WSL zip command if on Windows
-if [[ "$ZIP_CREATED" == false ]] && [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" ]]; then
-    if command -v wsl &> /dev/null; then
+if [[ "$ZIP_CREATED" == false ]] && [[ "$OSTYPE" == "msys" || "$OSTYPE" == "cygwin" || -n "$WSL_DISTRO_NAME" ]]; then
+    if command -v wsl >/dev/null 2>&1; then
         echo -e "${GRAY}   Trying WSL zip command...${NC}"
         # Convert Windows path to WSL path and use zip
-        WSL_TEMP_DIR=$(wsl wslpath -u "$(pwd)")
-        WSL_OUTPUT_FILE=$(wsl wslpath -u "../$(basename "$OUTPUT_FILE")")
-        wsl bash -c "cd '$WSL_TEMP_DIR' && zip -r '$WSL_OUTPUT_FILE' . -x '*.DS_Store*' '*.git*'"
+        wsl bash -c "cd '$(pwd)' && zip -r '../$(basename "$OUTPUT_FILE")' . -x '*.DS_Store*' '*.git*'" >/dev/null 2>&1
         ZIP_EXIT_CODE=$?
         if [[ $ZIP_EXIT_CODE -eq 0 ]]; then
             ZIP_CREATED=true
@@ -242,7 +242,7 @@ fi
 if [[ "$ZIP_CREATED" == false ]]; then
     echo -e "${GRAY}   Using tar as fallback (will create .tar.gz instead of .zip)...${NC}"
     TAR_OUTPUT_FILE="../$(basename "$OUTPUT_FILE" .zip).tar.gz"
-    tar -czf "$TAR_OUTPUT_FILE" --exclude="*.DS_Store*" --exclude="*.git*" .
+    tar -czf "$TAR_OUTPUT_FILE" --exclude="*.DS_Store*" --exclude="*.git*" . >/dev/null 2>&1
     ZIP_EXIT_CODE=$?
     if [[ $ZIP_EXIT_CODE -eq 0 ]]; then
         ZIP_CREATED=true
@@ -276,7 +276,23 @@ rm -rf "$TEMP_DIR"
 
 # Verify package was created
 if [[ -f "$OUTPUT_FILE" ]]; then
-    FILE_SIZE_KB=$(du -k "$OUTPUT_FILE" | cut -f1)
+    # Get file size in a cross-platform way
+    if command -v stat >/dev/null 2>&1; then
+        # Use stat command if available (more reliable)
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            # macOS stat command
+            FILE_SIZE_KB=$(stat -f %z "$OUTPUT_FILE" 2>/dev/null | awk '{print int($1/1024)}')
+        else
+            # Linux/GNU stat command
+            FILE_SIZE_KB=$(stat -c %s "$OUTPUT_FILE" 2>/dev/null | awk '{print int($1/1024)}')
+        fi
+    else
+        # Fallback to du command
+        FILE_SIZE_KB=$(du -k "$OUTPUT_FILE" 2>/dev/null | cut -f1)
+    fi
+    
+    # Default to "unknown" if we can't get the size
+    [[ -z "$FILE_SIZE_KB" ]] && FILE_SIZE_KB="unknown"
     echo -e "${GREEN}Package created successfully!${NC}"
     echo -e "${WHITE}File: $OUTPUT_FILE${NC}"
     echo -e "${WHITE}Size: $FILE_SIZE_KB KB${NC}"
