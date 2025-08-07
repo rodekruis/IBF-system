@@ -152,8 +152,8 @@ cp manifest.json "$TEMP_DIR/"
 echo -e "${YELLOW}Copying extension files...${NC}"
 
 # Define files and directories to include in the extension package
-INCLUDE_DIRS=("files" "scripts")
-INCLUDE_FILES=("manifest.json" "README.md")
+INCLUDE_DIRS=("files")
+INCLUDE_FILES=("manifest.json")
 
 echo -e "${GRAY}   Including directories: ${INCLUDE_DIRS[*]}${NC}"
 echo -e "${GRAY}   Including files: ${INCLUDE_FILES[*]}${NC}"
@@ -214,7 +214,7 @@ ZIP_CREATED=false
 # Method 1: Try native zip command (available on most Unix systems)
 if command -v zip &> /dev/null; then
     echo -e "${GRAY}   Using native zip command...${NC}"
-    zip -r "../$(basename "$OUTPUT_FILE")" . -x "*.DS_Store*" "*.git*"
+    zip -r "../$(basename "$OUTPUT_FILE")" . -x "*.DS_Store*" "*.git*" "*ibf-dashboard-extension-v*.zip" "*.sh" "*.md"
     ZIP_EXIT_CODE=$?
     if [[ $ZIP_EXIT_CODE -eq 0 ]]; then
         ZIP_CREATED=true

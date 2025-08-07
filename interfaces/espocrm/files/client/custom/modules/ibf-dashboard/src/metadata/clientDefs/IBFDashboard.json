@@ -1,5 +1,0 @@
-{
-    "controller": "ibf-dashboard:controllers/ibfdashboard",
-    "defaultAction": "index",
-    "acl": false
-}

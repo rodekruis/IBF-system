@@ -1,10 +1,12 @@
 {
     "controller": "ibf-dashboard:controllers/ibfdashboard",
+    "defaultAction": "index",
     "createDisabled": true,
     "searchPanelDisabled": true,
     "exportDisabled": true,
     "massUpdateDisabled": true,
     "massRemoveDisabled": true,
+    "acl": false,
     "views": {
         "list": "ibf-dashboard:views/ibfdashboard",
         "admin": "ibf-dashboard:views/admin/ibf"

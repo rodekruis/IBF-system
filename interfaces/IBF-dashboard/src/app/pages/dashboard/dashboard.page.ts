@@ -376,6 +376,38 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
     return hasSelectedPlace && hasIndicators;
   }
 
+  /**
+   * Generate EspoCRM ActivationLog URL with client-side filters for countryCodeISO3 and disasterType
+   */
+  public generateActivationLogUrl(): string {
+    // Get the base URL from the current window location
+    // This allows the component to work in any EspoCRM instance
+    const baseUrl = `${window.location.protocol}//${window.location.host}`;
+    
+    // Get current country and disaster type from services
+    const countryCodeISO3 = this.countryService.selectedCountry?.countryCodeISO3 || 'ETH';
+    const disasterType = this.disasterTypeService.selectedDisasterType?.disasterType || 'drought';
+    
+    // Create URL parameters for client-side filtering
+    // These will be processed by our custom ActivationLog list view
+    const params = new URLSearchParams({
+      countryCodeISO3: countryCodeISO3,
+      disasterType: disasterType
+    });
+
+    // Return URL to EspoCRM web interface with filter parameters
+    // Our custom list view will read these parameters and apply filters client-side
+    return `${baseUrl}/#ActivationLog?${params.toString()}`;
+  }
+
+  /**
+   * Open ActivationLog in EspoCRM interface in a new tab
+   */
+  public openActivationLog(): void {
+    const url = this.generateActivationLogUrl();
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+
   logout(): void {
     this.authService.logout();
   }

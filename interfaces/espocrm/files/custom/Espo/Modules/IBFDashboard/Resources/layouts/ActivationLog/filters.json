@@ -1,0 +1,32 @@
+[
+    {
+        "name": "name"
+    },
+    {
+        "name": "countryCodeISO3"
+    },
+    {
+        "name": "disasterType"
+    },
+    {
+        "name": "eventName"
+    },
+    {
+        "name": "placeCode"
+    },
+    {
+        "name": "alertLevel"
+    },
+    {
+        "name": "closed"
+    },
+    {
+        "name": "userTrigger"
+    },
+    {
+        "name": "firstIssuedDate"
+    },
+    {
+        "name": "endDate"
+    }
+]

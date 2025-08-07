@@ -443,6 +443,14 @@ EOF
             # Create necessary directories
             mkdir -p "$ESPOCRM_ASSETS_DIR"
             
+            # Clean up old chunks and JavaScript files before copying new ones
+            echo -e "   \e[33mCleaning up old IBF dashboard chunks and JS files...\e[0m"
+            rm -f "$ESPOCRM_ASSETS_DIR"/chunk-*.js
+            rm -f "$ESPOCRM_ASSETS_DIR"/main.js
+            rm -f "$ESPOCRM_ASSETS_DIR"/polyfills.js
+            rm -f "$ESPOCRM_ASSETS_DIR"/styles.css
+            echo -e "   \e[90mOld IBF dashboard files removed\e[0m"
+            
             # Copy main JS files to assets directory (matches deployUrl/)
             echo -e "   \e[90mCopying main JS files to assets directory...\e[0m"
             cp "$BROWSER_PATH/main.js" "$ESPOCRM_ASSETS_DIR/"

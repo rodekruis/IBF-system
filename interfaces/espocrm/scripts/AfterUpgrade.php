@@ -14,6 +14,7 @@ class AfterUpgrade
         // Ensure EarlyWarning and EarlyAction tables exist and are up to date
         $this->ensureEarlyWarningTableSchema();
         $this->ensureEarlyActionTableSchema();
+        $this->ensureActivationLogTableSchema();
         
         // Ensure all IBFUsers are assigned to Anticipatory Action team
         $this->ensureIBFUsersInAnticipationTeam();
@@ -35,6 +36,9 @@ class AfterUpgrade
         
         // Sync Early Actions from IBF API (for new/updated actions)
         $this->syncEarlyActionsFromIBF();
+        
+        // Sync Activation Logs from IBF API (for new/updated activations)
+        $this->syncActivationLogsFromIBF();
     }
 
     protected function fixIBFUserTableSchema()
@@ -182,6 +186,31 @@ class AfterUpgrade
         }
     }
     
+    protected function ensureActivationLogTableSchema()
+    {
+        try {
+            $entityManager = $this->container->get('entityManager');
+            $connection = $entityManager->getPDO();
+            
+            // Check if ActivationLog table exists
+            $result = $connection->query("SHOW TABLES LIKE 'activation_log'")->fetchAll();
+            
+            if (empty($result)) {
+                error_log('IBF Dashboard: ActivationLog table does not exist, will be created by schema rebuild');
+                return;
+            }
+            
+            error_log('IBF Dashboard: ActivationLog table exists, preserving existing data');
+            
+            // Get existing record count
+            $count = $connection->query("SELECT COUNT(*) FROM activation_log")->fetchColumn();
+            error_log("IBF Dashboard: Found $count existing ActivationLog records");
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Error checking ActivationLog table: ' . $e->getMessage());
+        }
+    }
+    
     protected function backupEntityDataIfNeeded()
     {
         try {
@@ -196,7 +225,7 @@ class AfterUpgrade
                 $connection = $entityManager->getPDO();
                 
                 // Create backup tables for existing data
-                $tables = ['early_warning', 'early_action', 'early_warning_early_action'];
+                $tables = ['early_warning', 'early_action', 'early_warning_early_action', 'activation_log'];
                 
                 foreach ($tables as $table) {
                     $result = $connection->query("SHOW TABLES LIKE '$table'")->fetchAll();
@@ -220,7 +249,7 @@ class AfterUpgrade
             
             // Get current entity schema version
             $currentVersion = $config->get('ibfEntitySchemaVersion', '0.0.0');
-            $targetVersion = '1.1.0'; // Updated for EarlyWarning/EarlyAction entities
+            $targetVersion = '1.2.0'; // Updated for EarlyWarning/EarlyAction/ActivationLog entities
             
             if (version_compare($currentVersion, $targetVersion, '<')) {
                 error_log("IBF Dashboard: Updating entity schema from $currentVersion to $targetVersion");
@@ -284,6 +313,32 @@ class AfterUpgrade
         }
     }
     
+    protected function syncActivationLogsFromIBF()
+    {
+        try {
+            error_log('IBF Dashboard: Starting Activation Log sync during upgrade');
+            
+            // Create an instance of the ActivationLogSync service
+            $syncService = new \Espo\Modules\IBFDashboard\Services\ActivationLogSync();
+            $syncService->setContainer($this->container);
+            
+            // Sync all activation logs from IBF API
+            $result = $syncService->syncAllActivationLogs();
+            
+            if ($result && isset($result['success']) && $result['success']) {
+                error_log('IBF Dashboard: Activation Log sync completed successfully during upgrade');
+                if (isset($result['created']) && isset($result['updated'])) {
+                    error_log('IBF Dashboard: Activation Log sync stats - Created: ' . $result['created'] . ', Updated: ' . $result['updated']);
+                }
+            } else {
+                error_log('IBF Dashboard: Activation Log sync failed during upgrade: ' . ($result['message'] ?? 'Unknown error'));
+            }
+            
+        } catch (\Exception $e) {
+            error_log('IBF Dashboard: Error during Activation Log sync: ' . $e->getMessage());
+        }
+    }
+    
     protected function addEntityTabsToNavigation()
     {
         try {
@@ -294,7 +349,7 @@ class AfterUpgrade
             $tabList = $config->get('tabList', []);
             
             // Add essential entity tabs if they don't exist
-            $entitiesToAdd = ['EarlyWarning', 'EarlyAction'];
+            $entitiesToAdd = ['EarlyWarning', 'EarlyAction', 'ActivationLog'];
             $tabsAdded = false;
             
             foreach ($entitiesToAdd as $entity) {
@@ -414,7 +469,7 @@ class AfterUpgrade
                 // Create the role with updated permissions
                 $role = $entityManager->createEntity('Role', [
                     'name' => 'IBF Dashboard Access',
-                    'description' => 'Role granting access to IBF Dashboard and related entities including EarlyWarning and EarlyAction',
+                    'description' => 'Role granting access to IBF Dashboard and related entities including EarlyWarning, EarlyAction, and ActivationLog',
                     'data' => [
                         // IBF Dashboard scope permissions
                         'IBFDashboard' => [
@@ -448,6 +503,14 @@ class AfterUpgrade
                             'delete' => 'no',
                             'stream' => 'no'
                         ],
+                        // Activation Log entities (read access for team members)
+                        'ActivationLog' => [
+                            'create' => 'no',
+                            'read' => 'team',
+                            'edit' => 'no',
+                            'delete' => 'no',
+                            'stream' => 'no'
+                        ],
                         // Allow access to own user record
                         'User' => [
                             'create' => 'no',
@@ -459,7 +522,7 @@ class AfterUpgrade
                     ]
                 ]);
                 
-                error_log('IBF Dashboard: Created IBF Dashboard Access role with EarlyWarning/EarlyAction permissions');
+                error_log('IBF Dashboard: Created IBF Dashboard Access role with EarlyWarning/EarlyAction/ActivationLog permissions');
             } else {
                 // Update existing role to include new permissions
                 $roleData = $role->get('data') ?: [];
@@ -486,9 +549,20 @@ class AfterUpgrade
                     ];
                 }
                 
+                // Add ActivationLog permissions if missing
+                if (!isset($roleData['ActivationLog'])) {
+                    $roleData['ActivationLog'] = [
+                        'create' => 'no',
+                        'read' => 'team',
+                        'edit' => 'no',
+                        'delete' => 'no',
+                        'stream' => 'no'
+                    ];
+                }
+                
                 // Update the role
                 $entityManager->saveEntity($role->set('data', $roleData));
-                error_log('IBF Dashboard: Updated IBF Dashboard Access role with EarlyWarning/EarlyAction permissions');
+                error_log('IBF Dashboard: Updated IBF Dashboard Access role with EarlyWarning/EarlyAction/ActivationLog permissions');
             }
             
             // Ensure the role is assigned to the team

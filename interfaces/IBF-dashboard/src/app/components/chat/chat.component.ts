@@ -614,4 +614,12 @@ export class ChatComponent implements OnInit, OnDestroy {
     // Our custom list view will read these parameters and apply filters client-side
     return `${baseUrl}/#EarlyAction?${params.toString()}`;
   }
+
+  /**
+   * Open Early Actions in EspoCRM interface in a new tab
+   */
+  public openEarlyActions(placeCode: string): void {
+    const url = this.generateEarlyActionsUrl(placeCode);
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
 }

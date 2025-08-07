@@ -1,4 +1,14 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 ion-content {
+  height: 100%;
+  --min-height: 100%;
+  flex: 1;
+  
   p,
   ion-label,
   ion-note {
@@ -54,5 +64,18 @@ ion-checkbox {
   
   &:active {
     opacity: 0.6;
+  }
+}
+
+.early-actions-button {
+  width: 100%;
+  max-width: 200px;
+  --border-width: 1px;
+  --border-style: solid;
+  font-size: 11px;
+  height: 28px;
+  
+  ion-icon {
+    font-size: 14px;
   }
 }
