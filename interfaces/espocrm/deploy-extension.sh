@@ -1,6 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # EspoCRM Extension Deployment - Simplified and Robust
+# Compatible with macOS, Linux, and WSL
+
+set -e  # Exit on error
 
 # Color codes for output
 RED='\033[0;31m'
@@ -51,7 +54,8 @@ if [[ -z "$ENVIRONMENT" ]]; then
     echo ""
     
     while [[ -z "$ENVIRONMENT" ]]; do
-        read -p "Select environment to deploy to (1-2, or type name): " choice
+        echo -n "Select environment to deploy to (1-2, or type name): "
+        read choice
         
         case $choice in
             1)
@@ -174,7 +178,8 @@ echo -e "${YELLOW}4. Transferring package to VM...${NC}"
 # Check if sshpass is available for password authentication
 if command -v sshpass &> /dev/null; then
     echo -e "${GRAY}   Using sshpass for password authentication${NC}"
-    read -s -p "Enter password for $VM_USER@$VM_HOST: " VM_PASSWORD
+    echo -n "Enter password for $VM_USER@$VM_HOST: "
+    read -s VM_PASSWORD
     echo ""
     sshpass -p "$VM_PASSWORD" scp "$PACKAGE_FILE" "$VM_USER@$VM_HOST:$VM_HOME/"
 else
@@ -196,7 +201,8 @@ echo -e "${YELLOW}5. Running installation script on remote VM...${NC}"
 # For test environment, we need to handle sudo password
 if [[ "$ENVIRONMENT" == "test" ]]; then
     echo -e "${GRAY}   Test environment detected - handling sudo authentication${NC}"
-    read -s -p "Enter sudo password for $VM_USER: " SUDO_PASSWORD
+    echo -n "Enter sudo password for $VM_USER: "
+    read -s SUDO_PASSWORD
     echo ""
     
     if command -v sshpass &> /dev/null && [[ -n "$VM_PASSWORD" ]]; then
