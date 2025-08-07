@@ -474,12 +474,26 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
       console.log('🔐 IBF backend authentication state changed:', isAuthenticated);
       
       if (isAuthenticated && this.espoCrmAuth.getToken()) {
-        // Authentication successful - proceed to dashboard
-        if (this.router.url === '/login' || this.router.url === '/') {
-          console.log('🔐 IBF backend authenticated, navigating to dashboard');
-          this.router.navigate(['/dashboard']).catch(err => {
-            console.error('🔐 Navigation to dashboard failed:', err);
-          });
+        // Authentication successful - handle routing based on embed platform
+        if (this.embedPlatform === 'espocrm') {
+          // For EspoCRM embedded mode, NEVER use /dashboard route to prevent 404 on refresh
+          if (this.router.url === '/login') {
+            console.log('🔐 IBF backend authenticated, navigating to root (EspoCRM embedded mode)');
+            this.router.navigate(['/']).catch(err => {
+              console.error('🔐 Navigation to root failed:', err);
+            });
+          } else {
+            console.log('🔐 IBF backend authenticated, staying on current route for EspoCRM compatibility');
+            // Don't navigate anywhere - just stay on the current route
+          }
+        } else {
+          // For standalone mode, use normal dashboard navigation
+          if (this.router.url === '/login' || this.router.url === '/') {
+            console.log('🔐 IBF backend authenticated, navigating to dashboard (standalone mode)');
+            this.router.navigate(['/dashboard']).catch(err => {
+              console.error('🔐 Navigation to dashboard failed:', err);
+            });
+          }
         }
       }
     });
@@ -488,11 +502,24 @@ export class AppComponent implements OnInit, OnChanges, OnDestroy {
     if (this.espoCrmAuth.isAuthenticated()) {
       console.log('🔐 Already authenticated with IBF backend, skipping login');
       
-      // Skip login screen if we're on login route
-      if (this.router.url === '/login' || this.router.url === '/') {
-        this.router.navigate(['/dashboard']).catch(err => {
-          console.error('🔐 Navigation to dashboard failed:', err);
-        });
+      if (this.embedPlatform === 'espocrm') {
+        // For EspoCRM embedded mode, NEVER use /dashboard route
+        if (this.router.url === '/login') {
+          console.log('🔐 Already authenticated, navigating to root (EspoCRM embedded mode)');
+          this.router.navigate(['/']).catch(err => {
+            console.error('🔐 Navigation to root failed:', err);
+          });
+        } else {
+          console.log('🔐 Already authenticated, staying on current route for EspoCRM compatibility');
+        }
+      } else {
+        // For standalone mode, navigate to dashboard if needed
+        if (this.router.url === '/login' || this.router.url === '/') {
+          console.log('🔐 Already authenticated, navigating to dashboard (standalone mode)');
+          this.router.navigate(['/dashboard']).catch(err => {
+            console.error('🔐 Navigation to dashboard failed:', err);
+          });
+        }
       }
     }
   }

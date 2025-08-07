@@ -34,44 +34,48 @@ while [[ $# -gt 0 ]]; do
             ENVIRONMENT="$2"
             shift 2
             ;;
+        --vm-password)
+            VM_PASSWORD="$2"
+            shift 2
+            ;;
+        --sudo-password)
+            SUDO_PASSWORD="$2"
+            shift 2
+            ;;
         *)
             echo -e "${RED}Unknown parameter: $1${NC}"
-            echo "Usage: $0 --environment <dev|test>"
+            echo "Usage: $0 --environment <dev|test> [--vm-password PASSWORD] [--sudo-password PASSWORD]"
             exit 1
             ;;
     esac
 done
 
-# If no environment specified, show menu
+# If no environment specified, show usage and exit
 if [[ -z "$ENVIRONMENT" ]]; then
     echo ""
     echo -e "${GREEN}EspoCRM Extension Deployment${NC}"
     echo -e "${GREEN}============================${NC}"
     echo ""
-    echo -e "${CYAN}Available environments:${NC}"
-    echo -e "${GRAY}1. Development (dev)${NC}"
-    echo -e "${GRAY}2. Test (test)${NC}"
+    echo -e "${CYAN}Usage:${NC}"
+    echo -e "${WHITE}$0 --environment <dev|test> [--vm-password PASSWORD] [--sudo-password PASSWORD]${NC}"
     echo ""
-    
-    while [[ -z "$ENVIRONMENT" ]]; do
-        echo -n "Select environment to deploy to (1-2, or type name): "
-        read choice
-        
-        case $choice in
-            1)
-                ENVIRONMENT="dev"
-                ;;
-            2)
-                ENVIRONMENT="test"
-                ;;
-            dev|test)
-                ENVIRONMENT="$choice"
-                ;;
-            *)
-                echo -e "${RED}Invalid selection. Please choose 1-2 or type: dev, test${NC}"
-                ;;
-        esac
-    done
+    echo -e "${CYAN}Available environments:${NC}"
+    echo -e "${GRAY}  dev  - Development environment${NC}"
+    echo -e "${GRAY}  test - Test environment${NC}"
+    echo ""
+    echo -e "${CYAN}Password options:${NC}"
+    echo -e "${GRAY}  --vm-password    - SSH password (if not using SSH keys)${NC}"
+    echo -e "${GRAY}  --sudo-password  - Sudo password (for test environment)${NC}"
+    echo ""
+    echo -e "${CYAN}Examples:${NC}"
+    echo -e "${WHITE}  $0 --environment dev${NC}"
+    echo -e "${WHITE}  $0 --environment test --sudo-password mypassword${NC}"
+    echo ""
+    echo -e "${YELLOW}Note: Passwords can also be set via environment variables:${NC}"
+    echo -e "${GRAY}  export VM_PASSWORD=mypassword${NC}"
+    echo -e "${GRAY}  export SUDO_PASSWORD=mysudopassword${NC}"
+    echo ""
+    exit 1
 fi
 
 # Convert environment to lowercase
@@ -85,11 +89,21 @@ if [[ "$ENVIRONMENT" != "dev" && "$ENVIRONMENT" != "test" ]]; then
     exit 1
 fi
 
-# Get environment details
-VM_HOST="${ENVIRONMENTS[$ENVIRONMENT,host]}"
-VM_USER="${ENVIRONMENTS[$ENVIRONMENT,user]}"
-VM_HOME="${ENVIRONMENTS[$ENVIRONMENT,home]}"
-ENV_NAME="${ENVIRONMENTS[$ENVIRONMENT,name]}"
+# Get environment details using individual variables for macOS compatibility
+if [[ "$ENVIRONMENT" == "dev" ]]; then
+    VM_HOST="$DEV_HOST"
+    VM_USER="$DEV_USER"
+    VM_HOME="$DEV_HOME"
+    ENV_NAME="$DEV_NAME"
+elif [[ "$ENVIRONMENT" == "test" ]]; then
+    VM_HOST="$TEST_HOST"
+    VM_USER="$TEST_USER"
+    VM_HOME="$TEST_HOME"
+    ENV_NAME="$TEST_NAME"
+else
+    echo -e "${RED}Error: Invalid environment configuration${NC}"
+    exit 1
+fi
 
 EXTENSION_NAME="ibf-dashboard-extension"
 
@@ -115,22 +129,28 @@ if [[ ! -f "$DASHBOARD_DIR/build-web-component.sh" ]]; then
     exit 1
 fi
 
-# Execute the web component build script
+# Execute the web component build script with better error handling
 echo -e "${GRAY}   Building web component in $DASHBOARD_DIR${NC}"
-(cd "$DASHBOARD_DIR" && ./build-web-component.sh)
+cd "$DASHBOARD_DIR" || {
+    echo -e "${RED}Failed to navigate to $DASHBOARD_DIR${NC}"
+    exit 1
+}
 
-if [[ $? -ne 0 ]]; then
+if ! ./build-web-component.sh; then
     echo -e "${RED}Failed to build web component!${NC}"
+    cd - >/dev/null || true
     exit 1
 fi
 
+cd - >/dev/null || {
+    echo -e "${YELLOW}Warning: Could not return to original directory${NC}"
+}
+
 echo -e "${GREEN}Web component built successfully!${NC}"
 
-# Step 2: Build extension
+# Step 2: Build extension with better error handling
 echo -e "${YELLOW}2. Building extension...${NC}"
-./create-extension.sh --patch
-
-if [[ $? -ne 0 ]]; then
+if ! ./create-extension.sh --patch; then
     echo -e "${RED}Failed to build extension!${NC}"
     exit 1
 fi
@@ -169,18 +189,24 @@ echo -e "${YELLOW}4. Transferring package to VM...${NC}"
 # Check if sshpass is available for password authentication
 if command -v sshpass >/dev/null 2>&1; then
     echo -e "${GRAY}   Using sshpass for password authentication${NC}"
-    echo -n "Enter password for $VM_USER@$VM_HOST: "
-    read -s VM_PASSWORD
+    printf "Enter password for $VM_USER@$VM_HOST: "
+    if ! read -rs VM_PASSWORD; then
+        echo ""
+        echo -e "${RED}Error: Failed to read password${NC}"
+        exit 1
+    fi
     echo ""
-    sshpass -p "$VM_PASSWORD" scp "$PACKAGE_FILE" "$VM_USER@$VM_HOST:$VM_HOME/"
+    
+    if ! sshpass -p "$VM_PASSWORD" scp "$PACKAGE_FILE" "$VM_USER@$VM_HOST:$VM_HOME/"; then
+        echo -e "${RED}Transfer failed with sshpass!${NC}"
+        exit 1
+    fi
 else
     echo -e "${GRAY}   Using SSH key or interactive password authentication${NC}"
-    scp "$PACKAGE_FILE" "$VM_USER@$VM_HOST:$VM_HOME/"
-fi
-
-if [[ $? -ne 0 ]]; then
-    echo -e "${RED}Transfer failed!${NC}"
-    exit 1
+    if ! scp "$PACKAGE_FILE" "$VM_USER@$VM_HOST:$VM_HOME/"; then
+        echo -e "${RED}Transfer failed!${NC}"
+        exit 1
+    fi
 fi
 
 echo -e "${GREEN}Package transferred successfully!${NC}"
@@ -192,29 +218,47 @@ echo -e "${YELLOW}5. Running installation script on remote VM...${NC}"
 # For test environment, we need to handle sudo password
 if [[ "$ENVIRONMENT" == "test" ]]; then
     echo -e "${GRAY}   Test environment detected - handling sudo authentication${NC}"
-    echo -n "Enter sudo password for $VM_USER: "
-    read -s SUDO_PASSWORD
+    printf "Enter sudo password for $VM_USER: "
+    if ! read -rs SUDO_PASSWORD; then
+        echo ""
+        echo -e "${RED}Error: Failed to read sudo password${NC}"
+        exit 1
+    fi
     echo ""
     
     if command -v sshpass >/dev/null 2>&1 && [[ -n "$VM_PASSWORD" ]]; then
         echo -e "${GRAY}   Executing remote installation with sshpass and sudo password${NC}"
-        sshpass -p "$VM_PASSWORD" ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && echo '$SUDO_PASSWORD' | sudo -S ./install-extension.sh"
+        if ! sshpass -p "$VM_PASSWORD" ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && echo '$SUDO_PASSWORD' | sudo -S ./install-extension.sh"; then
+            INSTALL_EXIT_CODE=1
+        else
+            INSTALL_EXIT_CODE=0
+        fi
     else
         echo -e "${GRAY}   Executing remote installation with SSH key and sudo password${NC}"
-        ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && echo '$SUDO_PASSWORD' | sudo -S ./install-extension.sh"
+        if ! ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && echo '$SUDO_PASSWORD' | sudo -S ./install-extension.sh"; then
+            INSTALL_EXIT_CODE=1
+        else
+            INSTALL_EXIT_CODE=0
+        fi
     fi
 else
     # Dev environment with passwordless sudo
     if command -v sshpass >/dev/null 2>&1 && [[ -n "$VM_PASSWORD" ]]; then
         echo -e "${GRAY}   Executing remote installation with sshpass${NC}"
-        sshpass -p "$VM_PASSWORD" ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && ./install-extension.sh"
+        if ! sshpass -p "$VM_PASSWORD" ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && ./install-extension.sh"; then
+            INSTALL_EXIT_CODE=1
+        else
+            INSTALL_EXIT_CODE=0
+        fi
     else
         echo -e "${GRAY}   Executing remote installation with SSH key/interactive auth${NC}"
-        ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && ./install-extension.sh"
+        if ! ssh "$VM_USER@$VM_HOST" "cd $VM_HOME && chmod +x install-extension.sh && ./install-extension.sh"; then
+            INSTALL_EXIT_CODE=1
+        else
+            INSTALL_EXIT_CODE=0
+        fi
     fi
 fi
-
-INSTALL_EXIT_CODE=$?
 
 if [[ $INSTALL_EXIT_CODE -eq 0 ]]; then
     echo ""

@@ -25,11 +25,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
 ];
- 
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules }),
+    RouterModule.forRoot(routes, { 
+      preloadingStrategy: PreloadAllModules,
+      // Use hash location strategy for better compatibility with EspoCRM when embedded
+      useHash: false // Keep false for standard mode, but could be configured per environment
+    }),
   ],
   exports: [RouterModule],
 })
