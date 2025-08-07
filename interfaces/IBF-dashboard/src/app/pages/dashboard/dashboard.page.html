@@ -9,7 +9,7 @@
   <div class="dashboard-header">
     <ion-grid class="header-structure ion-no-padding">
       <!-- Header row with date, disaster type, and menu button -->
-      <ion-row class="header-top-row">
+      <ion-row class="items-center ion-padding-horizontal">
         <ion-col sizeXs="12" sizeMd="2" sizeLg="2" sizeXl="2" class="date-time-section">
           <div class="date-time-content">
             {{ getTodayDate() | date: 'd LLL y, HH:mm z' }}
@@ -49,9 +49,9 @@
         <!-- Left column: Events/warnings -->
         <ion-col
           sizeXs="12"
-          sizeMd="3"
-          sizeLg="3"
-          sizeXl="3"
+          sizeMd="4"
+          sizeLg="4"
+          sizeXl="4"
           class="ibf-dashboard-left-column ion-no-padding"
           style="position: relative;"
         >
@@ -103,9 +103,9 @@
         <!-- Right section: Map and overlays -->
         <ion-col 
           sizeXs="12" 
-          [sizeMd]="isAdminPanelExpanded ? '7' : '9'"
-          [sizeLg]="isAdminPanelExpanded ? '7' : '9'"
-          [sizeXl]="isAdminPanelExpanded ? '7' : '9'"
+          [sizeMd]="isAdminPanelExpanded ? '6' : '8'"
+          [sizeLg]="isAdminPanelExpanded ? '6' : '8'"
+          [sizeXl]="isAdminPanelExpanded ? '6' : '8'"
           class="ibf-dashboard-right-column ion-no-padding"
           style="position: relative;"
         >
