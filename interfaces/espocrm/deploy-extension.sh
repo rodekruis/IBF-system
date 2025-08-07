@@ -27,6 +27,12 @@ ENVIRONMENTS["test,name"]="Test"
 
 ENVIRONMENT=""
 
+# Helper function to get environment value
+get_env_value() {
+    local env_key="${1},${2}"
+    echo "${ENVIRONMENTS[$env_key]}"
+}
+
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -89,19 +95,16 @@ if [[ "$ENVIRONMENT" != "dev" && "$ENVIRONMENT" != "test" ]]; then
     exit 1
 fi
 
-# Get environment details using individual variables for macOS compatibility
-if [[ "$ENVIRONMENT" == "dev" ]]; then
-    VM_HOST="$DEV_HOST"
-    VM_USER="$DEV_USER"
-    VM_HOME="$DEV_HOME"
-    ENV_NAME="$DEV_NAME"
-elif [[ "$ENVIRONMENT" == "test" ]]; then
-    VM_HOST="$TEST_HOST"
-    VM_USER="$TEST_USER"
-    VM_HOME="$TEST_HOME"
-    ENV_NAME="$TEST_NAME"
-else
-    echo -e "${RED}Error: Invalid environment configuration${NC}"
+# Get environment details using associative array
+VM_HOST=$(get_env_value "$ENVIRONMENT" "host")
+VM_USER=$(get_env_value "$ENVIRONMENT" "user")
+VM_HOME=$(get_env_value "$ENVIRONMENT" "home")
+ENV_NAME=$(get_env_value "$ENVIRONMENT" "name")
+
+# Verify we got valid configuration
+if [[ -z "$VM_HOST" || -z "$VM_USER" || -z "$VM_HOME" || -z "$ENV_NAME" ]]; then
+    echo -e "${RED}Error: Invalid environment configuration for '$ENVIRONMENT'${NC}"
+    echo -e "${YELLOW}Available environments: dev, test${NC}"
     exit 1
 fi
 
