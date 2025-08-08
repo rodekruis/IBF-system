@@ -5,7 +5,7 @@
     "php":  [
                 "\u003e=7.4.0"
             ],
-    "version": "1.2.4",
+    "version": "1.2.5",
     "acceptableVersions":  [
                                "\u003e=7.0.0"
                            ],
