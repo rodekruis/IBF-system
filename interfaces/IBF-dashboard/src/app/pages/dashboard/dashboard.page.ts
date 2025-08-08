@@ -1,4 +1,11 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  OnDestroy,
+  ChangeDetectorRef,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { DateTime } from 'luxon';
 import { Subscription, Subject } from 'rxjs';
@@ -38,7 +45,7 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   public isCountryDropdownOpen = false;
   public isMenuPanelOpen = false;
   public isAdminPanelExpanded = false;
-  
+
   private readonly adminRole = UserRole.Admin;
   public environmentConfiguration = environment.configuration;
   private authSubscription?: Subscription;
@@ -67,16 +74,24 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   ) {
     DashboardPage.instanceCount++;
     this.instanceId = DashboardPage.instanceCount;
-    
+
     this.debugService.logComponentInit('DashboardPage', this.instanceId);
-    
+
     if (DashboardPage.instanceCount > 1) {
-      console.error(`🚨 CRITICAL: Multiple DashboardPage instances created! Current count: ${DashboardPage.instanceCount}`);
+      console.error(
+        `🚨 CRITICAL: Multiple DashboardPage instances created! Current count: ${DashboardPage.instanceCount}`,
+      );
       console.error('🚨 This indicates a routing or component lifecycle issue');
     }
 
-    console.log('🧭 DashboardPage: Constructor - Current URL:', window.location.href);
-    console.log('🧭 DashboardPage: Constructor - Timestamp:', new Date().toISOString());
+    console.log(
+      '🧭 DashboardPage: Constructor - Current URL:',
+      window.location.href,
+    );
+    console.log(
+      '🧭 DashboardPage: Constructor - Timestamp:',
+      new Date().toISOString(),
+    );
 
     if (!this.isPhone() && !this.isTablet()) {
       return;
@@ -91,10 +106,10 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     if (this.isInitialized || this.isDestroyed) {
-      console.warn(`⚠️ DashboardPage[${this.instanceId}]: Preventing duplicate initialization`, {
-        isInitialized: this.isInitialized,
-        isDestroyed: this.isDestroyed
-      });
+      console.warn(
+        `⚠️ DashboardPage[${this.instanceId}]: Preventing duplicate initialization`,
+        { isInitialized: this.isInitialized, isDestroyed: this.isDestroyed },
+      );
       return;
     }
 
@@ -105,7 +120,10 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
       this.isInitialized = true;
       this.analyticsService.logPageView(AnalyticsPage.dashboard);
     } catch (error) {
-      console.error(`❌ DashboardPage[${this.instanceId}]: Initialization failed`, error);
+      console.error(
+        `❌ DashboardPage[${this.instanceId}]: Initialization failed`,
+        error,
+      );
       this.cleanup();
     }
   }
@@ -113,33 +131,43 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   ngAfterViewInit() {
     this.debugService.logComponentAfterViewInit('DashboardPage');
     this.cdr.markForCheck();
-    
+
     setTimeout(() => {
       this.debugService.logDOMState();
-      this.debugService.logCSSStyles('DashboardPage', '.ibf-dashboard-left-column');
-      this.debugService.logCSSStyles('DashboardPage', '.ibf-dashboard-right-column');
+      this.debugService.logCSSStyles(
+        'DashboardPage',
+        '.ibf-dashboard-left-column',
+      );
+      this.debugService.logCSSStyles(
+        'DashboardPage',
+        '.ibf-dashboard-right-column',
+      );
       this.debugService.logCSSStyles('DashboardPage', 'app-chat');
       this.debugService.logCSSStyles('DashboardPage', 'app-map');
       this.cdr.markForCheck();
     }, 500);
-    
+
     setTimeout(() => {
       this.cdr.markForCheck();
       this.debugService.logDOMState();
-      
-      const dashboardElement = document.querySelector('[data-testid="ibf-dashboard-interface"]');
+
+      const dashboardElement = document.querySelector(
+        '[data-testid="ibf-dashboard-interface"]',
+      );
       if (!dashboardElement) {
-        console.error('🚨 CRITICAL: Dashboard template still not rendered after 2 seconds');
+        console.error(
+          '🚨 CRITICAL: Dashboard template still not rendered after 2 seconds',
+        );
         console.error('🚨 Component state:', {
           isDev: this.isDev,
           isMultiCountry: this.isMultiCountry,
           templateRendered: this.templateRendered,
-          version: this.version
+          version: this.version,
         });
-        
+
         this.templateRendered = true;
         this.cdr.markForCheck();
-        
+
         setTimeout(() => {
           this.debugService.logDOMState();
           console.log('🔄 Final change detection attempt complete');
@@ -153,48 +181,52 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private initializeServices() {
-    this.authSubscription = this.authService.getAuthSubscription()
-      .pipe(
-        takeUntil(this.destroy$),
-        distinctUntilChanged(),
-        debounceTime(100)
-      )
+    this.authSubscription = this.authService
+      .getAuthSubscription()
+      .pipe(takeUntil(this.destroy$), distinctUntilChanged(), debounceTime(100))
       .subscribe({
         next: this.onUserChange.bind(this),
-        error: (error) => console.error('Auth subscription error:', error)
+        error: (error) => console.error('Auth subscription error:', error),
       });
 
-    this.countrySubscription = this.countryService.getCountrySubscription()
+    this.countrySubscription = this.countryService
+      .getCountrySubscription()
       .pipe(
         takeUntil(this.destroy$),
-        distinctUntilChanged((prev, curr) => prev?.countryCodeISO3 === curr?.countryCodeISO3),
-        debounceTime(100)
+        distinctUntilChanged(
+          (prev, curr) => prev?.countryCodeISO3 === curr?.countryCodeISO3,
+        ),
+        debounceTime(100),
       )
       .subscribe({
         next: (country: Country) => {
           if (!this.isDestroyed) {
             this.currentCountry = country;
             this.cdr.markForCheck();
-            console.log('🎯 DashboardPage: Country updated:', country?.countryName);
+            console.log(
+              '🎯 DashboardPage: Country updated:',
+              country?.countryName,
+            );
           }
         },
-        error: (error) => console.error('Country subscription error:', error)
+        error: (error) => console.error('Country subscription error:', error),
       });
 
-    this.disasterTypeSubscription = this.disasterTypeService.getDisasterTypeSubscription()
-      .pipe(
-        takeUntil(this.destroy$),
-        distinctUntilChanged(),
-        debounceTime(100)
-      )
+    this.disasterTypeSubscription = this.disasterTypeService
+      .getDisasterTypeSubscription()
+      .pipe(takeUntil(this.destroy$), distinctUntilChanged(), debounceTime(100))
       .subscribe({
         next: (disasterType) => {
           if (!this.isDestroyed) {
-            console.log('🌪️ DashboardPage: Disaster type updated:', disasterType?.disasterType);
+            console.log(
+              '🌪️ DashboardPage: Disaster type updated:',
+              disasterType?.disasterType,
+            );
             this.cdr.markForCheck();
           }
         },
-        error: (error) => console.error('Disaster type subscription error:', error)
+        error: (error) =>
+          console.error('Disaster type subscription error:', error),
       });
 
     setTimeout(() => {
@@ -208,23 +240,25 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
 
   private cleanup() {
     this.isDestroyed = true;
-    
+
     this.destroy$.next();
     this.destroy$.complete();
-    
+
     DashboardPage.instanceCount = Math.max(0, DashboardPage.instanceCount - 1);
-    console.log(`💀 DashboardPage: Instance #${this.instanceId} destroyed. Remaining: ${DashboardPage.instanceCount}`);
-    
+    console.log(
+      `💀 DashboardPage: Instance #${this.instanceId} destroyed. Remaining: ${DashboardPage.instanceCount}`,
+    );
+
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
       this.authSubscription = undefined;
     }
-    
+
     if (this.countrySubscription) {
       this.countrySubscription.unsubscribe();
       this.countrySubscription = undefined;
     }
-    
+
     if (this.disasterTypeSubscription) {
       this.disasterTypeSubscription.unsubscribe();
       this.disasterTypeSubscription = undefined;
@@ -236,25 +270,43 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
       this.isDev = user.userRole === this.adminRole;
       this.isMultiCountry = user.countries.length > 1;
       this.cdr.markForCheck();
-      console.log('🔄 DashboardPage: Component marked for check by user change', {
-        isDev: this.isDev,
-        isMultiCountry: this.isMultiCountry
-      });
+      console.log(
+        '🔄 DashboardPage: Component marked for check by user change',
+        { isDev: this.isDev, isMultiCountry: this.isMultiCountry },
+      );
     }
   }
 
   private debugDataState(): void {
     console.log('🔍 DashboardPage - Data State Debug:');
-    console.log('🔍 Indicators:', this.aggregatesService.indicators?.length || 0);
-    console.log('🔍 Alert Areas:', this.aggregatesService.alertAreas?.length || 0);
-    console.log('🔍 Current Country:', this.currentCountry?.countryName || 'none');
+    console.log(
+      '🔍 Indicators:',
+      this.aggregatesService.indicators?.length || 0,
+    );
+    console.log(
+      '🔍 Alert Areas:',
+      this.aggregatesService.alertAreas?.length || 0,
+    );
+    console.log(
+      '🔍 Current Country:',
+      this.currentCountry?.countryName || 'none',
+    );
     console.log('🔍 Template Rendered:', this.templateRendered);
-    
+
     setTimeout(() => {
       console.log('🔍 DOM Check:');
-      console.log('🔍 aggregate-list elements:', document.querySelectorAll('app-aggregate-list').length);
-      console.log('🔍 areas-of-focus-summary elements:', document.querySelectorAll('app-areas-of-focus-summary').length);
-      console.log('🔍 matrix elements:', document.querySelectorAll('app-matrix').length);
+      console.log(
+        '🔍 aggregate-list elements:',
+        document.querySelectorAll('app-aggregate-list').length,
+      );
+      console.log(
+        '🔍 areas-of-focus-summary elements:',
+        document.querySelectorAll('app-areas-of-focus-summary').length,
+      );
+      console.log(
+        '🔍 matrix elements:',
+        document.querySelectorAll('app-matrix').length,
+      );
     }, 100);
   }
 
@@ -294,12 +346,18 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
 
   getActiveDisasterTypeIcon(): string {
     const disasterType = this.disasterTypeService.disasterType;
-    if (disasterType?.disasterType && DISASTER_TYPES_SVG_MAP[disasterType.disasterType]) {
+    if (
+      disasterType?.disasterType &&
+      DISASTER_TYPES_SVG_MAP[disasterType.disasterType]
+    ) {
       const buttonStatus = `selectedNonTriggered`;
-      const assetPath = DISASTER_TYPES_SVG_MAP[disasterType.disasterType][buttonStatus];
+      const assetPath =
+        DISASTER_TYPES_SVG_MAP[disasterType.disasterType][buttonStatus];
       return this.assetUrlService.getAssetUrl(assetPath);
     }
-    return this.assetUrlService.getAssetUrl('assets/icons/disaster-types/default.svg');
+    return this.assetUrlService.getAssetUrl(
+      'assets/icons/disaster-types/default.svg',
+    );
   }
 
   getCurrentDisasterTypeName(): string {
@@ -309,7 +367,9 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
 
   isTriggered(): boolean {
     const eventState = this.eventService.state;
-    return eventState?.events?.some(event => event.firstTriggerLeadTime) || false;
+    return (
+      eventState?.events?.some((event) => event.firstTriggerLeadTime) || false
+    );
   }
 
   getTriggeredStateText(): string {
@@ -345,9 +405,11 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onBackgroundClick(event: Event): void {
-    if (this.isMenuPanelOpen && 
-        !(event.target as Element).closest('.menu-panel-content') &&
-        !(event.target as Element).closest('.menu-button')) {
+    if (
+      this.isMenuPanelOpen &&
+      !(event.target as Element).closest('.menu-panel-content') &&
+      !(event.target as Element).closest('.menu-button')
+    ) {
       this.closeMenuPanel();
     }
   }
@@ -361,7 +423,7 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
     if (this.isMenuPanelOpen) {
       return false;
     }
-    
+
     let hasSelectedPlace = false;
     try {
       this.placeCodeService
@@ -376,9 +438,11 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
     } catch (error) {
       hasSelectedPlace = false;
     }
-    
-    const hasIndicators = this.aggregatesService.indicators && this.aggregatesService.indicators.length > 0;
-    
+
+    const hasIndicators =
+      this.aggregatesService.indicators &&
+      this.aggregatesService.indicators.length > 0;
+
     return hasSelectedPlace && hasIndicators;
   }
 
@@ -389,16 +453,17 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
     // Get the base URL from the current window location
     // This allows the component to work in any EspoCRM instance
     const baseUrl = `${window.location.protocol}//${window.location.host}`;
-    
+
     // Get current country and disaster type from services
     const countryCodeISO3 = this.currentCountry?.countryCodeISO3 || 'ETH';
-    const disasterType = this.disasterTypeService.disasterType?.disasterType || 'drought';
-    
+    const disasterType =
+      this.disasterTypeService.disasterType?.disasterType || 'drought';
+
     // Create URL parameters for client-side filtering
     // These will be processed by our custom EarlyWarning list view
     const params = new URLSearchParams({
       countryCodeISO3: countryCodeISO3,
-      disasterType: disasterType
+      disasterType: disasterType,
     });
 
     // Return URL to EspoCRM web interface with filter parameters
