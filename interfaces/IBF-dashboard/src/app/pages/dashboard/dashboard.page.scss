@@ -146,15 +146,15 @@
 .floating-toggle {
   position: absolute !important;
   top: 50% !important;
-  right: -50px !important; // Positioned further out to avoid scroll bar
+  right: -28px !important; // Positioned further out to avoid scroll bar
   transform: translateY(-50%) !important;
   z-index: 50 !important;
-  width: 50px !important;
+  width: 28px !important;
   height: 100px !important;
-  background: var(--ion-color-primary) !important;
-  border: 1px solid var(--ion-color-primary-shade) !important;
+  background: var(--ion-color-ibf-white) !important;
+  border: 1px solid var(--ion-color-ibf-white-shade) !important;
   border-right: none !important;
-  border-radius: 12px 0 0 12px !important;
+  border-radius: 0 12px 12px 0 !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
@@ -165,7 +165,7 @@
   padding: 8px !important;
   
   &:hover {
-    background: var(--ion-color-primary-shade) !important;
+    background: var(--ion-color-ibf-white-shade) !important;
     transform: translateY(-50%) translateX(-5px) !important;
     box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2) !important;
   }
@@ -210,14 +210,14 @@
   .admin-panel-toggle {
     position: absolute;
     top: 50%;
-    right: -50px; // Positioned outside to be more visible
+    right: -28px; // Positioned outside to be more visible
     transform: translateY(-50%);
-    width: 50px;
+    width: 28px;
     height: 100px;
-    background: var(--ion-color-primary);
-    border: 1px solid var(--ion-color-primary-shade);
+    background: var(--ion-color-ibf-white);
+    border: 1px solid var(--ion-color-ibf-white-shade);
     border-right: none;
-    border-radius: 12px 0 0 12px;
+    border-radius: 0 12px 12px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -229,7 +229,7 @@
     padding: 8px;
     
     &:hover {
-      background: var(--ion-color-primary-shade);
+      background: var(--ion-color-ibf-white-shade);
       transform: translateY(-50%) translateX(-5px);
       box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
     }
