@@ -364,9 +364,15 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
     
     let hasSelectedPlace = false;
     try {
-      this.placeCodeService.getPlaceCodeSubscription().subscribe(placeCode => {
-        hasSelectedPlace = !!placeCode;
-      }).unsubscribe();
+      this.placeCodeService
+        .getPlaceCodeSubscription()
+        .subscribe((placeCode) => {
+          hasSelectedPlace = !!placeCode;
+          if (hasSelectedPlace) {
+            this.toggleAdminPanel();
+          }
+        })
+        .unsubscribe();
     } catch (error) {
       hasSelectedPlace = false;
     }
