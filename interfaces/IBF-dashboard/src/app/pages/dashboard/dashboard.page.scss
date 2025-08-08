@@ -250,13 +250,11 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    padding-right: 60px; // Make room for toggle button
   }
 
   .admin-panel-body {
     flex: 1;
     overflow-y: auto;
-    padding: 4px; // Minimal padding for maximum space utilization
     width: 100%; // Ensure full width utilization
     box-sizing: border-box; // Include padding in width calculations
   }
