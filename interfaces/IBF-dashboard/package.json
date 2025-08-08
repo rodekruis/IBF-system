@@ -1,6 +1,6 @@
 {
   "name": "ibf-dashboard",
-  "version": "0.321.184",
+  "version": "0.321.185",
   "description": "Web interface for the dashboard of the IBF-system.",
   "license": "UNLICENSED",
   "private": true,
@@ -34,7 +34,7 @@
     "test": "npm run test:dev -- --no-watch --browsers=ChromeHeadless",
     "version:show": "powershell -ExecutionPolicy Bypass -File update-version.ps1 -ShowVersion",
     "version:patch": "powershell -ExecutionPolicy Bypass -File update-version.ps1 -BumpType patch",
-    "version:minor": "powershell -ExecutionPolicy Bypass -File update-version.ps1 -BumpType minor", 
+    "version:minor": "powershell -ExecutionPolicy Bypass -File update-version.ps1 -BumpType minor",
     "version:major": "powershell -ExecutionPolicy Bypass -File update-version.ps1 -BumpType major",
     "release": "powershell -ExecutionPolicy Bypass -File build-and-release.ps1",
     "release:patch": "powershell -ExecutionPolicy Bypass -File build-and-release.ps1 -BumpType patch",
