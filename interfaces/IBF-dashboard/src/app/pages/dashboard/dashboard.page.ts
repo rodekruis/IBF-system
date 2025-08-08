@@ -414,7 +414,7 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  onMapAreaClick(event: Event): void {
+  onMapAreaClick(): void {
     // This method is no longer used as we moved click handling to background
     // Keeping for potential future use
   }
@@ -431,11 +431,11 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
         .subscribe((placeCode) => {
           hasSelectedPlace = !!placeCode;
           if (hasSelectedPlace) {
-            this.toggleAdminPanel();
+            this.isAdminPanelExpanded = true;
           }
         })
         .unsubscribe();
-    } catch (error) {
+    } catch {
       hasSelectedPlace = false;
     }
 
