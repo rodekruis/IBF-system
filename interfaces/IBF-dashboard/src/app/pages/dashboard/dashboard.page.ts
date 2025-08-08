@@ -432,6 +432,7 @@ export class DashboardPage implements OnInit, AfterViewInit, OnDestroy {
           hasSelectedPlace = !!placeCode;
           if (hasSelectedPlace) {
             this.isAdminPanelExpanded = true;
+            this.cdr.markForCheck();
           }
         })
         .unsubscribe();
