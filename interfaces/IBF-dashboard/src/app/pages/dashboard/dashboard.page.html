@@ -17,7 +17,7 @@
         </ion-col>
         <ion-col sizeXs="12" sizeMd="8" sizeLg="8" sizeXl="8" class="disaster-type-container">
           <div class="disaster-type-section">
-            <img [src]="getActiveDisasterTypeIcon()" alt="Disaster type icon" class="disaster-icon">
+            <app-disaster-type></app-disaster-type>
             <span class="disaster-type-name">{{ getCurrentDisasterTypeName() }}</span>
             <span class="trigger-status" [class.triggered]="isTriggered()">
               {{ getTriggeredStateText() }}
@@ -118,8 +118,8 @@
           <div class="menu-panel-overlay" [class.menu-panel-visible]="isMenuPanelOpen">
             <div class="menu-panel-content" (click)="$event.stopPropagation()">
               <div class="menu-panel-header">
-                <div class="disaster-type-switcher">
-                  <app-disaster-type></app-disaster-type>
+                <div class="logout-link" (click)="logout()">
+                  Log out
                 </div>
                 <ion-button 
                   fill="clear" 
@@ -144,12 +144,6 @@
                   <a href="javascript:void(0)" class="menu-link-item" (click)="openEarlyWarning(); closeMenuPanel()">
                     Trigger log
                   </a>
-                </div>
-              </div>
-              
-              <div class="menu-panel-footer">
-                <div class="logout-link" (click)="logout()">
-                  Log out
                 </div>
               </div>
             </div>
