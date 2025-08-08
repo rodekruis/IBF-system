@@ -83,7 +83,6 @@ function isEmbeddedMode(): boolean {
         importProvidersFrom(
           RouterModule.forRoot(
             [
-              { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
               {
                 path: 'test',
                 loadComponent: () => {
@@ -102,7 +101,7 @@ function isEmbeddedMode(): boolean {
                 },
               },
               {
-                path: 'dashboard',
+                path: '',
                 loadChildren: () => {
                   console.log('📊 Attempting to load dashboard module...');
 
@@ -148,7 +147,7 @@ function isEmbeddedMode(): boolean {
                     (m) => m.LoginPageModule,
                   ),
               },
-              { path: '**', redirectTo: '/dashboard' },
+              { path: '**', redirectTo: '/' },
             ],
             { enableTracing: true },
           ),

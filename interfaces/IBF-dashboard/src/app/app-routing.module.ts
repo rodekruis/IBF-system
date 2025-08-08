@@ -9,14 +9,6 @@ const routes: Routes = [
       import('./pages/login/login.module').then((m) => m.LoginPageModule),
   },
   {
-    path: 'dashboard',
-    loadChildren: () =>
-      import('./pages/dashboard/dashboard.module').then(
-        (m) => m.DashboardPageModule,
-      ),
-    canActivate: [AuthGuard],
-  },
-  {
     path: '',
     loadChildren: () =>
       import('./pages/dashboard/dashboard.module').then(
@@ -28,10 +20,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { 
+    RouterModule.forRoot(routes, {
       preloadingStrategy: PreloadAllModules,
       // Use hash location strategy for better compatibility with EspoCRM when embedded
-      useHash: false // Keep false for standard mode, but could be configured per environment
+      useHash: false, // Keep false for standard mode, but could be configured per environment
     }),
   ],
   exports: [RouterModule],
