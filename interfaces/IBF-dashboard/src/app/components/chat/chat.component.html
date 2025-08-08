@@ -132,10 +132,10 @@
         
         <!-- Early Actions Button for Exposed Population -->
         @if (countryDisasterSettings.enableEarlyActions && area.eapActions.length > 0) {
-          <ion-button 
-            class="early-actions-button ion-margin-top"
-            fill="outline"
-            size="small"
+          <ion-button
+            class="block m-auto early-actions-button ion-margin-top"
+            fill="solid"
+            size="large"
             shape="round"
             color="ibf-primary"
             (click)="openEarlyActions(area.placeCode)"
