@@ -147,7 +147,7 @@ function isEmbeddedMode(): boolean {
                     (m) => m.LoginPageModule,
                   ),
               },
-              { path: '**', redirectTo: '/' },
+              { path: '**', redirectTo: '' },
             ],
             { enableTracing: true },
           ),
