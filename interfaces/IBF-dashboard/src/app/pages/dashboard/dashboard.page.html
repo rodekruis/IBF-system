@@ -26,8 +26,8 @@
         </ion-col>
         <ion-col sizeXs="12" sizeMd="2" sizeLg="2" sizeXl="2" class="header-right">
           <div class="header-right-content">
-            <ion-button 
-              fill="clear" 
+            <ion-button
+              fill="clear"
               (click)="toggleMenuPanel()"
               class="menu-button"
             >
@@ -43,7 +43,7 @@
   <ion-content class="main-content">
     <!-- Hidden disaster type component for data initialization -->
     <app-disaster-type style="display: none;"></app-disaster-type>
-    
+
     <ion-grid class="page-structure ion-no-padding">
       <ion-row class="page-structure--content">
         <!-- Left column: Events/warnings -->
@@ -58,11 +58,11 @@
           <ion-content>
             <app-chat></app-chat>
           </ion-content>
-          
+
           <!-- Floating toggle button when admin panel is collapsed -->
-          <div 
+          <div
             *ngIf="!isAdminPanelExpanded"
-            class="admin-panel-toggle floating-toggle" 
+            class="admin-panel-toggle floating-toggle"
             (click)="toggleAdminPanel()"
             title="Open Area Details"
           >
@@ -81,15 +81,15 @@
           [style.display]="isAdminPanelExpanded ? 'block' : 'none'"
         >
           <!-- Fold/unfold toggle button -->
-          <div 
+          <div
             *ngIf="isAdminPanelExpanded"
-            class="admin-panel-toggle" 
+            class="admin-panel-toggle"
             (click)="toggleAdminPanel()"
             title="Close Area Details"
           >
             <ion-icon name="chevron-back-outline" color="ibf-primary"></ion-icon>
           </div>
-          
+
           <!-- Admin panel content -->
           <div class="admin-panel-content" *ngIf="isAdminPanelExpanded">
             <div class="admin-panel-body">
@@ -97,10 +97,10 @@
             </div>
           </div>
         </ion-col>
-        
+
         <!-- Right section: Map and overlays -->
-        <ion-col 
-          sizeXs="12" 
+        <ion-col
+          sizeXs="12"
           [sizeMd]="isAdminPanelExpanded ? '6' : '8'"
           [sizeLg]="isAdminPanelExpanded ? '6' : '8'"
           [sizeXl]="isAdminPanelExpanded ? '6' : '8'"
@@ -113,23 +113,20 @@
             <app-map-controls></app-map-controls>
             <app-map data-testid="dashboard-map-componenet"></app-map>
           </ion-content>
-          
+
           <!-- Menu panel overlay -->
           <div class="menu-panel-overlay" [class.menu-panel-visible]="isMenuPanelOpen">
             <div class="menu-panel-content" (click)="$event.stopPropagation()">
               <div class="menu-panel-header">
-                <div class="logout-link" (click)="logout()">
-                  Log out
-                </div>
-                <ion-button 
-                  fill="clear" 
+                <ion-button
+                  fill="clear"
                   size="small"
                   (click)="closeMenuPanel()"
                 >
                   <ion-icon name="close"></ion-icon>
                 </ion-button>
               </div>
-              
+
               <div class="menu-panel-body">
                 <div class="menu-links">
                   <a href="https://ibf-test.510.global/about" target="_blank" class="menu-link-item" (click)="closeMenuPanel()">
@@ -144,6 +141,12 @@
                   <a href="javascript:void(0)" class="menu-link-item" (click)="openEarlyWarning(); closeMenuPanel()">
                     Trigger log
                   </a>
+                </div>
+              </div>
+
+              <div class="menu-panel-footer">
+                <div class="logout-link" (click)="logout()">
+                  Log out
                 </div>
               </div>
             </div>
