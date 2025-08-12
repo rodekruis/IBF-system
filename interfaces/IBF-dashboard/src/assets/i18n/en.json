@@ -131,7 +131,7 @@
         "tooltip": "The forecast presented on the portal might not be up to date as the model did not run successfully. Contact {{supportEmailAddress}} for further information."
       },
       "event-tooltip": "Select an area from this list or the map to monitor and manage the preplanned anticipatory actions (if applicable).",
-      "view-early-actions": "View Early Actions in EspoCRM",
+      "view-early-actions": "View Early Actions",
       "back": "Back",
       "save-actions": {
         "submit-button-label": "Save",
