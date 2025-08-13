@@ -46,4 +46,8 @@ graph LR
   PointDataModule-->WhatsappModule
   LinesDataModule-->UserModule
   CronjobModule-->AdminAreaDynamicDataModule
+  LoginModule-->LookupModule
+  LoginModule-->UserModule
+  LoginModule-->CountryModule
+  LoginModule-->DisasterTypeModule
 ```
