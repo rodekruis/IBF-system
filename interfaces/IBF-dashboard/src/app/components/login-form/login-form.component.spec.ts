@@ -11,7 +11,6 @@ import { IonicModule } from '@ionic/angular';
 import { PopoverController } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { AuthService } from 'src/app/auth/auth.service';
-import { ForgotPasswordPopoverComponent } from 'src/app/components/forgot-password-popover/forgot-password-popover.component';
 import { LoginFormComponent } from 'src/app/components/login-form/login-form.component';
 
 describe('LoginFormComponent', () => {

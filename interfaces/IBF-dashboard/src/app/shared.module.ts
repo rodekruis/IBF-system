@@ -26,7 +26,6 @@ import { EventSpeechBubbleComponent } from 'src/app/components/event-speech-bubb
 import { EventSwitcherComponent } from 'src/app/components/event-switcher/event-switcher.component';
 import { ExportViewComponent } from 'src/app/components/export-view/export-view.component';
 import { ExportViewPopoverComponent } from 'src/app/components/export-view-popover/export-view-popover.component';
-import { ForgotPasswordPopoverComponent } from 'src/app/components/forgot-password-popover/forgot-password-popover.component';
 import { IbfGuideButtonComponent } from 'src/app/components/ibf-guide-button/ibf-guide-button.component';
 import { IbfGuidePopoverComponent } from 'src/app/components/ibf-guide-popover/ibf-guide-popover.component';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
@@ -81,7 +80,6 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     EventSwitcherComponent,
     ExportViewComponent,
     ExportViewPopoverComponent,
-    ForgotPasswordPopoverComponent,
     IbfGuideButtonComponent,
     IbfGuidePopoverComponent,
     LayerControlInfoPopoverComponent,
@@ -124,7 +122,6 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     EventSwitcherComponent,
     ExportViewComponent,
     ExportViewPopoverComponent,
-    ForgotPasswordPopoverComponent,
     IbfGuideButtonComponent,
     IbfGuidePopoverComponent,
     LayerControlInfoPopoverComponent,
