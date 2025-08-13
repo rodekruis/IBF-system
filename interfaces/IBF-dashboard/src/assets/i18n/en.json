@@ -26,20 +26,19 @@
     "no-data": "No data"
   },
   "login-page": {
-    "title": "Log in",
+    "title": "Login",
     "email": "Email",
-    "password": "Password",
-    "welcome": "Hello! Welcome to IBF.",
+    "code": "Code",
+    "welcome": "Welcome to IBF",
     "instruction": "This chat will guide you through the system. You will find it to the left of the screen. Please login below.",
     "video": "Click for the IBF guide.",
     "note": "NOTE: This portal works best on desktop or tablet using Chrome, Firefox, Safari and Microsoft Edge.<br>The portal is not compatible with Internet Explorer.<br>The portal is not optimized for mobile phones yet.",
     "forgot-password": "Forgot password?",
-    "forgot-password-message": "If you forgot your password please send a request to ",
-    "environment-label": { "production": "Live", "stage": "Demo" }
+    "forgot-password-message": "If you forgot your password please send a request to "
   },
   "user-state": {
-    "logged-in-as": "Logged in as:",
-    "log-out": "Log out",
+    "logged-in-as": "Welcome, ",
+    "log-out": "Logout",
     "password-change": "Change password",
     "password-new": "New password",
     "password-confirm": "Confirm password",

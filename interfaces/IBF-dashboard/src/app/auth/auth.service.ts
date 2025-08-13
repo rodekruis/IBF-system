@@ -91,9 +91,15 @@ export class AuthService implements OnDestroy {
     return user;
   }
 
-  public login(email: string, password: string) {
+  public login(email: string) {
     return this.apiService
-      .login(email, password)
+      .login(email)
+      .subscribe(this.onLoginResponse, this.onLoginError);
+  }
+
+  public verifyLogin(email: string, code: string) {
+    return this.apiService
+      .verifyLogin(email, code)
       .subscribe(this.onLoginResponse, this.onLoginError);
   }
 

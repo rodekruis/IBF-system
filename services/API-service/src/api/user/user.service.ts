@@ -48,50 +48,49 @@ export class UserService {
   }
 
   public async create(dto: CreateUserDto): Promise<UserResponseObject> {
-    const email = dto.email.toLowerCase();
-    const user = await this.userRepository.findOne({ where: { email } });
-
-    if (user) {
-      const errors = { errors: 'Email must be unique.' };
-      throw new HttpException(
-        { message: 'Input data validation failed', errors },
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
     if (dto.whatsappNumber) {
       dto.whatsappNumber = await this.lookupService.lookupAndCorrect(
         dto.whatsappNumber,
       );
     }
 
-    // create new user
-    const newUser = new UserEntity();
-    newUser.email = email;
-    newUser.password = dto.password;
-    newUser.firstName = dto.firstName;
-    newUser.middleName = dto.middleName;
-    newUser.lastName = dto.lastName;
-    newUser.userRole = dto.userRole;
-    newUser.whatsappNumber = dto.whatsappNumber;
-    newUser.countries = await this.countryRepository.find({
+    const user = await this.createUser(dto);
+
+    return this.buildUserRO(user);
+  }
+
+  public async createUser(dto: CreateUserDto) {
+    const userEntity = new UserEntity();
+    userEntity.email = dto.email.toLowerCase();
+    userEntity.password = dto.password;
+    userEntity.firstName = dto.firstName;
+    userEntity.middleName = dto.middleName;
+    userEntity.lastName = dto.lastName;
+    userEntity.userRole = dto.userRole;
+    userEntity.whatsappNumber = dto.whatsappNumber;
+    userEntity.countries = await this.countryRepository.find({
       where: { countryCodeISO3: In(dto.countryCodesISO3) },
     });
-    newUser.disasterTypes = await this.disasterTypeRepository.find({
+    userEntity.disasterTypes = await this.disasterTypeRepository.find({
       where: { disasterType: In(dto.disasterTypes) },
     });
 
-    const errors = await validate(newUser);
+    const errors = await validate(userEntity);
     if (errors.length > 0) {
-      const _errors = { email: 'User input is not valid.' };
       throw new HttpException(
-        { message: 'Input data validation failed', _errors },
+        { message: 'Input data validation failed' },
         HttpStatus.BAD_REQUEST,
       );
-    } else {
-      const savedUser = await this.userRepository.save(newUser);
-      return this.buildUserRO(savedUser);
     }
+
+    return this.userRepository.save(userEntity);
+  }
+
+  public async findByEmail(email: string) {
+    return this.userRepository.findOne({
+      where: { email },
+      relations: this.relations,
+    });
   }
 
   public async findById(userId: string): Promise<UserResponseObject> {

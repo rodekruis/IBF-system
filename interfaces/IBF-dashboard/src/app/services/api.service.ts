@@ -140,10 +140,16 @@ export class ApiService {
   // API-endpoints:
   /////////////////////////////////////////////////////////////////////////////
 
-  login(email: string, password: string): Observable<{ user: User }> {
+  login(email: string) {
     this.log('ApiService : login()');
 
-    return this.post('user/login', { email, password }, { anonymous: true });
+    return this.post('login', { email }, { anonymous: true });
+  }
+
+  verifyLogin(email: string, code: string) {
+    this.log('ApiService : verifyLogin()');
+
+    return this.post('login/verify', { email, code }, { anonymous: true });
   }
 
   changePassword(password: string): Observable<User> {
