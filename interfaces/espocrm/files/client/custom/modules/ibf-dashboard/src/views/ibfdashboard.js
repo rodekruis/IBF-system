@@ -574,6 +574,7 @@ define('ibf-dashboard:views/ibfdashboard', ['view', 'ibf-dashboard:services/ibf-
                 // Set up dashboard event listeners immediately
                 this.setupDashboardEventListeners(dashboardElement, loadingContainer, dashboard);
                 
+                window.addEventListener('resize', this.ensureFullHeight.bind(this));
                 console.log('✅ IBF Dashboard web component initialized for country:', this.countryCode);
                 console.log('🧭 Angular routing will use EmbeddedLocationStrategy for EspoCRM compatibility');
             } else {

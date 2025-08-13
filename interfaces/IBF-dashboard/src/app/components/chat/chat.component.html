@@ -129,22 +129,24 @@
             area.mainExposureValue | compact: mainExposureIndicatorNumberFormat
           }}
         </ion-note>
-        
+
         <!-- Early Actions Button for Exposed Population -->
-        @if (countryDisasterSettings.enableEarlyActions && area.eapActions.length > 0) {
-          <ion-button 
-            class="early-actions-button ion-margin-top"
-            fill="outline"
-            size="small"
+        @if (
+          countryDisasterSettings.enableEarlyActions &&
+          area.eapActions.length > 0
+        ) {
+          <ion-button
+            class="early-actions-button ion-margin-top m-auto block"
+            fill="solid"
+            size="large"
             shape="round"
             color="ibf-primary"
             (click)="openEarlyActions(area.placeCode)"
           >
             <ion-icon name="link-outline" slot="start"></ion-icon>
-            View Early Actions in EspoCRM
+            View Early Actions
           </ion-button>
         }
-
       } @else {
         <ion-note size="small">
           <span>{{ 'chat-component.common.no-info' | translate }}</span>

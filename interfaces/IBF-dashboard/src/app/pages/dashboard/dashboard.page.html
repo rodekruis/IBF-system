@@ -9,7 +9,7 @@
   <div class="dashboard-header">
     <ion-grid class="header-structure ion-no-padding">
       <!-- Header row with date, disaster type, and menu button -->
-      <ion-row class="header-top-row">
+      <ion-row class="items-center ion-padding-horizontal">
         <ion-col sizeXs="12" sizeMd="2" sizeLg="2" sizeXl="2" class="date-time-section">
           <div class="date-time-content">
             {{ getTodayDate() | date: 'd LLL y, HH:mm z' }}
@@ -17,7 +17,7 @@
         </ion-col>
         <ion-col sizeXs="12" sizeMd="8" sizeLg="8" sizeXl="8" class="disaster-type-container">
           <div class="disaster-type-section">
-            <img [src]="getActiveDisasterTypeIcon()" alt="Disaster type icon" class="disaster-icon">
+            <app-disaster-type></app-disaster-type>
             <span class="disaster-type-name">{{ getCurrentDisasterTypeName() }}</span>
             <span class="trigger-status" [class.triggered]="isTriggered()">
               {{ getTriggeredStateText() }}
@@ -26,8 +26,8 @@
         </ion-col>
         <ion-col sizeXs="12" sizeMd="2" sizeLg="2" sizeXl="2" class="header-right">
           <div class="header-right-content">
-            <ion-button 
-              fill="clear" 
+            <ion-button
+              fill="clear"
               (click)="toggleMenuPanel()"
               class="menu-button"
             >
@@ -43,7 +43,7 @@
   <ion-content class="main-content">
     <!-- Hidden disaster type component for data initialization -->
     <app-disaster-type style="display: none;"></app-disaster-type>
-    
+
     <ion-grid class="page-structure ion-no-padding">
       <ion-row class="page-structure--content">
         <!-- Left column: Events/warnings -->
@@ -58,16 +58,15 @@
           <ion-content>
             <app-chat></app-chat>
           </ion-content>
-          
+
           <!-- Floating toggle button when admin panel is collapsed -->
-          <div 
+          <div
             *ngIf="!isAdminPanelExpanded"
-            class="admin-panel-toggle floating-toggle" 
+            class="admin-panel-toggle floating-toggle"
             (click)="toggleAdminPanel()"
             title="Open Area Details"
           >
-            <ion-icon name="chevron-forward-outline"></ion-icon>
-            <ion-icon name="analytics-outline" class="panel-icon"></ion-icon>
+            <ion-icon name="chevron-forward-outline" color="ibf-primary"></ion-icon>
           </div>
         </ion-col>
 
@@ -82,16 +81,15 @@
           [style.display]="isAdminPanelExpanded ? 'block' : 'none'"
         >
           <!-- Fold/unfold toggle button -->
-          <div 
+          <div
             *ngIf="isAdminPanelExpanded"
-            class="admin-panel-toggle" 
+            class="admin-panel-toggle"
             (click)="toggleAdminPanel()"
             title="Close Area Details"
           >
-            <ion-icon name="chevron-back-outline"></ion-icon>
-            <ion-icon name="close-outline" class="close-icon"></ion-icon>
+            <ion-icon name="chevron-back-outline" color="ibf-primary"></ion-icon>
           </div>
-          
+
           <!-- Admin panel content -->
           <div class="admin-panel-content" *ngIf="isAdminPanelExpanded">
             <div class="admin-panel-body">
@@ -99,10 +97,10 @@
             </div>
           </div>
         </ion-col>
-        
+
         <!-- Right section: Map and overlays -->
-        <ion-col 
-          sizeXs="12" 
+        <ion-col
+          sizeXs="12"
           [sizeMd]="isAdminPanelExpanded ? '7' : '9'"
           [sizeLg]="isAdminPanelExpanded ? '7' : '9'"
           [sizeXl]="isAdminPanelExpanded ? '7' : '9'"
@@ -115,23 +113,20 @@
             <app-map-controls></app-map-controls>
             <app-map data-testid="dashboard-map-componenet"></app-map>
           </ion-content>
-          
+
           <!-- Menu panel overlay -->
           <div class="menu-panel-overlay" [class.menu-panel-visible]="isMenuPanelOpen">
             <div class="menu-panel-content" (click)="$event.stopPropagation()">
               <div class="menu-panel-header">
-                <div class="disaster-type-switcher">
-                  <app-disaster-type></app-disaster-type>
-                </div>
-                <ion-button 
-                  fill="clear" 
+                <ion-button
+                  fill="clear"
                   size="small"
                   (click)="closeMenuPanel()"
                 >
                   <ion-icon name="close"></ion-icon>
                 </ion-button>
               </div>
-              
+
               <div class="menu-panel-body">
                 <div class="menu-links">
                   <a href="https://ibf-test.510.global/about" target="_blank" class="menu-link-item" (click)="closeMenuPanel()">
@@ -148,7 +143,7 @@
                   </a>
                 </div>
               </div>
-              
+
               <div class="menu-panel-footer">
                 <div class="logout-link" (click)="logout()">
                   Log out
