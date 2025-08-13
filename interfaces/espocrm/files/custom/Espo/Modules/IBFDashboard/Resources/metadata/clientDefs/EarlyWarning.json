@@ -1,5 +1,9 @@
 {
     "controller": "controllers/record",
     "iconClass": "fas fa-exclamation-triangle",
-    "color": "#ff9800"
+    "color": "#ff9800",
+    "views": {
+        "list": "modules/ibf-dashboard/views/early-warning/list",
+        "detail": "views/detail"
+    }
 }

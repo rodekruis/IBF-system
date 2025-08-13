@@ -9,7 +9,7 @@
  * to ensure optimal performance and proper integration with EspoCRM's
  * pagination and search functionality.
  */
-define('custom:views/early-warning/list', ['views/list'], function (Dep) {
+define('modules/ibf-dashboard/views/early-warning/list', ['views/list', 'collection'], function (Dep, Collection) {
   return Dep.extend({
     // Re-enable search panel
     searchPanel: true,
