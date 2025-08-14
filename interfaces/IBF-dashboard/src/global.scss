@@ -37,7 +37,7 @@
 }
 
 /* Embedded mode: Switch container from body to component */
-:root[data-ibf-mode="embedded"] {
+:root[data-ibf-mode='embedded'] {
   --ibf-mode: embedded;
   --ibf-viewport-container: ibf-dashboard;
   --ibf-app-height: 600px; /* Default height, can be overridden */
@@ -50,7 +50,7 @@ body {
   /* Only control viewport in standalone mode */
   position: var(--ibf-body-position);
   overflow: var(--ibf-body-overflow);
-  
+
   /* Keep all other Ionic body styles unchanged */
   font-family: var(--ion-font-family, inherit);
   margin: 0;
@@ -58,7 +58,7 @@ body {
 }
 
 /* In embedded mode, let body behave normally */
-:root[data-ibf-mode="embedded"] body {
+:root[data-ibf-mode='embedded'] body {
   position: static !important;
   overflow: visible !important;
   height: auto !important;
@@ -71,7 +71,7 @@ ion-app {
   /* In standalone mode: exactly like before */
   height: var(--ibf-app-height);
   position: relative;
-  
+
   /* Preserve all Ionic ion-app behavior */
   contain: layout style paint;
   overflow: hidden;
@@ -80,18 +80,18 @@ ion-app {
 }
 
 /* In embedded mode: ion-app becomes the viewport container */
-:root[data-ibf-mode="embedded"] ion-app {
+:root[data-ibf-mode='embedded'] ion-app {
   /* Make ion-app act like the old body */
   position: relative !important;
   height: var(--ibf-app-height) !important;
   width: 100% !important;
   overflow: hidden !important; /* Keep Ionic's overflow behavior */
-  
+
   /* Add container behavior */
   display: block;
   max-width: 100%;
   max-height: 100%;
-  
+
   /* Ensure Ionic's internal layout system still works */
   contain: layout style paint;
 }
@@ -104,14 +104,14 @@ ion-content {
   flex: 1;
   width: 100%;
   height: 100%;
-  
+
   /* Preserve Ionic behavior */
   contain: layout style paint;
   overflow: hidden;
 }
 
 /* Don't touch ion-content in embedded mode - let Ionic handle it */
-:root[data-ibf-mode="embedded"] ion-content {
+:root[data-ibf-mode='embedded'] ion-content:not(.main-content) {
   /* Explicitly preserve Ionic behavior */
   position: relative !important;
   overflow: hidden !important; /* Ionic manages scrolling internally */
@@ -119,7 +119,8 @@ ion-content {
 }
 
 /* ===== ION-HEADER & ION-FOOTER: PRESERVE POSITIONING ===== */
-ion-header, ion-footer {
+ion-header,
+ion-footer {
   /* Keep existing Ionic positioning logic */
   position: relative;
   width: 100%;
@@ -127,8 +128,8 @@ ion-header, ion-footer {
 }
 
 /* Don't change header/footer behavior in embedded mode */
-:root[data-ibf-mode="embedded"] ion-header,
-:root[data-ibf-mode="embedded"] ion-footer {
+:root[data-ibf-mode='embedded'] ion-header,
+:root[data-ibf-mode='embedded'] ion-footer {
   position: relative !important;
 }
 
@@ -139,7 +140,7 @@ ion-router-outlet {
   contain: layout style paint;
 }
 
-:root[data-ibf-mode="embedded"] ion-router-outlet {
+:root[data-ibf-mode='embedded'] ion-router-outlet {
   position: relative !important;
   height: auto !important;
 }
@@ -151,15 +152,15 @@ ibf-dashboard {
   display: block;
   width: 100%;
   height: var(--ibf-app-height, 600px);
-  
+
   /* Ensure it acts like the old body container */
   position: relative;
   overflow: hidden; /* Let Ionic handle internal scrolling */
-  
+
   /* Provide clean container */
   background: var(--ion-background-color, #ffffff);
   color: var(--ion-text-color, #000000);
-  
+
   /* Enable Ionic's containment */
   contain: layout style paint;
 }
@@ -170,7 +171,7 @@ ibf-dashboard {
   position: relative !important; /* Always relative, never absolute in embedded */
   width: 100%;
   height: 100%;
-  
+
   /* Keep Ionic's page layout system */
   display: flex;
   flex-direction: column;
@@ -185,7 +186,7 @@ ibf-dashboard {
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  
+
   /* Let Ionic manage overflow */
   overflow-x: hidden !important;
   overflow-y: auto !important;
