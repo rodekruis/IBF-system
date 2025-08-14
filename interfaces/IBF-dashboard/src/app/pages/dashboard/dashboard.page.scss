@@ -29,7 +29,7 @@
     display: flex;
     align-items: center;
     height: 100%;
-    
+
     .date-time-content {
       font-size: 16px;
       font-weight: 600;
@@ -109,7 +109,9 @@
   flex: 1;
   --background: transparent;
   overflow: hidden; // Remove scrollbar from main content
-  height: calc(100vh - 64px); // Set proper height minus header
+  height: calc(
+    100vh - 117px
+  ); // Set proper height minus header // 117 = 65 (.dashboard-header) + 52 (.has-navbar)
 }
 
 // Column layout adjustments
@@ -132,7 +134,7 @@
 .page-structure--content {
   height: 100%;
   margin: 0;
-  
+
   .ibf-dashboard-left-column,
   .admin-panel-column,
   .ibf-dashboard-right-column {
@@ -163,7 +165,7 @@
   transition: all 0.3s ease !important;
   box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1) !important;
   padding: 8px !important;
-  
+
   &:hover {
     background: var(--ion-color-ibf-white-shade) !important;
     transform: translateY(-50%) translateX(-5px) !important;
@@ -174,7 +176,7 @@
     font-size: 20px !important;
     color: white !important;
     margin: 2px 0 !important;
-    
+
     &.panel-icon {
       font-size: 16px !important;
       opacity: 0.8 !important;
@@ -197,11 +199,11 @@
     flex: 0 0 0 !important;
     width: 0 !important;
     overflow: hidden;
-    
+
     .admin-panel-content {
       display: none;
     }
-    
+
     .admin-panel-toggle {
       display: none; // Hide toggle when collapsed since we use floating toggle
     }
@@ -227,7 +229,7 @@
     transition: all 0.3s ease;
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.1);
     padding: 8px;
-    
+
     &:hover {
       background: var(--ion-color-ibf-white-shade);
       transform: translateY(-50%) translateX(-5px);
@@ -238,7 +240,7 @@
       font-size: 20px;
       color: white;
       margin: 2px 0;
-      
+
       &.close-icon {
         font-size: 16px;
         opacity: 0.8;
@@ -338,7 +340,7 @@
 // Adjust layers control when menu is open instead of transforming the entire column
 .ibf-dashboard-right-column {
   position: relative;
-  
+
   // Don't transform the entire column as it affects left column visibility
   // Instead, we'll apply specific transforms to elements within
 }
@@ -366,19 +368,17 @@
   }
 }
 
-
-
 #ibf-dashboard-map {
   pointer-events: all !important;
   overflow: hidden !important; // Remove scrollbar from map container
   height: 100% !important;
-  
+
   // Target the inner scroll container that's causing the scrollbar
   .inner.scroll-y {
     overflow: hidden !important; // Prevent the inner scroll container from showing scrollbars
     height: 100% !important;
   }
-  
+
   // Ensure map container has proper dimensions in web component context
   &:host-context(ibf-dashboard) {
     min-height: 400px;
@@ -462,7 +462,7 @@ app-export-view {
       display: flex;
       flex-direction: column;
 
-      // Web component embedded mode fixes  
+      // Web component embedded mode fixes
       :host-context(.embedded) & {
         min-height: 500px !important;
       }
