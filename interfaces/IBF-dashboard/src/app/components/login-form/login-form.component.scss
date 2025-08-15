@@ -1,5 +1,5 @@
-ion-label[position='stacked'] {
-  --color: var(--ion-color-ibf-no-alert-primary);
+ion-item {
+  --background-focused: transparent;
 }
 
 ion-input {
@@ -9,8 +9,4 @@ ion-input {
   ::ng-deep .native-input {
     box-shadow: none;
   }
-}
-
-.eye-button {
-  --color: var(--ion-color-ibf-no-alert-primary);
 }

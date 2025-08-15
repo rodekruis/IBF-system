@@ -12,6 +12,8 @@ import { LoginEntity } from './login.entity';
 
 const CODE_EXPIRATION_MINUTES = 15;
 const PASSWORD_LENGTH = 12;
+const PROMPT_CODE = 'Enter the code sent to your email';
+const UNDER_REVIEW = 'Your account is under review';
 
 @Injectable()
 export class LoginService {
@@ -48,7 +50,7 @@ export class LoginService {
 
     // TODO: send email with code
 
-    return loginEntity;
+    return { message: PROMPT_CODE };
   }
 
   public async verify(email: string, code: string) {
@@ -57,14 +59,18 @@ export class LoginService {
 
     const loginEntity = await this.loginRepository.findOne({
       where: { code, user: { email } },
-      relations: ['user'],
+      relations: ['user', 'user.countries'],
     });
 
     if (!loginEntity) {
-      throw new UnauthorizedException('Code is not valid');
+      throw new UnauthorizedException(PROMPT_CODE);
     }
 
     await this.loginRepository.delete(loginEntity);
+
+    if (loginEntity.user.countries.length < 1) {
+      throw new UnauthorizedException(UNDER_REVIEW);
+    }
 
     return this.userService.findById(loginEntity.user.userId);
   }

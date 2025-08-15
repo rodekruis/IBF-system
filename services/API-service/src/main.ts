@@ -137,7 +137,12 @@ async function bootstrap(): Promise<void> {
   app.useGlobalPipes(
     new ValidationPipe({
       forbidUnknownValues,
-      exceptionFactory: (errors) => new BadRequestException(errors),
+      exceptionFactory: (errors) => {
+        return new BadRequestException({
+          message: 'Something went wrong',
+          errors,
+        });
+      },
     }),
   );
   app.use(bodyParser.json({ limit: '25mb' }));
