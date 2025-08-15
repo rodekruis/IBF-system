@@ -13,7 +13,7 @@ export class LoginEntity {
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @OneToOne(() => UserEntity, { cascade: true })
+  @OneToOne(() => UserEntity, { cascade: false })
   @JoinColumn()
   public user: UserEntity;
 

@@ -5,7 +5,6 @@ import { tap } from 'rxjs/operators';
 import { DEBUG_LOG } from 'src/app/config';
 import { AlertPerLeadTime } from 'src/app/models/alert-per-lead-time.model';
 import { Country, DisasterType } from 'src/app/models/country.model';
-import { User } from 'src/app/models/user/user.model';
 import { ActivationLogRecord } from 'src/app/pages/dashboard/activation-log/activation.log.page';
 import { Event } from 'src/app/services/event.service';
 import { JwtService } from 'src/app/services/jwt.service';
@@ -140,22 +139,10 @@ export class ApiService {
   // API-endpoints:
   /////////////////////////////////////////////////////////////////////////////
 
-  login(email: string) {
+  login(email: string, code: null | string) {
     this.log('ApiService : login()');
 
-    return this.post('login', { email }, { anonymous: true });
-  }
-
-  verifyLogin(email: string, code: string) {
-    this.log('ApiService : verifyLogin()');
-
-    return this.post('login/verify', { email, code }, { anonymous: true });
-  }
-
-  changePassword(password: string): Observable<User> {
-    this.log('ApiService : changePassword()');
-
-    return this.post('user/change-password', { password });
+    return this.post('login', { email, code }, { anonymous: true });
   }
 
   getCountries(

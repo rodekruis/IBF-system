@@ -12,7 +12,6 @@ import { ActivationLogButtonComponent } from 'src/app/components/activation-log-
 import { AdminLevelComponent } from 'src/app/components/admin-level/admin-level.component';
 import { AggregatesComponent } from 'src/app/components/aggregates/aggregates.component';
 import { AreasOfFocusSummaryComponent } from 'src/app/components/areas-of-focus-summary/areas-of-focus-summary.component';
-import { ChangePasswordPopoverComponent } from 'src/app/components/change-password-popover/change-password-popover.component';
 import { ChatComponent } from 'src/app/components/chat/chat.component';
 import { CommunityNotificationPhotoPopupComponent } from 'src/app/components/community-notification-photo-popup/community-notification-photo-popup.component';
 import { CommunityNotificationPopupComponent } from 'src/app/components/community-notification-popup/community-notification-popup.component';
@@ -39,6 +38,7 @@ import { LogosComponent } from 'src/app/components/logos/logos.component';
 import { MapComponent } from 'src/app/components/map/map.component';
 import { MapControlsComponent } from 'src/app/components/map-controls/map-controls.component';
 import { MatrixComponent } from 'src/app/components/matrix/matrix.component';
+import { QuickLinksComponent } from 'src/app/components/quick-links/quick-links.component';
 import { ScreenOrientationPopoverComponent } from 'src/app/components/screen-orientation-popover/screen-orientation-popover.component';
 import { SetTriggerPopoverComponent } from 'src/app/components/set-trigger-popover/set-trigger-popover.component';
 import { TimelineComponent } from 'src/app/components/timeline/timeline.component';
@@ -58,6 +58,7 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     LeafletModule,
     TranslateModule,
     CompactPipe,
+    QuickLinksComponent,
   ],
   declarations: [
     AboutBtnComponent,
@@ -67,7 +68,6 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     AggregatesComponent,
     AreasOfFocusSummaryComponent,
     BackendMockScenarioComponent,
-    ChangePasswordPopoverComponent,
     ChatComponent,
     CommunityNotificationPhotoPopupComponent,
     CommunityNotificationPopupComponent,
@@ -109,7 +109,6 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     AggregatesComponent,
     AreasOfFocusSummaryComponent,
     BackendMockScenarioComponent,
-    ChangePasswordPopoverComponent,
     ChatComponent,
     CommunityNotificationPhotoPopupComponent,
     CommunityNotificationPopupComponent,

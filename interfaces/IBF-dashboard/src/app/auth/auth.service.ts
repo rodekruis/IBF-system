@@ -1,14 +1,22 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { ToastController } from '@ionic/angular';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
 import { DEFAULT_USER } from 'src/app/config';
 import { User } from 'src/app/models/user/user.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 import { ApiService } from 'src/app/services/api.service';
 import { JwtService } from 'src/app/services/jwt.service';
 
-const HTTP_STATUS_MESSAGE_MAP = { 401: 'Email and/or password unknown' };
+export interface LoginUserResponse {
+  user: User;
+}
+
+export interface LoginMessageResponse {
+  message: string;
+}
+
+type LoginResponse = LoginMessageResponse | LoginUserResponse;
+
 @Injectable({ providedIn: 'root' })
 export class AuthService implements OnDestroy {
   private loggedIn = false;
@@ -22,7 +30,6 @@ export class AuthService implements OnDestroy {
     private apiService: ApiService,
     private jwtService: JwtService,
     private router: Router,
-    private toastController: ToastController,
   ) {
     this.checkLoggedInState();
 
@@ -76,6 +83,7 @@ export class AuthService implements OnDestroy {
 
     const decodedToken = this.jwtService.decodeToken(rawToken);
     const user: User = {
+      id: decodedToken.id,
       token: rawToken,
       email: decodedToken.email,
       firstName: decodedToken.firstName,
@@ -91,19 +99,17 @@ export class AuthService implements OnDestroy {
     return user;
   }
 
-  public login(email: string) {
-    return this.apiService
-      .login(email)
-      .subscribe(this.onLoginResponse, this.onLoginError);
+  public login(email: string, code: null | string) {
+    return this.apiService.login(email, code).pipe(
+      tap((response: LoginResponse) => {
+        if ('user' in response) {
+          this.onLoginResponse(response);
+        }
+      }),
+    );
   }
 
-  public verifyLogin(email: string, code: string) {
-    return this.apiService
-      .verifyLogin(email, code)
-      .subscribe(this.onLoginResponse, this.onLoginError);
-  }
-
-  private onLoginResponse = (response: { user: User }) => {
+  private onLoginResponse = (response: LoginUserResponse) => {
     if (!response.user?.token) {
       return;
     }
@@ -117,32 +123,20 @@ export class AuthService implements OnDestroy {
     this.userRole = user.userRole;
 
     if (this.redirectUrl) {
-      this.router.navigate([this.redirectUrl]);
+      this.router.navigate([this.redirectUrl]).catch(console.error);
       this.redirectUrl = null;
 
       return;
     }
 
-    this.router.navigate(['/']);
-  };
-
-  private onLoginError = async ({ error }) => {
-    const message =
-      HTTP_STATUS_MESSAGE_MAP[error?.statusCode] || error?.message;
-    const toast = await this.toastController.create({
-      message: `Authentication Failed: ${message}`,
-      duration: 5000,
-    });
-
-    void toast.present();
-    console.error('AuthService error: ', error);
+    this.router.navigate(['/']).catch(console.error);
   };
 
   public logout() {
     this.jwtService.destroyToken();
     this.loggedIn = false;
     this.authSubject.next(null);
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login']).catch(console.error);
   }
 
   setDisplayName = (user: User) => {
@@ -153,32 +147,5 @@ export class AuthService implements OnDestroy {
       .join(' ');
 
     this.displayName = displayName;
-  };
-
-  changePassword(password: string) {
-    return this.apiService
-      .changePassword(password)
-      .subscribe(this.onPasswordChanged, this.onChangePasswordError);
-  }
-
-  private onPasswordChanged = async () => {
-    const toast = await this.toastController.create({
-      message: 'Password changed successfully',
-      duration: 5000,
-    });
-
-    void toast.present();
-  };
-
-  private onChangePasswordError = async (error) => {
-    const message =
-      HTTP_STATUS_MESSAGE_MAP[error?.statusCode] || error?.message;
-    const toast = await this.toastController.create({
-      message: `Authentication Failed: ${message}`,
-      duration: 5000,
-    });
-
-    void toast.present();
-    console.error('AuthService error: ', error);
   };
 }

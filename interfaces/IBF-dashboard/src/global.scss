@@ -327,3 +327,31 @@ a {
 ion-toast {
   --width: fit-content;
 }
+
+@keyframes wiggle {
+  0% {
+    transform: translateX(0);
+  }
+  15% {
+    transform: translateX(-10px);
+  }
+  30% {
+    transform: translateX(10px);
+  }
+  45% {
+    transform: translateX(-10px);
+  }
+  60% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.wiggle {
+  animation: wiggle 0.5s ease-in-out;
+}

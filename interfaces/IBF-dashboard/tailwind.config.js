@@ -11,7 +11,7 @@ export default {
         'ibf-tertiary': 'var(--ion-color-ibf-tertiary)',
         'ibf-white': 'var(--ion-color-ibf-white)',
         'ibf-black': 'var(--ion-color-ibf-black)',
-        'ibf-gray': 'var(--ion-color-ibf-gray)',
+        'ibf-grey': 'var(--ion-color-ibf-grey)',
         'ibf-no-alert-primary': 'var(--ion-color-ibf-no-alert-primary)',
         'ibf-glofas-trigger': 'var(--ion-color-ibf-glofas-trigger)',
         'fiveten-yellow-500': 'var(--ion-color-fiveten-yellow-500)',

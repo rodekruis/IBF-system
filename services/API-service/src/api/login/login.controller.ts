@@ -1,11 +1,12 @@
-import { Body, Controller, Post, UsePipes } from '@nestjs/common';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, HttpStatus, Post, Res } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { ValidationPipe } from '../../shared/pipes/validation.pipe';
-import { LoginDto, LoginVerifyDto } from './login.dto';
+import { Response } from 'express';
+
+import { LoginDto } from './login.dto';
 import { LoginService } from './login.service';
 
-@ApiTags('--login--')
+@ApiTags('--app--')
 @Controller('login')
 export class LoginController {
   private readonly loginService: LoginService;
@@ -14,29 +15,23 @@ export class LoginController {
     this.loginService = loginService;
   }
 
-  @ApiOperation({ summary: 'Send login code to user' })
-  @UsePipes(new ValidationPipe())
-  @ApiResponse({ status: 201, description: 'Code sent to your email' })
-  @ApiResponse({ status: 403, description: 'Failed to login.' })
+  @ApiOperation({ summary: 'Send login code to email' })
   @Post()
-  public async login(@Body() { email }: LoginDto) {
-    const success = await this.loginService.send(email);
-
-    if (!success) {
-      return {
-        message: `Failed to login. Email ${process.env.SUPPORT_EMAIL_ADDRESS} for more information.`,
-      };
+  public async login(@Body() { email, code }: LoginDto, @Res() res: Response) {
+    if (code) {
+      try {
+        const { user } = await this.loginService.verify(email, code);
+        return res.status(HttpStatus.OK).send({ user });
+      } catch ({ message }) {
+        return res.status(HttpStatus.UNAUTHORIZED).send({ message });
+      }
     }
 
-    return { message: 'Code sent to your email' };
-  }
-
-  @ApiOperation({ summary: 'Verify login code' })
-  @UsePipes(new ValidationPipe())
-  @ApiResponse({ status: 202, description: 'Code is valid' })
-  @ApiResponse({ status: 403, description: 'Code is not valid' })
-  @Post('verify')
-  public async verify(@Body() { email, code }: LoginVerifyDto) {
-    return await this.loginService.verify(email, code);
+    try {
+      const { message } = await this.loginService.send(email);
+      return res.status(HttpStatus.CREATED).send({ message });
+    } catch ({ message }) {
+      return res.status(HttpStatus.BAD_REQUEST).send({ message });
+    }
   }
 }

@@ -5,11 +5,13 @@ export enum AnalyticsPage {
 }
 
 export enum AnalyticsEvent {
+  aboutIbf = 'about-ibf',
   aboutTrigger = 'about-trigger',
   adminLevel = 'admin-level',
   aggregateInformation = 'aggregate-information',
   communityNotification = 'community-notification',
   dam = 'dam',
+  documentation = 'documentation',
   download = 'download',
   eapAction = 'eap-action',
   evacuationCenter = 'evacuation-center',
@@ -17,6 +19,11 @@ export enum AnalyticsEvent {
   glofasStation = 'glofas-station',
   healthSite = 'health-site',
   leadTime = 'lead-time',
+  loginChange = 'login-change',
+  loginCode = 'login-code',
+  loginEmail = 'login',
+  loginReenter = 'login-reenter',
+  loginResend = 'login-resend',
   logOut = 'log-out',
   mapLayer = 'map-layer',
   mapLayerInformation = 'map-layer-information',
@@ -26,6 +33,7 @@ export enum AnalyticsEvent {
   riverGauge = 'river-gauge',
   school = 'school',
   setTrigger = 'set-trigger',
+  support = 'support',
   typhoonTrack = 'typhoon-track',
   upload = 'upload',
   uploadFile = 'upload-file',

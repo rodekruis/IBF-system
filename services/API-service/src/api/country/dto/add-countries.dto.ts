@@ -72,7 +72,7 @@ export class CountryDisasterSettingsDto {
 
   @ApiProperty({
     example: {
-      no: { label: 'No action', color: 'ibf-gray', value: 0 },
+      no: { label: 'No action', color: 'ibf-grey', value: 0 },
       max: {
         label: 'Activate EAP',
         color: 'ibf-trigger-alert-primary',
