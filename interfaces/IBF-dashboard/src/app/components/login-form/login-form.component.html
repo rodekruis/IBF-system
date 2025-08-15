@@ -1,4 +1,4 @@
-<form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="login-form space-y-4">
+<form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="login-form">
   <input
     type="submit"
     hidden
@@ -10,44 +10,89 @@
       'login-page.email' | translate
     }}</ion-label>
     <ion-input
+      #emailInput
       [ngModel]="model.email"
-      (ngModelChange)="model.email = $event"
+      (ngModelChange)="onEmailChange($event)"
+      email
       name="email"
       type="email"
       required
       inputmode="email"
       pattern=".+@.+\.[a-z]+"
-      autocomplete="email username"
+      autocomplete="email"
       data-test="input-user"
-      [readonly]="formState === 'verify'"
+      [disabled]="formState === 'code'"
     ></ion-input>
   </ion-item>
-  @if (formState === 'verify') {
-    <ion-item>
-      <ion-label position="stacked">{{
-        'login-page.code' | translate
-      }}</ion-label>
-      <ion-input
-        [ngModel]="model.code"
-        (ngModelChange)="model.code = $event"
-        name="code"
-        type="text"
-        required
-        inputmode="numeric"
-        pattern="[0-9]*"
-        autocomplete="one-time-code"
-        data-test="input-verification-code"
-      ></ion-input>
+  @if (formState === 'code') {
+    <ion-item lines="none" class="my-4">
+      <div class="flex w-full flex-row items-center justify-evenly">
+        <ion-button
+          fill="clear"
+          color="ibf-grey"
+          (click)="onReenterEmail()"
+          data-test="reenter-email-button"
+          >{{ 'login-page.reenter-email' | translate }}</ion-button
+        >
+        <ion-button
+          fill="clear"
+          color="ibf-grey"
+          (click)="onSubmit(true)"
+          data-test="resend-code-button"
+          [disabled]="resendCodeDisabled"
+          >{{ 'login-page.resend-code' | translate }}</ion-button
+        >
+      </div>
     </ion-item>
   }
-
-  <ion-button
-    type="submit"
-    shape="round"
-    color="fiveten-navy-900"
-    expand="full"
-    data-test="login-button"
-    [disabled]="!loginForm.form.valid"
-    >{{ 'login-page.title' | translate }}</ion-button
-  >
+  <ion-item lines="none" class="items-center">
+    <ion-label
+      position="stacked"
+      class="text-center"
+      [color]="error ? 'danger' : 'ibf-no-alert-primary'"
+      [class.wiggle]="error"
+      >{{ message || '\u00A0' }}</ion-label
+    >
+    @if (formState === 'code') {
+      <ion-input
+        #codeInput
+        type="text"
+        name="code"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        maxlength="6"
+        class="pointer-events-none absolute opacity-0"
+        autocomplete="one-time-code"
+        [ngModel]="model.code"
+        (ngModelChange)="onCodeChange($event)"
+      />
+      <div class="my-2 flex space-x-4" (click)="codeInput.setFocus()">
+        <span
+          *ngFor="let digit of codeDisplay; let i = index"
+          class="flex h-12 w-10 items-center justify-center rounded border border-gray-300 bg-white text-xl"
+          [class.ring-2]="model.code?.length === i || (i === 0 && !model.code)"
+          [class.ring-blue-500]="
+            model.code?.length === i || (i === 0 && !model.code)
+          "
+          >{{ digit }}</span
+        >
+      </div>
+    } @else {
+      <ion-button
+        type="submit"
+        size="default"
+        shape="round"
+        color="fiveten-navy-900"
+        data-test="login-button"
+        class="w-full"
+        [disabled]="!loginForm.form.valid"
+        >{{ 'login-page.title' | translate }}</ion-button
+      >
+    }
+  </ion-item>
+  <ion-item lines="none" class="mt-4">
+    <app-quick-links
+      class="flex w-full flex-row items-center justify-evenly"
+    ></app-quick-links>
+  </ion-item>
 </form>
