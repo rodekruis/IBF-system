@@ -1,4 +1,4 @@
-import { ForbiddenException, Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { FeatureCollection, Geometry, GeometryCollection } from 'geojson';
@@ -24,6 +24,8 @@ import { EventAreaService } from './services/event-area.service';
 
 @Injectable()
 export class AdminAreaService {
+  private logger = new Logger('AdminAreaService');
+
   @InjectRepository(AdminAreaEntity)
   private readonly adminAreaRepository: Repository<AdminAreaEntity>;
   @InjectRepository(DisasterTypeEntity)
@@ -95,7 +97,7 @@ export class AdminAreaService {
       adminAreaUpdateResult.untouched = untouchedAdminAreas.length;
 
       if (untouchedAdminAreas.length > 0) {
-        console.log(
+        this.logger.log(
           `${untouchedAdminAreas.length} admin areas were untouched:`,
           untouchedAdminAreas.map(({ placeCode }) => placeCode).join(', '),
         );
