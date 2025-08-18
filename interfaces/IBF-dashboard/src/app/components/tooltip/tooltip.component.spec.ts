@@ -2,6 +2,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AngularDelegate, PopoverController } from '@ionic/angular';
 import { provideIonicAngular } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { informationCircleOutline } from 'ionicons/icons';
 import { TooltipComponent } from 'src/app/components/tooltip/tooltip.component';
 
 describe('TooltipComponent', () => {
@@ -9,6 +11,8 @@ describe('TooltipComponent', () => {
   let fixture: ComponentFixture<TooltipComponent>;
 
   beforeEach(waitForAsync(() => {
+    addIcons({ 'information-circle-outline': informationCircleOutline });
+
     TestBed.configureTestingModule({
       declarations: [TooltipComponent],
       providers: [

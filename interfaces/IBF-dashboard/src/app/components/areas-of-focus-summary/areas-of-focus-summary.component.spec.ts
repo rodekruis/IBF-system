@@ -7,6 +7,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { provideIonicAngular } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { informationCircleOutline } from 'ionicons/icons';
 import { AreasOfFocusSummaryComponent } from 'src/app/components/areas-of-focus-summary/areas-of-focus-summary.component';
 
 describe('AreasOfFocusSummaryComponent', () => {
@@ -14,6 +16,8 @@ describe('AreasOfFocusSummaryComponent', () => {
   let fixture: ComponentFixture<AreasOfFocusSummaryComponent>;
 
   beforeEach(waitForAsync(() => {
+    addIcons({ 'information-circle-outline': informationCircleOutline });
+
     TestBed.configureTestingModule({
       declarations: [AreasOfFocusSummaryComponent],
       imports: [IonicModule, RouterModule.forRoot([])],
