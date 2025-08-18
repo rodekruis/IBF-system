@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { provideIonicAngular } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
+import { addIcons } from 'ionicons';
+import { closeCircle, cloudDownload } from 'ionicons/icons';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
 
 describe('LayerControlInfoPopoverComponent', () => {
@@ -15,6 +17,8 @@ describe('LayerControlInfoPopoverComponent', () => {
   let fixture: ComponentFixture<LayerControlInfoPopoverComponent>;
 
   beforeEach(waitForAsync(() => {
+    addIcons({ 'close-circle': closeCircle, 'cloud-download': cloudDownload });
+
     TestBed.configureTestingModule({
       declarations: [LayerControlInfoPopoverComponent],
       imports: [
