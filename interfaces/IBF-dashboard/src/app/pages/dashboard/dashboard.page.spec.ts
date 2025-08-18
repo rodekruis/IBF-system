@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { provideIonicAngular } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
+import { addIcons } from 'ionicons';
+import { chevronBackOutline } from 'ionicons/icons';
 import { DashboardPage } from 'src/app/pages/dashboard/dashboard.page';
 import { MapService } from 'src/app/services/map.service';
 import { SharedModule } from 'src/app/shared.module';
@@ -18,6 +20,8 @@ describe('DashboardPage', () => {
   let fixture: ComponentFixture<DashboardPage>;
 
   beforeEach(waitForAsync(() => {
+    addIcons({ 'chevron-back-outline': chevronBackOutline });
+
     TestBed.configureTestingModule({
       declarations: [DashboardPage],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

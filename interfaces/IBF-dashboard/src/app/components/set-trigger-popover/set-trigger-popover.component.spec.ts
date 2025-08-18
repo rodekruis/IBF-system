@@ -8,6 +8,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { IonicModule, PopoverController } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { addIcons } from 'ionicons';
+import { warning } from 'ionicons/icons';
 import { SetTriggerPopoverComponent } from 'src/app/components/set-trigger-popover/set-trigger-popover.component';
 
 describe('SetTriggerPopoverComponent', () => {
@@ -15,6 +17,8 @@ describe('SetTriggerPopoverComponent', () => {
   let fixture: ComponentFixture<SetTriggerPopoverComponent>;
 
   beforeEach(async () => {
+    addIcons({ warning });
+
     await TestBed.configureTestingModule({
       declarations: [SetTriggerPopoverComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

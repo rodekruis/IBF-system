@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { IonicModule, PopoverController } from '@ionic/angular';
 import { provideIonicAngular } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { addIcons } from 'ionicons';
+import { informationCircleOutline } from 'ionicons/icons';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -51,6 +53,8 @@ describe('AggregatesComponent', () => {
   let analyticsService: AnalyticsService;
 
   beforeEach(waitForAsync(async () => {
+    addIcons({ 'information-circle-outline': informationCircleOutline });
+
     await TestBed.configureTestingModule({
       declarations: [AggregatesComponent],
       imports: [
