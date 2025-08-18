@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-ibf-guide-popover',
   templateUrl: './ibf-guide-popover.component.html',
-  styleUrls: ['./ibf-guide-popover.component.scss'],
   standalone: false,
 })
 export class IbfGuidePopoverComponent implements OnInit {
