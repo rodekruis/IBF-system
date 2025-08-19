@@ -40,14 +40,7 @@
     "documentation": "Documentation",
     "support": "Email us"
   },
-  "user-state": {
-    "logged-in-as": "Welcome, ",
-    "log-out": "Logout",
-    "password-change": "Change password",
-    "password-new": "New password",
-    "password-confirm": "Confirm password",
-    "password-error": "Passwords do not match"
-  },
+  "user-state": { "logged-in-as": "Welcome, ", "log-out": "Logout" },
   "dashboard-page": {
     "dev-menu": {
       "title": "Dev Mode",
