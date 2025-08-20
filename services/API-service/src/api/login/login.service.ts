@@ -8,6 +8,7 @@ import { CountryService } from '../country/country.service';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { UserService } from '../user/user.service';
 import { UserRole } from '../user/user-role.enum';
+import DOMAIN_COUNTRY from './domain-country';
 import { LoginEntity } from './login.entity';
 
 const CODE_EXPIRATION_MINUTES = 15;
@@ -96,36 +97,21 @@ export class LoginService {
   }
 
   private async getCountryCodesISO3(email: string) {
-    let countryCodesISO3: string[] = [];
-
-    // hardcoded whitelisted domains for automatic access
+    // return all countries for redcross.nl
     if (email.endsWith('@redcross.nl')) {
       const countries = await this.countryService.getCountries();
-
-      countryCodesISO3 = countries.map(
-        ({ countryCodeISO3 }) => countryCodeISO3,
-      );
-    } else if (email.endsWith('@redcross.org.zm')) {
-      countryCodesISO3 = ['ZMB'];
-    } else if (email.endsWith('@redcross.org.ls')) {
-      countryCodesISO3 = ['LSO'];
-    } else if (email.endsWith('@redcrossug.org')) {
-      countryCodesISO3 = ['UGA'];
-    } else if (email.endsWith('@redcrosszim.org.zw')) {
-      countryCodesISO3 = ['ZWE'];
-    } else if (email.endsWith('@redcross.or.ke')) {
-      countryCodesISO3 = ['KEN'];
-    } else if (email.endsWith('@redcross.org.ph')) {
-      countryCodesISO3 = ['PHL'];
-    } else if (email.endsWith('@redcrosseth.org')) {
-      countryCodesISO3 = ['ETH'];
-    } else if (email.endsWith('@redcross.mw')) {
-      countryCodesISO3 = ['MWI'];
-    } else if (email.endsWith('@ssdredcross.org')) {
-      countryCodesISO3 = ['SSD'];
+      return countries.map(({ countryCodeISO3 }) => countryCodeISO3);
     }
 
-    return countryCodesISO3;
+    // return configured countries
+    for (const [domain, countries] of Object.entries(DOMAIN_COUNTRY)) {
+      if (email.endsWith(domain)) {
+        return countries;
+      }
+    }
+
+    // return empty list for unknown domains
+    return [];
   }
 
   private async getDisasterTypes() {
