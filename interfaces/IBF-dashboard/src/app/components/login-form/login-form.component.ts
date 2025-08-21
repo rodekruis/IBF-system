@@ -1,6 +1,7 @@
 import { AfterViewChecked, Component, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { IonInput } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -36,6 +37,7 @@ export class LoginFormComponent implements AfterViewChecked {
   constructor(
     private authService: AuthService,
     private analyticsService: AnalyticsService,
+    private translateService: TranslateService,
   ) {}
 
   ngAfterViewChecked() {
@@ -105,6 +107,9 @@ export class LoginFormComponent implements AfterViewChecked {
         }
       },
       error: ({ error: { message } }: { error: LoginMessageResponse }) => {
+        message =
+          message ??
+          String(this.translateService.instant('common.error.unknown'));
         if (this.formState === 'email' || resendCode) {
           this.resetForm('email', message, true);
         } else {
