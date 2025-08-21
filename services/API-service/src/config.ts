@@ -1,3 +1,9 @@
+import { MailerOptions } from '@nestjs-modules/mailer';
+
+import path from 'path';
+
+import { MjmlAdapter } from './api/email/mjml-adapter';
+
 export const ENV = process.env.NODE_ENV || 'development';
 
 export const DEV = ENV === 'development';
@@ -25,3 +31,22 @@ export const INTERNAL_GEOSERVER_API_URL =
 
 // Set this to true to temporarily test with old pipeline upload. Remove after all pipelines migrated.
 export const MOCK_USE_OLD_PIPELINE_UPLOAD = false;
+
+export const SMTP_CONFIG: MailerOptions = {
+  transport: {
+    host: process.env.SMTP_HOST || 'smtp.example.com',
+    port: Number(process.env.SMTP_PORT) || 587,
+    secure: process.env.SMTP_SECURE === 'true' || false,
+    auth: {
+      user: process.env.SMTP_USERNAME || 'username',
+      pass: process.env.SMTP_PASSWORD || 'password',
+    },
+  },
+  defaults: { from: process.env.SMTP_FROM || 'noreply@example.com' },
+  preview: true,
+  template: {
+    dir: path.join(__dirname, '/api/email/templates'),
+    adapter: new MjmlAdapter('ejs', { inlineCssEnabled: false }),
+    options: { strict: true },
+  },
+};

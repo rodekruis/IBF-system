@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  ServiceUnavailableException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { subMinutes } from 'date-fns';
@@ -6,6 +10,7 @@ import { LessThan, Repository } from 'typeorm';
 
 import { CountryService } from '../country/country.service';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
+import { EmailService } from '../email/email.service';
 import { UserService } from '../user/user.service';
 import { UserRole } from '../user/user-role.enum';
 import DOMAIN_COUNTRY from './domain-country';
@@ -15,6 +20,7 @@ const CODE_EXPIRATION_MINUTES = 15;
 const PASSWORD_LENGTH = 12;
 const PROMPT_CODE = 'Enter the code sent to your email';
 const UNDER_REVIEW = 'Your account is under review';
+const MAILER_ERROR = 'Failed to send login code';
 
 @Injectable()
 export class LoginService {
@@ -25,6 +31,7 @@ export class LoginService {
     private userService: UserService,
     private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
+    private emailService: EmailService,
   ) {}
 
   public async send(email: string) {
@@ -49,7 +56,11 @@ export class LoginService {
 
     await this.loginRepository.save(loginEntity);
 
-    // TODO: send email with code
+    try {
+      await this.emailService.sendLoginCodeEmail({ email, code });
+    } catch {
+      throw new ServiceUnavailableException(MAILER_ERROR);
+    }
 
     return { message: PROMPT_CODE };
   }
