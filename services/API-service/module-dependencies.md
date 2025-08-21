@@ -2,28 +2,39 @@
 
 ```mermaid
 graph LR
+  DiscoveryModule-->MailerCoreModule
   EapActionsModule-->UserModule
   UserModule-->LookupModule
+  LookupModule-->MailerCoreModule
+  UserModule-->MailerCoreModule
+  EapActionsModule-->MailerCoreModule
   AdminAreaModule-->UserModule
   AdminAreaModule-->EventModule
   EventModule-->UserModule
   EventModule-->CountryModule
   CountryModule-->UserModule
+  CountryModule-->MailerCoreModule
   EventModule-->EapActionsModule
   EventModule-->TyphoonTrackModule
   TyphoonTrackModule-->UserModule
+  TyphoonTrackModule-->MailerCoreModule
   EventModule-->DisasterTypeModule
   DisasterTypeModule-->UserModule
+  DisasterTypeModule-->MailerCoreModule
   EventModule-->MetadataModule
   MetadataModule-->UserModule
   MetadataModule-->CountryModule
   MetadataModule-->DisasterTypeModule
+  MetadataModule-->MailerCoreModule
+  EventModule-->MailerCoreModule
   AdminAreaModule-->CountryModule
   AdminAreaModule-->DisasterTypeModule
+  AdminAreaModule-->MailerCoreModule
   AdminAreaDynamicDataModule-->UserModule
   AdminAreaDynamicDataModule-->EventModule
   AdminAreaDynamicDataModule-->CountryModule
   AdminAreaDynamicDataModule-->AdminAreaModule
+  AdminAreaDynamicDataModule-->MailerCoreModule
   ProcessEventsModule-->UserModule
   ProcessEventsModule-->EventModule
   ProcessEventsModule-->NotificationModule
@@ -36,18 +47,30 @@ graph LR
   NotificationContentModule-->EventModule
   NotificationContentModule-->AdminAreaDataModule
   AdminAreaDataModule-->UserModule
+  AdminAreaDataModule-->MailerCoreModule
   NotificationContentModule-->AdminAreaModule
   NotificationContentModule-->DisasterTypeModule
   NotificationContentModule-->MetadataModule
+  NotificationContentModule-->MailerCoreModule
   WhatsappModule-->MetadataModule
+  WhatsappModule-->MailerCoreModule
   NotificationModule-->NotificationContentModule
   NotificationModule-->TyphoonTrackModule
+  NotificationModule-->MailerModule
+  MailerModule-->MailerCoreModule
+  NotificationModule-->MailerCoreModule
+  ProcessEventsModule-->MailerCoreModule
   PointDataModule-->UserModule
   PointDataModule-->WhatsappModule
+  PointDataModule-->MailerCoreModule
   LinesDataModule-->UserModule
+  LinesDataModule-->MailerCoreModule
   CronjobModule-->AdminAreaDynamicDataModule
+  CronjobModule-->MailerCoreModule
   LoginModule-->LookupModule
   LoginModule-->UserModule
   LoginModule-->CountryModule
   LoginModule-->DisasterTypeModule
+  LoginModule-->NotificationModule
+  LoginModule-->MailerCoreModule
 ```

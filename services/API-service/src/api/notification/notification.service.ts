@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import { Event } from '../../shared/data.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { EmailService } from '../email/email.service';
 import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
 import { EventService } from '../event/event.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
@@ -9,7 +10,6 @@ import {
   NotificationApiTestResponseChannelDto,
   NotificationApiTestResponseDto,
 } from './dto/notification-api-test-response.dto';
-import { EmailService } from './email/email.service';
 import { NotificationContentService } from './notification-content/notification-content.service';
 import { WhatsappService } from './whatsapp/whatsapp.service';
 
