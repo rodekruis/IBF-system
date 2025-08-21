@@ -141,6 +141,9 @@ export class LoginFormComponent implements AfterViewChecked {
     message: null | string = null,
     error = false,
   ) {
+    if (formState === 'email') {
+      this.loginForm.resetForm();
+    }
     this.shouldFocus = true;
     this.formState = formState;
     this.model.code = '';
@@ -148,8 +151,5 @@ export class LoginFormComponent implements AfterViewChecked {
     this.error = error;
     this.codeDisplay = ['', '', '', '', '', ''];
     this.resendCodeDisabled = false;
-    if (this.formState === 'email') {
-      this.loginForm.resetForm();
-    }
   }
 }

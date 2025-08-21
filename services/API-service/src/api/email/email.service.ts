@@ -1,16 +1,22 @@
-import { Injectable, Logger } from '@nestjs/common';
+import {
+  Injectable,
+  Logger,
+  ServiceUnavailableException,
+} from '@nestjs/common';
+import { MailerService } from '@nestjs-modules/mailer';
 
 import { formatISO } from 'date-fns';
 import * as fs from 'fs';
 import Mailchimp from 'mailchimp-api-v3';
 
-import { CI, DEV, PROD } from '../../../config';
-import { Event } from '../../../shared/data.model';
-import { DisasterType } from '../../disaster-type/disaster-type.enum';
-import { LastUploadDateDto } from '../../event/dto/last-upload-date.dto';
-import { CountryEntity } from './../../country/country.entity';
-import { NotificationContentService } from './../notification-content/notification-content.service';
-import { MjmlService } from './mjml.service';
+import { CI, DEV, PROD } from '../../config';
+import { Event } from '../../shared/data.model';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
+import { LoginDto } from '../login/login.dto';
+import { MjmlService } from '../notification/email/mjml.service';
+import { NotificationContentService } from '../notification/notification-content/notification-content.service';
+import { CountryEntity } from './../country/country.entity';
 
 @Injectable()
 export class EmailService {
@@ -23,6 +29,7 @@ export class EmailService {
   public constructor(
     private readonly notificationContentService: NotificationContentService,
     private readonly mjmlService: MjmlService,
+    private readonly mailerService: MailerService,
   ) {}
 
   private async getSegmentId(
@@ -178,6 +185,30 @@ export class EmailService {
       await this.mailchimp.post(`/campaigns/${createResult.id}/actions/send`);
     } catch (error: unknown) {
       this.logger.error(`Failed to send Mailchimp campaign. ${error}`);
+    }
+  }
+
+  public async sendLoginCodeEmail({ email: to, code }: LoginDto) {
+    let subject = `IBF - ${code} is your login code`;
+    if (!PROD) {
+      subject += ` - ${process.env.NODE_ENV.toUpperCase()}`;
+    }
+
+    try {
+      await this.mailerService.sendMail({
+        to,
+        subject,
+        text: `IBF - ${code} is your login code`,
+        template: 'login-code',
+        context: {
+          code,
+          dashboardUrl: process.env.DASHBOARD_URL,
+          supportEmailAddress: process.env.SUPPORT_EMAIL_ADDRESS,
+        },
+      });
+    } catch (error: unknown) {
+      this.logger.error('Error sending email:', error);
+      throw new ServiceUnavailableException(error);
     }
   }
 }

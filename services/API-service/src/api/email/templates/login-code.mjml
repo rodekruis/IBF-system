@@ -1,0 +1,95 @@
+<mjml>
+  <mj-head>
+    <mj-attributes>
+      <mj-section padding="0" />
+      <mj-text line-height="1.6" />
+      <mj-all
+        font-family="'Open Sans', Helvetica, Arial, sans-serif"
+        font-size="14px"
+      />
+    </mj-attributes>
+  </mj-head>
+
+  <mj-body>
+    <mj-section>
+      <mj-column>
+        <mj-image
+          src="<%= dashboardUrl %>/assets/icons/favicon.png"
+          alt="IBF logo"
+          align="center"
+          width="60px"
+          height="54px"
+          href="<%= dashboardUrl %>"
+        ></mj-image>
+      </mj-column>
+    </mj-section>
+
+    <mj-section>
+      <mj-column>
+        <mj-text font-size="28px"><%= code %> is your login code</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-section>
+      <mj-column>
+        <mj-text
+          >This is your unique code – use it to securely login into
+          <a href="<%= dashboardUrl %>">IBF</a> without a password.</mj-text
+        >
+        <mj-text
+          align="center"
+          font-size="34px"
+          font-weight="bold"
+          padding-top="12px"
+          padding-bottom="12px"
+          letter-spacing="8px"
+          ><%= code %></mj-text
+        >
+        <mj-text
+          >This code can only be used once and expires after 10 minutes. Do not
+          share this code with anyone.</mj-text
+        >
+        <mj-text
+          >If you didn’t request a login code, you can ignore this
+          email.</mj-text
+        >
+      </mj-column>
+    </mj-section>
+
+    <mj-section padding-top="12px" padding-bottom="12px">
+      <mj-column>
+        <mj-button
+          align="center"
+          background-color="transparent"
+          color="#8a95a0"
+          href="https://510.global/product/ibf"
+          >About IBF</mj-button
+        >
+      </mj-column>
+      <mj-column>
+        <mj-button
+          align="center"
+          background-color="transparent"
+          color="#8a95a0"
+          href="https://github.com/rodekruis/IBF-system/wiki"
+          >Documentation</mj-button
+        >
+      </mj-column>
+      <mj-column>
+        <mj-button
+          align="center"
+          background-color="transparent"
+          color="#8a95a0"
+          href="mailto:<%= supportEmailAddress %>?subject=IBF%20login%20code"
+          >Email us</mj-button
+        >
+      </mj-column>
+    </mj-section>
+
+    <mj-section>
+      <mj-column>
+        <mj-text>Have a great day,<br />Red Cross</mj-text>
+      </mj-column>
+    </mj-section>
+  </mj-body>
+</mjml>
