@@ -2,7 +2,10 @@
   "app-name": "IBF-dashboard",
   "common": {
     "version": "Version",
-    "error": { "present-toast": "Error presenting toast" }
+    "error": {
+      "unknown": "Something went wrong",
+      "present-toast": "Error presenting toast"
+    }
   },
   "export-view": {
     "title": "Export view",
