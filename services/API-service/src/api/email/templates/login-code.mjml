@@ -22,7 +22,10 @@
       <mj-column>
         <mj-text
           >This is your unique code – use it to securely login into
-          <a href="<%= dashboardUrl %>">IBF</a> without a password.</mj-text
+          <a href="<%= dashboardUrl %>/login?email=<%= to %>&code=<%= code %>"
+            >IBF</a
+          >
+          without a password.</mj-text
         >
         <mj-text
           align="center"

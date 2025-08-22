@@ -201,6 +201,7 @@ export class EmailService {
         text: `IBF - ${code} is your login code`,
         template: 'login-code',
         context: {
+          to,
           code,
           dashboardUrl: process.env.DASHBOARD_URL,
           supportEmailAddress: process.env.SUPPORT_EMAIL_ADDRESS,

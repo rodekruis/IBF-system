@@ -54,7 +54,7 @@ export class LoginService {
     loginEntity.user = user;
     loginEntity.createdAt = new Date();
 
-    await this.loginRepository.save(loginEntity);
+    await this.loginRepository.upsert(loginEntity, ['user']);
 
     try {
       await this.emailService.sendLoginCodeEmail({ email, code });
