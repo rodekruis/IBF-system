@@ -1,5 +1,6 @@
-import { AfterViewChecked, Component, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IonInput } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import {
@@ -15,7 +16,7 @@ import { AuthService, LoginMessageResponse } from 'src/app/auth/auth.service';
   styleUrls: ['./login-form.component.scss'],
   standalone: false,
 })
-export class LoginFormComponent implements AfterViewChecked {
+export class LoginFormComponent implements OnInit, AfterViewChecked {
   @ViewChild('loginForm')
   public loginForm: NgForm;
 
@@ -38,7 +39,30 @@ export class LoginFormComponent implements AfterViewChecked {
     private authService: AuthService,
     private analyticsService: AnalyticsService,
     private translateService: TranslateService,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
+
+  ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      if (params['email']) {
+        this.model.email = String(params['email']);
+      }
+
+      if (params['code']) {
+        this.model.code = String(params['code']);
+      }
+
+      if (params['email'] || params['code']) {
+        this.onSubmit();
+      }
+    });
+
+    void this.router.navigate([], {
+      queryParams: { email: null, code: null },
+      queryParamsHandling: 'merge',
+    });
+  }
 
   ngAfterViewChecked() {
     if (!this.shouldFocus) {
