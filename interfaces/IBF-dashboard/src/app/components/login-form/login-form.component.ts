@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IonInput } from '@ionic/angular';
@@ -16,7 +16,7 @@ import { AuthService, LoginMessageResponse } from 'src/app/auth/auth.service';
   styleUrls: ['./login-form.component.scss'],
   standalone: false,
 })
-export class LoginFormComponent implements OnInit, AfterViewChecked {
+export class LoginFormComponent implements OnInit {
   @ViewChild('loginForm')
   public loginForm: NgForm;
 
@@ -32,8 +32,6 @@ export class LoginFormComponent implements OnInit, AfterViewChecked {
   public codeDisplay: string[] = ['', '', '', '', '', ''];
   public message: null | string = null;
   public error = false;
-
-  private shouldFocus = true;
 
   constructor(
     private authService: AuthService,
@@ -53,7 +51,7 @@ export class LoginFormComponent implements OnInit, AfterViewChecked {
         this.model.code = String(params['code']);
       }
 
-      if (params['email'] || params['code']) {
+      if (params['email']) {
         this.onSubmit();
       }
     });
@@ -64,26 +62,8 @@ export class LoginFormComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  ngAfterViewChecked() {
-    if (!this.shouldFocus) {
-      return;
-    }
-
-    setTimeout(() => {
-      if (this.formState === 'code') {
-        this.codeInput?.setFocus().catch(console.error);
-      } else if (this.formState === 'email') {
-        this.emailInput?.setFocus().catch(console.error);
-      }
-    }, 100);
-
-    this.shouldFocus = false;
-  }
-
   public onCodeChange(value: null | string) {
-    if (this.error) {
-      this.error = false;
-    }
+    this.error = false;
     this.model.code = value?.replace(/\D/g, '').slice(0, 6);
 
     this.codeDisplay = this.model.code
@@ -101,18 +81,15 @@ export class LoginFormComponent implements OnInit, AfterViewChecked {
 
   private normalizeCode(code: string) {
     if (code?.trim().length === 6) {
-      return code;
+      return code.trim();
     }
 
     return null;
   }
 
   public onEmailChange(value: string) {
-    if (this.error && this.message) {
-      this.error = false;
-      this.message = null;
-    }
-
+    this.error = false;
+    this.message = null;
     this.model.email = value;
   }
 
@@ -173,12 +150,19 @@ export class LoginFormComponent implements OnInit, AfterViewChecked {
     if (formState === 'email') {
       this.loginForm.resetForm();
     }
-    this.shouldFocus = true;
     this.formState = formState;
     this.model.code = '';
+    this.codeDisplay = ['', '', '', '', '', ''];
     this.message = message;
     this.error = error;
-    this.codeDisplay = ['', '', '', '', '', ''];
     this.resendCodeDisabled = false;
+
+    setTimeout(() => {
+      if (formState === 'email') {
+        void this.emailInput?.setFocus();
+      } else {
+        void this.codeInput?.setFocus();
+      }
+    });
   }
 }
