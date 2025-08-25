@@ -18,7 +18,7 @@ export class LoginEntity1754484743004 implements MigrationInterface {
       `ALTER TABLE "IBF-app"."logins"
         ADD CONSTRAINT "FK_cd8a4f84444e7d8ff0702bb8801" FOREIGN KEY ("userUserId")
           REFERENCES "IBF-app"."user"("userId")
-          ON DELETE NO ACTION ON UPDATE NO ACTION`,
+          ON DELETE CASCADE ON UPDATE NO ACTION`,
     );
   }
 
