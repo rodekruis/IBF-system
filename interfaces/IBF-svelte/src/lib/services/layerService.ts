@@ -6,7 +6,7 @@ import config, { getGeoserverUrl } from '../config';
 export enum LayerType {
   point = 'point',
   shape = 'shape',
-  wms = 'wms'
+  wms = 'wms',
 }
 
 export enum LayerGroup {
@@ -14,7 +14,7 @@ export enum LayerGroup {
   aggregates = 'aggregates',
   outline = 'outline',
   point = 'point',
-  wms = 'wms'
+  wms = 'wms',
 }
 
 export enum LayerName {
@@ -29,7 +29,7 @@ export enum LayerName {
   evacuationCenters = 'evacuation_centers',
   damSites = 'dams',
   communityNotifications = 'community_notifications',
-  gauges = 'gauges'
+  gauges = 'gauges',
 }
 
 // IBF Layer structure
@@ -158,36 +158,36 @@ export const MARKER_ICON_CONFIG = {
   base: {
     iconSize: [28, 42],
     iconAnchor: [24, 42],
-    popupAnchor: [0, -28]
+    popupAnchor: [0, -28],
   },
-  
+
   // Point marker types
   markers: {
     glofasStation: {
       default: '/assets/markers/glofas-station-no-trigger.svg',
       min: '/assets/markers/glofas-station-min-trigger.svg',
       med: '/assets/markers/glofas-station-med-trigger.svg',
-      max: '/assets/markers/glofas-station-max-trigger.svg'
+      max: '/assets/markers/glofas-station-max-trigger.svg',
     },
     waterpoint: {
       default: '/assets/markers/water-point-marker.svg',
-      exposed: '/assets/markers/water-point-marker-exposed.svg'
+      exposed: '/assets/markers/water-point-marker-exposed.svg',
     },
     healthSite: {
       default: '/assets/markers/health-center-marker.svg',
-      exposed: '/assets/markers/health-center-marker-exposed.svg'
+      exposed: '/assets/markers/health-center-marker-exposed.svg',
     },
     school: {
       default: '/assets/markers/school-marker.svg',
-      exposed: '/assets/markers/school-marker-exposed.svg'
+      exposed: '/assets/markers/school-marker-exposed.svg',
     },
     redCrossBranch: '/assets/markers/red-cross-marker.svg',
     evacuationCenter: '/assets/markers/evacuation-center-marker.svg',
     damSite: '/assets/markers/dam-marker.svg',
     communityNotification: '/assets/markers/community-notification-marker.svg',
     riverGauge: '/assets/markers/river-gauge-marker.svg',
-    typhoonTrack: '/assets/markers/typhoon-track.png'
-  }
+    typhoonTrack: '/assets/markers/typhoon-track.png',
+  },
 };
 
 class LayerService {
@@ -198,26 +198,37 @@ class LayerService {
   /**
    * Get available layers for a country and disaster type
    */
-  async getLayersForCountry(countryCodeISO3: string, disasterType: string): Promise<IBFLayer[]> {
+  async getLayersForCountry(
+    countryCodeISO3: string,
+    disasterType: string,
+  ): Promise<IBFLayer[]> {
     try {
       console.log(`🗺️ Loading layers for ${countryCodeISO3} - ${disasterType}`);
-      
+
       // Store current country code for WMS layer configuration
       this.currentCountryCode = countryCodeISO3;
-      
-      const response = await ibfApiService.getLayers(countryCodeISO3, disasterType);
-      
+
+      const response = await ibfApiService.getLayers(
+        countryCodeISO3,
+        disasterType,
+      );
+
       if (response.error || !response.data) {
         console.warn('⚠️ No layers data available, using fallback layers');
         return this.getFallbackLayers(disasterType);
       }
 
       // Transform layer metadata to IBFLayer format
-      const layers = response.data.map(layerMeta => this.transformLayerMetadata(layerMeta));
-      
-      console.log(`✅ Loaded ${layers.length} layers:`, layers.map(l => l.name));
+      const layers = response.data.map((layerMeta) =>
+        this.transformLayerMetadata(layerMeta),
+      );
+
+      console.log(
+        `✅ Loaded ${layers.length} layers:`,
+        layers.map((l) => l.name),
+      );
       this.layers = layers;
-      
+
       return layers;
     } catch (error) {
       console.error('❌ Error loading layers:', error);
@@ -229,18 +240,18 @@ class LayerService {
    * Load data for a specific layer
    */
   async loadLayerData(
-    layer: IBFLayer, 
-    countryCodeISO3: string, 
+    layer: IBFLayer,
+    countryCodeISO3: string,
     disasterType: string,
-    eventName?: string
+    eventName?: string,
   ): Promise<any> {
     const cacheKey = `${layer.name}_${countryCodeISO3}_${disasterType}_${eventName || 'no-event'}`;
-    
+
     // Check cache first
-    if (this.layerCache.has(cacheKey)) {
-      console.log(`🗄️ Using cached data for layer: ${layer.name}`);
-      return this.layerCache.get(cacheKey);
-    }
+    // if (this.layerCache.has(cacheKey)) {
+    //   console.log(`🗄️ Using cached data for layer: ${layer.name}`);
+    //   return this.layerCache.get(cacheKey);
+    // }
 
     try {
       let layerData: any = null;
@@ -249,13 +260,17 @@ class LayerService {
       switch (layer.name) {
         case LayerName.waterpoints:
           console.log(`💧 Loading waterpoints for ${countryCodeISO3}`);
-          const waterpointsResponse = await ibfApiService.getWaterpoints(countryCodeISO3);
+          const waterpointsResponse =
+            await ibfApiService.getWaterpoints(countryCodeISO3);
           layerData = waterpointsResponse.data || null;
           break;
 
         case LayerName.typhoonTrack:
           console.log(`🌀 Loading typhoon track for ${countryCodeISO3}`);
-          const typhoonResponse = await ibfApiService.getTyphoonTrack(countryCodeISO3, eventName);
+          const typhoonResponse = await ibfApiService.getTyphoonTrack(
+            countryCodeISO3,
+            eventName,
+          );
           layerData = typhoonResponse.data || null;
           break;
 
@@ -268,22 +283,33 @@ class LayerService {
         case LayerName.damSites:
         case LayerName.communityNotifications:
         case LayerName.gauges:
-          console.log(`📍 Loading point data for ${layer.name} in ${countryCodeISO3}`);
-          const pointDataResponse = await ibfApiService.getPointData(countryCodeISO3, layer.name);
+          console.log(
+            `📍 Loading point data for ${layer.name} in ${countryCodeISO3}`,
+          );
+          const pointDataResponse = await ibfApiService.getPointData(
+            countryCodeISO3,
+            layer.name,
+          );
           layerData = pointDataResponse.data || null;
           break;
 
         default:
-          console.log(`⚠️ Unknown layer type: ${layer.name}, skipping data load`);
+          console.log(
+            `⚠️ Unknown layer type: ${layer.name}, skipping data load`,
+          );
           break;
       }
 
-      // Cache the data
-      if (layerData) {
-        this.layerCache.set(cacheKey, layerData);
-        const featureCount = layerData?.features?.length || (Array.isArray(layerData) ? layerData.length : 0);
-        console.log(`✅ Loaded data for layer ${layer.name}: ${featureCount} features`);
-      }
+      // // Cache the data
+      // if (layerData) {
+      //   this.layerCache.set(cacheKey, layerData);
+      //   const featureCount =
+      //     layerData?.features?.length ||
+      //     (Array.isArray(layerData) ? layerData.length : 0);
+      //   console.log(
+      //     `✅ Loaded data for layer ${layer.name}: ${featureCount} features`,
+      //   );
+      // }
 
       return layerData;
     } catch (error) {
@@ -302,12 +328,12 @@ class LayerService {
 
     // Get appropriate icon based on layer type and properties
     const iconUrl = this.getMarkerIcon(layerName, properties);
-    
+
     const markerOptions = {
       icon: L.icon({
         iconUrl,
-        ...MARKER_ICON_CONFIG.base
-      })
+        ...MARKER_ICON_CONFIG.base,
+      }),
     };
 
     const marker = L.marker(latlng, markerOptions);
@@ -339,18 +365,18 @@ class LayerService {
         return markers.waterpoint.default;
 
       case LayerName.waterpointsInternal:
-        return properties.dynamicData?.exposure 
-          ? markers.waterpoint.exposed 
+        return properties.dynamicData?.exposure
+          ? markers.waterpoint.exposed
           : markers.waterpoint.default;
 
       case LayerName.healthSites:
-        return properties.dynamicData?.exposure 
-          ? markers.healthSite.exposed 
+        return properties.dynamicData?.exposure
+          ? markers.healthSite.exposed
           : markers.healthSite.default;
 
       case LayerName.schools:
-        return properties.dynamicData?.exposure 
-          ? markers.school.exposed 
+        return properties.dynamicData?.exposure
+          ? markers.school.exposed
           : markers.school.default;
 
       case LayerName.redCrossBranches:
@@ -387,11 +413,15 @@ class LayerService {
         content += `
           <h4>${properties.stationName || 'Station'}</h4>
           <p><strong>Code:</strong> ${properties.stationCode || 'N/A'}</p>
-          ${properties.dynamicData ? `
+          ${
+            properties.dynamicData
+              ? `
             <p><strong>Alert Class:</strong> ${properties.dynamicData.eapAlertClass || 'None'}</p>
             <p><strong>Forecast Level:</strong> ${properties.dynamicData.forecastLevel || 'N/A'}</p>
             <p><strong>Trigger Level:</strong> ${properties.dynamicData.triggerLevel || 'N/A'}</p>
-          ` : ''}
+          `
+              : ''
+          }
         `;
         break;
 
@@ -399,9 +429,13 @@ class LayerService {
         content += `
           <h4>${properties.name || 'Health Site'}</h4>
           <p><strong>Type:</strong> ${properties.type || 'N/A'}</p>
-          ${properties.dynamicData?.exposure ? `
+          ${
+            properties.dynamicData?.exposure
+              ? `
             <p><strong>Status:</strong> <span style="color: red;">Exposed</span></p>
-          ` : '<p><strong>Status:</strong> <span style="color: green;">Safe</span></p>'}
+          `
+              : '<p><strong>Status:</strong> <span style="color: green;">Safe</span></p>'
+          }
         `;
         break;
 
@@ -409,9 +443,13 @@ class LayerService {
         content += `
           <h4>${properties.name || 'School'}</h4>
           <p><strong>Type:</strong> ${properties.type || 'N/A'}</p>
-          ${properties.dynamicData?.exposure ? `
+          ${
+            properties.dynamicData?.exposure
+              ? `
             <p><strong>Status:</strong> <span style="color: red;">Exposed</span></p>
-          ` : '<p><strong>Status:</strong> <span style="color: green;">Safe</span></p>'}
+          `
+              : '<p><strong>Status:</strong> <span style="color: green;">Safe</span></p>'
+          }
         `;
         break;
 
@@ -428,9 +466,13 @@ class LayerService {
         content += `
           <h4>${properties.name || 'Waterpoint'}</h4>
           <p><strong>Type:</strong> ${properties.type || 'N/A'}</p>
-          ${properties.dynamicData?.exposure ? `
+          ${
+            properties.dynamicData?.exposure
+              ? `
             <p><strong>Status:</strong> <span style="color: red;">Exposed</span></p>
-          ` : '<p><strong>Status:</strong> <span style="color: green;">Safe</span></p>'}
+          `
+              : '<p><strong>Status:</strong> <span style="color: green;">Safe</span></p>'
+          }
         `;
         break;
 
@@ -488,11 +530,13 @@ class LayerService {
       group: this.getLayerGroup(layerMeta.type),
       active: layerMeta.active === 'yes' || layerMeta.active === true,
       show: true,
-      description: layerMeta.description ? JSON.stringify(layerMeta.description) : '',
+      description: layerMeta.description
+        ? JSON.stringify(layerMeta.description)
+        : '',
       leadTimeDependent: layerMeta.leadTimeDependent || false,
       dynamic: layerMeta.dynamic || false,
       order: layerMeta.order || 10,
-      legendColor: layerMeta.legendColor
+      legendColor: layerMeta.legendColor,
     };
 
     // Add WMS configuration for WMS layers
@@ -505,7 +549,7 @@ class LayerService {
         attribution: '510 Global',
         transparent: true,
         leadTimeDependent: layerMeta.leadTimeDependent || false,
-        viewparams: `countryCodeISO3:${this.currentCountryCode || ''}`
+        viewparams: `countryCodeISO3:${this.currentCountryCode || ''}`,
       };
     }
 
@@ -540,7 +584,7 @@ class LayerService {
         group: LayerGroup.point,
         active: false,
         show: true,
-        order: 1
+        order: 1,
       },
       {
         name: LayerName.healthSites,
@@ -549,7 +593,7 @@ class LayerService {
         group: LayerGroup.point,
         active: false,
         show: true,
-        order: 2
+        order: 2,
       },
       {
         name: LayerName.schools,
@@ -558,8 +602,8 @@ class LayerService {
         group: LayerGroup.point,
         active: false,
         show: true,
-        order: 3
-      }
+        order: 3,
+      },
     ];
 
     // Add disaster-specific layers
@@ -571,7 +615,7 @@ class LayerService {
         group: LayerGroup.point,
         active: true,
         show: true,
-        order: 0
+        order: 0,
       });
     }
 
@@ -583,7 +627,7 @@ class LayerService {
         group: LayerGroup.point,
         active: true,
         show: true,
-        order: 0
+        order: 0,
       });
     }
 
@@ -609,7 +653,7 @@ class LayerService {
    * Update layer active state
    */
   updateLayerState(layerName: string, active: boolean): void {
-    const layer = this.layers.find(l => l.name === layerName);
+    const layer = this.layers.find((l) => l.name === layerName);
     if (layer) {
       layer.active = active;
       console.log(`🔄 Updated layer ${layerName} active state: ${active}`);
