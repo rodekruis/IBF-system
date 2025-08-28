@@ -30,7 +30,7 @@
   },
   "login-page": {
     "title": "Login",
-    "email": "Email",
+    "enter-email": "Enter your email",
     "reenter-email": "Use a different email",
     "resend-code": "Resend code",
     "welcome": "Welcome to IBF",
