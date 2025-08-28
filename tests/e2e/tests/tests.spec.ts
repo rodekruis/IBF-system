@@ -68,7 +68,7 @@ test.describe('e2e tests', () => {
       country: { code },
       disasterType,
       scenario,
-      user: { email, password },
+      user: { email },
     } = dataset;
 
     let page: Page;
@@ -98,7 +98,7 @@ test.describe('e2e tests', () => {
 
         await page.goto('/');
         // Login into the portal
-        await pages.login.login(email, password);
+        await pages.login.login(email);
       });
 
       test.beforeEach(async ({ page }) => {

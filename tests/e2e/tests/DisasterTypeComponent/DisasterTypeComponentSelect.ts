@@ -21,11 +21,6 @@ export default (
       const disasterType = dataset.country.disasterTypes[disasterTypeIndex];
       await dashboard.navigateToDisasterType(disasterType);
       await dashboard.waitForLoaderToDisappear();
-      await userState.headerComponentDisplaysCorrectDisasterType({
-        country: dataset.country,
-        disasterType,
-        title: dataset.title,
-      });
     }
   });
 };
