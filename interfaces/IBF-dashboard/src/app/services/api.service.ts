@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { LoginRequest } from 'src/app/auth/auth.service';
 import { DEBUG_LOG } from 'src/app/config';
 import { AlertPerLeadTime } from 'src/app/models/alert-per-lead-time.model';
 import { Country, DisasterType } from 'src/app/models/country.model';
@@ -139,10 +140,10 @@ export class ApiService {
   // API-endpoints:
   /////////////////////////////////////////////////////////////////////////////
 
-  login(email: string, code: null | string) {
+  login(loginRequest: LoginRequest) {
     this.log('ApiService : login()');
 
-    return this.post('login', { email, code }, { anonymous: true });
+    return this.post('login', loginRequest, { anonymous: true });
   }
 
   getCountries(

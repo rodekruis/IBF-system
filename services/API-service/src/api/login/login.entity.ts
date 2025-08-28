@@ -18,7 +18,7 @@ export class LoginEntity {
   public user: UserEntity;
 
   @Column()
-  public code: string;
+  public code: number;
 
   @Column({ type: 'timestamp', default: (): string => 'CURRENT_TIMESTAMP' })
   public createdAt: Date;
