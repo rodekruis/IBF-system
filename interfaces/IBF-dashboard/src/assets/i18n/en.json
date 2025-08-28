@@ -58,7 +58,6 @@
         "alert-error-api-error": "Failed to set mock scenario."
       }
     },
-    "triggered-message": { "yes": "TRIGGERED", "no": "NON-TRIGGERED" },
     "screen-orientation": {
       "mobile": {
         "title": "IBF Portal - Mobile Phones",
