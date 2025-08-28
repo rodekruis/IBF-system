@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { addIcons } from 'ionicons';
+import { chevronDownOutline, chevronUpOutline } from 'ionicons/icons';
 import { MapComponent } from 'src/app/components/map/map.component';
 import { MapService } from 'src/app/services/map.service';
 
@@ -16,6 +18,11 @@ describe('MapComponent', () => {
   let fixture: ComponentFixture<MapComponent>;
 
   beforeEach(waitForAsync(() => {
+    addIcons({
+      'chevron-up-outline': chevronUpOutline,
+      'chevron-down-outline': chevronDownOutline,
+    });
+
     TestBed.configureTestingModule({
       declarations: [MapComponent],
       imports: [
