@@ -28,8 +28,8 @@ export class LoginController {
     }
 
     try {
-      const { message } = await this.loginService.send(email);
-      return res.status(HttpStatus.CREATED).send({ message });
+      const { message, code } = await this.loginService.send(email);
+      return res.status(HttpStatus.CREATED).send({ message, code });
     } catch ({ message }) {
       return res.status(HttpStatus.BAD_REQUEST).send({ message });
     }

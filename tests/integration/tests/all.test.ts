@@ -10,6 +10,7 @@ import emailTests from './email/emails.test';
 import getEventsTests from './events/get-events.test';
 import processEventsTests from './events/process-events.test';
 import setTriggerTests from './events/set-trigger.test';
+import loginTests from './login/login.test';
 import getPointDataTests from './point-data/get-point-data.test';
 import typhoonTrackTests from './typhoon-track/typhoon-track.test';
 import usersTests from './users/users.test';
@@ -18,6 +19,8 @@ describe('integration tests', () => {
   beforeAll(async () => {
     await reset();
   });
+
+  loginTests();
 
   communityNotificationTests();
 

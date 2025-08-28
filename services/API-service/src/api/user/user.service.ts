@@ -1,5 +1,10 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
-import { HttpException } from '@nestjs/common/exceptions/http.exception';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { validate } from 'class-validator';
@@ -15,6 +20,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './user.entity';
 import { UserData, UserResponseObject } from './user.model';
 import { UserRole } from './user-role.enum';
+
+const CREATE_ERROR = 'Failed to create user';
+const NOT_FOUND = 'User not found';
+const FORBIDDEN = 'Action not allowed';
 
 @Injectable()
 export class UserService {
@@ -77,13 +86,14 @@ export class UserService {
 
     const errors = await validate(userEntity);
     if (errors.length > 0) {
-      throw new HttpException(
-        { message: 'Input data validation failed' },
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new BadRequestException(CREATE_ERROR);
     }
 
-    return this.userRepository.save(userEntity);
+    try {
+      return await this.userRepository.save(userEntity);
+    } catch {
+      throw new BadRequestException(CREATE_ERROR);
+    }
   }
 
   public async findByEmail(email: string) {
@@ -99,10 +109,7 @@ export class UserService {
       relations: this.relations,
     });
     if (!user) {
-      const errors = {
-        User: 'No user found with this id. Possibly update token.',
-      };
-      throw new HttpException({ errors }, HttpStatus.UNAUTHORIZED);
+      throw new UnauthorizedException(NOT_FOUND);
     }
 
     return this.buildUserRO(user);
@@ -117,23 +124,18 @@ export class UserService {
       where: { userId: loggedInUserId },
     });
     if (!loggedInUser) {
-      const errors = { user: 'No logged in user found' };
-      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+      throw new NotFoundException(NOT_FOUND);
     }
 
     if (dto.email) {
       if (loggedInUser.userRole !== UserRole.Admin) {
-        const errors = {
-          User: 'You can only use this endpoint with email-property if you are an admin-user',
-        };
-        throw new HttpException({ errors }, HttpStatus.UNAUTHORIZED);
+        throw new ForbiddenException(FORBIDDEN);
       }
       updateUser = await this.userRepository.findOne({
         where: { email: dto.email },
       });
       if (!updateUser) {
-        const errors = { email: dto.email + ' not found' };
-        throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+        throw new NotFoundException(NOT_FOUND);
       }
     } else {
       updateUser = loggedInUser;
@@ -149,16 +151,7 @@ export class UserService {
   ): Promise<UserResponseObject> {
     const user = await this.userRepository.findOne({ where: { email } });
     if (!user) {
-      const errors = { User: 'Not found' };
-      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
-    }
-
-    // If nothing to update, raise a 400 Bad Request.
-    if (Object.keys(updateUserData).length === 0) {
-      throw new HttpException(
-        'Update user error: no attributes supplied to update',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new NotFoundException(NOT_FOUND);
     }
 
     // Overwrite any non-nested attributes of the user (so not countries/disaster-types)
