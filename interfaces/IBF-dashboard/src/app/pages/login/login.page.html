@@ -30,9 +30,12 @@
     mode="ios"
   >
     <ion-card-header>
-      <ion-card-title class="text-center" color="ibf-grey">{{
-        'login-page.welcome' | translate
-      }}</ion-card-title>
+      <ion-card-title
+        class="text-center"
+        color="ibf-grey"
+        data-testid="welcome-message"
+        >{{ 'login-page.welcome' | translate }}</ion-card-title
+      >
     </ion-card-header>
     <ion-card-content>
       <app-login-form></app-login-form>

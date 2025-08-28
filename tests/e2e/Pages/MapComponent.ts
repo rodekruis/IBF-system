@@ -42,11 +42,15 @@ class MapComponent extends DashboardPage {
     this.breadCrumbAdminArea3View = this.page.getByTestId(
       'breadcrumb-admin-area-3-view',
     );
-    this.legend = this.page.getByTestId('map-legend');
+    this.legend = this.page
+      .getByTestId('dashboard-map-component')
+      .getByTestId('map-legend');
     this.layerMenu = this.page.getByTestId('layer-menu');
     this.matrixLayers = this.page.locator('matrix-layer');
     this.adminBoundaries = this.page.locator('.admin-boundary');
-    this.legendHeader = this.page.getByTestId('map-legend-header');
+    this.legendHeader = this.page
+      .getByTestId('dashboard-map-component')
+      .getByTestId('map-legend-header');
     this.layerMenuToggle = this.page.getByTestId('layer-menu-toggle-button');
     this.redCrossMarker = this.page.getByAltText('Red Cross branches');
     this.glofasStations = this.page.locator('.glofas-station');

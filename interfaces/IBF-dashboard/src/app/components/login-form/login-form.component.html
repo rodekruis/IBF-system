@@ -20,9 +20,9 @@
       inputmode="email"
       pattern=".+@.+\.[a-z]+"
       autocomplete="email"
-      data-test="input-user"
       [disabled]="formState === 'code'"
       [autofocus]="formState === 'email'"
+      data-testid="input-email"
     ></ion-input>
   </ion-item>
   @if (formState === 'code') {
@@ -67,6 +67,7 @@
         [ngModel]="model.code"
         (ngModelChange)="onCodeChange($event)"
         autofocus
+        data-testid="input-code"
       />
       <div
         class="my-2 flex space-x-2 sm:space-x-4"
@@ -91,6 +92,7 @@
         data-test="login-button"
         class="w-full"
         [disabled]="!loginForm.form.valid"
+        data-testid="button-login"
         >{{ 'login-page.title' | translate }}</ion-button
       >
     }
