@@ -123,20 +123,20 @@ export class AuthService implements OnDestroy {
     this.userRole = user.userRole;
 
     if (this.redirectUrl) {
-      this.router.navigate([this.redirectUrl]).catch(console.error);
+      void this.router.navigate([this.redirectUrl]);
       this.redirectUrl = null;
 
       return;
     }
 
-    this.router.navigate(['/']).catch(console.error);
+    void this.router.navigate(['/']);
   };
 
   public logout() {
     this.jwtService.destroyToken();
     this.loggedIn = false;
     this.authSubject.next(null);
-    this.router.navigate(['/login']).catch(console.error);
+    void this.router.navigate(['/login']);
   }
 
   setDisplayName = (user: User) => {
