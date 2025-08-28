@@ -7,7 +7,7 @@ export class LoginEntity1754484743004 implements MigrationInterface {
     await queryRunner.query(
       `CREATE TABLE "IBF-app"."logins" (
           "id" uuid NOT NULL DEFAULT uuid_generate_v4(),
-          "code" character varying NOT NULL,
+          "code" integer NOT NULL,
           "createdAt" TIMESTAMP NOT NULL DEFAULT now(),
           "userUserId" uuid,
           CONSTRAINT "REL_cd8a4f84444e7d8ff0702bb880" UNIQUE ("userUserId"),

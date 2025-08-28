@@ -8,7 +8,11 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { AuthService, LoginMessageResponse } from 'src/app/auth/auth.service';
+import {
+  AuthService,
+  LoginMessageResponse,
+  LoginRequest,
+} from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -30,7 +34,7 @@ export class LoginFormComponent implements OnInit {
   public model = { email: '', code: '' };
   public resendCodeDisabled = false;
   public codeDisplay: string[] = ['', '', '', '', '', ''];
-  public message: null | string = null;
+  public message = '';
   public error = false;
 
   constructor(
@@ -62,7 +66,7 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
-  public onCodeChange(value: null | string) {
+  public onCodeChange(value: string) {
     this.error = false;
     this.model.code = value?.replace(/\D/g, '').slice(0, 6);
 
@@ -80,8 +84,10 @@ export class LoginFormComponent implements OnInit {
   }
 
   private normalizeCode(code: string) {
-    if (code?.trim().length === 6) {
-      return code.trim();
+    const trimmedCode = code.trim();
+
+    if (trimmedCode.length === 6) {
+      return Number(trimmedCode);
     }
 
     return null;
@@ -89,7 +95,7 @@ export class LoginFormComponent implements OnInit {
 
   public onEmailChange(value: string) {
     this.error = false;
-    this.message = null;
+    this.message = '';
     this.model.email = value;
   }
 
@@ -99,7 +105,13 @@ export class LoginFormComponent implements OnInit {
 
     this.resendCodeDisabled = true;
 
-    this.authService.login(email, code).subscribe({
+    const loginRequest: LoginRequest = { email };
+
+    if (code) {
+      loginRequest.code = code;
+    }
+
+    this.authService.login(loginRequest).subscribe({
       next: ({ message }: LoginMessageResponse) => {
         if (this.formState === 'email' || resendCode) {
           this.resetForm('code', message);
@@ -144,7 +156,7 @@ export class LoginFormComponent implements OnInit {
 
   private resetForm(
     formState: 'code' | 'email' = 'email',
-    message: null | string = null,
+    message = '',
     error = false,
   ) {
     if (formState === 'email') {

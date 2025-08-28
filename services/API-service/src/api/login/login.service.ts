@@ -65,7 +65,7 @@ export class LoginService {
     return { message: PROMPT_CODE };
   }
 
-  public async verify(email: string, code: string) {
+  public async verify(email: string, code: number) {
     // clear expired codes before verifying
     await this.deleteExpiredCodes();
 
@@ -89,7 +89,7 @@ export class LoginService {
 
   generateCode() {
     // generate a random 6-digit code
-    return Math.floor(100000 + Math.random() * 900000).toString();
+    return Math.floor(100000 + Math.random() * 900000);
   }
 
   private async getCreateUserDto(email: string) {

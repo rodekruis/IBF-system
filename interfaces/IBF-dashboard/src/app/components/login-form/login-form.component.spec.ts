@@ -94,7 +94,7 @@ describe('LoginFormComponent', () => {
 
     component.onEmailChange('test');
 
-    expect(component.message).toBeNull();
+    expect(component.message).toBe('');
   });
 
   it('should clear error on onEmailChange', () => {
@@ -106,19 +106,19 @@ describe('LoginFormComponent', () => {
   });
 
   it('should update model.code on onCodeChange', () => {
-    component.onCodeChange('123');
+    component.onCodeChange('510');
 
-    expect(component.model.code).toBe('123');
+    expect(component.model.code).toBe('510');
   });
 
   it('should update codeDisplay on onCodeChange', () => {
-    component.onCodeChange('123');
+    component.onCodeChange('510');
 
-    expect(component.codeDisplay[0]).toBe('1');
+    expect(component.codeDisplay[0]).toBe('5');
 
-    expect(component.codeDisplay[1]).toBe('2');
+    expect(component.codeDisplay[1]).toBe('1');
 
-    expect(component.codeDisplay[2]).toBe('3');
+    expect(component.codeDisplay[2]).toBe('0');
 
     expect(component.codeDisplay.slice(3)).toEqual(['', '', '']);
   });
@@ -126,7 +126,7 @@ describe('LoginFormComponent', () => {
   it('should not clear message on onCodeChange', () => {
     component.message = 'Something went wrong';
 
-    component.onCodeChange('123');
+    component.onCodeChange('510');
 
     expect(component.message).toBe('Something went wrong');
   });
@@ -134,7 +134,7 @@ describe('LoginFormComponent', () => {
   it('should clear error on onCodeChange', () => {
     component.error = true;
 
-    component.onCodeChange('123');
+    component.onCodeChange('510');
 
     expect(component.error).toBeFalse();
   });
@@ -142,7 +142,7 @@ describe('LoginFormComponent', () => {
   it('should call onSubmit on onCodeChange', () => {
     spyOn(component, 'onSubmit');
 
-    component.onCodeChange('123456');
+    component.onCodeChange('510510');
 
     expect(component.onSubmit).toHaveBeenCalledWith();
   });
@@ -154,7 +154,9 @@ describe('LoginFormComponent', () => {
 
     component.onSubmit();
 
-    expect(authService.login).toHaveBeenCalledWith('test@example.com', null);
+    const loginRequest = { email: 'test@example.com' };
+
+    expect(authService.login).toHaveBeenCalledWith(loginRequest);
   });
 
   it('should normalize email on submit', () => {
@@ -164,7 +166,9 @@ describe('LoginFormComponent', () => {
 
     component.onSubmit();
 
-    expect(authService.login).toHaveBeenCalledWith('test@example.com', null);
+    const loginRequest = { email: 'test@example.com' };
+
+    expect(authService.login).toHaveBeenCalledWith(loginRequest);
   });
 
   it('should normalize code to 6 digits on submit', () => {
@@ -172,14 +176,13 @@ describe('LoginFormComponent', () => {
 
     component.model.email = 'test@example.com';
 
-    component.model.code = '123123 ';
+    component.model.code = '510510 ';
 
     component.onSubmit();
 
-    expect(authService.login).toHaveBeenCalledWith(
-      'test@example.com',
-      '123123',
-    );
+    const loginRequest = { email: 'test@example.com', code: 510510 };
+
+    expect(authService.login).toHaveBeenCalledWith(loginRequest);
   });
 
   it('should normalize code to null on submit', () => {
@@ -187,11 +190,13 @@ describe('LoginFormComponent', () => {
 
     component.model.email = 'test@example.com';
 
-    component.model.code = '12312';
+    component.model.code = '51051';
 
     component.onSubmit();
 
-    expect(authService.login).toHaveBeenCalledWith('test@example.com', null);
+    const loginRequest = { email: 'test@example.com' };
+
+    expect(authService.login).toHaveBeenCalledWith(loginRequest);
   });
 
   it('should set form state to code and set message on login with email', () => {
@@ -223,7 +228,7 @@ describe('LoginFormComponent', () => {
 
     component.model.email = 'test@example.com';
 
-    component.model.code = '123123';
+    component.model.code = '510510';
 
     component.formState = 'code';
 
@@ -235,7 +240,7 @@ describe('LoginFormComponent', () => {
 
     expect(component.formState).toBe('email');
 
-    expect(component.message).toBeNull();
+    expect(component.message).toBe('');
 
     expect(component.error).toBeFalse();
 
@@ -409,7 +414,7 @@ describe('LoginFormComponent', () => {
 
     component.model.email = 'test@example.com';
 
-    component.model.code = '123123';
+    component.model.code = '510510';
 
     component.formState = 'code';
 
@@ -439,7 +444,7 @@ describe('LoginFormComponent', () => {
 
     expect(component.model.code).toBe('');
 
-    expect(component.message).toBeNull();
+    expect(component.message).toBe('');
 
     expect(component.error).toBeFalse();
 
@@ -471,7 +476,7 @@ describe('LoginFormComponent', () => {
 
   it('should set model.email and model.code from query params and call onSubmit', () => {
     Object.defineProperty(activatedRoute, 'queryParams', {
-      value: of({ email: 'test@example.com', code: '123123' }),
+      value: of({ email: 'test@example.com', code: '510510' }),
     });
 
     spyOn(component, 'onSubmit');
@@ -480,7 +485,7 @@ describe('LoginFormComponent', () => {
 
     expect(component.model.email).toBe('test@example.com');
 
-    expect(component.model.code).toBe('123123');
+    expect(component.model.code).toBe('510510');
 
     expect(component.onSubmit).toHaveBeenCalledWith();
 
@@ -523,7 +528,7 @@ describe('LoginFormComponent', () => {
 
     component.model.email = 'test@example.com';
 
-    component.model.code = '123123';
+    component.model.code = '510510';
 
     component.formState = 'code';
 
@@ -535,7 +540,7 @@ describe('LoginFormComponent', () => {
 
     expect(component.formState).toBe('email');
 
-    expect(component.message).toBeNull();
+    expect(component.message).toBe('');
 
     expect(component.error).toBeFalse();
 

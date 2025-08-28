@@ -1,6 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsEmail, IsNotEmpty, IsOptional, Length } from 'class-validator';
+import {
+  IsEmail,
+  IsInt,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  Max,
+  Min,
+} from 'class-validator';
 
 import { DUNANT_EMAIL } from '../../config';
 
@@ -11,8 +19,10 @@ export class LoginDto {
   public email: string;
 
   @ApiProperty({ example: '123456' })
-  @IsNotEmpty()
+  @IsNumber()
   @IsOptional()
-  @Length(6)
-  public code: string;
+  @IsInt()
+  @Min(100000)
+  @Max(999999)
+  public code: number;
 }

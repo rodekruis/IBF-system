@@ -7,6 +7,11 @@ import { UserRole } from 'src/app/models/user/user-role.enum';
 import { ApiService } from 'src/app/services/api.service';
 import { JwtService } from 'src/app/services/jwt.service';
 
+export interface LoginRequest {
+  email: string;
+  code?: number;
+}
+
 export interface LoginUserResponse {
   user: User;
 }
@@ -99,8 +104,8 @@ export class AuthService implements OnDestroy {
     return user;
   }
 
-  public login(email: string, code: null | string) {
-    return this.apiService.login(email, code).pipe(
+  public login(loginRequest: LoginRequest) {
+    return this.apiService.login(loginRequest).pipe(
       tap((response: LoginResponse) => {
         if ('user' in response) {
           this.onLoginResponse(response);
