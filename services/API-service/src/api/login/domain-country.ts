@@ -34,7 +34,7 @@ export default {
   '@croixrougegabon.org': ['GAB'],
   '@redcrossghana.org': ['GHA'],
   // '': ['GIN'],
-  '@@redcross.gm': ['GMB'],
+  '@redcross.gm': ['GMB'],
   // '': ['GNB'],
   // '': ['GNQ'],
   '@lnrcs.org.lr': ['LBR'],
