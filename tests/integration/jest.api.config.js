@@ -20,4 +20,7 @@ module.exports = {
   testTimeout: 60_000,
   verbose: true,
   reporters: ['default'],
+  moduleNameMapper: {
+    '^@helpers/(.*)$': '<rootDir>/helpers/$1',
+  },
 };
