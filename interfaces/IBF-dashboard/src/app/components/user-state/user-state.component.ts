@@ -35,7 +35,6 @@ export class UserStateComponent implements OnInit {
   public countrySubscription: Subscription;
   public disasterTypeSubscription: Subscription;
   public disasterType: DisasterType;
-  public activeTriggerMsg: string;
 
   constructor(
     public authService: AuthService,
@@ -66,13 +65,6 @@ export class UserStateComponent implements OnInit {
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    if (this.disasterType) {
-      const yesNode = this.disasterType.alertLevel ? 'yes' : 'no';
-
-      this.activeTriggerMsg = this.translateService.instant(
-        `dashboard-page.triggered-message.${yesNode}`,
-      ) as string;
-    }
   };
 
   public doLogout() {
