@@ -1,7 +1,7 @@
 {
   "name": "ibf-dashboard",
   "description": "Web interface for the dashboard of the IBF-system.",
-  "license": "UNLICENSED",
+  "license": "Apache-2.0",
   "private": true,
   "scripts": {
     "build": "ng build",
