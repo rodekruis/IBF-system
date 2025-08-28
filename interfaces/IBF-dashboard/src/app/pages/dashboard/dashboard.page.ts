@@ -75,18 +75,28 @@ export class DashboardPage implements OnInit, OnDestroy {
   }
 
   private onUserChange = (user: User): void => {
-    if (user) {
-      this.isDev = user.userRole === this.adminRole;
-      this.isMultiCountry = user.countries.length > 1;
-      this.userRole = user.userRole;
+    if (!user) {
+      return;
     }
+
+    this.isDev = user.userRole === this.adminRole;
+    this.isMultiCountry = user.countries.length > 1;
+    this.userRole = user.userRole;
   };
 
   private onCountryChange = (country: Country) => {
+    if (!country) {
+      return;
+    }
+
     this.country = country;
   };
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
+    if (!disasterType) {
+      return;
+    }
+
     this.disasterType = disasterType;
 
     this.countryDisasterSettings =
