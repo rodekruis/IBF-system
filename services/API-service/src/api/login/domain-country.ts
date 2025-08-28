@@ -45,7 +45,7 @@ export default {
   '@redcross.org.mz': ['MOZ'],
   // '': ['MRT'],
   '@mauritiusredcross.org': ['MUS'],
-  '@@redcross.org.na': ['NAM'],
+  '@redcross.org.na': ['NAM'],
   '@croix-rouge.ne': ['NER'],
   '@redcrossnigeria.org': ['NGA'],
   '@rwandaredcross.org': ['RWA'],
