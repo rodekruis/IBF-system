@@ -49,6 +49,12 @@ jobs:
       MC_API: ${{ secrets.MC_API }}
       TWILIO_SID: ${{ secrets.TWILIO_SID }}
       TWILIO_AUTHTOKEN: ${{ secrets.TWILIO_AUTHTOKEN }}
+      SMTP_HOST: ${{ vars.SMTP_HOST }}
+      SMTP_PORT: ${{ vars.SMTP_PORT }}
+      SMTP_SECURE: ${{ vars.SMTP_SECURE }}
+      SMTP_USERNAME: ${{ vars.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      SMTP_FROM: ${{ vars.SMTP_FROM }}
 
     defaults:
       run:
