@@ -38,6 +38,6 @@ export default (
       defaultAdminAreaLabelSingular:
         dataset.country.defaultAdminAreaLabelSingular,
     });
-    await chat.validateEapListButtons(dataset.eap.actions);
+    await chat.validateEapListButtons();
   });
 };

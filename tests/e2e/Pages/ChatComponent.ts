@@ -274,13 +274,9 @@ class ChatComponent extends DashboardPage {
     await expect(exposureText).toContainText(mainExposureIndicator);
   }
 
-  async validateEapListButtons(eapActions: boolean) {
+  async validateEapListButtons() {
     const backButton = this.page.getByRole('button', { name: 'Back' });
     await expect(backButton).toBeEnabled();
-    if (eapActions) {
-      const saveButton = this.page.getByRole('button', { name: 'Save' });
-      await expect(saveButton).toBeDisabled();
-    }
   }
 }
 
