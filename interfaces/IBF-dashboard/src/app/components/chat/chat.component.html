@@ -1,6 +1,6 @@
 <ion-content class="ion-padding-bottom" scrollY="true">
   <app-dialogue-turn [isLastUploadDateLate]="isLastUploadDateLate">
-    <p style="padding-right: 20px">
+    <p class="pr-5 !text-xs">
       <span
         [innerHTML]="
           'chat-component.common.warn-label.hello' | translate: authService
@@ -133,7 +133,7 @@
         </ion-col>
       </ion-row>
       @if (area.mainExposureValue) {
-        <ion-note size="small" color="ibf-black">
+        <ion-note size="small" color="ibf-black" class="text-xs">
           <span
             class="font-semibold"
             data-testid="main-exposure-indicator"
@@ -147,7 +147,7 @@
           }}
         </ion-note>
       } @else {
-        <ion-note size="small">
+        <ion-note size="small" class="text-xs">
           <span>{{ 'chat-component.common.no-info' | translate }}</span>
         </ion-note>
       }
@@ -157,7 +157,7 @@
         adminLevel > countryDisasterSettings.defaultAdminLevel
       ) {
         <ion-item lines="none" class="background-light">
-          <ion-label class="ion-text-wrap">
+          <ion-label class="ion-text-wrap !text-xs">
             {{
               'chat-component.common.save-actions.no-actions-admin-level'
                 | translate
@@ -175,7 +175,7 @@
       ) {
         <ion-item lines="none" class="background-light">
           <ion-label
-            class="ion-text-wrap"
+            class="ion-text-wrap !text-xs"
             [innerHTML]="
               'chat-component.common.save-actions.no-actions'
                 | translate: { adminAreaLabelPlural }
@@ -200,7 +200,7 @@
                   )
                 "
               >
-                <ion-label class="action-label ion-text-wrap"
+                <ion-label class="action-label ion-text-wrap !text-xs"
                   ><strong>{{ action.aofLabel }}: </strong>{{ action.label }}
                   @if (action.month) {
                     <span
