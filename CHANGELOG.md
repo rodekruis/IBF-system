@@ -1,3 +1,17 @@
+# [0.323.0](https://github.com/rodekruis/IBF-system/compare/v0.322.3...v0.323.0) (2025-08-29)
+
+
+### Bug Fixes
+
+* revert checkbox state on error ([c742334](https://github.com/rodekruis/IBF-system/commit/c742334abcf532f9fde7f258d33b7348d1da0176))
+
+
+### Features
+
+* early actions are checked instantly ([7371d08](https://github.com/rodekruis/IBF-system/commit/7371d0881164f5e7f5e6971d80ded39a9e4133eb))
+
+
+
 ## [0.322.3](https://github.com/rodekruis/IBF-system/compare/v0.322.2...v0.322.3) (2025-08-04)
 
 
@@ -85,15 +99,6 @@
 
 * avoid rehashing passwords ([e9d7ef2](https://github.com/rodekruis/IBF-system/commit/e9d7ef2a805677ed90636444dddb739e0a9537b0))
 * remove countries before update to avoid duplication errors ([b1787d1](https://github.com/rodekruis/IBF-system/commit/b1787d18a07a23d9dcc60e6b7f60e912a7e32464))
-
-
-
-## [0.321.5](https://github.com/rodekruis/IBF-system/compare/v0.321.4...v0.321.5) (2025-07-28)
-
-
-### Bug Fixes
-
-* hash password before update in user entity ([3a78fba](https://github.com/rodekruis/IBF-system/commit/3a78fbac841c6b3af68dcc0bb2a00e44f6d5b57d))
 
 
 
