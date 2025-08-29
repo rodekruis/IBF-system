@@ -10,6 +10,7 @@ import { DisasterTypeModule } from './api/disaster-type/disaster-type.module';
 import { EapActionsModule } from './api/eap-actions/eap-actions.module';
 import { EventModule } from './api/event/event.module';
 import { LinesDataModule } from './api/lines-data/lines-data.module';
+import { LoginModule } from './api/login/login.module';
 import { MetadataModule } from './api/metadata/metadata.module';
 import { NotificationModule } from './api/notification/notification.module';
 import { WhatsappModule } from './api/notification/whatsapp/whatsapp.module';
@@ -45,6 +46,7 @@ import { TypeOrmModule } from './typeorm.module';
     ScheduleModule.forRoot(),
     PointDataModule,
     LinesDataModule,
+    LoginModule,
   ],
   controllers: [AppController],
   providers: [],

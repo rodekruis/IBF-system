@@ -7,16 +7,9 @@
         data-testid="heading-display-name-label"
       >
         <span data-testid="heading-display-name-span">
-          IBF PORTAL
-          @if (isLoggedIn) {
-            <strong [ngClass]="{ active: disasterType?.alertLevel }">
-              {{ showCountry ? countryName : '' }}
-              {{ disasterType?.disasterType }} {{ activeTriggerMsg }}
-            </strong>
-          } @else {
-            <strong>
-              {{ showEnvironmentLabel(environmentConfiguration) }}
-            </strong>
+          IBF
+          @if (environmentConfiguration !== 'production') {
+            {{ environmentConfiguration }}
           }
         </span>
         @if (isLoggedIn && disasterType?.alertLevel) {
@@ -35,18 +28,13 @@
         <ion-item lines="none">
           <ion-col class="ion-no-padding">
             @if (isLoggedIn) {
-              <ion-title
-                size="small"
-                class="ion-no-padding"
-                (click)="presentPopover()"
-              >
+              <ion-title size="small" class="ion-no-padding">
                 {{ 'user-state.logged-in-as' | translate }}
               </ion-title>
               <ion-title
                 size="small"
                 data-testid="user-display-name"
-                class="ion-no-padding cursor-pointer font-bold hover:underline"
-                (click)="presentPopover()"
+                class="ion-no-padding font-semibold"
               >
                 {{ authService.displayName }}
               </ion-title>

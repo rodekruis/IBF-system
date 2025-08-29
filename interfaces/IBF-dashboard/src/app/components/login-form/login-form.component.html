@@ -7,79 +7,99 @@
 
   <ion-item>
     <ion-label position="stacked">{{
-      'login-page.email' | translate
+      'login-page.enter-email' | translate
     }}</ion-label>
     <ion-input
+      #emailInput
       [ngModel]="model.email"
-      (ngModelChange)="model.email = $event"
+      (ngModelChange)="onEmailChange($event)"
+      email
       name="email"
       type="email"
       required
       inputmode="email"
       pattern=".+@.+\.[a-z]+"
-      autocomplete="email username"
-      clearInput="true"
-      data-test="input-user"
+      autocomplete="email"
+      [disabled]="formState === 'code'"
+      [autofocus]="formState === 'email'"
+      data-testid="input-email"
     ></ion-input>
   </ion-item>
-  <ion-item>
-    <ion-label position="stacked">{{
-      'login-page.password' | translate
-    }}</ion-label>
-    <div style="display: flex; width: 100%" class="ion-align-items-center">
-      <ion-input
-        [ngModel]="model.password"
-        (ngModelChange)="model.password = $event"
-        name="password"
-        [type]="inputType"
-        required
-        autocomplete="current-password"
-        minlength="4"
-        clearInput="true"
-        clearOnEdit="false"
-        data-test="input-password"
-      ></ion-input>
-      <ion-button
-        type="button"
-        fill="clear"
-        size="default"
-        class="eye-button"
-        (click)="toggleInputType()"
-        [title]="isPassword() ? this.labelShow : this.labelHide"
-        [attr.aria-label]="isPassword() ? this.labelShow : this.labelHide"
-      >
-        @if (isPassword()) {
-          <ion-icon slot="icon-only" name="eye" aria-hidden="true"></ion-icon>
-        } @else {
-          <ion-icon
-            slot="icon-only"
-            name="eye-off"
-            aria-hidden="true"
-          ></ion-icon>
-        }
-      </ion-button>
-    </div>
-  </ion-item>
-
-  <ion-button
-    type="submit"
-    shape="round"
-    color="fiveten-navy-900"
-    expand="full"
-    data-test="login-button"
-    [disabled]="!loginForm.form.valid"
-    >{{ 'login-page.title' | translate }}</ion-button
-  >
-  <div
-    (click)="presentPopover()"
-    (keydown.enter)="presentPopover()"
-    tabindex="0"
-    class="ion-margin-vertical"
-  >
-    <ion-text
-      style="cursor: pointer; text-decoration: underline"
-      color="ibf-no-alert-primary"
-      >{{ 'login-page.forgot-password' | translate }}</ion-text
+  @if (formState === 'code') {
+    <ion-item lines="none" class="my-4">
+      <div class="flex w-full flex-col items-center justify-evenly sm:flex-row">
+        <ion-button
+          fill="clear"
+          color="ibf-grey"
+          (click)="onReenterEmail()"
+          data-test="reenter-email-button"
+          >{{ 'login-page.reenter-email' | translate }}</ion-button
+        >
+        <ion-button
+          fill="clear"
+          color="ibf-grey"
+          (click)="onSubmit(true)"
+          data-test="resend-code-button"
+          [disabled]="resendCodeDisabled"
+          >{{ 'login-page.resend-code' | translate }}</ion-button
+        >
+      </div>
+    </ion-item>
+  }
+  <ion-item lines="none" class="items-center">
+    <ion-label
+      position="stacked"
+      class="text-center"
+      [color]="error ? 'danger' : 'ibf-no-alert-primary'"
+      [class.wiggle]="error"
+      >{{ message || '\u00A0' }}</ion-label
     >
-  </div>
+    @if (formState === 'code') {
+      <ion-input
+        #codeInput
+        type="text"
+        name="code"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        maxlength="6"
+        class="pointer-events-none absolute opacity-0"
+        autocomplete="one-time-code"
+        [ngModel]="model.code"
+        (ngModelChange)="onCodeChange($event)"
+        autofocus
+        data-testid="input-code"
+      />
+      <div
+        class="my-2 flex space-x-2 sm:space-x-4"
+        (click)="codeInput.setFocus()"
+      >
+        <span
+          *ngFor="let digit of codeDisplay; let i = index"
+          class="flex h-9 w-7 items-center justify-center rounded border border-gray-300 bg-white text-xl sm:h-12 sm:w-10"
+          [class.ring-2]="model.code?.length === i || (i === 0 && !model.code)"
+          [class.ring-blue-500]="
+            model.code?.length === i || (i === 0 && !model.code)
+          "
+          >{{ digit }}</span
+        >
+      </div>
+    } @else {
+      <ion-button
+        type="submit"
+        size="default"
+        shape="round"
+        color="fiveten-navy-900"
+        data-test="login-button"
+        class="w-full"
+        [disabled]="!loginForm.form.valid"
+        data-testid="button-login"
+        >{{ 'login-page.title' | translate }}</ion-button
+      >
+    }
+  </ion-item>
+  <ion-item lines="none" class="mt-4">
+    <app-quick-links
+      class="flex w-full flex-col items-center justify-evenly sm:flex-row"
+    ></app-quick-links>
+  </ion-item>
 </form>

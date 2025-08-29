@@ -49,6 +49,12 @@ jobs:
       MC_API: ${{ secrets.MC_API }}
       TWILIO_SID: ${{ secrets.TWILIO_SID }}
       TWILIO_AUTHTOKEN: ${{ secrets.TWILIO_AUTHTOKEN }}
+      SMTP_HOST: ${{ vars.SMTP_HOST }}
+      SMTP_PORT: ${{ vars.SMTP_PORT }}
+      SMTP_SECURE: ${{ vars.SMTP_SECURE }}
+      SMTP_USERNAME: ${{ vars.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      SMTP_FROM: ${{ vars.SMTP_FROM }}
 
     defaults:
       run:
@@ -112,6 +118,12 @@ jobs:
           mailchimp-api-key: ${{ secrets.MC_API }}
           twilio-sid: ${{ secrets.TWILIO_SID }}
           twilio-authtoken: ${{ secrets.TWILIO_AUTHTOKEN }}
+          smtp-host: ${{ vars.SMTP_HOST }}
+          smtp-port: ${{ vars.SMTP_PORT }}
+          smtp-secure: ${{ vars.SMTP_SECURE }}
+          smtp-username: ${{ vars.SMTP_USERNAME }}
+          smtp-password: ${{ secrets.SMTP_PASSWORD }}
+          smtp-from: ${{ vars.SMTP_FROM }}
 
   ibf-e2e:
     needs: detect-changes
@@ -136,3 +148,9 @@ jobs:
           azure-dev-url: ${{ vars.AZURE_DEV_URL }}
           azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
           azure-test-owner: ${{ vars.AZURE_TEST_OWNER }}
+          smtp-host: ${{ vars.SMTP_HOST }}
+          smtp-port: ${{ vars.SMTP_PORT }}
+          smtp-secure: ${{ vars.SMTP_SECURE }}
+          smtp-username: ${{ vars.SMTP_USERNAME }}
+          smtp-password: ${{ secrets.SMTP_PASSWORD }}
+          smtp-from: ${{ vars.SMTP_FROM }}

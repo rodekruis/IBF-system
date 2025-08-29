@@ -70,18 +70,6 @@ export default function manageUsersTests() {
         // Assert
         expect(updateUserResult.status).toBe(404);
       });
-
-      it('should throw BAD_REQUEST on no passed arguments', async () => {
-        // Arrange
-        const email = userData.email;
-        const updatedData = {};
-
-        // Act
-        const updateUserResult = await updateUser(email, updatedData, token);
-
-        // Assert
-        expect(updateUserResult.status).toBe(400);
-      });
     });
 
     describe('change password', () => {

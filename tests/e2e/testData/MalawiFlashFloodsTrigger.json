@@ -17,7 +17,7 @@
     "firstName": "Malawi",
     "lastName": "Manager"
   },
-  "title": "IBF PORTAL",
+  "title": "IBF",
   "aggregates": {
     "disclaimer": "All numbers are approximate and meant to be used as guidance."
   },
@@ -79,6 +79,7 @@
       "legendLabels": ["Roads"],
       "active": false,
       "type": "wms",
+      "map": true,
       "aggregate": false
     },
     {
@@ -125,7 +126,7 @@
       "name": "nr_affected_clinics",
       "label": "Exposed health sites",
       "description": "This indicator shows the total number of exposed health sites in the potentially flooded area, calculated based on the selected area.Source health sites: Malawi's Ministry of Health, publicly available at https://zipatala.health.gov.mw/facilities.",
-      "legendLabels": null,
+      "legendLabels": [],
       "active": false,
       "type": "point",
       "map": false,
@@ -135,7 +136,7 @@
       "name": "nr_affected_schools",
       "label": "Exposed schools",
       "description": "This indicator shows the total number of school buildings in the potentially flooded area, calculated based on the selected area.Source schools: Provided by Unicef Malawi.",
-      "legendLabels": null,
+      "legendLabels": [],
       "active": false,
       "type": "point",
       "map": false,
@@ -145,7 +146,7 @@
       "name": "nr_affected_waterpoints",
       "label": "Exposed waterpoints",
       "description": "This indicator shows the total number of exposed water points in the potentially flooded area, calculated based on the selected area.Source: mWater",
-      "legendLabels": null,
+      "legendLabels": [],
       "active": false,
       "type": "point",
       "map": false,
@@ -155,7 +156,7 @@
       "name": "nr_affected_roads",
       "label": "Exposed roads",
       "description": "This indicator shows the total length of exposed roads (in kilometers) in the potentially flooded area, calculated based on the selected area. The calculation includes all road types, which may exceed what is shown on the map layer.Source: OpenStreetMap",
-      "legendLabels": null,
+      "legendLabels": [],
       "active": false,
       "type": "point",
       "map": false,
@@ -165,7 +166,7 @@
       "name": "nr_affected_buildings",
       "label": "Exposed buildings",
       "description": "This indicator shows the total number of exposed buildings in the potentially flooded area, calculated based on the selected area.Source: OpenStreetMap",
-      "legendLabels": null,
+      "legendLabels": [],
       "active": false,
       "type": "point",
       "map": false,

@@ -49,6 +49,12 @@ runs:
       shell: bash
       env:
         MC_API: ${{ inputs.mailchimp-api-key }}
+        SMTP_HOST: ${{ inputs.smtp-host }}
+        SMTP_PORT: ${{ inputs.smtp-port }}
+        SMTP_SECURE: ${{ inputs.smtp-secure }}
+        SMTP_USERNAME: ${{ inputs.smtp-username }}
+        SMTP_PASSWORD: ${{ inputs.smtp-password }}
+        SMTP_FROM: ${{ inputs.smtp-from }}
       run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service ibf-geoserver
 
     - name: Start IBF dashboard

@@ -1,34 +1,32 @@
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { provideIonicAngular } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
+import { addIcons } from 'ionicons';
+import { apps } from 'ionicons/icons';
+import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { LoginPage } from 'src/app/pages/login/login.page';
-import { SharedModule } from 'src/app/shared.module';
 
 describe('LoginPage', () => {
   let component: LoginPage;
   let fixture: ComponentFixture<LoginPage>;
+  let analyticsService: jasmine.SpyObj<AnalyticsService>;
 
   beforeEach(waitForAsync(() => {
+    addIcons({ apps });
+
+    analyticsService = jasmine.createSpyObj<AnalyticsService>(
+      'AnalyticsService',
+      ['logPageView'],
+    );
+
+    analyticsService.logPageView.and.returnValue(null);
+
     TestBed.configureTestingModule({
       declarations: [LoginPage],
-      imports: [
-        IonicModule,
-        SharedModule,
-        RouterModule.forRoot([]),
-        TranslateModule.forRoot(),
-      ],
-      providers: [
-        provideIonicAngular(),
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
-      ],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [IonicModule, TranslateModule.forRoot()],
+      providers: [{ provide: AnalyticsService, useValue: analyticsService }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginPage);

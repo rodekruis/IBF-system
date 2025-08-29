@@ -9,6 +9,8 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { provideIonicAngular } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
+import { addIcons } from 'ionicons';
+import { arrowBack } from 'ionicons/icons';
 import { ChatComponent } from 'src/app/components/chat/chat.component';
 
 describe('ChatComponent', () => {
@@ -16,6 +18,8 @@ describe('ChatComponent', () => {
   let fixture: ComponentFixture<ChatComponent>;
 
   beforeEach(waitForAsync(() => {
+    addIcons({ 'arrow-back': arrowBack });
+
     TestBed.configureTestingModule({
       declarations: [ChatComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

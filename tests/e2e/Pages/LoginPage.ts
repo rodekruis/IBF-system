@@ -1,16 +1,12 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
 
-import englishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
 import DashboardPage from './DashboardPage';
-
-const welcomeMessageEnglishTranslation =
-  englishTranslations['login-page'].welcome;
 
 class LoginPage extends DashboardPage {
   readonly page: Page;
   readonly emailInput: Locator;
-  readonly passwordInput: Locator;
+  readonly codeInput: Locator;
   readonly loginButton: Locator;
   readonly welcomeMessage: Locator;
 
@@ -18,29 +14,32 @@ class LoginPage extends DashboardPage {
     super(page);
     this.page = page;
     this.emailInput = this.page.locator('input[type="email"]');
-    this.passwordInput = this.page.locator('input[type="password"]');
-    this.loginButton = this.page.getByRole('button', { name: 'Log in' });
-    this.welcomeMessage = this.page.getByTestId('login-welcome-message');
+    this.codeInput = this.page.locator('input[type="text"]');
+    this.loginButton = this.page.getByTestId('button-login');
+    this.welcomeMessage = this.page.getByTestId('welcome-message');
   }
 
-  async login(email?: string, password?: string) {
-    if (!email || !password) {
-      throw new Error('Email and password are required');
+  async login(email?: string) {
+    if (!email) {
+      throw new Error('Email is required to login');
     }
 
+    const loginRequest = this.page.waitForResponse('**/api/login');
+
     await this.emailInput.fill(email);
-    await this.passwordInput.fill(password);
     await this.loginButton.click();
+
+    const loginResponse = await loginRequest;
+    const { code } = await loginResponse.json();
+
+    await this.codeInput.fill(String(code));
   }
 
   async loginScreenIsVisible() {
-    // explicitly wait for the email input to avoid timing issues
-    await this.page.waitForSelector('input[type="email"]');
+    await this.page.waitForSelector('[data-testid="input-email"]');
 
     await expect(this.loginButton).toBeVisible();
-    await expect(this.welcomeMessage).toHaveText(
-      welcomeMessageEnglishTranslation,
-    );
+    await expect(this.welcomeMessage).toHaveText('Welcome to IBF');
   }
 }
 

@@ -3,10 +3,13 @@ import {
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterModule } from '@angular/router';
 import { IonicModule, PopoverController } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { addIcons } from 'ionicons';
+import { closeCircle, warning } from 'ionicons/icons';
 import { SetTriggerPopoverComponent } from 'src/app/components/set-trigger-popover/set-trigger-popover.component';
 
 describe('SetTriggerPopoverComponent', () => {
@@ -14,8 +17,11 @@ describe('SetTriggerPopoverComponent', () => {
   let fixture: ComponentFixture<SetTriggerPopoverComponent>;
 
   beforeEach(async () => {
+    addIcons({ warning, 'close-circle': closeCircle });
+
     await TestBed.configureTestingModule({
       declarations: [SetTriggerPopoverComponent],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [
         IonicModule.forRoot(),
         TranslateModule.forRoot(),
