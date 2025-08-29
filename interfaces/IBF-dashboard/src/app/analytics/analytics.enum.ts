@@ -12,7 +12,6 @@ export enum AnalyticsEvent {
   dam = 'dam',
   download = 'download',
   eapAction = 'eap-action',
-  eapSubmit = 'eap-submit',
   evacuationCenter = 'evacuation-center',
   exportView = 'export-view',
   glofasStation = 'glofas-station',

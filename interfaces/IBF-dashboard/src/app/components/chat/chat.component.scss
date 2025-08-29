@@ -1,24 +1,9 @@
 ion-content {
-  p,
-  ion-label,
-  ion-note {
-    font-size: 12px;
-  }
-
   .background-light {
     ion-item {
       --background: none;
     }
   }
-
-  .chat-icon {
-    width: 1.5rem;
-    padding: 1px;
-  }
-}
-
-ion-checkbox {
-  margin-inline-end: 8px !important;
 }
 
 .event-header {

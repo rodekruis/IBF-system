@@ -14,7 +14,6 @@ export class AlertArea {
   placeCode: string;
   adminLevel: AdminLevel;
   firstIssuedDate: string;
-  submitDisabled: boolean;
   alertLevel: AlertLevel;
   eventName: string;
 }

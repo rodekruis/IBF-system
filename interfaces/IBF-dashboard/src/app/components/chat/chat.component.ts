@@ -1,14 +1,14 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { CheckboxCustomEvent, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { forkJoin, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import {
   AnalyticsEvent,
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { ActionResultPopoverComponent } from 'src/app/components/action-result-popover/action-result-popover.component';
+import { TOAST_DURATION, TOAST_POSITION } from 'src/app/config';
 import {
   Country,
   CountryDisasterSettings,
@@ -62,15 +62,13 @@ export class ChatComponent implements OnInit, OnDestroy {
   private countrySubscription: Subscription;
   private eapActionSubscription: Subscription;
   private placeCodeSubscription: Subscription;
-  public disasterTypeSubscription: Subscription;
+  private disasterTypeSubscription: Subscription;
   private initialEventStateSubscription: Subscription;
   private manualEventStateSubscription: Subscription;
   private timelineStateSubscription: Subscription;
   private indicatorSubscription: Subscription;
 
   public eapActions: EapAction[];
-  public changedActions: EapAction[] = [];
-  public submitDisabled = true;
   public adminAreaLabel: string;
   public adminAreaLabelPlural: string;
   public disasterTypeLabel: string;
@@ -89,8 +87,8 @@ export class ChatComponent implements OnInit, OnDestroy {
   constructor(
     private alertAreaService: AlertAreaService,
     public authService: AuthService,
-    public eventService: EventService,
-    public placeCodeService: PlaceCodeService,
+    private eventService: EventService,
+    private placeCodeService: PlaceCodeService,
     private disasterTypeService: DisasterTypeService,
     private timelineService: TimelineService,
     private countryService: CountryService,
@@ -98,8 +96,8 @@ export class ChatComponent implements OnInit, OnDestroy {
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
     private analyticsService: AnalyticsService,
-    private popoverController: PopoverController,
     private adminLevelService: AdminLevelService,
+    private toastController: ToastController,
   ) {}
 
   ngOnInit() {
@@ -182,11 +180,6 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   private onAlertAreasChange = (alertAreas: AlertArea[]) => {
     this.alertAreas = alertAreas;
-
-    this.alertAreas.forEach((area) => {
-      this.disableSubmitButtonForArea(area);
-    });
-
     this.onPlaceCodeChange(this.placeCode);
   };
 
@@ -269,30 +262,20 @@ export class ChatComponent implements OnInit, OnDestroy {
     );
   };
 
-  private disableSubmitButtonForArea = (alertArea: AlertArea) =>
-    (alertArea.submitDisabled = true);
-
   private filterAreaByPlaceCode =
     (placeCode: string) => (alertArea: AlertArea) =>
       alertArea.placeCode === placeCode;
-
-  private filterChangedEAPActionByChangedEAPAction =
-    (changedAction: EapAction) => (eapAction: EapAction) =>
-      !(eapAction.action === changedAction.action);
 
   private filterEAPActionByEAPAction =
     (action: string) => (eapAction: EapAction) =>
       eapAction.action === action;
 
-  private filterEAPActionByPlaceCode =
-    (placeCode: string) => (eapAction: EapAction) =>
-      eapAction.placeCode === placeCode;
-
   public changeAction(
+    event: CheckboxCustomEvent,
     placeCode: string,
     action: string,
     checkbox: boolean,
-  ): void {
+  ) {
     this.analyticsService.logEvent(AnalyticsEvent.eapAction, {
       placeCode,
       eapAction: action,
@@ -309,18 +292,28 @@ export class ChatComponent implements OnInit, OnDestroy {
     );
 
     changedAction.checked = checkbox;
-    if (!this.changedActions.includes(changedAction)) {
-      this.changedActions.push(changedAction);
-    } else {
-      this.changedActions = this.changedActions.filter(
-        this.filterChangedEAPActionByChangedEAPAction(changedAction),
-      );
-    }
-    this.alertAreas.find(filterAreaByPlaceCode).submitDisabled =
-      this.changedActions.length === 0;
 
-    this.changeDetectorRef.detectChanges();
+    this.checkEAPAction(changedAction).subscribe({
+      next: () => {
+        void this.showToast(this.updateSuccessMessage);
+      },
+      error: () => {
+        changedAction.checked = !checkbox;
+        event.target.checked = !checkbox;
+        void this.showToast(this.updateFailureMessage);
+      },
+    });
   }
+
+  private showToast = async (message: string) => {
+    const toast = await this.toastController.create({
+      message,
+      duration: TOAST_DURATION,
+      position: TOAST_POSITION,
+    });
+
+    void toast.present();
+  };
 
   private checkEAPAction = (action: EapAction) => {
     return this.alertAreaService.checkEapAction(
@@ -330,60 +323,6 @@ export class ChatComponent implements OnInit, OnDestroy {
       this.eventState?.event?.eventName,
     );
   };
-
-  public submitEapAction(placeCode: string): void {
-    this.analyticsService.logEvent(AnalyticsEvent.eapSubmit, {
-      placeCode,
-      page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.events?.length > 0,
-      component: this.constructor.name,
-    });
-
-    this.alertAreas.find(this.filterAreaByPlaceCode(placeCode)).submitDisabled =
-      true;
-
-    forkJoin(
-      this.changedActions
-        .filter(this.filterEAPActionByPlaceCode(placeCode))
-        .map(this.checkEAPAction),
-    ).subscribe({
-      next: () => this.actionResult(this.updateSuccessMessage),
-      error: () => {
-        void this.actionResult(this.updateFailureMessage);
-        this.revertActionStatusIfFailed();
-      },
-    });
-  }
-
-  private revertActionStatusIfFailed() {
-    const alertArea = this.alertAreas.find(
-      (area) => area.placeCode === this.changedActions[0].placeCode,
-    );
-
-    for (const action of alertArea.eapActions) {
-      if (this.changedActions.includes(action)) {
-        action.checked = !action.checked;
-      }
-    }
-  }
-
-  private async actionResult(resultMessage: string): Promise<void> {
-    const popover = await this.popoverController.create({
-      component: ActionResultPopoverComponent,
-      animated: true,
-      cssClass: 'ibf-popover ibf-popover-normal',
-      translucent: true,
-      showBackdrop: true,
-      componentProps: { message: resultMessage },
-    });
-
-    await popover.present();
-
-    void popover.onDidDismiss().then(() => {
-      this.placeCodeService.setPlaceCode(this.placeCode);
-      this.changedActions = [];
-    });
-  }
 
   public getRegion = (placeCode: string): string => {
     if (!this.countryDisasterSettings.droughtRegions) {
