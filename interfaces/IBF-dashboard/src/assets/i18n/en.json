@@ -136,10 +136,9 @@
       "event-tooltip": "Select an area from this list or the map to monitor and manage the preplanned anticipatory actions (if applicable).",
       "back": "Back",
       "save-actions": {
-        "submit-button-label": "Save",
         "header": "Result",
-        "update-success": "State of early action(s) successfully updated.",
-        "update-failure": "Failed to update state of early action(s).",
+        "update-success": "Early action updated",
+        "update-failure": "Failed to update early action",
         "prompt-button-label": "OK",
         "no-actions": "<span class='font-semibold'>Advisory:</span> inform all potentially exposed {{ adminAreaLabelPlural }} and follow the local protocols.",
         "no-actions-admin-level": "Early actions are only available on {{ defaultAdminAreaLabel }} level."
