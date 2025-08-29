@@ -70,9 +70,9 @@
     "message": "All numbers are approximate and meant to be used as guidance."
   },
   "areas-of-focus-summary-component": {
-    "title": "Actions Summary",
+    "title": "Early Actions",
     "aof-subtitle": "Sector",
-    "tasks-subtitle": "Completed",
+    "tasks-subtitle": "Done",
     "not-applicable": "N/A"
   },
   "ibf-guide-component": {
