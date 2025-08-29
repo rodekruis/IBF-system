@@ -185,30 +185,34 @@
       } @else if (area.eapActions.length) {
         <ion-list class="background-light">
           @for (action of area.eapActions; track action) {
-            <ion-item
-              [lines]="$last ? 'none' : 'full'"
-              class="p-0"
-              (click)="
-                changeAction(area.placeCode, action.action, !action.checked)
-              "
-            >
+            <ion-item [lines]="$last ? 'none' : 'full'" class="p-0">
               <ion-checkbox
                 slot="start"
                 color="ibf-primary"
+                labelPlacement="end"
                 [checked]="action.checked"
-              ></ion-checkbox>
-              <ion-label class="action-label ion-text-wrap"
-                ><strong>{{ action.aofLabel }}: </strong>{{ action.label }}
-                @if (action.month) {
-                  <span
-                    ><strong>
-                      ({{
-                        action.monthLong[getRegion(area.placeCode)]
-                      }})</strong
-                    ></span
-                  >
-                }
-              </ion-label>
+                (ionChange)="
+                  changeAction(
+                    $event,
+                    area.placeCode,
+                    action.action,
+                    !action.checked
+                  )
+                "
+              >
+                <ion-label class="action-label ion-text-wrap"
+                  ><strong>{{ action.aofLabel }}: </strong>{{ action.label }}
+                  @if (action.month) {
+                    <span
+                      ><strong>
+                        ({{
+                          action.monthLong[getRegion(area.placeCode)]
+                        }})</strong
+                      ></span
+                    >
+                  }
+                </ion-label>
+              </ion-checkbox>
             </ion-item>
           }
         </ion-list>

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { CheckboxCustomEvent, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import {
@@ -271,10 +271,11 @@ export class ChatComponent implements OnInit, OnDestroy {
       eapAction.action === action;
 
   public changeAction(
+    event: CheckboxCustomEvent,
     placeCode: string,
     action: string,
     checkbox: boolean,
-  ): void {
+  ) {
     this.analyticsService.logEvent(AnalyticsEvent.eapAction, {
       placeCode,
       eapAction: action,
@@ -298,11 +299,10 @@ export class ChatComponent implements OnInit, OnDestroy {
       },
       error: () => {
         changedAction.checked = !checkbox;
+        event.target.checked = !checkbox;
         void this.showToast(this.updateFailureMessage);
       },
     });
-
-    this.changeDetectorRef.detectChanges();
   }
 
   private showToast = async (message: string) => {
