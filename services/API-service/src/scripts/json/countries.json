@@ -653,6 +653,18 @@
             "color": "ibf-no-alert-primary",
             "value": 0
           },
+          "min": {
+            "label": "Low warning issued",
+            "color": "fiveten-yellow-500",
+            "textColor": "fiveten-yellow-700",
+            "value": 0.3
+          },
+          "med": {
+            "label": "Medium warning issued",
+            "color": "fiveten-orange-500",
+            "textColor": "fiveten-orange-700",
+            "value": 0.7
+          },
           "max": {
             "label": "Trigger issued",
             "color": "ibf-glofas-trigger",

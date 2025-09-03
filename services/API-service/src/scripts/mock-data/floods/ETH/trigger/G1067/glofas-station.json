@@ -5,5 +5,19 @@
     "eapAlertClass": "max",
     "forecastReturnPeriod": 10,
     "triggerLevel": 4000
+  },
+  {
+    "stationCode": "G1053",
+    "forecastLevel": 2800,
+    "eapAlertClass": "med",
+    "forecastReturnPeriod": 5,
+    "triggerLevel": 3000
+  },
+  {
+    "stationCode": "G1045",
+    "forecastLevel": 2000,
+    "eapAlertClass": "min",
+    "forecastReturnPeriod": 10,
+    "triggerLevel": 4000
   }
 ]
