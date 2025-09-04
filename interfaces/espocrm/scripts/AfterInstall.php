@@ -7,31 +7,31 @@ class AfterInstall
     public function run($container)
     {
         $this->container = $container;
-        
+
         // Set default IBF configuration values
         $this->setDefaultIBFConfiguration();
-        
+
         // Create Anticipatory Action team and role
         $this->createAnticipationTeamAndRole();
-        
+
         // Add IBF Dashboard tab to navbar
         $this->addIBFDashboardTab();
-        
+
         // Add administration panel section
         $this->addAdministrationSection();
-        
+
         // Create map-related database tables
         $this->createMapTables();
-        
+
         // Clear cache to ensure changes take effect
         $this->clearCache();
-        
+
         // Sync Early Actions from IBF API
         $this->syncEarlyActionsFromIBF();
-        
+
         // Rebuild client resources to include custom views
         $this->rebuildClientResources();
-        
+
         // Note: Database schema will be automatically updated by EspoCRM
         // after installation completes and maintenance mode is lifted
         error_log('IBF Dashboard: Installation completed successfully.');
@@ -45,7 +45,7 @@ class AfterInstall
     {
         try {
             $config = $this->container->get('config');
-            
+
             // Try to get configWriter, fallback to config if not available
             try {
                 $configWriter = $this->container->get('configWriter');
@@ -54,14 +54,14 @@ class AfterInstall
                 $injectableFactory = $this->container->get('injectableFactory');
                 $configWriter = $injectableFactory->create('Espo\\Core\\Utils\\Config\\ConfigWriter');
             }
-            
+
             // Get current tab list from application settings
             $tabList = $config->get('tabList', []);
-            
+
             // Add essential entity tabs if they don't exist
             $entitiesToAdd = ['IBFDashboard', 'EarlyWarning', 'EarlyAction'];
             $tabsAdded = false;
-            
+
             foreach ($entitiesToAdd as $entity) {
                 if (!in_array($entity, $tabList)) {
                     $tabList[] = $entity;
@@ -69,16 +69,16 @@ class AfterInstall
                     error_log("IBF Dashboard: Added $entity to navigation tabs");
                 }
             }
-            
+
             if ($tabsAdded) {
                 // Update the configuration
                 $configWriter->set('tabList', $tabList);
                 $configWriter->save();
-                
+
                 // Also set the tab labels in language files
                 $this->setTabLabel();
             }
-            
+
         } catch (\Exception $e) {
             // Log error but don't fail installation
             error_log('IBF Dashboard: Failed to add tab to navbar: ' . $e->getMessage());
@@ -91,18 +91,18 @@ class AfterInstall
             // Get the language manager
             $language = $this->container->get('language');
             $defaultLanguage = $this->container->get('defaultLanguage');
-            
+
             // Set the scope name for IBFDashboard using the correct 4-parameter method
             // Language::set(scope, category, name, value)
             $defaultLanguage->set('Global', 'scopeNames', 'IBFDashboard', 'IBF Dashboard');
             $defaultLanguage->save();
-            
+
             // Also set for current language if different
             if ($language->getLanguage() !== $defaultLanguage->getLanguage()) {
                 $language->set('Global', 'scopeNames', 'IBFDashboard', 'IBF Dashboard');
                 $language->save();
             }
-            
+
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Failed to set tab label: ' . $e->getMessage());
         }
@@ -112,7 +112,7 @@ class AfterInstall
     {
         try {
             $config = $this->container->get('config');
-            
+
             // Try to get configWriter, fallback to creating it if not available
             try {
                 $configWriter = $this->container->get('configWriter');
@@ -121,11 +121,11 @@ class AfterInstall
                 $injectableFactory = $this->container->get('injectableFactory');
                 $configWriter = $injectableFactory->create('Espo\\Core\\Utils\\Config\\ConfigWriter');
             }
-            
+
             // Since we're using adminPanel.json metadata, we don't need to manually add admin items
             // The administration section will be automatically recognized from metadata
             // Just ensure the metadata is properly loaded by clearing cache
-            
+
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Failed to add administration section: ' . $e->getMessage());
         }
@@ -135,19 +135,19 @@ class AfterInstall
     {
         try {
             $dataManager = $this->container->get('dataManager');
-            
+
             // Clear cache only - avoid rebuild during installation to prevent permission issues
             $dataManager->clearCache();
-            
+
             // Create a flag file to remind about required rebuild
             file_put_contents(
                 'data/cache/application/rebuild-required.flag',
                 "IBF Dashboard extension installed. Please run Administration > Rebuild for module layouts to take effect.\n"
             );
-            
+
             error_log('IBF Dashboard: Cache cleared successfully. Database rebuild skipped during installation to avoid permission issues.');
             error_log('IBF Dashboard: Please manually rebuild the system via Administration > Rebuild after installation to load layouts properly.');
-            
+
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Failed to clear cache: ' . $e->getMessage());
         }
@@ -171,46 +171,46 @@ class AfterInstall
     {
         try {
             $entityManager = $this->container->get('entityManager');
-            
+
             // 1. Create "Anticipatory Action" team if it doesn't exist
             $existingTeam = $entityManager->getRepository('Team')
                 ->where(['name' => 'Anticipatory Action'])
                 ->findOne();
-                
+
             if (!$existingTeam) {
                 $team = $entityManager->createEntity('Team', [
                     'name' => 'Anticipatory Action',
                     'description' => 'Team for users with access to IBF Dashboard and Anticipatory Action features'
                 ]);
-                
+
                 error_log('IBF Dashboard: Created Anticipatory Action team');
             } else {
                 $team = $existingTeam;
                 error_log('IBF Dashboard: Anticipatory Action team already exists');
             }
-            
+
             // 2. Create "Anticipatory Action Moderators" team if it doesn't exist
             $existingModeratorTeam = $entityManager->getRepository('Team')
                 ->where(['name' => 'Anticipatory Action Moderators'])
                 ->findOne();
-                
+
             if (!$existingModeratorTeam) {
                 $moderatorTeam = $entityManager->createEntity('Team', [
                     'name' => 'Anticipatory Action Moderators',
                     'description' => 'Team for users who can manage IBF Users and moderate IBF Dashboard access'
                 ]);
-                
+
                 error_log('IBF Dashboard: Created Anticipatory Action Moderators team');
             } else {
                 $moderatorTeam = $existingModeratorTeam;
                 error_log('IBF Dashboard: Anticipatory Action Moderators team already exists');
             }
-            
+
             // 3. Create "IBF Dashboard Access" role if it doesn't exist
             $existingRole = $entityManager->getRepository('Role')
                 ->where(['name' => 'IBF Dashboard Access'])
                 ->findOne();
-                
+
             if (!$existingRole) {
                 $role = $entityManager->createEntity('Role', [
                     'name' => 'IBF Dashboard Access',
@@ -228,7 +228,7 @@ class AfterInstall
                         'IBFUser' => [
                             'create' => 'no',
                             'read' => 'team',
-                            'edit' => 'no', 
+                            'edit' => 'no',
                             'delete' => 'no',
                             'stream' => 'no'
                         ],
@@ -258,18 +258,18 @@ class AfterInstall
                         ]
                     ]
                 ]);
-                
+
                 error_log('IBF Dashboard: Created IBF Dashboard Access role');
             } else {
                 $role = $existingRole;
                 error_log('IBF Dashboard: IBF Dashboard Access role already exists');
             }
-            
+
             // 4. Create "IBF User Moderator" role if it doesn't exist
             $existingModeratorRole = $entityManager->getRepository('Role')
                 ->where(['name' => 'IBF User Moderator'])
                 ->findOne();
-                
+
             if (!$existingModeratorRole) {
                 $moderatorRole = $entityManager->createEntity('Role', [
                     'name' => 'IBF User Moderator',
@@ -287,7 +287,7 @@ class AfterInstall
                         'IBFUser' => [
                             'create' => 'yes',
                             'read' => 'all',
-                            'edit' => 'all', 
+                            'edit' => 'all',
                             'delete' => 'yes',
                             'stream' => 'yes'
                         ],
@@ -317,45 +317,45 @@ class AfterInstall
                         ]
                     ]
                 ]);
-                
+
                 error_log('IBF Dashboard: Created IBF User Moderator role');
             } else {
                 $moderatorRole = $existingModeratorRole;
                 error_log('IBF Dashboard: IBF User Moderator role already exists');
             }
-            
+
             // 5. Assign "IBF Dashboard Access" role to "Anticipatory Action" team
             if ($team && $role) {
                 $teamRoleRelation = $entityManager->getRepository('Team')
                     ->getRelation($team, 'roles')
                     ->where(['id' => $role->get('id')])
                     ->findOne();
-                    
+
                 if (!$teamRoleRelation) {
                     $entityManager->getRepository('Team')
                         ->getRelation($team, 'roles')
                         ->relate($role);
-                        
+
                     error_log('IBF Dashboard: Assigned IBF Dashboard Access role to Anticipatory Action team');
                 }
             }
-            
+
             // 6. Assign "IBF User Moderator" role to "Anticipatory Action Moderators" team
             if ($moderatorTeam && $moderatorRole) {
                 $moderatorTeamRoleRelation = $entityManager->getRepository('Team')
                     ->getRelation($moderatorTeam, 'roles')
                     ->where(['id' => $moderatorRole->get('id')])
                     ->findOne();
-                    
+
                 if (!$moderatorTeamRoleRelation) {
                     $entityManager->getRepository('Team')
                         ->getRelation($moderatorTeam, 'roles')
                         ->relate($moderatorRole);
-                        
+
                     error_log('IBF Dashboard: Assigned IBF User Moderator role to Anticipatory Action Moderators team');
                 }
             }
-            
+
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Failed to create team and role: ' . $e->getMessage());
         }
@@ -365,7 +365,7 @@ class AfterInstall
     {
         try {
             $config = $this->container->get('config');
-            
+
             // Try to get configWriter, fallback to creating it if not available
             try {
                 $configWriter = $this->container->get('configWriter');
@@ -379,7 +379,7 @@ class AfterInstall
 
             // Set default IBF Backend API URL if not already configured
             if (!$config->get('ibfBackendApiUrl')) {
-                $configWriter->set('ibfBackendApiUrl', 'https://ibf-test.510.global/api');
+                $configWriter->set('ibfBackendApiUrl', 'https://ibf-pivot.510.global/api');
                 $needsSave = true;
                 error_log('IBF Dashboard: Set default IBF Backend API URL');
             }
@@ -449,7 +449,7 @@ class AfterInstall
         try {
             $entityManager = $this->container->get('entityManager');
             $pdo = $entityManager->getPDO();
-            
+
             // Create region_geometry table for storing shapefile data
             $createTableQuery = "
                 CREATE TABLE IF NOT EXISTS region_geometry (
@@ -461,15 +461,15 @@ class AfterInstall
                     INDEX idx_pcode (pcode)
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
             ";
-            
+
             $pdo->exec($createTableQuery);
             error_log('IBF Dashboard: Created region_geometry table for map data');
-            
+
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Failed to create map tables: ' . $e->getMessage());
         }
     }
-    
+
     /**
      * Sync Early Actions from IBF API during installation
      */
@@ -477,21 +477,21 @@ class AfterInstall
     {
         try {
             error_log('IBF Dashboard: Starting Early Actions sync from IBF API...');
-            
+
             // Get required dependencies from container
             $entityManager = $this->container->get('entityManager');
             $config = $this->container->get('config');
             $log = $this->container->get('log');
-            
+
             // Manually create the sync service with dependencies
             $syncService = new \Espo\Modules\IBFDashboard\Services\EarlyActionSync();
             $syncService->inject('entityManager', $entityManager);
             $syncService->inject('config', $config);
             $syncService->inject('log', $log);
-            
+
             // Perform the sync
             $result = $syncService->syncAllEarlyActions();
-            
+
             if ($result['success']) {
                 error_log('IBF Dashboard: Early Actions sync completed successfully - ' . $result['message']);
             } else {
@@ -502,13 +502,13 @@ class AfterInstall
                     }
                 }
             }
-            
+
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Exception during Early Actions sync: ' . $e->getMessage());
             error_log('IBF Dashboard: Early Actions sync will be skipped during installation. You can manually trigger it later from the admin panel.');
         }
     }
-    
+
     /**
      * Rebuild client resources to include custom views
      */
@@ -516,15 +516,15 @@ class AfterInstall
     {
         try {
             error_log('IBF Dashboard: Rebuilding client resources for custom views...');
-            
+
             $dataManager = $this->container->get('dataManager');
-            
+
             // Clear and rebuild client cache to include our custom JavaScript files
             $dataManager->clearCache();
             $dataManager->rebuild(['clientDefs', 'metadata']);
-            
+
             error_log('IBF Dashboard: Client resources rebuilt successfully');
-            
+
         } catch (\Exception $e) {
             error_log('IBF Dashboard: Failed to rebuild client resources: ' . $e->getMessage());
         }

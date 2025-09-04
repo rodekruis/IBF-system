@@ -2,15 +2,15 @@
 
 namespace Espo\Modules\IBFDashboard\Controllers;
 
-use Espo\Core\Controllers\Base;
 use Espo\Core\Api\Request;
-use Espo\Core\ORM\EntityManager;
-use Espo\Core\Utils\Log;
+use Espo\Core\Controllers\Base;
+use Espo\Core\Exceptions\BadRequest;
+use Espo\Core\Exceptions\Forbidden;
 use Espo\Core\InjectableFactory;
+use Espo\Core\ORM\EntityManager;
 use Espo\Core\Utils\Config;
 use Espo\Core\Utils\Config\ConfigWriter;
-use Espo\Core\Exceptions\Forbidden;
-use Espo\Core\Exceptions\BadRequest;
+use Espo\Core\Utils\Log;
 
 class IBFDashboard extends Base
 {
@@ -41,60 +41,72 @@ class IBFDashboard extends Base
     {
         // Try to get configured site URL first
         $siteUrl = $this->getConfig()->get('siteUrl');
-        
+
         if ($siteUrl) {
             return rtrim($siteUrl, '/');
         }
-        
+
         // Fallback: detect from current request
         $request = $this->getContainer()->get('request');
         if ($request) {
             $scheme = $request->getScheme() ?: (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http');
             $host = $request->getHost() ?: $_SERVER['HTTP_HOST'] ?? 'localhost';
-            return $scheme . '://' . $host;
+
+            return $scheme.'://'.$host;
         }
-        
+
         // Final fallback: try to detect from $_SERVER
         $scheme = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
         $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
-        return $scheme . '://' . $host;
+
+        return $scheme.'://'.$host;
     }
 
     public function actionIndex(): array
     {
         $log = $GLOBALS['log'] ?? null;
         if ($log) {
-            $log->info("[IBF-DASHBOARD] Index action called at " . date('Y-m-d H:i:s'));
+            $log->info('[IBF-DASHBOARD] Index action called at '.date('Y-m-d H:i:s'));
         }
 
         try {
             // Get current user
             $user = $this->getUser();
-            if (!$user) {
-                if ($log) $log->error("[IBF-DASHBOARD] No authenticated user found");
+            if (! $user) {
+                if ($log) {
+                    $log->error('[IBF-DASHBOARD] No authenticated user found');
+                }
                 throw new \Espo\Core\Exceptions\Forbidden('User not authenticated');
             }
 
-            if ($log) $log->info("[IBF-DASHBOARD] Authenticated user: " . $user->get('userName'));
+            if ($log) {
+                $log->info('[IBF-DASHBOARD] Authenticated user: '.$user->get('userName'));
+            }
 
             // Get user's auth token for client-side authentication
             $authToken = $this->getCurrentUserToken();
-            if (!$authToken) {
-                if ($log) $log->warning("[IBF-DASHBOARD] No auth token found for user");
+            if (! $authToken) {
+                if ($log) {
+                    $log->warning('[IBF-DASHBOARD] No auth token found for user');
+                }
             }
 
             // Get IBF API token using the same logic as IbfAuth.php
             $ibfToken = $this->getIbfApiToken($user, $log);
-            if (!$ibfToken) {
-                if ($log) $log->warning("[IBF-DASHBOARD] Could not retrieve IBF API token, will use client-side auth");
+            if (! $ibfToken) {
+                if ($log) {
+                    $log->warning('[IBF-DASHBOARD] Could not retrieve IBF API token, will use client-side auth');
+                }
             }
 
             // Use configured dashboard URL instead of hardcoded value
             $dashboardUrl = $this->getConfig()->get('ibfDashboardUrl', 'https://ibf-pivot.510.global');
-            $ibfBackendApiUrl = $this->getConfig()->get('ibfBackendApiUrl', 'https://ibf-test.510.global/api');
+            $ibfBackendApiUrl = $this->getConfig()->get('ibfBackendApiUrl', 'https://ibf-pivot.510.global/api');
             $ibfGeoserverUrl = $this->getConfig()->get('ibfGeoserverUrl', 'https://ibf.510.global/geoserver/ibf-system/wms');
-            
-            if ($log) $log->info("[IBF-DASHBOARD] Dashboard configuration ready with URL: " . $dashboardUrl);
+
+            if ($log) {
+                $log->info('[IBF-DASHBOARD] Dashboard configuration ready with URL: '.$dashboardUrl);
+            }
 
             return [
                 'success' => true,
@@ -104,11 +116,13 @@ class IBFDashboard extends Base
                 'ibfGeoserverUrl' => $ibfGeoserverUrl,
                 'userId' => $user->getId(),
                 'authToken' => $authToken,
-                'ibfToken' => $ibfToken
+                'ibfToken' => $ibfToken,
             ];
 
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-DASHBOARD] Exception in actionIndex: " . $e->getMessage());
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Exception in actionIndex: '.$e->getMessage());
+            }
             throw $e;
         }
     }
@@ -122,7 +136,7 @@ class IBFDashboard extends Base
         // The actual view will be handled by the client-side JavaScript
         return [
             'success' => true,
-            'view' => 'admin'
+            'view' => 'admin',
         ];
     }
 
@@ -132,17 +146,17 @@ class IBFDashboard extends Base
     public function getActionGetUserToken(): array
     {
         $token = $this->getCurrentUserToken();
-        
-        if (!$token) {
+
+        if (! $token) {
             return [
                 'success' => false,
-                'error' => 'No active authentication token found'
+                'error' => 'No active authentication token found',
             ];
         }
-        
+
         return [
             'success' => true,
-            'token' => $token
+            'token' => $token,
         ];
     }
 
@@ -152,7 +166,7 @@ class IBFDashboard extends Base
     private function getCurrentUserToken(): ?string
     {
         $user = $this->getUser();
-        if (!$user) {
+        if (! $user) {
             return null;
         }
 
@@ -161,7 +175,7 @@ class IBFDashboard extends Base
             ->getRDBRepository('AuthToken')
             ->where([
                 'userId' => $user->getId(),
-                'isActive' => true
+                'isActive' => true,
             ])
             ->order('lastAccess', 'DESC')
             ->findOne();
@@ -175,41 +189,56 @@ class IBFDashboard extends Base
     private function getIbfApiToken($user, $log = null): ?string
     {
         try {
-            if ($log) $log->debug("[IBF-DASHBOARD] Checking IBF access and user record...");
-            
+            if ($log) {
+                $log->debug('[IBF-DASHBOARD] Checking IBF access and user record...');
+            }
+
             // Check if user has IBF access through team membership
             $this->checkIBFAccess();
-            
+
             // Get IBFUser record (should exist due to team hooks)
             $ibfUser = $this->getOrCreateIBFUser($user, $log);
-            if (!$ibfUser) {
-                if ($log) $log->error("[IBF-DASHBOARD] No IBFUser record found");
+            if (! $ibfUser) {
+                if ($log) {
+                    $log->error('[IBF-DASHBOARD] No IBFUser record found');
+                }
+
                 return null;
             }
 
             $ibfEmail = $ibfUser->get('email');
             $ibfPassword = $ibfUser->get('password');
 
-            if ($log) $log->info("[IBF-DASHBOARD] IBF credentials check - Email: " . ($ibfEmail ? 'exists' : 'missing') . ", Password: " . ($ibfPassword ? 'exists' : 'missing'));
-            
-            if (!$ibfEmail || !$ibfPassword) {
-                if ($log) $log->error("[IBF-DASHBOARD] IBFUser exists but missing credentials");
+            if ($log) {
+                $log->info('[IBF-DASHBOARD] IBF credentials check - Email: '.($ibfEmail ? 'exists' : 'missing').', Password: '.($ibfPassword ? 'exists' : 'missing'));
+            }
+
+            if (! $ibfEmail || ! $ibfPassword) {
+                if ($log) {
+                    $log->error('[IBF-DASHBOARD] IBFUser exists but missing credentials');
+                }
+
                 return null;
             }
-            
-            if ($log) $log->info("[IBF-DASHBOARD] Found IBFUser credentials, attempting login...");
+
+            if ($log) {
+                $log->info('[IBF-DASHBOARD] Found IBFUser credentials, attempting login...');
+            }
             $token = $this->loginIbfUserAndGetToken($ibfEmail, $ibfPassword, $log);
-            
+
             if ($token) {
                 // Update last login time and token
                 $ibfUser->set('lastIbfLogin', date('Y-m-d H:i:s'));
                 $ibfUser->set('ibfToken', $token);
                 $this->getEntityManager()->saveEntity($ibfUser);
             }
-            
+
             return $token;
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-DASHBOARD] Exception in getIbfApiToken: " . $e->getMessage());
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Exception in getIbfApiToken: '.$e->getMessage());
+            }
+
             return null;
         }
     }
@@ -221,8 +250,11 @@ class IBFDashboard extends Base
     {
         try {
             // Check if IBFUser repository exists (entity may not be created yet)
-            if (!$this->getEntityManager()->hasRepository('IBFUser')) {
-                if ($log) $log->error("[IBF-DASHBOARD] IBFUser entity not yet created, skipping IBFUser lookup - this is likely the main issue");
+            if (! $this->getEntityManager()->hasRepository('IBFUser')) {
+                if ($log) {
+                    $log->error('[IBF-DASHBOARD] IBFUser entity not yet created, skipping IBFUser lookup - this is likely the main issue');
+                }
+
                 return null;
             }
 
@@ -231,39 +263,56 @@ class IBFDashboard extends Base
                 ->getRDBRepository('IBFUser')
                 ->where(['userId' => $user->getId()])
                 ->findOne();
-            
+
             if ($ibfUser) {
-                if ($log) $log->debug("[IBF-DASHBOARD] Found existing IBFUser record");
+                if ($log) {
+                    $log->debug('[IBF-DASHBOARD] Found existing IBFUser record');
+                }
+
                 return $ibfUser;
             }
-            
+
             // Check auto-creation setting
             $autoCreateUsers = $this->getConfig()->get('ibfAutoCreateUsers', true);
             $requireUserMapping = $this->getConfig()->get('ibfRequireUserMapping', false);
-            
-            if ($log) $log->info("[IBF-DASHBOARD] Auto-creation settings: ibfAutoCreateUsers={$autoCreateUsers}, ibfRequireUserMapping={$requireUserMapping}");
-            
-            if (!$autoCreateUsers || $requireUserMapping) {
-                if ($log) $log->warning("[IBF-DASHBOARD] IBFUser auto-creation disabled or mapping required");
+
+            if ($log) {
+                $log->info("[IBF-DASHBOARD] Auto-creation settings: ibfAutoCreateUsers={$autoCreateUsers}, ibfRequireUserMapping={$requireUserMapping}");
+            }
+
+            if (! $autoCreateUsers || $requireUserMapping) {
+                if ($log) {
+                    $log->warning('[IBF-DASHBOARD] IBFUser auto-creation disabled or mapping required');
+                }
                 if ($requireUserMapping) {
                     throw new \Espo\Core\Exceptions\Forbidden('IBF user mapping required. Please contact your administrator to set up your IBF access.');
                 }
+
                 return null;
             }
-            
+
             // Check if admin credentials are available before attempting creation
             $adminToken = $this->getAdminUserCredentialsInIBF($log);
-            if (!$adminToken) {
-                if ($log) $log->error("[IBF-DASHBOARD] Cannot create IBF user - admin token not available. Check ibfAdminUserId configuration and admin IBFUser credentials.");
+            if (! $adminToken) {
+                if ($log) {
+                    $log->error('[IBF-DASHBOARD] Cannot create IBF user - admin token not available. Check ibfAdminUserId configuration and admin IBFUser credentials.');
+                }
+
                 return null;
             }
-            
+
             // Auto-create IBFUser
-            if ($log) $log->info("[IBF-DASHBOARD] Auto-creating IBFUser record...");
+            if ($log) {
+                $log->info('[IBF-DASHBOARD] Auto-creating IBFUser record...');
+            }
+
             return $this->createIBFUserRecord($user, $log);
 
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-DASHBOARD] Error in getOrCreateIBFUser: " . $e->getMessage());
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Error in getOrCreateIBFUser: '.$e->getMessage());
+            }
+
             return null;
         }
     }
@@ -275,8 +324,11 @@ class IBFDashboard extends Base
     {
         // Get admin credentials for user creation
         $adminToken = $this->getAdminUserCredentialsInIBF($log);
-        if (!$adminToken) {
-            if ($log) $log->error("[IBF-DASHBOARD] Cannot create IBF user - admin token not available");
+        if (! $adminToken) {
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Cannot create IBF user - admin token not available');
+            }
+
             return null;
         }
 
@@ -284,17 +336,20 @@ class IBFDashboard extends Base
         $espoEmail = $user->get('emailAddress');
         $espoFirstName = $user->get('firstName');
         $espoLastName = $user->get('lastName');
-        
-        if (!$espoEmail) {
-            if ($log) $log->error("[IBF-DASHBOARD] Cannot create IBF user - no email address");
+
+        if (! $espoEmail) {
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Cannot create IBF user - no email address');
+            }
+
             return null;
         }
 
         $generatedPassword = bin2hex(random_bytes(8));
-        
+
         // Use configurable IBF backend API URL for user operations
-        $ibfBackendApiUrl = $this->getConfig()->get('ibfBackendApiUrl', 'https://ibf-test.510.global/api');
-        $createUserUrl = $ibfBackendApiUrl . '/user';
+        $ibfBackendApiUrl = $this->getConfig()->get('ibfBackendApiUrl', 'https://ibf-pivot.510.global/api');
+        $createUserUrl = $ibfBackendApiUrl.'/user';
         $userData = [
             'email' => $espoEmail,
             'password' => $generatedPassword,
@@ -302,14 +357,16 @@ class IBFDashboard extends Base
             'lastName' => $espoLastName ?: 'EspoCRM',
         ];
 
-        if ($log) $log->debug("[IBF-DASHBOARD] Creating IBF system user with email: " . $espoEmail);
+        if ($log) {
+            $log->debug('[IBF-DASHBOARD] Creating IBF system user with email: '.$espoEmail);
+        }
 
         $curl = curl_init($createUserUrl);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json',
-            'Authorization: Bearer ' . $adminToken
+            'Authorization: Bearer '.$adminToken,
         ]);
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($userData));
         curl_setopt($curl, CURLOPT_TIMEOUT, 30);
@@ -319,8 +376,10 @@ class IBFDashboard extends Base
         curl_close($curl);
 
         if ($httpCode === 201 || $httpCode === 200) {
-            if ($log) $log->info("[IBF-DASHBOARD] IBF system user created successfully");
-            
+            if ($log) {
+                $log->info('[IBF-DASHBOARD] IBF system user created successfully');
+            }
+
             // Create IBFUser record in EspoCRM
             $ibfUser = $this->getEntityManager()->getNewEntity('IBFUser');
             $ibfUser->set('userId', $user->getId());
@@ -330,17 +389,26 @@ class IBFDashboard extends Base
             $ibfUser->set('allowedDisasterTypes', $this->getConfig()->get('ibfDisasterTypes', ['drought', 'floods', 'heavy-rainfall']));
             $ibfUser->set('isActive', true);
             $ibfUser->set('autoCreated', true);
-            
+
             try {
                 $this->getEntityManager()->saveEntity($ibfUser);
-                if ($log) $log->info("[IBF-DASHBOARD] IBFUser record created successfully");
+                if ($log) {
+                    $log->info('[IBF-DASHBOARD] IBFUser record created successfully');
+                }
+
                 return $ibfUser;
             } catch (\Exception $e) {
-                if ($log) $log->error("[IBF-DASHBOARD] Failed to create IBFUser record: " . $e->getMessage());
+                if ($log) {
+                    $log->error('[IBF-DASHBOARD] Failed to create IBFUser record: '.$e->getMessage());
+                }
+
                 return null;
             }
         } else {
-            if ($log) $log->error("[IBF-DASHBOARD] Failed to create IBF system user. HTTP Code: " . $httpCode . ", Response: " . $response);
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Failed to create IBF system user. HTTP Code: '.$httpCode.', Response: '.$response);
+            }
+
             return null;
         }
     }
@@ -351,14 +419,16 @@ class IBFDashboard extends Base
     private function loginIbfUserAndGetToken($email, $password, $log = null): ?string
     {
         // Use configurable IBF backend API URL for authentication
-        $ibfBackendApiUrl = $this->getConfig()->get('ibfBackendApiUrl', 'https://ibf-test.510.global/api');
-        $loginUrl = $ibfBackendApiUrl . '/user/login';
+        $ibfBackendApiUrl = $this->getConfig()->get('ibfBackendApiUrl', 'https://ibf-pivot.510.global/api');
+        $loginUrl = $ibfBackendApiUrl.'/user/login';
         $loginData = [
             'email' => $email,
-            'password' => $password
+            'password' => $password,
         ];
 
-        if ($log) $log->debug("[IBF-DASHBOARD] Attempting IBF login for: " . $email);
+        if ($log) {
+            $log->debug('[IBF-DASHBOARD] Attempting IBF login for: '.$email);
+        }
 
         $curl = curl_init($loginUrl);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -374,12 +444,18 @@ class IBFDashboard extends Base
         if ($httpCode === 200) {
             $responseData = json_decode($response, true);
             if (isset($responseData['user']['token'])) {
-                if ($log) $log->info("[IBF-DASHBOARD] IBF login successful");
+                if ($log) {
+                    $log->info('[IBF-DASHBOARD] IBF login successful');
+                }
+
                 return $responseData['user']['token'];
             }
         }
 
-        if ($log) $log->warning("[IBF-DASHBOARD] IBF login failed. HTTP Code: " . $httpCode);
+        if ($log) {
+            $log->warning('[IBF-DASHBOARD] IBF login failed. HTTP Code: '.$httpCode);
+        }
+
         return null;
     }
 
@@ -389,68 +465,99 @@ class IBFDashboard extends Base
     private function getAdminUserCredentialsInIBF($log = null): ?string
     {
         try {
-            if ($log) $log->debug("[IBF-DASHBOARD] Getting IBF admin credentials...");
-            
+            if ($log) {
+                $log->debug('[IBF-DASHBOARD] Getting IBF admin credentials...');
+            }
+
             // Get configured admin user ID
             $adminUserId = $this->getConfig()->get('ibfAdminUserId');
-            if (!$adminUserId) {
-                if ($log) $log->error("[IBF-DASHBOARD] No ibfAdminUserId configured - this is required for IBF user auto-creation");
+            if (! $adminUserId) {
+                if ($log) {
+                    $log->error('[IBF-DASHBOARD] No ibfAdminUserId configured - this is required for IBF user auto-creation');
+                }
+
                 return null;
             }
-            
-            if ($log) $log->debug("[IBF-DASHBOARD] Using configured admin user ID: {$adminUserId}");
-            
+
+            if ($log) {
+                $log->debug("[IBF-DASHBOARD] Using configured admin user ID: {$adminUserId}");
+            }
+
             // Get the admin user
             $adminUser = $this->getEntityManager()->getEntity('User', $adminUserId);
-            if (!$adminUser) {
-                if ($log) $log->error("[IBF-DASHBOARD] Configured admin user ID {$adminUserId} not found");
+            if (! $adminUser) {
+                if ($log) {
+                    $log->error("[IBF-DASHBOARD] Configured admin user ID {$adminUserId} not found");
+                }
+
                 return null;
             }
-            
-            if ($log) $log->debug("[IBF-DASHBOARD] Found admin user: " . $adminUser->get('userName'));
-            
+
+            if ($log) {
+                $log->debug('[IBF-DASHBOARD] Found admin user: '.$adminUser->get('userName'));
+            }
+
             // Check if IBFUser repository exists
-            if (!$this->getEntityManager()->hasRepository('IBFUser')) {
-                if ($log) $log->error("[IBF-DASHBOARD] IBFUser entity not available - cannot check admin IBFUser credentials");
+            if (! $this->getEntityManager()->hasRepository('IBFUser')) {
+                if ($log) {
+                    $log->error('[IBF-DASHBOARD] IBFUser entity not available - cannot check admin IBFUser credentials');
+                }
+
                 return null;
             }
-            
+
             // Get IBFUser record for the admin
             $adminIBFUser = $this->getEntityManager()
                 ->getRDBRepository('IBFUser')
                 ->where(['userId' => $adminUserId])
                 ->findOne();
-                
-            if (!$adminIBFUser) {
-                if ($log) $log->error("[IBF-DASHBOARD] No IBFUser record found for configured admin user {$adminUserId}. Admin must have an IBFUser record with valid IBF credentials.");
+
+            if (! $adminIBFUser) {
+                if ($log) {
+                    $log->error("[IBF-DASHBOARD] No IBFUser record found for configured admin user {$adminUserId}. Admin must have an IBFUser record with valid IBF credentials.");
+                }
+
                 return null;
             }
-            
+
             $ibfEmail = $adminIBFUser->get('email');
             $ibfPassword = $adminIBFUser->get('password');
             $isActive = $adminIBFUser->get('isActive');
-            
-            if ($log) $log->debug("[IBF-DASHBOARD] Admin IBFUser check - Email: " . ($ibfEmail ? 'exists' : 'missing') . ", Password: " . ($ibfPassword ? 'exists' : 'missing') . ", Active: " . ($isActive ? 'true' : 'false'));
-            
-            if (!$ibfEmail || !$ibfPassword || !$isActive) {
-                if ($log) $log->error("[IBF-DASHBOARD] Admin IBFUser exists but missing credentials or inactive - email:" . ($ibfEmail ? 'OK' : 'MISSING') . ", password:" . ($ibfPassword ? 'OK' : 'MISSING') . ", active:" . ($isActive ? 'OK' : 'INACTIVE'));
+
+            if ($log) {
+                $log->debug('[IBF-DASHBOARD] Admin IBFUser check - Email: '.($ibfEmail ? 'exists' : 'missing').', Password: '.($ibfPassword ? 'exists' : 'missing').', Active: '.($isActive ? 'true' : 'false'));
+            }
+
+            if (! $ibfEmail || ! $ibfPassword || ! $isActive) {
+                if ($log) {
+                    $log->error('[IBF-DASHBOARD] Admin IBFUser exists but missing credentials or inactive - email:'.($ibfEmail ? 'OK' : 'MISSING').', password:'.($ibfPassword ? 'OK' : 'MISSING').', active:'.($isActive ? 'OK' : 'INACTIVE'));
+                }
+
                 return null;
             }
-            
+
             // Try to login with admin IBFUser credentials
             $token = $this->loginIbfUserAndGetToken($ibfEmail, $ibfPassword, $log);
             if ($token) {
-                if ($log) $log->info("[IBF-DASHBOARD] Successfully obtained admin token for IBF user creation");
+                if ($log) {
+                    $log->info('[IBF-DASHBOARD] Successfully obtained admin token for IBF user creation');
+                }
+
                 return $token;
             } else {
-                if ($log) $log->error("[IBF-DASHBOARD] Failed to login with admin IBFUser credentials - check if the credentials are valid in the IBF system");
+                if ($log) {
+                    $log->error('[IBF-DASHBOARD] Failed to login with admin IBFUser credentials - check if the credentials are valid in the IBF system');
+                }
+
                 return null;
             }
 
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-DASHBOARD] Exception getting admin credentials: " . $e->getMessage());
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Exception getting admin credentials: '.$e->getMessage());
+            }
         }
-        
+
         return null;
     }
 
@@ -461,14 +568,14 @@ class IBFDashboard extends Base
     {
         // Check if user is authenticated and is admin
         $user = $this->getUser();
-        if (!$user) {
+        if (! $user) {
             throw new Forbidden('User not authenticated');
         }
-        
-        if (!$user->isAdmin()) {
+
+        if (! $user->isAdmin()) {
             throw new Forbidden('Admin access required for IBF Dashboard administration');
         }
-        
+
         return [];
     }
 
@@ -478,25 +585,27 @@ class IBFDashboard extends Base
     public function getActionGetSettings(Request $request): object
     {
         $log = $GLOBALS['log'] ?? null;
-        
+
         try {
             // Check if user is authenticated and is admin
             $user = $this->getUser();
-            if (!$user) {
+            if (! $user) {
                 throw new Forbidden('User not authenticated');
             }
-            
-            if (!$user->isAdmin()) {
+
+            if (! $user->isAdmin()) {
                 throw new Forbidden('Admin access required for IBF settings');
             }
-            
+
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-DASHBOARD] Access denied: " . $e->getMessage());
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Access denied: '.$e->getMessage());
+            }
             throw $e;
         }
-        
+
         // Auto-detect EspoCRM API URL from current instance
-        $ibfApiUrl = $this->getEspoCrmBaseUrl() . '/api';
+        $ibfApiUrl = $this->getEspoCrmBaseUrl().'/api';
 
         $settings = [
             'ibfDashboardUrl' => $this->getConfig()->get('ibfDashboardUrl', 'https://ibf-pivot.510.global'),
@@ -504,18 +613,20 @@ class IBFDashboard extends Base
             'ibfDefaultCountry' => $this->getConfig()->get('ibfDefaultCountry', 'ETH'),
             'ibfDisasterTypes' => $this->getConfig()->get('ibfDisasterTypes', ['drought', 'floods', 'heavy-rainfall']),
             'ibfApiUrl' => $ibfApiUrl, // Auto-detected from EspoCRM instance
-            'ibfBackendApiUrl' => $this->getConfig()->get('ibfBackendApiUrl', 'https://ibf-test.510.global/api'),
+            'ibfBackendApiUrl' => $this->getConfig()->get('ibfBackendApiUrl', 'https://ibf-pivot.510.global/api'),
             'ibfGeoserverUrl' => $this->getConfig()->get('ibfGeoserverUrl', 'https://ibf.510.global/geoserver/ibf-system/wms'),
             'ibfAutoCreateUsers' => $this->getConfig()->get('ibfAutoCreateUsers', true),
             'ibfRequireUserMapping' => $this->getConfig()->get('ibfRequireUserMapping', false),
-            'ibfAdminUserId' => $this->getConfig()->get('ibfAdminUserId', null)
+            'ibfAdminUserId' => $this->getConfig()->get('ibfAdminUserId', null),
         ];
-        
-        if ($log) $log->info("[IBF-DASHBOARD] Loading IBF settings for admin");
+
+        if ($log) {
+            $log->info('[IBF-DASHBOARD] Loading IBF settings for admin');
+        }
 
         // Get IBF user info if admin user is set
         $ibfUserInfo = null;
-        if (!empty($settings['ibfAdminUserId'])) {
+        if (! empty($settings['ibfAdminUserId'])) {
             $ibfUserInfo = $this->getIBFUserInfo($settings['ibfAdminUserId'], $log);
         }
 
@@ -524,89 +635,91 @@ class IBFDashboard extends Base
             'availableCountries' => $this->getAvailableCountries(),
             'availableDisasterTypes' => $this->getAvailableDisasterTypes(),
             'availableUsers' => $this->getAvailableUsers(),
-            'ibfUserInfo' => $ibfUserInfo
+            'ibfUserInfo' => $ibfUserInfo,
         ];
     }
 
     /**
-     * Save settings action - only accessible to administrators  
+     * Save settings action - only accessible to administrators
      */
     public function postActionSaveSettings(Request $request): bool
     {
         $log = $GLOBALS['log'] ?? null;
-        
+
         // Check if user is authenticated and is admin
         $user = $this->getUser();
-        if (!$user) {
+        if (! $user) {
             throw new Forbidden('User not authenticated');
         }
-        
-        if (!$user->isAdmin()) {
+
+        if (! $user->isAdmin()) {
             throw new Forbidden('Admin access required for IBF settings');
         }
-        
+
         $data = $request->getParsedBody();
-        
+
         if (empty($data->settings)) {
             throw new BadRequest('No settings data provided');
         }
 
         $settings = (array) $data->settings;
-        
-        if ($log) $log->info("[IBF-DASHBOARD] Saving IBF settings");
-        
+
+        if ($log) {
+            $log->info('[IBF-DASHBOARD] Saving IBF settings');
+        }
+
         // Create ConfigWriter instance ONCE and reuse it (following EspoCRM documentation pattern)
         $configWriter = $this->getInjectableFactory()->create(ConfigWriter::class);
-        
+
         // Validate and save each setting
         foreach ($settings as $key => $value) {
             switch ($key) {
                 case 'ibfDashboardUrl':
                 case 'ibfBackendApiUrl':
                 case 'ibfGeoserverUrl':
-                    if (!filter_var($value, FILTER_VALIDATE_URL)) {
+                    if (! filter_var($value, FILTER_VALIDATE_URL)) {
                         throw new BadRequest("Invalid URL format for $key");
                     }
                     $configWriter->set($key, $value);
                     break;
-                
+
                 case 'ibfApiUrl':
                     // IBF API URL is auto-detected from EspoCRM instance, skip saving
                     break;
-                
+
                 case 'ibfDefaultCountry':
-                    if (!preg_match('/^[A-Z]{3}$/', $value)) {
+                    if (! preg_match('/^[A-Z]{3}$/', $value)) {
                         throw new BadRequest('Invalid country code. Must be 3-letter ISO code.');
                     }
                     $configWriter->set($key, $value);
                     break;
-                
+
                 case 'ibfEnabledCountries':
                 case 'ibfDisasterTypes':
                     if (is_array($value)) {
                         $configWriter->set($key, $value);
                     }
                     break;
-                
+
                 case 'ibfAutoCreateUsers':
                 case 'ibfRequireUserMapping':
                     $configWriter->set($key, (bool) $value);
                     break;
-                
+
                 case 'ibfAdminUserId':
                     // Validate that the user exists and auto-create IBFUser if needed
                     if ($value) {
                         $adminUser = $this->getEntityManager()->getEntity('User', $value);
-                        if (!$adminUser) {
+                        if (! $adminUser) {
                             throw new BadRequest('Selected IBF admin user does not exist');
                         }
-                        if (!$adminUser->get('isActive')) {
+                        if (! $adminUser->get('isActive')) {
                             throw new BadRequest('Selected IBF admin user is not active');
                         }
-                        
+
                         // Ensure IBFUser exists for the admin
                         $this->ensureAdminIBFUser($adminUser, $log);
-                        
+
                         $configWriter->set($key, $value);
                     } else {
                         $configWriter->set($key, null);
@@ -617,18 +730,24 @@ class IBFDashboard extends Base
 
         try {
             $configWriter->save();
-            if ($log) $log->info("[IBF-DASHBOARD] IBF settings saved successfully");
+            if ($log) {
+                $log->info('[IBF-DASHBOARD] IBF settings saved successfully');
+            }
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-DASHBOARD] Failed to save settings: " . $e->getMessage());
-            throw new BadRequest("Failed to save configuration: " . $e->getMessage());
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Failed to save settings: '.$e->getMessage());
+            }
+            throw new BadRequest('Failed to save configuration: '.$e->getMessage());
         }
-        
+
         try {
             $this->getInjectableFactory()->create('Espo\\Core\\DataManager')->clearCache();
         } catch (\Exception $e) {
-            if ($log) $log->warning("[IBF-DASHBOARD] Cache clear failed: " . $e->getMessage());
+            if ($log) {
+                $log->warning('[IBF-DASHBOARD] Cache clear failed: '.$e->getMessage());
+            }
         }
-        
+
         return true;
     }
 
@@ -640,29 +759,38 @@ class IBFDashboard extends Base
     {
         try {
             // Check if IBFUser repository exists
-            if (!$this->getEntityManager()->hasRepository('IBFUser')) {
-                if ($log) $log->warning("[IBF-DASHBOARD] IBFUser entity not available for admin user setup");
+            if (! $this->getEntityManager()->hasRepository('IBFUser')) {
+                if ($log) {
+                    $log->warning('[IBF-DASHBOARD] IBFUser entity not available for admin user setup');
+                }
+
                 return;
             }
-            
+
             // Check if IBFUser already exists
             $existingIBFUser = $this->getEntityManager()
                 ->getRDBRepository('IBFUser')
                 ->where(['userId' => $adminUser->getId()])
                 ->findOne();
-                
+
             if ($existingIBFUser) {
-                if ($log) $log->debug("[IBF-DASHBOARD] IBFUser already exists for admin user");
+                if ($log) {
+                    $log->debug('[IBF-DASHBOARD] IBFUser already exists for admin user');
+                }
+
                 return;
             }
-            
+
             // Create IBFUser record for admin - credentials must be filled manually
             $adminEmail = $adminUser->get('emailAddress');
-            if (!$adminEmail) {
-                if ($log) $log->error("[IBF-DASHBOARD] Admin user has no email address, cannot create IBFUser");
+            if (! $adminEmail) {
+                if ($log) {
+                    $log->error('[IBF-DASHBOARD] Admin user has no email address, cannot create IBFUser');
+                }
+
                 return;
             }
-            
+
             // Create IBFUser record in EspoCRM with placeholder values
             // Admin must manually set the actual IBF email and password
             $ibfUser = $this->getEntityManager()->getNewEntity('IBFUser');
@@ -674,13 +802,17 @@ class IBFDashboard extends Base
             $ibfUser->set('isActive', false); // Inactive until credentials are properly set
             $ibfUser->set('autoCreated', true);
             $ibfUser->set('isAdmin', true); // Mark as admin IBF user
-            
+
             $this->getEntityManager()->saveEntity($ibfUser);
-            
-            if ($log) $log->info("[IBF-DASHBOARD] Created IBFUser record for admin user: " . $adminUser->get('userName') . " - IBF credentials must be set manually");
-            
+
+            if ($log) {
+                $log->info('[IBF-DASHBOARD] Created IBFUser record for admin user: '.$adminUser->get('userName').' - IBF credentials must be set manually');
+            }
+
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-DASHBOARD] Failed to create IBFUser for admin: " . $e->getMessage());
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Failed to create IBFUser for admin: '.$e->getMessage());
+            }
         }
     }
 
@@ -695,7 +827,7 @@ class IBFDashboard extends Base
             ['code' => 'SSD', 'name' => 'South Sudan'],
             ['code' => 'PHL', 'name' => 'Philippines'],
             ['code' => 'ZWE', 'name' => 'Zimbabwe'],
-            ['code' => 'LSO', 'name' => 'Lesotho']
+            ['code' => 'LSO', 'name' => 'Lesotho'],
         ];
     }
 
@@ -707,7 +839,7 @@ class IBFDashboard extends Base
             ['code' => 'heavy-rainfall', 'name' => 'Heavy Rainfall'],
             ['code' => 'typhoon', 'name' => 'Typhoon'],
             ['code' => 'malaria', 'name' => 'Malaria'],
-            ['code' => 'flash-floods', 'name' => 'Flash Floods']
+            ['code' => 'flash-floods', 'name' => 'Flash Floods'],
         ];
     }
 
@@ -718,30 +850,36 @@ class IBFDashboard extends Base
     {
         try {
             $user = $this->getUser();
-            
+
             // Check if user is in Anticipatory Action team
             $teamUser = $this->getEntityManager()->getRepository('TeamUser')
                 ->join('team')
                 ->where([
                     'userId' => $user->getId(),
-                    'team.name' => 'Anticipatory Action'
+                    'team.name' => 'Anticipatory Action',
                 ])
                 ->findOne();
-                
-            if (!$teamUser) {
+
+            if (! $teamUser) {
                 // For now, allow access if team doesn't exist yet (backward compatibility)
                 // In production, you might want to be more strict
                 $log = $GLOBALS['log'] ?? null;
-                if ($log) $log->warning("[IBF-DASHBOARD] User not in Anticipatory Action team, but allowing access for backward compatibility");
+                if ($log) {
+                    $log->warning('[IBF-DASHBOARD] User not in Anticipatory Action team, but allowing access for backward compatibility');
+                }
+
                 return true;
             }
-            
+
             return true;
 
         } catch (\Exception $e) {
             // If there's an error checking team membership, allow access for backward compatibility
             $log = $GLOBALS['log'] ?? null;
-            if ($log) $log->warning("[IBF-DASHBOARD] Error checking team access: " . $e->getMessage() . " - allowing access for backward compatibility");
+            if ($log) {
+                $log->warning('[IBF-DASHBOARD] Error checking team access: '.$e->getMessage().' - allowing access for backward compatibility');
+            }
+
             return true;
         }
     }
@@ -750,37 +888,39 @@ class IBFDashboard extends Base
     {
         $log = $GLOBALS['log'] ?? null;
         $availableUsers = [];
-        
+
         try {
             $users = $this->getEntityManager()
                 ->getRDBRepository('User')
                 ->where(['isActive' => true])
                 ->order('userName', 'ASC')
                 ->find();
-            
+
             foreach ($users as $user) {
                 // Construct display name: prefer full name (firstName + lastName) over userName
                 $firstName = $user->get('firstName');
                 $lastName = $user->get('lastName');
                 $displayName = $user->get('userName'); // fallback to userName
-                
+
                 if ($firstName || $lastName) {
-                    $displayName = trim(($firstName ?: '') . ' ' . ($lastName ?: ''));
+                    $displayName = trim(($firstName ?: '').' '.($lastName ?: ''));
                 }
-                
+
                 $availableUsers[] = [
                     'id' => $user->getId(),
                     'name' => $displayName,
                     'userName' => $user->get('userName'),
                     'firstName' => $firstName,
                     'lastName' => $lastName,
-                    'emailAddress' => $user->get('emailAddress')
+                    'emailAddress' => $user->get('emailAddress'),
                 ];
             }
         } catch (\Exception $e) {
-            if ($log) $log->warning("[IBF-DASHBOARD] Could not load users for admin selection: " . $e->getMessage());
+            if ($log) {
+                $log->warning('[IBF-DASHBOARD] Could not load users for admin selection: '.$e->getMessage());
+            }
         }
-        
+
         return $availableUsers;
     }
 
@@ -794,39 +934,48 @@ class IBFDashboard extends Base
             'hasPassword' => false,
             'id' => null,
             'email' => null,
-            'isActive' => false
+            'isActive' => false,
         ];
-        
+
         try {
-            if (!$this->getEntityManager()->hasRepository('IBFUser')) {
-                if ($log) $log->warning("[IBF-DASHBOARD] IBFUser entity not available");
+            if (! $this->getEntityManager()->hasRepository('IBFUser')) {
+                if ($log) {
+                    $log->warning('[IBF-DASHBOARD] IBFUser entity not available');
+                }
+
                 return $ibfUserInfo;
             }
-            
+
             $ibfUser = $this->getEntityManager()
                 ->getRDBRepository('IBFUser')
                 ->where(['userId' => $userId])
                 ->findOne();
-            
+
             if ($ibfUser) {
                 $ibfUserInfo['exists'] = true;
                 $ibfUserInfo['id'] = $ibfUser->getId();
                 $ibfUserInfo['email'] = $ibfUser->get('email');
                 $ibfUserInfo['isActive'] = $ibfUser->get('isActive') ?: false;
-                
+
                 // Check if password is set (not empty)
                 $password = $ibfUser->get('password');
-                $ibfUserInfo['hasPassword'] = !empty($password);
-                
-                if ($log) $log->debug("[IBF-DASHBOARD] IBFUser found for user {$userId}: ID={$ibfUser->getId()}, hasPassword=" . ($ibfUserInfo['hasPassword'] ? 'true' : 'false'));
+                $ibfUserInfo['hasPassword'] = ! empty($password);
+
+                if ($log) {
+                    $log->debug("[IBF-DASHBOARD] IBFUser found for user {$userId}: ID={$ibfUser->getId()}, hasPassword=".($ibfUserInfo['hasPassword'] ? 'true' : 'false'));
+                }
             } else {
-                if ($log) $log->debug("[IBF-DASHBOARD] No IBFUser found for user {$userId}");
+                if ($log) {
+                    $log->debug("[IBF-DASHBOARD] No IBFUser found for user {$userId}");
+                }
             }
-            
+
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-DASHBOARD] Error getting IBF user info: " . $e->getMessage());
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Error getting IBF user info: '.$e->getMessage());
+            }
         }
-        
+
         return $ibfUserInfo;
     }
 
@@ -837,54 +986,60 @@ class IBFDashboard extends Base
     public function getActionGetUserSettings(Request $request): object
     {
         $log = $GLOBALS['log'] ?? null;
-        
+
         try {
             // Check if user is authenticated
             $user = $this->getUser();
-            if (!$user) {
+            if (! $user) {
                 throw new Forbidden('User not authenticated');
             }
-            
+
             // Check if user has IBF access
             $this->checkIBFAccess();
-            
-            if ($log) $log->info("[IBF-DASHBOARD] Loading user settings for user: " . $user->get('userName'));
-            
+
+            if ($log) {
+                $log->info('[IBF-DASHBOARD] Loading user settings for user: '.$user->get('userName'));
+            }
+
             // Get basic settings that all users should have access to
             $userSettings = [
                 'ibfDefaultCountry' => $this->getConfig()->get('ibfDefaultCountry', 'ETH'),
                 'ibfDashboardUrl' => $this->getConfig()->get('ibfDashboardUrl', 'https://ibf-pivot.510.global'),
-                'ibfBackendApiUrl' => $this->getConfig()->get('ibfBackendApiUrl', 'https://ibf-test.510.global/api'),
+                'ibfBackendApiUrl' => $this->getConfig()->get('ibfBackendApiUrl', 'https://ibf-pivot.510.global/api'),
                 'ibfGeoserverUrl' => $this->getConfig()->get('ibfGeoserverUrl', 'https://ibf.510.global/geoserver/ibf-system/wms'),
             ];
-            
+
             // Get user's allowed countries from IBFUser record if it exists
             $userCountries = $this->getUserAllowedCountries($user->getId(), $log);
-            if (!empty($userCountries)) {
+            if (! empty($userCountries)) {
                 $userSettings['userCountries'] = $userCountries;
             } else {
                 // Fallback to system-wide enabled countries
                 $userSettings['userCountries'] = $this->getConfig()->get('ibfEnabledCountries', ['ETH', 'UGA', 'ZMB', 'KEN']);
             }
-            
+
             // Get user's allowed disaster types
             $userDisasterTypes = $this->getUserAllowedDisasterTypes($user->getId(), $log);
-            if (!empty($userDisasterTypes)) {
+            if (! empty($userDisasterTypes)) {
                 $userSettings['userDisasterTypes'] = $userDisasterTypes;
             } else {
                 // Fallback to system-wide disaster types
                 $userSettings['userDisasterTypes'] = $this->getConfig()->get('ibfDisasterTypes', ['drought', 'floods', 'heavy-rainfall']);
             }
-            
-            if ($log) $log->info("[IBF-DASHBOARD] User settings loaded successfully with " . count($userSettings['userCountries']) . " countries and " . count($userSettings['userDisasterTypes']) . " disaster types");
+
+            if ($log) {
+                $log->info('[IBF-DASHBOARD] User settings loaded successfully with '.count($userSettings['userCountries']).' countries and '.count($userSettings['userDisasterTypes']).' disaster types');
+            }
 
             return (object) [
                 'success' => true,
-                'settings' => $userSettings
+                'settings' => $userSettings,
             ];
 
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-DASHBOARD] Error in getActionGetUserSettings: " . $e->getMessage());
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Error in getActionGetUserSettings: '.$e->getMessage());
+            }
             throw $e;
         }
     }
@@ -895,29 +1050,41 @@ class IBFDashboard extends Base
     private function getUserAllowedCountries(string $userId, $log = null): array
     {
         try {
-            if (!$this->getEntityManager()->hasRepository('IBFUser')) {
-                if ($log) $log->debug("[IBF-DASHBOARD] IBFUser entity not available");
+            if (! $this->getEntityManager()->hasRepository('IBFUser')) {
+                if ($log) {
+                    $log->debug('[IBF-DASHBOARD] IBFUser entity not available');
+                }
+
                 return [];
             }
-            
+
             $ibfUser = $this->getEntityManager()
                 ->getRDBRepository('IBFUser')
                 ->where(['userId' => $userId])
                 ->findOne();
-            
+
             if ($ibfUser && $ibfUser->get('isActive')) {
                 $allowedCountries = $ibfUser->get('allowedCountries');
-                if (is_array($allowedCountries) && !empty($allowedCountries)) {
-                    if ($log) $log->debug("[IBF-DASHBOARD] User {$userId} has specific allowed countries: " . implode(', ', $allowedCountries));
+                if (is_array($allowedCountries) && ! empty($allowedCountries)) {
+                    if ($log) {
+                        $log->debug("[IBF-DASHBOARD] User {$userId} has specific allowed countries: ".implode(', ', $allowedCountries));
+                    }
+
                     return $allowedCountries;
                 }
             }
-            
-            if ($log) $log->debug("[IBF-DASHBOARD] No specific countries found for user {$userId}, will use system defaults");
+
+            if ($log) {
+                $log->debug("[IBF-DASHBOARD] No specific countries found for user {$userId}, will use system defaults");
+            }
+
             return [];
-            
+
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-DASHBOARD] Error getting user allowed countries: " . $e->getMessage());
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Error getting user allowed countries: '.$e->getMessage());
+            }
+
             return [];
         }
     }
@@ -928,74 +1095,85 @@ class IBFDashboard extends Base
     private function getUserAllowedDisasterTypes(string $userId, $log = null): array
     {
         try {
-            if (!$this->getEntityManager()->hasRepository('IBFUser')) {
-                if ($log) $log->debug("[IBF-DASHBOARD] IBFUser entity not available");
+            if (! $this->getEntityManager()->hasRepository('IBFUser')) {
+                if ($log) {
+                    $log->debug('[IBF-DASHBOARD] IBFUser entity not available');
+                }
+
                 return [];
             }
-            
+
             $ibfUser = $this->getEntityManager()
                 ->getRDBRepository('IBFUser')
                 ->where(['userId' => $userId])
                 ->findOne();
-            
+
             if ($ibfUser && $ibfUser->get('isActive')) {
                 $allowedDisasterTypes = $ibfUser->get('allowedDisasterTypes');
-                if (is_array($allowedDisasterTypes) && !empty($allowedDisasterTypes)) {
-                    if ($log) $log->debug("[IBF-DASHBOARD] User {$userId} has specific allowed disaster types: " . implode(', ', $allowedDisasterTypes));
+                if (is_array($allowedDisasterTypes) && ! empty($allowedDisasterTypes)) {
+                    if ($log) {
+                        $log->debug("[IBF-DASHBOARD] User {$userId} has specific allowed disaster types: ".implode(', ', $allowedDisasterTypes));
+                    }
+
                     return $allowedDisasterTypes;
                 }
             }
-            
-            if ($log) $log->debug("[IBF-DASHBOARD] No specific disaster types found for user {$userId}, will use system defaults");
+
+            if ($log) {
+                $log->debug("[IBF-DASHBOARD] No specific disaster types found for user {$userId}, will use system defaults");
+            }
+
             return [];
-            
+
         } catch (\Exception $e) {
-            if ($log) $log->error("[IBF-DASHBOARD] Error getting user allowed disaster types: " . $e->getMessage());
+            if ($log) {
+                $log->error('[IBF-DASHBOARD] Error getting user allowed disaster types: '.$e->getMessage());
+            }
+
             return [];
         }
     }
-    
+
     /**
      * Manual sync action for Early Actions from IBF API
      */
     public function postActionSyncEarlyActions(Request $request): array
     {
         // Check if user has admin access
-        if (!$this->getUser()->isAdmin()) {
+        if (! $this->getUser()->isAdmin()) {
             throw new Forbidden('Access denied. Admin privileges required.');
         }
-        
+
         try {
             $log = $this->getContainer()->getByClass(Log::class);
-            $log->info('[IBF-DASHBOARD] Manual Early Actions sync requested by user: ' . $this->getUser()->getId());
-            
+            $log->info('[IBF-DASHBOARD] Manual Early Actions sync requested by user: '.$this->getUser()->getId());
+
             // Create the sync service
             $injectableFactory = $this->getInjectableFactory();
             $syncService = $injectableFactory->create('Espo\\Modules\\IBFDashboard\\Services\\EarlyActionSync');
-            
+
             // Perform the sync
             $result = $syncService->manualSync();
-            
+
             if ($result['success']) {
                 $log->info('[IBF-DASHBOARD] Manual Early Actions sync completed successfully');
             } else {
                 $log->warning('[IBF-DASHBOARD] Manual Early Actions sync completed with warnings');
             }
-            
+
             return $result;
-            
+
         } catch (\Exception $e) {
-            $this->getContainer()->getByClass(Log::class)->error('[IBF-DASHBOARD] Exception during manual Early Actions sync: ' . $e->getMessage());
-            
+            $this->getContainer()->getByClass(Log::class)->error('[IBF-DASHBOARD] Exception during manual Early Actions sync: '.$e->getMessage());
+
             return [
                 'success' => false,
-                'message' => 'Sync failed: ' . $e->getMessage(),
+                'message' => 'Sync failed: '.$e->getMessage(),
                 'processed' => 0,
                 'created' => 0,
                 'updated' => 0,
-                'errors' => [$e->getMessage()]
+                'errors' => [$e->getMessage()],
             ];
         }
     }
-
 }
