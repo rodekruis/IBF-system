@@ -3,19 +3,19 @@
   import { api } from '../services/api';
   import { ibfApiService } from '../services/ibfApi';
   import config from '../config';
-  
+
   let apiStatus = 'checking...';
   let ibfApiStatus = 'checking...';
   let mockDataStatus = 'available';
   let currentMode = 'unknown';
-  
+
   let testResults: any = {};
   let isTestingIBF = false;
-  
+
   onMount(() => {
     updateStatus();
   });
-  
+
   function updateStatus() {
     // Current configuration
     if (config.useMockData) {
@@ -26,7 +26,7 @@
       currentMode = 'Custom API';
     }
   }
-  
+
   async function testMockData() {
     try {
       const result = await api.healthCheck();
@@ -39,18 +39,18 @@
       mockDataStatus = 'error: ' + (error as Error).message;
     }
   }
-  
+
   async function testIBFApi() {
     isTestingIBF = true;
     testResults = {};
-    
+
     try {
       console.log('Testing IBF API connectivity...');
-      
+
       // Test health check
       const healthResult = await ibfApiService.healthCheck();
       testResults.health = healthResult;
-      
+
       // Test countries
       const countriesResult = await ibfApiService.getCountries();
       testResults.countries = {
@@ -58,11 +58,11 @@
         count: countriesResult.data?.length || 0,
         error: countriesResult.error
       };
-      
+
       // Test first country details if available
       if (countriesResult.data && countriesResult.data.length > 0) {
         const firstCountry = countriesResult.data[0];
-        
+
         // Test disaster types
         const disasterResult = await ibfApiService.getDisasterTypes(firstCountry.countryCodeISO3);
         testResults.disasters = {
@@ -71,7 +71,7 @@
           count: disasterResult.data?.length || 0,
           error: disasterResult.error
         };
-        
+
         // Test admin areas
         const adminResult = await ibfApiService.getAdminAreas(firstCountry.countryCodeISO3);
         testResults.adminAreas = {
@@ -80,12 +80,12 @@
           count: adminResult.data?.length || 0,
           error: adminResult.error
         };
-        
+
         // Test events if disaster types available
         if (disasterResult.data && disasterResult.data.length > 0) {
           const firstDisaster = disasterResult.data[0];
           const eventsResult = await ibfApiService.getEvents(
-            firstCountry.countryCodeISO3, 
+            firstCountry.countryCodeISO3,
             firstDisaster.disasterType
           );
           testResults.events = {
@@ -97,7 +97,7 @@
           };
         }
       }
-      
+
       ibfApiStatus = 'tested - check results below';
     } catch (error) {
       ibfApiStatus = 'error: ' + (error as Error).message;
@@ -106,7 +106,7 @@
       isTestingIBF = false;
     }
   }
-  
+
   async function testCurrentAPI() {
     try {
       const result = await api.healthCheck();
@@ -123,7 +123,7 @@
 
 <div class="api-debug-panel">
   <h3>🔧 API Debug Panel</h3>
-  
+
   <div class="status-section">
     <h4>Current Configuration</h4>
     <div class="status-grid">
@@ -145,7 +145,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="actions-section">
     <h4>API Testing</h4>
     <div class="action-buttons">
@@ -155,15 +155,15 @@
       <button on:click={testMockData} class="test-btn">
         Test Mock Data
       </button>
-      <button 
-        on:click={testIBFApi} 
-        class="test-btn ibf-btn" 
+      <button
+        on:click={testIBFApi}
+        class="test-btn ibf-btn"
         disabled={isTestingIBF}
       >
         {isTestingIBF ? 'Testing IBF API...' : 'Test IBF API'}
       </button>
     </div>
-    
+
     <div class="status-results">
       <div class="status-item">
         <span class="label">Current API:</span>
@@ -179,11 +179,11 @@
       </div>
     </div>
   </div>
-  
+
   {#if Object.keys(testResults).length > 0}
     <div class="test-results">
       <h4>IBF API Test Results</h4>
-      
+
       {#if testResults.health}
         <div class="result-item">
           <strong>Health Check:</strong>
@@ -194,7 +194,7 @@
           {/if}
         </div>
       {/if}
-      
+
       {#if testResults.countries}
         <div class="result-item">
           <strong>Countries:</strong>
@@ -205,7 +205,7 @@
           {/if}
         </div>
       {/if}
-      
+
       {#if testResults.disasters}
         <div class="result-item">
           <strong>Disasters ({testResults.disasters.country}):</strong>
@@ -216,7 +216,7 @@
           {/if}
         </div>
       {/if}
-      
+
       {#if testResults.adminAreas}
         <div class="result-item">
           <strong>Admin Areas ({testResults.adminAreas.country}):</strong>
@@ -227,7 +227,7 @@
           {/if}
         </div>
       {/if}
-      
+
       {#if testResults.events}
         <div class="result-item">
           <strong>Events ({testResults.events.country}/{testResults.events.disaster}):</strong>
@@ -238,7 +238,7 @@
           {/if}
         </div>
       {/if}
-      
+
       {#if testResults.error}
         <div class="result-item">
           <strong>Error:</strong>
@@ -247,7 +247,7 @@
       {/if}
     </div>
   {/if}
-  
+
   <div class="instructions">
     <h4>How to Switch to IBF API</h4>
     <ol>
@@ -257,9 +257,9 @@
       <li>Restart the development server</li>
       <li>Test the connection using the button above</li>
     </ol>
-    
+
     <p class="note">
-      <strong>Note:</strong> The IBF API at <code>https://ibf-test.510.global</code> may require authentication. 
+      <strong>Note:</strong> The IBF API at <code>https://ibf-pivot.510.global</code> may require authentication.
       Contact the 510 team if you encounter permission errors.
     </p>
   </div>
@@ -275,57 +275,57 @@
     font-family: 'Monaco', 'Consolas', monospace;
     font-size: 0.9rem;
   }
-  
+
   .api-debug-panel h3 {
     margin: 0 0 1rem 0;
     color: #495057;
   }
-  
+
   .api-debug-panel h4 {
     margin: 1rem 0 0.5rem 0;
     color: #6c757d;
     font-size: 1rem;
   }
-  
+
   .status-grid, .status-results {
     display: grid;
     gap: 0.5rem;
     margin: 0.5rem 0;
   }
-  
+
   .status-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.25rem 0;
   }
-  
+
   .label {
     font-weight: 600;
     color: #495057;
   }
-  
+
   .value {
     color: #6c757d;
   }
-  
+
   .value.enabled {
     color: #28a745;
     font-weight: 600;
   }
-  
+
   .value.mode {
     color: #007bff;
     font-weight: 600;
   }
-  
+
   .action-buttons {
     display: flex;
     gap: 0.5rem;
     margin: 0.5rem 0;
     flex-wrap: wrap;
   }
-  
+
   .test-btn {
     padding: 0.375rem 0.75rem;
     background: #007bff;
@@ -335,24 +335,24 @@
     cursor: pointer;
     font-size: 0.875rem;
   }
-  
+
   .test-btn:hover {
     background: #0056b3;
   }
-  
+
   .test-btn:disabled {
     background: #6c757d;
     cursor: not-allowed;
   }
-  
+
   .ibf-btn {
     background: #28a745;
   }
-  
+
   .ibf-btn:hover {
     background: #1e7e34;
   }
-  
+
   .test-results {
     background: white;
     border: 1px solid #dee2e6;
@@ -360,41 +360,41 @@
     padding: 1rem;
     margin: 1rem 0;
   }
-  
+
   .result-item {
     margin: 0.5rem 0;
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
-  
+
   .success {
     color: #28a745;
   }
-  
+
   .error {
     color: #dc3545;
   }
-  
+
   .instructions {
     background: #e3f2fd;
     border-left: 4px solid #2196f3;
     padding: 1rem;
     margin: 1rem 0;
   }
-  
+
   .instructions ol {
     margin: 0.5rem 0;
     padding-left: 1.5rem;
   }
-  
+
   .instructions code {
     background: #ffffff;
     padding: 0.125rem 0.25rem;
     border-radius: 3px;
     font-size: 0.875rem;
   }
-  
+
   .note {
     margin: 0.5rem 0 0 0;
     font-size: 0.875rem;

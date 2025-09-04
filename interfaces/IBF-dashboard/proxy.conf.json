@@ -1,6 +1,6 @@
 {
   "/api/*": {
-    "target": "https://ibf-test.510.global",
+    "target": "https://ibf-pivot.510.global",
     "secure": true,
     "changeOrigin": true,
     "logLevel": "debug",

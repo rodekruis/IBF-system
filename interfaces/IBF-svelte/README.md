@@ -22,7 +22,7 @@ A lightweight, embeddable frontend for the IBF (Impact-Based Forecasting) system
 The IBF Svelte Dashboard is a modern, lightweight frontend for the IBF (Impact-Based Forecasting) system, specifically designed for seamless integration with CRM systems like EspoCRM. Built with Svelte and TypeScript, it provides real-time disaster monitoring and forecasting capabilities.
 
 ### Key Features
-- ✅ **Real-time Disaster Data**: Live data from IBF API (https://ibf-test.510.global/api)
+- ✅ **Real-time Disaster Data**: Live data from IBF API (https://ibf-pivot.510.global/api)
 - ✅ **Interactive Maps**: Leaflet-based maps with admin boundaries and disaster layers
 - ✅ **Multi-Country Support**: Ethiopia, Uganda, Zambia, and other IBF countries
 - ✅ **Disaster Types**: Drought, floods, heavy rainfall, typhoons, dengue monitoring
@@ -42,7 +42,7 @@ The IBF Svelte Dashboard is a modern, lightweight frontend for the IBF (Impact-B
 │  └── State Management (Svelte stores)                   │
 ├─────────────────────────────────────────────────────────┤
 │  Data Sources                                           │
-│  ├── IBF API (https://ibf-test.510.global/api)          │
+│  ├── IBF API (https://ibf-pivot.510.global/api)          │
 │  ├── Mock Data (Development/Testing)                    │
 │  └── EspoCRM Authentication Validation                  │
 └─────────────────────────────────────────────────────────┘
@@ -173,7 +173,7 @@ src/
 #### 1. **IBF API (Production)**
 The dashboard connects to the live IBF system for real disaster forecasting data:
 
-- **API Base URL**: `https://ibf-test.510.global/api`
+- **API Base URL**: `https://ibf-pivot.510.global/api`
 - **Proxy URL (Dev)**: `/api/ibf` (proxied through Vite dev server)
 - **Authentication**: Email/password credentials stored in environment variables
 - **Supported Countries**: Ethiopia (ETH), Uganda (UGA), Zambia (ZMB), Kenya (KEN)
@@ -185,7 +185,7 @@ The dashboard connects to the live IBF system for real disaster forecasting data
 VITE_USE_IBF_API=true
 VITE_IBF_API_EMAIL=your-email@domain.com
 VITE_IBF_API_PASSWORD=your-password
-VITE_API_URL=https://ibf-test.510.global/api
+VITE_API_URL=https://ibf-pivot.510.global/api
 ```
 
 #### 2. **Mock Data (Development)**
@@ -386,7 +386,7 @@ interface AppConfig {
 
 **Development Mode:**
 - Uses Vite dev server with proxy for CORS-free API access
-- Proxy configuration: `/api/ibf` → `https://ibf-test.510.global/api`
+- Proxy configuration: `/api/ibf` → `https://ibf-pivot.510.global/api`
 - Debug panels and logging enabled
 - Authentication can be disabled for testing
 
@@ -406,7 +406,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/ibf': {
-        target: 'https://ibf-test.510.global',
+        target: 'https://ibf-pivot.510.global',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/ibf/, '/api'),
         secure: true
@@ -751,7 +751,7 @@ fetch(`${detectedApiUrl}/IbfAuth/action/validateToken?token=${token}&userId=${us
 ```php
 // EspoCRM configuration (data/config.php)
 'ibfDashboardUrl' => 'https://ibf-dashboard.azurestaticapps.net',
-'ibfApiUrl' => 'https://ibf-test.510.global/api',
+'ibfApiUrl' => 'https://ibf-pivot.510.global/api',
 'ibfAutoCreateUsers' => true,
 'ibfDefaultCountries' => ['ETH', 'UGA', 'ZMB']
 ```

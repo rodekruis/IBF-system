@@ -26,7 +26,8 @@
                     <label class="col-sm-3 control-label">{{translate 'IBF Backend API URL'}}</label>
                     <div class="col-sm-9">
                         <input type="url" name="ibfBackendApiUrl" class="form-control" value="{{settings.ibfBackendApiUrl}}">
-                        <small class="form-text text-muted">IBF Backend API URL for user operations (e.g., https://ibf-test.510.global/api)</small>
+                        <small class="form-text text-muted">IBF Backend API URL
+                        for user operations (e.g., https://ibf-pivot.510.global/api)</small>
                     </div>
                 </div>
                 <div class="form-group">
@@ -122,12 +123,12 @@
                             </div>
                         </div>
                         <small class="form-text text-muted">Select the user that will be used for IBF system administration</small>
-                        
+
                         {{#if settings.ibfAdminUserId}}
                         <div class="ibf-user-status" style="margin-top: 10px;">
                             {{#if ibfUserInfo.exists}}
                                 <div class="alert alert-info">
-                                    <strong>IBF User:</strong> Found 
+                                    <strong>IBF User:</strong> Found
                                     {{#if ibfUserInfo.hasPassword}}
                                         (Password set)
                                     {{else}}
@@ -140,7 +141,7 @@
                                 </div>
                             {{else}}
                                 <div class="alert alert-warning">
-                                    <strong>IBF User:</strong> Not found 
+                                    <strong>IBF User:</strong> Not found
                                     <br>
                                     <a href="#IBFUser/create" class="btn btn-sm btn-warning" style="margin-top: 5px;">
                                         Create IBF User

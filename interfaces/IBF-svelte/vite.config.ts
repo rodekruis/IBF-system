@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api/ibf': {
-        target: 'https://ibf-test.510.global',
+        target: 'https://ibf-pivot.510.global',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/ibf/, '/api'),
         secure: true,

@@ -165,7 +165,7 @@ function isEmbeddedMode(): boolean {
           JwtModule.forRoot({
             config: {
               tokenGetter,
-              allowedDomains: ['ibf-test.510.global', 'ibf-api.rodekruis.nl'],
+              allowedDomains: ['ibf-pivot.510.global', 'ibf-api.rodekruis.nl'],
               disallowedRoutes: ['http://example.com/examplebadroute/'],
             },
           }),

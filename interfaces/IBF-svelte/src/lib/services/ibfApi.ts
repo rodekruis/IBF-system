@@ -3,7 +3,7 @@ import { setError, setLoading } from '../stores/app';
 import config from '../config';
 
 // IBF API Base URL - Use proxy in development to avoid CORS issues
-const IBF_API_BASE_URL = import.meta.env.DEV ? '/api/ibf' : 'https://ibf-test.510.global/api';
+const IBF_API_BASE_URL = import.meta.env.DEV ? '/api/ibf' : 'https://ibf-pivot.510.global/api';
 
 console.log('🔧 IBF API Configuration:', {
   'import.meta.env.DEV': import.meta.env.DEV,
@@ -51,7 +51,7 @@ export interface GeoJSONFeature {
   properties: {
     adm2_en?: string;        // District name in English
     adm2_pcode?: string;     // District place code
-    adm1_en?: string;        // Region name in English  
+    adm1_en?: string;        // Region name in English
     adm1_pcode?: string;     // Region place code
     [key: string]: any;      // Additional properties
   };
@@ -138,7 +138,7 @@ class IBFApiService {
     // No automatic login should happen here
     console.log('❌ No valid IBF API token available');
     console.log('💡 Token should be provided via EspoCRM integration or user login form');
-    
+
     return null;
   }
 
@@ -168,10 +168,10 @@ class IBFApiService {
 
     try {
       setLoading(true);
-      
+
       // Get IBF authentication token
       const token = await this.getIbfToken();
-      
+
       const method = options.method || 'GET';
       const finalHeaders = {
         'Accept': 'application/json',
@@ -211,14 +211,14 @@ class IBFApiService {
         console.log(`📊 Status: ${response.status} ${response.statusText}`);
         console.log(`📄 Response:`, data);
         console.groupEnd();
-        
+
         // If we get 401/403, try to refresh the token
         if (response.status === 401 || response.status === 403) {
           console.log('🔄 Authentication failed, trying to refresh token...');
           this.ibfToken = null;
           this.tokenExpiry = 0;
           const newToken = await this.getIbfToken();
-          
+
           if (newToken) {
             // Retry the request once with new token
             const retryHeaders = {
@@ -236,7 +236,7 @@ class IBFApiService {
             }
           }
         }
-        
+
         return {
           error: data.message || `IBF API Error: ${response.status}`,
           status: response.status
@@ -257,32 +257,32 @@ class IBFApiService {
       console.log(`📍 URL: ${url}`);
       console.log(`📊 Status: ${response.status} ${response.statusText}`);
       console.log(`📦 Data Size: ${JSON.stringify(data).length} characters`);
-      
+
       // Enhanced response preview
       if (Array.isArray(data)) {
         console.log(`📋 Array Length: ${data.length} items`);
         console.log(`📄 First ${Math.min(data.length, 3)} items:`, data.slice(0, 3));
       } else if (data && typeof data === 'object') {
         console.log(`📄 Object Keys:`, Object.keys(data));
-        
+
         // Show first 100 lines of JSON representation
         const jsonString = JSON.stringify(data, null, 2);
         const lines = jsonString.split('\n');
         const preview = lines.slice(0, 100).join('\n');
         const truncated = lines.length > 100;
-        
+
         console.log(`📋 Response Preview (${truncated ? `first 100 of ${lines.length}` : lines.length} lines):`);
         console.log(preview);
-        
+
         if (truncated) {
           console.log(`... [${lines.length - 100} more lines truncated]`);
         }
       } else {
         console.log(`📄 Response Data:`, data);
       }
-      
+
       console.groupEnd();
-      
+
       return { data, status: response.status };
 
     } catch (error) {
@@ -309,7 +309,7 @@ class IBFApiService {
   }
 
   // ============= Countries =============
-  
+
   /**
    * Get all countries available in IBF system
    */
@@ -350,17 +350,17 @@ class IBFApiService {
    * Get admin areas for a country at specified level (returns GeoJSON FeatureCollection)
    */
   async getAdminAreas(
-    countryCodeISO3: string, 
+    countryCodeISO3: string,
     adminLevel: number = 2
   ): Promise<IBFApiResponse<GeoJSONFeatureCollection>> {
     // Try the request first - some endpoints might be public
     console.log(`🗺️ Attempting to get admin areas for ${countryCodeISO3} at level ${adminLevel}`);
-    
+
     // First try without authentication to see if it's a public endpoint
     try {
       const url = `${IBF_API_BASE_URL}/admin-areas/${countryCodeISO3}/${adminLevel}`;
       console.log(`🌐 Trying public access to: ${url}`);
-      
+
       const response = await fetch(url, {
         headers: {
           'Accept': 'application/json',
@@ -368,7 +368,7 @@ class IBFApiService {
           'User-Agent': 'VRC'
         }
       });
-      
+
       if (response.ok) {
         const data = await response.json();
         console.log(`✅ Public admin areas access successful for ${countryCodeISO3}`);
@@ -379,7 +379,7 @@ class IBFApiService {
     } catch (error) {
       console.log(`❌ Public access error:`, error);
     }
-    
+
     // Fall back to authenticated request
     return this.request<GeoJSONFeatureCollection>(
       `/admin-areas/${countryCodeISO3}/${adminLevel}`,
@@ -406,7 +406,7 @@ class IBFApiService {
     adminLevel: number = 2
   ): Promise<IBFApiResponse<IBFAdminArea[]>> {
     const geoJsonResult = await this.getAdminAreas(countryCodeISO3, adminLevel);
-    
+
     if (geoJsonResult.error || !geoJsonResult.data) {
       return {
         error: geoJsonResult.error || 'Failed to fetch admin areas',
@@ -441,7 +441,7 @@ class IBFApiService {
   ): Promise<IBFApiResponse<IBFEvent[]>> {
     const params = new URLSearchParams();
     if (leadTime) params.set('leadTime', leadTime);
-    
+
     const endpoint = `/event/${countryCodeISO3}/${disasterType}${params.toString() ? '?' + params.toString() : ''}`;
     return this.request<IBFEvent[]>(endpoint, {}, 5 * 60 * 1000); // Cache for 5 minutes - events change frequently
   }
@@ -456,7 +456,7 @@ class IBFApiService {
   ): Promise<IBFApiResponse<any>> {
     const params = new URLSearchParams();
     if (leadTime) params.set('leadTime', leadTime);
-    
+
     const endpoint = `/event/${countryCodeISO3}/${disasterType}/data${params.toString() ? '?' + params.toString() : ''}`;
     return this.request<any>(endpoint, {}, 5 * 60 * 1000);
   }
@@ -610,7 +610,7 @@ class IBFApiService {
 
       // Extract token from response
       let token: string | null = null;
-      
+
       if (data.token && typeof data.token === 'string') {
         token = data.token;
       } else if (data.user && data.user.token && typeof data.user.token === 'string') {
@@ -628,7 +628,7 @@ class IBFApiService {
       }
 
       console.group('✅ IBF API Login Success');
-      console.log(`👤 User:`, { 
+      console.log(`👤 User:`, {
         email: data.email,
         firstName: data.firstName,
         lastName: data.lastName,
@@ -636,9 +636,9 @@ class IBFApiService {
       });
       console.groupEnd();
 
-      return { 
-        data: { ...data, token }, 
-        status: response.status 
+      return {
+        data: { ...data, token },
+        status: response.status
       };
 
     } catch (error) {
@@ -699,7 +699,7 @@ class IBFApiService {
       const availableDisasters = country.countryDisasterSettings || [];
 
       // If no disaster type specified, use the first active one
-      const selectedDisaster = disasterType || 
+      const selectedDisaster = disasterType ||
         availableDisasters.find(d => d.active)?.disasterType ||
         (availableDisasters.length > 0 ? availableDisasters[0].disasterType : null);
 
@@ -854,7 +854,7 @@ class IBFApiService {
   transformEventData(ibfEvents: IBFEvent[], adminAreas: IBFAdminArea[]): any[] {
     return ibfEvents.flatMap(event => {
       if (!event.adminAreas) return [];
-      
+
       return event.adminAreas.map((area, index) => ({
         id: `${event.countryCodeISO3}_${event.disasterType}_${area.placeCode}`,
         disasterType: event.disasterType,

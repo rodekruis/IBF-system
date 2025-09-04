@@ -24,7 +24,7 @@ export function tokenGetter() {
 (async () => {
   try {
     console.log('🚀 Initializing IBF Dashboard Web Component...');
-    
+
     const appRef = await bootstrapApplication(AppComponent, {
       providers: [
         importProvidersFrom(BrowserModule),
@@ -38,39 +38,42 @@ export function tokenGetter() {
               useFactory: HttpLoaderFactory,
               deps: [HttpClient],
             },
-          })
+          }),
         ),
         importProvidersFrom(
           JwtModule.forRoot({
             config: {
               tokenGetter: tokenGetter,
-              allowedDomains: ['ibf-test.510.global', 'ibf-api.rodekruis.nl'],
+              allowedDomains: ['ibf-pivot.510.global', 'ibf-api.rodekruis.nl'],
               disallowedRoutes: ['http://example.com/examplebadroute/'],
             },
-          })
+          }),
         ),
-      ]
+      ],
     });
-    
-    const element = createCustomElement(AppComponent, { 
-      injector: appRef.injector 
+
+    const element = createCustomElement(AppComponent, {
+      injector: appRef.injector,
     });
-    
+
     customElements.define('ibf-dashboard', element);
-    
+
     console.log('✅ IBF Dashboard web component registered successfully');
-    
+
     // Emit a global event to notify that the component is ready
-    window.dispatchEvent(new CustomEvent('ibf-dashboard-ready', {
-      detail: { version: '1.0.0', timestamp: new Date() }
-    }));
-    
+    window.dispatchEvent(
+      new CustomEvent('ibf-dashboard-ready', {
+        detail: { version: '1.0.0', timestamp: new Date() },
+      }),
+    );
   } catch (error) {
     console.error('❌ Failed to register IBF Dashboard web component:', error);
-    
+
     // Emit error event for debugging
-    window.dispatchEvent(new CustomEvent('ibf-dashboard-error', {
-      detail: { error: error.message, timestamp: new Date() }
-    }));
+    window.dispatchEvent(
+      new CustomEvent('ibf-dashboard-error', {
+        detail: { error: error.message, timestamp: new Date() },
+      }),
+    );
   }
 })();

@@ -192,7 +192,7 @@ const iframeUrl = `${dashboardUrl}?espoToken=${token}&espoUserId=${userId}&paren
 
 **EspoCRM Configuration** (via Administration):
 - `ibfDashboardUrl`: Frontend URL (default: https://ibf-pivot.510.global)
-- `ibfApiUrl`: IBF API endpoint (https://ibf-test.510.global/api)
+- `ibfApiUrl`: IBF API endpoint (https://ibf-pivot.510.global/api)
 - `ibfAutoCreateUsers`: Auto-create IBFUsers (default: true)
 - `ibfRequireUserMapping`: Require manual user mapping
 
@@ -267,7 +267,7 @@ Administration > Rebuild
 **Configure Settings** (Administration > Settings):
 1. Navigate to "IBF Dashboard" section
 2. Set `IBF Dashboard URL`: `https://ibf-pivot.510.global`
-3. Set `IBF API URL`: `https://ibf-test.510.global/api`
+3. Set `IBF API URL`: `https://ibf-pivot.510.global/api`
 4. Enable `Auto Create IBF Users`: `true` (recommended)
 5. Save configuration
 
@@ -299,7 +299,7 @@ Administration > Rebuild
 | Setting | Description | Default Value |
 |---------|-------------|---------------|
 | `ibfDashboardUrl` | URL of the Svelte frontend dashboard | `https://ibf-pivot.510.global` |
-| `ibfApiUrl` | IBF API endpoint for authentication | `https://ibf-test.510.global/api` |
+| `ibfApiUrl` | IBF API endpoint for authentication | `https://ibf-pivot.510.global/api` |
 | `ibfAutoCreateUsers` | Automatically create IBFUser entities | `true` |
 | `ibfRequireUserMapping` | Require admin to map users manually | `false` |
 
@@ -709,7 +709,7 @@ zip -r ../ibf-dashboard-extension-v1.0.0.zip .
 // Check IBF API credentials in IBFUser entity
 // Verify ibfUser and ibfToken system secrets
 // Test API connection with curl:
-curl -X POST https://ibf-test.510.global/api/user/login \
+curl -X POST https://ibf-pivot.510.global/api/user/login \
   -H "Content-Type: application/json" \
   -d '{"email":"user@example.com","password":"password"}'
 ```
