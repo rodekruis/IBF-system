@@ -1,0 +1,33 @@
+<ion-button
+  (click)="
+    onButtonClick('https://510.global/product/ibf', analyticsEvent.aboutIbf)
+  "
+  fill="clear"
+  color="ibf-grey"
+  data-test="about-ibf-button"
+  >{{ 'quick-links.about-ibf' | translate }}</ion-button
+>
+<ion-button
+  (click)="
+    onButtonClick(
+      'https://github.com/rodekruis/IBF-system/wiki',
+      analyticsEvent.documentation
+    )
+  "
+  fill="clear"
+  color="ibf-grey"
+  data-test="documentation-button"
+  >{{ 'quick-links.documentation' | translate }}</ion-button
+>
+<ion-button
+  (click)="
+    onButtonClick(
+      'mailto:' + supportEmailAddress + '?subject=IBF%20login',
+      analyticsEvent.support
+    )
+  "
+  fill="clear"
+  color="ibf-grey"
+  data-test="support-button"
+  >{{ 'quick-links.support' | translate }}</ion-button
+>

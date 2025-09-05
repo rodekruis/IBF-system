@@ -6,7 +6,6 @@ import {
   Post,
   Query,
   UseGuards,
-  UsePipes,
 } from '@nestjs/common';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import {
@@ -19,7 +18,6 @@ import {
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
-import { ValidationPipe } from '../../shared/pipes/validation.pipe';
 import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDecorator } from './user.decorator';
@@ -44,7 +42,6 @@ export class UserController {
     description: 'New user email and login token',
     type: UserResponseObject,
   })
-  @UsePipes(new ValidationPipe())
   @Post()
   public async create(
     @Body() userData: CreateUserDto,
@@ -53,7 +50,6 @@ export class UserController {
   }
 
   @ApiOperation({ summary: '[EXTERNALLY USED] Log in existing user' })
-  @UsePipes(new ValidationPipe())
   @ApiResponse({
     status: 201,
     description:

@@ -65,15 +65,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     private analyticsService: AnalyticsService,
     private mapViewService: MapViewService,
-  ) {
-    this.initialEventStateSubscription = this.eventService
-      .getInitialEventStateSubscription()
-      .subscribe(this.onEventStateChange);
-
-    this.manualEventStateSubscription = this.eventService
-      .getManualEventStateSubscription()
-      .subscribe(this.onEventStateChange);
-  }
+  ) {}
 
   ngOnInit() {
     this.countrySubscription = this.countryService
@@ -84,6 +76,10 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
 
+    this.indicatorSubscription = this.aggregatesService
+      .getIndicators()
+      .subscribe(this.onIndicatorChange);
+
     this.placeCodeSubscription = this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
@@ -92,9 +88,13 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       .getPlaceCodeHoverSubscription()
       .subscribe(this.onPlaceCodeHoverChange);
 
-    this.indicatorSubscription = this.aggregatesService
-      .getIndicators()
-      .subscribe(this.onIndicatorChange);
+    this.initialEventStateSubscription = this.eventService
+      .getInitialEventStateSubscription()
+      .subscribe(this.onEventStateChange);
+
+    this.manualEventStateSubscription = this.eventService
+      .getManualEventStateSubscription()
+      .subscribe(this.onEventStateChange);
 
     this.mapView = this.mapViewService.getAggregatesMapViewSubscription();
   }
@@ -137,13 +137,22 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     this.changeDetectorRef.detectChanges();
   };
 
-  private onIndicatorChange = (newIndicators: Indicator[]) => {
-    const filterAggregateIndicators = (indicator: Indicator) =>
-      indicator.countryDisasterTypes[this.country.countryCodeISO3][
-        this.disasterType.disasterType
-      ]?.includes('aggregate');
+  private onIndicatorChange = (newIndicators: Indicator[]): void => {
+    if (!this.country?.countryCodeISO3 || !this.disasterType?.disasterType) {
+      this.indicators = [];
 
-    this.indicators = newIndicators.filter(filterAggregateIndicators);
+      return;
+    }
+
+    const { countryCodeISO3 } = this.country;
+    const disasterTypeKey = this.disasterType.disasterType;
+
+    this.indicators = newIndicators.filter((indicator) => {
+      const disasterTypes = indicator.countryDisasterTypes?.[countryCodeISO3];
+      const types = disasterTypes?.[disasterTypeKey];
+
+      return Array.isArray(types) && types.includes('aggregate');
+    });
   };
 
   public async moreInfo(indicator: Indicator): Promise<void> {

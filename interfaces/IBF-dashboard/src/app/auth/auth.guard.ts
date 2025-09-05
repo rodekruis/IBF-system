@@ -16,7 +16,7 @@ export class AuthGuard {
   ) {}
 
   canActivate(
-    next: ActivatedRouteSnapshot,
+    _next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ):
     | boolean
@@ -34,7 +34,7 @@ export class AuthGuard {
     }
 
     this.authService.redirectUrl = url;
-    this.router.navigate(['/login']);
+    void this.router.navigate(['/login']);
 
     return false;
   }

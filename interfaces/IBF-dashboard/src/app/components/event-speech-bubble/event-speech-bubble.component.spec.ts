@@ -1,12 +1,8 @@
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
 import { IonicModule, PopoverController } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
+import { AuthService } from 'src/app/auth/auth.service';
 import { EventSpeechBubbleComponent } from 'src/app/components/event-speech-bubble/event-speech-bubble.component';
 import { MOCK_ALERT_AREAS } from 'src/app/mocks/alert-areas.mock';
 import { MOCK_COUNTRY } from 'src/app/mocks/country.mock';
@@ -16,20 +12,48 @@ import { MOCK_EVENT_STATE } from 'src/app/mocks/event-state.mock';
 import { MOCK_INDICATOR } from 'src/app/mocks/indicator.mock';
 import { CountryDisasterSettings } from 'src/app/models/country.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
+import { AdminLevelService } from 'src/app/services/admin-level.service';
+import { EventService } from 'src/app/services/event.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
 
 describe('EventSpeechBubbleComponent', () => {
   let component: EventSpeechBubbleComponent;
   let fixture: ComponentFixture<EventSpeechBubbleComponent>;
-  let popoverControllerSpy: jasmine.SpyObj<PopoverController>;
+  let authService: jasmine.SpyObj<AuthService>;
+  let placeCodeService: jasmine.SpyObj<PlaceCodeService>;
+  let eventService: jasmine.SpyObj<EventService>;
+  let adminLevelService: jasmine.SpyObj<AdminLevelService>;
+  let popoverController: jasmine.SpyObj<PopoverController>;
 
   beforeEach(waitForAsync(() => {
-    // Create a spy for the PopoverController
-    popoverControllerSpy = jasmine.createSpyObj('PopoverController', [
-      'create',
+    authService = jasmine.createSpyObj<AuthService>('AuthService', [
+      'getAuthSubscription',
     ]);
 
-    // Mock the create method to return a popover with present method
-    popoverControllerSpy.create.and.resolveTo({
+    authService.getAuthSubscription.and.returnValue(of(null));
+
+    placeCodeService = jasmine.createSpyObj<PlaceCodeService>(
+      'PlaceCodeService',
+      ['getPlaceCodeHoverSubscription', 'setPlaceCode'],
+    );
+
+    placeCodeService.getPlaceCodeHoverSubscription.and.returnValue(of(null));
+
+    eventService = jasmine.createSpyObj<EventService>('EventService', [], {
+      state: { event: null, events: [] },
+    });
+
+    adminLevelService = jasmine.createSpyObj<AdminLevelService>(
+      'AdminLevelService',
+      ['zoomInAdminLevel'],
+    );
+
+    popoverController = jasmine.createSpyObj<PopoverController>(
+      'PopoverController',
+      ['create'],
+    );
+
+    popoverController.create.and.resolveTo({
       present: jasmine.createSpy('present').and.resolveTo(),
       onDidDismiss: jasmine
         .createSpy('onDidDismiss')
@@ -38,15 +62,13 @@ describe('EventSpeechBubbleComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [EventSpeechBubbleComponent],
-      imports: [
-        IonicModule.forRoot(),
-        RouterModule.forRoot([]),
-        TranslateModule.forRoot(),
-      ],
+      imports: [IonicModule, TranslateModule.forRoot()],
       providers: [
-        { provide: PopoverController, useValue: popoverControllerSpy }, // Add this line
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
+        { provide: AuthService, useValue: authService },
+        { provide: PlaceCodeService, useValue: placeCodeService },
+        { provide: EventService, useValue: eventService },
+        { provide: AdminLevelService, useValue: adminLevelService },
+        { provide: PopoverController, useValue: popoverController },
       ],
     }).compileComponents();
 
@@ -54,7 +76,6 @@ describe('EventSpeechBubbleComponent', () => {
 
     component = fixture.componentInstance;
 
-    // Set any required input properties
     component.event = MOCK_EVENT_STATE.event;
 
     component.countryDisasterSettings = new CountryDisasterSettings();
@@ -117,7 +138,7 @@ describe('EventSpeechBubbleComponent', () => {
       await component.openSetTriggerPopover();
 
       // Assert - Using jasmine.objectContaining to match partial object
-      expect(popoverControllerSpy.create).toHaveBeenCalledWith(
+      expect(popoverController.create).toHaveBeenCalledWith(
         jasmine.objectContaining({
           component: jasmine.any(Function),
           componentProps: jasmine.objectContaining({
@@ -145,7 +166,7 @@ describe('EventSpeechBubbleComponent', () => {
       await component.openSetTriggerPopover();
 
       // Assert - Using jasmine.objectContaining to match partial object
-      expect(popoverControllerSpy.create).toHaveBeenCalledWith(
+      expect(popoverController.create).toHaveBeenCalledWith(
         jasmine.objectContaining({
           component: jasmine.any(Function),
           componentProps: jasmine.objectContaining({

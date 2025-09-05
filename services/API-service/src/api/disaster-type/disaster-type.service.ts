@@ -15,6 +15,10 @@ export class DisasterTypeService {
   @InjectRepository(DisasterTypeEntity)
   private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
 
+  public getDisasterTypes() {
+    return this.disasterTypeRepository.find();
+  }
+
   public getDisasterType(disasterType: DisasterType) {
     return this.disasterTypeRepository.findOne({ where: { disasterType } });
   }

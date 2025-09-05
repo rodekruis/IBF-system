@@ -68,7 +68,7 @@ export class EventSwitcherComponent implements OnInit, OnDestroy {
   }
 
   private onDisasterTypeChange = (disasterType: DisasterType) => {
-    this.disasterTypeName = disasterType.disasterType;
+    this.disasterTypeName = disasterType?.disasterType;
   };
 
   private onTimelineStateChange = (timelineState: TimelineState) => {

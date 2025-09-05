@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import {
@@ -8,7 +7,6 @@ import {
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { ChangePasswordPopoverComponent } from 'src/app/components/change-password-popover/change-password-popover.component';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
@@ -37,7 +35,6 @@ export class UserStateComponent implements OnInit {
   public countrySubscription: Subscription;
   public disasterTypeSubscription: Subscription;
   public disasterType: DisasterType;
-  public activeTriggerMsg: string;
 
   constructor(
     public authService: AuthService,
@@ -47,7 +44,6 @@ export class UserStateComponent implements OnInit {
     public disasterTypeService: DisasterTypeService,
     public countryService: CountryService,
     public apiService: ApiService,
-    private popoverController: PopoverController,
     private translateService: TranslateService,
   ) {}
 
@@ -67,27 +63,8 @@ export class UserStateComponent implements OnInit {
     }
   };
 
-  public showEnvironmentLabel(environmentConfiguration: string) {
-    return environmentConfiguration === 'production'
-      ? (this.translateService.instant(
-          'login-page.environment-label.production',
-        ) as string)
-      : environmentConfiguration === 'stage'
-        ? (this.translateService.instant(
-            'login-page.environment-label.stage',
-          ) as string)
-        : environmentConfiguration;
-  }
-
   private onDisasterTypeChange = (disasterType: DisasterType) => {
     this.disasterType = disasterType;
-    if (this.disasterType) {
-      const yesNode = this.disasterType.alertLevel ? 'yes' : 'no';
-
-      this.activeTriggerMsg = this.translateService.instant(
-        `dashboard-page.triggered-message.${yesNode}`,
-      ) as string;
-    }
   };
 
   public doLogout() {
@@ -100,17 +77,5 @@ export class UserStateComponent implements OnInit {
     this.loaderService.setLoader('logout', false);
     this.authService.logout();
     window.location.reload();
-  }
-
-  public async presentPopover() {
-    const popover = await this.popoverController.create({
-      component: ChangePasswordPopoverComponent,
-      animated: true,
-      cssClass: 'ibf-popover ibf-popover-normal',
-      translucent: true,
-      showBackdrop: true,
-    });
-
-    void popover.present();
   }
 }

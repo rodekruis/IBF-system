@@ -1,14 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
 import { IonicModule, PopoverController } from '@ionic/angular';
-import { provideIonicAngular } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { addIcons } from 'ionicons';
+import { informationCircleOutline } from 'ionicons/icons';
+import { of } from 'rxjs';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -16,14 +13,19 @@ import {
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AggregatesComponent } from 'src/app/components/aggregates/aggregates.component';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
+import { MOCK_COUNTRY } from 'src/app/mocks/country.mock';
 import { MOCK_COUNTRYDISASTERSETTINGS } from 'src/app/mocks/country-disaster-settings.mock';
 import { MOCK_DISASTERTYPE } from 'src/app/mocks/disaster-type.mock';
 import { MOCK_EVENT_STATE } from 'src/app/mocks/event-state.mock';
 import { MOCK_INDICATOR } from 'src/app/mocks/indicator.mock';
-import { MockTranslateService } from 'src/app/mocks/mock-translate.service';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { AggregatesService } from 'src/app/services/aggregates.service';
+import { CountryService } from 'src/app/services/country.service';
+import { DisasterTypeService } from 'src/app/services/disaster-type.service';
+import { EventService } from 'src/app/services/event.service';
+import { MapViewService } from 'src/app/services/map-view.service';
+import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { AdminLevelType } from 'src/app/types/admin-level';
 import { Indicator } from 'src/app/types/indicator-group';
 import { MapView } from 'src/app/types/map-view';
@@ -45,28 +47,126 @@ const placeCode: PlaceCode = {
 
 describe('AggregatesComponent', () => {
   let component: AggregatesComponent;
-  let adminLevelService: AdminLevelService;
   let fixture: ComponentFixture<AggregatesComponent>;
-  let popoverController: PopoverController;
-  let analyticsService: AnalyticsService;
+  let countryService: jasmine.SpyObj<CountryService>;
+  let disasterTypeService: jasmine.SpyObj<DisasterTypeService>;
+  let aggregatesService: jasmine.SpyObj<AggregatesService>;
+  let placeCodeService: jasmine.SpyObj<PlaceCodeService>;
+  let eventService: jasmine.SpyObj<EventService>;
+  let adminLevelService: jasmine.SpyObj<AdminLevelService>;
+  let popoverController: jasmine.SpyObj<PopoverController>;
+  let translateService: jasmine.SpyObj<TranslateService>;
+  let analyticsService: jasmine.SpyObj<AnalyticsService>;
+  let mapViewService: jasmine.SpyObj<MapViewService>;
+  let popoverPresentSpy: jasmine.Spy;
 
   beforeEach(waitForAsync(async () => {
+    addIcons({ 'information-circle-outline': informationCircleOutline });
+
+    countryService = jasmine.createSpyObj<CountryService>('CountryService', [
+      'getCountrySubscription',
+    ]);
+
+    countryService.getCountrySubscription.and.returnValue(of(MOCK_COUNTRY));
+
+    disasterTypeService = jasmine.createSpyObj<DisasterTypeService>(
+      'DisasterTypeService',
+      ['getDisasterTypeSubscription', 'getCountryDisasterTypeSettings'],
+    );
+
+    disasterTypeService.getDisasterTypeSubscription.and.returnValue(
+      of(MOCK_DISASTERTYPE),
+    );
+
+    disasterTypeService.getCountryDisasterTypeSettings.and.returnValue(
+      MOCK_COUNTRYDISASTERSETTINGS,
+    );
+
+    aggregatesService = jasmine.createSpyObj<AggregatesService>(
+      'AggregatesService',
+      ['getIndicators'],
+    );
+
+    aggregatesService.getIndicators.and.returnValue(of([MOCK_INDICATOR]));
+
+    placeCodeService = jasmine.createSpyObj<PlaceCodeService>(
+      'PlaceCodeService',
+      ['getPlaceCodeSubscription', 'getPlaceCodeHoverSubscription'],
+    );
+
+    placeCodeService.getPlaceCodeSubscription.and.returnValue(of(null));
+
+    placeCodeService.getPlaceCodeHoverSubscription.and.returnValue(of(null));
+
+    eventService = jasmine.createSpyObj<EventService>('EventService', [
+      'getInitialEventStateSubscription',
+      'getManualEventStateSubscription',
+    ]);
+
+    eventService.getInitialEventStateSubscription.and.returnValue(of(null));
+
+    eventService.getManualEventStateSubscription.and.returnValue(of(null));
+
+    adminLevelService = jasmine.createSpyObj<AdminLevelService>(
+      'AdminLevelService',
+      ['getAdminLevelType'],
+    );
+
+    adminLevelService.getAdminLevelType.and.returnValue(AdminLevelType.higher);
+
+    popoverController = jasmine.createSpyObj<PopoverController>(
+      'PopoverController',
+      ['create'],
+    );
+
+    popoverPresentSpy = jasmine.createSpy('present').and.resolveTo();
+
+    popoverController.create.and.resolveTo({
+      present: popoverPresentSpy,
+    } as unknown as HTMLIonPopoverElement);
+
+    translateService = jasmine.createSpyObj<TranslateService>(
+      'TranslateService',
+      ['instant'],
+    );
+
+    translateService.instant.and.callFake((key: string) => {
+      switch (key) {
+        case 'aggregates-component.predicted':
+          return 'Predicted';
+        case 'aggregates-component.national-view':
+          return 'National View';
+        case 'aggregates-component.plural-suffix':
+          return '(s)';
+        default:
+          return key;
+      }
+    });
+
+    analyticsService = jasmine.createSpyObj<AnalyticsService>(
+      'AnalyticsService',
+      ['logEvent'],
+    );
+
+    mapViewService = jasmine.createSpyObj<MapViewService>('MapViewService', [
+      'getAggregatesMapViewSubscription',
+    ]);
+
     await TestBed.configureTestingModule({
       declarations: [AggregatesComponent],
-      imports: [
-        IonicModule,
-        RouterModule.forRoot([]),
-        TranslateModule.forRoot(),
-      ],
+      schemas: [NO_ERRORS_SCHEMA],
+      imports: [IonicModule, TranslateModule.forRoot()],
       providers: [
-        { provide: AggregatesService },
-        { provide: AdminLevelService },
-        { provide: TranslateService, useClass: MockTranslateService },
-        { provide: PopoverController },
-        { provide: AnalyticsService },
-        provideIonicAngular(),
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
+        { provide: CountryService, useValue: countryService },
+        { provide: DisasterTypeService, useValue: disasterTypeService },
+        { provide: AggregatesService, useValue: aggregatesService },
+        { provide: PlaceCodeService, useValue: placeCodeService },
+        { provide: EventService, useValue: eventService },
+        { provide: AdminLevelService, useValue: adminLevelService },
+        { provide: PopoverController, useValue: popoverController },
+        { provide: TranslateService, useValue: translateService },
+        { provide: AnalyticsService, useValue: analyticsService },
+        { provide: MapViewService, useValue: mapViewService },
       ],
     }).compileComponents();
 
@@ -74,13 +174,7 @@ describe('AggregatesComponent', () => {
 
     component = fixture.componentInstance;
 
-    adminLevelService = TestBed.inject(AdminLevelService);
-
     fixture.detectChanges();
-
-    popoverController = TestBed.inject(PopoverController);
-
-    analyticsService = TestBed.inject(AnalyticsService);
 
     component.disasterType = MOCK_DISASTERTYPE;
   }));
@@ -180,10 +274,6 @@ describe('AggregatesComponent', () => {
 
       component.placeCodeHover = null;
 
-      spyOn(adminLevelService as any, 'getAdminLevelType').and.returnValue(
-        AdminLevelType.higher,
-      );
-
       const mockNrAlertAreas = 3;
       const mockAdminAreaLabel = 'Wards';
 
@@ -223,15 +313,6 @@ describe('AggregatesComponent', () => {
 
       component.eventState = MOCK_EVENT_STATE;
 
-      const popoverSpy: HTMLIonPopoverElement = jasmine.createSpyObj(
-        'HTMLIonPopoverElement',
-        ['present'],
-      );
-
-      spyOn(popoverController as any, 'create').and.returnValue(popoverSpy);
-
-      spyOn(analyticsService as any, 'logEvent');
-
       spyOn(component as any, 'getPopoverText').and.returnValue('');
 
       // Act
@@ -247,7 +328,7 @@ describe('AggregatesComponent', () => {
         componentProps: { layer: { label: indicator.label, description: '' } },
       });
 
-      expect(popoverSpy.present).toHaveBeenCalled();
+      expect(popoverPresentSpy).toHaveBeenCalledWith();
 
       expect(analyticsService.logEvent).toHaveBeenCalledWith(
         AnalyticsEvent.aggregateInformation,

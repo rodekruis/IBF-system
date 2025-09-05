@@ -384,6 +384,14 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   onMapReady(map: Map) {
     this.map = map;
+    this.map.setView(new LatLng(0, 0), 3);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        ({ coords: { latitude, longitude } }) => {
+          this.map.setView([latitude, longitude], 13);
+        },
+      );
+    }
     this.map.createPane(LeafletPane.wmsPane);
     this.map.createPane(LeafletPane.adminBoundaryPane);
     this.map.createPane(LeafletPane.outline);

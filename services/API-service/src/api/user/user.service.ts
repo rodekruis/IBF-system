@@ -1,5 +1,10 @@
-import { HttpStatus, Injectable } from '@nestjs/common';
-import { HttpException } from '@nestjs/common/exceptions/http.exception';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { validate } from 'class-validator';
@@ -15,6 +20,10 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './user.entity';
 import { UserData, UserResponseObject } from './user.model';
 import { UserRole } from './user-role.enum';
+
+const CREATE_ERROR = 'Failed to create user';
+const NOT_FOUND = 'User not found';
+const FORBIDDEN = 'Action not allowed';
 
 @Injectable()
 export class UserService {
@@ -48,50 +57,50 @@ export class UserService {
   }
 
   public async create(dto: CreateUserDto): Promise<UserResponseObject> {
-    const email = dto.email.toLowerCase();
-    const user = await this.userRepository.findOne({ where: { email } });
-
-    if (user) {
-      const errors = { errors: 'Email must be unique.' };
-      throw new HttpException(
-        { message: 'Input data validation failed', errors },
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
     if (dto.whatsappNumber) {
       dto.whatsappNumber = await this.lookupService.lookupAndCorrect(
         dto.whatsappNumber,
       );
     }
 
-    // create new user
-    const newUser = new UserEntity();
-    newUser.email = email;
-    newUser.password = dto.password;
-    newUser.firstName = dto.firstName;
-    newUser.middleName = dto.middleName;
-    newUser.lastName = dto.lastName;
-    newUser.userRole = dto.userRole;
-    newUser.whatsappNumber = dto.whatsappNumber;
-    newUser.countries = await this.countryRepository.find({
+    const user = await this.createUser(dto);
+
+    return this.buildUserRO(user);
+  }
+
+  public async createUser(dto: CreateUserDto) {
+    const userEntity = new UserEntity();
+    userEntity.email = dto.email.toLowerCase();
+    userEntity.password = dto.password;
+    userEntity.firstName = dto.firstName;
+    userEntity.middleName = dto.middleName;
+    userEntity.lastName = dto.lastName;
+    userEntity.userRole = dto.userRole;
+    userEntity.whatsappNumber = dto.whatsappNumber;
+    userEntity.countries = await this.countryRepository.find({
       where: { countryCodeISO3: In(dto.countryCodesISO3) },
     });
-    newUser.disasterTypes = await this.disasterTypeRepository.find({
+    userEntity.disasterTypes = await this.disasterTypeRepository.find({
       where: { disasterType: In(dto.disasterTypes) },
     });
 
-    const errors = await validate(newUser);
+    const errors = await validate(userEntity);
     if (errors.length > 0) {
-      const _errors = { email: 'User input is not valid.' };
-      throw new HttpException(
-        { message: 'Input data validation failed', _errors },
-        HttpStatus.BAD_REQUEST,
-      );
-    } else {
-      const savedUser = await this.userRepository.save(newUser);
-      return this.buildUserRO(savedUser);
+      throw new BadRequestException(CREATE_ERROR);
     }
+
+    try {
+      return await this.userRepository.save(userEntity);
+    } catch {
+      throw new BadRequestException(CREATE_ERROR);
+    }
+  }
+
+  public async findByEmail(email: string) {
+    return this.userRepository.findOne({
+      where: { email },
+      relations: this.relations,
+    });
   }
 
   public async findById(userId: string): Promise<UserResponseObject> {
@@ -100,10 +109,7 @@ export class UserService {
       relations: this.relations,
     });
     if (!user) {
-      const errors = {
-        User: 'No user found with this id. Possibly update token.',
-      };
-      throw new HttpException({ errors }, HttpStatus.UNAUTHORIZED);
+      throw new UnauthorizedException(NOT_FOUND);
     }
 
     return this.buildUserRO(user);
@@ -118,23 +124,18 @@ export class UserService {
       where: { userId: loggedInUserId },
     });
     if (!loggedInUser) {
-      const errors = { user: 'No logged in user found' };
-      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+      throw new NotFoundException(NOT_FOUND);
     }
 
     if (dto.email) {
       if (loggedInUser.userRole !== UserRole.Admin) {
-        const errors = {
-          User: 'You can only use this endpoint with email-property if you are an admin-user',
-        };
-        throw new HttpException({ errors }, HttpStatus.UNAUTHORIZED);
+        throw new ForbiddenException(FORBIDDEN);
       }
       updateUser = await this.userRepository.findOne({
         where: { email: dto.email },
       });
       if (!updateUser) {
-        const errors = { email: dto.email + ' not found' };
-        throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
+        throw new NotFoundException(NOT_FOUND);
       }
     } else {
       updateUser = loggedInUser;
@@ -150,16 +151,7 @@ export class UserService {
   ): Promise<UserResponseObject> {
     const user = await this.userRepository.findOne({ where: { email } });
     if (!user) {
-      const errors = { User: 'Not found' };
-      throw new HttpException({ errors }, HttpStatus.NOT_FOUND);
-    }
-
-    // If nothing to update, raise a 400 Bad Request.
-    if (Object.keys(updateUserData).length === 0) {
-      throw new HttpException(
-        'Update user error: no attributes supplied to update',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new NotFoundException(NOT_FOUND);
     }
 
     // Overwrite any non-nested attributes of the user (so not countries/disaster-types)

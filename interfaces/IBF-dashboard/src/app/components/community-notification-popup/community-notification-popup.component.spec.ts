@@ -1,33 +1,34 @@
-import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from '@angular/common/http';
-import { provideHttpClientTesting } from '@angular/common/http/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';
-import { IonicModule } from '@ionic/angular';
-import { provideIonicAngular } from '@ionic/angular/standalone';
+import {
+  AlertController,
+  IonicModule,
+  PopoverController,
+} from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { addIcons } from 'ionicons';
+import { image } from 'ionicons/icons';
 import { CommunityNotificationPopupComponent } from 'src/app/components/community-notification-popup/community-notification-popup.component';
+import { ApiService } from 'src/app/services/api.service';
 
 describe('CommunityNotificationPopupComponent', () => {
   let component: CommunityNotificationPopupComponent;
   let fixture: ComponentFixture<CommunityNotificationPopupComponent>;
+  let popoverController: jasmine.SpyObj<PopoverController>;
+  let alertController: jasmine.SpyObj<AlertController>;
+  let apiService: jasmine.SpyObj<ApiService>;
 
   beforeEach(waitForAsync(() => {
+    addIcons({ image });
+
     TestBed.configureTestingModule({
       declarations: [CommunityNotificationPopupComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [
-        IonicModule,
-        RouterModule.forRoot([]),
-        TranslateModule.forRoot(),
-      ],
+      imports: [IonicModule, TranslateModule.forRoot()],
       providers: [
-        provideIonicAngular(),
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
+        { provide: PopoverController, useValue: popoverController },
+        { provide: AlertController, useValue: alertController },
+        { provide: ApiService, useValue: apiService },
       ],
     }).compileComponents();
 
