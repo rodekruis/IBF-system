@@ -1,3 +1,29 @@
+# [0.324.0](https://github.com/rodekruis/IBF-system/compare/v0.323.0...v0.324.0) (2025-09-05)
+
+
+### Bug Fixes
+
+* prompt email in login form ([555e565](https://github.com/rodekruis/IBF-system/commit/555e565a0cf3f093f89842c267473c1785f515c4))
+* remove logins on user delete ([423cf81](https://github.com/rodekruis/IBF-system/commit/423cf8128decbcfcc480993b5b32db232a09e9ba))
+* show error when server is down ([fdafe41](https://github.com/rodekruis/IBF-system/commit/fdafe41e8afdf4c41ddfaeb54abf298b9eb6bce9))
+* track id instead of email ([57dfa5c](https://github.com/rodekruis/IBF-system/commit/57dfa5c266cb8e18681c6d4320818793edb34f29))
+* word wrap in areas of focus ([b3e221c](https://github.com/rodekruis/IBF-system/commit/b3e221c395f47e83718f69b8dd4e43d115eb36c1))
+
+
+### Features
+
+* add email footer ([4be2d34](https://github.com/rodekruis/IBF-system/commit/4be2d34bc4146fbbc0138d0e84006b83bf086c02))
+* add integration tests ([457689c](https://github.com/rodekruis/IBF-system/commit/457689c6732dd6750c71cce73d6a8452dd06e075))
+* email code using SMTP ([6b05f29](https://github.com/rodekruis/IBF-system/commit/6b05f290fe4b9cd850fd542e7199616188beed7b))
+* login page ([e487911](https://github.com/rodekruis/IBF-system/commit/e487911ec43fe695da8e2b7794604989c3aa5c1b))
+* login page ([6e66575](https://github.com/rodekruis/IBF-system/commit/6e66575b99c87bbec45fdfea7752167b5d152813))
+* login page for mobile ([c2a8948](https://github.com/rodekruis/IBF-system/commit/c2a89485a567dd97837d180e0488d782ea4c0775))
+* login query params ([1a354c0](https://github.com/rodekruis/IBF-system/commit/1a354c023a85ef5ffd8e66d912b40d7aa411db1f))
+* remove screen orientation popover ([ea5cbfd](https://github.com/rodekruis/IBF-system/commit/ea5cbfd09a999a22e3ed7d1873d3e39163b94195))
+* remove triggered message from header ([55283e1](https://github.com/rodekruis/IBF-system/commit/55283e1910ac34c1d5d9687f4514b73fbe779288))
+
+
+
 # [0.323.0](https://github.com/rodekruis/IBF-system/compare/v0.322.3...v0.323.0) (2025-08-29)
 
 
@@ -89,16 +115,6 @@
 ### Bug Fixes
 
 * update lesotho red cross branches ([cc5ebe8](https://github.com/rodekruis/IBF-system/commit/cc5ebe87127af40621cef4b8e147534ba0e3843b))
-
-
-
-## [0.321.6](https://github.com/rodekruis/IBF-system/compare/v0.321.5...v0.321.6) (2025-07-28)
-
-
-### Bug Fixes
-
-* avoid rehashing passwords ([e9d7ef2](https://github.com/rodekruis/IBF-system/commit/e9d7ef2a805677ed90636444dddb739e0a9537b0))
-* remove countries before update to avoid duplication errors ([b1787d1](https://github.com/rodekruis/IBF-system/commit/b1787d18a07a23d9dcc60e6b7f60e912a7e32464))
 
 
 
