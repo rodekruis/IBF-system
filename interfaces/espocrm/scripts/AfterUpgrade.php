@@ -435,18 +435,18 @@ class AfterUpgrade
                         // Early Warning entities (read access for team members)
                         'EarlyWarning' => [
                             'create' => 'no',
-                            'read' => 'team',
+                            'read' => 'all',
                             'edit' => 'no',
                             'delete' => 'no',
-                            'stream' => 'no'
+                            'stream' => 'all'
                         ],
                         // Early Action entities (read access for team members)
                         'EarlyAction' => [
                             'create' => 'no',
-                            'read' => 'team',
+                            'read' => 'all',
                             'edit' => 'no',
                             'delete' => 'no',
-                            'stream' => 'no'
+                            'stream' => 'al'
                         ],
                         // Allow access to own user record
                         'User' => [
@@ -471,7 +471,7 @@ class AfterUpgrade
                         'read' => 'team',
                         'edit' => 'no',
                         'delete' => 'no',
-                        'stream' => 'no'
+                        'stream' => 'all'
                     ];
                 }
                 
@@ -482,7 +482,7 @@ class AfterUpgrade
                         'read' => 'team',
                         'edit' => 'no',
                         'delete' => 'no',
-                        'stream' => 'no'
+                        'stream' => 'all'
                     ];
                 }
                 
