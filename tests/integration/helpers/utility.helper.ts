@@ -1,5 +1,6 @@
 import { agent } from 'supertest';
 
+import { adminUserData } from '../fixtures/users.const';
 import { DisasterType } from './API-service/enum/disaster-type.enum';
 import {
   DroughtScenario,
@@ -20,13 +21,11 @@ export function api(token?: string) {
 }
 
 export async function getToken() {
-  const admin = { email: 'dunant@redcross.nl', password: 'password' };
-
   const {
     body: {
       user: { token },
     },
-  } = await api().post(`/user/login`).send(admin);
+  } = await api().post(`/user/login`).send(adminUserData);
 
   return token;
 }
