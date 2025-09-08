@@ -19,7 +19,7 @@ jobs:
           ssh-key: ${{ secrets.DEPLOY_KEY }}
 
       - name: Wait for previous workflow to complete
-        uses: softprops/turnstyle@v2
+        uses: softprops/turnstyle@v3
         with:
           abort-after-seconds: 1800
         env:
