@@ -66,19 +66,6 @@ export class CountryDisasterSettingsEntity {
   @Column({ default: '' })
   public eapLink: string;
 
-  @ApiProperty({
-    example: {
-      no: { label: 'No action', color: 'ibf-grey', value: 0 },
-      max: {
-        label: 'Activate EAP',
-        color: 'ibf-trigger-alert-primary',
-        value: 1,
-      },
-    },
-  })
-  @Column('json', { nullable: true })
-  public eapAlertClasses: JSON;
-
   @ApiProperty()
   @Column('json', { nullable: true })
   public droughtRegions: JSON;

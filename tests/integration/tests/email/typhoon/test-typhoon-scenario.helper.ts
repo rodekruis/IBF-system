@@ -9,7 +9,7 @@ export async function testTyphoonScenario(
   countryCodeISO3: string,
   token: string,
 ): Promise<boolean> {
-  const nrOfEvents = 1;
+  const eventCount = 1;
 
   const mockResult = await mock(
     token,
@@ -41,7 +41,7 @@ export async function testTyphoonScenario(
     (el) => (el as Element).textContent?.toLowerCase() ?? '',
   );
 
-  expect(eventNamesInEmail.length).toBe(nrOfEvents);
+  expect(eventNamesInEmail.length).toBe(eventCount);
 
   if (scenario === TyphoonScenario.Trigger) {
     expect(emailContent).toContain('Expected to make landfall on');

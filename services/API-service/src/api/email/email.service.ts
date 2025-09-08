@@ -64,7 +64,7 @@ export class EmailService {
         activeEvents,
       );
 
-    const emailHtml = this.mjmlService.getActiveEventEmailHtmlOutput({
+    const emailHtml = await this.mjmlService.getActiveEventEmailHtmlOutput({
       emailContent,
       date: lastUploadDate.timestamp,
     });

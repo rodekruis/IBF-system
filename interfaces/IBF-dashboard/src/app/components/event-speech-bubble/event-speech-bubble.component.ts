@@ -14,6 +14,7 @@ import { User } from 'src/app/models/user/user.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import {
+  ALERT_LEVEL_LABEL,
   AlertLevel,
   Event,
   EventService,
@@ -68,6 +69,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   private placeCodeHoverSubscription: Subscription;
   public placeCodeHover: PlaceCode;
   public userRole: UserRole;
+  public ALERT_LEVEL_LABEL = ALERT_LEVEL_LABEL;
 
   constructor(
     private authService: AuthService,

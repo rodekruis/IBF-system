@@ -26,7 +26,6 @@ export interface CountryDisasterSettings {
   droughtRegions?: Record<string, string[]>;
   eapLink: string;
   showMonthlyEapActions?: boolean;
-  eapAlertClasses?: EapAlertClasses;
   forecastSource?: ForecastSource;
   enableEarlyActions?: boolean;
 }
@@ -34,20 +33,6 @@ export interface CountryDisasterSettings {
 export interface NotificationInfo {
   linkVideo: string;
   linkPdf: string;
-}
-
-export interface EapAlertClasses {
-  no?: EapAlertClass;
-  min?: EapAlertClass;
-  med?: EapAlertClass;
-  max?: EapAlertClass;
-}
-
-export interface EapAlertClass {
-  label: string;
-  color: string;
-  value: number;
-  textColor?: string;
 }
 
 export interface AdminRegionLabels {

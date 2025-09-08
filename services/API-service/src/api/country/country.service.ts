@@ -155,33 +155,34 @@ export class CountryService {
 
   private async addOrUpdateDisaster(
     countryDisasterSettingsEntity: CountryDisasterSettingsEntity,
-    disasterType: CountryDisasterSettingsDto,
+    countryDisasterSettingsDto: CountryDisasterSettingsDto,
   ): Promise<CountryDisasterSettingsEntity> {
     countryDisasterSettingsEntity.adminLevels =
-      disasterType.adminLevels as AdminLevel[];
+      countryDisasterSettingsDto.adminLevels as AdminLevel[];
     countryDisasterSettingsEntity.defaultAdminLevel =
-      disasterType.defaultAdminLevel as AdminLevel;
+      countryDisasterSettingsDto.defaultAdminLevel as AdminLevel;
 
-    countryDisasterSettingsEntity.eapLink = disasterType.eapLink;
-    countryDisasterSettingsEntity.eapAlertClasses = disasterType.eapAlertClasses
-      ? JSON.parse(JSON.stringify([disasterType.eapAlertClasses]))[0]
-      : null;
+    countryDisasterSettingsEntity.eapLink = countryDisasterSettingsDto.eapLink;
     countryDisasterSettingsEntity.droughtSeasonRegions =
-      disasterType.droughtSeasonRegions
-        ? JSON.parse(JSON.stringify(disasterType.droughtSeasonRegions))
+      countryDisasterSettingsDto.droughtSeasonRegions
+        ? JSON.parse(
+            JSON.stringify(countryDisasterSettingsDto.droughtSeasonRegions),
+          )
         : null;
-    countryDisasterSettingsEntity.droughtRegions = disasterType.droughtRegions
-      ? JSON.parse(JSON.stringify(disasterType.droughtRegions))
-      : null;
+    countryDisasterSettingsEntity.droughtRegions =
+      countryDisasterSettingsDto.droughtRegions
+        ? JSON.parse(JSON.stringify(countryDisasterSettingsDto.droughtRegions))
+        : null;
     countryDisasterSettingsEntity.showMonthlyEapActions =
-      disasterType.showMonthlyEapActions;
+      countryDisasterSettingsDto.showMonthlyEapActions;
     countryDisasterSettingsEntity.enableEarlyActions =
-      disasterType.enableEarlyActions;
-    countryDisasterSettingsEntity.forecastSource = disasterType.forecastSource
-      ? JSON.parse(JSON.stringify(disasterType.forecastSource))
-      : null;
+      countryDisasterSettingsDto.enableEarlyActions;
+    countryDisasterSettingsEntity.forecastSource =
+      countryDisasterSettingsDto.forecastSource
+        ? JSON.parse(JSON.stringify(countryDisasterSettingsDto.forecastSource))
+        : null;
     countryDisasterSettingsEntity.activeLeadTimes =
-      disasterType.activeLeadTimes as LeadTime[];
+      countryDisasterSettingsDto.activeLeadTimes as LeadTime[];
 
     const saveResult = await this.countryDisasterSettingsRepository.save(
       countryDisasterSettingsEntity,

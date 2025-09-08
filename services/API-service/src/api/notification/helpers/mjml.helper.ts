@@ -1,10 +1,12 @@
 import { format } from 'date-fns';
 import * as fs from 'fs';
 
-import { EapAlertClassKeyEnum } from '../../../shared/data.model';
 import { LeadTime } from '../../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryTimeZoneMapping } from '../../country/country-time-zone-mapping';
-import { AlertStatusLabelEnum } from '../dto/notification-date-per-event.dto';
+import {
+  ALERT_LEVEL_ICON,
+  AlertLevel,
+} from '../../event/enum/alert-level.enum';
 
 interface AdminArea {
   exposed?: string;
@@ -17,9 +19,6 @@ export const COLOR_TERTIARY = '#cfbfff';
 export const COLOR_WHITE = '#ffffff'; // fiveten-neutral-0
 export const COLOR_GREY = '#f4f5f8';
 export const COLOR_BROWN = '#241C15';
-const COLOR_WARNING_ORANGE = '#7a2d00'; // fiveten-orange-700
-const COLOR_WARNING_YELLOW = '#665606'; // fiveten-yellow-700
-const COLOR_TRIGGER_RED = '#c70000'; // fiveten-red-500
 
 const emailFolder = './src/api/notification/email';
 const emailIconFolder = `${emailFolder}/icons`;
@@ -250,39 +249,10 @@ export const getTimeFromNow = (leadTime: LeadTime) => {
   } from now`;
 };
 
-export const getTriangleIcon = (
-  eapAlertClassKey: EapAlertClassKeyEnum,
-  triggerStatusLabel: AlertStatusLabelEnum,
-) => {
-  const fileNameMap = {
-    [EapAlertClassKeyEnum.med]: 'warning-medium.png',
-    [EapAlertClassKeyEnum.min]: 'warning-low.png',
-    [EapAlertClassKeyEnum.max]: 'trigger.png',
-    default: 'trigger.png',
-  };
-
-  let fileName = eapAlertClassKey
-    ? fileNameMap[eapAlertClassKey]
-    : fileNameMap.default;
-  if (
-    !eapAlertClassKey &&
-    triggerStatusLabel !== AlertStatusLabelEnum.Trigger
-  ) {
-    fileName = 'warning-medium.png';
-  }
+export const getTriangleIcon = (alertLevel: AlertLevel) => {
+  const fileName = ALERT_LEVEL_ICON[alertLevel];
   const filePath = `${emailIconFolder}/${fileName}`;
   return getPngImageAsDataURL(filePath);
-};
-
-export const getEventSeverityLabel = (
-  eapAlertClassKey: EapAlertClassKeyEnum,
-) => {
-  const severityLabels = {
-    [EapAlertClassKeyEnum.med]: 'Medium',
-    [EapAlertClassKeyEnum.min]: 'Low',
-  };
-
-  return severityLabels[eapAlertClassKey] || '';
 };
 
 export const getPngImageAsDataURL = (relativePath: string) => {
@@ -292,39 +262,6 @@ export const getPngImageAsDataURL = (relativePath: string) => {
   )}`;
 
   return imageDataURL;
-};
-
-export const getDisasterIssuedLabel = (
-  eapLabel: string,
-  triggerStatusLabel: AlertStatusLabelEnum,
-) => {
-  return eapLabel || triggerStatusLabel;
-};
-
-export const getIbfHexColor = (
-  color: string,
-  triggerStatusLabel: AlertStatusLabelEnum,
-): string => {
-  // Color  defined in the EAP Alert Class. This is only used for flood events
-  // For other events, the color is defined in the disaster settings
-  // So we decide it based on the trigger status label
-
-  if (color) {
-    // TODO: Define in a place where FrontEnd and Backend can share this
-    switch (color) {
-      case 'fiveten-orange-500':
-        return COLOR_WARNING_ORANGE;
-      case 'ibf-orange':
-        return COLOR_WARNING_ORANGE;
-      case 'fiveten-yellow-500':
-        return COLOR_WARNING_YELLOW;
-      default:
-        return COLOR_TRIGGER_RED;
-    }
-  }
-  return triggerStatusLabel === AlertStatusLabelEnum.Trigger
-    ? COLOR_TRIGGER_RED
-    : COLOR_WARNING_ORANGE;
 };
 
 export const getLogoImageAsDataURL = () => {

@@ -35,7 +35,7 @@ export default (
       layerName: 'glofas_stations', // REFACTOR
     });
     await map.assertLegendElementIsVisible({
-      legendComponentName: 'GloFAS No action', // REFACTOR
+      legendComponentName: 'GloFAS No alert', // REFACTOR
     });
 
     // Assert that the max warning GloFAS markers are not visible

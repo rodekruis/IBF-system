@@ -7,12 +7,12 @@ import {
 
 export const getMjmlHeader = ({
   disasterTypeLabel,
-  nrOfEvents,
+  eventCount,
   sentOnDate,
   logosSrc,
 }: {
   disasterTypeLabel: string;
-  nrOfEvents: number;
+  eventCount: number;
   sentOnDate: string;
   logosSrc: string;
 }): object => {
@@ -22,7 +22,7 @@ export const getMjmlHeader = ({
   };
 
   const titleElement = getTextElement({
-    content: `${nrOfEvents} ${disasterTypeLabel} alerts`,
+    content: `${eventCount} ${disasterTypeLabel} alerts`,
     attributes: {
       color: COLOR_WHITE,
       'font-size': '28px',

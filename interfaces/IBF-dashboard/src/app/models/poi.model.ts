@@ -1,3 +1,5 @@
+import { EapAlertClassKey } from 'src/app/models/country.model';
+
 export class Station {
   stationName: string;
   stationCode: string;
@@ -8,7 +10,7 @@ export class StationDynamicData {
   forecastLevel: number;
   triggerLevel: number;
   forecastReturnPeriod: number;
-  eapAlertClass: string;
+  eapAlertClass: EapAlertClassKey;
 }
 
 export class TyphoonTrackPoint {

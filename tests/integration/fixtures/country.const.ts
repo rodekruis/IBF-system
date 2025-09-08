@@ -22,14 +22,6 @@ export const countryData: CountryDto[] = [
         ],
         eapLink:
           'https://510ibfsystem.blob.core.windows.net/about-trigger/MWI-EAP-document.pdf',
-        eapAlertClasses: {
-          no: { label: 'No action', color: 'ibf-no-alert-primary', value: 0 },
-          max: {
-            label: 'Trigger issued',
-            color: 'ibf-glofas-trigger',
-            value: 1,
-          },
-        },
       },
       {
         disasterType: 'flash-floods',

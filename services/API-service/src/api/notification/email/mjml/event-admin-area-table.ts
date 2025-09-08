@@ -1,13 +1,16 @@
+import { AlertArea } from '../../../../shared/data.model';
 import { NumberFormat } from '../../../../shared/enums/number-format.enum';
+import {
+  ALERT_LEVEL_COLOUR,
+  ALERT_LEVEL_LABEL,
+  AlertLevel,
+} from '../../../event/enum/alert-level.enum';
 import { IndicatorMetadataEntity } from '../../../metadata/indicator-metadata.entity';
 import { AdminAreaLabel } from '../../dto/admin-area-notification-info.dto';
 import { ContentEventEmail } from '../../dto/content-event-email.dto';
-import { NotificationDataPerEventDto } from '../../dto/notification-date-per-event.dto';
 import {
   COLOR_WHITE,
   getAdminAreaTable,
-  getEventSeverityLabel,
-  getIbfHexColor,
   getInlineImage,
   getSectionElement,
   getTextElement,
@@ -15,43 +18,41 @@ import {
 } from '../../helpers/mjml.helper';
 
 const getMjmlEventAdminAreaTable = ({
-  textColour,
   defaultAdminAreaLabel,
   defaultAdminAreaParentLabel,
-  indicatorMetadata,
-  event,
-  triangleIcon,
+  mainExposureIndicatorMetadata,
+  eventName,
+  alertAreas,
+  alertLevel,
   toCompactNumber,
 }: {
-  textColour: string;
   defaultAdminAreaLabel: AdminAreaLabel;
   defaultAdminAreaParentLabel: AdminAreaLabel;
-  indicatorMetadata: IndicatorMetadataEntity;
-  event: NotificationDataPerEventDto;
-  triangleIcon: string;
+  mainExposureIndicatorMetadata: IndicatorMetadataEntity;
+  eventName: string;
+  alertAreas: AlertArea[];
+  alertLevel: AlertLevel;
   toCompactNumber: (value: number, format: NumberFormat) => string;
 }) => {
-  const icon = getInlineImage({ src: triangleIcon, size: 16 });
-
-  const severityLabel = getEventSeverityLabel(event.eapAlertClass?.key);
+  const icon = getInlineImage({ src: getTriangleIcon(alertLevel), size: 16 });
 
   const titleElement = getTextElement({
-    content: `${icon} <strong>${severityLabel} ${event.triggerStatusLabel}: ${event.eventName}</strong>`,
+    content: `${icon} <strong>${ALERT_LEVEL_LABEL[alertLevel]}: ${eventName}</strong>`,
     attributes: {
-      color: textColour,
+      color: ALERT_LEVEL_COLOUR[alertLevel],
       'container-background-color': COLOR_WHITE,
       align: 'center',
       padding: '8px 24px',
     },
   });
 
-  const isIndicatorAvailable = event.alertAreas.some(
+  const isIndicatorAvailable = alertAreas.some(
     ({ mainExposureValue }) => mainExposureValue,
   );
 
   const subtitleContent = isIndicatorAvailable
-    ? `Expected exposed ${defaultAdminAreaLabel.plural.toLowerCase()} in order of ${indicatorMetadata.label.toLowerCase()}:`
-    : `${indicatorMetadata.label} information is unavailable.`;
+    ? `Expected exposed ${defaultAdminAreaLabel.plural.toLowerCase()} in order of ${mainExposureIndicatorMetadata.label.toLowerCase()}:`
+    : `${mainExposureIndicatorMetadata.label} information is unavailable.`;
 
   const subtitleElement = getTextElement({
     content: subtitleContent,
@@ -63,11 +64,11 @@ const getMjmlEventAdminAreaTable = ({
     },
   });
 
-  const adminAreaList = event.alertAreas.map((triggeredArea) => {
+  const adminAreaList = alertAreas.map((triggeredArea) => {
     return {
       exposed: toCompactNumber(
         triggeredArea.mainExposureValue,
-        indicatorMetadata.numberFormatMap,
+        mainExposureIndicatorMetadata.numberFormatMap,
       ),
       name: `${triggeredArea.name} ${
         triggeredArea.nameParent ? `(${triggeredArea.nameParent})` : ''
@@ -79,7 +80,7 @@ const getMjmlEventAdminAreaTable = ({
     adminAreaList,
     adminAreaLabel: defaultAdminAreaLabel.singular,
     adminAreaParentLabel: defaultAdminAreaParentLabel.singular,
-    indicatorLabel: indicatorMetadata.label,
+    indicatorLabel: mainExposureIndicatorMetadata.label,
   });
 
   const childrenEls = [titleElement, subtitleElement];
@@ -105,34 +106,27 @@ export const getMjmlAdminAreaDisclaimer = (): object => {
 };
 
 export const getMjmlAdminAreaTableList = (
-  emailContent: ContentEventEmail,
+  {
+    country,
+    defaultAdminLevel,
+    defaultAdminAreaLabel,
+    mainExposureIndicatorMetadata,
+    events,
+  }: ContentEventEmail,
   toCompactNumber: (value: number, format: NumberFormat) => string,
-): object[] => {
-  const adminAreaTableList = [];
+) => {
+  const defaultAdminAreaParentLabel =
+    country.adminRegionLabels[String(Math.max(1, defaultAdminLevel - 1))];
 
-  const adminAreaParentLabel =
-    emailContent.country.adminRegionLabels[
-      String(Math.max(1, emailContent.defaultAdminLevel - 1))
-    ];
-
-  for (const event of emailContent.dataPerEvent) {
-    adminAreaTableList.push(
-      getMjmlEventAdminAreaTable({
-        textColour: getIbfHexColor(
-          event.eapAlertClass?.color,
-          event.triggerStatusLabel,
-        ),
-        defaultAdminAreaLabel: emailContent.defaultAdminAreaLabel,
-        defaultAdminAreaParentLabel: adminAreaParentLabel,
-        indicatorMetadata: emailContent.mainExposureIndicatorMetadata,
-        event,
-        triangleIcon: getTriangleIcon(
-          event.eapAlertClass?.key,
-          event.triggerStatusLabel,
-        ),
-        toCompactNumber,
-      }),
-    );
-  }
-  return adminAreaTableList;
+  return events.map(({ alertLevel, alertAreas, eventName }) =>
+    getMjmlEventAdminAreaTable({
+      defaultAdminAreaLabel,
+      defaultAdminAreaParentLabel,
+      mainExposureIndicatorMetadata,
+      eventName,
+      alertAreas,
+      alertLevel,
+      toCompactNumber,
+    }),
+  );
 };
