@@ -1,3 +1,13 @@
+# [0.325.0](https://github.com/rodekruis/IBF-system/compare/v0.324.0...v0.325.0) (2025-09-08)
+
+
+### Features
+
+* enable multi-threshold for ethiopia flood ([502defb](https://github.com/rodekruis/IBF-system/commit/502defbd006da66c420f46d4dcb2f5ef656228c9))
+* update auth endpoint ([335b441](https://github.com/rodekruis/IBF-system/commit/335b441868c9b94cea13c1e09c103fa5e7e29504))
+
+
+
 # [0.324.0](https://github.com/rodekruis/IBF-system/compare/v0.323.0...v0.324.0) (2025-09-05)
 
 
@@ -106,15 +116,6 @@
 ### Bug Fixes
 
 * remove dunant user countries before update ([5b07cab](https://github.com/rodekruis/IBF-system/commit/5b07cabe857cd12c56b32367dbc637be15b26802))
-
-
-
-## [0.321.7](https://github.com/rodekruis/IBF-system/compare/v0.321.6...v0.321.7) (2025-07-30)
-
-
-### Bug Fixes
-
-* update lesotho red cross branches ([cc5ebe8](https://github.com/rodekruis/IBF-system/commit/cc5ebe87127af40621cef4b8e147534ba0e3843b))
 
 
 
