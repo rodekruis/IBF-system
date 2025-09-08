@@ -8,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { subMinutes } from 'date-fns';
 import { LessThan, Repository } from 'typeorm';
 
-import { CI, DEV, TEST } from '../../config';
+import { CI, DEV } from '../../config';
 import { CountryService } from '../country/country.service';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { EmailService } from '../email/email.service';
@@ -57,14 +57,15 @@ export class LoginService {
 
     await this.loginRepository.upsert(loginEntity, ['user']);
 
+    // do not send email in dev or ci environments
+    if (DEV || CI) {
+      return { message: PROMPT_CODE, code };
+    }
+
     try {
       await this.emailService.sendLoginCodeEmail({ email, code });
     } catch {
       throw new ServiceUnavailableException(MAILER_ERROR);
-    }
-
-    if (DEV || CI || TEST) {
-      return { message: PROMPT_CODE, code };
     }
 
     return { message: PROMPT_CODE };
