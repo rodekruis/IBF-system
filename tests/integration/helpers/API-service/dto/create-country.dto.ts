@@ -26,7 +26,6 @@ export interface CountryDisasterSettingsDto {
   enableStopTrigger?: boolean;
   forecastSource?: ForecastSource;
   eapLink: string;
-  eapAlertClasses?: object;
   droughtRegions?: object;
 }
 

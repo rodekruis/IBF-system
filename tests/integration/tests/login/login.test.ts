@@ -63,9 +63,7 @@ export default function loginTests() {
 
       // assert
       expect(codeResult.status).toBe(401);
-      expect(codeResult.body.message).toBe(
-        'Enter the code sent to your email',
-      );
+      expect(codeResult.body.message).toBe('Enter the code sent to your email');
     });
   });
 }

@@ -14,12 +14,7 @@ import {
   SelectQueryBuilder,
 } from 'typeorm';
 
-import {
-  AlertArea,
-  EapAlertClass,
-  EapAlertClassKeyEnum,
-  Event,
-} from '../../shared/data.model';
+import { AlertArea, Event } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import {
@@ -124,7 +119,24 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    return events;
+    return this.sortEventsByLeadTimeAndAlertState(events);
+  }
+
+  private sortEventsByLeadTimeAndAlertState(events: Event[]): Event[] {
+    const leadTimeValue = (leadTime: LeadTime): number =>
+      Number(leadTime.split('-')[0]);
+
+    // NOTE: this sort assumes the lead time unit is the same for these events
+    return events.sort((a, b) => {
+      if (leadTimeValue(a.firstLeadTime) < leadTimeValue(b.firstLeadTime)) {
+        return -1;
+      }
+      if (leadTimeValue(a.firstLeadTime) > leadTimeValue(b.firstLeadTime)) {
+        return 1;
+      }
+
+      return this.sortByAlertLevel(a, b);
+    });
   }
 
   private async populateEventsDetails(
@@ -168,8 +180,6 @@ export class EventService {
       } else {
         event.disasterSpecificProperties = {};
       }
-      event.disasterSpecificProperties.eapAlertClass =
-        await this.getEventEapAlertClass(disasterSettings, event.alertLevel);
     }
     return rawEvents;
   }
@@ -357,77 +367,94 @@ export class EventService {
       disasterType,
     );
 
+    let alertAreas = [];
+
     if (adminLevel > defaultAdminLevel) {
       // Use this to also return something on deeper levels than default (to show in chat-section)
-      return this.getDeeperAlertAreas(
+      alertAreas = await this.getDeeperAlertAreas(
         activeAlertAreas,
         disasterType,
         lastUploadDate,
         eventName,
       );
-    }
+    } else {
+      const whereFiltersEvent = {
+        closed: false,
+        disasterType,
+        adminArea: { countryCodeISO3 },
+        forecastSeverity: MoreThan(0),
+      };
+      if (eventName) {
+        whereFiltersEvent['eventName'] = eventName;
+      }
 
-    const whereFiltersEvent = {
-      closed: false,
-      disasterType,
-      adminArea: { countryCodeISO3 },
-      forecastSeverity: MoreThan(0),
-    };
-    if (eventName) {
-      whereFiltersEvent['eventName'] = eventName;
-    }
+      alertAreas = await this.eventPlaceCodeRepo
+        .createQueryBuilder('event')
+        .select([
+          'area."placeCode" AS "placeCode"',
+          'area.name AS name',
+          'area."adminLevel" AS "adminLevel"',
+          'event."eventName" AS "eventName"',
+          'event."mainExposureValue"',
+          'event."forecastSeverity"',
+          'event."forecastTrigger"',
+          'event."eventPlaceCodeId"',
+          'event."userTrigger"',
+          'event."firstIssuedDate"',
+          'event."userTriggerDate" AS "userTriggerDate"',
+          '"user"."firstName" || \' \' || "user"."lastName" AS "displayName"',
+          'parent.name AS "nameParent"',
+        ])
+        .leftJoin('event.adminArea', 'area')
+        .leftJoin('event.user', 'user')
+        .leftJoin(
+          AdminAreaEntity,
+          'parent',
+          'area."placeCodeParent" = parent."placeCode"',
+        )
+        .where(whereFiltersEvent)
+        .orderBy('event."mainExposureValue"', 'DESC')
+        .getRawMany();
 
-    const eventPlaceCodes = await this.eventPlaceCodeRepo
-      .createQueryBuilder('event')
-      .select([
-        'area."placeCode" AS "placeCode"',
-        'area.name AS name',
-        'area."adminLevel" AS "adminLevel"',
-        'event."eventName" AS "eventName"',
-        'event."mainExposureValue"',
-        'event."forecastSeverity"',
-        'event."forecastTrigger"',
-        'event."eventPlaceCodeId"',
-        'event."userTrigger"',
-        'event."firstIssuedDate"',
-        'event."userTriggerDate" AS "userTriggerDate"',
-        '"user"."firstName" || \' \' || "user"."lastName" AS "displayName"',
-        'parent.name AS "nameParent"',
-      ])
-      .leftJoin('event.adminArea', 'area')
-      .leftJoin('event.user', 'user')
-      .leftJoin(
-        AdminAreaEntity,
-        'parent',
-        'area."placeCodeParent" = parent."placeCode"',
-      )
-      .where(whereFiltersEvent)
-      .orderBy('event."mainExposureValue"', 'DESC')
-      .getRawMany();
-
-    for (const eventPlaceCode of eventPlaceCodes) {
-      eventPlaceCode.alertLevel = this.getAlertLevel(eventPlaceCode);
-      if (activeAlertAreas.length === 0) {
-        eventPlaceCode.eapActions = [];
-      } else if (ALERT_LEVEL_WARNINGS.includes(eventPlaceCode.alertLevel)) {
-        // Do not show actions for warning events/areas
-        eventPlaceCode.eapActions = [];
-      } else {
-        eventPlaceCode.eapActions =
-          await this.eapActionsService.getActionsWithStatus(
-            countryCodeISO3,
-            disasterType,
-            eventPlaceCode.placeCode,
-            eventName,
-          );
+      for (const alertArea of alertAreas) {
+        alertArea.alertLevel = this.getAlertLevel(alertArea);
+        if (activeAlertAreas.length === 0) {
+          alertArea.eapActions = [];
+        } else if (ALERT_LEVEL_WARNINGS.includes(alertArea.alertLevel)) {
+          // Do not show actions for warning events/areas
+          alertArea.eapActions = [];
+        } else {
+          alertArea.eapActions =
+            await this.eapActionsService.getActionsWithStatus(
+              countryCodeISO3,
+              disasterType,
+              alertArea.placeCode,
+              eventName,
+            );
+        }
       }
     }
 
-    const highestAlertLevels =
-      this.getHighestAlertLevelPerEvent(eventPlaceCodes);
-    return eventPlaceCodes.filter(
-      (area) =>
-        area.alertLevel === highestAlertLevels[area.eventName || 'unknown'],
+    const highestAlertLevels = this.getHighestAlertLevelPerEvent(alertAreas);
+    return alertAreas
+      .filter(
+        ({ alertLevel, eventName }) =>
+          alertLevel === highestAlertLevels[eventName || 'unknown'],
+      )
+      .sort(this.sortByAlertLevel);
+  }
+
+  private sortByAlertLevel(
+    a: { alertLevel: AlertLevel },
+    b: { alertLevel: AlertLevel },
+  ): number {
+    // sort by alert level
+    // trigger, warning, warning-medium, warning-low, none
+    const alertLevelSortOrder = Object.values(AlertLevel).reverse();
+
+    return (
+      alertLevelSortOrder.indexOf(a.alertLevel) -
+      alertLevelSortOrder.indexOf(b.alertLevel)
     );
   }
 
@@ -456,7 +483,7 @@ export class EventService {
       whereFilters['leadTime'] = leadTime;
     }
 
-    let areas = await this.adminAreaDynamicDataRepo
+    const areas = await this.adminAreaDynamicDataRepo
       .createQueryBuilder('dynamic')
       .where(whereFilters)
       .leftJoinAndSelect(
@@ -492,12 +519,13 @@ export class EventService {
       ])
       .getRawMany();
 
-    areas = areas.map((area) => ({
+    return areas.map((area) => ({
       placeCode: area.placeCode,
       name: area.name,
       nameParent: null,
       mainExposureValue: area.value,
       forecastSeverity: null, // leave empty for now, as we don't show forecastSeverity on deeper levels
+      eventName,
       userTrigger: area.userTrigger,
       firstIssuedDate: area.firstIssuedDate,
       userTriggerDate: area.userTriggerDate,
@@ -505,12 +533,6 @@ export class EventService {
       eapActions: [],
       alertLevel: this.getAlertLevel(area),
     }));
-
-    const highestAlertLevels = this.getHighestAlertLevelPerEvent(areas);
-    return areas.filter(
-      (area) =>
-        area.alertLevel === highestAlertLevels[area.eventName || 'unknown'],
-    );
   }
 
   public getHighestAlertLevelPerEvent(
@@ -752,7 +774,7 @@ export class EventService {
     eventName?: string,
   ): Promise<AreaForecastDataDto[]> {
     const whereFilters = {
-      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment), // REFACTOR: change all these filters to exact lastUploadDate.timestamp equality
+      timestamp: MoreThanOrEqual(lastUploadDate.cutoffMoment),
       countryCodeISO3,
       adminLevel,
       disasterType,
@@ -1117,52 +1139,5 @@ export class EventService {
       area.closed = true;
     }
     await this.eventPlaceCodeRepo.save(expiredEventAreas);
-  }
-
-  // REFACTOR: this can be set up much better
-  private async getEventEapAlertClass(
-    disasterSettings: CountryDisasterSettingsEntity,
-    alertLevel: AlertLevel,
-  ): Promise<EapAlertClass> {
-    if (disasterSettings.disasterType === DisasterType.Floods) {
-      const alertLevelToEAPAlertClass = {
-        [AlertLevel.TRIGGER]: EapAlertClassKeyEnum.max,
-        [AlertLevel.WARNING]: EapAlertClassKeyEnum.med,
-        [AlertLevel.WARNINGMEDIUM]: EapAlertClassKeyEnum.med,
-        [AlertLevel.WARNINGLOW]: EapAlertClassKeyEnum.min,
-        [AlertLevel.NONE]: EapAlertClassKeyEnum.no,
-      };
-      const eapAlertClasses = JSON.parse(
-        JSON.stringify(disasterSettings.eapAlertClasses),
-      );
-      const alertClassKey = Object.keys(eapAlertClasses).find(
-        (key) => key === alertLevelToEAPAlertClass[alertLevel],
-      );
-      return { key: alertClassKey, ...eapAlertClasses[alertClassKey] };
-    } else {
-      if (alertLevel === AlertLevel.TRIGGER) {
-        return {
-          key: EapAlertClassKeyEnum.max,
-          label: 'Trigger',
-          color: 'ibf-glofas-trigger',
-          value: 1,
-        };
-      } else if (ALERT_LEVEL_WARNINGS.includes(alertLevel)) {
-        return {
-          key: EapAlertClassKeyEnum.med,
-          label: 'Warning',
-          color: 'fiveten-orange-500',
-          textColor: 'fiveten-orange-700',
-          value: 1,
-        };
-      } else {
-        return {
-          key: EapAlertClassKeyEnum.no,
-          label: 'No alert',
-          color: 'ibf-no-alert-primary',
-          value: 0,
-        };
-      }
-    }
   }
 }

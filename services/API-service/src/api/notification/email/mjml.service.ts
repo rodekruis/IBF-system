@@ -13,6 +13,7 @@ import {
   getTextElement,
   getTimezoneDisplay,
 } from '../helpers/mjml.helper';
+import { NotificationContentService } from '../notification-content/notification-content.service';
 import { getMjmlEventListBody } from './mjml/body-event';
 import {
   getMjmlAdminAreaDisclaimer,
@@ -26,7 +27,10 @@ import { getMjmlTriggerStatement } from './mjml/trigger-statement';
 
 @Injectable()
 export class MjmlService {
-  public constructor(private readonly helperService: HelperService) {}
+  public constructor(
+    private helperService: HelperService,
+    private notificationContentService: NotificationContentService,
+  ) {}
 
   private mailOpening = getSectionElement({
     childrenEls: [getTextElement({ content: 'Dear reader,' })],
@@ -44,7 +48,7 @@ export class MjmlService {
       disasterTypeLabel: firstCharOfWordsToUpper(
         emailContent.disasterType.label,
       ),
-      nrOfEvents: emailContent.dataPerEvent.length,
+      eventCount: emailContent.events.length,
       sentOnDate: getFormattedDate({ date }),
       logosSrc:
         emailContent.country.notificationInfo.logo[
@@ -59,41 +63,48 @@ export class MjmlService {
 
   private notificationAction = ({
     linkDashboard,
-    linkEapSop,
+    eapLink,
     socialMediaLink,
     socialMediaType,
   }: {
     linkDashboard: string;
-    linkEapSop: string;
+    eapLink: string;
     socialMediaLink: string;
     socialMediaType: string;
   }) =>
     getMjmlNotificationAction({
       linkDashboard,
-      linkEapSop,
+      eapLink,
       socialMediaLink,
       socialMediaType,
     });
 
-  public getActiveEventEmailHtmlOutput({
+  public async getActiveEventEmailHtmlOutput({
     emailContent,
     date,
   }: {
     emailContent: ContentEventEmail;
     date: Date;
-  }): string {
+  }) {
     const children = [];
 
     children.push(this.header({ emailContent, date }));
 
     children.push(this.mailOpening);
 
-    children.push(...getMjmlEventListBody(emailContent));
+    children.push(
+      ...(await getMjmlEventListBody(
+        emailContent,
+        this.notificationContentService.getEventTimeString.bind(
+          this.notificationContentService,
+        ),
+      )),
+    );
 
     children.push(
       this.notificationAction({
         linkDashboard: process.env.DASHBOARD_URL,
-        linkEapSop: emailContent.linkEapSop,
+        eapLink: emailContent.eapLink,
         socialMediaLink:
           emailContent.country.notificationInfo.linkSocialMediaUrl ?? '',
         socialMediaType:
@@ -154,7 +165,7 @@ export class MjmlService {
     children.push(
       ...getMjmlFinishedEvents({
         disasterType: emailContent.disasterType.disasterType,
-        dataPerEvent: emailContent.dataPerEvent,
+        events: emailContent.events,
         timezone: getTimezoneDisplay(emailContent.country.countryCodeISO3),
       }),
     );
@@ -162,7 +173,7 @@ export class MjmlService {
     children.push(
       this.notificationAction({
         linkDashboard: process.env.DASHBOARD_URL,
-        linkEapSop: emailContent.linkEapSop,
+        eapLink: emailContent.eapLink,
         socialMediaLink:
           emailContent.country.notificationInfo.linkSocialMediaUrl ?? '',
         socialMediaType:

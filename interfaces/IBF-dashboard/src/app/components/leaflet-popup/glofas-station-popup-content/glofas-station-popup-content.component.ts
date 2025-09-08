@@ -1,5 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { EapAlertClass, EapAlertClasses } from 'src/app/models/country.model';
+import {
+  defaultEapAlertClassKey,
+  EapAlertClass,
+  eapAlertClasses,
+  EapAlertClassKey,
+} from 'src/app/models/country.model';
 import { Station } from 'src/app/models/poi.model';
 import { LeadTime } from 'src/app/types/lead-time';
 
@@ -10,22 +15,14 @@ import { LeadTime } from 'src/app/types/lead-time';
 })
 export class GlofasStationPopupContentComponent implements OnInit {
   @Input()
-  public data: {
-    station: Station;
-    leadTime: LeadTime;
-    eapAlertClasses: EapAlertClasses;
-  };
+  public data: { station: Station; leadTime: LeadTime };
 
   public barValue: number;
   public triggerWidth: number;
   public barBackgroundColor: string;
   public barTextColor: string;
   private eapAlertClass: EapAlertClass;
-  private defautEapAlertClass: EapAlertClass = {
-    label: 'No action',
-    color: 'ibf-no-alert-primary',
-    value: 0,
-  };
+  private eapAlertClassKey: EapAlertClassKey = defaultEapAlertClassKey;
 
   ngOnInit(): void {
     if (!this.data) {
@@ -63,10 +60,11 @@ export class GlofasStationPopupContentComponent implements OnInit {
       0,
     );
 
-    this.eapAlertClass =
-      this.data.eapAlertClasses[this.data.station.dynamicData?.eapAlertClass] ||
-      this.defautEapAlertClass;
+    if (this.data.station.dynamicData?.eapAlertClass) {
+      this.eapAlertClassKey = this.data.station.dynamicData?.eapAlertClass;
+    }
 
+    this.eapAlertClass = eapAlertClasses[this.eapAlertClassKey];
     this.barBackgroundColor = `var(--ion-color-${this.eapAlertClass.color})`;
 
     this.barTextColor = `var(--ion-color-${

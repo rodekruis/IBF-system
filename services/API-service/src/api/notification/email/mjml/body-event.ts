@@ -1,16 +1,18 @@
+import { DisasterSpecificProperties } from '../../../../shared/data.model';
 import { firstCharOfWordsToUpper } from '../../../../shared/utils';
 import { LeadTime } from '../../../admin-area-dynamic-data/enum/lead-time.enum';
 import { ForecastSource } from '../../../country/country-disaster.entity';
 import { DisasterType } from '../../../disaster-type/disaster-type.enum';
+import { LastUploadDateDto } from '../../../event/dto/last-upload-date.dto';
+import {
+  ALERT_LEVEL_COLOUR,
+  ALERT_LEVEL_LABEL,
+  ALERT_LEVEL_WARNINGS,
+  AlertLevel,
+} from '../../../event/enum/alert-level.enum';
 import { ContentEventEmail } from '../../dto/content-event-email.dto';
 import {
-  AlertStatusLabelEnum,
-  NotificationDataPerEventDto,
-} from '../../dto/notification-date-per-event.dto';
-import {
   dateObjectToDateTimeString,
-  getDisasterIssuedLabel,
-  getIbfHexColor,
   getInlineImage,
   getSectionElement,
   getTextElement,
@@ -31,11 +33,11 @@ const getMjmlBodyEvent = ({
   firstTriggerLeadTimeFromNow,
   firstTriggerLeadTimeString,
   issuedDate,
-  nrOfAlertAreas,
+  alertAreaCount,
   timeZone,
   triangleIcon,
   eapLink,
-  triggerStatusLabel,
+  alertLevel,
   disasterSpecificCopy,
   forecastSource,
   userTriggerData,
@@ -51,11 +53,11 @@ const getMjmlBodyEvent = ({
   firstTriggerLeadTimeFromNow: string;
   firstTriggerLeadTimeString: string;
   issuedDate: string;
-  nrOfAlertAreas: number;
+  alertAreaCount: number;
   timeZone: string;
   triangleIcon: string;
   eapLink: string;
-  triggerStatusLabel: string;
+  alertLevel: AlertLevel;
   disasterSpecificCopy: string;
   forecastSource: ForecastSource;
   userTriggerData: { name: string; date: Date };
@@ -64,7 +66,7 @@ const getMjmlBodyEvent = ({
 
   const eventNameElement = getTextElement({
     attributes: { color: textColour },
-    content: `${icon} <strong data-testid="event-name">${triggerStatusLabel}: ${eventName}</strong>`,
+    content: `${icon} <strong data-testid="event-name">${ALERT_LEVEL_LABEL[alertLevel]}: ${eventName}</strong>`,
   });
 
   const contentContent = [];
@@ -74,7 +76,7 @@ const getMjmlBodyEvent = ({
       `<strong>${disasterIssuedLabel}:</strong> ${disasterSpecificCopy}`,
     );
   } else {
-    if (triggerStatusLabel === AlertStatusLabelEnum.Trigger) {
+    if (alertLevel === AlertLevel.TRIGGER) {
       // Trigger event
       if (firstLeadTimeString !== firstTriggerLeadTimeString) {
         // Warning-to-trigger event: show start of warning first
@@ -95,7 +97,7 @@ const getMjmlBodyEvent = ({
   }
 
   contentContent.push(
-    `<strong>Expected exposed ${defaultAdminAreaLabel}:</strong> ${nrOfAlertAreas} (see list below)`,
+    `<strong>Expected exposed ${defaultAdminAreaLabel}:</strong> ${alertAreaCount} (see list below)`,
   );
 
   if (userTriggerData) {
@@ -114,7 +116,7 @@ const getMjmlBodyEvent = ({
   }
 
   contentContent.push(
-    triggerStatusLabel === AlertStatusLabelEnum.Trigger
+    alertLevel === AlertLevel.TRIGGER
       ? eapLink
         ? `<strong>Advisory:</strong> Activate <a href="${eapLink}">Protocol</a>` // Not all implemtations have an EAP, so for now defaulting to more generic copy
         : `<strong>Advisory:</strong> Activate Protocol`
@@ -127,8 +129,12 @@ const getMjmlBodyEvent = ({
     content: contentContent.join('<br/>'),
   });
 
+  const alertTypeLabel = ALERT_LEVEL_WARNINGS.includes(alertLevel)
+    ? 'warning'
+    : 'trigger';
+
   const closingElement = getTextElement({
-    content: `This ${triggerStatusLabel.toLowerCase()} was first issued by IBF on ${issuedDate} (${timeZone})`,
+    content: `This ${alertTypeLabel} was first issued by IBF on ${issuedDate} (${timeZone})`,
     attributes: { 'padding-top': '8px', 'font-size': '14px' },
   });
 
@@ -138,103 +144,140 @@ const getMjmlBodyEvent = ({
   });
 };
 
-const getTyphoonSpecificCopy = (event: NotificationDataPerEventDto): string => {
+const getTyphoonSpecificCopy = (
+  firstLeadTime: LeadTime,
+  disasterSpecificProperties: DisasterSpecificProperties,
+  alertLevel: AlertLevel,
+  leadTimeString: string,
+) => {
   let disasterSpecificCopy: string;
-  if (event.firstLeadTime === LeadTime.hour0) {
-    if (event.disasterSpecificProperties.typhoonLandfall) {
+  if (firstLeadTime === LeadTime.hour0) {
+    if (disasterSpecificProperties.typhoonLandfall) {
       disasterSpecificCopy = 'Has already made landfall.';
     } else {
       disasterSpecificCopy =
         'Has already reached the point closest to land. Not predicted to make landfall.';
     }
   } else {
-    if (event.disasterSpecificProperties.typhoonLandfall) {
-      disasterSpecificCopy = `Expected to make landfall on ${
-        event.triggerStatusLabel === AlertStatusLabelEnum.Trigger
-          ? event.firstTriggerLeadTimeString
-          : event.firstLeadTimeString
-      }.`;
-    } else if (event.disasterSpecificProperties.typhoonNoLandfallYet) {
+    if (disasterSpecificProperties.typhoonLandfall) {
+      disasterSpecificCopy = `Expected to make landfall on ${leadTimeString}.`;
+    } else if (disasterSpecificProperties.typhoonNoLandfallYet) {
       disasterSpecificCopy =
         'The landfall time prediction cannot be determined yet. Keep monitoring the event.';
     } else {
       disasterSpecificCopy = `Expected to reach the point closest to land on ${
-        event.triggerStatusLabel === AlertStatusLabelEnum.Trigger
-          ? event.firstTriggerLeadTimeString
-          : event.firstLeadTimeString
+        leadTimeString
       }. Not predicted to make landfall.`;
     }
   }
-  if (event.triggerStatusLabel === AlertStatusLabelEnum.Warning) {
+  if (ALERT_LEVEL_WARNINGS.includes(alertLevel)) {
     disasterSpecificCopy += ' Not predicted to reach trigger thresholds.';
   }
   return disasterSpecificCopy;
 };
 
-export const getMjmlEventListBody = (emailContent: ContentEventEmail) => {
+export const getMjmlEventListBody = async (
+  {
+    events,
+    disasterType: {
+      disasterType,
+      label: disasterTypeLabel,
+      enableSetWarningToTrigger,
+    },
+    country: { countryDisasterSettings },
+    defaultAdminAreaLabel,
+    eapLink,
+    lastUploadDate,
+  }: ContentEventEmail,
+  getEventTimeString: (
+    leadTime: LeadTime,
+    countryCodeISO3: string,
+    lastUploadDate?: LastUploadDateDto,
+    date?: Date,
+  ) => Promise<string>,
+) => {
   const eventList = [];
 
-  for (const event of emailContent.dataPerEvent) {
+  for (const {
+    firstLeadTime,
+    firstTriggerLeadTime,
+    firstIssuedDate,
+    countryCodeISO3,
+    alertLevel,
+    disasterSpecificProperties,
+    userTrigger,
+    userTriggerName,
+    userTriggerDate,
+    eventName,
+    alertAreas,
+  } of events) {
+    const firstLeadTimeString = await getEventTimeString(
+      firstLeadTime,
+      countryCodeISO3,
+      lastUploadDate,
+    );
+
+    const firstTriggerLeadTimeString = firstTriggerLeadTime
+      ? await getEventTimeString(
+          firstTriggerLeadTime,
+          countryCodeISO3,
+          lastUploadDate,
+        )
+      : null;
+
+    const leadTimeString =
+      alertLevel === AlertLevel.TRIGGER
+        ? firstTriggerLeadTimeString
+        : firstLeadTimeString;
+
     let disasterSpecificCopy: string;
-    if (emailContent.disasterType.disasterType === DisasterType.Typhoon) {
-      disasterSpecificCopy = getTyphoonSpecificCopy(event);
+    if (disasterType === DisasterType.Typhoon) {
+      disasterSpecificCopy = getTyphoonSpecificCopy(
+        firstLeadTime,
+        disasterSpecificProperties,
+        alertLevel,
+        leadTimeString,
+      );
     }
 
-    const countryDisasterSettings =
-      emailContent.country.countryDisasterSettings.find(
-        ({ disasterType }) =>
-          disasterType === emailContent.disasterType.disasterType,
-      );
+    const countryDisasterSetting = countryDisasterSettings.find(
+      (countryDisasterSettings) =>
+        countryDisasterSettings.disasterType === disasterType,
+    );
 
-    const userTriggerData = {
-      name: event.event.userTriggerName,
-      date: event.event.userTriggerDate,
-    };
+    const userTriggerData = { name: userTriggerName, date: userTriggerDate };
 
     eventList.push(
       getMjmlBodyEvent({
-        eventName: event.eventName,
+        eventName,
 
-        disasterTypeLabel: firstCharOfWordsToUpper(
-          emailContent.disasterType.label,
-        ),
-        enableSetWarningToTrigger:
-          emailContent.disasterType.enableSetWarningToTrigger,
-        triggerStatusLabel: event.triggerStatusLabel,
+        disasterTypeLabel: firstCharOfWordsToUpper(disasterTypeLabel),
+        enableSetWarningToTrigger,
+        alertLevel,
         issuedDate: dateObjectToDateTimeString(
-          event.issuedDate,
-          emailContent.country.countryCodeISO3,
+          firstIssuedDate,
+          countryCodeISO3,
         ),
-        timeZone: getTimezoneDisplay(emailContent.country.countryCodeISO3),
+        timeZone: getTimezoneDisplay(countryCodeISO3),
 
         // Lead time details
-        firstLeadTimeString: event.firstLeadTimeString,
-        firstTriggerLeadTimeString: event.firstTriggerLeadTimeString,
-        firstLeadTimeFromNow: getTimeFromNow(event.firstLeadTime),
-        firstTriggerLeadTimeFromNow: getTimeFromNow(event.firstTriggerLeadTime),
+        firstLeadTimeString,
+        firstTriggerLeadTimeString,
+        firstLeadTimeFromNow: getTimeFromNow(firstLeadTime),
+        firstTriggerLeadTimeFromNow: getTimeFromNow(firstTriggerLeadTime),
 
         // Area details
-        nrOfAlertAreas: event.nrOfAlertAreas,
-        defaultAdminAreaLabel:
-          emailContent.defaultAdminAreaLabel.plural.toLocaleLowerCase(),
+        alertAreaCount: alertAreas.length,
+        defaultAdminAreaLabel: defaultAdminAreaLabel.plural.toLocaleLowerCase(),
 
         // EAP details
-        triangleIcon: getTriangleIcon(
-          event.eapAlertClass?.key,
-          event.triggerStatusLabel,
-        ),
-        eapLink: emailContent.linkEapSop,
+        triangleIcon: getTriangleIcon(alertLevel),
+        eapLink,
 
-        disasterIssuedLabel: getDisasterIssuedLabel(
-          event.eapAlertClass?.label,
-          event.triggerStatusLabel,
-        ),
-        textColour: getIbfHexColor(
-          event.eapAlertClass?.color,
-          event.triggerStatusLabel,
-        ),
-        forecastSource: countryDisasterSettings.forecastSource,
-        userTriggerData: event.event.userTrigger // Hide forecast source for "set" triggers
+        disasterIssuedLabel: ALERT_LEVEL_LABEL[alertLevel],
+        textColour: ALERT_LEVEL_COLOUR[alertLevel],
+        forecastSource: countryDisasterSetting.forecastSource,
+        userTriggerData: userTrigger // Hide forecast source for "set" triggers
           ? userTriggerData
           : null,
         // Disaster-specific copy

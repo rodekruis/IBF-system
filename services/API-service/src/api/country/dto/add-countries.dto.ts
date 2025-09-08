@@ -70,18 +70,6 @@ export class CountryDisasterSettingsDto {
   @ApiProperty({ example: 'https://docs.google.com' })
   public eapLink: string;
 
-  @ApiProperty({
-    example: {
-      no: { label: 'No action', color: 'ibf-grey', value: 0 },
-      max: {
-        label: 'Activate EAP',
-        color: 'ibf-trigger-alert-primary',
-        value: 1,
-      },
-    },
-  })
-  public eapAlertClasses?: object;
-
   @ApiProperty({ example: {} })
   public droughtRegions?: object;
 }

@@ -1,4 +1,4 @@
-import { NotificationDataPerEventDto } from '../../dto/notification-date-per-event.dto';
+import { Event } from '../../../../shared/data.model';
 import {
   getFormattedDate,
   getSectionElement,
@@ -6,17 +6,17 @@ import {
 } from '../../helpers/mjml.helper';
 
 const getMjmlFinishedEvent = ({
-  disasterTypeLabel,
+  disasterType,
   eventName,
-  issuedDate,
+  firstIssuedDate,
   timezone,
 }: {
-  disasterTypeLabel: string;
+  disasterType: string;
   eventName: string;
-  issuedDate: string;
+  firstIssuedDate: Date;
   timezone: string;
-}): object => {
-  const belowThresholdText = `<strong>${disasterTypeLabel}: ${eventName} is now below threshold</strong>`;
+}) => {
+  const belowThresholdText = `<strong>${disasterType}: ${eventName} is now below threshold</strong>`;
   const portalText =
     'The events actions will continue to show on the IBF portal and can still be managed.';
 
@@ -30,7 +30,7 @@ const getMjmlFinishedEvent = ({
   });
 
   const warningIssuedDate = getTextElement({
-    content: `This warning was issued by the IBF portal on ${issuedDate} (${timezone})`,
+    content: `This warning was issued by the IBF portal on ${getFormattedDate({ date: firstIssuedDate })} (${timezone})`,
   });
 
   return getSectionElement({
@@ -41,23 +41,19 @@ const getMjmlFinishedEvent = ({
 
 export const getMjmlFinishedEvents = ({
   disasterType,
-  dataPerEvent,
+  events,
   timezone,
 }: {
   disasterType: string;
-  dataPerEvent: NotificationDataPerEventDto[];
+  events: Event[];
   timezone: string;
-}): object[] => {
-  const finishedEvents = [];
-  for (const event of dataPerEvent) {
-    finishedEvents.push(
-      getMjmlFinishedEvent({
-        disasterTypeLabel: disasterType,
-        eventName: event.eventName,
-        issuedDate: getFormattedDate({ date: event.issuedDate }),
-        timezone,
-      }),
-    );
-  }
-  return finishedEvents;
+}) => {
+  return events.map(({ eventName, firstIssuedDate }) =>
+    getMjmlFinishedEvent({
+      disasterType,
+      eventName,
+      firstIssuedDate,
+      timezone,
+    }),
+  );
 };

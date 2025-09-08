@@ -27,10 +27,7 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT_EXPOSED,
 } from 'src/app/config';
-import {
-  CountryDisasterSettings,
-  EapAlertClasses,
-} from 'src/app/models/country.model';
+import { CountryDisasterSettings } from 'src/app/models/country.model';
 import {
   CommunityNotification,
   DamSite,
@@ -126,22 +123,23 @@ export class PointMarkerService {
     events: Event[],
   ): Marker {
     const event = events.find(
-      (e) =>
-        e.eventName === markerProperties.stationCode ||
-        e.eventName === markerProperties.stationName, // NOTE: this assumes events to be defined per station, and eventName=stationCode or stationName
+      ({ eventName }) =>
+        eventName === markerProperties.stationCode ||
+        eventName === markerProperties.stationName, // NOTE: this assumes events to be defined per station, and eventName=stationCode or stationName
     );
     // This reflects to take the trigger leadTime and not the earlier warning leadTime, in case of warning-to-trigger scenario
-    const eventLeadTime = event?.firstTriggerLeadTime || event?.firstLeadTime;
+    const eventLeadTime = event?.firstTriggerLeadTime ?? event?.firstLeadTime;
     const markerTitle = markerProperties.stationName;
-    const eapAlertClass = markerProperties.dynamicData?.eapAlertClass || 'no';
-    const markerClassName = `glofas-station glofas-station-${eapAlertClass}`;
+    const eapAlertClassKey =
+      markerProperties.dynamicData?.eapAlertClass ?? 'no';
+    const markerClassName = `glofas-station glofas-station-${eapAlertClassKey}`;
     const markerIcon: IconOptions = {
       ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-      iconUrl: `assets/markers/glofas-station-${eapAlertClass}-trigger.svg`,
-      iconRetinaUrl: `assets/markers/glofas-station-${eapAlertClass}-trigger.svg`,
+      iconUrl: `assets/markers/glofas-station-${eapAlertClassKey}-trigger.svg`,
+      iconRetinaUrl: `assets/markers/glofas-station-${eapAlertClassKey}-trigger.svg`,
       className: markerClassName,
     };
-    const popupClassName = `trigger-popup-${eapAlertClass}`;
+    const popupClassName = `trigger-popup-${eapAlertClassKey}`;
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: markerIcon
@@ -151,11 +149,7 @@ export class PointMarkerService {
     });
 
     markerInstance.bindPopup(
-      this.createMarkerStationPopup(
-        markerProperties,
-        countryDisasterSettings,
-        eventLeadTime,
-      ),
+      this.createMarkerStationPopup(markerProperties, eventLeadTime),
       { minWidth: 350, className: popupClassName },
     );
 
@@ -440,25 +434,16 @@ export class PointMarkerService {
 
   private createMarkerStationPopup(
     markerProperties: Station,
-    countryDisasterSettings: CountryDisasterSettings,
     eventLeadTime: LeadTime,
   ) {
     const lastAvailableLeadTime: LeadTime = LeadTime.day7; // Agreed with pipeline that untriggered station will always show day 7
     const leadTime = eventLeadTime || lastAvailableLeadTime;
-    const eapAlertClasses =
-      countryDisasterSettings?.eapAlertClasses || ({} as EapAlertClasses);
     const component = this.componentFactoryResolver
       .resolveComponentFactory(DynamicPointPopupComponent)
       .create(this.injector);
 
     component.instance.layerName = IbfLayerName.glofasStations;
-
-    component.instance.glofasData = {
-      station: markerProperties,
-      leadTime,
-      eapAlertClasses,
-    };
-
+    component.instance.glofasData = { station: markerProperties, leadTime };
     component.changeDetectorRef.detectChanges();
 
     return component.location.nativeElement;

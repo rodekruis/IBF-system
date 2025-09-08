@@ -9,6 +9,9 @@ export default function manageUsersTests() {
 
     beforeAll(async () => {
       token = await getToken();
+
+      // create user to run tests with
+      await createUser(userData, token);
     });
 
     describe('create user', () => {
@@ -75,7 +78,7 @@ export default function manageUsersTests() {
     describe('change password', () => {
       it('should fail for unrecognized user', async () => {
         // Arrange
-        const email = 'unexisting-user@redcross.nl';
+        const email = 'unknown-email@redcross.nl';
         const newPassword = 'new-password';
 
         // Act
@@ -106,8 +109,7 @@ export default function manageUsersTests() {
         expect(changePasswordResult.status).toBe(201);
         expect(loginResult.status).toBe(201);
 
-        // Clean up: change password back as subsequent tests will fail otherwise
-        // REFACTOR: This is a code smell. We should not have to clean up after a test, but this is a pretty specific case.
+        // NOTE: change password back as subsequent tests will fail otherwise
         const changePasswordBackResult = await changePassword(
           userData.email,
           userData.password,

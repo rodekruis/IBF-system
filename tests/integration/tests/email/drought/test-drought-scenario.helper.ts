@@ -11,7 +11,7 @@ export async function testDroughtScenario(
   expectedEventNames: string[] = [],
   token: string,
 ): Promise<boolean> {
-  const nrOfEvents = expectedEventNames.length;
+  const eventCount = expectedEventNames.length;
   const mockResult = await mock(
     token,
     scenario,
@@ -45,7 +45,7 @@ export async function testDroughtScenario(
     (el) => (el as Element).textContent?.toLowerCase() ?? '',
   );
 
-  expect(eventNamesInEmail.length).toBe(nrOfEvents);
+  expect(eventNamesInEmail.length).toBe(eventCount);
 
   // Check if each expected event name is included in at least one title
   for (const expectedEventName of expectedEventNames) {

@@ -36,6 +36,7 @@ import {
   Country,
   CountryDisasterSettings,
   DisasterType,
+  eapAlertClasses,
 } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import {
@@ -314,11 +315,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
               elements.push(element);
             }
           } else if (layer.name === IbfLayerName.glofasStations) {
-            for (const glofasState of this.getGlofasStationStates()) {
+            for (const [key, value] of this.getEapAlertClasses(layer.data)) {
               const element = this.mapLegendService.getGlofasPointLegendString(
                 layer,
-                `-${glofasState.key}-trigger`,
-                glofasState.label,
+                `-${key}-trigger`,
+                value.label,
               );
 
               elements.push(element);
@@ -363,23 +364,15 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     );
   }
 
-  private getGlofasStationStates() {
-    const classes = [];
+  private getEapAlertClasses({ features }: GeoJSON.FeatureCollection) {
+    const eapAlertClassKeysInData = features
+      .map(({ properties }) => properties?.['dynamicData']?.eapAlertClass)
+      .filter(Boolean);
+    const uniqueEapAlertClassKeysInData = new Set(eapAlertClassKeysInData);
 
-    if (!this.countryDisasterSettings?.eapAlertClasses) {
-      return classes;
-    }
-
-    for (const [key, value] of Object.entries(
-      this.countryDisasterSettings?.eapAlertClasses,
-    )) {
-      classes.push({ key, label: value.label, value: value.value });
-    }
-    classes.sort((e1, e2) => {
-      return e2.value - e1.value;
-    });
-
-    return classes;
+    return Object.entries(eapAlertClasses)
+      .reverse()
+      .filter(([key]) => uniqueEapAlertClassKeysInData.has(key));
   }
 
   onMapReady(map: Map) {

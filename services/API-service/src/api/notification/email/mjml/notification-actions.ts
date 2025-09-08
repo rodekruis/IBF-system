@@ -5,12 +5,12 @@ import {
 
 export const getMjmlNotificationAction = ({
   linkDashboard,
-  linkEapSop,
+  eapLink,
   socialMediaLink,
   socialMediaType,
 }: {
   linkDashboard: string;
-  linkEapSop: string;
+  eapLink: string;
   socialMediaLink: string;
   socialMediaType: string;
 }): object => {
@@ -35,7 +35,7 @@ export const getMjmlNotificationAction = ({
 
   const aboutTriggerRow = getNotificationActionsSection({
     buttonText: `About Trigger`,
-    buttonLink: linkEapSop,
+    buttonLink: eapLink,
     description:
       'Read about the trigger methodology and the anticipatory actions.',
     primary: false,

@@ -38,7 +38,7 @@
 
     <p>
       <span class="font-semibold"
-        >{{ event.disasterSpecificProperties.eapAlertClass.label }}:
+        >{{ ALERT_LEVEL_LABEL[event.alertLevel] }}:
       </span>
       @if (typhoonLandfallText) {
         <span [innerHTML]="typhoonLandfallText"></span>

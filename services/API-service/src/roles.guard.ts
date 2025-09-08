@@ -38,6 +38,9 @@ export class RolesGuard implements CanActivate {
         return false;
       }
 
+      // add user to request object for use in controllers
+      req.user = user;
+
       // Then: if no roles specified for endpoint, then assume endpoint to be 'open' to any role (but log in required)
       const endpointRoles = this.reflector.get<UserRole[]>(
         'roles',

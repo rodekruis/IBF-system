@@ -70,7 +70,6 @@ export enum EapAlertClassKeyEnum {
 export class DisasterSpecificProperties {
   typhoonLandfall?: boolean;
   typhoonNoLandfallYet?: boolean;
-  eapAlertClass?: EapAlertClass;
 }
 
 export class Event {

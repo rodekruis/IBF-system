@@ -1,7 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LatLng } from 'leaflet';
-import { EapAlertClass, EapAlertClasses } from 'src/app/models/country.model';
+import {
+  defaultEapAlertClassKey,
+  EapAlertClass,
+  eapAlertClasses,
+  EapAlertClassKey,
+} from 'src/app/models/country.model';
 import { RiverGauge, Station } from 'src/app/models/poi.model';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { LeadTime } from 'src/app/types/lead-time';
@@ -27,11 +32,7 @@ export class DynamicPointPopupComponent implements OnInit {
   };
 
   @Input()
-  public glofasData?: {
-    station: Station;
-    leadTime: LeadTime;
-    eapAlertClasses: EapAlertClasses;
-  };
+  public glofasData?: { station: Station; leadTime: LeadTime };
 
   public typhoonData: { timestamp: string; category: string };
 
@@ -40,12 +41,8 @@ export class DynamicPointPopupComponent implements OnInit {
   public title: string;
   public footerContent: string;
 
-  public eapAlertClass: EapAlertClass;
-  private defautEapAlertClass: EapAlertClass = {
-    label: 'No action',
-    color: 'ibf-no-alert-primary',
-    value: 0,
-  };
+  private eapAlertClassKey: EapAlertClassKey = defaultEapAlertClassKey;
+  private eapAlertClass: EapAlertClass;
 
   public headerClass = { 'rounded-t-lg p-2 text-white': true };
   public footerClass = {
@@ -82,15 +79,13 @@ export class DynamicPointPopupComponent implements OnInit {
       this.headerClass['bg-ibf-no-alert-primary'] = true;
     }
 
-    if (
-      this.layerName === IbfLayerName.glofasStations &&
-      this.glofasData.eapAlertClasses
-    ) {
-      this.eapAlertClass =
-        this.glofasData.eapAlertClasses[
-          this.glofasData.station.dynamicData?.eapAlertClass
-        ] ?? this.defautEapAlertClass;
+    if (this.layerName === IbfLayerName.glofasStations) {
+      if (this.glofasData.station.dynamicData?.eapAlertClass) {
+        this.eapAlertClassKey =
+          this.glofasData.station.dynamicData?.eapAlertClass;
+      }
 
+      this.eapAlertClass = eapAlertClasses[this.eapAlertClassKey];
       this.headerClass['bg-' + this.eapAlertClass.color] = true;
 
       this.headerClass['text-' + this.eapAlertClass.textColor] =

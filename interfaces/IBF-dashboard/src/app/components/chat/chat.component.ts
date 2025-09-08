@@ -21,7 +21,8 @@ import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import {
-  AlertLevel,
+  ALERT_LEVEL_COLOUR,
+  ALERT_LEVEL_TEXT_COLOUR,
   Event,
   EventService,
 } from 'src/app/services/event.service';
@@ -369,47 +370,10 @@ export class ChatComponent implements OnInit, OnDestroy {
   }
 
   public getCardColors(event: Event): CardColors {
-    const defaultColors = {
-      iconColor: 'var(--ion-color-ibf-black)',
-      headerTextColor: 'var(--ion-color-ibf-black)',
-      borderColor: null,
-    };
-
-    if (!event) {
-      return defaultColors;
-    }
-
-    if (!event.disasterSpecificProperties) {
-      if (event.alertLevel !== AlertLevel.TRIGGER) {
-        return defaultColors;
-      }
-
-      return {
-        iconColor: 'var(--ion-color-fiveten-red-500)',
-        headerTextColor: 'var(--ion-color-fiveten-red-500)',
-        borderColor: 'var(--ion-color-fiveten-red-500)',
-      };
-    }
-
-    if (!event.disasterSpecificProperties.eapAlertClass) {
-      if (event.alertLevel !== AlertLevel.TRIGGER) {
-        return defaultColors;
-      }
-
-      return {
-        iconColor: 'var(--ion-color-fiveten-red-500)',
-        headerTextColor: 'var(--ion-color-fiveten-red-500)',
-        borderColor: 'var(--ion-color-fiveten-red-500)',
-      };
-    }
-
     return {
-      iconColor: `var(--ion-color-${event.disasterSpecificProperties.eapAlertClass.color})`,
-      headerTextColor: `var(--ion-color-${
-        event.disasterSpecificProperties.eapAlertClass.textColor ||
-        event.disasterSpecificProperties.eapAlertClass.color
-      })`,
-      borderColor: `var(--ion-color-${event.disasterSpecificProperties.eapAlertClass.color})`,
+      iconColor: ALERT_LEVEL_COLOUR[event.alertLevel],
+      headerTextColor: ALERT_LEVEL_TEXT_COLOUR[event.alertLevel],
+      borderColor: ALERT_LEVEL_COLOUR[event.alertLevel],
     };
   }
 }

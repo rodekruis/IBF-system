@@ -91,6 +91,10 @@ export class WhatsappService {
     contentSid: string;
     contentVariables: object;
   }> {
+    const lastUploadDate = await this.helperService.getLastUploadDate(
+      country.countryCodeISO3,
+      disasterType,
+    );
     activeEvents.sort((a, b) => (a.firstLeadTime > b.firstLeadTime ? 1 : -1));
     let message: string;
     let contentSid: string;
@@ -109,10 +113,10 @@ export class WhatsappService {
           ? 'trigger'
           : 'warning'; // REFACTOR: alert level none is not handled
       const startTimeEvent =
-        await this.notificationContentService.getFirstLeadTimeString(
-          activeEvents[0],
+        await this.notificationContentService.getEventTimeString(
+          activeEvents[0].firstLeadTime,
           country.countryCodeISO3,
-          disasterType,
+          lastUploadDate,
         );
 
       message = baseMessage
@@ -142,10 +146,10 @@ export class WhatsappService {
         ].contentSid;
 
       const startTimeFirstEvent =
-        await this.notificationContentService.getFirstLeadTimeString(
-          activeEvents[0],
+        await this.notificationContentService.getEventTimeString(
+          activeEvents[0].firstLeadTime,
           country.countryCodeISO3,
-          disasterType,
+          lastUploadDate,
         );
 
       message = baseMessage
@@ -427,11 +431,16 @@ export class WhatsappService {
       areaList += row;
     }
 
+    const lastUploadDate = await this.helperService.getLastUploadDate(
+      country.countryCodeISO3,
+      disasterType,
+    );
+
     const startTimeEvent =
-      await this.notificationContentService.getFirstLeadTimeString(
-        event,
+      await this.notificationContentService.getEventTimeString(
+        event.firstLeadTime,
         country.countryCodeISO3,
-        disasterType,
+        lastUploadDate,
       );
 
     const followUpMessage =
