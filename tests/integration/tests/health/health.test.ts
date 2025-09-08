@@ -43,11 +43,13 @@ export default function healthTests(token: string) {
 
     it('should return API authentication working', async () => {
       // Act
-      const healthCheck = await api(token).get('/authentication');
+      const authCheck = await api(token).get('/authentication');
 
       // Assert
-      expect(healthCheck.status).toBe(200);
-      expect(healthCheck.body).toBe('API authentication working');
+      expect(authCheck.status).toBe(200);
+      expect(authCheck.body).toBe({
+        message: 'You are logged in as dunant@redcross.nl with role operator',
+      });
     });
 
     it('should return database status', async () => {

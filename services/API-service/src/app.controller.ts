@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Request, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -10,6 +10,7 @@ import {
   TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
 
+import { User } from './api/user/user.model';
 import { RolesGuard } from './roles.guard';
 
 @ApiTags('--app--')
@@ -30,11 +31,16 @@ export class AppController {
   @Get('authentication')
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
-  @ApiOperation({ summary: 'Check if API authentication is working' })
-  @ApiResponse({ status: 200, description: 'API authentication working' })
-  @ApiResponse({ status: 403, description: 'API authentication NOT working' })
-  public checkAuthentication(): string {
-    return 'API authentication working';
+  @ApiOperation({ summary: 'Check your authentication status' })
+  @ApiResponse({
+    status: 200,
+    description: 'You are logged in as user@example.nl with role viewer',
+  })
+  @ApiResponse({ status: 403, description: 'Forbidden' })
+  public checkAuthentication(@Request() req: { user: { user: User } }) {
+    return {
+      message: `You are logged in as ${req.user.user.email} with role ${req.user.user.userRole}`,
+    };
   }
 
   @ApiOperation({ summary: 'Check database connection' })
