@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dialogue-turn',
@@ -6,7 +6,7 @@ import { Component, Input, OnChanges } from '@angular/core';
   styleUrls: ['./dialogue-turn.component.scss'],
   standalone: false,
 })
-export class DialogueTurnComponent implements OnChanges {
+export class DialogueTurnComponent {
   @Input()
   firstIssuedDate: string;
 
@@ -18,20 +18,4 @@ export class DialogueTurnComponent implements OnChanges {
 
   @Input()
   borderColor = null;
-
-  public mouseOver = false;
-
-  ngOnChanges(): void {
-    if (!this.isSelected) {
-      this.mouseOver = false;
-    }
-  }
-
-  public onMouseOver() {
-    this.mouseOver = true;
-  }
-
-  public onMouseOut() {
-    this.mouseOver = false;
-  }
 }
