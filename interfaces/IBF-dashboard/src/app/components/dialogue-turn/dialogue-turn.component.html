@@ -8,10 +8,10 @@
   <div class="dialogue-turn--content">
     <ion-card
       [style.border-color]="mouseOver || isSelected ? borderColor : null"
-      (mouseover)="onMouseOver()"
-      (focus)="onMouseOver()"
-      (mouseout)="onMouseOut()"
-      (blur)="onMouseOut()"
+      (mouseover)="mouseOver = true"
+      (focus)="mouseOver = true"
+      (mouseout)="mouseOver = false"
+      (blur)="mouseOver = false"
     >
       <ion-card-content data-testid="dialogue-turn-content" class="space-y-2">
         <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
