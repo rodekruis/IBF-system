@@ -18,4 +18,6 @@ export class DialogueTurnComponent {
 
   @Input()
   borderColor = null;
+
+  public mouseOver = false;
 }
