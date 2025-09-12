@@ -1,3 +1,13 @@
+## [0.325.1](https://github.com/rodekruis/IBF-system/compare/v0.325.0...v0.325.1) (2025-09-12)
+
+
+### Bug Fixes
+
+* add variable in component ([c9d8f00](https://github.com/rodekruis/IBF-system/commit/c9d8f00c6b09c8977990f006145f00cb5ff6b613))
+* remove hover listener ([7794ff7](https://github.com/rodekruis/IBF-system/commit/7794ff7ad90ac00288359f77c4249eb22941dc25))
+
+
+
 # [0.325.0](https://github.com/rodekruis/IBF-system/compare/v0.324.0...v0.325.0) (2025-09-08)
 
 
@@ -107,15 +117,6 @@
 ### Bug Fixes
 
 * typo in lesotho forecast source ([03059ff](https://github.com/rodekruis/IBF-system/commit/03059ff9a63176c98d61a9679f99cbdca9a0de3e))
-
-
-
-## [0.321.8](https://github.com/rodekruis/IBF-system/compare/v0.321.7...v0.321.8) (2025-07-30)
-
-
-### Bug Fixes
-
-* remove dunant user countries before update ([5b07cab](https://github.com/rodekruis/IBF-system/commit/5b07cabe857cd12c56b32367dbc637be15b26802))
 
 
 
