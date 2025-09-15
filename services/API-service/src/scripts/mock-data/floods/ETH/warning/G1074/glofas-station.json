@@ -1,0 +1,16 @@
+[
+  {
+    "stationCode": "G1074",
+    "forecastLevel": 2800,
+    "eapAlertClass": "med",
+    "forecastReturnPeriod": 5,
+    "triggerLevel": 3000
+  },
+  {
+    "stationCode": "G1067",
+    "forecastLevel": 800,
+    "eapAlertClass": "no",
+    "forecastReturnPeriod": 5,
+    "triggerLevel": 3000
+  }
+]
