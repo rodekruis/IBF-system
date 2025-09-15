@@ -5,6 +5,10 @@
     "events": [{ "eventName": "G1067", "leadTime": "4-day" }]
   },
   {
+    "scenarioName": "warning",
+    "events": [{ "eventName": "G1074", "leadTime": "4-day" }]
+  },
+  {
     "scenarioName": "no-trigger"
   }
 ]
