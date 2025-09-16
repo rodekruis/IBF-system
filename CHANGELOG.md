@@ -1,3 +1,17 @@
+# [0.326.0](https://github.com/rodekruis/IBF-system/compare/v0.325.1...v0.326.0) (2025-09-16)
+
+
+### Bug Fixes
+
+* use text colour for low warning ([6edca64](https://github.com/rodekruis/IBF-system/commit/6edca643e55610521e489ba6e72cf555f9b0088a))
+
+
+### Features
+
+* add warning scenario for eth flood ([ae776c3](https://github.com/rodekruis/IBF-system/commit/ae776c3d255af5da5fc276c79f0df63c87c67a47))
+
+
+
 ## [0.325.1](https://github.com/rodekruis/IBF-system/compare/v0.325.0...v0.325.1) (2025-09-12)
 
 
@@ -108,15 +122,6 @@
 * add logs to seed admin areas ([6d36a83](https://github.com/rodekruis/IBF-system/commit/6d36a831a96f0930e5c53691e222845791f3345b))
 * add mock scenarios ([9fd1768](https://github.com/rodekruis/IBF-system/commit/9fd1768fbe039469f0338d6997b52eb71408a844))
 * remove red cross branch layer for countries with no data ([3a9f5ba](https://github.com/rodekruis/IBF-system/commit/3a9f5ba99629214d527f5f2544148d266ce18b7f))
-
-
-
-## [0.321.9](https://github.com/rodekruis/IBF-system/compare/v0.321.8...v0.321.9) (2025-07-30)
-
-
-### Bug Fixes
-
-* typo in lesotho forecast source ([03059ff](https://github.com/rodekruis/IBF-system/commit/03059ff9a63176c98d61a9679f99cbdca9a0de3e))
 
 
 
