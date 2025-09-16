@@ -7,7 +7,10 @@ import {
   MarkerClusterGroup,
 } from 'leaflet';
 import { LayerActivation } from 'src/app/models/layer-activation.enum';
+import { AlertLevel } from 'src/app/services/event.service';
+import { AdminLevel } from 'src/app/types/admin-level';
 import { NumberFormat } from 'src/app/types/indicator-group';
+import { LeadTime } from 'src/app/types/lead-time';
 
 export class IbfLayerMetadata {
   name: IbfLayerName;
@@ -191,4 +194,21 @@ export enum LeafletPane {
   overlayPane = 'overlayPane',
   popupPane = 'popup',
   wmsPane = 'ibf-wms',
+}
+
+export interface AdminAreaProperties {
+  adminLevel: AdminLevel;
+  alertLevel: AlertLevel;
+  countryCodeISO3: string;
+  date: string;
+  eventName: string;
+  forecastSeverity: number;
+  forecastTrigger: boolean;
+  leadTime: LeadTime;
+  name: string;
+  nameParent: string;
+  placeCode: string;
+  placeCodeParent: string;
+  userTrigger: boolean;
+  indicators: Record<IbfLayerName, number>;
 }

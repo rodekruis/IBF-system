@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import bbox from '@turf/bbox';
 import { containsNumber } from '@turf/invariant';
+import Gradient from 'javascript-color-gradient';
 import { CRS, LatLngBoundsLiteral } from 'leaflet';
 import { BehaviorSubject, Observable, of, zip } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -13,7 +14,11 @@ import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { AlertLevel, EventService } from 'src/app/services/event.service';
+import {
+  ALERT_LEVEL_COLOUR,
+  AlertLevel,
+  EventService,
+} from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
@@ -21,6 +26,7 @@ import { AlertArea } from 'src/app/types/alert-area';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { EventState } from 'src/app/types/event-state';
 import {
+  AdminAreaProperties,
   ColorBreaks,
   IbfLayer,
   IbfLayerGroup,
@@ -724,14 +730,24 @@ export class MapService {
     );
   }
 
+  getColourGradient(colour: string): string[] {
+    return new Gradient()
+      .setColorGradient('#FFFFFF', colour)
+      .getColors()
+      .filter((_: unknown, i: number) => i % 2 === 1);
+  }
+
   getAdminRegionFillColor = (
-    colorPropertyValue,
+    colorPropertyValue: number,
     colorThreshold: { break0: number },
+    alertLevel: AlertLevel,
   ): string => {
+    console.log('getAdminRegionFillColor', colorPropertyValue, colorThreshold);
+
     let adminRegionFillColor = this.state.defaultFillColor;
-    const currentColorGradient = this.eventState.events?.length
-      ? this.state.colorGradientAlert
-      : this.state.colorGradientNoAlert;
+    const currentColorGradient = this.getColourGradient(
+      ALERT_LEVEL_COLOUR[alertLevel],
+    );
 
     switch (true) {
       case colorPropertyValue === null:
@@ -826,9 +842,11 @@ export class MapService {
     return name.slice(-1) < String(this.adminLevel);
   };
 
-  getAdminRegionColor = (layer: IbfLayer): string => {
+  getAdminRegionColor = (layer: IbfLayer, alertLevel: AlertLevel): string => {
+    console.log('getAdminRegionColor', layer, alertLevel);
+
     return layer.group === IbfLayerGroup.adminRegions
-      ? this.state.strokeColor
+      ? ALERT_LEVEL_COLOUR[alertLevel]
       : this.state.transparentColor;
   };
 
@@ -899,32 +917,30 @@ export class MapService {
       layer.colorBreaks,
     );
 
-    return (adminRegion) => {
-      const placeCode: string = adminRegion.properties.placeCode;
-      const colorPropertyValue: string =
-        typeof adminRegion.properties[colorProperty] !== 'undefined'
-          ? adminRegion.properties[colorProperty]
-          : typeof adminRegion.properties.indicators !== 'undefined'
-            ? adminRegion.properties.indicators[colorProperty]
-            : 'undefined';
+    return (adminRegion: GeoJSON.Feature<undefined, AdminAreaProperties>) => {
+      const placeCode = adminRegion.properties.placeCode;
+      const colorPropertyValue = (adminRegion.properties[colorProperty] ??
+        adminRegion.properties.indicators[colorProperty] ??
+        0) as number; // REFACTOR: remove typecast
+      const fillColor = this.getAdminRegionFillColor(
+        colorPropertyValue,
+        colorThreshold,
+        adminRegion.properties.alertLevel,
+      );
+      const fillOpacity = this.getAdminRegionFillOpacity(layer);
+      const weight = this.getAdminRegionWeight(layer, placeCode);
+      const color = this.getAdminRegionColor(
+        layer,
+        adminRegion.properties.alertLevel,
+      );
 
-      if (colorPropertyValue !== 'undefined') {
-        const fillColor = this.getAdminRegionFillColor(
-          colorPropertyValue,
-          colorThreshold,
-        );
-        const fillOpacity = this.getAdminRegionFillOpacity(layer);
-        const weight = this.getAdminRegionWeight(layer, placeCode);
-        const color = this.getAdminRegionColor(layer);
-
-        return {
-          fillColor,
-          fillOpacity,
-          weight,
-          color,
-          className: `admin-boundary ${layer.name}`,
-        };
-      }
+      return {
+        fillColor,
+        fillOpacity,
+        weight,
+        color,
+        className: `admin-boundary ${layer.name}`,
+      };
     };
   };
 
