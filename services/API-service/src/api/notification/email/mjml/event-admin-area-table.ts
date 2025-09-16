@@ -1,8 +1,8 @@
 import { AlertArea } from '../../../../shared/data.model';
 import { NumberFormat } from '../../../../shared/enums/number-format.enum';
 import {
-  ALERT_LEVEL_COLOUR,
   ALERT_LEVEL_LABEL,
+  ALERT_LEVEL_TEXT_COLOUR,
   AlertLevel,
 } from '../../../event/enum/alert-level.enum';
 import { IndicatorMetadataEntity } from '../../../metadata/indicator-metadata.entity';
@@ -39,7 +39,7 @@ const getMjmlEventAdminAreaTable = ({
   const titleElement = getTextElement({
     content: `${icon} <strong>${ALERT_LEVEL_LABEL[alertLevel]}: ${eventName}</strong>`,
     attributes: {
-      color: ALERT_LEVEL_COLOUR[alertLevel],
+      color: ALERT_LEVEL_TEXT_COLOUR[alertLevel],
       'container-background-color': COLOR_WHITE,
       align: 'center',
       padding: '8px 24px',
