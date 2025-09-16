@@ -5,8 +5,8 @@ import { ForecastSource } from '../../../country/country-disaster.entity';
 import { DisasterType } from '../../../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../../../event/dto/last-upload-date.dto';
 import {
-  ALERT_LEVEL_COLOUR,
   ALERT_LEVEL_LABEL,
+  ALERT_LEVEL_TEXT_COLOUR,
   ALERT_LEVEL_WARNINGS,
   AlertLevel,
 } from '../../../event/enum/alert-level.enum';
@@ -275,7 +275,7 @@ export const getMjmlEventListBody = async (
         eapLink,
 
         disasterIssuedLabel: ALERT_LEVEL_LABEL[alertLevel],
-        textColour: ALERT_LEVEL_COLOUR[alertLevel],
+        textColour: ALERT_LEVEL_TEXT_COLOUR[alertLevel],
         forecastSource: countryDisasterSetting.forecastSource,
         userTriggerData: userTrigger // Hide forecast source for "set" triggers
           ? userTriggerData
