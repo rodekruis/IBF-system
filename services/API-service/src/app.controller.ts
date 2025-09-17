@@ -1,4 +1,4 @@
-import { Controller, Get, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -10,6 +10,7 @@ import {
   TypeOrmHealthIndicator,
 } from '@nestjs/terminus';
 
+import { UserDecorator } from './api/user/user.decorator';
 import { User } from './api/user/user.model';
 import { RolesGuard } from './roles.guard';
 
@@ -37,10 +38,8 @@ export class AppController {
     description: 'You are logged in as user@example.nl with role viewer',
   })
   @ApiResponse({ status: 403, description: 'Forbidden' })
-  public checkAuthentication(@Request() req: { user: { user: User } }) {
-    return {
-      message: `You are logged in as ${req.user.user.email} with role ${req.user.user.userRole}`,
-    };
+  public checkAuthentication(@UserDecorator() { email, userRole }: User) {
+    return { message: `You are logged in as ${email} with role ${userRole}` };
   }
 
   @ApiOperation({ summary: 'Check database connection' })
