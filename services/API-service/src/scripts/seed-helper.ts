@@ -91,7 +91,7 @@ export class SeedHelper {
     dunantUser.countries = await countryRepository.find();
     dunantUser.disasterTypes = await disasterTypeRepository.find();
 
-    await userRepository.save(dunantUser);
+    await userRepository.upsert(dunantUser, ['email']);
   }
 
   public async updateDunantUser(dunantUser: UserEntity) {
@@ -123,6 +123,6 @@ export class SeedHelper {
     // update password from env
     dunantUser.password = process.env.DUNANT_PASSWORD;
 
-    await userRepository.save(dunantUser);
+    await userRepository.upsert(dunantUser, ['email']);
   }
 }
