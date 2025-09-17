@@ -120,7 +120,7 @@ export class EmailService {
     );
 
     const bcc = users
-      .filter(({ email }) => email != DUNANT_EMAIL)
+      .filter(({ email }) => email !== DUNANT_EMAIL)
       .map(({ email }) => email);
 
     subject = this.getSubject(subject);
