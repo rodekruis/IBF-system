@@ -20,7 +20,7 @@ import {
   getMjmlAdminAreaTableList,
 } from './mjml/event-admin-area-table';
 import { getMjmlFinishedEvents } from './mjml/event-finished';
-import { getIbfFooter, getMailchimpFooter } from './mjml/footer';
+import { getIbfFooter, getLegalFooter } from './mjml/footer';
 import { getMjmlHeader } from './mjml/header';
 import { getMjmlNotificationAction } from './mjml/notification-actions';
 import { getMjmlTriggerStatement } from './mjml/trigger-statement';
@@ -38,27 +38,26 @@ export class MjmlService {
   });
 
   private header = ({
-    emailContent,
+    contentEventEmail,
     date,
   }: {
-    emailContent: ContentEventEmail;
+    contentEventEmail: ContentEventEmail;
     date: Date;
   }) =>
     getMjmlHeader({
       disasterTypeLabel: firstCharOfWordsToUpper(
-        emailContent.disasterType.label,
+        contentEventEmail.disasterType.label,
       ),
-      eventCount: emailContent.events.length,
+      eventCount: contentEventEmail.events.length,
       sentOnDate: getFormattedDate({ date }),
-      logosSrc:
-        emailContent.country.notificationInfo.logo[
-          emailContent.disasterType.disasterType
-        ],
+      logos:
+        contentEventEmail.country.countryLogos[
+          contentEventEmail.disasterType.disasterType
+        ] ?? [],
     });
-
   private footer = ({ countryName }: { countryName: string }) => [
     getIbfFooter({ countryName }),
-    getMailchimpFooter(),
+    getLegalFooter(),
   ];
 
   private notificationAction = ({
@@ -80,21 +79,21 @@ export class MjmlService {
     });
 
   public async getActiveEventEmailHtmlOutput({
-    emailContent,
+    contentEventEmail,
     date,
   }: {
-    emailContent: ContentEventEmail;
+    contentEventEmail: ContentEventEmail;
     date: Date;
   }) {
     const children = [];
 
-    children.push(this.header({ emailContent, date }));
+    children.push(this.header({ contentEventEmail, date }));
 
     children.push(this.mailOpening);
 
     children.push(
       ...(await getMjmlEventListBody(
-        emailContent,
+        contentEventEmail,
         this.notificationContentService.getEventTimeString.bind(
           this.notificationContentService,
         ),
@@ -104,19 +103,19 @@ export class MjmlService {
     children.push(
       this.notificationAction({
         linkDashboard: process.env.DASHBOARD_URL,
-        eapLink: emailContent.eapLink,
+        eapLink: contentEventEmail.eapLink,
         socialMediaLink:
-          emailContent.country.notificationInfo.linkSocialMediaUrl ?? '',
+          contentEventEmail.country.notificationInfo.linkSocialMediaUrl ?? '',
         socialMediaType:
-          emailContent.country.notificationInfo.linkSocialMediaType ?? '',
+          contentEventEmail.country.notificationInfo.linkSocialMediaType ?? '',
       }),
     );
 
     children.push(
       getMjmlTriggerStatement({
         triggerStatement:
-          emailContent.country.notificationInfo.triggerStatement[
-            emailContent.disasterType.disasterType
+          contentEventEmail.country.notificationInfo.triggerStatement[
+            contentEventEmail.disasterType.disasterType
           ],
       }),
     );
@@ -124,13 +123,13 @@ export class MjmlService {
     children.push(
       getMjmlAdminAreaDisclaimer(),
       ...getMjmlAdminAreaTableList(
-        emailContent,
+        contentEventEmail,
         this.helperService.toCompactNumber,
       ),
     );
 
     children.push(
-      ...this.footer({ countryName: emailContent.country.countryName }),
+      ...this.footer({ countryName: contentEventEmail.country.countryName }),
     );
 
     const emailObject = {
@@ -150,39 +149,39 @@ export class MjmlService {
   }
 
   public getEventFinishedEmailHtmlOutput({
-    emailContent,
+    contentEventEmail: contentEventEmail,
     date,
   }: {
-    emailContent: ContentEventEmail;
+    contentEventEmail: ContentEventEmail;
     date: Date;
   }): string {
     const children = [];
 
-    children.push(this.header({ emailContent, date }));
+    children.push(this.header({ contentEventEmail, date }));
 
     children.push(this.mailOpening);
 
     children.push(
       ...getMjmlFinishedEvents({
-        disasterType: emailContent.disasterType.disasterType,
-        events: emailContent.events,
-        timezone: getTimezoneDisplay(emailContent.country.countryCodeISO3),
+        disasterType: contentEventEmail.disasterType.disasterType,
+        events: contentEventEmail.events,
+        timezone: getTimezoneDisplay(contentEventEmail.country.countryCodeISO3),
       }),
     );
 
     children.push(
       this.notificationAction({
         linkDashboard: process.env.DASHBOARD_URL,
-        eapLink: emailContent.eapLink,
+        eapLink: contentEventEmail.eapLink,
         socialMediaLink:
-          emailContent.country.notificationInfo.linkSocialMediaUrl ?? '',
+          contentEventEmail.country.notificationInfo.linkSocialMediaUrl ?? '',
         socialMediaType:
-          emailContent.country.notificationInfo.linkSocialMediaType ?? '',
+          contentEventEmail.country.notificationInfo.linkSocialMediaType ?? '',
       }),
     );
 
     children.push(
-      ...this.footer({ countryName: emailContent.country.countryName }),
+      ...this.footer({ countryName: contentEventEmail.country.countryName }),
     );
 
     const emailObject = {

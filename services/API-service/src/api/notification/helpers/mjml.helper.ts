@@ -22,7 +22,6 @@ export const COLOR_BROWN = '#241C15';
 
 const emailFolder = './src/api/notification/email';
 const emailIconFolder = `${emailFolder}/icons`;
-const emailLogoFolder = `${emailFolder}/logos`;
 
 const HEAD_ATTRIBUTES = {
   tagName: 'mj-attributes',
@@ -265,7 +264,7 @@ export const getPngImageAsDataURL = (relativePath: string) => {
 };
 
 export const getLogoImageAsDataURL = () => {
-  const filePath = `${emailLogoFolder}/logo-IBF.png`;
+  const filePath = `${emailIconFolder}/ibf.png`;
   return getPngImageAsDataURL(filePath);
 };
 

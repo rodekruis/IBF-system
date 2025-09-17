@@ -6,7 +6,9 @@ import { Readable } from 'stream';
 import { DataSource } from 'typeorm';
 
 import { CountryEntity } from '../api/country/country.entity';
+import { DisasterTypeEntity } from '../api/disaster-type/disaster-type.entity';
 import { UserEntity } from '../api/user/user.entity';
+import { UserRole } from '../api/user/user-role.enum';
 import { DUNANT_EMAIL } from '../config';
 
 export class SeedHelper {
@@ -72,11 +74,33 @@ export class SeedHelper {
     }
   }
 
+  public async createDunantUser() {
+    this.logger.log('Create DUNANT user...');
+
+    const userRepository = this.dataSource.getRepository(UserEntity);
+    const countryRepository = this.dataSource.getRepository(CountryEntity);
+    const disasterTypeRepository =
+      this.dataSource.getRepository(DisasterTypeEntity);
+
+    const dunantUser = new UserEntity();
+    dunantUser.email = DUNANT_EMAIL;
+    dunantUser.firstName = 'Henry';
+    dunantUser.lastName = 'Dunant';
+    dunantUser.userRole = UserRole.Admin;
+    dunantUser.password = process.env.DUNANT_PASSWORD;
+    dunantUser.countries = await countryRepository.find();
+    dunantUser.disasterTypes = await disasterTypeRepository.find();
+
+    await userRepository.save(dunantUser);
+  }
+
   public async updateDunantUser(dunantUser: UserEntity) {
     this.logger.log('Update DUNANT user...');
 
     const userRepository = this.dataSource.getRepository(UserEntity);
     const countryRepository = this.dataSource.getRepository(CountryEntity);
+    const disasterTypeRepository =
+      this.dataSource.getRepository(DisasterTypeEntity);
 
     // remove existing countries to avoid duplication errors
     await userRepository
@@ -85,8 +109,16 @@ export class SeedHelper {
       .of(dunantUser)
       .remove(dunantUser.countries);
 
-    // grant dunant user access to all countries
+    // remove existing disaster types to avoid duplication errors
+    await userRepository
+      .createQueryBuilder('user')
+      .relation(UserEntity, 'disasterTypes')
+      .of(dunantUser)
+      .remove(dunantUser.disasterTypes);
+
+    // grant dunant user access to all countries and disaster types
     dunantUser.countries = await countryRepository.find();
+    dunantUser.disasterTypes = await disasterTypeRepository.find();
 
     // update password from env
     dunantUser.password = process.env.DUNANT_PASSWORD;

@@ -2,9 +2,6 @@ name: 'e2e'
 description: 'Run end-to-end tests'
 
 inputs:
-  mailchimp-api-key:
-    description: 'Mailchimp API key'
-    required: true
   azure-dev-url:
     description: 'Azure DevOps URL'
     required: true
@@ -48,7 +45,6 @@ runs:
     - name: Run IBF API-service and IBF Geoserver
       shell: bash
       env:
-        MC_API: ${{ inputs.mailchimp-api-key }}
         SMTP_HOST: ${{ inputs.smtp-host }}
         SMTP_PORT: ${{ inputs.smtp-port }}
         SMTP_SECURE: ${{ inputs.smtp-secure }}

@@ -1,10 +1,6 @@
 [
   {
     "countryCodeISO3": "UGA",
-    "logo": {
-      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/79e11aea-b32e-38b3-8cdf-f07c7c98e58c.png",
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/79e11aea-b32e-38b3-8cdf-f07c7c98e58c.png"
-    },
     "triggerStatement": {
       "floods": "URCS will activate this EAP when GloFAS issues a forecast of at least 60% probability (based on the different ensemble runs) of a 5-year return period flood occurring in flood prone districts, which will be anticipated to affect more than 1,000hh. The EAP will be activated when there is a lead time of 5 days and a False Alarm Ratio (FAR) of not more than 0.5.<br><br>Please be aware that you might receive flood alerts, but the EAP may not be activated under the following conditions:<ul><li>The lead time is less than 5 days, even if the forecast meets the required probability and impact thresholds.</li><li>Forecasts indicate a medium warning (2-year return period) or low warning (1.5-year return period).</li></ul>In these cases, please consider alternative response processes outside the EAP.",
       "drought": "The primary trigger mechanism uses rainfall forecasts based on ECMWF before the start of the season. This trigger will provide information with a lead time of up to 3 months. The trigger values for this trigger are for more than 30% of the geographical area of a district (admin level 2) predicting drier than normal (below average rainfall) conditions. The rainfall values are based on the seasonal rainfall forecast issued by ECMWF. The probability of below normal rain should be at least 45% based on probabilistic forecast information provided by ECMWF."
@@ -28,10 +24,6 @@
   },
   {
     "countryCodeISO3": "PHL",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/9b078528-da7b-9a8c-6f6a-686a5a705e0a.png",
-      "typhoon": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/9b078528-da7b-9a8c-6f6a-686a5a705e0a.png"
-    },
     "triggerStatement": {
       "floods": "The Flood Early Action Protocol (EAP) will be triggered 3 days before the flood when the forecast of the GloFAS is predicting with more than 70% probability the occurrence of a 1 in 5 years return period flood (at least), in any of the 4 targeted river basins. Then the corresponding flood extent will be overlayed on the rice crop map to estimate the flood impact in the concerned river basin, allowing the selection of the municipalities where to focus the anticipatory actions (where for instance the predicted impact is more than 50% of crops possibly affected, or between 30-50%).<br><br>Be aware that if a flood alert is issued with less than 3 days of lead time, the EAP may not be activated, please consider alternative response options.",
       "typhoon": "<b>Typhoon EAP of The Philippine Red Cross (2024 – 2028)</b><br><br>Statement 1: This EAP will be activated when 72 hours before the anticipated landfall if the 510 model indicates at least three (3) municipalities in a province that will have 10% of their houses damaged.<br><br>Statement 2: This EAP will be activated when 72 hours before the anticipated typhoon landfall if the 510 model indicates a minimum 50% likelihood of the typhoon causing complete damage to over 200,000 houses across the country. Additionally, the EAP will be activated under conditions of a 60% likelihood of complete damage to more than 160,000 houses, or a 70% likelihood of complete damage to more than 90,000 houses, or an 80% likelihood of complete damage to more than 50,000 houses.<br><br>Statement 3 (new): When PAGASA issues a typhoon bulletin with a predicted forecast that a Tropical Cyclone will reach a) 185km/h in Central or Northern Luzon (Region 1) or b) 185 km/h in Eastern Visayas, Bicol or Calabarzon (Region 2) or c) 118 km/h in Caraga or Davao regions 72 hours before the expected landfall (Region 3), then this EAP will be activated.<br><br>Download more data about the current trigger <a href='https://510ibfsystem.blob.core.windows.net/ibftyphoonforecast/ibf_model_results/model_outputs.zip'>here</a>."
@@ -43,9 +35,6 @@
   },
   {
     "countryCodeISO3": "ZMB",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/70b81676-d8bd-cd07-afb1-4e7d8da9581b.png"
-    },
     "triggerStatement": {
       "floods": "The trigger is activated if the daily issued GLOFAS forecast reports a water discharge that exceeds the threshold corresponding to a 10y return period flood in one or more GLOFAS stations, with at least 80% probability. The EAP will be triggered with a lead time of 7 days.<br><br>Please be aware that you might receive flood alerts, but the EAP may not be activated under the following conditions:</li><li>The lead time is less than 5 days, even if the forecast meets the required probability and impact thresholds.</li><li>Forecasts indicate a medium warning (70% probability) or low warning (60% probability).</li></ul>In these cases, please consider alternative response processes outside the EAP."
     },
@@ -56,10 +45,6 @@
   },
   {
     "countryCodeISO3": "KEN",
-    "logo": {
-      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/69a16c94-f1a8-ff36-89d2-84f7336d5883.png",
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/69a16c94-f1a8-ff36-89d2-84f7336d5883.png"
-    },
     "triggerStatement": {
       "floods": "This EAP will be triggered when GloFAS issues a forecast where a trigger level will be exceeded and the probability of exceedance is at least the probability indicated. Three trigger levels were defined for this EAP:<ul><li>Stations in Nzoia Basin a 5-year return period discharge (5.3m level/469.8 m3/s) with 85 % probability of exceedance</li><li>Stations in Athi Basin a 5 year return period discharge period discharge (469.236 m3/s) with 85% probability of exceedance</li><li>Stations in Tana Basin a 5-year return period discharge with (5.1m/ 1191.6 m3/s) 85% probability of exceedance</li></ul>Be aware that if a flood alert is issued with less than 7 days of lead time, the EAP may not be activated, please consider alternative response options.",
       "drought": "The EAP will be triggered based on two parameters; 3-month average Vegetation Condition Index (VCI3M) and the 3-month Standardized Precipitation Index (SPI3). An alert is given, if the VCI value drops below 30% with at least 33% chance of exceedance. VCI is supplemented by the SPI Forecast from KMD with a threshold value below -0.98 and a 30% probability of exceedance. The lead-time of the forecast is up to 12 weeks."
@@ -71,11 +56,6 @@
   },
   {
     "countryCodeISO3": "ETH",
-    "logo": {
-      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/08e2626c-fd79-9026-1324-280899b3f436.png",
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/08e2626c-fd79-9026-1324-280899b3f436.png",
-      "malaria": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/08e2626c-fd79-9026-1324-280899b3f436.png"
-    },
     "triggerStatement": {
       "floods": "The ERCS will act based on the developed trigger table when the Global Floods Awareness System forecast indicates a level of river discharge greater or equal to a level of <b>10 years return period</b> with a <b>probability of at least 75%</b> forecast uncertainty within 7 days lead time period.<br><br>Be aware that if a flood alert is issued with less than 7 days of lead time, the EAP may not be activated, please consider alternative response options.",
       "malaria": "An alert is released when two conditions are simultaneously met. First, the relative number of malaria cases is anomalous according to WHO guidelines, by comparing it to its monthly averages. Second, the absolute number of malaria cases is high and thus likely to require humanitarian intervention.",
@@ -88,10 +68,6 @@
   },
   {
     "countryCodeISO3": "ZWE",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png",
-      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/71256230-3d58-35b8-b48a-4497c85ce32c.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory.",
       "drought": "When the ENSO-based September forecast of the 510 Impact-based Forecast model anticipates a once-in-six year drought event, a first set of early actions addressing crop losses and livestock deaths is activated. In March, FEWSNET forecast of IPC 4 and above will trigger further actions devoted to reducing the impacts of livestock deaths and food insecurity."
@@ -103,10 +79,6 @@
   },
   {
     "countryCodeISO3": "LSO",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png",
-      "drought": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/94f95087-8ede-e83b-04dc-eaf6630661ba.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory.",
       "drought": "The first trigger can be set once Lesotho Meteorological Services (LMS) issues the seasonal outlook with below normal rainfall. This will initiate the dissemination of early warning messaging."
@@ -118,10 +90,6 @@
   },
   {
     "countryCodeISO3": "MWI",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/31600ce7-b5e8-992f-8f53-e58f1b5dc955.png",
-      "flash-floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/d628fa5d-f4fa-bc51-9977-d6b464ff003b.png"
-    },
     "triggerStatement": {
       "floods": "An administrative area is triggered based on two parameters from the 6-days GloFAS forecast on a daily basis: the return period of the forecasted flood and the probability of occurrence. The trigger will activate when GloFAS issues a forecast of at least 60% probability of occurrence of a 5 year return period flood within the next 6 days. The GloFAS flood forecast triggers except in the Traditional Areas where the False Alarm Ratio (FAR) exceeds the predetermined maximum value which is 0.5.<br><br>Be aware that if a flood alert is issued with less than 6 days of lead time, the EAP may not be activated, please consider alternative response options.",
       "flash-floods": "A notification is issued when the model predicts that the rainfall forecasted can potentially lead to a flood, exposing at least 20 people. The trigger model updates every 6 hours based on rainfall forecasts. A <strong>warning</strong> notification will be issued based on the rainfall forecast, with a lead time of <strong>up to 48h</strong>. A <strong>trigger</strong> notification will be issued if the threshold is exceeded, with a lead time of <strong>12 hours or less</strong>."
@@ -166,9 +134,6 @@
   },
   {
     "countryCodeISO3": "SSD",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/b6d46eb1-2ae5-e8ea-8497-0180d0399a92.png"
-    },
     "triggerStatement": {
       "floods": "Triggered areas (payams) are those in which the trigger threshold has been reached. The threshold is defined by two parameters from the 7-days GloFAS forecast: the return period of the forecasted flood and the probability of occurrence, these are updated on a daily basis. The trigger is issued when GloFAS forecasts an occurrence with a probability of at least 60% of a 5 year return period flood in the next 7 days. The GloFAS will not trigger in areas where the False Alarm Ratio (FAR) > 0.35.<br><br>Be aware that if a flood alert is issued with less than 7 days of lead time, there might be not enough time for the pre-agreed early actions, please consider alternative response options."
     },
@@ -207,9 +172,6 @@
   },
   {
     "countryCodeISO3": "AGO",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -220,9 +182,6 @@
   },
   {
     "countryCodeISO3": "BDI",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -233,9 +192,6 @@
   },
   {
     "countryCodeISO3": "BEN",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -246,9 +202,6 @@
   },
   {
     "countryCodeISO3": "BFA",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -259,9 +212,6 @@
   },
   {
     "countryCodeISO3": "BWA",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -272,9 +222,6 @@
   },
   {
     "countryCodeISO3": "CAF",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -285,9 +232,6 @@
   },
   {
     "countryCodeISO3": "CIV",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -298,9 +242,6 @@
   },
   {
     "countryCodeISO3": "CMR",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -311,9 +252,6 @@
   },
   {
     "countryCodeISO3": "COD",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -324,9 +262,6 @@
   },
   {
     "countryCodeISO3": "COG",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -337,9 +272,6 @@
   },
   {
     "countryCodeISO3": "COM",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -350,9 +282,6 @@
   },
   {
     "countryCodeISO3": "CPV",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -363,9 +292,6 @@
   },
   {
     "countryCodeISO3": "DJI",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -376,9 +302,6 @@
   },
   {
     "countryCodeISO3": "DZA",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -389,9 +312,6 @@
   },
   {
     "countryCodeISO3": "EGY",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -402,9 +322,6 @@
   },
   {
     "countryCodeISO3": "ERI",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -415,9 +332,6 @@
   },
   {
     "countryCodeISO3": "GAB",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -428,9 +342,6 @@
   },
   {
     "countryCodeISO3": "GHA",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -441,9 +352,6 @@
   },
   {
     "countryCodeISO3": "GIN",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -454,9 +362,6 @@
   },
   {
     "countryCodeISO3": "GMB",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -467,9 +372,6 @@
   },
   {
     "countryCodeISO3": "GNB",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -480,9 +382,6 @@
   },
   {
     "countryCodeISO3": "GNQ",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -493,9 +392,6 @@
   },
   {
     "countryCodeISO3": "LBR",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -506,9 +402,6 @@
   },
   {
     "countryCodeISO3": "LBY",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -519,9 +412,6 @@
   },
   {
     "countryCodeISO3": "MAR",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -532,9 +422,6 @@
   },
   {
     "countryCodeISO3": "MDG",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -545,9 +432,6 @@
   },
   {
     "countryCodeISO3": "MLI",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -558,9 +442,6 @@
   },
   {
     "countryCodeISO3": "MOZ",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -571,9 +452,6 @@
   },
   {
     "countryCodeISO3": "MRT",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -584,9 +462,6 @@
   },
   {
     "countryCodeISO3": "MUS",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -597,9 +472,6 @@
   },
   {
     "countryCodeISO3": "NAM",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -610,9 +482,6 @@
   },
   {
     "countryCodeISO3": "NER",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -623,9 +492,6 @@
   },
   {
     "countryCodeISO3": "NGA",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -636,9 +502,6 @@
   },
   {
     "countryCodeISO3": "RWA",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -649,9 +512,6 @@
   },
   {
     "countryCodeISO3": "SDN",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -662,9 +522,6 @@
   },
   {
     "countryCodeISO3": "SEN",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -675,9 +532,6 @@
   },
   {
     "countryCodeISO3": "SLE",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -688,9 +542,6 @@
   },
   {
     "countryCodeISO3": "SOM",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -701,9 +552,6 @@
   },
   {
     "countryCodeISO3": "STP",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -714,9 +562,6 @@
   },
   {
     "countryCodeISO3": "SWZ",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -727,9 +572,6 @@
   },
   {
     "countryCodeISO3": "SYC",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -740,9 +582,6 @@
   },
   {
     "countryCodeISO3": "TCD",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -753,9 +592,6 @@
   },
   {
     "countryCodeISO3": "TGO",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -766,9 +602,6 @@
   },
   {
     "countryCodeISO3": "TUN",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -779,9 +612,6 @@
   },
   {
     "countryCodeISO3": "TZA",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
@@ -792,9 +622,6 @@
   },
   {
     "countryCodeISO3": "ZAF",
-    "logo": {
-      "floods": "https://mcusercontent.com/e71f3b134823403aa6fe0c6dc/images/c860a014-3405-48a1-ae68-25b8eb1b68e3.png"
-    },
     "triggerStatement": {
       "floods": "Our forcast is based on the GloFAS forecast, which is updated daily. Contact the local meterological service for official advisory."
     },
