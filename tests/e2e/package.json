@@ -8,7 +8,7 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@eslint/js": "^9.35.0",
+    "@eslint/js": "^9.36.0",
     "@playwright/test": "^1.55.0",
     "@types/node": "^24.5.0",
     "@types/supertest": "^6.0.2",
@@ -25,7 +25,7 @@
     "typescript-eslint": "^8.44.0"
   },
   "dependencies": {
-    "@alex_neo/playwright-azure-reporter": "^1.14.0",
+    "@alex_neo/playwright-azure-reporter": "^1.16.0",
     "date-fns": "^4.1.0",
     "dotenv": "17.2.0",
     "playwright": "^1.55.0"
