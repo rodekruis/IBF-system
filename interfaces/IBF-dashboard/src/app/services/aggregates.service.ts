@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
@@ -29,7 +28,6 @@ export enum AreaStatus {
 }
 @Injectable({ providedIn: 'root' })
 export class AggregatesService {
-  private indicatorSubject = new BehaviorSubject<Indicator[]>([]);
   public indicators: Indicator[] = [];
   private aggregates: Aggregate[] = [];
   public nrAlertAreas: number;
@@ -81,6 +79,10 @@ export class AggregatesService {
     this.placeCodeService
       .getPlaceCodeSubscription()
       .subscribe(this.onPlaceCodeChange);
+
+    this.mapService
+      .getIndicatorSubscription()
+      .subscribe(this.onIndicatorChange);
   }
 
   private onCountryChange = (country: Country) => {
@@ -113,41 +115,13 @@ export class AggregatesService {
 
   private onAlertAreasChange = (alertAreas: AlertArea[]) => {
     this.alertAreas = alertAreas;
-    this.loadMetadataAndAggregates();
+    this.mapService.loadIndicators();
   };
-
-  loadMetadataAndAggregates() {
-    if (
-      this.country &&
-      this.disasterType &&
-      this.eventState &&
-      this.timelineState &&
-      this.adminLevel
-    ) {
-      this.apiService
-        .getIndicators(
-          this.country.countryCodeISO3,
-          this.disasterType.disasterType,
-        )
-        .subscribe(this.onIndicatorChange);
-    }
-  }
 
   private onIndicatorChange = (indicators: Indicator[]) => {
     this.indicators = indicators;
-    this.mapService.removeAggregateLayers();
-
-    this.indicators.forEach((indicator) => {
-      this.mapService.loadAggregateLayer(indicator);
-    });
-
-    this.indicatorSubject.next(this.indicators);
     this.loadAggregateInformation();
   };
-
-  getIndicators(): Observable<Indicator[]> {
-    return this.indicatorSubject.asObservable();
-  }
 
   private onEachIndicatorByFeatureAndAggregate = (
     feature: AggregateByPlaceCode,

@@ -19,6 +19,7 @@ import { AggregatesService } from 'src/app/services/aggregates.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
+import { MapService } from 'src/app/services/map.service';
 import { MapViewService } from 'src/app/services/map-view.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { AdminLevelType } from 'src/app/types/admin-level';
@@ -57,6 +58,7 @@ export class AggregatesComponent implements OnInit, OnDestroy {
     private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
     private aggregatesService: AggregatesService,
+    private mapService: MapService,
     private placeCodeService: PlaceCodeService,
     private eventService: EventService,
     private adminLevelService: AdminLevelService,
@@ -76,8 +78,8 @@ export class AggregatesComponent implements OnInit, OnDestroy {
       .getDisasterTypeSubscription()
       .subscribe(this.onDisasterTypeChange);
 
-    this.indicatorSubscription = this.aggregatesService
-      .getIndicators()
+    this.indicatorSubscription = this.mapService
+      .getIndicatorSubscription()
       .subscribe(this.onIndicatorChange);
 
     this.placeCodeSubscription = this.placeCodeService

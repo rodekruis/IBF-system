@@ -21,6 +21,7 @@ import { DialogueTurnComponent } from 'src/app/components/dialogue-turn/dialogue
 import { DisasterTypeComponent } from 'src/app/components/disaster-type/disaster-type.component';
 import { DisclaimerApproximateComponent } from 'src/app/components/disclaimer-approximate/disclaimer-approximate.component';
 import { DisclaimerToolbarComponent } from 'src/app/components/disclaimer-toolbar/disclaimer-toolbar.component';
+import { EmbedComponent } from 'src/app/components/embed/embed.component';
 import { EventSpeechBubbleComponent } from 'src/app/components/event-speech-bubble/event-speech-bubble.component';
 import { EventSwitcherComponent } from 'src/app/components/event-switcher/event-switcher.component';
 import { ExportViewComponent } from 'src/app/components/export-view/export-view.component';
@@ -98,6 +99,7 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     TyphoonTrackpointPopupContentComponent,
     GlofasStationPopupContentComponent,
     DisclaimerApproximateComponent,
+    EmbedComponent,
   ],
   exports: [
     AboutBtnComponent,
@@ -139,6 +141,7 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     TyphoonTrackpointPopupContentComponent,
     GlofasStationPopupContentComponent,
     DisclaimerApproximateComponent,
+    EmbedComponent,
   ],
 })
 export class SharedModule {}

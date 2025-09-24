@@ -36,18 +36,15 @@ export class CountryService {
 
   public async getCountries(
     countryCodesISO3?: string,
-    minimalInfo?: boolean,
   ): Promise<CountryEntity[]> {
     if (countryCodesISO3) {
       const countryCodes = countryCodesISO3.split(',');
       return await this.countryRepository.find({
         where: { countryCodeISO3: In(countryCodes) },
-        relations: minimalInfo ? ['disasterTypes'] : this.relations,
+        relations: this.relations,
       });
     } else {
-      return await this.countryRepository.find({
-        relations: minimalInfo ? ['disasterTypes'] : this.relations,
-      });
+      return await this.countryRepository.find({ relations: this.relations });
     }
   }
 

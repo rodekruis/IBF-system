@@ -58,7 +58,6 @@ export class CountryController {
     summary: 'Get countries including their attributes by list of countryCodes',
   })
   @ApiQuery({ name: 'countryCodesISO3', required: false, type: 'string' })
-  @ApiQuery({ name: 'minimalInfo', required: false, type: 'boolean' })
   @ApiResponse({
     status: 200,
     description: 'Available countries including their attributes.',
@@ -66,9 +65,6 @@ export class CountryController {
   })
   @Get()
   public async getCountries(@Query() query): Promise<CountryEntity[]> {
-    return await this.countryService.getCountries(
-      query.countryCodesISO3,
-      query.minimalInfo === 'true',
-    );
+    return await this.countryService.getCountries(query.countryCodesISO3);
   }
 }

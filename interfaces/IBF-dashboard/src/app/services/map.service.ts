@@ -43,6 +43,8 @@ export class MapService {
   private triggeredAreaColor = 'var(--ion-color-ibf-outline-red)';
   private nonTriggeredAreaColor = 'var(--ion-color-ibf-no-alert-primary)';
   private layerDataCache: Record<string, GeoJSON.FeatureCollection> = {};
+  private indicatorSubject = new BehaviorSubject<Indicator[]>([]);
+  public indicators: Indicator[] = [];
 
   public state = {
     bounds: [
@@ -195,6 +197,8 @@ export class MapService {
       this.apiService
         .getLayers(this.country.countryCodeISO3, this.disasterType.disasterType)
         .subscribe(this.onLayerChange);
+
+      this.loadIndicators();
     }
   }
 
@@ -962,4 +966,36 @@ export class MapService {
 
     return { color: this.triggeredAreaColor, weight: 5 };
   };
+
+  public loadIndicators() {
+    if (
+      this.country &&
+      this.disasterType &&
+      this.eventState &&
+      this.timelineState &&
+      this.adminLevel
+    ) {
+      this.apiService
+        .getIndicators(
+          this.country.countryCodeISO3,
+          this.disasterType.disasterType,
+        )
+        .subscribe(this.onIndicatorChange);
+    }
+  }
+
+  private onIndicatorChange = (indicators: Indicator[]) => {
+    this.indicators = indicators;
+    this.removeAggregateLayers();
+
+    this.indicators.forEach((indicator) => {
+      this.loadAggregateLayer(indicator);
+    });
+
+    this.indicatorSubject.next(this.indicators);
+  };
+
+  getIndicatorSubscription(): Observable<Indicator[]> {
+    return this.indicatorSubject.asObservable();
+  }
 }

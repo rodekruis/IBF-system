@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/auth/auth.guard';
+import { EmbedComponent } from 'src/app/components/embed/embed.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
+  { path: 'embed', component: EmbedComponent, title: 'IBF Embed' },
 ];
 
 @NgModule({

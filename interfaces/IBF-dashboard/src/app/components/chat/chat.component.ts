@@ -16,7 +16,6 @@ import {
 } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
-import { AggregatesService } from 'src/app/services/aggregates.service';
 import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
@@ -26,6 +25,7 @@ import {
   Event,
   EventService,
 } from 'src/app/services/event.service';
+import { MapService } from 'src/app/services/map.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
@@ -93,7 +93,7 @@ export class ChatComponent implements OnInit, OnDestroy {
     private disasterTypeService: DisasterTypeService,
     private timelineService: TimelineService,
     private countryService: CountryService,
-    private aggregatesService: AggregatesService,
+    private mapService: MapService,
     private changeDetectorRef: ChangeDetectorRef,
     private translateService: TranslateService,
     private analyticsService: AnalyticsService,
@@ -130,8 +130,8 @@ export class ChatComponent implements OnInit, OnDestroy {
       .getTimelineStateSubscription()
       .subscribe(this.onTimelineStateChange);
 
-    this.indicatorSubscription = this.aggregatesService
-      .getIndicators()
+    this.indicatorSubscription = this.mapService
+      .getIndicatorSubscription()
       .subscribe(this.onIndicatorChange);
   }
 

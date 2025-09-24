@@ -18,9 +18,12 @@ export class CountryService {
   ) {
     this.activatedRoute.queryParams.subscribe((params) => {
       if (params?.['countryCodeISO3']) {
-        this.apiService.getCountries(null, true).subscribe((countries) => {
+        this.apiService.getCountries().subscribe((countries) => {
           this.countries = countries;
-          this.selectCountry(params?.['countryCodeISO3']);
+
+          const countryCodeISO3 = String(params?.['countryCodeISO3']);
+
+          this.selectCountry(countryCodeISO3);
         });
       } else {
         this.authService.getAuthSubscription().subscribe(this.onUserChange);
@@ -41,7 +44,7 @@ export class CountryService {
   }
 
   public getAllCountries(): Observable<Country[]> {
-    return this.apiService.getCountries(null, true);
+    return this.apiService.getCountries();
   }
 
   getCountrySubscription = (): Observable<Country> => {
