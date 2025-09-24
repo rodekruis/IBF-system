@@ -50,7 +50,7 @@ export class EmailService {
 
     const subject = `IBF ${contentEventEmail.disasterType.disasterType} alert`;
 
-    await this.sendEventEmail(
+    return this.sendEventEmail(
       subject,
       html,
       country.countryCodeISO3,
@@ -83,7 +83,7 @@ export class EmailService {
 
     const subject = `IBF ${disasterTypeLabel} ended`;
 
-    await this.sendEventEmail(
+    return this.sendEventEmail(
       subject,
       html,
       country.countryCodeISO3,

@@ -179,7 +179,7 @@ export class NotificationService {
     }
 
     if (disasterType === DisasterType.Typhoon) {
-      return await this.typhoonTrackService.shouldSendNotification(
+      return this.typhoonTrackService.shouldSendNotification(
         countryCodeISO3,
         event.eventName,
       );
