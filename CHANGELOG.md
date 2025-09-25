@@ -1,3 +1,12 @@
+# [0.327.0](https://github.com/rodekruis/IBF-system/compare/v0.326.0...v0.327.0) (2025-09-25)
+
+
+### Features
+
+* send event emails using smtp instead of mailchimp ([5b2cc1d](https://github.com/rodekruis/IBF-system/commit/5b2cc1de4634fc9d68968dbcdf9c26b074949a39))
+
+
+
 # [0.326.0](https://github.com/rodekruis/IBF-system/compare/v0.325.1...v0.326.0) (2025-09-16)
 
 
@@ -111,17 +120,6 @@
 
 * download and upload point data from dashboard ([09e068d](https://github.com/rodekruis/IBF-system/commit/09e068d58b5892d3f5f5bababdfcc5228870e9bf))
 * show max alert level on status page ([51698b7](https://github.com/rodekruis/IBF-system/commit/51698b7e840ca4a795d8018118903b238aacb5eb))
-
-
-
-## [0.321.10](https://github.com/rodekruis/IBF-system/compare/v0.321.9...v0.321.10) (2025-08-01)
-
-
-### Bug Fixes
-
-* add logs to seed admin areas ([6d36a83](https://github.com/rodekruis/IBF-system/commit/6d36a831a96f0930e5c53691e222845791f3345b))
-* add mock scenarios ([9fd1768](https://github.com/rodekruis/IBF-system/commit/9fd1768fbe039469f0338d6997b52eb71408a844))
-* remove red cross branch layer for countries with no data ([3a9f5ba](https://github.com/rodekruis/IBF-system/commit/3a9f5ba99629214d527f5f2544148d266ce18b7f))
 
 
 
