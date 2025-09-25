@@ -74,28 +74,8 @@ export class SeedHelper {
     }
   }
 
-  public async createDunantUser() {
-    this.logger.log('Create DUNANT user...');
-
-    const userRepository = this.dataSource.getRepository(UserEntity);
-    const countryRepository = this.dataSource.getRepository(CountryEntity);
-    const disasterTypeRepository =
-      this.dataSource.getRepository(DisasterTypeEntity);
-
-    const dunantUser = new UserEntity();
-    dunantUser.email = DUNANT_EMAIL;
-    dunantUser.firstName = 'Henry';
-    dunantUser.lastName = 'Dunant';
-    dunantUser.userRole = UserRole.Admin;
-    dunantUser.password = process.env.DUNANT_PASSWORD;
-    dunantUser.countries = await countryRepository.find();
-    dunantUser.disasterTypes = await disasterTypeRepository.find();
-
-    await userRepository.upsert(dunantUser, ['email']);
-  }
-
-  public async updateDunantUser(dunantUser: UserEntity) {
-    this.logger.log('Update DUNANT user...');
+  public async upsertDunantUser() {
+    this.logger.log('Upsert DUNANT user...');
 
     const userRepository = this.dataSource.getRepository(UserEntity);
     const countryRepository = this.dataSource.getRepository(CountryEntity);
@@ -106,15 +86,21 @@ export class SeedHelper {
     await userRepository
       .createQueryBuilder('user')
       .relation(UserEntity, 'countries')
-      .of(dunantUser)
-      .remove(dunantUser.countries);
+      .of(DUNANT_EMAIL)
+      .remove([]);
 
     // remove existing disaster types to avoid duplication errors
     await userRepository
       .createQueryBuilder('user')
       .relation(UserEntity, 'disasterTypes')
-      .of(dunantUser)
-      .remove(dunantUser.disasterTypes);
+      .of(DUNANT_EMAIL)
+      .remove([]);
+
+    const dunantUser = new UserEntity();
+    dunantUser.email = DUNANT_EMAIL;
+    dunantUser.firstName = 'Henry';
+    dunantUser.lastName = 'Dunant';
+    dunantUser.userRole = UserRole.Admin;
 
     // grant dunant user access to all countries and disaster types
     dunantUser.countries = await countryRepository.find();

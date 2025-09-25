@@ -149,7 +149,7 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
     // ***** CREATE USERS *****
     if (seed.users) {
       this.logger.log('Seed admin user...');
-      this.seedHelper.createDunantUser();
+      this.seedHelper.upsertDunantUser();
     }
 
     // ***** CREATE EAP ACTIONS *****
