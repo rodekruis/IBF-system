@@ -44,29 +44,28 @@ export const getIbfFooter = ({
   return getSectionElement({ childrenEls: [twoColumnSectionElement] });
 };
 
-export const getMailchimpFooter = (): object => {
-  const mailchimpFooter = getTextElement({
+export const getLegalFooter = (): object => {
+  const legalFooter = getTextElement({
     content: `
       <p>
-        <a style="color: ${COLOR_WHITE}" href="*|UNSUB|*">
-          Click here to unsubscribe from IBF alerts
+        <a style="color: ${COLOR_WHITE}" href="${process.env.DASHBOARD_URL}/unsubscribe">
+          Click here to unsubscribe
         </a>
-        &nbsp;
-        *|LIST:ADDRESSLINE|*
+        <br /><br />
+        The Netherlands Red Cross - Anna van Saksenlaan 50 - The Hague, 2593 HT - Netherlands
       </p>
-      <p style="margin: 0">*|IF:REWARDS|* *|HTML:REWARDS|* *|END:IF|*</p>
     `,
     attributes: { color: COLOR_WHITE, align: 'center', 'font-size': '12px' },
   });
 
-  const mailchimpColumn = {
+  const legalColumn = {
     tagName: 'mj-column',
-    children: [mailchimpFooter],
+    children: [legalFooter],
     attributes: { padding: '0 8px', width: '100%' },
   };
 
   return getSectionElement({
-    childrenEls: [mailchimpColumn],
+    childrenEls: [legalColumn],
     attributes: { padding: '0', 'background-color': COLOR_BROWN },
   });
 };

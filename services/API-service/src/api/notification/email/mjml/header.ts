@@ -9,16 +9,21 @@ export const getMjmlHeader = ({
   disasterTypeLabel,
   eventCount,
   sentOnDate,
-  logosSrc,
+  logos,
 }: {
   disasterTypeLabel: string;
   eventCount: number;
   sentOnDate: string;
-  logosSrc: string;
-}): object => {
+  logos: string[];
+}) => {
+  const logoElements = logos.map(
+    (logo) =>
+      `<img src="${getLogoUrl(logo)}" style="display: inline-block; height: 50px; width: auto; margin: auto; padding: 4px; background: ${COLOR_WHITE};" />`,
+  );
+
   const logosElement = {
     tagName: 'mj-raw',
-    content: `<div style="text-align: center;"><img src="${logosSrc}" style="display: block; height: 50px; width: auto; margin: auto; background: ${COLOR_WHITE};" /></div>`,
+    content: `<div style="text-align: center;">${logoElements}</div>`,
   };
 
   const titleElement = getTextElement({
@@ -42,3 +47,6 @@ export const getMjmlHeader = ({
     attributes: { 'background-color': COLOR_PRIMARY },
   });
 };
+
+const getLogoUrl = (logo: string) =>
+  `${process.env.DASHBOARD_URL}/assets/logos/${logo}`;

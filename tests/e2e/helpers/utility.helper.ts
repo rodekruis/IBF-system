@@ -1,4 +1,5 @@
 import { agent } from 'supertest';
+import { User } from 'testData/types';
 
 function api(token?: string) {
   const request = agent(process.env.API_SERVICE_URL);
@@ -40,4 +41,20 @@ export function mock(
     .post(`/mock`)
     .query({ disasterType, countryCodeISO3, noNotifications })
     .send({ scenario, removeEvents: true, date: date ?? new Date() });
+}
+
+export function registerUser(
+  token: string,
+  user: User,
+  countryCodeISO3: string,
+  disasterType: string,
+) {
+  return api(token)
+    .post(`/user`)
+    .send({
+      ...user,
+      userRole: 'local-admin',
+      countryCodesISO3: [countryCodeISO3],
+      disasterTypes: [disasterType],
+    });
 }

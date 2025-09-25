@@ -3,7 +3,7 @@
   "country": {
     "code": "MWI",
     "name": "Malawi",
-    "disasterTypes": ["flash-floods", "floods"],
+    "disasterTypes": ["flash-floods"],
     "defaultAdminAreaLabelSingular": "Traditional Authority"
   },
   "disasterType": {
@@ -12,7 +12,7 @@
   },
   "scenario": "trigger",
   "user": {
-    "email": "malawi@redcross.nl",
+    "email": "malawi-flash-floods@redcross.nl",
     "password": "password",
     "firstName": "Malawi",
     "lastName": "Manager"

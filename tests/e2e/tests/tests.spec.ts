@@ -13,7 +13,7 @@ import UgandaDroughtWarning from 'testData/UgandaDroughtWarning.json';
 import UgandaFloodsNoTrigger from 'testData/UgandaFloodsNoTrigger.json';
 import UgandaFloodsTrigger from 'testData/UgandaFloodsTrigger.json';
 
-import { getToken, mock, reset } from '../helpers/utility.helper';
+import { getToken, mock, registerUser, reset } from '../helpers/utility.helper';
 import ActionsSummaryComponent from '../Pages/ActionSummaryComponent';
 import LoginPage from '../Pages/LoginPage';
 import ActionSummaryTooltipTest from './ActionSummaryComponent/ActionSummaryTooltipTest';
@@ -95,6 +95,9 @@ test.describe('e2e tests', () => {
         // Load a mock scenario
         const token = await getToken();
         await mock(token, disasterType.name, scenario, code, date);
+
+        // create user with appropriate access
+        await registerUser(token, dataset.user, code, disasterType.name);
 
         await page.goto('/');
         // Login into the portal

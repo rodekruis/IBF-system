@@ -8,9 +8,6 @@ export class NotificationInfoDto {
   public countryCodeISO3: string;
 
   @ApiProperty()
-  public logo: object;
-
-  @ApiProperty()
   public triggerStatement: object;
 
   @ApiProperty()

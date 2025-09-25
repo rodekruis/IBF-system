@@ -14,6 +14,7 @@ import { In, Repository } from 'typeorm';
 
 import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { LookupService } from '../notification/lookup/lookup.service';
 import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -210,5 +211,27 @@ export class UserService {
     }
 
     return { user: userRO };
+  }
+
+  public async findUsers(countryCodeISO3: string, disasterType: DisasterType) {
+    const users = await this.userRepository.find({
+      where: {
+        countries: { countryCodeISO3 },
+        disasterTypes: { disasterType },
+      },
+      relations: this.relations,
+    });
+
+    return users.map((user) => {
+      const countries = user.countries.map(
+        ({ countryCodeISO3 }) => countryCodeISO3,
+      );
+
+      const disasterTypes = user.disasterTypes.map(
+        ({ disasterType }) => disasterType,
+      );
+
+      return { ...user, countries, disasterTypes };
+    });
   }
 }

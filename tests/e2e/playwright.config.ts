@@ -16,7 +16,7 @@ const datasets: Dataset[] = [
 ];
 
 const envPath = path.resolve(__dirname, '../../.env');
-dotenv.config({ path: envPath });
+dotenv.config({ path: envPath, quiet: true });
 
 // Extract configuration IDs from all datasets
 const configurationIds = datasets.map(({ configurationId }) => configurationId);

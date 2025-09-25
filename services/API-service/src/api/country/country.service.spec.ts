@@ -174,9 +174,6 @@ describe('CountryService', () => {
         notificationInfoDto: NotificationInfoDto,
       ) => {
         const notificationInfoEntity = new NotificationInfoEntity();
-        notificationInfoEntity.logo = JSON.parse(
-          JSON.stringify(notificationInfoDto.logo),
-        );
         notificationInfoEntity.triggerStatement = JSON.parse(
           JSON.stringify(notificationInfoDto.triggerStatement),
         );

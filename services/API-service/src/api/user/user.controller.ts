@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpStatus,
   Patch,
   Post,
@@ -18,6 +19,7 @@ import {
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
+import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDecorator } from './user.decorator';
@@ -31,6 +33,27 @@ export class UserController {
   private readonly userService: UserService;
   public constructor(userService: UserService) {
     this.userService = userService;
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.Admin, UserRole.LocalAdmin)
+  @ApiOperation({ summary: 'Get list of users' })
+  @ApiQuery({ name: 'countryCodeISO3', required: false, type: 'string' })
+  @ApiQuery({ name: 'disasterType', required: false, enum: DisasterType })
+  @ApiResponse({ status: 200, description: 'List users' })
+  @Get()
+  public async getUsers(
+    @Query()
+    {
+      countryCodeISO3,
+      disasterType,
+    }: {
+      countryCodeISO3?: string;
+      disasterType?: DisasterType;
+    },
+  ) {
+    return this.userService.findUsers(countryCodeISO3, disasterType);
   }
 
   @ApiBearerAuth()

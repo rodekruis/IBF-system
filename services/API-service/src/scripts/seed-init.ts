@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import { DataSource, In } from 'typeorm';
+import { DataSource } from 'typeorm';
 
 import 'multer';
 import {
@@ -10,7 +10,6 @@ import {
 import { CountryEntity } from '../api/country/country.entity';
 import { CountryService } from '../api/country/country.service';
 import { NotificationInfoDto } from '../api/country/dto/notification-info.dto';
-import { DisasterTypeEntity } from '../api/disaster-type/disaster-type.entity';
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../api/disaster-type/disaster-type.service';
 import { DisasterTypeDto } from '../api/disaster-type/dto/add-disaster-type.dto';
@@ -19,18 +18,15 @@ import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.enti
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
 import { UserEntity } from '../api/user/user.entity';
-import { UserRole } from '../api/user/user-role.enum';
-import { DUNANT_EMAIL, PROD } from '../config';
+import { DUNANT_EMAIL } from '../config';
 import { defaultSeed, emptySeed, SeedDto } from './dto/seed.dto';
 import { Country } from './interfaces/country.interface';
-import { User } from './interfaces/user.interface';
 import countries from './json/countries.json';
 import disasterTypes from './json/disaster-types.json';
 import eapActions from './json/EAP-actions.json';
 import indicatorMetadata from './json/indicator-metadata.json';
 import layerMetadata from './json/layer-metadata.json';
 import notificationInfo from './json/notification-info.json';
-import users from './json/users.json';
 import { InterfaceScript } from './scripts.module';
 import SeedAdminArea from './seed-admin-area';
 import { SeedHelper } from './seed-helper';
@@ -152,61 +148,8 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
 
     // ***** CREATE USERS *****
     if (seed.users) {
-      this.logger.log('Seed Users...');
-      let selectedUsers: User[];
-      if (PROD) {
-        selectedUsers = (users as User[]).filter(
-          ({ email }) => email === DUNANT_EMAIL,
-        );
-
-        if (selectedUsers[0]) {
-          selectedUsers[0].password = process.env.DUNANT_PASSWORD;
-        }
-      } else {
-        if (dunantUser) {
-          // if dunant user exists, remove it from the list of users
-          selectedUsers = (users as User[]).filter(
-            ({ email }) => email !== DUNANT_EMAIL,
-          );
-
-          this.seedHelper.updateDunantUser(dunantUser);
-        } else {
-          // use DUNANT_PASSWORD from env
-          selectedUsers = (users as User[]).map((user) => {
-            if (user.email === DUNANT_EMAIL) {
-              return { ...user, password: process.env.DUNANT_PASSWORD };
-            }
-
-            return user;
-          });
-        }
-      }
-
-      const disasterTypeRepository =
-        this.dataSource.getRepository(DisasterTypeEntity);
-      const userEntities = await Promise.all(
-        selectedUsers.map(async (user): Promise<UserEntity> => {
-          const userEntity = new UserEntity();
-          userEntity.email = user.email;
-          userEntity.firstName = user.firstName;
-          userEntity.lastName = user.lastName;
-          userEntity.userRole = user.userRole as UserRole;
-          userEntity.countries = !user.countries
-            ? await countryRepository.find()
-            : await countryRepository.find({
-                where: { countryCodeISO3: In(user.countries) },
-              });
-          userEntity.disasterTypes = !user.disasterTypes
-            ? []
-            : await disasterTypeRepository.find({
-                where: { disasterType: In(user.disasterTypes) },
-              });
-          userEntity.password = user.password;
-          return userEntity;
-        }),
-      );
-
-      await userRepository.save(userEntities);
+      this.logger.log('Seed admin user...');
+      this.seedHelper.upsertDunantUser();
     }
 
     // ***** CREATE EAP ACTIONS *****

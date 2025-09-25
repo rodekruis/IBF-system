@@ -3,7 +3,7 @@
   "country": {
     "code": "UGA",
     "name": "Uganda",
-    "disasterTypes": ["floods", "drought"],
+    "disasterTypes": ["drought"],
     "defaultAdminAreaLabelSingular": "District"
   },
   "disasterType": {
@@ -12,7 +12,7 @@
   },
   "scenario": "no-trigger",
   "user": {
-    "email": "uganda@redcross.nl",
+    "email": "uganda-drought@redcross.nl",
     "password": "password",
     "firstName": "Uganda",
     "lastName": "Manager"

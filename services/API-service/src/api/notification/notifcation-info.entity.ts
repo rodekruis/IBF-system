@@ -6,9 +6,6 @@ export class NotificationInfoEntity {
   public notificationInfoId: string;
 
   @Column('json', { default: {} })
-  public logo: JSON;
-
-  @Column('json', { default: {} })
   public triggerStatement: JSON;
 
   @Column({ nullable: true })

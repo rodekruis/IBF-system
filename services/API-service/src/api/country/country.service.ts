@@ -235,9 +235,6 @@ export class CountryService {
     notificationInfoEntity: NotificationInfoEntity,
     notificationInfoCountry: NotificationInfoDto,
   ): Promise<NotificationInfoEntity> {
-    notificationInfoEntity.logo = JSON.parse(
-      JSON.stringify(notificationInfoCountry.logo),
-    );
     notificationInfoEntity.triggerStatement = JSON.parse(
       JSON.stringify(notificationInfoCountry.triggerStatement),
     );

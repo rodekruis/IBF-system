@@ -1,11 +1,6 @@
 name: 'integration'
 description: 'Run integration tests'
 
-inputs:
-  mailchimp-api-key:
-    description: 'Mailchimp API key'
-    required: true
-
 runs:
   using: composite
 
@@ -29,7 +24,6 @@ runs:
     - name: Run IBF API-service
       shell: bash
       env:
-        MC_API: ${{ inputs.mailchimp-api-key }}
         TWILIO_SID: ${{ inputs.twilio-sid }}
         TWILIO_AUTHTOKEN: ${{ inputs.twilio-authtoken }}
         SMTP_HOST: ${{ inputs.smtp-host }}
