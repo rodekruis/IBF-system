@@ -6,9 +6,17 @@
   <ion-header class="ion-no-border flex-none border-b border-sky-950">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-button data-testid="app-icon" title="IBF" [routerLink]="['/']">
+        <ion-button
+          data-testid="app-icon"
+          title="{{ 'app-name' | translate }}"
+          [routerLink]="['/']"
+        >
           <ion-thumbnail class="flex items-center justify-center">
-            <img alt="IBF" src="/assets/icons/favicon.png" class="h-10 w-10" />
+            <img
+              alt="{{ 'app-name' | translate }}"
+              src="/assets/icons/favicon.png"
+              class="h-10 w-10"
+            />
           </ion-thumbnail>
         </ion-button>
       </ion-buttons>

@@ -7,7 +7,7 @@
         data-testid="heading-display-name-label"
       >
         <span data-testid="heading-display-name-span">
-          IBF
+          {{ 'app-name' | translate }}
           @if (environmentConfiguration !== 'production') {
             {{ environmentConfiguration }}
           }
