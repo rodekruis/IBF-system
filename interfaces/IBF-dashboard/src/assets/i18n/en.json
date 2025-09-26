@@ -46,7 +46,12 @@
   "user-state": {
     "logged-in-as": "Welcome,",
     "log-out": "Logout",
-    "manage-account": "Manage account"
+    "manage": "Manage"
+  },
+  "manage": {
+    "account": "Account",
+    "users": "Users",
+    "preferences": "Preferences"
   },
   "dashboard-page": {
     "dev-menu": {

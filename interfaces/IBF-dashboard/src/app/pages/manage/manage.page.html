@@ -1,12 +1,9 @@
 <div
   id="ibf-manage-interface"
   data-testid="ibf-manage-interface"
-  class="ibf-manage-interface"
+  class="flex h-full flex-col"
 >
-  <ion-header
-    class="ion-no-border"
-    style="border-bottom: 1px solid var(--ion-color-ibf-no-alert-primary)"
-  >
+  <ion-header class="ion-no-border flex-none border-b border-sky-950">
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-button data-testid="app-icon" title="IBF" [routerLink]="['/']">
@@ -20,5 +17,19 @@
     <app-disclaimer-toolbar></app-disclaimer-toolbar>
   </ion-header>
 
-  <ion-content fullscreen="true">Manage page</ion-content>
+  <ion-content>
+    <ion-tabs>
+      <ion-tab-bar slot="top" class="justify-start" color="ibf-white">
+        <ion-tab-button tab="account" class="text-base">
+          <ion-label>{{ 'manage.account' | translate }}</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="users" class="text-base">
+          <ion-label>{{ 'manage.users' | translate }}</ion-label>
+        </ion-tab-button>
+        <ion-tab-button tab="preferences" class="text-base">
+          <ion-label>{{ 'manage.preferences' | translate }}</ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-content>
 </div>
