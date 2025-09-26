@@ -1,81 +1,60 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnDestroy } from '@angular/core';
+import { PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import {
-  AnalyticsEvent,
-  AnalyticsPage,
-} from 'src/app/analytics/analytics.enum';
-import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Country, DisasterType } from 'src/app/models/country.model';
-import { ApiService } from 'src/app/services/api.service';
-import { CountryService } from 'src/app/services/country.service';
-import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { EventService } from 'src/app/services/event.service';
-import { LoaderService } from 'src/app/services/loader.service';
+import { UserStateMenuComponent } from 'src/app/components/user-state-menu/user-state-menu.component';
+import { DEFAULT_USER } from 'src/app/config';
+import { User } from 'src/app/models/user/user.model';
 import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-user-state',
   templateUrl: './user-state.component.html',
-  styleUrls: ['./user-state.component.scss'],
   standalone: false,
 })
-export class UserStateComponent implements OnInit {
-  @Input()
-  public isLoggedIn: boolean;
-
-  @Input()
-  public showCountry = true;
-
+export class UserStateComponent implements OnDestroy {
+  private authSubscription: Subscription;
   public environmentConfiguration = environment.configuration;
-
-  public displayName: string;
-  public countryName: string;
-  public countrySubscription: Subscription;
-  public disasterTypeSubscription: Subscription;
-  public disasterType: DisasterType;
+  public version = environment.ibfSystemVersion;
+  public displayInitials: string;
 
   constructor(
-    public authService: AuthService,
-    private loaderService: LoaderService,
-    private analyticsService: AnalyticsService,
-    private eventService: EventService,
-    public disasterTypeService: DisasterTypeService,
-    public countryService: CountryService,
-    public apiService: ApiService,
-    private translateService: TranslateService,
-  ) {}
-
-  ngOnInit() {
-    this.countrySubscription = this.countryService
-      .getCountrySubscription()
-      .subscribe(this.onCountryChange);
-
-    this.disasterTypeSubscription = this.disasterTypeService
-      .getDisasterTypeSubscription()
-      .subscribe(this.onDisasterTypeChange);
+    private authService: AuthService,
+    private popoverController: PopoverController,
+  ) {
+    this.authSubscription = authService
+      .getAuthSubscription()
+      .subscribe(this.setDisplayInitials);
   }
 
-  private onCountryChange = (country: Country) => {
-    if (country) {
-      this.countryName = country.countryName;
-    }
-  };
+  ngOnDestroy() {
+    this.authSubscription.unsubscribe();
+  }
 
-  private onDisasterTypeChange = (disasterType: DisasterType) => {
-    this.disasterType = disasterType;
-  };
-
-  public doLogout() {
-    this.analyticsService.logEvent(AnalyticsEvent.logOut, {
-      page: AnalyticsPage.dashboard,
-      isActiveTrigger: this.eventService.state.events?.length > 0,
-      component: this.constructor.name,
+  public async showUserStateMenu(event: Event) {
+    const userStateMenu = await this.popoverController.create({
+      component: UserStateMenuComponent,
+      event,
+      mode: 'ios',
+      alignment: 'center',
+      side: 'bottom',
+      dismissOnSelect: true,
+      showBackdrop: false,
     });
 
-    this.loaderService.setLoader('logout', false);
-    this.authService.logout();
-    window.location.reload();
+    await userStateMenu.present();
   }
+
+  private setDisplayInitials = (user: User) => {
+    user = user ?? DEFAULT_USER;
+
+    const initials = [user.firstName, user.lastName]
+      .filter(Boolean)
+      .map((name) => name.charAt(0).toUpperCase())
+      .join('');
+
+    this.displayInitials = initials;
+  };
+
+  public isLoggedIn = () => this.authService.isLoggedIn();
 }

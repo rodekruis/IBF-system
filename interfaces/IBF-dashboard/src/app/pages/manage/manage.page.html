@@ -1,0 +1,24 @@
+<div
+  id="ibf-manage-interface"
+  data-testid="ibf-manage-interface"
+  class="ibf-manage-interface"
+>
+  <ion-header
+    class="ion-no-border"
+    style="border-bottom: 1px solid var(--ion-color-ibf-no-alert-primary)"
+  >
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button data-testid="app-icon" title="IBF" [routerLink]="['/']">
+          <ion-thumbnail class="flex items-center justify-center">
+            <img alt="IBF" src="/assets/icons/favicon.png" class="h-10 w-10" />
+          </ion-thumbnail>
+        </ion-button>
+      </ion-buttons>
+      <app-user-state></app-user-state>
+    </ion-toolbar>
+    <app-disclaimer-toolbar></app-disclaimer-toolbar>
+  </ion-header>
+
+  <ion-content fullscreen="true">Manage page</ion-content>
+</div>

@@ -2,6 +2,7 @@ export enum AnalyticsPage {
   activationLog = 'activation-Log',
   dashboard = 'dashboard',
   login = 'login',
+  manage = 'manage',
 }
 
 export enum AnalyticsEvent {

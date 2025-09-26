@@ -43,7 +43,11 @@
     "documentation": "Documentation",
     "support": "Email us"
   },
-  "user-state": { "logged-in-as": "Welcome, ", "log-out": "Logout" },
+  "user-state": {
+    "logged-in-as": "Welcome,",
+    "log-out": "Logout",
+    "manage-account": "Manage account"
+  },
   "dashboard-page": {
     "dev-menu": {
       "title": "Dev Mode",

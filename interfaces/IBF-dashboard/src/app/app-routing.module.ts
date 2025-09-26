@@ -16,6 +16,12 @@ const routes: Routes = [
       ),
     canActivate: [AuthGuard],
   },
+  {
+    path: 'manage',
+    loadChildren: () =>
+      import('./pages/manage/manage.module').then((m) => m.ManagePageModule),
+    canActivate: [AuthGuard],
+  },
 ];
 
 @NgModule({

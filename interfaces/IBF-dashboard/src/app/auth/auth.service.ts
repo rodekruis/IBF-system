@@ -1,7 +1,6 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
-import { DEFAULT_USER } from 'src/app/config';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from 'src/app/models/user/user.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 import { ApiService } from 'src/app/services/api.service';
@@ -23,13 +22,11 @@ export interface LoginMessageResponse {
 type LoginResponse = LoginMessageResponse | LoginUserResponse;
 
 @Injectable({ providedIn: 'root' })
-export class AuthService implements OnDestroy {
+export class AuthService {
   private loggedIn = false;
   private userRole: UserRole;
   public redirectUrl: string;
   private authSubject = new BehaviorSubject<User>(null);
-  public displayName: string;
-  private authSubscription: Subscription;
 
   constructor(
     private apiService: ApiService,
@@ -37,14 +34,6 @@ export class AuthService implements OnDestroy {
     private router: Router,
   ) {
     this.checkLoggedInState();
-
-    this.authSubscription = this.getAuthSubscription().subscribe(
-      this.setDisplayName,
-    );
-  }
-
-  ngOnDestroy() {
-    this.authSubscription.unsubscribe();
   }
 
   getAuthSubscription = (): Observable<User> => {
@@ -143,14 +132,4 @@ export class AuthService implements OnDestroy {
     this.authSubject.next(null);
     void this.router.navigate(['/login']);
   }
-
-  setDisplayName = (user: User) => {
-    user = user ?? DEFAULT_USER;
-
-    const displayName = [user.firstName, user.middleName, user.lastName]
-      .filter(Boolean)
-      .join(' ');
-
-    this.displayName = displayName;
-  };
 }

@@ -12,14 +12,6 @@
             {{ environmentConfiguration }}
           }
         </span>
-        @if (isLoggedIn && disasterType?.alertLevel) {
-          <div class="inline-block align-middle">
-            <ion-icon
-              src="/assets/icons/Alert_Title_Purple.svg"
-              slot="start"
-            ></ion-icon>
-          </div>
-        }
       </ion-title>
     </div>
     <div class="ion-align-items-center">
@@ -27,35 +19,28 @@
         <app-logos></app-logos>
         <ion-item lines="none">
           <ion-col class="ion-no-padding">
-            @if (isLoggedIn) {
-              <ion-title size="small" class="ion-no-padding">
-                {{ 'user-state.logged-in-as' | translate }}
-              </ion-title>
-              <ion-title
-                size="small"
-                data-testid="user-display-name"
-                class="ion-no-padding font-semibold"
+            @if (isLoggedIn()) {
+              <ion-avatar
+                (mouseenter)="showUserStateMenu($event)"
+                class="flex h-11 w-11 items-center justify-center border-2"
               >
-                {{ authService.displayName }}
-              </ion-title>
+                {{ displayInitials }}
+              </ion-avatar>
+            } @else {
+              <ion-buttons slot="end">
+                <ion-button
+                  href="https://github.com/rodekruis/IBF-system/releases/tag/{{
+                    version
+                  }}"
+                  [title]="('common.version' | translate) + ' ' + version"
+                  target="_blank"
+                >
+                  {{ version }}
+                </ion-button>
+              </ion-buttons>
             }
           </ion-col>
         </ion-item>
-        @if (isLoggedIn) {
-          <ion-button
-            data-testid="user-state-logout-button"
-            class="user-state-log-out-button"
-            size="small"
-            shape="round"
-            fill="outline"
-            strong="true"
-            color="fiveten-navy-900"
-            (click)="doLogout()"
-            data-test="logout-button"
-          >
-            {{ 'user-state.log-out' | translate }}
-          </ion-button>
-        }
       </ion-row>
     </div>
   </ion-row>
