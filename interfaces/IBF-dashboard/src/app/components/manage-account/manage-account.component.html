@@ -1,1 +1,57 @@
-<p>manage-account works!</p>
+<form #accountForm="ngForm" (ngSubmit)="onSubmit()" class="account-form">
+  <ion-list class="m-8 max-w-xl space-y-4">
+    <ion-item>
+      <ion-input
+        label="{{ 'manage.account.email' | translate }}"
+        placeholder="{{ 'manage.account.email' | translate }}"
+        [value]="email"
+        [disabled]="true"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        label="{{ 'manage.account.role' | translate }}"
+        placeholder="{{ 'manage.account.role' | translate }}"
+        [value]="role"
+        [disabled]="true"
+      ></ion-input>
+    </ion-item>
+    <ion-item class="space-x-2">
+      <ion-label>{{ 'manage.account.name' | translate }}</ion-label>
+      <ion-input
+        name="firstName"
+        placeholder="{{ 'manage.account.first-name' | translate }}"
+        [(ngModel)]="model.firstName"
+      ></ion-input>
+      <ion-input
+        name="middleName"
+        placeholder="{{ 'manage.account.middle-name' | translate }}"
+        [(ngModel)]="model.middleName"
+      ></ion-input>
+      <ion-input
+        name="lastName"
+        placeholder="{{ 'manage.account.last-name' | translate }}"
+        [(ngModel)]="model.lastName"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        name="whatsappNumber"
+        label="{{ 'manage.account.whatsapp' | translate }}"
+        placeholder="{{ 'manage.account.whatsapp-placeholder' | translate }}"
+        [(ngModel)]="model.whatsappNumber"
+      ></ion-input>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-button
+        type="submit"
+        size="default"
+        shape="round"
+        color="fiveten-navy-900"
+        [disabled]="!accountForm.form.valid || !accountForm.form.dirty"
+      >
+        {{ 'manage.account.save' | translate }}
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</form>

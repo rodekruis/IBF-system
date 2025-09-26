@@ -20,7 +20,7 @@ import {
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
-import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
+import { CreateUserDto, LoginUserDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDecorator } from './user.decorator';
 import { UserResponseObject } from './user.model';
@@ -96,25 +96,12 @@ export class UserController {
 
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
-  @ApiOperation({ summary: 'Change password of user' })
-  @Post('change-password')
-  public async update(
-    @UserDecorator('userId') loggedInUserId: string,
-    @Body() userData: UpdatePasswordDto,
-  ) {
-    return this.userService.updatePassword(loggedInUserId, userData);
-  }
-
-  @ApiBearerAuth()
-  @UseGuards(RolesGuard)
-  @Roles(UserRole.Admin)
   @ApiOperation({ summary: 'Update user properties' })
-  @ApiQuery({ name: 'email', required: true, type: 'string' })
   @Patch()
   public async updateUser(
+    @UserDecorator('userId') userId: string,
     @Body() updateUserData: UpdateUserDto,
-    @Query('email') email: string,
   ): Promise<UserResponseObject> {
-    return this.userService.updateUser(email, updateUserData);
+    return this.userService.updateUser(userId, updateUserData);
   }
 }

@@ -53,28 +53,13 @@ describe('UserService', () => {
 
   describe('buildUserRO', () => {
     it('should generate an object including a JWT token starting with the characters "eyJ"', async () => {
-      // Arrange
-      const includeToken = true;
+      // act
+      const userRO = await userService.buildUserRO(user);
 
-      // Act
-      const userRO = await userService.buildUserRO(user, includeToken);
-
-      // Assert
+      // assert
       const expectedFirstCharacters = 'eyJ';
       expect(userRO.user.token).toBeDefined();
       expect(userRO.user.token?.indexOf(expectedFirstCharacters)).toBe(0);
-    });
-
-    it('should generate an object without a JWT token when instructed as such', async () => {
-      // Arrange
-      const includeToken = false;
-
-      // Act
-      const userRO = await userService.buildUserRO(user, includeToken);
-
-      // Assert
-      expect(userRO.user).toBeDefined();
-      expect(userRO.user.token).not.toBeDefined();
     });
   });
 });

@@ -1,6 +1,5 @@
 import {
   BadRequestException,
-  ForbiddenException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -16,15 +15,13 @@ import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { LookupService } from '../notification/lookup/lookup.service';
-import { CreateUserDto, LoginUserDto, UpdatePasswordDto } from './dto';
+import { CreateUserDto, LoginUserDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './user.entity';
-import { UserData, UserResponseObject } from './user.model';
-import { UserRole } from './user-role.enum';
+import { UserResponseObject } from './user.model';
 
 const CREATE_ERROR = 'Failed to create user';
 const NOT_FOUND = 'User not found';
-const FORBIDDEN = 'Action not allowed';
 
 @Injectable()
 export class UserService {
@@ -116,41 +113,11 @@ export class UserService {
     return this.buildUserRO(user);
   }
 
-  public async updatePassword(
-    loggedInUserId: string,
-    dto: UpdatePasswordDto,
-  ): Promise<UserResponseObject> {
-    let updateUser: UserEntity;
-    const loggedInUser = await this.userRepository.findOne({
-      where: { userId: loggedInUserId },
-    });
-    if (!loggedInUser) {
-      throw new NotFoundException(NOT_FOUND);
-    }
-
-    if (dto.email) {
-      if (loggedInUser.userRole !== UserRole.Admin) {
-        throw new ForbiddenException(FORBIDDEN);
-      }
-      updateUser = await this.userRepository.findOne({
-        where: { email: dto.email },
-      });
-      if (!updateUser) {
-        throw new NotFoundException(NOT_FOUND);
-      }
-    } else {
-      updateUser = loggedInUser;
-    }
-    updateUser.password = dto.password;
-    await this.userRepository.save(updateUser);
-    return this.findById(updateUser.userId);
-  }
-
   public async updateUser(
-    email: string,
+    userId: string,
     updateUserData: UpdateUserDto,
   ): Promise<UserResponseObject> {
-    const user = await this.userRepository.findOne({ where: { email } });
+    let user = await this.userRepository.findOne({ where: { userId } });
     if (!user) {
       throw new NotFoundException(NOT_FOUND);
     }
@@ -160,8 +127,14 @@ export class UserService {
       user[attribute] = updateUserData[attribute];
     }
 
-    const savedUser = await this.userRepository.save(user);
-    return this.buildUserRO(savedUser, false);
+    await this.userRepository.save(user);
+
+    user = await this.userRepository.findOne({
+      where: { userId },
+      relations: this.relations,
+    });
+
+    return this.buildUserRO(user);
   }
 
   private async generateJWT(user: UserEntity): Promise<string> {
@@ -177,6 +150,7 @@ export class UserService {
         middleName: user.middleName,
         lastName: user.lastName,
         userRole: user.userRole,
+        whatsappNumber: user.whatsappNumber,
         countries: user.countries.map(
           (countryEntity): string => countryEntity.countryCodeISO3,
         ),
@@ -193,25 +167,19 @@ export class UserService {
     return result;
   }
 
-  public async buildUserRO(
+  public buildUserRO = async (
     user: UserEntity,
-    includeToken = true,
-  ): Promise<UserResponseObject> {
-    const userRO: UserData = {
+  ): Promise<UserResponseObject> => ({
+    user: {
       email: user.email,
       firstName: user.firstName,
       middleName: user.middleName,
       lastName: user.lastName,
       userRole: user.userRole,
       whatsappNumber: user.whatsappNumber,
-    };
-
-    if (includeToken) {
-      userRO.token = await this.generateJWT(user);
-    }
-
-    return { user: userRO };
-  }
+      token: await this.generateJWT(user),
+    },
+  });
 
   public async findUsers(countryCodeISO3: string, disasterType: DisasterType) {
     const users = await this.userRepository.find({

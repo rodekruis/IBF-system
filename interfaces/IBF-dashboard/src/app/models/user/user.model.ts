@@ -8,6 +8,7 @@ export class User {
   middleName?: string;
   lastName: string;
   userRole: UserRole;
+  whatsappNumber?: string;
   countries: string[];
   disasterTypes: string[];
 }

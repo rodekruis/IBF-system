@@ -11,15 +11,15 @@ export interface LoginRequest {
   code?: number;
 }
 
-export interface LoginUserResponse {
+export interface UserResponse {
   user: User;
 }
 
-export interface LoginMessageResponse {
+export interface MessageResponse {
   message: string;
 }
 
-type LoginResponse = LoginMessageResponse | LoginUserResponse;
+type LoginResponse = MessageResponse | UserResponse;
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -84,6 +84,7 @@ export class AuthService {
       middleName: decodedToken.middleName,
       lastName: decodedToken.lastName,
       userRole: decodedToken.userRole,
+      whatsappNumber: decodedToken.whatsappNumber,
       countries: decodedToken.countries,
       disasterTypes: decodedToken.disasterTypes,
     };
@@ -103,8 +104,11 @@ export class AuthService {
     );
   }
 
-  private onLoginResponse = (response: LoginUserResponse) => {
+  public setUser = (response: UserResponse) => {
     if (!response.user?.token) {
+      this.loggedIn = false;
+      this.userRole = null;
+
       return;
     }
 
@@ -115,6 +119,10 @@ export class AuthService {
     this.authSubject.next(user);
     this.loggedIn = true;
     this.userRole = user.userRole;
+  };
+
+  private onLoginResponse = (response: UserResponse) => {
+    this.setUser(response);
 
     if (this.redirectUrl) {
       void this.router.navigate([this.redirectUrl]);

@@ -278,6 +278,10 @@ input:-webkit-autofill:focus {
     color 600000s 0s;
 }
 
+[type='text']:focus {
+  @apply ring-transparent;
+}
+
 [popover].popover-viewport {
   display: initial;
   position: initial;

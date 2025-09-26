@@ -49,9 +49,20 @@
     "manage": "Manage"
   },
   "manage": {
-    "account": "Account",
-    "users": "Users",
-    "preferences": "Preferences"
+    "account": {
+      "title": "Account",
+      "name": "Name",
+      "first-name": "First name",
+      "middle-name": "Middle name",
+      "last-name": "Last name",
+      "email": "Email",
+      "role": "Role",
+      "whatsapp": "WhatsApp",
+      "whatsapp-placeholder": "+31510510510",
+      "save": "Save"
+    },
+    "users": { "title": "Users" },
+    "preferences": { "title": "Preferences" }
   },
   "dashboard-page": {
     "dev-menu": {

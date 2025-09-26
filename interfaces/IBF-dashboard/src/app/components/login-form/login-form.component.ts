@@ -10,8 +10,8 @@ import {
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import {
   AuthService,
-  LoginMessageResponse,
   LoginRequest,
+  MessageResponse,
 } from 'src/app/auth/auth.service';
 
 @Component({
@@ -112,14 +112,14 @@ export class LoginFormComponent implements OnInit {
     }
 
     this.authService.login(loginRequest).subscribe({
-      next: ({ message }: LoginMessageResponse) => {
+      next: ({ message }: MessageResponse) => {
         if (this.formState === 'email' || resendCode) {
           this.resetForm('code', message);
         } else {
           this.resetForm('email');
         }
       },
-      error: ({ error: { message } }: { error: LoginMessageResponse }) => {
+      error: ({ error: { message } }: { error: MessageResponse }) => {
         message =
           message ??
           String(this.translateService.instant('common.error.unknown'));
