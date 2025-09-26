@@ -3,7 +3,6 @@ import { PopoverController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserStateMenuComponent } from 'src/app/components/user-state-menu/user-state-menu.component';
-import { DEFAULT_USER } from 'src/app/config';
 import { User } from 'src/app/models/user/user.model';
 import { environment } from 'src/environments/environment';
 
@@ -16,7 +15,7 @@ export class UserStateComponent implements OnDestroy {
   private authSubscription: Subscription;
   public environmentConfiguration = environment.configuration;
   public version = environment.ibfSystemVersion;
-  public displayInitials: string;
+  private user: null | User = null;
 
   constructor(
     private authService: AuthService,
@@ -24,16 +23,21 @@ export class UserStateComponent implements OnDestroy {
   ) {
     this.authSubscription = authService
       .getAuthSubscription()
-      .subscribe(this.setDisplayInitials);
+      .subscribe(this.onAuthChange);
   }
 
   ngOnDestroy() {
     this.authSubscription.unsubscribe();
   }
 
+  onAuthChange = (user: null | User) => {
+    this.user = user;
+  };
+
   public async showUserStateMenu(event: Event) {
     const userStateMenu = await this.popoverController.create({
       component: UserStateMenuComponent,
+      componentProps: { user: this.user },
       event,
       mode: 'ios',
       alignment: 'center',
@@ -45,15 +49,15 @@ export class UserStateComponent implements OnDestroy {
     await userStateMenu.present();
   }
 
-  private setDisplayInitials = (user: User) => {
-    user = user ?? DEFAULT_USER;
+  public getUserInitials = () => {
+    if (!this.user) {
+      return 'UU'; // unknown user
+    }
 
-    const initials = [user.firstName, user.lastName]
+    return [this.user.firstName, this.user.lastName]
       .filter(Boolean)
       .map((name) => name.charAt(0).toUpperCase())
       .join('');
-
-    this.displayInitials = initials;
   };
 
   public isLoggedIn = () => this.authService.isLoggedIn();

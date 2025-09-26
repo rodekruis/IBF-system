@@ -1,6 +1,4 @@
 import { IconOptions, MapOptions } from 'leaflet';
-import { User } from 'src/app/models/user/user.model';
-import { UserRole } from 'src/app/models/user/user-role.enum';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { environment } from 'src/environments/environment';
 
@@ -139,17 +137,6 @@ export const DISASTER_TYPES_SVG_MAP = {
       '/assets/icons/TyphoonHurricaneCyclone_Not Selected_Not Triggered.svg',
     disabled: '/assets/icons/TyphoonHurricaneCyclone_Disabled.svg',
   },
-};
-
-export const DEFAULT_USER: User = {
-  userId: '',
-  token: '',
-  email: 'dunant@redcross.nl',
-  firstName: 'Henry',
-  lastName: 'Dunant',
-  userRole: UserRole.Viewer,
-  countries: [],
-  disasterTypes: [],
 };
 
 export const TOAST_DURATION = 3000;
