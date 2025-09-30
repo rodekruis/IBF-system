@@ -71,7 +71,7 @@
     "@types/leaflet": "^1.9.12",
     "@types/leaflet.markercluster": "^1.5.4",
     "@types/luxon": "^3.6.2",
-    "@types/node": "^24.5.0",
+    "@types/node": "^24.6.0",
     "angular-eslint": "^19.5.0",
     "autoprefixer": "^10.4.7",
     "esbuild": "^0.25.4",
