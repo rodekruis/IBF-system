@@ -16,30 +16,53 @@
         [disabled]="true"
       ></ion-input>
     </ion-item>
-    <ion-item class="space-x-2">
+    <ion-item
+      class="space-x-2"
+      [style]="{
+        '--border-color':
+          firstName.invalid || middleName.invalid || lastName.invalid
+            ? 'var(--ion-color-danger-shade)'
+            : '',
+      }"
+    >
       <ion-label>{{ 'manage.account.name' | translate }}</ion-label>
       <ion-input
         name="firstName"
         placeholder="{{ 'manage.account.first-name' | translate }}"
         [(ngModel)]="model.firstName"
+        required
+        minlength="2"
+        #firstName="ngModel"
       ></ion-input>
       <ion-input
         name="middleName"
         placeholder="{{ 'manage.account.middle-name' | translate }}"
         [(ngModel)]="model.middleName"
+        #middleName="ngModel"
       ></ion-input>
       <ion-input
         name="lastName"
         placeholder="{{ 'manage.account.last-name' | translate }}"
         [(ngModel)]="model.lastName"
+        required
+        minlength="2"
+        #lastName="ngModel"
       ></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item
+      [style]="{
+        '--border-color': whatsappNumber.invalid
+          ? 'var(--ion-color-danger-shade)'
+          : '',
+      }"
+    >
       <ion-input
         name="whatsappNumber"
         label="{{ 'manage.account.whatsapp' | translate }}"
         placeholder="{{ 'manage.account.whatsapp-placeholder' | translate }}"
         [(ngModel)]="model.whatsappNumber"
+        pattern="^\+[0-9]{10,15}$"
+        #whatsappNumber="ngModel"
       ></ion-input>
     </ion-item>
     <ion-item lines="none">
