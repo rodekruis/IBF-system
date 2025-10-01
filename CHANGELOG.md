@@ -1,3 +1,13 @@
+## [0.327.1](https://github.com/rodekruis/IBF-system/compare/v0.327.0...v0.327.1) (2025-10-01)
+
+
+### Bug Fixes
+
+* decode user id ([c4e3583](https://github.com/rodekruis/IBF-system/commit/c4e3583638114ec1f0689ea99413092d37849aab))
+* update user config ([30b4239](https://github.com/rodekruis/IBF-system/commit/30b4239c7f397a50f59fb9d22420f2a2e04d6525))
+
+
+
 # [0.327.0](https://github.com/rodekruis/IBF-system/compare/v0.326.0...v0.327.0) (2025-09-25)
 
 
@@ -110,16 +120,6 @@
 * track upload and upload file events ([963f6bb](https://github.com/rodekruis/IBF-system/commit/963f6bb474686d98c13d5fad3b39550bd8fca3d4))
 * track user context ([beff1a8](https://github.com/rodekruis/IBF-system/commit/beff1a8f36755124fa3eacb4685f07e19682a11f))
 * use transparent border to indicate no alert ([9343f50](https://github.com/rodekruis/IBF-system/commit/9343f501dbab07afacf881f5004b4bd09308cf88))
-
-
-
-# [0.322.0](https://github.com/rodekruis/IBF-system/compare/v0.321.10...v0.322.0) (2025-08-01)
-
-
-### Features
-
-* download and upload point data from dashboard ([09e068d](https://github.com/rodekruis/IBF-system/commit/09e068d58b5892d3f5f5bababdfcc5228870e9bf))
-* show max alert level on status page ([51698b7](https://github.com/rodekruis/IBF-system/commit/51698b7e840ca4a795d8018118903b238aacb5eb))
 
 
 
