@@ -88,7 +88,7 @@ export class AuthService implements OnDestroy {
 
     const decodedToken = this.jwtService.decodeToken(rawToken);
     const user: User = {
-      id: decodedToken.id,
+      userId: decodedToken.userId,
       token: rawToken,
       email: decodedToken.email,
       firstName: decodedToken.firstName,
