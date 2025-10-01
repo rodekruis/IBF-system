@@ -1,7 +1,7 @@
 import { UserRole } from 'src/app/models/user/user-role.enum';
 
 export class User {
-  id: string;
+  userId: string;
   token: string;
   email: string;
   firstName: string;

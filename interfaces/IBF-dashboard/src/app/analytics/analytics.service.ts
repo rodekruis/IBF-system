@@ -54,8 +54,8 @@ export class AnalyticsService {
   };
 
   private onUserChange = (user: User) => {
-    if (this.isApplicationInsightsEnabled && user?.id) {
-      this.applicationInsights.setAuthenticatedUserContext(user.id);
+    if (this.isApplicationInsightsEnabled && user?.userId) {
+      this.applicationInsights.setAuthenticatedUserContext(user.userId);
     }
   };
 

@@ -142,7 +142,7 @@ export const DISASTER_TYPES_SVG_MAP = {
 };
 
 export const DEFAULT_USER: User = {
-  id: '',
+  userId: '',
   token: '',
   email: 'dunant@redcross.nl',
   firstName: 'Henry',
