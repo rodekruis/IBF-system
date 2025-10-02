@@ -15,7 +15,7 @@ export class AuthGuard {
     private authService: AuthService,
   ) {}
 
-  canActivate(
+  canActivateChild(
     _next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ):
@@ -30,6 +30,10 @@ export class AuthGuard {
 
   checkLogin(url: string): boolean {
     if (this.authService.isLoggedIn()) {
+      if (url === '/login') {
+        void this.router.navigate(['/']);
+      }
+
       return true;
     }
 
