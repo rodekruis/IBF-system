@@ -79,9 +79,11 @@ export class UserService {
     userEntity.whatsappNumber = dto.whatsappNumber;
     userEntity.countries = await this.countryRepository.find({
       where: { countryCodeISO3: In(dto.countryCodesISO3) },
+      order: { countryCodeISO3: 'ASC' },
     });
     userEntity.disasterTypes = await this.disasterTypeRepository.find({
       where: { disasterType: In(dto.disasterTypes) },
+      order: { disasterType: 'ASC' },
     });
 
     const errors = await validate(userEntity);
@@ -203,6 +205,7 @@ export class UserService {
     );
     const countries = await this.countryRepository.find({
       where: { countryCodeISO3: In(newCountries) },
+      order: { countryCodeISO3: 'ASC' },
     });
     user.countries = countries;
 
@@ -241,6 +244,7 @@ export class UserService {
     );
     const disasterTypes = await this.disasterTypeRepository.find({
       where: { disasterType: In(newDisasterTypes) },
+      order: { disasterType: 'ASC' },
     });
     user.disasterTypes = disasterTypes;
 
@@ -300,10 +304,12 @@ export class UserService {
         lastName: user.lastName,
         userRole: user.userRole,
         whatsappNumber: user.whatsappNumber,
-        countries: user.countries.map(({ countryCodeISO3 }) => countryCodeISO3),
-        disasterTypes: user.disasterTypes.map(
-          ({ disasterType }) => disasterType,
-        ),
+        countries: user.countries
+          .map(({ countryCodeISO3 }) => countryCodeISO3)
+          .sort(),
+        disasterTypes: user.disasterTypes
+          .map(({ disasterType }) => disasterType)
+          .sort(),
         exp: exp.getTime() / 1000,
       },
       process.env.SECRET,
@@ -324,10 +330,12 @@ export class UserService {
       userRole: user.userRole,
       whatsappNumber: user.whatsappNumber,
       token: includeToken ? await this.generateJWT(user) : null,
-      countries: user.countries?.map(({ countryCodeISO3 }) => countryCodeISO3),
-      disasterTypes: user.disasterTypes?.map(
-        ({ disasterType }) => disasterType,
-      ),
+      countries: user.countries
+        ?.map(({ countryCodeISO3 }) => countryCodeISO3)
+        .sort(),
+      disasterTypes: user.disasterTypes
+        ?.map(({ disasterType }) => disasterType)
+        .sort(),
     },
   });
 
@@ -349,13 +357,13 @@ export class UserService {
     });
 
     return users.map((user) => {
-      const countries = user.countries.map(
-        ({ countryCodeISO3 }) => countryCodeISO3,
-      );
+      const countries = user.countries
+        .map(({ countryCodeISO3 }) => countryCodeISO3)
+        .sort();
 
-      const disasterTypes = user.disasterTypes.map(
-        ({ disasterType }) => disasterType,
-      );
+      const disasterTypes = user.disasterTypes
+        .map(({ disasterType }) => disasterType)
+        .sort();
 
       return { ...user, countries, disasterTypes };
     });

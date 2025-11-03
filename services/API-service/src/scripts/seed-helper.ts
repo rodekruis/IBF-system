@@ -89,8 +89,12 @@ export class SeedHelper {
     dunantUser.userRole = UserRole.Admin;
 
     // grant dunant user access to all countries and disaster types
-    dunantUser.countries = await countryRepository.find();
-    dunantUser.disasterTypes = await disasterTypeRepository.find();
+    dunantUser.countries = await countryRepository.find({
+      order: { countryCodeISO3: 'ASC' },
+    });
+    dunantUser.disasterTypes = await disasterTypeRepository.find({
+      order: { disasterType: 'ASC' },
+    });
 
     // update password from env
     dunantUser.password = process.env.DUNANT_PASSWORD;

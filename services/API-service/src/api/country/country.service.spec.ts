@@ -72,7 +72,10 @@ describe('CountryService', () => {
       jest.spyOn(countryRepository, 'find').mockResolvedValue(result);
 
       expect(await service.getCountries()).toBe(result);
-      expect(countryRepository.find).toHaveBeenCalledWith({ relations });
+      expect(countryRepository.find).toHaveBeenCalledWith({
+        order: { countryCodeISO3: 'ASC' },
+        relations,
+      });
     });
 
     it('should return an array of countries with specific country codes', async () => {
@@ -85,6 +88,7 @@ describe('CountryService', () => {
       expect(await service.getCountries(countryCodes)).toBe(result);
       expect(countryRepository.find).toHaveBeenCalledWith({
         where: { countryCodeISO3: In(countryCodes.split(',')) },
+        order: { countryCodeISO3: 'ASC' },
         relations,
       });
     });
@@ -122,6 +126,7 @@ describe('CountryService', () => {
           where: country.disasterTypes.map((disasterType) => ({
             disasterType,
           })),
+          order: { disasterType: 'ASC' },
         });
         expect(countryRepository.save).toHaveBeenCalled();
 

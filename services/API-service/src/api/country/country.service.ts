@@ -42,10 +42,12 @@ export class CountryService {
       const countryCodes = countryCodesISO3.split(',');
       return await this.countryRepository.find({
         where: { countryCodeISO3: In(countryCodes) },
+        order: { countryCodeISO3: 'ASC' },
         relations: minimalInfo ? ['disasterTypes'] : this.relations,
       });
     } else {
       return await this.countryRepository.find({
+        order: { countryCodeISO3: 'ASC' },
         relations: minimalInfo ? ['disasterTypes'] : this.relations,
       });
     }
@@ -113,6 +115,7 @@ export class CountryService {
         .map((countryDisasterType: string): object => {
           return { disasterType: countryDisasterType };
         }),
+      order: { disasterType: 'ASC' },
     });
     countryEntity.countryLogos = JSON.parse(
       JSON.stringify(country.countryLogos),
@@ -264,15 +267,5 @@ export class CountryService {
       where: { notificationInfoId: saveResult.notificationInfoId },
     });
     return savedEntity;
-  }
-
-  public getBoundingBoxWkt(countryCodeISO3: string) {
-    return this.countryRepository
-      .createQueryBuilder('country')
-      .select('ST_AsText(country."countryBoundingBox") as wkt')
-      .where('country."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3,
-      })
-      .getRawOne<Record<'wkt', string>>();
   }
 }

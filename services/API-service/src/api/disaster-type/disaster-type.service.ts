@@ -16,7 +16,7 @@ export class DisasterTypeService {
   private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
 
   public getDisasterTypes() {
-    return this.disasterTypeRepository.find();
+    return this.disasterTypeRepository.find({ order: { disasterType: 'ASC' } });
   }
 
   public getDisasterType(disasterType: DisasterType) {

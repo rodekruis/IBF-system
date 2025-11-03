@@ -9,12 +9,14 @@ import {
   IonRow,
   IonSelect,
   IonSelectOption,
+  PopoverController,
   SelectCustomEvent,
   ToastController,
 } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService, UserResponse } from 'src/app/auth/auth.service';
+import { ManageUsersMenuComponent } from 'src/app/components/manage-users-menu/manage-users-menu.component';
 import { TOAST_DURATION, TOAST_POSITION } from 'src/app/config';
 import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
@@ -41,6 +43,7 @@ import { UserService } from 'src/app/services/user.service';
     TranslateModule,
   ],
   templateUrl: './manage-users.component.html',
+  providers: [PopoverController],
 })
 export class ManageUsersComponent implements OnDestroy {
   private authSubscription: Subscription;
@@ -71,6 +74,7 @@ export class ManageUsersComponent implements OnDestroy {
     private countryService: CountryService,
     private translateService: TranslateService,
     private toastController: ToastController,
+    private popoverController: PopoverController,
   ) {
     this.message = String(this.translateService.instant('common.loading'));
 
@@ -295,5 +299,20 @@ export class ManageUsersComponent implements OnDestroy {
     });
 
     await toast.present();
+  }
+
+  public async showManageUsersMenu(event: Event) {
+    const manageUsersMenu = await this.popoverController.create({
+      component: ManageUsersMenuComponent,
+      componentProps: { users: this.users },
+      event,
+      mode: 'ios',
+      alignment: 'center',
+      side: 'bottom',
+      dismissOnSelect: true,
+      showBackdrop: false,
+    });
+
+    await manageUsersMenu.present();
   }
 }

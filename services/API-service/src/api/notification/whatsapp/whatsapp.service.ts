@@ -468,6 +468,7 @@ export class WhatsappService {
 
     const country = await this.countryRepository.findOne({
       where: { countryCodeISO3 },
+      order: { countryCodeISO3: 'ASC' },
       relations: ['notificationInfo'],
     });
 
