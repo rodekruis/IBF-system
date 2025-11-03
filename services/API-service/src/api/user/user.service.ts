@@ -9,8 +9,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { validate } from 'class-validator';
 import crypto from 'crypto';
 import jwt from 'jsonwebtoken';
-import { In, Repository } from 'typeorm';
+import { FindOptionsWhere, In, Not, Repository } from 'typeorm';
 
+import { DUNANT_EMAIL } from '../../config';
 import { CountryEntity } from '../country/country.entity';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
@@ -19,6 +20,7 @@ import { CreateUserDto, LoginUserDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './user.entity';
 import { UserResponseObject } from './user.model';
+import { UserRole } from './user-role.enum';
 
 const CREATE_ERROR = 'Failed to create user';
 const NOT_FOUND = 'User not found';
@@ -101,7 +103,10 @@ export class UserService {
     });
   }
 
-  public async findById(userId: string): Promise<UserResponseObject> {
+  public async findById(
+    userId: string,
+    includeToken: boolean = false,
+  ): Promise<UserResponseObject> {
     const user = await this.userRepository.findOne({
       where: { userId },
       relations: this.relations,
@@ -110,31 +115,175 @@ export class UserService {
       throw new UnauthorizedException(NOT_FOUND);
     }
 
-    return this.buildUserRO(user);
+    return this.buildUserRO(user, includeToken);
   }
 
   public async updateUser(
     userId: string,
     updateUserData: UpdateUserDto,
+    isAdmin = false,
   ): Promise<UserResponseObject> {
-    let user = await this.userRepository.findOne({ where: { userId } });
+    const where = { userId };
+
+    const user = await this.userRepository.findOne({ where });
     if (!user) {
       throw new NotFoundException(NOT_FOUND);
     }
 
-    // Overwrite any non-nested attributes of the user (so not countries/disaster-types)
-    for (const attribute in updateUserData) {
-      user[attribute] = updateUserData[attribute];
+    if (updateUserData.firstName) {
+      user.firstName = updateUserData.firstName;
+    }
+
+    if (updateUserData.middleName !== undefined) {
+      user.middleName = updateUserData.middleName;
+    }
+
+    if (updateUserData.lastName) {
+      user.lastName = updateUserData.lastName;
+    }
+
+    if (updateUserData.whatsappNumber) {
+      updateUserData.whatsappNumber = await this.lookupService.lookupAndCorrect(
+        updateUserData.whatsappNumber,
+      );
+    }
+
+    if (updateUserData.userRole && isAdmin) {
+      user.userRole = updateUserData.userRole;
     }
 
     await this.userRepository.save(user);
 
-    user = await this.userRepository.findOne({
-      where: { userId },
+    if (updateUserData.countries && isAdmin) {
+      await this.updateUserCountries(where, updateUserData);
+    }
+
+    if (updateUserData.disasterTypes) {
+      await this.updateUserDisasterTypes(where, updateUserData);
+    }
+
+    const updatedUser = await this.userRepository.findOne({
+      where,
       relations: this.relations,
     });
 
-    return this.buildUserRO(user);
+    // include token only if user is updating their own account
+    return this.buildUserRO(updatedUser, !isAdmin);
+  }
+
+  private async updateUserCountries(
+    where: FindOptionsWhere<UserEntity>,
+    updateUserData: UpdateUserDto,
+  ) {
+    const user = await this.userRepository.findOne({
+      where,
+      relations: ['countries'],
+    });
+
+    // remove countries
+    const removeCountries = user.countries
+      .filter(
+        ({ countryCodeISO3 }) =>
+          !updateUserData.countries.includes(countryCodeISO3),
+      )
+      .map(({ countryCodeISO3 }) => countryCodeISO3);
+
+    await this.userRepository
+      .createQueryBuilder()
+      .relation(UserEntity, 'countries')
+      .of(user.email)
+      .remove(removeCountries);
+
+    // add new countries
+    const newCountries = updateUserData.countries.filter(
+      (countryCodeISO3) =>
+        !user.countries
+          .map(({ countryCodeISO3 }) => countryCodeISO3)
+          .includes(countryCodeISO3),
+    );
+    const countries = await this.countryRepository.find({
+      where: { countryCodeISO3: In(newCountries) },
+    });
+    user.countries = countries;
+
+    await this.userRepository.save(user);
+  }
+
+  private async updateUserDisasterTypes(
+    where: FindOptionsWhere<UserEntity>,
+    updateUserData: UpdateUserDto,
+  ) {
+    const user = await this.userRepository.findOne({
+      where,
+      relations: ['disasterTypes'],
+    });
+
+    // remove disaster types
+    const removeDisasterTypes = user.disasterTypes
+      .filter(
+        ({ disasterType }) =>
+          !updateUserData.disasterTypes.includes(disasterType),
+      )
+      .map(({ disasterType }) => disasterType);
+
+    await this.userRepository
+      .createQueryBuilder()
+      .relation(UserEntity, 'disasterTypes')
+      .of(user.email)
+      .remove(removeDisasterTypes);
+
+    // add new disaster types
+    const newDisasterTypes = updateUserData.disasterTypes.filter(
+      (disasterType) =>
+        !user.disasterTypes
+          .map(({ disasterType }) => disasterType)
+          .includes(disasterType),
+    );
+    const disasterTypes = await this.disasterTypeRepository.find({
+      where: { disasterType: In(newDisasterTypes) },
+    });
+    user.disasterTypes = disasterTypes;
+
+    await this.userRepository.save(user);
+  }
+
+  public async isAdmin(userId: string, targetUserId?: string) {
+    // user cannot be their own admin
+    if (userId === targetUserId) {
+      return false;
+    }
+
+    // user must be admin or local admin
+    const user = await this.userRepository.findOne({
+      where: { userId, userRole: In([UserRole.Admin, UserRole.LocalAdmin]) },
+      relations: this.relations,
+    });
+    if (!user) {
+      return false;
+    }
+
+    // global admin can manage anyone
+    if (user.userRole === UserRole.Admin) {
+      return true;
+    }
+
+    const userCountries = user.countries.map(
+      ({ countryCodeISO3 }) => countryCodeISO3,
+    );
+
+    // target user must be in one of the admin's countries
+    if (!targetUserId) {
+      return false;
+    }
+    const targetUser = await this.userRepository.findOne({
+      where: {
+        userId: targetUserId,
+        countries: { countryCodeISO3: In(userCountries) },
+      },
+      relations: this.relations,
+    });
+
+    return !!targetUser;
   }
 
   private async generateJWT(user: UserEntity): Promise<string> {
@@ -151,14 +300,10 @@ export class UserService {
         lastName: user.lastName,
         userRole: user.userRole,
         whatsappNumber: user.whatsappNumber,
-        countries: user.countries.map(
-          (countryEntity): string => countryEntity.countryCodeISO3,
+        countries: user.countries.map(({ countryCodeISO3 }) => countryCodeISO3),
+        disasterTypes: user.disasterTypes.map(
+          ({ disasterType }) => disasterType,
         ),
-        disasterTypes: user.disasterTypes.length
-          ? user.disasterTypes.map(({ disasterType }) => disasterType)
-          : (await this.disasterTypeRepository.find()).map(
-              ({ disasterType }) => disasterType,
-            ),
         exp: exp.getTime() / 1000,
       },
       process.env.SECRET,
@@ -169,6 +314,7 @@ export class UserService {
 
   public buildUserRO = async (
     user: UserEntity,
+    includeToken: boolean = false,
   ): Promise<UserResponseObject> => ({
     user: {
       email: user.email,
@@ -177,16 +323,28 @@ export class UserService {
       lastName: user.lastName,
       userRole: user.userRole,
       whatsappNumber: user.whatsappNumber,
-      token: await this.generateJWT(user),
+      token: includeToken ? await this.generateJWT(user) : null,
+      countries: user.countries?.map(({ countryCodeISO3 }) => countryCodeISO3),
+      disasterTypes: user.disasterTypes?.map(
+        ({ disasterType }) => disasterType,
+      ),
     },
   });
 
-  public async findUsers(countryCodeISO3: string, disasterType: DisasterType) {
+  public async findUsers(
+    countryCodesISO3: string[],
+    disasterTypes: DisasterType[],
+  ) {
+    const where: FindOptionsWhere<UserEntity> = { email: Not(DUNANT_EMAIL) };
+    if (countryCodesISO3.length) {
+      where.countries = { countryCodeISO3: In(countryCodesISO3) };
+    }
+    if (disasterTypes.length) {
+      where.disasterTypes = { disasterType: In(disasterTypes) };
+    }
+
     const users = await this.userRepository.find({
-      where: {
-        countries: { countryCodeISO3 },
-        disasterTypes: { disasterType },
-      },
+      where,
       relations: this.relations,
     });
 

@@ -103,7 +103,7 @@ export class StatusReportPage implements OnInit {
   ) => {
     const alertLevel = events.reduce(
       (prev, curr) =>
-        ALERT_LEVEL_RANK[curr.alertLevel] > ALERT_LEVEL_RANK[prev]
+        ALERT_LEVEL_RANK[curr.alertLevel] < ALERT_LEVEL_RANK[prev]
           ? curr.alertLevel
           : prev,
       AlertLevel.NONE,

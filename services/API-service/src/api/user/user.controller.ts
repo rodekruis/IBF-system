@@ -1,14 +1,14 @@
 import {
   Body,
   Controller,
+  ForbiddenException,
   Get,
-  HttpStatus,
   Patch,
   Post,
   Query,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { HttpException } from '@nestjs/common/exceptions/http.exception';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -23,9 +23,15 @@ import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDecorator } from './user.decorator';
-import { UserResponseObject } from './user.model';
+import { User, UserResponseObject } from './user.model';
 import { UserService } from './user.service';
 import { UserRole } from './user-role.enum';
+
+// REFACTOR: find a way to use this interface across the app
+interface GetUsersQuery {
+  countryCodeISO3: string;
+  disasterType: DisasterType;
+}
 
 @ApiTags('--user--')
 @Controller('user')
@@ -38,28 +44,42 @@ export class UserController {
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
   @Roles(UserRole.Admin, UserRole.LocalAdmin)
-  @ApiOperation({ summary: 'Get list of users' })
+  @ApiOperation({ summary: 'Get users' })
   @ApiQuery({ name: 'countryCodeISO3', required: false, type: 'string' })
   @ApiQuery({ name: 'disasterType', required: false, enum: DisasterType })
   @ApiResponse({ status: 200, description: 'List users' })
   @Get()
   public async getUsers(
     @Query()
-    {
-      countryCodeISO3,
-      disasterType,
-    }: {
-      countryCodeISO3?: string;
-      disasterType?: DisasterType;
-    },
+    { countryCodeISO3, disasterType }: Partial<GetUsersQuery>,
+    @UserDecorator() user: User,
   ) {
-    return this.userService.findUsers(countryCodeISO3, disasterType);
+    if (countryCodeISO3 && !user.countries.includes(countryCodeISO3)) {
+      throw new ForbiddenException(
+        `You cannot view users from country ${countryCodeISO3}`,
+      );
+    }
+
+    let countries = user.countries;
+    if (countryCodeISO3) {
+      countries = [countryCodeISO3];
+    }
+    if (user.userRole === UserRole.Admin) {
+      countries = [];
+    }
+
+    let disasterTypes: DisasterType[] = [];
+    if (disasterType) {
+      disasterTypes = [disasterType];
+    }
+
+    return this.userService.findUsers(countries, disasterTypes);
   }
 
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
   @Roles(UserRole.Admin)
-  @ApiOperation({ summary: 'Sign-up new user' })
+  @ApiOperation({ summary: 'Add new user' })
   @ApiResponse({
     status: 201,
     description: 'New user email and login token',
@@ -89,19 +109,32 @@ export class UserController {
   ): Promise<UserResponseObject> {
     const user = await this.userService.findOne(loginUserDto);
     if (!user) {
-      throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+      throw new UnauthorizedException('Unauthorized');
     }
-    return await this.userService.buildUserRO(user);
+    return await this.userService.buildUserRO(user, true);
   }
 
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Update user properties' })
+  @ApiQuery({ name: 'userId', required: false, type: 'string' })
   @Patch()
   public async updateUser(
     @UserDecorator('userId') userId: string,
+    @Query('userId') targetUserId: string,
     @Body() updateUserData: UpdateUserDto,
   ): Promise<UserResponseObject> {
+    if (targetUserId) {
+      const isAdmin = await this.userService.isAdmin(userId, targetUserId);
+      if (!isAdmin) {
+        throw new ForbiddenException(
+          `You are not allowed to update user ${targetUserId}`,
+        );
+      }
+
+      return this.userService.updateUser(targetUserId, updateUserData, true);
+    }
+
     return this.userService.updateUser(userId, updateUserData);
   }
 }

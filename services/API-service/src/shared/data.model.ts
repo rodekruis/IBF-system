@@ -49,7 +49,7 @@ export class AlertArea {
   public userTriggerDate: string;
 
   @ApiProperty({ example: 'Henry Dunant' })
-  public displayName: string;
+  public userTriggerName: string; // name of the user who manually triggered the event
 }
 
 export class EapAlertClass {

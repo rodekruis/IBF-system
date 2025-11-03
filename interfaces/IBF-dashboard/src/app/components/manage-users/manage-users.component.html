@@ -1,1 +1,124 @@
-<p>manage-users works!</p>
+<ion-grid class="m-8 max-w-7xl">
+  <ion-row class="mb-6">
+    <ion-col size="6">
+      <ion-input
+        [(ngModel)]="filterText"
+        [disabled]="users.length === 0"
+        fill="outline"
+        [clearInput]="true"
+        placeholder="Search..."
+        style="--highlight-color-valid: var(--ion-color-ibf-grey-light)"
+      >
+      </ion-input>
+    </ion-col>
+    <ion-col size="6" class="flex items-center justify-end space-x-2">
+    </ion-col>
+  </ion-row>
+  <ion-row class="text-black text-opacity-40">
+    @for (column of columns; track column.key) {
+      @if (column.key !== 'countries' || userCountries.length > 1) {
+        <ion-col
+          (click)="setSort(column.key)"
+          class="flex cursor-pointer items-center justify-start gap-2"
+        >
+          {{ column.label | translate }}
+          <ion-icon [name]="getSortIcon(column.key)"></ion-icon>
+        </ion-col>
+      }
+    }
+  </ion-row>
+  @if (pagedUsers.length === 0) {
+    <ion-row>
+      <ion-col class="flex h-40 items-center justify-center italic">{{
+        message
+      }}</ion-col>
+    </ion-row>
+  } @else {
+    @for (user of pagedUsers; track user.userId) {
+      <ion-row class="items-center">
+        <ion-col>{{ getUserName(user) }}</ion-col>
+        <ion-col
+          ><a class="no-underline" href="mailto:{{ user.email }}">{{
+            user.email
+          }}</a></ion-col
+        >
+        <ion-col>
+          <ion-select
+            mode="ios"
+            interface="popover"
+            [interfaceOptions]="{ showBackdrop: false }"
+            [value]="user.userRole"
+            (ionChange)="onRoleChange($event, user)"
+          >
+            @for (role of roles; track role) {
+              <ion-select-option [value]="role">{{
+                USER_ROLE_LABEL[role]
+              }}</ion-select-option>
+            }
+          </ion-select>
+        </ion-col>
+        @if (userCountries.length > 1) {
+          <ion-col>
+            <ion-select
+              mode="ios"
+              interface="popover"
+              [interfaceOptions]="{ showBackdrop: false }"
+              [value]="user.countries"
+              (ionChange)="onCountriesChange($event, user)"
+              multiple="true"
+              [selectedText]="user.countries.length"
+              class="border-none p-0"
+              [class.text-red-500]="user.countries.length === 0"
+            >
+              @for (userCountry of userCountries; track userCountry) {
+                <ion-select-option [value]="userCountry">{{
+                  countryName[userCountry] || userCountry
+                }}</ion-select-option>
+              }
+            </ion-select>
+          </ion-col>
+        }
+      </ion-row>
+    }
+  }
+  <ion-row class="mt-6">
+    <ion-col size="6"> </ion-col>
+    @if (pagedUsers.length > 0) {
+      <ion-col size="6" class="flex items-center justify-end space-x-2">
+        <ion-button
+          color="ibf-white"
+          (click)="setPage(1)"
+          [disabled]="page === 1"
+        >
+          <ion-icon slot="icon-only" name="caret-back"></ion-icon>
+        </ion-button>
+        <ion-button
+          color="ibf-white"
+          (click)="setPage(page - 1)"
+          [disabled]="page === 1"
+        >
+          <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+        </ion-button>
+        <span>
+          {{ (page - 1) * pageSize + 1 }} to
+          {{ min(page * pageSize, sortedUsers.length) }} of
+          {{ sortedUsers.length }}
+        </span>
+        <ion-button
+          color="ibf-white"
+          (click)="setPage(page + 1)"
+          [disabled]="page === totalPages"
+        >
+          <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+        </ion-button>
+        <ion-button
+          color="ibf-white"
+          (click)="setPage(totalPages)"
+          [disabled]="page === totalPages"
+        >
+          <ion-icon slot="icon-only" name="caret-forward"></ion-icon>
+        </ion-button>
+      </ion-col>
+    }
+  </ion-row>
+</ion-grid>

@@ -19,12 +19,12 @@
         <app-logos></app-logos>
         <ion-item lines="none">
           <ion-col class="ion-no-padding">
-            @if (isLoggedIn()) {
+            @if (isLoggedIn) {
               <ion-avatar
                 (mouseenter)="showUserStateMenu($event)"
                 class="flex h-11 w-11 items-center justify-center border-2"
               >
-                {{ getUserInitials() }}
+                {{ userInitials }}
               </ion-avatar>
             } @else {
               <ion-buttons slot="end">

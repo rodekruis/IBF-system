@@ -11,7 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService, UserResponse } from 'src/app/auth/auth.service';
 import { User } from 'src/app/models/user/user.model';
-import { ApiService } from 'src/app/services/api.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-manage-account',
@@ -42,7 +42,7 @@ export class ManageAccountComponent implements OnDestroy {
 
   constructor(
     private authService: AuthService,
-    private apiService: ApiService,
+    private userService: UserService,
   ) {
     this.authSubscription = this.authService
       .getAuthSubscription()
@@ -71,10 +71,10 @@ export class ManageAccountComponent implements OnDestroy {
   };
 
   public onSubmit() {
-    this.apiService
+    this.userService
       .updateUser(this.model)
-      .subscribe((response: UserResponse) => {
-        this.authService.setUser(response);
+      .subscribe((userResponse: UserResponse) => {
+        this.authService.setUser(userResponse);
       });
   }
 }

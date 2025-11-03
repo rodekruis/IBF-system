@@ -29,11 +29,17 @@ export class AuthGuard {
   }
 
   checkLogin(url: string): boolean {
-    if (this.authService.isLoggedIn()) {
+    if (this.authService.isLoggedIn) {
       if (url === '/login') {
         void this.router.navigate(['/']);
       }
 
+      if (url === '/manage/users' && !this.authService.isAdmin) {
+        void this.router.navigate(['/manage']);
+      }
+
+      return true;
+    } else if (url === '/login') {
       return true;
     }
 

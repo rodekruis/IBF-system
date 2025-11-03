@@ -402,7 +402,7 @@ export class EventService {
           'event."userTrigger"',
           'event."firstIssuedDate"',
           'event."userTriggerDate" AS "userTriggerDate"',
-          '"user"."firstName" || \' \' || "user"."lastName" AS "displayName"',
+          '"user"."firstName" || \' \' || "user"."lastName" AS "userTriggerName"',
           'parent.name AS "nameParent"',
         ])
         .leftJoin('event.adminArea', 'area')
@@ -515,7 +515,7 @@ export class EventService {
         'COALESCE("parentEvent"."firstIssuedDate","grandparentEvent"."firstIssuedDate") AS "firstIssuedDate"',
         'COALESCE("parentEvent"."userTrigger","grandparentEvent"."userTrigger") AS "userTrigger"',
         'COALESCE("parentEvent"."userTriggerDate","grandparentEvent"."userTriggerDate") AS "userTriggerDate"',
-        'COALESCE("parentUser"."firstName","grandparentUser"."firstName") || \' \' || COALESCE("parentUser"."lastName","grandparentUser"."lastName") AS "displayName"',
+        'COALESCE("parentUser"."firstName","grandparentUser"."firstName") || \' \' || COALESCE("parentUser"."lastName","grandparentUser"."lastName") AS "userTriggerName"',
       ])
       .getRawMany();
 
@@ -529,7 +529,7 @@ export class EventService {
       userTrigger: area.userTrigger,
       firstIssuedDate: area.firstIssuedDate,
       userTriggerDate: area.userTriggerDate,
-      displayName: area.displayName,
+      userTriggerName: area.userTriggerName,
       eapActions: [],
       alertLevel: this.getAlertLevel(area),
     }));
@@ -548,7 +548,7 @@ export class EventService {
       const currentHighest = eventAlertLevels[eventName];
 
       if (
-        ALERT_LEVEL_RANK[area.alertLevel] > ALERT_LEVEL_RANK[currentHighest]
+        ALERT_LEVEL_RANK[area.alertLevel] < ALERT_LEVEL_RANK[currentHighest]
       ) {
         eventAlertLevels[eventName] = area.alertLevel;
       }

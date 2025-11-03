@@ -10,8 +10,6 @@ import {
   DisasterType,
 } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
-import { User } from 'src/app/models/user/user.model';
-import { UserRole } from 'src/app/models/user/user-role.enum';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import {
   ALERT_LEVEL_LABEL,
@@ -68,7 +66,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   public typhoonLandfallText: string;
   private placeCodeHoverSubscription: Subscription;
   public placeCodeHover: PlaceCode;
-  public userRole: UserRole;
   public ALERT_LEVEL_LABEL = ALERT_LEVEL_LABEL;
 
   constructor(
@@ -85,7 +82,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
       .getPlaceCodeHoverSubscription()
       .subscribe(this.onPlaceCodeHoverChange);
 
-    this.authService.getAuthSubscription().subscribe(this.onUserChange);
     this.typhoonLandfallText = this.showTyphoonLandfallText(this.event);
 
     if (this.event) {
@@ -135,16 +131,6 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
   private onPlaceCodeHoverChange = (placeCodeHover: PlaceCode) => {
     this.placeCodeHover = placeCodeHover;
   };
-
-  private onUserChange = (user: User): void => {
-    if (user) {
-      this.userRole = user.userRole;
-    }
-  };
-
-  public hasSetTriggerPermission(): boolean {
-    return [UserRole.Admin, UserRole.LocalAdmin].includes(this.userRole);
-  }
 
   public eventBubbleIsSelected(eventName: string) {
     return (
@@ -231,7 +217,7 @@ export class EventSpeechBubbleComponent implements AfterViewChecked, OnDestroy {
         areas: this.areas,
         mainExposureIndicatorNumberFormat:
           this.mainExposureIndicatorNumberFormat,
-        hasSetTriggerPermission: this.hasSetTriggerPermission(),
+        canSetTrigger: this.authService.isAdmin,
         countryCodeISO3: this.countryCodeISO3,
         disasterType: this.disasterType.disasterType,
         eventName: this.event?.eventName?.split('_')[0],

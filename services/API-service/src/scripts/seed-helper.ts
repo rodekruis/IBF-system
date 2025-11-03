@@ -82,20 +82,6 @@ export class SeedHelper {
     const disasterTypeRepository =
       this.dataSource.getRepository(DisasterTypeEntity);
 
-    // remove existing countries to avoid duplication errors
-    await userRepository
-      .createQueryBuilder('user')
-      .relation(UserEntity, 'countries')
-      .of(DUNANT_EMAIL)
-      .remove([]);
-
-    // remove existing disaster types to avoid duplication errors
-    await userRepository
-      .createQueryBuilder('user')
-      .relation(UserEntity, 'disasterTypes')
-      .of(DUNANT_EMAIL)
-      .remove([]);
-
     const dunantUser = new UserEntity();
     dunantUser.email = DUNANT_EMAIL;
     dunantUser.firstName = 'Henry';

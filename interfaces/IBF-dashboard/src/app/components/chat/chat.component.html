@@ -3,7 +3,7 @@
     <p class="pr-5 !text-xs">
       <span
         [innerHTML]="
-          'chat-component.common.warn-label.hello' | translate: authService
+          'chat-component.common.warn-label.hello' | translate: { userName }
         "
       ></span>
       @if (lastUploadDate) {

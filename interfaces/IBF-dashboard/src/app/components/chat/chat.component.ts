@@ -87,7 +87,7 @@ export class ChatComponent implements OnInit, OnDestroy {
 
   constructor(
     private alertAreaService: AlertAreaService,
-    public authService: AuthService,
+    private authService: AuthService,
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
     private disasterTypeService: DisasterTypeService,
@@ -144,6 +144,10 @@ export class ChatComponent implements OnInit, OnDestroy {
     this.manualEventStateSubscription.unsubscribe();
     this.timelineStateSubscription.unsubscribe();
     this.indicatorSubscription.unsubscribe();
+  }
+
+  get userName() {
+    return this.authService.userName;
   }
 
   private onCountryChange = (country: Country) => {

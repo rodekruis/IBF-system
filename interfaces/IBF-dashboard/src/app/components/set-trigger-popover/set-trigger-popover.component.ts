@@ -38,7 +38,7 @@ export class SetTriggerPopoverComponent {
   public mainExposureIndicatorNumberFormat: NumberFormat;
 
   @Input()
-  public hasSetTriggerPermission: boolean;
+  public canSetTrigger: boolean;
 
   @Input()
   public countryCodeISO3: string;

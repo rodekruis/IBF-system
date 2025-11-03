@@ -90,7 +90,7 @@ export class LoginService {
       throw new UnauthorizedException(UNDER_REVIEW);
     }
 
-    return this.userService.findById(loginEntity.user.userId);
+    return this.userService.findById(loginEntity.user.userId, true);
   }
 
   generateCode() {
