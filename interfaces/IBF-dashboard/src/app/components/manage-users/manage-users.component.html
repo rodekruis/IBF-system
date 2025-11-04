@@ -95,14 +95,14 @@
       <ion-col size="6" class="flex items-center justify-end space-x-2">
         <ion-button
           color="ibf-white"
-          (click)="setPage(1)"
+          (click)="page = 1"
           [disabled]="page === 1"
         >
           <ion-icon slot="icon-only" name="caret-back"></ion-icon>
         </ion-button>
         <ion-button
           color="ibf-white"
-          (click)="setPage(page - 1)"
+          (click)="page = page - 1"
           [disabled]="page === 1"
         >
           <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
@@ -114,14 +114,14 @@
         </span>
         <ion-button
           color="ibf-white"
-          (click)="setPage(page + 1)"
+          (click)="page = page + 1"
           [disabled]="page === totalPages"
         >
           <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
         </ion-button>
         <ion-button
           color="ibf-white"
-          (click)="setPage(totalPages)"
+          (click)="page = totalPages"
           [disabled]="page === totalPages"
         >
           <ion-icon slot="icon-only" name="caret-forward"></ion-icon>

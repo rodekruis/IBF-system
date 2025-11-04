@@ -209,10 +209,6 @@ export class ManageUsersComponent implements OnDestroy {
     this.page = 1;
   }
 
-  setPage(page: number) {
-    this.page = page;
-  }
-
   getSortIcon(sortColumn: keyof User) {
     if (this.sortColumn !== sortColumn) return 'swap-vertical';
 
