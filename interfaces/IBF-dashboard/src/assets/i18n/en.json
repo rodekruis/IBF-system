@@ -60,7 +60,8 @@
       "role": "Role",
       "whatsapp": "WhatsApp",
       "whatsapp-placeholder": "+31510510510",
-      "save": "Save"
+      "save": "Save",
+      "updated": "Account updated"
     },
     "users": {
       "title": "Users",

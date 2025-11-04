@@ -6,10 +6,12 @@ import {
   IonItem,
   IonLabel,
   IonList,
+  ToastController,
 } from '@ionic/angular/standalone';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService, UserResponse } from 'src/app/auth/auth.service';
+import { TOAST_DURATION, TOAST_POSITION } from 'src/app/config';
 import { User } from 'src/app/models/user/user.model';
 import { UserService } from 'src/app/services/user.service';
 
@@ -43,6 +45,8 @@ export class ManageAccountComponent implements OnDestroy {
   constructor(
     private authService: AuthService,
     private userService: UserService,
+    private translateService: TranslateService,
+    private toastController: ToastController,
   ) {
     this.authSubscription = this.authService
       .getAuthSubscription()
@@ -71,10 +75,44 @@ export class ManageAccountComponent implements OnDestroy {
   };
 
   public onSubmit() {
-    this.userService
-      .updateUser(this.model)
-      .subscribe((userResponse: UserResponse) => {
+    const presentToastError = this.translateService.instant(
+      'common.error.present-toast',
+    ) as string;
+
+    this.userService.updateUser(this.model).subscribe({
+      next: (userResponse: UserResponse) => {
         this.authService.setUser(userResponse);
-      });
+
+        const updateMessageSuccess = this.translateService.instant(
+          'manage.account.updated',
+        ) as string;
+
+        this.presentToast(updateMessageSuccess).catch((error: unknown) => {
+          console.error(`${presentToastError}: ${JSON.stringify(error)}`);
+        });
+      },
+      error: () => {
+        const updateMessageFailure = this.translateService.instant(
+          'common.error.unknown',
+        ) as string;
+
+        this.presentToast(updateMessageFailure).catch((error: unknown) => {
+          console.error(`${presentToastError}: ${JSON.stringify(error)}`);
+        });
+      },
+    });
+  }
+
+  async presentToast(
+    message: string,
+    position: 'bottom' | 'middle' | 'top' = TOAST_POSITION,
+  ) {
+    const toast = await this.toastController.create({
+      message,
+      duration: TOAST_DURATION,
+      position,
+    });
+
+    await toast.present();
   }
 }
