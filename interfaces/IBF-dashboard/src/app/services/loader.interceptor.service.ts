@@ -12,7 +12,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 
 @Injectable({ providedIn: 'root' })
 export class LoaderInterceptorService implements HttpInterceptor {
-  private requestsToSkip: string[] = ['waterpoints'];
+  private requestsToSkip: string[] = [];
 
   constructor(private loaderService: LoaderService) {}
 
