@@ -27,34 +27,34 @@ export class LoaderInterceptorService implements HttpInterceptor {
 
     if (skipRequest) {
       return next.handle(request).pipe(
-        tap(
-          (event: HttpEvent<unknown>) => {
+        tap({
+          next: (event: HttpEvent<unknown>) => {
             if (event instanceof HttpResponse) {
               this.onEnd(requestPath);
             }
           },
-          (error: unknown) => {
+          error: (error: unknown) => {
             console.log('error: ', error);
             this.onEnd(requestPath);
           },
-        ),
+        }),
       );
     }
 
     this.showLoader(requestPath);
 
     return next.handle(request).pipe(
-      tap(
-        (event: HttpEvent<unknown>) => {
+      tap({
+        next: (event: HttpEvent<unknown>) => {
           if (event instanceof HttpResponse) {
             this.onEnd(requestPath);
           }
         },
-        (error: unknown) => {
+        error: (error: unknown) => {
           console.log('error: ', error);
           this.onEnd(requestPath);
         },
-      ),
+      }),
     );
   }
 
