@@ -9,6 +9,7 @@ import {
   MalariaScenario,
   TyphoonScenario,
 } from './API-service/enum/mock-scenario.enum';
+import { UserRole } from './API-service/enum/user-role.enum';
 
 export function api(token?: string) {
   const request = agent(process.env.API_SERVICE_URL);
@@ -26,6 +27,39 @@ export async function getToken() {
       user: { token },
     },
   } = await api().post(`/user/login`).send(adminUserData);
+
+  return token;
+}
+
+export async function getNonAdminToken() {
+  // First get admin token to create a non-admin user
+  const adminToken = await getToken();
+
+  const nonAdminUser = {
+    email: 'operator@redcross.nl',
+    firstName: 'Test',
+    lastName: 'Operator',
+    userRole: UserRole.Operator,
+    countryCodesISO3: ['UGA'],
+    disasterTypes: ['floods'],
+    password: 'password',
+  };
+
+  // Try to create the user (will fail if it already exists, which is fine)
+  try {
+    await api(adminToken).post('/user').send(nonAdminUser);
+  } catch (error) {
+    // User already exists, continue
+  }
+
+  // Login with the non-admin user
+  const {
+    body: {
+      user: { token },
+    },
+  } = await api()
+    .post(`/user/login`)
+    .send({ email: nonAdminUser.email, password: nonAdminUser.password });
 
   return token;
 }
