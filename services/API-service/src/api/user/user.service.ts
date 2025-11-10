@@ -107,7 +107,7 @@ export class UserService {
 
   public async findById(
     userId: string,
-    includeToken: boolean = false,
+    includeToken = false,
   ): Promise<UserResponseObject> {
     const user = await this.userRepository.findOne({
       where: { userId },
