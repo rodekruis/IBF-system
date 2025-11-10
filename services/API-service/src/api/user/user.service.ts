@@ -36,7 +36,7 @@ export class UserService {
 
   private readonly relations: string[] = ['countries', 'disasterTypes'];
 
-  public constructor(private readonly lookupService: LookupService) {}
+  public constructor(private readonly lookupService: LookupService) { }
 
   public async findAll(): Promise<UserEntity[]> {
     return await this.userRepository.find({ relations: this.relations });
@@ -320,7 +320,7 @@ export class UserService {
 
   public buildUserRO = async (
     user: UserEntity,
-    includeToken: boolean = false,
+    includeToken = false,
   ): Promise<UserResponseObject> => ({
     user: {
       email: user.email,
