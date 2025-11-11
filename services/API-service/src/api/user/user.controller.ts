@@ -25,7 +25,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDecorator } from './user.decorator';
 import { User, UserResponseObject } from './user.model';
 import { UserService } from './user.service';
-import { UserRole, USER_ROLE_RANK } from './user-role.enum';
+import { USER_ROLE_RANK, UserRole } from './user-role.enum';
 
 // REFACTOR: find a way to use this interface across the app
 interface GetUsersQuery {
@@ -36,10 +36,7 @@ interface GetUsersQuery {
 @ApiTags('--user--')
 @Controller('user')
 export class UserController {
-  private readonly userService: UserService;
-  public constructor(userService: UserService) {
-    this.userService = userService;
-  }
+  public constructor(private userService: UserService) {}
 
   @ApiBearerAuth()
   @UseGuards(RolesGuard)
@@ -137,13 +134,38 @@ export class UserController {
         USER_ROLE_RANK[updateUserData.userRole] < USER_ROLE_RANK[user.userRole]
       ) {
         const allowedRoles = Object.keys(USER_ROLE_RANK).filter(
-          (role: UserRole) =>
-            USER_ROLE_RANK[role] >= USER_ROLE_RANK[user.userRole],
+          (userRole: UserRole) =>
+            USER_ROLE_RANK[userRole] >= USER_ROLE_RANK[user.userRole],
         );
 
         throw new ForbiddenException(
           `You cannot set user role to ${updateUserData.userRole}. You can set user role to ${allowedRoles.join(', ')}.`,
         );
+      }
+
+      if (updateUserData.countries) {
+        // prevent user from adding others to countries they are not in
+        if (
+          !updateUserData.countries.every((countryCodeISO3) =>
+            user.countries.includes(countryCodeISO3),
+          )
+        ) {
+          const forbiddenCountries = updateUserData.countries.filter(
+            (countryCodeISO3) => !user.countries.includes(countryCodeISO3),
+          );
+
+          throw new ForbiddenException(
+            `You cannot add users to countries ${forbiddenCountries}. You can add users to countries ${user.countries.join(', ')}.`,
+          );
+        }
+
+        // keep user countries which the admin is not in but the user is
+        const targetUser = await this.userService.findById(targetUserId);
+        const immuneCountries = targetUser.user.countries.filter(
+          (countryCodeISO3) => !user.countries.includes(countryCodeISO3),
+        );
+
+        updateUserData.countries.push(...immuneCountries);
       }
 
       return this.userService.updateUser(targetUserId, updateUserData, true);
