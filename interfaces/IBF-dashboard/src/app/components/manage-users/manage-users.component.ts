@@ -181,14 +181,16 @@ export class ManageUsersComponent implements OnDestroy {
     return Math.ceil(this.sortedUsers.length / this.pageSize);
   }
 
-  get roles() {
-    const roles = Object.values(UserRole).reverse();
+  get userRoles() {
+    const userRoles = Object.values(UserRole).sort(
+      (a, b) => USER_ROLE_RANK[b] - USER_ROLE_RANK[a],
+    );
 
     if (this.user?.userRole === UserRole.Admin) {
-      return roles;
+      return userRoles;
     }
 
-    return roles.filter((role) => role !== UserRole.Admin);
+    return userRoles.filter((role) => role !== UserRole.Admin);
   }
 
   get userCountries() {

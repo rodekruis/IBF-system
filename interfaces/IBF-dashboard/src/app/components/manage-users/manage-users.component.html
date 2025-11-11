@@ -37,33 +37,39 @@
   </ion-row>
   @if (pagedUsers.length === 0) {
     <ion-row>
-      <ion-col class="flex h-40 items-center justify-center italic">{{
-        message
-      }}</ion-col>
+      <ion-col class="flex h-40 items-center justify-center italic">
+        {{ message }}
+      </ion-col>
     </ion-row>
   } @else {
-    @for (user of pagedUsers; track user.userId) {
+    @for (pagedUser of pagedUsers; track pagedUser.userId) {
       <ion-row class="items-center">
-        <ion-col>{{ getUserName(user) }}</ion-col>
-        <ion-col
-          ><a class="no-underline" href="mailto:{{ user.email }}">{{
-            user.email
-          }}</a></ion-col
-        >
         <ion-col>
-          <ion-select
-            mode="ios"
-            interface="popover"
-            [interfaceOptions]="{ showBackdrop: false }"
-            [value]="user.userRole"
-            (ionChange)="onRoleChange($event, user)"
-          >
-            @for (role of roles; track role) {
-              <ion-select-option [value]="role">{{
-                USER_ROLE_LABEL[role]
-              }}</ion-select-option>
-            }
-          </ion-select>
+          {{ getUserName(pagedUser) }}
+        </ion-col>
+        <ion-col>
+          <a class="no-underline" href="mailto:{{ pagedUser.email }}">
+            {{ pagedUser.email }}
+          </a>
+        </ion-col>
+        <ion-col>
+          @if (userRoles.includes(pagedUser.userRole)) {
+            <ion-select
+              mode="ios"
+              interface="popover"
+              [interfaceOptions]="{ showBackdrop: false }"
+              [value]="pagedUser.userRole"
+              (ionChange)="onRoleChange($event, pagedUser)"
+            >
+              @for (userRole of userRoles; track userRole) {
+                <ion-select-option [value]="userRole">
+                  {{ USER_ROLE_LABEL[userRole] }}
+                </ion-select-option>
+              }
+            </ion-select>
+          } @else {
+            {{ USER_ROLE_LABEL[pagedUser.userRole] || pagedUser.userRole }}
+          }
         </ion-col>
         @if (userCountries.length > 1) {
           <ion-col>
@@ -71,17 +77,20 @@
               mode="ios"
               interface="popover"
               [interfaceOptions]="{ showBackdrop: false }"
-              [value]="user.countries"
-              (ionChange)="onCountriesChange($event, user)"
+              [value]="pagedUser.countries"
+              (ionChange)="onCountriesChange($event, pagedUser)"
               multiple="true"
-              [selectedText]="user.countries.length"
+              [selectedText]="pagedUser.countries.length"
               class="border-none p-0"
-              [class.text-red-500]="user.countries.length === 0"
+              [class.text-red-500]="pagedUser.countries.length === 0"
             >
               @for (userCountry of userCountries; track userCountry) {
-                <ion-select-option [value]="userCountry">{{
-                  countryName[userCountry] || userCountry
-                }}</ion-select-option>
+                <ion-select-option
+                  [value]="userCountry"
+                  [disabled]="!userRoles.includes(pagedUser.userRole)"
+                >
+                  {{ countryName[userCountry] || userCountry }}
+                </ion-select-option>
               }
             </ion-select>
           </ion-col>
