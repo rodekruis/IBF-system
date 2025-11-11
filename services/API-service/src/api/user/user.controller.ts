@@ -25,7 +25,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDecorator } from './user.decorator';
 import { User, UserResponseObject } from './user.model';
 import { UserService } from './user.service';
-import { UserRole } from './user-role.enum';
+import { UserRole, USER_ROLE_RANK } from './user-role.enum';
 
 // REFACTOR: find a way to use this interface across the app
 interface GetUsersQuery {
@@ -120,21 +120,35 @@ export class UserController {
   @ApiQuery({ name: 'userId', required: false, type: 'string' })
   @Patch()
   public async updateUser(
-    @UserDecorator('userId') userId: string,
+    @UserDecorator() user: User,
     @Query('userId') targetUserId: string,
     @Body() updateUserData: UpdateUserDto,
   ): Promise<UserResponseObject> {
     if (targetUserId) {
-      const isAdmin = await this.userService.isAdmin(userId, targetUserId);
+      const isAdmin = await this.userService.isAdmin(user.userId, targetUserId);
       if (!isAdmin) {
         throw new ForbiddenException(
           `You are not allowed to update user ${targetUserId}`,
         );
       }
 
+      if (
+        updateUserData.userRole &&
+        USER_ROLE_RANK[updateUserData.userRole] < USER_ROLE_RANK[user.userRole]
+      ) {
+        const allowedRoles = Object.keys(USER_ROLE_RANK).filter(
+          (role: UserRole) =>
+            USER_ROLE_RANK[role] >= USER_ROLE_RANK[user.userRole],
+        );
+
+        throw new ForbiddenException(
+          `You cannot set user role to ${updateUserData.userRole}. You can set user role to ${allowedRoles.join(', ')}.`,
+        );
+      }
+
       return this.userService.updateUser(targetUserId, updateUserData, true);
     }
 
-    return this.userService.updateUser(userId, updateUserData);
+    return this.userService.updateUser(user.userId, updateUserData);
   }
 }
