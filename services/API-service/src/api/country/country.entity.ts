@@ -16,7 +16,7 @@ import { NotificationInfoEntity } from '../notification/notifcation-info.entity'
 import { UserEntity } from '../user/user.entity';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
 
-@Entity('country')
+@Entity('country', { orderBy: { countryCodeISO3: 'ASC' } })
 export class CountryEntity {
   @ApiProperty({ example: '6b9b7669-4839-4fdb-9645-9070a27bda86' })
   @PrimaryGeneratedColumn('uuid')

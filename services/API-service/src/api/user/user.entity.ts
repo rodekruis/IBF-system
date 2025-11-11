@@ -17,7 +17,7 @@ import { EapActionStatusEntity } from '../eap-actions/eap-action-status.entity';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { UserRole } from './user-role.enum';
 
-@Entity('user')
+@Entity('user', { orderBy: { created: 'DESC' } })
 export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   public userId: string;

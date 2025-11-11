@@ -116,9 +116,7 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
       );
 
       const countryEntities = [];
-      for await (const countryEntity of await countryRepository.find({
-        order: { countryCodeISO3: 'ASC' },
-      })) {
+      for await (const countryEntity of await countryRepository.find()) {
         const notificationInfoEntity = new NotificationInfoEntity();
         const notificationInfoCountry: NotificationInfoDto =
           notificationInfo.find(

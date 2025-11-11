@@ -42,12 +42,10 @@ export class CountryService {
       const countryCodes = countryCodesISO3.split(',');
       return await this.countryRepository.find({
         where: { countryCodeISO3: In(countryCodes) },
-        order: { countryCodeISO3: 'ASC' },
         relations: minimalInfo ? ['disasterTypes'] : this.relations,
       });
     } else {
       return await this.countryRepository.find({
-        order: { countryCodeISO3: 'ASC' },
         relations: minimalInfo ? ['disasterTypes'] : this.relations,
       });
     }
@@ -115,7 +113,6 @@ export class CountryService {
         .map((countryDisasterType: string): object => {
           return { disasterType: countryDisasterType };
         }),
-      order: { disasterType: 'ASC' },
     });
     countryEntity.countryLogos = JSON.parse(
       JSON.stringify(country.countryLogos),
