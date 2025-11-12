@@ -1,0 +1,45 @@
+@if (enableSearch) {
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="cancelChanges()" color="medium">
+          {{ 'typeahead.cancel' | translate }}
+        </ion-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button (click)="confirmChanges()" color="dark">
+          {{ 'typeahead.save' | translate }}
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+    <ion-toolbar>
+      <ion-searchbar
+        placeholder="{{ 'typeahead.search-placeholder' | translate }}"
+        (ionInput)="searchbarInput($event)"
+      ></ion-searchbar>
+    </ion-toolbar>
+  </ion-header>
+}
+
+<ion-list [inset]="false">
+  @for (item of filteredItems; track item.value) {
+    <ion-item [lines]="$last ? 'none' : 'full'">
+      <ion-checkbox
+        color="light"
+        [value]="item.value"
+        [checked]="isChecked(item.value)"
+        (ionChange)="checkboxChange($event)"
+        [disabled]="item.disabled"
+      >
+        {{ item.label }}
+      </ion-checkbox>
+    </ion-item>
+  }
+  @if (filteredItems.length === 0) {
+    <ion-item lines="none">
+      <ion-note class="mx-auto my-12">
+        {{ 'typeahead.no-items' | translate }}
+      </ion-note>
+    </ion-item>
+  }
+</ion-list>

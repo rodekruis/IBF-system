@@ -10,13 +10,13 @@ import {
   IonSelect,
   IonSelectOption,
   PopoverController,
-  SelectCustomEvent,
   ToastController,
 } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService, UserResponse } from 'src/app/auth/auth.service';
 import { ManageUsersMenuComponent } from 'src/app/components/manage-users-menu/manage-users-menu.component';
+import { TypeaheadComponent } from 'src/app/components/typeahead/typeahead.component';
 import { TOAST_DURATION, TOAST_POSITION } from 'src/app/config';
 import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
@@ -41,6 +41,7 @@ import { UserService } from 'src/app/services/user.service';
     IonInput,
     FormsModule,
     TranslateModule,
+    TypeaheadComponent,
   ],
   templateUrl: './manage-users.component.html',
   providers: [PopoverController],
@@ -217,8 +218,7 @@ export class ManageUsersComponent implements OnDestroy {
     return this.sortAsc ? 'arrow-up' : 'arrow-down';
   }
 
-  onRoleChange(event: SelectCustomEvent<UserRole>, user: User) {
-    const userRole = event.detail.value;
+  onUserRoleChange(userRole: UserRole, user: User) {
     const presentToastError = this.translateService.instant(
       'common.error.present-toast',
     ) as string;
@@ -251,11 +251,7 @@ export class ManageUsersComponent implements OnDestroy {
     });
   }
 
-  onCountriesChange(
-    event: SelectCustomEvent<Country['countryCodeISO3'][]>,
-    user: User,
-  ) {
-    const countries = event.detail.value;
+  onCountriesChange(countries: Country['countryCodeISO3'][], user: User) {
     const presentToastError = this.translateService.instant(
       'common.error.present-toast',
     ) as string;
@@ -286,17 +282,64 @@ export class ManageUsersComponent implements OnDestroy {
     });
   }
 
-  async presentToast(
-    message: string,
-    position: 'bottom' | 'middle' | 'top' = TOAST_POSITION,
-  ) {
-    const toast = await this.toastController.create({
-      message,
-      duration: TOAST_DURATION,
-      position,
+  public async showUserRoles(event: Event, user: User) {
+    const popover = await this.popoverController.create({
+      component: TypeaheadComponent,
+      componentProps: {
+        items: this.userRoles.map((userRole) => ({
+          label: USER_ROLE_LABEL[userRole] || userRole,
+          value: userRole,
+          disabled: !this.userRoles.includes(user.userRole),
+        })),
+        selectedItems: user.userRole,
+        selectionChange: {
+          emit: (userRole: UserRole) => {
+            this.onUserRoleChange(userRole, user);
+          },
+        },
+        selectionCancel: { emit: () => popover.dismiss() },
+      },
+      event,
+      mode: 'ios',
+      alignment: 'center',
+      side: 'bottom',
+      size: 'cover',
+      dismissOnSelect: false,
+      showBackdrop: false,
     });
 
-    await toast.present();
+    await popover.present();
+  }
+
+  public async showUserCountries(event: Event, user: User) {
+    const popover = await this.popoverController.create({
+      component: TypeaheadComponent,
+      componentProps: {
+        enableSearch: true,
+        multi: true,
+        items: this.userCountries.map((countryCodeISO3) => ({
+          label: this.countryName[countryCodeISO3] || countryCodeISO3,
+          value: countryCodeISO3,
+          disabled: !this.userRoles.includes(user.userRole),
+        })),
+        selectedItems: user.countries,
+        selectionChange: {
+          emit: (countries: string[]) => {
+            this.onCountriesChange(countries, user);
+          },
+        },
+        selectionCancel: { emit: () => popover.dismiss() },
+      },
+      event,
+      mode: 'ios',
+      alignment: 'center',
+      side: 'bottom',
+      size: 'cover',
+      dismissOnSelect: false,
+      showBackdrop: false,
+    });
+
+    await popover.present();
   }
 
   public async showManageUsersMenu(event: Event) {
@@ -312,5 +355,18 @@ export class ManageUsersComponent implements OnDestroy {
     });
 
     await manageUsersMenu.present();
+  }
+
+  async presentToast(
+    message: string,
+    position: 'bottom' | 'middle' | 'top' = TOAST_POSITION,
+  ) {
+    const toast = await this.toastController.create({
+      message,
+      duration: TOAST_DURATION,
+      position,
+    });
+
+    await toast.present();
   }
 }

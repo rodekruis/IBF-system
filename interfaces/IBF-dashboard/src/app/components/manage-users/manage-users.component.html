@@ -27,7 +27,9 @@
       @if (column.key !== 'countries' || userCountries.length > 1) {
         <ion-col
           (click)="setSort(column.key)"
-          class="flex cursor-pointer items-center justify-start gap-2"
+          class="flex cursor-pointer items-center justify-start gap-2 indent-8"
+          size="6"
+          size-md="3"
         >
           {{ column.label | translate }}
           <ion-icon [name]="getSortIcon(column.key)"></ion-icon>
@@ -43,74 +45,86 @@
     </ion-row>
   } @else {
     @for (pagedUser of pagedUsers; track pagedUser.userId) {
-      <ion-row class="items-center">
-        <ion-col>
-          {{ getUserName(pagedUser) }}
+      <ion-row class="items-center" [class.bg-gray-100]="$even">
+        <ion-col size="6" size-md="3">
+          <ion-list [inset]="true" mode="ios" class="!m-2">
+            <ion-item [color]="$even ? 'light' : 'ibf-white'">
+              {{ getUserName(pagedUser) }}
+            </ion-item>
+          </ion-list>
         </ion-col>
-        <ion-col>
-          <a class="no-underline" href="mailto:{{ pagedUser.email }}">
-            {{ pagedUser.email }}
-          </a>
-        </ion-col>
-        <ion-col>
-          @if (userRoles.includes(pagedUser.userRole)) {
-            <ion-select
-              mode="ios"
-              interface="popover"
-              [interfaceOptions]="{ showBackdrop: false }"
-              [value]="pagedUser.userRole"
-              (ionChange)="onRoleChange($event, pagedUser)"
+        <ion-col size="6" size-md="3">
+          <ion-list [inset]="true" mode="ios" class="!m-2">
+            <ion-item
+              [button]="true"
+              [detail]="true"
+              detail-icon="mail"
+              href="mailto:{{ pagedUser.email }}"
             >
-              @for (userRole of userRoles; track userRole) {
-                <ion-select-option [value]="userRole">
-                  {{ USER_ROLE_LABEL[userRole] }}
-                </ion-select-option>
-              }
-            </ion-select>
-          } @else {
-            {{ USER_ROLE_LABEL[pagedUser.userRole] || pagedUser.userRole }}
-          }
+              {{ pagedUser.email }}
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        <ion-col size="6" size-md="3">
+          <ion-list [inset]="true" mode="ios" class="!m-2">
+            <ion-item
+              [button]="true"
+              (click)="showUserRoles($event, pagedUser)"
+              [detail]="true"
+              detail-icon="chevron-expand"
+              [disabled]="!userRoles.includes(pagedUser.userRole)"
+            >
+              {{ USER_ROLE_LABEL[pagedUser.userRole] || pagedUser.userRole }}
+            </ion-item>
+          </ion-list>
         </ion-col>
         @if (userCountries.length > 1) {
-          <ion-col>
-            <ion-select
-              mode="ios"
-              interface="popover"
-              [interfaceOptions]="{ showBackdrop: false }"
-              [value]="pagedUser.countries"
-              (ionChange)="onCountriesChange($event, pagedUser)"
-              multiple="true"
-              [selectedText]="pagedUser.countries.length"
-              class="border-none p-0"
-              [class.text-red-500]="pagedUser.countries.length === 0"
-            >
-              @for (userCountry of userCountries; track userCountry) {
-                <ion-select-option
-                  [value]="userCountry"
-                  [disabled]="!userRoles.includes(pagedUser.userRole)"
-                >
-                  {{ countryName[userCountry] || userCountry }}
-                </ion-select-option>
-              }
-            </ion-select>
+          <ion-col size="6" size-md="3">
+            <ion-list [inset]="true" mode="ios" class="!m-2">
+              <ion-item
+                [button]="true"
+                (click)="showUserCountries($event, pagedUser)"
+                [detail]="true"
+                detail-icon="chevron-expand"
+                [class.text-red-500]="pagedUser.countries.length === 0"
+              >
+                {{
+                  'manage.users.countries-count'
+                    | translate
+                      : {
+                          countryCount: pagedUser.countries.length,
+                          countryLabel:
+                            countryName[pagedUser.countries[0]] ||
+                            pagedUser.countries[0],
+                        }
+                }}
+              </ion-item>
+            </ion-list>
           </ion-col>
         }
       </ion-row>
     }
   }
   <ion-row class="mt-6">
-    <ion-col size="6"> </ion-col>
     @if (pagedUsers.length > 0) {
-      <ion-col size="6" class="flex items-center justify-end space-x-2">
+      <ion-col
+        size="12"
+        offset="0"
+        offset-md="6"
+        size-md="6"
+        class="flex items-center justify-end space-x-2"
+      >
         <ion-button
-          color="ibf-white"
+          color="medium"
+          fill="clear"
           (click)="page = 1"
           [disabled]="page === 1"
         >
           <ion-icon slot="icon-only" name="caret-back"></ion-icon>
         </ion-button>
         <ion-button
-          color="ibf-white"
+          color="medium"
+          fill="clear"
           (click)="page = page - 1"
           [disabled]="page === 1"
         >
@@ -122,14 +136,16 @@
           {{ sortedUsers.length }}
         </span>
         <ion-button
-          color="ibf-white"
+          color="medium"
+          fill="clear"
           (click)="page = page + 1"
           [disabled]="page === totalPages"
         >
           <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
         </ion-button>
         <ion-button
-          color="ibf-white"
+          color="medium"
+          fill="clear"
           (click)="page = totalPages"
           [disabled]="page === totalPages"
         >

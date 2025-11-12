@@ -69,7 +69,8 @@
       "export-users": "Export users",
       "not-found": "No users found",
       "role-changed": "{userName} is now {userRole, select, Admin{an} Operator{an} other{a}} {userRole}",
-      "countries-changed": "{userName} {countryCount, plural, =0{cannot} other{can now}} view {countryCount, plural, =0{any} other{{countryCount}}} {countryCount, plural, =0{country} one{country} other{countries}}"
+      "countries-changed": "{userName} {countryCount, plural, =0{cannot} other{can now}} view {countryCount, plural, =0{any} other{{countryCount}}} {countryCount, plural, =0{country} one{country} other{countries}}",
+      "countries-count": "{countryCount, plural, =0{None} one{{countryLabel}} other{{countryCount} countries}}"
     },
     "preferences": {
       "title": "Preferences",
@@ -320,5 +321,11 @@
   },
   "breadcrumbs": { "national-view": "National View" },
   "layers-menu": { "menu-toggle-label": "Layers" },
-  "layer-control-info-popover": { "upload-error": "Error uploading file" }
+  "layer-control-info-popover": { "upload-error": "Error uploading file" },
+  "typeahead": {
+    "no-items": "No items found",
+    "search-placeholder": "Search",
+    "cancel": "Cancel",
+    "save": "Save"
+  }
 }
