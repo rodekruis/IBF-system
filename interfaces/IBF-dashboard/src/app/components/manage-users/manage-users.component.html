@@ -15,7 +15,7 @@
       <ion-button
         fill="clear"
         size="large"
-        color="ibf-grey"
+        color="medium"
         (mouseenter)="showManageUsersMenu($event)"
       >
         <ion-icon slot="icon-only" name="menu"></ion-icon>
@@ -27,7 +27,7 @@
       @if (column.key !== 'countries' || userCountries.length > 1) {
         <ion-col
           (click)="setSort(column.key)"
-          class="flex cursor-pointer items-center justify-start gap-2 indent-8"
+          class="flex cursor-pointer items-center justify-start gap-2 indent-4"
           size="6"
           size-md="3"
         >
