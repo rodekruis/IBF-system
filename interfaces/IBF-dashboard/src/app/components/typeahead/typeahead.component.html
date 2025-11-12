@@ -7,7 +7,11 @@
         </ion-button>
       </ion-buttons>
       <ion-buttons slot="end">
-        <ion-button (click)="confirmChanges()" color="dark">
+        <ion-button
+          (click)="confirmChanges()"
+          color="dark"
+          [disabled]="disableConfirm"
+        >
           {{ 'typeahead.save' | translate }}
         </ion-button>
       </ion-buttons>

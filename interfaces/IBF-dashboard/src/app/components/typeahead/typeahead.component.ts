@@ -131,4 +131,17 @@ export class TypeaheadComponent implements OnInit {
       );
     }
   }
+
+  get disableConfirm() {
+    if (this.items.every((item) => item.disabled)) {
+      return true;
+    }
+
+    return (
+      this.workingSelectedValues.length === this.selectedItems.length &&
+      this.workingSelectedValues.every((value) =>
+        this.selectedItems.includes(value),
+      )
+    );
+  }
 }
