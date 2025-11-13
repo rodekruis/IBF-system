@@ -25,9 +25,9 @@
   </ion-header>
 }
 
-<ion-list [inset]="false">
+<ion-list [inset]="false" class="max-h-80 overflow-scroll">
   @for (item of filteredItems; track item.value) {
-    <ion-item [lines]="$last ? 'none' : 'full'">
+    <ion-item [lines]="$last ? 'none' : 'full'" [title]="item.label">
       <ion-checkbox
         color="light"
         [value]="item.value"
