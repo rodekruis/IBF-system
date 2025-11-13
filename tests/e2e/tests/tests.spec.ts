@@ -32,16 +32,11 @@ import ChatComponentVisible from './ChatComponent/ChatComponentVisible';
 import DashboardPageVisible from './DashboardPage/DashboardPageVisible';
 import DisasterTypeComponentSelect from './DisasterTypeComponent/DisasterTypeComponentSelect';
 import DisasterTypeComponentVisible from './DisasterTypeComponent/DisasterTypeComponentVisible';
-import MapComponentFloodExtent from './MapComponent/MapComponentFloodExtent';
 import MapComponentGloFASStations from './MapComponent/MapComponentGloFASStations';
-import MapComponentGloFASStationsTrigger from './MapComponent/MapComponentGloFASStationsTrigger';
-import MapComponentGloFASStationsWarning from './MapComponent/MapComponentGloFASStationsWarning';
 import MapComponentInfoPopover from './MapComponent/MapComponentInfoPopover';
 import MapComponentInteractive from './MapComponent/MapComponentInteractive';
-import MapComponentLayersDefault from './MapComponent/MapComponentLayersDefault';
 import MapComponentLayersVisible from './MapComponent/MapComponentLayersVisible';
 import MapComponentLinesLayers from './MapComponent/MapComponentLinesLayers';
-import MapComponentTriggerLayer from './MapComponent/MapComponentTriggerLayer';
 import MapComponentVisible from './MapComponent/MapComponentVisible';
 import TimelineComponentNotClickable from './TimelineComponent/TimelineComponentNotClickable';
 import TimelineComponentVisible from './TimelineComponent/TimelineComponentVisible';
@@ -121,31 +116,16 @@ test.describe('e2e tests', () => {
         MapComponentInteractive(pages, components, dataset);
         MapComponentInfoPopover(pages, components, dataset);
         MapComponentLayersVisible(pages, components, dataset);
-        MapComponentTriggerLayer(pages, components, dataset);
         MapComponentGloFASStations(pages, components, dataset);
         MapComponentLinesLayers(pages, components, dataset);
-
-        if (scenario !== 'no-trigger') {
-          // REFACTOR
-          MapComponentLayersDefault(pages, components, dataset);
-          MapComponentFloodExtent(pages, components, dataset);
-          MapComponentGloFASStationsTrigger(pages, components, dataset);
-        } else {
-          // REFACTOR
-          MapComponentGloFASStationsWarning(pages, components, dataset);
-        }
       });
 
       test.describe('AggregatesComponent', () => {
         AggregatesComponentVisible(pages, components, dataset);
         AggregateComponentTitleHover(pages, components, dataset);
         AggregateComponentButtonClick(pages, components, dataset);
-
-        if (scenario !== 'no-trigger') {
-          // REFACTOR
-          AggregateComponentEventCount(pages, components, dataset);
-          AggregateComponentHeaderColour(pages, components, dataset);
-        }
+        AggregateComponentEventCount(pages, components, dataset);
+        AggregateComponentHeaderColour(pages, components, dataset);
       });
 
       test.describe('ChatComponent', () => {

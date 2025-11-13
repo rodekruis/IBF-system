@@ -259,14 +259,14 @@ class MapComponent extends DashboardPage {
   }
 
   async assertLegendElementIsVisible({
-    legendComponentName,
+    legendLabels,
   }: {
-    legendComponentName: string;
+    legendLabels: string[];
   }) {
-    const legendComponent = this.legend.filter({
-      hasText: legendComponentName,
-    });
-    await expect(legendComponent).toBeVisible();
+    for (const legendLabel of legendLabels) {
+      const legendComponent = this.legend.filter({ hasText: legendLabel });
+      await expect(legendComponent).toBeVisible();
+    }
   }
 
   async assertTriggerOutlines(scenario: string) {
@@ -320,9 +320,11 @@ class MapComponent extends DashboardPage {
   }
 
   // REFACTOR: this method looks like it tests all active layers, but tests only glofas_stations
-  async isLayerVisible({ name }: Layer) {
+  async isLayerVisible({ name }: Layer, scenario: string) {
     if (name === 'glofas_stations') {
       await this.glofasMarkersAreVisible();
+    } else if (name === 'trigger') {
+      await this.assertTriggerOutlines(scenario);
     }
   }
 

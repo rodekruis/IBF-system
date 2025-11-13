@@ -25,7 +25,17 @@ export default (
     await chat.allDefaultButtonsArePresent();
 
     // Set trigger
-    await chat.setTrigger(dataset.scenario);
+    if (
+      !(
+        dataset.country.code === 'UGA' &&
+        dataset.disasterType.name === 'drought' &&
+        dataset.scenario === 'warning'
+      )
+      // HACK: workaround coz it auto-navigates to event view
+    ) {
+      await chat.clickShowPredictionButton(dataset.scenario);
+    }
+    await chat.setTrigger();
     await dashboard.waitForLoaderToDisappear(); // This is needed because the setTrigger comes with a page reload. Otherwise the next test will fail.
 
     // Assertions

@@ -9,7 +9,7 @@ export default (
   dataset: Dataset,
   date: Date,
 ) => {
-  test('[33717] Click on area in affected areas list in chat', async () => {
+  test('[33717] click on area in affected areas list in chat', async () => {
     const { dashboard } = pages;
     const { chat, userState, aggregates, map } = components;
 
@@ -26,7 +26,16 @@ export default (
     await chat.chatColumnIsVisible({ date, scenario: dataset.scenario });
     await map.assertTriggerOutlines(dataset.scenario);
     await chat.predictionButtonsAreActive();
-    await chat.clickShowPredictionButton(dataset.scenario);
+    if (
+      !(
+        dataset.country.code === 'UGA' &&
+        dataset.disasterType.name === 'drought' &&
+        dataset.scenario === 'warning'
+      )
+      // HACK: workaround coz it auto-navigates to event view
+    ) {
+      await chat.clickShowPredictionButton(dataset.scenario);
+    }
     await map.clickOnAdminBoundary();
 
     // Assertions

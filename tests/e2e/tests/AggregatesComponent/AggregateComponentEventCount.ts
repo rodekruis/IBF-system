@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test('[33061] Number of events should be non-zero', async () => {
+  test('[33061] number of events should be non-zero', async () => {
     const { dashboard } = pages;
     const { aggregates, userState } = components;
 
@@ -22,10 +22,12 @@ export default (
     await userState.headerComponentIsVisible(dataset);
     await dashboard.waitForLoaderToDisappear();
 
-    // get the number of warning events and aggregated events
-    const eventCount = await aggregates.getEventCount();
+    const aggregatesEventCount = await aggregates.getEventCount();
 
-    // check if the number of warning events is equal to the number of aggregated events
-    expect(eventCount).toBeGreaterThan(0);
+    if (dataset.scenario === 'no-trigger') {
+      expect(aggregatesEventCount).toBe(0);
+    } else {
+      expect(aggregatesEventCount).toBeGreaterThan(0);
+    }
   });
 };

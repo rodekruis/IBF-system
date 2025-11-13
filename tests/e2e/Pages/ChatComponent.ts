@@ -151,6 +151,11 @@ class ChatComponent extends DashboardPage {
     await newPage.close();
   }
 
+  async getEventCount() {
+    const eventHeaders = this.page.locator('.event-header');
+    return await eventHeaders.count();
+  }
+
   async predictionButtonsAreActive() {
     const showPredictionButton = this.page.getByRole('button', {
       name: 'Show prediction',
@@ -184,9 +189,8 @@ class ChatComponent extends DashboardPage {
     await triggerChatDialogue.click();
   }
 
-  async setTrigger(scenario: string) {
+  async setTrigger() {
     // click on the show prediction button in chat section
-    await this.clickShowPredictionButton(scenario);
     await this.setTriggerButton.click();
     // continue in the popover
     // select first checkbox with a region

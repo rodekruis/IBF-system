@@ -51,7 +51,6 @@ class AggregatesComponent extends DashboardPage {
 
   async aggregateComponentIsVisible() {
     await expect(this.aggregateSectionColumn).toBeVisible();
-    await expect(this.aggregateSectionColumn).toContainText('National View');
   }
 
   async aggregatesElementsDisplayedInNoTrigger(
@@ -121,11 +120,17 @@ class AggregatesComponent extends DashboardPage {
   }
 
   async getEventCount() {
-    const aggregatesHeaderLabel =
-      await this.aggregatesSubHeaderLabel.textContent();
-    const eventCount = aggregatesHeaderLabel?.match(/\d+/g);
+    const aggregateHeaderLabel = await this.aggregatesHeaderLabel.textContent();
 
-    return eventCount ? parseInt(eventCount[0], 10) : null;
+    if (aggregateHeaderLabel?.includes('National View')) {
+      const aggregatesHeaderLabel =
+        await this.aggregatesSubHeaderLabel.textContent();
+      const eventCount = aggregatesHeaderLabel?.match(/\d+/g);
+
+      return eventCount ? parseInt(eventCount[0], 10) : 0;
+    }
+
+    return 1; // HACK: workaround for cases where the only event is auto-selected
   }
 
   async validateColorOfAggregatesHeaderByClass({

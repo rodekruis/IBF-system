@@ -35,10 +35,15 @@ export default (
       layerName: 'glofas_stations', // REFACTOR
     });
     await map.assertLegendElementIsVisible({
-      legendComponentName: 'GloFAS No alert', // REFACTOR
+      legendLabels: ['GloFAS No alert'], // REFACTOR
     });
 
     // GloFAS layer should be visible by default
     await map.glofasMarkersAreVisible();
+
+    await map.glofasMarkersAreVisible({
+      eapAlertClass: 'max',
+      isVisible: dataset.scenario === 'trigger',
+    });
   });
 };

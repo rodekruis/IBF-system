@@ -8,7 +8,7 @@ export default (
   components: Partial<Components>,
   dataset: Dataset,
 ) => {
-  test('[33018] Map should show active layers', async () => {
+  test('[33018] map should show active layers', async () => {
     const { dashboard } = pages;
     const { userState, map } = components;
 
@@ -28,14 +28,31 @@ export default (
     await map.isLayerMenuOpen({ layerMenuOpen: false });
     await map.clickLayerMenu();
     await map.isLayerMenuOpen({ layerMenuOpen: true });
+    await map.isLegendOpen({ legendOpen: true });
 
     // Check if the active map layers are visible
-    const activeMapLayers = dataset.layers.filter(
-      (layer) => layer.active && layer.map,
-    );
+    const activeLayers = dataset.layers.filter(({ active }) => active);
 
-    for (const mapLayer of activeMapLayers) {
-      await map.isLayerVisible(mapLayer);
+    for (const layer of activeLayers) {
+      await map.assertLegendElementIsVisible({
+        legendLabels: layer.legendLabels,
+      });
+
+      // we do not expect to see layers with map: false
+      if (!layer.map) return;
+
+      await map.isLayerVisible(layer, dataset.scenario);
+
+      if (layer.type === 'wms') {
+        await map.isLayerCheckboxChecked({ layerName: layer.name });
+        await map.validateLayerIsVisibleInMapBySrcElement({
+          layerName: layer.name,
+        });
+      } else if (layer.type === 'admin-area') {
+        await map.isLayerRadioButtonChecked({ layerName: layer.name });
+        // Validate that the layer checked with radio button is visible on the map in this case 'Exposed population' only one such layer can be checked at a time
+        await map.areAdminBoundariesVisible({ layerName: layer.name });
+      }
     }
   });
 };

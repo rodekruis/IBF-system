@@ -8,7 +8,7 @@ class UserStateComponent extends DashboardPage {
   readonly page: Page;
   readonly header: Locator;
   readonly countryLogos: Locator;
-  readonly userLoggedInLabel: Locator;
+  readonly userInitials: Locator;
   readonly logOutButton: Locator;
 
   constructor(page: Page) {
@@ -18,8 +18,8 @@ class UserStateComponent extends DashboardPage {
       .getByTestId('ibf-dashboard-interface')
       .getByTestId('heading-display-name-span');
     this.countryLogos = this.page.getByTestId('logo-image');
-    this.userLoggedInLabel = this.page.getByTestId('user-display-name');
-    this.logOutButton = this.page.getByTestId('user-state-logout-button');
+    this.userInitials = this.page.getByTestId('user-initials');
+    this.logOutButton = this.page.getByTestId('user-state-menu-logout-button');
   }
 
   async headerComponentIsVisible({ title }: Dataset) {
@@ -34,11 +34,11 @@ class UserStateComponent extends DashboardPage {
     }
 
     await expect(this.dashboardHomeButton).toBeVisible();
-    await expect(this.userLoggedInLabel).toHaveText(`${firstName} ${lastName}`);
-    await expect(this.logOutButton).toBeVisible();
+    await expect(this.userInitials).toHaveText(`${firstName[0]}${lastName[0]}`);
   }
 
   async logOut() {
+    await this.userInitials.hover();
     await this.logOutButton.click();
   }
 }

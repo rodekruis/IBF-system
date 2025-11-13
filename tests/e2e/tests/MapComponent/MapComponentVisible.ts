@@ -24,7 +24,15 @@ export default (
     await dashboard.waitForLoaderToDisappear();
 
     await map.mapComponentIsVisible();
-    await map.breadCrumbViewIsVisible({ nationalView: true });
+    const breadcrumbView = {
+      nationalView: true,
+      eventView:
+        dataset.country.code === 'UGA' &&
+        dataset.disasterType.name === 'drought' &&
+        dataset.scenario === 'warning',
+      // HACK: workaround coz it auto-navigates to event view
+    };
+    await map.breadCrumbViewIsVisible(breadcrumbView);
     await map.isLegendOpen({ legendOpen: true });
     await map.isLayerMenuOpen({ layerMenuOpen: false });
     await map.areAdminBoundariesVisible();
