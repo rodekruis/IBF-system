@@ -29,20 +29,7 @@ export default (
     await userState.headerComponentIsVisible(dataset);
     await dashboard.waitForLoaderToDisappear();
     await disasterType.topBarComponentIsVisible();
-    if (dataset.scenario === 'trigger') {
-      // REFACTOR
-      await chat.chatColumnIsVisibleForTriggerState({
-        user: dataset.user,
-        date,
-      });
-    } else if (dataset.scenario === 'no-trigger') {
-      // REFACTOR
-      await chat.chatColumnIsVisibleForNoTriggerState({
-        user: dataset.user,
-        date,
-        disasterType: dataset.disasterType.name,
-      });
-    }
+    await chat.chatColumnIsVisible({ date, scenario: dataset.scenario });
     await aggregates.aggregateComponentIsVisible();
     await map.mapComponentIsVisible();
   });

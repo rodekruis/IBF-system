@@ -150,10 +150,11 @@
       "about-button-label": "About trigger",
       "warn-label": {
         "hello": "Hello <strong>{userName}</strong>.",
-        "message": "The information in this portal is based on the model last run on <strong>{lastUploadDate}</strong>.",
+        "message": " The information in this portal is based on the model last run on <strong>{lastUploadDate}</strong>.",
         "tooltip": "The forecast presented on the portal might not be up to date as the model did not run successfully. Contact {supportEmailAddress} for further information."
       },
       "event-tooltip": "Select an area from this list or the map to monitor and manage the preplanned anticipatory actions (if applicable).",
+      "no-alerts": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued.",
       "back": "Back",
       "save-actions": {
         "header": "Result",
@@ -174,9 +175,6 @@
     },
     "floods": {
       "about-button-label": "About trigger",
-      "no-event": {
-        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
-      },
       "active-event": {
         "header": "Trigger: {eventName} on {firstTriggerLeadTimeDate}",
         "header-ongoing": "Trigger: {eventName} ongoing",
@@ -193,9 +191,6 @@
     },
     "flash-floods": {
       "about-button-label": "About trigger",
-      "no-event": {
-        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
-      },
       "active-event": {
         "header": "Trigger: {eventName} on {firstLeadTimeDate}",
         "header-ongoing": "Trigger: {eventName} ongoing",
@@ -210,9 +205,6 @@
     },
     "drought": {
       "about-button-label": "About trigger",
-      "no-event": {
-        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
-      },
       "active-event": {
         "header": "Trigger: {eventName} in {firstLeadTimeDate}",
         "header-below-trigger": "Warning: {eventName} on {firstLeadTimeDate}",
@@ -228,9 +220,6 @@
     },
     "typhoon": {
       "about-button-label": "About trigger",
-      "no-event": {
-        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> issued."
-      },
       "active-event": {
         "header": "Trigger: {eventName} at {firstLeadTimeDate}",
         "header-ongoing": "Trigger: {eventName} ongoing",
@@ -256,9 +245,6 @@
     },
     "malaria": {
       "about-button-label": "About trigger",
-      "no-event": {
-        "welcome": "To your right is the map of your country. You can turn data layers on and off. There are currently <strong>no alerts</strong> for malaria issued."
-      },
       "active-event": {
         "header": "Trigger for {firstLeadTimeDate}",
         "header-ongoing": "Trigger ongoing",

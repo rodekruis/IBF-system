@@ -21,13 +21,7 @@ export default (
     // Assertions
     await userState.headerComponentIsVisible(dataset);
     await dashboard.waitForLoaderToDisappear();
-    if (dataset.scenario === 'no-trigger') {
-      await chat.chatColumnIsVisibleForNoTriggerState({
-        user: dataset.user,
-        date,
-        disasterType: dataset.disasterType.name,
-      });
-    }
+    await chat.chatColumnIsVisible({ date, scenario: dataset.scenario });
     await chat.allDefaultButtonsArePresent();
   });
 };

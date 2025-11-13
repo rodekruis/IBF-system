@@ -149,11 +149,6 @@
 
 @if (disasterType && type === 'no-event') {
   <app-dialogue-turn>
-    <p
-      [innerHTML]="
-        'chat-component.' + disasterType?.disasterType + '.no-event.welcome'
-          | translate
-      "
-    ></p>
+    <p [innerHTML]="'chat-component.common.no-alerts' | translate"></p>
   </app-dialogue-turn>
 }

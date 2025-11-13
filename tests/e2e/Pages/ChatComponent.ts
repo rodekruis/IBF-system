@@ -4,13 +4,10 @@ import * as os from 'os';
 import { Locator, Page } from 'playwright';
 import { User } from 'testData/types';
 
-import englishTranslations from '../../../interfaces/IBF-dashboard/src/assets/i18n/en.json';
 import DashboardPage from './DashboardPage';
 
-const chatDialogueWarnLabel =
-  englishTranslations['chat-component'].common['warn-label'].message;
 const eventTooltipContent =
-  englishTranslations['chat-component'].common['event-tooltip'];
+  'Select an area from this list or the map to monitor and manage the preplanned anticipatory actions (if applicable).';
 
 class ChatComponent extends DashboardPage {
   readonly page: Page;
@@ -63,73 +60,27 @@ class ChatComponent extends DashboardPage {
     this.checkbox = this.page.getByRole('checkbox');
   }
 
-  async chatColumnIsVisibleForNoTriggerState({
-    user: { firstName, lastName },
+  async chatColumnIsVisible({
     date,
-    disasterType,
+    scenario,
   }: {
-    user: User;
     date: Date;
-    disasterType: string;
+    scenario: string;
   }) {
-    // String cleaning to remove <strong> tags and replace placeholders with actual values
-    const cleanedString = chatDialogueWarnLabel.replace(/<\/?strong>/g, '');
-
-    const formattedDate = format(date, 'EEEE, dd MMMM');
-    const formattedTime = format(date, 'HH:mm');
-
-    const lastUploadDate = `${formattedDate} ${formattedTime}`;
-
-    // Formatted Strings
-    const chatDialogueContent = cleanedString
-      .replace('{{ name }}', `${firstName} ${lastName}`)
-      .replace('{{lastUploadDate}}', lastUploadDate);
-    const englishTranslationsJson = JSON.parse(
-      JSON.stringify(englishTranslations),
-    ); // This is somehow needed to be able to access a dynamic key (disasterType) below
-    const chatDialogueContentWelcomeNoTrigger =
-      englishTranslationsJson['chat-component'][disasterType]['no-event']
-        .welcome;
-    const chatDialogueContentNoAlerts =
-      chatDialogueContentWelcomeNoTrigger.replace(/<\/?strong>/g, '');
-
-    // Locators based on data-testid and filtered by formatted strings
-    const welcomeChatDialogue = this.chatDialogue.filter({
-      hasText: chatDialogueContent,
-    });
-    const noTriggerChatDialogue = this.chatDialogue.filter({
-      hasText: chatDialogueContentNoAlerts,
-    });
-    // Assertions
-    await expect(welcomeChatDialogue).toBeVisible();
-    await expect(noTriggerChatDialogue).toBeVisible();
-  }
-
-  async chatColumnIsVisibleForTriggerState({
-    user: { firstName, lastName },
-    date,
-  }: {
-    user: User;
-    date: Date;
-  }) {
-    // String cleaning to remove <strong> tags and replace placeholders with actual values
-    const cleanedString = chatDialogueWarnLabel.replace(/<\/?strong>/g, '');
-    const formattedDate = format(date, 'EEEE, dd MMMM');
-    const formattedTime = format(date, 'HH:mm');
-    const lastUploadDate = `${formattedDate} ${formattedTime}`;
-
-    // Formatted Strings
-    const chatDialogueContent = cleanedString
-      .replace('{{ name }}', `${firstName} ${lastName}`)
-      .replace('{{lastUploadDate}}', lastUploadDate);
-
-    // Locators based on data-testid and filtered by formatted strings
-    const welcomeChatDialogue = this.chatDialogue.filter({
-      hasText: chatDialogueContent,
+    const lastUploadMessage = this.chatDialogue.filter({
+      hasText: `The information in this portal is based on the model last run on ${format(date, 'EEEE, dd MMMM HH:mm')}.`,
     });
 
-    // Assertions
-    await expect(welcomeChatDialogue).toBeVisible();
+    await expect(lastUploadMessage).toBeVisible();
+
+    if (scenario === 'no-trigger') {
+      const noAlertsMessage = this.chatDialogue.filter({
+        hasText:
+          'To your right is the map of your country. You can turn data layers on and off. There are currently no alerts issued.',
+      });
+
+      await expect(noAlertsMessage).toBeVisible();
+    }
   }
 
   async allDefaultButtonsArePresent() {
