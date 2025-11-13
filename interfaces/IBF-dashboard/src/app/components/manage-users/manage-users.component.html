@@ -59,7 +59,8 @@
               [button]="true"
               [detail]="true"
               detail-icon="mail"
-              href="mailto:{{ pagedUser.email }}"
+              href="mailto:{{ pagedUser.email }}?subject=%5BIBF%5D%20"
+              [title]="pagedUser.email"
             >
               {{ pagedUser.email }}
             </ion-item>
