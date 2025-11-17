@@ -1,13 +1,8 @@
 import { test } from '@playwright/test';
 import DashboardPage from 'Pages/DashboardPage';
-import MalawiFlashFloodsTrigger from 'testData/MalawiFlashFloodsTrigger.json';
-import { Dataset } from 'testData/types';
-import UgandaDroughtWarning from 'testData/UgandaDroughtWarning.json';
-import UgandaFloodsNoTrigger from 'testData/UgandaFloodsNoTrigger.json';
-import UgandaFloodsTrigger from 'testData/UgandaFloodsTrigger.json';
+import { datasets } from 'testData/datasets';
 
-import { getToken, mock, registerUser, reset } from '../helpers/utility.helper';
-import LoginPage from '../Pages/LoginPage';
+import { mock } from '../helpers/utility.helper';
 import ActionSummaryTooltipTest from './ActionSummaryComponent/ActionSummaryTooltipTest';
 import AggregateComponentButtonClick from './AggregatesComponent/AggregateComponentButtonClick';
 import AggregateComponentEventCount from './AggregatesComponent/AggregateComponentEventCount';
@@ -34,117 +29,91 @@ import TimelineComponentVisible from './TimelineComponent/TimelineComponentVisib
 import UserStateComponentLogout from './UserStateComponent/UserStateComponentLogout';
 import UserStateComponentVisible from './UserStateComponent/UserStateComponentVisible';
 
-test.describe('e2e tests', () => {
-  test.beforeAll(async () => {
-    await reset();
-  });
+datasets.forEach((dataset) => {
+  const {
+    country: { code },
+    disasterType,
+    scenario,
+    user: { email },
+  } = dataset;
 
-  // Run tests for each dataset
-  const datasets: Dataset[] = [
-    UgandaFloodsNoTrigger,
-    UgandaFloodsTrigger,
-    // UgandaDroughtNoTrigger, // Disable until deemed valuable, as it is very similar to floods no-trigger
-    UgandaDroughtWarning,
-    // MalawiFlashFloodsNoTrigger, // Disable until deemed valuable, as it is very similar to floods no-trigger
-    MalawiFlashFloodsTrigger,
-  ];
+  test.describe(`Dataset ${dataset.configurationId}: ${email} ${code} ${disasterType.name} ${scenario}`, () => {
+    const date = new Date();
 
-  datasets.forEach((dataset) => {
-    const {
-      country: { code },
-      disasterType,
-      scenario,
-      user: { email },
-    } = dataset;
+    test.use({ storageState: `.auth/state-${dataset.configurationId}.json` });
 
-    test.describe(`Dataset ${dataset.configurationId}: ${email} ${code} ${disasterType.name} ${scenario}`, () => {
-      const date = new Date();
+    test.beforeAll(async () => {
+      // load a mock scenario
+      await mock(disasterType.name, scenario, code, date);
+    });
 
-      test.beforeAll(async ({}) => {
-        // Load a mock scenario
-        const token = await getToken();
-        await mock(token, disasterType.name, scenario, code, date);
+    test.beforeEach(async ({ page }) => {
+      await page.goto('/', { waitUntil: 'networkidle' }); // HACK: networkidle is not recommended
+      await page.waitForSelector('[data-testid=loader]', { state: 'hidden' });
+    });
 
-        // create user with appropriate access
-        await registerUser(token, dataset.user, code, disasterType.name);
-      });
+    test.describe('DashboardPage', () => {
+      DashboardPageVisible(dataset, date);
+    });
 
-      test.beforeEach(async ({ page }) => {
-        await page.goto('/');
-        await page.waitForLoadState('networkidle');
+    test.describe('MapComponent', () => {
+      MapComponentVisible(dataset);
+      MapComponentInteractive(dataset);
+      MapComponentInfoPopover();
+      MapComponentLayersVisible(dataset);
+      MapComponentLinesLayers(dataset);
+    });
 
-        if (page.url().includes('login')) {
-          const login = new LoginPage(page);
-          await login.login(email);
-        }
+    test.describe('AggregatesComponent', () => {
+      AggregatesComponentVisible(dataset);
+      AggregateComponentTitleHover();
+      AggregateComponentButtonClick(dataset);
+      AggregateComponentEventCount(dataset);
+      AggregateComponentHeaderColour(dataset);
+    });
 
-        const dashboard = new DashboardPage(page);
-        await dashboard.navigateToDisasterType(dataset.disasterType.name);
-      });
+    test.describe('ChatComponent', () => {
+      ChatComponentVisible(dataset, date);
+      ChatComponentButtonClick(dataset);
 
-      test.describe('DashboardPage', () => {
-        DashboardPageVisible(dataset, date);
-      });
+      if (scenario !== 'no-trigger') {
+        // REFACTOR
+        ChatComponentAlertAreasList(dataset);
+        ChatComponentEventClick();
+        ChatComponentEventCount();
+        ChatComponentInfoPopover();
+      }
 
-      test.describe('MapComponent', () => {
-        MapComponentVisible(dataset);
-        MapComponentInteractive(dataset);
-        MapComponentInfoPopover();
-        MapComponentLayersVisible(dataset);
-        MapComponentLinesLayers(dataset);
-      });
+      if (scenario == 'warning') {
+        ChatComponentSetTrigger(dataset);
+      }
+    });
 
-      test.describe('AggregatesComponent', () => {
-        AggregatesComponentVisible(dataset);
-        AggregateComponentTitleHover();
-        AggregateComponentButtonClick(dataset);
-        AggregateComponentEventCount(dataset);
-        AggregateComponentHeaderColour(dataset);
-      });
+    test.describe('DisasterTypeComponent', () => {
+      DisasterTypeComponentVisible(dataset);
+      DisasterTypeComponentSelect(dataset);
+    });
 
-      test.describe('ChatComponent', () => {
-        ChatComponentVisible(dataset, date);
-        ChatComponentButtonClick(dataset);
+    test.describe('TimelineComponent', () => {
+      TimelineComponentVisible();
 
-        if (scenario !== 'no-trigger') {
-          // REFACTOR
-          ChatComponentAlertAreasList(dataset);
-          ChatComponentEventClick();
-          ChatComponentEventCount();
-          ChatComponentInfoPopover();
-        }
+      if (scenario !== 'no-trigger') {
+        // REFACTOR
+        TimelineComponentNotClickable(dataset);
+      }
+    });
 
-        if (scenario == 'warning') {
-          ChatComponentSetTrigger(dataset);
-        }
-      });
+    test.describe('ActionSummaryComponent', () => {
+      if (scenario === 'trigger') {
+        // REFACTOR
+        ActionSummaryTooltipTest();
+      }
+    });
 
-      test.describe('DisasterTypeComponent', () => {
-        DisasterTypeComponentVisible(dataset);
-        DisasterTypeComponentSelect(dataset);
-      });
-
-      test.describe('TimelineComponent', () => {
-        TimelineComponentVisible();
-
-        if (scenario !== 'no-trigger') {
-          // REFACTOR
-          TimelineComponentNotClickable(dataset);
-        }
-      });
-
-      test.describe('ActionSummaryComponent', () => {
-        if (scenario === 'trigger') {
-          // REFACTOR
-          ActionSummaryTooltipTest();
-        }
-      });
-
-      // Do this last, as it logs out the user
-      test.describe('UserStateComponent', () => {
-        UserStateComponentVisible(dataset);
-        UserStateComponentLogout();
-      });
+    // do this last, as it logs out the user
+    test.describe('UserStateComponent', () => {
+      UserStateComponentVisible(dataset);
+      UserStateComponentLogout();
     });
   });
 });

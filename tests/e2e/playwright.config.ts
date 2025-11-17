@@ -79,4 +79,5 @@ export default defineConfig({
     trace: 'on-first-retry',
   },
   projects: [{ name: 'chromium', use: { channel: 'chromium' } }],
+  globalSetup: require.resolve('./global-setup'),
 });
