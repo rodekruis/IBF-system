@@ -1,27 +1,10 @@
 import test from '@playwright/test';
+import MapComponent from 'Pages/MapComponent';
 import { Dataset } from 'testData/types';
 
-import { Components, Pages } from '../../helpers/interfaces';
-
-export default (
-  pages: Partial<Pages>,
-  components: Partial<Components>,
-  dataset: Dataset,
-) => {
-  test('[33013] Map component elements should be visible', async () => {
-    const { dashboard } = pages;
-    const { userState, map } = components;
-
-    if (!dashboard || !userState || !map) {
-      throw new Error('pages and components not found');
-    }
-
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    // Assertions
-    await userState.headerComponentIsVisible(dataset);
-    // Wait for the page to load
-    await dashboard.waitForLoaderToDisappear();
+export default (dataset: Dataset) => {
+  test('[33013] should be visible', async ({ page }) => {
+    const map = new MapComponent(page);
 
     await map.mapComponentIsVisible();
     const breadcrumbView = {

@@ -1,30 +1,15 @@
 import test from '@playwright/test';
+import ChatComponent from 'Pages/ChatComponent';
+import DashboardPage from 'Pages/DashboardPage';
+import MapComponent from 'Pages/MapComponent';
 import { Dataset } from 'testData/types';
 
-import { Components, Pages } from '../../helpers/interfaces';
+export default (dataset: Dataset) => {
+  test('[34458] should allow set trigger for warnings', async ({ page }) => {
+    const dashboard = new DashboardPage(page);
+    const chat = new ChatComponent(page);
+    const map = new MapComponent(page);
 
-export default (
-  pages: Partial<Pages>,
-  components: Partial<Components>,
-  dataset: Dataset,
-  date: Date,
-) => {
-  test('[34458] Set trigger (from warning)', async () => {
-    const { dashboard, login } = pages;
-    const { chat, userState, aggregates, map } = components;
-
-    if (!dashboard || !chat || !userState || !aggregates || !login || !map) {
-      throw new Error('pages and components not found');
-    }
-
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    await userState.headerComponentIsVisible(dataset);
-    await dashboard.waitForLoaderToDisappear();
-    await chat.chatColumnIsVisible({ date, scenario: dataset.scenario });
-    await chat.allDefaultButtonsArePresent();
-
-    // Set trigger
     if (
       !(
         dataset.country.code === 'UGA' &&
@@ -36,9 +21,8 @@ export default (
       await chat.clickShowPredictionButton(dataset.scenario);
     }
     await chat.setTrigger();
-    await dashboard.waitForLoaderToDisappear(); // This is needed because the setTrigger comes with a page reload. Otherwise the next test will fail.
+    await dashboard.waitForLoaderToDisappear(); // because  set trigger reloads the page
 
-    // Assertions
     await map.assertTriggerOutlines('trigger');
   });
 };

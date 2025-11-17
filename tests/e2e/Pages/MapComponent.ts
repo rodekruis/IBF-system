@@ -319,10 +319,15 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  // REFACTOR: this method looks like it tests all active layers, but tests only glofas_stations
+  // NOTE: this method should expand to test all layers
   async isLayerVisible({ name }: Layer, scenario: string) {
     if (name === 'glofas_stations') {
       await this.glofasMarkersAreVisible();
+
+      await this.glofasMarkersAreVisible({
+        eapAlertClass: 'max',
+        isVisible: scenario === 'trigger',
+      });
     } else if (name === 'trigger') {
       await this.assertTriggerOutlines(scenario);
     }

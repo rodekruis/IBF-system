@@ -44,6 +44,7 @@ class DashboardPage {
       `disaster-type-button-${disasterType}`,
     );
     await disasterTypeIcon.click();
+    await this.waitForLoaderToDisappear();
   }
 
   async waitForLoaderToDisappear() {

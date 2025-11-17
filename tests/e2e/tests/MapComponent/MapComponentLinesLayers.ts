@@ -1,38 +1,20 @@
 import test from '@playwright/test';
+import MapComponent from 'Pages/MapComponent';
 import { Dataset } from 'testData/types';
 
-import { Components, Pages } from '../../helpers/interfaces';
-
-export default (
-  pages: Partial<Pages>,
-  components: Partial<Components>,
-  dataset: Dataset,
-) => {
-  test('[36134] Map should render lines layers successfully', async () => {
-    const { dashboard } = pages;
-    const { userState, map } = components;
-
-    if (!dashboard || !userState || !map) {
-      throw new Error('pages and components not found');
-    }
-
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    // Assertions
-    await userState.headerComponentIsVisible(dataset);
-    // Wait for the page to load
-    await dashboard.waitForLoaderToDisappear();
-    await map.mapComponentIsVisible();
+export default (dataset: Dataset) => {
+  test('[36134] sould render lines layers', async ({ page }) => {
+    const map = new MapComponent(page);
 
     const NON_COUNTRY_SPECIFIC_WMS_LAYERS = ['buildings', 'roads'];
-    const linesLayers = dataset.layers.filter((l) =>
-      NON_COUNTRY_SPECIFIC_WMS_LAYERS.includes(l.name),
+    const linesLayers = dataset.layers.filter(({ name }) =>
+      NON_COUNTRY_SPECIFIC_WMS_LAYERS.includes(name),
     );
     for (const linesLayer of linesLayers) {
-      // Toggle the layer ON
+      // toggle the layer ON
       await map.checkLayerCheckbox(linesLayer);
 
-      // Assert
+      // assert
       await map.assertWmsLayer(linesLayer);
 
       // collapse layer menu again

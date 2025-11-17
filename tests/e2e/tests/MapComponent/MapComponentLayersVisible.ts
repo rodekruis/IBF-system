@@ -1,28 +1,10 @@
 import test from '@playwright/test';
+import MapComponent from 'Pages/MapComponent';
 import { Dataset } from 'testData/types';
 
-import { Components, Pages } from '../../helpers/interfaces';
-
-export default (
-  pages: Partial<Pages>,
-  components: Partial<Components>,
-  dataset: Dataset,
-) => {
-  test('[33018] map should show active layers', async () => {
-    const { dashboard } = pages;
-    const { userState, map } = components;
-
-    if (!dashboard || !userState || !map) {
-      throw new Error('pages and components not found');
-    }
-
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    // Assertions
-    await userState.headerComponentIsVisible(dataset);
-    // Wait for the page to load
-    await dashboard.waitForLoaderToDisappear();
-    await map.mapComponentIsVisible();
+export default (dataset: Dataset) => {
+  test('[33018] should show active layers', async ({ page }) => {
+    const map = new MapComponent(page);
 
     // Open the layer menu
     await map.isLayerMenuOpen({ layerMenuOpen: false });
@@ -43,15 +25,15 @@ export default (
 
       await map.isLayerVisible(layer, dataset.scenario);
 
-      if (layer.type === 'wms') {
+      if (layer.type === 'admin-area') {
+        await map.isLayerRadioButtonChecked({ layerName: layer.name });
+        // Validate that the layer checked with radio button is visible on the map in this case 'Exposed population' only one such layer can be checked at a time
+        await map.areAdminBoundariesVisible({ layerName: layer.name });
+      } else {
         await map.isLayerCheckboxChecked({ layerName: layer.name });
         await map.validateLayerIsVisibleInMapBySrcElement({
           layerName: layer.name,
         });
-      } else if (layer.type === 'admin-area') {
-        await map.isLayerRadioButtonChecked({ layerName: layer.name });
-        // Validate that the layer checked with radio button is visible on the map in this case 'Exposed population' only one such layer can be checked at a time
-        await map.areAdminBoundariesVisible({ layerName: layer.name });
       }
     }
   });

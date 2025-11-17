@@ -1,28 +1,15 @@
 import test from '@playwright/test';
-import { Dataset } from 'testData/types';
+import MapComponent from 'Pages/MapComponent';
 
-import { Components, Pages } from '../../helpers/interfaces';
-
-export default (
-  pages: Partial<Pages>,
-  components: Partial<Components>,
-  dataset: Dataset,
-) => {
+export default () => {
   // REFACTOR: this test keeps being flaky, it should be refactored to be more stable
-  test.skip('[33059] Title should change based on hovered map district', async () => {
-    const { dashboard } = pages;
-    const { aggregates, map } = components;
+  test.skip('[33059] should change title based on district hover', async ({
+    page,
+  }) => {
+    const map = new MapComponent(page);
 
-    if (!dashboard || !aggregates || !map) {
-      throw new Error('pages and components not found');
-    }
-
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    await dashboard.waitForLoaderToDisappear();
-    // Assertions
-    await aggregates.aggregateComponentIsVisible();
     await map.clickLegendHeader();
+    // REFACTOR: should this be in aggregates?
     await map.assertAggregateTitleOnHoverOverMap();
   });
 };

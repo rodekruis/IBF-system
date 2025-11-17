@@ -1,28 +1,9 @@
 import test from '@playwright/test';
-import { Dataset } from 'testData/types';
+import MapComponent from 'Pages/MapComponent';
 
-import { Components, Pages } from '../../helpers/interfaces';
-
-export default (
-  pages: Partial<Pages>,
-  components: Partial<Components>,
-  dataset: Dataset,
-) => {
-  test('[33020] Info icon should open popover on click', async () => {
-    const { dashboard } = pages;
-    const { userState, map } = components;
-
-    if (!dashboard || !userState || !map) {
-      throw new Error('pages and components not found');
-    }
-
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    // Assertions
-    await userState.headerComponentIsVisible(dataset);
-    // Wait for the page to load
-    await dashboard.waitForLoaderToDisappear();
-    await map.mapComponentIsVisible();
+export default () => {
+  test('[33020] should open popover on info icon click', async ({ page }) => {
+    const map = new MapComponent(page);
 
     // Open the layer menu
     await map.isLayerMenuOpen({ layerMenuOpen: false });

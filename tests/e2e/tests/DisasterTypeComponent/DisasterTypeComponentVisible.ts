@@ -1,28 +1,13 @@
 import test from '@playwright/test';
+import DisasterTypeComponent from 'Pages/DisasterTypeComponent';
 import { Dataset } from 'testData/types';
 
-import { Components, Pages } from '../../helpers/interfaces';
+export default (dataset: Dataset) => {
+  test('[33028] should be visible', async ({ page }) => {
+    const disasterType = new DisasterTypeComponent(page);
 
-export default (
-  pages: Partial<Pages>,
-  components: Partial<Components>,
-  dataset: Dataset,
-) => {
-  test('[33028] Disaster type component elements should be visible', async () => {
-    const { dashboard } = pages;
-    const { userState, disasterType: disasterTypeComponent } = components;
-
-    if (!dashboard || !userState || !disasterTypeComponent) {
-      throw new Error('pages and components not found');
-    }
-
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    // Assertions
-    await userState.headerComponentIsVisible(dataset);
-    await dashboard.waitForLoaderToDisappear();
-    await disasterTypeComponent.topBarComponentIsVisible();
-    await disasterTypeComponent.allDisasterTypeElementsArePresent(
+    await disasterType.topBarComponentIsVisible();
+    await disasterType.allDisasterTypeElementsArePresent(
       dataset.country.disasterTypes,
     );
   });

@@ -1,31 +1,13 @@
 import test from '@playwright/test';
+import MapComponent from 'Pages/MapComponent';
 import { Dataset } from 'testData/types';
-
-import { Components, Pages } from '../../helpers/interfaces';
 
 // REFACTOR: break down the test into separate tests
 // for legend, layer menu, and red cross branches
 
-export default (
-  pages: Partial<Pages>,
-  components: Partial<Components>,
-  dataset: Dataset,
-) => {
-  test('[33014] Map component should be interactive', async () => {
-    const { dashboard } = pages;
-    const { userState, map } = components;
-
-    if (!dashboard || !userState || !map) {
-      throw new Error('pages and components not found');
-    }
-
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    // Assertions
-    await userState.headerComponentIsVisible(dataset);
-    // Wait for the page to load
-    await dashboard.waitForLoaderToDisappear();
-    await map.mapComponentIsVisible();
+export default (dataset: Dataset) => {
+  test('[33014] should be interactive', async ({ page }) => {
+    const map = new MapComponent(page);
 
     // Close the legend
     await map.isLegendOpen({ legendOpen: true });
@@ -39,7 +21,7 @@ export default (
 
     // Select and deselect the layer
     await map.clickLayerMenu();
-    await map.checkLayerCheckbox(dataset.layers.find((l) => l.map)!);
+    await map.checkLayerCheckbox(dataset.layers.find(({ map }) => map)!);
     await map.isLayerMenuOpen({ layerMenuOpen: true });
   });
 };

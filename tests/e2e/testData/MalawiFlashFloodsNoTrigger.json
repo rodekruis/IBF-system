@@ -12,7 +12,7 @@
   },
   "scenario": "no-trigger",
   "user": {
-    "email": "malawi-flash-floods@redcross.nl",
+    "email": "malawi-flash-floods-no-trigger@redcross.nl",
     "password": "password",
     "firstName": "Malawi",
     "lastName": "Manager"
