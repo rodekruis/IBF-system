@@ -120,7 +120,7 @@ export class UserService {
 
   public async updateUser(
     userId: string,
-    updateUserData: UpdateUserDto,
+    updateUserDto: UpdateUserDto,
     isAdmin = false,
   ): Promise<UserResponseObject> {
     const where = { userId };
@@ -130,36 +130,36 @@ export class UserService {
       throw new NotFoundException(NOT_FOUND);
     }
 
-    if (updateUserData.firstName) {
-      user.firstName = updateUserData.firstName;
+    if (updateUserDto.firstName) {
+      user.firstName = updateUserDto.firstName;
     }
 
-    if (updateUserData.middleName !== undefined) {
-      user.middleName = updateUserData.middleName;
+    if (updateUserDto.middleName !== undefined) {
+      user.middleName = updateUserDto.middleName;
     }
 
-    if (updateUserData.lastName) {
-      user.lastName = updateUserData.lastName;
+    if (updateUserDto.lastName) {
+      user.lastName = updateUserDto.lastName;
     }
 
-    if (updateUserData.whatsappNumber) {
-      updateUserData.whatsappNumber = await this.lookupService.lookupAndCorrect(
-        updateUserData.whatsappNumber,
+    if (updateUserDto.whatsappNumber) {
+      updateUserDto.whatsappNumber = await this.lookupService.lookupAndCorrect(
+        updateUserDto.whatsappNumber,
       );
     }
 
-    if (updateUserData.userRole && isAdmin) {
-      user.userRole = updateUserData.userRole;
+    if (updateUserDto.userRole && isAdmin) {
+      user.userRole = updateUserDto.userRole;
     }
 
     await this.userRepository.save(user);
 
-    if (updateUserData.countries && isAdmin) {
-      await this.updateUserCountries(where, updateUserData);
+    if (updateUserDto.countries && isAdmin) {
+      await this.updateUserCountries(where, updateUserDto);
     }
 
-    if (updateUserData.disasterTypes) {
-      await this.updateUserDisasterTypes(where, updateUserData);
+    if (updateUserDto.disasterTypes) {
+      await this.updateUserDisasterTypes(where, updateUserDto);
     }
 
     const updatedUser = await this.userRepository.findOne({
@@ -173,7 +173,7 @@ export class UserService {
 
   private async updateUserCountries(
     where: FindOptionsWhere<UserEntity>,
-    updateUserData: UpdateUserDto,
+    updateUserDto: UpdateUserDto,
   ) {
     const user = await this.userRepository.findOne({
       where,
@@ -184,7 +184,7 @@ export class UserService {
     const removeCountries = user.countries
       .filter(
         ({ countryCodeISO3 }) =>
-          !updateUserData.countries.includes(countryCodeISO3),
+          !updateUserDto.countries.includes(countryCodeISO3),
       )
       .map(({ countryCodeISO3 }) => countryCodeISO3);
 
@@ -195,7 +195,7 @@ export class UserService {
       .remove(removeCountries);
 
     // add new countries
-    const newCountries = updateUserData.countries.filter(
+    const newCountries = updateUserDto.countries.filter(
       (countryCodeISO3) =>
         !user.countries
           .map(({ countryCodeISO3 }) => countryCodeISO3)
@@ -211,7 +211,7 @@ export class UserService {
 
   private async updateUserDisasterTypes(
     where: FindOptionsWhere<UserEntity>,
-    updateUserData: UpdateUserDto,
+    updateUserDto: UpdateUserDto,
   ) {
     const user = await this.userRepository.findOne({
       where,
@@ -222,7 +222,7 @@ export class UserService {
     const removeDisasterTypes = user.disasterTypes
       .filter(
         ({ disasterType }) =>
-          !updateUserData.disasterTypes.includes(disasterType),
+          !updateUserDto.disasterTypes.includes(disasterType),
       )
       .map(({ disasterType }) => disasterType);
 
@@ -233,7 +233,7 @@ export class UserService {
       .remove(removeDisasterTypes);
 
     // add new disaster types
-    const newDisasterTypes = updateUserData.disasterTypes.filter(
+    const newDisasterTypes = updateUserDto.disasterTypes.filter(
       (disasterType) =>
         !user.disasterTypes
           .map(({ disasterType }) => disasterType)

@@ -8,6 +8,7 @@ import { DataSource } from 'typeorm';
 import { CountryEntity } from '../api/country/country.entity';
 import { DisasterTypeEntity } from '../api/disaster-type/disaster-type.entity';
 import { UserEntity } from '../api/user/user.entity';
+import { UserService } from '../api/user/user.service';
 import { UserRole } from '../api/user/user-role.enum';
 import { DUNANT_EMAIL } from '../config';
 
@@ -74,13 +75,10 @@ export class SeedHelper {
     }
   }
 
-  public async upsertDunantUser() {
+  public async upsertDunantUser(userService: UserService) {
     this.logger.log('Upsert DUNANT user...');
 
     const userRepository = this.dataSource.getRepository(UserEntity);
-    const countryRepository = this.dataSource.getRepository(CountryEntity);
-    const disasterTypeRepository =
-      this.dataSource.getRepository(DisasterTypeEntity);
 
     const dunantUser = new UserEntity();
     dunantUser.email = DUNANT_EMAIL;
@@ -88,13 +86,26 @@ export class SeedHelper {
     dunantUser.lastName = 'Dunant';
     dunantUser.userRole = UserRole.Admin;
 
-    // grant dunant user access to all countries and disaster types
-    dunantUser.countries = await countryRepository.find();
-    dunantUser.disasterTypes = await disasterTypeRepository.find();
-
     // update password from env
     dunantUser.password = process.env.DUNANT_PASSWORD;
 
     await userRepository.upsert(dunantUser, ['email']);
+
+    // grant access to all countries and disaster types
+    const savedUser = await userService.findByEmail(DUNANT_EMAIL);
+
+    const countries = await this.dataSource.getRepository(CountryEntity).find();
+    const disasterTypes = await this.dataSource
+      .getRepository(DisasterTypeEntity)
+      .find();
+
+    await userService.updateUser(
+      savedUser.userId,
+      {
+        countries: countries.map(({ countryCodeISO3 }) => countryCodeISO3),
+        disasterTypes: disasterTypes.map(({ disasterType }) => disasterType),
+      },
+      true,
+    );
   }
 }

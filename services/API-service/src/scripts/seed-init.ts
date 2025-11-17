@@ -17,7 +17,7 @@ import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
 import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
-import { UserEntity } from '../api/user/user.entity';
+import { UserService } from '../api/user/user.service';
 import { DUNANT_EMAIL } from '../config';
 import { defaultSeed, emptySeed, SeedDto } from './dto/seed.dto';
 import { Country } from './interfaces/country.interface';
@@ -50,17 +50,14 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
     private seedIndicators: SeedIndicators,
     private seedPointData: SeedPointData,
     private seedLineData: SeedLineData,
+    private userService: UserService,
     private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
   ) {
     this.seedHelper = new SeedHelper(dataSource);
   }
   public async seed({ reset = false, seed = emptySeed }) {
-    const userRepository = this.dataSource.getRepository(UserEntity);
-    const dunantUser = await userRepository.findOne({
-      where: { email: DUNANT_EMAIL },
-      relations: ['countries'],
-    });
+    const dunantUser = await this.userService.findByEmail(DUNANT_EMAIL);
 
     if (reset) {
       // reset database if called via /api/seed?reset=true
@@ -149,7 +146,7 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
     // ***** CREATE USERS *****
     if (seed.users) {
       this.logger.log('Seed admin user...');
-      this.seedHelper.upsertDunantUser();
+      await this.seedHelper.upsertDunantUser(this.userService);
     }
 
     // ***** CREATE EAP ACTIONS *****
