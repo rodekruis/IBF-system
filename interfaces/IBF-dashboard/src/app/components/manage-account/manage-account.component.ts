@@ -13,6 +13,7 @@ import { Subscription } from 'rxjs';
 import { AuthService, UserResponse } from 'src/app/auth/auth.service';
 import { TOAST_DURATION, TOAST_POSITION } from 'src/app/config';
 import { User } from 'src/app/models/user/user.model';
+import { USER_ROLE_LABEL } from 'src/app/models/user/user-role.enum';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -34,7 +35,7 @@ export class ManageAccountComponent implements OnDestroy {
 
   private authSubscription: Subscription;
   public email = '';
-  public role = null;
+  public roleLabel = null;
   public model = {
     firstName: '',
     middleName: '',
@@ -70,7 +71,7 @@ export class ManageAccountComponent implements OnDestroy {
       this.model.lastName = user.lastName;
       this.model.whatsappNumber = user.whatsappNumber;
       this.email = user.email;
-      this.role = user.userRole;
+      this.roleLabel = USER_ROLE_LABEL[user.userRole];
     }
   };
 

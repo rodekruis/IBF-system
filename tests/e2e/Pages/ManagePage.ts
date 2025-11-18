@@ -24,11 +24,7 @@ class ManagePage {
     await expect(this.container).toBeVisible();
     await expect(this.tabBar).toBeVisible();
     await expect(this.tabButtonAccount).toBeVisible();
-    if (isAdmin) {
-      await expect(this.tabButtonUsers).toBeVisible();
-    } else {
-      await expect(this.tabButtonUsers).not.toBeVisible();
-    }
+    await expect(this.tabButtonUsers).toBeVisible({ visible: isAdmin });
     await expect(this.tabButtonPreferences).toBeVisible();
   }
 }

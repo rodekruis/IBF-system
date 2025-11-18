@@ -143,7 +143,7 @@ export class UserService {
     }
 
     if (updateUserDto.whatsappNumber) {
-      updateUserDto.whatsappNumber = await this.lookupService.lookupAndCorrect(
+      user.whatsappNumber = await this.lookupService.lookupAndCorrect(
         updateUserDto.whatsappNumber,
       );
     }

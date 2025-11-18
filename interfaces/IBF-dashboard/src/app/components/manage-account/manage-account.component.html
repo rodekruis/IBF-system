@@ -6,14 +6,16 @@
         placeholder="{{ 'manage.account.email' | translate }}"
         [value]="email"
         [disabled]="true"
+        data-testid="manage-account-email"
       ></ion-input>
     </ion-item>
     <ion-item>
       <ion-input
         label="{{ 'manage.account.role' | translate }}"
         placeholder="{{ 'manage.account.role' | translate }}"
-        [value]="role"
+        [value]="roleLabel"
         [disabled]="true"
+        data-testid="manage-account-role"
       ></ion-input>
     </ion-item>
     <ion-item
@@ -33,12 +35,14 @@
         required
         minlength="2"
         #firstName="ngModel"
+        data-testid="manage-account-first-name"
       ></ion-input>
       <ion-input
         name="middleName"
         placeholder="{{ 'manage.account.middle-name' | translate }}"
         [(ngModel)]="model.middleName"
         #middleName="ngModel"
+        data-testid="manage-account-middle-name"
       ></ion-input>
       <ion-input
         name="lastName"
@@ -47,6 +51,7 @@
         required
         minlength="2"
         #lastName="ngModel"
+        data-testid="manage-account-last-name"
       ></ion-input>
     </ion-item>
     <ion-item
@@ -63,6 +68,7 @@
         [(ngModel)]="model.whatsappNumber"
         pattern="^\+[0-9]{10,15}$"
         #whatsappNumber="ngModel"
+        data-testid="manage-account-whatsapp"
       ></ion-input>
     </ion-item>
     <ion-item lines="none">
@@ -72,6 +78,7 @@
         shape="round"
         color="fiveten-navy-900"
         [disabled]="!accountForm.form.valid || !accountForm.form.dirty"
+        data-testid="manage-account-save"
       >
         {{ 'manage.account.save' | translate }}
       </ion-button>

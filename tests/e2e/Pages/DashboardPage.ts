@@ -44,11 +44,10 @@ class DashboardPage {
       `disaster-type-button-${disasterType}`,
     );
     await disasterTypeIcon.click();
-    await this.waitForLoader();
-  }
 
-  async waitForLoader(state: 'hidden' | 'visible' = 'hidden') {
-    await this.page.waitForSelector('[data-testid=loader]', { state });
+    await this.page.waitForSelector('[data-testid=loader]', {
+      state: 'hidden',
+    });
   }
 
   async validatePopOverText({ text }: { text: string }) {

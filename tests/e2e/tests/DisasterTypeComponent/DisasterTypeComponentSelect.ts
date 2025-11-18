@@ -6,11 +6,11 @@ export default (dataset: Dataset) => {
   test('[33029] should be clickable', async ({ page }) => {
     const dashboard = new DashboardPage(page);
 
+    // navigate disaster types
     for (const disasterTypeIndex in dataset.country.disasterTypes) {
-      // Navigate between disaster types no matter the mock data
       const disasterType = dataset.country.disasterTypes[disasterTypeIndex];
       await dashboard.navigateToDisasterType(disasterType);
-      await dashboard.waitForLoader();
+      await page.waitForSelector('[data-testid=loader]', { state: 'hidden' });
     }
   });
 };

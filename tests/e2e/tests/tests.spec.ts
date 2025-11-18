@@ -20,6 +20,8 @@ import DashboardPageVisible from './DashboardPage/DashboardPageVisible';
 import DisasterTypeComponentSelect from './DisasterTypeComponent/DisasterTypeComponentSelect';
 import DisasterTypeComponentVisible from './DisasterTypeComponent/DisasterTypeComponentVisible';
 import LoginPageRedirect from './LoginPage/LoginPageRedirect';
+import ManagePageAccount from './ManagePage/ManagePageAccount';
+import ManagePageAccountSave from './ManagePage/ManagePageAccountSave';
 import ManagePageRedirect from './ManagePage/ManagePageRedirect';
 import ManagePageVisible from './ManagePage/ManagePageVisible';
 import MapComponentInfoPopover from './MapComponent/MapComponentInfoPopover';
@@ -120,6 +122,8 @@ datasets.forEach((dataset) => {
     test.describe('ManagePage', () => {
       test.describe('LocalAdmin', () => {
         ManagePageVisible();
+        ManagePageAccount();
+        ManagePageAccountSave();
       });
 
       test.describe('Viewer', () => {
