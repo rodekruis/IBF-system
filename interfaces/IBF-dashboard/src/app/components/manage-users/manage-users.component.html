@@ -48,7 +48,7 @@
       <ion-row class="items-center" [class.bg-gray-100]="$even">
         <ion-col size="6" size-md="3">
           <ion-list [inset]="true" mode="ios" class="!m-2">
-            <ion-item [color]="$even ? 'light' : 'ibf-white'">
+            <ion-item [color]="$even ? 'light' : 'ibf-white'" class="truncate">
               {{ getUserName(pagedUser) }}
             </ion-item>
           </ion-list>
@@ -61,6 +61,7 @@
               detail-icon="mail"
               href="mailto:{{ pagedUser.email }}?subject=%5BIBF%5D%20"
               [title]="pagedUser.email"
+              class="truncate"
             >
               {{ pagedUser.email }}
             </ion-item>
@@ -74,6 +75,7 @@
               [detail]="true"
               detail-icon="chevron-expand"
               [disabled]="!userRoles.includes(pagedUser.userRole)"
+              class="truncate"
             >
               {{ USER_ROLE_LABEL[pagedUser.userRole] || pagedUser.userRole }}
             </ion-item>
@@ -88,6 +90,7 @@
                 [detail]="true"
                 detail-icon="chevron-expand"
                 [class.text-red-500]="pagedUser.countries.length === 0"
+                class="truncate"
               >
                 {{
                   'manage.users.countries-count'

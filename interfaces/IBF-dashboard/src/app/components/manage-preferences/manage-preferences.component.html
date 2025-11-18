@@ -11,6 +11,7 @@
         [value]="disasterType.disasterType"
         [checked]="user.disasterTypes.includes(disasterType.disasterType)"
         (ionChange)="toggleDisasterType($event)"
+        color="light"
       >
         {{ disasterType.label }}
       </ion-checkbox>

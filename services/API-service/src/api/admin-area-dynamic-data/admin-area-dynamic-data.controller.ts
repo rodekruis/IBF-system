@@ -41,7 +41,7 @@ export class AdminAreaDynamicDataController {
     this.adminAreaDynamicDataService = adminAreaDynamicDataService;
   }
 
-  @Roles(UserRole.PipelineUser)
+  @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary:
       '[EXTERNALLY USED - PIPELINE] Upload and process dynamic (exposure) indicator data for given country, disaster-type and lead-time.',
@@ -91,7 +91,7 @@ export class AdminAreaDynamicDataController {
     );
   }
 
-  @Roles(UserRole.PipelineUser)
+  @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary:
       '[EXTERNALLY USED - PIPELINE] Upload raster file (.tif) such as a disaster-extent for given disaster-type (used by IBF-pipelines)',

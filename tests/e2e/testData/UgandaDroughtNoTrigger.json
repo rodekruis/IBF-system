@@ -12,8 +12,6 @@
   },
   "scenario": "no-trigger",
   "user": {
-    "email": "uganda-drought-no-trigger@redcross.nl",
-    "password": "password",
     "firstName": "Uganda",
     "lastName": "Manager"
   },
@@ -38,6 +36,7 @@
       "description": "This layer represents the locations of the local Uganda Red Cross branches country, used for logistics and coordination.<br/><br/><b>Source:</b> National Society data",
       "legendLabels": ["Red Cross branches"],
       "active": false,
+      "type": "point",
       "map": true,
       "aggregate": false
     },

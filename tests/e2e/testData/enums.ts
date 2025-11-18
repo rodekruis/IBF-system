@@ -1,3 +1,8 @@
+export enum IbfStyles {
+  noTrigger = 'no-alert',
+  trigger = 'alert',
+}
+
 export enum UserRole {
   Admin = 'admin',
   LocalAdmin = 'local-admin',

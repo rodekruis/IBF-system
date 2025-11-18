@@ -61,10 +61,6 @@ class MapComponent extends DashboardPage {
     this.layerInfoContent = this.page.getByTestId('layer-info-content');
   }
 
-  async waitForMapToBeLoaded() {
-    await this.page.waitForLoadState('domcontentloaded');
-  }
-
   async mapComponentIsVisible() {
     await expect(this.mapComponent).toBeVisible();
   }
@@ -122,7 +118,7 @@ class MapComponent extends DashboardPage {
   }: {
     layerMenuOpen?: boolean;
   }) {
-    await this.waitForMapToBeLoaded();
+    await this.page.waitForLoadState('domcontentloaded');
 
     if (layerMenuOpen) {
       await expect(this.layerMenu).toBeVisible();
@@ -132,7 +128,7 @@ class MapComponent extends DashboardPage {
   }
 
   async areAdminBoundariesVisible({ layerName }: { layerName?: string } = {}) {
-    await this.waitForMapToBeLoaded();
+    await this.page.waitForLoadState('domcontentloaded');
 
     const layer = layerName
       ? this.page.locator(`.admin-boundary.${layerName}`)
@@ -151,7 +147,7 @@ class MapComponent extends DashboardPage {
   }
 
   async checkLayerCheckbox({ name }: Layer) {
-    await this.waitForMapToBeLoaded();
+    await this.page.waitForLoadState('domcontentloaded');
 
     await this.layerMenuToggle.click();
 

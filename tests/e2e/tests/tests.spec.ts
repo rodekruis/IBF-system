@@ -1,7 +1,8 @@
 import { test } from '@playwright/test';
 import { datasets } from 'testData/datasets';
+import { UserRole } from 'testData/enums';
 
-import { mock } from '../helpers/utility.helper';
+import { getStorageState, mock } from '../helpers/utility.helper';
 import ActionSummaryTooltipTest from './ActionSummaryComponent/ActionSummaryTooltipTest';
 import AggregateComponentButtonClick from './AggregatesComponent/AggregateComponentButtonClick';
 import AggregateComponentEventCount from './AggregatesComponent/AggregateComponentEventCount';
@@ -19,6 +20,8 @@ import DashboardPageVisible from './DashboardPage/DashboardPageVisible';
 import DisasterTypeComponentSelect from './DisasterTypeComponent/DisasterTypeComponentSelect';
 import DisasterTypeComponentVisible from './DisasterTypeComponent/DisasterTypeComponentVisible';
 import LoginPageRedirect from './LoginPage/LoginPageRedirect';
+import ManagePageRedirect from './ManagePage/ManagePageRedirect';
+import ManagePageVisible from './ManagePage/ManagePageVisible';
 import MapComponentInfoPopover from './MapComponent/MapComponentInfoPopover';
 import MapComponentInteractive from './MapComponent/MapComponentInteractive';
 import MapComponentLayersVisible from './MapComponent/MapComponentLayersVisible';
@@ -33,14 +36,14 @@ datasets.forEach((dataset) => {
   const {
     country: { code },
     disasterType,
+    configurationId,
     scenario,
-    user: { email },
   } = dataset;
 
-  test.describe(`Dataset ${dataset.configurationId}: ${email} ${code} ${disasterType.name} ${scenario}`, () => {
+  test.describe(`Dataset ${dataset.configurationId}: ${code} ${disasterType.name} ${scenario}`, () => {
     const date = new Date();
-
-    test.use({ storageState: `.auth/state-${dataset.configurationId}.json` });
+    const storageState = getStorageState(configurationId, UserRole.LocalAdmin);
+    test.use({ storageState });
 
     test.beforeAll(async () => {
       // load a mock scenario
@@ -112,6 +115,19 @@ datasets.forEach((dataset) => {
 
     test.describe('LoginPage', () => {
       LoginPageRedirect();
+    });
+
+    test.describe('ManagePage', () => {
+      test.describe('LocalAdmin', () => {
+        ManagePageVisible();
+      });
+
+      test.describe('Viewer', () => {
+        const storageState = getStorageState(configurationId, UserRole.Viewer);
+        test.use({ storageState });
+
+        ManagePageRedirect();
+      });
     });
 
     // do this last, as it logs out the user

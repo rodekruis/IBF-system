@@ -12,8 +12,6 @@
   },
   "scenario": "warning",
   "user": {
-    "email": "uganda-drought-warning@redcross.nl",
-    "password": "password",
     "firstName": "Uganda",
     "lastName": "Manager"
   },

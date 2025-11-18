@@ -1,5 +1,6 @@
 import { agent } from 'supertest';
-import { User } from 'testData/types';
+import { UserRole } from 'testData/enums';
+import { Dataset, User } from 'testData/types';
 
 function api(token?: string) {
   const request = agent(process.env.API_SERVICE_URL);
@@ -47,18 +48,36 @@ export async function mock(
 }
 
 export async function registerUser(
-  user: User,
+  { firstName, lastName }: User,
+  email: string,
   countryCodeISO3: string,
   disasterType: string,
+  userRole: UserRole,
 ) {
   const token = await getToken();
 
   return api(token)
     .post(`/user`)
     .send({
-      ...user,
-      userRole: 'local-admin',
+      email,
+      password: 'password',
+      firstName,
+      lastName,
+      userRole,
       countryCodesISO3: [countryCodeISO3],
       disasterTypes: [disasterType],
     });
+}
+
+export function getUserEmail(dataset: Dataset, userRole: UserRole) {
+  const {
+    country: { code },
+    disasterType: { name },
+  } = dataset;
+
+  return `${code}-${name}-${userRole}@redcross.nl`;
+}
+
+export function getStorageState(configurationId: number, userRole: UserRole) {
+  return `.auth/state-${configurationId}-${userRole}.json`;
 }

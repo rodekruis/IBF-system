@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test';
 import { Locator, Page } from 'playwright';
-import { IbfStyles } from 'testData/styles.enum';
+import { IbfStyles } from 'testData/enums';
 import { DisasterType, Layer } from 'testData/types';
 
 import DashboardPage from './DashboardPage';

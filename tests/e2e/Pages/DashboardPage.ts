@@ -44,13 +44,11 @@ class DashboardPage {
       `disaster-type-button-${disasterType}`,
     );
     await disasterTypeIcon.click();
-    await this.waitForLoaderToDisappear();
+    await this.waitForLoader();
   }
 
-  async waitForLoaderToDisappear() {
-    await this.page.waitForSelector('[data-testid=loader]', {
-      state: 'hidden',
-    });
+  async waitForLoader(state: 'hidden' | 'visible' = 'hidden') {
+    await this.page.waitForSelector('[data-testid=loader]', { state });
   }
 
   async validatePopOverText({ text }: { text: string }) {
@@ -70,10 +68,6 @@ class DashboardPage {
   async validateDescription({ text }: { text: string }) {
     const description = await this.tooltipContent.textContent();
     expect(description).toContain(text);
-  }
-
-  async waitForPageToBeLoadedAndStable() {
-    await this.page.waitForLoadState('domcontentloaded');
   }
 }
 

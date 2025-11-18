@@ -21,7 +21,7 @@ export default (dataset: Dataset) => {
       await chat.clickShowPredictionButton(dataset.scenario);
     }
     await chat.setTrigger();
-    await dashboard.waitForLoaderToDisappear(); // because  set trigger reloads the page
+    await dashboard.waitForLoader(); // because  set trigger reloads the page
 
     await map.assertTriggerOutlines('trigger');
   });

@@ -12,8 +12,6 @@
   },
   "scenario": "no-trigger",
   "user": {
-    "email": "uganda-floods-no-trigger@redcross.nl",
-    "password": "password",
     "firstName": "Uganda",
     "lastName": "Manager"
   },

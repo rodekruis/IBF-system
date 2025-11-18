@@ -123,7 +123,7 @@ export class EventController {
   }
 
   // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-lead-time
-  @Roles(UserRole.PipelineUser)
+  @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary:
       '[EXTERNALLY USED - PIPELINE] [OLD endpoint] Upload alert data per leadtime',
@@ -138,7 +138,7 @@ export class EventController {
     );
   }
 
-  @Roles(UserRole.PipelineUser)
+  @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary: '[EXTERNALLY USED - PIPELINE] Upload alert data per lead time',
   })

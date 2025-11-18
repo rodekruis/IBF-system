@@ -12,8 +12,6 @@
   },
   "scenario": "trigger",
   "user": {
-    "email": "malawi-flash-floods-trigger@redcross.nl",
-    "password": "password",
     "firstName": "Malawi",
     "lastName": "Manager"
   },
