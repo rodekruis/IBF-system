@@ -1,5 +1,4 @@
 import { test } from '@playwright/test';
-import DashboardPage from 'Pages/DashboardPage';
 import { datasets } from 'testData/datasets';
 
 import { mock } from '../helpers/utility.helper';
@@ -19,6 +18,7 @@ import ChatComponentVisible from './ChatComponent/ChatComponentVisible';
 import DashboardPageVisible from './DashboardPage/DashboardPageVisible';
 import DisasterTypeComponentSelect from './DisasterTypeComponent/DisasterTypeComponentSelect';
 import DisasterTypeComponentVisible from './DisasterTypeComponent/DisasterTypeComponentVisible';
+import LoginPageRedirect from './LoginPage/LoginPageRedirect';
 import MapComponentInfoPopover from './MapComponent/MapComponentInfoPopover';
 import MapComponentInteractive from './MapComponent/MapComponentInteractive';
 import MapComponentLayersVisible from './MapComponent/MapComponentLayersVisible';
@@ -108,6 +108,10 @@ datasets.forEach((dataset) => {
         // REFACTOR
         ActionSummaryTooltipTest();
       }
+    });
+
+    test.describe('LoginPage', () => {
+      LoginPageRedirect();
     });
 
     // do this last, as it logs out the user
