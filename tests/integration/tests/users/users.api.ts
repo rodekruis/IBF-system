@@ -13,22 +13,14 @@ interface UserData {
   whatsappNumber?: string;
 }
 
-export function createUser(userData: UserData, token: string) {
+export function createUser(token: string, userData: UserData) {
   return api(token).post('/user').send(userData);
 }
 
 export function updateUser(
-  email: string,
-  userData: Partial<UserData>,
   token: string,
+  userData: Partial<UserData>,
+  userId?: string,
 ) {
-  return api(token).patch('/user').query({ email }).send(userData);
-}
-
-export function changePassword(email: string, password: string, token: string) {
-  return api(token).post('/user/change-password').send({ email, password });
-}
-
-export function login(email: string, password: string) {
-  return api().post('/user/login').send({ email, password });
+  return api(token).patch('/user').query({ userId }).send(userData);
 }

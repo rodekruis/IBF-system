@@ -136,14 +136,10 @@ import LoginPage from '../../Pages/LoginPage';
 test('should login', async ({ page }) => {
   // arrange
   const loginPage = new LoginPage(page);
-  const user = {
-    email: 'dunant@redcross.nl',
-    password: 'password',
-  };
 
   // act
   await page.goto('/login');
-  const loginResponse = await loginPage.login(user.email, user.password);
+  const loginResponse = await loginPage.login('dunant@redcross.nl');
 
   // assert
   await page.waitForURL((url) => url.pathname === '/');

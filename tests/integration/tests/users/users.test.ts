@@ -1,121 +1,105 @@
-import { userData } from '../../fixtures/users.const';
 import { UserRole } from '../../helpers/API-service/enum/user-role.enum';
 import { getToken } from '../../helpers/utility.helper';
-import { changePassword, createUser, login, updateUser } from './users.api';
+import { createUser, updateUser } from './users.api';
 
 export default function manageUsersTests() {
   describe('users', () => {
-    let token: string;
+    let adminToken: string;
+    let otherUserId: string;
 
-    beforeAll(async () => {
-      token = await getToken();
-
-      // create user to run tests with
-      await createUser(userData, token);
-    });
+    const userData = {
+      email: 'ibf-devops@redcross.nl',
+      firstName: 'Test',
+      lastName: 'User',
+      userRole: UserRole.Operator,
+      countryCodesISO3: [
+        'UGA',
+        'ZMB',
+        'MWI',
+        'SSD',
+        'KEN',
+        'ETH',
+        'PHL',
+        'ZWE',
+      ],
+      disasterTypes: [
+        'floods',
+        'malaria',
+        'drought',
+        'typhoon',
+        'flash-floods',
+      ],
+      password: 'password',
+    };
 
     describe('create user', () => {
-      it('should create user successfully and log-in with it', async () => {
+      it('should create user', async () => {
         // Arrange
-        const newUserData = structuredClone(userData);
-        newUserData.email = 'new-user@redcross.nl';
+        adminToken = await getToken();
 
         // Act
-        const createResult = await createUser(newUserData, token);
-        const loginResult = await login(
-          createResult.body.user.email,
-          newUserData.password,
-        );
+        const createResult = await createUser(adminToken, userData);
 
         // Assert
         expect(createResult.status).toBe(201);
         expect(createResult.body.user.userRole).toBe(UserRole.Operator);
 
-        expect(loginResult.status).toBe(201);
+        // store other user id for update tests
+        otherUserId = createResult.body.user.id;
       });
 
-      it('should fail when email already exists', async () => {
-        // Arrange
-        const existingUserData = structuredClone(userData);
-
+      it('should fail if email exists', async () => {
         // Act
-        const createResult = await createUser(existingUserData, token);
+        const createResult = await createUser(adminToken, userData);
 
         // Assert
         expect(createResult.status).toBe(400);
       });
-    });
 
-    describe('update user properties', () => {
-      it('should successfully update properties', async () => {
+      it('should fail if operator creates user', async () => {
         // Arrange
-        const email = userData.email;
-        const newFirstName = 'new-first-name';
-        const newUserRole = UserRole.Operator; // Don't actually change the role, to not mess up other tests, but at least test that it is possible
-        const updatedData = { firstName: newFirstName, role: newUserRole };
+        const operatorToken = await getToken(userData.email);
+
+        const newUserData = structuredClone(userData);
+        newUserData.email = 'not-allowed@redcross.nl';
 
         // Act
-        const updateUserResult = await updateUser(email, updatedData, token);
+        const createResult = await createUser(operatorToken, newUserData);
+
+        // Assert
+        expect(createResult.status).toBe(403);
+      });
+    });
+
+    describe('update user', () => {
+      it('should successfully update properties', async () => {
+        // Arrange
+        const newFirstName = 'new-first-name';
+        const newUserRole = UserRole.Viewer;
+        const userData = { firstName: newFirstName, userRole: newUserRole };
+
+        // Act
+        const updateUserResult = await updateUser(
+          adminToken,
+          userData,
+          otherUserId,
+        );
 
         // Assert
         expect(updateUserResult.status).toBe(200);
         expect(updateUserResult.body.user.firstName).toBe(newFirstName);
       });
 
-      it('should throw NOT_FOUND on unknown email', async () => {
+      it('should throw NOT_FOUND on unknown user id', async () => {
         // Arrange
-        const email = 'unkown-email@redcross.nl';
-        const updatedData = { firstName: 'new-first-name' };
+        const userId = '362c3dcb-9fe9-4f38-ae55-d0d6df7c5fc9';
+        const userData = { lastName: 'new-last-name' };
 
         // Act
-        const updateUserResult = await updateUser(email, updatedData, token);
+        const updateUserResult = await updateUser(adminToken, userData, userId);
 
         // Assert
         expect(updateUserResult.status).toBe(404);
-      });
-    });
-
-    describe('change password', () => {
-      it('should fail for unrecognized user', async () => {
-        // Arrange
-        const email = 'unknown-email@redcross.nl';
-        const newPassword = 'new-password';
-
-        // Act
-        const changePasswordResult = await changePassword(
-          email,
-          newPassword,
-          token,
-        );
-
-        // Assert
-        expect(changePasswordResult.status).toBe(404);
-      });
-
-      // Make sure this test is last in its beforeAll block, as it changes the password, which would make subsequent tests fail
-      it('should successfully change password and log-in with it', async () => {
-        // Arrange
-        const newPassword = 'new-password';
-
-        // Act
-        const changePasswordResult = await changePassword(
-          userData.email,
-          newPassword,
-          token,
-        );
-        const loginResult = await login(userData.email, newPassword);
-
-        // Assert
-        expect(changePasswordResult.status).toBe(201);
-        expect(loginResult.status).toBe(201);
-
-        // NOTE: change password back as subsequent tests will fail otherwise
-        const changePasswordBackResult = await changePassword(
-          userData.email,
-          userData.password,
-          token,
-        );
-        expect(changePasswordBackResult.status).toBe(201);
       });
     });
   });
