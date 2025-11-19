@@ -2,7 +2,7 @@ import test, { expect } from '@playwright/test';
 import ManagePage from 'Pages/ManagePage';
 
 export default () => {
-  test('redirects to manage', async ({ page }) => {
+  test('redirects viewers to manage account', async ({ page }) => {
     const managePage = new ManagePage(page);
 
     await page.goto('/manage/users');

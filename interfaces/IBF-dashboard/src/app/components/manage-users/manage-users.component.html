@@ -8,6 +8,7 @@
         [clearInput]="true"
         placeholder="Search..."
         style="--highlight-color-valid: var(--ion-color-ibf-grey-light)"
+        data-testid="manage-users-search-input"
       >
       </ion-input>
     </ion-col>
@@ -17,12 +18,16 @@
         size="large"
         color="medium"
         (mouseenter)="showManageUsersMenu($event)"
+        data-testid="manage-users-menu-button"
       >
         <ion-icon slot="icon-only" name="menu"></ion-icon>
       </ion-button>
     </ion-col>
   </ion-row>
-  <ion-row class="text-black text-opacity-40">
+  <ion-row
+    class="text-black text-opacity-40"
+    data-testid="manage-users-table-headers"
+  >
     @for (column of columns; track column.key) {
       @if (column.key !== 'countries' || userCountries.length > 1) {
         <ion-col

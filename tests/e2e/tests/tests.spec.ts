@@ -23,6 +23,7 @@ import LoginPageRedirect from './LoginPage/LoginPageRedirect';
 import ManagePageAccount from './ManagePage/ManagePageAccount';
 import ManagePageAccountSave from './ManagePage/ManagePageAccountSave';
 import ManagePageRedirect from './ManagePage/ManagePageRedirect';
+import ManagePageUsers from './ManagePage/ManagePageUsers';
 import ManagePageVisible from './ManagePage/ManagePageVisible';
 import MapComponentInfoPopover from './MapComponent/MapComponentInfoPopover';
 import MapComponentInteractive from './MapComponent/MapComponentInteractive';
@@ -124,6 +125,7 @@ datasets.forEach((dataset) => {
         ManagePageVisible();
         ManagePageAccount();
         ManagePageAccountSave();
+        ManagePageUsers();
       });
 
       test.describe('Viewer', () => {
