@@ -22,6 +22,7 @@ import DisasterTypeComponentVisible from './DisasterTypeComponent/DisasterTypeCo
 import LoginPageRedirect from './LoginPage/LoginPageRedirect';
 import ManagePageAccount from './ManagePage/ManagePageAccount';
 import ManagePageAccountSave from './ManagePage/ManagePageAccountSave';
+import ManagePagePreferences from './ManagePage/ManagePagePreferences';
 import ManagePageRedirect from './ManagePage/ManagePageRedirect';
 import ManagePageUsers from './ManagePage/ManagePageUsers';
 import ManagePageVisible from './ManagePage/ManagePageVisible';
@@ -126,6 +127,7 @@ datasets.forEach((dataset) => {
         ManagePageAccount();
         ManagePageAccountSave();
         ManagePageUsers();
+        ManagePagePreferences();
       });
 
       test.describe('Viewer', () => {
