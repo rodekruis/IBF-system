@@ -27,11 +27,13 @@ class ManagePreferencesComponent {
     const checkbox = this.disasterTypes.first().getByRole('checkbox');
 
     // get the current state of the checkbox
-    const checked = await checkbox.isChecked();
+    const isChecked = await checkbox.isChecked();
+
+    // click the checkbox to toggle its state
     await checkbox.click();
 
     // verify that the checkbox state has changed
-    await expect(checkbox).toBeChecked({ checked });
+    await expect(checkbox).toBeChecked({ checked: !isChecked });
   }
 }
 
