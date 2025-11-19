@@ -21,6 +21,18 @@ class ManagePreferencesComponent {
     const disasterTypeCount = await this.disasterTypes.count();
     expect(disasterTypeCount).toBeGreaterThan(0);
   }
+
+  async toggle() {
+    // pick the first disaster type checkbox to toggle
+    const checkbox = this.disasterTypes.first().getByRole('checkbox');
+
+    // get the current state of the checkbox
+    const checked = await checkbox.isChecked();
+    await checkbox.click();
+
+    // verify that the checkbox state has changed
+    await expect(checkbox).toBeChecked({ checked });
+  }
 }
 
 export default ManagePreferencesComponent;

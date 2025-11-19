@@ -23,6 +23,7 @@ import LoginPageRedirect from './LoginPage/LoginPageRedirect';
 import ManagePageAccount from './ManagePage/ManagePageAccount';
 import ManagePageAccountSave from './ManagePage/ManagePageAccountSave';
 import ManagePagePreferences from './ManagePage/ManagePagePreferences';
+import ManagePagePreferencesToggle from './ManagePage/ManagePagePreferencesToggle';
 import ManagePageRedirect from './ManagePage/ManagePageRedirect';
 import ManagePageUsers from './ManagePage/ManagePageUsers';
 import ManagePageVisible from './ManagePage/ManagePageVisible';
@@ -128,6 +129,7 @@ datasets.forEach((dataset) => {
         ManagePageAccountSave();
         ManagePageUsers();
         ManagePagePreferences();
+        ManagePagePreferencesToggle();
       });
 
       test.describe('Viewer', () => {

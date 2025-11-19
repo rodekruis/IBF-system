@@ -89,7 +89,7 @@ export class ManagePreferencesComponent implements OnDestroy {
       'common.error.present-toast',
     ) as string;
 
-    this.userService.updateUser({ disasterTypes }, this.user.userId).subscribe({
+    this.userService.updateUser({ disasterTypes }).subscribe({
       next: (userResponse: UserResponse) => {
         this.authService.setUser(userResponse);
 
@@ -102,6 +102,9 @@ export class ManagePreferencesComponent implements OnDestroy {
         });
       },
       error: () => {
+        // revert the checkbox state
+        event.target.checked = !checked;
+
         const updateMessageFailure = this.translateService.instant(
           'common.error.unknown',
         ) as string;
