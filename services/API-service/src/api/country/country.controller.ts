@@ -12,7 +12,7 @@ import { RolesGuard } from '../../roles.guard';
 import { UserRole } from '../user/user-role.enum';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
-import { AddCountriesDto } from './dto/add-countries.dto';
+import { UpsertCountriesDto } from './dto/country.dto';
 import { NotificationInfoDto } from './dto/notification-info.dto';
 
 @ApiTags('country')
@@ -33,10 +33,8 @@ export class CountryController {
     description: 'Added and/or Updated country-properties.',
   })
   @Post()
-  public async addOrUpdateCountries(
-    @Body() countries: AddCountriesDto,
-  ): Promise<void> {
-    await this.countryService.addOrUpdateCountries(countries);
+  public async upsertCountries(@Body() { countries }: UpsertCountriesDto) {
+    await this.countryService.upsertCountries(countries);
   }
 
   @ApiBearerAuth()
@@ -48,27 +46,42 @@ export class CountryController {
     description: 'notification info added or updated',
   })
   @Post('notification-info')
-  public async addOrUpdateNotificationInfo(
+  public async upsertNotificationInfo(
     @Body() notificationInfo: NotificationInfoDto[],
   ): Promise<void> {
-    await this.countryService.addOrUpdateNotificationInfo(notificationInfo);
+    await this.countryService.upsertNotificationInfo(notificationInfo);
   }
 
   @ApiOperation({
     summary: 'Get countries including their attributes by list of countryCodes',
   })
   @ApiQuery({ name: 'countryCodesISO3', required: false, type: 'string' })
-  @ApiQuery({ name: 'minimalInfo', required: false, type: 'boolean' })
+  @ApiQuery({
+    name: 'minimalInfo',
+    required: false,
+    type: 'boolean',
+    default: true,
+  })
   @ApiResponse({
     status: 200,
     description: 'Available countries including their attributes.',
     type: [CountryEntity],
   })
   @Get()
-  public async getCountries(@Query() query): Promise<CountryEntity[]> {
+  public async getCountries(
+    @Query()
+    {
+      countryCodesISO3,
+      minimalInfo,
+    }: Partial<{ countryCodesISO3: string; minimalInfo: string }>,
+  ): Promise<CountryEntity[]> {
+    const countryCodes = countryCodesISO3
+      ?.split(',')
+      .map((code) => code.trim());
+
     return await this.countryService.getCountries(
-      query.countryCodesISO3,
-      query.minimalInfo === 'true',
+      countryCodes,
+      minimalInfo === 'true',
     );
   }
 }

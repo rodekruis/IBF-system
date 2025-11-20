@@ -1,25 +1,26 @@
-import { AddCountriesDto } from '../../helpers/API-service/dto/create-country.dto';
-import { CreateNotificationInfoDto } from '../../helpers/API-service/dto/create-notification-info.dto';
-import { api } from '../../helpers/utility.helper';
+import { CountryDto } from '@helpers/API-service/dto/country.dto';
+import { CreateNotificationInfoDto } from '@helpers/API-service/dto/create-notification-info.dto';
+import { api } from '@helpers/utility.helper';
 
-export function addOrUpdateNotificationInfo(
-  notificationInfoData: CreateNotificationInfoDto[],
+export function upsertNotificationInfo(
   token: string,
+  notificationInfoData: CreateNotificationInfoDto[],
 ) {
   return api(token)
     .post(`/country/notification-info`)
     .send(notificationInfoData);
 }
 
-export function getCountries(countryCodeISO3SArray: string[], token: string) {
+export function getCountries(
+  token: string,
+  countryCodesISO3?: string[],
+  minimalInfo = true,
+) {
   return api(token)
     .get(`/country`)
-    .query({ countryCodesISO3: countryCodeISO3SArray.join(',') });
+    .query({ countryCodesISO3: countryCodesISO3?.join(','), minimalInfo });
 }
 
-export function addOrUpdateCountries(
-  countryData: AddCountriesDto,
-  token: string,
-) {
-  return api(token).post(`/country`).send(countryData);
+export function upsertCountries(token: string, countries: CountryDto[]) {
+  return api(token).post(`/country`).send({ countries });
 }

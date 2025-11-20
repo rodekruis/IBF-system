@@ -1,4 +1,4 @@
-import { CountryDto } from '../helpers/API-service/dto/create-country.dto';
+import { CountryDto } from '@helpers/API-service/dto/country.dto';
 
 export const countryData: CountryDto[] = [
   {

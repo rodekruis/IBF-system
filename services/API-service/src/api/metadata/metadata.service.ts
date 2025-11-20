@@ -5,8 +5,8 @@ import { Repository } from 'typeorm';
 
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
-import { AddIndicatorsDto, IndicatorDto } from './dto/add-indicators.dto';
-import { AddLayersDto, LayerDto } from './dto/add-layers.dto';
+import { IndicatorDto } from './dto/indicator.dto';
+import { LayerDto } from './dto/layer.dto';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { LayerMetadataEntity } from './layer-metadata.entity';
 
@@ -31,16 +31,16 @@ export class MetadataService {
     });
   }
 
-  public async addOrUpdateIndicators(
-    indicators: AddIndicatorsDto,
+  public async upsertIndicators(
+    indicators: IndicatorDto[],
   ): Promise<IndicatorMetadataEntity[]> {
     const indicatorsToSave = [];
-    for await (const indicator of indicators.indicators) {
+    for await (const indicator of indicators) {
       let existingIndicator = await this.indicatorRepository.findOne({
         where: { name: indicator.name },
       });
       if (existingIndicator) {
-        existingIndicator = await this.addOrUpdateIndicator(
+        existingIndicator = await this.upsertIndicator(
           existingIndicator,
           indicator,
         );
@@ -50,13 +50,13 @@ export class MetadataService {
 
       let newIndicator = new IndicatorMetadataEntity();
       newIndicator.name = indicator.name;
-      newIndicator = await this.addOrUpdateIndicator(newIndicator, indicator);
+      newIndicator = await this.upsertIndicator(newIndicator, indicator);
       indicatorsToSave.push(newIndicator);
     }
     return await this.indicatorRepository.save(indicatorsToSave);
   }
 
-  private async addOrUpdateIndicator(
+  private async upsertIndicator(
     indicatorEntity: IndicatorMetadataEntity,
     indicator: IndicatorDto,
   ): Promise<IndicatorMetadataEntity> {
@@ -84,29 +84,29 @@ export class MetadataService {
     return indicatorEntity;
   }
 
-  public async addOrUpdateLayers(
-    layers: AddLayersDto,
+  public async upsertLayers(
+    layers: LayerDto[],
   ): Promise<LayerMetadataEntity[]> {
     const layersToSave = [];
-    for await (const layer of layers.layers) {
+    for await (const layer of layers) {
       let existingLayer = await this.layerRepository.findOne({
         where: { name: layer.name },
       });
       if (existingLayer) {
-        existingLayer = await this.addOrUpdateLayer(existingLayer, layer);
+        existingLayer = await this.upsertLayer(existingLayer, layer);
         layersToSave.push(existingLayer);
         continue;
       }
 
       let newLayer = new LayerMetadataEntity();
       newLayer.name = layer.name;
-      newLayer = await this.addOrUpdateLayer(newLayer, layer);
+      newLayer = await this.upsertLayer(newLayer, layer);
       layersToSave.push(newLayer);
     }
     return await this.layerRepository.save(layersToSave);
   }
 
-  private async addOrUpdateLayer(
+  private async upsertLayer(
     layerEntity: LayerMetadataEntity,
     layer: LayerDto,
   ): Promise<LayerMetadataEntity> {

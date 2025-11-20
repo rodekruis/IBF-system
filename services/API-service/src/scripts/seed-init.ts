@@ -107,8 +107,8 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
       this.logger.log(`Seed Countries... ${process.env.COUNTRIES}`);
 
       const envDisasterTypes = process.env.DISASTER_TYPES.split(',');
-      await this.countryService.addOrUpdateCountries(
-        { countries: selectedCountries },
+      await this.countryService.upsertCountries(
+        selectedCountries,
         envDisasterTypes,
       );
 

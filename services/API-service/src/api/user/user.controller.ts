@@ -19,6 +19,7 @@ import {
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
+import { CountryDisasterType } from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -26,12 +27,6 @@ import { UserDecorator } from './user.decorator';
 import { User, UserResponseObject } from './user.model';
 import { UserService } from './user.service';
 import { USER_ROLE_RANK, UserRole } from './user-role.enum';
-
-// REFACTOR: find a way to use this interface across the app
-interface GetUsersQuery {
-  countryCodeISO3: string;
-  disasterType: DisasterType;
-}
 
 @ApiTags('--user--')
 @Controller('user')
@@ -48,7 +43,7 @@ export class UserController {
   @Get()
   public async getUsers(
     @Query()
-    { countryCodeISO3, disasterType }: Partial<GetUsersQuery>,
+    { countryCodeISO3, disasterType }: Partial<CountryDisasterType>,
     @UserDecorator() user: User,
   ) {
     if (countryCodeISO3 && !user.countries.includes(countryCodeISO3)) {

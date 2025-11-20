@@ -11,7 +11,7 @@ import { NotificationInfoEntity } from '../notification/notifcation-info.entity'
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
-import { CountryDisasterSettingsDto } from './dto/add-countries.dto';
+import { CountryDisasterSettingsDto } from './dto/country.dto';
 import { NotificationInfoDto } from './dto/notification-info.dto';
 
 describe('CountryService', () => {
@@ -76,21 +76,21 @@ describe('CountryService', () => {
     });
 
     it('should return an array of countries with specific country codes', async () => {
-      const countryCodes = (countries as Country[])
-        .map(({ countryCodeISO3 }) => countryCodeISO3)
-        .join(',');
+      const countryCodesISO3 = (countries as Country[]).map(
+        ({ countryCodeISO3 }) => countryCodeISO3,
+      );
       const result = [new CountryEntity()];
       jest.spyOn(countryRepository, 'find').mockResolvedValue(result);
 
-      expect(await service.getCountries(countryCodes)).toBe(result);
+      expect(await service.getCountries(countryCodesISO3)).toBe(result);
       expect(countryRepository.find).toHaveBeenCalledWith({
-        where: { countryCodeISO3: In(countryCodes.split(',')) },
+        where: { countryCodeISO3: In(countryCodesISO3) },
         relations,
       });
     });
   });
 
-  describe('addOrUpdateCountries', () => {
+  describe('upsertCountries', () => {
     it('should add or update countries', async () => {
       // Arrange
       jest
@@ -110,7 +110,7 @@ describe('CountryService', () => {
         .mockResolvedValue(new CountryDisasterSettingsEntity());
 
       // Act
-      await service.addOrUpdateCountries({ countries: countries as Country[] });
+      await service.upsertCountries(countries as Country[]);
 
       // Assert
       for (const country of countries) {
@@ -141,7 +141,7 @@ describe('CountryService', () => {
     });
   });
 
-  describe('addOrUpdateNotificationInfo', () => {
+  describe('upsertNotificationInfo', () => {
     it('should add or update notification info', async () => {
       jest
         .spyOn(countryRepository, 'findOne')
@@ -154,7 +154,7 @@ describe('CountryService', () => {
         .mockResolvedValue(new CountryEntity());
 
       const notificationInfoDto = notificationInfos as NotificationInfoDto[];
-      await service.addOrUpdateNotificationInfo(notificationInfoDto);
+      await service.upsertNotificationInfo(notificationInfoDto);
 
       for (const notificationInfo of notificationInfoDto) {
         expect(countryRepository.findOne).toHaveBeenCalledWith({

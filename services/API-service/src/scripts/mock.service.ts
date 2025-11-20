@@ -10,7 +10,7 @@ import { DynamicIndicator } from '../api/admin-area-dynamic-data/enum/dynamic-in
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
 import { AdminLevel } from '../api/country/admin-level.enum';
 import { CountryEntity } from '../api/country/country.entity';
-import { CountryDisasterSettingsDto } from '../api/country/dto/add-countries.dto';
+import { CountryDisasterSettingsDto } from '../api/country/dto/country.dto';
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { EapActionStatusEntity } from '../api/eap-actions/eap-action-status.entity';
 import { AlertPerLeadTimeEntity } from '../api/event/alert-per-lead-time.entity';

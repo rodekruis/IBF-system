@@ -1,12 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import {
-  IsBoolean,
-  IsIn,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-} from 'class-validator';
+import { IsBoolean, IsIn, IsNumber, IsString } from 'class-validator';
 
 import { NumberFormat } from '../../../shared/enums/number-format.enum';
 
@@ -75,10 +69,4 @@ export class IndicatorDto {
 
   @ApiProperty({ example: { UGA: { floods: 'description' } } })
   public description: JSON;
-}
-
-export class AddIndicatorsDto {
-  @ApiProperty({ example: [{}] })
-  @IsNotEmpty()
-  public indicators: IndicatorDto[];
 }

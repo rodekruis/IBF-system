@@ -1,10 +1,11 @@
+import { getToken } from '@helpers/utility.helper';
+
 import { countryData } from '../../fixtures/country.const';
 import { notificationInfoData } from '../../fixtures/notification-info.const';
-import { getToken } from '../../helpers/utility.helper';
 import {
-  addOrUpdateCountries,
-  addOrUpdateNotificationInfo,
   getCountries,
+  upsertCountries,
+  upsertNotificationInfo,
 } from './country.api';
 
 export default function createCountryTests() {
@@ -15,64 +16,70 @@ export default function createCountryTests() {
       token = await getToken();
     });
 
-    it('should update existing country and notification-info successfully', async () => {
+    it('should update existing country', async () => {
       // Arrange
       const countryCodeISO3 = 'MWI';
-      const newLinkPdf = 'https://test-changed-link.com';
-      const newCountryName = 'Malawi-different-name';
+      const linkPdf = 'https://test-changed-link.com';
+      const countryName = 'Malawi-different-name';
 
       const newCountryData = structuredClone(countryData);
+      newCountryData[0].countryName = countryName;
       const newNotificationInfoData = structuredClone(notificationInfoData);
-      newNotificationInfoData[0].linkPdf = newLinkPdf;
-      newCountryData[0].countryName = newCountryName;
+      newNotificationInfoData[0].linkPdf = linkPdf;
 
       // Act
-      const postCountryResult = await addOrUpdateCountries(
-        { countries: newCountryData },
+      const upsertCountriesResponse = await upsertCountries(
         token,
+        newCountryData,
       );
-      const postNotificationInfoResult = await addOrUpdateNotificationInfo(
-        newNotificationInfoData,
+      const upsertNotificationInfoResponse = await upsertNotificationInfo(
         token,
+        newNotificationInfoData,
       );
 
-      const getResult = await getCountries([countryCodeISO3], token);
+      const getCountriesResponse = await getCountries(
+        token,
+        [countryCodeISO3],
+        false,
+      );
 
       // Assert
-      expect(postCountryResult.status).toBe(201);
-      expect(postNotificationInfoResult.status).toBe(201);
-      expect(getResult.status).toBe(200);
-      expect(getResult.body[0].countryName).toEqual(newCountryName);
-      expect(getResult.body[0].notificationInfo.linkPdf).toEqual(newLinkPdf);
+      expect(upsertCountriesResponse.status).toBe(201);
+      expect(upsertNotificationInfoResponse.status).toBe(201);
+      expect(getCountriesResponse.status).toBe(200);
+      expect(getCountriesResponse.body[0].countryName).toEqual(countryName);
+      expect(getCountriesResponse.body[0].notificationInfo.linkPdf).toEqual(
+        linkPdf,
+      );
     });
 
-    it('should add new country and notification-info successfully', async () => {
+    it('should add new country', async () => {
       // Arrange
-      const newCountryCodeISO3 = 'MWI-new-country';
-      const newCountryName = 'Malawi-new-country';
+      const countryCodeISO3 = 'MWI-new-country';
+      const countryName = 'Malawi-new-country';
 
       const newCountryData = structuredClone(countryData);
+      newCountryData[0].countryCodeISO3 = countryCodeISO3;
+      newCountryData[0].countryName = countryName;
       const newNotificationInfoData = structuredClone(notificationInfoData);
-      newCountryData[0].countryCodeISO3 = newCountryCodeISO3;
-      newCountryData[0].countryName = newCountryName;
-      newNotificationInfoData[0].countryCodeISO3 = newCountryCodeISO3;
+      newNotificationInfoData[0].countryCodeISO3 = countryCodeISO3;
 
       // Act
-      const postCountryResult = await addOrUpdateCountries(
-        { countries: newCountryData },
+      const upsertCountriesResponse = await upsertCountries(
         token,
+        newCountryData,
       );
-      const postNotificationInfoResult = await addOrUpdateNotificationInfo(
+      const upsertNotificationInfoResponse = await upsertNotificationInfo(
+        token,
         newNotificationInfoData,
-        token,
       );
-      const getResult = await getCountries([newCountryCodeISO3], token);
+      const getCountriesResponse = await getCountries(token, [countryCodeISO3]);
 
       // Assert
-      expect(postCountryResult.status).toBe(201);
-      expect(postNotificationInfoResult.status).toBe(201);
-      expect(getResult.status).toBe(200);
-      expect(getResult.body[0].countryName).toEqual(newCountryName);
+      expect(upsertCountriesResponse.status).toBe(201);
+      expect(upsertNotificationInfoResponse.status).toBe(201);
+      expect(getCountriesResponse.status).toBe(200);
+      expect(getCountriesResponse.body[0].countryName).toEqual(countryName);
     });
 
     it('should fail to create notification-info on unkown countryCodeISO3', async () => {
@@ -81,13 +88,13 @@ export default function createCountryTests() {
       newNotificationInfoData[0].countryCodeISO3 = 'XXX';
 
       // Act
-      const postResult = await addOrUpdateNotificationInfo(
-        newNotificationInfoData,
+      const upsertNotificationInfoResponse = await upsertNotificationInfo(
         token,
+        newNotificationInfoData,
       );
 
       // Assert
-      expect(postResult.status).toBe(404);
+      expect(upsertNotificationInfoResponse.status).toBe(404);
     });
   });
 }

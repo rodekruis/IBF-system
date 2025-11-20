@@ -1,5 +1,6 @@
-import { UserRole } from '../../helpers/API-service/enum/user-role.enum';
-import { getToken } from '../../helpers/utility.helper';
+import { UserRole } from '@helpers/API-service/enum/user-role.enum';
+import { getToken } from '@helpers/utility.helper';
+
 import { createUser, updateUser } from './users.api';
 
 export default function manageUsersTests() {
@@ -43,6 +44,14 @@ export default function manageUsersTests() {
         // Assert
         expect(createResult.status).toBe(201);
         expect(createResult.body.user.userRole).toBe(UserRole.Operator);
+        // countries should be alphabetically sorted
+        expect(createResult.body.user.countries).toStrictEqual(
+          userData.countryCodesISO3.sort(),
+        );
+        // disaster types should be alphabetically sorted
+        expect(createResult.body.user.disasterTypes).toStrictEqual(
+          userData.disasterTypes.sort(),
+        );
 
         // store other user id for update tests
         otherUserId = createResult.body.user.id;

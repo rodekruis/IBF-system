@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import { Country } from '../../scripts/interfaces/country.interface';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
@@ -18,6 +19,11 @@ export interface ForecastSource {
   label: string;
   url?: string;
   setTriggerSource?: string;
+}
+
+export interface CountryDisasterType {
+  countryCodeISO3: Country['countryCodeISO3'];
+  disasterType: DisasterType;
 }
 
 @Entity('country-disaster-settings')

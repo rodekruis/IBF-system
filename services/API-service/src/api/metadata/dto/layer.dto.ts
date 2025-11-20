@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsBoolean, IsEnum, IsIn, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsEnum, IsIn, IsString } from 'class-validator';
 
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 
@@ -38,10 +38,4 @@ export class LayerDto {
 
   @ApiProperty({ example: { UGA: { floods: 'description' } } })
   public description: JSON;
-}
-
-export class AddLayersDto {
-  @ApiProperty({ example: [{}] })
-  @IsNotEmpty()
-  public layers: LayerDto[];
 }

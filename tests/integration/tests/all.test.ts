@@ -6,6 +6,7 @@ import adminAreaAggregatesTests from './admin-areas/aggregates.test';
 import eventAdminAreaTests from './admin-areas/event-admin-areas.test';
 import communityNotificationTests from './community-notification/community-notification.test';
 import createCountryTests from './country/create-country.test';
+import readCountryTests from './country/read-country.test';
 import emailTests from './email/emails.test';
 import getEventsTests from './events/get-events.test';
 import processEventsTests from './events/process-events.test';
@@ -24,6 +25,7 @@ describe('integration tests', () => {
 
   communityNotificationTests();
 
+  readCountryTests();
   createCountryTests();
 
   emailTests();
