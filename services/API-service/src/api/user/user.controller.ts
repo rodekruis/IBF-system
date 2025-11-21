@@ -1,8 +1,10 @@
 import {
   Body,
   Controller,
+  Delete,
   ForbiddenException,
   Get,
+  HttpCode,
   Patch,
   Post,
   Query,
@@ -21,7 +23,7 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { CountryDisasterType } from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
-import { CreateUserDto, LoginUserDto } from './dto';
+import { CreateUserDto, DeleteUserDto, LoginUserDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDecorator } from './user.decorator';
 import { User, UserResponseObject } from './user.model';
@@ -167,5 +169,16 @@ export class UserController {
     }
 
     return this.userService.updateUser(user.userId, updateUserData);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
+  @Roles(UserRole.Admin)
+  @ApiOperation({ summary: 'Delete user' })
+  @ApiResponse({ status: 204, description: 'User deleted' })
+  @Delete()
+  @HttpCode(204)
+  public async delete(@Body() { userId }: DeleteUserDto) {
+    return this.userService.deleteUser(userId);
   }
 }

@@ -317,6 +317,7 @@ export class UserService {
     includeToken = false,
   ): Promise<UserResponseObject> => ({
     user: {
+      userId: user.userId,
       email: user.email,
       firstName: user.firstName,
       middleName: user.middleName,
@@ -359,5 +360,9 @@ export class UserService {
 
       return { ...user, countries, disasterTypes };
     });
+  }
+
+  public async deleteUser(userId: string) {
+    await this.userRepository.delete({ userId });
   }
 }

@@ -18,6 +18,8 @@ export class User {
 }
 
 export class UserData {
+  public userId?: string;
+
   @ApiProperty({ example: DUNANT_EMAIL })
   public email: string;
 

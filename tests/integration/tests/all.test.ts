@@ -14,7 +14,8 @@ import setTriggerTests from './events/set-trigger.test';
 import loginTests from './login/login.test';
 import getPointDataTests from './point-data/get-point-data.test';
 import typhoonTrackTests from './typhoon-track/typhoon-track.test';
-import usersTests from './users/users.test';
+import createUsersTests from './users/create-users.test';
+import updateUsersTests from './users/update-users.test';
 
 describe('integration tests', () => {
   beforeAll(async () => {
@@ -41,7 +42,8 @@ describe('integration tests', () => {
 
   typhoonTrackTests();
 
-  usersTests();
+  createUsersTests();
+  updateUsersTests();
 
   getEventsTests();
   processEventsTests();
