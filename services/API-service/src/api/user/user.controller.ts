@@ -58,7 +58,7 @@ export class UserController {
     if (countryCodeISO3) {
       countries = [countryCodeISO3];
     }
-    if (user.userRole === UserRole.Admin) {
+    if (user.userRole === UserRole.Admin && !countryCodeISO3) {
       countries = [];
     }
 

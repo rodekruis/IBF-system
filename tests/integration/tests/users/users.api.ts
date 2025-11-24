@@ -14,6 +14,10 @@ interface User {
   whatsappNumber?: string;
 }
 
+export function readUser(token: string) {
+  return api(token).get('/user');
+}
+
 export function createUser(token: string, user: User) {
   return api(token).post('/user').send(user);
 }
