@@ -1,9 +1,21 @@
 import { UserRole } from '@helpers/API-service/enum/user-role.enum';
+import { getToken } from '@helpers/utility.helper';
 
+import { deleteUser, readUser } from '../users/users.api';
 import { login } from './login.api';
 
 export default function loginTests() {
   describe('login', () => {
+    afterAll(async () => {
+      const token = await getToken();
+      const readUsersResponse = await readUser(token);
+      const users = readUsersResponse.body;
+
+      for (const user of users) {
+        await deleteUser(token, user.userId);
+      }
+    });
+
     it('should return prompt message with valid email', async () => {
       // arrange
       const email = 'test-user@redcross.nl';
