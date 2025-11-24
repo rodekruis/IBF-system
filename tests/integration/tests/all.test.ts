@@ -15,6 +15,7 @@ import loginTests from './login/login.test';
 import getPointDataTests from './point-data/get-point-data.test';
 import typhoonTrackTests from './typhoon-track/typhoon-track.test';
 import createUsersTests from './users/create-users.test';
+import deleteUsersTests from './users/delete-users.test';
 import readUserTests from './users/read-users.test';
 import updateUsersTests from './users/update-users.test';
 
@@ -46,6 +47,7 @@ describe('integration tests', () => {
   readUserTests();
   createUsersTests();
   updateUsersTests();
+  deleteUsersTests();
 
   getEventsTests();
   processEventsTests();
