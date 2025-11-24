@@ -8,31 +8,31 @@ import { createUser, deleteUser, readUser } from './users.api';
 export default function readUserTests() {
   describe('read users', () => {
     let token: string;
-    const userId: Record<string, string> = {};
+    const userId: Partial<Record<keyof typeof userData, string>> = {};
 
     beforeAll(async () => {
       token = await getToken();
 
       // create users
-      for (const key of Object.keys(userData)) {
+      for (const userDataKey of Object.keys(userData)) {
         const createUserResponse = await createUser(
           token,
-          userData[key as keyof typeof userData],
+          userData[userDataKey],
         );
-        userId[key] = createUserResponse.body.user.userId;
+        userId[userDataKey] = createUserResponse.body.user.userId;
       }
     });
 
     afterAll(async () => {
       // cleanup users
-      for (const key of Object.keys(userId)) {
-        await deleteUser(token, userId[key]);
-        delete userId[key];
+      for (const userDataKey of Object.keys(userData)) {
+        await deleteUser(token, userId[userDataKey]);
+        delete userId[userDataKey];
       }
     });
 
     readUsersAssertions.forEach(({ userDataKey, status, count }) => {
-      it(`${userDataKey} should read ${count} users`, async () => {
+      it(`${userDataKey} should read ${count ?? 0} users`, async () => {
         const token = await getToken(userData[userDataKey].email);
         const readUserResponse = await readUser(token);
 
