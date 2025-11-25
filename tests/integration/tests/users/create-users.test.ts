@@ -8,7 +8,7 @@ export default function createUsersTests() {
   describe('create users', () => {
     let token: string;
     let operatorMultiUserId: string;
-    const operatorMultiUser = userData['operator-multi'];
+    const operatorMultiUserData = userData['operator-multi'];
 
     beforeAll(async () => {
       token = await getToken();
@@ -20,48 +20,63 @@ export default function createUsersTests() {
 
     it('should create user', async () => {
       // create user
-      const createUserResponse = await createUser(token, operatorMultiUser);
+      const createUserResponse = await createUser(token, operatorMultiUserData);
 
       // created user must have the correct attributes
       expect(createUserResponse.status).toBe(201);
       expect(createUserResponse.body.user.userRole).toBe(UserRole.Operator);
       // countries should be alphabetically sorted
       expect(createUserResponse.body.user.countries).toStrictEqual(
-        operatorMultiUser.countryCodesISO3.sort(),
+        operatorMultiUserData.countryCodesISO3.sort(),
       );
       // disaster types should be alphabetically sorted
       expect(createUserResponse.body.user.disasterTypes).toStrictEqual(
-        operatorMultiUser.disasterTypes.sort(),
+        operatorMultiUserData.disasterTypes.sort(),
       );
 
       // store other user id for cleanup
       operatorMultiUserId = createUserResponse.body.user.userId;
     });
 
-    it('should fail if email exists', async () => {
+    it('should error if email exists', async () => {
       // attempt to create user with same email
-      const createUserResponse = await createUser(token, operatorMultiUser);
+      const createUserResponse = await createUser(token, operatorMultiUserData);
 
       // should return bad request
       expect(createUserResponse.status).toBe(400);
     });
 
-    it('should fail if operator creates user', async () => {
-      // login as operator
-      const operatorMultiToken = await getToken(operatorMultiUser.email);
+    [
+      UserRole.LocalAdmin,
+      UserRole.Operator,
+      UserRole.Pipeline,
+      UserRole.Viewer,
+    ].forEach((userRole) => {
+      it(`should error if ${userRole} creates user`, async () => {
+        // login as the role
+        const userRoleUserData = userData[`${userRole}-multi`];
+        const userRoleUserToken = await getToken(userRoleUserData.email);
 
-      // prepare new user data
-      const newOperatorMultiUser = structuredClone(operatorMultiUser);
-      newOperatorMultiUser.email = 'not-allowed@redcross.nl';
+        // prepare new user data
+        const notAllowedUserData = {
+          email: 'not-allowed@redcross.nl',
+          firstName: 'Not',
+          lastName: 'Allowed',
+          userRole: UserRole.Viewer,
+          countryCodesISO3: ['UGA'],
+          disasterTypes: ['floods'],
+          password: 'password',
+        };
 
-      // attempt to create user
-      const createUserResponse = await createUser(
-        operatorMultiToken,
-        newOperatorMultiUser,
-      );
+        // attempt to create user
+        const createUserResponse = await createUser(
+          userRoleUserToken,
+          notAllowedUserData,
+        );
 
-      // should return forbidden
-      expect(createUserResponse.status).toBe(403);
+        // should return forbidden
+        expect(createUserResponse.status).toBe(403);
+      });
     });
   });
 }
