@@ -122,6 +122,7 @@ jobs:
           smtp-username: ${{ vars.SMTP_USERNAME }}
           smtp-password: ${{ secrets.SMTP_PASSWORD }}
           smtp-from: ${{ vars.SMTP_FROM }}
+          support-email-address: ${{ vars.SUPPORT_EMAIL_ADDRESS }}
 
   ibf-e2e:
     needs: detect-changes
@@ -150,6 +151,7 @@ jobs:
           smtp-username: ${{ vars.SMTP_USERNAME }}
           smtp-password: ${{ secrets.SMTP_PASSWORD }}
           smtp-from: ${{ vars.SMTP_FROM }}
+          support-email-address: ${{ vars.SUPPORT_EMAIL_ADDRESS }}
           azure-dev-url: ${{ vars.AZURE_DEV_URL }}
           azure-devops-token: ${{ secrets.AZURE_DEVOPS_TOKEN }}
           azure-test-owner: ${{ vars.AZURE_TEST_OWNER }}

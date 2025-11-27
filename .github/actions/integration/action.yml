@@ -26,6 +26,9 @@ inputs:
   smtp-from:
     description: 'SMTP from address'
     required: true
+  support-email-address:
+    description: 'Support email address'
+    required: true
 
 runs:
   using: composite
@@ -58,6 +61,7 @@ runs:
         SMTP_USERNAME: ${{ inputs.smtp-username }}
         SMTP_PASSWORD: ${{ inputs.smtp-password }}
         SMTP_FROM: ${{ inputs.smtp-from }}
+        SUPPORT_EMAIL_ADDRESS: ${{ inputs.support-email-address }}
       run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service
 
     - name: Wait for IBF API-service to be running
