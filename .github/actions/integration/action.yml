@@ -1,6 +1,32 @@
 name: 'integration'
 description: 'Run integration tests'
 
+inputs:
+  twilio-sid:
+    description: 'Twilio SID'
+    required: true
+  twilio-authtoken:
+    description: 'Twilio AuthToken'
+    required: true
+  smtp-host:
+    description: 'SMTP host'
+    required: true
+  smtp-port:
+    description: 'SMTP port'
+    required: true
+  smtp-secure:
+    description: 'SMTP secure (true/false)'
+    required: true
+  smtp-username:
+    description: 'SMTP username'
+    required: true
+  smtp-password:
+    description: 'SMTP password'
+    required: true
+  smtp-from:
+    description: 'SMTP from address'
+    required: true
+
 runs:
   using: composite
 
