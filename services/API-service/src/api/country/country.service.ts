@@ -46,7 +46,7 @@ export class CountryService {
 
   public async upsertCountries(
     countries: CountryDto[],
-    envDisasterTypes?: DisasterType[],
+    envDisasterTypes: DisasterType[] = [],
   ) {
     for await (const country of countries) {
       const existingCountry = await this.countryRepository.findOne({
@@ -67,7 +67,7 @@ export class CountryService {
   private async upsertCountry(
     countryEntity: CountryEntity,
     country: CountryDto,
-    envDisasterTypes?: DisasterType[],
+    envDisasterTypes: DisasterType[] = [],
   ): Promise<void> {
     countryEntity.countryName = country.countryName;
     countryEntity.adminRegionLabels = JSON.parse(
