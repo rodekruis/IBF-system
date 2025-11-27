@@ -96,17 +96,20 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
       });
     }
 
-    const envCountries = process.env.COUNTRIES.split(',');
+    const envCountries = process.env.COUNTRIES?.split(',').filter(Boolean);
     const selectedCountries = (countries as Country[]).filter(
-      ({ countryCodeISO3 }) => envCountries.includes(countryCodeISO3),
+      ({ countryCodeISO3 }) =>
+        envCountries.length === 0 || envCountries.includes(countryCodeISO3),
     );
     const countryRepository = this.dataSource.getRepository(CountryEntity);
 
     // ***** CREATE COUNTRIES *****
     if (seed.countries) {
-      this.logger.log(`Seed Countries... ${process.env.COUNTRIES}`);
+      this.logger.log(`Seed Countries... ${selectedCountries}`);
 
-      const envDisasterTypes = process.env.DISASTER_TYPES.split(',');
+      const envDisasterTypes = process.env.DISASTER_TYPES?.split(',').filter(
+        Boolean,
+      ) as DisasterType[];
       await this.countryService.upsertCountries(
         selectedCountries,
         envDisasterTypes,
@@ -140,7 +143,10 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
     // ***** SEED ADMIN-AREA DATA *****
     if (seed.adminAreas) {
       this.logger.log('Seed Admin Areas...');
-      await this.seedAdminArea.seed();
+
+      for (const country of selectedCountries) {
+        await this.seedAdminArea.seed(country);
+      }
     }
 
     // ***** CREATE USERS *****

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 
 import { AdminAreaService } from '../api/admin-area/admin-area.service';
 import { AdminAreaDynamicDataEntity } from '../api/admin-area-dynamic-data/admin-area-dynamic-data.entity';
@@ -51,15 +51,15 @@ export class MockService {
   private logger = new Logger('MockService');
 
   @InjectRepository(EventPlaceCodeEntity)
-  private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
+  private readonly eventPlaceCodeRepository: Repository<EventPlaceCodeEntity>;
   @InjectRepository(AlertPerLeadTimeEntity)
-  private readonly alertPerLeadTimeRepo: Repository<AlertPerLeadTimeEntity>;
+  private readonly alertPerLeadTimeRepository: Repository<AlertPerLeadTimeEntity>;
   @InjectRepository(AdminAreaDynamicDataEntity)
-  private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
+  private readonly adminAreaDynamicDataRepository: Repository<AdminAreaDynamicDataEntity>;
   @InjectRepository(EapActionStatusEntity)
-  private readonly eapActionStatusRepo: Repository<EapActionStatusEntity>;
+  private readonly eapActionStatusRepository: Repository<EapActionStatusEntity>;
   @InjectRepository(CountryEntity)
-  private readonly countryRepo: Repository<CountryEntity>;
+  private readonly countryRepository: Repository<CountryEntity>;
 
   constructor(
     private metadataService: MetadataService,
@@ -442,20 +442,23 @@ export class MockService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ) {
-    const allCountryEvents = await this.eventPlaceCodeRepo.find({
+    const allCountryEvents = await this.eventPlaceCodeRepository.find({
       relations: ['eapActionStatuses', 'adminArea'],
       where: { adminArea: { countryCodeISO3 }, disasterType },
     });
-    await this.alertPerLeadTimeRepo.delete({ countryCodeISO3, disasterType });
-    await this.adminAreaDynamicDataRepo.delete({
+    await this.alertPerLeadTimeRepository.delete({
+      countryCodeISO3,
+      disasterType,
+    });
+    await this.adminAreaDynamicDataRepository.delete({
       countryCodeISO3,
       disasterType,
     });
 
     for (const event of allCountryEvents) {
-      await this.eapActionStatusRepo.remove(event.eapActionStatuses);
+      await this.eapActionStatusRepository.remove(event.eapActionStatuses);
     }
-    await this.eventPlaceCodeRepo.remove(allCountryEvents);
+    await this.eventPlaceCodeRepository.remove(allCountryEvents);
   }
 
   private shouldMockGlofasStations(disasterType: DisasterType): boolean {
@@ -500,15 +503,20 @@ export class MockService {
   ) {
     const countryCodes = countryCodeISO3
       ? [countryCodeISO3]
-      : process.env.COUNTRIES.split(',');
+      : process.env.COUNTRIES?.split(',').filter(Boolean);
 
-    for await (const countryCodeISO3 of countryCodes) {
-      const country = await this.countryRepo.findOne({
-        where: { countryCodeISO3 },
-        relations: ['disasterTypes'],
-      });
+    const where = countryCodes.length
+      ? { countryCodeISO3: In(countryCodes) }
+      : {};
+
+    const countries = await this.countryRepository.find({
+      where,
+      relations: ['disasterTypes'],
+    });
+
+    for (const country of countries) {
       const countryDisasterTypes = country.disasterTypes.map(
-        (dt) => dt.disasterType,
+        ({ disasterType }) => disasterType,
       );
       if (disasterType && !countryDisasterTypes.includes(disasterType)) {
         this.logger.log(
@@ -521,7 +529,7 @@ export class MockService {
         ? [disasterType]
         : countryDisasterTypes;
 
-      for await (const disasterType of disasterTypes) {
+      for (const disasterType of disasterTypes) {
         await this.mockCountryDisasterTypeData(
           countryCodeISO3,
           mockInput.removeEvents,

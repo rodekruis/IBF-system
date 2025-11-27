@@ -48,7 +48,7 @@ import { EventPlaceCodeEntity } from './event-place-code.entity';
 @Injectable()
 export class EventService {
   @InjectRepository(EventPlaceCodeEntity)
-  private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
+  private readonly eventPlaceCodeRepository: Repository<EventPlaceCodeEntity>;
   @InjectRepository(AdminAreaDynamicDataEntity)
   private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
   @InjectRepository(AdminAreaEntity)
@@ -203,7 +203,7 @@ export class EventService {
   private createGetEventsQueryBuilder(
     countryCodeISO3: string,
   ): SelectQueryBuilder<EventPlaceCodeEntity> {
-    return this.eventPlaceCodeRepo
+    return this.eventPlaceCodeRepository
       .createQueryBuilder('event')
       .select(['area."countryCodeISO3"', 'event."eventName"'])
       .leftJoin('event.adminArea', 'area')
@@ -324,10 +324,10 @@ export class EventService {
       deleteFilters['eventName'] = eventName;
     }
 
-    const eventAreasToDelete = await this.eventPlaceCodeRepo.find({
+    const eventAreasToDelete = await this.eventPlaceCodeRepository.find({
       where: deleteFilters,
     });
-    await this.eventPlaceCodeRepo.remove(eventAreasToDelete);
+    await this.eventPlaceCodeRepository.remove(eventAreasToDelete);
   }
 
   public async getCountryDisasterSettings(
@@ -388,7 +388,7 @@ export class EventService {
         whereFiltersEvent['eventName'] = eventName;
       }
 
-      alertAreas = await this.eventPlaceCodeRepo
+      alertAreas = await this.eventPlaceCodeRepository
         .createQueryBuilder('event')
         .select([
           'area."placeCode" AS "placeCode"',
@@ -561,7 +561,7 @@ export class EventService {
     countryCodeISO3?: string,
     disasterType?: string,
   ): Promise<ActivationLogDto[]> {
-    let baseQuery = this.eventPlaceCodeRepo
+    let baseQuery = this.eventPlaceCodeRepository
       .createQueryBuilder('event')
       .select([
         'area."countryCodeISO3" AS "countryCodeISO3"',
@@ -988,7 +988,7 @@ export class EventService {
     activeAlertAreas: AreaForecastDataDto[],
     lastUploadDate: LastUploadDateDto,
   ): Promise<void> {
-    const activeEventAreas = await this.eventPlaceCodeRepo.find({
+    const activeEventAreas = await this.eventPlaceCodeRepository.find({
       where: {
         closed: false,
         adminArea: { countryCodeISO3 },
@@ -1049,7 +1049,7 @@ export class EventService {
       return;
     }
 
-    await this.eventPlaceCodeRepo
+    await this.eventPlaceCodeRepository
       .createQueryBuilder()
       .update()
       .set({ forecastTrigger, endDate })
@@ -1089,7 +1089,7 @@ export class EventService {
     lastUploadDate: LastUploadDateDto,
   ): Promise<void> {
     const activeEventAreaPlaceCodes = (
-      await this.eventPlaceCodeRepo.find({
+      await this.eventPlaceCodeRepository.find({
         where: {
           closed: false,
           adminArea: { countryCodeISO3 },
@@ -1120,7 +1120,7 @@ export class EventService {
         newEventAreas.push(eventArea);
       }
     }
-    await this.eventPlaceCodeRepo.save(newEventAreas);
+    await this.eventPlaceCodeRepository.save(newEventAreas);
   }
 
   public async closeEventsAutomatic(
@@ -1134,10 +1134,12 @@ export class EventService {
       disasterType,
       closed: false,
     };
-    const expiredEventAreas = await this.eventPlaceCodeRepo.find({ where });
+    const expiredEventAreas = await this.eventPlaceCodeRepository.find({
+      where,
+    });
     for (const area of expiredEventAreas) {
       area.closed = true;
     }
-    await this.eventPlaceCodeRepo.save(expiredEventAreas);
+    await this.eventPlaceCodeRepository.save(expiredEventAreas);
   }
 }

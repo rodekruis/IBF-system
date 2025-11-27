@@ -31,7 +31,7 @@ export class AdminAreaService {
   @InjectRepository(DisasterTypeEntity)
   private readonly disasterTypeRepository: Repository<DisasterTypeEntity>;
   @InjectRepository(AdminAreaDynamicDataEntity)
-  private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
+  private readonly adminAreaDynamicDataRepository: Repository<AdminAreaDynamicDataEntity>;
 
   public constructor(
     private helperService: HelperService,
@@ -544,7 +544,7 @@ export class AdminAreaService {
       whereFilters['eventName'] = eventName;
     }
 
-    const adminAreasToShow = await this.adminAreaDynamicDataRepo.find({
+    const adminAreasToShow = await this.adminAreaDynamicDataRepository.find({
       where: whereFilters,
       select: ['placeCode'],
     });

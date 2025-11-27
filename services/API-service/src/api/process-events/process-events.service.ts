@@ -14,7 +14,7 @@ import { NotificationService } from '../notification/notification.service';
 @Injectable()
 export class ProcessEventsService {
   @InjectRepository(EventPlaceCodeEntity)
-  private readonly eventPlaceCodeRepo: Repository<EventPlaceCodeEntity>;
+  private readonly eventPlaceCodeRepository: Repository<EventPlaceCodeEntity>;
   public constructor(
     private eventService: EventService,
     private helperService: HelperService,
@@ -98,7 +98,7 @@ export class ProcessEventsService {
     userId: string,
     setTriggerDto: SetTriggerDto,
   ): Promise<UpdateResult> {
-    const updateResult = await this.eventPlaceCodeRepo.update(
+    const updateResult = await this.eventPlaceCodeRepository.update(
       setTriggerDto.eventPlaceCodeIds,
       { userTrigger: true, userTriggerDate: new Date(), user: { userId } },
     );

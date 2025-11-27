@@ -46,7 +46,7 @@ export class CountryService {
 
   public async upsertCountries(
     countries: CountryDto[],
-    envDisasterTypes?: string[],
+    envDisasterTypes?: DisasterType[],
   ) {
     for await (const country of countries) {
       const existingCountry = await this.countryRepository.findOne({
@@ -54,21 +54,13 @@ export class CountryService {
         relations: ['countryDisasterSettings'],
       });
       if (existingCountry) {
-        await this.upsertCountry(
-          existingCountry,
-          country,
-          envDisasterTypes as DisasterType[],
-        );
+        await this.upsertCountry(existingCountry, country, envDisasterTypes);
         continue;
       }
 
       const newCountry = new CountryEntity();
       newCountry.countryCodeISO3 = country.countryCodeISO3;
-      await this.upsertCountry(
-        newCountry,
-        country,
-        envDisasterTypes as DisasterType[],
-      );
+      await this.upsertCountry(newCountry, country, envDisasterTypes);
     }
   }
 
@@ -84,7 +76,7 @@ export class CountryService {
     countryEntity.disasterTypes = await this.disasterTypeRepository.find({
       where: country.disasterTypes
         .filter((disasterType) => {
-          if (envDisasterTypes) {
+          if (envDisasterTypes.length) {
             const envDisasterType = envDisasterTypes.find(
               (d) => d.split(':')[0] === disasterType,
             );
