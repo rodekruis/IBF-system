@@ -17,10 +17,13 @@ export async function getToken(email = 'dunant@redcross.nl') {
     body: { code },
   } = await api().post(`/login`).send({ email });
 
-  const x = await api().post(`/login`).send({ email, code });
-  console.log(x.body);
+  const {
+    body: {
+      user: { token },
+    },
+  } = await api().post(`/login`).send({ email, code });
 
-  return x.body.user?.token;
+  return token;
 }
 
 export async function reset() {
