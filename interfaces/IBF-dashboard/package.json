@@ -23,7 +23,7 @@
     "test": "npm run test:dev -- --no-watch --browsers=ChromeHeadless"
   },
   "dependencies": {
-    "@angular/common": "19.2.8",
+    "@angular/common": "19.2.16",
     "@angular/core": "19.2.8",
     "@angular/forms": "19.2.8",
     "@angular/platform-browser": "19.2.8",
