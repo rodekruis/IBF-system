@@ -56,7 +56,7 @@ export class ManageUsersComponent implements OnDestroy {
   public users: User[] = [];
 
   public filterText = '';
-  public sortColumn: keyof User | null = 'countries';
+  public sortColumn: keyof User | null = 'countryCodesISO3';
   public sortAsc = true;
   public page = 1;
   public min = Math.min;
@@ -66,7 +66,7 @@ export class ManageUsersComponent implements OnDestroy {
     { key: 'firstName', label: 'manage.account.name' },
     { key: 'email', label: 'manage.account.email' },
     { key: 'userRole', label: 'manage.account.role' },
-    { key: 'countries', label: 'manage.users.countries' },
+    { key: 'countryCodesISO3', label: 'manage.users.countries' },
   ];
 
   public countries: Country[] = [];
@@ -123,8 +123,8 @@ export class ManageUsersComponent implements OnDestroy {
     if (!this.filterText) return this.users;
 
     return this.users.filter((user) => {
-      const countryNames = user.countries.map(
-        (country) => this.countryName[country],
+      const countryNames = user.countryCodesISO3.map(
+        (countryCodeISO3) => this.countryName[countryCodeISO3],
       );
 
       return [
@@ -133,7 +133,7 @@ export class ManageUsersComponent implements OnDestroy {
         user.lastName,
         user.email,
         user.userRole,
-        ...user.countries,
+        ...user.countryCodesISO3,
         ...countryNames,
       ]
         .join(' ')
@@ -199,7 +199,7 @@ export class ManageUsersComponent implements OnDestroy {
   }
 
   get userCountries() {
-    return this.user?.countries;
+    return this.user?.countryCodesISO3;
   }
 
   setSort(column: keyof User) {
@@ -255,19 +255,25 @@ export class ManageUsersComponent implements OnDestroy {
     });
   }
 
-  onCountriesChange(countries: Country['countryCodeISO3'][], user: User) {
+  onCountriesChange(
+    countryCodesISO3: Country['countryCodeISO3'][],
+    user: User,
+  ) {
     const presentToastError = this.translateService.instant(
       'common.error.present-toast',
     ) as string;
 
-    this.userService.updateUser({ countries }, user.userId).subscribe({
+    this.userService.updateUser({ countryCodesISO3 }, user.userId).subscribe({
       next: (updateUserResponse: UserResponse) => {
         user.userRole = updateUserResponse.user.userRole;
-        user.countries = countries;
+        user.countryCodesISO3 = countryCodesISO3;
 
         const updateMessageSuccess = this.translateService.instant(
           'manage.users.countries-changed',
-          { userName: this.getUserName(user), countryCount: countries.length },
+          {
+            userName: this.getUserName(user),
+            countryCount: countryCodesISO3.length,
+          },
         ) as string;
 
         this.presentToast(updateMessageSuccess).catch((error: unknown) => {
@@ -326,7 +332,7 @@ export class ManageUsersComponent implements OnDestroy {
           value: countryCodeISO3,
           disabled: !this.userRoles.includes(user.userRole),
         })),
-        selectedItems: user.countries,
+        selectedItems: user.countryCodesISO3,
         selectionChange: {
           emit: (countries: string[]) => {
             this.onCountriesChange(countries, user);

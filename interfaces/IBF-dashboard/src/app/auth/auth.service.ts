@@ -88,7 +88,7 @@ export class AuthService {
       lastName: decodedToken.lastName,
       userRole: decodedToken.userRole,
       whatsappNumber: decodedToken.whatsappNumber,
-      countries: decodedToken.countries,
+      countryCodesISO3: decodedToken.countryCodesISO3,
       disasterTypes: decodedToken.disasterTypes,
     };
   }

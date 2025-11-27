@@ -36,7 +36,7 @@ export class UpdateUserDto {
   @IsArray()
   @IsString({ each: true })
   @IsOptional()
-  public countries?: string[];
+  public countryCodesISO3?: string[];
 
   @ApiProperty({ example: [DisasterType.Floods, DisasterType.Drought] })
   @IsArray()

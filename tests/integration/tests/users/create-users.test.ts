@@ -2,45 +2,53 @@ import { UserRole } from '@helpers/API-service/enum/user-role.enum';
 import { getToken } from '@helpers/utility.helper';
 
 import { userData } from '../../fixtures/users.const';
-import { createUser, deleteUser } from './users.api';
+import { createUser, deleteUser, readUser } from './users.api';
 
 export default function createUsersTests() {
   describe('create users', () => {
-    let token: string;
-    let operatorMultiUserId: string;
+    let adminToken: string;
     const operatorMultiUserData = userData['operator-multi'];
 
     beforeAll(async () => {
-      token = await getToken();
+      adminToken = await getToken();
     });
 
     afterAll(async () => {
-      await deleteUser(token, operatorMultiUserId);
+      // cleanup users
+      const readUserResponse = await readUser(adminToken);
+      const users = readUserResponse.body;
+
+      for (const { userId } of users) {
+        await deleteUser(adminToken, userId);
+      }
     });
 
     it('should create user', async () => {
       // create user
-      const createUserResponse = await createUser(token, operatorMultiUserData);
+      const createUserResponse = await createUser(
+        adminToken,
+        operatorMultiUserData,
+      );
 
       // created user must have the correct attributes
       expect(createUserResponse.status).toBe(201);
       expect(createUserResponse.body.user.userRole).toBe(UserRole.Operator);
       // countries should be alphabetically sorted
-      expect(createUserResponse.body.user.countries).toStrictEqual(
+      expect(createUserResponse.body.user.countryCodesISO3).toStrictEqual(
         operatorMultiUserData.countryCodesISO3.sort(),
       );
       // disaster types should be alphabetically sorted
       expect(createUserResponse.body.user.disasterTypes).toStrictEqual(
         operatorMultiUserData.disasterTypes.sort(),
       );
-
-      // store other user id for cleanup
-      operatorMultiUserId = createUserResponse.body.user.userId;
     });
 
     it('should error if email exists', async () => {
       // attempt to create user with same email
-      const createUserResponse = await createUser(token, operatorMultiUserData);
+      const createUserResponse = await createUser(
+        adminToken,
+        operatorMultiUserData,
+      );
 
       // should return bad request
       expect(createUserResponse.status).toBe(400);

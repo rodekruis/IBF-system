@@ -16,16 +16,18 @@ export class CountryService {
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
   ) {
-    this.activatedRoute.queryParams.subscribe((params) => {
-      if (params?.['countryCodeISO3']) {
-        this.apiService.getCountries(null, true).subscribe((countries) => {
-          this.countries = countries;
-          this.selectCountry(params?.['countryCodeISO3']);
-        });
-      } else {
-        this.authService.getAuthSubscription().subscribe(this.onUserChange);
-      }
-    });
+    this.activatedRoute.queryParams.subscribe(
+      (params: { countryCodeISO3?: string }) => {
+        if (params?.countryCodeISO3) {
+          this.apiService.getCountries(null, true).subscribe((countries) => {
+            this.countries = countries;
+            this.selectCountry(params?.countryCodeISO3);
+          });
+        } else {
+          this.authService.getAuthSubscription().subscribe(this.onUserChange);
+        }
+      },
+    );
   }
 
   private onUserChange = (user: User) => {
@@ -36,7 +38,7 @@ export class CountryService {
 
   public getCountriesByUser(user: User): void {
     this.apiService
-      .getCountries(user.countries.join(','))
+      .getCountries(user.countryCodesISO3.join(','))
       .subscribe(this.onCountriesByUser(user));
   }
 
@@ -48,16 +50,17 @@ export class CountryService {
     return this.countrySubject.asObservable();
   };
 
-  private onCountriesByUser = (user) => (countries) => {
+  private onCountriesByUser = (user: User) => (countries: Country[]) => {
     this.countries = countries;
     this.filterCountriesByUser(user);
   };
 
-  private filterCountryByCountryCodeISO3 = (countryCodeISO3) => (country) =>
-    country.countryCodeISO3 === countryCodeISO3;
+  private filterCountryByCountryCodeISO3 =
+    (countryCodeISO3: string) => (country: Country) =>
+      country.countryCodeISO3 === countryCodeISO3;
 
-  private filterCountryByUser = (user: User) => (country) =>
-    user.countries.includes(country.countryCodeISO3);
+  private filterCountryByUser = (user: User) => (country: Country) =>
+    user.countryCodesISO3.includes(country.countryCodeISO3);
 
   public selectCountry = (countryCodeISO3: string): void => {
     this.countrySubject.next(
@@ -66,7 +69,7 @@ export class CountryService {
   };
 
   public filterCountriesByUser(user: User): void {
-    if (!user?.countries) {
+    if (!user?.countryCodesISO3) {
       this.countries = [];
     } else {
       this.countries = this.countries

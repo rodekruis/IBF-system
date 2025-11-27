@@ -19,8 +19,8 @@ import { LookupService } from '../notification/lookup/lookup.service';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './user.entity';
-import { UserResponseObject } from './user.model';
-import { UserRole } from './user-role.enum';
+import { User, UserResponseObject } from './user.model';
+import { USER_ROLE_RANK, UserRole } from './user-role.enum';
 
 const CREATE_ERROR = 'Failed to create user';
 const NOT_FOUND = 'User not found';
@@ -42,7 +42,7 @@ export class UserService {
     return await this.userRepository.find({ relations: this.relations });
   }
 
-  public async findOne(loginUserDto: LoginUserDto): Promise<UserEntity> {
+  public async login(loginUserDto: LoginUserDto) {
     const findOneOptions = {
       email: loginUserDto.email,
       password: crypto
@@ -50,10 +50,15 @@ export class UserService {
         .digest('hex'),
     };
 
-    return await this.userRepository.findOne({
+    const user = await this.userRepository.findOne({
       where: findOneOptions,
       relations: this.relations,
     });
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    return this.getUserWithToken(user, true);
   }
 
   public async create(dto: CreateUserDto): Promise<UserResponseObject> {
@@ -65,23 +70,23 @@ export class UserService {
 
     const user = await this.createUser(dto);
 
-    return this.buildUserRO(user);
+    return this.getUserWithToken(user);
   }
 
-  public async createUser(dto: CreateUserDto) {
+  public async createUser(createUserDto: CreateUserDto) {
     const userEntity = new UserEntity();
-    userEntity.email = dto.email.toLowerCase();
-    userEntity.password = dto.password;
-    userEntity.firstName = dto.firstName;
-    userEntity.middleName = dto.middleName;
-    userEntity.lastName = dto.lastName;
-    userEntity.userRole = dto.userRole;
-    userEntity.whatsappNumber = dto.whatsappNumber;
+    userEntity.email = createUserDto.email.toLowerCase();
+    userEntity.password = createUserDto.password;
+    userEntity.firstName = createUserDto.firstName;
+    userEntity.middleName = createUserDto.middleName;
+    userEntity.lastName = createUserDto.lastName;
+    userEntity.userRole = createUserDto.userRole;
+    userEntity.whatsappNumber = createUserDto.whatsappNumber;
     userEntity.countries = await this.countryRepository.find({
-      where: { countryCodeISO3: In(dto.countryCodesISO3) },
+      where: { countryCodeISO3: In(createUserDto.countryCodesISO3) },
     });
     userEntity.disasterTypes = await this.disasterTypeRepository.find({
-      where: { disasterType: In(dto.disasterTypes) },
+      where: { disasterType: In(createUserDto.disasterTypes) },
     });
 
     const errors = await validate(userEntity);
@@ -115,7 +120,7 @@ export class UserService {
       throw new UnauthorizedException(NOT_FOUND);
     }
 
-    return this.buildUserRO(user, includeToken);
+    return this.getUserWithToken(user, includeToken);
   }
 
   public async updateUser(
@@ -154,7 +159,7 @@ export class UserService {
 
     await this.userRepository.save(user);
 
-    if (updateUserDto.countries && isAdmin) {
+    if (updateUserDto.countryCodesISO3 && isAdmin) {
       await this.updateUserCountries(where, updateUserDto);
     }
 
@@ -168,7 +173,7 @@ export class UserService {
     });
 
     // include token only if user is updating their own account
-    return this.buildUserRO(updatedUser, !isAdmin);
+    return this.getUserWithToken(updatedUser, !isAdmin);
   }
 
   private async updateUserCountries(
@@ -184,7 +189,7 @@ export class UserService {
     const removeCountries = user.countries
       .filter(
         ({ countryCodeISO3 }) =>
-          !updateUserDto.countries.includes(countryCodeISO3),
+          !updateUserDto.countryCodesISO3.includes(countryCodeISO3),
       )
       .map(({ countryCodeISO3 }) => countryCodeISO3);
 
@@ -195,14 +200,14 @@ export class UserService {
       .remove(removeCountries);
 
     // add new countries
-    const newCountries = updateUserDto.countries.filter(
+    const newCountryCodesISO3 = updateUserDto.countryCodesISO3.filter(
       (countryCodeISO3) =>
         !user.countries
           .map(({ countryCodeISO3 }) => countryCodeISO3)
           .includes(countryCodeISO3),
     );
     const countries = await this.countryRepository.find({
-      where: { countryCodeISO3: In(newCountries) },
+      where: { countryCodeISO3: In(newCountryCodesISO3) },
     });
     user.countries = countries;
 
@@ -247,13 +252,14 @@ export class UserService {
     await this.userRepository.save(user);
   }
 
-  public async isAdmin(userId: string, targetUserId?: string) {
-    // user cannot be their own admin
+  // check if the user can manage the target user
+  public async isUserAdmin(userId: string, targetUserId?: string) {
+    // user cannot be their own user admin
     if (userId === targetUserId) {
       return false;
     }
 
-    // user must be admin or local admin
+    // user must have user role admin or local admin
     const user = await this.userRepository.findOne({
       where: { userId, userRole: In([UserRole.Admin, UserRole.LocalAdmin]) },
       relations: this.relations,
@@ -262,75 +268,73 @@ export class UserService {
       return false;
     }
 
-    // global admin can manage anyone
+    // admin can manage anyone
     if (user.userRole === UserRole.Admin) {
       return true;
     }
 
-    const userCountries = user.countries.map(
+    const userCountryCodesISO3 = user.countries.map(
       ({ countryCodeISO3 }) => countryCodeISO3,
     );
 
-    // target user must be in one of the admin's countries
+    // target user must be in user countries
     if (!targetUserId) {
       return false;
     }
     const targetUser = await this.userRepository.findOne({
       where: {
         userId: targetUserId,
-        countries: { countryCodeISO3: In(userCountries) },
+        countries: { countryCodeISO3: In(userCountryCodesISO3) },
       },
       relations: this.relations,
     });
+    if (!targetUser) {
+      return false;
+    }
 
-    return !!targetUser;
+    // target user user role must be lower or equal to user user role
+    return USER_ROLE_RANK[targetUser.userRole] >= USER_ROLE_RANK[user.userRole];
   }
 
-  private async generateJWT(user: UserEntity): Promise<string> {
+  private async getToken(user: User) {
     const today = new Date();
-    const exp = new Date(today);
-    exp.setDate(today.getDate() + 60);
+    const exp = new Date(today); // token expiration time
+    exp.setDate(today.getDate() + 60); // token valid for 60 days
 
-    const result = jwt.sign(
-      {
-        userId: user.userId,
-        email: user.email,
-        firstName: user.firstName,
-        middleName: user.middleName,
-        lastName: user.lastName,
-        userRole: user.userRole,
-        whatsappNumber: user.whatsappNumber,
-        countries: user.countries.map(({ countryCodeISO3 }) => countryCodeISO3),
-        disasterTypes: user.disasterTypes.map(
-          ({ disasterType }) => disasterType,
-        ),
-        exp: exp.getTime() / 1000,
-      },
+    const token = jwt.sign(
+      { ...user, exp: exp.getTime() / 1000 },
       process.env.SECRET,
     );
 
-    return result;
+    return token;
   }
 
-  public buildUserRO = async (
-    user: UserEntity,
-    includeToken = false,
-  ): Promise<UserResponseObject> => ({
-    user: {
-      userId: user.userId,
-      email: user.email,
-      firstName: user.firstName,
-      middleName: user.middleName,
-      lastName: user.lastName,
-      userRole: user.userRole,
-      whatsappNumber: user.whatsappNumber,
-      token: includeToken ? await this.generateJWT(user) : null,
-      countries: user.countries?.map(({ countryCodeISO3 }) => countryCodeISO3),
-      disasterTypes: user.disasterTypes?.map(
-        ({ disasterType }) => disasterType,
-      ),
-    },
+  private getUser = (userEntity: UserEntity) => ({
+    userId: userEntity.userId,
+    email: userEntity.email,
+    firstName: userEntity.firstName,
+    middleName: userEntity.middleName,
+    lastName: userEntity.lastName,
+    userRole: userEntity.userRole,
+    whatsappNumber: userEntity.whatsappNumber,
+    countryCodesISO3: userEntity.countries
+      ?.map(({ countryCodeISO3 }) => countryCodeISO3)
+      .sort(),
+    disasterTypes: userEntity.disasterTypes
+      ?.map(({ disasterType }) => disasterType)
+      .sort(),
   });
+
+  // REFACTOR: getUserWithToken should always include token
+  private getUserWithToken = async (
+    userEntity: UserEntity,
+    includeToken = false,
+  ) => {
+    const user = this.getUser(userEntity);
+    const token = includeToken ? await this.getToken(user) : null;
+
+    return { user: { ...user, token } };
+  };
 
   public async findUsers(
     countryCodesISO3: string[],
@@ -349,17 +353,7 @@ export class UserService {
       relations: this.relations,
     });
 
-    return users.map((user) => {
-      const countries = user.countries.map(
-        ({ countryCodeISO3 }) => countryCodeISO3,
-      );
-
-      const disasterTypes = user.disasterTypes.map(
-        ({ disasterType }) => disasterType,
-      );
-
-      return { ...user, countries, disasterTypes };
-    });
+    return users.map((user) => this.getUser(user));
   }
 
   public async deleteUser(userId: string) {

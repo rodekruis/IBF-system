@@ -29,7 +29,7 @@
     data-testid="manage-users-table-headers"
   >
     @for (column of columns; track column.key) {
-      @if (column.key !== 'countries' || userCountries.length > 1) {
+      @if (column.key !== 'countryCodesISO3' || userCountries.length > 1) {
         <ion-col
           (click)="setSort(column.key)"
           class="flex cursor-pointer items-center justify-start gap-2 indent-4"
@@ -94,17 +94,17 @@
                 (click)="showUserCountries($event, pagedUser)"
                 [detail]="true"
                 detail-icon="chevron-expand"
-                [class.text-red-500]="pagedUser.countries.length === 0"
+                [class.text-red-500]="pagedUser.countryCodesISO3.length === 0"
                 class="truncate"
               >
                 {{
                   'manage.users.countries-count'
                     | translate
                       : {
-                          countryCount: pagedUser.countries.length,
+                          countryCount: pagedUser.countryCodesISO3.length,
                           countryLabel:
-                            countryName[pagedUser.countries[0]] ||
-                            pagedUser.countries[0],
+                            countryName[pagedUser.countryCodesISO3[0]] ||
+                            pagedUser.countryCodesISO3[0],
                         }
                 }}
               </ion-item>

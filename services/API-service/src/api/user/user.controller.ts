@@ -48,18 +48,18 @@ export class UserController {
     { countryCodeISO3, disasterType }: Partial<CountryDisasterType>,
     @UserDecorator() user: User,
   ) {
-    if (countryCodeISO3 && !user.countries.includes(countryCodeISO3)) {
+    if (countryCodeISO3 && !user.countryCodesISO3.includes(countryCodeISO3)) {
       throw new ForbiddenException(
         `You cannot view users from country ${countryCodeISO3}`,
       );
     }
 
-    let countries = user.countries;
+    let countryCodesISO3 = user.countryCodesISO3;
     if (countryCodeISO3) {
-      countries = [countryCodeISO3];
+      countryCodesISO3 = [countryCodeISO3];
     }
     if (user.userRole === UserRole.Admin && !countryCodeISO3) {
-      countries = [];
+      countryCodesISO3 = [];
     }
 
     let disasterTypes: DisasterType[] = [];
@@ -67,7 +67,7 @@ export class UserController {
       disasterTypes = [disasterType];
     }
 
-    return this.userService.findUsers(countries, disasterTypes);
+    return this.userService.findUsers(countryCodesISO3, disasterTypes);
   }
 
   @ApiBearerAuth()
@@ -101,11 +101,7 @@ export class UserController {
   public async login(
     @Body() loginUserDto: LoginUserDto,
   ): Promise<UserResponseObject> {
-    const user = await this.userService.findOne(loginUserDto);
-    if (!user) {
-      throw new UnauthorizedException('Unauthorized');
-    }
-    return await this.userService.buildUserRO(user, true);
+    return await this.userService.login(loginUserDto);
   }
 
   @ApiBearerAuth()
@@ -119,8 +115,16 @@ export class UserController {
     @Body() updateUserData: UpdateUserDto,
   ): Promise<UserResponseObject> {
     if (targetUserId) {
-      const isAdmin = await this.userService.isAdmin(user.userId, targetUserId);
-      if (!isAdmin) {
+      const isUserAdmin = await this.userService.isUserAdmin(
+        user.userId,
+        targetUserId,
+      );
+      // any admin can invite a user to a country
+      const isInvite =
+        updateUserData.countryCodesISO3?.length > 0 &&
+        [UserRole.Admin, UserRole.LocalAdmin].includes(user.userRole);
+
+      if (!isUserAdmin && !isInvite) {
         throw new ForbiddenException(
           `You are not allowed to update user ${targetUserId}`,
         );
@@ -140,29 +144,37 @@ export class UserController {
         );
       }
 
-      if (updateUserData.countries) {
+      if (updateUserData.countryCodesISO3) {
         // prevent user from adding others to countries they are not in
         if (
-          !updateUserData.countries.every((countryCodeISO3) =>
-            user.countries.includes(countryCodeISO3),
+          !updateUserData.countryCodesISO3.every((countryCodeISO3) =>
+            user.countryCodesISO3.includes(countryCodeISO3),
           )
         ) {
-          const forbiddenCountries = updateUserData.countries.filter(
-            (countryCodeISO3) => !user.countries.includes(countryCodeISO3),
+          const forbiddenCountries = updateUserData.countryCodesISO3.filter(
+            (countryCodeISO3) =>
+              !user.countryCodesISO3.includes(countryCodeISO3),
           );
 
           throw new ForbiddenException(
-            `You cannot add users to countries ${forbiddenCountries}. You can add users to countries ${user.countries.join(', ')}.`,
+            `You cannot add users to countries ${forbiddenCountries}. You can add users to countries ${user.countryCodesISO3.join(', ')}.`,
           );
         }
 
         // keep user countries which the admin is not in but the user is
         const targetUser = await this.userService.findById(targetUserId);
-        const immuneCountries = targetUser.user.countries.filter(
-          (countryCodeISO3) => !user.countries.includes(countryCodeISO3),
+        const immuneCountries = targetUser.user.countryCodesISO3.filter(
+          (countryCodeISO3) => !user.countryCodesISO3.includes(countryCodeISO3),
         );
 
-        updateUserData.countries.push(...immuneCountries);
+        updateUserData.countryCodesISO3.push(...immuneCountries);
+
+        if (!isUserAdmin) {
+          // if not admin, only invite to countries
+          updateUserData = {
+            countryCodesISO3: updateUserData.countryCodesISO3,
+          };
+        }
       }
 
       return this.userService.updateUser(targetUserId, updateUserData, true);

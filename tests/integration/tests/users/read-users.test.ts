@@ -47,7 +47,7 @@ export default function readUserTests() {
             for (const user of users) {
               // each user must be in one of the admin's countries
               expect(
-                user.countries.some((countryCodeISO3: string) =>
+                user.countryCodesISO3.some((countryCodeISO3: string) =>
                   userData[userDataKey].countryCodesISO3.includes(
                     countryCodeISO3,
                   ),
@@ -68,10 +68,10 @@ export default function readUserTests() {
       expect(readUserResponse.status).toBe(200);
 
       const users = readUserResponse.body;
-      expect(users.length).toBe(9);
+      expect(users.length).toBe(10);
 
       for (const user of users) {
-        expect(user.countries).toContain('PHL');
+        expect(user.countryCodesISO3).toContain('PHL');
       }
     });
 
@@ -84,7 +84,7 @@ export default function readUserTests() {
       expect(readUserResponse.status).toBe(200);
 
       const users = readUserResponse.body;
-      expect(users.length).toBe(19);
+      expect(users.length).toBe(21);
 
       for (const user of users) {
         expect(user.disasterTypes).toContain('floods');
@@ -101,10 +101,10 @@ export default function readUserTests() {
       expect(readUserResponse.status).toBe(200);
 
       const users = readUserResponse.body;
-      expect(users.length).toBe(7);
+      expect(users.length).toBe(8);
 
       for (const user of users) {
-        expect(user.countries).toContain('PHL');
+        expect(user.countryCodesISO3).toContain('PHL');
         expect(user.disasterTypes).toContain('floods');
       }
     });

@@ -10,6 +10,6 @@ export class User {
   lastName: string;
   userRole: UserRole;
   whatsappNumber?: string;
-  countries: string[];
+  countryCodesISO3: string[];
   disasterTypes: DisasterTypeKey[];
 }

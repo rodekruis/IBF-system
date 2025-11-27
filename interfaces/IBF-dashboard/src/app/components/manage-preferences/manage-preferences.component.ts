@@ -65,11 +65,11 @@ export class ManagePreferencesComponent implements OnDestroy {
   private updateDisasterTypeList() {
     this.disasterTypes = Array.from(
       new Map(
-        this.user.countries
+        this.user.countryCodesISO3
           .flatMap(
-            (countryCode) =>
+            (countryCodeISO3) =>
               this.countries.find(
-                (country) => country.countryCodeISO3 === countryCode,
+                (country) => country.countryCodeISO3 === countryCodeISO3,
               )?.disasterTypes || [],
           )
           .map((disasterType) => [disasterType.disasterType, disasterType]),

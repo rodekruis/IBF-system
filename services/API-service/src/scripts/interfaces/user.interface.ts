@@ -8,7 +8,7 @@ export interface User
     | 'middleName'
     | 'lastName'
     | 'userRole'
-    | 'countries'
+    | 'countryCodesISO3'
     | 'disasterTypes'
   > {
   password: string;

@@ -11,10 +11,8 @@ export class User {
   public middleName?: string;
   public lastName: string;
   public userRole: UserRole;
-  public countries: string[];
+  public countryCodesISO3: string[];
   public disasterTypes: DisasterType[];
-  public exp: number;
-  public iat: number;
 }
 
 export class UserData {
@@ -45,7 +43,7 @@ export class UserData {
   public token?: string;
 
   @ApiProperty({ example: ['NLD', 'ETH'] })
-  public countries: string[];
+  public countryCodesISO3: string[];
 
   @ApiProperty({ example: [DisasterType.Floods, DisasterType.Drought] })
   public disasterTypes: DisasterType[];

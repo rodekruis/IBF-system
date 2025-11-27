@@ -102,7 +102,9 @@ export class SeedHelper {
     await userService.updateUser(
       savedUser.userId,
       {
-        countries: countries.map(({ countryCodeISO3 }) => countryCodeISO3),
+        countryCodesISO3: countries.map(
+          ({ countryCodeISO3 }) => countryCodeISO3,
+        ),
         disasterTypes: disasterTypes.map(({ disasterType }) => disasterType),
       },
       true,

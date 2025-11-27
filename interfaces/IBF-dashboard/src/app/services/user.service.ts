@@ -5,7 +5,7 @@ import { ApiService } from 'src/app/services/api.service';
 export type UpdateUser = Partial<
   Pick<
     User,
-    | 'countries'
+    | 'countryCodesISO3'
     | 'disasterTypes'
     | 'firstName'
     | 'lastName'

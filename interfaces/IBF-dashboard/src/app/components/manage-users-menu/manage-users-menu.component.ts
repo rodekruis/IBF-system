@@ -26,7 +26,7 @@ export class ManageUsersMenuComponent {
       'lastName',
       'userRole',
       'whatsappNumber',
-      'countries',
+      'countryCodesISO3',
       'disasterTypes',
     ].join(',');
     const rows = this.users.map(
@@ -37,7 +37,7 @@ export class ManageUsersMenuComponent {
         lastName,
         userRole,
         whatsappNumber,
-        countries,
+        countryCodesISO3,
         disasterTypes,
       }) =>
         [
@@ -47,7 +47,7 @@ export class ManageUsersMenuComponent {
           lastName,
           userRole,
           whatsappNumber,
-          countries.join(':'),
+          countryCodesISO3.join(':'),
           disasterTypes.join(':'),
         ].join(','),
     );
