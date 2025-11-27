@@ -109,7 +109,7 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
 
     // ***** CREATE COUNTRIES *****
     if (seed.countries) {
-      this.logger.log(`Seed Countries... ${selectedCountryCodes.join(', ')}`);
+      this.logger.log(`Seed Countries... ${selectedCountryCodes.join(',')}`);
 
       const envDisasterTypes =
         process.env.DISASTER_TYPES?.split(',').filter(Boolean) ?? [];
