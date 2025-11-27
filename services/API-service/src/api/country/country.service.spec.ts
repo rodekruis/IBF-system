@@ -21,12 +21,6 @@ describe('CountryService', () => {
   let countryDisasterSettingsRepository: Repository<CountryDisasterSettingsEntity>;
   let notificationInfoRepository: Repository<NotificationInfoEntity>;
 
-  const relations = [
-    'countryDisasterSettings',
-    'disasterTypes',
-    'notificationInfo',
-  ];
-
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
@@ -72,7 +66,10 @@ describe('CountryService', () => {
       jest.spyOn(countryRepository, 'find').mockResolvedValue(result);
 
       expect(await service.getCountries()).toBe(result);
-      expect(countryRepository.find).toHaveBeenCalledWith({ relations });
+      expect(countryRepository.find).toHaveBeenCalledWith({
+        where: {},
+        relations: ['disasterTypes'],
+      });
     });
 
     it('should return an array of countries with specific country codes', async () => {
@@ -85,7 +82,7 @@ describe('CountryService', () => {
       expect(await service.getCountries(countryCodesISO3)).toBe(result);
       expect(countryRepository.find).toHaveBeenCalledWith({
         where: { countryCodeISO3: In(countryCodesISO3) },
-        relations,
+        relations: ['disasterTypes'],
       });
     });
   });
