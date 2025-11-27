@@ -51,13 +51,13 @@ describe('UserService', () => {
     userService = new UserService(new LookupService());
   });
 
-  describe('buildUserRO', () => {
+  describe('getUserWithToken', () => {
     it('should generate an object including a JWT token starting with the characters "eyJ"', async () => {
       // Arrange
       const includeToken = true;
 
       // Act
-      const userRO = await userService.buildUserRO(user, includeToken);
+      const userRO = await userService.getUserWithToken(user, includeToken);
 
       // Assert
       const expectedFirstCharacters = 'eyJ';
@@ -70,7 +70,7 @@ describe('UserService', () => {
       const includeToken = false;
 
       // Act
-      const userRO = await userService.buildUserRO(user, includeToken);
+      const userRO = await userService.getUserWithToken(user, includeToken);
 
       // Assert
       expect(userRO.user).toBeDefined();

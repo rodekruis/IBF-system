@@ -326,7 +326,7 @@ export class UserService {
   });
 
   // REFACTOR: getUserWithToken should always include token
-  private getUserWithToken = async (
+  public getUserWithToken = async (
     userEntity: UserEntity,
     includeToken = false,
   ) => {
