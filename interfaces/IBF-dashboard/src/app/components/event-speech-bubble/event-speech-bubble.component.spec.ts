@@ -106,7 +106,10 @@ describe('EventSpeechBubbleComponent', () => {
   });
 
   describe('openSetTriggerPopover', () => {
-    it('should open set trigger popover when openSetTriggerPopover is called', async () => {
+    it('should open set trigger popover when openSetTriggerPopover is called by admins', async () => {
+      // Arrange
+      Object.defineProperty(authService, 'isAdmin', { get: () => true });
+
       // Act
       await component.openSetTriggerPopover();
 
@@ -131,7 +134,10 @@ describe('EventSpeechBubbleComponent', () => {
       );
     });
 
-    it('should open no-access set trigger popover when openSetTriggerPopover is called without right userRole', async () => {
+    it('should open no-access set trigger popover when openSetTriggerPopover is called by non-admins', async () => {
+      // Arrange
+      Object.defineProperty(authService, 'isAdmin', { get: () => false });
+
       // Act
       await component.openSetTriggerPopover();
 
