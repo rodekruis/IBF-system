@@ -107,7 +107,7 @@ describe('CountryService', () => {
         .mockResolvedValue(new CountryDisasterSettingsEntity());
 
       // Act
-      await service.upsertCountries(countries as Country[]);
+      await service.upsertCountries(countries as Country[], []);
 
       // Assert
       for (const country of countries) {
