@@ -102,11 +102,14 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
       ({ countryCodeISO3 }) =>
         envCountries.length === 0 || envCountries.includes(countryCodeISO3),
     );
+    const selectedCountryCodes = selectedCountries.map(
+      ({ countryCodeISO3 }) => countryCodeISO3,
+    );
     const countryRepository = this.dataSource.getRepository(CountryEntity);
 
     // ***** CREATE COUNTRIES *****
     if (seed.countries) {
-      this.logger.log(`Seed Countries... ${selectedCountries}`);
+      this.logger.log(`Seed Countries... ${selectedCountryCodes.join(', ')}`);
 
       const envDisasterTypes =
         process.env.DISASTER_TYPES?.split(',').filter(Boolean) ?? [];
