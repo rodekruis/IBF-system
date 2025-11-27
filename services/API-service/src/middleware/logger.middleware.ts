@@ -15,10 +15,15 @@ export class LoggerMiddleware implements NestMiddleware {
     response.on('close', () => {
       const { statusCode } = response;
       const contentLength = response.get('content-length');
+      const message = `${method} ${url} ${statusCode} ${contentLength} - ${userAgent} ${ip}`;
 
-      this.logger.log(
-        `${method} ${url} ${statusCode} ${contentLength} - ${userAgent} ${ip}`,
-      );
+      if (statusCode >= 500) {
+        this.logger.error(message);
+      } else if (statusCode >= 400) {
+        this.logger.warn(message);
+      } else {
+        this.logger.log(message);
+      }
     });
 
     next();
