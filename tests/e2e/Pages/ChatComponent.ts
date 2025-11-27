@@ -2,7 +2,6 @@ import { expect } from '@playwright/test';
 import { format } from 'date-fns';
 import * as os from 'os';
 import { Locator, Page } from 'playwright';
-import { User } from 'testData/types';
 
 import DashboardPage from './DashboardPage';
 
