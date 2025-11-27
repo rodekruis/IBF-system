@@ -503,7 +503,7 @@ export class MockService {
   ) {
     const countryCodes = countryCodeISO3
       ? [countryCodeISO3]
-      : process.env.COUNTRIES?.split(',').filter(Boolean);
+      : (process.env.COUNTRIES?.split(',').filter(Boolean) ?? []);
 
     const where = countryCodes.length
       ? { countryCodeISO3: In(countryCodes) }

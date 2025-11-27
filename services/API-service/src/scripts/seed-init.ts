@@ -96,7 +96,8 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
       });
     }
 
-    const envCountries = process.env.COUNTRIES?.split(',').filter(Boolean);
+    const envCountries =
+      process.env.COUNTRIES?.split(',').filter(Boolean) ?? [];
     const selectedCountries = (countries as Country[]).filter(
       ({ countryCodeISO3 }) =>
         envCountries.length === 0 || envCountries.includes(countryCodeISO3),
@@ -107,12 +108,11 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
     if (seed.countries) {
       this.logger.log(`Seed Countries... ${selectedCountries}`);
 
-      const envDisasterTypes = process.env.DISASTER_TYPES?.split(',').filter(
-        Boolean,
-      ) as DisasterType[];
+      const envDisasterTypes =
+        process.env.DISASTER_TYPES?.split(',').filter(Boolean) ?? [];
       await this.countryService.upsertCountries(
         selectedCountries,
-        envDisasterTypes,
+        envDisasterTypes as DisasterType[],
       );
 
       const countryEntities = [];
