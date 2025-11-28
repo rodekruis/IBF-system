@@ -86,7 +86,12 @@ export class LoginService {
 
     await this.loginRepository.delete(loginEntity);
 
-    if (loginEntity.user.countries.length < 1) {
+    if (
+      loginEntity.user.userRole !== UserRole.Admin &&
+      // exception for admins to allow database reset
+      loginEntity.user.countries.length < 1
+      // user has no countries assigned
+    ) {
       throw new UnauthorizedException(UNDER_REVIEW);
     }
 
