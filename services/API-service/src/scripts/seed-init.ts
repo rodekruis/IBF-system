@@ -174,9 +174,9 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           );
           return eapActionEntity;
         })
-        .filter((action: EapActionEntity): boolean => {
-          return envCountries.includes(action.countryCodeISO3);
-        });
+        .filter((action: EapActionEntity) =>
+          selectedCountryCodes.includes(action.countryCodeISO3),
+        );
       const eapActionRepository =
         this.dataSource.getRepository(EapActionEntity);
       await eapActionRepository.save(filteredActions);
