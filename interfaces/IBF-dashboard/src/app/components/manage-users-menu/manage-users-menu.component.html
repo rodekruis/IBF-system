@@ -1,0 +1,12 @@
+<ion-list lines="full">
+  <ion-item
+    [button]="true"
+    [detail]="false"
+    (click)="exportUsers()"
+    data-testid="manage-users-menu-export-button"
+    lines="none"
+  >
+    <ion-label>{{ 'manage.users.export-users' | translate }}</ion-label>
+    <ion-icon slot="end" name="cloud-download-outline"></ion-icon>
+  </ion-item>
+</ion-list>

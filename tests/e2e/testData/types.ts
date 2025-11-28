@@ -11,8 +11,6 @@ export interface DisasterType {
 }
 
 export interface User {
-  email: string;
-  password: string;
   firstName: string;
   lastName: string;
 }
@@ -23,7 +21,7 @@ export interface Layer {
   description: string;
   legendLabels: string[];
   active: boolean;
-  type: string; // 'wms' | 'admin-area' | 'point'
+  type: string; // 'wms' | 'admin-area' | 'point' | 'line'
   map: boolean;
   aggregate: boolean;
 }

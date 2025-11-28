@@ -34,7 +34,7 @@ export class AdminAreaDynamicDataService {
   private logger = new Logger('AdminAreaDynamicDataService');
 
   @InjectRepository(AdminAreaDynamicDataEntity)
-  private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
+  private readonly adminAreaDynamicDataRepository: Repository<AdminAreaDynamicDataEntity>;
 
   public constructor(
     private eventAreaService: EventAreaService,
@@ -78,7 +78,7 @@ export class AdminAreaDynamicDataService {
       area.eventName = uploadExposure.eventName;
       areas.push(area);
     }
-    await this.adminAreaDynamicDataRepo.save(areas);
+    await this.adminAreaDynamicDataRepository.save(areas);
   }
 
   private getEventNameException(
@@ -118,7 +118,7 @@ export class AdminAreaDynamicDataService {
       deleteFilters['eventName'] = uploadExposure.eventName;
     }
 
-    return this.adminAreaDynamicDataRepo.delete(deleteFilters);
+    return this.adminAreaDynamicDataRepository.delete(deleteFilters);
   }
 
   public async getAdminAreaDynamicData(
@@ -180,7 +180,7 @@ export class AdminAreaDynamicDataService {
     if (leadTime) {
       whereFilters['leadTime'] = leadTime;
     }
-    const result = await this.adminAreaDynamicDataRepo
+    const result = await this.adminAreaDynamicDataRepository
       .createQueryBuilder('dynamic')
       .where(whereFilters)
       .select(['dynamic.value AS value', 'dynamic.placeCode AS "placeCode"'])
@@ -224,7 +224,7 @@ export class AdminAreaDynamicDataService {
 
   public async archiveOldDynamicData() {
     // for now do this only for daily/hourly disaster-types as it is the bulk of the data, and the easiest to handle
-    const maxDate = await this.adminAreaDynamicDataRepo
+    const maxDate = await this.adminAreaDynamicDataRepository
       .createQueryBuilder()
       .select([
         '"countryCodeISO3"',

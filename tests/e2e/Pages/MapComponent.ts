@@ -61,10 +61,6 @@ class MapComponent extends DashboardPage {
     this.layerInfoContent = this.page.getByTestId('layer-info-content');
   }
 
-  async waitForMapToBeLoaded() {
-    await this.page.waitForLoadState('domcontentloaded');
-  }
-
   async mapComponentIsVisible() {
     await expect(this.mapComponent).toBeVisible();
   }
@@ -122,7 +118,7 @@ class MapComponent extends DashboardPage {
   }: {
     layerMenuOpen?: boolean;
   }) {
-    await this.waitForMapToBeLoaded();
+    await this.page.waitForLoadState('domcontentloaded');
 
     if (layerMenuOpen) {
       await expect(this.layerMenu).toBeVisible();
@@ -132,7 +128,7 @@ class MapComponent extends DashboardPage {
   }
 
   async areAdminBoundariesVisible({ layerName }: { layerName?: string } = {}) {
-    await this.waitForMapToBeLoaded();
+    await this.page.waitForLoadState('domcontentloaded');
 
     const layer = layerName
       ? this.page.locator(`.admin-boundary.${layerName}`)
@@ -151,7 +147,7 @@ class MapComponent extends DashboardPage {
   }
 
   async checkLayerCheckbox({ name }: Layer) {
-    await this.waitForMapToBeLoaded();
+    await this.page.waitForLoadState('domcontentloaded');
 
     await this.layerMenuToggle.click();
 
@@ -259,14 +255,14 @@ class MapComponent extends DashboardPage {
   }
 
   async assertLegendElementIsVisible({
-    legendComponentName,
+    legendLabels,
   }: {
-    legendComponentName: string;
+    legendLabels: string[];
   }) {
-    const legendComponent = this.legend.filter({
-      hasText: legendComponentName,
-    });
-    await expect(legendComponent).toBeVisible();
+    for (const legendLabel of legendLabels) {
+      const legendComponent = this.legend.filter({ hasText: legendLabel });
+      await expect(legendComponent).toBeVisible();
+    }
   }
 
   async assertTriggerOutlines(scenario: string) {
@@ -319,10 +315,17 @@ class MapComponent extends DashboardPage {
     }
   }
 
-  // REFACTOR: this method looks like it tests all active layers, but tests only glofas_stations
-  async isLayerVisible({ name }: Layer) {
+  // NOTE: this method should expand to test all layers
+  async isLayerVisible({ name }: Layer, scenario: string) {
     if (name === 'glofas_stations') {
       await this.glofasMarkersAreVisible();
+
+      await this.glofasMarkersAreVisible({
+        eapAlertClass: 'max',
+        isVisible: scenario === 'trigger',
+      });
+    } else if (name === 'trigger') {
+      await this.assertTriggerOutlines(scenario);
     }
   }
 

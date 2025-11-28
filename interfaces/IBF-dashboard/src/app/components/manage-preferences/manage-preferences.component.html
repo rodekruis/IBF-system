@@ -1,0 +1,26 @@
+<ion-list class="mx-4 my-2 max-w-xl" mode="ios">
+  <ion-list-header class="mb-4">
+    <ion-label
+      class="text-base font-normal"
+      data-testid="manage-preferences-header"
+    >
+      {{ 'manage.preferences.disaster-type-description' | translate }}
+    </ion-label>
+  </ion-list-header>
+  @for (disasterType of disasterTypes; track disasterType; let last = $last) {
+    <ion-item
+      [lines]="last ? 'none' : 'inset'"
+      data-testid="manage-preferences-disaster-type"
+    >
+      <ion-checkbox
+        labelPlacement="end"
+        [value]="disasterType.disasterType"
+        [checked]="user.disasterTypes.includes(disasterType.disasterType)"
+        (ionChange)="toggleDisasterType($event)"
+        color="light"
+      >
+        {{ disasterType.label }}
+      </ion-checkbox>
+    </ion-item>
+  }
+</ion-list>

@@ -86,11 +86,16 @@ export class LoginService {
 
     await this.loginRepository.delete(loginEntity);
 
-    if (loginEntity.user.countries.length < 1) {
+    if (
+      loginEntity.user.userRole !== UserRole.Admin &&
+      // exception for admins to allow database reset
+      loginEntity.user.countries.length < 1
+      // user has no countries assigned
+    ) {
       throw new UnauthorizedException(UNDER_REVIEW);
     }
 
-    return this.userService.findById(loginEntity.user.userId);
+    return this.userService.findById(loginEntity.user.userId, true);
   }
 
   generateCode() {
@@ -144,7 +149,7 @@ export class LoginService {
     if (countryCodesISO3.length > 1) {
       firstName = 'multi';
     } else if (countryCodesISO3.length > 0) {
-      firstName = countryCodesISO3[0];
+      firstName = countryCodesISO3[0].toLowerCase();
     }
 
     firstName = firstName + randomId;

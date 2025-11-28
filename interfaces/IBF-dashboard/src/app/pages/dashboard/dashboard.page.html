@@ -63,10 +63,7 @@
   data-testid="ibf-dashboard-interface"
   class="ibf-dashboard-interface"
 >
-  <ion-header
-    class="ion-no-border"
-    style="border-bottom: 1px solid var(--ion-color-ibf-no-alert-primary)"
-  >
+  <ion-header class="ion-no-border border-b border-sky-950">
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-button
@@ -85,7 +82,7 @@
           </ion-button>
         </ion-menu-toggle>
       </ion-buttons>
-      <app-user-state [isLoggedIn]="true"></app-user-state>
+      <app-user-state></app-user-state>
     </ion-toolbar>
     <app-disclaimer-toolbar></app-disclaimer-toolbar>
   </ion-header>

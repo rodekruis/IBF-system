@@ -10,7 +10,7 @@
       <div class="inline-block align-middle">
         <ion-icon name="warning"></ion-icon>
       </div>
-      @if (!hasSetTriggerPermission) {
+      @if (!canSetTrigger) {
         {{ 'set-trigger-component.no-access.header' | translate }}
       } @else if (popoverStep === 'select-areas') {
         {{ 'set-trigger-component.select-areas.header' | translate }}
@@ -20,7 +20,7 @@
     </ion-card-title>
   </ion-card-header>
   <ion-card-content class="ion-padding-top ion-text-center">
-    @if (!hasSetTriggerPermission) {
+    @if (!canSetTrigger) {
       <ion-item lines="none">
         <span
           [innerHTML]="
@@ -190,7 +190,7 @@
       </ion-item>
     }
 
-    @if (hasSetTriggerPermission) {
+    @if (canSetTrigger) {
       <ion-item lines="none" class="ion-margin-top">
         <ion-label>
           {{ getCheckedCount() }}

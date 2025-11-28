@@ -2,13 +2,15 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { LoginRequest } from 'src/app/auth/auth.service';
+import { LoginRequest, UserResponse } from 'src/app/auth/auth.service';
 import { DEBUG_LOG } from 'src/app/config';
 import { AlertPerLeadTime } from 'src/app/models/alert-per-lead-time.model';
 import { Country, DisasterType } from 'src/app/models/country.model';
+import { User } from 'src/app/models/user/user.model';
 import { ActivationLogRecord } from 'src/app/pages/dashboard/activation-log/activation.log.page';
 import { Event } from 'src/app/services/event.service';
 import { JwtService } from 'src/app/services/jwt.service';
+import { UpdateUser } from 'src/app/services/user.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { AggregateRecord } from 'src/app/types/aggregate';
 import { AlertArea } from 'src/app/types/alert-area';
@@ -128,6 +130,31 @@ export class ApiService {
         tap((response) => {
           this.log(
             `ApiService PUT: ${security} ${url}:`,
+            body,
+            '\nResponse:',
+            response,
+          );
+        }),
+      );
+  }
+
+  patch<T>(
+    path: string,
+    body: object,
+    headers: Partial<Headers> = { anonymous: false },
+    params: HttpParams = null,
+  ): Observable<T> {
+    const url = `${environment.apiUrl}/${path}`;
+    const security = this.showSecurity(headers.anonymous);
+
+    this.log(`ApiService PATCH: ${security} ${url}`, body);
+
+    return this.http
+      .patch<T>(url, body, { headers: this.createHeaders(headers), params })
+      .pipe(
+        tap((response) => {
+          this.log(
+            `ApiService PATCH: ${security} ${url}:`,
             body,
             '\nResponse:',
             response,
@@ -457,5 +484,32 @@ export class ApiService {
       { eventPlaceCodeIds, countryCodeISO3, disasterType, noNotifications },
       { anonymous: false },
     );
+  }
+
+  getUsers(
+    countryCodeISO3?: Country['countryCodeISO3'],
+    disasterType?: DisasterType['disasterType'],
+  ) {
+    let params = new HttpParams();
+
+    if (countryCodeISO3) {
+      params = params.append('countryCodeISO3', countryCodeISO3);
+    }
+
+    if (disasterType) {
+      params = params.append('disasterType', disasterType);
+    }
+
+    return this.get<User[]>('user', { anonymous: false }, params);
+  }
+
+  updateUser(user: UpdateUser, targetUserId: User['userId']) {
+    let params = new HttpParams();
+
+    if (targetUserId) {
+      params = params.append('userId', targetUserId);
+    }
+
+    return this.patch<UserResponse>('user', user, { anonymous: false }, params);
   }
 }

@@ -1,7 +1,8 @@
 import { UserRole } from '../../helpers/API-service/enum/user-role.enum';
 import { api } from '../../helpers/utility.helper';
 
-interface UserData {
+interface User {
+  userId?: string;
   email: string;
   firstName: string;
   middleName?: string;
@@ -13,22 +14,22 @@ interface UserData {
   whatsappNumber?: string;
 }
 
-export function createUser(userData: UserData, token: string) {
-  return api(token).post('/user').send(userData);
+export function readUser(token: string) {
+  return api(token).get('/user');
+}
+
+export function createUser(token: string, user: User) {
+  return api(token).post('/user').send(user);
 }
 
 export function updateUser(
-  email: string,
-  userData: Partial<UserData>,
   token: string,
+  user: Partial<User>,
+  userId?: string,
 ) {
-  return api(token).patch('/user').query({ email }).send(userData);
+  return api(token).patch('/user').query({ userId }).send(user);
 }
 
-export function changePassword(email: string, password: string, token: string) {
-  return api(token).post('/user/change-password').send({ email, password });
-}
-
-export function login(email: string, password: string) {
-  return api().post('/user/login').send({ email, password });
+export function deleteUser(token: string, userId: User['userId']) {
+  return api(token).delete('/user').send({ userId });
 }

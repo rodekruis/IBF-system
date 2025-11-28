@@ -6,6 +6,7 @@ import adminAreaAggregatesTests from './admin-areas/aggregates.test';
 import eventAdminAreaTests from './admin-areas/event-admin-areas.test';
 import communityNotificationTests from './community-notification/community-notification.test';
 import createCountryTests from './country/create-country.test';
+import readCountryTests from './country/read-country.test';
 import emailTests from './email/emails.test';
 import getEventsTests from './events/get-events.test';
 import processEventsTests from './events/process-events.test';
@@ -13,7 +14,10 @@ import setTriggerTests from './events/set-trigger.test';
 import loginTests from './login/login.test';
 import getPointDataTests from './point-data/get-point-data.test';
 import typhoonTrackTests from './typhoon-track/typhoon-track.test';
-import usersTests from './users/users.test';
+import createUsersTests from './users/create-users.test';
+import deleteUsersTests from './users/delete-users.test';
+import readUserTests from './users/read-users.test';
+import updateUsersTests from './users/update-users.test';
 
 describe('integration tests', () => {
   beforeAll(async () => {
@@ -24,6 +28,7 @@ describe('integration tests', () => {
 
   communityNotificationTests();
 
+  readCountryTests();
   createCountryTests();
 
   emailTests();
@@ -39,7 +44,10 @@ describe('integration tests', () => {
 
   typhoonTrackTests();
 
-  usersTests();
+  readUserTests();
+  createUsersTests();
+  updateUsersTests();
+  deleteUsersTests();
 
   getEventsTests();
   processEventsTests();

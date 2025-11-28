@@ -1,76 +1,67 @@
-import { Injectable, OnDestroy } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription, tap } from 'rxjs';
-import { DEFAULT_USER } from 'src/app/config';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { User } from 'src/app/models/user/user.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 import { ApiService } from 'src/app/services/api.service';
 import { JwtService } from 'src/app/services/jwt.service';
+import { UserService } from 'src/app/services/user.service';
 
 export interface LoginRequest {
   email: string;
   code?: number;
 }
 
-export interface LoginUserResponse {
+export interface UserResponse {
   user: User;
 }
 
-export interface LoginMessageResponse {
+export interface MessageResponse {
   message: string;
 }
 
-type LoginResponse = LoginMessageResponse | LoginUserResponse;
+type LoginResponse = MessageResponse | UserResponse;
 
 @Injectable({ providedIn: 'root' })
-export class AuthService implements OnDestroy {
-  private loggedIn = false;
-  private userRole: UserRole;
+export class AuthService {
   public redirectUrl: string;
   private authSubject = new BehaviorSubject<User>(null);
-  public displayName: string;
-  private authSubscription: Subscription;
 
   constructor(
     private apiService: ApiService,
+    private userService: UserService,
     private jwtService: JwtService,
     private router: Router,
   ) {
-    this.checkLoggedInState();
+    const user = this.getUserFromToken();
 
-    this.authSubscription = this.getAuthSubscription().subscribe(
-      this.setDisplayName,
-    );
-  }
-
-  ngOnDestroy() {
-    this.authSubscription.unsubscribe();
+    this.authSubject.next(user);
   }
 
   getAuthSubscription = (): Observable<User> => {
     return this.authSubject.asObservable();
   };
 
-  checkLoggedInState() {
-    const user = this.getUserFromToken();
-
-    this.authSubject.next(user);
+  get isLoggedIn() {
+    return this.authSubject.value !== null;
   }
 
-  public isLoggedIn(): boolean {
-    this.loggedIn = this.getUserFromToken() !== null;
-
-    return this.loggedIn;
+  get isAdmin() {
+    return [UserRole.Admin, UserRole.LocalAdmin].includes(
+      this.authSubject.value?.userRole,
+    );
   }
 
-  public getUserRole(): UserRole {
-    if (!this.userRole) {
-      const user = this.getUserFromToken();
+  get userRole() {
+    return this.authSubject.value?.userRole;
+  }
 
-      this.userRole = user ? user.userRole : null;
-    }
+  get userName() {
+    return this.userService.getUserName(this.authSubject.value);
+  }
 
-    return this.userRole;
+  get userInitials() {
+    return this.userService.getUserInitials(this.authSubject.value);
   }
 
   private getUserFromToken() {
@@ -87,7 +78,8 @@ export class AuthService implements OnDestroy {
     }
 
     const decodedToken = this.jwtService.decodeToken(rawToken);
-    const user: User = {
+
+    return {
       userId: decodedToken.userId,
       token: rawToken,
       email: decodedToken.email,
@@ -95,13 +87,10 @@ export class AuthService implements OnDestroy {
       middleName: decodedToken.middleName,
       lastName: decodedToken.lastName,
       userRole: decodedToken.userRole,
-      countries: decodedToken.countries,
+      whatsappNumber: decodedToken.whatsappNumber,
+      countryCodesISO3: decodedToken.countryCodesISO3,
       disasterTypes: decodedToken.disasterTypes,
     };
-
-    this.userRole = user.userRole;
-
-    return user;
   }
 
   public login(loginRequest: LoginRequest) {
@@ -114,7 +103,7 @@ export class AuthService implements OnDestroy {
     );
   }
 
-  private onLoginResponse = (response: LoginUserResponse) => {
+  public setUser = (response: UserResponse) => {
     if (!response.user?.token) {
       return;
     }
@@ -124,8 +113,10 @@ export class AuthService implements OnDestroy {
     const user = this.getUserFromToken();
 
     this.authSubject.next(user);
-    this.loggedIn = true;
-    this.userRole = user.userRole;
+  };
+
+  private onLoginResponse = (response: UserResponse) => {
+    this.setUser(response);
 
     if (this.redirectUrl) {
       void this.router.navigate([this.redirectUrl]);
@@ -139,18 +130,7 @@ export class AuthService implements OnDestroy {
 
   public logout() {
     this.jwtService.destroyToken();
-    this.loggedIn = false;
     this.authSubject.next(null);
     void this.router.navigate(['/login']);
   }
-
-  setDisplayName = (user: User) => {
-    user = user ?? DEFAULT_USER;
-
-    const displayName = [user.firstName, user.middleName, user.lastName]
-      .filter(Boolean)
-      .join(' ');
-
-    this.displayName = displayName;
-  };
 }

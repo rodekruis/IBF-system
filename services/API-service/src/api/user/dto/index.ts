@@ -1,4 +1,3 @@
 export { CreateUserDto } from './create-user.dto';
 export { LoginUserDto } from './login-user.dto';
-export { UpdatePasswordDto } from './update-password.dto';
 export { DeleteUserDto } from './delete-user.dto';

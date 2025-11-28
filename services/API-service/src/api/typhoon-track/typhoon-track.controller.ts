@@ -36,7 +36,7 @@ export class TyphoonTrackController {
     this.typhoonTrackService = typhoonTrackService;
   }
 
-  @Roles(UserRole.PipelineUser)
+  @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary: '[EXTERNALLY USED - PIPELINE] Upload typhoon track data',
   })

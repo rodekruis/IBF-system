@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { IsIn, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsIn, IsOptional, IsString } from 'class-validator';
 
+import { DisasterType } from '../../disaster-type/disaster-type.enum';
 import { UserRole } from '../user-role.enum';
 import { userRoleArray } from './create-user.dto';
 
@@ -11,7 +12,7 @@ export class UpdateUserDto {
   @IsString()
   public firstName?: string;
 
-  @ApiProperty({ example: 'Middle name' })
+  @ApiProperty({ example: 'van' })
   @IsOptional()
   @IsString()
   public middleName?: string;
@@ -30,4 +31,16 @@ export class UpdateUserDto {
   @IsString()
   @IsOptional()
   public whatsappNumber?: string;
+
+  @ApiProperty({ example: ['NLD'] })
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  public countryCodesISO3?: string[];
+
+  @ApiProperty({ example: [DisasterType.Floods, DisasterType.Drought] })
+  @IsArray()
+  @IsString({ each: true })
+  @IsOptional()
+  public disasterTypes?: DisasterType[];
 }

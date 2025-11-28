@@ -19,6 +19,8 @@ import {
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AlertArea, Event } from '../../shared/data.model';
+import { AdminLevel } from '../country/admin-level.enum';
+import { CountryDisasterType } from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
 import { ActivationLogDto } from './dto/event-place-code.dto';
@@ -49,11 +51,10 @@ export class EventController {
     type: Event,
   })
   @Get(':countryCodeISO3/:disasterType')
-  public async getEvents(@Param() params): Promise<Event[]> {
-    return await this.eventService.getEvents(
-      params.countryCodeISO3,
-      params.disasterType,
-    );
+  public async getEvents(
+    @Param() { countryCodeISO3, disasterType }: CountryDisasterType,
+  ): Promise<Event[]> {
+    return await this.eventService.getEvents(countryCodeISO3, disasterType);
   }
 
   @ApiOperation({
@@ -69,10 +70,12 @@ export class EventController {
     type: LastUploadDateDto,
   })
   @Get('last-upload-date/:countryCodeISO3/:disasterType')
-  public async getLastUploadDate(@Param() params): Promise<LastUploadDateDto> {
+  public async getLastUploadDate(
+    @Param() { countryCodeISO3, disasterType }: CountryDisasterType,
+  ): Promise<LastUploadDateDto> {
     return await this.eventService.getLastUploadDate(
-      params.countryCodeISO3,
-      params.disasterType,
+      countryCodeISO3,
+      disasterType,
     );
   }
 
@@ -90,13 +93,13 @@ export class EventController {
   })
   @Get('alerts/:countryCodeISO3/:disasterType')
   public async getAlertPerLeadTime(
-    @Param() params,
-    @Query() query,
+    @Param() { countryCodeISO3, disasterType }: CountryDisasterType,
+    @Query() { eventName }: { eventName?: string },
   ): Promise<object> {
     return await this.eventService.getAlertPerLeadTime(
-      params.countryCodeISO3,
-      params.disasterType,
-      query.eventName,
+      countryCodeISO3,
+      disasterType,
+      eventName,
     );
   }
 
@@ -114,16 +117,16 @@ export class EventController {
   @ApiQuery({ name: 'disasterType', required: false, enum: DisasterType })
   @Get('activation-log')
   public async getActivationLogData(
-    @Query() query,
+    @Query() { countryCodeISO3, disasterType }: CountryDisasterType,
   ): Promise<ActivationLogDto[]> {
     return await this.eventService.getActivationLogData(
-      query.countryCodeISO3,
-      query.disasterType,
+      countryCodeISO3,
+      disasterType,
     );
   }
 
   // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-lead-time
-  @Roles(UserRole.PipelineUser)
+  @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary:
       '[EXTERNALLY USED - PIPELINE] [OLD endpoint] Upload alert data per leadtime',
@@ -138,7 +141,7 @@ export class EventController {
     );
   }
 
-  @Roles(UserRole.PipelineUser)
+  @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary: '[EXTERNALLY USED - PIPELINE] Upload alert data per lead time',
   })
@@ -169,14 +172,19 @@ export class EventController {
   })
   @Get('alert-areas/:countryCodeISO3/:adminLevel/:disasterType')
   public async getAlertAreas(
-    @Param() params,
-    @Query() query,
+    @Param()
+    {
+      countryCodeISO3,
+      disasterType,
+      adminLevel,
+    }: CountryDisasterType & { adminLevel: AdminLevel },
+    @Query() { eventName }: { eventName?: string },
   ): Promise<AlertArea[]> {
     return await this.eventService.getAlertAreas(
-      params.countryCodeISO3,
-      params.disasterType,
-      params.adminLevel,
-      query.eventName,
+      countryCodeISO3,
+      disasterType,
+      adminLevel,
+      eventName,
     );
   }
 }

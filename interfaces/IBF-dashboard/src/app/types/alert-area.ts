@@ -6,7 +6,7 @@ export class AlertArea {
   mainExposureValue: number;
   forecastSeverity: number;
   forecastTrigger: boolean;
-  displayName: string;
+  userTriggerName: string;
   eapActions: EapAction[];
   eventPlaceCodeId: string;
   name: string;

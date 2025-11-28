@@ -8,7 +8,7 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { formatISO } from 'date-fns';
 import * as fs from 'fs';
 
-import { CI, DEV, DUNANT_EMAIL, PROD } from '../../config';
+import { CI, DEV, PROD } from '../../config';
 import { Event } from '../../shared/data.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
@@ -115,13 +115,11 @@ export class EmailService {
     }
 
     const users = await this.userService.findUsers(
-      countryCodeISO3,
-      disasterType,
+      [countryCodeISO3],
+      [disasterType],
     );
 
-    const bcc = users
-      .filter(({ email }) => email !== DUNANT_EMAIL)
-      .map(({ email }) => email);
+    const bcc = users.map(({ email }) => email);
 
     subject = this.getSubject(subject);
 

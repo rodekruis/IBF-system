@@ -1,0 +1,21 @@
+<ion-list lines="full">
+  <ion-item [button]="true" [detail]="false" routerLink="/">
+    <ion-label>
+      <p>{{ 'user-state.logged-in-as' | translate }}</p>
+      <h3>{{ userName }}</h3>
+    </ion-label>
+  </ion-item>
+  <ion-item [button]="true" [detail]="false" routerLink="manage">{{
+    'user-state.manage' | translate
+  }}</ion-item>
+  <ion-item
+    [button]="true"
+    [detail]="false"
+    (click)="logout()"
+    lines="none"
+    data-testid="user-state-menu-logout-button"
+  >
+    <ion-label>{{ 'user-state.log-out' | translate }}</ion-label>
+    <ion-icon slot="end" name="log-out-outline"></ion-icon>
+  </ion-item>
+</ion-list>

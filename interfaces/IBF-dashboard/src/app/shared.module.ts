@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { LeafletModule } from '@bluehalo/ngx-leaflet';
 import { LeafletMarkerClusterModule } from '@bluehalo/ngx-leaflet-markercluster';
 import { IonicModule } from '@ionic/angular';
@@ -44,6 +45,7 @@ import { TimelineComponent } from 'src/app/components/timeline/timeline.componen
 import { TooltipComponent } from 'src/app/components/tooltip/tooltip.component';
 import { TooltipPopoverComponent } from 'src/app/components/tooltip-popover/tooltip-popover.component';
 import { UserStateComponent } from 'src/app/components/user-state/user-state.component';
+import { UserStateMenuComponent } from 'src/app/components/user-state-menu/user-state-menu.component';
 import { BackendMockScenarioComponent } from 'src/app/mocks/backend-mock-scenario-component/backend-mock-scenario.component';
 import { CompactPipe } from 'src/app/pipes/compact.pipe';
 
@@ -53,6 +55,7 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     CommonModule,
     FormsModule,
     IonicModule,
+    RouterModule,
     LeafletMarkerClusterModule,
     LeafletModule,
     TranslateModule,
@@ -92,6 +95,7 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     TooltipComponent,
     TooltipPopoverComponent,
     UserStateComponent,
+    UserStateMenuComponent,
     RiverGaugePopupContentComponent,
     ThresholdBarComponent,
     DynamicPointPopupComponent,
@@ -133,6 +137,7 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     TooltipPopoverComponent,
     TranslateModule,
     UserStateComponent,
+    UserStateMenuComponent,
     RiverGaugePopupContentComponent,
     ThresholdBarComponent,
     DynamicPointPopupComponent,

@@ -38,7 +38,7 @@ export class ProcessEventsController {
 
   // NOTE: remove after  all pipelines migrated to /event/process
   @UseGuards(RolesGuard)
-  @Roles(UserRole.PipelineUser)
+  @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary:
       '[EXTERNALLY USED - PIPELINE] Close events automatically for given country and disaster-type. Must be run at end of every pipeline. As a backup, the same logic is also in /notification/send endpoint.',
@@ -57,7 +57,7 @@ export class ProcessEventsController {
   }
 
   @UseGuards(RolesGuard)
-  @Roles(UserRole.PipelineUser)
+  @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary:
       '[EXTERNALLY USED - PIPELINE] Process events for given country and disaster-type. Must be run at end of every pipeline.',
@@ -85,7 +85,7 @@ export class ProcessEventsController {
   }
 
   // NOTE: remove after  all pipelines migrated to /event/process
-  @Roles(UserRole.PipelineUser)
+  @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary:
       '[EXTERNALLY USED - PIPELINE] Old endpoint to send notification instructions. Runs full /events/process in practice.',
@@ -118,7 +118,7 @@ export class ProcessEventsController {
     );
   }
 
-  @Roles(UserRole.PipelineUser)
+  @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary:
       '[DEV/TEST/DEMO only] Send test notification (email and/or whatsapp) about events to recipients for given country and disaster-type.',

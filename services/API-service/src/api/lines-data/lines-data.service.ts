@@ -21,7 +21,7 @@ export class LinesDataService {
   @InjectRepository(LinesDataEntity)
   private readonly linesDataRepository: Repository<LinesDataEntity>;
   @InjectRepository(LinesDataDynamicStatusEntity)
-  private readonly linesDataDynamicStatusRepo: Repository<LinesDataDynamicStatusEntity>;
+  private readonly linesDataDynamicStatusRepository: Repository<LinesDataDynamicStatusEntity>;
 
   public constructor(private readonly helperService: HelperService) {}
 
@@ -149,7 +149,7 @@ export class LinesDataService {
       date,
     );
 
-    await this.linesDataDynamicStatusRepo.delete({
+    await this.linesDataDynamicStatusRepository.delete({
       linesData: { linesDataId: In(linesDataIds) },
       leadTime,
       timestamp: MoreThanOrEqual(uploadCutoffMoment),
@@ -166,6 +166,6 @@ export class LinesDataService {
       return linesDataDynamicStatus;
     });
 
-    return this.linesDataDynamicStatusRepo.save(linesDataDynamicStatuses);
+    return this.linesDataDynamicStatusRepository.save(linesDataDynamicStatuses);
   }
 }

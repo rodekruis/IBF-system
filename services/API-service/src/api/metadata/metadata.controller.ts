@@ -9,10 +9,11 @@ import {
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
+import { CountryDisasterType } from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
-import { AddIndicatorsDto } from './dto/add-indicators.dto';
-import { AddLayersDto } from './dto/add-layers.dto';
+import { IndicatorDto } from './dto/indicator.dto';
+import { LayerDto } from './dto/layer.dto';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { LayerMetadataEntity } from './layer-metadata.entity';
 import { MetadataService } from './metadata.service';
@@ -29,31 +30,31 @@ export class MetadataController {
   }
 
   @Roles(UserRole.Admin)
-  @ApiOperation({ summary: 'Adds or updates (if existing) indicators' })
+  @ApiOperation({ summary: 'Add or update indicators' })
   @ApiResponse({
     status: 201,
-    description: 'Added and/or Updated indicators.',
+    description: 'Added or updated indicators',
     type: [IndicatorMetadataEntity],
   })
   @Post('indicators')
-  public async addOrUpdateIndicators(
-    @Body() indicators: AddIndicatorsDto,
+  public async upsertIndicators(
+    @Body() { indicators }: { indicators: IndicatorDto[] },
   ): Promise<IndicatorMetadataEntity[]> {
-    return await this.metadataService.addOrUpdateIndicators(indicators);
+    return await this.metadataService.upsertIndicators(indicators);
   }
 
   @Roles(UserRole.Admin)
-  @ApiOperation({ summary: 'Adds or updates (if existing) layers' })
+  @ApiOperation({ summary: 'Add or update layers' })
   @ApiResponse({
     status: 201,
-    description: 'Added and/or Updated layers.',
+    description: 'Added or updated layers.',
     type: [LayerMetadataEntity],
   })
   @Post('layers')
-  public async addOrUpdateLayers(
-    @Body() layers: AddLayersDto,
+  public async upsertLayers(
+    @Body() { layers }: { layers: LayerDto[] },
   ): Promise<LayerMetadataEntity[]> {
-    return await this.metadataService.addOrUpdateLayers(layers);
+    return await this.metadataService.upsertLayers(layers);
   }
 
   @ApiOperation({
@@ -70,11 +71,11 @@ export class MetadataController {
   })
   @Get('indicators/:countryCodeISO3/:disasterType')
   public async getIndicators(
-    @Param() params,
+    @Param() { countryCodeISO3, disasterType }: CountryDisasterType,
   ): Promise<IndicatorMetadataEntity[]> {
     return await this.metadataService.getIndicatorsByCountryAndDisaster(
-      params.countryCodeISO3,
-      params.disasterType,
+      countryCodeISO3,
+      disasterType,
     );
   }
 
@@ -90,10 +91,12 @@ export class MetadataController {
     type: [LayerMetadataEntity],
   })
   @Get('layers/:countryCodeISO3/:disasterType')
-  public async getLayers(@Param() params): Promise<LayerMetadataEntity[]> {
+  public async getLayers(
+    @Param() { countryCodeISO3, disasterType }: CountryDisasterType,
+  ): Promise<LayerMetadataEntity[]> {
     return await this.metadataService.getLayersByCountryAndDisaster(
-      params.countryCodeISO3,
-      params.disasterType,
+      countryCodeISO3,
+      disasterType,
     );
   }
 }

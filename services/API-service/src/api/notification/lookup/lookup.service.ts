@@ -15,7 +15,7 @@ export class LookupService {
       const lookupResponse = await twilioClient.lookups
         .phoneNumbers(updatedPhone)
         .fetch({ type: ['carrier'] });
-      return lookupResponse.phoneNumber.replace(/\D/g, '');
+      return lookupResponse.phoneNumber;
     } catch (error: unknown) {
       this.logger.log(`Twilio lookup failed. Error: ${error}`);
       const errors = `Provided whatsappNumber is not a valid phone number`;

@@ -17,7 +17,7 @@ import { EapActionEntity } from '../api/eap-actions/eap-action.entity';
 import { IndicatorMetadataEntity } from '../api/metadata/indicator-metadata.entity';
 import { LayerMetadataEntity } from '../api/metadata/layer-metadata.entity';
 import { NotificationInfoEntity } from '../api/notification/notifcation-info.entity';
-import { UserEntity } from '../api/user/user.entity';
+import { UserService } from '../api/user/user.service';
 import { DUNANT_EMAIL } from '../config';
 import { defaultSeed, emptySeed, SeedDto } from './dto/seed.dto';
 import { Country } from './interfaces/country.interface';
@@ -50,17 +50,14 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
     private seedIndicators: SeedIndicators,
     private seedPointData: SeedPointData,
     private seedLineData: SeedLineData,
+    private userService: UserService,
     private countryService: CountryService,
     private disasterTypeService: DisasterTypeService,
   ) {
     this.seedHelper = new SeedHelper(dataSource);
   }
   public async seed({ reset = false, seed = emptySeed }) {
-    const userRepository = this.dataSource.getRepository(UserEntity);
-    const dunantUser = await userRepository.findOne({
-      where: { email: DUNANT_EMAIL },
-      relations: ['countries'],
-    });
+    const dunantUser = await this.userService.findByEmail(DUNANT_EMAIL);
 
     if (reset) {
       // reset database if called via /api/seed?reset=true
@@ -99,20 +96,26 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
       });
     }
 
-    const envCountries = process.env.COUNTRIES.split(',');
+    const envCountries =
+      process.env.COUNTRIES?.split(',').filter(Boolean) ?? [];
     const selectedCountries = (countries as Country[]).filter(
-      ({ countryCodeISO3 }) => envCountries.includes(countryCodeISO3),
+      ({ countryCodeISO3 }) =>
+        envCountries.length === 0 || envCountries.includes(countryCodeISO3),
+    );
+    const selectedCountryCodes = selectedCountries.map(
+      ({ countryCodeISO3 }) => countryCodeISO3,
     );
     const countryRepository = this.dataSource.getRepository(CountryEntity);
 
     // ***** CREATE COUNTRIES *****
     if (seed.countries) {
-      this.logger.log(`Seed Countries... ${process.env.COUNTRIES}`);
+      this.logger.log(`Seed Countries... ${selectedCountryCodes.join(',')}`);
 
-      const envDisasterTypes = process.env.DISASTER_TYPES.split(',');
-      await this.countryService.addOrUpdateCountries(
-        { countries: selectedCountries },
-        envDisasterTypes,
+      const envDisasterTypes =
+        process.env.DISASTER_TYPES?.split(',').filter(Boolean) ?? [];
+      await this.countryService.upsertCountries(
+        selectedCountries,
+        envDisasterTypes as DisasterType[],
       );
 
       const countryEntities = [];
@@ -143,13 +146,16 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
     // ***** SEED ADMIN-AREA DATA *****
     if (seed.adminAreas) {
       this.logger.log('Seed Admin Areas...');
-      await this.seedAdminArea.seed();
+
+      for (const country of selectedCountries) {
+        await this.seedAdminArea.seed(country);
+      }
     }
 
     // ***** CREATE USERS *****
     if (seed.users) {
       this.logger.log('Seed admin user...');
-      this.seedHelper.upsertDunantUser();
+      await this.seedHelper.upsertDunantUser(this.userService);
     }
 
     // ***** CREATE EAP ACTIONS *****
@@ -168,9 +174,9 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
           );
           return eapActionEntity;
         })
-        .filter((action: EapActionEntity): boolean => {
-          return envCountries.includes(action.countryCodeISO3);
-        });
+        .filter((action: EapActionEntity) =>
+          selectedCountryCodes.includes(action.countryCodeISO3),
+        );
       const eapActionRepository =
         this.dataSource.getRepository(EapActionEntity);
       await eapActionRepository.save(filteredActions);

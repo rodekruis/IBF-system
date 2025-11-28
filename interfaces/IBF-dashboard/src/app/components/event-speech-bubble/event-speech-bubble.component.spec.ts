@@ -11,7 +11,6 @@ import { MOCK_DISASTERTYPE } from 'src/app/mocks/disaster-type.mock';
 import { MOCK_EVENT_STATE } from 'src/app/mocks/event-state.mock';
 import { MOCK_INDICATOR } from 'src/app/mocks/indicator.mock';
 import { CountryDisasterSettings } from 'src/app/models/country.model';
-import { UserRole } from 'src/app/models/user/user-role.enum';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
@@ -99,11 +98,6 @@ describe('EventSpeechBubbleComponent', () => {
 
     component.disasterType = MOCK_DISASTERTYPE;
 
-    // Spy on the hasSetTriggerPermission method
-    spyOn(component, 'hasSetTriggerPermission').and.callFake(
-      () => component.userRole === UserRole.LocalAdmin,
-    );
-
     fixture.detectChanges();
   }));
 
@@ -111,28 +105,10 @@ describe('EventSpeechBubbleComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('hasSetTriggerPermission', () => {
-    it('return true for right userRole', () => {
-      component.userRole = UserRole.LocalAdmin;
-
-      const result = component.hasSetTriggerPermission();
-
-      expect(result).toBeTrue();
-    });
-
-    it('return false for wrong userRole', () => {
-      component.userRole = UserRole.Operator;
-
-      const result = component.hasSetTriggerPermission();
-
-      expect(result).toBeFalse();
-    });
-  });
-
   describe('openSetTriggerPopover', () => {
-    it('should open set trigger popover when openSetTriggerPopover is called', async () => {
+    it('should open set trigger popover when openSetTriggerPopover is called by admins', async () => {
       // Arrange
-      component.userRole = UserRole.LocalAdmin;
+      Object.defineProperty(authService, 'isAdmin', { get: () => true });
 
       // Act
       await component.openSetTriggerPopover();
@@ -148,7 +124,7 @@ describe('EventSpeechBubbleComponent', () => {
             areas: component.areas,
             mainExposureIndicatorNumberFormat:
               component.mainExposureIndicatorNumberFormat,
-            hasSetTriggerPermission: component.hasSetTriggerPermission(),
+            canSetTrigger: true,
             countryCodeISO3: component.countryCodeISO3,
             disasterType: component.disasterType.disasterType,
             eventName: component.event.eventName,
@@ -158,9 +134,9 @@ describe('EventSpeechBubbleComponent', () => {
       );
     });
 
-    it('should open no-access set trigger popover when openSetTriggerPopover is called without right userRole', async () => {
+    it('should open no-access set trigger popover when openSetTriggerPopover is called by non-admins', async () => {
       // Arrange
-      component.userRole = UserRole.Operator;
+      Object.defineProperty(authService, 'isAdmin', { get: () => false });
 
       // Act
       await component.openSetTriggerPopover();
@@ -176,7 +152,7 @@ describe('EventSpeechBubbleComponent', () => {
             areas: component.areas,
             mainExposureIndicatorNumberFormat:
               component.mainExposureIndicatorNumberFormat,
-            hasSetTriggerPermission: component.hasSetTriggerPermission(),
+            canSetTrigger: false,
             countryCodeISO3: component.countryCodeISO3,
             disasterType: component.disasterType.disasterType,
           }),

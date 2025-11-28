@@ -74,7 +74,7 @@ export class CountryDisasterSettingsDto {
   public droughtRegions?: object;
 }
 
-export class AddCountriesDto {
+export class UpsertCountriesDto {
   @ApiProperty({ example: [{}] })
   @IsNotEmpty()
   public countries: CountryDto[];

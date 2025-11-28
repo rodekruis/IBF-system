@@ -63,7 +63,7 @@ export class LinesDataController {
   }
 
   @UseGuards(RolesGuard)
-  @Roles(UserRole.PipelineUser)
+  @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary: '[EXTERNALLY USED - PIPELINE] Upload asset exposure status',
   })

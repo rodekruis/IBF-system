@@ -16,7 +16,7 @@ import { CountryEntity } from '../country/country.entity';
 import { UserEntity } from '../user/user.entity';
 import { DisasterType } from './disaster-type.enum';
 
-@Entity('disaster')
+@Entity('disaster', { orderBy: { disasterType: 'ASC' } })
 export class DisasterTypeEntity {
   @ApiProperty({ example: '6b9b7669-4839-4fdb-9645-9070a27bda86' })
   @PrimaryGeneratedColumn('uuid')

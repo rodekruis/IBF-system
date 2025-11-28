@@ -1,26 +1,16 @@
 import test from '@playwright/test';
+import DashboardPage from 'Pages/DashboardPage';
 import { Dataset } from 'testData/types';
 
-import { Components, Pages } from '../../helpers/interfaces';
+export default (dataset: Dataset) => {
+  test('[33029] should be clickable', async ({ page }) => {
+    const dashboard = new DashboardPage(page);
 
-export default (
-  pages: Partial<Pages>,
-  components: Partial<Components>,
-  dataset: Dataset,
-) => {
-  test('[33029] Disaster types should be selectable', async () => {
-    const { dashboard } = pages;
-    const { userState } = components;
-
-    if (!dashboard || !userState) {
-      throw new Error('pages and components not found');
-    }
-
+    // navigate disaster types
     for (const disasterTypeIndex in dataset.country.disasterTypes) {
-      // Navigate between disaster types no matter the mock data
       const disasterType = dataset.country.disasterTypes[disasterTypeIndex];
       await dashboard.navigateToDisasterType(disasterType);
-      await dashboard.waitForLoaderToDisappear();
+      await page.waitForSelector('[data-testid=loader]', { state: 'hidden' });
     }
   });
 };

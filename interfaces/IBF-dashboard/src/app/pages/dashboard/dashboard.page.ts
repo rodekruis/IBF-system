@@ -66,7 +66,7 @@ export class DashboardPage implements OnInit, OnDestroy {
     }
 
     this.isDev = user.userRole === this.adminRole;
-    this.isMultiCountry = user.countries.length > 1;
+    this.isMultiCountry = user.countryCodesISO3.length > 1;
     this.userRole = user.userRole;
   };
 

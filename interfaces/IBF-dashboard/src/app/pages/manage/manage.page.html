@@ -1,0 +1,64 @@
+<div class="flex h-full flex-col" data-testid="manage-container">
+  <ion-header class="ion-no-border flex-none border-b border-sky-950">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button
+          data-testid="app-icon"
+          title="{{ 'app-name' | translate }}"
+          [routerLink]="['/']"
+        >
+          <ion-thumbnail class="flex items-center justify-center">
+            <img
+              alt="{{ 'app-name' | translate }}"
+              src="/assets/icons/favicon.png"
+              class="h-10 w-10"
+            />
+          </ion-thumbnail>
+        </ion-button>
+      </ion-buttons>
+      <app-user-state></app-user-state>
+    </ion-toolbar>
+    <app-disclaimer-toolbar></app-disclaimer-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-tabs>
+      <ion-tab-bar
+        slot="top"
+        class="justify-start"
+        color="ibf-white"
+        data-testid="manage-tab-bar"
+      >
+        <ion-tab-button
+          tab="account"
+          class="text-base"
+          data-testid="manage-tab-button-account"
+        >
+          <ion-label>
+            {{ 'manage.account.title' | translate }}
+          </ion-label>
+        </ion-tab-button>
+        @if (isAdmin) {
+          <ion-tab-button
+            tab="users"
+            class="text-base"
+            data-testid="manage-tab-button-users"
+          >
+            <ion-label>
+              {{ 'manage.users.title' | translate }}
+            </ion-label>
+          </ion-tab-button>
+        }
+        <ion-tab-button
+          tab="preferences"
+          class="text-base"
+          data-testid="manage-tab-button-preferences"
+        >
+          <ion-label>
+            {{ 'manage.preferences.title' | translate }}
+          </ion-label>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+  </ion-content>
+</div>

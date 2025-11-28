@@ -1,12 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import {
-  IsEnum,
-  IsIn,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsEnum, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
 
@@ -16,8 +10,7 @@ export class ProcessEventsDto {
   })
   @IsNotEmpty()
   @IsString()
-  @IsIn(Object.values(process.env.COUNTRIES.split(',')))
-  public countryCodeISO3: string;
+  public countryCodeISO3: string; // REFACTOR: add validation using IsIn
 
   @ApiProperty({ example: Object.values(DisasterType).join(' | ') })
   @IsNotEmpty()

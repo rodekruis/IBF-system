@@ -1,21 +1,8 @@
-import { Page, test } from '@playwright/test';
-import { Components, Pages } from 'helpers/interfaces';
-import AggregatesComponent from 'Pages/AggregatesComponent';
-import ChatComponent from 'Pages/ChatComponent';
-import DashboardPage from 'Pages/DashboardPage';
-import DisasterTypeComponent from 'Pages/DisasterTypeComponent';
-import MapComponent from 'Pages/MapComponent';
-import TimelineComponent from 'Pages/TimelineComponent';
-import UserStateComponent from 'Pages/UserStateComponent';
-import MalawiFlashFloodsTrigger from 'testData/MalawiFlashFloodsTrigger.json';
-import { Dataset } from 'testData/types';
-import UgandaDroughtWarning from 'testData/UgandaDroughtWarning.json';
-import UgandaFloodsNoTrigger from 'testData/UgandaFloodsNoTrigger.json';
-import UgandaFloodsTrigger from 'testData/UgandaFloodsTrigger.json';
+import { test } from '@playwright/test';
+import { datasets } from 'testData/datasets';
+import { UserRole } from 'testData/enums';
 
-import { getToken, mock, registerUser, reset } from '../helpers/utility.helper';
-import ActionsSummaryComponent from '../Pages/ActionSummaryComponent';
-import LoginPage from '../Pages/LoginPage';
+import { getStorageState, mock } from '../helpers/utility.helper';
 import ActionSummaryTooltipTest from './ActionSummaryComponent/ActionSummaryTooltipTest';
 import AggregateComponentButtonClick from './AggregatesComponent/AggregateComponentButtonClick';
 import AggregateComponentEventCount from './AggregatesComponent/AggregateComponentEventCount';
@@ -32,165 +19,131 @@ import ChatComponentVisible from './ChatComponent/ChatComponentVisible';
 import DashboardPageVisible from './DashboardPage/DashboardPageVisible';
 import DisasterTypeComponentSelect from './DisasterTypeComponent/DisasterTypeComponentSelect';
 import DisasterTypeComponentVisible from './DisasterTypeComponent/DisasterTypeComponentVisible';
-import MapComponentFloodExtent from './MapComponent/MapComponentFloodExtent';
-import MapComponentGloFASStations from './MapComponent/MapComponentGloFASStations';
-import MapComponentGloFASStationsTrigger from './MapComponent/MapComponentGloFASStationsTrigger';
-import MapComponentGloFASStationsWarning from './MapComponent/MapComponentGloFASStationsWarning';
+import LoginPageRedirect from './LoginPage/LoginPageRedirect';
+import ManagePageAccount from './ManagePage/ManagePageAccount';
+import ManagePageAccountSave from './ManagePage/ManagePageAccountSave';
+import ManagePagePreferences from './ManagePage/ManagePagePreferences';
+import ManagePagePreferencesToggle from './ManagePage/ManagePagePreferencesToggle';
+import ManagePageRedirect from './ManagePage/ManagePageRedirect';
+import ManagePageUsers from './ManagePage/ManagePageUsers';
+import ManagePageVisible from './ManagePage/ManagePageVisible';
 import MapComponentInfoPopover from './MapComponent/MapComponentInfoPopover';
 import MapComponentInteractive from './MapComponent/MapComponentInteractive';
-import MapComponentLayersDefault from './MapComponent/MapComponentLayersDefault';
 import MapComponentLayersVisible from './MapComponent/MapComponentLayersVisible';
 import MapComponentLinesLayers from './MapComponent/MapComponentLinesLayers';
-import MapComponentTriggerLayer from './MapComponent/MapComponentTriggerLayer';
 import MapComponentVisible from './MapComponent/MapComponentVisible';
 import TimelineComponentNotClickable from './TimelineComponent/TimelineComponentNotClickable';
 import TimelineComponentVisible from './TimelineComponent/TimelineComponentVisible';
 import UserStateComponentLogout from './UserStateComponent/UserStateComponentLogout';
 import UserStateComponentVisible from './UserStateComponent/UserStateComponentVisible';
 
-test.describe('e2e tests', () => {
-  test.beforeAll(async () => {
-    await reset();
-  });
+datasets.forEach((dataset) => {
+  const {
+    country: { code },
+    disasterType,
+    configurationId,
+    scenario,
+  } = dataset;
 
-  // Run tests for each dataset
-  const datasets: Dataset[] = [
-    UgandaFloodsNoTrigger,
-    UgandaFloodsTrigger,
-    // UgandaDroughtNoTrigger, // Disable until deemed valuable, as it is very similar to floods no-trigger
-    UgandaDroughtWarning,
-    // MalawiFlashFloodsNoTrigger, // Disable until deemed valuable, as it is very similar to floods no-trigger
-    MalawiFlashFloodsTrigger,
-  ];
+  test.describe(`Dataset ${dataset.configurationId}: ${code} ${disasterType.name} ${scenario}`, () => {
+    const date = new Date();
+    const storageState = getStorageState(configurationId, UserRole.LocalAdmin);
+    test.use({ storageState });
 
-  datasets.forEach((dataset) => {
-    const {
-      country: { code },
-      disasterType,
-      scenario,
-      user: { email },
-    } = dataset;
+    test.beforeAll(async () => {
+      // load a mock scenario
+      await mock(disasterType.name, scenario, code, date);
+    });
 
-    let page: Page;
+    test.beforeEach(async ({ page }) => {
+      await page.goto('/', { waitUntil: 'networkidle' }); // HACK: networkidle is not recommended
+      await page.waitForSelector('[data-testid=loader]', { state: 'hidden' });
+    });
 
-    const pages: Partial<Pages> = {};
-    const components: Partial<Components> = {};
+    test.describe('DashboardPage', () => {
+      DashboardPageVisible(dataset, date);
+    });
 
-    test.describe(`Dataset ${dataset.configurationId}: ${email} ${code} ${disasterType.name} ${scenario}`, () => {
-      const date = new Date();
+    test.describe('MapComponent', () => {
+      MapComponentVisible(dataset);
+      MapComponentInteractive(dataset);
+      MapComponentInfoPopover();
+      MapComponentLayersVisible(dataset);
+      MapComponentLinesLayers(dataset);
+    });
 
-      test.beforeAll(async ({ browser }) => {
-        page = await browser.newPage();
-        // Initialize pages and components after sharedPage is assigned
-        pages.login = new LoginPage(page);
-        pages.dashboard = new DashboardPage(page);
-        components.map = new MapComponent(page);
-        components.userState = new UserStateComponent(page);
-        components.aggregates = new AggregatesComponent(page);
-        components.chat = new ChatComponent(page);
-        components.disasterType = new DisasterTypeComponent(page);
-        components.timeline = new TimelineComponent(page);
-        components.actionsSummary = new ActionsSummaryComponent(page);
+    test.describe('AggregatesComponent', () => {
+      AggregatesComponentVisible(dataset);
+      AggregateComponentTitleHover();
+      AggregateComponentButtonClick(dataset);
+      AggregateComponentEventCount(dataset);
+      AggregateComponentHeaderColour(dataset);
+    });
 
-        // Load a mock scenario
-        const token = await getToken();
-        await mock(token, disasterType.name, scenario, code, date);
+    test.describe('ChatComponent', () => {
+      ChatComponentVisible(dataset, date);
+      ChatComponentButtonClick(dataset);
 
-        // create user with appropriate access
-        await registerUser(token, dataset.user, code, disasterType.name);
+      if (scenario !== 'no-trigger') {
+        // REFACTOR
+        ChatComponentAlertAreasList(dataset);
+        ChatComponentEventClick();
+        ChatComponentEventCount();
+        ChatComponentInfoPopover();
+      }
 
-        await page.goto('/');
-        // Login into the portal
-        await pages.login.login(email);
+      if (scenario == 'warning') {
+        ChatComponentSetTrigger(dataset);
+      }
+    });
+
+    test.describe('DisasterTypeComponent', () => {
+      DisasterTypeComponentVisible(dataset);
+      DisasterTypeComponentSelect(dataset);
+    });
+
+    test.describe('TimelineComponent', () => {
+      TimelineComponentVisible();
+
+      if (scenario !== 'no-trigger') {
+        // REFACTOR
+        TimelineComponentNotClickable(dataset);
+      }
+    });
+
+    test.describe('ActionSummaryComponent', () => {
+      if (scenario === 'trigger') {
+        // REFACTOR
+        ActionSummaryTooltipTest();
+      }
+    });
+
+    test.describe('LoginPage', () => {
+      LoginPageRedirect();
+    });
+
+    test.describe('ManagePage', () => {
+      test.describe('LocalAdmin', () => {
+        ManagePageVisible();
+        ManagePageAccount();
+        ManagePageAccountSave();
+        ManagePageUsers();
+        ManagePagePreferences();
+        ManagePagePreferencesToggle();
       });
 
-      test.beforeEach(async ({ page }) => {
-        await page.goto('/');
+      test.describe('Viewer', () => {
+        const storageState = getStorageState(configurationId, UserRole.Viewer);
+        test.use({ storageState });
+
+        ManagePageRedirect();
       });
+    });
 
-      test.afterAll(async () => {
-        await page.close();
-      });
-
-      test.describe('DashboardPage', () => {
-        DashboardPageVisible(pages, components, dataset, date);
-      });
-
-      test.describe('MapComponent', () => {
-        MapComponentVisible(pages, components, dataset);
-        MapComponentInteractive(pages, components, dataset);
-        MapComponentInfoPopover(pages, components, dataset);
-        MapComponentLayersVisible(pages, components, dataset);
-        MapComponentTriggerLayer(pages, components, dataset);
-        MapComponentGloFASStations(pages, components, dataset);
-        MapComponentLinesLayers(pages, components, dataset);
-
-        if (scenario !== 'no-trigger') {
-          // REFACTOR
-          MapComponentLayersDefault(pages, components, dataset);
-          MapComponentFloodExtent(pages, components, dataset);
-          MapComponentGloFASStationsTrigger(pages, components, dataset);
-        } else {
-          // REFACTOR
-          MapComponentGloFASStationsWarning(pages, components, dataset);
-        }
-      });
-
-      test.describe('AggregatesComponent', () => {
-        AggregatesComponentVisible(pages, components, dataset);
-        AggregateComponentTitleHover(pages, components, dataset);
-        AggregateComponentButtonClick(pages, components, dataset);
-
-        if (scenario !== 'no-trigger') {
-          // REFACTOR
-          AggregateComponentEventCount(pages, components, dataset);
-          AggregateComponentHeaderColour(pages, components, dataset);
-        }
-      });
-
-      test.describe('ChatComponent', () => {
-        ChatComponentVisible(pages, components, dataset, date);
-        ChatComponentButtonClick(pages, components, dataset);
-
-        if (scenario !== 'no-trigger') {
-          // REFACTOR
-          ChatComponentAlertAreasList(pages, components, dataset, date);
-          ChatComponentEventClick(pages, components, dataset, date);
-          ChatComponentEventCount(pages, components, dataset, date);
-          ChatComponentInfoPopover(pages, components, dataset, date);
-        }
-
-        if (scenario == 'warning') {
-          ChatComponentSetTrigger(pages, components, dataset, date);
-        }
-      });
-
-      test.describe('DisasterTypeComponent', () => {
-        DisasterTypeComponentVisible(pages, components, dataset);
-        DisasterTypeComponentSelect(pages, components, dataset);
-      });
-
-      test.describe('TimelineComponent', () => {
-        TimelineComponentVisible(pages, components, dataset);
-
-        if (scenario !== 'no-trigger') {
-          // REFACTOR
-          TimelineComponentNotClickable(pages, components, dataset);
-        }
-      });
-
-      test.describe('ActionSummaryComponent', () => {
-        if (scenario === 'trigger') {
-          // REFACTOR
-          ActionSummaryTooltipTest(pages, components, dataset);
-        }
-      });
-
-      // Do this last, as it logs out the user
-      test.describe('UserStateComponent', () => {
-        UserStateComponentVisible(pages, components, dataset);
-        UserStateComponentLogout(pages, components, dataset);
-      });
+    // do this last, as it logs out the user
+    test.describe('UserStateComponent', () => {
+      UserStateComponentVisible(dataset);
+      UserStateComponentLogout();
     });
   });
 });

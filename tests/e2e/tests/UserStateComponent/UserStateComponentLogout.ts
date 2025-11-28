@@ -1,26 +1,12 @@
 import test from '@playwright/test';
-import { Dataset } from 'testData/types';
+import LoginPage from 'Pages/LoginPage';
+import UserStateComponent from 'Pages/UserStateComponent';
 
-import { Components, Pages } from '../../helpers/interfaces';
+export default () => {
+  test('[33026] should logout to login page', async ({ page }) => {
+    const login = new LoginPage(page);
+    const userState = new UserStateComponent(page);
 
-export default (
-  pages: Partial<Pages>,
-  components: Partial<Components>,
-  dataset: Dataset,
-) => {
-  test('[33026] Logout should load login page', async () => {
-    const { login, dashboard } = pages;
-    const { userState } = components;
-
-    if (!login || !dashboard || !userState) {
-      throw new Error('pages and components not found');
-    }
-
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    // Assertions
-    await userState.headerComponentIsVisible(dataset);
-    await dashboard.waitForLoaderToDisappear();
     await userState.logOut();
     await login.loginScreenIsVisible();
   });

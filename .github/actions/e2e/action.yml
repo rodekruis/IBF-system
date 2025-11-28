@@ -2,6 +2,33 @@ name: 'e2e'
 description: 'Run end-to-end tests'
 
 inputs:
+  twilio-sid:
+    description: 'Twilio SID'
+    required: true
+  twilio-authtoken:
+    description: 'Twilio AuthToken'
+    required: true
+  smtp-host:
+    description: 'SMTP host'
+    required: true
+  smtp-port:
+    description: 'SMTP port'
+    required: true
+  smtp-secure:
+    description: 'SMTP secure (true/false)'
+    required: true
+  smtp-username:
+    description: 'SMTP username'
+    required: true
+  smtp-password:
+    description: 'SMTP password'
+    required: true
+  smtp-from:
+    description: 'SMTP from address'
+    required: true
+  support-email-address:
+    description: 'Support email address'
+    required: true
   azure-dev-url:
     description: 'Azure DevOps URL'
     required: true
@@ -45,12 +72,15 @@ runs:
     - name: Run IBF API-service and IBF Geoserver
       shell: bash
       env:
+        TWILIO_SID: ${{ inputs.twilio-sid }}
+        TWILIO_AUTHTOKEN: ${{ inputs.twilio-authtoken }}
         SMTP_HOST: ${{ inputs.smtp-host }}
         SMTP_PORT: ${{ inputs.smtp-port }}
         SMTP_SECURE: ${{ inputs.smtp-secure }}
         SMTP_USERNAME: ${{ inputs.smtp-username }}
         SMTP_PASSWORD: ${{ inputs.smtp-password }}
         SMTP_FROM: ${{ inputs.smtp-from }}
+        SUPPORT_EMAIL_ADDRESS: ${{ inputs.support-email-address }}
       run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d ibf-api-service ibf-geoserver
 
     - name: Start IBF dashboard

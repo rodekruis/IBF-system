@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 import { In, Repository } from 'typeorm';
 
+import { Country } from '../../scripts/interfaces/country.interface';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
@@ -10,11 +11,7 @@ import { NotificationInfoEntity } from '../notification/notifcation-info.entity'
 import { AdminLevel } from './admin-level.enum';
 import { CountryEntity } from './country.entity';
 import { CountryDisasterSettingsEntity } from './country-disaster.entity';
-import {
-  AddCountriesDto,
-  CountryDisasterSettingsDto,
-  CountryDto,
-} from './dto/add-countries.dto';
+import { CountryDisasterSettingsDto, CountryDto } from './dto/country.dto';
 import { NotificationInfoDto } from './dto/notification-info.dto';
 
 @Injectable()
@@ -35,54 +32,42 @@ export class CountryService {
   ];
 
   public async getCountries(
-    countryCodesISO3?: string,
-    minimalInfo?: boolean,
+    countryCodesISO3: Country['countryCodeISO3'][] = [],
+    minimalInfo = true,
   ): Promise<CountryEntity[]> {
-    if (countryCodesISO3) {
-      const countryCodes = countryCodesISO3.split(',');
-      return await this.countryRepository.find({
-        where: { countryCodeISO3: In(countryCodes) },
-        relations: minimalInfo ? ['disasterTypes'] : this.relations,
-      });
-    } else {
-      return await this.countryRepository.find({
-        relations: minimalInfo ? ['disasterTypes'] : this.relations,
-      });
-    }
+    const where = countryCodesISO3.length
+      ? { countryCodeISO3: In(countryCodesISO3) }
+      : {};
+    return await this.countryRepository.find({
+      where,
+      relations: minimalInfo ? ['disasterTypes'] : this.relations,
+    });
   }
 
-  public async addOrUpdateCountries(
-    countries: AddCountriesDto,
-    envDisasterTypes?: string[],
-  ): Promise<void> {
-    for await (const country of countries.countries) {
+  public async upsertCountries(
+    countries: CountryDto[],
+    envDisasterTypes: DisasterType[] = [],
+  ) {
+    for await (const country of countries) {
       const existingCountry = await this.countryRepository.findOne({
         where: { countryCodeISO3: country.countryCodeISO3 },
         relations: ['countryDisasterSettings'],
       });
       if (existingCountry) {
-        await this.addOrUpdateCountry(
-          existingCountry,
-          country,
-          envDisasterTypes as DisasterType[],
-        );
+        await this.upsertCountry(existingCountry, country, envDisasterTypes);
         continue;
       }
 
       const newCountry = new CountryEntity();
       newCountry.countryCodeISO3 = country.countryCodeISO3;
-      await this.addOrUpdateCountry(
-        newCountry,
-        country,
-        envDisasterTypes as DisasterType[],
-      );
+      await this.upsertCountry(newCountry, country, envDisasterTypes);
     }
   }
 
-  private async addOrUpdateCountry(
+  private async upsertCountry(
     countryEntity: CountryEntity,
     country: CountryDto,
-    envDisasterTypes?: DisasterType[],
+    envDisasterTypes: DisasterType[] = [],
   ): Promise<void> {
     countryEntity.countryName = country.countryName;
     countryEntity.adminRegionLabels = JSON.parse(
@@ -91,7 +76,7 @@ export class CountryService {
     countryEntity.disasterTypes = await this.disasterTypeRepository.find({
       where: country.disasterTypes
         .filter((disasterType) => {
-          if (envDisasterTypes) {
+          if (envDisasterTypes.length) {
             const envDisasterType = envDisasterTypes.find(
               (d) => d.split(':')[0] === disasterType,
             );
@@ -130,7 +115,7 @@ export class CountryService {
         (d) => d.disasterType === disasterType.disasterType,
       );
       if (existingDisaster) {
-        const savedDisaster = await this.addOrUpdateDisaster(
+        const savedDisaster = await this.upsertDisaster(
           existingDisaster,
           disasterType,
         );
@@ -143,7 +128,7 @@ export class CountryService {
         where: { countryCodeISO3: country.countryCodeISO3 },
       });
       newDisasterType.disasterType = disasterType.disasterType as DisasterType;
-      const savedDisaster = await this.addOrUpdateDisaster(
+      const savedDisaster = await this.upsertDisaster(
         newDisasterType,
         disasterType,
       );
@@ -153,7 +138,7 @@ export class CountryService {
     await this.countryRepository.save(countryEntity);
   }
 
-  private async addOrUpdateDisaster(
+  private async upsertDisaster(
     countryDisasterSettingsEntity: CountryDisasterSettingsEntity,
     countryDisasterSettingsDto: CountryDisasterSettingsDto,
   ): Promise<CountryDisasterSettingsEntity> {
@@ -196,7 +181,7 @@ export class CountryService {
     return savedEntity;
   }
 
-  public async addOrUpdateNotificationInfo(
+  public async upsertNotificationInfo(
     notificationInfo: NotificationInfoDto[],
   ): Promise<void> {
     const countriesToSave = [];
@@ -264,15 +249,5 @@ export class CountryService {
       where: { notificationInfoId: saveResult.notificationInfoId },
     });
     return savedEntity;
-  }
-
-  public getBoundingBoxWkt(countryCodeISO3: string) {
-    return this.countryRepository
-      .createQueryBuilder('country')
-      .select('ST_AsText(country."countryBoundingBox") as wkt')
-      .where('country."countryCodeISO3" = :countryCodeISO3', {
-        countryCodeISO3,
-      })
-      .getRawOne<Record<'wkt', string>>();
   }
 }

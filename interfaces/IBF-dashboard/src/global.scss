@@ -278,6 +278,10 @@ input:-webkit-autofill:focus {
     color 600000s 0s;
 }
 
+[type='text']:focus {
+  @apply ring-transparent;
+}
+
 [popover].popover-viewport {
   display: initial;
   position: initial;
@@ -354,4 +358,14 @@ ion-toast {
 
 .wiggle {
   animation: wiggle 0.5s ease-in-out;
+}
+
+ion-select-popover ion-item {
+  text-transform: 'capitalize';
+  --border-width: 0 0 0.55px 0;
+  --inner-border-width: 0;
+
+  &:last-of-type {
+    --border-width: 0;
+  }
 }

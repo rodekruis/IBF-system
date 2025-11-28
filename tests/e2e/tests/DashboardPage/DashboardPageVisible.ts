@@ -1,48 +1,22 @@
 import test from '@playwright/test';
+import AggregatesComponent from 'Pages/AggregatesComponent';
+import ChatComponent from 'Pages/ChatComponent';
+import DisasterTypeComponent from 'Pages/DisasterTypeComponent';
+import MapComponent from 'Pages/MapComponent';
+import UserStateComponent from 'Pages/UserStateComponent';
 import { Dataset } from 'testData/types';
 
-import { Components, Pages } from '../../helpers/interfaces';
+export default (dataset: Dataset, date: Date) => {
+  test('[33012] should be visible', async ({ page }) => {
+    const userState = new UserStateComponent(page);
+    const disasterType = new DisasterTypeComponent(page);
+    const chat = new ChatComponent(page);
+    const aggregates = new AggregatesComponent(page);
+    const map = new MapComponent(page);
 
-export default (
-  pages: Partial<Pages>,
-  components: Partial<Components>,
-  dataset: Dataset,
-  date: Date,
-) => {
-  test('[33012] Dashboard page elements should be visible', async () => {
-    const { dashboard } = pages;
-    const { chat, userState, aggregates, map, disasterType } = components;
-
-    if (
-      !dashboard ||
-      !chat ||
-      !userState ||
-      !aggregates ||
-      !map ||
-      !disasterType
-    ) {
-      throw new Error('pages and components not found');
-    }
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    // Assertions
     await userState.headerComponentIsVisible(dataset);
-    await dashboard.waitForLoaderToDisappear();
     await disasterType.topBarComponentIsVisible();
-    if (dataset.scenario === 'trigger') {
-      // REFACTOR
-      await chat.chatColumnIsVisibleForTriggerState({
-        user: dataset.user,
-        date,
-      });
-    } else if (dataset.scenario === 'no-trigger') {
-      // REFACTOR
-      await chat.chatColumnIsVisibleForNoTriggerState({
-        user: dataset.user,
-        date,
-        disasterType: dataset.disasterType.name,
-      });
-    }
+    await chat.chatColumnIsVisible({ date, scenario: dataset.scenario });
     await aggregates.aggregateComponentIsVisible();
     await map.mapComponentIsVisible();
   });

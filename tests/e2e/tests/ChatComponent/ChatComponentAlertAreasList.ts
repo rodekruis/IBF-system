@@ -1,32 +1,25 @@
 import test from '@playwright/test';
+import ChatComponent from 'Pages/ChatComponent';
+import MapComponent from 'Pages/MapComponent';
 import { Dataset } from 'testData/types';
 
-import { Components, Pages } from '../../helpers/interfaces';
+export default (dataset: Dataset) => {
+  test('[33717] should allow alert area click', async ({ page }) => {
+    const chat = new ChatComponent(page);
+    const map = new MapComponent(page);
 
-export default (
-  pages: Partial<Pages>,
-  components: Partial<Components>,
-  dataset: Dataset,
-  date: Date,
-) => {
-  test('[33717] Click on area in affected areas list in chat', async () => {
-    const { dashboard } = pages;
-    const { chat, userState, aggregates, map } = components;
-
-    if (!dashboard || !chat || !userState || !aggregates || !map) {
-      throw new Error('pages and components not found');
-    }
-
-    // Navigate to disaster type the data was mocked for
-    await dashboard.navigateToDisasterType(dataset.disasterType.name);
-    await userState.headerComponentIsVisible(dataset);
-    // Wait for the page to load
-    await dashboard.waitForLoaderToDisappear();
-
-    await chat.chatColumnIsVisibleForTriggerState({ user: dataset.user, date });
     await map.assertTriggerOutlines(dataset.scenario);
     await chat.predictionButtonsAreActive();
-    await chat.clickShowPredictionButton(dataset.scenario);
+    if (
+      !(
+        dataset.country.code === 'UGA' &&
+        dataset.disasterType.name === 'drought' &&
+        dataset.scenario === 'warning'
+      )
+      // HACK: workaround coz it auto-navigates to event view
+    ) {
+      await chat.clickShowPredictionButton(dataset.scenario);
+    }
     await map.clickOnAdminBoundary();
 
     // Assertions

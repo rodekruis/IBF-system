@@ -13,11 +13,11 @@ export const ALERT_LEVEL_WARNINGS = [
 ];
 
 export const ALERT_LEVEL_RANK: Record<AlertLevel, number> = {
-  [AlertLevel.NONE]: 0,
-  [AlertLevel.WARNINGLOW]: 1,
+  [AlertLevel.NONE]: 4,
+  [AlertLevel.WARNINGLOW]: 3,
   [AlertLevel.WARNINGMEDIUM]: 2,
-  [AlertLevel.WARNING]: 3,
-  [AlertLevel.TRIGGER]: 4,
+  [AlertLevel.WARNING]: 1,
+  [AlertLevel.TRIGGER]: 0,
 };
 
 export const ALERT_LEVEL_LABEL: Record<AlertLevel, string> = {

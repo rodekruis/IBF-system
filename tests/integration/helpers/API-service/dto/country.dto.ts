@@ -1,4 +1,4 @@
-import { AdminLevel } from '../enum/admin-level.enum';
+import { AdminLevel } from '@helpers/API-service/enum/admin-level.enum';
 
 export interface CountryDto {
   countryCodeISO3: string;
@@ -27,8 +27,4 @@ export interface CountryDisasterSettingsDto {
   forecastSource?: ForecastSource;
   eapLink: string;
   droughtRegions?: object;
-}
-
-export interface AddCountriesDto {
-  countries: CountryDto[];
 }

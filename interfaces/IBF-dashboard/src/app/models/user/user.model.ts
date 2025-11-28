@@ -1,4 +1,5 @@
 import { UserRole } from 'src/app/models/user/user-role.enum';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 
 export class User {
   userId: string;
@@ -8,6 +9,7 @@ export class User {
   middleName?: string;
   lastName: string;
   userRole: UserRole;
-  countries: string[];
-  disasterTypes: string[];
+  whatsappNumber?: string;
+  countryCodesISO3: string[];
+  disasterTypes: DisasterTypeKey[];
 }
