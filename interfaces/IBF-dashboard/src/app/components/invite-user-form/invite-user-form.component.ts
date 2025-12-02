@@ -63,16 +63,17 @@ export class InviteUserFormComponent {
   ) {}
 
   public onSubmit() {
-    const presentToastError = this.translateService.instant(
-      'common.error.present-toast',
-    ) as string;
+    const presentToastError = String(
+      this.translateService.instant('common.error.present-toast'),
+    );
 
     this.userService.createUser(this.model).subscribe({
       next: (user: User) => {
-        const inviteMessageSuccess = this.translateService.instant(
-          'manage.users.invited',
-          { email: user.email },
-        ) as string;
+        const inviteMessageSuccess = String(
+          this.translateService.instant('manage.users.invited', {
+            email: user.email,
+          }),
+        );
 
         this.presentToast(inviteMessageSuccess)
           .then(() => {
@@ -85,11 +86,11 @@ export class InviteUserFormComponent {
       error: ({ error: { message } }: ErrorResponse) => {
         console.error('Error inviting user:', message);
 
-        const updateMessageFailure =
+        const inviteMessageFailure =
           message ??
-          (this.translateService.instant('common.error.unknown') as string);
+          String(this.translateService.instant('common.error.unknown'));
 
-        this.presentToast(updateMessageFailure).catch((error: unknown) => {
+        this.presentToast(inviteMessageFailure).catch((error: unknown) => {
           console.error(`${presentToastError}: ${JSON.stringify(error)}`);
         });
       },

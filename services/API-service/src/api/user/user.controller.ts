@@ -96,15 +96,54 @@ export class UserController {
   @ApiResponse({ status: 201, description: 'Added user', type: UserData })
   @Post()
   public async createUser(
+    @UserDecorator() user: User,
     @Body() createUserDto: CreateUserDto,
     @Res() res: Response,
   ) {
+    // prevent user from creating users with higher roles
+    if (
+      createUserDto.userRole &&
+      USER_ROLE_RANK[createUserDto.userRole] < USER_ROLE_RANK[user.userRole]
+    ) {
+      const allowedRoles = Object.keys(USER_ROLE_RANK).filter(
+        (userRole: UserRole) =>
+          USER_ROLE_RANK[userRole] >= USER_ROLE_RANK[user.userRole],
+      );
+
+      const messages = [
+        `You cannot set user role to ${createUserDto.userRole}.`,
+        `You can set user role to ${allowedRoles.join(', ')}.`,
+      ];
+      return res
+        .status(HttpStatus.FORBIDDEN)
+        .send({ message: messages.join(' ') });
+    }
+
+    // prevent user from adding others to countries they are not in
+    if (
+      !createUserDto.countryCodesISO3.every((countryCodeISO3) =>
+        user.countryCodesISO3.includes(countryCodeISO3),
+      )
+    ) {
+      const forbiddenCountries = createUserDto.countryCodesISO3.filter(
+        (countryCodeISO3) => !user.countryCodesISO3.includes(countryCodeISO3),
+      );
+
+      const messages = [
+        `You cannot add users to countries ${forbiddenCountries}.`,
+        `You can add users to countries ${user.countryCodesISO3.join(', ')}.`,
+      ];
+      return res
+        .status(HttpStatus.FORBIDDEN)
+        .send({ message: messages.join(' ') });
+    }
+
     try {
-      const user = await this.userService.createUser(createUserDto);
+      const createdUser = await this.userService.createUser(createUserDto);
 
       return res
         .status(HttpStatus.CREATED)
-        .send(this.userService.getUser(user));
+        .send(this.userService.getUser(createdUser));
     } catch (error) {
       this.logger.error(`Failed to create user: ${error}`);
 
@@ -144,7 +183,7 @@ export class UserController {
   public async updateUser(
     @UserDecorator() user: User,
     @Query('userId') targetUserId: string,
-    @Body() updateUserData: UpdateUserDto,
+    @Body() updateUserDto: UpdateUserDto,
     @Res() res: Response,
   ) {
     if (targetUserId) {
@@ -154,7 +193,7 @@ export class UserController {
       );
       // any admin can invite a user to a country
       const isInvite =
-        updateUserData.countryCodesISO3?.length > 0 &&
+        updateUserDto.countryCodesISO3?.length > 0 &&
         [UserRole.Admin, UserRole.LocalAdmin].includes(user.userRole);
 
       if (!isUserAdmin && !isInvite) {
@@ -163,8 +202,8 @@ export class UserController {
       }
 
       if (
-        updateUserData.userRole &&
-        USER_ROLE_RANK[updateUserData.userRole] < USER_ROLE_RANK[user.userRole]
+        updateUserDto.userRole &&
+        USER_ROLE_RANK[updateUserDto.userRole] < USER_ROLE_RANK[user.userRole]
       ) {
         const allowedRoles = Object.keys(USER_ROLE_RANK).filter(
           (userRole: UserRole) =>
@@ -172,7 +211,7 @@ export class UserController {
         );
 
         const messages = [
-          `You cannot set user role to ${updateUserData.userRole}.`,
+          `You cannot set user role to ${updateUserDto.userRole}.`,
           `You can set user role to ${allowedRoles.join(', ')}.`,
         ];
         return res
@@ -180,14 +219,14 @@ export class UserController {
           .send({ message: messages.join(' ') });
       }
 
-      if (updateUserData.countryCodesISO3) {
+      if (updateUserDto.countryCodesISO3) {
         // prevent user from adding others to countries they are not in
         if (
-          !updateUserData.countryCodesISO3.every((countryCodeISO3) =>
+          !updateUserDto.countryCodesISO3.every((countryCodeISO3) =>
             user.countryCodesISO3.includes(countryCodeISO3),
           )
         ) {
-          const forbiddenCountries = updateUserData.countryCodesISO3.filter(
+          const forbiddenCountries = updateUserDto.countryCodesISO3.filter(
             (countryCodeISO3) =>
               !user.countryCodesISO3.includes(countryCodeISO3),
           );
@@ -216,19 +255,17 @@ export class UserController {
           )
           .filter(Boolean);
 
-        updateUserData.countryCodesISO3.push(...immuneCountries);
+        updateUserDto.countryCodesISO3.push(...immuneCountries);
 
         if (!isUserAdmin) {
           // if not admin, only invite to countries
-          updateUserData = {
-            countryCodesISO3: updateUserData.countryCodesISO3,
-          };
+          updateUserDto = { countryCodesISO3: updateUserDto.countryCodesISO3 };
         }
       }
 
       const updatedUser = await this.userService.updateUser(
         targetUserId,
-        updateUserData,
+        updateUserDto,
         true,
       );
 
@@ -240,7 +277,7 @@ export class UserController {
 
     const updatedUser = await this.userService.updateUser(
       user.userId,
-      updateUserData,
+      updateUserDto,
     );
 
     // include token only if user is updating their own account

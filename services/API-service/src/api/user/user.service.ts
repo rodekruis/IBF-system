@@ -77,7 +77,7 @@ export class UserService {
     userEntity.lastName = createUserDto.lastName;
     userEntity.userRole = createUserDto.userRole;
     if (createUserDto.whatsappNumber) {
-      createUserDto.whatsappNumber = await this.lookupService.lookupAndCorrect(
+      userEntity.whatsappNumber = await this.lookupService.lookupAndCorrect(
         createUserDto.whatsappNumber,
       );
     }

@@ -38,7 +38,11 @@ export default function createUsersTests() {
     it('should create user for admin', async () => {
       // pick users to create
       const adminUserToken = await getToken(userData['admin-multi'].email);
-      const operatorUgandaUserData = userData['operator-uganda'];
+      const operatorUgandaUserData = {
+        ...userData['operator-uganda'],
+        middleName: 'van',
+        whatsappNumber: '+31647428590',
+      };
 
       // create user
       const createUserResponse = await createUser(
@@ -48,7 +52,20 @@ export default function createUsersTests() {
 
       // created user must have the correct attributes
       expect(createUserResponse.status).toBe(201);
+      expect(createUserResponse.body.email).toBe(operatorUgandaUserData.email);
+      expect(createUserResponse.body.firstName).toBe(
+        operatorUgandaUserData.firstName,
+      );
+      expect(createUserResponse.body.middleName).toBe(
+        operatorUgandaUserData.middleName,
+      );
+      expect(createUserResponse.body.lastName).toBe(
+        operatorUgandaUserData.lastName,
+      );
       expect(createUserResponse.body.userRole).toBe(UserRole.Operator);
+      expect(createUserResponse.body.whatsappNumber).toBe(
+        operatorUgandaUserData.whatsappNumber,
+      );
       // countries should be alphabetically sorted
       expect(createUserResponse.body.countryCodesISO3).toStrictEqual(
         operatorUgandaUserData.countryCodesISO3.sort(),
@@ -103,6 +120,50 @@ export default function createUsersTests() {
 
       // should return bad request
       expect(createUserResponse.status).toBe(400);
+    });
+
+    it('should error if local-admin adds admin', async () => {
+      // pick users to create
+      const localAdminUserToken = await getToken(
+        userData['local-admin-multi'].email,
+      );
+      const adminPhilippinesUserData = userData['admin-philippines'];
+
+      // create user
+      const createUserResponse = await createUser(
+        localAdminUserToken,
+        adminPhilippinesUserData,
+      );
+
+      // should return forbidden
+      expect(createUserResponse.status).toBe(403);
+    });
+
+    it('should error if user adds other country', async () => {
+      // pick users to create
+      const localAdminUserToken = await getToken(
+        userData['local-admin-multi'].email,
+      );
+
+      // prepare new user data
+      const notAllowedUserData = {
+        email: 'not-allowed@redcross.nl',
+        firstName: 'Not',
+        lastName: 'Allowed',
+        userRole: UserRole.Viewer,
+        countryCodesISO3: ['BWA'],
+        disasterTypes: ['floods'],
+        password: 'password',
+      };
+
+      // create user
+      const createUserResponse = await createUser(
+        localAdminUserToken,
+        notAllowedUserData,
+      );
+
+      // should return forbidden
+      expect(createUserResponse.status).toBe(403);
     });
 
     [UserRole.Operator, UserRole.Pipeline, UserRole.Viewer].forEach(
