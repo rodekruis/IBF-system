@@ -20,7 +20,7 @@ import { TOAST_DURATION, TOAST_POSITION } from 'src/app/config';
 import { User } from 'src/app/models/user/user.model';
 import { USER_ROLE_LABEL, UserRole } from 'src/app/models/user/user-role.enum';
 import { UserService } from 'src/app/services/user.service';
-import { ErrorResponse, MessageResponse } from 'src/app/types/api';
+import { ErrorResponse } from 'src/app/types/api';
 
 @Component({
   selector: 'app-invite-user-form',
