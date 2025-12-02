@@ -6,21 +6,7 @@ import { UserRole } from 'src/app/models/user/user-role.enum';
 import { ApiService } from 'src/app/services/api.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { UserService } from 'src/app/services/user.service';
-
-export interface LoginRequest {
-  email: string;
-  code?: number;
-}
-
-export interface UserResponse {
-  user: User;
-}
-
-export interface MessageResponse {
-  message: string;
-}
-
-type LoginResponse = MessageResponse | UserResponse;
+import { LoginRequest, LoginResponse, UserResponse } from 'src/app/types/api';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -95,28 +81,28 @@ export class AuthService {
 
   public login(loginRequest: LoginRequest) {
     return this.apiService.login(loginRequest).pipe(
-      tap((response: LoginResponse) => {
-        if ('user' in response) {
-          this.onLoginResponse(response);
+      tap((loginResponse: LoginResponse) => {
+        if ('user' in loginResponse) {
+          this.onLoginResponse(loginResponse);
         }
       }),
     );
   }
 
-  public setUser = (response: UserResponse) => {
-    if (!response.user?.token) {
+  public setUser = (user?: User) => {
+    if (!user?.token) {
       return;
     }
 
-    this.jwtService.saveToken(response.user.token);
+    this.jwtService.saveToken(user.token);
 
-    const user = this.getUserFromToken();
+    const tokenUser = this.getUserFromToken();
 
-    this.authSubject.next(user);
+    this.authSubject.next(tokenUser);
   };
 
-  private onLoginResponse = (response: UserResponse) => {
-    this.setUser(response);
+  private onLoginResponse = ({ user }: UserResponse) => {
+    this.setUser(user);
 
     if (this.redirectUrl) {
       void this.router.navigate([this.redirectUrl]);

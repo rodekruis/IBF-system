@@ -14,6 +14,7 @@ import { DUNANT_EMAIL } from '../config';
 
 export class SeedHelper {
   private logger = new Logger('SeedHelper');
+
   public constructor(private dataSource: DataSource) {}
 
   public async getCsvData<T>(filePath: string): Promise<T[]> {

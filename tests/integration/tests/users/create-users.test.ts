@@ -32,13 +32,13 @@ export default function createUsersTests() {
 
       // created user must have the correct attributes
       expect(createUserResponse.status).toBe(201);
-      expect(createUserResponse.body.user.userRole).toBe(UserRole.Operator);
+      expect(createUserResponse.body.userRole).toBe(UserRole.Operator);
       // countries should be alphabetically sorted
-      expect(createUserResponse.body.user.countryCodesISO3).toStrictEqual(
+      expect(createUserResponse.body.countryCodesISO3).toStrictEqual(
         operatorMultiUserData.countryCodesISO3.sort(),
       );
       // disaster types should be alphabetically sorted
-      expect(createUserResponse.body.user.disasterTypes).toStrictEqual(
+      expect(createUserResponse.body.disasterTypes).toStrictEqual(
         operatorMultiUserData.disasterTypes.sort(),
       );
     });

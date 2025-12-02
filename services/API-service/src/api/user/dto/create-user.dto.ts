@@ -60,12 +60,14 @@ export class CreateUserDto {
   })
   @IsArray()
   @ArrayNotEmpty()
-  public disasterTypes: string[];
+  @IsOptional()
+  public disasterTypes?: string[];
 
-  @ApiProperty({ example: 'password' })
+  @ApiProperty({ example: 'password', required: false })
   @IsNotEmpty()
   @MinLength(4)
-  public password: string;
+  @IsOptional()
+  public password?: string;
 
   @ApiProperty({ example: '+31600000000' })
   @IsString()

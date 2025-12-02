@@ -8,11 +8,8 @@ import {
   AnalyticsPage,
 } from 'src/app/analytics/analytics.enum';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import {
-  AuthService,
-  LoginRequest,
-  MessageResponse,
-} from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
+import { LoginRequest, MessageResponse } from 'src/app/types/api';
 
 @Component({
   selector: 'app-login-form',

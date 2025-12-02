@@ -20,7 +20,7 @@ export default function updateUsersTests() {
           userData[userDataKey],
         );
 
-        userId[userDataKey] = createUserResponse.body.user.userId;
+        userId[userDataKey] = createUserResponse.body.userId;
         token[userDataKey] = await getToken(userData[userDataKey].email);
       }
     });

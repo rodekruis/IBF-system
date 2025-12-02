@@ -10,6 +10,7 @@
     "open:ibf-dashboard": "open http://localhost:4200/",
     "open:ibf-api-service": "open http://localhost:3000/docs",
     "test:interface": "npm test --prefix interfaces/IBF-dashboard/",
+    "test:service": "npm test --prefix services/API-service/",
     "test:e2e": "npm test --prefix tests/e2e",
     "test:integration": "npm test --prefix tests/integration",
     "lint": "npx npm-run-all --print-label --parallel lint:interface lint:services lint:e2e lint:integration",

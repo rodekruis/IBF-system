@@ -16,7 +16,7 @@ import {
 } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { AuthService, UserResponse } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { ManageUsersMenuComponent } from 'src/app/components/manage-users-menu/manage-users-menu.component';
 import { TypeaheadComponent } from 'src/app/components/typeahead/typeahead.component';
 import { TOAST_DURATION, TOAST_POSITION } from 'src/app/config';
@@ -29,6 +29,7 @@ import {
 } from 'src/app/models/user/user-role.enum';
 import { CountryService } from 'src/app/services/country.service';
 import { UserService } from 'src/app/services/user.service';
+import { UpdateUserResponse } from 'src/app/types/api';
 
 @Component({
   selector: 'app-manage-users',
@@ -83,12 +84,19 @@ export class ManageUsersComponent implements OnDestroy {
   ) {
     this.message = String(this.translateService.instant('common.loading'));
 
-    this.userService.users.subscribe((users: User[]) => {
-      this.updateUsers(users);
+    this.userService.users.subscribe({
+      next: (users: User[]) => {
+        this.updateUsers(users);
 
-      this.message = String(
-        this.translateService.instant('manage.users.not-found'),
-      );
+        this.message = String(
+          this.translateService.instant('manage.users.not-found'),
+        );
+      },
+      error: () => {
+        this.message = String(
+          this.translateService.instant('common.error.unknown'),
+        );
+      },
     });
 
     this.authSubscription = this.authService
@@ -223,30 +231,29 @@ export class ManageUsersComponent implements OnDestroy {
   }
 
   onUserRoleChange(userRole: UserRole, user: User) {
-    const presentToastError = this.translateService.instant(
-      'common.error.present-toast',
-    ) as string;
+    const presentToastError = String(
+      this.translateService.instant('common.error.present-toast'),
+    );
 
     this.userService.updateUser({ userRole }, user.userId).subscribe({
-      next: (updateUserResponse: UserResponse) => {
+      next: (updateUserResponse: UpdateUserResponse) => {
         user.userRole = updateUserResponse.user.userRole;
 
-        const updateMessageSuccess = this.translateService.instant(
-          'manage.users.role-changed',
-          {
+        const updateMessageSuccess = String(
+          this.translateService.instant('manage.users.role-changed', {
             userName: this.getUserName(user),
             userRole: USER_ROLE_LABEL[userRole],
-          },
-        ) as string;
+          }),
+        );
 
         this.presentToast(updateMessageSuccess).catch((error: unknown) => {
           console.error(`${presentToastError}: ${JSON.stringify(error)}`);
         });
       },
       error: () => {
-        const updateMessageFailure = this.translateService.instant(
-          'common.error.unknown',
-        ) as string;
+        const updateMessageFailure = String(
+          this.translateService.instant('common.error.unknown'),
+        );
 
         this.presentToast(updateMessageFailure).catch((error: unknown) => {
           console.error(`${presentToastError}: ${JSON.stringify(error)}`);
@@ -259,31 +266,30 @@ export class ManageUsersComponent implements OnDestroy {
     countryCodesISO3: Country['countryCodeISO3'][],
     user: User,
   ) {
-    const presentToastError = this.translateService.instant(
-      'common.error.present-toast',
-    ) as string;
+    const presentToastError = String(
+      this.translateService.instant('common.error.present-toast'),
+    );
 
     this.userService.updateUser({ countryCodesISO3 }, user.userId).subscribe({
-      next: (updateUserResponse: UserResponse) => {
+      next: (updateUserResponse: UpdateUserResponse) => {
         user.userRole = updateUserResponse.user.userRole;
         user.countryCodesISO3 = countryCodesISO3;
 
-        const updateMessageSuccess = this.translateService.instant(
-          'manage.users.countries-changed',
-          {
+        const updateMessageSuccess = String(
+          this.translateService.instant('manage.users.countries-changed', {
             userName: this.getUserName(user),
             countryCount: countryCodesISO3.length,
-          },
-        ) as string;
+          }),
+        );
 
         this.presentToast(updateMessageSuccess).catch((error: unknown) => {
           console.error(`${presentToastError}: ${JSON.stringify(error)}`);
         });
       },
       error: () => {
-        const updateMessageFailure = this.translateService.instant(
-          'common.error.unknown',
-        ) as string;
+        const updateMessageFailure = String(
+          this.translateService.instant('common.error.unknown'),
+        );
 
         this.presentToast(updateMessageFailure).catch((error: unknown) => {
           console.error(`${presentToastError}: ${JSON.stringify(error)}`);
@@ -326,7 +332,6 @@ export class ManageUsersComponent implements OnDestroy {
       component: TypeaheadComponent,
       componentProps: {
         enableSearch: true,
-        multi: true,
         items: this.userCountries.map((countryCodeISO3) => ({
           label: this.countryName[countryCodeISO3] || countryCodeISO3,
           value: countryCodeISO3,
@@ -355,7 +360,25 @@ export class ManageUsersComponent implements OnDestroy {
   public async showManageUsersMenu(event: Event) {
     const manageUsersMenu = await this.popoverController.create({
       component: ManageUsersMenuComponent,
-      componentProps: { users: this.users },
+      componentProps: {
+        users: this.users,
+        userRoles: this.userRoles.map((userRole) => ({
+          label: USER_ROLE_LABEL[userRole] || userRole,
+          value: userRole,
+        })),
+        userCountries: this.userCountries.map((countryCodeISO3) => ({
+          label: this.countryName[countryCodeISO3] || countryCodeISO3,
+          value: countryCodeISO3,
+        })),
+        user: {
+          emit: (user: User) => {
+            if (user) {
+              // insert new user into users table
+              this.updateUsers([...this.users, user]);
+            }
+          },
+        },
+      },
       event,
       mode: 'ios',
       alignment: 'center',

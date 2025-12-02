@@ -19,7 +19,7 @@ export default function readUserTests() {
           token,
           userData[userDataKey],
         );
-        userId[userDataKey] = createUserResponse.body.user.userId;
+        userId[userDataKey] = createUserResponse.body.userId;
       }
     });
 

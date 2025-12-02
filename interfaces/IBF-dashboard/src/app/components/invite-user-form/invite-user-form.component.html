@@ -1,0 +1,139 @@
+<form #inviteUserForm="ngForm" (ngSubmit)="onSubmit()" class="invite-user-form">
+  <ion-list class="m-8 max-w-xl space-y-6">
+    <ion-item lines="none" class="text-2xl font-bold">
+      {{ 'manage.users.invite-user' | translate }}
+    </ion-item>
+    <ion-item
+      [style]="{
+        '--border-color':
+          email.touched && email.invalid ? 'var(--ion-color-danger-shade)' : '',
+      }"
+    >
+      <ion-input
+        name="email"
+        label="{{ 'manage.account.email' | translate }}"
+        placeholder="{{ 'manage.account.email' | translate }}"
+        [(ngModel)]="model.email"
+        required
+        email
+        pattern=".+@.+\.[a-z]+"
+        #email="ngModel"
+        data-testid="invite-user-email"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>{{ 'manage.account.role' | translate }}</ion-label>
+      <ion-item
+        [button]="true"
+        (click)="showUserRoles($event)"
+        [detail]="true"
+        detail-icon="chevron-expand"
+        class="ml-2 w-full truncate"
+        lines="none"
+      >
+        {{ USER_ROLE_LABEL[model.userRole] || model.userRole }}
+      </ion-item>
+    </ion-item>
+    <ion-item
+      class="space-x-2"
+      [style]="{
+        '--border-color':
+          (firstName.touched && firstName.invalid) ||
+          (middleName.touched && middleName.invalid) ||
+          (lastName.touched && lastName.invalid)
+            ? 'var(--ion-color-danger-shade)'
+            : '',
+      }"
+    >
+      <ion-label>{{ 'manage.account.name' | translate }}</ion-label>
+      <ion-input
+        name="firstName"
+        placeholder="{{ 'manage.account.first-name' | translate }}"
+        [(ngModel)]="model.firstName"
+        required
+        minlength="2"
+        #firstName="ngModel"
+        data-testid="invite-user-first-name"
+      ></ion-input>
+      <ion-input
+        name="middleName"
+        placeholder="{{ 'manage.account.middle-name' | translate }}"
+        [(ngModel)]="model.middleName"
+        #middleName="ngModel"
+        data-testid="invite-user-middle-name"
+      ></ion-input>
+      <ion-input
+        name="lastName"
+        placeholder="{{ 'manage.account.last-name' | translate }}"
+        [(ngModel)]="model.lastName"
+        required
+        minlength="2"
+        #lastName="ngModel"
+        data-testid="invite-user-last-name"
+      ></ion-input>
+    </ion-item>
+    <ion-item
+      [style]="{
+        '--border-color': whatsappNumber.invalid
+          ? 'var(--ion-color-danger-shade)'
+          : '',
+      }"
+    >
+      <ion-input
+        name="whatsappNumber"
+        label="{{ 'manage.account.whatsapp' | translate }}"
+        placeholder="{{ 'manage.account.whatsapp-placeholder' | translate }}"
+        [(ngModel)]="model.whatsappNumber"
+        pattern="^\+[0-9]{10,15}$"
+        #whatsappNumber="ngModel"
+        data-testid="invite-user-whatsapp"
+      ></ion-input>
+    </ion-item>
+    @if (userCountries.length > 1) {
+      <ion-item
+        [style]="{
+          '--border-color':
+            model.countryCodesISO3.length === 0 && inviteUserForm.form.dirty
+              ? 'var(--ion-color-danger-shade)'
+              : '',
+        }"
+      >
+        <ion-label>{{ 'manage.users.countries' | translate }}</ion-label>
+        <ion-item
+          [button]="true"
+          (click)="showUserCountries($event)"
+          [detail]="true"
+          detail-icon="chevron-expand"
+          class="ml-2 w-full truncate"
+          lines="none"
+        >
+          {{
+            'manage.users.countries-count'
+              | translate
+                : {
+                    countryCount: model.countryCodesISO3.length,
+                    countryLabel: getCountryLabel(model.countryCodesISO3[0]),
+                  }
+          }}
+        </ion-item>
+      </ion-item>
+    }
+    <ion-item lines="none">
+      <ion-button
+        type="submit"
+        size="default"
+        shape="round"
+        color="fiveten-navy-900"
+        [disabled]="
+          !inviteUserForm.form.valid ||
+          !inviteUserForm.form.dirty ||
+          model.countryCodesISO3.length === 0
+        "
+        data-testid="manage-users-invite"
+        class="my-4 w-full"
+      >
+        {{ 'manage.users.invite' | translate }}
+      </ion-button>
+    </ion-item>
+  </ion-list>
+</form>

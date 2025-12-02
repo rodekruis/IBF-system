@@ -67,10 +67,13 @@
       "title": "Users",
       "countries": "Countries",
       "export-users": "Export users",
+      "invite-user": "Invite user",
       "not-found": "No users found",
       "role-changed": "{userName} is now {userRole, select, Admin{an} Operator{an} other{a}} {userRole}",
       "countries-changed": "{userName} {countryCount, plural, =0{cannot} other{can now}} view {countryCount, plural, =0{any} other{{countryCount}}} {countryCount, plural, =0{country} one{country} other{countries}}",
-      "countries-count": "{countryCount, plural, =0{None} one{{countryLabel}} other{{countryCount} countries}}"
+      "countries-count": "{countryCount, plural, =0{None} one{{countryLabel}} other{{countryCount} countries}}",
+      "invite": "Invite",
+      "invited": "Invitation sent to {email}"
     },
     "preferences": {
       "title": "Preferences",
