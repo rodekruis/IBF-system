@@ -4,9 +4,18 @@
     [detail]="false"
     (click)="exportUsers()"
     data-testid="manage-users-menu-export-button"
-    lines="none"
   >
     <ion-label>{{ 'manage.users.export-users' | translate }}</ion-label>
     <ion-icon slot="end" name="cloud-download-outline"></ion-icon>
+  </ion-item>
+  <ion-item
+    [button]="true"
+    [detail]="false"
+    (click)="inviteUser()"
+    data-testid="manage-users-menu-invite-button"
+    lines="none"
+  >
+    <ion-label>{{ 'manage.users.invite-user' | translate }}</ion-label>
+    <ion-icon slot="end" name="person-add-outline"></ion-icon>
   </ion-item>
 </ion-list>

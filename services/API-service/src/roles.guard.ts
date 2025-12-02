@@ -33,27 +33,29 @@ export class RolesGuard implements CanActivate {
 
       const user = await this.userService.findById(decoded.userId);
 
-      // First check if logged in
+      // check if logged in
       if (!user) {
         return false;
       }
 
-      // Then: if no roles specified for endpoint, then assume endpoint to be 'open' to any role (but log in required)
+      // admin can access any route
+      if (user.userRole === UserRole.Admin) {
+        return true;
+      }
+
+      // check route-roles
       const endpointRoles = this.reflector.get<UserRole[]>(
         'roles',
         context.getHandler(),
       );
       if (!endpointRoles) {
+        // route is open to any user-role
+        // if no route-roles are specified
         return true;
       }
 
-      // Then add admin-role to every endpoint
-      if (!endpointRoles.includes(UserRole.Admin)) {
-        endpointRoles.push(UserRole.Admin);
-      }
-
-      // Then check if user-role aligns with endpoint-roles
-      return endpointRoles.includes(user.user.userRole as UserRole);
+      // allow if user-role is in route-roles
+      return endpointRoles.includes(user.userRole);
     }
     return false;
   }

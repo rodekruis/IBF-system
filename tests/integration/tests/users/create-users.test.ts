@@ -2,89 +2,198 @@ import { UserRole } from '@helpers/API-service/enum/user-role.enum';
 import { getToken } from '@helpers/utility.helper';
 
 import { userData } from '../../fixtures/users.const';
-import { createUser, deleteUser, readUser } from './users.api';
+import { createUser, deleteUser } from './users.api';
 
 export default function createUsersTests() {
   describe('create users', () => {
     let adminToken: string;
-    const operatorMultiUserData = userData['operator-multi'];
+    const userId: Partial<Record<keyof typeof userData, string>> = {};
+    const userRoles = Object.values(UserRole);
 
     beforeAll(async () => {
       adminToken = await getToken();
+
+      // create users
+      for (const userRoleIndex in userRoles) {
+        const userRole = userRoles[userRoleIndex];
+        const userDataKey = `${userRole}-multi`;
+
+        const createUserResponse = await createUser(
+          adminToken,
+          userData[userDataKey],
+        );
+
+        userId[userDataKey] = createUserResponse.body.userId;
+      }
     });
 
     afterAll(async () => {
       // cleanup users
-      const readUserResponse = await readUser(adminToken);
-      const users = readUserResponse.body;
-
-      for (const { userId } of users) {
-        await deleteUser(adminToken, userId);
+      for (const userIdKey in userId) {
+        await deleteUser(adminToken, userId[userIdKey]);
+        delete userId[userIdKey];
       }
     });
 
-    it('should create user', async () => {
+    it('should create user for admin', async () => {
+      // pick users to create
+      const adminUserToken = await getToken(userData['admin-multi'].email);
+      const operatorUgandaUserData = {
+        ...userData['operator-uganda'],
+        middleName: 'van',
+        whatsappNumber: '+31647428590',
+      };
+
       // create user
       const createUserResponse = await createUser(
-        adminToken,
-        operatorMultiUserData,
+        adminUserToken,
+        operatorUgandaUserData,
       );
 
       // created user must have the correct attributes
       expect(createUserResponse.status).toBe(201);
-      expect(createUserResponse.body.user.userRole).toBe(UserRole.Operator);
+      expect(createUserResponse.body.email).toBe(operatorUgandaUserData.email);
+      expect(createUserResponse.body.firstName).toBe(
+        operatorUgandaUserData.firstName,
+      );
+      expect(createUserResponse.body.middleName).toBe(
+        operatorUgandaUserData.middleName,
+      );
+      expect(createUserResponse.body.lastName).toBe(
+        operatorUgandaUserData.lastName,
+      );
+      expect(createUserResponse.body.userRole).toBe(UserRole.Operator);
+      expect(createUserResponse.body.whatsappNumber).toBe(
+        operatorUgandaUserData.whatsappNumber,
+      );
       // countries should be alphabetically sorted
-      expect(createUserResponse.body.user.countryCodesISO3).toStrictEqual(
-        operatorMultiUserData.countryCodesISO3.sort(),
+      expect(createUserResponse.body.countryCodesISO3).toStrictEqual(
+        operatorUgandaUserData.countryCodesISO3.sort(),
       );
       // disaster types should be alphabetically sorted
-      expect(createUserResponse.body.user.disasterTypes).toStrictEqual(
-        operatorMultiUserData.disasterTypes.sort(),
+      expect(createUserResponse.body.disasterTypes).toStrictEqual(
+        operatorUgandaUserData.disasterTypes.sort(),
       );
+
+      // store userId for cleanup
+      userId['operator-uganda'] = createUserResponse.body.userId;
+    });
+
+    it('should create user for local-admin', async () => {
+      // pick users to create
+      const localAdminUserToken = await getToken(
+        userData['local-admin-multi'].email,
+      );
+      const operatorPhilippinesUserData = userData['operator-philippines'];
+
+      // create user
+      const createUserResponse = await createUser(
+        localAdminUserToken,
+        operatorPhilippinesUserData,
+      );
+
+      // created user must have the correct attributes
+      expect(createUserResponse.status).toBe(201);
+      expect(createUserResponse.body.userRole).toBe(UserRole.Operator);
+      // countries should be alphabetically sorted
+      expect(createUserResponse.body.countryCodesISO3).toStrictEqual(
+        operatorPhilippinesUserData.countryCodesISO3.sort(),
+      );
+      // disaster types should be alphabetically sorted
+      expect(createUserResponse.body.disasterTypes).toStrictEqual(
+        operatorPhilippinesUserData.disasterTypes.sort(),
+      );
+
+      // store userId for cleanup
+      userId['operator-philippines'] = createUserResponse.body.userId;
     });
 
     it('should error if email exists', async () => {
+      // pick a user to create
+      const operatorUgandaUserData = userData['operator-uganda'];
+
       // attempt to create user with same email
       const createUserResponse = await createUser(
         adminToken,
-        operatorMultiUserData,
+        operatorUgandaUserData,
       );
 
       // should return bad request
       expect(createUserResponse.status).toBe(400);
     });
 
-    [
-      UserRole.LocalAdmin,
-      UserRole.Operator,
-      UserRole.Pipeline,
-      UserRole.Viewer,
-    ].forEach((userRole) => {
-      it(`should error if ${userRole} creates user`, async () => {
-        // login as the role
-        const userRoleUserData = userData[`${userRole}-multi`];
-        const userRoleUserToken = await getToken(userRoleUserData.email);
+    it('should error if local-admin adds admin', async () => {
+      // pick users to create
+      const localAdminUserToken = await getToken(
+        userData['local-admin-multi'].email,
+      );
+      const adminPhilippinesUserData = userData['admin-philippines'];
 
-        // prepare new user data
-        const notAllowedUserData = {
-          email: 'not-allowed@redcross.nl',
-          firstName: 'Not',
-          lastName: 'Allowed',
-          userRole: UserRole.Viewer,
-          countryCodesISO3: ['UGA'],
-          disasterTypes: ['floods'],
-          password: 'password',
-        };
+      // create user
+      const createUserResponse = await createUser(
+        localAdminUserToken,
+        adminPhilippinesUserData,
+      );
 
-        // attempt to create user
-        const createUserResponse = await createUser(
-          userRoleUserToken,
-          notAllowedUserData,
-        );
-
-        // should return forbidden
-        expect(createUserResponse.status).toBe(403);
-      });
+      // should return forbidden
+      expect(createUserResponse.status).toBe(403);
     });
+
+    it('should error if user adds other country', async () => {
+      // pick users to create
+      const localAdminUserToken = await getToken(
+        userData['local-admin-multi'].email,
+      );
+
+      // prepare new user data
+      const notAllowedUserData = {
+        email: 'not-allowed@redcross.nl',
+        firstName: 'Not',
+        lastName: 'Allowed',
+        userRole: UserRole.Viewer,
+        countryCodesISO3: ['BWA'],
+        disasterTypes: ['floods'],
+        password: 'password',
+      };
+
+      // create user
+      const createUserResponse = await createUser(
+        localAdminUserToken,
+        notAllowedUserData,
+      );
+
+      // should return forbidden
+      expect(createUserResponse.status).toBe(403);
+    });
+
+    [UserRole.Operator, UserRole.Pipeline, UserRole.Viewer].forEach(
+      (userRole) => {
+        it(`should error if ${userRole} creates user`, async () => {
+          // login as the role
+          const userRoleUserData = userData[`${userRole}-multi`];
+          const userRoleUserToken = await getToken(userRoleUserData.email);
+
+          // prepare new user data
+          const notAllowedUserData = {
+            email: 'not-allowed@redcross.nl',
+            firstName: 'Not',
+            lastName: 'Allowed',
+            userRole: UserRole.Viewer,
+            countryCodesISO3: ['UGA'],
+            disasterTypes: ['floods'],
+            password: 'password',
+          };
+
+          // attempt to create user
+          const createUserResponse = await createUser(
+            userRoleUserToken,
+            notAllowedUserData,
+          );
+
+          // should return forbidden
+          expect(createUserResponse.status).toBe(403);
+        });
+      },
+    );
   });
 }

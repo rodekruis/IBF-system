@@ -1,5 +1,6 @@
 import {
   Injectable,
+  NotFoundException,
   ServiceUnavailableException,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -10,7 +11,6 @@ import { LessThan, Repository } from 'typeorm';
 
 import { CI, DEV } from '../../config';
 import { CountryService } from '../country/country.service';
-import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { EmailService } from '../email/email.service';
 import { UserService } from '../user/user.service';
 import { UserRole } from '../user/user-role.enum';
@@ -18,7 +18,6 @@ import DOMAIN_COUNTRY from './domain-country';
 import { LoginEntity } from './login.entity';
 
 const CODE_EXPIRATION_MINUTES = 15;
-const PASSWORD_LENGTH = 12;
 const PROMPT_CODE = 'Enter the code sent to your email';
 const UNDER_REVIEW = 'Your account is under review';
 const MAILER_ERROR = 'Failed to send login code';
@@ -31,7 +30,6 @@ export class LoginService {
   public constructor(
     private userService: UserService,
     private countryService: CountryService,
-    private disasterTypeService: DisasterTypeService,
     private emailService: EmailService,
   ) {}
 
@@ -95,7 +93,12 @@ export class LoginService {
       throw new UnauthorizedException(UNDER_REVIEW);
     }
 
-    return this.userService.findById(loginEntity.user.userId, true);
+    const user = await this.userService.findById(loginEntity.user.userId);
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return this.userService.getUserWithToken(user, true);
   }
 
   generateCode() {
@@ -112,8 +115,6 @@ export class LoginService {
       lastName: UserRole.Viewer,
       userRole: UserRole.Viewer,
       countryCodesISO3,
-      disasterTypes: await this.getDisasterTypes(),
-      password: this.getPassword(),
       whatsappNumber: null,
     };
   }
@@ -136,12 +137,6 @@ export class LoginService {
     return [];
   }
 
-  private async getDisasterTypes() {
-    const disasterTypes = await this.disasterTypeService.getDisasterTypes();
-
-    return disasterTypes.map(({ disasterType }) => disasterType);
-  }
-
   private getFirstName(countryCodesISO3: string[]) {
     let firstName = 'guest';
     const randomId = (Math.floor(Math.random() * 9000) + 1000).toString();
@@ -155,16 +150,6 @@ export class LoginService {
     firstName = firstName + randomId;
 
     return firstName;
-  }
-
-  private getPassword(length = PASSWORD_LENGTH) {
-    const chars =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-    return Array.from(
-      { length },
-      () => chars[Math.floor(Math.random() * chars.length)],
-    ).join('');
   }
 
   private async deleteExpiredCodes() {

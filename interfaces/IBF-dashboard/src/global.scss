@@ -332,6 +332,10 @@ ion-toast {
   --width: fit-content;
 }
 
+ion-modal {
+  --height: auto;
+}
+
 @keyframes wiggle {
   0% {
     transform: translateX(0);

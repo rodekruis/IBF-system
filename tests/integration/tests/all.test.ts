@@ -22,7 +22,7 @@ import updateUsersTests from './users/update-users.test';
 describe('integration tests', () => {
   beforeAll(async () => {
     await reset();
-  });
+  }, 300000); // wait max 5 mins for reset
 
   loginTests();
 

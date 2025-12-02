@@ -10,12 +10,13 @@ import {
 } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { AuthService, UserResponse } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { TOAST_DURATION, TOAST_POSITION } from 'src/app/config';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
 import { CountryService } from 'src/app/services/country.service';
 import { UserService } from 'src/app/services/user.service';
+import { UpdateUserResponse } from 'src/app/types/api';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 
 @Component({
@@ -90,8 +91,8 @@ export class ManagePreferencesComponent implements OnDestroy {
     ) as string;
 
     this.userService.updateUser({ disasterTypes }).subscribe({
-      next: (userResponse: UserResponse) => {
-        this.authService.setUser(userResponse);
+      next: ({ user }: UpdateUserResponse) => {
+        this.authService.setUser(user);
 
         const updateMessageSuccess = this.translateService.instant(
           'manage.preferences.saved',

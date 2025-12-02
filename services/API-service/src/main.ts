@@ -33,10 +33,12 @@ function generateModuleDependencyGraph(app: INestApplication): void {
   const root = SpelunkerModule.graph(tree);
   const edges = SpelunkerModule.findGraphEdges(root);
   const genericModules = [
-    // Sorted alphabetically
+    // sorted alphabetically
     'ApplicationModule',
+    'DiscoveryModule',
     'HealthModule',
     'HttpModule',
+    'MailerCoreModule',
     'ScheduleModule',
     'ScriptsModule',
     'TerminusModule',

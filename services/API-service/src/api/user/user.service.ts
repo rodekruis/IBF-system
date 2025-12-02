@@ -2,7 +2,6 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -19,11 +18,8 @@ import { LookupService } from '../notification/lookup/lookup.service';
 import { CreateUserDto, LoginUserDto } from './dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './user.entity';
-import { User, UserResponseObject } from './user.model';
+import { User } from './user.model';
 import { USER_ROLE_RANK, UserRole } from './user-role.enum';
-
-const CREATE_ERROR = 'Failed to create user';
-const NOT_FOUND = 'User not found';
 
 @Injectable()
 export class UserService {
@@ -42,6 +38,20 @@ export class UserService {
     return await this.userRepository.find({ relations: this.relations });
   }
 
+  public async findByEmail(email: string) {
+    return this.userRepository.findOne({
+      where: { email },
+      relations: this.relations,
+    });
+  }
+
+  public async findById(userId: string) {
+    return await this.userRepository.findOne({
+      where: { userId },
+      relations: this.relations,
+    });
+  }
+
   public async login(loginUserDto: LoginUserDto) {
     const findOneOptions = {
       email: loginUserDto.email,
@@ -50,89 +60,55 @@ export class UserService {
         .digest('hex'),
     };
 
-    const user = await this.userRepository.findOne({
+    return this.userRepository.findOne({
       where: findOneOptions,
       relations: this.relations,
     });
-    if (!user) {
-      throw new UnauthorizedException();
-    }
-
-    return this.getUserWithToken(user, true);
-  }
-
-  public async create(dto: CreateUserDto): Promise<UserResponseObject> {
-    if (dto.whatsappNumber) {
-      dto.whatsappNumber = await this.lookupService.lookupAndCorrect(
-        dto.whatsappNumber,
-      );
-    }
-
-    const user = await this.createUser(dto);
-
-    return this.getUserWithToken(user);
   }
 
   public async createUser(createUserDto: CreateUserDto) {
     const userEntity = new UserEntity();
     userEntity.email = createUserDto.email.toLowerCase();
-    userEntity.password = createUserDto.password;
+    userEntity.password =
+      createUserDto.password ?? crypto.randomBytes(6).toString('hex');
+    // fallback to 12 char random password
     userEntity.firstName = createUserDto.firstName;
     userEntity.middleName = createUserDto.middleName;
     userEntity.lastName = createUserDto.lastName;
     userEntity.userRole = createUserDto.userRole;
-    userEntity.whatsappNumber = createUserDto.whatsappNumber;
+    if (createUserDto.whatsappNumber) {
+      userEntity.whatsappNumber = await this.lookupService.lookupAndCorrect(
+        createUserDto.whatsappNumber,
+      );
+    }
     userEntity.countries = await this.countryRepository.find({
       where: { countryCodeISO3: In(createUserDto.countryCodesISO3) },
     });
     userEntity.disasterTypes = await this.disasterTypeRepository.find({
-      where: { disasterType: In(createUserDto.disasterTypes) },
+      where:
+        createUserDto.disasterTypes && createUserDto.disasterTypes.length
+          ? { disasterType: In(createUserDto.disasterTypes) } // only specified disaster types
+          : {}, // all disaster types
     });
 
     const errors = await validate(userEntity);
     if (errors.length > 0) {
-      throw new BadRequestException(CREATE_ERROR);
+      throw new BadRequestException(errors);
     }
 
-    try {
-      return await this.userRepository.save(userEntity);
-    } catch {
-      throw new BadRequestException(CREATE_ERROR);
-    }
-  }
-
-  public async findByEmail(email: string) {
-    return this.userRepository.findOne({
-      where: { email },
-      relations: this.relations,
-    });
-  }
-
-  public async findById(
-    userId: string,
-    includeToken = false,
-  ): Promise<UserResponseObject> {
-    const user = await this.userRepository.findOne({
-      where: { userId },
-      relations: this.relations,
-    });
-    if (!user) {
-      throw new UnauthorizedException(NOT_FOUND);
-    }
-
-    return this.getUserWithToken(user, includeToken);
+    return this.userRepository.save(userEntity);
   }
 
   public async updateUser(
     userId: string,
     updateUserDto: UpdateUserDto,
     isAdmin = false,
-  ): Promise<UserResponseObject> {
+  ) {
     const where = { userId };
 
     const user = await this.userRepository.findOne({ where });
     if (!user) {
-      throw new NotFoundException(NOT_FOUND);
+      throw new NotFoundException('User not found');
     }
 
     if (updateUserDto.firstName) {
@@ -167,13 +143,7 @@ export class UserService {
       await this.updateUserDisasterTypes(where, updateUserDto);
     }
 
-    const updatedUser = await this.userRepository.findOne({
-      where,
-      relations: this.relations,
-    });
-
-    // include token only if user is updating their own account
-    return this.getUserWithToken(updatedUser, !isAdmin);
+    return this.userRepository.findOne({ where, relations: this.relations });
   }
 
   private async updateUserCountries(
@@ -309,7 +279,8 @@ export class UserService {
     return token;
   }
 
-  private getUser = (userEntity: UserEntity) => ({
+  // NOTE: transform user entity for external use
+  public getUser = (userEntity: UserEntity) => ({
     userId: userEntity.userId,
     email: userEntity.email,
     firstName: userEntity.firstName,
@@ -333,6 +304,7 @@ export class UserService {
     const user = this.getUser(userEntity);
     const token = includeToken ? await this.getToken(user) : null;
 
+    // REFACTOR: remove nested user object
     return { user: { ...user, token } };
   };
 
@@ -348,12 +320,7 @@ export class UserService {
       where.disasterTypes = { disasterType: In(disasterTypes) };
     }
 
-    const users = await this.userRepository.find({
-      where,
-      relations: this.relations,
-    });
-
-    return users.map((user) => this.getUser(user));
+    return this.userRepository.find({ where, relations: this.relations });
   }
 
   public async deleteUser(userId: string) {

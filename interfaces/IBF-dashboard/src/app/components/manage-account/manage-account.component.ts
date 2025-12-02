@@ -10,11 +10,12 @@ import {
 } from '@ionic/angular/standalone';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
-import { AuthService, UserResponse } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/auth/auth.service';
 import { TOAST_DURATION, TOAST_POSITION } from 'src/app/config';
 import { User } from 'src/app/models/user/user.model';
 import { USER_ROLE_LABEL } from 'src/app/models/user/user-role.enum';
 import { UserService } from 'src/app/services/user.service';
+import { UpdateUserResponse } from 'src/app/types/api';
 
 @Component({
   selector: 'app-manage-account',
@@ -23,8 +24,8 @@ import { UserService } from 'src/app/services/user.service';
     IonInput,
     IonList,
     IonLabel,
-    TranslateModule,
     IonButton,
+    TranslateModule,
     FormsModule,
   ],
   templateUrl: './manage-account.component.html',
@@ -81,8 +82,8 @@ export class ManageAccountComponent implements OnDestroy {
     ) as string;
 
     this.userService.updateUser(this.model).subscribe({
-      next: (userResponse: UserResponse) => {
-        this.authService.setUser(userResponse);
+      next: ({ user }: UpdateUserResponse) => {
+        this.authService.setUser(user);
 
         const updateMessageSuccess = this.translateService.instant(
           'manage.account.updated',

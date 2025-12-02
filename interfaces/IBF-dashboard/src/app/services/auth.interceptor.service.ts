@@ -21,14 +21,14 @@ export class AuthInterceptorService implements HttpInterceptor {
     next: HttpHandler,
   ): Observable<HttpEvent<unknown>> {
     return next.handle(request).pipe(
-      tap(
-        (event) => {
+      tap({
+        next: (event) => {
           this.handleResponse(event);
         },
-        (error) => {
+        error: (error) => {
           this.handleError(error);
         },
-      ),
+      }),
     );
   }
 

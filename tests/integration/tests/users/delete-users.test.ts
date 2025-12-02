@@ -23,7 +23,7 @@ export default function deleteUserTests() {
           userData[userDataKey],
         );
 
-        userId[userDataKey] = createUserResponse.body.user.userId;
+        userId[userDataKey] = createUserResponse.body.userId;
       }
     });
 
