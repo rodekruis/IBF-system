@@ -1,3 +1,18 @@
+# [0.329.0](https://github.com/rodekruis/IBF-system/compare/v0.328.0...v0.329.0) (2025-12-02)
+
+
+### Bug Fixes
+
+* dev menu border ([071625a](https://github.com/rodekruis/IBF-system/commit/071625a2970f980b0777aec7c5dd50c604d1689f))
+* restrict create user api for local admin ([696b590](https://github.com/rodekruis/IBF-system/commit/696b5907a83ceb26cd2882e74ea8035cc851150f))
+
+
+### Features
+
+* invite user ([5eca9a2](https://github.com/rodekruis/IBF-system/commit/5eca9a2f3578ade46322b27e1dbef2dbf4904ee7))
+
+
+
 # [0.328.0](https://github.com/rodekruis/IBF-system/compare/v0.327.1...v0.328.0) (2025-11-28)
 
 
@@ -148,15 +163,6 @@
 
 * http headers is immutable ([569c30e](https://github.com/rodekruis/IBF-system/commit/569c30e9512049cea0ab3398c244fbc594ea0a0b))
 * upload content type ([258a3ae](https://github.com/rodekruis/IBF-system/commit/258a3aed43b9a02027c47f6432d80b7161da96b8))
-
-
-
-## [0.322.2](https://github.com/rodekruis/IBF-system/compare/v0.322.1...v0.322.2) (2025-08-04)
-
-
-### Bug Fixes
-
-* add titles to upload, download, and close buttons ([c098999](https://github.com/rodekruis/IBF-system/commit/c098999fbb4e1b24c0f504fdfb2c525e28369b5c))
 
 
 
