@@ -14,7 +14,7 @@ export class IndicatorMetadataEntity {
   public countryDisasterTypes: JSON;
 
   @ApiProperty()
-  @Column()
+  @Column({ unique: true })
   public name: string;
 
   @ApiProperty()
