@@ -1,3 +1,12 @@
+## [0.329.1](https://github.com/rodekruis/IBF-system/compare/v0.329.0...v0.329.1) (2025-12-03)
+
+
+### Bug Fixes
+
+* replace invite with add until invite email can be sent ([41ddcb0](https://github.com/rodekruis/IBF-system/commit/41ddcb0ef88cbf6ee83f1ae7bd95895ed55106a6))
+
+
+
 # [0.329.0](https://github.com/rodekruis/IBF-system/compare/v0.328.0...v0.329.0) (2025-12-02)
 
 
@@ -153,16 +162,6 @@
 ### Features
 
 * early actions are checked instantly ([7371d08](https://github.com/rodekruis/IBF-system/commit/7371d0881164f5e7f5e6971d80ded39a9e4133eb))
-
-
-
-## [0.322.3](https://github.com/rodekruis/IBF-system/compare/v0.322.2...v0.322.3) (2025-08-04)
-
-
-### Bug Fixes
-
-* http headers is immutable ([569c30e](https://github.com/rodekruis/IBF-system/commit/569c30e9512049cea0ab3398c244fbc594ea0a0b))
-* upload content type ([258a3ae](https://github.com/rodekruis/IBF-system/commit/258a3aed43b9a02027c47f6432d80b7161da96b8))
 
 
 
