@@ -92,7 +92,6 @@
     "karma-coverage-istanbul-reporter": "^3.0.3",
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
-    "ngx-tailwind": "^4.0.0",
     "postcss": "^8.5.0",
     "prettier": "^3.6.0",
     "prettier-plugin-organize-imports": "^4.3.0",
