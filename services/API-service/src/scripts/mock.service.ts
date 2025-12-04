@@ -531,7 +531,7 @@ export class MockService {
 
       for (const disasterType of disasterTypes) {
         await this.mockCountryDisasterTypeData(
-          countryCodeISO3,
+          country.countryCodeISO3,
           mockInput.removeEvents,
           mockInput.date,
           mockInput.scenario,
