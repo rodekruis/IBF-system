@@ -18,7 +18,7 @@ import {
   AggregateRecord,
 } from 'src/app/types/aggregate';
 import { AlertArea } from 'src/app/types/alert-area';
-import { EventState } from 'src/app/types/event-state';
+import { EventState } from 'src/app/types/event';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { TimelineState } from 'src/app/types/timeline-state';

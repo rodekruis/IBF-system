@@ -2,10 +2,10 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DisasterType } from 'src/app/models/country.model';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { Event, EventService } from 'src/app/services/event.service';
+import { EventService } from 'src/app/services/event.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
-import { EventState } from 'src/app/types/event-state';
+import { Event, EventState } from 'src/app/types/event';
 import { TimelineState } from 'src/app/types/timeline-state';
 
 @Component({

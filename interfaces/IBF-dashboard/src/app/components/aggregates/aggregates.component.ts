@@ -22,7 +22,7 @@ import { EventService } from 'src/app/services/event.service';
 import { MapViewService } from 'src/app/services/map-view.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { AdminLevelType } from 'src/app/types/admin-level';
-import { EventState } from 'src/app/types/event-state';
+import { EventState } from 'src/app/types/event';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { MapView } from 'src/app/types/map-view';

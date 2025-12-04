@@ -5,7 +5,7 @@ import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
-import { EventState } from 'src/app/types/event-state';
+import { EventState } from 'src/app/types/event';
 import {
   IbfLayer,
   IbfLayerLabel,

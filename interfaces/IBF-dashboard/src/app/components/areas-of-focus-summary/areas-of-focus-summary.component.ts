@@ -22,7 +22,7 @@ import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { AlertArea } from 'src/app/types/alert-area';
 import { AreaOfFocus } from 'src/app/types/area-of-focus';
 import { EapAction } from 'src/app/types/eap-action';
-import { EventState } from 'src/app/types/event-state';
+import { EventState } from 'src/app/types/event';
 
 @Component({
   selector: 'app-areas-of-focus-summary',

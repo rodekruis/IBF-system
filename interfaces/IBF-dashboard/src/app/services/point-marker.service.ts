@@ -40,7 +40,8 @@ import {
   TyphoonTrackPoint,
   Waterpoint,
 } from 'src/app/models/poi.model';
-import { Event, EventService } from 'src/app/services/event.service';
+import { EventService } from 'src/app/services/event.service';
+import { Event } from 'src/app/types/event';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { LeadTime } from 'src/app/types/lead-time';
 

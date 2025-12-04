@@ -11,15 +11,12 @@ import {
 } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
-import {
-  ALERT_LEVEL_LABEL,
-  AlertLevel,
-  Event,
-  EventService,
-} from 'src/app/services/event.service';
+import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { AlertArea } from 'src/app/types/alert-area';
+import { ALERT_LEVEL_LABEL, AlertLevel } from 'src/app/types/alert-level';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { Event } from 'src/app/types/event';
 import { NumberFormat } from 'src/app/types/indicator-group';
 import { LeadTime, LeadTimeTriggerKey } from 'src/app/types/lead-time';
 

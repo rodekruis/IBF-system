@@ -52,14 +52,14 @@ import {
   Waterpoint,
 } from 'src/app/models/poi.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
-import { Event, EventService } from 'src/app/services/event.service';
+import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { MapLegendService } from 'src/app/services/map-legend.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { PointMarkerService } from 'src/app/services/point-marker.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
-import { EventState } from 'src/app/types/event-state';
+import { Event, EventState } from 'src/app/types/event';
 import {
   IbfLayer,
   IbfLayerGroup,

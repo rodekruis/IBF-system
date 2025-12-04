@@ -1,4 +1,3 @@
-/* eslint-disable perfectionist/sort-enums */
 import { Injectable } from '@angular/core';
 import {
   differenceInDays,
@@ -16,84 +15,15 @@ import {
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { AlertArea } from 'src/app/types/alert-area';
+import { AlertLevel } from 'src/app/types/alert-level';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
-import { EventState } from 'src/app/types/event-state';
+import { Event, EventState } from 'src/app/types/event';
 import { LastUploadDate } from 'src/app/types/last-upload-date';
 import {
   LeadTime,
   LeadTimeTriggerKey,
   LeadTimeUnit,
 } from 'src/app/types/lead-time';
-
-export class Event {
-  countryCodeISO3: string;
-  firstIssuedDate: string;
-  endDate: string;
-  forecastTrigger: boolean;
-  eventName: string;
-  firstLeadTime?: LeadTime;
-  firstLeadTimeLabel?: string;
-  firstLeadTimeDate?: string;
-  firstTriggerLeadTime?: LeadTime;
-  firstTriggerLeadTimeDate?: string;
-  timeUnit?: string;
-  duration?: number;
-  disasterSpecificProperties: DisasterSpecificProperties;
-  header?: string;
-  alertAreas?: AlertArea[];
-  nrAlertAreas?: number;
-  mainExposureValueSum?: number;
-  alertLevel: AlertLevel;
-  userTrigger: boolean;
-  userTriggerDate: string;
-  userTriggerName: string;
-}
-
-export enum AlertLevel {
-  NONE = 'none',
-  WARNINGLOW = 'warning-low',
-  WARNINGMEDIUM = 'warning-medium',
-  WARNING = 'warning',
-  TRIGGER = 'trigger',
-}
-
-export const ALERT_LEVEL_RANK: Record<AlertLevel, number> = {
-  [AlertLevel.NONE]: 4,
-  [AlertLevel.WARNINGLOW]: 3,
-  [AlertLevel.WARNINGMEDIUM]: 2,
-  [AlertLevel.WARNING]: 1,
-  [AlertLevel.TRIGGER]: 0,
-};
-
-export const ALERT_LEVEL_LABEL: Record<AlertLevel, string> = {
-  [AlertLevel.NONE]: 'No Alert',
-  [AlertLevel.WARNINGLOW]: 'Low Warning',
-  [AlertLevel.WARNINGMEDIUM]: 'Medium Warning',
-  [AlertLevel.WARNING]: 'Warning',
-  [AlertLevel.TRIGGER]: 'Trigger',
-};
-
-export const ALERT_LEVEL_COLOUR: Record<AlertLevel, string> = {
-  [AlertLevel.NONE]: '#00214d', // fiveten-navy-900
-  [AlertLevel.WARNINGLOW]: '#ffd601', // fiveten-yellow-500
-  [AlertLevel.WARNINGMEDIUM]: '#da7c00', // fiveten-orange-500
-  [AlertLevel.WARNING]: '#da7c00', // fiveten-orange-500
-  [AlertLevel.TRIGGER]: '#c70000', // fiveten-red-500
-};
-
-export const ALERT_LEVEL_TEXT_COLOUR: Record<AlertLevel, string> = {
-  [AlertLevel.NONE]: '#00214d', // fiveten-navy-900
-  [AlertLevel.WARNINGLOW]: '#665606', // fiveten-yellow-700
-  [AlertLevel.WARNINGMEDIUM]: '#7a2d00', // fiveten-orange-700
-  [AlertLevel.WARNING]: '#7a2d00', // fiveten-orange-700
-  [AlertLevel.TRIGGER]: '#c70000', // fiveten-red-500
-};
-
-export class DisasterSpecificProperties {
-  typhoonLandfall?: boolean;
-  typhoonNoLandfallYet?: boolean;
-}
 
 @Injectable({ providedIn: 'root' })
 export class EventService {

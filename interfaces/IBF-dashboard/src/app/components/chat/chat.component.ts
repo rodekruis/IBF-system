@@ -20,18 +20,17 @@ import { AggregatesService } from 'src/app/services/aggregates.service';
 import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import {
-  ALERT_LEVEL_COLOUR,
-  ALERT_LEVEL_TEXT_COLOUR,
-  Event,
-  EventService,
-} from 'src/app/services/event.service';
+import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
 import { AlertArea } from 'src/app/types/alert-area';
+import {
+  ALERT_LEVEL_COLOUR,
+  ALERT_LEVEL_TEXT_COLOUR,
+} from 'src/app/types/alert-level';
 import { EapAction } from 'src/app/types/eap-action';
-import { EventState } from 'src/app/types/event-state';
+import { Event, EventState } from 'src/app/types/event';
 import { Indicator, NumberFormat } from 'src/app/types/indicator-group';
 import { TimelineState } from 'src/app/types/timeline-state';
 import { environment } from 'src/environments/environment';

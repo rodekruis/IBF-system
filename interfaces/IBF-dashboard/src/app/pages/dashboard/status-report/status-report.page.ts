@@ -5,13 +5,10 @@ import { DISASTER_TYPES_SVG_MAP } from 'src/app/config';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
-import {
-  ALERT_LEVEL_RANK,
-  AlertLevel,
-  Event,
-  EventService,
-} from 'src/app/services/event.service';
+import { EventService } from 'src/app/services/event.service';
+import { ALERT_LEVEL_RANK, AlertLevel } from 'src/app/types/alert-level';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { Event } from 'src/app/types/event';
 import { LastUploadDate } from 'src/app/types/last-upload-date';
 
 interface DisasterStatus {
