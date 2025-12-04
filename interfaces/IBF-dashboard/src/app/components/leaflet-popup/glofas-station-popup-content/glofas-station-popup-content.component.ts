@@ -1,11 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
-import {
-  defaultEapAlertClassKey,
-  EapAlertClass,
-  eapAlertClasses,
-  EapAlertClassKey,
-} from 'src/app/models/country.model';
 import { Station } from 'src/app/models/poi.model';
+import {
+  ALERT_LEVEL_COLOUR_CLASS,
+  ALERT_LEVEL_COLOUR_CONTRAST_CLASS,
+  AlertLevel,
+  eapAlertClassToAlertLevel,
+} from 'src/app/types/alert-level';
 import { LeadTime } from 'src/app/types/lead-time';
 
 @Component({
@@ -21,8 +21,6 @@ export class GlofasStationPopupContentComponent implements OnInit {
   public triggerWidth: number;
   public barBackgroundColor: string;
   public barTextColor: string;
-  private eapAlertClass: EapAlertClass;
-  private eapAlertClassKey: EapAlertClassKey = defaultEapAlertClassKey;
 
   ngOnInit(): void {
     if (!this.data) {
@@ -60,15 +58,14 @@ export class GlofasStationPopupContentComponent implements OnInit {
       0,
     );
 
-    if (this.data.station.dynamicData?.eapAlertClass) {
-      this.eapAlertClassKey = this.data.station.dynamicData?.eapAlertClass;
-    }
+    const alertLevel =
+      eapAlertClassToAlertLevel[this.data.station.dynamicData?.eapAlertClass] ??
+      AlertLevel.NONE;
 
-    this.eapAlertClass = eapAlertClasses[this.eapAlertClassKey];
-    this.barBackgroundColor = `var(--ion-color-${this.eapAlertClass.color})`;
+    this.barBackgroundColor = `var(--ion-color-${ALERT_LEVEL_COLOUR_CLASS[alertLevel]})`;
 
     this.barTextColor = `var(--ion-color-${
-      this.eapAlertClass.textColor || 'ibf-white'
+      ALERT_LEVEL_COLOUR_CONTRAST_CLASS[alertLevel]
     })`;
   }
 

@@ -15,8 +15,8 @@ export const LEAFLET_MARKER_ICON_OPTIONS_BASE: IconOptions = {
   iconSize: [28, 42],
   iconAnchor: [24, 42],
   popupAnchor: [0, -28],
-  iconUrl: 'assets/markers/glofas-station-default-marker.svg',
-  iconRetinaUrl: 'assets/markers/glofas-station-default-marker.svg',
+  iconUrl: 'assets/markers/glofas-station-none.svg',
+  iconRetinaUrl: 'assets/markers/glofas-station-none.svg',
 };
 
 export const LEAFLET_MARKER_ICON_OPTIONS_DAM: IconOptions = {
@@ -77,12 +77,6 @@ export const LEAFLET_MARKER_ICON_OPTIONS_COMMUNITY_NOTIFICATION: IconOptions = {
   ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
   iconUrl: 'assets/markers/community-notification-marker.svg',
   iconRetinaUrl: 'assets/markers/community-notification-marker.svg',
-};
-
-export const LEAFLET_MARKER_ICON_OPTIONS_RIVER_GAUGE: IconOptions = {
-  ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-  iconUrl: 'assets/markers/river-gauge-marker.svg',
-  iconRetinaUrl: 'assets/markers/river-gauge-marker.svg',
 };
 
 export const LEAFLET_MAP_OPTIONS: MapOptions = {

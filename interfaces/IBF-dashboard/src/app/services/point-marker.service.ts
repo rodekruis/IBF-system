@@ -21,7 +21,6 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_EXPOSED,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
-  LEAFLET_MARKER_ICON_OPTIONS_RIVER_GAUGE,
   LEAFLET_MARKER_ICON_OPTIONS_SCHOOL,
   LEAFLET_MARKER_ICON_OPTIONS_SCHOOL_EXPOSED,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
@@ -41,6 +40,10 @@ import {
   Waterpoint,
 } from 'src/app/models/poi.model';
 import { EventService } from 'src/app/services/event.service';
+import {
+  AlertLevel,
+  eapAlertClassToAlertLevel,
+} from 'src/app/types/alert-level';
 import { Event } from 'src/app/types/event';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { LeadTime } from 'src/app/types/lead-time';
@@ -133,14 +136,15 @@ export class PointMarkerService {
     const markerTitle = markerProperties.stationName;
     const eapAlertClassKey =
       markerProperties.dynamicData?.eapAlertClass ?? 'no';
-    const markerClassName = `glofas-station glofas-station-${eapAlertClassKey}`;
+    const alertLevel = eapAlertClassToAlertLevel[eapAlertClassKey];
+    const markerClassName = `glofas-station glofas-station-${alertLevel}`;
     const markerIcon: IconOptions = {
       ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-      iconUrl: `assets/markers/glofas-station-${eapAlertClassKey}-trigger.svg`,
-      iconRetinaUrl: `assets/markers/glofas-station-${eapAlertClassKey}-trigger.svg`,
+      iconUrl: `assets/markers/glofas-station-${alertLevel}.svg`,
+      iconRetinaUrl: `assets/markers/glofas-station-${alertLevel}.svg`,
       className: markerClassName,
     };
-    const popupClassName = `trigger-popup-${eapAlertClassKey}`;
+    const popupClassName = `glofas-station-popup glofas-station-popup-${alertLevel}`;
     const markerInstance = marker(markerLatLng, {
       title: markerTitle,
       icon: markerIcon
@@ -363,14 +367,28 @@ export class PointMarkerService {
     markerLatLng: LatLng,
   ): Marker {
     const markerTitle = markerProperties;
+    const alertLevel =
+      markerProperties.dynamicData?.['water-level-alert-level'] ??
+      AlertLevel.NONE;
+    const markerIconFileName = `river-gauge-${alertLevel}`;
+    const markerClassName = `river-gauge ${markerIconFileName}`;
+    const markerIcon: IconOptions = {
+      ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+      iconUrl: `assets/markers/${markerIconFileName}.svg`,
+      iconRetinaUrl: `assets/markers/${markerIconFileName}.svg`,
+      className: markerClassName,
+    };
     const markerInstance = marker(markerLatLng, {
       title: markerTitle.name,
-      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RIVER_GAUGE),
+      icon: markerIcon
+        ? icon(markerIcon)
+        : divIcon({ className: markerClassName }),
     });
+    const popupClassName = `river-gauge-popup ${markerIconFileName}`;
 
     markerInstance.bindPopup(
       this.createMarkerRiverGaugePopup(markerProperties),
-      { minWidth: 350, className: 'river-gauge-popup' },
+      { minWidth: 350, className: popupClassName },
     );
 
     markerInstance.on(

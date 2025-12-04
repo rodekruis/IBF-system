@@ -24,8 +24,8 @@
     }}</ion-label>
   </div>
   <app-threshold-bar
-    backgroundColor="var(--ion-color-ibf-no-alert-primary)"
-    textColor="var(--ion-color-ibf-white)"
+    [backgroundColor]="barBackgroundColor"
+    [textColor]="barTextColor"
     [barWidth]="triggerWidth"
     [barValue]="current"
     [thresholdDescription]="'map-popups.river-gauge.normal' | translate"

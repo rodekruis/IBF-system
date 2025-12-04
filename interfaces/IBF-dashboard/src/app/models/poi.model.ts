@@ -1,4 +1,4 @@
-import { EapAlertClassKey } from 'src/app/models/country.model';
+import { AlertLevel } from 'src/app/types/alert-level';
 
 export class Station {
   stationName: string;
@@ -6,11 +6,13 @@ export class Station {
   dynamicData?: StationDynamicData;
 }
 
+export type EapAlertClass = 'max' | 'med' | 'min' | 'no';
+
 export class StationDynamicData {
   forecastLevel: number;
   triggerLevel: number;
   forecastReturnPeriod: number;
-  eapAlertClass: EapAlertClassKey;
+  eapAlertClass: EapAlertClass; // REFACTOR: remove in favour of AlertLevel
 }
 
 export class TyphoonTrackPoint {
@@ -77,11 +79,13 @@ export class CommunityNotification {
 export class RiverGauge {
   fid: string;
   name: string;
-  dynamicData: {
-    'water-level': string;
-    'water-level-previous': string;
-    'water-level-reference': string;
-  };
-
+  dynamicData: RiverGaugeDynamicData;
   pointDataId: string;
+}
+
+interface RiverGaugeDynamicData {
+  'water-level': string;
+  'water-level-previous': string;
+  'water-level-reference': string;
+  'water-level-alert-level': AlertLevel;
 }

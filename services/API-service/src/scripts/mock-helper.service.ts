@@ -138,6 +138,7 @@ export class MockHelperService {
       'water-level',
       'water-level-reference',
       'water-level-previous',
+      'water-level-alert-level',
     ];
 
     for (const key of keys) {

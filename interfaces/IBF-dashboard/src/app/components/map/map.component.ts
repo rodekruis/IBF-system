@@ -36,12 +36,12 @@ import {
   Country,
   CountryDisasterSettings,
   DisasterType,
-  eapAlertClasses,
 } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import {
   CommunityNotification,
   DamSite,
+  EapAlertClass,
   EvacuationCenter,
   HealthSite,
   RedCrossBranch,
@@ -58,6 +58,12 @@ import { MapLegendService } from 'src/app/services/map-legend.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { PointMarkerService } from 'src/app/services/point-marker.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import {
+  ALERT_LEVEL_LABEL,
+  ALERT_LEVEL_RANK,
+  AlertLevel,
+  eapAlertClassToAlertLevel,
+} from 'src/app/types/alert-level';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { Event, EventState } from 'src/app/types/event';
 import {
@@ -314,13 +320,30 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
               elements.push(element);
             }
-          } else if (layer.name === IbfLayerName.glofasStations) {
-            for (const [key, value] of this.getEapAlertClasses(layer.data)) {
-              const element = this.mapLegendService.getGlofasPointLegendString(
-                layer,
-                `-${key}-trigger`,
-                value.label,
-              );
+          } else if (
+            [IbfLayerName.glofasStations, IbfLayerName.gauges].includes(
+              layer.name,
+            )
+          ) {
+            let alertLevels: AlertLevel[] = [];
+
+            if (layer.name === IbfLayerName.glofasStations) {
+              alertLevels = this.getGloFASStationAlertLevels(layer.data);
+            } else if (layer.name === IbfLayerName.gauges) {
+              alertLevels = this.getRiverGaugeAlertLevels(layer.data);
+            }
+
+            alertLevels = Array.from(new Set(alertLevels)).sort(
+              (a, b) => ALERT_LEVEL_RANK[a] - ALERT_LEVEL_RANK[b],
+            );
+
+            for (const alertLevel of alertLevels) {
+              const element =
+                this.mapLegendService.getAlertLevelPointLegendString(
+                  layer,
+                  alertLevel,
+                  ALERT_LEVEL_LABEL[alertLevel],
+                );
 
               elements.push(element);
             }
@@ -364,15 +387,28 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     );
   }
 
-  private getEapAlertClasses({ features }: GeoJSON.FeatureCollection) {
-    const eapAlertClassKeysInData = features
-      .map(({ properties }) => properties?.['dynamicData']?.eapAlertClass)
+  private getGloFASStationAlertLevels({
+    features,
+  }: GeoJSON.FeatureCollection): AlertLevel[] {
+    const eapAlertClassesInData = features
+      .map(({ properties }) => properties?.['dynamicData']?.eapAlertClass) // REFACTOR: remove in favor of alert level
       .filter(Boolean);
-    const uniqueEapAlertClassKeysInData = new Set(eapAlertClassKeysInData);
 
-    return Object.entries(eapAlertClasses)
-      .reverse()
-      .filter(([key]) => uniqueEapAlertClassKeysInData.has(key));
+    return eapAlertClassesInData.map(
+      (eapAlertClass: EapAlertClass) =>
+        eapAlertClassToAlertLevel[eapAlertClass],
+    );
+  }
+
+  private getRiverGaugeAlertLevels({
+    features,
+  }: GeoJSON.FeatureCollection): AlertLevel[] {
+    return features
+      .map(
+        ({ properties }) =>
+          properties?.['dynamicData']?.['water-level-alert-level'],
+      ) // REFACTOR: merge with getGloFASStationAlertLevels
+      .filter(Boolean);
   }
 
   onMapReady(map: Map) {
