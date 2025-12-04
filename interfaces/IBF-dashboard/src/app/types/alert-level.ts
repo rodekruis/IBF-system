@@ -39,23 +39,3 @@ export const ALERT_LEVEL_TEXT_COLOUR: Record<AlertLevel, string> = {
   [AlertLevel.WARNING]: '#ffffff', // fiveten-neutral-0
   [AlertLevel.TRIGGER]: '#ffffff', // fiveten-neutral-0
 };
-
-// REFACTOR: remove in favour of Tailwind v4 custom colours
-// https://tailwindcss.com/docs/background-color#using-a-custom-value
-export const ALERT_LEVEL_COLOUR_CLASS: Record<AlertLevel, string> = {
-  [AlertLevel.NONE]: 'fiveten-navy-900',
-  [AlertLevel.WARNINGLOW]: 'fiveten-yellow-500',
-  [AlertLevel.WARNINGMEDIUM]: 'fiveten-orange-500',
-  [AlertLevel.WARNING]: 'fiveten-orange-500',
-  [AlertLevel.TRIGGER]: 'fiveten-red-500',
-};
-
-// REFACTOR: remove in favour of Tailwind v4 custom colours
-// https://tailwindcss.com/docs/background-color#using-a-custom-value
-export const ALERT_LEVEL_TEXT_COLOUR_CLASS: Record<AlertLevel, string> = {
-  [AlertLevel.NONE]: 'fiveten-neutral-0',
-  [AlertLevel.WARNINGLOW]: 'fiveten-yellow-700',
-  [AlertLevel.WARNINGMEDIUM]: 'fiveten-neutral-0',
-  [AlertLevel.WARNING]: 'fiveten-neutral-0',
-  [AlertLevel.TRIGGER]: 'fiveten-neutral-0',
-};
