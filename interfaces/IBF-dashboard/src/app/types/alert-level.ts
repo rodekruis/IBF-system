@@ -45,9 +45,9 @@ export const ALERT_LEVEL_COLOUR_CONTRAST: Record<AlertLevel, string> = {
 export const ALERT_LEVEL_TEXT_COLOUR: Record<AlertLevel, string> = {
   [AlertLevel.NONE]: '#00214d', // fiveten-navy-900
   [AlertLevel.WARNINGLOW]: '#665606', // fiveten-yellow-700
-  [AlertLevel.WARNINGMEDIUM]: '#da7c00', // fiveten-orange-500
-  [AlertLevel.WARNING]: '#da7c00', // fiveten-orange-500
-  [AlertLevel.TRIGGER]: '#c70000', // fiveten-red-500
+  [AlertLevel.WARNINGMEDIUM]: '#7a2d00', // fiveten-orange-700
+  [AlertLevel.WARNING]: '#7a2d00', // fiveten-orange-700
+  [AlertLevel.TRIGGER]: '#940000', // fiveten-red-700
 };
 
 // REFACTOR: remove in favour of Tailwind v4 custom colours
@@ -75,9 +75,9 @@ export const ALERT_LEVEL_COLOUR_CONTRAST_CLASS: Record<AlertLevel, string> = {
 export const ALERT_LEVEL_TEXT_COLOUR_CLASS: Record<AlertLevel, string> = {
   [AlertLevel.NONE]: 'fiveten-navy-900',
   [AlertLevel.WARNINGLOW]: 'fiveten-yellow-700',
-  [AlertLevel.WARNINGMEDIUM]: 'fiveten-orange-500',
-  [AlertLevel.WARNING]: 'fiveten-orange-500',
-  [AlertLevel.TRIGGER]: 'fiveten-red-500',
+  [AlertLevel.WARNINGMEDIUM]: 'fiveten-orange-700',
+  [AlertLevel.WARNING]: 'fiveten-orange-700',
+  [AlertLevel.TRIGGER]: 'fiveten-red-700',
 };
 
 // REFACTOR: remove in favour of alert level instead of eap alert classes
