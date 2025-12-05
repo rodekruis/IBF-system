@@ -1,21 +1,19 @@
-@if (countryService.countries?.length > 1) {
-  <ion-item>
-    <ion-select
-      label="Country"
-      placeholder="Select Country"
-      data-testid="country-switcher-dropdown"
-      interface="popover"
-      (ionChange)="handleCountryChange($event)"
-      [value]="country ? country.countryCodeISO3 : null"
+@if (countries?.length > 1) {
+  <ion-item
+    [button]="true"
+    [detail]="true"
+    detail-icon="chevron-expand"
+    (click)="showUserCountries($event)"
+    lines="full"
+  >
+    <ion-label class="truncate" title="{{ 'common.country' | translate }}">{{
+      'common.country' | translate
+    }}</ion-label>
+    <ion-label
+      class="truncate text-right"
+      title="{{ country?.countryName ?? 'None' }}"
     >
-      @for (
-        country of countryService.countries;
-        track country.countryCodeISO3
-      ) {
-        <ion-select-option value="{{ country.countryCodeISO3 }}">
-          {{ country.countryName }}
-        </ion-select-option>
-      }
-    </ion-select>
+      {{ country?.countryName ?? 'None' }}
+    </ion-label>
   </ion-item>
 }

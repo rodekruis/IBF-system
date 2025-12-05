@@ -3,7 +3,7 @@
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-button (click)="cancelChanges()" color="medium">
-          {{ 'typeahead.cancel' | translate }}
+          {{ 'type-ahead.cancel' | translate }}
         </ion-button>
       </ion-buttons>
       <ion-buttons slot="end">
@@ -12,13 +12,13 @@
           color="dark"
           [disabled]="disableConfirm"
         >
-          {{ 'typeahead.save' | translate }}
+          {{ 'type-ahead.save' | translate }}
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
     <ion-toolbar>
       <ion-searchbar
-        placeholder="{{ 'typeahead.search-placeholder' | translate }}"
+        placeholder="{{ 'type-ahead.search-placeholder' | translate }}"
         (ionInput)="searchbarInput($event)"
       ></ion-searchbar>
     </ion-toolbar>
@@ -42,7 +42,7 @@
   @if (filteredItems.length === 0) {
     <ion-item lines="none">
       <ion-note class="mx-auto my-12">
-        {{ 'typeahead.no-items' | translate }}
+        {{ 'type-ahead.no-items' | translate }}
       </ion-note>
     </ion-item>
   }

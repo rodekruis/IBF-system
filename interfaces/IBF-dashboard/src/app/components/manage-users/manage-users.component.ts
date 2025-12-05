@@ -16,7 +16,7 @@ import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ManageUsersMenuComponent } from 'src/app/components/manage-users-menu/manage-users-menu.component';
-import { TypeaheadComponent } from 'src/app/components/typeahead/typeahead.component';
+import { TypeAheadComponent } from 'src/app/components/type-ahead/type-ahead.component';
 import { TOAST_DURATION, TOAST_POSITION } from 'src/app/config';
 import { Country } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
@@ -98,7 +98,7 @@ export class ManageUsersComponent implements OnDestroy {
       .getAuthSubscription()
       .subscribe(this.onAuthChange);
 
-    this.countryService.getAllCountries().subscribe((countries) => {
+    this.countryService.getCountries().subscribe((countries) => {
       this.countries = countries;
 
       countries.forEach(({ countryCodeISO3, countryName }) => {
@@ -295,7 +295,7 @@ export class ManageUsersComponent implements OnDestroy {
 
   public async showUserRoles(event: Event, user: User) {
     const popover = await this.popoverController.create({
-      component: TypeaheadComponent,
+      component: TypeAheadComponent,
       componentProps: {
         items: this.userRoles.map((userRole) => ({
           label: USER_ROLE_LABEL[userRole] || userRole,
@@ -324,7 +324,7 @@ export class ManageUsersComponent implements OnDestroy {
 
   public async showUserCountries(event: Event, user: User) {
     const popover = await this.popoverController.create({
-      component: TypeaheadComponent,
+      component: TypeAheadComponent,
       componentProps: {
         enableSearch: true,
         items: this.userCountries.map((countryCodeISO3) => ({

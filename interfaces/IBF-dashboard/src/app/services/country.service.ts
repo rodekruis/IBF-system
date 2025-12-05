@@ -9,7 +9,7 @@ import { ApiService } from 'src/app/services/api.service';
 @Injectable({ providedIn: 'root' })
 export class CountryService {
   private countrySubject = new BehaviorSubject<Country>(null);
-  public countries: Country[] = [];
+  private countries: Country[] = [];
 
   constructor(
     private apiService: ApiService,
@@ -42,7 +42,7 @@ export class CountryService {
       .subscribe(this.onCountriesByUser(user));
   }
 
-  public getAllCountries(): Observable<Country[]> {
+  public getCountries(): Observable<Country[]> {
     return this.apiService.getCountries(null, true);
   }
 

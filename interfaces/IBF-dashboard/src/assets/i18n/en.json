@@ -3,6 +3,7 @@
   "common": {
     "version": "Version",
     "loading": "Loading...",
+    "country": "Country",
     "error": {
       "unknown": "Something went wrong",
       "present-toast": "Error presenting toast"
@@ -309,7 +310,7 @@
   "breadcrumbs": { "national-view": "National View" },
   "layers-menu": { "menu-toggle-label": "Layers" },
   "layer-control-info-popover": { "upload-error": "Error uploading file" },
-  "typeahead": {
+  "type-ahead": {
     "no-items": "No items found",
     "search-placeholder": "Search",
     "cancel": "Cancel",

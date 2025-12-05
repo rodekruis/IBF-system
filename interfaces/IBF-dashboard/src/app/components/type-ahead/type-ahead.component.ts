@@ -22,8 +22,8 @@ export interface Item {
 }
 
 @Component({
-  selector: 'app-typeahead',
-  templateUrl: 'typeahead.component.html',
+  selector: 'app-type-ahead',
+  templateUrl: 'type-ahead.component.html',
   imports: [
     IonButton,
     IonButtons,
@@ -37,7 +37,7 @@ export interface Item {
     TranslateModule,
   ],
 })
-export class TypeaheadComponent implements OnInit {
+export class TypeAheadComponent implements OnInit {
   @Input() items: Item[] = [];
   @Input() selectedItems: string | string[] = [];
   @Input() enableSearch = false;
