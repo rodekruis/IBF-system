@@ -55,7 +55,7 @@ class MapComponent extends DashboardPage {
     this.redCrossMarker = this.page.getByAltText('Red Cross branches');
     this.glofasStations = this.page.locator('.glofas-station');
     this.triggerAreaOutlines = this.page.locator(
-      '[stroke="var(--ion-color-ibf-outline-red)"]',
+      '[stroke="var(--ion-color-fiveten-red-500)"]',
     );
     this.closeButtonIcon = this.page.getByTestId('close-matrix-icon');
     this.layerInfoContent = this.page.getByTestId('layer-info-content');
@@ -269,7 +269,7 @@ class MapComponent extends DashboardPage {
     if (scenario === 'trigger') {
       // Wait for locator to load when setTrigger is clicked
       await this.page.waitForSelector(
-        '[stroke="var(--ion-color-ibf-outline-red)"]',
+        '[stroke="var(--ion-color-fiveten-red-500)"]',
       );
       const triggerAreaOutlinesCount = await this.triggerAreaOutlines.count();
       const nthSelector = this.getRandomInt(1, triggerAreaOutlinesCount) - 1;

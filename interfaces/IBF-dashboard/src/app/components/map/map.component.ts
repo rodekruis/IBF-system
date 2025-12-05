@@ -36,12 +36,12 @@ import {
   Country,
   CountryDisasterSettings,
   DisasterType,
-  eapAlertClasses,
 } from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
 import {
   CommunityNotification,
   DamSite,
+  EapAlertClass,
   EvacuationCenter,
   HealthSite,
   RedCrossBranch,
@@ -52,14 +52,20 @@ import {
   Waterpoint,
 } from 'src/app/models/poi.model';
 import { AdminLevelService } from 'src/app/services/admin-level.service';
-import { Event, EventService } from 'src/app/services/event.service';
+import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
 import { MapLegendService } from 'src/app/services/map-legend.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { PointMarkerService } from 'src/app/services/point-marker.service';
 import { TimelineService } from 'src/app/services/timeline.service';
+import {
+  ALERT_LEVEL_LABEL,
+  ALERT_LEVEL_RANK,
+  AlertLevel,
+  eapAlertClassToAlertLevel,
+} from 'src/app/types/alert-level';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
-import { EventState } from 'src/app/types/event-state';
+import { Event, EventState } from 'src/app/types/event';
 import {
   IbfLayer,
   IbfLayerGroup,
@@ -158,7 +164,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.timelineStateSubscription.unsubscribe();
   }
 
-  private onLayerChange = (newLayer) => {
+  private onLayerChange = (newLayer: IbfLayer) => {
     if (newLayer) {
       newLayer =
         newLayer.data || newLayer.type === IbfLayerType.wms
@@ -206,16 +212,16 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private zoomToArea() {
     if (this.mapService.adminLevel) {
+      const adminLevelLayerName =
+        `${IbfLayerGroup.adminRegions}${String(this.mapService.adminLevel)}` as IbfLayerName;
       const adminRegionsLayer = this.layers.find(
-        (layer) =>
-          layer.name ===
-          `${IbfLayerGroup.adminRegions}${this.mapService.adminLevel}`,
+        (layer) => layer.name === adminLevelLayerName,
       );
 
       if (adminRegionsLayer) {
         const adminRegionsFiltered = JSON.parse(
           JSON.stringify(adminRegionsLayer.data),
-        );
+        ) as GeoJSON.FeatureCollection;
 
         if (this.placeCode) {
           adminRegionsFiltered.features =
@@ -301,7 +307,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const sortedLayersToShow = layersToShow.sort((a, b) => a.order - b.order);
 
     for (const layer of sortedLayersToShow) {
-      const elements = [];
+      const elements: string[] = [];
 
       switch (layer.type) {
         case IbfLayerType.point:
@@ -314,13 +320,30 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
               elements.push(element);
             }
-          } else if (layer.name === IbfLayerName.glofasStations) {
-            for (const [key, value] of this.getEapAlertClasses(layer.data)) {
-              const element = this.mapLegendService.getGlofasPointLegendString(
-                layer,
-                `-${key}-trigger`,
-                value.label,
-              );
+          } else if (
+            [IbfLayerName.glofasStations, IbfLayerName.gauges].includes(
+              layer.name,
+            )
+          ) {
+            const alertLevels = [AlertLevel.NONE];
+
+            if (layer.name === IbfLayerName.glofasStations) {
+              alertLevels.push(...this.getGloFASStationAlertLevels(layer.data));
+            } else if (layer.name === IbfLayerName.gauges) {
+              alertLevels.push(...this.getRiverGaugeAlertLevels(layer.data));
+            }
+
+            const uniqueAlertLevels = Array.from(new Set(alertLevels)).sort(
+              (a, b) => ALERT_LEVEL_RANK[a] - ALERT_LEVEL_RANK[b],
+            );
+
+            for (const alertLevel of uniqueAlertLevels) {
+              const element =
+                this.mapLegendService.getAlertLevelPointLegendString(
+                  layer,
+                  alertLevel,
+                  ALERT_LEVEL_LABEL[alertLevel],
+                );
 
               elements.push(element);
             }
@@ -364,15 +387,28 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     );
   }
 
-  private getEapAlertClasses({ features }: GeoJSON.FeatureCollection) {
-    const eapAlertClassKeysInData = features
-      .map(({ properties }) => properties?.['dynamicData']?.eapAlertClass)
+  private getGloFASStationAlertLevels({
+    features,
+  }: GeoJSON.FeatureCollection): AlertLevel[] {
+    const eapAlertClassesInData = features
+      .map(({ properties }) => properties?.['dynamicData']?.eapAlertClass) // REFACTOR: remove in favor of alert level
       .filter(Boolean);
-    const uniqueEapAlertClassKeysInData = new Set(eapAlertClassKeysInData);
 
-    return Object.entries(eapAlertClasses)
-      .reverse()
-      .filter(([key]) => uniqueEapAlertClassKeysInData.has(key));
+    return eapAlertClassesInData.map(
+      (eapAlertClass: EapAlertClass) =>
+        eapAlertClassToAlertLevel[eapAlertClass],
+    );
+  }
+
+  private getRiverGaugeAlertLevels({
+    features,
+  }: GeoJSON.FeatureCollection): AlertLevel[] {
+    return features
+      .map(
+        ({ properties }) =>
+          properties?.['dynamicData']?.['water-level-alert-level'],
+      ) // REFACTOR: merge with getGloFASStationAlertLevels
+      .filter(Boolean);
   }
 
   onMapReady(map: Map) {
@@ -425,14 +461,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  private getPointToLayerByLayer = (layerName) => {
+  private getPointToLayerByLayer = (layerName: IbfLayerName) => {
     return (geoJsonPoint: GeoJSON.Feature, latlng: LatLng): Marker => {
       switch (layerName) {
         case IbfLayerName.glofasStations: {
           return this.pointMarkerService.createMarkerStation(
             geoJsonPoint.properties as Station,
             latlng,
-            this.countryDisasterSettings,
             this.eventState?.events,
           );
         }
@@ -493,7 +528,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const clusterSize = cluster.getChildCount();
     const exposedClass = cluster
       .getAllChildMarkers()
-      .some((marker) => marker.feature.properties.dynamicData?.exposure)
+      .some(
+        (marker: Marker<{ dynamicData?: { exposure: boolean } }>) =>
+          marker.feature.properties.dynamicData?.exposure,
+      )
       ? ' exposed'
       : '';
     let size: number;
@@ -681,42 +719,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     }
 
     return adminRegionLayerPane;
-  }
-
-  public createThresHoldPopupAdminRegions(
-    layer: IbfLayer,
-    feature,
-    thresholdValue: number,
-    leadTimes: LeadTime[],
-  ): string {
-    const properties = 'properties';
-    const forecastValue = feature[properties][layer.colorProperty];
-    const featureTriggered = forecastValue > thresholdValue;
-    const headerTextColor = featureTriggered
-      ? 'var(--ion-color-ibf-trigger-alert-primary-contrast)'
-      : 'var(--ion-color-ibf-no-alert-primary-contrast)';
-    const title = feature.properties.name;
-    const lastAvailableLeadTime: LeadTime = leadTimes[leadTimes.length - 1];
-    const timeUnit = lastAvailableLeadTime.split('-')[1];
-    const subtitle = `${layer.label} for current ${timeUnit} selected`;
-    const eapStatusColor = featureTriggered
-      ? 'var(--ion-color-ibf-trigger-alert-primary)'
-      : 'var(--ion-color-ibf-no-alert-primary)';
-    const eapStatusText = featureTriggered
-      ? 'ACTIVATE EARLY ACTIONS'
-      : 'No action';
-    const thresholdName = 'Alert threshold';
-
-    return this.pointMarkerService.createThresholdPopup(
-      headerTextColor,
-      title,
-      eapStatusColor,
-      eapStatusText,
-      forecastValue,
-      thresholdValue,
-      subtitle,
-      thresholdName,
-    );
   }
 
   private createAdminRegionsLayer(layer: IbfLayer): GeoJSON {

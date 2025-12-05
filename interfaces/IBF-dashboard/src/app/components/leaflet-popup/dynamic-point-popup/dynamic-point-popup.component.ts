@@ -1,13 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { LatLng } from 'leaflet';
-import {
-  defaultEapAlertClassKey,
-  EapAlertClass,
-  eapAlertClasses,
-  EapAlertClassKey,
-} from 'src/app/models/country.model';
 import { RiverGauge, Station } from 'src/app/models/poi.model';
+import {
+  ALERT_LEVEL_COLOUR_CLASS,
+  ALERT_LEVEL_COLOUR_CONTRAST_CLASS,
+  ALERT_LEVEL_LABEL,
+  ALERT_LEVEL_TEXT_COLOUR_CLASS,
+  AlertLevel,
+  eapAlertClassToAlertLevel,
+} from 'src/app/types/alert-level';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { LeadTime } from 'src/app/types/lead-time';
 
@@ -38,16 +40,12 @@ export class DynamicPointPopupComponent implements OnInit {
 
   public ibfLayerName = IbfLayerName;
 
-  public title: string;
-  public footerContent: string;
-
-  private eapAlertClassKey: EapAlertClassKey = defaultEapAlertClassKey;
-  private eapAlertClass: EapAlertClass;
-
-  public headerClass = { 'rounded-t-lg p-2 text-white': true };
+  public headerClass = { 'rounded-t-lg p-2': true };
   public footerClass = {
     'rounded-b-lg border-t px-2 py-1 text-center font-semibold': true,
   };
+
+  private alertLevel: AlertLevel = AlertLevel.NONE;
 
   private allowedLayers = [
     IbfLayerName.gauges,
@@ -55,7 +53,7 @@ export class DynamicPointPopupComponent implements OnInit {
     IbfLayerName.glofasStations,
   ];
 
-  constructor(private translate: TranslateService) {}
+  constructor(private translateService: TranslateService) {}
 
   ngOnInit(): void {
     if (!this.layerName || !this.allowedLayers.includes(this.layerName)) {
@@ -73,39 +71,44 @@ export class DynamicPointPopupComponent implements OnInit {
       };
 
       this.headerClass['bg-ibf-primary'] = true;
+      this.headerClass['text-ibf-white'] = true;
     }
 
-    if (this.layerName === IbfLayerName.gauges) {
-      this.headerClass['bg-ibf-no-alert-primary'] = true;
-    }
-
-    if (this.layerName === IbfLayerName.glofasStations) {
-      if (this.glofasData.station.dynamicData?.eapAlertClass) {
-        this.eapAlertClassKey =
-          this.glofasData.station.dynamicData?.eapAlertClass;
+    if (
+      [IbfLayerName.glofasStations, IbfLayerName.gauges].includes(
+        this.layerName,
+      )
+    ) {
+      if (this.layerName === IbfLayerName.gauges) {
+        this.alertLevel =
+          this.riverGauge.dynamicData?.['water-level-alert-level'] ??
+          AlertLevel.NONE;
+      } else if (this.layerName === IbfLayerName.glofasStations) {
+        if (this.glofasData.station.dynamicData?.eapAlertClass) {
+          this.alertLevel =
+            eapAlertClassToAlertLevel[
+              this.glofasData.station.dynamicData?.eapAlertClass
+            ];
+        }
       }
 
-      this.eapAlertClass = eapAlertClasses[this.eapAlertClassKey];
-      this.headerClass['bg-' + this.eapAlertClass.color] = true;
+      this.headerClass[`bg-${ALERT_LEVEL_COLOUR_CLASS[this.alertLevel]}`] =
+        true;
 
-      this.headerClass['text-' + this.eapAlertClass.textColor] =
-        !!this.eapAlertClass.textColor;
-
-      this.headerClass['text-ibf-white'] = !this.eapAlertClass.textColor;
+      this.headerClass[
+        `text-${ALERT_LEVEL_COLOUR_CONTRAST_CLASS[this.alertLevel]}`
+      ] = true;
 
       this.footerClass[
-        'text-' + this.eapAlertClass.textColor || this.eapAlertClass.color
+        'text-' + ALERT_LEVEL_TEXT_COLOUR_CLASS[this.alertLevel]
       ] = true;
     }
-
-    this.title = this.getTitle();
-    this.footerContent = this.getFooterContent();
   }
 
-  private getTitle(): string {
+  get title(): string {
     if (this.layerName === IbfLayerName.gauges) {
       const header = String(
-        this.translate.instant('map-popups.river-gauge.header'),
+        this.translateService.instant('map-popups.river-gauge.header'),
       );
 
       return `${header} ${this.riverGauge.fid} ${this.riverGauge.name}`;
@@ -124,21 +127,21 @@ export class DynamicPointPopupComponent implements OnInit {
     return '';
   }
 
-  private getFooterContent(): string {
-    if (this.layerName === IbfLayerName.gauges) {
-      const waterLevel = this.riverGauge.dynamicData?.['water-level'];
-      const reference = this.riverGauge.dynamicData?.['water-level-reference'];
+  get footer(): string {
+    if (
+      [IbfLayerName.glofasStations, IbfLayerName.gauges].includes(
+        this.layerName,
+      )
+    ) {
+      if (
+        !this.riverGauge?.dynamicData &&
+        !this.glofasData?.station?.dynamicData
+      ) {
+        // no footer if no dynamic data
+        return '';
+      }
 
-      if (waterLevel == null) return '';
-
-      const below = String(
-        this.translate.instant('map-popups.river-gauge.below'),
-      );
-      const above = String(
-        this.translate.instant('map-popups.river-gauge.above'),
-      );
-
-      return waterLevel <= reference ? below : above;
+      return ALERT_LEVEL_LABEL[this.alertLevel];
     }
 
     if (this.layerName === IbfLayerName.typhoonTrack) {
@@ -149,10 +152,6 @@ export class DynamicPointPopupComponent implements OnInit {
       const lngDir = lng > 0 ? 'E' : 'W';
 
       return `${latAbs}° ${latDir}, ${lngAbs}° ${lngDir}`;
-    }
-
-    if (this.layerName === IbfLayerName.glofasStations) {
-      return this.eapAlertClass.label;
     }
 
     return '';

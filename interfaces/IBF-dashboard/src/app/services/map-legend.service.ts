@@ -5,7 +5,8 @@ import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
-import { EventState } from 'src/app/types/event-state';
+import { AlertLevel } from 'src/app/types/alert-level';
+import { EventState } from 'src/app/types/event';
 import {
   IbfLayer,
   IbfLayerLabel,
@@ -41,7 +42,7 @@ export class MapLegendService {
     [IbfLayerName.evacuationCenters]: 'evacuation-center-marker.svg',
     [IbfLayerName.schools]: 'school-marker.svg',
     [IbfLayerName.communityNotifications]: 'community-notification-marker.svg',
-    [IbfLayerName.gauges]: 'river-gauge-marker.svg',
+    [IbfLayerName.gauges]: 'river-gauge.svg',
   };
 
   constructor(
@@ -73,43 +74,32 @@ export class MapLegendService {
 
   public getPointLegendString(layer: IbfLayer, exposed: boolean): string {
     const iconName = String(this.layerIcon[layer.name]);
-
-    if (!iconName) {
-      throw new Error(`Icon not found for layer: ${layer.name}`);
-    }
-
     const exposedSuffix = exposed ? '-exposed' : '';
-    const iconUrl =
-      this.layerIconURLPrefix +
-      iconName.slice(0, -4) +
-      exposedSuffix +
-      iconName.slice(-4);
+    const iconUrl = `${this.layerIconURLPrefix}${iconName.slice(0, -4)}${exposedSuffix}${iconName.slice(-4)}`;
     const label = exposed ? `Exposed ${layer.label}` : layer.label;
 
     return this.singleRowLegend(SingleRowLegendType.pin, iconUrl, label);
   }
 
-  public getGlofasPointLegendString(
+  public getAlertLevelPointLegendString(
     layer: IbfLayer,
-    glofasState: string,
+    alertLevel: AlertLevel,
     label: string,
   ): string {
     const iconName = String(this.layerIcon[layer.name]);
+    const iconUrl = `${this.layerIconURLPrefix}${iconName.slice(0, -4)}-${alertLevel}${iconName.slice(-4)}`;
+    let prefix = '';
 
-    if (!iconName) {
-      throw new Error(`Icon not found for layer: ${layer.name}`);
+    if (layer.name === IbfLayerName.glofasStations) {
+      prefix = 'GloFAS';
+    } else if (layer.name === IbfLayerName.gauges) {
+      prefix = 'River Gauge';
     }
-
-    const iconUrl =
-      this.layerIconURLPrefix +
-      iconName.slice(0, -4) +
-      glofasState +
-      iconName.slice(-4);
 
     return this.singleRowLegend(
       SingleRowLegendType.pin,
       iconUrl,
-      `GloFAS ${label}`,
+      `${prefix} ${label}`,
     );
   }
 

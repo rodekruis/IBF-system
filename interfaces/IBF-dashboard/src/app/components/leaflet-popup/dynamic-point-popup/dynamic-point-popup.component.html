@@ -1,7 +1,7 @@
 <div [ngClass]="headerClass">
   <strong>{{ title }}</strong>
 </div>
-<div class="p-2" [class.rounded-b-lg]="!footerContent">
+<div class="p-2" [class.rounded-b-lg]="!footer">
   @switch (layerName) {
     @case (ibfLayerName.gauges) {
       <app-river-gauge-popup-content
@@ -20,8 +20,8 @@
     }
   }
 </div>
-@if (footerContent) {
+@if (footer) {
   <div [ngClass]="footerClass">
-    {{ footerContent }}
+    {{ footer }}
   </div>
 }

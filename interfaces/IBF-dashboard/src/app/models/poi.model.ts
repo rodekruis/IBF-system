@@ -1,26 +1,28 @@
-import { EapAlertClassKey } from 'src/app/models/country.model';
+import { AlertLevel } from 'src/app/types/alert-level';
 
-export class Station {
+export interface Station {
   stationName: string;
   stationCode: string;
   dynamicData?: StationDynamicData;
 }
 
-export class StationDynamicData {
+export type EapAlertClass = 'max' | 'med' | 'min' | 'no';
+
+export interface StationDynamicData {
   forecastLevel: number;
   triggerLevel: number;
   forecastReturnPeriod: number;
-  eapAlertClass: EapAlertClassKey;
+  eapAlertClass: EapAlertClass; // REFACTOR: remove in favour of AlertLevel
 }
 
-export class TyphoonTrackPoint {
+export interface TyphoonTrackPoint {
   timestampOfTrackpoint: string;
   windspeed: number;
   category: string;
   firstLandfall: boolean;
   closestToLand: boolean;
 }
-export class RedCrossBranch {
+export interface RedCrossBranch {
   branchName: string;
   numberOfVolunteers: number;
   contactPerson: string;
@@ -28,21 +30,23 @@ export class RedCrossBranch {
   contactNumber: string;
 }
 
-export class Waterpoint {
+export interface ExposablePointData {
+  dynamicData?: { exposure: string };
+}
+
+export interface Waterpoint extends ExposablePointData {
   fid: string;
   name: string;
   type: string;
   report_date: string;
-  dynamicData?: { exposure: string };
 }
 
-export class HealthSite {
+export interface HealthSite extends ExposablePointData {
   name: string;
   type: string;
-  dynamicData?: { exposure: string };
 }
 
-export class DamSite {
+export interface DamSite {
   damName: string;
   countryCodeISO3: string;
   fullSupplyCapacity: number;
@@ -50,38 +54,39 @@ export class DamSite {
   longitude: string;
 }
 
-export class EvacuationCenter {
+export interface EvacuationCenter {
   evacuationCenterName: string;
   countryCodeISO3: string;
   latitude: string;
   longitude: string;
 }
 
-export class School {
+export interface School extends ExposablePointData {
   name: string;
   type: string;
-  dynamicData?: { exposure: string };
 }
 
-export class CommunityNotification {
-  public nameVolunteer: string;
-  public nameVillage: string;
-  public description: string;
-  public type: string;
-  public uploadTime: string;
-  public dismissed: boolean;
-  public pointDataId: string;
-  public photoUrl: string;
+export interface CommunityNotification {
+  nameVolunteer: string;
+  nameVillage: string;
+  description: string;
+  type: string;
+  uploadTime: string;
+  dismissed: boolean;
+  pointDataId: string;
+  photoUrl: string;
 }
 
-export class RiverGauge {
+export interface RiverGauge {
   fid: string;
   name: string;
-  dynamicData: {
-    'water-level': string;
-    'water-level-previous': string;
-    'water-level-reference': string;
-  };
-
+  dynamicData: RiverGaugeDynamicData;
   pointDataId: string;
+}
+
+interface RiverGaugeDynamicData {
+  'water-level': string;
+  'water-level-previous': string;
+  'water-level-reference': string;
+  'water-level-alert-level': AlertLevel;
 }

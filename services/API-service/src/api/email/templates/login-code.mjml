@@ -115,7 +115,7 @@
           HT - Netherlands</mj-text
         >
         <mj-text align="center" font-size="12px"
-          ><a href="<%= dashboardUrl %>/unsubscribe"
+          ><a href="<%= dashboardUrl %>/manage/preferences"
             >Click here to unsubscribe</a
           ></mj-text
         >

@@ -7,6 +7,7 @@
 
 # Configuration, secrets, etc:
 .env
+.env.*
 inspect.docker-compose.config
 nginx/letsencrypt/*
 !nginx/letsencrypt/README.md

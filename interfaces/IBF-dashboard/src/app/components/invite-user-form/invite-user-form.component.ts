@@ -2,8 +2,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   IonButton,
-  IonCard,
-  IonIcon,
   IonInput,
   IonItem,
   IonLabel,
@@ -28,10 +26,8 @@ import { ErrorResponse } from 'src/app/types/api';
     IonList,
     IonItem,
     IonLabel,
-    IonIcon,
     IonInput,
     IonButton,
-    IonCard,
     TranslateModule,
     FormsModule,
   ],

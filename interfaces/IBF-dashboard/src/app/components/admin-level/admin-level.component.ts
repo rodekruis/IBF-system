@@ -25,7 +25,7 @@ import { MapViewService } from 'src/app/services/map-view.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
-import { EventState } from 'src/app/types/event-state';
+import { EventState } from 'src/app/types/event';
 import { IbfLayer, IbfLayerGroup, IbfLayerName } from 'src/app/types/ibf-layer';
 import { MapView } from 'src/app/types/map-view';
 

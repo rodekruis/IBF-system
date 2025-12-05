@@ -1,4 +1,3 @@
-import { ALERT_LEVEL_LABEL, AlertLevel } from 'src/app/services/event.service';
 import { AdminLevel } from 'src/app/types/admin-level';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
@@ -45,42 +44,6 @@ export type DroughtSeasonRegions = Record<string, DroughtSeasons>;
 export class NotificationInfo {
   linkVideo: string;
   linkPdf: string;
-}
-
-export const eapAlertClasses = {
-  no: {
-    label: ALERT_LEVEL_LABEL[AlertLevel.NONE],
-    color: 'ibf-no-alert-primary',
-    value: 0,
-  },
-  min: {
-    label: ALERT_LEVEL_LABEL[AlertLevel.WARNINGLOW],
-    color: 'fiveten-yellow-500',
-    textColor: 'fiveten-yellow-700',
-    value: 0.3,
-  },
-  med: {
-    label: ALERT_LEVEL_LABEL[AlertLevel.WARNINGMEDIUM],
-    color: 'fiveten-orange-500',
-    textColor: 'fiveten-orange-700',
-    value: 0.7,
-  },
-  max: {
-    label: ALERT_LEVEL_LABEL[AlertLevel.TRIGGER],
-    color: 'ibf-glofas-trigger',
-    value: 1,
-  },
-};
-
-export type EapAlertClassKey = keyof typeof eapAlertClasses;
-
-export const defaultEapAlertClassKey: EapAlertClassKey = 'no';
-
-export class EapAlertClass {
-  label: string;
-  color: string;
-  value: number;
-  textColor?: string;
 }
 
 export class AdminRegionLabels {

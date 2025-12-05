@@ -34,13 +34,7 @@
     unit="m3/s"
   ></app-threshold-bar>
 } @else {
-  <div
-    style="margin-bottom: 4px; display: flex; justify-content: space-between"
-  >
-    <div>
-      <ion-label style="font-size: 18px; padding-right: 8px">
-        {{ 'map-popups.glofas-station.no-data' | translate }}
-      </ion-label>
-    </div>
-  </div>
+  <ion-label class="pb-1 pr-2 text-gray-500">
+    {{ 'map-popups.glofas-station.no-data' | translate }}
+  </ion-label>
 }

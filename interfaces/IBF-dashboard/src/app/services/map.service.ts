@@ -13,13 +13,14 @@ import { AlertAreaService } from 'src/app/services/alert-area.service';
 import { ApiService } from 'src/app/services/api.service';
 import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
-import { AlertLevel, EventService } from 'src/app/services/event.service';
+import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevel, AdminLevelType } from 'src/app/types/admin-level';
 import { AlertArea } from 'src/app/types/alert-area';
+import { AlertLevel } from 'src/app/types/alert-level';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
-import { EventState } from 'src/app/types/event-state';
+import { EventState } from 'src/app/types/event';
 import {
   ColorBreaks,
   IbfLayer,
@@ -40,7 +41,7 @@ import { quantile } from 'src/shared/utils';
 export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
   public layers = [] as IbfLayer[];
-  private triggeredAreaColor = 'var(--ion-color-ibf-outline-red)';
+  private triggeredAreaColor = 'var(--ion-color-fiveten-red-500)';
   private nonTriggeredAreaColor = 'var(--ion-color-ibf-no-alert-primary)';
   private layerDataCache: Record<string, GeoJSON.FeatureCollection> = {};
 

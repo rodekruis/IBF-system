@@ -5,7 +5,15 @@ import {
   Injector,
 } from '@angular/core';
 import { format, isAfter, isBefore, isEqual, parseISO } from 'date-fns';
-import { divIcon, icon, IconOptions, LatLng, Marker, marker } from 'leaflet';
+import {
+  divIcon,
+  icon,
+  IconOptions,
+  LatLng,
+  Marker,
+  marker,
+  Popup,
+} from 'leaflet';
 import {
   AnalyticsEvent,
   AnalyticsPage,
@@ -21,13 +29,11 @@ import {
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_EXPOSED,
   LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH,
-  LEAFLET_MARKER_ICON_OPTIONS_RIVER_GAUGE,
   LEAFLET_MARKER_ICON_OPTIONS_SCHOOL,
   LEAFLET_MARKER_ICON_OPTIONS_SCHOOL_EXPOSED,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
   LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT_EXPOSED,
 } from 'src/app/config';
-import { CountryDisasterSettings } from 'src/app/models/country.model';
 import {
   CommunityNotification,
   DamSite,
@@ -40,7 +46,12 @@ import {
   TyphoonTrackPoint,
   Waterpoint,
 } from 'src/app/models/poi.model';
-import { Event, EventService } from 'src/app/services/event.service';
+import { EventService } from 'src/app/services/event.service';
+import {
+  AlertLevel,
+  eapAlertClassToAlertLevel,
+} from 'src/app/types/alert-level';
+import { Event } from 'src/app/types/event';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { LeadTime } from 'src/app/types/lead-time';
 
@@ -58,21 +69,20 @@ export class PointMarkerService {
   ) {}
 
   public createMarkerCommunityNotification(
-    markerProperties: CommunityNotification,
-    markerLatLng: LatLng,
+    communityNotification: CommunityNotification,
+    latLng: LatLng,
   ) {
-    if (markerProperties.dismissed) {
+    if (communityNotification.dismissed) {
       return;
     }
 
-    const markerTitle = markerProperties.nameVillage;
-    const markerInstance = marker(markerLatLng, {
-      title: markerTitle,
+    const markerInstance = marker(latLng, {
+      title: communityNotification.nameVillage,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_COMMUNITY_NOTIFICATION),
       alt: 'Community notifications',
     });
 
-    markerInstance.bindPopup(this.renderPopUpHTML(markerProperties), {
+    markerInstance.bindPopup(this.renderPopUpHTML(communityNotification), {
       minWidth: 220,
     });
 
@@ -84,7 +94,9 @@ export class PointMarkerService {
     return markerInstance;
   }
 
-  private renderPopUpHTML(popupData: CommunityNotification): HTMLElement {
+  private renderPopUpHTML(
+    communityNotification: CommunityNotification,
+  ): HTMLElement {
     const popup = document.createElement('popup-component');
     const factory = this.componentFactoryResolver.resolveComponentFactory(
       CommunityNotificationPopupComponent,
@@ -92,17 +104,17 @@ export class PointMarkerService {
     const popupComponentRef = factory.create(this.injector, [], popup);
 
     this.applicationRef.attachView(popupComponentRef.hostView);
-    popupComponentRef.instance.markerProperties = popupData;
+    popupComponentRef.instance.markerProperties = communityNotification;
 
     return popup;
   }
 
-  private formatAsCoordinate(markerLatLng: LatLng) {
-    const lat = `${Math.abs(markerLatLng.lat).toFixed(4)}° ${
-      markerLatLng.lat > 0 ? 'N' : 'S'
+  private formatAsCoordinate(latLng: LatLng) {
+    const lat = `${Math.abs(latLng.lat).toFixed(4)}° ${
+      latLng.lat > 0 ? 'N' : 'S'
     }`;
-    const lng = `${Math.abs(markerLatLng.lng).toFixed(4)}° ${
-      markerLatLng.lng > 0 ? 'E' : 'W'
+    const lng = `${Math.abs(latLng.lng).toFixed(4)}° ${
+      latLng.lng > 0 ? 'E' : 'W'
     }`;
 
     return `${lat}, ${lng}`;
@@ -117,31 +129,28 @@ export class PointMarkerService {
   };
 
   public createMarkerStation(
-    markerProperties: Station,
-    markerLatLng: LatLng,
-    countryDisasterSettings: CountryDisasterSettings,
+    station: Station,
+    latLng: LatLng,
     events: Event[],
   ): Marker {
+    const { stationName, stationCode, dynamicData } = station;
     const event = events.find(
-      ({ eventName }) =>
-        eventName === markerProperties.stationCode ||
-        eventName === markerProperties.stationName, // NOTE: this assumes events to be defined per station, and eventName=stationCode or stationName
+      ({ eventName }) => eventName === stationCode || eventName === stationName, // NOTE: this assumes events to be defined per station, and eventName=stationCode or stationName
     );
     // This reflects to take the trigger leadTime and not the earlier warning leadTime, in case of warning-to-trigger scenario
     const eventLeadTime = event?.firstTriggerLeadTime ?? event?.firstLeadTime;
-    const markerTitle = markerProperties.stationName;
-    const eapAlertClassKey =
-      markerProperties.dynamicData?.eapAlertClass ?? 'no';
-    const markerClassName = `glofas-station glofas-station-${eapAlertClassKey}`;
+    const eapAlertClassKey = dynamicData?.eapAlertClass ?? 'no';
+    const alertLevel = eapAlertClassToAlertLevel[eapAlertClassKey];
+    const markerClassName = `glofas-station glofas-station-${alertLevel}`;
     const markerIcon: IconOptions = {
       ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
-      iconUrl: `assets/markers/glofas-station-${eapAlertClassKey}-trigger.svg`,
-      iconRetinaUrl: `assets/markers/glofas-station-${eapAlertClassKey}-trigger.svg`,
+      iconUrl: `assets/markers/glofas-station-${alertLevel}.svg`,
+      iconRetinaUrl: `assets/markers/glofas-station-${alertLevel}.svg`,
       className: markerClassName,
     };
-    const popupClassName = `trigger-popup-${eapAlertClassKey}`;
-    const markerInstance = marker(markerLatLng, {
-      title: markerTitle,
+    const popupClassName = `glofas-station-popup glofas-station-popup-${alertLevel}`;
+    const markerInstance = marker(latLng, {
+      title: stationName,
       icon: markerIcon
         ? icon(markerIcon)
         : divIcon({ className: markerClassName }),
@@ -149,7 +158,7 @@ export class PointMarkerService {
     });
 
     markerInstance.bindPopup(
-      this.createMarkerStationPopup(markerProperties, eventLeadTime),
+      this.createMarkerStationPopup(station, eventLeadTime),
       { minWidth: 350, className: popupClassName },
     );
 
@@ -162,12 +171,17 @@ export class PointMarkerService {
   }
 
   public createMarkerTyphoonTrack(
-    markerProperties: TyphoonTrackPoint,
-    markerLatLng: LatLng,
+    {
+      timestampOfTrackpoint,
+      firstLandfall,
+      closestToLand,
+      category,
+    }: TyphoonTrackPoint,
+    latLng: LatLng,
     lastUploadDateString: string,
     closestPointToTyphoon: Date,
   ): Marker {
-    const markerDateTime = parseISO(markerProperties.timestampOfTrackpoint);
+    const markerDateTime = parseISO(timestampOfTrackpoint);
     const lastUploadDate = parseISO(lastUploadDateString);
     const isLatest = isEqual(markerDateTime, closestPointToTyphoon);
     const titleFormat = 'ccc, dd LLLL, HH:mm';
@@ -183,13 +197,12 @@ export class PointMarkerService {
       }
     }
 
-    if (markerProperties.firstLandfall || markerProperties.closestToLand) {
+    if (firstLandfall || closestToLand) {
       className += ' typhoon-track-icon-firstLandfall';
     }
 
-    const title = format(markerDateTime, titleFormat);
-    const markerInstance = marker(markerLatLng, {
-      title,
+    const markerInstance = marker(latLng, {
+      title: format(markerDateTime, titleFormat),
       icon: divIcon({
         className,
         iconSize: isLatest
@@ -207,9 +220,9 @@ export class PointMarkerService {
 
     markerInstance.bindPopup(
       this.createMarkerTyphoonTrackPopup(
-        markerProperties.timestampOfTrackpoint,
-        markerProperties.category,
-        markerLatLng,
+        timestampOfTrackpoint,
+        category,
+        latLng,
         !isAfter(markerDateTime, lastUploadDate),
       ),
       { minWidth: 350, className: 'typhoon-track-popup' },
@@ -224,17 +237,16 @@ export class PointMarkerService {
   }
 
   public createMarkerRedCrossBranch(
-    markerProperties: RedCrossBranch,
-    markerLatLng: LatLng,
+    redCrossBranch: RedCrossBranch,
+    latLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.branchName;
-    const markerInstance = marker(markerLatLng, {
-      title: markerTitle,
+    const markerInstance = marker(latLng, {
+      title: redCrossBranch.branchName,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RED_CROSS_BRANCH),
       alt: 'Red Cross branches',
     });
 
-    markerInstance.bindPopup(this.createMarkerRedCrossPopup(markerProperties));
+    markerInstance.bindPopup(this.createMarkerRedCrossPopup(redCrossBranch));
 
     markerInstance.on(
       'click',
@@ -244,38 +256,34 @@ export class PointMarkerService {
     return markerInstance;
   }
 
-  public createMarkerDam(
-    markerProperties: DamSite,
-    markerLatLng: LatLng,
-  ): Marker {
-    const markerTitle = markerProperties.damName;
-    const markerInstance = marker(markerLatLng, {
-      title: markerTitle,
+  public createMarkerDam(damSite: DamSite, latLng: LatLng): Marker {
+    const markerInstance = marker(latLng, {
+      title: damSite.damName,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_DAM),
     });
 
-    markerInstance.bindPopup(this.createMarkerDamPopup(markerProperties));
+    markerInstance.bindPopup(this.createMarkerDamPopup(damSite));
     markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.dam));
 
     return markerInstance;
   }
 
   public createMarkerHealthSite(
-    markerProperties: HealthSite,
-    markerLatLng: LatLng,
+    healthSite: HealthSite,
+    latLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.name;
-    const markerInstance = marker(markerLatLng, {
-      title: markerTitle,
+    const { name, dynamicData } = healthSite;
+    const markerInstance = marker(latLng, {
+      title: name,
       icon: icon(
-        markerProperties.dynamicData?.exposure
+        dynamicData?.exposure
           ? LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT_EXPOSED
           : LEAFLET_MARKER_ICON_OPTIONS_HEALTH_POINT,
       ),
     });
 
     if (markerInstance) {
-      markerInstance.bindPopup(this.createHealthSitePopup(markerProperties));
+      markerInstance.bindPopup(this.createHealthSitePopup(healthSite));
 
       markerInstance.on(
         'click',
@@ -287,21 +295,21 @@ export class PointMarkerService {
   }
 
   public createMarkerWaterpoint(
-    markerProperties: Waterpoint,
-    markerLatLng: LatLng,
+    waterpoint: Waterpoint,
+    latLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.fid;
-    const markerInstance = marker(markerLatLng, {
-      title: markerTitle,
+    const { fid, dynamicData } = waterpoint;
+    const markerInstance = marker(latLng, {
+      title: fid,
       icon: icon(
-        markerProperties.dynamicData?.exposure
+        dynamicData?.exposure
           ? LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT_EXPOSED
           : LEAFLET_MARKER_ICON_OPTIONS_WATER_POINT,
       ),
     });
 
     markerInstance.bindPopup(
-      this.createMarkerWaterpointPopup(markerProperties, markerLatLng),
+      this.createMarkerWaterpointPopup(waterpoint, latLng),
     );
 
     markerInstance.on(
@@ -313,17 +321,16 @@ export class PointMarkerService {
   }
 
   public createMarkerEvacuationCenter(
-    markerProperties: EvacuationCenter,
-    markerLatLng: LatLng,
+    evacuationCenter: EvacuationCenter,
+    latLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties.evacuationCenterName;
-    const markerInstance = marker(markerLatLng, {
-      title: markerTitle,
+    const markerInstance = marker(latLng, {
+      title: evacuationCenter.evacuationCenterName,
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_EVACUATION_CENTER),
     });
 
     markerInstance.bindPopup(
-      this.createMarkerEvacuationCenterPopup(markerProperties, markerLatLng),
+      this.createMarkerEvacuationCenterPopup(evacuationCenter, latLng),
     );
 
     markerInstance.on(
@@ -334,43 +341,50 @@ export class PointMarkerService {
     return markerInstance;
   }
 
-  public createMarkerSchool(
-    markerProperties: School,
-    markerLatLng: LatLng,
-  ): Marker {
-    const markerTitle = markerProperties.name;
-    const markerInstance = marker(markerLatLng, {
-      title: markerTitle,
+  public createMarkerSchool(school: School, latLng: LatLng): Marker {
+    const { name, dynamicData } = school;
+    const markerInstance = marker(latLng, {
+      title: name,
       icon: icon(
-        markerProperties.dynamicData?.exposure
+        dynamicData?.exposure
           ? LEAFLET_MARKER_ICON_OPTIONS_SCHOOL_EXPOSED
           : LEAFLET_MARKER_ICON_OPTIONS_SCHOOL,
       ),
     });
 
-    markerInstance.bindPopup(
-      this.createMarkerSchoolPopup(markerProperties, markerLatLng),
-    );
-
+    markerInstance.bindPopup(this.createMarkerSchoolPopup(school, latLng));
     markerInstance.on('click', this.onMapMarkerClick(AnalyticsEvent.school));
 
     return markerInstance;
   }
 
   public createMarkerRiverGauges(
-    markerProperties: RiverGauge,
-    markerLatLng: LatLng,
+    riverGauge: RiverGauge,
+    latLng: LatLng,
   ): Marker {
-    const markerTitle = markerProperties;
-    const markerInstance = marker(markerLatLng, {
-      title: markerTitle.name,
-      icon: icon(LEAFLET_MARKER_ICON_OPTIONS_RIVER_GAUGE),
+    const markerTitle = riverGauge.name;
+    const alertLevel =
+      riverGauge.dynamicData?.['water-level-alert-level'] ?? AlertLevel.NONE;
+    const markerIconFileName = `river-gauge-${alertLevel}`;
+    const markerClassName = `river-gauge ${markerIconFileName}`;
+    const markerIcon: IconOptions = {
+      ...LEAFLET_MARKER_ICON_OPTIONS_BASE,
+      iconUrl: `assets/markers/${markerIconFileName}.svg`,
+      iconRetinaUrl: `assets/markers/${markerIconFileName}.svg`,
+      className: markerClassName,
+    };
+    const markerInstance = marker(latLng, {
+      title: markerTitle,
+      icon: markerIcon
+        ? icon(markerIcon)
+        : divIcon({ className: markerClassName }),
     });
+    const popupClassName = `river-gauge-popup ${markerIconFileName}`;
 
-    markerInstance.bindPopup(
-      this.createMarkerRiverGaugePopup(markerProperties),
-      { minWidth: 350, className: 'river-gauge-popup' },
-    );
+    markerInstance.bindPopup(this.createMarkerRiverGaugePopup(riverGauge), {
+      minWidth: 350,
+      className: popupClassName,
+    });
 
     markerInstance.on(
       'click',
@@ -380,62 +394,7 @@ export class PointMarkerService {
     return markerInstance;
   }
 
-  public createThresholdPopup(
-    eapStatusColorText: string,
-    title: string,
-    eapStatusColor: string,
-    eapStatusText: string,
-    forecastValue: number,
-    thresholdValue: number,
-    subtitle: string,
-    thresholdName: string,
-  ): string {
-    const difference = forecastValue - thresholdValue;
-    const closeMargin = 0.05;
-    const tooClose = Math.abs(difference) / thresholdValue < closeMargin;
-    const barValue =
-      difference === 0 || !tooClose
-        ? forecastValue
-        : thresholdValue + Math.sign(difference) * thresholdValue * closeMargin;
-    const triggerWidth = Math.max(
-      Math.min(Math.round((barValue / thresholdValue) * 100), 115),
-      0,
-    );
-    const addComma = (n: number) => Math.round(n).toLocaleString('en-US');
-    const headerContent = `<strong>${title}</strong>`;
-    const thresholdBar = this.createThresholdBar(
-      eapStatusColor,
-      eapStatusColorText,
-      triggerWidth,
-      addComma(forecastValue),
-      thresholdName,
-      addComma(thresholdValue),
-      80,
-    );
-    const middleContent = `
-    <div style="margin-bottom:5px">
-      ${subtitle}
-    </div>
-    ${thresholdBar}
-    `;
-    const footerContent = `
-      <div style="text-align: center">
-        <strong>${eapStatusText}</strong>
-      </div>
-    `;
-
-    return this.createDynamicPointPopup(
-      eapStatusColor,
-      headerContent,
-      middleContent,
-      footerContent,
-    );
-  }
-
-  private createMarkerStationPopup(
-    markerProperties: Station,
-    eventLeadTime: LeadTime,
-  ) {
+  private createMarkerStationPopup(station: Station, eventLeadTime: LeadTime) {
     const lastAvailableLeadTime: LeadTime = LeadTime.day7; // Agreed with pipeline that untriggered station will always show day 7
     const leadTime = eventLeadTime || lastAvailableLeadTime;
     const component = this.componentFactoryResolver
@@ -443,18 +402,18 @@ export class PointMarkerService {
       .create(this.injector);
 
     component.instance.layerName = IbfLayerName.glofasStations;
-    component.instance.glofasData = { station: markerProperties, leadTime };
+    component.instance.glofasData = { station, leadTime };
     component.changeDetectorRef.detectChanges();
 
-    return component.location.nativeElement;
+    return component.location.nativeElement as Popup;
   }
 
   private createMarkerTyphoonTrackPopup(
     timestamp: string,
     category: string,
-    markerLatLng: LatLng,
+    latLng: LatLng,
     passed: boolean,
-  ): string {
+  ) {
     const component = this.componentFactoryResolver
       .resolveComponentFactory(DynamicPointPopupComponent)
       .create(this.injector);
@@ -464,16 +423,16 @@ export class PointMarkerService {
     component.instance.typhoonTrackPoint = {
       timestamp,
       category,
-      markerLatLng,
+      markerLatLng: latLng,
       passed,
     };
 
     component.changeDetectorRef.detectChanges();
 
-    return component.location.nativeElement;
+    return component.location.nativeElement as Popup;
   }
 
-  private createMarkerRedCrossPopup(markerProperties: RedCrossBranch): string {
+  private createMarkerRedCrossPopup(markerProperties: RedCrossBranch) {
     const unknown = 'UNKNOWN';
 
     return `
@@ -485,11 +444,11 @@ export class PointMarkerService {
     `.trim();
   }
 
-  private createMarkerDamPopup(markerProperties: DamSite): string {
-    const damName = markerProperties.damName ?? '';
+  private createMarkerDamPopup(damSite: DamSite) {
+    const damName = damSite.damName ?? '';
     const fullSupplyCapacity =
-      markerProperties.fullSupplyCapacity != null
-        ? Math.round(markerProperties.fullSupplyCapacity).toLocaleString()
+      damSite.fullSupplyCapacity != null
+        ? Math.round(damSite.fullSupplyCapacity).toLocaleString()
         : '';
 
     return `
@@ -503,32 +462,29 @@ export class PointMarkerService {
   }
 
   private createMarkerEvacuationCenterPopup(
-    markerProperties: EvacuationCenter,
-    markerLatLng: LatLng,
-  ): string {
+    evacuationCenter: EvacuationCenter,
+    latLng: LatLng,
+  ) {
     return `<div style="margin-bottom: 5px"><strong>Evacuation center: ${
-      markerProperties.evacuationCenterName
+      evacuationCenter.evacuationCenterName
     }</strong></div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
-      markerLatLng,
+      latLng,
     )}
     </div>`;
   }
 
-  private createMarkerSchoolPopup(
-    markerProperties: School,
-    markerLatLng: LatLng,
-  ): string {
+  private createMarkerSchoolPopup(school: School, latLng: LatLng) {
     return `<div style="margin-bottom: 5px"><strong>Name: ${
-      markerProperties.name
+      school.name
     }</strong></div><div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(
-      markerLatLng,
+      latLng,
     )}
     </div>`;
   }
 
-  private createHealthSitePopup(markerProperties: HealthSite): string {
-    const name = markerProperties.name ?? '';
-    const type = markerProperties.type ?? '';
+  private createHealthSitePopup(healthSite: HealthSite) {
+    const name = healthSite.name ?? '';
+    const type = healthSite.type ?? '';
 
     return `
       <div style="margin-bottom: 5px">
@@ -540,20 +496,17 @@ export class PointMarkerService {
     `.trim();
   }
 
-  private createMarkerWaterpointPopup(
-    markerProperties: Waterpoint,
-    markerLatLng: LatLng,
-  ): string {
+  private createMarkerWaterpointPopup(waterpoint: Waterpoint, latLng: LatLng) {
     return `
-      <div style="margin-bottom: 5px"><strong>Name: ${markerProperties.name}</strong></div>
-      ${markerProperties.type ? `<div style="margin-bottom: 5px">Type: ${markerProperties.type}</div>` : ''}
-      ${markerProperties.report_date ? `<div style="margin-bottom: 5px">Report date: ${markerProperties.report_date}</div>` : ''}
-      <div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(markerLatLng)}</div>
+      <div style="margin-bottom: 5px"><strong>Name: ${waterpoint.name}</strong></div>
+      ${waterpoint.type ? `<div style="margin-bottom: 5px">Type: ${waterpoint.type}</div>` : ''}
+      ${waterpoint.report_date ? `<div style="margin-bottom: 5px">Report date: ${waterpoint.report_date}</div>` : ''}
+      <div style="margin-bottom: 5px">Coordinate: ${this.formatAsCoordinate(latLng)}</div>
     `;
   }
 
-  public createMarkerDefault(markerLatLng: LatLng): Marker {
-    const markerInstance = marker(markerLatLng, {
+  public createMarkerDefault(latLng: LatLng): Marker {
+    const markerInstance = marker(latLng, {
       icon: icon(LEAFLET_MARKER_ICON_OPTIONS_BASE),
     });
 
@@ -571,78 +524,6 @@ export class PointMarkerService {
     component.instance.riverGauge = markerProperties;
     component.changeDetectorRef.detectChanges();
 
-    return component.location.nativeElement;
-  }
-
-  private createDynamicPointPopup(
-    accentColor: string,
-    headerContent: string,
-    middleContent: string,
-    footerContent: string,
-  ): string {
-    const contrastColor = 'var(--ion-color-ibf-white)';
-
-    return `
-      <div style="background: ${accentColor}; color: ${contrastColor}; padding: 8px; border-radius: 8px 8px 0 0">
-        ${headerContent}
-      </div>
-      <div style="padding: 8px;">
-        ${middleContent}
-      </div>
-      <div style="background: ${contrastColor}; color: ${accentColor}; padding: 0 8px; border-radius: 0 0 8px 8px">
-        <div style="border-top: 1px solid var(--ion-color-ibf-grey-light); padding: 8px 0">
-          ${footerContent}
-        </div>
-      </div>
-
-    `;
-  }
-
-  private createThresholdBar(
-    backgroundColor: string,
-    textColor: string,
-    barWidth: number,
-    barValue: string,
-    thresholdDescription: string,
-    thresholdValue: string,
-    thresholdPosition: number, // width percentage to position threshold on bar
-  ): string {
-    return `
-    <div>
-      <div style="border-radius:10px;height:20px;background-color:#d4d3d2; width: 100%">
-        <div style="border-radius:10px 0 0 10px; border-right: dashed; border-right-width: thin;height:20px;width: ${thresholdPosition}%">
-          <div style="
-            border-radius:10px;
-            height:20px;
-            line-height:20px;
-            background-color:${backgroundColor};
-            color:${textColor};
-            text-align:center;
-            white-space: nowrap;
-            min-width: 20%;
-            width:${barWidth}%">${barValue}
-
-          </div>
-        </div>
-      </div>
-    </div>
-    <div style="
-      height:20px;
-      background-color:none;
-      border-right: dashed;
-      border-right-width: thin;
-      float: left; width: ${thresholdPosition}%;
-      padding-top: 5px;
-      margin-bottom:10px;
-      text-align: right;
-      padding-right: 2px">
-      ${thresholdDescription}:
-    </div>
-    <div style="height:20px;background-color:none; margin-left: ${
-      thresholdPosition + 1
-    }%; text-align: left; width: 20%; padding-top: 5px; margin-bottom:10px">
-      <strong>${thresholdValue}</strong>
-    </div>
-    `;
+    return component.location.nativeElement as Popup;
   }
 }

@@ -188,13 +188,16 @@ export class SeedInit implements InterfaceScript<SeedInitParams> {
       const indicatorRepository = this.dataSource.getRepository(
         IndicatorMetadataEntity,
       );
-      await indicatorRepository.save(
+      await indicatorRepository.upsert(
         JSON.parse(JSON.stringify(indicatorMetadata)),
+        ['name'],
       );
 
       const layerRepository =
         this.dataSource.getRepository(LayerMetadataEntity);
-      await layerRepository.save(JSON.parse(JSON.stringify(layerMetadata)));
+      await layerRepository.upsert(JSON.parse(JSON.stringify(layerMetadata)), [
+        'name',
+      ]);
     }
 
     for (const { countryCodeISO3, countryBoundingBox } of selectedCountries) {

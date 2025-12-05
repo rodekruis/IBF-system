@@ -49,5 +49,5 @@ export const ALERT_LEVEL_TEXT_COLOUR: Record<AlertLevel, string> = {
   [AlertLevel.WARNINGLOW]: '#665606', // fiveten-yellow-700
   [AlertLevel.WARNINGMEDIUM]: '#7a2d00', // fiveten-orange-700
   [AlertLevel.WARNING]: '#7a2d00', // fiveten-orange-700
-  [AlertLevel.TRIGGER]: '#c70000', // fiveten-red-500
+  [AlertLevel.TRIGGER]: '#940000', // fiveten-red-700
 };

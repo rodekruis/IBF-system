@@ -7,7 +7,6 @@ import { AlertPerLeadTime } from 'src/app/models/alert-per-lead-time.model';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
 import { ActivationLogRecord } from 'src/app/pages/dashboard/activation-log/activation.log.page';
-import { Event } from 'src/app/services/event.service';
 import { JwtService } from 'src/app/services/jwt.service';
 import { CreateUser, UpdateUser } from 'src/app/services/user.service';
 import { AdminLevel } from 'src/app/types/admin-level';
@@ -20,6 +19,7 @@ import {
   UpdateUserResponse,
 } from 'src/app/types/api';
 import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
+import { Event } from 'src/app/types/event';
 import { IbfLayerMetadata, IbfLayerName } from 'src/app/types/ibf-layer';
 import { Indicator } from 'src/app/types/indicator-group';
 import { LastUploadDate } from 'src/app/types/last-upload-date';

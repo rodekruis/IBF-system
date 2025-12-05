@@ -18,7 +18,7 @@ import { TimelineService } from 'src/app/services/timeline.service';
 import { AdminLevelType } from 'src/app/types/admin-level';
 import { AlertArea } from 'src/app/types/alert-area';
 import { EapAction } from 'src/app/types/eap-action';
-import { EventState } from 'src/app/types/event-state';
+import { EventState } from 'src/app/types/event';
 import { LeadTime } from 'src/app/types/lead-time';
 import { TimelineState } from 'src/app/types/timeline-state';
 

@@ -754,7 +754,7 @@
     "label": "River gauges",
     "type": "point",
     "leadTimeDependent": false,
-    "active": "no",
+    "active": "if-trigger",
     "description": {
       "ETH": {
         "flash-floods": "This layer shows where river gauges are on the map. They are marked with blue drop pins with a river icon. Clicking on a pin opens a pop-up with information about the current water level in meters above sea level (mMSL), the water level is updated daily. Changes compared to 24 hours ago are shown in green for a decrease or red for an increase. The reference water level is the typical level for this station during this season."

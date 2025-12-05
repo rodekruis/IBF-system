@@ -97,7 +97,6 @@ describe('MapComponent', () => {
         'createMarkerCommunityNotification',
         'createMarkerRiverGauges',
         'createMarkerDefault',
-        'createThresholdPopup',
       ],
     );
 
@@ -111,7 +110,7 @@ describe('MapComponent', () => {
       [
         'getLegendTitle',
         'getPointLegendString',
-        'getGlofasPointLegendString',
+        'getAlertLevelPointLegendString',
         'getShapeLegendString',
         'getWmsLegendString',
       ],

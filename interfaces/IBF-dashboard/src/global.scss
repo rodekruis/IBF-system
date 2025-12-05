@@ -127,10 +127,7 @@
   pointer-events: auto;
 }
 
-.trigger-popup-no,
-.trigger-popup-min,
-.trigger-popup-med,
-.trigger-popup-max,
+.glofas-station-popup,
 .typhoon-track-popup,
 .river-gauge-popup {
   .leaflet-popup-content-wrapper {
@@ -142,17 +139,14 @@
   }
 }
 
-.trigger-popup-no,
-.trigger-popup-min,
-.trigger-popup-med,
-.trigger-popup-max,
+.glofas-station-popup,
 .typhoon-track-popup,
 .river-gauge-popup {
   a {
     &.leaflet-popup-close-button {
       color: var(--ion-color-ibf-white);
       font-size: 20px;
-      padding-top: 5px;
+      padding-top: 4px;
       margin-right: 3px;
     }
   }

@@ -15,7 +15,7 @@ import {
   AdminLevelLabel,
   AdminLevelType,
 } from 'src/app/types/admin-level';
-import { EventState } from 'src/app/types/event-state';
+import { EventState } from 'src/app/types/event';
 import { IbfLayerName } from 'src/app/types/ibf-layer';
 import { TimelineState } from 'src/app/types/timeline-state';
 

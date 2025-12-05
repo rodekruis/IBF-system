@@ -1,6 +1,6 @@
 import { MOCK_ALERT_AREAS } from 'src/app/mocks/alert-areas.mock';
-import { AlertLevel, Event } from 'src/app/services/event.service';
-import { EventState } from 'src/app/types/event-state';
+import { AlertLevel } from 'src/app/types/alert-level';
+import { Event, EventState } from 'src/app/types/event';
 
 const MOCK_EVENT: Event = {
   countryCodeISO3: 'KEN',

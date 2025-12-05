@@ -9,8 +9,6 @@ import {
   IonItem,
   IonList,
   IonRow,
-  IonSelect,
-  IonSelectOption,
   PopoverController,
   ToastController,
 } from '@ionic/angular/standalone';
@@ -34,8 +32,6 @@ import { UpdateUserResponse } from 'src/app/types/api';
 @Component({
   selector: 'app-manage-users',
   imports: [
-    IonSelect,
-    IonSelectOption,
     IonGrid,
     IonRow,
     IonCol,
@@ -46,7 +42,6 @@ import { UpdateUserResponse } from 'src/app/types/api';
     IonItem,
     FormsModule,
     TranslateModule,
-    TypeaheadComponent,
   ],
   templateUrl: './manage-users.component.html',
   providers: [PopoverController],
