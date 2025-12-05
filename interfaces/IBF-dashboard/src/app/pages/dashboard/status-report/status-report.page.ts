@@ -40,7 +40,7 @@ export class StatusReportPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.countryService.getAllCountries().subscribe((countries) => {
+    this.countryService.getCountries().subscribe((countries) => {
       this.onGetAllCountries(countries);
     });
   }

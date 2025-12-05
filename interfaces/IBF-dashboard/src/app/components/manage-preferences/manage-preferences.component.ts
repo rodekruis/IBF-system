@@ -48,7 +48,7 @@ export class ManagePreferencesComponent implements OnDestroy {
       .getAuthSubscription()
       .subscribe(this.onAuthChange);
 
-    this.countryService.getAllCountries().subscribe((countries) => {
+    this.countryService.getCountries().subscribe((countries) => {
       this.countries = countries;
       this.updateDisasterTypeList();
     });

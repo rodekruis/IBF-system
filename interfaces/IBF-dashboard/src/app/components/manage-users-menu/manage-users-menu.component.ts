@@ -8,7 +8,7 @@ import {
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
 import { InviteUserFormComponent } from 'src/app/components/invite-user-form/invite-user-form.component';
-import { Item } from 'src/app/components/typeahead/typeahead.component';
+import { Item } from 'src/app/components/type-ahead/type-ahead.component';
 import { User } from 'src/app/models/user/user.model';
 import { downloadFile } from 'src/shared/utils';
 

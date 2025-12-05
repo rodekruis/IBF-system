@@ -31,7 +31,6 @@ export class DashboardPage implements OnInit, OnDestroy {
   public disasterType: DisasterType;
   public countryDisasterSettings: CountryDisasterSettings;
 
-  private adminRole = UserRole.Admin;
   private countrySubscription: Subscription;
   private disasterTypeSubscription: Subscription;
 
@@ -43,7 +42,7 @@ export class DashboardPage implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.authService.getAuthSubscription().subscribe(this.onUserChange);
+    this.authService.getAuthSubscription().subscribe(this.onAuthChange);
     this.analyticsService.logPageView(AnalyticsPage.dashboard);
 
     this.countrySubscription = this.countryService
@@ -60,12 +59,12 @@ export class DashboardPage implements OnInit, OnDestroy {
     this.disasterTypeSubscription.unsubscribe();
   }
 
-  private onUserChange = (user: User): void => {
+  private onAuthChange = (user: User) => {
     if (!user) {
       return;
     }
 
-    this.isDev = user.userRole === this.adminRole;
+    this.isDev = user.userRole === UserRole.Admin;
     this.isMultiCountry = user.countryCodesISO3.length > 1;
     this.userRole = user.userRole;
   };
