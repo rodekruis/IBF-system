@@ -1,3 +1,27 @@
+# [0.330.0](https://github.com/rodekruis/IBF-system/compare/v0.329.1...v0.330.0) (2025-12-05)
+
+
+### Bug Fixes
+
+* adjust column width based on number of countries ([ed3c2fb](https://github.com/rodekruis/IBF-system/commit/ed3c2fb41bf10bdb10d48321d07d56e0dcf2ff6d))
+* always include alert level none in legend ([7f0c459](https://github.com/rodekruis/IBF-system/commit/7f0c45982f276edc2518aef2c25ce63032afe0d7))
+* center popup close icon ([27f6f73](https://github.com/rodekruis/IBF-system/commit/27f6f737422b3c60a8a09bf59e3ee83da9ae3fe2))
+* import error ([a9e988f](https://github.com/rodekruis/IBF-system/commit/a9e988faa4f5a893e9b85a5ab265f5dbaefbb12e))
+* logins cascade ([ffca98b](https://github.com/rodekruis/IBF-system/commit/ffca98bbdfb84c68ece3734029db0aba313a7e15))
+* mock ([5431a66](https://github.com/rodekruis/IBF-system/commit/5431a66469ad94ae73f23f47df262c6e0e95994d))
+* remove unused columns ([c9576d2](https://github.com/rodekruis/IBF-system/commit/c9576d2ff4871a78cc76fecacbf7289c108c8449))
+* seed metadata ([114a4d9](https://github.com/rodekruis/IBF-system/commit/114a4d94280d5c910d079a03aa6326094aec4ef3))
+* unsubscribe url ([62c316e](https://github.com/rodekruis/IBF-system/commit/62c316e2fd0da6c38caeacf39ef8fa905875a297))
+* use darker text colours ([04718ec](https://github.com/rodekruis/IBF-system/commit/04718ecb80efefc65ac1db3a4bc3baef5cb401c6))
+* use log level warn ([6b2657d](https://github.com/rodekruis/IBF-system/commit/6b2657d6e5e58577d6529d14af13a351f29907c3))
+
+
+### Features
+
+* gauges with alert levels ([03dd932](https://github.com/rodekruis/IBF-system/commit/03dd9320e88f2a6a166aa258bb8ad6fbaaa7f62a))
+
+
+
 ## [0.329.1](https://github.com/rodekruis/IBF-system/compare/v0.329.0...v0.329.1) (2025-12-03)
 
 
@@ -148,20 +172,6 @@
 * login query params ([1a354c0](https://github.com/rodekruis/IBF-system/commit/1a354c023a85ef5ffd8e66d912b40d7aa411db1f))
 * remove screen orientation popover ([ea5cbfd](https://github.com/rodekruis/IBF-system/commit/ea5cbfd09a999a22e3ed7d1873d3e39163b94195))
 * remove triggered message from header ([55283e1](https://github.com/rodekruis/IBF-system/commit/55283e1910ac34c1d5d9687f4514b73fbe779288))
-
-
-
-# [0.323.0](https://github.com/rodekruis/IBF-system/compare/v0.322.3...v0.323.0) (2025-08-29)
-
-
-### Bug Fixes
-
-* revert checkbox state on error ([c742334](https://github.com/rodekruis/IBF-system/commit/c742334abcf532f9fde7f258d33b7348d1da0176))
-
-
-### Features
-
-* early actions are checked instantly ([7371d08](https://github.com/rodekruis/IBF-system/commit/7371d0881164f5e7f5e6971d80ded39a9e4133eb))
 
 
 
