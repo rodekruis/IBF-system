@@ -325,19 +325,19 @@ export class MapComponent implements AfterViewInit, OnDestroy {
               layer.name,
             )
           ) {
-            let alertLevels: AlertLevel[] = [];
+            const alertLevels = [AlertLevel.NONE];
 
             if (layer.name === IbfLayerName.glofasStations) {
-              alertLevels = this.getGloFASStationAlertLevels(layer.data);
+              alertLevels.push(...this.getGloFASStationAlertLevels(layer.data));
             } else if (layer.name === IbfLayerName.gauges) {
-              alertLevels = this.getRiverGaugeAlertLevels(layer.data);
+              alertLevels.push(...this.getRiverGaugeAlertLevels(layer.data));
             }
 
-            alertLevels = Array.from(new Set(alertLevels)).sort(
+            const uniqueAlertLevels = Array.from(new Set(alertLevels)).sort(
               (a, b) => ALERT_LEVEL_RANK[a] - ALERT_LEVEL_RANK[b],
             );
 
-            for (const alertLevel of alertLevels) {
+            for (const alertLevel of uniqueAlertLevels) {
               const element =
                 this.mapLegendService.getAlertLevelPointLegendString(
                   layer,
