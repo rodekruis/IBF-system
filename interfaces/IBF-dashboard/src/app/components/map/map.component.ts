@@ -164,7 +164,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.timelineStateSubscription.unsubscribe();
   }
 
-  private onLayerChange = (newLayer) => {
+  private onLayerChange = (newLayer: IbfLayer) => {
     if (newLayer) {
       newLayer =
         newLayer.data || newLayer.type === IbfLayerType.wms
@@ -212,16 +212,16 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   private zoomToArea() {
     if (this.mapService.adminLevel) {
+      const adminLevelLayerName =
+        `${IbfLayerGroup.adminRegions}${String(this.mapService.adminLevel)}` as IbfLayerName;
       const adminRegionsLayer = this.layers.find(
-        (layer) =>
-          layer.name ===
-          `${IbfLayerGroup.adminRegions}${this.mapService.adminLevel}`,
+        (layer) => layer.name === adminLevelLayerName,
       );
 
       if (adminRegionsLayer) {
         const adminRegionsFiltered = JSON.parse(
           JSON.stringify(adminRegionsLayer.data),
-        );
+        ) as GeoJSON.FeatureCollection;
 
         if (this.placeCode) {
           adminRegionsFiltered.features =
@@ -307,7 +307,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const sortedLayersToShow = layersToShow.sort((a, b) => a.order - b.order);
 
     for (const layer of sortedLayersToShow) {
-      const elements = [];
+      const elements: string[] = [];
 
       switch (layer.type) {
         case IbfLayerType.point:
@@ -461,14 +461,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     });
   }
 
-  private getPointToLayerByLayer = (layerName) => {
+  private getPointToLayerByLayer = (layerName: IbfLayerName) => {
     return (geoJsonPoint: GeoJSON.Feature, latlng: LatLng): Marker => {
       switch (layerName) {
         case IbfLayerName.glofasStations: {
           return this.pointMarkerService.createMarkerStation(
             geoJsonPoint.properties as Station,
             latlng,
-            this.countryDisasterSettings,
             this.eventState?.events,
           );
         }
@@ -529,7 +528,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     const clusterSize = cluster.getChildCount();
     const exposedClass = cluster
       .getAllChildMarkers()
-      .some((marker) => marker.feature.properties.dynamicData?.exposure)
+      .some(
+        (marker: Marker<{ dynamicData?: { exposure: boolean } }>) =>
+          marker.feature.properties.dynamicData?.exposure,
+      )
       ? ' exposed'
       : '';
     let size: number;
@@ -717,42 +719,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     }
 
     return adminRegionLayerPane;
-  }
-
-  public createThresHoldPopupAdminRegions(
-    layer: IbfLayer,
-    feature,
-    thresholdValue: number,
-    leadTimes: LeadTime[],
-  ): string {
-    const properties = 'properties';
-    const forecastValue = feature[properties][layer.colorProperty];
-    const featureTriggered = forecastValue > thresholdValue;
-    const headerTextColor = featureTriggered
-      ? 'var(--ion-color-ibf-trigger-alert-primary-contrast)'
-      : 'var(--ion-color-ibf-no-alert-primary-contrast)';
-    const title = feature.properties.name;
-    const lastAvailableLeadTime: LeadTime = leadTimes[leadTimes.length - 1];
-    const timeUnit = lastAvailableLeadTime.split('-')[1];
-    const subtitle = `${layer.label} for current ${timeUnit} selected`;
-    const eapStatusColor = featureTriggered
-      ? 'var(--ion-color-ibf-trigger-alert-primary)'
-      : 'var(--ion-color-ibf-no-alert-primary)';
-    const eapStatusText = featureTriggered
-      ? 'ACTIVATE EARLY ACTIONS'
-      : 'No action';
-    const thresholdName = 'Alert threshold';
-
-    return this.pointMarkerService.createThresholdPopup(
-      headerTextColor,
-      title,
-      eapStatusColor,
-      eapStatusText,
-      forecastValue,
-      thresholdValue,
-      subtitle,
-      thresholdName,
-    );
   }
 
   private createAdminRegionsLayer(layer: IbfLayer): GeoJSON {
