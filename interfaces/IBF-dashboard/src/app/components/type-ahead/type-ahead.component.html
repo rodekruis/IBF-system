@@ -46,10 +46,7 @@
       </ion-item>
     }
   } @else {
-    <ion-radio-group
-      [value]="selectedItems"
-      (ionChange)="checkboxChange($event)"
-    >
+    <ion-radio-group [value]="selectedItems" (ionChange)="radioChange($event)">
       @for (item of filteredItems; track item.value) {
         <ion-item [lines]="$last ? 'none' : 'full'" [title]="item.label">
           <ion-radio
