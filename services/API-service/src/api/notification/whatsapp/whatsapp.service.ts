@@ -480,7 +480,9 @@ export class WhatsappService {
         country.notificationInfo.whatsappMessage[disasterType][messageKey]
           .contentSid;
     } catch (error: unknown) {
-      this.logger.log(`Message not found in notificationInfo. Error: ${error}`);
+      this.logger.warn(
+        `Message not found in notificationInfo. Error: ${error}`,
+      );
       return;
     }
 

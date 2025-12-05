@@ -94,7 +94,7 @@ export class MockService {
       useDefaultScenario,
     );
     if (!scenario) {
-      this.logger.log(
+      this.logger.warn(
         `Scenario ${scenarioName} not found for country ${countryCodeISO3} and disasterType ${disasterType}`,
       );
       return;
@@ -519,7 +519,7 @@ export class MockService {
         ({ disasterType }) => disasterType,
       );
       if (disasterType && !countryDisasterTypes.includes(disasterType)) {
-        this.logger.log(
+        this.logger.warn(
           `Disaster type ${disasterType} not found for country ${countryCodeISO3}`,
         );
         continue;
