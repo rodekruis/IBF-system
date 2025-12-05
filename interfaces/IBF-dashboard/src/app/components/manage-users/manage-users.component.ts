@@ -326,7 +326,7 @@ export class ManageUsersComponent implements OnDestroy {
     const popover = await this.popoverController.create({
       component: TypeAheadComponent,
       componentProps: {
-        enableSearch: true,
+        enableSearch: this.userCountries.length > 8, // size 8 based on height of type-ahead
         items: this.userCountries.map((countryCodeISO3) => ({
           label: this.countryName[countryCodeISO3] || countryCodeISO3,
           value: countryCodeISO3,

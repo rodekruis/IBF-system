@@ -43,7 +43,7 @@ export class CountrySwitcherComponent implements OnInit, OnDestroy {
     const popover = await this.popoverController.create({
       component: TypeAheadComponent,
       componentProps: {
-        enableSearch: true,
+        enableSearch: this.countries.length > 8, // size 8 based on height of type-ahead
         items: this.countries.map(({ countryName, countryCodeISO3 }) => ({
           label: countryName,
           value: countryCodeISO3,
