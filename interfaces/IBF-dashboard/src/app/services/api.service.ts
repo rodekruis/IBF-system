@@ -179,14 +179,14 @@ export class ApiService {
   }
 
   getCountries(
-    countryCodesISO3?: string,
+    countryCodesISO3?: string[],
     minimalInfo?: boolean,
   ): Observable<Country[]> {
     const path = 'country';
     let params = new HttpParams();
 
     if (countryCodesISO3) {
-      params = params.append('countryCodesISO3', countryCodesISO3);
+      params = params.append('countryCodesISO3', countryCodesISO3.join(','));
     }
 
     if (minimalInfo) {

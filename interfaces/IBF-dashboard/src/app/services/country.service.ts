@@ -38,7 +38,7 @@ export class CountryService {
 
   public getCountriesByUser(user: User): void {
     this.apiService
-      .getCountries(user.countryCodesISO3.join(','))
+      .getCountries(user.countryCodesISO3)
       .subscribe(this.onCountriesByUser(user));
   }
 
@@ -72,9 +72,7 @@ export class CountryService {
     if (!user?.countryCodesISO3) {
       this.countries = [];
     } else {
-      this.countries = this.countries
-        .filter(this.filterCountryByUser(user))
-        .sort((a, b) => (a.countryName > b.countryName ? 1 : -1));
+      this.countries = this.countries.filter(this.filterCountryByUser(user));
       if (this.countries.length > 0) {
         this.selectCountry(this.countries[0].countryCodeISO3);
       }

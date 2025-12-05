@@ -1,43 +1,67 @@
-@if (enableSearch) {
+@if (enableSearch || multi) {
   <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-button (click)="cancelChanges()" color="medium">
-          {{ 'type-ahead.cancel' | translate }}
-        </ion-button>
-      </ion-buttons>
-      <ion-buttons slot="end">
-        <ion-button
-          (click)="confirmChanges()"
-          color="dark"
-          [disabled]="disableConfirm"
-        >
-          {{ 'type-ahead.save' | translate }}
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-    <ion-toolbar>
-      <ion-searchbar
-        placeholder="{{ 'type-ahead.search-placeholder' | translate }}"
-        (ionInput)="searchbarInput($event)"
-      ></ion-searchbar>
-    </ion-toolbar>
+    @if (multi) {
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancelChanges()" color="medium">
+            {{ 'type-ahead.cancel' | translate }}
+          </ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button
+            (click)="confirmChanges()"
+            color="dark"
+            [disabled]="disableConfirm"
+          >
+            {{ 'type-ahead.save' | translate }}
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    }
+    @if (enableSearch) {
+      <ion-toolbar>
+        <ion-searchbar
+          placeholder="{{ 'type-ahead.search-placeholder' | translate }}"
+          (ionInput)="searchbarInput($event)"
+          [style]="{ paddingTop: multi ? '1px' : '15px' }"
+        ></ion-searchbar>
+      </ion-toolbar>
+    }
   </ion-header>
 }
 
 <ion-list [inset]="false" class="max-h-80 overflow-scroll">
-  @for (item of filteredItems; track item.value) {
-    <ion-item [lines]="$last ? 'none' : 'full'" [title]="item.label">
-      <ion-checkbox
-        color="light"
-        [value]="item.value"
-        [checked]="isChecked(item.value)"
-        (ionChange)="checkboxChange($event)"
-        [disabled]="item.disabled"
-      >
-        {{ item.label }}
-      </ion-checkbox>
-    </ion-item>
+  @if (multi) {
+    @for (item of filteredItems; track item.value) {
+      <ion-item [lines]="$last ? 'none' : 'full'" [title]="item.label">
+        <ion-checkbox
+          color="medium"
+          [value]="item.value"
+          [checked]="isChecked(item.value)"
+          (ionChange)="checkboxChange($event)"
+          [disabled]="item.disabled"
+        >
+          {{ item.label }}
+        </ion-checkbox>
+      </ion-item>
+    }
+  } @else {
+    <ion-radio-group
+      [value]="selectedItems"
+      (ionChange)="checkboxChange($event)"
+    >
+      @for (item of filteredItems; track item.value) {
+        <ion-item [lines]="$last ? 'none' : 'full'" [title]="item.label">
+          <ion-radio
+            color="medium"
+            [value]="item.value"
+            [disabled]="item.disabled"
+          >
+            {{ item.label }}
+          </ion-radio>
+        </ion-item>
+      }
+    </ion-radio-group>
   }
   @if (filteredItems.length === 0) {
     <ion-item lines="none">

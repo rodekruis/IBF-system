@@ -10,6 +10,8 @@ import {
   IonItem,
   IonList,
   IonNote,
+  IonRadio,
+  IonRadioGroup,
   IonSearchbar,
   IonToolbar,
 } from '@ionic/angular/standalone';
@@ -28,6 +30,8 @@ export interface Item {
     IonButton,
     IonButtons,
     IonCheckbox,
+    IonRadio,
+    IonRadioGroup,
     IonHeader,
     IonItem,
     IonList,
