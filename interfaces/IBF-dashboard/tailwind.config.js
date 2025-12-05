@@ -13,7 +13,6 @@ export default {
         'ibf-black': 'var(--ion-color-ibf-black)',
         'ibf-grey': 'var(--ion-color-ibf-grey)',
         'ibf-no-alert-primary': 'var(--ion-color-ibf-no-alert-primary)',
-        'ibf-glofas-trigger': 'var(--ion-color-ibf-glofas-trigger)',
         'fiveten-neutral-0': 'var(--ion-color-fiveten-neutral-0)',
         'fiveten-navy-900': 'var(--ion-color-fiveten-navy-900)',
         'fiveten-yellow-500': 'var(--ion-color-fiveten-yellow-500)',
@@ -30,7 +29,6 @@ export default {
     { pattern: /(bg|text)-fiveten-neutral-0/ },
     { pattern: /(bg|text)-fiveten-navy-900/ },
     { pattern: /(bg|text)-fiveten-(red|orange|yellow)-(500|700)/ },
-    { pattern: /(bg|text)-ibf-glofas-trigger/ },
     { pattern: /(bg|text)-ibf-no-alert-primary/ },
   ],
 };

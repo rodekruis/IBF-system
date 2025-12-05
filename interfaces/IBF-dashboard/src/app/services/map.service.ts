@@ -41,7 +41,7 @@ import { quantile } from 'src/shared/utils';
 export class MapService {
   private layerSubject = new BehaviorSubject<IbfLayer>(null);
   public layers = [] as IbfLayer[];
-  private triggeredAreaColor = 'var(--ion-color-ibf-outline-red)';
+  private triggeredAreaColor = 'var(--ion-color-fiveten-red-500)';
   private nonTriggeredAreaColor = 'var(--ion-color-ibf-no-alert-primary)';
   private layerDataCache: Record<string, GeoJSON.FeatureCollection> = {};
 
