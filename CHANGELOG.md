@@ -1,3 +1,21 @@
+# [0.331.0](https://github.com/rodekruis/IBF-system/compare/v0.330.0...v0.331.0) (2025-12-08)
+
+
+### Bug Fixes
+
+* add stroke to svg markers ([13b5e57](https://github.com/rodekruis/IBF-system/commit/13b5e573f5796cf02bcfb6fc4b7fc040fb0db76e))
+* disable search for few typeahead items ([0b69992](https://github.com/rodekruis/IBF-system/commit/0b6999251834a4abed77c2835ec032bbf68af58d))
+* remove radio ([d86bde4](https://github.com/rodekruis/IBF-system/commit/d86bde452e835df9288ca113e0df0c6852208323))
+* use RadioGroupCustomEvent ([b041a11](https://github.com/rodekruis/IBF-system/commit/b041a11add58ddfc0d13e371e8ae454f0e762aad))
+
+
+### Features
+
+* use radio for non-multi typeahead ([94101a5](https://github.com/rodekruis/IBF-system/commit/94101a5188b26b8e5cc94239b67b94b2f2b2a328))
+* use type ahead in country switcher ([ce59c7f](https://github.com/rodekruis/IBF-system/commit/ce59c7f983f58519915eb463b40128644e1ab149))
+
+
+
 # [0.330.0](https://github.com/rodekruis/IBF-system/compare/v0.329.1...v0.330.0) (2025-12-05)
 
 
@@ -146,32 +164,6 @@
 
 * enable multi-threshold for ethiopia flood ([502defb](https://github.com/rodekruis/IBF-system/commit/502defbd006da66c420f46d4dcb2f5ef656228c9))
 * update auth endpoint ([335b441](https://github.com/rodekruis/IBF-system/commit/335b441868c9b94cea13c1e09c103fa5e7e29504))
-
-
-
-# [0.324.0](https://github.com/rodekruis/IBF-system/compare/v0.323.0...v0.324.0) (2025-09-05)
-
-
-### Bug Fixes
-
-* prompt email in login form ([555e565](https://github.com/rodekruis/IBF-system/commit/555e565a0cf3f093f89842c267473c1785f515c4))
-* remove logins on user delete ([423cf81](https://github.com/rodekruis/IBF-system/commit/423cf8128decbcfcc480993b5b32db232a09e9ba))
-* show error when server is down ([fdafe41](https://github.com/rodekruis/IBF-system/commit/fdafe41e8afdf4c41ddfaeb54abf298b9eb6bce9))
-* track id instead of email ([57dfa5c](https://github.com/rodekruis/IBF-system/commit/57dfa5c266cb8e18681c6d4320818793edb34f29))
-* word wrap in areas of focus ([b3e221c](https://github.com/rodekruis/IBF-system/commit/b3e221c395f47e83718f69b8dd4e43d115eb36c1))
-
-
-### Features
-
-* add email footer ([4be2d34](https://github.com/rodekruis/IBF-system/commit/4be2d34bc4146fbbc0138d0e84006b83bf086c02))
-* add integration tests ([457689c](https://github.com/rodekruis/IBF-system/commit/457689c6732dd6750c71cce73d6a8452dd06e075))
-* email code using SMTP ([6b05f29](https://github.com/rodekruis/IBF-system/commit/6b05f290fe4b9cd850fd542e7199616188beed7b))
-* login page ([e487911](https://github.com/rodekruis/IBF-system/commit/e487911ec43fe695da8e2b7794604989c3aa5c1b))
-* login page ([6e66575](https://github.com/rodekruis/IBF-system/commit/6e66575b99c87bbec45fdfea7752167b5d152813))
-* login page for mobile ([c2a8948](https://github.com/rodekruis/IBF-system/commit/c2a89485a567dd97837d180e0488d782ea4c0775))
-* login query params ([1a354c0](https://github.com/rodekruis/IBF-system/commit/1a354c023a85ef5ffd8e66d912b40d7aa411db1f))
-* remove screen orientation popover ([ea5cbfd](https://github.com/rodekruis/IBF-system/commit/ea5cbfd09a999a22e3ed7d1873d3e39163b94195))
-* remove triggered message from header ([55283e1](https://github.com/rodekruis/IBF-system/commit/55283e1910ac34c1d5d9687f4514b73fbe779288))
 
 
 
