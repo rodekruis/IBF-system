@@ -12,8 +12,8 @@ import {
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {
   Item,
-  TypeaheadComponent,
-} from 'src/app/components/typeahead/typeahead.component';
+  TypeAheadComponent,
+} from 'src/app/components/type-ahead/type-ahead.component';
 import { TOAST_DURATION, TOAST_POSITION } from 'src/app/config';
 import { User } from 'src/app/models/user/user.model';
 import { USER_ROLE_LABEL, UserRole } from 'src/app/models/user/user-role.enum';
@@ -108,7 +108,7 @@ export class InviteUserFormComponent {
 
   public async showUserRoles(event: Event) {
     const popover = await this.popoverController.create({
-      component: TypeaheadComponent,
+      component: TypeAheadComponent,
       componentProps: {
         items: this.userRoles,
         selectedItems: this.model.userRole,
@@ -133,9 +133,9 @@ export class InviteUserFormComponent {
 
   public async showUserCountries(event: Event) {
     const popover = await this.popoverController.create({
-      component: TypeaheadComponent,
+      component: TypeAheadComponent,
       componentProps: {
-        enableSearch: true,
+        enableSearch: this.userCountries.length > 8, // size 8 based on height of type-ahead
         items: this.userCountries,
         selectedItems: this.model.countryCodesISO3,
         selectionChange: {

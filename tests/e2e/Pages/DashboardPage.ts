@@ -5,8 +5,6 @@ class DashboardPage {
   readonly page: Page;
   readonly dashboardDevControlButton: Locator;
   readonly dashboardHomeButton: Locator;
-  readonly countrySwitcherDropdown: Locator;
-  readonly countrySwitcherDropdownOption: Locator;
   readonly dashboardDevControlCloseButton: Locator;
   readonly loader: Locator;
   readonly tooltipLabel: Locator;
@@ -18,10 +16,6 @@ class DashboardPage {
       'dashboard-dev-control-button',
     );
     this.dashboardHomeButton = this.page.getByTestId('dashboard-home-button');
-    this.countrySwitcherDropdown = this.page.getByTestId(
-      'country-switcher-dropdown',
-    );
-    this.countrySwitcherDropdownOption = this.page.locator('ion-radio');
     this.dashboardDevControlCloseButton = this.page.getByTestId(
       'dashboard-dev-control-close-button',
     );
