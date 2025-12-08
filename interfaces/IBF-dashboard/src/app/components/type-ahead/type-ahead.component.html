@@ -31,34 +31,18 @@
 }
 
 <ion-list [inset]="false" class="max-h-80 overflow-scroll">
-  @if (multi) {
-    @for (item of filteredItems; track item.value) {
-      <ion-item [lines]="$last ? 'none' : 'full'" [title]="item.label">
-        <ion-checkbox
-          color="medium"
-          [value]="item.value"
-          [checked]="isChecked(item.value)"
-          (ionChange)="checkboxChange($event)"
-          [disabled]="item.disabled"
-        >
-          {{ item.label }}
-        </ion-checkbox>
-      </ion-item>
-    }
-  } @else {
-    <ion-radio-group [value]="selectedItems" (ionChange)="radioChange($event)">
-      @for (item of filteredItems; track item.value) {
-        <ion-item [lines]="$last ? 'none' : 'full'" [title]="item.label">
-          <ion-radio
-            color="medium"
-            [value]="item.value"
-            [disabled]="item.disabled"
-          >
-            {{ item.label }}
-          </ion-radio>
-        </ion-item>
-      }
-    </ion-radio-group>
+  @for (item of filteredItems; track item.value) {
+    <ion-item [lines]="$last ? 'none' : 'full'" [title]="item.label">
+      <ion-checkbox
+        color="medium"
+        [value]="item.value"
+        [checked]="isChecked(item.value)"
+        (ionChange)="checkboxChange($event)"
+        [disabled]="item.disabled"
+      >
+        {{ item.label }}
+      </ion-checkbox>
+    </ion-item>
   }
   @if (filteredItems.length === 0) {
     <ion-item lines="none">

@@ -10,11 +10,8 @@ import {
   IonItem,
   IonList,
   IonNote,
-  IonRadio,
-  IonRadioGroup,
   IonSearchbar,
   IonToolbar,
-  RadioGroupCustomEvent,
 } from '@ionic/angular/standalone';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -31,8 +28,6 @@ export interface Item {
     IonButton,
     IonButtons,
     IonCheckbox,
-    IonRadio,
-    IonRadioGroup,
     IonHeader,
     IonItem,
     IonList,
@@ -121,21 +116,17 @@ export class TypeAheadComponent implements OnInit {
   checkboxChange(event: CheckboxCustomEvent<string>) {
     const { checked, value } = event.detail;
 
+    if (!this.multi) {
+      this.workingSelectedValues = [value];
+      this.confirmChanges();
+    }
+
     if (checked) {
       this.workingSelectedValues = [...this.workingSelectedValues, value];
     } else {
       this.workingSelectedValues = this.workingSelectedValues.filter(
         (item) => item !== value,
       );
-    }
-  }
-
-  radioChange(event: RadioGroupCustomEvent<string>) {
-    const { value } = event.detail;
-
-    if (!this.multi) {
-      this.workingSelectedValues = [value];
-      this.confirmChanges();
     }
   }
 
