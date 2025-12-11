@@ -4,8 +4,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, UpdateResult } from 'typeorm';
 
 import { HelperService } from '../../shared/helper.service';
+import {
+  DynamicIndicator,
+  FORECAST_SEVERITY,
+  FORECAST_TRIGGER,
+} from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
+import { CountryDisasterType } from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { SetTriggerDto } from '../event/dto/event-place-code.dto';
+import {
+  ALERT_LEVEL_FORECAST_SEVERITY,
+  AlertLevel,
+} from '../event/enum/alert-level.enum';
 import { EventService } from '../event/event.service';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 import { NotificationApiTestResponseDto } from '../notification/dto/notification-api-test-response.dto';
@@ -15,6 +25,7 @@ import { NotificationService } from '../notification/notification.service';
 export class ProcessEventsService {
   @InjectRepository(EventPlaceCodeEntity)
   private readonly eventPlaceCodeRepository: Repository<EventPlaceCodeEntity>;
+
   public constructor(
     private eventService: EventService,
     private helperService: HelperService,
@@ -110,5 +121,155 @@ export class ProcessEventsService {
     );
 
     return updateResult;
+  }
+
+  public async getEvents({
+    countryCodeISO3,
+    disasterType,
+    active = true,
+  }: CountryDisasterType & { active: boolean }) {
+    const query = this.eventPlaceCodeRepository
+      .createQueryBuilder('epc')
+      .select('epc.eventName', 'name')
+      .addSelect('MIN(epc.firstIssuedDate)', 'startDate')
+      .addSelect('MAX(epc.endDate)', 'endDate')
+      .addSelect('epc.disasterType', 'hazard')
+      .groupBy('epc.eventName')
+      .addGroupBy('epc.disasterType')
+      .addSelect('aa.countryCodeISO3', 'country')
+      // calculate exposed using various indicators
+      .addSelect(
+        `SUM(
+           CASE
+               WHEN
+                   aadd.indicator IN (
+                       '${DynamicIndicator.populationAffected}',
+                       '${DynamicIndicator.affectedPopulation}',
+                       '${DynamicIndicator.potentialCases}'
+                    )
+                THEN
+                    aadd.value
+                ELSE
+                    0
+           END
+        )::BIGINT`,
+        'exposed',
+      )
+      // calculate alertlevel based on forecastSeverity and forecastTrigger
+      .addSelect(
+        `CASE
+             WHEN
+                 MAX(
+                     CASE
+                         WHEN
+                             aadd.indicator = '${FORECAST_TRIGGER}'
+                         THEN
+                             aadd.value
+                         ELSE
+                             0
+                     END
+                  ) = ${ALERT_LEVEL_FORECAST_SEVERITY[AlertLevel.TRIGGER]}
+             THEN
+                 '${AlertLevel.TRIGGER}'
+             WHEN
+                 MAX(
+                     CASE
+                         WHEN
+                             aadd.indicator = '${FORECAST_SEVERITY}'
+                         THEN
+                             aadd.value
+                         ELSE
+                             0
+                     END
+                  ) >= ${ALERT_LEVEL_FORECAST_SEVERITY[AlertLevel.WARNINGMEDIUM]}
+             THEN
+                 '${AlertLevel.WARNING}'
+             WHEN
+                 MAX(
+                     CASE
+                         WHEN
+                             aadd.indicator = '${FORECAST_SEVERITY}'
+                         THEN
+                             aadd.value
+                         ELSE
+                             0
+                     END
+                  ) >= ${ALERT_LEVEL_FORECAST_SEVERITY[AlertLevel.WARNINGLOW]}
+             THEN
+                 '${AlertLevel.WARNINGMEDIUM}'
+             WHEN
+                 MAX(
+                     CASE
+                         WHEN
+                             aadd.indicator = '${FORECAST_SEVERITY}'
+                         THEN
+                             aadd.value
+                         ELSE
+                             0
+                     END
+                  ) > ${ALERT_LEVEL_FORECAST_SEVERITY[AlertLevel.NONE]}
+             THEN
+                 '${AlertLevel.WARNINGLOW}'
+             ELSE
+                 '${AlertLevel.NONE}'
+        END`,
+        'alertlevel',
+      )
+      .leftJoin('admin-area', 'aa', 'epc.adminAreaId = aa.id')
+      .leftJoin(
+        'admin-area-dynamic-data',
+        'aadd',
+        'epc.eventName = aadd.eventName',
+      )
+      .groupBy('epc.eventName')
+      .addGroupBy('epc.disasterType')
+      .addGroupBy('aa.countryCodeISO3')
+      .having(
+        `NOT BOOL_AND(epc.closed) = :active AND
+         (
+           CASE
+             WHEN
+               MAX(
+                 CASE WHEN aadd.indicator = '${FORECAST_TRIGGER}' THEN aadd.value ELSE 0 END
+               ) = ${ALERT_LEVEL_FORECAST_SEVERITY[AlertLevel.TRIGGER]}
+             THEN '${AlertLevel.TRIGGER}'
+             WHEN
+               MAX(
+                 CASE WHEN aadd.indicator = '${FORECAST_SEVERITY}' THEN aadd.value ELSE 0 END
+               ) >= ${ALERT_LEVEL_FORECAST_SEVERITY[AlertLevel.WARNINGMEDIUM]}
+             THEN '${AlertLevel.WARNING}'
+             WHEN
+               MAX(
+                 CASE WHEN aadd.indicator = '${FORECAST_SEVERITY}' THEN aadd.value ELSE 0 END
+               ) >= ${ALERT_LEVEL_FORECAST_SEVERITY[AlertLevel.WARNINGLOW]}
+             THEN '${AlertLevel.WARNINGMEDIUM}'
+             WHEN
+               MAX(
+                 CASE WHEN aadd.indicator = '${FORECAST_SEVERITY}' THEN aadd.value ELSE 0 END
+               ) > ${ALERT_LEVEL_FORECAST_SEVERITY[AlertLevel.NONE]}
+             THEN '${AlertLevel.WARNINGLOW}'
+             ELSE '${AlertLevel.NONE}'
+           END != '${AlertLevel.NONE}'
+         )`,
+        { active },
+      )
+      .orderBy('"startDate"', 'DESC');
+
+    if (countryCodeISO3) {
+      query.andWhere('aa.countryCodeISO3 = :countryCodeISO3', {
+        countryCodeISO3,
+      });
+    }
+
+    if (disasterType) {
+      query.andWhere('epc.disasterType = :disasterType', { disasterType });
+    }
+
+    const events = await query.getRawMany();
+
+    return events.map((event) => ({
+      ...event,
+      exposed: Number(event.exposed),
+    }));
   }
 }
