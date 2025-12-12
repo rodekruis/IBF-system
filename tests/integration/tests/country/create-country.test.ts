@@ -83,7 +83,7 @@ export default function createCountryTests() {
       expect(newCountry.countryName).toEqual(countryName);
     });
 
-    it('should fail to create notification-info on unkown countryCodeISO3', async () => {
+    it('should fail to create notification-info on unknown countryCodeISO3', async () => {
       // Arrange
       const newNotificationInfoData = structuredClone(notificationInfoData);
       newNotificationInfoData[0].countryCodeISO3 = 'XXX';
