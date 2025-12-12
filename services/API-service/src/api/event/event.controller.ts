@@ -40,7 +40,12 @@ export class EventController {
     private countryService: CountryService,
   ) {}
 
-  @ApiOperation({ summary: 'Get active events' })
+  // NOTE: This endpoint is intentionally public (no authentication required) for external consumption.
+  // It is used by external integrations such as Montandon (IFRC GO) to fetch active event data.
+  @ApiOperation({
+    summary:
+      '[EXTERNALLY USED - PUBLIC] Get active events for external integrations (e.g., Montandon/IFRC GO)',
+  })
   @ApiQuery({ name: 'countryCodeISO3', required: false, type: 'string' })
   @ApiQuery({ name: 'disasterType', required: false, enum: DisasterType })
   @ApiQuery({ name: 'format', required: false, enum: ['json', 'monty'] })
