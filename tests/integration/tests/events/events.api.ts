@@ -7,7 +7,7 @@ export function getEvents(
   disasterType: DisasterType,
   token: string,
 ) {
-  return api(token).get(`/event/${countryCodeISO3}/${disasterType}`);
+  return api(token).get('/event').query({ countryCodeISO3, disasterType });
 }
 
 export function postSetTrigger(
@@ -17,14 +17,14 @@ export function postSetTrigger(
   noNotifications = true,
   token: string,
 ) {
-  return api(token)
-    .post(`/events/set-trigger`)
-    .send({
-      eventPlaceCodeIds,
-      countryCodeISO3,
-      disasterType,
-      noNotifications,
-    });
+  const body = {
+    eventPlaceCodeIds,
+    countryCodeISO3,
+    disasterType,
+    noNotifications,
+  };
+
+  return api(token).post('/events/set-trigger').send(body);
 }
 
 export function postEventsProcess(
@@ -33,7 +33,7 @@ export function postEventsProcess(
   token: string,
 ) {
   return api(token)
-    .post(`/events/process`)
+    .post('/events/process')
     .query({ noNotifications })
     .send(eventsProcessDto);
 }

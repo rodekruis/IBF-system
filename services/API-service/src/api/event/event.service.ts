@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { subDays } from 'date-fns';
+import crypto from 'crypto';
+import { format, formatISO, subDays } from 'date-fns';
 import {
   DataSource,
   Equal,
@@ -14,8 +15,10 @@ import {
   SelectQueryBuilder,
 } from 'typeorm';
 
+import { API_SERVICE_URL, DASHBOARD_URL } from '../../config';
 import { AlertArea, Event } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';
+import { bboxCentroid } from '../../shared/utils';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import {
   ALERT_THRESHOLD,
@@ -23,9 +26,16 @@ import {
   FORECAST_TRIGGER,
 } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
-import { CountryEntity } from '../country/country.entity';
-import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
-import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { CountryService } from '../country/country.service';
+import {
+  CountryDisasterSettingsEntity,
+  CountryDisasterType,
+} from '../country/country-disaster.entity';
+import {
+  DISASTER_TYPE_CODE,
+  DISASTER_TYPE_LABEL,
+  DisasterType,
+} from '../disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
 import { AdminAreaDynamicDataEntity } from './../admin-area-dynamic-data/admin-area-dynamic-data.entity';
@@ -39,6 +49,7 @@ import {
   UploadTriggerPerLeadTimeDto,
 } from './dto/upload-alerts-per-lead-time.dto';
 import {
+  ALERT_LEVEL_LABEL,
   ALERT_LEVEL_RANK,
   ALERT_LEVEL_WARNINGS,
   AlertLevel,
@@ -48,15 +59,13 @@ import { EventPlaceCodeEntity } from './event-place-code.entity';
 @Injectable()
 export class EventService {
   @InjectRepository(EventPlaceCodeEntity)
-  private readonly eventPlaceCodeRepository: Repository<EventPlaceCodeEntity>;
+  private eventPlaceCodeRepository: Repository<EventPlaceCodeEntity>;
   @InjectRepository(AdminAreaDynamicDataEntity)
-  private readonly adminAreaDynamicDataRepo: Repository<AdminAreaDynamicDataEntity>;
+  private adminAreaDynamicDataRepository: Repository<AdminAreaDynamicDataEntity>;
   @InjectRepository(AdminAreaEntity)
-  private readonly adminAreaRepository: Repository<AdminAreaEntity>;
+  private adminAreaRepository: Repository<AdminAreaEntity>;
   @InjectRepository(AlertPerLeadTimeEntity)
-  private readonly alertPerLeadTimeRepository: Repository<AlertPerLeadTimeEntity>;
-  @InjectRepository(CountryEntity)
-  private readonly countryRepository: Repository<CountryEntity>;
+  private alertPerLeadTimeRepository: Repository<AlertPerLeadTimeEntity>;
 
   public constructor(
     private eapActionsService: EapActionsService,
@@ -64,6 +73,7 @@ export class EventService {
     private helperService: HelperService,
     private dataSource: DataSource,
     private typhoonTrackService: TyphoonTrackService,
+    private countryService: CountryService,
   ) {}
 
   public async getEvents(
@@ -74,12 +84,12 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    const getEventsQueryBuilder = this.createGetEventsQueryBuilder(
+    const getEventsQueryBuilder = this.createGetEventsQueryBuilder({
       countryCodeISO3,
-    ).andWhere({
+      disasterType,
+    }).andWhere({
       closed: false,
       endDate: MoreThanOrEqual(lastUploadDate.date),
-      disasterType,
     });
     return this.queryAndMapEvents(
       getEventsQueryBuilder,
@@ -93,12 +103,12 @@ export class EventService {
     disasterType: DisasterType,
   ): Promise<Event[]> {
     const sixDaysAgo = subDays(new Date(), 6); // NOTE: this 7-day rule is no longer applicable. Fix this when re-enabling this feature.
-    const getEventsQueryBuilder = this.createGetEventsQueryBuilder(
+    const getEventsQueryBuilder = this.createGetEventsQueryBuilder({
       countryCodeISO3,
-    )
+      disasterType,
+    })
       .andWhere('event.endDate > :endDate', { endDate: sixDaysAgo })
       .andWhere({ adminArea: { countryCodeISO3 } })
-      .andWhere('event.disasterType = :disasterType', { disasterType })
       .andWhere('event.closed = :closed', { closed: true });
 
     return this.queryAndMapEvents(
@@ -145,7 +155,7 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ): Promise<Event[]> {
-    const disasterSettings = await this.getCountryDisasterSettings(
+    const countryDisasterSettings = await this.getCountryDisasterSettings(
       countryCodeISO3,
       disasterType,
     );
@@ -153,7 +163,7 @@ export class EventService {
       event.alertAreas = await this.getAlertAreas(
         countryCodeISO3,
         disasterType,
-        disasterSettings.defaultAdminLevel,
+        countryDisasterSettings?.defaultAdminLevel,
         event.eventName,
       );
       event.firstLeadTime = await this.getFirstLeadTime(
@@ -200,9 +210,10 @@ export class EventService {
     return AlertLevel.NONE;
   }
 
-  private createGetEventsQueryBuilder(
-    countryCodeISO3: string,
-  ): SelectQueryBuilder<EventPlaceCodeEntity> {
+  private createGetEventsQueryBuilder({
+    countryCodeISO3,
+    disasterType,
+  }: CountryDisasterType): SelectQueryBuilder<EventPlaceCodeEntity> {
     return this.eventPlaceCodeRepository
       .createQueryBuilder('event')
       .select(['area."countryCodeISO3"', 'event."eventName"'])
@@ -210,6 +221,7 @@ export class EventService {
       .leftJoin('event.user', 'user')
       .groupBy('area."countryCodeISO3"')
       .addGroupBy('event."eventName"')
+      .addGroupBy('event."disasterType"')
       .addSelect([
         'MIN("firstIssuedDate") AS "firstIssuedDate"',
         'MAX("endDate") AS "endDate"',
@@ -218,10 +230,12 @@ export class EventService {
         'MAX(event."userTrigger"::int)::boolean AS "userTrigger"',
         'MAX(event."userTriggerDate") AS "userTriggerDate"',
         'MAX("user"."firstName" || \' \' || "user"."lastName") AS "userTriggerName"',
+        'event."disasterType"',
       ])
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3,
-      });
+      })
+      .andWhere('event.disasterType = :disasterType', { disasterType });
   }
 
   // NOTE: this method is here purely as a passthrough, as otherwise eventController would call the helperService directly
@@ -334,12 +348,14 @@ export class EventService {
     countryCodeISO3: string,
     disasterType: DisasterType,
   ) {
-    return (
-      await this.countryRepository.findOne({
-        where: { countryCodeISO3 },
-        relations: ['countryDisasterSettings'],
-      })
-    ).countryDisasterSettings.find(
+    const country = (
+      await this.countryService.getCountries(
+        [countryCodeISO3],
+        ['countryDisasterSettings'],
+      )
+    )[0];
+
+    return country?.countryDisasterSettings.find(
       (countryDisasterSettings: CountryDisasterSettingsEntity) =>
         countryDisasterSettings.disasterType === disasterType,
     );
@@ -483,7 +499,7 @@ export class EventService {
       whereFilters['leadTime'] = leadTime;
     }
 
-    const areas = await this.adminAreaDynamicDataRepo
+    const areas = await this.adminAreaDynamicDataRepository
       .createQueryBuilder('dynamic')
       .where(whereFilters)
       .leftJoinAndSelect(
@@ -706,7 +722,7 @@ export class EventService {
       disasterType,
     };
 
-    return this.adminAreaDynamicDataRepo
+    return this.adminAreaDynamicDataRepository
       .createQueryBuilder('dynamic')
       .select('dynamic."eventName"')
       .where(whereFilters)
@@ -787,43 +803,44 @@ export class EventService {
     const mainExposureIndicator =
       await this.disasterTypeService.getMainExposureIndicator(disasterType);
 
-    const areasWithForecastSeverityData = await this.adminAreaDynamicDataRepo
-      .createQueryBuilder('severity')
-      .select([
-        'severity.placeCode AS "placeCode"',
-        'severity.leadTime AS "leadTime"',
-        'severity.value AS "forecastSeverity"',
-        'trigger.value AS "forecastTrigger"',
-        'exposure.value AS "mainExposureValue"',
-      ])
-      .leftJoin(
-        AdminAreaDynamicDataEntity,
-        'trigger',
-        `severity.placeCode = trigger."placeCode"
+    const areasWithForecastSeverityData =
+      await this.adminAreaDynamicDataRepository
+        .createQueryBuilder('severity')
+        .select([
+          'severity.placeCode AS "placeCode"',
+          'severity.leadTime AS "leadTime"',
+          'severity.value AS "forecastSeverity"',
+          'trigger.value AS "forecastTrigger"',
+          'exposure.value AS "mainExposureValue"',
+        ])
+        .leftJoin(
+          AdminAreaDynamicDataEntity,
+          'trigger',
+          `severity.placeCode = trigger."placeCode"
         AND severity.timestamp = trigger."timestamp"
         AND severity.eventName = trigger."eventName"
         AND severity.disasterType = trigger."disasterType"
         AND severity.leadTime = trigger."leadTime"
         AND trigger.indicator = :forecastTrigger`,
-        { forecastTrigger: FORECAST_TRIGGER },
-      )
-      .leftJoin(
-        AdminAreaDynamicDataEntity,
-        'exposure',
-        `severity.placeCode = exposure."placeCode"
+          { forecastTrigger: FORECAST_TRIGGER },
+        )
+        .leftJoin(
+          AdminAreaDynamicDataEntity,
+          'exposure',
+          `severity.placeCode = exposure."placeCode"
         AND severity.timestamp = exposure."timestamp"
         AND severity.eventName = exposure."eventName"
         AND severity.disasterType = exposure."disasterType"
         AND severity.leadTime = exposure."leadTime"
         AND exposure.indicator = :mainExposureIndicator`,
-        { mainExposureIndicator },
-      )
-      .where({
-        ...whereFilters,
-        indicator: FORECAST_SEVERITY,
-        value: MoreThan(0),
-      })
-      .getRawMany();
+          { mainExposureIndicator },
+        )
+        .where({
+          ...whereFilters,
+          indicator: FORECAST_SEVERITY,
+          value: MoreThan(0),
+        })
+        .getRawMany();
 
     // This "if" assumes that if forecast_severity is present for 1 area it is present for all
     if (areasWithForecastSeverityData.length) {
@@ -836,30 +853,31 @@ export class EventService {
       }));
     } else {
       // NOTE: remove after all pipelines migrated to new setup
-      const areasWithAlertThresholdData = await this.adminAreaDynamicDataRepo
-        .createQueryBuilder('alert')
-        .select([
-          'alert.placeCode AS "placeCode"',
-          'alert.leadTime AS "leadTime"',
-          'alert.value AS "alertThresholdValue"',
-          'exposure.value AS "mainExposureValue"',
-        ])
-        .leftJoin(
-          AdminAreaDynamicDataEntity,
-          'exposure',
-          `alert.placeCode = exposure."placeCode"
+      const areasWithAlertThresholdData =
+        await this.adminAreaDynamicDataRepository
+          .createQueryBuilder('alert')
+          .select([
+            'alert.placeCode AS "placeCode"',
+            'alert.leadTime AS "leadTime"',
+            'alert.value AS "alertThresholdValue"',
+            'exposure.value AS "mainExposureValue"',
+          ])
+          .leftJoin(
+            AdminAreaDynamicDataEntity,
+            'exposure',
+            `alert.placeCode = exposure."placeCode"
         AND alert.timestamp = exposure."timestamp"
         AND alert.eventName = exposure."eventName"
         AND alert.disasterType = exposure."disasterType"
         AND alert.leadTime = exposure."leadTime"
         AND exposure.indicator = :indicator`,
-          { indicator: mainExposureIndicator },
-        )
-        .where({ ...whereFilters, indicator: ALERT_THRESHOLD })
-        .andWhere(
-          `(alert.value > 0 OR (alert."disasterType" IN ('typhoon','flash-floods')))`, // This reflects the current functionality where alert_threshold=0 for warnings in typhoon and flash-floods
-        )
-        .getRawMany();
+            { indicator: mainExposureIndicator },
+          )
+          .where({ ...whereFilters, indicator: ALERT_THRESHOLD })
+          .andWhere(
+            `(alert.value > 0 OR (alert."disasterType" IN ('typhoon','flash-floods')))`, // This reflects the current functionality where alert_threshold=0 for warnings in typhoon and flash-floods
+          )
+          .getRawMany();
 
       // TODO: handle situations where also this results in empty array?
 
@@ -931,14 +949,12 @@ export class EventService {
     } else if (disasterType === DisasterType.Typhoon) {
       return [LeadTime.hour72];
     } else {
-      const country = await this.countryRepository.findOne({
-        where: { countryCodeISO3 },
-        relations: ['countryDisasterSettings'],
-      });
-      return country.countryDisasterSettings.find(
-        (countryDisasterSettings: CountryDisasterSettingsEntity) =>
-          countryDisasterSettings.disasterType === disasterType,
-      ).activeLeadTimes;
+      const { activeLeadTimes } = await this.getCountryDisasterSettings(
+        countryCodeISO3,
+        disasterType,
+      );
+
+      return activeLeadTimes;
     }
   }
 
@@ -946,14 +962,10 @@ export class EventService {
     countryCodeISO3: string,
     date: Date,
   ): Promise<LeadTime> {
-    const country = await this.countryRepository.findOne({
-      where: { countryCodeISO3 },
-      relations: ['countryDisasterSettings'],
-    });
-    const droughtSeasonRegions = country.countryDisasterSettings.find(
-      (countryDisasterSettings: CountryDisasterSettingsEntity) =>
-        countryDisasterSettings.disasterType === DisasterType.Drought,
-    ).droughtSeasonRegions;
+    const { droughtSeasonRegions } = await this.getCountryDisasterSettings(
+      countryCodeISO3,
+      DisasterType.Drought,
+    );
 
     // for no events, look at all seasons in all regions
     let minDiff = 12;
@@ -1141,5 +1153,121 @@ export class EventService {
       area.closed = true;
     }
     await this.eventPlaceCodeRepository.save(expiredEventAreas);
+  }
+
+  public async toMontyEvent(event: Event) {
+    const country = (
+      await this.countryService.getCountries([event.countryCodeISO3])
+    )[0];
+
+    const placeCodes = event.alertAreas.map(({ placeCode }) => placeCode);
+    const bbox = await this.getBbox(placeCodes);
+    const dateFormat = 'dd MMMM yyyy HH:mm';
+    const id = crypto
+      .createHmac('sha256', formatISO(event.firstIssuedDate))
+      .digest('hex')
+      .substring(0, 8)
+      .toUpperCase();
+    const correlationId = [
+      format(event.firstIssuedDate, "yyyyMMdd'T'HHmmss"),
+      country.countryCodeISO3,
+      event.disasterType,
+      'IBF',
+    ]
+      .join('-')
+      .toUpperCase();
+
+    const potentiallyAffected = Math.ceil(
+      event.alertAreas.reduce(
+        (sum, area) => sum + (area.mainExposureValue || 0),
+        0,
+      ),
+    );
+
+    return {
+      stac_version: '1.0.0',
+      stac_extensions: [
+        'https://ifrcgo.org/monty-stac-extension/v1.1.0/schema.json',
+      ],
+      type: 'Feature',
+      id,
+      collection: 'nlrc-ibf',
+      bbox,
+      geometry: { type: 'Point', coordinates: bboxCentroid(bbox) },
+      properties: {
+        title: [
+          DISASTER_TYPE_LABEL[event.disasterType],
+          ALERT_LEVEL_LABEL[event.alertLevel],
+          'in',
+          country.countryName,
+        ].join(' '),
+        description: [
+          `${ALERT_LEVEL_LABEL[event.alertLevel]} issued`,
+          `for ${DISASTER_TYPE_LABEL[event.disasterType]}`,
+          `in ${country.countryName}`,
+          `from: ${format(event.firstIssuedDate, dateFormat)}`,
+          `to: ${format(event.endDate, dateFormat)}.`,
+        ].join(' '),
+        datetime: event.firstIssuedDate,
+        start_datetime: event.firstIssuedDate,
+        end_datetime: event.endDate,
+        modified: event.firstIssuedDate,
+        'monty:country_codes': [country.countryCodeISO3],
+        'monty:hazard_codes': [DISASTER_TYPE_CODE[event.disasterType]],
+        'monty:corr_id': correlationId,
+        ...(potentiallyAffected > 0 && {
+          'monty:impact_detail': {
+            category: 'people',
+            type: 'potentially_affected',
+            value: potentiallyAffected,
+            unit: 'people',
+            estimate_type: 'modelled',
+          },
+        }),
+        roles: ['event', 'source', 'hazard', 'impact'],
+        keywords: [
+          'IBF',
+          event.disasterType,
+          DISASTER_TYPE_LABEL[event.disasterType],
+          DISASTER_TYPE_CODE[event.disasterType],
+          country.countryCodeISO3,
+          country.countryName,
+          event.eventName,
+        ],
+      },
+      links: [
+        { href: DASHBOARD_URL, rel: 'via' },
+        {
+          href: [
+            `${API_SERVICE_URL}/event?`,
+            [
+              `countryCodeISO3=${event.countryCodeISO3}`,
+              `disasterType=${event.disasterType}`,
+            ].join('&'),
+          ].join(''),
+          rel: 'self',
+          roles: ['event'],
+          type: 'application/json',
+        },
+      ],
+    };
+  }
+
+  // NOTE: the below functions are here instead of admin area service
+  // to avoid circular dependency
+  public async getBbox(
+    placeCodes: string[],
+  ): Promise<[number, number, number, number]> {
+    const { bbox } = await this.adminAreaRepository
+      .createQueryBuilder('aa')
+      .select('ST_Extent(aa.geom)', 'bbox')
+      .where('aa.placeCode IN (:...placeCodes)', { placeCodes })
+      .getRawOne();
+
+    const coordinates = bbox.slice(4, -1).split(',');
+    const [minX, minY] = coordinates[0].trim().split(' ').map(Number);
+    const [maxX, maxY] = coordinates[1].trim().split(' ').map(Number);
+
+    return [minX, minY, maxX, maxY];
   }
 }

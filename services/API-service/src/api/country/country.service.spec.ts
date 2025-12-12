@@ -68,7 +68,11 @@ describe('CountryService', () => {
       expect(await service.getCountries()).toBe(result);
       expect(countryRepository.find).toHaveBeenCalledWith({
         where: {},
-        relations: ['disasterTypes'],
+        relations: [
+          'countryDisasterSettings',
+          'disasterTypes',
+          'notificationInfo',
+        ],
       });
     });
 
@@ -82,7 +86,11 @@ describe('CountryService', () => {
       expect(await service.getCountries(countryCodesISO3)).toBe(result);
       expect(countryRepository.find).toHaveBeenCalledWith({
         where: { countryCodeISO3: In(countryCodesISO3) },
-        relations: ['disasterTypes'],
+        relations: [
+          'countryDisasterSettings',
+          'disasterTypes',
+          'notificationInfo',
+        ],
       });
     });
   });

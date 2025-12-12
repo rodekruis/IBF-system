@@ -13,7 +13,7 @@ import {
 import { CountryEntity } from '../country/country.entity';
 import { EventPlaceCodeEntity } from '../event/event-place-code.entity';
 
-@Entity('admin-area', { orderBy: { placeCode: 'ASC' } })
+@Entity('admin-area')
 export class AdminAreaEntity {
   @ApiProperty({ example: '6b9b7669-4839-4fdb-9645-9070a27bda86' })
   @PrimaryGeneratedColumn('uuid')

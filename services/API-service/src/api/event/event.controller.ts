@@ -20,6 +20,7 @@ import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AlertArea, Event } from '../../shared/data.model';
 import { AdminLevel } from '../country/admin-level.enum';
+import { CountryService } from '../country/country.service';
 import { CountryDisasterType } from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
@@ -31,32 +32,63 @@ import {
 } from './dto/upload-alerts-per-lead-time.dto';
 import { EventService } from './event.service';
 
-@UseGuards(RolesGuard)
-@ApiBearerAuth()
 @ApiTags('event')
 @Controller('event')
 export class EventController {
-  private readonly eventService: EventService;
-
-  public constructor(eventService: EventService) {
-    this.eventService = eventService;
-  }
+  public constructor(
+    private eventService: EventService,
+    private countryService: CountryService,
+  ) {}
 
   @ApiOperation({ summary: 'Get active events' })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
+  @ApiQuery({ name: 'countryCodeISO3', required: false, type: 'string' })
+  @ApiQuery({ name: 'disasterType', required: false, enum: DisasterType })
+  @ApiQuery({ name: 'format', required: false, enum: ['json', 'monty'] })
   @ApiResponse({
     status: 200,
     description: 'List of active events',
-    type: Event,
+    type: [Event],
   })
-  @Get(':countryCodeISO3/:disasterType')
+  @Get()
   public async getEvents(
-    @Param() { countryCodeISO3, disasterType }: CountryDisasterType,
-  ): Promise<Event[]> {
-    return await this.eventService.getEvents(countryCodeISO3, disasterType);
+    @Query()
+    {
+      countryCodeISO3,
+      disasterType,
+      format,
+    }: CountryDisasterType & { format: 'json' | 'monty' },
+  ) {
+    const countryCodesISO3 = countryCodeISO3 ? [countryCodeISO3] : [];
+    const countries = await this.countryService.getCountries(countryCodesISO3);
+    const disasterTypes = disasterType
+      ? [disasterType]
+      : Object.values(DisasterType);
+    const events: Event[] = [];
+
+    for (const { countryCodeISO3 } of countries) {
+      for (const disasterType of disasterTypes) {
+        const countryDisasterTypeEvents = await this.eventService.getEvents(
+          countryCodeISO3,
+          disasterType,
+        );
+
+        events.push(...countryDisasterTypeEvents);
+      }
+    }
+
+    if (format === 'monty') {
+      const montyEvents = await Promise.all(
+        events.map((event) => this.eventService.toMontyEvent(event)),
+      );
+
+      return montyEvents;
+    }
+
+    return events;
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get date of last (pipeline) upload for given country and disaster-type.',
@@ -79,6 +111,8 @@ export class EventController {
     );
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get alert data per lead-time for given country, disaster-type, event.',
@@ -103,6 +137,8 @@ export class EventController {
     );
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get past and current trigger activation data per admin-area and disaster-type.',
@@ -126,6 +162,8 @@ export class EventController {
   }
 
   // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-lead-time
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary:
@@ -141,6 +179,8 @@ export class EventController {
     );
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary: '[EXTERNALLY USED - PIPELINE] Upload alert data per lead time',
@@ -156,6 +196,8 @@ export class EventController {
     await this.eventService.uploadAlertsPerLeadTime(uploadAlertsPerLeadTimeDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get alerted admin-areas for given country, disaster-type, admin-level (and event-name).',

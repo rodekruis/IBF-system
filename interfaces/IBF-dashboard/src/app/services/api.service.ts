@@ -178,22 +178,8 @@ export class ApiService {
     return this.post('login', loginRequest, { anonymous: true });
   }
 
-  getCountries(
-    countryCodesISO3?: string[],
-    minimalInfo?: boolean,
-  ): Observable<Country[]> {
-    const path = 'country';
-    let params = new HttpParams();
-
-    if (countryCodesISO3) {
-      params = params.append('countryCodesISO3', countryCodesISO3.join(','));
-    }
-
-    if (minimalInfo) {
-      params = params.append('minimalInfo', String(minimalInfo));
-    }
-
-    return this.get(path, { anonymous: false }, params);
+  getCountries(): Observable<Country[]> {
+    return this.get('country', { anonymous: false });
   }
 
   getTyphoonTrack(
@@ -276,9 +262,17 @@ export class ApiService {
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
   ): Observable<Event[]> {
-    return this.get(`event/${countryCodeISO3}/${disasterType}`, {
-      anonymous: false,
-    });
+    let params = new HttpParams();
+
+    if (countryCodeISO3) {
+      params = params.append('countryCodeISO3', countryCodeISO3);
+    }
+
+    if (disasterType) {
+      params = params.append('disasterType', disasterType);
+    }
+
+    return this.get('event', { anonymous: false }, params);
   }
 
   getAlertAreas(

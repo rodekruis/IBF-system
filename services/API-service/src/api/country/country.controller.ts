@@ -1,14 +1,15 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
-  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
+import { UserDecorator } from '../user/user.decorator';
+import { User } from '../user/user.model';
 import { UserRole } from '../user/user-role.enum';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
@@ -52,36 +53,24 @@ export class CountryController {
     await this.countryService.upsertNotificationInfo(notificationInfo);
   }
 
-  @ApiOperation({
-    summary: 'Get countries including their attributes by list of countryCodes',
-  })
-  @ApiQuery({ name: 'countryCodesISO3', required: false, type: 'string' })
-  @ApiQuery({
-    name: 'minimalInfo',
-    required: false,
-    type: 'boolean',
-    default: true,
-  })
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
+  @ApiOperation({ summary: 'Get countries' })
   @ApiResponse({
     status: 200,
-    description: 'Available countries including their attributes.',
+    description: 'List of countries',
     type: [CountryEntity],
   })
   @Get()
   public async getCountries(
-    @Query()
-    {
-      countryCodesISO3,
-      minimalInfo,
-    }: Partial<{ countryCodesISO3: string; minimalInfo: string }>,
+    @UserDecorator() user: User,
   ): Promise<CountryEntity[]> {
-    const countryCodes = countryCodesISO3
-      ?.split(',')
-      .map((code) => code.trim());
+    let countryCodesISO3 = [];
 
-    return await this.countryService.getCountries(
-      countryCodes,
-      minimalInfo === 'true',
-    );
+    if (user.userRole !== UserRole.Admin) {
+      countryCodesISO3 = user.countryCodesISO3;
+    }
+
+    return await this.countryService.getCountries(countryCodesISO3);
   }
 }

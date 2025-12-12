@@ -8,7 +8,13 @@ import { MailerService } from '@nestjs-modules/mailer';
 import { formatISO } from 'date-fns';
 import * as fs from 'fs';
 
-import { CI, DEV, PROD } from '../../config';
+import {
+  CI,
+  DASHBOARD_URL,
+  DEV,
+  PROD,
+  SUPPORT_EMAIL_ADDRESS,
+} from '../../config';
 import { Event } from '../../shared/data.model';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
@@ -125,7 +131,7 @@ export class EmailService {
 
     try {
       await this.mailerService.sendMail({
-        to: process.env.SUPPORT_EMAIL_ADDRESS,
+        to: SUPPORT_EMAIL_ADDRESS,
         bcc,
         subject,
         text: subject,
@@ -150,8 +156,8 @@ export class EmailService {
         context: {
           to,
           code,
-          dashboardUrl: process.env.DASHBOARD_URL,
-          supportEmailAddress: process.env.SUPPORT_EMAIL_ADDRESS,
+          dashboardUrl: DASHBOARD_URL,
+          supportEmailAddress: SUPPORT_EMAIL_ADDRESS,
         },
       });
     } catch (error: unknown) {

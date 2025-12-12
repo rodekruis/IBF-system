@@ -1,3 +1,4 @@
+import { DASHBOARD_URL } from '../../../../config';
 import {
   COLOR_BROWN,
   COLOR_WHITE,
@@ -48,7 +49,7 @@ export const getLegalFooter = (): object => {
   const legalFooter = getTextElement({
     content: `
       <p>
-        <a style="color: ${COLOR_WHITE}" href="${process.env.DASHBOARD_URL}/unsubscribe">
+        <a style="color: ${COLOR_WHITE}" href="${DASHBOARD_URL}/unsubscribe">
           Click here to unsubscribe
         </a>
         <br /><br />

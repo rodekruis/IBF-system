@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 import { LeadTime } from '../api/admin-area-dynamic-data/enum/lead-time.enum';
+import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { AlertLevel } from '../api/event/enum/alert-level.enum';
 
 export class AggregateDataRecord {
@@ -75,6 +76,9 @@ export class DisasterSpecificProperties {
 export class Event {
   @ApiProperty({ example: 'UGA' })
   public countryCodeISO3: string;
+
+  @ApiProperty({ example: 'floods' })
+  public disasterType: DisasterType;
 
   @ApiProperty({ example: new Date() })
   public firstIssuedDate: Date;

@@ -41,11 +41,11 @@ export class StatusReportPage implements OnInit {
 
   ngOnInit() {
     this.countryService.getCountries().subscribe((countries) => {
-      this.onGetAllCountries(countries);
+      this.onGetCountries(countries);
     });
   }
 
-  private onGetAllCountries = (countries: Country[]) => {
+  private onGetCountries = (countries: Country[]) => {
     for (const country of countries) {
       this.statusData[country.countryCodeISO3] = {};
 

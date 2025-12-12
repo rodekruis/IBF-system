@@ -1,9 +1,11 @@
 import { MOCK_ALERT_AREAS } from 'src/app/mocks/alert-areas.mock';
 import { AlertLevel } from 'src/app/types/alert-level';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { Event, EventState } from 'src/app/types/event';
 
 const MOCK_EVENT: Event = {
   countryCodeISO3: 'KEN',
+  disasterType: DisasterTypeKey.floods,
   firstIssuedDate: '2025-02-21T12:38:48.546Z',
   endDate: '2025-03-21T12:38:48.546Z',
   forecastTrigger: true,

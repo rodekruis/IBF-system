@@ -4,6 +4,7 @@ import path from 'path';
 
 import { MjmlAdapter } from './api/email/mjml-adapter';
 
+export const DASHBOARD_URL = process.env.DASHBOARD_URL;
 export const ENV = process.env.NODE_ENV || 'development';
 
 export const DEV = ENV === 'development';
@@ -15,6 +16,7 @@ export const PROD = ENV === 'production';
 export const DEFAULT_PORT = 3000;
 export const DUNANT_EMAIL = 'dunant@redcross.nl';
 export const forbidUnknownValues = false; // FIX: set to true after fixing type errors https://stackoverflow.com/a/75127940/1753041
+export const SUPPORT_EMAIL_ADDRESS = process.env.SUPPORT_EMAIL_ADDRESS;
 
 // Configure Internal and External API URL's
 // ---------------------------------------------------------------------------

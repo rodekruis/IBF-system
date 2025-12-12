@@ -1,9 +1,11 @@
 import { AlertArea } from 'src/app/types/alert-area';
 import { AlertLevel } from 'src/app/types/alert-level';
+import { DisasterTypeKey } from 'src/app/types/disaster-type-key';
 import { LeadTime } from 'src/app/types/lead-time';
 
 export class Event {
   countryCodeISO3: string;
+  disasterType: DisasterTypeKey;
   firstIssuedDate: string;
   endDate: string;
   forecastTrigger: boolean;
