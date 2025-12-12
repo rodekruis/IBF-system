@@ -51,11 +51,3 @@ export const ALERT_LEVEL_TEXT_COLOUR: Record<AlertLevel, string> = {
   [AlertLevel.WARNING]: '#7a2d00', // fiveten-orange-700
   [AlertLevel.TRIGGER]: '#940000', // fiveten-red-700
 };
-
-export const ALERT_LEVEL_FORECAST_SEVERITY: Record<AlertLevel, number> = {
-  [AlertLevel.NONE]: 0,
-  [AlertLevel.WARNINGLOW]: 0.3,
-  [AlertLevel.WARNINGMEDIUM]: 0.7,
-  [AlertLevel.WARNING]: 1,
-  [AlertLevel.TRIGGER]: 1,
-};
