@@ -24,7 +24,10 @@ import {
 } from '../admin-area-dynamic-data/enum/dynamic-indicator.enum';
 import { LeadTime } from '../admin-area-dynamic-data/enum/lead-time.enum';
 import { CountryEntity } from '../country/country.entity';
-import { CountryDisasterSettingsEntity } from '../country/country-disaster.entity';
+import {
+  CountryDisasterSettingsEntity,
+  CountryDisasterType,
+} from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { DisasterTypeService } from '../disaster-type/disaster-type.service';
 import { TyphoonTrackService } from '../typhoon-track/typhoon-track.service';
@@ -74,10 +77,10 @@ export class EventService {
       countryCodeISO3,
       disasterType,
     );
-    const getEventsQueryBuilder = this.createGetEventsQueryBuilder(
+    const getEventsQueryBuilder = this.createGetEventsQueryBuilder({
       countryCodeISO3,
       disasterType,
-    ).andWhere({
+    }).andWhere({
       closed: false,
       endDate: MoreThanOrEqual(lastUploadDate.date),
     });
@@ -93,10 +96,10 @@ export class EventService {
     disasterType: DisasterType,
   ): Promise<Event[]> {
     const sixDaysAgo = subDays(new Date(), 6); // NOTE: this 7-day rule is no longer applicable. Fix this when re-enabling this feature.
-    const getEventsQueryBuilder = this.createGetEventsQueryBuilder(
+    const getEventsQueryBuilder = this.createGetEventsQueryBuilder({
       countryCodeISO3,
       disasterType,
-    )
+    })
       .andWhere('event.endDate > :endDate', { endDate: sixDaysAgo })
       .andWhere({ adminArea: { countryCodeISO3 } })
       .andWhere('event.closed = :closed', { closed: true });
@@ -200,10 +203,10 @@ export class EventService {
     return AlertLevel.NONE;
   }
 
-  private createGetEventsQueryBuilder(
-    countryCodeISO3: string,
-    disasterType: DisasterType,
-  ): SelectQueryBuilder<EventPlaceCodeEntity> {
+  private createGetEventsQueryBuilder({
+    countryCodeISO3,
+    disasterType,
+  }: CountryDisasterType): SelectQueryBuilder<EventPlaceCodeEntity> {
     return this.eventPlaceCodeRepository
       .createQueryBuilder('event')
       .select(['area."countryCodeISO3"', 'event."eventName"'])
