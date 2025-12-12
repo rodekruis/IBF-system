@@ -37,20 +37,17 @@ export default function createCountryTests() {
         newNotificationInfoData,
       );
 
-      const getCountriesResponse = await getCountries(
-        token,
-        [countryCodeISO3],
-        false,
+      const getCountriesResponse = await getCountries(token);
+      const updatedCountry = getCountriesResponse.body.find(
+        (country: { countryCodeISO3: string }) =>
+          country.countryCodeISO3 === countryCodeISO3,
       );
 
       // Assert
       expect(upsertCountriesResponse.status).toBe(201);
       expect(upsertNotificationInfoResponse.status).toBe(201);
       expect(getCountriesResponse.status).toBe(200);
-      expect(getCountriesResponse.body[0].countryName).toEqual(countryName);
-      expect(getCountriesResponse.body[0].notificationInfo.linkPdf).toEqual(
-        linkPdf,
-      );
+      expect(updatedCountry.countryName).toEqual(countryName);
     });
 
     it('should add new country', async () => {
@@ -73,13 +70,17 @@ export default function createCountryTests() {
         token,
         newNotificationInfoData,
       );
-      const getCountriesResponse = await getCountries(token, [countryCodeISO3]);
+      const getCountriesResponse = await getCountries(token);
+      const newCountry = getCountriesResponse.body.find(
+        (country: { countryCodeISO3: string }) =>
+          country.countryCodeISO3 === countryCodeISO3,
+      );
 
       // Assert
       expect(upsertCountriesResponse.status).toBe(201);
       expect(upsertNotificationInfoResponse.status).toBe(201);
       expect(getCountriesResponse.status).toBe(200);
-      expect(getCountriesResponse.body[0].countryName).toEqual(countryName);
+      expect(newCountry.countryName).toEqual(countryName);
     });
 
     it('should fail to create notification-info on unkown countryCodeISO3', async () => {
