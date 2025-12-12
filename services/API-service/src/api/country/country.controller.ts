@@ -71,9 +71,6 @@ export class CountryController {
       countryCodesISO3 = user.countryCodesISO3;
     }
 
-    return await this.countryService.getCountries(countryCodesISO3, [
-      'disasterTypes',
-      'countryDisasterSettings',
-    ]);
+    return await this.countryService.getCountries(countryCodesISO3);
   }
 }

@@ -19,9 +19,7 @@ export default function readCountryTests() {
 
       expect(getCountriesResponse.status).toBe(200);
       expect(getCountriesResponse.body.length).toBeGreaterThan(0);
-      expect(getCountriesResponse.body[0]).not.toHaveProperty(
-        'notificationInfo',
-      );
+      expect(getCountriesResponse.body[0]).toHaveProperty('notificationInfo');
     });
 
     it('should return countries in alphabetical order', async () => {
