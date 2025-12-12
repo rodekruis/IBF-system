@@ -1,3 +1,25 @@
+# [0.332.0](https://github.com/rodekruis/IBF-system/compare/v0.331.0...v0.332.0) (2025-12-12)
+
+
+### Bug Fixes
+
+* admins can access all countries ([16de7ca](https://github.com/rodekruis/IBF-system/commit/16de7caf1b4ac100cd701ca9b3eed4957379e046))
+* bbox centroid ([941d170](https://github.com/rodekruis/IBF-system/commit/941d1708eab8dd33880165698bda24753f7c4eac))
+* interface needs country disaster settings ([cb9a072](https://github.com/rodekruis/IBF-system/commit/cb9a072162539f4c0cad3413b0321f8e7599e962))
+* interface needs notification info ([536decc](https://github.com/rodekruis/IBF-system/commit/536deccab842d8d14054693c9a7665dd05b90123))
+* update event class ([59c2907](https://github.com/rodekruis/IBF-system/commit/59c2907725e42a32b1de19a442e1e20bdfd32e96))
+* update event class ([5d8d219](https://github.com/rodekruis/IBF-system/commit/5d8d219085c6803a73db92ee66d9cc84f765c388))
+
+
+### Features
+
+* event api ([68cf2df](https://github.com/rodekruis/IBF-system/commit/68cf2df4e67a15e0c061ef5c3f4463a50c458c6a))
+* include alert level in monty event ([095ec98](https://github.com/rodekruis/IBF-system/commit/095ec98627c95c01182137aea1feacb9c524499f))
+* monty events ([137e4d8](https://github.com/rodekruis/IBF-system/commit/137e4d8bbe2129d50946a3d969867050838e29dd))
+* monty impact detail ([3c151a0](https://github.com/rodekruis/IBF-system/commit/3c151a02233125b6bb2bba82e4b4a2fb4e73de20))
+
+
+
 # [0.331.0](https://github.com/rodekruis/IBF-system/compare/v0.330.0...v0.331.0) (2025-12-08)
 
 
@@ -154,16 +176,6 @@
 
 * add variable in component ([c9d8f00](https://github.com/rodekruis/IBF-system/commit/c9d8f00c6b09c8977990f006145f00cb5ff6b613))
 * remove hover listener ([7794ff7](https://github.com/rodekruis/IBF-system/commit/7794ff7ad90ac00288359f77c4249eb22941dc25))
-
-
-
-# [0.325.0](https://github.com/rodekruis/IBF-system/compare/v0.324.0...v0.325.0) (2025-09-08)
-
-
-### Features
-
-* enable multi-threshold for ethiopia flood ([502defb](https://github.com/rodekruis/IBF-system/commit/502defbd006da66c420f46d4dcb2f5ef656228c9))
-* update auth endpoint ([335b441](https://github.com/rodekruis/IBF-system/commit/335b441868c9b94cea13c1e09c103fa5e7e29504))
 
 
 
