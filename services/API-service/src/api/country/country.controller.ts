@@ -53,6 +53,8 @@ export class CountryController {
     await this.countryService.upsertNotificationInfo(notificationInfo);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Get countries' })
   @ApiResponse({
     status: 200,
@@ -71,6 +73,7 @@ export class CountryController {
 
     return await this.countryService.getCountries(countryCodesISO3, [
       'disasterTypes',
+      'countryDisasterSettings',
     ]);
   }
 }
