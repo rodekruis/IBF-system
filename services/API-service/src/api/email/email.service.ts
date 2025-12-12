@@ -131,7 +131,7 @@ export class EmailService {
 
     try {
       await this.mailerService.sendMail({
-        to: process.env.SUPPORT_EMAIL_ADDRESS,
+        to: SUPPORT_EMAIL_ADDRESS,
         bcc,
         subject,
         text: subject,
