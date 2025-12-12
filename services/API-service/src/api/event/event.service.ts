@@ -49,10 +49,10 @@ import {
   UploadTriggerPerLeadTimeDto,
 } from './dto/upload-alerts-per-lead-time.dto';
 import {
+  ALERT_LEVEL_LABEL,
   ALERT_LEVEL_RANK,
   ALERT_LEVEL_WARNINGS,
   AlertLevel,
-  ALERT_LEVEL_LABEL,
 } from './enum/alert-level.enum';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 
