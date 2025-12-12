@@ -9,6 +9,7 @@ import {
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { UserDecorator } from '../user/user.decorator';
+import { User } from '../user/user.model';
 import { UserRole } from '../user/user-role.enum';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
@@ -60,8 +61,14 @@ export class CountryController {
   })
   @Get()
   public async getCountries(
-    @UserDecorator('countryCodesISO3') countryCodesISO3: string[],
+    @UserDecorator() user: User,
   ): Promise<CountryEntity[]> {
+    let countryCodesISO3 = [];
+
+    if (user.userRole !== UserRole.Admin) {
+      countryCodesISO3 = user.countryCodesISO3;
+    }
+
     return await this.countryService.getCountries(countryCodesISO3, [
       'disasterTypes',
     ]);
