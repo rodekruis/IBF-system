@@ -5,6 +5,7 @@ import {
   Param,
   Post,
   Query,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -16,12 +17,16 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
+import { Response } from 'express';
+
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AlertArea, Event } from '../../shared/data.model';
 import { AdminLevel } from '../country/admin-level.enum';
 import { CountryDisasterType } from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
+import { UserDecorator } from '../user/user.decorator';
+import { User } from '../user/user.model';
 import { UserRole } from '../user/user-role.enum';
 import { ActivationLogDto } from './dto/event-place-code.dto';
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
@@ -36,25 +41,55 @@ import { EventService } from './event.service';
 @ApiTags('event')
 @Controller('event')
 export class EventController {
-  private readonly eventService: EventService;
+  private eventService: EventService;
 
   public constructor(eventService: EventService) {
     this.eventService = eventService;
   }
 
   @ApiOperation({ summary: 'Get active events' })
-  @ApiParam({ name: 'countryCodeISO3', required: true, type: 'string' })
-  @ApiParam({ name: 'disasterType', required: true, enum: DisasterType })
+  @ApiQuery({ name: 'countryCodeISO3', required: false, type: 'string' })
+  @ApiQuery({ name: 'disasterType', required: false, enum: DisasterType })
   @ApiResponse({
     status: 200,
     description: 'List of active events',
     type: Event,
   })
-  @Get(':countryCodeISO3/:disasterType')
+  @Get()
   public async getEvents(
-    @Param() { countryCodeISO3, disasterType }: CountryDisasterType,
-  ): Promise<Event[]> {
-    return await this.eventService.getEvents(countryCodeISO3, disasterType);
+    @UserDecorator() user: User,
+    @Query() { countryCodeISO3, disasterType }: CountryDisasterType,
+    @Res() res: Response,
+  ) {
+    if (countryCodeISO3 && !user.countryCodesISO3.includes(countryCodeISO3)) {
+      const message = [
+        `You cannot view events in ${countryCodeISO3}.`,
+        `You can view events in ${user.countryCodesISO3.join(', ')}`,
+      ].join(' ');
+
+      return res.status(403).send({ message });
+    }
+
+    const events: Event[] = [];
+    const countryCodesISO3 = countryCodeISO3
+      ? [countryCodeISO3]
+      : user.countryCodesISO3;
+    const disasterTypes = disasterType
+      ? [disasterType]
+      : Object.values(DisasterType);
+
+    for (const countryCodeISO3 of countryCodesISO3) {
+      for (const disasterType of disasterTypes) {
+        const countryDisasterTypeEvents = await this.eventService.getEvents(
+          countryCodeISO3,
+          disasterType,
+        );
+
+        events.push(...countryDisasterTypeEvents);
+      }
+    }
+
+    return res.status(200).send(events);
   }
 
   @ApiOperation({

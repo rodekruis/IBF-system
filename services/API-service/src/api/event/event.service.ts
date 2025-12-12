@@ -76,10 +76,10 @@ export class EventService {
     );
     const getEventsQueryBuilder = this.createGetEventsQueryBuilder(
       countryCodeISO3,
+      disasterType,
     ).andWhere({
       closed: false,
       endDate: MoreThanOrEqual(lastUploadDate.date),
-      disasterType,
     });
     return this.queryAndMapEvents(
       getEventsQueryBuilder,
@@ -95,10 +95,10 @@ export class EventService {
     const sixDaysAgo = subDays(new Date(), 6); // NOTE: this 7-day rule is no longer applicable. Fix this when re-enabling this feature.
     const getEventsQueryBuilder = this.createGetEventsQueryBuilder(
       countryCodeISO3,
+      disasterType,
     )
       .andWhere('event.endDate > :endDate', { endDate: sixDaysAgo })
       .andWhere({ adminArea: { countryCodeISO3 } })
-      .andWhere('event.disasterType = :disasterType', { disasterType })
       .andWhere('event.closed = :closed', { closed: true });
 
     return this.queryAndMapEvents(
@@ -202,6 +202,7 @@ export class EventService {
 
   private createGetEventsQueryBuilder(
     countryCodeISO3: string,
+    disasterType: DisasterType,
   ): SelectQueryBuilder<EventPlaceCodeEntity> {
     return this.eventPlaceCodeRepository
       .createQueryBuilder('event')
@@ -210,6 +211,7 @@ export class EventService {
       .leftJoin('event.user', 'user')
       .groupBy('area."countryCodeISO3"')
       .addGroupBy('event."eventName"')
+      .addGroupBy('event."disasterType"')
       .addSelect([
         'MIN("firstIssuedDate") AS "firstIssuedDate"',
         'MAX("endDate") AS "endDate"',
@@ -218,10 +220,12 @@ export class EventService {
         'MAX(event."userTrigger"::int)::boolean AS "userTrigger"',
         'MAX(event."userTriggerDate") AS "userTriggerDate"',
         'MAX("user"."firstName" || \' \' || "user"."lastName") AS "userTriggerName"',
+        'event."disasterType"',
       ])
       .andWhere('area."countryCodeISO3" = :countryCodeISO3', {
         countryCodeISO3,
-      });
+      })
+      .andWhere('event.disasterType = :disasterType', { disasterType });
   }
 
   // NOTE: this method is here purely as a passthrough, as otherwise eventController would call the helperService directly

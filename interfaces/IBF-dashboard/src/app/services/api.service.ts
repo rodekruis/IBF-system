@@ -276,9 +276,17 @@ export class ApiService {
     countryCodeISO3: string,
     disasterType: DisasterTypeKey,
   ): Observable<Event[]> {
-    return this.get(`event/${countryCodeISO3}/${disasterType}`, {
-      anonymous: false,
-    });
+    let params = new HttpParams();
+
+    if (countryCodeISO3) {
+      params = params.append('countryCodeISO3', countryCodeISO3);
+    }
+
+    if (disasterType) {
+      params = params.append('disasterType', disasterType);
+    }
+
+    return this.get('event', { anonymous: false }, params);
   }
 
   getAlertAreas(
