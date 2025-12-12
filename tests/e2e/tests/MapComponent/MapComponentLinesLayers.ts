@@ -3,7 +3,7 @@ import MapComponent from 'Pages/MapComponent';
 import { Dataset } from 'testData/types';
 
 export default (dataset: Dataset) => {
-  test('[36134] sould render lines layers', async ({ page }) => {
+  test('[36134] should render lines layers', async ({ page }) => {
     const map = new MapComponent(page);
 
     const NON_COUNTRY_SPECIFIC_WMS_LAYERS = ['buildings', 'roads'];
