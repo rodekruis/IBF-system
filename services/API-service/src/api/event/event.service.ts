@@ -52,6 +52,7 @@ import {
   ALERT_LEVEL_RANK,
   ALERT_LEVEL_WARNINGS,
   AlertLevel,
+  ALERT_LEVEL_LABEL,
 } from './enum/alert-level.enum';
 import { EventPlaceCodeEntity } from './event-place-code.entity';
 
@@ -1161,7 +1162,7 @@ export class EventService {
 
     const placeCodes = event.alertAreas.map(({ placeCode }) => placeCode);
     const bbox = await this.getBbox(placeCodes);
-    const dateFormat = 'dd MMM yyyy HH:mm';
+    const dateFormat = 'dd MMMM yyyy HH:mm';
     const id = crypto
       .createHmac('sha256', formatISO(event.firstIssuedDate))
       .digest('hex')
@@ -1176,9 +1177,11 @@ export class EventService {
       .join('-')
       .toUpperCase();
 
-    const potentiallyAffected = event.alertAreas.reduce(
-      (sum, area) => sum + (area.mainExposureValue || 0),
-      0,
+    const potentiallyAffected = Math.ceil(
+      event.alertAreas.reduce(
+        (sum, area) => sum + (area.mainExposureValue || 0),
+        0,
+      ),
     );
 
     return {
@@ -1192,8 +1195,19 @@ export class EventService {
       bbox,
       geometry: { type: 'Point', coordinates: bboxCentroid(bbox) },
       properties: {
-        title: `${DISASTER_TYPE_LABEL[event.disasterType]} in ${country.countryName}`,
-        description: `${DISASTER_TYPE_LABEL[event.disasterType]} in ${country.countryName} from: ${format(event.firstIssuedDate, dateFormat)} to: ${format(event.endDate, dateFormat)}.`,
+        title: [
+          DISASTER_TYPE_LABEL[event.disasterType],
+          ALERT_LEVEL_LABEL[event.alertLevel],
+          'in',
+          country.countryName,
+        ].join(' '),
+        description: [
+          `${ALERT_LEVEL_LABEL[event.alertLevel]} issued`,
+          `for ${DISASTER_TYPE_LABEL[event.disasterType]}`,
+          `in ${country.countryName}`,
+          `from: ${format(event.firstIssuedDate, dateFormat)}`,
+          `to: ${format(event.endDate, dateFormat)}.`,
+        ].join(' '),
         datetime: event.firstIssuedDate,
         start_datetime: event.firstIssuedDate,
         end_datetime: event.endDate,
@@ -1201,13 +1215,15 @@ export class EventService {
         'monty:country_codes': [country.countryCodeISO3],
         'monty:hazard_codes': [DISASTER_TYPE_CODE[event.disasterType]],
         'monty:corr_id': correlationId,
-        'monty:impact_detail': {
-          category: 'people',
-          type: 'potentially_affected',
-          value: potentiallyAffected,
-          unit: 'people',
-          estimate_type: 'modelled',
-        },
+        ...(potentiallyAffected > 0 && {
+          'monty:impact_detail': {
+            category: 'people',
+            type: 'potentially_affected',
+            value: potentiallyAffected,
+            unit: 'people',
+            estimate_type: 'modelled',
+          },
+        }),
         roles: ['event', 'source', 'hazard', 'impact'],
         keywords: [
           'IBF',
@@ -1222,7 +1238,13 @@ export class EventService {
       links: [
         { href: DASHBOARD_URL, rel: 'via' },
         {
-          href: `${API_SERVICE_URL}/event?countryCodeISO3=${event.countryCodeISO3}&disasterType=${event.disasterType}`,
+          href: [
+            `${API_SERVICE_URL}/event?`,
+            [
+              `countryCodeISO3=${event.countryCodeISO3}`,
+              `disasterType=${event.disasterType}`,
+            ].join('&'),
+          ].join(''),
           rel: 'self',
           roles: ['event'],
           type: 'application/json',
