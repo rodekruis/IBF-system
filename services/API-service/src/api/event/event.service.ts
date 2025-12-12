@@ -18,6 +18,7 @@ import {
 import { API_SERVICE_URL, DASHBOARD_URL } from '../../config';
 import { AlertArea, Event } from '../../shared/data.model';
 import { HelperService } from '../../shared/helper.service';
+import { bboxCentroid } from '../../shared/utils';
 import { AdminAreaEntity } from '../admin-area/admin-area.entity';
 import {
   ALERT_THRESHOLD,
@@ -1159,6 +1160,7 @@ export class EventService {
     )[0];
 
     const placeCodes = event.alertAreas.map(({ placeCode }) => placeCode);
+    const bbox = await this.getBbox(placeCodes);
     const dateFormat = 'dd MMM yyyy HH:mm';
     const id = crypto
       .createHmac('sha256', formatISO(event.firstIssuedDate))
@@ -1187,8 +1189,8 @@ export class EventService {
       type: 'Feature',
       id,
       collection: 'nlrc-ibf',
-      bbox: await this.getBbox(placeCodes),
-      geometry: await this.getCentroid(placeCodes),
+      bbox,
+      geometry: { type: 'Point', coordinates: bboxCentroid(bbox) },
       properties: {
         title: `${DISASTER_TYPE_LABEL[event.disasterType]} in ${country.countryName}`,
         description: `${DISASTER_TYPE_LABEL[event.disasterType]} in ${country.countryName} from: ${format(event.firstIssuedDate, dateFormat)} to: ${format(event.endDate, dateFormat)}.`,
@@ -1231,7 +1233,9 @@ export class EventService {
 
   // NOTE: the below functions are here instead of admin area service
   // to avoid circular dependency
-  public async getBbox(placeCodes: string[]) {
+  public async getBbox(
+    placeCodes: string[],
+  ): Promise<[number, number, number, number]> {
     const { bbox } = await this.adminAreaRepository
       .createQueryBuilder('aa')
       .select('ST_Extent(aa.geom)', 'bbox')
@@ -1243,15 +1247,5 @@ export class EventService {
     const [maxX, maxY] = coordinates[1].trim().split(' ').map(Number);
 
     return [minX, minY, maxX, maxY];
-  }
-
-  public async getCentroid(placeCodes: string[]) {
-    const { centroid } = await this.adminAreaRepository
-      .createQueryBuilder('aa')
-      .select('ST_AsGeoJSON(ST_Centroid(ST_Union(aa.geom)))', 'centroid')
-      .where('aa.placeCode IN (:...placeCodes)', { placeCodes })
-      .getRawOne();
-
-    return JSON.parse(centroid);
   }
 }
