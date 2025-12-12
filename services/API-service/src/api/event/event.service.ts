@@ -1174,6 +1174,11 @@ export class EventService {
       .join('-')
       .toUpperCase();
 
+    const potentiallyAffected = event.alertAreas.reduce(
+      (sum, area) => sum + (area.mainExposureValue || 0),
+      0,
+    );
+
     return {
       stac_version: '1.0.0',
       stac_extensions: [
@@ -1185,8 +1190,8 @@ export class EventService {
       bbox: await this.getBbox(placeCodes),
       geometry: await this.getCentroid(placeCodes),
       properties: {
-        title: `${DISASTER_TYPE_LABEL[event.disasterType]} in ${event.countryCodeISO3}`,
-        description: `${DISASTER_TYPE_LABEL[event.disasterType]} in ${event.countryCodeISO3} from: ${format(event.firstIssuedDate, dateFormat)} to: ${format(event.endDate, dateFormat)}.`,
+        title: `${DISASTER_TYPE_LABEL[event.disasterType]} in ${country.countryName}`,
+        description: `${DISASTER_TYPE_LABEL[event.disasterType]} in ${country.countryName} from: ${format(event.firstIssuedDate, dateFormat)} to: ${format(event.endDate, dateFormat)}.`,
         datetime: event.firstIssuedDate,
         start_datetime: event.firstIssuedDate,
         end_datetime: event.endDate,
@@ -1194,7 +1199,14 @@ export class EventService {
         'monty:country_codes': [country.countryCodeISO3],
         'monty:hazard_codes': [DISASTER_TYPE_CODE[event.disasterType]],
         'monty:corr_id': correlationId,
-        roles: ['event', 'source'],
+        'monty:impact_detail': {
+          category: 'people',
+          type: 'potentially_affected',
+          value: potentiallyAffected,
+          unit: 'people',
+          estimate_type: 'modelled',
+        },
+        roles: ['event', 'source', 'hazard', 'impact'],
         keywords: [
           'IBF',
           event.disasterType,
