@@ -1,13 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import {
-  Country,
-  CountryDisasterSettings,
-  DisasterType,
-} from 'src/app/models/country.model';
 import { PlaceCode } from 'src/app/models/place-code.model';
-import { CountryService } from 'src/app/services/country.service';
-import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
 import { PlaceCodeService } from 'src/app/services/place-code.service';
 import { EventState } from 'src/app/types/event';
@@ -21,26 +14,13 @@ export class MapViewService {
   private aggregatesMapViewSubject = new BehaviorSubject<MapView>(null);
   private aggregatesMapView: MapView;
 
-  private country: Country;
-  private disasterType: DisasterType;
-  private countryDisasterSettings: CountryDisasterSettings;
   private eventState: EventState;
   private placeCode: PlaceCode;
 
   constructor(
-    private countryService: CountryService,
     private eventService: EventService,
     private placeCodeService: PlaceCodeService,
-    private disasterTypeService: DisasterTypeService,
   ) {
-    this.countryService
-      .getCountrySubscription()
-      .subscribe(this.onCountryChange);
-
-    this.disasterTypeService
-      .getDisasterTypeSubscription()
-      .subscribe(this.onDisasterTypeChange);
-
     this.eventService
       .getInitialEventStateSubscription()
       .subscribe(this.onEventStateChange);
@@ -53,20 +33,6 @@ export class MapViewService {
       .getPlaceCodeSubscription()
       .subscribe(this.onPlacecodeChange);
   }
-
-  private onCountryChange = (country: Country) => {
-    this.country = country;
-  };
-
-  private onDisasterTypeChange = (disasterType: DisasterType) => {
-    this.disasterType = disasterType;
-
-    this.countryDisasterSettings =
-      this.disasterTypeService.getCountryDisasterTypeSettings(
-        this.country,
-        this.disasterType,
-      );
-  };
 
   private setAggregatesMapView(view: MapView) {
     this.aggregatesMapView = view;
