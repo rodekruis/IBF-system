@@ -11,14 +11,8 @@ export function upsertNotificationInfo(
     .send(notificationInfoData);
 }
 
-export function getCountries(
-  token: string,
-  countryCodesISO3?: string[],
-  minimalInfo = true,
-) {
-  return api(token)
-    .get(`/country`)
-    .query({ countryCodesISO3: countryCodesISO3?.join(','), minimalInfo });
+export function getCountries(token: string) {
+  return api(token).get(`/country`);
 }
 
 export function upsertCountries(token: string, countries: CountryDto[]) {

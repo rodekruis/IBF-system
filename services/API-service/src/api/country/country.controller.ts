@@ -9,6 +9,7 @@ import {
 
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
+import { UserDecorator } from '../user/user.decorator';
 import { UserRole } from '../user/user-role.enum';
 import { CountryEntity } from './country.entity';
 import { CountryService } from './country.service';
@@ -52,38 +53,18 @@ export class CountryController {
     await this.countryService.upsertNotificationInfo(notificationInfo);
   }
 
-  @ApiOperation({
-    summary: 'Get countries including their attributes by list of countryCodes',
-  })
-  @ApiQuery({ name: 'countryCodesISO3', required: false, type: 'string' })
-  @ApiQuery({
-    name: 'minimalInfo',
-    required: false,
-    type: 'boolean',
-    default: true,
-  })
+  @ApiOperation({ summary: 'Get countries' })
   @ApiResponse({
     status: 200,
-    description: 'Available countries including their attributes.',
+    description: 'List of countries',
     type: [CountryEntity],
   })
   @Get()
   public async getCountries(
-    @Query()
-    {
-      countryCodesISO3,
-      minimalInfo,
-    }: Partial<{ countryCodesISO3: string; minimalInfo: string }>,
+    @UserDecorator('countryCodesISO3') countryCodesISO3: string[],
   ): Promise<CountryEntity[]> {
-    const countryCodes = countryCodesISO3
-      ?.split(',')
-      .map((code) => code.trim());
-
-    let relations: string[];
-    if (minimalInfo === 'true') {
-      relations = ['disasterTypes'];
-    }
-
-    return await this.countryService.getCountries(countryCodes, relations);
+    return await this.countryService.getCountries(countryCodesISO3, [
+      'disasterTypes',
+    ]);
   }
 }

@@ -178,22 +178,8 @@ export class ApiService {
     return this.post('login', loginRequest, { anonymous: true });
   }
 
-  getCountries(
-    countryCodesISO3?: string[],
-    minimalInfo?: boolean,
-  ): Observable<Country[]> {
-    const path = 'country';
-    let params = new HttpParams();
-
-    if (countryCodesISO3) {
-      params = params.append('countryCodesISO3', countryCodesISO3.join(','));
-    }
-
-    if (minimalInfo) {
-      params = params.append('minimalInfo', String(minimalInfo));
-    }
-
-    return this.get(path, { anonymous: false }, params);
+  getCountries(): Observable<Country[]> {
+    return this.get('country', { anonymous: false });
   }
 
   getTyphoonTrack(

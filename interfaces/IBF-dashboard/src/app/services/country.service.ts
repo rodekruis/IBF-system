@@ -19,7 +19,7 @@ export class CountryService {
     this.activatedRoute.queryParams.subscribe(
       (params: { countryCodeISO3?: string }) => {
         if (params?.countryCodeISO3) {
-          this.apiService.getCountries(null, true).subscribe((countries) => {
+          this.getCountries().subscribe((countries) => {
             this.countries = countries;
             this.selectCountry(params?.countryCodeISO3);
           });
@@ -32,50 +32,30 @@ export class CountryService {
 
   private onUserChange = (user: User) => {
     if (user) {
-      this.getCountriesByUser(user);
+      this.getCountries().subscribe((countries: Country[]) => {
+        this.countries = countries;
+        if (this.countries.length > 0) {
+          this.selectCountry(this.countries[0].countryCodeISO3);
+        }
+      });
     }
   };
 
-  public getCountriesByUser(user: User): void {
-    this.apiService
-      .getCountries(user.countryCodesISO3)
-      .subscribe(this.onCountriesByUser(user));
-  }
-
   public getCountries(): Observable<Country[]> {
-    return this.apiService.getCountries(null, true);
+    return this.apiService.getCountries();
   }
 
   getCountrySubscription = (): Observable<Country> => {
     return this.countrySubject.asObservable();
   };
 
-  private onCountriesByUser = (user: User) => (countries: Country[]) => {
-    this.countries = countries;
-    this.filterCountriesByUser(user);
-  };
-
   private filterCountryByCountryCodeISO3 =
     (countryCodeISO3: string) => (country: Country) =>
       country.countryCodeISO3 === countryCodeISO3;
-
-  private filterCountryByUser = (user: User) => (country: Country) =>
-    user.countryCodesISO3.includes(country.countryCodeISO3);
 
   public selectCountry = (countryCodeISO3: string): void => {
     this.countrySubject.next(
       this.countries.find(this.filterCountryByCountryCodeISO3(countryCodeISO3)),
     );
   };
-
-  public filterCountriesByUser(user: User): void {
-    if (!user?.countryCodesISO3) {
-      this.countries = [];
-    } else {
-      this.countries = this.countries.filter(this.filterCountryByUser(user));
-      if (this.countries.length > 0) {
-        this.selectCountry(this.countries[0].countryCodeISO3);
-      }
-    }
-  }
 }
