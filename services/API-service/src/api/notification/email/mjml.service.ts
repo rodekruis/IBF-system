@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 
 import mjml2html from 'mjml';
 
+import { DASHBOARD_URL } from '../../../config';
 import { HelperService } from '../../../shared/helper.service';
 import { firstCharOfWordsToUpper } from '../../../shared/utils';
 import { ContentEventEmail } from '../dto/content-event-email.dto';
@@ -102,7 +103,7 @@ export class MjmlService {
 
     children.push(
       this.notificationAction({
-        linkDashboard: process.env.DASHBOARD_URL,
+        linkDashboard: DASHBOARD_URL,
         eapLink: contentEventEmail.eapLink,
         socialMediaLink:
           contentEventEmail.country.notificationInfo.linkSocialMediaUrl ?? '',
@@ -171,7 +172,7 @@ export class MjmlService {
 
     children.push(
       this.notificationAction({
-        linkDashboard: process.env.DASHBOARD_URL,
+        linkDashboard: DASHBOARD_URL,
         eapLink: contentEventEmail.eapLink,
         socialMediaLink:
           contentEventEmail.country.notificationInfo.linkSocialMediaUrl ?? '',

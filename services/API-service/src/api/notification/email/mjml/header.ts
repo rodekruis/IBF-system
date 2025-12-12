@@ -1,3 +1,4 @@
+import { DASHBOARD_URL } from '../../../../config';
 import {
   COLOR_PRIMARY,
   COLOR_WHITE,
@@ -48,5 +49,4 @@ export const getMjmlHeader = ({
   });
 };
 
-const getLogoUrl = (logo: string) =>
-  `${process.env.DASHBOARD_URL}/assets/logos/${logo}`;
+const getLogoUrl = (logo: string) => `${DASHBOARD_URL}/assets/logos/${logo}`;

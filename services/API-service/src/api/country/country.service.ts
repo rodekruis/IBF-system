@@ -25,23 +25,18 @@ export class CountryService {
   @InjectRepository(NotificationInfoEntity)
   private readonly notificationInfoRepository: Repository<NotificationInfoEntity>;
 
-  private readonly relations: string[] = [
-    'countryDisasterSettings',
-    'disasterTypes',
-    'notificationInfo',
-  ];
-
   public async getCountries(
     countryCodesISO3: Country['countryCodeISO3'][] = [],
-    minimalInfo = true,
+    relations = [
+      'countryDisasterSettings',
+      'disasterTypes',
+      'notificationInfo',
+    ],
   ): Promise<CountryEntity[]> {
     const where = countryCodesISO3.length
       ? { countryCodeISO3: In(countryCodesISO3) }
       : {};
-    return await this.countryRepository.find({
-      where,
-      relations: minimalInfo ? ['disasterTypes'] : this.relations,
-    });
+    return await this.countryRepository.find({ where, relations });
   }
 
   public async upsertCountries(

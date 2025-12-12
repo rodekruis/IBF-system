@@ -79,9 +79,11 @@ export class CountryController {
       ?.split(',')
       .map((code) => code.trim());
 
-    return await this.countryService.getCountries(
-      countryCodes,
-      minimalInfo === 'true',
-    );
+    let relations: string[];
+    if (minimalInfo === 'true') {
+      relations = ['disasterTypes'];
+    }
+
+    return await this.countryService.getCountries(countryCodes, relations);
   }
 }

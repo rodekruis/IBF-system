@@ -5,7 +5,6 @@ import {
   Param,
   Post,
   Query,
-  Res,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -17,16 +16,13 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 
-import { Response } from 'express';
-
 import { Roles } from '../../roles.decorator';
 import { RolesGuard } from '../../roles.guard';
 import { AlertArea, Event } from '../../shared/data.model';
 import { AdminLevel } from '../country/admin-level.enum';
+import { CountryService } from '../country/country.service';
 import { CountryDisasterType } from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
-import { UserDecorator } from '../user/user.decorator';
-import { User } from '../user/user.model';
 import { UserRole } from '../user/user-role.enum';
 import { ActivationLogDto } from './dto/event-place-code.dto';
 import { LastUploadDateDto } from './dto/last-upload-date.dto';
@@ -36,49 +32,40 @@ import {
 } from './dto/upload-alerts-per-lead-time.dto';
 import { EventService } from './event.service';
 
-@UseGuards(RolesGuard)
-@ApiBearerAuth()
 @ApiTags('event')
 @Controller('event')
 export class EventController {
-  private eventService: EventService;
-
-  public constructor(eventService: EventService) {
-    this.eventService = eventService;
-  }
+  public constructor(
+    private eventService: EventService,
+    private countryService: CountryService,
+  ) {}
 
   @ApiOperation({ summary: 'Get active events' })
   @ApiQuery({ name: 'countryCodeISO3', required: false, type: 'string' })
   @ApiQuery({ name: 'disasterType', required: false, enum: DisasterType })
+  @ApiQuery({ name: 'format', required: false, enum: ['json', 'monty'] })
   @ApiResponse({
     status: 200,
     description: 'List of active events',
-    type: Event,
+    type: [Event],
   })
   @Get()
   public async getEvents(
-    @UserDecorator() user: User,
-    @Query() { countryCodeISO3, disasterType }: CountryDisasterType,
-    @Res() res: Response,
+    @Query()
+    {
+      countryCodeISO3,
+      disasterType,
+      format,
+    }: CountryDisasterType & { format: 'json' | 'monty' },
   ) {
-    if (countryCodeISO3 && !user.countryCodesISO3.includes(countryCodeISO3)) {
-      const message = [
-        `You cannot view events in ${countryCodeISO3}.`,
-        `You can view events in ${user.countryCodesISO3.join(', ')}`,
-      ].join(' ');
-
-      return res.status(403).send({ message });
-    }
-
-    const events: Event[] = [];
-    const countryCodesISO3 = countryCodeISO3
-      ? [countryCodeISO3]
-      : user.countryCodesISO3;
+    const countryCodesISO3 = countryCodeISO3 ? [countryCodeISO3] : [];
+    const countries = await this.countryService.getCountries(countryCodesISO3);
     const disasterTypes = disasterType
       ? [disasterType]
       : Object.values(DisasterType);
+    const events: Event[] = [];
 
-    for (const countryCodeISO3 of countryCodesISO3) {
+    for (const { countryCodeISO3 } of countries) {
       for (const disasterType of disasterTypes) {
         const countryDisasterTypeEvents = await this.eventService.getEvents(
           countryCodeISO3,
@@ -89,9 +76,19 @@ export class EventController {
       }
     }
 
-    return res.status(200).send(events);
+    if (format === 'monty') {
+      const montyEvents = await Promise.all(
+        events.map((event) => this.eventService.toMontyEvent(event)),
+      );
+
+      return montyEvents;
+    }
+
+    return events;
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get date of last (pipeline) upload for given country and disaster-type.',
@@ -114,6 +111,8 @@ export class EventController {
     );
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get alert data per lead-time for given country, disaster-type, event.',
@@ -138,6 +137,8 @@ export class EventController {
     );
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get past and current trigger activation data per admin-area and disaster-type.',
@@ -161,6 +162,8 @@ export class EventController {
   }
 
   // NOTE: keep this endpoint in until all pipelines migrated to /alerts-per-lead-time
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary:
@@ -176,6 +179,8 @@ export class EventController {
     );
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @Roles(UserRole.Pipeline)
   @ApiOperation({
     summary: '[EXTERNALLY USED - PIPELINE] Upload alert data per lead time',
@@ -191,6 +196,8 @@ export class EventController {
     await this.eventService.uploadAlertsPerLeadTime(uploadAlertsPerLeadTimeDto);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
   @ApiOperation({
     summary:
       'Get alerted admin-areas for given country, disaster-type, admin-level (and event-name).',
