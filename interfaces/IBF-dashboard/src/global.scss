@@ -322,6 +322,10 @@ a {
   text-decoration: underline;
 }
 
+.ion-page {
+  overflow: auto;
+}
+
 ion-toast {
   --width: fit-content;
 }
