@@ -1,3 +1,12 @@
+## [0.332.1](https://github.com/rodekruis/IBF-system/compare/v0.332.0...v0.332.1) (2025-12-17)
+
+
+### Bug Fixes
+
+* page must scroll on overflow ([826711b](https://github.com/rodekruis/IBF-system/commit/826711b6103b248b3a5ee90038e01e11622490f8))
+
+
+
 # [0.332.0](https://github.com/rodekruis/IBF-system/compare/v0.331.0...v0.332.0) (2025-12-12)
 
 
@@ -166,16 +175,6 @@
 ### Features
 
 * add warning scenario for eth flood ([ae776c3](https://github.com/rodekruis/IBF-system/commit/ae776c3d255af5da5fc276c79f0df63c87c67a47))
-
-
-
-## [0.325.1](https://github.com/rodekruis/IBF-system/compare/v0.325.0...v0.325.1) (2025-09-12)
-
-
-### Bug Fixes
-
-* add variable in component ([c9d8f00](https://github.com/rodekruis/IBF-system/commit/c9d8f00c6b09c8977990f006145f00cb5ff6b613))
-* remove hover listener ([7794ff7](https://github.com/rodekruis/IBF-system/commit/7794ff7ad90ac00288359f77c4249eb22941dc25))
 
 
 
