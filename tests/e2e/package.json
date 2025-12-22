@@ -22,10 +22,10 @@
     "globals": "^16.5.0",
     "prettier": "3.7.3",
     "supertest": "^7.1.0",
-    "typescript-eslint": "^8.49.0"
+    "typescript-eslint": "^8.50.1"
   },
   "dependencies": {
-    "@alex_neo/playwright-azure-reporter": "^1.18.0",
+    "@alex_neo/playwright-azure-reporter": "^1.19.0",
     "date-fns": "^4.1.0",
     "dotenv": "17.2.0",
     "playwright": "^1.57.0"
