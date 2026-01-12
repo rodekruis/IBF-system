@@ -14,8 +14,8 @@
     "@types/jest": "^30.0.0",
     "@types/node": "25.x",
     "@types/supertest": "^6.0.2",
-    "@typescript-eslint/eslint-plugin": "^8.46.0",
-    "@typescript-eslint/parser": "^8.46.0",
+    "@typescript-eslint/eslint-plugin": "^8.52.0",
+    "@typescript-eslint/parser": "^8.52.0",
     "atob": ">=2.1.0",
     "dotenv": "^17.2.0",
     "eslint": "^9.39.1",
@@ -27,12 +27,12 @@
     "extend": ">=3.0.2",
     "jest": "^30.2.0",
     "jest-util": "^30.0.2",
-    "jsdom": "^27.0.0",
+    "jsdom": "^27.4.0",
     "prettier": "^3.7.3",
-    "supertest": "^7.1.0",
+    "supertest": "^7.2.2",
     "ts-jest": "^29.4.0",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
-    "typescript-eslint": "^8.46.0"
+    "typescript-eslint": "^8.52.0"
   }
 }
