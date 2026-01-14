@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@angular/common": "19.2.8",
-    "@angular/core": "19.2.8",
+    "@angular/core": "21.1.0",
     "@angular/forms": "19.2.8",
     "@angular/platform-browser": "19.2.8",
     "@angular/platform-browser-dynamic": "19.2.8",
