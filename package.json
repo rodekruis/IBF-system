@@ -21,10 +21,10 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "github-webhook-handler": "^1.0.0"
+    "github-webhook-handler": "^2.1.0"
   },
   "devDependencies": {
-    "prettier": "^3.7.3",
+    "prettier": "^3.8.1",
     "husky": "^9.0.11",
     "lint-staged": "^16.2.0"
   }
