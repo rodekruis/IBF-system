@@ -27,6 +27,8 @@ services:
 
   ibf-local-db:
     image: postgis/postgis
+    # For updating, see https://github.com/geoserver/docker/blob/master/docker-compose-demo.yml
+    platform: linux/amd64
     environment:
       - POSTGRES_USER=${DB_USERNAME}
       - POSTGRES_PASSWORD=${DB_PASSWORD}

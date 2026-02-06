@@ -71,18 +71,35 @@ services:
 
   ibf-geoserver:
     container_name: ibf-geoserver
-    image: kartoza/geoserver:2.26.1
-    environment:
+    image: docker.osgeo.org/geoserver:2.28.2
+    # TODO: compare with the setttings here as well: https://github.com/geoserver/docker/blob/master/docker-compose-demo.yml
+    environment: # see https://docs.geoserver.org/latest/en/user/installation/docker.html for more details
+      - INSTALL_EXTENSIONS=true
+      - STABLE_EXTENSIONS=vectortiles,importer,control-flow
+      - GEOSERVER_ADMIN_USER=admin
       - GEOSERVER_ADMIN_PASSWORD=${GEOSERVER_ADMIN_PASSWORD}
-      - CATALINA_OPTS="-DALLOW_ENV_PARAMETRIZATION=true"
-      - PROXY_BASE_URL=${DASHBOARD_URL}/geoserver
-      - GEOSERVER_CSRF_DISABLED=true
+      - CATALINA_OPTS="-DALLOW_ENV_PARAMETRIZATION=true" # Allow config changes https://docs.geoserver.org/latest/en/user/datadirectory/configtemplate.html
+      #- PROXY_BASE_URL=${DASHBOARD_URL}/geoserver #disable to be able to log in to GeoServer. This line causes an incorrect redirect.
+      - GEOSERVER_CSRF_DISABLED=true # turn off CSRF protection (formerly needed for API calls to work)
+      - SKIP_DEMO_DATA=true
+      - GEOSERVER_LOG_LEVEL=DEBUG
+      #- CORS_ENABLED=true #not needed it seems
     ports:
       - 8081:8080
     volumes:
-      - ./services/API-service/geoserver-volume/raster-files:/opt/geoserver/data_dir/workspaces/ibf-system/ibf-pipeline
-      - ./services/API-service/geoserver-volume/geoserver-layers:/opt/geoserver/data_dir/workspaces/ibf-system
+      - ./services/API-service/geoserver-volume/data:/opt/geoserver_data/data # Persist data dir
+      #- original
+      - ./services/API-service/geoserver-volume/geoserver-layers:/opt/geoserver_data/workspaces/ibf-system
+      - ./services/API-service/geoserver-volume/raster-files:/opt/geoserver_data/workspaces/ibf-system/ibf-pipeline
+      # test
+      #- ./services/API-service/geoserver-volume/raster-files:/opt/geoserver_data/data/ibf-pipeline
+      #- ./services/API-service/geoserver-volume/geoserver-layers:/opt/geoserver_data/data
+      # test with rasters in data
+      #- ./services/API-service/geoserver-volume/raster-files:/opt/geoserver_data/data
+      #- ./services/API-service/geoserver-volume/geoserver-layers:/opt/geoserver_data/workspaces/ibf-system
       - ./.env:/opt/geoserver/data_dir/geoserver-environment.properties
+      # LLM: Mount custom web.xml with CORS configuration
+      #- ./services/API-service/geoserver-volume/config:/opt/config_overrides #:ro
     networks:
       api-network:
     restart: unless-stopped
