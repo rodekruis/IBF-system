@@ -8,8 +8,8 @@
   },
   "license": "ISC",
   "devDependencies": {
-    "@eslint/js": "^9.39.1",
-    "@playwright/test": "^1.57.0",
+    "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.58.2",
     "@types/node": "^25.0.2",
     "@types/supertest": "^6.0.2",
     "eslint": "^9.39.1",
@@ -19,15 +19,15 @@
     "eslint-plugin-prettier": "^5.5.0",
     "eslint-plugin-promise": "^7.2.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
-    "globals": "^16.5.0",
+    "globals": "^17.3.0",
     "prettier": "3.7.3",
-    "supertest": "^7.1.0",
-    "typescript-eslint": "^8.49.0"
+    "supertest": "^7.2.2",
+    "typescript-eslint": "^8.55.0"
   },
   "dependencies": {
-    "@alex_neo/playwright-azure-reporter": "^1.18.0",
+    "@alex_neo/playwright-azure-reporter": "^1.19.0",
     "date-fns": "^4.1.0",
     "dotenv": "17.2.0",
-    "playwright": "^1.57.0"
+    "playwright": "^1.58.2"
   }
 }
