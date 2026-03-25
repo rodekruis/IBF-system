@@ -10,5 +10,5 @@
   <__default>false</__default>
   <dateCreated>2025-03-21 07:37:46.870 UTC</dateCreated>
   <disableOnConnFailure>false</disableOnConnFailure>
-  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/eth_population_2020.tif</url>
+  <url>file:workspaces/ibf-system/ibf-pipeline/input/population/ETH_population.tif</url>
 </coverageStore>
