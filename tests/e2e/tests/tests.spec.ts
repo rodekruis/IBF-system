@@ -43,10 +43,11 @@ datasets.forEach((dataset) => {
     disasterType,
     configurationId,
     scenario,
+    mockDate,
   } = dataset;
 
   test.describe(`Dataset ${dataset.configurationId}: ${code} ${disasterType.name} ${scenario}`, () => {
-    const date = new Date();
+    const date = mockDate ? new Date(mockDate) : new Date();
     const storageState = getStorageState(configurationId, UserRole.LocalAdmin);
     test.use({ storageState });
 

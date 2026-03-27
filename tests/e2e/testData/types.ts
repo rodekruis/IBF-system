@@ -40,6 +40,7 @@ export interface Dataset {
   country: Country;
   disasterType: DisasterType;
   scenario: string;
+  mockDate?: string;
   user: User;
   title: string;
   aggregates: Aggregates;
