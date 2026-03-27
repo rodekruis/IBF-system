@@ -14,7 +14,7 @@ class LoginPage extends DashboardPage {
     super(page);
     this.page = page;
     this.emailInput = this.page.locator('input[type="email"]');
-    this.codeInput = this.page.locator('input[type="text"]');
+    this.codeInput = this.page.getByTestId('input-code').locator('input');
     this.loginButton = this.page.getByTestId('button-login');
     this.welcomeMessage = this.page.getByTestId('welcome-message');
   }
@@ -32,7 +32,7 @@ class LoginPage extends DashboardPage {
     const loginResponse = await loginRequest;
     const { code } = await loginResponse.json();
 
-    await this.codeInput.fill(String(code));
+    await this.codeInput.fill(String(code), { force: true });
   }
 
   async loginScreenIsVisible() {
