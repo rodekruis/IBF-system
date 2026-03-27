@@ -30,15 +30,13 @@ export class TimelineService {
   };
 
   public state = this.startingState;
-  private timelineStateSubject = new BehaviorSubject<TimelineState>(
-    this.startingState,
-  );
+  private timelineStateSubject = new BehaviorSubject(this.startingState);
 
   private alertsAllEvents: AlertPerLeadTime;
   private country: Country;
   private disasterType: DisasterType;
   private eventState: EventState;
-  public isLoadingSubject = new BehaviorSubject<boolean>(false);
+  public isLoadingSubject = new BehaviorSubject(false);
   public isLoading = this.isLoadingSubject
     .asObservable()
     .pipe(debounceTime(DEBOUNCE_TIME_LOADER));

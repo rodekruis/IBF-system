@@ -68,6 +68,10 @@ export default tseslint.config(
       '@typescript-eslint/no-inferrable-types': 'warn',
       '@typescript-eslint/consistent-type-definitions': 'warn',
       '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'warn',
+      // Disable until strictNullChecks is enabled in tsconfig
+      '@typescript-eslint/no-useless-default-assignment': 'off',
+      // Put this to 'warn' for now, refactor to use inject() when ready
+      '@angular-eslint/prefer-inject': 'warn',
       // Put this to 'off' for now because it automatically tries to fix this in code on save
       '@angular-eslint/prefer-standalone': 'off',
       // Put this to 'off' for now as changing this leads to breaking changes in the code

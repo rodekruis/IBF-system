@@ -73,15 +73,18 @@
         class="my-2 flex space-x-2 sm:space-x-4"
         (click)="codeInput.setFocus()"
       >
-        <span
-          *ngFor="let digit of codeDisplay; let i = index"
-          class="flex h-9 w-7 items-center justify-center rounded border border-gray-300 bg-white text-xl sm:h-12 sm:w-10"
-          [class.ring-2]="model.code?.length === i || (i === 0 && !model.code)"
-          [class.ring-blue-500]="
-            model.code?.length === i || (i === 0 && !model.code)
-          "
-          >{{ digit }}</span
-        >
+        @for (digit of codeDisplay; track $index; let i = $index) {
+          <span
+            class="flex h-9 w-7 items-center justify-center rounded border border-gray-300 bg-white text-xl sm:h-12 sm:w-10"
+            [class.ring-2]="
+              model.code?.length === i || (i === 0 && !model.code)
+            "
+            [class.ring-blue-500]="
+              model.code?.length === i || (i === 0 && !model.code)
+            "
+            >{{ digit }}</span
+          >
+        }
       </div>
     } @else {
       <ion-button

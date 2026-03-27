@@ -28,9 +28,7 @@ export class AdminLevelButton {
 
 @Injectable({ providedIn: 'root' })
 export class AdminLevelService {
-  private adminLevelSubject = new BehaviorSubject<AdminLevel>(
-    AdminLevel.adminLevel1,
-  );
+  private adminLevelSubject = new BehaviorSubject(AdminLevel.adminLevel1);
 
   public oldAdminLevel: AdminLevel = null;
   public adminLevel: AdminLevel;
@@ -198,7 +196,7 @@ export class AdminLevelService {
       return `${prefix}start`;
     }
 
-    if (Number(adminLevel) === length) {
+    if (adminLevel === length) {
       return `${prefix}end`;
     }
 

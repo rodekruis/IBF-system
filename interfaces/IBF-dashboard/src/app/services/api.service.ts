@@ -45,8 +45,8 @@ export class ApiService {
   }
 
   private createHeaders({
-    anonymous = false,
-    contentType = 'application/json',
+    anonymous,
+    contentType,
   }: Partial<Headers>): HttpHeaders {
     let headers = new HttpHeaders({
       Accept: 'application/json',

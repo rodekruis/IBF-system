@@ -36,13 +36,9 @@ export class EventService {
   public state = this.nullState;
   public today: DateTime;
 
-  public initialEventStateSubject = new BehaviorSubject<EventState>(
-    this.nullState,
-  );
+  public initialEventStateSubject = new BehaviorSubject(this.nullState);
 
-  public manualEventStateSubject = new BehaviorSubject<EventState>(
-    this.nullState,
-  );
+  public manualEventStateSubject = new BehaviorSubject(this.nullState);
 
   constructor(
     private apiService: ApiService,
@@ -319,11 +315,11 @@ export class EventService {
     const timeUnitsInFuture = Number(LeadTimeTriggerKey[firstKey]);
     const futureDateTime =
       timeUnit === LeadTimeUnit.month
-        ? this.today.plus({ months: Number(timeUnitsInFuture) })
+        ? this.today.plus({ months: timeUnitsInFuture })
         : timeUnit === LeadTimeUnit.day
-          ? this.today.plus({ days: Number(timeUnitsInFuture) })
+          ? this.today.plus({ days: timeUnitsInFuture })
           : timeUnit === LeadTimeUnit.hour
-            ? this.today.plus({ hours: Number(timeUnitsInFuture) })
+            ? this.today.plus({ hours: timeUnitsInFuture })
             : null;
 
     if (timeUnit === LeadTimeUnit.month) {

@@ -684,7 +684,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         // if in event-view, then set placeCode
         if (placeCode !== this.placeCode?.placeCode) {
           // only zoom-in when actually zooming in (instead of selecting a peer-area on the same level)
-          const zoomIn = adminLevel > (Number(this.placeCode?.adminLevel) || 0);
+          const zoomIn = adminLevel > (this.placeCode?.adminLevel || 0);
 
           if (zoomIn) {
             this.adminLevelService.zoomInAdminLevel();

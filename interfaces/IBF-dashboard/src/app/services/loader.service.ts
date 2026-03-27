@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class LoaderService {
-  private loaderSubject = new BehaviorSubject<boolean>(false);
+  private loaderSubject = new BehaviorSubject(false);
   private queue = [];
 
   getLoaderSubscription(): Observable<boolean> {
