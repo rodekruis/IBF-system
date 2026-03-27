@@ -1,3 +1,13 @@
+## [0.332.2](https://github.com/rodekruis/IBF-system/compare/v0.332.1...v0.332.2) (2026-03-27)
+
+
+### Bug Fixes
+
+* e2e drought fix date ([7d03e6a](https://github.com/rodekruis/IBF-system/commit/7d03e6a1c313c69c4eb566c6752652943e132d14))
+* other e2e tests date issues ([24845e3](https://github.com/rodekruis/IBF-system/commit/24845e3d6ed722ed6b6ebfdc4b66d59769de0c71))
+
+
+
 ## [0.332.1](https://github.com/rodekruis/IBF-system/compare/v0.332.0...v0.332.1) (2025-12-17)
 
 
@@ -161,20 +171,6 @@
 ### Features
 
 * send event emails using smtp instead of mailchimp ([5b2cc1d](https://github.com/rodekruis/IBF-system/commit/5b2cc1de4634fc9d68968dbcdf9c26b074949a39))
-
-
-
-# [0.326.0](https://github.com/rodekruis/IBF-system/compare/v0.325.1...v0.326.0) (2025-09-16)
-
-
-### Bug Fixes
-
-* use text colour for low warning ([6edca64](https://github.com/rodekruis/IBF-system/commit/6edca643e55610521e489ba6e72cf555f9b0088a))
-
-
-### Features
-
-* add warning scenario for eth flood ([ae776c3](https://github.com/rodekruis/IBF-system/commit/ae776c3d255af5da5fc276c79f0df63c87c67a47))
 
 
 
