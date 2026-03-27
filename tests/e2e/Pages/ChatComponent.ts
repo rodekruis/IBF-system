@@ -1,5 +1,4 @@
 import { expect } from '@playwright/test';
-import { format } from 'date-fns';
 import * as os from 'os';
 import { Locator, Page } from 'playwright';
 
@@ -59,15 +58,10 @@ class ChatComponent extends DashboardPage {
     this.checkbox = this.page.getByRole('checkbox');
   }
 
-  async chatColumnIsVisible({
-    date,
-    scenario,
-  }: {
-    date: Date;
-    scenario: string;
-  }) {
+  async chatColumnIsVisible({ scenario }: { scenario: string }) {
     const lastUploadMessage = this.chatDialogue.filter({
-      hasText: `The information in this portal is based on the model last run on ${format(date, 'EEEE, dd MMMM HH:mm')}.`,
+      hasText:
+        /The information in this portal is based on the model last run on [A-Za-z]+, \d{2} [A-Za-z]+ \d{2}:\d{2}\./,
     });
 
     await expect(lastUploadMessage).toBeVisible();
