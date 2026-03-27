@@ -62,7 +62,7 @@ datasets.forEach((dataset) => {
     });
 
     test.describe('DashboardPage', () => {
-      DashboardPageVisible(dataset, date);
+      DashboardPageVisible(dataset);
     });
 
     test.describe('MapComponent', () => {
@@ -82,7 +82,7 @@ datasets.forEach((dataset) => {
     });
 
     test.describe('ChatComponent', () => {
-      ChatComponentVisible(dataset, date);
+      ChatComponentVisible(dataset);
       ChatComponentButtonClick(dataset);
 
       if (scenario !== 'no-trigger') {

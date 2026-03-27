@@ -11,7 +11,7 @@
     "label": "Drought"
   },
   "scenario": "warning",
-  "mockDate": "2025-11-15T12:00:00",
+  "mockDate": "2025-11-15T13:00:00Z",
   "user": {
     "firstName": "Uganda",
     "lastName": "Manager"

@@ -6,7 +6,7 @@ import MapComponent from 'Pages/MapComponent';
 import UserStateComponent from 'Pages/UserStateComponent';
 import { Dataset } from 'testData/types';
 
-export default (dataset: Dataset, date: Date) => {
+export default (dataset: Dataset) => {
   test('[33012] should be visible', async ({ page }) => {
     const userState = new UserStateComponent(page);
     const disasterType = new DisasterTypeComponent(page);
@@ -16,7 +16,7 @@ export default (dataset: Dataset, date: Date) => {
 
     await userState.headerComponentIsVisible(dataset);
     await disasterType.topBarComponentIsVisible();
-    await chat.chatColumnIsVisible({ date, scenario: dataset.scenario });
+    await chat.chatColumnIsVisible({ scenario: dataset.scenario });
     await aggregates.aggregateComponentIsVisible();
     await map.mapComponentIsVisible();
   });
