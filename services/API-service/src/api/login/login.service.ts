@@ -9,7 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { subMinutes } from 'date-fns';
 import { LessThan, Repository } from 'typeorm';
 
-import { CI } from '../../config';
+import { CI, DEV } from '../../config';
 import { CountryService } from '../country/country.service';
 import { EmailService } from '../email/email.service';
 import { UserService } from '../user/user.service';
@@ -56,7 +56,7 @@ export class LoginService {
     await this.loginRepository.upsert(loginEntity, ['user']);
 
     // do not send email in dev or ci environments
-    if (CI) {
+    if (DEV || CI) {
       return { message: PROMPT_CODE, code };
     }
 
