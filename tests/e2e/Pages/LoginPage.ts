@@ -24,13 +24,22 @@ class LoginPage extends DashboardPage {
       throw new Error('Email is required to login');
     }
 
-    const loginRequest = this.page.waitForResponse('**/api/login');
+    const loginRequest = this.page.waitForResponse((response) => {
+      return response.url().includes('/api/login');
+    });
 
     await this.emailInput.fill(email);
     await this.loginButton.click();
 
     const loginResponse = await loginRequest;
-    const { code } = await loginResponse.json();
+    const loginResponseBody = await loginResponse.json();
+    const code = loginResponseBody?.code;
+
+    if (!code) {
+      throw new Error(
+        `Failed to receive login code. status=${loginResponse.status()} body=${JSON.stringify(loginResponseBody)}`,
+      );
+    }
 
     await this.codeInput.fill(String(code), { force: true });
   }
