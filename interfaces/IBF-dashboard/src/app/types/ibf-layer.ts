@@ -1,3 +1,4 @@
+/// <reference types="leaflet.markercluster" />
 import {
   CRS,
   GeoJSON,

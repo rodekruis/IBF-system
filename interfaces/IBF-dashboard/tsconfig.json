@@ -27,7 +27,8 @@
     "lib": ["es2020", "dom"],
     "useDefineForClassFields": false,
     "resolveJsonModule": true,
-    "strictNullChecks": false
+    "strictNullChecks": false,
+    "skipLibCheck": true
   },
   "exclude": ["node_modules"],
   "angularCompilerOptions": {

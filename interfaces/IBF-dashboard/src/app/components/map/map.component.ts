@@ -1,3 +1,4 @@
+/// <reference types="leaflet.markercluster" />
 import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { LeafletControlLayersConfig } from '@bluehalo/ngx-leaflet';
 import bbox from '@turf/bbox';
