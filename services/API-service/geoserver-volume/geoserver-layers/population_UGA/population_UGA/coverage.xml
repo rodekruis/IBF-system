@@ -8,15 +8,15 @@
   <title>population_UGA</title>
   <description>Generated from GeoTIFF</description>
   <keywords>
-    <string>hrsl_uga_pop_resized_100</string>
+    <string>UGA_population</string>
     <string>WCS</string>
     <string>GeoTIFF</string>
   </keywords>
-  <nativeCRS class="org.geotools.referencing.crs.DefaultEngineeringCRS">LOCAL_CS[&quot;Wildcard 2D cartesian plane in metric unit&quot;, 
-  LOCAL_DATUM[&quot;Unknown&quot;, 0], 
-  UNIT[&quot;m&quot;, 1.0], 
-  AXIS[&quot;x&quot;, EAST], 
-  AXIS[&quot;y&quot;, NORTH], 
+  <nativeCRS class="org.geotools.referencing.crs.DefaultEngineeringCRS">LOCAL_CS[&quot;Wildcard 2D cartesian plane in metric unit&quot;,
+  LOCAL_DATUM[&quot;Unknown&quot;, 0],
+  UNIT[&quot;m&quot;, 1.0],
+  AXIS[&quot;x&quot;, EAST],
+  AXIS[&quot;y&quot;, NORTH],
   AUTHORITY[&quot;EPSG&quot;,&quot;404000&quot;]]</nativeCRS>
   <srs>EPSG:404000</srs>
   <nativeBoundingBox>
@@ -43,7 +43,7 @@
       </directDownloadSettings>
     </entry>
     <entry key="cachingEnabled">false</entry>
-    <entry key="dirName">population_UGA_hrsl_uga_pop_resized_100</entry>
+    <entry key="dirName">population_UGA_UGA_population</entry>
   </metadata>
   <store class="coverageStore">
     <id>CoverageStoreInfoImpl-48cab08a:175ace47603:-7feb</id>
@@ -115,5 +115,5 @@
       <string>512,512</string>
     </entry>
   </parameters>
-  <nativeCoverageName>hrsl_uga_pop_resized_100</nativeCoverageName>
+  <nativeCoverageName>UGA_population</nativeCoverageName>
 </coverage>
