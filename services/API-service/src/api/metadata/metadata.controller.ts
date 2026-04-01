@@ -12,8 +12,8 @@ import { RolesGuard } from '../../roles.guard';
 import { CountryDisasterType } from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { UserRole } from '../user/user-role.enum';
-import { IndicatorDto } from './dto/indicator.dto';
-import { LayerDto } from './dto/layer.dto';
+import { UpsertIndicatorsDto } from './dto/upsert-indicators.dto';
+import { UpsertLayersDto } from './dto/upsert-layers.dto';
 import { IndicatorMetadataEntity } from './indicator-metadata.entity';
 import { LayerMetadataEntity } from './layer-metadata.entity';
 import { MetadataService } from './metadata.service';
@@ -38,7 +38,7 @@ export class MetadataController {
   })
   @Post('indicators')
   public async upsertIndicators(
-    @Body() { indicators }: { indicators: IndicatorDto[] },
+    @Body() { indicators }: UpsertIndicatorsDto,
   ): Promise<IndicatorMetadataEntity[]> {
     return await this.metadataService.upsertIndicators(indicators);
   }
@@ -52,7 +52,7 @@ export class MetadataController {
   })
   @Post('layers')
   public async upsertLayers(
-    @Body() { layers }: { layers: LayerDto[] },
+    @Body() { layers }: UpsertLayersDto,
   ): Promise<LayerMetadataEntity[]> {
     return await this.metadataService.upsertLayers(layers);
   }
