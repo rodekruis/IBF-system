@@ -1,3 +1,12 @@
+## [0.332.3](https://github.com/rodekruis/IBF-system/compare/v0.332.2...v0.332.3) (2026-04-01)
+
+
+### Bug Fixes
+
+* **data:** remove "double" station ([780ca7d](https://github.com/rodekruis/IBF-system/commit/780ca7db7d759087c4e89ef328b031aeed2763e8))
+
+
+
 ## [0.332.2](https://github.com/rodekruis/IBF-system/compare/v0.332.1...v0.332.2) (2026-03-27)
 
 
@@ -162,15 +171,6 @@
 
 * decode user id ([c4e3583](https://github.com/rodekruis/IBF-system/commit/c4e3583638114ec1f0689ea99413092d37849aab))
 * update user config ([30b4239](https://github.com/rodekruis/IBF-system/commit/30b4239c7f397a50f59fb9d22420f2a2e04d6525))
-
-
-
-# [0.327.0](https://github.com/rodekruis/IBF-system/compare/v0.326.0...v0.327.0) (2025-09-25)
-
-
-### Features
-
-* send event emails using smtp instead of mailchimp ([5b2cc1d](https://github.com/rodekruis/IBF-system/commit/5b2cc1de4634fc9d68968dbcdf9c26b074949a39))
 
 
 
