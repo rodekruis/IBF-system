@@ -1,3 +1,13 @@
+## [0.332.4](https://github.com/rodekruis/IBF-system/compare/v0.332.3...v0.332.4) (2026-04-03)
+
+
+### Bug Fixes
+
+* date on drought integration test ([489aeb5](https://github.com/rodekruis/IBF-system/commit/489aeb58e025e58480afc6341a9a22ea1d812554))
+* post body indicators & layers ([e9efe3c](https://github.com/rodekruis/IBF-system/commit/e9efe3c1b559c11ed65cdc1cb24b4a5f91496277))
+
+
+
 ## [0.332.3](https://github.com/rodekruis/IBF-system/compare/v0.332.2...v0.332.3) (2026-04-01)
 
 
@@ -161,16 +171,6 @@
 ### Reverts
 
 * Revert "debug: print login error" ([bbfa7b4](https://github.com/rodekruis/IBF-system/commit/bbfa7b434b720c01df20fade5f462d252bb9361d))
-
-
-
-## [0.327.1](https://github.com/rodekruis/IBF-system/compare/v0.327.0...v0.327.1) (2025-10-01)
-
-
-### Bug Fixes
-
-* decode user id ([c4e3583](https://github.com/rodekruis/IBF-system/commit/c4e3583638114ec1f0689ea99413092d37849aab))
-* update user config ([30b4239](https://github.com/rodekruis/IBF-system/commit/30b4239c7f397a50f59fb9d22420f2a2e04d6525))
 
 
 
