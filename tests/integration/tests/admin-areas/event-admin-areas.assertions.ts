@@ -163,6 +163,7 @@ export const eventAdminAreasAssertions: EventAdminAreaAssertion[] = [
     scenario: FloodsScenario.Warning,
     featureCount: 6,
     placeCodeRegex: /^LS/,
+    uploadDate: new Date(new Date().getFullYear(), 8, 1), // Fix to date in September for stable response
   },
   {
     countryCodeISO3: 'UGA',
