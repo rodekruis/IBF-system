@@ -141,6 +141,23 @@ export class DynamicPointPopupComponent implements OnInit {
         return '';
       }
 
+      // Write this exception only because we minimize effort on v1
+      // Keep in sync with switch statement in map-legend.service.ts
+      if (this.layerName === IbfLayerName.gauges) {
+        switch (this.alertLevel) {
+          case AlertLevel.NONE:
+            return '';
+          case AlertLevel.WARNINGLOW:
+            return 'Low water level';
+          case AlertLevel.WARNINGMEDIUM:
+            return 'Medium water level';
+          case AlertLevel.TRIGGER:
+            return 'High water level';
+          default:
+            break;
+        }
+      }
+
       return ALERT_LEVEL_LABEL[this.alertLevel];
     }
 
