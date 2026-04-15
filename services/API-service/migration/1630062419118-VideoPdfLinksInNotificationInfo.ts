@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class VideoPdfLinksInNotificationInfo1630062419118
-  implements MigrationInterface
-{
+export class VideoPdfLinksInNotificationInfo1630062419118 implements MigrationInterface {
   name = 'VideoPdfLinksInNotificationInfo1630062419118';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

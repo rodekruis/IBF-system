@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class StaticDataActiveBoolean1732538758226
-  implements MigrationInterface
-{
+export class StaticDataActiveBoolean1732538758226 implements MigrationInterface {
   name = 'StaticDataActiveBoolean1732538758226';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

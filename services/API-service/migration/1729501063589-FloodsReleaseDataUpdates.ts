@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class FloodsReleaseDataUpdates1729501063589
-  implements MigrationInterface
-{
+export class FloodsReleaseDataUpdates1729501063589 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     // NOTE: update countries/notification-info/indicator-metadata/layer-metadata via API-calls on production
     // REFACTOR: in a similar next issue, include this in the migration script

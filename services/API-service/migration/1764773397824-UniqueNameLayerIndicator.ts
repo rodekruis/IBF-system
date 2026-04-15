@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class UniqueNameLayerIndicator1764773397824
-  implements MigrationInterface
-{
+export class UniqueNameLayerIndicator1764773397824 implements MigrationInterface {
   name = 'UniqueNameLayerIndicator1764773397824';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

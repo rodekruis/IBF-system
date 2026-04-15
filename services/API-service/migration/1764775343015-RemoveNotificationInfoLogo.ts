@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class RemoveNotificationInfoLogo1764775343015
-  implements MigrationInterface
-{
+export class RemoveNotificationInfoLogo1764775343015 implements MigrationInterface {
   name = 'RemoveNotificationInfoLogo1764775343015';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

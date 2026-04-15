@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class AddDroughtAreasToCountryDisasterSettings1653892419259
-  implements MigrationInterface
-{
+export class AddDroughtAreasToCountryDisasterSettings1653892419259 implements MigrationInterface {
   name = 'AddDroughtAreasToCountryDisasterSettings1653892419259';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

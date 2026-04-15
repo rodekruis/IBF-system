@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class EventPlaceCodeAdminAreaDeleteCascade1745933987463
-  implements MigrationInterface
-{
+export class EventPlaceCodeAdminAreaDeleteCascade1745933987463 implements MigrationInterface {
   name = 'EventPlaceCodeAdminAreaDeleteCascade1745933987463';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

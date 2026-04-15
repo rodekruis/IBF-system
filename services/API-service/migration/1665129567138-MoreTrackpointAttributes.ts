@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class MoreTrackpointAttributes1665129567138
-  implements MigrationInterface
-{
+export class MoreTrackpointAttributes1665129567138 implements MigrationInterface {
   name = 'MoreTrackpointAttributes1665129567138';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

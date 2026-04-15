@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class ShowOnlyTriggeredAreasBoolean1678110416255
-  implements MigrationInterface
-{
+export class ShowOnlyTriggeredAreasBoolean1678110416255 implements MigrationInterface {
   name = 'ShowOnlyTriggeredAreasBoolean1678110416255';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
