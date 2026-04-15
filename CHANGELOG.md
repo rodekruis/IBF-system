@@ -1,3 +1,12 @@
+## [0.332.10](https://github.com/rodekruis/IBF-system/compare/v0.332.9...v0.332.10) (2026-04-15)
+
+
+### Bug Fixes
+
+* revert incompatible jest/typescript bumps and update mailer imports ([09ee408](https://github.com/rodekruis/IBF-system/commit/09ee4084920c1a0214ee2c838d6fabeb05c351bb))
+
+
+
 ## [0.332.9](https://github.com/rodekruis/IBF-system/compare/v0.332.8...v0.332.9) (2026-04-15)
 
 
@@ -79,28 +88,6 @@
 ### Bug Fixes
 
 * page must scroll on overflow ([826711b](https://github.com/rodekruis/IBF-system/commit/826711b6103b248b3a5ee90038e01e11622490f8))
-
-
-
-# [0.332.0](https://github.com/rodekruis/IBF-system/compare/v0.331.0...v0.332.0) (2025-12-12)
-
-
-### Bug Fixes
-
-* admins can access all countries ([16de7ca](https://github.com/rodekruis/IBF-system/commit/16de7caf1b4ac100cd701ca9b3eed4957379e046))
-* bbox centroid ([941d170](https://github.com/rodekruis/IBF-system/commit/941d1708eab8dd33880165698bda24753f7c4eac))
-* interface needs country disaster settings ([cb9a072](https://github.com/rodekruis/IBF-system/commit/cb9a072162539f4c0cad3413b0321f8e7599e962))
-* interface needs notification info ([536decc](https://github.com/rodekruis/IBF-system/commit/536deccab842d8d14054693c9a7665dd05b90123))
-* update event class ([59c2907](https://github.com/rodekruis/IBF-system/commit/59c2907725e42a32b1de19a442e1e20bdfd32e96))
-* update event class ([5d8d219](https://github.com/rodekruis/IBF-system/commit/5d8d219085c6803a73db92ee66d9cc84f765c388))
-
-
-### Features
-
-* event api ([68cf2df](https://github.com/rodekruis/IBF-system/commit/68cf2df4e67a15e0c061ef5c3f4463a50c458c6a))
-* include alert level in monty event ([095ec98](https://github.com/rodekruis/IBF-system/commit/095ec98627c95c01182137aea1feacb9c524499f))
-* monty events ([137e4d8](https://github.com/rodekruis/IBF-system/commit/137e4d8bbe2129d50946a3d969867050838e29dd))
-* monty impact detail ([3c151a0](https://github.com/rodekruis/IBF-system/commit/3c151a02233125b6bb2bba82e4b4a2fb4e73de20))
 
 
 
