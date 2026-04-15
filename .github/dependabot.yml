@@ -36,6 +36,7 @@ updates:
       backend-development:
         patterns:
           - '@types/*'
+          - '@typescript-eslint/*'
           - 'eslint*'
           - 'prettier*'
       backend:
