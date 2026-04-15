@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class EapLinksDisasterSpecific1630664466068
-  implements MigrationInterface
-{
+export class EapLinksDisasterSpecific1630664466068 implements MigrationInterface {
   name = 'EapLinksDisasterSpecific1630664466068';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

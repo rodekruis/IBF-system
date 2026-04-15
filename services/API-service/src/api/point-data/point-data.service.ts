@@ -27,7 +27,8 @@ import { DynamicPointDataEntity } from './dynamic-point-data.entity';
 import { PointDataCategory, PointDataEntity } from './point-data.entity';
 
 export interface PointDto
-  extends DamSiteDto,
+  extends
+    DamSiteDto,
     EvacuationCenterDto,
     HealthSiteDto,
     RedCrossBranchDto,

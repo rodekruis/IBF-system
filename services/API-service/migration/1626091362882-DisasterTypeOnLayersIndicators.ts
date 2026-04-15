@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class DisasterTypeOnLayersIndicators1626091362882
-  implements MigrationInterface
-{
+export class DisasterTypeOnLayersIndicators1626091362882 implements MigrationInterface {
   name = 'DisasterTypeOnLayersIndicators1626091362882';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

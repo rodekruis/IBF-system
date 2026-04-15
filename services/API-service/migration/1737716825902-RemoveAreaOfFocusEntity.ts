@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class RemoveAreaOfFocusEntity1737716825902
-  implements MigrationInterface
-{
+export class RemoveAreaOfFocusEntity1737716825902 implements MigrationInterface {
   name = 'RemoveAreaOfFocusEntity1737716825902';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

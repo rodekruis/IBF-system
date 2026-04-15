@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class RemoveLayerCountryDisasterType1693224120772
-  implements MigrationInterface
-{
+export class RemoveLayerCountryDisasterType1693224120772 implements MigrationInterface {
   name = 'RemoveLayerCountryDisasterType1693224120772';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

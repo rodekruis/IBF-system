@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class IndexTimestampDynamicData1739866139545
-  implements MigrationInterface
-{
+export class IndexTimestampDynamicData1739866139545 implements MigrationInterface {
   name = 'IndexTimestampDynamicData1739866139545';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

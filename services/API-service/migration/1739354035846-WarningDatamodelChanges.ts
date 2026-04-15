@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class WarningDatamodelChanges1739354035846
-  implements MigrationInterface
-{
+export class WarningDatamodelChanges1739354035846 implements MigrationInterface {
   name = 'WarningDatamodelChanges1739354035846';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

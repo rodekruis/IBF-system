@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class RemoveEndOfMonthPipeline1739191789807
-  implements MigrationInterface
-{
+export class RemoveEndOfMonthPipeline1739191789807 implements MigrationInterface {
   name = 'RemoveEndOfMonthPipeline1739191789807';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

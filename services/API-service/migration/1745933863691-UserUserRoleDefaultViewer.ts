@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class UserUserRoleDefaultViewer1745933863691
-  implements MigrationInterface
-{
+export class UserUserRoleDefaultViewer1745933863691 implements MigrationInterface {
   name = 'UserUserRoleDefaultViewer1745933863691';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

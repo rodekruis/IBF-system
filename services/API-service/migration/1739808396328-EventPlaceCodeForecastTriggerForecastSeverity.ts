@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class EventPlaceCodeForecastTriggerForecastSeverity1739808396328
-  implements MigrationInterface
-{
+export class EventPlaceCodeForecastTriggerForecastSeverity1739808396328 implements MigrationInterface {
   name = 'EventPlaceCodeForecastTriggerForecastSeverity1739808396328';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

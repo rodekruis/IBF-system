@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class RedCrossBranchesNumberOfVolunteersIsNumber1627399465768
-  implements MigrationInterface
-{
+export class RedCrossBranchesNumberOfVolunteersIsNumber1627399465768 implements MigrationInterface {
   public name = 'RedCrossBranchesNumberOfVolunteersIsNumber1627399465768';
 
   public async up(queryRunner: QueryRunner): Promise<void> {

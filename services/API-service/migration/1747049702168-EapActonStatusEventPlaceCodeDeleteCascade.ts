@@ -1,8 +1,6 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class EapActonStatusEventPlaceCodeDeleteCascade1747049702168
-  implements MigrationInterface
-{
+export class EapActonStatusEventPlaceCodeDeleteCascade1747049702168 implements MigrationInterface {
   name = 'EapActonStatusEventPlaceCodeDeleteCascade1747049702168';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
