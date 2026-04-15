@@ -9,10 +9,13 @@ dotenv.config({ path: path.resolve(__dirname, '../../.env') });
  */
 module.exports = {
   testEnvironment: 'node',
-  moduleFileExtensions: ['js', 'ts'],
+  moduleFileExtensions: ['js', 'mjs', 'ts'],
   transform: {
-    '^.+\\.ts?$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.json' }],
+    '^.+\\.m?[jt]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.json' }],
   },
+  transformIgnorePatterns: [
+    'node_modules/(?!(@exodus/bytes|@asamuzakjp|@bramus/specificity|@csstools|css-tree|parse5|tough-cookie|entities)/)',
+  ],
   rootDir: '.',
   testMatch: ['<rootDir>/**/*.test.ts'],
   coverageReporters: ['json', 'lcov'],
