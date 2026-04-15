@@ -5,7 +5,7 @@ import { CountryService } from 'src/app/services/country.service';
 import { DisasterTypeService } from 'src/app/services/disaster-type.service';
 import { EventService } from 'src/app/services/event.service';
 import { MapService } from 'src/app/services/map.service';
-import { AlertLevel } from 'src/app/types/alert-level';
+import { ALERT_LEVEL_LABEL, AlertLevel } from 'src/app/types/alert-level';
 import { EventState } from 'src/app/types/event';
 import {
   IbfLayer,
@@ -94,6 +94,24 @@ export class MapLegendService {
       prefix = 'GloFAS';
     } else if (layer.name === IbfLayerName.gauges) {
       prefix = 'River Gauge';
+      // Write this exception only because we minimize effort on v1
+      // Keep in sync with switch statement in dynamic-point-popup.component.ts
+      switch (label) {
+        case ALERT_LEVEL_LABEL[AlertLevel.NONE]:
+          label = '';
+          break;
+        case ALERT_LEVEL_LABEL[AlertLevel.WARNINGLOW]:
+          label = 'Low water level';
+          break;
+        case ALERT_LEVEL_LABEL[AlertLevel.WARNINGMEDIUM]:
+          label = 'Medium water level';
+          break;
+        case ALERT_LEVEL_LABEL[AlertLevel.TRIGGER]:
+          label = 'High water level';
+          break;
+        default:
+          break;
+      }
     }
 
     return this.singleRowLegend(
