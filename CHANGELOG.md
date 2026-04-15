@@ -1,3 +1,12 @@
+## [0.332.9](https://github.com/rodekruis/IBF-system/compare/v0.332.8...v0.332.9) (2026-04-15)
+
+
+### Bug Fixes
+
+* revert @eslint/js to v9 to resolve peer dependency conflict with eslint@^9.39.1 ([9ce46ba](https://github.com/rodekruis/IBF-system/commit/9ce46bad9a7f7092bb93f63170984ddc3a1e75a6))
+
+
+
 ## [0.332.8](https://github.com/rodekruis/IBF-system/compare/v0.332.7...v0.332.8) (2026-04-15)
 
 
@@ -92,24 +101,6 @@
 * include alert level in monty event ([095ec98](https://github.com/rodekruis/IBF-system/commit/095ec98627c95c01182137aea1feacb9c524499f))
 * monty events ([137e4d8](https://github.com/rodekruis/IBF-system/commit/137e4d8bbe2129d50946a3d969867050838e29dd))
 * monty impact detail ([3c151a0](https://github.com/rodekruis/IBF-system/commit/3c151a02233125b6bb2bba82e4b4a2fb4e73de20))
-
-
-
-# [0.331.0](https://github.com/rodekruis/IBF-system/compare/v0.330.0...v0.331.0) (2025-12-08)
-
-
-### Bug Fixes
-
-* add stroke to svg markers ([13b5e57](https://github.com/rodekruis/IBF-system/commit/13b5e573f5796cf02bcfb6fc4b7fc040fb0db76e))
-* disable search for few typeahead items ([0b69992](https://github.com/rodekruis/IBF-system/commit/0b6999251834a4abed77c2835ec032bbf68af58d))
-* remove radio ([d86bde4](https://github.com/rodekruis/IBF-system/commit/d86bde452e835df9288ca113e0df0c6852208323))
-* use RadioGroupCustomEvent ([b041a11](https://github.com/rodekruis/IBF-system/commit/b041a11add58ddfc0d13e371e8ae454f0e762aad))
-
-
-### Features
-
-* use radio for non-multi typeahead ([94101a5](https://github.com/rodekruis/IBF-system/commit/94101a5188b26b8e5cc94239b67b94b2f2b2a328))
-* use type ahead in country switcher ([ce59c7f](https://github.com/rodekruis/IBF-system/commit/ce59c7f983f58519915eb463b40128644e1ab149))
 
 
 
