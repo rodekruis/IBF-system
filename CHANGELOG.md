@@ -1,3 +1,12 @@
+## [0.332.6](https://github.com/rodekruis/IBF-system/compare/v0.332.5...v0.332.6) (2026-04-15)
+
+
+### Bug Fixes
+
+* auto-fix prettier formatting in ibf-guide-popover HTML template ([1fe09c7](https://github.com/rodekruis/IBF-system/commit/1fe09c744d5cfcc08a44a2689d5178e6529f43d2))
+
+
+
 ## [0.332.5](https://github.com/rodekruis/IBF-system/compare/v0.332.4...v0.332.5) (2026-04-15)
 
 
@@ -115,21 +124,6 @@
 ### Bug Fixes
 
 * replace invite with add until invite email can be sent ([41ddcb0](https://github.com/rodekruis/IBF-system/commit/41ddcb0ef88cbf6ee83f1ae7bd95895ed55106a6))
-
-
-
-# [0.329.0](https://github.com/rodekruis/IBF-system/compare/v0.328.0...v0.329.0) (2025-12-02)
-
-
-### Bug Fixes
-
-* dev menu border ([071625a](https://github.com/rodekruis/IBF-system/commit/071625a2970f980b0777aec7c5dd50c604d1689f))
-* restrict create user api for local admin ([696b590](https://github.com/rodekruis/IBF-system/commit/696b5907a83ceb26cd2882e74ea8035cc851150f))
-
-
-### Features
-
-* invite user ([5eca9a2](https://github.com/rodekruis/IBF-system/commit/5eca9a2f3578ade46322b27e1dbef2dbf4904ee7))
 
 
 
