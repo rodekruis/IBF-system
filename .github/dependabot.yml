@@ -36,8 +36,10 @@ updates:
       backend-development:
         patterns:
           - '@types/*'
+          - '@typescript-eslint/*'
           - 'eslint*'
           - 'prettier*'
+          - 'typescript-eslint'
       backend:
         patterns:
           - '*'
@@ -68,8 +70,10 @@ updates:
       frontend-development:
         patterns:
           - '@types/*'
+          - '@typescript-eslint/*'
           - 'eslint*'
           - 'prettier*'
+          - 'typescript-eslint'
       frontend:
         patterns:
           - '*'
@@ -88,9 +92,12 @@ updates:
           - '*jest*'
       integration-development:
         patterns:
+          - '@ianvs/*'
           - '@types/*'
+          - '@typescript-eslint/*'
           - 'eslint*'
           - 'prettier*'
+          - 'typescript-eslint'
       integration:
         patterns:
           - '*'
@@ -107,8 +114,10 @@ updates:
       e2e-development:
         patterns:
           - '@types/*'
+          - '@typescript-eslint/*'
           - 'eslint*'
           - 'prettier*'
+          - 'typescript-eslint'
       e2e:
         patterns:
           - '*'
