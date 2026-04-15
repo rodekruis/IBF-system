@@ -63,6 +63,15 @@ module.exports = tseslint.config(
         },
       ],
       'object-shorthand': 'error',
+      // There was a problem with using the eslint-plugin-promise package when migrating from .eslintrc.js to eslint.config.js. So switching this off as not actually used.
+      // 'promise/no-nesting': 'error',
+      // 'promise/no-callback-in-promise': 'error',
+      // 'promise/no-multiple-resolved': 'error',
+      // 'promise/no-promise-in-callback': 'error',
+      // 'promise/no-return-in-finally': 'error',
+      // 'promise/prefer-await-to-callbacks': 'error',
+      // 'promise/prefer-await-to-then': 'error',
+      // 'promise/valid-params': 'error',
       'perfectionist/sort-enums': ['error'],
       'simple-import-sort/imports': [
         'error',
