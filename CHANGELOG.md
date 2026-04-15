@@ -1,3 +1,12 @@
+## [0.332.11](https://github.com/rodekruis/IBF-system/compare/v0.332.10...v0.332.11) (2026-04-15)
+
+
+### Bug Fixes
+
+* resolve npm ci ERESOLVE by removing unused eslint-plugin-promise and updating @eslint/js to v10 ([3e699c6](https://github.com/rodekruis/IBF-system/commit/3e699c64ef5b21598b5a5ff31b8f115c963aa557))
+
+
+
 ## [0.332.10](https://github.com/rodekruis/IBF-system/compare/v0.332.9...v0.332.10) (2026-04-15)
 
 
@@ -79,15 +88,6 @@
 
 * e2e drought fix date ([7d03e6a](https://github.com/rodekruis/IBF-system/commit/7d03e6a1c313c69c4eb566c6752652943e132d14))
 * other e2e tests date issues ([24845e3](https://github.com/rodekruis/IBF-system/commit/24845e3d6ed722ed6b6ebfdc4b66d59769de0c71))
-
-
-
-## [0.332.1](https://github.com/rodekruis/IBF-system/compare/v0.332.0...v0.332.1) (2025-12-17)
-
-
-### Bug Fixes
-
-* page must scroll on overflow ([826711b](https://github.com/rodekruis/IBF-system/commit/826711b6103b248b3a5ee90038e01e11622490f8))
 
 
 
