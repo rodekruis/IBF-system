@@ -1,3 +1,13 @@
+## [0.332.7](https://github.com/rodekruis/IBF-system/compare/v0.332.6...v0.332.7) (2026-04-15)
+
+
+### Bug Fixes
+
+* add @eslint/eslintrc as devDependency for ESLint v10 and auto-fix prettier formatting ([9e8ad97](https://github.com/rodekruis/IBF-system/commit/9e8ad97f59a864a7d632e8153f37436b4b9379d4))
+* update @typescript-eslint/eslint-plugin and @typescript-eslint/parser to ^8.58.2 to support eslint v10 ([60676b0](https://github.com/rodekruis/IBF-system/commit/60676b0793eac2af3e4da3643a05c146d356ebe0))
+
+
+
 ## [0.332.6](https://github.com/rodekruis/IBF-system/compare/v0.332.5...v0.332.6) (2026-04-15)
 
 
@@ -115,15 +125,6 @@
 ### Features
 
 * gauges with alert levels ([03dd932](https://github.com/rodekruis/IBF-system/commit/03dd9320e88f2a6a166aa258bb8ad6fbaaa7f62a))
-
-
-
-## [0.329.1](https://github.com/rodekruis/IBF-system/compare/v0.329.0...v0.329.1) (2025-12-03)
-
-
-### Bug Fixes
-
-* replace invite with add until invite email can be sent ([41ddcb0](https://github.com/rodekruis/IBF-system/commit/41ddcb0ef88cbf6ee83f1ae7bd95895ed55106a6))
 
 
 
