@@ -1,6 +1,5 @@
 import {
   HTTP_INTERCEPTORS,
-  HttpClient,
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
@@ -14,17 +13,16 @@ import {
   TranslateLoader,
   TranslateModule,
 } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {
+  TRANSLATE_HTTP_LOADER_CONFIG,
+  TranslateHttpLoader,
+} from '@ngx-translate/http-loader';
 import { TranslateMessageFormatCompiler } from 'ngx-translate-messageformat-compiler';
 import { AppComponent } from 'src/app/app.component';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { AuthInterceptorService } from 'src/app/services/auth.interceptor.service';
 import { LoaderInterceptorService } from 'src/app/services/loader.interceptor.service';
 import { environment } from 'src/environments/environment';
-
-export function createTranslateLoader(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,11 +39,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     TranslateModule.forRoot({
       defaultLanguage: 'en',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: createTranslateLoader,
-        deps: [HttpClient],
-      },
+      loader: { provide: TranslateLoader, useClass: TranslateHttpLoader },
       compiler: {
         provide: TranslateCompiler,
         useClass: TranslateMessageFormatCompiler,
@@ -54,6 +48,10 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    {
+      provide: TRANSLATE_HTTP_LOADER_CONFIG,
+      useValue: { prefix: './assets/i18n/', suffix: '.json' },
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoaderInterceptorService,

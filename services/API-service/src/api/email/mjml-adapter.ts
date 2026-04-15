@@ -1,8 +1,11 @@
-import { MailerOptions, TemplateAdapter } from '@nestjs-modules/mailer';
-import { EjsAdapter } from '@nestjs-modules/mailer/dist/adapters/ejs.adapter';
-import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import { PugAdapter } from '@nestjs-modules/mailer/dist/adapters/pug.adapter';
-import { TemplateAdapterConfig } from '@nestjs-modules/mailer/dist/interfaces/template-adapter-config.interface';
+import {
+  MailerOptions,
+  TemplateAdapter,
+  TemplateAdapterConfig,
+} from '@nestjs-modules/mailer';
+import { EjsAdapter } from '@nestjs-modules/mailer/adapters/ejs.adapter';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/adapters/handlebars.adapter';
+import { PugAdapter } from '@nestjs-modules/mailer/adapters/pug.adapter';
 
 import { compile } from 'ejs';
 import { readFileSync } from 'fs';
