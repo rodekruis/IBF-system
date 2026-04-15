@@ -1,3 +1,12 @@
+## [0.332.8](https://github.com/rodekruis/IBF-system/compare/v0.332.7...v0.332.8) (2026-04-15)
+
+
+### Bug Fixes
+
+* configure Jest to transform ESM dependencies from jsdom 29 ([ac2328c](https://github.com/rodekruis/IBF-system/commit/ac2328c80afdec2d236d75949c1a6b51e5ef5613))
+
+
+
 ## [0.332.7](https://github.com/rodekruis/IBF-system/compare/v0.332.6...v0.332.7) (2026-04-15)
 
 
@@ -101,30 +110,6 @@
 
 * use radio for non-multi typeahead ([94101a5](https://github.com/rodekruis/IBF-system/commit/94101a5188b26b8e5cc94239b67b94b2f2b2a328))
 * use type ahead in country switcher ([ce59c7f](https://github.com/rodekruis/IBF-system/commit/ce59c7f983f58519915eb463b40128644e1ab149))
-
-
-
-# [0.330.0](https://github.com/rodekruis/IBF-system/compare/v0.329.1...v0.330.0) (2025-12-05)
-
-
-### Bug Fixes
-
-* adjust column width based on number of countries ([ed3c2fb](https://github.com/rodekruis/IBF-system/commit/ed3c2fb41bf10bdb10d48321d07d56e0dcf2ff6d))
-* always include alert level none in legend ([7f0c459](https://github.com/rodekruis/IBF-system/commit/7f0c45982f276edc2518aef2c25ce63032afe0d7))
-* center popup close icon ([27f6f73](https://github.com/rodekruis/IBF-system/commit/27f6f737422b3c60a8a09bf59e3ee83da9ae3fe2))
-* import error ([a9e988f](https://github.com/rodekruis/IBF-system/commit/a9e988faa4f5a893e9b85a5ab265f5dbaefbb12e))
-* logins cascade ([ffca98b](https://github.com/rodekruis/IBF-system/commit/ffca98bbdfb84c68ece3734029db0aba313a7e15))
-* mock ([5431a66](https://github.com/rodekruis/IBF-system/commit/5431a66469ad94ae73f23f47df262c6e0e95994d))
-* remove unused columns ([c9576d2](https://github.com/rodekruis/IBF-system/commit/c9576d2ff4871a78cc76fecacbf7289c108c8449))
-* seed metadata ([114a4d9](https://github.com/rodekruis/IBF-system/commit/114a4d94280d5c910d079a03aa6326094aec4ef3))
-* unsubscribe url ([62c316e](https://github.com/rodekruis/IBF-system/commit/62c316e2fd0da6c38caeacf39ef8fa905875a297))
-* use darker text colours ([04718ec](https://github.com/rodekruis/IBF-system/commit/04718ecb80efefc65ac1db3a4bc3baef5cb401c6))
-* use log level warn ([6b2657d](https://github.com/rodekruis/IBF-system/commit/6b2657d6e5e58577d6529d14af13a351f29907c3))
-
-
-### Features
-
-* gauges with alert levels ([03dd932](https://github.com/rodekruis/IBF-system/commit/03dd9320e88f2a6a166aa258bb8ad6fbaaa7f62a))
 
 
 
