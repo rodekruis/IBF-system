@@ -35,10 +35,10 @@ describe('LoginFormComponent', () => {
           provide: AuthService,
           useValue: {
             login: jasmine.createSpy('login').and.returnValue({
-              add: jasmine
-                .createSpy('add')
-                .and.callFake((callback: () => void) => {
-                  callback();
+              subscribe: jasmine
+                .createSpy('subscribe')
+                .and.callFake(({ complete }: { complete?: () => void }) => {
+                  complete?.();
                 }),
             }),
           },

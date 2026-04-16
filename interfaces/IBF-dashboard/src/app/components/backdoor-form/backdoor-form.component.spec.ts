@@ -29,7 +29,10 @@ describe('BackdoorFormComponent', () => {
   let router: jasmine.SpyObj<Router>;
 
   beforeEach(async () => {
-    authService = jasmine.createSpyObj<AuthService>('AuthService', ['login']);
+    authService = jasmine.createSpyObj<AuthService>('AuthService', [
+      'login',
+      'backdoor',
+    ]);
 
     analyticsService = jasmine.createSpyObj<AnalyticsService>(
       'AnalyticsService',

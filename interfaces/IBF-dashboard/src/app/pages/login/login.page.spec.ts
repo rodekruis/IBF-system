@@ -1,11 +1,14 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { apps } from 'ionicons/icons';
+import { of } from 'rxjs';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
 import { LoginPage } from 'src/app/pages/login/login.page';
+import { CountryService } from 'src/app/services/country.service';
 
 describe('LoginPage', () => {
   let component: LoginPage;
@@ -26,7 +29,21 @@ describe('LoginPage', () => {
       declarations: [LoginPage],
       schemas: [NO_ERRORS_SCHEMA],
       imports: [IonicModule, TranslateModule.forRoot()],
-      providers: [{ provide: AnalyticsService, useValue: analyticsService }],
+      providers: [
+        { provide: AnalyticsService, useValue: analyticsService },
+        {
+          provide: PopoverController,
+          useValue: { create: jasmine.createSpy('create') },
+        },
+        {
+          provide: CountryService,
+          useValue: {
+            getCountries: jasmine
+              .createSpy('getCountries')
+              .and.returnValue(of([])),
+          },
+        },
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginPage);
