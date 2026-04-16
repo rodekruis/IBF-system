@@ -1,0 +1,12 @@
+ion-item {
+  --background-focused: transparent;
+}
+
+ion-input {
+  border: none;
+  background: transparent;
+
+  ::ng-deep .native-input {
+    box-shadow: none;
+  }
+}

@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -16,6 +17,7 @@ import { DisasterTypeEntity } from '../disaster-type/disaster-type.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { LookupService } from '../notification/lookup/lookup.service';
 import { CreateUserDto, LoginUserDto } from './dto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserEntity } from './user.entity';
 import { User } from './user.model';
@@ -325,5 +327,49 @@ export class UserService {
 
   public async deleteUser(userId: string) {
     await this.userRepository.delete({ userId });
+  }
+
+  public async updatePassword(loggedInUserId: string, dto: UpdatePasswordDto) {
+    let updateUser: UserEntity;
+    const loggedInUser = await this.userRepository.findOne({
+      where: { userId: loggedInUserId },
+      relations: this.relations,
+    });
+    if (!loggedInUser) {
+      const errors = { user: 'No logged in user found' };
+      throw new NotFoundException({ errors });
+    }
+
+    if (dto.email) {
+      if (loggedInUser.userRole !== UserRole.Admin) {
+        const errors = {
+          User: 'You can only use this endpoint with email-property if you are an admin-user',
+        };
+        throw new UnauthorizedException({ errors });
+      }
+      updateUser = await this.userRepository.findOne({
+        where: { email: dto.email },
+        relations: this.relations,
+      });
+      if (!updateUser) {
+        const errors = { email: dto.email + ' not found' };
+        throw new NotFoundException({ errors });
+      }
+    } else {
+      updateUser = loggedInUser;
+    }
+    const password = crypto.createHmac('sha256', dto.password).digest('hex');
+    await this.userRepository.save({ userId: updateUser.userId, password });
+
+    const userRO = {
+      email: updateUser.email,
+      firstName: updateUser.firstName,
+      middleName: updateUser.middleName,
+      lastName: updateUser.lastName,
+      userRole: updateUser.userRole,
+      whatsappNumber: updateUser.whatsappNumber,
+    };
+
+    return { user: userRO };
   }
 }

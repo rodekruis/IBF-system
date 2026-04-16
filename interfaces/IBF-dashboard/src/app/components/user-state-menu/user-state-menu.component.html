@@ -5,9 +5,14 @@
       <h3>{{ userName }}</h3>
     </ion-label>
   </ion-item>
-  <ion-item [button]="true" [detail]="false" routerLink="manage">{{
-    'user-state.manage' | translate
+  <ion-item [button]="true" [detail]="false" (click)="presentPopover()">{{
+    'user-state.password-change' | translate
   }}</ion-item>
+  <!--
+  <ion-item [button]="true" [detail]="false" routerLink="manage">{{
+      'user-state.manage' | translate
+    }}</ion-item>
+  -->
   <ion-item
     [button]="true"
     [detail]="false"

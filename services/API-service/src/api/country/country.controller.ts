@@ -54,7 +54,6 @@ export class CountryController {
   }
 
   @ApiBearerAuth()
-  @UseGuards(RolesGuard)
   @ApiOperation({ summary: 'Get countries' })
   @ApiResponse({
     status: 200,
@@ -67,7 +66,7 @@ export class CountryController {
   ): Promise<CountryEntity[]> {
     let countryCodesISO3 = [];
 
-    if (user.userRole !== UserRole.Admin) {
+    if (user && user.userRole !== UserRole.Admin) {
       countryCodesISO3 = user.countryCodesISO3;
     }
 

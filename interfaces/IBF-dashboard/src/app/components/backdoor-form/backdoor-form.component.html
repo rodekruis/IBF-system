@@ -1,0 +1,105 @@
+<form #loginForm="ngForm" (ngSubmit)="onSubmit()" class="login-form">
+  <input
+    type="submit"
+    hidden
+    [disabled]="!loginForm.form.valid"
+  /><!-- Include hidden submit-button to enable "enter"-key to trigger ngSubmit -->
+
+  <ion-item>
+    <ion-label position="stacked">{{
+      'backdoor-page.enter-email' | translate
+    }}</ion-label>
+    <ion-input
+      #emailInput
+      [ngModel]="model.email"
+      (ngModelChange)="onEmailChange($event)"
+      email
+      name="email"
+      type="email"
+      required
+      inputmode="email"
+      pattern=".+@.+\.[a-z]+"
+      autocomplete="email"
+      [disabled]="formState === 'code'"
+      [autofocus]="formState === 'email'"
+      data-testid="input-email"
+    ></ion-input>
+  </ion-item>
+  @if (formState === 'code') {
+    <ion-item lines="none" class="my-4">
+      <div class="flex w-full flex-col items-center justify-evenly sm:flex-row">
+        <ion-button
+          fill="clear"
+          color="ibf-grey"
+          (click)="onReenterEmail()"
+          data-test="reenter-email-button"
+          >{{ 'backdoor-page.reenter-email' | translate }}</ion-button
+        >
+        <ion-button
+          fill="clear"
+          color="ibf-grey"
+          (click)="onSubmit(true)"
+          data-test="resend-code-button"
+          [disabled]="resendCodeDisabled"
+          >{{ 'backdoor-page.resend-code' | translate }}</ion-button
+        >
+      </div>
+    </ion-item>
+  }
+  <ion-item lines="none" class="items-center">
+    <ion-label
+      position="stacked"
+      class="text-center"
+      [color]="error ? 'danger' : 'ibf-no-alert-primary'"
+      [class.wiggle]="error"
+      >{{ message || '\u00A0' }}</ion-label
+    >
+    @if (formState === 'code') {
+      <ion-input
+        #codeInput
+        type="text"
+        name="code"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        maxlength="6"
+        class="pointer-events-none absolute opacity-0"
+        autocomplete="one-time-code"
+        [ngModel]="model.code"
+        (ngModelChange)="onCodeChange($event)"
+        autofocus
+        data-testid="input-code"
+      />
+      <div
+        class="my-2 flex space-x-2 sm:space-x-4"
+        (click)="codeInput.setFocus()"
+      >
+        <span
+          *ngFor="let digit of codeDisplay; let i = index"
+          class="flex h-9 w-7 items-center justify-center rounded border border-gray-300 bg-white text-xl sm:h-12 sm:w-10"
+          [class.ring-2]="model.code?.length === i || (i === 0 && !model.code)"
+          [class.ring-blue-500]="
+            model.code?.length === i || (i === 0 && !model.code)
+          "
+          >{{ digit }}</span
+        >
+      </div>
+    } @else {
+      <ion-button
+        type="submit"
+        size="default"
+        shape="round"
+        color="fiveten-navy-900"
+        data-test="login-button"
+        class="w-full"
+        [disabled]="!loginForm.form.valid"
+        data-testid="button-login"
+        >{{ 'backdoor-page.title' | translate }}</ion-button
+      >
+    }
+  </ion-item>
+  <ion-item lines="none" class="mt-4">
+    <app-quick-links
+      class="flex w-full flex-col items-center justify-evenly sm:flex-row"
+    ></app-quick-links>
+  </ion-item>
+</form>

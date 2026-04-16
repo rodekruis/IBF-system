@@ -30,7 +30,7 @@ export class AuthGuard {
 
   checkLogin(url: string): boolean {
     if (this.authService.isLoggedIn) {
-      if (url === '/login') {
+      if (url.startsWith('/login')) {
         void this.router.navigate(['/']);
       }
 
@@ -39,7 +39,7 @@ export class AuthGuard {
       }
 
       return true;
-    } else if (url === '/login') {
+    } else if (url.startsWith('/login')) {
       return true;
     }
 

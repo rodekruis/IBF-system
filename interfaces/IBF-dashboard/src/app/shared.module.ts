@@ -13,6 +13,8 @@ import { ActivationLogButtonComponent } from 'src/app/components/activation-log-
 import { AdminLevelComponent } from 'src/app/components/admin-level/admin-level.component';
 import { AggregatesComponent } from 'src/app/components/aggregates/aggregates.component';
 import { AreasOfFocusSummaryComponent } from 'src/app/components/areas-of-focus-summary/areas-of-focus-summary.component';
+import { BackdoorFormComponent } from 'src/app/components/backdoor-form/backdoor-form.component';
+import { ChangePasswordPopoverComponent } from 'src/app/components/change-password-popover/change-password-popover.component';
 import { ChatComponent } from 'src/app/components/chat/chat.component';
 import { CommunityNotificationPhotoPopupComponent } from 'src/app/components/community-notification-photo-popup/community-notification-photo-popup.component';
 import { CommunityNotificationPopupComponent } from 'src/app/components/community-notification-popup/community-notification-popup.component';
@@ -26,6 +28,7 @@ import { EventSpeechBubbleComponent } from 'src/app/components/event-speech-bubb
 import { EventSwitcherComponent } from 'src/app/components/event-switcher/event-switcher.component';
 import { ExportViewComponent } from 'src/app/components/export-view/export-view.component';
 import { ExportViewPopoverComponent } from 'src/app/components/export-view-popover/export-view-popover.component';
+import { ForgotPasswordPopoverComponent } from 'src/app/components/forgot-password-popover/forgot-password-popover.component';
 import { IbfGuideButtonComponent } from 'src/app/components/ibf-guide-button/ibf-guide-button.component';
 import { IbfGuidePopoverComponent } from 'src/app/components/ibf-guide-popover/ibf-guide-popover.component';
 import { LayerControlInfoPopoverComponent } from 'src/app/components/layer-control-info-popover/layer-control-info-popover.component';
@@ -69,7 +72,8 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     AdminLevelComponent,
     AggregatesComponent,
     AreasOfFocusSummaryComponent,
-    BackendMockScenarioComponent,
+    BackdoorFormComponent,
+    ChangePasswordPopoverComponent,
     ChatComponent,
     CommunityNotificationPhotoPopupComponent,
     CommunityNotificationPopupComponent,
@@ -82,6 +86,7 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     EventSwitcherComponent,
     ExportViewComponent,
     ExportViewPopoverComponent,
+    ForgotPasswordPopoverComponent,
     IbfGuideButtonComponent,
     IbfGuidePopoverComponent,
     LayerControlInfoPopoverComponent,
@@ -96,6 +101,7 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     TooltipPopoverComponent,
     UserStateComponent,
     UserStateMenuComponent,
+    BackendMockScenarioComponent,
     RiverGaugePopupContentComponent,
     ThresholdBarComponent,
     DynamicPointPopupComponent,
@@ -110,7 +116,8 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     AdminLevelComponent,
     AggregatesComponent,
     AreasOfFocusSummaryComponent,
-    BackendMockScenarioComponent,
+    BackdoorFormComponent,
+    ChangePasswordPopoverComponent,
     ChatComponent,
     CommunityNotificationPhotoPopupComponent,
     CommunityNotificationPopupComponent,
@@ -123,6 +130,7 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     EventSwitcherComponent,
     ExportViewComponent,
     ExportViewPopoverComponent,
+    ForgotPasswordPopoverComponent,
     IbfGuideButtonComponent,
     IbfGuidePopoverComponent,
     LayerControlInfoPopoverComponent,
@@ -138,6 +146,7 @@ import { CompactPipe } from 'src/app/pipes/compact.pipe';
     TranslateModule,
     UserStateComponent,
     UserStateMenuComponent,
+    BackendMockScenarioComponent,
     RiverGaugePopupContentComponent,
     ThresholdBarComponent,
     DynamicPointPopupComponent,

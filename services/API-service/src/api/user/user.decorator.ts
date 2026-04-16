@@ -13,9 +13,13 @@ export const UserDecorator = createParamDecorator(
       : null;
 
     if (token && token[1]) {
-      const decoded: User = jwt.verify(token[1], process.env.SECRET);
+      try {
+        const decoded: User = jwt.verify(token[1], process.env.SECRET);
 
-      return !!data ? decoded[data] : decoded;
+        return !!data ? decoded[data] : decoded;
+      } catch {
+        return null;
+      }
     }
   },
 );
