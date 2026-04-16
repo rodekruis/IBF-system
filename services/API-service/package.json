@@ -85,5 +85,10 @@
     "tsc-watch": "^7.2.0",
     "tsconfig-paths": "^4.2.0",
     "yargs": "^18.0.0"
+  },
+  "overrides": {
+    "@nestjs-modules/mailer": {
+      "@nestjs/terminus": "11.0.0-beta.1"
+    }
   }
 }
