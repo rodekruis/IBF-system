@@ -1,5 +1,6 @@
 export enum AnalyticsPage {
   activationLog = 'activation-Log',
+  backdoor = 'backdoor',
   dashboard = 'dashboard',
   login = 'login',
   manage = 'manage',

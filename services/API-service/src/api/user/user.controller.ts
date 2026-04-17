@@ -27,6 +27,7 @@ import { RolesGuard } from '../../roles.guard';
 import { CountryDisasterType } from '../country/country-disaster.entity';
 import { DisasterType } from '../disaster-type/disaster-type.enum';
 import { CreateUserDto, DeleteUserDto, LoginUserDto } from './dto';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDecorator } from './user.decorator';
 import { User, UserData, UserResponseObject } from './user.model';
@@ -298,5 +299,16 @@ export class UserController {
   @HttpCode(204)
   public async delete(@Body() { userId }: DeleteUserDto) {
     return this.userService.deleteUser(userId);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(RolesGuard)
+  @ApiOperation({ summary: 'Change password of user' })
+  @Post('change-password')
+  public async update(
+    @UserDecorator('userId') loggedInUserId: string,
+    @Body() userData: UpdatePasswordDto,
+  ) {
+    return this.userService.updatePassword(loggedInUserId, userData);
   }
 }

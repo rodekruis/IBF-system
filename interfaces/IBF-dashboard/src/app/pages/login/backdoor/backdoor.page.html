@@ -1,0 +1,33 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button href="/" [title]="'app-name' | translate">
+        <ion-icon name="apps" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <app-user-state></app-user-state>
+  </ion-toolbar>
+  <app-disclaimer-toolbar></app-disclaimer-toolbar>
+</ion-header>
+
+<ion-content
+  class="ion-align-items-center ion-justify-content-center ion-display-flex"
+>
+  <app-map class="absolute z-0 h-full w-full"></app-map>
+  <ion-card
+    class="ibf-login-card m-0 h-full w-full sm:bottom-[6%] sm:m-auto sm:h-auto sm:max-w-lg"
+    mode="ios"
+  >
+    <ion-card-header>
+      <ion-card-title
+        class="text-center"
+        color="ibf-grey"
+        data-testid="welcome-message"
+        >{{ 'backdoor-page.welcome' | translate }}</ion-card-title
+      >
+    </ion-card-header>
+    <ion-card-content>
+      <app-backdoor-form></app-backdoor-form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

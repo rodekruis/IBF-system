@@ -1,18 +1,15 @@
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { PopoverController } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { apps } from 'ionicons/icons';
-import { of } from 'rxjs';
 import { AnalyticsService } from 'src/app/analytics/analytics.service';
-import { LoginPage } from 'src/app/pages/login/login.page';
-import { CountryService } from 'src/app/services/country.service';
+import { BackdoorPage } from 'src/app/pages/login/backdoor/backdoor.page';
 
-describe('LoginPage', () => {
-  let component: LoginPage;
-  let fixture: ComponentFixture<LoginPage>;
+describe('BackdoorPage', () => {
+  let component: BackdoorPage;
+  let fixture: ComponentFixture<BackdoorPage>;
   let analyticsService: jasmine.SpyObj<AnalyticsService>;
 
   beforeEach(waitForAsync(() => {
@@ -26,27 +23,13 @@ describe('LoginPage', () => {
     analyticsService.logPageView.and.returnValue(null);
 
     TestBed.configureTestingModule({
-      declarations: [LoginPage],
+      declarations: [BackdoorPage],
       schemas: [NO_ERRORS_SCHEMA],
       imports: [IonicModule, TranslateModule.forRoot()],
-      providers: [
-        { provide: AnalyticsService, useValue: analyticsService },
-        {
-          provide: PopoverController,
-          useValue: { create: jasmine.createSpy('create') },
-        },
-        {
-          provide: CountryService,
-          useValue: {
-            getCountries: jasmine
-              .createSpy('getCountries')
-              .and.returnValue(of([])),
-          },
-        },
-      ],
+      providers: [{ provide: AnalyticsService, useValue: analyticsService }],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LoginPage);
+    fixture = TestBed.createComponent(BackdoorPage);
 
     component = fixture.componentInstance;
 

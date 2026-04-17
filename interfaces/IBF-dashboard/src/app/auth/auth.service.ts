@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { ToastController } from '@ionic/angular';
+import { BehaviorSubject, catchError, EMPTY, Observable, tap } from 'rxjs';
 import { User } from 'src/app/models/user/user.model';
 import { UserRole } from 'src/app/models/user/user-role.enum';
 import { ApiService } from 'src/app/services/api.service';
@@ -8,6 +9,7 @@ import { JwtService } from 'src/app/services/jwt.service';
 import { UserService } from 'src/app/services/user.service';
 import { LoginRequest, LoginResponse, UserResponse } from 'src/app/types/api';
 
+const HTTP_STATUS_MESSAGE_MAP = { 401: 'Email and/or password unknown' };
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   public redirectUrl: string;
@@ -18,6 +20,7 @@ export class AuthService {
     private userService: UserService,
     private jwtService: JwtService,
     private router: Router,
+    private toastController: ToastController,
   ) {
     const user = this.getUserFromToken();
 
@@ -79,8 +82,30 @@ export class AuthService {
     };
   }
 
-  public login(loginRequest: LoginRequest) {
-    return this.apiService.login(loginRequest).pipe(
+  public login(email: string, password: string): Observable<UserResponse> {
+    return this.apiService.login(email, password).pipe(
+      tap(this.onLoginResponse),
+      catchError((err) => {
+        void this.onLoginError(err);
+
+        return EMPTY;
+      }),
+    );
+  }
+
+  public changePassword(password: string): Observable<User> {
+    return this.apiService.changePassword(password).pipe(
+      tap(this.onPasswordChanged),
+      catchError((err) => {
+        void this.onChangePasswordError(err);
+
+        return EMPTY;
+      }),
+    );
+  }
+
+  public backdoor(loginRequest: LoginRequest) {
+    return this.apiService.backdoor(loginRequest).pipe(
       tap((loginResponse: LoginResponse) => {
         if ('user' in loginResponse) {
           this.onLoginResponse(loginResponse);
@@ -114,9 +139,42 @@ export class AuthService {
     void this.router.navigate(['/']);
   };
 
-  public logout() {
+  private onLoginError = async ({ error }) => {
+    const message =
+      HTTP_STATUS_MESSAGE_MAP[error?.statusCode] || error?.message;
+    const toast = await this.toastController.create({
+      message: `Authentication Failed: ${message}`,
+      duration: 5000,
+    });
+
+    void toast.present();
+    console.error('AuthService error: ', error);
+  };
+
+  private onPasswordChanged = async () => {
+    const toast = await this.toastController.create({
+      message: 'Password changed successfully',
+      duration: 5000,
+    });
+
+    void toast.present();
+  };
+
+  private onChangePasswordError = async (error) => {
+    const message =
+      HTTP_STATUS_MESSAGE_MAP[error?.statusCode] || error?.message;
+    const toast = await this.toastController.create({
+      message: `Authentication Failed: ${message}`,
+      duration: 5000,
+    });
+
+    void toast.present();
+    console.error('AuthService error: ', error);
+  };
+
+  public logout(redirectUrl = '/login') {
     this.jwtService.destroyToken();
     this.authSubject.next(null);
-    void this.router.navigate(['/login']);
+    void this.router.navigate([redirectUrl]);
   }
 }

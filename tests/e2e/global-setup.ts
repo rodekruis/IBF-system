@@ -4,7 +4,7 @@ import {
   registerUser,
   reset,
 } from 'helpers/utility.helper';
-import LoginPage from 'Pages/LoginPage';
+import BackdoorPage from 'Pages/BackdoorPage';
 import { chromium, FullConfig } from 'playwright/test';
 import { datasets } from 'testData/datasets';
 import { UserRole } from 'testData/enums';
@@ -32,10 +32,10 @@ async function globalSetup(config: FullConfig) {
       // launch browser
       const browser = await chromium.launch();
       const page = await browser.newPage();
-      await page.goto(baseURL!);
+      await page.goto(`${baseURL!}/login/backdoor`);
 
       // login
-      const loginPage = new LoginPage(page);
+      const loginPage = new BackdoorPage(page);
       await loginPage.login(email);
       await page.waitForSelector('[data-testid=loader]', { state: 'hidden' });
 

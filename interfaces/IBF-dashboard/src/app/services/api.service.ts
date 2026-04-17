@@ -172,10 +172,22 @@ export class ApiService {
   // API-endpoints:
   /////////////////////////////////////////////////////////////////////////////
 
-  login(loginRequest: LoginRequest) {
+  backdoor(loginRequest: LoginRequest) {
     this.log('ApiService : login()');
 
     return this.post('login', loginRequest, { anonymous: true });
+  }
+
+  login(email: string, password: string): Observable<{ user: User }> {
+    this.log('ApiService : login()');
+
+    return this.post('user/login', { email, password }, { anonymous: true });
+  }
+
+  changePassword(password: string): Observable<User> {
+    this.log('ApiService : changePassword()');
+
+    return this.post('user/change-password', { password });
   }
 
   getCountries(): Observable<Country[]> {
