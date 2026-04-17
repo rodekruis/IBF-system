@@ -1,3 +1,18 @@
+# [0.333.0](https://github.com/rodekruis/IBF-system/compare/v0.332.11...v0.333.0) (2026-04-17)
+
+
+### Bug Fixes
+
+* backdoor login ([910f38a](https://github.com/rodekruis/IBF-system/commit/910f38a6ec92d7bb22db7b6e2b8fa945431e3b49))
+* revert to old terminus package ([33a2b0e](https://github.com/rodekruis/IBF-system/commit/33a2b0ef12cc720bdd0b5f288db9a3907f2c7ca6))
+
+
+### Features
+
+* old login ([4a28c02](https://github.com/rodekruis/IBF-system/commit/4a28c0275f3d01cbb39310b9c08bd4a3d8872bef))
+
+
+
 ## [0.332.11](https://github.com/rodekruis/IBF-system/compare/v0.332.10...v0.332.11) (2026-04-15)
 
 
@@ -78,16 +93,6 @@
 ### Bug Fixes
 
 * **data:** remove "double" station ([780ca7d](https://github.com/rodekruis/IBF-system/commit/780ca7db7d759087c4e89ef328b031aeed2763e8))
-
-
-
-## [0.332.2](https://github.com/rodekruis/IBF-system/compare/v0.332.1...v0.332.2) (2026-03-27)
-
-
-### Bug Fixes
-
-* e2e drought fix date ([7d03e6a](https://github.com/rodekruis/IBF-system/commit/7d03e6a1c313c69c4eb566c6752652943e132d14))
-* other e2e tests date issues ([24845e3](https://github.com/rodekruis/IBF-system/commit/24845e3d6ed722ed6b6ebfdc4b66d59769de0c71))
 
 
 
