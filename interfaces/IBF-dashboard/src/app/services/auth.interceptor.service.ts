@@ -49,7 +49,11 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   private handleError(error: unknown): void {
     if (error instanceof HttpErrorResponse && error.status === 401) {
-      this.authService.logout();
+      const isBackdoorRequest =
+        error.url?.startsWith(`${environment.apiUrl}/login`) ?? false;
+      const redirectUrl = isBackdoorRequest ? '/login/backdoor' : '/login';
+
+      this.authService.logout(redirectUrl);
     }
   }
 }

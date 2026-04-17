@@ -172,9 +172,9 @@ export class AuthService {
     console.error('AuthService error: ', error);
   };
 
-  public logout() {
+  public logout(redirectUrl = '/login') {
     this.jwtService.destroyToken();
     this.authSubject.next(null);
-    void this.router.navigate(['/login']);
+    void this.router.navigate([redirectUrl]);
   }
 }
