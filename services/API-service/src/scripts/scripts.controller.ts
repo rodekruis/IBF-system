@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  HttpException,
   HttpStatus,
   ParseBoolPipe,
   Post,
@@ -20,6 +21,7 @@ import { Response } from 'express';
 
 import { DisasterType } from '../api/disaster-type/disaster-type.enum';
 import { UserRole } from '../api/user/user-role.enum';
+import { PROD } from '../config';
 import { Roles } from '../roles.decorator';
 import { RolesGuard } from '../roles.guard';
 import { MockDto } from './dto/mock.dto';
@@ -94,6 +96,13 @@ export class ScriptsController {
     @Query('noNotifications', new ParseBoolPipe({ optional: true }))
     noNotifications: boolean,
   ) {
+    if (PROD) {
+      throw new HttpException(
+        'Mock endpoint is not available in production',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+
     const result = await this.mockService.mock(
       body,
       disasterType,
