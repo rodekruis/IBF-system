@@ -1,0 +1,9 @@
+[
+  {
+    "stationCode": "G1045",
+    "forecastLevel": 2000,
+    "eapAlertClass": "min",
+    "forecastReturnPeriod": 10,
+    "triggerLevel": 4000
+  }
+]

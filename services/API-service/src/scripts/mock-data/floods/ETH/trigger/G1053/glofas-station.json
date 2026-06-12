@@ -1,0 +1,9 @@
+[
+  {
+    "stationCode": "G1053",
+    "forecastLevel": 2800,
+    "eapAlertClass": "med",
+    "forecastReturnPeriod": 5,
+    "triggerLevel": 3000
+  }
+]
