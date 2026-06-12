@@ -1,3 +1,12 @@
+## [0.333.3](https://github.com/rodekruis/IBF-system/compare/v0.333.1...v0.333.3) (2026-06-12)
+
+
+### Bug Fixes
+
+* create new tag to trigger deploy ([0eb51af](https://github.com/rodekruis/IBF-system/commit/0eb51af213657c49b3a05be004f3dc41323aee63))
+
+
+
 ## [0.333.1](https://github.com/rodekruis/IBF-system/compare/v0.333.0...v0.333.1) (2026-05-19)
 
 
@@ -83,16 +92,6 @@
 ### Bug Fixes
 
 * change gauge labels + MSL copy ([8b45f2a](https://github.com/rodekruis/IBF-system/commit/8b45f2a56ce5d6e106213c53e9c7b6876ce30f4a))
-
-
-
-## [0.332.4](https://github.com/rodekruis/IBF-system/compare/v0.332.3...v0.332.4) (2026-04-03)
-
-
-### Bug Fixes
-
-* date on drought integration test ([489aeb5](https://github.com/rodekruis/IBF-system/commit/489aeb58e025e58480afc6341a9a22ea1d812554))
-* post body indicators & layers ([e9efe3c](https://github.com/rodekruis/IBF-system/commit/e9efe3c1b559c11ed65cdc1cb24b4a5f91496277))
 
 
 
