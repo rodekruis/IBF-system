@@ -2,7 +2,11 @@
   {
     "scenarioName": "trigger",
     "defaultScenario": true,
-    "events": [{ "eventName": "G1067", "leadTime": "4-day" }]
+    "events": [
+      { "eventName": "G1067", "leadTime": "4-day" },
+      { "eventName": "G1053", "leadTime": "4-day" },
+      { "eventName": "G1045", "leadTime": "4-day" }
+    ]
   },
   {
     "scenarioName": "warning",
