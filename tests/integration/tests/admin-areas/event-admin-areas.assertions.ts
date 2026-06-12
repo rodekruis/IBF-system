@@ -111,7 +111,7 @@ export const eventAdminAreasAssertions: EventAdminAreaAssertion[] = [
     disasterType: DisasterType.Floods,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
-    featureCount: 1,
+    featureCount: 3,
     placeCodeRegex: /^(?:ET|G)/,
   },
   {
