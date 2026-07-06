@@ -27,16 +27,16 @@
     <maxx>41.889365572498754</maxx>
     <miny>9.574726440139697</miny>
     <maxy>9.678236440139697</maxy>
-    <crs>EPSG:32637</crs>
+    <crs>EPSG:4326</crs>
   </nativeBoundingBox>
   <latLonBoundingBox>
     <minx>41.760659143592754</minx>
     <maxx>41.889365572498754</maxx>
     <miny>9.574726440139697</miny>
     <maxy>9.678236440139697</maxy>
-    <crs>EPSG:32637</crs>
+    <crs>EPSG:4326</crs>
   </latLonBoundingBox>
-  <projectionPolicy>FORCE_DECLARED</projectionPolicy>
+  <projectionPolicy>REPROJECT_TO_DECLARED</projectionPolicy>
   <enabled>true</enabled>
   <metadata>
     <entry key="DirectDownload.Key">
