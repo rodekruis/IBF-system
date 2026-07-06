@@ -1,3 +1,12 @@
+## [0.333.4](https://github.com/rodekruis/IBF-system/compare/v0.333.3...v0.333.4) (2026-07-06)
+
+
+### Bug Fixes
+
+* ETH flash flood map extents and crs ([cf33957](https://github.com/rodekruis/IBF-system/commit/cf33957123b2e37868217be4bbd9266759ea4515))
+
+
+
 ## [0.333.3](https://github.com/rodekruis/IBF-system/compare/v0.333.1...v0.333.3) (2026-06-12)
 
 
@@ -83,15 +92,6 @@
 ### Bug Fixes
 
 * auto-fix prettier formatting in ibf-guide-popover HTML template ([1fe09c7](https://github.com/rodekruis/IBF-system/commit/1fe09c744d5cfcc08a44a2689d5178e6529f43d2))
-
-
-
-## [0.332.5](https://github.com/rodekruis/IBF-system/compare/v0.332.4...v0.332.5) (2026-04-15)
-
-
-### Bug Fixes
-
-* change gauge labels + MSL copy ([8b45f2a](https://github.com/rodekruis/IBF-system/commit/8b45f2a56ce5d6e106213c53e9c7b6876ce30f4a))
 
 
 
