@@ -1,3 +1,12 @@
+# [0.334.0](https://github.com/rodekruis/IBF-system/compare/v0.333.6...v0.334.0) (2026-07-06)
+
+
+### Features
+
+* hide river gauges layer for ETH flash-floods ([21b2924](https://github.com/rodekruis/IBF-system/commit/21b2924a0ee60e6f87397a076a603f0b4a82da62))
+
+
+
 ## [0.333.6](https://github.com/rodekruis/IBF-system/compare/v0.333.4...v0.333.6) (2026-07-06)
 
 
@@ -82,16 +91,6 @@
 ### Bug Fixes
 
 * configure Jest to transform ESM dependencies from jsdom 29 ([ac2328c](https://github.com/rodekruis/IBF-system/commit/ac2328c80afdec2d236d75949c1a6b51e5ef5613))
-
-
-
-## [0.332.7](https://github.com/rodekruis/IBF-system/compare/v0.332.6...v0.332.7) (2026-04-15)
-
-
-### Bug Fixes
-
-* add @eslint/eslintrc as devDependency for ESLint v10 and auto-fix prettier formatting ([9e8ad97](https://github.com/rodekruis/IBF-system/commit/9e8ad97f59a864a7d632e8153f37436b4b9379d4))
-* update @typescript-eslint/eslint-plugin and @typescript-eslint/parser to ^8.58.2 to support eslint v10 ([60676b0](https://github.com/rodekruis/IBF-system/commit/60676b0793eac2af3e4da3643a05c146d356ebe0))
 
 
 
