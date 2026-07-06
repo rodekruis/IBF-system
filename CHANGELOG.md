@@ -1,3 +1,12 @@
+## [0.333.6](https://github.com/rodekruis/IBF-system/compare/v0.333.4...v0.333.6) (2026-07-06)
+
+
+### Bug Fixes
+
+* version ([4756954](https://github.com/rodekruis/IBF-system/commit/47569543eaf515606ba280dd7be26ad8154f8411))
+
+
+
 ## [0.333.4](https://github.com/rodekruis/IBF-system/compare/v0.333.3...v0.333.4) (2026-07-06)
 
 
@@ -83,15 +92,6 @@
 
 * add @eslint/eslintrc as devDependency for ESLint v10 and auto-fix prettier formatting ([9e8ad97](https://github.com/rodekruis/IBF-system/commit/9e8ad97f59a864a7d632e8153f37436b4b9379d4))
 * update @typescript-eslint/eslint-plugin and @typescript-eslint/parser to ^8.58.2 to support eslint v10 ([60676b0](https://github.com/rodekruis/IBF-system/commit/60676b0793eac2af3e4da3643a05c146d356ebe0))
-
-
-
-## [0.332.6](https://github.com/rodekruis/IBF-system/compare/v0.332.5...v0.332.6) (2026-04-15)
-
-
-### Bug Fixes
-
-* auto-fix prettier formatting in ibf-guide-popover HTML template ([1fe09c7](https://github.com/rodekruis/IBF-system/commit/1fe09c744d5cfcc08a44a2689d5178e6529f43d2))
 
 
 
