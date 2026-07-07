@@ -24,8 +24,8 @@
     "github-webhook-handler": "^2.1.0"
   },
   "devDependencies": {
-    "prettier": "^3.8.1",
+    "prettier": "^3.9.4",
     "husky": "^9.0.11",
-    "lint-staged": "^16.4.0"
+    "lint-staged": "^17.0.8"
   }
 }
