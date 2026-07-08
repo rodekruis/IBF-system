@@ -117,6 +117,7 @@ export default tseslint.config(
 
       // stylistic
       ...stylistic.configs.recommended.rules,
+      '@stylistic/indent-binary-ops': 'off', // conflicts with prettier
       '@stylistic/arrow-parens': ['error', 'always'],
       '@stylistic/brace-style': ['error', '1tbs'],
       '@stylistic/indent': [

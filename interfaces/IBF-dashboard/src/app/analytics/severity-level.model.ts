@@ -1,4 +1,3 @@
-/* eslint-disable perfectionist/sort-enums */
 // Application Insights Severity Level
 export enum SeverityLevel {
   Verbose = 0,
