@@ -52,7 +52,7 @@
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.2.0",
     "twilio": "^5.13.1",
-    "typeorm": "^0.3.6",
+    "typeorm": "^0.3.30",
     "typescript": "^4.9.5",
     "wellknown": "^0.5.0"
   },
