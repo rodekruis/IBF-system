@@ -1,3 +1,12 @@
+## [0.334.2](https://github.com/rodekruis/IBF-system/compare/v0.334.1...v0.334.2) (2026-07-08)
+
+
+### Bug Fixes
+
+* **e2e:** use attached state for trigger outline selector in assertTriggerOutlines ([448bfe6](https://github.com/rodekruis/IBF-system/commit/448bfe62115786bdf655e935bdfbe57c79d7f373))
+
+
+
 ## [0.334.1](https://github.com/rodekruis/IBF-system/compare/v0.334.0...v0.334.1) (2026-07-08)
 
 
@@ -82,15 +91,6 @@
 ### Bug Fixes
 
 * revert incompatible jest/typescript bumps and update mailer imports ([09ee408](https://github.com/rodekruis/IBF-system/commit/09ee4084920c1a0214ee2c838d6fabeb05c351bb))
-
-
-
-## [0.332.9](https://github.com/rodekruis/IBF-system/compare/v0.332.8...v0.332.9) (2026-04-15)
-
-
-### Bug Fixes
-
-* revert @eslint/js to v9 to resolve peer dependency conflict with eslint@^9.39.1 ([9ce46ba](https://github.com/rodekruis/IBF-system/commit/9ce46bad9a7f7092bb93f63170984ddc3a1e75a6))
 
 
 
