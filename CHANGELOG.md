@@ -1,3 +1,12 @@
+## [0.334.1](https://github.com/rodekruis/IBF-system/compare/v0.334.0...v0.334.1) (2026-07-08)
+
+
+### Bug Fixes
+
+* await mjml2html calls to support mjml v5 async API ([86d48bf](https://github.com/rodekruis/IBF-system/commit/86d48bf7f1ae5f5d9fb930690e1f948d77c86292))
+
+
+
 # [0.334.0](https://github.com/rodekruis/IBF-system/compare/v0.333.6...v0.334.0) (2026-07-06)
 
 
@@ -82,15 +91,6 @@
 ### Bug Fixes
 
 * revert @eslint/js to v9 to resolve peer dependency conflict with eslint@^9.39.1 ([9ce46ba](https://github.com/rodekruis/IBF-system/commit/9ce46bad9a7f7092bb93f63170984ddc3a1e75a6))
-
-
-
-## [0.332.8](https://github.com/rodekruis/IBF-system/compare/v0.332.7...v0.332.8) (2026-04-15)
-
-
-### Bug Fixes
-
-* configure Jest to transform ESM dependencies from jsdom 29 ([ac2328c](https://github.com/rodekruis/IBF-system/commit/ac2328c80afdec2d236d75949c1a6b51e5ef5613))
 
 
 
