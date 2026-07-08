@@ -45,8 +45,7 @@ export class GlofasStationPopupContentComponent implements OnInit {
     this.triggerWidth = Math.max(
       Math.min(
         Math.round(
-          (this.barValue /
-            (this.data.station.dynamicData?.triggerLevel ?? 0)) *
+          (this.barValue / (this.data.station.dynamicData?.triggerLevel ?? 0)) *
             100,
         ),
         115,
