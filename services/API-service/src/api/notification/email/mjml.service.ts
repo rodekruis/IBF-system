@@ -146,16 +146,16 @@ export class MjmlService {
       ],
     };
 
-    return mjml2html(emailObject).html;
+    return (await mjml2html(emailObject)).html;
   }
 
-  public getEventFinishedEmailHtmlOutput({
+  public async getEventFinishedEmailHtmlOutput({
     contentEventEmail: contentEventEmail,
     date,
   }: {
     contentEventEmail: ContentEventEmail;
     date: Date;
-  }): string {
+  }): Promise<string> {
     const children = [];
 
     children.push(this.header({ contentEventEmail, date }));
@@ -198,6 +198,6 @@ export class MjmlService {
       ],
     };
 
-    return mjml2html(emailObject).html;
+    return (await mjml2html(emailObject)).html;
   }
 }

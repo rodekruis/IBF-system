@@ -57,9 +57,9 @@ export class MjmlAdapter implements TemplateAdapter {
 
     this?.engine?.compile(
       mail,
-      () => {
+      async () => {
         // convert MJML to HTML
-        let html = mjml2html(templateFile).html;
+        let html = (await mjml2html(templateFile)).html;
         // fill data into HTML using ejs
         html = compile(html)(context);
         mail.data.html = html;
