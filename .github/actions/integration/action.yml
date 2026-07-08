@@ -44,7 +44,7 @@ runs:
     - name: Install code-dependencies
       shell: bash
       working-directory: ./tests/integration
-      run: npm ci --omit=optional --no-fund --no-audit
+      run: npm ci --no-fund --no-audit
 
     - name: Setup environment variables
       shell: bash
