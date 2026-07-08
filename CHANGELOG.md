@@ -1,3 +1,12 @@
+## [0.334.3](https://github.com/rodekruis/IBF-system/compare/v0.334.2...v0.334.3) (2026-07-08)
+
+
+### Bug Fixes
+
+* remove --omit=optional from npm ci to install unrs-resolver native bindings ([1143f99](https://github.com/rodekruis/IBF-system/commit/1143f99bda56803340f26084d67d38f7ab3cdc86))
+
+
+
 ## [0.334.2](https://github.com/rodekruis/IBF-system/compare/v0.334.1...v0.334.2) (2026-07-08)
 
 
@@ -82,15 +91,6 @@
 ### Bug Fixes
 
 * resolve npm ci ERESOLVE by removing unused eslint-plugin-promise and updating @eslint/js to v10 ([3e699c6](https://github.com/rodekruis/IBF-system/commit/3e699c64ef5b21598b5a5ff31b8f115c963aa557))
-
-
-
-## [0.332.10](https://github.com/rodekruis/IBF-system/compare/v0.332.9...v0.332.10) (2026-04-15)
-
-
-### Bug Fixes
-
-* revert incompatible jest/typescript bumps and update mailer imports ([09ee408](https://github.com/rodekruis/IBF-system/commit/09ee4084920c1a0214ee2c838d6fabeb05c351bb))
 
 
 
