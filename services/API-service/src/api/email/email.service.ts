@@ -82,7 +82,7 @@ export class EmailService {
         finishedEvents,
       );
 
-    const html = this.mjmlService.getEventFinishedEmailHtmlOutput({
+    const html = await this.mjmlService.getEventFinishedEmailHtmlOutput({
       contentEventEmail,
       date: lastUploadDate.timestamp,
     });
