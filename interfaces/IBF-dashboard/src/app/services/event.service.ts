@@ -319,11 +319,11 @@ export class EventService {
     const timeUnitsInFuture = Number(LeadTimeTriggerKey[firstKey]);
     const futureDateTime =
       timeUnit === LeadTimeUnit.month
-        ? this.today.plus({ months: Number(timeUnitsInFuture) })
+        ? this.today.plus({ months: timeUnitsInFuture })
         : timeUnit === LeadTimeUnit.day
-          ? this.today.plus({ days: Number(timeUnitsInFuture) })
+          ? this.today.plus({ days: timeUnitsInFuture })
           : timeUnit === LeadTimeUnit.hour
-            ? this.today.plus({ hours: Number(timeUnitsInFuture) })
+            ? this.today.plus({ hours: timeUnitsInFuture })
             : null;
 
     if (timeUnit === LeadTimeUnit.month) {
