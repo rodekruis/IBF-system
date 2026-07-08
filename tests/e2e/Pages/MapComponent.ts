@@ -270,7 +270,6 @@ class MapComponent extends DashboardPage {
       // Wait for locator to load when setTrigger is clicked
       await this.page.waitForSelector(
         '[stroke="var(--ion-color-fiveten-red-500)"]',
-        { timeout: 30000 },
       );
       const triggerAreaOutlinesCount = await this.triggerAreaOutlines.count();
       const nthSelector = this.getRandomInt(1, triggerAreaOutlinesCount) - 1;
