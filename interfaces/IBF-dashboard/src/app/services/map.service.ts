@@ -614,7 +614,7 @@ export class MapService {
         )
         .pipe(shareReplay(1));
     } else if (layer.group === IbfLayerGroup.adminRegions) {
-      const adminLevel = Number(layer.name.slice(-1)) as AdminLevel;
+      const adminLevel = Number(layer.name.slice(-1));
 
       layerData = this.apiService
         .getAdminRegions(

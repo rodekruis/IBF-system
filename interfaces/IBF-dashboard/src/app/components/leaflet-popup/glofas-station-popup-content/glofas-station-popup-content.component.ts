@@ -28,16 +28,12 @@ export class GlofasStationPopupContentComponent implements OnInit {
     }
 
     const difference =
-      Number(this.data.station.dynamicData?.forecastLevel) -
-      Number(this.data.station.dynamicData?.triggerLevel);
+      (this.data.station.dynamicData?.forecastLevel ?? 0) -
+      (this.data.station.dynamicData?.triggerLevel ?? 0);
     const closeMargin = 0.05;
-    const triggerLevel = Number(
-      this.data.station.dynamicData?.triggerLevel ?? 0,
-    );
+    const triggerLevel = this.data.station.dynamicData?.triggerLevel ?? 0;
     const tooClose = Math.abs(difference) / triggerLevel < closeMargin;
-    const forecastLevel = Number(
-      this.data.station.dynamicData?.forecastLevel ?? 0,
-    );
+    const forecastLevel = this.data.station.dynamicData?.forecastLevel ?? 0;
 
     if (difference === 0 || !tooClose) {
       this.barValue = forecastLevel;
@@ -49,8 +45,7 @@ export class GlofasStationPopupContentComponent implements OnInit {
     this.triggerWidth = Math.max(
       Math.min(
         Math.round(
-          (this.barValue /
-            Number(this.data.station.dynamicData?.triggerLevel)) *
+          (this.barValue / (this.data.station.dynamicData?.triggerLevel ?? 0)) *
             100,
         ),
         115,
