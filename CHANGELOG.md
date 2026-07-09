@@ -1,3 +1,14 @@
+## [0.334.4](https://github.com/rodekruis/IBF-system/compare/v0.334.3...v0.334.4) (2026-07-09)
+
+
+### Bug Fixes
+
+* address new typescript-eslint rules after v8.63.0 bump ([4a5d35d](https://github.com/rodekruis/IBF-system/commit/4a5d35d0cbdbb4685a0bd0fc4c08ffd5ff0d91e6))
+* fix prettier formatting in glofas-station-popup-content component ([ffbd5e3](https://github.com/rodekruis/IBF-system/commit/ffbd5e353013048e9e2cc6a883f93dea46b572f4))
+* remove remaining redundant Number() calls flagged by typescript-eslint ([436c78d](https://github.com/rodekruis/IBF-system/commit/436c78da95c74be4a4ffebba69975c0380e8f836))
+
+
+
 ## [0.334.3](https://github.com/rodekruis/IBF-system/compare/v0.334.2...v0.334.3) (2026-07-08)
 
 
@@ -82,15 +93,6 @@
 ### Features
 
 * old login ([4a28c02](https://github.com/rodekruis/IBF-system/commit/4a28c0275f3d01cbb39310b9c08bd4a3d8872bef))
-
-
-
-## [0.332.11](https://github.com/rodekruis/IBF-system/compare/v0.332.10...v0.332.11) (2026-04-15)
-
-
-### Bug Fixes
-
-* resolve npm ci ERESOLVE by removing unused eslint-plugin-promise and updating @eslint/js to v10 ([3e699c6](https://github.com/rodekruis/IBF-system/commit/3e699c64ef5b21598b5a5ff31b8f115c963aa557))
 
 
 
