@@ -39,8 +39,10 @@ graph LR
   NotificationContentModule-->AdminAreaModule
   NotificationContentModule-->DisasterTypeModule
   NotificationContentModule-->MetadataModule
+  WhatsappModule-->NotificationLogModule
   WhatsappModule-->MetadataModule
   NotificationModule-->NotificationContentModule
+  NotificationModule-->NotificationLogModule
   NotificationModule-->TyphoonTrackModule
   NotificationModule-->MailerModule
   PointDataModule-->UserModule

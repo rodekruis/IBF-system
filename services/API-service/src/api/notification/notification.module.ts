@@ -13,6 +13,7 @@ import { MjmlService } from './email/mjml.service';
 import { NotificationInfoEntity } from './notifcation-info.entity';
 import { NotificationService } from './notification.service';
 import { NotificationContentModule } from './notification-content/notification-content.module';
+import { NotificationLogModule } from './notification-log/notification-log.module';
 import { WhatsappModule } from './whatsapp/whatsapp.module';
 
 @Module({
@@ -22,6 +23,7 @@ import { WhatsappModule } from './whatsapp/whatsapp.module';
     EventModule,
     WhatsappModule,
     NotificationContentModule,
+    NotificationLogModule,
     TyphoonTrackModule,
     MailerModule.forRoot(SMTP_CONFIG),
   ],
