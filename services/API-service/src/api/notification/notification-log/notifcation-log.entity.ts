@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-import { NotificationChannel } from './enum/notification-channel.enum';
 import { DisasterType } from '../../disaster-type/disaster-type.enum';
+import { NotificationChannel } from './enum/notification-channel.enum';
 
 @Entity('notification-log')
 export class NotificationLogEntity {
@@ -20,8 +20,8 @@ export class NotificationLogEntity {
   @Column()
   public disasterType: DisasterType;
 
-  @Column()
-  public eventNames: string;
+  @Column('character varying', { array: true })
+  public eventNames: string[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   public createdAt: Date;

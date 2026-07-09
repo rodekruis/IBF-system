@@ -1,0 +1,191 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button title="Home" [routerLink]="['/']">
+        <ion-icon name="apps" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <app-user-state></app-user-state>
+  </ion-toolbar>
+  <app-disclaimer-toolbar></app-disclaimer-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+  <div class="p-2">
+    <h1 class="ion-margin-bottom font-normal">
+      {{ 'notification-log-page.page-title' | translate }}
+    </h1>
+    <div
+      class="mb-4 flex w-fit flex-wrap items-center gap-4 rounded-lg bg-gray-100 p-2"
+    >
+      <ion-item
+        [button]="true"
+        [detail]="true"
+        detail-icon="chevron-expand"
+        lines="none"
+        mode="ios"
+        class="min-w-64 overflow-hidden rounded-lg"
+        (click)="showPeriodSelect($event)"
+      >
+        <ion-label class="truncate">
+          {{ 'notification-log-page.filter.period' | translate }}
+        </ion-label>
+        <ion-label class="truncate text-right" [title]="periodLabel(period)">
+          {{ periodLabel(period) }}
+        </ion-label>
+      </ion-item>
+      <ion-item
+        [button]="true"
+        [detail]="true"
+        detail-icon="chevron-expand"
+        lines="none"
+        mode="ios"
+        class="min-w-64 overflow-hidden rounded-lg"
+        (click)="showCountrySelect($event)"
+      >
+        <ion-label class="truncate">
+          {{ 'notification-log-page.filter.countries' | translate }}
+        </ion-label>
+        <ion-label class="truncate text-right" [title]="selectedCountriesLabel">
+          {{ selectedCountriesLabel }}
+        </ion-label>
+      </ion-item>
+      <ion-item
+        [button]="true"
+        [detail]="true"
+        detail-icon="chevron-expand"
+        lines="none"
+        mode="ios"
+        class="min-w-64 overflow-hidden rounded-lg"
+        (click)="showHazardSelect($event)"
+      >
+        <ion-label class="truncate">
+          {{ 'notification-log-page.filter.hazards' | translate }}
+        </ion-label>
+        <ion-label class="truncate text-right" [title]="selectedHazardsLabel">
+          {{ selectedHazardsLabel }}
+        </ion-label>
+      </ion-item>
+    </div>
+    <div class="mb-4 flex flex-wrap gap-4">
+      <div class="flex min-w-40 flex-col rounded border border-gray-300 p-4">
+        <span class="text-xs uppercase tracking-wider text-gray-500">
+          {{ 'notification-log-page.metric.events' | translate }}
+        </span>
+        <span class="text-3xl font-semibold">{{ metrics?.events ?? '-' }}</span>
+      </div>
+      <div class="flex min-w-40 flex-col rounded border border-gray-300 p-4">
+        <span class="text-xs uppercase tracking-wider text-gray-500">
+          {{ 'notification-log-page.metric.email' | translate }}
+        </span>
+        <span class="text-3xl font-semibold">{{ metrics?.email ?? '-' }}</span>
+      </div>
+      <div class="flex min-w-40 flex-col rounded border border-gray-300 p-4">
+        <span class="text-xs uppercase tracking-wider text-gray-500">
+          {{ 'notification-log-page.metric.whatsapp' | translate }}
+        </span>
+        <span class="text-3xl font-semibold">{{
+          metrics?.whatsapp ?? '-'
+        }}</span>
+      </div>
+    </div>
+    <div>
+      @if (logs.length > 0) {
+        <table class="w-full">
+          <thead class="text-black text-opacity-40">
+            <tr class="border-b border-gray-300">
+              <th class="px-3 py-2 text-left font-normal">
+                {{ 'notification-log-page.table.time' | translate }}
+              </th>
+              <th class="px-3 py-2 text-left font-normal">
+                {{ 'notification-log-page.table.country' | translate }}
+              </th>
+              <th class="px-3 py-2 text-left font-normal">
+                {{ 'notification-log-page.table.hazard' | translate }}
+              </th>
+              <th class="px-3 py-2 text-left font-normal">
+                {{ 'notification-log-page.table.channel' | translate }}
+              </th>
+              <th class="px-3 py-2 text-right font-normal">
+                {{ 'notification-log-page.table.recipients' | translate }}
+              </th>
+              <th class="px-3 py-2 text-left font-normal">
+                {{ 'notification-log-page.table.events' | translate }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (log of logs; track log.notificationLogId) {
+              <tr class="odd:bg-gray-100 even:bg-white">
+                <td class="px-3 py-2" [title]="log.createdAt">
+                  {{ timeAgo(log) }}
+                </td>
+                <td class="px-3 py-2">
+                  {{ countryName(log.countryCodeISO3) }}
+                </td>
+                <td class="px-3 py-2">
+                  {{ disasterTypeLabel(log.disasterType) }}
+                </td>
+                <td class="px-3 py-2">
+                  {{
+                    'notification-log-page.channel.' + log.channel | translate
+                  }}
+                </td>
+                <td class="px-3 py-2 text-right">{{ log.recipientCount }}</td>
+                <td class="px-3 py-2">{{ eventNamesLabel(log) }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+        <div class="my-2 flex items-center justify-end space-x-2">
+          <ion-button
+            color="medium"
+            fill="clear"
+            title="{{ 'notification-log-page.pagination.first' | translate }}"
+            [disabled]="page <= 1"
+            (click)="goToPage(1)"
+          >
+            <ion-icon slot="icon-only" name="caret-back"></ion-icon>
+          </ion-button>
+          <ion-button
+            color="medium"
+            fill="clear"
+            title="{{
+              'notification-log-page.pagination.previous' | translate
+            }}"
+            [disabled]="page <= 1"
+            (click)="goToPage(page - 1)"
+          >
+            <ion-icon slot="icon-only" name="chevron-back"></ion-icon>
+          </ion-button>
+          <span>
+            {{
+              'notification-log-page.pagination.page-of'
+                | translate: { page: page, totalPages: totalPages }
+            }}
+          </span>
+          <ion-button
+            color="medium"
+            fill="clear"
+            title="{{ 'notification-log-page.pagination.next' | translate }}"
+            [disabled]="page >= totalPages"
+            (click)="goToPage(page + 1)"
+          >
+            <ion-icon slot="icon-only" name="chevron-forward"></ion-icon>
+          </ion-button>
+          <ion-button
+            color="medium"
+            fill="clear"
+            title="{{ 'notification-log-page.pagination.last' | translate }}"
+            [disabled]="page >= totalPages"
+            (click)="goToPage(totalPages)"
+          >
+            <ion-icon slot="icon-only" name="caret-forward"></ion-icon>
+          </ion-button>
+        </div>
+      } @else if (!loading) {
+        <p>{{ 'notification-log-page.no-data' | translate }}</p>
+      }
+    </div>
+  </div>
+</ion-content>

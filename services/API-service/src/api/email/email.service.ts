@@ -88,7 +88,7 @@ export class EmailService {
         finishedEvents,
       );
 
-    const eventNames = finishedEvents.map((event) => '[END]' + event.eventName);
+    const eventNames = finishedEvents.map(({ eventName }) => eventName);
 
     const html = await this.mjmlService.getEventFinishedEmailHtmlOutput({
       contentEventEmail,
