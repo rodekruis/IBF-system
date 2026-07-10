@@ -1,3 +1,14 @@
+# [0.335.0](https://github.com/rodekruis/IBF-system/compare/v0.334.4...v0.335.0) (2026-07-10)
+
+
+### Features
+
+* log notifications ([a669183](https://github.com/rodekruis/IBF-system/commit/a669183d5cc311fab7326277fd5e1f6eb6605752))
+* notifications page ([5f4d5e6](https://github.com/rodekruis/IBF-system/commit/5f4d5e6de9bdcec92c882cca00272c0c9e3eb5ed))
+* track users ([fe2724c](https://github.com/rodekruis/IBF-system/commit/fe2724c613fc2ea18cc31e96ade91ac193a86122))
+
+
+
 ## [0.334.4](https://github.com/rodekruis/IBF-system/compare/v0.334.3...v0.334.4) (2026-07-09)
 
 
@@ -78,21 +89,6 @@
 ### Bug Fixes
 
 * block mock in prod ([b4feaf8](https://github.com/rodekruis/IBF-system/commit/b4feaf8531c0aaedfc34ebcdba443cb5d2b840a0))
-
-
-
-# [0.333.0](https://github.com/rodekruis/IBF-system/compare/v0.332.11...v0.333.0) (2026-04-17)
-
-
-### Bug Fixes
-
-* backdoor login ([910f38a](https://github.com/rodekruis/IBF-system/commit/910f38a6ec92d7bb22db7b6e2b8fa945431e3b49))
-* revert to old terminus package ([33a2b0e](https://github.com/rodekruis/IBF-system/commit/33a2b0ef12cc720bdd0b5f288db9a3907f2c7ca6))
-
-
-### Features
-
-* old login ([4a28c02](https://github.com/rodekruis/IBF-system/commit/4a28c0275f3d01cbb39310b9c08bd4a3d8872bef))
 
 
 
