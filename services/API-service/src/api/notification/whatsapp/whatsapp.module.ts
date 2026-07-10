@@ -17,6 +17,7 @@ import { MetadataModule } from '../../metadata/metadata.module';
 import { UserEntity } from '../../user/user.entity';
 import { LookupModule } from '../lookup/lookup.module';
 import { NotificationContentModule } from '../notification-content/notification-content.module';
+import { NotificationLogModule } from '../notification-log/notification-log.module';
 import { AuthMiddlewareTwilio } from './auth.middlewareTwilio';
 import { TwilioMessageEntity } from './twilio.entity';
 import { WhatsappController } from './whatsapp.controller';
@@ -28,6 +29,7 @@ import { WhatsappService } from './whatsapp.service';
     LookupModule,
     EventModule,
     NotificationContentModule,
+    NotificationLogModule,
     MetadataModule,
   ],
   providers: [WhatsappService, HelperService],

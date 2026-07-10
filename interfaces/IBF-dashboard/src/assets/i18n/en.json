@@ -30,6 +30,47 @@
     "page-title": "IBF status report",
     "no-data": "No data"
   },
+  "notification-log-page": {
+    "dev-menu-link": "Open notifications page",
+    "page-title": "IBF notifications",
+    "filter": {
+      "period": "Time period",
+      "period-options": {
+        "month": "Last month",
+        "quarter": "Last quarter",
+        "year": "Last year",
+        "all": "All time"
+      },
+      "countries": "Countries",
+      "all-countries": "All countries",
+      "hazards": "Hazards",
+      "all-hazards": "All hazards"
+    },
+    "metric": {
+      "events": "Events",
+      "users": "Users",
+      "email": "Emails",
+      "whatsapp": "WhatsApp"
+    },
+    "table": {
+      "time": "Sent",
+      "country": "Country",
+      "hazard": "Hazard",
+      "channel": "Channel",
+      "recipients": "Recipients",
+      "events": "Events"
+    },
+    "channel": { "email": "Email", "whatsapp": "WhatsApp" },
+    "pagination": {
+      "first": "First page",
+      "previous": "Previous page",
+      "next": "Next page",
+      "last": "Last page",
+      "page-of": "Page {page} of {totalPages}"
+    },
+    "no-events": "-",
+    "no-data": "No notifications found"
+  },
   "login-page": {
     "title": "Log in",
     "email": "Email",
@@ -42,7 +83,6 @@
     "forgot-password-message": "If you forgot your password please send a request to ",
     "environment-label": { "production": "Live", "stage": "Demo" }
   },
-
   "backdoor-page": {
     "title": "Login",
     "enter-email": "Enter your email",

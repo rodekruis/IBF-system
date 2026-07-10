@@ -15,6 +15,8 @@ import { MetadataService } from '../../metadata/metadata.service';
 import { UserEntity } from '../../user/user.entity';
 import { LookupService } from '../lookup/lookup.service';
 import { NotificationContentService } from '../notification-content/notification-content.service';
+import { NotificationChannel } from '../notification-log/enum/notification-channel.enum';
+import { NotificationLogService } from '../notification-log/notification-log.service';
 import { twilioClient } from './twilio.client';
 import {
   TwilioIncomingCallbackDto,
@@ -38,6 +40,7 @@ export class WhatsappService {
     private readonly metadataService: MetadataService,
     private readonly lookupService: LookupService,
     private readonly notificationContentService: NotificationContentService,
+    private readonly notificationLogService: NotificationLogService,
     private readonly helperService: HelperService,
   ) {}
 
@@ -176,12 +179,15 @@ export class WhatsappService {
     const { message, contentSid, contentVariables } =
       await this.configureInitialMessage(country, activeEvents, disasterType);
 
+    const eventNames = activeEvents.map((event) => event.eventName);
+
     await this.sendToUsers(
       country,
       disasterType,
       message,
       contentSid,
       contentVariables,
+      eventNames,
     );
 
     // Add small delay to ensure the order in which messages are received
@@ -208,20 +214,20 @@ export class WhatsappService {
     message: string,
     contentSid: string,
     contentVariables: object,
+    eventNames: string[] = [],
   ) {
     const users = await this.userRepository.find({
       where: { whatsappNumber: Not(IsNull()) },
       relations: ['countries', 'disasterTypes'],
     });
 
-    for (const user of users) {
-      if (
-        !this.isCountryEnabledForUser(user, country.countryCodeISO3) ||
-        !this.isDisasterEnabledForUser(user, disasterType)
-      ) {
-        continue;
-      }
+    const eligibleUsers = users.filter(
+      (userEntity: UserEntity) =>
+        this.isCountryEnabledForUser(userEntity, country.countryCodeISO3) &&
+        this.isDisasterEnabledForUser(userEntity, disasterType),
+    );
 
+    for (const user of eligibleUsers) {
       await this.sendWhatsapp(
         message,
         contentSid,
@@ -229,6 +235,14 @@ export class WhatsappService {
         user.whatsappNumber,
       );
     }
+
+    await this.notificationLogService.createNotificationLog({
+      channel: NotificationChannel.WHATSAPP,
+      userIds: eligibleUsers.map(({ userId }) => userId),
+      countryCodeISO3: country.countryCodeISO3,
+      disasterType,
+      eventNames,
+    });
   }
 
   public storeSendWhatsapp(message, mediaUrl: string): void {

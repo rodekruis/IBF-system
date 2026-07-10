@@ -7,6 +7,11 @@ import { AlertPerLeadTime } from 'src/app/models/alert-per-lead-time.model';
 import { Country, DisasterType } from 'src/app/models/country.model';
 import { User } from 'src/app/models/user/user.model';
 import { ActivationLogRecord } from 'src/app/pages/dashboard/activation-log/activation.log.page';
+import {
+  NotificationLogFilters,
+  NotificationLogMetrics,
+  NotificationLogPageResponse,
+} from 'src/app/pages/dashboard/notification-log/notification-log.page';
 import { JwtService } from 'src/app/services/jwt.service';
 import { CreateUser, UpdateUser } from 'src/app/services/user.service';
 import { AdminLevel } from 'src/app/types/admin-level';
@@ -474,6 +479,49 @@ export class ApiService {
     }
 
     return this.get('event/activation-log', { anonymous: false }, params);
+  }
+
+  private notificationLogParams(filters: NotificationLogFilters): HttpParams {
+    let params = new HttpParams();
+
+    params = params.append('period', filters.period);
+
+    if (filters.countryCodesISO3.length > 0) {
+      params = params.append(
+        'countryCodesISO3',
+        filters.countryCodesISO3.join(','),
+      );
+    }
+
+    if (filters.disasterTypes.length > 0) {
+      params = params.append('disasterTypes', filters.disasterTypes.join(','));
+    }
+
+    return params;
+  }
+
+  // typescript function overloads: the two bodiless signatures below define
+  // the legal call shapes and their exact return types; the third signature
+  // is the single runtime implementation that handles both.
+  getNotificationLogs(
+    filters: NotificationLogFilters,
+    metrics: true,
+  ): Observable<NotificationLogMetrics>;
+  getNotificationLogs(
+    filters: NotificationLogFilters,
+    metrics: false,
+    page: number,
+  ): Observable<NotificationLogPageResponse>;
+  getNotificationLogs(
+    filters: NotificationLogFilters,
+    metrics: boolean,
+    page?: number,
+  ): Observable<NotificationLogMetrics | NotificationLogPageResponse> {
+    const params = metrics
+      ? this.notificationLogParams(filters).append('metrics', true)
+      : this.notificationLogParams(filters).append('page', page);
+
+    return this.get('notification/log', { anonymous: false }, params);
   }
 
   dismissCommunityNotification(pointDataId: string): Observable<void> {

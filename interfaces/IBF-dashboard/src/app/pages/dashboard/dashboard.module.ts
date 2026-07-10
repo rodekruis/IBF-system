@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { ActivationLogPage } from 'src/app/pages/dashboard/activation-log/activation.log.page';
 import { DashboardPage } from 'src/app/pages/dashboard/dashboard.page';
 import { DashboardPageRoutingModule } from 'src/app/pages/dashboard/dashboard-routing.module';
+import { NotificationLogPage } from 'src/app/pages/dashboard/notification-log/notification-log.page';
 import { StatusReportPage } from 'src/app/pages/dashboard/status-report/status-report.page';
 import { SharedModule } from 'src/app/shared.module';
 
@@ -16,6 +17,11 @@ import { SharedModule } from 'src/app/shared.module';
     SharedModule,
     DashboardPageRoutingModule,
   ],
-  declarations: [DashboardPage, ActivationLogPage, StatusReportPage],
+  declarations: [
+    DashboardPage,
+    ActivationLogPage,
+    StatusReportPage,
+    NotificationLogPage,
+  ],
 })
 export class DashboardPageModule {}

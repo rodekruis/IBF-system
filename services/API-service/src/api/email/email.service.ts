@@ -21,6 +21,8 @@ import { LastUploadDateDto } from '../event/dto/last-upload-date.dto';
 import { LoginDto } from '../login/login.dto';
 import { MjmlService } from '../notification/email/mjml.service';
 import { NotificationContentService } from '../notification/notification-content/notification-content.service';
+import { NotificationChannel } from '../notification/notification-log/enum/notification-channel.enum';
+import { NotificationLogService } from '../notification/notification-log/notification-log.service';
 import { UserService } from '../user/user.service';
 import { CountryEntity } from './../country/country.entity';
 
@@ -30,6 +32,7 @@ export class EmailService {
 
   public constructor(
     private readonly notificationContentService: NotificationContentService,
+    private readonly notificationLogService: NotificationLogService,
     private readonly mjmlService: MjmlService,
     private readonly mailerService: MailerService,
     private readonly userService: UserService,
@@ -49,6 +52,8 @@ export class EmailService {
         activeEvents,
       );
 
+    const eventNames = activeEvents.map((event) => event.eventName);
+
     const html = await this.mjmlService.getActiveEventEmailHtmlOutput({
       contentEventEmail,
       date: lastUploadDate.timestamp,
@@ -62,6 +67,7 @@ export class EmailService {
       country.countryCodeISO3,
       disasterType,
       noNotifications,
+      eventNames,
     );
   }
 
@@ -82,6 +88,8 @@ export class EmailService {
         finishedEvents,
       );
 
+    const eventNames = finishedEvents.map(({ eventName }) => eventName);
+
     const html = await this.mjmlService.getEventFinishedEmailHtmlOutput({
       contentEventEmail,
       date: lastUploadDate.timestamp,
@@ -95,6 +103,7 @@ export class EmailService {
       country.countryCodeISO3,
       disasterType,
       noNotifications,
+      eventNames,
     );
   }
 
@@ -104,6 +113,7 @@ export class EmailService {
     countryCodeISO3: string,
     disasterType: DisasterType,
     noNotifications: boolean,
+    eventNames: Event['eventName'][],
   ) {
     if (DEV) {
       // NOTE: use this to test the email output instead of sending an email
@@ -141,6 +151,14 @@ export class EmailService {
       this.logger.error('Error sending email:', error);
       throw new ServiceUnavailableException(error);
     }
+
+    await this.notificationLogService.createNotificationLog({
+      channel: NotificationChannel.EMAIL,
+      userIds: users.map(({ userId }) => userId),
+      countryCodeISO3,
+      disasterType,
+      eventNames,
+    });
   }
 
   public async sendLoginCodeEmail({ email: to, code }: LoginDto) {
