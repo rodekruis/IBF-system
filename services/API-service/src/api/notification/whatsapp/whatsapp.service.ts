@@ -238,7 +238,7 @@ export class WhatsappService {
 
     await this.notificationLogService.createNotificationLog({
       channel: NotificationChannel.WHATSAPP,
-      recipientCount: eligibleUsers.length,
+      userIds: eligibleUsers.map(({ userId }) => userId),
       countryCodeISO3: country.countryCodeISO3,
       disasterType,
       eventNames,

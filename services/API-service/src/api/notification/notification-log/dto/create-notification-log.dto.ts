@@ -3,7 +3,7 @@ import { NotificationChannel } from '../enum/notification-channel.enum';
 
 export interface CreateNotificationLogDto {
   channel: NotificationChannel;
-  recipientCount: number;
+  userIds: string[];
   countryCodeISO3: string;
   disasterType: DisasterType;
   eventNames: string[];

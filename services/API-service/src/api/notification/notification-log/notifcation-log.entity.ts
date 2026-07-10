@@ -11,8 +11,8 @@ export class NotificationLogEntity {
   @Column({ type: 'enum', enum: NotificationChannel })
   public channel: NotificationChannel;
 
-  @Column()
-  public recipientCount: number;
+  @Column('uuid', { array: true, select: false })
+  public userIds: string[];
 
   @Column()
   public countryCodeISO3: string;

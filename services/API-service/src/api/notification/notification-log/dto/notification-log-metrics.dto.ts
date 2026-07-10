@@ -8,6 +8,13 @@ export class NotificationLogMetricsDto {
   public events: number;
 
   @ApiProperty({
+    example: 25,
+    description:
+      'Number of unique users who received a notification in the period, across all channels',
+  })
+  public users: number;
+
+  @ApiProperty({
     example: 30,
     description: 'Number of users who received an email in the period',
   })

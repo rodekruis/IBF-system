@@ -46,7 +46,12 @@
       "hazards": "Hazards",
       "all-hazards": "All hazards"
     },
-    "metric": { "events": "Events", "email": "Emails", "whatsapp": "WhatsApp" },
+    "metric": {
+      "events": "Events",
+      "users": "Users",
+      "email": "Emails",
+      "whatsapp": "WhatsApp"
+    },
     "table": {
       "time": "Sent",
       "country": "Country",
@@ -78,7 +83,6 @@
     "forgot-password-message": "If you forgot your password please send a request to ",
     "environment-label": { "production": "Live", "stage": "Demo" }
   },
-
   "backdoor-page": {
     "title": "Login",
     "enter-email": "Enter your email",

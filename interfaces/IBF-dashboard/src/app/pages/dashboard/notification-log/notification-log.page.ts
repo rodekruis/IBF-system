@@ -33,6 +33,7 @@ export interface NotificationLogPageResponse {
 
 export interface NotificationLogMetrics {
   events: number;
+  users: number;
   email: number;
   whatsapp: number;
 }

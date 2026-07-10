@@ -154,7 +154,7 @@ export class EmailService {
 
     await this.notificationLogService.createNotificationLog({
       channel: NotificationChannel.EMAIL,
-      recipientCount: bcc.length,
+      userIds: users.map(({ userId }) => userId),
       countryCodeISO3,
       disasterType,
       eventNames,

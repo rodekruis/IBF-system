@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { NotificationLogEntity } from '../notifcation-log.entity';
+import { NotificationLogDto } from './notification-log.dto';
 
 export class NotificationLogPageDto {
   @ApiProperty({
-    type: [NotificationLogEntity],
+    type: [NotificationLogDto],
     description: 'Notification logs, most recent first',
   })
-  public logs: NotificationLogEntity[];
+  public logs: NotificationLogDto[];
 
   @ApiProperty({
     example: 42,

@@ -76,6 +76,12 @@
       </div>
       <div class="flex min-w-40 flex-col rounded border border-gray-300 p-4">
         <span class="text-xs uppercase tracking-wider text-gray-500">
+          {{ 'notification-log-page.metric.users' | translate }}
+        </span>
+        <span class="text-3xl font-semibold">{{ metrics?.users ?? '-' }}</span>
+      </div>
+      <div class="flex min-w-40 flex-col rounded border border-gray-300 p-4">
+        <span class="text-xs uppercase tracking-wider text-gray-500">
           {{ 'notification-log-page.metric.email' | translate }}
         </span>
         <span class="text-3xl font-semibold">{{ metrics?.email ?? '-' }}</span>

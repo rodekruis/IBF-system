@@ -20,18 +20,18 @@ export class NotificationLogService {
 
   createNotificationLog = ({
     channel,
-    recipientCount,
+    userIds,
     countryCodeISO3,
     disasterType,
     eventNames,
   }: CreateNotificationLogDto) => {
     this.logger.log(
-      `Creating notification log for channel: ${channel}, recipientCount: ${recipientCount}, countryCodeISO3: ${countryCodeISO3}, disasterType: ${disasterType}, eventNames: ${eventNames.join(',')}`,
+      `Creating notification log for channel: ${channel}, userCount: ${userIds.length}, countryCodeISO3: ${countryCodeISO3}, disasterType: ${disasterType}, eventNames: ${eventNames.join(',')}`,
     );
 
     const notificationLog = new NotificationLogEntity();
     notificationLog.channel = channel;
-    notificationLog.recipientCount = recipientCount;
+    notificationLog.userIds = userIds;
     notificationLog.countryCodeISO3 = countryCodeISO3;
     notificationLog.disasterType = disasterType;
     notificationLog.eventNames = eventNames;
@@ -45,12 +45,19 @@ export class NotificationLogService {
     pageSize: number,
   ): Promise<NotificationLogPageDto> => {
     const [logs, total] = await this.filteredQuery(filters)
+      .addSelect('log.userIds') // userIds is select:false on the entity
       .orderBy('log."createdAt"', 'DESC')
       .skip((page - 1) * pageSize)
       .take(pageSize)
       .getManyAndCount();
 
-    return { logs, total };
+    return {
+      logs: logs.map(({ userIds, ...log }) => ({
+        ...log,
+        recipientCount: userIds.length,
+      })),
+      total,
+    };
   };
 
   readNotificationLogMetrics = async ({
@@ -71,9 +78,11 @@ export class NotificationLogService {
         SELECT
           (SELECT COUNT(DISTINCT ("countryCodeISO3", "disasterType", "eventName"))
             FROM filtered, unnest("eventNames") AS "eventName")::int AS "events",
-          (SELECT COALESCE(SUM("recipientCount"), 0) FROM filtered
+          (SELECT COUNT(DISTINCT "userId")
+            FROM filtered, unnest("userIds") AS "userId")::int AS "users",
+          (SELECT COALESCE(SUM(cardinality("userIds")), 0) FROM filtered
             WHERE "channel" = '${NotificationChannel.EMAIL}')::int AS "email",
-          (SELECT COALESCE(SUM("recipientCount"), 0) FROM filtered
+          (SELECT COALESCE(SUM(cardinality("userIds")), 0) FROM filtered
             WHERE "channel" = '${NotificationChannel.WHATSAPP}')::int AS "whatsapp"`,
       [
         NOTIFICATION_LOG_PERIOD_INTERVAL[period],
