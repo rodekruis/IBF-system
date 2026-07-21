@@ -26,6 +26,6 @@
   "devDependencies": {
     "prettier": "^3.9.4",
     "husky": "^9.0.11",
-    "lint-staged": "^17.0.8"
+    "lint-staged": "^17.1.0"
   }
 }
