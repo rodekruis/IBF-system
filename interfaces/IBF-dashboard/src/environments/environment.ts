@@ -15,4 +15,5 @@ export const environment = {
   supportEmailAddress: 'ibf-support@510.global',
   whatsNewUrl:
     'https://github.com/rodekruis/IBF-system/blob/master/WHAT_IS_NEW_IN_IBF.md',
+  cartoApiKey: '', // CARTO basemaps API key
 };

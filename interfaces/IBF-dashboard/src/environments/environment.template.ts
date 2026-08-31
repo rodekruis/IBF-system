@@ -11,4 +11,5 @@ export const environment = {
   applicationInsightsUrl: process.env['NG_APPLICATION_INSIGHTS_URL'], // application insights url endpoint
   supportEmailAddress: process.env['SUPPORT_EMAIL_ADDRESS'], // email address for support
   whatsNewUrl: process.env['WHATS_NEW_URL'], // WHAT_IS_NEW_IN_IBF.md url
+  cartoApiKey: process.env['NG_CARTO_API_KEY'], // CARTO basemaps API key
 };
