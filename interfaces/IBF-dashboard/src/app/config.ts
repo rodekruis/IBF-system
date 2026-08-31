@@ -6,8 +6,7 @@ export const DEBUG_LOG = environment.configuration === 'development';
 
 export const DEBOUNCE_TIME_LOADER = 500;
 
-export const LEAFLET_MAP_URL_TEMPLATE =
-  'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png';
+export const LEAFLET_MAP_URL_TEMPLATE = `https://{s}.basemaps.cartocdn.com/rastertiles/light_all/{z}/{x}/{y}.png?key=${environment.cartoApiKey}`;
 export const LEAFLET_MAP_ATTRIBUTION =
   '&copy; <a target="_blank" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a target="_blank" href="https://carto.com/attributions">Carto</a>';
 
