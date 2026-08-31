@@ -53,6 +53,7 @@ services:
         - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
         - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
         - WHATS_NEW_URL=${WHATS_NEW_URL}
+        - NG_CARTO_API_KEY=${NG_CARTO_API_KEY}
     environment:
       - NG_CONFIGURATION=${NG_CONFIGURATION}
       - API_SERVICE_URL=${API_SERVICE_URL}
@@ -65,6 +66,7 @@ services:
       - NG_APPLICATION_INSIGHTS_URL=${NG_APPLICATION_INSIGHTS_URL}
       - SUPPORT_EMAIL_ADDRESS=${SUPPORT_EMAIL_ADDRESS}
       - WHATS_NEW_URL=${WHATS_NEW_URL}
+      - NG_CARTO_API_KEY=${NG_CARTO_API_KEY}
     volumes:
       - ibf-dashboard-node-modules:/home/node/app/node_modules
       - ./interfaces/IBF-dashboard/www:/home/node/app/_www
