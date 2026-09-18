@@ -3,8 +3,22 @@
     "scenarioName": "trigger",
     "defaultScenario": true,
     "events": [
-      { "eventName": "G1966", "leadTime": "4-day" },
-      { "eventName": "G1967", "leadTime": "4-day" }
+      {
+        "eventName": "Bicol river",
+        "leadTime": "3-day"
+      },
+      {
+        "eventName": "Panay river",
+        "leadTime": "3-day"
+      },
+      {
+        "eventName": "Pasig river",
+        "leadTime": "3-day"
+      },
+      {
+        "eventName": "Santa Maria river",
+        "leadTime": "3-day"
+      }
     ]
   },
   {

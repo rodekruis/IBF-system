@@ -164,8 +164,10 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": { "buildTarget": "app:build" },
+          "defaultConfiguration": "development",
           "configurations": {
             "production": { "buildTarget": "app:build:production" },
+            "development": { "buildTarget": "app:build:development" },
             "ci": {}
           }
         },
