@@ -1,0 +1,9 @@
+[
+  {
+    "stationCode": "GD0005",
+    "forecastLevel": 1250,
+    "eapAlertClass": "max",
+    "forecastReturnPeriod": 5,
+    "triggerLevel": 1119
+  }
+]

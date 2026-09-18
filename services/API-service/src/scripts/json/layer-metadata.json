@@ -1,7 +1,7 @@
 [
   {
     "name": "flood_extent",
-    "label": "Flood extent",
+    "label": "Flood depth",
     "type": "wms",
     "legendColor": {
       "ETH": {
@@ -62,7 +62,7 @@
         "floods": "<p>The flood extent layer indicates the inundated area of recurring floods within a return period depending on the EAP (for example 10-years) based on a global hydrological model.<br/><br/>Source link: Flood hazard map of the World - 10-year return period. European Commission, Joint Research Centre (JRC). 2016. <a href='https://data.jrc.ec.europa.eu/dataset/jrc-floods-floodmapgl_rp10y-tif'>Flood hazard map of the World - 10-year return period - European Commission (europa.eu)</a>.</p>"
       },
       "PHL": {
-        "floods": "The flood extent layer indicates the inundated area of recurring floods within a return period depending on the EAP (for example 25-years) based on a Hydrodynamic model.<br/><br/>Source link: The flood extent maps are developed under the NOHA project. The 25-year rain return flood hazard maps show low, medium, and high flood hazards represented as yellow, orange, and red respectively. Flood hazards consider take both the height and velocity of the water into consideration and calculates the hazard levels based on the danger they pose to people and structures. Generally, for an average Filipino with a height of 5’ 6”, areas with flood depths from the kneedown can be considered to have low hazard levels. Those with flood depths ranging from the knee to neckare considered to have medium hazard levels, and those covered with floods that are higher than the neckhave high hazard levels. However, since the flow velocity is also considered, areas that have shallow butfast-flowing flood waters may have a higher hazard level than that denoted by the height of the floodcovering it."
+        "floods": "The flood depth layer indicates the inundated area of recurring floods within a return period depending on the EAP (for example 25 years) based on a hydrodynamic model.<br/><br/>For the 3 coastal regions National Capital Region, Camarines Sur and Capiz, the flood depth represents the compound flood. It shows the area expected to flood when several factors — high waves, storm surges, and heavy river flows — combine at once. It was developed by Deltares as part of the <a target='_blank' href='https://www.deltares.nl/en/impact/making-the-worlds-population-safer-from-flooding/improving-flood-forecasting-with-destination-earth'>European Destination Earth project</a>, using near real-time data to help predict flooding in coastal areas before it happens."
       },
       "SSD": {
         "floods": "This layer shows the inundated area of recurring floods within a 5-year return period based on a global hydrological model. The flood extent is shown in red in the map.<br/><br/><strong>Flood extent source</strong>: : The flood extent maps compare six global flood hazard models and one local model. These models are CaMa-UT [Yamazaki D 2011], GLOFRIS [Winsemius H 2013], ECMWF [Pappenberge 2012], JRC [Dottori 2016], SSBN [Sampson 2015], CIMA-UNEP [UNISDR 2015] and local model ATKINS[2012]."
