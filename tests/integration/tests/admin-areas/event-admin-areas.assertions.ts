@@ -136,8 +136,8 @@ export const eventAdminAreasAssertions: EventAdminAreaAssertion[] = [
     disasterType: DisasterType.Floods,
     adminLevel: AdminLevel.adminLevel2,
     scenario: FloodsScenario.Trigger,
-    featureCount: 2,
-    placeCodeRegex: /^(?:PH|G)/,
+    featureCount: 4,
+    placeCodeRegex: /river$/,
   },
   {
     countryCodeISO3: 'PHL',

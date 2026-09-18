@@ -138,7 +138,7 @@ export enum IbfLayerLabel {
   cropland = 'Cropland',
   damSites = 'Dam Sites',
   evacuationCenters = 'Evacuation Centers',
-  floodExtent = 'Flood extent',
+  floodExtent = 'Flood depth',
   glofasStations = 'Glofas stations',
   grassland = 'Grassland',
   healthSites = 'Health Sites',
