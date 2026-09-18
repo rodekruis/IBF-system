@@ -1,3 +1,13 @@
+# [0.337.0](https://github.com/rodekruis/IBF-system/compare/v0.336.1...v0.337.0) (2026-09-18)
+
+
+### Features
+
+* update layer label+description ([a104b78](https://github.com/rodekruis/IBF-system/commit/a104b78f7b21bba13abaf5b56fa803aeb9785dd2))
+* update PHL floods mock data ([5fc656c](https://github.com/rodekruis/IBF-system/commit/5fc656c07584fb990c1b03fc101e1571b3996387))
+
+
+
 ## [0.336.1](https://github.com/rodekruis/IBF-system/compare/v0.336.0...v0.336.1) (2026-08-31)
 
 
@@ -80,15 +90,6 @@
 ### Bug Fixes
 
 * version ([4756954](https://github.com/rodekruis/IBF-system/commit/47569543eaf515606ba280dd7be26ad8154f8411))
-
-
-
-## [0.333.4](https://github.com/rodekruis/IBF-system/compare/v0.333.3...v0.333.4) (2026-07-06)
-
-
-### Bug Fixes
-
-* ETH flash flood map extents and crs ([cf33957](https://github.com/rodekruis/IBF-system/commit/cf33957123b2e37868217be4bbd9266759ea4515))
 
 
 
