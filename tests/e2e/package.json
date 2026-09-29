@@ -9,24 +9,24 @@
   "license": "ISC",
   "devDependencies": {
     "@eslint/js": "^10.0.0",
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^26.1.0",
-    "@types/supertest": "^7.2.0",
+    "@types/supertest": "^7.2.1",
     "eslint": "^10.6.0",
     "eslint-config-prettier": "^10.1.1",
     "eslint-plugin-perfectionist": "^5.10.0",
     "eslint-plugin-playwright": "^2.10.1",
     "eslint-plugin-prettier": "^5.5.0",
     "eslint-plugin-simple-import-sort": "^13.0.0",
-    "globals": "^17.7.0",
+    "globals": "^17.12.0",
     "prettier": "3.9.4",
-    "supertest": "^7.2.2",
+    "supertest": "^7.3.0",
     "typescript-eslint": "^8.63.0"
   },
   "dependencies": {
     "@alex_neo/playwright-azure-reporter": "^1.20.0",
     "date-fns": "^4.4.0",
-    "dotenv": "17.4.2",
-    "playwright": "^1.61.1"
+    "dotenv": "18.0.4",
+    "playwright": "^1.63.0"
   }
 }
